@@ -93,7 +93,8 @@
       color: #b0b0b0;
     }
     
-    body.dark-mode #summary-content h3 {
+    body.dark-mode #summary-content h3,
+    body.dark-mode #summary-content h4 {
       color: #7eb8c8;
     }
     
@@ -481,15 +482,33 @@
     }
     
     #summary-content h3 {
-      font-size: 1em;
-      margin: 0.8em 0 0.3em 0;
-      font-weight: 600;
+      font-size: 1.0em;
+      margin: 1.0em 0 0.3em 0;
+      font-weight: 700;
       color: #467886;
       cursor: pointer;
       transition: color 0.2s;
+      line-height: 1.1;
     }
     
-    #summary-content h3:hover {
+    #summary-content h4 {
+      font-size: 0.9em;
+      margin: 0.6em 0 0.2em 0;
+      font-weight: 600;
+      color: #467886;
+      cursor: pointer;
+      transition: color 0.2s, opacity 0.2s, max-height 0.3s;
+      padding-left: 1.2em;
+      line-height: 1.1;
+      overflow: hidden;
+    }
+    
+    #summary-content h4.hidden {
+      display: none;
+    }
+    
+    #summary-content h3:hover,
+    #summary-content h4:hover {
       color: #355d68;
     }
     
@@ -832,83 +851,29 @@
       margin: 0.2rem 0;
     }
     
-    #summary-content p strong {
-      font-size: 1.0em;
-      font-weight: 700;
-      color: #467886;
-      display: block;
-      margin: 1.0em 0 0.5em 0;
-      font-style: normal;
-    }
-    
-    #summary-content > p:first-of-type strong {
-      margin-top: 0;
-    }
-    
-    #summary-content > p:first-of-type {
-      margin-bottom: 1rem;
-    }
-    
-    #summary-content > p:first-of-type:not(:has(strong:only-child)) {
-      font-style: italic;
-    }
-    
-    #summary-content .paragraph {
-      margin-bottom: 0.8em;
-    }
-    
-    #summary-content h1,
-    #summary-content h2,
-    #summary-content h3 {
-      font-size: 1.0em;
-      margin: 1.0em 0 0.5em 0;
-      font-weight: 700;
-      color: #467886;
-      display: block;
-    }
-    
-    #summary-content h1:first-child,
-    #summary-content h2:first-child,
-    #summary-content h3:first-child {
-      margin-top: 0;
-    }
-    
-    #viewer p strong {
-      font-size: 1.0em;
-      font-weight: 700;
-      color: #467886;
-      display: block;
-      margin: 1.0em 0 0.5em 0;
-      font-style: normal;
-    }
-    
-    body.dark-mode #viewer p strong {
-      color: #7EB8C8 !important;
-    }
-    
-    #viewer > p:first-of-type strong {
-      margin-top: 0;
-    }
-    
-    #viewer h1,
-    #viewer h2,
     #viewer h3 {
-      font-size: 1.0em;
-      margin: 1.0em 0 0.5em 0;
+      font-size: 1.1em;
+      margin: 1.5em 0 0.5em 0;
       font-weight: 700;
       color: #467886;
       display: block;
     }
     
-    body.dark-mode #viewer h1,
-    body.dark-mode #viewer h2,
-    body.dark-mode #viewer h3 {
+    #viewer h4 {
+      font-size: 1.0em;
+      margin: 1.0em 0 0.3em 0;
+      font-weight: 600;
+      color: #467886;
+      display: block;
+    }
+    
+    body.dark-mode #viewer h3,
+    body.dark-mode #viewer h4 {
       color: #7EB8C8 !important;
     }
     
-    #viewer h1:first-child,
-    #viewer h2:first-child,
-    #viewer h3:first-child {
+    #viewer h3:first-child,
+    #viewer h4:first-child {
       margin-top: 0;
     }
     
@@ -1045,6 +1010,12 @@
       <div class="summary-buttons">
         <button class="search-button" onclick="closeAndShowOriginal()" id="summaryCloseBtn" disabled>
           Original
+        </button>
+        <button class="search-button" onclick="regenerateSummary()" id="regenerateBtn" disabled>
+          Neu
+        </button>
+        <button class="search-button" onclick="toggleAllH4()" id="toggleH4Btn" disabled>
+          &#x2227;
         </button>
       </div>
       <div id="summary-content">
@@ -1449,9 +1420,18 @@
                 const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
                 
                 showingSummaryInMain = false;
-                const toggleBtn = document.getElementById('toggleViewBtn');
-                if (toggleBtn) {
-                  toggleBtn.textContent = 'Zusammenfassung zeigen';
+                
+                // Schließe Summary Panel wenn es offen ist
+                const summaryPanel = document.getElementById('summary-panel');
+                const resizeHandle = document.getElementById('verticalResizeHandle');
+                const icon = document.getElementById('summary-panel-toggle-icon');
+                if (summaryPanel.classList.contains('visible')) {
+                  summaryPanel.classList.remove('visible');
+                  resizeHandle.classList.remove('visible');
+                  icon.textContent = '◄';
+                  summaryPanel.style.width = '0';
+                  summaryPanel.style.minWidth = '0';
+                  summaryPanel.style.marginRight = '24px';
                 }
                 
                 showLecture(lecId, chunkIdx, keywords);
@@ -1529,9 +1509,65 @@
 
     function updateButtonStates() {
       const closeBtn = document.getElementById('summaryCloseBtn');
+      const regenerateBtn = document.getElementById('regenerateBtn');
+      const toggleH4Btn = document.getElementById('toggleH4Btn');
       
       if (closeBtn && currentLectureData) {
         closeBtn.disabled = false;
+      }
+      
+      if (regenerateBtn && currentLectureData && currentLectureSummary) {
+        // Button nur aktivieren wenn keine H4-Überschriften vorhanden sind
+        const hasH4 = currentLectureSummary.headings?.some(h => h.level === 'h4');
+        regenerateBtn.disabled = hasH4;
+        if (hasH4) {
+          regenerateBtn.style.opacity = '0.5';
+          regenerateBtn.title = 'Vortrag hat bereits H4-Überschriften';
+        } else {
+          regenerateBtn.style.opacity = '1';
+          regenerateBtn.title = '';
+        }
+      }
+      
+      if (toggleH4Btn && currentLectureData) {
+        toggleH4Btn.disabled = false;
+      }
+    }
+
+    let h4Collapsed = false;
+
+    function toggleAllH4() {
+      const toggleBtn = document.getElementById('toggleH4Btn');
+      const tocList = document.getElementById('toc-list');
+      const viewer = document.getElementById('viewer');
+      
+      if (!tocList) return;
+      
+      const tocH4 = tocList.querySelectorAll('h4');
+      const viewerH4 = viewer.querySelectorAll('h4');
+      
+      h4Collapsed = !h4Collapsed;
+      
+      // Toggle im TOC
+      tocH4.forEach(h4 => {
+        if (h4Collapsed) {
+          h4.classList.add('hidden');
+        } else {
+          h4.classList.remove('hidden');
+        }
+      });
+      
+      // Toggle im Viewer
+      viewerH4.forEach(h4 => {
+        if (h4Collapsed) {
+          h4.style.display = 'none';
+        } else {
+          h4.style.display = 'block';
+        }
+      });
+      
+      if (toggleBtn) {
+        toggleBtn.innerHTML = h4Collapsed ? '&#x2228;' : '&#x2227;'; // ∨ für ausklappen, ∧ für einklappen
       }
     }
 
@@ -1541,7 +1577,6 @@
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const toggle = document.querySelector('.summary-panel-toggle');
       
-      // Button-Position explizit fixieren
       toggle.style.right = '0px';
       toggle.style.position = 'fixed';
       
@@ -1568,7 +1603,6 @@
         await loadSummaryAutomatically();
       }
       
-      // Button-Position nochmal sichern (nach DOM-Update)
       setTimeout(() => {
         toggle.style.right = '0px';
         toggle.style.position = 'fixed';
@@ -1577,11 +1611,13 @@
 
     async function loadSummaryAutomatically() {
       const closeBtn = document.getElementById('summaryCloseBtn');
+      const regenerateBtn = document.getElementById('regenerateBtn');
       const tocList = document.getElementById('toc-list');
       
       if (!currentLectureSummary) {
         try {
           closeBtn.disabled = true;
+          regenerateBtn.disabled = true;
           tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">zusammenfassen...</p>';
           
           const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
@@ -1608,6 +1644,7 @@
           console.error('Zusammenfassungs-Fehler:', error);
           tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
           closeBtn.disabled = false;
+          regenerateBtn.disabled = false;
           return;
         }
       }
@@ -1623,8 +1660,86 @@
       
       closeBtn.disabled = false;
       
+      // Regenerate-Button nur aktivieren wenn keine H4-Überschriften vorhanden sind
+      const hasH4 = currentLectureSummary.headings?.some(h => h.level === 'h4');
+      regenerateBtn.disabled = hasH4;
+      if (hasH4) {
+        regenerateBtn.style.opacity = '0.5';
+        regenerateBtn.title = 'Vortrag hat bereits H4-Überschriften';
+      } else {
+        regenerateBtn.style.opacity = '1';
+        regenerateBtn.title = '';
+      }
+      
       if (lastHighlightedIndex) {
         scrollToIndexInViewer(lastHighlightedIndex);
+      }
+    }
+
+    async function regenerateSummary() {
+      if (!currentLectureData) {
+        alert('Kein Vortrag geladen');
+        return;
+      }
+      
+      const confirm = window.confirm('Zusammenfassung neu generieren? Dies kann einige Minuten dauern.');
+      if (!confirm) return;
+      
+      const closeBtn = document.getElementById('summaryCloseBtn');
+      const regenerateBtn = document.getElementById('regenerateBtn');
+      const tocList = document.getElementById('toc-list');
+      
+      try {
+        closeBtn.disabled = true;
+        regenerateBtn.disabled = true;
+        regenerateBtn.classList.add('processing');
+        regenerateBtn.textContent = 'bitte warten...';
+        tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">neu generieren...</p>';
+        
+        const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lectureId: currentLectureData.ID,
+            forceRegenerate: true
+          })
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Server Error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        currentLectureSummary = {
+          summary: data.summary,
+          headings: data.headings || []
+        };
+        
+        console.log('Neue Zusammenfassung generiert');
+        
+        const visibleIndex = getCurrentVisibleParagraphIndex();
+        if (visibleIndex) {
+          lastHighlightedIndex = visibleIndex;
+        }
+        
+        showingSummaryInMain = true;
+        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+        buildTableOfContents();
+        
+        if (lastHighlightedIndex) {
+          scrollToIndexInViewer(lastHighlightedIndex);
+        }
+        
+      } catch (error) {
+        console.error('Regenerierungs-Fehler:', error);
+        tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
+      } finally {
+        closeBtn.disabled = false;
+        regenerateBtn.disabled = false;
+        regenerateBtn.classList.remove('processing');
+        regenerateBtn.textContent = 'Neu';
       }
     }
 
@@ -1634,7 +1749,6 @@
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const toggle = document.querySelector('.summary-panel-toggle');
       
-      // Summary-Panel schließen
       panel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
       icon.textContent = '◄';
@@ -1642,7 +1756,6 @@
       panel.style.minWidth = '0';
       panel.style.marginRight = '24px';
       
-      // Button-Position explizit fixieren
       toggle.style.right = '0px';
       toggle.style.position = 'fixed';
       
@@ -1666,7 +1779,6 @@
         scrollToIndexInViewer(lastHighlightedIndex);
       }
       
-      // Button-Position nochmal sichern (nach DOM-Update)
       setTimeout(() => {
         toggle.style.right = '0px';
         toggle.style.position = 'fixed';
@@ -1734,11 +1846,44 @@
       
       paragraphs.forEach((para, idx) => {
         const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
-        const heading = headings.find(h => h.index === paraIndex || h.index === para.index);
-        if (heading) {
-          const headingText = heading.text || heading.title || 'Überschrift';
-          html += `<h3 id="heading-${idx}" style="color: #467886; font-weight: 700; margin: 1.5em 0 0.5em 0;">${headingText}</h3>`;
+        const paraIndexWithCaret = para.index || `^${paraIndex}`;
+        
+        // Debug: Log für ersten Absatz
+        if (idx === 0) {
+          console.log('Erster Absatz Index:', paraIndex, 'mit ^:', paraIndexWithCaret);
+          console.log('Alle heading indices:', headings.map(h => h.index));
         }
+        
+        // Finde ALLE Überschriften für diesen Index (mit verschiedenen Varianten)
+        const matchingHeadings = headings.filter(h => {
+          const hIndex = h.index || '';
+          const hIndexClean = hIndex.replace(/^\^/, '');
+          return hIndex === paraIndex || 
+                 hIndex === paraIndexWithCaret || 
+                 hIndexClean === paraIndex;
+        });
+        
+        if (matchingHeadings.length > 0 && idx < 5) {
+          console.log(`Absatz ${idx} (${paraIndex}): ${matchingHeadings.length} Überschriften gefunden`);
+        }
+        
+        // Sortiere: H3 vor H4
+        matchingHeadings
+          .sort((a, b) => {
+            if (a.level === 'h3' && b.level === 'h4') return -1;
+            if (a.level === 'h4' && b.level === 'h3') return 1;
+            return 0;
+          })
+          .forEach((heading, hIdx) => {
+            const headingText = heading.text || heading.title || 'Überschrift';
+            const level = heading.level || 'h3';
+            
+            if (level === 'h3') {
+              html += `<h3 id="heading-${idx}-${hIdx}">${headingText}</h3>`;
+            } else if (level === 'h4') {
+              html += `<h4 id="heading-${idx}-${hIdx}">${headingText}</h4>`;
+            }
+          });
         
         let content = para.content || para.text || '';
         
@@ -1880,35 +2025,32 @@
       const tocList = document.getElementById('toc-list');
       const mainContainer = document.getElementById('main');
       
-      const headings = viewer.querySelectorAll('h1, h2, h3, strong');
+      // Suche nach H3 und H4
+      const headings = viewer.querySelectorAll('h3, h4');
       
       tocList.innerHTML = '';
       
       let headingIndex = 0;
       const tocItems = [];
       
+      // Reset collapse state
+      h4Collapsed = false;
+      const toggleBtn = document.getElementById('toggleH4Btn');
+      if (toggleBtn) {
+        toggleBtn.innerHTML = '&#x2227;'; // ∧ für einklappen
+      }
+      
       headings.forEach((heading) => {
-        if (heading.tagName === 'STRONG' && heading.textContent.length < 10) {
-          return;
-        }
-        
         if (!heading.id) {
           heading.id = `heading-${headingIndex}`;
         }
         headingIndex++;
         
-        const tocItem = document.createElement('div');
-        tocItem.className = 'toc-item';
-        tocItem.setAttribute('data-heading-id', heading.id);
+        const tocHeading = document.createElement(heading.tagName.toLowerCase());
+        tocHeading.textContent = heading.textContent;
+        tocHeading.style.cursor = 'pointer';
         
-        const tocLink = document.createElement('a');
-        tocLink.href = '#';
-        tocLink.textContent = heading.textContent;
-        tocLink.style.color = '#467886';
-        tocLink.style.textDecoration = 'none';
-        tocLink.style.display = 'block';
-        
-        tocLink.addEventListener('click', (e) => {
+        tocHeading.addEventListener('click', (e) => {
           e.preventDefault();
           heading.scrollIntoView({ behavior: 'auto', block: 'start' });
           
@@ -1919,37 +2061,53 @@
           }, 1000);
         });
         
-        tocItem.appendChild(tocLink);
-        tocList.appendChild(tocItem);
-        tocItems.push({ element: tocItem, heading: heading });
+        tocList.appendChild(tocHeading);
+        tocItems.push({ element: tocHeading, heading: heading });
       });
       
       function updateActiveTocItem() {
-        const scrollTop = mainContainer.scrollTop;
         const containerTop = mainContainer.getBoundingClientRect().top;
+        const scrollTop = mainContainer.scrollTop;
         
-        let activeItem = null;
+        let activeHeading = null;
+        let activeTocItem = null;
         
-        for (let i = tocItems.length - 1; i >= 0; i--) {
-          const headingRect = tocItems[i].heading.getBoundingClientRect();
+        // Wenn H4s eingeklappt sind, suche nur nach H3s
+        const selector = h4Collapsed ? 'h3' : 'h3, h4';
+        const visibleHeadings = Array.from(viewer.querySelectorAll(selector));
+        
+        // Finde die letzte Überschrift, die oberhalb oder bei der Scroll-Position ist
+        for (let i = visibleHeadings.length - 1; i >= 0; i--) {
+          const heading = visibleHeadings[i];
+          const headingRect = heading.getBoundingClientRect();
           const relativeTop = headingRect.top - containerTop;
           
           if (relativeTop <= 50) {
-            activeItem = tocItems[i].element;
+            activeHeading = heading;
             break;
           }
         }
         
+        // Entferne alle Markierungen
         tocItems.forEach(item => {
-          const link = item.element.querySelector('a');
-          link.style.fontWeight = 'normal';
-          link.style.color = '#467886';
+          item.element.style.fontWeight = 'normal';
+          item.element.style.color = '#467886';
         });
         
-        if (activeItem) {
-          const link = activeItem.querySelector('a');
-          link.style.fontWeight = 'bold';
-          link.style.color = '#467886';
+        if (!activeHeading) return;
+        
+        // Finde das TOC-Element für das aktive Heading
+        for (let i = 0; i < tocItems.length; i++) {
+          if (tocItems[i].heading === activeHeading) {
+            activeTocItem = tocItems[i].element;
+            break;
+          }
+        }
+        
+        // Markiere das gefundene TOC-Element
+        if (activeTocItem) {
+          activeTocItem.style.fontWeight = 'bold';
+          activeTocItem.style.color = '#467886';
         }
       }
       
@@ -2146,4 +2304,3 @@
   </script>
 </body>
 </html>
-        
