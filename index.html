@@ -148,9 +148,63 @@
       scrollbar-color: #555 #2a2a2a;
     }
     
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .theme-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+    
+    .theme-slider:before {
+      position: absolute;
+      content: "☀️";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    
+    input:checked + .theme-slider {
+      background-color: #467886;
+    }
+    
+    input:checked + .theme-slider:before {
+      transform: translateX(26px);
+      content: "🌙";
+    }
+    
+    body.dark-mode .theme-slider {
+      background-color: #467886;
+    }
+    
     #sidebar {
-      width: 35%;
-      min-width: 250px;
+      width: 310px;
+      min-width: 425px;
       max-width: none;
       overflow: auto;
       border-right: 1px solid #ddd;
@@ -160,16 +214,31 @@
     
     .resize-handle {
       width: 1px;
-      background-color: #999;
+      background-color: #ddd;
       cursor: col-resize;
       position: relative;
       flex-shrink: 0;
       transition: background-color 0.2s;
     }
     
+    .resize-handle::before {
+      content: '⋮';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #999;
+      font-size: 24px;
+      line-height: 1;
+    }
+    
     .resize-handle:hover {
-      background-color: #bbb;
+      background-color: #ccc;
       width: 3px;
+    }
+    
+    .resize-handle:hover::before {
+      color: #666;
     }
     
     #main-container {
@@ -324,28 +393,88 @@
       border-color: #444;
     }
     
+    body.dark-mode .depth-btn {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border: 1px solid #7eb8c8;
+    }
+    
+    body.dark-mode .depth-btn.active {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border: 2px solid #7eb8c8;
+    }
+    
+    body.dark-mode .depth-btn.primary {
+      background: #467886;
+      color: #e0e0e0;
+      border: 2px solid #467886;
+    }
+    
+    body.dark-mode .depth-btn.primary:hover {
+      background: #355d68;
+      border-color: #355d68;
+    }
+    
+    body.dark-mode .summary-buttons .search-button {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border-color: #7eb8c8;
+    }
+    
+    body.dark-mode .summary-buttons .search-button:hover {
+      background: #3a3a3a;
+    }
+    
     #main p {
       margin: 0.8em 0;
     }
     
     #summary-panel {
-      display: none;
+      display: flex;
       flex-direction: column;
-      border-left: 1px solid #ddd;
+      border-left: none;
       overflow: hidden;
-      width: 25%;
-      min-width: 200px;
-      max-width: 350px;
-      background: #fafafa;
+      width: 24px;
+      min-width: 24px;
+      background: transparent;
+      position: relative;
+      transition: width 0.3s ease, background-color 0.3s ease, border-left 0.3s ease;
     }
     
     #summary-panel.visible {
+      width: 250px;
+      min-width: 300px;
+      background: #fafafa;
+      border-left: 1px solid #ddd;
+    }
+    
+    .summary-panel-toggle {
+      position: absolute;
+      left: 0;
+      bottom: 30px;
+      width: 24px;
+      height: 80px;
+      background: #d0e8ef;
+      border: 2px solid #467886;
+      border-radius: 8px;
+      cursor: pointer;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #467886;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+    
+    .summary-panel-toggle:hover {
+      background: #b8dde8;
     }
     
     .vertical-resize-handle {
       width: 1px;
-      background-color: #999;
+      background-color: #ddd;
       cursor: col-resize;
       position: relative;
       flex-shrink: 0;
@@ -353,13 +482,28 @@
       display: none;
     }
     
+    .vertical-resize-handle::before {
+      content: '⋮';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #999;
+      font-size: 24px;
+      line-height: 1;
+    }
+    
     .vertical-resize-handle.visible {
       display: block;
     }
     
     .vertical-resize-handle:hover {
-      background-color: #bbb;
+      background-color: #ccc;
       width: 3px;
+    }
+    
+    .vertical-resize-handle:hover::before {
+      color: #666;
     }
     
     #summary-content {
@@ -368,6 +512,32 @@
       padding: 1.5rem;
       line-height: 1.5;
       font-size: 0.95em;
+      display: none;
+    }
+    
+    #summary-panel.visible #summary-content {
+      display: block;
+    }
+    
+    .summary-buttons {
+      padding: 1rem;
+      border-top: 1px solid #ddd;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    #summary-panel.visible .summary-buttons {
+      display: flex;
+    }
+    
+    body.dark-mode .summary-buttons {
+      border-top-color: #404040;
+    }
+    
+    .summary-buttons .search-button {
+      width: 100%;
+      text-align: center;
     }
     
     #summary-content h3 {
@@ -839,16 +1009,11 @@
   <div id="sidebar">
     <h1>GA Steiner Suche</h1>
     
-    <!-- Top Controls Sidebar -->
-    <div id="top-controls">
-      <div class="controls-toggle" onclick="toggleTopControls()">
-        <span id="top-controls-toggle-icon">►</span>
-      </div>
-      <div class="controls-content">
-        <button class="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
-          ☀️/🌙
-        </button>
-      </div>
+    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+      <label class="theme-switch">
+        <input type="checkbox" id="theme-checkbox" onchange="toggleThemeCheckbox()">
+        <span class="theme-slider"></span>
+      </label>
     </div>
     
     <div class="tab-container">
@@ -871,15 +1036,15 @@
         
         <div class="filter-row">
           <select id="yearFilter" class="filter-dropdown">
-            <option value="">Alle Jahre</option>
+            <option value="">alle Jahre</option>
           </select>
           
           <select id="gaFilter" class="filter-dropdown">
-            <option value="">Alle GA-Bände</option>
+            <option value="">alle GA-Bände</option>
           </select>
           
           <select id="proximityFilter" class="filter-dropdown" disabled>
-            <option value="">keine Beschränkung</option>
+            <option value="">unbeschränkt</option>
             <option value="1">ein Absatz</option>
             <option value="2">zwei Absätze</option>
             <option value="3">drei Absätze</option>
@@ -946,29 +1111,19 @@
         <h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
       </div>
       <div id="viewer"></div>
-      
-      <!-- Viewer Controls Sidebar -->
-      <div id="viewer-controls">
-        <div class="controls-toggle" onclick="toggleViewerControls()">
-          <span id="controls-toggle-icon">◄</span>
-        </div>
-        <div class="controls-content">
-          <button class="search-button" onclick="showSummaryAction()" id="summaryActionBtn" disabled>
-            Zusammenfassen
-          </button>
-          <button class="search-button" id="tocActionBtn" onclick="toggleTOC()" disabled>
-            Inhaltsverzeichnis
-          </button>
-          <button class="search-button" onclick="showOriginalAction()" id="originalActionBtn" style="display: none;">
-            Original anzeigen
-          </button>
-        </div>
-      </div>
     </div>
     
     <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
     
     <div id="summary-panel">
+      <div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
+        <span id="summary-panel-toggle-icon">◄</span>
+      </div>
+      <div class="summary-buttons">
+        <button class="search-button" onclick="closeAndShowOriginal()" id="summaryCloseBtn" disabled>
+          Original
+        </button>
+      </div>
       <div id="summary-content">
         <div id="toc-list"></div>
       </div>
@@ -1045,15 +1200,24 @@
 
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'light';
+      const checkbox = document.getElementById('theme-checkbox');
       if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
+        if (checkbox) checkbox.checked = true;
       }
+    }
+
+    function toggleThemeCheckbox() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
-      
+      const checkbox = document.getElementById('theme-checkbox');
+      if (checkbox) checkbox.checked = isDark;
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
@@ -1085,8 +1249,8 @@
       const gaFilter = document.getElementById('gaFilter');
       const thematicGAFilter = document.getElementById('thematicGAFilter');
       
-      gaFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
-      thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+      gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+      thematicGAFilter.innerHTML = '<option value="">alle GA-Bände</option>';
       
       for (let num = 1; num <= 400; num++) {
         const gaNumber = 'GA' + String(num).padStart(3, '0');
@@ -1444,54 +1608,120 @@
     }
 
     function updateButtonStates() {
-      const summaryActionBtn = document.getElementById('summaryActionBtn');
-      const originalActionBtn = document.getElementById('originalActionBtn');
-      const tocActionBtn = document.getElementById('tocActionBtn');
+      const closeBtn = document.getElementById('summaryCloseBtn');
       
-      if (summaryActionBtn && currentLectureData) {
-        summaryActionBtn.disabled = false;
-        
-        if (currentLectureSummary && showingSummaryInMain) {
-          summaryActionBtn.textContent = 'Zusammenfassung';
-          summaryActionBtn.style.fontStyle = 'normal';
-        } else if (currentLectureSummary) {
-          summaryActionBtn.textContent = 'Zusammenfassung';
-          summaryActionBtn.style.fontStyle = 'normal';
-        } else {
-          summaryActionBtn.textContent = 'Zusammenfassen';
-          summaryActionBtn.style.fontStyle = 'normal';
-        }
-      }
-      
-      if (originalActionBtn) {
-        if (showingSummaryInMain) {
-          originalActionBtn.style.display = 'block';
-        } else {
-          originalActionBtn.style.display = 'none';
-        }
-      }
-      
-      if (tocActionBtn) {
-        if (currentLectureSummary && showingSummaryInMain) {
-          tocActionBtn.disabled = false;
-          tocActionBtn.style.opacity = '1';
-        } else {
-          tocActionBtn.disabled = true;
-          tocActionBtn.style.opacity = '0.5';
-        }
+      if (closeBtn && currentLectureData) {
+        closeBtn.disabled = false;
       }
     }
 
-    function toggleViewerControls() {
-      const controls = document.getElementById('viewer-controls');
-      const icon = document.getElementById('controls-toggle-icon');
+    async function toggleSummaryPanel() {
+      const panel = document.getElementById('summary-panel');
+      const icon = document.getElementById('summary-panel-toggle-icon');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
       
-      if (controls.classList.contains('expanded')) {
-        controls.classList.remove('expanded');
+      if (panel.classList.contains('visible')) {
+        panel.classList.remove('visible');
+        resizeHandle.classList.remove('visible');
         icon.textContent = '◄';
+        panel.style.width = '24px';
+        panel.style.minWidth = '24px';
       } else {
-        controls.classList.add('expanded');
+        if (!currentLectureData) {
+          alert('Bitte zuerst einen Vortrag laden');
+          return;
+        }
+        
+        panel.classList.add('visible');
+        resizeHandle.classList.add('visible');
         icon.textContent = '►';
+        panel.style.width = '';
+        panel.style.minWidth = '';
+        
+        await loadSummaryAutomatically();
+      }
+    }
+
+    async function loadSummaryAutomatically() {
+      const closeBtn = document.getElementById('summaryCloseBtn');
+      const tocList = document.getElementById('toc-list');
+      
+      if (!currentLectureSummary) {
+        try {
+          closeBtn.disabled = true;
+          tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">zusammenfassen...</p>';
+          
+          const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              lectureId: currentLectureData.ID,
+              forceRegenerate: false
+            })
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || `Server Error: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          
+          currentLectureSummary = {
+            summary: data.summary,
+            headings: data.headings || []
+          };
+        } catch (error) {
+          console.error('Zusammenfassungs-Fehler:', error);
+          tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
+          closeBtn.disabled = false;
+          return;
+        }
+      }
+      
+      const visibleIndex = getCurrentVisibleParagraphIndex();
+      if (visibleIndex) {
+        lastHighlightedIndex = visibleIndex;
+      }
+      
+      showingSummaryInMain = true;
+      displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+      buildTableOfContents();
+      
+      closeBtn.disabled = false;
+      
+      if (lastHighlightedIndex) {
+        scrollToIndexInViewer(lastHighlightedIndex);
+      }
+    }
+
+    function closeAndShowOriginal() {
+      const panel = document.getElementById('summary-panel');
+      const icon = document.getElementById('summary-panel-toggle-icon');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
+      
+      panel.classList.remove('visible');
+      resizeHandle.classList.remove('visible');
+      icon.textContent = '◄';
+      
+      const visibleIndex = getCurrentVisibleParagraphIndex();
+      if (visibleIndex) {
+        lastHighlightedIndex = visibleIndex;
+      }
+      
+      showingSummaryInMain = false;
+      
+      const currentWord1 = document.getElementById('word1').value.trim();
+      const currentWord2 = document.getElementById('word2').value.trim();
+      let keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+      if (keywords.length === 0 && currentThematicQuery) {
+        keywords = extractKeywordsFromQuery(currentThematicQuery);
+      }
+      
+      displayLecture(currentLectureData, lastHighlightedIndex, keywords, false);
+      
+      if (lastHighlightedIndex) {
+        scrollToIndexInViewer(lastHighlightedIndex);
       }
     }
 
@@ -1518,7 +1748,7 @@
     async function showSummaryAction() {
       if (!currentLectureData) return;
       
-      const summaryActionBtn = document.getElementById('summaryActionBtn');
+      const summaryActionBtn = document.getElementById('summaryActionBtn2');
       
       if (!currentLectureSummary) {
         try {
