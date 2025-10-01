@@ -6,7 +6,7 @@ const fs = require('fs').promises;
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = 3003;
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
@@ -201,11 +201,41 @@ async function loadSummaryCache() {
 async function saveSummaryCache() {
   try {
     const summaryPath = path.join(__dirname, 'lecture-summaries.json');
-    await fs.writeFile(summaryPath, JSON.stringify(summaryCache, null, 2), 'utf8');
-    console.log(`Summary-Cache gespeichert: ${Object.keys(summaryCache).length} Einträge`);
+    console.log('\n=== SPEICHERE CACHE ===');
+    console.log('Pfad:', summaryPath);
+    console.log('Anzahl Einträge im Cache:', Object.keys(summaryCache).length);
+    console.log('Erste 5 Keys:', Object.keys(summaryCache).slice(0, 5));
+    
+    // Prüfe ob Verzeichnis beschreibbar ist
+    const testFile = path.join(__dirname, '.write-test');
+    try {
+      await fs.writeFile(testFile, 'test', 'utf8');
+      await fs.unlink(testFile);
+      console.log('✓ Verzeichnis ist beschreibbar');
+    } catch (writeError) {
+      console.error('✗ Verzeichnis nicht beschreibbar:', writeError.message);
+      throw writeError;
+    }
+    
+    const jsonString = JSON.stringify(summaryCache, null, 2);
+    console.log('JSON Größe:', (jsonString.length / 1024).toFixed(2), 'KB');
+    
+    await fs.writeFile(summaryPath, jsonString, 'utf8');
+    
+    console.log('✓ Datei erfolgreich geschrieben!');
+    
+    // Verifiziere das Schreiben
+    const fileStats = await fs.stat(summaryPath);
+    console.log('✓ Datei existiert, Größe:', (fileStats.size / 1024).toFixed(2), 'KB');
+    console.log('======================\n');
+    
     return true;
   } catch (error) {
-    console.error('Fehler beim Speichern des Summary-Cache:', error.message);
+    console.error('\n✗ FEHLER beim Speichern des Cache:');
+    console.error('Error Type:', error.constructor.name);
+    console.error('Error Message:', error.message);
+    console.error('Stack:', error.stack);
+    console.error('======================\n');
     return false;
   }
 }
@@ -731,17 +761,31 @@ app.post('/api/summarize-lecture', async (req, res) => {
       return res.status(400).json({ error: 'Lecture ID erforderlich' });
     }
     
-    console.log(`Zusammenfassung für ${lectureId} angefordert...`);
+    console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate})...`);
     
     // Prüfe ob bereits im Cache (außer wenn Regenerierung erzwungen wird)
     if (!forceRegenerate && summaryCache[lectureId]) {
       console.log(`  ✓ Cache-Hit für ${lectureId}`);
       const cachedData = summaryCache[lectureId];
       
+      // NEU: Detailliertes Logging für Cache-Hit
+      console.log('  → Typ der cachedData:', typeof cachedData);
+      console.log('  → cachedData ist Array?', Array.isArray(cachedData));
+      if (typeof cachedData === 'object' && cachedData !== null) {
+        console.log('  → cachedData Keys:', Object.keys(cachedData));
+        console.log('  → cachedData.summary vorhanden?', !!cachedData.summary);
+        console.log('  → cachedData.headings vorhanden?', !!cachedData.headings);
+        console.log('  → cachedData.headings ist Array?', Array.isArray(cachedData.headings));
+        console.log('  → cachedData.headings Länge:', cachedData.headings?.length);
+        console.log('  → Erste 3 headings:', JSON.stringify(cachedData.headings?.slice(0, 3), null, 2));
+      }
+      
       // Unterstütze beide Formate: altes (string) und neues (object)
       const responseData = typeof cachedData === 'string' 
         ? { summary: cachedData, headings: [] }
         : cachedData;
+      
+      console.log(`  → Response Headings Länge: ${responseData.headings?.length || 0}`);
       
       return res.json({
         lectureId: lectureId,
@@ -766,10 +810,19 @@ app.post('/api/summarize-lecture', async (req, res) => {
     const summaryData = await generateLectureSummary(lecture);
     
     // Speichere im Cache
+    console.log(`  → Speichere in Cache (Vor): ${Object.keys(summaryCache).length} Einträge`);
     summaryCache[lectureId] = summaryData;
-    await saveSummaryCache();
+    console.log(`  → Speichere in Cache (Nach): ${Object.keys(summaryCache).length} Einträge`);
+    console.log(`  → Headings im neuen Eintrag: ${summaryData.headings?.length || 0}`);
     
-    console.log(`  ✓ Zusammenfassung erstellt und gespeichert`);
+    const saved = await saveSummaryCache();
+    console.log(`  → saveSummaryCache() Rückgabe: ${saved}`);
+    
+    if (saved) {
+      console.log(`  ✓ Zusammenfassung erstellt und gespeichert`);
+    } else {
+      console.log(`  ✗ Zusammenfassung erstellt aber NICHT gespeichert!`);
+    }
     
     res.json({
       lectureId: lectureId,
@@ -780,7 +833,7 @@ app.post('/api/summarize-lecture', async (req, res) => {
     });
     
   } catch (error) {
-    console.error('Zusammenfassungs-Fehler:', error);
+    console.error('✗ Zusammenfassungs-Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -831,7 +884,9 @@ Der Vortrag hat ${lecture.paragraphs.length} Absätze.
 
 AUFGABE:
 1. Schreibe eine prägnante ZUSAMMENFASSUNG (100-150 Wörter) der Kernaussagen
-${headingsDisabled ? '' : `2. Erstelle 4-8 thematische ZWISCHENÜBERSCHRIFTEN 
+${headingsDisabled ? '' : `2. Erstelle eine hierarchische Gliederung mit:
+   - 3-6 HAUPTÜBERSCHRIFTEN (H3) für die großen thematischen Abschnitte
+   - Jeweils 2-4 UNTERÜBERSCHRIFTEN (H4) pro Hauptabschnitt für Unterabschnitte
 3. Ordne jede Überschrift einem Absatz-Index zu
 
 WICHTIG ZUR INDEX-ZUORDNUNG:
@@ -840,27 +895,34 @@ WICHTIG ZUR INDEX-ZUORDNUNG:
 - Der Index gibt an, VOR welchem Absatz die Überschrift eingefügt wird
 - Die Überschrift leitet den FOLGENDEN Abschnitt ein
 - Beispiel: Wenn bei [Index: ^1e6ps7] das Thema "Die Sophistik" beginnt:
-  * Verwende {"index": "^1e6ps7", "text": "Die Sophistik und die Wendung zum Menschen"}
-  * Die Überschrift wird VOR diesem Absatz eingefügt
+  * H3: {"index": "^1e6ps7", "text": "Die griechische Philosophie", "level": "h3"}
+  * H4: {"index": "^1e6ps7", "text": "Die Sophistik und die Wendung zum Menschen", "level": "h4"}
+- Die Überschrift wird VOR diesem Absatz eingefügt
 - Überschriften sollten gleichmäßig über den Vortrag verteilt sein
+- H4-Überschriften folgen logisch unter ihren H3-Hauptüberschriften
 - Lies genau die [Index: ...] Markierungen im Text`}
 
 AUSGABEFORMAT (als JSON):
 {
   "summary": "Deine Zusammenfassung in 100-150 Wörtern"${headingsDisabled ? '' : `,
   "headings": [
-    {"index": "^1e6ps7", "text": "Die Sophistik und die Wendung zum Menschen"},
-    {"index": "^8k2mw9", "text": "Platon und die ewige Lehre"},
-    {"index": "^5n7rx4", "text": "Aristoteles und die Formen in der Natur"}
+    {"index": "^1e6ps7", "text": "Die griechische Philosophie", "level": "h3"},
+    {"index": "^1e6ps7", "text": "Die Sophistik und die Wendung zum Menschen", "level": "h4"},
+    {"index": "^3k8mw2", "text": "Sokrates und die Selbsterkenntnis", "level": "h4"},
+    {"index": "^8k2mw9", "text": "Platon und Aristoteles", "level": "h3"},
+    {"index": "^8k2mw9", "text": "Platon und die ewige Lehre", "level": "h4"},
+    {"index": "^5n7rx4", "text": "Aristoteles und die Formen in der Natur", "level": "h4"}
   ]`}
 }
 
 WICHTIG:
 - Gib NUR das JSON zurück, keinen anderen Text
+- Setze für Hauptüberschriften "level": "h3" und für Unterüberschriften "level": "h4"
 ${headingsDisabled ? '- Gib ein leeres headings-Array zurück: "headings": []' : '- Verwende die EXAKTEN Index-Strings aus dem Text (mit ^ am Anfang)'}
 - Die Zusammenfassung sollte die Kernthesen erfassen
 ${headingsDisabled ? '' : `- Überschriften sollen das kommende Thema ankündigen
-- Achte darauf, dass jede Überschrift zum Inhalt des folgenden Abschnitts passt`}
+- Achte darauf, dass jede Überschrift zum Inhalt des folgenden Abschnitts passt
+- H3 für Hauptthemen, H4 für Unterthemen innerhalb eines Hauptthemas`}
 
 ${headingsDisabled ? '\nHINWEIS: Aufgrund der Länge des Vortrags werden KEINE Zwischenüberschriften generiert. Konzentriere dich auf eine gute Zusammenfassung.\n' : ''}
 
@@ -897,7 +959,9 @@ AUSGABE (JSON):`;
     const result = await response.json();
     let summaryText = result.content[0].text;
     
-    console.log('Claude Antwort erhalten, Länge:', summaryText.length);
+    console.log('\n=== CLAUDE RESPONSE DEBUG ===');
+    console.log('Rohe Antwort (erste 500 Zeichen):', summaryText.substring(0, 500));
+    console.log('Antwort Länge:', summaryText.length);
     
     // Parse JSON response
     try {
@@ -911,7 +975,20 @@ AUSGABE (JSON):`;
         throw new Error('Ungültiges JSON-Format von Claude');
       }
       
-      console.log(`Zusammenfassung erstellt mit ${summaryData.headings.length} Überschriften`);
+      console.log('✓ JSON erfolgreich geparst');
+      console.log('Summary Länge:', summaryData.summary?.length);
+      console.log('Anzahl Headings TOTAL:', summaryData.headings?.length);
+      
+      const h3Count = summaryData.headings?.filter(h => h.level === 'h3').length || 0;
+      const h4Count = summaryData.headings?.filter(h => h.level === 'h4').length || 0;
+      const otherCount = summaryData.headings?.filter(h => h.level !== 'h3' && h.level !== 'h4').length || 0;
+      
+      console.log('Headings nach Level:');
+      console.log(`  H3: ${h3Count}`);
+      console.log(`  H4: ${h4Count}`);
+      console.log(`  Andere: ${otherCount}`);
+      console.log('Erste 5 Headings:', JSON.stringify(summaryData.headings?.slice(0, 5), null, 2));
+      console.log('============================\n');
       
       return summaryData;
       
