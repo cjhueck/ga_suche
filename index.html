@@ -1628,10 +1628,19 @@
       const panel = document.getElementById('summary-panel');
       const icon = document.getElementById('summary-panel-toggle-icon');
       const resizeHandle = document.getElementById('verticalResizeHandle');
+      const toggle = document.querySelector('.summary-panel-toggle');
       
+      // Summary-Panel schließen
       panel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
       icon.textContent = '◄';
+      panel.style.width = '0';
+      panel.style.minWidth = '0';
+      panel.style.marginRight = '24px';
+      
+      // Button-Position explizit fixieren
+      toggle.style.right = '0px';
+      toggle.style.position = 'fixed';
       
       const visibleIndex = getCurrentVisibleParagraphIndex();
       if (visibleIndex) {
@@ -1652,6 +1661,12 @@
       if (lastHighlightedIndex) {
         scrollToIndexInViewer(lastHighlightedIndex);
       }
+      
+      // Button-Position nochmal sichern (nach DOM-Update)
+      setTimeout(() => {
+        toggle.style.right = '0px';
+        toggle.style.position = 'fixed';
+      }, 0);
     }
 
     function getCurrentVisibleParagraphIndex() {
