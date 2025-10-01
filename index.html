@@ -10,7 +10,144 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Ubuntu, sans-serif;
       height: 100vh;
       display: flex;
+      transition: background-color 0.3s, color 0.3s;
     }
+    
+    body.dark-mode {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+    
+    body.dark-mode #sidebar {
+      background-color: #2a2a2a;
+      border-right-color: #404040;
+    }
+    
+    body.dark-mode #main {
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+    }
+    
+    body.dark-mode #summary-panel {
+      background-color: #2a2a2a;
+      border-left-color: #404040;
+    }
+    
+    body.dark-mode .search-input,
+    body.dark-mode .filter-dropdown,
+    body.dark-mode .thematic-input {
+      background-color: #333;
+      color: #e0e0e0;
+      border-color: #555;
+    }
+    
+    body.dark-mode .search-input:-webkit-autofill,
+    body.dark-mode .search-input:-webkit-autofill:hover,
+    body.dark-mode .search-input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 30px #333 inset !important;
+      -webkit-text-fill-color: #e0e0e0 !important;
+      box-shadow: 0 0 0 30px #333 inset !important;
+    }
+    
+    body.dark-mode mark {
+      background: rgba(70, 120, 134, 0.5);
+      color: #fff;
+    }
+    
+    body.dark-mode .highlighted-paragraph {
+      background: rgba(70, 120, 134, 0.35);
+    }
+    
+    body.dark-mode #viewer .highlighted-paragraph {
+      background: rgba(70, 120, 134, 0.35);
+    }
+    
+    body.dark-mode .resize-handle,
+    body.dark-mode .vertical-resize-handle {
+      background-color: #666;
+    }
+    
+    body.dark-mode .resize-handle:hover,
+    body.dark-mode .vertical-resize-handle:hover {
+      background-color: #999;
+    }
+    
+    body.dark-mode .snippet {
+      color: #d0d0d0;
+    }
+    
+    body.dark-mode #summary-content {
+      color: #b0b0b0;
+    }
+    
+    body.dark-mode #summary-content h3 {
+      color: #7eb8c8;
+    }
+    
+    body.dark-mode .toc-item {
+      border-bottom-color: #404040;
+    }
+    
+    body.dark-mode .toc-item a {
+      color: #5eb0cb !important;
+    }
+    
+    body.dark-mode .toc-item a:hover {
+      color: #7eb8c8 !important;
+    }
+    
+    body.dark-mode #summary-content a {
+      color: #5eb0cb !important;
+    }
+    
+    body.dark-mode #summary-content a:hover {
+      color: #7eb8c8 !important;
+    }
+    
+    body.dark-mode #status {
+      color: #b0b0b0;
+    }
+    
+    body.dark-mode ul.results-list > li > a {
+      color: #7eb8c8;
+    }
+    
+    body.dark-mode .tab-button {
+      color: #999;
+    }
+    
+    body.dark-mode .tab-button.active {
+      color: #7eb8c8;
+      border-bottom-color: #7eb8c8;
+    }
+    
+    body.dark-mode .semantic-answer {
+      background: #2a3a3f;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-track {
+      background: #2a2a2a;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 6px;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+    
+    body.dark-mode * {
+      scrollbar-width: thin;
+      scrollbar-color: #555 #2a2a2a;
+    }
+    
     #sidebar {
       width: 35%;
       min-width: 250px;
@@ -22,8 +159,8 @@
     }
     
     .resize-handle {
-      width: 5px;
-      background-color: #f5f5f5;
+      width: 1px;
+      background-color: #999;
       cursor: col-resize;
       position: relative;
       flex-shrink: 0;
@@ -31,7 +168,8 @@
     }
     
     .resize-handle:hover {
-      background-color: #e0e0e0;
+      background-color: #bbb;
+      width: 3px;
     }
     
     #main-container {
@@ -49,6 +187,23 @@
       min-width: 0;
       line-height: 1.45;
       position: relative;
+    }
+    
+    #top-controls {
+      position: fixed;
+      left: -192px;
+      top: 295px;
+      background: #467886;
+      border: 1px solid #467886;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+      transition: left 0.3s ease;
+      z-index: 100;
+    }
+    
+    #top-controls.expanded {
+      left: 0;
     }
     
     #viewer-controls {
@@ -70,23 +225,33 @@
     
     .controls-toggle {
       position: absolute;
-      left: -32px;
       top: 50%;
       transform: translateY(-50%);
-      width: 32px;
+      width: 24px;
       height: 80px;
       background: #467886;
       border: 1px solid #467886;
-      border-right: none;
       border-radius: 8px 0 0 8px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 16px;
       color: white;
       transition: background 0.2s;
       box-shadow: -2px 0 4px rgba(0,0,0,0.15);
+    }
+    
+    #viewer-controls .controls-toggle {
+      left: -24px;
+      border-right: none;
+    }
+    
+    #top-controls .controls-toggle {
+      right: -24px;
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 2px 0 4px rgba(0,0,0,0.15);
     }
     
     .controls-toggle:hover {
@@ -111,8 +276,39 @@
       color: #467886;
     }
     
+    .theme-toggle {
+      width: auto;
+      padding: 2px 0px;
+      border-radius: 4px;
+      border: none;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    
+    .theme-toggle:hover {
+      opacity: 0.85;
+    }
+    
     .controls-content .search-button:hover {
       background: #f5f5f5;
+    }
+    
+    body.dark-mode .controls-content .search-button {
+      background: #2a2a2a;
+      color: #d0d0d0;
+      border-color: #555;
+    }
+    
+    body.dark-mode .controls-content .search-button:hover {
+      background: #3a3a3a;
     }
     
     .controls-content .search-button:disabled {
@@ -120,6 +316,12 @@
       color: #999;
       opacity: 1;
       cursor: not-allowed;
+    }
+    
+    body.dark-mode .controls-content .search-button:disabled {
+      background: #1a1a1a;
+      color: #666;
+      border-color: #444;
     }
     
     #main p {
@@ -142,12 +344,12 @@
     }
     
     .vertical-resize-handle {
-      width: 5px;
-      background-color: #f5f5f5;
+      width: 1px;
+      background-color: #999;
       cursor: col-resize;
       position: relative;
       flex-shrink: 0;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, width 0.2s;
       display: none;
     }
     
@@ -156,7 +358,8 @@
     }
     
     .vertical-resize-handle:hover {
-      background-color: #e0e0e0;
+      background-color: #bbb;
+      width: 3px;
     }
     
     #summary-content {
@@ -194,6 +397,10 @@
     #document-title a { color: #467886; text-decoration: none; }
     #document-title a:hover { text-decoration: underline; }
     
+    body.dark-mode #document-title a {
+      color: #7EB8C8 !important;
+    }
+    
     #summary-title { margin-top: 0; margin-bottom: 1rem; }
     #summary-title a { color: #467886; text-decoration: none; }
     #summary-title a:hover { text-decoration: underline; }
@@ -226,8 +433,12 @@
     
     .tab-buttons {
       display: flex;
-      border-bottom: 2px solid #eee;
+      border-bottom: none;
       margin-bottom: 1rem;
+    }
+    
+    body.dark-mode .tab-buttons {
+      border-bottom-color: transparent;
     }
     
     .tab-button {
@@ -588,6 +799,10 @@
       font-style: normal;
     }
     
+    body.dark-mode #viewer p strong {
+      color: #7EB8C8 !important;
+    }
+    
     #viewer > p:first-of-type strong {
       margin-top: 0;
     }
@@ -600,6 +815,12 @@
       font-weight: 700;
       color: #467886;
       display: block;
+    }
+    
+    body.dark-mode #viewer h1,
+    body.dark-mode #viewer h2,
+    body.dark-mode #viewer h3 {
+      color: #7EB8C8 !important;
     }
     
     #viewer h1:first-child,
@@ -617,6 +838,18 @@
 <body>
   <div id="sidebar">
     <h1>GA Steiner Suche</h1>
+    
+    <!-- Top Controls Sidebar -->
+    <div id="top-controls">
+      <div class="controls-toggle" onclick="toggleTopControls()">
+        <span id="top-controls-toggle-icon">►</span>
+      </div>
+      <div class="controls-content">
+        <button class="theme-toggle" onclick="toggleTheme()" title="Theme wechseln">
+          ☀️/🌙
+        </button>
+      </div>
+    </div>
     
     <div class="tab-container">
       <div class="tab-buttons">
@@ -807,7 +1040,35 @@
       initResizeHandle();
       initVerticalResizeHandle();
       checkServerConnection();
+      initTheme();
     });
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    function toggleTopControls() {
+      const controls = document.getElementById('top-controls');
+      const icon = document.getElementById('top-controls-toggle-icon');
+      
+      if (controls.classList.contains('expanded')) {
+        controls.classList.remove('expanded');
+        icon.textContent = '►';
+      } else {
+        controls.classList.add('expanded');
+        icon.textContent = '◄';
+      }
+    }
 
     function populateYearFilter() {
       const yearFilter = document.getElementById('yearFilter');
@@ -1441,14 +1702,11 @@
     function displaySummaryWithHeadings(lecture, summaryObj) {
       const viewer = document.getElementById('viewer');
       
-      // Nur Keywords highlighten, wenn sie zur aktuellen Suche gehören
       const currentWord1 = document.getElementById('word1').value.trim();
       const currentWord2 = document.getElementById('word2').value.trim();
       let keywords = [];
       
-      // Prüfe ob die aktuellen Suchfelder gefüllt sind UND der aktuelle Vortrag aus dieser Suche stammt
       if ((currentWord1 || currentWord2) && searchResults.length > 0) {
-        // Prüfe ob der aktuelle Vortrag in den Suchergebnissen ist
         const isFromCurrentSearch = searchResults.some(result => result.ID === lecture.ID);
         if (isFromCurrentSearch) {
           keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
