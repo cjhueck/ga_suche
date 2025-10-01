@@ -23,6 +23,11 @@
       border-right-color: #404040;
     }
     
+    body.dark-mode #sidebar-header {
+      background-color: #2a2a2a;
+      border-bottom-color: #404040;
+    }
+    
     body.dark-mode #main {
       background-color: #1a1a1a;
       color: #e0e0e0;
@@ -47,6 +52,14 @@
       -webkit-box-shadow: 0 0 0 30px #333 inset !important;
       -webkit-text-fill-color: #e0e0e0 !important;
       box-shadow: 0 0 0 30px #333 inset !important;
+    }
+    
+    .search-input:-webkit-autofill,
+    .search-input:-webkit-autofill:hover,
+    .search-input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
+      -webkit-text-fill-color: #000 !important;
+      box-shadow: 0 0 0 30px white inset !important;
     }
     
     body.dark-mode mark {
@@ -203,13 +216,69 @@
     }
     
     #sidebar {
+      display: flex;
+      flex-direction: column;
       width: 450px;
-      min-width: 320px;
+      min-width: 450px;
       max-width: none;
-      overflow: auto;
+      overflow: hidden;
       border-right: 1px solid #ddd;
-      padding: 1rem;
+      padding: 0;
       box-sizing: border-box;
+      position: relative;
+      transition: width 0.3s ease, min-width 0.3s ease;
+    }
+    
+    #sidebar-header {
+      flex-shrink: 0;
+      padding: 1rem;
+      background: inherit;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+    
+    #sidebar-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.25rem 1rem 1rem 1rem;
+    }
+    
+    #sidebar.collapsed {
+      width: 0;
+      min-width: 0;
+      padding: 0;
+      border-right: none;
+      overflow: visible;
+    }
+    
+    #sidebar.collapsed > *:not(.sidebar-toggle) {
+      display: none;
+    }
+    
+    .sidebar-toggle {
+      position: fixed;
+      left: 0 !important;
+      bottom: 30px;
+      width: 24px;
+      height: 80px;
+      background: #d0e8ef;
+      border: 2px solid #467886;
+      border-radius: 0 8px 8px 0;
+      border-left: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #467886;
+      transition: background 0.2s;
+      z-index: 1000;
+      transform: translateZ(0);
+      will-change: auto;
+    }
+    
+    .sidebar-toggle:hover {
+      background: #b8dde8;
     }
     
     .resize-handle {
@@ -258,141 +327,6 @@
       position: relative;
     }
     
-    #top-controls {
-      position: fixed;
-      left: -192px;
-      top: 295px;
-      background: #467886;
-      border: 1px solid #467886;
-      border-left: none;
-      border-radius: 0 8px 8px 0;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.2);
-      transition: left 0.3s ease;
-      z-index: 100;
-    }
-    
-    #top-controls.expanded {
-      left: 0;
-    }
-    
-    #viewer-controls {
-      position: fixed;
-      right: -192px;
-      bottom: 100px;
-      background: #467886;
-      border: 1px solid #467886;
-      border-right: none;
-      border-radius: 8px 0 0 8px;
-      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
-      transition: right 0.3s ease;
-      z-index: 100;
-    }
-    
-    #viewer-controls.expanded {
-      right: 0;
-    }
-    
-    .controls-toggle {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 24px;
-      height: 80px;
-      background: #467886;
-      border: 1px solid #467886;
-      border-radius: 8px 0 0 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      color: white;
-      transition: background 0.2s;
-      box-shadow: -2px 0 4px rgba(0,0,0,0.15);
-    }
-    
-    #viewer-controls .controls-toggle {
-      left: -24px;
-      border-right: none;
-    }
-    
-    #top-controls .controls-toggle {
-      right: -24px;
-      border-left: none;
-      border-radius: 0 8px 8px 0;
-      box-shadow: 2px 0 4px rgba(0,0,0,0.15);
-    }
-    
-    .controls-toggle:hover {
-      background: #355d68;
-    }
-    
-    .controls-content {
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      width: 160px;
-    }
-    
-    .controls-content .search-button {
-      margin: 0;
-      width: 100%;
-      text-align: center;
-      white-space: nowrap;
-      font-size: 0.9em;
-      background: white;
-      color: #467886;
-    }
-    
-    .theme-toggle {
-      width: auto;
-      padding: 2px 0px;
-      border-radius: 4px;
-      border: none;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      font-size: 1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.2s;
-      white-space: nowrap;
-      line-height: 1;
-    }
-    
-    .theme-toggle:hover {
-      opacity: 0.85;
-    }
-    
-    .controls-content .search-button:hover {
-      background: #f5f5f5;
-    }
-    
-    body.dark-mode .controls-content .search-button {
-      background: #2a2a2a;
-      color: #d0d0d0;
-      border-color: #555;
-    }
-    
-    body.dark-mode .controls-content .search-button:hover {
-      background: #3a3a3a;
-    }
-    
-    .controls-content .search-button:disabled {
-      background: #f5f5f5;
-      color: #999;
-      opacity: 1;
-      cursor: not-allowed;
-    }
-    
-    body.dark-mode .controls-content .search-button:disabled {
-      background: #1a1a1a;
-      color: #666;
-      border-color: #444;
-    }
-    
     body.dark-mode .depth-btn {
       background: #2a2a2a;
       color: #d0d0d0;
@@ -435,29 +369,33 @@
       flex-direction: column;
       border-left: none;
       overflow: hidden;
-      width: 24px;
-      min-width: 24px;
+      width: 0;
+      min-width: 0;
       background: transparent;
       position: relative;
       transition: width 0.3s ease, background-color 0.3s ease, border-left 0.3s ease;
+      margin-right: 24px;
     }
     
     #summary-panel.visible {
       width: 250px;
-      min-width: 300px;
+      min-width: 250px;
+      max-width: none;
       background: #fafafa;
       border-left: 1px solid #ddd;
+      margin-right: 24px;
     }
     
     .summary-panel-toggle {
-      position: absolute;
-      left: 0;
+      position: fixed !important;
+      right: 0 !important;
       bottom: 30px;
       width: 24px;
       height: 80px;
       background: #d0e8ef;
       border: 2px solid #467886;
-      border-radius: 8px;
+      border-radius: 8px 0 0 8px;
+      border-right: none;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -465,7 +403,9 @@
       font-size: 16px;
       color: #467886;
       transition: background 0.2s;
-      z-index: 10;
+      z-index: 1000;
+      transform: translateZ(0);
+      will-change: auto;
     }
     
     .summary-panel-toggle:hover {
@@ -571,32 +511,6 @@
       color: #7EB8C8 !important;
     }
     
-    #summary-title { margin-top: 0; margin-bottom: 1rem; }
-    #summary-title a { color: #467886; text-decoration: none; }
-    #summary-title a:hover { text-decoration: underline; }
-    
-    .close-button {
-      background: none;
-      border: none;
-      font-size: 28px;
-      line-height: 1;
-      color: #999;
-      cursor: pointer;
-      padding: 4px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      transition: all 0.2s;
-      flex-shrink: 0;
-      margin-left: 15px;
-    }
-    
-    .close-button:hover {
-      background: #f0f0f0;
-      color: #467886;
-    }
-    
     .tab-container {
       margin-bottom: 1rem;
     }
@@ -656,11 +570,6 @@
     
     .semantic-options {
       margin: 10px 0;
-    }
-    
-    .semantic-options h4 {
-      margin: 0 0 8px 0;
-      color: #467886;
     }
     
     .depth-buttons {
@@ -1006,101 +915,110 @@
   </style>
 </head>
 <body>
+  <div class="sidebar-toggle" onclick="toggleSidebar()">
+    <span id="sidebar-toggle-icon">◄</span>
+  </div>
+  
   <div id="sidebar">
-    <h1>GA Steiner Suche</h1>
-    
-    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-      <label class="theme-switch">
-        <input type="checkbox" id="theme-checkbox" onchange="toggleThemeCheckbox()">
-        <span class="theme-slider"></span>
-      </label>
-    </div>
-    
-    <div class="tab-container">
-      <div class="tab-buttons">
-        <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
-        <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
+    <div id="sidebar-header">
+      <h1>GA Steiner Suche</h1>
+      
+      <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+        <label class="theme-switch">
+          <input type="checkbox" id="theme-checkbox" onchange="toggleThemeCheckbox()">
+          <span class="theme-slider"></span>
+        </label>
       </div>
       
-      <div id="keyword-tab" class="tab-content active">
-        <div style="display:flex; gap:8px; margin-top:4px;">
-          <div style="flex:1; position: relative;">
-            <input class="search-input" id="word1" type="text" placeholder="Suchwort 1" list="word1-history" onkeypress="handleKeywordKeypress(event)" oninput="updateProximityFilter()" onfocus="this.select()">
-            <datalist id="word1-history"></datalist>
+      <div class="tab-container">
+        <div class="tab-buttons">
+          <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
+          <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
+        </div>
+        
+        <div id="keyword-tab" class="tab-content active">
+          <div style="display:flex; gap:8px; margin-top:4px;">
+            <div style="flex:1; position: relative;">
+              <input class="search-input" id="word1" type="text" placeholder="Suchwort 1" list="word1-history" onkeypress="handleKeywordKeypress(event)" oninput="updateProximityFilter()" onfocus="this.select()">
+              <datalist id="word1-history"></datalist>
+            </div>
+            <div style="flex:1; position: relative;">
+              <input class="search-input" id="word2" type="text" placeholder="Suchwort 2 (optional)" list="word2-history" oninput="updateProximityFilter()" onfocus="this.select()">
+              <datalist id="word2-history"></datalist>
+            </div>
           </div>
-          <div style="flex:1; position: relative;">
-            <input class="search-input" id="word2" type="text" placeholder="Suchwort 2 (optional)" list="word2-history" oninput="updateProximityFilter()" onfocus="this.select()">
-            <datalist id="word2-history"></datalist>
-          </div>
-        </div>
-        
-        <div class="filter-row">
-          <select id="yearFilter" class="filter-dropdown">
-            <option value="">alle Jahre</option>
-          </select>
           
-          <select id="gaFilter" class="filter-dropdown">
-            <option value="">alle GA-Bände</option>
-          </select>
-          
-          <select id="proximityFilter" class="filter-dropdown" disabled>
-            <option value="">unbeschränkt</option>
-            <option value="1">ein Absatz</option>
-            <option value="2">zwei Absätze</option>
-            <option value="3">drei Absätze</option>
-          </select>
-        </div>
-        
-        <div class="radio-group">
-          <label><input type="radio" name="scope" value="fulltext" checked><span> Volltext</span></label>
-          <label><input type="radio" name="scope" value="title"><span> Titel</span></label>
-          <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
-        </div>
-        
-        <div id="searchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
-          <span id="serverInfo"></span>
-          <span id="resultInfo"></span>
-        </div>
-      </div>
-      
-      <div id="thematic-tab" class="tab-content">
-        <textarea class="thematic-input" id="thematicQuery" 
-                  placeholder="Stellen Sie eine thematische Frage, z.B.:&#10;&#10;• Wie sieht Steiner das Verhältnis von Kant zu Goethe?&#10;• Was kritisiert Steiner an Kants Erkenntnistheorie?&#10;• Welche Rolle spielt die Anschauung bei Kant?"
-                  onkeydown="handleThematicKeydown(event)"></textarea>
-        
-        <div class="semantic-options">
           <div class="filter-row">
-            <select id="thematicLimitFilter" class="filter-dropdown">
-              <option value="30">30 Quellen</option>
-              <option value="50">50 Quellen</option>
-              <option value="100">100 Quellen</option>
+            <select id="yearFilter" class="filter-dropdown">
+              <option value="">alle Jahre</option>
             </select>
-            <select id="thematicGAFilter" class="filter-dropdown">
-              <option value="">Alle GA-Bände</option>
-              <option value="GA052">GA052</option>
-              <option value="GA058">GA058</option>
+            
+            <select id="gaFilter" class="filter-dropdown">
+              <option value="">alle GA-Bände</option>
+            </select>
+            
+            <select id="proximityFilter" class="filter-dropdown" disabled>
+              <option value="">unbeschränkt</option>
+              <option value="1">ein Absatz</option>
+              <option value="2">zwei Absätze</option>
+              <option value="3">drei Absätze</option>
             </select>
           </div>
           
-          <div class="depth-buttons">
-            <button class="depth-btn active" data-depth="allgemein">Allgemein</button>
-            <button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
-            <button class="depth-btn primary" onclick="performThematicSearch()" id="thematicSearchBtn" 
-                    style="margin-left: auto;">
-              Suche starten
-            </button>
+          <div class="radio-group">
+            <label><input type="radio" name="scope" value="fulltext" checked><span> Volltext</span></label>
+            <label><input type="radio" name="scope" value="title"><span> Titel</span></label>
+            <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
+          </div>
+          
+          <div id="searchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
+            <span id="serverInfo"></span>
+            <span id="resultInfo"></span>
           </div>
         </div>
         
-        <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
-          <span id="thematicServerInfo"></span>
+        <div id="thematic-tab" class="tab-content">
+          <textarea class="thematic-input" id="thematicQuery" 
+                    placeholder="Stellen Sie eine thematische Frage, z.B.:&#10;&#10;• Wie sieht Steiner das Verhältnis von Kant zu Goethe?&#10;• Was kritisiert Steiner an Kants Erkenntnistheorie?&#10;• Welche Rolle spielt die Anschauung bei Kant?"
+                    onkeydown="handleThematicKeydown(event)"></textarea>
+          
+          <div class="semantic-options">
+            <div class="filter-row">
+              <select id="thematicLimitFilter" class="filter-dropdown">
+                <option value="30">30 Quellen</option>
+                <option value="50">50 Quellen</option>
+                <option value="100">100 Quellen</option>
+              </select>
+              <select id="thematicGAFilter" class="filter-dropdown">
+                <option value="">Alle GA-Bände</option>
+                <option value="GA052">GA052</option>
+                <option value="GA058">GA058</option>
+              </select>
+            </div>
+            
+            <div class="depth-buttons">
+              <button class="depth-btn active" data-depth="allgemein">Allgemein</button>
+              <button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
+              <button class="depth-btn primary" onclick="performThematicSearch()" id="thematicSearchBtn" 
+                      style="margin-left: auto;">
+                Suche starten
+              </button>
+            </div>
+          </div>
+          
+          <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
+            <span id="thematicServerInfo"></span>
+          </div>
         </div>
       </div>
+      
+      <span id="status"></span>
+      <div id="note" style="display: none;"></div>
     </div>
     
-    <span id="status"></span>
-    <div id="note" style="display: none;"></div>
-    <div id="results"></div>
+    <div id="sidebar-content">
+      <div id="results"></div>
+    </div>
   </div>
 
   <div class="resize-handle" id="resizeHandle"></div>
@@ -1115,10 +1033,11 @@
     
     <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
     
+    <div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
+      <span id="summary-panel-toggle-icon">◄</span>
+    </div>
+    
     <div id="summary-panel">
-      <div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
-        <span id="summary-panel-toggle-icon">◄</span>
-      </div>
       <div class="summary-buttons">
         <button class="search-button" onclick="closeAndShowOriginal()" id="summaryCloseBtn" disabled>
           Original
@@ -1174,6 +1093,24 @@
       }
     }
 
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const icon = document.getElementById('sidebar-toggle-icon');
+      
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        sidebar.style.width = '';
+        sidebar.style.minWidth = '';
+        icon.textContent = '◄';
+        setTimeout(updateTogglePosition, 50);
+      } else {
+        sidebar.classList.add('collapsed');
+        sidebar.style.width = '0';
+        sidebar.style.minWidth = '0';
+        icon.textContent = '►';
+      }
+    }
+
     function switchTab(mode) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
@@ -1211,27 +1148,6 @@
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      const checkbox = document.getElementById('theme-checkbox');
-      if (checkbox) checkbox.checked = isDark;
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    function toggleTopControls() {
-      const controls = document.getElementById('top-controls');
-      const icon = document.getElementById('top-controls-toggle-icon');
-      
-      if (controls.classList.contains('expanded')) {
-        controls.classList.remove('expanded');
-        icon.textContent = '►';
-      } else {
-        controls.classList.add('expanded');
-        icon.textContent = '◄';
-      }
     }
 
     function populateYearFilter() {
@@ -1619,13 +1535,19 @@
       const panel = document.getElementById('summary-panel');
       const icon = document.getElementById('summary-panel-toggle-icon');
       const resizeHandle = document.getElementById('verticalResizeHandle');
+      const toggle = document.querySelector('.summary-panel-toggle');
+      
+      // Button-Position explizit fixieren
+      toggle.style.right = '0px';
+      toggle.style.position = 'fixed';
       
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
         icon.textContent = '◄';
-        panel.style.width = '24px';
-        panel.style.minWidth = '24px';
+        panel.style.width = '0';
+        panel.style.minWidth = '0';
+        panel.style.marginRight = '24px';
       } else {
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
@@ -1635,11 +1557,18 @@
         panel.classList.add('visible');
         resizeHandle.classList.add('visible');
         icon.textContent = '►';
-        panel.style.width = '';
-        panel.style.minWidth = '';
+        panel.style.width = '250px';
+        panel.style.minWidth = '250px';
+        panel.style.marginRight = '24px';
         
         await loadSummaryAutomatically();
       }
+      
+      // Button-Position nochmal sichern (nach DOM-Update)
+      setTimeout(() => {
+        toggle.style.right = '0px';
+        toggle.style.position = 'fixed';
+      }, 0);
     }
 
     async function loadSummaryAutomatically() {
@@ -1745,68 +1674,6 @@
       return allParagraphs[0].id.replace('para-', '');
     }
 
-    async function showSummaryAction() {
-      if (!currentLectureData) return;
-      
-      const summaryActionBtn = document.getElementById('summaryActionBtn2');
-      
-      if (!currentLectureSummary) {
-        try {
-          summaryActionBtn.disabled = true;
-          summaryActionBtn.style.fontStyle = 'italic';
-          summaryActionBtn.textContent = 'bitte warten...';
-          
-          const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              lectureId: currentLectureData.ID,
-              forceRegenerate: false
-            })
-          });
-          
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `Server Error: ${response.status}`);
-          }
-          
-          const data = await response.json();
-          
-          currentLectureSummary = {
-            summary: data.summary,
-            headings: data.headings || []
-          };
-        } catch (error) {
-          console.error('Zusammenfassungs-Fehler:', error);
-          alert(`Fehler: ${error.message}`);
-          summaryActionBtn.disabled = false;
-          summaryActionBtn.style.fontStyle = 'normal';
-          summaryActionBtn.textContent = 'Zusammenfassen';
-          return;
-        }
-      }
-      
-      const visibleIndex = getCurrentVisibleParagraphIndex();
-      if (visibleIndex) {
-        lastHighlightedIndex = visibleIndex;
-      }
-      
-      showingSummaryInMain = true;
-      displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-      buildTableOfContents();
-      updateButtonStates();
-      
-      const summaryPanel = document.getElementById('summary-panel');
-      const resizeHandle = document.getElementById('verticalResizeHandle');
-      
-      summaryPanel.classList.add('visible');
-      resizeHandle.classList.add('visible');
-      
-      if (lastHighlightedIndex) {
-        scrollToIndexInViewer(lastHighlightedIndex);
-      }
-    }
-
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
@@ -1818,114 +1685,6 @@
         const paraRect = paraElement.getBoundingClientRect();
         const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
         mainContainer.scrollTop = relativeTop;
-      }
-    }
-
-    function scrollToIndexInSummary(targetIndex) {
-      if (!targetIndex) return;
-      
-      const paraElement = document.getElementById(`para-${targetIndex}`);
-      if (paraElement) {
-        paraElement.scrollIntoView({ behavior: 'auto', block: 'start' });
-      }
-    }
-
-    function showOriginalAction() {
-      if (!currentLectureData) return;
-      
-      const summaryPanel = document.getElementById('summary-panel');
-      if (summaryPanel.classList.contains('visible')) {
-        summaryPanel.classList.remove('visible');
-        document.getElementById('verticalResizeHandle').classList.remove('visible');
-      }
-      
-      const visibleIndex = getCurrentVisibleParagraphIndex();
-      if (visibleIndex) {
-        lastHighlightedIndex = visibleIndex;
-      }
-      
-      showingSummaryInMain = false;
-      
-      const currentWord1 = document.getElementById('word1').value.trim();
-      const currentWord2 = document.getElementById('word2').value.trim();
-      let keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-      if (keywords.length === 0 && currentThematicQuery) {
-        keywords = extractKeywordsFromQuery(currentThematicQuery);
-      }
-      
-      displayLecture(currentLectureData, lastHighlightedIndex, keywords, false);
-      
-      if (lastHighlightedIndex) {
-        scrollToIndexInViewer(lastHighlightedIndex);
-      }
-      
-      updateButtonStates();
-    }
-
-    async function summarizeLecture(event) {
-      if (!currentLectureData) {
-        alert('Bitte zuerst einen Vortrag im Viewer laden');
-        return;
-      }
-      
-      const isKeywordTab = document.getElementById('keyword-tab').classList.contains('active');
-      const button = isKeywordTab ? document.getElementById('summarizeBtnKeyword') : document.getElementById('summarizeBtn');
-      const originalText = 'Zusammenfassung';
-      
-      try {
-        button.disabled = true;
-        button.classList.add('processing');
-        button.textContent = 'bitte warten...';
-        
-        const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lectureId: currentLectureData.ID,
-            forceRegenerate: false
-          })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Server Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.fromCache) {
-          console.log('Zusammenfassung aus Cache geladen');
-        } else {
-          console.log('Neue Zusammenfassung generiert und gespeichert');
-        }
-        
-        currentLectureSummary = {
-          summary: data.summary,
-          headings: data.headings || []
-        };
-        
-        console.log('Geladene Zusammenfassung:', currentLectureSummary);
-        console.log('Anzahl Überschriften:', currentLectureSummary.headings.length);
-        
-        showingSummaryInMain = true;
-        
-        updateButtonStates();
-        
-        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-        buildTableOfContents();
-        
-      } catch (error) {
-        console.error('Zusammenfassungs-Fehler:', error);
-        const viewer = document.getElementById('viewer');
-        viewer.innerHTML = `
-          <div class="error-message">
-            <strong>Fehler bei der Zusammenfassung:</strong><br>${error.message}
-          </div>
-        `;
-      } finally {
-        button.disabled = !currentLectureData;
-        button.classList.remove('processing');
-        button.textContent = originalText;
       }
     }
 
@@ -1943,8 +1702,6 @@
         }
       }
       
-      console.log('displaySummaryWithHeadings:', summaryObj);
-      
       let html = '';
       
       html += '<div style="margin-bottom: 2rem;">';
@@ -1956,27 +1713,11 @@
       const headings = summaryObj.headings || [];
       const paragraphs = lecture.paragraphs || [];
       
-      console.log('Anzahl Überschriften:', headings.length);
-      console.log('Überschriften:', headings);
-      console.log('Anzahl Absätze:', paragraphs.length);
-      console.log('Erste 3 Absätze (Index-Check):');
-      paragraphs.slice(0, 3).forEach((para, idx) => {
-        const preview = (para.content || para.text || '').substring(0, 100);
-        console.log(`  Absatz ${idx}: "${preview}..."`);
-      });
-      console.log('Letzte 3 Absätze:');
-      paragraphs.slice(-3).forEach((para, idx) => {
-        const actualIdx = paragraphs.length - 3 + idx;
-        const preview = (para.content || para.text || '').substring(0, 100);
-        console.log(`  Absatz ${actualIdx}: "${preview}..."`);
-      });
-      
       paragraphs.forEach((para, idx) => {
         const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
         const heading = headings.find(h => h.index === paraIndex || h.index === para.index);
         if (heading) {
           const headingText = heading.text || heading.title || 'Überschrift';
-          console.log(`Füge Überschrift VOR Absatz mit Index ${paraIndex} (Array-Position ${idx}) ein:`, headingText);
           html += `<h3 id="heading-${idx}" style="color: #467886; font-weight: 700; margin: 1.5em 0 0.5em 0;">${headingText}</h3>`;
         }
         
@@ -1995,73 +1736,6 @@
       });
       
       viewer.innerHTML = html;
-    }
-
-    async function regenerateSummary() {
-      if (!currentLectureData || !showingSummaryInMain) {
-        return;
-      }
-      
-      const confirm = window.confirm('Zusammenfassung neu generieren? Dies kann einige Minuten dauern.');
-      if (!confirm) return;
-      
-      const buttonKeyword = document.getElementById('regenerateBtnKeyword');
-      const buttonViewer = document.getElementById('regenerateBtnViewer');
-      const originalText = 'Neu zusammenfassen';
-      
-      try {
-        if (buttonKeyword) {
-          buttonKeyword.disabled = true;
-          buttonKeyword.classList.add('processing');
-          buttonKeyword.textContent = 'bitte warten...';
-        }
-        if (buttonViewer) {
-          buttonViewer.disabled = true;
-          buttonViewer.classList.add('processing');
-          buttonViewer.textContent = 'bitte warten...';
-        }
-        
-        const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lectureId: currentLectureData.ID,
-            forceRegenerate: true
-          })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Server Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('Neue Zusammenfassung generiert und gespeichert');
-        
-        currentLectureSummary = {
-          summary: data.summary,
-          headings: data.headings || []
-        };
-        
-        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-        
-        buildTableOfContents();
-        
-      } catch (error) {
-        console.error('Regenerierungs-Fehler:', error);
-        alert(`Fehler beim Neu-Generieren: ${error.message}`);
-      } finally {
-        if (buttonKeyword) {
-          buttonKeyword.disabled = false;
-          buttonKeyword.classList.remove('processing');
-          buttonKeyword.textContent = originalText;
-        }
-        if (buttonViewer) {
-          buttonViewer.disabled = false;
-          buttonViewer.classList.remove('processing');
-          buttonViewer.textContent = originalText;
-        }
-      }
     }
 
     function extractKeywordsFromQuery(query) {
@@ -2127,17 +1801,13 @@
         document.getElementById('status').innerHTML = '<span class="loading">Lade Vortrag...</span>';
         
         const summaryPanel = document.getElementById('summary-panel');
-        const tocBtn = document.getElementById('tocBtn');
         const resizeHandle = document.getElementById('verticalResizeHandle');
         const tocList = document.getElementById('toc-list');
         
         if (summaryPanel.classList.contains('visible')) {
           summaryPanel.classList.remove('visible');
           resizeHandle.classList.remove('visible');
-          if (tocBtn) tocBtn.textContent = 'Inhaltsverzeichnis';
         }
-        
-        if (tocBtn) tocBtn.style.display = 'none';
         
         if (tocList) tocList.innerHTML = '';
         
@@ -2170,8 +1840,6 @@
           }
         }
         
-        console.log('Vortrag geladen - keine automatische Zusammenfassung');
-        
         updateButtonStates();
         
         displayLecture(data.lecture, targetIndex, displayKeywords);
@@ -2186,34 +1854,6 @@
       } finally {
         document.getElementById('status').textContent = '';
       }
-    }
-
-    function toggleMainView() {
-      const viewer = document.getElementById('viewer');
-      
-      if (!currentLectureData || !currentLectureSummary) return;
-      
-      if (showingSummaryInMain) {
-        showingSummaryInMain = false;
-        
-        document.getElementById('summary-panel').classList.remove('visible');
-        document.getElementById('verticalResizeHandle').classList.remove('visible');
-        
-        const currentWord1 = document.getElementById('word1').value.trim();
-        const currentWord2 = document.getElementById('word2').value.trim();
-        let keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-        if (keywords.length === 0 && currentThematicQuery) {
-          keywords = extractKeywordsFromQuery(currentThematicQuery);
-        }
-        
-        displayLecture(currentLectureData, null, keywords);
-      } else {
-        showingSummaryInMain = true;
-        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-        buildTableOfContents();
-      }
-      
-      updateButtonStates();
     }
 
     function buildTableOfContents() {
@@ -2298,20 +1938,6 @@
       mainContainer.addEventListener('scroll', updateActiveTocItem);
       
       updateActiveTocItem();
-    }
-
-    function toggleTOC() {
-      const summaryPanel = document.getElementById('summary-panel');
-      const tocBtn = document.getElementById('tocActionBtn');
-      const resizeHandle = document.getElementById('verticalResizeHandle');
-      
-      if (summaryPanel.classList.contains('visible')) {
-        summaryPanel.classList.remove('visible');
-        resizeHandle.classList.remove('visible');
-      } else {
-        summaryPanel.classList.add('visible');
-        resizeHandle.classList.add('visible');
-      }
     }
 
     function createOnlineURL(lecture) {
@@ -2401,20 +2027,6 @@
         mainContainer.scrollTop = 0;
       }
       
-      const summarizeBtn = document.getElementById('summarizeBtn');
-      const summarizeBtnKeyword = document.getElementById('summarizeBtnKeyword');
-      const summaryActionBtn = document.getElementById('summaryActionBtn');
-      
-      if (summarizeBtn) {
-        summarizeBtn.disabled = false;
-      }
-      if (summarizeBtnKeyword) {
-        summarizeBtnKeyword.disabled = false;
-      }
-      if (summaryActionBtn) {
-        summaryActionBtn.disabled = false;
-      }
-      
       updateButtonStates();
     }
 
@@ -2430,11 +2042,14 @@
       }
     }
 
-    function clearResults() {
-      document.getElementById('results').innerHTML = "";
-      document.getElementById('status').textContent = "";
-      document.getElementById('viewer').innerHTML = "";
-      document.getElementById('document-title').textContent = "Bitte ein Ergebnis auswählen…";
+    function updateTogglePosition() {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.sidebar-toggle');
+      
+      if (!sidebar.classList.contains('collapsed')) {
+        const sidebarWidth = sidebar.offsetWidth;
+        toggle.style.left = (sidebarWidth - 2) + 'px';
+      }
     }
 
     function initResizeHandle() {
@@ -2455,8 +2070,12 @@
         const containerWidth = document.body.clientWidth;
         const newSidebarWidth = (e.clientX / containerWidth) * 100;
         
-        if (newSidebarWidth >= 20 && newSidebarWidth <= 90) {
-          sidebar.style.width = newSidebarWidth + '%';
+        if (newSidebarWidth >= 15 && newSidebarWidth <= 90) {
+          const pixelWidth = (newSidebarWidth / 100) * containerWidth;
+          if (pixelWidth >= 250) {
+            sidebar.style.width = newSidebarWidth + '%';
+            updateTogglePosition();
+          }
         }
       }
 
@@ -2495,6 +2114,7 @@
         if (newMainWidth >= 20 && newMainWidth <= 80) {
           mainPanel.style.flex = `${newMainWidth} 0 0`;
           summaryPanel.style.width = `${100 - newMainWidth}%`;
+          summaryPanel.style.marginRight = '24px';
         }
       }
 
@@ -2507,3 +2127,4 @@
   </script>
 </body>
 </html>
+        
