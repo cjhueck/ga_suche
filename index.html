@@ -417,7 +417,7 @@ body.dark-mode #summary-content * {
       height: 14px;
       width: 14px;
       left: 4px;
-      bottom: 3px;
+      bottom: 4px;
       background-color: white;
       transition: 0.3s;
       border-radius: 50%;
@@ -523,7 +523,7 @@ body.dark-mode #summary-content * {
       left: 50%;
       transform: translate(-50%, -50%);
       color: #999;
-      font-size: 24px;
+      font-size: 32px;
       line-height: 1;
     }
     
@@ -1044,7 +1044,7 @@ body.dark-mode #summary-content * {
       margin: 0;
       padding-top: 0.3rem;
     }
-    ul.results-list > li > a { font-weight: bold; color: #467886;   font-size: 0.95em;
+    ul.results-list > li > a { font-weight: bold; color: #467886;   font-size: 0.9em;
 }
     ul.sub-headings { list-style-type: none; padding-left: 1.5em; margin: 0.25em 0; }
     ul.sub-headings li::before { content: "– "; color: #333; }
@@ -1058,11 +1058,11 @@ body.dark-mode #summary-content * {
     
     .paragraph { 
       margin: 0.8em 0;
-      line-height: 1.45;
+      line-height: 1.4;
     }
     
     #viewer {
-      line-height: 1.45;
+      line-height: 1.4;
     }
     
     #viewer .paragraph {
@@ -1071,7 +1071,7 @@ body.dark-mode #summary-content * {
     
     #viewer p {
       margin: 0.8em 0;
-      line-height: 1.45;
+      line-height: 1.6;
     }
     
     #viewer .highlighted-paragraph {
@@ -1148,6 +1148,43 @@ body.dark-mode .ga-reference {
 
 body.dark-mode .depth-btn {
   border-color: #7EB8C8 !important;
+}
+
+
+/* PATCH: GA-Referenzen im Darkmode ohne Rahmen */
+body.dark-mode .ga-reference {
+  border: none !important;
+  color: #7EB8C8 !important;
+}
+
+
+/* PATCH: GA-Referenzen ohne Hintergrund, ohne Rahmen und automatisch in Klammern */
+.ga-reference {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #467886;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+body.dark-mode .ga-reference {
+  color: #7EB8C8 !important;
+}
+
+.ga-reference::before {
+  content: "(";
+}
+
+.ga-reference::after {
+  content: ")";
+}
+
+
+/* PATCH: Klammern im Darkmode in normaler heller Textfarbe */
+body.dark-mode .ga-reference::before,
+body.dark-mode .ga-reference::after {
+  color: #e0e0e0 !important;
 }
 
 </style>
