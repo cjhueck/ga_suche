@@ -1195,20 +1195,25 @@ body.dark-mode .ga-reference::after {
 }
 
 </style>
-</head>
+<style>
+select option.available-ga {
+  font-weight: bold;
+  color: black;
+}
+</style></head>
 <body>
 <div class="sidebar-toggle" onclick="toggleSidebar()">
 <span id="sidebar-toggle-icon">◄</span>
 </div>
 <div id="sidebar">
 <div id="sidebar-header">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <h1 id="site-title">GA Steiner Suche</h1>
-    <label class="theme-switch">
-      <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
-      <span class="theme-slider"></span>
-    </label>
-  </div>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+<h1 id="site-title">GA Steiner Suche</h1>
+<label class="theme-switch">
+<input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
+<span class="theme-slider"></span>
+</label>
+</div>
 <div class="tab-container">
 <div class="tab-buttons">
 <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
@@ -2608,5 +2613,50 @@ body.dark-mode .ga-reference::after {
       }
     }
   </script>
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+  console.log("[INIT] Lade verfügbare GA-Bände...");
+  const gaFilter = document.getElementById("gaFilter");
+  const thematicGAFilter = document.getElementById("thematicGAFilter");
+
+  if (!gaFilter || !thematicGAFilter) {
+    console.error("[FEHLER] Dropdown-Elemente nicht gefunden!");
+    return;
+  }
+
+  gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+  thematicGAFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+
+  try {
+    const response = await fetch("http://localhost:3003/api/available-ga");
+    if (!response.ok) throw new Error("API-Fehler");
+
+    const data = await response.json();
+    const availableGAs = new Set(data.availableGA.map(e => e.toUpperCase()));
+    console.log("[INFO] Verfügbare GA-Bände:", availableGAs);
+
+    for (let i = 1; i <= 400; i++) {
+      const gaNumber = "GA" + String(i).padStart(3, "0");
+      const isAvailable = availableGAs.has(gaNumber);
+
+      const opt1 = document.createElement("option");
+      opt1.value = gaNumber;
+      opt1.textContent = gaNumber;
+      if (!isAvailable) {
+        opt1.disabled = true;
+        opt1.style.color = "gray";
+      } else {
+        opt1.classList.add("available-ga");
+      }
+
+      const opt2 = opt1.cloneNode(true);
+      gaFilter.appendChild(opt1);
+      thematicGAFilter.appendChild(opt2);
+    }
+  } catch (err) {
+    console.error("[FEHLER] GA-Liste konnte nicht geladen werden:", err);
+  }
+});
+</script>
 </body>
 </html>
