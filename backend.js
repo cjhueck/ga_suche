@@ -1194,7 +1194,47 @@ async function startServer() {
     console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
     console.log('========================================');
     
-    app.listen(PORT, () => {
+    
+// Liste aller verfügbaren GA-Bände basierend auf JSON-Inhalten im aktuellen Verzeichnis
+const fs = require('fs');
+const path = require('path');
+
+app.get('/api/available-ga', async (req, res) => {
+  try {
+    const directoryPath = __dirname; // Kein Unterordner, sondern das Projektverzeichnis selbst
+    const files = fs.readdirSync(directoryPath).filter(file =>
+      /^steiner-full-lectures-[\d]{3}[a-z]?-[\d]{3}[a-z]?\.json$/i.test(file)
+    );
+
+    const gaSet = new Set();
+
+    for (const file of files) {
+      try {
+        const content = fs.readFileSync(path.join(directoryPath, file), 'utf8');
+        const json = JSON.parse(content);
+        if (json.lectures && Array.isArray(json.lectures)) {
+          json.lectures.forEach(lecture => {
+            if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
+              gaSet.add(lecture.gaNumber.toUpperCase());
+            }
+          });
+        }
+      } catch (err) {
+        console.error(`[WARN] Fehler beim Verarbeiten von Datei ${file}:`, err.message);
+      }
+    }
+
+    const result = Array.from(gaSet).sort();
+    console.log("[INFO] Verfügbare GA-Bände aus Inhalt:", result);
+    res.json({ availableGA: result });
+  } catch (error) {
+    console.error("[ERROR] Fehler bei /api/available-ga:", error);
+    res.status(500).json({ error: "Interner Serverfehler" });
+  }
+});
+
+
+app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
       console.log(`\nVerfügbare Endpoints:`);
       console.log(`   GET  /debug/status`);
