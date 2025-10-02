@@ -1,9 +1,244 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <title>GA Steiner Suche - Unified</title>
-  <style>
+<meta charset="utf-8"/>
+<title>GA Steiner Suche - Unified</title>
+<style>
+#themes {
+  padding-top: 0.2rem !important;
+  outline: 2px dashed red !important;
+}
+
+#themeInput {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.3rem !important;
+  outline: 2px dashed blue !important;
+}
+
+.theme-options {
+  margin-top: 0 !important;
+  margin-bottom: 0.3rem !important;
+  outline: 2px dashed green !important;
+}
+
+#theme-results {
+  font-family: monospace !important;
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
+  outline: 2px dashed orange !important;
+}
+
+#themes {
+  padding-top: 0.2rem !important;
+}
+
+#themeInput {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.theme-options {
+  margin-top: 0 !important;
+  margin-bottom: 0.3rem !important;
+}
+
+#theme-results {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+#themes-tab-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+#themes-tab-content * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  gap: 0 !important;
+}
+
+/* Etwas Luft nur da, wo es nötig ist – gezielt */
+#themes-tab-content textarea {
+  margin-bottom: 0.3rem !important;
+}
+
+#themes-tab-content select {
+  margin-right: 0.3rem !important;
+}
+
+#themes-tab-content button {
+  margin-top: 0.3rem !important;
+}
+
+/* Abstand oben reduzieren */
+#themes-tab-content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Abstand zwischen Textarea und Dropdown-Container */
+#themes-tab-content textarea + div {
+  margin-top: 0.2rem !important;
+}
+
+/* Abstand zwischen Dropdowns und Buttons */
+#themes-tab-content textarea + div + div {
+  margin-top: 0.2rem !important;
+}
+
+#themes-tab-content textarea {
+  margin-top: 0.2rem !important;
+  margin-bottom: 0.2rem !important;
+}
+
+#themes-tab-content .theme-dropdowns {
+  margin-bottom: 0.2rem !important;
+}
+
+#themes-tab-content .theme-options {
+  margin-top: 0.2rem !important;
+}
+
+#themes-tab-content {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Verringert Abstand zwischen Tab-Leiste und Textarea */
+#themes-tab-content > textarea,
+#themes-tab-content textarea {
+  margin-top: 0.3rem !important;
+  display: block;
+}
+
+/* Verringert Abstand zwischen Textarea und dem Block mit Dropdowns */
+#themes-tab-content textarea + div {
+  margin-top: 0.3rem !important;
+}
+
+/* Reduziert vertikalen Abstand unterhalb der Menüs */
+#themes-tab-content .theme-options {
+  margin-top: 0.3rem !important;
+}
+
+/* Sicherheitsregel für alles im Tab-Inhalt */
+#themes-tab-content * {
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
+
+/* Abstand zwischen Tabs und Textarea */
+#themes-tab-content textarea {
+  margin-top: 0.3rem !important;
+}
+
+/* Abstand zwischen Textarea und Dropdowns */
+#theme-inputs {
+  margin-top: 0.2rem !important;
+  gap: 0.4rem !important;
+}
+
+/* Abstand unterhalb der Menüs */
+#theme-options {
+  margin-top: 0.2rem !important;
+}
+
+/* Abstand zwischen Tabs und Eingabefeldern */
+#themes-tab-content {
+  margin-top: 0.3rem !important;
+  padding-top: 0 !important;
+}
+
+/* Abstand zwischen Eingabefeld und Dropdown-Menüs */
+#theme-inputs {
+  gap: 0.5rem !important;
+  margin-bottom: 0.3rem !important;
+}
+
+/* Schrift im Themen-Ausgabefenster anpassen */
+.theme-section {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;  /* etwas größerer Zeilenabstand */
+  color: #333 !important;
+}
+
+#theme-results {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.theme-section {
+  margin-top: 0.5rem !important;
+  padding-top: 0 !important;
+}
+
+#searchInfo {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+#results {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.summary-buttons {
+  padding-bottom: 0.2rem !important;
+}
+
+#summary-content {
+  padding-top: 0.5rem !important;
+  margin-top: 0 !important;
+}
+
+#toc-list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+
+#searchInfo {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+ul.results-list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  line-height: 1.3;
+}
+
+ul.results-list {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#results {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+body.dark-mode #summary-content,
+body.dark-mode #summary-content * {
+  color: #7EB8C8 !important;
+}
+
+.search-input,
+.filter-dropdown {
+  font-size: 0.9em;
+  font-size: 0.9em;
+}
+
+#site-title { font-size: 1.8rem; 
+            margin-left: 0.5rem;
+            margin-top: 0.5rem; }
+
     html, body { scroll-behavior: auto; }
     body {
       margin: 0;
@@ -26,7 +261,8 @@
     body.dark-mode #sidebar-header {
       background-color: #2a2a2a;
       border-bottom-color: #404040;
-    }
+      padding: 0.5rem;
+}
     
     body.dark-mode #main {
       background-color: #1a1a1a;
@@ -89,14 +325,9 @@
       color: #d0d0d0;
     }
     
-    body.dark-mode #summary-content {
-      color: #b0b0b0;
-    }
     
-    body.dark-mode #summary-content h3,
-    body.dark-mode #summary-content h4 {
-      color: #7eb8c8;
-    }
+    
+    
     
     body.dark-mode .toc-item {
       border-bottom-color: #404040;
@@ -110,21 +341,14 @@
       color: #7eb8c8 !important;
     }
     
-    body.dark-mode #summary-content a {
-      color: #5eb0cb !important;
-    }
     
-    body.dark-mode #summary-content a:hover {
-      color: #7eb8c8 !important;
-    }
     
-    body.dark-mode #status {
-      color: #b0b0b0;
-    }
     
-    body.dark-mode ul.results-list > li > a {
+    
+    body.dark-mode body.dark-mode ul.results-list > li > a {
       color: #7eb8c8;
-    }
+      font-size: 0.95em;
+}
     
     body.dark-mode .tab-button {
       color: #999;
@@ -165,8 +389,8 @@
     .theme-switch {
       position: relative;
       display: inline-block;
-      width: 50px;
-      height: 24px;
+      width: 40px;
+      height: 20px;
     }
     
     .theme-switch input {
@@ -190,9 +414,9 @@
     .theme-slider:before {
       position: absolute;
       content: "☀️";
-      height: 18px;
-      width: 18px;
-      left: 3px;
+      height: 14px;
+      width: 14px;
+      left: 4px;
       bottom: 3px;
       background-color: white;
       transition: 0.3s;
@@ -208,7 +432,7 @@
     }
     
     input:checked + .theme-slider:before {
-      transform: translateX(26px);
+      transform: translateX(18px);
       content: "🌙";
     }
     
@@ -232,16 +456,17 @@
     
     #sidebar-header {
       flex-shrink: 0;
-      padding: 1rem;
+      padding: 0.5rem;
       background: inherit;
       overflow-y: auto;
       max-height: 60vh;
-    }
+      padding: 0.5rem;
+}
     
     #sidebar-content {
       flex: 1;
       overflow-y: auto;
-      padding: 0.25rem 1rem 1rem 1rem;
+      padding: 0rem 1rem 1rem 1rem;
     }
     
     #sidebar.collapsed {
@@ -577,14 +802,15 @@
     .thematic-input {
       width: 100%;
       padding: 10px;
-      margin: 8px 0;
+      margin: 0px 0;
       box-sizing: border-box;
       border: 1px solid #467886;
       background: white;
-      font-size: 16px;
+      font-size: 15px;
       min-height: 80px;
       resize: vertical;
       border-radius: 4px;
+      line-height: 20px; 
     }
     
     .semantic-options {
@@ -683,7 +909,8 @@
     }
     
     .answer-content {
-      line-height: 1.6;
+      line-height: 1.3;
+      font-size: 0.9em; 
     }
     
     .answer-content h1 {
@@ -697,7 +924,7 @@
     }
     
     .answer-content h3 {
-      font-size: 1em;
+      font-size: 1.0em;
       margin: 0.3em 0 0.2em 0;
       font-weight: 600;
       display: block;
@@ -738,8 +965,9 @@
       box-sizing: border-box;
       border: 1px solid #ccc;
       background: white;
-      font-size: 1em;
-    }
+      font-size: 0.9em;
+      font-size: 0.9em;
+}
     
     .filter-row {
       display: flex;
@@ -749,14 +977,16 @@
     
     .filter-dropdown {
       flex: 1;
-      height: 2.2em;
+      height: auto;
+      min-height: 2.2em;
       padding: 8px;
       margin: 4px 0;
-      font-size: 0.95em;
+      font-size: 0.9em;
       box-sizing: border-box;
       border: 1px solid #ccc;
       background: white;
-    }
+      font-size: 0.9em;
+}
     
     .filter-dropdown:disabled {
       background: #f5f5f5;
@@ -806,7 +1036,6 @@
       font-style: italic;
     }
     
-    #status { margin-left: 0.5em; color: #666; }
     #note { margin-top: 0.5rem; font-size: 0.9em; color: #666; }
     
     ul.results-list { 
@@ -815,7 +1044,8 @@
       margin: 0;
       padding-top: 0.3rem;
     }
-    ul.results-list > li > a { font-weight: bold; color: #467886; }
+    ul.results-list > li > a { font-weight: bold; color: #467886;   font-size: 0.95em;
+}
     ul.sub-headings { list-style-type: none; padding-left: 1.5em; margin: 0.25em 0; }
     ul.sub-headings li::before { content: "– "; color: #333; }
     a { color: #467886; text-decoration: none; cursor: pointer; }
@@ -881,151 +1111,169 @@
       font-style: italic;
       margin-bottom: 1rem;
     }
-  </style>
+  
+/* PATCH: Vereinheitlichung der blauen Farbe im Darkmode (#7EB8C8) */
+
+body.dark-mode ul.results-list > li > a {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode .toc-item a {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode #viewer h3,
+body.dark-mode #viewer h4 {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode #summary-content h3,
+body.dark-mode #summary-content h4 {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode #document-title a {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode .tab-button.active {
+  color: #7EB8C8 !important;
+  border-bottom-color: #7EB8C8 !important;
+}
+
+body.dark-mode .ga-reference {
+  color: #7EB8C8 !important;
+  border-color: #7EB8C8 !important;
+}
+
+body.dark-mode .depth-btn {
+  border-color: #7EB8C8 !important;
+}
+
+</style>
 </head>
 <body>
-  <div class="sidebar-toggle" onclick="toggleSidebar()">
-    <span id="sidebar-toggle-icon">◄</span>
+<div class="sidebar-toggle" onclick="toggleSidebar()">
+<span id="sidebar-toggle-icon">◄</span>
+</div>
+<div id="sidebar">
+<div id="sidebar-header">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1 id="site-title">GA Steiner Suche</h1>
+    <label class="theme-switch">
+      <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
+      <span class="theme-slider"></span>
+    </label>
   </div>
-  
-  <div id="sidebar">
-    <div id="sidebar-header">
-      <h1>GA Steiner Suche</h1>
-      
-      <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-        <label class="theme-switch">
-          <input type="checkbox" id="theme-checkbox" onchange="toggleThemeCheckbox()">
-          <span class="theme-slider"></span>
-        </label>
-      </div>
-      
-      <div class="tab-container">
-        <div class="tab-buttons">
-          <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
-          <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
-        </div>
-        
-        <div id="keyword-tab" class="tab-content active">
-          <div style="display:flex; gap:8px; margin-top:4px;">
-            <div style="flex:1; position: relative;">
-              <input class="search-input" id="word1" type="text" placeholder="Suchwort 1" list="word1-history" onkeypress="handleKeywordKeypress(event)" oninput="updateProximityFilter()" onfocus="this.select()">
-              <datalist id="word1-history"></datalist>
-            </div>
-            <div style="flex:1; position: relative;">
-              <input class="search-input" id="word2" type="text" placeholder="Suchwort 2 (optional)" list="word2-history" oninput="updateProximityFilter()" onfocus="this.select()">
-              <datalist id="word2-history"></datalist>
-            </div>
-          </div>
-          
-          <div class="filter-row">
-            <select id="yearFilter" class="filter-dropdown">
-              <option value="">alle Jahre</option>
-            </select>
-            
-            <select id="gaFilter" class="filter-dropdown">
-              <option value="">alle GA-Bände</option>
-            </select>
-            
-            <select id="proximityFilter" class="filter-dropdown" disabled>
-              <option value="">unbeschränkt</option>
-              <option value="1">ein Absatz</option>
-              <option value="2">zwei Absätze</option>
-              <option value="3">drei Absätze</option>
-            </select>
-          </div>
-          
-          <div class="radio-group">
-            <label><input type="radio" name="scope" value="fulltext" checked><span> Volltext</span></label>
-            <label><input type="radio" name="scope" value="title"><span> Titel</span></label>
-            <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
-          </div>
-          
-          <div id="searchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
-            <span id="serverInfo"></span>
-            <span id="resultInfo"></span>
-          </div>
-        </div>
-        
-        <div id="thematic-tab" class="tab-content">
-          <textarea class="thematic-input" id="thematicQuery" 
-                    placeholder="Stellen Sie eine thematische Frage, z.B.:&#10;&#10;• Wie sieht Steiner das Verhältnis von Kant zu Goethe?&#10;• Was kritisiert Steiner an Kants Erkenntnistheorie?&#10;• Welche Rolle spielt die Anschauung bei Kant?"
-                    onkeydown="handleThematicKeydown(event)"></textarea>
-          
-          <div class="semantic-options">
-            <div class="filter-row">
-              <select id="thematicLimitFilter" class="filter-dropdown">
-                <option value="30">30 Quellen</option>
-                <option value="50">50 Quellen</option>
-                <option value="100">100 Quellen</option>
-              </select>
-              <select id="thematicGAFilter" class="filter-dropdown">
-                <option value="">Alle GA-Bände</option>
-                <option value="GA052">GA052</option>
-                <option value="GA058">GA058</option>
-              </select>
-            </div>
-            
-            <div class="depth-buttons">
-              <button class="depth-btn active" data-depth="allgemein">Allgemein</button>
-              <button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
-              <button class="depth-btn primary" onclick="performThematicSearch()" id="thematicSearchBtn" 
-                      style="margin-left: auto;">
+<div class="tab-container">
+<div class="tab-buttons">
+<button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
+<button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
+</div>
+<div class="tab-content active" id="keyword-tab">
+<div style="display:flex; gap:8px; margin-top:4px;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" oninput="updateProximityFilter()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
+<datalist id="word1-history"></datalist>
+</div>
+<div style="flex:1; position: relative;">
+<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" oninput="updateProximityFilter()" placeholder="Suchwort 2 (optional)" type="text"/>
+<datalist id="word2-history"></datalist>
+</div>
+</div>
+<div class="filter-row">
+<select class="filter-dropdown" id="yearFilter">
+<option value="">alle Jahre</option>
+</select>
+<select class="filter-dropdown" id="gaFilter">
+<option value="">alle GA-Bände</option>
+</select>
+<select class="filter-dropdown" disabled="" id="proximityFilter">
+<option value="">unbeschränkt</option>
+<option value="1">ein Absatz</option>
+<option value="2">zwei Absätze</option>
+<option value="3">drei Absätze</option>
+</select>
+</div>
+<div class="radio-group">
+<label><input checked="" name="scope" type="radio" value="fulltext"/><span> Volltext</span></label>
+<label><input name="scope" type="radio" value="title"/><span> Titel</span></label>
+<button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
+</div>
+<span id="status" style="display:none"></span>
+<div id="searchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.3rem; margin-bottom: 0.1rem; padding-bottom: 0.1rem; border-bottom: 1px solid #ddd;">
+<span id="serverInfo"></span>
+<span id="resultInfo"></span>
+</div>
+</div>
+<div class="tab-content" id="thematic-tab">
+<textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage, z.B.:
+• Wie sieht Steiner das Verhältnis von Kant zu Goethe?
+• Welche Bedeutung hat Goethes Märchen für die Anthroposophie?
+• Wie ist das Verhältnis von Ätherleib und Astralleib?"></textarea>
+<div class="semantic-options">
+<div class="filter-row">
+<select class="filter-dropdown" id="thematicLimitFilter">
+<option value="30">30 Quellen</option>
+<option value="50">50 Quellen</option>
+<option value="100">100 Quellen</option>
+</select>
+<select class="filter-dropdown" id="thematicGAFilter">
+<option value="">Alle GA-Bände</option>
+<option value="GA052">GA052</option>
+<option value="GA058">GA058</option>
+</select>
+</div>
+<div class="depth-buttons">
+<button class="depth-btn active" data-depth="allgemein">Allgemein</button>
+<button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
+<button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
                 Suche starten
               </button>
-            </div>
-          </div>
-          
-          <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
-            <span id="thematicServerInfo"></span>
-          </div>
-        </div>
-      </div>
-      
-      <span id="status"></span>
-      <div id="note" style="display: none;"></div>
-    </div>
-    
-    <div id="sidebar-content">
-      <div id="results"></div>
-    </div>
-  </div>
-
-  <div class="resize-handle" id="resizeHandle"></div>
-
-  <div id="main-container">
-    <div id="main">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
-      </div>
-      <div id="viewer"></div>
-    </div>
-    
-    <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
-    
-    <div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
-      <span id="summary-panel-toggle-icon">◄</span>
-    </div>
-    
-    <div id="summary-panel">
-      <div class="summary-buttons">
-        <button class="search-button" onclick="closeAndShowOriginal()" id="summaryCloseBtn" disabled>
+</div>
+</div>
+<div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
+<span id="thematicServerInfo"></span>
+</div>
+</div>
+</div>
+<div id="note" style="display: none;"></div>
+</div>
+<div id="sidebar-content">
+<div id="results"></div>
+</div>
+</div>
+<div class="resize-handle" id="resizeHandle"></div>
+<div id="main-container">
+<div id="main">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
+</div>
+<div id="viewer"></div>
+</div>
+<div class="vertical-resize-handle" id="verticalResizeHandle"></div>
+<div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
+<span id="summary-panel-toggle-icon">◄</span>
+</div>
+<div id="summary-panel">
+<div class="summary-buttons">
+<button class="search-button" disabled="" id="summaryCloseBtn" onclick="closeAndShowOriginal()">
           Original
         </button>
-        <button class="search-button" onclick="regenerateSummary()" id="regenerateBtn" disabled>
+<button class="search-button" disabled="" id="regenerateBtn" onclick="regenerateSummary()">
           Neu
         </button>
-        <button class="search-button" onclick="toggleAllH4()" id="toggleH4Btn" disabled>
-          &#x2227;
+<button class="search-button" disabled="" id="toggleH4Btn" onclick="toggleAllH4()">
+          ∧
         </button>
-      </div>
-      <div id="summary-content">
-        <div id="toc-list"></div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script>
+</div>
+<div id="summary-content">
+<div id="toc-list"></div>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
     const API_BASE = 'https://ga-suche.onrender.com';
     let currentSources = [];
     let searchResults = [];
@@ -1211,7 +1459,7 @@
         button.disabled = true;
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
-        document.getElementById('status').innerHTML = '<span class="loading">Suche läuft...</span>';
+        
         
         const gaFilter = document.getElementById('gaFilter').value;
         const proximityFilter = document.getElementById('proximityFilter').value;
@@ -1254,7 +1502,7 @@
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
-        document.getElementById('status').textContent = '';
+        
       }
     }
 
@@ -1503,7 +1751,7 @@
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
-        document.getElementById('status').textContent = '';
+        
       }
     }
 
@@ -1618,7 +1866,7 @@
         try {
           closeBtn.disabled = true;
           regenerateBtn.disabled = true;
-          tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">zusammenfassen...</p>';
+          tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">bitte warten...</p>';
           
           const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
             method: 'POST',
@@ -1961,8 +2209,22 @@
     }
 
     async function showLecture(lectureId, targetIndex, keywords = []) {
+
+      // Panel bei neuem Vortrag immer schließen
+      const summaryPanel = document.getElementById('summary-panel');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
+      const tocList = document.getElementById('toc-list');
+      if (summaryPanel.classList.contains('visible')) {
+        summaryPanel.classList.remove('visible');
+        resizeHandle.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '24px';
+        if (tocList) tocList.innerHTML = '';
+      }
+
       try {
-        document.getElementById('status').innerHTML = '<span class="loading">Lade Vortrag...</span>';
+        
         
         const summaryPanel = document.getElementById('summary-panel');
         const resizeHandle = document.getElementById('verticalResizeHandle');
@@ -2016,7 +2278,7 @@
           </div>
         `;
       } finally {
-        document.getElementById('status').textContent = '';
+        
       }
     }
 
