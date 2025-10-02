@@ -2605,7 +2605,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   thematicGAFilter.innerHTML = '<option value="">alle GA-Bände</option>';
 
   try {
-    const response = await fetch("http://localhost:3003/api/available-ga");
+    const response = await fetch(`${API_BASE}/api/available-ga`);
     if (!response.ok) throw new Error("API-Fehler");
 
     const data = await response.json();
