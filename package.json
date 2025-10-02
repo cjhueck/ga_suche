@@ -6,11 +6,24 @@
     "start": "node backend.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "description": "",
+  "main": "backend.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjhueck/ga_suche.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjhueck/ga_suche/issues"
+  },
+  "homepage": "https://github.com/cjhueck/ga_suche#readme"
 }

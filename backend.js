@@ -1105,7 +1105,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
 app.get('/api/full-lecture/:lectureId', (req, res) => {
   try {
-    const lectureId = req.params.lectureId.toUpperCase();
+    const lectureId = req.params.lectureId;
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
@@ -1135,7 +1135,7 @@ app.get('/api/full-lecture/:lectureId', (req, res) => {
 
 app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
   try {
-    const lectureId = `${req.params.gaNumber.toUpperCase()}/${req.params.lectureNum}`;
+    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
@@ -1145,7 +1145,7 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
       console.error(`   Nicht gefunden: ${lectureId}`);
       return res.status(404).json({ 
         error: `Vortrag nicht gefunden: ${lectureId}`,
-        available: Object.keys(fullLectures).filter(k => k.startsWith(req.params.gaNumber.toUpperCase())).slice(0, 10)
+        available: Object.keys(fullLectures).filter(k => k.startsWith(req.params.gaNumber)).slice(0, 10)
       });
     }
     
@@ -1171,6 +1171,49 @@ app.get('/api/lectures/list', (req, res) => {
   });
 });
 
+// Liste aller verfügbaren GA-Bände basierend auf JSON-Inhalten
+app.get('/api/available-ga', async (req, res) => {
+  try {
+    const directoryPath = __dirname;
+    const allFiles = require('fs').readdirSync(directoryPath);
+    
+    console.log('[DEBUG] Alle Dateien im Verzeichnis:', allFiles.filter(f => f.includes('steiner')));
+    
+    const files = allFiles.filter(file =>
+      /^steiner-full-lectures-[\d]{3}[a-z]?-[\d]{3}[a-z]?.*\.json$/i.test(file)
+    );
+    
+    console.log('[DEBUG] Gefilterte Dateien:', files);
+
+    const gaSet = new Set();
+
+    for (const file of files) {
+      try {
+        const content = require('fs').readFileSync(path.join(directoryPath, file), 'utf8');
+        const json = JSON.parse(content);
+        console.log(`[DEBUG] Datei ${file}: ${json.lectures?.length || 0} Lectures`);
+        
+        if (json.lectures && Array.isArray(json.lectures)) {
+          json.lectures.forEach(lecture => {
+            if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
+              gaSet.add(lecture.gaNumber);
+            }
+          });
+        }
+      } catch (err) {
+        console.error(`[WARN] Fehler beim Verarbeiten von Datei ${file}:`, err.message);
+      }
+    }
+
+    const result = Array.from(gaSet).sort();
+    console.log("[INFO] Verfügbare GA-Bände:", result);
+    res.json({ availableGA: result });
+  } catch (error) {
+    console.error("[ERROR] Fehler bei /api/available-ga:", error);
+    res.status(500).json({ error: "Interner Serverfehler" });
+  }
+});
+
 // ============================================================================
 // SERVER START
 // ============================================================================
@@ -1194,47 +1237,7 @@ async function startServer() {
     console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
     console.log('========================================');
     
-    
-// Liste aller verfügbaren GA-Bände basierend auf JSON-Inhalten im aktuellen Verzeichnis
-const fs = require('fs');
-const path = require('path');
-
-app.get('/api/available-ga', async (req, res) => {
-  try {
-    const directoryPath = __dirname; // Kein Unterordner, sondern das Projektverzeichnis selbst
-    const files = fs.readdirSync(directoryPath).filter(file =>
-      /^steiner-full-lectures-[\d]{3}[a-z]?-[\d]{3}[a-z]?\.json$/i.test(file)
-    );
-
-    const gaSet = new Set();
-
-    for (const file of files) {
-      try {
-        const content = fs.readFileSync(path.join(directoryPath, file), 'utf8');
-        const json = JSON.parse(content);
-        if (json.lectures && Array.isArray(json.lectures)) {
-          json.lectures.forEach(lecture => {
-            if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
-              gaSet.add(lecture.gaNumber.toUpperCase());
-            }
-          });
-        }
-      } catch (err) {
-        console.error(`[WARN] Fehler beim Verarbeiten von Datei ${file}:`, err.message);
-      }
-    }
-
-    const result = Array.from(gaSet).sort();
-    console.log("[INFO] Verfügbare GA-Bände aus Inhalt:", result);
-    res.json({ availableGA: result });
-  } catch (error) {
-    console.error("[ERROR] Fehler bei /api/available-ga:", error);
-    res.status(500).json({ error: "Interner Serverfehler" });
-  }
-});
-
-
-app.listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
       console.log(`\nVerfügbare Endpoints:`);
       console.log(`   GET  /debug/status`);
@@ -1245,6 +1248,7 @@ app.listen(PORT, () => {
       console.log(`   GET  /api/full-lecture/:lectureId`);
       console.log(`   GET  /api/full-lecture/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/lectures/list`);
+      console.log(`   GET  /api/available-ga`);
       console.log(`\n✓ System bereit!\n`);
     });
     

@@ -1400,7 +1400,6 @@ select option.available-ga {
       });
       
       populateYearFilter();
-      populateGAFilters();
       initResizeHandle();
       initVerticalResizeHandle();
       checkServerConnection();
@@ -1430,28 +1429,6 @@ select option.available-ga {
         option.value = year;
         option.textContent = year;
         yearFilter.appendChild(option);
-      }
-    }
-
-    function populateGAFilters() {
-      const gaFilter = document.getElementById('gaFilter');
-      const thematicGAFilter = document.getElementById('thematicGAFilter');
-      
-      gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
-      thematicGAFilter.innerHTML = '<option value="">alle GA-Bände</option>';
-      
-      for (let num = 1; num <= 400; num++) {
-        const gaNumber = 'GA' + String(num).padStart(3, '0');
-        
-        const option1 = document.createElement('option');
-        option1.value = gaNumber;
-        option1.textContent = gaNumber;
-        gaFilter.appendChild(option1);
-        
-        const option2 = document.createElement('option');
-        option2.value = gaNumber;
-        option2.textContent = gaNumber;
-        thematicGAFilter.appendChild(option2);
       }
     }
 
@@ -2632,27 +2609,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!response.ok) throw new Error("API-Fehler");
 
     const data = await response.json();
-    const availableGAs = new Set(data.availableGA.map(e => e.toUpperCase()));
+    const availableGAs = data.availableGA;
     console.log("[INFO] Verfügbare GA-Bände:", availableGAs);
 
-    for (let i = 1; i <= 400; i++) {
-      const gaNumber = "GA" + String(i).padStart(3, "0");
-      const isAvailable = availableGAs.has(gaNumber);
+    // Sortiere die GA-Nummern
+    availableGAs.sort();
 
+    // Füge nur die verfügbaren GA-Bände hinzu
+    availableGAs.forEach(gaNumber => {
       const opt1 = document.createElement("option");
       opt1.value = gaNumber;
       opt1.textContent = gaNumber;
-      if (!isAvailable) {
-        opt1.disabled = true;
-        opt1.style.color = "gray";
-      } else {
-        opt1.classList.add("available-ga");
-      }
+      opt1.classList.add("available-ga");
 
       const opt2 = opt1.cloneNode(true);
       gaFilter.appendChild(opt1);
       thematicGAFilter.appendChild(opt2);
-    }
+    });
   } catch (err) {
     console.error("[FEHLER] GA-Liste konnte nicht geladen werden:", err);
   }
