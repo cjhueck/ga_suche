@@ -2,6 +2,7 @@
   "lectures": [
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "1",
       "ID": "GA051/1",
       "title": "WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART",
@@ -765,6 +766,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "2",
       "ID": "GA051/2",
       "title": "WILLIAM SHAKESPEARE",
@@ -892,6 +894,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "3",
       "ID": "GA051/3",
       "title": "ÜBER RÖMISCHE GESCHICHTE",
@@ -1235,6 +1238,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "4",
       "ID": "GA051/4",
       "title": "ERSTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -1522,6 +1526,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "5",
       "ID": "GA051/5",
       "title": "ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -1797,6 +1802,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "6",
       "ID": "GA051/6",
       "title": "DRITTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -2104,6 +2110,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "7",
       "ID": "GA051/7",
       "title": "VIERTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -2411,6 +2418,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "8",
       "ID": "GA051/8",
       "title": "FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -2726,6 +2734,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "9",
       "ID": "GA051/9",
       "title": "SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -2997,6 +3006,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "10",
       "ID": "GA051/10",
       "title": "SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -3284,6 +3294,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "11",
       "ID": "GA051/11",
       "title": "ACHTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -3603,6 +3614,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "12",
       "ID": "GA051/12",
       "title": "NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -3974,6 +3986,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "13",
       "ID": "GA051/13",
       "title": "ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS",
@@ -4285,6 +4298,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "14",
       "ID": "GA051/14",
       "title": "ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
@@ -4424,6 +4438,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "15",
       "ID": "GA051/15",
       "title": "ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
@@ -4579,6 +4594,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "16",
       "ID": "GA051/16",
       "title": "DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
@@ -4766,6 +4782,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "17",
       "ID": "GA051/17",
       "title": "ERSTER VORTRAG",
@@ -4857,6 +4874,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "18",
       "ID": "GA051/18",
       "title": "ZWEITER VORTRAG",
@@ -4972,6 +4990,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "19",
       "ID": "GA051/19",
       "title": "DRITTER VORTRAG",
@@ -5055,6 +5074,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "20",
       "ID": "GA051/20",
       "title": "VIERTER VORTRAG",
@@ -5130,6 +5150,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "21",
       "ID": "GA051/21",
       "title": "FÜNFTER VORTRAG",
@@ -5229,6 +5250,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "22",
       "ID": "GA051/22",
       "title": "SECHSTER VORTRAG",
@@ -5328,6 +5350,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "23",
       "ID": "GA051/23",
       "title": "SIEBENTER VORTRAG",
@@ -5415,6 +5438,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "24",
       "ID": "GA051/24",
       "title": "ACHTER VORTRAG",
@@ -5502,6 +5526,7 @@
     },
     {
       "gaNumber": "GA051",
+      "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
       "lectureNumber": "25",
       "ID": "GA051/25",
       "title": "NEUNTER VORTRAG",
@@ -5593,6 +5618,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "1",
       "ID": "GA052/1",
       "title": "DAS EWIGE UND DAS VERGÄNGLICHE DES MENSCHEN",
@@ -5804,6 +5830,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "2",
       "ID": "GA052/2",
       "title": "DER URSPRUNG DER SEELE",
@@ -5991,6 +6018,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "3",
       "ID": "GA052/3",
       "title": "DAS WESEN DER GOTTHEIT VOM THEOSOPHISCHEN STANDPUNKT",
@@ -6182,6 +6210,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "4",
       "ID": "GA052/4",
       "title": "THEOSOPHIE UND CHRISTENTUM",
@@ -6361,6 +6390,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "5",
       "ID": "GA052/5",
       "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE I",
@@ -6596,6 +6626,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "6",
       "ID": "GA052/6",
       "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE II",
@@ -6719,6 +6750,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "7",
       "ID": "GA052/7",
       "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE III",
@@ -6858,6 +6890,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "8",
       "ID": "GA052/8",
       "title": "THEOSOPHISCHE SEELENLEHRE I KÖRPER UND SEELE",
@@ -6965,6 +6998,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "9",
       "ID": "GA052/9",
       "title": "THEOSOPHISCHE SEELENLEHRE II SEELE UND MENSCHENSCHICKSAL",
@@ -7248,6 +7282,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "10",
       "ID": "GA052/10",
       "title": "THEOSOPHISCHE SEELENLEHRE III SEELE UND GEIST",
@@ -7519,6 +7554,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "11",
       "ID": "GA052/11",
       "title": "THEOSOPHIE UND SPIRITISMUS",
@@ -7734,6 +7770,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "12",
       "ID": "GA052/12",
       "title": "THEOSOPHIE UND SOMNAMBULISMUS",
@@ -8009,6 +8046,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "13",
       "ID": "GA052/13",
       "title": "DIE GESCHICHTE DES SPIRITISMUS",
@@ -8204,6 +8242,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "14",
       "ID": "GA052/14",
       "title": "DIE GESCHICHTE DES HYPNOTISMUS UND DES SOMNAMBULISMUS",
@@ -8543,6 +8582,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "15",
       "ID": "GA052/15",
       "title": "WAS FINDET DER HEUTIGE MENSCH IN DER THEOSOPHIE",
@@ -8774,6 +8814,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "16",
       "ID": "GA052/16",
       "title": "WAS WISSEN UNSERE GELEHRTEN VON THEOSOPHIE",
@@ -9101,6 +9142,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "17",
       "ID": "GA052/17",
       "title": "IST DIE THEOSOPHIE UNWISSENSCHAFTLICH",
@@ -9348,6 +9390,7 @@
     },
     {
       "gaNumber": "GA052",
+      "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
       "lectureNumber": "18",
       "ID": "GA052/18",
       "title": "IST DIE THEOSOPHIE BUDDHISTISCHE PROPAGANDA",
@@ -9643,6 +9686,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "1",
       "ID": "GA053/1",
       "title": "WAS FINDET DER MODERNE MENSCH IN DER THEOSOPHIE",
@@ -9998,6 +10042,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "2",
       "ID": "GA053/2",
       "title": "DIE MENSCHLICHE WESENHEIT",
@@ -10241,6 +10286,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "3",
       "ID": "GA053/3",
       "title": "REINKARNATION UND KARMA",
@@ -10612,6 +10658,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "4",
       "ID": "GA053/4",
       "title": "THEOSOPHIE UND DARWIN",
@@ -10847,6 +10894,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "5",
       "ID": "GA053/5",
       "title": "THEOSOPHIE UND TOLSTOI",
@@ -11014,6 +11062,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "6",
       "ID": "GA053/6",
       "title": "DIE SEELENWELT",
@@ -11145,6 +11194,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "7",
       "ID": "GA053/7",
       "title": "DAS GEISTERLAND",
@@ -11372,6 +11422,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "8",
       "ID": "GA053/8",
       "title": "FRIEDRICH NIETZSCHE IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -11615,6 +11666,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "9",
       "ID": "GA053/9",
       "title": "VOM INNEREN LEBEN",
@@ -11846,6 +11898,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "10",
       "ID": "GA053/10",
       "title": "URSPRUNG UND ZIEL DES MENSCHEN",
@@ -12153,6 +12206,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "11",
       "ID": "GA053/11",
       "title": "DIE ENTSTEHUNG DER ERDE",
@@ -12400,6 +12454,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "12",
       "ID": "GA053/12",
       "title": "DIE GROSSEN EINGEWEIHTEN",
@@ -12595,6 +12650,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "13",
       "ID": "GA053/13",
       "title": "IBSENS GEISTESART",
@@ -12770,6 +12826,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "14",
       "ID": "GA053/14",
       "title": "DIE ZUKUNFT DES MENSCHEN",
@@ -13077,6 +13134,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "15",
       "ID": "GA053/15",
       "title": "GOETHES EVANGELIUM",
@@ -13212,6 +13270,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "16",
       "ID": "GA053/16",
       "title": "GOETHES GEHEIME OFFENBARUNG DAS MÄRCHEN VON DER GRÜNEN SCHLANGE UND DER SCHÖNEN LILIE",
@@ -13475,6 +13534,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "17",
       "ID": "GA053/17",
       "title": "GOETHES GEHEIME OFFENBARUNG DAS MÄRCHEN VON DER GRÜNEN SCHLANGE UND DER SCHÖNEN LILIE",
@@ -13710,6 +13770,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "18",
       "ID": "GA053/18",
       "title": "GOETHES GEHEIME OFFENBARUNG «DIE NEUE MELUSINE» UND «DER NEUE PARIS»",
@@ -13941,6 +14002,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "19",
       "ID": "GA053/19",
       "title": "SCHILLER UND DIE GEGENWART",
@@ -14152,6 +14214,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "20",
       "ID": "GA053/20",
       "title": "DIE THEOLOGISCHE FAKULTÄT UND DIE THEOSOPHIE",
@@ -14483,6 +14546,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "21",
       "ID": "GA053/21",
       "title": "DIE JURISTISCHE FAKULTÄT UND DIE THEOSOPHIE",
@@ -14734,6 +14798,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "22",
       "ID": "GA053/22",
       "title": "DIE MEDIZINISCHE FAKULTÄT UND DIE THEOSOPHIE",
@@ -14833,6 +14898,7 @@
     },
     {
       "gaNumber": "GA053",
+      "gaTitle": "Ursprung und Ziel des Menschen (1904-1905)",
       "lectureNumber": "23",
       "ID": "GA053/23",
       "title": "DIE PHILOSOPHISCHE FAKULTÄT UND DIE THEOSOPHIE",
@@ -14960,6 +15026,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "1",
       "ID": "GA054/1",
       "title": "HAECKEL",
@@ -15199,6 +15266,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "2",
       "ID": "GA054/2",
       "title": "UNSERE WELTLAGE. KRIEG",
@@ -15466,6 +15534,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "3",
       "ID": "GA054/3",
       "title": "GRUNDBEGRIFFE DER THEOSOPHIE SEELE UND GEIST DES MENSCHEN",
@@ -15793,6 +15862,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "4",
       "ID": "GA054/4",
       "title": "GEISTESWISSENSCHAFT UND SOZIALE FRAGE",
@@ -15992,6 +16062,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "5",
       "ID": "GA054/5",
       "title": "DIE FRAUENFRAGE",
@@ -16335,6 +16406,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "6",
       "ID": "GA054/6",
       "title": "DIE GRUNDBEGRIFFE DER THEOSOPHIE MENSCHENRASSEN",
@@ -16558,6 +16630,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "7",
       "ID": "GA054/7",
       "title": "DER WEISHEITSKERN IN DEN RELIGIONEN",
@@ -16813,6 +16886,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "8",
       "ID": "GA054/8",
       "title": "BRUDERSCHAFT UND DASEINSKAMPF",
@@ -17064,6 +17138,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "9",
       "ID": "GA054/9",
       "title": "INNERE ENTWICKELUNG",
@@ -17363,6 +17438,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "10",
       "ID": "GA054/10",
       "title": "DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES",
@@ -17534,6 +17610,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "11",
       "ID": "GA054/11",
       "title": "DIE WEISHEITSLEHREN DES CHRISTENTUMS",
@@ -17621,6 +17698,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "12",
       "ID": "GA054/12",
       "title": "WIEDERVERKÖRPERUNG UND KARMA",
@@ -17736,6 +17814,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "13",
       "ID": "GA054/13",
       "title": "LUZIFER",
@@ -18099,6 +18178,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "14",
       "ID": "GA054/14",
       "title": "DIE KINDER DES LUZIFER",
@@ -18466,6 +18546,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "15",
       "ID": "GA054/15",
       "title": "GERMANISCHE UND INDISCHE GEHEIMLEHRE",
@@ -18777,6 +18858,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "16",
       "ID": "GA054/16",
       "title": "DEUTSCHE THEOSOPHEN VOM ANFANG DES 19. JAHRHUNDERTS",
@@ -19052,6 +19134,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "17",
       "ID": "GA054/17",
       "title": "SIEGFRIED UND DIE GÖTTERDÄMMERUNG",
@@ -19263,6 +19346,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "18",
       "ID": "GA054/18",
       "title": "PARZIVAL UND LOHENGRIN",
@@ -19502,6 +19586,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "19",
       "ID": "GA054/19",
       "title": "DAS OSTERFEST",
@@ -19705,6 +19790,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "20",
       "ID": "GA054/20",
       "title": "INNERE ENTWICKELUNG",
@@ -19932,6 +20018,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "21",
       "ID": "GA054/21",
       "title": "PARACELSUS",
@@ -20275,6 +20362,7 @@
     },
     {
       "gaNumber": "GA054",
+      "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
       "lectureNumber": "22",
       "ID": "GA054/22",
       "title": "JAKOB BÖHME",
@@ -20494,6 +20582,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "1",
       "ID": "GA055/1",
       "title": "DIE ERKENNTNIS DES ÜBERSINNLICHEN IN UNSERER ZEIT UND DEREN BEDEUTUNG FÜR DAS HEUTIGE LEBEN",
@@ -20705,6 +20794,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "2",
       "ID": "GA055/2",
       "title": "BLUT IST EIN GANZ BESONDERER SAFT",
@@ -21192,6 +21282,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "3",
       "ID": "GA055/3",
       "title": "DER URSPRUNG DES LEIDES",
@@ -21519,6 +21610,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "4",
       "ID": "GA055/4",
       "title": "DER URSPRUNG DES BÖSEN",
@@ -21658,6 +21750,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "5",
       "ID": "GA055/5",
       "title": "WIE BEGREIFT MAN KRANKHEIT UND TOD",
@@ -21841,6 +21934,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "6",
       "ID": "GA055/6",
       "title": "DIE ERZIEHUNG DES KINDES VOM STANDPUNKT DER GEISTESWISSENSCHAFT",
@@ -22104,6 +22198,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "7",
       "ID": "GA055/7",
       "title": "SCHULFRAGEN VOM STANDPUNKT DER GEISTESWISSENSCHAFT",
@@ -22211,6 +22306,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "8",
       "ID": "GA055/8",
       "title": "DER IRRSINN VOM STANDPUNKTE DER GEISTESWISSENSCHAFT",
@@ -22342,6 +22438,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "9",
       "ID": "GA055/9",
       "title": "WEISHEIT UND GESUNDHEIT",
@@ -22485,6 +22582,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "10",
       "ID": "GA055/10",
       "title": "DER LEBENSLAUF DES MENSCHEN VOM GEISTESWISSENSCHAFTLICHEN STANDPUNKTE",
@@ -22668,6 +22766,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "11",
       "ID": "GA055/11",
       "title": "WER SIND DIE ROSENKREUZER",
@@ -23051,6 +23150,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "12",
       "ID": "GA055/12",
       "title": "RICHARD WAGNER UND DIE MYSTIK",
@@ -23358,6 +23458,7 @@
     },
     {
       "gaNumber": "GA055",
+      "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
       "lectureNumber": "13",
       "ID": "GA055/13",
       "title": "BIBEL UND WEISHEIT",
@@ -23693,6 +23794,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "1",
       "ID": "GA056/1",
       "title": "DIE MISSION DER GEHEIMWISSENSCHAFT IN UNSERER ZEIT",
@@ -23872,6 +23974,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "2",
       "ID": "GA056/2",
       "title": "DIE NATURWISSENSCHAFT AM SCHEIDEWEGE",
@@ -24203,6 +24306,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "3",
       "ID": "GA056/3",
       "title": "DIE ERKENNTNIS DER SEELE UND DES GEISTES",
@@ -24426,6 +24530,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "4",
       "ID": "GA056/4",
       "title": "MANN UND WEIB IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -24645,6 +24750,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "5",
       "ID": "GA056/5",
       "title": "INITIATION ODER EINWEIHUNG",
@@ -25000,6 +25106,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "6",
       "ID": "GA056/6",
       "title": "DIE SOGENANNTEN GEFAHREN DER EINWEIHUNG",
@@ -25323,6 +25430,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "7",
       "ID": "GA056/7",
       "title": "MANN",
@@ -25462,6 +25570,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "8",
       "ID": "GA056/8",
       "title": "DIE SEELE DER TIERE IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -25745,6 +25854,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "9",
       "ID": "GA056/9",
       "title": "DER KRANKHEITSWAHN IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -25868,6 +25978,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "10",
       "ID": "GA056/10",
       "title": "DAS GESUNDHEITSFIEBER IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -26139,6 +26250,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "11",
       "ID": "GA056/11",
       "title": "BERUF UND ERWERB",
@@ -26442,6 +26554,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "12",
       "ID": "GA056/12",
       "title": "SONNE",
@@ -26625,6 +26738,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "13",
       "ID": "GA056/13",
       "title": "ERDENANFANG UND ERDENENDE",
@@ -26792,6 +26906,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "14",
       "ID": "GA056/14",
       "title": "DIE HÖLLE",
@@ -27155,6 +27270,7 @@
     },
     {
       "gaNumber": "GA056",
+      "gaTitle": "Die Erkenntnis der Seele und des Geistes (1907-1908)",
       "lectureNumber": "15",
       "ID": "GA056/15",
       "title": "DER HIMMEL",
@@ -27382,6 +27498,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "1",
       "ID": "GA057/1",
       "title": "WO UND WIE FINDET MAN DEN GEIST",
@@ -27617,6 +27734,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "2",
       "ID": "GA057/2",
       "title": "GOETHES GEHEIME OFFENBARUNG EXOTERISCH",
@@ -27904,6 +28022,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "3",
       "ID": "GA057/3",
       "title": "GOETHES GEHEIME OFFENBARUNG ESOTERISCH",
@@ -28355,6 +28474,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "4",
       "ID": "GA057/4",
       "title": "BIBEL UND WEISHEIT I",
@@ -28638,6 +28758,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "5",
       "ID": "GA057/5",
       "title": "BIBEL UND WEISHEIT II",
@@ -28889,6 +29010,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "6",
       "ID": "GA057/6",
       "title": "DER ABERGLAUBE VOM STANDPUNKTE DER GEISTESWISSENSCHAFT",
@@ -29048,6 +29170,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "7",
       "ID": "GA057/7",
       "title": "ERNÄHRUNGSFRAGEN IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -29159,6 +29282,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "8",
       "ID": "GA057/8",
       "title": "GESUNDHEITSFRAGEN IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -29418,6 +29542,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "9",
       "ID": "GA057/9",
       "title": "TOLSTOJ UND CARNEGIE",
@@ -29833,6 +29958,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "10",
       "ID": "GA057/10",
       "title": "DIE PRAKTISCHE AUSBILDUNG DES DENKENS",
@@ -30288,6 +30414,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "11",
       "ID": "GA057/11",
       "title": "DIE UNSICHTBAREN GLIEDER DER MENSCHENNATUR UND DAS PRAKTISCHE LEBEN",
@@ -30599,6 +30726,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "12",
       "ID": "GA057/12",
       "title": "DAS GEHEIMNIS DER MENSCHLICHEN TEMPERAMENTE",
@@ -30782,6 +30910,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "13",
       "ID": "GA057/13",
       "title": "DIE RÄTSEL IN GOETHES «FAUST» EXOTERISCH",
@@ -31065,6 +31194,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "14",
       "ID": "GA057/14",
       "title": "DIE RÄTSEL IN GOETHES «FAUST» ESOTERISCH",
@@ -31592,6 +31722,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "15",
       "ID": "GA057/15",
       "title": "NIETZSCHE IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -31775,6 +31906,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "16",
       "ID": "GA057/16",
       "title": "ISIS UND MADONNA",
@@ -31982,6 +32114,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "17",
       "ID": "GA057/17",
       "title": "ALTEUROPÄISCHES HELLSEHEN",
@@ -32277,6 +32410,7 @@
     },
     {
       "gaNumber": "GA057",
+      "gaTitle": "Wo und wie findet man den Geist (1908-1909)",
       "lectureNumber": "18",
       "ID": "GA057/18",
       "title": "DIE EUROPÄISCHEN MYSTERIEN UND IHRE EINGEWEIHTEN",
@@ -32600,6 +32734,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "1",
       "ID": "GA058/1",
       "title": "I. DIE MISSION DER GEISTESWISSENSCHAFT EINST UND JETZT",
@@ -33091,6 +33226,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "2",
       "ID": "GA058/2",
       "title": "II. DIE MISSION DES ZORNES",
@@ -33466,6 +33602,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "3",
       "ID": "GA058/3",
       "title": "III. DIE MISSION DER WAHRHEIT",
@@ -34001,6 +34138,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "4",
       "ID": "GA058/4",
       "title": "IV. DIE MISSION DER ANDACHT",
@@ -34280,6 +34418,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "5",
       "ID": "GA058/5",
       "title": "V. DER MENSCHLICHE CHARAKTER",
@@ -34763,6 +34902,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "6",
       "ID": "GA058/6",
       "title": "VI. DIE ASKESE UND DIE KRANKHEIT",
@@ -35370,6 +35510,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "7",
       "ID": "GA058/7",
       "title": "VII. DAS WESEN DES EGOISMUS",
@@ -35877,6 +36018,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "8",
       "ID": "GA058/8",
       "title": "VIII. BUDDHA UND CHRISTUS",
@@ -36304,6 +36446,7 @@
     },
     {
       "gaNumber": "GA058",
+      "gaTitle": "Metamorphosen des Seelenlebens (I) (1909)",
       "lectureNumber": "9",
       "ID": "GA058/9",
       "title": "IX. EINIGES ÜBER DEN MOND IN GEISTESWISSENSCHAFTLICHER BELEUCHTUNG",
@@ -36815,6 +36958,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "1",
       "ID": "GA059/1",
       "title": "X. DIE GEISTESWISSENSCHAFT UND DIE SPRACHE Berlin",
@@ -37258,6 +37402,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "2",
       "ID": "GA059/2",
       "title": "XI. LACHEN UND WEINEN",
@@ -37601,6 +37746,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "3",
       "ID": "GA059/3",
       "title": "XII WAS IST MYSTIK",
@@ -37892,6 +38038,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "4",
       "ID": "GA059/4",
       "title": "XIII. DAS WESEN DES GEBETES",
@@ -38319,6 +38466,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "5",
       "ID": "GA059/5",
       "title": "XIV. KRANKHEIT UND HEILUNG Berlin",
@@ -38642,6 +38790,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "6",
       "ID": "GA059/6",
       "title": "XV. DER POSITIVE UND DER NEGATIVE MENSCH",
@@ -38953,6 +39102,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "7",
       "ID": "GA059/7",
       "title": "XVI. IRRTUM UND IRRESEIN Berlin",
@@ -39336,6 +39486,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "8",
       "ID": "GA059/8",
       "title": "XVII. DAS MENSCHLICHE GEWISSEN",
@@ -39659,6 +39810,7 @@
     },
     {
       "gaNumber": "GA059",
+      "gaTitle": "Metamorphosen des Seelenlebens (II) (1910)",
       "lectureNumber": "9",
       "ID": "GA059/9",
       "title": "XVIII. DIE MISSION DER KUNST",
@@ -40066,6 +40218,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "1",
       "ID": "GA060/1",
       "title": "DAS WESEN DER GEISTESWISSENSCHAFT UND IHRE BEDEUTUNG FÜR DIE GEGENWART",
@@ -40325,6 +40478,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "2",
       "ID": "GA060/2",
       "title": "LEBEN UND TOD",
@@ -40836,6 +40990,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "3",
       "ID": "GA060/3",
       "title": "MENSCHENSEELE UND TIERSEELE",
@@ -41191,6 +41346,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "4",
       "ID": "GA060/4",
       "title": "MENSCHENGEIST UND TIERGEIST",
@@ -41566,6 +41722,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "5",
       "ID": "GA060/5",
       "title": "DAS WESEN DES SCHLAFES",
@@ -41889,6 +42046,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "6",
       "ID": "GA060/6",
       "title": "DER GEIST IM PFLANZENREICH",
@@ -42172,6 +42330,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "7",
       "ID": "GA060/7",
       "title": "WIE ERLANGT MAN ERKENNTNIS DER GEISTIGEN WELT",
@@ -42539,6 +42698,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "8",
       "ID": "GA060/8",
       "title": "ANLAGE",
@@ -42942,6 +43102,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "9",
       "ID": "GA060/9",
       "title": "ZARATHUSTRA",
@@ -43477,6 +43638,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "10",
       "ID": "GA060/10",
       "title": "GALILEI",
@@ -43776,6 +43938,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "11",
       "ID": "GA060/11",
       "title": "WAS HAT DIE GEOLOGIE ÜBER WELTENTSTEHUNG ZU SAGEN",
@@ -44151,6 +44314,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "12",
       "ID": "GA060/12",
       "title": "HERMES",
@@ -44478,6 +44642,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "13",
       "ID": "GA060/13",
       "title": "BUDDHA",
@@ -44901,6 +45066,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "14",
       "ID": "GA060/14",
       "title": "MOSES",
@@ -45232,6 +45398,7 @@
     },
     {
       "gaNumber": "GA060",
+      "gaTitle": "Antworten der Geisteswissenschaft auf die großen Fragen des Daseins (1910-1911)",
       "lectureNumber": "15",
       "ID": "GA060/15",
       "title": "WAS HAT DIE ASTRONOMIE ÜBER WELTENTSTEHUNG ZU SAGEN",
@@ -45651,6 +45818,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "1",
       "ID": "GA061/1",
       "title": "DER MENSCH IN SEINEM VERHÄLTNIS ZU DEN ÜBERSINNLICHEN WELTEN",
@@ -45982,6 +46150,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "2",
       "ID": "GA061/2",
       "title": "TOD UND UNSTERBLICHKEIT IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -46293,6 +46462,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "3",
       "ID": "GA061/3",
       "title": "DER SINN DES PROPHETENTUMS",
@@ -46692,6 +46862,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "4",
       "ID": "GA061/4",
       "title": "VON PARACELSUS ZU GOETHE",
@@ -47015,6 +47186,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "5",
       "ID": "GA061/5",
       "title": "DIE VERBORGENEN TIEFEN DES SEELENLEBENS",
@@ -47526,6 +47698,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "6",
       "ID": "GA061/6",
       "title": "DAS GLÜCK",
@@ -47977,6 +48150,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "7",
       "ID": "GA061/7",
       "title": "DER PROPHET ELIAS IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -48296,6 +48470,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "8",
       "ID": "GA061/8",
       "title": "DER URSPRUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -48683,6 +48858,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "9",
       "ID": "GA061/9",
       "title": "DER URSPRUNG DER TIERWELT IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -49002,6 +49178,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "10",
       "ID": "GA061/10",
       "title": "CHRISTUS UND DAS ZWANZIGSTE JAHRHUNDERT",
@@ -49497,6 +49674,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "11",
       "ID": "GA061/11",
       "title": "MENSCHENGESCHICHTE",
@@ -49936,6 +50114,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "12",
       "ID": "GA061/12",
       "title": "KOPERNIKUS UND SEINE ZEIT",
@@ -50499,6 +50678,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "13",
       "ID": "GA061/13",
       "title": "DER TOD BEI MENSCH",
@@ -50918,6 +51098,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "14",
       "ID": "GA061/14",
       "title": "DIE SELBSTERZIEHUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -51201,6 +51382,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "15",
       "ID": "GA061/15",
       "title": "DAS WESEN DER EWIGKEIT UND DIE NATUR DER MENSCHENSEELE IM LICHTE DER GEISTESWISSENSCHAFT",
@@ -51500,6 +51682,7 @@
     },
     {
       "gaNumber": "GA061",
+      "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
       "lectureNumber": "16",
       "ID": "GA061/16",
       "title": "DARWIN UND DIE ÜBERSINNLICHE FORSCHUNG",
@@ -51811,6 +51994,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "1",
       "ID": "GA062/1",
       "title": "WIE WIDERLEGT MAN GEISTESFORSCHUNG",
@@ -52366,6 +52550,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "2",
       "ID": "GA062/2",
       "title": "WIE BEGRÜNDET MAN GEISTESFORSCHUNG",
@@ -52725,6 +52910,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "3",
       "ID": "GA062/3",
       "title": "DIE AUFGABEN DER GEISTESFORSCHUNG FÜR GEGENWART UND ZUKUNFT",
@@ -52984,6 +53170,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "4",
       "ID": "GA062/4",
       "title": "DIE WEGE DER ÜBERSINNLICHEN ERKENNTNIS",
@@ -53223,6 +53410,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "5",
       "ID": "GA062/5",
       "title": "ERGEBNISSE DER GEISTESFORSCHUNG FÜR LEBENSFRAGEN UND DAS TODESRÄTSEL",
@@ -54394,6 +54582,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "6",
       "ID": "GA062/6",
       "title": "NATURWISSENSCHAFT UND GEISTESFORSCHUNG",
@@ -54885,6 +55074,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "7",
       "ID": "GA062/7",
       "title": "JAKOB BÖHME",
@@ -55108,6 +55298,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "8",
       "ID": "GA062/8",
       "title": "DIE WELTANSCHAUUNG EINES KULTURFORSCHERS DER GEGENWART",
@@ -55459,6 +55650,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "9",
       "ID": "GA062/9",
       "title": "RAFFAELS MISSION IM LICHTE DER WISSENSCHAFT VOM GEISTE",
@@ -55662,6 +55854,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "10",
       "ID": "GA062/10",
       "title": "MÄRCHENDICHTUNGEN IM LICHTE DER GEISTESFORSCHUNG",
@@ -55861,6 +56054,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "11",
       "ID": "GA062/11",
       "title": "LIONARDOS GEISTIGE GRÖSSE AM WENDEPUNKT ZUR NEUEREN ZEIT",
@@ -56092,6 +56286,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "12",
       "ID": "GA062/12",
       "title": "IRRTÜMER DER GEISTESFORSCHUNG",
@@ -56227,6 +56422,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "13",
       "ID": "GA062/13",
       "title": "DIE MORAL IM LICHTE DER GEISTESFORSCHUNG",
@@ -56430,6 +56626,7 @@
     },
     {
       "gaNumber": "GA062",
+      "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
       "lectureNumber": "14",
       "ID": "GA062/14",
       "title": "DAS ERBE DES NEUNZEHNTEN JAHRHUNDERTS",
@@ -56761,6 +56958,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "1",
       "ID": "GA063/1",
       "title": "DIE GEISTIGE WELT UND DIE GEISTESWISSENSCHAFT",
@@ -57272,6 +57470,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "2",
       "ID": "GA063/2",
       "title": "THEOSOPHIE UND ANTISOPHIE",
@@ -57571,6 +57770,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "3",
       "ID": "GA063/3",
       "title": "GEISTESWISSENSCHAFT UND RELIGIÖSES BEKENNTNIS",
@@ -58014,6 +58214,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "4",
       "ID": "GA063/4",
       "title": "VOM TODE",
@@ -58261,6 +58462,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "5",
       "ID": "GA063/5",
       "title": "DER SINN DER UNSTERBLICHKEIT DER MENSCHENSEELE",
@@ -58524,6 +58726,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "6",
       "ID": "GA063/6",
       "title": "MICHELANGELO UND SEINE ZEIT VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT",
@@ -59015,6 +59218,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "7",
       "ID": "GA063/7",
       "title": "DAS BÖSE IM LICHTE DER ERKENNTNIS VOM GEISTE",
@@ -59262,6 +59466,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "8",
       "ID": "GA063/8",
       "title": "DIE SITTLICHE GRUNDLAGE DES MENSCHENLEBENS",
@@ -59489,6 +59694,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "9",
       "ID": "GA063/9",
       "title": "VOLTAIRE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
@@ -59932,6 +60138,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "10",
       "ID": "GA063/10",
       "title": "ZWISCHEN TOD UND WIEDERGEBURT DES MENSCHEN",
@@ -60143,6 +60350,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "11",
       "ID": "GA063/11",
       "title": "HOMUNKULUS",
@@ -60542,6 +60750,7 @@
     },
     {
       "gaNumber": "GA063",
+      "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
       "lectureNumber": "12",
       "ID": "GA063/12",
       "title": "GEISTESWISSENSCHAFT ALS LEBENSGUT",
@@ -61013,6 +61222,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "1",
       "ID": "GA064/1",
       "title": "GOETHES GEISTESART IN UNSERN SCHICKSALSSCHWEREN TAGEN UND DIE DEUTSCHE KULTUR",
@@ -61232,6 +61442,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "2",
       "ID": "GA064/2",
       "title": "DAS VOLK SCHILLERS UND FICHTES",
@@ -61615,6 +61826,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "3",
       "ID": "GA064/3",
       "title": "DIE MENSCHENSEELE IN LEBEN UND TOD",
@@ -61890,6 +62102,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "4",
       "ID": "GA064/4",
       "title": "DIE SEELEN DER VÖLKER",
@@ -62377,6 +62590,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "5",
       "ID": "GA064/5",
       "title": "DIE GERMANISCHE SEELE UND DER DEUTSCHE GEIST",
@@ -62676,6 +62890,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "6",
       "ID": "GA064/6",
       "title": "GEIST-ERKENNTNIS IN GLÜCKLICHEN UND ERNSTEN STUNDEN DES LEBENS",
@@ -63055,6 +63270,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "7",
       "ID": "GA064/7",
       "title": "DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES",
@@ -63466,6 +63682,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "8",
       "ID": "GA064/8",
       "title": "WAS IST AM MENSCHENWESEN STERBLICH",
@@ -63661,6 +63878,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "9",
       "ID": "GA064/9",
       "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
@@ -63992,6 +64210,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "10",
       "ID": "GA064/10",
       "title": "WAS IST AM MENSCHENWESEN UNSTERBLICH",
@@ -64395,6 +64614,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "11",
       "ID": "GA064/11",
       "title": "DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS",
@@ -64770,6 +64990,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "12",
       "ID": "GA064/12",
       "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS",
@@ -65201,6 +65422,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "13",
       "ID": "GA064/13",
       "title": "SCHLAF UND TOD VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
@@ -65328,6 +65550,7 @@
     },
     {
       "gaNumber": "GA064",
+      "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
       "lectureNumber": "14",
       "ID": "GA064/14",
       "title": "SELBSTERKENNTNIS UND WELTERKENNTNIS VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
@@ -65535,6 +65758,7 @@
     },
     {
       "gaNumber": "GA065",
+      "gaTitle": "Aus dem mitteleuropäischen Geistesleben (1915-1916) Teil 2",
       "lectureNumber": "1",
       "ID": "GA065/1",
       "title": "GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS",
@@ -66030,6 +66254,7 @@
     },
     {
       "gaNumber": "GA065",
+      "gaTitle": "Aus dem mitteleuropäischen Geistesleben (1915-1916) Teil 2",
       "lectureNumber": "2",
       "ID": "GA065/2",
       "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE",
@@ -66413,6 +66638,7 @@
     },
     {
       "gaNumber": "GA065",
+      "gaTitle": "Aus dem mitteleuropäischen Geistesleben (1915-1916) Teil 2",
       "lectureNumber": "3",
       "ID": "GA065/3",
       "title": "BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT",
@@ -66895,593 +67121,6 @@
         {
           "index": "^vayo7r",
           "content": "Wahrhaftig, lassen Sie mich damit schließen: Dasjenige, was sich historisch jetzt zusammenfügt, es fügt sich nicht nur durch äußere Notwendigkeit zusammen, es fügt sich zusammen durch die inneren Bande der Seelen, der Herzen der Bevölkerungen Mitteleuropas."
-        }
-      ]
-    },
-    {
-      "gaNumber": "GA065",
-      "lectureNumber": "4",
-      "ID": "GA065/4",
-      "title": "MENSCHENSEELE UND MENSCHENGEIST",
-      "fileName": "GA065/4 - MENSCHENSEELE UND MENSCHENGEIST, Berlin, 10. Dezember 1915",
-      "location": "Berlin",
-      "date": "1915-12-10",
-      "paragraphs": [
-        {
-          "index": "^x9hr4p",
-          "content": "Derjenige wird immer in bezug auf die Auffassung in eine schiefe Stellung kommen gegenüber der Geisteswissenschaft, wie sie hier gemeint ist und wie ich sie seit Jahren hier vortragen durfte, der in dieser Geisteswissenschaft, namentlich in ihren Wegen und Methoden etwas der gewöhnlichen Menschennatur, dem gewöhnlichen Menschenleben ganz absonderlich Fernes, Fremdes, gewissermaßen Jenseitiges sieht; der in der Geistesforschung etwas sieht, das nur erworben werden kann durch besondere, außerordentliche Gaben, die der gewöhnlichen Menschennatur nicht zugänglich seien."
-        },
-        {
-          "index": "^jsx1af",
-          "content": "Demgegenüber wurde ja hier immer wieder und wiederum betont: Geisteswissenschaft will nichts anderes sein, als für das geistige Gebiet die echte Fortsetzung der naturwissenschaftlichen Weltanschauung, insofern diese in der neueren Zeit ihre Methoden gefunden hat, die sie in bezug auf die Erforschung der materiellen, der äußerlich sinnlichen Erscheinungen, zu früher ungeahnten Ergebnissen und Erfolgen geführt hat."
-        },
-        {
-          "index": "^s5wd1t",
-          "content": "Die Schwierigkeit in der Auffassung der ganzen Gesinnung und der ganzen Absicht der Geisteswissenschaft liegt darinnen, dass es der Mensch vom Gesichtspunkte der gegenwärtigen Weltanschauungsgesinnung aus schwer hat, einzusehen, dass diese Geisteswissenschaft im Grunde genommen nichts anderes will, als die inneren menschlichen Denk- und sonstigen Seelenerlebnisse in einer ähnlichen Weise auszubilden, durch rein innerliche Vorgänge auszubilden, wie gewisse äußerliche Hantierungen, gewisse äußerliche Verrichtungen verfeinert und ausgebildet werden im naturwissenschaftlichen Experiment."
-        },
-        {
-          "index": "^qsm1df",
-          "content": "So wie das naturwissenschaftliche Experiment, durch das der Natur ihre Geheimnisse abgelauscht werden sollen, im Grunde genommen nichts anderes ist, als eine Verfeinerung, in gewissem Sinne eine Erhöhung, wenn ich das Wort brauchen darf, von Verrichtungen, die sonst auch mit äußerlich materiellen Dingen vorgenommen werden, die nur in einem gewissen, sagen wir, methodischen Sinne vorgenommen werden, so dass durch ihre Zusammenstellung die Natur ihre Geheimnisse der Menschenseele enthüllt. So wie das naturwissenschaftliche Experiment nichts anderes ist als eine Fortsetzung gewissermaßen der äußeren Betätigung des Menschen, so ist auch das geisteswissenschaftliche Forschen nichts anderes als eine Fortsetzung, sagen wir, eine Verfeinerung desjenigen, was die Menschenseele im gewöhnlichen Verlaufe des Lebens und in der gewöhnlichen Wissenschaft an Denk- und anderen Seelenverrichtungen vollbringt."
-        },
-        {
-          "index": "^h4lp88",
-          "content": "Das ist die eine Schwierigkeit, dass der Weg von dem einen zu dem anderen nicht immer zum Beispiel in der heute vor acht Tagen hier angedeuteten Weise gesucht wird."
-        },
-        {
-          "index": "^1tg8np",
-          "content": "Die andere Schwierigkeit besteht darinnen, dass der Mensch den Ergebnissen der Naturwissenschaft gegenüber viel mehr als er glaubt, dasjenige, was ihm dargeboten wird, hinnimmt, wenn er es nach seinem gesunden Menschenverstande einleuchtend findet, auch dann, wenn er nicht die Methoden selbst anwendet, die Experimente im Laboratorium oder auf der Klinik selber ausführen kann. Es besteht da nicht das Begehren, unmittelbar alles selbst zu suchen, sondern sich mit dem gesunden Menschenverstand zu dem zu stellen, was der Forscher gibt, der sich bekannt gemacht hat mit der Handhabung der Methoden."
-        },
-        {
-          "index": "^9imode",
-          "content": "In bezug auf Geisteswissenschaft liegt für den Forscher gar nichts anderes als bei der Naturwissenschaft vor. Er gibt von sich aus in derselben Weise, aus derselben Denkrichtung heraus dasjenige, was er nun durch intime innere Seelenvorgänge so objektiv erforscht, wie die Naturgeheimnisse durch die Experimente erforscht werden. Und er rechnet ebenso darauf, dass die Zustimmung erfolgt durch den gesunden Menschenverstand, der für dasjenige spricht, was das innere Experiment, wie ich mich heute vor acht Tagen ausdrückte, zu geben hat."
-        },
-        {
-          "index": "^6z53dz",
-          "content": "Nun besteht aber gegenüber den Ergebnissen der Geisteswissenschaft, gegenüber den Geheimnissen des Ganges der Entwickelung, der Schicksale der menschlichen Seele, das Begehren aller Menschen, nicht nur Forschungsergebnisse entgegenzunehmen, sondern dasjenige, was sie auf diesem Gebiete für richtig halten sollen, selber mehr oder weniger zu erforschen."
-        },
-        {
-          "index": "^j5zxia",
-          "content": "Diejenigen Wege, die die Seele bei jedem Menschen nehmen kann und die zum Beispiel in meinem Buche: «Wie erlangt man Erkenntnisse der höheren Welten?» angedeutet sind, ergeben nun zwar für jede Menschenseele die Möglichkeit, sich zu überzeugen und in sich selber zu bewahrheiten, was der Geistesforscher zu sagen hat, indem eben in der Seele diese intimen, inneren Vorgänge erlebt werden. Aber es müssen eben diese Wege gegangen werden."
-        },
-        {
-          "index": "^z0sg3i",
-          "content": "Und da erhebt sich dann, obzwar immer wieder und wiederum von vielen mit diesem Wege der Anfang gemacht wird, die innerliche subjektive Schwierigkeit, dass diese Wege - ich kann nicht sagen schwierig sind, aber schwierig befunden werden von den Menschenseelen, dass sie die Geduld verlieren nach den ersten Schritten, oder mindestens nicht die Neigung haben, sie mit derselben Gewissenhaftigkeit zu machen, mit der der Naturforscher ein Experiment herrichtet."
-        },
-        {
-          "index": "^vxii05",
-          "content": "Und bei alledem spricht ein gewisser Glaube in der Menschenseele mit, ein Glaube, der gegenüber der wirklichen Geistesforschung ein Vorurteil ist; aber im Menschenleben entscheiden eben in den meisten Fällen Vorurteile. Es erhebt sich der Glaube, dass die Menschenseele, so wie sie einmal ist, wenn sie sich nur ein wenig besinnt, wenn sie nur ein wenig diejenigen Denkgewohnheiten entwickelt, diejenigen Denkverrichtungen erlebt, auslebt, die so unmittelbar im Leben gegeben sind, dann doch darauf kommen müsse, welches die Geheimnisse der inneren Menschennatur sind."
-        },
-        {
-          "index": "^r6cez3",
-          "content": "Man hat das Gefühl: Es darf nicht schwierig sein, das Allerrätselhafte, das es auf der Welt gibt, in der äußeren Welt gibt, den Menschen selber, in seiner Wesenheit zu erkennen. Man hat einmal dieses Gefühl, es dürfe nicht schwierig sein. Um den inneren Zusammenhang eines Uhrwerkes zu erkennen, lässt man sich darauf ein, die Dinge zu studieren. Gegenüber dem Kompliziertesten, dem Rätselhaftesten, das es in der uns umgebenden Sinneswelt gibt, der Menschennatur, möchte man sich eigentlich am liebsten dem Glauben hingeben, dass die volle Wahrheit über das Wesen des Menschen jeder erkennen könne, ohne dass er sich erst auf einen gewissen Standpunkt vorbereitet, ohne dass er erst innerliche Seelenwege macht, um die eigene Natur zu erkennen."
-        },
-        {
-          "index": "^g0fvo9",
-          "content": "Man kann ja meinen, es wäre ja recht gut, bequem, schön vielleicht, wenn das so wäre, wenn man gar keine Vorbereitung brauchte, um das Menschenwesen zu erforschen. Aber man kann demgegenüber nur sagen: Es ist eben nicht so, sondern es bedarf, um das Menschenwesen in seiner innersten Natur zu erforschen, der Wege der Geistesforschung. Das ist eine Wahrheit. Und ob oder wie der Mensch sich damit abfindet, das kommt nicht in Betracht gegenüber dieser Wahrheit. Der Mensch muss sich erst durch einen Vorbereitungsweg die Mittel aneignen, durch die er sich sein eigenes Geheimnis enthüllen kann."
-        },
-        {
-          "index": "^fp9hyh",
-          "content": "Und trotzdem: Dasjenige, was Ausgangspunkte sind, das ist durchaus kein Geheimnis. Schon der Vortrag vor acht Tagen hat das zeigen können, und ich will mit ein paar Worten heute noch einmal auf das Prinzipielle wenigstens zurückkommen."
-        },
-        {
-          "index": "^h35eta",
-          "content": "Jeder Mensch denkt im Leben, bildet sein Denken weiter aus, wenn er es dem wissenschaftlichen Gebrauche weiht. Das Denken, das Vorstellen ist eine alltägliche innere Seelenbetätigung. Auf nichts anderes kommt es nun an, als diesem Denken gegenüber sich in einer solchen Weise zu stellen, wie man sich eben im gewöhnlichen Leben und in der gewöhnlichen Wissenschaft nicht stellt, um die Wege des Geistigen zu erforschen."
-        },
-        {
-          "index": "^4zrte7",
-          "content": "Im gewöhnlichen Leben und in der gewöhnlichen Wissenschaft bildet sich der Mensch Vorstellungen, Begriffe und Ideen, um durch diese etwas Äußerliches abzubilden. Und er ist dann befriedigt, wenn er in seinen Vorstellungen sich etwas Äußerliches abbildet. Er nennt mit Recht für das gewöhnliche Leben und für die gewöhnliche Wissenschaft dies die Wahrheit, dass er sich Vorstellungen machen kann, die ihm eine äußerliche Wirklichkeit abbilden, innerlich vergegenwärtigen, sie ihn innerlich nacherleben lassen."
-        },
-        {
-          "index": "^7kbnm7",
-          "content": "Nun ist darauf aufmerksam gemacht worden, dass da, wo dieses gewöhnliche Vorstellen des alltäglichen Lebens und auch das Denken der gewöhnlichen Wissenschaft endet, erst dasjenige anfängt, was notwendig ist für die Erforschung des geistigen Lebens des Menschen. Das heißt: das Denken, dasselbe Denken, das man im alltäglichen Leben handhabt, hat man nur in einer anderen Weise innerlich zu erleben, in einer anderen Weise innerlich zu erkraften, als es im gewöhnlichen Leben und innerhalb der gewöhnlichen Wissenschaft erlebt und erkraftet wird."
-        },
-        {
-          "index": "^1bxtbe",
-          "content": "Es wird erkraftet, wie ich angedeutet habe, durch jenen inneren Vorgang, der gewissermaßen - das Wort soll nicht missverstanden werden - das innerliche, intime, rein seelische Experiment darstellt, der es wenigstens einleitet durch den Vorgang, den man wirkliches Meditieren - wenn es nicht pedantisch klingen würde, könnte man sagen «im technischen Sinne des Wortes» - nennt."
-        },
-        {
-          "index": "^ggw181",
-          "content": "Da wird gedacht, um das Denken innerlich zu erkraften, um den Vorgang des Denkens zu erleben. Den erlebt man ja gewöhnlich nicht. Man glaubt ihn im gewöhnlichen Leben oder in der gewöhnlichen Wissenschaft zu erleben. Man erlebt ihn da nicht. Man hat ihn, man handhabt ihn, man wendet dieses Denken an; aber die Seele ist dabei auf die Außenwelt gerichtet, auf etwas Wirkliches außer dem Denken."
-        },
-        {
-          "index": "^wlrf1y",
-          "content": "Dass man auf das Denken selber hin achten kann, darauf kommt es an. Dazu muss es aber verstärkt werden. Das heißt: es muss so getrieben werden, wie es eben im Sinne der Meditation getrieben wird, dass man das Denken in Bewegung bringt, nun nicht um sich etwas Äußerliches zu vergegenwärtigen, nicht um etwas Äußerliches innerlich aufleben zu lassen, abzubilden, sondern um innerlich nur diesen Vorgang, diesen Prozess des Denkens zu erleben und im Erleben anzuschauen. Darauf kommt es an."
-        },
-        {
-          "index": "^6doux6",
-          "content": "Und dazu ist es eben notwendig, dass man nun nicht sich den Seelenvorgängen des gewöhnlichen Lebens überlässt, sondern durch innere Willkür, aus völlig freiem Willen heraus - ich gebe hier das Prinzipielle, das Genauere finden Sie in meinem Buche: «Wie erlangt man Erkenntnisse der höheren Welten?» - leicht überschaubare Vorstellungen, in das Denken hinein versetzt, solche Vorstellungen, bei denen man sicher sein kann, dass nicht allerlei innere Reminiszenzen auftauchen und einem das klare Erleben des Vorganges verdunkeln; am besten sinnbildliche Vorstellungen, die gar nichts Äußeres abbilden sollen, die gar nicht dazu dienen sollen, ein Äußerliches wirklich zu vergegenwärtigen, sondern die nur dazu dienen sollen, das Denken in Fluss, in Bewegung zu bringen und dadurch innerlich zu erkraften, so dass man dieses Denken nicht bloß übt, sondern innerlich erlebt, dass man sich nun wirklich als innerlicher Denkmensch erlebt, so wie man sich sonst innerlich in seinem Muskelgefühl erlebt."
-        },
-        {
-          "index": "^5njrlt",
-          "content": "Wenn man auf diese Weise nach der einen Seite hin die Seelenentwickelung treibt, so kommt man dadurch, wie ich dargestellt habe, zu einem gewissen Punkte, der ein bedeutsames, ja, ein erschütterndes inneres Erlebnis darstellt. Und ich will noch einmal charakterisieren, wie man sich durch dieses Erlebnis ganz anders zur Menschennatur stellt, als man sich zu ihr gewöhnlich im Leben stellt."
-        },
-        {
-          "index": "^t26mid",
-          "content": "Es stimmt mit der naturwissenschaftlichen Denkungsweise, diese sogar bis in ihre äußersten Konsequenzen treibend, die geisteswissenschaftliche Auffassung vollständig überein. Innerhalb des gewöhnlichen Denkens, das man als in der Sinnenwelt verkörperter Mensch treibt, braucht man zu diesem Denken ein Organ. Und nicht nur dies, sondern jedesmal, wenn man denkt, muss erst ein innerlicher Vorgang ablaufen, der nicht ins Denken, gar nicht einmal ins Bewusstsein hereinfallen kann, der vorangehen muss dem Denken. Das Denken kann erst ablaufen, wenn es innerlich organmäßig vorbereitet ist."
-        },
-        {
-          "index": "^lkf0nw",
-          "content": "So dass jedesmal, wenn man denkt, zweierlei verläuft: ein Prozess, von dem man nichts weiß, der erst den Organismus, den äußeren Leib zubereitet, so dass da jene Vorgänge stattfinden, die dann als Gedanke, als Vorstellung zum Bewusstsein kommen."
-        },
-        {
-          "index": "^pje3cn",
-          "content": "Dadurch dass man meditiert, dass man gleichsam alle Seelenkräfte konzentriert auf eine bestimmte Vorstellung, sie so zusammendrängt, im Denken stille hält, nicht den Ablauf des Denkens so verfließen lässt wie im gewöhnlichen Leben, sondern im Denken stille hält, das heißt, den Gedanken anhält, und nun denkt, nicht um etwas Äußerliches abzubilden, sondern um das innerliche Denken zu erspüren, den Prozess des Denkens zu erspüren, - indem man dies vollbringt, merkt man innerlich: Was man eigentlich bisher getrieben hat als Denken, wie man sich im Denken betätigt hat, das hört auf."
-        },
-        {
-          "index": "^uyc7jx",
-          "content": "Man kommt nicht aus einer klaren Auffassung des Bewusstseins heraus, man kommt nicht in ein Nebuloses hinein; aber dieses Denken, das an dem Prozess der äußeren Welt in seinem Flusse fortgeführt wird, das hört als solches auf. Man kommt in ein innerliches Erlebnis, das einen zunächst viel mehr mit einem selbst zusammenführt, das einen hineinführt in denjenigen Vorgang, der vorgedanklich ist, der erst unseren Leib zubereitet, damit wir das Denken entfalten können. Man kommt unter das Denken hinunter. Das lässt sich nicht auf eine andere Weise beweisen, als nur im unmittelbaren Erleben."
-        },
-        {
-          "index": "^dmi03v",
-          "content": "Dasjenige Denken, das man im gewöhnlichen Leben hat, das erscheint einem wie ein hinlaufender Fluss. Jetzt weiß man: jetzt ist man in einer tieferen Schichte des Seins, jetzt ist man in dem Prozess drinnen, den man im gewöhnlichen Leben nicht erleben kann, weil er dem Denken vorangehen muss."
-        },
-        {
-          "index": "^lxx5m8",
-          "content": "Das ist der Prozess, der aber, wenn er in Geduld, mit Ausdauer und Energie fortgesetzt wird, wie es vor acht Tagen angegeben worden ist, weit führt; es dauert für einen Menschen kürzer, für manchen Menschen jahrelang, obwohl die einzelne Übung nicht übertrieben werden soll."
-        },
-        {
-          "index": "^vw8fcm",
-          "content": "Dieses innerliche Erlebnis führt dahin, dasjenige, was im Denken liegt, jetzt nicht bloß zu erdenken, sondern zu erleben. Das heißt: das Denken nicht so zu erleben, wie es ein Äußeres abbildet, sondern wie es im Menschen gestaltet, wie es erst den Organismus ergreift und im Menschen gestaltet. Zunächst weiß man nicht, was dieses innere Erlebnis eigentlich bedeutet. Man fühlt sozusagen, wie wenn man an der oder jener Stelle unter das gewöhnliche Seelenleben herunterkäme in eine Welt hinein, die man bisher nicht gekannt hat."
-        },
-        {
-          "index": "^6vskq9",
-          "content": "Dann aber lernt man als erstes bedeutsames Ergebnis kennen dasjenige, was als Lebendiges im Denken liegt und was vorangegangen ist unserer physischen Leibesgestaltung, vorangegangen ist vor allen Dingen demjenigen Punkte des menschlichen Erlebens, bis zu dem man sich im späteren Leben zurückerinnert, bis zur Geburt, bis zur Empfängnis und weiter hinauf."
-        },
-        {
-          "index": "^rj5cnw",
-          "content": "Das heißt, man lernt sich erkennen als Geistesmensch, der nun nicht in uns lebt, um den Organismus als Organ zur Wahrnehmung der äußeren Welt zu benutzen, sondern als Geistesmensch, der gestaltet hat vor unserer Geburt, oder, sagen wir, vor der Empfängnis dasjenige, was von dem Menschengeist, von der Menschenseele aus am menschlichen Leibe gestaltet werden muss."
-        },
-        {
-          "index": "^wgbtj0",
-          "content": "Man lernt erlebend erkennen, was sich aus jener Dreiheit gestaltet, die sich ergibt aus Vater und Mutter, aber auch aus dem, was jenseits der Vererbungslinie liegt und herunterkommt aus der geistigen Welt, um sich mit dem zu verbinden, was durch die Vererbungslinie gegeben wird."
-        },
-        {
-          "index": "^8f89ul",
-          "content": "Dazu ist eben nur notwendig, den Prozess des Denkens zu vertiefen, den Prozess des Denkens innerlich zu erkraften. Man kann sich hinführen - natürlich nicht durch das gewöhnliche Denken - zu der Anschauung - denn eine Anschauung muss es sein - desjenigen, was unserer Geburt oder unserer Empfängnis vorangegangen ist, was aus der geistigen Welt herunterkommt, um sich in der physischen Welt mit dem physischen Leibe, der durch die Vererbungsströmung gegeben ist, zu verbinden."
-        },
-        {
-          "index": "^jo2w1f",
-          "content": "Derjenige, der einen Beweis dafür verlangt, müsste sich erst bekannt machen mit der Natur alles gewöhnlichen Beweisens. Tatsachen kann man überhaupt nicht beweisen. Man denke nur einmal, dass niemals irgend jemand einen Walfisch gesehen hätte. Es würde niemals jemand beweisen können aus irgendwelchen zoologischen Kenntnissen heraus, dass es einen Walfisch gibt. Es gibt keine Möglichkeit, aus irgendwelchen Begriffen und Vorstellungen zu der Wirklichkeit hinzuführen, wenn der Verlauf der Begriffe und Vorstellungen so gemeint ist, wie er eben für das gewöhnliche Leben abläuft."
-        },
-        {
-          "index": "^eelirm",
-          "content": "Und so führt dies, was uns auf der einen Seite hinausführt aus der Welt, in der wir leben zwischen Geburt und Tod, hinein in jene Welt, aus der wir geschritten sind herein in unsere physische Verkörperung, in die wir hinausschreiten, wenn wir durch die Pforte des Todes gehen. So führt der Weg, der nach der einen Seite uns hinausführt aus dieser sinnlichen Welt, in die geistige Welt, durch eine besondere innere Entwickelung, eine besondere innere Handhabe des Denkens."
-        },
-        {
-          "index": "^6w3yna",
-          "content": "Und da muss denn gesagt werden: Obzwar Geisteswissenschaft in ihrer ganzen Gesinnung, in ihrer ganzen Stellung zur Welt wirklich aus dem Geiste der naturwissenschaftlichen Gesinnung heraus arbeitet, ergibt sich eben doch jene Verschiedenheit von der gewöhnlichen Naturwissenschaft, die dadurch bedingt ist, dass die Naturwissenschaft auf die äußere Welt gerichtet ist und dass die Geisteswissenschaft dasselbe, was die Naturwissenschaft für die äußere Welt tun will, für die Welt des Geistes tun will."
-        },
-        {
-          "index": "^xfh5vt",
-          "content": "Dadurch allerdings stellt sich trotz des völligen Einklanges ein Unterschied - nicht ein Gegensatz, ein Unterschied - heraus, der sich von vielen Seiten her charakterisieren ließe, der sich aber für unsere heutigen Zwecke in der folgenden Weise charakterisieren lässt: Für das gewöhnliche Leben und die gewöhnliche Wissenschaft ist dasjenige, was wir im Denken vollbringen, das Schlussergebnis, dasjenige, zu dem wir hinkommen wollen. Indem wir denkend arbeiten in der äußeren Wirklichkeit, kommen wir eben zu dem, was wir haben wollen von der äußeren Wirklichkeit."
-        },
-        {
-          "index": "^77yjtr",
-          "content": "Alle die Verrichtungen, sofern sie Seelenverrichtungen sind, die wir anwenden zur Erkenntnis der äußeren Welt und des Lebens in dieser äußeren Welt, sind nur Vorbereitung da, wo es sich um den geisteswissenschaftlichen Weg handelt. In der äußeren Wissenschaft, in der äußeren Welt denkt man, damit man zu dem Denkergebnis kommt. Aber dieses Denken, wie man es da übt, das bereitet nur die Seele zu, damit die Seele durch dieses Denken zu einem Punkte des inneren Erlebens kommt, auf dem ihr entgegentritt die geistige Welt."
-        },
-        {
-          "index": "^anuw2x",
-          "content": "Alles das also, was uns das äußere Leben an Denken, an Denkkraft, an Denkergebnissen der äußeren Wissenschaft geben kann, das wird in der Geisteswissenschaft anders verwendet als im gewöhnlichen Leben und der gewöhnlichen Wissenschaft. Es wird so verwendet, dass es nur das Denken, die denkende Seite des Menschengeistes und der Menschenseele bildet zu einem gewissen Punkte hin. Was Ergebnis ist im gewöhnlichen Leben, in der gewöhnlichen Wissenschaft, ist lebendige Vorbereitung für die Geisteswissenschaft."
-        },
-        {
-          "index": "^uqta19",
-          "content": "Und dasjenige, was sich dann als Tatsache ergibt, wie ich es eben in der elementarsten Art geschildert habe, kommt nicht während der Anstrengung. Die innere Anstrengung geht nur dahin, die Seele bis zu einem gewissen Punkte zu führen. Da bleibt man noch im Grunde genommen im Bereich des gewöhnlichen Lebens, solange man sich innerlich anstrengt, solange man in der Meditation drinnen ist."
-        },
-        {
-          "index": "^xaipsd",
-          "content": "Erst dann, wenn man eben die Anstrengung vollzogen hat, wenn man nun sie auf die Seele hat wirken lassen und dann wiederum unterdrückt und ruhig wartet, kommen die geisteswissenschaftlichen Ergebnisse. Die können nur auftreten als geistige Tatsachen, zu deren Anblick man sich so vorbereitet hat, dass man sich das innerliche geistige Auge geschaffen hat."
-        },
-        {
-          "index": "^w2ue3i",
-          "content": "Wie die Natur im menschlichen Organismus das Auge heraustreibt aus dem Leibe, damit es entgegenblickt der äußeren Welt und das Licht und die Farben empfängt, so arbeitet man durch alles das, was Denken, was innerliche Seelenanstrengung sein kann, darauf hin, dem entgegenzugehen, das einem eben von der anderen Seite entgegenkommen soll und entgegenkommen muss. Innere Offenbarung, inneres Herankommen an die Seele muss dasjenige sein, was einem als Tatsache der geistigen Welt entgegentritt. Das ist die eine Seite."
-        },
-        {
-          "index": "^idsw7l",
-          "content": "Von der anderen Seite kann man sagen: sie ist ebenso ein innerlich intimes Erleben des Willens, wie das, was ich geschildert habe, ein innerliches Erleben des Denkens war. Im gewöhnlichen Leben verrichtet man seine Handlungen, die aus den Willensimpulsen, aus Wunsch und Begehren hervorgehen. Aber man wendet die Aufmerksamkeit nicht darauf, dass in diesem Willen etwas Besonderes steckt."
-        },
-        {
-          "index": "^fqwt53",
-          "content": "Dass in dem Wollen des Menschen etwas Besonderes steckt, darauf kommt man, wenn man sich, sei es auch nur für Minuten, meditierend aus dem Leben zurückzieht und darauf hinsieht, wie man gewollt hat; wenn man innerlich die Seele nicht auf ein Wollen richtet, das in die äußere Handlung übergeht, sondern auf ein innerliches Beschauen des Wollens."
-        },
-        {
-          "index": "^9kr4pt",
-          "content": "Derjenige übrigens, der seine Gedankenmeditation in der richtigen Weise vollführt, kommt ganz von selbst zu diesem innerlichen Beschauen des Wollens. Denn es ist das Meditieren, insofern es auch nur ein In-die-Mitte-des-Bewusstseins-Stellen eines Gedankens ist, zugleich ein intimes Aufbringen eines inneren Willensvorganges. Man erlebt das Wollen so, dass man mit ihm innerlich beisammen ist."
-        },
-        {
-          "index": "^cb8618",
-          "content": "Durch die Verstärkung, durch die Erkraflung desjenigen, was schon für das vorige Seelenerleben Meditieren genannt worden ist, ergibt sich ganz von selbst, dass man die Aufmerksamkeit lenken lernt auf den innerlichen Vorgang des Wollens so, wie man sie niemals darauf richtet, wenn das Wollen eben in das äußere Handeln übergeht, weil man da seine Aufmerksamkeit auf dasjenige richtet, was man in der äußeren Sinnenwelt will. Aber man muss seine Aufmerksamkeit auf einen Willensvorgang richten, insofern das Wesentliche dieses Willensvorganges im Innern der Seele abläuft. Es muss wiederum ein ganz innerlich intimer Prozess sein."
-        },
-        {
-          "index": "^hk8vg4",
-          "content": "Und gerade dieses Wollen erkennt man am allerbesten im Meditationsprozess selber, wenn man nur den Meditationsprozess wirklich innerlich erlebt. Und da stellt sich denn heraus, dass man dann, indem man dies immer weiter und weiter in innerlicher Ausdauer und Energie vollbringt, endlich zu einem Punkte kommt, wo man einen inneren Beobachter in sich entdeckt."
-        },
-        {
-          "index": "^wtmfjt",
-          "content": "Es ist schwierig, so etwas zu sagen, weil es so ferne den gewöhnlichen Denkgewohnheiten liegt, so dass es aussieht, als ob man von etwas furchtbar Phantastischem spräche, während man von einer Realität spricht, auf die man wirklich kommt."
-        },
-        {
-          "index": "^vd1nuu",
-          "content": "Man entdeckt also einen inneren Menschen in sich, der fortwährend hinschaut auf dasjenige, was in unseren Willensentschlüssen, in unserem ganzen Wollen vorgeht, - einen Beobachter, von dem man im gewöhnlichen Leben nichts weiß, weil man eben nicht seine Aufmerksamkeit auf ihn richtet. Nicht ein gedachtes, sondern ein reales Wesen schaut in uns wirklich fortwährend zu und steckt in unserem Willen."
-        },
-        {
-          "index": "^uvcu2o",
-          "content": "So wie wir uns mit unseren Gedanken verhalten zu den Dingen der äußeren Wahrnehmung, so verhält sich etwas in uns zu unserer Willensentfaltung. Was die Farbe, die Töne für die Sinne sind und für das Bewusstsein, das die Außenwelt wahrnimmt, das ist unser Wollen für einen innerlichen Beobachter. Da steckt ein innerlicher Beobachter in uns, für den wir genau so in unseren Willensentschlüssen, in unseren Willensvollfürungen das Material der Beobachtung liefern, wie uns die Farben, wie die Töne das Material der Beobachtung uns für die Außenwelt liefern."
-        },
-        {
-          "index": "^73ajsi",
-          "content": "Es ist eben schwierig, über diese Dinge zu sprechen, weil man glaubt, man rede über etwas Ausgedachtes, während man eben über etwas redet, was, wenn sich die Seele vorbereitet hat, ihr wiederum entgegenkommt. Dieses höhere Bewusstsein ist nun solcher Art, dass man wirklich das ganz erschütternde Erlebnis in der Seele durchmacht: man kommt wie durch einen innerlichen Sprung aus alledem, worin man mit dem gewöhnlichen Seelenleben verbunden ist, heraus und vermag sich in diesen Beobachter, wenn auch nur, ich möchte sagen, für einen Augenblick hineinzuversetzen. Es gibt schon der Augenblicke genug."
-        },
-        {
-          "index": "^rauuqw",
-          "content": "Man fühlt sich seinem ganzen Menschen gegenüber, so wie er im gewöhnlichen Leben dasteht, jetzt in derselben Weise, wie man sich sonst mit diesem gewöhnlichen Menschen fühlt gegenüber den Dingen, den farbigen und tönenden Dingen der äußeren Natur. Wenn man dieses Erlebnis weitertreibt, dann merkt man auf einem gewissen Punkt des inneren Erlebens, was es heißt, innere Seelentätigkeit zu entfalten, die sich nicht des Organes der Leiblichkeit bedient, sondern dieser äußeren Leiblichkeit gegenübersteht wie einem äußeren Gegenstand, wie der gewöhnliche Mensch dem Tisch oder dem Stuhl oder irgendeinem sonstigen äußeren Gegenstand gegenübersteht."
-        },
-        {
-          "index": "^v5kqc0",
-          "content": "Sein Seelenleben außer dem Leibe zu erleben, das ist es, was man eben wiederum nur erleben kann. Und dann weiß man, wie das Leben ausschaut, das durch die Pforte des Todes durchgeht, das leibfrei lebt, wenn ihm auch der physische Leib zerstört wird. Es ist innerlich webendes Seelenleben, das dann in die geistige Welt hinübertritt, um durch die geistige Welt sich hindurchzuleben und aus der geistigen Welt nunmehr die Kräfte zu nehmen."
-        },
-        {
-          "index": "^mvxygk",
-          "content": "Man lernt sie in ihrer Eigenart kennen, diese Kräfte, die allmählich die Vorbereitung dazu sind, dass das Seelenwesen, nachdem es durch das Leben zwischen Tod und neuer Geburt durchgegangen ist, zu einer neuen Erdenverkörperung herabsteigt."
-        },
-        {
-          "index": "^mx31v6",
-          "content": "Von dem, was im Wollen des Menschen vorliegt, ausgehend, von dem, was im Denken, im Vorstellen vorliegt, ausgehend, also von dem gewöhnlichen Menschen ausgehend, kommt man zu den Ergebnissen der Geisteswissenschaft. Und diese Ergebnisse der Geisteswissenschaft sind nicht etwas, was der Geistesforscher für sich hätte. Es ist der größte Irrtum zu glauben, dass der Geistesforscher irgend etwas Neues in der Seele schafft gegenüber dem, was schon da ist. Wahrhaftig, ebensowenig wie derjenige, der als Naturforscher der Natur gegenübertritt, irgend etwas schafft, sondern nur der Natur ihre Geheimnisse ablauscht, ebensowenig schafft in bezug auf das innere Seelenleben der Geistesforscher irgend etwas. Er kommt nur an das heran, was vorgeburtlich ist, was nach dem Tode weiterlebt, an das, was die ewigen Kräfte der Menschenseele sind, was Menschengeist und Menschenseele sind."
-        },
-        {
-          "index": "^waqbc2",
-          "content": "Auch hier mischt sich wiederum, ich möchte sagen, ein halb oder manchmal auch ganz egoistisches Vorurteil in dasjenige, was der Geistesforscher eigentlich sagen will, hinein. Man sagt sich nun einmal im Leben: Der Geistesforscher kann etwas, was andere Menschen nicht können - und man überträgt das dann auf seinen Menschenwert, man überträgt das auf seine Bedeutung als Mensch. Aber er hat nichts anderes in sich, als was jeder gewöhnliche Mensch in sich hat. Denn dasjenige, was er entdeckt als vorgeburtlich, das ist immer in der menschlichen Natur, und das wird bei ihm nicht anders dadurch, dass er dann sich ein Wissen davon erwirbt."
-        },
-        {
-          "index": "^px3eql",
-          "content": "Dasjenige, was hinausgeht durch die Pforte des Todes, das ist beim Geistesforscher so vorhanden, wie es in jedem Menschen vorhanden ist. Und das Wissen, das der Geistesforscher erwirbt, verhält sich nicht anders zu der Wirklichkeit des seelisch-geistigen Daseins des Menschen, als sich das Wissen der Naturwissenschaft zu der äußeren Natur verhält."
-        },
-        {
-          "index": "^ae9noy",
-          "content": "Es wäre sogar gut, wenn in der Literatur, die über solche Dinge handelt, gewisse Worte nicht gleich so genommen würden, dass man sozusagen innerlich - verzeihen Sie den Ausdruck - Weihrauch streut, innerlich etwas ganz Besonderes in seinem Gefühle durchmachen möchte. Man bezeichnet oftmals denjenigen, der also in die geistige Welt hineinschauen kann, als einen Eingeweihten. Dann aber, wenn das Wort «Eingeweihter» ausgesprochen wird, verbindet man damit etwas, als ob man nun einen ganz besonderen Menschen vor sich hätte. Das soll man gerade vermeiden, sondern man soll die Dinge so nehmen, wie sie in Gemäßheit der eben gegebenen Schilderungen zu nehmen sind."
-        },
-        {
-          "index": "^mln2nq",
-          "content": "Und der Geistesforscher selber ist davon überzeugt: nur die eingangs genannten Vorurteile wirken dagegen, dass man seine Ergebnisse nicht geradeso aufnimmt nach dem gesunden Menschenverstand, wie man die Ergebnisse des Chemikers, des Physikers und so weiter aufnimmt. Denn prinzipiell ist kein Unterschied."
-        },
-        {
-          "index": "^x0r4vo",
-          "content": "Indem man das Denken in der Weise bildet, wie es geschildert worden ist, kommt man dazu, nach der einen Seite in die geistige Welt hineinzukommen. Es kommt einem das vorgeburtliche Leben entgegen, das Leben der Menschenseele in der geistigen Welt, und von da ausgehend dann eine Anschauung der geistigen Welt selber mit ihren Geisteswesen. Das kommt einem so entgegen, dass man es anschaulich hat. Aber man muss sich darüber klar sein, dass diese Anschauung sich unterscheidet von den Anschauungen, von den Wahrnehmungen, Empfindungen, die man gegenüber der äußeren Sinnenwelt hat."
-        },
-        {
-          "index": "^4tvcgh",
-          "content": "Wer glaubt, dieses Anschauen könne ihm so aufgehen, dass es gleichsam nur eine nebelartige Wiederholung der Anschauung der Sinnenwelt ist, irrt sich vollständig. Man muss sich vielmehr klar sein, dass alles, was die Sinnenwelt eben zur Sinnenwelt macht, daran liegt, dass wir es mit unseren Organen anschauen. Solche Farben, wie sie in der äußeren Sinneswelt sind, können nur durch ein Auge wahrgenommen werden, solche Töne, wie sie in der äußeren Welt sind, nur durch ein sinnliches Ohr gehört werden."
-        },
-        {
-          "index": "^kww8u9",
-          "content": "Dennoch kann man von Anschauen, von geistigem Anschauen sprechen. Man kann von einem Seelen-, von einem Geistesauge sprechen, wenn man sich nach dieser Seite hin der geistigen Welt nähert, um dieses Goethe-Wort «Geistesauge» zu brauchen."
-        },
-        {
-          "index": "^jb1ea8",
-          "content": "Nur dadurch unterscheidet sich dieses Anschauen, dass man sich bei einem solchen wahren Hellsehen immer bewusst ist - so wie man sich beim Schreiben bewusst ist, dass man dasjenige, was als Wirklichkeit zum Ausdruck kommen soll, selber als Anschauung hinstellt; dass man die Anschauung selber hervorruft. Aber bei diesem Selberhervorrufen folgt man einer inneren Wirklichkeit, einer geistigen Wirklichkeit, wie man auch beim Schreiben nicht etwas Beliebiges hinkritzelt, sondern eine innere Wirklichkeit zum Ausdruck bringt, allerdings eine innere Wirklichkeit, die der äußeren Welt angehört."
-        },
-        {
-          "index": "^etp4zm",
-          "content": "Dieses viel aktivere, immer tätige innere Mitarbeiten mit der Anschauung ist gerade das, was dieses - ich sage jetzt: wahre - innere Hellsehen unterscheidet von der äußeren Sinnenwahrnehmung, die uns passiv gegeben wird, die an uns heranrückt, indem wir ihr das Auge entgegenhalten. Aber auch zu dieser Fähigkeit, die geistige Welt auf geistige Art nachzuzeichnen, kommen wir nur, wenn wir die Vorbereitung getroffen haben, so dass uns die geistige Welt als Ergebnis entgegenkommt."
-        },
-        {
-          "index": "^umcv6g",
-          "content": "Aus diesem Erlebnis heraus zeichnet dann die Seele die Anschauung, und sie hat das Bedürfnis dazu, weil es einem inneren Triebe entspricht, dasjenige nun auch wirklich anschaulich vor sich zu haben, was sonst eben als Erlebnis webt und lebt, aber noch nicht Wirklichkeit, Realität ist."
-        },
-        {
-          "index": "^blptat",
-          "content": "Und wenn man wiederum nach der anderen Seite geht, wenn man durch den Willen aus der Sinnenwelt so hinausgeht, wie geschildert worden ist, und zu dem innerlichen Beobachter kommt, der einen wirklich begleitet, der aber nicht beobachtet wird, weil ihm die Aufmerksamkeit im gewöhnlichen Leben entzogen wird, dann fühlt man: Da in dir ist immer einer, der dir zuschaut, der seinerseits zum Ausdruck bringt, was du willst, worauf du deine Absichten richtest, was deiner Wunsch-, deiner Willenssphäre angehört. Aber dieses Zuschauen stellt sich jetzt so dar, dass man innerlich mittätig fühlt diesen Zuschauer, diesen höheren Menschen im Menschen, diesen Geistesmenschen im Leibesmenschen."
-        },
-        {
-          "index": "^tyxzy6",
-          "content": "Man fühlt, wie er mittut, wie sein Tun in allem, allem darin ist. Ich nannte dieses innerliche Mittun einen Beobachter, weil man dadurch zu seinem Verständnis kommt; aber es ist nicht ein Beobachter im Sinne des Zuschauens, sondern im Sinne des Mittuns. Den Menschen, der durch die Todespforte schreitet, fühlen wir schon jetzt in unserem Leibe, wenn wir uns auf diese Weise dazu bringen, dass er in uns tätig ist."
-        },
-        {
-          "index": "^l2aj4t",
-          "content": "Aber wir müssen dann diese innere Tätigkeit, wenn wir das andere «Hellsichtigkeit» genannt haben, «Hellhörigkeit» nennen. Geistesohren, um wieder ein Goethe-Wort zu gebrauchen, gehen auf im Innern der Seele. Man lebt sozusagen in einem nur geistig vernehmbaren schwingenden Tönen, von dem man weiß, dass es innerlicher Realität entspricht. Man weiß, dass man selber unmittelbar geistige Wesenheit ist und sich nun begeben kann in die «Gesellschaft» - um dieses triviale Wort zu gebrauchen - der anderen Geistwesen, die in der geistigen Welt sind."
-        },
-        {
-          "index": "^8vevwk",
-          "content": "Nun muss man aber allerdings, wenn die Ausdrücke «Hellhörigkeit», «Hellsichtigkeit» gebraucht werden, immer darauf aufmerksam machen, dass gerade von diesem Punkte aus gewichtige und, ich muss sogar sagen, gerechtfertigte Einwände und Missverständnisse sich erheben gegen die Geisteswissenschaft. Denn mit Recht - und ich bitte zu beachten, dass ich sage mit Recht - sind die Worte «Hellsichtigkeit», «Hellhörigkeit» und so weiter in weitesten Kreisen missachtet und als etwas angesehen, was im Grunde genommen jedenfalls nicht zu einer besseren Erkenntnis der Wirklichkeit führen kann als das gewöhnliche Denken und Vorstellen, sondern was im Gegenteil in allerlei Phantastisches, in allerlei Träumereien, ja, in krankhafter Weise eben wegführen muss von der wahren Wirklichkeit."
-        },
-        {
-          "index": "^huxdki",
-          "content": "Aber auch hier steht Geisteswissenschaft nicht nur auf demselben Boden wie die Naturwissenschaft, sondern im Gegenteil: wahre Geisteswissenschaft zieht gerade die alleräußersten Konsequenzen. Und was in diesem Zusammenhange hier charakterisiert worden ist und wofür die Worte «Hellsichtigkeit», «Hellhörigkeit», die nun einmal da sind, gebraucht worden sind, das hat eben ganz und gar nichts mit demjenigen zu tun, was oftmals im gewöhnlichen Leben also genannt wird; inwiefern dies damit nichts zu tun hat, möchte ich jetzt durch eine Auseinandersetzung, die vielleicht weit hergeholt ist, veranschaulichen."
-        },
-        {
-          "index": "^d9ca6y",
-          "content": "Indem wir unser Denken im gewöhnlichen Leben aufwenden, üben, ausüben, gebrauchen wir unseren Leib zu unserem Denken. Wie viel von unserem Leibe, das braucht jetzt nicht betrachtet werden. Inwiefern das Denken das Nervensystem zu seinem Organ hat, darauf soll jetzt, wie gesagt, nicht Rücksicht genommen werden."
-        },
-        {
-          "index": "^dp7luw",
-          "content": "Nun habe ich in dem Vortrage heute vor acht Tagen darauf hingewiesen, dass dieses gewöhnliche Denken damit zusammenhängt, dass in uns von dem Momente an, wo wir denkend sein können im Leben, in uns eigentlich ein Abbauprozess stattfindet, ein Abbauprozess in bezug auf feine Lebensvorgänge. Das zeigt die Geisteswissenschaft. Ich kann das heute nur anführen. Ich habe letztes Mal, in dem Vortrag heute vor acht Tagen, genauer darüber gesprochen, es soll aber in den folgenden Vorträgen immer mehr im einzelnen ausgeführt werden."
-        },
-        {
-          "index": "^dyy1t5",
-          "content": "Bis zu dem Punkte, bis zu dem man sich im Leben zurückerinnert, verläuft nämlich im Menschen ein Prozess, und zwar zuerst vorgeburtlich, vor der Empfängnis, in der rein geistigen Welt. Es verläuft ein Prozess, der hinzielt auf Verrichtungen, die den Organismus gewissermaßen aufbauen, die in der Lebensrichtung des Organismus liegen."
-        },
-        {
-          "index": "^u4cp4h",
-          "content": "In dem Augenblick, bis zu dem wir uns im Leben zurückerinnern, da tritt das ein, dass diese innerliche Kräftebetätigung, welche die noch nicht denkende Denkwesenheit, Denkkraft ist, aufhört am Menschen aufzubauen. Von diesem Augenblicke an baut sie im Menschen ab, übt eigentlich fortwährend Zerstörungsprozesse aus, die sich dann summieren und die endlich den äußeren physischen Tod des Menschen herbeiführen, die den Leib des Menschen hinwegnehmen von seiner Seele und seinem Geiste."
-        },
-        {
-          "index": "^jdqb1d",
-          "content": "So dass wir gerade, wenn wir das Denken geisteswissenschaftlich durchforschen, es leiblich gebunden fühlen an einen Abbauprozess, an einen Prozess, der, indem das Denken so verläuft wie im gewöhnlichen Leben, abbaut. Es muss der Abbau dann immer wiederum ersetzt werden, indem das Denken stillsteht im Schlafe. Aber der Abbauprozess ist stärker, ist intensiver und führt endlich langsam den Tod herbei, insofern er mit jenen Prozessen des Organismus zusammenhängt, die eben in dem Organismus des Denkens verankert sind. Selbstverständlich hängt der Tod auch mit anderen Prozessen zusammen."
-        },
-        {
-          "index": "^dfybuc",
-          "content": "So hängen wir, indem wir dieses gewöhnliche alltägliche Denken entwickeln, von unserer Organisation so ab, dass dieses Denken eigentlich mit einem Zerstören des Organismus verbunden ist. Mit dem, was uns den Tod bringt im Organismus, ist also dasjenige verbunden, was im höchsten Maße die Blüte des menschlichen inneren Erlebens für diese Welt zwischen Geburt und Tod ist."
-        },
-        {
-          "index": "^vq3czj",
-          "content": "Das ist eine Tätigkeit, die nun erhöht werden muss in dem Prozess, in den inneren Seelenverrichtungen, die angeführt worden sind. Das Denken durch Meditation und auch die Willensentfaltung durch Meditation bringen den Menschen dazu, dass er von seiner Leiblichkeit unabhängig wird, dass er sich aus seiner Leiblichkeit heraushebt und eine besondere Seelenbetätigung ausführt, in der er sich wissend außer seiner Leiblichkeit und unabhängig von seiner Leiblichkeit erhält. Das «außer» ist nicht so sehr räumlich gemeint, sondern so gemeint, dass der Mensch sich von der physischen Leibestätigkeit unabhängig weiß."
-        },
-        {
-          "index": "^otlrgg",
-          "content": "Bei demjenigen nun, was im gewöhnlichen Leben Hellsichtigkeit, Hellhörigkeit und so weiter genannt wird, was sich bis zur Halluzination und Illusion verdichten kann, liegt nun der verhängnisvolle Aberglaube vor, man könne dadurch zu Einsichten in die Welt kommen, die über Geburt und Tod hinaus liegt. Man kann aber durch dasjenige, was im gewöhnlichen Leben Hellsehen, Hellhören genannt wird, nicht hinauskommen zu irgendwelchen Vorgängen, Ereignissen in der geistigen Welt, die über Geburt und Tod hinaus liegt."
-        },
-        {
-          "index": "^m1geqa",
-          "content": "Denn für das gewöhnliche, alltägliche Denken müssen wir sozusagen etwas, was eine Ganzheit ist in unserem Leibe, zerstören, und wir müssen es in dem Maße zerstören, als das eben in der - um jetzt das Wort zu gebrauchen - normalen Lebenstätigkeit liegt. Wir stellen uns mit unserem ganzen Menschen hinein in die Umwelt und lassen ihn abbauen, indem wir das Denken üben, ausführen. Bei dem, was man gewöhnlich Hellsehen, Hellhören nennt, wird nun nicht der ganze Mensch der Welt gegenübergestellt, sondern es wird in krankhafter Weise nur ein Teil der Welt gegenübergestellt, so dass der Mensch nicht hinausgeht über das Denken, sondern hinuntergeht; nicht in das Übersinnliche sich erhebt, sondern in das Untersinnliche sich herunterrückt."
-        },
-        {
-          "index": "^yh7d40",
-          "content": "Dadurch, dass er in diesem gewöhnlichen Hellsehen weniger von seinem Organ ergreift als im gewöhnlichen Denken, in diesem gewöhnlichen Hellsehen, also dadurch, dass er nur einen Teil seines Organismus ergreift, kommt er zu Halluzinationen, zu Illusionen, die gewiss auch auf eine Realität hindeuten, aber auf eine solche, die weniger wirklich ist als unsere gewöhnliche Sinneswirklichkeit, die wir zwischen Geburt und Tod erleben."
-        },
-        {
-          "index": "^6n09i9",
-          "content": "Dieser gewöhnliche Hellseher mit seinem untersinnlichen Hellsehen, das eben entweder verstanden werden muss als etwas, was unter die gewöhnliche Wirklichkeit hinuntergehen muss oder sonst verkannt wird und zu Träumerei und Phantasterei, zu krankhafter Weltanschauung führt, dieses untersinnliche Hellsehen beruht darauf, dass man weniger von der Welt sieht, als man durch das gewöhnliche Vorstellen der Sinnenwelt wahrnimmt. Man geht sozusagen auch aus der Welt heraus, aber auf eine krankhafte Weise; man beschränkt sich auf etwas, was unter der Wirklichkeit des gewöhnlichen Erlebens liegt. Und dieses halluzinierende, illusionierende Hellsehen hängt stärker an der Körperlichkeit, und jetzt an der krankhaften Körperlichkeit, als das gewöhnliche Denken, Fühlen und Wollen."
-        },
-        {
-          "index": "^ou040b",
-          "content": "Daher steht Geisteswissenschaft auf dem Standpunkt, dass gerade mit dem, was wahres Hellsehen, wahres Hellhören ist, alle diese krankhaften Kräfte, die den Menschen zu untersinnlichem Anschauen führen können, überwunden werden. Was der wirkliche Geistesforscher entwickelt, ist nicht dasselbe wie das, was der krankhafte Mensch entwickelt, wenn er, wie man es so nennt im gewöhnlichen Leben, hellsichtig wird und zu Halluzinationen kommt, sondern es ist gerade das, was die Halluzinations-Kräfte im Menschen überwindet, was alle Halluzinations-Kräfte im Menschen ausrottet, was all dasjenige, was zu Illusionen führt, tötet im Menschen."
-        },
-        {
-          "index": "^okhlnk",
-          "content": "Zur geistigen Wirklichkeit kommt man eben gerade dadurch, dass man sich nach der anderen Seite entfernt von jenem krankhaften Ins-Untersinnliche-Hinuntertauchen, was man im gewöhnlichen Leben Hellsichtigkeit oder Hellhörigkeit nennt. Daher ist dasjenige, was hier geschildert worden ist, das ja gerade darin besteht, dass man nicht wie beim gewöhnlichen Hellsehen tiefer in seinen Organismus hinuntertaucht, sondern sich über ihn erhebt, unabhängig von ihm wird, und dadurch in der geistigen Welt schaut und hört, ein Hellsehen, das im Gegensatz zum gewöhnlichen Hellsehen ein absolut gesundender Prozess ist."
-        },
-        {
-          "index": "^jueumz",
-          "content": "Es kann nur gesundend sein, kann nur zu einer Erhöhung alles illusionsfreien menschlichen Erlebens führen gegenüber dem Erleben, wie es in der gewöhnlichen Sinneswelt vorhanden ist. Während der Halluzinierende, der Illusionierende, derjenige, den man oftmals im gewöhnlichen Leben einen Hellseher nennt, eben ein Phantast ist, weil er in das Untersinnliche hinuntergeht, ist bei dem, der wahres Hellsehen und wahres Hellhören entwickelt, dasjenige, was gesunde Lebensauffassung ist, nur eben erhöht, so dass bei ihm sogar viel weniger eine Illusion möglich ist gegenüber der Welt, als bei demjenigen, der bloß mit seinen gesunden fünf Sinnen und seinem gesunden Menschenverstand in die Welt hineingeht."
-        },
-        {
-          "index": "^nuz3fy",
-          "content": "Hier liegt ein Quell unendlicher Missverständnisse, weil man immer wieder und wieder das, was als wahres Hellsehen geschildert worden ist, mit demjenigen verwechselt, was man im trivialen Leben so oftmals Hellsichtigkeit, Hellhörigkeit und so weiter nennt, was aber auf irgend einen Defekt im physischen Organismus zurückgeht. Man kann einen solchen Defekt haben oder durch allerlei Unnatürlichkeiten selber hervorrufen, insofern ja dadurch auch bequemer und leichter zu erreichen ist, was man mit dem verwechselt, was durch eine Fortbildung der gesunden menschlichen Anschauungsweise erreicht werden kann."
-        },
-        {
-          "index": "^3cbi7r",
-          "content": "Das muss ausdrücklich betont werden, dass das Überwinden des untersinnlichen Verhaltens der Seele gerade dasjenige ist, was in der allerbesten Weise - viel gesünder als durch den gesunden Menschenverstand - gerade durch eine wahre Hellsichtigkeit und wahre Hellhörigkeit erreicht wird."
-        },
-        {
-          "index": "^4r1ae6",
-          "content": "So kann man sagen: Geisteswissenschaft ist ein Aufsuchen - man redet nicht einmal richtig, wenn man von einer Fortentwickelung der Seele spricht -, es ist ein Aufsuchen desjenigen, was in der Menschenseele und im Menschengeist als die tieferen Kräfte liegt, auf die man nur den Blick nicht hinrichtet, weil man sozusagen das Geistesohr und Geistesauge, das Organ dafür nicht geschaffen hat und den Blick im gewöhnlichen Leben nicht darauf hinrichtet. Ein Aufsuchen der ewigen Kräfte der Menschenseele ist es."
-        },
-        {
-          "index": "^06lbtm",
-          "content": "Und wenn man das festhält, dann kommt man dazu, folgendes zu sagen, das ja, wenn man es so ausspricht, überraschend sein kann, das aber für den, der den eigentlichen Tatbestand durchschaut, eine Selbstverständlichkeit ist. Äußerlich angeschaut, ist Geisteswissenschaft, das heißt die wirkliche Erkenntnis der Menschenseele und des Menschengeistes, heute noch etwas, was von dem größten Teil der Menschheit als eine Phantasterei, als Träumerei, als etwas Unsinniges angesehen wird, dem sich eben so ein paar Menschen hingeben können, denen eigentlich ihr gesunder Menschenverstand durch irgend etwas abhanden gekommen ist."
-        },
-        {
-          "index": "^1pqf2z",
-          "content": "Innerlich angesehen, der Wahrheit nach angesehen, hat eigentlich der Geistesforscher keinen Gegner in der Welt. Und das Kuriose ist dabei, dass der Geistesforscher nichts anderes behauptet als etwas, worin ihm im Grunde genommen jeder Mensch zustimmt - mit den allergeringsten Ausnahmen, die wiederum auf besonders absonderlichen Seelenzuständen beruhen. Mit geringen Ausnahmen muss ihm eigentlich jeder Mensch in Wahrheit zustimmen - nur weiß er es nicht, nur glaubt er, dass er ihm nicht zustimmen kann. Das ist es!"
-        },
-        {
-          "index": "^5pz1yu",
-          "content": "Denn wer sich nur dessen bewusst ist, dass er denkend durch die Welt geht, der kann in Wirklichkeit nicht mehr Gegner des Geistesforschers sein. Denn jeder, der denkend durch die Welt geht, zeigt damit, dass das Denken etwas in der Welt bedeutet; er gibt damit zu, dass das Denken ein Prozess ist, der sich über der Sinnenwelt abspielt. Indem wir denken, erleben wir innerlich etwas, was sich über der Sinnenwelt abspielt, was nicht zur Sinnenwelt hinzugehört, man kann vielleicht auch sagen, was sich unter der Sinnenwelt abspielt. Das gibt man in dem Momente zu, wo man genau denkt."
-        },
-        {
-          "index": "^9gn5tu",
-          "content": "Man gibt es eben nicht zu, und dadurch ist man Gegner der Geisteswissenschaft. Man gibt es in dem Momente zu, wo man sich klar macht, dass das Denken auch im gewöhnlichen Leben kein Bild von der äußeren Welt entwickeln könnte, wenn es in dieser äußeren Welt, in der Sinnenwelt darin stände. Denn wenn das Denken zur Sinnenwelt gehörte, so könnte es ebensowenig ein Bild machen der Sinnenwelt, wie die Flamme ein Bild machen kann von der Kerze. Sie ist Produkt der Kerze, aber das Produkt kann niemals ein Bild machen."
-        },
-        {
-          "index": "^9acq8c",
-          "content": "So dass derjenige, der in diesem Sinne Gegner der Geistigkeit des Denkens sein will, überhaupt Gegner der Geistigkeit sein müsste. Denn das Denken ist in sich selbst etwas über der Sinneswelt, weil es durch innerliche Aufraffung, durch eine innerliche Seelentätigkeit hervorgerufen wird, also nicht bloß durch Prozesse, die sich so abspielen wie die übrigen Leibesprozesse. Das ergibt sich eben einfach dadurch, dass man dieses Denken urteilen lässt über die Sinnenwelt."
-        },
-        {
-          "index": "^vs4125",
-          "content": "Und indem man dieses zugibt, dass das Denken nicht herausquillt aus der Sinnenwelt, sondern dass es urteilt über die Sinnenwelt, stellt man sich schon auf den Standpunkt, dass das Denken als solches nicht zur Sinnenwelt gehört, dass es etwas Geistiges ist. Wollte man sich auf den Standpunkt stellen, dass es nichts Geistiges ist, dass es aus der Sinnenwelt herausquillt, dann müsste man seine Gegnerschaft ganz anders einrichten. Und nur der darf wirklich konsequenterweise Gegner der Geistigkeit des Denkens sein, der sagt: Ich glaube nicht, dass dieses Denken irgendeine Bedeutung über die Sinneswelt hat, also höre ich auf zu denken. Ich erkrafte mich nicht innerlich zu irgend einem Gedanken, sondern ich überlasse mich der Sinneswelt; da muss ja das Denken dann von selber kommen. Wer das Denken nicht abschafft, kann niemals Gegner der Geistigkeit des Denkens sein, wenn er nur wirklich richtig denkt; wenn er nur mit seinem Denken bis zu den entsprechenden Konsequenzen geht."
-        },
-        {
-          "index": "^gp6imj",
-          "content": "In der Tat, in der Praxis sind alle diejenigen, die denken, dieser Anschauung. Denn jede andere Anschauung ist nicht eine Gegnerschaft gegen die Geisteswissenschaft, sondern eine Gegnerschaft gegen sich selbst. Man behauptet etwas anderes, als man in der Praxis übt. Wer das Denken überhaupt ausübt, bekennt damit, dass das Denken geistig ist."
-        },
-        {
-          "index": "^ho632i",
-          "content": "Geisteswissenschaft vollbringt nun nichts anderes, als dass sie dieses Denken aus der Abstraktion, aus der Bildhaftigkeit, aus dem, dass es bloß etwas bedeutet, heraushebt und dass sich der Geistesforscher so in den Prozess des Denkens hineinlebt, dass ihm das Denken ein Erleben wird. Und in dasselbe Erleben, das man sonst im Denken hat, auf das man aber nur nicht achtet, so dass man nicht einsieht, dass es ein Erleben ist, in dieses Erleben steckt man sich hinein."
-        },
-        {
-          "index": "^ife0n9",
-          "content": "In dem Augenblick, da man das Denken nicht mehr nimmt wie im gewöhnlichen Leben, wo es etwas bedeutet, etwas abbildet, sondern so nimmt, wie man sonst im Leibe physisch lebt, den Lebensprozess erlebt -, in diesem Augenblick schleicht sich die geistige Welt, schleichen sich geistige Wesenheiten, schleicht sich die wirklich spirituelle Welt in das erlebte Denken hinein, und das andere ist ein selbstverständlicher Fortgang."
-        },
-        {
-          "index": "^qp8ian",
-          "content": "Der Geistesforscher braucht sich also auf nichts anderes zu berufen, als was jeder Mensch eigentlich zugibt, der das Denken praktisch übt. Denn in dem, was er zugibt, bei der Denkausbildung, findet sich die geistige Welt. Im Denken steckt der Mensch schon hellsehend in der geistigen Welt drinnen, nur dass er statt des lebendigen Denkens dasjenige Denken bekommt, das bloß ein Spiegelbild ist."
-        },
-        {
-          "index": "^vb4lup",
-          "content": "Daher kann ich hier den schon oftmals geschilderten Vergleich wieder aussprechen. Wenn man vor einem Spiegelbild steht, erlebt man sich innerlich, aber man erlebt sich so, dass der Spiegel das Bild gibt. Es ist im Spiegel alles, nur dass er das tote Bild gibt, das nicht erlebt wird. Wie wenn man sich das Spiegelbild wegsuggerieren könnte und nun das Ganze bildhaft in sich erleben würde, so ist es, wenn man im Denken von seiner Bildnatur abkommt, die sich wirklich zu dem erlebten Denken wie die Spiegelung verhält, und zu dem Erleben des Denkens selber übergeht. Da schleichen sich eben, wie gesagt, hinein die geistigen Welten in das Denken. Das eigene Ich, das tiefere ich, der in uns lebende Zuschauer schleicht sich also in die in der geschilderten Weise innerlich durchbildete Welt des Wollens hinein."
-        },
-        {
-          "index": "^3gkqen",
-          "content": "Wiederum ist im Grunde genommen jeder Mensch, wenn er sich selbst versteht, Anhänger der Geisteswissenschaft, auch in bezug auf dieses Wollen. Denn wer nicht zugibt, dass im Willen etwas steckt, was ebenso innerlich bewusst ist, wie wir bewusst sind in unserem gewöhnlichen physischen Denken, wer nicht zugibt, dass da ein weiterer, innerlicher Mensch im Menschen drinnen steckt, kommt durch konsequentes Denken dazu, sich sagen zu müssen: Leugne ich, dass sich da etwas in mir vollzieht, was sich zu mir verhält, wie meine Anschauung sich in der Tat zur äußeren Natur verhält, glaube ich, dass der bloße physische Organismus mein Wollen vollzieht, dann muss ich die Konsequenz daraus ziehen: dann muss ich mich nicht mehr innerlich zu einem Wollen aufraffen, dann muss ich nicht daran glauben, ich könnte einen Schritt im Leben durch einen innerlich geistig gefassten Antrieb machen, sondern ich muss mich hinlegen und warten, bis mein Organismus in der Welt herumwandelt und dasjenige tut, dem ich dann bloß zuzuschauen brauche."
-        },
-        {
-          "index": "^b2xapp",
-          "content": "Wer also das Wollen nicht so leugnet, dass er sich auf den Diwan hinlegt und sagt: Ich leugne das Wollen, das ist im physischen Organismus verankert, - der glaubt an diesen inneren Zuschauer. Und das andere ist dann nur ein Weiterentwickeln dieser unmittelbar durch wahres, gesundes, inneres Sichversenken erlangten Überzeugung, dass dieser Zuschauer da ist."
-        },
-        {
-          "index": "^74apji",
-          "content": "Daher kommt der Geistesforscher zu der Einsicht: Gegner habe ich eigentlich gar nicht in Wirklichkeit. Gegner sind die Menschen immer nur von sich selber. Sie geben in der Theorie, durch ihre missverstandenen Begriffe nicht zu, was sie praktisch, indem sie leben, zugeben. Der Geistesforscher spricht einfach aus, was in jedes Menschen natürlicher Weltauffassung liegt."
-        },
-        {
-          "index": "^2spyja",
-          "content": "Und so wird man immer mehr und mehr einsehen, dass der Geistesforscher nichts anderes ausspricht, als was die Menschen eigentlich im gewöhnlichen natürlichen Leben zwischen den Zeilen des Lebens unbewusst als ihre greifbare Weltanschauung darleben, wenn sie es auch aus Missverständnis nicht aussprechen. Das wird man immer mehr und mehr gerade gegenüber der Geisteswissenschaft einsehen. Dann wird Geisteswissenschaft nicht mehr als etwas Absonderliches erscheinen, sondern als die selbstverständliche Erklärung und als die selbstverständliche Durchgeistigung, die man für das Leben braucht."
-        },
-        {
-          "index": "^zpcz28",
-          "content": "Und so kommen wir als Geistesforscher auf diese Weise nach zwei Seiten hinaus aus derjenigen Menschennatur, die im gewöhnlichen Leben dasteht und die sich in der gewöhnlichen Wissenschaft betätigt. Wir kommen hinaus nach der Seite der Hellsichtigkeit, im wahren Sinne des Wortes verstanden, wie es dargestellt worden ist; auf der anderen Seite nach der Richtung der Hellhörigkeit, wo man sich hineinlebt in seinen eigenen Zuschauer, der dann mit anderen Geisteswesen in der geistigen Welt lebt, die der Mensch beschreitet, wenn er durch die Pforte des Todes geschritten ist. Man kommt da aber in eine unmittelbar innerliche Beweglichkeit, in eine Tätigkeit hinein; da ist alles ebenso tätig, wie hier alles passiv ist."
-        },
-        {
-          "index": "^j6mnh4",
-          "content": "Wenn man sich nun das gewöhnliche Leben, die gewöhnlichen inneren Seelenerlebnisse ansieht, so muss man sagen: Diese inneren Erlebnisse des Menschen sind so, dass fortwährend, ohne dass es der Mensch weiß, die Gegenstände der Hellsichtigkeit und Hellhörigkeit in ihm sind, dass fortwährend in seinem gewöhnlichen Seelenleben diese Gegenstände tätig wirksam sind."
-        },
-        {
-          "index": "^1t9c2a",
-          "content": "Es bleibt wirksam in uns, was von der geistigen Welt in uns hereinkommt, indem es durch die Empfängnis und die Geburt geht. Das ist dasjenige, was der Mensch, wenn er es nun bemerkt, mehr das Geistige in seinem Seelenleben nennt. Dasjenige aber, was durch die Pforte des Todes schreitet, was in dem Willen liegt, so liegt, dass es wie ein innerer Zuschauer ist, das ist dasjenige, was der Mensch, wenn er es nicht im Zusammenhange mit dem ganzen Makrokosmos, sondern im gewöhnlichen Seelenerlebnis in sich hat, mehr das Seelische in sich nennt. Und das Geistige und Seelische in all der Mannigfaltigkeit, in all der Vielartigkeit, wie sie auftreten, führen zuletzt auf diese beiden Einschläge in die menschliche Natur zurück."
-        },
-        {
-          "index": "^k30l9z",
-          "content": "Der Geist, der liegt immer in dem, was wir nach der Denkseite hin entwickeln. Man wird dadurch geistreich - wenn das Wort jetzt nur im technischen Sinne gebraucht werden darf -, dass man, ohne die Wege des Geistesforschers zu gehen, die einem da noch im Unbewussten bleiben können, dieses Denken zu immer größerer innerer Beweglichkeit, zu immer größerer Erfindungsgabe ausbildet, so dass einem Gedanken reichlicher zufließen, so dass sie verwandter sind dem, was innerlich zusammengehört in der Ideenfolge, die man haben kann."
-        },
-        {
-          "index": "^bkt6dq",
-          "content": "Durch dieses Geistreicherwerden, in dem also das lebt, was seiner wirklichen Wesenheit nach durch den angeführten Denk-Meditationsweg gefunden werden kann, durch dieses Geistige in der Menschenseele lernt man vorzugsweise im Leben - aber jetzt praktisch, nicht theoretisch gemeint - dasjenige, was man Menschenkenntnis nennen kann. Man lernt, was einen anleitet, den Menschen in der richtigen Weise in die Welt hineinzustellen. Man lernt, was überhaupt die Zusammenhänge der Welt vor der eigenen Seele enthüllt."
-        },
-        {
-          "index": "^sv400d",
-          "content": "Man entfernt sich dadurch in einer gewissen Weise, indem gerade der Geist sich ausbildet, von dem, was sich so recht als physischer Mensch ausdrückt. Man nähert sich durch die Ausbildung seines Geistigen dem, was nun gerade vorzugsweise tätig war, damit wir in die Sinneswelt hereinkamen. Dadurch entfernt man sich in einer gewissen Weise durch das Geistreichwerden von dem, was unmittelbar in der Sinneswelt erlebt wird."
-        },
-        {
-          "index": "^nvm1jn",
-          "content": "Daher rührt es, dass man durch das Geistreichwerden in eine gewisse kühle Atmosphäre hineinkommt. Aber durch das Überschauen der weisheitvollen Zusammenhänge der Welt, die sich vor der inneren Seele enthüllen, kann man in dieser Richtung weit kommen. Man kann vieles zusammentragen in der Welt, empfinden, was der andere nicht empfindet, in der Lage sein, vieles auszusprechen an Weltzusammenhängen, auch Dinge erfinden, die dann aus den Weltzusammenhängen heraus in die Wirklichkeit umgesetzt werden. Man kann auf diese Weise weit kommen."
-        },
-        {
-          "index": "^wbu26n",
-          "content": "Das ganze verläuft so, dass die Welt, ich möchte sagen, lichtvoller wird, dass sie für uns durchschaubar wird. Es ist das Geistreichwerden, das Aufgehen des Geistes im menschlichen Innern wie eine Vorstufe, wie eine noch nicht von wahrer Hellsichtigkeit durchträukte Vorstufe eines Hineingehens in die Welt, aus der wir herausgekommen sind durch die Empfängnis oder durch die Geburt."
-        },
-        {
-          "index": "^i41337",
-          "content": "Man wird nicht seelenreich, sondern man wird seelenvoll. Das Seelische liegt, indem es sich entwickelt, in der Vertiefung des inneren Erlebens. Wer das Seelische in sich vertieft, kommt noch nicht zum hellhörigen Erleben seines inneren Beobachters, aber dieser Beobachter wirkt in ihm auf eine besonders starke und intensive Weise, so dass sein inneres Seelenerleben wirklicher wird, als es sonst ist. Er wird seelenvoll."
-        },
-        {
-          "index": "^oyk1ez",
-          "content": "Dadurch lernt er weniger im Leben das, was Menschenkenntnis ist, was umfassendes, lichtvolles Anschauen der Weltverhältnisse und des Zusammenhanges des Menschen mit den Weltverhältnissen ist, aber er wird innerlich realer in seinem Erleben. Die Seele wird intensiver, sie wird innerlich erkraftet. Was im Willen lebt, man möchte sagen, im Willen schwingt und flutet während des Lebens, Lust und Leid, Freud' und Schmerz, die auf- und abfluten und im Grunde innerlich zusammenhängen mit der Willensnatur des Menschen - es könnte das streng psychologisch bewiesen werden, aber dazu ist keine Zeit -, das wird in einer intensiveren Weise erlebt, wenn der Mensch in dieser Weise erstarkt in sich."
-        },
-        {
-          "index": "^hlmhp3",
-          "content": "Nicht nur was in ihm selbst als Lust und Leid vorhanden ist, was an inneren Gefühlen aus ihm aufsteigt, wird intensiver erlebt, sondern er kann gerade durch dieses Erstarken des Seelischen seine Lust und sein Leid ausdehnen auf dasjenige, was Lust und Leid, was Freude und Schmerz, was Glück und Elend in anderen Wesen ist, die um ihn herum sind. Das hängt mit dem Seelenvollen zusammen."
-        },
-        {
-          "index": "^c4d5x3",
-          "content": "Das aber hängt wiederum zusammen mit dem, was als Wesen der einzelnen Individualität durch die Pforte des Todes geht, was mitgenommen wird durch die Pforte des Todes, indem es sich in der heute vor acht Tagen beschriebenen Weise mit dem verbindet, was nun der Geist ist und was durch die Meditation im Denken erreicht wird."
-        },
-        {
-          "index": "^t1bndh",
-          "content": "So wird man stark in der Liebe, indem die Seele sich erstarkt. So wird man licht im Geiste, wenn der Geist sich erstarkt. Aber indem man den Geist erstarkt, entfremdet man sich ja auf der anderen Seite in der Weise, wie ich es geschildert habe, dem Zusammenhange mit der innerlichen Leibeswirklichkeit, mit der Wirklichkeit, die einen in die Sinneswelt hineinstellt."
-        },
-        {
-          "index": "^a9ugjs",
-          "content": "Daher muss man nicht in einer falschen Weise wirklichkeitsfeindlich werden, denn sonst könnte man mit diesem Entfernen nach der Richtung des Geistigen, mit dem Verlassen der Leiblichkeit sehr leicht wirklichkeitsfremd werden. Man könnte den Zusammenhang verlieren, den das lebendige Denken mit der Wirklichkeit hat, auch wenn er nicht bewusst wird, sondern nur unbewusst erlebt wird, wie es im gewöhnlichen Leben der Fall ist."
-        },
-        {
-          "index": "^bhciv1",
-          "content": "Dann würde man durch eine Abirrung des Geistes dahin kommen, wo sich die Gedanken - einer aus dem anderen - herausspinnen, wo man aber in diesen Gedanken nicht mehr so intensiv drinnen lebt, dass man den Zusammenhang mit der Wirklichkeit hat. Man kommt gerade dann in einen seelischen Vorgang hinein, innerhalb dessen man denken kann, aber man verliert den Zusammenhang mit der Wirklichkeit. Man wird zum Zweifler, zum Skeptiker. Und man wird, wenn sich das bis zu einem gewissen Grade steigert, alle Qualen der Skepsis durchmachen können, man wird dasjenige, was im Denken sich vollzieht, abspielt, nur für Sophistik halten können. Man wird zum Skeptiker, der nicht aus dem Quell der Wirklichkeit seine geistige Nahrung hat."
-        },
-        {
-          "index": "^44kssi",
-          "content": "Und indem man gewissermaßen nach der anderen Seite abirrt, nach jenem Prozess, der den Willen innerlich erkraftet, der den Kreis des innerlichen Lust- und Leid-, Freud- und Schmerzerlebens erweitert über dasjenige hinaus, was in einem selbst ist, kann es sein, dass diese innere Selbstes-Natur noch so stark ist, dass sie das, was sich erstarkt, von sich nicht loslässt. Dann kann es sein, dass, während der Mensch in der Tat mit der Umgebung lebt, sein Mitfühlen, sein Miterleben mit der Umgebung seinen Egoismus erstarkt."
-        },
-        {
-          "index": "^wb972p",
-          "content": "Und es kann dann sogar sein, dass sich das Mitfühlen, Miterleben verbirgt hinter der Maske des Egoismus, dass das Anschauen des Schmerzes und Leides eigentlich nur durch das, was es in einem selbst anrichtet, zum Miterleben wird, währenddem das wirkliche Mitgefühl darinnen besteht, dass man das eigene Selbst ausbreitet über dasjenige, was der andere erlebt. So kann es sein, extrem ausgedrückt, dass das Unangenehme, das Unbehagliche, das uns der Schmerz bereitet, dann in ganz egoistischer Weise erlebt wird, wenn das innere Selbst das erstarkte Seelenleben nicht entlässt."
-        },
-        {
-          "index": "^78oi4q",
-          "content": "Aber deshalb wurzelt die Liebe doch in dem erstarkten Seelenleben. Und Menschenseele ist dasjenige, was den Quell der Liebe gerade so in sich trägt, wie den Quell der Welterkenntnis dasjenige in sich trägt, was Geist ist. Geist eröffnet uns, offenbart uns das Licht, das uns die Welt beleuchtet; Seele zündet in uns dasjenige an, was uns mit jeglichem Wesen, mit dem Innern eines jeglichen Wesens verbindet, was uns als Mensch unter Menschen, was uns überhaupt unter anderen Menschen unmittelbar leben lässt. Liebe ist das Urelement des Seelischen. Licht in der geistigen Welt ist das Urelement des Geistigen."
-        },
-        {
-          "index": "^kgbx7v",
-          "content": "Wer nun also wirklich den geistesforscherischen Weg, sei es auch nur ein Stück, gehen will - denn schon wenn man ihn nur ein Stück geht, kann man sich davon überzeugen -, der erreicht zu sehen, dass Wahrheit ist in dem, was der Geistesforscher zu behaupten hat."
-        },
-        {
-          "index": "^1kocgs",
-          "content": "Wer den Weg der Geistesforschung geht, hat daher vor allen Dingen darauf zu achten, dass dasjenige, was er als Geist entwickelt, nicht die Grundlage des seelischen Lebens vermissen lässt. Der Geist kann sich nur dadurch von der Wirklichkeit der eigenen Persönlichkeit und damit von dem Ergreifen der Weltwirklichkeit entfernen, dass in der Seele nicht Liebe waltet. Wenn in der Seele Liebe waltet, wenn die Seele durchwallt und durchkraftet wird von dem Element der Liebe, dann ist sie stark genug, um den Geist zu halten, in welch lichtvolle Höhen er sich auch erheben mag."
-        },
-        {
-          "index": "^nhbcrs",
-          "content": "Und wiederum, wenn der Mensch es nicht verschmäht, Weisheit zu suchen in der Welt, weisheitsvolle Zusammenhänge - nicht Weisheit, die mit Gescheitheit identisch ist, sondern demutsvolle Weisheit, die in der Welt waltet -, wenn er diese Weisheit in sich selber sich vergegenwärtigen will und nun nicht bloß mit dem Verstande, nicht bloß mit der Abstraktion erfasst, sondern untertauchen lässt in die liebevolle Seele; wenn alles das, was Weisheit, Licht ist, durchwärmt wird von dem, was in der Seele aufsteigt, was den Menschen ins Leben als einen Menschenliebenden hineinstellt, so wie ihn anderseits die Weisheit, der Geist zum Menschenkenner macht, dann hinwiederum ist dieses geeignet, den Menschen vom Egoismus abzuleiten und die Liebe wirklich hinaufzutragen in dasjenige, was er, indem er zu der Liebe die Erkenntnis hinzufügt, als ein Überschauen der Welt erleben kann: der Geist, der in der liebenden Seele wurzelt, warme Seelenliebe, die sich vom Geiste durchleuchten lässt, das ist ein Menschheitsideal."
-        },
-        {
-          "index": "^6pyhky",
-          "content": "Und im Grunde genommen gibt eben dieses Menschheitsideal ein jeder zu, wie das ausgeführt worden ist. Geisteswissenschaft hat nur durch Missverständnisse Gegner. So dass man auch in besonderem Falle sagen kann: der Geisteswissenschafter ist wirklich mit dem, was die Leute sagen, ja gerade oftmals mit dem, was sie gegen die Geisteswissenschaft sagen, völlig einig."
-        },
-        {
-          "index": "^g03741",
-          "content": "Wenn zum Beispiel im September-Heft des «Neuen Merkur» Leonard Nelson einen sehr geistvollen Aufsatz über die gegenwärtigen Zeitaufgaben in bezug auf Philosophie geschrieben hat, so scheint es so, als ob all das, was Nelson, der zu den geistreichsten Menschen der Gegenwart gehört, dort ausspricht, sich prägen ließe als Gegnerschaft gegen die Geisteswissenschaft. Die Gegenprobe wäre die, dass der Geistesforscher zu nichts, was dieser Mann sagt, nein zu sagen braucht."
-        },
-        {
-          "index": "^h8due4",
-          "content": "Da stellt Leonard Nelson auf der einen Seite dar, wie der Mensch ausartet, wenn er bloß den Verstand ausbildet; wie er dadurch in eine Abstraktion hineinkommt, die ihn zu keiner wirklich lebensvollen Philosophie führen kann. In viel konsequenterem, höherem Sinn muss das der Geistesforscher zugeben, der die Qual der Skepsis, der Zweifelsucht, die zum Leiden wird, aufzeigt, wenn der Geist in einseitiger Weise, ohne den Wurzelgrund der Seelenliebe, sich entwickeln will."
-        },
-        {
-          "index": "^70esz3",
-          "content": "Nur weist Nelson eben auf das Denken hin und weiß nichts davon, dass sich in dieses selbe Denken, wenn es erlebt wird, eine ganz andere Welt einschleicht, eine Welt, die viel inhaltsreicher ist als die sinnliche Welt und die ihm verschlossen bleibt. Man ist mit dem, was er positiv behauptet, völlig einverstanden. Nur lässt er sich nicht darauf ein, mit sich selbst einverstanden zu sein, er missversteht sich selber."
-        },
-        {
-          "index": "^eem7na",
-          "content": "Ebenso ist man einverstanden, wenn er nach der anderen Seite sagt: Wenn der Mensch sich nun in seine eigene Natur vertieft, in sich hineinbrütet, da kommt ein falscher Mystizismus zutage, da kommt der Mensch in ein nebuloses innerliches Träumen hinein. Nur durch das Denken will er nicht verankert sein; gerade vom Gefühl glaubt er, dem Weltengrunde näher zu sein. In Wahrheit ist es nur ein Subjektives, was da erreicht wird."
-        },
-        {
-          "index": "^o4gnwm",
-          "content": "Vollständig einverstanden ist der Geistesforscher damit, was in positiver Weise gesagt wird. Nur weiß der Verfasser des Aufsatzes wiederum nicht, dass man damit etwas ganz Neues entdeckt, wenn man nur den rechten Weg geht. Er versteht sich selber nicht und widerlegt sich im Grunde nur selber, indem er eine andere Anschauung hat, als er, wenn ich den paradoxen Ausdruck gebrauchen darf, als Anschauung betätigt, praktisch ausübt. Dasjenige, was er tut, ist völlig übereinstimmend mit der Geisteswissenschaft. Der Geistesforscher ist im Grunde genommen von dem, was die Menschen wirklich meinen, kein Gegner; und sie sind nur deshalb Gegner, weil sie sich missverstehen und dadurch ihn missverstehen, an ihm vorbeireden."
-        },
-        {
-          "index": "^o96bxe",
-          "content": "Das sieht man auch, wenn der Mensch, der da glaubt, auf einem anderen Boden der Weltanschauung als dem der Geisteswissenschaft stehen zu müssen, und zwar gerade aus den sicheren Ergebnissen der Naturwissenschaft heraus, sich einmal gehen lässt und dasjenige, was er sich nur vormacht, ersetzt durch das, was in ihm auf naturgemäße Weise lebt. Ich habe gestern über einen Denker gesprochen, und aus dem Vorgebrachten werden Sie ersehen haben, dass ich diesen Denker aufs höchste achte. Es ist der österreichische Philosoph Bartholomäus von Carneri."
-        },
-        {
-          "index": "^cyohtc",
-          "content": "Ich schätze Carneri deswegen, weil er mit so starkem Geiste versuchte, eine Ethik, eine Sittenlehre aus dem Darwinismus heraus zu entwickeln. Aber er steht auf dem Boden, der Gedanken hervorbringt, die sich selbstverständlich zu dem, was die Geisteswissenschaft sagt, gegnerisch verhalten, weil er sich selber wiederum nicht versteht, weil er Dinge vorbringt, die dem widersprechen, was er betätigt."
-        },
-        {
-          "index": "^dq14du",
-          "content": "Nehmen wir einmal an, ein solcher Mann lässt sich gehen und lebt innerlich das, was er nur in einer für sich selbst missverständlichen Weise ausdenkt. Nehmen wir an, ein solcher Mensch käme zu einem Augenblick, wo er sich dem Leben überließe und nicht seinem auf schiefen Bahnen gehenden Denken. Nehmen wir an, er überließe sich elementar dem Leben und spräche aus innerer Kraft, derselben Kraft, die ihn auch zu seinem schiefen Denken gebracht hat. Bei Carneri können wir das beobachten."
-        },
-        {
-          "index": "^cjcwlc",
-          "content": "Carneri war eigentlich schon als Krüppel geboren worden, mit einer verkrümmten Wirbelsäule, war unter den größten Qualen herangewachsen und ein sehr alter Herr geworden. Das Leben war für ihn wirklich Qual. Er konnte nur mit der linken Hand schreiben, die rechte Hand war das ganze Leben hindurch völlig gelähmt, ebenso sonst die ganze rechte Seite in gewisser Beziehung unbrauchbar, dazu fortwährend jene Störungen des Atmens, die mit einem solchen Organismus verbunden sind."
-        },
-        {
-          "index": "^lywhwq",
-          "content": "Dabei stand der Mann ganz auf darwinistischem Boden und suchte zugleich eine Weltanschauung auch für die Ethik zu begründen, die absieht von dem, was man in missverstandener Weise Dualismus nennt, aber eben in missverstandener Weise. Schließlich könnte man auch behaupten: Wasser ist nur eine Einheit. Wasser ist aber keine Einheit, denn es besteht aus Wasserstoff und Sauerstoff. Man durchbricht wahrhaftig nicht das Monon, wenn man von Leib, Seele, Geist spricht, aber Carneri glaubte das nun einmal. Wir können ihn da gerade fassen."
-        },
-        {
-          "index": "^u4s7ut",
-          "content": "Ich bringe da etwas aus dem Leben vor, das selbstverständlich für viele, die gewohnt sind, in der gegenwärtigen Weise philosophisch zu denken, als etwas Belächelnswertes aufgefasst werden kann. Aber es zeigt wirklich anschaulich, wie Carneri, also der Mann, der die Ethik aus dem Materialismus heraus zaubert, der die selbständigen Kräfte des menschlichen Innern eigentlich theoretisch leugnet, in einem Moment, der ihm aufdrängte aus seinem tiefsten Innern heraus zu sprechen, sein eigener Gegner wird und für einen Moment so spricht, wie wenn er der beste Anhänger einer Lehre wäre, welche die Selbständigkeit des Geistes und der Seele des Menschen, wie ich das heute dargestellt habe, anerkennt."
-        },
-        {
-          "index": "^4mcmkr",
-          "content": "Und er hat das oft getan. Aber er ist mit seinem Denken nicht nachgekommen jener inneren Gesinnung, die die Stärke des Seelischen betont in diesen Augenblicken, wo er sich als der Sieger über das bloß Äußerliche des Leibeslebens fühlte."
-        },
-        {
-          "index": "^avxay0",
-          "content": "Die materialistische Anschauung glaubt: wenn man den Menschen als Leibeswesen vor sich hat, so gehen da gewisse Vorgänge in seinem Leibe vor sich, und diese Vorgänge haben dasjenige zur Folge, was Denken, was Fühlen, was Wollen ist. Der Geistesforscher steht nicht auf dem Boden, diese Anschauung widerlegen zu wollen. Das ist eben das Eigentümliche, dass sein Verhältnis zu den anderen Wissenschaften nicht das des Widerlegens sein kann. Sondern er steht auf dem Boden, das alles zuzugeben: ja, es ist ganz richtig, dass jeder Gedanke, der sich äußert, einem Gehirnvorgang entspricht. Da geht etwas vor im Gehirn! Das wird das höchste Ideal der Naturwissenschaft sein, aufzuzeigen, welches der organische Vorgang des Denkens ist."
-        },
-        {
-          "index": "^faissw",
-          "content": "Aber wie steht nun dieser organische Vorgang zu dem Denken? Ich kann es jetzt nur vergleichsweise ausdrücken, was aber ausführlich dargestellt werden könnte. Doch gerade durch einen Vergleich wird es recht gut verstanden werden können. Wenn der Mensch über eine Straße geht und die Straße etwas weichen Boden hat, so dass sich jeder Tritt einprägt, sind hinterher die Spuren zu sehen. Da könnte jemand kommen und sagen: Ja, da sind gewisse Ausprägungen in der Erde - ich untersuche jetzt in der Erde die Kräfte, die diese Ausprägungen vom Inneren der Erde heraus formen, die bewirkt haben, dass der Weg in solch einer Weise geformt worden ist. Jemand, der nur auf die Erde schaut und vergisst, dass ein Mensch darüber gegangen ist, könnte das glauben."
-        },
-        {
-          "index": "^lygq9c",
-          "content": "Gerade so verfährt derjenige, der im Gehirn und in den wirklichen Prozessen, die sich darin abspielen, die das Denken begleiten, die Ursachen des Denkens sucht. So wenig wie die Formen der Tritte aus dem Innern der Erde heraus kommen, so wenig kommt dasjenige, was da im Gehirn zu finden ist, aus dem Innern des Menschen heraus, sondern es wird auf lebendig seelischem Wege hineingeprÄgt, gerade so wie die Tritte in den Boden. Und wie derjenige falsch denkt, der die Tritte aus den Kräften der Erde selber ableiten will und nicht aus dem Menschen, der sie hinein getreten hat, ebenso falsch denkt derjenige, der glaubt, aus den inneren Vorgängen des Nervensystems das ableiten zu können, was sich im Verlaufe des Denkens unter diesen Nervenvorgängen im Gehirn abspielt."
-        },
-        {
-          "index": "^6f03yo",
-          "content": "Das sind die Spuren, die diese lebendige Seele einprägt. Diese lebendige Seele sieht man nicht darinnen, aber sie wirkt und west darinnen. Und sie kann nicht gefunden werden durch äußere Forschung, sondern ihre Wege, ihre Schicksale, ihr Leben können nur gefunden werden durch diejenigen Prozesse, die rein innere Seelenprozesse sind und von denen heute gesprochen worden ist als den Wegen, auf denen man findet Menschenseele und Menschengeist!"
-        },
-        {
-          "index": "^p9gku0",
-          "content": "Ich darf zum Schlusse in ein paar Worte paradigmatisch zusammenfassen, was ich auszusprechen versuchte als die Charakteristik des Menschengeistes, der vor allen Dingen wirksam ist, um aus der ganzen Welt herein die Kräfte zu tragen, aber nicht bloß Kräfte, wie die äußeren Naturkräfte, sondern solche, die jetzt wirklich Kräfte des inneren Menschen sind und innerlich durchgeistigen, was durch die Vererbungsströmung gegeben ist. In dem aber lebt und drückt sich aus - dadurch, dass es gefunden werden kann als ein innerlicher Zuschauer, oder vielleicht besser gesagt, als geistiger Zuhörer im Willen - das Seelische."
-        },
-        {
-          "index": "^s61nkl",
-          "content": "So durchdringt den Menschen Seele und Geist. So sind Seele und Geist aber auch beteiligt an der Art, wie sich der Mensch nicht nur in die zeitlichen, sondern in die ewigen Welten hineinstellt. Und aus dem, was gesagt worden ist, geht hervor, dass der Geist hinaufführt zu jenen lichten Höhen, wo wir die Welt durchschauen und in ihrem Zusammenhange mit dem Menschen selber sehen können, wo die Seele den Menschen innerlich erstarkt, wo die Seele Quell ist dessen, was Menschenliebe ist, was Menschenerkenntnis ist."
-        },
-        {
-          "index": "^8grv9f",
-          "content": "Geist ist etwas, was unter dem Symbol des Lichtes, aber eben des innerlichen Lichtes, angeschaut werden kann. Seele ist etwas, was unter dem Symbolum der inneren Wärme angeschaut werden kann, die sich ausbreitet über das ganze Leben und den Kreis erweitert, in dem die Seele lustvoll und leidvoll, schmerzvoll und freudig das Leben durcherleben kann."
-        },
-        {
-          "index": "^9qw4k4",
-          "content": "Sich wahrhaft offenbaren."
         }
       ]
     }

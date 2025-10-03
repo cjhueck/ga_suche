@@ -1174,36 +1174,13 @@ app.get('/api/lectures/list', (req, res) => {
 // Liste aller verfügbaren GA-Bände basierend auf JSON-Inhalten
 app.get('/api/available-ga', async (req, res) => {
   try {
-    const directoryPath = __dirname;
-    const allFiles = require('fs').readdirSync(directoryPath);
-    
-    console.log('[DEBUG] Alle Dateien im Verzeichnis:', allFiles.filter(f => f.includes('steiner')));
-    
-    const files = allFiles.filter(file =>
-      /^steiner-full-lectures-[\d]{3}[a-z]?-[\d]{3}[a-z]?.*\.json$/i.test(file)
-    );
-    
-    console.log('[DEBUG] Gefilterte Dateien:', files);
-
     const gaSet = new Set();
 
-    for (const file of files) {
-      try {
-        const content = require('fs').readFileSync(path.join(directoryPath, file), 'utf8');
-        const json = JSON.parse(content);
-        console.log(`[DEBUG] Datei ${file}: ${json.lectures?.length || 0} Lectures`);
-        
-        if (json.lectures && Array.isArray(json.lectures)) {
-          json.lectures.forEach(lecture => {
-            if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
-              gaSet.add(lecture.gaNumber);
-            }
-          });
-        }
-      } catch (err) {
-        console.error(`[WARN] Fehler beim Verarbeiten von Datei ${file}:`, err.message);
+    Object.values(fullLectures).forEach(lecture => {
+      if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
+        gaSet.add(lecture.gaNumber);
       }
-    }
+    });
 
     const result = Array.from(gaSet).sort();
     console.log("[INFO] Verfügbare GA-Bände:", result);
@@ -1211,6 +1188,42 @@ app.get('/api/available-ga', async (req, res) => {
   } catch (error) {
     console.error("[ERROR] Fehler bei /api/available-ga:", error);
     res.status(500).json({ error: "Interner Serverfehler" });
+  }
+});
+
+// GA-Overview-Map ausliefern
+app.get('/ga-overview-map.json', async (req, res) => {
+  try {
+    const mapPath = path.join(__dirname, 'ga-overview-map.json');
+    
+    console.log('[GA-OVERVIEW-MAP] Anfrage erhalten');
+    
+    try {
+      await fs.access(mapPath);
+      const data = await fs.readFile(mapPath, 'utf8');
+      res.setHeader('Content-Type', 'application/json');
+      res.send(data);
+      console.log('[GA-OVERVIEW-MAP] Datei erfolgreich gesendet');
+    } catch (fileErr) {
+      console.log('[GA-OVERVIEW-MAP] Datei nicht gefunden, generiere Fallback');
+      
+      const gaSet = new Set();
+      Object.values(fullLectures).forEach(lecture => {
+        if (lecture.gaNumber) {
+          gaSet.add(lecture.gaNumber);
+        }
+      });
+      
+      const map = {};
+      Array.from(gaSet).forEach(ga => {
+        map[ga] = `/${ga}/${ga}.html`;
+      });
+      
+      res.json(map);
+    }
+  } catch (err) {
+    console.error('[GA-OVERVIEW-MAP] Fehler:', err);
+    res.status(500).json({ error: 'cannot read ga-overview-map.json' });
   }
 });
 
@@ -1237,7 +1250,36 @@ async function startServer() {
     console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
     console.log('========================================');
     
-    app.listen(PORT, () => {
+    // Generiere ga-overview-map.json automatisch aus geladenen Vorträgen
+    console.log('\n=== GENERIERE GA-OVERVIEW-MAP ===');
+    const gaMap = {};
+    
+    Object.values(fullLectures).forEach(lecture => {
+      if (lecture.gaNumber && !gaMap[lecture.gaNumber]) {
+        // Verwende gaFileName direkt aus dem JSON (1:1 wie in Obsidian)
+        // Obsidian redirectet automatisch zum richtigen Ordner
+        const fileName = lecture.gaFileName || encodeURIComponent(lecture.gaTitle || lecture.gaNumber).replace(/%20/g, '+');
+        
+        // Generiere URL: /GA###+-+Dateiname (Obsidian fügt Ordner automatisch hinzu)
+        gaMap[lecture.gaNumber] = `/${lecture.gaNumber}+-+${fileName}`;
+      }
+    });
+    
+    // Speichere die generierte Map
+    const mapPath = path.join(__dirname, 'ga-overview-map.json');
+    try {
+      await fs.writeFile(mapPath, JSON.stringify(gaMap, null, 2), 'utf8');
+      console.log(`✓ ga-overview-map.json generiert mit ${Object.keys(gaMap).length} Einträgen`);
+      console.log(`  Gespeichert: ${mapPath}`);
+      console.log(`  Beispiel-URL:`, Object.values(gaMap)[0]);
+    } catch (writeError) {
+      console.error('✗ Fehler beim Schreiben der ga-overview-map.json:', writeError.message);
+      console.warn('  Server läuft weiter, verwendet Fallback-Mechanismus');
+    }
+    console.log('=================================\n');
+    
+    
+app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
       console.log(`\nVerfügbare Endpoints:`);
       console.log(`   GET  /debug/status`);
@@ -1249,6 +1291,7 @@ async function startServer() {
       console.log(`   GET  /api/full-lecture/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/lectures/list`);
       console.log(`   GET  /api/available-ga`);
+      console.log(`   GET  /ga-overview-map.json`);
       console.log(`\n✓ System bereit!\n`);
     });
     
