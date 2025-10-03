@@ -23,6 +23,7 @@ let chunks = [];
 let fullLectures = {};
 let synonyms = {};
 let summaryCache = {};
+let gaOverviewCache = {}; // NEU: Cache für GA-Übersichten
 
 // Standard-Synonyme
 const defaultSynonyms = {
@@ -139,6 +140,8 @@ async function loadFullLectures() {
       ID: sample?.ID,
       fileName: sample?.fileName,
       title: sample?.title,
+      gaNumber: sample?.gaNumber,
+      gaTitle: sample?.gaTitle,
       paragraphs: sample?.paragraphs?.length,
       hasIndices: sample?.paragraphs?.some(p => p.index)
     });
@@ -238,6 +241,134 @@ async function saveSummaryCache() {
     console.error('======================\n');
     return false;
   }
+}
+  async function invalidateGAOverviewCache(lectureId) {
+  try {
+    const gaNumber = lectureId.split('/')[0].toUpperCase();
+    
+    if (gaOverviewCache[gaNumber]) {
+      console.log(`[CACHE] Invalidiere GA-Overview-Cache für ${gaNumber}`);
+      delete gaOverviewCache[gaNumber];
+      await saveGAOverviewCache();
+      console.log(`[CACHE] ✓ GA-Overview-Cache für ${gaNumber} gelöscht`);
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('[CACHE] Fehler beim Invalidieren des GA-Overview-Cache:', error.message);
+    return false;
+  }
+}
+
+// ============================================================================
+// NEU: GA-ÜBERSICHTS-FUNKTIONEN
+// ============================================================================
+
+async function loadGAOverviewCache() {
+  try {
+    const cachePath = path.join(__dirname, 'ga-overview-cache.json');
+    
+    try {
+      const data = await fs.readFile(cachePath, 'utf8');
+      gaOverviewCache = JSON.parse(data);
+      console.log(`GA-Übersichten geladen: ${Object.keys(gaOverviewCache).length} GA-Bände`);
+    } catch {
+      gaOverviewCache = {};
+      console.log('Keine gespeicherten GA-Übersichten gefunden - leerer Cache erstellt');
+    }
+    
+    return gaOverviewCache;
+    
+  } catch (error) {
+    console.error('Fehler beim Laden des GA-Overview-Cache:', error.message);
+    gaOverviewCache = {};
+    return gaOverviewCache;
+  }
+}
+
+async function saveGAOverviewCache() {
+  try {
+    const cachePath = path.join(__dirname, 'ga-overview-cache.json');
+    const jsonString = JSON.stringify(gaOverviewCache, null, 2);
+    await fs.writeFile(cachePath, jsonString, 'utf8');
+    console.log('✓ GA-Overview-Cache gespeichert');
+    return true;
+  } catch (error) {
+    console.error('✗ Fehler beim Speichern des GA-Overview-Cache:', error.message);
+    return false;
+  }
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  
+  const months = {
+    '01': 'Januar', '02': 'Februar', '03': 'März', '04': 'April',
+    '05': 'Mai', '06': 'Juni', '07': 'Juli', '08': 'August',
+    '09': 'September', '10': 'Oktober', '11': 'November', '12': 'Dezember'
+  };
+  
+  const match = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (match) {
+    const [, year, month, day] = match;
+    return `${parseInt(day)}. ${months[month]} ${year}`;
+  }
+  
+  return dateStr;
+}
+
+function generateGAOverview(gaNumber) {
+  // Filtere alle Vorträge dieses GA-Bandes
+  const lectures = Object.values(fullLectures)
+    .filter(lec => lec.gaNumber === gaNumber)
+    .sort((a, b) => {
+      // Sortiere nach Vortragsnummer
+      const numA = parseInt(a.lectureNumber) || 0;
+      const numB = parseInt(b.lectureNumber) || 0;
+      return numA - numB;
+    });
+  
+  if (lectures.length === 0) {
+    return null;
+  }
+  
+  // Hole Titel des GA-Bandes vom ersten Vortrag
+  const gaTitle = lectures[0].gaTitle || gaNumber;
+  
+  // Erstelle Übersicht mit Vorträgen und (falls vorhanden) Zusammenfassungen
+  const overview = {
+    gaNumber: gaNumber,
+    gaTitle: gaTitle,
+    lectureCount: lectures.length,
+    lectures: lectures.map(lec => {
+      const lectureId = lec.ID;
+      const cached = summaryCache[lectureId];
+      
+      // Extrahiere summary-Text aus dem Cache
+      let summaryText = null;
+      if (cached) {
+        if (typeof cached === 'string') {
+          // Altes Format: direkt ein String
+          summaryText = cached;
+        } else if (typeof cached === 'object' && cached.summary) {
+          // Neues Format: Objekt mit .summary Property
+          summaryText = cached.summary;
+        }
+      }
+      
+      return {
+        lectureNumber: lec.lectureNumber,
+        ID: lectureId,
+        title: lec.title,
+        fileName: lec.fileName,
+        location: lec.location,
+        date: formatDate(lec.date),
+        summary: summaryText  // Nur der Text, nicht das Objekt
+      };
+    })
+  };
+  
+  return overview;
 }
 
 // ============================================================================
@@ -574,6 +705,13 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   }
   
   const topResults = results.slice(0, 15);
+
+console.log('=== DEBUG topResults ===');
+console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
+  ID: r.ID, 
+  index: r.index,
+  fileName: r.fileName 
+})), null, 2));
   
   const contextText = topResults
     .map((result, index) => {
@@ -660,28 +798,35 @@ ANALYSE:`;
 
 function addClickableReferences(text, results) {
   console.log('addClickableReferences gestartet');
-  console.log('Input Text Länge:', text.length);
-  console.log('Text Anfang:', text.substring(0, 200));
+  console.log('Erste 3 Results:', results.slice(0, 3).map(r => ({ ID: r.ID, index: r.index })));
   
   const refToDataMapping = {};
   
   results.forEach(result => {
     if (result.ID && result.index) {
-      const fullRef = `${result.ID}:${result.index}`;
-      refToDataMapping[fullRef] = {
+      const cleanIndex = result.index.replace(/^\^/, '');
+      
+      // Erstelle mehrere mögliche Keys
+      const key1 = `${result.ID}:${result.index}`;        // z.B. GA052/7:^abc123
+      const key2 = `${result.ID}:${cleanIndex}`;          // z.B. GA052/7:abc123
+      
+      const mapping = {
         id: result.ID,
-        index: result.index,
+        index: cleanIndex,
         title: result.title,
         fileName: result.fileName,
         content: result.content
       };
+      
+      refToDataMapping[key1] = mapping;
+      refToDataMapping[key2] = mapping;
     }
   });
   
   console.log(`Mapping erstellt für ${Object.keys(refToDataMapping).length} Referenzen`);
-  console.log(`Beispiel-Referenzen:`, Object.keys(refToDataMapping).slice(0, 3));
+  console.log(`Beispiel-Keys:`, Object.keys(refToDataMapping).slice(0, 6));
   
-  const gaPattern = /\(?(GA\d{3}[a-z]?\/\d+:[a-z0-9]+)\)?/gi;
+  const gaPattern = /\(?(GA\d{3}[a-z]?\/\d+:\^?[a-z0-9]+)\)?/gi;
   
   let linkedText = text;
   const matches = [];
@@ -690,45 +835,51 @@ function addClickableReferences(text, results) {
   gaPattern.lastIndex = 0;
   
   while ((match = gaPattern.exec(text)) !== null) {
-    const fullRef = match[1];
-    const [idPart, indexPart] = fullRef.split(':');
-    
     matches.push({
       fullMatch: match[0],
-      fullRef: fullRef,
-      idPart: idPart,
-      indexPart: indexPart,
+      fullRef: match[1],
       position: match.index
     });
   }
   
   console.log(`${matches.length} GA-Referenzen gefunden`);
   if (matches.length > 0) {
-    console.log(`Erste 5 Referenzen:`, matches.slice(0, 5).map(m => m.fullRef));
+    console.log(`Erste 3 gefundene Refs:`, matches.slice(0, 3).map(m => m.fullRef));
   }
   
   matches.sort((a, b) => b.position - a.position);
   
+  let linksCreated = 0;
+  
   matches.forEach(matchInfo => {
-    const chunkData = refToDataMapping[matchInfo.fullRef];
+  const refClean = matchInfo.fullRef.replace(/:\^/, ':');
+  
+  // Probiere auch lowercase Version
+  const refLower = matchInfo.fullRef.toLowerCase();
+  const refCleanLower = refClean.toLowerCase();
+  
+  const chunkData = refToDataMapping[matchInfo.fullRef] || 
+                    refToDataMapping[refClean] ||
+                    refToDataMapping[refLower] ||
+                    refToDataMapping[refCleanLower];
     
     if (chunkData) {
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}">${matchInfo.idPart}</a>`;
+      const [idPart] = matchInfo.fullRef.split(':');
+      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}">${idPart}</a>`;
       
       linkedText = linkedText.substring(0, matchInfo.position) + 
                    replacement + 
                    linkedText.substring(matchInfo.position + matchInfo.fullMatch.length);
-                   
-      console.log(`Link erstellt: ${matchInfo.fullRef} -> ${matchInfo.idPart}`);
+      
+      linksCreated++;
     } else {
       console.warn(`Keine Daten für ${matchInfo.fullRef}`);
-      console.warn(`   Verfügbare Keys:`, Object.keys(refToDataMapping).slice(0, 3));
+      console.warn(`Gesuchte Keys: ${matchInfo.fullRef} und ${refClean}`);
     }
   });
   
-  const createdLinks = (linkedText.match(/class="ga-reference"/g) || []).length;
-  console.log(`${createdLinks} von ${matches.length} Links erfolgreich erstellt`);
-  console.log('Output Text Anfang:', linkedText.substring(0, 300));
+  console.log(`${linksCreated} von ${matches.length} Links erfolgreich erstellt`);
+  console.log('Gesendeter Text enthält <a> Tags:', linkedText.includes('<a'));
   
   return linkedText;
 }
@@ -819,6 +970,7 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → saveSummaryCache() Rückgabe: ${saved}`);
     
     if (saved) {
+      await invalidateGAOverviewCache(lectureId);
       console.log(`  ✓ Zusammenfassung erstellt und gespeichert`);
     } else {
       console.log(`  ✗ Zusammenfassung erstellt aber NICHT gespeichert!`);
@@ -1030,6 +1182,7 @@ app.get('/debug/status', (req, res) => {
     lecturesLoaded: Object.keys(fullLectures).length,
     synonymGroups: Object.keys(synonyms).length,
     summariesCached: Object.keys(summaryCache).length,
+    gaOverviewsCached: Object.keys(gaOverviewCache).length,
     claudeConfigured: !!process.env.CLAUDE_API_KEY
   });
 });
@@ -1109,7 +1262,19 @@ app.get('/api/full-lecture/:lectureId', (req, res) => {
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
-    const lecture = fullLectures[lectureId];
+    // Suche case-insensitive
+    const lectureIdLower = lectureId.toLowerCase();
+    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
+    
+    // Falls nicht gefunden, suche in allen Keys (case-insensitive)
+    if (!lecture) {
+      const foundKey = Object.keys(fullLectures).find(key => 
+        key.toLowerCase() === lectureIdLower
+      );
+      if (foundKey) {
+        lecture = fullLectures[foundKey];
+      }
+    }
     
     if (!lecture) {
       console.error(`   Nicht gefunden: ${lectureId}`);
@@ -1139,7 +1304,19 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
-    const lecture = fullLectures[lectureId];
+    // Suche case-insensitive
+    const lectureIdLower = lectureId.toLowerCase();
+    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
+    
+    // Falls nicht gefunden, suche in allen Keys (case-insensitive)
+    if (!lecture) {
+      const foundKey = Object.keys(fullLectures).find(key => 
+        key.toLowerCase() === lectureIdLower
+      );
+      if (foundKey) {
+        lecture = fullLectures[foundKey];
+      }
+    }
     
     if (!lecture) {
       console.error(`   Nicht gefunden: ${lectureId}`);
@@ -1191,6 +1368,49 @@ app.get('/api/available-ga', async (req, res) => {
   }
 });
 
+// NEU: GA-Übersichtsseite abrufen
+app.get('/api/ga-overview/:gaNumber', async (req, res) => {
+  try {
+    const gaNumber = req.params.gaNumber.toUpperCase();
+    const forceRefresh = req.query.refresh === 'true';
+    
+    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumber} (refresh: ${forceRefresh})`);
+    
+    // NEU: Bei Refresh, lade summaryCache neu!
+    if (forceRefresh) {
+      await loadSummaryCache();
+      console.log('[GA-OVERVIEW] Summary-Cache neu geladen');
+    }
+    
+    // Prüfe Cache (außer bei Refresh)
+    if (!forceRefresh && gaOverviewCache[gaNumber]) {
+      console.log(`[GA-OVERVIEW] Cache-Hit für ${gaNumber}`);
+      return res.json(gaOverviewCache[gaNumber]);
+    }
+    
+    // Generiere Übersicht (neu oder refresh)
+    const overview = generateGAOverview(gaNumber);
+    
+    if (!overview) {
+      return res.status(404).json({ 
+        error: `Keine Vorträge gefunden für ${gaNumber}` 
+      });
+    }
+    
+    // Speichere in Cache
+    gaOverviewCache[gaNumber] = overview;
+    await saveGAOverviewCache();
+    
+    console.log(`[GA-OVERVIEW] Übersicht ${forceRefresh ? 'aktualisiert' : 'generiert'} für ${gaNumber}: ${overview.lectureCount} Vorträge`);
+    
+    res.json(overview);
+    
+  } catch (error) {
+    console.error('[GA-OVERVIEW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GA-Overview-Map ausliefern
 app.get('/ga-overview-map.json', async (req, res) => {
   try {
@@ -1216,7 +1436,7 @@ app.get('/ga-overview-map.json', async (req, res) => {
       
       const map = {};
       Array.from(gaSet).forEach(ga => {
-        map[ga] = `/${ga}/${ga}.html`;
+        map[ga] = `/api/ga-overview/${ga}`;
       });
       
       res.json(map);
@@ -1241,6 +1461,7 @@ async function startServer() {
     await loadSynonyms();
     await loadFullLectures();
     await loadSummaryCache();
+    await loadGAOverviewCache();
     
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
@@ -1248,38 +1469,10 @@ async function startServer() {
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
+    console.log(`  ${Object.keys(gaOverviewCache).length} GA-Übersichten im Cache`);
     console.log('========================================');
     
-    // Generiere ga-overview-map.json automatisch aus geladenen Vorträgen
-    console.log('\n=== GENERIERE GA-OVERVIEW-MAP ===');
-    const gaMap = {};
-    
-    Object.values(fullLectures).forEach(lecture => {
-      if (lecture.gaNumber && !gaMap[lecture.gaNumber]) {
-        // Verwende gaFileName direkt aus dem JSON (1:1 wie in Obsidian)
-        // Obsidian redirectet automatisch zum richtigen Ordner
-        const fileName = lecture.gaFileName || encodeURIComponent(lecture.gaTitle || lecture.gaNumber).replace(/%20/g, '+');
-        
-        // Generiere URL: /GA###+-+Dateiname (Obsidian fügt Ordner automatisch hinzu)
-        gaMap[lecture.gaNumber] = `/${lecture.gaNumber}+-+${fileName}`;
-      }
-    });
-    
-    // Speichere die generierte Map
-    const mapPath = path.join(__dirname, 'ga-overview-map.json');
-    try {
-      await fs.writeFile(mapPath, JSON.stringify(gaMap, null, 2), 'utf8');
-      console.log(`✓ ga-overview-map.json generiert mit ${Object.keys(gaMap).length} Einträgen`);
-      console.log(`  Gespeichert: ${mapPath}`);
-      console.log(`  Beispiel-URL:`, Object.values(gaMap)[0]);
-    } catch (writeError) {
-      console.error('✗ Fehler beim Schreiben der ga-overview-map.json:', writeError.message);
-      console.warn('  Server läuft weiter, verwendet Fallback-Mechanismus');
-    }
-    console.log('=================================\n');
-    
-    
-app.listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
       console.log(`\nVerfügbare Endpoints:`);
       console.log(`   GET  /debug/status`);
@@ -1291,6 +1484,7 @@ app.listen(PORT, () => {
       console.log(`   GET  /api/full-lecture/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/lectures/list`);
       console.log(`   GET  /api/available-ga`);
+      console.log(`   GET  /api/ga-overview/:gaNumber`);
       console.log(`   GET  /ga-overview-map.json`);
       console.log(`\n✓ System bereit!\n`);
     });

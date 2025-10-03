@@ -1,0 +1,987 @@
+{
+  "GA061": {
+    "gaNumber": "GA061",
+    "gaTitle": "Menschengeschichte im Lichte der Geistesforschung (1911-1912)",
+    "lectureCount": 16,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA061/1",
+        "title": "DER MENSCH IN SEINEM VERHÄLTNIS ZU DEN ÜBERSINNLICHEN WELTEN",
+        "fileName": "GA061/1 - DER MENSCH IN SEINEM VERHÄLTNIS ZU DEN ÜBERSINNLICHEN WELTEN, Berlin, 19. Oktober 1911",
+        "location": "Berlin",
+        "date": "19. Oktober 1911",
+        "summary": null
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA061/2",
+        "title": "TOD UND UNSTERBLICHKEIT IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/2 - TOD UND UNSTERBLICHKEIT IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 26. Oktober 1911",
+        "location": "Berlin",
+        "date": "26. Oktober 1911",
+        "summary": null
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA061/3",
+        "title": "DER SINN DES PROPHETENTUMS",
+        "fileName": "GA061/3 - DER SINN DES PROPHETENTUMS, Berlin, 9. November 1911",
+        "location": "Berlin",
+        "date": "9. November 1911",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA061/4",
+        "title": "VON PARACELSUS ZU GOETHE",
+        "fileName": "GA061/4 - VON PARACELSUS ZU GOETHE, Berlin, 16. November 1911",
+        "location": "Berlin",
+        "date": "16. November 1911",
+        "summary": "Steiner beschreibt Paracelsus als einen Menschen, der durch inniges Verwachsensein mit der Natur hellseherische Erkenntniskräfte entwickelte und dadurch zu einer ganzheitlichen Heilkunde gelangte. Sein Weg führte ihn durch ganz Europa, um die verschiedenen Ausdrucksformen der Natur zu studieren und den Menschen als Mikrokosmos zu verstehen. Goethe griff diese Paracelsus-Gestalt auf, musste sie aber für seinen Faust umwandeln, da nach der kopernikanischen Revolution ein unmittelbares Verwachsensein mit der Natur nicht mehr möglich war. Faust verkörpert daher den modernen Weg der Erkenntnis durch Entwicklung innerer Seelenkräfte. Steiner zeigt, wie beide Wege - der unmittelbare paracelsische und der innerlich-seelische goethische - zum gleichen Ziel führen: zur geistigen Durchdringung der Natur."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA061/5",
+        "title": "DIE VERBORGENEN TIEFEN DES SEELENLEBENS",
+        "fileName": "GA061/5 - DIE VERBORGENEN TIEFEN DES SEELENLEBENS, Berlin, 23. November 1911",
+        "location": "Berlin",
+        "date": "23. November 1911",
+        "summary": "Rudolf Steiner erläutert die verborgenen Tiefen des Seelenlebens und die vierteilige Gliederung des Menschen in physischen Leib, Ätherleib, Astralleib und Ich. Er zeigt auf, wie unterbewusste Seelenkräfte wie Erdbeben aus den Tiefen heraufwirken und unser bewusstes Leben beeinflussen. Der Ätherleib trägt das Gedächtnis, während das bewusste Seelenleben nur einen kleinen Teil der gesamten Seelenaktivität ausmacht. Durch Träume und andere Phänomene werden diese verborgenen Kräfte sichtbar. Mittels Meditation und Konzentration kann der Mensch bewusst in diese Seelentiefen hinuntersteigen und hellseherische Fähigkeiten entwickeln, um sowohl die eigenen Seelenrätsel als auch die geistigen Grundlagen der äußeren Welt zu erforschen."
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA061/6",
+        "title": "DAS GLÜCK",
+        "fileName": "GA061/6 - DAS GLÜCK, SEIN WESEN UND SEIN SCHEIN, Berlin, 7. Dezember 1911",
+        "location": "SEIN WESEN UND SEIN SCHEIN",
+        "date": "7. Dezember 1911",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA061/7",
+        "title": "DER PROPHET ELIAS IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/7 - DER PROPHET ELIAS IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 14. Dezember 1911",
+        "location": "Berlin",
+        "date": "14. Dezember 1911",
+        "summary": null
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA061/8",
+        "title": "DER URSPRUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/8 - DER URSPRUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 4. Januar 1912",
+        "location": "Berlin",
+        "date": "4. Januar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA061/9",
+        "title": "DER URSPRUNG DER TIERWELT IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/9 - DER URSPRUNG DER TIERWELT IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 18. Januar 1912",
+        "location": "Berlin",
+        "date": "18. Januar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA061/10",
+        "title": "CHRISTUS UND DAS ZWANZIGSTE JAHRHUNDERT",
+        "fileName": "GA061/10 - CHRISTUS UND DAS ZWANZIGSTE JAHRHUNDERT, Berlin, 25. Januar 1912",
+        "location": "Berlin",
+        "date": "25. Januar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA061/11",
+        "title": "MENSCHENGESCHICHTE",
+        "fileName": "GA061/11 - MENSCHENGESCHICHTE, GEGENWART UND ZUKUNFT IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 1. Februar 1912",
+        "location": "GEGENWART UND ZUKUNFT IM LICHTE DER GEISTESWISSENSCHAFT",
+        "date": "1. Februar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA061/12",
+        "title": "KOPERNIKUS UND SEINE ZEIT",
+        "fileName": "GA061/12 - KOPERNIKUS UND SEINE ZEIT, Berlin, 15. Februar 1912",
+        "location": "Berlin",
+        "date": "15. Februar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA061/13",
+        "title": "DER TOD BEI MENSCH",
+        "fileName": "GA061/13 - DER TOD BEI MENSCH, TIER UND PFLANZE, Berlin, 29. Februar 1912",
+        "location": "TIER UND PFLANZE",
+        "date": "29. Februar 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA061/14",
+        "title": "DIE SELBSTERZIEHUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/14 - DIE SELBSTERZIEHUNG DES MENSCHEN IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 14. März 1912",
+        "location": "Berlin",
+        "date": "14. März 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA061/15",
+        "title": "DAS WESEN DER EWIGKEIT UND DIE NATUR DER MENSCHENSEELE IM LICHTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA061/15 - DAS WESEN DER EWIGKEIT UND DIE NATUR DER MENSCHENSEELE IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 21. März 1912",
+        "location": "Berlin",
+        "date": "21. März 1912",
+        "summary": null
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA061/16",
+        "title": "DARWIN UND DIE ÜBERSINNLICHE FORSCHUNG",
+        "fileName": "GA061/16 - DARWIN UND DIE ÜBERSINNLICHE FORSCHUNG, Berlin, 28. März 1912",
+        "location": "Berlin",
+        "date": "28. März 1912",
+        "summary": "Rudolf Steiner analysiert die geistigen Strömungen des 19. Jahrhunderts am Beispiel von Graf Gobineau und Darwin. Gobineau entwickelte eine Rassenlehre, die trotz ihrer Genialität zu pessimistischen Schlüssen führte, da sie nur das Äußerliche betrachtete. Darwin hingegen prägte das Denken seiner Zeit nachhaltig, wobei seine Erkenntnisse materialistisch-monistisch interpretiert wurden, obwohl sie - wie Goethe zeigte - auch spirituell gedeutet werden können. Die Naturwissenschaft des 19. Jahrhunderts war notwendig, um die äußeren Zusammenhänge zu erforschen, doch nun braucht die Menschheit übersinnliche Forschung. Die Geisteswissenschaft zeigt, dass der Mensch einen geistig-seelischen Wesenskern besitzt, der sich durch mehrere Verkörperungen entwickelt und dass die Naturformen Taten des schaffenden Geistes darstellen, der sich den menschlichen Organismus vorbereitete."
+      }
+    ]
+  },
+  "GA065": {
+    "gaNumber": "GA065",
+    "gaTitle": "Aus dem mitteleuropäischen Geistesleben (1915-1916) Teil 2",
+    "lectureCount": 15,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA065/1",
+        "title": "GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS",
+        "fileName": "GA065/1 - GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 2. Dezember 1915",
+        "location": "Berlin",
+        "date": "2. Dezember 1915",
+        "summary": "Rudolf Steiner behandelt in diesem Vortrag die Bedeutung des deutschen Idealismus und sein Weltbild, mit besonderem Fokus auf Goethe. Er zeigt, wie deutsche Geister wie Fichte, Schelling und Hegel nach einer lebendigen Verbindung zwischen Erkenntnis und den ewigen Quellen des Daseins suchten. Steiner analysiert Goethes Faust als Verkörperung dieses deutschen Strebens, das sowohl die Magie (Naturerkenntnis) als auch das Böse als wesenhaft-wirkliche Kräfte erfasst. Der deutsche Idealismus zeichnet sich durch das Bestreben aus, nicht nur abstrakte Begriffe zu bilden, sondern das Wissen als lebendige Kraft zu erleben, die die Seele mit dem Weltengeist verbindet. Steiner sieht in diesem idealistischen Streben die tiefste Charaktereigenschaft des deutschen Wesens und dessen weltgeschichtliche Aufgabe."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA065/2",
+        "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE",
+        "fileName": "GA065/2 - DIE EWIGEN KRÄFTE DER MENSCHENSEELE, Berlin, 3. Dezember 1915",
+        "location": "Berlin",
+        "date": "3. Dezember 1915",
+        "summary": "Rudolf Steiner erläutert in diesem Vortrag die geisteswissenschaftliche Methode zur Erforschung der ewigen Seelenkräfte des Menschen. Er zeigt, dass die gewöhnlichen Seelenkräfte des Denkens, Fühlens und Wollens an den physischen Leib gebunden sind wie die Flamme an die Kerze. Durch spezielle Meditation und Willensübungen kann jedoch ein zweiter, ewiger Mensch in uns entdeckt werden. Diese Entwicklung führt zur Erkenntnis der wiederholten Erdenleben und der Unsterblichkeit der Seele. Steiner verbindet diese Erkenntnisse mit der deutschen Geistesgeschichte und sieht in der idealistischen Philosophie von Kant bis Hegel eine Art Volksmeditation, die den Keim für die moderne Geisteswissenschaft gelegt hat."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA065/3",
+        "title": "BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT",
+        "fileName": "GA065/3 - BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT, Berlin, 9. Dezember 1915",
+        "location": "Berlin",
+        "date": "9. Dezember 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA065/4",
+        "title": "MENSCHENSEELE UND MENSCHENGEIST",
+        "fileName": "GA065/4 - MENSCHENSEELE UND MENSCHENGEIST, Berlin, 10. Dezember 1915",
+        "location": "Berlin",
+        "date": "10. Dezember 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA065/5",
+        "title": "FICHTES GEIST MITTEN UNTER UNS",
+        "fileName": "GA065/5 - FICHTES GEIST MITTEN UNTER UNS, Berlin, 16. Dezember 1915",
+        "location": "Berlin",
+        "date": "16. Dezember 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA065/6",
+        "title": "FAUSTS WELTWANDERUNG UND SEINE WIEDERGEBURT AUS DEM DEUTSCHEN GEISTESLEBEN",
+        "fileName": "GA065/6 - FAUSTS WELTWANDERUNG UND SEINE WIEDERGEBURT AUS DEM DEUTSCHEN GEISTESLEBEN, Berlin, 3. Februar 1916",
+        "location": "Berlin",
+        "date": "3. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA065/7",
+        "title": "GESUNDES SEELENLEBEN UND GEISTESFORSCHUNG",
+        "fileName": "GA065/7 - GESUNDES SEELENLEBEN UND GEISTESFORSCHUNG, Berlin, 4. Februar 1916",
+        "location": "Berlin",
+        "date": "4. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA065/8",
+        "title": "ÖSTERREICHISCHE PERSÖNLICHKEITEN IN DEN GEBIETEN DER DICHTUNG UND WISSENSCHAFT",
+        "fileName": "GA065/8 - ÖSTERREICHISCHE PERSÖNLICHKEITEN IN DEN GEBIETEN DER DICHTUNG UND WISSENSCHAFT, Berlin, 10. Februar 1916",
+        "location": "Berlin",
+        "date": "10. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA065/9",
+        "title": "WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT",
+        "fileName": "GA065/9 - WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT, Berlin, 11. Februar 1916",
+        "location": "Berlin",
+        "date": "11. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA065/10",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG",
+        "fileName": "GA065/10 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916",
+        "location": "Berlin",
+        "date": "25. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA065/11",
+        "title": "WARUM MISSVERSTEHT MAN DIE GEISTESFORSCHUNG",
+        "fileName": "GA065/11 - WARUM MISSVERSTEHT MAN DIE GEISTESFORSCHUNG, Berlin, 26. Februar 1916",
+        "location": "Berlin",
+        "date": "26. Februar 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA065/12",
+        "title": "NIETZSCHES SEELENLEBEN UND RICHARD WAGNER - ZUR DEUTSCHEN WELTANSCHAUUNGSENTWICKELUNG DER GEGENWART",
+        "fileName": "GA065/12 - NIETZSCHES SEELENLEBEN UND RICHARD WAGNER - ZUR DEUTSCHEN WELTANSCHAUUNGSENTWICKELUNG DER GEGENWART, Berlin, 23. März 1916",
+        "location": "Berlin",
+        "date": "23. März 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA065/13",
+        "title": "DIE UNSTERBLICHKEITSFRAGE UND DIE GEISTESFORSCHUNG",
+        "fileName": "GA065/13 - DIE UNSTERBLICHKEITSFRAGE UND DIE GEISTESFORSCHUNG, Berlin, 24. März 1916",
+        "location": "Berlin",
+        "date": "24. März 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA065/14",
+        "title": "DIE DEUTSCHE SEELE IN IHRER ENTWICKELUNG",
+        "fileName": "GA065/14 - DIE DEUTSCHE SEELE IN IHRER ENTWICKELUNG, Berlin, 13. April 1916",
+        "location": "Berlin",
+        "date": "13. April 1916",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA065/15",
+        "title": "LEIB",
+        "fileName": "GA065/15 - LEIB, SEELE UND GEIST IN IHRER ENTWICKELUNG DURCH GEBURT UND TOD UND IHRE STELLUNG IM WELTALL, Berlin, 15. April 1916",
+        "location": "SEELE UND GEIST IN IHRER ENTWICKELUNG DURCH GEBURT UND TOD UND IHRE STELLUNG IM WELTALL",
+        "date": "15. April 1916",
+        "summary": null
+      }
+    ]
+  },
+  "GA051": {
+    "gaNumber": "GA051",
+    "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
+    "lectureCount": 25,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA051/1",
+        "title": "WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART",
+        "fileName": "GA051/1 - WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART, Berlin, 11. März 1901",
+        "location": "Berlin",
+        "date": "11. März 1901",
+        "summary": "Rudolf Steiner bietet eine umfassende Darstellung der abendländischen Weltanschauungsgeschichte von den griechischen Vorsokratikern bis zur Moderne. Er beginnt mit den ersten Naturphilosophen wie Thales und Heraklit, führt durch die Sophistik und die Philosophie von Sokrates, Platon und Aristoteles. Über die stoischen und epikureischen Schulen gelangt er zum Neuplatonismus und zur christlichen Scholastik. Die Mystik und Renaissance leiten zur neuzeitlichen Philosophie von Descartes bis Kant über, wobei Steiner Kants Trennung von Wissen und Glauben kritisch betrachtet. Den Abschluss bildet die idealistische Philosophie von Fichte, Schelling und Hegel sowie die moderne Naturwissenschaft. Steiner plädiert für eine monistische Weltanschauung, die den Geist als Produkt der Natur versteht und dem Menschen die Verantwortung für seine eigene Sinngebung überträgt."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA051/2",
+        "title": "WILLIAM SHAKESPEARE",
+        "fileName": "GA051/2 - WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902",
+        "location": "Berlin",
+        "date": "6. Mai 1902",
+        "summary": "Rudolf Steiner betrachtet Shakespeare als einen der deutschen Klassiker aufgrund seines enormen Einflusses auf die deutsche Literatur. Er verteidigt die Autorschaft Shakespeares gegen gelehrte Zweifel und betont, dass die Dramen selbst für ihre theaterpraktische Entstehung sprechen. Steiner charakterisiert Shakespeares Werk als Höhepunkt der Charakterdramatik, ermöglicht durch die Renaissance-Wertschätzung der Einzelpersönlichkeit. Anders als bei moralisierenden Dichtern stellt Shakespeare keine abstrakten Ideen oder Schuldfragen dar, sondern lässt Charaktere naturhaft sich entwickeln. Seine praktische Theatererfahrung vom Pferdehalter zum Schauspieler und Theatermitbesitzer ermöglichte bühnenwirksame Gestaltung. Steiner sieht in der Konzentration auf Charakterschilderung statt Ausstattung die zeitlose Wirkungskraft von Shakespeares Dramen begründet."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA051/3",
+        "title": "ÜBER RÖMISCHE GESCHICHTE",
+        "fileName": "GA051/3 - ÜBER RÖMISCHE GESCHICHTE, Berlin, 19. Juli 1904",
+        "location": "Berlin",
+        "date": "19. Juli 1904",
+        "summary": "Rudolf Steiner analysiert die Transformation des römischen Reiches von einer frühen Priesterkönig-Herrschaft über die Republik zur Kaiserzeit. Er zeigt auf, wie sich das ursprünglich auf Bürgertugend und persönlichem Vertrauen basierende römische System zu einem abstrakten Dogmen- und Rechtssystem entwickelte. Parallel dazu schildert er die Ausbreitung des Christentums von Osten und den Druck der Germanen von Norden. Das ursprünglich lebendige Christentum wurde in die starren römischen Staatsformen eingegossen und dadurch zu einer politischen Macht umgewandelt. Steiner betont, dass die äußeren römischen Strukturen das Reich überdauerten und sowohl das römische Recht als auch die hierarchische Kirchenorganisation bis in die Gegenwart prägten."
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA051/4",
+        "title": "ERSTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/4 - ERSTER VORTRAG GESCHICHTE DES MITTELALTERS, 18. Oktober 1904",
+        "location": "18. Oktober 1904",
+        "date": "",
+        "summary": "In diesem Vortrag analysiert Rudolf Steiner die Entwicklung des Mittelalters als entscheidenden Übergang zur modernen Freiheitsidee. Er unterscheidet drei Völkergruppen - Kelten, Germanen und Slawen - und zeigt deren charakteristische Eigenschaften auf. Während Griechen und Römer ihren Volkscharakter nach bzw. während Eroberungen prägten, bildeten die Germanen ihre Wesensart vor den großen Kämpfen aus. Das führte zu einem besonderen Rechtsbewusstsein und zur Entstehung der Städtekultur im 11. Jahrhundert. Steiner betont das germanische Ideal der freien Persönlichkeit und den reformatorischen Geist, der sich in religiösen Bewegungen manifestierte. Das Mittelalter erscheint nicht als finstere Zeit, sondern als Epoche, in der sich das Freiheitsbewusstsein entwickelte - ein Prozess, der von rechtlicher über physische zu ökonomischer Befreiung führt und letztendlich die geistige Befreiung der Menschheit anstrebt."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA051/5",
+        "title": "ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/5 - ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS, 25. Oktober 1904",
+        "location": "25. Oktober 1904",
+        "date": "",
+        "summary": "Rudolf Steiner analysiert die germanischen Völker von der Zeitenwende bis zum 6. Jahrhundert n.Chr. und ihre Verwandtschaft mit anderen indogermanischen Völkern. Er zeigt auf, wie die Germanen ursprüngliche kulturelle Eigenschaften bewahrten, während verwandte Völker wie Griechen und Römer bereits höhere Kulturstufen erreichten. Zentral ist der Unterschied zwischen arianischen und athanasischen Christen, wobei die Goten eine tolerante, arianische Form des Christentums praktizierten. Die Völkerwanderung führte zum Übergang von Stammes- zu Dorfgemeinschaften und veränderte die Eigentumsverhältnisse grundlegend. Steiner beschreibt die religiöse Entwicklung von primitiven Göttervorstellungen hin zum komplexeren Wotansdienst als Ausdruck höherer Kulturstufen und zeigt, wie äußere Einflüsse südlicher Kulturen die germanische Entwicklung prägten."
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA051/6",
+        "title": "DRITTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/6 - DRITTER VORTRAG GESCHICHTE DES MITTELALTERS, 1. November 1904",
+        "location": "1. November 1904",
+        "date": "",
+        "summary": "Rudolf Steiner analysiert die Völkerwanderung des 5. Jahrhunderts und deren kulturelle Folgen. Er zeigt auf, wie germanische Stämme wie Westgoten und Vandalen das römische Reich durchdrangen, aber meist schnell wieder verschwanden, weil sie sich in bereits bestehende Kulturverhältnisse hineindrängten. Nur die Franken konnten sich dauerhaft etablieren, da sie in Gallien freie, noch zu rodende Gebiete vorfanden. Dies ermöglichte die Entstehung des Lehnswesens und einer eigenständigen christlichen Kultur, die durch keltische Mönche bereichert wurde. Das fränkische Christentum entwickelte sich zunächst frei von materiellen Zwängen, geriet aber später unter Karl dem Großen in Widerspruch zu seinen geistigen Grundlagen, was zur Entstehung der freien Städte führte."
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA051/7",
+        "title": "VIERTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/7 - VIERTER VORTRAG GESCHICHTE DES MITTELALTERS, 8. November 1904",
+        "location": "8. November 1904",
+        "date": "",
+        "summary": "Rudolf Steiner analysiert die Entwicklung des Mittelalters als sprunghafte, nicht graduelle Entwicklung mit zwei entscheidenden Einschnitten: der Entstehung freier Städte (11./12. Jahrhundert) und den großen Erfindungen und Entdeckungen am Ende des Mittelalters. Er erklärt, wie sich bei den Franken aus Großgrundbesitz Machtverhältnisse entwickelten, die zu neuen Rechtssystemen führten. Das Christentum passte sich dem Germanentum an, während gleichzeitig römischer Einfluss wuchs. Ein entscheidender Wendepunkt war der Einfluss der arabischen Kultur, die über Spanien wissenschaftliche Erkenntnisse nach Europa brachte. Diese drei Strömungen - germanische Macht, christliche Moral und arabische Wissenschaft - führten zu den großen Spannungen und Kämpfen des Mittelalters."
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA051/8",
+        "title": "FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/8 - FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS, 15. November 1904",
+        "location": "15. November 1904",
+        "date": "",
+        "summary": "Rudolf Steiner analysiert das Mittelalter vom 8.-12. Jahrhundert und zeigt, dass Karl der Große weniger als Eroberer, sondern als Ausdruck tieferer gesellschaftlicher Wandlungen zu verstehen ist. Er beschreibt die Entstehung der Frankenherrschaft aus privatrechtlichen Verhältnissen heraus, wo Großgrundbesitz und Kirche Hand in Hand gingen. Während die materielle Kultur sich entwickelte, blieb die geistige Bildung auf wenige Mönche beschränkt, die jedoch durch die Scholastik eine strenge logische Denkschulung entwickelten. Die zunehmende Abhängigkeit der Bauern von weltlichen und geistlichen Grundherren führte zur Unzufriedenheit und schließlich zur Entstehung der Städte als Ausdruck des Freiheitsdrangs. Steiner sieht in der Städtebildung einen entscheidenden Schritt auf dem Weg zur menschlichen Befreiung."
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA051/9",
+        "title": "SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/9 - SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS, 6. Dezember 1904",
+        "location": "6. Dezember 1904",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt die Entwicklung des Mittelalters als einen entscheidenden Übergang von einfachen Stammesgemeinschaften zu komplexen staatlichen Strukturen. Germanische Völkerschaften, die ursprünglich nur Jagd und Kriegführung kannten, begegneten dem römischen Rechtssystem und dem Christentum. Die Transformation von blutsverwandtschaftlichen Stammesverbänden zu territorialen Dorfgemeinschaften bildete die Grundlage für die Entstehung des Feudalismus. Das Christentum brachte moralische Bildung, während die Klosterschulen mit den sieben freien Künsten das Bildungswesen prägten. Besonders im Frankenreich entwickelte sich eine Verbindung von weltlicher und kirchlicher Macht, die schließlich zum Konflikt zwischen Kaiser und Papst führte. Steiner betont, dass dieser Kampf nicht zwischen geistlicher und weltlicher Macht stattfand, sondern zwischen zwei rivalisierenden Machtrichtungen um äußere Herrschaft."
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA051/10",
+        "title": "SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/10 - SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, 13. Dezember 1904",
+        "location": "13. Dezember 1904",
+        "date": "",
+        "summary": "Rudolf Steiner analysiert die mittelalterliche Entwicklung vom 8. bis 11. Jahrhundert, insbesondere den Gegensatz zwischen West- und Ostreich. Während im Westreich die römische Kultur nachwirkte und die Kirche durch Großgrundbesitz zur Macht gelangte, blieb im Ostreich das germanische Unabhängigkeitsgefühl bestehen. Die Stammesherzöge widerstand den Königen, bis äußere Bedrohungen wie die Magyaren einen Zusammenschluss erzwangen. Parallel entwickelte sich ein neuer Handwerker- und Städtestand. Entscheidend war die zunehmende Durchdringung der Volksseele mit christlichem Glauben, verstärkt durch orientalische Einflüsse wie den Marienkultus. Dies führte zur Macht der Kirche, zu Reformbewegungen wie Cluny und schließlich zum Investiturstreit zwischen Kaiser und Papst. Steiner zeigt, wie diese religiöse Durchdringung die Voraussetzung für die späteren Kreuzzüge schuf."
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA051/11",
+        "title": "ACHTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/11 - ACHTER VORTRAG GESCHICHTE DES MITTELALTERS, 20. Dezember 1904",
+        "location": "20. Dezember 1904",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt die mittelalterliche Entwicklung vom 11. bis 14. Jahrhundert. Er zeigt auf, wie aus dem Zerfall der Stammesherzöge durch Heinrich III. ein einheitliches Reich entstand, während sich der Ritterstand durch die Kämpfe zwischen Kaiser und Papst etablierte. Die Kreuzzüge entstanden aus religiöser Schwärmerei und materieller Not, führten aber zu wichtigem kulturellen Austausch mit dem Orient und zur Entstehung wahrer Wissenschaft. Steiner beschreibt die scholastische Kontroverse zwischen Realismus und Nominalismus sowie das Aufblühen der Städtekultur mit freiem Bürgertum und Zunftwesen. Während das Rittertum in leeres Hofleben verfiel, entwickelte sich in den Städten eine reiche Kultur. Als Reaktion auf den verweltlichten Klerus entstand die deutsche Mystik mit Eckhart und Tauler, die die deutsche Sprache veredelte."
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA051/12",
+        "title": "NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/12 - NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS, 28. Dezember 1904",
+        "location": "28. Dezember 1904",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt die Entwicklung des städtischen Lebens im Spätmittelalter. Er zeigt auf, wie sich aus der Bedrückung der Landleute und der Ausbreitung des Handels die Städte entwickelten, die zunächst von Patriziern beherrscht wurden. Im 13./14. Jahrhundert erkämpften sich die Zünfte Gleichberechtigung und es entstanden demokratische Strukturen. Die Städte bildeten mächtige Bündnisse wie die Hansa und wurden zu Zentren einer neuen materiellen und geistigen Kultur. Parallel dazu entwickelte sich eine tiefe religiöse Innerlichkeit, die sich in der Mystik und gotischen Baukunst ausdrückte. Die Kreuzzüge entstanden aus dem Konflikt zwischen Ketzerbewegungen und Rom. Ritterorden wie die Tempelherren verfolgten antirömische Ziele. Während die kaiserliche Macht verfiel, bereiteten städtische Kultur und religiöse Erneuerungsbewegungen den Übergang zur Neuzeit vor."
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA051/13",
+        "title": "ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/13 - ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS, 29. Dezember 1904",
+        "location": "29. Dezember 1904",
+        "date": "",
+        "summary": "Rudolf Steiner beschreibt den Übergang vom Mittelalter zur Neuzeit im 15. Jahrhundert. Die alten Feudalstrukturen wandeln sich zu neuen Fürstenmächten, die durch Heiratspolitik und private Interessen ihre Hausmacht ausbauen. Gleichzeitig entsteht eine religiöse Reformbewegung (Waldenser, Hussiten), die echte spirituelle Erneuerung anstrebt, aber von den Machthabern unterdrückt wird. Das aufkommende Bürgertum und die Städtekultur fördern Bildung und Buchdruckerkunst. Die türkischen Eroberungen führen zur Flucht griechischer Gelehrter nach Europa (Renaissance) und zwingen zur Suche neuer Handelswege, was zu den großen Entdeckungen führt. Diese Faktoren - Verweltlichung der Kultur, neue Staatsmächte und geographische Erweiterung - schaffen die Grundlagen der Neuzeit."
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA051/14",
+        "title": "ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/14 - ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 29. Oktober 1904",
+        "location": "29. Oktober 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA051/15",
+        "title": "ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/15 - ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 5. November 1904",
+        "location": "5. November 1904",
+        "date": "",
+        "summary": "Rudolf Steiner erläutert die platonische Mystik des Mittelalters, die auf der Dreiteilung von Mensch und Universum basiert. Der Mystiker erlebt das Universum in seiner Seele und unterscheidet drei Prinzipien: Weltgedanke, Materie und Kraft. Durch Katharsis (Reinigung) von äußeren Empfindungen erreicht die jungfräuliche Seele die Henosis (Vereinigung) mit dem Göttlichen. Die unbefleckte Empfängnis der Idee lässt den Christus-Logos in der Seele auferstehen. Meister Eckhart lehrte das Aufleben des göttlichen Fünkleins, während Johannes Tauler das mystische Leben verkörperte. Der Gottesfreund aus dem Oberland verwandelte Tauler, sodass göttliche Weisheit durch ihn strömte. Die Mystiker erleben die Sphärenmusik der geistigen Welt und werden zu Vermittlern zwischen Gott und Welt."
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA051/16",
+        "title": "DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/16 - DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 12. November 1904",
+        "location": "12. November 1904",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt in diesem Vortrag das Leben und Werk des Nikolaus von Kues (1401-1464), einen der bedeutendsten Mystiker und Gelehrten des Mittelalters. Der Kusaner verband scholastische Gelehrtheit mit mystischer Erfahrung und entwickelte das Konzept der 'Docta ignorantia' - der gelehrten Unwissenheit als Weg zu höherer Erkenntnis. Steiner erläutert drei Stufen der Erkenntnis: das gewöhnliche Wissen, die mystische Beseligung im Äonenlicht (Pleroma) und die Vergottung durch Vereinigung mit dem kosmischen Weltgedanken (Sphärenharmonie). Diese entsprechen den vedischen Begriffen Chit, Ananda und Sat. Der Kusaner wird als Höhepunkt mittelalterlicher Mystik dargestellt, der wissenschaftliche Klarheit mit mystischer Tiefe verband."
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA051/17",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA051/17 - ERSTER VORTRAG, 21. Januar 1905, Schillers Leben und Eigenart",
+        "location": "21. Januar 1905",
+        "date": "",
+        "summary": "Rudolf Steiner betrachtet Schillers Bedeutung hundert Jahre nach dessen Tod im Kontext der veränderten Zeit. Während die Schiller-Goethe-Zeit noch von ästhetischer Kultur geprägt war, beschäftigen uns heute politische und soziale Fragen. Steiner analysiert Schillers Entwicklung aus zwei Strömungen: dem aufkommenden Materialismus und dem Persönlichkeits-Freiheitsdrang des 18. Jahrhunderts. Schillers Grundfrage - wie sich die freie Seele zur physischen Welt verhält - durchzog sein ganzes Leben. Seine Lösung fand er in der ästhetischen Erziehung: Im Schönen vereinen sich Sinnlichkeit und Geist im Reich der Freiheit. Anders als heute sollte Kunst damals unmittelbar das kulturelle Leben prägen und den Menschen zur Harmonie erziehen."
+      },
+      {
+        "lectureNumber": "18",
+        "ID": "GA051/18",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA051/18 - ZWEITER VORTRAG, 28. Januar 1905, Schillers Schaffen und seine Wandlungen",
+        "location": "28. Januar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "19",
+        "ID": "GA051/19",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA051/19 - DRITTER VORTRAG, 4. Februar 1905, Schiller und Goethe",
+        "location": "4. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "20",
+        "ID": "GA051/20",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA051/20 - VIERTER VORTRAG, 11. Februar 1905, Schillers Weltanschauung und sein Wallenstein",
+        "location": "11. Februar 1905",
+        "date": "",
+        "summary": "Steiner analysiert Schillers Weltanschauung als einen Prozess fortwährender Entwicklung und Vertiefung. Im Gegensatz zu kleineren Geistern rang Schiller zeitlebens um die großen Welträtsel, was sich in seiner dialogischen Art und seinem Streben nach Wahrheit zeigte. Durch philosophische Studien, besonders Kants, entwickelte er seine Anschauungen vom Welträtsel zum Menschenrätsel weiter. Zentral wurde das Problem der Freiheit: Wie kann der Mensch zwischen Naturnotwendigkeit und Vernunftnotwendigkeit zur Harmonie finden? Schillers Lösung war die ästhetische Erziehung, die beide Bereiche versöhnt. Im 'Wallenstein' gestaltete er dichterisch sein ureigenes Problem - die tragische Spannung zwischen menschlichem Streben nach Erkenntnis und den unlösbaren Rätseln des Schicksals, die erst am Ende aller Entwicklung gelöst werden können."
+      },
+      {
+        "lectureNumber": "21",
+        "ID": "GA051/21",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA051/21 - FÜNFTER VORTRAG, 18. Februar 1905, Schiller, das griechische Drama und Nietzsche",
+        "location": "18. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "22",
+        "ID": "GA051/22",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA051/22 - SECHSTER VORTRAG, 25. Februar 1905, Schillers spätere Dramen",
+        "location": "25. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "23",
+        "ID": "GA051/23",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA051/23 - SIEBENTER VORTRAG, 4. März 1905, Schillers Wirkungen im 19. Jahrhundert",
+        "location": "4. März 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "24",
+        "ID": "GA051/24",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA051/24 - ACHTER VORTRAG, 5. März 1905, Was kann die Gegenwart von Schiller lernen",
+        "location": "5. März 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "25",
+        "ID": "GA051/25",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA051/25 - NEUNTER VORTRAG, 25. März 1905, Schiller und der Idealismus",
+        "location": "25. März 1905",
+        "date": "",
+        "summary": "Rudolf Steiner beleuchtet Schillers zentrale Rolle in der deutschen Ästhetik und seinem Streben nach Versöhnung von Sinnlichkeit und Sittlichkeit. Er zeigt auf, wie die Ästhetik als Wissenschaft erst im 18. Jahrhundert entstand und Schiller über Kant hinausging, indem er das Schöne als Brücke zwischen Göttlichem und Sinnlichem erkannte. Steiner erklärt die griechische Katharsis als religiöse Läuterung durch göttliche Vorbilder und beschreibt Schillers Sehnsucht, diese verlorene Einheit wiederzufinden. Im 'Geisterseher' warnt Schiller vor den Gefahren, das Geistige im Äußeren statt in der eigenen Seele zu suchen. Schillers Idealismus zielt auf einen geistdurchdrungenen Realismus ab, wo das Schöne das würdige Material des Geistigen wird und der Künstler sich über das Gemeine zur Anschauung des Geistigen erhebt."
+      }
+    ]
+  },
+  "GA293": {
+    "gaNumber": "GA293",
+    "gaTitle": "Allgemeine Menschenkunde als Grundlage der Pädagogik",
+    "lectureCount": 16,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA293/1",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA293/1 - ERSTER VORTRAG, Stuttgart, 21. August 1919",
+        "location": "Stuttgart",
+        "date": "21. August 1919",
+        "summary": "Rudolf Steiner eröffnet die erste Waldorfschule mit einem grundlegenden Vortrag über die pädagogische Aufgabe der neuen Zeit. Er betont, dass diese Arbeit eine moralisch-geistige Aufgabe ist, die in Verbindung mit den geistigen Welten stehen muss. Die seit dem 15. Jahrhundert begonnene fünfte nachatlantische Epoche erfordert neue Erziehungsmethoden, die sich vom bisherigen, am Egoismus orientierten Bildungswesen unterscheiden. Der Mensch besteht aus zwei Hauptgliedern: Geistseele (die aus der geistigen Welt herabsteigt) und Körperleib (der durch physische Vererbung entsteht). Die zentrale Aufgabe der Erziehung ist das Zusammenstimmen dieser beiden Wesensglieder. Dies geschieht hauptsächlich durch das Lehren des richtigen Atmens (Harmonisierung mit dem Nerven-Sinnesprozess) und des richtigen Rhythmus zwischen Schlafen und Wachen. Entscheidend ist dabei nicht nur das, was der Lehrer tut, sondern vor allem das, was er ist und welche Gedanken ihn durchdringen."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA293/2",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA293/2 - ZWEITER VORTRAG, 22. August 1919",
+        "location": "22. August 1919",
+        "date": "",
+        "summary": "Rudolf Steiner entwickelt eine anthroposophische Grundlage für Erziehung und Psychologie. Er kritisiert herkömmliche psychologische Begriffe als inhaltsleer und erklärt Vorstellung, Gefühl und Wille aus kosmischen Zusammenhängen. Vorstellungen sind Bilder des vorgeburtlichen Lebens, die durch Antipathie zurückgeworfen werden. Der Wille ist Keim für das nachtodliche Dasein und entsteht durch Sympathie. Das Gefühlsleben bildet einen Rhythmus zwischen diesen Polen. Leiblich entspricht dem die Polarität von Nerven (materialisierend) und Blut (vergeistigend). Diese Erkenntnisse sollen zu einer bildhaften, nicht abstrakten Erziehung führen, die den ganzen Menschen erfasst und als Fortsetzung kosmischer Tätigkeit verstanden wird."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA293/3",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA293/3 - DRITTER VORTRAG, 23. August 1919",
+        "location": "23. August 1919",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt die Dreigliederung des Menschen in Leib, Seele und Geist als Grundlage für das Verständnis der menschlichen Natur und deren Beziehung zur Welt. Er kritisiert die moderne Wissenschaft, insbesondere das Gesetz der Energieerhaltung, als hinderlich für das Verständnis des Menschen, in dem fortwährend neue Kräfte und Stoffe entstehen. Der Mensch steht der Natur mit seinem Verstand (erfasst das Tote) und seinem Willen (erfasst das Werdende) gegenüber. Das reine Denken ermöglicht menschliche Freiheit. Der Mensch ist essentiell für die Erdenentwicklung - ohne ihn würde die Erde sterben. Durch das Zusammenwirken von Knochen-Nervensystem (Sterben) und Blut-Muskelsystem (Werden) entstehen neue Stoffe und Kräfte, die nach dem Tod der Erde als belebendes Ferment übergeben werden."
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA293/4",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA293/4 - VIERTER VORTRAG, 25. August 1919",
+        "location": "25. August 1919",
+        "date": "",
+        "summary": "Rudolf Steiner behandelt die Bedeutung der Willens- und Gemütsbildung in der zukünftigen Erziehung. Er erklärt, dass Gefühl zurückgehaltener Wille und Wille ausgeführtes Gefühl ist. Der Mensch besteht aus neun Gliedern - drei leiblichen, drei seelischen und drei geistigen. Im Willen unterscheidet er Instinkt (physischer Leib), Trieb (Ätherleib), Begierde (Empfindungsleib) und Motiv (Ich-Bereich). Zusätzlich klingen leise Wunsch, Vorsatz und Entschluß mit, die den höheren geistigen Gliedern angehören und nach dem Tod weiterbestehen. Für die Erziehung ist entscheidend, dass auf Willens- und Gefühlsbildung nicht durch einmaliges Belehren, sondern nur durch bewusste Wiederholung von Handlungen gewirkt werden kann. Künstlerische Elemente sind besonders wirksam, da sie Freude bereiten und zur Wiederholung anregen."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA293/5",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA293/5 - FÜNFTER VORTRAG, 26. August 1919",
+        "location": "26. August 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA293/6",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA293/6 - SECHSTER VORTRAG, 27. August 1919",
+        "location": "27. August 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA293/7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA293/7 - SIEBENTER VORTRAG, 28. August 1919",
+        "location": "28. August 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA293/8",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA293/8 - ACHTER VORTRAG, 29. August 1919",
+        "location": "29. August 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA293/9",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA293/9 - NEUNTER VORTRAG, 30. August 1919",
+        "location": "30. August 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA293/10",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA293/10 - ZEHNTER VORTRAG, 1. September 1919",
+        "location": "1. September 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA293/11",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA293/11 - ELFTER VORTRAG, 2. September 1919",
+        "location": "2. September 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA293/12",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA293/12 - ZWÖLFTER VORTRAG, 3. September 1919",
+        "location": "3. September 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA293/13",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA293/13 - DREIZEHNTER VORTRAG, 4. September 1919",
+        "location": "4. September 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA293/14",
+        "title": "VIERZEHNTER VORTRAG",
+        "fileName": "GA293/14 - VIERZEHNTER VORTRAG, 5. September 1919",
+        "location": "5. September 1919",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA293/15",
+        "title": "ANSPRACHE gehalten am Vorabend des Kurses",
+        "fileName": "GA293/15 - ANSPRACHE gehalten am Vorabend des Kurses, Stuttgart, 20. August 1919",
+        "location": "Stuttgart",
+        "date": "20. August 1919",
+        "summary": null
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA293/16",
+        "title": "Aus der Ansprache zur Eröffnungsfeier der Freien Waldorfschule",
+        "fileName": "GA293/16 - Aus der Ansprache zur Eröffnungsfeier der Freien Waldorfschule, mit Geleitworten von Marie Steiner, 7. September 1919",
+        "location": "mit Geleitworten von Marie Steiner",
+        "date": "7. September 1919",
+        "summary": null
+      }
+    ]
+  },
+  "GA082": {
+    "gaNumber": "GA082",
+    "gaTitle": "Damit der Mensch ganz Mensch werde (1922)",
+    "lectureCount": 7,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA082/1",
+        "title": "DIE ANTHROPOSOPHIE UND DAS GEISTESLEBEN DER GEGENWART",
+        "fileName": "GA082/1 - DIE ANTHROPOSOPHIE UND DAS GEISTESLEBEN DER GEGENWART, Den Haag, 7. April 1922",
+        "location": "Den Haag",
+        "date": "7. April 1922",
+        "summary": null
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA082/2",
+        "title": "ZWEITER VORTRAG DIE STELLUNG DER ANTHROPOSOPHIE IN DEN WISSENSCHAFTEN",
+        "fileName": "GA082/2 - ZWEITER VORTRAG DIE STELLUNG DER ANTHROPOSOPHIE IN DEN WISSENSCHAFTEN, Den Haag, 8. April 1922",
+        "location": "Den Haag",
+        "date": "8. April 1922",
+        "summary": null
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA082/3",
+        "title": "DIE BILDENDE KUNST",
+        "fileName": "GA082/3 - DIE BILDENDE KUNST, Den Haag, 9. April 1922",
+        "location": "Den Haag",
+        "date": "9. April 1922",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA082/4",
+        "title": "VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE",
+        "fileName": "GA082/4 - VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE, Den Haag, 10. April 1922",
+        "location": "Den Haag",
+        "date": "10. April 1922",
+        "summary": "Rudolf Steiner erläutert die anthroposophische Forschungsmethode als systematische Weiterentwicklung der gewöhnlichen Seelenkräfte Denken, Fühlen und Wollen. Durch intellektuelle Bescheidenheit und bewusste Meditation kann das Denken so verstärkt werden, dass imaginative Erkenntnis entsteht - lebendige Vorstellungen wie Sinneswahrnehmungen. Dies führt zur Erkenntnis des Ätherleibs als Zeitorganismus. Durch Tilgung der Imaginationen entsteht leeres, waches Bewusstsein, in das die geistige Welt als Inspiration eindringt. So erkennt man das vorgeburtliche Dasein und die Ungeborenheit als andere Seite der Ewigkeit. Die physischen Organe erweisen sich als Spiegelungen der geistigen Welt. Eine dritte Stufe betrifft die Ausbildung des normalerweise unbewussten Willens."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA082/5",
+        "title": "FÜNFTER VORTRAG WICHTIGE ANTHROPOSOPHISCHE RESULTATE",
+        "fileName": "GA082/5 - FÜNFTER VORTRAG WICHTIGE ANTHROPOSOPHISCHE RESULTATE, Den Haag, 11. April 1922",
+        "location": "Den Haag",
+        "date": "11. April 1922",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA082/6",
+        "title": "SECHSTER VORTRAG ANTHROPOSOPHIE UND AGNOSTIZISMUS",
+        "fileName": "GA082/6 - SECHSTER VORTRAG ANTHROPOSOPHIE UND AGNOSTIZISMUS, Den Haag, 12. April 1922",
+        "location": "Den Haag",
+        "date": "12. April 1922",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA082/7",
+        "title": "ANHANG",
+        "fileName": "GA082/7 - ANHANG, 7. Mai 1922",
+        "location": "7. Mai 1922",
+        "date": "",
+        "summary": null
+      }
+    ]
+  },
+  "GA052": {
+    "gaNumber": "GA052",
+    "gaTitle": "Spirituelle Seelenlehre und Weltbetrachtung (1903-1904)",
+    "lectureCount": 18,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA052/1",
+        "title": "DAS EWIGE UND DAS VERGÄNGLICHE DES MENSCHEN",
+        "fileName": "GA052/1 - DAS EWIGE UND DAS VERGÄNGLICHE DES MENSCHEN, Berlin, 6. September 1903",
+        "location": "Berlin",
+        "date": "6. September 1903",
+        "summary": "Rudolf Steiner behandelt die Frage der menschlichen Unsterblichkeit aus wissenschaftlicher und theosophischer Sicht. Er kritisiert die moderne Naturwissenschaft nicht, sondern erweitert sie um geistige Erkenntnisse. Während in den antiken Mysterien erst die Erkenntnis gelehrt und dann geglaubt wurde, forderte das spätere Christentum zuerst Glauben. Steiner zeigt auf, dass in der Natur das Ewige vom Vergänglichen zu unterscheiden ist - so wie sich die Stoffe des Körpers alle sieben Jahre erneuern, aber die Gestalt bleibt. Er entwickelt die Lehre der Reinkarnation: Wie sich Arten durch Evolution entwickeln, so entwickelt sich auch die menschliche Seele durch verschiedene Verkörperungen. Das individuelle Wesen eines Menschen wie Goethe oder Michelangelo lässt sich nicht durch physische Vererbung erklären, sondern durch seelische Entwicklung über mehrere Leben hinweg. Diese Erkenntnis macht den Menschen nicht lebensuntüchtig, sondern befähigt ihn, bewusst am Ewigen in sich zu arbeiten."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA052/2",
+        "title": "DER URSPRUNG DER SEELE",
+        "fileName": "GA052/2 - DER URSPRUNG DER SEELE, Berlin, 3. Oktober 1903",
+        "location": "Berlin",
+        "date": "3. Oktober 1903",
+        "summary": "Rudolf Steiner erläutert den theosophischen Standpunkt zur Seelenerkenntnis zwischen den Fronten von Wissenschaft und Religion. Er kritisiert die materialistische Wissenschaft, die das Seelische leugnet, und die dogmatischen Religionen, die ihre ursprünglichen Wahrheiten verloren haben. Die Theosophie will durch echte Seelenforschung zu den ewigen Wahrheiten zurückführen. Steiner beschreibt die dreistufige Seelenentwicklung: die vegetative Seele (Wachstum), die animalische Seele (Empfindung) und die Geistseele (Vernunft). Er betont, dass Seelisches nur aus Seelischem entstehen kann - ein Prinzip, das die Wissenschaft künftig anerkennen wird. Die individuelle Seele entwickelt sich aus dem ewigen Geistigen durch große Lehrer der Menschheit, zu denen die Theosophische Gesellschaft wieder hinführen will."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA052/3",
+        "title": "DAS WESEN DER GOTTHEIT VOM THEOSOPHISCHEN STANDPUNKT",
+        "fileName": "GA052/3 - DAS WESEN DER GOTTHEIT VOM THEOSOPHISCHEN STANDPUNKT, Berlin 7. November 1903",
+        "location": "Berlin 7. November 1903",
+        "date": "",
+        "summary": "Rudolf Steiner erläutert in diesem Vortrag die theosophische Gottesauffassung als fundamentalen Unterschied zur abendländischen Wissenschaft. Während diese durch Verstand und Sinne zur Erkenntnis strebt, führt die Theosophie durch Selbsterziehung und innere Entwicklung zur göttlichen Weisheit. Jeder Mensch ist ein Spiegelbild der Gottheit, trägt das Göttliche in sich und kann es durch bewusste Entwicklung erwecken. Der theosophische Wahlspruch 'Keine Religion ist höher als die Wahrheit' bedeutet, dass keine menschliche Meinung über der lebendigen Empfindung der unergründlichen göttlichen Weisheit steht. Steiner kritisiert sowohl den Materialismus als wissenschaftlichen Fetischismus als auch theologische Vermessenheit. Theosophie ist nicht Gotteswissenschaft, sondern das demütige Suchen nach Gott durch kontinuierliche Selbstentwicklung und die Erkenntnis, dass alle Religionen verschiedene Aspekte einer Urwahrheit darstellen."
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA052/4",
+        "title": "THEOSOPHIE UND CHRISTENTUM",
+        "fileName": "GA052/4 - THEOSOPHIE UND CHRISTENTUM, Berlin, 4. Januar 1904",
+        "location": "Berlin",
+        "date": "4. Januar 1904",
+        "summary": "Rudolf Steiner erläutert das Verhältnis von Theosophie und Christentum, wobei die Theosophie als Dienerin des Christentums fungiert, um dessen geistigen Kern zu erschließen. Er kritisiert materialistische Tendenzen in der modernen Theologie, die Christus entweder als abstrakte Idee (Strauß) oder als 'schlichten Mann aus Nazareth' darstellen. Steiner betont, dass die ersten Christen am fleischgewordenen Wort, dem auferstandenen Gottmenschen festhielten. Christus lehrte in Gleichnissen für das Volk, aber seinen Jüngern offenbarte er die Mysterien - wie die Reinkarnationslehre (Elias-Johannes) und das wahre Verständnis des Abendmahls als Symbol für Karma. Die Theosophie will diese ursprüngliche spirituelle Erkenntnis des Christentums wiederherstellen, ohne die christliche Lehre zu überwinden, sondern sie in ihrer geistigen Wahrheit zu verstehen."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA052/5",
+        "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE I",
+        "fileName": "GA052/5 - DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE I, Berlin, 27. November 1903",
+        "location": "Berlin",
+        "date": "27. November 1903",
+        "summary": "Rudolf Steiner legt in diesem Vortrag die erkenntnistheoretischen Grundlagen dar, um die Theosophie philosophisch zu legitimieren. Er zeigt, wie die moderne Philosophie, insbesondere Kants kritischer Idealismus, zu der Überzeugung geführt hat, dass wir nur Erscheinungen, nicht aber die 'Dinge an sich' erkennen können. Kant, beeinflusst von Humes Skeptizismus, begründete mathematische Urteile a priori als sichere Erkenntnisse, die der menschliche Geist der Erfahrung vorschreibt. Dies führte zur Auffassung, dass die gesamte Erfahrungswelt nur unsere Vorstellung sei. Steiner analysiert diese philosophische Entwicklung systematisch, um zu zeigen, dass ein tieferes Verständnis der abendländischen Philosophie nicht von der Theosophie wegführt, sondern zu ihr hinführen muss."
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA052/6",
+        "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE II",
+        "fileName": "GA052/6 - DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE II, Berlin, 4. Dezember 1903",
+        "location": "Berlin",
+        "date": "4. Dezember 1903",
+        "summary": "Rudolf Steiner analysiert die erkenntnistheoretischen Hindernisse für die Theosophie, die durch den Kantianismus entstanden sind. Er zeigt auf, wie Kant selbst von einer theosophischen Position (1766) zu einer Erkenntnistheorie wechselte, die nur Erscheinungen, nicht aber das 'Ding an sich' erfassbar macht. Steiner erläutert, wie Physik und Physiologie diese subjektivistische Anschauung zu stützen scheinen: Töne sind nur Luftschwingungen, Farben nur Ätherschwingungen, und unsere Sinnesorgane übersetzen äußere Reize in subjektive Empfindungen. Diese Entwicklung führte zu einem Traumidealismus, der die Welt in eine scheinbare Erkenntnisrealität und eine davon getrennte moralische Sphäre spaltet - im Gegensatz zur theosophischen Einheitssicht von den untersten Kräften bis zur höchsten geistigen Wirklichkeit."
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA052/7",
+        "title": "DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE III",
+        "fileName": "GA052/7 - DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE III, Berlin, 17. Dezember 1903",
+        "location": "Berlin",
+        "date": "17. Dezember 1903",
+        "summary": "Steiner führt die erkenntnistheoretischen Grundlagen der Theosophie aus, indem er zeigt, dass der moderne Illusionismus (\"Die Welt ist meine Vorstellung\") überwunden werden muss. Er kritisiert nicht die philosophischen Systeme von Kant und Schopenhauer, sondern zeigt ihre Wahrheitskerne und Grenzen auf. Der entscheidende Punkt ist, dass wahre Erkenntnis nur möglich ist, wenn wir \"in den Dingen drinnenstecken\". Da unser Denken objektive Gültigkeit hat und über unser subjektives Ich hinausreicht, sind wir mit dem Weltgeist verbunden. Der Geist ist das wahre Wesen der Welt, und wir können ihn erkennen, weil wir selbst Funken dieses Weltgeistes sind. Theosophie führt zur Erkenntnis dieser geistigen Grundlage aller Existenz."
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA052/8",
+        "title": "THEOSOPHISCHE SEELENLEHRE I KÖRPER UND SEELE",
+        "fileName": "GA052/8 - THEOSOPHISCHE SEELENLEHRE I KÖRPER UND SEELE, Berlin, 16. März 1904",
+        "location": "Berlin",
+        "date": "16. März 1904",
+        "summary": "Rudolf Steiner behandelt die Beziehung zwischen Körper und Seele aus theosophischer Sicht. Er kritisiert die moderne Naturwissenschaft, die den Menschen nur in Leib und Seele unterteilt und dabei die ursprüngliche Dreiteilung in Körper, Seele und Geist vernachlässigt - eine Entwicklung, die er auf christliche Dogmen des 2./3. Jahrhunderts zurückführt. Anhand des buddhistischen Weisen Nagasena zeigt er, dass die mechanistische Betrachtung des Gehirns nicht zur Seelenerkenntnis führt. Am Beispiel des Aristoteles erläutert er, wie sich die Menschenseele von der Tierseele durch den 'Nus' (Weltengeist) unterscheidet, der mathematisches Denken und geschichtliches Handeln ermöglicht. Steiner plädiert für eine Rückkehr zu den alten Wegen der Seelenerforschung durch Selbstbeobachtung und innere Geistesschulung, wie sie Thomas von Aquino praktizierte."
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA052/9",
+        "title": "THEOSOPHISCHE SEELENLEHRE II SEELE UND MENSCHENSCHICKSAL",
+        "fileName": "GA052/9 - THEOSOPHISCHE SEELENLEHRE II SEELE UND MENSCHENSCHICKSAL, Berlin, 23. März 1904",
+        "location": "Berlin",
+        "date": "23. März 1904",
+        "summary": "Rudolf Steiner widerlegt die materialistische Seelenansicht und entwickelt eine theosophische Seelenlehre. Er zeigt, dass Seelenerlebnisse wie Lust und Schmerz nicht durch mechanische Gehirnvorgänge erklärbar sind, sondern eine eigene Wirklichkeit darstellen. Der entscheidende Unterschied zwischen Mensch und Tier liegt darin, dass der Mensch eine Biographie hat - jeder Mensch ist eine Art für sich. Daraus folgt naturwissenschaftlich notwendig die Reinkarnationslehre: Wie im Tierreich Arten aus Arten entstehen, so muss Seelisches aus Seelischem hervorgehen. Das individuelle Menschenschicksal erklärt sich durch die Entwicklung der Seele über mehrere Leben hinweg. Schmerz und Leid werden zu Entwicklungsfaktoren, die die Seele auf höhere Stufen führen. Diese Seelenentwickelungslehre steht im Einklang mit den Erkenntnissen führender Naturforscher wie Julius Robert Mayer und erklärt sowohl geniale Begabungen als auch unterschiedliche Vollkommenheitsgrade der Menschen."
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA052/10",
+        "title": "THEOSOPHISCHE SEELENLEHRE III SEELE UND GEIST",
+        "fileName": "GA052/10 - THEOSOPHISCHE SEELENLEHRE III SEELE UND GEIST, Berlin, 30. März 1904",
+        "location": "Berlin",
+        "date": "30. März 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA052/11",
+        "title": "THEOSOPHIE UND SPIRITISMUS",
+        "fileName": "GA052/11 - THEOSOPHIE UND SPIRITISMUS, Berlin, 1. Februar 1904",
+        "location": "Berlin",
+        "date": "1. Februar 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA052/12",
+        "title": "THEOSOPHIE UND SOMNAMBULISMUS",
+        "fileName": "GA052/12 - THEOSOPHIE UND SOMNAMBULISMUS, Berlin, 7. März 1904",
+        "location": "Berlin",
+        "date": "7. März 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA052/13",
+        "title": "DIE GESCHICHTE DES SPIRITISMUS",
+        "fileName": "GA052/13 - DIE GESCHICHTE DES SPIRITISMUS, Berlin, 30. Mai 1904",
+        "location": "Berlin",
+        "date": "30. Mai 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA052/14",
+        "title": "DIE GESCHICHTE DES HYPNOTISMUS UND DES SOMNAMBULISMUS",
+        "fileName": "GA052/14 - DIE GESCHICHTE DES HYPNOTISMUS UND DES SOMNAMBULISMUS, Berlin, 6. Juni 1904",
+        "location": "Berlin",
+        "date": "6. Juni 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA052/15",
+        "title": "WAS FINDET DER HEUTIGE MENSCH IN DER THEOSOPHIE",
+        "fileName": "GA052/15 - WAS FINDET DER HEUTIGE MENSCH IN DER THEOSOPHIE, Berlin, 8. März 1904",
+        "location": "Berlin",
+        "date": "8. März 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA052/16",
+        "title": "WAS WISSEN UNSERE GELEHRTEN VON THEOSOPHIE",
+        "fileName": "GA052/16 - WAS WISSEN UNSERE GELEHRTEN VON THEOSOPHIE, Berlin, 28. April 1904",
+        "location": "Berlin",
+        "date": "28. April 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA052/17",
+        "title": "IST DIE THEOSOPHIE UNWISSENSCHAFTLICH",
+        "fileName": "GA052/17 - IST DIE THEOSOPHIE UNWISSENSCHAFTLICH, Berlin, 6. Oktober 1904",
+        "location": "Berlin",
+        "date": "6. Oktober 1904",
+        "summary": "Rudolf Steiner widerlegt den Vorwurf der Unwissenschaftlichkeit gegen die Theosophie, indem er zeigt, dass der Mensch in drei Welten lebt: der physischen, der seelischen (astralen) und der geistigen (mentalen) Welt. Die heutige Wissenschaft erforscht nur die physische Welt, während die Theosophie durch höhere Erkenntnisorgane auch die geistigen Welten zugänglich macht. Steiner verfolgt die Entwicklung der Menschheit von ursprünglicher geistiger Einheit über die Trennung in verschiedene Disziplinen (Wissenschaft, Kunst, Religion, Philosophie) bis zur aktuellen materialistischen Phase. Die Mission der Theosophie ist es, diese getrennten Bereiche wieder zu vereinen und eine tolerante, brüderliche Weltanschauung zu schaffen, die alle Erkenntnisrichtungen harmonisch integriert."
+      },
+      {
+        "lectureNumber": "18",
+        "ID": "GA052/18",
+        "title": "IST DIE THEOSOPHIE BUDDHISTISCHE PROPAGANDA",
+        "fileName": "GA052/18 - IST DIE THEOSOPHIE BUDDHISTISCHE PROPAGANDA, Berlin, 8. Dezember 1904",
+        "location": "Berlin",
+        "date": "8. Dezember 1904",
+        "summary": null
+      }
+    ]
+  },
+  "GA066": {
+    "gaNumber": "GA066",
+    "gaTitle": "Geist und Stoff, Leben und Tod (1917)",
+    "lectureCount": 7,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA066/1",
+        "title": "GEIST UND STOFF",
+        "fileName": "GA066/1 - GEIST UND STOFF, LEBEN UND TOD, Berlin, 15. Februar 1917",
+        "location": "LEBEN UND TOD",
+        "date": "15. Februar 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA066/2",
+        "title": "SCHICKSAL UND SEELE",
+        "fileName": "GA066/2 - SCHICKSAL UND SEELE, Berlin, 17. Februar 1917",
+        "location": "Berlin",
+        "date": "17. Februar 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA066/3",
+        "title": "SEELENUNSTERBLICHKEIT",
+        "fileName": "GA066/3 - SEELENUNSTERBLICHKEIT, SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF, Berlin, 1. März 1917",
+        "location": "SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF",
+        "date": "1. März 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA066/4",
+        "title": "MENSCHENSEELE UND MENSCHENLEIB IN NATUR- UND GEISTERKENNTNIS",
+        "fileName": "GA066/4 - MENSCHENSEELE UND MENSCHENLEIB IN NATUR- UND GEISTERKENNTNIS, Berlin, 15. März 1917",
+        "location": "Berlin",
+        "date": "15. März 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA066/5",
+        "title": "SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN",
+        "fileName": "GA066/5 - SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN, Berlin, 17. März 1917",
+        "location": "Berlin",
+        "date": "17. März 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA066/6",
+        "title": "LEBEN",
+        "fileName": "GA066/6 - LEBEN, TOD UND SEELENUNSTERBLICHKEIT IM WELTENALL, Berlin, 22. März 1917",
+        "location": "TOD UND SEELENUNSTERBLICHKEIT IM WELTENALL",
+        "date": "22. März 1917",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA066/7",
+        "title": "DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE",
+        "fileName": "GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917",
+        "location": "Berlin",
+        "date": "31. März 1917",
+        "summary": "Rudolf Steiner zeigt auf, wie die naturwissenschaftliche Denkweise zwar bewundernswerte Fortschritte erzielt hat, aber den Zugang zur Seelenerkenntnis verstellt. Er kritisiert Eduard von Hartmanns Ansicht, dass Seelenbeobachtung unmöglich sei, da diese das Beobachtete verändere. Steiner argumentiert, dass gerade in den Veränderungen das eigentliche Seelenleben liegt. Er führt aus, dass nur durch Entwicklung eines 'schauenden Bewusstseins' - einer Erweiterung des normalen Bewusstseins - der Mensch zu wahrer Selbsterkenntnis gelangen kann. Dieses schauende Bewusstsein ermöglicht den Zugang sowohl zum 'Jenseits der Seele' als auch zum 'Jenseits der Sinne' und führt in die geistige Wirklichkeit hinein, die hinter den physischen Erscheinungen steht."
+      }
+    ]
+  }
+}
