@@ -1218,6 +1218,8 @@ select option.available-ga {
 <div class="tab-buttons">
 <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
+
+<button class="tab-button" onclick="switchTab('gesamtausgabe')">GA</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -1286,6 +1288,11 @@ select option.available-ga {
 </div>
 </div>
 </div>
+<div class="tab-content" id="gesamtausgabe-tab">
+  <select id="gaGesamtausgabe" class="filter-dropdown" style="margin-top: 0.5rem;">
+    <option value="">Bitte wählen…</option>
+  </select>
+</div>
 <div id="note" style="display: none;"></div>
 </div>
 <div id="sidebar-content">
@@ -1323,7 +1330,17 @@ select option.available-ga {
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-    const API_BASE = 'https://ga-suche.onrender.com';
+    // Automatische Erkennung: localhost oder Production
+    const isLocal = window.location.hostname === 'localhost' || 
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    
+    const API_BASE = isLocal
+      ? 'http://localhost:3003'
+      : 'https://ga-suche.onrender.com';
+    
+    console.log('[API] Verwende API_BASE:', API_BASE, '(isLocal:', isLocal, ')');
+    
     let currentSources = [];
     let searchResults = [];
     let currentLectureData = null;
@@ -2630,6 +2647,93 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("[FEHLER] GA-Liste konnte nicht geladen werden:", err);
   }
 });
+</script>
+<script>
+async function populateGesamtausgabeDropdown() {
+  const select = document.getElementById('gaGesamtausgabe');
+  if (!select) return;
+  
+  // Verhindere mehrfaches Ausführen
+  if (select.dataset.populated === 'true') {
+    console.log('[GA-TAB] Bereits befüllt, überspringe');
+    return;
+  }
+
+  try {
+    // Versuche zuerst die GA-Overview-Map zu laden
+    let gaMap = null;
+    try {
+      const mapRes = await fetch(`${API_BASE}/ga-overview-map.json`);
+      if (mapRes.ok) {
+        gaMap = await mapRes.json();
+        console.log('[GA-TAB] ga-overview-map.json geladen:', Object.keys(gaMap).length, 'Einträge');
+      }
+    } catch (mapErr) {
+      console.warn('[GA-TAB] ga-overview-map.json nicht gefunden, verwende Fallback');
+    }
+    
+    // Fallback: Lade GA-Nummern von /api/available-ga
+    if (!gaMap || Object.keys(gaMap).length === 0) {
+      const res = await fetch(`${API_BASE}/api/available-ga`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      
+      const data = await res.json();
+      const availableGAs = data.availableGA || [];
+      
+      // Erstelle eine einfache Map
+      gaMap = {};
+      availableGAs.forEach(ga => {
+        gaMap[ga] = `/${ga}/${ga}.html`;
+      });
+      
+      console.log('[GA-TAB] Fallback verwendet:', availableGAs.length, 'GA-Bände');
+    }
+    
+    const gaList = Object.keys(gaMap).sort();
+
+    if (gaList.length === 0) {
+      console.warn('[GA-TAB] Keine GA-Bände gefunden');
+      return;
+    }
+
+    // Entferne vorhandene Optionen außer der ersten ("Bitte wählen...")
+    while (select.options.length > 1) {
+      select.remove(1);
+    }
+
+    gaList.forEach(ga => {
+      const opt = document.createElement('option');
+      opt.value = gaMap[ga]; // Der Pfad zur HTML-Datei
+      opt.textContent = ga;   // Die GA-Nummer
+      select.appendChild(opt);
+    });
+    
+    select.dataset.populated = 'true';
+    console.log('[GA-TAB] Dropdown befüllt mit', gaList.length, 'Einträgen');
+    
+    // Event Listener nur einmal registrieren
+    if (!select.dataset.listenerAdded) {
+      select.addEventListener('change', (e) => {
+        const selectedPath = e.target.value;
+        if (selectedPath) {
+          // Öffne in benanntem Fenster mit rudolf-steiner-online.de als Basis-URL
+          const fullUrl = `https://rudolf-steiner-online.de${selectedPath}`;
+          console.log('[GA-TAB] Öffne:', fullUrl);
+          window.open(fullUrl, 'ga-window');
+          // Setze Dropdown zurück
+          e.target.selectedIndex = 0;
+        }
+      });
+      select.dataset.listenerAdded = 'true';
+      console.log('[GA-TAB] Event Listener registriert');
+    }
+    
+  } catch (err) {
+    console.error('[GA-TAB] Fehler beim Laden der GA-Liste:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', populateGesamtausgabeDropdown);
 </script>
 </body>
 </html>
