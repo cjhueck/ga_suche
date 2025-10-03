@@ -3,7 +3,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
-<title>GA Steiner Suche - Unified</title>
+<title>GA Steiner Suche</title>
 <style>
 #themes {
   padding-top: 0.2rem !important;
@@ -1197,7 +1197,7 @@ body.dark-mode .ga-reference::after {
 </style>
 <style>
 select option.available-ga {
-  font-weight: bold;
+  font-weight: normal;
   color: black;
 }
 </style></head>
@@ -1323,9 +1323,7 @@ select option.available-ga {
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-    const API_BASE = location.hostname === 'localhost'
-           ? 'http://localhost:3003'
-           : 'https://ga-suche.onrender.com';
+    const API_BASE = 'https://ga-suche.onrender.com';
     let currentSources = [];
     let searchResults = [];
     let currentLectureData = null;
