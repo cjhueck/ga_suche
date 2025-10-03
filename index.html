@@ -1,244 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
 <title>GA Steiner Suche</title>
 <style>
-#themes {
-  padding-top: 0.2rem !important;
-  outline: 2px dashed red !important;
-}
-
-#themeInput {
-  margin-top: 0.2rem !important;
-  margin-bottom: 0.3rem !important;
-  outline: 2px dashed blue !important;
-}
-
-.theme-options {
-  margin-top: 0 !important;
-  margin-bottom: 0.3rem !important;
-  outline: 2px dashed green !important;
-}
-
-#theme-results {
-  font-family: monospace !important;
-  font-size: 1rem !important;
-  line-height: 1.7 !important;
-  outline: 2px dashed orange !important;
-}
-
-#themes {
-  padding-top: 0.2rem !important;
-}
-
-#themeInput {
-  margin-top: 0.2rem !important;
-  margin-bottom: 0.3rem !important;
-}
-
-.theme-options {
-  margin-top: 0 !important;
-  margin-bottom: 0.3rem !important;
-}
-
-#theme-results {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-#themes-tab-content {
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-
-#themes-tab-content * {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  gap: 0 !important;
-}
-
-/* Etwas Luft nur da, wo es nötig ist – gezielt */
-#themes-tab-content textarea {
-  margin-bottom: 0.3rem !important;
-}
-
-#themes-tab-content select {
-  margin-right: 0.3rem !important;
-}
-
-#themes-tab-content button {
-  margin-top: 0.3rem !important;
-}
-
-/* Abstand oben reduzieren */
-#themes-tab-content {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-/* Abstand zwischen Textarea und Dropdown-Container */
-#themes-tab-content textarea + div {
-  margin-top: 0.2rem !important;
-}
-
-/* Abstand zwischen Dropdowns und Buttons */
-#themes-tab-content textarea + div + div {
-  margin-top: 0.2rem !important;
-}
-
-#themes-tab-content textarea {
-  margin-top: 0.2rem !important;
-  margin-bottom: 0.2rem !important;
-}
-
-#themes-tab-content .theme-dropdowns {
-  margin-bottom: 0.2rem !important;
-}
-
-#themes-tab-content .theme-options {
-  margin-top: 0.2rem !important;
-}
-
-#themes-tab-content {
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-
-/* Verringert Abstand zwischen Tab-Leiste und Textarea */
-#themes-tab-content > textarea,
-#themes-tab-content textarea {
-  margin-top: 0.3rem !important;
-  display: block;
-}
-
-/* Verringert Abstand zwischen Textarea und dem Block mit Dropdowns */
-#themes-tab-content textarea + div {
-  margin-top: 0.3rem !important;
-}
-
-/* Reduziert vertikalen Abstand unterhalb der Menüs */
-#themes-tab-content .theme-options {
-  margin-top: 0.3rem !important;
-}
-
-/* Sicherheitsregel für alles im Tab-Inhalt */
-#themes-tab-content * {
-  line-height: 1.4;
-  margin-top: 0.3rem;
-}
-
-/* Abstand zwischen Tabs und Textarea */
-#themes-tab-content textarea {
-  margin-top: 0.3rem !important;
-}
-
-/* Abstand zwischen Textarea und Dropdowns */
-#theme-inputs {
-  margin-top: 0.2rem !important;
-  gap: 0.4rem !important;
-}
-
-/* Abstand unterhalb der Menüs */
-#theme-options {
-  margin-top: 0.2rem !important;
-}
-
-/* Abstand zwischen Tabs und Eingabefeldern */
-#themes-tab-content {
-  margin-top: 0.3rem !important;
-  padding-top: 0 !important;
-}
-
-/* Abstand zwischen Eingabefeld und Dropdown-Menüs */
-#theme-inputs {
-  gap: 0.5rem !important;
-  margin-bottom: 0.3rem !important;
-}
-
-/* Schrift im Themen-Ausgabefenster anpassen */
-.theme-section {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  font-size: 0.95rem !important;
-  line-height: 1.6 !important;  /* etwas größerer Zeilenabstand */
-  color: #333 !important;
-}
-
-#theme-results {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.theme-section {
-  margin-top: 0.5rem !important;
-  padding-top: 0 !important;
-}
-
-#searchInfo {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-#results {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.summary-buttons {
-  padding-bottom: 0.2rem !important;
-}
-
-#summary-content {
-  padding-top: 0.5rem !important;
-  margin-top: 0 !important;
-}
-
-#toc-list {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-
-#searchInfo {
-  margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
-}
-
-ul.results-list {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-  line-height: 1.3;
-}
-
-ul.results-list {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-#results {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-body.dark-mode #summary-content,
-body.dark-mode #summary-content * {
-  color: #7EB8C8 !important;
-}
-
-.search-input,
-.filter-dropdown {
-  font-size: 0.9em;
-  font-size: 0.9em;
-}
-
-#site-title { font-size: 1.8rem; 
-            margin-left: 0.5rem;
-            margin-top: 0.5rem; }
-
     html, body { scroll-behavior: auto; }
     body {
       margin: 0;
@@ -262,7 +27,7 @@ body.dark-mode #summary-content * {
       background-color: #2a2a2a;
       border-bottom-color: #404040;
       padding: 0.5rem;
-}
+    }
     
     body.dark-mode #main {
       background-color: #1a1a1a;
@@ -325,10 +90,6 @@ body.dark-mode #summary-content * {
       color: #d0d0d0;
     }
     
-    
-    
-    
-    
     body.dark-mode .toc-item {
       border-bottom-color: #404040;
     }
@@ -341,14 +102,10 @@ body.dark-mode #summary-content * {
       color: #7eb8c8 !important;
     }
     
-    
-    
-    
-    
-    body.dark-mode body.dark-mode ul.results-list > li > a {
+    body.dark-mode ul.results-list > li > a {
       color: #7eb8c8;
       font-size: 0.95em;
-}
+    }
     
     body.dark-mode .tab-button {
       color: #999;
@@ -363,9 +120,27 @@ body.dark-mode #summary-content * {
       background: #2a3a3f;
     }
     
-    body.dark-mode ::-webkit-scrollbar {
-      width: 12px;
-      height: 12px;
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+    
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #c0c0c0 #f0f0f0;
     }
     
     body.dark-mode ::-webkit-scrollbar-track {
@@ -374,7 +149,7 @@ body.dark-mode #summary-content * {
     
     body.dark-mode ::-webkit-scrollbar-thumb {
       background: #555;
-      border-radius: 6px;
+      border-radius: 4px;
     }
     
     body.dark-mode ::-webkit-scrollbar-thumb:hover {
@@ -460,8 +235,7 @@ body.dark-mode #summary-content * {
       background: inherit;
       overflow-y: auto;
       max-height: 60vh;
-      padding: 0.5rem;
-}
+    }
     
     #sidebar-content {
       flex: 1;
@@ -747,6 +521,7 @@ body.dark-mode #summary-content * {
     }
     
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
+    #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.5rem; }
     #document-title { margin-top: 0; margin-bottom: 1rem; }
     #document-title a { color: #467886; text-decoration: none; }
     #document-title a:hover { text-decoration: underline; }
@@ -876,18 +651,33 @@ body.dark-mode #summary-content * {
       color: #467886;
       text-decoration: none;
       font-weight: 600;
-      padding: 2px 6px;
-      border-radius: 3px;
-      background: rgba(70, 120, 134, 0.1);
+      padding: 0;
+      background: none;
+      border: none;
       transition: all 0.2s ease;
       cursor: pointer;
-      border: 1px solid transparent;
     }
     
     .ga-reference:hover {
-      background: rgba(70, 120, 134, 0.2);
-      border-color: #467886;
+      opacity: 0.7;
       text-decoration: none;
+    }
+    
+    .ga-reference::before {
+      content: "(";
+    }
+    
+    .ga-reference::after {
+      content: ")";
+    }
+    
+    body.dark-mode .ga-reference {
+      color: #7EB8C8 !important;
+    }
+    
+    body.dark-mode .ga-reference::before,
+    body.dark-mode .ga-reference::after {
+      color: #e0e0e0 !important;
     }
     
     .highlighted-paragraph {
@@ -966,8 +756,7 @@ body.dark-mode #summary-content * {
       border: 1px solid #ccc;
       background: white;
       font-size: 0.9em;
-      font-size: 0.9em;
-}
+    }
     
     .filter-row {
       display: flex;
@@ -985,8 +774,7 @@ body.dark-mode #summary-content * {
       box-sizing: border-box;
       border: 1px solid #ccc;
       background: white;
-      font-size: 0.9em;
-}
+    }
     
     .filter-dropdown:disabled {
       background: #f5f5f5;
@@ -1037,6 +825,14 @@ body.dark-mode #summary-content * {
     }
     
     #note { margin-top: 0.5rem; font-size: 0.9em; color: #666; }
+    #searchInfo {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
     
     ul.results-list { 
       list-style-type: disc; 
@@ -1044,8 +840,11 @@ body.dark-mode #summary-content * {
       margin: 0;
       padding-top: 0.3rem;
     }
-    ul.results-list > li > a { font-weight: bold; color: #467886;   font-size: 0.9em;
-}
+    ul.results-list > li > a { 
+      font-weight: bold; 
+      color: #467886;
+      font-size: 0.9em;
+    }
     ul.sub-headings { list-style-type: none; padding-left: 1.5em; margin: 0.25em 0; }
     ul.sub-headings li::before { content: "– "; color: #333; }
     a { color: #467886; text-decoration: none; cursor: pointer; }
@@ -1112,95 +911,113 @@ body.dark-mode #summary-content * {
       margin-bottom: 1rem;
     }
   
-/* PATCH: Vereinheitlichung der blauen Farbe im Darkmode (#7EB8C8) */
+    body.dark-mode ul.results-list > li > a {
+      color: #7EB8C8 !important;
+    }
+    
+    body.dark-mode .toc-item a {
+      color: #7EB8C8 !important;
+    }
+    
+    body.dark-mode #summary-content h3,
+    body.dark-mode #summary-content h4 {
+      color: #7EB8C8 !important;
+    }
+    
+    body.dark-mode .tab-button.active {
+      color: #7EB8C8 !important;
+      border-bottom-color: #7EB8C8 !important;
+    }
+    
+    body.dark-mode .depth-btn {
+      border-color: #7EB8C8 !important;
+    }
 
-body.dark-mode ul.results-list > li > a {
-  color: #7EB8C8 !important;
-}
+    .ga-overview-lecture {
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    body.dark-mode .ga-overview-lecture {
+      border-bottom-color: #404040;
+    }
+    
+    .ga-overview-lecture h3 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .ga-overview-lecture h3 a {
+      color: #467886;
+      text-decoration: none;
+    }
+    
+    body.dark-mode .ga-overview-lecture h3 a {
+      color: #7EB8C8;
+    }
+    
+    .ga-overview-lecture h3 a:hover {
+      text-decoration: underline;
+    }
+    
+    .ga-overview-meta {
+      font-size: 0.9em;
+      color: #666;
+      margin: 0.25rem 0;
+    }
+    
+    body.dark-mode .ga-overview-meta {
+      color: #999;
+    }
+    
+    .ga-overview-summary {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      border-left: none;
+    }
+    
+    body.dark-mode .ga-overview-summary {
+      background: transparent;
+      border-left: none;
+    }
+    
+    .ga-overview-summary p {
+      margin: 0;
+      font-style: italic;
+      line-height: 1.5;
+      color: #444;
+    }
+    
+    body.dark-mode .ga-overview-summary p {
+      color: #d0d0d0;
+    }
+    
+    #gaFilterContainer {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    #gaFilterContainer .filter-dropdown {
+      flex: 1;
+    }
+    
+    #showGAOverview {
+      flex-shrink: 0;
+      white-space: nowrap;
+      padding: 6px 12px;
+      font-size: 0.85em;
+    }
 
-body.dark-mode .toc-item a {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode #viewer h3,
-body.dark-mode #viewer h4 {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode #summary-content h3,
-body.dark-mode #summary-content h4 {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode #document-title a {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode .tab-button.active {
-  color: #7EB8C8 !important;
-  border-bottom-color: #7EB8C8 !important;
-}
-
-body.dark-mode .ga-reference {
-  color: #7EB8C8 !important;
-  border-color: #7EB8C8 !important;
-}
-
-body.dark-mode .depth-btn {
-  border-color: #7EB8C8 !important;
-}
-
-
-/* PATCH: GA-Referenzen im Darkmode ohne Rahmen */
-body.dark-mode .ga-reference {
-  border: none !important;
-  color: #7EB8C8 !important;
-}
-
-
-/* PATCH: GA-Referenzen ohne Hintergrund, ohne Rahmen und automatisch in Klammern */
-.ga-reference {
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-  color: #467886;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-body.dark-mode .ga-reference {
-  color: #7EB8C8 !important;
-}
-
-.ga-reference::before {
-  content: "(";
-}
-
-.ga-reference::after {
-  content: ")";
-}
-
-
-/* PATCH: Klammern im Darkmode in normaler heller Textfarbe */
-body.dark-mode .ga-reference::before,
-body.dark-mode .ga-reference::after {
-  color: #e0e0e0 !important;
-}
-
-
-/* PATCH: Stichwortsuche – Abstand wie bei Themensuche */
-#searchInfo {
-  margin-top: 0.5rem !important;      /* vorher 0.3rem */
-  padding-bottom: 0.5rem !important;  /* vorher 0.1rem */
-}
-
+    select option.available-ga {
+      font-weight: normal;
+      color: black;
+    }
 </style>
-<style>
-select option.available-ga {
-  font-weight: normal;
-  color: black;
-}
-</style></head>
+</head>
 <body>
 <div class="sidebar-toggle" onclick="toggleSidebar()">
 <span id="sidebar-toggle-icon">◄</span>
@@ -1218,8 +1035,7 @@ select option.available-ga {
 <div class="tab-buttons">
 <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
-
-<button class="tab-button" onclick="switchTab('gesamtausgabe')">GA</button>
+<button class="tab-button" onclick="switchTab('gesamtausgabe')">Verschiedenes</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -1249,19 +1065,22 @@ select option.available-ga {
 <div class="radio-group">
 <label><input checked="" name="scope" type="radio" value="fulltext"/><span> Volltext</span></label>
 <label><input name="scope" type="radio" value="title"/><span> Titel</span></label>
+<button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
+GA-Übersicht →
+</button>
 <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
 </div>
 <span id="status" style="display:none"></span>
-<div id="searchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.3rem; margin-bottom: 0.1rem; padding-bottom: 0.1rem; border-bottom: 1px solid #ddd;">
+<div id="searchInfo">
 <span id="serverInfo"></span>
 <span id="resultInfo"></span>
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage, z.B.:
-• Wie sieht Steiner das Verhältnis von Kant zu Goethe?
-• Welche Bedeutung hat Goethes Märchen für die Anthroposophie?
-• Wie ist das Verhältnis von Ätherleib und Astralleib?"></textarea>
+- Wie sieht Steiner das Verhältnis von Kant zu Goethe?
+- Welche Bedeutung hat Goethes Märchen für die Anthroposophie?
+- Wie ist das Verhältnis von Ätherleib und Astralleib?"></textarea>
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicLimitFilter">
@@ -1271,8 +1090,6 @@ select option.available-ga {
 </select>
 <select class="filter-dropdown" id="thematicGAFilter">
 <option value="">Alle GA-Bände</option>
-<option value="GA052">GA052</option>
-<option value="GA058">GA058</option>
 </select>
 </div>
 <div class="depth-buttons">
@@ -1287,11 +1104,11 @@ select option.available-ga {
 <span id="thematicServerInfo"></span>
 </div>
 </div>
-</div>
 <div class="tab-content" id="gesamtausgabe-tab">
   <select id="gaGesamtausgabe" class="filter-dropdown" style="margin-top: 0.5rem;">
     <option value="">Bitte wählen…</option>
   </select>
+</div>
 </div>
 <div id="note" style="display: none;"></div>
 </div>
@@ -1330,7 +1147,6 @@ select option.available-ga {
 </div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script>
-    // Automatische Erkennung: localhost oder Production
     const isLocal = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1' ||
                     window.location.protocol === 'file:';
@@ -1421,6 +1237,7 @@ select option.available-ga {
       initVerticalResizeHandle();
       checkServerConnection();
       initTheme();
+      initGAFilter();
     });
 
     function initTheme() {
@@ -1478,6 +1295,90 @@ select option.available-ga {
       }
     }
 
+    function initGAFilter() {
+      const gaFilter = document.getElementById('gaFilter');
+      const showBtn = document.getElementById('showGAOverview');
+      
+      gaFilter.addEventListener('change', (e) => {
+        const selectedGA = e.target.value;
+        
+        if (selectedGA) {
+          showBtn.style.display = 'inline-block';
+          showBtn.dataset.gaNumber = selectedGA;
+        } else {
+          showBtn.style.display = 'none';
+        }
+      });
+    }
+
+    async function openGAOverview() {
+      const gaNumber = document.getElementById('showGAOverview').dataset.gaNumber;
+      if (!gaNumber) return;
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const data = await response.json();
+        displayGAOverview(data);
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der GA-Übersicht:', error);
+        document.getElementById('viewer').innerHTML = `
+          <div class="error-message">
+            <strong>Fehler beim Laden der GA-Übersicht:</strong><br>${error.message}
+          </div>
+        `;
+      }
+    }
+
+    function displayGAOverview(data) {
+      const viewer = document.getElementById('viewer');
+      const titleElement = document.getElementById('document-title');
+      
+      titleElement.textContent = `${data.gaNumber}: ${data.gaTitle}`;
+      
+      let html = `<div style="max-width: 900px;">`;
+      
+      data.lectures.forEach((lecture, idx) => {
+        // Baue Überschrift mit Ort und Datum (falls vorhanden)
+        let titleText = `${lecture.ID} - ${lecture.title}`;
+        
+        const locationParts = [];
+        if (lecture.location) locationParts.push(lecture.location);
+        if (lecture.date) locationParts.push(lecture.date);
+        
+        if (locationParts.length > 0) {
+          titleText += `, ${locationParts.join(', ')}`;
+        }
+        
+        html += `
+          <div class="ga-overview-lecture">
+            <h3>
+              <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;">
+                ${titleText}
+              </a>
+            </h3>
+            
+            ${lecture.summary ? `
+              <div class="ga-overview-summary">
+                <p>${lecture.summary}</p>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+      
+      html += `</div>`;
+      viewer.innerHTML = html;
+      
+      document.getElementById('main').scrollTop = 0;
+    }
+
+    async function showLectureFromOverview(lectureId) {
+      await showLecture(lectureId, null, []);
+    }
+
     async function performKeywordSearch() {
       const word1Input = document.getElementById('word1').value.trim();
       const word2Input = document.getElementById('word2').value.trim();
@@ -1502,7 +1403,6 @@ select option.available-ga {
         button.disabled = true;
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
-        
         
         const gaFilter = document.getElementById('gaFilter').value;
         const proximityFilter = document.getElementById('proximityFilter').value;
@@ -1545,7 +1445,6 @@ select option.available-ga {
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
-        
       }
     }
 
@@ -1712,7 +1611,6 @@ select option.available-ga {
                 
                 showingSummaryInMain = false;
                 
-                // Schließe Summary Panel wenn es offen ist
                 const summaryPanel = document.getElementById('summary-panel');
                 const resizeHandle = document.getElementById('verticalResizeHandle');
                 const icon = document.getElementById('summary-panel-toggle-icon');
@@ -1750,7 +1648,6 @@ select option.available-ga {
       currentThematicQuery = query;
       
       const button = document.getElementById('thematicSearchBtn');
-      const originalText = button.textContent;
       
       try {
         button.disabled = true;
@@ -1794,7 +1691,6 @@ select option.available-ga {
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
-        
       }
     }
 
@@ -1808,7 +1704,6 @@ select option.available-ga {
       }
       
       if (regenerateBtn && currentLectureData && currentLectureSummary) {
-        // Button nur aktivieren wenn keine H4-Überschriften vorhanden sind
         const hasH4 = currentLectureSummary.headings?.some(h => h.level === 'h4');
         regenerateBtn.disabled = hasH4;
         if (hasH4) {
@@ -1839,7 +1734,6 @@ select option.available-ga {
       
       h4Collapsed = !h4Collapsed;
       
-      // Toggle im TOC
       tocH4.forEach(h4 => {
         if (h4Collapsed) {
           h4.classList.add('hidden');
@@ -1848,7 +1742,6 @@ select option.available-ga {
         }
       });
       
-      // Toggle im Viewer
       viewerH4.forEach(h4 => {
         if (h4Collapsed) {
           h4.style.display = 'none';
@@ -1858,7 +1751,7 @@ select option.available-ga {
       });
       
       if (toggleBtn) {
-        toggleBtn.innerHTML = h4Collapsed ? '&#x2228;' : '&#x2227;'; // ∨ für ausklappen, ∧ für einklappen
+        toggleBtn.innerHTML = h4Collapsed ? '&#x2228;' : '&#x2227;';
       }
     }
 
@@ -1907,7 +1800,7 @@ select option.available-ga {
       
       if (!currentLectureSummary) {
         try {
-          closeBtn.disabled = true;
+          closeBtn.disabled = true
           regenerateBtn.disabled = true;
           tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">bitte warten...</p>';
           
@@ -1951,7 +1844,6 @@ select option.available-ga {
       
       closeBtn.disabled = false;
       
-      // Regenerate-Button nur aktivieren wenn keine H4-Überschriften vorhanden sind
       const hasH4 = currentLectureSummary.headings?.some(h => h.level === 'h4');
       regenerateBtn.disabled = hasH4;
       if (hasH4) {
@@ -1967,72 +1859,91 @@ select option.available-ga {
       }
     }
 
-    async function regenerateSummary() {
-      if (!currentLectureData) {
-        alert('Kein Vortrag geladen');
-        return;
-      }
-      
-      const confirm = window.confirm('Zusammenfassung neu generieren? Dies kann einige Minuten dauern.');
-      if (!confirm) return;
-      
-      const closeBtn = document.getElementById('summaryCloseBtn');
-      const regenerateBtn = document.getElementById('regenerateBtn');
-      const tocList = document.getElementById('toc-list');
-      
-      try {
-        closeBtn.disabled = true;
-        regenerateBtn.disabled = true;
-        regenerateBtn.classList.add('processing');
-        regenerateBtn.textContent = 'bitte warten...';
-        tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">neu generieren...</p>';
-        
-        const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            lectureId: currentLectureData.ID,
-            forceRegenerate: true
-          })
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || `Server Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        currentLectureSummary = {
-          summary: data.summary,
-          headings: data.headings || []
-        };
-        
-        console.log('Neue Zusammenfassung generiert');
-        
-        const visibleIndex = getCurrentVisibleParagraphIndex();
-        if (visibleIndex) {
-          lastHighlightedIndex = visibleIndex;
-        }
-        
-        showingSummaryInMain = true;
-        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-        buildTableOfContents();
-        
-        if (lastHighlightedIndex) {
-          scrollToIndexInViewer(lastHighlightedIndex);
-        }
-        
-      } catch (error) {
-        console.error('Regenerierungs-Fehler:', error);
-        tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
-      } finally {
-        closeBtn.disabled = false;
-        regenerateBtn.disabled = false;
-        regenerateBtn.classList.remove('processing');
-        regenerateBtn.textContent = 'Neu';
-      }
+async function regenerateSummary() {
+  if (!currentLectureData) {
+    alert('Kein Vortrag geladen');
+    return;
+  }
+  
+  const closeBtn = document.getElementById('summaryCloseBtn');
+  const regenerateBtn = document.getElementById('regenerateBtn');
+  const tocList = document.getElementById('toc-list');
+  
+  try {
+    closeBtn.disabled = true;
+    regenerateBtn.disabled = true;
+    regenerateBtn.classList.add('processing');
+    regenerateBtn.textContent = 'bitte warten...';
+    tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">neu generieren...</p>';
+    
+    const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: currentLectureData.ID,
+        forceRegenerate: true
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `Server Error: ${response.status}`);
     }
+    
+    const data = await response.json();
+    
+    currentLectureSummary = {
+      summary: data.summary,
+      headings: data.headings || []
+    };
+    
+    console.log('Neue Zusammenfassung generiert');
+    
+    const visibleIndex = getCurrentVisibleParagraphIndex();
+    if (visibleIndex) {
+      lastHighlightedIndex = visibleIndex;
+    }
+    
+    showingSummaryInMain = true;
+    displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+    buildTableOfContents();
+    
+    if (lastHighlightedIndex) {
+      scrollToIndexInViewer(lastHighlightedIndex);
+    }
+    
+    try {
+      const gaNumber = currentLectureData.ID.split('/')[0];
+      
+      await fetch(`${API_BASE}/api/ga-overview/${gaNumber}?refresh=true`);
+      console.log('GA-Übersichts-Cache aktualisiert für', gaNumber);
+      
+      const titleElement = document.getElementById('document-title');
+      const titleText = titleElement.textContent;
+      
+      if (titleText.includes(gaNumber) && titleText.includes(':')) {
+        console.log('GA-Übersicht wird neu geladen...');
+        const overviewResponse = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+        if (overviewResponse.ok) {
+          const overviewData = await overviewResponse.json();
+          displayGAOverview(overviewData);
+          console.log('GA-Übersicht aktualisiert');
+        }
+      }
+    } catch (cacheError) {
+      console.warn('Cache-Aktualisierung fehlgeschlagen:', cacheError);
+    }
+    
+  } catch (error) {
+    console.error('Regenerierungs-Fehler:', error);
+    tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
+  } finally {
+    closeBtn.disabled = false;
+    regenerateBtn.disabled = false;
+    regenerateBtn.classList.remove('processing');
+    regenerateBtn.textContent = 'Neu';
+  }
+}
 
     function closeAndShowOriginal() {
       const panel = document.getElementById('summary-panel');
@@ -2139,13 +2050,6 @@ select option.available-ga {
         const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
         const paraIndexWithCaret = para.index || `^${paraIndex}`;
         
-        // Debug: Log für ersten Absatz
-        if (idx === 0) {
-          console.log('Erster Absatz Index:', paraIndex, 'mit ^:', paraIndexWithCaret);
-          console.log('Alle heading indices:', headings.map(h => h.index));
-        }
-        
-        // Finde ALLE Überschriften für diesen Index (mit verschiedenen Varianten)
         const matchingHeadings = headings.filter(h => {
           const hIndex = h.index || '';
           const hIndexClean = hIndex.replace(/^\^/, '');
@@ -2154,11 +2058,6 @@ select option.available-ga {
                  hIndexClean === paraIndex;
         });
         
-        if (matchingHeadings.length > 0 && idx < 5) {
-          console.log(`Absatz ${idx} (${paraIndex}): ${matchingHeadings.length} Überschriften gefunden`);
-        }
-        
-        // Sortiere: H3 vor H4
         matchingHeadings
           .sort((a, b) => {
             if (a.level === 'h3' && b.level === 'h4') return -1;
@@ -2226,6 +2125,8 @@ select option.available-ga {
       
       const answerDiv = document.getElementById('answerContent');
       answerDiv.innerHTML = marked.parse(content);
+      console.log('HTML nach marked.parse:', answerDiv.innerHTML.substring(0, 500));
+      console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
       
       document.getElementById('status').textContent = `Antwort aus ${sortedSources.length} Quellen`;
       
@@ -2252,8 +2153,6 @@ select option.available-ga {
     }
 
     async function showLecture(lectureId, targetIndex, keywords = []) {
-
-      // Panel bei neuem Vortrag immer schließen
       const summaryPanel = document.getElementById('summary-panel');
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const tocList = document.getElementById('toc-list');
@@ -2267,23 +2166,12 @@ select option.available-ga {
       }
 
       try {
-        
-        
-        const summaryPanel = document.getElementById('summary-panel');
-        const resizeHandle = document.getElementById('verticalResizeHandle');
-        const tocList = document.getElementById('toc-list');
-        
-        if (summaryPanel.classList.contains('visible')) {
-          summaryPanel.classList.remove('visible');
-          resizeHandle.classList.remove('visible');
-        }
-        
-        if (tocList) tocList.innerHTML = '';
-        
         const parts = lectureId.split('/');
+        // Konvertiere zu uppercase für API-Aufruf
+        const lectureIdUpper = lectureId.toUpperCase();
         const url = parts.length === 2 
-          ? `${API_BASE}/api/full-lecture/${parts[0]}/${parts[1]}`
-          : `${API_BASE}/api/full-lecture/${lectureId}`;
+       ? `${API_BASE}/api/full-lecture/${parts[0].toUpperCase()}/${parts[1]}`
+      : `${API_BASE}/api/full-lecture/${lectureIdUpper}`;
         
         const response = await fetch(url);
         
@@ -2310,7 +2198,6 @@ select option.available-ga {
         }
         
         updateButtonStates();
-        
         displayLecture(data.lecture, targetIndex, displayKeywords);
         
       } catch (error) {
@@ -2320,8 +2207,6 @@ select option.available-ga {
             <strong>Fehler beim Laden des Vortrags:</strong><br>${error.message}
           </div>
         `;
-      } finally {
-        
       }
     }
 
@@ -2330,7 +2215,6 @@ select option.available-ga {
       const tocList = document.getElementById('toc-list');
       const mainContainer = document.getElementById('main');
       
-      // Suche nach H3 und H4
       const headings = viewer.querySelectorAll('h3, h4');
       
       tocList.innerHTML = '';
@@ -2338,11 +2222,10 @@ select option.available-ga {
       let headingIndex = 0;
       const tocItems = [];
       
-      // Reset collapse state
       h4Collapsed = false;
       const toggleBtn = document.getElementById('toggleH4Btn');
       if (toggleBtn) {
-        toggleBtn.innerHTML = '&#x2227;'; // ∧ für einklappen
+        toggleBtn.innerHTML = '&#x2227;';
       }
       
       headings.forEach((heading) => {
@@ -2372,16 +2255,12 @@ select option.available-ga {
       
       function updateActiveTocItem() {
         const containerTop = mainContainer.getBoundingClientRect().top;
-        const scrollTop = mainContainer.scrollTop;
         
         let activeHeading = null;
-        let activeTocItem = null;
         
-        // Wenn H4s eingeklappt sind, suche nur nach H3s
         const selector = h4Collapsed ? 'h3' : 'h3, h4';
         const visibleHeadings = Array.from(viewer.querySelectorAll(selector));
         
-        // Finde die letzte Überschrift, die oberhalb oder bei der Scroll-Position ist
         for (let i = visibleHeadings.length - 1; i >= 0; i--) {
           const heading = visibleHeadings[i];
           const headingRect = heading.getBoundingClientRect();
@@ -2393,7 +2272,6 @@ select option.available-ga {
           }
         }
         
-        // Entferne alle Markierungen
         tocItems.forEach(item => {
           item.element.style.fontWeight = 'normal';
           item.element.style.color = '#467886';
@@ -2401,18 +2279,12 @@ select option.available-ga {
         
         if (!activeHeading) return;
         
-        // Finde das TOC-Element für das aktive Heading
         for (let i = 0; i < tocItems.length; i++) {
           if (tocItems[i].heading === activeHeading) {
-            activeTocItem = tocItems[i].element;
+            tocItems[i].element.style.fontWeight = 'bold';
+            tocItems[i].element.style.color = '#467886';
             break;
           }
-        }
-        
-        // Markiere das gefundene TOC-Element
-        if (activeTocItem) {
-          activeTocItem.style.fontWeight = 'bold';
-          activeTocItem.style.color = '#467886';
         }
       }
       
@@ -2447,7 +2319,24 @@ select option.available-ga {
       const mainContainer = document.getElementById('main');
       const titleElement = document.getElementById('document-title');
       
-      const cleanIndex = highlightIndex ? highlightIndex.replace(/^\^/, '') : null;
+      // Normalisiere den Index - füge ^ hinzu wenn es fehlt
+      let cleanIndex = null;
+      if (highlightIndex) {
+        cleanIndex = highlightIndex.replace(/^\^/, '');
+        // Prüfe ob der Index mit ^ im Vortrag existiert
+        const hasCaretVersion = lecture.paragraphs?.some(p => 
+          p.index === `^${cleanIndex}` || p.index === cleanIndex
+        );
+        if (hasCaretVersion) {
+          // Verwende die Version, die im Vortrag tatsächlich existiert
+          const actualIndex = lecture.paragraphs.find(p => 
+            p.index === `^${cleanIndex}` || p.index === cleanIndex
+          )?.index;
+          if (actualIndex) {
+            cleanIndex = actualIndex.replace(/^\^/, '');
+          }
+        }
+      }
       
       viewer.innerHTML = '';
       
@@ -2629,10 +2518,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const availableGAs = data.availableGA;
     console.log("[INFO] Verfügbare GA-Bände:", availableGAs);
 
-    // Sortiere die GA-Nummern
     availableGAs.sort();
 
-    // Füge nur die verfügbaren GA-Bände hinzu
     availableGAs.forEach(gaNumber => {
       const opt1 = document.createElement("option");
       opt1.value = gaNumber;
@@ -2653,14 +2540,12 @@ async function populateGesamtausgabeDropdown() {
   const select = document.getElementById('gaGesamtausgabe');
   if (!select) return;
   
-  // Verhindere mehrfaches Ausführen
   if (select.dataset.populated === 'true') {
     console.log('[GA-TAB] Bereits befüllt, überspringe');
     return;
   }
 
   try {
-    // Versuche zuerst die GA-Overview-Map zu laden
     let gaMap = null;
     try {
       const mapRes = await fetch(`${API_BASE}/ga-overview-map.json`);
@@ -2672,7 +2557,6 @@ async function populateGesamtausgabeDropdown() {
       console.warn('[GA-TAB] ga-overview-map.json nicht gefunden, verwende Fallback');
     }
     
-    // Fallback: Lade GA-Nummern von /api/available-ga
     if (!gaMap || Object.keys(gaMap).length === 0) {
       const res = await fetch(`${API_BASE}/api/available-ga`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -2680,7 +2564,6 @@ async function populateGesamtausgabeDropdown() {
       const data = await res.json();
       const availableGAs = data.availableGA || [];
       
-      // Erstelle eine einfache Map
       gaMap = {};
       availableGAs.forEach(ga => {
         gaMap[ga] = `/${ga}/${ga}.html`;
@@ -2696,31 +2579,27 @@ async function populateGesamtausgabeDropdown() {
       return;
     }
 
-    // Entferne vorhandene Optionen außer der ersten ("Bitte wählen...")
     while (select.options.length > 1) {
       select.remove(1);
     }
 
     gaList.forEach(ga => {
       const opt = document.createElement('option');
-      opt.value = gaMap[ga]; // Der Pfad zur HTML-Datei
-      opt.textContent = ga;   // Die GA-Nummer
+      opt.value = gaMap[ga];
+      opt.textContent = ga;
       select.appendChild(opt);
     });
     
     select.dataset.populated = 'true';
     console.log('[GA-TAB] Dropdown befüllt mit', gaList.length, 'Einträgen');
     
-    // Event Listener nur einmal registrieren
     if (!select.dataset.listenerAdded) {
       select.addEventListener('change', (e) => {
         const selectedPath = e.target.value;
         if (selectedPath) {
-          // Öffne in benanntem Fenster mit rudolf-steiner-online.de als Basis-URL
           const fullUrl = `https://rudolf-steiner-online.de${selectedPath}`;
           console.log('[GA-TAB] Öffne:', fullUrl);
           window.open(fullUrl, 'ga-window');
-          // Setze Dropdown zurück
           e.target.selectedIndex = 0;
         }
       });
