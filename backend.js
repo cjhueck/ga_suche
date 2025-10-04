@@ -1371,40 +1371,31 @@ app.get('/api/available-ga', async (req, res) => {
 // NEU: GA-Übersichtsseite abrufen
 app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   try {
-    const gaNumber = req.params.gaNumber.toUpperCase();
+    const gaNumberOriginal = req.params.gaNumber;     // z.B. "GA068a"
+    const gaKey = gaNumberOriginal.toLowerCase();     // Cache-Key
     const forceRefresh = req.query.refresh === 'true';
-    
-    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumber} (refresh: ${forceRefresh})`);
-    
-    // NEU: Bei Refresh, lade summaryCache neu!
-    if (forceRefresh) {
-      await loadSummaryCache();
-      console.log('[GA-OVERVIEW] Summary-Cache neu geladen');
+
+    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumberOriginal} (refresh: ${forceRefresh})`);
+
+    if (!forceRefresh && gaOverviewCache[gaKey]) {
+      console.log(`[GA-OVERVIEW] Cache-Hit für ${gaKey}`);
+      return res.json(gaOverviewCache[gaKey]);
     }
-    
-    // Prüfe Cache (außer bei Refresh)
-    if (!forceRefresh && gaOverviewCache[gaNumber]) {
-      console.log(`[GA-OVERVIEW] Cache-Hit für ${gaNumber}`);
-      return res.json(gaOverviewCache[gaNumber]);
-    }
-    
-    // Generiere Übersicht (neu oder refresh)
-    const overview = generateGAOverview(gaNumber);
-    
+
+    // WICHTIG: Hier die Original-Schreibweise benutzen,
+    // weil generateGAOverview streng vergleicht (===)
+    const overview = generateGAOverview(gaNumberOriginal);
+
     if (!overview) {
-      return res.status(404).json({ 
-        error: `Keine Vorträge gefunden für ${gaNumber}` 
-      });
+      return res.status(404).json({ error: `Keine Vorträge gefunden für ${gaNumberOriginal}` });
     }
-    
-    // Speichere in Cache
-    gaOverviewCache[gaNumber] = overview;
+
+    gaOverviewCache[gaKey] = overview;
     await saveGAOverviewCache();
-    
-    console.log(`[GA-OVERVIEW] Übersicht ${forceRefresh ? 'aktualisiert' : 'generiert'} für ${gaNumber}: ${overview.lectureCount} Vorträge`);
-    
+
+    console.log(`[GA-OVERVIEW] Übersicht ${forceRefresh ? 'aktualisiert' : 'generiert'} für ${gaKey}: ${overview.lectureCount} Vorträge`);
     res.json(overview);
-    
+
   } catch (error) {
     console.error('[GA-OVERVIEW] Fehler:', error);
     res.status(500).json({ error: error.message });
