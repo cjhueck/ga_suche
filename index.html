@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -11,6 +12,7 @@
       height: 100vh;
       display: flex;
       transition: background-color 0.3s, color 0.3s;
+      background-color: #FEFCFA; /* NEU: Lightmode Hintergrund #FEFCFA */
     }
     
     body.dark-mode {
@@ -19,12 +21,12 @@
     }
     
     body.dark-mode #sidebar {
-      background-color: #2a2a2a;
+      background-color: #1a1a1a;
       border-right-color: #404040;
     }
     
     body.dark-mode #sidebar-header {
-      background-color: #2a2a2a;
+      background-color: #1a1a1a;
       border-bottom-color: #404040;
       padding: 0.5rem;
     }
@@ -35,7 +37,7 @@
     }
     
     body.dark-mode #summary-panel {
-      background-color: #2a2a2a;
+      background-color: #1a1a1a;
       border-left-color: #404040;
     }
     
@@ -63,6 +65,23 @@
       box-shadow: 0 0 0 30px white inset !important;
     }
     
+/* Lightmode: Suchfelder behalten IMMER die gleiche Hintergrundfarbe */
+body:not(.dark-mode) .search-input,
+body:not(.dark-mode) .filter-dropdown,
+body:not(.dark-mode) .thematic-input {
+  background: #FEFCFA !important; /* gleich wie Seitenhintergrund */
+}
+
+/* Autofill überschreiben (Chrome / Edge / Safari) */
+body:not(.dark-mode) .search-input:-webkit-autofill,
+body:not(.dark-mode) .search-input:-webkit-autofill:hover,
+body:not(.dark-mode) .search-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #FEFCFA inset !important;
+  box-shadow: 0 0 0 30px #FEFCFA inset !important;
+  -webkit-text-fill-color: #000 !important; /* Text schwarz lassen */
+}
+
+
     body.dark-mode mark {
       background: rgba(70, 120, 134, 0.5);
       color: #fff;
@@ -181,7 +200,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #ccc;
+      background-color: #ECECEC;
       transition: 0.3s;
       border-radius: 24px;
     }
@@ -218,8 +237,8 @@
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 450px;
-      min-width: 450px;
+      width: 440px;
+      min-width: 440px;
       max-width: none;
       overflow: hidden;
       border-right: 1px solid #ddd;
@@ -238,9 +257,10 @@
     }
     
     #sidebar-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0rem 1rem 1rem 1rem;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0rem 1rem 1rem 1rem;
+  font-size: 0.95em;
     }
     
     #sidebar.collapsed {
@@ -282,8 +302,8 @@
     }
     
     .resize-handle {
-      width: 1px;
-      background-color: #ddd;
+  width: 1px;
+  background-color: #ddd;
       cursor: col-resize;
       position: relative;
       flex-shrink: 0;
@@ -328,13 +348,13 @@
     }
     
     body.dark-mode .depth-btn {
-      background: #2a2a2a;
+      background: #1a1a1a;
       color: #d0d0d0;
       border: 1px solid #7eb8c8;
     }
     
     body.dark-mode .depth-btn.active {
-      background: #2a2a2a;
+      background: #1a1a1a;
       color: #d0d0d0;
       border: 2px solid #7eb8c8;
     }
@@ -351,7 +371,7 @@
     }
     
     body.dark-mode .summary-buttons .search-button {
-      background: #2a2a2a;
+      background: #1a1a1a;
       color: #d0d0d0;
       border-color: #7eb8c8;
     }
@@ -374,16 +394,16 @@
       background: transparent;
       position: relative;
       transition: width 0.3s ease, background-color 0.3s ease, border-left 0.3s ease;
-      margin-right: 24px;
+
     }
     
     #summary-panel.visible {
       width: 280px;
       min-width: 280px;
       max-width: none;
-      background: #fafafa;
+      background: #FEFCFA;
       border-left: 1px solid #ddd;
-      margin-right: 24px;
+
     }
     
     .summary-panel-toggle {
@@ -549,7 +569,7 @@
       border: none;
       background: transparent;
       cursor: pointer;
-      font-size: 16px;
+  font-size: 0.95em;
       font-weight: 500;
       color: #666;
       border-bottom: 2px solid transparent;
@@ -580,7 +600,7 @@
       margin: 0px 0;
       box-sizing: border-box;
       border: 1px solid #467886;
-      background: white;
+      background: #FEFCFA;
       font-size: 15px;
       min-height: 80px;
       resize: vertical;
@@ -599,9 +619,10 @@
     }
     
     .depth-btn {
-      padding: 6px 12px;
+  padding: 8px 16px;
+  font-size: 1em;
       border: 1px solid #467886;
-      background: white;
+      background: #FEFCFA;
       color: #467886;
       cursor: pointer;
       border-radius: 4px;
@@ -610,7 +631,7 @@
     }
     
     .depth-btn.active {
-      background: white;
+      background: #FEFCFA;
       color: #467886;
       border: 2px solid #467886;
     }
@@ -688,12 +709,15 @@
     }
     
     .semantic-answer {
-      background: #f0f8ff;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 4px;
-    }
-    
+             background: transparent !important; /* keine Box */
+             padding: 0 !important;              /* Abstand entfernen */
+             margin: 0 !important;               /* Abstand entfernen */
+             border-radius: 0 !important;        /* runde Ecken weg */
+             border: none !important;            /* ggf. Rahmen entfernen */
+}
+    body.dark-mode .semantic-answer {
+          background: transparent !important;
+}
     .semantic-answer h3 {
       display: none;
     }
@@ -754,7 +778,7 @@
       margin: 4px 0;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: white;
+      background: #FEFCFA;
       font-size: 0.9em;
     }
     
@@ -773,7 +797,7 @@
       font-size: 0.9em;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: white;
+      background: #FEFCFA;
     }
     
     .filter-dropdown:disabled {
@@ -783,7 +807,7 @@
     }
     
     .radio-group {
-      margin: 6px 0;
+  margin: 6px 0;
       display: flex;
       gap: 12px;
     }
@@ -805,7 +829,7 @@
       padding: 6px 12px;
       border-radius: 4px;
       border: 2px solid #467886;
-      background: white;
+      background: #FEFCFA;
       color: #467886;
       cursor: pointer;
       font-size: 0.9em;
@@ -828,7 +852,7 @@
     #searchInfo {
       font-size: 0.9em;
       color: #666;
-      margin-top: 0.5rem;
+      margin-top: 0rem;
       margin-bottom: 0;
       padding-bottom: 0.5rem;
       border-bottom: 1px solid #ddd;
@@ -1006,6 +1030,7 @@
     }
     
     #showGAOverview {
+      margin-left: auto;
       flex-shrink: 0;
       white-space: nowrap;
       padding: 6px 12px;
@@ -1020,7 +1045,7 @@
 </head>
 <body>
 <div class="sidebar-toggle" onclick="toggleSidebar()">
-<span id="sidebar-toggle-icon">◄</span>
+<span id="sidebar-toggle-icon">&lt;</span>
 </div>
 <div id="sidebar">
 <div id="sidebar-header">
@@ -1063,7 +1088,7 @@
 </select>
 </div>
 <div class="radio-group">
-<label><input checked="" name="scope" type="radio" value="fulltext"/><span> Volltext</span></label>
+<label><input checked="" name="scope" type="radio" value="fulltext"/><span> Text</span></label>
 <label><input name="scope" type="radio" value="title"/><span> Titel</span></label>
 <button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
 GA-Übersicht →
@@ -1084,20 +1109,21 @@ GA-Übersicht →
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicLimitFilter">
-<option value="30">30 Quellen</option>
-<option value="50">50 Quellen</option>
-<option value="100">100 Quellen</option>
+  <option value="30">30 Quellen</option>
+  <option value="50">50 Quellen</option>
+  <option value="100">100 Quellen</option>
 </select>
 <select class="filter-dropdown" id="thematicGAFilter">
-<option value="">Alle GA-Bände</option>
+  <option value="">Alle GA-Bände</option>
 </select>
 </div>
 <div class="depth-buttons">
 <button class="depth-btn active" data-depth="allgemein">Allgemein</button>
 <button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
+<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
-                Suche starten
-              </button>
+  Suche starten
+</button>
 </div>
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem; border-bottom: 1px solid #ddd;">
@@ -1124,10 +1150,10 @@ GA-Übersicht →
 </div>
 <div id="viewer"></div>
 </div>
+<button class="summary-panel-toggle" id="summaryPanelToggle" title="Zusammenfassung ein-/ausblenden" onclick="toggleSummaryPanel()">
+  <span id="summary-panel-toggle-icon">&lt;</span>
+</button>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
-<div class="summary-panel-toggle" onclick="toggleSummaryPanel()">
-<span id="summary-panel-toggle-icon">◄</span>
-</div>
 <div id="summary-panel">
 <div class="summary-buttons">
 <button class="search-button" disabled="" id="summaryCloseBtn" onclick="closeAndShowOriginal()">
@@ -1169,6 +1195,16 @@ GA-Übersicht →
     let currentLectureSummary = null;
     let lastHighlightedIndex = null;
 
+function normalizeGANumber(gaNumber) {
+    const match = gaNumber.match(/^GA?(\d+)([a-zA-Z]?)$/i);
+    if (!match) return gaNumber;
+
+    const number = match[1].padStart(3, '0');
+    const suffix = match[2] || '';
+
+    return `GA${number}${suffix.toLowerCase()}`;
+  }
+
     function addToHistory(field, value) {
       if (!value || !value.trim()) return;
       
@@ -1206,13 +1242,13 @@ GA-Übersicht →
         sidebar.classList.remove('collapsed');
         sidebar.style.width = '';
         sidebar.style.minWidth = '';
-        icon.textContent = '◄';
+  icon.textContent = '<';
         setTimeout(updateTogglePosition, 50);
       } else {
         sidebar.classList.add('collapsed');
         sidebar.style.width = '0';
         sidebar.style.minWidth = '0';
-        icon.textContent = '►';
+  icon.textContent = '>';
       }
     }
 
@@ -1232,12 +1268,13 @@ GA-Übersicht →
         });
       });
       
-      populateYearFilter();
-      initResizeHandle();
-      initVerticalResizeHandle();
-      checkServerConnection();
-      initTheme();
-      initGAFilter();
+  populateYearFilter();
+  initResizeHandle();
+  initVerticalResizeHandle();
+  checkServerConnection();
+  initTheme();
+  populateGADropdowns();
+  initGAFilter();
     });
 
     function initTheme() {
@@ -1295,33 +1332,87 @@ GA-Übersicht →
       }
     }
 
-    function initGAFilter() {
-      const gaFilter = document.getElementById('gaFilter');
-      const showBtn = document.getElementById('showGAOverview');
-      
-      gaFilter.addEventListener('change', (e) => {
-        const selectedGA = e.target.value;
-        
-        if (selectedGA) {
-          showBtn.style.display = 'inline-block';
-          showBtn.dataset.gaNumber = selectedGA;
-        } else {
-          showBtn.style.display = 'none';
+    async function populateGADropdowns() {
+      try {
+        const response = await fetch(`${API_BASE}/api/ga-list`);
+        if (!response.ok) throw new Error('GA-Liste konnte nicht geladen werden');
+        const gaList = await response.json();
+        const gaFilter = document.getElementById('gaFilter');
+        const thematicGAFilter = document.getElementById('thematicGAFilter');
+        if (gaFilter) {
+          gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+          gaList.forEach(ga => {
+            const option = document.createElement('option');
+            option.value = ga.number;
+            option.textContent = `GA ${ga.number} – ${ga.title}`;
+            option.className = 'available-ga';
+            gaFilter.appendChild(option);
+          });
         }
-      });
+        if (thematicGAFilter) {
+          thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+          gaList.forEach(ga => {
+            const option = document.createElement('option');
+            option.value = ga.number;
+            option.textContent = `GA ${ga.number} – ${ga.title}`;
+            option.className = 'available-ga';
+            thematicGAFilter.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error('Fehler beim Laden der GA-Liste:', error);
+      }
     }
 
-    async function openGAOverview() {
-      const gaNumber = document.getElementById('showGAOverview').dataset.gaNumber;
+    function initGAFilter() {
+      const gaFilter = document.getElementById('gaFilter');
+      const thematicGAFilter = document.getElementById('thematicGAFilter');
+      const thematicShowBtn = document.getElementById('thematicShowGAOverview');
+      const showBtn = document.getElementById('showGAOverview');
+
+      // Stichwortsuche: Button wie gehabt
+      if (gaFilter && showBtn) {
+        gaFilter.addEventListener('change', (e) => {
+          const selectedGA = e.target.value;
+          if (selectedGA) {
+            showBtn.style.display = 'inline-block';
+            showBtn.dataset.gaNumber = selectedGA;
+          } else {
+            showBtn.style.display = 'none';
+          }
+        });
+      }
+
+      // Themensuche: Button nur dort
+      if (thematicGAFilter && thematicShowBtn) {
+        thematicGAFilter.addEventListener('change', (e) => {
+          const selectedGA = e.target.value;
+          if (selectedGA) {
+            thematicShowBtn.style.display = 'inline-block';
+            thematicShowBtn.dataset.gaNumber = selectedGA;
+            thematicShowBtn.onclick = function() {
+              openGAOverview(selectedGA);
+            };
+          } else {
+            thematicShowBtn.style.display = 'none';
+            thematicShowBtn.onclick = null;
+          }
+        });
+      }
+    }
+
+    async function openGAOverview(gaNumber) {
+      if (!gaNumber) {
+        // Fallback: Versuche, die GA-Nummer aus dem Button im Stichwortsuche-Tab zu holen
+        const btn = document.getElementById('showGAOverview');
+        gaNumber = btn && btn.dataset.gaNumber ? btn.dataset.gaNumber : null;
+      }
       if (!gaNumber) return;
-      
       try {
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        
         const data = await response.json();
         displayGAOverview(data);
-        
       } catch (error) {
         console.error('Fehler beim Laden der GA-Übersicht:', error);
         document.getElementById('viewer').innerHTML = `
@@ -1620,7 +1711,8 @@ GA-Übersicht →
                   icon.textContent = '◄';
                   summaryPanel.style.width = '0';
                   summaryPanel.style.minWidth = '0';
-                  summaryPanel.style.marginRight = '24px';
+                  // Kein extra margin, damit der geschlossene Zustand keinen Platz am rechten Rand lässt
+                  summaryPanel.style.marginRight = '0px';
                 }
                 
                 showLecture(lecId, chunkIdx, keywords);
@@ -1767,10 +1859,10 @@ GA-Übersicht →
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
-        icon.textContent = '◄';
+  icon.textContent = '<';
         panel.style.width = '0';
         panel.style.minWidth = '0';
-        panel.style.marginRight = '24px';
+        panel.style.marginRight = '';
       } else {
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
@@ -1779,10 +1871,13 @@ GA-Übersicht →
         
         panel.classList.add('visible');
         resizeHandle.classList.add('visible');
-        icon.textContent = '►';
-        panel.style.width = '280px';
-        panel.style.minWidth = '280px';
-        panel.style.marginRight = '24px';
+  icon.textContent = '>';
+  panel.style.width = '280px';
+  panel.style.minWidth = '280px';
+  // Damit das geöffnete rechte Sidepanel bis zum rechten Bildschirmrand reicht,
+  // darf kein zusätzlicher right-margin freibleiben. Toggle-Button wird oben
+  // per fixed position über das Panel gelegt.
+  panel.style.marginRight = '0px';
         
         await loadSummaryAutomatically();
       }
@@ -1954,9 +2049,10 @@ async function regenerateSummary() {
       panel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
       icon.textContent = '◄';
-      panel.style.width = '0';
-      panel.style.minWidth = '0';
-      panel.style.marginRight = '24px';
+  panel.style.width = '0';
+  panel.style.minWidth = '0';
+  // Entferne extra Abstand am rechten Rand
+  panel.style.marginRight = '0px';
       
       toggle.style.right = '0px';
       toggle.style.position = 'fixed';
@@ -2159,19 +2255,19 @@ async function regenerateSummary() {
       if (summaryPanel.classList.contains('visible')) {
         summaryPanel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
-        summaryPanel.style.width = '0';
-        summaryPanel.style.minWidth = '0';
-        summaryPanel.style.marginRight = '24px';
+  summaryPanel.style.width = '0';
+  summaryPanel.style.minWidth = '0';
+  // Kein rechter Abstand, damit Viewer/Seitenrand konsistent ist
+  summaryPanel.style.marginRight = '0px';
         if (tocList) tocList.innerHTML = '';
       }
 
       try {
         const parts = lectureId.split('/');
-        // Konvertiere zu uppercase für API-Aufruf
-        const lectureIdUpper = lectureId.toUpperCase();
         const url = parts.length === 2 
-       ? `${API_BASE}/api/full-lecture/${parts[0].toUpperCase()}/${parts[1]}`
-      : `${API_BASE}/api/full-lecture/${lectureIdUpper}`;
+                    ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+                    : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+
         
         const response = await fetch(url);
         
@@ -2485,7 +2581,8 @@ async function regenerateSummary() {
         if (newMainWidth >= 20 && newMainWidth <= 80) {
           mainPanel.style.flex = `${newMainWidth} 0 0`;
           summaryPanel.style.width = `${100 - newMainWidth}%`;
-          summaryPanel.style.marginRight = '24px';
+          // Beim Resizen soll kein Abstand zum rechten Rand entstehen
+          summaryPanel.style.marginRight = '0px';
         }
       }
 
