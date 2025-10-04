@@ -12,7 +12,7 @@
       height: 100vh;
       display: flex;
       transition: background-color 0.3s, color 0.3s;
-      background-color: #FEFCFA; /* NEU: Lightmode Hintergrund #FEFCFA */
+      background-color: #ffffff; /* Alternativ: Lightmode Hintergrund #FEFCFA */
     }
     
     body.dark-mode {
@@ -69,15 +69,15 @@
 body:not(.dark-mode) .search-input,
 body:not(.dark-mode) .filter-dropdown,
 body:not(.dark-mode) .thematic-input {
-  background: #FEFCFA !important; /* gleich wie Seitenhintergrund */
+  background: #ffffff !important; /* gleich wie Seitenhintergrund */
 }
 
 /* Autofill überschreiben (Chrome / Edge / Safari) */
 body:not(.dark-mode) .search-input:-webkit-autofill,
 body:not(.dark-mode) .search-input:-webkit-autofill:hover,
 body:not(.dark-mode) .search-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 30px #FEFCFA inset !important;
-  box-shadow: 0 0 0 30px #FEFCFA inset !important;
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  box-shadow: 0 0 0 30px #ffffff inset !important;
   -webkit-text-fill-color: #000 !important; /* Text schwarz lassen */
 }
 
@@ -401,7 +401,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       width: 280px;
       min-width: 280px;
       max-width: none;
-      background: #FEFCFA;
+      background: #ffffff;
       border-left: 1px solid #ddd;
 
     }
@@ -596,13 +596,13 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     .thematic-input {
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       margin: 0px 0;
       box-sizing: border-box;
       border: 1px solid #467886;
-      background: #FEFCFA;
+      background: #ffffff;
       font-size: 15px;
-      min-height: 80px;
+      min-height: 50px;
       resize: vertical;
       border-radius: 4px;
       line-height: 20px; 
@@ -622,7 +622,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   padding: 8px 16px;
   font-size: 1em;
       border: 1px solid #467886;
-      background: #FEFCFA;
+      background: #ffffff;
       color: #467886;
       cursor: pointer;
       border-radius: 4px;
@@ -631,7 +631,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .depth-btn.active {
-      background: #FEFCFA;
+      background: #ffffff;
       color: #467886;
       border: 2px solid #467886;
     }
@@ -778,7 +778,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       margin: 4px 0;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: #FEFCFA;
+      background: #ffffff;
       font-size: 0.9em;
     }
     
@@ -793,11 +793,11 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       height: auto;
       min-height: 2.2em;
       padding: 8px;
-      margin: 4px 0;
+      margin: 2px 0;
       font-size: 0.9em;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: #FEFCFA;
+      background: #ffffff;
     }
     
     .filter-dropdown:disabled {
@@ -829,7 +829,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       padding: 6px 12px;
       border-radius: 4px;
       border: 2px solid #467886;
-      background: #FEFCFA;
+      background: #ffffff;
       color: #467886;
       cursor: pointer;
       font-size: 0.9em;
