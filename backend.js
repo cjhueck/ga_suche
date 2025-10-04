@@ -25,6 +25,14 @@ let synonyms = {};
 let summaryCache = {};
 let gaOverviewCache = {}; // NEU: Cache für GA-Übersichten
 
+// Hilfsfunktion für case-insensitive Zugriff auf GA-Overview-Cache
+function findGAOverviewKey(requestedKey) {
+  const keys = Object.keys(gaOverviewCache);
+  const match = keys.find(k => k.toLowerCase() === requestedKey.toLowerCase());
+  return match || requestedKey;
+}
+
+
 // Standard-Synonyme
 const defaultSynonyms = {
   "kant": ["kant", "kants", "kantisch", "kantische", "kantischen", "immanuel kant", "kategorischer imperativ", "ding an sich"],
@@ -242,17 +250,20 @@ async function saveSummaryCache() {
     return false;
   }
 }
-  async function invalidateGAOverviewCache(lectureId) {
+async function invalidateGAOverviewCache(lectureId) {
   try {
-    const gaNumber = lectureId.split('/')[0].toUpperCase();
-    
-    if (gaOverviewCache[gaNumber]) {
-      console.log(`[CACHE] Invalidiere GA-Overview-Cache für ${gaNumber}`);
-      delete gaOverviewCache[gaNumber];
+    const rawGA = lectureId.split('/')[0];  // z. B. "GA051"
+    const actualKey = findGAOverviewKey(rawGA);
+
+    if (gaOverviewCache[actualKey]) {
+      console.log(`[CACHE] Invalidiere GA-Overview-Cache für ${actualKey}`);
+      delete gaOverviewCache[actualKey];
       await saveGAOverviewCache();
-      console.log(`[CACHE] ✓ GA-Overview-Cache für ${gaNumber} gelöscht`);
+      console.log(`[CACHE] ✓ GA-Overview-Cache für ${actualKey} gelöscht`);
+    } else {
+      console.log(`[CACHE] Kein Cache-Eintrag für ${rawGA} gefunden (Key-Scan ergab: ${actualKey})`);
     }
-    
+
     return true;
   } catch (error) {
     console.error('[CACHE] Fehler beim Invalidieren des GA-Overview-Cache:', error.message);
