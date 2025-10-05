@@ -142,45 +142,62 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       background: #2a3a3f;
     }
     
+    /* Scrollbars - minimiert und nur bei Hover sichtbar */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 4px;
+      height: 4px;
     }
     
     ::-webkit-scrollbar-track {
-      background: #f0f0f0;
+      background: transparent;
     }
     
     ::-webkit-scrollbar-thumb {
-      background: #c0c0c0;
+      background: transparent;
       border-radius: 4px;
+      transition: background 0.3s;
     }
     
-    ::-webkit-scrollbar-thumb:hover {
+    *:hover::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    
+    *:hover::-webkit-scrollbar-thumb:hover {
       background: #a0a0a0;
     }
     
     * {
       scrollbar-width: thin;
-      scrollbar-color: #c0c0c0 #f0f0f0;
+      scrollbar-color: transparent transparent;
+    }
+    
+    *:hover {
+      scrollbar-color: #c0c0c0 transparent;
     }
     
     body.dark-mode ::-webkit-scrollbar-track {
-      background: #2a2a2a;
+      background: transparent;
     }
     
     body.dark-mode ::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 4px;
+      background: transparent;
     }
     
-    body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    body.dark-mode *:hover::-webkit-scrollbar-thumb {
+      background: #555;
+    }
+    
+    body.dark-mode *:hover::-webkit-scrollbar-thumb:hover {
       background: #666;
     }
     
     body.dark-mode * {
       scrollbar-width: thin;
-      scrollbar-color: #555 #2a2a2a;
+      scrollbar-color: transparent transparent;
+    }
+    
+    body.dark-mode *:hover {
+      scrollbar-color: #555 transparent;
     }
     
     .theme-switch {
@@ -580,6 +597,14 @@ body.dark-mode .ga-lecture-count {
 .ga-toggle-btn {
   color: #467886;
 }
+body.dark-mode #viewerToggleH4 {
+  border-color: #7EB8C8;
+  color: #7EB8C8;
+}
+
+#viewerToggleH4:hover {
+  opacity: 0.7;
+}
 
 body.dark-mode .ga-toggle-btn {
   color: #e0e0e0;
@@ -597,7 +622,22 @@ body.dark-mode .ga-reference {
 body.dark-mode a {
   color: #7EB8C8;
 }
-    
+body.dark-mode #viewerOriginalBtn {
+  border-color: #7EB8C8;
+  color: #7EB8C8;
+}
+
+#viewerOriginalBtn:hover {
+  opacity: 0.7;
+}   
+body.dark-mode #viewerSummaryBtn {
+  border-color: #7EB8C8;
+  color: #7EB8C8;
+}
+
+#viewerSummaryBtn:hover {
+  opacity: 0.7;
+} 
     .tab-container {
       margin-bottom: 1rem;
     }
@@ -1259,6 +1299,17 @@ GA-Übersicht →
 <div id="main">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
+<div style="display: flex; gap: 8px;">
+<button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+Original
+</button>
+<button id="viewerSummaryBtn" onclick="showSummaryView()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+≡ Übersicht
+</button>
+<button id="viewerToggleH4" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+∧ H4
+</button>
+</div>
 </div>
 <div id="viewer"></div>
 </div>
@@ -1268,12 +1319,6 @@ GA-Übersicht →
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
 <div class="summary-buttons">
-<button class="search-button" disabled="" id="summaryCloseBtn" onclick="closeAndShowOriginal()">
-          Original
-        </button>
-<button class="search-button" disabled="" id="toggleH4Btn" onclick="toggleAllH4()">
-          ∧
-        </button>
 </div>
 <div id="summary-content">
 <div id="toc-list"></div>
@@ -1961,46 +2006,44 @@ function toggleGASummaries() {
         }
       }
       
-      if (toggleH4Btn && currentLectureData) {
-        toggleH4Btn.disabled = false;
-      }
     }
 
-    let h4Collapsed = false;
 
-    function toggleAllH4() {
-      const toggleBtn = document.getElementById('toggleH4Btn');
-      const tocList = document.getElementById('toc-list');
-      const viewer = document.getElementById('viewer');
-      
-      if (!tocList) return;
-      
-      const tocH4 = tocList.querySelectorAll('h4');
-      const viewerH4 = viewer.querySelectorAll('h4');
-      
-      h4Collapsed = !h4Collapsed;
-      
-      tocH4.forEach(h4 => {
-        if (h4Collapsed) {
-          h4.classList.add('hidden');
-        } else {
-          h4.classList.remove('hidden');
-        }
-      });
-      
-      viewerH4.forEach(h4 => {
-        if (h4Collapsed) {
-          h4.style.display = 'none';
-        } else {
-          h4.style.display = 'block';
-        }
-      });
-      
-      if (toggleBtn) {
-        toggleBtn.innerHTML = h4Collapsed ? '&#x2228;' : '&#x2227;';
-      }
+function toggleViewerH4() {
+  // Wenn wir in Original-Ansicht sind, zur Zusammenfassung wechseln
+  if (!showingSummaryInMain && currentLectureSummary) {
+    showSummaryView();
+    return;
+  }
+  
+  // Ansonsten H4s ein-/ausblenden
+  const viewer = document.getElementById('viewer');
+  const tocList = document.getElementById('toc-list');
+  const toggleBtn = document.getElementById('viewerToggleH4');
+  
+  if (!viewer) return;
+  
+  const viewerH4 = viewer.querySelectorAll('h4');
+  const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
+  
+  viewerH4Collapsed = !viewerH4Collapsed;
+  
+  viewerH4.forEach(h4 => {
+    h4.style.display = viewerH4Collapsed ? 'none' : 'block';
+  });
+  
+  tocH4.forEach(h4 => {
+    if (viewerH4Collapsed) {
+      h4.classList.add('hidden');
+    } else {
+      h4.classList.remove('hidden');
     }
-
+  });
+  
+  if (toggleBtn) {
+    toggleBtn.innerHTML = viewerH4Collapsed ? '∨ H4' : '∧ H4';
+  }
+}
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
       const icon = document.getElementById('summary-panel-toggle-icon');
@@ -2089,6 +2132,21 @@ function toggleGASummaries() {
       
       showingSummaryInMain = true;
       displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+
+// Buttons nach dem Anzeigen aktualisieren
+setTimeout(() => {
+  const viewer = document.getElementById('viewer');
+  const viewerToggleBtn = document.getElementById('viewerToggleH4');
+  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const hasH4 = viewer.querySelector('h4') !== null;
+  
+  if (viewerToggleBtn) {
+    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+  }
+  if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'inline-block';
+  }
+}, 50);
       buildTableOfContents();
       
       closeBtn.disabled = false;
@@ -2155,6 +2213,21 @@ async function regenerateSummary() {
     
     showingSummaryInMain = true;
     displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+
+// Buttons nach dem Anzeigen aktualisieren
+setTimeout(() => {
+  const viewer = document.getElementById('viewer');
+  const viewerToggleBtn = document.getElementById('viewerToggleH4');
+  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const hasH4 = viewer.querySelector('h4') !== null;
+  
+  if (viewerToggleBtn) {
+    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+  }
+  if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'inline-block';
+  }
+}, 50);
     buildTableOfContents();
     
     if (lastHighlightedIndex) {
@@ -2203,10 +2276,10 @@ async function regenerateSummary() {
       panel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
       icon.textContent = '◄';
-  panel.style.width = '0';
-  panel.style.minWidth = '0';
-  // Entferne extra Abstand am rechten Rand
-  panel.style.marginRight = '0px';
+      panel.style.width = '0';
+      panel.style.minWidth = '0';
+      // Entferne extra Abstand am rechten Rand
+      panel.style.marginRight = '0px';
       
       toggle.style.right = '0px';
       toggle.style.position = 'fixed';
@@ -2225,18 +2298,37 @@ async function regenerateSummary() {
         keywords = extractKeywordsFromQuery(currentThematicQuery);
       }
       
-      displayLecture(currentLectureData, lastHighlightedIndex, keywords, false);
-      
-      if (lastHighlightedIndex) {
-        scrollToIndexInViewer(lastHighlightedIndex);
-      }
+      displayLecture(currentLectureData, null, keywords, false);
       
       setTimeout(() => {
         toggle.style.right = '0px';
         toggle.style.position = 'fixed';
       }, 0);
     }
-
+function showSummaryView() {
+  if (!currentLectureData || !currentLectureSummary) return;
+  
+  showingSummaryInMain = true;
+  displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+  
+  setTimeout(() => {
+    const viewer = document.getElementById('viewer');
+    const viewerToggleBtn = document.getElementById('viewerToggleH4');
+    const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+    const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+    const hasH4 = viewer.querySelector('h4') !== null;
+    
+    if (viewerToggleBtn) {
+      viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+    }
+    if (viewerOriginalBtn) {
+      viewerOriginalBtn.style.display = 'inline-block';
+    }
+    if (viewerSummaryBtn) {
+      viewerSummaryBtn.style.display = 'none';
+    }
+  }, 50);
+}
     function getCurrentVisibleParagraphIndex() {
       const mainContainer = document.getElementById('main');
       const allParagraphs = document.querySelectorAll('[id^="para-"]');
@@ -2350,6 +2442,14 @@ async function regenerateSummary() {
     html += `<div class="paragraph" id="para-${paraIndex}" data-array-index="${idx}">${content}</div>`;
   });
   
+// H4-Toggle Button immer anzeigen
+const viewerToggleBtn = document.getElementById('viewerToggleH4');
+if (viewerToggleBtn) {
+  viewerToggleBtn.style.display = 'inline-block';
+  viewerToggleBtn.innerHTML = '∧ H4';
+  viewerH4Collapsed = false;
+}
+
   viewer.innerHTML = html;
 }
 
@@ -2421,6 +2521,21 @@ async function showLecture(lectureId, targetIndex, keywords = []) {
           }
           
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+
+// Buttons nach dem Anzeigen aktualisieren
+setTimeout(() => {
+  const viewer = document.getElementById('viewer');
+  const viewerToggleBtn = document.getElementById('viewerToggleH4');
+  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const hasH4 = viewer.querySelector('h4') !== null;
+  
+  if (viewerToggleBtn) {
+    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+  }
+  if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'inline-block';
+  }
+}, 50);
           
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
@@ -2654,6 +2769,21 @@ async function showLecture(lectureId, targetIndex, keywords = []) {
           }
           
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+
+// Buttons nach dem Anzeigen aktualisieren
+setTimeout(() => {
+  const viewer = document.getElementById('viewer');
+  const viewerToggleBtn = document.getElementById('viewerToggleH4');
+  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const hasH4 = viewer.querySelector('h4') !== null;
+  
+  if (viewerToggleBtn) {
+    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+  }
+  if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'inline-block';
+  }
+}, 50);
           
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
@@ -2868,6 +2998,14 @@ async function showLecture(lectureId, targetIndex, keywords = []) {
         });
       }
       
+// H4-Toggle Button immer anzeigen
+const viewerToggleBtn = document.getElementById('viewerToggleH4');
+if (viewerToggleBtn) {
+  viewerToggleBtn.style.display = 'inline-block';
+  viewerToggleBtn.innerHTML = '∧ H4';
+  viewerH4Collapsed = false;
+}
+
       html += `</div>`;
       viewer.innerHTML = html;
       
