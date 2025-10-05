@@ -69,130 +69,6 @@
       }
     ]
   },
-  "GA055": {
-    "gaNumber": "GA055",
-    "gaTitle": "Die Erkenntnis des Übersinnlichen in unserer Zeit und deren Bedeutung für das heutige Leben (1906-1907)",
-    "lectureCount": 13,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA055/1",
-        "title": "DIE ERKENNTNIS DES ÜBERSINNLICHEN IN UNSERER ZEIT UND DEREN BEDEUTUNG FÜR DAS HEUTIGE LEBEN",
-        "fileName": "GA055/1 - DIE ERKENNTNIS DES ÜBERSINNLICHEN IN UNSERER ZEIT UND DEREN BEDEUTUNG FÜR DAS HEUTIGE LEBEN, Berlin, 11. Oktober 1906",
-        "location": "Berlin",
-        "date": "11. Oktober 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA055/2",
-        "title": "BLUT IST EIN GANZ BESONDERER SAFT",
-        "fileName": "GA055/2 - BLUT IST EIN GANZ BESONDERER SAFT, Berlin, 25. Oktober 1906",
-        "location": "Berlin",
-        "date": "25. Oktober 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA055/3",
-        "title": "DER URSPRUNG DES LEIDES",
-        "fileName": "GA055/3 - DER URSPRUNG DES LEIDES, Berlin, 8. November 1906",
-        "location": "Berlin",
-        "date": "8. November 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA055/4",
-        "title": "DER URSPRUNG DES BÖSEN",
-        "fileName": "GA055/4 - DER URSPRUNG DES BÖSEN, Berlin, 22. November 1906",
-        "location": "Berlin",
-        "date": "22. November 1906",
-        "summary": "Rudolf Steiner erklärt den Ursprung des Bösen aus geisteswissenschaftlicher Sicht. Das Böse ist einzig im Menschenreich zu finden und entsteht durch die Entwicklung des Selbstbewusstseins. Die Erde durchläuft planetarische Entwicklungsstufen: vom früheren Planeten der Weisheit zum jetzigen der Liebe. Luziferische Wesenheiten, die vom vorherigen Planeten zurückblieben, vermitteln zwischen göttlicher Weisheit und menschlicher Liebe. Sie gaben dem Menschen Selbstbewusstsein und damit die Fähigkeit zur Selbstliebe - dem Ursprung des Bösen. Ohne Luzifer gäbe es jedoch keine Freiheit und freie Wahl zwischen Gut und Böse. Das Böse ist notwendig für die Entwicklung, da sich wahre Liebe erst durch Überwindung der Selbstliebe zur All-Liebe entfalten kann."
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA055/5",
-        "title": "WIE BEGREIFT MAN KRANKHEIT UND TOD",
-        "fileName": "GA055/5 - WIE BEGREIFT MAN KRANKHEIT UND TOD, Berlin, 13. Dezember 1906",
-        "location": "Berlin",
-        "date": "13. Dezember 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA055/6",
-        "title": "DIE ERZIEHUNG DES KINDES VOM STANDPUNKT DER GEISTESWISSENSCHAFT",
-        "fileName": "GA055/6 - DIE ERZIEHUNG DES KINDES VOM STANDPUNKT DER GEISTESWISSENSCHAFT, Köln, 1. Dezember 1906",
-        "location": "Köln",
-        "date": "1. Dezember 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA055/7",
-        "title": "SCHULFRAGEN VOM STANDPUNKT DER GEISTESWISSENSCHAFT",
-        "fileName": "GA055/7 - SCHULFRAGEN VOM STANDPUNKT DER GEISTESWISSENSCHAFT, Berlin, 24. Januar 1907",
-        "location": "Berlin",
-        "date": "24. Januar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "8",
-        "ID": "GA055/8",
-        "title": "DER IRRSINN VOM STANDPUNKTE DER GEISTESWISSENSCHAFT",
-        "fileName": "GA055/8 - DER IRRSINN VOM STANDPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 31. Januar 1907",
-        "location": "Berlin",
-        "date": "31. Januar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "9",
-        "ID": "GA055/9",
-        "title": "WEISHEIT UND GESUNDHEIT",
-        "fileName": "GA055/9 - WEISHEIT UND GESUNDHEIT, Berlin, 14. Februar 1907",
-        "location": "Berlin",
-        "date": "14. Februar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "10",
-        "ID": "GA055/10",
-        "title": "DER LEBENSLAUF DES MENSCHEN VOM GEISTESWISSENSCHAFTLICHEN STANDPUNKTE",
-        "fileName": "GA055/10 - DER LEBENSLAUF DES MENSCHEN VOM GEISTESWISSENSCHAFTLICHEN STANDPUNKTE, Berlin, 28. Februar 1907",
-        "location": "Berlin",
-        "date": "28. Februar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "11",
-        "ID": "GA055/11",
-        "title": "WER SIND DIE ROSENKREUZER",
-        "fileName": "GA055/11 - WER SIND DIE ROSENKREUZER, Berlin, 14. März 1907",
-        "location": "Berlin",
-        "date": "14. März 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "12",
-        "ID": "GA055/12",
-        "title": "RICHARD WAGNER UND DIE MYSTIK",
-        "fileName": "GA055/12 - RICHARD WAGNER UND DIE MYSTIK, Berlin, 28. März 1907",
-        "location": "Berlin",
-        "date": "28. März 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "13",
-        "ID": "GA055/13",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA055/13 - BIBEL UND WEISHEIT, Berlin, 26. April 1907",
-        "location": "Berlin",
-        "date": "26. April 1907",
-        "summary": null
-      }
-    ]
-  },
   "GA072": {
     "gaNumber": "GA072",
     "gaTitle": "Freiheit Unsterblichkeit Soziales Leben (1917, 1918)",
@@ -2079,121 +1955,6 @@
       }
     ]
   },
-  "ga063": {
-    "gaNumber": "GA063",
-    "gaTitle": "Geisteswissenschaft als Lebensgut (1913-1914)",
-    "lectureCount": 12,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA063/1",
-        "title": "DIE GEISTIGE WELT UND DIE GEISTESWISSENSCHAFT",
-        "fileName": "GA063/1 - DIE GEISTIGE WELT UND DIE GEISTESWISSENSCHAFT, Berlin, 30. Oktober 1913",
-        "location": "Berlin",
-        "date": "30. Oktober 1913",
-        "summary": null
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA063/2",
-        "title": "THEOSOPHIE UND ANTISOPHIE",
-        "fileName": "GA063/2 - THEOSOPHIE UND ANTISOPHIE, Berlin, 6. November 1913",
-        "location": "Berlin",
-        "date": "6. November 1913",
-        "summary": null
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA063/3",
-        "title": "GEISTESWISSENSCHAFT UND RELIGIÖSES BEKENNTNIS",
-        "fileName": "GA063/3 - GEISTESWISSENSCHAFT UND RELIGIÖSES BEKENNTNIS, Berlin, 20. November 1913",
-        "location": "Berlin",
-        "date": "20. November 1913",
-        "summary": null
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA063/4",
-        "title": "VOM TODE",
-        "fileName": "GA063/4 - VOM TODE, Berlin, 27. November 1913",
-        "location": "Berlin",
-        "date": "27. November 1913",
-        "summary": null
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA063/5",
-        "title": "DER SINN DER UNSTERBLICHKEIT DER MENSCHENSEELE",
-        "fileName": "GA063/5 - DER SINN DER UNSTERBLICHKEIT DER MENSCHENSEELE, Berlin, 4. Dezember 1913",
-        "location": "Berlin",
-        "date": "4. Dezember 1913",
-        "summary": null
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA063/6",
-        "title": "MICHELANGELO UND SEINE ZEIT VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT",
-        "fileName": "GA063/6 - MICHELANGELO UND SEINE ZEIT VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT, Berlin, 8. Januar 1914",
-        "location": "Berlin",
-        "date": "8. Januar 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA063/7",
-        "title": "DAS BÖSE IM LICHTE DER ERKENNTNIS VOM GEISTE",
-        "fileName": "GA063/7 - DAS BÖSE IM LICHTE DER ERKENNTNIS VOM GEISTE, Berlin, 15. Januar 1914",
-        "location": "Berlin",
-        "date": "15. Januar 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "8",
-        "ID": "GA063/8",
-        "title": "DIE SITTLICHE GRUNDLAGE DES MENSCHENLEBENS",
-        "fileName": "GA063/8 - DIE SITTLICHE GRUNDLAGE DES MENSCHENLEBENS, Berlin, 12. Februar 1914",
-        "location": "Berlin",
-        "date": "12. Februar 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "9",
-        "ID": "GA063/9",
-        "title": "VOLTAIRE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
-        "fileName": "GA063/9 - VOLTAIRE VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 26. Februar 1914",
-        "location": "Berlin",
-        "date": "26. Februar 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "10",
-        "ID": "GA063/10",
-        "title": "ZWISCHEN TOD UND WIEDERGEBURT DES MENSCHEN",
-        "fileName": "GA063/10 - ZWISCHEN TOD UND WIEDERGEBURT DES MENSCHEN, Berlin, 19. März 1914",
-        "location": "Berlin",
-        "date": "19. März 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "11",
-        "ID": "GA063/11",
-        "title": "HOMUNKULUS",
-        "fileName": "GA063/11 - HOMUNKULUS, Berlin, 26. März 1914",
-        "location": "Berlin",
-        "date": "26. März 1914",
-        "summary": null
-      },
-      {
-        "lectureNumber": "12",
-        "ID": "GA063/12",
-        "title": "GEISTESWISSENSCHAFT ALS LEBENSGUT",
-        "fileName": "GA063/12 - GEISTESWISSENSCHAFT ALS LEBENSGUT, Berlin, 23. April 1914",
-        "location": "Berlin",
-        "date": "23. April 1914",
-        "summary": null
-      }
-    ]
-  },
   "ga062": {
     "gaNumber": "GA062",
     "gaTitle": "Ergebnisse der Geistesforschung (1912-1913)",
@@ -3140,6 +2901,211 @@
         "location": "Berlin",
         "date": "6. Mai 1909",
         "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA057/18 - DIE EUROPÄISCHEN MYSTERIEN UND IHRE EINGEWEIHTEN, Berlin, 6. Mai 1909\" enthält 78 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      }
+    ]
+  },
+  "ga054": {
+    "gaNumber": "GA054",
+    "gaTitle": "Die Welträtsel und die Anthroposophie (1905-1906)",
+    "lectureCount": 22,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA054/1",
+        "title": "HAECKEL",
+        "fileName": "GA054/1 - HAECKEL, DIE WELTRÄTSEL UND DIE THEOSOPHIE, Berlin, 5. Oktober 1905",
+        "location": "DIE WELTRÄTSEL UND DIE THEOSOPHIE",
+        "date": "5. Oktober 1905",
+        "summary": "Rudolf Steiner setzt sich in diesem Vortrag mit Ernst Haeckels materialistischer Weltanschauung aus theosophischer Sicht auseinander. Er würdigt Haeckels wissenschaftliche Leistungen und moralischen Mut, kritisiert aber dessen materialistische Deutung der Naturforschung. Steiner argumentiert, dass die Naturwissenschaft des 19. Jahrhunderts aufgrund einer materialistischen Zeitströmung - nicht zwangsläufig durch die Forschungsergebnisse selbst - zu materialistischen Schlüssen kam. Er zeigt auf, wie die Theosophie durch Entwicklung höherer Erkenntnisfähigkeiten über die Grenzen der Sinneswahrnehmung hinausgehen kann. Dabei entwickelt er eine geistige Abstammungslehre, die den Menschen als Ausgangspunkt der Evolution sieht, während die Tiere als zurückgebliebene Entwicklungsstufen zu verstehen sind."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA054/2",
+        "title": "UNSERE WELTLAGE. KRIEG",
+        "fileName": "GA054/2 - UNSERE WELTLAGE. KRIEG, FRIEDEN UND DIE WISSENSCHAFT DES GEISTES, Berlin, 12. Oktober 1905",
+        "location": "FRIEDEN UND DIE WISSENSCHAFT DES GEISTES",
+        "date": "12. Oktober 1905",
+        "summary": null
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA054/3",
+        "title": "GRUNDBEGRIFFE DER THEOSOPHIE SEELE UND GEIST DES MENSCHEN",
+        "fileName": "GA054/3 - GRUNDBEGRIFFE DER THEOSOPHIE SEELE UND GEIST DES MENSCHEN, Berlin, 19. Oktober 1905",
+        "location": "Berlin",
+        "date": "19. Oktober 1905",
+        "summary": "Rudolf Steiner führt in die theosophische Weltanschauung der Dreiteilung des Menschen in Körper, Seele und Geist ein. Der Körper ist sinnlich wahrnehmbar, die Seele umfasst Lust, Leid und innere Erlebnisse, der Geist durchdringt das ganze Universum als Gedankeninhalt. Durch geistige Schulung können seelische und geistige Wahrnehmungsorgane entwickelt werden. Die menschliche Entwicklung besteht darin, die Seele mit dem Geist zu verbinden, wodurch sie über Raum und Zeit hinausgeht und unvergänglich wird. Dies geschieht durch Erinnerung, Meditation und selbstlose Liebe zum Geistigen. Das Ziel ist die Vereinigung des individuellen Selbst mit dem Allgeist - wahre Selbsterkenntnis als Erkenntnis des Göttlichen in sich und der Welt."
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA054/4",
+        "title": "GEISTESWISSENSCHAFT UND SOZIALE FRAGE",
+        "fileName": "GA054/4 - GEISTESWISSENSCHAFT UND SOZIALE FRAGE, Hamburg, 2. März 1908",
+        "location": "Hamburg",
+        "date": "2. März 1908",
+        "summary": "Rudolf Steiner zeigt auf, dass die soziale Frage der Moderne ein grundlegend neues Phänomen ist, entstanden durch die Industrialisierung der letzten 130 Jahre. Er kritisiert materialistische Lösungsansätze, die nur äußere Verhältnisse ändern wollen, und belegt am Beispiel Robert Owens, dass solche Reformen ohne innere Menschenveränderung scheitern. Die Geisteswissenschaft bietet einen anderen Weg: Sie schult das Denken und führt zur Erkenntnis, dass soziales Elend vom Egoismus herrührt. Die Lösung liegt in der Trennung von Arbeit und persönlicher Entlohnung - Menschen sollen aus Liebe zur Gemeinschaft arbeiten, nicht für eigenen Gewinn. Nur eine geistige Weltanschauung kann die nötigen selbstlosen Impulse erwecken und so wahren sozialen Fortschritt ermöglichen."
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA054/5",
+        "title": "DIE FRAUENFRAGE",
+        "fileName": "GA054/5 - DIE FRAUENFRAGE, Hamburg, 17. November 1906",
+        "location": "Hamburg",
+        "date": "17. November 1906",
+        "summary": "Rudolf Steiner behandelt die Frauenfrage aus geisteswissenschaftlicher Sicht und zeigt, dass sie ein Produkt der modernen materialistischen Männerkultur ist. Er kritisiert die widersprüchlichen wissenschaftlichen Urteile über die Frau und führt die Entstehung der Frauenfrage auf das Maschinenzeitalter und die Dominanz der Naturwissenschaften zurück. Durch die siebenfache Natur des Menschen erklärt er, dass der Ätherleib geschlechtskomplementär ist - Männer haben einen weiblichen Ätherleib, Frauen einen männlichen. Die Lösung liegt nicht in äußeren Reformen, sondern in der geistigen Entwicklung zur Überwindung der Geschlechterdifferenz. Die theosophische Bewegung, begründet von Helena Blavatsky, zeigt den Weg zu einer übergeschlechtlichen Menschheitsentwicklung."
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA054/6",
+        "title": "DIE GRUNDBEGRIFFE DER THEOSOPHIE MENSCHENRASSEN",
+        "fileName": "GA054/6 - DIE GRUNDBEGRIFFE DER THEOSOPHIE MENSCHENRASSEN, Berlin, 9. November 1905",
+        "location": "Berlin",
+        "date": "9. November 1905",
+        "summary": "Rudolf Steiner erläutert die Entstehung und Entwicklung der Menschenrassen aus geisteswissenschaftlicher Sicht. Er erklärt, dass die menschlichen Seelen durch verschiedene Rassen hindurchschreiten und diese als Entwicklungsstufen durchlaufen. Steiner beschreibt die Entwicklung vom lemurischen über den atlantischen zum heutigen Kulturmenschen, wobei jede Stufe bestimmte Fähigkeiten ausbildet - von hellseherischen Kräften über Gedächtnis und Sprache bis hin zum Verstandesdenken. Die heutigen Rassen stellen Überreste früherer Entwicklungsstufen dar. Der Mensch erobert stufenweise seine verschiedenen Wesensglieder: zunächst den Astralleib (lemurische Zeit), dann den Ätherleib (atlantische Zeit) und schließlich den physischen Leib (gegenwärtige Zeit). Diese Betrachtung führt zum Verständnis einer allgemeinen Menschheitsbrüderschaft, da alle Seelen die gleichen Entwicklungsstufen durchlaufen."
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA054/7",
+        "title": "DER WEISHEITSKERN IN DEN RELIGIONEN",
+        "fileName": "GA054/7 - DER WEISHEITSKERN IN DEN RELIGIONEN, Berlin, 16. November 1905",
+        "location": "Berlin",
+        "date": "16. November 1905",
+        "summary": "Rudolf Steiner erklärt, dass Religionsschriften ebenso wie wissenschaftliche Werke auf Forschung beruhen müssen. Er führt aus, dass hinter allen Religionen eine zentrale Weisheitsstätte steht - die \"große weiße Loge\" der Meister. Von dort wurden die großen Religionsstifter zu verschiedenen Völkern gesandt. Steiner verfolgt die Entwicklung der Religionen von der atlantischen Tao-Religion über das alte Indien, Persien und Ägypten bis zum Christentum. Er zeigt auf, wie sich das menschliche Bewusstsein von der ursprünglichen Einheit mit dem Göttlichen über die Zweiheit zum Prinzip der Dreieinigkeit entwickelte. Die Theosophie oder Geisteswissenschaft will das Bewusstsein für geistige Forschung erneuern und den gemeinsamen Wahrheitskern aller Religionen wieder zugänglich machen."
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA054/8",
+        "title": "BRUDERSCHAFT UND DASEINSKAMPF",
+        "fileName": "GA054/8 - BRUDERSCHAFT UND DASEINSKAMPF, Berlin, 23. November 1905",
+        "location": "Berlin",
+        "date": "23. November 1905",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA054/9",
+        "title": "INNERE ENTWICKELUNG",
+        "fileName": "GA054/9 - INNERE ENTWICKELUNG, Berlin, 7. Dezember 1905",
+        "location": "Berlin",
+        "date": "7. Dezember 1905",
+        "summary": "Rudolf Steiner behandelt in diesem Vortrag die Grundlagen der okkulten Entwicklung als Weg zur übersinnlichen Erkenntnis. Er betont, dass Okkultismus nicht mit allgemeiner Theosophie gleichzusetzen ist und besondere Voraussetzungen erfordert: geistige Isolation und Überwindung des Egoismus. Steiner beschreibt sechs wesentliche Charaktereigenschaften (Unterscheidung zwischen Wesentlichem und Unwesentlichem, Gedankenkontrolle, Handlungskontrolle, Ertragsamkeit, Verständnis für alle Wesen, Unbefangenheit) sowie die Rhythmisierung des Lebens durch regelmäßige Meditation. Durch diese Praktiken entwickelt der Mensch geistige Sinnesorgane im Astralleib, die ihm Wahrnehmung der übersinnlichen Welt ermöglichen. Der Weg erfordert absolutes Vertrauen zum geistigen Lehrer und unbedingte Wahrhaftigkeit, da eine Spaltung der menschlichen Natur stattfindet, wobei die niedere Natur gefährliche Eigenschaften zeigen kann."
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA054/10",
+        "title": "DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES",
+        "fileName": "GA054/10 - DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES, Berlin, 14. Dezember 1905",
+        "location": "Berlin",
+        "date": "14. Dezember 1905",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA054/10 - DAS WEIHNACHTSFEST ALS WAHRZEICHEN DES SONNENSIEGES, Berlin, 14. Dezember 1905\" enthält 57 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA054/11",
+        "title": "DIE WEISHEITSLEHREN DES CHRISTENTUMS",
+        "fileName": "GA054/11 - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Berlin, 1. Februar 1906",
+        "location": "Berlin",
+        "date": "1. Februar 1906",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA054/11 - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Berlin, 1. Februar 1906\" enthält 21 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA054/12",
+        "title": "WIEDERVERKÖRPERUNG UND KARMA",
+        "fileName": "GA054/12 - WIEDERVERKÖRPERUNG UND KARMA, Berlin, 15. Februar 1906",
+        "location": "Berlin",
+        "date": "15. Februar 1906",
+        "summary": "Rudolf Steiner behandelt die fundamentalen Lebensfragen nach dem Sinn menschlicher Existenz und erklärt diese durch die geisteswissenschaftlichen Lehren der Wiederverkörperung und des Karma. Er argumentiert, dass Geistig-Seelisches nur aus Geistig-Seelischem entstehen kann, ähnlich wie Redi bewies, dass Leben nur aus Leben entsteht. Der Mensch besteht aus einem ewigen Wesenskern (Atma, Buddhi, Manas), der sich durch wiederholte Erdenleben entwickelt. Das Karmagesetz wirkt dabei als gerechter Ausgleich zwischen Ursache und Wirkung über die verschiedenen Inkarnationen hinweg. Nach dem Tod durchläuft die Seele Läuterung (Kamaloka) und geistige Verarbeitung (Devachan), bevor sie sich erneut verkörpert. Diese Lehre bietet nicht nur theoretisches Verständnis, sondern praktische Lebenskraft und die Gewissheit eines gerechten Weltenzusammenhangs."
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA054/13",
+        "title": "LUZIFER",
+        "fileName": "GA054/13 - LUZIFER, Berlin, 22. Februar 1906",
+        "location": "Berlin",
+        "date": "22. Februar 1906",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA054/13 - LUZIFER, Berlin, 22. Februar 1906\" enthält 90 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA054/14",
+        "title": "DIE KINDER DES LUZIFER",
+        "fileName": "GA054/14 - DIE KINDER DES LUZIFER, Berlin, 1. März 1906",
+        "location": "Berlin",
+        "date": "1. März 1906",
+        "summary": "Rudolf Steiner erläutert die Theosophie als Vertiefung des geistigen Lebens am Beispiel von Edouard Schurés Drama 'Die Kinder des Luzifer'. Er erklärt die griechischen Mysterien als Schulen des Umgangs mit höheren Wesenheiten und die Bedeutung des Dionysos-Kultes für die menschliche Entwicklung. Der Gott Dionysos führte die Menschen zur Geschlechtstrennung und damit zur Selbständigkeit. Luzifer wird als Lichtträger dargestellt, der den Menschen zur bewussten Gottfindung verhilft. Das Drama zeigt den Konflikt zwischen erstarrtem Formalismus (Cäsarismus und äußeres Christentum) und freiem Geist. Die Protagonisten Phosphorus und Kleonis entwickeln sich zu 'Kindern des Luzifer', die durch bewusste Verbindung mit dem Göttlichen wahre Freiheit erlangen."
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA054/15",
+        "title": "GERMANISCHE UND INDISCHE GEHEIMLEHRE",
+        "fileName": "GA054/15 - GERMANISCHE UND INDISCHE GEHEIMLEHRE, Berlin, 8. März 1906",
+        "location": "Berlin",
+        "date": "8. März 1906",
+        "summary": "Rudolf Steiner zeigt in diesem Vortrag, dass die theosophische Weltanschauung nicht nur eine östliche, sondern auch eine europäisch-germanische Tradition hat. Er erläutert zunächst die theosophische Lehre von der siebengliedrigen Menschennatur (physischer Leib, Ätherleib, Astralleib, Ich sowie Manas, Buddhi, Atma) und dem Gesetz der Reinkarnation. Anschließend weist er nach, dass die germanische Mythologie dieselben geheimwissenschaftlichen Wahrheiten in bildhafter Form ausdrückt. Die alten Sagen entstanden aus einem früheren Bilderbewusstsein, das den Menschen Einblick in astrale Welten gewährte. Gestalten wie Wotan repräsentieren große Eingeweihte, die verschiedene Stufen der Initiation durchliefen. Die Riesen symbolisieren frühere Menschheitsstufen, die Asen höhere geistige Wesenheiten. Im Vergleich zur mehr begrifflichen indischen Geheimlehre zeigt die germanische Tradition einen bildhaft-astralen Charakter, der der kriegerischen Natur dieses Volkes entspricht. Beide Traditionen führen letztendlich zu denselben spirituellen Wahrheiten."
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA054/16",
+        "title": "DEUTSCHE THEOSOPHEN VOM ANFANG DES 19. JAHRHUNDERTS",
+        "fileName": "GA054/16 - DEUTSCHE THEOSOPHEN VOM ANFANG DES 19. JAHRHUNDERTS, Berlin, 15. März 1906",
+        "location": "Berlin",
+        "date": "15. März 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA054/17",
+        "title": "SIEGFRIED UND DIE GÖTTERDÄMMERUNG",
+        "fileName": "GA054/17 - SIEGFRIED UND DIE GÖTTERDÄMMERUNG, Berlin, 22. März 1906",
+        "location": "Berlin",
+        "date": "22. März 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "18",
+        "ID": "GA054/18",
+        "title": "PARZIVAL UND LOHENGRIN",
+        "fileName": "GA054/18 - PARZIVAL UND LOHENGRIN, Berlin, 29. März 1906",
+        "location": "Berlin",
+        "date": "29. März 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "19",
+        "ID": "GA054/19",
+        "title": "DAS OSTERFEST",
+        "fileName": "GA054/19 - DAS OSTERFEST, Berlin, 12. April 1906",
+        "location": "Berlin",
+        "date": "12. April 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "20",
+        "ID": "GA054/20",
+        "title": "INNERE ENTWICKELUNG",
+        "fileName": "GA054/20 - INNERE ENTWICKELUNG, Berlin, 19. April 1906",
+        "location": "Berlin",
+        "date": "19. April 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "21",
+        "ID": "GA054/21",
+        "title": "PARACELSUS",
+        "fileName": "GA054/21 - PARACELSUS, Berlin, 26. April 1906",
+        "location": "Berlin",
+        "date": "26. April 1906",
+        "summary": null
+      },
+      {
+        "lectureNumber": "22",
+        "ID": "GA054/22",
+        "title": "JAKOB BÖHME",
+        "fileName": "GA054/22 - JAKOB BÖHME, Berlin, 3. Mai 1906",
+        "location": "Berlin",
+        "date": "3. Mai 1906",
+        "summary": null
       }
     ]
   }
