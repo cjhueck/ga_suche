@@ -1000,7 +1000,44 @@ app.post('/api/summarize-lecture', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+// NEU: Prüfe ob Zusammenfassung existiert (ohne zu generieren)
+app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
+  try {
+    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
+    
+    console.log(`[CHECK-SUMMARY] Prüfe Cache für ${lectureId}`);
+    
+    if (summaryCache[lectureId]) {
+      const cachedData = summaryCache[lectureId];
+      
+      const responseData = typeof cachedData === 'string' 
+        ? { summary: cachedData, headings: [] }
+        : cachedData;
+      
+      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId}`);
+      
+      return res.json({
+        exists: true,
+        lectureId: lectureId,
+        summary: responseData.summary,
+        headings: responseData.headings || []
+      });
+    }
+    
+    console.log(`[CHECK-SUMMARY] ✗ Keine Zusammenfassung für ${lectureId}`);
+    
+    res.json({
+      exists: false,
+      lectureId: lectureId,
+      summary: null,
+      headings: []
+    });
+    
+  } catch (error) {
+    console.error('[CHECK-SUMMARY] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 async function generateLectureSummary(lecture) {
   const claudeApiKey = process.env.CLAUDE_API_KEY;
   

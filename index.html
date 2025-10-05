@@ -1307,7 +1307,7 @@ Original
 ≡ Übersicht
 </button>
 <button id="viewerToggleH4" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-∧ H4
+∧
 </button>
 </div>
 </div>
@@ -1318,9 +1318,15 @@ Original
 </button>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
-<div class="summary-buttons">
-</div>
-<div id="summary-content">
+  <div style="padding: 1rem; padding-bottom: 0; display: none;" id="summary-header">
+    <button id="summaryPanelToggleH4" onclick="toggleViewerH4()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; float: right;">
+      ∧
+    </button>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="summary-buttons">
+  </div>
+  <div id="summary-content">
 <div id="toc-list"></div>
 </div>
 </div>
@@ -1614,25 +1620,12 @@ function displayGAOverview(data) {
     
     html += `
       <div class="ga-overview-lecture" style="margin-bottom: 0.75rem; padding-bottom: 0.2rem; border-bottom: 0.5px solid #ddd;">
-        <h3 style="font-size: 0.9em; margin: 0 0 0rem 0;">`;
-    
-    if (!hasSummary) {
-      html += `
-          <span class="lecture-link-wrapper">
-            <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
-              ${titleText}
-            </a>
-            <span class="loading-tooltip">Bitte warten Sie einen Moment, bis der Vortrag mit Zusammenfassung erscheint.</span>
-          </span>`;
-    } else {
-      html += `
+        <h3 style="font-size: 0.9em; margin: 0 0 0rem 0;">
           <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
             ${titleText}
-          </a>`;
-    }
-    
-    html += `
+          </a>
         </h3>
+    
         
         ${hasSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
@@ -1890,32 +1883,29 @@ function toggleGASummaries() {
               snippetDiv.style.cursor = 'pointer';
               snippetDiv.setAttribute('data-lecture-id', lectureId);
               snippetDiv.setAttribute('data-chunk-index', chunk.index);
-              snippetDiv.addEventListener("click", function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                const currentWord1 = document.getElementById('word1').value.trim();
-                const currentWord2 = document.getElementById('word2').value.trim();
-                const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-                const lecId = e.currentTarget.getAttribute('data-lecture-id');
-                const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
-                
-                showingSummaryInMain = false;
-                
-                const summaryPanel = document.getElementById('summary-panel');
-                const resizeHandle = document.getElementById('verticalResizeHandle');
-                const icon = document.getElementById('summary-panel-toggle-icon');
-                if (summaryPanel.classList.contains('visible')) {
-                  summaryPanel.classList.remove('visible');
-                  resizeHandle.classList.remove('visible');
-                  icon.textContent = '◄';
-                  summaryPanel.style.width = '0';
-                  summaryPanel.style.minWidth = '0';
-                  // Kein extra margin, damit der geschlossene Zustand keinen Platz am rechten Rand lässt
-                  summaryPanel.style.marginRight = '0px';
-                }
-                
-                showLecture(lecId, chunkIdx, keywords);
-              });
+              snippetDiv.addEventListener("click", async function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  const currentWord1 = document.getElementById('word1').value.trim();
+  const currentWord2 = document.getElementById('word2').value.trim();
+  const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  const lecId = e.currentTarget.getAttribute('data-lecture-id');
+  const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
+  
+  const summaryPanel = document.getElementById('summary-panel');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const icon = document.getElementById('summary-panel-toggle-icon');
+  if (summaryPanel.classList.contains('visible')) {
+    summaryPanel.classList.remove('visible');
+    resizeHandle.classList.remove('visible');
+    icon.textContent = '◄';
+    summaryPanel.style.width = '0';
+    summaryPanel.style.minWidth = '0';
+    summaryPanel.style.marginRight = '0px';
+  }
+  
+  await showLecture(lecId, chunkIdx, keywords);
+});
               li.appendChild(snippetDiv);
             }
           });
@@ -2009,20 +1999,70 @@ function toggleGASummaries() {
     }
 
 
-function toggleViewerH4() {
-  // Wenn wir in Original-Ansicht sind, zur Zusammenfassung wechseln
-  if (!showingSummaryInMain && currentLectureSummary) {
-    showSummaryView();
+    async function toggleViewerH4() {
+  const viewer = document.getElementById('viewer');
+  const toggleBtn = document.getElementById('viewerToggleH4');
+  
+  if (!viewer || !toggleBtn) return;
+  
+  // Fall 1: Original wird angezeigt
+  if (!showingSummaryInMain) {
+    // Prüfe ob Zusammenfassung existiert
+    if (currentLectureSummary) {
+      // Zusammenfassung vorhanden → zeige sie an
+      showSummaryView();
+    } else {
+      // Keine Zusammenfassung → generiere neue
+      if (!currentLectureData) {
+        alert('Kein Vortrag geladen');
+        return;
+      }
+      
+      // Button in Lade-Zustand
+      toggleBtn.disabled = true;
+      toggleBtn.innerHTML = '⋯';
+      toggleBtn.style.opacity = '0.5';
+      
+      try {
+        // Generiere Zusammenfassung
+        const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lectureId: currentLectureData.ID,
+            forceRegenerate: false
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server Error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        currentLectureSummary = {
+          summary: data.summary,
+          headings: data.headings || []
+        };
+        
+        // Zeige Zusammenfassung
+        showSummaryView();
+        
+      } catch (error) {
+        console.error('Fehler beim Generieren der Zusammenfassung:', error);
+        alert('Fehler beim Generieren der Zusammenfassung: ' + error.message);
+        
+        // Button zurücksetzen
+        toggleBtn.disabled = false;
+        toggleBtn.innerHTML = '∧';
+        toggleBtn.style.opacity = '1';
+      }
+    }
     return;
   }
   
-  // Ansonsten H4s ein-/ausblenden
-  const viewer = document.getElementById('viewer');
+  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4
   const tocList = document.getElementById('toc-list');
-  const toggleBtn = document.getElementById('viewerToggleH4');
-  
-  if (!viewer) return;
-  
   const viewerH4 = viewer.querySelectorAll('h4');
   const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
   
@@ -2041,8 +2081,13 @@ function toggleViewerH4() {
   });
   
   if (toggleBtn) {
-    toggleBtn.innerHTML = viewerH4Collapsed ? '∨ H4' : '∧ H4';
+    toggleBtn.innerHTML = viewerH4Collapsed ? '∨' : '∧';
   }
+// NEU: Synchronisiere mit Summary-Panel Button falls vorhanden
+const summaryToggleBtn = document.getElementById('summaryPanelToggleH4');
+if (summaryToggleBtn) {
+  summaryToggleBtn.innerHTML = viewerH4Collapsed ? '∨' : '∧';
+}
 }
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
@@ -2439,146 +2484,26 @@ function showSummaryView() {
       });
     }
     
-    html += `<div class="paragraph" id="para-${paraIndex}" data-array-index="${idx}">${content}</div>`;
+    const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
+const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+
+html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-array-index="${idx}">${content}</div>`;
   });
   
 // H4-Toggle Button immer anzeigen
 const viewerToggleBtn = document.getElementById('viewerToggleH4');
 if (viewerToggleBtn) {
   viewerToggleBtn.style.display = 'inline-block';
-  viewerToggleBtn.innerHTML = '∧ H4';
+  viewerToggleBtn.innerHTML = '∧';
+  viewerToggleBtn.disabled = false;
+  viewerToggleBtn.style.opacity = '1';
   viewerH4Collapsed = false;
 }
 
   viewer.innerHTML = html;
 }
 
-// Modifizierte showLecture Funktion
-async function showLecture(lectureId, targetIndex, keywords = []) {
-  const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
-  const tocList = document.getElementById('toc-list');
-  
-  // Summary Panel schließen
-  if (summaryPanel.classList.contains('visible')) {
-    summaryPanel.classList.remove('visible');
-    resizeHandle.classList.remove('visible');
-    summaryPanel.style.width = '0';
-    summaryPanel.style.minWidth = '0';
-    summaryPanel.style.marginRight = '0px';
-    if (tocList) tocList.innerHTML = '';
-  }
 
-  try {
-    const parts = lectureId.split('/');
-    const url = parts.length === 2 
-                ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
-                : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
-
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      throw new Error(`Vortrag nicht gefunden: ${lectureId}`);
-    }
-    
-    const data = await response.json();
-    currentLectureData = data.lecture;
-    
-    // NEU: Prüfe ob Zusammenfassung existiert
-    try {
-      const summaryResponse = await fetch(`${API_BASE}/api/summarize-lecture`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lectureId: lectureId,
-          forceRegenerate: false
-        })
-      });
-      
-      if (summaryResponse.ok) {
-        const summaryData = await summaryResponse.json();
-        
-        // Wenn Zusammenfassung existiert (fromCache: true oder neue Daten)
-        if (summaryData.summary) {
-          currentLectureSummary = {
-            summary: summaryData.summary,
-            headings: summaryData.headings || []
-          };
-          
-          // Zeige bearbeitete Version mit Überschriften
-          showingSummaryInMain = true;
-          
-          let displayKeywords = keywords;
-          if (!displayKeywords || displayKeywords.length === 0) {
-            const currentWord1 = document.getElementById('word1').value.trim();
-            const currentWord2 = document.getElementById('word2').value.trim();
-            if (currentWord1 || currentWord2) {
-              displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-            }
-            else if (currentThematicQuery) {
-              displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
-            }
-          }
-          
-          displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-
-// Buttons nach dem Anzeigen aktualisieren
-setTimeout(() => {
-  const viewer = document.getElementById('viewer');
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
-  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  const hasH4 = viewer.querySelector('h4') !== null;
-  
-  if (viewerToggleBtn) {
-    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
-  }
-  if (viewerOriginalBtn) {
-    viewerOriginalBtn.style.display = 'inline-block';
-  }
-}, 50);
-          
-          if (targetIndex) {
-            const cleanIndex = targetIndex.replace(/^\^/, '');
-            lastHighlightedIndex = cleanIndex;
-            setTimeout(() => scrollToIndexInViewer(cleanIndex), 100);
-          }
-          
-          updateButtonStates();
-          return;
-        }
-      }
-    } catch (summaryError) {
-      console.log('Keine Zusammenfassung verfügbar, zeige Original:', summaryError.message);
-    }
-    
-    // Fallback: Zeige Original wenn keine Zusammenfassung vorhanden
-    currentLectureSummary = null;
-    showingSummaryInMain = false;
-    
-    let displayKeywords = keywords;
-    if (!displayKeywords || displayKeywords.length === 0) {
-      const currentWord1 = document.getElementById('word1').value.trim();
-      const currentWord2 = document.getElementById('word2').value.trim();
-      if (currentWord1 || currentWord2) {
-        displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-      }
-      else if (currentThematicQuery) {
-        displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
-      }
-    }
-    
-    updateButtonStates();
-    displayLecture(data.lecture, targetIndex, displayKeywords);
-    
-  } catch (error) {
-    console.error('Fehler beim Laden:', error);
-    document.getElementById('viewer').innerHTML = `
-      <div class="error-message">
-        <strong>Fehler beim Laden des Vortrags:</strong><br>${error.message}
-      </div>
-    `;
-  }
-}
 
     function extractKeywordsFromQuery(query) {
       const stopWords = [
@@ -2595,7 +2520,7 @@ setTimeout(() => {
       
       return words;
     }
-
+    
     function renderThematicResults(query, content, sources) {
       const container = document.getElementById('results');
       
@@ -2622,17 +2547,17 @@ setTimeout(() => {
         const gaLinks = answerDiv.querySelectorAll('.ga-reference');
         
         gaLinks.forEach(link => {
-          const lectureId = link.getAttribute('data-id');
-          const targetIndex = link.getAttribute('data-index');
-          
-          if (lectureId && targetIndex) {
-            link.addEventListener('click', (e) => {
-              e.preventDefault();
-              const keywords = extractKeywordsFromQuery(currentThematicQuery);
-              showLecture(lectureId, targetIndex, keywords);
-            });
-          }
-        });
+  const lectureId = link.getAttribute('data-id');
+  const targetIndex = link.getAttribute('data-index');
+  
+  if (lectureId && targetIndex) {
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const keywords = extractKeywordsFromQuery(currentThematicQuery);
+      await showLecture(lectureId, targetIndex, keywords);
+    });
+  }
+});
       }, 100);
     }
 
@@ -2732,22 +2657,15 @@ setTimeout(() => {
     const data = await response.json();
     currentLectureData = data.lecture;
     
-    // NEU: Prüfe ob Zusammenfassung existiert
+    // NEU: Prüfe ob Zusammenfassung bereits existiert (ohne neue zu generieren)
     try {
-      const summaryResponse = await fetch(`${API_BASE}/api/summarize-lecture`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lectureId: lectureId,
-          forceRegenerate: false
-        })
-      });
-      
+      const parts = lectureId.split('/');
+      const summaryResponse = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
       if (summaryResponse.ok) {
         const summaryData = await summaryResponse.json();
         
         // Wenn Zusammenfassung existiert (fromCache: true oder neue Daten)
-        if (summaryData.summary) {
+        if (summaryData.exists && summaryData.summary) {
           currentLectureSummary = {
             summary: summaryData.summary,
             headings: summaryData.headings || []
@@ -2767,6 +2685,11 @@ setTimeout(() => {
               displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
             }
           }
+          // Setze lastHighlightedIndex VOR dem Rendern für Highlighting
+          if (targetIndex) {
+            const cleanIndex = targetIndex.replace(/^\^/, '');
+            lastHighlightedIndex = cleanIndex;
+          }
           
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
 
@@ -2775,19 +2698,22 @@ setTimeout(() => {
   const viewer = document.getElementById('viewer');
   const viewerToggleBtn = document.getElementById('viewerToggleH4');
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   const hasH4 = viewer.querySelector('h4') !== null;
   
   if (viewerToggleBtn) {
-    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+    viewerToggleBtn.style.display = 'inline-block';
   }
   if (viewerOriginalBtn) {
     viewerOriginalBtn.style.display = 'inline-block';
+  }
+  if (viewerSummaryBtn) {
+    viewerSummaryBtn.style.display = 'none';
   }
 }, 50);
           
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
-            lastHighlightedIndex = cleanIndex;
             setTimeout(() => scrollToIndexInViewer(cleanIndex), 100);
           }
           
@@ -2796,7 +2722,7 @@ setTimeout(() => {
         }
       }
     } catch (summaryError) {
-      console.log('Keine Zusammenfassung verfügbar, zeige Original:', summaryError.message);
+      console.log('Keine Zusammenfassung vorhanden, zeige Original:', summaryError.message);
     }
     
     // Fallback: Zeige Original wenn keine Zusammenfassung vorhanden
@@ -3002,7 +2928,8 @@ setTimeout(() => {
 const viewerToggleBtn = document.getElementById('viewerToggleH4');
 if (viewerToggleBtn) {
   viewerToggleBtn.style.display = 'inline-block';
-  viewerToggleBtn.innerHTML = '∧ H4';
+  viewerToggleBtn.disabled = false;
+  viewerToggleBtn.style.opacity = '1';
   viewerH4Collapsed = false;
 }
 

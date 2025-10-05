@@ -308,517 +308,6 @@
       }
     ]
   },
-  "ga068a": {
-    "gaNumber": "GA068a",
-    "gaTitle": "Über das Wesen des Christentums (1903-1910)",
-    "lectureCount": 56,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA068a/1",
-        "title": "Bericht - DIE THEOSOPHIE UND DIE FORTBILDUNG DER RELIGIONEN (DIE BIBEL-BABEL-FRAGE)",
-        "fileName": "GA068a/1 - Bericht - DIE THEOSOPHIE UND DIE FORTBILDUNG DER RELIGIONEN (DIE BIBEL-BABEL-FRAGE), Weimar, 15. April 1903",
-        "location": "Weimar",
-        "date": "15. April 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA068a/2",
-        "title": "Bericht - DIE THEOSOPHISCHEN HAUPTLEHREN",
-        "fileName": "GA068a/2 - Bericht - DIE THEOSOPHISCHEN HAUPTLEHREN, Weimar, 17. April 1903",
-        "location": "Weimar",
-        "date": "17. April 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA068a/3",
-        "title": "Bericht - DIE THEOSOPHIE UND DER WISSENSCHAFTLICHE GEIST DER GEGENWART",
-        "fileName": "GA068a/3 - Bericht - DIE THEOSOPHIE UND DER WISSENSCHAFTLICHE GEIST DER GEGENWART, Weimar, 20. April 1903",
-        "location": "Weimar",
-        "date": "20. April 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA068a/4",
-        "title": "Bericht - DAS WESEN DES MENSCHEN ODER DIE GEISTIGE CHEMIE",
-        "fileName": "GA068a/4 - Bericht - DAS WESEN DES MENSCHEN ODER DIE GEISTIGE CHEMIE, Weimar, 23. Oktober 1903",
-        "location": "Weimar",
-        "date": "23. Oktober 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA068a/5",
-        "title": "Bericht - DIE PILGERFAHRT DER SEELE",
-        "fileName": "GA068a/5 - Bericht - DIE PILGERFAHRT DER SEELE, Weimar, 20. November 1903",
-        "location": "Weimar",
-        "date": "20. November 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA068a/6",
-        "title": "Bericht - WELTGESETZ UND MENSCHENSCHICKSAL - EINE WEIHNACHTSBETRACHTUNG",
-        "fileName": "GA068a/6 - Bericht - WELTGESETZ UND MENSCHENSCHICKSAL - EINE WEIHNACHTSBETRACHTUNG, Weimar, 11. Dezember 1903",
-        "location": "Weimar",
-        "date": "11. Dezember 1903",
-        "summary": null
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA068a/7",
-        "title": "Bericht - THEOSOPHIE",
-        "fileName": "GA068a/7 - Bericht - THEOSOPHIE, BUDDHISMUS, SPIRITISMUS, Weimar, 26. Februar 1904",
-        "location": "BUDDHISMUS",
-        "date": "26. Februar 1904",
-        "summary": null
-      },
-      {
-        "lectureNumber": "8",
-        "ID": "GA068a/8",
-        "title": "Bericht - THEOSOPHIE IN DEN EVANGELIEN - EINE OSTERBETRACHTUNG",
-        "fileName": "GA068a/8 - Bericht - THEOSOPHIE IN DEN EVANGELIEN - EINE OSTERBETRACHTUNG, Weimar, 25. März 1904",
-        "location": "Weimar",
-        "date": "25. März 1904",
-        "summary": null
-      },
-      {
-        "lectureNumber": "9",
-        "ID": "GA068a/9",
-        "title": "DAS VERHÄLTNIS DER GERMANISCHEN VÖLKER ZUM CHRISTENTUM",
-        "fileName": "GA068a/9 - DAS VERHÄLTNIS DER GERMANISCHEN VÖLKER ZUM CHRISTENTUM, Berlin, 26. Juli 1904",
-        "location": "Berlin",
-        "date": "26. Juli 1904",
-        "summary": null
-      },
-      {
-        "lectureNumber": "10",
-        "ID": "GA068a/10",
-        "title": "Bericht - DIE CHRISTLICHE MYSTIK - DIE MEISTER VON KÖLN ECKHART",
-        "fileName": "GA068a/10 - Bericht - DIE CHRISTLICHE MYSTIK - DIE MEISTER VON KÖLN ECKHART, ALBERTUS MAGNUS, Köln, 28, November 1904",
-        "location": "ALBERTUS MAGNUS",
-        "date": "",
-        "summary": null
-      },
-      {
-        "lectureNumber": "11",
-        "ID": "GA068a/11",
-        "title": "ÜBER DAS WESEN DES CHRISTENTUMS",
-        "fileName": "GA068a/11 - ÜBER DAS WESEN DES CHRISTENTUMS, Hamburg, 23. Januar 1905",
-        "location": "Hamburg",
-        "date": "23. Januar 1905",
-        "summary": null
-      },
-      {
-        "lectureNumber": "12",
-        "ID": "GA068a/12",
-        "title": "Bericht - DIE WEISHEITSLEHREN DES CHRISTENTUMS",
-        "fileName": "GA068a/12 - Bericht - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Heidelberg, 17. April 1905",
-        "location": "Heidelberg",
-        "date": "17. April 1905",
-        "summary": null
-      },
-      {
-        "lectureNumber": "13",
-        "ID": "GA068a/13",
-        "title": "DER WEISHEITSKERN IN DEN RELIGIONEN",
-        "fileName": "GA068a/13 - DER WEISHEITSKERN IN DEN RELIGIONEN, Düsseldorf, 3. Dezember 1905",
-        "location": "Düsseldorf",
-        "date": "3. Dezember 1905",
-        "summary": null
-      },
-      {
-        "lectureNumber": "14",
-        "ID": "GA068a/14",
-        "title": "FRAGENBEANTWORTUNG",
-        "fileName": "GA068a/14 - FRAGENBEANTWORTUNG, Regensburg 17. Dezember 1905",
-        "location": "Regensburg 17. Dezember 1905",
-        "date": "",
-        "summary": null
-      },
-      {
-        "lectureNumber": "15",
-        "ID": "GA068a/15",
-        "title": "Bericht - DER WEISHEITSKERN IN DEN RELIGIONEN",
-        "fileName": "GA068a/15 - Bericht - DER WEISHEITSKERN IN DEN RELIGIONEN, Frankfurt, 19. Januar 1906",
-        "location": "Frankfurt",
-        "date": "19. Januar 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "16",
-        "ID": "GA068a/16",
-        "title": "DIE FREIHEIT DES MENSCHEN",
-        "fileName": "GA068a/16 - DIE FREIHEIT DES MENSCHEN, Düsseldorf, 11. Februar 1906",
-        "location": "Düsseldorf",
-        "date": "11. Februar 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "17",
-        "ID": "GA068a/17",
-        "title": "DIE WEISHEITSLEHREN DES CHRISTENTUMS",
-        "fileName": "GA068a/17 - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Leipzig, 21. Februar 1906",
-        "location": "Leipzig",
-        "date": "21. Februar 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "18",
-        "ID": "GA068a/18",
-        "title": "GERMANISCHE UND INDISCHE GEHEIMLEHRE",
-        "fileName": "GA068a/18 - GERMANISCHE UND INDISCHE GEHEIMLEHRE, München, 22. April 1906",
-        "location": "München",
-        "date": "22. April 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "19",
-        "ID": "GA068a/19",
-        "title": "Bericht - INNERE ENTWICKLUNG",
-        "fileName": "GA068a/19 - Bericht - INNERE ENTWICKLUNG, München, 23. April 1906",
-        "location": "München",
-        "date": "23. April 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "20",
-        "ID": "GA068a/20",
-        "title": "GERMANISCHE UND INDISCHE GEHEIMLEHRE",
-        "fileName": "GA068a/20 - GERMANISCHE UND INDISCHE GEHEIMLEHRE, Leipzig, 24. April 1906",
-        "location": "Leipzig",
-        "date": "24. April 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "21",
-        "ID": "GA068a/21",
-        "title": "ÜBER LUZIFER",
-        "fileName": "GA068a/21 - ÜBER LUZIFER, Leipzig, 9. November 1906",
-        "location": "Leipzig",
-        "date": "9. November 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "22",
-        "ID": "GA068a/22",
-        "title": "ESOTERISCHES CHRISTENTUM",
-        "fileName": "GA068a/22 - ESOTERISCHES CHRISTENTUM, Düsseldorf, 27. November 1906",
-        "location": "Düsseldorf",
-        "date": "27. November 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "23",
-        "ID": "GA068a/23",
-        "title": "DIE KINDER DES LUZIFER",
-        "fileName": "GA068a/23 - DIE KINDER DES LUZIFER, Leipzig, 14. Dezember 1906",
-        "location": "Leipzig",
-        "date": "14. Dezember 1906",
-        "summary": null
-      },
-      {
-        "lectureNumber": "24",
-        "ID": "GA068a/24",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA068a/24 - BIBEL UND WEISHEIT, Fragenbeantwortung, Kassel, 14. Januar 1907",
-        "location": "Fragenbeantwortung",
-        "date": "14. Januar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "25",
-        "ID": "GA068a/25",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA068a/25 - BIBEL UND WEISHEIT, Stuttgart, 17. Januar 1907",
-        "location": "Stuttgart",
-        "date": "17. Januar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "26",
-        "ID": "GA068a/26",
-        "title": "DER URSPRUNG DES BÖSEN",
-        "fileName": "GA068a/26 - DER URSPRUNG DES BÖSEN, Stuttgart, 18. Januar 1907",
-        "location": "Stuttgart",
-        "date": "18. Januar 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "27",
-        "ID": "GA068a/27",
-        "title": "ESOTERISCHES CHRISTENTUM",
-        "fileName": "GA068a/27 - ESOTERISCHES CHRISTENTUM, Bonn, 6. März 1907",
-        "location": "Bonn",
-        "date": "6. März 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "28",
-        "ID": "GA068a/28",
-        "title": "THEOSOPHIE",
-        "fileName": "GA068a/28 - THEOSOPHIE, BUDDHISMUS UND CHRISTENTUM, Düsseldorf, 7. März 1907",
-        "location": "BUDDHISMUS UND CHRISTENTUM",
-        "date": "7. März 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "29",
-        "ID": "GA068a/29",
-        "title": "DAS GLEICHNIS VOM UNGERECHTEN HAUSHALTER - EVANGELIUM LUCAE XVI",
-        "fileName": "GA068a/29 - DAS GLEICHNIS VOM UNGERECHTEN HAUSHALTER - EVANGELIUM LUCAE XVI, 1-18, München, 9. April 1907",
-        "location": "1-18",
-        "date": "9. April 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "30",
-        "ID": "GA068a/30",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA068a/30 - BIBEL UND WEISHEIT, Berlin, 25. und 26. April 1907",
-        "location": "Berlin",
-        "date": "",
-        "summary": null
-      },
-      {
-        "lectureNumber": "31",
-        "ID": "GA068a/31",
-        "title": "BIBEL UND WEISHEIT I",
-        "fileName": "GA068a/31 - BIBEL UND WEISHEIT I, München, 23. Mai 1907",
-        "location": "München",
-        "date": "23. Mai 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "32",
-        "ID": "GA068a/32",
-        "title": "BIBEL UND WEISHEIT II",
-        "fileName": "GA068a/32 - BIBEL UND WEISHEIT II, München, 24. Mai 1907",
-        "location": "München",
-        "date": "24. Mai 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "33",
-        "ID": "GA068a/33",
-        "title": "BIBEL UND WEISHEIT I",
-        "fileName": "GA068a/33 - BIBEL UND WEISHEIT I, Leipzig, 8. Juni 1907",
-        "location": "Leipzig",
-        "date": "8. Juni 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "34",
-        "ID": "GA068a/34",
-        "title": "BIBEL UND WEISHEIT II",
-        "fileName": "GA068a/34 - BIBEL UND WEISHEIT II, Leipzig 9. Juni 1907",
-        "location": "Leipzig 9. Juni 1907",
-        "date": "",
-        "summary": null
-      },
-      {
-        "lectureNumber": "35",
-        "ID": "GA068a/35",
-        "title": "DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS",
-        "fileName": "GA068a/35 - DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907",
-        "location": "Düsseldorf 14. Dezember 1907",
-        "date": "",
-        "summary": null
-      },
-      {
-        "lectureNumber": "36",
-        "ID": "GA068a/36",
-        "title": "DIE INITIATION",
-        "fileName": "GA068a/36 - DIE INITIATION, Köln, 18. Dezember 1907",
-        "location": "Köln",
-        "date": "18. Dezember 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "37",
-        "ID": "GA068a/37",
-        "title": "DIE GEFAHREN DER EINWEIHUNG",
-        "fileName": "GA068a/37 - DIE GEFAHREN DER EINWEIHUNG, Köln, 19. Dezember 1907",
-        "location": "Köln",
-        "date": "19. Dezember 1907",
-        "summary": null
-      },
-      {
-        "lectureNumber": "38",
-        "ID": "GA068a/38",
-        "title": "RELIGION",
-        "fileName": "GA068a/38 - RELIGION, WISSENSCHAFT UND THEOSOPHIE, Mainz, 31. Januar 1908",
-        "location": "WISSENSCHAFT UND THEOSOPHIE",
-        "date": "31. Januar 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "39",
-        "ID": "GA068a/39",
-        "title": "DER URSPRUNG DES BÖSEN",
-        "fileName": "GA068a/39 - DER URSPRUNG DES BÖSEN, Kassel, 20. Februar 1908",
-        "location": "Kassel",
-        "date": "20. Februar 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "40",
-        "ID": "GA068a/40",
-        "title": "DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS",
-        "fileName": "GA068a/40 - DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS, Kassel, 21. Februar 1908",
-        "location": "Kassel",
-        "date": "21. Februar 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "41",
-        "ID": "GA068a/41",
-        "title": "Bericht - DAS JOHANNESEVANGELIUM VOM THEOSOPHISCHEN GESICHTSPUNKT",
-        "fileName": "GA068a/41 - Bericht - DAS JOHANNESEVANGELIUM VOM THEOSOPHISCHEN GESICHTSPUNKT, Kristiania, 4. April 1908",
-        "location": "Kristiania",
-        "date": "4. April 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "42",
-        "ID": "GA068a/42",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA068a/42 - BIBEL UND WEISHEIT, Bielefeld, 3. November 1908",
-        "location": "Bielefeld",
-        "date": "3. November 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "43",
-        "ID": "GA068a/43",
-        "title": "BIBEL UND WEISHEIT",
-        "fileName": "GA068a/43 - BIBEL UND WEISHEIT, Hamburg, 5. Dezember 1908",
-        "location": "Hamburg",
-        "date": "5. Dezember 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "44",
-        "ID": "GA068a/44",
-        "title": "Bericht - DER APOSTEL PAULUS UND DIE THEOSOPHIE",
-        "fileName": "GA068a/44 - Bericht - DER APOSTEL PAULUS UND DIE THEOSOPHIE, Bremen, 7. Dezember 1908",
-        "location": "Bremen",
-        "date": "7. Dezember 1908",
-        "summary": null
-      },
-      {
-        "lectureNumber": "45",
-        "ID": "GA068a/45",
-        "title": "DER WEISHEITSKERN IN DEN RELIGIONEN",
-        "fileName": "GA068a/45 - DER WEISHEITSKERN IN DEN RELIGIONEN, Basel, 3. Februar 1909",
-        "location": "Basel",
-        "date": "3. Februar 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "46",
-        "ID": "GA068a/46",
-        "title": "DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT",
-        "fileName": "GA068a/46 - DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909",
-        "location": "Basel",
-        "date": "4. Februar 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "47",
-        "ID": "GA068a/47",
-        "title": "DIE ZEHN GEBOTE",
-        "fileName": "GA068a/47 - DIE ZEHN GEBOTE, Kassel, 26. Februar 1909",
-        "location": "Kassel",
-        "date": "26. Februar 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "48",
-        "ID": "GA068a/48",
-        "title": "DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS",
-        "fileName": "GA068a/48 - DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909",
-        "location": "Elberfeld",
-        "date": "28. Februar 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "49",
-        "ID": "GA068a/49",
-        "title": "Bericht - DER EINTRITT DES CHRISTUS IN DIE WESTLICHE WELT",
-        "fileName": "GA068a/49 - Bericht - DER EINTRITT DES CHRISTUS IN DIE WESTLICHE WELT, Kristiania (Oslo), 12. Mai 1909",
-        "location": "Kristiania (Oslo)",
-        "date": "12. Mai 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "50",
-        "ID": "GA068a/50",
-        "title": "Bericht - DIE HÖHERE BEDEUTUNG DES JOHANNESEVANGELIUMS",
-        "fileName": "GA068a/50 - Bericht - DIE HÖHERE BEDEUTUNG DES JOHANNESEVANGELIUMS, Bremen, 6. November 1909",
-        "location": "Bremen",
-        "date": "6. November 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "51",
-        "ID": "GA068a/51",
-        "title": "ÜBER DIE EVANGELIEN",
-        "fileName": "GA068a/51 - ÜBER DIE EVANGELIEN, Mitgliedervortrag, Bern, 17. November 1909",
-        "location": "Mitgliedervortrag",
-        "date": "17. November 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "52",
-        "ID": "GA068a/52",
-        "title": "Bericht - CHRISTUS UND DIE GEISTESWISSENSCHAFT",
-        "fileName": "GA068a/52 - Bericht - CHRISTUS UND DIE GEISTESWISSENSCHAFT, Dresden, 30. November 1909",
-        "location": "Dresden",
-        "date": "30. November 1909",
-        "summary": null
-      },
-      {
-        "lectureNumber": "53",
-        "ID": "GA068a/53",
-        "title": "DIE DREI VORCHRISTLICHEN UND DIE DREI NACHCHRISTLICHEN JAHRTAUSENDE",
-        "fileName": "GA068a/53 - DIE DREI VORCHRISTLICHEN UND DIE DREI NACHCHRISTLICHEN JAHRTAUSENDE, Mitgliedervortrag, Köln, 23. Februar 1910",
-        "location": "Mitgliedervortrag",
-        "date": "23. Februar 1910",
-        "summary": null
-      },
-      {
-        "lectureNumber": "54",
-        "ID": "GA068a/54",
-        "title": "DAS WESEN DES MENSCHLICHEN SCHICKSALS",
-        "fileName": "GA068a/54 - DAS WESEN DES MENSCHLICHEN SCHICKSALS, Bern, 13. September 1910",
-        "location": "Bern",
-        "date": "13. September 1910",
-        "summary": null
-      },
-      {
-        "lectureNumber": "55",
-        "ID": "GA068a/55",
-        "title": "THEOSOPHIE UND BIBEL",
-        "fileName": "GA068a/55 - THEOSOPHIE UND BIBEL, Bern, 14. September 1910",
-        "location": "Bern",
-        "date": "14. September 1910",
-        "summary": null
-      },
-      {
-        "lectureNumber": "56",
-        "ID": "GA068a/56",
-        "title": "THEOSOPHIE UND BIBEL",
-        "fileName": "GA068a/56 - THEOSOPHIE UND BIBEL, Mitgliedervortrag, Hamburg, 29. November 1910",
-        "location": "Mitgliedervortrag",
-        "date": "29. November 1910",
-        "summary": null
-      }
-    ]
-  },
   "ga051": {
     "gaNumber": "GA051",
     "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
@@ -1809,148 +1298,6 @@
         "fileName": "GA056/15 - DER HIMMEL, Berlin, 14. Mai 1908",
         "location": "Berlin",
         "date": "14. Mai 1908",
-        "summary": null
-      }
-    ]
-  },
-  "ga065": {
-    "gaNumber": "GA065",
-    "gaTitle": "Aus dem mitteleuropäischen Geistesleben (1915-1916) Teil 2",
-    "lectureCount": 15,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA065/1",
-        "title": "GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS",
-        "fileName": "GA065/1 - GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 2. Dezember 1915",
-        "location": "Berlin",
-        "date": "2. Dezember 1915",
-        "summary": "Rudolf Steiner behandelt in diesem Vortrag die Bedeutung des deutschen Idealismus und sein Weltbild, mit besonderem Fokus auf Goethe. Er zeigt, wie deutsche Geister wie Fichte, Schelling und Hegel nach einer lebendigen Verbindung zwischen Erkenntnis und den ewigen Quellen des Daseins suchten. Steiner analysiert Goethes Faust als Verkörperung dieses deutschen Strebens, das sowohl die Magie (Naturerkenntnis) als auch das Böse als wesenhaft-wirkliche Kräfte erfasst. Der deutsche Idealismus zeichnet sich durch das Bestreben aus, nicht nur abstrakte Begriffe zu bilden, sondern das Wissen als lebendige Kraft zu erleben, die die Seele mit dem Weltengeist verbindet. Steiner sieht in diesem idealistischen Streben die tiefste Charaktereigenschaft des deutschen Wesens und dessen weltgeschichtliche Aufgabe."
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA065/2",
-        "title": "DIE EWIGEN KRÄFTE DER MENSCHENSEELE",
-        "fileName": "GA065/2 - DIE EWIGEN KRÄFTE DER MENSCHENSEELE, Berlin, 3. Dezember 1915",
-        "location": "Berlin",
-        "date": "3. Dezember 1915",
-        "summary": "Rudolf Steiner erläutert in diesem Vortrag die geisteswissenschaftliche Methode zur Erforschung der ewigen Seelenkräfte des Menschen. Er zeigt, dass die gewöhnlichen Seelenkräfte des Denkens, Fühlens und Wollens an den physischen Leib gebunden sind wie die Flamme an die Kerze. Durch spezielle Meditation und Willensübungen kann jedoch ein zweiter, ewiger Mensch in uns entdeckt werden. Diese Entwicklung führt zur Erkenntnis der wiederholten Erdenleben und der Unsterblichkeit der Seele. Steiner verbindet diese Erkenntnisse mit der deutschen Geistesgeschichte und sieht in der idealistischen Philosophie von Kant bis Hegel eine Art Volksmeditation, die den Keim für die moderne Geisteswissenschaft gelegt hat."
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA065/3",
-        "title": "BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT",
-        "fileName": "GA065/3 - BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT, Berlin, 9. Dezember 1915",
-        "location": "Berlin",
-        "date": "9. Dezember 1915",
-        "summary": null
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA065/4",
-        "title": "MENSCHENSEELE UND MENSCHENGEIST",
-        "fileName": "GA065/4 - MENSCHENSEELE UND MENSCHENGEIST, Berlin, 10. Dezember 1915",
-        "location": "Berlin",
-        "date": "10. Dezember 1915",
-        "summary": null
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA065/5",
-        "title": "FICHTES GEIST MITTEN UNTER UNS",
-        "fileName": "GA065/5 - FICHTES GEIST MITTEN UNTER UNS, Berlin, 16. Dezember 1915",
-        "location": "Berlin",
-        "date": "16. Dezember 1915",
-        "summary": null
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA065/6",
-        "title": "FAUSTS WELTWANDERUNG UND SEINE WIEDERGEBURT AUS DEM DEUTSCHEN GEISTESLEBEN",
-        "fileName": "GA065/6 - FAUSTS WELTWANDERUNG UND SEINE WIEDERGEBURT AUS DEM DEUTSCHEN GEISTESLEBEN, Berlin, 3. Februar 1916",
-        "location": "Berlin",
-        "date": "3. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA065/7",
-        "title": "GESUNDES SEELENLEBEN UND GEISTESFORSCHUNG",
-        "fileName": "GA065/7 - GESUNDES SEELENLEBEN UND GEISTESFORSCHUNG, Berlin, 4. Februar 1916",
-        "location": "Berlin",
-        "date": "4. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "8",
-        "ID": "GA065/8",
-        "title": "ÖSTERREICHISCHE PERSÖNLICHKEITEN IN DEN GEBIETEN DER DICHTUNG UND WISSENSCHAFT",
-        "fileName": "GA065/8 - ÖSTERREICHISCHE PERSÖNLICHKEITEN IN DEN GEBIETEN DER DICHTUNG UND WISSENSCHAFT, Berlin, 10. Februar 1916",
-        "location": "Berlin",
-        "date": "10. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "9",
-        "ID": "GA065/9",
-        "title": "WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT",
-        "fileName": "GA065/9 - WIE WERDEN DIE EWIGEN KRÄFTE DER MENSCHENSEELE ERFORSCHT, Berlin, 11. Februar 1916",
-        "location": "Berlin",
-        "date": "11. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "10",
-        "ID": "GA065/10",
-        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG",
-        "fileName": "GA065/10 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916",
-        "location": "Berlin",
-        "date": "25. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "11",
-        "ID": "GA065/11",
-        "title": "WARUM MISSVERSTEHT MAN DIE GEISTESFORSCHUNG",
-        "fileName": "GA065/11 - WARUM MISSVERSTEHT MAN DIE GEISTESFORSCHUNG, Berlin, 26. Februar 1916",
-        "location": "Berlin",
-        "date": "26. Februar 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "12",
-        "ID": "GA065/12",
-        "title": "NIETZSCHES SEELENLEBEN UND RICHARD WAGNER - ZUR DEUTSCHEN WELTANSCHAUUNGSENTWICKELUNG DER GEGENWART",
-        "fileName": "GA065/12 - NIETZSCHES SEELENLEBEN UND RICHARD WAGNER - ZUR DEUTSCHEN WELTANSCHAUUNGSENTWICKELUNG DER GEGENWART, Berlin, 23. März 1916",
-        "location": "Berlin",
-        "date": "23. März 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "13",
-        "ID": "GA065/13",
-        "title": "DIE UNSTERBLICHKEITSFRAGE UND DIE GEISTESFORSCHUNG",
-        "fileName": "GA065/13 - DIE UNSTERBLICHKEITSFRAGE UND DIE GEISTESFORSCHUNG, Berlin, 24. März 1916",
-        "location": "Berlin",
-        "date": "24. März 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "14",
-        "ID": "GA065/14",
-        "title": "DIE DEUTSCHE SEELE IN IHRER ENTWICKELUNG",
-        "fileName": "GA065/14 - DIE DEUTSCHE SEELE IN IHRER ENTWICKELUNG, Berlin, 13. April 1916",
-        "location": "Berlin",
-        "date": "13. April 1916",
-        "summary": null
-      },
-      {
-        "lectureNumber": "15",
-        "ID": "GA065/15",
-        "title": "LEIB",
-        "fileName": "GA065/15 - LEIB, SEELE UND GEIST IN IHRER ENTWICKELUNG DURCH GEBURT UND TOD UND IHRE STELLUNG IM WELTALL, Berlin, 15. April 1916",
-        "location": "SEELE UND GEIST IN IHRER ENTWICKELUNG DURCH GEBURT UND TOD UND IHRE STELLUNG IM WELTALL",
-        "date": "15. April 1916",
         "summary": null
       }
     ]
@@ -3105,6 +2452,380 @@
         "fileName": "GA054/22 - JAKOB BÖHME, Berlin, 3. Mai 1906",
         "location": "Berlin",
         "date": "3. Mai 1906",
+        "summary": null
+      }
+    ]
+  },
+  "ga064": {
+    "gaNumber": "GA064",
+    "gaTitle": "Aus  schicksaltragender Zeit (1914-1915)",
+    "lectureCount": 14,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA064/1",
+        "title": "GOETHES GEISTESART IN UNSERN SCHICKSALSSCHWEREN TAGEN UND DIE DEUTSCHE KULTUR",
+        "fileName": "GA064/1 - GOETHES GEISTESART IN UNSERN SCHICKSALSSCHWEREN TAGEN UND DIE DEUTSCHE KULTUR, Berlin, 29. Oktober 1914",
+        "location": "Berlin",
+        "date": "29. Oktober 1914",
+        "summary": null
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA064/2",
+        "title": "DAS VOLK SCHILLERS UND FICHTES",
+        "fileName": "GA064/2 - DAS VOLK SCHILLERS UND FICHTES, Berlin, 5. November 1914",
+        "location": "Berlin",
+        "date": "5. November 1914",
+        "summary": "In diesem Vortrag von 1914 ehrt Rudolf Steiner die großen deutschen Geister Schiller und Fichte als spirituelle Vorbilder für die Gegenwart. Er zeigt auf, wie beide nach dem 'höheren Menschen' im Menschen suchten - Schiller durch die ästhetische Erziehung, Fichte durch die Ergreifung der innersten Lebensregungen. Steiner argumentiert, dass derselbe Geist, der in diesen Genien wirkte, auch in den deutschen Soldaten des Ersten Weltkriegs lebt. Er betont, dass echter deutscher Geist nicht national-egoistisch ist, sondern das Allgemein-Menschliche sucht. Anhand von Zeugnissen ausländischer Beobachter wie Emerson verteidigt er die deutsche Kultur gegen den Vorwurf der Barbarei. Der Deutsche hasse nicht andere Nationen, sondern nur den 'Geist der Lüge' - er strebe nach Wahrheit und spiritueller Erkenntnis, die zur modernen Geisteswissenschaft führt."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA064/3",
+        "title": "DIE MENSCHENSEELE IN LEBEN UND TOD",
+        "fileName": "GA064/3 - DIE MENSCHENSEELE IN LEBEN UND TOD, Berlin, 26. November 1914",
+        "location": "Berlin",
+        "date": "26. November 1914",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA064/4",
+        "title": "DIE SEELEN DER VÖLKER",
+        "fileName": "GA064/4 - DIE SEELEN DER VÖLKER, Berlin, 27. November 1914",
+        "location": "Berlin",
+        "date": "27. November 1914",
+        "summary": null
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA064/5",
+        "title": "DIE GERMANISCHE SEELE UND DER DEUTSCHE GEIST",
+        "fileName": "GA064/5 - DIE GERMANISCHE SEELE UND DER DEUTSCHE GEIST, Berlin, 14. Januar 1915",
+        "location": "Berlin",
+        "date": "14. Januar 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA064/6",
+        "title": "GEIST-ERKENNTNIS IN GLÜCKLICHEN UND ERNSTEN STUNDEN DES LEBENS",
+        "fileName": "GA064/6 - GEIST-ERKENNTNIS IN GLÜCKLICHEN UND ERNSTEN STUNDEN DES LEBENS, Berlin, 15. Januar 1915",
+        "location": "Berlin",
+        "date": "15. Januar 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA064/7",
+        "title": "DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES",
+        "fileName": "GA064/7 - DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES, Berlin, 25. Februar 1915",
+        "location": "Berlin",
+        "date": "25. Februar 1915",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA064/7 - DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES, Berlin, 25. Februar 1915\" enthält 142 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA064/8",
+        "title": "WAS IST AM MENSCHENWESEN STERBLICH",
+        "fileName": "GA064/8 - WAS IST AM MENSCHENWESEN STERBLICH, Berlin, 26. Februar 1915",
+        "location": "Berlin",
+        "date": "26. Februar 1915",
+        "summary": "Rudolf Steiner untersucht die Frage nach dem Sterblichen im Menschen durch geisteswissenschaftliche Forschung. Er zeigt auf, dass der Materialismus zu kurz greift, da er nur das Vergängliche erfasst. Durch systematische Schulung des Denkens (Konzentration) und Willens (Schicksalserkenntnis) kann der Mensch sein unsterbliches Wesen außerhalb des physischen Leibes erfahren. Das gewöhnliche Denken und Wollen sind nur Spiegelungen des wahren geistigen Wesens im sterblichen Körper. Die Erinnerung zeigt bereits einen rein geistigen Prozess auf. Steiner betont, dass Geisteswissenschaft nicht im Widerspruch zur Naturwissenschaft steht, sondern diese ergänzt. Er sieht im deutschen Idealismus, besonders bei Goethe, wichtige Keime für eine künftige geistgemäße Weltanschauung, die über den Materialismus hinausführt."
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA064/9",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915",
+        "location": "Berlin",
+        "date": "4. März 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA064/10",
+        "title": "WAS IST AM MENSCHENWESEN UNSTERBLICH",
+        "fileName": "GA064/10 - WAS IST AM MENSCHENWESEN UNSTERBLICH, Nürnberg, 12. März 1915",
+        "location": "Nürnberg",
+        "date": "12. März 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA064/11",
+        "title": "DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS",
+        "fileName": "GA064/11 - DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS, München, 28. November 1915",
+        "location": "München",
+        "date": "28. November 1915",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA064/11 - DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS, München, 28. November 1915\" enthält 97 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA064/12",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS",
+        "fileName": "GA064/12 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 22. April 1915",
+        "location": "Berlin",
+        "date": "22. April 1915",
+        "summary": "Steiner charakterisiert das Weltbild des deutschen Idealismus als einen besonderen Zugang zu den Weltenrätseln, der aus dem innersten Wesen der deutschen Volksseele entspringt. Er kontrastiert diesen mit anderen europäischen Weltanschauungsströmungen: der italienischen (Giordano Bruno) aus der Empfindungsseele, der französischen (Descartes) aus der Verstandes-/Gemütsseele und der britischen (Bacon) aus der Bewusstseinsseele. Der deutsche Idealismus hingegen entspringt dem Ich selbst und strebt nach innerlichem Erleben der Weltgeheimnisse. Während Jakob Böhme ahnungsvoll begann, entwickelten Fichte, Schelling und Hegel systematische Weltbilder im 'Hause' des Bewusstseins. Goethe ging als einziger 'durch das Tor' zum direkten Naturerleben. Steiner sieht den deutschen Idealismus als zeitweise zurückgedrängt durch materialistische Strömungen, hofft aber auf seine Wiederbelebung als lebendige Weltanschauung, die nicht nur betrachtet, sondern erlebt."
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA064/13",
+        "title": "SCHLAF UND TOD VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA064/13 - SCHLAF UND TOD VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 16. April 1915",
+        "location": "Berlin",
+        "date": "16. April 1915",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA064/14",
+        "title": "SELBSTERKENNTNIS UND WELTERKENNTNIS VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT",
+        "fileName": "GA064/14 - SELBSTERKENNTNIS UND WELTERKENNTNIS VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 23. April 1915",
+        "location": "Berlin",
+        "date": "23. April 1915",
+        "summary": "Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag \"GA064/14 - SELBSTERKENNTNIS UND WELTERKENNTNIS VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 23. April 1915\" enthält 54 Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei."
+      }
+    ]
+  },
+  "ga217a": {
+    "gaNumber": "GA217a",
+    "gaTitle": "Die Erkenntnis-Aufgabe der Jugend",
+    "lectureCount": 26,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA217a/1",
+        "title": "EIN WEG ZU FREIER WISSENSCHAFTLICHER ARBEIT",
+        "fileName": "GA217a/1 - EIN WEG ZU FREIER WISSENSCHAFTLICHER ARBEIT, Dornach am 1. Oktober 1920",
+        "location": "Dornach am 1. Oktober 1920",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA217a/2",
+        "title": "DAS MENSCHLICHWERDEN DES WISSENSCHAFTLICHEN LEBENS",
+        "fileName": "GA217a/2 - DAS MENSCHLICHWERDEN DES WISSENSCHAFTLICHEN LEBENS, in Dornach am 16. Oktober 1920",
+        "location": "in Dornach am 16. Oktober 1920",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA217a/3",
+        "title": "ÜBER DIE JUGENDBEWEGUNG",
+        "fileName": "GA217a/3 - ÜBER DIE JUGENDBEWEGUNG, Fragenbeantwortung während der Freien Anthroposophischen Hochschulkurse in Stuttgart am 20. März 1921",
+        "location": "Fragenbeantwortung während der Freien Anthroposophischen Hochschulkurse in Stuttgart am 20. März 1921",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA217a/4",
+        "title": "ZUR FRAGE WIE KANN ANTHROPOSOPHISCHE ARBEIT AN DEN UNIVERSITÄTEN AUFGEBAUT WERDEN",
+        "fileName": "GA217a/4 - ZUR FRAGE WIE KANN ANTHROPOSOPHISCHE ARBEIT AN DEN UNIVERSITÄTEN AUFGEBAUT WERDEN , Dornach, 9. April 1921",
+        "location": "Dornach",
+        "date": "9. April 1921",
+        "summary": null
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA217a/5",
+        "title": "ANTHROPOSOPHIE UND JUGENDBEWEGUNG",
+        "fileName": "GA217a/5 - ANTHROPOSOPHIE UND JUGENDBEWEGUNG, in Stuttgart am 8. September 1921",
+        "location": "in Stuttgart am 8. September 1921",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA217a/6",
+        "title": "DIE ERKENNTNIS-AUFGABE DER AKADEMISCHEN JUGEND",
+        "fileName": "GA217a/6 - DIE ERKENNTNIS-AUFGABE DER AKADEMISCHEN JUGEND, 6. Januar 1923",
+        "location": "6. Januar 1923",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA217a/7",
+        "title": "ÜBER DEN AUSBAU DER ANTHROPOSOPHISCHEN GESELLSCHAFT",
+        "fileName": "GA217a/7 - ÜBER DEN AUSBAU DER ANTHROPOSOPHISCHEN GESELLSCHAFT, in Stuttgart am 8. Februar 1923",
+        "location": "in Stuttgart am 8. Februar 1923",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA217a/8",
+        "title": "DIE DREI HAUPTFRAGEN FÜR DIE ANTHROPOSOPHISCHE JUGENDBEWEGUNG",
+        "fileName": "GA217a/8 - DIE DREI HAUPTFRAGEN FÜR DIE ANTHROPOSOPHISCHE JUGENDBEWEGUNG, Stuttgart am 14. Februar 1923",
+        "location": "Stuttgart am 14. Februar 1923",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA217a/9",
+        "title": "Von der Jugendsektion der Freien Hochschule für Geisteswissenschaft",
+        "fileName": "GA217a/9 - Von der Jugendsektion der Freien Hochschule für Geisteswissenschaft, 24. Februar 1924",
+        "location": "24. Februar 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA217a/10",
+        "title": "VON DER JUGENDSEKTION DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT",
+        "fileName": "GA217a/10 - VON DER JUGENDSEKTION DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Nachrichtenblatt, 9. März 1924",
+        "location": "Nachrichtenblatt",
+        "date": "9. März 1924",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA217a/11",
+        "title": "Nachrichtenblatt II. Was ich den jüngeren Mitgliedern in dieser Sache zu sagen habe",
+        "fileName": "GA217a/11 - Nachrichtenblatt II. Was ich den jüngeren Mitgliedern in dieser Sache zu sagen habe, 16. März 1924",
+        "location": "16. März 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA217a/12",
+        "title": "Nachrichtenblatt III. Was ich Weiteres den jüngeren Mitgliedern zu sagen habe",
+        "fileName": "GA217a/12 - Nachrichtenblatt III. Was ich Weiteres den jüngeren Mitgliedern zu sagen habe, 23. März 1924",
+        "location": "23. März 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA217a/13",
+        "title": "VON DER JUGENDSEKTION DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT",
+        "fileName": "GA217a/13 - VON DER JUGENDSEKTION DER FREIEN HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Nachrichtenblatt, 30. März 1924",
+        "location": "Nachrichtenblatt",
+        "date": "30. März 1924",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA217a/14",
+        "title": "DIE FREIE HOCHSCHULE FÜR GEISTESWISSENSCHAFT",
+        "fileName": "GA217a/14 - DIE FREIE HOCHSCHULE FÜR GEISTESWISSENSCHAFT, Nachrichtenblatt, 6. April 1924",
+        "location": "Nachrichtenblatt",
+        "date": "6. April 1924",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA217a/15",
+        "title": "ÜBER WESEN UND ZIEL DER JUGENDBEWEGUNG",
+        "fileName": "GA217a/15 - ÜBER WESEN UND ZIEL DER JUGENDBEWEGUNG, 22. Juni 1924",
+        "location": "22. Juni 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA217a/16",
+        "title": "DIE WEGE ZU DEN VERLORENGEGANGENEN WIRKSAMEN KRÄFTEN DER NATUR",
+        "fileName": "GA217a/16 - DIE WEGE ZU DEN VERLORENGEGANGENEN WIRKSAMEN KRÄFTEN DER NATUR, 29. Juni 1924",
+        "location": "29. Juni 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "18",
+        "ID": "GA217a/18",
+        "title": "Naturaha non sunt turpia",
+        "fileName": "GA217a/18 - Naturaha non sunt turpia",
+        "location": null,
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "19",
+        "ID": "GA217a/19",
+        "title": "DAS LEBEN DER WELT MUSS IN SEINEN FUNDAMENTEN NEU GEGRÜNDET WERDEN",
+        "fileName": "GA217a/19 - DAS LEBEN DER WELT MUSS IN SEINEN FUNDAMENTEN NEU GEGRÜNDET WERDEN, in Arnheim, 20. Juli 1924",
+        "location": "in Arnheim",
+        "date": "20. Juli 1924",
+        "summary": null
+      },
+      {
+        "lectureNumber": "21",
+        "ID": "GA217a/21",
+        "title": "AN DAS DEUTSCHE VOLK UND AN DIE KULTURWELT!",
+        "fileName": "GA217a/21 - AN DAS DEUTSCHE VOLK UND AN DIE KULTURWELT!",
+        "location": null,
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "23",
+        "ID": "GA217a/23",
+        "title": "AN DIE MITGLIEDER DER ANTHROPOSOPHISCHEN GESELLSCHAFT IN DEUTSCHLAND",
+        "fileName": "GA217a/23 - AN DIE MITGLIEDER DER ANTHROPOSOPHISCHEN GESELLSCHAFT IN DEUTSCHLAND, 13. Februar 1923",
+        "location": "13. Februar 1923",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "24",
+        "ID": "GA217a/24",
+        "title": "BERICHT ÜBER DIE DORNACHER JUGENDANSPRACHE",
+        "fileName": "GA217a/24 - BERICHT ÜBER DIE DORNACHER JUGENDANSPRACHE, 17. MÄRZ 1924",
+        "location": "17. MÄRZ 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "25",
+        "ID": "GA217a/25",
+        "title": "BERICHTE VERSCHIEDENER TEILNEHMER ÜBER DIE STUTTGARTER ANSPRACHE",
+        "fileName": "GA217a/25 - BERICHTE VERSCHIEDENER TEILNEHMER ÜBER DIE STUTTGARTER ANSPRACHE, 11. APRIL 1924",
+        "location": "11. APRIL 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "26",
+        "ID": "GA217a/26",
+        "title": "DIE BRESLAUER JUGENDANSPRACHEN RUDOLF STEINERS",
+        "fileName": "GA217a/26 - DIE BRESLAUER JUGENDANSPRACHEN RUDOLF STEINERS, 6. JUNI 1924",
+        "location": "6. JUNI 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "27",
+        "ID": "GA217a/27",
+        "title": "BERICHTE VERSCHIEDENER TEILNEHMER ÜBER DIE BRESLAUER JUGENDANSPRACHE",
+        "fileName": "GA217a/27 - BERICHTE VERSCHIEDENER TEILNEHMER ÜBER DIE BRESLAUER JUGENDANSPRACHE, 11. JUNI 1924",
+        "location": "11. JUNI 1924",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "29",
+        "ID": "GA217a/29",
+        "title": "Erster Vortrag",
+        "fileName": "GA217a/29 - Erster Vortrag, 13. Oktober 1922",
+        "location": "13. Oktober 1922",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "30",
+        "ID": "GA217a/30",
+        "title": "Zweiter Vortrag",
+        "fileName": "GA217a/30 - Zweiter Vortrag, 15. Oktober 1922",
+        "location": "15. Oktober 1922",
+        "date": "",
         "summary": null
       }
     ]
