@@ -295,12 +295,12 @@
     .sidebar-toggle {
       position: fixed;
       left: 0 !important;
-      top: 70%;
+      top: 9%;
       transform: translateY(-50%);
       width: 14px;
-      height: 40px;
+      height: 35px;
       background: #ffffff;
-      border: 2px solid #467886;
+      border: 1.5px solid #467886;
       border-radius: 0 8px 8px 0;
       border-left: none;
       cursor: pointer;
@@ -424,12 +424,12 @@
     .summary-panel-toggle {
       position: fixed !important;
       right: 0 !important;
-      top: 70%;
+      top: 9%;
       transform: translateY(-50%);
       width: 18px;
-      height: 40px;
+      height: 35px;
       background: #ffffff;
-      border: 2px solid #467886;
+      border: 1.5px solid #467886;
       border-radius: 8px 0 0 8px;
       border-right: none;
       cursor: pointer;
@@ -1219,7 +1219,7 @@
 <div class="tab-buttons">
 <button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
-<button class="tab-button" onclick="switchTab('gesamtausgabe')">Verschiedenes</button>
+<button class="tab-button" onclick="switchTab('gesamtausgabe')">Ergebnisansicht</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -1290,9 +1290,11 @@ GA-Übersicht →
 </div>
 </div>
 <div class="tab-content" id="gesamtausgabe-tab">
-  <select id="gaGesamtausgabe" class="filter-dropdown" style="margin-top: 0.5rem;">
+  <!-- AUSGEBLENDET FÜR SPÄTER: GA-Gesamtausgabe Dropdown -->
+  <select id="gaGesamtausgabe" class="filter-dropdown" style="margin-top: 0.5rem; display: none;">
     <option value="">Bitte wählen…</option>
   </select>
+  <!-- ENDE AUSGEBLENDET -->
 </div>
 </div>
 <div id="note" style="display: none;"></div>
@@ -2604,7 +2606,7 @@ Original
       if (summaryPanel.classList.contains('visible')) {
         summaryPanel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
-        icon.textContent = '<';  // 
+        icon.textContent = '<';
         summaryPanel.style.width = '0';
         summaryPanel.style.minWidth = '0';
         summaryPanel.style.marginRight = '0px';
