@@ -1406,13 +1406,13 @@ Original
         sidebar.classList.remove('collapsed');
         sidebar.style.width = '';
         sidebar.style.minWidth = '';
-        icon.textContent = '◀';
+        icon.textContent = '<';
         setTimeout(updateTogglePosition, 50);
       } else {
         sidebar.classList.add('collapsed');
         sidebar.style.width = '0';
         sidebar.style.minWidth = '0';
-        icon.textContent = '▶';
+        icon.textContent = '>'; 
       }
     }
 
@@ -2088,7 +2088,7 @@ Original
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
-        icon.textContent = '◀';
+        icon.textContent = '<';
         panel.style.width = '0';
         panel.style.minWidth = '0';
         panel.style.marginRight = '';
@@ -2100,7 +2100,7 @@ Original
         
         panel.classList.add('visible');
         resizeHandle.classList.add('visible');
-        icon.textContent = '▶';
+        icon.textContent = '>';
         panel.style.width = '280px';
         panel.style.minWidth = '280px';
         panel.style.marginRight = '0px';
@@ -2274,7 +2274,7 @@ Original
       
       panel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
-      icon.textContent = '◀';
+      icon.textContent = '<';
       panel.style.width = '0';
       panel.style.minWidth = '0';
       panel.style.marginRight = '0px';
@@ -2604,6 +2604,7 @@ Original
       if (summaryPanel.classList.contains('visible')) {
         summaryPanel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
+        icon.textContent = '<';  // 
         summaryPanel.style.width = '0';
         summaryPanel.style.minWidth = '0';
         summaryPanel.style.marginRight = '0px';
