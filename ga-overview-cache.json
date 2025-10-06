@@ -1,74 +1,4 @@
 {
-  "GA066": {
-    "gaNumber": "GA066",
-    "gaTitle": "Geist und Stoff, Leben und Tod (1917)",
-    "lectureCount": 7,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA066/1",
-        "title": "GEIST UND STOFF",
-        "fileName": "GA066/1 - GEIST UND STOFF, LEBEN UND TOD, Berlin, 15. Februar 1917",
-        "location": "LEBEN UND TOD",
-        "date": "15. Februar 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA066/2",
-        "title": "SCHICKSAL UND SEELE",
-        "fileName": "GA066/2 - SCHICKSAL UND SEELE, Berlin, 17. Februar 1917",
-        "location": "Berlin",
-        "date": "17. Februar 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA066/3",
-        "title": "SEELENUNSTERBLICHKEIT",
-        "fileName": "GA066/3 - SEELENUNSTERBLICHKEIT, SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF, Berlin, 1. März 1917",
-        "location": "SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF",
-        "date": "1. März 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA066/4",
-        "title": "MENSCHENSEELE UND MENSCHENLEIB IN NATUR- UND GEISTERKENNTNIS",
-        "fileName": "GA066/4 - MENSCHENSEELE UND MENSCHENLEIB IN NATUR- UND GEISTERKENNTNIS, Berlin, 15. März 1917",
-        "location": "Berlin",
-        "date": "15. März 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA066/5",
-        "title": "SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN",
-        "fileName": "GA066/5 - SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN, Berlin, 17. März 1917",
-        "location": "Berlin",
-        "date": "17. März 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA066/6",
-        "title": "LEBEN",
-        "fileName": "GA066/6 - LEBEN, TOD UND SEELENUNSTERBLICHKEIT IM WELTENALL, Berlin, 22. März 1917",
-        "location": "TOD UND SEELENUNSTERBLICHKEIT IM WELTENALL",
-        "date": "22. März 1917",
-        "summary": null
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA066/7",
-        "title": "DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE",
-        "fileName": "GA066/7 - DAS JENSEITS DER SINNE UND DAS JENSEITS DER SEELE, Berlin, 31. März 1917",
-        "location": "Berlin",
-        "date": "31. März 1917",
-        "summary": "Rudolf Steiner zeigt auf, wie die naturwissenschaftliche Denkweise zwar bewundernswerte Fortschritte erzielt hat, aber den Zugang zur Seelenerkenntnis verstellt. Er kritisiert Eduard von Hartmanns Ansicht, dass Seelenbeobachtung unmöglich sei, da diese das Beobachtete verändere. Steiner argumentiert, dass gerade in den Veränderungen das eigentliche Seelenleben liegt. Er führt aus, dass nur durch Entwicklung eines 'schauenden Bewusstseins' - einer Erweiterung des normalen Bewusstseins - der Mensch zu wahrer Selbsterkenntnis gelangen kann. Dieses schauende Bewusstsein ermöglicht den Zugang sowohl zum 'Jenseits der Seele' als auch zum 'Jenseits der Sinne' und führt in die geistige Wirklichkeit hinein, die hinter den physischen Erscheinungen steht."
-      }
-    ]
-  },
   "GA072": {
     "gaNumber": "GA072",
     "gaTitle": "Freiheit Unsterblichkeit Soziales Leben (1917, 1918)",
@@ -163,238 +93,6 @@
         "location": "SOZIALES UND RELIGIÖSES LEBEN VOM GESICHTSPUNKTE DER ANTHROPOSOPHIE",
         "date": "11. Dezember 1918",
         "summary": null
-      }
-    ]
-  },
-  "ga051": {
-    "gaNumber": "GA051",
-    "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
-    "lectureCount": 25,
-    "lectures": [
-      {
-        "lectureNumber": "1",
-        "ID": "GA051/1",
-        "title": "WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART",
-        "fileName": "GA051/1 - WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART, Berlin, 11. März 1901",
-        "location": "Berlin",
-        "date": "11. März 1901",
-        "summary": "Rudolf Steiner bietet eine umfassende Darstellung der abendländischen Weltanschauungsgeschichte von den griechischen Vorsokratikern bis zur Moderne. Er beginnt mit den ersten Naturphilosophen wie Thales und Heraklit, führt durch die Sophistik und die Philosophie von Sokrates, Platon und Aristoteles. Über die stoischen und epikureischen Schulen gelangt er zum Neuplatonismus und zur christlichen Scholastik. Die Mystik und Renaissance leiten zur neuzeitlichen Philosophie von Descartes bis Kant über, wobei Steiner Kants Trennung von Wissen und Glauben kritisch betrachtet. Den Abschluss bildet die idealistische Philosophie von Fichte, Schelling und Hegel sowie die moderne Naturwissenschaft. Steiner plädiert für eine monistische Weltanschauung, die den Geist als Produkt der Natur versteht und dem Menschen die Verantwortung für seine eigene Sinngebung überträgt."
-      },
-      {
-        "lectureNumber": "2",
-        "ID": "GA051/2",
-        "title": "WILLIAM SHAKESPEARE",
-        "fileName": "GA051/2 - WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902",
-        "location": "Berlin",
-        "date": "6. Mai 1902",
-        "summary": "Rudolf Steiner betrachtet Shakespeare als einen der deutschen Klassiker aufgrund seines enormen Einflusses auf die deutsche Literatur. Er verteidigt die Autorschaft Shakespeares gegen gelehrte Zweifel und betont, dass die Dramen selbst für ihre theaterpraktische Entstehung sprechen. Steiner charakterisiert Shakespeares Werk als Höhepunkt der Charakterdramatik, ermöglicht durch die Renaissance-Wertschätzung der Einzelpersönlichkeit. Anders als bei moralisierenden Dichtern stellt Shakespeare keine abstrakten Ideen oder Schuldfragen dar, sondern lässt Charaktere naturhaft sich entwickeln. Seine praktische Theatererfahrung vom Pferdehalter zum Schauspieler und Theatermitbesitzer ermöglichte bühnenwirksame Gestaltung. Steiner sieht in der Konzentration auf Charakterschilderung statt Ausstattung die zeitlose Wirkungskraft von Shakespeares Dramen begründet."
-      },
-      {
-        "lectureNumber": "3",
-        "ID": "GA051/3",
-        "title": "ÜBER RÖMISCHE GESCHICHTE",
-        "fileName": "GA051/3 - ÜBER RÖMISCHE GESCHICHTE, Berlin, 19. Juli 1904",
-        "location": "Berlin",
-        "date": "19. Juli 1904",
-        "summary": "Rudolf Steiner analysiert die Transformation des römischen Reiches von einer frühen Priesterkönig-Herrschaft über die Republik zur Kaiserzeit. Er zeigt auf, wie sich das ursprünglich auf Bürgertugend und persönlichem Vertrauen basierende römische System zu einem abstrakten Dogmen- und Rechtssystem entwickelte. Parallel dazu schildert er die Ausbreitung des Christentums von Osten und den Druck der Germanen von Norden. Das ursprünglich lebendige Christentum wurde in die starren römischen Staatsformen eingegossen und dadurch zu einer politischen Macht umgewandelt. Steiner betont, dass die äußeren römischen Strukturen das Reich überdauerten und sowohl das römische Recht als auch die hierarchische Kirchenorganisation bis in die Gegenwart prägten."
-      },
-      {
-        "lectureNumber": "4",
-        "ID": "GA051/4",
-        "title": "ERSTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/4 - ERSTER VORTRAG GESCHICHTE DES MITTELALTERS, 18. Oktober 1904",
-        "location": "18. Oktober 1904",
-        "date": "",
-        "summary": "In diesem Vortrag analysiert Rudolf Steiner die Entwicklung des Mittelalters als entscheidenden Übergang zur modernen Freiheitsidee. Er unterscheidet drei Völkergruppen - Kelten, Germanen und Slawen - und zeigt deren charakteristische Eigenschaften auf. Während Griechen und Römer ihren Volkscharakter nach bzw. während Eroberungen prägten, bildeten die Germanen ihre Wesensart vor den großen Kämpfen aus. Das führte zu einem besonderen Rechtsbewusstsein und zur Entstehung der Städtekultur im 11. Jahrhundert. Steiner betont das germanische Ideal der freien Persönlichkeit und den reformatorischen Geist, der sich in religiösen Bewegungen manifestierte. Das Mittelalter erscheint nicht als finstere Zeit, sondern als Epoche, in der sich das Freiheitsbewusstsein entwickelte - ein Prozess, der von rechtlicher über physische zu ökonomischer Befreiung führt und letztendlich die geistige Befreiung der Menschheit anstrebt."
-      },
-      {
-        "lectureNumber": "5",
-        "ID": "GA051/5",
-        "title": "ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/5 - ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS, 25. Oktober 1904",
-        "location": "25. Oktober 1904",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert die germanischen Völker von der Zeitenwende bis zum 6. Jahrhundert n.Chr. und ihre Verwandtschaft mit anderen indogermanischen Völkern. Er zeigt auf, wie die Germanen ursprüngliche kulturelle Eigenschaften bewahrten, während verwandte Völker wie Griechen und Römer bereits höhere Kulturstufen erreichten. Zentral ist der Unterschied zwischen arianischen und athanasischen Christen, wobei die Goten eine tolerante, arianische Form des Christentums praktizierten. Die Völkerwanderung führte zum Übergang von Stammes- zu Dorfgemeinschaften und veränderte die Eigentumsverhältnisse grundlegend. Steiner beschreibt die religiöse Entwicklung von primitiven Göttervorstellungen hin zum komplexeren Wotansdienst als Ausdruck höherer Kulturstufen und zeigt, wie äußere Einflüsse südlicher Kulturen die germanische Entwicklung prägten."
-      },
-      {
-        "lectureNumber": "6",
-        "ID": "GA051/6",
-        "title": "DRITTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/6 - DRITTER VORTRAG GESCHICHTE DES MITTELALTERS, 1. November 1904",
-        "location": "1. November 1904",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert die Völkerwanderung des 5. Jahrhunderts und deren kulturelle Folgen. Er zeigt auf, wie germanische Stämme wie Westgoten und Vandalen das römische Reich durchdrangen, aber meist schnell wieder verschwanden, weil sie sich in bereits bestehende Kulturverhältnisse hineindrängten. Nur die Franken konnten sich dauerhaft etablieren, da sie in Gallien freie, noch zu rodende Gebiete vorfanden. Dies ermöglichte die Entstehung des Lehnswesens und einer eigenständigen christlichen Kultur, die durch keltische Mönche bereichert wurde. Das fränkische Christentum entwickelte sich zunächst frei von materiellen Zwängen, geriet aber später unter Karl dem Großen in Widerspruch zu seinen geistigen Grundlagen, was zur Entstehung der freien Städte führte."
-      },
-      {
-        "lectureNumber": "7",
-        "ID": "GA051/7",
-        "title": "VIERTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/7 - VIERTER VORTRAG GESCHICHTE DES MITTELALTERS, 8. November 1904",
-        "location": "8. November 1904",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert die Entwicklung des Mittelalters als sprunghafte, nicht graduelle Entwicklung mit zwei entscheidenden Einschnitten: der Entstehung freier Städte (11./12. Jahrhundert) und den großen Erfindungen und Entdeckungen am Ende des Mittelalters. Er erklärt, wie sich bei den Franken aus Großgrundbesitz Machtverhältnisse entwickelten, die zu neuen Rechtssystemen führten. Das Christentum passte sich dem Germanentum an, während gleichzeitig römischer Einfluss wuchs. Ein entscheidender Wendepunkt war der Einfluss der arabischen Kultur, die über Spanien wissenschaftliche Erkenntnisse nach Europa brachte. Diese drei Strömungen - germanische Macht, christliche Moral und arabische Wissenschaft - führten zu den großen Spannungen und Kämpfen des Mittelalters."
-      },
-      {
-        "lectureNumber": "8",
-        "ID": "GA051/8",
-        "title": "FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/8 - FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS, 15. November 1904",
-        "location": "15. November 1904",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert das Mittelalter vom 8.-12. Jahrhundert und zeigt, dass Karl der Große weniger als Eroberer, sondern als Ausdruck tieferer gesellschaftlicher Wandlungen zu verstehen ist. Er beschreibt die Entstehung der Frankenherrschaft aus privatrechtlichen Verhältnissen heraus, wo Großgrundbesitz und Kirche Hand in Hand gingen. Während die materielle Kultur sich entwickelte, blieb die geistige Bildung auf wenige Mönche beschränkt, die jedoch durch die Scholastik eine strenge logische Denkschulung entwickelten. Die zunehmende Abhängigkeit der Bauern von weltlichen und geistlichen Grundherren führte zur Unzufriedenheit und schließlich zur Entstehung der Städte als Ausdruck des Freiheitsdrangs. Steiner sieht in der Städtebildung einen entscheidenden Schritt auf dem Weg zur menschlichen Befreiung."
-      },
-      {
-        "lectureNumber": "9",
-        "ID": "GA051/9",
-        "title": "SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/9 - SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS, 6. Dezember 1904",
-        "location": "6. Dezember 1904",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt die Entwicklung des Mittelalters als einen entscheidenden Übergang von einfachen Stammesgemeinschaften zu komplexen staatlichen Strukturen. Germanische Völkerschaften, die ursprünglich nur Jagd und Kriegführung kannten, begegneten dem römischen Rechtssystem und dem Christentum. Die Transformation von blutsverwandtschaftlichen Stammesverbänden zu territorialen Dorfgemeinschaften bildete die Grundlage für die Entstehung des Feudalismus. Das Christentum brachte moralische Bildung, während die Klosterschulen mit den sieben freien Künsten das Bildungswesen prägten. Besonders im Frankenreich entwickelte sich eine Verbindung von weltlicher und kirchlicher Macht, die schließlich zum Konflikt zwischen Kaiser und Papst führte. Steiner betont, dass dieser Kampf nicht zwischen geistlicher und weltlicher Macht stattfand, sondern zwischen zwei rivalisierenden Machtrichtungen um äußere Herrschaft."
-      },
-      {
-        "lectureNumber": "10",
-        "ID": "GA051/10",
-        "title": "SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/10 - SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, 13. Dezember 1904",
-        "location": "13. Dezember 1904",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert die mittelalterliche Entwicklung vom 8. bis 11. Jahrhundert, insbesondere den Gegensatz zwischen West- und Ostreich. Während im Westreich die römische Kultur nachwirkte und die Kirche durch Großgrundbesitz zur Macht gelangte, blieb im Ostreich das germanische Unabhängigkeitsgefühl bestehen. Die Stammesherzöge widerstand den Königen, bis äußere Bedrohungen wie die Magyaren einen Zusammenschluss erzwangen. Parallel entwickelte sich ein neuer Handwerker- und Städtestand. Entscheidend war die zunehmende Durchdringung der Volksseele mit christlichem Glauben, verstärkt durch orientalische Einflüsse wie den Marienkultus. Dies führte zur Macht der Kirche, zu Reformbewegungen wie Cluny und schließlich zum Investiturstreit zwischen Kaiser und Papst. Steiner zeigt, wie diese religiöse Durchdringung die Voraussetzung für die späteren Kreuzzüge schuf."
-      },
-      {
-        "lectureNumber": "11",
-        "ID": "GA051/11",
-        "title": "ACHTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/11 - ACHTER VORTRAG GESCHICHTE DES MITTELALTERS, 20. Dezember 1904",
-        "location": "20. Dezember 1904",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt die mittelalterliche Entwicklung vom 11. bis 14. Jahrhundert. Er zeigt auf, wie aus dem Zerfall der Stammesherzöge durch Heinrich III. ein einheitliches Reich entstand, während sich der Ritterstand durch die Kämpfe zwischen Kaiser und Papst etablierte. Die Kreuzzüge entstanden aus religiöser Schwärmerei und materieller Not, führten aber zu wichtigem kulturellen Austausch mit dem Orient und zur Entstehung wahrer Wissenschaft. Steiner beschreibt die scholastische Kontroverse zwischen Realismus und Nominalismus sowie das Aufblühen der Städtekultur mit freiem Bürgertum und Zunftwesen. Während das Rittertum in leeres Hofleben verfiel, entwickelte sich in den Städten eine reiche Kultur. Als Reaktion auf den verweltlichten Klerus entstand die deutsche Mystik mit Eckhart und Tauler, die die deutsche Sprache veredelte."
-      },
-      {
-        "lectureNumber": "12",
-        "ID": "GA051/12",
-        "title": "NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/12 - NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS, 28. Dezember 1904",
-        "location": "28. Dezember 1904",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt die Entwicklung des städtischen Lebens im Spätmittelalter. Er zeigt auf, wie sich aus der Bedrückung der Landleute und der Ausbreitung des Handels die Städte entwickelten, die zunächst von Patriziern beherrscht wurden. Im 13./14. Jahrhundert erkämpften sich die Zünfte Gleichberechtigung und es entstanden demokratische Strukturen. Die Städte bildeten mächtige Bündnisse wie die Hansa und wurden zu Zentren einer neuen materiellen und geistigen Kultur. Parallel dazu entwickelte sich eine tiefe religiöse Innerlichkeit, die sich in der Mystik und gotischen Baukunst ausdrückte. Die Kreuzzüge entstanden aus dem Konflikt zwischen Ketzerbewegungen und Rom. Ritterorden wie die Tempelherren verfolgten antirömische Ziele. Während die kaiserliche Macht verfiel, bereiteten städtische Kultur und religiöse Erneuerungsbewegungen den Übergang zur Neuzeit vor."
-      },
-      {
-        "lectureNumber": "13",
-        "ID": "GA051/13",
-        "title": "ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS",
-        "fileName": "GA051/13 - ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS, 29. Dezember 1904",
-        "location": "29. Dezember 1904",
-        "date": "",
-        "summary": "Rudolf Steiner beschreibt den Übergang vom Mittelalter zur Neuzeit im 15. Jahrhundert. Die alten Feudalstrukturen wandeln sich zu neuen Fürstenmächten, die durch Heiratspolitik und private Interessen ihre Hausmacht ausbauen. Gleichzeitig entsteht eine religiöse Reformbewegung (Waldenser, Hussiten), die echte spirituelle Erneuerung anstrebt, aber von den Machthabern unterdrückt wird. Das aufkommende Bürgertum und die Städtekultur fördern Bildung und Buchdruckerkunst. Die türkischen Eroberungen führen zur Flucht griechischer Gelehrter nach Europa (Renaissance) und zwingen zur Suche neuer Handelswege, was zu den großen Entdeckungen führt. Diese Faktoren - Verweltlichung der Kultur, neue Staatsmächte und geographische Erweiterung - schaffen die Grundlagen der Neuzeit."
-      },
-      {
-        "lectureNumber": "14",
-        "ID": "GA051/14",
-        "title": "ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
-        "fileName": "GA051/14 - ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 29. Oktober 1904",
-        "location": "29. Oktober 1904",
-        "date": "",
-        "summary": "Rudolf Steiner erläutert die christliche Mystik als 'Mathesis' - eine universelle Welterkenntnis nach mathematischem Vorbild. Er zeigt, wie der Mystiker den schaffenden Weltgeist in drei Aspekten erfasst: als unbewegten Beweger (Vater), als Logos/Wort (das Strebende) und als gestaltenden Heiligen Geist. Parallel dazu erkennt die menschliche Seele drei Aspekte in sich: Vater (Empfindung), Mutter (empfangende Seele) und Sohn (Selbstbewusstsein). Wenn der Mensch das ganze Universum aus seiner Seele gebiert, entsteht der 'Christus im Menschen'. Diese Dreiheitsstruktur findet sich bereits in altägyptischen Mysterien (Osiris, Isis, Horus) und führt bei Meister Eckhart zur mystischen Erkenntnis, dass Gott sich durch den Menschen selbst anschaut."
-      },
-      {
-        "lectureNumber": "15",
-        "ID": "GA051/15",
-        "title": "ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
-        "fileName": "GA051/15 - ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 5. November 1904",
-        "location": "5. November 1904",
-        "date": "",
-        "summary": "Rudolf Steiner erläutert die platonische Mystik des Mittelalters, die auf der Dreiteilung von Mensch und Universum basiert. Der Mystiker erlebt das Universum in seiner Seele und unterscheidet drei Prinzipien: Weltgedanke, Materie und Kraft. Durch Katharsis (Reinigung) von äußeren Empfindungen erreicht die jungfräuliche Seele die Henosis (Vereinigung) mit dem Göttlichen. Die unbefleckte Empfängnis der Idee lässt den Christus-Logos in der Seele auferstehen. Meister Eckhart lehrte das Aufleben des göttlichen Fünkleins, während Johannes Tauler das mystische Leben verkörperte. Der Gottesfreund aus dem Oberland verwandelte Tauler, sodass göttliche Weisheit durch ihn strömte. Die Mystiker erleben die Sphärenmusik der geistigen Welt und werden zu Vermittlern zwischen Gott und Welt."
-      },
-      {
-        "lectureNumber": "16",
-        "ID": "GA051/16",
-        "title": "DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
-        "fileName": "GA051/16 - DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 12. November 1904",
-        "location": "12. November 1904",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt in diesem Vortrag das Leben und Werk des Nikolaus von Kues (1401-1464), einen der bedeutendsten Mystiker und Gelehrten des Mittelalters. Der Kusaner verband scholastische Gelehrtheit mit mystischer Erfahrung und entwickelte das Konzept der 'Docta ignorantia' - der gelehrten Unwissenheit als Weg zu höherer Erkenntnis. Steiner erläutert drei Stufen der Erkenntnis: das gewöhnliche Wissen, die mystische Beseligung im Äonenlicht (Pleroma) und die Vergottung durch Vereinigung mit dem kosmischen Weltgedanken (Sphärenharmonie). Diese entsprechen den vedischen Begriffen Chit, Ananda und Sat. Der Kusaner wird als Höhepunkt mittelalterlicher Mystik dargestellt, der wissenschaftliche Klarheit mit mystischer Tiefe verband."
-      },
-      {
-        "lectureNumber": "17",
-        "ID": "GA051/17",
-        "title": "ERSTER VORTRAG",
-        "fileName": "GA051/17 - ERSTER VORTRAG, 21. Januar 1905, Schillers Leben und Eigenart",
-        "location": "21. Januar 1905",
-        "date": "",
-        "summary": "Rudolf Steiner betrachtet Schillers Bedeutung hundert Jahre nach dessen Tod im Kontext der veränderten Zeit. Während die Schiller-Goethe-Zeit noch von ästhetischer Kultur geprägt war, beschäftigen uns heute politische und soziale Fragen. Steiner analysiert Schillers Entwicklung aus zwei Strömungen: dem aufkommenden Materialismus und dem Persönlichkeits-Freiheitsdrang des 18. Jahrhunderts. Schillers Grundfrage - wie sich die freie Seele zur physischen Welt verhält - durchzog sein ganzes Leben. Seine Lösung fand er in der ästhetischen Erziehung: Im Schönen vereinen sich Sinnlichkeit und Geist im Reich der Freiheit. Anders als heute sollte Kunst damals unmittelbar das kulturelle Leben prägen und den Menschen zur Harmonie erziehen."
-      },
-      {
-        "lectureNumber": "18",
-        "ID": "GA051/18",
-        "title": "ZWEITER VORTRAG",
-        "fileName": "GA051/18 - ZWEITER VORTRAG, 28. Januar 1905, Schillers Schaffen und seine Wandlungen",
-        "location": "28. Januar 1905",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert Schillers geistige Entwicklung von den revolutionären Jugenddramen bis zur Freundschaft mit Goethe. Schiller wuchs aus den Emanzipationsidealen des 18. Jahrhunderts heraus und rang mit dem Dualismus zwischen Natur und moralischen Forderungen. In seinen frühen Werken ('Räuber', 'Fiesco', 'Kabale und Liebe') drückte er den Konflikt zwischen objektiver Ordnung und menschlichen Idealen aus. Durch die Begegnung mit Kants Philosophie vertiefte sich zunächst seine dualistische Weltanschauung ('Don Carlos'). Schiller wurde jedoch zum Reformator des Kantianismus, indem er über den kategorischen Imperativ hinauswuchs und im Ästhetischen die Einheit zwischen Natur und Sittlichkeit fand. Diese Entwicklung führte ihn zur Versöhnung mit Goethes monistischer Weltanschauung und zu ihrer fruchtbaren Freundschaft, die ein neues geistiges Wesen hervorbrachte."
-      },
-      {
-        "lectureNumber": "19",
-        "ID": "GA051/19",
-        "title": "DRITTER VORTRAG",
-        "fileName": "GA051/19 - DRITTER VORTRAG, 4. Februar 1905, Schiller und Goethe",
-        "location": "4. Februar 1905",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt die einzigartige Freundschaft zwischen Goethe und Schiller, die aus grundverschiedenen geistigen Ausgangspunkten erwuchs. Goethe kam von Herder und der Einheit von Geist und Natur, Schiller von Kant und dem Dualismus. Zunächst verstanden sie sich nicht - Schiller sah die Natur als niedrig, das Ideal als geistig-abstrakt. Der Wendepunkt kam 1794 durch ein Gespräch über Goethes Urpflanze, wo ihre unterschiedlichen Weltanschauungen aufeinanderprallten. Schillers Größe zeigte sich in seiner neidlosen Anerkennung von Goethes Genius. Ihre Freundschaft wurde weltbedeutend durch gegenseitige geistige Befruchtung - Schiller entwickelte seine Theorie der naiven und sentimentalen Kunst, beide wirkten durch das Schöne auf die Wirklichkeit ein. Trotz Anfeindungen von außen blieb ihre im Geistigen ruhende Freundschaft unanfechtbar."
-      },
-      {
-        "lectureNumber": "20",
-        "ID": "GA051/20",
-        "title": "VIERTER VORTRAG",
-        "fileName": "GA051/20 - VIERTER VORTRAG, 11. Februar 1905, Schillers Weltanschauung und sein Wallenstein",
-        "location": "11. Februar 1905",
-        "date": "",
-        "summary": "Steiner analysiert Schillers Weltanschauung als einen Prozess fortwährender Entwicklung und Vertiefung. Im Gegensatz zu kleineren Geistern rang Schiller zeitlebens um die großen Welträtsel, was sich in seiner dialogischen Art und seinem Streben nach Wahrheit zeigte. Durch philosophische Studien, besonders Kants, entwickelte er seine Anschauungen vom Welträtsel zum Menschenrätsel weiter. Zentral wurde das Problem der Freiheit: Wie kann der Mensch zwischen Naturnotwendigkeit und Vernunftnotwendigkeit zur Harmonie finden? Schillers Lösung war die ästhetische Erziehung, die beide Bereiche versöhnt. Im 'Wallenstein' gestaltete er dichterisch sein ureigenes Problem - die tragische Spannung zwischen menschlichem Streben nach Erkenntnis und den unlösbaren Rätseln des Schicksals, die erst am Ende aller Entwicklung gelöst werden können."
-      },
-      {
-        "lectureNumber": "21",
-        "ID": "GA051/21",
-        "title": "FÜNFTER VORTRAG",
-        "fileName": "GA051/21 - FÜNFTER VORTRAG, 18. Februar 1905, Schiller, das griechische Drama und Nietzsche",
-        "location": "18. Februar 1905",
-        "date": "",
-        "summary": "Steiner analysiert Schillers künstlerische Entwicklung, insbesondere seine Wendung zur überpersönlichen Kunst im 'Wallenstein'. Schiller überwindet die moralische Beurteilung seiner frühen Werke und strebt eine reine Künstlerschaft an, in der nicht mehr Sympathie oder Antipathie, sondern objektive Darstellung herrscht. Er orientiert sich am griechischen Drama, wo das Schicksal über der Persönlichkeit steht. Im 'Wallenstein' wird der Held von überpersönlichen Kräften gelenkt, die durch die Sterne symbolisiert werden. In späteren Werken wie 'Maria Stuart' und der 'Braut von Messina' verstärkt Schiller diese schicksalhafte Dimension. Steiner verbindet dies mit Nietzsches Theorie der Tragödie aus dem Geist der Musik und sieht in Schiller einen Vorläufer Wagners. Schiller wird als Prophet einer künftigen Kunst dargestellt, die zu den religiös-mystischen Urquellen zurückführt."
-      },
-      {
-        "lectureNumber": "22",
-        "ID": "GA051/22",
-        "title": "SECHSTER VORTRAG",
-        "fileName": "GA051/22 - SECHSTER VORTRAG, 25. Februar 1905, Schillers spätere Dramen",
-        "location": "25. Februar 1905",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert Schillers späte Dramen als fortschreitende Versuche, das dramatische Problem zu lösen. In der 'Jungfrau von Orleans' erkundet Schiller dunkle Seelenkräfte und dämonische Einflüsse. Die 'Braut von Messina' greift auf das antike Mysteriendrama zurück, wobei Schiller das musikalische Element wieder einführt - eine Richtung, die später Wagner aufnahm. Im 'Tell' zeigt er das Zusammentreffen von persönlicher Leidenschaft mit allgemeinen Idealen. Der unvollendete 'Demetrius' hätte das tiefste psychologische Drama werden können, indem er die Identitätskrise einer Persönlichkeit darstellt. Schiller symbolisiert Menschen als Repräsentanten der Gattung und entwickelt eine Symphonie von Charakteren. Sein Idealismus wirkt als erhebende Kraft im deutschen Geistesleben fort."
-      },
-      {
-        "lectureNumber": "23",
-        "ID": "GA051/23",
-        "title": "SIEBENTER VORTRAG",
-        "fileName": "GA051/23 - SIEBENTER VORTRAG, 4. März 1905, Schillers Wirkungen im 19. Jahrhundert",
-        "location": "4. März 1905",
-        "date": "",
-        "summary": "Rudolf Steiner behandelt Schillers Wirkung auf das 19. Jahrhundert, die sich zunächst gegen starken Widerstand durchsetzen musste. Die Romantiker lehnten Schiller ab und kritisierten seine ethische Haltung als spießbürgerlich, bevorzugten stattdessen Goethes 'Wilhelm Meister'. Trotz dieser Opposition eroberte Schiller langsam die Herzen der Nation, besonders der Jugend. Seine hundertjährige Geburtstagsfeier 1859 markierte seinen endgültigen Durchbruch. Paradoxerweise erschienen im selben Jahr Werke wie Darwins 'Abstammung der Arten' und Marx' 'Kritik der politischen Ökonomie', die den Idealismus in Frage stellten. Steiner charakterisiert die deutschen Klassiker als von ihrer Zeit abgesondert, im Gegensatz zu Homer oder Shakespeare, die organisch mit ihrer Epoche verbunden waren. Diese Distanz führte zu einer abstrakten Kunstbetrachtung, die jedoch paradoxerweise zur Assimilation fremder Kulturen durch die Romantik beitrug."
-      },
-      {
-        "lectureNumber": "24",
-        "ID": "GA051/24",
-        "title": "ACHTER VORTRAG",
-        "fileName": "GA051/24 - ACHTER VORTRAG, 5. März 1905, Was kann die Gegenwart von Schiller lernen",
-        "location": "5. März 1905",
-        "date": "",
-        "summary": "Rudolf Steiner analysiert das veränderte Verhältnis der Gegenwart zu Schiller. Er erklärt, wie der aufkommende Materialismus und die Naturwissenschaft des 19. Jahrhunderts eine Kluft zu Schillers idealistischer Weltanschauung geschaffen haben. Für Schiller war das Schöne eine Gestaltung der Idee und das Wahre lag in geistigen Gesetzen, nicht im Sinnlich-Fassbaren. Steiner kritisiert den oberflächlichen Materialismus seiner Zeit und zeigt auf, wie Schillers Freiheitsideal - die innere Befreiung des Menschen durch Harmonie von Geist und Sinnlichkeit - der Gegenwart fehlt. Er fordert eine Rückbesinnung auf Schillers Kunstverständnis als Weg zur geistigen Wirklichkeit und zur wahren menschlichen Freiheit, die über politische und ökonomische Befreiung hinausgeht."
-      },
-      {
-        "lectureNumber": "25",
-        "ID": "GA051/25",
-        "title": "NEUNTER VORTRAG",
-        "fileName": "GA051/25 - NEUNTER VORTRAG, 25. März 1905, Schiller und der Idealismus",
-        "location": "25. März 1905",
-        "date": "",
-        "summary": "Rudolf Steiner beleuchtet Schillers zentrale Rolle in der deutschen Ästhetik und seinem Streben nach Versöhnung von Sinnlichkeit und Sittlichkeit. Er zeigt auf, wie die Ästhetik als Wissenschaft erst im 18. Jahrhundert entstand und Schiller über Kant hinausging, indem er das Schöne als Brücke zwischen Göttlichem und Sinnlichem erkannte. Steiner erklärt die griechische Katharsis als religiöse Läuterung durch göttliche Vorbilder und beschreibt Schillers Sehnsucht, diese verlorene Einheit wiederzufinden. Im 'Geisterseher' warnt Schiller vor den Gefahren, das Geistige im Äußeren statt in der eigenen Seele zu suchen. Schillers Idealismus zielt auf einen geistdurchdrungenen Realismus ab, wo das Schöne das würdige Material des Geistigen wird und der Künstler sich über das Gemeine zur Anschauung des Geistigen erhebt."
       }
     ]
   },
@@ -2337,6 +2035,238 @@
         "fileName": "GA311/8 - FRAGENBEANTWORTUNG, Torquay, 20. August 1924",
         "location": "Torquay",
         "date": "20. August 1924",
+        "summary": null
+      }
+    ]
+  },
+  "ga051": {
+    "gaNumber": "GA051",
+    "gaTitle": "Über Philosophie, Geschichte und Literatur (1901-1905)",
+    "lectureCount": 25,
+    "lectures": [
+      {
+        "lectureNumber": "1",
+        "ID": "GA051/1",
+        "title": "WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART",
+        "fileName": "GA051/1 - WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN BIS ZUR GEGENWART, Berlin, 11. März 1901",
+        "location": "Berlin",
+        "date": "11. März 1901",
+        "summary": "Rudolf Steiner skizziert die Entwicklung der abendländischen Weltanschauungen von den griechischen Anfängen bis zur Gegenwart. Er zeigt auf, wie sich das Denken von religiösen zu wissenschaftlichen Vorstellungen entwickelte, beginnend mit den frühen griechischen Naturphilosophen wie Thales und Heraklit. Über die Sophistik und Sokrates führt der Weg zu Platon und Aristoteles, die das Fundament für spätere Entwicklungen legten. Das Mittelalter brachte die Dominanz der Offenbarung über die Vernunft, bis in der Neuzeit mit Descartes ein neuer Anlauf zur rationalen Weltbetrachtung begann. Kant versuchte Wissen und Glauben zu trennen, während deutsche Idealisten wie Fichte, Schelling und Hegel das Denken wieder in den Mittelpunkt stellten. Steiner sieht in der modernen naturwissenschaftlichen Weltanschauung, die den Menschen aus der Natur hervorgehen lässt, ohne ihn als göttliches Wesen vorauszusetzen, den Weg zu wahrer geistiger Freiheit. Der befreite Mensch gibt sich selbst Sinn und Zweck seines Daseins."
+      },
+      {
+        "lectureNumber": "2",
+        "ID": "GA051/2",
+        "title": "WILLIAM SHAKESPEARE",
+        "fileName": "GA051/2 - WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902",
+        "location": "Berlin",
+        "date": "6. Mai 1902",
+        "summary": "Rudolf Steiner würdigt Shakespeare als praktischen Theatermann und Charakterdramatiker. Er verteidigt Shakespeares Autorschaft gegen die Bacon-Hypothese und betont, dass die Dramen von einem bühnenerfahrenen Schauspieler stammen müssen. Shakespeare schuf keine Ideendramen, sondern stellte individuelle Charaktere dar - eine Kunst, die erst durch die Renaissance und deren Betonung der Einzelpersönlichkeit möglich wurde. Seine Stärke lag nicht in moralischen Botschaften oder Schuld-Sühne-Konzepten, sondern in der naturgetreuen Entwicklung menschlicher Charaktere. Steiner schildert Shakespeares Lebensweg vom Pferdehüter zum erfolgreichen Theaterdichter und hebt hervor, dass seine Dramen auch bei schlechter Aufführung wirken, da sie primär für die Bühne konzipiert wurden und nicht auf äußerliches Beiwerk angewiesen sind."
+      },
+      {
+        "lectureNumber": "3",
+        "ID": "GA051/3",
+        "title": "ÜBER RÖMISCHE GESCHICHTE",
+        "fileName": "GA051/3 - ÜBER RÖMISCHE GESCHICHTE, Berlin, 19. Juli 1904",
+        "location": "Berlin",
+        "date": "19. Juli 1904",
+        "summary": null
+      },
+      {
+        "lectureNumber": "4",
+        "ID": "GA051/4",
+        "title": "ERSTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/4 - ERSTER VORTRAG GESCHICHTE DES MITTELALTERS, 18. Oktober 1904",
+        "location": "18. Oktober 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "5",
+        "ID": "GA051/5",
+        "title": "ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/5 - ZWEITER VORTRAG GESCHICHTE DES MITTELALTERS, 25. Oktober 1904",
+        "location": "25. Oktober 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "6",
+        "ID": "GA051/6",
+        "title": "DRITTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/6 - DRITTER VORTRAG GESCHICHTE DES MITTELALTERS, 1. November 1904",
+        "location": "1. November 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "7",
+        "ID": "GA051/7",
+        "title": "VIERTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/7 - VIERTER VORTRAG GESCHICHTE DES MITTELALTERS, 8. November 1904",
+        "location": "8. November 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "8",
+        "ID": "GA051/8",
+        "title": "FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/8 - FÜNFTER VORTRAG GESCHICHTE DES MITTELALTERS, 15. November 1904",
+        "location": "15. November 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "9",
+        "ID": "GA051/9",
+        "title": "SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/9 - SECHSTER VORTRAG GESCHICHTE DES MITTELALTERS, 6. Dezember 1904",
+        "location": "6. Dezember 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "10",
+        "ID": "GA051/10",
+        "title": "SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/10 - SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, 13. Dezember 1904",
+        "location": "13. Dezember 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "11",
+        "ID": "GA051/11",
+        "title": "ACHTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/11 - ACHTER VORTRAG GESCHICHTE DES MITTELALTERS, 20. Dezember 1904",
+        "location": "20. Dezember 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "12",
+        "ID": "GA051/12",
+        "title": "NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/12 - NEUNTER VORTRAG GESCHICHTE DES MITTELALTERS, 28. Dezember 1904",
+        "location": "28. Dezember 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "13",
+        "ID": "GA051/13",
+        "title": "ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS",
+        "fileName": "GA051/13 - ZEHNTER VORTRAG GESCHICHTE DES MITTELALTERS, 29. Dezember 1904",
+        "location": "29. Dezember 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "14",
+        "ID": "GA051/14",
+        "title": "ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/14 - ERSTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 29. Oktober 1904",
+        "location": "29. Oktober 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "15",
+        "ID": "GA051/15",
+        "title": "ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/15 - ZWEITER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 5. November 1904",
+        "location": "5. November 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "16",
+        "ID": "GA051/16",
+        "title": "DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA",
+        "fileName": "GA051/16 - DRITTER VORTRAG PLATONISCHE MYSTIK UND DOCTA IGNORANTIA, 12. November 1904",
+        "location": "12. November 1904",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "17",
+        "ID": "GA051/17",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA051/17 - ERSTER VORTRAG, 21. Januar 1905, Schillers Leben und Eigenart",
+        "location": "21. Januar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "18",
+        "ID": "GA051/18",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA051/18 - ZWEITER VORTRAG, 28. Januar 1905, Schillers Schaffen und seine Wandlungen",
+        "location": "28. Januar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "19",
+        "ID": "GA051/19",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA051/19 - DRITTER VORTRAG, 4. Februar 1905, Schiller und Goethe",
+        "location": "4. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "20",
+        "ID": "GA051/20",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA051/20 - VIERTER VORTRAG, 11. Februar 1905, Schillers Weltanschauung und sein Wallenstein",
+        "location": "11. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "21",
+        "ID": "GA051/21",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA051/21 - FÜNFTER VORTRAG, 18. Februar 1905, Schiller, das griechische Drama und Nietzsche",
+        "location": "18. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "22",
+        "ID": "GA051/22",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA051/22 - SECHSTER VORTRAG, 25. Februar 1905, Schillers spätere Dramen",
+        "location": "25. Februar 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "23",
+        "ID": "GA051/23",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA051/23 - SIEBENTER VORTRAG, 4. März 1905, Schillers Wirkungen im 19. Jahrhundert",
+        "location": "4. März 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "24",
+        "ID": "GA051/24",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA051/24 - ACHTER VORTRAG, 5. März 1905, Was kann die Gegenwart von Schiller lernen",
+        "location": "5. März 1905",
+        "date": "",
+        "summary": null
+      },
+      {
+        "lectureNumber": "25",
+        "ID": "GA051/25",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA051/25 - NEUNTER VORTRAG, 25. März 1905, Schiller und der Idealismus",
+        "location": "25. März 1905",
+        "date": "",
         "summary": null
       }
     ]
