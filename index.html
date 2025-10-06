@@ -2700,23 +2700,29 @@ if (summaryData.exists && summaryData.summary) {
           console.log('Keine Zusammenfassung vorhanden, zeige Original:', summaryError.message);
         }
         
-        currentLectureSummary = null;
-        showingSummaryInMain = false;
         
-        let displayKeywords = keywords;
-        if (!displayKeywords || displayKeywords.length === 0) {
-          const currentWord1 = document.getElementById('word1').value.trim();
-          const currentWord2 = document.getElementById('word2').value.trim();
-          if (currentWord1 || currentWord2) {
-            displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-          }
-          else if (currentThematicQuery) {
-            displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
-          }
-        }
-        
-        updateButtonStates();
-        displayLecture(data.lecture, targetIndex, displayKeywords);
+showingSummaryInMain = false;
+
+let displayKeywords = keywords;
+if (!displayKeywords || displayKeywords.length === 0) {
+  const currentWord1 = document.getElementById('word1').value.trim();
+  const currentWord2 = document.getElementById('word2').value.trim();
+  if (currentWord1 || currentWord2) {
+    displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  }
+  else if (currentThematicQuery) {
+    displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
+  }
+}
+
+// WICHTIG: Auch im Original den targetIndex setzen für Markierung
+if (targetIndex) {
+  const cleanIndex = targetIndex.replace(/^\^/, '');
+  lastHighlightedIndex = cleanIndex;
+}
+
+updateButtonStates();
+displayLecture(data.lecture, targetIndex, displayKeywords);
         
       } catch (error) {
         console.error('Fehler beim Laden:', error);
