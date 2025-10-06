@@ -19,11 +19,14 @@ app.use((req, res, next) => {
 });
 
 // Global variables
-let chunks = [];
+let chunks = []; // WIRD NICHT MEHR VERWENDET
+let paragraphsFromLectures = []; // NEU
 let fullLectures = {};
 let synonyms = {};
 let summaryCache = {};
-let gaOverviewCache = {}; // NEU: Cache für GA-Übersichten
+let gaOverviewCache = {};
+let queryLog = {}; // NEU: Für Query-Tracking
+let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
 // Hilfsfunktion für case-insensitive Zugriff auf GA-Overview-Cache
 function findGAOverviewKey(requestedKey) {
@@ -31,7 +34,6 @@ function findGAOverviewKey(requestedKey) {
   const match = keys.find(k => k.toLowerCase() === requestedKey.toLowerCase());
   return match || requestedKey;
 }
-
 
 // Standard-Synonyme
 const defaultSynonyms = {
@@ -71,7 +73,7 @@ async function findDataFiles() {
 }
 
 // ============================================================================
-// DATEN LADEN
+// DATEN LADEN UND SPEICHERN
 // ============================================================================
 
 async function loadChunks() {
@@ -187,6 +189,42 @@ async function loadSynonyms() {
   }
 }
 
+async function saveSynonyms() {
+  try {
+    const synonymPath = path.join(__dirname, 'synonyms.json');
+    await fs.writeFile(synonymPath, JSON.stringify(synonyms, null, 2), 'utf8');
+    console.log('✓ Synonyme gespeichert');
+    return true;
+  } catch (error) {
+    console.error('✗ Fehler beim Speichern der Synonyme:', error.message);
+    return false;
+  }
+}
+
+async function loadQueryLog() {
+  try {
+    const logPath = path.join(__dirname, 'query-log.json');
+    const data = await fs.readFile(logPath, 'utf8');
+    queryLog = JSON.parse(data);
+    console.log(`Query-Log geladen: ${Object.keys(queryLog).length} Begriffe`);
+  } catch {
+    queryLog = {};
+    console.log('Kein Query-Log gefunden - neuer Log erstellt');
+  }
+  return queryLog;
+}
+
+async function saveQueryLog() {
+  try {
+    const logPath = path.join(__dirname, 'query-log.json');
+    await fs.writeFile(logPath, JSON.stringify(queryLog, null, 2), 'utf8');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern des Query-Logs:', error.message);
+    return false;
+  }
+}
+
 async function loadSummaryCache() {
   try {
     const summaryPath = path.join(__dirname, 'lecture-summaries.json');
@@ -217,7 +255,6 @@ async function saveSummaryCache() {
     console.log('Anzahl Einträge im Cache:', Object.keys(summaryCache).length);
     console.log('Erste 5 Keys:', Object.keys(summaryCache).slice(0, 5));
     
-    // Prüfe ob Verzeichnis beschreibbar ist
     const testFile = path.join(__dirname, '.write-test');
     try {
       await fs.writeFile(testFile, 'test', 'utf8');
@@ -235,7 +272,6 @@ async function saveSummaryCache() {
     
     console.log('✓ Datei erfolgreich geschrieben!');
     
-    // Verifiziere das Schreiben
     const fileStats = await fs.stat(summaryPath);
     console.log('✓ Datei existiert, Größe:', (fileStats.size / 1024).toFixed(2), 'KB');
     console.log('======================\n');
@@ -250,9 +286,10 @@ async function saveSummaryCache() {
     return false;
   }
 }
+
 async function invalidateGAOverviewCache(lectureId) {
   try {
-    const rawGA = lectureId.split('/')[0];  // z. B. "GA051"
+    const rawGA = lectureId.split('/')[0];
     const actualKey = findGAOverviewKey(rawGA);
 
     if (gaOverviewCache[actualKey]) {
@@ -272,7 +309,7 @@ async function invalidateGAOverviewCache(lectureId) {
 }
 
 // ============================================================================
-// NEU: GA-ÜBERSICHTS-FUNKTIONEN
+// GA-ÜBERSICHTS-FUNKTIONEN
 // ============================================================================
 
 async function loadGAOverviewCache() {
@@ -329,11 +366,9 @@ function formatDate(dateStr) {
 }
 
 function generateGAOverview(gaNumber) {
-  // Filtere alle Vorträge dieses GA-Bandes
   const lectures = Object.values(fullLectures)
     .filter(lec => lec.gaNumber === gaNumber)
     .sort((a, b) => {
-      // Sortiere nach Vortragsnummer
       const numA = parseInt(a.lectureNumber) || 0;
       const numB = parseInt(b.lectureNumber) || 0;
       return numA - numB;
@@ -343,10 +378,8 @@ function generateGAOverview(gaNumber) {
     return null;
   }
   
-  // Hole Titel des GA-Bandes vom ersten Vortrag
   const gaTitle = lectures[0].gaTitle || gaNumber;
   
-  // Erstelle Übersicht mit Vorträgen und (falls vorhanden) Zusammenfassungen
   const overview = {
     gaNumber: gaNumber,
     gaTitle: gaTitle,
@@ -355,14 +388,11 @@ function generateGAOverview(gaNumber) {
       const lectureId = lec.ID;
       const cached = summaryCache[lectureId];
       
-      // Extrahiere summary-Text aus dem Cache
       let summaryText = null;
       if (cached) {
         if (typeof cached === 'string') {
-          // Altes Format: direkt ein String
           summaryText = cached;
         } else if (typeof cached === 'object' && cached.summary) {
-          // Neues Format: Objekt mit .summary Property
           summaryText = cached.summary;
         }
       }
@@ -374,12 +404,167 @@ function generateGAOverview(gaNumber) {
         fileName: lec.fileName,
         location: lec.location,
         date: formatDate(lec.date),
-        summary: summaryText  // Nur der Text, nicht das Objekt
+        summary: summaryText
       };
     })
   };
   
   return overview;
+}
+
+// ============================================================================
+// QUERY-TRACKING UND SYNONYM-GENERIERUNG
+// ============================================================================
+
+function trackQueryTerms(query, resultCount) {
+  if (resultCount === 0) return;
+  
+  const terms = extractKeyTerms(query);
+  
+  terms.forEach(term => {
+    if (!queryLog[term]) {
+      queryLog[term] = {
+        count: 0,
+        coOccurrences: {},
+        lastUsed: new Date().toISOString()
+      };
+    }
+    queryLog[term].count++;
+    queryLog[term].lastUsed = new Date().toISOString();
+    
+    terms.forEach(otherTerm => {
+      if (term !== otherTerm) {
+        if (!queryLog[term].coOccurrences[otherTerm]) {
+          queryLog[term].coOccurrences[otherTerm] = 0;
+        }
+        queryLog[term].coOccurrences[otherTerm]++;
+      }
+    });
+  });
+  
+  const totalQueries = Object.values(queryLog).reduce((sum, entry) => sum + entry.count, 0);
+  if (totalQueries % 10 === 0) {
+    saveQueryLog();
+  }
+}
+
+function generateSynonymsFromQueries(minCoOccurrence = 3) {
+  const newSynonyms = {};
+  
+  Object.keys(queryLog).forEach(term => {
+    const entry = queryLog[term];
+    
+    if (entry.count < 2) return;
+    
+    const coOccurs = entry.coOccurrences;
+    const relatedTerms = Object.keys(coOccurs)
+      .filter(t => coOccurs[t] >= minCoOccurrence)
+      .sort((a, b) => coOccurs[b] - coOccurs[a])
+      .slice(0, 10);
+    
+    if (relatedTerms.length > 0) {
+      newSynonyms[term] = [term, ...relatedTerms];
+    }
+  });
+  
+  console.log(`\n[SYNONYME] Aus Query-Log generiert: ${Object.keys(newSynonyms).length} Begriffe`);
+  
+  return newSynonyms;
+}
+
+async function generateSynonymsWithClaude(term) {
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
+  if (!claudeApiKey) {
+    console.log(`[CLAUDE] Kein API-Key für "${term}"`);
+    return [term];
+  }
+  
+  const prompt = `Erstelle eine Liste von Synonymen und verwandten Begriffen für: "${term}"
+
+Kontext: Rudolf Steiner / Anthroposophie / Geisteswissenschaft / Deutsche Philosophie
+
+Berücksichtige:
+- Historische Schreibweisen (z.B. "Bewußtsein" vs "Bewusstsein", "Urtheil" vs "Urteil")
+- Verwandte Konzepte aus der Anthroposophie
+- Unterschiedliche Formulierungen
+- Genitivformen und Adjektive (z.B. "Kants", "kantisch", "kantische")
+- Zusammengesetzte Begriffe
+
+Gib nur die Begriffe zurück, kommasepariert, maximal 15 Begriffe, keine Erklärungen.
+
+Beispiel für "ich":
+ich, ich-organisation, ich-wesenheit, geist-selbst, menschliches ich, höheres ich
+
+Begriffe für "${term}":`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 400,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    const synonymText = result.content[0].text.trim();
+    const synonymList = synonymText
+      .split(',')
+      .map(s => s.trim().toLowerCase())
+      .filter(s => s.length > 0);
+    
+    console.log(`[CLAUDE] Synonyme für "${term}": ${synonymList.length} Begriffe`);
+    
+    return synonymList;
+  } catch (error) {
+    console.error(`[CLAUDE] Fehler für "${term}":`, error.message);
+    return [term];
+  }
+}
+
+async function enrichSynonymsWithClaude(topN = 30) {
+  console.log(`\n[CLAUDE] Starte Anreicherung für Top ${topN} Begriffe...`);
+  
+  const topTerms = Object.keys(queryLog)
+    .filter(term => term.length > 3)
+    .sort((a, b) => queryLog[b].count - queryLog[a].count)
+    .slice(0, topN);
+  
+  let enrichedCount = 0;
+  
+  for (const term of topTerms) {
+    if (synonyms[term] && synonyms[term].length > 2) {
+      console.log(`[CLAUDE] Überspringe "${term}" (bereits ${synonyms[term].length} Synonyme)`);
+      continue;
+    }
+    
+    console.log(`[CLAUDE] Generiere Synonyme für: "${term}" (${queryLog[term].count}x gesucht)`);
+    const generatedSynonyms = await generateSynonymsWithClaude(term);
+    
+    if (generatedSynonyms.length > 1) {
+      synonyms[term] = generatedSynonyms;
+      enrichedCount++;
+      await saveSynonyms();
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  
+  console.log(`[CLAUDE] ✓ ${enrichedCount} Begriffe angereichert\n`);
+  return enrichedCount;
 }
 
 // ============================================================================
@@ -403,16 +588,16 @@ function expandQueryWithSynonyms(query) {
   return Array.from(expandedTerms);
 }
 
-function performKeywordSearch(query, chunks) {
+function performKeywordSearch(query, paragraphsFromLectures) {
   const expandedTerms = expandQueryWithSynonyms(query);
   const results = [];
   
   console.log(`Suche nach: ${expandedTerms.slice(0, 5).join(' | ')}${expandedTerms.length > 5 ? '...' : ''}`);
   
-  chunks.forEach(chunk => {
-    const content = (chunk.content || '').toLowerCase();
-    const title = (chunk.title || '').toLowerCase();
-    const chunkId = (chunk.ID || '').toLowerCase();
+  paragraphsFromLectures.forEach(paragraph => {
+    const content = (paragraph.content || '').toLowerCase();
+    const title = (paragraph.title || '').toLowerCase();
+    const paragraphId = (paragraph.ID || '').toLowerCase();
     
     let score = 0;
     let matchedTerms = [];
@@ -436,7 +621,7 @@ function performKeywordSearch(query, chunks) {
       
       let idMatches = 0;
       pos = 0;
-      while ((pos = chunkId.indexOf(termLower, pos)) !== -1) {
+      while ((pos = paragraphId.indexOf(termLower, pos)) !== -1) {
         idMatches++;
         pos += 1;
       }
@@ -449,7 +634,7 @@ function performKeywordSearch(query, chunks) {
     
     if (score > 0) {
       results.push({
-        ...chunk,
+        ...paragraph,
         keywordScore: score,
         matchedTerms: matchedTerms,
         similarity: score / 10
@@ -468,45 +653,160 @@ function extractKeyTerms(query) {
   const stopWords = [
     'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
     'den', 'dem', 'ein', 'eine', 'einem', 'einen', 'was', 'welche', 'welcher',
-    'zwischen', 'bei', 'nach', 'für', 'mit', 'aus', 'über', 'sich', 'zur'
+    'zwischen', 'bei', 'nach', 'für', 'mit', 'aus', 'über', 'sich', 'zur',
+    'hat', 'haben', 'wird', 'werden', 'sein', 'ihre', 'seiner', 'ihren'
   ];
   
-  const words = query.toLowerCase()
-    .replace(/[.,;:!?]/g, ' ')
+  const terms = [];
+  
+  // 1. Extrahiere Phrasen in Anführungszeichen (höchste Priorität)
+  const quotedPhrases = query.match(/"([^"]+)"|'([^']+)'/g);
+  if (quotedPhrases) {
+    quotedPhrases.forEach(phrase => {
+      const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
+      if (cleaned.length > 3) {
+        terms.push(cleaned);
+        console.log(`  [Quote] "${cleaned}"`);
+      }
+    });
+  }
+  
+  // Entferne Anführungszeichen aus dem Query für weitere Verarbeitung
+  const queryWithoutQuotes = query.replace(/"[^"]+"|'[^']+'/g, '').trim();
+  const queryLower = queryWithoutQuotes.toLowerCase();
+  
+  // 2. Tokenisierung
+  const words = queryLower
+    .replace(/[.,;:!?"']/g, ' ')
     .split(/\s+/)
-    .filter(word => word.length > 3 && !stopWords.includes(word));
+    .filter(w => w.length > 0);
   
-  console.log(`Extrahierte Schlüsselbegriffe aus "${query}":`, words);
+  // 3. Extrahiere 3-Wort-Phrasen (z.B. "anschauende urteilskraft für")
+  for (let i = 0; i < words.length - 2; i++) {
+    const w1 = words[i];
+    const w2 = words[i + 1];
+    const w3 = words[i + 2];
+    
+    // Alle drei Wörter müssen mindestens 3 Zeichen haben
+    if (w1.length > 2 && w2.length > 2 && w3.length > 2) {
+      // Mindestens zwei der drei Wörter dürfen nicht Stopwörter sein
+      const stopWordCount = [w1, w2, w3].filter(w => stopWords.includes(w)).length;
+      if (stopWordCount <= 1) {
+        const phrase = `${w1} ${w2} ${w3}`;
+        terms.push(phrase);
+        console.log(`  [3-Word] "${phrase}"`);
+      }
+    }
+  }
   
-  return words;
+  // 4. Extrahiere 2-Wort-Phrasen (z.B. "anschauende urteilskraft")
+  for (let i = 0; i < words.length - 1; i++) {
+    const w1 = words[i];
+    const w2 = words[i + 1];
+    
+    // Beide Wörter müssen mindestens 3 Zeichen haben
+    if (w1.length > 2 && w2.length > 2) {
+      // Mindestens ein Wort darf kein Stopwort sein
+      if (!stopWords.includes(w1) || !stopWords.includes(w2)) {
+        const phrase = `${w1} ${w2}`;
+        terms.push(phrase);
+        console.log(`  [2-Word] "${phrase}"`);
+      }
+    }
+  }
+  
+  // 5. Extrahiere bedeutungsvolle Einzelwörter
+  words.forEach(word => {
+    if (word.length > 3 && !stopWords.includes(word)) {
+      terms.push(word);
+      console.log(`  [Single] "${word}"`);
+    }
+  });
+  
+  // 6. Entferne exakte Duplikate
+  const uniqueTerms = [...new Set(terms)];
+  
+  console.log(`\nExtrahierte ${uniqueTerms.length} Suchbegriffe aus "${query}":`);
+  console.log(uniqueTerms.slice(0, 10).join(', ') + (uniqueTerms.length > 10 ? '...' : ''));
+  
+  return uniqueTerms;
 }
 
-function performThematicKeywordSearch(query, chunks) {
+function performThematicKeywordSearch(query, paragraphsFromLectures) {
   const terms = extractKeyTerms(query);
   
   if (terms.length === 0) {
     console.log('Keine Schlüsselbegriffe gefunden, verwende gesamte Query');
-    return performKeywordSearch(query, chunks);
+    return performKeywordSearch(query, paragraphsFromLectures);
   }
+  
+  // NEUE STRATEGIE: Suche zuerst nach Phrasen in Anführungszeichen
+  const quotedPhrases = query.match(/"([^"]+)"|'([^']+)'/g);
+  if (quotedPhrases && quotedPhrases.length > 0) {
+    console.log('[DIREKTE PHRASENSUCHE] Verwende nur Phrasen in Anführungszeichen');
+    
+    const phraseResults = [];
+    quotedPhrases.forEach(phrase => {
+      const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
+      console.log(`Suche direkt nach: "${cleaned}"`);
+      const results = performKeywordSearch(cleaned, paragraphsFromLectures);
+      phraseResults.push(...results);
+    });
+    
+    // Wenn Phrasen-Treffer vorhanden: NUR diese verwenden
+    if (phraseResults.length > 0) {
+      // Dedupliziere nach ID-index
+      const uniqueResults = new Map();
+      phraseResults.forEach(result => {
+        const key = `${result.ID}-${result.index}`;
+        if (!uniqueResults.has(key) || uniqueResults.get(key).keywordScore < result.keywordScore) {
+          uniqueResults.set(key, result);
+        }
+      });
+      
+      const finalResults = Array.from(uniqueResults.values())
+        .sort((a, b) => b.keywordScore - a.keywordScore);
+      
+      console.log(`Phrasensuche: ${finalResults.length} direkte Treffer gefunden`);
+      return finalResults;
+    }
+  }
+  
+  // Fallback: Normale thematische Suche mit allen Begriffen
+  console.log('[NORMALE THEMATISCHE SUCHE] Keine Phrasen in Anführungszeichen oder keine Treffer');
   
   const allResults = new Map();
   
   terms.forEach(term => {
+    const wordCount = term.split(' ').length;
+    
+    // Überspringe zu generische Einzelwörter
+    if (wordCount === 1) {
+      const veryCommonWords = ['anthroposophie', 'bedeutung', 'geisteswissenschaft', 'welche', 'haben'];
+      if (veryCommonWords.includes(term)) {
+        console.log(`Überspringe zu generischen Begriff: "${term}"`);
+        return;
+      }
+    }
+    
     console.log(`Suche nach Begriff: "${term}"`);
-    const termResults = performKeywordSearch(term, chunks);
+    const termResults = performKeywordSearch(term, paragraphsFromLectures);
+    
+    const phraseBoost = wordCount >= 2 ? 10 : 1;
     
     termResults.forEach(result => {
       const key = `${result.ID}-${result.index}`;
+      const boostedScore = result.keywordScore * phraseBoost;
       
       if (!allResults.has(key)) {
         allResults.set(key, {
           ...result,
           matchedTerms: result.matchedTerms,
-          keywordScore: result.keywordScore
+          keywordScore: boostedScore
         });
       } else {
         const existing = allResults.get(key);
-        existing.keywordScore += result.keywordScore * 0.5;
+        existing.keywordScore += boostedScore * 0.1;
         existing.matchedTerms = [...new Set([...existing.matchedTerms, ...result.matchedTerms])];
       }
     });
@@ -570,7 +870,7 @@ function applySemanticRanking(keywordResults, query) {
 
 async function performHybridSearch(query, limit = 20) {
   try {
-    const keywordResults = performKeywordSearch(query, chunks);
+    const keywordResults = performKeywordSearch(query, paragraphsFromLectures);
     
     if (keywordResults.length === 0) {
       return {
@@ -689,6 +989,10 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
     
+    // Query-Tracking
+    if (word1) trackQueryTerms(word1, results.length);
+    if (word2) trackQueryTerms(word2, results.length);
+    
     res.json({
       query: { word1, word2, proximity },
       results: results,
@@ -717,12 +1021,12 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   
   const topResults = results.slice(0, 15);
 
-console.log('=== DEBUG topResults ===');
-console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
-  ID: r.ID, 
-  index: r.index,
-  fileName: r.fileName 
-})), null, 2));
+  console.log('=== DEBUG topResults ===');
+  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
+    ID: r.ID, 
+    index: r.index,
+    fileName: r.fileName 
+  })), null, 2));
   
   const contextText = topResults
     .map((result, index) => {
@@ -741,22 +1045,50 @@ console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r =
     'ausführlich': 6000
   };
   
-  const prompt = `Analysieren Sie die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
 
 ANALYSE-TIEFE: ${depth}
 
 QUELLENANGABEN:
-- Verwenden Sie das Format GA###/##:index nach jeder spezifischen Aussage
+- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
 - Verfügbare Referenzen: ${availableRefs}
-- Format: GA###/##:index (z.B. GA052/7:n5x6ru)
-- WICHTIG: Verwenden Sie immer das vollständige Format mit :index
+- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- WICHTIG: Verwende immer das vollständige Format mit /Y:index
 - Beispiel: "Steiner kritisiert Kants Erkenntnisgrenze (GA052/7:n5x6ru)."
 
-ANWEISUNGEN:
-- Arbeiten Sie nur mit den gegebenen Textpassagen
-- Fassen Sie thematische Verbindungen zusammen
-- Strukturieren Sie nach wichtigsten Aspekten
-- Verwenden Sie die vollständigen Referenzen GA###/##:index für jede spezifische Aussage
+VORGEHEN:
+1. Identifiziere alle Textstellen mit relevanten Suchwörtern zur Themenanfrage
+2. Vergleiche diese Textstellen auf Ähnlichkeit
+3. Wähle möglichst viele nicht-redundante Textstellen aus
+4. Entwickle eine eigene thematische Gliederung mit aussagekräftigen Zwischenüberschriften
+
+INHALTLICHE PERSPEKTIVEN (als Orientierung, nicht als Überschriften verwenden):
+Berücksichtige bei deiner Analyse verschiedene Perspektiven - wähle die relevanten aus:
+- Sachliche und leibliche Aspekte (Was ist gemeint? Konkrete Phänomene, Substanzen, leibliche Prozesse)
+- Funktionelle und physiologische Aspekte (Wie verhält es sich? Funktionen, Wirkungsweisen, Prozesse)
+- Erlebnismäßige und seelisch-psychologische Aspekte (Welche Erfahrungen oder seelischen Prozesse?)
+- Begriffliche und geistige Aspekte (Welche Ideen, Begriffe oder geistigen Prinzipien?)
+- Methodische und erkenntnistheoretische Aspekte (Wie kann man das erkennen? Methoden, Erkenntnisstufen)
+- Vergleich mit anderen Inhalten (Verhältnis zu anderen Wesen, Naturreichen, Konzepten)
+- Entwicklung und Evolution (Entwicklungsprozesse, evolutionäre Aspekte)
+- Besonderheiten und Sonstiges
+
+STRUKTURIERUNG:
+- Erstelle eigene, thematisch passende Zwischenüberschriften (## Überschrift)
+- Die Überschriften sollen den Inhalt des folgenden Abschnitts ankündigen
+- NICHT die obigen Kategorienamen als Überschriften verwenden
+- Beispiele für gute Überschriften: "Die Verwandlung der Sinneswahrnehmung", "Drei Stufen der Ich-Entwicklung", "Der Zusammenhang von Denken und Willen"
+
+FORMATIERUNG:
+- Verwende Markdown-Formatierung
+- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
+- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
+- Zitiere prägnante Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Vermeide Redundanzen - jede Information nur einmal
+
+WICHTIG:
+- Wenn du relevante inhaltliche Bezüge findest, präsentiere diese direkt ohne einschränkende Vorbemerkungen
+- Konzentriere dich auf das, was die Texte AUSSAGEN, nicht darauf, was sie nicht aussagen
 
 TEXTPASSAGEN:
 ${contextText}
@@ -817,9 +1149,8 @@ function addClickableReferences(text, results) {
     if (result.ID && result.index) {
       const cleanIndex = result.index.replace(/^\^/, '');
       
-      // Erstelle mehrere mögliche Keys
-      const key1 = `${result.ID}:${result.index}`;        // z.B. GA052/7:^abc123
-      const key2 = `${result.ID}:${cleanIndex}`;          // z.B. GA052/7:abc123
+      const key1 = `${result.ID}:${result.index}`;
+      const key2 = `${result.ID}:${cleanIndex}`;
       
       const mapping = {
         id: result.ID,
@@ -863,20 +1194,19 @@ function addClickableReferences(text, results) {
   let linksCreated = 0;
   
   matches.forEach(matchInfo => {
-  const refClean = matchInfo.fullRef.replace(/:\^/, ':');
-  
-  // Probiere auch lowercase Version
-  const refLower = matchInfo.fullRef.toLowerCase();
-  const refCleanLower = refClean.toLowerCase();
-  
-  const chunkData = refToDataMapping[matchInfo.fullRef] || 
-                    refToDataMapping[refClean] ||
-                    refToDataMapping[refLower] ||
-                    refToDataMapping[refCleanLower];
+    const refClean = matchInfo.fullRef.replace(/:\^/, ':');
+    
+    const refLower = matchInfo.fullRef.toLowerCase();
+    const refCleanLower = refClean.toLowerCase();
+    
+    const chunkData = refToDataMapping[matchInfo.fullRef] || 
+                      refToDataMapping[refClean] ||
+                      refToDataMapping[refLower] ||
+                      refToDataMapping[refCleanLower];
     
     if (chunkData) {
       const [idPart] = matchInfo.fullRef.split(':');
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}">${idPart}</a>`;
+      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
       
       linkedText = linkedText.substring(0, matchInfo.position) + 
                    replacement + 
@@ -925,12 +1255,10 @@ app.post('/api/summarize-lecture', async (req, res) => {
     
     console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate})...`);
     
-    // Prüfe ob bereits im Cache (außer wenn Regenerierung erzwungen wird)
     if (!forceRegenerate && summaryCache[lectureId]) {
       console.log(`  ✓ Cache-Hit für ${lectureId}`);
       const cachedData = summaryCache[lectureId];
       
-      // NEU: Detailliertes Logging für Cache-Hit
       console.log('  → Typ der cachedData:', typeof cachedData);
       console.log('  → cachedData ist Array?', Array.isArray(cachedData));
       if (typeof cachedData === 'object' && cachedData !== null) {
@@ -942,7 +1270,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
         console.log('  → Erste 3 headings:', JSON.stringify(cachedData.headings?.slice(0, 3), null, 2));
       }
       
-      // Unterstütze beide Formate: altes (string) und neues (object)
       const responseData = typeof cachedData === 'string' 
         ? { summary: cachedData, headings: [] }
         : cachedData;
@@ -958,7 +1285,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
       });
     }
     
-    // Hole Vortrag aus bereits geladenen Daten
     const lecture = fullLectures[lectureId];
     
     if (!lecture) {
@@ -971,7 +1297,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → Generiere neue Zusammenfassung...`);
     const summaryData = await generateLectureSummary(lecture);
     
-    // Speichere im Cache
     console.log(`  → Speichere in Cache (Vor): ${Object.keys(summaryCache).length} Einträge`);
     summaryCache[lectureId] = summaryData;
     console.log(`  → Speichere in Cache (Nach): ${Object.keys(summaryCache).length} Einträge`);
@@ -1000,7 +1325,7 @@ app.post('/api/summarize-lecture', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-// NEU: Prüfe ob Zusammenfassung existiert (ohne zu generieren)
+
 app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
@@ -1038,6 +1363,7 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 async function generateLectureSummary(lecture) {
   const claudeApiKey = process.env.CLAUDE_API_KEY;
   
@@ -1046,7 +1372,6 @@ async function generateLectureSummary(lecture) {
     return generateFallbackSummary(lecture);
   }
   
-  // Kombiniere alle Paragraphen MIT ihren Original-Indizes
   const fullText = lecture.paragraphs
     .map((p, idx) => {
       const content = p.content || p.text || '';
@@ -1056,18 +1381,15 @@ async function generateLectureSummary(lecture) {
     .filter(text => text.trim().length > 0)
     .join('\n\n');
   
-  // Token-Schätzung: ~4 Zeichen = 1 Token
   const estimatedTokens = fullText.length / 4;
   console.log(`Vortrag: ${lecture.ID}, Paragraphen: ${lecture.paragraphs.length}, Geschätzte Tokens: ${Math.round(estimatedTokens)}`);
   
-  // Wenn zu lang (>180k tokens), nur Zusammenfassung ohne Überschriften
   let textToSummarize = fullText;
   let headingsDisabled = false;
   
   if (estimatedTokens > 180000) {
     console.log('Vortrag zu lang (>180k tokens) - Überschriften deaktiviert, nur Zusammenfassung');
     headingsDisabled = true;
-    // Nimm erste und letzte 90k tokens (ca. 360k Zeichen) für Zusammenfassung
     const halfChunkSize = 360000;
     textToSummarize = fullText.substring(0, halfChunkSize) + 
                      '\n\n[... Mittlerer Teil des Vortrags ausgelassen ...]\n\n' +
@@ -1163,14 +1485,11 @@ AUSGABE (JSON):`;
     console.log('Rohe Antwort (erste 500 Zeichen):', summaryText.substring(0, 500));
     console.log('Antwort Länge:', summaryText.length);
     
-    // Parse JSON response
     try {
-      // Entferne mögliche Markdown-Code-Blocks
       summaryText = summaryText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
       
       const summaryData = JSON.parse(summaryText);
       
-      // Validiere Struktur
       if (!summaryData.summary || !Array.isArray(summaryData.headings)) {
         throw new Error('Ungültiges JSON-Format von Claude');
       }
@@ -1196,7 +1515,6 @@ AUSGABE (JSON):`;
       console.error('JSON Parse Fehler:', parseError);
       console.log('Rohe Antwort:', summaryText.substring(0, 500));
       
-      // Fallback: Gib Rohantwort als einfache Zusammenfassung zurück
       return {
         summary: summaryText,
         headings: []
@@ -1231,6 +1549,7 @@ app.get('/debug/status', (req, res) => {
     synonymGroups: Object.keys(synonyms).length,
     summariesCached: Object.keys(summaryCache).length,
     gaOverviewsCached: Object.keys(gaOverviewCache).length,
+    queryLogSize: Object.keys(queryLog).length,
     claudeConfigured: !!process.env.CLAUDE_API_KEY
   });
 });
@@ -1267,7 +1586,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       return res.status(400).json({ error: 'Query erforderlich' });
     }
     
-    const keywordResults = performThematicKeywordSearch(query, chunks);
+    const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
     
     if (keywordResults.length === 0) {
       return res.json({
@@ -1279,6 +1598,9 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     
     const rankedResults = applySemanticRanking(keywordResults, query);
     const topResults = rankedResults.slice(0, limit);
+    
+    // Query-Tracking
+    trackQueryTerms(query, topResults.length);
     
     const analysis = await generateAnalysis(query, topResults, depth);
     
@@ -1310,11 +1632,9 @@ app.get('/api/full-lecture/:lectureId', (req, res) => {
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
-    // Suche case-insensitive
     const lectureIdLower = lectureId.toLowerCase();
     let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
     
-    // Falls nicht gefunden, suche in allen Keys (case-insensitive)
     if (!lecture) {
       const foundKey = Object.keys(fullLectures).find(key => 
         key.toLowerCase() === lectureIdLower
@@ -1352,11 +1672,9 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
     
     console.log(`Vortrag-Anfrage: ${lectureId}`);
     
-    // Suche case-insensitive
     const lectureIdLower = lectureId.toLowerCase();
     let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
     
-    // Falls nicht gefunden, suche in allen Keys (case-insensitive)
     if (!lecture) {
       const foundKey = Object.keys(fullLectures).find(key => 
         key.toLowerCase() === lectureIdLower
@@ -1396,7 +1714,6 @@ app.get('/api/lectures/list', (req, res) => {
   });
 });
 
-// Liste aller verfügbaren GA-Bände basierend auf JSON-Inhalten
 app.get('/api/available-ga', async (req, res) => {
   try {
     const gaSet = new Set();
@@ -1416,11 +1733,10 @@ app.get('/api/available-ga', async (req, res) => {
   }
 });
 
-// NEU: GA-Übersichtsseite abrufen
 app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   try {
-    const gaNumberOriginal = req.params.gaNumber;     // z.B. "GA068a"
-    const gaKey = gaNumberOriginal.toLowerCase();     // Cache-Key
+    const gaNumberOriginal = req.params.gaNumber;
+    const gaKey = gaNumberOriginal.toLowerCase();
     const forceRefresh = req.query.refresh === 'true';
 
     console.log(`[GA-OVERVIEW] Anfrage für ${gaNumberOriginal} (refresh: ${forceRefresh})`);
@@ -1430,8 +1746,6 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
       return res.json(gaOverviewCache[gaKey]);
     }
 
-    // WICHTIG: Hier die Original-Schreibweise benutzen,
-    // weil generateGAOverview streng vergleicht (===)
     const overview = generateGAOverview(gaNumberOriginal);
 
     if (!overview) {
@@ -1450,7 +1764,6 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   }
 });
 
-// GA-Overview-Map ausliefern
 app.get('/ga-overview-map.json', async (req, res) => {
   try {
     const mapPath = path.join(__dirname, 'ga-overview-map.json');
@@ -1487,6 +1800,86 @@ app.get('/ga-overview-map.json', async (req, res) => {
 });
 
 // ============================================================================
+// ADMIN ENDPOINTS FÜR SYNONYM-GENERIERUNG
+// ============================================================================
+
+app.post('/api/admin/generate-synonyms', async (req, res) => {
+  try {
+    const { minCoOccurrence = 3, enrichWithClaude = true, topN = 30 } = req.body;
+    
+    console.log('\n========================================');
+    console.log('SYNONYM-GENERIERUNG GESTARTET');
+    console.log('========================================');
+    
+    const startCount = Object.keys(synonyms).length;
+    
+    console.log('\n[SCHRITT 1] Generiere aus Query-Log...');
+    const querySynonyms = generateSynonymsFromQueries(minCoOccurrence);
+    
+    Object.keys(querySynonyms).forEach(term => {
+      if (!synonyms[term]) {
+        synonyms[term] = querySynonyms[term];
+      } else {
+        const existing = new Set(synonyms[term]);
+        querySynonyms[term].forEach(syn => existing.add(syn));
+        synonyms[term] = Array.from(existing);
+      }
+    });
+    
+    await saveSynonyms();
+    
+    let enrichedCount = 0;
+    if (enrichWithClaude && process.env.CLAUDE_API_KEY) {
+      console.log('\n[SCHRITT 2] Anreicherung mit Claude API...');
+      enrichedCount = await enrichSynonymsWithClaude(topN);
+    } else {
+      console.log('\n[SCHRITT 2] Claude-Anreicherung übersprungen');
+    }
+    
+    const endCount = Object.keys(synonyms).length;
+    
+    console.log('\n========================================');
+    console.log('SYNONYM-GENERIERUNG ABGESCHLOSSEN');
+    console.log(`Vorher: ${startCount} Begriffe`);
+    console.log(`Nachher: ${endCount} Begriffe`);
+    console.log(`Neu: ${endCount - startCount} Begriffe`);
+    console.log(`Claude-Anreicherung: ${enrichedCount} Begriffe`);
+    console.log('========================================\n');
+    
+    lastSynonymUpdate = new Date().toISOString();
+    
+    res.json({
+      success: true,
+      synonymCountBefore: startCount,
+      synonymCountAfter: endCount,
+      newSynonyms: endCount - startCount,
+      querySynonymsGenerated: Object.keys(querySynonyms).length,
+      claudeEnriched: enrichedCount,
+      lastUpdate: lastSynonymUpdate
+    });
+    
+  } catch (error) {
+    console.error('Fehler bei Synonym-Generierung:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/admin/synonym-stats', (req, res) => {
+  const topQueries = Object.entries(queryLog)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, 20)
+    .map(([term, data]) => ({ term, count: data.count }));
+  
+  res.json({
+    synonymCount: Object.keys(synonyms).length,
+    queryLogSize: Object.keys(queryLog).length,
+    totalSearches: Object.values(queryLog).reduce((sum, e) => sum + e.count, 0),
+    lastUpdate: lastSynonymUpdate,
+    topQueries: topQueries
+  });
+});
+
+// ============================================================================
 // SERVER START
 // ============================================================================
 
@@ -1496,19 +1889,36 @@ async function startServer() {
     console.log('Initialisiere Server...');
     console.log('========================================');
     
-    await loadChunks();
-    await loadSynonyms();
-    await loadFullLectures();
-    await loadSummaryCache();
+await loadSynonyms();
+await loadFullLectures();
+
+// Konvertiere Lectures zu Absatz-Format
+console.log('\nKonvertiere Lectures zu Absatz-Format...');
+Object.values(fullLectures).forEach(lecture => {
+  lecture.paragraphs?.forEach((para, idx) => {
+    paragraphsFromLectures.push({
+      ID: lecture.ID,
+      index: para.index || `para_${idx}`,
+      title: lecture.title,
+      fileName: lecture.fileName,
+      content: para.content || para.text || '',
+      location: lecture.location,
+      date: lecture.date
+    });
+  });
+});
+console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     await loadGAOverviewCache();
+    await loadQueryLog();
     
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
-    console.log(`  ${chunks.length} Chunks`);
+    console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
     console.log(`  ${Object.keys(gaOverviewCache).length} GA-Übersichten im Cache`);
+    console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
     console.log('========================================');
     
     app.listen(PORT, () => {
@@ -1519,12 +1929,15 @@ async function startServer() {
       console.log(`   POST /api/fulltext-search`);
       console.log(`   POST /api/thematic-hybrid-search`);
       console.log(`   POST /api/summarize-lecture`);
+      console.log(`   GET  /api/check-summary/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/full-lecture/:lectureId`);
       console.log(`   GET  /api/full-lecture/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/lectures/list`);
       console.log(`   GET  /api/available-ga`);
       console.log(`   GET  /api/ga-overview/:gaNumber`);
       console.log(`   GET  /ga-overview-map.json`);
+      console.log(`   POST /api/admin/generate-synonyms`);
+      console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`\n✓ System bereit!\n`);
     });
     
