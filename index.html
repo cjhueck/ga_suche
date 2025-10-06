@@ -1970,24 +1970,28 @@ Original
     }
 
     function updateButtonStates() {
-      const viewerToggleBtn = document.getElementById('viewerToggleH4');
-      const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-      const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-      
-      if (viewerOriginalBtn && currentLectureData && showingSummaryInMain) {
-        viewerOriginalBtn.style.display = 'inline-block';
-      }
-      
-      if (viewerSummaryBtn && currentLectureData && !showingSummaryInMain) {
-        viewerSummaryBtn.style.display = 'inline-block';
-      }
-      
-      if (viewerToggleBtn && currentLectureData) {
-        const viewer = document.getElementById('viewer');
-        const hasH4 = viewer && viewer.querySelector('h4') !== null;
-        viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
-      }
-    }
+  const viewerToggleBtn = document.getElementById('viewerToggleH4');
+  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+  const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  
+  // Original-Button NUR in der Übersicht anzeigen
+  if (viewerOriginalBtn && currentLectureData && showingSummaryInMain) {
+    viewerOriginalBtn.style.display = 'inline-block';
+  } else if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'none';
+  }
+  
+  // Übersichts-Button bleibt wie vorher
+  if (viewerSummaryBtn && currentLectureData && !showingSummaryInMain) {
+    viewerSummaryBtn.style.display = 'inline-block';
+  }
+  
+  if (viewerToggleBtn && currentLectureData) {
+    const viewer = document.getElementById('viewer');
+    const hasH4 = viewer && viewer.querySelector('h4') !== null;
+    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
+  }
+}
 
     async function toggleViewerH4() {
       const viewer = document.getElementById('viewer');
