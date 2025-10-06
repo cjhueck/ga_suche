@@ -2599,19 +2599,24 @@ Original
     }
 
     async function showLecture(lectureId, targetIndex, keywords = []) {
-      const summaryPanel = document.getElementById('summary-panel');
-      const resizeHandle = document.getElementById('verticalResizeHandle');
-      const tocList = document.getElementById('toc-list');
-      
-      if (summaryPanel.classList.contains('visible')) {
-        summaryPanel.classList.remove('visible');
-        resizeHandle.classList.remove('visible');
-        icon.textContent = '<';
-        summaryPanel.style.width = '0';
-        summaryPanel.style.minWidth = '0';
-        summaryPanel.style.marginRight = '0px';
-        if (tocList) tocList.innerHTML = '';
-      }
+  // Zurücksetzen am Anfang
+  lastHighlightedIndex = null;
+  
+  // Rechtes Panel schließen wenn geöffnet
+  const summaryPanel = document.getElementById('summary-panel');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const icon = document.getElementById('summary-panel-toggle-icon');
+  const tocList = document.getElementById('toc-list');
+  
+  if (summaryPanel.classList.contains('visible')) {
+    summaryPanel.classList.remove('visible');
+    resizeHandle.classList.remove('visible');
+    icon.textContent = '<';
+    summaryPanel.style.width = '0';
+    summaryPanel.style.minWidth = '0';
+    summaryPanel.style.marginRight = '0px';
+    if (tocList) tocList.innerHTML = '';
+  }
       
       try {
         const parts = lectureId.split('/');
@@ -2634,33 +2639,32 @@ Original
           if (summaryResponse.ok) {
             const summaryData = await summaryResponse.json();
             
-            if (summaryData.exists && summaryData.summary) {
-              currentLectureSummary = {
-                summary: summaryData.summary,
-                headings: summaryData.headings || []
-              };
-              
-              showingSummaryInMain = true;
-              
-              let displayKeywords = keywords;
-              if (!displayKeywords || displayKeywords.length === 0) {
-                const currentWord1 = document.getElementById('word1').value.trim();
-                const currentWord2 = document.getElementById('word2').value.trim();
-                if (currentWord1 || currentWord2) {
-                  displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-                }
-                else if (currentThematicQuery) {
-                  displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
-                }
-              }
-              
-              if (targetIndex) {
-                const cleanIndex = targetIndex.replace(/^\^/, '');
-                lastHighlightedIndex = cleanIndex;
-              }
-              
-              displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
-              
+if (summaryData.exists && summaryData.summary) {
+  currentLectureSummary = {
+    summary: summaryData.summary,
+    headings: summaryData.headings || []
+  };
+  
+  showingSummaryInMain = true;
+  
+  let displayKeywords = keywords;
+  if (!displayKeywords || displayKeywords.length === 0) {
+    const currentWord1 = document.getElementById('word1').value.trim();
+    const currentWord2 = document.getElementById('word2').value.trim();
+    if (currentWord1 || currentWord2) {
+      displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+    }
+    else if (currentThematicQuery) {
+      displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
+    }
+  }
+  
+  // NUR setzen wenn targetIndex tatsächlich vorhanden ist
+  if (targetIndex) {
+    const cleanIndex = targetIndex.replace(/^\^/, '');
+    lastHighlightedIndex = cleanIndex;
+  }
+             displaySummaryWithHeadings(currentLectureData, currentLectureSummary);   
               setTimeout(() => {
                 const viewer = document.getElementById('viewer');
                 const viewerToggleBtn = document.getElementById('viewerToggleH4');
