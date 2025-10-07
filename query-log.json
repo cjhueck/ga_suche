@@ -148,5 +148,29 @@
       "goethes": 11
     },
     "lastUsed": "2025-10-06T22:42:55.259Z"
+  },
+  "goethe": {
+    "count": 3,
+    "coOccurrences": {},
+    "lastUsed": "2025-10-06T23:06:08.569Z"
+  },
+  "lebenstableau": {
+    "count": 5,
+    "coOccurrences": {},
+    "lastUsed": "2025-10-06T23:12:05.293Z"
+  },
+  "steiner": {
+    "count": 1,
+    "coOccurrences": {
+      "kant": 1
+    },
+    "lastUsed": "2025-10-06T23:09:00.604Z"
+  },
+  "kant": {
+    "count": 1,
+    "coOccurrences": {
+      "steiner": 1
+    },
+    "lastUsed": "2025-10-06T23:09:00.604Z"
   }
 }
