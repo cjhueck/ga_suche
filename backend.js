@@ -1877,6 +1877,50 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     lastUpdate: lastSynonymUpdate,
     topQueries: topQueries
   });
+  app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
+  try {
+    console.log('\n========================================');
+    console.log('LÖSCHE UNVOLLSTÄNDIGE ZUSAMMENFASSUNGEN');
+    console.log('========================================');
+    
+    let deletedCount = 0;
+    const toDelete = [];
+    
+    Object.entries(summaryCache).forEach(([lectureId, summary]) => {
+      const headings = summary.headings || [];
+      const h3Count = headings.filter(h => h.level === 'h3').length;
+      
+      // Lösche wenn keine Headings oder keine H3
+      if (headings.length === 0 || h3Count === 0) {
+        toDelete.push(lectureId);
+        console.log(`  Markiere ${lectureId} (${headings.length} headings, ${h3Count} H3)`);
+      }
+    });
+    
+    toDelete.forEach(id => {
+      delete summaryCache[id];
+      deletedCount++;
+    });
+    
+    await saveSummaryCache();
+    
+    gaOverviewCache = {};
+    await saveGAOverviewCache();
+    
+    console.log(`✓ ${deletedCount} unvollständige Zusammenfassungen gelöscht`);
+    console.log('========================================\n');
+    
+    res.json({
+      success: true,
+      deletedCount: deletedCount,
+      deletedIds: toDelete
+    });
+    
+  } catch (error) {
+    console.error('Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 });
 
 // ============================================================================
