@@ -1830,28 +1830,19 @@ function normalizeGANumber(gaNumber) {
       await displayGAOverview(data);
       
       try {
-        // Primär: Zentrale Summary-Datenbank über API
-        const centralResponse = await fetch(`${API_BASE}/api/summaries/all`);
+        // Primär: Zentrale Summary-Datenbank direkt laden
+        const centralResponse = await fetch(`${API_BASE}/summary-database.json`);
         if (centralResponse.ok) {
           const centralData = await centralResponse.json();
           console.log('Zentrale Summary-Datenbank geladen:', Object.keys(centralData).length, 'Einträge');
           return await applySummariesToOverview(data, centralData);
-        }
-        
-        // Fallback: Versuche lecture-summaries.json direkt zu laden
-        console.warn('Zentrale Datenbank nicht verfügbar, versuche lokale JSON...');
-        const summaryResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
-        if (!summaryResponse.ok) {
-          console.warn('lecture-summaries.json nicht gefunden, versuche API-Endpunkt');
+        } else {
+          console.warn('Zentrale Datenbank nicht verfügbar, verwende API-Endpunkt...');
           return await loadSummariesViaAPI(data);
         }
         
-        const summaryData = await summaryResponse.json();
-        console.log('lecture-summaries.json geladen (Fallback):', Object.keys(summaryData).length, 'Einträge');
-        return await applySummariesToOverview(data, summaryData);
-        
       } catch (error) {
-        console.error('Fehler beim Laden der lecture-summaries.json:', error);
+        console.error('Fehler beim Laden der zentralen Datenbank:', error);
         // Fallback zu API-Methode
         await loadSummariesViaAPI(data);
       }
@@ -1932,19 +1923,12 @@ function normalizeGANumber(gaNumber) {
 // Funktion: Speichere Summary in zentrale Datenbank
 async function saveSummaryToCentral(lectureId, summaryData) {
   try {
-    const response = await fetch(`${API_BASE}/api/summaries/save`, {
+    const response = await fetch(`${API_BASE}/api/save-summary`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         lectureId: lectureId,
-        summary: summaryData.summary,
-        headings: summaryData.headings || [],
-        source: 'online-generated',
-        generatedAt: new Date().toISOString(),
-        metadata: {
-          userAgent: navigator.userAgent,
-          timestamp: Date.now()
-        }
+        summary: summaryData
       })
     });
     
