@@ -1359,13 +1359,33 @@ Original
 
     async function loadSummaryFromDB(lectureId) {
       try {
-        const response = await fetch(`${API_BASE}/summary-database.json`);
-        if (!response.ok) return null;
-        
-        const summaryDB = await response.json();
-        return summaryDB[lectureId] || null;
+        if (isLocal) {
+          // Lokal: Lade aus statischer Datei
+          const response = await fetch(`${API_BASE}/summary-database.json`);
+          if (!response.ok) return null;
+          
+          const summaryDB = await response.json();
+          return summaryDB[lectureId] || null;
+        } else {
+          // Online: Lade dynamisch vom Render Backend
+          const parts = lectureId.split('/');
+          if (parts.length === 2) {
+            const response = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
+            if (response.ok) {
+              const summaryData = await response.json();
+              if (summaryData.exists) {
+                return {
+                  summary: summaryData.summary,
+                  headings: summaryData.headings || [],
+                  timestamp: new Date().toISOString()
+                };
+              }
+            }
+          }
+          return null;
+        }
       } catch (error) {
-        console.log('Summary-DB nicht verfügbar:', error.message);
+        console.log('Summary laden fehlgeschlagen:', error.message);
         return null;
       }
     }
