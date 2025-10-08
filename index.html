@@ -295,39 +295,20 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       display: none;
     }
     
-    .sidebar-toggle {
-  position: fixed;
-  left: 0 !important;
-  top: 9%; /* NEU: zentriert vertikal */
-  transform: translateY(-50%);  /* NEU: exakte Zentrierung */
-  width: 14px;
-  height: 30px;
-  background: #ffffff;
-  border: 1px solid #467886;
-  border-radius: 0 8px 8px 0;
-  border-left: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #467886;
-  transition: background 0.2s;
-  z-index: 1000;
-  will-change: auto;
-}
-    
-    .sidebar-toggle:hover {
-      background: #ffffff;
-    }
+
     
     .resize-handle {
   width: 1px;
   background-color: #ddd;
       cursor: col-resize;
-      position: relative;
+      position: fixed;
+      left: 440px; /* Wird dynamisch über JavaScript gesetzt */
+      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
+      bottom: auto;
+      height: 100px; /* Feste Höhe für das Handle */
       flex-shrink: 0;
       transition: background-color 0.2s;
+      z-index: 1001; /* Über anderen Elementen */
     }
     
     .resize-handle::before {
@@ -336,9 +317,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #999;
-      font-size: 32px;
+      color: #467886;
+      font-size: 40px;
       line-height: 1;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
     }
     
     .resize-handle:hover {
@@ -347,7 +331,13 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .resize-handle:hover::before {
-      color: #666;
+      color: #2a5a66;
+    }
+    
+    /* Symbol für geschlossene Sidebar */
+    .sidebar-collapsed .resize-handle::before {
+      content: '▶';
+      font-size: 36px;
     }
     
     #main-container {
@@ -356,6 +346,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       flex-direction: row;
       min-width: 0;
       overflow: hidden;
+      margin-top: 0; /* Wird dynamisch über JavaScript gesetzt */
     }
     
     #main {
@@ -365,6 +356,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       min-width: 0;
       line-height: 1.45;
       position: relative;
+      margin-top: 0; /* Wird dynamisch über JavaScript gesetzt */
     }
     
     body.dark-mode .depth-btn {
@@ -412,9 +404,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       width: 0;
       min-width: 0;
       background: transparent;
-      position: relative;
+      position: fixed;
+      right: 0;
+      top: 0; /* Wird dynamisch über JavaScript gesetzt */
+      bottom: 0;
       transition: width 0.3s ease, background-color 0.3s ease, border-left 0.3s ease;
-
+      z-index: 999; /* Unter dem Header (z-index: 1000) */
     }
     
     #summary-panel.visible {
@@ -426,40 +421,21 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
 
     }
     
-    .summary-panel-toggle {
-  position: fixed !important;
-  right: 0 !important;
-  top: 9%;  /* NEU: zentriert vertikal */
-  transform: translateY(-50%);  /* NEU: exakte Zentrierung */
-  width: 18px;
-  height: 30px;
-  background: #ffffff;
-  border: 1px solid #467886;
-  border-radius: 8px 0 0 8px;
-  border-right: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #467886;
-  transition: background 0.2s;
-  z-index: 1000;
-  will-change: auto;
-}
-    
-    .summary-panel-toggle:hover {
-      background: #ffffff;
-    }
+
     
     .vertical-resize-handle {
       width: 1px;
       background-color: #ddd;
       cursor: col-resize;
-      position: relative;
+      position: fixed;
+      right: 0; /* Wird dynamisch über JavaScript gesetzt */
+      top: 45vh; /* Feste Position bei 50% der Viewport-Höhe */
+      bottom: auto;
+      height: 100px; /* Feste Höhe für das Handle */
       flex-shrink: 0;
       transition: background-color 0.2s, width 0.2s;
       display: none;
+      z-index: 1001; /* Über dem Summary-Panel */
     }
     
     .vertical-resize-handle::before {
@@ -468,12 +444,20 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #999;
-      font-size: 32px;
+      color: #467886;
+      font-size: 40px;
       line-height: 1;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.2s;
     }
     
     .vertical-resize-handle.visible {
+      display: block;
+    }
+    
+    /* Handle auch im geschlossenen Zustand sichtbar machen */
+    .summary-panel-collapsed .vertical-resize-handle {
       display: block;
     }
     
@@ -483,7 +467,13 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .vertical-resize-handle:hover::before {
-      color: #666;
+      color: #2a5a66;
+    }
+    
+    /* Symbol für geschlossenes Summary-Panel */
+    .summary-panel-collapsed .vertical-resize-handle::before {
+      content: '◀';
+      font-size: 36px;
     }
     
     #summary-content {
@@ -561,8 +551,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
-    #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.5rem; }
-    #document-title { margin-top: 0; margin-bottom: 1rem; }
+    #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
+    #document-title { margin-top: 0; margin-bottom: 0; }
     #document-title a { color: #467886; text-decoration: none; }
     #document-title a:hover { text-decoration: underline; }
     
@@ -597,14 +587,7 @@ body.dark-mode .ga-lecture-count {
 .ga-toggle-btn {
   color: #467886;
 }
-body.dark-mode #viewerToggleH4 {
-  border-color: #7EB8C8;
-  color: #7EB8C8;
-}
 
-#viewerToggleH4:hover {
-  opacity: 0.7;
-}
 
 body.dark-mode .ga-toggle-btn {
   color: #e0e0e0;
@@ -623,16 +606,29 @@ body.dark-mode a {
   color: #7EB8C8;
 }
 body.dark-mode #viewerOriginalBtn {
-  border-color: #7EB8C8;
-  color: #7EB8C8;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 #viewerOriginalBtn:hover {
   opacity: 0.7;
 }   
 body.dark-mode #viewerSummaryBtn {
-  border-color: #7EB8C8;
-  color: #7EB8C8;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode #viewerSummaryBtn i,
+body.dark-mode #viewerOriginalBtn i {
+  color: #ffffff !important;
+}
+
+.loading-message {
+  color: #666;
+}
+
+body.dark-mode .loading-message {
+  color: #ffffff !important;
 }
 
 #viewerSummaryBtn:hover {
@@ -980,6 +976,29 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer {
       line-height: 1.4;
+      padding-top: 80px; /* Wird dynamisch via JavaScript angepasst */
+    }
+    
+    /* Fixierter Header im Viewer */
+    #viewer-header {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background-color: #ffffff !important;
+      border-bottom: 1px solid #e2e2e2;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 60px;
+      box-sizing: border-box;
+      /* Position und Breite werden via JavaScript gesetzt */
+    }
+    
+    /* Dark Mode für fixierten Header */
+    body.dark-mode #viewer-header {
+      background-color: #1a1a1a !important;
+      border-bottom-color: #404040;
     }
     
     #viewer .paragraph {
@@ -1081,7 +1100,7 @@ body.dark-mode #thematicSearchInfo {
     .ga-overview-meta {
       font-size: 0.9em;
       color: #666;
-      margin: 0.25rem 0;
+      margin: 0.5rem 0;
     }
     
     body.dark-mode .ga-overview-meta {
@@ -1196,9 +1215,6 @@ body.dark-mode .loading-tooltip::before {
 </style>
 </head>
 <body>
-<div class="sidebar-toggle" onclick="toggleSidebar()">
-<span id="sidebar-toggle-icon">&lt;</span>
-</div>
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1254,10 +1270,7 @@ GA-Übersicht →
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
-<textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage, z.B.:
-- Wie sieht Steiner das Verhältnis von Kant zu Goethe?
-- Welche Bedeutung hat Goethes Märchen für die Anthroposophie?
-- Wie ist das Verhältnis von Ätherleib und Astralleib?"></textarea>
+<textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen"></textarea>
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicLimitFilter">
@@ -1293,7 +1306,7 @@ GA-Übersicht →
 <div class="resize-handle" id="resizeHandle"></div>
 <div id="main-container">
 <div id="main">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
 <div style="display: flex; gap: 8px;">
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
@@ -1302,24 +1315,12 @@ Original
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
-<button id="viewerToggleH4" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-∧
-</button>
 </div>
 </div>
 <div id="viewer"></div>
 </div>
-<button class="summary-panel-toggle" id="summaryPanelToggle" title="Zusammenfassung ein-/ausblenden" onclick="toggleSummaryPanel()">
-  <span id="summary-panel-toggle-icon">&lt;</span>
-</button>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
-  <div style="padding: 1rem; padding-bottom: 0; display: none;" id="summary-header">
-    <button id="summaryPanelToggleH4" onclick="toggleViewerH4()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; float: right;">
-      ∧
-    </button>
-    <div style="clear: both;"></div>
-  </div>
   <div class="summary-buttons">
   </div>
   <div id="summary-content">
@@ -1350,6 +1351,73 @@ Original
     let showingSummaryInMain = false;
     let currentLectureSummary = null;
     let lastHighlightedIndex = null;
+    let viewerH4Collapsed = false;
+    let isGeneratingSummary = false;
+
+    // === ZENTRALE SUMMARY-DATENBANK ===
+    // Einfaches System: Alle Summaries in einer JSON-Datei
+
+    async function loadSummaryFromDB(lectureId) {
+      try {
+        const response = await fetch(`${API_BASE}/summary-database.json`);
+        if (!response.ok) return null;
+        
+        const summaryDB = await response.json();
+        return summaryDB[lectureId] || null;
+      } catch (error) {
+        console.log('Summary-DB nicht verfügbar:', error.message);
+        return null;
+      }
+    }
+
+    async function saveSummaryToDB(lectureId, summaryData) {
+      try {
+        const response = await fetch(`${API_BASE}/api/save-summary`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lectureId: lectureId,
+            summary: summaryData
+          })
+        });
+        
+        if (response.ok) {
+          console.log(`Summary für ${lectureId} in DB gespeichert`);
+          return true;
+        } else {
+          console.warn(`Fehler beim Speichern in DB: ${response.status}`);
+          return false;
+        }
+      } catch (error) {
+        console.warn('DB-Speicherung fehlgeschlagen:', error.message);
+        return false;
+      }
+    }
+
+    async function loadSummariesFromDB(data) {
+      try {
+        const response = await fetch(`${API_BASE}/summary-database.json`);
+        if (!response.ok) return;
+        
+        const summaryDB = await response.json();
+        let loadedCount = 0;
+        
+        // Füge Summaries zu den Lectures hinzu
+        data.lectures.forEach(lecture => {
+          if (summaryDB[lecture.ID]) {
+            lecture.summary = summaryDB[lecture.ID].summary;
+            loadedCount++;
+          }
+        });
+        
+        console.log(`${loadedCount} Summaries aus zentraler DB geladen`);
+      } catch (error) {
+        console.log('Zentrale Summary-DB nicht verfügbar:', error.message);
+      }
+    }
+
+    // Initiale CSS-Klassen setzen
+    document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
 
 function normalizeGANumber(gaNumber) {
     const match = gaNumber.match(/^GA?(\d+)([a-zA-Z]?)$/i);
@@ -1360,6 +1428,155 @@ function normalizeGANumber(gaNumber) {
 
     return `GA${number}${suffix.toLowerCase()}`;
   }
+
+    // UI-Sperrung während Summary-Generierung
+    function setUILocked(locked) {
+      isGeneratingSummary = locked;
+      
+      // Alle klickbaren Elemente finden und sperren/entsperren
+      const clickableElements = document.querySelectorAll('a, button, [onclick], .result-item, .ga-overview-item');
+      
+      clickableElements.forEach(element => {
+        if (locked) {
+          element.style.pointerEvents = 'none';
+          element.style.opacity = '0.6';
+          element.style.cursor = 'wait';
+        } else {
+          element.style.pointerEvents = '';
+          element.style.opacity = '';
+          element.style.cursor = '';
+        }
+      });
+      
+      // Loading-Cursor für den Body
+      document.body.style.cursor = locked ? 'wait' : '';
+      
+      console.log(locked ? 'UI gesperrt - Summary wird generiert' : 'UI entsperrt - Summary-Generierung beendet');
+    }
+
+    // Globaler Schutz gegen Klicks während Summary-Generierung
+    function preventClicksDuringSummaryGeneration(event) {
+      if (isGeneratingSummary) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.warn('Klick blockiert - Summary wird gerade generiert');
+        return false;
+      }
+    }
+
+    // Event Listener für globalen Schutz hinzufügen
+    document.addEventListener('click', preventClicksDuringSummaryGeneration, true);
+    document.addEventListener('keydown', function(event) {
+      if (isGeneratingSummary && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        event.stopPropagation();
+        console.warn('Tastendruck blockiert - Summary wird gerade generiert');
+        return false;
+      }
+    }, true);
+
+    // Header-Position dynamisch anpassen
+    function updateHeaderPosition() {
+      const header = document.getElementById('viewer-header');
+      const mainElement = document.getElementById('main');
+      const summaryPanel = document.getElementById('summary-panel');
+      const sidebar = document.getElementById('sidebar');
+      const viewer = document.getElementById('viewer');
+      
+      if (header && mainElement) {
+        const mainRect = mainElement.getBoundingClientRect();
+        const isSummaryPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
+        const isSidebarCollapsed = sidebar && sidebar.classList.contains('collapsed');
+        
+        let headerLeft, headerWidth;
+        
+        if (isSidebarCollapsed) {
+          // Sidebar kollabiert - Header beginnt am linken Bildschirmrand
+          headerLeft = 0;
+          headerWidth = window.innerWidth; // Header immer volle Breite
+        } else {
+          // Sidebar offen - Header beginnt am #main Element
+          headerLeft = mainRect.left;
+          headerWidth = window.innerWidth - mainRect.left; // Header bis zum rechten Rand
+        }
+        
+        header.style.left = headerLeft + 'px';
+        header.style.width = headerWidth + 'px';
+        
+        // Positioniere das Summary-Panel unter dem Header und passe Main-Container an
+        if (summaryPanel) {
+          const mainContainer = document.getElementById('main-container');
+          setTimeout(() => {
+            const headerHeight = header.offsetHeight;
+            summaryPanel.style.top = headerHeight + 'px';
+            
+            // Main-Container Margin anpassen je nach Panel-Sichtbarkeit
+            if (mainContainer) {
+              if (isSummaryPanelVisible) {
+                const panelWidth = summaryPanel.offsetWidth || 280;
+                mainContainer.style.marginRight = panelWidth + 'px';
+              } else {
+                mainContainer.style.marginRight = '0px';
+              }
+            }
+          }, 10);
+        }
+        
+        // Main-Container unter Header positionieren
+        const mainContainer = document.getElementById('main-container');
+        const resizeHandle = document.getElementById('resizeHandle');
+        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+        
+        setTimeout(() => {
+          const headerHeight = header.offsetHeight;
+          
+          if (mainContainer) {
+            mainContainer.style.marginTop = headerHeight + 'px';
+          }
+          
+          // Viewer-Padding entfernen da Main-Container bereits korrekt positioniert ist
+          if (viewer) {
+            viewer.style.paddingTop = '0px';
+          }
+          
+          // Resize-Handles horizontal positionieren (Höhe über CSS: 45vh)
+          if (resizeHandle) {
+            // Linkes Handle: Position abhängig von Sidebar-Zustand
+            if (isSidebarCollapsed) {
+              resizeHandle.style.left = '0px';
+            } else {
+              const sidebarWidth = sidebar ? sidebar.offsetWidth : 440;
+              resizeHandle.style.left = sidebarWidth + 'px';
+            }
+          }
+          
+          if (verticalResizeHandle) {
+            // Rechtes Handle: Position abhängig von Panel-Zustand
+            if (isSummaryPanelVisible) {
+              // Panel offen: Handle neben Panel positionieren
+              const panelWidth = summaryPanel.offsetWidth || 280;
+              verticalResizeHandle.style.right = panelWidth + 'px';
+            } else {
+              // Panel geschlossen: Handle am rechten Bildschirmrand
+              verticalResizeHandle.style.right = '0px';
+            }
+          }
+        }, 10);
+      }
+    }
+
+    // Header-Position und Toggle-Position bei Resize und Laden aktualisieren
+    window.addEventListener('resize', function() {
+      updateHeaderPosition();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      updateHeaderPosition();
+    });
+    
+    // Header-Position nach kurzer Verzögerung auch aktualisieren (für dynamische Layouts)
+    setTimeout(function() {
+      updateHeaderPosition();
+    }, 100);
 
     function addToHistory(field, value) {
       if (!value || !value.trim()) return;
@@ -1392,19 +1609,23 @@ function normalizeGANumber(gaNumber) {
 
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
-      const icon = document.getElementById('sidebar-toggle-icon');
       
       if (sidebar.classList.contains('collapsed')) {
+        // Sidebar öffnen
         sidebar.classList.remove('collapsed');
+        document.body.classList.remove('sidebar-collapsed');
         sidebar.style.width = '';
-        sidebar.style.minWidth = '';
-  icon.textContent = '<'; 
-        setTimeout(updateTogglePosition, 50);
+        sidebar.style.minWidth = ''; 
+        
+        updateHeaderPosition();
       } else {
+        // Sidebar schließen
         sidebar.classList.add('collapsed');
+        document.body.classList.add('sidebar-collapsed');
         sidebar.style.width = '0';
         sidebar.style.minWidth = '0';
-  icon.textContent = '>';
+        
+        updateHeaderPosition();
       }
     }
 
@@ -1431,6 +1652,7 @@ function normalizeGANumber(gaNumber) {
   initTheme();
   populateGADropdowns();
   initGAFilter();
+  updateButtonStates(); // Verstecke Buttons beim ersten Laden
     });
 
     function initTheme() {
@@ -1568,7 +1790,28 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
-        displayGAOverview(data);
+        
+        // Debug-Information für Summary-Anzeige
+        console.log('GA-Übersicht Daten vom Server:', data);
+        console.log('Server-URL war:', `${API_BASE}/api/ga-overview/${gaNumber}`);
+        if (data.lectures) {
+          const lecturesWithSummary = data.lectures.filter(l => l.summary && l.summary.trim() !== '');
+          console.log(`${lecturesWithSummary.length} von ${data.lectures.length} Vorträgen haben eine Zusammenfassung (vom Server!)`);
+          
+          // Zeige ein paar Beispiel-Summaries zur Diagnose
+          if (lecturesWithSummary.length > 0) {
+            console.log('Beispiel-Summary vom Server:', lecturesWithSummary[0].summary.substring(0, 100) + '...');
+          }
+          
+          // Immer versuchen, Summaries aus lecture-summaries.json zu laden
+          if (lecturesWithSummary.length < data.lectures.length) {
+            console.log('Versuche Summaries aus lecture-summaries.json zu laden...');
+            loadSummariesForOverview(data);
+            return;
+          }
+        }
+        
+        await displayGAOverview(data);
       } catch (error) {
         console.error('Fehler beim Laden der GA-Übersicht:', error);
         document.getElementById('viewer').innerHTML = `
@@ -1579,23 +1822,203 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    // Hilfsfunktion: Lade Summaries aus zentraler Datenbank
+    async function loadSummariesForOverview(data) {
+      console.log('Lade Summaries aus zentraler Datenbank für GA-Übersicht...');
+      
+      // Erstmal die Übersicht ohne Summaries anzeigen
+      await displayGAOverview(data);
+      
+      try {
+        // Primär: Zentrale Summary-Datenbank über API
+        const centralResponse = await fetch(`${API_BASE}/api/summaries/all`);
+        if (centralResponse.ok) {
+          const centralData = await centralResponse.json();
+          console.log('Zentrale Summary-Datenbank geladen:', Object.keys(centralData).length, 'Einträge');
+          return await applySummariesToOverview(data, centralData);
+        }
+        
+        // Fallback: Versuche lecture-summaries.json direkt zu laden
+        console.warn('Zentrale Datenbank nicht verfügbar, versuche lokale JSON...');
+        const summaryResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
+        if (!summaryResponse.ok) {
+          console.warn('lecture-summaries.json nicht gefunden, versuche API-Endpunkt');
+          return await loadSummariesViaAPI(data);
+        }
+        
+        const summaryData = await summaryResponse.json();
+        console.log('lecture-summaries.json geladen (Fallback):', Object.keys(summaryData).length, 'Einträge');
+        return await applySummariesToOverview(data, summaryData);
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der lecture-summaries.json:', error);
+        // Fallback zu API-Methode
+        await loadSummariesViaAPI(data);
+      }
+    }
+    
+    // Hilfsfunktion: Wende Summary-Daten auf GA-Übersicht an
+    async function applySummariesToOverview(data, summaryData) {
+      console.log('Verfügbare Summary-Schlüssel (erste 10):', Object.keys(summaryData).slice(0, 10));
+      console.log('Gesuchte Lecture IDs (erste 5):', data.lectures.slice(0, 5).map(l => l.ID));
+      
+      let foundSummaries = 0;
+      
+      // Durchlaufe alle Vorträge und suche passende Summaries
+      data.lectures.forEach(lecture => {
+        const lectureId = lecture.ID;
+        
+        // Verschiedene Formate testen
+        const possibleKeys = [
+          lectureId,                    // z.B. "GA001/001"
+          lectureId.replace('/', '_'),  // z.B. "GA001_001"
+          lectureId.replace('/', '-'),  // z.B. "GA001-001"
+          lectureId.toLowerCase(),      // kleingeschrieben
+          lectureId.toUpperCase(),      // großgeschrieben
+        ];
+        
+        for (const key of possibleKeys) {
+          if (summaryData[key] && summaryData[key].summary) {
+            lecture.summary = summaryData[key].summary;
+            // Markiere Quelle der Summary
+            lecture.summarySource = summaryData[key].source || 'unknown';
+            lecture.summaryGeneratedAt = summaryData[key].generatedAt || null;
+            foundSummaries++;
+            console.log(`Summary für ${lectureId} gefunden unter Schlüssel: ${key} (Quelle: ${lecture.summarySource})`);
+            break;
+          }
+        }
+      });
+      
+      console.log(`${foundSummaries} Summaries geladen`);
+      
+      // Anzeige aktualisieren
+      await displayGAOverview(data);
+    }
+    
+    // Fallback: Lade Summaries über API-Endpunkt
+    async function loadSummariesViaAPI(data) {
+      console.log('Fallback: Lade Summaries über API...');
+      
+      const maxToCheck = Math.min(5, data.lectures.length);
+      let foundSummaries = 0;
+      
+      for (let i = 0; i < maxToCheck; i++) {
+        const lecture = data.lectures[i];
+        try {
+          const parts = lecture.ID.split('/');
+          if (parts.length === 2) {
+            const response = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
+            if (response.ok) {
+              const summaryData = await response.json();
+              if (summaryData.exists && summaryData.summary) {
+                lecture.summary = summaryData.summary;
+                foundSummaries++;
+                console.log(`Summary für ${lecture.ID} über API geladen`);
+              }
+            }
+          }
+        } catch (error) {
+          console.warn(`Fehler beim Laden der Summary für ${lecture.ID}:`, error);
+        }
+      }
+      
+      if (foundSummaries > 0) {
+        console.log(`${foundSummaries} Summaries über API geladen, aktualisiere Anzeige`);
+        await displayGAOverview(data);
+      }
+    }
+
+// Funktion: Speichere Summary in zentrale Datenbank
+async function saveSummaryToCentral(lectureId, summaryData) {
+  try {
+    const response = await fetch(`${API_BASE}/api/summaries/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: lectureId,
+        summary: summaryData.summary,
+        headings: summaryData.headings || [],
+        source: 'online-generated',
+        generatedAt: new Date().toISOString(),
+        metadata: {
+          userAgent: navigator.userAgent,
+          timestamp: Date.now()
+        }
+      })
+    });
+    
+    if (response.ok) {
+      const result = await response.json();
+      console.log(`Summary für ${lectureId} in zentrale Datenbank gespeichert:`, result);
+      return result;
+    } else {
+      console.warn(`Fehler beim Speichern der Summary für ${lectureId}:`, response.status);
+      return null;
+    }
+  } catch (error) {
+    console.error(`Fehler beim Speichern der Summary für ${lectureId}:`, error);
+    return null;
+  }
+}
+
+// Funktion: Synchronisiere GitHub-Summaries mit zentraler Datenbank
+async function syncGitHubSummariesToCentral() {
+  try {
+    console.log('Starte Synchronisation von GitHub zu zentraler Datenbank...');
+    
+    const response = await fetch(`${API_BASE}/api/summaries/sync-from-github`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    
+    if (response.ok) {
+      const result = await response.json();
+      console.log('GitHub-Sync erfolgreich:', result);
+      return result;
+    } else {
+      console.warn('GitHub-Sync fehlgeschlagen:', response.status);
+      return null;
+    }
+  } catch (error) {
+    console.error('Fehler beim GitHub-Sync:', error);
+    return null;
+  }
+}
+
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
 
 // Ändere die displayGAOverview Funktion (in index.html)
-function displayGAOverview(data) {
+async function displayGAOverview(data) {
   const resultsContainer = document.getElementById('results');
   const titleElement = document.getElementById('document-title');
   const viewer = document.getElementById('viewer');
   
   titleElement.textContent = `${data.gaNumber}: ${data.gaTitle}`;
+  
   viewer.innerHTML = '<p style="color: #666; font-style: italic;">Wählen Sie einen Vortrag aus der Liste links.</p>';
+  
+  // Setze currentLectureData zurück und verstecke Buttons
+  currentLectureData = null;
+  currentLectureSummary = null;
+  showingSummaryInMain = false;
+  updateButtonStates();
+  
+  // Lade Summaries aus zentraler Datenbank
+  await loadSummariesFromDB(data);
+  
+  // Zähle Vorträge mit Summaries
+  const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
   
   let html = `
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 0.5px solid #ddd; margin-bottom: 0.5rem;">
       <span style="font-weight: 600;">${data.lectureCount} Vorträge</span>
-      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px;">
+      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px; margin-right: 8px;">
         ${gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen'}
+      </button>
+      <button onclick="showSummaryManager()" style="padding: 4px 8px; font-size: 0.8em; border: 1px solid #999; background: transparent; cursor: pointer; border-radius: 4px; color: #666;">
+        ⚙️ Verwalten
       </button>
     </div>
     <div id="ga-lecture-list">
@@ -1614,20 +2037,26 @@ function displayGAOverview(data) {
     
     const hasSummary = lecture.summary && lecture.summary.trim() !== '';
     
+    // Debug: Log wenn Summary vorhanden ist
+    if (hasSummary) {
+      console.log(`Vortrag ${lecture.ID} hat Summary:`, lecture.summary.substring(0, 100) + '...');
+    }
+    
     html += `
-      <div class="ga-overview-lecture" style="margin-bottom: 0.75rem; padding-bottom: 0.2rem; border-bottom: 0.5px solid #ddd;">
+      <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
         <h3 style="font-size: 0.9em; margin: 0 0 0rem 0;">
           <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
             ${titleText}
           </a>
         </h3>
-    
         
         ${hasSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 0.9em;">${lecture.summary}</p>
+            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 0.9em; color: #666;">${lecture.summary}</p>
           </div>
-        ` : ''}
+        ` : `
+          <!-- Keine Zusammenfassung für ${lecture.ID} -->
+        `}
       </div>
     `;
   });
@@ -1654,8 +2083,212 @@ function toggleGASummaries() {
   }
 }
 
+// Summary-Manager Interface
+async function showSummaryManager() {
+  const actions = [
+    '1. 🔄 GitHub → Zentrale DB synchronisieren',
+    '2. 📊 Zentrale DB Status anzeigen', 
+    '3. 🐛 Debug-Informationen',
+    '4. ❌ Abbrechen'
+  ];
+  
+  const choice = prompt(`Summary-Verwaltung:\n\n${actions.join('\n')}\n\nWählen Sie (1-4):`);
+  
+  switch (choice) {
+    case '1':
+      await performGitHubSync();
+      break;
+    case '2':
+      await showCentralDBStatus();
+      break;
+    case '3':
+      await debugSummaryData();
+      break;
+    case '4':
+    default:
+      break;
+  }
+}
+
+async function performGitHubSync() {
+  const confirmed = confirm('GitHub-Summaries in zentrale Datenbank synchronisieren?\n\nDies kann einige Minuten dauern.');
+  if (!confirmed) return;
+  
+  try {
+    console.log('Starte GitHub-Sync...');
+    const result = await syncGitHubSummariesToCentral();
+    if (result) {
+      alert(`Sync erfolgreich!\n\n${result.synced || 0} Summaries übertragen\n${result.updated || 0} Summaries aktualisiert`);
+      
+      // Aktuelle GA-Übersicht neu laden
+      const titleElement = document.getElementById('document-title');
+      const titleText = titleElement.textContent;
+      const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
+      if (gaMatch) {
+        openGAOverview(gaMatch[1]);
+      }
+    } else {
+      alert('Sync fehlgeschlagen. Siehe Console für Details.');
+    }
+  } catch (error) {
+    console.error('Sync-Fehler:', error);
+    alert('Sync-Fehler: ' + error.message);
+  }
+}
+
+async function showCentralDBStatus() {
+  try {
+    const response = await fetch(`${API_BASE}/api/summaries/status`);
+    if (response.ok) {
+      const status = await response.json();
+      const info = [
+        `Zentrale Datenbank Status:`,
+        ``,
+        `📊 Gesamt: ${status.total || 0} Summaries`,
+        `🌐 Online generiert: ${status.onlineGenerated || 0}`,
+        `💻 Aus GitHub: ${status.fromGitHub || 0}`,
+        `📅 Letzte Aktualisierung: ${status.lastUpdated || 'Unbekannt'}`,
+        ``,
+        `Server: ${API_BASE}`
+      ];
+      alert(info.join('\n'));
+    } else {
+      alert('Status konnte nicht geladen werden.');
+    }
+  } catch (error) {
+    alert('Fehler beim Laden des Status: ' + error.message);
+  }
+}
+
+async function debugSummaryData() {
+  console.log('=== SUMMARY DEBUG ===');
+  console.log('API_BASE:', API_BASE);
+  
+  // Hole aktuelle GA-Nummer aus dem Titel
+  const titleElement = document.getElementById('document-title');
+  const titleText = titleElement.textContent;
+  const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
+  
+  if (gaMatch) {
+    const gaNumber = gaMatch[1];
+    console.log('GA-Nummer:', gaNumber);
+    
+    try {
+      // Test 1: Zentrale Datenbank
+      console.log('--- Test 1: Zentrale Datenbank ---');
+      const centralResponse = await fetch(`${API_BASE}/api/summaries/all`);
+      if (centralResponse.ok) {
+        const centralData = await centralResponse.json();
+        console.log(`Zentrale DB: ${Object.keys(centralData).length} Summaries verfügbar`);
+      } else {
+        console.log('Zentrale DB nicht erreichbar:', centralResponse.status);
+      }
+      
+      // Test 2: Normale GA-Overview API
+      console.log('--- Test 2: GA-Overview API ---');
+      const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+      if (response.ok) {
+        const data = await response.json();
+        const withSummary = data.lectures ? data.lectures.filter(l => l.summary).length : 0;
+        console.log(`GA-Overview API: ${withSummary} von ${data.lectures?.length || 0} mit Summary`);
+      }
+      
+      // Test 3: Legacy JSON-Datei
+      console.log('--- Test 3: Legacy JSON ---');
+      try {
+        const jsonResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
+        if (jsonResponse.ok) {
+          const jsonData = await jsonResponse.json();
+          console.log('lecture-summaries.json:', Object.keys(jsonData).length, 'Einträge');
+        } else {
+          console.log('lecture-summaries.json nicht verfügbar');
+        }
+      } catch (e) {
+        console.log('lecture-summaries.json Fehler:', e.message);
+      }
+      
+    } catch (error) {
+      console.error('Debug-Fehler:', error);
+    }
+  }
+  console.log('=== DEBUG ENDE ===');
+  alert('Debug-Informationen in Console ausgegeben (F12)');
+}
+
+// Debug-Funktion um zu sehen, woher die Summaries kommen
+async function debugGAData() {
+  console.log('=== GA SUMMARY DEBUG ===');
+  console.log('API_BASE:', API_BASE);
+  
+  // Hole aktuelle GA-Nummer aus dem Titel
+  const titleElement = document.getElementById('document-title');
+  const titleText = titleElement.textContent;
+  const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
+  
+  if (gaMatch) {
+    const gaNumber = gaMatch[1];
+    console.log('GA-Nummer:', gaNumber);
+    
+    try {
+      // Test 1: Normale API-Anfrage
+      console.log('--- Test 1: Normale API ---');
+      const response1 = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+      if (response1.ok) {
+        const data1 = await response1.json();
+        const withSummary = data1.lectures ? data1.lectures.filter(l => l.summary).length : 0;
+        console.log(`Normale API: ${withSummary} von ${data1.lectures?.length || 0} mit Summary`);
+      }
+      
+      // Test 2: Mit Cache-Bypass
+      console.log('--- Test 2: Cache-Bypass ---');
+      const response2 = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}?nocache=${Date.now()}`);
+      if (response2.ok) {
+        const data2 = await response2.json();
+        const withSummary2 = data2.lectures ? data2.lectures.filter(l => l.summary).length : 0;
+        console.log(`Cache-Bypass: ${withSummary2} von ${data2.lectures?.length || 0} mit Summary`);
+      }
+      
+      // Test 3: Versuche lecture-summaries.json direkt zu laden
+      console.log('--- Test 3: Direkte JSON-Datei ---');
+      try {
+        const jsonResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
+        if (jsonResponse.ok) {
+          const jsonData = await jsonResponse.json();
+          console.log('lecture-summaries.json verfügbar:', Object.keys(jsonData).length, 'Einträge');
+        } else {
+          console.log('lecture-summaries.json nicht verfügbar (Status:', jsonResponse.status, ')');
+        }
+      } catch (e) {
+        console.log('lecture-summaries.json nicht erreichbar:', e.message);
+      }
+      
+    } catch (error) {
+      console.error('Debug-Fehler:', error);
+    }
+  }
+  console.log('=== DEBUG ENDE ===');
+}
+
+
+
     async function showLectureFromOverview(lectureId) {
       await showLecture(lectureId, null, []);
+    }
+
+    function parseSearchTerm(input) {
+      if (!input) return { term: '', isPhrase: false };
+      
+      const trimmed = input.trim();
+      
+      // Prüfe auf Anführungszeichen am Anfang und Ende
+      if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || 
+          (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+        // Entferne die Anführungszeichen und gib als Phrase zurück
+        const cleanTerm = trimmed.slice(1, -1).trim();
+        return { term: cleanTerm, isPhrase: true };
+      }
+      
+      return { term: trimmed, isPhrase: false };
     }
 
     async function performKeywordSearch() {
@@ -1670,11 +2303,23 @@ function toggleGASummaries() {
       document.getElementById('viewer').innerHTML = '';
       document.getElementById('document-title').textContent = 'Bitte ein Ergebnis auswählen…';
       
+      // Setze currentLectureData zurück und verstecke Buttons
+      currentLectureData = null;
+      currentLectureSummary = null;
+      showingSummaryInMain = false;
+      updateButtonStates();
+      
       if (word1Input) addToHistory('word1', word1Input);
       if (word2Input) addToHistory('word2', word2Input);
       
-      const word1 = word1Input || word2Input;
-      const word2 = word1Input && word2Input ? word2Input : null;
+      // Parse Suchbegriffe auf Phrasen
+      const word1Parsed = parseSearchTerm(word1Input);
+      const word2Parsed = parseSearchTerm(word2Input);
+      
+      const word1 = word1Parsed.term || word2Parsed.term;
+      const word2 = word1Parsed.term && word2Parsed.term ? word2Parsed.term : null;
+      const word1IsPhrase = word1Parsed.term ? word1Parsed.isPhrase : word2Parsed.isPhrase;
+      const word2IsPhrase = word2Parsed.term ? word2Parsed.isPhrase : false;
       
       const button = document.querySelector('#keyword-tab .depth-btn.primary');
       
@@ -1692,6 +2337,8 @@ function toggleGASummaries() {
           body: JSON.stringify({ 
             word1: word1,
             word2: word2,
+            word1IsPhrase: word1IsPhrase,
+            word2IsPhrase: word2IsPhrase,
             proximity: proximityFilter || null
           })
         });
@@ -1708,7 +2355,16 @@ function toggleGASummaries() {
         }
         
         searchResults = results;
-        const displayQuery = word1Input && word2Input ? `${word1Input} + ${word2Input}` : (word1Input || word2Input);
+        let displayQuery;
+        if (word1Input && word2Input) {
+          const term1 = word1IsPhrase ? `"${word1}"` : word1;
+          const term2 = word2IsPhrase ? `"${word2}"` : word2;
+          displayQuery = `${term1} + ${term2}`;
+        } else {
+          const singleTerm = word1Input || word2Input;
+          const isPhrase = word1Input ? word1IsPhrase : word2IsPhrase;
+          displayQuery = isPhrase ? `"${word1}"` : singleTerm;
+        }
         renderKeywordResults(displayQuery, results, word1Input, word2Input);
         
         document.getElementById('resultInfo').textContent = ` • ${results.length} Treffer`;
@@ -1890,11 +2546,9 @@ function toggleGASummaries() {
   
   const summaryPanel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
-  const icon = document.getElementById('summary-panel-toggle-icon');
   if (summaryPanel.classList.contains('visible')) {
     summaryPanel.classList.remove('visible');
     resizeHandle.classList.remove('visible');
-    icon.textContent = '<';
     summaryPanel.style.width = '0';
     summaryPanel.style.minWidth = '0';
     summaryPanel.style.marginRight = '0px';
@@ -1923,6 +2577,12 @@ function toggleGASummaries() {
       if (!query) return;
       
       currentThematicQuery = query;
+      
+      // Setze currentLectureData zurück und verstecke Buttons
+      currentLectureData = null;
+      currentLectureSummary = null;
+      showingSummaryInMain = false;
+      updateButtonStates();
       
       const button = document.getElementById('thematicSearchBtn');
       
@@ -1973,38 +2633,53 @@ function toggleGASummaries() {
 
     function updateButtonStates() {
   // Prüfe ob Buttons existieren, bevor du sie verwendest
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   
-  if (viewerOriginalBtn && currentLectureData && showingSummaryInMain) {
+  // Wenn kein Vortrag geladen ist, verstecke alle Buttons
+  if (!currentLectureData) {
+    if (viewerOriginalBtn) {
+      viewerOriginalBtn.style.display = 'none';
+    }
+    if (viewerSummaryBtn) {
+      viewerSummaryBtn.style.display = 'none';
+    }
+    return;
+  }
+  
+  // Wenn Vortrag geladen ist, zeige Buttons basierend auf Zustand
+  if (viewerOriginalBtn && showingSummaryInMain) {
     viewerOriginalBtn.style.display = 'inline-block';
+  } else if (viewerOriginalBtn) {
+    viewerOriginalBtn.style.display = 'none';
   }
   
-  if (viewerSummaryBtn && currentLectureData && !showingSummaryInMain) {
+  if (viewerSummaryBtn) {
     viewerSummaryBtn.style.display = 'inline-block';
-  }
-  
-  if (viewerToggleBtn && currentLectureData) {
-    const viewer = document.getElementById('viewer');
-    const hasH4 = viewer && viewer.querySelector('h4') !== null;
-    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
   }
 }
 
 
     async function toggleViewerH4() {
      const viewer = document.getElementById('viewer');
-     const toggleBtn = document.getElementById('viewerToggleH4');
   
-     if (!viewer || !toggleBtn) return;
+  if (!viewer) return;
   
-  // Fall 1: Original wird angezeigt
+  // IMMER das rechte Summary Panel öffnen bei Klick auf "Übersicht"
+  const summaryPanel = document.getElementById('summary-panel');
+  let panelWasJustOpened = false;
+  if (summaryPanel && !summaryPanel.classList.contains('visible')) {
+    toggleSummaryPanel();
+    panelWasJustOpened = true;
+  }
+  
+  // Fall 1: Original wird angezeigt → Übersicht anzeigen/generieren
   if (!showingSummaryInMain) {
     // Prüfe ob Zusammenfassung existiert
     if (currentLectureSummary) {
       // Zusammenfassung vorhanden → zeige sie an
       showSummaryView();
+      // Nach dem Anzeigen weiter zum H4-Toggle (kein return hier)
     } else {
       // Keine Zusammenfassung → generiere neue
       if (!currentLectureData) {
@@ -2012,16 +2687,13 @@ function toggleGASummaries() {
         return;
       }
       
-// Button in Lade-Zustand
-toggleBtn.disabled = true;
-toggleBtn.innerHTML = '⋯';
-toggleBtn.style.opacity = '0.5';
+// ...existing code...
 
 // Auch den Übersicht-Button in Lade-Zustand setzen
 const summaryBtn = document.getElementById('viewerSummaryBtn');
 if (summaryBtn) {
   summaryBtn.disabled = true;
-  summaryBtn.innerHTML = '⋯';
+  summaryBtn.innerHTML = '<i>bitte warten...</i>';
   summaryBtn.style.opacity = '0.5';
 }
 
@@ -2047,21 +2719,27 @@ try {
           headings: data.headings || []
         };
         
+        // Speichere Summary in zentrale Datenbank
+        saveSummaryToDB(currentLectureData.ID, currentLectureSummary);
+        
         // Zeige Zusammenfassung
         showSummaryView();
         
       } catch (error) {
         console.error('Fehler beim Generieren der Zusammenfassung:', error);
         alert('Fehler beim Generieren der Zusammenfassung: ' + error.message);
-        
-        // Button zurücksetzen
-        toggleBtn.disabled = false;
-        toggleBtn.innerHTML = '∧';
-        toggleBtn.style.opacity = '1';
-        
+        return; // Bei Fehler nicht weitermachen
+      } finally {
+        // Button immer zurücksetzen, egal ob Erfolg oder Fehler
+        const summaryBtn = document.getElementById('viewerSummaryBtn');
+        if (summaryBtn) {
+          summaryBtn.disabled = false;
+          summaryBtn.innerHTML = '≡ Übersicht';
+          summaryBtn.style.opacity = '1';
+        }
       }
     }
-    return;
+    // Nach dem Anzeigen/Generieren der Summary weiter zum H4-Toggle
   }
   
   // Fall 2: Zusammenfassung wird angezeigt → Toggle H4
@@ -2069,7 +2747,14 @@ try {
   const viewerH4 = viewer.querySelectorAll('h4');
   const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
   
-  viewerH4Collapsed = !viewerH4Collapsed;
+  // Beim ersten Öffnen des Panels sollen H4s sichtbar bleiben
+  if (panelWasJustOpened) {
+    // Panel wurde gerade geöffnet → H4s sichtbar lassen
+    viewerH4Collapsed = false;
+  } else {
+    // Normaler Toggle
+    viewerH4Collapsed = !viewerH4Collapsed;
+  }
   
   viewerH4.forEach(h4 => {
     h4.style.display = viewerH4Collapsed ? 'none' : 'block';
@@ -2082,29 +2767,15 @@ try {
       h4.classList.remove('hidden');
     }
   });
-  
-  if (toggleBtn) {
-    toggleBtn.innerHTML = viewerH4Collapsed ? '∨' : '∧';
-  }
-// NEU: Synchronisiere mit Summary-Panel Button falls vorhanden
-const summaryToggleBtn = document.getElementById('summaryPanelToggleH4');
-if (summaryToggleBtn) {
-  summaryToggleBtn.innerHTML = viewerH4Collapsed ? '∨' : '∧';
-}
 }
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
-      const icon = document.getElementById('summary-panel-toggle-icon');
       const resizeHandle = document.getElementById('verticalResizeHandle');
-      const toggle = document.querySelector('.summary-panel-toggle');
-      
-      toggle.style.right = '0px';
-      toggle.style.position = 'fixed';
       
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
-  icon.textContent = '<';
+        document.body.classList.add('summary-panel-collapsed');
         panel.style.width = '0';
         panel.style.minWidth = '0';
         panel.style.marginRight = '';
@@ -2116,29 +2787,29 @@ if (summaryToggleBtn) {
         
         panel.classList.add('visible');
         resizeHandle.classList.add('visible');
-  icon.textContent = '>';
-  panel.style.width = '280px';
-  panel.style.minWidth = '280px';
-  // Damit das geöffnete rechte Sidepanel bis zum rechten Bildschirmrand reicht,
-  // darf kein zusätzlicher right-margin freibleiben. Toggle-Button wird oben
-  // per fixed position über das Panel gelegt.
-  panel.style.marginRight = '0px';
+        document.body.classList.remove('summary-panel-collapsed');
+        panel.style.width = '280px';
+        panel.style.minWidth = '280px';
+        panel.style.marginRight = '0px';
+        
+        // Sofort Main-Container anpassen, bevor Summary geladen wird
+        updateHeaderPosition();
         
         await loadSummaryAutomatically();
       }
       
-      setTimeout(() => {
-        toggle.style.right = '0px';
-        toggle.style.position = 'fixed';
-      }, 0);
+      updateHeaderPosition(); // Header-Position nach Panel-Toggle anpassen
     }
 
     async function loadSummaryAutomatically() {
       const tocList = document.getElementById('toc-list');
       
       if (!currentLectureSummary) {
+        // UI während Summary-Generierung sperren
+        setUILocked(true);
+        
         try {
-          tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">bitte warten...</p>';
+          tocList.innerHTML = '<p class="loading-message" style="padding: 1rem; font-style: italic;">bitte warten...</p>';
           
           const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
             method: 'POST',
@@ -2160,10 +2831,16 @@ if (summaryToggleBtn) {
             summary: data.summary,
             headings: data.headings || []
           };
+          
+          // Speichere Summary in zentrale Datenbank
+          saveSummaryToDB(currentLectureData.ID, currentLectureSummary);
         } catch (error) {
           console.error('Zusammenfassungs-Fehler:', error);
           tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
           return;
+        } finally {
+          // UI wieder entsperren
+          setUILocked(false);
         }
       }
       
@@ -2178,14 +2855,8 @@ if (summaryToggleBtn) {
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
-  const viewer = document.getElementById('viewer');
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  const hasH4 = viewer.querySelector('h4') !== null;
   
-  if (viewerToggleBtn) {
-    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
-  }
   if (viewerOriginalBtn) {
     viewerOriginalBtn.style.display = 'inline-block';
   }
@@ -2203,15 +2874,21 @@ async function regenerateSummary() {
     return;
   }
   
+  // UI während Summary-Generierung sperren
+  setUILocked(true);
 
   const tocList = document.getElementById('toc-list');
   
   try {
-    closeBtn.disabled = true;
-    regenerateBtn.disabled = true;
-    regenerateBtn.classList.add('processing');
-    regenerateBtn.textContent = 'bitte warten...';
-    tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">neu generieren...</p>';
+    if (typeof closeBtn !== 'undefined') {
+      closeBtn.disabled = true;
+    }
+    if (typeof regenerateBtn !== 'undefined') {
+      regenerateBtn.disabled = true;
+      regenerateBtn.classList.add('processing');
+      regenerateBtn.textContent = 'bitte warten...';
+    }
+    tocList.innerHTML = '<p style="padding: 1rem; color: #666; font-style: italic;">🤖 Generiere neue Zusammenfassung mit KI...</p>';
     
     const response = await fetch(`${API_BASE}/api/summarize-lecture`, {
       method: 'POST',
@@ -2236,24 +2913,19 @@ async function regenerateSummary() {
     
     console.log('Neue Zusammenfassung generiert');
     
-    const visibleIndex = getCurrentVisibleParagraphIndex();
-    if (visibleIndex) {
-      lastHighlightedIndex = visibleIndex;
-    }
+    // Speichere regenerierte Summary in zentrale Datenbank
+    saveSummaryToDB(currentLectureData.ID, currentLectureSummary);
+    
+    // Beim Generieren einer neuen Summary immer nach oben scrollen
+    lastHighlightedIndex = null;
     
     showingSummaryInMain = true;
     displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
-  const viewer = document.getElementById('viewer');
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  const hasH4 = viewer.querySelector('h4') !== null;
   
-  if (viewerToggleBtn) {
-    viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
-  }
   if (viewerOriginalBtn) {
     viewerOriginalBtn.style.display = 'inline-block';
   }
@@ -2290,24 +2962,30 @@ setTimeout(() => {
     console.error('Regenerierungs-Fehler:', error);
     tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;
   } finally {
+    // UI wieder entsperren
+    setUILocked(false);
+    
+    // Buttons zurücksetzen wenn vorhanden
+    if (typeof closeBtn !== 'undefined') {
+      closeBtn.disabled = false;
+    }
+    if (typeof regenerateBtn !== 'undefined') {
+      regenerateBtn.disabled = false;
+      regenerateBtn.classList.remove('processing');
+      regenerateBtn.textContent = 'Neu generieren';
+    }
   }
 }
 
     function closeAndShowOriginal() {
   const panel = document.getElementById('summary-panel');
-  const icon = document.getElementById('summary-panel-toggle-icon');
   const resizeHandle = document.getElementById('verticalResizeHandle');
-  const toggle = document.querySelector('.summary-panel-toggle');
   
   panel.classList.remove('visible');
   resizeHandle.classList.remove('visible');
-  icon.textContent = '<';
   panel.style.width = '0';
   panel.style.minWidth = '0';
   panel.style.marginRight = '0px';
-  
-  toggle.style.right = '0px';
-  toggle.style.position = 'fixed';
   
   const visibleIndex = getCurrentVisibleParagraphIndex();
   if (visibleIndex) {
@@ -2318,18 +2996,11 @@ setTimeout(() => {
   
   // Buttons zurücksetzen
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
   
   if (viewerSummaryBtn) {
     viewerSummaryBtn.disabled = false;
     viewerSummaryBtn.innerHTML = '≡ Übersicht';
     viewerSummaryBtn.style.opacity = '1';
-  }
-  
-  if (viewerToggleBtn) {
-    viewerToggleBtn.disabled = false;
-    viewerToggleBtn.innerHTML = '∧';
-    viewerToggleBtn.style.opacity = '1';
   }
   
   const currentWord1 = document.getElementById('word1').value.trim();
@@ -2344,6 +3015,7 @@ setTimeout(() => {
   setTimeout(() => {
     toggle.style.right = '0px';
     toggle.style.position = 'fixed';
+    updateHeaderPosition(); // Header-Position nach Panel-Schließung anpassen
   }, 0);
 }
 function showSummaryView() {
@@ -2356,27 +3028,17 @@ function showSummaryView() {
   displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
   
   setTimeout(() => {
-    const viewer = document.getElementById('viewer');
-    const viewerToggleBtn = document.getElementById('viewerToggleH4');
     const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
     const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-    const summaryHeader = document.getElementById('summary-header');  // <-- WICHTIG
-    const hasH4 = viewer.querySelector('h4') !== null;
     
-    if (viewerToggleBtn) {
-      viewerToggleBtn.style.display = hasH4 ? 'inline-block' : 'none';
-    }
     if (viewerOriginalBtn) {
       viewerOriginalBtn.style.display = 'inline-block';
     }
+    // Button zurücksetzen falls er im Lade-Zustand war
     if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'none';
-    }
-    
-    // Zeige Header mit H4-Toggle im Sidepanel wenn Panel offen ist
-    const summaryPanel = document.getElementById('summary-panel');
-    if (summaryHeader && summaryPanel.classList.contains('visible')) {
-      summaryHeader.style.display = 'block';  // <-- DIESE ZEILEN FEHLEN
+      viewerSummaryBtn.disabled = false;
+      viewerSummaryBtn.innerHTML = '≡ Übersicht';
+      viewerSummaryBtn.style.opacity = '1';
     }
   }, 50);
 }
@@ -2404,13 +3066,51 @@ function showSummaryView() {
       if (!targetIndex) return;
       
       const mainContainer = document.getElementById('main');
-      const paraElement = document.getElementById(`para-${targetIndex}`);
+      
+      // Entferne vorherige Markierung
+      const prevMarked = mainContainer.querySelector('.paragraph.highlighted-paragraph');
+      if (prevMarked) {
+        prevMarked.classList.remove('highlighted-paragraph');
+      }
+      
+      // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
+      // versuche zuerst das Original anzuzeigen
+      let paraElement = document.getElementById(`para-${targetIndex}`);
+      if (!paraElement && showingSummaryInMain && currentLectureData) {
+        console.log('Absatz nicht in Summary gefunden, zeige Original...');
+        showingSummaryInMain = false;
+        
+        let displayKeywords = [];
+        const currentWord1 = document.getElementById('word1').value.trim();
+        const currentWord2 = document.getElementById('word2').value.trim();
+        if (currentWord1 || currentWord2) {
+          displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+        }
+        else if (currentThematicQuery) {
+          displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
+        }
+        
+        displayLecture(currentLectureData, targetIndex, displayKeywords);
+        updateButtonStates();
+        
+        // Nach dem Rendern nochmal versuchen zu scrollen
+        setTimeout(() => scrollToIndexInViewer(targetIndex), 200);
+        return;
+      }
       
       if (paraElement) {
+        // Berechne Position für Positionierung am unteren Rand des Headers
+        const header = document.getElementById('viewer-header');
+        const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
+        
         const mainRect = mainContainer.getBoundingClientRect();
         const paraRect = paraElement.getBoundingClientRect();
-        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
-        mainContainer.scrollTop = relativeTop;
+        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+        
+        mainContainer.scrollTop = Math.max(0, relativeTop);
+        
+        // Transparente blaue Markierung mit CSS-Klasse
+        paraElement.classList.add('highlighted-paragraph');
       }
     }
 
@@ -2441,7 +3141,7 @@ function showSummaryView() {
   
   // Nur Zusammenfassung und Trennlinie anzeigen, wenn Überschriften vorhanden sind
   if (hasHeadings) {
-    html += '<div style="margin-bottom: 2rem;">';
+    html += '<div style="margin-bottom: 1rem;">';
     html += '<p><strong>Zusammenfassung</strong></p>';
     html += `<p style="font-style: italic;">${summaryObj.summary}</p>`;
     html += '<hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">';
@@ -2496,17 +3196,20 @@ const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
 html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-array-index="${idx}">${content}</div>`;
   });
   
-// H4-Toggle Button immer anzeigen
-const viewerToggleBtn = document.getElementById('viewerToggleH4');
-if (viewerToggleBtn) {
-  viewerToggleBtn.style.display = 'inline-block';
-  viewerToggleBtn.innerHTML = '∧';
-  viewerToggleBtn.disabled = false;
-  viewerToggleBtn.style.opacity = '1';
-  viewerH4Collapsed = false;
-}
-
   viewer.innerHTML = html;
+  
+  // Scrolle zum markierten Absatz in der Summary oder nach oben
+  if (lastHighlightedIndex) {
+    setTimeout(() => {
+      scrollToIndexInViewer(lastHighlightedIndex);
+    }, 50);
+  } else {
+    // Neuer Vortrag - scrolle nach oben unter den Header
+    const mainContainer = document.getElementById('main');
+    mainContainer.scrollTop = 0;
+  }
+  
+  updateHeaderPosition(); // Header-Position und Viewer-Padding anpassen
 }
 
 
@@ -2559,6 +3262,19 @@ if (viewerToggleBtn) {
   if (lectureId && targetIndex) {
     link.addEventListener('click', async (e) => {
       e.preventDefault();
+      e.stopPropagation();
+      
+      // Summary Panel schließen (wie bei Stichwortsuche)
+      const summaryPanel = document.getElementById('summary-panel');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
+      if (summaryPanel.classList.contains('visible')) {
+        summaryPanel.classList.remove('visible');
+        resizeHandle.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '0px';
+      }
+      
       const keywords = extractKeywordsFromQuery(currentThematicQuery);
       await showLecture(lectureId, targetIndex, keywords);
     });
@@ -2695,27 +3411,22 @@ if (viewerToggleBtn) {
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
             lastHighlightedIndex = cleanIndex;
+          } else {
+            // Neuer Vortrag - scrolle nach oben
+            lastHighlightedIndex = null;
           }
           
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
-  const viewer = document.getElementById('viewer');
-  const viewerToggleBtn = document.getElementById('viewerToggleH4');
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-  const hasH4 = viewer.querySelector('h4') !== null;
   
-  if (viewerToggleBtn) {
-    viewerToggleBtn.style.display = 'inline-block';
-  }
   if (viewerOriginalBtn) {
     viewerOriginalBtn.style.display = 'inline-block';
   }
-  if (viewerSummaryBtn) {
-    viewerSummaryBtn.style.display = 'none';
-  }
+  // ...existing code...
 }, 50);
           
           if (targetIndex) {
@@ -2929,26 +3640,20 @@ setTimeout(() => {
           `;
         });
       }
-      
-// H4-Toggle Button immer anzeigen
-const viewerToggleBtn = document.getElementById('viewerToggleH4');
-if (viewerToggleBtn) {
-  viewerToggleBtn.style.display = 'inline-block';
-  viewerToggleBtn.disabled = false;
-  viewerToggleBtn.style.opacity = '1';
-  viewerH4Collapsed = false;
-}
-
       html += `</div>`;
       viewer.innerHTML = html;
       
       if (cleanIndex) {
         const targetElement = document.getElementById(`para-${cleanIndex}`);
         if (targetElement) {
+          // Berechne Position für Positionierung am unteren Rand des Headers
+          const header = document.getElementById('viewer-header');
+          const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
+          
           const mainRect = mainContainer.getBoundingClientRect();
           const targetRect = targetElement.getBoundingClientRect();
-          const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop;
-          mainContainer.scrollTop = relativeTop;
+          const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+          mainContainer.scrollTop = Math.max(0, relativeTop);
           lastHighlightedIndex = cleanIndex;
         } else {
           mainContainer.scrollTop = 0;
@@ -2958,6 +3663,7 @@ if (viewerToggleBtn) {
       }
       
       updateButtonStates();
+      updateHeaderPosition(); // Header-Position und Viewer-Padding anpassen
     }
 
     function handleKeywordKeypress(event) {
@@ -2972,23 +3678,24 @@ if (viewerToggleBtn) {
       }
     }
 
-    function updateTogglePosition() {
-      const sidebar = document.getElementById('sidebar');
-      const toggle = document.querySelector('.sidebar-toggle');
-      
-      if (!sidebar.classList.contains('collapsed')) {
-        const sidebarWidth = sidebar.offsetWidth;
-        toggle.style.left = (sidebarWidth - 2) + 'px';
-      }
-    }
-
     function initResizeHandle() {
       const resizeHandle = document.getElementById('resizeHandle');
       const sidebar = document.getElementById('sidebar');
       let isResizing = false;
+      let startX = 0;
+      let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
+        startX = e.clientX;
+        hasMoved = false;
         isResizing = true;
+        
+        // Toggle für flüssiges Resize optimieren
+        const toggle = document.querySelector('.sidebar-toggle');
+        if (toggle) {
+          toggle.style.transition = 'background 0.2s, left 0.05s ease'; // Schnellere Transition beim Resize
+        }
+        
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
         e.preventDefault();
@@ -2996,6 +3703,11 @@ if (viewerToggleBtn) {
 
       function handleMouseMove(e) {
         if (!isResizing) return;
+        
+        // Prüfe ob sich die Maus bewegt hat (für Click vs. Drag Unterscheidung)
+        if (Math.abs(e.clientX - startX) > 3) {
+          hasMoved = true;
+        }
         
         const containerWidth = document.body.clientWidth;
         const newSidebarWidth = (e.clientX / containerWidth) * 100;
@@ -3004,15 +3716,32 @@ if (viewerToggleBtn) {
           const pixelWidth = (newSidebarWidth / 100) * containerWidth;
           if (pixelWidth >= 250) {
             sidebar.style.width = newSidebarWidth + '%';
-            updateTogglePosition();
+            updateHeaderPosition(); // Header beim Resize anpassen
           }
         }
       }
 
       function handleMouseUp() {
         isResizing = false;
+        
+        // Wenn keine Bewegung stattgefunden hat: Toggle-Funktion
+        if (!hasMoved) {
+          toggleSidebar();
+          // Header-Position nach Toggle-Aktion mehrfach aktualisieren
+          setTimeout(updateHeaderPosition, 100);
+          setTimeout(updateHeaderPosition, 200);
+          setTimeout(updateHeaderPosition, 350);
+        }
+        
+        // Toggle-Transition zurücksetzen
+        const toggle = document.querySelector('.sidebar-toggle');
+        if (toggle) {
+          toggle.style.transition = 'background 0.2s, left 0.3s ease'; // Normale Transition zurück
+        }
+        
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
 
@@ -3021,11 +3750,14 @@ if (viewerToggleBtn) {
       const mainPanel = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
       let isResizing = false;
+      let startX = 0;
+      let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
-        if (!summaryPanel.classList.contains('visible')) return;
-        
+        startX = e.clientX;
+        hasMoved = false;
         isResizing = true;
+        
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
         e.preventDefault();
@@ -3034,25 +3766,46 @@ if (viewerToggleBtn) {
       function handleMouseMove(e) {
         if (!isResizing) return;
         
-        const container = document.getElementById('main-container');
-        const containerWidth = container.clientWidth;
-        const containerLeft = container.getBoundingClientRect().left;
-        const mouseX = e.clientX - containerLeft;
+        const deltaX = Math.abs(e.clientX - startX);
+        if (deltaX > 3) {
+          hasMoved = true;
+        }
         
-        const newMainWidth = (mouseX / containerWidth) * 100;
-        
-        if (newMainWidth >= 20 && newMainWidth <= 80) {
-          mainPanel.style.flex = `${newMainWidth} 0 0`;
-          summaryPanel.style.width = `${100 - newMainWidth}%`;
-          // Beim Resizen soll kein Abstand zum rechten Rand entstehen
-          summaryPanel.style.marginRight = '0px';
+        if (hasMoved && summaryPanel.classList.contains('visible')) {
+          // Berechne neue Panel-Breite basierend auf Mausposition
+          const mouseX = e.clientX;
+          const windowWidth = window.innerWidth;
+          const newPanelWidth = windowWidth - mouseX;
+          
+          // Mindest- und Maximalbreite für Panel
+          const minPanelWidth = 200;
+          const maxPanelWidth = windowWidth * 0.6; // Maximal 60% der Fensterbreite
+          
+          if (newPanelWidth >= minPanelWidth && newPanelWidth <= maxPanelWidth) {
+            summaryPanel.style.width = newPanelWidth + 'px';
+            summaryPanel.style.minWidth = newPanelWidth + 'px';
+            
+            // Main-Container entsprechend anpassen
+            const mainContainer = document.getElementById('main-container');
+            if (mainContainer) {
+              mainContainer.style.marginRight = newPanelWidth + 'px';
+            }
+            
+            updateHeaderPosition(); // Header beim Resize anpassen
+          }
         }
       }
 
       function handleMouseUp() {
+        if (!hasMoved) {
+          // Toggle bei Klick
+          toggleSummaryPanel();
+        }
+        
         isResizing = false;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
   </script>
