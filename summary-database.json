@@ -247,41 +247,21 @@
     "timestamp": "2025-10-08T21:36:38.295Z"
   },
   "GA051/1": {
-    "summary": "Rudolf Steiner zeichnet in diesem Vortrag die Entwicklung der Welt- und Lebensanschauungen von den griechischen Vorsokratikern bis zur modernen Philosophie nach. Er beginnt mit den ersten griechischen Denkern wie Thales und Heraklit, die nach dem Urgrund aller Dinge suchten, führt über die Sophistik und Sokrates zur klassischen Philosophie Platons und Aristoteles'. Nach der Darstellung der hellenistischen Schulen (Stoizismus, Epikureismus, Skeptizismus) behandelt er das Aufkommen des Christentums, die mittelalterliche Scholastik und Mystik. Den Schwerpunkt legt er auf die neuzeitliche Philosophie von Descartes über Kant bis zu den deutschen Idealisten und schließlich zur naturwissenschaftlich fundierten Weltanschauung des 19. Jahrhunderts, die er als den Weg zu wahrer geistiger Befreiung des Menschen propagiert.",
+    "summary": "Rudolf Steiner gibt einen umfassenden historischen Überblick über die Entwicklung der Weltanschauungen von der Antike bis zur Gegenwart. Er zeigt auf, wie sich das menschliche Denken von den ersten griechischen Naturphilosophen über religiöse und scholastische Systeme bis hin zu modernen naturwissenschaftlich begründeten Weltanschauungen entwickelt hat. Ein zentrales Thema ist die Beziehung zwischen Vernunft und Glauben, Erkenntnis und Offenbarung. Steiner kritisiert sowohl die mittelalterliche Unterordnung der Vernunft unter die Offenbarung als auch Kants Trennung von Wissen und Glauben. Er plädiert für eine freie, auf Naturerkenntnis gegründete Weltanschauung, die den Menschen als aus der Natur entstandenes, aber geistig freies Wesen versteht, das sich selbst Sinn und Ziele setzen kann.",
     "headings": [
       {
-        "index": "^t2htka",
-        "text": "Die Grundlagen der Weltanschauung",
-        "level": "h3"
-      },
-      {
-        "index": "^t2htka",
-        "text": "Das menschliche Bedürfnis nach Erkenntnis",
-        "level": "h4"
-      },
-      {
-        "index": "^5jrjgk",
-        "text": "Von religiösen zu wissenschaftlichen Anschauungen",
-        "level": "h4"
-      },
-      {
-        "index": "^8ju77n",
+        "index": "^ok5zfo",
         "text": "Die ersten griechischen Denker",
         "level": "h3"
       },
       {
-        "index": "^8ju77n",
-        "text": "Thales und die Naturphilosophie",
-        "level": "h4"
-      },
-      {
         "index": "^ok5zfo",
-        "text": "Die Suche nach dem Urstoff",
+        "text": "Die materiellen Anfänge: Thales, Anaximander und Anaximenes",
         "level": "h4"
       },
       {
         "index": "^br5xiv",
-        "text": "Heraklit und der ewige Wechsel",
+        "text": "Heraklit und der ewige Wandel",
         "level": "h4"
       },
       {
@@ -290,18 +270,28 @@
         "level": "h4"
       },
       {
+        "index": "^wqs6m0",
+        "text": "Anaxagoras und der Weltverstand",
+        "level": "h4"
+      },
+      {
         "index": "^ah3v7c",
-        "text": "Atomismus und Materialismus",
+        "text": "Demokrit und der Atomismus",
         "level": "h4"
       },
       {
         "index": "^r38v26",
         "text": "Parmenides und die Kritik der Sinne",
+        "level": "h3"
+      },
+      {
+        "index": "^r38v26",
+        "text": "Die Unterscheidung von Sein und Schein",
         "level": "h4"
       },
       {
         "index": "^7r6rtr",
-        "text": "Die Pythagoräer und die Bedeutung der Zahl",
+        "text": "Die Pythagoräer und die Harmonie der Zahlen",
         "level": "h4"
       },
       {
@@ -311,7 +301,7 @@
       },
       {
         "index": "^vt4uye",
-        "text": "Protagoras und der Mensch als Maß",
+        "text": "Protagoras und der Mensch als Maß aller Dinge",
         "level": "h4"
       },
       {
@@ -331,12 +321,17 @@
       },
       {
         "index": "^r4qq6g",
-        "text": "Die Welt der ewigen Ideen",
+        "text": "Die Welt der Ideen und der Schatten",
         "level": "h4"
       },
       {
-        "index": "^ddk5wb",
-        "text": "Platons Leben und Entwicklung",
+        "index": "^0pedmi",
+        "text": "Seelenwanderung und Unsterblichkeit",
+        "level": "h4"
+      },
+      {
+        "index": "^93yxuo",
+        "text": "Der platonische Staat",
         "level": "h4"
       },
       {
@@ -346,27 +341,47 @@
       },
       {
         "index": "^wqpuba",
-        "text": "Die aristotelische Weltanschauung",
+        "text": "Kritik an Platon und die Einheit von Form und Materie",
         "level": "h4"
       },
       {
-        "index": "^ae0h0k",
-        "text": "Aristoteles' Einfluss auf das Mittelalter",
+        "index": "^ucxc4m",
+        "text": "Aristoteles als Naturforscher",
         "level": "h4"
       },
       {
-        "index": "^a3lhyw",
-        "text": "Hellenistische Philosophenschulen",
+        "index": "^on6n3e",
+        "text": "Die menschliche Seele und der Geist",
+        "level": "h4"
+      },
+      {
+        "index": "^fwdgya",
+        "text": "Ethik und Staatslehre bei Aristoteles",
+        "level": "h4"
+      },
+      {
+        "index": "^cwredk",
+        "text": "Die hellenistischen Schulen",
         "level": "h3"
       },
       {
-        "index": "^a3lhyw",
-        "text": "Stoizismus, Epikureismus und Skeptizismus",
+        "index": "^cwredk",
+        "text": "Stoizismus und Gleichmut",
+        "level": "h4"
+      },
+      {
+        "index": "^1bvfyy",
+        "text": "Epikureismus und vernünftige Lust",
+        "level": "h4"
+      },
+      {
+        "index": "^8zteox",
+        "text": "Skeptizismus und Zweifel",
         "level": "h4"
       },
       {
         "index": "^485mov",
-        "text": "Neuplatonismus und orientalische Einflüsse",
+        "text": "Neuplatonismus und Weltflucht",
         "level": "h4"
       },
       {
@@ -376,27 +391,42 @@
       },
       {
         "index": "^oj0fzg",
-        "text": "Glaube gegen Vernunft",
+        "text": "Glaube versus Vernunft",
+        "level": "h4"
+      },
+      {
+        "index": "^zb2mmv",
+        "text": "Die Entstehung der christlichen Dogmatik",
         "level": "h4"
       },
       {
         "index": "^54hye8",
-        "text": "Scholastik und Mystik",
+        "text": "Augustinus und Thomas von Aquino",
+        "level": "h4"
+      },
+      {
+        "index": "^3d6tbk",
+        "text": "Deutsche Mystik und Reformation",
+        "level": "h3"
+      },
+      {
+        "index": "^3d6tbk",
+        "text": "Die Mystiker: Von Eckhart bis Böhme",
         "level": "h4"
       },
       {
         "index": "^et8crs",
-        "text": "Luther und die Reformation",
+        "text": "Luther und die Trennung von Glaube und Vernunft",
         "level": "h4"
       },
       {
         "index": "^au5hu8",
-        "text": "Die neuzeitliche Philosophie",
+        "text": "Der Aufbruch der Neuzeit",
         "level": "h3"
       },
       {
         "index": "^au5hu8",
-        "text": "Der Aufbruch der Naturwissenschaft",
+        "text": "Kopernikus, Kepler und Galilei",
         "level": "h4"
       },
       {
@@ -405,23 +435,43 @@
         "level": "h4"
       },
       {
+        "index": "^6ag7gs",
+        "text": "Leibniz, Wolff und die verkappte Scholastik",
+        "level": "h4"
+      },
+      {
         "index": "^dx3qua",
-        "text": "Die englische Erkenntniskritik",
+        "text": "Die Erkenntniskritik: Locke, Hume und Kant",
+        "level": "h3"
+      },
+      {
+        "index": "^dx3qua",
+        "text": "Der englische Empirismus",
         "level": "h4"
       },
       {
         "index": "^f0osmj",
-        "text": "Kant und die kritische Philosophie",
+        "text": "Kant und die Grenzen der Erkenntnis",
+        "level": "h4"
+      },
+      {
+        "index": "^cyxik8",
+        "text": "Glaube und praktische Vernunft bei Kant",
         "level": "h4"
       },
       {
         "index": "^7s8sq2",
-        "text": "Spinoza und der deutsche Idealismus",
+        "text": "Der deutsche Idealismus und Spinoza",
         "level": "h3"
       },
       {
         "index": "^7s8sq2",
-        "text": "Spinozas Naturalismus",
+        "text": "Spinoza und die Naturnotwendigkeit",
+        "level": "h4"
+      },
+      {
+        "index": "^3nqml6",
+        "text": "Goethe und die Natur als Gott",
         "level": "h4"
       },
       {
@@ -431,12 +481,17 @@
       },
       {
         "index": "^uslrta",
-        "text": "Die naturwissenschaftliche Weltanschauung",
+        "text": "Die moderne Naturwissenschaft",
         "level": "h3"
       },
       {
         "index": "^uslrta",
-        "text": "Darwin und die moderne Naturwissenschaft",
+        "text": "Darwin und die Evolutionstheorie",
+        "level": "h4"
+      },
+      {
+        "index": "^2fqh2b",
+        "text": "Der Materialismus des 19. Jahrhunderts",
         "level": "h4"
       },
       {
@@ -445,12 +500,22 @@
         "level": "h4"
       },
       {
-        "index": "^r0fwt8",
-        "text": "Die Zukunft der Weltanschauung",
+        "index": "^j9uptc",
+        "text": "Zur freien Weltanschauung der Zukunft",
+        "level": "h3"
+      },
+      {
+        "index": "^j9uptc",
+        "text": "Der Geist als Naturprodukt",
+        "level": "h4"
+      },
+      {
+        "index": "^o09y2n",
+        "text": "Selbstbestimmung und wahre Freiheit",
         "level": "h4"
       }
     ],
-    "timestamp": "2025-10-08T21:38:58.003Z"
+    "timestamp": "2025-10-08T22:07:23.484Z"
   },
   "GA051/7": {
     "summary": "Rudolf Steiner analysiert die Entwicklung des Mittelalters durch zwei sprunghafte Ereignisse: die Begründung freier Städte am Anfang und die großen Entdeckungen am Ende. Er zeigt, wie bei den Franken aus Großgrundbesitz Machtverhältnisse entstanden, die zu einem Beamtenadel führten. Das Christentum passte sich den germanischen Verhältnissen an, während die Kirche selbst Großgrundbesitz erwarb. Ein entscheidender Wendepunkt kam durch die arabische Kultur, die wissenschaftliche Erkenntnisse nach Europa brachte - besonders Medizin, Chemie und Mathematik. Diese arabischen Einflüsse bereiteten die spätere Städtekultur vor. Steiner verdeutlicht den inneren Konflikt des Mittelalters durch Walther von der Vogelweide, der die Unvereinbarkeit von weltlicher Ehre, irdischem Gut und Gottesgefälligkeit beklagte.",
@@ -663,5 +728,96 @@
       }
     ],
     "timestamp": "2025-10-08T22:03:28.576Z"
+  },
+  "GA051/2": {
+    "summary": "Rudolf Steiner beleuchtet in seinem Vortrag William Shakespeare als bedeutenden Dramatiker, der trotz seiner einfachen Herkunft als Schauspieler die größten Charakterdramen der Weltliteratur schuf. Steiner widerlegt die Zweifel an Shakespeares Autorschaft und betont, dass gerade seine praktische Theatererfahrung seine Werke auszeichnet. Shakespeare schuf keine moralischen Lehrdramen, sondern ließ Charaktere naturgemäß handeln, ohne sie mit Theorien zu belasten. Seine Kunst wurde durch die Renaissance-Kultur ermöglicht, die erstmals das Interesse an der Einzelpersönlichkeit weckte. Steiners Analyse zeigt Shakespeare als Praktiker des Theaters, dessen Dramen durch reine Charakterschilderung wirken und auch bei mangelhafter Aufführung ihre Kraft behalten - ein zeitloser Künstler, dessen Bedeutung in einer auf das Wesentliche fokussierten Zeit noch wachsen wird.",
+    "headings": [
+      {
+        "index": "^4aora7",
+        "text": "Shakespeares Bedeutung und die Autorschaftsdebatte",
+        "level": "h3"
+      },
+      {
+        "index": "^4aora7",
+        "text": "Shakespeare als deutscher Klassiker",
+        "level": "h4"
+      },
+      {
+        "index": "^wpbht7",
+        "text": "Die Legende um Shakespeares Autorschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^mbzrfm",
+        "text": "Beweise für die Autorschaft aus den Werken selbst",
+        "level": "h4"
+      },
+      {
+        "index": "^s0wau7",
+        "text": "Das Charakterdrama als Shakespeares Kunstform",
+        "level": "h3"
+      },
+      {
+        "index": "^s0wau7",
+        "text": "Die Vollendung der Charakterdarstellung",
+        "level": "h4"
+      },
+      {
+        "index": "^njb0vu",
+        "text": "Renaissance-Kultur als Voraussetzung",
+        "level": "h4"
+      },
+      {
+        "index": "^mzowqr",
+        "text": "Naturgemäße Entwicklung statt moralischer Belastung",
+        "level": "h4"
+      },
+      {
+        "index": "^v4wd7w",
+        "text": "Der Theaterpraktiker Shakespeare",
+        "level": "h4"
+      },
+      {
+        "index": "^dmhraa",
+        "text": "Shakespeares Lebensweg und künstlerische Entwicklung",
+        "level": "h3"
+      },
+      {
+        "index": "^dmhraa",
+        "text": "Jugend und Bildung in Stratford",
+        "level": "h4"
+      },
+      {
+        "index": "^jotpq8",
+        "text": "Der Weg zum Theatererfolg in London",
+        "level": "h4"
+      },
+      {
+        "index": "^4nxrpp",
+        "text": "Die drei Schaffensperioden",
+        "level": "h4"
+      },
+      {
+        "index": "^7k174c",
+        "text": "Der Dichter hinter seinen Figuren",
+        "level": "h4"
+      },
+      {
+        "index": "^9b8nbe",
+        "text": "Zeitlose Bühnenwirkung und künftige Bedeutung",
+        "level": "h3"
+      },
+      {
+        "index": "^9b8nbe",
+        "text": "Theaterpraxis damals und heute",
+        "level": "h4"
+      },
+      {
+        "index": "^n3cx8w",
+        "text": "Die unvergängliche Kraft der Charakterschilderung",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-08T22:08:45.035Z"
   }
 }
