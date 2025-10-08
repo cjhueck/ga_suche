@@ -1924,6 +1924,81 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 });
 
 // ============================================================================
+// ZENTRALE SUMMARY-DATENBANK
+// ============================================================================
+
+const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
+
+// Lade zentrale Summary-Datenbank
+async function loadSummaryDatabase() {
+  try {
+    const data = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Zentrale Summary-DB nicht gefunden, erstelle neue...');
+    return {};
+  }
+}
+
+// Speichere zentrale Summary-Datenbank
+async function saveSummaryDatabase(summaryDB) {
+  try {
+    await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+    console.log('Zentrale Summary-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Summary-DB:', error);
+    return false;
+  }
+}
+
+// API: Summary speichern
+app.post('/api/save-summary', async (req, res) => {
+  try {
+    const { lectureId, summary } = req.body;
+    
+    if (!lectureId || !summary) {
+      return res.status(400).json({ error: 'lectureId und summary sind erforderlich' });
+    }
+    
+    // Lade aktuelle DB
+    const summaryDB = await loadSummaryDatabase();
+    
+    // Füge Summary hinzu
+    summaryDB[lectureId] = {
+      summary: summary.summary,
+      headings: summary.headings || [],
+      timestamp: new Date().toISOString()
+    };
+    
+    // Speichere DB
+    const success = await saveSummaryDatabase(summaryDB);
+    
+    if (success) {
+      console.log(`Summary für ${lectureId} in zentrale DB gespeichert`);
+      res.json({ success: true, message: `Summary für ${lectureId} gespeichert` });
+    } else {
+      res.status(500).json({ error: 'Fehler beim Speichern' });
+    }
+    
+  } catch (error) {
+    console.error('Fehler beim Speichern der Summary:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Statische Datei: summary-database.json bereitstellen
+app.get('/summary-database.json', async (req, res) => {
+  try {
+    const summaryDB = await loadSummaryDatabase();
+    res.json(summaryDB);
+  } catch (error) {
+    console.error('Fehler beim Laden der Summary-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // SERVER START
 // ============================================================================
 
@@ -1982,6 +2057,8 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /ga-overview-map.json`);
       console.log(`   POST /api/admin/generate-synonyms`);
       console.log(`   GET  /api/admin/synonym-stats`);
+      console.log(`   POST /api/save-summary`);
+      console.log(`   GET  /summary-database.json`);
       console.log(`\n✓ System bereit!\n`);
     });
     
