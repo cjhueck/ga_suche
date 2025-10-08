@@ -1226,16 +1226,26 @@ app.post('/api/summarize-lecture', async (req, res) => {
     
     // Speichere nur in zentrale Summary-Datenbank (kein Memory-Cache mehr)
     try {
+      console.log(`[SPEICHERUNG] Lade aktuelle Summary-DB...`);
       const summaryDB = await loadSummaryDatabase();
+      console.log(`[SPEICHERUNG] Aktuelle DB hat ${Object.keys(summaryDB).length} Einträge`);
+      
       summaryDB[lectureId] = {
         summary: summaryData.summary,
         headings: summaryData.headings || [],
         timestamp: new Date().toISOString()
       };
-      await saveSummaryDatabase(summaryDB);
-      console.log(`  ✓ Summary auch in zentrale DB gespeichert`);
+      console.log(`[SPEICHERUNG] Füge Summary für ${lectureId} hinzu...`);
+      
+      const success = await saveSummaryDatabase(summaryDB);
+      if (success) {
+        console.log(`[SPEICHERUNG] ✓ Summary für ${lectureId} erfolgreich in zentrale DB gespeichert`);
+      } else {
+        console.error(`[SPEICHERUNG] ✗ Speicherung fehlgeschlagen für ${lectureId}`);
+      }
     } catch (dbError) {
-      console.warn(`  ⚠ Zentrale DB-Speicherung fehlgeschlagen:`, dbError.message);
+      console.error(`[SPEICHERUNG] ✗ Zentrale DB-Speicherung fehlgeschlagen für ${lectureId}:`, dbError.message);
+      console.error(`[SPEICHERUNG] Stack:`, dbError.stack);
     }
     
     // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
