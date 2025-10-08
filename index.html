@@ -2719,7 +2719,7 @@ try {
           headings: data.headings || []
         };
         
-        // Speichere Summary in zentrale Datenbank
+        // Speichere Summary in zentrale Datenbank (nur bei neuer Generierung)
         saveSummaryToDB(currentLectureData.ID, currentLectureSummary);
         
         // Zeige Zusammenfassung
@@ -2832,8 +2832,8 @@ try {
             headings: data.headings || []
           };
           
-          // Speichere Summary in zentrale Datenbank
-          saveSummaryToDB(currentLectureData.ID, currentLectureSummary);
+          // KEIN automatisches Speichern von bereits existierenden Summaries
+          // (Werden bereits in der zentralen DB gespeichert)
         } catch (error) {
           console.error('Zusammenfassungs-Fehler:', error);
           tocList.innerHTML = `<p style="padding: 1rem; color: #c53030;">Fehler: ${error.message}</p>`;

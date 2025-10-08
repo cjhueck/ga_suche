@@ -306,7 +306,7 @@ function formatDate(dateStr) {
   return dateStr;
 }
 
-function generateGAOverview(gaNumber) {
+async function generateGAOverview(gaNumber) {
   const lectures = Object.values(fullLectures)
     .filter(lec => lec.gaNumber === gaNumber)
     .sort((a, b) => {
@@ -321,21 +321,20 @@ function generateGAOverview(gaNumber) {
   
   const gaTitle = lectures[0].gaTitle || gaNumber;
   
+  // Lade zentrale Summary-Datenbank (kein Cache mehr)
+  const summaryDB = await loadSummaryDatabase();
+  
   const overview = {
     gaNumber: gaNumber,
     gaTitle: gaTitle,
     lectureCount: lectures.length,
     lectures: lectures.map(lec => {
       const lectureId = lec.ID;
-      const cached = summaryCache[lectureId];
+      const summaryData = summaryDB[lectureId];
       
       let summaryText = null;
-      if (cached) {
-        if (typeof cached === 'string') {
-          summaryText = cached;
-        } else if (typeof cached === 'object' && cached.summary) {
-          summaryText = cached.summary;
-        }
+      if (summaryData && summaryData.summary) {
+        summaryText = summaryData.summary;
       }
       
       return {
@@ -1196,34 +1195,21 @@ app.post('/api/summarize-lecture', async (req, res) => {
     
     console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate})...`);
     
-    if (!forceRegenerate && summaryCache[lectureId]) {
-      console.log(`  ✓ Cache-Hit für ${lectureId}`);
-      const cachedData = summaryCache[lectureId];
-      
-      console.log('  → Typ der cachedData:', typeof cachedData);
-      console.log('  → cachedData ist Array?', Array.isArray(cachedData));
-      if (typeof cachedData === 'object' && cachedData !== null) {
-        console.log('  → cachedData Keys:', Object.keys(cachedData));
-        console.log('  → cachedData.summary vorhanden?', !!cachedData.summary);
-        console.log('  → cachedData.headings vorhanden?', !!cachedData.headings);
-        console.log('  → cachedData.headings ist Array?', Array.isArray(cachedData.headings));
-        console.log('  → cachedData.headings Länge:', cachedData.headings?.length);
-        console.log('  → Erste 3 headings:', JSON.stringify(cachedData.headings?.slice(0, 3), null, 2));
+    // Prüfe zuerst zentrale Summary-Datenbank
+    if (!forceRegenerate) {
+      const summaryDB = await loadSummaryDatabase();
+      if (summaryDB[lectureId]) {
+        console.log(`  ✓ Summary aus zentraler DB für ${lectureId}`);
+        const dbData = summaryDB[lectureId];
+        
+        return res.json({
+          lectureId: lectureId,
+          summary: dbData.summary,
+          headings: dbData.headings || [],
+          fromCache: true,
+          paragraphCount: fullLectures[lectureId]?.paragraphs?.length || 0
+        });
       }
-      
-      const responseData = typeof cachedData === 'string' 
-        ? { summary: cachedData, headings: [] }
-        : cachedData;
-      
-      console.log(`  → Response Headings Länge: ${responseData.headings?.length || 0}`);
-      
-      return res.json({
-        lectureId: lectureId,
-        summary: responseData.summary,
-        headings: responseData.headings || [],
-        fromCache: true,
-        paragraphCount: fullLectures[lectureId]?.paragraphs?.length || 0
-      });
     }
     
     const lecture = fullLectures[lectureId];
@@ -1238,12 +1224,7 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → Generiere neue Zusammenfassung...`);
     const summaryData = await generateLectureSummary(lecture);
     
-    console.log(`  → Speichere in Cache (Vor): ${Object.keys(summaryCache).length} Einträge`);
-    summaryCache[lectureId] = summaryData;
-    console.log(`  → Speichere in Cache (Nach): ${Object.keys(summaryCache).length} Einträge`);
-    console.log(`  → Headings im neuen Eintrag: ${summaryData.headings?.length || 0}`);
-    
-    // Speichere auch in zentrale Summary-Datenbank
+    // Speichere nur in zentrale Summary-Datenbank (kein Memory-Cache mehr)
     try {
       const summaryDB = await loadSummaryDatabase();
       summaryDB[lectureId] = {
@@ -1259,8 +1240,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
     
     // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
     
-    // Invalidiere GA-Overview-Cache
-    await invalidateGAOverviewCache(lectureId);
     console.log(`  ✓ Zusammenfassung erstellt und in zentrale DB gespeichert`);
     
     res.json({
@@ -1281,22 +1260,19 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
-    console.log(`[CHECK-SUMMARY] Prüfe Cache für ${lectureId}`);
+    console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
     
-    if (summaryCache[lectureId]) {
-      const cachedData = summaryCache[lectureId];
-      
-      const responseData = typeof cachedData === 'string' 
-        ? { summary: cachedData, headings: [] }
-        : cachedData;
+    const summaryDB = await loadSummaryDatabase();
+    if (summaryDB[lectureId]) {
+      const dbData = summaryDB[lectureId];
       
       console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId}`);
       
       return res.json({
         exists: true,
         lectureId: lectureId,
-        summary: responseData.summary,
-        headings: responseData.headings || []
+        summary: dbData.summary,
+        headings: dbData.headings || []
       });
     }
     
@@ -1491,15 +1467,15 @@ function generateFallbackSummary(lecture) {
 // API ENDPOINTS
 // ============================================================================
 
-app.get('/debug/status', (req, res) => {
+app.get('/debug/status', async (req, res) => {
+  const summaryDB = await loadSummaryDatabase();
   res.json({
     server: 'hybrid-search-unified',
     status: 'running',
     chunksLoaded: chunks.length,
     lecturesLoaded: Object.keys(fullLectures).length,
     synonymGroups: Object.keys(synonyms).length,
-    summariesCached: Object.keys(summaryCache).length,
-    gaOverviewsCached: Object.keys(gaOverviewCache).length,
+    summariesInDB: Object.keys(summaryDB).length,
     queryLogSize: Object.keys(queryLog).length,
     claudeConfigured: !!process.env.CLAUDE_API_KEY
   });
@@ -1687,26 +1663,17 @@ app.get('/api/available-ga', async (req, res) => {
 app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
-    const gaKey = gaNumberOriginal.toLowerCase();
-    const forceRefresh = req.query.refresh === 'true';
 
-    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumberOriginal} (refresh: ${forceRefresh})`);
+    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumberOriginal}`);
 
-    if (!forceRefresh && gaOverviewCache[gaKey]) {
-      console.log(`[GA-OVERVIEW] Cache-Hit für ${gaKey}`);
-      return res.json(gaOverviewCache[gaKey]);
-    }
-
-    const overview = generateGAOverview(gaNumberOriginal);
+    // Generiere Übersicht direkt aus zentraler Datenbank (kein Cache)
+    const overview = await generateGAOverview(gaNumberOriginal);
 
     if (!overview) {
       return res.status(404).json({ error: `Keine Vorträge gefunden für ${gaNumberOriginal}` });
     }
 
-    gaOverviewCache[gaKey] = overview;
-    await saveGAOverviewCache();
-
-    console.log(`[GA-OVERVIEW] Übersicht ${forceRefresh ? 'aktualisiert' : 'generiert'} für ${gaKey}: ${overview.lectureCount} Vorträge`);
+    console.log(`[GA-OVERVIEW] Übersicht generiert für ${gaNumberOriginal}: ${overview.lectureCount} Vorträge`);
     res.json(overview);
 
   } catch (error) {
@@ -1837,7 +1804,9 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     let deletedCount = 0;
     const toDelete = [];
     
-    Object.entries(summaryCache).forEach(([lectureId, summary]) => {
+    // Prüfe zentrale DB auf unvollständige Summaries
+    const summaryDB = await loadSummaryDatabase();
+    Object.entries(summaryDB).forEach(([lectureId, summary]) => {
       const headings = summary.headings || [];
       const h3Count = headings.filter(h => h.level === 'h3').length;
       
@@ -1848,15 +1817,14 @@ app.get('/api/admin/synonym-stats', (req, res) => {
       }
     });
     
+    // Lösche aus zentraler DB
     toDelete.forEach(id => {
-      delete summaryCache[id];
+      delete summaryDB[id];
       deletedCount++;
     });
+    await saveSummaryDatabase(summaryDB);
     
-    // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
-    
-    gaOverviewCache = {};
-    await saveGAOverviewCache();
+    console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
     
     console.log(`✓ ${deletedCount} unvollständige Zusammenfassungen gelöscht`);
     console.log('========================================\n');
@@ -1978,7 +1946,6 @@ Object.values(fullLectures).forEach(lecture => {
   });
 });
 console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
-    await loadGAOverviewCache();
     await loadQueryLog();
     
     console.log('\n========================================');
@@ -1986,8 +1953,6 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
-    console.log(`  ${Object.keys(summaryCache).length} Zusammenfassungen im Cache`);
-    console.log(`  ${Object.keys(gaOverviewCache).length} GA-Übersichten im Cache`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
     console.log('========================================');
     

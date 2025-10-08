@@ -1,267 +1,20 @@
 {
-  "GA051/8": {
-    "summary": "Rudolf Steiner analysiert die Entstehung des mittelalterlichen Frankenreichs unter Karl dem Großen als Resultat privatrechtlicher Besitzverhältnisse, nicht staatlicher Strukturen. Die Merowinger und Karolinger entwickelten ihre Herrschaft aus Großgrundbesitz, wobei die Kirche als entscheidendes Machtinstrument fungierte. Während die materielle Kultur primitive Formen beibehielt und die Bevölkerung größtenteils analphabetisch blieb, entwickelte sich in den Klöstern eine hochentwickelte scholastische Denkkultur. Diese Parallelität zweier Welten - primitive Außenwelt und gelehrte Klosterkultur - prägte das frühe Mittelalter. Wachsende Unzufriedenheit der abhängigen Bevölkerung führte zur Entstehung der Städtekultur als ersten Schritt zur menschlichen Befreiung.",
-    "headings": [
-      {
-        "index": "^4sml0y",
-        "text": "Die wahren Grundlagen des Karolingerreichs",
-        "level": "h3"
-      },
-      {
-        "index": "^4sml0y",
-        "text": "Über die oberflächliche Geschichtsbetrachtung hinaus",
-        "level": "h4"
-      },
-      {
-        "index": "^kde32o",
-        "text": "Germanische Sozialordnung und Besitzverhältnisse",
-        "level": "h4"
-      },
-      {
-        "index": "^ozibdt",
-        "text": "Entstehung der Herrschaftsverhältnisse aus Privatbesitz",
-        "level": "h4"
-      },
-      {
-        "index": "^8madg1",
-        "text": "Karl der Große und die Expansion der Frankenherrschaft",
-        "level": "h3"
-      },
-      {
-        "index": "^8madg1",
-        "text": "Der Übergang von den Merowingern zu den Karolingern",
-        "level": "h4"
-      },
-      {
-        "index": "^y6v6og",
-        "text": "Die Eroberungszüge und ihre wahre Bedeutung",
-        "level": "h4"
-      },
-      {
-        "index": "^wgbs1n",
-        "text": "Die Kirche als Machtinstrument der Herrschaft",
-        "level": "h4"
-      },
-      {
-        "index": "^07sug0",
-        "text": "Verwaltung und Rechtswesen im Frankenreich",
-        "level": "h3"
-      },
-      {
-        "index": "^07sug0",
-        "text": "Grafen, Pfalzgrafen und richterliche Gewalt",
-        "level": "h4"
-      },
-      {
-        "index": "^84qzyp",
-        "text": "Gesellschaftliche Schichtung und wachsende Abhängigkeit",
-        "level": "h4"
-      },
-      {
-        "index": "^22y8pa",
-        "text": "Materielle und geistige Kultur im frühen Mittelalter",
-        "level": "h3"
-      },
-      {
-        "index": "^22y8pa",
-        "text": "Entwicklung von Ackerbau und Handwerk",
-        "level": "h4"
-      },
-      {
-        "index": "^6n6mb5",
-        "text": "Analphabetismus und geistige Abhängigkeit",
-        "level": "h4"
-      },
-      {
-        "index": "^mo4ccf",
-        "text": "Die Klosterkultur und die Scholastik",
-        "level": "h3"
-      },
-      {
-        "index": "^mo4ccf",
-        "text": "Scholastische Denkschulung in den Klöstern",
-        "level": "h4"
-      },
-      {
-        "index": "^vs79v9",
-        "text": "Zwei parallele Kulturströmungen",
-        "level": "h4"
-      },
-      {
-        "index": "^q1lze6",
-        "text": "Verweltlichung der Kirche und innere Kämpfe",
-        "level": "h4"
-      },
-      {
-        "index": "^35apm8",
-        "text": "Entstehung der Städtekultur als Befreiungsbewegung",
-        "level": "h3"
-      },
-      {
-        "index": "^35apm8",
-        "text": "Unzufriedenheit und Abwanderung in die Städte",
-        "level": "h4"
-      },
-      {
-        "index": "^jslvcq",
-        "text": "Der Schritt zur Freiheit durch städtische Kultur",
-        "level": "h4"
-      }
-    ],
-    "timestamp": "2025-10-08T21:35:47.473Z"
-  },
-  "GA051/12": {
-    "summary": "Rudolf Steiner schildert die Entwicklung des mittelalterlichen Städtewesens und dessen kulturelle Auswirkungen. Er zeigt, wie aus der ursprünglichen Unterdrückung der Landbevölkerung ein demokratisches Bürgertum in den Städten entstand, das durch Zünfte und Städtebündnisse wie die Hansa politische Macht erlangte. Parallel entwickelte sich eine tiefe religiöse Mystik und neue Kunstformen wie die Gotik. Steiner beschreibt die Kreuzzüge als antipäpstliche Bewegung der Ketzer und analysiert die geistlichen Ritterorden als Gegenbewegung zu Rom. Während das Kaisertum an Bedeutung verlor, entstanden neue Kulturzentren mit fortschrittlichen Wohltätigkeitseinrichtungen, aber auch dunkle Seiten wie die Verfolgung der 'unehrlichen Leute' und Juden. Das Mittelalter endet mit der Spaltung zwischen weltlicher Stadtkultur und vertiefter Religiosität.",
-    "headings": [
-      {
-        "index": "^4j4647",
-        "text": "Die Entstehung und Entwicklung der mittelalterlichen Städte",
-        "level": "h3"
-      },
-      {
-        "index": "^4j4647",
-        "text": "Von der Landbedrückung zur städtischen Ansiedlung",
-        "level": "h4"
-      },
-      {
-        "index": "^39guvb",
-        "text": "Der Kampf um Gleichberechtigung und demokratische Verfassung",
-        "level": "h4"
-      },
-      {
-        "index": "^a624us",
-        "text": "Das Beispiel Köln: Zünfte und demokratische Strukturen",
-        "level": "h4"
-      },
-      {
-        "index": "^rtq28o",
-        "text": "Städtebündnisse und die Entstehung der Hansa",
-        "level": "h3"
-      },
-      {
-        "index": "^rtq28o",
-        "text": "Politischer Einfluss und Handelsmacht der Städte",
-        "level": "h4"
-      },
-      {
-        "index": "^evn5j4",
-        "text": "Internationale Ausbreitung und Kriegführung",
-        "level": "h4"
-      },
-      {
-        "index": "^v1l3cn",
-        "text": "Neue Kriegstechnik durch Schießpulver",
-        "level": "h4"
-      },
-      {
-        "index": "^e2x5ab",
-        "text": "Geistiges Leben und kulturelle Blüte in den Städten",
-        "level": "h3"
-      },
-      {
-        "index": "^e2x5ab",
-        "text": "Mystik und die Spaltung von materiellem und geistigem Leben",
-        "level": "h4"
-      },
-      {
-        "index": "^o0ytft",
-        "text": "Gotische Baukunst und ihre mystische Bedeutung",
-        "level": "h4"
-      },
-      {
-        "index": "^ts6c5d",
-        "text": "Bürgersinn und Wohltätigkeitsanstalten",
-        "level": "h4"
-      },
-      {
-        "index": "^xictxg",
-        "text": "Schattenseiten des mittelalterlichen Stadtlebens",
-        "level": "h3"
-      },
-      {
-        "index": "^xictxg",
-        "text": "Die Verfolgung der 'unehrlichen Leute' und Juden",
-        "level": "h4"
-      },
-      {
-        "index": "^pfvrm3",
-        "text": "Entstehung des Strafrechts und Gerichtswesens",
-        "level": "h4"
-      },
-      {
-        "index": "^ih45c0",
-        "text": "Die Kreuzzüge als antipäpstliche Ketzerbewegung",
-        "level": "h3"
-      },
-      {
-        "index": "^ih45c0",
-        "text": "Ketzer als treibende Kraft der Kreuzzüge",
-        "level": "h4"
-      },
-      {
-        "index": "^1g70u6",
-        "text": "Gottfried von Bouillon und das Anti-Rom Jerusalem",
-        "level": "h4"
-      },
-      {
-        "index": "^cmfyi0",
-        "text": "Die Kyffhäusersage als Symbol des deutschen Widerstands",
-        "level": "h4"
-      },
-      {
-        "index": "^jx2rjc",
-        "text": "Die geistlichen Ritterorden und ihre geheimen Ziele",
-        "level": "h3"
-      },
-      {
-        "index": "^jx2rjc",
-        "text": "Dominikaner, Franziskaner und ihre geistigen Richtungen",
-        "level": "h4"
-      },
-      {
-        "index": "^ci5exc",
-        "text": "Die Tempelherren und ihr antirömisches Prinzip",
-        "level": "h4"
-      },
-      {
-        "index": "^az2vmf",
-        "text": "Der Deutsche Ritterorden und die Ostexpansion",
-        "level": "h4"
-      },
-      {
-        "index": "^fcywn1",
-        "text": "Der Niedergang der kaiserlichen Gewalt",
-        "level": "h3"
-      },
-      {
-        "index": "^fcywn1",
-        "text": "Das Interregnum und der Verlust der Zentralmacht",
-        "level": "h4"
-      },
-      {
-        "index": "^1asyal",
-        "text": "Rudolf von Habsburg und die Gründung der Hausmacht",
-        "level": "h4"
-      }
-    ],
-    "timestamp": "2025-10-08T21:36:38.295Z"
-  },
   "GA051/1": {
-    "summary": "Rudolf Steiner gibt einen umfassenden historischen Überblick über die Entwicklung der Weltanschauungen von der Antike bis zur Gegenwart. Er zeigt auf, wie sich das menschliche Denken von den ersten griechischen Naturphilosophen über religiöse und scholastische Systeme bis hin zu modernen naturwissenschaftlich begründeten Weltanschauungen entwickelt hat. Ein zentrales Thema ist die Beziehung zwischen Vernunft und Glauben, Erkenntnis und Offenbarung. Steiner kritisiert sowohl die mittelalterliche Unterordnung der Vernunft unter die Offenbarung als auch Kants Trennung von Wissen und Glauben. Er plädiert für eine freie, auf Naturerkenntnis gegründete Weltanschauung, die den Menschen als aus der Natur entstandenes, aber geistig freies Wesen versteht, das sich selbst Sinn und Ziele setzen kann.",
+    "summary": "Rudolf Steiner gibt einen umfassenden historischen Überblick über die Entwicklung der Welt- und Lebensanschauungen von der Antike bis zur Gegenwart. Er zeigt auf, wie sich das menschliche Denken vom religiösen zum wissenschaftlichen Weltverständnis entwickelte, beginnend mit den griechischen Naturphilosophen wie Thales und Heraklit. Über die Sophistik und Sokrates führt der Weg zu Platon und Aristoteles, dann durch das Christentum und die mittelalterliche Scholastik zu den modernen Philosophen wie Descartes, Spinoza, Kant und den deutschen Idealisten. Steiner kritisiert dabei sowohl die Beschränkung der Erkenntnis durch den Glauben als auch Kants Trennung von Wissen und Glauben. Er plädiert für eine naturwissenschaftlich fundierte Weltanschauung, die den Menschen als aus der Natur entstanden begreift und ihm damit echte geistige Freiheit ermöglicht, ohne auf übernatürliche Autoritäten angewiesen zu sein.",
     "headings": [
       {
         "index": "^ok5zfo",
-        "text": "Die ersten griechischen Denker",
+        "text": "Die Anfänge der griechischen Naturphilosophie",
         "level": "h3"
       },
       {
         "index": "^ok5zfo",
-        "text": "Die materiellen Anfänge: Thales, Anaximander und Anaximenes",
+        "text": "Die ionischen Naturphilosophen und die Suche nach dem Urstoff",
         "level": "h4"
       },
       {
         "index": "^br5xiv",
-        "text": "Heraklit und der ewige Wandel",
+        "text": "Heraklit und die Lehre vom ewigen Wandel",
         "level": "h4"
       },
       {
@@ -270,28 +23,18 @@
         "level": "h4"
       },
       {
-        "index": "^wqs6m0",
-        "text": "Anaxagoras und der Weltverstand",
-        "level": "h4"
-      },
-      {
         "index": "^ah3v7c",
-        "text": "Demokrit und der Atomismus",
+        "text": "Demokrit und der antike Materialismus",
         "level": "h4"
       },
       {
         "index": "^r38v26",
-        "text": "Parmenides und die Kritik der Sinne",
+        "text": "Parmenides und die Kritik der Sinnenwelt",
         "level": "h3"
       },
       {
-        "index": "^r38v26",
-        "text": "Die Unterscheidung von Sein und Schein",
-        "level": "h4"
-      },
-      {
         "index": "^7r6rtr",
-        "text": "Die Pythagoräer und die Harmonie der Zahlen",
+        "text": "Die Pythagoräer und die Bedeutung von Zahl und Maß",
         "level": "h4"
       },
       {
@@ -306,7 +49,7 @@
       },
       {
         "index": "^698zx9",
-        "text": "Sokrates und die Tugendlehre",
+        "text": "Sokrates und die Kunst der Selbsterkenntnis",
         "level": "h4"
       },
       {
@@ -321,17 +64,12 @@
       },
       {
         "index": "^r4qq6g",
-        "text": "Die Welt der Ideen und der Schatten",
+        "text": "Die ewigen Ideen und die Sinnenwelt als Schatten",
         "level": "h4"
       },
       {
-        "index": "^0pedmi",
-        "text": "Seelenwanderung und Unsterblichkeit",
-        "level": "h4"
-      },
-      {
-        "index": "^93yxuo",
-        "text": "Der platonische Staat",
+        "index": "^bwl3uj",
+        "text": "Seelenwanderung und der ideale Staat",
         "level": "h4"
       },
       {
@@ -340,63 +78,48 @@
         "level": "h3"
       },
       {
-        "index": "^wqpuba",
-        "text": "Kritik an Platon und die Einheit von Form und Materie",
+        "index": "^k2qehd",
+        "text": "Die Kritik an Platon und die immanenten Formen",
         "level": "h4"
       },
       {
-        "index": "^ucxc4m",
-        "text": "Aristoteles als Naturforscher",
+        "index": "^aq57w1",
+        "text": "Naturforschung und der erste Beweger",
         "level": "h4"
       },
       {
-        "index": "^on6n3e",
-        "text": "Die menschliche Seele und der Geist",
+        "index": "^djcu24",
+        "text": "Ethik, Staat und die Rechtfertigung der Sklaverei",
         "level": "h4"
       },
       {
-        "index": "^fwdgya",
-        "text": "Ethik und Staatslehre bei Aristoteles",
-        "level": "h4"
-      },
-      {
-        "index": "^cwredk",
+        "index": "^a3lhyw",
         "text": "Die hellenistischen Schulen",
         "level": "h3"
       },
       {
         "index": "^cwredk",
-        "text": "Stoizismus und Gleichmut",
+        "text": "Stoizismus und die ewige Wiederkunft",
         "level": "h4"
       },
       {
         "index": "^1bvfyy",
-        "text": "Epikureismus und vernünftige Lust",
+        "text": "Epikureismus und der vernünftige Genuß",
         "level": "h4"
       },
       {
         "index": "^8zteox",
-        "text": "Skeptizismus und Zweifel",
-        "level": "h4"
-      },
-      {
-        "index": "^485mov",
-        "text": "Neuplatonismus und Weltflucht",
+        "text": "Skeptizismus und Neuplatonismus",
         "level": "h4"
       },
       {
         "index": "^oj0fzg",
-        "text": "Das Christentum und die Offenbarung",
+        "text": "Das Christentum und der Glaube über die Vernunft",
         "level": "h3"
       },
       {
         "index": "^oj0fzg",
-        "text": "Glaube versus Vernunft",
-        "level": "h4"
-      },
-      {
-        "index": "^zb2mmv",
-        "text": "Die Entstehung der christlichen Dogmatik",
+        "text": "Die Entstehung der christlichen Weltanschauung",
         "level": "h4"
       },
       {
@@ -406,73 +129,38 @@
       },
       {
         "index": "^3d6tbk",
-        "text": "Deutsche Mystik und Reformation",
-        "level": "h3"
-      },
-      {
-        "index": "^3d6tbk",
-        "text": "Die Mystiker: Von Eckhart bis Böhme",
-        "level": "h4"
-      },
-      {
-        "index": "^et8crs",
-        "text": "Luther und die Trennung von Glaube und Vernunft",
+        "text": "Deutsche Mystik und die Reformation",
         "level": "h4"
       },
       {
         "index": "^au5hu8",
-        "text": "Der Aufbruch der Neuzeit",
+        "text": "Die Befreiung der Vernunft in der Neuzeit",
         "level": "h3"
       },
       {
         "index": "^au5hu8",
-        "text": "Kopernikus, Kepler und Galilei",
+        "text": "Kopernikus, Kepler, Galilei und die neue Naturwissenschaft",
         "level": "h4"
       },
       {
-        "index": "^9e1rjk",
-        "text": "Descartes und der methodische Zweifel",
-        "level": "h4"
-      },
-      {
-        "index": "^6ag7gs",
-        "text": "Leibniz, Wolff und die verkappte Scholastik",
+        "index": "^qyjz0x",
+        "text": "Descartes und die verkappte Scholastik",
         "level": "h4"
       },
       {
         "index": "^dx3qua",
-        "text": "Die Erkenntniskritik: Locke, Hume und Kant",
-        "level": "h3"
-      },
-      {
-        "index": "^dx3qua",
-        "text": "Der englische Empirismus",
-        "level": "h4"
-      },
-      {
-        "index": "^f0osmj",
-        "text": "Kant und die Grenzen der Erkenntnis",
-        "level": "h4"
-      },
-      {
-        "index": "^cyxik8",
-        "text": "Glaube und praktische Vernunft bei Kant",
+        "text": "Die englische Erkenntniskritik und Kant",
         "level": "h4"
       },
       {
         "index": "^7s8sq2",
-        "text": "Der deutsche Idealismus und Spinoza",
+        "text": "Spinoza, Goethe und die Vergöttlichung der Natur",
         "level": "h3"
       },
       {
-        "index": "^7s8sq2",
-        "text": "Spinoza und die Naturnotwendigkeit",
-        "level": "h4"
-      },
-      {
-        "index": "^3nqml6",
-        "text": "Goethe und die Natur als Gott",
-        "level": "h4"
+        "index": "^5s6o9v",
+        "text": "Der deutsche Idealismus",
+        "level": "h3"
       },
       {
         "index": "^5s6o9v",
@@ -481,305 +169,68 @@
       },
       {
         "index": "^uslrta",
-        "text": "Die moderne Naturwissenschaft",
+        "text": "Die naturwissenschaftliche Weltanschauung des 19. Jahrhunderts",
+        "level": "h4"
+      },
+      {
+        "index": "^h7aypk",
+        "text": "Materialismus und die Überwindung religiöser Gespenster",
+        "level": "h4"
+      },
+      {
+        "index": "^r0fwt8",
+        "text": "Die Philosophie der Freiheit",
         "level": "h3"
-      },
-      {
-        "index": "^uslrta",
-        "text": "Darwin und die Evolutionstheorie",
-        "level": "h4"
-      },
-      {
-        "index": "^2fqh2b",
-        "text": "Der Materialismus des 19. Jahrhunderts",
-        "level": "h4"
-      },
-      {
-        "index": "^f0e6ed",
-        "text": "Feuerbach und die Religionskritik",
-        "level": "h4"
-      },
-      {
-        "index": "^j9uptc",
-        "text": "Zur freien Weltanschauung der Zukunft",
-        "level": "h3"
-      },
-      {
-        "index": "^j9uptc",
-        "text": "Der Geist als Naturprodukt",
-        "level": "h4"
-      },
-      {
-        "index": "^o09y2n",
-        "text": "Selbstbestimmung und wahre Freiheit",
-        "level": "h4"
       }
     ],
-    "timestamp": "2025-10-08T22:07:23.484Z"
-  },
-  "GA051/7": {
-    "summary": "Rudolf Steiner analysiert die Entwicklung des Mittelalters durch zwei sprunghafte Ereignisse: die Begründung freier Städte am Anfang und die großen Entdeckungen am Ende. Er zeigt, wie bei den Franken aus Großgrundbesitz Machtverhältnisse entstanden, die zu einem Beamtenadel führten. Das Christentum passte sich den germanischen Verhältnissen an, während die Kirche selbst Großgrundbesitz erwarb. Ein entscheidender Wendepunkt kam durch die arabische Kultur, die wissenschaftliche Erkenntnisse nach Europa brachte - besonders Medizin, Chemie und Mathematik. Diese arabischen Einflüsse bereiteten die spätere Städtekultur vor. Steiner verdeutlicht den inneren Konflikt des Mittelalters durch Walther von der Vogelweide, der die Unvereinbarkeit von weltlicher Ehre, irdischem Gut und Gottesgefälligkeit beklagte.",
-    "headings": [
-      {
-        "index": "^bgrc25",
-        "text": "Sprunghafte Entwicklung in Geschichte und Natur",
-        "level": "h3"
-      },
-      {
-        "index": "^bgrc25",
-        "text": "Gegen das Vorurteil allmählicher Entwicklung",
-        "level": "h4"
-      },
-      {
-        "index": "^gpxkqy",
-        "text": "Zwei bedeutende Ereignisse des Mittelalters",
-        "level": "h4"
-      },
-      {
-        "index": "^304zm2",
-        "text": "Die Entstehung der fränkischen Macht",
-        "level": "h3"
-      },
-      {
-        "index": "^304zm2",
-        "text": "Die Vorbereitung der großen Ereignisse",
-        "level": "h4"
-      },
-      {
-        "index": "^1s0e9j",
-        "text": "Das merowingische Königreich und Grundbesitz",
-        "level": "h4"
-      },
-      {
-        "index": "^hrnz12",
-        "text": "Rechtsverhältnisse aus Machtverhältnissen",
-        "level": "h4"
-      },
-      {
-        "index": "^rq9j2p",
-        "text": "Das Lehn- und Vasallenwesen",
-        "level": "h4"
-      },
-      {
-        "index": "^cot14c",
-        "text": "Die Kirche als Großgrundbesitzer",
-        "level": "h3"
-      },
-      {
-        "index": "^cot14c",
-        "text": "Der Aufstieg der Karolinger",
-        "level": "h4"
-      },
-      {
-        "index": "^w9ot3r",
-        "text": "Geistiger Einfluss der britischen Inseln",
-        "level": "h4"
-      },
-      {
-        "index": "^c6fxx8",
-        "text": "Die Verschmelzung von Germanentum und Christentum",
-        "level": "h4"
-      },
-      {
-        "index": "^nr42j4",
-        "text": "Das Bündnis zwischen Papsttum und Frankenherrschaft",
-        "level": "h4"
-      },
-      {
-        "index": "^nsb2r5",
-        "text": "Der arabische Einfluss auf die europäische Kultur",
-        "level": "h3"
-      },
-      {
-        "index": "^nsb2r5",
-        "text": "Die Notwendigkeit neuer wissenschaftlicher Impulse",
-        "level": "h4"
-      },
-      {
-        "index": "^hjmbmf",
-        "text": "Die Religion und Kultur der Araber",
-        "level": "h4"
-      },
-      {
-        "index": "^u3m052",
-        "text": "Arabische Wissenschaft und maurische Gelehrsamkeit",
-        "level": "h4"
-      },
-      {
-        "index": "^lwovtg",
-        "text": "Der Sieg der arabischen Geisteskultur",
-        "level": "h4"
-      },
-      {
-        "index": "^o7ksjg",
-        "text": "Die inneren Konflikte des Mittelalters",
-        "level": "h3"
-      },
-      {
-        "index": "^o7ksjg",
-        "text": "Walther von der Vogelweide als Zeuge der Zeit",
-        "level": "h4"
-      }
-    ],
-    "timestamp": "2025-10-08T21:56:57.113Z"
-  },
-  "GA051/6": {
-    "summary": "Rudolf Steiner analysiert die Völkerwanderung des 5. Jahrhunderts und ihre kulturgeschichtlichen Folgen. Er zeigt auf, wie germanische Stämme wie die Westgoten durch den Hunneneinfall aus ihren Siedlungsgebieten vertrieben wurden und in das römische Reich eindrangen. Während die meisten Völker (Goten, Vandalen) in bereits kultivierten Gebieten schnell verschwanden, konnten sich die Franken in Gallien dauerhaft etablieren. Dies lag an den günstigen Bedingungen: weite unbewohnte Landstriche ermöglichten freie Entwicklung ohne Zwang. So entstand das Lehnswesen und eine eigenständige christliche Kultur, die durch keltische Mönche bereichert wurde. Das fränkische Christentum konnte sich unabhängig von materiellen Zwängen entwickeln und prägte jahrhundertelang Mitteleuropa, bis später das Mißverhältnis zwischen geistiger und materieller Kultur zur Entstehung der Städte führte.",
-    "headings": [
-      {
-        "index": "^eldi24",
-        "text": "Die große Völkerwanderung des 5. Jahrhunderts",
-        "level": "h3"
-      },
-      {
-        "index": "^eldi24",
-        "text": "Der Aufbruch der germanischen Stämme",
-        "level": "h4"
-      },
-      {
-        "index": "^ra3ks8",
-        "text": "Die germanischen Völker vor der Wanderung",
-        "level": "h4"
-      },
-      {
-        "index": "^hq3p6u",
-        "text": "Der Zusammenstoß mit dem römischen Reich",
-        "level": "h3"
-      },
-      {
-        "index": "^hq3p6u",
-        "text": "Die ersten Grenzüberschreitungen im 3. Jahrhundert",
-        "level": "h4"
-      },
-      {
-        "index": "^5p3g07",
-        "text": "Kulturgegensätze zwischen Römern und Germanen",
-        "level": "h4"
-      },
-      {
-        "index": "^sfsfz1",
-        "text": "Der Hunneneinfall und seine Folgen",
-        "level": "h4"
-      },
-      {
-        "index": "^9f3dz0",
-        "text": "Die Entstehung neuer Reiche",
-        "level": "h3"
-      },
-      {
-        "index": "^9f3dz0",
-        "text": "Verschiedene Eroberungsstrategien der Germanenstämme",
-        "level": "h4"
-      },
-      {
-        "index": "^snwle0",
-        "text": "Die Sonderstellung Galliens",
-        "level": "h4"
-      },
-      {
-        "index": "^git2uc",
-        "text": "Die Entstehung des Lehnswesens",
-        "level": "h4"
-      },
-      {
-        "index": "^3qava7",
-        "text": "Die christliche Kultur im Frankenreich",
-        "level": "h3"
-      },
-      {
-        "index": "^3qava7",
-        "text": "Freie Entwicklung des fränkischen Christentums",
-        "level": "h4"
-      },
-      {
-        "index": "^doefqe",
-        "text": "Der keltische Einfluß auf das geistige Leben",
-        "level": "h4"
-      },
-      {
-        "index": "^klqsev",
-        "text": "Die Hunnenschlachten und ihre Bedeutung",
-        "level": "h3"
-      },
-      {
-        "index": "^klqsev",
-        "text": "Der Vorstoß bis nach Westeuropa",
-        "level": "h4"
-      },
-      {
-        "index": "^h16c6p",
-        "text": "Attilas Macht und ihr Ende",
-        "level": "h4"
-      },
-      {
-        "index": "^yqzy8s",
-        "text": "Die langfristigen kulturellen Entwicklungen",
-        "level": "h3"
-      },
-      {
-        "index": "^yqzy8s",
-        "text": "Christianisierung und Machtentfaltung",
-        "level": "h4"
-      },
-      {
-        "index": "^yyl5y2",
-        "text": "Das Mißverhältnis von Geist und Wirtschaft",
-        "level": "h4"
-      }
-    ],
-    "timestamp": "2025-10-08T22:03:28.576Z"
+    "timestamp": "2025-10-08T22:31:35.943Z"
   },
   "GA051/2": {
-    "summary": "Rudolf Steiner beleuchtet in seinem Vortrag William Shakespeare als bedeutenden Dramatiker, der trotz seiner einfachen Herkunft als Schauspieler die größten Charakterdramen der Weltliteratur schuf. Steiner widerlegt die Zweifel an Shakespeares Autorschaft und betont, dass gerade seine praktische Theatererfahrung seine Werke auszeichnet. Shakespeare schuf keine moralischen Lehrdramen, sondern ließ Charaktere naturgemäß handeln, ohne sie mit Theorien zu belasten. Seine Kunst wurde durch die Renaissance-Kultur ermöglicht, die erstmals das Interesse an der Einzelpersönlichkeit weckte. Steiners Analyse zeigt Shakespeare als Praktiker des Theaters, dessen Dramen durch reine Charakterschilderung wirken und auch bei mangelhafter Aufführung ihre Kraft behalten - ein zeitloser Künstler, dessen Bedeutung in einer auf das Wesentliche fokussierten Zeit noch wachsen wird.",
+    "summary": "Rudolf Steiner würdigt Shakespeare als bedeutenden Einfluss auf die deutsche Literatur und verteidigt dessen Autorschaft gegen Zweifel der Gelehrten. Er betont, dass Shakespeares Dramen primär Charakterdramen sind, die durch die Renaissancekultur und deren Wertschätzung der Einzelpersönlichkeit möglich wurden. Shakespeare stellte nicht moralische Ideen oder abstrakte Konzepte dar, sondern lebendige, individuelle Charaktere ohne theoretische Belastung. Seine praktische Theatererfahrung als Schauspieler ermöglichte ihm, bühnenwirksame Werke zu schaffen. Steiner schildert Shakespeares Lebensweg vom Pferdejungen zum erfolgreichen Theaterdichter und hebt hervor, dass der Dichter hinter seinen Figuren zurücktritt, ohne eigene Weltanschauung aufzudrängen. Die zeitlose Wirkung seiner Charakterschilderungen überdauert auch mangelhafte Aufführungen und wird künftig noch bedeutender werden.",
     "headings": [
       {
         "index": "^4aora7",
-        "text": "Shakespeares Bedeutung und die Autorschaftsdebatte",
+        "text": "Shakespeares Bedeutung für die deutsche Literatur",
         "level": "h3"
-      },
-      {
-        "index": "^4aora7",
-        "text": "Shakespeare als deutscher Klassiker",
-        "level": "h4"
       },
       {
         "index": "^wpbht7",
-        "text": "Die Legende um Shakespeares Autorschaft",
+        "text": "Die Shakespeare-Legende und Zweifel an der Autorschaft",
         "level": "h4"
       },
       {
         "index": "^mbzrfm",
-        "text": "Beweise für die Autorschaft aus den Werken selbst",
+        "text": "Beweise für Shakespeares Autorschaft",
         "level": "h4"
       },
       {
         "index": "^s0wau7",
-        "text": "Das Charakterdrama als Shakespeares Kunstform",
+        "text": "Shakespeare als Meister des Charakterdramas",
         "level": "h3"
       },
       {
         "index": "^s0wau7",
-        "text": "Die Vollendung der Charakterdarstellung",
+        "text": "Die Kunst der Charakterdarstellung",
         "level": "h4"
       },
       {
         "index": "^njb0vu",
-        "text": "Renaissance-Kultur als Voraussetzung",
+        "text": "Renaissance und die Wertschätzung der Einzelpersönlichkeit",
         "level": "h4"
       },
       {
         "index": "^mzowqr",
-        "text": "Naturgemäße Entwicklung statt moralischer Belastung",
+        "text": "Shakespeares dramatische Methode",
         "level": "h4"
       },
       {
         "index": "^v4wd7w",
-        "text": "Der Theaterpraktiker Shakespeare",
+        "text": "Der Praktiker des Theaters",
         "level": "h4"
       },
       {
         "index": "^dmhraa",
-        "text": "Shakespeares Lebensweg und künstlerische Entwicklung",
+        "text": "Shakespeares Lebensweg",
         "level": "h3"
       },
       {
@@ -789,35 +240,30 @@
       },
       {
         "index": "^jotpq8",
-        "text": "Der Weg zum Theatererfolg in London",
+        "text": "Der Weg zum Theater in London",
         "level": "h4"
       },
       {
         "index": "^4nxrpp",
-        "text": "Die drei Schaffensperioden",
+        "text": "Die Entwicklung des Dramatikers",
         "level": "h4"
       },
       {
         "index": "^7k174c",
-        "text": "Der Dichter hinter seinen Figuren",
-        "level": "h4"
-      },
-      {
-        "index": "^9b8nbe",
-        "text": "Zeitlose Bühnenwirkung und künftige Bedeutung",
+        "text": "Der Dichter hinter seinen Werken",
         "level": "h3"
       },
       {
         "index": "^9b8nbe",
-        "text": "Theaterpraxis damals und heute",
+        "text": "Theaterwirkung damals und heute",
         "level": "h4"
       },
       {
         "index": "^n3cx8w",
-        "text": "Die unvergängliche Kraft der Charakterschilderung",
+        "text": "Die zeitlose Kraft der Charakterschilderung",
         "level": "h4"
       }
     ],
-    "timestamp": "2025-10-08T22:08:45.035Z"
+    "timestamp": "2025-10-08T22:35:57.686Z"
   }
 }
