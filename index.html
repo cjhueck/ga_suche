@@ -1396,6 +1396,12 @@ Original
 
     async function loadSummariesFromDB(data) {
       try {
+        // Nur lokal: Lade statische summary-database.json
+        if (!isLocal) {
+          console.log('Online-Modus: Überspringe statische DB, verwende API');
+          return;
+        }
+        
         const response = await fetch(`${API_BASE}/summary-database.json`);
         if (!response.ok) return;
         
@@ -1830,19 +1836,22 @@ function normalizeGANumber(gaNumber) {
       await displayGAOverview(data);
       
       try {
-        // Primär: Zentrale Summary-Datenbank direkt laden
-        const centralResponse = await fetch(`${API_BASE}/summary-database.json`);
-        if (centralResponse.ok) {
-          const centralData = await centralResponse.json();
-          console.log('Zentrale Summary-Datenbank geladen:', Object.keys(centralData).length, 'Einträge');
-          return await applySummariesToOverview(data, centralData);
-        } else {
-          console.warn('Zentrale Datenbank nicht verfügbar, verwende API-Endpunkt...');
-          return await loadSummariesViaAPI(data);
+        // Nur lokal: Lade statische summary-database.json
+        if (isLocal) {
+          const centralResponse = await fetch(`${API_BASE}/summary-database.json`);
+          if (centralResponse.ok) {
+            const centralData = await centralResponse.json();
+            console.log('Lokale Summary-Datenbank geladen:', Object.keys(centralData).length, 'Einträge');
+            return await applySummariesToOverview(data, centralData);
+          }
         }
         
+        // Online: Immer API-Endpunkt verwenden (dynamische Daten vom Render Backend)
+        console.log('Lade Summaries über API (dynamisch vom Render Backend)...');
+        return await loadSummariesViaAPI(data);
+        
       } catch (error) {
-        console.error('Fehler beim Laden der zentralen Datenbank:', error);
+        console.error('Fehler beim Laden der Summaries:', error);
         // Fallback zu API-Methode
         await loadSummariesViaAPI(data);
       }
