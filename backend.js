@@ -225,67 +225,8 @@ async function saveQueryLog() {
   }
 }
 
-async function loadSummaryCache() {
-  try {
-    const summaryPath = path.join(__dirname, 'lecture-summaries.json');
-    
-    try {
-      const data = await fs.readFile(summaryPath, 'utf8');
-      summaryCache = JSON.parse(data);
-      console.log(`Zusammenfassungen geladen: ${Object.keys(summaryCache).length} Vorträge`);
-    } catch {
-      summaryCache = {};
-      console.log('Keine gespeicherten Zusammenfassungen gefunden - leerer Cache erstellt');
-    }
-    
-    return summaryCache;
-    
-  } catch (error) {
-    console.error('Fehler beim Laden des Summary-Cache:', error.message);
-    summaryCache = {};
-    return summaryCache;
-  }
-}
-
-async function saveSummaryCache() {
-  try {
-    const summaryPath = path.join(__dirname, 'lecture-summaries.json');
-    console.log('\n=== SPEICHERE CACHE ===');
-    console.log('Pfad:', summaryPath);
-    console.log('Anzahl Einträge im Cache:', Object.keys(summaryCache).length);
-    console.log('Erste 5 Keys:', Object.keys(summaryCache).slice(0, 5));
-    
-    const testFile = path.join(__dirname, '.write-test');
-    try {
-      await fs.writeFile(testFile, 'test', 'utf8');
-      await fs.unlink(testFile);
-      console.log('✓ Verzeichnis ist beschreibbar');
-    } catch (writeError) {
-      console.error('✗ Verzeichnis nicht beschreibbar:', writeError.message);
-      throw writeError;
-    }
-    
-    const jsonString = JSON.stringify(summaryCache, null, 2);
-    console.log('JSON Größe:', (jsonString.length / 1024).toFixed(2), 'KB');
-    
-    await fs.writeFile(summaryPath, jsonString, 'utf8');
-    
-    console.log('✓ Datei erfolgreich geschrieben!');
-    
-    const fileStats = await fs.stat(summaryPath);
-    console.log('✓ Datei existiert, Größe:', (fileStats.size / 1024).toFixed(2), 'KB');
-    console.log('======================\n');
-    
-    return true;
-  } catch (error) {
-    console.error('\n✗ FEHLER beim Speichern des Cache:');
-    console.error('Error Type:', error.constructor.name);
-    console.error('Error Message:', error.message);
-    console.error('Stack:', error.stack);
-    console.error('======================\n');
-    return false;
-  }
-}
+// Legacy loadSummaryCache() und saveSummaryCache() Funktionen entfernt 
+// Verwenden nur noch zentrale Summary-Datenbank (summary-database.json)
 
 async function invalidateGAOverviewCache(lectureId) {
   try {
@@ -1302,15 +1243,25 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → Speichere in Cache (Nach): ${Object.keys(summaryCache).length} Einträge`);
     console.log(`  → Headings im neuen Eintrag: ${summaryData.headings?.length || 0}`);
     
-    const saved = await saveSummaryCache();
-    console.log(`  → saveSummaryCache() Rückgabe: ${saved}`);
-    
-    if (saved) {
-      await invalidateGAOverviewCache(lectureId);
-      console.log(`  ✓ Zusammenfassung erstellt und gespeichert`);
-    } else {
-      console.log(`  ✗ Zusammenfassung erstellt aber NICHT gespeichert!`);
+    // Speichere auch in zentrale Summary-Datenbank
+    try {
+      const summaryDB = await loadSummaryDatabase();
+      summaryDB[lectureId] = {
+        summary: summaryData.summary,
+        headings: summaryData.headings || [],
+        timestamp: new Date().toISOString()
+      };
+      await saveSummaryDatabase(summaryDB);
+      console.log(`  ✓ Summary auch in zentrale DB gespeichert`);
+    } catch (dbError) {
+      console.warn(`  ⚠ Zentrale DB-Speicherung fehlgeschlagen:`, dbError.message);
     }
+    
+    // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
+    
+    // Invalidiere GA-Overview-Cache
+    await invalidateGAOverviewCache(lectureId);
+    console.log(`  ✓ Zusammenfassung erstellt und in zentrale DB gespeichert`);
     
     res.json({
       lectureId: lectureId,
@@ -1902,7 +1853,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
       deletedCount++;
     });
     
-    await saveSummaryCache();
+    // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
     
     gaOverviewCache = {};
     await saveGAOverviewCache();

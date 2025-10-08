@@ -1,4 +1,3 @@
-
 {
   "GA051/8": {
     "summary": "Rudolf Steiner analysiert die Entstehung des mittelalterlichen Frankenreichs unter Karl dem Großen als Resultat privatrechtlicher Besitzverhältnisse, nicht staatlicher Strukturen. Die Merowinger und Karolinger entwickelten ihre Herrschaft aus Großgrundbesitz, wobei die Kirche als entscheidendes Machtinstrument fungierte. Während die materielle Kultur primitive Formen beibehielt und die Bevölkerung größtenteils analphabetisch blieb, entwickelte sich in den Klöstern eine hochentwickelte scholastische Denkkultur. Diese Parallelität zweier Welten - primitive Außenwelt und gelehrte Klosterkultur - prägte das frühe Mittelalter. Wachsende Unzufriedenheit der abhängigen Bevölkerung führte zur Entstehung der Städtekultur als ersten Schritt zur menschlichen Befreiung.",
@@ -452,5 +451,217 @@
       }
     ],
     "timestamp": "2025-10-08T21:38:58.003Z"
+  },
+  "GA051/7": {
+    "summary": "Rudolf Steiner analysiert die Entwicklung des Mittelalters durch zwei sprunghafte Ereignisse: die Begründung freier Städte am Anfang und die großen Entdeckungen am Ende. Er zeigt, wie bei den Franken aus Großgrundbesitz Machtverhältnisse entstanden, die zu einem Beamtenadel führten. Das Christentum passte sich den germanischen Verhältnissen an, während die Kirche selbst Großgrundbesitz erwarb. Ein entscheidender Wendepunkt kam durch die arabische Kultur, die wissenschaftliche Erkenntnisse nach Europa brachte - besonders Medizin, Chemie und Mathematik. Diese arabischen Einflüsse bereiteten die spätere Städtekultur vor. Steiner verdeutlicht den inneren Konflikt des Mittelalters durch Walther von der Vogelweide, der die Unvereinbarkeit von weltlicher Ehre, irdischem Gut und Gottesgefälligkeit beklagte.",
+    "headings": [
+      {
+        "index": "^bgrc25",
+        "text": "Sprunghafte Entwicklung in Geschichte und Natur",
+        "level": "h3"
+      },
+      {
+        "index": "^bgrc25",
+        "text": "Gegen das Vorurteil allmählicher Entwicklung",
+        "level": "h4"
+      },
+      {
+        "index": "^gpxkqy",
+        "text": "Zwei bedeutende Ereignisse des Mittelalters",
+        "level": "h4"
+      },
+      {
+        "index": "^304zm2",
+        "text": "Die Entstehung der fränkischen Macht",
+        "level": "h3"
+      },
+      {
+        "index": "^304zm2",
+        "text": "Die Vorbereitung der großen Ereignisse",
+        "level": "h4"
+      },
+      {
+        "index": "^1s0e9j",
+        "text": "Das merowingische Königreich und Grundbesitz",
+        "level": "h4"
+      },
+      {
+        "index": "^hrnz12",
+        "text": "Rechtsverhältnisse aus Machtverhältnissen",
+        "level": "h4"
+      },
+      {
+        "index": "^rq9j2p",
+        "text": "Das Lehn- und Vasallenwesen",
+        "level": "h4"
+      },
+      {
+        "index": "^cot14c",
+        "text": "Die Kirche als Großgrundbesitzer",
+        "level": "h3"
+      },
+      {
+        "index": "^cot14c",
+        "text": "Der Aufstieg der Karolinger",
+        "level": "h4"
+      },
+      {
+        "index": "^w9ot3r",
+        "text": "Geistiger Einfluss der britischen Inseln",
+        "level": "h4"
+      },
+      {
+        "index": "^c6fxx8",
+        "text": "Die Verschmelzung von Germanentum und Christentum",
+        "level": "h4"
+      },
+      {
+        "index": "^nr42j4",
+        "text": "Das Bündnis zwischen Papsttum und Frankenherrschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^nsb2r5",
+        "text": "Der arabische Einfluss auf die europäische Kultur",
+        "level": "h3"
+      },
+      {
+        "index": "^nsb2r5",
+        "text": "Die Notwendigkeit neuer wissenschaftlicher Impulse",
+        "level": "h4"
+      },
+      {
+        "index": "^hjmbmf",
+        "text": "Die Religion und Kultur der Araber",
+        "level": "h4"
+      },
+      {
+        "index": "^u3m052",
+        "text": "Arabische Wissenschaft und maurische Gelehrsamkeit",
+        "level": "h4"
+      },
+      {
+        "index": "^lwovtg",
+        "text": "Der Sieg der arabischen Geisteskultur",
+        "level": "h4"
+      },
+      {
+        "index": "^o7ksjg",
+        "text": "Die inneren Konflikte des Mittelalters",
+        "level": "h3"
+      },
+      {
+        "index": "^o7ksjg",
+        "text": "Walther von der Vogelweide als Zeuge der Zeit",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-08T21:56:57.113Z"
+  },
+  "GA051/6": {
+    "summary": "Rudolf Steiner analysiert die Völkerwanderung des 5. Jahrhunderts und ihre kulturgeschichtlichen Folgen. Er zeigt auf, wie germanische Stämme wie die Westgoten durch den Hunneneinfall aus ihren Siedlungsgebieten vertrieben wurden und in das römische Reich eindrangen. Während die meisten Völker (Goten, Vandalen) in bereits kultivierten Gebieten schnell verschwanden, konnten sich die Franken in Gallien dauerhaft etablieren. Dies lag an den günstigen Bedingungen: weite unbewohnte Landstriche ermöglichten freie Entwicklung ohne Zwang. So entstand das Lehnswesen und eine eigenständige christliche Kultur, die durch keltische Mönche bereichert wurde. Das fränkische Christentum konnte sich unabhängig von materiellen Zwängen entwickeln und prägte jahrhundertelang Mitteleuropa, bis später das Mißverhältnis zwischen geistiger und materieller Kultur zur Entstehung der Städte führte.",
+    "headings": [
+      {
+        "index": "^eldi24",
+        "text": "Die große Völkerwanderung des 5. Jahrhunderts",
+        "level": "h3"
+      },
+      {
+        "index": "^eldi24",
+        "text": "Der Aufbruch der germanischen Stämme",
+        "level": "h4"
+      },
+      {
+        "index": "^ra3ks8",
+        "text": "Die germanischen Völker vor der Wanderung",
+        "level": "h4"
+      },
+      {
+        "index": "^hq3p6u",
+        "text": "Der Zusammenstoß mit dem römischen Reich",
+        "level": "h3"
+      },
+      {
+        "index": "^hq3p6u",
+        "text": "Die ersten Grenzüberschreitungen im 3. Jahrhundert",
+        "level": "h4"
+      },
+      {
+        "index": "^5p3g07",
+        "text": "Kulturgegensätze zwischen Römern und Germanen",
+        "level": "h4"
+      },
+      {
+        "index": "^sfsfz1",
+        "text": "Der Hunneneinfall und seine Folgen",
+        "level": "h4"
+      },
+      {
+        "index": "^9f3dz0",
+        "text": "Die Entstehung neuer Reiche",
+        "level": "h3"
+      },
+      {
+        "index": "^9f3dz0",
+        "text": "Verschiedene Eroberungsstrategien der Germanenstämme",
+        "level": "h4"
+      },
+      {
+        "index": "^snwle0",
+        "text": "Die Sonderstellung Galliens",
+        "level": "h4"
+      },
+      {
+        "index": "^git2uc",
+        "text": "Die Entstehung des Lehnswesens",
+        "level": "h4"
+      },
+      {
+        "index": "^3qava7",
+        "text": "Die christliche Kultur im Frankenreich",
+        "level": "h3"
+      },
+      {
+        "index": "^3qava7",
+        "text": "Freie Entwicklung des fränkischen Christentums",
+        "level": "h4"
+      },
+      {
+        "index": "^doefqe",
+        "text": "Der keltische Einfluß auf das geistige Leben",
+        "level": "h4"
+      },
+      {
+        "index": "^klqsev",
+        "text": "Die Hunnenschlachten und ihre Bedeutung",
+        "level": "h3"
+      },
+      {
+        "index": "^klqsev",
+        "text": "Der Vorstoß bis nach Westeuropa",
+        "level": "h4"
+      },
+      {
+        "index": "^h16c6p",
+        "text": "Attilas Macht und ihr Ende",
+        "level": "h4"
+      },
+      {
+        "index": "^yqzy8s",
+        "text": "Die langfristigen kulturellen Entwicklungen",
+        "level": "h3"
+      },
+      {
+        "index": "^yqzy8s",
+        "text": "Christianisierung und Machtentfaltung",
+        "level": "h4"
+      },
+      {
+        "index": "^yyl5y2",
+        "text": "Das Mißverhältnis von Geist und Wirtschaft",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-08T22:03:28.576Z"
   }
 }
