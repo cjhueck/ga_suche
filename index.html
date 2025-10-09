@@ -100,12 +100,28 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     body.dark-mode .resize-handle,
     body.dark-mode .vertical-resize-handle {
-      background-color: #666;
+      background-color: transparent;
     }
     
     body.dark-mode .resize-handle:hover,
     body.dark-mode .vertical-resize-handle:hover {
-      background-color: #999;
+      background-color: transparent;
+    }
+    
+    body.dark-mode .resize-handle::before,
+    body.dark-mode .vertical-resize-handle::before {
+      background: #1a1a1a;
+      color: #7EB8C8;
+    }
+    
+    body.dark-mode .resize-handle:hover::before,
+    body.dark-mode .vertical-resize-handle:hover::before {
+      color: #7EB8C8;
+    }
+    
+    body.dark-mode .sidebar-collapsed .resize-handle::before,
+    body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
+      background: #1a1a1a;
     }
     
     body.dark-mode .snippet {
@@ -295,11 +311,73 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       display: none;
     }
     
+    /* Einklappbares Suchpanel */
+    .tab-container {
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+    }
+    
+    .tab-container.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-bottom: 0;
+      padding: 0;
+    }
+    
+    /* Horizontaler Resize-Handle für Suchpanel */
+    .horizontal-resize-handle {
+      height: 1px;
+      background-color: #ddd;
+      cursor: row-resize;
+      position: relative;
+      margin: 0;
+      transition: background-color 0.2s;
+      z-index: 1001;
+    }
+    
+    .horizontal-resize-handle::before {
+      content: '⋯'; /* Drei horizontale Punkte */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #467886;
+      background: white;
+      padding: 0 8px;
+      font-size: 20px;
+      line-height: 1;
+    }
+    
+    .horizontal-resize-handle:hover {
+      background-color: #467886;
+    }
+    
+    .horizontal-resize-handle:hover::before {
+      color: white;
+    }
+    
+    /* Dark Mode für horizontalen Handle */
+    body.dark-mode .horizontal-resize-handle {
+      background-color: #404040;
+    }
+    
+    body.dark-mode .horizontal-resize-handle::before {
+      color: #7EB8C8;
+      background: #1a1a1a;
+    }
+    
+    body.dark-mode .horizontal-resize-handle:hover {
+      background-color: #7EB8C8;
+    }
+    
+    body.dark-mode .horizontal-resize-handle:hover::before {
+      color: #1a1a1a;
+    }
 
     
     .resize-handle {
   width: 1px;
-  background-color: #ddd;
+  background-color: transparent;
       cursor: col-resize;
       position: fixed;
       left: 440px; /* Wird dynamisch über JavaScript gesetzt */
@@ -318,7 +396,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       left: 50%;
       transform: translate(-50%, -50%);
       color: #467886;
-      font-size: 40px;
+      background: white;
+      padding: 8px 0;
+      font-size: 20px;
       line-height: 1;
       font-weight: bold;
       cursor: pointer;
@@ -326,18 +406,19 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .resize-handle:hover {
-      background-color: #ccc;
-      width: 3px;
+      background-color: transparent;
     }
     
     .resize-handle:hover::before {
-      color: #2a5a66;
+      color: #467886;
     }
     
     /* Symbol für geschlossene Sidebar */
     .sidebar-collapsed .resize-handle::before {
       content: '▶';
-      font-size: 36px;
+      font-size: 36px; /* Pfeiljgröße bleibt gleich */
+      background: white;
+      padding: 8px 0;
     }
     
     #main-container {
@@ -425,7 +506,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     .vertical-resize-handle {
       width: 1px;
-      background-color: #ddd;
+      background-color: transparent;
       cursor: col-resize;
       position: fixed;
       right: 0; /* Wird dynamisch über JavaScript gesetzt */
@@ -445,7 +526,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       left: 50%;
       transform: translate(-50%, -50%);
       color: #467886;
-      font-size: 40px;
+      background: white;
+      padding: 8px 0;
+      font-size: 20px;
       line-height: 1;
       font-weight: bold;
       cursor: pointer;
@@ -462,18 +545,19 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .vertical-resize-handle:hover {
-      background-color: #ccc;
-      width: 3px;
+      background-color: transparent;
     }
     
     .vertical-resize-handle:hover::before {
-      color: #2a5a66;
+      color: #467886;
     }
     
     /* Symbol für geschlossenes Summary-Panel */
     .summary-panel-collapsed .vertical-resize-handle::before {
       content: '◀';
-      font-size: 36px;
+      font-size: 36px; /* Pfeilgröße bleibt gleich */
+      background: white;
+      padding: 8px 0;
     }
     
     #summary-content {
@@ -939,7 +1023,6 @@ body.dark-mode .loading-message {
   margin-top: 0rem;
   margin-bottom: 0;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #ddd;
 }
   body.dark-mode #searchInfo {
   color: #e0e0e0;
@@ -1297,6 +1380,7 @@ GA-Übersicht →
 </div>
 
 </div>
+<div class="horizontal-resize-handle" id="search-panel-toggle" onclick="toggleSearchPanel()" title="Suchbereich ein-/ausklappen"></div>
 <div id="note" style="display: none;"></div>
 </div>
 <div id="sidebar-content">
@@ -1307,7 +1391,7 @@ GA-Übersicht →
 <div id="main-container">
 <div id="main">
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-<h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Ergebnis auswählen…</h2>
+<h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Suchergebnis auswählen…</h2>
 <div style="display: flex; gap: 8px;">
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
@@ -1655,6 +1739,23 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    function toggleSearchPanel() {
+      const tabContainer = document.querySelector('.tab-container');
+      const toggleHandle = document.getElementById('search-panel-toggle');
+      
+      if (tabContainer.classList.contains('collapsed')) {
+        // Suchpanel öffnen
+        tabContainer.classList.remove('collapsed');
+        document.body.classList.remove('search-panel-collapsed');
+        toggleHandle.title = 'Suchbereich einklappen';
+      } else {
+        // Suchpanel schließen
+        tabContainer.classList.add('collapsed');
+        document.body.classList.add('search-panel-collapsed');
+        toggleHandle.title = 'Suchbereich ausklappen';
+      }
+    }
+
     function switchTab(mode) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
@@ -1976,28 +2077,7 @@ async function saveSummaryToCentral(lectureId, summaryData) {
 }
 
 // Funktion: Synchronisiere GitHub-Summaries mit zentraler Datenbank
-async function syncGitHubSummariesToCentral() {
-  try {
-    console.log('Starte Synchronisation von GitHub zu zentraler Datenbank...');
-    
-    const response = await fetch(`${API_BASE}/api/summaries/sync-from-github`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    
-    if (response.ok) {
-      const result = await response.json();
-      console.log('GitHub-Sync erfolgreich:', result);
-      return result;
-    } else {
-      console.warn('GitHub-Sync fehlgeschlagen:', response.status);
-      return null;
-    }
-  } catch (error) {
-    console.error('Fehler beim GitHub-Sync:', error);
-    return null;
-  }
-}
+
 
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
@@ -2027,11 +2107,8 @@ async function displayGAOverview(data) {
   let html = `
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 0.5px solid #ddd; margin-bottom: 0.5rem;">
       <span style="font-weight: 600;">${data.lectureCount} Vorträge</span>
-      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px; margin-right: 8px;">
+      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px;">
         ${gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen'}
-      </button>
-      <button onclick="showSummaryManager()" style="padding: 4px 8px; font-size: 0.8em; border: 1px solid #999; background: transparent; cursor: pointer; border-radius: 4px; color: #666;">
-        ⚙️ Verwalten
       </button>
     </div>
     <div id="ga-lecture-list">
@@ -2097,190 +2174,13 @@ function toggleGASummaries() {
 }
 
 // Summary-Manager Interface
-async function showSummaryManager() {
-  const actions = [
-    '1. 🔄 GitHub → Zentrale DB synchronisieren',
-    '2. 📊 Zentrale DB Status anzeigen', 
-    '3. 🐛 Debug-Informationen',
-    '4. ❌ Abbrechen'
-  ];
-  
-  const choice = prompt(`Summary-Verwaltung:\n\n${actions.join('\n')}\n\nWählen Sie (1-4):`);
-  
-  switch (choice) {
-    case '1':
-      await performGitHubSync();
-      break;
-    case '2':
-      await showCentralDBStatus();
-      break;
-    case '3':
-      await debugSummaryData();
-      break;
-    case '4':
-    default:
-      break;
-  }
-}
 
-async function performGitHubSync() {
-  const confirmed = confirm('GitHub-Summaries in zentrale Datenbank synchronisieren?\n\nDies kann einige Minuten dauern.');
-  if (!confirmed) return;
-  
-  try {
-    console.log('Starte GitHub-Sync...');
-    const result = await syncGitHubSummariesToCentral();
-    if (result) {
-      alert(`Sync erfolgreich!\n\n${result.synced || 0} Summaries übertragen\n${result.updated || 0} Summaries aktualisiert`);
-      
-      // Aktuelle GA-Übersicht neu laden
-      const titleElement = document.getElementById('document-title');
-      const titleText = titleElement.textContent;
-      const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
-      if (gaMatch) {
-        openGAOverview(gaMatch[1]);
-      }
-    } else {
-      alert('Sync fehlgeschlagen. Siehe Console für Details.');
-    }
-  } catch (error) {
-    console.error('Sync-Fehler:', error);
-    alert('Sync-Fehler: ' + error.message);
-  }
-}
 
-async function showCentralDBStatus() {
-  try {
-    const response = await fetch(`${API_BASE}/api/summaries/status`);
-    if (response.ok) {
-      const status = await response.json();
-      const info = [
-        `Zentrale Datenbank Status:`,
-        ``,
-        `📊 Gesamt: ${status.total || 0} Summaries`,
-        `🌐 Online generiert: ${status.onlineGenerated || 0}`,
-        `💻 Aus GitHub: ${status.fromGitHub || 0}`,
-        `📅 Letzte Aktualisierung: ${status.lastUpdated || 'Unbekannt'}`,
-        ``,
-        `Server: ${API_BASE}`
-      ];
-      alert(info.join('\n'));
-    } else {
-      alert('Status konnte nicht geladen werden.');
-    }
-  } catch (error) {
-    alert('Fehler beim Laden des Status: ' + error.message);
-  }
-}
 
-async function debugSummaryData() {
-  console.log('=== SUMMARY DEBUG ===');
-  console.log('API_BASE:', API_BASE);
-  
-  // Hole aktuelle GA-Nummer aus dem Titel
-  const titleElement = document.getElementById('document-title');
-  const titleText = titleElement.textContent;
-  const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
-  
-  if (gaMatch) {
-    const gaNumber = gaMatch[1];
-    console.log('GA-Nummer:', gaNumber);
-    
-    try {
-      // Test 1: Zentrale Datenbank
-      console.log('--- Test 1: Zentrale Datenbank ---');
-      const centralResponse = await fetch(`${API_BASE}/api/summaries/all`);
-      if (centralResponse.ok) {
-        const centralData = await centralResponse.json();
-        console.log(`Zentrale DB: ${Object.keys(centralData).length} Summaries verfügbar`);
-      } else {
-        console.log('Zentrale DB nicht erreichbar:', centralResponse.status);
-      }
-      
-      // Test 2: Normale GA-Overview API
-      console.log('--- Test 2: GA-Overview API ---');
-      const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
-      if (response.ok) {
-        const data = await response.json();
-        const withSummary = data.lectures ? data.lectures.filter(l => l.summary).length : 0;
-        console.log(`GA-Overview API: ${withSummary} von ${data.lectures?.length || 0} mit Summary`);
-      }
-      
-      // Test 3: Legacy JSON-Datei
-      console.log('--- Test 3: Legacy JSON ---');
-      try {
-        const jsonResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
-        if (jsonResponse.ok) {
-          const jsonData = await jsonResponse.json();
-          console.log('lecture-summaries.json:', Object.keys(jsonData).length, 'Einträge');
-        } else {
-          console.log('lecture-summaries.json nicht verfügbar');
-        }
-      } catch (e) {
-        console.log('lecture-summaries.json Fehler:', e.message);
-      }
-      
-    } catch (error) {
-      console.error('Debug-Fehler:', error);
-    }
-  }
-  console.log('=== DEBUG ENDE ===');
-  alert('Debug-Informationen in Console ausgegeben (F12)');
-}
 
-// Debug-Funktion um zu sehen, woher die Summaries kommen
-async function debugGAData() {
-  console.log('=== GA SUMMARY DEBUG ===');
-  console.log('API_BASE:', API_BASE);
-  
-  // Hole aktuelle GA-Nummer aus dem Titel
-  const titleElement = document.getElementById('document-title');
-  const titleText = titleElement.textContent;
-  const gaMatch = titleText.match(/^(GA\d{3}[a-z]?):/);
-  
-  if (gaMatch) {
-    const gaNumber = gaMatch[1];
-    console.log('GA-Nummer:', gaNumber);
-    
-    try {
-      // Test 1: Normale API-Anfrage
-      console.log('--- Test 1: Normale API ---');
-      const response1 = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
-      if (response1.ok) {
-        const data1 = await response1.json();
-        const withSummary = data1.lectures ? data1.lectures.filter(l => l.summary).length : 0;
-        console.log(`Normale API: ${withSummary} von ${data1.lectures?.length || 0} mit Summary`);
-      }
-      
-      // Test 2: Mit Cache-Bypass
-      console.log('--- Test 2: Cache-Bypass ---');
-      const response2 = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}?nocache=${Date.now()}`);
-      if (response2.ok) {
-        const data2 = await response2.json();
-        const withSummary2 = data2.lectures ? data2.lectures.filter(l => l.summary).length : 0;
-        console.log(`Cache-Bypass: ${withSummary2} von ${data2.lectures?.length || 0} mit Summary`);
-      }
-      
-      // Test 3: Versuche lecture-summaries.json direkt zu laden
-      console.log('--- Test 3: Direkte JSON-Datei ---');
-      try {
-        const jsonResponse = await fetch(`${API_BASE}/lecture-summaries.json`);
-        if (jsonResponse.ok) {
-          const jsonData = await jsonResponse.json();
-          console.log('lecture-summaries.json verfügbar:', Object.keys(jsonData).length, 'Einträge');
-        } else {
-          console.log('lecture-summaries.json nicht verfügbar (Status:', jsonResponse.status, ')');
-        }
-      } catch (e) {
-        console.log('lecture-summaries.json nicht erreichbar:', e.message);
-      }
-      
-    } catch (error) {
-      console.error('Debug-Fehler:', error);
-    }
-  }
-  console.log('=== DEBUG ENDE ===');
-}
+
+
+
 
 
 
@@ -2314,7 +2214,7 @@ async function debugGAData() {
       }
       
       document.getElementById('viewer').innerHTML = '';
-      document.getElementById('document-title').textContent = 'Bitte ein Ergebnis auswählen…';
+      document.getElementById('document-title').textContent = 'Bitte ein Suchergebnis auswählen…';
       
       // Setze currentLectureData zurück und verstecke Buttons
       currentLectureData = null;
@@ -3016,11 +2916,15 @@ setTimeout(() => {
   const currentWord1 = document.getElementById('word1').value.trim();
   const currentWord2 = document.getElementById('word2').value.trim();
   let keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  let hasThematicKeywords = false;
   if (keywords.length === 0 && currentThematicQuery) {
     keywords = extractKeywordsFromQuery(currentThematicQuery);
+    hasThematicKeywords = true;
   }
   
-  displayLecture(currentLectureData, null, keywords, false);
+  // Enable highlighting if we have keywords from keyword search or thematic search
+  const shouldHighlight = keywords.length > 0;
+  displayLecture(currentLectureData, lastHighlightedIndex, keywords, shouldHighlight);
   
   setTimeout(() => {
     toggle.style.right = '0px';
@@ -3261,6 +3165,9 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
       
       document.getElementById('status').textContent = `Antwort aus ${sortedSources.length} Quellen`;
+      
+      // Scroll sidebar to top to show results from the beginning
+      document.getElementById('sidebar-content').scrollTop = 0;
       
       setTimeout(() => {
         const gaLinks = answerDiv.querySelectorAll('.ga-reference');
@@ -3640,7 +3547,11 @@ setTimeout(() => {
                                contentLower.includes(keywords[0].toLowerCase()) && 
                                contentLower.includes(keywords[1].toLowerCase());
           
-          const applyHighlight = shouldHighlight && isTargetPara && (keywords.length === 1 || hasBothWords);
+          // For thematic search, highlight target paragraph regardless of keyword presence
+          // For keyword search, only highlight if keywords are found
+          const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+          const applyHighlight = shouldHighlight && isTargetPara && 
+                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords);
           
           html += `
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 

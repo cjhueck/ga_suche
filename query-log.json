@@ -213,9 +213,9 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "goethe": {
-    "count": 5,
+    "count": 7,
     "coOccurrences": {},
-    "lastUsed": "2025-10-07T19:58:10.334Z"
+    "lastUsed": "2025-10-09T04:43:19.640Z"
   },
   "lebenstableau": {
     "count": 5,
@@ -223,18 +223,21 @@
     "lastUsed": "2025-10-06T23:12:05.293Z"
   },
   "steiner": {
-    "count": 2,
+    "count": 5,
     "coOccurrences": {
-      "kant": 2
+      "kant": 4,
+      "francis bacon": 1,
+      "francis": 1,
+      "bacon": 1
     },
-    "lastUsed": "2025-10-07T19:47:21.209Z"
+    "lastUsed": "2025-10-09T04:47:07.908Z"
   },
   "kant": {
-    "count": 2,
+    "count": 4,
     "coOccurrences": {
-      "steiner": 2
+      "steiner": 4
     },
-    "lastUsed": "2025-10-07T19:47:21.209Z"
+    "lastUsed": "2025-10-09T04:47:07.909Z"
   },
   "hat goethes anschauende": {
     "count": 1,
@@ -382,5 +385,32 @@
       "anthroposophie": 1
     },
     "lastUsed": "2025-10-07T19:55:51.216Z"
+  },
+  "francis bacon": {
+    "count": 1,
+    "coOccurrences": {
+      "steiner": 1,
+      "francis": 1,
+      "bacon": 1
+    },
+    "lastUsed": "2025-10-09T04:41:19.220Z"
+  },
+  "francis": {
+    "count": 1,
+    "coOccurrences": {
+      "francis bacon": 1,
+      "steiner": 1,
+      "bacon": 1
+    },
+    "lastUsed": "2025-10-09T04:41:19.220Z"
+  },
+  "bacon": {
+    "count": 1,
+    "coOccurrences": {
+      "francis bacon": 1,
+      "steiner": 1,
+      "francis": 1
+    },
+    "lastUsed": "2025-10-09T04:41:19.220Z"
   }
 }
