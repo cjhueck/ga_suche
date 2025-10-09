@@ -869,6 +869,8 @@ body.dark-mode .loading-message {
       color: #e0e0e0 !important;
     }
     
+
+    
     .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.1);
       padding: 0.5rem;
@@ -1341,7 +1343,7 @@ body.dark-mode .loading-tooltip::before {
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
-<h1 id="site-title">GA Steiner Suche</h1>
+<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">GA Steiner Suche</a></h1>
 <label class="theme-switch">
 <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
 <span class="theme-slider"></span>
@@ -1349,9 +1351,9 @@ body.dark-mode .loading-tooltip::before {
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button active" onclick="switchTab('keyword')">Stichwort-Suche</button>
+<button class="tab-button active" onclick="switchTab('keyword')">Text-Suche</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
-<button class="tab-button" onclick="switchTab('gesamtausgabe')"></button>
+<button class="tab-button" onclick="switchTab('schlagworte')">Schlagwörter</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -1419,6 +1421,33 @@ GA-Übersicht →
 </div>
 </div>
 
+<div class="tab-content" id="schlagworte-tab">
+<div style="margin-bottom: 1rem;">
+<div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
+<!-- Alphabet-Buttons werden dynamisch generiert -->
+</div>
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;">
+<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+<div id="keyword-count" style="font-size: 0.85em; color: #666;">
+Lade Schlagwörter...
+</div>
+<div style="display: flex; gap: 8px;">
+
+<button id="batch-enhance-btn" class="depth-btn" onclick="startBatchEnhancement()" style="padding: 4px 8px; font-size: 0.8em; background: linear-gradient(45deg, #ff9800, #f57c00); color: white; border: none; display: none;" title="KI-Enhancement aller GA-Links des aktuellen Buchstabens">
+🤖 Batch-KI
+</button>
+
+<button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
+Texte ausblenden
+</button>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 <div class="horizontal-resize-handle" id="search-panel-toggle" onclick="toggleSearchPanel()" title="Suchbereich ein-/ausklappen"></div>
 <div id="note" style="display: none;"></div>
@@ -1462,7 +1491,11 @@ Original
       ? 'http://localhost:3003'
       : 'https://ga-suche.onrender.com';
     
-    console.log('[API] Verwende API_BASE:', API_BASE, '(isLocal:', isLocal, ')');
+    console.log('[API] Location Info:');
+    console.log('  hostname:', window.location.hostname);
+    console.log('  protocol:', window.location.protocol);
+    console.log('  isLocal:', isLocal);
+    console.log('  API_BASE:', API_BASE);
     
     let currentSources = [];
     let searchResults = [];
@@ -1915,7 +1948,7 @@ function normalizeGANumber(gaNumber) {
       const thematicShowBtn = document.getElementById('thematicShowGAOverview');
       const showBtn = document.getElementById('showGAOverview');
 
-      // Stichwortsuche: Button wie gehabt
+      // Textsuche: Button wie gehabt
       if (gaFilter && showBtn) {
         gaFilter.addEventListener('change', (e) => {
           const selectedGA = e.target.value;
@@ -1948,7 +1981,7 @@ function normalizeGANumber(gaNumber) {
 
     async function openGAOverview(gaNumber) {
       if (!gaNumber) {
-        // Fallback: Versuche, die GA-Nummer aus dem Button im Stichwortsuche-Tab zu holen
+        // Fallback: Versuche, die GA-Nummer aus dem Button im Textsuche-Tab zu holen
         const btn = document.getElementById('showGAOverview');
         gaNumber = btn && btn.dataset.gaNumber ? btn.dataset.gaNumber : null;
       }
@@ -3019,17 +3052,26 @@ function showSummaryView() {
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
+      console.log('[SCROLL] Suche nach Absatz:', targetIndex);
+      
       const mainContainer = document.getElementById('main');
       
       // Entferne vorherige Markierung
       const prevMarked = mainContainer.querySelector('.paragraph.highlighted-paragraph');
       if (prevMarked) {
         prevMarked.classList.remove('highlighted-paragraph');
+        console.log('[SCROLL] Vorherige Markierung entfernt');
       }
+      
+      // Bereite Index-String vor: entferne ^ falls vorhanden
+      const cleanIndex = targetIndex.replace(/^\^/, '');
+      console.log('[SCROLL] Bereinigter Index:', cleanIndex);
       
       // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
       // versuche zuerst das Original anzuzeigen
-      let paraElement = document.getElementById(`para-${targetIndex}`);
+      let paraElement = document.getElementById(`para-${cleanIndex}`);
+      console.log('[SCROLL] Element gefunden:', !!paraElement);
+      
       if (!paraElement && showingSummaryInMain && currentLectureData) {
         console.log('Absatz nicht in Summary gefunden, zeige Original...');
         showingSummaryInMain = false;
@@ -3044,15 +3086,17 @@ function showSummaryView() {
           displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
         }
         
-        displayLecture(currentLectureData, targetIndex, displayKeywords);
+        displayLecture(currentLectureData, cleanIndex, displayKeywords);
         updateButtonStates();
         
         // Nach dem Rendern nochmal versuchen zu scrollen
-        setTimeout(() => scrollToIndexInViewer(targetIndex), 200);
+        setTimeout(() => scrollToIndexInViewer(cleanIndex), 200);
         return;
       }
       
       if (paraElement) {
+        console.log('[SCROLL] Element gefunden, scrolle zu Absatz:', cleanIndex);
+        
         // Berechne Position für Positionierung am unteren Rand des Headers
         const header = document.getElementById('viewer-header');
         const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
@@ -3065,6 +3109,13 @@ function showSummaryView() {
         
         // Transparente blaue Markierung mit CSS-Klasse
         paraElement.classList.add('highlighted-paragraph');
+        console.log('[SCROLL] ✅ Absatz markiert und gescrollt:', cleanIndex);
+      } else {
+        console.warn('[SCROLL] ❌ Absatz nicht gefunden:', cleanIndex);
+        
+        // Debug: Zeige alle verfügbaren Paragraph-IDs
+        const allParas = document.querySelectorAll('[id^="para-"]');
+        console.log('[SCROLL] Verfügbare Absätze:', Array.from(allParas).slice(0, 10).map(p => p.id));
       }
     }
 
@@ -3221,7 +3272,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       e.preventDefault();
       e.stopPropagation();
       
-      // Summary Panel schließen (wie bei Stichwortsuche)
+      // Summary Panel schließen (wie bei Textsuche)
       const summaryPanel = document.getElementById('summary-panel');
       const resizeHandle = document.getElementById('verticalResizeHandle');
       if (summaryPanel.classList.contains('visible')) {
@@ -3415,6 +3466,7 @@ setTimeout(() => {
       }
     }
     
+    console.log('[SHOW-LECTURE] Fallback zu Original mit targetIndex:', targetIndex);
     updateButtonStates();
     displayLecture(data.lecture, targetIndex, displayKeywords);
     
@@ -3556,6 +3608,10 @@ setTimeout(() => {
         }
       }
       
+      // WICHTIG: Setze lastHighlightedIndex VOR dem Rendern für korrekte Markierung
+      lastHighlightedIndex = cleanIndex;
+      console.log('[DISPLAY-LECTURE] lastHighlightedIndex gesetzt auf:', lastHighlightedIndex);
+      
       viewer.innerHTML = '';
       
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
@@ -3587,11 +3643,21 @@ setTimeout(() => {
                                contentLower.includes(keywords[0].toLowerCase()) && 
                                contentLower.includes(keywords[1].toLowerCase());
           
-          // For thematic search, highlight target paragraph regardless of keyword presence
-          // For keyword search, only highlight if keywords are found
+          // Markierungslogik:
+          // 1. Thematische Suche: Markiere Zielabsatz immer  
+          // 2. GA-Links (Keywords-Tab): Markiere Zielabsatz immer
+          // 3. Keyword-Suche: Markiere nur wenn Keywords gefunden
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+          const isFromGALink = !currentThematicQuery && isTargetPara; // GA-Link ohne Themensuche
+          const hasKeywordMatch = keywords.length === 1 || hasBothWords;
+          
           const applyHighlight = shouldHighlight && isTargetPara && 
-                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords);
+                                 (isFromThematicSearch || isFromGALink || hasKeywordMatch);
+          
+          // Debug für Markierung
+          if (isTargetPara) {
+            console.log(`[HIGHLIGHT] Absatz ${paraIndex}: isThematic=${isFromThematicSearch}, isGALink=${isFromGALink}, hasKeywords=${hasKeywordMatch}, highlight=${applyHighlight}`);
+          }
           
           html += `
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
@@ -3615,8 +3681,9 @@ setTimeout(() => {
           const targetRect = targetElement.getBoundingClientRect();
           const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
           mainContainer.scrollTop = Math.max(0, relativeTop);
-          lastHighlightedIndex = cleanIndex;
+          console.log('[DISPLAY-LECTURE] ✅ Gescrollt zu Element:', cleanIndex);
         } else {
+          console.log('[DISPLAY-LECTURE] ❌ Element nicht gefunden:', cleanIndex);
           mainContainer.scrollTop = 0;
         }
       } else {
@@ -3887,6 +3954,1331 @@ async function populateGesamtausgabeDropdown() {
 }
 
 document.addEventListener('DOMContentLoaded', populateGesamtausgabeDropdown);
+</script>
+
+<script>
+// =====================================
+// SCHLAGWORT-SYSTEM
+// =====================================
+
+let keywordsData = [];
+let currentAlphabet = 'Alle';
+let filteredKeywords = [];
+let showKeywordTexts = true;
+
+// Globale Schlagwort-Funktionen
+async function initializeKeywordSystem() {
+  console.log('[KEYWORDS] Initialisiere Schlagwort-System...');
+  
+  const countContainer = document.getElementById('keyword-count');
+  countContainer.textContent = 'Lade Schlagwörter...';
+  
+  try {
+    // Lade Schlagwort-Daten
+    await loadKeywordsData();
+    
+    if (keywordsData.length === 0) {
+      countContainer.textContent = 'Keine Schlagwörter gefunden. Prüfen Sie den keywords/ Ordner.';
+      console.warn('[KEYWORDS] Keine Schlagwörter geladen!');
+      return;
+    }
+    
+    // Erstelle Alphabet-Navigation
+    createAlphabetNavigation();
+    
+    // Initialer Aufbau der Anzeige
+    displayKeywords('Alle');
+    
+    // Event Listener für Suche
+    setupKeywordSearch();
+    
+    console.log(`[KEYWORDS] ✓ System erfolgreich initialisiert mit ${keywordsData.length} Schlagwörtern`);
+    
+  } catch (error) {
+    console.error('[KEYWORDS] ✗ Fehler beim Initialisieren:', error);
+    countContainer.textContent = `Fehler beim Laden: ${error.message}`;
+  }
+}
+
+async function loadKeywordsData() {
+  console.log('[KEYWORDS] Lade Schlagwort-Daten...');
+  
+  try {
+    // Versuche zuerst eine vollständige Schlagwort-Liste zu laden
+    const response = await fetch(`${API_BASE}/api/keywords-list`);
+    if (response.ok) {
+      const data = await response.json();
+      keywordsData = data.keywords || [];
+      console.log('[KEYWORDS] Schlagwörter von API geladen:', keywordsData.length);
+      return;
+    }
+  } catch (error) {
+    console.warn('[KEYWORDS] API nicht verfügbar, verwende lokale Dateien');
+  }
+  
+  // Versuche lokale Schlagwort-Dateien zu laden
+  try {
+    await loadLocalKeywordFiles();
+    if (keywordsData.length > 0) {
+      console.log('[KEYWORDS] Lokale Schlagwort-Dateien geladen:', keywordsData.length);
+      return;
+    }
+  } catch (error) {
+    console.warn('[KEYWORDS] Lokale Dateien nicht verfügbar:', error.message);
+  }
+  
+  // Fallback: Demo-Daten basierend auf der Abbauprozesse.json Struktur
+  keywordsData = [
+    {
+      keyword: "Abbauprozesse",
+      alphabetical: "A",
+      text: "**Abbauprozesse** stellen einen grundlegenden physiologischen Mechanismus dar, bei dem die **Seele fortwährend Zerstörungs- und Zerfallprozesse im Nervensystem** vollführt, die paradoxerweise die **Grundlage für Wahrnehmung** bilden ([[GA066/1]]). Diese **destruktiven Prozesse im Nervensystem** erweisen sich als unabdingbare Voraussetzung für **bewusstes Seelenleben** ([[GA067/4]]).",
+      gaReferences: ["GA066/1", "GA067/4", "GA067/10"]
+    },
+    {
+      keyword: "Astralleib", 
+      alphabetical: "A",
+      text: "Der **Astralleib** ist das dritte Wesensglied des Menschen und trägt Emotionen, Triebe und Bewusstsein ([[GA013/3]]). Er entwickelt sich durch Meditation und spirituelle Übung ([[GA013/5]]).",
+      gaReferences: ["GA013/3", "GA013/5"]
+    },
+    {
+      keyword: "Bewusstsein",
+      alphabetical: "B", 
+      text: "**Bewusstsein** entsteht durch Abbauprozesse im Nervensystem ([[GA066/1]]) und entwickelt sich stufenweise vom Traumlosen Schlaf über das Traumbewusstsein zum Tagesbewusstsein ([[GA013/2]]).",
+      gaReferences: ["GA066/1", "GA013/2"]
+    }
+  ];
+  
+  console.log('[KEYWORDS] Demo-Daten geladen:', keywordsData.length, 'Schlagwörter');
+}
+
+async function loadLocalKeywordFiles() {
+  console.log('[KEYWORDS] Lade lokale Schlagwort-Dateien aus keywords/ Ordner...');
+  
+  try {
+    // Versuche eine Dateiliste vom Server zu bekommen
+    const listResponse = await fetch(`${API_BASE}/api/keywords-files`);
+    if (listResponse.ok) {
+      const fileList = await listResponse.json();
+      console.log('[KEYWORDS] Dateiliste von API erhalten:', fileList.files?.length || 0, 'Dateien');
+      
+      for (const fileName of fileList.files || []) {
+        await loadSingleKeywordFile(`keywords/${fileName}`);
+      }
+      return;
+    }
+  } catch (error) {
+    console.warn('[KEYWORDS] API für Dateiliste nicht verfügbar:', error.message);
+  }
+  
+  // Fallback: Versuche bekannte Dateien aus dem keywords/ Ordner zu laden
+  const knownFiles = [
+    'Abbauprozesse.json',
+    'Astralleib.json', 
+    'Bewusstsein.json',
+    'Christus.json',
+    'Denken.json',
+    'Erkenntnis.json',
+    'Geist.json',
+    'Karma.json',
+    'Meditation.json',
+    'Seele.json'
+    // Weitere bekannte Dateien können hier hinzugefügt werden
+  ];
+  
+  console.log('[KEYWORDS] Versuche', knownFiles.length, 'bekannte Dateien zu laden...');
+  
+  for (const fileName of knownFiles) {
+    // Zuerst im keywords/ Ordner suchen
+    const loaded = await loadSingleKeywordFile(`keywords/${fileName}`);
+    // Falls nicht gefunden, im Hauptverzeichnis suchen
+    if (!loaded) {
+      await loadSingleKeywordFile(fileName);
+    }
+  }
+  
+  console.log('[KEYWORDS] Insgesamt', keywordsData.length, 'Schlagwörter aus lokalen Dateien geladen');
+}
+
+async function loadSingleKeywordFile(filePath) {
+  try {
+    console.log('[KEYWORDS] Versuche zu laden:', filePath);
+    const response = await fetch(filePath);
+    
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Konvertiere die JSON-Struktur in unser Schlagwort-Format
+      if (data.keywords && data.text) {
+        const keywordEntry = {
+          keyword: data.keywords.Keyword || 'Unbekannt',
+          alphabetical: data.keywords.Alphabetical || data.keywords.Keyword?.charAt(0).toUpperCase() || 'U',
+          text: data.text,
+          gaReferences: extractGAReferences(data.text)
+        };
+        
+        keywordsData.push(keywordEntry);
+        console.log('[KEYWORDS] ✓ Schlagwort geladen:', keywordEntry.keyword, 'aus', filePath);
+        return true;
+      } else {
+        console.warn('[KEYWORDS] ✗ Ungültige Struktur in', filePath);
+        return false;
+      }
+    } else {
+      console.log('[KEYWORDS] ✗ Datei nicht gefunden:', filePath, '(Status:', response.status + ')');
+      return false;
+    }
+  } catch (error) {
+    console.log('[KEYWORDS] ✗ Fehler beim Laden von', filePath, ':', error.message);
+    return false;
+  }
+}
+
+function extractGAReferences(text) {
+  if (!text) return [];
+  
+  const gaMatches = text.match(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g);
+  if (!gaMatches) return [];
+  
+  return gaMatches.map(match => {
+    const gaMatch = match.match(/\[\[([^\]]*\|)?([^|\]]+)\]\]/);
+    if (gaMatch && gaMatch[2]) {
+      // Extrahiere nur die GA-ID (z.B. "GA066/1" aus "GA066 (1.) TITLE|GA066/1")
+      const gaId = gaMatch[2].trim();
+      return gaId;
+    }
+    return null;
+  }).filter(id => id && /^GA\d{3}[a-z]?\/\d+$/i.test(id));
+}
+
+function createAlphabetNavigation() {
+  const navContainer = document.getElementById('alphabet-nav');
+  
+  // Alle verfügbaren Buchstaben aus den Daten ermitteln
+  const availableLetters = [...new Set(keywordsData.map(k => k.alphabetical || k.keyword.charAt(0).toUpperCase()))].sort();
+  
+  // "Alle" Button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'depth-btn active';
+  allBtn.textContent = 'Alle';
+  allBtn.onclick = () => selectAlphabet('Alle', allBtn);
+  navContainer.appendChild(allBtn);
+  
+  // Alphabet-Buttons für verfügbare Buchstaben
+  availableLetters.forEach(letter => {
+    const btn = document.createElement('button');
+    btn.className = 'depth-btn';
+    btn.textContent = letter;
+    btn.onclick = () => selectAlphabet(letter, btn);
+    navContainer.appendChild(btn);
+  });
+}
+
+function selectAlphabet(letter, buttonElement) {
+  // Alle Buttons deaktivieren
+  document.querySelectorAll('#alphabet-nav .depth-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Ausgewählten Button aktivieren
+  buttonElement.classList.add('active');
+  
+  currentAlphabet = letter;
+  displayKeywords(letter);
+}
+
+function displayKeywords(selectedLetter = 'Alle') {
+  const resultsContainer = document.getElementById('results');
+  const countContainer = document.getElementById('keyword-count');
+  const toggleButton = document.getElementById('keyword-text-toggle');
+  const batchButton = document.getElementById('batch-enhance-btn');
+  
+  // Filtere Schlagwörter nach Buchstabe
+  filteredKeywords = selectedLetter === 'Alle' 
+    ? keywordsData 
+    : keywordsData.filter(k => (k.alphabetical || k.keyword.charAt(0).toUpperCase()) === selectedLetter);
+  
+  // Weitere Filterung nach Suchtext
+  const searchText = document.getElementById('keywordSearch').value.toLowerCase();
+  if (searchText) {
+    filteredKeywords = filteredKeywords.filter(k => 
+      k.keyword.toLowerCase().includes(searchText)
+    );
+  }
+  
+  countContainer.textContent = `${filteredKeywords.length} Schlagwörter gefunden`;
+  
+  // Toggle-Button anzeigen wenn Schlagwörter vorhanden
+  if (filteredKeywords.length > 0) {
+    toggleButton.style.display = 'inline-block';
+    toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
+    
+    // Batch-Button ausgeblendet (deaktiviert auf Benutzerwunsch)
+    batchButton.style.display = 'none';
+  } else {
+    toggleButton.style.display = 'none';
+    batchButton.style.display = 'none';
+  }
+  
+  if (filteredKeywords.length === 0) {
+    resultsContainer.innerHTML = '<p style="color: #666; font-style: italic;">Keine Schlagwörter gefunden.</p>';
+    return;
+  }
+  
+  // Sortiere alphabetisch
+  filteredKeywords.sort((a, b) => a.keyword.localeCompare(b.keyword));
+  
+  let html = '<div style="line-height: 1.4;">';
+  
+  filteredKeywords.forEach(keywordData => {
+    const processedText = processKeywordText(keywordData.text, keywordData.gaReferences || []);
+    
+    html += `
+      <div class="keyword-entry" style="margin-bottom: 0.8rem; padding-bottom: 0.3rem;">
+        <h4 style="margin: 0 0 0.2rem 0; color: #467886; font-size: 1.1em;">
+          ${keywordData.keyword}
+        </h4>
+        <div class="keyword-text" style="color: #444; line-height: 1.4; font-size: 0.95em; display: ${showKeywordTexts ? 'block' : 'none'};">
+          ${processedText}
+        </div>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  resultsContainer.innerHTML = html;
+  
+  // Scrolle nach oben in der Sidebar
+  document.getElementById('sidebar-content').scrollTop = 0;
+}
+
+function processKeywordText(text, gaReferences = []) {
+  if (!text) return '';
+  
+  let processedText = text;
+  
+  // Verarbeite Markdown-Formatierung für fette Schrift **text**
+  processedText = processedText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  
+  // Verarbeite Markdown-Links im Format [[GA066/1]] oder [[GA066 (1.) TITLE|GA066/1]]
+  processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, gaId) => {
+    const cleanGAId = gaId.trim();
+    
+    // Prüfe ob es eine gültige GA-ID ist (Format: GA123/4 oder GA123a/4, auch mit #absatz_id)
+    if (/^GA\d{3}[a-z]?\/\d+(#[a-zA-Z0-9]+)?$/i.test(cleanGAId)) {
+      console.log('[PROCESS] Erstelle Link für:', cleanGAId);
+      
+      // Verwende verschiedene Handler je nach Link-Typ
+      if (cleanGAId.includes('#')) {
+        // Bereits erweiterter Link - direkt öffnen
+        return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="console.log('Erweiterter Link geklickt:', '${cleanGAId}'); openFromKeyword('${cleanGAId}'); return false;">${cleanGAId}</a>`;
+      } else {
+        // Ursprünglicher Link - KI-Enhancement triggern
+        return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="console.log('Ursprünglicher Link geklickt:', '${cleanGAId}'); handleOriginalGALink(this, '${cleanGAId}'); return false;">${cleanGAId}</a>`;
+      }
+    }
+    
+    return match; // Fallback: ursprünglichen Text beibehalten
+  });
+  
+  return processedText;
+}
+
+function toggleKeywordTexts() {
+  showKeywordTexts = !showKeywordTexts;
+  
+  // Alle Texte ein-/ausblenden
+  const keywordTexts = document.querySelectorAll('.keyword-text');
+  keywordTexts.forEach(textDiv => {
+    textDiv.style.display = showKeywordTexts ? 'block' : 'none';
+  });
+  
+  // Button-Text aktualisieren
+  const toggleButton = document.getElementById('keyword-text-toggle');
+  toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
+}
+
+async function openFromKeyword(gaId) {
+  console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
+  
+  try {
+    // WICHTIG: Setze thematische Suche zurück, damit GA-Link Highlighting funktioniert
+    currentThematicQuery = '';
+    
+    // Prüfe ob Link bereits erweitert ist (enthält #absatz_id)
+    let targetGaId = gaId;
+    let targetParagraphId = null;
+    
+    // Prüfe zuerst ob bereits ein Absatz-Mapping existiert
+    if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
+      targetParagraphId = window.gaLinkParagraphs[gaId];
+      console.log('[KEYWORDS] Verwende gespeichtes Absatz-Mapping:', gaId, '→', targetParagraphId);
+    } else if (gaId.includes('#')) {
+      // Legacy: Link ist bereits erweitert - direkt verwenden
+      const parts = gaId.split('#');
+      targetGaId = parts[0];
+      targetParagraphId = parts[1];
+      console.log('[KEYWORDS] Legacy erweiterten Link:', targetGaId, '#', targetParagraphId);
+    } else {
+      // Einfacher Link - versuche KI-Enhancement
+      console.log('[KEYWORDS] Einfacher Link - starte KI-Enhancement...');
+      
+      const enhancedGaId = await tryEnhanceGALink(gaId);
+      if (enhancedGaId && enhancedGaId === gaId) {
+        // Enhancement erfolgreich - prüfe ob Absatz-Mapping gespeichert wurde
+        if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
+          targetParagraphId = window.gaLinkParagraphs[gaId];
+          console.log('[KEYWORDS] KI-Enhancement erfolgreich - Absatz gefunden:', targetParagraphId);
+        } else {
+          console.log('[KEYWORDS] KI-Enhancement ohne Absatz-Mapping');
+        }
+      } else {
+        console.log('[KEYWORDS] KI-Enhancement fehlgeschlagen oder keine Erweiterung gefunden');
+        targetParagraphId = null;
+      }
+    }
+    
+    // Schließe Summary Panel falls geöffnet
+    const summaryPanel = document.getElementById('summary-panel');
+    const resizeHandle = document.getElementById('verticalResizeHandle');
+    if (summaryPanel.classList.contains('visible')) {
+      summaryPanel.classList.remove('visible');
+      resizeHandle.classList.remove('visible');
+      summaryPanel.style.width = '0';
+      summaryPanel.style.minWidth = '0';
+      summaryPanel.style.marginRight = '0px';
+    }
+    
+    // Verwende Absatz-ID direkt (wie Themensuche) - füge ^ hinzu falls fehlt
+    let targetIndex = null;
+    if (targetParagraphId) {
+      targetIndex = targetParagraphId.startsWith('^') ? targetParagraphId : `^${targetParagraphId}`;
+      console.log('[KEYWORDS] Verwende Absatz-ID direkt:', targetIndex);
+    } else {
+      console.log('[KEYWORDS] Keine Absatz-ID verfügbar - zeige Vortrag von Anfang an');
+    }
+    
+    // Zeige Vortrag mit optionalem Absatz-Sprung (genau wie Themensuche)
+    await showLecture(targetGaId, targetIndex, []);
+    
+  } catch (error) {
+    console.error('[KEYWORDS] Fehler beim Öffnen der GA-Referenz:', error);
+    alert(`Fehler beim Laden des Vortrags ${gaId}: ${error.message}`);
+  }
+}
+
+function setupKeywordSearch() {
+  const searchInput = document.getElementById('keywordSearch');
+  
+  searchInput.addEventListener('input', () => {
+    displayKeywords(currentAlphabet);
+  });
+  
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      displayKeywords(currentAlphabet);
+    }
+  });
+}
+
+function clearKeywordSearch() {
+  document.getElementById('keywordSearch').value = '';
+  displayKeywords(currentAlphabet);
+}
+
+// ============================================================================
+// ON-DEMAND LINK-ENHANCEMENT
+// ============================================================================
+
+// Versuche GA-Link mit KI zu erweitern
+async function tryEnhanceGALink(gaId) {
+  try {
+    console.log('[LINK-ENHANCEMENT] Versuche Enhancement für:', gaId);
+    
+    // Finde den Kontext um diesen Link
+    const context = findGALinkContext(gaId);
+    console.log('[LINK-ENHANCEMENT] Gefundener Kontext:', context);
+    
+    if (!context) {
+      console.log('[LINK-ENHANCEMENT] Kein Kontext gefunden für:', gaId);
+      return gaId;
+    }
+    
+    // API-Aufruf für Link-Enhancement
+    console.log('[LINK-ENHANCEMENT] Sende API-Request...');
+    console.log('[LINK-ENHANCEMENT] API_BASE:', API_BASE);
+    const response = await fetch(`${API_BASE}/api/enhance-keyword-links`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        keywordText: context,
+        keyword: 'On-demand Enhancement'
+      })
+    });
+    
+    console.log('[LINK-ENHANCEMENT] API Response Status:', response.status);
+    
+    if (!response.ok) {
+      console.warn('[LINK-ENHANCEMENT] API-Fehler:', response.status);
+      return gaId;
+    }
+    
+    const result = await response.json();
+    console.log('[LINK-ENHANCEMENT] API Result:', result);
+    
+    if (result.processed && result.enhancedText !== context) {
+      console.log('[LINK-ENHANCEMENT] KI-Enhanced Text:', result.enhancedText);
+      
+      // Extrahiere den erweiterten Link aus der Antwort
+      const enhancedLinkMatch = result.enhancedText.match(new RegExp(`\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`));
+      console.log('[LINK-ENHANCEMENT] Regex Match:', enhancedLinkMatch);
+      
+      if (enhancedLinkMatch) {
+        const enhancedGaId = `${gaId}#${enhancedLinkMatch[1]}`;
+        console.log('[LINK-ENHANCEMENT] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
+        return enhancedGaId;
+      } else {
+        console.warn('[LINK-ENHANCEMENT] Kein erweiterter Link in KI-Antwort gefunden');
+        console.log('[LINK-ENHANCEMENT] Suchte nach Pattern:', `\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`);
+        
+        // Fallback: Suche nach beliebigem erweiterten Link im Text
+        const anyEnhancedLink = result.enhancedText.match(/\[\[GA\d{3}[a-z]?\/\d+#([a-zA-Z0-9]+)\]\]/i);
+        if (anyEnhancedLink) {
+          console.log('[LINK-ENHANCEMENT] Fallback: Gefundener erweiterter Link:', anyEnhancedLink[0]);
+          // Extrahiere nur die Absatz-ID und kombiniere mit Original GA-ID
+          return `${gaId}#${anyEnhancedLink[1]}`;
+        }
+      }
+    }
+    
+    console.log('[LINK-ENHANCEMENT] Keine Erweiterung gefunden für:', gaId);
+    return gaId;
+    
+  } catch (error) {
+    console.error('[LINK-ENHANCEMENT] Fehler beim Enhancement:', error);
+    return gaId; // Fallback: Original-Link zurückgeben
+  }
+}
+
+// Finde Kontext um einen GA-Link
+function findGALinkContext(gaId) {
+  try {
+    console.log('[CONTEXT] Suche Kontext für:', gaId);
+    
+    // Suche alle Keyword-Texte nach diesem GA-Link
+    const keywordTexts = document.querySelectorAll('.keyword-text');
+    console.log('[CONTEXT] Gefundene keyword-text Elemente:', keywordTexts.length);
+    
+    for (const textElement of keywordTexts) {
+      let textContent = textElement.textContent;
+      console.log('[CONTEXT] Prüfe Text-Element:', textContent ? textContent.substring(0, 100) + '...' : 'LEER');
+      
+      if (!textContent && textElement.innerHTML) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = textElement.innerHTML;
+        textContent = tempDiv.textContent;
+        console.log('[CONTEXT] Fallback zu innerHTML:', textContent ? textContent.substring(0, 100) + '...' : 'LEER');
+      }
+      
+      // Prüfe verschiedene Link-Formate
+      const linkPatterns = [
+        `[[${gaId}]]`,           // Original Obsidian Format
+        `(${gaId})`,             // Möglicherweise schon verarbeitet
+        gaId                      // Nur die GA-ID
+      ];
+      
+      let foundPattern = null;
+      for (const pattern of linkPatterns) {
+        if (textContent && textContent.includes(pattern)) {
+          foundPattern = pattern;
+          console.log('[CONTEXT] Gefundenes Pattern:', pattern);
+          break;
+        }
+      }
+      
+      if (foundPattern) {
+        // Extrahiere Kontext um den Link
+        const linkIndex = textContent.indexOf(foundPattern);
+        const link = foundPattern;
+        
+        // Finde vorhergehenden Link oder Textanfang
+        const precedingLinks = textContent.substring(0, linkIndex).match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/gi) || [];
+        let contextStart;
+        if (precedingLinks.length > 0) {
+          const lastLinkIndex = textContent.lastIndexOf(precedingLinks[precedingLinks.length - 1], linkIndex);
+          const lastLinkEnd = lastLinkIndex + precedingLinks[precedingLinks.length - 1].length;
+          contextStart = lastLinkEnd;
+        } else {
+          contextStart = Math.max(0, linkIndex - 150);
+        }
+        
+        // Finde nachfolgenden Link oder nehme 100 Zeichen nach aktuellem Link
+        const followingText = textContent.substring(linkIndex + link.length);
+        const nextLinkMatch = followingText.match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/i);
+        let contextEnd;
+        if (nextLinkMatch) {
+          contextEnd = linkIndex + link.length + nextLinkMatch.index;
+        } else {
+          contextEnd = Math.min(textContent.length, linkIndex + link.length + 100);
+        }
+        
+        const context = textContent.substring(contextStart, contextEnd).trim();
+        console.log('[LINK-ENHANCEMENT] Kontext gefunden:', context);
+        return context;
+      }
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('[LINK-ENHANCEMENT] Fehler bei Kontext-Suche:', error);
+    return null;
+  }
+}
+
+// Extrahiere Kontext VOR der geklickten GA-ID aus dem Schlagworttext
+function extractContextBeforeLink(linkElement, gaId, originalLinkText = null) {
+  try {
+    console.log('[CONTEXT-EXTRACT] ===== START CONTEXT EXTRACTION =====');
+    console.log('[CONTEXT-EXTRACT] Extrahiere Kontext vor Link:', gaId);
+    console.log('[CONTEXT-EXTRACT] Original Link Text:', originalLinkText);
+    
+    // Finde das übergeordnete keyword-text Element
+    const keywordTextElement = linkElement.closest('.keyword-text');
+    if (!keywordTextElement) {
+      console.warn('[CONTEXT-EXTRACT] Kein keyword-text Element gefunden');
+      console.log('[CONTEXT-EXTRACT] Übergeordnete Elemente:', linkElement.parentElement, linkElement.parentElement?.parentElement);
+      return null;
+    }
+    
+    console.log('[CONTEXT-EXTRACT] Keyword-Text Element gefunden:', keywordTextElement);
+    
+    // Hole den ORIGINALEN HTML-Inhalt statt textContent (enthält noch die Original-Links)
+    let fullTextFromHTML = keywordTextElement.innerHTML;
+    
+    // Entferne HTML-Tags aber behalte den Inhalt
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = fullTextFromHTML;
+    
+    // Finde alle GA-Links im Original-HTML und ersetze sie mit Platzhaltern
+    const gaLinks = tempDiv.querySelectorAll('.ga-keyword-link');
+    gaLinks.forEach((link, index) => {
+      const linkGaId = link.getAttribute('data-ga-id');
+      if (linkGaId) {
+        // Ersetze den Link mit der Original GA-ID
+        link.outerHTML = linkGaId;
+      }
+    });
+    
+    let fullText = tempDiv.textContent || tempDiv.innerText;
+    console.log('[CONTEXT-EXTRACT] Rekonstruierter Text (Länge:', fullText.length, '):', fullText.substring(0, 300) + '...');
+    
+    // Finde die Position der geklickten GA-ID im rekonstruierten Text
+    let gaIdPosition = fullText.indexOf(gaId);
+    console.log('[CONTEXT-EXTRACT] GA-ID Position im Text:', gaIdPosition);
+    
+    if (gaIdPosition === -1) {
+      // Versuche andere Formate
+      const altFormats = [`[[${gaId}]]`, `(${gaId})`, gaId];
+      console.log('[CONTEXT-EXTRACT] Suche alternative Formate:', altFormats);
+      
+      for (const altFormat of altFormats) {
+        gaIdPosition = fullText.indexOf(altFormat);
+        if (gaIdPosition !== -1) {
+          console.log('[CONTEXT-EXTRACT] Alternative gefunden:', altFormat, 'bei Position:', gaIdPosition);
+          break;
+        }
+      }
+      
+      if (gaIdPosition === -1) {
+        console.warn('[CONTEXT-EXTRACT] GA-ID in keinem Format im Text gefunden:', gaId);
+        console.log('[CONTEXT-EXTRACT] Suchte in Text:', fullText.substring(0, 500));
+        return null;
+      }
+    }
+    
+    // Extrahiere Kontext VOR der GA-ID
+    // Nehme bis zu 400 Zeichen vor der GA-ID, aber mindestens ab dem letzten Satz
+    const textBeforeGaId = fullText.substring(0, gaIdPosition);
+    console.log('[CONTEXT-EXTRACT] Text vor GA-ID (Länge:', textBeforeGaId.length, '):', textBeforeGaId.substring(Math.max(0, textBeforeGaId.length - 200)));
+    
+    // Finde den Anfang des relevanten Kontexts (letzter Satz oder 400 Zeichen)
+    let contextStart = Math.max(0, gaIdPosition - 400);
+    
+    // Versuche beim letzten Satzende zu beginnen (aber nicht zu weit zurück)
+    const recentText = textBeforeGaId.substring(Math.max(0, gaIdPosition - 400));
+    const lastSentenceEnd = recentText.lastIndexOf('.');
+    if (lastSentenceEnd > -1 && lastSentenceEnd < recentText.length - 10) {
+      contextStart = Math.max(0, gaIdPosition - 400) + lastSentenceEnd + 1;
+      console.log('[CONTEXT-EXTRACT] Verwende letztes Satzende bei Position:', contextStart);
+    }
+    
+    const contextBeforeLink = fullText.substring(contextStart, gaIdPosition).trim();
+    console.log('[CONTEXT-EXTRACT] ✅ Extrahierter Kontext (Länge:', contextBeforeLink.length, '):', contextBeforeLink);
+    console.log('[CONTEXT-EXTRACT] ===== END CONTEXT EXTRACTION =====');
+    
+    return contextBeforeLink;
+    
+  } catch (error) {
+    console.error('[CONTEXT-EXTRACT] ❌ Fehler bei Kontext-Extraktion:', error);
+    return null;
+  }
+}
+
+// KI-Enhancement mit spezifischem Kontext
+async function enhanceGALinkWithContext(gaId, context) {
+  try {
+    console.log('[ENHANCE-CONTEXT] Starte Enhancement für:', gaId, 'mit Kontext:', context);
+    
+    if (!context || context.trim().length < 10) {
+      console.warn('[ENHANCE-CONTEXT] Kontext zu kurz oder leer');
+      return gaId;
+    }
+    
+    // Prüfe lokalen Cache zuerst (localStorage)
+    const cacheKey = `ga-link-${gaId}`;
+    const cachedResult = localStorage.getItem(cacheKey);
+    if (cachedResult) {
+      const parsed = JSON.parse(cachedResult);
+      console.log('[ENHANCE-CONTEXT] Cache-Hit! Verwende gespeicherte Analyse:', parsed.paragraphId);
+      
+      // Lade in globalen Speicher
+      if (!window.gaLinkParagraphs) window.gaLinkParagraphs = {};
+      window.gaLinkParagraphs[gaId] = parsed.paragraphId;
+      
+      return gaId;
+    }
+    
+    // API-Aufruf mit Kontext und GA-ID
+    const textToEnhance = `${context} [[${gaId}]]`; // Kontext + GA-ID für KI-Analyse
+    console.log('[ENHANCE-CONTEXT] Sende Text zur KI:', textToEnhance);
+    console.log('[ENHANCE-CONTEXT] API_BASE:', API_BASE);
+    
+    const response = await fetch(`${API_BASE}/api/enhance-keyword-links`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        keywordText: textToEnhance,
+        keyword: `Link-Enhancement für ${gaId}`,
+        targetGaId: gaId // Spezifische GA-ID die erweitert werden soll
+      })
+    });
+    
+    console.log('[ENHANCE-CONTEXT] API Response Status:', response.status);
+    
+    if (!response.ok) {
+      console.warn('[ENHANCE-CONTEXT] API-Fehler:', response.status);
+      return gaId;
+    }
+    
+    const result = await response.json();
+    console.log('[ENHANCE-CONTEXT] API Result:', result);
+    
+    if (result.processed && result.enhancedText !== (context + ` [[${gaId}]]`)) {
+      // Extrahiere den erweiterten Link aus der Antwort
+      const enhancedLinkRegex = new RegExp(`\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`);
+      const enhancedMatch = result.enhancedText.match(enhancedLinkRegex);
+      
+      if (enhancedMatch) {
+        const paragraphId = enhancedMatch[1];
+        console.log('[ENHANCE-CONTEXT] Link erfolgreich erweitert:', gaId, '→', gaId, 'mit Absatz:', paragraphId);
+        
+        // Speichere Absatz-ID für diesen GA-Link (global zugänglich)
+        if (!window.gaLinkParagraphs) window.gaLinkParagraphs = {};
+        window.gaLinkParagraphs[gaId] = paragraphId;
+        
+        // Speichere auch im localStorage für Persistierung
+        const cacheData = {
+          gaId: gaId,
+          paragraphId: paragraphId,
+          timestamp: Date.now(),
+          context: context.substring(0, 100) // Kurzer Kontext für Debugging
+        };
+        localStorage.setItem(`ga-link-${gaId}`, JSON.stringify(cacheData));
+        
+        // Speichere auch online für andere User (non-blocking)
+        saveEnhancementOnline(cacheKey, result.enhancedText, textToEnhance, [gaId]).catch(err => {
+          console.warn('[ENHANCE-CONTEXT] Online-Speicherung fehlgeschlagen:', err.message);
+        });
+        
+        console.log('[ENHANCE-CONTEXT] Absatz-Mapping gespeichert (global + localStorage + online):', gaId, '→', paragraphId);
+        return gaId; // Gib sauberen Link zurück (ohne #)
+      }
+    }
+    
+    console.log('[ENHANCE-CONTEXT] Keine Erweiterung gefunden');
+    return gaId;
+    
+  } catch (error) {
+    console.error('[ENHANCE-CONTEXT] Fehler bei Enhancement:', error);
+    return gaId;
+  }
+}
+
+// Handler für ursprüngliche GA-Links - führt KI-Enhancement durch
+async function handleOriginalGALink(linkElement, gaId) {
+  // Speichere Original-Text BEVOR wir das Element ändern
+  const originalText = linkElement.textContent;
+  
+  try {
+    console.log('[ORIGINAL-LINK] ===== START ORIGINAL LINK HANDLER =====');
+    console.log('[ORIGINAL-LINK] Verarbeite ursprünglichen Link:', gaId);
+    console.log('[ORIGINAL-LINK] Link Element:', linkElement);
+    console.log('[ORIGINAL-LINK] Original Text:', originalText);
+    
+    // Extrahiere Kontext VOR Änderung des Link-Elements
+    console.log('[ORIGINAL-LINK] Extrahiere Kontext VOR Änderung...');
+    const contextBeforeLink = extractContextBeforeLink(linkElement, gaId, originalText);
+    console.log('[ORIGINAL-LINK] Kontext vor Link:', contextBeforeLink ? contextBeforeLink.substring(0, 200) + '...' : 'NULL');
+    
+    // ERST JETZT zeige visuelles Feedback
+    linkElement.innerHTML = '...';
+    linkElement.style.opacity = '0.7';
+    linkElement.style.color = '#ff6b35';
+    
+    if (!contextBeforeLink) {
+      console.warn('[ORIGINAL-LINK] Kein Kontext gefunden - springe zu Fallback');
+      throw new Error('Kein Kontext für KI-Analyse gefunden');
+    }
+    
+    // Versuche KI-Enhancement mit diesem Kontext
+    console.log('[ORIGINAL-LINK] Starte KI-Enhancement...');
+    const enhancedGaId = await enhanceGALinkWithContext(gaId, contextBeforeLink);
+    console.log('[ORIGINAL-LINK] KI-Enhancement Ergebnis:', enhancedGaId);
+    
+    if (enhancedGaId && enhancedGaId === gaId) {
+      // Enhancement erfolgreich - Absatz-Mapping ist gespeichert, Link bleibt sauber
+      console.log('[ORIGINAL-LINK] ✅ Enhancement erfolgreich:', gaId, 'mit internem Absatz-Mapping');
+      
+      // Stelle das Element zurück zur Normaldarstellung und zeige grün
+      linkElement.textContent = originalText; // Zurück zu "GA066/1"
+      linkElement.style.opacity = '1';
+      linkElement.classList.add('ai-enhanced'); // Grün für 2 Sekunden
+      linkElement.title = `KI-erweitert: Navigiert zu spezifischem Absatz`;
+      
+      // Nach 2 Sekunden zurück zur ursprünglichen Darstellung (blau)
+      setTimeout(() => {
+        linkElement.classList.remove('ai-enhanced');
+        linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe (blau)
+        linkElement.style.opacity = '';
+        linkElement.title = `${gaId} - KI-enhanced (aus Cache)`;
+      }, 2000);
+      
+      console.log('[ORIGINAL-LINK] Öffne erweiterten Vortrag...');
+      // Jetzt den Link verwenden (mit internem Absatz-Mapping)
+      await openFromKeyword(gaId);
+    } else {
+      console.log('[ORIGINAL-LINK] ❌ Kein Enhancement möglich, verwende Original-Link');
+      
+      // Stelle Original-Anzeige wieder her (blau)
+      linkElement.textContent = originalText;
+      linkElement.style.opacity = '1';
+      linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe
+      linkElement.title = 'Keine KI-Erweiterung verfügbar';
+      
+      // Öffne Vortrag ohne spezifischen Absatz
+      await openFromKeyword(gaId);
+    }
+    
+    console.log('[ORIGINAL-LINK] ===== END ORIGINAL LINK HANDLER =====');
+    
+  } catch (error) {
+    console.error('[ORIGINAL-LINK] ❌ Fehler bei Link-Verarbeitung:', error);
+    
+    // Stelle Original-Anzeige wieder her mit kurzer roter Fehler-Anzeige
+    linkElement.textContent = originalText;
+    linkElement.style.opacity = '1';
+    linkElement.style.color = '#dc3545'; // Rot für Fehler
+    linkElement.title = `Fehler bei KI-Analyse: ${error.message}`;
+    
+    // Nach 3 Sekunden zurück zur normalen blauen Darstellung
+    setTimeout(() => {
+      linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe (blau)
+      linkElement.title = `${gaId} - Fehler bei KI-Enhancement`;
+    }, 3000);
+    
+    console.log('[ORIGINAL-LINK] Fallback: Öffne Vortrag ohne Enhancement');
+    // Fallback: Öffne Vortrag ohne Enhancement
+    await openFromKeyword(gaId);
+  }
+}
+
+// Internes Absatz-Mapping für saubere Link-Darstellung
+// Links bleiben als "GA066/1" sichtbar, aber navigieren zu spezifischen Absätzen
+
+
+
+// Test-Funktion für Debugging
+function testLinkEnhancement() {
+  console.log('[TEST] Starte Test...');
+  
+  // Test API-Verbindung
+  fetch('/api/keywords-files')
+    .then(response => {
+      console.log('[TEST] API Response:', response.status);
+      return response.json();
+    })
+    .then(data => {
+      console.log('[TEST] Keywords Files:', data);
+    })
+    .catch(error => {
+      console.error('[TEST] API Fehler:', error);
+    });
+  
+  // Test DOM-Elemente
+  const button = document.getElementById('enhance-links-btn');
+  console.log('[TEST] Button gefunden:', button);
+  
+  const keywords = document.querySelectorAll('.keyword-text');
+  console.log('[TEST] Keyword-Text Elemente:', keywords.length);
+  
+  keywords.forEach((el, index) => {
+    console.log(`[TEST] Keyword ${index}:`, el.textContent.substring(0, 50));
+  });
+}
+
+// Erweitere die bestehende switchTab Funktion
+function switchTabExtended(mode) {
+  console.log('[TABS] Wechsel zu Tab:', mode);
+  
+  // Alle Tab-Buttons deaktivieren
+  document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+  
+  // Richtigen Button aktivieren basierend auf onclick-Attribut
+  const targetButton = document.querySelector(`[onclick="switchTab('${mode}')"]`);
+  if (targetButton) {
+    targetButton.classList.add('active');
+  } else {
+    console.warn('[TABS] Button nicht gefunden für:', mode);
+  }
+  
+  // Alle Tab-Inhalte verstecken
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  
+  // Gewünschten Tab-Inhalt anzeigen
+  const targetContent = document.getElementById(`${mode}-tab`);
+  if (targetContent) {
+    targetContent.classList.add('active');
+  } else {
+    console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
+  }
+  
+  // Initialisiere Schlagwort-System beim ersten Aufruf
+  if (mode === 'schlagworte' && keywordsData.length === 0) {
+    initializeKeywordSystem();
+  }
+}
+
+// Ersetze die globale switchTab Funktion
+window.switchTab = switchTabExtended;
+
+// CSS für Schlagwort-Links hinzufügen
+const keywordStyles = `
+.ga-keyword-link {
+  color: #467886;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: rgba(70, 120, 134, 0.1);
+  transition: all 0.2s ease;
+}
+
+.ga-keyword-link.ai-enhanced {
+  color: #28a745 !important;
+  font-weight: bold !important;
+}
+
+.ga-keyword-link:hover {
+  background: rgba(70, 120, 134, 0.2);
+  text-decoration: none;
+}
+
+body.dark-mode .ga-keyword-link {
+  color: #7EB8C8;
+  background: rgba(126, 184, 200, 0.15);
+}
+
+body.dark-mode .ga-keyword-link.ai-enhanced {
+  color: #5cb85c !important;
+}
+
+body.dark-mode .ga-keyword-link:hover {
+  background: rgba(126, 184, 200, 0.25);
+}
+
+#alphabet-nav .depth-btn {
+  font-size: 0.85em;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
+body.dark-mode #keyword-count {
+  color: #e0e0e0;
+}
+
+body.dark-mode #schlagworte-tab h4 {
+  color: #7EB8C8 !important;
+}
+
+body.dark-mode .keyword-text {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .keyword-text strong {
+  color: #e0e0e0 !important;
+}
+`;
+
+// Füge CSS zum Document hinzu
+const styleSheet = document.createElement('style');
+styleSheet.textContent = keywordStyles;
+document.head.appendChild(styleSheet);
+
+console.log('[KEYWORDS] Schlagwort-System geladen');
+
+// ============================================================================
+// CACHE MANAGEMENT FUNKTIONEN
+// ============================================================================
+
+// Cache-Status anzeigen
+function showCacheStats() {
+  const cacheKeys = Object.keys(localStorage).filter(key => key.startsWith('ga-link-'));
+  console.log(`[CACHE] ${cacheKeys.length} Link-Enhancements im Cache gespeichert:`);
+  
+  cacheKeys.forEach(key => {
+    const data = JSON.parse(localStorage.getItem(key));
+    console.log(`  ${data.gaId} → ${data.paragraphId} (${new Date(data.timestamp).toLocaleString()})`);
+  });
+  
+  return {
+    count: cacheKeys.length,
+    entries: cacheKeys.map(key => JSON.parse(localStorage.getItem(key)))
+  };
+}
+
+// Cache leeren
+function clearLinkCache() {
+  const cacheKeys = Object.keys(localStorage).filter(key => key.startsWith('ga-link-'));
+  cacheKeys.forEach(key => localStorage.removeItem(key));
+  console.log(`[CACHE] ${cacheKeys.length} Cache-Einträge gelöscht`);
+  
+  // Auch globalen Speicher leeren
+  if (window.gaLinkParagraphs) {
+    window.gaLinkParagraphs = {};
+  }
+  
+  return cacheKeys.length;
+}
+
+// Einzelnen Cache-Eintrag löschen
+function deleteCacheEntry(gaId) {
+  const cacheKey = `ga-link-${gaId}`;
+  const existed = localStorage.getItem(cacheKey) !== null;
+  
+  localStorage.removeItem(cacheKey);
+  
+  if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
+    delete window.gaLinkParagraphs[gaId];
+  }
+  
+  console.log(`[CACHE] Eintrag für ${gaId} ${existed ? 'gelöscht' : 'war nicht vorhanden'}`);
+  return existed;
+}
+
+// Cache in Console-Friendly Format
+window.cacheStats = showCacheStats;
+window.clearCache = clearLinkCache;
+window.deleteCache = deleteCacheEntry;
+
+// Online-Speicherung für Link-Enhancements (für User-Sharing)
+async function saveEnhancementOnline(cacheKey, enhancedText, originalText, gaLinks) {
+  try {
+    console.log('[ONLINE-SYNC] Speichere Link-Enhancement online für andere User...');
+    
+    const response = await fetch(`${API_BASE}/api/save-link-enhancement`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cacheKey: cacheKey,
+        enhancedText: enhancedText,
+        originalText: originalText,
+        gaLinks: gaLinks
+      })
+    });
+    
+    if (response.ok) {
+      const result = await response.json();
+      console.log('[ONLINE-SYNC] ✅ Link-Enhancement online gespeichert:', result.message);
+      return true;
+    } else {
+      console.warn('[ONLINE-SYNC] ⚠️ Online-Speicherung fehlgeschlagen:', response.status);
+      return false;
+    }
+    
+  } catch (error) {
+    console.error('[ONLINE-SYNC] ❌ Fehler bei Online-Speicherung:', error);
+    return false;
+  }
+}
+
+console.log('[CACHE] Cache-Management verfügbar: cacheStats(), clearCache(), deleteCache(gaId)');
+
+// ============================================================================
+// BATCH ENHANCEMENT FUNKTIONEN
+// ============================================================================
+
+let batchEnhancementInProgress = false;
+let batchStats = { processed: 0, enhanced: 0, cached: 0, errors: 0 };
+
+async function startBatchEnhancement() {
+  if (batchEnhancementInProgress) {
+    alert('Batch-Enhancement läuft bereits!');
+    return;
+  }
+  
+  if (!currentAlphabet || currentAlphabet === 'Alle') {
+    alert('Bitte wählen Sie zuerst einen spezifischen Buchstaben aus.');
+    return;
+  }
+  
+  // Sammle alle GA-Links MIT Kontext der aktuellen Buchstaben-Auswahl
+  const gaLinksWithContext = new Map(); // gaId -> { context, keyword, fullText }
+  
+  filteredKeywords.forEach(keywordData => {
+    const gaRefsWithContext = extractGAReferencesWithContext(keywordData.text || '');
+    
+    gaRefsWithContext.forEach(({ gaId, context, contextBefore, contextAfter }) => {
+      // Speichere den besten (längsten) Kontext für jede GA-ID
+      if (!gaLinksWithContext.has(gaId) || 
+          gaLinksWithContext.get(gaId).context.length < context.length) {
+        
+        gaLinksWithContext.set(gaId, {
+          context: context,
+          contextBefore: contextBefore,
+          contextAfter: contextAfter,
+          keyword: keywordData.keyword,
+          fullText: keywordData.text
+        });
+      }
+    });
+  });
+  
+  const allGALinks = Array.from(gaLinksWithContext.keys());
+  
+  if (allGALinks.length === 0) {
+    alert(`Keine GA-Links im Buchstaben "${currentAlphabet}" gefunden.`);
+    return;
+  }
+  
+  // Prüfe welche Links noch nicht enhanced sind
+  const unenhancedLinks = allGALinks.filter(gaId => {
+    const cacheKey = `ga-link-${gaId}`;
+    return !localStorage.getItem(cacheKey) && !window.gaLinkParagraphs?.[gaId];
+  });
+  
+  if (unenhancedLinks.length === 0) {
+    alert(`Alle ${allGALinks.length} GA-Links im Buchstaben "${currentAlphabet}" sind bereits KI-enhanced!`);
+    return;
+  }
+  
+  // Zeige detaillierte Statistiken
+  const keywordsWithLinks = filteredKeywords.filter(kw => 
+    extractGAReferencesWithContext(kw.text || '').length > 0
+  ).length;
+  
+  const confirmed = confirm(
+    `🤖 Intelligente Batch-KI-Analyse für Buchstabe "${currentAlphabet}"\n\n` +
+    `📚 Schlagwörter mit GA-Links: ${keywordsWithLinks}\n` +
+    `🔗 Gefundene GA-Links: ${allGALinks.length}\n` +
+    `✅ Bereits KI-enhanced: ${allGALinks.length - unenhancedLinks.length}\n` +
+    `🎯 Zu bearbeiten: ${unenhancedLinks.length}\n\n` +
+    `⏱️ Geschätzte Zeit: ${Math.ceil(unenhancedLinks.length * 2)} Sekunden\n` +
+    `💰 Claude API-Kosten für ${unenhancedLinks.length} Anfragen\n\n` +
+    `Jeder Link wird mit seinem spezifischen Schlagwort-Kontext analysiert.\n` +
+    `Fortfahren?`
+  );
+  
+  if (!confirmed) return;
+  
+  console.log(`[BATCH-ENHANCE] Starte für ${unenhancedLinks.length} Links...`);
+  
+  batchEnhancementInProgress = true;
+  batchStats = { processed: 0, enhanced: 0, cached: 0, errors: 0 };
+  
+  updateBatchProgress(0, unenhancedLinks.length, 'Starte...');
+  
+  for (let i = 0; i < unenhancedLinks.length; i++) {
+    const gaId = unenhancedLinks[i];
+    
+    try {
+      const contextData = gaLinksWithContext.get(gaId);
+      const keyword = contextData?.keyword || 'Unbekannt';
+      const context = contextData?.context || `Fallback-Kontext für ${gaId}`;
+      
+      updateBatchProgress(i + 1, unenhancedLinks.length, `${gaId} in "${keyword}"...`);
+      
+      console.log(`[BATCH-ENHANCE] ${i + 1}/${unenhancedLinks.length}: ${gaId}`);
+      console.log(`[BATCH-ENHANCE] Schlagwort: "${keyword}"`);
+      console.log(`[BATCH-ENHANCE] Kontext: "${context.substring(0, 100)}..."`);
+      
+      const result = await enhanceGALinkWithContext(gaId, context);
+      
+      if (result === gaId && window.gaLinkParagraphs?.[gaId]) {
+        batchStats.enhanced++;
+        console.log(`[BATCH-ENHANCE] ✅ ${gaId} enhanced`);
+      } else {
+        batchStats.errors++;
+        console.log(`[BATCH-ENHANCE] ❌ ${gaId} failed`);
+      }
+      
+      batchStats.processed++;
+      
+      // Kurze Pause zwischen Anfragen
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+    } catch (error) {
+      console.error(`[BATCH-ENHANCE] Fehler bei ${gaId}:`, error);
+      batchStats.errors++;
+      batchStats.processed++;
+    }
+  }
+  
+  batchEnhancementInProgress = false;
+  
+  const successRate = Math.round((batchStats.enhanced / batchStats.processed) * 100);
+  
+  updateBatchProgress(unenhancedLinks.length, unenhancedLinks.length, 
+    `✅ Fertig! ${batchStats.enhanced}/${batchStats.processed} erfolgreich (${successRate}%)`);
+  
+  setTimeout(() => {
+    hideBatchProgress();
+    alert(
+      `Batch-Enhancement abgeschlossen!\n\n` +
+      `Bearbeitet: ${batchStats.processed}\n` +
+      `Erfolgreich: ${batchStats.enhanced}\n` +
+      `Fehler: ${batchStats.errors}\n` +
+      `Erfolgsrate: ${successRate}%`
+    );
+  }, 3000);
+  
+  console.log(`[BATCH-ENHANCE] Abgeschlossen:`, batchStats);
+}
+
+function updateBatchProgress(current, total, message) {
+  const btn = document.getElementById('batch-enhance-btn');
+  if (!btn) return;
+  
+  const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
+  
+  if (current === 0) {
+    btn.style.background = 'linear-gradient(45deg, #2196f3, #1976d2)';
+    btn.innerHTML = `🔄 Initialisiere...`;
+  } else if (current < total) {
+    btn.style.background = 'linear-gradient(45deg, #ff9800, #f57c00)';
+    btn.innerHTML = `🤖 ${current}/${total} (${percentage}%)`;
+  } else {
+    btn.style.background = 'linear-gradient(45deg, #4caf50, #388e3c)';
+    btn.innerHTML = `✅ Fertig!`;
+  }
+  
+  btn.title = message;
+}
+
+function hideBatchProgress() {
+  const btn = document.getElementById('batch-enhance-btn');
+  if (!btn) return;
+  
+  btn.style.background = 'linear-gradient(45deg, #ff9800, #f57c00)';
+  btn.innerHTML = `🤖 Batch-KI (${currentAlphabet})`;
+  btn.title = `KI-Enhancement aller GA-Links des Buchstabens "${currentAlphabet}"`;
+}
+
+function extractGAReferencesFromKeywordText(text) {
+  if (!text) return [];
+  
+  const gaLinks = [];
+  
+  // Pattern für [[GA###/##]] oder GA###/## 
+  const patterns = [
+    /\[\[GA(\d{3}[a-z]?\/\d+)\]\]/gi,  // [[GA066/1]]
+    /\bGA(\d{3}[a-z]?\/\d+)\b/gi        // GA066/1
+  ];
+  
+  patterns.forEach(pattern => {
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      const gaId = `GA${match[1]}`;
+      if (!gaLinks.includes(gaId) && /^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
+        gaLinks.push(gaId);
+      }
+    }
+  });
+  
+  return gaLinks;
+}
+
+// Erweiterte Funktion: GA-Links MIT Kontext extrahieren
+function extractGAReferencesWithContext(text) {
+  if (!text) return [];
+  
+  const results = [];
+  const processedGAIds = new Set();
+  
+  // Pattern für [[GA###/##]] und GA###/##
+  const patterns = [
+    { regex: /\[\[GA(\d{3}[a-z]?\/\d+)\]\]/gi, type: 'bracketed' },
+    { regex: /\bGA(\d{3}[a-z]?\/\d+)\b/gi, type: 'plain' }
+  ];
+  
+  patterns.forEach(({ regex, type }) => {
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+      const gaId = `GA${match[1]}`;
+      
+      // Überspringe bereits verarbeitete GA-IDs
+      if (processedGAIds.has(gaId) || !/^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
+        continue;
+      }
+      
+      processedGAIds.add(gaId);
+      
+      const matchStart = match.index;
+      const matchEnd = match.index + match[0].length;
+      
+      // Extrahiere Kontext VOR dem Link (bis zu 200 Zeichen)
+      const contextStart = Math.max(0, matchStart - 200);
+      const contextBefore = text.substring(contextStart, matchStart).trim();
+      
+      // Extrahiere Kontext NACH dem Link (bis zu 200 Zeichen)
+      const contextEnd = Math.min(text.length, matchEnd + 200);
+      const contextAfter = text.substring(matchEnd, contextEnd).trim();
+      
+      // Kombiniere zu vollständigem Kontext
+      const fullContext = `${contextBefore} [[${gaId}]] ${contextAfter}`.trim();
+      
+      results.push({
+        gaId: gaId,
+        context: fullContext,
+        contextBefore: contextBefore,
+        contextAfter: contextAfter,
+        originalMatch: match[0],
+        position: matchStart,
+        type: type
+      });
+    }
+  });
+  
+  // Sortiere nach Position im Text
+  results.sort((a, b) => a.position - b.position);
+  
+  return results;
+}
 </script>
 </body>
 </html> 
