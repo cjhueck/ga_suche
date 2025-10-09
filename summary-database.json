@@ -739,5 +739,342 @@
       }
     ],
     "timestamp": "2025-10-08T23:18:39.697Z"
+  },
+  "GA300a/2": {
+    "summary": "Das Vorwort dokumentiert die Entstehung und Entwicklung der Freien Waldorfschule Stuttgart von 1919-1924 unter Rudolf Steiners Leitung. Es beschreibt sieben zentrale Themenbereiche: die Anthroposophische Gesellschaft und das Goetheanum, die Dreigliederungsbewegung als gesellschaftspolitischer Rahmen, das Unternehmen 'Der Kommende Tag' als wirtschaftliche Basis, Emil Molts Rolle als Schulgründer, die rechtlichen Kompromisse mit dem Staat, die internationale Ausbreitung der Waldorfpädagogik und die Jugendbewegung. Besondere Aufmerksamkeit erhält die Entwicklung des freien Religionsunterrichts und dessen Verhältnis zur entstehenden Christengemeinschaft. Das Vorwort zeigt, wie die Waldorfschule als praktisches Beispiel für freies Geistesleben entstand und sich trotz vieler Hindernisse etablierte.",
+    "headings": [
+      {
+        "index": "^szo8s8",
+        "text": "Entstehung und Überlieferung der Konferenznachschriften",
+        "level": "h3"
+      },
+      {
+        "index": "^szo8s8",
+        "text": "Rudolf Steiners Lehrerkonferenzen 1919-1924",
+        "level": "h4"
+      },
+      {
+        "index": "^98wgga",
+        "text": "Herausforderungen der Nachschrift und Rekonstruktion",
+        "level": "h4"
+      },
+      {
+        "index": "^potbty",
+        "text": "Veröffentlichungsgeschichte und Ergänzungen",
+        "level": "h4"
+      },
+      {
+        "index": "^ufs490",
+        "text": "Die Anthroposophische Gesellschaft und das Goetheanum",
+        "level": "h3"
+      },
+      {
+        "index": "^ufs490",
+        "text": "Aufbau des ersten Goetheanums und kulturelle Aktivitäten",
+        "level": "h4"
+      },
+      {
+        "index": "^uh6eur",
+        "text": "Innere Krisen und äußere Angriffe auf die Gesellschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^skwala",
+        "text": "Die Weihnachtstagung und Neugründung der Gesellschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^y4eyv3",
+        "text": "Die Dreigliederungsbewegung des sozialen Organismus",
+        "level": "h3"
+      },
+      {
+        "index": "^y4eyv3",
+        "text": "Entstehung und Ausbreitung der Dreigliederungsideen",
+        "level": "h4"
+      },
+      {
+        "index": "^7nu745",
+        "text": "Organisationen und Publikationen der Bewegung",
+        "level": "h4"
+      },
+      {
+        "index": "^fqqdim",
+        "text": "Niedergang und Transformation der Bewegung",
+        "level": "h4"
+      },
+      {
+        "index": "^64n23d",
+        "text": "Der Kommende Tag - Wirtschaftliche Grundlagen",
+        "level": "h3"
+      },
+      {
+        "index": "^64n23d",
+        "text": "Gründung und Zielsetzung des Unternehmens",
+        "level": "h4"
+      },
+      {
+        "index": "^veu5ei",
+        "text": "Schwierigkeiten und Auflösung",
+        "level": "h4"
+      },
+      {
+        "index": "^rkoeh1",
+        "text": "Emil Molt und die Gründung der Waldorfschule",
+        "level": "h3"
+      },
+      {
+        "index": "^rkoeh1",
+        "text": "Molts Weg zur Anthroposophie und Schulgründung",
+        "level": "h4"
+      },
+      {
+        "index": "^ko2pxu",
+        "text": "Von der Fabrikschule zur freien Institution",
+        "level": "h4"
+      },
+      {
+        "index": "^ivxmap",
+        "text": "Gründung des Waldorfschulvereins",
+        "level": "h4"
+      },
+      {
+        "index": "^p0s32u",
+        "text": "Verhältnis zum Staat und rechtliche Kompromisse",
+        "level": "h3"
+      },
+      {
+        "index": "^p0s32u",
+        "text": "Günstige Ausgangslage nach der Revolution",
+        "level": "h4"
+      },
+      {
+        "index": "^o7jxjd",
+        "text": "Die drei wesentlichen Kompromisse",
+        "level": "h4"
+      },
+      {
+        "index": "^o7ddp8",
+        "text": "Verschlechterung durch Reichsverfassung und Grundschulgesetz",
+        "level": "h4"
+      },
+      {
+        "index": "^qqeijk",
+        "text": "Internationale Ausbreitung der Waldorfpädagogik",
+        "level": "h3"
+      },
+      {
+        "index": "^qqeijk",
+        "text": "Vorträge und Kurse zur Verbreitung der Pädagogik",
+        "level": "h4"
+      },
+      {
+        "index": "^890t8j",
+        "text": "Gründung neuer Waldorfschulen",
+        "level": "h4"
+      },
+      {
+        "index": "^x9h59g",
+        "text": "Die Jugendbewegung und ihre geistigen Hintergründe",
+        "level": "h3"
+      },
+      {
+        "index": "^x9h59g",
+        "text": "Übersinnliche Gründe der Jugendprobleme",
+        "level": "h4"
+      },
+      {
+        "index": "^2tu1aa",
+        "text": "Pädagogische Maßnahmen und Jugendorganisationen",
+        "level": "h4"
+      },
+      {
+        "index": "^n3ldej",
+        "text": "Der Religionsunterricht - eine besondere Herausforderung",
+        "level": "h3"
+      },
+      {
+        "index": "^n3ldej",
+        "text": "Konfessioneller und freier Religionsunterricht",
+        "level": "h4"
+      },
+      {
+        "index": "^bgph6t",
+        "text": "Entwicklung der Sonntagshandlungen und des Kultus",
+        "level": "h4"
+      },
+      {
+        "index": "^h1i6zz",
+        "text": "Die Christengemeinschaft und ihr Verhältnis zur Waldorfschule",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-09T05:09:02.328Z"
+  },
+  "GA053/1": {
+    "summary": "Rudolf Steiner behandelt die Entstehung und Bedeutung der theosophischen Bewegung für den modernen, wissenschaftlich gebildeten Menschen. Er beschreibt den Zwiespalt zwischen Wissenschaft und Religion im 19. Jahrhundert, der durch die Fortschritte der Naturwissenschaften entstanden war. Während die Wissenschaft alte Glaubensvorstellungen scheinbar widerlegte, entdeckte die Religionsforschung die Weisheit alter Kulturen. Die theosophische Bewegung bietet einen Lösungsweg: Sie verbindet moderne wissenschaftliche Erkenntnisse mit spiritueller Entwicklung durch die Ausbildung höherer Wahrnehmungsorgane. Im Zentrum steht die Liebe als Gegenprinzip zum 'Kampf ums Dasein'. Durch Menschenverbrüderung und die Entwicklung geistiger Erkenntnisfähigkeiten soll der Mensch seine ewige Bestimmung erkennen und zu einer neuen Weltanschauung gelangen, die das Göttliche sowohl in der Außenwelt als auch im Menschen selbst erkennt.",
+    "headings": [
+      {
+        "index": "^4mv49m",
+        "text": "Einleitung: Die Aufgabe der theosophischen Bewegung",
+        "level": "h3"
+      },
+      {
+        "index": "^4mv49m",
+        "text": "Verhältnis zu den Kulturströmungen der Gegenwart",
+        "level": "h4"
+      },
+      {
+        "index": "^2ezru9",
+        "text": "Der moderne Mensch und seine Bildungsfragen",
+        "level": "h4"
+      },
+      {
+        "index": "^74j0v7",
+        "text": "Der Zwiespalt zwischen Wissen und Glauben im 19. Jahrhundert",
+        "level": "h3"
+      },
+      {
+        "index": "^74j0v7",
+        "text": "Die Entstehung der theosophischen Bewegung",
+        "level": "h4"
+      },
+      {
+        "index": "^tn2ieh",
+        "text": "Der Riss zwischen Wissenschaft und Religion",
+        "level": "h4"
+      },
+      {
+        "index": "^z7q692",
+        "text": "Die Errungenschaften und Probleme der modernen Wissenschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^upxaph",
+        "text": "Die Wurzeln des Problems in der Geistesgeschichte",
+        "level": "h3"
+      },
+      {
+        "index": "^upxaph",
+        "text": "Wandel des religiösen Bewusstseins seit dem Mittelalter",
+        "level": "h4"
+      },
+      {
+        "index": "^ycedgt",
+        "text": "Das neue naturwissenschaftliche Weltbild",
+        "level": "h4"
+      },
+      {
+        "index": "^mlygnv",
+        "text": "Die Entstehung der theosophischen Antwort",
+        "level": "h3"
+      },
+      {
+        "index": "^mlygnv",
+        "text": "Die Erforschung der geistigen Entwicklung der Menschheit",
+        "level": "h4"
+      },
+      {
+        "index": "^pexpxg",
+        "text": "Die Entdeckung der Urweisheit in alten Kulturen",
+        "level": "h4"
+      },
+      {
+        "index": "^bq8ij4",
+        "text": "Die theosophische Bewegung als Synthese",
+        "level": "h3"
+      },
+      {
+        "index": "^bq8ij4",
+        "text": "Eine neue Botschaft für die Suchenden",
+        "level": "h4"
+      },
+      {
+        "index": "^ev05cy",
+        "text": "Die grundlegenden theosophischen Werke",
+        "level": "h4"
+      },
+      {
+        "index": "^1hdzhn",
+        "text": "Die Selbstüberwindung der Naturwissenschaft",
+        "level": "h3"
+      },
+      {
+        "index": "^1hdzhn",
+        "text": "Die Grenzen der wissenschaftlichen Methode",
+        "level": "h4"
+      },
+      {
+        "index": "^5wt8kx",
+        "text": "Die Suche nach höheren Erkenntnismöglichkeiten",
+        "level": "h4"
+      },
+      {
+        "index": "^acnhj1",
+        "text": "Die Entwicklung höherer Wahrnehmungsorgane",
+        "level": "h3"
+      },
+      {
+        "index": "^acnhj1",
+        "text": "Die Analogie zu den physischen Sinnesorganen",
+        "level": "h4"
+      },
+      {
+        "index": "^ozx09p",
+        "text": "Praktische Anleitungen zur geistigen Entwicklung",
+        "level": "h4"
+      },
+      {
+        "index": "^tz9sdw",
+        "text": "Die Lösung des Rätsels der alten Religionen",
+        "level": "h4"
+      },
+      {
+        "index": "^s2ztyz",
+        "text": "Die Missverständnisse und ihre Ursachen",
+        "level": "h3"
+      },
+      {
+        "index": "^njrt66",
+        "text": "Der soziale Hintergrund des Darwinismus",
+        "level": "h4"
+      },
+      {
+        "index": "^7p3a4o",
+        "text": "Die Projektion menschlicher Verhältnisse auf die Natur",
+        "level": "h4"
+      },
+      {
+        "index": "^mlrcxl",
+        "text": "Die Liebe als zentrales Prinzip der Theosophie",
+        "level": "h3"
+      },
+      {
+        "index": "^mlrcxl",
+        "text": "Das Gegenprinzip zum Kampf ums Dasein",
+        "level": "h4"
+      },
+      {
+        "index": "^blgy2n",
+        "text": "Menschenverbrüderung als Grundlage",
+        "level": "h4"
+      },
+      {
+        "index": "^ll3ieo",
+        "text": "Die ewige Bestimmung des Menschen",
+        "level": "h3"
+      },
+      {
+        "index": "^ll3ieo",
+        "text": "Der Mensch als Glied in der geistigen Weltenkette",
+        "level": "h4"
+      },
+      {
+        "index": "^0e1stn",
+        "text": "Die geistige Sonne als treibende Kraft",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-09T05:15:21.374Z"
   }
 }
