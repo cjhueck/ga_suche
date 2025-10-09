@@ -869,8 +869,6 @@ body.dark-mode .loading-message {
       color: #e0e0e0 !important;
     }
     
-
-    
     .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.1);
       padding: 0.5rem;
@@ -1434,12 +1432,9 @@ GA-Übersicht →
 <div id="keyword-count" style="font-size: 0.85em; color: #666;">
 Lade Schlagwörter...
 </div>
-<div style="display: flex; gap: 8px;">
-
 <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
 Texte ausblenden
 </button>
-</div>
 </div>
 </div>
 </div>
@@ -1487,11 +1482,7 @@ Original
       ? 'http://localhost:3003'
       : 'https://ga-suche.onrender.com';
     
-    console.log('[API] Location Info:');
-    console.log('  hostname:', window.location.hostname);
-    console.log('  protocol:', window.location.protocol);
-    console.log('  isLocal:', isLocal);
-    console.log('  API_BASE:', API_BASE);
+    console.log('[API] Verwende API_BASE:', API_BASE, '(isLocal:', isLocal, ')');
     
     let currentSources = [];
     let searchResults = [];
@@ -3048,26 +3039,17 @@ function showSummaryView() {
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
-      console.log('[SCROLL] Suche nach Absatz:', targetIndex);
-      
       const mainContainer = document.getElementById('main');
       
       // Entferne vorherige Markierung
       const prevMarked = mainContainer.querySelector('.paragraph.highlighted-paragraph');
       if (prevMarked) {
         prevMarked.classList.remove('highlighted-paragraph');
-        console.log('[SCROLL] Vorherige Markierung entfernt');
       }
-      
-      // Bereite Index-String vor: entferne ^ falls vorhanden
-      const cleanIndex = targetIndex.replace(/^\^/, '');
-      console.log('[SCROLL] Bereinigter Index:', cleanIndex);
       
       // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
       // versuche zuerst das Original anzuzeigen
-      let paraElement = document.getElementById(`para-${cleanIndex}`);
-      console.log('[SCROLL] Element gefunden:', !!paraElement);
-      
+      let paraElement = document.getElementById(`para-${targetIndex}`);
       if (!paraElement && showingSummaryInMain && currentLectureData) {
         console.log('Absatz nicht in Summary gefunden, zeige Original...');
         showingSummaryInMain = false;
@@ -3082,17 +3064,15 @@ function showSummaryView() {
           displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
         }
         
-        displayLecture(currentLectureData, cleanIndex, displayKeywords);
+        displayLecture(currentLectureData, targetIndex, displayKeywords);
         updateButtonStates();
         
         // Nach dem Rendern nochmal versuchen zu scrollen
-        setTimeout(() => scrollToIndexInViewer(cleanIndex), 200);
+        setTimeout(() => scrollToIndexInViewer(targetIndex), 200);
         return;
       }
       
       if (paraElement) {
-        console.log('[SCROLL] Element gefunden, scrolle zu Absatz:', cleanIndex);
-        
         // Berechne Position für Positionierung am unteren Rand des Headers
         const header = document.getElementById('viewer-header');
         const headerHeight = header ? header.offsetHeight + 5 : 5; // Nur 5px minimaler Abstand
@@ -3105,13 +3085,6 @@ function showSummaryView() {
         
         // Transparente blaue Markierung mit CSS-Klasse
         paraElement.classList.add('highlighted-paragraph');
-        console.log('[SCROLL] ✅ Absatz markiert und gescrollt:', cleanIndex);
-      } else {
-        console.warn('[SCROLL] ❌ Absatz nicht gefunden:', cleanIndex);
-        
-        // Debug: Zeige alle verfügbaren Paragraph-IDs
-        const allParas = document.querySelectorAll('[id^="para-"]');
-        console.log('[SCROLL] Verfügbare Absätze:', Array.from(allParas).slice(0, 10).map(p => p.id));
       }
     }
 
@@ -3462,7 +3435,6 @@ setTimeout(() => {
       }
     }
     
-    console.log('[SHOW-LECTURE] Fallback zu Original mit targetIndex:', targetIndex);
     updateButtonStates();
     displayLecture(data.lecture, targetIndex, displayKeywords);
     
@@ -3604,10 +3576,6 @@ setTimeout(() => {
         }
       }
       
-      // WICHTIG: Setze lastHighlightedIndex VOR dem Rendern für korrekte Markierung
-      lastHighlightedIndex = cleanIndex;
-      console.log('[DISPLAY-LECTURE] lastHighlightedIndex gesetzt auf:', lastHighlightedIndex);
-      
       viewer.innerHTML = '';
       
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
@@ -3639,21 +3607,11 @@ setTimeout(() => {
                                contentLower.includes(keywords[0].toLowerCase()) && 
                                contentLower.includes(keywords[1].toLowerCase());
           
-          // Markierungslogik:
-          // 1. Thematische Suche: Markiere Zielabsatz immer  
-          // 2. GA-Links (Keywords-Tab): Markiere Zielabsatz immer
-          // 3. Keyword-Suche: Markiere nur wenn Keywords gefunden
+          // For thematic search, highlight target paragraph regardless of keyword presence
+          // For keyword search, only highlight if keywords are found
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
-          const isFromGALink = !currentThematicQuery && isTargetPara; // GA-Link ohne Themensuche
-          const hasKeywordMatch = keywords.length === 1 || hasBothWords;
-          
           const applyHighlight = shouldHighlight && isTargetPara && 
-                                 (isFromThematicSearch || isFromGALink || hasKeywordMatch);
-          
-          // Debug für Markierung
-          if (isTargetPara) {
-            console.log(`[HIGHLIGHT] Absatz ${paraIndex}: isThematic=${isFromThematicSearch}, isGALink=${isFromGALink}, hasKeywords=${hasKeywordMatch}, highlight=${applyHighlight}`);
-          }
+                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords);
           
           html += `
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
@@ -3677,9 +3635,8 @@ setTimeout(() => {
           const targetRect = targetElement.getBoundingClientRect();
           const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
           mainContainer.scrollTop = Math.max(0, relativeTop);
-          console.log('[DISPLAY-LECTURE] ✅ Gescrollt zu Element:', cleanIndex);
+          lastHighlightedIndex = cleanIndex;
         } else {
-          console.log('[DISPLAY-LECTURE] ❌ Element nicht gefunden:', cleanIndex);
           mainContainer.scrollTop = 0;
         }
       } else {
@@ -4255,18 +4212,9 @@ function processKeywordText(text, gaReferences = []) {
   processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, gaId) => {
     const cleanGAId = gaId.trim();
     
-    // Prüfe ob es eine gültige GA-ID ist (Format: GA123/4 oder GA123a/4, auch mit #absatz_id)
-    if (/^GA\d{3}[a-z]?\/\d+(#[a-zA-Z0-9]+)?$/i.test(cleanGAId)) {
-      console.log('[PROCESS] Erstelle Link für:', cleanGAId);
-      
-      // Verwende verschiedene Handler je nach Link-Typ
-      if (cleanGAId.includes('#')) {
-        // Bereits erweiterter Link - direkt öffnen
-        return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="console.log('Erweiterter Link geklickt:', '${cleanGAId}'); openFromKeyword('${cleanGAId}'); return false;">${cleanGAId}</a>`;
-      } else {
-        // Ursprünglicher Link - KI-Enhancement triggern
-        return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="console.log('Ursprünglicher Link geklickt:', '${cleanGAId}'); handleOriginalGALink(this, '${cleanGAId}'); return false;">${cleanGAId}</a>`;
-      }
+    // Prüfe ob es eine gültige GA-ID ist (Format: GA123/4 oder GA123a/4)
+    if (/^GA\d{3}[a-z]?\/\d+$/i.test(cleanGAId)) {
+      return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="openFromKeyword('${cleanGAId}'); return false;">${cleanGAId}</a>`;
     }
     
     return match; // Fallback: ursprünglichen Text beibehalten
@@ -4293,37 +4241,6 @@ async function openFromKeyword(gaId) {
   console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
   
   try {
-    // Prüfe ob Link bereits erweitert ist (enthält #absatz_id)
-    let targetGaId = gaId;
-    let targetParagraphId = null;
-    
-    if (gaId.includes('#')) {
-      // Link ist bereits erweitert - direkt verwenden
-      const parts = gaId.split('#');
-      targetGaId = parts[0];
-      targetParagraphId = parts[1];
-      console.log('[KEYWORDS] Link bereits erweitert:', targetGaId, '#', targetParagraphId);
-    } else {
-      // Einfacher Link - versuche KI-Enhancement
-      console.log('[KEYWORDS] Einfacher Link - starte KI-Enhancement...');
-      
-      const enhancedGaId = await tryEnhanceGALink(gaId);
-      if (enhancedGaId && enhancedGaId !== gaId && enhancedGaId.includes('#')) {
-        console.log('[KEYWORDS] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
-        
-        const parts = enhancedGaId.split('#');
-        targetGaId = parts[0];
-        targetParagraphId = parts[1];
-        
-        // Aktualisiere den Link im DOM für zukünftige Klicks
-        updateGALinkInDOM(gaId, enhancedGaId);
-      } else {
-        console.log('[KEYWORDS] KI-Enhancement fehlgeschlagen oder keine Erweiterung gefunden');
-        targetGaId = gaId; // Verwende Original-Link
-        targetParagraphId = null;
-      }
-    }
-    
     // Schließe Summary Panel falls geöffnet
     const summaryPanel = document.getElementById('summary-panel');
     const resizeHandle = document.getElementById('verticalResizeHandle');
@@ -4335,17 +4252,8 @@ async function openFromKeyword(gaId) {
       summaryPanel.style.marginRight = '0px';
     }
     
-    // Verwende Absatz-ID direkt (wie Themensuche) - füge ^ hinzu falls fehlt
-    let targetIndex = null;
-    if (targetParagraphId) {
-      targetIndex = targetParagraphId.startsWith('^') ? targetParagraphId : `^${targetParagraphId}`;
-      console.log('[KEYWORDS] Verwende Absatz-ID direkt:', targetIndex);
-    } else {
-      console.log('[KEYWORDS] Keine Absatz-ID verfügbar - zeige Vortrag von Anfang an');
-    }
-    
-    // Zeige Vortrag mit optionalem Absatz-Sprung (genau wie Themensuche)
-    await showLecture(targetGaId, targetIndex, []);
+    // Zeige Vortrag
+    await showLecture(gaId, null, []);
     
   } catch (error) {
     console.error('[KEYWORDS] Fehler beim Öffnen der GA-Referenz:', error);
@@ -4370,431 +4278,6 @@ function setupKeywordSearch() {
 function clearKeywordSearch() {
   document.getElementById('keywordSearch').value = '';
   displayKeywords(currentAlphabet);
-}
-
-// ============================================================================
-// ON-DEMAND LINK-ENHANCEMENT
-// ============================================================================
-
-// Versuche GA-Link mit KI zu erweitern
-async function tryEnhanceGALink(gaId) {
-  try {
-    console.log('[LINK-ENHANCEMENT] Versuche Enhancement für:', gaId);
-    
-    // Finde den Kontext um diesen Link
-    const context = findGALinkContext(gaId);
-    console.log('[LINK-ENHANCEMENT] Gefundener Kontext:', context);
-    
-    if (!context) {
-      console.log('[LINK-ENHANCEMENT] Kein Kontext gefunden für:', gaId);
-      return gaId;
-    }
-    
-    // API-Aufruf für Link-Enhancement
-    console.log('[LINK-ENHANCEMENT] Sende API-Request...');
-    console.log('[LINK-ENHANCEMENT] API_BASE:', API_BASE);
-    const response = await fetch(`${API_BASE}/api/enhance-keyword-links`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        keywordText: context,
-        keyword: 'On-demand Enhancement'
-      })
-    });
-    
-    console.log('[LINK-ENHANCEMENT] API Response Status:', response.status);
-    
-    if (!response.ok) {
-      console.warn('[LINK-ENHANCEMENT] API-Fehler:', response.status);
-      return gaId;
-    }
-    
-    const result = await response.json();
-    console.log('[LINK-ENHANCEMENT] API Result:', result);
-    
-    if (result.processed && result.enhancedText !== context) {
-      console.log('[LINK-ENHANCEMENT] KI-Enhanced Text:', result.enhancedText);
-      
-      // Extrahiere den erweiterten Link aus der Antwort
-      const enhancedLinkMatch = result.enhancedText.match(new RegExp(`\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`));
-      console.log('[LINK-ENHANCEMENT] Regex Match:', enhancedLinkMatch);
-      
-      if (enhancedLinkMatch) {
-        const enhancedGaId = `${gaId}#${enhancedLinkMatch[1]}`;
-        console.log('[LINK-ENHANCEMENT] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
-        return enhancedGaId;
-      } else {
-        console.warn('[LINK-ENHANCEMENT] Kein erweiterter Link in KI-Antwort gefunden');
-        console.log('[LINK-ENHANCEMENT] Suchte nach Pattern:', `\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`);
-        
-        // Fallback: Suche nach beliebigem erweiterten Link im Text
-        const anyEnhancedLink = result.enhancedText.match(/\[\[GA\d{3}[a-z]?\/\d+#([a-zA-Z0-9]+)\]\]/i);
-        if (anyEnhancedLink) {
-          console.log('[LINK-ENHANCEMENT] Fallback: Gefundener erweiterter Link:', anyEnhancedLink[0]);
-          // Extrahiere nur die Absatz-ID und kombiniere mit Original GA-ID
-          return `${gaId}#${anyEnhancedLink[1]}`;
-        }
-      }
-    }
-    
-    console.log('[LINK-ENHANCEMENT] Keine Erweiterung gefunden für:', gaId);
-    return gaId;
-    
-  } catch (error) {
-    console.error('[LINK-ENHANCEMENT] Fehler beim Enhancement:', error);
-    return gaId; // Fallback: Original-Link zurückgeben
-  }
-}
-
-// Finde Kontext um einen GA-Link
-function findGALinkContext(gaId) {
-  try {
-    console.log('[CONTEXT] Suche Kontext für:', gaId);
-    
-    // Suche alle Keyword-Texte nach diesem GA-Link
-    const keywordTexts = document.querySelectorAll('.keyword-text');
-    console.log('[CONTEXT] Gefundene keyword-text Elemente:', keywordTexts.length);
-    
-    for (const textElement of keywordTexts) {
-      let textContent = textElement.textContent;
-      console.log('[CONTEXT] Prüfe Text-Element:', textContent ? textContent.substring(0, 100) + '...' : 'LEER');
-      
-      if (!textContent && textElement.innerHTML) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = textElement.innerHTML;
-        textContent = tempDiv.textContent;
-        console.log('[CONTEXT] Fallback zu innerHTML:', textContent ? textContent.substring(0, 100) + '...' : 'LEER');
-      }
-      
-      // Prüfe verschiedene Link-Formate
-      const linkPatterns = [
-        `[[${gaId}]]`,           // Original Obsidian Format
-        `(${gaId})`,             // Möglicherweise schon verarbeitet
-        gaId                      // Nur die GA-ID
-      ];
-      
-      let foundPattern = null;
-      for (const pattern of linkPatterns) {
-        if (textContent && textContent.includes(pattern)) {
-          foundPattern = pattern;
-          console.log('[CONTEXT] Gefundenes Pattern:', pattern);
-          break;
-        }
-      }
-      
-      if (foundPattern) {
-        // Extrahiere Kontext um den Link
-        const linkIndex = textContent.indexOf(foundPattern);
-        const link = foundPattern;
-        
-        // Finde vorhergehenden Link oder Textanfang
-        const precedingLinks = textContent.substring(0, linkIndex).match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/gi) || [];
-        let contextStart;
-        if (precedingLinks.length > 0) {
-          const lastLinkIndex = textContent.lastIndexOf(precedingLinks[precedingLinks.length - 1], linkIndex);
-          const lastLinkEnd = lastLinkIndex + precedingLinks[precedingLinks.length - 1].length;
-          contextStart = lastLinkEnd;
-        } else {
-          contextStart = Math.max(0, linkIndex - 150);
-        }
-        
-        // Finde nachfolgenden Link oder nehme 100 Zeichen nach aktuellem Link
-        const followingText = textContent.substring(linkIndex + link.length);
-        const nextLinkMatch = followingText.match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/i);
-        let contextEnd;
-        if (nextLinkMatch) {
-          contextEnd = linkIndex + link.length + nextLinkMatch.index;
-        } else {
-          contextEnd = Math.min(textContent.length, linkIndex + link.length + 100);
-        }
-        
-        const context = textContent.substring(contextStart, contextEnd).trim();
-        console.log('[LINK-ENHANCEMENT] Kontext gefunden:', context);
-        return context;
-      }
-    }
-    
-    return null;
-  } catch (error) {
-    console.error('[LINK-ENHANCEMENT] Fehler bei Kontext-Suche:', error);
-    return null;
-  }
-}
-
-// Extrahiere Kontext VOR der geklickten GA-ID aus dem Schlagworttext
-function extractContextBeforeLink(linkElement, gaId, originalLinkText = null) {
-  try {
-    console.log('[CONTEXT-EXTRACT] ===== START CONTEXT EXTRACTION =====');
-    console.log('[CONTEXT-EXTRACT] Extrahiere Kontext vor Link:', gaId);
-    console.log('[CONTEXT-EXTRACT] Original Link Text:', originalLinkText);
-    
-    // Finde das übergeordnete keyword-text Element
-    const keywordTextElement = linkElement.closest('.keyword-text');
-    if (!keywordTextElement) {
-      console.warn('[CONTEXT-EXTRACT] Kein keyword-text Element gefunden');
-      console.log('[CONTEXT-EXTRACT] Übergeordnete Elemente:', linkElement.parentElement, linkElement.parentElement?.parentElement);
-      return null;
-    }
-    
-    console.log('[CONTEXT-EXTRACT] Keyword-Text Element gefunden:', keywordTextElement);
-    
-    // Hole den ORIGINALEN HTML-Inhalt statt textContent (enthält noch die Original-Links)
-    let fullTextFromHTML = keywordTextElement.innerHTML;
-    
-    // Entferne HTML-Tags aber behalte den Inhalt
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = fullTextFromHTML;
-    
-    // Finde alle GA-Links im Original-HTML und ersetze sie mit Platzhaltern
-    const gaLinks = tempDiv.querySelectorAll('.ga-keyword-link');
-    gaLinks.forEach((link, index) => {
-      const linkGaId = link.getAttribute('data-ga-id');
-      if (linkGaId) {
-        // Ersetze den Link mit der Original GA-ID
-        link.outerHTML = linkGaId;
-      }
-    });
-    
-    let fullText = tempDiv.textContent || tempDiv.innerText;
-    console.log('[CONTEXT-EXTRACT] Rekonstruierter Text (Länge:', fullText.length, '):', fullText.substring(0, 300) + '...');
-    
-    // Finde die Position der geklickten GA-ID im rekonstruierten Text
-    let gaIdPosition = fullText.indexOf(gaId);
-    console.log('[CONTEXT-EXTRACT] GA-ID Position im Text:', gaIdPosition);
-    
-    if (gaIdPosition === -1) {
-      // Versuche andere Formate
-      const altFormats = [`[[${gaId}]]`, `(${gaId})`, gaId];
-      console.log('[CONTEXT-EXTRACT] Suche alternative Formate:', altFormats);
-      
-      for (const altFormat of altFormats) {
-        gaIdPosition = fullText.indexOf(altFormat);
-        if (gaIdPosition !== -1) {
-          console.log('[CONTEXT-EXTRACT] Alternative gefunden:', altFormat, 'bei Position:', gaIdPosition);
-          break;
-        }
-      }
-      
-      if (gaIdPosition === -1) {
-        console.warn('[CONTEXT-EXTRACT] GA-ID in keinem Format im Text gefunden:', gaId);
-        console.log('[CONTEXT-EXTRACT] Suchte in Text:', fullText.substring(0, 500));
-        return null;
-      }
-    }
-    
-    // Extrahiere Kontext VOR der GA-ID
-    // Nehme bis zu 400 Zeichen vor der GA-ID, aber mindestens ab dem letzten Satz
-    const textBeforeGaId = fullText.substring(0, gaIdPosition);
-    console.log('[CONTEXT-EXTRACT] Text vor GA-ID (Länge:', textBeforeGaId.length, '):', textBeforeGaId.substring(Math.max(0, textBeforeGaId.length - 200)));
-    
-    // Finde den Anfang des relevanten Kontexts (letzter Satz oder 400 Zeichen)
-    let contextStart = Math.max(0, gaIdPosition - 400);
-    
-    // Versuche beim letzten Satzende zu beginnen (aber nicht zu weit zurück)
-    const recentText = textBeforeGaId.substring(Math.max(0, gaIdPosition - 400));
-    const lastSentenceEnd = recentText.lastIndexOf('.');
-    if (lastSentenceEnd > -1 && lastSentenceEnd < recentText.length - 10) {
-      contextStart = Math.max(0, gaIdPosition - 400) + lastSentenceEnd + 1;
-      console.log('[CONTEXT-EXTRACT] Verwende letztes Satzende bei Position:', contextStart);
-    }
-    
-    const contextBeforeLink = fullText.substring(contextStart, gaIdPosition).trim();
-    console.log('[CONTEXT-EXTRACT] ✅ Extrahierter Kontext (Länge:', contextBeforeLink.length, '):', contextBeforeLink);
-    console.log('[CONTEXT-EXTRACT] ===== END CONTEXT EXTRACTION =====');
-    
-    return contextBeforeLink;
-    
-  } catch (error) {
-    console.error('[CONTEXT-EXTRACT] ❌ Fehler bei Kontext-Extraktion:', error);
-    return null;
-  }
-}
-
-// KI-Enhancement mit spezifischem Kontext
-async function enhanceGALinkWithContext(gaId, context) {
-  try {
-    console.log('[ENHANCE-CONTEXT] Starte Enhancement für:', gaId, 'mit Kontext:', context);
-    
-    if (!context || context.trim().length < 10) {
-      console.warn('[ENHANCE-CONTEXT] Kontext zu kurz oder leer');
-      return gaId;
-    }
-    
-    // API-Aufruf mit Kontext und GA-ID
-    const textToEnhance = `${context} [[${gaId}]]`; // Kontext + GA-ID für KI-Analyse
-    console.log('[ENHANCE-CONTEXT] Sende Text zur KI:', textToEnhance);
-    console.log('[ENHANCE-CONTEXT] API_BASE:', API_BASE);
-    
-    const response = await fetch(`${API_BASE}/api/enhance-keyword-links`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        keywordText: textToEnhance,
-        keyword: `Link-Enhancement für ${gaId}`,
-        targetGaId: gaId // Spezifische GA-ID die erweitert werden soll
-      })
-    });
-    
-    console.log('[ENHANCE-CONTEXT] API Response Status:', response.status);
-    
-    if (!response.ok) {
-      console.warn('[ENHANCE-CONTEXT] API-Fehler:', response.status);
-      return gaId;
-    }
-    
-    const result = await response.json();
-    console.log('[ENHANCE-CONTEXT] API Result:', result);
-    
-    if (result.processed && result.enhancedText !== (context + ` [[${gaId}]]`)) {
-      // Extrahiere den erweiterten Link aus der Antwort
-      const enhancedLinkRegex = new RegExp(`\\[\\[${gaId.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}#([a-zA-Z0-9]+)\\]\\]`);
-      const enhancedMatch = result.enhancedText.match(enhancedLinkRegex);
-      
-      if (enhancedMatch) {
-        const enhancedGaId = `${gaId}#${enhancedMatch[1]}`;
-        console.log('[ENHANCE-CONTEXT] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
-        return enhancedGaId;
-      }
-    }
-    
-    console.log('[ENHANCE-CONTEXT] Keine Erweiterung gefunden');
-    return gaId;
-    
-  } catch (error) {
-    console.error('[ENHANCE-CONTEXT] Fehler bei Enhancement:', error);
-    return gaId;
-  }
-}
-
-// Handler für ursprüngliche GA-Links - führt KI-Enhancement durch
-async function handleOriginalGALink(linkElement, gaId) {
-  // Speichere Original-Text BEVOR wir das Element ändern
-  const originalText = linkElement.textContent;
-  
-  try {
-    console.log('[ORIGINAL-LINK] ===== START ORIGINAL LINK HANDLER =====');
-    console.log('[ORIGINAL-LINK] Verarbeite ursprünglichen Link:', gaId);
-    console.log('[ORIGINAL-LINK] Link Element:', linkElement);
-    console.log('[ORIGINAL-LINK] Original Text:', originalText);
-    
-    // Extrahiere Kontext VOR Änderung des Link-Elements
-    console.log('[ORIGINAL-LINK] Extrahiere Kontext VOR Änderung...');
-    const contextBeforeLink = extractContextBeforeLink(linkElement, gaId, originalText);
-    console.log('[ORIGINAL-LINK] Kontext vor Link:', contextBeforeLink ? contextBeforeLink.substring(0, 200) + '...' : 'NULL');
-    
-    // ERST JETZT zeige visuelles Feedback
-    linkElement.innerHTML = '⏳ KI analysiert...';
-    linkElement.style.opacity = '0.7';
-    linkElement.style.color = '#ff6b35';
-    
-    if (!contextBeforeLink) {
-      console.warn('[ORIGINAL-LINK] Kein Kontext gefunden - springe zu Fallback');
-      throw new Error('Kein Kontext für KI-Analyse gefunden');
-    }
-    
-    // Versuche KI-Enhancement mit diesem Kontext
-    console.log('[ORIGINAL-LINK] Starte KI-Enhancement...');
-    const enhancedGaId = await enhanceGALinkWithContext(gaId, contextBeforeLink);
-    console.log('[ORIGINAL-LINK] KI-Enhancement Ergebnis:', enhancedGaId);
-    
-    if (enhancedGaId && enhancedGaId !== gaId && enhancedGaId.includes('#')) {
-      console.log('[ORIGINAL-LINK] ✅ Enhancement erfolgreich:', gaId, '→', enhancedGaId);
-      
-      // Aktualisiere diesen Link im DOM
-      linkElement.setAttribute('data-ga-id', enhancedGaId);
-      linkElement.setAttribute('onclick', `console.log('Erweiterter Link geklickt:', '${enhancedGaId}'); openFromKeyword('${enhancedGaId}'); return false;`);
-      linkElement.textContent = enhancedGaId;
-      linkElement.style.color = '#28a745'; // Grün für erfolgreich erweitert
-      linkElement.title = `KI-erweitert: ${gaId} → ${enhancedGaId}`;
-      
-      // Aktualisiere auch andere Links mit derselben GA-ID
-      updateGALinkInDOM(gaId, enhancedGaId);
-      
-      console.log('[ORIGINAL-LINK] Öffne erweiterten Vortrag...');
-      // Jetzt den erweiterten Link verwenden
-      await openFromKeyword(enhancedGaId);
-    } else {
-      console.log('[ORIGINAL-LINK] ❌ Kein Enhancement möglich, verwende Original-Link');
-      
-      // Stelle Original-Anzeige wieder her
-      linkElement.textContent = originalText;
-      linkElement.style.opacity = '1';
-      linkElement.style.color = '';
-      linkElement.title = 'Keine KI-Erweiterung verfügbar';
-      
-      // Öffne Vortrag ohne spezifischen Absatz
-      await openFromKeyword(gaId);
-    }
-    
-    console.log('[ORIGINAL-LINK] ===== END ORIGINAL LINK HANDLER =====');
-    
-  } catch (error) {
-    console.error('[ORIGINAL-LINK] ❌ Fehler bei Link-Verarbeitung:', error);
-    
-    // Stelle Original-Anzeige wieder her
-    linkElement.textContent = originalText;
-    linkElement.style.opacity = '1';
-    linkElement.style.color = '#dc3545'; // Rot für Fehler
-    linkElement.title = `Fehler bei KI-Analyse: ${error.message}`;
-    
-    console.log('[ORIGINAL-LINK] Fallback: Öffne Vortrag ohne Enhancement');
-    // Fallback: Öffne Vortrag ohne Enhancement
-    await openFromKeyword(gaId);
-  }
-}
-
-// Aktualisiere GA-Link im DOM
-function updateGALinkInDOM(oldGaId, newGaId) {
-  try {
-    // Finde alle anderen Links mit diesem GA-ID und aktualisiere sie
-    const gaLinks = document.querySelectorAll(`[data-ga-id="${oldGaId}"]`);
-    gaLinks.forEach(link => {
-      // Überspringe den Link, der gerade verarbeitet wurde (hat bereits neuen onclick)
-      if (link.getAttribute('data-ga-id') === oldGaId) {
-        link.setAttribute('data-ga-id', newGaId);
-        link.setAttribute('onclick', `console.log('Erweiterter Link geklickt:', '${newGaId}'); openFromKeyword('${newGaId}'); return false;`);
-        link.textContent = newGaId;
-        console.log('[LINK-UPDATE] DOM-Link aktualisiert:', oldGaId, '→', newGaId);
-      }
-    });
-  } catch (error) {
-    console.error('[LINK-UPDATE] Fehler beim DOM-Update:', error);
-  }
-}
-
-
-
-// Test-Funktion für Debugging
-function testLinkEnhancement() {
-  console.log('[TEST] Starte Test...');
-  
-  // Test API-Verbindung
-  fetch('/api/keywords-files')
-    .then(response => {
-      console.log('[TEST] API Response:', response.status);
-      return response.json();
-    })
-    .then(data => {
-      console.log('[TEST] Keywords Files:', data);
-    })
-    .catch(error => {
-      console.error('[TEST] API Fehler:', error);
-    });
-  
-  // Test DOM-Elemente
-  const button = document.getElementById('enhance-links-btn');
-  console.log('[TEST] Button gefunden:', button);
-  
-  const keywords = document.querySelectorAll('.keyword-text');
-  console.log('[TEST] Keyword-Text Elemente:', keywords.length);
-  
-  keywords.forEach((el, index) => {
-    console.log(`[TEST] Keyword ${index}:`, el.textContent.substring(0, 50));
-  });
 }
 
 // Erweitere die bestehende switchTab Funktion
