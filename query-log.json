@@ -213,9 +213,9 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "goethe": {
-    "count": 7,
+    "count": 13,
     "coOccurrences": {},
-    "lastUsed": "2025-10-09T04:43:19.640Z"
+    "lastUsed": "2025-10-09T05:38:39.421Z"
   },
   "lebenstableau": {
     "count": 5,
@@ -223,14 +223,17 @@
     "lastUsed": "2025-10-06T23:12:05.293Z"
   },
   "steiner": {
-    "count": 5,
+    "count": 6,
     "coOccurrences": {
       "kant": 4,
       "francis bacon": 1,
       "francis": 1,
-      "bacon": 1
+      "bacon": 1,
+      "jakob böhme": 1,
+      "jakob": 1,
+      "böhme": 1
     },
-    "lastUsed": "2025-10-09T04:47:07.908Z"
+    "lastUsed": "2025-10-09T05:26:32.964Z"
   },
   "kant": {
     "count": 4,
@@ -412,5 +415,32 @@
       "francis": 1
     },
     "lastUsed": "2025-10-09T04:41:19.220Z"
+  },
+  "jakob böhme": {
+    "count": 1,
+    "coOccurrences": {
+      "steiner": 1,
+      "jakob": 1,
+      "böhme": 1
+    },
+    "lastUsed": "2025-10-09T05:26:32.964Z"
+  },
+  "jakob": {
+    "count": 1,
+    "coOccurrences": {
+      "jakob böhme": 1,
+      "steiner": 1,
+      "böhme": 1
+    },
+    "lastUsed": "2025-10-09T05:26:32.964Z"
+  },
+  "böhme": {
+    "count": 1,
+    "coOccurrences": {
+      "jakob böhme": 1,
+      "steiner": 1,
+      "jakob": 1
+    },
+    "lastUsed": "2025-10-09T05:26:32.964Z"
   }
 }
