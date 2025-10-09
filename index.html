@@ -1436,10 +1436,6 @@ Lade Schlagwörter...
 </div>
 <div style="display: flex; gap: 8px;">
 
-<button id="batch-enhance-btn" class="depth-btn" onclick="startBatchEnhancement()" style="padding: 4px 8px; font-size: 0.8em; background: linear-gradient(45deg, #ff9800, #f57c00); color: white; border: none; display: none;" title="KI-Enhancement aller GA-Links des aktuellen Buchstabens">
-🤖 Batch-KI
-</button>
-
 <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
 Texte ausblenden
 </button>
@@ -4191,7 +4187,6 @@ function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
   const toggleButton = document.getElementById('keyword-text-toggle');
-  const batchButton = document.getElementById('batch-enhance-btn');
   
   // Filtere Schlagwörter nach Buchstabe
   filteredKeywords = selectedLetter === 'Alle' 
@@ -4212,12 +4207,8 @@ function displayKeywords(selectedLetter = 'Alle') {
   if (filteredKeywords.length > 0) {
     toggleButton.style.display = 'inline-block';
     toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
-    
-    // Batch-Button ausgeblendet (deaktiviert auf Benutzerwunsch)
-    batchButton.style.display = 'none';
   } else {
     toggleButton.style.display = 'none';
-    batchButton.style.display = 'none';
   }
   
   if (filteredKeywords.length === 0) {
@@ -4302,38 +4293,33 @@ async function openFromKeyword(gaId) {
   console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
   
   try {
-    // WICHTIG: Setze thematische Suche zurück, damit GA-Link Highlighting funktioniert
-    currentThematicQuery = '';
-    
     // Prüfe ob Link bereits erweitert ist (enthält #absatz_id)
     let targetGaId = gaId;
     let targetParagraphId = null;
     
-    // Prüfe zuerst ob bereits ein Absatz-Mapping existiert
-    if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
-      targetParagraphId = window.gaLinkParagraphs[gaId];
-      console.log('[KEYWORDS] Verwende gespeichtes Absatz-Mapping:', gaId, '→', targetParagraphId);
-    } else if (gaId.includes('#')) {
-      // Legacy: Link ist bereits erweitert - direkt verwenden
+    if (gaId.includes('#')) {
+      // Link ist bereits erweitert - direkt verwenden
       const parts = gaId.split('#');
       targetGaId = parts[0];
       targetParagraphId = parts[1];
-      console.log('[KEYWORDS] Legacy erweiterten Link:', targetGaId, '#', targetParagraphId);
+      console.log('[KEYWORDS] Link bereits erweitert:', targetGaId, '#', targetParagraphId);
     } else {
       // Einfacher Link - versuche KI-Enhancement
       console.log('[KEYWORDS] Einfacher Link - starte KI-Enhancement...');
       
       const enhancedGaId = await tryEnhanceGALink(gaId);
-      if (enhancedGaId && enhancedGaId === gaId) {
-        // Enhancement erfolgreich - prüfe ob Absatz-Mapping gespeichert wurde
-        if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
-          targetParagraphId = window.gaLinkParagraphs[gaId];
-          console.log('[KEYWORDS] KI-Enhancement erfolgreich - Absatz gefunden:', targetParagraphId);
-        } else {
-          console.log('[KEYWORDS] KI-Enhancement ohne Absatz-Mapping');
-        }
+      if (enhancedGaId && enhancedGaId !== gaId && enhancedGaId.includes('#')) {
+        console.log('[KEYWORDS] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
+        
+        const parts = enhancedGaId.split('#');
+        targetGaId = parts[0];
+        targetParagraphId = parts[1];
+        
+        // Aktualisiere den Link im DOM für zukünftige Klicks
+        updateGALinkInDOM(gaId, enhancedGaId);
       } else {
         console.log('[KEYWORDS] KI-Enhancement fehlgeschlagen oder keine Erweiterung gefunden');
+        targetGaId = gaId; // Verwende Original-Link
         targetParagraphId = null;
       }
     }
@@ -4636,20 +4622,6 @@ async function enhanceGALinkWithContext(gaId, context) {
       return gaId;
     }
     
-    // Prüfe lokalen Cache zuerst (localStorage)
-    const cacheKey = `ga-link-${gaId}`;
-    const cachedResult = localStorage.getItem(cacheKey);
-    if (cachedResult) {
-      const parsed = JSON.parse(cachedResult);
-      console.log('[ENHANCE-CONTEXT] Cache-Hit! Verwende gespeicherte Analyse:', parsed.paragraphId);
-      
-      // Lade in globalen Speicher
-      if (!window.gaLinkParagraphs) window.gaLinkParagraphs = {};
-      window.gaLinkParagraphs[gaId] = parsed.paragraphId;
-      
-      return gaId;
-    }
-    
     // API-Aufruf mit Kontext und GA-ID
     const textToEnhance = `${context} [[${gaId}]]`; // Kontext + GA-ID für KI-Analyse
     console.log('[ENHANCE-CONTEXT] Sende Text zur KI:', textToEnhance);
@@ -4683,29 +4655,9 @@ async function enhanceGALinkWithContext(gaId, context) {
       const enhancedMatch = result.enhancedText.match(enhancedLinkRegex);
       
       if (enhancedMatch) {
-        const paragraphId = enhancedMatch[1];
-        console.log('[ENHANCE-CONTEXT] Link erfolgreich erweitert:', gaId, '→', gaId, 'mit Absatz:', paragraphId);
-        
-        // Speichere Absatz-ID für diesen GA-Link (global zugänglich)
-        if (!window.gaLinkParagraphs) window.gaLinkParagraphs = {};
-        window.gaLinkParagraphs[gaId] = paragraphId;
-        
-        // Speichere auch im localStorage für Persistierung
-        const cacheData = {
-          gaId: gaId,
-          paragraphId: paragraphId,
-          timestamp: Date.now(),
-          context: context.substring(0, 100) // Kurzer Kontext für Debugging
-        };
-        localStorage.setItem(`ga-link-${gaId}`, JSON.stringify(cacheData));
-        
-        // Speichere auch online für andere User (non-blocking)
-        saveEnhancementOnline(cacheKey, result.enhancedText, textToEnhance, [gaId]).catch(err => {
-          console.warn('[ENHANCE-CONTEXT] Online-Speicherung fehlgeschlagen:', err.message);
-        });
-        
-        console.log('[ENHANCE-CONTEXT] Absatz-Mapping gespeichert (global + localStorage + online):', gaId, '→', paragraphId);
-        return gaId; // Gib sauberen Link zurück (ohne #)
+        const enhancedGaId = `${gaId}#${enhancedMatch[1]}`;
+        console.log('[ENHANCE-CONTEXT] Link erfolgreich erweitert:', gaId, '→', enhancedGaId);
+        return enhancedGaId;
       }
     }
     
@@ -4735,7 +4687,7 @@ async function handleOriginalGALink(linkElement, gaId) {
     console.log('[ORIGINAL-LINK] Kontext vor Link:', contextBeforeLink ? contextBeforeLink.substring(0, 200) + '...' : 'NULL');
     
     // ERST JETZT zeige visuelles Feedback
-    linkElement.innerHTML = '...';
+    linkElement.innerHTML = '⏳ KI analysiert...';
     linkElement.style.opacity = '0.7';
     linkElement.style.color = '#ff6b35';
     
@@ -4749,34 +4701,29 @@ async function handleOriginalGALink(linkElement, gaId) {
     const enhancedGaId = await enhanceGALinkWithContext(gaId, contextBeforeLink);
     console.log('[ORIGINAL-LINK] KI-Enhancement Ergebnis:', enhancedGaId);
     
-    if (enhancedGaId && enhancedGaId === gaId) {
-      // Enhancement erfolgreich - Absatz-Mapping ist gespeichert, Link bleibt sauber
-      console.log('[ORIGINAL-LINK] ✅ Enhancement erfolgreich:', gaId, 'mit internem Absatz-Mapping');
+    if (enhancedGaId && enhancedGaId !== gaId && enhancedGaId.includes('#')) {
+      console.log('[ORIGINAL-LINK] ✅ Enhancement erfolgreich:', gaId, '→', enhancedGaId);
       
-      // Stelle das Element zurück zur Normaldarstellung und zeige grün
-      linkElement.textContent = originalText; // Zurück zu "GA066/1"
-      linkElement.style.opacity = '1';
-      linkElement.classList.add('ai-enhanced'); // Grün für 2 Sekunden
-      linkElement.title = `KI-erweitert: Navigiert zu spezifischem Absatz`;
+      // Aktualisiere diesen Link im DOM
+      linkElement.setAttribute('data-ga-id', enhancedGaId);
+      linkElement.setAttribute('onclick', `console.log('Erweiterter Link geklickt:', '${enhancedGaId}'); openFromKeyword('${enhancedGaId}'); return false;`);
+      linkElement.textContent = enhancedGaId;
+      linkElement.style.color = '#28a745'; // Grün für erfolgreich erweitert
+      linkElement.title = `KI-erweitert: ${gaId} → ${enhancedGaId}`;
       
-      // Nach 2 Sekunden zurück zur ursprünglichen Darstellung (blau)
-      setTimeout(() => {
-        linkElement.classList.remove('ai-enhanced');
-        linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe (blau)
-        linkElement.style.opacity = '';
-        linkElement.title = `${gaId} - KI-enhanced (aus Cache)`;
-      }, 2000);
+      // Aktualisiere auch andere Links mit derselben GA-ID
+      updateGALinkInDOM(gaId, enhancedGaId);
       
       console.log('[ORIGINAL-LINK] Öffne erweiterten Vortrag...');
-      // Jetzt den Link verwenden (mit internem Absatz-Mapping)
-      await openFromKeyword(gaId);
+      // Jetzt den erweiterten Link verwenden
+      await openFromKeyword(enhancedGaId);
     } else {
       console.log('[ORIGINAL-LINK] ❌ Kein Enhancement möglich, verwende Original-Link');
       
-      // Stelle Original-Anzeige wieder her (blau)
+      // Stelle Original-Anzeige wieder her
       linkElement.textContent = originalText;
       linkElement.style.opacity = '1';
-      linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe
+      linkElement.style.color = '';
       linkElement.title = 'Keine KI-Erweiterung verfügbar';
       
       // Öffne Vortrag ohne spezifischen Absatz
@@ -4788,17 +4735,11 @@ async function handleOriginalGALink(linkElement, gaId) {
   } catch (error) {
     console.error('[ORIGINAL-LINK] ❌ Fehler bei Link-Verarbeitung:', error);
     
-    // Stelle Original-Anzeige wieder her mit kurzer roter Fehler-Anzeige
+    // Stelle Original-Anzeige wieder her
     linkElement.textContent = originalText;
     linkElement.style.opacity = '1';
     linkElement.style.color = '#dc3545'; // Rot für Fehler
     linkElement.title = `Fehler bei KI-Analyse: ${error.message}`;
-    
-    // Nach 3 Sekunden zurück zur normalen blauen Darstellung
-    setTimeout(() => {
-      linkElement.style.color = ''; // Zurück zur CSS-Standard-Farbe (blau)
-      linkElement.title = `${gaId} - Fehler bei KI-Enhancement`;
-    }, 3000);
     
     console.log('[ORIGINAL-LINK] Fallback: Öffne Vortrag ohne Enhancement');
     // Fallback: Öffne Vortrag ohne Enhancement
@@ -4806,8 +4747,24 @@ async function handleOriginalGALink(linkElement, gaId) {
   }
 }
 
-// Internes Absatz-Mapping für saubere Link-Darstellung
-// Links bleiben als "GA066/1" sichtbar, aber navigieren zu spezifischen Absätzen
+// Aktualisiere GA-Link im DOM
+function updateGALinkInDOM(oldGaId, newGaId) {
+  try {
+    // Finde alle anderen Links mit diesem GA-ID und aktualisiere sie
+    const gaLinks = document.querySelectorAll(`[data-ga-id="${oldGaId}"]`);
+    gaLinks.forEach(link => {
+      // Überspringe den Link, der gerade verarbeitet wurde (hat bereits neuen onclick)
+      if (link.getAttribute('data-ga-id') === oldGaId) {
+        link.setAttribute('data-ga-id', newGaId);
+        link.setAttribute('onclick', `console.log('Erweiterter Link geklickt:', '${newGaId}'); openFromKeyword('${newGaId}'); return false;`);
+        link.textContent = newGaId;
+        console.log('[LINK-UPDATE] DOM-Link aktualisiert:', oldGaId, '→', newGaId);
+      }
+    });
+  } catch (error) {
+    console.error('[LINK-UPDATE] Fehler beim DOM-Update:', error);
+  }
+}
 
 
 
@@ -4887,11 +4844,6 @@ const keywordStyles = `
   transition: all 0.2s ease;
 }
 
-.ga-keyword-link.ai-enhanced {
-  color: #28a745 !important;
-  font-weight: bold !important;
-}
-
 .ga-keyword-link:hover {
   background: rgba(70, 120, 134, 0.2);
   text-decoration: none;
@@ -4900,10 +4852,6 @@ const keywordStyles = `
 body.dark-mode .ga-keyword-link {
   color: #7EB8C8;
   background: rgba(126, 184, 200, 0.15);
-}
-
-body.dark-mode .ga-keyword-link.ai-enhanced {
-  color: #5cb85c !important;
 }
 
 body.dark-mode .ga-keyword-link:hover {
@@ -4939,346 +4887,6 @@ styleSheet.textContent = keywordStyles;
 document.head.appendChild(styleSheet);
 
 console.log('[KEYWORDS] Schlagwort-System geladen');
-
-// ============================================================================
-// CACHE MANAGEMENT FUNKTIONEN
-// ============================================================================
-
-// Cache-Status anzeigen
-function showCacheStats() {
-  const cacheKeys = Object.keys(localStorage).filter(key => key.startsWith('ga-link-'));
-  console.log(`[CACHE] ${cacheKeys.length} Link-Enhancements im Cache gespeichert:`);
-  
-  cacheKeys.forEach(key => {
-    const data = JSON.parse(localStorage.getItem(key));
-    console.log(`  ${data.gaId} → ${data.paragraphId} (${new Date(data.timestamp).toLocaleString()})`);
-  });
-  
-  return {
-    count: cacheKeys.length,
-    entries: cacheKeys.map(key => JSON.parse(localStorage.getItem(key)))
-  };
-}
-
-// Cache leeren
-function clearLinkCache() {
-  const cacheKeys = Object.keys(localStorage).filter(key => key.startsWith('ga-link-'));
-  cacheKeys.forEach(key => localStorage.removeItem(key));
-  console.log(`[CACHE] ${cacheKeys.length} Cache-Einträge gelöscht`);
-  
-  // Auch globalen Speicher leeren
-  if (window.gaLinkParagraphs) {
-    window.gaLinkParagraphs = {};
-  }
-  
-  return cacheKeys.length;
-}
-
-// Einzelnen Cache-Eintrag löschen
-function deleteCacheEntry(gaId) {
-  const cacheKey = `ga-link-${gaId}`;
-  const existed = localStorage.getItem(cacheKey) !== null;
-  
-  localStorage.removeItem(cacheKey);
-  
-  if (window.gaLinkParagraphs && window.gaLinkParagraphs[gaId]) {
-    delete window.gaLinkParagraphs[gaId];
-  }
-  
-  console.log(`[CACHE] Eintrag für ${gaId} ${existed ? 'gelöscht' : 'war nicht vorhanden'}`);
-  return existed;
-}
-
-// Cache in Console-Friendly Format
-window.cacheStats = showCacheStats;
-window.clearCache = clearLinkCache;
-window.deleteCache = deleteCacheEntry;
-
-// Online-Speicherung für Link-Enhancements (für User-Sharing)
-async function saveEnhancementOnline(cacheKey, enhancedText, originalText, gaLinks) {
-  try {
-    console.log('[ONLINE-SYNC] Speichere Link-Enhancement online für andere User...');
-    
-    const response = await fetch(`${API_BASE}/api/save-link-enhancement`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cacheKey: cacheKey,
-        enhancedText: enhancedText,
-        originalText: originalText,
-        gaLinks: gaLinks
-      })
-    });
-    
-    if (response.ok) {
-      const result = await response.json();
-      console.log('[ONLINE-SYNC] ✅ Link-Enhancement online gespeichert:', result.message);
-      return true;
-    } else {
-      console.warn('[ONLINE-SYNC] ⚠️ Online-Speicherung fehlgeschlagen:', response.status);
-      return false;
-    }
-    
-  } catch (error) {
-    console.error('[ONLINE-SYNC] ❌ Fehler bei Online-Speicherung:', error);
-    return false;
-  }
-}
-
-console.log('[CACHE] Cache-Management verfügbar: cacheStats(), clearCache(), deleteCache(gaId)');
-
-// ============================================================================
-// BATCH ENHANCEMENT FUNKTIONEN
-// ============================================================================
-
-let batchEnhancementInProgress = false;
-let batchStats = { processed: 0, enhanced: 0, cached: 0, errors: 0 };
-
-async function startBatchEnhancement() {
-  if (batchEnhancementInProgress) {
-    alert('Batch-Enhancement läuft bereits!');
-    return;
-  }
-  
-  if (!currentAlphabet || currentAlphabet === 'Alle') {
-    alert('Bitte wählen Sie zuerst einen spezifischen Buchstaben aus.');
-    return;
-  }
-  
-  // Sammle alle GA-Links MIT Kontext der aktuellen Buchstaben-Auswahl
-  const gaLinksWithContext = new Map(); // gaId -> { context, keyword, fullText }
-  
-  filteredKeywords.forEach(keywordData => {
-    const gaRefsWithContext = extractGAReferencesWithContext(keywordData.text || '');
-    
-    gaRefsWithContext.forEach(({ gaId, context, contextBefore, contextAfter }) => {
-      // Speichere den besten (längsten) Kontext für jede GA-ID
-      if (!gaLinksWithContext.has(gaId) || 
-          gaLinksWithContext.get(gaId).context.length < context.length) {
-        
-        gaLinksWithContext.set(gaId, {
-          context: context,
-          contextBefore: contextBefore,
-          contextAfter: contextAfter,
-          keyword: keywordData.keyword,
-          fullText: keywordData.text
-        });
-      }
-    });
-  });
-  
-  const allGALinks = Array.from(gaLinksWithContext.keys());
-  
-  if (allGALinks.length === 0) {
-    alert(`Keine GA-Links im Buchstaben "${currentAlphabet}" gefunden.`);
-    return;
-  }
-  
-  // Prüfe welche Links noch nicht enhanced sind
-  const unenhancedLinks = allGALinks.filter(gaId => {
-    const cacheKey = `ga-link-${gaId}`;
-    return !localStorage.getItem(cacheKey) && !window.gaLinkParagraphs?.[gaId];
-  });
-  
-  if (unenhancedLinks.length === 0) {
-    alert(`Alle ${allGALinks.length} GA-Links im Buchstaben "${currentAlphabet}" sind bereits KI-enhanced!`);
-    return;
-  }
-  
-  // Zeige detaillierte Statistiken
-  const keywordsWithLinks = filteredKeywords.filter(kw => 
-    extractGAReferencesWithContext(kw.text || '').length > 0
-  ).length;
-  
-  const confirmed = confirm(
-    `🤖 Intelligente Batch-KI-Analyse für Buchstabe "${currentAlphabet}"\n\n` +
-    `📚 Schlagwörter mit GA-Links: ${keywordsWithLinks}\n` +
-    `🔗 Gefundene GA-Links: ${allGALinks.length}\n` +
-    `✅ Bereits KI-enhanced: ${allGALinks.length - unenhancedLinks.length}\n` +
-    `🎯 Zu bearbeiten: ${unenhancedLinks.length}\n\n` +
-    `⏱️ Geschätzte Zeit: ${Math.ceil(unenhancedLinks.length * 2)} Sekunden\n` +
-    `💰 Claude API-Kosten für ${unenhancedLinks.length} Anfragen\n\n` +
-    `Jeder Link wird mit seinem spezifischen Schlagwort-Kontext analysiert.\n` +
-    `Fortfahren?`
-  );
-  
-  if (!confirmed) return;
-  
-  console.log(`[BATCH-ENHANCE] Starte für ${unenhancedLinks.length} Links...`);
-  
-  batchEnhancementInProgress = true;
-  batchStats = { processed: 0, enhanced: 0, cached: 0, errors: 0 };
-  
-  updateBatchProgress(0, unenhancedLinks.length, 'Starte...');
-  
-  for (let i = 0; i < unenhancedLinks.length; i++) {
-    const gaId = unenhancedLinks[i];
-    
-    try {
-      const contextData = gaLinksWithContext.get(gaId);
-      const keyword = contextData?.keyword || 'Unbekannt';
-      const context = contextData?.context || `Fallback-Kontext für ${gaId}`;
-      
-      updateBatchProgress(i + 1, unenhancedLinks.length, `${gaId} in "${keyword}"...`);
-      
-      console.log(`[BATCH-ENHANCE] ${i + 1}/${unenhancedLinks.length}: ${gaId}`);
-      console.log(`[BATCH-ENHANCE] Schlagwort: "${keyword}"`);
-      console.log(`[BATCH-ENHANCE] Kontext: "${context.substring(0, 100)}..."`);
-      
-      const result = await enhanceGALinkWithContext(gaId, context);
-      
-      if (result === gaId && window.gaLinkParagraphs?.[gaId]) {
-        batchStats.enhanced++;
-        console.log(`[BATCH-ENHANCE] ✅ ${gaId} enhanced`);
-      } else {
-        batchStats.errors++;
-        console.log(`[BATCH-ENHANCE] ❌ ${gaId} failed`);
-      }
-      
-      batchStats.processed++;
-      
-      // Kurze Pause zwischen Anfragen
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-    } catch (error) {
-      console.error(`[BATCH-ENHANCE] Fehler bei ${gaId}:`, error);
-      batchStats.errors++;
-      batchStats.processed++;
-    }
-  }
-  
-  batchEnhancementInProgress = false;
-  
-  const successRate = Math.round((batchStats.enhanced / batchStats.processed) * 100);
-  
-  updateBatchProgress(unenhancedLinks.length, unenhancedLinks.length, 
-    `✅ Fertig! ${batchStats.enhanced}/${batchStats.processed} erfolgreich (${successRate}%)`);
-  
-  setTimeout(() => {
-    hideBatchProgress();
-    alert(
-      `Batch-Enhancement abgeschlossen!\n\n` +
-      `Bearbeitet: ${batchStats.processed}\n` +
-      `Erfolgreich: ${batchStats.enhanced}\n` +
-      `Fehler: ${batchStats.errors}\n` +
-      `Erfolgsrate: ${successRate}%`
-    );
-  }, 3000);
-  
-  console.log(`[BATCH-ENHANCE] Abgeschlossen:`, batchStats);
-}
-
-function updateBatchProgress(current, total, message) {
-  const btn = document.getElementById('batch-enhance-btn');
-  if (!btn) return;
-  
-  const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
-  
-  if (current === 0) {
-    btn.style.background = 'linear-gradient(45deg, #2196f3, #1976d2)';
-    btn.innerHTML = `🔄 Initialisiere...`;
-  } else if (current < total) {
-    btn.style.background = 'linear-gradient(45deg, #ff9800, #f57c00)';
-    btn.innerHTML = `🤖 ${current}/${total} (${percentage}%)`;
-  } else {
-    btn.style.background = 'linear-gradient(45deg, #4caf50, #388e3c)';
-    btn.innerHTML = `✅ Fertig!`;
-  }
-  
-  btn.title = message;
-}
-
-function hideBatchProgress() {
-  const btn = document.getElementById('batch-enhance-btn');
-  if (!btn) return;
-  
-  btn.style.background = 'linear-gradient(45deg, #ff9800, #f57c00)';
-  btn.innerHTML = `🤖 Batch-KI (${currentAlphabet})`;
-  btn.title = `KI-Enhancement aller GA-Links des Buchstabens "${currentAlphabet}"`;
-}
-
-function extractGAReferencesFromKeywordText(text) {
-  if (!text) return [];
-  
-  const gaLinks = [];
-  
-  // Pattern für [[GA###/##]] oder GA###/## 
-  const patterns = [
-    /\[\[GA(\d{3}[a-z]?\/\d+)\]\]/gi,  // [[GA066/1]]
-    /\bGA(\d{3}[a-z]?\/\d+)\b/gi        // GA066/1
-  ];
-  
-  patterns.forEach(pattern => {
-    let match;
-    while ((match = pattern.exec(text)) !== null) {
-      const gaId = `GA${match[1]}`;
-      if (!gaLinks.includes(gaId) && /^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
-        gaLinks.push(gaId);
-      }
-    }
-  });
-  
-  return gaLinks;
-}
-
-// Erweiterte Funktion: GA-Links MIT Kontext extrahieren
-function extractGAReferencesWithContext(text) {
-  if (!text) return [];
-  
-  const results = [];
-  const processedGAIds = new Set();
-  
-  // Pattern für [[GA###/##]] und GA###/##
-  const patterns = [
-    { regex: /\[\[GA(\d{3}[a-z]?\/\d+)\]\]/gi, type: 'bracketed' },
-    { regex: /\bGA(\d{3}[a-z]?\/\d+)\b/gi, type: 'plain' }
-  ];
-  
-  patterns.forEach(({ regex, type }) => {
-    let match;
-    while ((match = regex.exec(text)) !== null) {
-      const gaId = `GA${match[1]}`;
-      
-      // Überspringe bereits verarbeitete GA-IDs
-      if (processedGAIds.has(gaId) || !/^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
-        continue;
-      }
-      
-      processedGAIds.add(gaId);
-      
-      const matchStart = match.index;
-      const matchEnd = match.index + match[0].length;
-      
-      // Extrahiere Kontext VOR dem Link (bis zu 200 Zeichen)
-      const contextStart = Math.max(0, matchStart - 200);
-      const contextBefore = text.substring(contextStart, matchStart).trim();
-      
-      // Extrahiere Kontext NACH dem Link (bis zu 200 Zeichen)
-      const contextEnd = Math.min(text.length, matchEnd + 200);
-      const contextAfter = text.substring(matchEnd, contextEnd).trim();
-      
-      // Kombiniere zu vollständigem Kontext
-      const fullContext = `${contextBefore} [[${gaId}]] ${contextAfter}`.trim();
-      
-      results.push({
-        gaId: gaId,
-        context: fullContext,
-        contextBefore: contextBefore,
-        contextAfter: contextAfter,
-        originalMatch: match[0],
-        position: matchStart,
-        type: type
-      });
-    }
-  });
-  
-  // Sortiere nach Position im Text
-  results.sort((a, b) => a.position - b.position);
-  
-  return results;
-}
 </script>
 </body>
 </html> 
