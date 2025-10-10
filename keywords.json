@@ -1,141 +1,19 @@
 [
   {
-    "keyword": "Kant",
-    "synonyms": ["Kant", "Kants", "kantisch", "Immanuel Kant", "kategorischer imperativ", "Ding an sich"],
-      "citations": [
-        {
-          "text": "Alle, die glauben, in dem, was das menschliche Denken erreicht, nur blinde Zufälligkeiten zu sehen, wie Kant, auch Schopenhauer, der die Welt als Vorstellung auffasst, bilden einen Ausfluss des mittelalterlichen Nominalismus.",
-          "source": "GA051/11, ^mw2j1z",
-          "link": "GA051/11#mw2j1z"
-        },
-        {
-          "text": "Vom Standpunkt des Materialismus aus mag das als ein törichter Standpunkt angesehen werden; wer aber den Gedanken nicht für ein leeres Hirngespinst hält, muss zugeben, dass der Gedanke über ein Weltgesetz, den man sucht und in sich findet, auch eine Bedeutung für die Welt hat. (Kant, Schopenhauer)",
-          "source": "GA051/11, ^k9e762",
-          "link": "GA051/11#k9e762"
-        }
-      ]
-  },
-  {
-    "keyword": "Anthroposophie",
-    "synonyms": ["Anthroposophie", "Geisteswissenschaft", "übersinnlich", "geistige Welt"],
-      "citations": [
-        {
-          "text": "Alles Wissen des Altertums wurde auf diese Weise durch das Christentum für die germanischen Völker aufbewahrt. Aristoteles gab den geistigen Kern, den das Christentum zu begreifen suchte. Damals gab es noch keine Abhängigkeit von Rom. Frei konnte sich das christliche Leben im Frankenreiche ausbilden.",
-          "source": "GA051/7, ^mqdkfx",
-          "link": "GA051/7#mqdkfx"
-        },
-        {
-          "text": "Auch Platos Ideenwelt fand Eingang in dieses geistige Leben. Besonders geschah dies durch schottische und irische Mönche, vor allem durch Scotus Erigena in seinem Werke «Über die Einteilung der Natur», einem Werke, das eine Höhe des Geisteslebens bedeutet.",
-          "source": "GA051/7, ^4ry2fx",
-          "link": "GA051/7#4ry2fx"
-        }
-      ]
-  },
-  {
-    "keyword": "Ätherleib",
-    "synonyms": ["Ätherleib", "Lebensleib", "Bildekräfteleib", "Ätherischer Leib", "Aetherleib"],
-      "citations": [
-        {
-          "text": "Das Licht schließt das Auge von innen auf, der Ton das Ohr. Die äußeren Qualitäten nehmen wir erst wahr durch die Sinne. Diese äußeren Qualitäten haben die Sinne auch gebildet. Sie sind die Baumeister der eigenen Organe. Wir sind selbst Licht vom Weltenlichte; wir sind Ton vom Weltenton.",
-          "source": "GA051/16, ^ku3hfs",
-          "link": "GA051/16#ku3hfs"
-        },
-        {
-          "text": "Der Mystiker lebt sich ein in das, was um ihn und in ihm lebt und webt. Das schaffende Licht, das draußen wirkt und innen schafft, empfindet er. Er ist selbst leuchtend und tönend in einer leuchtenden und tönenden Welt.",
-          "source": "GA051/16, ^hiuf7q",
-          "link": "GA051/16#hiuf7q"
-        }
-      ]
-  },
-  {
     "keyword": "Astralleib",
-    "synonyms": ["Astralleib", "Empfindungsleib", "Seelenleib", "Astraler Leib"],
-      "citations": [
-        {
-          "text": "Der Mensch nennt das, was in der Natur erst erschaffender Gedanke ist, den Geist. Das, was den Gedanken empfindet, nennt er Leib. Das, was den Gedanken nachlebt, nennt er Seele. - Der Geist ist der Schöpfer des Gedankens. Der Leib ist der Empfänger des Gedankens. Die Seele ist die Erleberin des Gedankens.",
-          "source": "GA051/14, ^ospkxu",
-          "link": "GA051/14#ospkxu"
-        },
-        {
-          "text": "Die Aspekte der Seele sind: Vater, Mutter und Sohn. Sie entsprechen den drei Aspekten im Kosmos: Vater, Sohn, Heiliger Geist, den Aspekten des Weltengeistes.",
-          "source": "GA051/14, ^rmsk4q",
-          "link": "GA051/14#rmsk4q"
-        }
-      ]
-  },
-  {
-    "keyword": "Ich",
-    "synonyms": ["Ich", "Ich-Organisation", "Geist-Selbst", "Ich-Wesenheit"],
-      "citations": [
-        {
-          "text": "Er spricht ferner davon, wie in jedem einzelnen Menschen der höhere, innere Mensch, der zum Geiste hinaufführt, auflebt. In jedem wohnen zwei Menschen, der weltliche und der geistige Mensch. Der innere, geistige Mensch geht seine Wege für sich.",
-          "source": "GA051/15, ^q01qrr",
-          "link": "GA051/15#q01qrr"
-        },
-        {
-          "text": "Der äußere Mensch kann ein Leben für sich führen; aber das innere Leben nimmt seinen eigenen Gang dadurch, daß es sich im Innern durch den Logos befruchten lässt. Immer wieder hielt Eckhart dies durch seine gewaltigen Predigten dem Menschen vor. Das Fünklein in der Seele ist das Wesentliche. Das Fünklein ist ein ewig Eins.",
-          "source": "GA051/15, ^ekc12y",
-          "link": "GA051/15#ekc12y"
-        }
-      ]
-  },
-  {
-    "keyword": "Bewusstsein",
-    "synonyms": ["Bewusstsein", "Bewußtsein", "Seelenleben", "Geistesleben", "Seele"],
-      "citations": [
-        {
-          "text": "Der Mystiker sagte sich: Im Weltenall draußen schafft der Gedanke. Indem der Mensch erkennt, erkennt er den objektiven Gedanken draußen. Im Menschen wird er subjektiver Gedanke. Es gibt ein Bindeglied, welches zu gleicher Zeit den Menschen in seinem innern Erleben trennt von dem äußeren Gedanken und verursacht, daß der Gedanke von außen hereinfließt in ihn.",
-          "source": "GA051/14, ^l1tlpb",
-          "link": "GA051/14#l1tlpb"
-        },
-        {
-          "text": "Was als Geist im Innern des Menschen lebt, ist die Seele. Diese Seele kann nicht einen Gedanken für sich schaffen. Sie muss zuerst die Empfindung haben von dem Gegenstande. Dann kann sie in sich geistig den Gegenstand nachschaffen. Dann haben wir die Vorstellung in der Seele; dann kommt uns das Bewusstsein der Vorstellung.",
-          "source": "GA051/14, ^14ber6",
-          "link": "GA051/14#14ber6"
-        }
-      ]
-  },
-  {
-    "keyword": "Meditation",
-    "synonyms": ["Meditation"],
-      "citations": [
-        {
-          "text": "Die Seele kann sich in sich selbst versenken, geistig schauen, durch die Inspiration oder Intuition. Der Mystiker sagt: Wenn ich herausschaue in die Natur, wirkt die Kraft auf mich, und ich empfinde die Kraft, die auf mich wirkt - die Energetik genannt, das Kraftleben.",
-          "source": "GA051/15, ^gaxnf5",
-          "link": "GA051/15#gaxnf5"
-        },
-        {
-          "text": "Indem die Seele sich in die Außenwelt versenkt, muss sie nach dem Satze des Aristoteles durch die Empfindung beseelt werden. Er sagt: Wenn ich den unbewegten Beweger sehen will, muss ich frei sein von aller äußeren Empfindung. Dies Versenken in die Seele nennt er die Katharsis, Reinigung.",
-          "source": "GA051/15, ^bk0ohq",
-          "link": "GA051/15#bk0ohq"
-        }
-      ]
-  },
-  {
-    "keyword": "Karma",
-    "synonyms": ["Karma"],
-      "citations": [
-        {
-          "text": "Der Gang der Weltgeschichte geht nicht nach Gerechtigkeit und Ungerechtigkeit, sondern folgt dem großen Gesetz von Ursache und Wirkung.",
-          "source": "GA051/9, ^rhrfjg",
-          "link": "GA051/9#rhrfjg"
-        }
-      ]
-  },
-  {
-    "keyword": "Erkenntnistheorie",
-    "synonyms": ["Erkenntnistheorie", "Epistemologie", "Erkenntnis", "Erkenntnislehre"],
-      "citations": [
-        {
-          "text": "Der Mystiker sucht nicht bloß den äußeren Raum nach innerlich gewonnenen Gesetzen zu erkennen, sondern er sucht alles Leben zu erkennen; er beschäftigt sich mit dem Studium der Gesetze alles Lebens. Vom Allereinfachsten ausgehend steigt er zum Vollkommenen auf.",
-          "source": "GA051/14, ^1owxyg",
-          "link": "GA051/14#1owxyg"
-        },
-        {
-          "text": "Die Grundlage des mystischen Denkens, die Grundbegriffe der Mystik, der Inhalt dessen, was man Mystik nennt, wird wenig verstanden, nicht deshalb allein, weil sie bloß nach dem äußeren Worte beurteilt wird. Wenn man Darstellungen der Mystik liest, so ist es so, als ob man eine Darstellung läse, in der von Winkeln und Ecken in einem Hause gesprochen wird, da wo der Mathematiker eigentlich mathematische Winkel und Ecken meint. Die Worte der Mystik beziehen sich aber auf Lebenszusammenhänge.",
-          "source": "GA051/14, ^onqgr3",
-          "link": "GA051/14#onqgr3"
-        }
-      ]
+    "alphabetical": "A",
+    "text": "# Rudolf Steiners Lehre vom Astralleib\n\n## Die Gliederung der menschlichen Wesenheit\n\nRudolf Steiner beschreibt den **Astralleib als das dritte Glied der leiblichen Konstitution des Menschen**. \"Wie der Leib aus physischem Körper, Ätherdoppelkörper und Seelenleib oder Astralkörper besteht, so besteht die Seele aus Empfindungsseele, Verstandesseele und Bewusstseinsseele\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA053/2\" data-index=\"27xk7z\" data-file-name=\"GA053/2 - DIE MENSCHLICHE WESENHEIT, Berlin, 13. Oktober 1904\">GA053/2</a>. Der Astralleib wird auch als **Seelenleib** bezeichnet und bildet zusammen mit dem physischen Leib und Ätherleib die leibliche Grundlage des Menschen <a href=\"#\" class=\"ga-reference\" data-id=\"GA068b/9\" data-index=\"hq1q81\" data-file-name=\"GA068b/9 - DER KREISLAUF DES MENSCHEN INNERHALB DER SINNES-, SEELEN UND GEISTESWELT. DAS LEBEN NACH DEM TODE, EINE TATSACHE DER WIRKLICHKEIT, Hamburg, 14. März 1909\">GA068b/9</a>.\n\n**Den Astralleib hat der Mensch gemeinsam mit allen Tieren**, während das vierte Glied - das Ich - spezifisch menschlich ist <a href=\"#\" class=\"ga-reference\" data-id=\"GA068b/9\" data-index=\"hq1q81\" data-file-name=\"GA068b/9 - DER KREISLAUF DES MENSCHEN INNERHALB DER SINNES-, SEELEN UND GEISTESWELT. DAS LEBEN NACH DEM TODE, EINE TATSACHE DER WIRKLICHKEIT, Hamburg, 14. März 1909\">GA068b/9</a>. Diese Gemeinsamkeit mit dem Tierreich zeigt die besondere Funktion des Astralleibs als **Träger von Empfindung und Bewusstsein**.\n\n## Die Verbindung von Astralleib und Empfindungsseele\n\nEine zentrale Erkenntnis Steiners ist, dass **Astralleib und Empfindungsseele eine untrennbare Einheit bilden**. \"Nun kann man aber in der Wahrnehmung beim seelischen Schauen den Seelenleib und die Empfindungsseele nicht getrennt wahrnehmen. Diese stecken sozusagen ineinander und bilden ein Ganzes\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA053/2\" data-index=\"f3a8ls\" data-file-name=\"GA053/2 - DIE MENSCHLICHE WESENHEIT, Berlin, 13. Oktober 1904\">GA053/2</a>. Steiner vergleicht diese Verbindung mit \"dem Schwert, das in der Scheide steckt\" und erklärt, dass \"das höchste Glied des physischen Leibes und das niederste Glied der Seele ein Ganzes bilden und werden in der theosophischen Literatur Astralleib genannt\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA053/2\" data-index=\"f3a8ls\" data-file-name=\"GA053/2 - DIE MENSCHLICHE WESENHEIT, Berlin, 13. Oktober 1904\">GA053/2</a>.\n\n## Der Astralleib als kosmischer Musiker\n\nEine besonders bemerkenswerte Charakterisierung findet sich in Steiners Darstellung des **Astralleibs als musikalischem Prinzip**. \"Geradeso wie der ätherische Leib aus der kosmischen Plastik heraus wirkt, so wirkt der astralische Leib aus der kosmischen Musik, aus kosmischen Melodien heraus\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA309/3\" data-index=\"maoqkq\" data-file-name=\"GA309/3 - DRITTER VORTRAG, Bern, 15. April 1924\">GA309/3</a>. \n\nDer Astralleib kann nur mit **innerem Musikverständnis** begriffen werden, nicht mit naturwissenschaftlichen Methoden. \"Man kann den Astralleib begreifen, wenn man nicht nur äußeres, sondern inneres Musikverständnis hat\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA309/3\" data-index=\"maoqkq\" data-file-name=\"GA309/3 - DRITTER VORTRAG, Bern, 15. April 1924\">GA309/3</a>. Steiner beschreibt detailliert, wie sich dies in der Erfahrung der Intervalle zeigt: \"Das ist der wirkende Astralleib, der ein Musiker in jedem Menschen ist, der die Weltenmusik nachahmt\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA309/3\" data-index=\"maoqkq\" data-file-name=\"GA309/3 - DRITTER VORTRAG, Bern, 15. April 1924\">GA309/3</a>.\n\n## Die rückführende Natur der Zeit im Astralleib\n\nEin fundamentaler Aspekt ist die **besondere Beziehung des Astralleibs zur Zeit**. \"Beim Astralleibe ist es nun so, daß er nun nicht nur den Raum aufsaugt, sondern daß er kurioserweise die Zeit aufsaugt. Der hat nämlich etwas Rückführendes\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA306/5\" data-index=\"dm9b0k\" data-file-name=\"GA306/5 - FÜNFTER VORTRAG, Dornach, 19. April 1923\">GA306/5</a>. \n\nDiese rückführende Eigenschaft bedeutet: \"Alle miteinander sind wir noch immer reifere Kinder durch unseren Astralleib\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA306/5\" data-index=\"dm9b0k\" data-file-name=\"GA306/5 - FÜNFTER VORTRAG, Dornach, 19. April 1923\">GA306/5</a>. Was im schulpflichtigen Alter in den Menschen hineinfließt, **wirkt durch den Astralleib das ganze Leben hindurch nach**, da \"der Astralleib immer rückwirkend ist\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA306/5\" data-index=\"dm9b0k\" data-file-name=\"GA306/5 - FÜNFTER VORTRAG, Dornach, 19. April 1923\">GA306/5</a>.\n\n## Schlaf und die geistige Welt\n\nBeim **Einschlafen trennt sich der Astralleib** vom physischen und Ätherleib. \"Wenn nun der Mensch des Abends einschläft, so bleiben im Bette liegen physischer Leib und Ätherleib; heraus tritt der Astralleib mit all dem, was wir Empfindungsseele, Verstandes- oder Gemütsseele, Bewusstseinsseele nennen\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA058/5\" data-index=\"r0nbx1\" data-file-name=\"GA058/5 - V. DER MENSCHLICHE CHARAKTER, München, 14. März 1910\">GA058/5</a>. In diesem Zustand befindet sich \"Astralleib und Ich nun, in ihrer ganzen Wesenheit, während des Schlafzustandes in einer geistigen Welt\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA058/5\" data-index=\"r0nbx1\" data-file-name=\"GA058/5 - V. DER MENSCHLICHE CHARAKTER, München, 14. März 1910\">GA058/5</a>.\n\n## Die Entwicklung astraler Wahrnehmungsorgane\n\nNormalerweise **besitzt der Astralleib keine entwickelten Wahrnehmungsorgane**. \"Warum weiß der Mensch von diesem Leben in der geistigen Welt nichts? Weil er in seinem Astralleib keine Organe hat und alle seine Wahrnehmungen nur durch seine physischen Organe gemacht werden können\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA068b/10\" data-index=\"opcgro\" data-file-name=\"GA068b/10 - DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS, Breslau, 17. Dezember 1909\">GA068b/10</a>. \n\nDurch **geistige Schulung** können jedoch astrale Organe entwickelt werden: \"Hat aber der Astralleib sich Organe gebildet, so besitzt er dieselben auch im Schlaf. [...] so kann die Seele sich durch Übungen auch Organe schaffen, und einen Menschen mit solch höheren Organen nennen wir einen Seher\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA068b/10\" data-index=\"opcgro\" data-file-name=\"GA068b/10 - DAS GEHEIMNIS DES TODES ALS SCHLÜSSEL ZUM RÄTSEL DES LEBENS, Breslau, 17. Dezember 1909\">GA068b/10</a>.\n\n## Der Astralleib in der Erziehung und Charakterbildung\n\nFür die **Pädagogik** hat die Erkenntnis des Astralleibs fundamentale Bedeutung. \"Dasjenige, was in den Astralleib in diesem Lebensalter, von vierzehn bis einundzwanzig Jahren, in solcher Art hineingegossen wird, das kommt unmittelbar nachher der Empfindungsseele zugute\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA058/5\" data-index=\"bdwyn9\" data-file-name=\"GA058/5 - V. DER MENSCHLICHE CHARAKTER, München, 14. März 1910\">GA058/5</a>. Die **hohen Ideale und Begeisterung**, die in diesem Alter aufgenommen werden, prägen sich dem Charakter ein und wirken lebenslang nach.\n\n## Der Astralleib nach dem Tod\n\nBeim **Sterbeprozess** nimmt der Astralleib den Ätherleib mit sich: \"Doch nimmt er den Ätherleib durch die Pforte des Todes mit: Und jetzt kann, herausgezogen aus dem physischen Leib, der Astralleib mit dem Ich zusammen ein volles Bewusstsein entwickeln\" <a href=\"#\" class=\"ga-reference\" data-id=\"GA064/13\" data-index=\"n9kbbb\" data-file-name=\"GA064/13 - SCHLAF UND TOD VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 16. April 1915\">GA064/13</a>. Alle **Lebenserfahrungen und Taten** schreiben sich in den Astralleib ein und begleiten den Menschen über den Tod hinaus <a href=\"#\" class=\"ga-reference\" data-id=\"GA212/7\" data-index=\"z6r5lq\" data-file-name=\"GA212/7 - SIEBENTER VORTRAG, Dornach, 27. Mai 1922\">GA212/7</a>.",
+    "gaReferences": [
+      "GA053/2",
+      "GA309/3",
+      "GA212/7",
+      "GA069d/16",
+      "GA306/5",
+      "GA058/5",
+      "GA053/2",
+      "GA068b/52",
+      "GA054/5",
+      "GA053/2"
+    ]
   }
 ]
