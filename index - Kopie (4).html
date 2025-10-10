@@ -3,7 +3,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
-<title>GA Steiner Suche</title>
+<title>Steiner GA-Suche</title>
 <style>
     html, body { scroll-behavior: auto; }
     body {
@@ -1341,7 +1341,7 @@ body.dark-mode .loading-tooltip::before {
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
-<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">GA Steiner Suche</a></h1>
+<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner GA-Suche</a></h1>
 <label class="theme-switch">
 <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
 <span class="theme-slider"></span>
@@ -1464,6 +1464,10 @@ Original
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
+<!-- Lokal sichtbarer Button zum Neuerzeugen/Überschreiben einer Summary -->
+<button id="viewerRegenerateBtn" onclick="regenerateCurrentSummary()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+  Summary neu
+</button>
 </div>
 </div>
 <div id="viewer"></div>
@@ -1516,7 +1520,24 @@ Original
           const summaryDB = await response.json();
           return summaryDB[lectureId] || null;
         } else {
-          // Online: Lade dynamisch vom Render Backend
+          // ONLINE: Preferiere statische summary-database.json aus dem GitHub-Repo.
+          // Falls diese nicht verfügbar ist, fällt das System auf die frühere
+          // Methode zurück (API /api/check-summary/... auf dem Render-Backend).
+          try {
+            const external = await loadExternalSummaryDB();
+            if (external && external[lectureId]) {
+              const entry = external[lectureId];
+              return {
+                summary: entry.summary,
+                headings: entry.headings || [],
+                timestamp: entry.timestamp || new Date().toISOString()
+              };
+            }
+          } catch (e) {
+            console.warn('[SUMMARIES] Externe Summary-DB konnte nicht geladen werden, fallback auf API', e.message);
+          }
+
+          // Fallback: Online-API prüfen (bisherige Methode)
           const parts = lectureId.split('/');
           if (parts.length === 2) {
             const response = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
@@ -1565,31 +1586,66 @@ Original
 
     async function loadSummariesFromDB(data) {
       try {
-        // Nur lokal: Lade statische summary-database.json
-        if (!isLocal) {
-          console.log('Online-Modus: Überspringe statische DB, verwende API');
-          return;
-        }
-        
-        const response = await fetch(`${API_BASE}/summary-database.json`);
-        if (!response.ok) return;
-        
-        const summaryDB = await response.json();
+        // Versuche zuerst, die statische summary-database.json aus dem GitHub-Repo zu laden
         let loadedCount = 0;
-        
-        // Füge Summaries zu den Lectures hinzu
-        data.lectures.forEach(lecture => {
-          if (summaryDB[lecture.ID]) {
-            lecture.summary = summaryDB[lecture.ID].summary;
-            loadedCount++;
+        try {
+          const external = await loadExternalSummaryDB();
+          if (external) {
+            data.lectures.forEach(lecture => {
+              if (external[lecture.ID]) {
+                lecture.summary = external[lecture.ID].summary;
+                lecture.headings = external[lecture.ID].headings || [];
+                loadedCount++;
+              }
+            });
+            console.log(`[SUMMARIES] ${loadedCount} Summaries aus externer GitHub-DB geladen`);
+            // Wenn wir etwas geladen haben, sind wir fertig (keine weitere Aktion nötig)
+            if (loadedCount > 0) return;
           }
-        });
-        
-        console.log(`${loadedCount} Summaries aus zentraler DB geladen`);
+        } catch (extErr) {
+          console.warn('[SUMMARIES] Externe Summary-DB nicht verfügbar:', extErr.message);
+        }
+
+        // Fallback: wenn keine externe DB vorhanden oder keine Einträge, versuche lokale/static Datei
+        if (isLocal) {
+          const response = await fetch(`${API_BASE}/summary-database.json`);
+          if (response.ok) {
+            const summaryDB = await response.json();
+            summaryDB && data.lectures.forEach(lecture => {
+              if (summaryDB[lecture.ID]) {
+                lecture.summary = summaryDB[lecture.ID].summary;
+                lecture.headings = summaryDB[lecture.ID].headings || [];
+                loadedCount++;
+              }
+            });
+            console.log(`[SUMMARIES] ${loadedCount} Summaries aus lokaler summary-database.json geladen`);
+          }
+        } else {
+          console.log('Online-Modus: keine statische DB gefunden, verwende API-Fallback');
+        }
       } catch (error) {
         console.log('Zentrale Summary-DB nicht verfügbar:', error.message);
       }
     }
+
+  // Cache und Loader für externe (GitHub) summary-database.json
+  const GITHUB_RAW_SUMMARY_URL = 'https://raw.githubusercontent.com/cjhueck/ga_suche/main/summary-database.json';
+  let externalSummaryDBCache = null;
+
+  async function loadExternalSummaryDB() {
+    if (externalSummaryDBCache) return externalSummaryDBCache;
+    try {
+      const resp = await fetch(GITHUB_RAW_SUMMARY_URL);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const db = await resp.json();
+      externalSummaryDBCache = db;
+      console.log('[SUMMARIES] Externe summary-database.json geladen (GitHub)');
+      return db;
+    } catch (err) {
+      console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
+      return null;
+    }
+  }
 
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
@@ -2635,6 +2691,16 @@ function toggleGASummaries() {
   if (viewerSummaryBtn) {
     viewerSummaryBtn.style.display = 'inline-block';
   }
+
+  // Regenerate-Button nur lokal verfügbar
+  const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
+  if (viewerRegenerateBtn) {
+    if (currentLectureData && isLocal) {
+      viewerRegenerateBtn.style.display = 'inline-block';
+    } else {
+      viewerRegenerateBtn.style.display = 'none';
+    }
+  }
 }
 
 
@@ -3450,6 +3516,61 @@ setTimeout(() => {
         <strong>Fehler beim Laden des Vortrags:</strong><br>${error.message}
       </div>
     `;
+  }
+}
+
+// Neuerzeuge eine Summary für den aktuell geladenen Vortrag (nur lokal sichtbar/aktiv)
+async function regenerateCurrentSummary() {
+  if (!currentLectureData || !currentLectureData.ID) {
+    alert('Kein Vortrag geladen.');
+    return;
+  }
+  if (!confirm('Summary neu erzeugen und alte Version überschreiben?')) return;
+
+  const lectureId = currentLectureData.ID;
+  const regenBtn = document.getElementById('viewerRegenerateBtn');
+  try {
+    // UI: Spinner + Disable
+    if (regenBtn) {
+      regenBtn.disabled = true;
+      const spinner = document.createElement('span');
+      spinner.className = 'btn-spinner';
+      spinner.id = 'regen-spinner';
+      regenBtn.appendChild(spinner);
+    }
+
+    // Fordere Regeneration vom Backend an
+    const resp = await fetch(`${API_BASE}/api/summarize-lecture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
+    });
+
+    if (!resp.ok) throw new Error(`Server returned ${resp.status}`);
+    const data = await resp.json();
+
+    // Speichere das Ergebnis in der zentralen DB
+    const saveResp = await fetch(`${API_BASE}/api/save-summary`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lectureId: lectureId, summary: { summary: data.summary, headings: data.headings || [] } })
+    });
+
+    if (!saveResp.ok) throw new Error(`Speichern fehlgeschlagen: ${saveResp.status}`);
+
+    alert('Summary neu erzeugt und gespeichert.');
+    // Aktualisiere aktuelle Anzeige
+    currentLectureSummary = { summary: data.summary, headings: data.headings || [] };
+    displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+  } catch (err) {
+    console.error('Regenerate error:', err);
+    alert('Fehler beim Neuerzeugen der Summary: ' + err.message);
+  } finally {
+    if (regenBtn) {
+      regenBtn.disabled = false;
+      const spinner = document.getElementById('regen-spinner');
+      if (spinner) spinner.remove();
+    }
   }
 }
 
@@ -4540,6 +4661,23 @@ body.dark-mode .ga-keyword-link:hover {
   width: 0%;
   border-radius: 4px;
   transition: width 0.2s ease;
+}
+
+/* Spinner für Buttons */
+.btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(0,0,0,0.15);
+  border-top-color: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 #alphabet-nav .depth-btn {
