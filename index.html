@@ -3827,6 +3827,22 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (err) {
     console.error("[FEHLER] GA-Liste konnte nicht geladen werden:", err);
   }
+
+  // Register handlers to track last edited keyword input
+  try {
+    const word1El = document.getElementById('word1');
+    const word2El = document.getElementById('word2');
+    if (word1El) {
+      word1El.addEventListener('focus', () => { lastKeywordInputId = 'word1'; });
+      word1El.addEventListener('input', () => { lastKeywordInputId = 'word1'; });
+    }
+    if (word2El) {
+      word2El.addEventListener('focus', () => { lastKeywordInputId = 'word2'; });
+      word2El.addEventListener('input', () => { lastKeywordInputId = 'word2'; });
+    }
+  } catch (err) {
+    console.warn('[INIT] Konnte Keyword-Input-Listener nicht registrieren:', err);
+  }
 });
 </script>
 <script>
@@ -3918,6 +3934,8 @@ let keywordsData = [];
 let currentAlphabet = 'Alle';
 let filteredKeywords = [];
 let showKeywordTexts = true;
+// Track which keyword input was last edited/focused in the Stichwortsuche (Text-Suche) tab
+let lastKeywordInputId = null;
 
 // Globale Schlagwort-Funktionen
 async function initializeKeywordSystem() {
@@ -4344,6 +4362,26 @@ function switchTabExtended(mode) {
   // Initialisiere Schlagwort-System beim ersten Aufruf
   if (mode === 'schlagworte' && keywordsData.length === 0) {
     initializeKeywordSystem();
+  }
+
+  // Wenn wir zum Stichwort-Tab (Text-Suche) wechseln, lösche das zuletzt eingegebene Suchwort
+  if (mode === 'keyword' && lastKeywordInputId) {
+    try {
+      const el = document.getElementById(lastKeywordInputId);
+      if (el) {
+        el.value = '';
+        // Falls gewünscht, setze auch die datalist-Auswahl zurück
+        const listId = el.getAttribute('list');
+        if (listId) {
+          const list = document.getElementById(listId);
+          // keine direkte Auswahl nötig; nur ein Hinweis für Debug
+        }
+        lastKeywordInputId = null;
+        console.log('[TABS] Letztes Stichwort gelöscht:', lastKeywordInputId || '(cleared)');
+      }
+    } catch (err) {
+      console.warn('[TABS] Fehler beim Löschen des letzten Stichworts:', err);
+    }
   }
 }
 
