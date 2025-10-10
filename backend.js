@@ -1012,7 +1012,7 @@ Berücksichtige bei deiner Analyse verschiedene Perspektiven - wähle die releva
 - Vergleich mit anderen Inhalten (Verhältnis zu anderen Wesen, Naturreichen, Konzepten)
 - Entwicklung und Evolution (Entwicklungsprozesse, evolutionäre Aspekte)
 - Besonderheiten und Sonstiges
-- keine eigenen Bewertungen oder Interpretationen!
+- keine eigenen Bewertungen oder Interpretationen - !important
 
 STRUKTURIERUNG:
 - Erstelle eigene, thematisch passende Zwischenüberschriften (## Überschrift)
