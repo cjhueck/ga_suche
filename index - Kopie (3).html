@@ -1384,10 +1384,7 @@ body.dark-mode .loading-tooltip::before {
 <button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
 GA-Übersicht →
 </button>
-<div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
-  <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
-</div>
+<button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-left: auto; margin-bottom: 0;">Suche starten</button>
 </div>
 <span id="status" style="display:none"></span>
 <div id="searchInfo">
@@ -1435,11 +1432,9 @@ GA-Übersicht →
 <div id="keyword-count" style="font-size: 0.85em; color: #666;">
 Lade Schlagwörter...
 </div>
-  <div style="display:flex; gap:8px; align-items:center;">
-  <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
-    Texte ausblenden
-  </button>
-</div>
+<button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
+Texte ausblenden
+</button>
 </div>
 </div>
 </div>
@@ -3453,109 +3448,6 @@ setTimeout(() => {
   }
 }
 
-// Startet die Batch-Zusammenfassungs-Generation (UI-Wrapper)
-function startBatchSummaries() {
-  const gaNumber = document.getElementById('gaFilter')?.value;
-  if (!gaNumber) {
-    alert('Bitte wählen Sie zuerst eine GA-Nummer im Text-Suche Tab (Dropdown).');
-    return;
-  }
-
-  (async () => {
-    try {
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden (${resp.status})`);
-      const data = await resp.json();
-      const lectures = data.lectures || [];
-      // Filter: nur Vorträge ohne Summary
-      const noSummary = lectures.filter(l => !l.summary || l.summary.trim() === '');
-      if (noSummary.length === 0) {
-        alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
-        return;
-      }
-
-      if (!confirm(`Es werden ${noSummary.length} Vorträge ohne Zusammenfassung in ${gaNumber} erzeugt. Fortfahren?`)) {
-        return;
-      }
-
-      batchSummarizeGA(gaNumber);
-    } catch (err) {
-      alert('Fehler beim Prüfen der GA-Übersicht: ' + err.message);
-    }
-  })();
-}
-
-// Führt die Summarizer-Requests sequentiell aus und zeigt Fortschritt an
-async function batchSummarizeGA(gaNumber) {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = `
-    <div class="batch-progress" id="batch-progress-ui">
-      <div id="batch-status">Vorbereiten...</div>
-      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
-        <div class="bar" id="batch-progress-bar"></div>
-      </div>
-    </div>
-  `;
-
-  try {
-    const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-    if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
-    const data = await resp.json();
-    const lectures = data.lectures || [];
-    if (lectures.length === 0) {
-      resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
-      return;
-    }
-
-    const total = lectures.length;
-    let completed = 0;
-    let failed = 0;
-
-    for (const lecture of lectures) {
-      const lectureId = lecture.ID;
-      const statusEl = document.getElementById('batch-status');
-      const barEl = document.getElementById('batch-progress-bar');
-      if (statusEl) statusEl.textContent = `Verarbeite ${lectureId} (${completed + 1}/${total})`;
-
-      try {
-        const sResp = await fetch(`${API_BASE}/api/summarize-lecture`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
-        });
-
-        if (!sResp.ok) {
-          console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status);
-          failed += 1;
-        } else {
-          const sData = await sResp.json();
-          console.log('Summary erzeugt für', lectureId, sData);
-        }
-      } catch (err) {
-        console.warn('Exception beim Erzeugen der Summary für', lectureId, err);
-        failed += 1;
-      }
-
-      completed += 1;
-      const pct = Math.round((completed / total) * 100);
-      if (barEl) barEl.style.width = pct + '%';
-    }
-
-    const doneMsg = `Batch fertig. ${completed - failed} erfolgreich, ${failed} fehlgeschlagen.`;
-    const statusEl = document.getElementById('batch-status');
-    if (statusEl) statusEl.textContent = doneMsg;
-
-    // Aktualisiere die GA-Übersicht, damit neue Summaries sichtbar werden
-    setTimeout(() => {
-      openGAOverview(gaNumber);
-    }, 800);
-
-  } catch (err) {
-    console.error('Batch-Fehler:', err);
-    resultsContainer.innerHTML = `<div class="error-message"><strong>Batch-Fehler:</strong><br>${err.message}</div>`;
-  }
-}
-
     function buildTableOfContents() {
       const viewer = document.getElementById('viewer');
       const tocList = document.getElementById('toc-list');
@@ -4520,23 +4412,6 @@ body.dark-mode .ga-keyword-link {
 
 body.dark-mode .ga-keyword-link:hover {
   background: rgba(126, 184, 200, 0.25);
-}
-
-.batch-progress {
-  padding: 8px 12px;
-  background: #f4f7f8;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 0.9em;
-  color: #333;
-}
-
-.batch-progress .bar {
-  height: 8px;
-  background: #467886;
-  width: 0%;
-  border-radius: 4px;
-  transition: width 0.2s ease;
 }
 
 #alphabet-nav .depth-btn {
