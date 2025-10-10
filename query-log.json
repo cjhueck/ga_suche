@@ -213,9 +213,9 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "goethe": {
-    "count": 13,
+    "count": 14,
     "coOccurrences": {},
-    "lastUsed": "2025-10-09T05:38:39.421Z"
+    "lastUsed": "2025-10-10T17:21:55.003Z"
   },
   "lebenstableau": {
     "count": 5,
@@ -657,8 +657,9 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "ätherleib": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-10T16:44:30.485Z",
+    "lastUsed": "2025-10-10T17:03:26.135Z"
   },
   "unterschied zwischen ätherleib": {
     "count": 3,
@@ -671,5 +672,34 @@
   "zwischen ätherleib": {
     "count": 3,
     "last": "2025-10-10T16:44:30.485Z"
+  },
+  "goetheanismus": {
+    "count": 4,
+    "coOccurrences": {},
+    "lastUsed": "2025-10-10T17:29:53.079Z"
+  },
+  "dionysius areopagita": {
+    "count": 1,
+    "coOccurrences": {
+      "dionysius": 1,
+      "areopagita": 1
+    },
+    "lastUsed": "2025-10-10T17:56:05.313Z"
+  },
+  "dionysius": {
+    "count": 2,
+    "coOccurrences": {
+      "dionysius areopagita": 1,
+      "areopagita": 1
+    },
+    "lastUsed": "2025-10-10T17:56:41.340Z"
+  },
+  "areopagita": {
+    "count": 1,
+    "coOccurrences": {
+      "dionysius areopagita": 1,
+      "dionysius": 1
+    },
+    "lastUsed": "2025-10-10T17:56:05.313Z"
   }
 }
