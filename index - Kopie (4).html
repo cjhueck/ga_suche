@@ -1516,24 +1516,7 @@ Original
           const summaryDB = await response.json();
           return summaryDB[lectureId] || null;
         } else {
-          // ONLINE: Preferiere statische summary-database.json aus dem GitHub-Repo.
-          // Falls diese nicht verfügbar ist, fällt das System auf die frühere
-          // Methode zurück (API /api/check-summary/... auf dem Render-Backend).
-          try {
-            const external = await loadExternalSummaryDB();
-            if (external && external[lectureId]) {
-              const entry = external[lectureId];
-              return {
-                summary: entry.summary,
-                headings: entry.headings || [],
-                timestamp: entry.timestamp || new Date().toISOString()
-              };
-            }
-          } catch (e) {
-            console.warn('[SUMMARIES] Externe Summary-DB konnte nicht geladen werden, fallback auf API', e.message);
-          }
-
-          // Fallback: Online-API prüfen (bisherige Methode)
+          // Online: Lade dynamisch vom Render Backend
           const parts = lectureId.split('/');
           if (parts.length === 2) {
             const response = await fetch(`${API_BASE}/api/check-summary/${parts[0]}/${parts[1]}`);
@@ -1582,66 +1565,31 @@ Original
 
     async function loadSummariesFromDB(data) {
       try {
-        // Versuche zuerst, die statische summary-database.json aus dem GitHub-Repo zu laden
+        // Nur lokal: Lade statische summary-database.json
+        if (!isLocal) {
+          console.log('Online-Modus: Überspringe statische DB, verwende API');
+          return;
+        }
+        
+        const response = await fetch(`${API_BASE}/summary-database.json`);
+        if (!response.ok) return;
+        
+        const summaryDB = await response.json();
         let loadedCount = 0;
-        try {
-          const external = await loadExternalSummaryDB();
-          if (external) {
-            data.lectures.forEach(lecture => {
-              if (external[lecture.ID]) {
-                lecture.summary = external[lecture.ID].summary;
-                lecture.headings = external[lecture.ID].headings || [];
-                loadedCount++;
-              }
-            });
-            console.log(`[SUMMARIES] ${loadedCount} Summaries aus externer GitHub-DB geladen`);
-            // Wenn wir etwas geladen haben, sind wir fertig (keine weitere Aktion nötig)
-            if (loadedCount > 0) return;
+        
+        // Füge Summaries zu den Lectures hinzu
+        data.lectures.forEach(lecture => {
+          if (summaryDB[lecture.ID]) {
+            lecture.summary = summaryDB[lecture.ID].summary;
+            loadedCount++;
           }
-        } catch (extErr) {
-          console.warn('[SUMMARIES] Externe Summary-DB nicht verfügbar:', extErr.message);
-        }
-
-        // Fallback: wenn keine externe DB vorhanden oder keine Einträge, versuche lokale/static Datei
-        if (isLocal) {
-          const response = await fetch(`${API_BASE}/summary-database.json`);
-          if (response.ok) {
-            const summaryDB = await response.json();
-            summaryDB && data.lectures.forEach(lecture => {
-              if (summaryDB[lecture.ID]) {
-                lecture.summary = summaryDB[lecture.ID].summary;
-                lecture.headings = summaryDB[lecture.ID].headings || [];
-                loadedCount++;
-              }
-            });
-            console.log(`[SUMMARIES] ${loadedCount} Summaries aus lokaler summary-database.json geladen`);
-          }
-        } else {
-          console.log('Online-Modus: keine statische DB gefunden, verwende API-Fallback');
-        }
+        });
+        
+        console.log(`${loadedCount} Summaries aus zentraler DB geladen`);
       } catch (error) {
         console.log('Zentrale Summary-DB nicht verfügbar:', error.message);
       }
     }
-
-  // Cache und Loader für externe (GitHub) summary-database.json
-  const GITHUB_RAW_SUMMARY_URL = 'https://raw.githubusercontent.com/cjhueck/ga_suche/main/summary-database.json';
-  let externalSummaryDBCache = null;
-
-  async function loadExternalSummaryDB() {
-    if (externalSummaryDBCache) return externalSummaryDBCache;
-    try {
-      const resp = await fetch(GITHUB_RAW_SUMMARY_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const db = await resp.json();
-      externalSummaryDBCache = db;
-      console.log('[SUMMARIES] Externe summary-database.json geladen (GitHub)');
-      return db;
-    } catch (err) {
-      console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
-      return null;
-    }
-  }
 
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
