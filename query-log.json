@@ -223,7 +223,7 @@
     "lastUsed": "2025-10-06T23:12:05.293Z"
   },
   "steiner": {
-    "count": 6,
+    "count": 9,
     "coOccurrences": {
       "kant": 4,
       "francis bacon": 1,
@@ -231,9 +231,19 @@
       "bacon": 1,
       "jakob böhme": 1,
       "jakob": 1,
-      "böhme": 1
+      "böhme": 1,
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "astralleib": 1
     },
-    "lastUsed": "2025-10-09T05:26:32.964Z"
+    "lastUsed": "2025-10-10T13:35:06.628Z",
+    "last": "2025-10-10T13:52:48.537Z"
   },
   "kant": {
     "count": 4,
@@ -442,5 +452,144 @@
       "jakob": 1
     },
     "lastUsed": "2025-10-09T05:26:32.964Z"
+  },
+  "was sagt steiner": {
+    "count": 1,
+    "coOccurrences": {
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z"
+  },
+  "sagt steiner zum": {
+    "count": 1,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z"
+  },
+  "steiner zum astralleib": {
+    "count": 3,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z",
+    "last": "2025-10-10T13:52:48.537Z"
+  },
+  "was sagt": {
+    "count": 1,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z"
+  },
+  "sagt steiner": {
+    "count": 1,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z"
+  },
+  "steiner zum": {
+    "count": 3,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z",
+    "last": "2025-10-10T13:52:48.537Z"
+  },
+  "zum astralleib": {
+    "count": 3,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "sagt": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z",
+    "last": "2025-10-10T13:52:48.537Z"
+  },
+  "sagt": {
+    "count": 1,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "steiner": 1,
+      "astralleib": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z"
+  },
+  "astralleib": {
+    "count": 3,
+    "coOccurrences": {
+      "was sagt steiner": 1,
+      "sagt steiner zum": 1,
+      "steiner zum astralleib": 1,
+      "was sagt": 1,
+      "sagt steiner": 1,
+      "steiner zum": 1,
+      "zum astralleib": 1,
+      "sagt": 1,
+      "steiner": 1
+    },
+    "lastUsed": "2025-10-10T13:35:06.628Z",
+    "last": "2025-10-10T13:52:48.537Z"
   }
 }
