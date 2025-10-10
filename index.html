@@ -2559,7 +2559,8 @@ function toggleGASummaries() {
       
       const button = document.getElementById('thematicSearchBtn');
       
-      try {
+  setUILocked(true);
+  try {
         button.disabled = true;
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
@@ -2601,6 +2602,7 @@ function toggleGASummaries() {
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
+        setUILocked(false);
       }
     }
 

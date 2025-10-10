@@ -1967,5 +1967,96 @@
       }
     ],
     "timestamp": "2025-10-09T20:24:54.219Z"
+  },
+  "GA051/6": {
+    "summary": "Rudolf Steiner behandelt die Völkerwanderung des 5. Jahrhunderts und ihre kulturgeschichtlichen Folgen. Er kontrastiert das Schicksal verschiedener germanischer Stämme: Während Westgoten, Ostgoten und Vandalen in bereits kultivierte römische Gebiete eindrangen und dort schnell wieder verschwanden, konnten sich die Franken in den noch unerschlossenen Wäldern Galliens dauerhaft etablieren. Durch günstige wirtschaftliche Bedingungen entstand im Frankenreich ein freies Christentum, das durch keltische Mönche bereichert wurde. Das Lehnswesen bildete sich natürlich aus Schutzverhältnissen heraus. Steiner zeigt, wie geistige Strömungen dort gedeihen, wo sie unabhängig von materiellen Zwängen sind, und wie später das Auseinanderfallen von geistiger und wirtschaftlicher Kultur zur Entstehung der Städte führte.",
+    "headings": [
+      {
+        "index": "^ra3ks8",
+        "text": "Die germanischen Stämme vor der Völkerwanderung",
+        "level": "h3"
+      },
+      {
+        "index": "^ra3ks8",
+        "text": "Kulturelle und religiöse Verhältnisse der Germanen",
+        "level": "h4"
+      },
+      {
+        "index": "^5p3g07",
+        "text": "Der Zusammenstoß mit der römischen Kultur",
+        "level": "h4"
+      },
+      {
+        "index": "^sfsfz1",
+        "text": "Der Einfall der Hunnen und die große Völkerwanderung",
+        "level": "h3"
+      },
+      {
+        "index": "^sfsfz1",
+        "text": "Die Verdrängung der germanischen Stämme",
+        "level": "h4"
+      },
+      {
+        "index": "^9f3dz0",
+        "text": "Verschiedene Eroberungsstrategien und ihre Folgen",
+        "level": "h4"
+      },
+      {
+        "index": "^73oyny",
+        "text": "Das Frankenreich als dauerhafte Macht",
+        "level": "h3"
+      },
+      {
+        "index": "^snwle0",
+        "text": "Die besonderen Verhältnisse in Gallien",
+        "level": "h4"
+      },
+      {
+        "index": "^git2uc",
+        "text": "Die Entstehung des Lehnswesens",
+        "level": "h4"
+      },
+      {
+        "index": "^3qava7",
+        "text": "Die Entwicklung des freien Christentums",
+        "level": "h3"
+      },
+      {
+        "index": "^j320p4",
+        "text": "Christentum unter verschiedenen Bedingungen",
+        "level": "h4"
+      },
+      {
+        "index": "^a3us10",
+        "text": "Der Einfluss der keltischen Gelehrten",
+        "level": "h4"
+      },
+      {
+        "index": "^klqsev",
+        "text": "Die Hunnenschlachten und ihre Bedeutung",
+        "level": "h3"
+      },
+      {
+        "index": "^nw2j4d",
+        "text": "Die katalaunischen Felder und Leo der Große",
+        "level": "h4"
+      },
+      {
+        "index": "^crt7j2",
+        "text": "Spätere Entwicklung: Widersprüche und Städtebildung",
+        "level": "h3"
+      },
+      {
+        "index": "^yyl5y2",
+        "text": "Das Auseinanderfallen von geistiger und materieller Kultur",
+        "level": "h4"
+      },
+      {
+        "index": "^a5c7r9",
+        "text": "Die historische Bedeutung der Völkerwanderung",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-10T14:23:19.376Z"
   }
 }

@@ -223,7 +223,7 @@
     "lastUsed": "2025-10-06T23:12:05.293Z"
   },
   "steiner": {
-    "count": 9,
+    "count": 16,
     "coOccurrences": {
       "kant": 4,
       "francis bacon": 1,
@@ -243,7 +243,7 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T13:52:48.537Z"
+    "last": "2025-10-10T14:23:53.051Z"
   },
   "kant": {
     "count": 4,
@@ -484,7 +484,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "steiner zum astralleib": {
-    "count": 3,
+    "count": 9,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -497,7 +497,7 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T13:52:48.537Z"
+    "last": "2025-10-10T14:23:53.051Z"
   },
   "was sagt": {
     "count": 1,
@@ -530,7 +530,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "steiner zum": {
-    "count": 3,
+    "count": 9,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -543,10 +543,10 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T13:52:48.537Z"
+    "last": "2025-10-10T14:23:53.051Z"
   },
   "zum astralleib": {
-    "count": 3,
+    "count": 9,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -559,7 +559,7 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T13:52:48.537Z"
+    "last": "2025-10-10T14:23:53.051Z"
   },
   "sagt": {
     "count": 1,
@@ -577,7 +577,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "astralleib": {
-    "count": 3,
+    "count": 10,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -590,6 +590,38 @@
       "steiner": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T13:52:48.537Z"
+    "last": "2025-10-10T14:23:53.051Z"
+  },
+  "wie charakterisiert steiner": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "charakterisiert steiner den": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "steiner den astralleib": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "wie charakterisiert": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "charakterisiert steiner": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "steiner den": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "den astralleib": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
+  },
+  "charakterisiert": {
+    "count": 1,
+    "last": "2025-10-10T14:20:38.670Z"
   }
 }
