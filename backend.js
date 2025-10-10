@@ -1524,14 +1524,43 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       return res.status(400).json({ error: 'Query erforderlich' });
     }
     
+    // Cache-Schlüssel generieren
+    const cacheKey = generateThematicCacheKey(query, depth, limit);
+    
+    // Prüfe Cache zuerst
+    const thematicDB = await loadThematicSearchDatabase();
+    if (thematicDB[cacheKey]) {
+      console.log(`[THEMATIC-CACHE] Cache-Hit für: "${query}" (${depth}, ${limit})`);
+      const cachedResult = thematicDB[cacheKey];
+      return res.json({
+        ...cachedResult,
+        fromCache: true,
+        cacheTimestamp: cachedResult.timestamp
+      });
+    }
+    
+    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (${depth}, ${limit})`);
+    
     const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
     
     if (keywordResults.length === 0) {
-      return res.json({
+      const emptyResult = {
         query: query,
         content: 'Keine relevanten Textstellen gefunden.',
-        sources: []
-      });
+        sources: [],
+        searchMethod: 'hybrid-thematic-unified',
+        totalMatches: 0,
+        llmUsed: false
+      };
+      
+      // Auch leere Ergebnisse cachen (um wiederholte Suchen zu vermeiden)
+      thematicDB[cacheKey] = {
+        ...emptyResult,
+        timestamp: new Date().toISOString()
+      };
+      await saveThematicSearchDatabase(thematicDB);
+      
+      return res.json(emptyResult);
     }
     
     const rankedResults = applySemanticRanking(keywordResults, query);
@@ -1542,7 +1571,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     
     const analysis = await generateAnalysis(query, topResults, depth);
     
-    res.json({
+    const searchResult = {
       query: query,
       content: analysis,
       sources: topResults.slice(0, 10).map(result => ({
@@ -1556,7 +1585,22 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       searchMethod: 'hybrid-thematic-unified',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
+    };
+    
+    // Speichere Ergebnis im Cache
+    thematicDB[cacheKey] = {
+      ...searchResult,
+      timestamp: new Date().toISOString()
+    };
+    
+    // Speichere Cache-DB (non-blocking)
+    saveThematicSearchDatabase(thematicDB).then(() => {
+      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (${depth}, ${limit})`);
+    }).catch(err => {
+      console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
     });
+    
+    res.json(searchResult);
     
   } catch (error) {
     console.error('Thematische Suche Fehler:', error);
@@ -1971,6 +2015,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 // ============================================================================
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
+const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
@@ -2042,6 +2087,50 @@ app.get('/summary-database.json', async (req, res) => {
 });
 
 // ============================================================================
+// THEMENSUCHEN-CACHE-DATENBANK
+// ============================================================================
+
+// Lade Themensuchen-Cache-Datenbank
+async function loadThematicSearchDatabase() {
+  try {
+    const data = await fs.readFile(THEMATIC_SEARCH_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Themensuchen-Cache-DB nicht gefunden, erstelle neue...');
+    return {};
+  }
+}
+
+// Speichere Themensuchen-Cache-Datenbank
+async function saveThematicSearchDatabase(thematicDB) {
+  try {
+    await fs.writeFile(THEMATIC_SEARCH_DB_FILE, JSON.stringify(thematicDB, null, 2), 'utf8');
+    console.log('Themensuchen-Cache-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Themensuchen-Cache-DB:', error);
+    return false;
+  }
+}
+
+// Generiere Cache-Schlüssel für Themensuche
+function generateThematicCacheKey(query, depth, limit) {
+  const normalizedQuery = query.toLowerCase().trim();
+  return `${normalizedQuery}|${depth}|${limit}`;
+}
+
+// API: Themensuchen-Cache bereitstellen
+app.get('/thematic-search-database.json', async (req, res) => {
+  try {
+    const thematicDB = await loadThematicSearchDatabase();
+    res.json(thematicDB);
+  } catch (error) {
+    console.error('Fehler beim Laden der Themensuchen-Cache-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // SERVER START
 // ============================================================================
 
@@ -2072,12 +2161,17 @@ Object.values(fullLectures).forEach(lecture => {
 console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     await loadQueryLog();
     
+    // Lade Themensuchen-Cache-DB
+    const thematicDB = await loadThematicSearchDatabase();
+    console.log(`Themensuchen-Cache geladen: ${Object.keys(thematicDB).length} Einträge`);
+    
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
+    console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
     console.log('========================================');
     
     app.listen(PORT, () => {
@@ -2099,6 +2193,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`   POST /api/save-summary`);
       console.log(`   GET  /summary-database.json`);
+      console.log(`   GET  /thematic-search-database.json`);
       console.log(`\n✓ System bereit!\n`);
     });
     
