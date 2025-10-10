@@ -577,7 +577,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "astralleib": {
-    "count": 10,
+    "count": 15,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -590,7 +590,7 @@
       "steiner": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T14:23:53.051Z"
+    "last": "2025-10-10T16:44:30.485Z"
   },
   "wie charakterisiert steiner": {
     "count": 1,
@@ -623,5 +623,53 @@
   "charakterisiert": {
     "count": 1,
     "last": "2025-10-10T14:20:38.670Z"
+  },
+  "unterschied von ätherleib": {
+    "count": 2,
+    "last": "2025-10-10T15:24:45.526Z"
+  },
+  "ätherleib und astralleib": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "der unterschied": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "unterschied von": {
+    "count": 2,
+    "last": "2025-10-10T15:24:45.526Z"
+  },
+  "von ätherleib": {
+    "count": 2,
+    "last": "2025-10-10T15:24:45.526Z"
+  },
+  "ätherleib und": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "und astralleib": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "unterschied": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "ätherleib": {
+    "count": 5,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "unterschied zwischen ätherleib": {
+    "count": 3,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "unterschied zwischen": {
+    "count": 3,
+    "last": "2025-10-10T16:44:30.485Z"
+  },
+  "zwischen ätherleib": {
+    "count": 3,
+    "last": "2025-10-10T16:44:30.485Z"
   }
 }

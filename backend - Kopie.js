@@ -28,6 +28,74 @@ let gaOverviewCache = {};
 let queryLog = {}; // NEU: Für Query-Tracking
 let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
+// Hilfsfunktion: Synonym-Expansion
+function expandSynonyms(query) {
+  const words = query.toLowerCase().split(/\W+/);
+  let expanded = new Set(words);
+  for (const word of words) {
+    if (synonyms[word]) {
+      synonyms[word].forEach(syn => expanded.add(syn));
+    }
+  }
+  return Array.from(expanded);
+}
+
+// Hilfsfunktion: Levenshtein-Distanz
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+// Hilfsfunktion: Keyword-Overlap
+function keywordOverlap(a, b) {
+  const wa = new Set(a.toLowerCase().split(/\W+/));
+  const wb = new Set(b.toLowerCase().split(/\W+/));
+  let overlap = 0;
+  wa.forEach(w => { if (wb.has(w)) overlap++; });
+  return overlap / Math.max(wa.size, wb.size);
+}
+
+// Hybrid-Cache-Suche
+function findHybridCacheHit(query, depth, limit, thematicDB) {
+  const expanded = expandSynonyms(query);
+  let bestKey = null;
+  let bestScore = 0;
+  for (const key of Object.keys(thematicDB)) {
+    const [cachedQuery, cachedDepth, cachedLimit] = key.split('|');
+    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit)) continue;
+    // 1. Exact Match
+    if (cachedQuery === query.toLowerCase().trim()) return { key, score: 1.0 };
+    // 2. Synonym/Stemming
+    if (expanded.includes(cachedQuery)) return { key, score: 0.95 };
+    // 3. String-Similarity
+    const levDist = levenshtein(query.toLowerCase().trim(), cachedQuery);
+    const levScore = 1 - levDist / Math.max(query.length, cachedQuery.length);
+    // 4. Keyword-Overlap
+    const overlapScore = keywordOverlap(query, cachedQuery);
+    // Kombiniere Scores
+    const score = Math.max(levScore, overlapScore);
+    if (score > bestScore) {
+      bestScore = score;
+      bestKey = key;
+    }
+  }
+  if (bestScore > 0.8) return { key: bestKey, score: bestScore };
+  return null;
+}
+
 // Hilfsfunktion für case-insensitive Zugriff auf GA-Overview-Cache
 function findGAOverviewKey(requestedKey) {
   const keys = Object.keys(gaOverviewCache);
@@ -358,30 +426,20 @@ async function generateGAOverview(gaNumber) {
 
 function trackQueryTerms(query, resultCount) {
   if (resultCount === 0) return;
-  
+
   const terms = extractKeyTerms(query);
-  
+
   terms.forEach(term => {
     if (!queryLog[term]) {
       queryLog[term] = {
         count: 0,
-        coOccurrences: {},
-        lastUsed: new Date().toISOString()
+        last: new Date().toISOString()
       };
     }
     queryLog[term].count++;
-    queryLog[term].lastUsed = new Date().toISOString();
-    
-    terms.forEach(otherTerm => {
-      if (term !== otherTerm) {
-        if (!queryLog[term].coOccurrences[otherTerm]) {
-          queryLog[term].coOccurrences[otherTerm] = 0;
-        }
-        queryLog[term].coOccurrences[otherTerm]++;
-      }
-    });
+    queryLog[term].last = new Date().toISOString();
   });
-  
+
   const totalQueries = Object.values(queryLog).reduce((sum, entry) => sum + entry.count, 0);
   if (totalQueries % 10 === 0) {
     saveQueryLog();
@@ -1089,18 +1147,18 @@ function addClickableReferences(text, results) {
   results.forEach(result => {
     if (result.ID && result.index) {
       const cleanIndex = result.index.replace(/^\^/, '');
-      
+
       const key1 = `${result.ID}:${result.index}`;
       const key2 = `${result.ID}:${cleanIndex}`;
-      
+
       const mapping = {
         id: result.ID,
-        index: cleanIndex,
+        index: result.index, // Original mit Caret bleibt im Mapping
         title: result.title,
         fileName: result.fileName,
         content: result.content
       };
-      
+
       refToDataMapping[key1] = mapping;
       refToDataMapping[key2] = mapping;
     }
@@ -1147,12 +1205,14 @@ function addClickableReferences(text, results) {
     
     if (chunkData) {
       const [idPart] = matchInfo.fullRef.split(':');
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
-      
+      // Nur für das data-index Attribut das Caret entfernen
+      const cleanIndex = chunkData.index.replace(/^\^/, '');
+      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
+
       linkedText = linkedText.substring(0, matchInfo.position) + 
                    replacement + 
                    linkedText.substring(matchInfo.position + matchInfo.fullMatch.length);
-      
+
       linksCreated++;
     } else {
       console.warn(`Keine Daten für ${matchInfo.fullRef}`);
@@ -1520,126 +1580,31 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
     const { query, depth = 'allgemein', limit = 30 } = req.body;
     
-    if (!query) {
-      return res.status(400).json({ error: 'Query erforderlich' });
-    }
-    
-    const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
-    
-    if (keywordResults.length === 0) {
-      return res.json({
-        query: query,
-        content: 'Keine relevanten Textstellen gefunden.',
-        sources: []
-      });
-    }
-    
-    const rankedResults = applySemanticRanking(keywordResults, query);
-    const topResults = rankedResults.slice(0, limit);
-    
+    // Nur neue Suche, kein Cache-Rückgriff und keine Speicherung
+    console.log(`[THEMATIC-SEARCH] Starte neue Suche für: "${query}" (${depth}, ${limit})`);
+    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
+
+    // Ranking und Limitierung nach thematischen Kriterien
+    let rankedResults = applySemanticRanking(keywordResults, query);
+    let topResults = rankedResults.slice(0, limit);
+
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
-    
-    const analysis = await generateAnalysis(query, topResults, depth);
-    
-    res.json({
+
+    let analysis = await generateAnalysis(query, topResults, depth);
+
+    let searchResult = {
       query: query,
       content: analysis,
-      sources: topResults.slice(0, 10).map(result => ({
-        ID: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore),
-        matchedTerms: result.matchedTerms
-      })),
+      sources: topResults.slice(0, 10),
       searchMethod: 'hybrid-thematic-unified',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
-    });
-    
-  } catch (error) {
-    console.error('Thematische Suche Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
+    };
 
-app.get('/api/full-lecture/:lectureId', (req, res) => {
-  try {
-    const lectureId = req.params.lectureId;
-    
-    console.log(`Vortrag-Anfrage: ${lectureId}`);
-    
-    const lectureIdLower = lectureId.toLowerCase();
-    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
-    
-    if (!lecture) {
-      const foundKey = Object.keys(fullLectures).find(key => 
-        key.toLowerCase() === lectureIdLower
-      );
-      if (foundKey) {
-        lecture = fullLectures[foundKey];
-      }
-    }
-    
-    if (!lecture) {
-      console.error(`   Nicht gefunden: ${lectureId}`);
-      return res.status(404).json({ 
-        error: `Vortrag nicht gefunden: ${lectureId}`,
-        available: Object.keys(fullLectures).slice(0, 10)
-      });
-    }
-    
-    console.log(`   Gefunden: ${lectureId}`);
-    
-    res.json({
-      lecture: lecture,
-      paragraphCount: lecture.paragraphs?.length || 0,
-      hasIndices: lecture.paragraphs?.some(p => p.index) || false
-    });
-    
+    return res.json(searchResult);
   } catch (error) {
-    console.error('Vortrag-Abruf Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
-  try {
-    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
-    
-    console.log(`Vortrag-Anfrage: ${lectureId}`);
-    
-    const lectureIdLower = lectureId.toLowerCase();
-    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
-    
-    if (!lecture) {
-      const foundKey = Object.keys(fullLectures).find(key => 
-        key.toLowerCase() === lectureIdLower
-      );
-      if (foundKey) {
-        lecture = fullLectures[foundKey];
-      }
-    }
-    
-    if (!lecture) {
-      console.error(`   Nicht gefunden: ${lectureId}`);
-      return res.status(404).json({ 
-        error: `Vortrag nicht gefunden: ${lectureId}`,
-        available: Object.keys(fullLectures).filter(k => k.startsWith(req.params.gaNumber)).slice(0, 10)
-      });
-    }
-    
-    console.log(`   Gefunden: ${lectureId}`);
-    
-    res.json({
-      lecture: lecture,
-      paragraphCount: lecture.paragraphs?.length || 0,
-      hasIndices: lecture.paragraphs?.some(p => p.index) || false
-    });
-    
-  } catch (error) {
-    console.error('Vortrag-Abruf Fehler:', error);
+    console.error('Hybrid-thematic-Search Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -1840,44 +1805,42 @@ app.get('/api/keywords-list', async (req, res) => {
     const keywordsPath = path.join(__dirname, 'keywords');
     let allKeywords = [];
     
+    // Versuche zuerst zentrale keywords.json im Hauptordner zu laden
     try {
-      // Lese alle .json Dateien im keywords/ Ordner
-      const files = await fs.readdir(keywordsPath);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
-      
-      for (const fileName of jsonFiles) {
-        try {
-          const filePath = path.join(keywordsPath, fileName);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          const data = JSON.parse(fileContent);
-          
-          // Konvertiere in einheitliches Format
-          if (data.keywords && data.text) {
-            const keywordEntry = {
-              keyword: data.keywords.Keyword || 'Unbekannt',
-              alphabetical: data.keywords.Alphabetical || data.keywords.Keyword?.charAt(0).toUpperCase() || 'U',
-              text: data.text,
-              gaReferences: extractGAReferencesFromText(data.text)
-            };
-            
-            allKeywords.push(keywordEntry);
-          }
-        } catch (error) {
-          console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
-        }
+      const filePath = path.join(__dirname, 'keywords.json');
+      const fileContent = await fs.readFile(filePath, 'utf8');
+      const data = JSON.parse(fileContent);
+      if (Array.isArray(data)) {
+        allKeywords = allKeywords.concat(data);
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords.json geladen`);
       }
-      
-      console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter erfolgreich geladen`);
-      
     } catch (error) {
-      console.log('[KEYWORDS-API] keywords/ Ordner nicht gefunden, verwende Fallback');
+      console.warn('[KEYWORDS-API] Keine zentrale keywords.json gefunden:', error.message);
+      // Fallback: Lese alle .json Dateien im keywords/ Ordner
+      try {
+        const files = await fs.readdir(keywordsPath);
+        const jsonFiles = files.filter(file => file.endsWith('.json'));
+        for (const fileName of jsonFiles) {
+          try {
+            const filePath = path.join(keywordsPath, fileName);
+            const fileContent = await fs.readFile(filePath, 'utf8');
+            const data = JSON.parse(fileContent);
+            if (Array.isArray(data)) {
+              allKeywords = allKeywords.concat(data);
+            }
+          } catch (error) {
+            console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
+          }
+        }
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords/-Ordner geladen`);
+      } catch (error) {
+        console.warn('[KEYWORDS-API] keywords/ Ordner nicht gefunden:', error.message);
+      }
     }
-    
     res.json({ 
       keywords: allKeywords,
       count: allKeywords.length 
     });
-    
   } catch (error) {
     console.error('[KEYWORDS-API] Fehler beim Laden der Schlagwörter:', error);
     res.status(500).json({ 
@@ -1911,7 +1874,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     .sort((a, b) => b[1].count - a[1].count)
     .slice(0, 20)
     .map(([term, data]) => ({ term, count: data.count }));
-  
+
   res.json({
     synonymCount: Object.keys(synonyms).length,
     queryLogSize: Object.keys(queryLog).length,
@@ -1919,51 +1882,53 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     lastUpdate: lastSynonymUpdate,
     topQueries: topQueries
   });
-  app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
+});
+
+// Route aus Verschachtelung herausgelöst
+app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
   try {
     console.log('\n========================================');
     console.log('LÖSCHE UNVOLLSTÄNDIGE ZUSAMMENFASSUNGEN');
     console.log('========================================');
-    
+
     let deletedCount = 0;
     const toDelete = [];
-    
+
     // Prüfe zentrale DB auf unvollständige Summaries
     const summaryDB = await loadSummaryDatabase();
     Object.entries(summaryDB).forEach(([lectureId, summary]) => {
       const headings = summary.headings || [];
       const h3Count = headings.filter(h => h.level === 'h3').length;
-      
+
       // Lösche wenn keine Headings oder keine H3
       if (headings.length === 0 || h3Count === 0) {
         toDelete.push(lectureId);
         console.log(`  Markiere ${lectureId} (${headings.length} headings, ${h3Count} H3)`);
       }
     });
-    
+
     // Lösche aus zentraler DB
     toDelete.forEach(id => {
       delete summaryDB[id];
       deletedCount++;
     });
     await saveSummaryDatabase(summaryDB);
-    
+
     console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
-    
+
     console.log(`✓ ${deletedCount} unvollständige Zusammenfassungen gelöscht`);
     console.log('========================================\n');
-    
+
     res.json({
       success: true,
       deletedCount: deletedCount,
       deletedIds: toDelete
     });
-    
+
   } catch (error) {
     console.error('Fehler:', error);
     res.status(500).json({ error: error.message });
   }
-});
 });
 
 // ============================================================================
@@ -1971,6 +1936,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 // ============================================================================
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
+const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
@@ -2042,9 +2008,84 @@ app.get('/summary-database.json', async (req, res) => {
 });
 
 // ============================================================================
+// THEMENSUCHEN-CACHE-DATENBANK
+// ============================================================================
+
+// Lade Themensuchen-Cache-Datenbank
+async function loadThematicSearchDatabase() {
+  try {
+    const data = await fs.readFile(THEMATIC_SEARCH_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Themensuchen-Cache-DB nicht gefunden, erstelle neue...');
+    return {};
+  }
+}
+
+// Speichere Themensuchen-Cache-Datenbank
+async function saveThematicSearchDatabase(thematicDB) {
+  try {
+    await fs.writeFile(THEMATIC_SEARCH_DB_FILE, JSON.stringify(thematicDB, null, 2), 'utf8');
+    console.log('Themensuchen-Cache-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Themensuchen-Cache-DB:', error);
+    return false;
+  }
+}
+
+// Generiere Cache-Schlüssel für Themensuche
+function generateThematicCacheKey(query, depth, limit) {
+  const normalizedQuery = query.toLowerCase().trim();
+  return `${normalizedQuery}|${depth}|${limit}`;
+}
+
+// API: Themensuchen-Cache bereitstellen
+app.get('/thematic-search-database.json', async (req, res) => {
+  try {
+    const thematicDB = await loadThematicSearchDatabase();
+    res.json(thematicDB);
+  } catch (error) {
+    console.error('Fehler beim Laden der Themensuchen-Cache-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // SERVER START
 // ============================================================================
 
+// API: Vollständigen Vortrag nach GA-Nummer und Vortragsnummer bereitstellen
+app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
+  try {
+    const { gaNumber, lectureNum } = req.params;
+    // Compose lecture ID as used in fullLectures
+    const lectureId = `${gaNumber}/${lectureNum}`;
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+  res.json({ lecture });
+  } catch (error) {
+    console.error('Fehler beim Laden des Vortrags:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Vollständigen Vortrag nach lectureId bereitstellen (Kompatibilität)
+app.get('/api/full-lecture/:lectureId', async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+  res.json({ lecture });
+  } catch (error) {
+    console.error('Fehler beim Laden des Vortrags:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 async function startServer() {
   try {
     console.log('\n========================================');
@@ -2072,12 +2113,17 @@ Object.values(fullLectures).forEach(lecture => {
 console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     await loadQueryLog();
     
+    // Lade Themensuchen-Cache-DB
+    const thematicDB = await loadThematicSearchDatabase();
+    console.log(`Themensuchen-Cache geladen: ${Object.keys(thematicDB).length} Einträge`);
+    
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
+    console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
     console.log('========================================');
     
     app.listen(PORT, () => {
@@ -2099,6 +2145,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`   POST /api/save-summary`);
       console.log(`   GET  /summary-database.json`);
+      console.log(`   GET  /thematic-search-database.json`);
       console.log(`\n✓ System bereit!\n`);
     });
     
