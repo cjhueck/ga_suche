@@ -4295,46 +4295,11 @@ function switchTabExtended(mode) {
     console.warn('[TABS] Button nicht gefunden für:', mode);
   }
   
-  // Finde aktuell aktiven Tab-Inhalt und lösche dessen dynamischen Inhalt,
-  // bevor wir den neuen Tab aktivieren. So bleiben keine Reste zurück.
-  const prevActive = document.querySelector('.tab-content.active');
-  const targetId = `${mode}-tab`;
-  if (prevActive && prevActive.id !== targetId) {
-    try {
-      // Statt den gesamten Tab zu löschen (was die Header/Controls entfernt),
-      // nur die eigentlichen Ergebnis-/Dynamik-Container leeren.
-      // 1) Zentrale Ergebnis-Container (gemeinsam genutzter Bereich)
-      const resultsEl = document.getElementById('results');
-      if (resultsEl) {
-        resultsEl.innerHTML = '';
-        console.log('[TABS] Ergebnisse im #results-Bereich geleert');
-      }
-
-      // 2) Spezifische dynamische Bereiche innerhalb des Tabs (falls vorhanden)
-      // Entwickler können künftig Elemente mit diesen Klassen ausstatten,
-      // um gezielt geleert zu werden beim Tab-Wechsel.
-      const dynamicSelectors = ['.clear-on-switch', '.tab-dynamic'];
-      dynamicSelectors.forEach(sel => {
-        const elems = prevActive.querySelectorAll(sel);
-        elems.forEach(el => {
-          el.innerHTML = '';
-        });
-      });
-
-      // Setze ggf. die Scroll-Position der Sidebar zurück
-      const sidebarContent = document.getElementById('sidebar-content');
-      if (sidebarContent) sidebarContent.scrollTop = 0;
-      console.log('[TABS] Vorheriger Tab-dynamik geleert:', prevActive.id);
-    } catch (err) {
-      console.warn('[TABS] Fehler beim Leeren des vorherigen Tab-Inhalts:', err);
-    }
-  }
-
   // Alle Tab-Inhalte verstecken
   document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
+  
   // Gewünschten Tab-Inhalt anzeigen
-  const targetContent = document.getElementById(targetId);
+  const targetContent = document.getElementById(`${mode}-tab`);
   if (targetContent) {
     targetContent.classList.add('active');
   } else {
