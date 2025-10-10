@@ -1583,18 +1583,12 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Konsolidierte Hybrid-Cache-Logik
     const cacheKey = generateThematicCacheKey(query, depth, limit);
     const thematicDB = await loadThematicSearchDatabase();
-    // Hybrid-Cache-Logik zuerst prüfen
+    // Hybrid-Cache-Logik: Hole Quellen aus Cache, aber generiere Antwort immer neu
     const hybridHit = findHybridCacheHit(query, depth, limit, thematicDB);
+    let cachedSources = [];
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
       console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (${depth}, ${limit}) | Score: ${hybridHit.score}`);
-      const cachedResult = thematicDB[hybridHit.key];
-      return res.json({
-        ...cachedResult,
-        fromCache: true,
-        cacheScore: hybridHit.score,
-        cacheKey: hybridHit.key,
-        cacheTimestamp: cachedResult.timestamp
-      });
+      cachedSources = thematicDB[hybridHit.key].sources || [];
     }
 
     // Kein Cache-Hit: Neue Suche
@@ -1859,44 +1853,42 @@ app.get('/api/keywords-list', async (req, res) => {
     const keywordsPath = path.join(__dirname, 'keywords');
     let allKeywords = [];
     
+    // Versuche zuerst zentrale keywords.json im Hauptordner zu laden
     try {
-      // Lese alle .json Dateien im keywords/ Ordner
-      const files = await fs.readdir(keywordsPath);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
-      
-      for (const fileName of jsonFiles) {
-        try {
-          const filePath = path.join(keywordsPath, fileName);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          const data = JSON.parse(fileContent);
-          
-          // Konvertiere in einheitliches Format
-          if (data.keywords && data.text) {
-            const keywordEntry = {
-              keyword: data.keywords.Keyword || 'Unbekannt',
-              alphabetical: data.keywords.Alphabetical || data.keywords.Keyword?.charAt(0).toUpperCase() || 'U',
-              text: data.text,
-              gaReferences: extractGAReferencesFromText(data.text)
-            };
-            
-            allKeywords.push(keywordEntry);
-          }
-        } catch (error) {
-          console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
-        }
+      const filePath = path.join(__dirname, 'keywords.json');
+      const fileContent = await fs.readFile(filePath, 'utf8');
+      const data = JSON.parse(fileContent);
+      if (Array.isArray(data)) {
+        allKeywords = allKeywords.concat(data);
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords.json geladen`);
       }
-      
-      console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter erfolgreich geladen`);
-      
     } catch (error) {
-      console.log('[KEYWORDS-API] keywords/ Ordner nicht gefunden, verwende Fallback');
+      console.warn('[KEYWORDS-API] Keine zentrale keywords.json gefunden:', error.message);
+      // Fallback: Lese alle .json Dateien im keywords/ Ordner
+      try {
+        const files = await fs.readdir(keywordsPath);
+        const jsonFiles = files.filter(file => file.endsWith('.json'));
+        for (const fileName of jsonFiles) {
+          try {
+            const filePath = path.join(keywordsPath, fileName);
+            const fileContent = await fs.readFile(filePath, 'utf8');
+            const data = JSON.parse(fileContent);
+            if (Array.isArray(data)) {
+              allKeywords = allKeywords.concat(data);
+            }
+          } catch (error) {
+            console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
+          }
+        }
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords/-Ordner geladen`);
+      } catch (error) {
+        console.warn('[KEYWORDS-API] keywords/ Ordner nicht gefunden:', error.message);
+      }
     }
-    
     res.json({ 
       keywords: allKeywords,
       count: allKeywords.length 
     });
-    
   } catch (error) {
     console.error('[KEYWORDS-API] Fehler beim Laden der Schlagwörter:', error);
     res.status(500).json({ 
@@ -2112,16 +2104,16 @@ app.get('/thematic-search-database.json', async (req, res) => {
 // ============================================================================
 
 // API: Vollständigen Vortrag nach GA-Nummer und Vortragsnummer bereitstellen
-
 app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const { gaNumber, lectureNum } = req.params;
+    // Compose lecture ID as used in fullLectures
     const lectureId = `${gaNumber}/${lectureNum}`;
     const lecture = fullLectures[lectureId];
     if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-    res.json({ lecture });
+  res.json({ lecture });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
@@ -2129,7 +2121,6 @@ app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
 });
 
 // API: Vollständigen Vortrag nach lectureId bereitstellen (Kompatibilität)
-
 app.get('/api/full-lecture/:lectureId', async (req, res) => {
   try {
     const { lectureId } = req.params;
@@ -2137,7 +2128,7 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
     if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-    res.json({ lecture });
+  res.json({ lecture });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
