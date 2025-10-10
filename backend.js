@@ -9,14 +9,8 @@ const app = express();
 const PORT = 3003;
 
 // Middleware - WICHTIG: Reihenfolge beachten!
-app.use(cors({
-  origin: ['http://localhost:3003', 'https://ga-suche.onrender.com', 'null'], // 'null' für file:// Protokoll
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
-
-// Statische Dateien bereitstellen (HTML, CSS, JS)
-app.use(express.static(__dirname));
 
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
@@ -33,7 +27,6 @@ let summaryCache = {};
 let gaOverviewCache = {};
 let queryLog = {}; // NEU: Für Query-Tracking
 let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
-let linkEnhancementCache = {}; // NEU: Cache für KI-Link-Enhancements
 
 // Hilfsfunktion für case-insensitive Zugriff auf GA-Overview-Cache
 function findGAOverviewKey(requestedKey) {
@@ -232,42 +225,8 @@ async function saveQueryLog() {
   }
 }
 
-// ============================================================================
-// SUMMARY-DATENBANK FUNKTIONEN
-// ============================================================================
-
-async function loadSummaryDatabase() {
-  try {
-    const summaryPath = path.join(__dirname, 'summary-database.json');
-    
-    try {
-      const data = await fs.readFile(summaryPath, 'utf8');
-      const summaryDB = JSON.parse(data);
-      console.log(`Summary-Datenbank geladen: ${Object.keys(summaryDB).length} Einträge`);
-      return summaryDB;
-    } catch {
-      console.log('Keine Summary-Datenbank gefunden - erstelle neue');
-      return {};
-    }
-    
-  } catch (error) {
-    console.error('Fehler beim Laden der Summary-Datenbank:', error.message);
-    return {};
-  }
-}
-
-async function saveSummaryDatabase(summaryDB) {
-  try {
-    const summaryPath = path.join(__dirname, 'summary-database.json');
-    const jsonString = JSON.stringify(summaryDB, null, 2);
-    await fs.writeFile(summaryPath, jsonString, 'utf8');
-    console.log('✓ Summary-Datenbank gespeichert');
-    return true;
-  } catch (error) {
-    console.error('✗ Fehler beim Speichern der Summary-Datenbank:', error.message);
-    return false;
-  }
-}
+// Legacy loadSummaryCache() und saveSummaryCache() Funktionen entfernt 
+// Verwenden nur noch zentrale Summary-Datenbank (summary-database.json)
 
 async function invalidateGAOverviewCache(lectureId) {
   try {
@@ -1928,104 +1887,6 @@ app.get('/api/keywords-list', async (req, res) => {
   }
 });
 
-// API-Endpunkt: Schlagwort-Links mit KI erweitern
-app.post('/api/enhance-keyword-links', async (req, res) => {
-  try {
-    const { keywordText, keyword } = req.body;
-    
-    if (!keywordText) {
-      return res.status(400).json({ 
-        error: 'keywordText ist erforderlich' 
-      });
-    }
-    
-    console.log(`[LINK-ENHANCEMENT] Verarbeite Schlagwort: ${keyword || 'unbekannt'}`);
-    
-    // Erweitere Links mit KI
-    const enhancedText = await enhanceKeywordLinksWithAI(keywordText);
-    
-    res.json({
-      originalText: keywordText,
-      enhancedText: enhancedText,
-      keyword: keyword || null,
-      processed: true
-    });
-    
-  } catch (error) {
-    console.error('[LINK-ENHANCEMENT] API-Fehler:', error.message);
-    res.status(500).json({
-      error: 'Fehler bei der Link-Verarbeitung',
-      originalText: req.body.keywordText,
-      enhancedText: req.body.keywordText, // Fallback
-      processed: false
-    });
-  }
-});
-
-// API-Endpunkt: Batch-Verarbeitung aller Schlagwort-Links
-app.post('/api/enhance-all-keyword-links', async (req, res) => {
-  try {
-    console.log('[LINK-ENHANCEMENT] Starte Batch-Verarbeitung aller Schlagwörter...');
-    
-    const keywordsPath = path.join(__dirname, 'keywords');
-    let processedCount = 0;
-    let errorCount = 0;
-    
-    try {
-      const files = await fs.readdir(keywordsPath);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
-      
-      for (const fileName of jsonFiles) {
-        try {
-          const filePath = path.join(keywordsPath, fileName);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          const data = JSON.parse(fileContent);
-          
-          if (data.keywords && data.text) {
-            console.log(`[BATCH] Verarbeite: ${data.keywords.Keyword}`);
-            
-            // Erweitere Links mit KI
-            const enhancedText = await enhanceKeywordLinksWithAI(data.text);
-            
-            // Speichere erweiterte Version zurück (optional - nur wenn sich was geändert hat)
-            if (enhancedText !== data.text) {
-              data.text = enhancedText;
-              await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
-              console.log(`[BATCH] Datei aktualisiert: ${fileName}`);
-            }
-            
-            processedCount++;
-          }
-        } catch (error) {
-          console.error(`[BATCH] Fehler bei ${fileName}:`, error.message);
-          errorCount++;
-        }
-      }
-      
-      console.log(`[BATCH] Verarbeitung abgeschlossen: ${processedCount} erfolgreich, ${errorCount} Fehler`);
-      
-      res.json({
-        processed: processedCount,
-        errors: errorCount,
-        total: jsonFiles.length,
-        success: true
-      });
-      
-    } catch (error) {
-      throw new Error(`Keywords-Ordner nicht gefunden: ${error.message}`);
-    }
-    
-  } catch (error) {
-    console.error('[BATCH] Batch-Verarbeitung fehlgeschlagen:', error.message);
-    res.status(500).json({
-      error: 'Fehler bei der Batch-Verarbeitung',
-      processed: 0,
-      errors: 1,
-      success: false
-    });
-  }
-});
-
 // Hilfsfunktion: GA-Referenzen aus Text extrahieren
 function extractGAReferencesFromText(text) {
   if (!text) return [];
@@ -2041,279 +1902,6 @@ function extractGAReferencesFromText(text) {
     }
     return null;
   }).filter(id => id && /^GA\d{3}[a-z]?\/\d+$/i.test(id));
-}
-
-// ============================================================================
-// SCHLAGWORT-LINK-ENHANCEMENT MIT KI
-// ============================================================================
-
-// Funktion: GA-ID zu Vortrag finden
-function findLectureByGAId(gaId) {
-  // GA066/1 -> GA066, Vortrag 1
-  const gaMatch = gaId.match(/^GA(\d{3}[a-z]?)\/(\d+)$/i);
-  if (!gaMatch) {
-    console.log(`[FIND-LECTURE] Ungültige GA-ID: ${gaId}`);
-    return null;
-  }
-  
-  const gaNumber = gaMatch[1];
-  const lectureNumberStr = gaMatch[2];
-  console.log(`[FIND-LECTURE] Suche nach GA:${gaNumber}, Vortrag:${lectureNumberStr}`);
-  
-  // Direkter Zugriff über ID (effizienteste Methode)
-  const directId = `GA${gaNumber}/${lectureNumberStr}`;
-  if (fullLectures[directId]) {
-    console.log(`[FIND-LECTURE] ✓ Gefunden über direkte ID: ${directId}`);
-    return fullLectures[directId];
-  }
-  
-  // Fallback: Suche durch alle Vorträge
-  for (const lectureId in fullLectures) {
-    const lecture = fullLectures[lectureId];
-    // Vergleiche mit String-Konvertierung
-    if (lecture.gaNumber === `GA${gaNumber}` && 
-        (lecture.lectureNumber === lectureNumberStr || 
-         lecture.lectureNumber === parseInt(lectureNumberStr))) {
-      console.log(`[FIND-LECTURE] ✓ Gefunden über Fallback-Suche: ${lectureId}`);
-      return lecture;
-    }
-  }
-  
-  console.log(`[FIND-LECTURE] ✗ Nicht gefunden: ${gaId}`);
-  console.log(`[FIND-LECTURE] Verfügbare GA${gaNumber} IDs:`, Object.keys(fullLectures).filter(id => id.startsWith(`GA${gaNumber}/`)).slice(0, 5));
-  return null;
-}
-
-// Funktion: Absatz-IDs aus Vortrag extrahieren
-function extractParagraphIds(lecture) {
-  if (!lecture?.paragraphs) {
-    console.log(`[EXTRACT-IDS] Keine Paragraphs in Lecture`);
-    return [];
-  }
-  
-  const paragraphIds = [];
-  
-  lecture.paragraphs.forEach((paragraph, arrayIndex) => {
-    // METHODE 1: Direkte index-Eigenschaft (bevorzugt)
-    if (paragraph.index) {
-      const cleanIndex = paragraph.index.replace(/^\^/, ''); // Entferne führendes ^
-      paragraphIds.push({
-        index: arrayIndex,
-        id: cleanIndex,
-        fullIndex: paragraph.index,
-        content: paragraph.content || paragraph.text || '',
-        source: 'direct-property'
-      });
-      return; // Springe zur nächsten Iteration
-    }
-    
-    // METHODE 2: Fallback - Suche nach ^ID am Ende des Textes
-    const content = paragraph.content || paragraph.text || '';
-    if (content) {
-      const idMatch = content.match(/\s\^([a-zA-Z0-9]+)\s*$/);
-      if (idMatch) {
-        paragraphIds.push({
-          index: arrayIndex,
-          id: idMatch[1],
-          fullIndex: `^${idMatch[1]}`,
-          content: content.replace(/\s\^[a-zA-Z0-9]+\s*$/, '').trim(),
-          source: 'text-parsing'
-        });
-      }
-    }
-  });
-  
-  console.log(`[EXTRACT-IDS] Extrahiert ${paragraphIds.length} IDs aus ${lecture.paragraphs.length} Paragraphs`);
-  if (paragraphIds.length > 0) {
-    console.log(`[EXTRACT-IDS] Erste 3 IDs: ${paragraphIds.slice(0, 3).map(p => p.fullIndex).join(', ')}`);
-    console.log(`[EXTRACT-IDS] Quellen: ${paragraphIds.map(p => p.source).filter((v, i, a) => a.indexOf(v) === i).join(', ')}`);
-  }
-  
-  return paragraphIds;
-}
-
-// KI-Funktion: Passenden Absatz finden
-async function findMatchingParagraphWithClaude(keywordText, lecture, gaId) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  if (!claudeApiKey) {
-    console.log(`[LINK-ENHANCEMENT] Kein Claude API-Key für ${gaId}`);
-    return null;
-  }
-  
-  try {
-    console.log(`[LINK-ENHANCEMENT] Analysiere ${gaId} mit KI...`);
-    
-    const paragraphs = extractParagraphIds(lecture);
-    if (paragraphs.length === 0) {
-      console.log(`[LINK-ENHANCEMENT] Keine Absatz-IDs in ${gaId} gefunden`);
-      return null;
-    }
-    
-    // Bereite Vortragstext für KI vor
-    const paragraphTexts = paragraphs.map(p => 
-      `[ID: ${p.id}] ${p.content.substring(0, 200)}...`
-    ).join('\n\n');
-    
-    const prompt = `Analysiere diesen Rudolf Steiner Vortrag und finde den Absatz, der inhaltlich am besten zu dem gegebenen Schlagworttext passt.
-
-SCHLAGWORTTEXT:
-"${keywordText}"
-
-VORTRAGSTEXT mit Absatz-IDs:
-${paragraphTexts}
-
-Antwort nur mit der ID des am besten passenden Absatzes (z.B. "zkqbe4"). Wenn kein passender Absatz gefunden wird, antworte mit "NONE".`;
-
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 50,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-    
-    const result = await response.json();
-    const foundId = result.content[0].text.trim();
-    
-    if (foundId === 'NONE' || !foundId) {
-      console.log(`[LINK-ENHANCEMENT] Kein passender Absatz für ${gaId} gefunden`);
-      return null;
-    }
-    
-    // Validiere, dass die gefundene ID existiert
-    const validParagraph = paragraphs.find(p => p.id === foundId);
-    if (validParagraph) {
-      console.log(`[LINK-ENHANCEMENT] Passender Absatz gefunden: ${gaId}#${foundId}`);
-      return foundId;
-    } else {
-      console.log(`[LINK-ENHANCEMENT] Ungültige Absatz-ID ${foundId} für ${gaId}`);
-      return null;
-    }
-    
-  } catch (error) {
-    console.error(`[LINK-ENHANCEMENT] Fehler bei KI-Analyse für ${gaId}:`, error.message);
-    return null;
-  }
-}
-
-// Hauptfunktion: Schlagworttext mit erweiterten Links verarbeiten
-async function enhanceKeywordLinksWithAI(keywordText) {
-  if (!keywordText) return keywordText;
-  
-  try {
-    console.log('[LINK-ENHANCEMENT] Starte Verarbeitung...');
-    
-    // Prüfe Cache zuerst
-    const cacheKey = Buffer.from(keywordText).toString('base64').substring(0, 50);
-    if (linkEnhancementCache[cacheKey]) {
-      console.log('[LINK-ENHANCEMENT] Cache-Hit! Verwende gespeicherte Analyse');
-      return linkEnhancementCache[cacheKey];
-    }
-    
-    // Debug: Zeige empfangenen Text
-    console.log('[LINK-ENHANCEMENT] Empfangener Text:', keywordText.substring(0, 200) + '...');
-    
-    // Extrahiere alle GA-Links - verschiedene Formate berücksichtigen
-    let gaLinks = [];
-    
-    // Pattern 1: [[GA###/##]]
-    const pattern1 = keywordText.match(/\[\[GA\d{3}[a-z]?\/\d+\]\]/gi) || [];
-    gaLinks = gaLinks.concat(pattern1);
-    
-    // Pattern 2: GA###/## (ohne Klammern)
-    const pattern2 = keywordText.match(/\bGA\d{3}[a-z]?\/\d+\b/gi) || [];
-    gaLinks = gaLinks.concat(pattern2.map(link => `[[${link}]]`));
-    
-    console.log('[LINK-ENHANCEMENT] Gefundene GA-Links:', gaLinks);
-    
-    if (gaLinks.length === 0) {
-      console.log('[LINK-ENHANCEMENT] Keine GA-Links gefunden in:', keywordText);
-      return keywordText;
-    }
-    
-    let enhancedText = keywordText;
-    
-    for (const link of gaLinks) {
-      // Extrahiere GA-ID: [[GA066/1]] -> GA066/1
-      const gaId = link.match(/\[\[(GA\d{3}[a-z]?\/\d+)\]\]/i)?.[1];
-      if (!gaId) continue;
-      
-      // Finde entsprechenden Vortrag
-      const lecture = findLectureByGAId(gaId);
-      if (!lecture) {
-        console.log(`[LINK-ENHANCEMENT] Vortrag ${gaId} nicht gefunden`);
-        continue;
-      }
-      
-      // Extrahiere spezifischen Kontext um diesen Link
-      const linkIndex = enhancedText.indexOf(link);
-      
-      // Finde vorhergehenden Link oder Textanfang
-      const precedingLinks = enhancedText.substring(0, linkIndex).match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/gi) || [];
-      let contextStart;
-      if (precedingLinks.length > 0) {
-        // Starte nach dem letzten vorhergehenden Link
-        const lastLinkIndex = enhancedText.lastIndexOf(precedingLinks[precedingLinks.length - 1], linkIndex);
-        const lastLinkEnd = lastLinkIndex + precedingLinks[precedingLinks.length - 1].length;
-        contextStart = lastLinkEnd;
-      } else {
-        // Starte am Textanfang oder maximal 150 Zeichen vor dem Link
-        contextStart = Math.max(0, linkIndex - 150);
-      }
-      
-      // Finde nachfolgenden Link oder nehme 100 Zeichen nach aktuellem Link
-      const followingText = enhancedText.substring(linkIndex + link.length);
-      const nextLinkMatch = followingText.match(/\[\[GA\d{3}[a-z]?\/\d+(?:#[a-zA-Z0-9]+)?\]\]/i);
-      let contextEnd;
-      if (nextLinkMatch) {
-        contextEnd = linkIndex + link.length + nextLinkMatch.index;
-      } else {
-        contextEnd = Math.min(enhancedText.length, linkIndex + link.length + 100);
-      }
-      
-      const contextText = enhancedText.substring(contextStart, contextEnd).trim();
-      
-      // Finde passenden Absatz mit KI
-      const paragraphId = await findMatchingParagraphWithClaude(contextText, lecture, gaId);
-      
-      if (paragraphId) {
-        // Erweitere Link: [[GA066/1]] -> [[GA066/1#zkqbe4]]
-        const enhancedLink = `[[${gaId}#${paragraphId}]]`;
-        enhancedText = enhancedText.replace(link, enhancedLink);
-        console.log(`[LINK-ENHANCEMENT] Link erweitert: ${link} -> ${enhancedLink}`);
-      }
-    }
-    
-    console.log(`[LINK-ENHANCEMENT] Verarbeitung abgeschlossen`);
-    
-    // Speichere Ergebnis im RAM-Cache
-    linkEnhancementCache[cacheKey] = enhancedText;
-    console.log('[LINK-ENHANCEMENT] Ergebnis im RAM-Cache gespeichert');
-    
-    // Speichere auch in persistente JSON-DB (asynchron, nicht blockierend)
-    saveLinkEnhancementToDatabase(cacheKey, enhancedText, keywordText).catch(err => {
-      console.error('[LINK-ENHANCEMENT] Fehler beim Speichern in JSON-DB:', err.message);
-    });
-    
-    return enhancedText;
-    
-  } catch (error) {
-    console.error('[LINK-ENHANCEMENT] Fehler bei Link-Verarbeitung:', error.message);
-    return keywordText; // Fallback: Original-Text zurückgeben
-  }
 }
 
 // ============================================================================
@@ -2383,7 +1971,6 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 // ============================================================================
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
-const LINK_ENHANCEMENTS_DB_FILE = path.join(__dirname, 'link-enhancements.json');
 
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
@@ -2392,17 +1979,6 @@ async function loadSummaryDatabase() {
     return JSON.parse(data);
   } catch (error) {
     console.log('Zentrale Summary-DB nicht gefunden, erstelle neue...');
-    return {};
-  }
-}
-
-// Lade zentrale Link-Enhancement-Datenbank
-async function loadLinkEnhancementDatabase() {
-  try {
-    const data = await fs.readFile(LINK_ENHANCEMENTS_DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.log('Link-Enhancement-DB nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -2416,39 +1992,6 @@ async function saveSummaryDatabase(summaryDB) {
   } catch (error) {
     console.error('Fehler beim Speichern der Summary-DB:', error);
     return false;
-  }
-}
-
-// Speichere zentrale Link-Enhancement-Datenbank
-async function saveLinkEnhancementDatabase(linkDB) {
-  try {
-    await fs.writeFile(LINK_ENHANCEMENTS_DB_FILE, JSON.stringify(linkDB, null, 2), 'utf8');
-    console.log('Link-Enhancement-DB gespeichert');
-    return true;
-  } catch (error) {
-    console.error('Fehler beim Speichern der Link-Enhancement-DB:', error);
-    return false;
-  }
-}
-
-// Speichere einzelnes Link-Enhancement in DB
-async function saveLinkEnhancementToDatabase(cacheKey, enhancedText, originalText) {
-  try {
-    const linkDB = await loadLinkEnhancementDatabase();
-    
-    // Erstelle Eintrag mit Metadaten
-    linkDB[cacheKey] = {
-      enhancedText: enhancedText,
-      originalText: originalText.substring(0, 200), // Kurzer Kontext
-      timestamp: new Date().toISOString(),
-      cacheKey: cacheKey
-    };
-    
-    await saveLinkEnhancementDatabase(linkDB);
-    console.log(`[LINK-ENHANCEMENT] JSON-DB aktualisiert (${Object.keys(linkDB).length} Einträge)`);
-    
-  } catch (error) {
-    console.error('[LINK-ENHANCEMENT] Fehler beim DB-Update:', error.message);
   }
 }
 
@@ -2499,112 +2042,6 @@ app.get('/summary-database.json', async (req, res) => {
 });
 
 // ============================================================================
-// LINK ENHANCEMENT CACHE API
-// ============================================================================
-
-// API: Link-Enhancement Cache verwalten
-app.get('/api/link-cache', (req, res) => {
-  const stats = {
-    entryCount: Object.keys(linkEnhancementCache).length,
-    keys: Object.keys(linkEnhancementCache).map(key => ({
-      key: key,
-      preview: linkEnhancementCache[key].substring(0, 100) + '...'
-    }))
-  };
-  res.json(stats);
-});
-
-app.delete('/api/link-cache', (req, res) => {
-  const oldCount = Object.keys(linkEnhancementCache).length;
-  linkEnhancementCache = {};
-  console.log(`[CACHE] Link-Enhancement Cache geleert (${oldCount} Einträge gelöscht)`);
-  res.json({ success: true, deletedCount: oldCount });
-});
-
-app.delete('/api/link-cache/:key', (req, res) => {
-  const key = req.params.key;
-  if (linkEnhancementCache[key]) {
-    delete linkEnhancementCache[key];
-    console.log(`[CACHE] Cache-Eintrag gelöscht: ${key}`);
-    res.json({ success: true, deleted: key });
-  } else {
-    res.status(404).json({ error: 'Cache-Eintrag nicht gefunden' });
-  }
-});
-
-// API: Link-Enhancement JSON-DB verwalten
-app.get('/api/link-enhancements', async (req, res) => {
-  try {
-    const linkDB = await loadLinkEnhancementDatabase();
-    const stats = {
-      entryCount: Object.keys(linkDB).length,
-      entries: Object.keys(linkDB).map(key => ({
-        cacheKey: key,
-        timestamp: linkDB[key].timestamp,
-        originalText: linkDB[key].originalText?.substring(0, 100) + '...'
-      }))
-    };
-    res.json(stats);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/link-enhancements.json', async (req, res) => {
-  try {
-    const linkDB = await loadLinkEnhancementDatabase();
-    res.json(linkDB);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Link-Enhancement speichern (für Online-User-Sharing)
-app.post('/api/save-link-enhancement', async (req, res) => {
-  try {
-    const { cacheKey, enhancedText, originalText, gaLinks } = req.body;
-    
-    if (!cacheKey || !enhancedText) {
-      return res.status(400).json({ error: 'cacheKey und enhancedText sind erforderlich' });
-    }
-    
-    // Lade aktuelle DB
-    const linkDB = await loadLinkEnhancementDatabase();
-    
-    // Füge Link-Enhancement hinzu
-    linkDB[cacheKey] = {
-      enhancedText: enhancedText,
-      originalText: originalText?.substring(0, 200), // Kurzer Kontext
-      gaLinks: gaLinks || [], // Array der gefundenen GA-Links
-      timestamp: new Date().toISOString(),
-      source: 'online-user' // Markierung als Online-User-Beitrag
-    };
-    
-    // Speichere DB
-    const success = await saveLinkEnhancementDatabase(linkDB);
-    
-    // Aktualisiere auch RAM-Cache
-    linkEnhancementCache[cacheKey] = enhancedText;
-    
-    if (success) {
-      console.log(`Link-Enhancement ${cacheKey} in zentrale DB gespeichert (Online-User)`);
-      res.json({ 
-        success: true, 
-        message: `Link-Enhancement gespeichert`,
-        cacheKey: cacheKey,
-        totalEnhancements: Object.keys(linkDB).length
-      });
-    } else {
-      res.status(500).json({ error: 'Fehler beim Speichern' });
-    }
-    
-  } catch (error) {
-    console.error('Fehler beim Speichern des Link-Enhancements:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// ============================================================================
 // SERVER START
 // ============================================================================
 
@@ -2635,34 +2072,17 @@ Object.values(fullLectures).forEach(lecture => {
 console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     await loadQueryLog();
     
-    // Lade persistente Link-Enhancement-Datenbank
-    const linkEnhancementDB = await loadLinkEnhancementDatabase();
-    console.log(`Link-Enhancement-DB geladen: ${Object.keys(linkEnhancementDB).length} Einträge`);
-    
-    // Überführe JSON-DB in RAM-Cache
-    Object.keys(linkEnhancementDB).forEach(key => {
-      linkEnhancementCache[key] = linkEnhancementDB[key];
-    });
-    
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
-    console.log(`  ${Object.keys(linkEnhancementCache).length} Link-Enhancements`);
     console.log('========================================');
-    
-    // Root-Route für die Hauptseite
-    app.get('/', (req, res) => {
-      res.sendFile(path.join(__dirname, 'index.html'));
-    });
     
     app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
-      console.log(`✓ Frontend verfügbar unter: http://localhost:${PORT}/`);
       console.log(`\nVerfügbare Endpoints:`);
-      console.log(`   GET  /                    - Hauptseite (Frontend)`);
       console.log(`   GET  /debug/status`);
       console.log(`   POST /api/hybrid-search`);
       console.log(`   POST /api/fulltext-search`);
@@ -2679,14 +2099,6 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`   POST /api/save-summary`);
       console.log(`   GET  /summary-database.json`);
-      console.log(`   GET  /api/keywords-files`);
-      console.log(`   GET  /api/keywords-list`);
-      console.log(`   POST /api/enhance-keyword-links`);
-      console.log(`   GET  /api/link-cache`);
-      console.log(`   DELETE /api/link-cache`);
-      console.log(`   GET  /api/link-enhancements`);
-      console.log(`   GET  /link-enhancements.json`);
-      console.log(`   POST /api/save-link-enhancement`);
       console.log(`\n✓ System bereit!\n`);
     });
     
