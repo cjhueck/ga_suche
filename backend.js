@@ -1580,39 +1580,11 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
     const { query, depth = 'allgemein', limit = 30 } = req.body;
     
-    // Konsolidierte Hybrid-Cache-Logik
-    const cacheKey = generateThematicCacheKey(query, depth, limit);
-    const thematicDB = await loadThematicSearchDatabase();
-    // Hybrid-Cache-Logik: Hole Quellen aus Cache, aber generiere Antwort immer neu
-    const hybridHit = findHybridCacheHit(query, depth, limit, thematicDB);
-    let cachedSources = [];
-    if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
-      console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (${depth}, ${limit}) | Score: ${hybridHit.score}`);
-      cachedSources = thematicDB[hybridHit.key].sources || [];
-    }
-
-    // Kein Cache-Hit: Neue Suche
-    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (${depth}, ${limit})`);
+    // Nur neue Suche, kein Cache-Rückgriff und keine Speicherung
+    console.log(`[THEMATIC-SEARCH] Starte neue Suche für: "${query}" (${depth}, ${limit})`);
     let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
 
-    if (keywordResults.length === 0) {
-      const emptyResult = {
-        query: query,
-        content: 'Keine relevanten Textstellen gefunden.',
-        sources: [],
-        searchMethod: 'hybrid-thematic-unified',
-        totalMatches: 0,
-        llmUsed: false
-      };
-      // Auch leere Ergebnisse cachen (um wiederholte Suchen zu vermeiden)
-      thematicDB[cacheKey] = {
-        ...emptyResult,
-        timestamp: new Date().toISOString()
-      };
-      await saveThematicSearchDatabase(thematicDB);
-      return res.json(emptyResult);
-    }
-
+    // Ranking und Limitierung nach thematischen Kriterien
     let rankedResults = applySemanticRanking(keywordResults, query);
     let topResults = rankedResults.slice(0, limit);
 
@@ -1624,31 +1596,11 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     let searchResult = {
       query: query,
       content: analysis,
-      sources: topResults.slice(0, 10).map(result => ({
-        ID: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore),
-        matchedTerms: result.matchedTerms
-      })),
+      sources: topResults.slice(0, 10),
       searchMethod: 'hybrid-thematic-unified',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
     };
-
-    // Speichere Ergebnis im Cache
-    thematicDB[cacheKey] = {
-      ...searchResult,
-      timestamp: new Date().toISOString()
-    };
-
-    // Speichere Cache-DB (non-blocking)
-    saveThematicSearchDatabase(thematicDB).then(() => {
-      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (${depth}, ${limit})`);
-    }).catch(err => {
-      console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
-    });
 
     return res.json(searchResult);
   } catch (error) {
