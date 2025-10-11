@@ -2040,6 +2040,10 @@ app.post('/api/save-summary', async (req, res) => {
 app.get('/summary-database.json', async (req, res) => {
   try {
     const summaryDB = await loadSummaryDatabase();
+    // Ensure clients always fetch the fresh DB after local writes
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     res.json(summaryDB);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
