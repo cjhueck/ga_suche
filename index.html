@@ -1514,15 +1514,37 @@ Original
         if (!resp.ok) return;
         const meta = await resp.json();
         if (meta.lastModifiedMs !== _lastSummaryMeta.lastModifiedMs || meta.summariesInDB !== _lastSummaryMeta.summariesInDB) {
-          console.log('[SUMMARIES] Detected change in summary DB meta; clearing client caches');
+          console.log('[SUMMARIES] Detected change in summary DB meta; clearing client caches and UI');
           _lastSummaryMeta = meta;
           // Clear any in-memory caches that may hold summaries
-          externalSummaryDBCache = null;
-          // Clear loaded summary fields in lecture objects if present
+          try { externalSummaryDBCache = null; } catch(e){}
+
+          // Remove summary data from any loaded lecture objects
           if (window.loadedLectures && Array.isArray(window.loadedLectures)) {
-            window.loadedLectures.forEach(l => { delete l.summary; delete l.headings; });
+            window.loadedLectures.forEach(l => { try { delete l.summary; delete l.headings; } catch(e){} });
           }
-          // Optionally re-render view / update UI
+
+          // Clear current in-memory pointers used by the UI
+          try { currentLectureSummary = null; } catch(e){}
+          try { if (currentLectureData) { delete currentLectureData.summary; delete currentLectureData.headings; } } catch(e){}
+          try { showingSummaryInMain = false; } catch(e){}
+
+          // Clear the visible summary panel / viewer immediately
+          try {
+            const sc = document.getElementById('summary-content');
+            if (sc) sc.innerHTML = '';
+            const viewer = document.getElementById('viewer');
+            if (viewer) viewer.innerHTML = '';
+            const toc = document.getElementById('toc-list');
+            if (toc) toc.innerHTML = '';
+            // hide buttons that relate to summaries
+            const vsb = document.getElementById('viewerSummaryBtn'); if (vsb) vsb.style.display = 'none';
+            const vrb = document.getElementById('viewerRegenerateBtn'); if (vrb) vrb.style.display = 'none';
+            const vob = document.getElementById('viewerOriginalBtn'); if (vob) vob.style.display = 'none';
+          } catch (e) { console.warn('Error clearing summary UI:', e.message); }
+
+          // Force any list rendering to refresh: if a function exists to reload GAs, call it
+          try { if (typeof refreshLectureList === 'function') refreshLectureList(); } catch(e){}
         }
       } catch (err) {
         // ignore network errors during polling
