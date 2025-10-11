@@ -1514,7 +1514,7 @@ Original
       try {
         if (isLocal) {
           // Lokal: Lade aus statischer Datei
-          const response = await fetch(`${API_BASE}/summary-database.json`);
+          const response = await fetch(`${API_BASE}/summary-database.json`, { cache: 'no-store' });
           if (!response.ok) return null;
           
           const summaryDB = await response.json();
@@ -1608,7 +1608,7 @@ Original
 
         // Fallback: wenn keine externe DB vorhanden oder keine Einträge, versuche lokale/static Datei
         if (isLocal) {
-          const response = await fetch(`${API_BASE}/summary-database.json`);
+          const response = await fetch(`${API_BASE}/summary-database.json`, { cache: 'no-store' });
           if (response.ok) {
             const summaryDB = await response.json();
             summaryDB && data.lectures.forEach(lecture => {
