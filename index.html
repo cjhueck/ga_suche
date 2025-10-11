@@ -1506,6 +1506,30 @@ Original
     let lastHighlightedIndex = null;
     let viewerH4Collapsed = false;
     let isGeneratingSummary = false;
+    // Summary DB change detection
+    let _lastSummaryMeta = { lastModifiedMs: null, summariesInDB: null };
+    async function pollSummaryMeta() {
+      try {
+        const resp = await fetch(`${API_BASE}/api/summary-meta`, { cache: 'no-store' });
+        if (!resp.ok) return;
+        const meta = await resp.json();
+        if (meta.lastModifiedMs !== _lastSummaryMeta.lastModifiedMs || meta.summariesInDB !== _lastSummaryMeta.summariesInDB) {
+          console.log('[SUMMARIES] Detected change in summary DB meta; clearing client caches');
+          _lastSummaryMeta = meta;
+          // Clear any in-memory caches that may hold summaries
+          externalSummaryDBCache = null;
+          // Clear loaded summary fields in lecture objects if present
+          if (window.loadedLectures && Array.isArray(window.loadedLectures)) {
+            window.loadedLectures.forEach(l => { delete l.summary; delete l.headings; });
+          }
+          // Optionally re-render view / update UI
+        }
+      } catch (err) {
+        // ignore network errors during polling
+      }
+    }
+    // Start polling every 5s
+    setInterval(pollSummaryMeta, 5000);
 
     // === ZENTRALE SUMMARY-DATENBANK ===
     // Einfaches System: Alle Summaries in einer JSON-Datei
