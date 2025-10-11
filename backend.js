@@ -1492,6 +1492,19 @@ app.get('/debug/status', async (req, res) => {
   });
 });
 
+// API: summary DB metadata (mtime, count) for client-side invalidation
+app.get('/api/summary-meta', async (req, res) => {
+  try {
+    const summaryDB = await loadSummaryDatabase();
+    const stats = await require('fs').promises.stat(SUMMARY_DB_FILE).catch(() => null);
+    const mtime = stats ? stats.mtimeMs : null;
+    res.json({ lastModifiedMs: mtime, summariesInDB: Object.keys(summaryDB).length });
+  } catch (err) {
+    console.error('Error /api/summary-meta:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.post('/api/hybrid-search', async (req, res) => {
   try {
     const { query, limit = 20 } = req.body;
