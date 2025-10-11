@@ -1793,6 +1793,12 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
   }
 });
 
+// NOTE: The GitHub->local admin sync endpoint was removed to avoid automatic
+// backward synchronization from the remote repository into the local
+// `summary-database.json`. All summary writes should be performed locally via
+// the existing `/api/save-summary` endpoint which persists into the local
+// `summary-database.json` file.
+
 // ============================================================================
 // SCHLAGWORT-SYSTEM API
 // ============================================================================

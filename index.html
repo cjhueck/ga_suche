@@ -1628,24 +1628,9 @@ Original
       }
     }
 
-  // Cache und Loader für externe (GitHub) summary-database.json
-  const GITHUB_RAW_SUMMARY_URL = 'https://raw.githubusercontent.com/cjhueck/ga_suche/main/summary-database.json';
-  let externalSummaryDBCache = null;
-
-  async function loadExternalSummaryDB() {
-    if (externalSummaryDBCache) return externalSummaryDBCache;
-    try {
-      const resp = await fetch(GITHUB_RAW_SUMMARY_URL);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const db = await resp.json();
-      externalSummaryDBCache = db;
-      console.log('[SUMMARIES] Externe summary-database.json geladen (GitHub)');
-      return db;
-    } catch (err) {
-      console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
-      return null;
-    }
-  }
+  // Hinweis: Wir verwenden ausschließlich die lokale `summary-database.json`.
+  // Früher gab es hier einen Loader für die GitHub-Rohdatei; dieser wurde
+  // entfernt, um Rücksynchronisationen vom Remote-Repo zu vermeiden.
 
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
@@ -3575,74 +3560,97 @@ async function regenerateCurrentSummary() {
 }
 
 // Startet die Batch-Zusammenfassungs-Generation (UI-Wrapper)
-function startBatchSummaries() {
-  const gaNumber = document.getElementById('gaFilter')?.value;
-  if (!gaNumber) {
-    alert('Bitte wählen Sie zuerst eine GA-Nummer im Text-Suche Tab (Dropdown).');
-    return;
-  }
-
-  (async () => {
-    try {
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden (${resp.status})`);
-      const data = await resp.json();
-      const lectures = data.lectures || [];
-      // Filter: nur Vorträge ohne Summary
-      const noSummary = lectures.filter(l => !l.summary || l.summary.trim() === '');
-      if (noSummary.length === 0) {
-        alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
-        return;
-      }
-
-      if (!confirm(`Es werden ${noSummary.length} Vorträge ohne Zusammenfassung in ${gaNumber} erzeugt. Fortfahren?`)) {
-        return;
-      }
-
-      batchSummarizeGA(gaNumber);
-    } catch (err) {
-      alert('Fehler beim Prüfen der GA-Übersicht: ' + err.message);
-    }
-  })();
-}
-
-// Führt die Summarizer-Requests sequentiell aus und zeigt Fortschritt an
-async function batchSummarizeGA(gaNumber) {
-  const resultsContainer = document.getElementById('results');
-  resultsContainer.innerHTML = `
-    <div class="batch-progress" id="batch-progress-ui">
-      <div id="batch-status">Vorbereiten...</div>
-      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
-        <div class="bar" id="batch-progress-bar"></div>
-      </div>
-    </div>
-  `;
-
+// Startet die Batch-Zusammenfassungs-Generation für ALLE Vorträge ohne Summary
+async function startBatchSummaries() {
   try {
-    const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-    if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
-    const data = await resp.json();
-    const lectures = data.lectures || [];
-    if (lectures.length === 0) {
-      resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+    const confirmStart = confirm('Alle noch nicht zusammengefassten Vorträge nacheinander zusammenfassen? Dies kann sehr lange dauern. Fortfahren?');
+    if (!confirmStart) return;
+
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = `
+      <div class="batch-progress" id="batch-progress-ui">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div id="batch-status">Vorbereiten...</div>
+          <button id="batch-cancel-btn" class="depth-btn" style="padding:4px 8px; font-size:0.85em;">Abbrechen</button>
+        </div>
+        <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+          <div class="bar" id="batch-progress-bar"></div>
+        </div>
+      </div>
+    `;
+
+    // 1) Sammle alle verfügbaren GA-Nummern
+    const availResp = await fetch(`${API_BASE}/api/available-ga`);
+    if (!availResp.ok) throw new Error(`available-ga konnte nicht geladen werden: ${availResp.status}`);
+    const availData = await availResp.json();
+    const gaList = availData.availableGA || [];
+
+    // 2) Iteriere über alle GAs und sammle Vorträge ohne Summary
+    const lectureIdsToProcess = [];
+    for (const gaNumber of gaList) {
+      try {
+        const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+        if (!resp.ok) continue;
+        const data = await resp.json();
+        const lectures = data.lectures || [];
+        lectures.forEach(l => {
+          if (!l.summary || l.summary.trim() === '') {
+            lectureIdsToProcess.push(l.ID);
+          }
+        });
+      } catch (err) {
+        console.warn('Fehler beim Laden der GA-Übersicht', gaNumber, err.message);
+      }
+    }
+
+    if (lectureIdsToProcess.length === 0) {
+      alert('Keine Vorträge ohne Summary gefunden.');
+      resultsContainer.innerHTML = '<p>Keine offenen Vorträge gefunden.</p>';
       return;
     }
 
-    const total = lectures.length;
-    let completed = 0;
-    let failed = 0;
+    // 3) Starte die eigentliche Verarbeitung mit Concurrency
+    const abortController = new AbortController();
+    const cancelBtn = document.getElementById('batch-cancel-btn');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', () => {
+        abortController.abort();
+        cancelBtn.disabled = true;
+        cancelBtn.textContent = 'Abbruch angefragt...';
+      });
+    }
 
-    for (const lecture of lectures) {
-      const lectureId = lecture.ID;
+    await batchSummarizeLectures(lectureIdsToProcess, { concurrency: 10, signal: abortController.signal });
+
+  } catch (err) {
+    alert('Fehler beim Start des Batch-Jobs: ' + err.message);
+  }
+}
+
+// Verarbeitet eine gegebene Liste von Lecture-IDs sequentiell
+async function batchSummarizeLectures(lectureIds, options = {}) {
+  const concurrency = options.concurrency || 5;
+  const signal = options.signal;
+  const resultsContainer = document.getElementById('results');
+  const total = lectureIds.length;
+  let completed = 0;
+  let failed = 0;
+
+  // Worker pool
+  let idx = 0;
+  const workers = new Array(Math.min(concurrency, total)).fill(null).map(async () => {
+    while (true) {
+      if (signal && signal.aborted) break;
+      const i = idx++;
+      if (i >= total) break;
+      const lectureId = lectureIds[i];
       const statusEl = document.getElementById('batch-status');
-      const barEl = document.getElementById('batch-progress-bar');
-      if (statusEl) statusEl.textContent = `Verarbeite ${lectureId} (${completed + 1}/${total})`;
-
+      if (statusEl) statusEl.textContent = `Verarbeite ${lectureId} (${Math.min(i+1, total)}/${total})`;
       try {
         const sResp = await fetch(`${API_BASE}/api/summarize-lecture`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
+          body: JSON.stringify({ lectureId: lectureId, forceRegenerate: false })
         });
 
         if (!sResp.ok) {
@@ -3659,22 +3667,22 @@ async function batchSummarizeGA(gaNumber) {
 
       completed += 1;
       const pct = Math.round((completed / total) * 100);
-      if (barEl) barEl.style.width = pct + '%';
+      const bar = document.getElementById('batch-progress-bar');
+      if (bar) bar.style.width = pct + '%';
     }
+  });
 
-    const doneMsg = `Batch fertig. ${completed - failed} erfolgreich, ${failed} fehlgeschlagen.`;
-    const statusEl = document.getElementById('batch-status');
-    if (statusEl) statusEl.textContent = doneMsg;
-
-    // Aktualisiere die GA-Übersicht, damit neue Summaries sichtbar werden
-    setTimeout(() => {
-      openGAOverview(gaNumber);
-    }, 800);
-
+  // Wait for all workers to finish
+  try {
+    await Promise.all(workers);
   } catch (err) {
-    console.error('Batch-Fehler:', err);
-    resultsContainer.innerHTML = `<div class="error-message"><strong>Batch-Fehler:</strong><br>${err.message}</div>`;
+    console.warn('Worker pool abgebrochen', err);
   }
+
+  const doneMsg = `Batch fertig. ${completed - failed} erfolgreich, ${failed} fehlgeschlagen.`;
+  const statusEl = document.getElementById('batch-status');
+  if (statusEl) statusEl.textContent = doneMsg;
+  console.log(doneMsg);
 }
 
     function buildTableOfContents() {
