@@ -2052,12 +2052,9 @@ function normalizeGANumber(gaNumber) {
             console.log('Beispiel-Summary vom Server:', lecturesWithSummary[0].summary.substring(0, 100) + '...');
           }
           
-          // Immer versuchen, Summaries aus lecture-summaries.json zu laden
-          if (lecturesWithSummary.length < data.lectures.length) {
-            console.log('Versuche Summaries aus lecture-summaries.json zu laden...');
-            loadSummariesForOverview(data);
-            return;
-          }
+          // Immer versuchen, Summaries aus der Datenbank zu laden (überschreibt API-Daten)
+          console.log('Lade Summaries aus Datenbank...');
+          await loadSummariesFromDB(data);
         }
         
         await displayGAOverview(data);
@@ -2204,11 +2201,28 @@ async function saveSummaryToCentral(lectureId, summaryData) {
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
 
+// Hilfsfunktion zum Extrahieren des Summary-Texts
+function getSummaryText(summary) {
+  if (typeof summary === 'string') return summary;
+  if (typeof summary === 'object' && summary) {
+    if (summary.summary) return getSummaryText(summary.summary);
+    return '';
+  }
+  return summary || '';
+}
+
 // Ändere die displayGAOverview Funktion (in index.html)
 async function displayGAOverview(data) {
   const resultsContainer = document.getElementById('results');
   const titleElement = document.getElementById('document-title');
   const viewer = document.getElementById('viewer');
+  
+  // Normalisiere Summary-Daten: Stelle sicher, dass lecture.summary ein String ist
+  data.lectures.forEach(lecture => {
+    if (lecture.summary) {
+      lecture.summary = getSummaryText(lecture.summary);
+    }
+  });
   
   titleElement.textContent = `${data.gaNumber}: ${data.gaTitle}`;
   
@@ -2264,7 +2278,7 @@ async function displayGAOverview(data) {
         
         ${hasSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 0.9em; color: #666;">${lecture.summary}</p>
+            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 0.9em; color: #666;">${getSummaryText(lecture.summary)}</p>
           </div>
         ` : `
           <!-- Keine Zusammenfassung für ${lecture.ID} -->
@@ -3563,6 +3577,17 @@ async function regenerateCurrentSummary() {
     // Aktualisiere aktuelle Anzeige
     currentLectureSummary = { summary: data.summary, headings: data.headings || [] };
     displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+    
+    // Aktualisiere GA-Übersicht falls geöffnet
+    if (currentLectureData && currentLectureData.ID) {
+      const gaNumber = currentLectureData.ID.split('/')[0];
+      console.log('GA-Übersicht aktualisieren nach Summary-Generierung für', gaNumber);
+      // Cache zurücksetzen, um aktualisierte Datenbank zu laden
+      externalSummaryDBCache = null;
+      setTimeout(() => {
+        openGAOverview(gaNumber);
+      }, 500);
+    }
   } catch (err) {
     console.error('Regenerate error:', err);
     alert('Fehler beim Neuerzeugen der Summary: ' + err.message);
@@ -3623,11 +3648,19 @@ async function batchSummarizeGA(gaNumber) {
     const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
     if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
     const data = await resp.json();
-    const lectures = data.lectures || [];
+    let lectures = data.lectures || [];
     if (lectures.length === 0) {
       resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
       return;
     }
+
+    // Nur Vorträge ohne Summary verarbeiten (sicherstellen, dass wir die KI nicht unnötig anfragen)
+    const missing = lectures.filter(l => !l.summary || (typeof l.summary === 'string' && l.summary.trim() === ''));
+    if (missing.length === 0) {
+      alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
+      return;
+    }
+    lectures = missing;
 
     const total = lectures.length;
     let completed = 0;
