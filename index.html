@@ -2373,9 +2373,11 @@ function toggleGASummaries() {
       const button = document.querySelector('#keyword-tab .depth-btn.primary');
       
       try {
-        button.disabled = true;
-        button.classList.add('processing');
-        button.textContent = 'Suche läuft...';
+      // Sperre UI während der thematischen Suche
+      setUILocked(true);
+      button.disabled = true;
+      button.classList.add('processing');
+      button.textContent = 'Suche läuft...';
         
         const gaFilter = document.getElementById('gaFilter').value;
         const proximityFilter = document.getElementById('proximityFilter').value;
@@ -2674,6 +2676,8 @@ function toggleGASummaries() {
           </div>
         `;
       } finally {
+        // UI wieder freigeben
+        setUILocked(false);
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
@@ -3543,6 +3547,8 @@ async function regenerateCurrentSummary() {
   if (!confirm('Summary neu erzeugen und alte Version überschreiben?')) return;
 
   const lectureId = currentLectureData.ID;
+  // Sperre die UI während der Regeneration
+  setUILocked(true);
   const regenBtn = document.getElementById('viewerRegenerateBtn');
   try {
     // UI: Spinner + Disable
@@ -3592,6 +3598,8 @@ async function regenerateCurrentSummary() {
     console.error('Regenerate error:', err);
     alert('Fehler beim Neuerzeugen der Summary: ' + err.message);
   } finally {
+    // UI wieder freigeben
+    setUILocked(false);
     if (regenBtn) {
       regenBtn.disabled = false;
       const spinner = document.getElementById('regen-spinner');
@@ -3645,14 +3653,24 @@ async function batchSummarizeGA(gaNumber) {
   `;
 
   try {
+    // Sperre UI während des Batch-Laufs
+    setUILocked(true);
     const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
     if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
     const data = await resp.json();
-    const lectures = data.lectures || [];
+    let lectures = data.lectures || [];
     if (lectures.length === 0) {
       resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
       return;
     }
+
+    // Nur Vorträge ohne Summary verarbeiten (sicherstellen, dass wir die KI nicht unnötig anfragen)
+    const missing = lectures.filter(l => !l.summary || (typeof l.summary === 'string' && l.summary.trim() === ''));
+    if (missing.length === 0) {
+      alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
+      return;
+    }
+    lectures = missing;
 
     const total = lectures.length;
     let completed = 0;
@@ -3688,9 +3706,12 @@ async function batchSummarizeGA(gaNumber) {
       if (barEl) barEl.style.width = pct + '%';
     }
 
-    const doneMsg = `Batch fertig. ${completed - failed} erfolgreich, ${failed} fehlgeschlagen.`;
+  const doneMsg = `Batch fertig. ${completed - failed} erfolgreich, ${failed} fehlgeschlagen.`;
     const statusEl = document.getElementById('batch-status');
     if (statusEl) statusEl.textContent = doneMsg;
+
+  // UI wieder freigeben
+  setUILocked(false);
 
     // Aktualisiere die GA-Übersicht, damit neue Summaries sichtbar werden
     setTimeout(() => {
@@ -3708,6 +3729,8 @@ async function startBatchAllSummaries() {
   if (!confirm('Batch All: Es werden für alle Vorträge ohne Summary Zusammenfassungen erzeugt. Fortfahren?')) return;
 
   try {
+    // Sperre UI während des Batch-All Prozesses
+    setUILocked(true);
     // Lade alle Lecture-IDs vom Backend
     const resp = await fetch(`${API_BASE}/api/lectures/list`);
     if (!resp.ok) throw new Error('Konnte Lecture-Liste nicht laden');
@@ -3805,6 +3828,9 @@ async function startBatchAllSummaries() {
     // Aktualisiere Ansicht
     setTimeout(() => { try { if (typeof refreshLectureList === 'function') refreshLectureList(); } catch(e){} }, 800);
 
+  // UI wieder freigeben
+  setUILocked(false);
+
   } catch (err) {
     alert('Fehler beim Starten von Batch All: ' + err.message);
   }
@@ -3820,6 +3846,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
   // Worker-Pool
   const queue = lectureIds.slice();
+
+  // Sperre UI während Batch-Arbeit (falls noch nicht gesperrt)
+  setUILocked(true);
 
   async function worker() {
     while (queue.length > 0) {
@@ -3856,6 +3885,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         try { options.onProgress({ lectureId, success: !(failed > 0 && processed > 0 && failed === processed) }); } catch(e){}
       }
     }
+  }
+
+  try {
+    const workers = [];
+    for (let i = 0; i < concurrency; i++) {
+      workers.push(worker());
+    }
+    await Promise.all(workers);
+  } finally {
+    // UI wieder freigeben
+    setUILocked(false);
   }
 
   const workers = [];
