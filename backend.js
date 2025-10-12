@@ -2002,15 +2002,81 @@ async function loadSummaryDatabase() {
   }
 }
 
-// Speichere zentrale Summary-Datenbank
+// Robust: atomic save mit Lockfile, temporärer Datei und Stale-Lock-Cleanup
+const SUMMARY_DB_LOCK = SUMMARY_DB_FILE + '.lock';
+const SUMMARY_DB_TMP = SUMMARY_DB_FILE + '.tmp';
+const LOCK_STALE_MS = 30 * 1000; // 30 Sekunden
+
+async function acquireLock(lockPath, options = {}) {
+  const maxRetries = options.maxRetries || 60;
+  const retryDelay = options.retryDelay || 200; // ms
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      // Create lock file exclusively
+      const fd = await fs.open(lockPath, 'wx');
+      await fd.writeFile(String(process.pid));
+      await fd.close();
+      return true;
+    } catch (err) {
+      // If lock exists, check age and remove if stale
+      try {
+        const stat = await fs.stat(lockPath).catch(() => null);
+        if (stat) {
+          const age = Date.now() - stat.mtimeMs;
+          if (age > LOCK_STALE_MS) {
+            console.warn('[LOCK] Entferne stale lock:', lockPath);
+            await fs.unlink(lockPath).catch(() => {});
+            // retry immediately
+            continue;
+          }
+        }
+      } catch (inner) {
+        // ignore and wait
+      }
+
+      // wait and retry
+      await new Promise(res => setTimeout(res, retryDelay));
+    }
+  }
+
+  throw new Error('Could not acquire lock for ' + lockPath);
+}
+
+async function releaseLock(lockPath) {
+  try {
+    await fs.unlink(lockPath).catch(() => {});
+  } catch (err) {
+    console.warn('[LOCK] Fehler beim Entfernen des Locks:', err.message || err);
+  }
+}
+
+// Speichere zentrale Summary-Datenbank atomar
 async function saveSummaryDatabase(summaryDB) {
   try {
-    await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-    console.log('Zentrale Summary-DB gespeichert');
+    // Acquire lock
+    await acquireLock(SUMMARY_DB_LOCK, { maxRetries: 120, retryDelay: 100 });
+
+    // Write to a unique temporary file first
+    const tmpPath = SUMMARY_DB_FILE + '.tmp.' + Date.now() + '.' + process.pid;
+    const data = JSON.stringify(summaryDB, null, 2);
+    await fs.writeFile(tmpPath, data, 'utf8');
+
+    // Rename tmp to final file (atomic on most platforms)
+    await fs.rename(tmpPath, SUMMARY_DB_FILE);
+
+    console.log('Zentrale Summary-DB atomar gespeichert');
     return true;
   } catch (error) {
-    console.error('Fehler beim Speichern der Summary-DB:', error);
+    console.error('Fehler beim atomaren Speichern der Summary-DB:', error);
     return false;
+  } finally {
+    // Release lock in finally to ensure it's freed
+    try {
+      await releaseLock(SUMMARY_DB_LOCK);
+    } catch (e) {
+      // swallow
+    }
   }
 }
 
