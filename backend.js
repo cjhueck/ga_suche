@@ -373,6 +373,7 @@ function trackQueryTerms(query, resultCount) {
     queryLog[term].lastUsed = new Date().toISOString();
     
     terms.forEach(otherTerm => {
+
       if (term !== otherTerm) {
         if (!queryLog[term].coOccurrences[otherTerm]) {
           queryLog[term].coOccurrences[otherTerm] = 0;
@@ -1577,6 +1578,54 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   }
 });
 
+// API: Keyword-Search (reuses thematische Suche + LLM-Analyse)
+app.post('/api/keyword-search', async (req, res) => {
+  try {
+    const { query, gaFilter = '', limit = 30 } = req.body;
+    if (!query) return res.status(400).json({ error: 'Query erforderlich' });
+
+    // Finde relevante Absätze (wie thematische Suche)
+    const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
+
+    if (!keywordResults || keywordResults.length === 0) {
+      return res.json({ query, keywords: [], sources: [], totalMatches: 0 });
+    }
+
+    // Optionaler GA-Filter
+    let filtered = keywordResults;
+    if (gaFilter) filtered = filtered.filter(s => s.ID && s.ID.startsWith(gaFilter));
+
+    // Semantic ranking und Top-N
+    const ranked = applySemanticRanking(filtered, query);
+    const topResults = ranked.slice(0, limit);
+
+    // Query tracking
+    trackQueryTerms(query, topResults.length);
+
+    // Reuse the generateAnalysis LLM prompt for a concise analysis (depth 'allgemein')
+    const analysis = await generateAnalysis(query, topResults, 'allgemein');
+
+    res.json({
+      query,
+      analysis,
+      sources: topResults.slice(0, 10).map(result => ({
+        ID: result.ID,
+        index: result.index,
+        title: result.title,
+        fileName: result.fileName,
+        score: Math.round(result.finalScore || result.score || 0),
+        matchedTerms: result.matchedTerms || []
+      })),
+      totalMatches: keywordResults.length,
+      llmUsed: !!process.env.CLAUDE_API_KEY
+    });
+
+  } catch (error) {
+    console.error('/api/keyword-search Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/api/full-lecture/:lectureId', (req, res) => {
   try {
     const lectureId = req.params.lectureId;
@@ -2079,6 +2128,97 @@ async function saveSummaryDatabase(summaryDB) {
     }
   }
 }
+
+// ==========================
+// Keywords Datenbank (keywords.json)
+// ==========================
+const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords.json');
+const KEYWORDS_DB_LOCK = KEYWORDS_DB_FILE + '.lock';
+
+async function loadKeywordsDatabase() {
+  try {
+    const data = await fs.readFile(KEYWORDS_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    // Datei nicht vorhanden oder fehlerhaft -> leeres Objekt
+    return {};
+  }
+}
+
+async function saveKeywordsDatabase(keywordsDB) {
+  try {
+    await acquireLock(KEYWORDS_DB_LOCK, { maxRetries: 120, retryDelay: 100 });
+    const tmpPath = KEYWORDS_DB_FILE + '.tmp.' + Date.now() + '.' + process.pid;
+    const data = JSON.stringify(keywordsDB, null, 2);
+    await fs.writeFile(tmpPath, data, 'utf8');
+    await fs.rename(tmpPath, KEYWORDS_DB_FILE);
+    console.log('Keywords-DB atomar gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Keywords-DB:', error);
+    return false;
+  } finally {
+    try { await releaseLock(KEYWORDS_DB_LOCK); } catch(e){}
+  }
+}
+
+// API: Get all saved keywords
+app.get('/api/keywords', async (req, res) => {
+  try {
+    const db = await loadKeywordsDatabase();
+    // return as array
+    const list = Object.keys(db).sort().map(k => ({ keyword: k, ...db[k] }));
+    res.json({ keywords: list });
+  } catch (err) {
+    console.error('/api/keywords GET error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Save/Upsert a keyword
+app.post('/api/keywords', async (req, res) => {
+  try {
+    const { keyword, summary = '', text = '', matches = [], confidence = 0 } = req.body;
+    if (!keyword) return res.status(400).json({ error: 'keyword required' });
+
+    const db = await loadKeywordsDatabase(); // db ist jetzt ein Array!
+    let entry = db.find(k => k.keyword && k.keyword.toLowerCase() === keyword.toLowerCase());
+    if (!entry) {
+      entry = { keyword, summary, text, matches, confidence, timestamp: new Date().toISOString() };
+      db.push(entry);
+    } else {
+      entry.summary = summary;
+      entry.text = text;
+      entry.matches = matches;
+      entry.confidence = confidence;
+      entry.timestamp = new Date().toISOString();
+    }
+
+    const ok = await saveKeywordsDatabase(db);
+    if (ok) res.json(entry);
+    else res.status(500).json({ error: 'save failed' });
+  } catch (err) {
+    console.error('/api/keywords POST error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// API: Delete keyword
+app.delete('/api/keywords/:keyword', async (req, res) => {
+  try {
+    const key = String(req.params.keyword).toLowerCase();
+    const db = await loadKeywordsDatabase();
+    const idx = db.findIndex(k => k.keyword && k.keyword.toLowerCase() === key);
+    if (idx === -1) return res.status(404).json({ error: 'not found' });
+    db.splice(idx, 1);
+    const ok = await saveKeywordsDatabase(db);
+    if (ok) res.json({ success: true });
+    else res.status(500).json({ error: 'delete save failed' });
+  } catch (err) {
+    console.error('/api/keywords DELETE error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // API: Summary speichern
 app.post('/api/save-summary', async (req, res) => {

@@ -1321,6 +1321,37 @@ body.dark-mode #thematicSearchInfo {
   border-color: transparent transparent #467886 transparent;
 }
 
+    /* Schlagwörter - Gruppen / Einträge */
+    .kw-group {
+      border-top: 1px solid #eef6f8;
+      padding: 6px 0;
+      margin-bottom: 6px;
+    }
+
+    .kw-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      padding: 4px 0;
+      cursor: pointer;
+      color: #467886;
+    }
+
+    .kw-entry {
+      padding: 8px 6px;
+      border-bottom: 1px solid #f4f8f9;
+      /* Use block layout so title and meta/preview stack vertically */
+      display: block;
+      font-size: 0.95em;
+    }
+
+    .kw-entry .kw-meta { color: #666; font-size: 0.85em; }
+
+    .kw-text { color: #444; margin-top: 6px; font-size: 0.9em; }
+
+
 .lecture-link-wrapper:hover .loading-tooltip {
   visibility: visible;
   opacity: 1;
@@ -1385,7 +1416,7 @@ body.dark-mode .loading-tooltip::before {
 GA-Übersicht →
 </button>
 <div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
+  <button class="depth-btn primary" onclick="startKeywordSearchOrLoad()" style="margin-bottom: 0;">Suche starten</button>
   <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
   <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
 </div>
@@ -1431,10 +1462,10 @@ GA-Übersicht →
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;">
 <button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
+<button class="depth-btn primary" onclick="startKeywordSearchOrLoad()" style="padding: 6px 10px; font-size: 0.9em;">Suche starten</button>
 </div>
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
 <div id="keyword-count" style="font-size: 0.85em; color: #666;">
-Lade Schlagwörter...
 </div>
   <div style="display:flex; gap:8px; align-items:center;">
   <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
@@ -1561,6 +1592,679 @@ Original
       }
     }
 
+    // --- Schlagwörter: Frontend handlers ---
+  async function performKeywordAISearch() {
+      // Robustly read the keyword input from multiple possible selectors
+      const inputEl = document.getElementById('keywordSearch') || document.querySelector('input.search-input') || document.querySelector('input[type=text]');
+      const query = (inputEl && (inputEl.value || '').trim()) || '';
+      if (!query) {
+        const resultsContainer = document.getElementById('results');
+        if (resultsContainer) resultsContainer.innerHTML = '<div class="error-message">Bitte ein Schlagwort eingeben.</div>';
+        return;
+      }
+
+  setKeywordSearchLoading(true);
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = '<p style="padding:1rem; color:#666;"><em>Suche läuft...</em></p>';
+
+      try {
+        const resp = await fetch(`${API_BASE}/api/keyword-search`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query, limit: 50 })
+        });
+        if (!resp.ok) throw new Error('Serverfehler: ' + resp.status);
+        const data = await resp.json();
+
+        // Use the same rendering as Themensuche so output, styling and link behavior are identical
+        renderThematicResults(query, data.analysis || 'Keine relevanten Textstellen gefunden.', data.sources || []);
+        // Persist the new keyword into the keywords DB so it appears in the Tab list for future queries
+        try {
+          const matches = (data.sources || []).map(s => ({ ref: s.ID, index: s.index || '' }));
+          const payload = { keyword: query, text: (data.analysis || '').toString(), summary: (data.analysis || '').toString(), matches, confidence: 80 };
+          const resp = await fetch(`${API_BASE}/api/keywords`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+          if (resp.ok) {
+            // Nach erfolgreichem Speichern: Keyword-Liste neu laden und das neue Keyword anzeigen
+            const kwListResp = await fetch(`${API_BASE}/api/keywords`);
+            const kwListData = await kwListResp.json();
+            const list = Array.isArray(kwListData.keywords) ? kwListData.keywords : [];
+            const found = list.find(k => k.keyword && k.keyword.toLowerCase() === query.toLowerCase());
+            if (found) {
+              showKeywordInResults(found);
+            } else {
+              showKeywordInResults(payload);
+            }
+            loadKeywordLibrary();
+            loadKeywordLibraryMini();
+          } else {
+            showKeywordInResults(payload);
+          }
+        } catch (saveErr) {
+          console.warn('Auto-save keyword failed:', saveErr);
+          showKeywordInResults({ keyword: query, text: (data.analysis || '').toString() });
+        }
+      } catch (err) {
+        console.error('Keyword search error:', err);
+        document.getElementById('results').innerHTML = `<div class="error-message">Fehler: ${err.message}</div>`;
+      } finally {
+        setKeywordSearchLoading(false);
+      }
+    }
+
+    // Starts a keyword lookup: if the keyword already exists in saved keywords, load it;
+    // otherwise call the AI-backed performKeywordSearch() to generate results.
+    async function startKeywordSearchOrLoad() {
+      const inputEl = document.getElementById('keywordSearch') || document.querySelector('input.search-input') || document.querySelector('input[type=text]');
+      const query = (inputEl && (inputEl.value || '').trim()) || '';
+      if (!query) {
+        // Zeige die vollständige Schlagwort-Liste
+        const resultsContainer = document.getElementById('results');
+        if (resultsContainer) {
+          // Lade Keywords aus DB
+          const resp = await fetch(`${API_BASE}/api/keywords`);
+          const data = await resp.json();
+          const list = Array.isArray(data.keywords) ? data.keywords : [];
+          if (list.length === 0) {
+            resultsContainer.innerHTML = '<div class="error-message">Keine Schlagwörter gespeichert.</div>';
+          } else {
+            // Render als Liste, aber Ergebnis immer im Haupt-Container
+            let html = '<ul style="list-style:none; padding-left:0;">';
+            for (const k of list) {
+              html += `<li style="margin-bottom:12px;"><a href="#" class="kw-list-toggle" data-key="${encodeURIComponent(k.keyword)}" style="font-weight:600; text-decoration:none; color:#467886;">${k.keyword}</a></li>`;
+            }
+            html += '</ul>';
+            resultsContainer.innerHTML = html;
+            // Toggle-Handler: Klick zeigt Ergebnis im Haupt-Container wie beim Tab-Öffnen
+            resultsContainer.querySelectorAll('.kw-list-toggle').forEach(toggle => {
+              toggle.addEventListener('click', e => {
+                e.preventDefault();
+                const key = decodeURIComponent(toggle.getAttribute('data-key'));
+                const item = list.find(k => k.keyword === key);
+                if (item) {
+                  showKeywordInResults(item);
+                } else {
+                  resultsContainer.innerHTML = '<div style="color:#666;">Kein Text vorhanden.</div>';
+                }
+              });
+            });
+          }
+        }
+        return;
+      }
+
+      try {
+        const resp = await fetch(`${API_BASE}/api/keywords`);
+        if (!resp.ok) throw new Error('Could not load keywords');
+        const data = await resp.json();
+        const list = Array.isArray(data.keywords) ? data.keywords : [];
+        console.log('[KEYWORD-DB] Geladene Keywords:', list.map(k => k.keyword));
+
+        function normalizeForMatch(s) {
+          if (!s) return '';
+          let out = s.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+          out = out.replace(/[^\wäöüß]/gi, '');
+          out = out.toLowerCase();
+          out = out.replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+          return out;
+        }
+
+        const qNorm = normalizeForMatch(query);
+        console.log('[KEYWORD-SEARCH] Query:', query, 'Normalisiert:', qNorm);
+
+        let found = null;
+        for (const k of list) {
+          if (!k || !k.keyword) continue;
+          const kwRaw = k.keyword;
+          const kwNorm = normalizeForMatch(kwRaw);
+          if (kwRaw.toLowerCase() === query.toLowerCase() || kwNorm === qNorm || kwNorm.includes(qNorm)) {
+            found = k;
+            console.log('[KEYWORD-MATCH] Treffer:', kwRaw, kwNorm);
+            break;
+          }
+        }
+
+        if (found) {
+          showKeywordInResults(found);
+        } else {
+          console.log('[KEYWORD-MATCH] Kein Treffer, starte KI-Suche');
+          await performKeywordAISearch();
+        }
+      } catch (err) {
+        console.error('startKeywordSearchOrLoad failed', err);
+        const resultsContainer = document.getElementById('results');
+        if (resultsContainer) resultsContainer.innerHTML = `<div class="error-message">Fehler: ${err.message}</div>`;
+      }
+    }
+
+    // Render a single saved keyword directly into the results pane and expand its body
+    function showKeywordInResults(item) {
+  window.keywordResultActive = true;
+  window.keywordResultActive = false;
+  window.keywordResultActive = false;
+      const resultsEl = document.getElementById('results');
+      if (!resultsEl) return;
+      // Einheitliche Formatierung: Immer dieselbe Struktur und Klassen
+      resultsEl.innerHTML = `
+        <div class="semantic-answer">
+          <div class="answer-content" id="answerContent"></div>
+        </div>
+      `;
+      const answerDiv = document.getElementById('answerContent');
+      const keywordText = item.text || item.summary || 'Keine relevanten Textstellen gefunden.';
+      // Einheitliche Markdown-Parsing und Heading-Anpassung
+      let html = marked.parse(keywordText);
+      const frag = document.createElement('div');
+      frag.innerHTML = html;
+      // Alle h1 und h2 zu h3 konvertieren
+      frag.querySelectorAll('h1, h2').forEach(h => {
+        const h3 = document.createElement('h3');
+        h3.innerHTML = h.innerHTML;
+        h.replaceWith(h3);
+      });
+      // Entferne die erste Überschrift (h3)
+      const firstHeading = frag.querySelector('h3');
+      if (firstHeading) firstHeading.remove();
+      answerDiv.innerHTML = frag.innerHTML;
+      // GA-Link-Handler wie bei Themensuche setzen
+      setTimeout(() => {
+        const gaLinks = answerDiv.querySelectorAll('.ga-reference');
+        gaLinks.forEach(link => {
+          const lectureId = link.getAttribute('data-id');
+          const targetIndex = link.getAttribute('data-index');
+          if (lectureId && targetIndex) {
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const summaryPanel = document.getElementById('summary-panel');
+              const resizeHandle = document.getElementById('verticalResizeHandle');
+              if (summaryPanel && summaryPanel.classList.contains('visible')) {
+                summaryPanel.classList.remove('visible');
+                resizeHandle.classList.remove('visible');
+                summaryPanel.style.width = '0';
+                summaryPanel.style.minWidth = '0';
+                summaryPanel.style.marginRight = '0px';
+              }
+              const keywords = [item.keyword];
+              await showLecture(lectureId, targetIndex, keywords);
+            });
+          }
+        });
+      }, 100);
+      // Mini-Library wie gehabt laden
+      loadKeywordLibraryMini();
+    }
+
+    // Simple HTML escape for safe insertion into templates
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[s]);
+    }
+
+    // Helper to toggle the visible search button(s) into a loading state
+    function setKeywordSearchLoading(loading) {
+      // Primary button in the Schalgwörter tab
+      const tabBtn = document.querySelector('#schlagworte-tab .depth-btn.primary');
+      if (tabBtn) {
+        if (loading) { tabBtn.dataset.orig = tabBtn.textContent; tabBtn.textContent = 'Suchen...'; tabBtn.disabled = true; }
+        else { if (tabBtn.dataset.orig) tabBtn.textContent = tabBtn.dataset.orig; tabBtn.disabled = false; }
+      }
+      // Global top button (if present)
+      const topBtn = document.querySelector('button.depth-btn.primary[onclick*="startKeywordSearchOrLoad"]');
+      if (topBtn && topBtn !== tabBtn) {
+        if (loading) { topBtn.dataset.orig = topBtn.textContent; topBtn.textContent = 'Suchen...'; topBtn.disabled = true; }
+        else { if (topBtn.dataset.orig) topBtn.textContent = topBtn.dataset.orig; topBtn.disabled = false; }
+      }
+    }
+
+    async function saveKeywordFromResult(keyword, id, index) {
+      const payload = { keyword: keyword, summary: '', matches: [{ ref: id, index }], confidence: 80 };
+      try {
+        const resp = await fetch(`${API_BASE}/api/keywords`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!resp.ok) throw new Error('Save failed: ' + resp.status);
+        alert('Schlagwort gespeichert: ' + keyword);
+        loadKeywordLibraryMini();
+      } catch (err) {
+        console.error('Save keyword error:', err);
+        alert('Fehler beim Speichern: ' + err.message);
+      }
+    }
+
+    async function loadKeywordLibraryMini() {
+      try {
+        const resp = await fetch(`${API_BASE}/api/keywords`);
+        if (!resp.ok) throw new Error('Could not load keywords');
+        const data = await resp.json();
+        const el = document.getElementById('kw-library-mini');
+        if (!el) return;
+        if (!data.keywords || data.keywords.length === 0) { el.innerHTML = '<div style="color:#666;">Keine gespeicherten Schlagwörter.</div>'; return; }
+        const items = data.keywords.slice(0,20);
+        let html = '';
+        items.forEach(item => {
+          const gaPreview = (item.gaReferences && item.gaReferences.length) ? item.gaReferences.slice(0,5).join(', ') : '';
+          html += `<div class="kw-mini-entry" data-key="${encodeURIComponent(item.keyword)}" style="padding:6px 0;border-bottom:1px solid #f4f8f9;">`;
+          html += `<div><a href="#" class="kw-mini-toggle" data-key="${encodeURIComponent(item.keyword)}" style="font-weight:600; text-decoration:none; color:inherit;">${item.keyword}</a></div>`;
+          html += `<div style="margin-top:4px; font-size:0.85em; color:#666;">${item.timestamp || ''}</div>`;
+          html += `<div class="kw-mini-body" style="display:none; padding-top:8px;"></div>`;
+          html += `</div>`;
+        });
+        el.innerHTML = html;
+
+        // Attach toggle handlers to mini list
+        el.querySelectorAll('.kw-mini-toggle').forEach(toggle => {
+          toggle.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const key = decodeURIComponent(toggle.getAttribute('data-key'));
+            const entry = toggle.closest('.kw-mini-entry');
+            if (!entry) return;
+            const body = entry.querySelector('.kw-mini-body');
+            if (!body) return;
+            if (body.style.display && body.style.display !== 'none') { body.style.display = 'none'; return; }
+            if (!body.dataset.rendered) {
+              const item = items.find(k => (k.keyword||'').toLowerCase() === (key||'').toLowerCase());
+              if (!item) { body.innerHTML = '<div style="color:#666;">Eintrag nicht gefunden.</div>'; }
+              else { renderKeywordTextToElement(item, body); body.dataset.rendered = '1'; }
+            }
+            body.style.display = 'block';
+          });
+        });
+      } catch (err) {
+        console.warn('Load kw mini failed', err);
+      }
+    }
+    
+    // Vollständige Schlagwort-Bibliothek laden und rendern
+    async function loadKeywordLibrary() {
+      const container = document.getElementById('schlagworte-tab');
+      const listContainerId = 'keyword-library-full';
+
+      // Place a loading placeholder
+      let listEl = document.getElementById(listContainerId);
+      if (!listEl) {
+        listEl = document.createElement('div');
+        listEl.id = listContainerId;
+        container.appendChild(listEl);
+      }
+  listEl.innerHTML = '';
+
+      try {
+        const resp = await fetch(`${API_BASE}/api/keywords`);
+        if (!resp.ok) throw new Error('Konnte Schlagwörter nicht laden');
+        const data = await resp.json();
+        const keywords = data.keywords || [];
+
+        // Filter by search box if present
+        const searchTerm = (document.getElementById('keywordSearch')?.value || '').trim().toLowerCase();
+        const filtered = searchTerm ? keywords.filter(k => k.keyword.toLowerCase().includes(searchTerm) || (k.summary||'').toLowerCase().includes(searchTerm)) : keywords;
+
+        renderKeywordLibrary(filtered, listEl);
+
+        document.getElementById('keyword-count').textContent = `${filtered.length} gespeicherte Schlagwörter`;
+      } catch (err) {
+        console.error('Load keyword library failed', err);
+        listEl.innerHTML = `<div class="error-message">Fehler: ${err.message}</div>`;
+      }
+    }
+
+    function renderKeywordLibrary(keywords, containerEl) {
+      // Render keyword list into the main results pane. Each keyword becomes a toggle
+      // link; clicking it expands the parsed entry (Markdown -> HTML) directly under
+      // the keyword. GA references inside the expanded content are rendered as links
+      // that open the GA file via showLecture. This keeps the search window free and
+      // places all keyword interactions in the results area.
+
+      const resultsEl = document.getElementById('results');
+      if (!resultsEl) return;
+
+      // Group alphabetically by first letter
+      const groups = {};
+      keywords.forEach(k => {
+        const letter = (k.keyword && k.keyword[0]) ? k.keyword[0].toUpperCase() : '#';
+        groups[letter] = groups[letter] || [];
+        groups[letter].push(k);
+      });
+
+      const letters = Object.keys(groups).sort();
+      let html = '';
+      letters.forEach(letter => {
+        const items = groups[letter].sort((a,b)=> a.keyword.localeCompare(b.keyword));
+        html += `<div class="kw-group" data-letter="${letter}">`;
+        html += `<div class="kw-group-header">${letter} <span style="font-weight:400;color:#666;">(${items.length})</span></div>`;
+        html += `<div class="kw-group-body">`;
+        items.forEach(item => {
+          html += `<div class="kw-entry" data-key="${encodeURIComponent(item.keyword)}" style="padding:8px 0;border-bottom:1px solid #f4f8f9;">`;
+          // Keyword title is the toggle link (on its own line)
+          html += `<div><a href="#" class="kw-toggle" data-key="${encodeURIComponent(item.keyword)}" style="font-weight:600; font-size:1.05em; text-decoration:none; color:inherit;">${item.keyword}</a></div>`;
+          // Hidden body where the parsed entry will be inserted
+          html += `<div class="kw-body" style="display:none; padding-top:8px;"></div>`;
+          html += `</div>`;
+        });
+        html += `</div>`;
+        html += `</div>`;
+      });
+
+      resultsEl.innerHTML = html || '<p style="color:#666;">Keine Schlagwörter gefunden.</p>';
+
+      // Initially collapse all groups for compact view
+      const bodies = resultsEl.querySelectorAll('.kw-group-body');
+      bodies.forEach(b => b.style.display = 'block');
+
+      // Attach toggle handlers for keyword titles
+      resultsEl.querySelectorAll('.kw-toggle').forEach(toggle => {
+        toggle.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const key = decodeURIComponent(toggle.getAttribute('data-key'));
+          const entryEl = toggle.closest('.kw-entry');
+          if (!entryEl) return;
+          const bodyEl = entryEl.querySelector('.kw-body');
+          if (!bodyEl) return;
+
+          // If already expanded, collapse
+          if (bodyEl.style.display && bodyEl.style.display !== 'none') {
+            bodyEl.style.display = 'none';
+            return;
+          }
+
+          // If empty, render the keyword text into the body (lazy render)
+          if (!bodyEl.dataset.rendered) {
+            try {
+              // Find the original item object
+              const item = keywords.find(k => (k.keyword||'').toLowerCase() === (key||'').toLowerCase());
+              if (!item) {
+                bodyEl.innerHTML = '<div style="color:#666;">Eintrag nicht gefunden.</div>';
+              } else {
+                renderKeywordTextToElement(item, bodyEl);
+                bodyEl.dataset.rendered = '1';
+              }
+            } catch (err) {
+              console.error('Fehler beim Rendern des Schlagworts:', err);
+              bodyEl.innerHTML = `<div class="error-message">Fehler: ${err.message}</div>`;
+            }
+          }
+
+          // Show the body
+          bodyEl.style.display = 'block';
+        });
+      });
+
+      // Ensure Enter triggers the unified start action when using the modern library
+      const searchInput = document.getElementById('keywordSearch');
+      if (searchInput && !searchInput.dataset.kwEnterBound) {
+        searchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); startKeywordSearchOrLoad(); }
+        });
+        searchInput.dataset.kwEnterBound = '1';
+      }
+    }
+
+    // Helper: render a keyword item's markdown into a provided element and wire GA links
+    function renderKeywordTextToElement(item, targetEl) {
+      const rawHtml = item.text ? marked.parse(item.text) : '';
+      const frag = document.createElement('div');
+      frag.innerHTML = rawHtml;
+
+      // Convert h1 -> h3 to avoid large headings
+      frag.querySelectorAll('h1').forEach(h1 => {
+        const h3 = document.createElement('h3');
+        h3.innerHTML = h1.innerHTML;
+        h1.replaceWith(h3);
+      });
+
+      // Remove the very first heading in the fragment
+      const firstHeading = frag.querySelector('h1, h2, h3');
+      if (firstHeading) firstHeading.remove();
+
+      const GA_REGEX = /GA\d{3}[a-z]?\/\d+/g;
+
+      function walkAndReplace(node) {
+        for (let child = node.firstChild; child; child = child.nextSibling) {
+          if (child.nodeType === Node.ELEMENT_NODE) {
+            if (child.tagName === 'A') continue;
+            walkAndReplace(child);
+          } else if (child.nodeType === Node.TEXT_NODE) {
+            const text = child.nodeValue;
+            let match;
+            let lastIndex = 0;
+            const parent = child.parentNode;
+            const docFrag = document.createDocumentFragment();
+
+            GA_REGEX.lastIndex = 0;
+            let found = false;
+            while ((match = GA_REGEX.exec(text)) !== null) {
+              found = true;
+              const before = text.slice(lastIndex, match.index);
+              if (before) docFrag.appendChild(document.createTextNode(before));
+
+              const gaId = match[0];
+              const parts = gaId.split('/');
+              const idx = parts[1] || '';
+              const a = document.createElement('a');
+              // Make the anchor point to a visible GA-like href so it is a real link
+              a.href = `#${gaId}`;
+              a.className = 'ga-reference';
+              a.setAttribute('data-id', gaId);
+              a.setAttribute('data-index', '^' + idx);
+              const snippetBefore = text.slice(Math.max(0, match.index - 60), match.index).trim();
+              const snippetAfter = text.slice(GA_REGEX.lastIndex, GA_REGEX.lastIndex + 60).trim();
+              const snippet = (snippetBefore + ' ' + match[0] + ' ' + snippetAfter).trim();
+              if (snippet) a.setAttribute('data-search', snippet);
+              a.textContent = gaId;
+              docFrag.appendChild(a);
+
+              lastIndex = GA_REGEX.lastIndex;
+            }
+
+            if (found) {
+              const after = text.slice(lastIndex);
+              if (after) docFrag.appendChild(document.createTextNode(after));
+              parent.replaceChild(docFrag, child);
+            }
+          }
+        }
+      }
+
+      walkAndReplace(frag);
+
+      // Use Themensuche wrapper for identical styling
+      targetEl.innerHTML = `<div class="semantic-answer"><div class="answer-content">${frag.innerHTML}</div></div>`;
+
+      // Attach click handlers to GA links inside this element
+      setTimeout(() => {
+        const gaLinks = targetEl.querySelectorAll('.ga-reference');
+        gaLinks.forEach(link => {
+          const lectureId = link.getAttribute('data-id');
+          const targetIndex = link.getAttribute('data-index');
+          const searchSnippet = link.getAttribute('data-search') || '';
+          // Ensure the anchor also has a useful href for users (points to GA id)
+          link.href = `#${lectureId}`;
+          if (lectureId && targetIndex) {
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const summaryPanel = document.getElementById('summary-panel');
+              const resizeHandle = document.getElementById('verticalResizeHandle');
+              if (summaryPanel && summaryPanel.classList.contains('visible')) {
+                summaryPanel.classList.remove('visible');
+                resizeHandle && resizeHandle.classList.remove('visible');
+                summaryPanel.style.width = '0';
+                summaryPanel.style.minWidth = '0';
+                summaryPanel.style.marginRight = '0px';
+              }
+              const keywords = extractKeywordsFromQuery(currentThematicQuery || '');
+              await showLecture(lectureId, targetIndex, keywords, searchSnippet);
+            });
+          }
+        });
+      }, 30);
+    }
+
+    function renderAlphabetNav() {
+      const nav = document.getElementById('alphabet-nav');
+      if (!nav) return;
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#'.split('');
+      nav.innerHTML = letters.map(l => `<button class="depth-btn" style="padding:4px 6px; font-size:0.8em;" onclick="scrollToKeywordLetter('${l}')">${l}</button>`).join('');
+    }
+
+    function scrollToKeywordLetter(letter) {
+      const groups = document.querySelectorAll('.kw-group');
+      for (const g of groups) {
+        if ((g.dataset.letter || '').toUpperCase() === (letter || '').toUpperCase()) {
+          g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const body = g.querySelector('.kw-group-body');
+          if (body) body.style.display = 'block';
+          return;
+        }
+      }
+    }
+
+    function clearKeywordSearch() {
+      const el = document.getElementById('keywordSearch');
+      if (el) { el.value = ''; loadKeywordLibrary(); }
+    }
+
+    function toggleKeywordTexts() {
+      const toggle = document.getElementById('keyword-text-toggle');
+      const show = toggle && toggle.textContent.includes('ausblenden');
+      const bodies = document.querySelectorAll('.kw-text');
+      bodies.forEach(b => b.style.display = show ? 'none' : 'block');
+      if (toggle) toggle.textContent = show ? 'Texte einblenden' : 'Texte ausblenden';
+    }
+
+    async function openKeywordEntry(encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      try {
+        // Load full keywords (to get text) and find the entry
+        const resp = await fetch(`${API_BASE}/api/keywords`);
+        if (!resp.ok) throw new Error('Konnte Schlagwörter nicht laden');
+        const data = await resp.json();
+        const item = (data.keywords||[]).find(k => k.keyword.toLowerCase() === key.toLowerCase());
+        if (!item) return alert('Eintrag nicht gefunden');
+
+  // Convert markdown to HTML (marked is available) and convert GA refs to links
+  let html = '';
+  // Use marked to convert markdown -> HTML
+  const rawHtml = item.text ? marked.parse(item.text) : '';
+
+        // Parse into a DOM fragment to safely modify nodes (avoid replacing inside attributes or existing anchors)
+        const frag = document.createElement('div');
+        frag.innerHTML = rawHtml;
+
+        // Convert any h1 elements to h3 to avoid large H1 headings
+        frag.querySelectorAll('h1').forEach(h1 => {
+          const h3 = document.createElement('h3');
+          h3.innerHTML = h1.innerHTML;
+          h1.replaceWith(h3);
+        });
+
+        // Remove the very first heading in the fragment (we don't want the title/heading lines)
+        const firstHeading = frag.querySelector('h1, h2, h3');
+        if (firstHeading) firstHeading.remove();
+
+        // Walk text nodes and replace GA references only in text nodes (skip inside existing anchors)
+        const GA_REGEX = /GA\d{3}[a-z]?\/\d+/g;
+
+        function walkAndReplace(node) {
+          for (let child = node.firstChild; child; child = child.nextSibling) {
+            // Skip script/style
+            if (child.nodeType === Node.ELEMENT_NODE) {
+              if (child.tagName === 'A') continue; // don't replace inside existing links
+              walkAndReplace(child);
+            } else if (child.nodeType === Node.TEXT_NODE) {
+              const text = child.nodeValue;
+              let match;
+              let lastIndex = 0;
+              const parent = child.parentNode;
+              const docFrag = document.createDocumentFragment();
+
+              GA_REGEX.lastIndex = 0;
+              let found = false;
+              while ((match = GA_REGEX.exec(text)) !== null) {
+                found = true;
+                const before = text.slice(lastIndex, match.index);
+                if (before) docFrag.appendChild(document.createTextNode(before));
+
+                const gaId = match[0];
+                const parts = gaId.split('/');
+                const idx = parts[1] || '';
+                const a = document.createElement('a');
+                a.href = '#';
+                a.className = 'ga-reference';
+                // Use same data attributes as Themensuche so handlers work unchanged
+                a.setAttribute('data-id', gaId);
+                a.setAttribute('data-index', '^' + idx);
+                // Create a small context snippet (max 120 chars) around the match to help locate the paragraph later
+                const snippetBefore = text.slice(Math.max(0, match.index - 60), match.index).trim();
+                const snippetAfter = text.slice(GA_REGEX.lastIndex, GA_REGEX.lastIndex + 60).trim();
+                const snippet = (snippetBefore + ' ' + match[0] + ' ' + snippetAfter).trim();
+                if (snippet) a.setAttribute('data-search', snippet);
+                a.textContent = gaId;
+                docFrag.appendChild(a);
+
+                lastIndex = GA_REGEX.lastIndex;
+              }
+
+              if (found) {
+                const after = text.slice(lastIndex);
+                if (after) docFrag.appendChild(document.createTextNode(after));
+                parent.replaceChild(docFrag, child);
+              }
+            }
+          }
+        }
+
+        walkAndReplace(frag);
+
+        // Use same wrapper as Themensuche for identical styling
+  // Do not prepend a separate heading or reference line - render content exactly like Themensuche
+  html += `<div class="semantic-answer"><div class="answer-content" id="answerContent">${frag.innerHTML}</div></div>`;
+        const resultsEl = document.getElementById('results');
+        resultsEl.innerHTML = html;
+
+        // Attach click handlers to GA links (like in renderThematicResults)
+        setTimeout(() => {
+          const answerDiv = document.getElementById('answerContent');
+          const gaLinks = answerDiv ? answerDiv.querySelectorAll('.ga-reference') : [];
+          gaLinks.forEach(link => {
+                const lectureId = link.getAttribute('data-id');
+            const targetIndex = link.getAttribute('data-index');
+            const searchSnippet = link.getAttribute('data-search') || '';
+            if (lectureId && targetIndex) {
+              link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // Same behavior as in renderThematicResults: close panel and open lecture with keywords from thematic query
+                const summaryPanel = document.getElementById('summary-panel');
+                const resizeHandle = document.getElementById('verticalResizeHandle');
+                if (summaryPanel.classList.contains('visible')) {
+                  summaryPanel.classList.remove('visible');
+                  resizeHandle.classList.remove('visible');
+                  summaryPanel.style.width = '0';
+                  summaryPanel.style.minWidth = '0';
+                  summaryPanel.style.marginRight = '0px';
+                }
+                const keywords = extractKeywordsFromQuery(currentThematicQuery || '');
+                await showLecture(lectureId, targetIndex, keywords, searchSnippet);
+              });
+            }
+          });
+        }, 50);
+      } catch (err) {
+        console.error('Open keyword failed', err);
+        alert('Fehler: ' + err.message);
+      }
+    }
+
+    async function deleteKeywordEntry(encodedKey) {
+      const key = decodeURIComponent(encodedKey);
+      if (!confirm(`Schlagwort "${key}" wirklich löschen?`)) return;
+      try {
+        const resp = await fetch(`${API_BASE}/api/keywords/${encodeURIComponent(key)}`, { method: 'DELETE' });
+        if (!resp.ok) throw new Error('Löschen fehlgeschlagen');
+        alert('Gelöscht: ' + key);
+        loadKeywordLibrary();
+        loadKeywordLibraryMini();
+      } catch (err) {
+        console.error('Delete keyword failed', err);
+        alert('Fehler beim Löschen: ' + err.message);
+      }
+    }
     async function saveSummaryToDB(lectureId, summaryData) {
       try {
         const response = await fetch(`${API_BASE}/api/save-summary`, {
@@ -1884,6 +2588,12 @@ function normalizeGANumber(gaNumber) {
       
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
       document.getElementById(`${mode}-tab`).classList.add('active');
+      // Wenn Schlagwörter-Tab ausgewählt, lade die Schlagwort-Bibliothek
+      if (mode === 'schlagworte') {
+        // Render alphabet nav and load full library
+        renderAlphabetNav();
+        loadKeywordLibrary();
+      }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -2422,11 +3132,13 @@ function toggleGASummaries() {
         
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
-        document.getElementById('results').innerHTML = `
-          <div class="error-message">
-            <strong>Fehler bei der Suche:</strong><br>${error.message}
-          </div>
-        `;
+        if (!window.keywordResultActive) {
+          document.getElementById('results').innerHTML = `
+            <div class="error-message">
+              <strong>Fehler bei der Suche:</strong><br>${error.message}
+            </div>
+          `;
+        }
       } finally {
         button.disabled = false;
         button.classList.remove('processing');
@@ -2670,11 +3382,13 @@ function toggleGASummaries() {
         
       } catch (error) {
         console.error('Thematic Search Error:', error);
-        document.getElementById('results').innerHTML = `
-          <div class="error-message">
-            <strong>Fehler bei der Themen-Suche:</strong><br>${error.message}
-          </div>
-        `;
+        if (!window.keywordResultActive) {
+          document.getElementById('results').innerHTML = `
+            <div class="error-message">
+              <strong>Fehler bei der Themen-Suche:</strong><br>${error.message}
+            </div>
+          `;
+        }
       } finally {
         // UI wieder freigeben
         setUILocked(false);
@@ -3416,7 +4130,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       setTimeout(() => msgDiv.remove(), 3000);
     }
 
-    async function showLecture(lectureId, targetIndex, keywords = []) {
+  async function showLecture(lectureId, targetIndex, keywords = [], searchSnippet = '') {
   const summaryPanel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
@@ -3527,6 +4241,40 @@ setTimeout(() => {
     
     updateButtonStates();
     displayLecture(data.lecture, targetIndex, displayKeywords);
+
+    // Fallback: wenn ein targetIndex übergeben wurde, aber kein entsprechendes Element
+    // existiert (unterschiedliche Index-Formate), versuche anhand eines kurzen Snippets
+    // den passenden Absatz zu finden und dorthin zu scrollen.
+    try {
+      if (targetIndex) {
+        const clean = targetIndex.replace(/^\^/, '');
+        const el = document.getElementById(`para-${clean}`);
+        if (!el && searchSnippet) {
+          // Suche im Paragraph-Text nach dem Snippet (case-insensitive)
+          const snippetLower = searchSnippet.toLowerCase();
+          const paragraphs = data.lecture.paragraphs || [];
+          let foundPara = null;
+          for (const p of paragraphs) {
+            const content = (p.content || p.text || '').toLowerCase();
+            if (snippetLower && content.includes(snippetLower)) {
+              foundPara = p;
+              break;
+            }
+          }
+
+          if (foundPara) {
+            const foundIndex = (foundPara.index || '').replace(/^\^/, '');
+            if (foundIndex) {
+              // scroll to the found paragraph after a short delay (DOM ready)
+              setTimeout(() => scrollToIndexInViewer(foundIndex), 150);
+              lastHighlightedIndex = foundIndex;
+            }
+          }
+        }
+      }
+    } catch (fsErr) {
+      console.warn('Fallback paragraph search failed:', fsErr);
+    }
     
   } catch (error) {
     console.error('Fehler beim Laden:', error);
@@ -4108,7 +4856,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
     function handleKeywordKeypress(event) {
       if (event.key === 'Enter') {
-        performKeywordSearch();
+  performKeywordAISearch();
       }
     }
 
@@ -4406,7 +5154,17 @@ async function initializeKeywordSystem() {
   console.log('[KEYWORDS] Initialisiere Schlagwort-System...');
   
   const countContainer = document.getElementById('keyword-count');
-  countContainer.textContent = 'Lade Schlagwörter...';
+  countContainer.textContent = '';
+  
+  // Wenn die moderne Keyword-Library vorhanden ist, verwende sie vorrangig
+  if (typeof loadKeywordLibrary === 'function') {
+    try {
+      await loadKeywordLibrary();
+      return;
+    } catch (err) {
+      console.warn('[KEYWORDS] Moderne loadKeywordLibrary() fehlgeschlagen, fahre mit altem Initializer fort:', err);
+    }
+  }
   
   try {
     // Lade Schlagwort-Daten
@@ -4750,16 +5508,46 @@ function setupKeywordSearch() {
     displayKeywords(currentAlphabet);
   });
   
-  searchInput.addEventListener('keypress', (e) => {
+  // Trigger the unified start action when Enter is pressed
+  searchInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-      displayKeywords(currentAlphabet);
+      e.preventDefault();
+      startKeywordSearchOrLoad();
     }
   });
 }
 
 function clearKeywordSearch() {
   document.getElementById('keywordSearch').value = '';
-  displayKeywords(currentAlphabet);
+  // Zeige die vollständige Schlagwort-Liste im Ergebnisfenster
+  const resultsContainer = document.getElementById('results');
+  if (resultsContainer) {
+    fetch(`${API_BASE}/api/keywords`).then(resp => resp.json()).then(data => {
+      const list = Array.isArray(data.keywords) ? data.keywords : [];
+      if (list.length === 0) {
+        resultsContainer.innerHTML = '<div class="error-message">Keine Schlagwörter gespeichert.</div>';
+      } else {
+  let html = '<ul style="list-style:none; padding-left:0;">';
+        for (const k of list) {
+          html += `<li style="margin-bottom:12px;"><a href="#" class="kw-list-toggle" data-key="${encodeURIComponent(k.keyword)}" style="font-weight:600; text-decoration:none; color:#467886;">${k.keyword}</a><div class="kw-list-body" style="display:none; margin-top:8px;"></div></li>`;
+        }
+        html += '</ul>';
+        resultsContainer.innerHTML = html;
+        resultsContainer.querySelectorAll('.kw-list-toggle').forEach(toggle => {
+          toggle.addEventListener('click', e => {
+            e.preventDefault();
+            const key = decodeURIComponent(toggle.getAttribute('data-key'));
+            const entry = toggle.closest('li');
+            const body = entry.querySelector('.kw-list-body');
+            if (body.style.display !== 'none') { body.style.display = 'none'; return; }
+            const item = list.find(k => k.keyword === key);
+            body.innerHTML = item ? marked.parse(item.text || '') : '<div style="color:#666;">Kein Text vorhanden.</div>';
+            body.style.display = 'block';
+          });
+        });
+      }
+    });
+  }
 }
 
 // Erweitere die bestehende switchTab Funktion
@@ -4788,8 +5576,14 @@ function switchTabExtended(mode) {
       // 1) Zentrale Ergebnis-Container (gemeinsam genutzter Bereich)
       const resultsEl = document.getElementById('results');
       if (resultsEl) {
-        resultsEl.innerHTML = '';
-        console.log('[TABS] Ergebnisse im #results-Bereich geleert');
+        // Nur leeren, wenn kein gespeichertes Keyword angezeigt wird
+        if (!(mode === 'schlagworte' && window.keywordResultActive)) {
+          resultsEl.innerHTML = '';
+          window.keywordResultActive = false;
+          console.log('[TABS] Ergebnisse im #results-Bereich geleert');
+        } else {
+          console.log('[TABS] Keyword-Ergebnis bleibt erhalten (Flag)');
+        }
       }
 
       // 2) Spezifische dynamische Bereiche innerhalb des Tabs (falls vorhanden)
@@ -4823,9 +5617,21 @@ function switchTabExtended(mode) {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
   }
   
-  // Initialisiere Schlagwort-System beim ersten Aufruf
-  if (mode === 'schlagworte' && keywordsData.length === 0) {
-    initializeKeywordSystem();
+  // Wenn Schlagwörter-Tab ausgewählt, versuche moderne Keyword-Library zu laden,
+  // fall back auf das ältere Initializer-Script falls nötig.
+  if (mode === 'schlagworte') {
+    try {
+      if (typeof renderAlphabetNav === 'function') renderAlphabetNav();
+      if (typeof loadKeywordLibrary === 'function') {
+        loadKeywordLibrary();
+      } else if (typeof initializeKeywordSystem === 'function') {
+        // Fallback - existierendes System initialisieren
+        initializeKeywordSystem();
+      }
+    } catch (err) {
+      console.warn('[KEYWORDS] Fehler beim Laden der modernen Schlagwort-Bibliothek:', err);
+      if (typeof initializeKeywordSystem === 'function') initializeKeywordSystem();
+    }
   }
 
   // Wenn wir zum Stichwort-Tab (Text-Suche) wechseln, lösche das zuletzt eingegebene Suchwort
