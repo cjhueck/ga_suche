@@ -5,6 +5,31 @@
 <meta charset="utf-8"/>
 <title>Steiner GA-Suche</title>
 <style>
+    /* Zentrale Farbdefinitionen */
+    :root {
+      /* Light Mode Farben */
+      --text-color: #333333;           /* Dunkles Grau für normalen Text */
+      --heading-color: #467886;        /* Teal für Überschriften */
+      --link-color: #467886;           /* Teal für Links */
+      --background-color: #ffffff;     /* Weißer Hintergrund */
+      --border-color: #ddd;            /* Graue Rahmen */
+      --secondary-text: #666;          /* Sekundärer Text */
+      
+      /* Dark Mode Farben */
+      --dark-text-color: #b8b8b8;      /* Weniger helles Grau für normalen Text */
+      --dark-heading-color: #6BA3B8;   /* Weniger helles Blau für Überschriften */
+      --dark-link-color: #6BA3B8;      /* Weniger helles Blau für Links */
+      --dark-background-color: #1a1a1a; /* Dunkler Hintergrund */
+      --dark-border-color: #404040;    /* Dunkle Rahmen */
+      --dark-secondary-text: #999;     /* Sekundärer Text */
+      
+      /* Zentrale Textgrößen */
+      --text-size: 1.0rem;             /* Einheitliche Textgröße für alle Bereiche */
+      --heading-size: 1.0rem;           /* Überschriften-Größe */
+      --line-height: 1.3;               /* Zeilenabstand */
+      --paragraph-margin: 0.5rem;      /* Absatz-Abstände */
+    }
+    
     html, body { scroll-behavior: auto; }
     body {
       margin: 0;
@@ -12,51 +37,52 @@
       height: 100vh;
       display: flex;
       transition: background-color 0.3s, color 0.3s;
-      background-color: #ffffff; /* Alternativ: Lightmode Hintergrund #FEFCFA */
+      background-color: var(--background-color);
+      color: var(--text-color);
     }
     
     body.dark-mode {
-      background-color: #1a1a1a;
-      color: #e0e0e0;
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
     }
     
     body.dark-mode #sidebar {
-      background-color: #1a1a1a;
-      border-right-color: #404040;
+      background-color: var(--dark-background-color);
+      border-right-color: var(--dark-border-color);
     }
     
     body.dark-mode #sidebar-header {
-      background-color: #1a1a1a;
-      border-bottom-color: #404040;
+      background-color: var(--dark-background-color);
+      border-bottom-color: var(--dark-border-color);
       padding: 0.5rem;
     }
     
     body.dark-mode #main {
-      background-color: #1a1a1a;
-      color: #e0e0e0;
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
     }
     
     body.dark-mode #summary-panel {
-      background-color: #1a1a1a;
-      border-left-color: #404040;
+      background-color: var(--dark-background-color);
+      border-left-color: var(--dark-border-color);
     }
     
     body.dark-mode .search-input,
     body.dark-mode .filter-dropdown,
     body.dark-mode .thematic-input {
       background-color: #333;
-      color: #e0e0e0;
+      color: var(--dark-text-color);
       border-color: #555;
     }
     body.dark-mode .filter-dropdown option {
     background-color: #333;
-    color: #e0e0e0;
+    color: var(--dark-text-color);
     }
     body.dark-mode .search-input:-webkit-autofill,
     body.dark-mode .search-input:-webkit-autofill:hover,
     body.dark-mode .search-input:-webkit-autofill:focus {
       -webkit-box-shadow: 0 0 0 30px #333 inset !important;
-      -webkit-text-fill-color: #e0e0e0 !important;
+      -webkit-text-fill-color: var(--dark-text-color) !important;
       box-shadow: 0 0 0 30px #333 inset !important;
     }
     
@@ -64,7 +90,7 @@
     .search-input:-webkit-autofill:hover,
     .search-input:-webkit-autofill:focus {
       -webkit-box-shadow: 0 0 0 30px white inset !important;
-      -webkit-text-fill-color: #000 !important;
+      -webkit-text-fill-color: var(--text-color) !important;
       box-shadow: 0 0 0 30px white inset !important;
     }
     
@@ -72,22 +98,22 @@
 body:not(.dark-mode) .search-input,
 body:not(.dark-mode) .filter-dropdown,
 body:not(.dark-mode) .thematic-input {
-  background: #ffffff !important; /* gleich wie Seitenhintergrund */
+  background: var(--background-color) !important; /* gleich wie Seitenhintergrund */
 }
 
 /* Autofill überschreiben (Chrome / Edge / Safari) */
 body:not(.dark-mode) .search-input:-webkit-autofill,
 body:not(.dark-mode) .search-input:-webkit-autofill:hover,
 body:not(.dark-mode) .search-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
-  box-shadow: 0 0 0 30px #ffffff inset !important;
-  -webkit-text-fill-color: #000 !important; /* Text schwarz lassen */
+  -webkit-box-shadow: 0 0 0 30px var(--background-color) inset !important;
+  box-shadow: 0 0 0 30px var(--background-color) inset !important;
+  -webkit-text-fill-color: var(--text-color) !important; /* Text dunkelgrau lassen */
 }
 
 
     body.dark-mode mark {
       background: rgba(70, 120, 134, 0.5);
-      color: #fff;
+      color: var(--dark-text-color);
     }
     
     body.dark-mode .highlighted-paragraph {
@@ -110,49 +136,21 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     body.dark-mode .resize-handle::before,
     body.dark-mode .vertical-resize-handle::before {
-      background: #1a1a1a;
-      color: #7EB8C8;
+      background: var(--dark-background-color);
+      color: var(--dark-link-color);
     }
     
     body.dark-mode .resize-handle:hover::before,
     body.dark-mode .vertical-resize-handle:hover::before {
-      color: #7EB8C8;
+      color: var(--dark-link-color);
     }
     
     body.dark-mode .sidebar-collapsed .resize-handle::before,
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
-      background: #1a1a1a;
+      background: var(--dark-background-color);
     }
     
-    body.dark-mode .snippet {
-      color: #d0d0d0;
-    }
-    
-    body.dark-mode .toc-item {
-      border-bottom-color: #404040;
-    }
-    
-    body.dark-mode .toc-item a {
-      color: #7EB8C8 !important;
-    }
-    
-    body.dark-mode .toc-item a:hover {
-      color: #7EB8C8 !important;
-    }
-    
-    body.dark-mode ul.results-list > li > a {
-      color: #7EB8C8;
-      font-size: 0.95em;
-    }
-    
-    body.dark-mode .tab-button {
-      color: #999;
-    }
-    
-    body.dark-mode .tab-button.active {
-      color: #7eb8c8;
-      border-bottom-color: #7eb8c8;
-    }
+    /* Diese Dark Mode Styles sind jetzt in #sidebar-content zentralisiert */
     
     body.dark-mode .semantic-answer {
       background: #2a3a3f;
@@ -258,7 +256,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     input:checked + .theme-slider {
-      background-color: #467886;
+      background-color: var(--link-color);
     }
     
     input:checked + .theme-slider:before {
@@ -267,7 +265,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .theme-slider {
-      background-color: #467886;
+      background-color: var(--link-color);
     }
     
     #sidebar {
@@ -277,7 +275,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       min-width: 440px;
       max-width: none;
       overflow: hidden;
-      border-right: 1px solid #ddd;
+      border-right: 1px solid var(--border-color);
       padding: 0;
       box-sizing: border-box;
       position: relative;
@@ -296,7 +294,215 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   flex: 1;
   overflow-y: auto;
   padding: 0rem 1rem 1rem 1rem;
-  font-size: 0.95em;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    /* Zentrale Styles für alle Sidebar-Texte */
+    #sidebar-content p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    #sidebar-content .paragraph {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    /* Zusätzliche Sicherheit für alle Absätze in Sidepanels - DIREKT */
+    #sidebar p,
+    #sidebar .paragraph,
+    #sidebar-content p,
+    #sidebar-content .paragraph {
+      margin: 0.5rem 0 !important;
+    }
+    
+    #sidebar-content .snippet {
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--secondary-text);
+      margin: 4px 0;
+      cursor: pointer;
+    }
+    
+    #sidebar-content ul.results-list {
+      list-style-type: disc; 
+      padding-left: 1.2em; 
+      margin: 0;
+      padding-top: 0.3rem;
+    }
+    
+    #sidebar-content ul.results-list > li > a { 
+      font-weight: bold; 
+      color: var(--link-color);
+      font-size: var(--text-size);
+    }
+    
+    #sidebar-content ul.sub-headings { 
+      list-style-type: none; 
+      padding-left: 1.5em; 
+      margin: 0.25em 0; 
+    }
+    
+    #sidebar-content ul.sub-headings li::before { 
+      content: "– "; 
+      color: #666 !important; 
+    }
+    
+    /* Dark Mode für Sidebar-Content - DIREKT */
+    body.dark-mode #sidebar-content {
+      color: #b8b8b8 !important;
+    }
+    
+    body.dark-mode #sidebar-content p {
+      color: #b8b8b8 !important;
+    }
+    
+    body.dark-mode #sidebar-content .paragraph {
+      color: #b8b8b8 !important;
+    }
+    
+    body.dark-mode #sidebar-content .snippet {
+      color: #999 !important;
+    }
+    
+    body.dark-mode #sidebar-content ul.results-list > li > a {
+      color: #6BA3B8 !important;
+    }
+    
+    body.dark-mode #sidebar-content ul.sub-headings li::before {
+      color: #999 !important;
+    }
+    
+    /* Zentrale Styles für alle Überschriften in Sidepanels - DIREKT */
+    #sidebar-content h1,
+    #sidebar-content h2,
+    #sidebar-content h3,
+    #sidebar-content h4 {
+      font-size: 1.0rem !important;
+      line-height: 1.3 !important;
+      color: #333333 !important;
+      margin: 0.7rem 0 0.5rem 0 !important;
+      font-weight: 600 !important;
+    }
+    
+    #sidebar-content h1 {
+      font-weight: 700 !important;
+    }
+    
+    /* Dark Mode für Sidebar-Überschriften - DIREKT */
+    body.dark-mode #sidebar-content h1,
+    body.dark-mode #sidebar-content h2,
+    body.dark-mode #sidebar-content h3,
+    body.dark-mode #sidebar-content h4 {
+      color: #b8b8b8 !important;
+    }
+    
+    /* Überschriften als Links behalten ihre Link-Farbe */
+    #sidebar-content h1 a,
+    #sidebar-content h2 a,
+    #sidebar-content h3 a,
+    #sidebar-content h4 a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    
+    #sidebar-content h1 a:hover,
+    #sidebar-content h2 a:hover,
+    #sidebar-content h3 a:hover,
+    #sidebar-content h4 a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode #sidebar-content h1 a,
+    body.dark-mode #sidebar-content h2 a,
+    body.dark-mode #sidebar-content h3 a,
+    body.dark-mode #sidebar-content h4 a {
+      color: var(--dark-link-color);
+    }
+    
+    /* Zentrale Styles für alle Überschriften im Summary-Panel - DIREKT */
+    /* TOC-Überschriften im Summary-Panel */
+    #summary-content h3 {
+      font-size: 1.0rem;
+      line-height: var(--line-height);
+      color: var(--link-color);
+      margin: var(--paragraph-margin) 0;
+      font-weight: 600;
+    }
+    
+    #summary-content h4 {
+      font-size: 0.9rem;
+      line-height: var(--line-height);
+      color: var(--link-color);
+      margin: var(--paragraph-margin) 0;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+    
+    body.dark-mode #summary-content h3,
+    body.dark-mode #summary-content h4 {
+      color: var(--dark-link-color);
+    }
+    
+    /* Summary-Panel Absätze */
+    #summary-content p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    #summary-content .paragraph {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    /* Dark Mode für Summary-Panel-Überschriften - DIREKT */
+    body.dark-mode #summary-content h1,
+    body.dark-mode #summary-content h2,
+    body.dark-mode #summary-content h3,
+    body.dark-mode #summary-content h4 {
+      color: #b8b8b8 !important;
+    }
+    
+    /* Dark Mode für Summary-Panel Absätze - DIREKT */
+    body.dark-mode #summary-content p {
+      color: #b8b8b8 !important;
+    }
+    
+    body.dark-mode #summary-content .paragraph {
+      color: #b8b8b8 !important;
+    }
+    
+    /* Überschriften als Links im Summary-Panel behalten ihre Link-Farbe */
+    #summary-content h1 a,
+    #summary-content h2 a,
+    #summary-content h3 a,
+    #summary-content h4 a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    
+    #summary-content h1 a:hover,
+    #summary-content h2 a:hover,
+    #summary-content h3 a:hover,
+    #summary-content h4 a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode #summary-content h1 a,
+    body.dark-mode #summary-content h2 a,
+    body.dark-mode #summary-content h3 a,
+    body.dark-mode #summary-content h4 a {
+      color: var(--dark-link-color);
     }
     
     #sidebar.collapsed {
@@ -327,7 +533,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     /* Horizontaler Resize-Handle für Suchpanel */
     .horizontal-resize-handle {
       height: 1px;
-      background-color: #ddd;
+      background-color: var(--border-color);
       cursor: row-resize;
       position: relative;
       margin: 0;
@@ -341,37 +547,37 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #467886;
-      background: white;
+      color: var(--link-color);
+      background: var(--background-color);
       padding: 0 8px;
       font-size: 20px;
       line-height: 1;
     }
     
     .horizontal-resize-handle:hover {
-      background-color: #467886;
+      background-color: var(--link-color);
     }
     
     .horizontal-resize-handle:hover::before {
-      color: white;
+      color: var(--background-color);
     }
     
     /* Dark Mode für horizontalen Handle */
     body.dark-mode .horizontal-resize-handle {
-      background-color: #404040;
+      background-color: var(--dark-border-color);
     }
     
     body.dark-mode .horizontal-resize-handle::before {
-      color: #7EB8C8;
-      background: #1a1a1a;
+      color: var(--dark-link-color);
+      background: var(--dark-background-color);
     }
     
     body.dark-mode .horizontal-resize-handle:hover {
-      background-color: #7EB8C8;
+      background-color: var(--dark-link-color);
     }
     
     body.dark-mode .horizontal-resize-handle:hover::before {
-      color: #1a1a1a;
+      color: var(--dark-background-color);
     }
 
     
@@ -395,8 +601,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #467886;
-      background: white;
+      color: var(--link-color);
+      background: var(--background-color);
       padding: 8px 0;
       font-size: 20px;
       line-height: 1;
@@ -410,14 +616,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .resize-handle:hover::before {
-      color: #467886;
+      color: var(--link-color);
     }
     
     /* Symbol für geschlossene Sidebar */
     .sidebar-collapsed .resize-handle::before {
       content: '▶';
       font-size: 36px; /* Pfeiljgröße bleibt gleich */
-      background: white;
+      background: var(--background-color);
       padding: 8px 0;
     }
     
@@ -435,27 +641,27 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       overflow-y: auto;
       padding: 2rem;
       min-width: 0;
-      line-height: 1.45;
+      line-height: 1.3 !important;
       position: relative;
       margin-top: 0; /* Wird dynamisch über JavaScript gesetzt */
     }
     
     body.dark-mode .depth-btn {
-      background: #1a1a1a;
-      color: #d0d0d0;
-      border: 1px solid #7eb8c8;
+      background: var(--dark-background-color);
+      color: var(--dark-secondary-text);
+      border: 1px solid var(--dark-link-color);
     }
     
     body.dark-mode .depth-btn.active {
-      background: #1a1a1a;
-      color: #d0d0d0;
-      border: 2px solid #7eb8c8;
+      background: var(--dark-background-color);
+      color: var(--dark-secondary-text);
+      border: 2px solid var(--dark-link-color);
     }
     
     body.dark-mode .depth-btn.primary {
-      background: #467886;
-      color: #e0e0e0;
-      border: 2px solid #467886;
+      background: var(--link-color);
+      color: var(--dark-text-color);
+      border: 2px solid var(--link-color);
     }
     
     body.dark-mode .depth-btn.primary:hover {
@@ -464,9 +670,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .summary-buttons .search-button {
-      background: #1a1a1a;
-      color: #d0d0d0;
-      border-color: #7eb8c8;
+      background: var(--dark-background-color);
+      color: var(--dark-secondary-text);
+      border-color: var(--dark-link-color);
     }
     
     body.dark-mode .summary-buttons .search-button:hover {
@@ -497,8 +703,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       width: 280px;
       min-width: 280px;
       max-width: none;
-      background: #ffffff;
-      border-left: 1px solid #ddd;
+      background: var(--background-color);
+      border-left: 1px solid var(--border-color);
 
     }
     
@@ -525,8 +731,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #467886;
-      background: white;
+      color: var(--link-color);
+      background: var(--background-color);
       padding: 8px 0;
       font-size: 20px;
       line-height: 1;
@@ -549,14 +755,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     .vertical-resize-handle:hover::before {
-      color: #467886;
+      color: var(--link-color);
     }
     
     /* Symbol für geschlossenes Summary-Panel */
     .summary-panel-collapsed .vertical-resize-handle::before {
       content: '◀';
       font-size: 36px; /* Pfeilgröße bleibt gleich */
-      background: white;
+      background: var(--background-color);
       padding: 8px 0;
     }
     
@@ -575,7 +781,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     .summary-buttons {
       padding: 1rem;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid var(--border-color);
       display: none;
       flex-direction: column;
       gap: 8px;
@@ -586,7 +792,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .summary-buttons {
-      border-top-color: #404040;
+      border-top-color: var(--dark-border-color);
     }
     
     .summary-buttons .search-button {
@@ -594,40 +800,17 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       text-align: center;
     }
     
-    #summary-content h3 {
-      font-size: 1.0em;
-      margin: 1.0em 0 0.3em 0;
-      font-weight: 700;
-      color: #467886;
-      cursor: pointer;
-      transition: color 0.2s;
-      line-height: 1.1;
-    }
-    
-    #summary-content h4 {
-      font-size: 0.9em;
-      margin: 0.6em 0 0.2em 0;
-      font-weight: 600;
-      color: #467886;
-      cursor: pointer;
-      transition: color 0.2s, opacity 0.2s, max-height 0.3s;
-      padding-left: 1.2em;
-      line-height: 1.1;
-      overflow: hidden;
-    }
+    /* Diese Überschriften-Styles sind jetzt zentralisiert */
     
     #summary-content h4.hidden {
       display: none;
     }
     
-    #summary-content h3:hover,
-    #summary-content h4:hover {
-      color: #355d68;
-    }
+    /* Diese Hover-Styles sind jetzt in den zentralen Überschriften-Styles */
     
     #summary-content .toc-item {
       padding: 0.4em 0;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid var(--border-color);
     }
     
     #summary-content .toc-item:last-child {
@@ -637,82 +820,56 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
     #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
     #document-title { margin-top: 0; margin-bottom: 0; }
-    #document-title a { color: #467886; text-decoration: none; }
+    #document-title a { color: var(--link-color); text-decoration: none; }
     #document-title a:hover { text-decoration: underline; }
     
     body.dark-mode #document-title a {
-  color: #7EB8C8 !important;
-}
+      color: var(--dark-link-color) !important;
+    }
 
-body.dark-mode ul.results-list > li > a {
-  color: #7EB8C8;
-}
-
-body.dark-mode .toc-item a {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode #summary-content h3,
-body.dark-mode #summary-content h4 {
-  color: #7EB8C8 !important;
-}
-
-body.dark-mode .tab-button.active {
-  color: #7EB8C8 !important;
-  border-bottom-color: #7EB8C8 !important;
-}
-
-body.dark-mode .ga-overview-lecture h3 a {
-  color: #7EB8C8;
-}
 body.dark-mode .ga-lecture-count {
-  color: #e0e0e0;
+  color: var(--dark-text-color);
 }
 .ga-toggle-btn {
-  color: #467886;
+  color: var(--link-color);
 }
-
 
 body.dark-mode .ga-toggle-btn {
-  color: #e0e0e0;
-  border-color: #7EB8C8 !important;
-}
-body.dark-mode #viewer h3,
-body.dark-mode #viewer h4 {
-  color: #7EB8C8 !important;
+  color: var(--dark-text-color);
+  border-color: var(--dark-link-color) !important;
 }
 
 body.dark-mode .ga-reference {
-  color: #7EB8C8 !important;
+  color: var(--dark-link-color) !important;
 }
 
 body.dark-mode a {
-  color: #7EB8C8;
+  color: var(--dark-link-color);
 }
 body.dark-mode #viewerOriginalBtn {
-  border-color: #ffffff !important;
-  color: #ffffff !important;
+  border-color: var(--dark-text-color) !important;
+  color: var(--dark-text-color) !important;
 }
 
 #viewerOriginalBtn:hover {
   opacity: 0.7;
 }   
 body.dark-mode #viewerSummaryBtn {
-  border-color: #ffffff !important;
-  color: #ffffff !important;
+  border-color: var(--dark-text-color) !important;
+  color: var(--dark-text-color) !important;
 }
 
 body.dark-mode #viewerSummaryBtn i,
 body.dark-mode #viewerOriginalBtn i {
-  color: #ffffff !important;
+  color: var(--dark-text-color) !important;
 }
 
 .loading-message {
-  color: #666;
+  color: var(--secondary-text);
 }
 
 body.dark-mode .loading-message {
-  color: #ffffff !important;
+  color: var(--dark-text-color) !important;
 }
 
 #viewerSummaryBtn:hover {
@@ -739,18 +896,18 @@ body.dark-mode .loading-message {
       cursor: pointer;
   font-size: 0.95em;
       font-weight: 500;
-      color: #666;
+      color: var(--secondary-text);
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
     }
     
     .tab-button.active {
-      color: #467886;
-      border-bottom-color: #467886;
+      color: var(--link-color);
+      border-bottom-color: var(--link-color);
     }
     
     .tab-button:hover {
-      color: #467886;
+      color: var(--link-color);
       opacity: 0.7;
     }
     
@@ -767,8 +924,8 @@ body.dark-mode .loading-message {
       padding: 8px;
       margin: 0px 0;
       box-sizing: border-box;
-      border: 1px solid #467886;
-      background: #ffffff;
+      border: 1px solid var(--link-color);
+      background: var(--background-color);
       font-size: 15px;
       min-height: 50px;
       resize: vertical;
@@ -789,9 +946,9 @@ body.dark-mode .loading-message {
     .depth-btn {
   padding: 8px 16px;
   font-size: 1em;
-      border: 1px solid #467886;
-      background: #ffffff;
-      color: #467886;
+      border: 1px solid var(--link-color);
+      background: var(--background-color);
+      color: var(--link-color);
       cursor: pointer;
       border-radius: 4px;
       font-size: 0.9em;
@@ -799,15 +956,15 @@ body.dark-mode .loading-message {
     }
     
     .depth-btn.active {
-      background: #ffffff;
-      color: #467886;
-      border: 2px solid #467886;
+      background: var(--background-color);
+      color: var(--link-color);
+      border: 2px solid var(--link-color);
     }
     
     .depth-btn.primary {
-      background: #467886;
+      background: var(--link-color);
       color: white;
-      border: 2px solid #467886;
+      border: 2px solid var(--link-color);
     }
     
     .depth-btn.primary:hover {
@@ -829,7 +986,7 @@ body.dark-mode .loading-message {
       background: #ccc;
       border-color: #ccc;
       cursor: not-allowed;
-      color: #467886;
+      color: var(--link-color);
     }
     
     .depth-btn.processing {
@@ -837,7 +994,9 @@ body.dark-mode .loading-message {
     }
     
     .ga-reference {
-      color: #467886;
+      color: var(--link-color);
+      font-size: var(--text-size);
+      line-height: var(--line-height);
       text-decoration: none;
       font-weight: 600;
       padding: 0;
@@ -860,13 +1019,35 @@ body.dark-mode .loading-message {
       content: ")";
     }
     
+    /* Spezielle Klasse für Schlagwort-Suche - Klammern als Text, Link fett */
+    .keyword-text .ga-reference {
+      font-weight: bold;
+    }
+    
+    .keyword-text .ga-reference::before {
+      content: "(";
+      font-weight: normal;
+      color: var(--text-color);
+    }
+    
+    .keyword-text .ga-reference::after {
+      content: ")";
+      font-weight: normal;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .keyword-text .ga-reference::before,
+    body.dark-mode .keyword-text .ga-reference::after {
+      color: var(--dark-text-color);
+    }
+    
     body.dark-mode .ga-reference {
-      color: #7EB8C8 !important;
+      color: var(--dark-link-color) !important;
     }
     
     body.dark-mode .ga-reference::before,
     body.dark-mode .ga-reference::after {
-      color: #e0e0e0 !important;
+      color: var(--dark-text-color) !important;
     }
     
     .highlighted-paragraph {
@@ -891,8 +1072,8 @@ body.dark-mode .loading-message {
     }
     
     .answer-content {
-      line-height: 1.3;
-      font-size: 0.9em; 
+      line-height: var(--line-height);
+      font-size: var(--text-size); 
     }
     
     .answer-content h1 {
@@ -913,8 +1094,11 @@ body.dark-mode .loading-message {
     }
     
     .answer-content p {
-      margin: 0.3em 0;
+      margin: var(--paragraph-margin) 0;
       font-weight: normal;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
     }
     
     .answer-content strong {
@@ -928,24 +1112,26 @@ body.dark-mode .loading-message {
     
     /* Dark Mode für Summary-Text */
     body.dark-mode .answer-content {
-      color: #e0e0e0;
+      color: var(--dark-text-color);
     }
     
     body.dark-mode .answer-content p {
-      color: #e0e0e0;
+      color: var(--dark-text-color);
+      font-size: var(--text-size);
+      line-height: var(--line-height);
     }
     
     body.dark-mode .answer-content h2,
     body.dark-mode .answer-content h3 {
-      color: #7EB8C8;
+      color: var(--dark-heading-color);
     }
     
     body.dark-mode .answer-content strong {
-      color: #e0e0e0;
+      color: var(--dark-text-color);
     }
     
     .loading {
-      color: #467886;
+      color: var(--link-color);
       font-style: italic;
     }
     
@@ -964,7 +1150,7 @@ body.dark-mode .loading-message {
       margin: 4px 0;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: #ffffff;
+      background: var(--background-color);
       font-size: 0.9em;
     }
     
@@ -983,12 +1169,12 @@ body.dark-mode .loading-message {
       font-size: 0.9em;
       box-sizing: border-box;
       border: 1px solid #ccc;
-      background: #ffffff;
+      background: var(--background-color);
     }
     
     .filter-dropdown:disabled {
       background: #f5f5f5;
-      color: #999;
+      color: var(--secondary-text);
       cursor: not-allowed;
     }
     
@@ -1003,20 +1189,20 @@ body.dark-mode .loading-message {
     }
     
     .radio-group input[type="radio"]:checked + span {
-      color: #467886;
+      color: var(--link-color);
       font-weight: 600;
     }
     
     body.dark-mode .radio-group input[type="radio"]:checked + span {
-      color: #7EB8C8;
+      color: var(--dark-link-color);
     }
     
     .search-button {
       padding: 6px 12px;
       border-radius: 4px;
-      border: 2px solid #467886;
-      background: #ffffff;
-      color: #467886;
+      border: 2px solid var(--link-color);
+      background: var(--background-color);
+      color: var(--link-color);
       cursor: pointer;
       font-size: 0.9em;
       margin-bottom: 0.4rem;
@@ -1026,7 +1212,7 @@ body.dark-mode .loading-message {
     .search-button:disabled {
       cursor: not-allowed;
       background: #f5f5f5;
-      color: #999;
+      color: var(--secondary-text);
       opacity: 1;
     }
     
@@ -1034,49 +1220,33 @@ body.dark-mode .loading-message {
       font-style: italic;
     }
     
-    #note { margin-top: 0.5rem; font-size: 0.9em; color: #666; }
+    #note { margin-top: 0.5rem; font-size: 0.9em; color: var(--secondary-text); }
     #searchInfo {
   font-size: 0.9em;
-  color: #666;
+  color: var(--secondary-text);
   margin-top: 0rem;
   margin-bottom: 0;
   padding-bottom: 0.5rem;
 }
   body.dark-mode #searchInfo {
-  color: #e0e0e0;
+  color: var(--dark-text-color);
 }
 
 body.dark-mode #thematicSearchInfo {
-  color: #e0e0e0;
+  color: var(--dark-text-color);
 }  
-    ul.results-list { 
-      list-style-type: disc; 
-      padding-left: 1.2em; 
-      margin: 0;
-      padding-top: 0.3rem;
-    }
-    ul.results-list > li > a { 
-      font-weight: bold; 
-      color: #467886;
-      font-size: 0.9em;
-    }
-    ul.sub-headings { list-style-type: none; padding-left: 1.5em; margin: 0.25em 0; }
-    ul.sub-headings li::before { content: "– "; color: #333; }
-    a { color: #467886; text-decoration: none; cursor: pointer; }
+    /* Diese Styles sind jetzt in #sidebar-content zentralisiert */
+    a { color: var(--link-color); text-decoration: none; cursor: pointer; }
     a:hover { text-decoration: underline; }
-    .snippet { font-size: 0.9em; color: #444; margin: 4px 0; cursor: pointer; }
     mark { 
       background: rgba(70, 120, 134, 0.2); 
       color: inherit;
     }
     
-    .paragraph { 
-      margin: 0.8em 0;
-      line-height: 1.4;
-    }
+    /* Paragraph-Styles sind jetzt in #sidebar-content zentralisiert */
     
     #viewer {
-      line-height: 1.4;
+      line-height: 1.3 !important;
       padding-top: 80px; /* Wird dynamisch via JavaScript angepasst */
     }
     
@@ -1085,8 +1255,8 @@ body.dark-mode #thematicSearchInfo {
       position: fixed;
       top: 0;
       z-index: 1000;
-      background-color: #ffffff !important;
-      border-bottom: 1px solid #e2e2e2;
+      background-color: var(--background-color) !important;
+      border-bottom: 1px solid var(--border-color);
       padding: 1rem;
       display: flex;
       justify-content: space-between;
@@ -1098,17 +1268,8 @@ body.dark-mode #thematicSearchInfo {
     
     /* Dark Mode für fixierten Header */
     body.dark-mode #viewer-header {
-      background-color: #1a1a1a !important;
-      border-bottom-color: #404040;
-    }
-    
-    #viewer .paragraph {
-      margin-bottom: 0.8em;
-    }
-    
-    #viewer p {
-      margin: 0.8em 0;
-      line-height: 1.45;
+      background-color: var(--dark-background-color) !important;
+      border-bottom-color: var(--dark-border-color);
     }
     
     #viewer .highlighted-paragraph {
@@ -1118,47 +1279,60 @@ body.dark-mode #thematicSearchInfo {
       margin: 0.2rem 0;
     }
     
+    #viewer p {
+      margin: var(--paragraph-margin) 0;
+      line-height: var(--line-height);
+      font-size: var(--text-size);
+      color: var(--text-color);
+    }
+    
+    #viewer .paragraph {
+      margin: var(--paragraph-margin) 0;
+      line-height: var(--line-height);
+      font-size: var(--text-size);
+      color: var(--text-color);
+    }
+    
     #viewer h3 {
-      font-size: 1.1em;
-      margin: 1.5em 0 0.5em 0;
-      font-weight: 700;
-      color: #467886;
+      font-size: 1.0rem !important;
+      margin: 0.7rem 0 0.5rem 0 !important;
+      font-weight: 700 !important;
+      color: #467886 !important;
       display: block;
+      line-height: 1.3 !important;
     }
     
     #viewer h4 {
-      font-size: 1.0em;
-      margin: 1.0em 0 0.3em 0;
-      font-weight: 600;
-      color: #467886;
+      font-size: 1.0rem !important;
+      margin: 0.7rem 0 0.5rem 0 !important;
+      font-weight: 600 !important;
+      color: #467886 !important;
       display: block;
+      line-height: 1.3 !important;
+    }
+    
+    /* Dark Mode für Viewer */
+    body.dark-mode #viewer p {
+      color: #b8b8b8 !important;
+    }
+    
+    body.dark-mode #viewer .paragraph {
+      color: #b8b8b8 !important;
     }
     
     body.dark-mode #viewer h3,
     body.dark-mode #viewer h4 {
-      color: #7EB8C8 !important;
-    }
-    
-    body.dark-mode #viewer {
-      color: #e0e0e0;
-    }
-    
-    body.dark-mode #viewer p {
-      color: #e0e0e0;
-    }
-    
-    body.dark-mode #viewer strong {
-      color: #e0e0e0;
+      color: #6BA3B8 !important;
     }
     
     /* Dark Mode für GA-Übersicht Summary-Texte */
     body.dark-mode .ga-summary-text p {
-      color: #e0e0e0 !important;
+      color: var(--dark-text-color) !important;
     }
     
     /* Dark Mode für "Zusammenfassung" Überschrift im Viewer */
     body.dark-mode #viewer p strong {
-      color: #7EB8C8;
+      color: var(--dark-heading-color);
     }
     
     #viewer h3:first-child,
@@ -1172,35 +1346,32 @@ body.dark-mode #thematicSearchInfo {
     }
   
     body.dark-mode ul.results-list > li > a {
-      color: #7EB8C8 !important;
+      color: var(--dark-link-color) !important;
     }
     
     body.dark-mode .toc-item a {
-      color: #7EB8C8 !important;
+      color: var(--dark-link-color) !important;
     }
     
-    body.dark-mode #summary-content h3,
-    body.dark-mode #summary-content h4 {
-      color: #7EB8C8 !important;
-    }
+    /* Diese Dark Mode Styles sind jetzt in den zentralen Überschriften-Styles */
     
     body.dark-mode .tab-button.active {
-      color: #7EB8C8 !important;
-      border-bottom-color: #7EB8C8 !important;
+      color: var(--dark-link-color) !important;
+      border-bottom-color: var(--dark-link-color) !important;
     }
     
     body.dark-mode .depth-btn {
-      border-color: #7EB8C8 !important;
+      border-color: var(--dark-link-color) !important;
     }
 
     .ga-overview-lecture {
       margin-bottom: 1rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid var(--border-color);
     }
     
     body.dark-mode .ga-overview-lecture {
-      border-bottom-color: #404040;
+      border-bottom-color: var(--dark-border-color);
     }
     
     .ga-overview-lecture h3 {
@@ -1208,12 +1379,12 @@ body.dark-mode #thematicSearchInfo {
     }
     
     .ga-overview-lecture h3 a {
-      color: #467886;
+      color: var(--link-color);
       text-decoration: none;
     }
     
     body.dark-mode .ga-overview-lecture h3 a {
-      color: #7EB8C8;
+      color: var(--dark-link-color);
     }
     
     .ga-overview-lecture h3 a:hover {
@@ -1222,12 +1393,12 @@ body.dark-mode #thematicSearchInfo {
     
     .ga-overview-meta {
       font-size: 0.9em;
-      color: #666;
+      color: var(--secondary-text);
       margin: 0.5rem 0;
     }
     
     body.dark-mode .ga-overview-meta {
-      color: #999;
+      color: var(--dark-secondary-text);
     }
     
     .ga-overview-summary {
@@ -1248,11 +1419,11 @@ body.dark-mode #thematicSearchInfo {
       margin: 0;
       font-style: italic;
       line-height: 1.5;
-      color: #444;
+      color: var(--text-color);
     }
     
     body.dark-mode .ga-overview-summary p {
-      color: #d0d0d0;
+      color: var(--dark-secondary-text);
     }
     
     #gaFilterContainer {
@@ -1275,7 +1446,7 @@ body.dark-mode #thematicSearchInfo {
 
     select option.available-ga {
       font-weight: normal;
-      color: black;
+      color: var(--text-color);
     }
     
     /* NEU: Tooltip CSS für Vorträge ohne Zusammenfassung */
@@ -1286,12 +1457,12 @@ body.dark-mode #thematicSearchInfo {
 
 .loading-tooltip {
   visibility: hidden;
-  background-color: #ffffff;
-  color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
   text-align: center;
   padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #467886;
+  border: 1px solid var(--link-color);
   position: absolute;
   z-index: 1000;
   top: 100%;
@@ -1318,7 +1489,7 @@ body.dark-mode #thematicSearchInfo {
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #467886 transparent;
+  border-color: transparent transparent var(--link-color) transparent;
 }
 
 .lecture-link-wrapper:hover .loading-tooltip {
@@ -1327,13 +1498,121 @@ body.dark-mode #thematicSearchInfo {
 }
 
 body.dark-mode .loading-tooltip {
-  background-color: #1a1a1a;
-  color: #e0e0e0;
-  border-color: #7EB8C8;
+  background-color: var(--dark-background-color);
+  color: var(--dark-text-color);
+  border-color: var(--dark-link-color);
 }
 
 body.dark-mode .loading-tooltip::before {
-  border-color: transparent transparent #7EB8C8 transparent;
+  border-color: transparent transparent var(--dark-link-color) transparent;
+}
+
+/* Themensuche-Ergebnisse Styling */
+.semantic-answer {
+  font-size: 1.1rem;        /* Textgröße anpassen */
+  line-height: 1.3rem;        /* Zeilenabstand anpassen */
+}
+
+.semantic-answer h1 {
+  font-size: 1.2rem;         /* Überschriften-Größe */
+  line-height: 1.4;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.semantic-answer h2 {
+  font-size: 1rem;         /* Unterüberschriften-Größe */
+  line-height: 1.1;
+  margin: 1.2rem 0 0.8rem 0;
+}
+
+.semantic-answer h3 {
+  font-size: 1rem;         /* Kleinere Überschriften */
+  line-height: 1.1;
+  margin: 1rem 0 0.6rem 0;
+}
+
+.semantic-answer p {
+  margin-bottom: 0.9rem;      /* Abstand zwischen Absätzen */
+  line-height: 1.35rem;         /* Zeilenabstand in Absätzen */
+}
+
+.semantic-answer ul, .semantic-answer ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.semantic-answer li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Keyword-Link Styles - keine Hintergrundfarbe */
+.ga-keyword-link {
+  color: var(--link-color);
+  background: none !important;
+  background-color: transparent !important;
+  text-decoration: none;
+  padding: 0;
+  border: none;
+}
+
+.ga-keyword-link:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .ga-keyword-link {
+  color: var(--dark-link-color);
+  background: none !important;
+  background-color: transparent !important;
+}
+
+/* Schlagwort-Anzeige - nur Frontend-CSS */
+.keywords-container {
+  /* Keine inline Styles mehr */
+}
+
+.keyword-entry {
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+}
+
+.keyword-entry h4 {
+  margin: 0 0 0.2rem 0;
+  font-size: var(--heading-size);
+  line-height: var(--line-height);
+}
+
+.keyword-entry h4 a {
+  color: var(--link-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.keyword-entry h4 a:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .keyword-entry h4 a {
+  color: var(--dark-link-color);
+}
+
+.keyword-text {
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  color: var(--text-color);
+}
+
+body.dark-mode .keyword-text {
+  color: var(--dark-text-color);
+}
+
+.no-results-message {
+  color: var(--secondary-text);
+  font-style: italic;
+}
+
+body.dark-mode .no-results-message {
+  color: var(--dark-secondary-text);
 }
 </style>
 </head>
@@ -1425,6 +1704,16 @@ GA-Übersicht →
 
 <div class="tab-content" id="schlagworte-tab">
 <div style="margin-bottom: 1rem;">
+<!-- Neues Schlagwort hinzufügen -->
+<div style="margin-bottom: 1rem; padding: 0.8rem; border: 1px solid var(--link-color); border-radius: 4px; background: var(--background-color);">
+<div style="font-size: 0.9em; font-weight: 600; margin-bottom: 0.5rem; color: var(--link-color);">Neues Schlagwort hinzufügen</div>
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+<input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
+<button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
+</div>
+<div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
+</div>
+
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
 </div>
@@ -2257,7 +2546,7 @@ async function displayGAOverview(data) {
         
         ${hasSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 0.9em; color: #666;">${getSummaryText(lecture.summary)}</p>
+            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 1.0em; color: #666;">${getSummaryText(lecture.summary)}</p>
           </div>
         ` : `
           <!-- Keine Zusammenfassung für ${lecture.ID} -->
@@ -3311,6 +3600,22 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
 
 
 
+    // Entfernt nur inline style-Attribute aus Backend-HTML, behält CSS-Klassen bei
+    function removeInlineStyles(element) {
+      if (!element) return;
+      
+      // Entferne nur style-Attribute von allen Elementen (behält CSS-Klassen)
+      const allElements = element.querySelectorAll('*');
+      allElements.forEach(el => {
+        el.removeAttribute('style');
+      });
+      
+      // Entferne auch vom Container selbst
+      element.removeAttribute('style');
+      
+      console.log('[FORMATTING] Inline Styles aus Backend-HTML entfernt (CSS-Klassen beibehalten)');
+    }
+
     function extractKeywordsFromQuery(query) {
       const stopWords = [
         'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
@@ -3344,6 +3649,10 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       
       const answerDiv = document.getElementById('answerContent');
       answerDiv.innerHTML = marked.parse(content);
+      
+      // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
+      removeInlineStyles(answerDiv);
+      
       console.log('HTML nach marked.parse:', answerDiv.innerHTML.substring(0, 500));
       console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
       
@@ -4146,7 +4455,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     }
 
     function handleThematicKeydown(event) {
-      if (event.ctrlKey && event.key === 'Enter') {
+      if (event.key === 'Enter') {
         performThematicSearch();
       }
     }
@@ -4684,25 +4993,25 @@ function displayKeywords(selectedLetter = 'Alle') {
   }
   
   if (filteredKeywords.length === 0) {
-    resultsContainer.innerHTML = '<p style="color: #666; font-style: italic;">Keine Schlagwörter gefunden.</p>';
+    resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
     return;
   }
   
   // Sortiere alphabetisch
   filteredKeywords.sort((a, b) => a.keyword.localeCompare(b.keyword));
   
-  let html = '<div style="line-height: 1.4;">';
+  let html = '<div class="keywords-container">';
   
   filteredKeywords.forEach(keywordData => {
-    const processedText = processKeywordText(keywordData.text, keywordData.gaReferences || []);
-    
+    // Verwende Keyword-Thematische Suche für detaillierte Analysen
     html += `
-      <div class="keyword-entry" style="margin-bottom: 0.8rem; padding-bottom: 0.3rem;">
-        <h4 style="margin: 0 0 0.2rem 0; color: #467886; font-size: 1.1em;">
-          ${keywordData.keyword}
+      <div class="keyword-entry">
+        <h4>
+          <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;">
+            ${keywordData.keyword}
+          </a>
         </h4>
-        <div class="keyword-text" style="color: #444; line-height: 1.4; font-size: 0.95em; display: ${showKeywordTexts ? 'block' : 'none'};">
-          ${processedText}
+        <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
         </div>
       </div>
     `;
@@ -4710,6 +5019,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   html += '</div>';
   resultsContainer.innerHTML = html;
+  
+  // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Schlagwort-HTML entfernen
+  removeInlineStyles(resultsContainer);
   
   // Scrolle nach oben in der Sidebar
   document.getElementById('sidebar-content').scrollTop = 0;
@@ -4856,9 +5168,14 @@ function switchTabExtended(mode) {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
   }
   
-  // Initialisiere Schlagwort-System beim ersten Aufruf
-  if (mode === 'schlagworte' && keywordsData.length === 0) {
-    initializeKeywordSystem();
+  // Initialisiere Schlagwort-System beim ersten Aufruf oder zeige Keywords wenn bereits geladen
+  if (mode === 'schlagworte') {
+    if (keywordsData.length === 0) {
+      initializeKeywordSystem();
+    } else {
+      // Keywords sind bereits geladen, zeige sie an
+      displayKeywords('Alle');
+    }
   }
 
   // Wenn wir zum Stichwort-Tab (Text-Suche) wechseln, lösche das zuletzt eingegebene Suchwort
@@ -4966,6 +5283,52 @@ body.dark-mode .keyword-text {
 body.dark-mode .keyword-text strong {
   color: #e0e0e0 !important;
 }
+
+/* Zentrale Styles für Schlagwort-Ergebnisfenster */
+#results p,
+#results .paragraph {
+  margin: var(--paragraph-margin) 0;
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  color: var(--text-color);
+}
+
+#results h1,
+#results h2,
+#results h3,
+#results h4 {
+  font-size: 1.0rem !important;
+  line-height: 1.3 !important;
+  color: #333333 !important;
+  margin: 0.4rem 0 0.3rem 0 !important;
+  font-weight: 600 !important;
+}
+
+#results h1 {
+  font-weight: 700 !important;
+}
+
+/* Dark Mode für Schlagwort-Ergebnisfenster - DIREKT */
+body.dark-mode #results p,
+body.dark-mode #results .paragraph {
+  color: #b8b8b8 !important;
+}
+
+body.dark-mode #results h1,
+body.dark-mode #results h2,
+body.dark-mode #results h3,
+body.dark-mode #results h4 {
+  color: #b8b8b8 !important;
+}
+
+/* Schlagwort-Links in Ergebnissen - DIREKT */
+#results .ga-keyword-link {
+  color: #467886 !important;
+}
+
+body.dark-mode #results .ga-keyword-link {
+  color: #6BA3B8 !important;
+}
 `;
 
 // Füge CSS zum Document hinzu
@@ -4974,6 +5337,235 @@ styleSheet.textContent = keywordStyles;
 document.head.appendChild(styleSheet);
 
 console.log('[KEYWORDS] Schlagwort-System geladen');
+
+// ============================================================================
+// KEYWORD THEMATIC SEARCH FUNKTIONEN
+// ============================================================================
+
+async function performKeywordThematicSearch(keyword) {
+  console.log('[KEYWORD-THEMATIC] Starte thematische Suche für:', keyword);
+  
+  try {
+    // Zeige Loading-Status
+    const results = document.getElementById('results');
+    const countContainer = document.getElementById('keyword-count');
+    
+    if (results) {
+      results.innerHTML = `
+        <div style="text-align: center; padding: 2rem; color: #666;">
+          <div style="font-size: 1.2em; margin-bottom: 1rem;">🔍 Analysiere Schlagwort: <strong>${keyword}</strong></div>
+          <div style="font-style: italic;">Suche nach relevanten Textstellen...</div>
+        </div>
+      `;
+    }
+    
+    if (countContainer) {
+      countContainer.textContent = 'Analysiere...';
+    }
+    
+    // Prüfe zuerst, ob bereits eine Analyse im Cache existiert
+    const cacheResponse = await fetch(`${API_BASE}/api/keyword-thematic-search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: keyword,
+        depth: 'allgemein',
+        limit: 30
+      })
+    });
+    
+    if (!cacheResponse.ok) {
+      throw new Error(`Server Error: ${cacheResponse.status}`);
+    }
+    
+    const data = await cacheResponse.json();
+    
+    // Prüfe ob das Ergebnis aus dem Cache kommt
+    if (data.fromCache) {
+      console.log('[KEYWORD-THEMATIC] Cache-Hit für:', keyword);
+      if (countContainer) {
+        countContainer.textContent = `Analyse für "${keyword}" (aus Cache)`;
+      }
+    } else {
+      console.log('[KEYWORD-THEMATIC] Neue Analyse erstellt für:', keyword);
+      if (countContainer) {
+        countContainer.textContent = `Analyse für "${keyword}" (neu erstellt)`;
+      }
+    }
+    
+    // Zeige die Ergebnisse an
+    displayKeywordThematicResults(keyword, data);
+    
+  } catch (error) {
+    console.error('[KEYWORD-THEMATIC] Fehler:', error);
+    
+    const results = document.getElementById('results');
+    if (results) {
+      results.innerHTML = `
+        <div style="text-align: center; padding: 2rem; color: #c53030;">
+          <div style="font-size: 1.2em; margin-bottom: 1rem;">❌ Fehler bei der Analyse</div>
+          <div style="font-style: italic;">${error.message}</div>
+          <button onclick="switchTab('schlagworte')" style="margin-top: 1rem; padding: 8px 16px; background: #467886; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Zurück zur Schlagwort-Liste
+          </button>
+        </div>
+      `;
+    }
+  }
+}
+
+function displayKeywordThematicResults(keyword, data) {
+  const results = document.getElementById('results');
+  const countContainer = document.getElementById('keyword-count');
+  
+  if (!results) return;
+  
+  // Hilfsfunktion: Wandle Markdown zu HTML um
+  function markdownToHtml(text) {
+    return text
+      // Überschriften: ## Überschrift -> <h3>Überschrift</h3>
+      .replace(/^## (.+)$/gm, '<h3 style="margin: 1.5rem 0 0.8rem 0; color: #333; font-size: 1.1em;">$1</h3>')
+      // Fett: **text** -> <strong>text</strong>
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // Kursiv: *text* -> <em>text</em>
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      // Zeilenumbrüche: \n\n -> </p><p>
+      .replace(/\n\n/g, '</p><p style="margin-bottom: 1rem;">')
+      // Einzelne Zeilenumbrüche: \n -> <br>
+      .replace(/\n/g, '<br>');
+  }
+  
+  // Hilfsfunktion: Wandle GA-Referenzen in klickbare Links um (verkürzte Version)
+  function makeGAReferencesClickable(text) {
+    // Regex für GA-Referenzen: (GA###/Y:index) oder (GA###a/Y:index)
+    const gaRefRegex = /\(GA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\)/gi;
+    
+    return text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
+      const lectureId = `GA${gaNum}/${lectureNum}`;
+      const cleanIndex = index.replace(/^\^/, '');
+      return `(<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link" style="color: #467886; text-decoration: none; font-weight: 600;">GA${gaNum}/${lectureNum}</a>)`;
+    });
+  }
+  
+  // Hauptinhalt (KI-Analyse) mit Markdown-zu-HTML und klickbaren GA-Referenzen
+  let contentHtml = '';
+  if (data.content) {
+    const markdownHtml = markdownToHtml(data.content);
+    const contentWithLinks = makeGAReferencesClickable(markdownHtml);
+    contentHtml = `
+      <h1 style="margin: 0 0 1.5rem 0; color: #467886; font-size: 1.5em; border-bottom: 2px solid #467886; padding-bottom: 0.5rem;">${keyword}</h1>
+      <div style="line-height: 1.6;">
+        <p style="margin-bottom: 1rem;">${contentWithLinks}</p>
+      </div>
+    `;
+  }
+  
+  // Kombiniere alles (nur Hauptinhalt) im gleichen Layout wie Themensuche
+  results.innerHTML = `
+    <div class="semantic-answer">
+      <div class="answer-content" id="keywordAnswerContent">
+        ${contentHtml}
+      </div>
+    </div>
+  `;
+  
+  // Aktualisiere Count-Container
+  if (countContainer) {
+    countContainer.textContent = `Analyse für "${keyword}" abgeschlossen`;
+  }
+  
+  console.log('[KEYWORD-THEMATIC] Ergebnisse angezeigt für:', keyword);
+}
+
+// ============================================================================
+// SCHLAGWORT HINZUFÜGEN
+// ============================================================================
+
+async function addNewKeyword() {
+  const keywordInput = document.getElementById('newKeywordInput');
+  const addButton = document.getElementById('addKeywordButton');
+  const statusDiv = document.getElementById('addKeywordStatus');
+  
+  if (!keywordInput || !addButton || !statusDiv) {
+    console.error('[ADD-KEYWORD] UI-Elemente nicht gefunden');
+    return;
+  }
+  
+  const keyword = keywordInput.value.trim();
+  
+  if (!keyword) {
+    statusDiv.innerHTML = '<p style="color: #d32f2f;">Bitte geben Sie ein Schlagwort ein.</p>';
+    return;
+  }
+  
+  // UI-Status aktualisieren
+  addButton.disabled = true;
+  addButton.textContent = 'Analysiere...';
+  statusDiv.innerHTML = '<p style="color: #1976d2;">Analysiere Schlagwort "' + keyword + '"...</p>';
+  
+  try {
+    console.log('[ADD-KEYWORD] Füge neues Schlagwort hinzu:', keyword);
+    
+    const response = await fetch('http://localhost:3003/api/keywords-add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ keyword: keyword })
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      // Erfolg
+      statusDiv.innerHTML = `
+        <p style="color: #2e7d32;">
+          ✅ Schlagwort "${keyword}" erfolgreich hinzugefügt!<br>
+          📊 Analyse-Länge: ${result.analysisLength} Zeichen<br>
+          📚 Gefundene Ergebnisse: ${result.resultCount}
+        </p>
+      `;
+      
+      // Eingabefeld leeren
+      keywordInput.value = '';
+      
+      // Schlagwort-Liste aktualisieren
+      await loadKeywordsData();
+      
+      // Zeige das neue Schlagwort in der Liste
+      displayKeywords();
+      
+      console.log('[ADD-KEYWORD] Schlagwort erfolgreich hinzugefügt:', result);
+      
+    } else {
+      // Fehler
+      if (response.status === 409) {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Schlagwort "${keyword}" ist bereits vorhanden.</p>`;
+      } else if (response.status === 404) {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Keine relevanten Textstellen für "${keyword}" gefunden.</p>`;
+      } else {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Fehler: ${result.error || 'Unbekannter Fehler'}</p>`;
+      }
+      
+      console.error('[ADD-KEYWORD] Fehler beim Hinzufügen:', result);
+    }
+    
+  } catch (error) {
+    statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Netzwerkfehler: ${error.message}</p>`;
+    console.error('[ADD-KEYWORD] Netzwerkfehler:', error);
+  } finally {
+    // UI-Status zurücksetzen
+    addButton.disabled = false;
+    addButton.textContent = 'Schlagwort hinzufügen';
+  }
+}
+
+// Enter-Taste für Schlagwort-Eingabe
+function handleKeywordInputKeypress(event) {
+  if (event.key === 'Enter') {
+    addNewKeyword();
+  }
+}
 </script>
 </body>
 </html> 

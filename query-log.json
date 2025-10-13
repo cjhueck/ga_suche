@@ -213,9 +213,10 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "goethe": {
-    "count": 18,
+    "count": 31,
     "coOccurrences": {},
-    "lastUsed": "2025-10-13T06:20:22.939Z"
+    "lastUsed": "2025-10-13T06:20:22.939Z",
+    "last": "2025-10-13T11:50:00.699Z"
   },
   "lebenstableau": {
     "count": 6,
@@ -223,7 +224,7 @@
     "lastUsed": "2025-10-13T06:13:03.915Z"
   },
   "steiner": {
-    "count": 18,
+    "count": 19,
     "coOccurrences": {
       "kant": 6,
       "francis bacon": 1,
@@ -243,14 +244,15 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-13T06:20:50.188Z",
-    "last": "2025-10-10T14:23:53.051Z"
+    "last": "2025-10-13T08:36:25.988Z"
   },
   "kant": {
-    "count": 6,
+    "count": 8,
     "coOccurrences": {
       "steiner": 6
     },
-    "lastUsed": "2025-10-13T06:20:50.188Z"
+    "lastUsed": "2025-10-13T06:20:50.188Z",
+    "last": "2025-10-13T10:57:18.827Z"
   },
   "hat goethes anschauende": {
     "count": 1,
@@ -674,9 +676,10 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "goetheanismus": {
-    "count": 5,
+    "count": 6,
     "coOccurrences": {},
-    "lastUsed": "2025-10-13T06:20:33.257Z"
+    "lastUsed": "2025-10-13T06:20:33.257Z",
+    "last": "2025-10-13T08:28:25.943Z"
   },
   "dionysius areopagita": {
     "count": 1,
@@ -701,5 +704,13 @@
       "dionysius": 1
     },
     "lastUsed": "2025-10-10T17:56:05.313Z"
+  },
+  "reinkarnation": {
+    "count": 1,
+    "last": "2025-10-13T10:07:04.135Z"
+  },
+  "schiller": {
+    "count": 2,
+    "last": "2025-10-13T11:01:54.971Z"
   }
 }
