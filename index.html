@@ -1668,10 +1668,10 @@ function normalizeGANumber(gaNumber) {
     // block clicks.
     function setUILocked(locked) {
       isGeneratingSummary = locked;
-      // Only provide a visual cue (cursor) and a console message. Do NOT
-      // disable pointer events on elements so links stay clickable.
-      document.body.style.cursor = locked ? 'wait' : '';
-      console.log(locked ? 'UI locked (visual only) - Summary generation in progress' : 'UI unlocked - Summary generation finished');
+      // Keep only an internal flag and console message. We don't change the
+      // global cursor here to avoid leaving a lingering 'wait' cursor when
+      // asynchronous flows finish in unexpected ways. UI remains clickable.
+      console.log(locked ? 'UI locked (flag only) - Summary generation in progress' : 'UI unlocked - Summary generation finished');
     }
 
     // Header-Position dynamisch anpassen
@@ -2407,6 +2407,11 @@ function toggleGASummaries() {
           </div>
         `;
       } finally {
+        // Make sure the visual UI lock/cursor is cleared even if an error occurred
+        try {
+          setUILocked(false);
+        } catch (e) { /* ignore */ }
+
         button.disabled = false;
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
@@ -2580,6 +2585,8 @@ function toggleGASummaries() {
                   if (link.__gaBound) return;
                   link.__gaBound = true;
                   link.addEventListener('click', async (e) => {
+                    // Ensure no lingering visual UI lock/cursor
+                    try { setUILocked(false); } catch (err) {}
                     e.preventDefault();
                     e.stopPropagation();
                     // Close summary panel like other flows
@@ -2611,6 +2618,8 @@ function toggleGASummaries() {
   if (e.target && e.target.closest && e.target.closest('.ga-reference')) {
     return;
   }
+  // Ensure no lingering visual UI lock/cursor
+  try { setUILocked(false); } catch (err) {}
   e.preventDefault();
   e.stopPropagation();
   const currentWord1 = document.getElementById('word1').value.trim();
