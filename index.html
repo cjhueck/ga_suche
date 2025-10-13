@@ -1661,51 +1661,18 @@ function normalizeGANumber(gaNumber) {
     return `GA${number}${suffix.toLowerCase()}`;
   }
 
-    // UI-Sperrung während Summary-Generierung
+    // UI-Sperrung während Summary-Generierung (relaxed)
+    // Previously we disabled pointer events globally while generating summaries,
+    // which prevented clicking links (including .ga-reference) and therefore
+    // broke navigation from snippets. Keep a visual cursor indicator but do not
+    // block clicks.
     function setUILocked(locked) {
       isGeneratingSummary = locked;
-      
-      // Alle klickbaren Elemente finden und sperren/entsperren
-      const clickableElements = document.querySelectorAll('a, button, [onclick], .result-item, .ga-overview-item');
-      
-      clickableElements.forEach(element => {
-        if (locked) {
-          element.style.pointerEvents = 'none';
-          element.style.opacity = '0.6';
-          element.style.cursor = 'wait';
-        } else {
-          element.style.pointerEvents = '';
-          element.style.opacity = '';
-          element.style.cursor = '';
-        }
-      });
-      
-      // Loading-Cursor für den Body
+      // Only provide a visual cue (cursor) and a console message. Do NOT
+      // disable pointer events on elements so links stay clickable.
       document.body.style.cursor = locked ? 'wait' : '';
-      
-      console.log(locked ? 'UI gesperrt - Summary wird generiert' : 'UI entsperrt - Summary-Generierung beendet');
+      console.log(locked ? 'UI locked (visual only) - Summary generation in progress' : 'UI unlocked - Summary generation finished');
     }
-
-    // Globaler Schutz gegen Klicks während Summary-Generierung
-    function preventClicksDuringSummaryGeneration(event) {
-      if (isGeneratingSummary) {
-        event.preventDefault();
-        event.stopPropagation();
-        console.warn('Klick blockiert - Summary wird gerade generiert');
-        return false;
-      }
-    }
-
-    // Event Listener für globalen Schutz hinzufügen
-    document.addEventListener('click', preventClicksDuringSummaryGeneration, true);
-    document.addEventListener('keydown', function(event) {
-      if (isGeneratingSummary && (event.key === 'Enter' || event.key === ' ')) {
-        event.preventDefault();
-        event.stopPropagation();
-        console.warn('Tastendruck blockiert - Summary wird gerade generiert');
-        return false;
-      }
-    }, true);
 
     // Header-Position dynamisch anpassen
     function updateHeaderPosition() {
@@ -2029,6 +1996,18 @@ function normalizeGANumber(gaNumber) {
     }
 
     async function openGAOverview(gaNumber) {
+      // Close summary panel when opening GA overview from the search window
+      try {
+        const summaryPanel = document.getElementById('summary-panel');
+        const resizeHandle = document.getElementById('verticalResizeHandle');
+        if (summaryPanel && summaryPanel.classList.contains('visible')) {
+          summaryPanel.classList.remove('visible');
+          if (resizeHandle) resizeHandle.classList.remove('visible');
+          summaryPanel.style.width = '0';
+          summaryPanel.style.minWidth = '0';
+          summaryPanel.style.marginRight = '0px';
+        }
+      } catch (e) { /* silent */ }
       if (!gaNumber) {
         // Fallback: Versuche, die GA-Nummer aus dem Button im Textsuche-Tab zu holen
         const btn = document.getElementById('showGAOverview');
@@ -2586,7 +2565,52 @@ function toggleGASummaries() {
               snippetDiv.style.cursor = 'pointer';
               snippetDiv.setAttribute('data-lecture-id', lectureId);
               snippetDiv.setAttribute('data-chunk-index', chunk.index);
+
+              // If the snippet contains inline GA reference anchors (.ga-reference),
+              // bind click handlers to them so they open the viewer and scroll to
+              // the corresponding paragraph. Also ensure the parent snippet click
+              // handler doesn't intercept anchor clicks.
+              const bindGaLinksInSnippet = () => {
+                const gaAnchors = snippetDiv.querySelectorAll('.ga-reference');
+                gaAnchors.forEach(link => {
+                  const lectureIdAttr = link.getAttribute('data-id');
+                  const targetIndexAttr = link.getAttribute('data-index');
+                  if (!lectureIdAttr || !targetIndexAttr) return;
+                  // Avoid double-binding
+                  if (link.__gaBound) return;
+                  link.__gaBound = true;
+                  link.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Close summary panel like other flows
+                    const summaryPanel = document.getElementById('summary-panel');
+                    const resizeHandle = document.getElementById('verticalResizeHandle');
+                    if (summaryPanel && summaryPanel.classList.contains('visible')) {
+                      summaryPanel.classList.remove('visible');
+                      if (resizeHandle) resizeHandle.classList.remove('visible');
+                      summaryPanel.style.width = '0';
+                      summaryPanel.style.minWidth = '0';
+                      summaryPanel.style.marginRight = '0px';
+                    }
+
+                    const currentWord1 = document.getElementById('word1').value.trim();
+                    const currentWord2 = document.getElementById('word2').value.trim();
+                    const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+
+                    await showLecture(lectureIdAttr, targetIndexAttr, keywords);
+                  });
+                });
+              };
+
+              // Bind now and also after a short delay in case marked/rendering alters DOM
+              bindGaLinksInSnippet();
+              setTimeout(bindGaLinksInSnippet, 50);
+
               snippetDiv.addEventListener("click", async function(e) {
+  // If a GA anchor was clicked, let its handler handle opening the viewer
+  if (e.target && e.target.closest && e.target.closest('.ga-reference')) {
+    return;
+  }
   e.preventDefault();
   e.stopPropagation();
   const currentWord1 = document.getElementById('word1').value.trim();

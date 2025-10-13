@@ -28,6 +28,74 @@ let gaOverviewCache = {};
 let queryLog = {}; // NEU: Für Query-Tracking
 let lastSynonymUpdate = null; // NEU: Timestamp der letzten Synonym-Generierung
 
+// Hilfsfunktion: Synonym-Expansion
+function expandSynonyms(query) {
+  const words = query.toLowerCase().split(/\W+/);
+  let expanded = new Set(words);
+  for (const word of words) {
+    if (synonyms[word]) {
+      synonyms[word].forEach(syn => expanded.add(syn));
+    }
+  }
+  return Array.from(expanded);
+}
+
+// Hilfsfunktion: Levenshtein-Distanz
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
+  for (let i = 0; i <= a.length; i++) matrix[i][0] = i;
+  for (let j = 0; j <= b.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return matrix[a.length][b.length];
+}
+
+// Hilfsfunktion: Keyword-Overlap
+function keywordOverlap(a, b) {
+  const wa = new Set(a.toLowerCase().split(/\W+/));
+  const wb = new Set(b.toLowerCase().split(/\W+/));
+  let overlap = 0;
+  wa.forEach(w => { if (wb.has(w)) overlap++; });
+  return overlap / Math.max(wa.size, wb.size);
+}
+
+// Hybrid-Cache-Suche
+function findHybridCacheHit(query, depth, limit, thematicDB) {
+  const expanded = expandSynonyms(query);
+  let bestKey = null;
+  let bestScore = 0;
+  for (const key of Object.keys(thematicDB)) {
+    const [cachedQuery, cachedDepth, cachedLimit] = key.split('|');
+    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit)) continue;
+    // 1. Exact Match
+    if (cachedQuery === query.toLowerCase().trim()) return { key, score: 1.0 };
+    // 2. Synonym/Stemming
+    if (expanded.includes(cachedQuery)) return { key, score: 0.95 };
+    // 3. String-Similarity
+    const levDist = levenshtein(query.toLowerCase().trim(), cachedQuery);
+    const levScore = 1 - levDist / Math.max(query.length, cachedQuery.length);
+    // 4. Keyword-Overlap
+    const overlapScore = keywordOverlap(query, cachedQuery);
+    // Kombiniere Scores
+    const score = Math.max(levScore, overlapScore);
+    if (score > bestScore) {
+      bestScore = score;
+      bestKey = key;
+    }
+  }
+  if (bestScore > 0.8) return { key: bestKey, score: bestScore };
+  return null;
+}
+
 // Hilfsfunktion für case-insensitive Zugriff auf GA-Overview-Cache
 function findGAOverviewKey(requestedKey) {
   const keys = Object.keys(gaOverviewCache);
@@ -358,31 +426,20 @@ async function generateGAOverview(gaNumber) {
 
 function trackQueryTerms(query, resultCount) {
   if (resultCount === 0) return;
-  
+
   const terms = extractKeyTerms(query);
-  
+
   terms.forEach(term => {
     if (!queryLog[term]) {
       queryLog[term] = {
         count: 0,
-        coOccurrences: {},
-        lastUsed: new Date().toISOString()
+        last: new Date().toISOString()
       };
     }
     queryLog[term].count++;
-    queryLog[term].lastUsed = new Date().toISOString();
-    
-    terms.forEach(otherTerm => {
-
-      if (term !== otherTerm) {
-        if (!queryLog[term].coOccurrences[otherTerm]) {
-          queryLog[term].coOccurrences[otherTerm] = 0;
-        }
-        queryLog[term].coOccurrences[otherTerm]++;
-      }
-    });
+    queryLog[term].last = new Date().toISOString();
   });
-  
+
   const totalQueries = Object.values(queryLog).reduce((sum, entry) => sum + entry.count, 0);
   if (totalQueries % 10 === 0) {
     saveQueryLog();
@@ -1090,18 +1147,18 @@ function addClickableReferences(text, results) {
   results.forEach(result => {
     if (result.ID && result.index) {
       const cleanIndex = result.index.replace(/^\^/, '');
-      
+
       const key1 = `${result.ID}:${result.index}`;
       const key2 = `${result.ID}:${cleanIndex}`;
-      
+
       const mapping = {
         id: result.ID,
-        index: cleanIndex,
+        index: result.index, // Original mit Caret bleibt im Mapping
         title: result.title,
         fileName: result.fileName,
         content: result.content
       };
-      
+
       refToDataMapping[key1] = mapping;
       refToDataMapping[key2] = mapping;
     }
@@ -1148,12 +1205,14 @@ function addClickableReferences(text, results) {
     
     if (chunkData) {
       const [idPart] = matchInfo.fullRef.split(':');
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${chunkData.index}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
-      
+      // Nur für das data-index Attribut das Caret entfernen
+      const cleanIndex = chunkData.index.replace(/^\^/, '');
+      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
+
       linkedText = linkedText.substring(0, matchInfo.position) + 
                    replacement + 
                    linkedText.substring(matchInfo.position + matchInfo.fullMatch.length);
-      
+
       linksCreated++;
     } else {
       console.warn(`Keine Daten für ${matchInfo.fullRef}`);
@@ -1493,19 +1552,6 @@ app.get('/debug/status', async (req, res) => {
   });
 });
 
-// API: summary DB metadata (mtime, count) for client-side invalidation
-app.get('/api/summary-meta', async (req, res) => {
-  try {
-    const summaryDB = await loadSummaryDatabase();
-    const stats = await require('fs').promises.stat(SUMMARY_DB_FILE).catch(() => null);
-    const mtime = stats ? stats.mtimeMs : null;
-    res.json({ lastModifiedMs: mtime, summariesInDB: Object.keys(summaryDB).length });
-  } catch (err) {
-    console.error('Error /api/summary-meta:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
 app.post('/api/hybrid-search', async (req, res) => {
   try {
     const { query, limit = 20 } = req.body;
@@ -1534,29 +1580,54 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
     const { query, depth = 'allgemein', limit = 30 } = req.body;
     
-    if (!query) {
-      return res.status(400).json({ error: 'Query erforderlich' });
-    }
-    
-    const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
-    
-    if (keywordResults.length === 0) {
+    // Konsolidierte Hybrid-Cache-Logik
+    const cacheKey = generateThematicCacheKey(query, depth, limit);
+    const thematicDB = await loadThematicSearchDatabase();
+    // Hybrid-Cache-Logik zuerst prüfen
+    const hybridHit = findHybridCacheHit(query, depth, limit, thematicDB);
+    if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
+      console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (${depth}, ${limit}) | Score: ${hybridHit.score}`);
+      const cachedResult = thematicDB[hybridHit.key];
       return res.json({
-        query: query,
-        content: 'Keine relevanten Textstellen gefunden.',
-        sources: []
+        ...cachedResult,
+        fromCache: true,
+        cacheScore: hybridHit.score,
+        cacheKey: hybridHit.key,
+        cacheTimestamp: cachedResult.timestamp
       });
     }
-    
-    const rankedResults = applySemanticRanking(keywordResults, query);
-    const topResults = rankedResults.slice(0, limit);
-    
+
+    // Kein Cache-Hit: Neue Suche
+    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (${depth}, ${limit})`);
+    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
+
+    if (keywordResults.length === 0) {
+      const emptyResult = {
+        query: query,
+        content: 'Keine relevanten Textstellen gefunden.',
+        sources: [],
+        searchMethod: 'hybrid-thematic-unified',
+        totalMatches: 0,
+        llmUsed: false
+      };
+      // Auch leere Ergebnisse cachen (um wiederholte Suchen zu vermeiden)
+      thematicDB[cacheKey] = {
+        ...emptyResult,
+        timestamp: new Date().toISOString()
+      };
+      await saveThematicSearchDatabase(thematicDB);
+      return res.json(emptyResult);
+    }
+
+    let rankedResults = applySemanticRanking(keywordResults, query);
+    let topResults = rankedResults.slice(0, limit);
+
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
-    
-    const analysis = await generateAnalysis(query, topResults, depth);
-    
-    res.json({
+
+    let analysis = await generateAnalysis(query, topResults, depth);
+
+    let searchResult = {
       query: query,
       content: analysis,
       sources: topResults.slice(0, 10).map(result => ({
@@ -1570,138 +1641,24 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       searchMethod: 'hybrid-thematic-unified',
       totalMatches: keywordResults.length,
       llmUsed: !!process.env.CLAUDE_API_KEY
-    });
-    
-  } catch (error) {
-    console.error('Thematische Suche Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
+    };
 
-// API: Keyword-Search (reuses thematische Suche + LLM-Analyse)
-app.post('/api/keyword-search', async (req, res) => {
-  try {
-    const { query, gaFilter = '', limit = 30 } = req.body;
-    if (!query) return res.status(400).json({ error: 'Query erforderlich' });
+    // Speichere Ergebnis im Cache
+    thematicDB[cacheKey] = {
+      ...searchResult,
+      timestamp: new Date().toISOString()
+    };
 
-    // Finde relevante Absätze (wie thematische Suche)
-    const keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
-
-    if (!keywordResults || keywordResults.length === 0) {
-      return res.json({ query, keywords: [], sources: [], totalMatches: 0 });
-    }
-
-    // Optionaler GA-Filter
-    let filtered = keywordResults;
-    if (gaFilter) filtered = filtered.filter(s => s.ID && s.ID.startsWith(gaFilter));
-
-    // Semantic ranking und Top-N
-    const ranked = applySemanticRanking(filtered, query);
-    const topResults = ranked.slice(0, limit);
-
-    // Query tracking
-    trackQueryTerms(query, topResults.length);
-
-    // Reuse the generateAnalysis LLM prompt for a concise analysis (depth 'allgemein')
-    const analysis = await generateAnalysis(query, topResults, 'allgemein');
-
-    res.json({
-      query,
-      analysis,
-      sources: topResults.slice(0, 10).map(result => ({
-        ID: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore || result.score || 0),
-        matchedTerms: result.matchedTerms || []
-      })),
-      totalMatches: keywordResults.length,
-      llmUsed: !!process.env.CLAUDE_API_KEY
+    // Speichere Cache-DB (non-blocking)
+    saveThematicSearchDatabase(thematicDB).then(() => {
+      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (${depth}, ${limit})`);
+    }).catch(err => {
+      console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
     });
 
+    return res.json(searchResult);
   } catch (error) {
-    console.error('/api/keyword-search Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/api/full-lecture/:lectureId', (req, res) => {
-  try {
-    const lectureId = req.params.lectureId;
-    
-    console.log(`Vortrag-Anfrage: ${lectureId}`);
-    
-    const lectureIdLower = lectureId.toLowerCase();
-    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
-    
-    if (!lecture) {
-      const foundKey = Object.keys(fullLectures).find(key => 
-        key.toLowerCase() === lectureIdLower
-      );
-      if (foundKey) {
-        lecture = fullLectures[foundKey];
-      }
-    }
-    
-    if (!lecture) {
-      console.error(`   Nicht gefunden: ${lectureId}`);
-      return res.status(404).json({ 
-        error: `Vortrag nicht gefunden: ${lectureId}`,
-        available: Object.keys(fullLectures).slice(0, 10)
-      });
-    }
-    
-    console.log(`   Gefunden: ${lectureId}`);
-    
-    res.json({
-      lecture: lecture,
-      paragraphCount: lecture.paragraphs?.length || 0,
-      hasIndices: lecture.paragraphs?.some(p => p.index) || false
-    });
-    
-  } catch (error) {
-    console.error('Vortrag-Abruf Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-app.get('/api/full-lecture/:gaNumber/:lectureNum', (req, res) => {
-  try {
-    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
-    
-    console.log(`Vortrag-Anfrage: ${lectureId}`);
-    
-    const lectureIdLower = lectureId.toLowerCase();
-    let lecture = fullLectures[lectureId] || fullLectures[lectureIdLower];
-    
-    if (!lecture) {
-      const foundKey = Object.keys(fullLectures).find(key => 
-        key.toLowerCase() === lectureIdLower
-      );
-      if (foundKey) {
-        lecture = fullLectures[foundKey];
-      }
-    }
-    
-    if (!lecture) {
-      console.error(`   Nicht gefunden: ${lectureId}`);
-      return res.status(404).json({ 
-        error: `Vortrag nicht gefunden: ${lectureId}`,
-        available: Object.keys(fullLectures).filter(k => k.startsWith(req.params.gaNumber)).slice(0, 10)
-      });
-    }
-    
-    console.log(`   Gefunden: ${lectureId}`);
-    
-    res.json({
-      lecture: lecture,
-      paragraphCount: lecture.paragraphs?.length || 0,
-      hasIndices: lecture.paragraphs?.some(p => p.index) || false
-    });
-    
-  } catch (error) {
-    console.error('Vortrag-Abruf Fehler:', error);
+    console.error('Hybrid-thematic-Search Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -1855,12 +1812,6 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
   }
 });
 
-// NOTE: The GitHub->local admin sync endpoint was removed to avoid automatic
-// backward synchronization from the remote repository into the local
-// `summary-database.json`. All summary writes should be performed locally via
-// the existing `/api/save-summary` endpoint which persists into the local
-// `summary-database.json` file.
-
 // ============================================================================
 // SCHLAGWORT-SYSTEM API
 // ============================================================================
@@ -1908,44 +1859,42 @@ app.get('/api/keywords-list', async (req, res) => {
     const keywordsPath = path.join(__dirname, 'keywords');
     let allKeywords = [];
     
+    // Versuche zuerst zentrale keywords.json im Hauptordner zu laden
     try {
-      // Lese alle .json Dateien im keywords/ Ordner
-      const files = await fs.readdir(keywordsPath);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
-      
-      for (const fileName of jsonFiles) {
-        try {
-          const filePath = path.join(keywordsPath, fileName);
-          const fileContent = await fs.readFile(filePath, 'utf8');
-          const data = JSON.parse(fileContent);
-          
-          // Konvertiere in einheitliches Format
-          if (data.keywords && data.text) {
-            const keywordEntry = {
-              keyword: data.keywords.Keyword || 'Unbekannt',
-              alphabetical: data.keywords.Alphabetical || data.keywords.Keyword?.charAt(0).toUpperCase() || 'U',
-              text: data.text,
-              gaReferences: extractGAReferencesFromText(data.text)
-            };
-            
-            allKeywords.push(keywordEntry);
-          }
-        } catch (error) {
-          console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
-        }
+      const filePath = path.join(__dirname, 'keywords.json');
+      const fileContent = await fs.readFile(filePath, 'utf8');
+      const data = JSON.parse(fileContent);
+      if (Array.isArray(data)) {
+        allKeywords = allKeywords.concat(data);
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords.json geladen`);
       }
-      
-      console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter erfolgreich geladen`);
-      
     } catch (error) {
-      console.log('[KEYWORDS-API] keywords/ Ordner nicht gefunden, verwende Fallback');
+      console.warn('[KEYWORDS-API] Keine zentrale keywords.json gefunden:', error.message);
+      // Fallback: Lese alle .json Dateien im keywords/ Ordner
+      try {
+        const files = await fs.readdir(keywordsPath);
+        const jsonFiles = files.filter(file => file.endsWith('.json'));
+        for (const fileName of jsonFiles) {
+          try {
+            const filePath = path.join(keywordsPath, fileName);
+            const fileContent = await fs.readFile(filePath, 'utf8');
+            const data = JSON.parse(fileContent);
+            if (Array.isArray(data)) {
+              allKeywords = allKeywords.concat(data);
+            }
+          } catch (error) {
+            console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
+          }
+        }
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords/-Ordner geladen`);
+      } catch (error) {
+        console.warn('[KEYWORDS-API] keywords/ Ordner nicht gefunden:', error.message);
+      }
     }
-    
     res.json({ 
       keywords: allKeywords,
       count: allKeywords.length 
     });
-    
   } catch (error) {
     console.error('[KEYWORDS-API] Fehler beim Laden der Schlagwörter:', error);
     res.status(500).json({ 
@@ -1979,7 +1928,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     .sort((a, b) => b[1].count - a[1].count)
     .slice(0, 20)
     .map(([term, data]) => ({ term, count: data.count }));
-  
+
   res.json({
     synonymCount: Object.keys(synonyms).length,
     queryLogSize: Object.keys(queryLog).length,
@@ -1987,51 +1936,53 @@ app.get('/api/admin/synonym-stats', (req, res) => {
     lastUpdate: lastSynonymUpdate,
     topQueries: topQueries
   });
-  app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
+});
+
+// Route aus Verschachtelung herausgelöst
+app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
   try {
     console.log('\n========================================');
     console.log('LÖSCHE UNVOLLSTÄNDIGE ZUSAMMENFASSUNGEN');
     console.log('========================================');
-    
+
     let deletedCount = 0;
     const toDelete = [];
-    
+
     // Prüfe zentrale DB auf unvollständige Summaries
     const summaryDB = await loadSummaryDatabase();
     Object.entries(summaryDB).forEach(([lectureId, summary]) => {
       const headings = summary.headings || [];
       const h3Count = headings.filter(h => h.level === 'h3').length;
-      
+
       // Lösche wenn keine Headings oder keine H3
       if (headings.length === 0 || h3Count === 0) {
         toDelete.push(lectureId);
         console.log(`  Markiere ${lectureId} (${headings.length} headings, ${h3Count} H3)`);
       }
     });
-    
+
     // Lösche aus zentraler DB
     toDelete.forEach(id => {
       delete summaryDB[id];
       deletedCount++;
     });
     await saveSummaryDatabase(summaryDB);
-    
+
     console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
-    
+
     console.log(`✓ ${deletedCount} unvollständige Zusammenfassungen gelöscht`);
     console.log('========================================\n');
-    
+
     res.json({
       success: true,
       deletedCount: deletedCount,
       deletedIds: toDelete
     });
-    
+
   } catch (error) {
     console.error('Fehler:', error);
     res.status(500).json({ error: error.message });
   }
-});
 });
 
 // ============================================================================
@@ -2039,6 +1990,7 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 // ============================================================================
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
+const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
@@ -2051,174 +2003,17 @@ async function loadSummaryDatabase() {
   }
 }
 
-// Robust: atomic save mit Lockfile, temporärer Datei und Stale-Lock-Cleanup
-const SUMMARY_DB_LOCK = SUMMARY_DB_FILE + '.lock';
-const SUMMARY_DB_TMP = SUMMARY_DB_FILE + '.tmp';
-const LOCK_STALE_MS = 30 * 1000; // 30 Sekunden
-
-async function acquireLock(lockPath, options = {}) {
-  const maxRetries = options.maxRetries || 60;
-  const retryDelay = options.retryDelay || 200; // ms
-
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    try {
-      // Create lock file exclusively
-      const fd = await fs.open(lockPath, 'wx');
-      await fd.writeFile(String(process.pid));
-      await fd.close();
-      return true;
-    } catch (err) {
-      // If lock exists, check age and remove if stale
-      try {
-        const stat = await fs.stat(lockPath).catch(() => null);
-        if (stat) {
-          const age = Date.now() - stat.mtimeMs;
-          if (age > LOCK_STALE_MS) {
-            console.warn('[LOCK] Entferne stale lock:', lockPath);
-            await fs.unlink(lockPath).catch(() => {});
-            // retry immediately
-            continue;
-          }
-        }
-      } catch (inner) {
-        // ignore and wait
-      }
-
-      // wait and retry
-      await new Promise(res => setTimeout(res, retryDelay));
-    }
-  }
-
-  throw new Error('Could not acquire lock for ' + lockPath);
-}
-
-async function releaseLock(lockPath) {
-  try {
-    await fs.unlink(lockPath).catch(() => {});
-  } catch (err) {
-    console.warn('[LOCK] Fehler beim Entfernen des Locks:', err.message || err);
-  }
-}
-
-// Speichere zentrale Summary-Datenbank atomar
+// Speichere zentrale Summary-Datenbank
 async function saveSummaryDatabase(summaryDB) {
   try {
-    // Acquire lock
-    await acquireLock(SUMMARY_DB_LOCK, { maxRetries: 120, retryDelay: 100 });
-
-    // Write to a unique temporary file first
-    const tmpPath = SUMMARY_DB_FILE + '.tmp.' + Date.now() + '.' + process.pid;
-    const data = JSON.stringify(summaryDB, null, 2);
-    await fs.writeFile(tmpPath, data, 'utf8');
-
-    // Rename tmp to final file (atomic on most platforms)
-    await fs.rename(tmpPath, SUMMARY_DB_FILE);
-
-    console.log('Zentrale Summary-DB atomar gespeichert');
+    await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+    console.log('Zentrale Summary-DB gespeichert');
     return true;
   } catch (error) {
-    console.error('Fehler beim atomaren Speichern der Summary-DB:', error);
+    console.error('Fehler beim Speichern der Summary-DB:', error);
     return false;
-  } finally {
-    // Release lock in finally to ensure it's freed
-    try {
-      await releaseLock(SUMMARY_DB_LOCK);
-    } catch (e) {
-      // swallow
-    }
   }
 }
-
-// ==========================
-// Keywords Datenbank (keywords.json)
-// ==========================
-const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords.json');
-const KEYWORDS_DB_LOCK = KEYWORDS_DB_FILE + '.lock';
-
-async function loadKeywordsDatabase() {
-  try {
-    const data = await fs.readFile(KEYWORDS_DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    // Datei nicht vorhanden oder fehlerhaft -> leeres Objekt
-    return {};
-  }
-}
-
-async function saveKeywordsDatabase(keywordsDB) {
-  try {
-    await acquireLock(KEYWORDS_DB_LOCK, { maxRetries: 120, retryDelay: 100 });
-    const tmpPath = KEYWORDS_DB_FILE + '.tmp.' + Date.now() + '.' + process.pid;
-    const data = JSON.stringify(keywordsDB, null, 2);
-    await fs.writeFile(tmpPath, data, 'utf8');
-    await fs.rename(tmpPath, KEYWORDS_DB_FILE);
-    console.log('Keywords-DB atomar gespeichert');
-    return true;
-  } catch (error) {
-    console.error('Fehler beim Speichern der Keywords-DB:', error);
-    return false;
-  } finally {
-    try { await releaseLock(KEYWORDS_DB_LOCK); } catch(e){}
-  }
-}
-
-// API: Get all saved keywords
-app.get('/api/keywords', async (req, res) => {
-  try {
-    const db = await loadKeywordsDatabase();
-    // return as array
-    const list = Object.keys(db).sort().map(k => ({ keyword: k, ...db[k] }));
-    res.json({ keywords: list });
-  } catch (err) {
-    console.error('/api/keywords GET error:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// API: Save/Upsert a keyword
-app.post('/api/keywords', async (req, res) => {
-  try {
-    const { keyword, summary = '', text = '', matches = [], confidence = 0 } = req.body;
-    if (!keyword) return res.status(400).json({ error: 'keyword required' });
-
-    const db = await loadKeywordsDatabase(); // db ist jetzt ein Array!
-    let entry = db.find(k => k.keyword && k.keyword.toLowerCase() === keyword.toLowerCase());
-    if (!entry) {
-      entry = { keyword, summary, text, matches, confidence, timestamp: new Date().toISOString() };
-      db.push(entry);
-    } else {
-      entry.summary = summary;
-      entry.text = text;
-      entry.matches = matches;
-      entry.confidence = confidence;
-      entry.timestamp = new Date().toISOString();
-    }
-
-    const ok = await saveKeywordsDatabase(db);
-    if (ok) res.json(entry);
-    else res.status(500).json({ error: 'save failed' });
-  } catch (err) {
-    console.error('/api/keywords POST error:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// API: Delete keyword
-app.delete('/api/keywords/:keyword', async (req, res) => {
-  try {
-    const key = String(req.params.keyword).toLowerCase();
-    const db = await loadKeywordsDatabase();
-    const idx = db.findIndex(k => k.keyword && k.keyword.toLowerCase() === key);
-    if (idx === -1) return res.status(404).json({ error: 'not found' });
-    db.splice(idx, 1);
-    const ok = await saveKeywordsDatabase(db);
-    if (ok) res.json({ success: true });
-    else res.status(500).json({ error: 'delete save failed' });
-  } catch (err) {
-    console.error('/api/keywords DELETE error:', err);
-    res.status(500).json({ error: err.message });
-  }
-});
 
 // API: Summary speichern
 app.post('/api/save-summary', async (req, res) => {
@@ -2259,10 +2054,6 @@ app.post('/api/save-summary', async (req, res) => {
 app.get('/summary-database.json', async (req, res) => {
   try {
     const summaryDB = await loadSummaryDatabase();
-    // Ensure clients always fetch the fresh DB after local writes
-    res.setHeader('Cache-Control', 'no-store, must-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
     res.json(summaryDB);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
@@ -2271,9 +2062,84 @@ app.get('/summary-database.json', async (req, res) => {
 });
 
 // ============================================================================
+// THEMENSUCHEN-CACHE-DATENBANK
+// ============================================================================
+
+// Lade Themensuchen-Cache-Datenbank
+async function loadThematicSearchDatabase() {
+  try {
+    const data = await fs.readFile(THEMATIC_SEARCH_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Themensuchen-Cache-DB nicht gefunden, erstelle neue...');
+    return {};
+  }
+}
+
+// Speichere Themensuchen-Cache-Datenbank
+async function saveThematicSearchDatabase(thematicDB) {
+  try {
+    await fs.writeFile(THEMATIC_SEARCH_DB_FILE, JSON.stringify(thematicDB, null, 2), 'utf8');
+    console.log('Themensuchen-Cache-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Themensuchen-Cache-DB:', error);
+    return false;
+  }
+}
+
+// Generiere Cache-Schlüssel für Themensuche
+function generateThematicCacheKey(query, depth, limit) {
+  const normalizedQuery = query.toLowerCase().trim();
+  return `${normalizedQuery}|${depth}|${limit}`;
+}
+
+// API: Themensuchen-Cache bereitstellen
+app.get('/thematic-search-database.json', async (req, res) => {
+  try {
+    const thematicDB = await loadThematicSearchDatabase();
+    res.json(thematicDB);
+  } catch (error) {
+    console.error('Fehler beim Laden der Themensuchen-Cache-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // SERVER START
 // ============================================================================
 
+// API: Vollständigen Vortrag nach GA-Nummer und Vortragsnummer bereitstellen
+app.get('/api/full-lecture/:gaNumber/:lectureNum', async (req, res) => {
+  try {
+    const { gaNumber, lectureNum } = req.params;
+    // Compose lecture ID as used in fullLectures
+    const lectureId = `${gaNumber}/${lectureNum}`;
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+  res.json({ lecture });
+  } catch (error) {
+    console.error('Fehler beim Laden des Vortrags:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Vollständigen Vortrag nach lectureId bereitstellen (Kompatibilität)
+app.get('/api/full-lecture/:lectureId', async (req, res) => {
+  try {
+    const { lectureId } = req.params;
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
+    }
+  res.json({ lecture });
+  } catch (error) {
+    console.error('Fehler beim Laden des Vortrags:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 async function startServer() {
   try {
     console.log('\n========================================');
@@ -2301,12 +2167,17 @@ Object.values(fullLectures).forEach(lecture => {
 console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     await loadQueryLog();
     
+    // Lade Themensuchen-Cache-DB
+    const thematicDB = await loadThematicSearchDatabase();
+    console.log(`Themensuchen-Cache geladen: ${Object.keys(thematicDB).length} Einträge`);
+    
     console.log('\n========================================');
     console.log('DATEN GELADEN:');
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
+    console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
     console.log('========================================');
     
     app.listen(PORT, () => {
@@ -2328,6 +2199,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`   POST /api/save-summary`);
       console.log(`   GET  /summary-database.json`);
+      console.log(`   GET  /thematic-search-database.json`);
       console.log(`\n✓ System bereit!\n`);
     });
     
