@@ -1052,6 +1052,7 @@ QUELLENANGABEN:
 - Verfügbare Referenzen: ${availableRefs}
 - Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
 - WICHTIG: Verwende immer das vollständige Format mit /Y:index
+- WICHTIG: KEINE Leerzeichen um die Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
 - Beispiel: "Steiner kritisiert Kants Erkenntnisgrenze (GA052/7:n5x6ru)."
 
 VORGEHEN:
@@ -1167,7 +1168,7 @@ function addClickableReferences(text, results) {
   console.log(`Mapping erstellt für ${Object.keys(refToDataMapping).length} Referenzen`);
   console.log(`Beispiel-Keys:`, Object.keys(refToDataMapping).slice(0, 6));
   
-  const gaPattern = /\(?(GA\d{3}[a-z]?\/\d+:\^?[a-z0-9]+)\)?/gi;
+  const gaPattern = /\s*\(?(GA\d{3}[a-z]?\/\d+:\^?[a-z0-9]+)\)?\s*/gi;
   
   let linkedText = text;
   const matches = [];
@@ -1207,8 +1208,11 @@ function addClickableReferences(text, results) {
       const [idPart] = matchInfo.fullRef.split(':');
       // Nur für das data-index Attribut das Caret entfernen
       const cleanIndex = chunkData.index.replace(/^\^/, '');
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${idPart}</a>`;
+      // Entferne Klammern aus dem ursprünglichen Text, da das Frontend sie hinzufügt
+      const cleanIdPart = idPart.replace(/^\(|\)$/g, '');
+      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>`;
 
+      // Das Pattern erfasst bereits Leerzeichen, daher einfache Ersetzung
       linkedText = linkedText.substring(0, matchInfo.position) + 
                    replacement + 
                    linkedText.substring(matchInfo.position + matchInfo.fullMatch.length);
@@ -1904,6 +1908,422 @@ app.get('/api/keywords-list', async (req, res) => {
   }
 });
 
+// API-Endpunkt: Keywords mit KI aus GA-Text generieren
+app.post('/api/keywords-generate', async (req, res) => {
+  try {
+    const { lectureId, maxKeywords = 5 } = req.body;
+    
+    if (!lectureId) {
+      return res.status(400).json({ 
+        error: 'lectureId ist erforderlich',
+        received: { lectureId, maxKeywords }
+      });
+    }
+    
+    console.log('[KEYWORDS-GENERATE] Generiere Keywords für:', lectureId);
+    
+    // Lade Vortrag
+    const lecture = fullLectures[lectureId];
+    if (!lecture) {
+      return res.status(404).json({ 
+        error: `Vortrag nicht gefunden: ${lectureId}` 
+      });
+    }
+    
+    // Bereite Text für KI vor
+    const lectureText = lecture.paragraphs
+      ?.map(p => p.content || p.text || '')
+      .join('\n\n')
+      .substring(0, 8000) || ''; // Begrenze auf 8000 Zeichen
+    
+    if (!lectureText.trim()) {
+      return res.status(400).json({ 
+        error: 'Kein Text im Vortrag gefunden' 
+      });
+    }
+    
+    // KI-Prompt für Keyword-Generierung
+    const claudeApiKey = process.env.CLAUDE_API_KEY;
+    if (!claudeApiKey) {
+      return res.status(500).json({ 
+        error: 'Claude API Key nicht konfiguriert' 
+      });
+    }
+    
+    const prompt = `Analysiere den folgenden Text aus Rudolf Steiners Werk und extrahiere die wichtigsten Schlagwörter/Begriffe.
+
+KONTEXT: Rudolf Steiner / Anthroposophie / Geisteswissenschaft
+
+AUFGABE:
+1. Identifiziere ${maxKeywords} der wichtigsten Schlagwörter/Begriffe
+2. Für jedes Schlagwort erstelle eine kurze Definition (2-3 Sätze)
+3. Extrahiere relevante GA-Referenzen aus dem Text
+
+FORMAT (JSON):
+{
+  "keywords": [
+    {
+      "keyword": "Begriff",
+      "alphabetical": "B",
+      "text": "**Begriff** ist eine kurze Definition mit wichtigen Aspekten aus dem Text.",
+      "gaReferences": ["GA013/1", "GA066/2"]
+    }
+  ]
+}
+
+KRITERIEN für Schlagwörter:
+- Zentrale anthroposophische Begriffe (z.B. Astralleib, Ätherleib, Ich, Bewusstsein)
+- Philosophische Konzepte (z.B. Erkenntnis, Meditation, Karma)
+- Spezifische Steiner-Begriffe (z.B. Abbauprozesse, Bildekräfte)
+- Wichtige Personen (z.B. Kant, Goethe, Christus)
+- Vermeide zu allgemeine Begriffe wie "Mensch", "Welt", "Leben"
+
+TEXT:
+${lectureText}
+
+SCHLAGWÖRTER:`;
+
+    console.log('[KEYWORDS-GENERATE] Rufe Claude API auf...');
+    
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    const generatedText = result.content[0].text.trim();
+    
+    console.log('[KEYWORDS-GENERATE] Claude Antwort erhalten, Länge:', generatedText.length);
+    
+    // Parse JSON-Antwort
+    let generatedKeywords;
+    try {
+      // Entferne mögliche Markdown-Code-Blöcke
+      const cleanText = generatedText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
+      generatedKeywords = JSON.parse(cleanText);
+    } catch (parseError) {
+      console.error('[KEYWORDS-GENERATE] JSON Parse Fehler:', parseError);
+      console.log('[KEYWORDS-GENERATE] Rohe Antwort:', generatedText.substring(0, 500));
+      
+      // Fallback: Versuche Keywords aus Text zu extrahieren
+      generatedKeywords = {
+        keywords: [{
+          keyword: "Generiertes Keyword",
+          alphabetical: "G",
+          text: "**Generiertes Keyword** wurde automatisch aus dem Vortrag extrahiert.",
+          gaReferences: []
+        }]
+      };
+    }
+    
+    // Validiere und bereinige Keywords
+    const validKeywords = generatedKeywords.keywords
+      ?.filter(k => k.keyword && k.text)
+      ?.map(k => ({
+        keyword: k.keyword.trim(),
+        alphabetical: k.alphabetical || k.keyword.charAt(0).toUpperCase(),
+        text: k.text.trim(),
+        gaReferences: k.gaReferences || [],
+        generatedAt: new Date().toISOString(),
+        sourceLecture: lectureId
+      })) || [];
+    
+    console.log(`[KEYWORDS-GENERATE] ${validKeywords.length} Keywords generiert für ${lectureId}`);
+    
+    res.json({ 
+      success: true,
+      lectureId: lectureId,
+      generatedKeywords: validKeywords,
+      count: validKeywords.length,
+      sourceText: lectureText.substring(0, 200) + '...'
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-GENERATE] Fehler:', error);
+    res.status(500).json({ 
+      error: 'Fehler bei der Keyword-Generierung',
+      details: error.message 
+    });
+  }
+});
+
+// ============================================================================
+// KEYWORD THEMATIC SEARCH (basierend auf Themensuche)
+// ============================================================================
+
+app.post('/api/keyword-thematic-search', async (req, res) => {
+  try {
+    const { query, depth = 'allgemein', limit = 30 } = req.body;
+    
+    if (!query) {
+      return res.status(400).json({ error: 'Query erforderlich' });
+    }
+    
+    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (${depth}, ${limit})`);
+    
+    // Cache-System für Keyword-Thematische Suche
+    const cacheKey = `keyword_${query.toLowerCase().trim()}_${depth}_${limit}`;
+    const keywordThematicDB = await loadKeywordThematicDatabase();
+    
+    // Prüfe Cache
+    if (keywordThematicDB[cacheKey]) {
+      console.log(`[KEYWORD-THEMATIC-CACHE] Cache-Hit für: "${query}"`);
+      return res.json({
+        ...keywordThematicDB[cacheKey],
+        fromCache: true,
+        cacheTimestamp: keywordThematicDB[cacheKey].timestamp
+      });
+    }
+    
+    // Führe Keyword-Suche durch
+    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
+    
+    if (keywordResults.length === 0) {
+      const emptyResult = {
+        query: query,
+        content: 'Keine relevanten Textstellen für dieses Schlagwort gefunden.',
+        sources: [],
+        searchMethod: 'keyword-thematic-search',
+        totalMatches: 0,
+        llmUsed: false
+      };
+      
+      // Cache leeres Ergebnis
+      keywordThematicDB[cacheKey] = {
+        ...emptyResult,
+        timestamp: new Date().toISOString()
+      };
+      await saveKeywordThematicDatabase(keywordThematicDB);
+      return res.json(emptyResult);
+    }
+    
+    // Semantisches Ranking
+    let rankedResults = applySemanticRanking(keywordResults, query);
+    let topResults = rankedResults.slice(0, limit);
+    
+    // Generiere Keyword-spezifische Analyse
+    let analysis = await generateKeywordAnalysis(query, topResults, depth);
+    
+    let searchResult = {
+      query: query,
+      content: analysis,
+      sources: topResults.slice(0, 10).map(result => ({
+        ID: result.ID,
+        index: result.index,
+        title: result.title,
+        fileName: result.fileName,
+        score: Math.round(result.finalScore),
+        matchedTerms: result.matchedTerms
+      })),
+      searchMethod: 'keyword-thematic-search',
+      totalMatches: keywordResults.length,
+      llmUsed: !!process.env.CLAUDE_API_KEY
+    };
+    
+    // Speichere im Cache
+    keywordThematicDB[cacheKey] = {
+      ...searchResult,
+      timestamp: new Date().toISOString()
+    };
+    
+    // Speichere Cache-DB (non-blocking)
+    saveKeywordThematicDatabase(keywordThematicDB).then(() => {
+      console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis gecacht für: "${query}"`);
+    }).catch(err => {
+      console.warn('[KEYWORD-THEMATIC-CACHE] Fehler beim Cachen:', err.message);
+    });
+    
+    return res.json({
+      ...searchResult,
+      fromCache: false,
+      cacheTimestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('Keyword-Thematic-Search Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API-Endpunkt: Keyword speichern
+app.post('/api/keywords-save', async (req, res) => {
+  try {
+    const { keyword, alphabetical, text, gaReferences } = req.body;
+    
+    if (!keyword || !text) {
+      return res.status(400).json({ 
+        error: 'keyword und text sind erforderlich',
+        received: { keyword, alphabetical, text, gaReferences }
+      });
+    }
+    
+    console.log('[KEYWORDS-SAVE] Speichere Keyword:', keyword);
+    
+    // Lade aktuelle Keywords
+    const keywordsPath = path.join(__dirname, 'keywords');
+    const keywordsFile = path.join(__dirname, 'keywords.json');
+    
+    let allKeywords = [];
+    
+    // Versuche zuerst zentrale keywords.json zu laden
+    try {
+      const fileContent = await fs.readFile(keywordsFile, 'utf8');
+      const data = JSON.parse(fileContent);
+      if (Array.isArray(data)) {
+        allKeywords = data;
+        console.log(`[KEYWORDS-SAVE] ${allKeywords.length} Keywords aus keywords.json geladen`);
+      }
+    } catch (error) {
+      console.log('[KEYWORDS-SAVE] Keine keywords.json gefunden, erstelle neue');
+    }
+    
+    // Prüfe ob Keyword bereits existiert
+    const existingIndex = allKeywords.findIndex(k => k.keyword.toLowerCase() === keyword.toLowerCase());
+    
+    const newKeyword = {
+      keyword: keyword,
+      alphabetical: alphabetical || keyword.charAt(0).toUpperCase(),
+      text: text,
+      gaReferences: gaReferences || extractGAReferencesFromText(text),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+    
+    if (existingIndex >= 0) {
+      // Update existing keyword
+      allKeywords[existingIndex] = { ...allKeywords[existingIndex], ...newKeyword };
+      console.log(`[KEYWORDS-SAVE] Keyword "${keyword}" aktualisiert`);
+    } else {
+      // Add new keyword
+      allKeywords.push(newKeyword);
+      console.log(`[KEYWORDS-SAVE] Neues Keyword "${keyword}" hinzugefügt`);
+    }
+    
+    // Speichere zurück in keywords.json
+    await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
+    
+    res.json({ 
+      success: true, 
+      message: existingIndex >= 0 ? 'Keyword aktualisiert' : 'Keyword hinzugefügt',
+      keyword: newKeyword,
+      totalKeywords: allKeywords.length
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-SAVE] Fehler beim Speichern:', error);
+    res.status(500).json({ 
+      error: 'Fehler beim Speichern des Keywords',
+      details: error.message 
+    });
+  }
+});
+
+// API-Endpunkt: Neues Schlagwort hinzufügen und durch KI-Analyse befüllen
+app.post('/api/keywords-add', async (req, res) => {
+  try {
+    const { keyword } = req.body;
+    
+    if (!keyword || !keyword.trim()) {
+      return res.status(400).json({ error: 'Schlagwort erforderlich' });
+    }
+    
+    const cleanKeyword = keyword.trim();
+    console.log(`[KEYWORDS-ADD] Neues Schlagwort hinzufügen: "${cleanKeyword}"`);
+    
+    // Prüfe ob Schlagwort bereits existiert
+    const keywordsFile = path.join(__dirname, 'keywords.json');
+    let allKeywords = [];
+    
+    try {
+      const fileContent = await fs.readFile(keywordsFile, 'utf8');
+      allKeywords = JSON.parse(fileContent);
+    } catch (error) {
+      console.log('[KEYWORDS-ADD] keywords.json nicht gefunden, erstelle neue');
+    }
+    
+    // Prüfe auf Duplikate
+    const existingKeyword = allKeywords.find(k => 
+      k.keyword.toLowerCase() === cleanKeyword.toLowerCase()
+    );
+    
+    if (existingKeyword) {
+      return res.status(409).json({ 
+        error: 'Schlagwort bereits vorhanden',
+        existingKeyword: existingKeyword.keyword
+      });
+    }
+    
+    // Führe Keyword-Thematische Suche durch, um das Schlagwort zu analysieren
+    console.log(`[KEYWORDS-ADD] Führe KI-Analyse für "${cleanKeyword}" durch...`);
+    
+    let keywordResults = performThematicKeywordSearch(cleanKeyword, paragraphsFromLectures);
+    
+    if (keywordResults.length === 0) {
+      return res.status(404).json({ 
+        error: 'Keine relevanten Textstellen für dieses Schlagwort gefunden',
+        keyword: cleanKeyword
+      });
+    }
+    
+    // Generiere KI-Analyse
+    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'allgemein');
+    
+    // Erstelle neues Schlagwort-Objekt
+    const newKeyword = {
+      keyword: cleanKeyword,
+      alphabetical: cleanKeyword.charAt(0).toUpperCase(),
+      text: analysis, // Die KI-Analyse als Text
+      gaReferences: keywordResults.slice(0, 10).map(r => r.ID), // Top 10 GA-Referenzen
+      generatedAt: new Date().toISOString(),
+      sourceAnalysis: 'ki-generated',
+      analysisLength: analysis.length,
+      resultCount: keywordResults.length
+    };
+    
+    // Füge zur Liste hinzu
+    allKeywords.push(newKeyword);
+    
+    // Speichere zurück in keywords.json
+    await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
+    
+    console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" erfolgreich hinzugefügt`);
+    console.log(`[KEYWORDS-ADD] Analyse-Länge: ${analysis.length} Zeichen`);
+    console.log(`[KEYWORDS-ADD] Gefundene Ergebnisse: ${keywordResults.length}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Schlagwort erfolgreich hinzugefügt und analysiert',
+      keyword: newKeyword,
+      totalKeywords: allKeywords.length,
+      analysisLength: analysis.length,
+      resultCount: keywordResults.length
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-ADD] Fehler beim Hinzufügen:', error);
+    res.status(500).json({ 
+      error: 'Fehler beim Hinzufügen des Schlagworts',
+      details: error.message 
+    });
+  }
+});
+
 // Hilfsfunktion: GA-Referenzen aus Text extrahieren
 function extractGAReferencesFromText(text) {
   if (!text) return [];
@@ -2094,6 +2514,177 @@ function generateThematicCacheKey(query, depth, limit) {
   return `${normalizedQuery}|${depth}|${limit}`;
 }
 
+// ============================================================================
+// KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN
+// ============================================================================
+
+// Keyword-Thematische-Suche-Cache-Datenbank
+const KEYWORD_THEMATIC_DB_FILE = path.join(__dirname, 'keyword-thematic-search-cache.json');
+
+// Lade Keyword-Thematische-Suche-Cache-Datenbank
+async function loadKeywordThematicDatabase() {
+  try {
+    const data = await fs.readFile(KEYWORD_THEMATIC_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Keyword-Thematische-Suche-Cache-DB nicht gefunden, erstelle neue');
+    return {};
+  }
+}
+
+// Speichere Keyword-Thematische-Suche-Cache-Datenbank
+async function saveKeywordThematicDatabase(keywordThematicDB) {
+  try {
+    await fs.writeFile(KEYWORD_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
+    console.log('Keyword-Thematische-Suche-Cache-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Keyword-Thematische-Suche-Cache-DB:', error);
+    return false;
+  }
+}
+
+// Generiere Keyword-spezifische Analyse
+async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
+  console.log('generateKeywordAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
+  
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
+  
+  if (!claudeApiKey) {
+    console.log('Kein Claude API Key - verwende Fallback');
+    return generateFallbackKeywordAnalysis(query, results);
+  }
+  
+  const topResults = results.slice(0, 15);
+
+  console.log('=== DEBUG topResults ===');
+  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
+    ID: r.ID, 
+    index: r.index,
+    fileName: r.fileName 
+  })), null, 2));
+  
+  const contextText = topResults
+    .map((result, index) => {
+      const refId = `${result.ID}:${result.index}`;
+      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+    })
+    .join('\n\n---\n\n');
+    
+  const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
+  
+  console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
+  
+  const maxTokens = {
+    'allgemein': 2000,
+    'genau': 3500,
+    'ausführlich': 6000
+  };
+  
+  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Schlagwort: "${query}"
+
+ANALYSE-TIEFE: ${depth}
+
+QUELLENANGABEN:
+- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
+- Verfügbare Referenzen: ${availableRefs}
+- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- WICHTIG: Verwende immer das vollständige Format mit /Y:index
+- WICHTIG: KEINE Leerzeichen um die Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
+- Beispiel: "Steiner erklärt das Schlagwort '${query}' folgendermaßen (GA052/7:n5x6ru)."
+
+VORGEHEN:
+1. Identifiziere alle Textstellen mit dem Schlagwort "${query}"
+2. Vergleiche diese Textstellen auf Ähnlichkeit und Vollständigkeit
+3. Wähle möglichst viele nicht-redundante Textstellen aus
+4. Entwickle eine eigene thematische Gliederung mit aussagekräftigen Zwischenüberschriften
+
+SCHLAGWORT-SPEZIFISCHE PERSPEKTIVEN:
+Berücksichtige bei deiner Analyse verschiedene Aspekte des Schlagworts "${query}":
+- Definition und Grundbegriff (Was bedeutet "${query}"?)
+- Funktion und Wirkung (Wie wirkt "${query}"?)
+- Erscheinungsformen (Wo zeigt sich "${query}"?)
+- Entwicklungsaspekte (Wie entwickelt sich "${query}"?)
+- Zusammenhänge (Mit was steht "${query}" in Verbindung?)
+- Praktische Anwendung (Wie kann "${query}" praktisch genutzt werden?)
+- Vermeide eigene Bewertungen oder Interpretationen
+
+STRUKTURIERUNG:
+- Erstelle eigene, thematisch passende Zwischenüberschriften (## Überschrift)
+- Die Überschriften sollen den Inhalt des folgenden Abschnitts ankündigen
+- Beispiele für gute Überschriften: "Die Definition von ${query}", "Die Funktion von ${query}", "Die Entwicklung von ${query}"
+
+FORMATIERUNG:
+- Verwende Markdown-Formatierung
+- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
+- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
+- Zitiere prägnante Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Vermeide Redundanzen - jede Information nur einmal
+
+WICHTIG:
+- Konzentriere dich auf das Schlagwort "${query}" und seine verschiedenen Aspekte
+- Wenn du relevante inhaltliche Bezüge findest, präsentiere diese direkt ohne einschränkende Vorbemerkungen
+- Konzentriere dich auf das, was die Texte über "${query}" AUSSAGEN
+- Beginne direkt mit dem Inhalt, ohne Überschrift oder Einleitung
+
+TEXTPASSAGEN:
+${contextText}
+
+ANALYSE:`;
+
+  try {
+    console.log('Rufe Claude API auf...');
+    
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: maxTokens[depth] || 2000,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    const analysisText = result.content[0].text.trim();
+    
+    console.log('Claude Antwort erhalten, Länge:', analysisText.length);
+    
+    return analysisText;
+    
+  } catch (error) {
+    console.error('Claude API Fehler:', error.message);
+    return generateFallbackKeywordAnalysis(query, results);
+  }
+}
+
+// Fallback-Analyse für Keywords
+function generateFallbackKeywordAnalysis(query, results) {
+  const displayTitle = `Schlagwort: ${query}`;
+  
+  return `**${displayTitle}**
+
+Automatische Analyse nicht verfügbar (kein Claude API-Schlüssel konfiguriert). 
+
+Gefundene Textstellen: ${results.length}
+
+Für eine detaillierte KI-Analyse des Schlagworts "${query}" benötigt das System einen Claude API-Schlüssel in der .env Datei.
+
+Verfügbare Quellen:
+${results.slice(0, 10).map(r => `- ${r.fileName || r.title} (${r.ID}:${r.index})`).join('\n')}`;
+}
+
 // API: Themensuchen-Cache bereitstellen
 app.get('/thematic-search-database.json', async (req, res) => {
   try {
@@ -2198,6 +2789,12 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/admin/generate-synonyms`);
       console.log(`   GET  /api/admin/synonym-stats`);
       console.log(`   POST /api/save-summary`);
+      console.log(`   POST /api/keywords-generate`);
+      console.log(`   POST /api/keyword-thematic-search`);
+      console.log(`   POST /api/keywords-save`);
+      console.log(`   POST /api/keywords-add`);
+      console.log(`   GET  /api/keywords-files`);
+      console.log(`   GET  /api/keywords-list`);
       console.log(`   GET  /summary-database.json`);
       console.log(`   GET  /thematic-search-database.json`);
       console.log(`\n✓ System bereit!\n`);
