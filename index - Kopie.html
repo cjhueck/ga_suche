@@ -1675,11 +1675,11 @@ GA-Übersicht →
 <div id="addKeywordStatus" style="display:none;"></div>
 </div>
 
-<!-- Schlagwort neu generieren (nur lokal sichtbar) -->
+<!-- Schlagwort löschen (nur lokal sichtbar) -->
 <div id="regenerateKeywordSection" style="display:none;">
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 1.0rem;">
-<input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort neu generieren..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleRegenerateKeywordInputKeypress(event)">
-<button id="regenerateKeywordButton" class="depth-btn" onclick="regenerateKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort neu generieren</button>
+<input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort löschen..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleDeleteKeywordInputKeypress(event)">
+<button id="regenerateKeywordButton" class="depth-btn" onclick="deleteKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort löschen</button>
 </div>
 <div id="regenerateKeywordStatus" style="display:none;"></div>
 </div>
@@ -5504,22 +5504,22 @@ async function addNewKeyword() {
 }
 
 // ============================================================================
-// SCHLAGWORT NEU GENERIEREN
+// SCHLAGWORT LÖSCHEN
 // ============================================================================
 
-function handleRegenerateKeywordInputKeypress(event) {
+function handleDeleteKeywordInputKeypress(event) {
   if (event.key === 'Enter') {
-    regenerateKeyword();
+    deleteKeyword();
   }
 }
 
-async function regenerateKeyword() {
+async function deleteKeyword() {
   const keywordInput = document.getElementById('regenerateKeywordInput');
   const regenerateButton = document.getElementById('regenerateKeywordButton');
   const statusDiv = document.getElementById('regenerateKeywordStatus');
   
   if (!keywordInput || !regenerateButton || !statusDiv) {
-    console.error('[REGENERATE-KEYWORD] UI-Elemente nicht gefunden');
+    console.error('[DELETE-KEYWORD] UI-Elemente nicht gefunden');
     return;
   }
   
@@ -5532,19 +5532,19 @@ async function regenerateKeyword() {
   
   // UI-Status aktualisieren
   regenerateButton.disabled = true;
-  regenerateButton.textContent = 'Generiere neu...';
+  regenerateButton.textContent = 'Lösche...';
   regenerateButton.style.fontStyle = 'italic';
   statusDiv.innerHTML = '';
   
   try {
-    console.log('[REGENERATE-KEYWORD] Generiere Schlagwort neu:', keyword);
+    console.log('[DELETE-KEYWORD] Lösche Schlagwort:', keyword);
     
-    const response = await fetch('http://localhost:3003/api/keywords-add', {
+    const response = await fetch(`${API_BASE}/api/keywords-delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ keyword: keyword, overwrite: true })
+      body: JSON.stringify({ keyword })
     });
     
     let result;
@@ -5556,34 +5556,24 @@ async function regenerateKeyword() {
       throw new Error(`Unerwartete Antwort (kein JSON): ${text.slice(0, 120)}`);
     }
     
-    if (response.ok) {
-      // Erfolg
+    if (response.ok && result.success) {
       statusDiv.innerHTML = '';
-      
-      // Eingabefeld leeren
       keywordInput.value = '';
-      
-      // Schlagwort-Liste aktualisieren
       await loadKeywordsData();
-      
-      // Zeige das aktualisierte Schlagwort in der Liste
       displayKeywords();
-      
-      console.log('[REGENERATE-KEYWORD] Schlagwort erfolgreich neu generiert:', result);
-      
+      console.log('[DELETE-KEYWORD] Schlagwort erfolgreich gelöscht:', result);
     } else {
-      // Fehler
       statusDiv.innerHTML = '';
-      console.error('[REGENERATE-KEYWORD] Fehler beim Neu generieren:', result);
+      console.error('[DELETE-KEYWORD] Fehler beim Löschen:', result);
     }
     
   } catch (error) {
     statusDiv.innerHTML = '';
-    console.error('[REGENERATE-KEYWORD] Netzwerkfehler:', error);
+    console.error('[DELETE-KEYWORD] Netzwerkfehler:', error);
   } finally {
     // UI-Status zurücksetzen
     regenerateButton.disabled = false;
-    regenerateButton.textContent = 'Schlagwort neu generieren';
+    regenerateButton.textContent = 'Schlagwort löschen';
     regenerateButton.style.fontStyle = 'normal';
   }
 }

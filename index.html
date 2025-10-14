@@ -1211,7 +1211,7 @@ body.dark-mode #thematicSearchInfo {
     /* Paragraph-Styles sind jetzt in #sidebar-content zentralisiert */
     
     #viewer {
-      line-height: 1.3 !important;
+      line-height: 1.4 !important;
       padding-top: 80px; /* Wird dynamisch via JavaScript angepasst */
     }
     
@@ -1246,14 +1246,14 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer p {
       margin: var(--paragraph-margin) 0;
-      line-height: var(--line-height);
+      line-height: 1.4 !important;
       font-size: var(--text-size);
       color: var(--text-color);
     }
     
     #viewer .paragraph {
       margin: var(--paragraph-margin) 0;
-      line-height: var(--line-height);
+      line-height: 1.4 !important;
       font-size: var(--text-size);
       color: var(--text-color);
     }
@@ -5504,22 +5504,22 @@ async function addNewKeyword() {
 }
 
 // ============================================================================
-// SCHLAGWORT LÖSCHEN
+// SCHLAGWORT NEU GENERIEREN
 // ============================================================================
 
-function handleDeleteKeywordInputKeypress(event) {
+function handleRegenerateKeywordInputKeypress(event) {
   if (event.key === 'Enter') {
-    deleteKeyword();
+    regenerateKeyword();
   }
 }
 
-async function deleteKeyword() {
+async function regenerateKeyword() {
   const keywordInput = document.getElementById('regenerateKeywordInput');
   const regenerateButton = document.getElementById('regenerateKeywordButton');
   const statusDiv = document.getElementById('regenerateKeywordStatus');
   
   if (!keywordInput || !regenerateButton || !statusDiv) {
-    console.error('[DELETE-KEYWORD] UI-Elemente nicht gefunden');
+    console.error('[REGENERATE-KEYWORD] UI-Elemente nicht gefunden');
     return;
   }
   
@@ -5532,19 +5532,19 @@ async function deleteKeyword() {
   
   // UI-Status aktualisieren
   regenerateButton.disabled = true;
-  regenerateButton.textContent = 'Lösche...';
+  regenerateButton.textContent = 'Generiere neu...';
   regenerateButton.style.fontStyle = 'italic';
   statusDiv.innerHTML = '';
   
   try {
-    console.log('[DELETE-KEYWORD] Lösche Schlagwort:', keyword);
+    console.log('[REGENERATE-KEYWORD] Generiere Schlagwort neu:', keyword);
     
-    const response = await fetch(`${API_BASE}/api/keywords-delete`, {
+    const response = await fetch('http://localhost:3003/api/keywords-add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ keyword })
+      body: JSON.stringify({ keyword: keyword, overwrite: true })
     });
     
     let result;
@@ -5556,24 +5556,34 @@ async function deleteKeyword() {
       throw new Error(`Unerwartete Antwort (kein JSON): ${text.slice(0, 120)}`);
     }
     
-    if (response.ok && result.success) {
+    if (response.ok) {
+      // Erfolg
       statusDiv.innerHTML = '';
+      
+      // Eingabefeld leeren
       keywordInput.value = '';
+      
+      // Schlagwort-Liste aktualisieren
       await loadKeywordsData();
+      
+      // Zeige das aktualisierte Schlagwort in der Liste
       displayKeywords();
-      console.log('[DELETE-KEYWORD] Schlagwort erfolgreich gelöscht:', result);
+      
+      console.log('[REGENERATE-KEYWORD] Schlagwort erfolgreich neu generiert:', result);
+      
     } else {
+      // Fehler
       statusDiv.innerHTML = '';
-      console.error('[DELETE-KEYWORD] Fehler beim Löschen:', result);
+      console.error('[REGENERATE-KEYWORD] Fehler beim Neu generieren:', result);
     }
     
   } catch (error) {
     statusDiv.innerHTML = '';
-    console.error('[DELETE-KEYWORD] Netzwerkfehler:', error);
+    console.error('[REGENERATE-KEYWORD] Netzwerkfehler:', error);
   } finally {
     // UI-Status zurücksetzen
     regenerateButton.disabled = false;
-    regenerateButton.textContent = 'Schlagwort löschen';
+    regenerateButton.textContent = 'Schlagwort neu generieren';
     regenerateButton.style.fontStyle = 'normal';
   }
 }
