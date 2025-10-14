@@ -1666,12 +1666,14 @@ GA-Übersicht →
 
 <div class="tab-content" id="schlagworte-tab">
 <div style="margin-bottom: 1rem;">
-<!-- Neues Schlagwort hinzufügen -->
+<!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
+<div id="addKeywordSection" style="display:none;">
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
 <div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
+</div>
 
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
@@ -5400,6 +5402,22 @@ function displayKeywordThematicResults(keyword, data) {
 // ============================================================================
 // SCHLAGWORT HINZUFÜGEN
 // ============================================================================
+
+// Blende "Schlagwort hinzufügen" nur lokal ein
+(() => {
+  try {
+    const host = window.location.hostname || '';
+    const protocol = window.location.protocol || '';
+    const localHosts = ['localhost', '127.0.0.1', '::1', '0.0.0.0'];
+    const isLocalHost = localHosts.includes(host) || host.endsWith('.local');
+    const isLocalProtocol = protocol === 'file:'; // allow when opened directly from disk during local work
+    const isLocal = isLocalHost || isLocalProtocol;
+    const section = document.getElementById('addKeywordSection');
+    if (section) {
+      section.style.display = isLocal ? 'block' : 'none';
+    }
+  } catch (_) {}
+})();
 
 async function addNewKeyword() {
   const keywordInput = document.getElementById('newKeywordInput');
