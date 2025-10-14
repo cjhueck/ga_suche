@@ -2172,51 +2172,6 @@ app.get('/api/full-lectures', async (req, res) => {
 });
 
 // ============================================================================
-// SINGLE LECTURE API (für Timeline)
-// ============================================================================
-
-app.get('/api/lecture/:lectureId', async (req, res) => {
-  try {
-    const { lectureId } = req.params;
-    
-    console.log(`[LECTURE] Lade Vortrag: ${lectureId}`);
-    
-    if (Object.keys(fullLectures).length === 0) {
-      await loadFullLectures();
-    }
-    
-    const lecture = fullLectures[lectureId];
-    if (!lecture) {
-      return res.status(404).json({ error: 'Vortrag nicht gefunden' });
-    }
-    
-    // Generiere HTML-Inhalt für den Vortrag
-    let content = '';
-    
-    if (lecture.paragraphs && lecture.paragraphs.length > 0) {
-      lecture.paragraphs.forEach(paragraph => {
-        if (paragraph.content) {
-          content += `<p>${paragraph.content}</p>`;
-        }
-      });
-    } else {
-      content = '<p>Kein Inhalt verfügbar.</p>';
-    }
-    
-    res.json({
-      ID: lecture.ID,
-      title: lecture.title,
-      fileName: lecture.fileName,
-      content: content
-    });
-    
-  } catch (error) {
-    console.error('[LECTURE] Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// ============================================================================
 // KEYWORD THEMATIC SEARCH (basierend auf Themensuche)
 // ============================================================================
 
