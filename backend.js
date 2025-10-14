@@ -69,13 +69,13 @@ function keywordOverlap(a, b) {
 }
 
 // Hybrid-Cache-Suche
-function findHybridCacheHit(query, depth, limit, thematicDB) {
+function findHybridCacheHit(query, depth, limit, gaFilter, thematicDB) {
   const expanded = expandSynonyms(query);
   let bestKey = null;
   let bestScore = 0;
   for (const key of Object.keys(thematicDB)) {
-    const [cachedQuery, cachedDepth, cachedLimit] = key.split('|');
-    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit)) continue;
+    const [cachedQuery, cachedDepth, cachedLimit, cachedGaFilter] = key.split('|');
+    if (cachedDepth !== depth || Number(cachedLimit) !== Number(limit) || cachedGaFilter !== gaFilter) continue;
     // 1. Exact Match
     if (cachedQuery === query.toLowerCase().trim()) return { key, score: 1.0 };
     // 2. Synonym/Stemming
@@ -730,12 +730,21 @@ function extractKeyTerms(query) {
   return uniqueTerms;
 }
 
-function performThematicKeywordSearch(query, paragraphsFromLectures) {
+function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = '') {
   const terms = extractKeyTerms(query);
+  
+  // GA-Filter anwenden, wenn angegeben
+  let filteredParagraphs = paragraphsFromLectures;
+  if (gaFilter) {
+    filteredParagraphs = paragraphsFromLectures.filter(paragraph => 
+      paragraph.ID && paragraph.ID.startsWith(gaFilter)
+    );
+    console.log(`[GA-FILTER] Suche auf GA-Band ${gaFilter} beschränkt: ${filteredParagraphs.length} von ${paragraphsFromLectures.length} Paragraphen`);
+  }
   
   if (terms.length === 0) {
     console.log('Keine Schlüsselbegriffe gefunden, verwende gesamte Query');
-    return performKeywordSearch(query, paragraphsFromLectures);
+    return performKeywordSearch(query, filteredParagraphs);
   }
   
   // NEUE STRATEGIE: Suche zuerst nach Phrasen in Anführungszeichen
@@ -747,7 +756,7 @@ function performThematicKeywordSearch(query, paragraphsFromLectures) {
     quotedPhrases.forEach(phrase => {
       const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
       console.log(`Suche direkt nach: "${cleaned}"`);
-      const results = performKeywordSearch(cleaned, paragraphsFromLectures);
+      const results = performKeywordSearch(cleaned, filteredParagraphs);
       phraseResults.push(...results);
     });
     
@@ -788,7 +797,7 @@ function performThematicKeywordSearch(query, paragraphsFromLectures) {
     }
     
     console.log(`Suche nach Begriff: "${term}"`);
-    const termResults = performKeywordSearch(term, paragraphsFromLectures);
+    const termResults = performKeywordSearch(term, filteredParagraphs);
     
     const phraseBoost = wordCount >= 2 ? 10 : 1;
     
@@ -1642,13 +1651,13 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, depth = 'allgemein', limit = 30 } = req.body;
+    const { query, depth = 'allgemein', limit = 30, gaFilter = '' } = req.body;
     
     // Konsolidierte Hybrid-Cache-Logik
-    const cacheKey = generateThematicCacheKey(query, depth, limit);
+    const cacheKey = generateThematicCacheKey(query, depth, limit, gaFilter);
     const thematicDB = await loadThematicSearchDatabase();
     // Hybrid-Cache-Logik zuerst prüfen
-    const hybridHit = findHybridCacheHit(query, depth, limit, thematicDB);
+    const hybridHit = findHybridCacheHit(query, depth, limit, gaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
       console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (${depth}, ${limit}) | Score: ${hybridHit.score}`);
       const cachedResult = thematicDB[hybridHit.key];
@@ -1663,7 +1672,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // Kein Cache-Hit: Neue Suche
     console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (${depth}, ${limit})`);
-    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures);
+    let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
 
     if (keywordResults.length === 0) {
       const emptyResult = {
@@ -2910,9 +2919,9 @@ async function saveThematicSearchDatabase(thematicDB) {
 }
 
 // Generiere Cache-Schlüssel für Themensuche
-function generateThematicCacheKey(query, depth, limit) {
+function generateThematicCacheKey(query, depth, limit, gaFilter = '') {
   const normalizedQuery = query.toLowerCase().trim();
-  return `${normalizedQuery}|${depth}|${limit}`;
+  return `${normalizedQuery}|${depth}|${limit}|${gaFilter}`;
 }
 
 // ============================================================================
