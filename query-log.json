@@ -224,7 +224,7 @@
     "lastUsed": "2025-10-13T06:13:03.915Z"
   },
   "steiner": {
-    "count": 19,
+    "count": 27,
     "coOccurrences": {
       "kant": 6,
       "francis bacon": 1,
@@ -244,7 +244,7 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-13T06:20:50.188Z",
-    "last": "2025-10-13T08:36:25.988Z"
+    "last": "2025-10-13T21:23:56.413Z"
   },
   "kant": {
     "count": 8,
@@ -532,7 +532,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "steiner zum": {
-    "count": 9,
+    "count": 17,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -545,7 +545,7 @@
       "astralleib": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T14:23:53.051Z"
+    "last": "2025-10-13T21:23:56.413Z"
   },
   "zum astralleib": {
     "count": 9,
@@ -676,10 +676,10 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "goetheanismus": {
-    "count": 6,
+    "count": 14,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:33.257Z",
-    "last": "2025-10-13T08:28:25.943Z"
+    "last": "2025-10-13T21:23:56.413Z"
   },
   "dionysius areopagita": {
     "count": 1,
@@ -712,5 +712,13 @@
   "schiller": {
     "count": 2,
     "last": "2025-10-13T11:01:54.971Z"
+  },
+  "steiner zum goetheanismus": {
+    "count": 8,
+    "last": "2025-10-13T21:23:56.413Z"
+  },
+  "zum goetheanismus": {
+    "count": 8,
+    "last": "2025-10-13T21:23:56.413Z"
   }
 }

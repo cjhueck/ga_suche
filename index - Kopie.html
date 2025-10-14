@@ -24,7 +24,7 @@
       --dark-secondary-text: #999;     /* Sekundärer Text */
       
       /* Zentrale Textgrößen */
-      --text-size:1.0rem;             /* Einheitliche Textgröße für alle Bereiche */
+      --text-size: 1.0rem;             /* Einheitliche Textgröße für alle Bereiche */
       --heading-size: 1.0rem;           /* Überschriften-Größe */
       --line-height: 1.3;               /* Zeilenabstand */
       --paragraph-margin: 0.5rem;      /* Absatz-Abstände */
@@ -1012,11 +1012,11 @@ body.dark-mode .loading-message {
     }
     
     .ga-reference::before {
-      content: "";
+      content: "(";
     }
     
     .ga-reference::after {
-      content: "";
+      content: ")";
     }
     
     /* Spezielle Klasse für Schlagwort-Suche - Klammern als Text, Link fett */
@@ -1025,11 +1025,15 @@ body.dark-mode .loading-message {
     }
     
     .keyword-text .ga-reference::before {
-      content: "";
+      content: "(";
+      font-weight: normal;
+      color: var(--text-color);
     }
     
     .keyword-text .ga-reference::after {
-      content: "";
+      content: ")";
+      font-weight: normal;
+      color: var(--text-color);
     }
     
     body.dark-mode .keyword-text .ga-reference::before,
@@ -1675,6 +1679,11 @@ GA-Übersicht →
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen"></textarea>
 <div class="semantic-options">
 <div class="filter-row">
+<select class="filter-dropdown" id="thematicLimitFilter">
+  <option value="30">30 Quellen</option>
+  <option value="50">50 Quellen</option>
+  <option value="100">100 Quellen</option>
+</select>
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
@@ -1695,12 +1704,14 @@ GA-Übersicht →
 
 <div class="tab-content" id="schlagworte-tab">
 <div style="margin-bottom: 1rem;">
-<!-- Schlagwort hinzufügen - nur lokal -->
-<div id="local-keyword-functions" style="display: none;">
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 1rem;">
+<!-- Neues Schlagwort hinzufügen -->
+<div style="margin-bottom: 1rem; padding: 0.8rem; border: 1px solid var(--link-color); border-radius: 4px; background: var(--background-color);">
+<div style="font-size: 0.9em; font-weight: 600; margin-bottom: 0.5rem; color: var(--link-color);">Neues Schlagwort hinzufügen</div>
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
+<div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
 </div>
 
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
@@ -1715,8 +1726,8 @@ GA-Übersicht →
 Lade Schlagwörter...
 </div>
   <div style="display:flex; gap:8px; align-items:center;">
-  <button id="regenerate-keyword-btn" class="depth-btn" onclick="regenerateSelectedKeyword()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
-    Schlagwort neu generieren
+  <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
+    Texte ausblenden
   </button>
 </div>
 </div>
@@ -2954,7 +2965,7 @@ function toggleGASummaries() {
         button.textContent = 'Suche läuft...';
         
         const depth = document.querySelector('.depth-btn.active').dataset.depth;
-        const limit = 100; // Immer maximal 100 Absätze verwenden
+        const limit = document.getElementById('thematicLimitFilter').value;
         const gaFilter = document.getElementById('thematicGAFilter').value;
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
@@ -2963,7 +2974,7 @@ function toggleGASummaries() {
           body: JSON.stringify({
             query: query,
             depth: depth,
-            limit: limit
+            limit: parseInt(limit)
           })
         });
         
@@ -4728,6 +4739,7 @@ document.addEventListener('DOMContentLoaded', populateGesamtausgabeDropdown);
 let keywordsData = [];
 let currentAlphabet = 'Alle';
 let filteredKeywords = [];
+let showKeywordTexts = true;
 // Track which keyword input was last edited/focused in the Stichwortsuche (Text-Suche) tab
 let lastKeywordInputId = null;
 
@@ -4970,13 +4982,14 @@ function displayKeywords(selectedLetter = 'Alle') {
     );
   }
   
+  countContainer.textContent = `${filteredKeywords.length} Schlagwörter gefunden`;
   
-  // Regenerate-Button anzeigen wenn Schlagwörter vorhanden
-  const regenerateButton = document.getElementById('regenerate-keyword-btn');
+  // Toggle-Button anzeigen wenn Schlagwörter vorhanden
   if (filteredKeywords.length > 0) {
-    regenerateButton.style.display = 'inline-block';
+    toggleButton.style.display = 'inline-block';
+    toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
   } else {
-    regenerateButton.style.display = 'none';
+    toggleButton.style.display = 'none';
   }
   
   if (filteredKeywords.length === 0) {
@@ -4998,7 +5011,7 @@ function displayKeywords(selectedLetter = 'Alle') {
             ${keywordData.keyword}
           </a>
         </h4>
-        <div class="keyword-text">
+        <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
         </div>
       </div>
     `;
@@ -5037,6 +5050,19 @@ function processKeywordText(text, gaReferences = []) {
   return processedText;
 }
 
+function toggleKeywordTexts() {
+  showKeywordTexts = !showKeywordTexts;
+  
+  // Alle Texte ein-/ausblenden
+  const keywordTexts = document.querySelectorAll('.keyword-text');
+  keywordTexts.forEach(textDiv => {
+    textDiv.style.display = showKeywordTexts ? 'block' : 'none';
+  });
+  
+  // Button-Text aktualisieren
+  const toggleButton = document.getElementById('keyword-text-toggle');
+  toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
+}
 
 async function openFromKeyword(gaId) {
   console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
@@ -5178,7 +5204,29 @@ window.switchTab = switchTabExtended;
 
 // CSS für Schlagwort-Links hinzufügen
 const keywordStyles = `
-/* GA-Keyword-Link Styles entfernt - verwende stattdessen die globale Definition */
+.ga-keyword-link {
+  color: #467886;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 2px 4px;
+  border-radius: 3px;
+  background: rgba(70, 120, 134, 0.1);
+  transition: all 0.2s ease;
+}
+
+.ga-keyword-link:hover {
+  background: rgba(70, 120, 134, 0.2);
+  text-decoration: none;
+}
+
+body.dark-mode .ga-keyword-link {
+  color: #7EB8C8;
+  background: rgba(126, 184, 200, 0.15);
+}
+
+body.dark-mode .ga-keyword-link:hover {
+  background: rgba(126, 184, 200, 0.25);
+}
 
 .batch-progress {
   padding: 8px 12px;
@@ -5315,15 +5363,14 @@ async function performKeywordThematicSearch(keyword) {
       countContainer.textContent = 'Analysiere...';
     }
     
-    // Verwende immer den Cache für Keyword-Analysen
+    // Prüfe zuerst, ob bereits eine Analyse im Cache existiert
     const cacheResponse = await fetch(`${API_BASE}/api/keyword-thematic-search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: keyword,
         depth: 'allgemein',
-        limit: 30,
-        useCache: true // Explizit Cache verwenden
+        limit: 30
       })
     });
     
@@ -5422,6 +5469,10 @@ function displayKeywordThematicResults(keyword, data) {
     </div>
   `;
   
+  // Aktualisiere Count-Container
+  if (countContainer) {
+    countContainer.textContent = `Analyse für "${keyword}" abgeschlossen`;
+  }
   
   console.log('[KEYWORD-THEMATIC] Ergebnisse angezeigt für:', keyword);
 }
@@ -5433,8 +5484,9 @@ function displayKeywordThematicResults(keyword, data) {
 async function addNewKeyword() {
   const keywordInput = document.getElementById('newKeywordInput');
   const addButton = document.getElementById('addKeywordButton');
+  const statusDiv = document.getElementById('addKeywordStatus');
   
-  if (!keywordInput || !addButton) {
+  if (!keywordInput || !addButton || !statusDiv) {
     console.error('[ADD-KEYWORD] UI-Elemente nicht gefunden');
     return;
   }
@@ -5442,12 +5494,14 @@ async function addNewKeyword() {
   const keyword = keywordInput.value.trim();
   
   if (!keyword) {
+    statusDiv.innerHTML = '<p style="color: #d32f2f;">Bitte geben Sie ein Schlagwort ein.</p>';
     return;
   }
   
   // UI-Status aktualisieren
   addButton.disabled = true;
   addButton.textContent = 'Analysiere...';
+  statusDiv.innerHTML = '<p style="color: #1976d2;">Analysiere Schlagwort "' + keyword + '"...</p>';
   
   try {
     console.log('[ADD-KEYWORD] Füge neues Schlagwort hinzu:', keyword);
@@ -5463,7 +5517,16 @@ async function addNewKeyword() {
     const result = await response.json();
     
     if (response.ok) {
-      // Erfolg - Eingabefeld leeren
+      // Erfolg
+      statusDiv.innerHTML = `
+        <p style="color: #2e7d32;">
+          ✅ Schlagwort "${keyword}" erfolgreich hinzugefügt!<br>
+          📊 Analyse-Länge: ${result.analysisLength} Zeichen<br>
+          📚 Gefundene Ergebnisse: ${result.resultCount}
+        </p>
+      `;
+      
+      // Eingabefeld leeren
       keywordInput.value = '';
       
       // Schlagwort-Liste aktualisieren
@@ -5475,93 +5538,25 @@ async function addNewKeyword() {
       console.log('[ADD-KEYWORD] Schlagwort erfolgreich hinzugefügt:', result);
       
     } else {
-      // Fehler - nur in Konsole loggen
+      // Fehler
+      if (response.status === 409) {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Schlagwort "${keyword}" ist bereits vorhanden.</p>`;
+      } else if (response.status === 404) {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Keine relevanten Textstellen für "${keyword}" gefunden.</p>`;
+      } else {
+        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Fehler: ${result.error || 'Unbekannter Fehler'}</p>`;
+      }
+      
       console.error('[ADD-KEYWORD] Fehler beim Hinzufügen:', result);
     }
     
   } catch (error) {
+    statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Netzwerkfehler: ${error.message}</p>`;
     console.error('[ADD-KEYWORD] Netzwerkfehler:', error);
   } finally {
     // UI-Status zurücksetzen
     addButton.disabled = false;
     addButton.textContent = 'Schlagwort hinzufügen';
-  }
-}
-
-// SCHLAGWORT NEU GENERIEREN
-// ============================================================================
-
-async function regenerateSelectedKeyword() {
-  // Finde das aktuell ausgewählte Schlagwort
-  // Suche nach dem Schlagwort, das gerade angezeigt wird (in der Ergebnisfenster)
-  const keywordTitle = document.querySelector('#results h1');
-  
-  if (!keywordTitle) {
-    console.log('[REGENERATE] Kein Schlagwort-Ergebnis gefunden');
-    alert('Bitte wählen Sie zuerst ein Schlagwort aus der Liste aus.');
-    return;
-  }
-  
-  const keyword = keywordTitle.textContent.trim();
-  const regenerateButton = document.getElementById('regenerate-keyword-btn');
-  
-  if (!keyword) {
-    console.log('[REGENERATE] Kein Schlagwort gefunden');
-    return;
-  }
-  
-  // Bestätigung des Benutzers
-  if (!confirm(`Möchten Sie das Schlagwort "${keyword}" wirklich neu generieren? Dies überschreibt die bestehende Analyse.`)) {
-    return;
-  }
-  
-  // UI-Status aktualisieren
-  regenerateButton.disabled = true;
-  regenerateButton.textContent = 'Generiere...';
-  
-  try {
-    console.log('[REGENERATE] Generiere Schlagwort neu:', keyword);
-    
-    const response = await fetch('http://localhost:3003/api/keywords-add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ keyword: keyword, overwrite: true })
-    });
-    
-    const result = await response.json();
-    
-    if (response.ok) {
-      // Erfolg - Schlagwort-Liste aktualisieren
-      await loadKeywordsData();
-      displayKeywords();
-      
-      console.log('[REGENERATE] Schlagwort erfolgreich neu generiert:', result);
-      
-      // Zeige Erfolgsmeldung kurz an
-      const originalText = regenerateButton.textContent;
-      regenerateButton.textContent = '✓ Erfolgreich!';
-      setTimeout(() => {
-        regenerateButton.textContent = originalText;
-      }, 2000);
-      
-      // Aktualisiere auch das aktuelle Ergebnis
-      await performKeywordThematicSearch(keyword);
-      
-    } else {
-      // Fehler
-      console.error('[REGENERATE] Fehler beim Neugenerieren:', result);
-      alert(`Fehler beim Neugenerieren: ${result.error || 'Unbekannter Fehler'}`);
-    }
-    
-  } catch (error) {
-    console.error('[REGENERATE] Netzwerkfehler:', error);
-    alert(`Netzwerkfehler: ${error.message}`);
-  } finally {
-    // UI-Status zurücksetzen
-    regenerateButton.disabled = false;
-    regenerateButton.textContent = 'Schlagwort neu generieren';
   }
 }
 
@@ -5571,23 +5566,6 @@ function handleKeywordInputKeypress(event) {
     addNewKeyword();
   }
 }
-
-// Lokale Funktionen nur anzeigen wenn localhost
-function checkLocalEnvironment() {
-  const isLocal = window.location.hostname === 'localhost' || 
-                  window.location.hostname === '127.0.0.1' ||
-                  window.location.hostname === '';
-  
-  const localFunctions = document.getElementById('local-keyword-functions');
-  if (localFunctions) {
-    localFunctions.style.display = isLocal ? 'block' : 'none';
-  }
-  
-  console.log('[ENVIRONMENT] Lokale Funktionen:', isLocal ? 'aktiviert' : 'deaktiviert');
-}
-
-// Prüfe Umgebung beim Laden
-document.addEventListener('DOMContentLoaded', checkLocalEnvironment);
 </script>
 </body>
 </html> 

@@ -1017,7 +1017,7 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
     return generateFallbackAnalysis(query, results);
   }
   
-  const topResults = results.slice(0, 15);
+  const topResults = results.slice(0, 25);  // Erhöht von 15 auf 25 für mehr Kontext
 
   console.log('=== DEBUG topResults ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -1038,12 +1038,60 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
   
   const maxTokens = {
-    'allgemein': 2000,
-    'genau': 3500,
-    'ausführlich': 6000
+    'allgemein': 4000,    // Erhöht von 2000 auf 4000
+    'genau': 6000,        // Erhöht von 3500 auf 6000  
+    'ausführlich': 8000   // Erhöht von 6000 auf 8000
   };
   
-  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+  // Unterschiedliche Prompts für "allgemein" und "ausführlich"
+  let prompt;
+  
+  if (depth === 'allgemein') {
+    // Verkürzter Prompt für "allgemein"
+    prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+
+QUELLENANGABEN:
+- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
+- Verfügbare Referenzen: ${availableRefs}
+- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- WICHTIG: Setze immer EIN Leerzeichen VOR die öffnende Klammer: "Text (GA052/7:n5x6ru)"
+- WICHTIG: KEINE Leerzeichen INNERHALB der Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
+
+AUFGABE:
+Erstelle eine kompakte, zusammenhängende Analyse der relevanten Textstellen zur Frage "${query}".
+
+INHALTE:
+- Begrifflich-sachliche Aspekte (Was ist gemeint?)
+- Methodische Aspekte (Wie kann man das erkennen?)
+- Vergleich mit ähnlichen oder verwandten Inhalten
+- Besonderheiten
+
+FORMATIERUNG:
+- Verwende Markdown-Formatierung
+- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
+- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index)
+- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
+- KEINE Zwischenüberschriften - nur zusammenhängender Fließtext
+
+WICHTIG:
+- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
+- Beginne direkt mit konkreten Zitatstellen aus den Texten
+- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
+- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+- Minimaler erläuternder Text - nur zur Verbindung der Zitate
+- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
+- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
+- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
+- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
+
+TEXTPASSAGEN:
+${contextText}
+
+ANALYSE:`;
+  } else {
+    // Ausführlicher Prompt für "ausführlich" - zurück zum ursprünglichen funktionierenden Prompt
+    prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
 
 ANALYSE-TIEFE: ${depth}
 
@@ -1052,8 +1100,9 @@ QUELLENANGABEN:
 - Verfügbare Referenzen: ${availableRefs}
 - Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
 - WICHTIG: Verwende immer das vollständige Format mit /Y:index
-- WICHTIG: KEINE Leerzeichen um die Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
-- Beispiel: "Steiner kritisiert Kants Erkenntnisgrenze (GA052/7:n5x6ru)."
+- WICHTIG: Setze immer EIN Leerzeichen VOR die öffnende Klammer: "Text (GA052/7:n5x6ru)"
+- WICHTIG: KEINE Leerzeichen INNERHALB der Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
+- Beispiel: "Kants Erkenntnisgrenze wird kritisiert (GA052/7:n5x6ru)."
 
 VORGEHEN:
 1. Identifiziere alle Textstellen mit relevanten Suchwörtern zur Themenanfrage
@@ -1083,17 +1132,26 @@ FORMATIERUNG:
 - Verwende Markdown-Formatierung
 - **Fette wichtige Schlagwörter** und **zentrale Aussagen**
 - Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
-- Zitiere prägnante Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
 - Vermeide Redundanzen - jede Information nur einmal
 
 WICHTIG:
-- Wenn du relevante inhaltliche Bezüge findest, präsentiere diese direkt ohne einschränkende Vorbemerkungen
-- Konzentriere dich auf das, was die Texte AUSSAGEN, nicht darauf, was sie nicht aussagen
+- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
+- Beginne direkt mit konkreten Zitatstellen aus den Texten
+- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
+- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+- Minimaler erläuternder Text - nur zur Verbindung der Zitate
+- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
+- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
+- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
+- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
 
 TEXTPASSAGEN:
 ${contextText}
 
 ANALYSE:`;
+  }
 
   try {
     console.log('Rufe Claude API auf...');
@@ -1210,7 +1268,9 @@ function addClickableReferences(text, results) {
       const cleanIndex = chunkData.index.replace(/^\^/, '');
       // Entferne Klammern aus dem ursprünglichen Text, da das Frontend sie hinzufügt
       const cleanIdPart = idPart.replace(/^\(|\)$/g, '');
-      const replacement = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>`;
+      // Erstelle Link mit Klammern als normalem Text: (GA052/7) wobei nur GA052/7 der Link ist
+      // Füge Leerzeichen vor der öffnenden Klammer hinzu
+      const replacement = ` (<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>)`;
 
       // Das Pattern erfasst bereits Leerzeichen, daher einfache Ersetzung
       linkedText = linkedText.substring(0, matchInfo.position) + 
@@ -2069,7 +2129,7 @@ SCHLAGWÖRTER:`;
 
 app.post('/api/keyword-thematic-search', async (req, res) => {
   try {
-    const { query, depth = 'allgemein', limit = 30 } = req.body;
+    const { query, depth = 'allgemein', limit = 30, useCache = true } = req.body;
     
     if (!query) {
       return res.status(400).json({ error: 'Query erforderlich' });
@@ -2081,8 +2141,8 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
     const cacheKey = `keyword_${query.toLowerCase().trim()}_${depth}_${limit}`;
     const keywordThematicDB = await loadKeywordThematicDatabase();
     
-    // Prüfe Cache
-    if (keywordThematicDB[cacheKey]) {
+    // Prüfe Cache (nur wenn useCache true ist)
+    if (useCache && keywordThematicDB[cacheKey]) {
       console.log(`[KEYWORD-THEMATIC-CACHE] Cache-Hit für: "${query}"`);
       return res.json({
         ...keywordThematicDB[cacheKey],
@@ -2234,17 +2294,47 @@ app.post('/api/keywords-save', async (req, res) => {
   }
 });
 
+// ============================================================================
+// KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN (vor /api/keywords-add)
+// ============================================================================
+
+// Keyword-Thematische-Suche-Cache-Datenbank
+const KEYWORD_THEMATIC_DB_FILE = path.join(__dirname, 'keyword-thematic-search.json');
+
+// Lade Keyword-Thematische-Suche-Cache-Datenbank
+async function loadKeywordThematicDatabase() {
+  try {
+    const data = await fs.readFile(KEYWORD_THEMATIC_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Keyword-Thematische-Suche-Cache-DB nicht gefunden, erstelle neue');
+    return {};
+  }
+}
+
+// Speichere Keyword-Thematische-Suche-Cache-Datenbank
+async function saveKeywordThematicDatabase(keywordThematicDB) {
+  try {
+    await fs.writeFile(KEYWORD_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
+    console.log('Keyword-Thematische-Suche-Cache-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Keyword-Thematische-Suche-Cache-DB:', error);
+    return false;
+  }
+}
+
 // API-Endpunkt: Neues Schlagwort hinzufügen und durch KI-Analyse befüllen
 app.post('/api/keywords-add', async (req, res) => {
   try {
-    const { keyword } = req.body;
+    const { keyword, overwrite = false } = req.body;
     
     if (!keyword || !keyword.trim()) {
       return res.status(400).json({ error: 'Schlagwort erforderlich' });
     }
     
     const cleanKeyword = keyword.trim();
-    console.log(`[KEYWORDS-ADD] Neues Schlagwort hinzufügen: "${cleanKeyword}"`);
+    console.log(`[KEYWORDS-ADD] ${overwrite ? 'Überschreibe' : 'Füge neues'} Schlagwort hinzu: "${cleanKeyword}"`);
     
     // Prüfe ob Schlagwort bereits existiert
     const keywordsFile = path.join(__dirname, 'keywords.json');
@@ -2258,14 +2348,14 @@ app.post('/api/keywords-add', async (req, res) => {
     }
     
     // Prüfe auf Duplikate
-    const existingKeyword = allKeywords.find(k => 
+    const existingKeywordIndex = allKeywords.findIndex(k => 
       k.keyword.toLowerCase() === cleanKeyword.toLowerCase()
     );
     
-    if (existingKeyword) {
+    if (existingKeywordIndex !== -1 && !overwrite) {
       return res.status(409).json({ 
         error: 'Schlagwort bereits vorhanden',
-        existingKeyword: existingKeyword.keyword
+        existingKeyword: allKeywords[existingKeywordIndex].keyword
       });
     }
     
@@ -2284,27 +2374,59 @@ app.post('/api/keywords-add', async (req, res) => {
     // Generiere KI-Analyse
     const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'allgemein');
     
-    // Erstelle neues Schlagwort-Objekt
+    // Erstelle neues Schlagwort-Objekt für Index (keywords.json)
     const newKeyword = {
       keyword: cleanKeyword,
       alphabetical: cleanKeyword.charAt(0).toUpperCase(),
-      text: analysis, // Die KI-Analyse als Text
+      text: `**${cleanKeyword}**`,
       gaReferences: keywordResults.slice(0, 10).map(r => r.ID), // Top 10 GA-Referenzen
       generatedAt: new Date().toISOString(),
       sourceAnalysis: 'ki-generated',
       analysisLength: analysis.length,
-      resultCount: keywordResults.length
+      resultCount: keywordResults.length,
+      hasDetailedAnalysis: true // Flag für Frontend
     };
     
-    // Füge zur Liste hinzu
-    allKeywords.push(newKeyword);
+    if (existingKeywordIndex !== -1 && overwrite) {
+      // Überschreibe bestehendes Schlagwort
+      allKeywords[existingKeywordIndex] = newKeyword;
+      console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" überschrieben`);
+    } else {
+      // Füge zur Liste hinzu
+      allKeywords.push(newKeyword);
+      console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" neu hinzugefügt`);
+    }
     
     // Speichere zurück in keywords.json
     await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
     
+    // Speichere auch die detaillierte Analyse im Cache
+    const keywordThematicDB = await loadKeywordThematicDatabase();
+    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
+    
+    keywordThematicDB[cacheKey] = {
+      query: cleanKeyword,
+      content: analysis,
+      sources: keywordResults.slice(0, 10).map(result => ({
+        ID: result.ID,
+        index: result.index,
+        title: result.title,
+        fileName: result.fileName,
+        score: Math.round(result.finalScore || 100),
+        matchedTerms: result.matchedTerms || [cleanKeyword]
+      })),
+      searchMethod: 'keyword-thematic-search',
+      totalMatches: keywordResults.length,
+      llmUsed: !!process.env.CLAUDE_API_KEY,
+      timestamp: new Date().toISOString()
+    };
+    
+    await saveKeywordThematicDatabase(keywordThematicDB);
+    
     console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" erfolgreich hinzugefügt`);
     console.log(`[KEYWORDS-ADD] Analyse-Länge: ${analysis.length} Zeichen`);
     console.log(`[KEYWORDS-ADD] Gefundene Ergebnisse: ${keywordResults.length}`);
+    console.log(`[KEYWORDS-ADD] Detaillierte Analyse im Cache gespeichert`);
     
     res.json({ 
       success: true, 
@@ -2515,32 +2637,77 @@ function generateThematicCacheKey(query, depth, limit) {
 }
 
 // ============================================================================
-// KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN
+// KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN (Funktionen bereits oben definiert)
 // ============================================================================
 
-// Keyword-Thematische-Suche-Cache-Datenbank
-const KEYWORD_THEMATIC_DB_FILE = path.join(__dirname, 'keyword-thematic-search-cache.json');
-
-// Lade Keyword-Thematische-Suche-Cache-Datenbank
-async function loadKeywordThematicDatabase() {
+// Synchronisiere keywords.json mit keyword-thematic-search.json
+async function synchronizeKeywordSystems() {
   try {
-    const data = await fs.readFile(KEYWORD_THEMATIC_DB_FILE, 'utf8');
-    return JSON.parse(data);
+    console.log('[SYNC] Starte Synchronisation der Keyword-Systeme...');
+    
+    const keywordsFile = path.join(__dirname, 'keywords.json');
+    const keywordThematicDB = await loadKeywordThematicDatabase();
+    
+    let allKeywords = [];
+    try {
+      const fileContent = await fs.readFile(keywordsFile, 'utf8');
+      allKeywords = JSON.parse(fileContent);
+    } catch (error) {
+      console.log('[SYNC] keywords.json nicht gefunden, erstelle neue');
+      return;
+    }
+    
+    let syncCount = 0;
+    
+    // Prüfe jedes Keyword in keywords.json
+    for (const keyword of allKeywords) {
+      const cacheKey = `keyword_${keyword.keyword.toLowerCase().trim()}_allgemein_30`;
+      
+      // Wenn Keyword in keywords.json existiert, aber nicht im Cache
+      if (!keywordThematicDB[cacheKey] && keyword.hasDetailedAnalysis) {
+        console.log(`[SYNC] Keyword "${keyword.keyword}" fehlt im Cache - generiere Analyse...`);
+        
+        try {
+          // Generiere Analyse für fehlendes Keyword
+          let keywordResults = performThematicKeywordSearch(keyword.keyword, paragraphsFromLectures);
+          
+          if (keywordResults.length > 0) {
+            const analysis = await generateKeywordAnalysis(keyword.keyword, keywordResults, 'allgemein');
+            
+            keywordThematicDB[cacheKey] = {
+              query: keyword.keyword,
+              content: analysis,
+              sources: keywordResults.slice(0, 10).map(result => ({
+                ID: result.ID,
+                index: result.index,
+                title: result.title,
+                fileName: result.fileName,
+                score: Math.round(result.finalScore || 100),
+                matchedTerms: result.matchedTerms || [keyword.keyword]
+              })),
+              searchMethod: 'keyword-thematic-search',
+              totalMatches: keywordResults.length,
+              llmUsed: !!process.env.CLAUDE_API_KEY,
+              timestamp: new Date().toISOString()
+            };
+            
+            syncCount++;
+          }
+        } catch (error) {
+          console.warn(`[SYNC] Fehler bei Keyword "${keyword.keyword}":`, error.message);
+        }
+      }
+    }
+    
+    if (syncCount > 0) {
+      await saveKeywordThematicDatabase(keywordThematicDB);
+      console.log(`[SYNC] ${syncCount} Keywords synchronisiert`);
+    } else {
+      console.log('[SYNC] Alle Keywords bereits synchronisiert');
+    }
+    
   } catch (error) {
-    console.log('Keyword-Thematische-Suche-Cache-DB nicht gefunden, erstelle neue');
-    return {};
-  }
-}
-
-// Speichere Keyword-Thematische-Suche-Cache-Datenbank
-async function saveKeywordThematicDatabase(keywordThematicDB) {
-  try {
-    await fs.writeFile(KEYWORD_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
-    console.log('Keyword-Thematische-Suche-Cache-DB gespeichert');
-    return true;
-  } catch (error) {
-    console.error('Fehler beim Speichern der Keyword-Thematische-Suche-Cache-DB:', error);
-    return false;
+    console.error('[SYNC] Fehler bei Synchronisation:', error);
   }
 }
 
@@ -2555,7 +2722,7 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     return generateFallbackKeywordAnalysis(query, results);
   }
   
-  const topResults = results.slice(0, 15);
+  const topResults = results.slice(0, 25);  // Erhöht von 15 auf 25 für mehr Kontext
 
   console.log('=== DEBUG topResults ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -2576,9 +2743,9 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
   console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
   
   const maxTokens = {
-    'allgemein': 2000,
-    'genau': 3500,
-    'ausführlich': 6000
+    'allgemein': 4000,    // Erhöht von 2000 auf 4000
+    'genau': 6000,        // Erhöht von 3500 auf 6000  
+    'ausführlich': 8000   // Erhöht von 6000 auf 8000
   };
   
   const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Schlagwort: "${query}"
@@ -2618,14 +2785,20 @@ FORMATIERUNG:
 - Verwende Markdown-Formatierung
 - **Fette wichtige Schlagwörter** und **zentrale Aussagen**
 - Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
-- Zitiere prägnante Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
+- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
 - Vermeide Redundanzen - jede Information nur einmal
 
 WICHTIG:
-- Konzentriere dich auf das Schlagwort "${query}" und seine verschiedenen Aspekte
-- Wenn du relevante inhaltliche Bezüge findest, präsentiere diese direkt ohne einschränkende Vorbemerkungen
-- Konzentriere dich auf das, was die Texte über "${query}" AUSSAGEN
-- Beginne direkt mit dem Inhalt, ohne Überschrift oder Einleitung
+- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
+- Beginne direkt mit konkreten Zitatstellen aus den Texten zum Schlagwort "${query}"
+- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
+- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+- Minimaler erläuternder Text - nur zur Verbindung der Zitate
+- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
+- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
+- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
+- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
 
 TEXTPASSAGEN:
 ${contextText}
@@ -2644,7 +2817,7 @@ ANALYSE:`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens[depth] || 2000,
+        max_tokens: maxTokens[depth] || 4000,
         messages: [{
           role: 'user',
           content: prompt
@@ -2739,6 +2912,9 @@ async function startServer() {
     
 await loadSynonyms();
 await loadFullLectures();
+
+// Synchronisiere Keyword-Systeme beim Start
+await synchronizeKeywordSystems();
 
 // Konvertiere Lectures zu Absatz-Format
 console.log('\nKonvertiere Lectures zu Absatz-Format...');
