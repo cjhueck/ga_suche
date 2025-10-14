@@ -2538,6 +2538,69 @@ app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
 });
 
 // ============================================================================
+// KEYWORD LÖSCHEN
+// ============================================================================
+
+app.post('/api/keywords-delete', async (req, res) => {
+  try {
+    const { keyword } = req.body;
+    if (!keyword || !keyword.trim()) {
+      return res.status(400).json({ error: 'Schlagwort erforderlich' });
+    }
+
+    const cleanKeyword = keyword.trim();
+    console.log(`[KEYWORDS-DELETE] Lösche Schlagwort: "${cleanKeyword}"`);
+
+    // 1) Entferne aus keywords.json
+    const keywordsFile = path.join(__dirname, 'keywords.json');
+    let allKeywords = [];
+    try {
+      const fileContent = await fs.readFile(keywordsFile, 'utf8');
+      allKeywords = JSON.parse(fileContent);
+    } catch (error) {
+      console.log('[KEYWORDS-DELETE] keywords.json nicht gefunden, nichts zu entfernen');
+    }
+
+    const beforeCount = allKeywords.length;
+    allKeywords = allKeywords.filter(k => k.keyword.toLowerCase() !== cleanKeyword.toLowerCase());
+    const removedFromIndex = beforeCount - allKeywords.length;
+
+    if (beforeCount !== allKeywords.length) {
+      await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
+      console.log(`[KEYWORDS-DELETE] Aus keywords.json entfernt: ${removedFromIndex}`);
+    } else {
+      console.log('[KEYWORDS-DELETE] Kein Eintrag in keywords.json gefunden');
+    }
+
+    // 2) Entferne aus keyword-thematic-search.json Cache
+    const keywordThematicDB = await loadKeywordThematicDatabase();
+    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
+    let removedFromCache = false;
+    if (keywordThematicDB[cacheKey]) {
+      delete keywordThematicDB[cacheKey];
+      removedFromCache = true;
+      await saveKeywordThematicDatabase(keywordThematicDB);
+      console.log(`[KEYWORDS-DELETE] Cache-Eintrag entfernt: ${cacheKey}`);
+    } else {
+      console.log('[KEYWORDS-DELETE] Kein Cache-Eintrag gefunden');
+    }
+
+    return res.json({
+      success: true,
+      message: 'Schlagwort gelöscht',
+      removedFromIndex: removedFromIndex > 0,
+      removedFromCache
+    });
+  } catch (error) {
+    console.error('[KEYWORDS-DELETE] Fehler beim Löschen:', error);
+    res.status(500).json({
+      error: 'Fehler beim Löschen des Schlagworts',
+      details: error.message
+    });
+  }
+});
+
+// ============================================================================
 // ZENTRALE SUMMARY-DATENBANK
 // ============================================================================
 
