@@ -1593,7 +1593,15 @@ body.dark-mode .no-results-message {
   color: var(--dark-secondary-text);
 }
 /* Final overrides: enforce centralized heading colors in side panels (placed last) */
-/* Zentrale Dark-Mode-Regel für alle Überschriften (außer TOC-Links) */
+/* Zentrale Regel für alle Überschriften (außer TOC-Links) */
+h1:not(#summary-content a),
+h2:not(#summary-content a),
+h3:not(#summary-content a),
+h4:not(#summary-content a) {
+  color: var(--heading-color) !important;
+}
+
+/* Dark Mode: Überschriften blau */
 body.dark-mode h1:not(#summary-content a),
 body.dark-mode h2:not(#summary-content a),
 body.dark-mode h3:not(#summary-content a),
