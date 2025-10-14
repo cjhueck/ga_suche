@@ -1694,22 +1694,15 @@ GA-Übersicht →
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen"></textarea>
 <div class="semantic-options">
 <div class="filter-row">
-<select class="filter-dropdown" id="thematicLimitFilter">
-  <option value="30">30 Quellen</option>
-  <option value="50">50 Quellen</option>
-  <option value="100">100 Quellen</option>
-</select>
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
-</div>
-<div class="depth-buttons">
-<button class="depth-btn active" data-depth="allgemein">Allgemein</button>
-<button class="depth-btn" data-depth="ausführlich">Ausführlich</button>
-<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
   Suche starten
 </button>
+</div>
+<div class="depth-buttons">
+<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 </div>
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
@@ -2157,12 +2150,6 @@ function normalizeGANumber(gaNumber) {
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.depth-btn[data-depth]').forEach(btn => {
-        btn.addEventListener('click', function() {
-          document.querySelectorAll('.depth-btn[data-depth]').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-        });
-      });
       
   populateYearFilter();
   initResizeHandle();
@@ -2978,8 +2965,8 @@ function toggleGASummaries() {
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
         
-        const depth = document.querySelector('.depth-btn.active').dataset.depth;
-        const limit = document.getElementById('thematicLimitFilter').value;
+        const depth = 'ausführlich'; // Default to ausführlich since buttons were removed
+        const limit = 50; // Default limit since dropdown was removed
         const gaFilter = document.getElementById('thematicGAFilter').value;
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
@@ -3462,16 +3449,43 @@ function showSummaryView() {
       return allParagraphs[0].id.replace('para-', '');
     }
 
+    // ============================================================================
+    // ZENTRALE HIGHLIGHTING-VERWALTUNG
+    let highlightTimeout = null;
+
+    function addHighlightingWithAutoRemove(element) {
+      // Entferne vorherige Markierung
+      removeAllHighlighting();
+      
+      // Füge neue Markierung hinzu
+      if (element) {
+        element.classList.add('highlighted-paragraph');
+        
+        // Entferne automatisch nach 5 Sekunden
+        highlightTimeout = setTimeout(() => {
+          removeAllHighlighting();
+        }, 5000);
+      }
+    }
+
+    function removeAllHighlighting() {
+      // Entferne alle highlighted-paragraph Klassen
+      const highlightedElements = document.querySelectorAll('.highlighted-paragraph');
+      highlightedElements.forEach(element => {
+        element.classList.remove('highlighted-paragraph');
+      });
+      
+      // Lösche den Timeout falls vorhanden
+      if (highlightTimeout) {
+        clearTimeout(highlightTimeout);
+        highlightTimeout = null;
+      }
+    }
+
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
       const mainContainer = document.getElementById('main');
-      
-      // Entferne vorherige Markierung
-      const prevMarked = mainContainer.querySelector('.paragraph.highlighted-paragraph');
-      if (prevMarked) {
-        prevMarked.classList.remove('highlighted-paragraph');
-      }
       
       // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
       // versuche zuerst das Original anzuzeigen
@@ -3509,8 +3523,8 @@ function showSummaryView() {
         
         mainContainer.scrollTop = Math.max(0, relativeTop);
         
-        // Transparente blaue Markierung mit CSS-Klasse
-        paraElement.classList.add('highlighted-paragraph');
+        // Verwende zentrale Highlighting-Funktion mit Auto-Remove
+        addHighlightingWithAutoRemove(paraElement);
       }
     }
 
@@ -5319,7 +5333,6 @@ document.head.appendChild(styleSheet);
 
 console.log('[KEYWORDS] Schlagwort-System geladen');
 
-// ============================================================================
 // KEYWORD THEMATIC SEARCH FUNKTIONEN
 // ============================================================================
 
@@ -5334,24 +5347,24 @@ async function performKeywordThematicSearch(keyword) {
     if (results) {
       results.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
-          <div style="font-size: 1.2em; margin-bottom: 1rem;">🔍 Analysiere Schlagwort: <strong>${keyword}</strong></div>
-          <div style="font-style: italic;">Suche nach relevanten Textstellen...</div>
+          <div style="font-style: italic; font-size: 1.2em;">Suche...</div>
         </div>
       `;
     }
     
     if (countContainer) {
-      countContainer.textContent = 'Analysiere...';
+      countContainer.textContent = 'Lade...';
     }
     
-    // Prüfe zuerst, ob bereits eine Analyse im Cache existiert
+    // Versuche zuerst das gespeicherte Ergebnis zu laden (mit den gleichen Parametern wie beim Hinzufügen)
     const cacheResponse = await fetch(`${API_BASE}/api/keyword-thematic-search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: keyword,
-        depth: 'allgemein',
-        limit: 30
+        depth: 'ausführlich',  // Ändere auf ausführlich für detailliertere Analysen
+        limit: 30,
+        useCache: true  // Explizit Cache verwenden
       })
     });
     
@@ -5509,7 +5522,7 @@ async function addNewKeyword() {
   
   // UI-Status aktualisieren
   addButton.disabled = true;
-  addButton.textContent = 'Analysiere...';
+  addButton.innerHTML = '<em>Analysiere...</em>';
   statusDiv.innerHTML = '';
   
   try {
