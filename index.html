@@ -1733,7 +1733,11 @@ GA-Übersicht →
 <!-- Batch-Schlagwort-Generierung (nur lokal sichtbar) -->
 <div id="batchKeywordSection" style="display:none;">
 <div style="margin-bottom: 1.0rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Batch-Schlagwort-Generierung</h4>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+<h4 style="margin: 0; color: var(--heading-color);">Batch-Schlagwort-Generierung</h4>
+<button id="batchToggleButton" class="depth-btn" onclick="toggleBatchSection()" style="padding: 4px 8px; font-size: 0.75em; background: #666; color: white;">Ausblenden</button>
+</div>
+<div id="batchContent">
 <div style="margin-bottom: 0.5rem;">
 <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
 Schlagwort-Liste (ein Schlagwort pro Zeile):
@@ -1769,6 +1773,7 @@ Bestehende Schlagwörter überschreiben
 <div><strong>Erfolgreich:</strong> <span id="batchSuccessCount">0</span></div>
 <div><strong>Fehlgeschlagen:</strong> <span id="batchFailedCount">0</span></div>
 <div><strong>Übersprungen:</strong> <span id="batchSkippedCount">0</span></div>
+</div>
 </div>
 </div>
 </div>
@@ -5581,6 +5586,26 @@ function displayKeywordThematicResults(keyword, data) {
 // Batch-Schlagwort-Generierung
 let batchProcessing = false;
 let batchAbortController = null;
+let batchSectionVisible = true;
+
+function toggleBatchSection() {
+  const batchContent = document.getElementById('batchContent');
+  const toggleButton = document.getElementById('batchToggleButton');
+  
+  if (batchSectionVisible) {
+    // Ausblenden
+    batchContent.style.display = 'none';
+    toggleButton.textContent = 'Einblenden';
+    toggleButton.style.background = '#2e7d32';
+    batchSectionVisible = false;
+  } else {
+    // Einblenden
+    batchContent.style.display = 'block';
+    toggleButton.textContent = 'Ausblenden';
+    toggleButton.style.background = '#666';
+    batchSectionVisible = true;
+  }
+}
 
 async function addBatchKeywords() {
   const batchInput = document.getElementById('batchKeywordsInput');
