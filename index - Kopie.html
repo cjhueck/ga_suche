@@ -4370,7 +4370,6 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       let headingIndex = 0;
       const tocItems = [];
       
-      h4Collapsed = false;
       const toggleBtn = document.getElementById('toggleH4Btn');
       if (toggleBtn) {
         toggleBtn.innerHTML = '&#x2227;';
@@ -4406,7 +4405,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         let activeHeading = null;
         
-        const selector = h4Collapsed ? 'h3' : 'h3, h4';
+        const selector = viewerH4Collapsed ? 'h3' : 'h3, h4';
         const visibleHeadings = Array.from(viewer.querySelectorAll(selector));
         
         for (let i = visibleHeadings.length - 1; i >= 0; i--) {
