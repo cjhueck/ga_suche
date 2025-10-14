@@ -2324,6 +2324,183 @@ async function saveKeywordThematicDatabase(keywordThematicDB) {
   }
 }
 
+// API-Endpunkt: Batch-Schlagwort-Generierung
+app.post('/api/keywords-batch-add', async (req, res) => {
+  try {
+    const { keywords, overwrite = false, batchId = null } = req.body;
+    
+    if (!keywords || !Array.isArray(keywords) || keywords.length === 0) {
+      return res.status(400).json({ 
+        error: 'keywords Array erforderlich (mindestens 1 Schlagwort)',
+        received: { keywords, overwrite, batchId }
+      });
+    }
+    
+    console.log(`[KEYWORDS-BATCH-ADD] Starte Batch-Verarbeitung für ${keywords.length} Schlagwörter`);
+    
+    const results = {
+      batchId: batchId || `batch_${Date.now()}`,
+      totalKeywords: keywords.length,
+      processed: 0,
+      successful: [],
+      failed: [],
+      skipped: [],
+      startTime: new Date().toISOString()
+    };
+    
+    // Verarbeite Schlagwörter sequenziell (um API-Limits zu respektieren)
+    for (let i = 0; i < keywords.length; i++) {
+      const keyword = keywords[i].trim();
+      
+      if (!keyword) {
+        results.skipped.push({
+          keyword: keywords[i],
+          reason: 'Leeres Schlagwort',
+          index: i
+        });
+        continue;
+      }
+      
+      console.log(`[KEYWORDS-BATCH-ADD] Verarbeite ${i + 1}/${keywords.length}: "${keyword}"`);
+      
+      try {
+        // Prüfe ob Schlagwort bereits existiert
+        const keywordsFile = path.join(__dirname, 'keywords.json');
+        let allKeywords = [];
+        
+        try {
+          const fileContent = await fs.readFile(keywordsFile, 'utf8');
+          allKeywords = JSON.parse(fileContent);
+        } catch (error) {
+          console.log('[KEYWORDS-BATCH-ADD] keywords.json nicht gefunden, erstelle neue');
+        }
+        
+        // Prüfe auf Duplikate
+        const existingKeywordIndex = allKeywords.findIndex(k => 
+          k.keyword.toLowerCase() === keyword.toLowerCase()
+        );
+        
+        if (existingKeywordIndex !== -1 && !overwrite) {
+          results.skipped.push({
+            keyword: keyword,
+            reason: 'Schlagwort bereits vorhanden',
+            index: i,
+            existingKeyword: allKeywords[existingKeywordIndex].keyword
+          });
+          continue;
+        }
+        
+        // Führe Keyword-Thematische Suche durch
+        let keywordResults = performThematicKeywordSearch(keyword, paragraphsFromLectures);
+        
+        if (keywordResults.length === 0) {
+          results.failed.push({
+            keyword: keyword,
+            reason: 'Keine relevanten Textstellen gefunden',
+            index: i
+          });
+          continue;
+        }
+        
+        // Generiere KI-Analyse
+        const analysis = await generateKeywordAnalysis(keyword, keywordResults, 'ausführlich');
+        
+        // Erstelle neues Schlagwort-Objekt
+        const newKeyword = {
+          keyword: keyword,
+          alphabetical: keyword.charAt(0).toUpperCase(),
+          text: `**${keyword}**`,
+          gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+          generatedAt: new Date().toISOString(),
+          sourceAnalysis: 'ki-generated-batch',
+          analysisLength: analysis.length,
+          resultCount: keywordResults.length,
+          hasDetailedAnalysis: true,
+          batchId: results.batchId,
+          batchIndex: i
+        };
+        
+        if (existingKeywordIndex !== -1 && overwrite) {
+          allKeywords[existingKeywordIndex] = newKeyword;
+        } else {
+          allKeywords.push(newKeyword);
+        }
+        
+        // Speichere zurück in keywords.json
+        await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
+        
+        // Speichere detaillierte Analyse im Cache
+        const keywordThematicDB = await loadKeywordThematicDatabase();
+        const cacheKey = `keyword_${keyword.toLowerCase().trim()}_ausführlich_30`;
+        
+        keywordThematicDB[cacheKey] = {
+          query: keyword,
+          content: analysis,
+          sources: keywordResults.slice(0, 20).map(result => ({
+            ID: result.ID,
+            index: result.index,
+            title: result.title,
+            fileName: result.fileName,
+            score: Math.round(result.finalScore || 100),
+            matchedTerms: result.matchedTerms || [keyword]
+          })),
+          searchMethod: 'keyword-thematic-search',
+          totalMatches: keywordResults.length,
+          llmUsed: !!process.env.CLAUDE_API_KEY,
+          timestamp: new Date().toISOString(),
+          batchId: results.batchId
+        };
+        
+        await saveKeywordThematicDatabase(keywordThematicDB);
+        
+        results.successful.push({
+          keyword: keyword,
+          index: i,
+          resultCount: keywordResults.length,
+          analysisLength: analysis.length
+        });
+        
+        console.log(`[KEYWORDS-BATCH-ADD] ✓ "${keyword}" erfolgreich verarbeitet`);
+        
+        // Kurze Pause zwischen API-Calls (um Rate Limits zu respektieren)
+        if (i < keywords.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        
+      } catch (error) {
+        console.error(`[KEYWORDS-BATCH-ADD] ✗ Fehler bei "${keyword}":`, error);
+        results.failed.push({
+          keyword: keyword,
+          reason: error.message || 'Unbekannter Fehler',
+          index: i,
+          error: error.toString()
+        });
+      }
+      
+      results.processed++;
+    }
+    
+    results.endTime = new Date().toISOString();
+    results.duration = new Date(results.endTime) - new Date(results.startTime);
+    
+    console.log(`[KEYWORDS-BATCH-ADD] Batch abgeschlossen: ${results.successful.length} erfolgreich, ${results.failed.length} fehlgeschlagen, ${results.skipped.length} übersprungen`);
+    
+    res.json({
+      success: true,
+      message: `Batch-Verarbeitung abgeschlossen: ${results.successful.length}/${results.totalKeywords} Schlagwörter erfolgreich`,
+      results: results
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-BATCH-ADD] Kritischer Fehler:', error);
+    res.status(500).json({
+      error: 'Fehler bei der Batch-Verarbeitung',
+      message: error.message,
+      stack: error.stack
+    });
+  }
+});
+
 // API-Endpunkt: Neues Schlagwort hinzufügen und durch KI-Analyse befüllen
 app.post('/api/keywords-add', async (req, res) => {
   try {

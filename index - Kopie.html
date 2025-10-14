@@ -126,10 +126,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     body.dark-mode .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.35);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
     }
     
     body.dark-mode #viewer .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.35);
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
     }
     
     body.dark-mode .resize-handle,
@@ -1045,9 +1047,8 @@ body.dark-mode .loading-message {
     
     .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.1);
-      padding: 0.5rem;
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.1);
       border-radius: 4px;
-      margin: 0.2rem 0;
     }
     
     .semantic-answer {
@@ -1257,9 +1258,8 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer .highlighted-paragraph {
       background: rgba(70, 120, 134, 0.1);
-      padding: 0.5rem;
+      box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.1);
       border-radius: 4px;
-      margin: 0.2rem 0;
     }
     
     #viewer p {
@@ -3449,16 +3449,70 @@ function showSummaryView() {
       return allParagraphs[0].id.replace('para-', '');
     }
 
+    // ============================================================================
+    // ZENTRALE HIGHLIGHTING-VERWALTUNG
+    let highlightTimeout = null;
+
+    function addHighlightingWithAutoRemove(element) {
+      // Entferne vorherige Markierung und Timer (ohne Fade-Out)
+      clearPreviousHighlighting();
+      
+      // Füge neue Markierung hinzu
+      if (element) {
+        element.classList.add('highlighted-paragraph');
+        
+        // Entferne automatisch nach 5 Sekunden konstanter Anzeige
+        highlightTimeout = setTimeout(() => {
+          removeAllHighlighting();
+        }, 5000);
+      }
+    }
+
+    function clearPreviousHighlighting() {
+      // Entferne vorherige Markierungen sofort (ohne Fade-Out)
+      const highlightedElements = document.querySelectorAll('.highlighted-paragraph');
+      highlightedElements.forEach(element => {
+        element.classList.remove('highlighted-paragraph');
+        element.style.transition = '';
+        element.style.backgroundColor = '';
+        element.style.boxShadow = '';
+      });
+      
+      // Lösche den Timer falls vorhanden
+      if (highlightTimeout) {
+        clearTimeout(highlightTimeout);
+        highlightTimeout = null;
+      }
+    }
+
+    function removeAllHighlighting() {
+      // Starte Fade-Out für alle highlighted-paragraph Klassen
+      const highlightedElements = document.querySelectorAll('.highlighted-paragraph');
+      highlightedElements.forEach(element => {
+        // Starte Fade-Out nur durch Änderung der Opacity (keine Größenänderung)
+        element.style.transition = 'background-color 1s ease-out, box-shadow 1s ease-out';
+        element.style.backgroundColor = 'transparent';
+        element.style.boxShadow = '0 0 0 0.4rem transparent';
+        
+        // Entferne die Klasse nach der Transition
+        setTimeout(() => {
+          element.classList.remove('highlighted-paragraph');
+          element.style.transition = '';
+          element.style.boxShadow = '';
+        }, 1000);
+      });
+      
+      // Lösche den Timeout falls vorhanden
+      if (highlightTimeout) {
+        clearTimeout(highlightTimeout);
+        highlightTimeout = null;
+      }
+    }
+
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
       const mainContainer = document.getElementById('main');
-      
-      // Entferne vorherige Markierung
-      const prevMarked = mainContainer.querySelector('.paragraph.highlighted-paragraph');
-      if (prevMarked) {
-        prevMarked.classList.remove('highlighted-paragraph');
-      }
       
       // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
       // versuche zuerst das Original anzuzeigen
@@ -3496,8 +3550,8 @@ function showSummaryView() {
         
         mainContainer.scrollTop = Math.max(0, relativeTop);
         
-        // Transparente blaue Markierung mit CSS-Klasse
-        paraElement.classList.add('highlighted-paragraph');
+        // Verwende zentrale Highlighting-Funktion mit Auto-Remove
+        addHighlightingWithAutoRemove(paraElement);
       }
     }
 
@@ -5320,8 +5374,7 @@ async function performKeywordThematicSearch(keyword) {
     if (results) {
       results.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
-          <div style="font-size: 1.2em; margin-bottom: 1rem;">🔍 Lade Schlagwort: <strong>${keyword}</strong></div>
-          <div style="font-style: italic;">Suche nach gespeichertem Ergebnis...</div>
+          <div style="font-style: italic; font-size: 1.2em;">Suche...</div>
         </div>
       `;
     }

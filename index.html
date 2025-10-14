@@ -1730,6 +1730,50 @@ GA-Übersicht →
 <div id="regenerateKeywordStatus" style="display:none;"></div>
 </div>
 
+<!-- Batch-Schlagwort-Generierung (nur lokal sichtbar) -->
+<div id="batchKeywordSection" style="display:none;">
+<div style="margin-bottom: 1.0rem;">
+<h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Batch-Schlagwort-Generierung</h4>
+<div style="margin-bottom: 0.5rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+Schlagwort-Liste (ein Schlagwort pro Zeile):
+</label>
+<textarea id="batchKeywordsInput" 
+          placeholder="Astralleib&#10;Ätherleib&#10;Bewusstsein&#10;Karma&#10;Reinkarnation" 
+          style="width: 100%; height: 120px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
+</div>
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+<label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
+<input type="checkbox" id="batchOverwriteCheckbox" style="margin: 0;">
+Bestehende Schlagwörter überschreiben
+</label>
+</div>
+<div style="display: flex; gap: 8px; align-items: center;">
+<button id="batchAddButton" class="depth-btn" onclick="addBatchKeywords()" style="padding: 8px 16px; font-size: 0.85em; white-space: nowrap; background: #467886; color: white;">Batch-Generierung starten</button>
+<button id="batchCancelButton" class="depth-btn" onclick="cancelBatchKeywords()" style="padding: 8px 16px; font-size: 0.85em; white-space: nowrap; background: #666; color: white; display: none;">Abbrechen</button>
+</div>
+</div>
+<div id="batchKeywordStatus" style="display:none;"></div>
+<div id="batchProgressContainer" style="display:none;">
+<div style="margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+<span id="batchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
+<span id="batchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
+</div>
+<div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
+<div id="batchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
+</div>
+</div>
+<div id="batchResults" style="display:none; margin-top: 0.5rem; padding: 0.5rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+<div style="font-size: 0.85em; color: var(--text-color);">
+<div><strong>Erfolgreich:</strong> <span id="batchSuccessCount">0</span></div>
+<div><strong>Fehlgeschlagen:</strong> <span id="batchFailedCount">0</span></div>
+<div><strong>Übersprungen:</strong> <span id="batchSkippedCount">0</span></div>
+</div>
+</div>
+</div>
+</div>
+
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
 </div>
@@ -5520,6 +5564,7 @@ function displayKeywordThematicResults(keyword, data) {
     
     const addSection = document.getElementById('addKeywordSection');
     const regenerateSection = document.getElementById('regenerateKeywordSection');
+    const batchSection = document.getElementById('batchKeywordSection');
     
     if (addSection) {
       addSection.style.display = isLocal ? 'block' : 'none';
@@ -5527,8 +5572,150 @@ function displayKeywordThematicResults(keyword, data) {
     if (regenerateSection) {
       regenerateSection.style.display = isLocal ? 'block' : 'none';
     }
+    if (batchSection) {
+      batchSection.style.display = isLocal ? 'block' : 'none';
+    }
   } catch (_) {}
 })();
+
+// Batch-Schlagwort-Generierung
+let batchProcessing = false;
+let batchAbortController = null;
+
+async function addBatchKeywords() {
+  const batchInput = document.getElementById('batchKeywordsInput');
+  const batchButton = document.getElementById('batchAddButton');
+  const batchCancelButton = document.getElementById('batchCancelButton');
+  const statusDiv = document.getElementById('batchKeywordStatus');
+  const progressContainer = document.getElementById('batchProgressContainer');
+  const progressText = document.getElementById('batchProgressText');
+  const progressPercent = document.getElementById('batchProgressPercent');
+  const progressBar = document.getElementById('batchProgressBar');
+  const resultsDiv = document.getElementById('batchResults');
+  const overwriteCheckbox = document.getElementById('batchOverwriteCheckbox');
+  
+  if (!batchInput || !batchButton || !statusDiv) {
+    console.error('[BATCH-KEYWORDS] UI-Elemente nicht gefunden');
+    return;
+  }
+  
+  const keywordsText = batchInput.value.trim();
+  
+  if (!keywordsText) {
+    statusDiv.innerHTML = '<div style="color: #d32f2f; font-size: 0.85em;">Bitte geben Sie mindestens ein Schlagwort ein.</div>';
+    statusDiv.style.display = 'block';
+    return;
+  }
+  
+  // Parse Schlagwörter aus Textarea
+  const keywords = keywordsText.split('\n')
+    .map(k => k.trim())
+    .filter(k => k.length > 0);
+  
+  if (keywords.length === 0) {
+    statusDiv.innerHTML = '<div style="color: #d32f2f; font-size: 0.85em;">Keine gültigen Schlagwörter gefunden.</div>';
+    statusDiv.style.display = 'block';
+    return;
+  }
+  
+  if (keywords.length > 50) {
+    statusDiv.innerHTML = '<div style="color: #d32f2f; font-size: 0.85em;">Maximal 50 Schlagwörter pro Batch erlaubt.</div>';
+    statusDiv.style.display = 'block';
+    return;
+  }
+  
+  // UI-Status aktualisieren
+  batchProcessing = true;
+  batchAbortController = new AbortController();
+  
+  batchButton.disabled = true;
+  batchButton.style.display = 'none';
+  batchCancelButton.style.display = 'inline-block';
+  statusDiv.style.display = 'none';
+  progressContainer.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  
+  // Fortschritt zurücksetzen
+  progressText.textContent = `Verarbeite 0 von ${keywords.length} Schlagwörtern...`;
+  progressPercent.textContent = '0%';
+  progressBar.style.width = '0%';
+  
+  try {
+    console.log(`[BATCH-KEYWORDS] Starte Batch-Verarbeitung für ${keywords.length} Schlagwörter`);
+    
+    const response = await fetch('http://localhost:3003/api/keywords-batch-add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        keywords: keywords,
+        overwrite: overwriteCheckbox.checked,
+        batchId: `batch_${Date.now()}`
+      }),
+      signal: batchAbortController.signal
+    });
+    
+    const result = await response.json();
+    
+    if (response.ok) {
+      // Erfolg
+      statusDiv.innerHTML = `<div style="color: #2e7d32; font-size: 0.85em;">✓ ${result.message}</div>`;
+      statusDiv.style.display = 'block';
+      
+      // Eingabefeld leeren
+      batchInput.value = '';
+      
+      // Fortschritt auf 100% setzen
+      progressText.textContent = `Abgeschlossen: ${result.results.successful.length} von ${result.results.totalKeywords} erfolgreich`;
+      progressPercent.textContent = '100%';
+      progressBar.style.width = '100%';
+      
+      // Ergebnisse anzeigen
+      document.getElementById('batchSuccessCount').textContent = result.results.successful.length;
+      document.getElementById('batchFailedCount').textContent = result.results.failed.length;
+      document.getElementById('batchSkippedCount').textContent = result.results.skipped.length;
+      resultsDiv.style.display = 'block';
+      
+      // Schlagwort-Liste aktualisieren
+      await loadKeywordsData();
+      displayKeywords();
+      
+      console.log('[BATCH-KEYWORDS] Batch erfolgreich abgeschlossen:', result);
+      
+    } else {
+      // Fehler
+      statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Fehler: ${result.error || 'Unbekannter Fehler'}</div>`;
+      statusDiv.style.display = 'block';
+      
+      console.error('[BATCH-KEYWORDS] Fehler beim Batch-Verarbeiten:', result);
+    }
+    
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      statusDiv.innerHTML = '<div style="color: #f57c00; font-size: 0.85em;">⚠ Batch-Verarbeitung abgebrochen</div>';
+    } else {
+      statusDiv.innerHTML = `<div style="color: #d32f2f; font-size: 0.85em;">✗ Netzwerkfehler: ${error.message}</div>`;
+    }
+    statusDiv.style.display = 'block';
+    console.error('[BATCH-KEYWORDS] Netzwerkfehler:', error);
+  } finally {
+    // UI-Status zurücksetzen
+    batchProcessing = false;
+    batchAbortController = null;
+    
+    batchButton.disabled = false;
+    batchButton.style.display = 'inline-block';
+    batchCancelButton.style.display = 'none';
+  }
+}
+
+function cancelBatchKeywords() {
+  if (batchAbortController) {
+    batchAbortController.abort();
+    console.log('[BATCH-KEYWORDS] Batch-Verarbeitung abgebrochen');
+  }
+}
 
 async function addNewKeyword() {
   const keywordInput = document.getElementById('newKeywordInput');
