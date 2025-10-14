@@ -525,7 +525,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #summary-content h2 a:hover,
     #summary-content h3 a:hover,
     #summary-content h4 a:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
     
     body.dark-mode #summary-content h1 a,
@@ -1221,7 +1221,7 @@ body.dark-mode #thematicSearchInfo {
 }  
     /* Diese Styles sind jetzt in #sidebar-content zentralisiert */
     a { color: var(--link-color); text-decoration: none; cursor: pointer; }
-    a:hover { text-decoration: none; }
+    a:hover { text-decoration: none !important; }
     mark { 
       background: rgba(70, 120, 134, 0.2); 
       color: inherit;
@@ -1544,7 +1544,7 @@ body.dark-mode .loading-tooltip::before {
 }
 
 .ga-keyword-link:hover {
-  text-decoration: underline;
+  text-decoration: none !important;
 }
 
 body.dark-mode .ga-keyword-link {
@@ -1598,6 +1598,11 @@ body.dark-mode .keyword-text {
 body.dark-mode .no-results-message {
   color: var(--dark-secondary-text);
 }
+/* Universelle Link-Regeln: Keine Unterstreichung beim Hover */
+a:hover {
+  text-decoration: none !important;
+}
+
 /* Final overrides: enforce centralized heading colors in side panels (placed last) */
 /* Zentrale Regel für alle Überschriften (außer TOC-Links) */
 h1:not(#summary-content a),
