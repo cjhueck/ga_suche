@@ -330,5 +330,37 @@
     "analysisLength": 9083,
     "resultCount": 22492,
     "hasDetailedAnalysis": true
+  },
+  {
+    "keyword": "Devachan",
+    "alphabetical": "D",
+    "text": "**Devachan**",
+    "gaReferences": [
+      "GA088/9",
+      "GA088/9",
+      "GA088/8",
+      "GA088/8",
+      "GA090c/6",
+      "GA088/8",
+      "GA088/9",
+      "GA088/8",
+      "GA090a/17",
+      "GA088/8",
+      "GA088/8",
+      "GA088/8",
+      "GA090a/17",
+      "GA090a/17",
+      "GA090a/17",
+      "GA088/8",
+      "GA088/8",
+      "GA088/8",
+      "GA088/8",
+      "GA088/8"
+    ],
+    "generatedAt": "2025-10-14T12:47:35.777Z",
+    "sourceAnalysis": "ki-generated",
+    "analysisLength": 5962,
+    "resultCount": 278,
+    "hasDetailedAnalysis": true
   }
 ]
