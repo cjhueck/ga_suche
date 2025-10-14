@@ -1534,8 +1534,8 @@ body.dark-mode .ga-keyword-link {
 /* Schlagwort-Anzeige - nur Frontend-CSS */
 
 .keyword-entry {
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.3rem;
+  margin-bottom: 0.1rem;
+  padding-bottom: 0rem;
 }
 
 .keyword-entry h4 {
@@ -1551,7 +1551,7 @@ body.dark-mode .ga-keyword-link {
 }
 
 .keyword-entry h4 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 body.dark-mode .keyword-entry h4 a {
@@ -1668,11 +1668,20 @@ GA-Übersicht →
 <div style="margin-bottom: 1rem;">
 <!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
 <div id="addKeywordSection" style="display:none;">
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.8rem;">
+<input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
-<div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
+<div id="addKeywordStatus" style="display:none;"></div>
+</div>
+
+<!-- Schlagwort löschen (nur lokal sichtbar) -->
+<div id="regenerateKeywordSection" style="display:none;">
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 1.0rem;">
+<input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort löschen..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleDeleteKeywordInputKeypress(event)">
+<button id="regenerateKeywordButton" class="depth-btn" onclick="deleteKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort löschen</button>
+</div>
+<div id="regenerateKeywordStatus" style="display:none;"></div>
 </div>
 
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
@@ -1682,11 +1691,7 @@ GA-Übersicht →
 <input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;">
 <button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
 </div>
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-<div id="keyword-count" style="font-size: 0.85em; color: #666;">
-Lade Schlagwörter...
-</div>
-</div>
+<!-- removed keyword-count status line -->
 </div>
 </div>
 
@@ -4704,14 +4709,14 @@ async function initializeKeywordSystem() {
   console.log('[KEYWORDS] Initialisiere Schlagwort-System...');
   
   const countContainer = document.getElementById('keyword-count');
-  countContainer.textContent = 'Lade Schlagwörter...';
+  if (countContainer) countContainer.textContent = '';
   
   try {
     // Lade Schlagwort-Daten
     await loadKeywordsData();
     
     if (keywordsData.length === 0) {
-      countContainer.textContent = 'Keine Schlagwörter gefunden. Prüfen Sie den keywords/ Ordner.';
+      if (countContainer) countContainer.textContent = '';
       console.warn('[KEYWORDS] Keine Schlagwörter geladen!');
       return;
     }
@@ -4729,7 +4734,7 @@ async function initializeKeywordSystem() {
     
   } catch (error) {
     console.error('[KEYWORDS] ✗ Fehler beim Initialisieren:', error);
-    countContainer.textContent = `Fehler beim Laden: ${error.message}`;
+    if (countContainer) countContainer.textContent = '';
   }
 }
 
@@ -4937,7 +4942,7 @@ function displayKeywords(selectedLetter = 'Alle') {
     );
   }
   
-  countContainer.textContent = `${filteredKeywords.length} Schlagwörter gefunden`;
+  if (countContainer) countContainer.textContent = '';
   
   if (filteredKeywords.length === 0) {
     resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
@@ -5303,12 +5308,12 @@ async function performKeywordThematicSearch(keyword) {
     if (data.fromCache) {
       console.log('[KEYWORD-THEMATIC] Cache-Hit für:', keyword);
       if (countContainer) {
-        countContainer.textContent = `Analyse für "${keyword}" (aus Cache)`;
+        countContainer.textContent = '';
       }
     } else {
       console.log('[KEYWORD-THEMATIC] Neue Analyse erstellt für:', keyword);
       if (countContainer) {
-        countContainer.textContent = `Analyse für "${keyword}" (neu erstellt)`;
+        countContainer.textContent = '';
       }
     }
     
@@ -5393,7 +5398,7 @@ function displayKeywordThematicResults(keyword, data) {
   
   // Aktualisiere Count-Container
   if (countContainer) {
-    countContainer.textContent = `Analyse für "${keyword}" abgeschlossen`;
+    countContainer.textContent = '';
   }
   
   console.log('[KEYWORD-THEMATIC] Ergebnisse angezeigt für:', keyword);
@@ -5412,9 +5417,15 @@ function displayKeywordThematicResults(keyword, data) {
     const isLocalHost = localHosts.includes(host) || host.endsWith('.local');
     const isLocalProtocol = protocol === 'file:'; // allow when opened directly from disk during local work
     const isLocal = isLocalHost || isLocalProtocol;
-    const section = document.getElementById('addKeywordSection');
-    if (section) {
-      section.style.display = isLocal ? 'block' : 'none';
+    
+    const addSection = document.getElementById('addKeywordSection');
+    const regenerateSection = document.getElementById('regenerateKeywordSection');
+    
+    if (addSection) {
+      addSection.style.display = isLocal ? 'block' : 'none';
+    }
+    if (regenerateSection) {
+      regenerateSection.style.display = isLocal ? 'block' : 'none';
     }
   } catch (_) {}
 })();
@@ -5432,14 +5443,14 @@ async function addNewKeyword() {
   const keyword = keywordInput.value.trim();
   
   if (!keyword) {
-    statusDiv.innerHTML = '<p style="color: #d32f2f;">Bitte geben Sie ein Schlagwort ein.</p>';
+    statusDiv.innerHTML = '';
     return;
   }
   
   // UI-Status aktualisieren
   addButton.disabled = true;
   addButton.textContent = 'Analysiere...';
-  statusDiv.innerHTML = '<p style="color: #1976d2;">Analysiere Schlagwort "' + keyword + '"...</p>';
+  statusDiv.innerHTML = '';
   
   try {
     console.log('[ADD-KEYWORD] Füge neues Schlagwort hinzu:', keyword);
@@ -5456,13 +5467,7 @@ async function addNewKeyword() {
     
     if (response.ok) {
       // Erfolg
-      statusDiv.innerHTML = `
-        <p style="color: #2e7d32;">
-          ✅ Schlagwort "${keyword}" erfolgreich hinzugefügt!<br>
-          📊 Analyse-Länge: ${result.analysisLength} Zeichen<br>
-          📚 Gefundene Ergebnisse: ${result.resultCount}
-        </p>
-      `;
+      statusDiv.innerHTML = '';
       
       // Eingabefeld leeren
       keywordInput.value = '';
@@ -5478,23 +5483,98 @@ async function addNewKeyword() {
     } else {
       // Fehler
       if (response.status === 409) {
-        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Schlagwort "${keyword}" ist bereits vorhanden.</p>`;
+        statusDiv.innerHTML = '';
       } else if (response.status === 404) {
-        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Keine relevanten Textstellen für "${keyword}" gefunden.</p>`;
+        statusDiv.innerHTML = '';
       } else {
-        statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Fehler: ${result.error || 'Unbekannter Fehler'}</p>`;
+        statusDiv.innerHTML = '';
       }
       
       console.error('[ADD-KEYWORD] Fehler beim Hinzufügen:', result);
     }
     
   } catch (error) {
-    statusDiv.innerHTML = `<p style="color: #d32f2f;">❌ Netzwerkfehler: ${error.message}</p>`;
+    statusDiv.innerHTML = '';
     console.error('[ADD-KEYWORD] Netzwerkfehler:', error);
   } finally {
     // UI-Status zurücksetzen
     addButton.disabled = false;
     addButton.textContent = 'Schlagwort hinzufügen';
+  }
+}
+
+// ============================================================================
+// SCHLAGWORT LÖSCHEN
+// ============================================================================
+
+function handleDeleteKeywordInputKeypress(event) {
+  if (event.key === 'Enter') {
+    deleteKeyword();
+  }
+}
+
+async function deleteKeyword() {
+  const keywordInput = document.getElementById('regenerateKeywordInput');
+  const regenerateButton = document.getElementById('regenerateKeywordButton');
+  const statusDiv = document.getElementById('regenerateKeywordStatus');
+  
+  if (!keywordInput || !regenerateButton || !statusDiv) {
+    console.error('[DELETE-KEYWORD] UI-Elemente nicht gefunden');
+    return;
+  }
+  
+  const keyword = keywordInput.value.trim();
+  
+  if (!keyword) {
+    statusDiv.innerHTML = '';
+    return;
+  }
+  
+  // UI-Status aktualisieren
+  regenerateButton.disabled = true;
+  regenerateButton.textContent = 'Lösche...';
+  regenerateButton.style.fontStyle = 'italic';
+  statusDiv.innerHTML = '';
+  
+  try {
+    console.log('[DELETE-KEYWORD] Lösche Schlagwort:', keyword);
+    
+    const response = await fetch(`${API_BASE}/api/keywords-delete`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ keyword })
+    });
+    
+    let result;
+    const contentType = response.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      result = await response.json();
+    } else {
+      const text = await response.text();
+      throw new Error(`Unerwartete Antwort (kein JSON): ${text.slice(0, 120)}`);
+    }
+    
+    if (response.ok && result.success) {
+      statusDiv.innerHTML = '';
+      keywordInput.value = '';
+      await loadKeywordsData();
+      displayKeywords();
+      console.log('[DELETE-KEYWORD] Schlagwort erfolgreich gelöscht:', result);
+    } else {
+      statusDiv.innerHTML = '';
+      console.error('[DELETE-KEYWORD] Fehler beim Löschen:', result);
+    }
+    
+  } catch (error) {
+    statusDiv.innerHTML = '';
+    console.error('[DELETE-KEYWORD] Netzwerkfehler:', error);
+  } finally {
+    // UI-Status zurücksetzen
+    regenerateButton.disabled = false;
+    regenerateButton.textContent = 'Schlagwort löschen';
+    regenerateButton.style.fontStyle = 'normal';
   }
 }
 
