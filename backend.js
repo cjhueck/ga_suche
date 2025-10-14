@@ -2379,7 +2379,7 @@ app.post('/api/keywords-add', async (req, res) => {
       keyword: cleanKeyword,
       alphabetical: cleanKeyword.charAt(0).toUpperCase(),
       text: `**${cleanKeyword}**`,
-      gaReferences: keywordResults.slice(0, 10).map(r => r.ID), // Top 10 GA-Referenzen
+      gaReferences: keywordResults.slice(0, 20).map(r => r.ID), // Top 20 GA-Referenzen (erhöht von 10)
       generatedAt: new Date().toISOString(),
       sourceAnalysis: 'ki-generated',
       analysisLength: analysis.length,
@@ -2407,7 +2407,7 @@ app.post('/api/keywords-add', async (req, res) => {
     keywordThematicDB[cacheKey] = {
       query: cleanKeyword,
       content: analysis,
-      sources: keywordResults.slice(0, 10).map(result => ({
+      sources: keywordResults.slice(0, 20).map(result => ({
         ID: result.ID,
         index: result.index,
         title: result.title,
@@ -2434,7 +2434,17 @@ app.post('/api/keywords-add', async (req, res) => {
       keyword: newKeyword,
       totalKeywords: allKeywords.length,
       analysisLength: analysis.length,
-      resultCount: keywordResults.length
+      resultCount: keywordResults.length,
+      // Neue Felder für direkte Anzeige
+      content: analysis,
+      sources: keywordResults.slice(0, 20).map(result => ({
+        ID: result.ID,
+        index: result.index,
+        title: result.title,
+        fileName: result.fileName,
+        score: Math.round(result.finalScore || 100),
+        matchedTerms: result.matchedTerms || [cleanKeyword]
+      }))
     });
     
   } catch (error) {
@@ -2677,7 +2687,7 @@ async function synchronizeKeywordSystems() {
             keywordThematicDB[cacheKey] = {
               query: keyword.keyword,
               content: analysis,
-              sources: keywordResults.slice(0, 10).map(result => ({
+              sources: keywordResults.slice(0, 20).map(result => ({
                 ID: result.ID,
                 index: result.index,
                 title: result.title,
@@ -2748,57 +2758,33 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     'ausführlich': 8000   // Erhöht von 6000 auf 8000
   };
   
-  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Schlagwort: "${query}"
+  const prompt = `Analysiere die folgenden Textstellen zum Schlagwort: "${query}"
 
 ANALYSE-TIEFE: ${depth}
 
 QUELLENANGABEN:
-- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
+- Format: (GA###/Y:index) - z.B. (GA052/7:n5x6ru)
 - Verfügbare Referenzen: ${availableRefs}
-- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
-- WICHTIG: Verwende immer das vollständige Format mit /Y:index
-- WICHTIG: KEINE Leerzeichen um die Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
-- Beispiel: "Steiner erklärt das Schlagwort '${query}' folgendermaßen (GA052/7:n5x6ru)."
+- KEINE Leerzeichen um Klammern!
 
 VORGEHEN:
-1. Identifiziere alle Textstellen mit dem Schlagwort "${query}"
-2. Vergleiche diese Textstellen auf Ähnlichkeit und Vollständigkeit
-3. Wähle möglichst viele nicht-redundante Textstellen aus
-4. Entwickle eine eigene thematische Gliederung mit aussagekräftigen Zwischenüberschriften
+1. Identifiziere alle Textstellen mit "${query}"
+2. Entwickle thematische Gliederung mit Zwischenüberschriften (## Überschrift)
+3. Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+4. Minimaler erläuternder Text - nur zur Verbindung der Zitate
 
-SCHLAGWORT-SPEZIFISCHE PERSPEKTIVEN:
-Berücksichtige bei deiner Analyse verschiedene Aspekte des Schlagworts "${query}":
-- Definition und Grundbegriff (Was bedeutet "${query}"?)
-- Funktion und Wirkung (Wie wirkt "${query}"?)
+PERSPEKTIVEN für "${query}":
+- Definition (Was bedeutet "${query}"?)
+- Funktion (Wie wirkt "${query}"?)
 - Erscheinungsformen (Wo zeigt sich "${query}"?)
-- Entwicklungsaspekte (Wie entwickelt sich "${query}"?)
+- Entwicklung (Wie entwickelt sich "${query}"?)
 - Zusammenhänge (Mit was steht "${query}" in Verbindung?)
-- Praktische Anwendung (Wie kann "${query}" praktisch genutzt werden?)
-- Vermeide eigene Bewertungen oder Interpretationen
-
-STRUKTURIERUNG:
-- Erstelle eigene, thematisch passende Zwischenüberschriften (## Überschrift)
-- Die Überschriften sollen den Inhalt des folgenden Abschnitts ankündigen
-- Beispiele für gute Überschriften: "Die Definition von ${query}", "Die Funktion von ${query}", "Die Entwicklung von ${query}"
 
 FORMATIERUNG:
-- Verwende Markdown-Formatierung
-- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
-- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
-- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
-- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
-- Vermeide Redundanzen - jede Information nur einmal
-
-WICHTIG:
-- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
-- Beginne direkt mit konkreten Zitatstellen aus den Texten zum Schlagwort "${query}"
-- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
-- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
-- Minimaler erläuternder Text - nur zur Verbindung der Zitate
-- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
-- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
-- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
-- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
+- Markdown: **Fette wichtige Begriffe**
+- Zitate: "Text" (GA###/Y:index)
+- Überschriften: ## Überschrift
+- Nutze alle ${topResults.length} verfügbaren Textstellen ausführlich
 
 TEXTPASSAGEN:
 ${contextText}

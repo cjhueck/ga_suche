@@ -13,11 +13,21 @@
       "GA068d/10",
       "GA306/5",
       "GA309/3",
-      "GA055/5"
+      "GA055/5",
+      "GA055/10",
+      "GA058/7",
+      "GA068b/12",
+      "GA068b/46",
+      "GA068c/29",
+      "GA068d/18",
+      "GA053/2",
+      "GA056/3",
+      "GA057/7",
+      "GA058/7"
     ],
-    "generatedAt": "2025-10-14T06:36:34.658Z",
+    "generatedAt": "2025-10-14T06:50:51.041Z",
     "sourceAnalysis": "ki-generated",
-    "analysisLength": 5307,
+    "analysisLength": 7258,
     "resultCount": 792,
     "hasDetailedAnalysis": true
   },
@@ -129,6 +139,38 @@
     "sourceAnalysis": "ki-generated",
     "analysisLength": 5329,
     "resultCount": 231,
+    "hasDetailedAnalysis": true
+  },
+  {
+    "keyword": "Physischer Leib",
+    "alphabetical": "P",
+    "text": "**Physischer Leib**",
+    "gaReferences": [
+      "GA296/6",
+      "GA310/8",
+      "GA309/3",
+      "GA060/3",
+      "GA079/3",
+      "GA056/3",
+      "GA059/5",
+      "GA218/9",
+      "GA055/5",
+      "GA068d/18",
+      "GA306/5",
+      "GA084/6",
+      "GA293/4",
+      "GA302/5",
+      "GA059/5",
+      "GA219/10",
+      "GA218/2",
+      "GA223/3",
+      "GA306/5",
+      "GA053/2"
+    ],
+    "generatedAt": "2025-10-14T07:58:32.452Z",
+    "sourceAnalysis": "ki-generated",
+    "analysisLength": 5297,
+    "resultCount": 11265,
     "hasDetailedAnalysis": true
   }
 ]

@@ -1006,48 +1006,13 @@ body.dark-mode .loading-message {
       cursor: pointer;
     }
     
-    .ga-reference:hover {
-      opacity: 0.7;
-      text-decoration: none;
-    }
-    
-    .ga-reference::before {
-      content: "(";
-    }
-    
-    .ga-reference::after {
-      content: ")";
-    }
-    
-    /* Spezielle Klasse für Schlagwort-Suche - Klammern als Text, Link fett */
+    /* Spezielle Klasse für Schlagwort-Suche - Link fett */
     .keyword-text .ga-reference {
       font-weight: bold;
     }
     
-    .keyword-text .ga-reference::before {
-      content: "(";
-      font-weight: normal;
-      color: var(--text-color);
-    }
-    
-    .keyword-text .ga-reference::after {
-      content: ")";
-      font-weight: normal;
-      color: var(--text-color);
-    }
-    
-    body.dark-mode .keyword-text .ga-reference::before,
-    body.dark-mode .keyword-text .ga-reference::after {
-      color: var(--dark-text-color);
-    }
-    
     body.dark-mode .ga-reference {
       color: var(--dark-link-color) !important;
-    }
-    
-    body.dark-mode .ga-reference::before,
-    body.dark-mode .ga-reference::after {
-      color: var(--dark-text-color) !important;
     }
     
     .highlighted-paragraph {
@@ -1237,7 +1202,7 @@ body.dark-mode #thematicSearchInfo {
 }  
     /* Diese Styles sind jetzt in #sidebar-content zentralisiert */
     a { color: var(--link-color); text-decoration: none; cursor: pointer; }
-    a:hover { text-decoration: underline; }
+    a:hover { text-decoration: none; }
     mark { 
       background: rgba(70, 120, 134, 0.2); 
       color: inherit;
@@ -1567,9 +1532,6 @@ body.dark-mode .ga-keyword-link {
 }
 
 /* Schlagwort-Anzeige - nur Frontend-CSS */
-.keywords-container {
-  /* Keine inline Styles mehr */
-}
 
 .keyword-entry {
   margin-bottom: 0.8rem;
@@ -1705,14 +1667,11 @@ GA-Übersicht →
 <div class="tab-content" id="schlagworte-tab">
 <div style="margin-bottom: 1rem;">
 <!-- Neues Schlagwort hinzufügen -->
-<div style="margin-bottom: 1rem; padding: 0.8rem; border: 1px solid var(--link-color); border-radius: 4px; background: var(--background-color);">
-<div style="font-size: 0.9em; font-weight: 600; margin-bottom: 0.5rem; color: var(--link-color);">Neues Schlagwort hinzufügen</div>
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
 <div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
-</div>
 
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
@@ -1724,11 +1683,6 @@ GA-Übersicht →
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
 <div id="keyword-count" style="font-size: 0.85em; color: #666;">
 Lade Schlagwörter...
-</div>
-  <div style="display:flex; gap:8px; align-items:center;">
-  <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
-    Texte ausblenden
-  </button>
 </div>
 </div>
 </div>
@@ -4967,7 +4921,6 @@ function selectAlphabet(letter, buttonElement) {
 function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
-  const toggleButton = document.getElementById('keyword-text-toggle');
   
   // Filtere Schlagwörter nach Buchstabe
   filteredKeywords = selectedLetter === 'Alle' 
@@ -4983,14 +4936,6 @@ function displayKeywords(selectedLetter = 'Alle') {
   }
   
   countContainer.textContent = `${filteredKeywords.length} Schlagwörter gefunden`;
-  
-  // Toggle-Button anzeigen wenn Schlagwörter vorhanden
-  if (filteredKeywords.length > 0) {
-    toggleButton.style.display = 'inline-block';
-    toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
-  } else {
-    toggleButton.style.display = 'none';
-  }
   
   if (filteredKeywords.length === 0) {
     resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
@@ -5050,19 +4995,6 @@ function processKeywordText(text, gaReferences = []) {
   return processedText;
 }
 
-function toggleKeywordTexts() {
-  showKeywordTexts = !showKeywordTexts;
-  
-  // Alle Texte ein-/ausblenden
-  const keywordTexts = document.querySelectorAll('.keyword-text');
-  keywordTexts.forEach(textDiv => {
-    textDiv.style.display = showKeywordTexts ? 'block' : 'none';
-  });
-  
-  // Button-Text aktualisieren
-  const toggleButton = document.getElementById('keyword-text-toggle');
-  toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
-}
 
 async function openFromKeyword(gaId) {
   console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
@@ -5204,21 +5136,6 @@ window.switchTab = switchTabExtended;
 
 // CSS für Schlagwort-Links hinzufügen
 const keywordStyles = `
-.ga-keyword-link {
-  color: #467886;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 2px 4px;
-  border-radius: 3px;
-  background: rgba(70, 120, 134, 0.1);
-  transition: all 0.2s ease;
-}
-
-.ga-keyword-link:hover {
-  background: rgba(70, 120, 134, 0.2);
-  text-decoration: none;
-}
-
 body.dark-mode .ga-keyword-link {
   color: #7EB8C8;
   background: rgba(126, 184, 200, 0.15);

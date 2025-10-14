@@ -1006,13 +1006,48 @@ body.dark-mode .loading-message {
       cursor: pointer;
     }
     
-    /* Spezielle Klasse für Schlagwort-Suche - Link fett */
+    .ga-reference:hover {
+      opacity: 0.7;
+      text-decoration: none;
+    }
+    
+    .ga-reference::before {
+      content: "(";
+    }
+    
+    .ga-reference::after {
+      content: ")";
+    }
+    
+    /* Spezielle Klasse für Schlagwort-Suche - Klammern als Text, Link fett */
     .keyword-text .ga-reference {
       font-weight: bold;
     }
     
+    .keyword-text .ga-reference::before {
+      content: "(";
+      font-weight: normal;
+      color: var(--text-color);
+    }
+    
+    .keyword-text .ga-reference::after {
+      content: ")";
+      font-weight: normal;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .keyword-text .ga-reference::before,
+    body.dark-mode .keyword-text .ga-reference::after {
+      color: var(--dark-text-color);
+    }
+    
     body.dark-mode .ga-reference {
       color: var(--dark-link-color) !important;
+    }
+    
+    body.dark-mode .ga-reference::before,
+    body.dark-mode .ga-reference::after {
+      color: var(--dark-text-color) !important;
     }
     
     .highlighted-paragraph {
@@ -1202,7 +1237,7 @@ body.dark-mode #thematicSearchInfo {
 }  
     /* Diese Styles sind jetzt in #sidebar-content zentralisiert */
     a { color: var(--link-color); text-decoration: none; cursor: pointer; }
-    a:hover { text-decoration: none; }
+    a:hover { text-decoration: underline; }
     mark { 
       background: rgba(70, 120, 134, 0.2); 
       color: inherit;
@@ -1532,6 +1567,9 @@ body.dark-mode .ga-keyword-link {
 }
 
 /* Schlagwort-Anzeige - nur Frontend-CSS */
+.keywords-container {
+  /* Keine inline Styles mehr */
+}
 
 .keyword-entry {
   margin-bottom: 0.8rem;
@@ -1667,11 +1705,14 @@ GA-Übersicht →
 <div class="tab-content" id="schlagworte-tab">
 <div style="margin-bottom: 1rem;">
 <!-- Neues Schlagwort hinzufügen -->
+<div style="margin-bottom: 1rem; padding: 0.8rem; border: 1px solid var(--link-color); border-radius: 4px; background: var(--background-color);">
+<div style="font-size: 0.9em; font-weight: 600; margin-bottom: 0.5rem; color: var(--link-color);">Neues Schlagwort hinzufügen</div>
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
 <div id="addKeywordStatus" style="font-size: 0.85em; min-height: 1.2em;"></div>
+</div>
 
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
@@ -1683,6 +1724,11 @@ GA-Übersicht →
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
 <div id="keyword-count" style="font-size: 0.85em; color: #666;">
 Lade Schlagwörter...
+</div>
+  <div style="display:flex; gap:8px; align-items:center;">
+  <button id="keyword-text-toggle" class="depth-btn" onclick="toggleKeywordTexts()" style="padding: 4px 8px; font-size: 0.8em; display: none;">
+    Texte ausblenden
+  </button>
 </div>
 </div>
 </div>
@@ -4921,6 +4967,7 @@ function selectAlphabet(letter, buttonElement) {
 function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
+  const toggleButton = document.getElementById('keyword-text-toggle');
   
   // Filtere Schlagwörter nach Buchstabe
   filteredKeywords = selectedLetter === 'Alle' 
@@ -4936,6 +4983,14 @@ function displayKeywords(selectedLetter = 'Alle') {
   }
   
   countContainer.textContent = `${filteredKeywords.length} Schlagwörter gefunden`;
+  
+  // Toggle-Button anzeigen wenn Schlagwörter vorhanden
+  if (filteredKeywords.length > 0) {
+    toggleButton.style.display = 'inline-block';
+    toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
+  } else {
+    toggleButton.style.display = 'none';
+  }
   
   if (filteredKeywords.length === 0) {
     resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
@@ -4995,6 +5050,19 @@ function processKeywordText(text, gaReferences = []) {
   return processedText;
 }
 
+function toggleKeywordTexts() {
+  showKeywordTexts = !showKeywordTexts;
+  
+  // Alle Texte ein-/ausblenden
+  const keywordTexts = document.querySelectorAll('.keyword-text');
+  keywordTexts.forEach(textDiv => {
+    textDiv.style.display = showKeywordTexts ? 'block' : 'none';
+  });
+  
+  // Button-Text aktualisieren
+  const toggleButton = document.getElementById('keyword-text-toggle');
+  toggleButton.textContent = showKeywordTexts ? 'Texte ausblenden' : 'Texte anzeigen';
+}
 
 async function openFromKeyword(gaId) {
   console.log('[KEYWORDS] Öffne GA-Referenz:', gaId);
@@ -5340,12 +5408,8 @@ function displayKeywordThematicResults(keyword, data) {
   // Hilfsfunktion: Wandle Markdown zu HTML um
   function markdownToHtml(text) {
     return text
-      // Entfernt H1-Überschriften vollständig
-      .replace(/^# (.+)$/gm, '')
-      // Entfernt H3-Überschriften (### ...) vollständig
-      .replace(/^### (.+)$/gm, '')
-      // Wandelt nur H2 (## ...) in neutralen Block ohne Überschriften-Tag
-      .replace(/^## (.+)$/gm, '<div style="margin: 1.5rem 0 0.8rem 0; color: #333; font-size: 1.1em; font-weight: 600;">$1</div>')
+      // Überschriften: ## Überschrift -> <h3>Überschrift</h3>
+      .replace(/^## (.+)$/gm, '<h3 style="margin: 1.5rem 0 0.8rem 0; color: #333; font-size: 1.1em;">$1</h3>')
       // Fett: **text** -> <strong>text</strong>
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       // Kursiv: *text* -> <em>text</em>
@@ -5374,6 +5438,7 @@ function displayKeywordThematicResults(keyword, data) {
     const markdownHtml = markdownToHtml(data.content);
     const contentWithLinks = makeGAReferencesClickable(markdownHtml);
     contentHtml = `
+      <h1 style="margin: 0 0 1.5rem 0; color: #467886; font-size: 1.5em; border-bottom: 2px solid #467886; padding-bottom: 0.5rem;">${keyword}</h1>
       <div style="line-height: 1.6;">
         <p style="margin-bottom: 1rem;">${contentWithLinks}</p>
       </div>
