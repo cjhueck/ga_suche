@@ -639,5 +639,37 @@
     "hasDetailedAnalysis": true,
     "batchId": "batch_1760461480242",
     "batchIndex": 4
+  },
+  {
+    "keyword": "Einweihung",
+    "alphabetical": "E",
+    "text": "**Einweihung**",
+    "gaReferences": [
+      "GA090c/15",
+      "GA068a/30",
+      "GA054/11",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA068a/32",
+      "GA221/3",
+      "GA054/11",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5",
+      "GA056/5"
+    ],
+    "generatedAt": "2025-10-14T18:16:21.742Z",
+    "sourceAnalysis": "ki-generated",
+    "analysisLength": 9614,
+    "resultCount": 614,
+    "hasDetailedAnalysis": true
   }
 ]
