@@ -5522,7 +5522,7 @@ function displayKeywordThematicResults(keyword, data) {
     return text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
       const cleanIndex = index.replace(/^\^/, '');
-      return `(<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>)`;
+      return ` (<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>)`;
     });
   }
   
