@@ -780,7 +780,7 @@ function performThematicKeywordSearch(query, paragraphsFromLectures) {
     
     // Überspringe zu generische Einzelwörter
     if (wordCount === 1) {
-      const veryCommonWords = ['anthroposophie', 'bedeutung', 'geisteswissenschaft', 'welche', 'haben'];
+      const veryCommonWords = ['bedeutung', 'welche', 'haben'];
       if (veryCommonWords.includes(term)) {
         console.log(`Überspringe zu generischen Begriff: "${term}"`);
         return;
@@ -2372,7 +2372,7 @@ app.post('/api/keywords-add', async (req, res) => {
     }
     
     // Generiere KI-Analyse
-    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'allgemein');
+    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'ausführlich');
     
     // Erstelle neues Schlagwort-Objekt für Index (keywords.json)
     const newKeyword = {
@@ -2402,7 +2402,7 @@ app.post('/api/keywords-add', async (req, res) => {
     
     // Speichere auch die detaillierte Analyse im Cache
     const keywordThematicDB = await loadKeywordThematicDatabase();
-    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
+    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_ausführlich_30`;
     
     keywordThematicDB[cacheKey] = {
       query: cleanKeyword,
@@ -2572,7 +2572,35 @@ app.post('/api/keywords-delete', async (req, res) => {
       console.log('[KEYWORDS-DELETE] Kein Eintrag in keywords.json gefunden');
     }
 
-    // 2) Entferne aus keyword-thematic-search.json Cache
+    // 2) Entferne aus allen Dateien im keywords/ Ordner
+    const keywordsDir = path.join(__dirname, 'keywords');
+    let removedFromFolderFiles = 0;
+    try {
+      const files = await fs.readdir(keywordsDir);
+      const jsonFiles = files.filter(f => f.endsWith('.json'));
+      for (const fileName of jsonFiles) {
+        try {
+          const filePath = path.join(keywordsDir, fileName);
+          const content = await fs.readFile(filePath, 'utf8');
+          const data = JSON.parse(content);
+          if (Array.isArray(data) && data.length > 0) {
+            const before = data.length;
+            const filtered = data.filter(k => String(k.keyword || '').toLowerCase() !== cleanKeyword.toLowerCase());
+            if (filtered.length !== before) {
+              await fs.writeFile(filePath, JSON.stringify(filtered, null, 2), 'utf8');
+              removedFromFolderFiles += (before - filtered.length);
+              console.log(`[KEYWORDS-DELETE] Aus ${fileName} entfernt: ${before - filtered.length}`);
+            }
+          }
+        } catch (innerErr) {
+          console.warn(`[KEYWORDS-DELETE] Datei konnte nicht verarbeitet werden: ${fileName}:`, innerErr.message);
+        }
+      }
+    } catch (dirErr) {
+      console.log('[KEYWORDS-DELETE] keywords/ Ordner nicht vorhanden oder nicht lesbar');
+    }
+
+    // 3) Entferne aus keyword-thematic-search.json Cache
     const keywordThematicDB = await loadKeywordThematicDatabase();
     const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
     let removedFromCache = false;
@@ -2589,6 +2617,7 @@ app.post('/api/keywords-delete', async (req, res) => {
       success: true,
       message: 'Schlagwort gelöscht',
       removedFromIndex: removedFromIndex > 0,
+      removedFromFolderFiles,
       removedFromCache
     });
   } catch (error) {
@@ -3018,6 +3047,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/keyword-thematic-search`);
       console.log(`   POST /api/keywords-save`);
       console.log(`   POST /api/keywords-add`);
+      console.log(`   POST /api/keywords-delete`);
       console.log(`   GET  /api/keywords-files`);
       console.log(`   GET  /api/keywords-list`);
       console.log(`   GET  /summary-database.json`);

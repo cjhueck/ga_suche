@@ -2372,7 +2372,7 @@ app.post('/api/keywords-add', async (req, res) => {
     }
     
     // Generiere KI-Analyse
-    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'allgemein');
+    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'ausführlich');
     
     // Erstelle neues Schlagwort-Objekt für Index (keywords.json)
     const newKeyword = {
@@ -2402,7 +2402,7 @@ app.post('/api/keywords-add', async (req, res) => {
     
     // Speichere auch die detaillierte Analyse im Cache
     const keywordThematicDB = await loadKeywordThematicDatabase();
-    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
+    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_ausführlich_30`;
     
     keywordThematicDB[cacheKey] = {
       query: cleanKeyword,
