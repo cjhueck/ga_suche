@@ -1702,12 +1702,10 @@ GA-Übersicht →
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
+<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
   Suche starten
 </button>
-</div>
-<div class="depth-buttons">
-<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 </div>
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
@@ -3029,7 +3027,8 @@ function toggleGASummaries() {
           body: JSON.stringify({
             query: query,
             depth: depth,
-            limit: parseInt(limit)
+            limit: parseInt(limit),
+            gaFilter: gaFilter
           })
         });
         
@@ -3038,10 +3037,7 @@ function toggleGASummaries() {
         const answer = await response.json();
         let sources = answer.sources || [];
         
-        if (gaFilter) {
-          sources = sources.filter(source => source.ID && source.ID.startsWith(gaFilter));
-        }
-        
+        // GA-Filter wird jetzt bereits im Backend angewendet
         currentSources = sources;
         renderThematicResults(query, answer.content, sources);
         
