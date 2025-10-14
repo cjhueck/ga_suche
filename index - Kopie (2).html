@@ -46,14 +46,6 @@
       color: var(--dark-text-color);
     }
     
-    /* Überschriften explizit ausschließen von der allgemeinen Textfarbe */
-    body.dark-mode h1,
-    body.dark-mode h2,
-    body.dark-mode h3,
-    body.dark-mode h4 {
-      color: var(--dark-heading-color) !important;
-    }
-    
     body.dark-mode #sidebar {
       background-color: var(--dark-background-color);
       border-right-color: var(--dark-border-color);
@@ -362,17 +354,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: #666 !important; 
     }
     
-    /* Dark Mode für Sidebar-Content - DIREKT (nur für Text, nicht für Überschriften) */
+    /* Dark Mode für Sidebar-Content - DIREKT */
     body.dark-mode #sidebar-content {
       color: #b8b8b8 !important;
-    }
-    
-    /* Überschriften explizit ausschließen */
-    body.dark-mode #sidebar-content h1,
-    body.dark-mode #sidebar-content h2,
-    body.dark-mode #sidebar-content h3,
-    body.dark-mode #sidebar-content h4 {
-      color: #6BA3B8 !important;
     }
     
     body.dark-mode #sidebar-content p {
@@ -402,32 +386,21 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar-content h4 {
       font-size: 1.0rem !important;
       line-height: 1.3 !important;
+      color: #333333 !important;
       margin: 0.7rem 0 0.5rem 0 !important;
       font-weight: 600 !important;
     }
     
     #sidebar-content h1 {
-      color: var(--text-color) !important;
       font-weight: 700 !important;
-    }
-
-    /* Zentral: Zwischenüberschriften in Side Panels (Light Mode) */
-    #sidebar-content h2,
-    #sidebar-content h3,
-    #sidebar-content h4 {
-      color: var(--heading-color) !important;
     }
     
     /* Dark Mode für Sidebar-Überschriften - DIREKT */
-    body.dark-mode #sidebar-content h1 {
-      color: #6BA3B8 !important;
-    }
-    
-    /* Dark Mode: Zwischenüberschriften in linken Side Panels farbig (#6BA3B8) */
+    body.dark-mode #sidebar-content h1,
     body.dark-mode #sidebar-content h2,
     body.dark-mode #sidebar-content h3,
     body.dark-mode #sidebar-content h4 {
-      color: #6BA3B8 !important;
+      color: #b8b8b8 !important;
     }
     
     /* Überschriften als Links behalten ihre Link-Farbe */
@@ -450,7 +423,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     body.dark-mode #sidebar-content h2 a,
     body.dark-mode #sidebar-content h3 a,
     body.dark-mode #sidebar-content h4 a {
-      color: #6BA3B8 !important;
+      color: var(--dark-link-color);
     }
     
     /* Zentrale Styles für alle Überschriften im Summary-Panel - DIREKT */
@@ -493,11 +466,10 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     /* Dark Mode für Summary-Panel-Überschriften - DIREKT */
-    /* Dark Mode für Summary-Panel Überschriften - nur für normale Überschriften, nicht für Links */
-    body.dark-mode #summary-content h1:not(a),
-    body.dark-mode #summary-content h2:not(a),
-    body.dark-mode #summary-content h3:not(a),
-    body.dark-mode #summary-content h4:not(a) {
+    body.dark-mode #summary-content h1,
+    body.dark-mode #summary-content h2,
+    body.dark-mode #summary-content h3,
+    body.dark-mode #summary-content h4 {
       color: #b8b8b8 !important;
     }
     
@@ -1060,7 +1032,9 @@ body.dark-mode .loading-message {
     body.dark-mode .semantic-answer {
           background: transparent !important;
 }
-    /* H3 in semantic-answer sind jetzt sichtbar (für keyword-thematische Antworten) */
+    .semantic-answer h3 {
+      display: none;
+    }
     
     .answer-content {
       line-height: var(--line-height);
@@ -1102,11 +1076,19 @@ body.dark-mode .loading-message {
     }
     
     /* Dark Mode für Summary-Text */
-    /* Dark Mode für Answer-Content Text (nur für Paragraphen, nicht für Überschriften) */
+    body.dark-mode .answer-content {
+      color: var(--dark-text-color);
+    }
+    
     body.dark-mode .answer-content p {
       color: var(--dark-text-color);
       font-size: var(--text-size);
       line-height: var(--line-height);
+    }
+    
+    body.dark-mode .answer-content h2,
+    body.dark-mode .answer-content h3 {
+      color: var(--dark-heading-color);
     }
     
     body.dark-mode .answer-content strong {
@@ -1366,7 +1348,9 @@ body.dark-mode #thematicSearchInfo {
       text-decoration: none;
     }
     
-    /* Linkfarbe in GA-Übersicht folgt zentralen Sidepanel-Regeln */
+    body.dark-mode .ga-overview-lecture h3 a {
+      color: var(--dark-link-color);
+    }
     
     .ga-overview-lecture h3 a:hover {
       text-decoration: underline;
@@ -1571,7 +1555,7 @@ body.dark-mode .ga-keyword-link {
 }
 
 body.dark-mode .keyword-entry h4 a {
-  color: #6BA3B8 !important;
+  color: var(--dark-link-color);
 }
 
 .keyword-text {
@@ -1592,29 +1576,6 @@ body.dark-mode .keyword-text {
 body.dark-mode .no-results-message {
   color: var(--dark-secondary-text);
 }
-/* Final overrides: enforce centralized heading colors in side panels (placed last) */
-/* Zentrale Dark-Mode-Regel für alle Überschriften (außer TOC-Links) */
-body.dark-mode h1:not(#summary-content a),
-body.dark-mode h2:not(#summary-content a),
-body.dark-mode h3:not(#summary-content a),
-body.dark-mode h4:not(#summary-content a) {
-  color: var(--dark-heading-color) !important;
-}
-#sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4,
-#sidebar-content h1, #sidebar-content h2, #sidebar-content h3, #sidebar-content h4,
-#results h1, #results h2, #results h3, #results h4,
-.answer-content h1, .answer-content h2, .answer-content h3, .answer-content h4 { color: var(--heading-color) !important; }
-body.dark-mode #sidebar h1, body.dark-mode #sidebar h2, body.dark-mode #sidebar h3, body.dark-mode #sidebar h4,
-body.dark-mode #sidebar-content h1, body.dark-mode #sidebar-content h2, body.dark-mode #sidebar-content h3, body.dark-mode #sidebar-content h4,
-body.dark-mode #results h1, body.dark-mode #results h2, body.dark-mode #results h3, body.dark-mode #results h4 { color: var(--dark-heading-color) !important; }
-#sidebar h1 a, #sidebar h2 a, #sidebar h3 a, #sidebar h4 a,
-#sidebar-content h1 a, #sidebar-content h2 a, #sidebar-content h3 a, #sidebar-content h4 a,
-#results h1 a, #results h2 a, #results h3 a, #results h4 a,
-.answer-content h1 a, .answer-content h2 a, .answer-content h3 a, .answer-content h4 a { color: var(--link-color) !important; }
-body.dark-mode #sidebar h1 a, body.dark-mode #sidebar h2 a, body.dark-mode #sidebar h3 a, body.dark-mode #sidebar h4 a,
-body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body.dark-mode #sidebar-content h3 a, body.dark-mode #sidebar-content h4 a,
-body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
-body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
 </style>
 </head>
 <body>
@@ -2538,7 +2499,7 @@ async function displayGAOverview(data) {
     
     html += `
       <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
-        <h3 style="margin: 0 0 0rem 0;">
+        <h3 style="font-size: 0.9em; margin: 0 0 0rem 0;">
           <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
             ${titleText}
           </a>
@@ -4313,9 +4274,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         tocItems.forEach(item => {
           item.element.style.fontWeight = 'normal';
-          // Farbe je nach Dark Mode setzen
-          const isDarkMode = document.body.classList.contains('dark-mode');
-          item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
+          item.element.style.color = '#467886';
         });
         
         if (!activeHeading) return;
@@ -4323,9 +4282,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         for (let i = 0; i < tocItems.length; i++) {
           if (tocItems[i].heading === activeHeading) {
             tocItems[i].element.style.fontWeight = 'bold';
-            // Farbe je nach Dark Mode setzen
-            const isDarkMode = document.body.classList.contains('dark-mode');
-            tocItems[i].element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
+            tocItems[i].element.style.color = '#467886';
             break;
           }
         }
@@ -5239,7 +5196,9 @@ body.dark-mode #keyword-count {
   color: #e0e0e0;
 }
 
-/* Entfernt: Schlagwörter-Tab nutzt zentrale Sidepanel-Regeln */
+body.dark-mode #schlagworte-tab h4 {
+  color: #7EB8C8 !important;
+}
 
 body.dark-mode .keyword-text {
   color: #e0e0e0 !important;
@@ -5285,8 +5244,6 @@ body.dark-mode #results h3,
 body.dark-mode #results h4 {
   color: #b8b8b8 !important;
 }
-
-/* Dark Mode: Zwischenüberschriften im #results-Bereich folgen den zentralen Sidepanel-Styles */
 
 /* Schlagwort-Links in Ergebnissen - DIREKT */
 #results .ga-keyword-link {
@@ -5394,14 +5351,14 @@ function displayKeywordThematicResults(keyword, data) {
       .replace(/^# (.+)$/gm, '')
       // Entfernt H3-Überschriften (### ...) vollständig
       .replace(/^### (.+)$/gm, '')
-      // Wandelt H2 (## ...) in semantische Überschriften ohne Inline-Styles
-      .replace(/^## (.+)$/gm, '<h3>$1</h3>')
+      // Wandelt nur H2 (## ...) in neutralen Block ohne Überschriften-Tag
+      .replace(/^## (.+)$/gm, '<div style="margin: 1.5rem 0 0.8rem 0; color: #333; font-size: 1.1em; font-weight: 600;">$1</div>')
       // Fett: **text** -> <strong>text</strong>
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       // Kursiv: *text* -> <em>text</em>
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       // Zeilenumbrüche: \n\n -> </p><p>
-      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n\n/g, '</p><p style="margin-bottom: 1rem;">')
       // Einzelne Zeilenumbrüche: \n -> <br>
       .replace(/\n/g, '<br>');
   }
@@ -5414,7 +5371,7 @@ function displayKeywordThematicResults(keyword, data) {
     return text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
       const cleanIndex = index.replace(/^\^/, '');
-      return `(<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>)`;
+      return `(<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link" style="color: #467886; text-decoration: none; font-weight: 600;">GA${gaNum}/${lectureNum}</a>)`;
     });
   }
   
@@ -5424,8 +5381,8 @@ function displayKeywordThematicResults(keyword, data) {
     const markdownHtml = markdownToHtml(data.content);
     const contentWithLinks = makeGAReferencesClickable(markdownHtml);
     contentHtml = `
-      <div class="keyword-answer">
-        <p>${contentWithLinks}</p>
+      <div style="line-height: 1.6;">
+        <p style="margin-bottom: 1rem;">${contentWithLinks}</p>
       </div>
     `;
   }
@@ -5438,9 +5395,6 @@ function displayKeywordThematicResults(keyword, data) {
       </div>
     </div>
   `;
-
-  // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
-  removeInlineStyles(results);
   
   // Aktualisiere Count-Container
   if (countContainer) {
@@ -5550,22 +5504,22 @@ async function addNewKeyword() {
 }
 
 // ============================================================================
-// SCHLAGWORT LÖSCHEN
+// SCHLAGWORT NEU GENERIEREN
 // ============================================================================
 
-window.handleDeleteKeywordInputKeypress = function(event) {
+function handleRegenerateKeywordInputKeypress(event) {
   if (event.key === 'Enter') {
-    window.deleteKeyword();
+    regenerateKeyword();
   }
 }
 
-window.deleteKeyword = async function() {
+async function regenerateKeyword() {
   const keywordInput = document.getElementById('regenerateKeywordInput');
   const regenerateButton = document.getElementById('regenerateKeywordButton');
   const statusDiv = document.getElementById('regenerateKeywordStatus');
   
   if (!keywordInput || !regenerateButton || !statusDiv) {
-    console.error('[DELETE-KEYWORD] UI-Elemente nicht gefunden');
+    console.error('[REGENERATE-KEYWORD] UI-Elemente nicht gefunden');
     return;
   }
   
@@ -5578,19 +5532,19 @@ window.deleteKeyword = async function() {
   
   // UI-Status aktualisieren
   regenerateButton.disabled = true;
-  regenerateButton.textContent = 'Lösche...';
+  regenerateButton.textContent = 'Generiere neu...';
   regenerateButton.style.fontStyle = 'italic';
   statusDiv.innerHTML = '';
   
   try {
-    console.log('[DELETE-KEYWORD] Lösche Schlagwort:', keyword);
+    console.log('[REGENERATE-KEYWORD] Generiere Schlagwort neu:', keyword);
     
-    const response = await fetch(`${API_BASE}/api/keywords-delete`, {
+    const response = await fetch('http://localhost:3003/api/keywords-add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ keyword })
+      body: JSON.stringify({ keyword: keyword, overwrite: true })
     });
     
     let result;
@@ -5602,24 +5556,34 @@ window.deleteKeyword = async function() {
       throw new Error(`Unerwartete Antwort (kein JSON): ${text.slice(0, 120)}`);
     }
     
-    if (response.ok && result.success) {
+    if (response.ok) {
+      // Erfolg
       statusDiv.innerHTML = '';
+      
+      // Eingabefeld leeren
       keywordInput.value = '';
+      
+      // Schlagwort-Liste aktualisieren
       await loadKeywordsData();
+      
+      // Zeige das aktualisierte Schlagwort in der Liste
       displayKeywords();
-      console.log('[DELETE-KEYWORD] Schlagwort erfolgreich gelöscht:', result);
+      
+      console.log('[REGENERATE-KEYWORD] Schlagwort erfolgreich neu generiert:', result);
+      
     } else {
+      // Fehler
       statusDiv.innerHTML = '';
-      console.error('[DELETE-KEYWORD] Fehler beim Löschen:', result);
+      console.error('[REGENERATE-KEYWORD] Fehler beim Neu generieren:', result);
     }
     
   } catch (error) {
     statusDiv.innerHTML = '';
-    console.error('[DELETE-KEYWORD] Netzwerkfehler:', error);
+    console.error('[REGENERATE-KEYWORD] Netzwerkfehler:', error);
   } finally {
     // UI-Status zurücksetzen
     regenerateButton.disabled = false;
-    regenerateButton.textContent = 'Schlagwort löschen';
+    regenerateButton.textContent = 'Schlagwort neu generieren';
     regenerateButton.style.fontStyle = 'normal';
   }
 }
