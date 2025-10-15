@@ -5940,6 +5940,20 @@ function switchTabExtended(mode) {
         });
       });
 
+      // Main Viewer leeren
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.innerHTML = '';
+        console.log('[TABS] Main Viewer geleert');
+      }
+      
+      // Document Title zurücksetzen
+      const documentTitle = document.getElementById('document-title');
+      if (documentTitle) {
+        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
+        console.log('[TABS] Document Title zurückgesetzt');
+      }
+      
       // Setze ggf. die Scroll-Position der Sidebar zurück
       const sidebarContent = document.getElementById('sidebar-content');
       if (sidebarContent) sidebarContent.scrollTop = 0;
@@ -6641,6 +6655,20 @@ function hideTimeline() {
   const splitView = document.getElementById('timelineSplitView');
   const timelinePanel = document.querySelector('.timeline-panel');
   
+  // Timeline Viewer leeren wenn Timeline geschlossen wird
+  const timelineViewerContent = document.getElementById('timelineViewerContent');
+  if (timelineViewerContent) {
+    timelineViewerContent.innerHTML = '';
+    console.log('[TIMELINE] Timeline Viewer geleert');
+  }
+  
+  // Timeline Document Title zurücksetzen
+  const timelineDocumentTitle = document.getElementById('timelineDocumentTitle');
+  if (timelineDocumentTitle) {
+    timelineDocumentTitle.textContent = 'Wählen Sie einen Vortrag aus der Timeline';
+    console.log('[TIMELINE] Timeline Document Title zurückgesetzt');
+  }
+  
   // Timeline-Panel verstecken
   if (timelinePanel) {
     timelinePanel.classList.add('hidden');
@@ -6708,6 +6736,20 @@ async function showTimeline(keyword, clickedButton) {
   const content = document.getElementById('timelineContent');
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
+  
+  // Main Viewer leeren wenn Timeline geöffnet wird
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '';
+    console.log('[TIMELINE] Main Viewer geleert');
+  }
+  
+  // Document Title zurücksetzen
+  const mainDocumentTitle = document.getElementById('document-title');
+  if (mainDocumentTitle) {
+    mainDocumentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
+    console.log('[TIMELINE] Document Title zurückgesetzt');
+  }
   
   // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
