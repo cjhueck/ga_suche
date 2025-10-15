@@ -1788,9 +1788,11 @@ body.dark-mode .timeline-document-title a {
   border-right: 1px solid var(--border-color);
   border-top: none;
   overflow-y: auto;
-  padding: 0px 15px 15px 0px;
+  padding: 0px 15px 0px 0px;
   margin: 0;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .timeline-panel.hidden {
@@ -1805,6 +1807,62 @@ body.dark-mode .timeline-panel {
   background-color: var(--dark-background-color);
   border-right-color: var(--dark-border-color);
   border-top: none;
+}
+
+.timeline-panel-header {
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 15px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timeline-panel-title {
+  margin: 0;
+  font-size: 1.0em;
+  font-weight: 700;
+  color: var(--heading-color);
+  text-align: center;
+}
+
+body.dark-mode .timeline-panel-header {
+  background-color: var(--dark-background-color);
+  border-bottom-color: var(--dark-border-color);
+}
+
+body.dark-mode .timeline-panel-title {
+  color: var(--dark-heading-color);
+}
+
+.timeline-panel-search-btn {
+  background: none;
+  border: none;
+  font-size: 1.0em;
+  cursor: pointer;
+  padding: 4px 6px;
+  color: var(--accent-color);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.timeline-panel-search-btn:hover {
+  opacity: 1;
+  background-color: var(--accent-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+body.dark-mode .timeline-panel-search-btn {
+  color: var(--dark-accent-color);
+}
+
+body.dark-mode .timeline-panel-search-btn:hover {
+  background-color: var(--dark-accent-color);
+  color: var(--dark-background-color);
 }
 
 .timeline-viewer {
@@ -1900,7 +1958,7 @@ body.dark-mode .timeline-viewer-content {
 }
 
 .timeline-viewer-content mark {
-  background-color: #ffeb3b;
+  background-color: rgba(70, 120, 134, 0.3);
   padding: 0.1em 0.2em;
   border-radius: 2px;
 }
@@ -1937,8 +1995,8 @@ body.dark-mode .timeline-viewer-content p strong {
 }
 
 body.dark-mode .timeline-viewer-content mark {
-  background-color: #ffc107;
-  color: #000;
+  background-color: rgba(70, 120, 134, 0.5);
+  color: var(--dark-text-color);
 }
 
 
@@ -1977,6 +2035,8 @@ body.dark-mode .timeline-close:hover {
   position: relative;
   padding: 20px 0px 20px 0px;
   margin: 0;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .timeline-line {
@@ -2395,6 +2455,10 @@ Summary neu
 <div id="timelineSplitView" class="timeline-split-view" style="display: none;">
   <div class="timeline-split-content">
     <div class="timeline-panel">
+      <div class="timeline-panel-header">
+        <h3 id="timelinePanelTitle" class="timeline-panel-title">Timeline</h3>
+        <button id="timelinePanelSearchBtn" class="timeline-panel-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen" style="display: none;">🔍</button>
+      </div>
       <div class="timeline-container" id="timelineContainer">
         <div class="timeline-line"></div>
         <div id="timelineContent">
@@ -6585,6 +6649,18 @@ function hideTimeline() {
     timelinePanel.classList.add('hidden');
   }
   
+  // Timeline-Panel-Titel zurücksetzen
+  const timelinePanelTitle = document.getElementById('timelinePanelTitle');
+  if (timelinePanelTitle) {
+    timelinePanelTitle.textContent = 'Timeline';
+  }
+  
+  // Timeline-Panel-Such-Button verstecken
+  const timelinePanelSearchBtn = document.getElementById('timelinePanelSearchBtn');
+  if (timelinePanelSearchBtn) {
+    timelinePanelSearchBtn.style.display = 'none';
+  }
+  
   // Nach kurzer Verzögerung Split-View komplett verstecken
   setTimeout(() => {
     splitView.style.display = 'none';
@@ -6660,6 +6736,18 @@ async function showTimeline(keyword) {
   
   // Timeline-Schlagwort speichern
   currentTimelineKeyword = keyword;
+  
+  // Timeline-Panel-Titel setzen
+  const timelinePanelTitle = document.getElementById('timelinePanelTitle');
+  if (timelinePanelTitle) {
+    timelinePanelTitle.textContent = keyword;
+  }
+  
+  // Timeline-Panel-Such-Button anzeigen
+  const timelinePanelSearchBtn = document.getElementById('timelinePanelSearchBtn');
+  if (timelinePanelSearchBtn) {
+    timelinePanelSearchBtn.style.display = 'inline-block';
+  }
   
   // Split-View anzeigen und Haupt-Viewer verstecken
   splitView.style.display = 'flex';
@@ -6968,7 +7056,10 @@ function searchKeywordInCurrentLecture() {
   
   paragraphs.forEach(para => {
     const originalContent = para.innerHTML;
-    const highlightedContent = originalContent.replace(regex, '<mark style="background-color: #ffeb3b; padding: 2px 4px; border-radius: 2px;">$1</mark>');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const backgroundColor = isDarkMode ? 'rgba(70, 120, 134, 0.5)' : 'rgba(70, 120, 134, 0.3)';
+    const textColor = isDarkMode ? 'var(--dark-text-color)' : 'inherit';
+    const highlightedContent = originalContent.replace(regex, `<mark style="background-color: ${backgroundColor}; color: ${textColor}; padding: 2px 4px; border-radius: 2px;">$1</mark>`);
     
     if (highlightedContent !== originalContent) {
       para.innerHTML = highlightedContent;
@@ -6996,6 +7087,22 @@ function searchKeywordInCurrentLecture() {
         button.innerHTML = originalText;
         button.style.backgroundColor = '';
         button.style.color = '';
+      }, 3000);
+    }
+    
+    // Zeige Erfolgsmeldung auch im Timeline-Panel-Button
+    const timelineButton = document.getElementById('timelinePanelSearchBtn');
+    if (timelineButton) {
+      const originalText = timelineButton.innerHTML;
+      timelineButton.innerHTML = `${foundCount}`;
+      timelineButton.style.backgroundColor = 'var(--accent-color)';
+      timelineButton.style.color = 'white';
+      
+      // Nach 3 Sekunden zurücksetzen
+      setTimeout(() => {
+        timelineButton.innerHTML = '🔍';
+        timelineButton.style.backgroundColor = '';
+        timelineButton.style.color = '';
       }, 3000);
     }
   } else {
