@@ -6877,16 +6877,12 @@ async function showTimeline(keyword, clickedButton) {
     console.log('[TIMELINE] Document Title zurückgesetzt');
   }
   
-  // Alle anderen Timeline-Buttons auf inaktiv setzen (außer dem geklickten)
-  console.log('[DEBUG] Timeline-Button geklickt:', clickedButton);
+  // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
-    console.log('[DEBUG] Button gefunden:', btn, 'Ist geklickter Button:', btn === clickedButton);
-    if (btn !== clickedButton) {  // Nur andere Buttons deaktivieren
-      btn.classList.remove('active');
-      btn.innerHTML = '<i data-lucide="calendar"></i>';
-      btn.title = 'Timeline anzeigen';
-      console.log('[DEBUG] Button deaktiviert:', btn);
-    }
+    btn.classList.remove('active');
+    btn.innerHTML = '<i data-lucide="calendar"></i>';
+    btn.innerHTML = '<i data-lucide="calendar"></i>';
+    btn.title = 'Timeline anzeigen';
   });
   
   // Aktuellen Button als aktiv markieren
@@ -6894,12 +6890,6 @@ async function showTimeline(keyword, clickedButton) {
     clickedButton.classList.add('active');
     clickedButton.innerHTML = '<i data-lucide="calendar"></i>';
     clickedButton.title = 'Timeline verstecken';
-    console.log('[DEBUG] Button aktiviert:', clickedButton);
-  }
-  
-  // Nach dem Aktualisieren der Button-Inhalte Lucide-Icons neu initialisieren
-  if (typeof initializeLucideIcons === 'function') {
-    initializeLucideIcons();
   }
   
   // Timeline-Schlagwort speichern
@@ -6922,15 +6912,6 @@ async function showTimeline(keyword, clickedButton) {
   document.getElementById('viewer').style.display = 'none';
   document.getElementById('document-title').style.display = 'none';
   document.getElementById('viewer-header').style.display = 'none';
-  
-  // Debug: Prüfe ob Timeline-Buttons noch sichtbar sind
-  setTimeout(() => {
-    const timelineButtons = document.querySelectorAll('.timeline-btn');
-    console.log('[DEBUG] Timeline-Buttons nach Öffnen:', timelineButtons.length);
-    timelineButtons.forEach((btn, index) => {
-      console.log(`[DEBUG] Button ${index}:`, btn, 'Sichtbar:', btn.offsetParent !== null, 'Display:', window.getComputedStyle(btn).display);
-    });
-  }, 100);
   
   // Header-Gap für Timeline-Ansicht entfernen
   const mainContainerEl = document.getElementById('main-container');
