@@ -283,7 +283,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       display: flex;
       flex-direction: column;
       width: 400px;
-      min-width: 400px;
+      min-width: 0px;
       max-width: none;
       overflow: hidden;
       border-right: 1px solid var(--border-color);
@@ -1591,6 +1591,7 @@ body.dark-mode .ga-keyword-link {
   line-height: var(--line-height);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
 }
 
@@ -1638,7 +1639,7 @@ a:hover {
   font-size: 1.2em;
   cursor: pointer;
   padding: 2px 6px;
-  margin-left: 0;
+  margin-left: auto;
   border-radius: 4px;
   transition: all 0.2s ease;
   opacity: 0.7;
@@ -5798,9 +5799,6 @@ function displayKeywords(selectedLetter = 'Alle') {
     // Prüfe ob Timeline geöffnet ist und ob dieses Schlagwort das aktuelle Timeline-Schlagwort ist
     const isTimelineOpen = document.getElementById('timelineSplitView').style.display !== 'none';
     const isCurrentTimelineKeyword = currentTimelineKeyword === keywordData.keyword;
-    const showSearchButton = isTimelineOpen && isCurrentTimelineKeyword;
-    
-    
     // Verwende Keyword-Thematische Suche für detaillierte Analysen
     html += `
       <div class="keyword-entry">
@@ -5808,10 +5806,9 @@ function displayKeywords(selectedLetter = 'Alle') {
           <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;">
             ${keywordData.keyword}
           </a>
-          <button class="timeline-btn" onclick="showTimeline('${keywordData.keyword}'); return false;" title="Timeline anzeigen">
+          <button class="timeline-btn" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keywordData.keyword}', this);" title="Timeline anzeigen">
             📅
           </button>
-          ${showSearchButton ? `<button class="keyword-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen">🔍</button>` : ''}
         </h4>
         <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
         </div>
@@ -6702,25 +6699,15 @@ function hideTimeline() {
   }, 300);
 }
 
-// Zeige Timeline für ein Schlagwort (Toggle-Funktionalität)
-async function showTimeline(keyword) {
-  console.log('[TIMELINE] Toggle Timeline für:', keyword);
+// Zeige Timeline für ein Schlagwort
+async function showTimeline(keyword, clickedButton) {
+  console.log('[TIMELINE] Öffne Timeline für:', keyword);
   
   const splitView = document.getElementById('timelineSplitView');
   const timelinePanel = document.querySelector('.timeline-panel');
   const content = document.getElementById('timelineContent');
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
-  const clickedButton = event.target;
-  
-  // Prüfe ob Timeline bereits sichtbar ist
-  const isTimelineVisible = splitView.style.display === 'flex' && !timelinePanel.classList.contains('hidden');
-  
-  if (isTimelineVisible) {
-    // Timeline ist bereits sichtbar - verstecken
-    hideTimeline();
-    return;
-  }
   
   // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
@@ -6730,9 +6717,11 @@ async function showTimeline(keyword) {
   });
   
   // Aktuellen Button als aktiv markieren
-  clickedButton.classList.add('active');
-  clickedButton.innerHTML = '📅';
-  clickedButton.title = 'Timeline verstecken';
+  if (clickedButton) {
+    clickedButton.classList.add('active');
+    clickedButton.innerHTML = '📅';
+    clickedButton.title = 'Timeline verstecken';
+  }
   
   // Timeline-Schlagwort speichern
   currentTimelineKeyword = keyword;
@@ -6766,10 +6755,10 @@ async function showTimeline(keyword) {
     timelinePanel.classList.remove('hidden');
   }
   
-  // Keywords neu rendern NACH dem Öffnen der Timeline
-  setTimeout(() => {
-    displayKeywords(currentAlphabet);
-  }, 100);
+  // Keywords neu rendern NACH dem Öffnen der Timeline - ENTFERNT (verursacht Doppelklick-Problem)
+  // setTimeout(() => {
+  //   displayKeywords(currentAlphabet);
+  // }, 100);
   
   // title.textContent = `Timeline: ${keyword}`; // Timeline-Titel entfernt
   content.innerHTML = '<div style="text-align: center; padding: 2rem;">Lade Timeline...</div>';
