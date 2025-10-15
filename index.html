@@ -1706,10 +1706,15 @@ body.dark-mode .keyword-search-btn:hover {
 .timeline-split-view {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   width: 100%;
   background-color: var(--bg-color);
   overflow: hidden;
+  margin: -2rem;
+  padding: 0;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
 }
 
 body.dark-mode .timeline-split-view {
@@ -1718,10 +1723,10 @@ body.dark-mode .timeline-split-view {
 
 .timeline-viewer-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  padding: 15px 20px 0 20px;
-  background-color: var(--card-bg-color);
+  padding: 15px 20px;
+  background-color: var(--bg-color);
   border-bottom: 2px solid var(--border-color);
   flex-shrink: 0;
   margin: 0;
@@ -1730,8 +1735,42 @@ body.dark-mode .timeline-split-view {
 }
 
 body.dark-mode .timeline-viewer-header {
-  background-color: var(--dark-card-bg-color);
+  background-color: var(--dark-bg-color);
   border-bottom-color: var(--dark-border-color);
+}
+
+.timeline-viewer-buttons-container {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* Timeline Document Title - Match Main Viewer h2 Style */
+.timeline-document-title {
+  flex: 1;
+  margin: 0 !important;
+  font-size: 1.5em !important;
+  font-weight: 700 !important;
+  color: var(--heading-color) !important;
+  line-height: 1.3 !important;
+}
+
+body.dark-mode .timeline-document-title {
+  color: var(--dark-heading-color) !important;
+}
+
+.timeline-document-title a {
+  color: var(--link-color) !important;
+  text-decoration: none;
+}
+
+.timeline-document-title a:hover {
+  text-decoration: underline;
+}
+
+body.dark-mode .timeline-document-title a {
+  color: var(--dark-link-color) !important;
 }
 
 .timeline-split-content {
@@ -1783,21 +1822,6 @@ body.dark-mode .timeline-viewer {
   border-top: none;
 }
 
-.timeline-document-title {
-  padding: 15px 20px;
-  background-color: var(--card-bg-color);
-  border-bottom: 1px solid var(--border-color);
-  font-weight: bold;
-  color: var(--heading-color);
-  font-size: 1.1em;
-  flex-shrink: 0;
-}
-
-body.dark-mode .timeline-document-title {
-  background-color: var(--dark-card-bg-color);
-  border-bottom-color: var(--dark-border-color);
-  color: var(--dark-heading-color);
-}
 
 .timeline-viewer-content {
   flex: 1;
@@ -1805,10 +1829,115 @@ body.dark-mode .timeline-document-title {
   overflow-y: auto;
   background-color: var(--bg-color);
   line-height: 1.6;
+  line-height: 1.4 !important;
 }
 
 body.dark-mode .timeline-viewer-content {
   background-color: var(--dark-bg-color);
+}
+
+/* Timeline Viewer Content Formatting - Same as Main Viewer */
+.timeline-viewer-content .paragraph {
+  margin: var(--paragraph-margin) 0;
+  line-height: 1.4 !important;
+  font-size: var(--text-size);
+  color: var(--text-color);
+}
+
+.timeline-viewer-content .highlighted-paragraph {
+  background: rgba(70, 120, 134, 0.1);
+  box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.1);
+  border-radius: 4px;
+}
+
+.timeline-viewer-content h1,
+.timeline-viewer-content h2,
+.timeline-viewer-content h5,
+.timeline-viewer-content h6 {
+  color: var(--heading-color);
+  margin: 1.5rem 0 1rem 0;
+  font-weight: 600;
+}
+
+.timeline-viewer-content h1 {
+  font-size: 1.8em;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.timeline-viewer-content h2 {
+  font-size: 1.5em;
+}
+
+/* Timeline Viewer h3 and h4 - Match Main Viewer Exactly */
+.timeline-viewer-content h3 {
+  font-size: 1.0rem !important;
+  margin: 0.7rem 0 0.5rem 0 !important;
+  font-weight: 700 !important;
+  color: #467886 !important;
+  display: block;
+  line-height: 1.3 !important;
+}
+
+.timeline-viewer-content h4 {
+  font-size: 1.0rem !important;
+  margin: 0.7rem 0 0.5rem 0 !important;
+  font-weight: 600 !important;
+  color: #467886 !important;
+  display: block;
+  line-height: 1.3 !important;
+}
+
+.timeline-viewer-content h3:first-child,
+.timeline-viewer-content h4:first-child {
+  margin-top: 0;
+}
+
+.timeline-viewer-content > p:first-of-type {
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.timeline-viewer-content mark {
+  background-color: #ffeb3b;
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* Dark Mode Styles for Timeline Viewer Content */
+body.dark-mode .timeline-viewer-content .paragraph {
+  color: #b8b8b8 !important;
+}
+
+body.dark-mode .timeline-viewer-content .highlighted-paragraph {
+  background: rgba(70, 120, 134, 0.35);
+  box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
+}
+
+body.dark-mode .timeline-viewer-content h1,
+body.dark-mode .timeline-viewer-content h2,
+body.dark-mode .timeline-viewer-content h5,
+body.dark-mode .timeline-viewer-content h6 {
+  color: var(--dark-heading-color);
+}
+
+/* Dark Mode h3 and h4 - Match Main Viewer Exactly */
+body.dark-mode .timeline-viewer-content h3,
+body.dark-mode .timeline-viewer-content h4 {
+  color: #6BA3B8 !important;
+}
+
+body.dark-mode .timeline-viewer-content h1 {
+  border-bottom-color: var(--dark-border-color);
+}
+
+body.dark-mode .timeline-viewer-content p strong {
+  color: var(--dark-heading-color);
+}
+
+body.dark-mode .timeline-viewer-content mark {
+  background-color: #ffc107;
+  color: #000;
 }
 
 
@@ -2259,6 +2388,38 @@ Summary neu
 </div>
 </div>
 <div id="viewer"></div>
+<!-- Timeline Split View -->
+<div id="timelineSplitView" class="timeline-split-view" style="display: none;">
+  <div class="timeline-split-content">
+    <div class="timeline-panel">
+      <div class="timeline-container" id="timelineContainer">
+        <div class="timeline-line"></div>
+        <div id="timelineContent">
+          <!-- Timeline content will be inserted here -->
+        </div>
+      </div>
+    </div>
+    <div class="timeline-viewer">
+      <div class="timeline-viewer-header">
+        <h2 id="timelineDocumentTitle" class="timeline-document-title">Wählen Sie einen Vortrag aus der Timeline</h2>
+        <div class="timeline-viewer-buttons-container">
+          <button id="timelineViewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            Original
+          </button>
+          <button id="timelineViewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            ≡ Übersicht
+          </button>
+          <button id="timelineViewerRegenerateBtn" onclick="regenerateCurrentSummary()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            Summary neu
+          </button>
+        </div>
+      </div>
+      <div id="timelineViewerContent" class="timeline-viewer-content">
+        <!-- Selected lecture content will be displayed here -->
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
@@ -2506,6 +2667,7 @@ function normalizeGANumber(gaNumber) {
                 mainContainer.style.marginRight = '0px';
               }
             }
+            
           }, 10);
         }
         
@@ -6410,6 +6572,9 @@ function hideTimeline() {
       updateHeaderPosition();
     }, 50);
     
+    // Reset Timeline-Viewer-Buttons
+    resetTimelineViewerButtons();
+    
     // Timeline-Keyword zurücksetzen und Keywords neu rendern
     currentTimelineKeyword = null;
     displayKeywords(currentAlphabet); // Keywords neu rendern um Such-Button zu entfernen
@@ -6636,10 +6801,45 @@ async function showLectureInTimeline(lectureId) {
       viewerContent.scrollTop = 0;
     }
     
+    // Zeige die Timeline-Viewer-Buttons
+    const originalBtn = document.getElementById('timelineViewerOriginalBtn');
+    const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+    const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
+    
+    if (originalBtn) originalBtn.style.display = 'inline-block';
+    if (summaryBtn) summaryBtn.style.display = 'inline-block';
+    if (regenerateBtn) regenerateBtn.style.display = 'inline-block';
+    
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Laden des Vortrags:', error);
     documentTitle.textContent = 'Fehler beim Laden des Vortrags';
     viewerContent.innerHTML = '<p>Der gewählte Vortrag konnte nicht geladen werden.</p>';
+    
+    // Verstecke die Timeline-Viewer-Buttons bei Fehlern
+    const originalBtn = document.getElementById('timelineViewerOriginalBtn');
+    const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+    const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
+    
+    if (originalBtn) originalBtn.style.display = 'none';
+    if (summaryBtn) summaryBtn.style.display = 'none';
+    if (regenerateBtn) regenerateBtn.style.display = 'none';
+  }
+}
+
+// Reset Timeline-Viewer-Buttons
+function resetTimelineViewerButtons() {
+  const originalBtn = document.getElementById('timelineViewerOriginalBtn');
+  const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+  const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
+  
+  if (originalBtn) originalBtn.style.display = 'none';
+  if (summaryBtn) summaryBtn.style.display = 'none';
+  if (regenerateBtn) regenerateBtn.style.display = 'none';
+  
+  // Reset Timeline-Dokument-Titel
+  const documentTitle = document.getElementById('timelineDocumentTitle');
+  if (documentTitle) {
+    documentTitle.textContent = 'Wählen Sie einen Vortrag aus der Timeline';
   }
 }
 
@@ -6652,6 +6852,9 @@ function closeTimeline() {
   document.getElementById('viewer').style.display = 'block';
   document.getElementById('document-title').style.display = 'block';
   document.getElementById('viewer-header').style.display = 'flex';
+  
+  // Reset Timeline-Viewer-Buttons
+  resetTimelineViewerButtons();
 }
 
 // Suche das Timeline-Schlagwort im aktuellen Vortragstext
@@ -6763,25 +6966,6 @@ function createOnlineURL(lecture) {
   return `https://rudolf-steiner-online.de/${gaNumber}+(${lectureNumber}.)+${encodedTitle}`;
 }
 </script>
-<!-- Timeline Split View -->
-<div id="timelineSplitView" class="timeline-split-view" style="display: none;">
-  <div class="timeline-split-content">
-    <div class="timeline-panel">
-      <div class="timeline-container" id="timelineContainer">
-        <div class="timeline-line"></div>
-        <div id="timelineContent">
-          <!-- Timeline content will be inserted here -->
-        </div>
-      </div>
-    </div>
-    <div class="timeline-viewer">
-      <div id="timelineDocumentTitle" class="timeline-document-title">Wählen Sie einen Vortrag aus der Timeline</div>
-      <div id="timelineViewerContent" class="timeline-viewer-content">
-        <!-- Selected lecture content will be displayed here -->
-      </div>
-    </div>
-  </div>
-</div>
 
 </body>
 </html> 
