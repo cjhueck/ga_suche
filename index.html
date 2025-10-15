@@ -1677,21 +1677,11 @@ a:hover {
 
 .timeline-btn:hover {
   opacity: 1;
-  background-color: var(--accent-color);
   transform: scale(1.1);
 }
 
 .timeline-btn.active {
   opacity: 1;
-  background-color: var(--accent-color);
-}
-
-body.dark-mode .timeline-btn:hover {
-  background-color: var(--dark-accent-color);
-}
-
-body.dark-mode .timeline-btn.active {
-  background-color: var(--dark-accent-color);
 }
 
 
@@ -5837,7 +5827,7 @@ function displayKeywords(selectedLetter = 'Alle') {
             ${keywordData.keyword}
           </a>
           <button class="timeline-btn" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keywordData.keyword}', this);" title="Timeline anzeigen">
-            📅
+            🕒
           </button>
         </h4>
         <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
@@ -6299,7 +6289,7 @@ function displayKeywordThematicResults(keyword, data) {
       <div class="answer-header">
         <h2 class="answer-title">${keyword}</h2>
         <button class="timeline-btn answer-action" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keyword}', this);" title="Timeline für '${keyword}' anzeigen">
-          📅
+          🕒
         </button>
       </div>
       <div class="answer-content" id="keywordAnswerContent">
@@ -6802,14 +6792,15 @@ async function showTimeline(keyword, clickedButton) {
   // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
     btn.classList.remove('active');
-    btn.innerHTML = '📅';
+    btn.innerHTML = '🕒';
+    btn.innerHTML = '🕒';
     btn.title = 'Timeline anzeigen';
   });
   
   // Aktuellen Button als aktiv markieren
   if (clickedButton) {
     clickedButton.classList.add('active');
-    clickedButton.innerHTML = '📅';
+    clickedButton.innerHTML = '🕒';
     clickedButton.title = 'Timeline verstecken';
   }
   
