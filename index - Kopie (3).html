@@ -294,46 +294,22 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       transition: width 0.3s ease, min-width 0.3s ease;
     }
     
-#sidebar-header {
-  flex-shrink: 0;
-  padding: 0.5rem;
-  background: inherit;
-  overflow-y: auto;
-  max-height: 60vh;
-  /* Scrollbar ausblenden */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-#sidebar-header::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
+    #sidebar-header {
+      flex-shrink: 0;
+      padding: 0.5rem;
+      background: inherit;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
     
     #sidebar-content {
   flex: 1;
   overflow-y: auto;
   padding: 0rem 1rem 1rem 1rem;
-  font-size: var(--text-size);
-  line-height: var(--line-height);
-  color: var(--text-color);
-  /* Scrollbar ausblenden */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-#sidebar-content::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-/* Scrollbar für #results wieder einblenden */
-#results {
-  scrollbar-width: auto; /* Firefox */
-  -ms-overflow-style: auto; /* IE/Edge */
-}
-
-#results::-webkit-scrollbar {
-  display: block; /* Chrome/Safari */
-}
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
     
     /* Zentrale Styles für alle Sidebar-Texte */
     #sidebar-content p {
@@ -1857,13 +1833,6 @@ body.dark-mode .timeline-document-title a {
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  /* Scrollbar ausblenden */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.timeline-panel::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
 }
 
 .timeline-panel.hidden {
@@ -2108,13 +2077,6 @@ body.dark-mode .timeline-close:hover {
   margin: 0;
   flex: 1;
   overflow-y: auto;
-  /* Scrollbar ausblenden */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.timeline-container::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
 }
 
 .timeline-line {
@@ -2953,22 +2915,6 @@ function normalizeGANumber(gaNumber) {
   populateGADropdowns();
   initGAFilter();
   updateButtonStates(); // Verstecke Buttons beim ersten Laden
-  
-  // Initialisiere Resize-Handle basierend auf aktivem Tab
-  const activeTabButton = document.querySelector('.tab-button.active');
-  if (activeTabButton) {
-    const activeTabMode = activeTabButton.getAttribute('onclick').match(/switchTab\('([^']+)'\)/)[1];
-    const resizeHandle = document.getElementById('search-panel-toggle');
-    if (resizeHandle) {
-      if (activeTabMode === 'schlagworte') {
-        resizeHandle.style.display = 'block';
-        resizeHandle.style.cursor = 'row-resize';
-      } else {
-        resizeHandle.style.display = 'none';
-        resizeHandle.style.cursor = 'default';
-      }
-    }
-  }
     });
 
     function initTheme() {
@@ -5993,20 +5939,6 @@ function switchTabExtended(mode) {
   
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
-  
-  // Horizontalen Resize-Handle basierend auf Tab ein-/ausblenden
-  const resizeHandle = document.getElementById('search-panel-toggle');
-  if (resizeHandle) {
-    if (mode === 'schlagworte') {
-      // Im Index-Tab: Resize-Handle anzeigen
-      resizeHandle.style.display = 'block';
-      resizeHandle.style.cursor = 'row-resize';
-    } else {
-      // In anderen Tabs: Resize-Handle ausblenden
-      resizeHandle.style.display = 'none';
-      resizeHandle.style.cursor = 'default';
-    }
-  }
   
   // Alle Tab-Buttons deaktivieren
   document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
