@@ -671,5 +671,37 @@
     "analysisLength": 9614,
     "resultCount": 614,
     "hasDetailedAnalysis": true
+  },
+  {
+    "keyword": "Goethes Märchen",
+    "alphabetical": "G",
+    "text": "**Goethes Märchen**",
+    "gaReferences": [
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9"
+    ],
+    "generatedAt": "2025-10-15T14:06:06.121Z",
+    "sourceAnalysis": "ki-generated",
+    "analysisLength": 6176,
+    "resultCount": 2916,
+    "hasDetailedAnalysis": true
   }
 ]
