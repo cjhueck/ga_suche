@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Steiner GA-Suche</title>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -2478,7 +2479,7 @@ Summary neu
     <div class="timeline-panel">
       <div class="timeline-panel-header">
         <h3 id="timelinePanelTitle" class="timeline-panel-title">Timeline</h3>
-        <button id="timelinePanelSearchBtn" class="timeline-panel-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen" style="display: none;">🔍</button>
+        <button id="timelinePanelSearchBtn" class="timeline-panel-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen" style="display: none;"><i data-lucide="text-search"></i></button>
       </div>
       <div class="timeline-container" id="timelineContainer">
         <div class="timeline-line"></div>
@@ -5827,7 +5828,7 @@ function displayKeywords(selectedLetter = 'Alle') {
             ${keywordData.keyword}
           </a>
           <button class="timeline-btn" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keywordData.keyword}', this);" title="Timeline anzeigen">
-            🕒
+            <i data-lucide="calendar"></i>
           </button>
         </h4>
         <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
@@ -5841,6 +5842,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Schlagwort-HTML entfernen
   removeInlineStyles(resultsContainer);
+  
+  // Lucide Icons initialisieren
+  initializeLucideIcons();
   
   // Scrolle nach oben in der Sidebar
   document.getElementById('sidebar-content').scrollTop = 0;
@@ -6289,7 +6293,7 @@ function displayKeywordThematicResults(keyword, data) {
       <div class="answer-header">
         <h2 class="answer-title">${keyword}</h2>
         <button class="timeline-btn answer-action" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keyword}', this);" title="Timeline für '${keyword}' anzeigen">
-          🕒
+          <i data-lucide="calendar"></i>
         </button>
       </div>
       <div class="answer-content" id="keywordAnswerContent">
@@ -6300,6 +6304,9 @@ function displayKeywordThematicResults(keyword, data) {
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
   removeInlineStyles(results);
+  
+  // Lucide Icons initialisieren
+  initializeLucideIcons();
   
   // Aktualisiere Count-Container
   if (countContainer) {
@@ -6792,15 +6799,15 @@ async function showTimeline(keyword, clickedButton) {
   // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
     btn.classList.remove('active');
-    btn.innerHTML = '🕒';
-    btn.innerHTML = '🕒';
+    btn.innerHTML = '<i data-lucide="calendar"></i>';
+    btn.innerHTML = '<i data-lucide="calendar"></i>';
     btn.title = 'Timeline anzeigen';
   });
   
   // Aktuellen Button als aktiv markieren
   if (clickedButton) {
     clickedButton.classList.add('active');
-    clickedButton.innerHTML = '🕒';
+    clickedButton.innerHTML = '<i data-lucide="calendar"></i>';
     clickedButton.title = 'Timeline verstecken';
   }
   
@@ -7229,9 +7236,10 @@ function searchKeywordInCurrentLecture() {
       
       // Nach 3 Sekunden zurücksetzen
       setTimeout(() => {
-        timelineButton.innerHTML = '🔍';
+        timelineButton.innerHTML = '<i data-lucide="text-search"></i>';
         timelineButton.style.backgroundColor = '';
         timelineButton.style.color = '';
+        initializeLucideIcons(); // Icons nach Content-Update neu initialisieren
       }, 3000);
     }
   } else {
@@ -7283,6 +7291,20 @@ function createOnlineURL(lecture) {
   const encodedTitle = encodeURIComponent(titleForUrl).replace(/%2B/g, '+');
   
   return `https://rudolf-steiner-online.de/${gaNumber}+(${lectureNumber}.)+${encodedTitle}`;
+}
+
+// Initialize Lucide icons
+document.addEventListener('DOMContentLoaded', function() {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+});
+
+// Re-initialize icons after dynamic content changes
+function initializeLucideIcons() {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 }
 </script>
 
