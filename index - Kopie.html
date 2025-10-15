@@ -5940,6 +5940,20 @@ function switchTabExtended(mode) {
         });
       });
 
+      // Main Viewer leeren
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.innerHTML = '';
+        console.log('[TABS] Main Viewer geleert');
+      }
+      
+      // Document Title zurücksetzen
+      const documentTitle = document.getElementById('document-title');
+      if (documentTitle) {
+        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
+        console.log('[TABS] Document Title zurückgesetzt');
+      }
+      
       // Setze ggf. die Scroll-Position der Sidebar zurück
       const sidebarContent = document.getElementById('sidebar-content');
       if (sidebarContent) sidebarContent.scrollTop = 0;
@@ -6641,6 +6655,20 @@ function hideTimeline() {
   const splitView = document.getElementById('timelineSplitView');
   const timelinePanel = document.querySelector('.timeline-panel');
   
+  // Timeline Viewer leeren wenn Timeline geschlossen wird
+  const timelineViewerContent = document.getElementById('timelineViewerContent');
+  if (timelineViewerContent) {
+    timelineViewerContent.innerHTML = '';
+    console.log('[TIMELINE] Timeline Viewer geleert');
+  }
+  
+  // Timeline Document Title zurücksetzen
+  const timelineDocumentTitle = document.getElementById('timelineDocumentTitle');
+  if (timelineDocumentTitle) {
+    timelineDocumentTitle.textContent = 'Wählen Sie einen Vortrag aus der Timeline';
+    console.log('[TIMELINE] Timeline Document Title zurückgesetzt');
+  }
+  
   // Timeline-Panel verstecken
   if (timelinePanel) {
     timelinePanel.classList.add('hidden');
@@ -6708,6 +6736,20 @@ async function showTimeline(keyword, clickedButton) {
   const content = document.getElementById('timelineContent');
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
+  
+  // Main Viewer leeren wenn Timeline geöffnet wird
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    viewer.innerHTML = '';
+    console.log('[TIMELINE] Main Viewer geleert');
+  }
+  
+  // Document Title zurücksetzen
+  const mainDocumentTitle = document.getElementById('document-title');
+  if (mainDocumentTitle) {
+    mainDocumentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
+    console.log('[TIMELINE] Document Title zurückgesetzt');
+  }
   
   // Alle anderen Timeline-Buttons auf inaktiv setzen
   document.querySelectorAll('.timeline-btn').forEach(btn => {
@@ -6784,8 +6826,19 @@ async function showTimeline(keyword, clickedButton) {
       return;
     }
     
-    // Sortiere nach Jahr
-    timelineEntries.sort((a, b) => a.year - b.year);
+    // Sortiere nach Jahr und dann nach Datum (aufsteigend)
+    timelineEntries.sort((a, b) => {
+      // Zuerst nach Jahr sortieren
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+      
+      // Wenn gleiches Jahr, nach Datum sortieren
+      const dateA = parseDateForSorting(a.lecture.date);
+      const dateB = parseDateForSorting(b.lecture.date);
+      
+      return dateA - dateB;
+    });
     
     // Gruppiere nach Jahr
     const groupedByYear = groupTimelineByYear(timelineEntries);
@@ -6865,7 +6918,55 @@ function groupTimelineByYear(entries) {
     grouped[entry.year].push(entry);
   });
   
+  // Sortiere Einträge innerhalb jedes Jahres nach Datum
+  Object.keys(grouped).forEach(year => {
+    grouped[year].sort((a, b) => {
+      const dateA = parseDateForSorting(a.lecture.date);
+      const dateB = parseDateForSorting(b.lecture.date);
+      return dateA - dateB;
+    });
+  });
+  
   return grouped;
+}
+
+// Hilfsfunktion: Parse Datum für Sortierung (deutsches Format TT.MM.JJJJ)
+function parseDateForSorting(dateString) {
+  if (!dateString) return new Date('1900-01-01'); // Fallback für fehlende Daten
+  
+  try {
+    // Versuche verschiedene Datumsformate zu parsen
+    let date;
+    
+    // Deutsches Format: TT.MM.JJJJ
+    if (dateString.includes('.')) {
+      const parts = dateString.split('.');
+      if (parts.length === 3) {
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1; // JavaScript Monate sind 0-basiert
+        const year = parseInt(parts[2], 10);
+        date = new Date(year, month, day);
+      }
+    }
+    // ISO Format: JJJJ-MM-TT
+    else if (dateString.includes('-')) {
+      date = new Date(dateString.split(' ')[0]);
+    }
+    // Andere Formate
+    else {
+      date = new Date(dateString);
+    }
+    
+    // Prüfe ob Datum gültig ist
+    if (isNaN(date.getTime())) {
+      return new Date('1900-01-01'); // Fallback
+    }
+    
+    return date;
+  } catch (error) {
+    console.warn('Fehler beim Parsen des Datums:', dateString, error);
+    return new Date('1900-01-01'); // Fallback
+  }
 }
 
 // Hilfsfunktion: Formatiere Datum zu TT.MM.JJJJ
