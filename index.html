@@ -282,8 +282,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 440px;
-      min-width: 440px;
+      width: 400px;
+      min-width: 400px;
       max-width: none;
       overflow: hidden;
       border-right: 1px solid var(--border-color);
@@ -923,7 +923,7 @@ body.dark-mode .loading-message {
     /* Spezifischere Regel für Tab-Buttons */
     .tab-container .tab-buttons {
       display: flex !important;
-      justify-content: flex-end !important;
+      justify-content: flex-start !important;
       flex-direction: row !important;
       gap: 8px !important;
     }
@@ -2279,9 +2279,9 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button active" onclick="switchTab('keyword')">Text-Suche</button>
-<button class="tab-button" onclick="switchTab('thematic')">Themen-Suche</button>
-<button class="tab-button" onclick="switchTab('schlagworte')">Schlagwörter</button>
+<button class="tab-button active" onclick="switchTab('keyword')">Text</button>
+<button class="tab-button" onclick="switchTab('thematic')">Themen</button>
+<button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -4728,7 +4728,7 @@ async function regenerateCurrentSummary() {
 function startBatchSummaries() {
   const gaNumber = document.getElementById('gaFilter')?.value;
   if (!gaNumber) {
-    alert('Bitte wählen Sie zuerst eine GA-Nummer im Text-Suche Tab (Dropdown).');
+    alert('Bitte wählen Sie zuerst eine GA-Nummer im Text Tab (Dropdown).');
     return;
   }
 
@@ -5541,7 +5541,7 @@ let keywordsData = [];
 let currentAlphabet = 'Alle';
 let filteredKeywords = [];
 let showKeywordTexts = true;
-// Track which keyword input was last edited/focused in the Stichwortsuche (Text-Suche) tab
+// Track which keyword input was last edited/focused in the Text tab
 let lastKeywordInputId = null;
 
 // Globale Schlagwort-Funktionen
@@ -5973,7 +5973,7 @@ function switchTabExtended(mode) {
     }
   }
 
-  // Wenn wir zum Stichwort-Tab (Text-Suche) wechseln, lösche das zuletzt eingegebene Suchwort
+  // Wenn wir zum Text-Tab wechseln, lösche das zuletzt eingegebene Suchwort
   if (mode === 'keyword' && lastKeywordInputId) {
     try {
       const el = document.getElementById(lastKeywordInputId);
