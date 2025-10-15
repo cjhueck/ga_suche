@@ -1685,6 +1685,24 @@ a:hover {
   opacity: 1;
 }
 
+/* Lucide Icons Styling */
+.timeline-btn svg {
+  stroke: var(--accent-color);
+  fill: none;
+}
+
+body.dark-mode .timeline-btn svg {
+  stroke: var(--dark-accent-color);
+}
+
+.timeline-panel-search-btn svg {
+  stroke: var(--accent-color);
+  fill: none;
+}
+
+body.dark-mode .timeline-panel-search-btn svg {
+  stroke: var(--dark-accent-color);
+}
 
 /* Keyword Search Button in Sidebar */
 .keyword-search-btn {
@@ -2132,13 +2150,12 @@ body.dark-mode .timeline-content {
 }
 
 .timeline-content:hover {
-  background-color: var(--accent-color);
-  color: white;
+  transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 body.dark-mode .timeline-content:hover {
-  background-color: var(--dark-accent-color);
+  transform: scale(1.05);
 }
 
 .timeline-lecture-number {
@@ -2146,10 +2163,6 @@ body.dark-mode .timeline-content:hover {
   color: var(--heading-color);
   font-size: 0.9em;
   margin: 0;
-}
-
-.timeline-content:hover .timeline-lecture-number {
-  color: white;
 }
 
 body.dark-mode .timeline-lecture-title {
