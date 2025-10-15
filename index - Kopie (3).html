@@ -670,7 +670,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #main {
       flex: 1;
       overflow-y: auto;
-      padding: 2rem 1rem 2rem 2rem;
+      padding: 2rem;
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -1705,13 +1705,15 @@ body.dark-mode .keyword-search-btn:hover {
 .timeline-split-view {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 4rem);
   width: 100%;
   background-color: var(--background-color);
   overflow: hidden;
-  margin: -2rem 0rem -2rem -1.2rem;
+  margin: -2rem;
   padding: 0;
   padding-left: 1.2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
 }
 
 body.dark-mode .timeline-split-view {
@@ -1813,9 +1815,6 @@ body.dark-mode .timeline-panel {
   flex-direction: column;
   background-color: var(--background-color);
   border-top: none;
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 body.dark-mode .timeline-viewer {
@@ -1975,7 +1974,7 @@ body.dark-mode .timeline-close:hover {
 /* Timeline Container */
 .timeline-container {
   position: relative;
-  padding: 20px 0px 20px 0px;
+  padding: 20px 0px 0 0px;
   margin: 0;
 }
 
@@ -6888,9 +6887,11 @@ async function showLectureInTimeline(lectureId) {
     // Zeige die Timeline-Viewer-Buttons
     const originalBtn = document.getElementById('timelineViewerOriginalBtn');
     const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+    const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
     
     if (originalBtn) originalBtn.style.display = 'inline-block';
     if (summaryBtn) summaryBtn.style.display = 'inline-block';
+    if (regenerateBtn) regenerateBtn.style.display = 'inline-block';
     
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Laden des Vortrags:', error);
@@ -6900,9 +6901,11 @@ async function showLectureInTimeline(lectureId) {
     // Verstecke die Timeline-Viewer-Buttons bei Fehlern
     const originalBtn = document.getElementById('timelineViewerOriginalBtn');
     const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+    const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
     
     if (originalBtn) originalBtn.style.display = 'none';
     if (summaryBtn) summaryBtn.style.display = 'none';
+    if (regenerateBtn) regenerateBtn.style.display = 'none';
   }
 }
 
@@ -6910,9 +6913,11 @@ async function showLectureInTimeline(lectureId) {
 function resetTimelineViewerButtons() {
   const originalBtn = document.getElementById('timelineViewerOriginalBtn');
   const summaryBtn = document.getElementById('timelineViewerSummaryBtn');
+  const regenerateBtn = document.getElementById('timelineViewerRegenerateBtn');
   
   if (originalBtn) originalBtn.style.display = 'none';
   if (summaryBtn) summaryBtn.style.display = 'none';
+  if (regenerateBtn) regenerateBtn.style.display = 'none';
   
   // Reset Timeline-Dokument-Titel
   const documentTitle = document.getElementById('timelineDocumentTitle');
