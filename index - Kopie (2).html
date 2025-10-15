@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -1269,7 +1270,7 @@ body.dark-mode #thematicSearchInfo {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: 0px;
+      min-height: 60px;
       width: 100%;
       box-sizing: border-box;
       /* Position und Breite werden via JavaScript gesetzt */
@@ -1698,7 +1699,7 @@ body.dark-mode .keyword-search-btn {
 
 body.dark-mode .keyword-search-btn:hover {
   background-color: var(--dark-accent-color);
-  color: var(--dark-background-color);
+  color: var(--dark-bg-color);
 }
 
 /* Timeline Split View Styles */
@@ -1707,7 +1708,7 @@ body.dark-mode .keyword-search-btn:hover {
   flex-direction: column;
   height: calc(100vh - 4rem);
   width: 100%;
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   overflow: hidden;
   margin: -2rem;
   padding: 0;
@@ -1717,7 +1718,7 @@ body.dark-mode .keyword-search-btn:hover {
 }
 
 body.dark-mode .timeline-split-view {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-bg-color);
 }
 
 .timeline-viewer-header {
@@ -1725,17 +1726,16 @@ body.dark-mode .timeline-split-view {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   border-bottom: 2px solid var(--border-color);
   flex-shrink: 0;
   margin: 0;
   box-sizing: border-box;
   gap: 15px;
-  min-height: 0px;
 }
 
 body.dark-mode .timeline-viewer-header {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-bg-color);
   border-bottom-color: var(--dark-border-color);
 }
 
@@ -1786,7 +1786,7 @@ body.dark-mode .timeline-document-title a {
 .timeline-panel {
   width: 15%;
   min-width: 180px;
-  background-color: var(--background-color);
+  background-color: var(--card-bg-color);
   border-right: 1px solid var(--border-color);
   border-top: none;
   overflow-y: auto;
@@ -1804,7 +1804,7 @@ body.dark-mode .timeline-document-title a {
 }
 
 body.dark-mode .timeline-panel {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-card-bg-color);
   border-right-color: var(--dark-border-color);
   border-top: none;
 }
@@ -1813,12 +1813,12 @@ body.dark-mode .timeline-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   border-top: none;
 }
 
 body.dark-mode .timeline-viewer {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-bg-color);
   border-top: none;
 }
 
@@ -1827,13 +1827,13 @@ body.dark-mode .timeline-viewer {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: var(--background-color);
+  background-color: var(--bg-color);
   line-height: 1.6;
   line-height: 1.4 !important;
 }
 
 body.dark-mode .timeline-viewer-content {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-bg-color);
 }
 
 /* Timeline Viewer Content Formatting - Same as Main Viewer */
@@ -2032,7 +2032,7 @@ body.dark-mode .timeline-year {
 }
 
 .timeline-content {
-  background-color: var(--background-color);
+  background-color: var(--card-bg-color);
   padding: 8px 12px;
   border-radius: 6px;
   border: none;
@@ -2042,7 +2042,7 @@ body.dark-mode .timeline-year {
 }
 
 body.dark-mode .timeline-content {
-  background-color: var(--dark-background-color);
+  background-color: var(--dark-card-bg-color);
   border: none;
 }
 
@@ -6567,12 +6567,6 @@ function hideTimeline() {
     document.getElementById('document-title').style.display = 'block';
     document.getElementById('viewer-header').style.display = 'flex';
     
-    // Header-Styles zurücksetzen, Update kümmert sich um korrekte Werte
-    const mainContainerEl = document.getElementById('main-container');
-    const summaryPanelEl = document.getElementById('summary-panel');
-    if (mainContainerEl) mainContainerEl.style.marginTop = '';
-    if (summaryPanelEl) summaryPanelEl.style.top = '';
-    
     // Header-Position und Layout korrekt wiederherstellen
     setTimeout(() => {
       updateHeaderPosition();
@@ -6634,12 +6628,6 @@ async function showTimeline(keyword) {
   document.getElementById('viewer').style.display = 'none';
   document.getElementById('document-title').style.display = 'none';
   document.getElementById('viewer-header').style.display = 'none';
-  
-  // Header-Gap für Timeline-Ansicht entfernen
-  const mainContainerEl = document.getElementById('main-container');
-  const summaryPanelEl = document.getElementById('summary-panel');
-  if (mainContainerEl) mainContainerEl.style.marginTop = '0px';
-  if (summaryPanelEl) summaryPanelEl.style.top = '0px';
   
   // Timeline-Panel sichtbar machen
   if (timelinePanel) {
