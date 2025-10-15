@@ -703,5 +703,37 @@
     "analysisLength": 6176,
     "resultCount": 2916,
     "hasDetailedAnalysis": true
+  },
+  {
+    "keyword": "Meditation",
+    "alphabetical": "M",
+    "text": "**Meditation**",
+    "gaReferences": [
+      "GA213/8",
+      "GA088/15",
+      "GA070b/5",
+      "GA214/8",
+      "GA305/5",
+      "GA062/4",
+      "GA065/2",
+      "GA065/2",
+      "GA065/13",
+      "GA065/13",
+      "GA069a/8",
+      "GA069a/8",
+      "GA069d/19",
+      "GA070b/7",
+      "GA073a/1",
+      "GA075/2",
+      "GA075/4",
+      "GA080b/6",
+      "GA080c/8",
+      "GA088/18"
+    ],
+    "generatedAt": "2025-10-15T21:24:49.542Z",
+    "sourceAnalysis": "ki-generated",
+    "analysisLength": 8540,
+    "resultCount": 476,
+    "hasDetailedAnalysis": true
   }
 ]
