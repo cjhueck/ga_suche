@@ -1523,6 +1523,35 @@ body.dark-mode .loading-tooltip::before {
   line-height: 1.3rem;        /* Zeilenabstand anpassen */
 }
 
+/* Results header: keyword + timeline button in one line */
+.answer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: nowrap;
+}
+
+.answer-title {
+  margin: 0;
+  color: var(--heading-color);
+  font-weight: 700;
+  font-size: 1.2rem;        /* override generic .semantic-answer h2 */
+  line-height: 1.3;
+  flex: 1 1 auto;
+  min-width: 0;              /* erlaubt Ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.answer-action {
+  flex: 0 0 auto;            /* Button schrumpft nicht, bleibt in der Zeile */
+}
+
 .semantic-answer h1 {
   font-size: 1.2rem;         /* Überschriften-Größe */
   line-height: 1.4;
@@ -1664,6 +1693,7 @@ body.dark-mode .timeline-btn:hover {
 body.dark-mode .timeline-btn.active {
   background-color: var(--dark-accent-color);
 }
+
 
 /* Keyword Search Button in Sidebar */
 .keyword-search-btn {
@@ -6259,6 +6289,12 @@ function displayKeywordThematicResults(keyword, data) {
   // Kombiniere alles (nur Hauptinhalt) im gleichen Layout wie Themensuche
   results.innerHTML = `
     <div class="semantic-answer">
+      <div class="answer-header">
+        <h2 class="answer-title">${keyword}</h2>
+        <button class="timeline-btn answer-action" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keyword}', this);" title="Timeline für '${keyword}' anzeigen">
+          📅
+        </button>
+      </div>
       <div class="answer-content" id="keywordAnswerContent">
         ${contentHtml}
       </div>
@@ -6732,6 +6768,11 @@ async function showTimeline(keyword, clickedButton) {
   console.log('[TIMELINE] Öffne Timeline für:', keyword);
   
   const splitView = document.getElementById('timelineSplitView');
+  // Toggle-Logik: Wenn Timeline offen und gleiches Schlagwort -> schließen
+  if (splitView && splitView.style.display !== 'none' && currentTimelineKeyword === keyword) {
+    closeTimeline();
+    return;
+  }
   const timelinePanel = document.querySelector('.timeline-panel');
   const content = document.getElementById('timelineContent');
   const documentTitle = document.getElementById('timelineDocumentTitle');
