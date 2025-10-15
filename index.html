@@ -1711,7 +1711,7 @@ body.dark-mode .keyword-search-btn:hover {
   overflow: hidden;
   margin: -2rem;
   padding: 0;
-  padding-left: 2rem;
+  padding-left: 1.2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
 }
@@ -1726,7 +1726,7 @@ body.dark-mode .timeline-split-view {
   align-items: center;
   padding: 15px 20px;
   background-color: var(--background-color);
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
   margin: 0;
   box-sizing: border-box;
@@ -1784,13 +1784,13 @@ body.dark-mode .timeline-document-title a {
 }
 
 .timeline-panel {
-  width: 15%;
+  width: 10%;
   min-width: 180px;
   background-color: var(--background-color);
   border-right: 1px solid var(--border-color);
   border-top: none;
   overflow-y: auto;
-  padding: 0px 15px 15px 15px;
+  padding: 0px 15px 15px 0px;
   margin: 0;
   transition: all 0.3s ease;
 }
@@ -1974,7 +1974,7 @@ body.dark-mode .timeline-close:hover {
 /* Timeline Container */
 .timeline-container {
   position: relative;
-  padding: 20px 0px 0 15px;
+  padding: 20px 0px 0 0px;
   margin: 0;
 }
 
@@ -2003,18 +2003,18 @@ body.dark-mode .timeline-line {
   position: absolute;
   left: 0;
   top: 0;
-  width: 35px;
+  width: 50px;
   height: 35px;
-  background-color: var(--accent-color);
-  color: white;
+  background-color: transparent;
+  color: var(--accent-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 0.8em;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  border: none;
+  box-shadow: none;
+  border: 2px solid var(--accent-color);
   outline: none;
 }
 
@@ -2028,7 +2028,9 @@ body.dark-mode .timeline-line {
 }
 
 body.dark-mode .timeline-year {
-  background-color: var(--dark-accent-color);
+  background-color: transparent;
+  color: var(--dark-accent-color);
+  border-color: var(--dark-accent-color);
 }
 
 .timeline-content {
@@ -4957,9 +4959,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 }
 
     function buildTableOfContents() {
-      const viewer = document.getElementById('viewer');
+      // Prüfe ob Timeline-Viewer aktiv ist
+      const timelineSplitView = document.getElementById('timelineSplitView');
+      const isTimelineActive = timelineSplitView && timelineSplitView.style.display !== 'none';
+      
+      const viewer = isTimelineActive ? document.getElementById('timelineViewerContent') : document.getElementById('viewer');
       const tocList = document.getElementById('toc-list');
-      const mainContainer = document.getElementById('main');
+      const mainContainer = isTimelineActive ? document.getElementById('timelineViewerContent') : document.getElementById('main');
+      
+      if (!viewer || !tocList) return;
       
       const headings = viewer.querySelectorAll('h3, h4');
       
@@ -4975,7 +4983,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       headings.forEach((heading) => {
         if (!heading.id) {
-          heading.id = `heading-${headingIndex}`;
+          heading.id = isTimelineActive ? `timeline-heading-${headingIndex}` : `heading-${headingIndex}`;
         }
         headingIndex++;
         
@@ -4985,7 +4993,25 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         tocHeading.addEventListener('click', (e) => {
           e.preventDefault();
-          heading.scrollIntoView({ behavior: 'auto', block: 'start' });
+          
+          if (isTimelineActive) {
+            // Für Timeline-Viewer: Scrolle nur innerhalb des Timeline-Containers
+            const timelineContainer = document.getElementById('timelineViewerContent');
+            const headingRect = heading.getBoundingClientRect();
+            const containerRect = timelineContainer.getBoundingClientRect();
+            
+            // Berechne relative Position und scrolle den Container
+            const relativeTop = headingRect.top - containerRect.top;
+            const scrollPosition = timelineContainer.scrollTop + relativeTop - 50; // 50px offset
+            
+            timelineContainer.scrollTo({
+              top: scrollPosition,
+              behavior: 'smooth'
+            });
+          } else {
+            // Für Haupt-Viewer: Normales scrollIntoView
+            heading.scrollIntoView({ behavior: 'auto', block: 'start' });
+          }
           
           const originalBg = heading.style.backgroundColor;
           heading.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
@@ -6578,6 +6604,11 @@ function hideTimeline() {
       updateHeaderPosition();
     }, 50);
     
+    // TOC-Links für Haupt-Viewer wiederherstellen
+    setTimeout(() => {
+      buildTableOfContents();
+    }, 100);
+    
     // Reset Timeline-Viewer-Buttons
     resetTimelineViewerButtons();
     
@@ -6811,6 +6842,9 @@ async function showLectureInTimeline(lectureId) {
       
       // Scrolle nach oben
       viewerContent.scrollTop = 0;
+      
+      // TOC für Timeline-Viewer erstellen
+      buildTableOfContents();
     }
     
     // Zeige die Timeline-Viewer-Buttons
@@ -6867,6 +6901,11 @@ function closeTimeline() {
   
   // Reset Timeline-Viewer-Buttons
   resetTimelineViewerButtons();
+  
+  // TOC-Links für Haupt-Viewer wiederherstellen
+  setTimeout(() => {
+    buildTableOfContents();
+  }, 100);
 }
 
 // Suche das Timeline-Schlagwort im aktuellen Vortragstext
