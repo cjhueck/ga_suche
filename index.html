@@ -317,23 +317,48 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   font-size: var(--text-size);
   line-height: var(--line-height);
   color: var(--text-color);
-  /* Scrollbar ausblenden */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
+  /* Scrollbar mit Main Viewer Formatierung - nur bei Hover sichtbar */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#sidebar-content:hover {
+  scrollbar-color: #c0c0c0 transparent;
+}
+
+body.dark-mode #sidebar-content:hover {
+  scrollbar-color: #555 transparent;
 }
 
 #sidebar-content::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  width: 4px;
+  height: 4px;
 }
 
-/* Scrollbar für #results wieder einblenden */
-#results {
-  scrollbar-width: auto; /* Firefox */
-  -ms-overflow-style: auto; /* IE/Edge */
+#sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-#results::-webkit-scrollbar {
-  display: block; /* Chrome/Safari */
+#sidebar-content::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+#sidebar-content:hover::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+}
+
+#sidebar-content:hover::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+body.dark-mode #sidebar-content:hover::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+body.dark-mode #sidebar-content:hover::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }
     
     /* Zentrale Styles für alle Sidebar-Texte */
@@ -901,6 +926,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       line-height: 1.5;
       font-size: 0.95em;
       display: none;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+    
+    #summary-content::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Edge */
     }
     
     #summary-panel.visible #summary-content {
@@ -2694,7 +2725,7 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <span id="texteServerInfo"></span>
 </div>
 <button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 180px;">
-  <span id="texteViewToggleText">Mit Zusammenfassungen</span>
+  <span id="texteViewToggleText">nur Titel</span>
 </button>
 </div>
 </div>
@@ -3699,13 +3730,13 @@ function toggleGASummaries() {
   });
   
   if (button) {
-    button.textContent = gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen';
+    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
   }
   
   // Update Toggle Button im Texte-Tab
   const texteViewToggleText = document.getElementById('texteViewToggleText');
   if (texteViewToggleText) {
-    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen';
+    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
   }
 }
 
@@ -3982,6 +4013,9 @@ function toggleGASummaries() {
       const sortedLectures = Object.entries(groupedByLecture).sort((a, b) => {
         const dateA = a[1].date || '';
         const dateB = b[1].date || '';
+        // Einträge ohne Datum ans Ende sortieren
+        if (!dateA && dateB) return 1;  // a hat kein Datum, b schon -> a nach hinten
+        if (dateA && !dateB) return -1; // a hat Datum, b nicht -> a nach vorne
         return dateA.localeCompare(dateB);
       });
       
