@@ -2632,27 +2632,10 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
+<button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
-</div>
-<div class="tab-content" id="texte-tab">
-<div style="padding: 0.5rem 0;">
-<div class="filter-row">
-<select class="filter-dropdown" id="texteGAFilter" style="width: 100%;">
-<option value="">GA-Band auswählen...</option>
-</select>
-</div>
-<div id="texteSearchInfo" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
-<div>
-<span id="texteServerInfo"></span>
-</div>
-<button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 180px;">
-  <span id="texteViewToggleText">Mit Zusammenfassungen</span>
-</button>
-</div>
-</div>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -2697,6 +2680,23 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 130px;">
   <span id="viewToggleText">Titel anzeigen</span>
 </button>
+</div>
+</div>
+<div class="tab-content" id="texte-tab">
+<div style="padding: 0.5rem 0;">
+<div class="filter-row">
+<select class="filter-dropdown" id="texteGAFilter" style="width: 100%;">
+<option value="">GA-Band auswählen...</option>
+</select>
+</div>
+<div id="texteSearchInfo" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
+<div>
+<span id="texteServerInfo"></span>
+</div>
+<button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 180px;">
+  <span id="texteViewToggleText">Mit Zusammenfassungen</span>
+</button>
+</div>
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
@@ -3330,7 +3330,7 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
-          const infoText = `${data.lecturesLoaded} Vorträge verfügbar`;
+          const infoText = `${data.lecturesLoaded} Vorträge`;
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
           document.getElementById('texteServerInfo').textContent = infoText;
@@ -3631,7 +3631,7 @@ async function displayGAOverview(data) {
     const texteServerInfo = document.getElementById('texteServerInfo');
     if (texteServerInfo) {
       // Verwende die gleiche Formatierung wie im Suche-Tab
-      texteServerInfo.textContent = `${data.lectureCount} Vorträge verfügbar`;
+      texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
     }
     // Toggle Button im Texte-Tab anzeigen
     const texteViewToggle = document.getElementById('texteViewToggle');
