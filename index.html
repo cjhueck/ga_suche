@@ -401,7 +401,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
 
     body.dark-mode #sidebar-content .timeline-year {
-      color: #90cdf4 !important;
+      color: var(--dark-heading-color) !important;
     }
 
     #sidebar-content .timeline-items-for-year {
@@ -1319,6 +1319,15 @@ body.dark-mode .loading-message {
   padding-bottom: 0.5rem;
 }
   body.dark-mode #searchInfo {
+  color: var(--dark-text-color);
+}
+
+#texteSearchInfo {
+  font-size: 0.9em;
+  color: var(--secondary-text);
+}
+
+body.dark-mode #texteSearchInfo {
   color: var(--dark-text-color);
 }
 
@@ -4035,7 +4044,7 @@ function toggleGASummaries() {
           yearCell.textContent = year;
           yearCell.style.fontWeight = 'bold';
           yearCell.style.fontSize = '1em';
-          yearCell.style.color = isDarkMode ? '#90cdf4' : '#2c5282';
+          yearCell.style.color = isDarkMode ? '#6BA3B8' : '#2c5282';
         } else {
           yearCell.innerHTML = '&nbsp;'; // Leeres Space für Nicht-Jahreszellen
         }
