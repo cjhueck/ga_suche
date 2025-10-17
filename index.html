@@ -4074,19 +4074,7 @@ function toggleGASummaries() {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    // Summary Panel nur bei Vortragswechsel schließen
-                    const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureIdAttr;
-                    const summaryPanel = document.getElementById('summary-panel');
-                    const resizeHandle = document.getElementById('verticalResizeHandle');
-                    
-                    if (isDifferentLecture && summaryPanel && summaryPanel.classList.contains('visible')) {
-                      summaryPanel.classList.remove('visible');
-                      if (resizeHandle) resizeHandle.classList.remove('visible');
-                      summaryPanel.style.width = '0';
-                      summaryPanel.style.minWidth = '0';
-                      summaryPanel.style.marginRight = '0px';
-                    }
-
+                    // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
                     const currentWord1 = document.getElementById('word1').value.trim();
                     const currentWord2 = document.getElementById('word2').value.trim();
                     const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
@@ -4115,19 +4103,7 @@ function toggleGASummaries() {
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
-  // Summary Panel nur bei Vortragswechsel schließen
-  const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lecId;
-  const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
-  
-  if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
-    summaryPanel.classList.remove('visible');
-    resizeHandle.classList.remove('visible');
-    summaryPanel.style.width = '0';
-    summaryPanel.style.minWidth = '0';
-    summaryPanel.style.marginRight = '0px';
-  }
-  
+  // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
   await showLecture(lecId, chunkIdx, keywords);
 });
               lectureItem.appendChild(snippetDiv);
@@ -4383,11 +4359,17 @@ function toggleGASummaries() {
   
   if (!viewer) return;
   
-  // IMMER das rechte Summary Panel öffnen bei Klick auf "Übersicht"
+  // Rechtes Summary Panel öffnen bei Klick auf "Übersicht" (falls noch nicht offen)
   const summaryPanel = document.getElementById('summary-panel');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
   let panelWasJustOpened = false;
+  
   if (summaryPanel && !summaryPanel.classList.contains('visible')) {
-    toggleSummaryPanel();
+    summaryPanel.classList.add('visible');
+    resizeHandle.classList.add('visible');
+    summaryPanel.style.width = '280px';
+    summaryPanel.style.minWidth = '280px';
+    summaryPanel.style.marginRight = '0px';
     panelWasJustOpened = true;
   }
   
@@ -5129,19 +5111,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       e.preventDefault();
       e.stopPropagation();
       
-      // Summary Panel nur bei Vortragswechsel schließen
-      const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureId;
-      const summaryPanel = document.getElementById('summary-panel');
-      const resizeHandle = document.getElementById('verticalResizeHandle');
-      
-      if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
-        summaryPanel.classList.remove('visible');
-        resizeHandle.classList.remove('visible');
-        summaryPanel.style.width = '0';
-        summaryPanel.style.minWidth = '0';
-        summaryPanel.style.marginRight = '0px';
-      }
-      
+      // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
       const keywords = extractKeywordsFromQuery(currentThematicQuery);
       await showLecture(lectureId, targetIndex, keywords);
     });
@@ -5221,18 +5191,6 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
   
-  // Summary Panel nur schließen, wenn zu einem ANDEREN Vortrag gewechselt wird
-  const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureId;
-  
-  if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
-    summaryPanel.classList.remove('visible');
-    resizeHandle.classList.remove('visible');
-    summaryPanel.style.width = '0';
-    summaryPanel.style.minWidth = '0';
-    summaryPanel.style.marginRight = '0px';
-    if (tocList) tocList.innerHTML = '';
-  }
-  
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
 
@@ -5307,6 +5265,22 @@ setTimeout(() => {
           }
           
           updateButtonStates();
+          
+          // Öffne Summary Panel automatisch (auch bei vorhandener Summary)
+          setTimeout(() => {
+            if (summaryPanel) {
+              console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
+              summaryPanel.classList.add('visible');
+              if (resizeHandle) resizeHandle.classList.add('visible');
+              document.body.classList.remove('summary-panel-collapsed');
+              summaryPanel.style.width = '280px';
+              summaryPanel.style.minWidth = '280px';
+              summaryPanel.style.marginRight = '0px';
+              updateHeaderPosition();
+              buildTableOfContents();
+            }
+          }, 100);
+          
           return;
         }
       }
@@ -5332,6 +5306,27 @@ setTimeout(() => {
     
     updateButtonStates();
     displayLecture(data.lecture, targetIndex, displayKeywords);
+    
+    // Öffne Summary Panel automatisch nach dem Laden (immer)
+    setTimeout(() => {
+      if (summaryPanel) {
+        console.log('[SUMMARY-PANEL] Auto-open triggered');
+        summaryPanel.classList.add('visible');
+        if (resizeHandle) resizeHandle.classList.add('visible');
+        document.body.classList.remove('summary-panel-collapsed');
+        summaryPanel.style.width = '280px';
+        summaryPanel.style.minWidth = '280px';
+        summaryPanel.style.marginRight = '0px';
+        
+        // Header-Position aktualisieren
+        updateHeaderPosition();
+        
+        // TOC generieren
+        buildTableOfContents();
+      } else {
+        console.warn('[SUMMARY-PANEL] Panel nicht gefunden für auto-open');
+      }
+    }, 100);
     
   } catch (error) {
     console.error('Fehler beim Laden:', error);
@@ -5780,41 +5775,54 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       function updateActiveTocItem() {
         const containerTop = mainContainer.getBoundingClientRect().top;
+        const containerBottom = mainContainer.getBoundingClientRect().bottom;
         
-        let activeHeading = null;
+        const activeHeadings = [];
         
-        const selector = viewerH4Collapsed ? 'h3' : 'h3, h4';
-        const visibleHeadings = Array.from(viewer.querySelectorAll(selector));
+        // Immer beide H3 und H4 berücksichtigen für die Aktivmarkierung
+        const visibleHeadings = Array.from(viewer.querySelectorAll('h3, h4'));
         
-        for (let i = visibleHeadings.length - 1; i >= 0; i--) {
-          const heading = visibleHeadings[i];
+        // Sammle alle Headings, die im sichtbaren Bereich sind
+        visibleHeadings.forEach(heading => {
           const headingRect = heading.getBoundingClientRect();
           const relativeTop = headingRect.top - containerTop;
+          const relativeBottom = headingRect.bottom - containerTop;
           
-          if (relativeTop <= 50) {
-            activeHeading = heading;
-            break;
+          // Heading ist sichtbar, wenn es zwischen dem oberen Rand und dem unteren Rand des Containers ist
+          if (relativeTop >= 0 && relativeTop <= (containerBottom - containerTop)) {
+            activeHeadings.push(heading);
+          }
+        });
+        
+        // Wenn keine Headings im Viewport, nimm das letzte Heading vor dem Viewport
+        if (activeHeadings.length === 0) {
+          for (let i = visibleHeadings.length - 1; i >= 0; i--) {
+            const heading = visibleHeadings[i];
+            const headingRect = heading.getBoundingClientRect();
+            const relativeTop = headingRect.top - containerTop;
+            
+            if (relativeTop <= 50) {
+              activeHeadings.push(heading);
+              break;
+            }
           }
         }
         
+        // Alle TOC-Items zurücksetzen
         tocItems.forEach(item => {
           item.element.style.fontWeight = 'normal';
-          // Farbe je nach Dark Mode setzen
           const isDarkMode = document.body.classList.contains('dark-mode');
           item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
         });
         
-        if (!activeHeading) return;
-        
-        for (let i = 0; i < tocItems.length; i++) {
-          if (tocItems[i].heading === activeHeading) {
-            tocItems[i].element.style.fontWeight = 'bold';
-            // Farbe je nach Dark Mode setzen
+        // Markiere alle aktiven Headings (H3 und/oder H4) fett
+        tocItems.forEach(item => {
+          if (activeHeadings.includes(item.heading)) {
+            item.element.style.fontWeight = 'bold';
             const isDarkMode = document.body.classList.contains('dark-mode');
-            tocItems[i].element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
-            break;
+            item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
           }
-        }
+        });
       }
       
       mainContainer.removeEventListener('scroll', updateActiveTocItem);
