@@ -8298,6 +8298,9 @@ function initializeLucideIcons() {
 // Funktion zum Speichern von markierten fehlerhaften Wörtern
 async function saveMarkedWord(word, gaTitle) {
   try {
+    console.log('[MARKED-WORD] API_BASE:', API_BASE);
+    console.log('[MARKED-WORD] Sende Request für:', word);
+    
     const response = await fetch(`${API_BASE}/api/save-marked-word`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -8308,20 +8311,24 @@ async function saveMarkedWord(word, gaTitle) {
       })
     });
     
+    console.log('[MARKED-WORD] Response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error('Fehler beim Speichern');
+      const errorText = await response.text();
+      console.error('[MARKED-WORD] Server Error:', errorText);
+      throw new Error(`Server Error (${response.status}): ${errorText}`);
     }
     
     const result = await response.json();
-    console.log('[MARKED-WORD] Gespeichert:', word, 'in', gaTitle);
+    console.log('[MARKED-WORD] Erfolgreich gespeichert:', result);
     
     // Kurze visuelle Bestätigung
-    showTemporaryMessage(`Wort "${word}" gespeichert`);
+    showTemporaryMessage(`Wort "${word}" gespeichert (${result.totalEntries} Einträge)`);
     
     return result;
   } catch (error) {
     console.error('[MARKED-WORD] Fehler:', error);
-    showTemporaryMessage(`Fehler beim Speichern: ${error.message}`);
+    alert(`Fehler beim Speichern:\n${error.message}\n\nBitte prüfen Sie die Browser-Konsole für Details.`);
   }
 }
 
