@@ -317,48 +317,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   font-size: var(--text-size);
   line-height: var(--line-height);
   color: var(--text-color);
-  /* Scrollbar mit Main Viewer Formatierung - nur bei Hover sichtbar */
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-#sidebar-content:hover {
-  scrollbar-color: #c0c0c0 transparent;
-}
-
-body.dark-mode #sidebar-content:hover {
-  scrollbar-color: #555 transparent;
-}
-
-#sidebar-content::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-#sidebar-content::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#sidebar-content::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
-
-#sidebar-content:hover::-webkit-scrollbar-thumb {
-  background: #c0c0c0;
-}
-
-#sidebar-content:hover::-webkit-scrollbar-thumb:hover {
-  background: #a0a0a0;
-}
-
-body.dark-mode #sidebar-content:hover::-webkit-scrollbar-thumb {
-  background: #555;
-}
-
-body.dark-mode #sidebar-content:hover::-webkit-scrollbar-thumb:hover {
-  background: #666;
+  /* Verwendet allgemeine Scrollbar-Regeln wie "Zuletzt gesucht" */
 }
     
     /* Zentrale Styles für alle Sidebar-Texte */
