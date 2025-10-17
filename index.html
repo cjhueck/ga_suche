@@ -2632,6 +2632,14 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <option value="">GA-Band auswählen...</option>
 </select>
 </div>
+<div id="texteSearchInfo" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
+<div>
+<span id="texteServerInfo"></span>
+</div>
+<button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 180px;">
+  <span id="texteViewToggleText">Mit Zusammenfassungen</span>
+</button>
+</div>
 </div>
 </div>
 <div class="tab-content active" id="keyword-tab">
@@ -3311,11 +3319,13 @@ function normalizeGANumber(gaNumber) {
           const infoText = `${data.lecturesLoaded} Vorträge verfügbar`;
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
+          document.getElementById('texteServerInfo').textContent = infoText;
         }
       } catch (error) {
         const errorText = `<span style="color: #c53030;">Server nicht erreichbar</span>`;
         document.getElementById('serverInfo').innerHTML = errorText;
         document.getElementById('thematicServerInfo').innerHTML = errorText;
+        document.getElementById('texteServerInfo').innerHTML = errorText;
       }
     }
 
@@ -3601,13 +3611,22 @@ async function displayGAOverview(data) {
   // Zähle Vorträge mit Summaries
   const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
   
+  // Aktualisiere Statusanzeige im aktiven Tab
+  const activeTab = document.querySelector('.tab-content.active');
+  if (activeTab && activeTab.id === 'texte-tab') {
+    const texteServerInfo = document.getElementById('texteServerInfo');
+    if (texteServerInfo) {
+      // Verwende die gleiche Formatierung wie im Suche-Tab
+      texteServerInfo.textContent = `${data.lectureCount} Vorträge verfügbar`;
+    }
+    // Toggle Button im Texte-Tab anzeigen
+    const texteViewToggle = document.getElementById('texteViewToggle');
+    if (texteViewToggle) {
+      texteViewToggle.style.display = 'inline-block';
+    }
+  }
+  
   let html = `
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 0.5px solid #ddd; margin-bottom: 0.5rem;">
-      <span style="font-weight: 600;">${data.lectureCount} Vorträge</span>
-      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px;">
-        ${gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen'}
-      </button>
-    </div>
     <div id="ga-lecture-list">
   `;
   
@@ -3667,6 +3686,12 @@ function toggleGASummaries() {
   
   if (button) {
     button.textContent = gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen';
+  }
+  
+  // Update Toggle Button im Texte-Tab
+  const texteViewToggleText = document.getElementById('texteViewToggleText');
+  if (texteViewToggleText) {
+    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen';
   }
 }
 
@@ -6780,6 +6805,24 @@ function switchTabExtended(mode) {
     } else {
       // Keywords sind bereits geladen, zeige sie an
       displayKeywords('Alle');
+    }
+  }
+
+  // Wenn wir zum Texte-Tab wechseln, setze das Dropdown zurück
+  if (mode === 'texte') {
+    const texteGAFilter = document.getElementById('texteGAFilter');
+    if (texteGAFilter) {
+      texteGAFilter.value = '';
+      console.log('[TABS] Texte-Tab Dropdown zurückgesetzt');
+    }
+    // Toggle Button verstecken und zurücksetzen
+    const texteViewToggle = document.getElementById('texteViewToggle');
+    const texteServerInfo = document.getElementById('texteServerInfo');
+    if (texteViewToggle) {
+      texteViewToggle.style.display = 'none';
+    }
+    if (texteServerInfo) {
+      texteServerInfo.textContent = '';
     }
   }
 
