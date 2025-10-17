@@ -2668,19 +2668,19 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
     <span id="serverInfo"></span>
     <span id="resultInfo"></span>
   </div>
+  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
+</div>
+</div>
+<div style="display:flex; gap:8px; align-items:center; justify-content: space-between; margin-top: 0.5rem;">
   <div style="display:flex; gap:8px; align-items:center;">
-    <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
     <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
     <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
   </div>
-</div>
+  <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: 126px; box-sizing: border-box;">
+    <span id="viewToggleText">nur Titel</span>
+  </button>
 </div>
 <span id="status" style="display:none"></span>
-<div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 0.5rem;">
-<button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: 126px; box-sizing: border-box;">
-  <span id="viewToggleText">Titel anzeigen</span>
-</button>
-</div>
 </div>
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0.5rem 0;">
@@ -3887,12 +3887,12 @@ function toggleGASummaries() {
       if (currentView === 'text') {
         // Wechsle zu Titelansicht
         snippets.forEach(snippet => snippet.style.display = 'none');
-        toggleText.textContent = 'Text anzeigen';
+        toggleText.textContent = 'Titel & Text';
         currentView = 'title';
       } else {
         // Wechsle zu Textansicht
         snippets.forEach(snippet => snippet.style.display = 'block');
-        toggleText.textContent = 'Titel anzeigen';
+        toggleText.textContent = 'nur Titel';
         currentView = 'text';
       }
     }
@@ -3945,7 +3945,7 @@ function toggleGASummaries() {
       // Reset auf Textansicht
       currentView = 'text';
       const toggleText = document.getElementById('viewToggleText');
-      if (toggleText) toggleText.textContent = 'Titel anzeigen';
+      if (toggleText) toggleText.textContent = 'nur Titel';
       
       // Timeline-Container mit CSS Grid
       const timelineContainer = document.createElement('div');
