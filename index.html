@@ -5326,11 +5326,18 @@ setTimeout(() => {
             if (summaryPanel) {
               console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
               summaryPanel.classList.add('visible');
-              if (resizeHandle) resizeHandle.classList.add('visible');
-              document.body.classList.remove('summary-panel-collapsed');
               summaryPanel.style.width = '280px';
               summaryPanel.style.minWidth = '280px';
               summaryPanel.style.marginRight = '0px';
+              summaryPanel.style.removeProperty('display');
+              
+              if (resizeHandle) {
+                resizeHandle.classList.add('visible');
+                resizeHandle.style.removeProperty('display');
+                resizeHandle.style.removeProperty('width');
+              }
+              
+              document.body.classList.remove('summary-panel-collapsed');
               updateHeaderPosition();
               buildTableOfContents();
             }
@@ -5367,11 +5374,18 @@ setTimeout(() => {
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
         summaryPanel.classList.add('visible');
-        if (resizeHandle) resizeHandle.classList.add('visible');
-        document.body.classList.remove('summary-panel-collapsed');
         summaryPanel.style.width = '280px';
         summaryPanel.style.minWidth = '280px';
         summaryPanel.style.marginRight = '0px';
+        summaryPanel.style.removeProperty('display');
+        
+        if (resizeHandle) {
+          resizeHandle.classList.add('visible');
+          resizeHandle.style.removeProperty('display');
+          resizeHandle.style.removeProperty('width');
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
         
         // Header-Position aktualisieren
         updateHeaderPosition();
@@ -6653,7 +6667,7 @@ function switchTabExtended(mode) {
   
   // Summary-Panel schließen beim Tab-Wechsel
   const summaryPanel = document.getElementById('summary-panel');
-  const summaryResizeHandle = document.querySelector('.resize-handle');
+  const summaryResizeHandle = document.querySelector('.vertical-resize-handle');
   
   if (summaryPanel) {
     // Entferne .visible Klasse (das reicht, da CSS default width: 0 hat)
@@ -6667,6 +6681,11 @@ function switchTabExtended(mode) {
   
   if (summaryResizeHandle) {
     summaryResizeHandle.classList.remove('visible');
+    // Resize-Handle komplett zurücksetzen
+    summaryResizeHandle.removeAttribute('style');
+    summaryResizeHandle.style.width = '0';
+    summaryResizeHandle.style.display = 'none';
+    console.log('[TABS] Resize-Handle versteckt');
   }
   
   // TOC leeren
