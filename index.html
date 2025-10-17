@@ -8294,6 +8294,65 @@ function initializeLucideIcons() {
     lucide.createIcons();
   }
 }
+
+// Funktion zum Speichern von markierten fehlerhaften Wörtern
+async function saveMarkedWord(word, gaTitle) {
+  try {
+    const response = await fetch(`${API_BASE}/api/save-marked-word`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        word: word,
+        gaTitle: gaTitle,
+        timestamp: new Date().toISOString()
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Fehler beim Speichern');
+    }
+    
+    const result = await response.json();
+    console.log('[MARKED-WORD] Gespeichert:', word, 'in', gaTitle);
+    
+    // Kurze visuelle Bestätigung
+    showTemporaryMessage(`Wort "${word}" gespeichert`);
+    
+    return result;
+  } catch (error) {
+    console.error('[MARKED-WORD] Fehler:', error);
+    showTemporaryMessage(`Fehler beim Speichern: ${error.message}`);
+  }
+}
+
+// Event-Listener für Rechtsklick im Viewer
+document.addEventListener('DOMContentLoaded', function() {
+  const viewer = document.getElementById('viewer');
+  
+  if (viewer) {
+    viewer.addEventListener('contextmenu', function(e) {
+      // Hole markierten Text
+      const selection = window.getSelection();
+      const selectedText = selection.toString().trim();
+      
+      // Nur wenn Text markiert ist
+      if (selectedText && selectedText.length > 0) {
+        e.preventDefault(); // Verhindere Standard-Kontextmenü
+        
+        // Hole aktuellen Vortragstitel
+        const documentTitle = document.getElementById('document-title');
+        const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
+        
+        // Zeige Bestätigungsdialog
+        const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
+        
+        if (confirmed) {
+          saveMarkedWord(selectedText, gaTitle);
+        }
+      }
+    });
+  }
+});
 </script>
 
 </body>
