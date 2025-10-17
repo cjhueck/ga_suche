@@ -3178,6 +3178,61 @@ function normalizeGANumber(gaNumber) {
     }
 
     function switchTab(mode) {
+      console.log('[TABS] Wechsel zu Tab:', mode);
+      
+      // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
+      const summaryPanel = document.getElementById('summary-panel');
+      const resizeHandle = document.querySelector('.resize-handle');
+      
+      if (summaryPanel) {
+        // Entferne alle sichtbarkeitsrelevanten Klassen
+        summaryPanel.classList.remove('visible');
+        
+        // Setze alle Style-Properties explizit zurück
+        summaryPanel.style.setProperty('width', '0', 'important');
+        summaryPanel.style.setProperty('min-width', '0', 'important');
+        summaryPanel.style.setProperty('margin-right', '0', 'important');
+        summaryPanel.style.setProperty('display', 'none', 'important');
+        summaryPanel.style.setProperty('opacity', '0', 'important');
+        summaryPanel.style.setProperty('visibility', 'hidden', 'important');
+        
+        console.log('[TABS] Summary-Panel geschlossen');
+      }
+      
+      if (resizeHandle) {
+        resizeHandle.classList.remove('visible');
+        resizeHandle.style.setProperty('display', 'none', 'important');
+      }
+      
+      // Body-Klasse für collapsed State hinzufügen
+      document.body.classList.add('summary-panel-collapsed');
+      
+      // TOC leeren
+      const tocList = document.getElementById('toc-list');
+      if (tocList) {
+        tocList.innerHTML = '';
+      }
+      
+      // Document Title zurücksetzen
+      const documentTitle = document.getElementById('document-title');
+      if (documentTitle) {
+        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
+      }
+      
+      // Viewer leeren
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.innerHTML = '';
+      }
+      
+      // currentOpenLectureId zurücksetzen
+      window.currentOpenLectureId = null;
+      
+      // Header-Position aktualisieren
+      if (typeof updateHeaderPosition === 'function') {
+        setTimeout(() => updateHeaderPosition(), 50);
+      }
+      
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
@@ -6595,6 +6650,33 @@ function switchTabExtended(mode) {
   
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
+  
+  // Summary-Panel schließen beim Tab-Wechsel
+  const summaryPanel = document.getElementById('summary-panel');
+  const summaryResizeHandle = document.querySelector('.resize-handle');
+  
+  if (summaryPanel) {
+    // Entferne .visible Klasse (das reicht, da CSS default width: 0 hat)
+    summaryPanel.classList.remove('visible');
+    
+    // Entferne alle inline-styles, damit CSS-Defaults greifen
+    summaryPanel.removeAttribute('style');
+    
+    console.log('[TABS] Summary-Panel geschlossen');
+  }
+  
+  if (summaryResizeHandle) {
+    summaryResizeHandle.classList.remove('visible');
+  }
+  
+  // TOC leeren
+  const tocList = document.getElementById('toc-list');
+  if (tocList) {
+    tocList.innerHTML = '';
+  }
+  
+  // currentOpenLectureId zurücksetzen
+  window.currentOpenLectureId = null;
   
   // Horizontalen Resize-Handle basierend auf Tab ein-/ausblenden
   const resizeHandle = document.getElementById('search-panel-toggle');
