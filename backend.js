@@ -3449,6 +3449,57 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// ============================================================================
+// API: MARKIERTE WÖRTER SPEICHERN
+// ============================================================================
+
+app.post('/api/save-marked-word', async (req, res) => {
+  try {
+    const { word, gaTitle, timestamp } = req.body;
+    
+    if (!word || !gaTitle) {
+      return res.status(400).json({ error: 'Wort und GA-Titel erforderlich' });
+    }
+    
+    console.log(`[MARKED-WORD] Speichere: "${word}" aus "${gaTitle}"`);
+    
+    const markedWordsFile = path.join(__dirname, 'marked-words.json');
+    
+    // Lade existierende Einträge
+    let markedWords = [];
+    try {
+      const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+      markedWords = JSON.parse(fileContent);
+    } catch (error) {
+      // Datei existiert noch nicht
+      console.log('[MARKED-WORD] Erstelle neue Datei');
+    }
+    
+    // Füge neuen Eintrag hinzu
+    markedWords.push({
+      word: word,
+      gaTitle: gaTitle,
+      timestamp: timestamp || new Date().toISOString()
+    });
+    
+    // Speichere aktualisierte Datei
+    await fs.writeFile(markedWordsFile, JSON.stringify(markedWords, null, 2), 'utf8');
+    
+    console.log(`[MARKED-WORD] Erfolgreich gespeichert. Insgesamt: ${markedWords.length} Einträge`);
+    
+    res.json({ 
+      success: true, 
+      totalEntries: markedWords.length,
+      message: `Wort "${word}" gespeichert`
+    });
+    
+  } catch (error) {
+    console.error('[MARKED-WORD] Fehler beim Speichern:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 async function startServer() {
   try {
     console.log('\n========================================');
@@ -3517,6 +3568,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/keywords-delete`);
       console.log(`   GET  /api/keywords-files`);
       console.log(`   GET  /api/keywords-list`);
+      console.log(`   POST /api/save-marked-word`);
       console.log(`   GET  /summary-database.json`);
       console.log(`   GET  /thematic-search-database.json`);
       console.log(`\n✓ System bereit!\n`);
