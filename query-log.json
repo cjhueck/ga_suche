@@ -225,10 +225,10 @@
     "last": "2025-10-17T09:27:35.843Z"
   },
   "lebenstableau": {
-    "count": 116,
+    "count": 119,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:13:03.915Z",
-    "last": "2025-10-17T09:27:15.130Z"
+    "last": "2025-10-17T09:37:57.992Z"
   },
   "steiner": {
     "count": 27,
@@ -427,14 +427,14 @@
     "lastUsed": "2025-10-09T04:41:19.220Z"
   },
   "bacon": {
-    "count": 4,
+    "count": 6,
     "coOccurrences": {
       "francis bacon": 1,
       "steiner": 1,
       "francis": 1
     },
     "lastUsed": "2025-10-09T04:41:19.220Z",
-    "last": "2025-10-17T08:04:14.947Z"
+    "last": "2025-10-17T09:35:58.144Z"
   },
   "jakob böhme": {
     "count": 1,
@@ -684,10 +684,10 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "goetheanismus": {
-    "count": 45,
+    "count": 49,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:33.257Z",
-    "last": "2025-10-17T08:32:11.651Z"
+    "last": "2025-10-17T09:37:31.603Z"
   },
   "dionysius areopagita": {
     "count": 1,
@@ -824,5 +824,9 @@
   "kamaloka": {
     "count": 15,
     "last": "2025-10-16T23:25:13.886Z"
+  },
+  "patron": {
+    "count": 1,
+    "last": "2025-10-17T09:29:52.121Z"
   }
 }
