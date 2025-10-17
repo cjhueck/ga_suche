@@ -875,6 +875,116 @@ function applySemanticRanking(keywordResults, query) {
   }).sort((a, b) => b.finalScore - a.finalScore);
 }
 
+// Hilfsfunktion: Relevanz-Scoring für Stichwortsuche-Ergebnisse hinzufügen
+function addRelevanceScoringToResults(results, query) {
+  console.log(`[RELEVANCE-SCORING] Füge Relevanz-Scores für ${results.length} Ergebnisse hinzu`);
+  
+  // Gruppiere Ergebnisse nach Vortrag
+  const lectureGroups = {};
+  results.forEach(result => {
+    const lectureId = result.ID;
+    if (!lectureGroups[lectureId]) {
+      lectureGroups[lectureId] = [];
+    }
+    lectureGroups[lectureId].push(result);
+  });
+  
+  // Bestimme ob weniger als 100 Treffer (dann mittel -> hoch)
+  const mergeMittelToHoch = results.length < 100;
+  if (mergeMittelToHoch) {
+    console.log(`[RELEVANCE-SCORING] Weniger als 100 Treffer (${results.length}) - fasse "mittel" und "hoch" zu "hoch" zusammen`);
+  }
+  
+  // Berechne Relevanz-Score für jeden Vortrag
+  const resultsWithRelevance = results.map(result => {
+    const lectureId = result.ID;
+    const lectureResults = lectureGroups[lectureId];
+    
+    // Verwende die gleiche Relevanz-Berechnung wie bei der Timeline
+    const relevanceScore = calculateRelevanceScoreForLecture(lectureResults, query);
+    
+    // Debug-Ausgabe für die ersten 5 Vorträge
+    if (Object.keys(lectureGroups).indexOf(lectureId) < 5) {
+      console.log(`[RELEVANCE-DEBUG] ${lectureId}: Score=${relevanceScore.toFixed(3)}, Chunks=${lectureResults.length}`);
+    }
+    
+    // Bestimme Relevanz-Kategorie (Schwelle zwischen mittel und hoch weiter gesenkt)
+    let relevanceCategory = 'niedrig';
+    if (relevanceScore >= 0.12) {
+      relevanceCategory = 'hoch';
+    } else if (relevanceScore >= 0.08) {
+      relevanceCategory = mergeMittelToHoch ? 'hoch' : 'mittel'; // Bei < 100 Treffern: mittel -> hoch
+    }
+    
+    return {
+      ...result,
+      relevanceScore: relevanceScore,
+      relevanceCategory: relevanceCategory
+    };
+  });
+  
+  console.log(`[RELEVANCE-SCORING] Relevanz-Kategorien: ${Object.values(resultsWithRelevance).reduce((acc, r) => {
+    acc[r.relevanceCategory] = (acc[r.relevanceCategory] || 0) + 1;
+    return acc;
+  }, {})}`);
+  
+  return resultsWithRelevance;
+}
+
+// Hilfsfunktion: Relevanz-Score für einen Vortrag berechnen (verbesserte Version)
+function calculateRelevanceScoreForLecture(lectureResults, query) {
+  if (!lectureResults || lectureResults.length === 0) return 0;
+  
+  const queryLower = query.toLowerCase();
+  let totalScore = 0;
+  let totalLength = 0;
+  let totalOccurrences = 0;
+  
+  lectureResults.forEach(result => {
+    const content = result.content || '';
+    const contentLower = content.toLowerCase();
+    
+    // Zähle Vorkommen des Suchbegriffs
+    let occurrences = 0;
+    let pos = 0;
+    while ((pos = contentLower.indexOf(queryLower, pos)) !== -1) {
+      occurrences++;
+      pos += queryLower.length;
+    }
+    
+    if (occurrences > 0) {
+      totalOccurrences += occurrences;
+      
+      // Keyword-Dichte (höherer Gewichtungsfaktor)
+      const density = occurrences / content.length;
+      
+      // Kontext-Score (längere Absätze = höherer Score)
+      const contextScore = Math.min(content.length / 500, 1); // Reduziert von 1000 auf 500
+      
+      // Bonus für Mehrfachtreffer im gleichen Absatz
+      const multipleOccurrenceBonus = Math.min(occurrences / 3, 1); // Bonus bis zu 3 Vorkommen
+      
+      // Kombinierter Score für diesen Absatz
+      const paragraphScore = density * contextScore * (1 + multipleOccurrenceBonus) * Math.sqrt(occurrences);
+      totalScore += paragraphScore;
+      totalLength += content.length;
+    }
+  });
+  
+  // Normalisiere den Score (verbesserte Berechnung)
+  const normalizedScore = totalLength > 0 ? totalScore / lectureResults.length : 0;
+  
+  // Skaliere den Score für bessere Verteilung (multipliziere mit 50 statt 100)
+  const scaledScore = normalizedScore * 50;
+  
+  // Debug-Ausgabe für die ersten Vorträge
+  if (totalOccurrences > 0) {
+    console.log(`[RELEVANCE-CALC] Query="${query}", Occurrences=${totalOccurrences}, Chunks=${lectureResults.length}, Score=${scaledScore.toFixed(3)}`);
+  }
+  
+  return Math.min(scaledScore, 1); // Begrenze auf 0-1
+}
+
 async function performHybridSearch(query, limit = 20) {
   try {
     const keywordResults = performKeywordSearch(query, paragraphsFromLectures);
@@ -887,7 +997,10 @@ async function performHybridSearch(query, limit = 20) {
       };
     }
     
-    const rankedResults = applySemanticRanking(keywordResults, query);
+    // NEU: Relevanz-Scoring für jeden Vortrag hinzufügen
+    const resultsWithRelevance = addRelevanceScoringToResults(keywordResults, query);
+    
+    const rankedResults = applySemanticRanking(resultsWithRelevance, query);
     const topResults = rankedResults.slice(0, limit);
     
     console.log(`Hybrid: ${keywordResults.length} Keywords -> ${topResults.length} Final`);
@@ -996,14 +1109,18 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
     
+    // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen
+    const searchQuery = word2 ? `${word1} ${word2}` : word1;
+    const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
+    
     // Query-Tracking
     if (word1) trackQueryTerms(word1, results.length);
     if (word2) trackQueryTerms(word2, results.length);
     
     res.json({
       query: { word1, word2, proximity },
-      results: results,
-      resultCount: results.length
+      results: resultsWithRelevance,
+      resultCount: resultsWithRelevance.length
     });
     
   } catch (error) {
@@ -1026,7 +1143,7 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
     return generateFallbackAnalysis(query, results);
   }
   
-  const topResults = results.slice(0, 25);  // Erhöht von 15 auf 25 für mehr Kontext
+  const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
 
   console.log('=== DEBUG topResults ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -1048,119 +1165,113 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   
   const maxTokens = {
     'allgemein': 4000,    // Erhöht von 2000 auf 4000
-    'genau': 6000,        // Erhöht von 3500 auf 6000  
     'ausführlich': 8000   // Erhöht von 6000 auf 8000
   };
   
-  // Unterschiedliche Prompts für "allgemein" und "ausführlich"
-  let prompt;
-  
-  if (depth === 'allgemein') {
-    // Verkürzter Prompt für "allgemein"
-    prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+  // Erzwinge immer den ausführlichen Prompt unabhängig vom übergebenen depth
+  const effectiveDepth = 'ausführlich';
+  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
 
-QUELLENANGABEN:
-- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
-- Verfügbare Referenzen: ${availableRefs}
-- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
-- WICHTIG: Setze immer EIN Leerzeichen VOR die öffnende Klammer: "Text (GA052/7:n5x6ru)"
-- WICHTIG: KEINE Leerzeichen INNERHALB der Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
+ANALYSE-TIEFE: ${effectiveDepth}
 
-AUFGABE:
-Erstelle eine kompakte, zusammenhängende Analyse der relevanten Textstellen zur Frage "${query}".
+Prompt für thematische Textanalyse:
+Du bist ein Assistent zur Analyse und Darstellung von Textmaterial aus Rudolf Steiners Gesamtausgabe (GA).
+Deine Aufgabe
+Erstelle eine thematisch gegliederte Darstellung zu einer Themenanfrage basierend auf vorliegenden Textauszügen.
+Arbeitsschritte
 
-INHALTE:
-- Begrifflich-sachliche Aspekte (Was ist gemeint?)
-- Methodische Aspekte (Wie kann man das erkennen?)
-- Vergleich mit ähnlichen oder verwandten Inhalten
-- Besonderheiten
+Identifiziere die relevanten Suchwörter der Themenanfrage
+Lokalisiere alle Textstellen (Absätze), in denen die Suchwörter vorkommen (inklusive Kontext)
+Vergleiche die Textstellen auf inhaltliche Ähnlichkeit
+Wähle aus: Nur inhaltlich verschiedene Textstellen (keine Redundanzen)
+Gliedere das Material mit eigenen, aussagekräftigen Zwischenüberschriften
+Beziehe alle Aussagen inhaltlich auf die Suchwörter der Themenanfrage
+Schreibe am Ende ein kurzes inhaltliches Fazit
+Liste unter dem Fazit die verwendeten Quellenangaben auf
 
-FORMATIERUNG:
-- Verwende Markdown-Formatierung
-- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
-- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index)
-- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
-- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
-- KEINE Zwischenüberschriften - nur zusammenhängender Fließtext
+KRITISCH WICHTIG: Stelle nur Aspekte dar, die sich inhaltlich unmittelbar auf die Themenanfrage beziehen. Lasse alles weg, was nur am Rande oder indirekt mit dem Thema zu tun hat.
+Inhaltliche Perspektiven (als Orientierung)
+Wähle aus folgenden Perspektiven die relevanten aus:
 
-WICHTIG:
-- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
-- Beginne direkt mit konkreten Zitatstellen aus den Texten
-- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
-- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
-- Minimaler erläuternder Text - nur zur Verbindung der Zitate
-- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
-- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
-- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
-- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
+Sachliche Aspekte (konkrete Phänomene, Substanzen, leibliche Prozesse)
+Funktionelle Aspekte (Wirkungsweisen, Prozesse, physiologische Aspekte)
+Erlebnismäßige und seelisch-psychologische Aspekte
+Begriffliche und geistige Aspekte (Ideen, Prinzipien)
+Methodische und erkenntnistheoretische Aspekte
+Vergleich mit anderen Inhalten
+Entwicklung und Evolution
+Besonderheiten und Sonstiges
 
-TEXTPASSAGEN:
-${contextText}
+Wichtig: Keine eigenen Bewertungen oder Interpretationen.
+Strukturierung
 
-ANALYSE:`;
-  } else {
-    // Ausführlicher Prompt für "ausführlich" - zurück zum ursprünglichen funktionierenden Prompt
-    prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zur Frage: "${query}"
+Eigene Zwischenüberschriften (## Format) die den Inhalt ankündigen
+NICHT die obigen Kategorienamen als Überschriften verwenden
+Beispiele für gute Überschriften:
 
-ANALYSE-TIEFE: ${depth}
+"Die Verwandlung der Sinneswahrnehmung"
+"Drei Stufen der Ich-Entwicklung"
+"Der Zusammenhang von Denken und Willen"
 
-QUELLENANGABEN:
-- Verwende das Format (GAXXX/Y:index) nach jeder spezifischen Aussage
-- Verfügbare Referenzen: ${availableRefs}
-- Format: (GA###/lectureNum:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
-- WICHTIG: Verwende immer das vollständige Format mit /Y:index
-- WICHTIG: Setze immer EIN Leerzeichen VOR die öffnende Klammer: "Text (GA052/7:n5x6ru)"
-- WICHTIG: KEINE Leerzeichen INNERHALB der Klammern! Schreibe (GA052/7:n5x6ru) nicht ( GA052/7:n5x6ru )
-- Beispiel: "Kants Erkenntnisgrenze wird kritisiert (GA052/7:n5x6ru)."
 
-VORGEHEN:
-1. Identifiziere alle Textstellen mit relevanten Suchwörtern zur Themenanfrage
-2. Vergleiche diese Textstellen auf Ähnlichkeit
-3. Wähle möglichst viele nicht-redundante Textstellen aus
-4. Entwickle eine eigene thematische Gliederung mit aussagekräftigen Zwischenüberschriften
+Stilistische Anforderungen
+Beginne direkt mit konkreten Inhalten:
 
-INHALTLICHE PERSPEKTIVEN (als Orientierung, nicht als Überschriften verwenden):
-Berücksichtige bei deiner Analyse verschiedene Perspektiven - wähle die relevanten aus:
-- Sachliche und leibliche Aspekte (Was ist gemeint? Konkrete Phänomene, Substanzen, leibliche Prozesse)
-- Funktionelle und physiologische Aspekte (Wie verhält es sich? Funktionen, Wirkungsweisen, Prozesse)
-- Erlebnismäßige und seelisch-psychologische Aspekte (Welche Erfahrungen oder seelischen Prozesse?)
-- Begriffliche und geistige Aspekte (Welche Ideen, Begriffe oder geistigen Prinzipien?)
-- Methodische und erkenntnistheoretische Aspekte (Wie kann man das erkennen? Methoden, Erkenntnisstufen)
-- Vergleich mit anderen Inhalten (Verhältnis zu anderen Wesen, Naturreichen, Konzepten)
-- Entwicklung und Evolution (Entwicklungsprozesse, evolutionäre Aspekte)
-- Besonderheiten und Sonstiges
-- keine eigenen Bewertungen oder Interpretationen - !important
+KEINE einleitenden Sätze wie "Die vorliegenden Textstellen bieten..." oder "Rudolf Steiners Verständnis offenbart sich als..."
+Starte unmittelbar mit substanziellen Aussagen oder Zitaten
 
-STRUKTURIERUNG:
-- Erstelle eigene, thematisch passende Zwischenüberschriften (## Überschrift)
-- Die Überschriften sollen den Inhalt des folgenden Abschnitts ankündigen
-- NICHT die obigen Kategorienamen als Überschriften verwenden
-- Beispiele für gute Überschriften: "Die Verwandlung der Sinneswahrnehmung", "Drei Stufen der Ich-Entwicklung", "Der Zusammenhang von Denken und Willen"
+Formulierungsstil:
 
-FORMATIERUNG:
-- Verwende Markdown-Formatierung
-- **Fette wichtige Schlagwörter** und **zentrale Aussagen**
-- Gib nach jeder spezifischen Aussage die Quelle an: (GA###/Y:index) oder (GA###a/Y:index)
-- Zitiere nur prägnante, kurze Stellen wörtlich in "Anführungszeichen" mit Quellenangabe
-- Zitate sollen maximal 1-2 Sätze lang sein - nur das Wesentliche
-- Vermeide Redundanzen - jede Information nur einmal
+Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+Minimaler erläuternder Text - nur zur Verbindung der Zitate
+VERMEIDE Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
+Formuliere direkt: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
+Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet..."
 
-WICHTIG:
-- KEINE zusammenfassenden Einleitungen oder erläuternden Formulierungen
-- Beginne direkt mit konkreten Zitatstellen aus den Texten
-- KEINE Sätze wie "Die vorliegenden Textstellen bieten verschiedene Perspektiven..." oder "Rudolf Steiners Verständnis offenbart sich als..."
-- Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
-- Minimaler erläuternder Text - nur zur Verbindung der Zitate
-- VERMEIDE komplett redundante Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
-- Formuliere direkt und prägnant: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
-- Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet die anschauende Urteilskraft..."
-- Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie alle ausführlich
+Vermeidungen:
+
+Keine redundanten Formulierungen
+Keine Dopplungen (jede Information nur einmal)
+Keine zusammenfassenden Einleitungen
+Keine Paraphrasen von bereits zitierten Stellen
+
+Formatierung
+
+Markdown-Formatierung
+Fette wichtige Schlagwörter und zentrale Aussagen
+FETT sehr sparsam einsetzen: Innerhalb von Zitaten nur relevante Begriffe/Kernaussagen fett markieren, niemals ganze Zitate; Begriffe/Kernaussagen nur einmal fett markieren (keine Redundanzen) ! wichtig
+Zitiere kurz und prägnant - nur das Wesentliche
+Halte die Darstellung insgesamt prägnant
+
+Quellenangaben
+
+Nach jeder spezifischen Aussage die Quelle angeben
+Format: (GA###/lectureNum:index)
+Beispiel: (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+EIN Leerzeichen VOR der öffnenden Klammer: "Text (GA052/7:n5x6ru)"
+KEINE Leerzeichen INNERHALB der Klammern
+Vollständiges Format verwenden: Immer GA###/Y:index
+
+
+Schreibe am Ende der Darstellung ein kurzes inhaltliches Fazit unter der ## Überschrift "Fazit" in einem neuen Absatz
+OHNE Quellenangaben im Fazit
+Fasse die wesentlichen Erkenntnisse zusammen
+
+Weitere relevante Quellen
+
+Liste unter dem Text unter der ## Überschrift "Weitere relevante Quellen" in einem neuen AbsatzWEITERE relevante Quellen, die im obigen Text NICHT genannt wurden.
+Format: GA###/lectureNum:index (wie im Text), ohne Klammern !, komma-getrennt
+Jede Quelle nur einmal; verwende keine Quellen, die bereits im Text zitiert wurden
+Beispiel: "GA070b/13:abc123, GA080b/4:def456"
+
+Verfügbare Referenzen: ${availableRefs}
+Umfang: Du hast ${topResults.length} relevante Textstellen zur Verfügung - nutze sie ausführlich.
+
 
 TEXTPASSAGEN:
 ${contextText}
 
 ANALYSE:`;
-  }
 
   try {
     console.log('Rufe Claude API auf...');
@@ -1174,7 +1285,7 @@ ANALYSE:`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens[depth] || 8192,
+        max_tokens: maxTokens[effectiveDepth] || 8192,
         messages: [{
           role: 'user',
           content: prompt
@@ -1210,6 +1321,16 @@ function addClickableReferences(text, results) {
   console.log('addClickableReferences gestartet');
   console.log('Erste 3 Results:', results.slice(0, 3).map(r => ({ ID: r.ID, index: r.index })));
   
+  // Bereich der "Weitere relevante Quellen"-Sektion ermitteln, um dort Klammern zu vermeiden
+  const sourcesHeading = '## Weitere relevante Quellen';
+  const sourcesStart = text.indexOf(sourcesHeading);
+  let sourcesEnd = -1;
+  if (sourcesStart !== -1) {
+    const after = text.slice(sourcesStart + sourcesHeading.length);
+    const nextH2Rel = after.indexOf('\n## ');
+    sourcesEnd = nextH2Rel === -1 ? text.length : sourcesStart + sourcesHeading.length + nextH2Rel;
+  }
+
   const refToDataMapping = {};
   
   results.forEach(result => {
@@ -1275,11 +1396,12 @@ function addClickableReferences(text, results) {
       const [idPart] = matchInfo.fullRef.split(':');
       // Nur für das data-index Attribut das Caret entfernen
       const cleanIndex = chunkData.index.replace(/^\^/, '');
-      // Entferne Klammern aus dem ursprünglichen Text, da das Frontend sie hinzufügt
+      // Entferne Klammern aus dem ursprünglichen Text
       const cleanIdPart = idPart.replace(/^\(|\)$/g, '');
-      // Erstelle Link mit Klammern als normalem Text: (GA052/7) wobei nur GA052/7 der Link ist
-      // Füge Leerzeichen vor der öffnenden Klammer hinzu
-      const replacement = ` (<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>)`;
+      const anchor = `<a href="#" class="ga-reference" data-id="${chunkData.id}" data-index="${cleanIndex}" data-file-name="${chunkData.fileName || ''}">${cleanIdPart}</a>`;
+      // In der "Weitere relevante Quellen"-Sektion keine Klammern um die Links
+      const inSourcesSection = sourcesStart !== -1 && matchInfo.position >= sourcesStart && (sourcesEnd === -1 || matchInfo.position < sourcesEnd);
+      const replacement = inSourcesSection ? ` ${anchor}` : ` (${anchor})`;
 
       // Das Pattern erfasst bereits Leerzeichen, daher einfache Ersetzung
       linkedText = linkedText.substring(0, matchInfo.position) + 
@@ -1292,6 +1414,8 @@ function addClickableReferences(text, results) {
       console.warn(`Gesuchte Keys: ${matchInfo.fullRef} und ${refClean}`);
     }
   });
+  
+  // Anweisung zurückgenommen: keine nachträgliche Verlinkung von GA###/Y ohne Index
   
   console.log(`${linksCreated} von ${matches.length} Links erfolgreich erstellt`);
   console.log('Gesendeter Text enthält <a> Tags:', linkedText.includes('<a'));
@@ -1625,6 +1749,37 @@ app.get('/debug/status', async (req, res) => {
   });
 });
 
+// API-Endpunkt: GA-Liste für Dropdowns
+app.get('/api/ga-list', async (req, res) => {
+  try {
+    const gaMap = {};
+    
+    // Sammle GA-Nummern und Titel
+    Object.values(fullLectures).forEach(lecture => {
+      const gaNumber = lecture.ID?.split('/')[0];
+      if (gaNumber && !gaMap[gaNumber]) {
+        // Verwende den Band-Titel falls vorhanden, sonst GA-Nummer
+        gaMap[gaNumber] = {
+          number: gaNumber,
+          title: lecture.bandTitle || lecture.gaTitle || gaNumber
+        };
+      }
+    });
+    
+    // Konvertiere zu Array und sortiere
+    const gaList = Object.values(gaMap).sort((a, b) => {
+      const numA = parseInt(a.number.replace('GA', ''));
+      const numB = parseInt(b.number.replace('GA', ''));
+      return numA - numB;
+    });
+    
+    res.json(gaList);
+  } catch (error) {
+    console.error('Fehler beim Laden der GA-Liste:', error);
+    res.status(500).json({ error: 'Fehler beim Laden der GA-Liste' });
+  }
+});
+
 app.post('/api/hybrid-search', async (req, res) => {
   try {
     const { query, limit = 20 } = req.body;
@@ -1651,15 +1806,16 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, depth = 'allgemein', limit = 30, gaFilter = '' } = req.body;
+    const { query, limit = 100, gaFilter = '' } = req.body;
+    const effectiveDepth = 'ausführlich';
     
     // Konsolidierte Hybrid-Cache-Logik
-    const cacheKey = generateThematicCacheKey(query, depth, limit, gaFilter);
+    const cacheKey = generateThematicCacheKey(query, effectiveDepth, limit, gaFilter);
     const thematicDB = await loadThematicSearchDatabase();
     // Hybrid-Cache-Logik zuerst prüfen
-    const hybridHit = findHybridCacheHit(query, depth, limit, gaFilter, thematicDB);
+    const hybridHit = findHybridCacheHit(query, effectiveDepth, limit, gaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
-      console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (${depth}, ${limit}) | Score: ${hybridHit.score}`);
+      console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (ausführlich, ${limit}) | Score: ${hybridHit.score}`);
       const cachedResult = thematicDB[hybridHit.key];
       return res.json({
         ...cachedResult,
@@ -1671,7 +1827,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     // Kein Cache-Hit: Neue Suche
-    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (${depth}, ${limit})`);
+    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (ausführlich, ${limit})`);
     let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
 
     if (keywordResults.length === 0) {
@@ -1698,7 +1854,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Query-Tracking
     trackQueryTerms(query, topResults.length);
 
-    let analysis = await generateAnalysis(query, topResults, depth);
+    let analysis = await generateAnalysis(query, topResults, effectiveDepth);
 
     let searchResult = {
       query: query,
@@ -1724,7 +1880,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
     // Speichere Cache-DB (non-blocking)
     saveThematicSearchDatabase(thematicDB).then(() => {
-      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (${depth}, ${limit})`);
+      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (ausführlich, ${limit})`);
     }).catch(err => {
       console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
     });
@@ -2171,8 +2327,45 @@ app.get('/api/full-lectures', async (req, res) => {
   }
 });
 
+// Hilfsfunktion: Relevanz-Score berechnen
+function calculateRelevanceScore(lecture, keyword) {
+  const paragraphs = lecture.paragraphs.filter(p => 
+    p.content && p.content.toLowerCase().includes(keyword.toLowerCase())
+  );
+  
+  if (paragraphs.length === 0) return 0;
+  
+  let totalScore = 0;
+  let keywordOccurrences = 0;
+  
+  paragraphs.forEach(paragraph => {
+    const content = paragraph.content.toLowerCase();
+    const keywordLower = keyword.toLowerCase();
+    
+    // Anzahl der Vorkommen
+    const occurrences = (content.split(keywordLower).length - 1);
+    keywordOccurrences += occurrences;
+    
+    // Dichte-Score (Vorkommen pro Zeichen)
+    const density = occurrences / paragraph.content.length;
+    
+    // Kontext-Länge-Score (längere Abschnitte = höhere Relevanz)
+    const contextScore = Math.log(paragraph.content.length + 1);
+    
+    // Kombinierter Score für diesen Absatz
+    const paragraphScore = density * contextScore * Math.sqrt(occurrences);
+    totalScore += paragraphScore;
+  });
+  
+  // Normalisierung: Score pro Absatz und pro Vorkommen
+  const normalizedScore = totalScore / Math.max(paragraphs.length, 1);
+  const occurrenceBonus = Math.log(keywordOccurrences + 1) * 0.1;
+  
+  return normalizedScore + occurrenceBonus;
+}
+
 // ============================================================================
-// SINGLE LECTURE API (für Timeline)
+// SINGLE LECTURE API
 // ============================================================================
 
 app.get('/api/lecture/:lectureId', async (req, res) => {
@@ -2222,16 +2415,17 @@ app.get('/api/lecture/:lectureId', async (req, res) => {
 
 app.post('/api/keyword-thematic-search', async (req, res) => {
   try {
-    const { query, depth = 'allgemein', limit = 30, useCache = true } = req.body;
+    const { query, limit = 30, useCache = true } = req.body;
+    const effectiveDepth = 'ausführlich';
     
     if (!query) {
       return res.status(400).json({ error: 'Query erforderlich' });
     }
     
-    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (${depth}, ${limit})`);
+    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (ausführlich, ${limit})`);
     
     // Cache-System für Keyword-Thematische Suche
-    const cacheKey = `keyword_${query.toLowerCase().trim()}_${depth}_${limit}`;
+    const cacheKey = `keyword_${query.toLowerCase().trim()}_${effectiveDepth}_${limit}`;
     const keywordThematicDB = await loadKeywordThematicDatabase();
     
     // Prüfe Cache (nur wenn useCache true ist)
@@ -2271,7 +2465,7 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
     let topResults = rankedResults.slice(0, limit);
     
     // Generiere Keyword-spezifische Analyse
-    let analysis = await generateKeywordAnalysis(query, topResults, depth);
+    let analysis = await generateKeywordAnalysis(query, topResults, effectiveDepth);
     
     let searchResult = {
       query: query,
@@ -3094,7 +3288,7 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     return generateFallbackKeywordAnalysis(query, results);
   }
   
-  const topResults = results.slice(0, 25);  // Erhöht von 15 auf 25 für mehr Kontext
+  const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
 
   console.log('=== DEBUG topResults ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -3119,13 +3313,16 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     'genau': 6000,        // Erhöht von 3500 auf 6000  
     'ausführlich': 8000   // Erhöht von 6000 auf 8000
   };
-  
+
+  // Erzwinge immer die ausführliche Tiefe unabhängig vom übergebenen depth
+  const effectiveDepth = 'ausführlich';
+
   const prompt = `Analysiere die folgenden Textstellen zum Schlagwort: "${query}"
 
-ANALYSE-TIEFE: ${depth}
+ANALYSE-TIEFE: ${effectiveDepth}
 
 QUELLENANGABEN:
-- Format: (GA###/Y:index) - z.B. (GA052/7:n5x6ru)
+- Format: (GA###/Y:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
 - Verfügbare Referenzen: ${availableRefs}
 - KEINE Leerzeichen um Klammern!
 
@@ -3144,7 +3341,7 @@ PERSPEKTIVEN für "${query}":
 
 FORMATIERUNG:
 - Markdown: **Fette wichtige Begriffe**
-- Zitate: "Text" (GA###/Y:index)
+- Zitate: "Text" (GA###/Y:index) oder (GA###a/Y: index)
 - Überschriften: ## Überschrift
 - Nutze alle ${topResults.length} verfügbaren Textstellen ausführlich
 
@@ -3165,7 +3362,7 @@ ANALYSE:`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens[depth] || 4000,
+        max_tokens: maxTokens[effectiveDepth] || 8000,
         messages: [{
           role: 'user',
           content: prompt

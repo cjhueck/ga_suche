@@ -283,7 +283,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 410px;
+      width: 550px;
       min-width: 0px;
       max-width: none;
       overflow: hidden;
@@ -298,8 +298,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   flex-shrink: 0;
   padding: 0.5rem;
   background: inherit;
-  overflow-y: auto;
-  max-height: 60vh;
+  position: sticky;
+  top: 0;
+  overflow: visible;
   /* Scrollbar ausblenden */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -371,6 +372,75 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       padding-left: 1.2em; 
       margin: 0;
       padding-top: 0.3rem;
+    }
+
+    /* Timeline-Darstellung für Text-Suche */
+    #sidebar-content .timeline-container {
+      padding-left: 0 !important;
+      margin: 0 !important;
+      display: block !important;
+      width: 100% !important;
+    }
+
+    #sidebar-content .timeline-year-group {
+      display: flex !important;
+      margin: 1rem 0 !important;
+      align-items: flex-start !important;
+    }
+
+    #sidebar-content .timeline-year {
+      font-size: 1em !important;
+      font-weight: bold !important;
+      color: #2c5282 !important;
+      min-width: 50px !important;
+      width: 50px !important;
+      flex-shrink: 0 !important;
+      padding-right: 1rem !important;
+      text-align: left !important;
+      padding-top: 0.2rem !important;
+    }
+
+    body.dark-mode #sidebar-content .timeline-year {
+      color: #90cdf4 !important;
+    }
+
+    #sidebar-content .timeline-items-for-year {
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    #sidebar-content .timeline-item {
+      margin: 0 0 0.8rem 0 !important;
+      padding: 0 !important;
+      list-style: none !important;
+      display: block !important;
+    }
+
+    #sidebar-content .timeline-item.first-of-year {
+      margin-top: 0 !important;
+    }
+
+    #sidebar-content .timeline-item > a {
+      font-weight: bold;
+      color: var(--link-color);
+      font-size: var(--text-size);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    #sidebar-content .timeline-item > a:hover {
+      text-decoration: underline;
+    }
+
+    #sidebar-content .timeline-item .snippet {
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+    }
+
+    body.dark-mode #sidebar-content .timeline-item > a {
+      color: #6BA3B8 !important;
     }
     
     #sidebar-content ul.results-list > li > a { 
@@ -771,7 +841,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       background-color: transparent;
       cursor: col-resize;
       position: fixed;
-      right: 0; /* Wird dynamisch über JavaScript gesetzt */
+      right: -2px; /* Wird dynamisch über JavaScript gesetzt */
       top: 45vh; /* Feste Position bei 50% der Viewport-Höhe */
       bottom: auto;
       height: 100px; /* Feste Höhe für das Handle */
@@ -1846,8 +1916,8 @@ body.dark-mode .timeline-document-title a {
 }
 
 .timeline-panel {
-  width: 10%;
-  min-width: 180px;
+  width: 50%;
+  min-width: 400px;
   background-color: var(--background-color);
   border-right: 1px solid var(--border-color);
   border-top: none;
@@ -1857,6 +1927,7 @@ body.dark-mode .timeline-document-title a {
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
+  position: relative;
   /* Scrollbar ausblenden */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -1878,6 +1949,53 @@ body.dark-mode .timeline-panel {
   background-color: var(--dark-background-color);
   border-right-color: var(--dark-border-color);
   border-top: none;
+}
+
+/* Timeline Panel Resize Button */
+.timeline-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 10px;
+  height: 100%;
+  background-color: transparent;
+  cursor: col-resize;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-resize-handle::before {
+  content: '⋮';
+  font-size: 20px;
+  color: var(--link-color);
+  background: var(--background-color);
+  padding: 8px 0;
+  line-height: 1;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.timeline-resize-handle:hover::before {
+  color: var(--link-color);
+}
+
+body.dark-mode .timeline-resize-handle {
+  background-color: transparent;
+}
+
+body.dark-mode .timeline-resize-handle:hover {
+  background-color: transparent;
+}
+
+body.dark-mode .timeline-resize-handle::before {
+  background: var(--dark-background-color);
+  color: var(--dark-link-color);
+}
+
+body.dark-mode .timeline-resize-handle:hover::before {
+  color: var(--dark-link-color);
 }
 
 .timeline-panel-header {
@@ -1999,6 +2117,135 @@ body.dark-mode .timeline-viewer-content {
   font-size: 1.5em;
 }
 
+/* Enhanced Timeline Styles */
+.timeline-analysis {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.timeline-analysis h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--heading-color);
+  font-size: 1.1rem;
+}
+
+.timeline-analysis-points {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+}
+
+.timeline-analysis-points li {
+  margin: 0.3rem 0;
+  line-height: 1.4;
+}
+
+.timeline-item.enhanced {
+  margin-bottom: 1rem;
+}
+
+.timeline-content.enhanced {
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.timeline-content.enhanced:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-lecture-title {
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-relevance {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.relevance-hoch {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.relevance-mittel {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.relevance-niedrig {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.timeline-context {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.timeline-quotes {
+  margin: 0.5rem 0;
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.timeline-focus {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin-top: 0.5rem;
+}
+
+/* Dark Mode für erweiterte Timeline */
+body.dark-mode .timeline-analysis {
+  background: var(--dark-background-color);
+  border-color: var(--dark-border-color);
+}
+
+body.dark-mode .timeline-analysis h3 {
+  color: var(--dark-heading-color);
+}
+
+body.dark-mode .timeline-content.enhanced {
+  background: var(--dark-background-color);
+  border-color: var(--dark-border-color);
+}
+
+body.dark-mode .timeline-content.enhanced:hover {
+  border-color: var(--dark-accent-color);
+}
+
+body.dark-mode .timeline-lecture-title {
+  color: var(--dark-heading-color);
+}
+
+body.dark-mode .timeline-context,
+body.dark-mode .timeline-focus {
+  color: var(--dark-text-color);
+}
+
+body.dark-mode .timeline-quotes {
+  color: var(--dark-secondary-text);
+}
+
 /* Timeline Viewer h3 and h4 - Match Main Viewer Exactly */
 .timeline-viewer-content h3 {
   font-size: 1.0rem !important;
@@ -2099,6 +2346,27 @@ body.dark-mode .timeline-title {
 
 body.dark-mode .timeline-close:hover {
   background-color: var(--dark-accent-color);
+}
+
+/* Timeline Quote Links */
+.timeline-quote-link {
+  color: #467886;
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.timeline-quote-link:hover {
+  color: #2c4a52;
+  text-decoration: none;
+}
+
+body.dark-mode .timeline-quote-link {
+  color: #6bb6ff;
+}
+
+body.dark-mode .timeline-quote-link:hover {
+  color: #4a9eff;
 }
 
 /* Timeline Container */
@@ -2359,33 +2627,34 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" oninput="updateProximityFilter()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" oninput="updateRelevanceFilter()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
 <datalist id="word1-history"></datalist>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" oninput="updateProximityFilter()" placeholder="Suchwort 2 (optional)" type="text"/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" oninput="updateRelevanceFilter()" placeholder="Suchwort 2 (optional)" type="text"/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
 <div class="filter-row">
 <select class="filter-dropdown" id="yearFilter">
-<option value="">alle Jahre</option>
+<option value="">Jahre: alle</option>
 </select>
 <select class="filter-dropdown" id="gaFilter">
-<option value="">alle GA-Bände</option>
+<option value="">GA-Bände: alle</option>
 </select>
-<select class="filter-dropdown" disabled="" id="proximityFilter">
-<option value="">unbeschränkt</option>
-<option value="1">ein Absatz</option>
-<option value="2">zwei Absätze</option>
-<option value="3">drei Absätze</option>
+<select class="filter-dropdown" id="relevanceFilter">
+<option value="alle">Relevanz: alle</option>
+<option value="hoch">hoch 🟩</option>
+<option value="mittel">mittel 🟧</option>
+<option value="niedrig">niedrig 🟨</option>
 </select>
 </div>
 <div class="radio-group">
-<label><input checked="" name="scope" type="radio" value="fulltext"/><span> Text</span></label>
-<label><input name="scope" type="radio" value="title"/><span> Titel</span></label>
 <button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
 GA-Übersicht →
+</button>
+<button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.85em; padding: 4px 12px;">
+  <span id="viewToggleText">Titel anzeigen</span>
 </button>
 <div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
   <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
@@ -2401,6 +2670,12 @@ GA-Übersicht →
 </div>
 <div class="tab-content" id="thematic-tab">
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen"></textarea>
+<div id="thematicRecentContainer" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; display: none;">
+  <div style="margin-bottom: 0.25rem;">Zuletzt gesucht</div>
+  <div id="thematicRecentScroll" style="max-height: 4.5rem; overflow-y: auto;">
+    <ul id="thematicRecentList" style="margin: 0; padding-left: 1.2em;"></ul>
+  </div>
+  </div>
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicGAFilter">
@@ -2524,42 +2799,6 @@ Summary neu
 </div>
 </div>
 <div id="viewer"></div>
-<!-- Timeline Split View -->
-<div id="timelineSplitView" class="timeline-split-view" style="display: none;">
-  <div class="timeline-split-content">
-    <div class="timeline-panel">
-      <div class="timeline-panel-header">
-        <h3 id="timelinePanelTitle" class="timeline-panel-title">Timeline</h3>
-        <button id="timelinePanelSearchBtn" class="timeline-panel-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen" style="display: none;"><i data-lucide="text-search"></i></button>
-      </div>
-      <div class="timeline-container" id="timelineContainer">
-        <div class="timeline-line"></div>
-        <div id="timelineContent">
-          <!-- Timeline content will be inserted here -->
-        </div>
-      </div>
-    </div>
-    <div class="timeline-viewer">
-      <div class="timeline-viewer-header">
-        <h2 id="timelineDocumentTitle" class="timeline-document-title">Wählen Sie einen Vortrag aus der Timeline</h2>
-        <div class="timeline-viewer-buttons-container">
-          <button id="timelineViewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-            Original
-          </button>
-          <button id="timelineViewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-            ≡ Übersicht
-          </button>
-          <button id="timelineViewerRegenerateBtn" onclick="regenerateCurrentSummary()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-            Summary neu
-          </button>
-        </div>
-      </div>
-      <div id="timelineViewerContent" class="timeline-viewer-content">
-        <!-- Selected lecture content will be displayed here -->
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
@@ -2587,6 +2826,7 @@ Summary neu
     let currentLectureData = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
     let currentThematicQuery = '';
+    let currentThematicGAFilter = '';
     let searchHistory = {
       word1: [],
       word2: []
@@ -2596,6 +2836,8 @@ Summary neu
     let lastHighlightedIndex = null;
     let viewerH4Collapsed = false;
     let isGeneratingSummary = false;
+    let isThematicSearchRunning = false;
+    let isKeywordSearchRunning = false;
 
     // === ZENTRALE SUMMARY-DATENBANK ===
     // Einfaches System: Alle Summaries in einer JSON-Datei
@@ -2957,17 +3199,18 @@ function normalizeGANumber(gaNumber) {
   // Initialisiere Resize-Handle basierend auf aktivem Tab
   const activeTabButton = document.querySelector('.tab-button.active');
   if (activeTabButton) {
-    const activeTabMode = activeTabButton.getAttribute('onclick').match(/switchTab\('([^']+)'\)/)[1];
     const resizeHandle = document.getElementById('search-panel-toggle');
     if (resizeHandle) {
-      if (activeTabMode === 'schlagworte') {
-        resizeHandle.style.display = 'block';
-        resizeHandle.style.cursor = 'row-resize';
-      } else {
-        resizeHandle.style.display = 'none';
-        resizeHandle.style.cursor = 'default';
-      }
+      resizeHandle.style.display = 'block';
+      resizeHandle.style.cursor = 'row-resize';
     }
+    // Wenn Themen-Tab aktiv ist, lade letzte gespeicherte Anfragen
+    try {
+      const activeTabMode = activeTabButton.getAttribute('onclick').match(/switchTab\('([^']+)'\)/)[1];
+      if (activeTabMode === 'thematic') {
+        loadRecentThematicQueries();
+      }
+    } catch (_) {}
   }
     });
 
@@ -3013,17 +3256,9 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
-    function updateProximityFilter() {
-      const word1 = document.getElementById('word1').value.trim();
-      const word2 = document.getElementById('word2').value.trim();
-      const proximityFilter = document.getElementById('proximityFilter');
-      
-      if (word1 && word2) {
-        proximityFilter.disabled = false;
-      } else {
-        proximityFilter.disabled = true;
-        proximityFilter.selectedIndex = 0;
-      }
+    function updateRelevanceFilter() {
+      // Relevanz-Filter ist immer aktiv, keine Bedingungen
+      console.log('[RELEVANCE-FILTER] Filter aktualisiert');
     }
 
     async function populateGADropdowns() {
@@ -3034,11 +3269,11 @@ function normalizeGANumber(gaNumber) {
         const gaFilter = document.getElementById('gaFilter');
         const thematicGAFilter = document.getElementById('thematicGAFilter');
         if (gaFilter) {
-          gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+          gaFilter.innerHTML = '<option value="">GA-Bände: alle</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            option.textContent = `GA ${ga.number} – ${ga.title}`;
+            option.textContent = ga.number;
             option.className = 'available-ga';
             gaFilter.appendChild(option);
           });
@@ -3048,7 +3283,7 @@ function normalizeGANumber(gaNumber) {
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            option.textContent = `GA ${ga.number} – ${ga.title}`;
+            option.textContent = ga.number;
             option.className = 'available-ga';
             thematicGAFilter.appendChild(option);
           });
@@ -3452,6 +3687,7 @@ function toggleGASummaries() {
       const button = document.querySelector('#keyword-tab .depth-btn.primary');
       
       try {
+      isKeywordSearchRunning = true;
       // Sperre UI während der thematischen Suche
       setUILocked(true);
       button.disabled = true;
@@ -3459,17 +3695,18 @@ function toggleGASummaries() {
       button.textContent = 'Suche läuft...';
         
         const gaFilter = document.getElementById('gaFilter').value;
-        const proximityFilter = document.getElementById('proximityFilter').value;
+        const relevanceFilterElement = document.getElementById('relevanceFilter');
+        const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
         
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
           method: 'POST',
+          keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
             word1: word1,
             word2: word2,
             word1IsPhrase: word1IsPhrase,
-            word2IsPhrase: word2IsPhrase,
-            proximity: proximityFilter || null
+            word2IsPhrase: word2IsPhrase
           })
         });
         
@@ -3497,8 +3734,6 @@ function toggleGASummaries() {
         }
         renderKeywordResults(displayQuery, results, word1Input, word2Input);
         
-        document.getElementById('resultInfo').textContent = ` • ${results.length} Treffer`;
-        
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
         document.getElementById('results').innerHTML = `
@@ -3507,6 +3742,7 @@ function toggleGASummaries() {
           </div>
         `;
       } finally {
+        isKeywordSearchRunning = false;
         // Make sure the visual UI lock/cursor is cleared even if an error occurred
         try {
           setUILocked(false);
@@ -3555,19 +3791,89 @@ function toggleGASummaries() {
       return '';
     }
 
+    // Toggle zwischen Titel- und Textansicht der Ergebnisse
+    let currentView = 'text'; // 'text' oder 'title'
+    
+    function toggleResultView() {
+      const snippets = document.querySelectorAll('.snippet');
+      const toggleText = document.getElementById('viewToggleText');
+      
+      if (currentView === 'text') {
+        // Wechsle zu Titelansicht
+        snippets.forEach(snippet => snippet.style.display = 'none');
+        toggleText.textContent = 'Text anzeigen';
+        currentView = 'title';
+      } else {
+        // Wechsle zu Textansicht
+        snippets.forEach(snippet => snippet.style.display = 'block');
+        toggleText.textContent = 'Titel anzeigen';
+        currentView = 'text';
+      }
+    }
+    
+    // Hilfsfunktion: Relevanz-Filter-Status basierend auf Trefferanzahl aktualisieren
+    function updateRelevanceFilterState(resultCount) {
+      const relevanceFilter = document.getElementById('relevanceFilter');
+      if (!relevanceFilter) return;
+      
+      const mittelOption = Array.from(relevanceFilter.options).find(opt => opt.value === 'mittel');
+      if (!mittelOption) return;
+      
+      const shouldDisable = resultCount < 100;
+      
+      if (shouldDisable) {
+        mittelOption.disabled = true;
+        mittelOption.style.color = '#999';
+        mittelOption.textContent = 'mittel ⬜'; // Graues Quadrat
+        if (relevanceFilter.value === 'mittel') {
+          relevanceFilter.value = 'alle';
+        }
+        console.log(`[RELEVANCE-FILTER] Weniger als 100 Treffer (${resultCount}) - "mittel" Option deaktiviert`);
+      } else {
+        mittelOption.disabled = false;
+        mittelOption.style.color = '';
+        mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
+        console.log(`[RELEVANCE-FILTER] ${resultCount} Treffer - "mittel" Option aktiviert`);
+      }
+    }
+
     function renderKeywordResults(query, results, word1, word2) {
       const container = document.getElementById('results');
-      const scope = document.querySelector('input[name="scope"]:checked').value;
+      const scope = 'fulltext'; // Immer Volltext-Suche
+      
+      // Update Relevanz-Filter basierend auf Anzahl der Treffer
+      updateRelevanceFilterState(results.length);
       
       if (results.length === 0) {
         container.innerHTML = '<p><em>Keine Treffer gefunden.</em></p>';
+        // Verstecke Toggle-Button wenn keine Ergebnisse
+        const viewToggle = document.getElementById('viewToggle');
+        if (viewToggle) viewToggle.style.display = 'none';
         return;
       }
       
-      const list = document.createElement('ul');
-      list.className = 'results-list';
-      list.style.marginTop = '0';
-      list.style.paddingTop = '0.5rem';
+      // Zeige Toggle-Button bei Ergebnissen
+      const viewToggle = document.getElementById('viewToggle');
+      if (viewToggle) viewToggle.style.display = 'inline-block';
+      
+      // Reset auf Textansicht
+      currentView = 'text';
+      const toggleText = document.getElementById('viewToggleText');
+      if (toggleText) toggleText.textContent = 'Titel anzeigen';
+      
+      // Timeline-Container mit CSS Grid
+      const timelineContainer = document.createElement('div');
+      timelineContainer.className = 'timeline-container';
+      // Setze display: grid mit setProperty und !important
+      timelineContainer.style.setProperty('display', 'grid', 'important');
+      timelineContainer.style.gridTemplateColumns = '60px 1fr';
+      timelineContainer.style.columnGap = '0rem';
+      timelineContainer.style.rowGap = '0';
+      timelineContainer.style.alignItems = 'start';
+      timelineContainer.style.width = '100%';
+      timelineContainer.style.marginTop = '0';
+      timelineContainer.style.paddingTop = '0.5rem';
+      
       
       const groupedByLecture = {};
       results.forEach(result => {
@@ -3593,31 +3899,109 @@ function toggleGASummaries() {
         return dateA.localeCompare(dateB);
       });
       
-      sortedLectures.forEach(([lectureId, lecture]) => {
-        const li = document.createElement('li');
+      // NEU: Relevanz-Filterung vor der Schleife
+      const relevanceFilterElement = document.getElementById('relevanceFilter');
+      const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
+      
+      console.log('[RELEVANCE-FILTER] Element gefunden:', !!relevanceFilterElement, 'Wert:', relevanceFilter);
+      
+      // Filtere Vorträge nach Relevanz BEVOR sie angezeigt werden
+      const filteredLectures = sortedLectures.filter(([lectureId, lecture]) => {
+        if (relevanceFilter && relevanceFilter !== 'alle') {
+          const firstChunk = lecture.chunks[0];
+          console.log(`[DEBUG] Vortrag ${lectureId}:`, firstChunk ? firstChunk.relevanceCategory : 'keine Kategorie');
+          if (firstChunk && firstChunk.relevanceCategory) {
+            return firstChunk.relevanceCategory === relevanceFilter;
+          }
+          return false; // Wenn keine Relevanz-Kategorie vorhanden, nicht anzeigen
+        }
+        return true; // Alle anzeigen wenn Filter auf 'alle' steht
+      });
+      
+      console.log(`[RELEVANCE-FILTER] ${sortedLectures.length} Vorträge -> ${filteredLectures.length} nach Filter`);
+      
+      // NEU: Aktualisiere Trefferanzahl und Vortragsanzahl basierend auf gefilterten Ergebnissen
+      const totalResults = results.length;
+      const filteredResults = filteredLectures.reduce((sum, [, lecture]) => sum + lecture.chunks.length, 0);
+      const filteredLecturesCount = filteredLectures.length;
+      const totalLecturesCount = sortedLectures.length;
+      
+      let resultText = ` • ${totalResults} Treffer`;
+      if (relevanceFilter !== 'alle') {
+        resultText += ` | ${filteredResults} Treffer in ${filteredLecturesCount} Vorträgen`;
+      }
+      document.getElementById('resultInfo').textContent = resultText;
+      
+      // Timeline-Darstellung mit CSS Grid: Jahr links, Treffer rechts
+      let currentYear = null;
+      let isFirstOfYear = false;
+      
+      filteredLectures.forEach(([lectureId, lecture], index) => {
+        // Extrahiere Jahr aus dem Datum
+        const year = lecture.date ? lecture.date.substring(0, 4) : null;
+        
+        // Prüfe ob neues Jahr
+        isFirstOfYear = (year && year !== currentYear);
+        if (isFirstOfYear) {
+          currentYear = year;
+        }
+        
+        // Erstelle Jahreszahl-Zelle (linke Grid-Spalte)
+        const yearCell = document.createElement('div');
+        yearCell.className = 'timeline-year-cell';
+        yearCell.style.gridColumn = '1';
+        yearCell.style.paddingTop = '0.2rem';
+        
+        if (isFirstOfYear) {
+          // Zeige Jahreszahl nur beim ersten Eintrag des Jahres
+          const isDarkMode = document.body.classList.contains('dark-mode');
+          yearCell.textContent = year;
+          yearCell.style.fontWeight = 'bold';
+          yearCell.style.fontSize = '1em';
+          yearCell.style.color = isDarkMode ? '#90cdf4' : '#2c5282';
+        } else {
+          yearCell.innerHTML = '&nbsp;'; // Leeres Space für Nicht-Jahreszellen
+        }
+        
+        timelineContainer.appendChild(yearCell);
+        
+        // Erstelle Treffer-Zelle (rechte Grid-Spalte)
+        const lectureItem = document.createElement('div');
+        lectureItem.className = 'timeline-item';
+        lectureItem.style.gridColumn = '2';
+        lectureItem.style.marginBottom = '0.8rem';
         
         const titleLink = document.createElement('a');
         titleLink.href = "#";
-        titleLink.textContent = lecture.fileName;
+        
+        // NEU: Relevanz-Kategorie als farbigen Punkt anzeigen
+        const firstChunk = lecture.chunks[0];
+        let relevanceDot = '';
+        if (firstChunk && firstChunk.relevanceCategory) {
+          const relevanceColors = {
+            'hoch': '#28a745',      // Grün
+            'mittel': '#fd7e14',    // Orange  
+            'niedrig': '#ffc107'    // Gelb
+          };
+          const color = relevanceColors[firstChunk.relevanceCategory] || '#ffc107';
+          relevanceDot = ` <span style="color: ${color}; font-size: 1.2em; margin-left: 4px;" title="Relevanz: ${firstChunk.relevanceCategory}">●</span>`;
+          
+          // Debug-Ausgabe für die ersten 5 Vorträge
+          if (filteredLectures.indexOf([lectureId, lecture]) < 5) {
+            console.log(`[FRONTEND-DEBUG] ${lectureId}: Kategorie=${firstChunk.relevanceCategory}, Score=${firstChunk.relevanceScore ? firstChunk.relevanceScore.toFixed(3) : 'undefined'}`);
+          }
+        }
+        
+        titleLink.innerHTML = lecture.fileName + relevanceDot;
         titleLink.addEventListener('click', (e) => {
           e.preventDefault();
           showLectureTop(lectureId);
         });
         
-        li.appendChild(titleLink);
+        lectureItem.appendChild(titleLink);
         
         if (scope === "fulltext") {
-          const proximityFilter = document.getElementById('proximityFilter').value;
-          
           let lectureChunks = lecture.chunks;
-          
-          if (word1 && word2 && proximityFilter && proximityFilter !== '') {
-            lectureChunks = lecture.chunks.filter(chunk => {
-              const contentLower = (chunk.content || '').toLowerCase();
-              return contentLower.includes(word1.toLowerCase()) && 
-                     contentLower.includes(word2.toLowerCase());
-            });
-          }
           
           lectureChunks.slice(0, 5).forEach(chunk => {
             const snippetDiv = document.createElement("div");
@@ -3689,10 +4073,13 @@ function toggleGASummaries() {
                     try { setUILocked(false); } catch (err) {}
                     e.preventDefault();
                     e.stopPropagation();
-                    // Close summary panel like other flows
+                    
+                    // Summary Panel nur bei Vortragswechsel schließen
+                    const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureIdAttr;
                     const summaryPanel = document.getElementById('summary-panel');
                     const resizeHandle = document.getElementById('verticalResizeHandle');
-                    if (summaryPanel && summaryPanel.classList.contains('visible')) {
+                    
+                    if (isDifferentLecture && summaryPanel && summaryPanel.classList.contains('visible')) {
                       summaryPanel.classList.remove('visible');
                       if (resizeHandle) resizeHandle.classList.remove('visible');
                       summaryPanel.style.width = '0';
@@ -3728,9 +4115,12 @@ function toggleGASummaries() {
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
+  // Summary Panel nur bei Vortragswechsel schließen
+  const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lecId;
   const summaryPanel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
-  if (summaryPanel.classList.contains('visible')) {
+  
+  if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
     summaryPanel.classList.remove('visible');
     resizeHandle.classList.remove('visible');
     summaryPanel.style.width = '0';
@@ -3740,16 +4130,17 @@ function toggleGASummaries() {
   
   await showLecture(lecId, chunkIdx, keywords);
 });
-              li.appendChild(snippetDiv);
+              lectureItem.appendChild(snippetDiv);
             }
           });
         }
         
-        list.appendChild(li);
+        // Füge lectureItem direkt zum Grid-Container hinzu (rechte Spalte)
+        timelineContainer.appendChild(lectureItem);
       });
       
       container.innerHTML = '';
-      container.appendChild(list);
+      container.appendChild(timelineContainer);
       
       const lectureCount = sortedLectures.length;
       const chunkCount = results.length;
@@ -3771,20 +4162,21 @@ function toggleGASummaries() {
       const button = document.getElementById('thematicSearchBtn');
       
       try {
+        isThematicSearchRunning = true;
         button.disabled = true;
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
         
-        const depth = 'ausführlich'; // Default to ausführlich since buttons were removed
-        const limit = 50; // Default limit since dropdown was removed
+        const limit = 100; // Default limit
         const gaFilter = document.getElementById('thematicGAFilter').value;
+        currentThematicGAFilter = gaFilter || '';
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
+          keepalive: true,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             query: query,
-            depth: depth,
             limit: parseInt(limit),
             gaFilter: gaFilter
           })
@@ -3797,7 +4189,10 @@ function toggleGASummaries() {
         
         // GA-Filter wird jetzt bereits im Backend angewendet
         currentSources = sources;
-        renderThematicResults(query, answer.content, sources);
+        renderThematicResults(query, answer.content, sources, (gaFilter || ''));
+
+        // Nach erfolgreicher Suche: Liste aktualisieren
+        try { loadRecentThematicQueries(); } catch(_){}
         
       } catch (error) {
         console.error('Thematic Search Error:', error);
@@ -3807,6 +4202,7 @@ function toggleGASummaries() {
           </div>
         `;
       } finally {
+        isThematicSearchRunning = false;
         // UI wieder freigeben
         setUILocked(false);
         button.disabled = false;
@@ -3852,6 +4248,134 @@ function toggleGASummaries() {
     }
   }
 }
+
+    async function loadRecentThematicQueries() {
+      try {
+        const container = document.getElementById('thematicRecentContainer');
+        const list = document.getElementById('thematicRecentList');
+        if (!container || !list) return;
+
+        const resp = await fetch(`${API_BASE}/thematic-search-database.json`, { cache: 'no-store' });
+        if (!resp.ok) { container.style.display = 'none'; return; }
+        const db = await resp.json();
+
+        // Einträge in Array wandeln: { key, query, timestamp }
+        const entries = Object.entries(db).map(([key, val]) => ({
+          key,
+          query: val.query,
+          timestamp: val.timestamp || val.cacheTimestamp || null
+        })).filter(e => e.query);
+
+        if (entries.length === 0) { container.style.display = 'none'; return; }
+
+        // Nach Timestamp sortieren (neueste zuerst), fallback: Key-Order
+        entries.sort((a, b) => {
+          const ta = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+          const tb = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+          return tb - ta;
+        });
+
+        // Letzte bis zu 100 unique Queries mit zugehörigem Cache-Key
+        const seen = new Set();
+        const recentItems = [];
+        for (const e of entries) {
+          const q = String(e.query).trim();
+          if (!seen.has(q)) {
+            seen.add(q);
+            recentItems.push({ query: q, key: e.key });
+            if (recentItems.length >= 100) break;
+          }
+        }
+
+        if (recentItems.length === 0) { container.style.display = 'none'; return; }
+
+        list.innerHTML = recentItems.map(item => {
+          const label = autocorrectQuery(item.query)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+          const keyEnc = encodeURIComponent(item.key);
+          const queryEnc = encodeURIComponent(item.query);
+          return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label}</a></li>`;
+        }).join('');
+        container.style.display = 'block';
+      } catch (err) {
+        console.warn('Konnte thematische Verlaufsliste nicht laden:', err);
+        const container = document.getElementById('thematicRecentContainer');
+        if (container) container.style.display = 'none';
+      }
+    }
+
+    async function openSavedThematicQuery(cacheKey, query) {
+      try {
+        const resp = await fetch(`${API_BASE}/thematic-search-database.json`, { cache: 'no-store' });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const db = await resp.json();
+        const entry = db[cacheKey];
+        if (!entry) {
+          alert('Gespeicherte Themenanfrage nicht gefunden.');
+          return;
+        }
+        const effectiveQuery = autocorrectQuery(query || entry.query || '');
+        currentThematicQuery = effectiveQuery;
+        // Parse GA-Filter aus dem Cache-Key (Format: query|depth|limit|ga)
+        try {
+          const parts = (cacheKey || '').split('|');
+          currentThematicGAFilter = parts && parts.length >= 4 ? (parts[3] || '') : '';
+          // Dropdown visual synchronisieren
+          const gaSel = document.getElementById('thematicGAFilter');
+          if (gaSel && currentThematicGAFilter) {
+            gaSel.value = currentThematicGAFilter;
+          }
+        } catch (_) { currentThematicGAFilter = ''; }
+        const input = document.getElementById('thematicQuery');
+        if (input) input.value = effectiveQuery;
+        const sources = entry.sources || [];
+        currentSources = sources;
+        renderThematicResults(effectiveQuery, entry.content || '', sources);
+        // Scroll sidebar to top
+        const sc = document.getElementById('sidebar-content');
+        if (sc) sc.scrollTop = 0;
+      } catch (e) {
+        console.error('Fehler beim Laden der gespeicherten Themenanfrage:', e);
+        alert('Fehler beim Laden der gespeicherten Themenanfrage.');
+      }
+    }
+
+    async function openSavedThematicQueryEncoded(encodedKey, encodedQuery) {
+      const key = decodeURIComponent(encodedKey);
+      const q = decodeURIComponent(encodedQuery);
+      return openSavedThematicQuery(key, q);
+    }
+
+    // Einfache, erweiterbare Rechtschreib-Autokorrektur für deutsche Begriffe/GA-Kontexte
+    function autocorrectQuery(q) {
+      if (!q) return q;
+      let s = String(q);
+      // Beispielhafte, häufige Korrekturen (erweiterbar)
+      const corrections = [
+        ['bewußtsein', 'Bewusstsein'],
+        ['bewußtseins', 'Bewusstseins'],
+        ['anthroposophie', 'Anthroposophie'],
+        ['rudolf steiner', 'Rudolf Steiner'],
+        ['goethe', 'Goethe'],
+        ['kants', 'Kants'],
+        ['ich organisation', 'Ich-Organisation'],
+        ['aetherleib', 'Ätherleib'],
+        ['astral leib', 'Astralleib'],
+        ['geist selbst', 'Geist-Selbst']
+      ];
+      corrections.forEach(([from, to]) => {
+        const re = new RegExp(`\\b${from}\\b`, 'gi');
+        s = s.replace(re, to);
+      });
+      // Erstes Zeichen groß, wenn sinnvoll
+      s = s.trim();
+      if (s.length > 0) {
+        s = s.charAt(0).toUpperCase() + s.slice(1);
+      }
+      return s;
+    }
 
 
     async function toggleViewerH4() {
@@ -4479,6 +5003,23 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       console.log('[FORMATTING] Inline Styles aus Backend-HTML entfernt (CSS-Klassen beibehalten)');
     }
 
+    // Stellt einheitliche Leerzeichen um Klammern bei GA-Quellenangaben her
+    function normalizeCitationSpacing(container) {
+      if (!container) return;
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node => {
+        let s = node.nodeValue || '';
+        if (!s) return;
+        // Leerzeichen vor "(GA" sicherstellen
+        s = s.replace(/([^\s(])\((GA)/g, '$1 ($2');
+        // Leerzeichen nach ")" sicherstellen, außer wenn direkt Satzzeichen folgt
+        s = s.replace(/\)(?=([^\s\.,;:!\?\)]))/g, ') ');
+        node.nodeValue = s;
+      });
+    }
+
     function extractKeywordsFromQuery(query) {
       const stopWords = [
         'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
@@ -4495,7 +5036,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       return words;
     }
     
-    function renderThematicResults(query, content, sources) {
+    function renderThematicResults(query, content, sources, appliedGA = '') {
       const container = document.getElementById('results');
       
       const sortedSources = [...sources].sort((a, b) => {
@@ -4504,8 +5045,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
         return dateA.localeCompare(dateB);
       });
       
+      // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
+      const selectedGA = appliedGA || '';
+      const headingBase = autocorrectQuery(query) || '';
+      const headingWithGA = selectedGA ? `${headingBase} (aus ${selectedGA})` : headingBase;
+      const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       container.innerHTML = `
         <div class="semantic-answer">
+          <h1>${safeHeading}</h1>
           <div class="answer-content" id="answerContent"></div>
         </div>
       `;
@@ -4515,6 +5062,52 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
+      // Einheitliche Abstände um Klammern an GA-Quellenangaben
+      normalizeCitationSpacing(answerDiv);
+
+      // Falls die Quellen direkt in der Überschrift stehen: Überschrift säubern und Rest in neuen Absatz verschieben
+      try {
+        const titleText = 'Weitere relevante Quellen';
+        const sourcesHeading = Array.from(answerDiv.querySelectorAll('h2,h3'))
+          .find(h => (h.textContent || '').trim().toLowerCase().startsWith(titleText.toLowerCase()));
+        if (sourcesHeading) {
+          const currentHTML = (sourcesHeading.innerHTML || '').trim();
+          const reEsc = titleText.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+          const restHTML = currentHTML.replace(new RegExp('^' + reEsc + '\\s*', 'i'), '');
+          if (restHTML && restHTML.trim().length > 0) {
+            sourcesHeading.textContent = titleText;
+            const p = document.createElement('p');
+            p.innerHTML = restHTML;
+            if (sourcesHeading.nextSibling) {
+              sourcesHeading.parentNode.insertBefore(p, sourcesHeading.nextSibling);
+            } else {
+              sourcesHeading.parentNode.appendChild(p);
+            }
+          }
+        }
+      } catch (_) {}
+
+      // Sicherstellen: Nach der Überschrift "Weitere relevante Quellen" steht ein Absatz
+      try {
+        const sourcesHeading = Array.from(answerDiv.querySelectorAll('h2,h3'))
+          .find(h => (h.textContent || '').trim() === 'Weitere relevante Quellen');
+        if (sourcesHeading) {
+          // Nächstes sinnvolles Geschwister ermitteln (Whitespace überspringen)
+          let ns = sourcesHeading.nextSibling;
+          while (ns && ns.nodeType === 3 && (ns.nodeValue || '').trim() === '') {
+            ns = ns.nextSibling;
+          }
+          const isBlockBreak = ns && ns.nodeType === 1 && /^(P|DIV|UL|OL|BR)$/i.test(ns.nodeName);
+          if (!isBlockBreak) {
+            const br = document.createElement('br');
+            if (sourcesHeading.nextSibling) {
+              sourcesHeading.parentNode.insertBefore(br, sourcesHeading.nextSibling);
+            } else {
+              sourcesHeading.parentNode.appendChild(br);
+            }
+          }
+        }
+      } catch (_) {}
       
       console.log('HTML nach marked.parse:', answerDiv.innerHTML.substring(0, 500));
       console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
@@ -4536,10 +5129,12 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       e.preventDefault();
       e.stopPropagation();
       
-      // Summary Panel schließen (wie bei Textsuche)
+      // Summary Panel nur bei Vortragswechsel schließen
+      const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureId;
       const summaryPanel = document.getElementById('summary-panel');
       const resizeHandle = document.getElementById('verticalResizeHandle');
-      if (summaryPanel.classList.contains('visible')) {
+      
+      if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
         summaryPanel.classList.remove('visible');
         resizeHandle.classList.remove('visible');
         summaryPanel.style.width = '0';
@@ -4626,8 +5221,10 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
   
-  // Summary Panel schließen
-  if (summaryPanel.classList.contains('visible')) {
+  // Summary Panel nur schließen, wenn zu einem ANDEREN Vortrag gewechselt wird
+  const isDifferentLecture = !window.currentOpenLectureId || window.currentOpenLectureId !== lectureId;
+  
+  if (isDifferentLecture && summaryPanel.classList.contains('visible')) {
     summaryPanel.classList.remove('visible');
     resizeHandle.classList.remove('visible');
     summaryPanel.style.width = '0';
@@ -4635,6 +5232,9 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
     summaryPanel.style.marginRight = '0px';
     if (tocList) tocList.innerHTML = '';
   }
+  
+  // Aktuellen Vortrag tracken
+  window.currentOpenLectureId = lectureId;
 
   try {
     const parts = lectureId.split('/');
@@ -5884,9 +6484,6 @@ function displayKeywords(selectedLetter = 'Alle') {
   let html = '<div class="keywords-container">';
   
   filteredKeywords.forEach(keywordData => {
-    // Prüfe ob Timeline geöffnet ist und ob dieses Schlagwort das aktuelle Timeline-Schlagwort ist
-    const isTimelineOpen = document.getElementById('timelineSplitView').style.display !== 'none';
-    const isCurrentTimelineKeyword = currentTimelineKeyword === keywordData.keyword;
     // Verwende Keyword-Thematische Suche für detaillierte Analysen
     html += `
       <div class="keyword-entry">
@@ -5894,9 +6491,6 @@ function displayKeywords(selectedLetter = 'Alle') {
           <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;">
             ${keywordData.keyword}
           </a>
-          <button class="timeline-btn" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keywordData.keyword}', this);" title="Timeline anzeigen">
-            <i data-lucide="calendar"></i>
-          </button>
         </h4>
         <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
         </div>
@@ -5997,15 +6591,14 @@ function switchTabExtended(mode) {
   // Horizontalen Resize-Handle basierend auf Tab ein-/ausblenden
   const resizeHandle = document.getElementById('search-panel-toggle');
   if (resizeHandle) {
-    if (mode === 'schlagworte') {
-      // Im Index-Tab: Resize-Handle anzeigen
-      resizeHandle.style.display = 'block';
-      resizeHandle.style.cursor = 'row-resize';
-    } else {
-      // In anderen Tabs: Resize-Handle ausblenden
-      resizeHandle.style.display = 'none';
-      resizeHandle.style.cursor = 'default';
-    }
+    // In allen Tabs anzeigen
+    resizeHandle.style.display = 'block';
+    resizeHandle.style.cursor = 'row-resize';
+  }
+
+  // Bei Wechsel zum Themen-Tab: letzte gespeicherte Anfragen laden
+  if (mode === 'thematic') {
+    loadRecentThematicQueries();
   }
   
   // Alle Tab-Buttons deaktivieren
@@ -6273,7 +6866,6 @@ async function performKeywordThematicSearch(keyword) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         query: keyword,
-        depth: 'ausführlich',  // Ändere auf ausführlich für detailliertere Analysen
         limit: 30,
         useCache: true  // Explizit Cache verwenden
       })
@@ -6373,9 +6965,6 @@ function displayKeywordThematicResults(keyword, data) {
     <div class="semantic-answer">
       <div class="answer-header">
         <h2 class="answer-title">${keyword}</h2>
-        <button class="timeline-btn answer-action" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keyword}', this);" title="Timeline für '${keyword}' anzeigen">
-          <i data-lucide="calendar"></i>
-        </button>
       </div>
       <div class="answer-content" id="keywordAnswerContent">
         ${contentHtml}
@@ -6385,6 +6974,11 @@ function displayKeywordThematicResults(keyword, data) {
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
   removeInlineStyles(results);
+  // Einheitliche Abstände um Klammern an GA-Quellenangaben (Keyword-Themen)
+  try {
+    const kc = document.getElementById('keywordAnswerContent');
+    if (kc) normalizeCitationSpacing(kc);
+  } catch (_) {}
   
   // Lucide Icons initialisieren
   initializeLucideIcons();
@@ -6741,36 +7335,8 @@ function handleKeywordInputKeypress(event) {
   }
 }
 
-// =====================================
-// TIMELINE FUNKTIONALITÄT
-// =====================================
-
-let fullLecturesData = {};
-
-// Lade Vortragsdaten für Timeline
-async function loadFullLecturesForTimeline() {
-  if (Object.keys(fullLecturesData).length > 0) {
-    return fullLecturesData;
-  }
-  
-  try {
-    console.log('[TIMELINE] Lade Vortragsdaten...');
-    const response = await fetch(`${API_BASE}/api/full-lectures`);
-    if (response.ok) {
-      fullLecturesData = await response.json();
-      console.log(`[TIMELINE] ${Object.keys(fullLecturesData).length} Vorträge geladen`);
-    } else {
-      console.warn('[TIMELINE] Fehler beim Laden der Vortragsdaten');
-    }
-  } catch (error) {
-    console.error('[TIMELINE] Fehler:', error);
-  }
-  
-  return fullLecturesData;
-}
-
-// Verstecke Timeline und kehre zur normalen Ansicht zurück
-function hideTimeline() {
+// Hilfsfunktion: Formatiere Datum
+function formatDate(dateStr) {
   console.log('[TIMELINE] Verstecke Timeline');
   
   const splitView = document.getElementById('timelineSplitView');
@@ -6957,46 +7523,138 @@ async function showTimeline(keyword, clickedButton) {
     // Lade Vortragsdaten
     await loadFullLecturesForTimeline();
     
-    // Finde das Schlagwort in den Daten
-    const keywordData = keywordsData.find(k => k.keyword === keyword);
-    if (!keywordData || !keywordData.gaReferences) {
-      content.innerHTML = '<div class="timeline-no-results">Keine GA-Referenzen für dieses Schlagwort gefunden.</div>';
-      return;
-    }
+    // NEUE KI-TIMELINE-ANALYSE
+    console.log('[TIMELINE] Starte KI-Timeline-Analyse für:', keyword);
+    content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline-Analyse...</div>';
     
-    // Erstelle Timeline-Einträge
-    const timelineEntries = await createTimelineEntries(keywordData.gaReferences);
-    
-    if (timelineEntries.length === 0) {
-      content.innerHTML = '<div class="timeline-no-results">Keine Vorträge mit diesem Schlagwort gefunden.</div>';
-      return;
-    }
-    
-    // Sortiere nach Jahr und dann nach Datum (aufsteigend)
-    timelineEntries.sort((a, b) => {
-      // Zuerst nach Jahr sortieren
-      if (a.year !== b.year) {
-        return a.year - b.year;
+    try {
+      const timelineResponse = await fetch(`${API_BASE}/api/keyword-timeline-analysis`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ keyword: keyword, useCache: true })
+      });
+      
+      if (!timelineResponse.ok) {
+        throw new Error(`Timeline-Analyse Fehler: ${timelineResponse.status}`);
       }
       
-      // Wenn gleiches Jahr, nach Datum sortieren
-      const dateA = parseDateForSorting(a.lecture.date);
-      const dateB = parseDateForSorting(b.lecture.date);
+      const timelineData = await timelineResponse.json();
+      console.log('[TIMELINE] KI-Timeline-Daten erhalten:', timelineData);
       
-      return dateA - dateB;
-    });
-    
-    // Gruppiere nach Jahr
-    const groupedByYear = groupTimelineByYear(timelineEntries);
-    
-    // Generiere HTML
-    const timelineHTML = generateTimelineHTML(groupedByYear);
-    content.innerHTML = timelineHTML;
+      // Erstelle erweiterte Timeline mit KI-Analyse
+      const enhancedTimelineHTML = generateEnhancedTimelineHTML(timelineData);
+      content.innerHTML = enhancedTimelineHTML;
+      
+      // Timeline-Panel-Titel erweitern
+      const timelinePanelTitle = document.getElementById('timelinePanelTitle');
+      if (timelinePanelTitle) {
+        timelinePanelTitle.textContent = `${keyword} (${timelineData.relevantLectures} Vorträge)`;
+      }
+      
+    } catch (timelineError) {
+      console.warn('[TIMELINE] KI-Analyse fehlgeschlagen, verwende Fallback:', timelineError);
+      
+      // Fallback: Verwende alte Timeline-Logik
+      const keywordData = keywordsData.find(k => k.keyword === keyword);
+      if (!keywordData || !keywordData.gaReferences) {
+        content.innerHTML = '<div class="timeline-no-results">Keine GA-Referenzen für dieses Schlagwort gefunden.</div>';
+        return;
+      }
+      
+      const timelineEntries = await createTimelineEntries(keywordData.gaReferences);
+      
+      if (timelineEntries.length === 0) {
+        content.innerHTML = '<div class="timeline-no-results">Keine Vorträge mit diesem Schlagwort gefunden.</div>';
+        return;
+      }
+      
+      const groupedByYear = groupTimelineByYear(timelineEntries);
+      const timelineHTML = generateTimelineHTML(groupedByYear);
+      content.innerHTML = timelineHTML;
+    }
     
   } catch (error) {
     console.error('[TIMELINE] Fehler:', error);
     content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline.</div>';
   }
+}
+
+// Hilfsfunktion: Mache Timeline-Zitate klickbar (verwendet gleiche Logik wie Themensuche)
+function makeTimelineQuotesClickable(quoteText, lectureId) {
+  // Verwende die gleiche Regex wie in der Themensuche
+  const gaRefRegex = /\(GA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\)/gi;
+  
+  return quoteText.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
+    const cleanIndex = index.replace(/^\^/, '');
+    return ` (<a href="#" onclick="showLectureInTimeline('${lectureId}', '${cleanIndex}'); return false;" class="timeline-quote-link" title="Zu diesem Absatz springen">GA${gaNum}/${lectureNum}</a>)`;
+  });
+}
+
+// Generiere erweiterte Timeline HTML mit KI-Analyse
+function generateEnhancedTimelineHTML(timelineData) {
+  console.log('[TIMELINE-HTML] Generiere HTML für Timeline-Daten:', timelineData);
+  
+  let html = '';
+  
+  // Prüfe ob Timeline-Daten vorhanden sind
+  if (!timelineData || !timelineData.timelineEntries || timelineData.timelineEntries.length === 0) {
+    console.warn('[TIMELINE-HTML] Keine Timeline-Einträge gefunden');
+    return '<div class="timeline-no-results">Keine Vorträge mit höchster Relevanz für dieses Schlagwort gefunden.</div>';
+  }
+  
+  // Timeline-Statistiken anzeigen (ohne Analyse)
+  html += `
+    <div class="timeline-analysis">
+      <div class="timeline-stats">
+        <span>Gefunden in ${timelineData.relevantLectures || 0} von ${timelineData.totalLectures || 0} Vorträgen</span>
+      </div>
+    </div>
+  `;
+  
+  // Sortiere Timeline-Einträge chronologisch
+  const sortedEntries = timelineData.timelineEntries.sort((a, b) => {
+    if (a.year !== b.year) return a.year - b.year;
+    return a.date.localeCompare(b.date);
+  });
+  
+  console.log('[TIMELINE-HTML] Sortierte Einträge:', sortedEntries.length);
+  
+  // Erstelle Timeline mit Jahr-Gruppierung
+  let lastYear = null;
+  sortedEntries.forEach((entry, index) => {
+    console.log(`[TIMELINE-HTML] Verarbeite Eintrag ${index + 1}/${sortedEntries.length}:`, entry);
+    
+    // Zeige Jahr nur wenn es sich ändert
+    const showYear = lastYear !== entry.year;
+    lastYear = entry.year;
+    
+    html += `
+      <div class="timeline-item enhanced">
+        ${showYear ? `<div class="timeline-year">${entry.year}</div>` : '<div class="timeline-year-spacer"></div>'}
+        <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}')">
+          <div class="timeline-lecture-number">
+            ${entry.date}
+          </div>
+          <div class="timeline-lecture-title">${entry.title} (${entry.lectureId})</div>
+          ${entry.keyQuotes && entry.keyQuotes.length > 0 ? `
+            <div class="timeline-quotes">
+              ${entry.keyQuotes.map(quote => makeTimelineQuotesClickable(quote, entry.lectureId)).join('; ')}
+            </div>
+          ` : ''}
+          ${entry.thematicFocus ? `
+            <div class="timeline-focus">
+              <strong>${entry.thematicFocus}</strong>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  });
+  
+  console.log('[TIMELINE-HTML] Generiertes HTML-Länge:', html.length);
+  console.log('[TIMELINE-HTML] Anzahl verarbeiteter Einträge:', timelineData.timelineEntries.length);
+  
+  return html;
 }
 
 // Erstelle Timeline-Einträge aus GA-Referenzen
@@ -7181,15 +7839,15 @@ function generateTimelineHTML(groupedByYear) {
 }
 
 // Zeige Vortrag im Timeline-Viewer
-async function showLectureInTimeline(lectureId) {
-  console.log('[TIMELINE] Zeige Vortrag:', lectureId);
+async function showLectureInTimeline(lectureId, targetIndex = null) {
+  console.log('[TIMELINE] Zeige Vortrag:', lectureId, targetIndex ? `mit Index: ${targetIndex}` : '');
   
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
   
   // Verwende die gleiche Funktion wie in der GA-Übersicht
   try {
-    await showLecture(lectureId, null, []);
+    await showLecture(lectureId, targetIndex, []);
     
     // Kopiere den Inhalt vom Haupt-Viewer in den Timeline-Viewer
     const mainViewer = document.getElementById('viewer');
@@ -7202,8 +7860,26 @@ async function showLectureInTimeline(lectureId) {
       // Kopiere Inhalt
       viewerContent.innerHTML = mainViewer.innerHTML;
       
-      // Scrolle nach oben
-      viewerContent.scrollTop = 0;
+      // Scrolle nach oben (wird von showLecture überschrieben wenn targetIndex gesetzt ist)
+      if (!targetIndex) {
+        viewerContent.scrollTop = 0;
+      } else {
+        // Wenn targetIndex gesetzt ist, scrolle zum entsprechenden Absatz im Timeline-Viewer
+        setTimeout(() => {
+          const cleanIndex = targetIndex.replace(/^\^/, '');
+          const paraElement = viewerContent.querySelector(`#para-${cleanIndex}`);
+          if (paraElement) {
+            paraElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Highlighting hinzufügen
+            paraElement.style.backgroundColor = '#fff3cd';
+            paraElement.style.borderLeft = '4px solid #ffc107';
+            setTimeout(() => {
+              paraElement.style.backgroundColor = '';
+              paraElement.style.borderLeft = '';
+            }, 3000);
+          }
+        }, 200);
+      }
       
       // TOC für Timeline-Viewer erstellen
       buildTableOfContents();
@@ -7263,6 +7939,60 @@ function closeTimeline() {
     buildTableOfContents();
   }, 100);
 }
+
+// Timeline Panel Resize Funktionalität
+function initializeTimelineResize() {
+  const resizeHandle = document.getElementById('timelineResizeHandle');
+  const timelinePanel = document.querySelector('.timeline-panel');
+  
+  if (!resizeHandle || !timelinePanel) {
+    console.log('[TIMELINE-RESIZE] Elements not found');
+    return;
+  }
+  
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+  
+  resizeHandle.addEventListener('mousedown', (e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = timelinePanel.offsetWidth;
+    
+    // Prevent text selection during resize
+    e.preventDefault();
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'col-resize';
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!isResizing) return;
+    
+    const deltaX = e.clientX - startX;
+    const newWidth = startWidth + deltaX;
+    
+    // Set min and max width constraints
+    const minWidth = 400;
+    const maxWidth = window.innerWidth * 0.8;
+    
+    if (newWidth >= minWidth && newWidth <= maxWidth) {
+      timelinePanel.style.width = newWidth + 'px';
+    }
+  });
+  
+  document.addEventListener('mouseup', () => {
+    if (isResizing) {
+      isResizing = false;
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    }
+  });
+}
+
+// Initialize Timeline Resize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  initializeTimelineResize();
+});
 
 // Suche das Timeline-Schlagwort im aktuellen Vortragstext
 function searchKeywordInCurrentLecture() {
