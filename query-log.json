@@ -219,16 +219,16 @@
     "last": "2025-10-17T05:45:25.603Z"
   },
   "goethe": {
-    "count": 70,
+    "count": 73,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:22.939Z",
-    "last": "2025-10-17T09:27:35.843Z"
+    "last": "2025-10-17T12:11:46.324Z"
   },
   "lebenstableau": {
-    "count": 119,
+    "count": 128,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:13:03.915Z",
-    "last": "2025-10-17T09:37:57.992Z"
+    "last": "2025-10-17T12:13:06.030Z"
   },
   "steiner": {
     "count": 27,
@@ -427,14 +427,14 @@
     "lastUsed": "2025-10-09T04:41:19.220Z"
   },
   "bacon": {
-    "count": 6,
+    "count": 7,
     "coOccurrences": {
       "francis bacon": 1,
       "steiner": 1,
       "francis": 1
     },
     "lastUsed": "2025-10-09T04:41:19.220Z",
-    "last": "2025-10-17T09:35:58.144Z"
+    "last": "2025-10-17T09:41:36.276Z"
   },
   "jakob böhme": {
     "count": 1,
@@ -684,10 +684,10 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "goetheanismus": {
-    "count": 49,
+    "count": 54,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:33.257Z",
-    "last": "2025-10-17T09:37:31.603Z"
+    "last": "2025-10-17T10:27:18.643Z"
   },
   "dionysius areopagita": {
     "count": 1,
@@ -828,5 +828,9 @@
   "patron": {
     "count": 1,
     "last": "2025-10-17T09:29:52.121Z"
+  },
+  "shakespeare": {
+    "count": 2,
+    "last": "2025-10-17T09:42:54.038Z"
   }
 }

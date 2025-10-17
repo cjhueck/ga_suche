@@ -2620,9 +2620,19 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button active" onclick="switchTab('keyword')">Text</button>
+<button class="tab-button" onclick="switchTab('texte')">Texte</button>
+<button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
+</div>
+<div class="tab-content" id="texte-tab">
+<div style="padding: 0.5rem 0;">
+<div class="filter-row">
+<select class="filter-dropdown" id="texteGAFilter" style="width: 100%;">
+<option value="">GA-Band auswählen...</option>
+</select>
+</div>
+</div>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
@@ -2650,9 +2660,6 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </select>
 </div>
 <div class="radio-group">
-<button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
-GA-Übersicht →
-</button>
 <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.85em; padding: 4px 12px;">
   <span id="viewToggleText">Titel anzeigen</span>
 </button>
@@ -2681,7 +2688,6 @@ GA-Übersicht →
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
-<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
   Suche starten
 </button>
@@ -3323,6 +3329,7 @@ function normalizeGANumber(gaNumber) {
         const gaList = await response.json();
         const gaFilter = document.getElementById('gaFilter');
         const thematicGAFilter = document.getElementById('thematicGAFilter');
+        const texteGAFilter = document.getElementById('texteGAFilter');
         if (gaFilter) {
           gaFilter.innerHTML = '<option value="">GA-Bände: alle</option>';
           gaList.forEach(ga => {
@@ -3343,43 +3350,31 @@ function normalizeGANumber(gaNumber) {
             thematicGAFilter.appendChild(option);
           });
         }
+        if (texteGAFilter) {
+          texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
+          gaList.forEach(ga => {
+            const option = document.createElement('option');
+            option.value = ga.number;
+            // Zeige Nummer und Titel (falls verfügbar und nicht identisch)
+            option.textContent = ga.title && ga.title !== ga.number ? `${ga.number} – ${ga.title}` : ga.number;
+            option.className = 'available-ga';
+            texteGAFilter.appendChild(option);
+          });
+        }
       } catch (error) {
         console.error('Fehler beim Laden der GA-Liste:', error);
       }
     }
 
     function initGAFilter() {
-      const gaFilter = document.getElementById('gaFilter');
-      const thematicGAFilter = document.getElementById('thematicGAFilter');
-      const thematicShowBtn = document.getElementById('thematicShowGAOverview');
-      const showBtn = document.getElementById('showGAOverview');
+      const texteGAFilter = document.getElementById('texteGAFilter');
 
-      // Textsuche: Button wie gehabt
-      if (gaFilter && showBtn) {
-        gaFilter.addEventListener('change', (e) => {
+      // Texte-Tab: Direkt GA-Übersicht öffnen bei Auswahl
+      if (texteGAFilter) {
+        texteGAFilter.addEventListener('change', (e) => {
           const selectedGA = e.target.value;
           if (selectedGA) {
-            showBtn.style.display = 'inline-block';
-            showBtn.dataset.gaNumber = selectedGA;
-          } else {
-            showBtn.style.display = 'none';
-          }
-        });
-      }
-
-      // Themensuche: Button nur dort
-      if (thematicGAFilter && thematicShowBtn) {
-        thematicGAFilter.addEventListener('change', (e) => {
-          const selectedGA = e.target.value;
-          if (selectedGA) {
-            thematicShowBtn.style.display = 'inline-block';
-            thematicShowBtn.dataset.gaNumber = selectedGA;
-            thematicShowBtn.onclick = function() {
-              openGAOverview(selectedGA);
-            };
-          } else {
-            thematicShowBtn.style.display = 'none';
-            thematicShowBtn.onclick = null;
+            openGAOverview(selectedGA);
           }
         });
       }
@@ -3398,11 +3393,6 @@ function normalizeGANumber(gaNumber) {
           summaryPanel.style.marginRight = '0px';
         }
       } catch (e) { /* silent */ }
-      if (!gaNumber) {
-        // Fallback: Versuche, die GA-Nummer aus dem Button im Textsuche-Tab zu holen
-        const btn = document.getElementById('showGAOverview');
-        gaNumber = btn && btn.dataset.gaNumber ? btn.dataset.gaNumber : null;
-      }
       if (!gaNumber) return;
       try {
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
