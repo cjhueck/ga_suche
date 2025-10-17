@@ -2660,9 +2660,6 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </select>
 </div>
 <div class="radio-group">
-<button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.85em; padding: 4px 12px;">
-  <span id="viewToggleText">Titel anzeigen</span>
-</button>
 <div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
   <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
   <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
@@ -2670,9 +2667,14 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </div>
 </div>
 <span id="status" style="display:none"></span>
-<div id="searchInfo">
+<div id="searchInfo" style="display: flex; align-items: center; justify-content: space-between;">
+<div>
 <span id="serverInfo"></span>
 <span id="resultInfo"></span>
+</div>
+<button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 2px 8px;">
+  <span id="viewToggleText">Titel anzeigen</span>
+</button>
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
