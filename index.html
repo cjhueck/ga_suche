@@ -676,7 +676,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: var(--link-color);
       background: var(--background-color);
       padding: 0 8px;
-      font-size: 20px;
+      font-size: 23px;
       line-height: 1;
     }
     
@@ -730,9 +730,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: var(--link-color);
       background: var(--background-color);
       padding: 8px 0;
-      font-size: 20px;
+      font-size: 25px;
       line-height: 1;
-      font-weight: bold;
+      font-weight: normal;
       cursor: pointer;
       transition: color 0.2s;
     }
@@ -842,13 +842,13 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       cursor: col-resize;
       position: fixed;
       right: -2px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 50% der Viewport-Höhe */
+      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
       bottom: auto;
       height: 100px; /* Feste Höhe für das Handle */
       flex-shrink: 0;
       transition: background-color 0.2s, width 0.2s;
       display: none;
-      z-index: 999; /* Über dem Summary-Panel */
+      z-index: 1001; /* Über dem Summary-Panel und anderen Elementen */
     }
     
     .vertical-resize-handle::before {
@@ -859,12 +859,13 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       transform: translate(-50%, -50%);
       color: var(--link-color);
       background: var(--background-color);
-      padding: 8px 0;
-      font-size: 20px;
+      padding: 8px 6px;
+      font-size: 25px;
       line-height: 1;
-      font-weight: bold;
+      font-weight: normal;
       cursor: pointer;
       transition: color 0.2s;
+      display: inline-block;
     }
     
     .vertical-resize-handle.visible {
@@ -889,7 +890,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       content: '◀';
       font-size: 36px; /* Pfeilgröße bleibt gleich */
       background: var(--background-color);
-      padding: 8px 0;
+      padding: 8px 6px;
+      display: inline-block;
     }
     
     #summary-content {
@@ -1972,8 +1974,9 @@ body.dark-mode .timeline-panel {
   color: var(--link-color);
   background: var(--background-color);
   padding: 8px 0;
+  font-size: 25px;
   line-height: 1;
-  font-weight: bold;
+  font-weight: normal;
   transition: color 0.2s;
 }
 
