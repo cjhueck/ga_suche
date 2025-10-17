@@ -1,6 +1,6 @@
 {
   "anschauende urteilskraft": {
-    "count": 15,
+    "count": 22,
     "coOccurrences": {
       "bedeutung hat goethes": 15,
       "welche bedeutung": 15,
@@ -19,7 +19,8 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-16T14:16:44.338Z"
   },
   "bedeutung hat goethes": {
     "count": 15,
@@ -44,7 +45,7 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "welche bedeutung": {
-    "count": 15,
+    "count": 17,
     "coOccurrences": {
       "anschauende urteilskraft": 15,
       "bedeutung hat goethes": 15,
@@ -63,10 +64,11 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-16T14:50:37.696Z"
   },
   "bedeutung hat": {
-    "count": 15,
+    "count": 17,
     "coOccurrences": {
       "anschauende urteilskraft": 15,
       "bedeutung hat goethes": 15,
@@ -85,7 +87,8 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-16T14:50:37.696Z"
   },
   "hat goethes": {
     "count": 15,
@@ -147,7 +150,7 @@
     "lastUsed": "2025-10-07T19:57:17.015Z"
   },
   "bedeutung": {
-    "count": 15,
+    "count": 17,
     "coOccurrences": {
       "anschauende urteilskraft": 15,
       "bedeutung hat goethes": 15,
@@ -166,10 +169,11 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-16T14:50:37.696Z"
   },
   "goethes": {
-    "count": 15,
+    "count": 22,
     "coOccurrences": {
       "anschauende urteilskraft": 15,
       "bedeutung hat goethes": 15,
@@ -188,10 +192,11 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-16T14:16:44.338Z"
   },
   "anthroposophie": {
-    "count": 15,
+    "count": 31,
     "coOccurrences": {
       "anschauende urteilskraft": 15,
       "bedeutung hat goethes": 15,
@@ -210,19 +215,20 @@
       "anschauende": 1,
       "urteilskraft": 1
     },
-    "lastUsed": "2025-10-07T19:57:17.015Z"
+    "lastUsed": "2025-10-07T19:57:17.015Z",
+    "last": "2025-10-17T05:45:25.603Z"
   },
   "goethe": {
-    "count": 55,
+    "count": 68,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:22.939Z",
-    "last": "2025-10-15T05:35:20.780Z"
+    "last": "2025-10-17T08:10:36.673Z"
   },
   "lebenstableau": {
-    "count": 20,
+    "count": 109,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:13:03.915Z",
-    "last": "2025-10-15T05:23:32.891Z"
+    "last": "2025-10-17T08:29:44.707Z"
   },
   "steiner": {
     "count": 27,
@@ -421,13 +427,14 @@
     "lastUsed": "2025-10-09T04:41:19.220Z"
   },
   "bacon": {
-    "count": 1,
+    "count": 4,
     "coOccurrences": {
       "francis bacon": 1,
       "steiner": 1,
       "francis": 1
     },
-    "lastUsed": "2025-10-09T04:41:19.220Z"
+    "lastUsed": "2025-10-09T04:41:19.220Z",
+    "last": "2025-10-17T08:04:14.947Z"
   },
   "jakob böhme": {
     "count": 1,
@@ -580,7 +587,7 @@
     "lastUsed": "2025-10-10T13:35:06.628Z"
   },
   "astralleib": {
-    "count": 15,
+    "count": 16,
     "coOccurrences": {
       "was sagt steiner": 1,
       "sagt steiner zum": 1,
@@ -593,7 +600,7 @@
       "steiner": 1
     },
     "lastUsed": "2025-10-10T13:35:06.628Z",
-    "last": "2025-10-10T16:44:30.485Z"
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "wie charakterisiert steiner": {
     "count": 1,
@@ -628,40 +635,40 @@
     "last": "2025-10-10T14:20:38.670Z"
   },
   "unterschied von ätherleib": {
-    "count": 2,
-    "last": "2025-10-10T15:24:45.526Z"
+    "count": 3,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "ätherleib und astralleib": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "der unterschied": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "unterschied von": {
-    "count": 2,
-    "last": "2025-10-10T15:24:45.526Z"
+    "count": 3,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "von ätherleib": {
-    "count": 2,
-    "last": "2025-10-10T15:24:45.526Z"
+    "count": 3,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "ätherleib und": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "und astralleib": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "unterschied": {
-    "count": 5,
-    "last": "2025-10-10T16:44:30.485Z"
+    "count": 6,
+    "last": "2025-10-16T14:25:17.834Z"
   },
   "ätherleib": {
-    "count": 6,
-    "last": "2025-10-10T16:44:30.485Z",
+    "count": 7,
+    "last": "2025-10-16T14:25:17.834Z",
     "lastUsed": "2025-10-10T17:03:26.135Z"
   },
   "unterschied zwischen ätherleib": {
@@ -677,10 +684,10 @@
     "last": "2025-10-10T16:44:30.485Z"
   },
   "goetheanismus": {
-    "count": 16,
+    "count": 44,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:20:33.257Z",
-    "last": "2025-10-15T04:53:38.245Z"
+    "last": "2025-10-17T08:24:48.910Z"
   },
   "dionysius areopagita": {
     "count": 1,
@@ -721,5 +728,101 @@
   "zum goetheanismus": {
     "count": 8,
     "last": "2025-10-13T21:23:56.413Z"
+  },
+  "überwindung von kants": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "von kants erkenntnisgrenzen": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "kants erkenntnisgrenzen durch": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "erkenntnisgrenzen durch goethes": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "überwindung von": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "von kants": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "kants erkenntnisgrenzen": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "erkenntnisgrenzen durch": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "durch goethes": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "überwindung": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "kants": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "erkenntnisgrenzen": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "durch": {
+    "count": 7,
+    "last": "2025-10-16T14:16:44.338Z"
+  },
+  "idealismus": {
+    "count": 3,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "der deutsche idealismus": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "deutsche idealismus für": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "der deutsche": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "deutsche idealismus": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "idealismus für": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "die geisteswissenschaft": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "deutsche": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "geisteswissenschaft": {
+    "count": 2,
+    "last": "2025-10-16T14:50:37.696Z"
+  },
+  "unsterblichkeit": {
+    "count": 6,
+    "last": "2025-10-16T23:22:32.117Z"
+  },
+  "kamaloka": {
+    "count": 15,
+    "last": "2025-10-16T23:25:13.886Z"
   }
 }
