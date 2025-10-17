@@ -225,10 +225,10 @@
     "last": "2025-10-17T13:03:16.005Z"
   },
   "lebenstableau": {
-    "count": 151,
+    "count": 160,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:13:03.915Z",
-    "last": "2025-10-17T13:12:13.282Z"
+    "last": "2025-10-17T14:50:06.376Z"
   },
   "steiner": {
     "count": 27,
@@ -832,5 +832,9 @@
   "shakespeare": {
     "count": 2,
     "last": "2025-10-17T09:42:54.038Z"
+  },
+  "physischleib": {
+    "count": 1,
+    "last": "2025-10-17T14:31:09.727Z"
   }
 }
