@@ -2671,18 +2671,20 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 </select>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
-  <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
-  <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
+<div style="display:flex; gap:8px; align-items:center; justify-content: space-between; width: 100%;">
+  <div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem;">
+    <span id="serverInfo"></span>
+    <span id="resultInfo"></span>
+  </div>
+  <div style="display:flex; gap:8px; align-items:center;">
+    <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
+    <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
+    <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
+  </div>
 </div>
 </div>
 <span id="status" style="display:none"></span>
-<div id="searchInfo" style="display: flex; align-items: center; justify-content: space-between;">
-<div>
-<span id="serverInfo"></span>
-<span id="resultInfo"></span>
-</div>
+<div style="display: flex; align-items: center; justify-content: flex-end; margin-top: 0.5rem;">
 <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 130px;">
   <span id="viewToggleText">Titel anzeigen</span>
 </button>
