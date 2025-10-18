@@ -1562,7 +1562,7 @@ async function performHybridSearch(query, limit = 20) {
 
 app.post('/api/fulltext-search', async (req, res) => {
   try {
-    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null, relevanceFilter = 'alle' } = req.body;
+    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null, relevanceFilter = 'alle', yearFilter = '' } = req.body;
     
     if (!word1) {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
@@ -1575,7 +1575,7 @@ app.post('/api/fulltext-search', async (req, res) => {
       console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 2 Absätze`);
     }
     
-    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]`);
+    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}`);
     
     // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
     const searchInText = (text, searchTerm, isPhrase) => {
@@ -1599,6 +1599,24 @@ app.post('/api/fulltext-search', async (req, res) => {
     const addedParagraphs = new Set();
     
     Object.values(fullLectures).forEach(lecture => {
+      // Jahr-Filter: Überspringe Vorträge, die nicht dem ausgewählten Jahr entsprechen
+      if (yearFilter) {
+        const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
+        
+        // Prüfe ob es ein Jahresbereich ist (z.B. "1910-1915")
+        if (yearFilter.includes('-')) {
+          const [startYear, endYear] = yearFilter.split('-').map(y => y.trim());
+          if (lectureYear < startYear || lectureYear > endYear) {
+            return; // Überspringe diesen Vortrag (außerhalb des Bereichs)
+          }
+        } else {
+          // Einzelnes Jahr
+          if (lectureYear !== yearFilter) {
+            return; // Überspringe diesen Vortrag
+          }
+        }
+      }
+      
       const paragraphs = lecture.paragraphs || [];
       
       paragraphs.forEach((para, paraIndex) => {
