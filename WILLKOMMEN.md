@@ -17,17 +17,17 @@ Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldunge
 ---
 ## Wichtige Funktionen
 
-**Zwei-Wort-Suche**
-- Findet Begriffe, die **innerhalb von 2 Absätzen** vorkommen
+**Ein- und Zwei-Wort-Suche**
+- Findet Begriffe, die **innerhalb von 3 Absätzen** vorkommen
 - Intelligente Relevanzbewertung: 🟩 Hoch | 🟧 Mittel | 🟨 Niedrig
 
 **Phrasensuche**
 - Setzen Sie Begriffe in "Anführungszeichen" für exakte Suche
 - Beispiel: `"geistige Welt"` findet nur diese exakte Phrase
 
-**KI-Zusammenfassungen**
-- Klicken Sie auf "Zusammenfassung" bei jedem Vortrag
-- Automatisch generiert und gespeichert
+**Themensuche**
+- Formulieren Sie Fragen 
+- Vertiefen Sie die Antwort anhand der angegebenen Quellen
 
 ---
 ## Hilfe
