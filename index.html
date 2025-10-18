@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <title>Steiner GA-Suche</title>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -395,7 +396,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
 
     #sidebar-content .timeline-item {
-      margin: 0 0 0.8rem 0 !important;
+      margin: 0 0 0.5rem 0 !important;
       padding: 0 !important;
       list-style: none !important;
       display: block !important;
@@ -409,6 +410,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       font-weight: bold;
       color: var(--link-color);
       font-size: var(--text-size);
+      line-height: var(--line-height);
       text-decoration: none;
       display: block;
       margin-bottom: 0.3rem;
@@ -1482,6 +1484,7 @@ body.dark-mode #thematicSearchInfo {
       margin-bottom: 0.5rem;
       font-weight: bold;
       font-size: var(--text-size);
+      line-height: var(--line-height);
     }
     
     .ga-overview-lecture h3 a {
@@ -1489,6 +1492,7 @@ body.dark-mode #thematicSearchInfo {
       text-decoration: none;
       font-weight: bold;
       font-size: var(--text-size);
+      line-height: var(--line-height);
     }
     
     /* Linkfarbe in GA-Übersicht folgt zentralen Sidepanel-Regeln */
@@ -2608,6 +2612,292 @@ body.dark-mode #sidebar h1 a, body.dark-mode #sidebar h2 a, body.dark-mode #side
 body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body.dark-mode #sidebar-content h3 a, body.dark-mode #sidebar-content h4 a,
 body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
 body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
+
+/* ============================================================================
+   HELP BUTTON & MODAL
+   ============================================================================ */
+
+.help-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.help-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .help-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.help-button i {
+  width: 10px;
+  height: 10px;
+}
+
+.help-button svg {
+  stroke: #467886 !important;
+  stroke-width: 1.2;
+  fill: none;
+  color: #467886;
+}
+
+body.dark-mode .help-button svg {
+  stroke: #6BA3B8 !important;
+  color: #6BA3B8;
+}
+
+/* Help Modal */
+.help-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.2s ease;
+}
+
+.help-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.help-modal-content {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.help-modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.help-modal-header h2 {
+  margin: 0;
+  color: var(--heading-color) !important;
+  font-size: 1.5rem;
+}
+
+body.dark-mode .help-modal-header h2 {
+  color: var(--dark-heading-color) !important;
+}
+
+.help-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.help-modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .help-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.help-modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.help-choice-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.help-choice-btn {
+  flex: 1;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.help-choice-btn:hover {
+  background-color: #467886;
+  color: white;
+  border-color: #467886;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(70, 120, 134, 0.2);
+}
+
+body.dark-mode .help-choice-btn {
+  border-color: var(--border-color);
+  background-color: var(--background-color);
+}
+
+body.dark-mode .help-choice-btn:hover {
+  background-color: #6BA3B8;
+  color: white;
+  border-color: #6BA3B8;
+}
+
+.help-choice-btn h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #467886;
+}
+
+body.dark-mode .help-choice-btn h3 {
+  color: #6BA3B8;
+}
+
+.help-choice-btn:hover h3 {
+  color: white;
+}
+
+.help-choice-btn p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.help-choice-btn:hover p {
+  color: white;
+}
+
+.help-content-display {
+  display: none;
+}
+
+.help-content-display.active {
+  display: block;
+}
+
+.help-content-display h2 {
+  color: var(--heading-color) !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.help-content-display h3 {
+  color: var(--heading-color) !important;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+body.dark-mode .help-content-display h2,
+body.dark-mode .help-content-display h3 {
+  color: var(--dark-heading-color) !important;
+}
+
+.help-content-display code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+body.dark-mode .help-content-display code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.help-content-display pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+body.dark-mode .help-content-display pre {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.help-content-display table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.help-content-display table th,
+.help-content-display table td {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.help-content-display table th {
+  background-color: rgba(70, 120, 134, 0.1);
+  font-weight: 600;
+}
+
+.help-back-btn {
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #467886;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.help-back-btn:hover {
+  background-color: #3a6270;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-mode .help-back-btn {
+  background-color: #6BA3B8;
+}
+
+body.dark-mode .help-back-btn:hover {
+  background-color: #5a8a9a;
+}
 </style>
 </head>
 <body>
@@ -2615,10 +2905,15 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner GA-Suche</a></h1>
+<div style="display: flex; align-items: center; gap: 0.15rem;">
+<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
+<i data-lucide="info"></i>
+</button>
 <label class="theme-switch">
 <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
 <span class="theme-slider"></span>
 </label>
+</div>
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
@@ -2630,11 +2925,11 @@ body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.d
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" oninput="updateRelevanceFilter()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
 <datalist id="word1-history"></datalist>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" oninput="updateRelevanceFilter()" placeholder="Suchwort 2 (optional)" type="text"/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" placeholder="Suchwort 2 (optional)" type="text"/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
@@ -3774,6 +4069,8 @@ function toggleGASummaries() {
         const relevanceFilterElement = document.getElementById('relevanceFilter');
         const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
         
+        console.log(`[RELEVANCE-FILTER] Sende Filter an Backend: "${relevanceFilter}"`);
+        
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
           method: 'POST',
           keepalive: true,
@@ -3782,7 +4079,8 @@ function toggleGASummaries() {
             word1: word1,
             word2: word2,
             word1IsPhrase: word1IsPhrase,
-            word2IsPhrase: word2IsPhrase
+            word2IsPhrase: word2IsPhrase,
+            relevanceFilter: relevanceFilter
           })
         });
         
@@ -3808,7 +4106,8 @@ function toggleGASummaries() {
           const isPhrase = word1Input ? word1IsPhrase : word2IsPhrase;
           displayQuery = isPhrase ? `"${word1}"` : singleTerm;
         }
-        renderKeywordResults(displayQuery, results, word1Input, word2Input);
+        // Übergebe geparste Werte und Phrasen-Flags an renderKeywordResults
+        renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase);
         
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
@@ -3887,33 +4186,22 @@ function toggleGASummaries() {
       }
     }
     
-    // Hilfsfunktion: Relevanz-Filter-Status basierend auf Trefferanzahl aktualisieren
+    // Hilfsfunktion: Relevanz-Filter-Status - <100 Regel entfernt
     function updateRelevanceFilterState(resultCount) {
+      // Keine spezielle Behandlung mehr - "mittel" ist immer aktiv
       const relevanceFilter = document.getElementById('relevanceFilter');
       if (!relevanceFilter) return;
       
       const mittelOption = Array.from(relevanceFilter.options).find(opt => opt.value === 'mittel');
       if (!mittelOption) return;
       
-      const shouldDisable = resultCount < 100;
-      
-      if (shouldDisable) {
-        mittelOption.disabled = true;
-        mittelOption.style.color = '#999';
-        mittelOption.textContent = 'mittel ⬜'; // Graues Quadrat
-        if (relevanceFilter.value === 'mittel') {
-          relevanceFilter.value = 'alle';
-        }
-        console.log(`[RELEVANCE-FILTER] Weniger als 100 Treffer (${resultCount}) - "mittel" Option deaktiviert`);
-      } else {
-        mittelOption.disabled = false;
-        mittelOption.style.color = '';
-        mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
-        console.log(`[RELEVANCE-FILTER] ${resultCount} Treffer - "mittel" Option aktiviert`);
-      }
+      // Stelle sicher, dass "mittel" immer aktiviert ist
+      mittelOption.disabled = false;
+      mittelOption.style.color = '';
+      mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
     }
 
-    function renderKeywordResults(query, results, word1, word2) {
+    function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false) {
       const container = document.getElementById('results');
       const scope = 'fulltext'; // Immer Volltext-Suche
       
@@ -3978,37 +4266,13 @@ function toggleGASummaries() {
         return dateA.localeCompare(dateB);
       });
       
-      // NEU: Relevanz-Filterung vor der Schleife
-      const relevanceFilterElement = document.getElementById('relevanceFilter');
-      const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
+      const filteredLectures = sortedLectures;
       
-      console.log('[RELEVANCE-FILTER] Element gefunden:', !!relevanceFilterElement, 'Wert:', relevanceFilter);
-      
-      // Filtere Vorträge nach Relevanz BEVOR sie angezeigt werden
-      const filteredLectures = sortedLectures.filter(([lectureId, lecture]) => {
-        if (relevanceFilter && relevanceFilter !== 'alle') {
-          const firstChunk = lecture.chunks[0];
-          console.log(`[DEBUG] Vortrag ${lectureId}:`, firstChunk ? firstChunk.relevanceCategory : 'keine Kategorie');
-          if (firstChunk && firstChunk.relevanceCategory) {
-            return firstChunk.relevanceCategory === relevanceFilter;
-          }
-          return false; // Wenn keine Relevanz-Kategorie vorhanden, nicht anzeigen
-        }
-        return true; // Alle anzeigen wenn Filter auf 'alle' steht
-      });
-      
-      console.log(`[RELEVANCE-FILTER] ${sortedLectures.length} Vorträge -> ${filteredLectures.length} nach Filter`);
-      
-      // NEU: Aktualisiere Trefferanzahl und Vortragsanzahl basierend auf gefilterten Ergebnissen
+      // Aktualisiere Trefferanzahl
       const totalResults = results.length;
-      const filteredResults = filteredLectures.reduce((sum, [, lecture]) => sum + lecture.chunks.length, 0);
-      const filteredLecturesCount = filteredLectures.length;
       const totalLecturesCount = sortedLectures.length;
       
-      let resultText = ` • ${totalResults} Treffer`;
-      if (relevanceFilter !== 'alle') {
-        resultText += ` | ${filteredResults} Treffer in ${filteredLecturesCount} Vorträgen`;
-      }
+      let resultText = ` • ${totalResults} Treffer in ${totalLecturesCount} Vorträgen`;
       document.getElementById('resultInfo').textContent = resultText;
       
       // Timeline-Darstellung mit CSS Grid: Jahr links, Treffer rechts
@@ -4048,14 +4312,14 @@ function toggleGASummaries() {
         const lectureItem = document.createElement('div');
         lectureItem.className = 'timeline-item';
         lectureItem.style.gridColumn = '2';
-        lectureItem.style.marginBottom = '0.8rem';
+        lectureItem.style.marginBottom = '0.5rem';
         
         const titleLink = document.createElement('a');
         titleLink.href = "#";
         
-        // NEU: Relevanz-Kategorie als farbigen Punkt anzeigen
-        const firstChunk = lecture.chunks[0];
+        // Relevanz-Kategorie als farbigen Punkt anzeigen
         let relevanceDot = '';
+        const firstChunk = lecture.chunks[0];
         if (firstChunk && firstChunk.relevanceCategory) {
           const relevanceColors = {
             'hoch': '#28a745',      // Grün
@@ -4064,11 +4328,6 @@ function toggleGASummaries() {
           };
           const color = relevanceColors[firstChunk.relevanceCategory] || '#ffc107';
           relevanceDot = ` <span style="color: ${color}; font-size: 1.2em; margin-left: 4px;" title="Relevanz: ${firstChunk.relevanceCategory}">●</span>`;
-          
-          // Debug-Ausgabe für die ersten 5 Vorträge
-          if (filteredLectures.indexOf([lectureId, lecture]) < 5) {
-            console.log(`[FRONTEND-DEBUG] ${lectureId}: Kategorie=${firstChunk.relevanceCategory}, Score=${firstChunk.relevanceScore ? firstChunk.relevanceScore.toFixed(3) : 'undefined'}`);
-          }
         }
         
         titleLink.innerHTML = lecture.fileName + relevanceDot;
@@ -4095,13 +4354,34 @@ function toggleGASummaries() {
             const contentLower = content.toLowerCase();
             const positions = [];
             
+            // Hilfsfunktion zum Finden der Position mit oder ohne Wortgrenzen
+            const findTermPosition = (text, term, isPhrase) => {
+              if (!term || !term.trim()) return -1;
+              const textLower = text.toLowerCase();
+              const termLower = term.toLowerCase();
+              
+              if (isPhrase) {
+                // Bei Phrasensuche: mit Wortgrenzen
+                const escapedTerm = termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`, 'i');
+                const match = text.match(regex);
+                if (match) {
+                  return text.toLowerCase().indexOf(match[0].toLowerCase()) + (match[1] ? match[1].length : 0);
+                }
+                return -1;
+              } else {
+                // Bei normaler Suche: auch Teilwörter
+                return textLower.indexOf(termLower);
+              }
+            };
+            
             if (word1 && word1.trim()) {
-              const pos = contentLower.indexOf(word1.toLowerCase());
+              const pos = findTermPosition(content, word1, word1IsPhrase);
               if (pos !== -1) positions.push({ pos, word: word1 });
             }
             
             if (word2 && word2.trim()) {
-              const pos = contentLower.indexOf(word2.toLowerCase());
+              const pos = findTermPosition(content, word2, word2IsPhrase);
               if (pos !== -1) positions.push({ pos, word: word2 });
             }
             
@@ -4119,14 +4399,28 @@ function toggleGASummaries() {
                         content.substring(start, end) + 
                         (end < content.length ? '...' : '');
               
+              // Hilfsfunktion für Highlighting mit oder ohne Wortgrenzen
+              const highlightTerm = (text, term, isPhrase) => {
+                if (!term || !term.trim()) return text;
+                const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                let regex;
+                if (isPhrase) {
+                  // Bei Phrasensuche: Wortgrenzen beachten
+                  regex = new RegExp(`((?:^|[\\s,.;:!?()\\-—]))(${escapedTerm})(?=$|[\\s,.;:!?()\\-—])`, "gi");
+                  return text.replace(regex, "$1<mark>$2</mark>");
+                } else {
+                  // Bei normaler Suche: auch Teilwörter highlighten
+                  regex = new RegExp(`(${escapedTerm})`, "gi");
+                  return text.replace(regex, "<mark>$1</mark>");
+                }
+              };
+              
               if (word1 && word1.trim()) {
-                const regex = new RegExp(`(${word1.trim()})`, "gi");
-                snippet = snippet.replace(regex, "<mark>$1</mark>");
+                snippet = highlightTerm(snippet, word1, word1IsPhrase);
               }
               
               if (word2 && word2.trim()) {
-                const regex = new RegExp(`(${word2.trim()})`, "gi");
-                snippet = snippet.replace(regex, "<mark>$1</mark>");
+                snippet = highlightTerm(snippet, word2, word2IsPhrase);
               }
               
               snippetDiv.innerHTML = snippet;
@@ -8485,6 +8779,144 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+  }
+});
+</script>
+
+<!-- Help Modal -->
+<div id="helpModal" class="help-modal">
+  <div class="help-modal-content">
+    <div class="help-modal-header">
+      <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
+      <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
+    </div>
+    <div class="help-modal-body">
+      <!-- Choice Screen -->
+      <div id="helpChoice" class="help-choice">
+        <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
+        <div class="help-choice-buttons">
+          <button class="help-choice-btn" onclick="showHelpContent('quick')">
+            <h3>Impressum</h3>
+          </button>
+          <button class="help-choice-btn" onclick="showHelpContent('full')">
+            <h3>Anleitung</h3> 
+          </button>
+        </div>
+      </div>
+      
+      <!-- Content Display -->
+      <div id="helpContentDisplay" class="help-content-display">
+        <div id="helpContentText"></div>
+        <button class="help-back-btn" onclick="showHelpChoice()">← Zurück zur Auswahl</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Help Modal Functions
+function openHelpModal() {
+  const modal = document.getElementById('helpModal');
+  modal.classList.add('active');
+  showHelpChoice();
+  
+  // Lucide Icons neu rendern
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+function closeHelpModal() {
+  const modal = document.getElementById('helpModal');
+  modal.classList.remove('active');
+}
+
+function showHelpChoice() {
+  document.getElementById('helpChoice').style.display = 'block';
+  document.getElementById('helpContentDisplay').classList.remove('active');
+  document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
+}
+
+async function showHelpContent(type) {
+  const contentDisplay = document.getElementById('helpContentDisplay');
+  const contentText = document.getElementById('helpContentText');
+  const choice = document.getElementById('helpChoice');
+  const title = document.getElementById('helpModalTitle');
+  
+  choice.style.display = 'none';
+  contentDisplay.classList.add('active');
+  
+  // Lade-Indikator
+  contentText.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Anleitung...</p>';
+  
+  try {
+    let mdFile = '';
+    if (type === 'quick') {
+      title.textContent = 'Impressum';
+      mdFile = 'IMPRESSUM.md';
+    } else if (type === 'full') {
+      title.textContent = 'GA-Suche Anleitung';
+      mdFile = 'BENUTZERANLEITUNG.md';
+    }
+    
+    // Lade Markdown-Datei vom Backend-Server
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    const response = await fetch(`${API_BASE}/system/${mdFile}`);
+    if (!response.ok) {
+      throw new Error(`Fehler beim Laden: ${response.status}`);
+    }
+    const markdown = await response.text();
+    
+    // Konvertiere Markdown zu HTML mit marked.js
+    if (typeof marked !== 'undefined') {
+      // Konfiguriere marked für besseres Rendering
+      marked.setOptions({
+        breaks: true,
+        gfm: true
+      });
+      contentText.innerHTML = marked.parse(markdown);
+    } else {
+      // Fallback: Zeige Markdown als Text
+      contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+    }
+    
+  } catch (error) {
+    console.error('Fehler beim Laden der Anleitung:', error);
+    contentText.innerHTML = `
+      <div style="text-align: center; padding: 2rem; color: #999;">
+        <p><strong>Fehler beim Laden der Anleitung</strong></p>
+        <p style="font-size: 0.9em; margin-top: 1rem;">
+          ${error.message}<br>
+          Bitte stellen Sie sicher, dass die Markdown-Dateien verfügbar sind.
+        </p>
+      </div>
+    `;
+  }
+  
+  // Scroll to top
+  contentDisplay.scrollTop = 0;
+}
+
+// Die Inhalte werden jetzt dynamisch aus IMPRESSUM.md und BENUTZERANLEITUNG.md geladen
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('helpModal');
+  if (event.target === modal) {
+    closeHelpModal();
+  }
+});
+
+// Close modal with ESC key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const modal = document.getElementById('helpModal');
+    if (modal && modal.classList.contains('active')) {
+      closeHelpModal();
+    }
   }
 });
 </script>
