@@ -13584,35 +13584,35 @@
         },
         {
           "index": "^unvs3a",
-          "content": "| I. Tag | \\begin{gathered} \\text { Mond } 1 \\\\ \\text { Montag } \\end{gathered} | Venus 2 [Merkur]* | Merkur 3 [Venus]* |  | Sonne | 4 |"
+          "content": "I. Tag \\begin{gathered} \\text { Mond } 1 \\\\ \\text { Montag } \\end{gathered} Venus 2 [Merkur]* Merkur 3 [Venus]* |  Sonne 4"
         },
         {
           "index": "^c867qu",
-          "content": "| :--: | :--: | :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--: :--: :--:"
         },
         {
           "index": "^toisnj",
-          "content": "| II. Tag | \\begin{gathered} \\text { Mars } 5 \\\\ \\text { Marstag } \\end{gathered} | Jupiter 6 | Saturn 7 |  | Mond | 8 |"
+          "content": "II. Tag \\begin{gathered} \\text { Mars } 5 \\\\ \\text { Marstag } \\end{gathered} Jupiter 6 Saturn 7 |  Mond 8"
         },
         {
           "index": "^c0pmcb",
-          "content": "| III. Tag | Merkur 9  Merkurtag | Venus 10 | Sonne 11 |  | Mars | 12 |"
+          "content": "III. Tag Merkur 9  Merkurtag Venus 10 Sonne 11 |  Mars 12"
         },
         {
           "index": "^ywsoyp",
-          "content": "| IV.Tag | Jupiter 13 Jupitertag | Saturn 14 | Mond 15 |  | Merkur | 16 |"
+          "content": "IV.Tag Jupiter 13 Jupitertag Saturn 14 Mond 15 |  Merkur 16"
         },
         {
           "index": "^0yzd9z",
-          "content": "| V.Tag | Venus 17  Venustag | Sonne 18 | Mars 19 |  | Jupiter | 20 |"
+          "content": "V.Tag Venus 17  Venustag Sonne 18 Mars 19 |  Jupiter 20"
         },
         {
           "index": "^rxfunb",
-          "content": "| VI. Tag | Saturn 21  Saturntag | Mond 22 | Merkur 23 |  | Venus | 24 |"
+          "content": "VI. Tag Saturn 21  Saturntag Mond 22 Merkur 23 |  Venus 24"
         },
         {
           "index": "^ijxljk",
-          "content": "| VII. Tag | Sonne 25 Sonntag | Mars 26 | Jupiter 27 |  | Saturn | 28 |"
+          "content": "VII. Tag Sonne 25 Sonntag Mars 26 Jupiter 27 |  Saturn 28"
         },
         {
           "index": "^ilwnhv",
@@ -16224,15 +16224,15 @@
         },
         {
           "index": "^kb6ran",
-          "content": "| Erste Bewußtseinsstufe | ![img-25.jpeg](assets/GA089-Bewußtsein%20Leben%20Form_img-25.jpeg) | 1* 2 * 3^{*} 4^{*} 5^{*} 6^{*} 7^{*} |"
+          "content": "Erste Bewußtseinsstufe ![img-25.jpeg](assets/GA089-Bewußtsein%20Leben%20Form_img-25.jpeg) 1* 2 * 3^{*} 4^{*} 5^{*} 6^{*} 7^{*}"
         },
         {
           "index": "^8sd1za",
-          "content": "| :--: | :--: | :--: |"
+          "content": ":--: :--: :--:"
         },
         {
           "index": "^kun41j",
-          "content": "| Dritte Bewußtseinsstufe | ![img-26.jpeg](assets/GA089-Bewußtsein%20Leben%20Form_img-26.jpeg) |  |"
+          "content": "Dritte Bewußtseinsstufe ![img-26.jpeg](assets/GA089-Bewußtsein%20Leben%20Form_img-26.jpeg) |"
         },
         {
           "index": "^pfqd7m",
@@ -16664,39 +16664,35 @@
         },
         {
           "index": "^wlta6d",
-          "content": "|  | 1. Logos: Offenbarer |"
-        },
-        {
-          "index": "^g890lo",
-          "content": "| :-- | :-- |"
+          "content": "|  1. Logos: Offenbarer"
         },
         {
           "index": "^srpl67",
-          "content": "|  | 2. Logos: Offenbarung, Tätigkeit |"
+          "content": "|  2. Logos: Offenbarung, Tätigkeit"
         },
         {
           "index": "^bie7bn",
-          "content": "|  | 3. Logos: Geoffenbartes Spiegelbild |"
+          "content": "|  3. Logos: Geoffenbartes Spiegelbild"
         },
         {
           "index": "^77t6en",
-          "content": "|  | Sat, Ananda, Chit |"
+          "content": "|  Sat, Ananda, Chit"
         },
         {
           "index": "^kfd4d9",
-          "content": "|  | Dreifaltigkeit: |"
+          "content": "|  Dreifaltigkeit:"
         },
         {
           "index": "^qyr4x2",
-          "content": "|  | 1. Vater |"
+          "content": "|  1. Vater"
         },
         {
           "index": "^6fmzuv",
-          "content": "|  | 2. Sohn, Wort |"
+          "content": "|  2. Sohn, Wort"
         },
         {
           "index": "^dbmjby",
-          "content": "|  | 3. Heiliger Geist |"
+          "content": "|  3. Heiliger Geist"
         },
         {
           "index": "^m99305",
@@ -17972,27 +17968,23 @@
         },
         {
           "index": "^ucwfl4",
-          "content": "| Mensch | Löwe |"
-        },
-        {
-          "index": "^dbi0tl",
-          "content": "| :-- | :-- |"
+          "content": "Mensch Löwe"
         },
         {
           "index": "^l0e449",
-          "content": "| 4 mental | 4 Ich (kommt aus der geistigen Welt) |"
+          "content": "4 mental 4 Ich (kommt aus der geistigen Welt)"
         },
         {
           "index": "^mqlgo4",
-          "content": "| 3 astral | 3 astral |"
+          "content": "3 astral 3 astral"
         },
         {
           "index": "^2o3ncc",
-          "content": "| 2 ätherisch | 2 ätherisch |"
+          "content": "2 ätherisch 2 ätherisch"
         },
         {
           "index": "^45ecpk",
-          "content": "| 1 physisch | 1 physisch |"
+          "content": "1 physisch 1 physisch"
         },
         {
           "index": "^69uxbb",
@@ -18236,123 +18228,123 @@
         },
         {
           "index": "^a4xneo",
-          "content": "| Chakrams blumen genannt | Organe des Astralleibes; Räder auch Lotus- |"
+          "content": "Chakrams blumen genannt Organe des Astralleibes; Räder auch Lotus-"
         },
         {
           "index": "^rll06u",
-          "content": "| :--: | :--: |"
+          "content": ":--: :--:"
         },
         {
           "index": "^9z3qpy",
-          "content": "| Chela (Tschela) | Geistesschüler |"
+          "content": "Chela (Tschela) Geistesschüler"
         },
         {
           "index": "^5eyaft",
-          "content": "| Chit | Abstraktes Bewußtsein, Erkenntnis, Denken |"
+          "content": "Chit Abstraktes Bewußtsein, Erkenntnis, Denken"
         },
         {
           "index": "^gmp9i6",
-          "content": "| Dangma | Seher, gereinigte Seele |"
+          "content": "Dangma Seher, gereinigte Seele"
         },
         {
           "index": "^ysllcv",
-          "content": "| Devachan | Geisteswelt, s. Plane |"
+          "content": "Devachan Geisteswelt, s. Plane"
         },
         {
           "index": "^c2sspl",
-          "content": "| Dhyan-Chohan früherer Runden. Christlich: Erzengel | Planetengeister, vervollkommnete Menschen |"
+          "content": "Dhyan-Chohan früherer Runden. Christlich: Erzengel Planetengeister, vervollkommnete Menschen"
         },
         {
           "index": "^g8ltg7",
-          "content": "| Dhyani | Engel |"
+          "content": "Dhyani Engel"
         },
         {
           "index": "^ngaea5",
-          "content": "| Gunas | die drei Grundeigenschaften Sattwa, Rajas, |"
+          "content": "Gunas die drei Grundeigenschaften Sattwa, Rajas,"
         },
         {
           "index": "^qao5ng",
-          "content": "| Tamas |  |"
+          "content": "Tamas |"
         },
         {
           "index": "^eyb23h",
-          "content": "| Kama | Allgemeine Astral- bzw. Wunsch- oder Begier- |"
+          "content": "Kama Allgemeine Astral- bzw. Wunsch- oder Begier-"
         },
         {
           "index": "^t45ctp",
-          "content": "| denmaterie |  |"
+          "content": "denmaterie |"
         },
         {
           "index": "^13n6o7",
-          "content": "| Kama-Manas | Irdisches Bewußtsein oder niederes Manas, im Gegensatz zum höheren Manas (Budhi-Manas). Von Rudolf Steiner auch Verstandesseele genannt |"
+          "content": "Kama-Manas Irdisches Bewußtsein oder niederes Manas, im Gegensatz zum höheren Manas (Budhi-Manas). Von Rudolf Steiner auch Verstandesseele genannt"
         },
         {
           "index": "^ricmbw",
-          "content": "| Kama-Rupa  nem Leib «rupa» geformt | Astralleib, Begierdenleib; Kamamaterie zu ein |"
+          "content": "Kama-Rupa  nem Leib «rupa» geformt Astralleib, Begierdenleib; Kamamaterie zu ein"
         },
         {
           "index": "^chsfvb",
-          "content": "| Karana Sharira | Geistselbst |"
+          "content": "Karana Sharira Geistselbst"
         },
         {
           "index": "^mhhw64",
-          "content": "| Linga-Sharira | Seelenleib, Astralleib |"
+          "content": "Linga-Sharira Seelenleib, Astralleib"
         },
         {
           "index": "^ke6d3v",
-          "content": "| Lipikas | Herren des Karma |"
+          "content": "Lipikas Herren des Karma"
         },
         {
           "index": "^9q0f2v",
-          "content": "| Lunarpitris | s. Pitris |"
+          "content": "Lunarpitris s. Pitris"
         },
         {
           "index": "^uooqg1",
-          "content": "| Mahaparanirvanaplan \\rightarrow Plane |  |"
+          "content": "Mahaparanirvanaplan \\rightarrow Plane |"
         },
         {
           "index": "^76ru7x",
-          "content": "| Mahapralaya | Maha = großes Pralaya |"
+          "content": "Mahapralaya Maha = großes Pralaya"
         },
         {
           "index": "^537pjf",
-          "content": "| Mahat oder Bewußtseins bringt es sowohl Manas (Prinzip des Denkens) als auch Ahamkara, den Egoismus oder das Gefühl des «Ich bin Ich» im niederen Manas. |  |"
+          "content": "Mahat oder Bewußtseins bringt es sowohl Manas (Prinzip des Denkens) als auch Ahamkara, den Egoismus oder das Gefühl des «Ich bin Ich» im niederen Manas. |"
         },
         {
           "index": "^hljl2q",
-          "content": "| Manas | wörtlich «Denken». Als Prinzip des Menschen |"
+          "content": "Manas wörtlich «Denken». Als Prinzip des Menschen"
         },
         {
           "index": "^yiz53q",
-          "content": "| von Rudolf Steiner Geistselbst genannt. |  |"
+          "content": "von Rudolf Steiner Geistselbst genannt. |"
         },
         {
           "index": "^00mpn8",
-          "content": "| Manvantara | Weltentag; eine Periode der Offenbarung, auch |"
+          "content": "Manvantara Weltentag; eine Periode der Offenbarung, auch"
         },
         {
           "index": "^i84zsw",
-          "content": "| offener Kreislauf genannt, im Gegensatz zur Periode der Auflösung oder Ruhe: Pralaya (geschlossener Kreislauf) |  |"
+          "content": "offener Kreislauf genannt, im Gegensatz zur Periode der Auflösung oder Ruhe: Pralaya (geschlossener Kreislauf) |"
         },
         {
           "index": "^t24ddq",
-          "content": "| Mondpitris | Pitris |"
+          "content": "Mondpitris Pitris"
         },
         {
           "index": "^n2iapc",
-          "content": "| Nirvanaplan | Plane |"
+          "content": "Nirvanaplan Plane"
         },
         {
           "index": "^h69916",
-          "content": "| Paranirvanaplan | Plane |"
+          "content": "Paranirvanaplan Plane"
         },
         {
           "index": "^b0hsmp",
-          "content": "| Pitris | Väter oder Vorfahren der Erdenmenschen auf |"
+          "content": "Pitris Väter oder Vorfahren der Erdenmenschen auf"
         },
         {
           "index": "^gkb1sn",
-          "content": "| der Mond- und Sonnenentwicklung |  | Plane"
+          "content": "der Mond- und Sonnenentwicklung |  Plane"
         },
         {
           "index": "^mcgtcp",
@@ -18360,39 +18352,35 @@
         },
         {
           "index": "^lzi4ym",
-          "content": "| Theosophische Bezeichnung | Anthroposophische Bezeichnung |"
-        },
-        {
-          "index": "^2jhnbn",
-          "content": "| :-- | :-- |"
+          "content": "Theosophische Bezeichnung Anthroposophische Bezeichnung"
         },
         {
           "index": "^vy0nk0",
-          "content": "| Physischer Plan | physische Welt, irdische Welt |"
+          "content": "Physischer Plan physische Welt, irdische Welt"
         },
         {
           "index": "^pm2uaq",
-          "content": "| Astralplan, Astralwelt | Seelenwelt, imaginative Welt |"
+          "content": "Astralplan, Astralwelt Seelenwelt, imaginative Welt"
         },
         {
           "index": "^56gjnt",
-          "content": "| Devachan / Mentalplan | Geistesland, Geisterland, Welt der Sphären- |"
+          "content": "Devachan / Mentalplan Geistesland, Geisterland, Welt der Sphären-"
         },
         {
           "index": "^c332jz",
-          "content": "| harmonie, Welt der Inspiration |  |"
+          "content": "harmonie, Welt der Inspiration |"
         },
         {
           "index": "^q92qwn",
-          "content": "| Rupa-Devachan | niederes Devachan, himmlische Welt |"
+          "content": "Rupa-Devachan niederes Devachan, himmlische Welt"
         },
         {
           "index": "^ea1nlm",
-          "content": "| Arupa-Devachan | höheres Devachan, Vernunftwelt, Welt der Intu- |"
+          "content": "Arupa-Devachan höheres Devachan, Vernunftwelt, Welt der Intu-"
         },
         {
           "index": "^23z4rf",
-          "content": "| ition |  |"
+          "content": "ition |"
         },
         {
           "index": "^642u9o",
@@ -29268,19 +29256,19 @@
         },
         {
           "index": "^avnl4o",
-          "content": "| Ehe vor den Meistern kann die Stimme sprechen, |  |  |  |  |  |  |  |  |"
+          "content": "Ehe vor den Meistern kann die Stimme sprechen, |  |  |  |  |  |  |  |"
         },
         {
           "index": "^f1dl2e",
-          "content": "| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--: :--: :--: :--: :--:"
         },
         {
           "index": "^o5d1bh",
-          "content": "| muss das Verwunden sie verlernen. |  |  |  |  |  |  |  |  |"
+          "content": "muss das Verwunden sie verlernen. |  |  |  |  |  |  |  |"
         },
         {
           "index": "^lputrv",
-          "content": "| Ehe vor ihnen stehen kann die Seele, |  |  |  |  |  |  |  |  |"
+          "content": "Ehe vor ihnen stehen kann die Seele, |  |  |  |  |  |  |  |"
         },
         {
           "index": "^2o6mtv",
@@ -35996,15 +35984,11 @@
         },
         {
           "index": "^bxrlx1",
-          "content": "| C | D | E | f | g | a | h | c |"
-        },
-        {
-          "index": "^raqc9j",
-          "content": "| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |"
+          "content": "C D E f g a h c"
         },
         {
           "index": "^22isyz",
-          "content": "| 400 | 450 | 500 | 532 | 600 | 665 | 750 | 800 |"
+          "content": "400 450 500 532 600 665 750 800"
         },
         {
           "index": "^0y3q5u",
@@ -36028,43 +36012,39 @@
         },
         {
           "index": "^avo501",
-          "content": "| 400 Billionen Schwingungen | rot |"
-        },
-        {
-          "index": "^20cvti",
-          "content": "| :-- | :-- |"
+          "content": "400 Billionen Schwingungen rot"
         },
         {
           "index": "^6j2c9c",
-          "content": "| 450 Billionen Schwingungen | orange |"
+          "content": "450 Billionen Schwingungen orange"
         },
         {
           "index": "^l0tzsv",
-          "content": "| 500 Billionen Schwingungen | gelb |"
+          "content": "500 Billionen Schwingungen gelb"
         },
         {
           "index": "^1lhhex",
-          "content": "| 532 Billionen Schwingungen | grün |"
+          "content": "532 Billionen Schwingungen grün"
         },
         {
           "index": "^tebwjr",
-          "content": "| 600 Billionen Schwingungen | blaugrün |"
+          "content": "600 Billionen Schwingungen blaugrün"
         },
         {
           "index": "^wb68rm",
-          "content": "| 665 Billionen Schwingungen | blauindigo |"
+          "content": "665 Billionen Schwingungen blauindigo"
         },
         {
           "index": "^4psvbx",
-          "content": "| 750 Billionen Schwingungen | indigo |"
+          "content": "750 Billionen Schwingungen indigo"
         },
         {
           "index": "^zl7vur",
-          "content": "| 760 Billionen Schwingungen | violett |"
+          "content": "760 Billionen Schwingungen violett"
         },
         {
           "index": "^w3q5vl",
-          "content": "| 700 Billionen Schwingungen | ultraviolett |"
+          "content": "700 Billionen Schwingungen ultraviolett"
         },
         {
           "index": "^k0qgtm",
@@ -37776,35 +37756,31 @@
         },
         {
           "index": "^ar4f79",
-          "content": "| Saturn | - Saturday |"
-        },
-        {
-          "index": "^tsukrh",
-          "content": "| :-- | :-- |"
+          "content": "Saturn - Saturday"
         },
         {
           "index": "^qpn961",
-          "content": "| Sonne | - Sonntag |"
+          "content": "Sonne - Sonntag"
         },
         {
           "index": "^arvl93",
-          "content": "| Mond | - Montag |"
+          "content": "Mond - Montag"
         },
         {
           "index": "^map0be",
-          "content": "| Mars - | Mardi |"
+          "content": "Mars - Mardi"
         },
         {
           "index": "^omjg7a",
-          "content": "| Merkur | - Mercredi |"
+          "content": "Merkur - Mercredi"
         },
         {
           "index": "^xt1wob",
-          "content": "| Jupiter (Donar) | - Donnerstag |"
+          "content": "Jupiter (Donar) - Donnerstag"
         },
         {
           "index": "^rdo8nb",
-          "content": "| Venus (Freya) | - Freitag |"
+          "content": "Venus (Freya) - Freitag"
         },
         {
           "index": "^mmb5ei",
@@ -38836,27 +38812,23 @@
         },
         {
           "index": "^43jsny",
-          "content": "|  | Materie |  |  |"
-        },
-        {
-          "index": "^91qles",
-          "content": "| :-- | :-- | :-- | :-- |"
+          "content": "|  Materie |  |"
         },
         {
           "index": "^pho2dw",
-          "content": "| Uraltes  Tierreich | Luft |  |  |"
+          "content": "Uraltes  Tierreich Luft |  |"
         },
         {
           "index": "^2jzbv8",
-          "content": "| Uraltes  Pflanzenreich | Wasser | Alles Tierreich  welches das Pflanzen-  reich verarbeitet  - Prana | Kama |"
+          "content": "Uraltes  Pflanzenreich Wasser Alles Tierreich  welches das Pflanzen-  reich verarbeitet  - Prana Kama"
         },
         {
           "index": "^fwse91",
-          "content": "| Mineralreich | Erde | Pflanzenreich  welches das Mineral-  reich verarbeitet | Tierreich  welches das Pflanzen-  reich verarbeitet |"
+          "content": "Mineralreich Erde Pflanzenreich  welches das Mineral-  reich verarbeitet Tierreich  welches das Pflanzen-  reich verarbeitet"
         },
         {
           "index": "^3dfcf5",
-          "content": "|  | Elektrizität | Lichte | Wärme | ![img-33.jpeg](GA091-Kosmologie%20und%20menschliche%20Evolution%201/assets/GA091-Kosmologie%20und%20menschliche%20Evolution_img-33.jpeg)"
+          "content": "|  Elektrizität Lichte Wärme ![img-33.jpeg](GA091-Kosmologie%20und%20menschliche%20Evolution%201/assets/GA091-Kosmologie%20und%20menschliche%20Evolution_img-33.jpeg)"
         },
         {
           "index": "^zpva0x",
@@ -46772,39 +46744,35 @@
         },
         {
           "index": "^3h8rfc",
-          "content": "| Verhältnisse der Plane | Stoffzustände und | Sinne |"
-        },
-        {
-          "index": "^xfm7m6",
-          "content": "| :-- | :-- | :-- |"
+          "content": "Verhältnisse der Plane Stoffzustände und Sinne"
         },
         {
           "index": "^na7dql",
-          "content": "| 1. Physischer Plan | Lebensätherisches | Geruch |"
+          "content": "1. Physischer Plan Lebensätherisches Geruch"
         },
         {
           "index": "^nz0ibo",
-          "content": "| 2. Astralplan | Chemischätherisches | Geschmack |"
+          "content": "2. Astralplan Chemischätherisches Geschmack"
         },
         {
           "index": "^3f6pch",
-          "content": "| 3. Mentalplan | Lichtätherisches | Sehen |"
+          "content": "3. Mentalplan Lichtätherisches Sehen"
         },
         {
           "index": "^39ok2n",
-          "content": "| 4. Buddhi- oder Shushuptiplan | Wärmeätherisches | Tasten |"
+          "content": "4. Buddhi- oder Shushuptiplan Wärmeätherisches Tasten"
         },
         {
           "index": "^x4x6e9",
-          "content": "| 5. Nirvanaplan | Gasartiges, Luft | Hören |"
+          "content": "5. Nirvanaplan Gasartiges, Luft Hören"
         },
         {
           "index": "^tvtg2u",
-          "content": "| 6. Parinirvanaplan | Flüssiges | Schleimkörper |"
+          "content": "6. Parinirvanaplan Flüssiges Schleimkörper"
         },
         {
           "index": "^0yxye5",
-          "content": "| 7. Mahaparinirvanaplan | Festes |  |"
+          "content": "7. Mahaparinirvanaplan Festes |"
         },
         {
           "index": "^titsxh",
@@ -47524,19 +47492,15 @@
         },
         {
           "index": "^v4octo",
-          "content": "9. upadana = Behagen im Dasein | 10. | bhava | = | Geburt |"
-        },
-        {
-          "index": "^tbeh7q",
-          "content": "| :-- | :-- | :-- | :-- |"
+          "content": "9. upadana = Behagen im Dasein 10. bhava = Geburt"
         },
         {
           "index": "^2rq29l",
-          "content": "| 11. | jati * | = | was zur Geburt gedrängt hat |"
+          "content": "11. jati * = was zur Geburt gedrängt hat"
         },
         {
           "index": "^0husdu",
-          "content": "| 12 | jramarana * | = | was von dem Erdendasein befreit. |"
+          "content": "12 jramarana * = was von dem Erdendasein befreit."
         },
         {
           "index": "^agxj6w",
@@ -47656,27 +47620,23 @@
         },
         {
           "index": "^wucf2v",
-          "content": "| erste Gruppe | Zweite Gruppe | dritte Gruppe |"
-        },
-        {
-          "index": "^dstmms",
-          "content": "| :-- | :-- | :-- |"
+          "content": "erste Gruppe Zweite Gruppe dritte Gruppe"
         },
         {
           "index": "^dp3tfp",
-          "content": "| Avidya | Shadayadana | Upadana |"
+          "content": "Avidya Shadayadana Upadana"
         },
         {
           "index": "^avdy3c",
-          "content": "| Sanskara | Sparsha | Bhava |"
+          "content": "Sanskara Sparsha Bhava"
         },
         {
           "index": "^xli4zx",
-          "content": "| Vijnana | Vedana | Jati |"
+          "content": "Vijnana Vedana Jati"
         },
         {
           "index": "^w744ha",
-          "content": "| Namarupa | Trishna | Jaramarana |"
+          "content": "Namarupa Trishna Jaramarana"
         },
         {
           "index": "^e7ql2m",
@@ -47884,31 +47844,27 @@
         },
         {
           "index": "^bo6op9",
-          "content": "| 1. Rupa | - | Leiblichkeit, Handlungen |"
-        },
-        {
-          "index": "^5zlg6x",
-          "content": "| :-- | :-- | :-- |"
+          "content": "1. Rupa - Leiblichkeit, Handlungen"
         },
         {
           "index": "^wkdu9t",
-          "content": "| 2. Vedana | - | Gefühl |"
+          "content": "2. Vedana - Gefühl"
         },
         {
           "index": "^iltq9d",
-          "content": "| 3. Sanjna | - | Wahrnehmen |"
+          "content": "3. Sanjna - Wahrnehmen"
         },
         {
           "index": "^w2i0i7",
-          "content": "| 4. Sanskara | - | Begehren |"
+          "content": "4. Sanskara - Begehren"
         },
         {
           "index": "^zl1i1y",
-          "content": "| 5. Vijnana | - | Bewußtsein, das notwendig ist zur Überwindung des |"
+          "content": "5. Vijnana - Bewußtsein, das notwendig ist zur Überwindung des"
         },
         {
           "index": "^f7tjsx",
-          "content": "| Karma. |  |  |"
+          "content": "Karma. |  |"
         }
       ]
     },
@@ -48960,39 +48916,35 @@
         },
         {
           "index": "^tafh87",
-          "content": "| Saturn | Samstag Saturday |"
-        },
-        {
-          "index": "^hadtft",
-          "content": "| :-- | :-- |"
+          "content": "Saturn Samstag Saturday"
         },
         {
           "index": "^iher2i",
-          "content": "| Sonne | Sonntag Sunday |"
+          "content": "Sonne Sonntag Sunday"
         },
         {
           "index": "^cct6bx",
-          "content": "| Mond | Montag Monday |"
+          "content": "Mond Montag Monday"
         },
         {
           "index": "^zz4o07",
-          "content": "| Mars (Tiu) | Dienstag Tuesday |"
+          "content": "Mars (Tiu) Dienstag Tuesday"
         },
         {
           "index": "^emssvv",
-          "content": "| Merkur (Wotan) | Mittwoch Wednesday, Mercredi |"
+          "content": "Merkur (Wotan) Mittwoch Wednesday, Mercredi"
         },
         {
           "index": "^kvwrqc",
-          "content": "| Jupiter (Donar) | Donnerstag Thursday, Jeudi |"
+          "content": "Jupiter (Donar) Donnerstag Thursday, Jeudi"
         },
         {
           "index": "^bv7ivn",
-          "content": "| Venus (Freya) | Freitag Friday, Vendredi |"
+          "content": "Venus (Freya) Freitag Friday, Vendredi"
         },
         {
           "index": "^3zdg37",
-          "content": "| Vulkan (die Oktav zu Saturn) Samstag Saturday |  |"
+          "content": "Vulkan (die Oktav zu Saturn) Samstag Saturday |"
         },
         {
           "index": "^lftm13",
@@ -50140,51 +50092,51 @@
         },
         {
           "index": "^h6neon",
-          "content": "Pralaya | bis | VI. Tierreich |"
+          "content": "Pralaya bis VI. Tierreich"
         },
         {
           "index": "^1sxj4i",
-          "content": "| :--: | :--: |"
+          "content": ":--: :--:"
         },
         {
           "index": "^p3mv2g",
-          "content": "| 14. archetypisch | Form: 36. arupisch |"
+          "content": "14. archetypisch Form: 36. arupisch"
         },
         {
           "index": "^f5eao1",
-          "content": "| Pralaya | bis |"
+          "content": "Pralaya bis"
         },
         {
           "index": "^nlh9kj",
-          "content": "|  | 42. archetypisch |"
+          "content": "|  42. archetypisch"
         },
         {
           "index": "^piow1b",
-          "content": "| III. Elementarreich | Pralaya |"
+          "content": "III. Elementarreich Pralaya"
         },
         {
           "index": "^f1ec6q",
-          "content": "| Form: 15. arupisch |  |"
+          "content": "Form: 15. arupisch |"
         },
         {
           "index": "^5fk98c",
-          "content": "| bis | VII. Menschenreich |"
+          "content": "bis VII. Menschenreich"
         },
         {
           "index": "^jcxs8b",
-          "content": "| 21. archetypisch | Form: 43. arupisch |"
+          "content": "21. archetypisch Form: 43. arupisch"
         },
         {
           "index": "^wkmxlv",
-          "content": "| Pralaya | bis |"
+          "content": "Pralaya bis"
         },
         {
           "index": "^a5c784",
-          "content": "|  | 49. archetypisch |"
+          "content": "|  49. archetypisch"
         },
         {
           "index": "^0jmrp7",
-          "content": "|  | Großes Pralaya |"
+          "content": "|  Großes Pralaya"
         },
         {
           "index": "^8vdapc",
@@ -50780,7 +50732,7 @@
         },
         {
           "index": "^uymwrk",
-          "content": "Nehmen wir noch einen anderen Vergleich. Die höhere Seele ist eng gebunden an die tierische Seele. Ihre Verbindung untereinander ist es, die die Leidenschaften mäßigt, sie vergeistigt und beherrscht nach dem Grade der Vernunft und des Willens. Diese Verbindung hat einen Vorteil für den Menschen. Aber er bezahlt diesen Vorteil mit dem Verlust seiner Hellsichtigkeit. Stellen wir uns eine Flüssigkeit von grüner Farbe vor, die chemisch aus Blau und Gelb zusammengesetzt ist. Wenn es Ihnen gelingt, sie chemisch zu trennen, werden Sie zum Beispiel sehen, daß die gelbe Flüssigkeit sich auf dem Grund absetzt, während die blaue an die Oberfläche aufsteigt. Ebenso verhält es sich beim Menschen, wenn der Einweihungsweg die tierische Seele von der geistigen Seele trennt. Für die höhere Seele erfolgt daraus die Hellsichtigkeit, aber die allein gelassene tierische Seele überliefert sich nun, sofern sie noch nicht durch das Ich gereinigt ist, ohne Kontrolle dem Exzeß der Leidenschaften. Man kann diese Tatsache häufig bei den Medien konstatieren. Die Vorbeugung gegen diese Gefahr wird manchmal in der Einweihung bezeichnet durch das Wort: $\\mathrm{d}>$ er Hüter der Schwelle."
+          "content": "Nehmen wir noch einen anderen Vergleich. Die höhere Seele ist eng gebunden an die tierische Seele. Ihre Verbindung untereinander ist es, die die Leidenschaften mäßigt, sie vergeistigt und beherrscht nach dem Grade der Vernunft und des Willens. Diese Verbindung hat einen Vorteil für den Menschen. Aber er bezahlt diesen Vorteil mit dem Verlust seiner Hellsichtigkeit. Stellen wir uns eine Flüssigkeit von grüner Farbe vor, die chemisch aus Blau und Gelb zusammengesetzt ist. Wenn es Ihnen gelingt, sie chemisch zu trennen, werden Sie zum Beispiel sehen, daß die gelbe Flüssigkeit sich auf dem Grund absetzt, während die blaue an die Oberfläche aufsteigt. Ebenso verhält es sich beim Menschen, wenn der Einweihungsweg die tierische Seele von der geistigen Seele trennt. Für die höhere Seele erfolgt daraus die Hellsichtigkeit, aber die allein gelassene tierische Seele überliefert sich nun, sofern sie noch nicht durch das Ich gereinigt ist, ohne Kontrolle dem Exzeß der Leidenschaften. Man kann diese Tatsache häufig bei den Medien konstatieren. Die Vorbeugung gegen diese Gefahr wird manchmal in der Einweihung bezeichnet durch das Wort: \\mathrm{d}> er Hüter der Schwelle."
         },
         {
           "index": "^evj07r",
@@ -51032,7 +50984,7 @@
         },
         {
           "index": "^d10jje",
-          "content": "So gipfelt und vereint sich alles in Christus, erhält alles von Ihm sein Licht und seine Stärke, verwandelt sich alles in dem Christus. Er geht die Vergangenheit der menschlichen Seele zurück bis zur Quelle und sieht ihre Zukunft voraus bis zur Vereinigung mit Gott. Denn das Christentum ist nicht allein eine Kraft der Vergangenheit, sondern auch eine Kraft für die $\\mathrm{Zu}-$ kunft. Mit den Rosenkreuzern lehrt die neue Geisteswissenschaft den inneren Christus in jedem Menschen und den zukünftigen Christus in der ganzen Menschheit."
+          "content": "So gipfelt und vereint sich alles in Christus, erhält alles von Ihm sein Licht und seine Stärke, verwandelt sich alles in dem Christus. Er geht die Vergangenheit der menschlichen Seele zurück bis zur Quelle und sieht ihre Zukunft voraus bis zur Vereinigung mit Gott. Denn das Christentum ist nicht allein eine Kraft der Vergangenheit, sondern auch eine Kraft für die \\mathrm{Zu}- kunft. Mit den Rosenkreuzern lehrt die neue Geisteswissenschaft den inneren Christus in jedem Menschen und den zukünftigen Christus in der ganzen Menschheit."
         }
       ]
     },
@@ -51552,7 +51504,7 @@
         },
         {
           "index": "^krxwb3",
-          "content": "Die rhythmische Atmung nach dem Jogasystem ist eines der Mittel, das angewendet wird, um in die Welt des Devachan einzutreten. Das sichere Zeichen, daß dieser Eintritt stattgefunden hat, ist, daß das Bewußtsein durch eine Erfahrung geht, die in der Vedantaphilosophie bezeichnet wird durch die Worte: tat tvam asi $=$ das bist du."
+          "content": "Die rhythmische Atmung nach dem Jogasystem ist eines der Mittel, das angewendet wird, um in die Welt des Devachan einzutreten. Das sichere Zeichen, daß dieser Eintritt stattgefunden hat, ist, daß das Bewußtsein durch eine Erfahrung geht, die in der Vedantaphilosophie bezeichnet wird durch die Worte: tat tvam asi = das bist du."
         },
         {
           "index": "^7rjcoi",
@@ -52852,39 +52804,39 @@
         },
         {
           "index": "^62ukhm",
-          "content": "Donnerstag Wotanstag - Wednesday - Jupiter | Samstag |  |  | - Saturn |"
+          "content": "Donnerstag Wotanstag - Wednesday - Jupiter Samstag |  |  - Saturn"
         },
         {
           "index": "^mr9z85",
-          "content": "| :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--:"
         },
         {
           "index": "^lgjwop",
-          "content": "| Sonntag |  |  | - Sonne |"
+          "content": "Sonntag |  |  - Sonne"
         },
         {
           "index": "^ygw3d8",
-          "content": "| Montag |  |  | - Mond |"
+          "content": "Montag |  |  - Mond"
         },
         {
           "index": "^faybbc",
-          "content": "| Dienstag | Tiustag | - Mardi | - Mars |"
+          "content": "Dienstag Tiustag - Mardi - Mars"
         },
         {
           "index": "^aepqro",
-          "content": "| Mittwoch | Wotanstag | - Mercredi | - Merkur |"
+          "content": "Mittwoch Wotanstag - Mercredi - Merkur"
         },
         {
           "index": "^isq3qb",
-          "content": "|  | Wednesday |  |  |"
+          "content": "|  Wednesday |  |"
         },
         {
           "index": "^rvoq00",
-          "content": "| Donnerstag | Donarstag |  | - Jupiter |"
+          "content": "Donnerstag Donarstag |  - Jupiter"
         },
         {
           "index": "^cj3je2",
-          "content": "| Freitag | Freyatag | - Vendredi | - Venus |"
+          "content": "Freitag Freyatag - Vendredi - Venus"
         },
         {
           "index": "^pk2fq6",
@@ -53496,7 +53448,7 @@
         },
         {
           "index": "^gymnpn",
-          "content": "Denken Sie sich einmal diese vier beisammen auf dem Berge der Verklärung, dann haben Sie zu gleicher Zeit die Eingeweihten, welche die vier Elemente beherrschen - die Herren der vier Elemente: Feuer, Wasser, Luft, Erde. Was geschieht also? Es geschah dazumal, daß der geistige Beweis geliefert wurde, daß durch die Jesus-Erscheinung die ganze Kraft der Elemente in einer Weise erneuert wird, daß das Leben, das durch die Elemente pulsiert, einen neuen, wichtigen Punkt in der Entwickelung durchmacht. Das ist okkult die Verklärung. Wenn nun jemand in dieser Weise die Verklärung durchmacht, daß er in sich hat die Stufen von Wasser, Erde und Luft und selbst aufsteigt zu den Kräften des Feuers, dann ist er ein Wiederauferweckter, ein solcher, der die Kreuzigung durchgemacht hat. Daher ist diese Szene bei den anderen Evangelisten in Wahrheit nichts anderes als eine Vorbereitung der eigentlichen tieferen Einweihungsszene, der Kreuzigung selbst. Dagegen erscheint uns bei Johannes alles vorbereitet. Die Vorbereitungsszene erscheint überhaupt nicht, sondern der Tod auf dem Berge Golgatha. Jam - Nur - Ruach - Jabascha $=$ INRI - das ist die Bedeutung der Worte, die am Kreuze stehen."
+          "content": "Denken Sie sich einmal diese vier beisammen auf dem Berge der Verklärung, dann haben Sie zu gleicher Zeit die Eingeweihten, welche die vier Elemente beherrschen - die Herren der vier Elemente: Feuer, Wasser, Luft, Erde. Was geschieht also? Es geschah dazumal, daß der geistige Beweis geliefert wurde, daß durch die Jesus-Erscheinung die ganze Kraft der Elemente in einer Weise erneuert wird, daß das Leben, das durch die Elemente pulsiert, einen neuen, wichtigen Punkt in der Entwickelung durchmacht. Das ist okkult die Verklärung. Wenn nun jemand in dieser Weise die Verklärung durchmacht, daß er in sich hat die Stufen von Wasser, Erde und Luft und selbst aufsteigt zu den Kräften des Feuers, dann ist er ein Wiederauferweckter, ein solcher, der die Kreuzigung durchgemacht hat. Daher ist diese Szene bei den anderen Evangelisten in Wahrheit nichts anderes als eine Vorbereitung der eigentlichen tieferen Einweihungsszene, der Kreuzigung selbst. Dagegen erscheint uns bei Johannes alles vorbereitet. Die Vorbereitungsszene erscheint überhaupt nicht, sondern der Tod auf dem Berge Golgatha. Jam - Nur - Ruach - Jabascha = INRI - das ist die Bedeutung der Worte, die am Kreuze stehen."
         },
         {
           "index": "^5wke4o",
@@ -53516,7 +53468,7 @@
         },
         {
           "index": "^pjo5yp",
-          "content": "So ist es klar, daß für das jetzige Menschengeschlecht nicht in Betracht kommen die Kräfte in Jesus, die mit der höheren Welt zusammenhängen. Die Ausdrucksweise ist nun diese, daß man nennt das Knochengerüst $=$ das Äußere, Wasser $\\sim$ Ätherkörper, Blut $=$ Astralkörper, und dann Geist. Daher können Sie lesen bei Johannes: Drei sind, die da zeugen: Blut, Wasser und Geist. Daher kann herausrinnen aus dem Leibe des Christus das Blut und das Wasser. Die kommen für den gegenwärtigen Menschheitszyklus nicht in Betracht. Dagegen ist dasjenige, was das Ganze halten muß, was den Menschen hinauf zu dem Throne des Ewigen bringen muß, worin die Lektion gelernt werden muß, in Unversehrtheit zu erhalten. Das ist das Knochengerüst, das Symbol für das Leblose in der Natur. Das hat jetzt durch das Knochensystem den Christus mit dem gegenwärtigen Menschheitszyklus zusammengebracht. Es ist das, was zusammengehalten werden muß bis zu der Zeit, wo die Menschheit die höheren Stufen erreicht hat. Wir könnten es noch verfolgen bis zu der entsprechenden Stelle der Bücher Moses. Aber das kann ein anderes Mal geschehen."
+          "content": "So ist es klar, daß für das jetzige Menschengeschlecht nicht in Betracht kommen die Kräfte in Jesus, die mit der höheren Welt zusammenhängen. Die Ausdrucksweise ist nun diese, daß man nennt das Knochengerüst = das Äußere, Wasser \\sim Ätherkörper, Blut = Astralkörper, und dann Geist. Daher können Sie lesen bei Johannes: Drei sind, die da zeugen: Blut, Wasser und Geist. Daher kann herausrinnen aus dem Leibe des Christus das Blut und das Wasser. Die kommen für den gegenwärtigen Menschheitszyklus nicht in Betracht. Dagegen ist dasjenige, was das Ganze halten muß, was den Menschen hinauf zu dem Throne des Ewigen bringen muß, worin die Lektion gelernt werden muß, in Unversehrtheit zu erhalten. Das ist das Knochengerüst, das Symbol für das Leblose in der Natur. Das hat jetzt durch das Knochensystem den Christus mit dem gegenwärtigen Menschheitszyklus zusammengebracht. Es ist das, was zusammengehalten werden muß bis zu der Zeit, wo die Menschheit die höheren Stufen erreicht hat. Wir könnten es noch verfolgen bis zu der entsprechenden Stelle der Bücher Moses. Aber das kann ein anderes Mal geschehen."
         },
         {
           "index": "^xi6fsn",
@@ -53776,7 +53728,7 @@
         },
         {
           "index": "^yrslzv",
-          "content": "Wir haben also gesehen, da $ß$ der Mensch seinen physischen Leib gemeinsam hat mit allen leblosen Wesen, den Ätherleib mit allem Pflanzlichen unserer physischen Welt und den astralen Leib mit allen tierischen Lebewesen seiner Umgebung. Wir haben dann gesehen, daß der Mensch hinsichtlich seiner Entwickelung sich von allen Wesen dadurch unterscheidet, daß er Ich zu sich sagen kann."
+          "content": "Wir haben also gesehen, da ß der Mensch seinen physischen Leib gemeinsam hat mit allen leblosen Wesen, den Ätherleib mit allem Pflanzlichen unserer physischen Welt und den astralen Leib mit allen tierischen Lebewesen seiner Umgebung. Wir haben dann gesehen, daß der Mensch hinsichtlich seiner Entwickelung sich von allen Wesen dadurch unterscheidet, daß er Ich zu sich sagen kann."
         },
         {
           "index": "^b6r78z",
@@ -53872,23 +53824,19 @@
         },
         {
           "index": "^uga5hy",
-          "content": "| Gott | Leben | Licht | entspricht den |"
-        },
-        {
-          "index": "^ktw31o",
-          "content": "| :-- | :-- | :-- | :-- |"
+          "content": "Gott Leben Licht entspricht den"
         },
         {
           "index": "^rysknl",
-          "content": "| physischer Leib | Wort | Astralleib | drei |"
+          "content": "physischer Leib Wort Astralleib drei"
         },
         {
           "index": "^agts4y",
-          "content": "|  | Ätherleib | Empfindungsleib | Reichen |"
+          "content": "|  Ätherleib Empfindungsleib Reichen"
         },
         {
           "index": "^zykizb",
-          "content": "|  | Lebensleib |  |  |"
+          "content": "|  Lebensleib |  |"
         },
         {
           "index": "^cb0uqm",
@@ -54084,55 +54032,55 @@
         },
         {
           "index": "^b0nslh",
-          "content": "|  | Physische Welt | Astralwelt | Rupa- | Arupa |"
+          "content": "|  Physische Welt Astralwelt Rupa- Arupa"
         },
         {
           "index": "^u1dk3h",
-          "content": "| :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--:"
         },
         {
           "index": "^xqytng",
-          "content": "|  | Devachan Devachan |  |  |  |"
+          "content": "|  Devachan Devachan |  |  |"
         },
         {
           "index": "^mn99mv",
-          "content": "| Mineral | Physischer Leib | Ätherleib | Astralleib | Ich |"
+          "content": "Mineral Physischer Leib Ätherleib Astralleib Ich"
         },
         {
           "index": "^4lubke",
-          "content": "| Pflanze | Physischer Leib | Astralleib | Ich |  |"
+          "content": "Pflanze Physischer Leib Astralleib Ich |"
         },
         {
           "index": "^80b8em",
-          "content": "|  | Ätherleib |  |  |  |"
+          "content": "|  Ätherleib |  |  |"
         },
         {
           "index": "^bdsrbv",
-          "content": "| Tier | Physischer Leib | Ich |  |  |"
+          "content": "Tier Physischer Leib Ich |  |"
         },
         {
           "index": "^vqfytc",
-          "content": "|  | Ätherleib |  |  |  |"
+          "content": "|  Ätherleib |  |  |"
         },
         {
           "index": "^kqttwq",
-          "content": "|  | Astralleib |  |  |  |"
+          "content": "|  Astralleib |  |  |"
         },
         {
           "index": "^03qdh0",
-          "content": "| Mensch | Physischer Leib |  |  |  |"
+          "content": "Mensch Physischer Leib |  |  |"
         },
         {
           "index": "^zzyira",
-          "content": "|  | Ätherleib |  |  |  |"
+          "content": "|  Ätherleib |  |  |"
         },
         {
           "index": "^i539pp",
-          "content": "|  | Astralleib |  |  |  |"
+          "content": "|  Astralleib |  |  |"
         },
         {
           "index": "^90qk31",
-          "content": "|  | Ich |  |  |  | Das Tier hat seine drei Leiber hier, sein Ich in der Astralwelt; das Tier hat darum keine individuelle Seele, sondern eine Gruppenseele. Wenn Sie des Menschen zehn Finger betrachten, sind sie alle belebt, aber nicht selbständig - sie sind nur ein Glied an dem ganzen Leibe. So wie wir das Ich der Finger in uns suchen müssen, so müssen wir in die astralische Welt hinaufgehen, um die gemeinsamen Seelen der Tiere zu finden. Die einzelnen Löwen sind Glieder des Löwen-Ich, der Löwen-Seele. Alle Löwen sind astralisch verbunden, von jedem geht ein Faden in die Astralwelt, wo das Ich sich befindet."
+          "content": "|  Ich |  |  |  Das Tier hat seine drei Leiber hier, sein Ich in der Astralwelt; das Tier hat darum keine individuelle Seele, sondern eine Gruppenseele. Wenn Sie des Menschen zehn Finger betrachten, sind sie alle belebt, aber nicht selbständig - sie sind nur ein Glied an dem ganzen Leibe. So wie wir das Ich der Finger in uns suchen müssen, so müssen wir in die astralische Welt hinaufgehen, um die gemeinsamen Seelen der Tiere zu finden. Die einzelnen Löwen sind Glieder des Löwen-Ich, der Löwen-Seele. Alle Löwen sind astralisch verbunden, von jedem geht ein Faden in die Astralwelt, wo das Ich sich befindet."
         },
         {
           "index": "^dwkgq3",
@@ -54756,7 +54704,7 @@
         },
         {
           "index": "^jwv5o1",
-          "content": "Dieses innere Erlebnis wurde im Bilde auch so dargestellt, daß der Heilige Geist als die Taube über dem Kelch schwebt. Das ist der Moment, der im Johannes-Evangelium 1, 32 beschrieben wird: «Und Johannes zeugete und sprach: <Ich sah, daß der Geist herabfuhr wie eine Taube vom Himmel und blieb auf Ihm $>$.» Denken Sie sich das auf dem astralen Plan erlebt, so haben Sie ein wirkliches Ereignis. Derjenige, der diese großen Dinge darleben durfte außerhalb der Mysterien in der physischen Welt, der durfte als Initiator andere einweihen. Johan-nes-Evangelium 11,1-45: die Auferweckung des Lazarus ist nichts anderes als eine Initiation, an Lazarus vollzogen."
+          "content": "Dieses innere Erlebnis wurde im Bilde auch so dargestellt, daß der Heilige Geist als die Taube über dem Kelch schwebt. Das ist der Moment, der im Johannes-Evangelium 1, 32 beschrieben wird: «Und Johannes zeugete und sprach: <Ich sah, daß der Geist herabfuhr wie eine Taube vom Himmel und blieb auf Ihm >.» Denken Sie sich das auf dem astralen Plan erlebt, so haben Sie ein wirkliches Ereignis. Derjenige, der diese großen Dinge darleben durfte außerhalb der Mysterien in der physischen Welt, der durfte als Initiator andere einweihen. Johan-nes-Evangelium 11,1-45: die Auferweckung des Lazarus ist nichts anderes als eine Initiation, an Lazarus vollzogen."
         },
         {
           "index": "^84y9gq",
@@ -54836,7 +54784,7 @@
         },
         {
           "index": "^4csmnu",
-          "content": "Der Mensch steigt langsam auf zu dem höheren Bewußtsein. Erst unterscheidet er noch: ich habe Schmerz, ich habe Lust. Ist der Mensch darüber hinausgedrungen, so steigt er auf durch die Einweihung vom physischen Alltagsbewußtsein zum zweiten, zum Astralbewußtsein, wo die astrale Welt wie in lebendigen Bildern auftritt. Man unterscheidet in der östlichen Weisheit fünf solche Bewußtseinsstufen: Erstens das physische Alltagsbewußtsein = jagrata; zweitens das Traumbewußtsein $=$ Swapna; drittens das Devachanbewußtsein $=$ Sushupti; viertens das Turijabewußtsein; fünftens das Nirvanabewußtsein."
+          "content": "Der Mensch steigt langsam auf zu dem höheren Bewußtsein. Erst unterscheidet er noch: ich habe Schmerz, ich habe Lust. Ist der Mensch darüber hinausgedrungen, so steigt er auf durch die Einweihung vom physischen Alltagsbewußtsein zum zweiten, zum Astralbewußtsein, wo die astrale Welt wie in lebendigen Bildern auftritt. Man unterscheidet in der östlichen Weisheit fünf solche Bewußtseinsstufen: Erstens das physische Alltagsbewußtsein = jagrata; zweitens das Traumbewußtsein = Swapna; drittens das Devachanbewußtsein = Sushupti; viertens das Turijabewußtsein; fünftens das Nirvanabewußtsein."
         },
         {
           "index": "^390a5e",
@@ -55460,47 +55408,43 @@
         },
         {
           "index": "^dm2asa",
-          "content": "| Oberes Devachan | Mensch | Tier | Pflanze | Mineral |"
+          "content": "Oberes Devachan Mensch Tier Pflanze Mineral"
         },
         {
           "index": "^rcyerl",
-          "content": "| :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--:"
         },
         {
           "index": "^fjshj6",
-          "content": "|  | - | - | Ich | - |"
+          "content": "|  - - Ich -"
         },
         {
           "index": "^0f239m",
-          "content": "| Unteres Devachan | - | - | Ich | Astralleib |"
-        },
-        {
-          "index": "^37s2eq",
-          "content": "| :-- | :-- | :-- | :-- | :-- |"
+          "content": "Unteres Devachan - - Ich Astralleib"
         },
         {
           "index": "^f1anpp",
-          "content": "| Astralplan | - | Ich | Astralleib | Ätherleib |"
+          "content": "Astralplan - Ich Astralleib Ätherleib"
         },
         {
           "index": "^15ciw2",
-          "content": "| Physische Welt | Ich | - | - | - |"
+          "content": "Physische Welt Ich - - -"
         },
         {
           "index": "^f5r6nr",
-          "content": "|  | Astralleib | Astralleib | - | - |"
+          "content": "|  Astralleib Astralleib - -"
         },
         {
           "index": "^z8wvn8",
-          "content": "|  | Ätherleib | Ätherleib | Ätherleib | - |"
+          "content": "|  Ätherleib Ätherleib Ätherleib -"
         },
         {
           "index": "^baoqdv",
-          "content": "|  | physischer | physischer | physischer | physischer |"
+          "content": "|  physischer physischer physischer physischer"
         },
         {
           "index": "^lpw7n9",
-          "content": "|  | Leib | Leib | Leib | Leib |"
+          "content": "|  Leib Leib Leib Leib"
         },
         {
           "index": "^xm7lns",
@@ -56032,35 +55976,31 @@
         },
         {
           "index": "^hv03bf",
-          "content": "| Saturn | Saturday, Samedi Samstag |"
-        },
-        {
-          "index": "^c3qlq6",
-          "content": "| :-- | :-- |"
+          "content": "Saturn Saturday, Samedi Samstag"
         },
         {
           "index": "^jqdyua",
-          "content": "| Sonne | Sunday Sonntag |"
+          "content": "Sonne Sunday Sonntag"
         },
         {
           "index": "^1xsw3z",
-          "content": "| Mond | Monday, Lundi Montag |"
+          "content": "Mond Monday, Lundi Montag"
         },
         {
           "index": "^vsyzaq",
-          "content": "| Mars Mardi, oder Ziu - Tuesday Dienstag |  |"
+          "content": "Mars Mardi, oder Ziu - Tuesday Dienstag |"
         },
         {
           "index": "^qnmcxg",
-          "content": "| Merkur | Mercredi, Wednesday Mittwoch |"
+          "content": "Merkur Mercredi, Wednesday Mittwoch"
         },
         {
           "index": "^icsqts",
-          "content": "| Jupiter | Jeudi, Tor, Donar - Thursday Donnerstag |"
+          "content": "Jupiter Jeudi, Tor, Donar - Thursday Donnerstag"
         },
         {
           "index": "^sft4kt",
-          "content": "| Venus | Vendredi, Freya - Friday Freitag |"
+          "content": "Venus Vendredi, Freya - Friday Freitag"
         },
         {
           "index": "^ejlrxl",
@@ -56464,11 +56404,11 @@
         },
         {
           "index": "^k3uw5z",
-          "content": "Was bedeutet das Atmen für die okkulte Entwickelung? Die Bedeutung des Atmens liegt schon in dem «Nicht töten», «Nicht das Leben beeinträchtigen». Der okkulte Lehrer sagt: Du tötest fortwährend langsam deine Umgebung durch das Atmen. Wieso? Wir ziehen den Atem ein, halten ihn an, versorgen unser Blut mit Sauerstoff und stoßen den Atem dann wieder aus. Was geschieht dabei? Wir atmen die mit Sauerstoff erfüllte Luft ein, verbinden sie in uns mit Kohlenstoff und atmen Kohlensäure aus; darin aber kann kein Mensch oder Tier leben. Sauerstoff atmen wir ein, Kohlensäure, den Giftstoff, atmen wir aus; wir töten also mit jedem Atemzug fortwährend andere Wesen. Stückweise töten wir unsere ganze Umgebung. Wir atmen Lebensluft ein und atmen Luft aus, die wir selbst nicht mehr brauchen können. Der okkulte Lehrer ist darauf bedacht, das zu ändern. Wenn es nur auf die Menschen und auf die Tiere ankäme, so wäre bald aller Sauerstoff aufgebraucht und alles Lebendige ausgestorben. $\\mathrm{Daß}$ wir die Erde nicht zugrunde richten, das verdanken wir den Pflanzen, denn diese machen genau den entgegengesetzten Prozeß durch. Sie assimilieren die Kohlensäure, trennen den Kohlenstoff vom Sauerstoff und bauen aus dem ersteren ihren Körper auf. Den Sauerstoff geben sie wieder frei, und diesen atmen Mensch und Tier ein. So erneuern die Pflanzen die Lebensluft; alles Leben würde ohne sie schon längst vernichtet sein. Ihnen verdanken wir unser Leben. So ergänzen sich also Pflanze, Tier und Mensch gegenseitig."
+          "content": "Was bedeutet das Atmen für die okkulte Entwickelung? Die Bedeutung des Atmens liegt schon in dem «Nicht töten», «Nicht das Leben beeinträchtigen». Der okkulte Lehrer sagt: Du tötest fortwährend langsam deine Umgebung durch das Atmen. Wieso? Wir ziehen den Atem ein, halten ihn an, versorgen unser Blut mit Sauerstoff und stoßen den Atem dann wieder aus. Was geschieht dabei? Wir atmen die mit Sauerstoff erfüllte Luft ein, verbinden sie in uns mit Kohlenstoff und atmen Kohlensäure aus; darin aber kann kein Mensch oder Tier leben. Sauerstoff atmen wir ein, Kohlensäure, den Giftstoff, atmen wir aus; wir töten also mit jedem Atemzug fortwährend andere Wesen. Stückweise töten wir unsere ganze Umgebung. Wir atmen Lebensluft ein und atmen Luft aus, die wir selbst nicht mehr brauchen können. Der okkulte Lehrer ist darauf bedacht, das zu ändern. Wenn es nur auf die Menschen und auf die Tiere ankäme, so wäre bald aller Sauerstoff aufgebraucht und alles Lebendige ausgestorben. \\mathrm{Daß} wir die Erde nicht zugrunde richten, das verdanken wir den Pflanzen, denn diese machen genau den entgegengesetzten Prozeß durch. Sie assimilieren die Kohlensäure, trennen den Kohlenstoff vom Sauerstoff und bauen aus dem ersteren ihren Körper auf. Den Sauerstoff geben sie wieder frei, und diesen atmen Mensch und Tier ein. So erneuern die Pflanzen die Lebensluft; alles Leben würde ohne sie schon längst vernichtet sein. Ihnen verdanken wir unser Leben. So ergänzen sich also Pflanze, Tier und Mensch gegenseitig."
         },
         {
           "index": "^x8b7w0",
-          "content": "Dieser Prozeß wird aber in der Zukunft anders werden, und da derjenige, der in okkulter Entwickelung begriffen ist, mit dem beginnt, was die anderen einmal in der $\\mathrm{Zu}-$ kunft durchmachen werden, so muß er sich entwöhnen, durch den Atem zu töten. Das ist Pranayama, die Wissenschaft des Atmens. Unser modernes materialistisches Zeitalter braucht immer offene Fenster und stellt frische Luft als Heilmittel in die erste Reihe. Beim indischen Yogi ist das Gegenteil der Fall. Er schließt sich in eine Höhle ein und atmet so viel als immer möglich seine eigene Luft. Der Yogi hat die Kunst gelernt, die Luft so wenig wie möglich zu verpesten, weil er gelernt hat, die Luft auszunutzen. Wie macht er das? Dieses Geheimnis war in den europäischen Geheimschulen immer bekannt, man nannte es das Erreichen des Steins der Weisen oder des Steins der Philosophen. Wenn man den Stein der Weisen finden will, muß man das Geheimnis des Atmens finden."
+          "content": "Dieser Prozeß wird aber in der Zukunft anders werden, und da derjenige, der in okkulter Entwickelung begriffen ist, mit dem beginnt, was die anderen einmal in der \\mathrm{Zu}- kunft durchmachen werden, so muß er sich entwöhnen, durch den Atem zu töten. Das ist Pranayama, die Wissenschaft des Atmens. Unser modernes materialistisches Zeitalter braucht immer offene Fenster und stellt frische Luft als Heilmittel in die erste Reihe. Beim indischen Yogi ist das Gegenteil der Fall. Er schließt sich in eine Höhle ein und atmet so viel als immer möglich seine eigene Luft. Der Yogi hat die Kunst gelernt, die Luft so wenig wie möglich zu verpesten, weil er gelernt hat, die Luft auszunutzen. Wie macht er das? Dieses Geheimnis war in den europäischen Geheimschulen immer bekannt, man nannte es das Erreichen des Steins der Weisen oder des Steins der Philosophen. Wenn man den Stein der Weisen finden will, muß man das Geheimnis des Atmens finden."
         },
         {
           "index": "^7vccf8",
@@ -56672,7 +56612,7 @@
         },
         {
           "index": "^cdzi14",
-          "content": "Wir wissen, daß unsere Erde ganz bestimmte Erscheinungen zeigt, die in das Schicksal vieler Wesen tief hineinspielen; doch das wird von der heutigen Naturwissenschaft als außer Zusammenhang mit diesem Schicksal stehend betrachtet. So wird zum Beispiel durch Erdbeben und Vulkanausbrüche in das Schicksal von Hunderten und Tausenden eingegriffen. Hat des Menschen Wille darauf einen Einfluß oder ist es $\\mathrm{Zu}-$ fall? Gibt es tote Gesetze, die blind wüten, oder ist ein Zusammenhang zwischen diesen Ereignissen und dem Willen des Menschen? Wie steht es mit dem Menschen, der bei einem Erdbeben zugrunde geht? Was sagt der Okkultist über das Innere der Erde? Die Geheimwissenschaft aller Zeiten sagt über das Innere der Erde das Folgende: Wir haben uns die Erde zu denken bestehend aus einer Reihe von Schichten, die aber nicht genau voneinander abgegrenzt sind wie bei einer Zwiebel, sondern sanft ineinander übergehen. Die oberste Schicht, die mineralische Masse, verhält sich zum Innern wie die Schale zum ganzen Ei. Diese oberste Schicht nennt man die mineralische Erde. Unterhalb derselben zeigt sich etwas, was sich mit keiner Substanz der Erde vergleichen läßt, man nennt es die flüssige Erde. Es ist aber nicht eigentlich eine Flüssigkeit gemeint, denn unsere Flüssigkeiten sind ja auch mineralisch; diese Schicht hat besondere Eigenschaften. Diese Substanz beginnt nämlich hier geistige Eigenschaften zu haben, darin bestehend, daß sie, als Substanz mit etwas Lebendem zusammengebracht, dieses Leben sofort heraustreiben und vernichten würde. Der Okkultist kann diese Schicht durch eine reine Konzentrationsarbeit untersuchen."
+          "content": "Wir wissen, daß unsere Erde ganz bestimmte Erscheinungen zeigt, die in das Schicksal vieler Wesen tief hineinspielen; doch das wird von der heutigen Naturwissenschaft als außer Zusammenhang mit diesem Schicksal stehend betrachtet. So wird zum Beispiel durch Erdbeben und Vulkanausbrüche in das Schicksal von Hunderten und Tausenden eingegriffen. Hat des Menschen Wille darauf einen Einfluß oder ist es \\mathrm{Zu}- fall? Gibt es tote Gesetze, die blind wüten, oder ist ein Zusammenhang zwischen diesen Ereignissen und dem Willen des Menschen? Wie steht es mit dem Menschen, der bei einem Erdbeben zugrunde geht? Was sagt der Okkultist über das Innere der Erde? Die Geheimwissenschaft aller Zeiten sagt über das Innere der Erde das Folgende: Wir haben uns die Erde zu denken bestehend aus einer Reihe von Schichten, die aber nicht genau voneinander abgegrenzt sind wie bei einer Zwiebel, sondern sanft ineinander übergehen. Die oberste Schicht, die mineralische Masse, verhält sich zum Innern wie die Schale zum ganzen Ei. Diese oberste Schicht nennt man die mineralische Erde. Unterhalb derselben zeigt sich etwas, was sich mit keiner Substanz der Erde vergleichen läßt, man nennt es die flüssige Erde. Es ist aber nicht eigentlich eine Flüssigkeit gemeint, denn unsere Flüssigkeiten sind ja auch mineralisch; diese Schicht hat besondere Eigenschaften. Diese Substanz beginnt nämlich hier geistige Eigenschaften zu haben, darin bestehend, daß sie, als Substanz mit etwas Lebendem zusammengebracht, dieses Leben sofort heraustreiben und vernichten würde. Der Okkultist kann diese Schicht durch eine reine Konzentrationsarbeit untersuchen."
         },
         {
           "index": "^0ah16v",
@@ -57432,7 +57372,7 @@
         },
         {
           "index": "^qj3fzd",
-          "content": "Das ist die tiefere Bedeutung der Bruderschaftsidee. Daher müssen wir immer mehr und mehr versuchen, die theosophischen Gedanken so zu verwirklichen, daß wir bis in die tiefste Seele hinein unseren Mitmenschen verstehen, daß wir bei der größten Verschiedenheit der Meinungen brüderlich miteinander weilen. Das ist die richtige $\\mathrm{Zu}-$ sammengehörigkeit, die richtige Bruderschaft, wenn wir nicht verlangen, daß der andere sich mit uns deshalb vertragen soll, weil er dieselbe Meinung hat, sondern wenn wir jedem Menschen das Recht zugestehen, seine eigene Meinung zu haben. Dann wird in dem Zusammenwirken der Gipfel der Weisheit errungen werden. Das ist eine tiefere Auffassung unseres ersten theosophischen Grundsatzes. Fassen wir unsere Idee der Bruderschaft so, daß wir uns sagen. Wir gehören unter allen Umständen zusammen, und wenn jemandes Meinungen auch noch so verschieden von den unseren sind - Meinungsverschiedenheiten können nie ein Grund sein, uns zu trennen. Erst dann verstehen wir uns ganz, wenn wir uns ganz gelten lassen. Freilich sind wir noch weit von dieser Auffassung der theosophischen Bruderschaft entfernt, und nicht früher kann sie wirken, bis in diesem Sinne, in diesem Stile der theosophische Gedanke Wurzel gefaßt hat."
+          "content": "Das ist die tiefere Bedeutung der Bruderschaftsidee. Daher müssen wir immer mehr und mehr versuchen, die theosophischen Gedanken so zu verwirklichen, daß wir bis in die tiefste Seele hinein unseren Mitmenschen verstehen, daß wir bei der größten Verschiedenheit der Meinungen brüderlich miteinander weilen. Das ist die richtige \\mathrm{Zu}- sammengehörigkeit, die richtige Bruderschaft, wenn wir nicht verlangen, daß der andere sich mit uns deshalb vertragen soll, weil er dieselbe Meinung hat, sondern wenn wir jedem Menschen das Recht zugestehen, seine eigene Meinung zu haben. Dann wird in dem Zusammenwirken der Gipfel der Weisheit errungen werden. Das ist eine tiefere Auffassung unseres ersten theosophischen Grundsatzes. Fassen wir unsere Idee der Bruderschaft so, daß wir uns sagen. Wir gehören unter allen Umständen zusammen, und wenn jemandes Meinungen auch noch so verschieden von den unseren sind - Meinungsverschiedenheiten können nie ein Grund sein, uns zu trennen. Erst dann verstehen wir uns ganz, wenn wir uns ganz gelten lassen. Freilich sind wir noch weit von dieser Auffassung der theosophischen Bruderschaft entfernt, und nicht früher kann sie wirken, bis in diesem Sinne, in diesem Stile der theosophische Gedanke Wurzel gefaßt hat."
         }
       ]
     },
@@ -57540,7 +57480,7 @@
         },
         {
           "index": "^fnsygd",
-          "content": "Ebenso hängt der Untergang der Atlantis, das was als die Sintflut beschrieben ist, mit der Moral der atlantischen Völker zusammen. Von alledern sind aber nur noch Spuren vorhanden. Trotzdem können wir bis zu einem gewissen Grade einen richtigen $\\mathrm{Zu}-$ sammenhang zwischen dem Leben der Menschen und solchen Erscheinungen in der Natur nachweisen. Allerdings muß man bei dem Nachweis solcher Zusammenhänge höchst vorsichtig sein, denn natürlich können sich hier leicht Phantasien einschleichen. Es darf also nur auf okkult erforschten Tatsachen gefußt werden. Die Okkultisten versuchen festzustellen, was bei dem Ausbruch des Vesuv im Jahre 79 nach Christus, bei dem Erdbeben in Kalabrien, bei dem Erdbeben zur Zeit Christi oder bei dem Erdbeben in Lissabon im Jahre 1755 vorlag. Bei diesen Naturkatastrophen ist eine große Anzahl von Menschen zugrunde gegangen. Die Menschen, die dabei ums Leben gekommen sind, brauchen das in ihrem früheren Leben nicht verschuldet zu haben. Es gehört aber zum Karma der betreffenden Menschen, daß sie diesen Untergang erleiden. Das ist das eine, weshalb man das Karma der Untergegangenen untersucht. Das andere ist das Folgende: In den theosophischen Handbüchern finden Sie häufig Kamaloka und Devachan in einer Weise beschrieben, daß es lediglich wie eine Folge, wie eine Auswirkung des vorangegangenen Erdenlebens erscheint. Tatsächlich aber wirken die Toten noch in dieses Erdenleben herein. Bei Veränderungen auf der Erde, bei Kultur- und Naturerscheinungen spielen die toten Menschen eine Rolle. Denken Sie sich einmal, Sie wären in den ersten Jahren des Christentums und nun wieder in dieser jetzigen Zeit geboren worden. Da haben sich in Europa die Fauna und die Flora in gewaltiger Weise geändert. Viele Tiere und Pflanzenarten sind ausgestorben und durch andere ersetzt. Das alles wird im Sinne der Geistesforschung nicht durch Übernatürliches erklärt, sondern es wirken die Kräfte, welche der Mensch hat, wenn er nicht im Körper ist, bei den Naturkräften tatsächlich mit, so daß die Menschen mit den in Devachan oder Kamaloka befindlichen Kräften in ihr künftiges Leben hineinwirken. Wenn Sie in jetziger Zeit andere Tiere antreffen als vor Jahrtausenden, so sind sie also durch die Mitwirkung der Menschen entstanden. So sind in gewisser Weise die Menschen an dem, was wir Naturkraft nennen, beteiligt. Die Toten arbeiten an der Umgestaltung der Natur fortwährend mit, so daß wir in den Naturerscheinungen vielfach den Ausdruck für dasjenige zu sehen haben, was die toten Menschen in diese Welt hineinarbeiten."
+          "content": "Ebenso hängt der Untergang der Atlantis, das was als die Sintflut beschrieben ist, mit der Moral der atlantischen Völker zusammen. Von alledern sind aber nur noch Spuren vorhanden. Trotzdem können wir bis zu einem gewissen Grade einen richtigen \\mathrm{Zu}- sammenhang zwischen dem Leben der Menschen und solchen Erscheinungen in der Natur nachweisen. Allerdings muß man bei dem Nachweis solcher Zusammenhänge höchst vorsichtig sein, denn natürlich können sich hier leicht Phantasien einschleichen. Es darf also nur auf okkult erforschten Tatsachen gefußt werden. Die Okkultisten versuchen festzustellen, was bei dem Ausbruch des Vesuv im Jahre 79 nach Christus, bei dem Erdbeben in Kalabrien, bei dem Erdbeben zur Zeit Christi oder bei dem Erdbeben in Lissabon im Jahre 1755 vorlag. Bei diesen Naturkatastrophen ist eine große Anzahl von Menschen zugrunde gegangen. Die Menschen, die dabei ums Leben gekommen sind, brauchen das in ihrem früheren Leben nicht verschuldet zu haben. Es gehört aber zum Karma der betreffenden Menschen, daß sie diesen Untergang erleiden. Das ist das eine, weshalb man das Karma der Untergegangenen untersucht. Das andere ist das Folgende: In den theosophischen Handbüchern finden Sie häufig Kamaloka und Devachan in einer Weise beschrieben, daß es lediglich wie eine Folge, wie eine Auswirkung des vorangegangenen Erdenlebens erscheint. Tatsächlich aber wirken die Toten noch in dieses Erdenleben herein. Bei Veränderungen auf der Erde, bei Kultur- und Naturerscheinungen spielen die toten Menschen eine Rolle. Denken Sie sich einmal, Sie wären in den ersten Jahren des Christentums und nun wieder in dieser jetzigen Zeit geboren worden. Da haben sich in Europa die Fauna und die Flora in gewaltiger Weise geändert. Viele Tiere und Pflanzenarten sind ausgestorben und durch andere ersetzt. Das alles wird im Sinne der Geistesforschung nicht durch Übernatürliches erklärt, sondern es wirken die Kräfte, welche der Mensch hat, wenn er nicht im Körper ist, bei den Naturkräften tatsächlich mit, so daß die Menschen mit den in Devachan oder Kamaloka befindlichen Kräften in ihr künftiges Leben hineinwirken. Wenn Sie in jetziger Zeit andere Tiere antreffen als vor Jahrtausenden, so sind sie also durch die Mitwirkung der Menschen entstanden. So sind in gewisser Weise die Menschen an dem, was wir Naturkraft nennen, beteiligt. Die Toten arbeiten an der Umgestaltung der Natur fortwährend mit, so daß wir in den Naturerscheinungen vielfach den Ausdruck für dasjenige zu sehen haben, was die toten Menschen in diese Welt hineinarbeiten."
         },
         {
           "index": "^e4c3n1",
@@ -58108,7 +58048,7 @@
         },
         {
           "index": "^axhb1d",
-          "content": "Ein bedeutender Biologe hat in einer sehr verbreiteten Zeitschrift etwas ganz Merkwürdiges geschrieben. Es ist merkwürdig - vielleicht nicht so sehr für den, der nur einzelnes liest. Für den aber, der das Ganze verfolgt, ist es etwas, was ihm bei fünfundneunzig Prozent der gesamten gelehrten Welt entgegentritt. Er findet, daß in $\\mathrm{Zu}-$ kunft ebenso von einer Art Gelehrten-Irreseins, Gelehrten-Schwachsinns gesprochen werden kann wie über die Hysterie. Da wird in jenem Aufsatz gesagt: Wenn eine Billardkugel rollt, auf eine andere stößt und diese weiterstößt, so kann ich mir nicht vorstellen, daß da gar nichts von der ersten in die zweite übergeht. Dieser Gelehrte nennt das eigentümliche Gespenst, das von der ersten Billardkugel heraussteigt, um in die zweite hineinzukriechen und die zweite unter dem Einfluß der ersten in Bewegung zu setzen, die «Materia movens». Der Betreffende glaubt ungeheuer klug zu sein, steht aber nur unter der materialistischen Suggestion, die auf ihn genau so wirkt, wie die Volkshysterie im 16. Jahrhundert auf die große Masse gewirkt hat. Bedenken Sie nun, wie um den Menschen herum solche Suggestionen leben können, denen er unterworfen ist. Unendlich ist die Zahl solcher Suggestionen. Wenn sie in großer Anzahl auftreten - und man kann eine große Anzahl aufführen -, dann lassen sie sich zu einem Bilde zusammenfügen, das genau so ein Krankheitsbild der heutigen Gelehrsamkeit darstellen würde, wie man in ausgedehntem Maße von Dementia praecox spricht."
+          "content": "Ein bedeutender Biologe hat in einer sehr verbreiteten Zeitschrift etwas ganz Merkwürdiges geschrieben. Es ist merkwürdig - vielleicht nicht so sehr für den, der nur einzelnes liest. Für den aber, der das Ganze verfolgt, ist es etwas, was ihm bei fünfundneunzig Prozent der gesamten gelehrten Welt entgegentritt. Er findet, daß in \\mathrm{Zu}- kunft ebenso von einer Art Gelehrten-Irreseins, Gelehrten-Schwachsinns gesprochen werden kann wie über die Hysterie. Da wird in jenem Aufsatz gesagt: Wenn eine Billardkugel rollt, auf eine andere stößt und diese weiterstößt, so kann ich mir nicht vorstellen, daß da gar nichts von der ersten in die zweite übergeht. Dieser Gelehrte nennt das eigentümliche Gespenst, das von der ersten Billardkugel heraussteigt, um in die zweite hineinzukriechen und die zweite unter dem Einfluß der ersten in Bewegung zu setzen, die «Materia movens». Der Betreffende glaubt ungeheuer klug zu sein, steht aber nur unter der materialistischen Suggestion, die auf ihn genau so wirkt, wie die Volkshysterie im 16. Jahrhundert auf die große Masse gewirkt hat. Bedenken Sie nun, wie um den Menschen herum solche Suggestionen leben können, denen er unterworfen ist. Unendlich ist die Zahl solcher Suggestionen. Wenn sie in großer Anzahl auftreten - und man kann eine große Anzahl aufführen -, dann lassen sie sich zu einem Bilde zusammenfügen, das genau so ein Krankheitsbild der heutigen Gelehrsamkeit darstellen würde, wie man in ausgedehntem Maße von Dementia praecox spricht."
         },
         {
           "index": "^tp9yze",
@@ -58988,19 +58928,15 @@
         },
         {
           "index": "^a45tjn",
-          "content": "| Gedanken | Astralplan |"
-        },
-        {
-          "index": "^isc19l",
-          "content": "| :-- | :-- |"
+          "content": "Gedanken Astralplan"
         },
         {
           "index": "^pif48f",
-          "content": "| Neigungen | Devachanplan |"
+          "content": "Neigungen Devachanplan"
         },
         {
           "index": "^6g2fn8",
-          "content": "| Handlungen | Buddhiplan |"
+          "content": "Handlungen Buddhiplan"
         },
         {
           "index": "^h7wwi9",
@@ -59419,10 +59355,6 @@
           "content": "Der Mensch lebt hinein in eine Zukunft, wo das Licht in ihm geboren werden soll, wo abgelöst werden soll ein bedeutungsvolles Wort durch ein anderes, wo es nicht mehr heißen wird, daß die Finsternis das Licht nicht begreifen kann, sondern wo die Wahrheit hinaustönen wird in den Weltenraum und wo die Finsternis das Licht, das uns entgegenstrahlt in dem Stern der Menschheit, begreifen wird, wo die Finsternisse weichen und das Licht begreifen, das heißt, von ihm ergriffen werden. Und das soll uns aus der Weihnachtsfeier entgegentönen aus unserem Inneren. Dann wird das Weihnachtsfest in seiner tiefen, uralten Bedeutung erst richtig gefeiert werden von uns, denn dann weist es uns darauf hin, daß aus dem Inneren des Menschen hervorleuchten wird das geistige Licht, hinausstrahlen wird in alle Welt. Und als ein Fest des höchsten Ideals der Menschheit werden wir das Christfest feiern können. Es wird dann wieder eine Bedeutung für uns haben, es wird wieder lebendig werden in unserer Seele, und auch der Weihnachtsbaum wird dann wieder als Symbol des Paradiesesbaumes eine richtigere Bedeutung haben, als sie ihm selbst in der sinnvollsten Weise heute gegeben wird. In unserer Seele wird aber die Feier der Weihe-Nacht entstehen lassen die freudevolle Zuversicht: ja, auch ich werde in mit dasjenige erleben, was man nennen muß die Geburt des höheren Menschen, auch in mir wird stattfinden die Geburt des Heilandes, die Geburt des Christos."
         },
         {
-          "index": "^xfwr5o",
-          "content": "$$"
-        },
-        {
           "index": "^lbblew",
           "content": "\\begin{aligned}"
         },
@@ -59445,10 +59377,6 @@
         {
           "index": "^ofkdys",
           "content": "\\end{aligned}"
-        },
-        {
-          "index": "^97t4st",
-          "content": "$$"
         }
       ]
     },
@@ -60280,7 +60208,7 @@
         },
         {
           "index": "^al02ui",
-          "content": "Die Ausgießung des Geistes - was konnte sie bewirken? Sie konnte bewirken, daß die Liebe an das Blut gebunden war. Nicht weniger als heute liebten die Menschen einander in den alten Zeiten, als sie noch kleine Stammesgemeinschaften bildeten. Sie liebten einander sogar mehr, aber sie liebten einander in der Art der Mutter- und Kindesliebe. Diese Liebe war also mehr durch die Natur bedingt. Blut fühlte sich zu Blut hingezogen, und in diesem Sich-Hingezogenfühlen von Blut zu Blut drückte sich die Zusammengehörigkeit der Menschen aus. Aber indem diejenigen, welche so in die Blutsgemeinschaft hineingezogen sind, sich vorwärtsentwickelten, wurden die Menschen so, daß sie vereinzelt sympathisierten. Dadurch entwickelten sich kleinere $\\mathrm{Zu}-$ sammenhänge, Familien und Gemeinschaften, und diese wurden wieder in größere Gemeinschaften zusammengeschlossen. Aber die einzelnen Menschen wurden egoistischer und selbstsüchtiger. So daß wir haben: die Menschheit auf der einen Seite immer selbstsüchtiger werdend, und auf der andern Seite das Einziehen des vereinheitlichenden Einflusses des Christus. Auf der einen Seite haben wir die Individualisierung, das Selbständigwerden der Individualität, auf der andern Seite den vereinheitlichenden Geist des Christentums. Nur wenn diese zwei Strömungen sich voll ausleben, wird ein Zustand auf der Erde herbeigeführt werden können, in welchem jedermann selbständig ist und auf der andern Seite wieder zusammenhängt mit allen, weil jeder durchdrungen ist von dem sogenannten Christos-Geist."
+          "content": "Die Ausgießung des Geistes - was konnte sie bewirken? Sie konnte bewirken, daß die Liebe an das Blut gebunden war. Nicht weniger als heute liebten die Menschen einander in den alten Zeiten, als sie noch kleine Stammesgemeinschaften bildeten. Sie liebten einander sogar mehr, aber sie liebten einander in der Art der Mutter- und Kindesliebe. Diese Liebe war also mehr durch die Natur bedingt. Blut fühlte sich zu Blut hingezogen, und in diesem Sich-Hingezogenfühlen von Blut zu Blut drückte sich die Zusammengehörigkeit der Menschen aus. Aber indem diejenigen, welche so in die Blutsgemeinschaft hineingezogen sind, sich vorwärtsentwickelten, wurden die Menschen so, daß sie vereinzelt sympathisierten. Dadurch entwickelten sich kleinere \\mathrm{Zu}- sammenhänge, Familien und Gemeinschaften, und diese wurden wieder in größere Gemeinschaften zusammengeschlossen. Aber die einzelnen Menschen wurden egoistischer und selbstsüchtiger. So daß wir haben: die Menschheit auf der einen Seite immer selbstsüchtiger werdend, und auf der andern Seite das Einziehen des vereinheitlichenden Einflusses des Christus. Auf der einen Seite haben wir die Individualisierung, das Selbständigwerden der Individualität, auf der andern Seite den vereinheitlichenden Geist des Christentums. Nur wenn diese zwei Strömungen sich voll ausleben, wird ein Zustand auf der Erde herbeigeführt werden können, in welchem jedermann selbständig ist und auf der andern Seite wieder zusammenhängt mit allen, weil jeder durchdrungen ist von dem sogenannten Christos-Geist."
         },
         {
           "index": "^a0zn31",
@@ -60516,7 +60444,7 @@
         },
         {
           "index": "^5f5lx5",
-          "content": "Der Mensch lebt in der Mitte seines Lebens in unharmonischen, verwirrenden $\\mathrm{Zu}-$ ständen. Aber er weiß auch: Wie aus dem Chaos die Welt hervorgegangen ist, so wird aus seinem Inneren, das noch chaotisch ist, die Harmonie hervorgehen. Wie der regelmäßige Gang der Planeten um die Sonne, so wird der innere Heiland des Menschen erstehen, der gegenüber aller Disharmonie ein Einheitliches, Harmonisches bedeuten wird. So mag jeder erinnert werden durch das Osterfest an die Auferstehung des Geistes in der jetzigen Natur des Menschen."
+          "content": "Der Mensch lebt in der Mitte seines Lebens in unharmonischen, verwirrenden \\mathrm{Zu}- ständen. Aber er weiß auch: Wie aus dem Chaos die Welt hervorgegangen ist, so wird aus seinem Inneren, das noch chaotisch ist, die Harmonie hervorgehen. Wie der regelmäßige Gang der Planeten um die Sonne, so wird der innere Heiland des Menschen erstehen, der gegenüber aller Disharmonie ein Einheitliches, Harmonisches bedeuten wird. So mag jeder erinnert werden durch das Osterfest an die Auferstehung des Geistes in der jetzigen Natur des Menschen."
         }
       ]
     },
@@ -60548,7 +60476,7 @@
         },
         {
           "index": "^ea0bs3",
-          "content": "$\\mathrm{Daß}$ es solche christlichen Mysterien gegeben hat, habe ich öfter erwähnt. Ich habe wiederholt gesagt, daß Paulus hinausgezogen ist und das Christentum erklärt hat, und daß er die esoterische christliche Schule in Athen unter Dionysius gegründet hat. In der Art wollen auch wir die Gleichnisse erklären, wie sie damals erklärt worden sind. Nicht was uns einfällt, wollen wir sagen, sondern das, was wir wirklich wissen können. Diejenigen, die in diesen christlichen Schulen lehrten, schöpften aus dem, was sie von dem Christus Jesus selbst empfangen hatten."
+          "content": "\\mathrm{Daß} es solche christlichen Mysterien gegeben hat, habe ich öfter erwähnt. Ich habe wiederholt gesagt, daß Paulus hinausgezogen ist und das Christentum erklärt hat, und daß er die esoterische christliche Schule in Athen unter Dionysius gegründet hat. In der Art wollen auch wir die Gleichnisse erklären, wie sie damals erklärt worden sind. Nicht was uns einfällt, wollen wir sagen, sondern das, was wir wirklich wissen können. Diejenigen, die in diesen christlichen Schulen lehrten, schöpften aus dem, was sie von dem Christus Jesus selbst empfangen hatten."
         },
         {
           "index": "^qvgste",
@@ -60696,7 +60624,7 @@
         },
         {
           "index": "^ndrpss",
-          "content": "$400 \\quad 200 \\quad 6 \\quad 60$"
+          "content": "400 \\quad 200 \\quad 6 \\quad 60"
         },
         {
           "index": "^2o2vye",
@@ -62012,7 +61940,7 @@
         },
         {
           "index": "^g2lkpt",
-          "content": "Vers 3: «Selig sind, die da Bettler sind um Geist, denn sie werden in sich selbst finden die Reiche der Himmel.» Die Worte, ja selbst die Buchstaben, haben alle einen geheimen, tiefen Sinn. Unser deutsches Ich, mit seinen Buchstabenverbindungen I, C, H, enthält in sich die Initialen von Jesus Christus: I-Ch. Die großen Eingeweihten leiteten das Wort darauf hin, daß das Ich $=$ Jesus Christus herauskam. Nur ein Volk konnte die Geburt des Namens Jesu Christi aus dem Ich heraus finden - und so ist die deutsche christliche Mystik entstanden. Es gibt noch mehr solcher Wörter, die einen tiefen, wörtlichen Sinn enthalten; zum Beispiel «heilig» = heil oder grundgesund sein. «Selig sein» = voll der Seele sein, den Inhalt der Seele in sich selbst finden. Selig, wer Drang und Trieb hat, die Seele immer mehr zum Geist zu führen. Wenn viele immer sagen: In sich selbst soll man schauen, dann werden wir Gott finden -, so ist das nicht richtig. Denn wenn wir nur in uns selbst schauen, dann finden wir nur, was eben in uns selbst ist. Wir sollen unser Streben bewachen, unsere Individualität soll herausgehen aus sich selbst, das heißt: Erkenne dich selbst. - Die Autorität der Menschen soll uns nicht Überzeugung, sondern Anregung geben."
+          "content": "Vers 3: «Selig sind, die da Bettler sind um Geist, denn sie werden in sich selbst finden die Reiche der Himmel.» Die Worte, ja selbst die Buchstaben, haben alle einen geheimen, tiefen Sinn. Unser deutsches Ich, mit seinen Buchstabenverbindungen I, C, H, enthält in sich die Initialen von Jesus Christus: I-Ch. Die großen Eingeweihten leiteten das Wort darauf hin, daß das Ich = Jesus Christus herauskam. Nur ein Volk konnte die Geburt des Namens Jesu Christi aus dem Ich heraus finden - und so ist die deutsche christliche Mystik entstanden. Es gibt noch mehr solcher Wörter, die einen tiefen, wörtlichen Sinn enthalten; zum Beispiel «heilig» = heil oder grundgesund sein. «Selig sein» = voll der Seele sein, den Inhalt der Seele in sich selbst finden. Selig, wer Drang und Trieb hat, die Seele immer mehr zum Geist zu führen. Wenn viele immer sagen: In sich selbst soll man schauen, dann werden wir Gott finden -, so ist das nicht richtig. Denn wenn wir nur in uns selbst schauen, dann finden wir nur, was eben in uns selbst ist. Wir sollen unser Streben bewachen, unsere Individualität soll herausgehen aus sich selbst, das heißt: Erkenne dich selbst. - Die Autorität der Menschen soll uns nicht Überzeugung, sondern Anregung geben."
         },
         {
           "index": "^iasa1v",
@@ -62924,19 +62852,15 @@
         },
         {
           "index": "^sspkjg",
-          "content": "| Mensch | - Weisheit |"
-        },
-        {
-          "index": "^wjyv3c",
-          "content": "| :-- | :-- |"
+          "content": "Mensch - Weisheit"
         },
         {
           "index": "^uunfzc",
-          "content": "| Luzifer | - Licht |"
+          "content": "Luzifer - Licht"
         },
         {
           "index": "^to2omi",
-          "content": "| Gott | - Liebe |"
+          "content": "Gott - Liebe"
         },
         {
           "index": "^2wth1z",
@@ -64040,7 +63964,7 @@
         },
         {
           "index": "^7rzfd3",
-          "content": "Nun machen wir uns einmal klar, was durch eine bestimmte Regelung des Atmungsprozesses in der Rosenkreuzerschulung geschieht. Wie und auf welche Weise das vor sich geht, kann nur von Mensch zu Mensch gesagt werden, doch über den Erfolg kann gesprochen werden. Steter Tropfen höhlt den Stein -, sagt ein Sprichwort. So ist es mit jenem Vorgang, den ich jetzt beschreibe. Der okkulte Schüler bekommt vom Lehrer die Anweisung, wie er seine Atemübungen aus dem Geiste heraus zu machen hat. Es handelt sich also um eine Anweisung, den Atmungsproze $ß$ in einer bestimmten Weise zu regeln, wodurch die Möglichkeit herbeigeführt wird, daß sich das menschliche Bewußtsein nach und nach über etwas ausdehnt, wovon der Mensch sonst nichts weiß, über etwas, was sich sonst in der Pflanze vollzieht. Die Pflanze bildet jetzt mit ihm ein Ganzes. Normalerweise gibt der Mensch den Kohlenstoff ab und nimmt den Sauerstoff auf. Dies hat der Schüler nun in sein Bewußtsein hineinzunehmen. Er erlebt in seinem Atmungsprozeß bewußt die Umwandlung von Kohlenstoff in Sauerstoff, von blauem Blut in rotes Blut. Er lernt, in sich dasjenige zu vollziehen, was er sonst der Pflanze überläßt. Nun ist er imstande, seinen eigenen Leib aufzubauen. Das lernt er durch die regelmäßige Atmung. Er hat die Fähigkeit erlangt, den Pflanzenprozeß in sich selber auszuführen. Jetzt haben Sie den realen Prozeß, wodurch der Mensch lernt, sein Fleisch auch physisch zu reinigen. In diesem Vorgang liegt die Alchimie des menschlichen Leibes beschlossen. Er bewirkt die Umwandlung des Menschen zum Träger einer reinen, keuschen Inkarnation, die sich der Pflanze vergleichen läßt. Der Schüler hat das Bewußtsein des Hohen, des Hellen; er weiß, er mußte durch das Fleisch nur durchgehen. Dies ist die Umwandlung von Kohle in Diamant. Sie werden nun begreifen, was die Rhythmisierung des Atems in der Rosenkreuzerschulung bedeutet und in welchem Sinne man von einem Stein der Weisen gesprochen hat. Der regulierte Atmungsprozeß ist der Weg zum Stein der Weisen."
+          "content": "Nun machen wir uns einmal klar, was durch eine bestimmte Regelung des Atmungsprozesses in der Rosenkreuzerschulung geschieht. Wie und auf welche Weise das vor sich geht, kann nur von Mensch zu Mensch gesagt werden, doch über den Erfolg kann gesprochen werden. Steter Tropfen höhlt den Stein -, sagt ein Sprichwort. So ist es mit jenem Vorgang, den ich jetzt beschreibe. Der okkulte Schüler bekommt vom Lehrer die Anweisung, wie er seine Atemübungen aus dem Geiste heraus zu machen hat. Es handelt sich also um eine Anweisung, den Atmungsproze ß in einer bestimmten Weise zu regeln, wodurch die Möglichkeit herbeigeführt wird, daß sich das menschliche Bewußtsein nach und nach über etwas ausdehnt, wovon der Mensch sonst nichts weiß, über etwas, was sich sonst in der Pflanze vollzieht. Die Pflanze bildet jetzt mit ihm ein Ganzes. Normalerweise gibt der Mensch den Kohlenstoff ab und nimmt den Sauerstoff auf. Dies hat der Schüler nun in sein Bewußtsein hineinzunehmen. Er erlebt in seinem Atmungsprozeß bewußt die Umwandlung von Kohlenstoff in Sauerstoff, von blauem Blut in rotes Blut. Er lernt, in sich dasjenige zu vollziehen, was er sonst der Pflanze überläßt. Nun ist er imstande, seinen eigenen Leib aufzubauen. Das lernt er durch die regelmäßige Atmung. Er hat die Fähigkeit erlangt, den Pflanzenprozeß in sich selber auszuführen. Jetzt haben Sie den realen Prozeß, wodurch der Mensch lernt, sein Fleisch auch physisch zu reinigen. In diesem Vorgang liegt die Alchimie des menschlichen Leibes beschlossen. Er bewirkt die Umwandlung des Menschen zum Träger einer reinen, keuschen Inkarnation, die sich der Pflanze vergleichen läßt. Der Schüler hat das Bewußtsein des Hohen, des Hellen; er weiß, er mußte durch das Fleisch nur durchgehen. Dies ist die Umwandlung von Kohle in Diamant. Sie werden nun begreifen, was die Rhythmisierung des Atems in der Rosenkreuzerschulung bedeutet und in welchem Sinne man von einem Stein der Weisen gesprochen hat. Der regulierte Atmungsprozeß ist der Weg zum Stein der Weisen."
         },
         {
           "index": "^rxp2lh",
@@ -64308,7 +64232,7 @@
         },
         {
           "index": "^ajd1oe",
-          "content": "Die eigentümliche Art, wie Richard Wagner in seinen Schriften schreibt, ist nur dann ganz zu verstehen, wenn man sich auf das einläßt, was hinter Wagner stand. Er war sich klar darüber, daß der menschliche Wille eine ganz besondere Beleuchtung vom Geiste aus empfängt. Er sagte, der Wille ist zunächst das Grobe, das Instinktive; dann verfeinert sich das immer mehr. Der Intellekt wirf $t$ sein Licht auf den Willen, und der Mensch wird leidbewußt, und durch das Bewußtsein des Leidens wird eine Läuterung herbeigeführt. Anknüpfend an seinen Freund, den Grafen Gobineau, sagt er: «Ist beim Überblick aller Rassen die Einheit der menschlichen Gattung unmöglich zu verkennen, und dürfen wir, was diese ausmacht, im edelsten Sinne als Fähigkeit zu bewußtem Leiden bezeichnen, in dieser Fähigkeit aber die Anlage zur höchsten moralischen Entwicklung erfassen, so fragen wir nun, worin der Vorzug der weißen Rasse gesucht werden kann, wenn wir sie durchaus hoch über die andern stellen müssen. Mit schöner Sicherheit erkennt ihn Gobineau nicht in einer ausnahmsweisen Entwicklung ihrer moralischen Eigenschaft selbst, sondern in einem größeren Vorrate der Grundeigentümlichkeiten, welchen jene entfließen. Diese hätten wir in der heftigeren, und dabei zarteren, Empfindlichkeit des Willens, welcher sich in einer reichen Organisation kund gibt, verbunden mit dem hierfür nötigen, schärferen Intellekte, zu suchen; wobei es dann darauf ankommt, ob der Intellekt durch die Antriebe des bedürfnisvollen Willens sich bis zu der Hellsichtigkeit steigert, die sein eigenes Licht auf den Willen zurückwirft und in diesem Falle durch Bändigung desselben zum moralischen Antriebe wird.»"
+          "content": "Die eigentümliche Art, wie Richard Wagner in seinen Schriften schreibt, ist nur dann ganz zu verstehen, wenn man sich auf das einläßt, was hinter Wagner stand. Er war sich klar darüber, daß der menschliche Wille eine ganz besondere Beleuchtung vom Geiste aus empfängt. Er sagte, der Wille ist zunächst das Grobe, das Instinktive; dann verfeinert sich das immer mehr. Der Intellekt wirf t sein Licht auf den Willen, und der Mensch wird leidbewußt, und durch das Bewußtsein des Leidens wird eine Läuterung herbeigeführt. Anknüpfend an seinen Freund, den Grafen Gobineau, sagt er: «Ist beim Überblick aller Rassen die Einheit der menschlichen Gattung unmöglich zu verkennen, und dürfen wir, was diese ausmacht, im edelsten Sinne als Fähigkeit zu bewußtem Leiden bezeichnen, in dieser Fähigkeit aber die Anlage zur höchsten moralischen Entwicklung erfassen, so fragen wir nun, worin der Vorzug der weißen Rasse gesucht werden kann, wenn wir sie durchaus hoch über die andern stellen müssen. Mit schöner Sicherheit erkennt ihn Gobineau nicht in einer ausnahmsweisen Entwicklung ihrer moralischen Eigenschaft selbst, sondern in einem größeren Vorrate der Grundeigentümlichkeiten, welchen jene entfließen. Diese hätten wir in der heftigeren, und dabei zarteren, Empfindlichkeit des Willens, welcher sich in einer reichen Organisation kund gibt, verbunden mit dem hierfür nötigen, schärferen Intellekte, zu suchen; wobei es dann darauf ankommt, ob der Intellekt durch die Antriebe des bedürfnisvollen Willens sich bis zu der Hellsichtigkeit steigert, die sein eigenes Licht auf den Willen zurückwirft und in diesem Falle durch Bändigung desselben zum moralischen Antriebe wird.»"
         },
         {
           "index": "^kubz5r",
@@ -66636,7 +66560,7 @@
         },
         {
           "index": "^e8gpfu",
-          "content": "Was ist es nun, was den Menschen bewahrt vor dem Abschnüren, vor dem Herumirren ohne Richtung und Ziel, während ihm früher die geistige Gruppenseele eine Richtung gegeben hat? Wir müssen uns klar darüber sein, daß der Mensch sich immer mehr individualisiert und daß er immer mehr und mehr in der Zukunft den Zusammenschluß mit anderen Menschen freiwillig finden muß. Früher bestand der Zusammenhang durch Blutsverwandtschaft, durch Stämme und Rassen. Aber dieser Zusammenschluß geht mehr und mehr zu Ende. Alles im Menschen geht immer mehr darauf hinaus, ein individueller Mensch zu werden. Nun ist nur ein umgekehrter Weg möglich. Denken Sie sich eine Anzahl von Menschen auf der Erde, die sich sagen: Wir gehen unsere eigenen Wege, wir wollen in unserem Innern selbst Richtung und Ziel des Weges finden, wir sind alle auf dem Wege, immer mehr individuelle Menschen zu werden. - Da liegt die Gefahr der Zersplitterung vor. Jetzt halten die Menschen auch schon geistige Zusammenschlüsse nicht mehr aus. Heute gehen wir So weit, daß jeder seine eigene Religion hat und seine eigene Meinung als höchstes Ideal hinstellt. Aber wenn die Menschen die Ideale verinnerlichen, so führt das zur Einigung, zu gemeinsamer Meinung. Wir erkennen innerlich zum Beispiel, daß 3 mal $3=9$ ist, oder daß drei Winkel in einem Dreieck 180 Grad sind. Das ist eine innerliche Erkenntnis. Über innerliche Erkenntnisse braucht man nicht abzustimmen, über innerliche Erkenntnisse entstehen keine Meinungsunterschiede, sie führen zur Einigung. Solcher Art sind alle geistigen Wahrheiten. Was die Geisteswissenschaft lehrt, das findet der Mensch durch seine innerlichen Kräfte. Diese führen ihn zu einer absoluten Einigkeit, zu Friede und Harmonie. Es gibt nicht zwei Meinungen über eine Wahrheit, ohne daß eine davon falsch ist. Das Ideal ist größtmögliche Verinnerlichung; sie führt zur Einigung, zum Frieden."
+          "content": "Was ist es nun, was den Menschen bewahrt vor dem Abschnüren, vor dem Herumirren ohne Richtung und Ziel, während ihm früher die geistige Gruppenseele eine Richtung gegeben hat? Wir müssen uns klar darüber sein, daß der Mensch sich immer mehr individualisiert und daß er immer mehr und mehr in der Zukunft den Zusammenschluß mit anderen Menschen freiwillig finden muß. Früher bestand der Zusammenhang durch Blutsverwandtschaft, durch Stämme und Rassen. Aber dieser Zusammenschluß geht mehr und mehr zu Ende. Alles im Menschen geht immer mehr darauf hinaus, ein individueller Mensch zu werden. Nun ist nur ein umgekehrter Weg möglich. Denken Sie sich eine Anzahl von Menschen auf der Erde, die sich sagen: Wir gehen unsere eigenen Wege, wir wollen in unserem Innern selbst Richtung und Ziel des Weges finden, wir sind alle auf dem Wege, immer mehr individuelle Menschen zu werden. - Da liegt die Gefahr der Zersplitterung vor. Jetzt halten die Menschen auch schon geistige Zusammenschlüsse nicht mehr aus. Heute gehen wir So weit, daß jeder seine eigene Religion hat und seine eigene Meinung als höchstes Ideal hinstellt. Aber wenn die Menschen die Ideale verinnerlichen, so führt das zur Einigung, zu gemeinsamer Meinung. Wir erkennen innerlich zum Beispiel, daß 3 mal 3=9 ist, oder daß drei Winkel in einem Dreieck 180 Grad sind. Das ist eine innerliche Erkenntnis. Über innerliche Erkenntnisse braucht man nicht abzustimmen, über innerliche Erkenntnisse entstehen keine Meinungsunterschiede, sie führen zur Einigung. Solcher Art sind alle geistigen Wahrheiten. Was die Geisteswissenschaft lehrt, das findet der Mensch durch seine innerlichen Kräfte. Diese führen ihn zu einer absoluten Einigkeit, zu Friede und Harmonie. Es gibt nicht zwei Meinungen über eine Wahrheit, ohne daß eine davon falsch ist. Das Ideal ist größtmögliche Verinnerlichung; sie führt zur Einigung, zum Frieden."
         },
         {
           "index": "^43skqc",
@@ -66928,51 +66852,51 @@
         },
         {
           "index": "^ednb7o",
-          "content": "| Mineral | Pflanze | Tier | Mensch  wachend | schlafend |  |"
+          "content": "Mineral Pflanze Tier Mensch  wachend schlafend |"
         },
         {
           "index": "^vzo8ub",
-          "content": "| :--: | :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--: :--:"
         },
         {
           "index": "^mqhv68",
-          "content": "| ICH |  |  |  |  | Höheres  Geistesgebiet |"
+          "content": "ICH |  |  |  |  Höheres  Geistesgebiet"
         },
         {
           "index": "^kevayy",
-          "content": "| Astralleib | ICH |  |  |  | Niederes  Geistgebiet |"
+          "content": "Astralleib ICH |  |  |  Niederes  Geistgebiet"
         },
         {
           "index": "^zbngfb",
-          "content": "| Ätherleib | Astralleib | ICH |  | ICH  Astralleib | Astralplan |"
+          "content": "Ätherleib Astralleib ICH |  ICH  Astralleib Astralplan"
         },
         {
           "index": "^a1a4cd",
-          "content": "| Phys. Leib | Ätherleib  Phys. Leib | Astralleib  Ätherleib  Phys. Leib | ICH  Astralleib  Ätherleib  Phys. Leib | Ätherleib  Phys. Leib | Physischer  Plan |"
+          "content": "Phys. Leib Ätherleib  Phys. Leib Astralleib  Ätherleib  Phys. Leib ICH  Astralleib  Ätherleib  Phys. Leib Ätherleib  Phys. Leib Physischer  Plan"
         },
         {
           "index": "^yodcjj",
-          "content": "| Mineral | Pflanze | Tier | Mensch wachend schlafend |  |  |"
+          "content": "Mineral Pflanze Tier Mensch wachend schlafend |  |"
         },
         {
           "index": "^3lbbqb",
-          "content": "| :--: | :--: | :--: | :--: | :--: | :--: |"
+          "content": ":--: :--: :--: :--: :--: :--:"
         },
         {
           "index": "^90h50y",
-          "content": "| ICH |  |  |  |  | Höheres Geistesgebiet |"
+          "content": "ICH |  |  |  |  Höheres Geistesgebiet"
         },
         {
           "index": "^5d1soa",
-          "content": "| Astralleib | ICH |  |  |  | Niederes Geistgebiet |"
+          "content": "Astralleib ICH |  |  |  Niederes Geistgebiet"
         },
         {
           "index": "^bf07dj",
-          "content": "| Ätherleib | Astralleib | ICH |  | ICH Astralleib | Astralplan |"
+          "content": "Ätherleib Astralleib ICH |  ICH Astralleib Astralplan"
         },
         {
           "index": "^i589a5",
-          "content": "| Phys.  Leib | Ätherleib  Phys.  Leib | Astralleib  Ätherleib  Phys. Leib | ICH Astralleib Ätherleib Phys. Leib | Ätherleib  Phys. Leib | Physischer Plan |"
+          "content": "Phys.  Leib Ätherleib  Phys.  Leib Astralleib  Ätherleib  Phys. Leib ICH Astralleib Ätherleib Phys. Leib Ätherleib  Phys. Leib Physischer Plan"
         },
         {
           "index": "^ud1fce",
@@ -67412,7 +67336,7 @@
         },
         {
           "index": "^jx3phz",
-          "content": "Wenn wir ein Streichholz anzünden, irgend etwas abbrennen, dann verursacht das in einem Seelenwesen, das in diesem Verbrennungsproze $ß$ wirkt, ganze innere Ströme von Wollust. Licht, das sich verbreitet im Weltenall, verbreitet sich nicht nur als physische Substantialität, sondern es verbreiten sich damit Ströme von Seligkeitsgefühl. Die geistigen Wesen, die im Lichte leben, geben das Licht gerne her; das ist Seligkeitsgefühl. Sie fühlen sich selig in dem Hinströmen des Lebens im Lichte. So lernen wir die ganze Welt innerlich kennen. Wenn wir so immer mehr das Leben um uns herum seelisch erkennen lernen, so lernen wir dadurch tatsächlich wunderbare Geheimnisse der menschlichen Entwickelung kennen."
+          "content": "Wenn wir ein Streichholz anzünden, irgend etwas abbrennen, dann verursacht das in einem Seelenwesen, das in diesem Verbrennungsproze ß wirkt, ganze innere Ströme von Wollust. Licht, das sich verbreitet im Weltenall, verbreitet sich nicht nur als physische Substantialität, sondern es verbreiten sich damit Ströme von Seligkeitsgefühl. Die geistigen Wesen, die im Lichte leben, geben das Licht gerne her; das ist Seligkeitsgefühl. Sie fühlen sich selig in dem Hinströmen des Lebens im Lichte. So lernen wir die ganze Welt innerlich kennen. Wenn wir so immer mehr das Leben um uns herum seelisch erkennen lernen, so lernen wir dadurch tatsächlich wunderbare Geheimnisse der menschlichen Entwickelung kennen."
         },
         {
           "index": "^bxr309",
@@ -67780,7 +67704,7 @@
         },
         {
           "index": "^hz2qye",
-          "content": "Was ist nun die Aufgabe der Erzengel? - Manche Leute reden ja heute noch davon, daß es einen Volksgeist gäbe; aber das ist für die meisten ein bloßes Wort, ein Abstraktes geworden. $\\mathrm{Daß}$ aber tatsächlich das Volk von einem realen Volksgeist geleitet wird, davon wissen die Menschen heute nicht mehr viel. Dieser Volksgeist, für den das ganze Volk so ist, wie für den Menschengeist ein Menschenleib, das ist ein Erzengel. Sie sind die Stammesgeister. Während die Engel einzelne Menschen lenken und leiten durch die Inkarnationen hindurch, lenken die Erzengel das Leben ganzer Gruppen, ganzer Völker. Jetzt werden wir begreifen: weil das Leben ganzer Völkergruppen tief zusammenhängt mit dem Leben gewisser Tiergruppen, haben die Ägypter empfunden, daß die Gottheit ihnen gewisse Tiere zugesellt hat. Darin haben sie Taten des Volksgeistes mit Recht gesehen. Sie beteten die Kraft des Volksgeistes an, der ihnen das Tier zugesellt hat."
+          "content": "Was ist nun die Aufgabe der Erzengel? - Manche Leute reden ja heute noch davon, daß es einen Volksgeist gäbe; aber das ist für die meisten ein bloßes Wort, ein Abstraktes geworden. \\mathrm{Daß} aber tatsächlich das Volk von einem realen Volksgeist geleitet wird, davon wissen die Menschen heute nicht mehr viel. Dieser Volksgeist, für den das ganze Volk so ist, wie für den Menschengeist ein Menschenleib, das ist ein Erzengel. Sie sind die Stammesgeister. Während die Engel einzelne Menschen lenken und leiten durch die Inkarnationen hindurch, lenken die Erzengel das Leben ganzer Gruppen, ganzer Völker. Jetzt werden wir begreifen: weil das Leben ganzer Völkergruppen tief zusammenhängt mit dem Leben gewisser Tiergruppen, haben die Ägypter empfunden, daß die Gottheit ihnen gewisse Tiere zugesellt hat. Darin haben sie Taten des Volksgeistes mit Recht gesehen. Sie beteten die Kraft des Volksgeistes an, der ihnen das Tier zugesellt hat."
         },
         {
           "index": "^6bbkyx",
@@ -68636,7 +68560,7 @@
         },
         {
           "index": "^lj9tse",
-          "content": "Wir wollen uns das an einem konkreten Beispiel versinnlichen Nehmen wir das Verhältnis zwischen Mutter und Kind. Es kann die Frage entstehen: Gibt es eine Beziehung zwischen ihnen, die fortdauert? - ja, die gibt es. Viel inniger, viel fester als irgendein Verhältnis, das hier auf dieser Erde gesponnen werden kann! Die Mutterliebe hat zuerst einen animalischen Charakter, sie ist eine Art Naturinstinkt. Wenn das Kind heranwächst, dann gestaltet sich dieses Verhältnis zu einem moralischen, ethischen, geistigen. Wenn Mutter und Kind gemeinschaftlich denken lernen, gemeinsame Empfindungen haben, dann tritt der Naturinstinkt immer mehr zurück; er hat nur die Gelegenheit gegeben, daß sich das schöne Band schlingen konnte, das Mutterliebe und Kindesliebe im höchsten Sinne in sich begreift. Was da an gegenseitigem Verstehen, an inniger Liebe sich entwickelt, das setzt sich auch fort bis in die Regionen der geistigen Gebiete, wenn auch dadurch, daß der eine Teil früher stirbt als der andere der $\\mathrm{Zu}-$ rückbleibende eine gewisse Zeit scheinbar abgetrennt ist von dem Gestorbenen. Nach diesem Zeitabschnitt ist das Band, das sich hier zusammengesponnen hat, ein ebenso lebhaftes und inniges; man ist beieinander, nur all die animalischen, rein natürlichen Instinkte müssen erst abgestreift werden. Was sich als Seelengefühl, als Seelengedanke von einem Wesen zum andern hier auf der Erde spinnt, das ist droben nicht gehemmt durch die Schranken, die hier vorhanden sind. Ja, das Devachan bekommt sogar ein gewisses Aussehen, eine gewisse Struktur durch die Verhältnisse, die hier angesponnen sind."
+          "content": "Wir wollen uns das an einem konkreten Beispiel versinnlichen Nehmen wir das Verhältnis zwischen Mutter und Kind. Es kann die Frage entstehen: Gibt es eine Beziehung zwischen ihnen, die fortdauert? - ja, die gibt es. Viel inniger, viel fester als irgendein Verhältnis, das hier auf dieser Erde gesponnen werden kann! Die Mutterliebe hat zuerst einen animalischen Charakter, sie ist eine Art Naturinstinkt. Wenn das Kind heranwächst, dann gestaltet sich dieses Verhältnis zu einem moralischen, ethischen, geistigen. Wenn Mutter und Kind gemeinschaftlich denken lernen, gemeinsame Empfindungen haben, dann tritt der Naturinstinkt immer mehr zurück; er hat nur die Gelegenheit gegeben, daß sich das schöne Band schlingen konnte, das Mutterliebe und Kindesliebe im höchsten Sinne in sich begreift. Was da an gegenseitigem Verstehen, an inniger Liebe sich entwickelt, das setzt sich auch fort bis in die Regionen der geistigen Gebiete, wenn auch dadurch, daß der eine Teil früher stirbt als der andere der \\mathrm{Zu}- rückbleibende eine gewisse Zeit scheinbar abgetrennt ist von dem Gestorbenen. Nach diesem Zeitabschnitt ist das Band, das sich hier zusammengesponnen hat, ein ebenso lebhaftes und inniges; man ist beieinander, nur all die animalischen, rein natürlichen Instinkte müssen erst abgestreift werden. Was sich als Seelengefühl, als Seelengedanke von einem Wesen zum andern hier auf der Erde spinnt, das ist droben nicht gehemmt durch die Schranken, die hier vorhanden sind. Ja, das Devachan bekommt sogar ein gewisses Aussehen, eine gewisse Struktur durch die Verhältnisse, die hier angesponnen sind."
         },
         {
           "index": "^lridsz",
@@ -69468,7 +69392,7 @@
         },
         {
           "index": "^7rgtk7",
-          "content": "Was man heute den Kombinationssinn die Intelligenz, das logische Denken nennt, gab es damals noch nicht. Dagegen hatte der Mensch anderes in hohem Maße entwickelt zum Beispiel das Gedächtnis, von dessen fabelhafter Entwickelung wir uns heute gar keine Vorstellung machen können. Rechnen konnte der Mensch nicht, nicht einmal, daß 2 mal $2=4$ sind, aber aus dem Gedächtnis heraus wußte er es. Jedesmal erinnerte er sich an das frühere Erlebnis. Auch das hat sich in der atlantischen Zeit erhalten, daß, wenn man auch die Volksseele nicht mehr unmittelbar in sich spürte wie auf dem Monde, man doch die Wirkung der alten Volks- und Rassenseelen empfand. Sie war so stark, daß es damals ganz unmöglich gewesen wäre, daß derjenige, der einer Rasse oder Volksseele angehörte, sich je mit einem verbunden hätte, der einer anderen Rasse zugehörig war. Zwischen den Angehörigen der verschiedenen Volksseelen war eine tiefe Antipathie vorhanden. Nur das liebte sich, was innerhalb derselben Volksseele war. Man kann sagen, das gemeinsame Blut, das früher ja in der Mondenzeit sich aus der Volksseele herniedergegossen hatte, war der Grund der Zusammengehörigkeit, und man erinnerte sich nicht nur dunkel etwa, sondern ganz deutlich der Erlebnisse der Vorfahren. Man empfand sich als Glied in der Vorfahrenkette durch das gemeinsame Blut, so wie Sie die Hand fühlen als ein Glied Ihres Organismus. Dieses Gefühl der Zusammengehörigkeit hing mit der Entwickelung insofern zusammen, als damals bei diesem Übergang, den wir betrachtet haben und der zur Zeit des Sonne-Ablösens und des Hinausstoßens des Mondes stattfand, ein anderer bedeutungsvoller Vorgang sich abspielte. Der hängt zusammen mit all dem, was als eine Art von Verhärtungsprozeß auf der Erde vorging. Das Mineralreich entstand, und gleichzeitig ging ein solcher Verhärtungsprozeß auch im Inneren der Menschennatur vor sich. Aus der weichen Masse bildete sich allmählich ein Härteres heraus, das sich erst bis zum Knorpel und dann bis zum Knochen verhärtete, und erst mit diesem Ansetzen der Knochenmasse begann die gehende Bewegung der Menschen."
+          "content": "Was man heute den Kombinationssinn die Intelligenz, das logische Denken nennt, gab es damals noch nicht. Dagegen hatte der Mensch anderes in hohem Maße entwickelt zum Beispiel das Gedächtnis, von dessen fabelhafter Entwickelung wir uns heute gar keine Vorstellung machen können. Rechnen konnte der Mensch nicht, nicht einmal, daß 2 mal 2=4 sind, aber aus dem Gedächtnis heraus wußte er es. Jedesmal erinnerte er sich an das frühere Erlebnis. Auch das hat sich in der atlantischen Zeit erhalten, daß, wenn man auch die Volksseele nicht mehr unmittelbar in sich spürte wie auf dem Monde, man doch die Wirkung der alten Volks- und Rassenseelen empfand. Sie war so stark, daß es damals ganz unmöglich gewesen wäre, daß derjenige, der einer Rasse oder Volksseele angehörte, sich je mit einem verbunden hätte, der einer anderen Rasse zugehörig war. Zwischen den Angehörigen der verschiedenen Volksseelen war eine tiefe Antipathie vorhanden. Nur das liebte sich, was innerhalb derselben Volksseele war. Man kann sagen, das gemeinsame Blut, das früher ja in der Mondenzeit sich aus der Volksseele herniedergegossen hatte, war der Grund der Zusammengehörigkeit, und man erinnerte sich nicht nur dunkel etwa, sondern ganz deutlich der Erlebnisse der Vorfahren. Man empfand sich als Glied in der Vorfahrenkette durch das gemeinsame Blut, so wie Sie die Hand fühlen als ein Glied Ihres Organismus. Dieses Gefühl der Zusammengehörigkeit hing mit der Entwickelung insofern zusammen, als damals bei diesem Übergang, den wir betrachtet haben und der zur Zeit des Sonne-Ablösens und des Hinausstoßens des Mondes stattfand, ein anderer bedeutungsvoller Vorgang sich abspielte. Der hängt zusammen mit all dem, was als eine Art von Verhärtungsprozeß auf der Erde vorging. Das Mineralreich entstand, und gleichzeitig ging ein solcher Verhärtungsprozeß auch im Inneren der Menschennatur vor sich. Aus der weichen Masse bildete sich allmählich ein Härteres heraus, das sich erst bis zum Knorpel und dann bis zum Knochen verhärtete, und erst mit diesem Ansetzen der Knochenmasse begann die gehende Bewegung der Menschen."
         },
         {
           "index": "^17mddp",
@@ -70472,15 +70396,15 @@
         },
         {
           "index": "^a4n9uf",
-          "content": "die Urbilder aller physischen Form $\\quad=$ Kontinent"
+          "content": "die Urbilder aller physischen Form \\quad= Kontinent"
         },
         {
           "index": "^6n5hxb",
-          "content": "alles Leben $=$ Meer des Devachan"
+          "content": "alles Leben = Meer des Devachan"
         },
         {
           "index": "^oq0c0p",
-          "content": "alles Seelenleben, Gefühle und so weiter $=$ Luftgebiet"
+          "content": "alles Seelenleben, Gefühle und so weiter = Luftgebiet"
         },
         {
           "index": "^km5lzl",
@@ -71032,7 +70956,7 @@
         },
         {
           "index": "^idpfyo",
-          "content": "Zunächst haben wir also an diesem physischen Leibe das, was in gewisser Beziehung rein physikalische Organe sind. Das sind diejenigen, welche zu ihrer Grundlage rein physikalische Gesetze haben, also Augen, Ohren, Kehlkopf und so weiter. Das Auge ist ja gewiß ein lebendiges Organ und erhält sein Leben von dem es durchdringenden und ernährenden Ätherleibe; aber vom rein physikalischen Standpunkte aus betrachtet ist es ein physikalischer Apparat, in dem dieselben Kräfte walten wie in der unorganischen Natur, zum Beispiel im Kristall. Wir können also die Wirkungen des Auges nach rein physikalischen Gesetzen betrachten. Diese Sinnesapparate müssen sich zunächst einmal herausarbeiten aus dem physischen Leibe. Es sind eben jene Organe, die wir im engeren Sinne als aufgebaut von physischen Kräften nach physikalischen Gesetzen erkennen. Dann haben wir eine zweite Gruppe von Organen: das sind die Ernährungs-, Wachstumsund Fortpflanzungsorgane, welche in der Drüsentätigkeit gipfeln. An der Bildung dieser Organe ist im wesentlichen der Ätherleib beteiligt. Dann haben wir als dritte Gruppe das Nervensystem, das im besonderen aufgebaut wird durch den Astralleib. Viertens haben wir dasjenige, was im besonderen das rote Blut der höheren Tiere und des Menschen ist: das rote, warme Blut wird vom Ich aufgebaut."
+          "content": "Zunächst haben wir also an diesem physischen Leibe das, was in gewisser Beziehung rein physikalische Organe sind. Das sind diejenigen, welche zu ihrer Grundlage rein physikalische Gesetze haben, also Augen, Ohren, Kehlkopf und so weiter. Das Auge ist ja gewiß ein lebendiges Organ und erhält sein Leben von dem es durchdringenden und ernährenden Ätherleibe; aber vom rein physikalischen Standpunkte aus betrachtet ist es ein physikalischer Apparat, in dem dieselben Kräfte walten wie in der unorganischen Natur, zum Beispiel im Kristall. Wir können also die Wirkungen des Auges nach rein physikalischen Gesetzen betrachten. Diese Sinnesapparate müssen sich zunächst einmal herausarbeiten aus dem physischen Leibe. Es sind eben jene Organe, die wir im engeren Sinne als aufgebaut von physischen Kräften nach physikalischen Gesetzen erkennen. Dann haben wir eine zweite Gruppe von Organen: das sind die Ernährungs-, Wachstums- und Fortpflanzungsorgane, welche in der Drüsentätigkeit gipfeln. An der Bildung dieser Organe ist im wesentlichen der Ätherleib beteiligt. Dann haben wir als dritte Gruppe das Nervensystem, das im besonderen aufgebaut wird durch den Astralleib. Viertens haben wir dasjenige, was im besonderen das rote Blut der höheren Tiere und des Menschen ist: das rote, warme Blut wird vom Ich aufgebaut."
         },
         {
           "index": "^v2p79z",
@@ -71060,7 +70984,7 @@
         },
         {
           "index": "^bbgsml",
-          "content": "Bei dem Zusammenrühren von Erde und Mond müßte man sich also zugleich alles das wegdenken, was sich in der Folgezeit so entwickelt hat. Die alte Mondmasse hatte noch nichts in sich von mineralischer Substanz. Sie hatte es in ihrer Konsistenz nur bis zum FlüssigBreiartigen gebracht. Eine solche Hypothese ist, wie gesagt, deshalb aufgestellt, um Menschen, die noch nie etwas von der planetarischen Entwickelung unserer Erde und unseres gesamten Kosmos gehört haben, die Sache einigermaßen begreiflich zu machen. Zu einem tieferen Verständnis dieser Entwickelung gehört noch ungeheuer viel mehr, das aber in einem solchen Einführungszyklus nicht berührt werden kann, das nach und nach durchgenommen wird. Es wird dann immer und immer wieder diese Entwickelung von einem neuen Gesichtspunkt aus vervollständigt und beleuchtet werden."
+          "content": "Bei dem Zusammenrühren von Erde und Mond müßte man sich also zugleich alles das wegdenken, was sich in der Folgezeit so entwickelt hat. Die alte Mondmasse hatte noch nichts in sich von mineralischer Substanz. Sie hatte es in ihrer Konsistenz nur bis zum Flüssig-Breiartigen gebracht. Eine solche Hypothese ist, wie gesagt, deshalb aufgestellt, um Menschen, die noch nie etwas von der planetarischen Entwickelung unserer Erde und unseres gesamten Kosmos gehört haben, die Sache einigermaßen begreiflich zu machen. Zu einem tieferen Verständnis dieser Entwickelung gehört noch ungeheuer viel mehr, das aber in einem solchen Einführungszyklus nicht berührt werden kann, das nach und nach durchgenommen wird. Es wird dann immer und immer wieder diese Entwickelung von einem neuen Gesichtspunkt aus vervollständigt und beleuchtet werden."
         },
         {
           "index": "^3pdtdd",
@@ -71100,35 +71024,31 @@
         },
         {
           "index": "^698nkk",
-          "content": "| Saturntag: | Saturday, Samstag |"
-        },
-        {
-          "index": "^wzzjsm",
-          "content": "| :-- | :-- |"
+          "content": "Saturntag: Saturday, Samstag"
         },
         {
           "index": "^9156x3",
-          "content": "| Sonntag |  |"
+          "content": "Sonntag"
         },
         {
           "index": "^fc88eb",
-          "content": "| Mondtag |  |"
+          "content": "Mondtag"
         },
         {
           "index": "^37ei1p",
-          "content": "| Marstag: | Mardi, Mars, Ziu, Dius, Dienstag |"
+          "content": "Marstag: Mardi, Mars, Ziu, Dius, Dienstag"
         },
         {
           "index": "^gvex4i",
-          "content": "| Merkurtag: | Mercredi, Merkur, Wodan, Wednesday |"
+          "content": "Merkurtag: Mercredi, Merkur, Wodan, Wednesday"
         },
         {
           "index": "^29v9ma",
-          "content": "| Jupitertag: | Giovedi, Donar, Donnerstag |"
+          "content": "Jupitertag: Giovedi, Donar, Donnerstag"
         },
         {
           "index": "^4yy7gl",
-          "content": "| Venustag: | Vendredi, Venus, Freia, Freitag |"
+          "content": "Venustag: Vendredi, Venus, Freia, Freitag"
         },
         {
           "index": "^9voxof",
@@ -72020,7 +71940,7 @@
         },
         {
           "index": "^19z03v",
-          "content": "Die alchimistische Zubereitung dessen, was ich eben geschildert habe, wird dadurch erreicht, daß dem Rosenkreuzerschüler gewisse Anweisungen gegeben werden, wie er seinen Atmungsproze $ß$ regulieren soll. Das ist etwas, was man auch nur verstehen kann nach dem Grundsatze: Steter Tropfen höhlt den Stein. Aber der Rosenkreuzerschüler arbeitet daran. So wie der Tropfen als ein Kleines, Winziges, nach langer Zeit erst die Höhlung im Stein bewirkt, so wird der Fortschritt der Menschenleiber bewirkt durch diesen Atmungsregulierungsprozeß. Diese Anweisungen, die der Rosenkreuzerschüler auszuüben hat, sind solche, daß sie ihn auf den Weg bringen, schon heute die Vorbereitung zu treffen, daß sein Ich die Fähigkeit erwirbt, sich die nächsten Leiber auf eine andere Weise aufzubauen. Damit ist allerdings verknüpft, daß Sie das, was Sie später in physischer Umgebung haben werden, schon jetzt in der geistigen Welt haben. jene Rosenkreuzerberatung besteht darin, daß man im langsamen Prozeß einen Zukunftszustand vorbereitet und sich die Fähigkeit erwirbt, schon jetzt in den höheren Welten diesen Zustand zu schauen. Zweierlei tut also der Rosenkreuzerschüler: Erstens arbeitet er vor für die Zukunft der Menschheit, und zweitens erwirbt er sich selbst das Schauen in der geistigen Welt; er sieht das, was dann später heruntersteigt in die physische Wirklichkeit."
+          "content": "Die alchimistische Zubereitung dessen, was ich eben geschildert habe, wird dadurch erreicht, daß dem Rosenkreuzerschüler gewisse Anweisungen gegeben werden, wie er seinen Atmungsproze ß regulieren soll. Das ist etwas, was man auch nur verstehen kann nach dem Grundsatze: Steter Tropfen höhlt den Stein. Aber der Rosenkreuzerschüler arbeitet daran. So wie der Tropfen als ein Kleines, Winziges, nach langer Zeit erst die Höhlung im Stein bewirkt, so wird der Fortschritt der Menschenleiber bewirkt durch diesen Atmungsregulierungsprozeß. Diese Anweisungen, die der Rosenkreuzerschüler auszuüben hat, sind solche, daß sie ihn auf den Weg bringen, schon heute die Vorbereitung zu treffen, daß sein Ich die Fähigkeit erwirbt, sich die nächsten Leiber auf eine andere Weise aufzubauen. Damit ist allerdings verknüpft, daß Sie das, was Sie später in physischer Umgebung haben werden, schon jetzt in der geistigen Welt haben. jene Rosenkreuzerberatung besteht darin, daß man im langsamen Prozeß einen Zukunftszustand vorbereitet und sich die Fähigkeit erwirbt, schon jetzt in den höheren Welten diesen Zustand zu schauen. Zweierlei tut also der Rosenkreuzerschüler: Erstens arbeitet er vor für die Zukunft der Menschheit, und zweitens erwirbt er sich selbst das Schauen in der geistigen Welt; er sieht das, was dann später heruntersteigt in die physische Wirklichkeit."
         },
         {
           "index": "^cx2ing",
@@ -72028,7 +71948,7 @@
         },
         {
           "index": "^heqej4",
-          "content": "Es gibt ein Wort, welches dieses Arbeiten an der Zukunft sehr schön ausdrückt, und das wir verstehen werden, wenn wir den Unterschied zwischen Seelen- und Rassenentwickelung uns klarmachen. Sie alle waren früher Atlantier, und diese atlantischen Leiber haben ganz anders ausgesehen, wie ich es Ihnen bereits beschrieben habe. Dieselbe Seele, die irgendwo in einem atlantischen Leib war, ist heute in Ihrem Leibe. Aber nicht alle Leiber sind, wie heute die Ihrigen, durch wenige Kolonisten - jene, die damals von Westen nach Osten zogen - so vorbereitet worden. Die Zurückgebliebenen, die sich, wie man sagt, mit der Rasse verbunden haben, die sind verkommen, während die Fortgeschrittenen neue Kulturen begründet haben. Die letzten Nachzügler auf dem Wege nach Osten, die Mongolen, haben noch etwas von der Kultur der Atlantier behalten. Ebenso werden die Leiber derjenigen Menschen, die sich nicht fortschrittlich weiterentwickeln werden, über die nächste Zeitenwende hinüberwachsen und die Chinesen der Zukunft bilden. Es wird wieder in Dekadenz befindliche Völkerschaften geben. Es leben ja auch in den Chinesenkörpern Seelen, die, weil sie eine zu große Anziehungskraft zur Rasse gehabt haben, noch einmal in solchen Rassen werden verkörpert sein müssen. Die Seelen, die heute in Ihnen sind, sie werden später verkörpert sein in Leibern, die von denen kommen, welche heute in der angedeuteten Weise arbeiten, und welche die Leiber der Zu kunft erzeugen, so wie es früher die ersten Kolonisten der Atlantier getan haben. Und diejenigen, die so recht am Alltäglichen haften, die sich nicht verbinden wollen mit dem, was der $\\mathrm{Zu}-$ kunft entgegengeht, werden mit der Rasse verschmelzen. Es gibt solche Menschen, die bei dem bleiben wollen, was althergebracht ist, die nichts wissen wollen von dem, was weiterschreiten heißt; die nicht hören wollen auf solche, die über die Rasse hinüberführen zu immer neuen Gestaltungen der Menschheit."
+          "content": "Es gibt ein Wort, welches dieses Arbeiten an der Zukunft sehr schön ausdrückt, und das wir verstehen werden, wenn wir den Unterschied zwischen Seelen- und Rassenentwickelung uns klarmachen. Sie alle waren früher Atlantier, und diese atlantischen Leiber haben ganz anders ausgesehen, wie ich es Ihnen bereits beschrieben habe. Dieselbe Seele, die irgendwo in einem atlantischen Leib war, ist heute in Ihrem Leibe. Aber nicht alle Leiber sind, wie heute die Ihrigen, durch wenige Kolonisten - jene, die damals von Westen nach Osten zogen - so vorbereitet worden. Die Zurückgebliebenen, die sich, wie man sagt, mit der Rasse verbunden haben, die sind verkommen, während die Fortgeschrittenen neue Kulturen begründet haben. Die letzten Nachzügler auf dem Wege nach Osten, die Mongolen, haben noch etwas von der Kultur der Atlantier behalten. Ebenso werden die Leiber derjenigen Menschen, die sich nicht fortschrittlich weiterentwickeln werden, über die nächste Zeitenwende hinüberwachsen und die Chinesen der Zukunft bilden. Es wird wieder in Dekadenz befindliche Völkerschaften geben. Es leben ja auch in den Chinesenkörpern Seelen, die, weil sie eine zu große Anziehungskraft zur Rasse gehabt haben, noch einmal in solchen Rassen werden verkörpert sein müssen. Die Seelen, die heute in Ihnen sind, sie werden später verkörpert sein in Leibern, die von denen kommen, welche heute in der angedeuteten Weise arbeiten, und welche die Leiber der Zu kunft erzeugen, so wie es früher die ersten Kolonisten der Atlantier getan haben. Und diejenigen, die so recht am Alltäglichen haften, die sich nicht verbinden wollen mit dem, was der \\mathrm{Zu}- kunft entgegengeht, werden mit der Rasse verschmelzen. Es gibt solche Menschen, die bei dem bleiben wollen, was althergebracht ist, die nichts wissen wollen von dem, was weiterschreiten heißt; die nicht hören wollen auf solche, die über die Rasse hinüberführen zu immer neuen Gestaltungen der Menschheit."
         },
         {
           "index": "^nxxrvg",
