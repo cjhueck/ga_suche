@@ -15,6 +15,11 @@ app.use(express.json());
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
 
+// Spezielle Route für WILLKOMMEN.md aus dem Root-Verzeichnis
+app.get('/WILLKOMMEN.md', (req, res) => {
+  res.sendFile(path.join(__dirname, 'WILLKOMMEN.md'));
+});
+
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);

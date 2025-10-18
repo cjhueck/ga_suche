@@ -2898,6 +2898,192 @@ body.dark-mode .help-back-btn {
 body.dark-mode .help-back-btn:hover {
   background-color: #5a8a9a;
 }
+
+/* Welcome Modal */
+.welcome-modal {
+  display: none;
+  position: fixed;
+  z-index: 10001;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease;
+}
+
+.welcome-modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.welcome-modal-content {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 0;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.4s ease;
+}
+
+.welcome-modal-header {
+  background-color: rgba(70, 120, 134, 0.1);
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark-mode .welcome-modal-header {
+  background-color: rgba(107, 163, 184, 0.15);
+}
+
+.welcome-modal-header h2 {
+  margin: 0;
+  color: var(--heading-color);
+  font-size: 1.5rem;
+}
+
+body.dark-mode .welcome-modal-header h2 {
+  color: var(--dark-heading-color);
+}
+
+.welcome-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
+}
+
+.welcome-close-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .welcome-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-modal-body {
+  padding: 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.welcome-modal-body h1 {
+  color: var(--heading-color) !important;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.welcome-modal-body h2 {
+  color: var(--heading-color) !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.3rem;
+}
+
+.welcome-modal-body h3 {
+  color: var(--heading-color) !important;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+body.dark-mode .welcome-modal-body h1,
+body.dark-mode .welcome-modal-body h2,
+body.dark-mode .welcome-modal-body h3 {
+  color: var(--dark-heading-color) !important;
+}
+
+.welcome-modal-body code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+body.dark-mode .welcome-modal-body code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-modal-body pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9em;
+}
+
+body.dark-mode .welcome-modal-body pre {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.welcome-modal-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+body.dark-mode .welcome-modal-footer {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.welcome-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9em;
+}
+
+.welcome-checkbox-container input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.welcome-start-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #467886;
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-start-btn:hover {
+  background-color: #3a6571;
+}
+
+body.dark-mode .welcome-start-btn {
+  background-color: #6BA3B8;
+}
+
+body.dark-mode .welcome-start-btn:hover {
+  background-color: #5a8a9a;
+}
 </style>
 </head>
 <body>
@@ -8783,6 +8969,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- Welcome Modal -->
+<div id="welcomeModal" class="welcome-modal">
+  <div class="welcome-modal-content">
+    <div class="welcome-modal-header">
+      <h1>Willkommen</h1>
+      <button class="welcome-close-btn" onclick="closeWelcomeModal()">&times;</button>
+    </div>
+    <div class="welcome-modal-body" id="welcomeModalBody">
+    </div>
+    <div class="welcome-modal-footer">
+      <div class="welcome-checkbox-container">
+        <input type="checkbox" id="dontShowAgain" />
+        <label for="dontShowAgain">Nicht mehr anzeigen</label>
+      </div>
+      <button class="welcome-start-btn" onclick="closeWelcomeModal()">Start</button>
+    </div>
+  </div>
+</div>
+
 <!-- Help Modal -->
 <div id="helpModal" class="help-modal">
   <div class="help-modal-content">
@@ -8917,6 +9122,113 @@ document.addEventListener('keydown', function(event) {
     if (modal && modal.classList.contains('active')) {
       closeHelpModal();
     }
+    const welcomeModal = document.getElementById('welcomeModal');
+    if (welcomeModal && welcomeModal.classList.contains('active')) {
+      closeWelcomeModal();
+    }
+  }
+});
+
+// ============================================================================
+// WELCOME MODAL FUNCTIONS
+// ============================================================================
+
+// Load and display welcome content
+async function loadWelcomeContent() {
+  const bodyElement = document.getElementById('welcomeModalBody');
+  
+  try {
+    // Determine API base URL
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
+    // Load WILLKOMMEN.md from root
+    const response = await fetch(`${API_BASE}/WILLKOMMEN.md`);
+    if (!response.ok) {
+      throw new Error(`Fehler beim Laden: ${response.status}`);
+    }
+    const markdown = await response.text();
+    
+    // Convert Markdown to HTML with marked.js
+    if (typeof marked !== 'undefined') {
+      marked.setOptions({
+        breaks: true,
+        gfm: true
+      });
+      bodyElement.innerHTML = marked.parse(markdown);
+    } else {
+      // Fallback: Show Markdown as text
+      bodyElement.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+    }
+    
+  } catch (error) {
+    console.error('Fehler beim Laden der Willkommensnachricht:', error);
+    bodyElement.innerHTML = `
+      <div style="text-align: center; padding: 2rem; color: #999;">
+        <p><strong>Fehler beim Laden der Willkommensnachricht</strong></p>
+        <p style="font-size: 0.9em; margin-top: 1rem;">
+          ${error.message}<br>
+          Bitte stellen Sie sicher, dass der Backend-Server läuft.
+        </p>
+      </div>
+    `;
+  }
+}
+
+// Show welcome modal
+function showWelcomeModal() {
+  const modal = document.getElementById('welcomeModal');
+  if (modal) {
+    modal.classList.add('active');
+    loadWelcomeContent();
+  }
+}
+
+// Close welcome modal
+function closeWelcomeModal() {
+  const modal = document.getElementById('welcomeModal');
+  const checkbox = document.getElementById('dontShowAgain');
+  
+  if (modal) {
+    modal.classList.remove('active');
+  }
+  
+  // Save preference if checkbox is checked
+  if (checkbox && checkbox.checked) {
+    localStorage.setItem('ga-suche-welcome-shown', 'true');
+    console.log('[WELCOME] User wählte "Nicht mehr anzeigen"');
+  }
+}
+
+// Check if welcome should be shown and display it
+function checkAndShowWelcome() {
+  const hasSeenWelcome = localStorage.getItem('ga-suche-welcome-shown');
+  
+  if (!hasSeenWelcome) {
+    console.log('[WELCOME] Erster Besuch erkannt, zeige Willkommensnachricht');
+    // Show welcome after a short delay (500ms) for better UX
+    setTimeout(() => {
+      showWelcomeModal();
+      // Mark as shown (but allow showing again if checkbox not checked)
+      // We only save permanently when user clicks "Don't show again"
+    }, 500);
+  } else {
+    console.log('[WELCOME] Willkommensnachricht bereits gesehen');
+  }
+}
+
+// Initialize welcome check on page load
+document.addEventListener('DOMContentLoaded', function() {
+  checkAndShowWelcome();
+});
+
+// Close welcome modal when clicking outside
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('welcomeModal');
+  if (event.target === modal) {
+    closeWelcomeModal();
   }
 });
 </script>
