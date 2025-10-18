@@ -35,3 +35,4 @@ Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldunge
 Klicken Sie auf das **ⓘ-Symbol** oben links für:
 - Vollständige Anleitung
 - Detaillierte Funktionsbeschreibungen
+
