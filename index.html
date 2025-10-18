@@ -3040,24 +3040,13 @@ body.dark-mode .welcome-modal-body pre {
   padding: 1rem 2rem;
   border-top: 1px solid var(--border-color);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.02);
 }
 
 body.dark-mode .welcome-modal-footer {
   background-color: rgba(255, 255, 255, 0.02);
-}
-
-.welcome-checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9em;
-}
-
-.welcome-checkbox-container input[type="checkbox"] {
-  cursor: pointer;
 }
 
 .welcome-start-btn {
@@ -8980,10 +8969,6 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="welcome-modal-body" id="welcomeModalBody">
     </div>
     <div class="welcome-modal-footer">
-      <div class="welcome-checkbox-container">
-        <input type="checkbox" id="dontShowAgain" />
-        <label for="dontShowAgain">Nicht mehr anzeigen</label>
-      </div>
       <button class="welcome-start-btn" onclick="closeWelcomeModal()">Start</button>
     </div>
   </div>
@@ -9190,33 +9175,28 @@ function showWelcomeModal() {
 // Close welcome modal
 function closeWelcomeModal() {
   const modal = document.getElementById('welcomeModal');
-  const checkbox = document.getElementById('dontShowAgain');
   
   if (modal) {
     modal.classList.remove('active');
   }
   
-  // Save preference if checkbox is checked
-  if (checkbox && checkbox.checked) {
-    localStorage.setItem('ga-suche-welcome-shown', 'true');
-    console.log('[WELCOME] User wählte "Nicht mehr anzeigen"');
-  }
+  // Speichere, dass das Popup beim aktuellen Besuch gesehen wurde
+  sessionStorage.setItem('ga-suche-welcome-shown-session', 'true');
+  console.log('[WELCOME] Willkommens-Popup geschlossen');
 }
 
 // Check if welcome should be shown and display it
 function checkAndShowWelcome() {
-  const hasSeenWelcome = localStorage.getItem('ga-suche-welcome-shown');
+  const hasSeenThisSession = sessionStorage.getItem('ga-suche-welcome-shown-session');
   
-  if (!hasSeenWelcome) {
-    console.log('[WELCOME] Erster Besuch erkannt, zeige Willkommensnachricht');
+  if (!hasSeenThisSession) {
+    console.log('[WELCOME] Zeige Willkommensnachricht');
     // Show welcome after a short delay (500ms) for better UX
     setTimeout(() => {
       showWelcomeModal();
-      // Mark as shown (but allow showing again if checkbox not checked)
-      // We only save permanently when user clicks "Don't show again"
     }, 500);
   } else {
-    console.log('[WELCOME] Willkommensnachricht bereits gesehen');
+    console.log('[WELCOME] Willkommensnachricht wurde in dieser Sitzung bereits angezeigt');
   }
 }
 
