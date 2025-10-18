@@ -4,36 +4,16 @@
 **Diese Anwendung ermöglicht Ihnen die intelligente Suche in der Rudolf Steiner Gesamtausgabe (GA)**
 
 - **Stichwortsuche** – Mit Relevanzbewertung
-- **Texte anzeigen lassen** – GA-Bände und Vorträge lesen
+- **Texte anzeigen lassen** – Texte mit Zusammenfassungen und Gliederungen
 - **Thematische Suche** – KI-gestützte semantische Analyse
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
-Ihre Such-Anfragen werden nicht gespeichert.
+Ihre Such-Anfragen werden **nicht gespeichert**.
 
 Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldungen** wenden Sie sich bitte an Dr. Christoph Hueck, hueck@akanthos-akademie.de. 
 
 **Hinweis**: Bitte markieren Sie **Rechtschreibfehler** und speichern Sie sie mit Hilfe der rechten Maustaste - das erleichtert uns die Korrekturen. 
 
----
-### 1. Stichwortsuche
-```
-Tab "Suche" → Begriff eingeben → Enter
-```
-
-### 2. Texte lesen
-```
-Tab "Texte" → GA-Band wählen → Vortrag öffnen
-```
-
-### 3. Frage stellen
-```
-Tab "Thematisch" → Frage formulieren → Suchen
-```
-
-### 4. Wichtige Begriffe
-```
-Tab "Index" → Wachsende Liste wichtiger Schlagwörter
-```
 ---
 ## Wichtige Funktionen
 
