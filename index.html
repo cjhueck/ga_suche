@@ -4242,10 +4242,12 @@ function toggleGASummaries() {
       button.textContent = 'Suche läuft...';
         
         const gaFilter = document.getElementById('gaFilter').value;
+        const yearFilter = document.getElementById('yearFilter').value;
         const relevanceFilterElement = document.getElementById('relevanceFilter');
         const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
         
         console.log(`[RELEVANCE-FILTER] Sende Filter an Backend: "${relevanceFilter}"`);
+        if (yearFilter) console.log(`[YEAR-FILTER] Sende Jahr-Filter: "${yearFilter}"`);
         
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
           method: 'POST',
@@ -4256,7 +4258,8 @@ function toggleGASummaries() {
             word2: word2,
             word1IsPhrase: word1IsPhrase,
             word2IsPhrase: word2IsPhrase,
-            relevanceFilter: relevanceFilter
+            relevanceFilter: relevanceFilter,
+            yearFilter: yearFilter
           })
         });
         
@@ -4477,7 +4480,7 @@ function toggleGASummaries() {
           yearCell.textContent = year;
           yearCell.style.fontWeight = 'bold';
           yearCell.style.fontSize = '1em';
-          yearCell.style.color = isDarkMode ? '#6BA3B8' : '#2c5282';
+          yearCell.style.color = isDarkMode ? '#6BA3B8' : '#467886';
         } else {
           yearCell.innerHTML = '&nbsp;'; // Leeres Space für Nicht-Jahreszellen
         }
