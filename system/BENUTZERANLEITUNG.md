@@ -61,28 +61,35 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 
 ---
 
+#### Tab "Index"
+
+- Wichtige Schlagwörter
+- Ergebnisse erstellt mit KI-Unterstützung
+
+---
+
 #### Relevanz-Berechnung
 
-**Faktoren für hohe Relevanz:**
+**Faktoren für hohe Relevanz**
 1. **Häufigkeit**: Wie oft kommt der Begriff im Vortrag vor?
 2. **Kompaktheit**: Kommen mehrere Vorkommen in einem kleinen Textbereich vor?
 3. **Thematischer Kontext**: Werden typische Begleitbegriffe verwendet?
 4. **Nähe** (bei 2 Wörtern): Wie nah stehen die Begriffe beieinander?
 5. **Phrase-Bonus**: Kommt die exakte Phrase vor?
 
-**Sliding Window-Analyse:**
+**Sliding Window-Analyse**
 - System analysiert Text in 1000-Wörter-Fenstern
 - Findet Bereiche mit höchster Begriffsdichte
 - Normalisiert auf Textlänge
 
-**Kontext-Index:**
+**Kontext-Index**
 - Automatische Analyse typischer Umgebungswörter
 - Wird beim ersten Suchen eines Begriffs erstellt
 - Aktualisiert sich automatisch bei Datenbank-Wachstum (>5%)
 
 ---
 
-#### 6.3 Datenschutz & Server
+#### Datenschutz & Server
 
 **Backend**
 - Die Datenbank läuft auf eigenem Server
@@ -96,16 +103,16 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 
 ---
 
-#### Version & Support
+#### Version & Technik
 
-**Version**: 2.0 (mit Zwei-Wort-Relevanz und Phrasensuche)
+**Version** 2.0 
 
-**Entwickelt für**:
+**Entwickelt für**
 - Rudolf Steiner Gesamtausgabe (GA)
 - Volltext-Recherche und thematische Analyse
 - Wissenschaftliche und private Nutzung
 
-**Technologie-Stack**:
+**Technologie**
 - Frontend: HTML5, CSS3, JavaScript (ES6+)
 - Backend: Node.js, Express
 - KI: Claude API (Anthropic)
