@@ -8989,11 +8989,14 @@ document.addEventListener('DOMContentLoaded', function() {
       <div id="helpChoice" class="help-choice">
         <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
         <div class="help-choice-buttons">
-          <button class="help-choice-btn" onclick="showHelpContent('quick')">
-            <h3>Impressum</h3>
+          <button class="help-choice-btn" onclick="showHelpContent('welcome')">
+            <h3>Willkommen</h3>
           </button>
           <button class="help-choice-btn" onclick="showHelpContent('full')">
             <h3>Anleitung</h3> 
+          </button>
+          <button class="help-choice-btn" onclick="showHelpContent('quick')">
+            <h3>Impressum</h3>
           </button>
         </div>
       </div>
@@ -9045,7 +9048,10 @@ async function showHelpContent(type) {
   
   try {
     let mdFile = '';
-    if (type === 'quick') {
+    if (type === 'welcome') {
+      title.textContent = 'Willkommen';
+      mdFile = 'WILLKOMMEN.md';
+    } else if (type === 'quick') {
       title.textContent = 'Impressum';
       mdFile = 'IMPRESSUM.md';
     } else if (type === 'full') {
@@ -9053,7 +9059,7 @@ async function showHelpContent(type) {
       mdFile = 'BENUTZERANLEITUNG.md';
     }
     
-    // Lade Markdown-Datei vom Backend-Server
+    // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
     const isLocal = window.location.hostname === 'localhost' ||
                     window.location.hostname === '127.0.0.1' ||
                     window.location.protocol === 'file:';
@@ -9094,7 +9100,7 @@ async function showHelpContent(type) {
   contentDisplay.scrollTop = 0;
 }
 
-// Die Inhalte werden jetzt dynamisch aus IMPRESSUM.md und BENUTZERANLEITUNG.md geladen
+// Die Inhalte werden jetzt dynamisch aus system/WILLKOMMEN.md, system/IMPRESSUM.md und system/BENUTZERANLEITUNG.md geladen
 
 // Close modal when clicking outside
 document.addEventListener('click', function(event) {
@@ -9133,8 +9139,8 @@ async function loadWelcomeContent() {
                     window.location.protocol === 'file:';
     const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
     
-    // Load WILLKOMMEN.md from root
-    const response = await fetch(`${API_BASE}/WILLKOMMEN.md`);
+    // Load WILLKOMMEN.md from system folder
+    const response = await fetch(`${API_BASE}/system/WILLKOMMEN.md`);
     if (!response.ok) {
       throw new Error(`Fehler beim Laden: ${response.status}`);
     }
