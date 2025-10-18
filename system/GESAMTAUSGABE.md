@@ -19,27 +19,35 @@ Dokumentation von Rudolf Steiners Werk in den Bereichen Architektur, Malerei, Pl
 **4. Schriften zur Anthroposophischen Bewegung (GA 250-268)**
 Interne Schriften und Aufzeichnungen zur Geschichte und Organisation der anthroposophischen Bewegung.
 
+**Quellen** 
+
+Bei den gedruckten Vorträgen Rudolf Steiners handelt es sich um Nachschriften oder stenographische Mitschriften (https://anthrowiki.at/Rudolf_Steiner_Gesamtausgabe). Für genauere Quellenangaben und detaillierte Hinweise zu den Texten siehe https://www.rudolf-steiner.com/edition/gesamtausgabe/. Die meisten GA Bände können hier (https://steiner.wiki/Die_Rudolf_Steiner_Gesamtausgabe) als PDF Dateien heruntergeladen werden. 
+
 **Besonderheiten dieser Datenbank**
 
 Diese Suchplattform umfasst derzeit:
-- **Vortragswerke** aus den GA-Bänden 51-311
-- Sukzessiver Ausbau auf bis zu **6000 Vorträge**
+- **Vorträge** aus den GA-Bänden 51-311
+- Sukzessiver Ausbau auf bis zur Vollständigkeit
 - Volltext-Durchsuchbarkeit aller Inhalte
 - Thematische und kontextuelle Suchfunktionen
+- Stichwortverzeichnis
 
-**Zitierwesen**
+Die Textgliederung entspricht weitgehend derjenigen in der gedruckten GA. Beim Kopieren und Umformatieren der Texte können jedoch Fehler entstanden sein. Bitte **melden Sie Fehler**, die Ihnen auffallen, durch Markieren und abspeichern mit der rechten Maustaste. 
 
-Übliche Zitierweise:
-- **GA-Nummer/Vortragsnummer** - Beispiel: "GA 110/5" bezeichnet den 5. Vortrag in GA-Band 110
-- **Vollständige Angabe**: GA-Nummer, Vortragstitel, Ort, Datum
+Die Zusammenfassungen, Schlagworte und Zwischenüberschriften wurden mit der KI Claude, Modell Sonnet 4 erstellt (https://claude.ai/) und anschließend überprüft und überarbeitet. Da KI rein statistisch arbeitet, können inhaltliche Unstimmigkeiten auftreten. 
+
+**Zitationsstil**
+
+- **GA-Nummer/Vortragsnummer** - Beispiel: "GA110/5" bezeichnet den 5. Vortrag in GA-Band 110
+- Vollständige Angabe: GA-Nummer, Vortragstitel, Ort, Datum
 
 **Rechtliche Hinweise**
 
-Die Texte der Rudolf Steiner Gesamtausgabe unterliegen dem Copyright der **Rudolf Steiner Nachlassverwaltung**, Dornach/Schweiz.
+Die hier verwendeten Texte wurden weitgehend aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe (GA) (https://steiner.wiki/Die_Rudolf_Steiner_Gesamtausgabe; http://bdn-steiner.ru/modules.php?name=Ga) entnommen. Anhänge und editorische Hinweise wurden hier nicht mit übernommen. 
 
 Diese Plattform dient ausschließlich wissenschaftlichen und Studienzwecken.
 
 ---
 
-*Weitere Informationen zur Gesamtausgabe finden Sie unter [www.steinerverlag.com](https://www.steinerverlag.com)*
+*Weitere Informationen zur Gesamtausgabe finden Sie unter https://www.steinerverlag.com*
 
