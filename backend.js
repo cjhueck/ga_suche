@@ -1002,7 +1002,7 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
   let word2Positions = [];
   
   // Zähle word1
-  let pos = 0;
+    let pos = 0;
   while ((pos = fullTextLower.indexOf(word1Lower, pos)) !== -1) {
     word1Count++;
     word1Positions.push(pos);
@@ -1685,7 +1685,7 @@ app.post('/api/fulltext-search', async (req, res) => {
       console.log('[RELEVANZ] Überspringe Relevanzberechnung (Filter: ohne)');
       resultsWithRelevance = results;
     } else {
-      const searchQuery = word2 ? `${word1} ${word2}` : word1;
+    const searchQuery = word2 ? `${word1} ${word2}` : word1;
       resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
     }
     
