@@ -33,6 +33,8 @@ Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldunge
 ## Hilfe
 
 Klicken Sie auf das **ⓘ-Symbol** oben links für:
-- Vollständige Anleitung
-- Detaillierte Funktionsbeschreibungen
 
+- Information zur Rudolf Steiner Gesamtausgabe
+- Vollständige Anleitung der GA-Suche
+- Kontaktadresse
+- Impressum

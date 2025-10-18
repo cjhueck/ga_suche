@@ -8992,6 +8992,9 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="help-choice-btn" onclick="showHelpContent('welcome')">
             <h3>Willkommen</h3>
           </button>
+          <button class="help-choice-btn" onclick="showHelpContent('gesamtausgabe')">
+            <h3>Gesamtausgabe</h3>
+          </button>
           <button class="help-choice-btn" onclick="showHelpContent('full')">
             <h3>Anleitung</h3> 
           </button>
@@ -9051,12 +9054,15 @@ async function showHelpContent(type) {
     if (type === 'welcome') {
       title.textContent = 'Willkommen';
       mdFile = 'WILLKOMMEN.md';
-    } else if (type === 'quick') {
-      title.textContent = 'Impressum';
-      mdFile = 'IMPRESSUM.md';
+    } else if (type === 'gesamtausgabe') {
+      title.textContent = 'Gesamtausgabe';
+      mdFile = 'GESAMTAUSGABE.md';
     } else if (type === 'full') {
       title.textContent = 'GA-Suche Anleitung';
       mdFile = 'BENUTZERANLEITUNG.md';
+    } else if (type === 'quick') {
+      title.textContent = 'Impressum';
+      mdFile = 'IMPRESSUM.md';
     }
     
     // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
@@ -9100,7 +9106,7 @@ async function showHelpContent(type) {
   contentDisplay.scrollTop = 0;
 }
 
-// Die Inhalte werden jetzt dynamisch aus system/WILLKOMMEN.md, system/IMPRESSUM.md und system/BENUTZERANLEITUNG.md geladen
+// Die Inhalte werden jetzt dynamisch aus system/WILLKOMMEN.md, system/GESAMTAUSGABE.md, system/BENUTZERANLEITUNG.md und system/IMPRESSUM.md geladen
 
 // Close modal when clicking outside
 document.addEventListener('click', function(event) {
