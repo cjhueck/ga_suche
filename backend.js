@@ -1568,11 +1568,11 @@ app.post('/api/fulltext-search', async (req, res) => {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
-    // Bei Zwei-Wort-Suche ohne explizite Proximity: Setze automatisch auf max. 2 Absätze
+    // Bei Zwei-Wort-Suche ohne explizite Proximity: Setze automatisch auf max. 3 Absätze
     let effectiveProximity = proximity;
     if (word2 && !proximity) {
-      effectiveProximity = 2;
-      console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 2 Absätze`);
+      effectiveProximity = 3;
+      console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 3 Absätze`);
     }
     
     console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}`);
