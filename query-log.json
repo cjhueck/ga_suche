@@ -225,10 +225,10 @@
     "last": "2025-10-17T13:03:16.005Z"
   },
   "lebenstableau": {
-    "count": 170,
+    "count": 171,
     "coOccurrences": {},
     "lastUsed": "2025-10-13T06:13:03.915Z",
-    "last": "2025-10-17T15:22:45.918Z"
+    "last": "2025-10-18T07:03:14.827Z"
   },
   "steiner": {
     "count": 27,
@@ -427,14 +427,14 @@
     "lastUsed": "2025-10-09T04:41:19.220Z"
   },
   "bacon": {
-    "count": 7,
+    "count": 8,
     "coOccurrences": {
       "francis bacon": 1,
       "steiner": 1,
       "francis": 1
     },
     "lastUsed": "2025-10-09T04:41:19.220Z",
-    "last": "2025-10-17T09:41:36.276Z"
+    "last": "2025-10-18T07:04:00.410Z"
   },
   "jakob böhme": {
     "count": 1,
@@ -667,8 +667,8 @@
     "last": "2025-10-16T14:25:17.834Z"
   },
   "ätherleib": {
-    "count": 7,
-    "last": "2025-10-16T14:25:17.834Z",
+    "count": 12,
+    "last": "2025-10-18T07:09:32.024Z",
     "lastUsed": "2025-10-10T17:03:26.135Z"
   },
   "unterschied zwischen ätherleib": {
@@ -822,8 +822,8 @@
     "last": "2025-10-16T23:22:32.117Z"
   },
   "kamaloka": {
-    "count": 15,
-    "last": "2025-10-16T23:25:13.886Z"
+    "count": 18,
+    "last": "2025-10-18T07:06:06.772Z"
   },
   "patron": {
     "count": 1,

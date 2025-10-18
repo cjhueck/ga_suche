@@ -12,6 +12,9 @@ const PORT = 3003;
 app.use(cors());
 app.use(express.json());
 
+// Statische Dateien aus dem system Ordner bereitstellen
+app.use('/system', express.static(path.join(__dirname, 'system')));
+
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
@@ -879,6 +882,14 @@ function applySemanticRanking(keywordResults, query) {
 function addRelevanceScoringToResults(results, query) {
   console.log(`[RELEVANCE-SCORING] Füge Relevanz-Scores für ${results.length} Ergebnisse hinzu`);
   
+  // Zerlege Query in einzelne Wörter (für Zwei-Wort-Suchen)
+  const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+  const isTwoWordQuery = queryWords.length === 2;
+  
+  if (isTwoWordQuery) {
+    console.log(`[RELEVANCE-SCORING] Zwei-Wort-Suche erkannt: "${queryWords[0]}" + "${queryWords[1]}"`);
+  }
+  
   // Gruppiere Ergebnisse nach Vortrag
   const lectureGroups = {};
   results.forEach(result => {
@@ -889,32 +900,34 @@ function addRelevanceScoringToResults(results, query) {
     lectureGroups[lectureId].push(result);
   });
   
-  // Bestimme ob weniger als 100 Treffer (dann mittel -> hoch)
-  const mergeMittelToHoch = results.length < 100;
-  if (mergeMittelToHoch) {
-    console.log(`[RELEVANCE-SCORING] Weniger als 100 Treffer (${results.length}) - fasse "mittel" und "hoch" zu "hoch" zusammen`);
-  }
-  
   // Berechne Relevanz-Score für jeden Vortrag
   const resultsWithRelevance = results.map(result => {
     const lectureId = result.ID;
     const lectureResults = lectureGroups[lectureId];
     
-    // Verwende die gleiche Relevanz-Berechnung wie bei der Timeline
-    const relevanceScore = calculateRelevanceScoreForLecture(lectureResults, query);
+    let relevanceScore;
+    
+    if (isTwoWordQuery) {
+      // Spezielle Behandlung für Zwei-Wort-Suchen
+      relevanceScore = calculateTwoWordRelevanceScore(lectureResults, queryWords[0], queryWords[1]);
+    } else {
+      // Einzelwort-Suche
+      relevanceScore = calculateRelevanceScoreForLecture(lectureResults, query);
+    }
     
     // Debug-Ausgabe für die ersten 5 Vorträge
     if (Object.keys(lectureGroups).indexOf(lectureId) < 5) {
       console.log(`[RELEVANCE-DEBUG] ${lectureId}: Score=${relevanceScore.toFixed(3)}, Chunks=${lectureResults.length}`);
     }
     
-    // Bestimme Relevanz-Kategorie (Schwelle zwischen mittel und hoch weiter gesenkt)
+    // Bestimme Relevanz-Kategorie (stark erhöhte Schwellwerte für bessere Differenzierung)
     let relevanceCategory = 'niedrig';
-    if (relevanceScore >= 0.12) {
-      relevanceCategory = 'hoch';
-    } else if (relevanceScore >= 0.08) {
-      relevanceCategory = mergeMittelToHoch ? 'hoch' : 'mittel'; // Bei < 100 Treffern: mittel -> hoch
+    if (relevanceScore >= 0.50) {
+      relevanceCategory = 'hoch';      // Score ≥ 0.50 (verdoppelt)
+    } else if (relevanceScore >= 0.20) {
+      relevanceCategory = 'mittel';    // Score ≥ 0.20 und < 0.50 (verdoppelt)
     }
+    // else bleibt 'niedrig' (Score < 0.20)
     
     return {
       ...result,
@@ -931,58 +944,578 @@ function addRelevanceScoringToResults(results, query) {
   return resultsWithRelevance;
 }
 
-// Hilfsfunktion: Relevanz-Score für einen Vortrag berechnen (verbesserte Version)
+// ============================================================================
+// ZWEI-WORT-RELEVANZ-BERECHNUNG
+// ============================================================================
+
+function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
+  if (!lectureResults || lectureResults.length === 0) return 0;
+  
+  const word1Lower = word1.toLowerCase();
+  const word2Lower = word2.toLowerCase();
+  const phraseQuery = `${word1Lower} ${word2Lower}`;
+  
+  // Sortiere Ergebnisse nach paragraphIndex
+  const sortedResults = [...lectureResults].sort((a, b) => 
+    (a.paragraphIndex || 0) - (b.paragraphIndex || 0)
+  );
+  
+  // Erstelle zusammenhängenden Text mit Wort-Positionen
+  let fullText = '';
+  let wordPositions = []; // [{ word, wordIndex, startPos, endPos }]
+  let currentWordIndex = 0;
+  
+  sortedResults.forEach((result) => {
+    const content = result.content || '';
+    const words = content.split(/\s+/);
+    
+    words.forEach(word => {
+      const startPos = fullText.length;
+      fullText += word + ' ';
+      const endPos = fullText.length;
+      
+      wordPositions.push({
+        word: word,
+        wordIndex: currentWordIndex,
+        startPos: startPos,
+        endPos: endPos
+      });
+      
+      currentWordIndex++;
+    });
+  });
+  
+  const totalWords = currentWordIndex;
+  const fullTextLower = fullText.toLowerCase();
+  
+  // 1. Zähle Einzelwort-Vorkommen
+  let word1Count = 0;
+  let word2Count = 0;
+  let phraseCount = 0;
+  
+  let word1Positions = [];
+  let word2Positions = [];
+  
+  // Zähle word1
+  let pos = 0;
+  while ((pos = fullTextLower.indexOf(word1Lower, pos)) !== -1) {
+    word1Count++;
+    word1Positions.push(pos);
+    pos += word1Lower.length;
+  }
+  
+  // Zähle word2
+  pos = 0;
+  while ((pos = fullTextLower.indexOf(word2Lower, pos)) !== -1) {
+    word2Count++;
+    word2Positions.push(pos);
+    pos += word2Lower.length;
+  }
+  
+  // Zähle exakte Phrase
+  pos = 0;
+  while ((pos = fullTextLower.indexOf(phraseQuery, pos)) !== -1) {
+    phraseCount++;
+    pos += phraseQuery.length;
+  }
+  
+  if (word1Count === 0 || word2Count === 0) return 0;
+  
+  console.log(`[2-WORD] "${word1}" (${word1Count}×) + "${word2}" (${word2Count}×), Phrase: ${phraseCount}×`);
+  
+  // 2. Berechne Nähe-Bonus: Wie oft stehen die Wörter nah beieinander?
+  let proximityPairs = 0;
+  const MAX_DISTANCE = 50; // Zeichen
+  
+  word1Positions.forEach(pos1 => {
+    word2Positions.forEach(pos2 => {
+      const distance = Math.abs(pos1 - pos2);
+      if (distance > 0 && distance <= MAX_DISTANCE) {
+        proximityPairs++;
+      }
+    });
+  });
+  
+  console.log(`[2-WORD] Nähe-Paare (≤50 Zeichen): ${proximityPairs}`);
+  
+  // 3. Sliding Window über 1000 Wörter
+  const WINDOW_SIZE = 1000;
+  let bestWindowScore = 0;
+  
+  for (let startWordIdx = 0; startWordIdx < totalWords; startWordIdx += 250) {
+    const endWordIdx = Math.min(startWordIdx + WINDOW_SIZE, totalWords);
+    if (startWordIdx >= totalWords) break;
+    
+    const windowStartPos = wordPositions[startWordIdx]?.startPos || 0;
+    const windowEndPos = wordPositions[endWordIdx - 1]?.endPos || fullText.length;
+    const windowText = fullTextLower.substring(windowStartPos, windowEndPos);
+    
+    // Zähle beide Wörter im Fenster
+    let window_word1 = 0;
+    let window_word2 = 0;
+    let window_phrase = 0;
+    
+    let wPos = 0;
+    while ((wPos = windowText.indexOf(word1Lower, wPos)) !== -1) {
+      window_word1++;
+      wPos += word1Lower.length;
+    }
+    
+    wPos = 0;
+    while ((wPos = windowText.indexOf(word2Lower, wPos)) !== -1) {
+      window_word2++;
+      wPos += word2Lower.length;
+    }
+    
+    wPos = 0;
+    while ((wPos = windowText.indexOf(phraseQuery, wPos)) !== -1) {
+      window_phrase++;
+      wPos += phraseQuery.length;
+    }
+    
+    if (window_word1 > 0 && window_word2 > 0) {
+      const actualWindowWords = endWordIdx - startWordIdx;
+      const windowLength = windowEndPos - windowStartPos;
+      
+      // Normalisiere auf 1000 Wörter
+      const normalized_word1 = actualWindowWords < WINDOW_SIZE ? 
+        (window_word1 / actualWindowWords) * WINDOW_SIZE : window_word1;
+      const normalized_word2 = actualWindowWords < WINDOW_SIZE ? 
+        (window_word2 / actualWindowWords) * WINDOW_SIZE : window_word2;
+      
+      // Kombinierter Score:
+      // - Beide Wörter müssen vorkommen (Minimum-basiert)
+      // - Phrase-Bonus (extra hoch bewertet)
+      const minOccurrences = Math.min(normalized_word1, normalized_word2);
+      const avgOccurrences = (normalized_word1 + normalized_word2) / 2;
+      
+      const proximityScore = Math.pow(minOccurrences, 0.8) * Math.sqrt(avgOccurrences);
+      const phraseBonus = window_phrase > 0 ? Math.pow(window_phrase, 1.5) * 2.0 : 1.0;
+      const density = (window_word1 + window_word2) / Math.max(windowLength, 1);
+      
+      const windowScore = proximityScore * phraseBonus * density * 
+                          (1 + Math.log(window_word1 + window_word2 + 1));
+      
+      if (windowScore > bestWindowScore) {
+        bestWindowScore = windowScore;
+      }
+    }
+  }
+  
+  // 4. Lade BEIDE Kontext-Indices
+  const contextIndex1 = loadContextIndex(word1Lower);
+  const contextIndex2 = loadContextIndex(word2Lower);
+  
+  // 5. Berechne Kontext-Relevanz für beide Wörter (Durchschnitt)
+  const contextRelevance1 = calculateContextRelevance(fullText, word1Lower, contextIndex1);
+  const contextRelevance2 = calculateContextRelevance(fullText, word2Lower, contextIndex2);
+  const avgContextRelevance = (contextRelevance1 + contextRelevance2) / 2;
+  
+  console.log(`[2-WORD-CONTEXT] "${word1}": ${contextRelevance1.toFixed(2)}, "${word2}": ${contextRelevance2.toFixed(2)}, Avg: ${avgContextRelevance.toFixed(2)}`);
+  
+  // 6. Finaler Score
+  const totalOccurrenceFactor = Math.sqrt(word1Count + word2Count);
+  const proximityFactor = proximityPairs > 0 ? 1.0 + Math.log(proximityPairs + 1) * 0.3 : 1.0;
+  const phraseFactor = phraseCount > 0 ? 1.0 + Math.log(phraseCount + 1) * 0.5 : 1.0;
+  
+  const finalScore = bestWindowScore * 
+                     totalOccurrenceFactor * 
+                     avgContextRelevance * 
+                     proximityFactor * 
+                     phraseFactor * 
+                     5; // Skalierung
+  
+  console.log(`[2-WORD-FINAL] BestWindow=${bestWindowScore.toFixed(4)}, TotalOcc=${totalOccurrenceFactor.toFixed(2)}, Proximity=${proximityFactor.toFixed(2)}, Phrase=${phraseFactor.toFixed(2)}, Context=${avgContextRelevance.toFixed(2)}, Score=${Math.min(finalScore, 1).toFixed(3)}`);
+  
+  return Math.min(finalScore, 1);
+}
+
+// Kontext-Index Cache (wird beim Start geladen)
+let contextIndexCache = {};
+
+// Hilfsfunktion: Ist ein Wort ein Substantiv? (Heuristik)
+function isSubstantive(word) {
+  const cleaned = word.replace(/[^\w]/g, '');
+  
+  if (cleaned.length < 3) return false;
+  if (!cleaned[0] || cleaned[0] !== cleaned[0].toUpperCase()) return false;
+  
+  const stopwords = new Set(['Der', 'Die', 'Das', 'Dem', 'Den', 'Des', 'Ein', 'Eine', 'Einer', 
+                             'Eines', 'Einem', 'Einen', 'Und', 'Oder', 'Aber', 'Wenn', 'Dann',
+                             'Wie', 'Was', 'Wer', 'Wo', 'Warum', 'Wann', 'Auch', 'Nur', 'Noch',
+                             'Schon', 'Sehr', 'Mehr', 'Alle', 'Jede', 'Jeder', 'Jedes', 'Manche',
+                             'Einige', 'Viele', 'Wenige', 'Andere', 'Solche', 'Welche']);
+  
+  return !stopwords.has(cleaned);
+}
+
+// Generiere Kontext-Index on-the-fly
+function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
+  console.log(`[CONTEXT] Generiere Kontext-Index für "${query}" (±${contextWords} Wörter)...`);
+  
+  const queryLower = query.toLowerCase();
+  const allContextWords = [];
+  let totalOccurrences = 0;
+  let lecturesWithTerm = 0;
+  
+  // Durchsuche alle Vorträge
+  Object.values(fullLectures).forEach(lecture => {
+    const paragraphs = lecture.paragraphs || [];
+    const fullText = paragraphs.map(p => p.content || p.text || '').join(' ');
+    const words = fullText.split(/\s+/);
+    
+    // Zähle Vorkommen
+    const occurrences = fullText.toLowerCase().split(queryLower).length - 1;
+    
+    if (occurrences > 0) {
+      totalOccurrences += occurrences;
+      lecturesWithTerm++;
+      
+      // Extrahiere Kontextwörter um jeden Treffer
+      for (let i = 0; i < words.length; i++) {
+        if (words[i].toLowerCase().includes(queryLower)) {
+          const start = Math.max(0, i - contextWords);
+          const end = Math.min(words.length, i + contextWords + 1);
+          const context = words.slice(start, i).concat(words.slice(i + 1, end));
+          allContextWords.push(...context);
+        }
+      }
+    }
+  });
+  
+  if (totalOccurrences === 0) {
+    console.log(`[CONTEXT] Keine Vorkommen gefunden für "${query}"`);
+    return null;
+  }
+  
+  console.log(`[CONTEXT] ${totalOccurrences} Vorkommen in ${lecturesWithTerm} Vorträgen`);
+  
+  // Filtere Substantive
+  const substantives = allContextWords.filter(isSubstantive);
+  
+  // Zähle Häufigkeiten
+  const wordCounts = {};
+  substantives.forEach(word => {
+    wordCounts[word] = (wordCounts[word] || 0) + 1;
+  });
+  
+  // Filtere nach Mindesthäufigkeit und sortiere
+  const filtered = {};
+  Object.entries(wordCounts)
+    .filter(([word, count]) => count >= minOccurrences)
+    .sort((a, b) => b[1] - a[1])
+    .forEach(([word, count]) => {
+      filtered[word] = count;
+    });
+  
+  const result = {
+    query: query,
+    context_words: contextWords,
+    total_occurrences: totalOccurrences,
+    lectures_with_term: lecturesWithTerm,
+    lectures_count: Object.keys(fullLectures).length, // Gesamtanzahl aller Vorträge
+    context_terms: filtered,
+    generated_at: new Date().toISOString()
+  };
+  
+  // Speichere in zentrale Indizes-Datei mit automatischer Bereinigung
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const indicesFile = path.join(__dirname, 'context-indices.json');
+    
+    // Lade bestehende Indizes
+    let allIndices = {};
+    if (fs.existsSync(indicesFile)) {
+      try {
+        allIndices = JSON.parse(fs.readFileSync(indicesFile, 'utf-8'));
+      } catch (e) {
+        console.log(`[CONTEXT] Fehler beim Laden bestehender Indizes: ${e.message}`);
+      }
+    }
+    
+    // Füge neuen Index hinzu (überschreibt alten Index für gleichen Query)
+    allIndices[queryLower] = result;
+    
+    // BEREINIGUNG: Alte und ungenutzte Indices entfernen
+    const MAX_INDICES = 100; // Maximal 100 verschiedene Keywords speichern
+    const MAX_AGE_DAYS = 90; // Indices älter als 90 Tage löschen
+    const currentDate = new Date();
+    
+    // Filtere veraltete Indices
+    const validIndices = {};
+    let removedCount = 0;
+    
+    Object.entries(allIndices).forEach(([key, indexData]) => {
+      const generatedAt = new Date(indexData.generated_at || 0);
+      const ageInDays = (currentDate - generatedAt) / (1000 * 60 * 60 * 24);
+      
+      if (ageInDays <= MAX_AGE_DAYS) {
+        validIndices[key] = indexData;
+      } else {
+        removedCount++;
+        console.log(`[CONTEXT-CLEANUP] Entferne veralteten Index: "${key}" (${ageInDays.toFixed(0)} Tage alt)`);
+      }
+    });
+    
+    // Wenn immer noch zu viele: Behalte nur die neuesten MAX_INDICES
+    if (Object.keys(validIndices).length > MAX_INDICES) {
+      const sortedByDate = Object.entries(validIndices)
+        .sort((a, b) => {
+          const dateA = new Date(a[1].generated_at || 0);
+          const dateB = new Date(b[1].generated_at || 0);
+          return dateB - dateA; // Neueste zuerst
+        })
+        .slice(0, MAX_INDICES); // Behalte nur die neuesten MAX_INDICES
+      
+      const limitRemovedCount = Object.keys(validIndices).length - MAX_INDICES;
+      allIndices = Object.fromEntries(sortedByDate);
+      console.log(`[CONTEXT-CLEANUP] ${limitRemovedCount} älteste Indices entfernt (Limit: ${MAX_INDICES})`);
+    } else {
+      allIndices = validIndices;
+    }
+    
+    if (removedCount > 0) {
+      console.log(`[CONTEXT-CLEANUP] Gesamt ${removedCount} veraltete Indices entfernt`);
+    }
+    
+    // Speichere zurück
+    fs.writeFileSync(indicesFile, JSON.stringify(allIndices, null, 2), 'utf-8');
+    console.log(`[CONTEXT] Index gespeichert in context-indices.json: ${Object.keys(filtered).length} Begriffe (${Object.keys(allIndices).length} Indices gesamt)`);
+  } catch (error) {
+    console.log(`[CONTEXT] Fehler beim Speichern: ${error.message}`);
+  }
+  
+  return result;
+}
+
+// Lade oder generiere Kontext-Index für einen Suchbegriff
+function loadContextIndex(query) {
+  const queryLower = query.toLowerCase();
+  
+  // Prüfe Cache
+  if (contextIndexCache[queryLower]) {
+    return contextIndexCache[queryLower];
+  }
+  
+  // Versuche aus zentraler Indizes-Datei zu laden
+  try {
+    const fs = require('fs');
+    const path = require('path');
+    const indicesFile = path.join(__dirname, 'context-indices.json');
+    
+    if (fs.existsSync(indicesFile)) {
+      const allIndices = JSON.parse(fs.readFileSync(indicesFile, 'utf-8'));
+      
+      if (allIndices[queryLower]) {
+        const data = allIndices[queryLower];
+        
+        // Prüfe ob Index veraltet ist (Datenbank gewachsen?)
+        const currentLectureCount = Object.keys(fullLectures).length;
+        const indexedLectureCount = data.lectures_count || 0;
+        const growthPercent = ((currentLectureCount - indexedLectureCount) / indexedLectureCount) * 100;
+        
+        // Wenn Datenbank um >5% gewachsen ist, regeneriere Index
+        if (growthPercent > 5) {
+          console.log(`[CONTEXT] Index veraltet (${indexedLectureCount} -> ${currentLectureCount} Vorträge, +${growthPercent.toFixed(1)}%), regeneriere...`);
+          // Springe zur Regenerierung (weiter unten im Code)
+        } else {
+          contextIndexCache[queryLower] = data;
+          console.log(`[CONTEXT] Kontext-Index geladen: ${Object.keys(data.context_terms).length} Begriffe (${indexedLectureCount} Vorträge)`);
+          return data;
+        }
+      }
+    }
+  } catch (error) {
+    console.log(`[CONTEXT] Fehler beim Laden: ${error.message}`);
+  }
+  
+  // Falls nicht vorhanden: Prüfe ob genug Vorkommen für Index-Generierung
+  // Schnelle Vorkommen-Prüfung
+  let totalOccurrences = 0;
+  Object.values(fullLectures).forEach(lecture => {
+    const paragraphs = lecture.paragraphs || [];
+    const fullText = paragraphs.map(p => p.content || p.text || '').join(' ');
+    totalOccurrences += (fullText.toLowerCase().match(new RegExp(queryLower, 'g')) || []).length;
+  });
+  
+  console.log(`[CONTEXT] "${query}" hat ${totalOccurrences} Vorkommen gesamt`);
+  
+  // Nur für häufigere Begriffe (≥5 Vorkommen) Index generieren
+  if (totalOccurrences >= 5) {
+    console.log(`[CONTEXT] Generiere Index (≥5 Vorkommen)...`);
+    const newIndex = generateContextIndex(query);
+    
+    if (newIndex) {
+      contextIndexCache[queryLower] = newIndex;
+    }
+    
+    return newIndex;
+  } else {
+    console.log(`[CONTEXT] Zu wenige Vorkommen (<5), kein Index generiert`);
+    return null;
+  }
+}
+
+// Berechne Kontext-Relevanz: Wie viele typische Kontextwörter kommen im Vortrag vor?
+function calculateContextRelevance(fullText, query, contextIndex) {
+  if (!contextIndex || !contextIndex.context_terms) {
+    return 1.0; // Neutral, wenn kein Kontext-Index vorhanden
+  }
+  
+  const fullTextLower = fullText.toLowerCase();
+  const contextTerms = contextIndex.context_terms;
+  const topTerms = Object.entries(contextTerms)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 50); // Nutze Top 50 Kontextwörter
+  
+  let matchedTerms = 0;
+  let weightedMatches = 0;
+  
+  for (const [term, frequency] of topTerms) {
+    const termLower = term.toLowerCase();
+    
+    // Zähle Vorkommen des Kontextworts im Vortrag
+    let count = 0;
+    let pos = 0;
+    while ((pos = fullTextLower.indexOf(termLower, pos)) !== -1) {
+      count++;
+      pos += termLower.length;
+    }
+    
+    if (count > 0) {
+      matchedTerms++;
+      // Gewichte nach Häufigkeit im Kontext-Index
+      weightedMatches += Math.min(count, 5) * Math.log(frequency + 1);
+    }
+  }
+  
+  // Normalisiere: Je mehr typische Kontextwörter vorkommen, desto höher die Relevanz
+  const matchRatio = matchedTerms / Math.min(topTerms.length, 20); // Normiere auf Top 20
+  const contextRelevance = 1.0 + (matchRatio * 2.0); // Faktor 1.0 - 3.0
+  
+  return Math.min(contextRelevance, 3.0);
+}
+
+// Hilfsfunktion: Relevanz-Score für einen Vortrag berechnen (1000-Wörter-Fenster + Kontext Version)
 function calculateRelevanceScoreForLecture(lectureResults, query) {
   if (!lectureResults || lectureResults.length === 0) return 0;
   
   const queryLower = query.toLowerCase();
-  let totalScore = 0;
-  let totalLength = 0;
-  let totalOccurrences = 0;
   
-  lectureResults.forEach(result => {
+  // Sortiere Ergebnisse nach paragraphIndex
+  const sortedResults = [...lectureResults].sort((a, b) => 
+    (a.paragraphIndex || 0) - (b.paragraphIndex || 0)
+  );
+  
+  // Erstelle einen zusammenhängenden Text mit Wort-Positionen
+  let fullText = '';
+  let wordPositions = []; // [{ wordIndex, paragraphIndex, startPos, endPos }]
+  let currentWordIndex = 0;
+  
+  sortedResults.forEach((result, paraIdx) => {
     const content = result.content || '';
-    const contentLower = content.toLowerCase();
+    const words = content.split(/\s+/);
     
-    // Zähle Vorkommen des Suchbegriffs
-    let occurrences = 0;
-    let pos = 0;
-    while ((pos = contentLower.indexOf(queryLower, pos)) !== -1) {
-      occurrences++;
-      pos += queryLower.length;
-    }
-    
-    if (occurrences > 0) {
-      totalOccurrences += occurrences;
+    words.forEach(word => {
+      const startPos = fullText.length;
+      fullText += word + ' ';
+      const endPos = fullText.length;
       
-      // Keyword-Dichte (höherer Gewichtungsfaktor)
-      const density = occurrences / content.length;
+      wordPositions.push({
+        wordIndex: currentWordIndex,
+        paragraphIndex: paraIdx,
+        startPos: startPos,
+        endPos: endPos
+      });
       
-      // Kontext-Score (längere Absätze = höherer Score)
-      const contextScore = Math.min(content.length / 500, 1); // Reduziert von 1000 auf 500
-      
-      // Bonus für Mehrfachtreffer im gleichen Absatz
-      const multipleOccurrenceBonus = Math.min(occurrences / 3, 1); // Bonus bis zu 3 Vorkommen
-      
-      // Kombinierter Score für diesen Absatz
-      const paragraphScore = density * contextScore * (1 + multipleOccurrenceBonus) * Math.sqrt(occurrences);
-      totalScore += paragraphScore;
-      totalLength += content.length;
-    }
+      currentWordIndex++;
+    });
   });
   
-  // Normalisiere den Score (verbesserte Berechnung)
-  const normalizedScore = totalLength > 0 ? totalScore / lectureResults.length : 0;
+  const totalWords = currentWordIndex;
+  const fullTextLower = fullText.toLowerCase();
   
-  // Skaliere den Score für bessere Verteilung (multipliziere mit 50 statt 100)
-  const scaledScore = normalizedScore * 50;
-  
-  // Debug-Ausgabe für die ersten Vorträge
-  if (totalOccurrences > 0) {
-    console.log(`[RELEVANCE-CALC] Query="${query}", Occurrences=${totalOccurrences}, Chunks=${lectureResults.length}, Score=${scaledScore.toFixed(3)}`);
+  // 1. Parameter: Gesamtvorkommen im ganzen Text zählen
+  let totalOccurrences = 0;
+  let occurrencePositions = [];
+  let pos = 0;
+  while ((pos = fullTextLower.indexOf(queryLower, pos)) !== -1) {
+    totalOccurrences++;
+    occurrencePositions.push(pos);
+    pos += queryLower.length;
   }
   
-  return Math.min(scaledScore, 1); // Begrenze auf 0-1
+  if (totalOccurrences === 0) return 0;
+  
+  // 2. Sliding Window über 1000 Wörter
+  const WINDOW_SIZE = 1000; // Wörter
+  let bestWindowScore = 0;
+  
+  // Verschiebe das Fenster über den Text (Schrittweite: 250 Wörter für Performance)
+  for (let startWordIdx = 0; startWordIdx < totalWords; startWordIdx += 250) {
+    const endWordIdx = Math.min(startWordIdx + WINDOW_SIZE, totalWords);
+    
+    if (startWordIdx >= totalWords) break;
+    
+    // Bestimme Textbereich für dieses Fenster
+    const windowStartPos = wordPositions[startWordIdx]?.startPos || 0;
+    const windowEndPos = wordPositions[endWordIdx - 1]?.endPos || fullText.length;
+    const windowText = fullTextLower.substring(windowStartPos, windowEndPos);
+    
+    // Zähle Vorkommen in diesem Fenster
+    let windowOccurrences = 0;
+    let windowPos = 0;
+    while ((windowPos = windowText.indexOf(queryLower, windowPos)) !== -1) {
+      windowOccurrences++;
+      windowPos += queryLower.length;
+    }
+    
+    if (windowOccurrences > 0) {
+      const actualWindowWords = endWordIdx - startWordIdx;
+      
+      // SCHRITT 1: Proximity-Score (Häufigkeit pro 1000 Wörter)
+      // Normalisiere auf 1000 Wörter, falls Fenster kleiner
+      const normalizedOccurrences = actualWindowWords < WINDOW_SIZE ? 
+        (windowOccurrences / actualWindowWords) * WINDOW_SIZE : windowOccurrences;
+      
+      // Proximity-Score: Je mehr Vorkommen im 1000-Wörter-Fenster, desto höher
+      // Reduzierter Exponent für mehr Differenzierung
+      const proximityScore = Math.pow(normalizedOccurrences, 1.0); // Von 1.3 auf 1.0 reduziert (linear)
+      
+      // SCHRITT 2: Dichte-Bewertung (Vorkommen pro Zeichen im Fenster)
+      const windowLength = windowEndPos - windowStartPos;
+      const densityInWindow = windowOccurrences / Math.max(windowLength, 1);
+      
+      // Kombinierter Window-Score
+      const windowScore = 
+        proximityScore *                        // Proximity (Häufigkeit im Fenster)
+        densityInWindow *                       // Dichte (Zeichen-basiert)
+        (1 + Math.log(windowOccurrences + 1)); // Log-Bonus
+      
+      // Behalte besten Window-Score
+      if (windowScore > bestWindowScore) {
+        bestWindowScore = windowScore;
+      }
+    }
+  }
+  
+  // 3. Kontext-Relevanz berechnen
+  const contextIndex = loadContextIndex(query);
+  const contextRelevance = calculateContextRelevance(fullText, query, contextIndex);
+  
+  // 4. Normalisierung mit Gesamtvorkommen
+  const totalOccurrenceFactor = Math.sqrt(totalOccurrences);
+  
+  // Finaler Score = Window-Score × Gesamtvorkommen × Kontext-Relevanz × Skalierung
+  const finalScore = bestWindowScore * totalOccurrenceFactor * contextRelevance * 5;
+  
+  // Debug-Ausgabe
+  if (totalOccurrences > 0) {
+    console.log(`[RELEVANCE-CONTEXT] Query="${query}", TotalOcc=${totalOccurrences}, BestWindow=${bestWindowScore.toFixed(6)}, Context=${contextRelevance.toFixed(2)}, FinalScore=${Math.min(finalScore, 1).toFixed(3)}`);
+  }
+  
+  return Math.min(finalScore, 1);
 }
 
 async function performHybridSearch(query, limit = 20) {
@@ -1024,13 +1557,38 @@ async function performHybridSearch(query, limit = 20) {
 
 app.post('/api/fulltext-search', async (req, res) => {
   try {
-    const { word1, word2, proximity = null } = req.body;
+    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null, relevanceFilter = 'alle' } = req.body;
     
     if (!word1) {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
-    console.log(`Volltext-Suche: "${word1}"${word2 ? ` + "${word2}"` : ''}${proximity ? ` (Proximity: ${proximity})` : ''}`);
+    // Bei Zwei-Wort-Suche ohne explizite Proximity: Setze automatisch auf max. 2 Absätze
+    let effectiveProximity = proximity;
+    if (word2 && !proximity) {
+      effectiveProximity = 2;
+      console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 2 Absätze`);
+    }
+    
+    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]`);
+    
+    // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
+    const searchInText = (text, searchTerm, isPhrase) => {
+      if (!searchTerm) return false;
+      const textLower = text.toLowerCase();
+      const termLower = searchTerm.toLowerCase();
+      
+      if (isPhrase) {
+        // Exakte Phrasensuche: Wortgrenzen beachten
+        // \b funktioniert nicht gut mit Umlauten, daher verwende manuelle Wortgrenze
+        const escapedTerm = termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`, 'i');
+        return regex.test(text);
+      } else {
+        // Flexible Suche: auch Teilwörter erlaubt
+        return textLower.includes(termLower);
+      }
+    };
     
     const results = [];
     const addedParagraphs = new Set();
@@ -1039,30 +1597,35 @@ app.post('/api/fulltext-search', async (req, res) => {
       const paragraphs = lecture.paragraphs || [];
       
       paragraphs.forEach((para, paraIndex) => {
-        const content = (para.content || para.text || '').toLowerCase();
-        const hasWord1 = word1 && content.includes(word1.toLowerCase());
-        const hasWord2 = word2 && content.includes(word2.toLowerCase());
+        const content = (para.content || para.text || '');
+        const hasWord1 = word1 && searchInText(content, word1, word1IsPhrase);
+        const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
         
         const paragraphsToAdd = [];
         
         if (!word2) {
+          // Einzelwort-Suche
           if (hasWord1) {
             paragraphsToAdd.push(paraIndex);
           }
-        } else if (!proximity) {
+        } else if (!effectiveProximity) {
+          // Zwei-Wort-Suche OHNE Proximity (sollte nicht mehr vorkommen, da effectiveProximity automatisch gesetzt wird)
           if (hasWord1 || hasWord2) {
             paragraphsToAdd.push(paraIndex);
           }
         } else {
-          const maxDist = parseInt(proximity);
+          // Zwei-Wort-Suche MIT Proximity (Standard: max. 2 Absätze)
+          const maxDist = parseInt(effectiveProximity);
           
           if (hasWord1 && hasWord2) {
+            // Beide Wörter im gleichen Absatz → immer hinzufügen
             paragraphsToAdd.push(paraIndex);
           } else if (hasWord1) {
+            // Nur word1 im aktuellen Absatz → suche word2 in benachbarten Absätzen
             for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
               if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '').toLowerCase();
-                if (neighborContent.includes(word2.toLowerCase())) {
+                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
+                if (searchInText(neighborContent, word2, word2IsPhrase)) {
                   paragraphsToAdd.push(paraIndex);
                   paragraphsToAdd.push(i);
                   break;
@@ -1070,10 +1633,11 @@ app.post('/api/fulltext-search', async (req, res) => {
               }
             }
           } else if (hasWord2) {
+            // Nur word2 im aktuellen Absatz → suche word1 in benachbarten Absätzen
             for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
               if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '').toLowerCase();
-                if (neighborContent.includes(word1.toLowerCase())) {
+                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
+                if (searchInText(neighborContent, word1, word1IsPhrase)) {
                   paragraphsToAdd.push(paraIndex);
                   paragraphsToAdd.push(i);
                   break;
@@ -1088,7 +1652,7 @@ app.post('/api/fulltext-search', async (req, res) => {
           if (!addedParagraphs.has(key)) {
             addedParagraphs.add(key);
             const p = paragraphs[idx];
-            const pContent = (p.content || p.text || '').toLowerCase();
+            const pContent = (p.content || p.text || '');
             
             results.push({
               ID: lecture.ID,
@@ -1099,8 +1663,8 @@ app.post('/api/fulltext-search', async (req, res) => {
               paragraphIndex: idx,
               index: p.index,
               content: p.content || p.text,
-              hasWord1: pContent.includes(word1.toLowerCase()),
-              hasWord2: word2 && pContent.includes(word2.toLowerCase())
+              hasWord1: searchInText(pContent, word1, word1IsPhrase),
+              hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase)
             });
           }
         });
@@ -1113,14 +1677,30 @@ app.post('/api/fulltext-search', async (req, res) => {
     const searchQuery = word2 ? `${word1} ${word2}` : word1;
     const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
     
+    // Backend-Filterung nach Relevanz
+    let filteredResults = resultsWithRelevance;
+    if (relevanceFilter && relevanceFilter !== 'alle') {
+      filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
+      console.log(`[BACKEND-FILTER] ${resultsWithRelevance.length} -> ${filteredResults.length} Ergebnisse nach Filter "${relevanceFilter}"`);
+    }
+    
     // Query-Tracking
-    if (word1) trackQueryTerms(word1, results.length);
-    if (word2) trackQueryTerms(word2, results.length);
+    if (word1) trackQueryTerms(word1, filteredResults.length);
+    if (word2) trackQueryTerms(word2, filteredResults.length);
     
     res.json({
-      query: { word1, word2, proximity },
-      results: resultsWithRelevance,
-      resultCount: resultsWithRelevance.length
+      query: { 
+        word1, 
+        word2, 
+        word1IsPhrase, 
+        word2IsPhrase, 
+        proximity: effectiveProximity, // Verwende effectiveProximity statt proximity
+        originalProximity: proximity,   // Optional: ursprünglicher Wert
+        relevanceFilter 
+      },
+      results: filteredResults,
+      resultCount: filteredResults.length,
+      unfilteredCount: resultsWithRelevance.length
     });
     
   } catch (error) {
@@ -1482,31 +2062,17 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → Generiere neue Zusammenfassung...`);
     const summaryData = await generateLectureSummary(lecture);
     
-    // Speichere nur in zentrale Summary-Datenbank (kein Memory-Cache mehr)
+    // Speichere in zentrale Summary-Datenbank mit robustem Locking
     try {
-      console.log(`[SPEICHERUNG] Lade aktuelle Summary-DB...`);
-      const summaryDB = await loadSummaryDatabase();
-      console.log(`[SPEICHERUNG] Aktuelle DB hat ${Object.keys(summaryDB).length} Einträge`);
-      
-      summaryDB[lectureId] = {
+      await saveSummaryToDatabase(lectureId, {
         summary: summaryData.summary,
-        headings: summaryData.headings || [],
-        timestamp: new Date().toISOString()
-      };
-      console.log(`[SPEICHERUNG] Füge Summary für ${lectureId} hinzu...`);
-      
-      const success = await saveSummaryDatabase(summaryDB);
-      if (success) {
-        console.log(`[SPEICHERUNG] ✓ Summary für ${lectureId} erfolgreich in zentrale DB gespeichert`);
-      } else {
-        console.error(`[SPEICHERUNG] ✗ Speicherung fehlgeschlagen für ${lectureId}`);
-      }
+        headings: summaryData.headings || []
+      });
+      console.log(`  ✓ Summary für ${lectureId} sicher in DB gespeichert`);
     } catch (dbError) {
-      console.error(`[SPEICHERUNG] ✗ Zentrale DB-Speicherung fehlgeschlagen für ${lectureId}:`, dbError.message);
-      console.error(`[SPEICHERUNG] Stack:`, dbError.stack);
+      console.error(`[SPEICHERUNG] ✗ Fehler beim Speichern von ${lectureId}:`, dbError.message);
+      // Werfe Fehler nicht weiter, Response sollte trotzdem gesendet werden
     }
-    
-    // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
     
     console.log(`  ✓ Zusammenfassung erstellt und in zentrale DB gespeichert`);
     
@@ -2977,12 +3543,8 @@ app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
       }
     });
 
-    // Lösche aus zentraler DB
-    toDelete.forEach(id => {
-      delete summaryDB[id];
-      deletedCount++;
-    });
-    await saveSummaryDatabase(summaryDB);
+    // Lösche aus zentraler DB mit robustem Locking
+    deletedCount = await deleteSummariesFromDatabase(toDelete);
 
     console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
 
@@ -3100,6 +3662,14 @@ app.post('/api/keywords-delete', async (req, res) => {
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 
+// ============================================================================
+// ROBUSTE SUMMARY-DATENBANK MIT LOCKING-MECHANISMUS
+// ============================================================================
+
+// Lock-Queue für sequenzielles Schreiben in die Summary-DB
+let summaryDbWriteQueue = Promise.resolve();
+let summaryDbLock = false;
+
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
   try {
@@ -3111,7 +3681,7 @@ async function loadSummaryDatabase() {
   }
 }
 
-// Speichere zentrale Summary-Datenbank
+// Speichere zentrale Summary-Datenbank (veraltet - verwende saveSummaryToDatabase)
 async function saveSummaryDatabase(summaryDB) {
   try {
     await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
@@ -3123,6 +3693,80 @@ async function saveSummaryDatabase(summaryDB) {
   }
 }
 
+// ROBUSTE FUNKTION: Speichere einzelne Summary in Datenbank (mit Locking)
+// Diese Funktion verhindert Race Conditions bei parallelen Schreibzugriffen
+async function saveSummaryToDatabase(lectureId, summaryData) {
+  // Reihe diese Operation in die Queue ein
+  return new Promise((resolve, reject) => {
+    summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
+      try {
+        console.log(`[LOCK] Sperre DB für ${lectureId}...`);
+        
+        // Lade immer die aktuellste Version der Datenbank
+        const summaryDB = await loadSummaryDatabase();
+        
+        // Füge neue Summary hinzu oder aktualisiere bestehende
+        summaryDB[lectureId] = {
+          summary: summaryData.summary,
+          headings: summaryData.headings || [],
+          timestamp: new Date().toISOString()
+        };
+        
+        // Speichere Datenbank
+        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+        
+        console.log(`[LOCK] ✓ Summary für ${lectureId} gespeichert (${Object.keys(summaryDB).length} Einträge total)`);
+        
+        resolve(true);
+        
+      } catch (error) {
+        console.error(`[LOCK] ✗ Fehler beim Speichern von ${lectureId}:`, error);
+        reject(error);
+      }
+    }).catch(error => {
+      console.error('[LOCK] Queue-Fehler:', error);
+      reject(error);
+    });
+  });
+}
+
+// ROBUSTE FUNKTION: Lösche mehrere Summaries aus Datenbank (mit Locking)
+async function deleteSummariesFromDatabase(lectureIds) {
+  return new Promise((resolve, reject) => {
+    summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
+      try {
+        console.log(`[LOCK] Sperre DB für Bulk-Delete (${lectureIds.length} Einträge)...`);
+        
+        // Lade immer die aktuellste Version der Datenbank
+        const summaryDB = await loadSummaryDatabase();
+        
+        // Lösche Einträge
+        let deletedCount = 0;
+        lectureIds.forEach(id => {
+          if (summaryDB[id]) {
+            delete summaryDB[id];
+            deletedCount++;
+          }
+        });
+        
+        // Speichere Datenbank
+        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+        
+        console.log(`[LOCK] ✓ ${deletedCount} Summaries gelöscht (${Object.keys(summaryDB).length} Einträge verbleiben)`);
+        
+        resolve(deletedCount);
+        
+      } catch (error) {
+        console.error(`[LOCK] ✗ Fehler beim Löschen:`, error);
+        reject(error);
+      }
+    }).catch(error => {
+      console.error('[LOCK] Queue-Fehler:', error);
+      reject(error);
+    });
+  });
+}
+
 // API: Summary speichern
 app.post('/api/save-summary', async (req, res) => {
   try {
@@ -3132,21 +3776,13 @@ app.post('/api/save-summary', async (req, res) => {
       return res.status(400).json({ error: 'lectureId und summary sind erforderlich' });
     }
     
-    // Lade aktuelle DB
-    const summaryDB = await loadSummaryDatabase();
-    
-    // Füge Summary hinzu
-    summaryDB[lectureId] = {
+    // Verwende robuste Speicherfunktion mit Locking
+    const success = await saveSummaryToDatabase(lectureId, {
       summary: summary.summary,
-      headings: summary.headings || [],
-      timestamp: new Date().toISOString()
-    };
-    
-    // Speichere DB
-    const success = await saveSummaryDatabase(summaryDB);
+      headings: summary.headings || []
+    });
     
     if (success) {
-      console.log(`Summary für ${lectureId} in zentrale DB gespeichert`);
       res.json({ success: true, message: `Summary für ${lectureId} gespeichert` });
     } else {
       res.status(500).json({ error: 'Fehler beim Speichern' });
