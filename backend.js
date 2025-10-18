@@ -1678,13 +1678,20 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
     
-    // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen
-    const searchQuery = word2 ? `${word1} ${word2}` : word1;
-    const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
+    // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen (außer bei "ohne")
+    let resultsWithRelevance;
+    if (relevanceFilter === 'ohne') {
+      // Schnelle Suche ohne Relevanzberechnung
+      console.log('[RELEVANZ] Überspringe Relevanzberechnung (Filter: ohne)');
+      resultsWithRelevance = results;
+    } else {
+      const searchQuery = word2 ? `${word1} ${word2}` : word1;
+      resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
+    }
     
     // Backend-Filterung nach Relevanz
     let filteredResults = resultsWithRelevance;
-    if (relevanceFilter && relevanceFilter !== 'alle') {
+    if (relevanceFilter && relevanceFilter !== 'alle' && relevanceFilter !== 'ohne') {
       filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
       console.log(`[BACKEND-FILTER] ${resultsWithRelevance.length} -> ${filteredResults.length} Ergebnisse nach Filter "${relevanceFilter}"`);
     }

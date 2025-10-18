@@ -8,7 +8,9 @@
 - **Thematische Suche** – KI-gestützte semantische Analyse
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
-Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldungen** wenden Sie sich bitte an Dr. Christoph Hueck, hueck@akanthos-akademie.de 
+Ihre Such-Anfragen werden nicht gespeichert.
+
+Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldungen** wenden Sie sich bitte an Dr. Christoph Hueck, hueck@akanthos-akademie.de. 
 
 **Hinweis**: Bitte markieren Sie **Rechtschreibfehler** und speichern Sie sie mit Hilfe der rechten Maustaste - das erleichtert uns die Korrekturen. 
 
