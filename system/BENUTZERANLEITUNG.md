@@ -18,16 +18,12 @@ Das rechte Seitenfenster zeigt Zwischenüberschriften zu den angezeigten Vorträ
 - Für exakte Ergebnisse Suchwort oder -Phrase in Anführungszeichen setzen 
 - Bei Eingabe von zwei Suchwörtern werden Textstellen gefunden, bei denen beide Wörter innerhalb von max. 2 Absätzen vorkommen
 
-**Relevanz-Filter:**
+**Relevanz-Filter**
 
 - **Alle**: Zeigt alle Treffer (Standard)
-- **Hoch 🟩**: Nur hoch relevante Treffer
-  - Beide Wörter häufig und nah beieinander
-  - Starker thematischer Kontext
-- **Mittel 🟧**: Mittlere Relevanz
-  - Beide Wörter vorhanden, aber seltener oder weiter entfernt
-- **Niedrig 🟨**: Niedrige Relevanz
-  - Beide Wörter vorhanden, aber selten oder weit auseinander
+- **Hoch 🟩**: Suchwort/e kommt mehrfach vor, häufig und nah beieinander, starker thematischer Kontext
+- **Mittel 🟧**: Suchwort/e kommt mehrfach vor, aber seltener oder weiter entfernt
+- **Niedrig 🟨**: Suchwort/e kommt einfach oder mehrfach, aber dann selten oder weit auseinander vor
 
 Der Relevanzfilter funktioniert vor der Suche. Bei Auswahl von "hoch" werden nur hochrelevante Treffer angezeigt.
 
@@ -42,7 +38,7 @@ Der Relevanzfilter funktioniert vor der Suche. Bei Auswahl von "hoch" werden nur
 
 - Chronologische Übersicht aller hier verfügbaren GA-Bände mit Titel, Jahresangabe und Vortragsliste
 - Klicken auf einen **Band-Titel** öffnet die Liste aller Vorträge des Bandes
-- Klicken auf einen **Vortragstitel** öffnet vollständigen Vortragstext
+- Klicken auf einen **Vortragstitel** öffnet den vollständigen Vortragstext
 - Zusammenfassungen und Zwischenüberschriften wurden von KI generiert
 
 ---
@@ -63,8 +59,7 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 
 #### Tab "Index"
 
-- Wichtige Schlagwörter
-- Ergebnisse erstellt mit KI-Unterstützung
+- Wachsende Liste wichtiger Schlagwörter, mit KI-Unterstützung erstellt
 
 ---
 
@@ -81,11 +76,6 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 - System analysiert Text in 1000-Wörter-Fenstern
 - Findet Bereiche mit höchster Begriffsdichte
 - Normalisiert auf Textlänge
-
-**Kontext-Index**
-- Automatische Analyse typischer Umgebungswörter
-- Wird beim ersten Suchen eines Begriffs erstellt
-- Aktualisiert sich automatisch bei Datenbank-Wachstum (>5%)
 
 ---
 
