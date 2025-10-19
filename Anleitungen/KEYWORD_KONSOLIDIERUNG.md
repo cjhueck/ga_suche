@@ -42,6 +42,13 @@ Gruppiert alle Keywords mittels KI (Claude Sonnet 4) in übergeordnete Themen. D
      - Zuordnung zu Vorträgen
    - Die Themes sind sofort in den Filter-Dropdowns verfügbar
 
+### Aktuelle Einschränkung (Stand: Oktober 2025)
+⚠️ **Wichtig**: Die Themen-Generierung verwendet aktuell nur die **Top 300 häufigsten Keywords** aus der Datenbank (~23.000 Keywords). Dies ist eine temporäre Lösung aufgrund von:
+- Claude API Token-Limits (max ~8192 Tokens)
+- HTTP 500 Fehler bei zu großen Keyword-Listen
+
+📋 **Geplante Erweiterung**: Siehe Abschnitt 10 für die vollständige Batch-Verarbeitung aller Keywords.
+
 ### Wann verwenden?
 - Erstmalige Einrichtung der thematischen Navigation
 - Nach größeren Änderungen an der Keyword-Datenbank
@@ -399,6 +406,265 @@ similarity = commonPrefix / maxLength
 
 ---
 
+## 10. Geplante Erweiterung: Vollständige Keyword-Erfassung
+
+### Problem: Top 300 Limitierung
+
+**Aktueller Stand**:
+- Nur die 300 häufigsten Keywords werden für Themen-Generierung verwendet
+- Restliche ~22.700 Keywords werden nicht erfasst
+- Resultat: Viele Keywords erscheinen nicht in thematischen Zuordnungen
+
+**Warum die Limitierung?**:
+- Claude API Token-Limit: ~8.000 Tokens Input
+- 23.000 Keywords = ~100.000+ Tokens (überschreitet Limit massiv)
+- HTTP 500 Fehler bei zu großen Anfragen
+
+### Geplante Lösung: Hierarchische Batch-Verarbeitung (Option 2)
+
+#### Phase 1: Haupt-Themen generieren (einmalig)
+
+1. **Flexible Themenanzahl**: 
+   - Benutzer wählt Anzahl (10-50 Themen)
+   - Standard: 30 Themen
+
+2. **Basis-Keywords**: 
+   - Top 300-500 häufigste Keywords
+   - Diese bilden die Kern-Charakteristik jedes Themas
+
+3. **Ergebnis**: 
+   - 30 klar definierte Haupt-Themen
+   - Jedes Thema hat charakteristische Keywords
+   - Beispiel: "Karma und Reinkarnation", "Christologie", "Atlantis und Mysterien"
+
+#### Phase 2: Batch-Zuordnung aller restlichen Keywords
+
+**Prozess**:
+
+1. **Batch-Größe**: 500 Keywords pro Anfrage
+
+2. **Anzahl Batches**: 
+   - ~23.000 Keywords / 500 = ~46 Batches
+   - Pro Batch: ca. 3-5 Sekunden
+
+3. **API-Anfrage pro Batch**:
+   ```
+   Prompt: "Ordne diese 500 Keywords einem der folgenden 30 Themen zu:
+   
+   Themen:
+   1. Karma und Reinkarnation
+   2. Christologie und Evangelien
+   3. Atlantis und Mysterien
+   ... (alle 30 Themen)
+   
+   Keywords:
+   - Astralleib
+   - Bewusstseinsentwicklung
+   - Chakren
+   ... (500 Keywords)
+   
+   Gib zurück: {keyword: thema}"
+   ```
+
+4. **Kosten**:
+   - Nur Klassifizierung, keine Themen-Generierung
+   - ~$0.01-0.02 pro Batch
+   - Gesamt: ~$0.50-1.00 für alle 23.000 Keywords
+
+5. **Dauer**:
+   - 46 Batches × 4 Sekunden = ~3 Minuten
+   - Mit Progress-Bar sichtbar
+
+#### Phase 3: Zusammenführung und Speicherung
+
+1. **Merge mit Phase 1**:
+   - Basis-Themen (Top 300) + zugeordnete Keywords
+   - Duplikate entfernen
+
+2. **Neue themes-database.json**:
+   ```json
+   {
+     "Karma und Reinkarnation": {
+       "keywords": [
+         "Karma", "Reinkarnation", "Wiedergeburt",
+         "Schicksal", "Ausgleich", ...
+         // ALLE zugeordneten Keywords, nicht nur Top 300
+       ],
+       "keywordCount": 847,
+       "source": "generated+batch"
+     }
+   }
+   ```
+
+### Implementierungs-Schritte (TODO)
+
+#### Backend (backend.js)
+
+**Neue Funktionen**:
+```javascript
+// 1. Batch-Zuordnung
+async function assignKeywordsToBatches(allKeywords, themes, batchSize = 500)
+
+// 2. Claude API für Klassifizierung
+async function classifyKeywordBatch(keywords, themeNames)
+
+// 3. Progress-Tracking
+function updateBatchProgress(current, total)
+```
+
+**Neuer API-Endpoint**:
+```javascript
+app.post('/api/assign-all-keywords-to-themes', async (req, res) => {
+  // 1. Lade themes-database (Haupt-Themen)
+  // 2. Sammle ALLE Keywords aus keywords-database
+  // 3. Filtere bereits zugeordnete raus
+  // 4. Batch-Verarbeitung mit Progress-Updates
+  // 5. Merge und speichere erweiterte themes-database
+})
+```
+
+#### Frontend (index.html)
+
+**Neue UI-Komponente** (nach "Themen generieren"):
+```html
+<div style="margin-top: 1rem; padding: 0.8rem; background: var(--sidebar-bg); 
+     border-radius: 4px; border: 1px solid var(--border-color);">
+  <h4>Alle Keywords den Themen zuordnen</h4>
+  <p style="font-size: 0.9em; color: var(--secondary-text);">
+    Ordnet alle ~23.000 Keywords den generierten Themen zu 
+    (Dauer: ~3 Min, Kosten: ~$0.50-1.00)
+  </p>
+  
+  <div id="batchAssignStats">
+    <span>Haupt-Themen: <strong>30</strong></span> | 
+    <span>Bereits zugeordnet: <strong>300</strong> Keywords</span> | 
+    <span>Verbleibend: <strong>22.751</strong> Keywords</span>
+  </div>
+  
+  <button onclick="assignAllKeywordsToThemes()" 
+          style="margin-top: 0.5rem; padding: 8px 16px; 
+                 background: #467886; color: white;">
+    Batch-Zuordnung starten
+  </button>
+  
+  <!-- Progress Bar -->
+  <div id="batchAssignProgress" style="display: none; margin-top: 0.8rem;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
+      <span>Batch <span id="batchCurrent">0</span> / <span id="batchTotal">46</span></span>
+      <span><span id="batchPercent">0</span>%</span>
+    </div>
+    <div style="width: 100%; height: 8px; background: var(--border-color); 
+                border-radius: 4px; overflow: hidden;">
+      <div id="batchProgressBar" style="width: 0%; height: 100%; 
+           background: #467886; transition: width 0.3s;"></div>
+    </div>
+  </div>
+  
+  <div id="batchAssignStatus" style="display: none; margin-top: 0.5rem;"></div>
+</div>
+```
+
+**Neue JavaScript-Funktion**:
+```javascript
+async function assignAllKeywordsToThemes() {
+  // 1. Bestätigung
+  if (!confirm('Alle Keywords den Themen zuordnen?\n\nDauer: ~3 Min\nKosten: ~$0.50-1.00')) {
+    return;
+  }
+  
+  // 2. UI vorbereiten
+  const progressDiv = document.getElementById('batchAssignProgress');
+  const statusDiv = document.getElementById('batchAssignStatus');
+  progressDiv.style.display = 'block';
+  
+  try {
+    // 3. API-Call mit Server-Sent Events für Progress
+    const eventSource = new EventSource(`${API_BASE}/api/assign-all-keywords-to-themes`);
+    
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      
+      if (data.type === 'progress') {
+        // Update Progress Bar
+        document.getElementById('batchCurrent').textContent = data.current;
+        document.getElementById('batchTotal').textContent = data.total;
+        document.getElementById('batchPercent').textContent = 
+          ((data.current / data.total) * 100).toFixed(1);
+        document.getElementById('batchProgressBar').style.width = 
+          `${(data.current / data.total) * 100}%`;
+      }
+      
+      if (data.type === 'complete') {
+        eventSource.close();
+        statusDiv.innerHTML = `<div style="color: #5cb85c;">
+          ✓ Batch-Zuordnung abgeschlossen!<br>
+          ${data.totalAssigned} Keywords zugeordnet<br>
+          Neue themes-database.json gespeichert
+        </div>`;
+        statusDiv.style.display = 'block';
+      }
+    };
+    
+  } catch (error) {
+    console.error('[BATCH-ASSIGN] Fehler:', error);
+    statusDiv.innerHTML = `<div style="color: #d9534f;">✗ Fehler: ${error.message}</div>`;
+  }
+}
+```
+
+### Vorteile der Batch-Lösung
+
+✅ **Vollständigkeit**: Alle 23.000+ Keywords erfasst  
+✅ **Kosteneffizient**: Nur Klassifizierung (~$1 statt $10+)  
+✅ **Schnell**: ~3 Minuten statt Stunden  
+✅ **Skalierbar**: Funktioniert auch bei 50.000+ Keywords  
+✅ **Transparent**: Progress-Bar zeigt Fortschritt  
+✅ **Flexibel**: Themenanzahl frei wählbar (10-50)  
+
+### Workflow nach Implementierung
+
+```
+1. Themen-Generierung (Basis)
+   → Input: Top 300-500 Keywords
+   → Output: 30 Haupt-Themen mit Kern-Keywords
+   → Dauer: 30-60 Sekunden
+   → Kosten: ~$0.30
+
+2. Batch-Zuordnung (Vollständig)
+   → Input: Restliche ~22.700 Keywords + 30 Themen
+   → Output: Erweiterte themes-database mit ALLEN Keywords
+   → Dauer: ~3 Minuten
+   → Kosten: ~$0.50-1.00
+
+3. Ergebnis
+   → Jedes der 30 Themen hat jetzt 500-1500 Keywords
+   → ALLE Keywords sind thematisch zugeordnet
+   → Filter-Dropdowns zeigen vollständige Listen
+```
+
+### Priorisierung
+
+**Phase 1** (Jetzt implementiert):
+- ✅ Themen-Generierung mit Top 300
+- ✅ Flexible Themenanzahl (10-50)
+- ✅ Konsolidierungs-System
+
+**Phase 2** (Nächster Schritt - TODO):
+- ⏳ Batch-Zuordnung aller Keywords
+- ⏳ Progress-Tracking mit Server-Sent Events
+- ⏳ Erweiterte themes-database
+
+**Phase 3** (Optional, später):
+- ⏳ Manuelle Keyword-Verschiebung zwischen Themen
+- ⏳ Themen-Merge (2 Themen zusammenführen)
+- ⏳ Themen-Split (1 Thema in 2 aufteilen)
+
+---
+
 **Stand**: Oktober 2025  
-**Version**: 1.0  
+**Version**: 1.1  
 **Projekt**: GA-Suche (Rudolf Steiner Gesamtausgabe)
+
+**Status der Batch-Verarbeitung**: 🚧 **Geplant, noch nicht implementiert**  
+**Geschätzte Implementierungszeit**: 4-6 Stunden  
+**Geschätzter Nutzen**: Vollständige thematische Abdeckung aller Keywords
