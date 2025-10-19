@@ -3475,50 +3475,6 @@ Bestehende Schlagwörter überschreiben
 </div>
 </div>
 
-<!-- Keyword-Konsolidierung (nur lokal sichtbar) -->
-<div id="consolidateKeywordSection" style="display:none; margin-top: 1rem;">
-<div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-<h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keyword-Konsolidierung</h4>
-<p style="font-size: 0.85em; margin-bottom: 1rem; color: var(--secondary-text);">
-Reduziere ähnliche Keywords durch intelligente Zusammenführung. Original-Datenbank bleibt erhalten.
-</p>
-
-<div style="margin-bottom: 1rem;">
-<label style="display: block; margin-bottom: 0.5rem; font-size: 0.9em; color: var(--text-color);">
-Konsolidierungsstärke: <strong><span id="consolidationFactorValue">0.5</span></strong>
-</label>
-<input type="range" id="consolidationFactorSlider" min="0" max="100" value="50" 
-       style="width: 100%;" oninput="updateConsolidationFactor(this.value)">
-<div style="display: flex; justify-content: space-between; font-size: 0.75em; color: var(--secondary-text); margin-top: 0.3rem;">
-<span>0.0 (Sehr streng)</span>
-<span>0.5 (Mittel)</span>
-<span>1.0 (Locker)</span>
-</div>
-</div>
-
-<div id="consolidationFactorDesc" style="padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem; font-size: 0.85em; color: var(--text-color);">
-<strong>Mittel (0.5):</strong> Wortstämme werden konsolidiert (z.B. "karma", "karmagesetz" → "Karma")
-</div>
-
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<button id="consolidatePreviewBtn" class="depth-btn" onclick="previewConsolidation()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-Vorschau generieren
-</button>
-<button id="consolidateExecuteBtn" class="depth-btn" onclick="executeConsolidation()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #5cb85c; color: white; display: none;">
-Konsolidierung ausführen
-</button>
-</div>
-
-<div id="consolidationPreview" style="display: none; margin-top: 1rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); max-height: 300px; overflow-y: auto;">
-<!-- Preview wird hier angezeigt -->
-</div>
-
-<div id="consolidationStatus" style="display: none; margin-top: 0.5rem;"></div>
-</div>
-</div>
-
 <div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
 </div>
@@ -8033,7 +7989,6 @@ function displayKeywordThematicResults(keyword, data) {
     const addSection = document.getElementById('addKeywordSection');
     const regenerateSection = document.getElementById('regenerateKeywordSection');
     const batchSection = document.getElementById('batchKeywordSection');
-    const consolidateSection = document.getElementById('consolidateKeywordSection');
     
     if (addSection) {
       addSection.style.display = isLocal ? 'block' : 'none';
@@ -8043,9 +7998,6 @@ function displayKeywordThematicResults(keyword, data) {
     }
     if (batchSection) {
       batchSection.style.display = isLocal ? 'block' : 'none';
-    }
-    if (consolidateSection) {
-      consolidateSection.style.display = isLocal ? 'block' : 'none';
     }
   } catch (_) {}
 })();
@@ -8206,139 +8158,6 @@ function cancelBatchKeywords() {
   if (batchAbortController) {
     batchAbortController.abort();
     console.log('[BATCH-KEYWORDS] Batch-Verarbeitung abgebrochen');
-  }
-}
-
-// === KEYWORD CONSOLIDATION ===
-let consolidationFactor = 0.5;
-let consolidationPreviewData = null;
-
-function updateConsolidationFactor(value) {
-  consolidationFactor = parseInt(value) / 100;
-  document.getElementById('consolidationFactorValue').textContent = consolidationFactor.toFixed(2);
-  
-  // Update description
-  const desc = document.getElementById('consolidationFactorDesc');
-  if (consolidationFactor < 0.3) {
-    desc.innerHTML = '<strong>Sehr streng (< 0.3):</strong> Nur fast identische Keywords werden konsolidiert (z.B. "karma" + "Karma" → "Karma")';
-  } else if (consolidationFactor < 0.7) {
-    desc.innerHTML = '<strong>Mittel (0.3-0.7):</strong> Wortstämme werden konsolidiert (z.B. "karma", "karmagesetz", "karmisch" → "Karma")';
-  } else {
-    desc.innerHTML = '<strong>Locker (> 0.7):</strong> Semantisch ähnliche Keywords werden zusammengeführt (z.B. "reinkarnation", "wiederverkörperung" → "Reinkarnation")';
-  }
-  
-  // Reset preview wenn Faktor geändert wurde
-  consolidationPreviewData = null;
-  document.getElementById('consolidationPreview').style.display = 'none';
-  document.getElementById('consolidateExecuteBtn').style.display = 'none';
-}
-
-async function previewConsolidation() {
-  const previewBtn = document.getElementById('consolidatePreviewBtn');
-  const previewDiv = document.getElementById('consolidationPreview');
-  const statusDiv = document.getElementById('consolidationStatus');
-  
-  previewBtn.disabled = true;
-  previewBtn.textContent = 'Generiere Vorschau...';
-  statusDiv.style.display = 'none';
-  previewDiv.style.display = 'none';
-  
-  try {
-    const response = await fetch(`${API_BASE}/api/consolidate-keywords-preview`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ factor: consolidationFactor })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    consolidationPreviewData = data;
-    
-    // Zeige Vorschau
-    let previewHTML = `
-      <div style="margin-bottom: 0.5rem;">
-        <strong>Konsolidierungs-Vorschau:</strong><br>
-        ${data.uniqueBefore.toLocaleString()} unique Keywords → ${data.uniqueAfter.toLocaleString()} unique Keywords<br>
-        <strong style="color: #5cb85c;">Reduktion: ${data.reduction.toFixed(1)}%</strong> (${data.consolidationCount.toLocaleString()} Gruppen)
-      </div>
-      <div style="font-size: 0.85em; max-height: 200px; overflow-y: auto;">
-        <strong>Beispiele (erste 20 Gruppen):</strong><br>
-    `;
-    
-    data.examples.slice(0, 20).forEach(group => {
-      previewHTML += `<div style="margin: 0.3rem 0; padding: 0.3rem; background: var(--sidebar-bg); border-radius: 3px;">`;
-      previewHTML += `<strong>${group.target}</strong> ← ${group.sources.join(', ')}`;
-      previewHTML += `</div>`;
-    });
-    
-    previewHTML += `</div>`;
-    previewDiv.innerHTML = previewHTML;
-    previewDiv.style.display = 'block';
-    
-    // Zeige Execute-Button
-    document.getElementById('consolidateExecuteBtn').style.display = 'inline-block';
-    
-  } catch (error) {
-    console.error('[CONSOLIDATION] Fehler:', error);
-    statusDiv.innerHTML = `<div style="color: #d9534f; font-size: 0.85em;">✗ Fehler: ${error.message}</div>`;
-    statusDiv.style.display = 'block';
-  } finally {
-    previewBtn.disabled = false;
-    previewBtn.textContent = 'Vorschau generieren';
-  }
-}
-
-async function executeConsolidation() {
-  if (!consolidationPreviewData) {
-    alert('Bitte erst eine Vorschau generieren!');
-    return;
-  }
-  
-  if (!confirm(`Konsolidierung ausführen?\n\n${consolidationPreviewData.uniqueBefore.toLocaleString()} → ${consolidationPreviewData.uniqueAfter.toLocaleString()} Keywords\nReduktion: ${consolidationPreviewData.reduction.toFixed(1)}%\n\nOriginal-Datenbank wird als Backup gespeichert.`)) {
-    return;
-  }
-  
-  const executeBtn = document.getElementById('consolidateExecuteBtn');
-  const statusDiv = document.getElementById('consolidationStatus');
-  
-  executeBtn.disabled = true;
-  executeBtn.textContent = 'Konsolidiere...';
-  statusDiv.style.display = 'none';
-  
-  try {
-    const response = await fetch(`${API_BASE}/api/consolidate-keywords-execute`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ factor: consolidationFactor })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    statusDiv.innerHTML = `<div style="color: #5cb85c; font-size: 0.85em;">✓ Konsolidierung erfolgreich!<br>Backup: ${data.backupFile}<br>Neue Datenbank: ${data.consolidatedFile}</div>`;
-    statusDiv.style.display = 'block';
-    
-    // Reset UI
-    consolidationPreviewData = null;
-    document.getElementById('consolidationPreview').style.display = 'none';
-    executeBtn.style.display = 'none';
-    
-    // Reload keywords
-    await loadKeywords();
-    
-  } catch (error) {
-    console.error('[CONSOLIDATION] Fehler:', error);
-    statusDiv.innerHTML = `<div style="color: #d9534f; font-size: 0.85em;">✗ Fehler: ${error.message}</div>`;
-    statusDiv.style.display = 'block';
-  } finally {
-    executeBtn.disabled = false;
-    executeBtn.textContent = 'Konsolidierung ausführen';
   }
 }
 
