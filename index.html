@@ -3311,6 +3311,25 @@ body.dark-mode .welcome-start-btn:hover {
 <div style="padding: 0.5rem 0; max-height: calc(100vh - 250px); overflow-y: auto;">
 <!-- Keywords-Generierung Admin Interface (nur localhost) -->
 <div id="timelineAdminSection" style="margin-bottom: 1rem; display: none;">
+
+<!-- Statistik-Übersicht -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 0.8rem;">
+<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Datenbank-Statistik</h3>
+<div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.8rem; font-size: 0.9em;">
+<span style="color: var(--secondary-text);">Primäre Keywords:</span>
+<span id="statPrimaryKeywords" style="font-weight: 500; color: var(--text-color);">-</span>
+
+<span style="color: var(--secondary-text);">Konsolidierte Keywords:</span>
+<span id="statConsolidatedKeywords" style="font-weight: 500; color: var(--text-color);">-</span>
+
+<span style="color: var(--secondary-text);">Konsolidierungsfaktor:</span>
+<span id="statConsolidationFactor" style="font-weight: 500; color: var(--text-color);">-</span>
+
+<span style="color: var(--secondary-text);">Anzahl Themen:</span>
+<span id="statThemeCount" style="font-weight: 500; color: var(--text-color);">-</span>
+</div>
+</div>
+
 <div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
 <h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keywords-Generierung</h3>
 <p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
@@ -3431,25 +3450,7 @@ Aktivieren + Themen neu generieren
 </div>
 </div>
 
-</div> <!-- Ende timelineAdminSection --><!-- Timeline Filter (immer sichtbar - auch online) -->
-<div id="timelineFilterSection" style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 0.8rem;">
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Thema auswählen:
-</label>
-<select id="timelineThemeFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
-<option value="">Themen werden noch generiert...</option>
-</select>
-</div>
-<div>
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Schlagwort auswählen:
-</label>
-<select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
-<option value="">Alle Schlagwörter</option>
-</select>
-</div>
-</div>
+</div> <!-- Ende timelineAdminSection -->
 </div>
 </div>
 </div>
@@ -9786,6 +9787,43 @@ async function loadKeywordsDatabase() {
   }
 }
 
+// Lade und zeige Timeline-Statistiken
+async function loadTimelineStatistics() {
+  try {
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    // Zähle primäre Keywords (alle Keywords in der Datenbank)
+    let totalKeywords = 0;
+    const uniqueKeywords = new Set();
+    
+    Object.values(keywordsDB).forEach(lecture => {
+      if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        lecture.keywords.forEach(kw => {
+          if (kw.term) {
+            totalKeywords++;
+            uniqueKeywords.add(kw.term.toLowerCase());
+          }
+        });
+      }
+    });
+    
+    // Lade Themen
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    const themes = themesResponse.ok ? await themesResponse.json() : {};
+    const themeCount = Object.keys(themes).length;
+    
+    // Update UI
+    document.getElementById('statPrimaryKeywords').textContent = uniqueKeywords.size.toLocaleString();
+    document.getElementById('statConsolidatedKeywords').textContent = 'nicht konsolidiert';
+    document.getElementById('statConsolidationFactor').textContent = '-';
+    document.getElementById('statThemeCount').textContent = themeCount > 0 ? themeCount : 'nicht generiert';
+    
+    console.log('[TIMELINE-STATS] Primäre Keywords:', uniqueKeywords.size, '| Themen:', themeCount);
+  } catch (error) {
+    console.error('[TIMELINE-STATS] Fehler:', error);
+  }
+}
+
 // Load available themes
 async function loadTimelineThemes() {
   try {
@@ -9817,6 +9855,9 @@ async function loadTimelineThemes() {
       themeSelect.innerHTML = '<option value="">Noch keine Themen generiert...</option>';
       themeSelect.disabled = true;
     }
+    
+    // Aktualisiere Statistiken
+    await loadTimelineStatistics();
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
     const themeSelect = document.getElementById('timelineThemeFilterInline');
@@ -10258,21 +10299,18 @@ async function renderTimeline() {
         </div>
       </div>
       <div>
-        <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-          Überschriften-Level:
-        </label>
         <div style="display: flex; gap: 8px;">
           <button id="timelineH3Btn" class="depth-btn" onclick="setTimelineHeadingLevel('h3')" 
                   style="padding: 6px 12px; font-size: 0.85em; background: #666; color: white;">
-            Nur H3
+            Level 1
           </button>
           <button id="timelineH4Btn" class="depth-btn" onclick="setTimelineHeadingLevel('h4')" 
                   style="padding: 6px 12px; font-size: 0.85em; background: #666; color: white;">
-            Nur H4
+            Level 2
           </button>
           <button id="timelineBothBtn" class="depth-btn" onclick="setTimelineHeadingLevel('both')" 
                   style="padding: 6px 12px; font-size: 0.85em; background: #467886; color: white;">
-            H3 + H4
+            Level 1+2
           </button>
         </div>
       </div>
@@ -10610,7 +10648,7 @@ window.switchTab = function(tabName) {
   
   // Load stats when timeline tab is opened
   if (tabName === 'timeline') {
-    loadTimelineStats();
+    loadTimelineStatistics();
     // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
     renderTimeline();
   }
