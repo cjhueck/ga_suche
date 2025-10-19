@@ -392,8 +392,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     /* Neue vertikale Timeline-Visualisierung (drei Spalten) */
     .timeline-visualization {
       display: grid;
-      grid-template-columns: 1fr 80px 1fr;
-      gap: 1rem;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
       padding: 0.5rem;
       font-size: 0.9em;
     }
@@ -427,7 +427,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     
     .timeline-keywords-column {
       text-align: left;
-      padding-left: 1rem;
+      padding-left: 0;
+      max-width: 900px;
     }
     
     .timeline-year-marker {
@@ -3394,7 +3395,7 @@ Thema auswählen:
 </div>
 <div>
 <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Schlagwort auswählen (optional):
+Schlagwort auswählen:
 </label>
 <select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
 <option value="">Alle Schlagwörter</option>
@@ -9968,7 +9969,7 @@ async function renderTimeline() {
         </div>
         <div>
           <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-            Schlagwort auswählen (optional):
+            Schlagwort auswählen:
           </label>
           <select id="timelineKeywordFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
             ${keywordsHTML}
@@ -10009,24 +10010,29 @@ async function renderTimelineContent() {
     // Lade Keywords-Datenbank
     const keywordsDB = await loadKeywordsDatabase();
     
-    let themeLectures = [];
     let keywordEntries = [];
     
-    // FALL 1: Nur Thema ausgewählt (kein Keyword)
+    // FALL 1: Nur Thema ausgewählt
     if (theme && !keyword) {
-      // Links: Vorträge die mindestens ein Keyword zu diesem Thema haben
-      themeLectures = Object.values(keywordsDB).filter(l => l.theme === theme);
-      
-      // Rechts: LEER (keine Keywords anzeigen)
-      keywordEntries = [];
-      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${themeLectures.length} Vorträge`);
+      // Zeige ALLE Keywords zu diesem Thema
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            keywordEntries.push({
+              lectureId: lecture.lectureId,
+              date: lecture.date,
+              year: lecture.year,
+              keyword: kw
+            });
+          });
+        }
+      });
+      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${keywordEntries.length} Keywords`);
     }
     
     // FALL 2: Thema + Keyword ausgewählt
     else if (theme && keyword) {
-      // Sammle Keywords die dem Filter entsprechen (für rechte Spalte)
-      const lectureIdsWithKeyword = new Set();
-      
+      // Zeige Keywords die dem Filter entsprechen (nur aus diesem Thema)
       Object.values(keywordsDB).forEach(lecture => {
         if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -10037,23 +10043,16 @@ async function renderTimelineContent() {
                 year: lecture.year,
                 keyword: kw
               });
-              lectureIdsWithKeyword.add(lecture.lectureId);
             }
           });
         }
       });
-      
-      // Links: Vorträge aus denen die Keywords stammen
-      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
-      
-      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
     }
     
     // FALL 3: Nur Keyword ausgewählt (kein Thema)
     else if (!theme && keyword) {
-      // Sammle alle Keywords die dem Filter entsprechen (für rechte Spalte)
-      const lectureIdsWithKeyword = new Set();
-      
+      // Zeige Keywords die dem Filter entsprechen (aus allen Themen)
       Object.values(keywordsDB).forEach(lecture => {
         if (lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -10064,40 +10063,28 @@ async function renderTimelineContent() {
                 year: lecture.year,
                 keyword: kw
               });
-              lectureIdsWithKeyword.add(lecture.lectureId);
             }
           });
         }
       });
       
-      // Links: Vorträge aus denen die Keywords stammen
-      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
-      
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
     }
     
-    if (themeLectures.length === 0 && keywordEntries.length === 0) {
-      contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Vorträge gefunden für diese Auswahl.</div>';
+    if (keywordEntries.length === 0) {
+      timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Keywords gefunden für diese Auswahl.</div>';
       return;
     }
     
-    // Sammle alle Jahre
+    // Sammle alle Jahre aus Keywords
     const allYears = new Set();
-    themeLectures.forEach(l => { if (l.year) allYears.add(l.year); });
     keywordEntries.forEach(e => { if (e.year) allYears.add(e.year); });
     const sortedYears = Array.from(allYears).sort((a, b) => a - b);
     
-    console.log(`[TIMELINE] Rendering: ${themeLectures.length} Themenvorträge, ${keywordEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
+    console.log(`[TIMELINE] Rendering: ${keywordEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
     
-    // Gruppiere nach Jahr
-    const themesByYear = {};
+    // Gruppiere Keywords nach Jahr
     const keywordsByYear = {};
-    
-    themeLectures.forEach(lecture => {
-      const year = lecture.year || 'Unbekannt';
-      if (!themesByYear[year]) themesByYear[year] = [];
-      themesByYear[year].push(lecture);
-    });
     
     keywordEntries.forEach(entry => {
       const year = entry.year || 'Unbekannt';
@@ -10107,27 +10094,24 @@ async function renderTimelineContent() {
     
     // Sortiere Einträge nach Datum innerhalb jedes Jahres
     sortedYears.forEach(year => {
-      if (themesByYear[year]) {
-        themesByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-      }
       if (keywordsByYear[year]) {
         keywordsByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
       }
     });
     
-    // Render Timeline mit drei Spalten
+    // Render Timeline Header
     let headerTitle = '';
     let headerInfo = '';
     
     if (theme && !keyword) {
       headerTitle = theme;
-      headerInfo = `${themeLectures.length} Vorträge`;
+      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
     } else if (theme && keyword) {
       headerTitle = `${theme} → ${keyword}`;
-      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
+      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
     } else if (!theme && keyword) {
       headerTitle = keyword;
-      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
+      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
     }
     
     html += `
@@ -10138,32 +10122,6 @@ async function renderTimelineContent() {
         </p>
       </div>
       <div class="timeline-visualization">
-        <!-- Linke Spalte: Themen -->
-        <div class="timeline-themes-column">
-    `;
-    
-    // Render pro Jahr: Themes in linker Spalte
-    sortedYears.forEach(year => {
-      const themesForYear = themesByYear[year] || [];
-      
-      themesForYear.forEach(lecture => {
-        const date = formatDate(lecture.date);
-        const lectureId = lecture.lectureId;
-        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : '';
-        const lecNum = gaMatch ? gaMatch[2] : '';
-        
-        html += `
-          <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
-          </div>
-        `;
-      });
-    });
-    
-    html += `
-        </div>
-        
         <!-- Mittlere Spalte: Timeline mit dynamisch positionierten Jahren -->
         <div class="timeline-center-column">
     `;
@@ -10176,11 +10134,11 @@ async function renderTimelineContent() {
     html += `
         </div>
         
-        <!-- Rechte Spalte: Keywords -->
+        <!-- Keywords Spalte -->
         <div class="timeline-keywords-column">
     `;
     
-    // Render Keyword-Einträge in rechter Spalte
+    // Render Keyword-Einträge
     sortedYears.forEach(year => {
       const keywordsForYear = keywordsByYear[year] || [];
       
