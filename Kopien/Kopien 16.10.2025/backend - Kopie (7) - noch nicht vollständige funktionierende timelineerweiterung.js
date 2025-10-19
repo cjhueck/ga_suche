@@ -12,9 +12,6 @@ const PORT = 3003;
 app.use(cors());
 app.use(express.json());
 
-// Statische Dateien aus dem system Ordner bereitstellen
-app.use('/system', express.static(path.join(__dirname, 'system')));
-
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
@@ -878,646 +875,6 @@ function applySemanticRanking(keywordResults, query) {
   }).sort((a, b) => b.finalScore - a.finalScore);
 }
 
-// Hilfsfunktion: Relevanz-Scoring für Stichwortsuche-Ergebnisse hinzufügen
-function addRelevanceScoringToResults(results, query) {
-  console.log(`[RELEVANCE-SCORING] Füge Relevanz-Scores für ${results.length} Ergebnisse hinzu`);
-  
-  // Zerlege Query in einzelne Wörter (für Zwei-Wort-Suchen)
-  const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
-  const isTwoWordQuery = queryWords.length === 2;
-  
-  if (isTwoWordQuery) {
-    console.log(`[RELEVANCE-SCORING] Zwei-Wort-Suche erkannt: "${queryWords[0]}" + "${queryWords[1]}"`);
-  }
-  
-  // Gruppiere Ergebnisse nach Vortrag
-  const lectureGroups = {};
-  results.forEach(result => {
-    const lectureId = result.ID;
-    if (!lectureGroups[lectureId]) {
-      lectureGroups[lectureId] = [];
-    }
-    lectureGroups[lectureId].push(result);
-  });
-  
-  // Berechne Relevanz-Score für jeden Vortrag
-  const resultsWithRelevance = results.map(result => {
-    const lectureId = result.ID;
-    const lectureResults = lectureGroups[lectureId];
-    
-    let relevanceScore;
-    
-    if (isTwoWordQuery) {
-      // Spezielle Behandlung für Zwei-Wort-Suchen
-      relevanceScore = calculateTwoWordRelevanceScore(lectureResults, queryWords[0], queryWords[1]);
-    } else {
-      // Einzelwort-Suche
-      relevanceScore = calculateRelevanceScoreForLecture(lectureResults, query);
-    }
-    
-    // Debug-Ausgabe für die ersten 5 Vorträge
-    if (Object.keys(lectureGroups).indexOf(lectureId) < 5) {
-      console.log(`[RELEVANCE-DEBUG] ${lectureId}: Score=${relevanceScore.toFixed(3)}, Chunks=${lectureResults.length}`);
-    }
-    
-    // Bestimme Relevanz-Kategorie (stark erhöhte Schwellwerte für bessere Differenzierung)
-    let relevanceCategory = 'niedrig';
-    if (relevanceScore >= 0.50) {
-      relevanceCategory = 'hoch';      // Score ≥ 0.50 (verdoppelt)
-    } else if (relevanceScore >= 0.20) {
-      relevanceCategory = 'mittel';    // Score ≥ 0.20 und < 0.50 (verdoppelt)
-    }
-    // else bleibt 'niedrig' (Score < 0.20)
-    
-    return {
-      ...result,
-      relevanceScore: relevanceScore,
-      relevanceCategory: relevanceCategory
-    };
-  });
-  
-  console.log(`[RELEVANCE-SCORING] Relevanz-Kategorien: ${Object.values(resultsWithRelevance).reduce((acc, r) => {
-    acc[r.relevanceCategory] = (acc[r.relevanceCategory] || 0) + 1;
-    return acc;
-  }, {})}`);
-  
-  return resultsWithRelevance;
-}
-
-// ============================================================================
-// ZWEI-WORT-RELEVANZ-BERECHNUNG
-// ============================================================================
-
-function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
-  if (!lectureResults || lectureResults.length === 0) return 0;
-  
-  const word1Lower = word1.toLowerCase();
-  const word2Lower = word2.toLowerCase();
-  const phraseQuery = `${word1Lower} ${word2Lower}`;
-  
-  // Sortiere Ergebnisse nach paragraphIndex
-  const sortedResults = [...lectureResults].sort((a, b) => 
-    (a.paragraphIndex || 0) - (b.paragraphIndex || 0)
-  );
-  
-  // Erstelle zusammenhängenden Text mit Wort-Positionen
-  let fullText = '';
-  let wordPositions = []; // [{ word, wordIndex, startPos, endPos }]
-  let currentWordIndex = 0;
-  
-  sortedResults.forEach((result) => {
-    const content = result.content || '';
-    const words = content.split(/\s+/);
-    
-    words.forEach(word => {
-      const startPos = fullText.length;
-      fullText += word + ' ';
-      const endPos = fullText.length;
-      
-      wordPositions.push({
-        word: word,
-        wordIndex: currentWordIndex,
-        startPos: startPos,
-        endPos: endPos
-      });
-      
-      currentWordIndex++;
-    });
-  });
-  
-  const totalWords = currentWordIndex;
-  const fullTextLower = fullText.toLowerCase();
-  
-  // 1. Zähle Einzelwort-Vorkommen
-  let word1Count = 0;
-  let word2Count = 0;
-  let phraseCount = 0;
-  
-  let word1Positions = [];
-  let word2Positions = [];
-  
-  // Zähle word1
-    let pos = 0;
-  while ((pos = fullTextLower.indexOf(word1Lower, pos)) !== -1) {
-    word1Count++;
-    word1Positions.push(pos);
-    pos += word1Lower.length;
-  }
-  
-  // Zähle word2
-  pos = 0;
-  while ((pos = fullTextLower.indexOf(word2Lower, pos)) !== -1) {
-    word2Count++;
-    word2Positions.push(pos);
-    pos += word2Lower.length;
-  }
-  
-  // Zähle exakte Phrase
-  pos = 0;
-  while ((pos = fullTextLower.indexOf(phraseQuery, pos)) !== -1) {
-    phraseCount++;
-    pos += phraseQuery.length;
-  }
-  
-  if (word1Count === 0 || word2Count === 0) return 0;
-  
-  console.log(`[2-WORD] "${word1}" (${word1Count}×) + "${word2}" (${word2Count}×), Phrase: ${phraseCount}×`);
-  
-  // 2. Berechne Nähe-Bonus: Wie oft stehen die Wörter nah beieinander?
-  let proximityPairs = 0;
-  const MAX_DISTANCE = 50; // Zeichen
-  
-  word1Positions.forEach(pos1 => {
-    word2Positions.forEach(pos2 => {
-      const distance = Math.abs(pos1 - pos2);
-      if (distance > 0 && distance <= MAX_DISTANCE) {
-        proximityPairs++;
-      }
-    });
-  });
-  
-  console.log(`[2-WORD] Nähe-Paare (≤50 Zeichen): ${proximityPairs}`);
-  
-  // 3. Sliding Window über 1000 Wörter
-  const WINDOW_SIZE = 1000;
-  let bestWindowScore = 0;
-  
-  for (let startWordIdx = 0; startWordIdx < totalWords; startWordIdx += 250) {
-    const endWordIdx = Math.min(startWordIdx + WINDOW_SIZE, totalWords);
-    if (startWordIdx >= totalWords) break;
-    
-    const windowStartPos = wordPositions[startWordIdx]?.startPos || 0;
-    const windowEndPos = wordPositions[endWordIdx - 1]?.endPos || fullText.length;
-    const windowText = fullTextLower.substring(windowStartPos, windowEndPos);
-    
-    // Zähle beide Wörter im Fenster
-    let window_word1 = 0;
-    let window_word2 = 0;
-    let window_phrase = 0;
-    
-    let wPos = 0;
-    while ((wPos = windowText.indexOf(word1Lower, wPos)) !== -1) {
-      window_word1++;
-      wPos += word1Lower.length;
-    }
-    
-    wPos = 0;
-    while ((wPos = windowText.indexOf(word2Lower, wPos)) !== -1) {
-      window_word2++;
-      wPos += word2Lower.length;
-    }
-    
-    wPos = 0;
-    while ((wPos = windowText.indexOf(phraseQuery, wPos)) !== -1) {
-      window_phrase++;
-      wPos += phraseQuery.length;
-    }
-    
-    if (window_word1 > 0 && window_word2 > 0) {
-      const actualWindowWords = endWordIdx - startWordIdx;
-      const windowLength = windowEndPos - windowStartPos;
-      
-      // Normalisiere auf 1000 Wörter
-      const normalized_word1 = actualWindowWords < WINDOW_SIZE ? 
-        (window_word1 / actualWindowWords) * WINDOW_SIZE : window_word1;
-      const normalized_word2 = actualWindowWords < WINDOW_SIZE ? 
-        (window_word2 / actualWindowWords) * WINDOW_SIZE : window_word2;
-      
-      // Kombinierter Score:
-      // - Beide Wörter müssen vorkommen (Minimum-basiert)
-      // - Phrase-Bonus (extra hoch bewertet)
-      const minOccurrences = Math.min(normalized_word1, normalized_word2);
-      const avgOccurrences = (normalized_word1 + normalized_word2) / 2;
-      
-      const proximityScore = Math.pow(minOccurrences, 0.8) * Math.sqrt(avgOccurrences);
-      const phraseBonus = window_phrase > 0 ? Math.pow(window_phrase, 1.5) * 2.0 : 1.0;
-      const density = (window_word1 + window_word2) / Math.max(windowLength, 1);
-      
-      const windowScore = proximityScore * phraseBonus * density * 
-                          (1 + Math.log(window_word1 + window_word2 + 1));
-      
-      if (windowScore > bestWindowScore) {
-        bestWindowScore = windowScore;
-      }
-    }
-  }
-  
-  // 4. Lade BEIDE Kontext-Indices
-  const contextIndex1 = loadContextIndex(word1Lower);
-  const contextIndex2 = loadContextIndex(word2Lower);
-  
-  // 5. Berechne Kontext-Relevanz für beide Wörter (Durchschnitt)
-  const contextRelevance1 = calculateContextRelevance(fullText, word1Lower, contextIndex1);
-  const contextRelevance2 = calculateContextRelevance(fullText, word2Lower, contextIndex2);
-  const avgContextRelevance = (contextRelevance1 + contextRelevance2) / 2;
-  
-  console.log(`[2-WORD-CONTEXT] "${word1}": ${contextRelevance1.toFixed(2)}, "${word2}": ${contextRelevance2.toFixed(2)}, Avg: ${avgContextRelevance.toFixed(2)}`);
-  
-  // 6. Finaler Score
-  const totalOccurrenceFactor = Math.sqrt(word1Count + word2Count);
-  const proximityFactor = proximityPairs > 0 ? 1.0 + Math.log(proximityPairs + 1) * 0.3 : 1.0;
-  const phraseFactor = phraseCount > 0 ? 1.0 + Math.log(phraseCount + 1) * 0.5 : 1.0;
-  
-  const finalScore = bestWindowScore * 
-                     totalOccurrenceFactor * 
-                     avgContextRelevance * 
-                     proximityFactor * 
-                     phraseFactor * 
-                     5; // Skalierung
-  
-  console.log(`[2-WORD-FINAL] BestWindow=${bestWindowScore.toFixed(4)}, TotalOcc=${totalOccurrenceFactor.toFixed(2)}, Proximity=${proximityFactor.toFixed(2)}, Phrase=${phraseFactor.toFixed(2)}, Context=${avgContextRelevance.toFixed(2)}, Score=${Math.min(finalScore, 1).toFixed(3)}`);
-  
-  return Math.min(finalScore, 1);
-}
-
-// Kontext-Index Cache (wird beim Start geladen)
-let contextIndexCache = {};
-
-// Hilfsfunktion: Ist ein Wort ein Substantiv? (Heuristik)
-function isSubstantive(word) {
-  const cleaned = word.replace(/[^\w]/g, '');
-  
-  if (cleaned.length < 3) return false;
-  if (!cleaned[0] || cleaned[0] !== cleaned[0].toUpperCase()) return false;
-  
-  const stopwords = new Set(['Der', 'Die', 'Das', 'Dem', 'Den', 'Des', 'Ein', 'Eine', 'Einer', 
-                             'Eines', 'Einem', 'Einen', 'Und', 'Oder', 'Aber', 'Wenn', 'Dann',
-                             'Wie', 'Was', 'Wer', 'Wo', 'Warum', 'Wann', 'Auch', 'Nur', 'Noch',
-                             'Schon', 'Sehr', 'Mehr', 'Alle', 'Jede', 'Jeder', 'Jedes', 'Manche',
-                             'Einige', 'Viele', 'Wenige', 'Andere', 'Solche', 'Welche']);
-  
-  return !stopwords.has(cleaned);
-}
-
-// Generiere Kontext-Index on-the-fly
-function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
-  console.log(`[CONTEXT] Generiere Kontext-Index für "${query}" (±${contextWords} Wörter)...`);
-  
-  const queryLower = query.toLowerCase();
-  const allContextWords = [];
-  let totalOccurrences = 0;
-  let lecturesWithTerm = 0;
-  
-  // Durchsuche alle Vorträge
-  Object.values(fullLectures).forEach(lecture => {
-    const paragraphs = lecture.paragraphs || [];
-    const fullText = paragraphs.map(p => p.content || p.text || '').join(' ');
-    const words = fullText.split(/\s+/);
-    
-    // Zähle Vorkommen
-    const occurrences = fullText.toLowerCase().split(queryLower).length - 1;
-    
-    if (occurrences > 0) {
-      totalOccurrences += occurrences;
-      lecturesWithTerm++;
-      
-      // Extrahiere Kontextwörter um jeden Treffer
-      for (let i = 0; i < words.length; i++) {
-        if (words[i].toLowerCase().includes(queryLower)) {
-          const start = Math.max(0, i - contextWords);
-          const end = Math.min(words.length, i + contextWords + 1);
-          const context = words.slice(start, i).concat(words.slice(i + 1, end));
-          allContextWords.push(...context);
-        }
-      }
-    }
-  });
-  
-  if (totalOccurrences === 0) {
-    console.log(`[CONTEXT] Keine Vorkommen gefunden für "${query}"`);
-    return null;
-  }
-  
-  console.log(`[CONTEXT] ${totalOccurrences} Vorkommen in ${lecturesWithTerm} Vorträgen`);
-  
-  // Filtere Substantive
-  const substantives = allContextWords.filter(isSubstantive);
-  
-  // Zähle Häufigkeiten
-  const wordCounts = {};
-  substantives.forEach(word => {
-    wordCounts[word] = (wordCounts[word] || 0) + 1;
-  });
-  
-  // Filtere nach Mindesthäufigkeit und sortiere
-  const filtered = {};
-  Object.entries(wordCounts)
-    .filter(([word, count]) => count >= minOccurrences)
-    .sort((a, b) => b[1] - a[1])
-    .forEach(([word, count]) => {
-      filtered[word] = count;
-    });
-  
-  const result = {
-    query: query,
-    context_words: contextWords,
-    total_occurrences: totalOccurrences,
-    lectures_with_term: lecturesWithTerm,
-    lectures_count: Object.keys(fullLectures).length, // Gesamtanzahl aller Vorträge
-    context_terms: filtered,
-    generated_at: new Date().toISOString()
-  };
-  
-  // Speichere in zentrale Indizes-Datei mit automatischer Bereinigung
-  try {
-    const fs = require('fs');
-    const path = require('path');
-    const indicesFile = path.join(__dirname, 'context-indices.json');
-    
-    // Lade bestehende Indizes
-    let allIndices = {};
-    if (fs.existsSync(indicesFile)) {
-      try {
-        allIndices = JSON.parse(fs.readFileSync(indicesFile, 'utf-8'));
-      } catch (e) {
-        console.log(`[CONTEXT] Fehler beim Laden bestehender Indizes: ${e.message}`);
-      }
-    }
-    
-    // Füge neuen Index hinzu (überschreibt alten Index für gleichen Query)
-    allIndices[queryLower] = result;
-    
-    // BEREINIGUNG: Alte und ungenutzte Indices entfernen
-    const MAX_INDICES = 100; // Maximal 100 verschiedene Keywords speichern
-    const MAX_AGE_DAYS = 90; // Indices älter als 90 Tage löschen
-    const currentDate = new Date();
-    
-    // Filtere veraltete Indices
-    const validIndices = {};
-    let removedCount = 0;
-    
-    Object.entries(allIndices).forEach(([key, indexData]) => {
-      const generatedAt = new Date(indexData.generated_at || 0);
-      const ageInDays = (currentDate - generatedAt) / (1000 * 60 * 60 * 24);
-      
-      if (ageInDays <= MAX_AGE_DAYS) {
-        validIndices[key] = indexData;
-      } else {
-        removedCount++;
-        console.log(`[CONTEXT-CLEANUP] Entferne veralteten Index: "${key}" (${ageInDays.toFixed(0)} Tage alt)`);
-      }
-    });
-    
-    // Wenn immer noch zu viele: Behalte nur die neuesten MAX_INDICES
-    if (Object.keys(validIndices).length > MAX_INDICES) {
-      const sortedByDate = Object.entries(validIndices)
-        .sort((a, b) => {
-          const dateA = new Date(a[1].generated_at || 0);
-          const dateB = new Date(b[1].generated_at || 0);
-          return dateB - dateA; // Neueste zuerst
-        })
-        .slice(0, MAX_INDICES); // Behalte nur die neuesten MAX_INDICES
-      
-      const limitRemovedCount = Object.keys(validIndices).length - MAX_INDICES;
-      allIndices = Object.fromEntries(sortedByDate);
-      console.log(`[CONTEXT-CLEANUP] ${limitRemovedCount} älteste Indices entfernt (Limit: ${MAX_INDICES})`);
-    } else {
-      allIndices = validIndices;
-    }
-    
-    if (removedCount > 0) {
-      console.log(`[CONTEXT-CLEANUP] Gesamt ${removedCount} veraltete Indices entfernt`);
-    }
-    
-    // Speichere zurück
-    fs.writeFileSync(indicesFile, JSON.stringify(allIndices, null, 2), 'utf-8');
-    console.log(`[CONTEXT] Index gespeichert in context-indices.json: ${Object.keys(filtered).length} Begriffe (${Object.keys(allIndices).length} Indices gesamt)`);
-  } catch (error) {
-    console.log(`[CONTEXT] Fehler beim Speichern: ${error.message}`);
-  }
-  
-  return result;
-}
-
-// Lade oder generiere Kontext-Index für einen Suchbegriff
-function loadContextIndex(query) {
-  const queryLower = query.toLowerCase();
-  
-  // Prüfe Cache
-  if (contextIndexCache[queryLower]) {
-    return contextIndexCache[queryLower];
-  }
-  
-  // Versuche aus zentraler Indizes-Datei zu laden
-  try {
-    const fs = require('fs');
-    const path = require('path');
-    const indicesFile = path.join(__dirname, 'context-indices.json');
-    
-    if (fs.existsSync(indicesFile)) {
-      const allIndices = JSON.parse(fs.readFileSync(indicesFile, 'utf-8'));
-      
-      if (allIndices[queryLower]) {
-        const data = allIndices[queryLower];
-        
-        // Prüfe ob Index veraltet ist (Datenbank gewachsen?)
-        const currentLectureCount = Object.keys(fullLectures).length;
-        const indexedLectureCount = data.lectures_count || 0;
-        const growthPercent = ((currentLectureCount - indexedLectureCount) / indexedLectureCount) * 100;
-        
-        // Wenn Datenbank um >5% gewachsen ist, regeneriere Index
-        if (growthPercent > 5) {
-          console.log(`[CONTEXT] Index veraltet (${indexedLectureCount} -> ${currentLectureCount} Vorträge, +${growthPercent.toFixed(1)}%), regeneriere...`);
-          // Springe zur Regenerierung (weiter unten im Code)
-        } else {
-          contextIndexCache[queryLower] = data;
-          console.log(`[CONTEXT] Kontext-Index geladen: ${Object.keys(data.context_terms).length} Begriffe (${indexedLectureCount} Vorträge)`);
-          return data;
-        }
-      }
-    }
-  } catch (error) {
-    console.log(`[CONTEXT] Fehler beim Laden: ${error.message}`);
-  }
-  
-  // Falls nicht vorhanden: Prüfe ob genug Vorkommen für Index-Generierung
-  // Schnelle Vorkommen-Prüfung
-  let totalOccurrences = 0;
-  Object.values(fullLectures).forEach(lecture => {
-    const paragraphs = lecture.paragraphs || [];
-    const fullText = paragraphs.map(p => p.content || p.text || '').join(' ');
-    totalOccurrences += (fullText.toLowerCase().match(new RegExp(queryLower, 'g')) || []).length;
-  });
-  
-  console.log(`[CONTEXT] "${query}" hat ${totalOccurrences} Vorkommen gesamt`);
-  
-  // Nur für häufigere Begriffe (≥5 Vorkommen) Index generieren
-  if (totalOccurrences >= 5) {
-    console.log(`[CONTEXT] Generiere Index (≥5 Vorkommen)...`);
-    const newIndex = generateContextIndex(query);
-    
-    if (newIndex) {
-      contextIndexCache[queryLower] = newIndex;
-    }
-    
-    return newIndex;
-  } else {
-    console.log(`[CONTEXT] Zu wenige Vorkommen (<5), kein Index generiert`);
-    return null;
-  }
-}
-
-// Berechne Kontext-Relevanz: Wie viele typische Kontextwörter kommen im Vortrag vor?
-function calculateContextRelevance(fullText, query, contextIndex) {
-  if (!contextIndex || !contextIndex.context_terms) {
-    return 1.0; // Neutral, wenn kein Kontext-Index vorhanden
-  }
-  
-  const fullTextLower = fullText.toLowerCase();
-  const contextTerms = contextIndex.context_terms;
-  const topTerms = Object.entries(contextTerms)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 50); // Nutze Top 50 Kontextwörter
-  
-  let matchedTerms = 0;
-  let weightedMatches = 0;
-  
-  for (const [term, frequency] of topTerms) {
-    const termLower = term.toLowerCase();
-    
-    // Zähle Vorkommen des Kontextworts im Vortrag
-    let count = 0;
-    let pos = 0;
-    while ((pos = fullTextLower.indexOf(termLower, pos)) !== -1) {
-      count++;
-      pos += termLower.length;
-    }
-    
-    if (count > 0) {
-      matchedTerms++;
-      // Gewichte nach Häufigkeit im Kontext-Index
-      weightedMatches += Math.min(count, 5) * Math.log(frequency + 1);
-    }
-  }
-  
-  // Normalisiere: Je mehr typische Kontextwörter vorkommen, desto höher die Relevanz
-  const matchRatio = matchedTerms / Math.min(topTerms.length, 20); // Normiere auf Top 20
-  const contextRelevance = 1.0 + (matchRatio * 2.0); // Faktor 1.0 - 3.0
-  
-  return Math.min(contextRelevance, 3.0);
-}
-
-// Hilfsfunktion: Relevanz-Score für einen Vortrag berechnen (1000-Wörter-Fenster + Kontext Version)
-function calculateRelevanceScoreForLecture(lectureResults, query) {
-  if (!lectureResults || lectureResults.length === 0) return 0;
-  
-  const queryLower = query.toLowerCase();
-  
-  // Sortiere Ergebnisse nach paragraphIndex
-  const sortedResults = [...lectureResults].sort((a, b) => 
-    (a.paragraphIndex || 0) - (b.paragraphIndex || 0)
-  );
-  
-  // Erstelle einen zusammenhängenden Text mit Wort-Positionen
-  let fullText = '';
-  let wordPositions = []; // [{ wordIndex, paragraphIndex, startPos, endPos }]
-  let currentWordIndex = 0;
-  
-  sortedResults.forEach((result, paraIdx) => {
-    const content = result.content || '';
-    const words = content.split(/\s+/);
-    
-    words.forEach(word => {
-      const startPos = fullText.length;
-      fullText += word + ' ';
-      const endPos = fullText.length;
-      
-      wordPositions.push({
-        wordIndex: currentWordIndex,
-        paragraphIndex: paraIdx,
-        startPos: startPos,
-        endPos: endPos
-      });
-      
-      currentWordIndex++;
-    });
-  });
-  
-  const totalWords = currentWordIndex;
-  const fullTextLower = fullText.toLowerCase();
-  
-  // 1. Parameter: Gesamtvorkommen im ganzen Text zählen
-  let totalOccurrences = 0;
-  let occurrencePositions = [];
-  let pos = 0;
-  while ((pos = fullTextLower.indexOf(queryLower, pos)) !== -1) {
-    totalOccurrences++;
-    occurrencePositions.push(pos);
-    pos += queryLower.length;
-  }
-  
-  if (totalOccurrences === 0) return 0;
-  
-  // 2. Sliding Window über 1000 Wörter
-  const WINDOW_SIZE = 1000; // Wörter
-  let bestWindowScore = 0;
-  
-  // Verschiebe das Fenster über den Text (Schrittweite: 250 Wörter für Performance)
-  for (let startWordIdx = 0; startWordIdx < totalWords; startWordIdx += 250) {
-    const endWordIdx = Math.min(startWordIdx + WINDOW_SIZE, totalWords);
-    
-    if (startWordIdx >= totalWords) break;
-    
-    // Bestimme Textbereich für dieses Fenster
-    const windowStartPos = wordPositions[startWordIdx]?.startPos || 0;
-    const windowEndPos = wordPositions[endWordIdx - 1]?.endPos || fullText.length;
-    const windowText = fullTextLower.substring(windowStartPos, windowEndPos);
-    
-    // Zähle Vorkommen in diesem Fenster
-    let windowOccurrences = 0;
-    let windowPos = 0;
-    while ((windowPos = windowText.indexOf(queryLower, windowPos)) !== -1) {
-      windowOccurrences++;
-      windowPos += queryLower.length;
-    }
-    
-    if (windowOccurrences > 0) {
-      const actualWindowWords = endWordIdx - startWordIdx;
-      
-      // SCHRITT 1: Proximity-Score (Häufigkeit pro 1000 Wörter)
-      // Normalisiere auf 1000 Wörter, falls Fenster kleiner
-      const normalizedOccurrences = actualWindowWords < WINDOW_SIZE ? 
-        (windowOccurrences / actualWindowWords) * WINDOW_SIZE : windowOccurrences;
-      
-      // Proximity-Score: Je mehr Vorkommen im 1000-Wörter-Fenster, desto höher
-      // Reduzierter Exponent für mehr Differenzierung
-      const proximityScore = Math.pow(normalizedOccurrences, 1.0); // Von 1.3 auf 1.0 reduziert (linear)
-      
-      // SCHRITT 2: Dichte-Bewertung (Vorkommen pro Zeichen im Fenster)
-      const windowLength = windowEndPos - windowStartPos;
-      const densityInWindow = windowOccurrences / Math.max(windowLength, 1);
-      
-      // Kombinierter Window-Score
-      const windowScore = 
-        proximityScore *                        // Proximity (Häufigkeit im Fenster)
-        densityInWindow *                       // Dichte (Zeichen-basiert)
-        (1 + Math.log(windowOccurrences + 1)); // Log-Bonus
-      
-      // Behalte besten Window-Score
-      if (windowScore > bestWindowScore) {
-        bestWindowScore = windowScore;
-      }
-    }
-  }
-  
-  // 3. Kontext-Relevanz berechnen
-  const contextIndex = loadContextIndex(query);
-  const contextRelevance = calculateContextRelevance(fullText, query, contextIndex);
-  
-  // 4. Normalisierung mit Gesamtvorkommen
-  const totalOccurrenceFactor = Math.sqrt(totalOccurrences);
-  
-  // Finaler Score = Window-Score × Gesamtvorkommen × Kontext-Relevanz × Skalierung
-  const finalScore = bestWindowScore * totalOccurrenceFactor * contextRelevance * 5;
-  
-  // Debug-Ausgabe
-  if (totalOccurrences > 0) {
-    console.log(`[RELEVANCE-CONTEXT] Query="${query}", TotalOcc=${totalOccurrences}, BestWindow=${bestWindowScore.toFixed(6)}, Context=${contextRelevance.toFixed(2)}, FinalScore=${Math.min(finalScore, 1).toFixed(3)}`);
-  }
-  
-  return Math.min(finalScore, 1);
-}
-
 async function performHybridSearch(query, limit = 20) {
   try {
     const keywordResults = performKeywordSearch(query, paragraphsFromLectures);
@@ -1530,10 +887,7 @@ async function performHybridSearch(query, limit = 20) {
       };
     }
     
-    // NEU: Relevanz-Scoring für jeden Vortrag hinzufügen
-    const resultsWithRelevance = addRelevanceScoringToResults(keywordResults, query);
-    
-    const rankedResults = applySemanticRanking(resultsWithRelevance, query);
+    const rankedResults = applySemanticRanking(keywordResults, query);
     const topResults = rankedResults.slice(0, limit);
     
     console.log(`Hybrid: ${keywordResults.length} Keywords -> ${topResults.length} Final`);
@@ -1557,93 +911,45 @@ async function performHybridSearch(query, limit = 20) {
 
 app.post('/api/fulltext-search', async (req, res) => {
   try {
-    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null, relevanceFilter = 'alle', yearFilter = '' } = req.body;
+    const { word1, word2, proximity = null } = req.body;
     
     if (!word1) {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
-    // Bei Zwei-Wort-Suche ohne explizite Proximity: Setze automatisch auf max. 3 Absätze
-    let effectiveProximity = proximity;
-    if (word2 && !proximity) {
-      effectiveProximity = 3;
-      console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 3 Absätze`);
-    }
-    
-    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}`);
-    
-    // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
-    const searchInText = (text, searchTerm, isPhrase) => {
-      if (!searchTerm) return false;
-      const textLower = text.toLowerCase();
-      const termLower = searchTerm.toLowerCase();
-      
-      if (isPhrase) {
-        // Exakte Phrasensuche: Wortgrenzen beachten
-        // \b funktioniert nicht gut mit Umlauten, daher verwende manuelle Wortgrenze
-        const escapedTerm = termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`, 'i');
-        return regex.test(text);
-      } else {
-        // Flexible Suche: auch Teilwörter erlaubt
-        return textLower.includes(termLower);
-      }
-    };
+    console.log(`Volltext-Suche: "${word1}"${word2 ? ` + "${word2}"` : ''}${proximity ? ` (Proximity: ${proximity})` : ''}`);
     
     const results = [];
     const addedParagraphs = new Set();
     
     Object.values(fullLectures).forEach(lecture => {
-      // Jahr-Filter: Überspringe Vorträge, die nicht dem ausgewählten Jahr entsprechen
-      if (yearFilter) {
-        const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
-        
-        // Prüfe ob es ein Jahresbereich ist (z.B. "1910-1915")
-        if (yearFilter.includes('-')) {
-          const [startYear, endYear] = yearFilter.split('-').map(y => y.trim());
-          if (lectureYear < startYear || lectureYear > endYear) {
-            return; // Überspringe diesen Vortrag (außerhalb des Bereichs)
-          }
-        } else {
-          // Einzelnes Jahr
-          if (lectureYear !== yearFilter) {
-            return; // Überspringe diesen Vortrag
-          }
-        }
-      }
-      
       const paragraphs = lecture.paragraphs || [];
       
       paragraphs.forEach((para, paraIndex) => {
-        const content = (para.content || para.text || '');
-        const hasWord1 = word1 && searchInText(content, word1, word1IsPhrase);
-        const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
+        const content = (para.content || para.text || '').toLowerCase();
+        const hasWord1 = word1 && content.includes(word1.toLowerCase());
+        const hasWord2 = word2 && content.includes(word2.toLowerCase());
         
         const paragraphsToAdd = [];
         
         if (!word2) {
-          // Einzelwort-Suche
           if (hasWord1) {
             paragraphsToAdd.push(paraIndex);
           }
-        } else if (!effectiveProximity) {
-          // Zwei-Wort-Suche OHNE Proximity (sollte nicht mehr vorkommen, da effectiveProximity automatisch gesetzt wird)
+        } else if (!proximity) {
           if (hasWord1 || hasWord2) {
             paragraphsToAdd.push(paraIndex);
           }
         } else {
-          // Zwei-Wort-Suche MIT Proximity (Standard: max. 2 Absätze)
-          const maxDist = parseInt(effectiveProximity);
+          const maxDist = parseInt(proximity);
           
           if (hasWord1 && hasWord2) {
-            // Beide Wörter im gleichen Absatz → immer hinzufügen
             paragraphsToAdd.push(paraIndex);
           } else if (hasWord1) {
-            // Nur word1 im aktuellen Absatz → suche word2 in benachbarten Absätzen
             for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
               if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
-                if (searchInText(neighborContent, word2, word2IsPhrase)) {
+                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '').toLowerCase();
+                if (neighborContent.includes(word2.toLowerCase())) {
                   paragraphsToAdd.push(paraIndex);
                   paragraphsToAdd.push(i);
                   break;
@@ -1651,11 +957,10 @@ app.post('/api/fulltext-search', async (req, res) => {
               }
             }
           } else if (hasWord2) {
-            // Nur word2 im aktuellen Absatz → suche word1 in benachbarten Absätzen
             for (let i = Math.max(0, paraIndex - maxDist); i <= Math.min(paragraphs.length - 1, paraIndex + maxDist); i++) {
               if (i !== paraIndex) {
-                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '');
-                if (searchInText(neighborContent, word1, word1IsPhrase)) {
+                const neighborContent = (paragraphs[i].content || paragraphs[i].text || '').toLowerCase();
+                if (neighborContent.includes(word1.toLowerCase())) {
                   paragraphsToAdd.push(paraIndex);
                   paragraphsToAdd.push(i);
                   break;
@@ -1670,7 +975,7 @@ app.post('/api/fulltext-search', async (req, res) => {
           if (!addedParagraphs.has(key)) {
             addedParagraphs.add(key);
             const p = paragraphs[idx];
-            const pContent = (p.content || p.text || '');
+            const pContent = (p.content || p.text || '').toLowerCase();
             
             results.push({
               ID: lecture.ID,
@@ -1681,8 +986,8 @@ app.post('/api/fulltext-search', async (req, res) => {
               paragraphIndex: idx,
               index: p.index,
               content: p.content || p.text,
-              hasWord1: searchInText(pContent, word1, word1IsPhrase),
-              hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase)
+              hasWord1: pContent.includes(word1.toLowerCase()),
+              hasWord2: word2 && pContent.includes(word2.toLowerCase())
             });
           }
         });
@@ -1691,41 +996,14 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
     
-    // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen (außer bei "ohne")
-    let resultsWithRelevance;
-    if (relevanceFilter === 'ohne') {
-      // Schnelle Suche ohne Relevanzberechnung
-      console.log('[RELEVANZ] Überspringe Relevanzberechnung (Filter: ohne)');
-      resultsWithRelevance = results;
-    } else {
-    const searchQuery = word2 ? `${word1} ${word2}` : word1;
-      resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
-    }
-    
-    // Backend-Filterung nach Relevanz
-    let filteredResults = resultsWithRelevance;
-    if (relevanceFilter && relevanceFilter !== 'alle' && relevanceFilter !== 'ohne') {
-      filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
-      console.log(`[BACKEND-FILTER] ${resultsWithRelevance.length} -> ${filteredResults.length} Ergebnisse nach Filter "${relevanceFilter}"`);
-    }
-    
     // Query-Tracking
-    if (word1) trackQueryTerms(word1, filteredResults.length);
-    if (word2) trackQueryTerms(word2, filteredResults.length);
+    if (word1) trackQueryTerms(word1, results.length);
+    if (word2) trackQueryTerms(word2, results.length);
     
     res.json({
-      query: { 
-        word1, 
-        word2, 
-        word1IsPhrase, 
-        word2IsPhrase, 
-        proximity: effectiveProximity, // Verwende effectiveProximity statt proximity
-        originalProximity: proximity,   // Optional: ursprünglicher Wert
-        relevanceFilter 
-      },
-      results: filteredResults,
-      resultCount: filteredResults.length,
-      unfilteredCount: resultsWithRelevance.length
+      query: { word1, word2, proximity },
+      results: results,
+      resultCount: results.length
     });
     
   } catch (error) {
@@ -2087,17 +1365,31 @@ app.post('/api/summarize-lecture', async (req, res) => {
     console.log(`  → Generiere neue Zusammenfassung...`);
     const summaryData = await generateLectureSummary(lecture);
     
-    // Speichere in zentrale Summary-Datenbank mit robustem Locking
+    // Speichere nur in zentrale Summary-Datenbank (kein Memory-Cache mehr)
     try {
-      await saveSummaryToDatabase(lectureId, {
+      console.log(`[SPEICHERUNG] Lade aktuelle Summary-DB...`);
+      const summaryDB = await loadSummaryDatabase();
+      console.log(`[SPEICHERUNG] Aktuelle DB hat ${Object.keys(summaryDB).length} Einträge`);
+      
+      summaryDB[lectureId] = {
         summary: summaryData.summary,
-        headings: summaryData.headings || []
-      });
-      console.log(`  ✓ Summary für ${lectureId} sicher in DB gespeichert`);
+        headings: summaryData.headings || [],
+        timestamp: new Date().toISOString()
+      };
+      console.log(`[SPEICHERUNG] Füge Summary für ${lectureId} hinzu...`);
+      
+      const success = await saveSummaryDatabase(summaryDB);
+      if (success) {
+        console.log(`[SPEICHERUNG] ✓ Summary für ${lectureId} erfolgreich in zentrale DB gespeichert`);
+      } else {
+        console.error(`[SPEICHERUNG] ✗ Speicherung fehlgeschlagen für ${lectureId}`);
+      }
     } catch (dbError) {
-      console.error(`[SPEICHERUNG] ✗ Fehler beim Speichern von ${lectureId}:`, dbError.message);
-      // Werfe Fehler nicht weiter, Response sollte trotzdem gesendet werden
+      console.error(`[SPEICHERUNG] ✗ Zentrale DB-Speicherung fehlgeschlagen für ${lectureId}:`, dbError.message);
+      console.error(`[SPEICHERUNG] Stack:`, dbError.stack);
     }
+    
+    // Legacy saveSummaryCache() entfernt - verwenden nur noch zentrale DB
     
     console.log(`  ✓ Zusammenfassung erstellt und in zentrale DB gespeichert`);
     
@@ -2338,37 +1630,6 @@ app.get('/debug/status', async (req, res) => {
     queryLogSize: Object.keys(queryLog).length,
     claudeConfigured: !!process.env.CLAUDE_API_KEY
   });
-});
-
-// API-Endpunkt: GA-Liste für Dropdowns
-app.get('/api/ga-list', async (req, res) => {
-  try {
-    const gaMap = {};
-    
-    // Sammle GA-Nummern und Titel
-    Object.values(fullLectures).forEach(lecture => {
-      const gaNumber = lecture.ID?.split('/')[0];
-      if (gaNumber && !gaMap[gaNumber]) {
-        // Verwende den Band-Titel falls vorhanden, sonst GA-Nummer
-        gaMap[gaNumber] = {
-          number: gaNumber,
-          title: lecture.bandTitle || lecture.gaTitle || gaNumber
-        };
-      }
-    });
-    
-    // Konvertiere zu Array und sortiere
-    const gaList = Object.values(gaMap).sort((a, b) => {
-      const numA = parseInt(a.number.replace('GA', ''));
-      const numB = parseInt(b.number.replace('GA', ''));
-      return numA - numB;
-    });
-    
-    res.json(gaList);
-  } catch (error) {
-    console.error('Fehler beim Laden der GA-Liste:', error);
-    res.status(500).json({ error: 'Fehler beim Laden der GA-Liste' });
-  }
 });
 
 app.post('/api/hybrid-search', async (req, res) => {
@@ -2918,45 +2179,308 @@ app.get('/api/full-lectures', async (req, res) => {
   }
 });
 
-// Hilfsfunktion: Relevanz-Score berechnen
-function calculateRelevanceScore(lecture, keyword) {
-  const paragraphs = lecture.paragraphs.filter(p => 
-    p.content && p.content.toLowerCase().includes(keyword.toLowerCase())
-  );
+// ============================================================================
+// KEYWORD TIMELINE ANALYSIS (KI-basierte Timeline für Schlagwörter)
+// ============================================================================
+
+async function generateKeywordTimelineAnalysis(keyword, allLectures) {
+  console.log(`[KEYWORD-TIMELINE] Generiere Timeline-Analyse für: "${keyword}"`);
   
-  if (paragraphs.length === 0) return 0;
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
   
-  let totalScore = 0;
-  let keywordOccurrences = 0;
+  if (!claudeApiKey) {
+    console.log('[KEYWORD-TIMELINE] Kein Claude API Key - verwende Fallback');
+    return generateFallbackKeywordTimeline(keyword, allLectures);
+  }
+
+  // Filtere alle Vorträge, die das Schlagwort enthalten
+  const relevantLectures = allLectures.filter(lecture => {
+    if (!lecture.paragraphs) return false;
+    
+    return lecture.paragraphs.some(paragraph => {
+      const content = paragraph.content || '';
+      return content.toLowerCase().includes(keyword.toLowerCase());
+    });
+  });
+
+  console.log(`[KEYWORD-TIMELINE] ${relevantLectures.length} Vorträge mit "${keyword}" gefunden`);
+
+  if (relevantLectures.length === 0) {
+    return {
+      keyword: keyword,
+      timelineEntries: [],
+      analysis: `Keine Vorträge mit dem Schlagwort "${keyword}" gefunden.`,
+      totalLectures: allLectures.length,
+      relevantLectures: 0
+    };
+  }
+
+  // Erstelle Kontext-Text für KI-Analyse
+  const contextText = relevantLectures
+    .map(lecture => {
+      const relevantParagraphs = lecture.paragraphs.filter(paragraph => 
+        paragraph.content && paragraph.content.toLowerCase().includes(keyword.toLowerCase())
+      );
+      
+      const paragraphsText = relevantParagraphs
+        .map(p => `[${lecture.ID}:${p.index}] ${p.content}`)
+        .join('\n\n');
+      
+      return `=== ${lecture.ID} - ${lecture.title} (${lecture.date || 'Datum unbekannt'}) ===\n${paragraphsText}`;
+    })
+    .join('\n\n---\n\n');
+
+  const prompt = `Analysiere das Vorkommen des Schlagworts "${keyword}" in Rudolf Steiners Gesamtausgabe (GA) und erstelle eine chronologische Timeline mit thematischer Relevanz-Bewertung.
+
+AUFGABE:
+1. Identifiziere alle Vorträge, in denen "${keyword}" thematisch relevant vorkommt
+2. Bewerte die thematische Relevanz jeder Erwähnung (hoch/mittel/niedrig)
+3. Erstelle eine chronologische Timeline der relevanten Vorträge
+4. Analysiere die Entwicklung des Begriffs über die Zeit
+
+BEWERTUNGSKRITERIEN für thematische Relevanz:
+- HOCH: Das Schlagwort ist zentrales Thema des Vortrags/Abschnitts
+- MITTEL: Das Schlagwort wird ausführlich behandelt, aber nicht als Hauptthema
+- NIEDRIG: Das Schlagwort wird nur beiläufig erwähnt oder in anderem Kontext
+
+ZITATE-ANWEISUNGEN:
+- Extrahiere NUR direkte Zitate aus dem Text, die das Schlagwort enthalten
+- KEINE zusammenfassenden Sätze oder Interpretationen
+- KEINE Überschriften oder Beschreibungen über den Zitaten
+- Zitate müssen wörtlich aus dem Text stammen
+- Beispiel: "Die anschauende Urteilskraft ist..." statt "Goethes Auseinandersetzung mit Kant..."
+
+AUSGABEFORMAT:
+Erstelle eine JSON-Struktur mit folgendem Format:
+
+{
+  "keyword": "${keyword}",
+  "timelineEntries": [
+    {
+      "lectureId": "GA066/1",
+      "title": "Vortragstitel",
+      "date": "15.03.1912",
+      "year": 1912,
+      "relevance": "hoch|mittel|niedrig",
+      "context": "Kurze Beschreibung des Kontexts",
+      "keyQuotes": ["wichtiges Zitat 1", "wichtiges Zitat 2"],
+      "thematicFocus": "Beschreibung des thematischen Schwerpunkts"
+    }
+  ],
+  "analysis": "Kurze Analyse der Entwicklung des Begriffs über die Zeit",
+  "totalLectures": ${allLectures.length},
+  "relevantLectures": ${relevantLectures.length}
+}
+
+WICHTIGE HINWEISE:
+- Sortiere die timelineEntries chronologisch nach Jahr und Datum
+- Verwende nur Vorträge mit thematischer Relevanz (mindestens "niedrig")
+- Zitate müssen wörtlich aus dem Text stammen und das Schlagwort enthalten
+- KEINE zusammenfassenden Sätze, Interpretationen oder Überschriften über den Zitaten
+- KEINE eigenen Formulierungen wie "Goethes Auseinandersetzung mit Kant..."
+- Nur direkte Textzitate in Anführungszeichen
+- Die Analyse sollte die Entwicklung und Bedeutung des Begriffs über die Zeit beschreiben
+
+VERFÜGBARE VORTRÄGE:
+${contextText}
+
+ANALYSE:`;
+
+  try {
+    console.log('[KEYWORD-TIMELINE] Rufe Claude API auf...');
+    
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 8000,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    let analysisText = result.content[0].text;
+    
+    console.log('[KEYWORD-TIMELINE] Claude Antwort erhalten, Länge:', analysisText.length);
+    
+    // Versuche JSON aus der Antwort zu extrahieren
+    try {
+      const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        const timelineData = JSON.parse(jsonMatch[0]);
+        console.log('[KEYWORD-TIMELINE] JSON erfolgreich geparst');
+        return timelineData;
+      }
+    } catch (parseError) {
+      console.warn('[KEYWORD-TIMELINE] JSON-Parse Fehler:', parseError.message);
+    }
+    
+    // Fallback: Erstelle Timeline aus verfügbaren Daten
+    return generateFallbackKeywordTimeline(keyword, relevantLectures);
+
+  } catch (error) {
+    console.error('[KEYWORD-TIMELINE] LLM-Analyse Fehler:', error);
+    return generateFallbackKeywordTimeline(keyword, relevantLectures);
+  }
+}
+
+function generateFallbackKeywordTimeline(keyword, lectures) {
+  console.log('[KEYWORD-TIMELINE] Verwende Fallback-Timeline');
   
-  paragraphs.forEach(paragraph => {
-    const content = paragraph.content.toLowerCase();
-    const keywordLower = keyword.toLowerCase();
+  const timelineEntries = lectures.map(lecture => {
+    // Extrahiere Jahr aus Datum oder GA-Nummer
+    let year = null;
+    if (lecture.date) {
+      const yearMatch = lecture.date.match(/^(\d{4})/);
+      if (yearMatch) year = parseInt(yearMatch[1]);
+    }
     
-    // Anzahl der Vorkommen
-    const occurrences = (content.split(keywordLower).length - 1);
-    keywordOccurrences += occurrences;
+    if (!year) {
+      const gaNum = parseInt(lecture.ID.replace('GA', '').split('/')[0]);
+      if (gaNum >= 51 && gaNum <= 100) year = 1900 + Math.floor((gaNum - 51) * 0.5);
+      else if (gaNum >= 101 && gaNum <= 200) year = 1910 + Math.floor((gaNum - 101) * 0.3);
+      else if (gaNum >= 201 && gaNum <= 300) year = 1920 + Math.floor((gaNum - 201) * 0.2);
+      else year = 1925;
+    }
     
-    // Dichte-Score (Vorkommen pro Zeichen)
-    const density = occurrences / paragraph.content.length;
-    
-    // Kontext-Länge-Score (längere Abschnitte = höhere Relevanz)
-    const contextScore = Math.log(paragraph.content.length + 1);
-    
-    // Kombinierter Score für diesen Absatz
-    const paragraphScore = density * contextScore * Math.sqrt(occurrences);
-    totalScore += paragraphScore;
+    return {
+      lectureId: lecture.ID,
+      title: lecture.title || 'Titel unbekannt',
+      date: lecture.date || 'Datum unbekannt',
+      year: year,
+      relevance: 'mittel', // Fallback-Wert
+      context: `Erwähnung von "${keyword}" in ${lecture.ID}`,
+      keyQuotes: [],
+      thematicFocus: 'Automatisch erkannt'
+    };
   });
   
-  // Normalisierung: Score pro Absatz und pro Vorkommen
-  const normalizedScore = totalScore / Math.max(paragraphs.length, 1);
-  const occurrenceBonus = Math.log(keywordOccurrences + 1) * 0.1;
+  // Sortiere chronologisch
+  timelineEntries.sort((a, b) => {
+    if (a.year !== b.year) return a.year - b.year;
+    return a.date.localeCompare(b.date);
+  });
   
-  return normalizedScore + occurrenceBonus;
+  return {
+    keyword: keyword,
+    timelineEntries: timelineEntries,
+    analysis: `Das Schlagwort "${keyword}" wurde in ${lectures.length} Vorträgen gefunden. Die Timeline zeigt die chronologische Entwicklung der Erwähnungen.`,
+    totalLectures: lectures.length,
+    relevantLectures: lectures.length
+  };
 }
 
 // ============================================================================
-// SINGLE LECTURE API
+// TIMELINE CACHE FUNCTIONS
+// ============================================================================
+
+async function loadTimelineCacheDatabase() {
+  try {
+    const timelineCachePath = path.join(__dirname, 'timeline-cache-database.json');
+    const data = await fs.readFile(timelineCachePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('[TIMELINE-CACHE] Neue Timeline-Cache-DB erstellt');
+    return {};
+  }
+}
+
+async function saveTimelineCacheDatabase(timelineCacheDB) {
+  try {
+    const timelineCachePath = path.join(__dirname, 'timeline-cache-database.json');
+    await fs.writeFile(timelineCachePath, JSON.stringify(timelineCacheDB, null, 2));
+    console.log('[TIMELINE-CACHE] Timeline-Cache-DB gespeichert');
+  } catch (error) {
+    console.error('[TIMELINE-CACHE] Fehler beim Speichern:', error);
+    throw error;
+  }
+}
+
+// ============================================================================
+// KEYWORD TIMELINE API ENDPOINT
+// ============================================================================
+
+app.post('/api/keyword-timeline-analysis', async (req, res) => {
+  try {
+    const { keyword, useCache = true } = req.body;
+    
+    if (!keyword) {
+      return res.status(400).json({ error: 'Keyword erforderlich' });
+    }
+    
+    console.log(`[KEYWORD-TIMELINE-API] Timeline-Analyse für: "${keyword}"`);
+    
+    // Cache-System für Keyword-Timeline-Analyse
+    const cacheKey = `timeline_${keyword.toLowerCase().trim()}`;
+    const timelineCacheDB = await loadTimelineCacheDatabase();
+    
+    // Prüfe Cache (nur wenn useCache true ist)
+    if (useCache && timelineCacheDB[cacheKey]) {
+      console.log(`[KEYWORD-TIMELINE-CACHE] Cache-Hit für: "${keyword}"`);
+      return res.json({
+        ...timelineCacheDB[cacheKey],
+        fromCache: true,
+        cacheTimestamp: timelineCacheDB[cacheKey].timestamp
+      });
+    }
+    
+    // Lade alle Vorträge
+    if (Object.keys(fullLectures).length === 0) {
+      await loadFullLectures();
+    }
+    
+    const allLectures = Object.values(fullLectures);
+    
+    // Generiere Timeline-Analyse
+    const timelineData = await generateKeywordTimelineAnalysis(keyword, allLectures);
+    
+    // Erweitere Timeline-Daten um zusätzliche Metadaten
+    const enhancedTimelineData = {
+      ...timelineData,
+      searchMethod: 'keyword-timeline-analysis',
+      llmUsed: !!process.env.CLAUDE_API_KEY,
+      generatedAt: new Date().toISOString()
+    };
+    
+    // Speichere im Cache
+    timelineCacheDB[cacheKey] = {
+      ...enhancedTimelineData,
+      timestamp: new Date().toISOString()
+    };
+    
+    // Speichere Cache-DB (non-blocking)
+    saveTimelineCacheDatabase(timelineCacheDB).then(() => {
+      console.log(`[KEYWORD-TIMELINE-CACHE] Timeline gecacht für: "${keyword}"`);
+    }).catch(err => {
+      console.warn('[KEYWORD-TIMELINE-CACHE] Fehler beim Cachen:', err.message);
+    });
+    
+    return res.json({
+      ...enhancedTimelineData,
+      fromCache: false,
+      cacheTimestamp: new Date().toISOString()
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORD-TIMELINE-API] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// SINGLE LECTURE API (für Timeline)
 // ============================================================================
 
 app.get('/api/lecture/:lectureId', async (req, res) => {
@@ -3214,7 +2738,7 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       });
     }
     
-    console.log(`[KEYWORDS-BATCH-ADD] Starte parallele Batch-Verarbeitung für ${keywords.length} Schlagwörter (Concurrency: 5)`);
+    console.log(`[KEYWORDS-BATCH-ADD] Starte Batch-Verarbeitung für ${keywords.length} Schlagwörter`);
     
     const results = {
       batchId: batchId || `batch_${Date.now()}`,
@@ -3226,160 +2750,137 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       startTime: new Date().toISOString()
     };
     
-    // Lade keywords.json einmalig vor der Verarbeitung
-    const keywordsFile = path.join(__dirname, 'keywords.json');
-    let allKeywords = [];
-    
-    try {
-      const fileContent = await fs.readFile(keywordsFile, 'utf8');
-      allKeywords = JSON.parse(fileContent);
-    } catch (error) {
-      console.log('[KEYWORDS-BATCH-ADD] keywords.json nicht gefunden, erstelle neue');
-    }
-    
-    // Definiere Verarbeitungsfunktion für ein Schlagwort
-    const processKeyword = async (keyword, i) => {
-      const trimmedKeyword = keyword.trim();
+    // Verarbeite Schlagwörter sequenziell (um API-Limits zu respektieren)
+    for (let i = 0; i < keywords.length; i++) {
+      const keyword = keywords[i].trim();
       
-      if (!trimmedKeyword) {
-        return {
-          status: 'skipped',
-          keyword: keyword,
+      if (!keyword) {
+        results.skipped.push({
+          keyword: keywords[i],
           reason: 'Leeres Schlagwort',
           index: i
-        };
+        });
+        continue;
       }
       
-      console.log(`[KEYWORDS-BATCH-ADD] Verarbeite ${i + 1}/${keywords.length}: "${trimmedKeyword}"`);
+      console.log(`[KEYWORDS-BATCH-ADD] Verarbeite ${i + 1}/${keywords.length}: "${keyword}"`);
       
-      // Prüfe auf Duplikate
-      const existingKeywordIndex = allKeywords.findIndex(k => 
-        k.keyword.toLowerCase() === trimmedKeyword.toLowerCase()
-      );
-      
-      if (existingKeywordIndex !== -1 && !overwrite) {
-        return {
-          status: 'skipped',
-          keyword: trimmedKeyword,
-          reason: 'Schlagwort bereits vorhanden',
-          index: i,
-          existingKeyword: allKeywords[existingKeywordIndex].keyword
-        };
-      }
-      
-      // Führe Keyword-Thematische Suche durch
-      let keywordResults = performThematicKeywordSearch(trimmedKeyword, paragraphsFromLectures);
-      
-      if (keywordResults.length === 0) {
-        return {
-          status: 'failed',
-          keyword: trimmedKeyword,
-          reason: 'Keine relevanten Textstellen gefunden',
-          index: i
-        };
-      }
-      
-      // Generiere KI-Analyse
-      const analysis = await generateKeywordAnalysis(trimmedKeyword, keywordResults, 'ausführlich');
-      
-      // Erstelle neues Schlagwort-Objekt
-      const newKeyword = {
-        keyword: trimmedKeyword,
-        alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
-        text: `**${trimmedKeyword}**`,
-        gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
-        generatedAt: new Date().toISOString(),
-        sourceAnalysis: 'ki-generated-batch',
-        analysisLength: analysis.length,
-        resultCount: keywordResults.length,
-        hasDetailedAnalysis: true,
-        batchId: results.batchId,
-        batchIndex: i
-      };
-      
-      // Speichere detaillierte Analyse im Cache
-      const keywordThematicDB = await loadKeywordThematicDatabase();
-      const cacheKey = `keyword_${trimmedKeyword.toLowerCase().trim()}_ausführlich_30`;
-      
-      keywordThematicDB[cacheKey] = {
-        query: trimmedKeyword,
-        content: analysis,
-        sources: keywordResults.slice(0, 20).map(result => ({
-          ID: result.ID,
-          index: result.index,
-          title: result.title,
-          fileName: result.fileName,
-          score: Math.round(result.finalScore || 100),
-          matchedTerms: result.matchedTerms || [trimmedKeyword]
-        })),
-        searchMethod: 'keyword-thematic-search',
-        totalMatches: keywordResults.length,
-        llmUsed: !!process.env.CLAUDE_API_KEY,
-        timestamp: new Date().toISOString(),
-        batchId: results.batchId
-      };
-      
-      await saveKeywordThematicDatabase(keywordThematicDB);
-      
-      console.log(`[KEYWORDS-BATCH-ADD] ✓ "${trimmedKeyword}" erfolgreich verarbeitet`);
-      
-      return {
-        status: 'successful',
-        keyword: trimmedKeyword,
-        index: i,
-        resultCount: keywordResults.length,
-        analysisLength: analysis.length,
-        newKeyword: newKeyword,
-        existingKeywordIndex: existingKeywordIndex
-      };
-    };
-    
-    // Verarbeite alle Schlagwörter parallel (max 5 gleichzeitig, 200ms Verzögerung zwischen Starts)
-    const batchResults = await processBatchWithConcurrency(
-      keywords,
-      processKeyword,
-      5,  // Concurrency Limit
-      200 // Delay zwischen Starts in ms
-    );
-    
-    // Sammle Ergebnisse und aktualisiere keywords.json
-    for (const result of batchResults) {
-      if (result.success) {
-        const data = result.result;
+      try {
+        // Prüfe ob Schlagwort bereits existiert
+        const keywordsFile = path.join(__dirname, 'keywords.json');
+        let allKeywords = [];
         
-        if (data.status === 'successful') {
-          // Aktualisiere allKeywords Array
-          if (data.existingKeywordIndex !== -1 && overwrite) {
-            allKeywords[data.existingKeywordIndex] = data.newKeyword;
-          } else if (data.existingKeywordIndex === -1) {
-            allKeywords.push(data.newKeyword);
-          }
-          
-          results.successful.push({
-            keyword: data.keyword,
-            index: data.index,
-            resultCount: data.resultCount,
-            analysisLength: data.analysisLength
-          });
-        } else if (data.status === 'skipped') {
-          results.skipped.push(data);
-        } else if (data.status === 'failed') {
-          results.failed.push(data);
+        try {
+          const fileContent = await fs.readFile(keywordsFile, 'utf8');
+          allKeywords = JSON.parse(fileContent);
+        } catch (error) {
+          console.log('[KEYWORDS-BATCH-ADD] keywords.json nicht gefunden, erstelle neue');
         }
-      } else {
+        
+        // Prüfe auf Duplikate
+        const existingKeywordIndex = allKeywords.findIndex(k => 
+          k.keyword.toLowerCase() === keyword.toLowerCase()
+        );
+        
+        if (existingKeywordIndex !== -1 && !overwrite) {
+          results.skipped.push({
+            keyword: keyword,
+            reason: 'Schlagwort bereits vorhanden',
+            index: i,
+            existingKeyword: allKeywords[existingKeywordIndex].keyword
+          });
+          continue;
+        }
+        
+        // Führe Keyword-Thematische Suche durch
+        let keywordResults = performThematicKeywordSearch(keyword, paragraphsFromLectures);
+        
+        if (keywordResults.length === 0) {
+          results.failed.push({
+            keyword: keyword,
+            reason: 'Keine relevanten Textstellen gefunden',
+            index: i
+          });
+          continue;
+        }
+        
+        // Generiere KI-Analyse
+        const analysis = await generateKeywordAnalysis(keyword, keywordResults, 'ausführlich');
+        
+        // Erstelle neues Schlagwort-Objekt
+        const newKeyword = {
+          keyword: keyword,
+          alphabetical: keyword.charAt(0).toUpperCase(),
+          text: `**${keyword}**`,
+          gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+          generatedAt: new Date().toISOString(),
+          sourceAnalysis: 'ki-generated-batch',
+          analysisLength: analysis.length,
+          resultCount: keywordResults.length,
+          hasDetailedAnalysis: true,
+          batchId: results.batchId,
+          batchIndex: i
+        };
+        
+        if (existingKeywordIndex !== -1 && overwrite) {
+          allKeywords[existingKeywordIndex] = newKeyword;
+        } else {
+          allKeywords.push(newKeyword);
+        }
+        
+        // Speichere zurück in keywords.json
+        await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
+        
+        // Speichere detaillierte Analyse im Cache
+        const keywordThematicDB = await loadKeywordThematicDatabase();
+        const cacheKey = `keyword_${keyword.toLowerCase().trim()}_ausführlich_30`;
+        
+        keywordThematicDB[cacheKey] = {
+          query: keyword,
+          content: analysis,
+          sources: keywordResults.slice(0, 20).map(result => ({
+            ID: result.ID,
+            index: result.index,
+            title: result.title,
+            fileName: result.fileName,
+            score: Math.round(result.finalScore || 100),
+            matchedTerms: result.matchedTerms || [keyword]
+          })),
+          searchMethod: 'keyword-thematic-search',
+          totalMatches: keywordResults.length,
+          llmUsed: !!process.env.CLAUDE_API_KEY,
+          timestamp: new Date().toISOString(),
+          batchId: results.batchId
+        };
+        
+        await saveKeywordThematicDatabase(keywordThematicDB);
+        
+        results.successful.push({
+          keyword: keyword,
+          index: i,
+          resultCount: keywordResults.length,
+          analysisLength: analysis.length
+        });
+        
+        console.log(`[KEYWORDS-BATCH-ADD] ✓ "${keyword}" erfolgreich verarbeitet`);
+        
+        // Kurze Pause zwischen API-Calls (um Rate Limits zu respektieren)
+        if (i < keywords.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        
+      } catch (error) {
+        console.error(`[KEYWORDS-BATCH-ADD] ✗ Fehler bei "${keyword}":`, error);
         results.failed.push({
-          keyword: result.item,
-          reason: result.error || 'Unbekannter Fehler',
-          index: result.index
+          keyword: keyword,
+          reason: error.message || 'Unbekannter Fehler',
+          index: i,
+          error: error.toString()
         });
       }
       
       results.processed++;
     }
-    
-    // Speichere aktualisierte keywords.json
-    await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
-    console.log('[KEYWORDS-BATCH-ADD] keywords.json aktualisiert');
     
     results.endTime = new Date().toISOString();
     results.duration = new Date(results.endTime) - new Date(results.startTime);
@@ -3591,8 +3092,12 @@ app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
       }
     });
 
-    // Lösche aus zentraler DB mit robustem Locking
-    deletedCount = await deleteSummariesFromDatabase(toDelete);
+    // Lösche aus zentraler DB
+    toDelete.forEach(id => {
+      delete summaryDB[id];
+      deletedCount++;
+    });
+    await saveSummaryDatabase(summaryDB);
 
     console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
 
@@ -3709,16 +3214,6 @@ app.post('/api/keywords-delete', async (req, res) => {
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
-const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
-const THEMES_DB_FILE = path.join(__dirname, 'themes-database.json');
-
-// ============================================================================
-// ROBUSTE SUMMARY-DATENBANK MIT LOCKING-MECHANISMUS
-// ============================================================================
-
-// Lock-Queue für sequenzielles Schreiben in die Summary-DB
-let summaryDbWriteQueue = Promise.resolve();
-let summaryDbLock = false;
 
 // Lade zentrale Summary-Datenbank
 async function loadSummaryDatabase() {
@@ -3731,7 +3226,7 @@ async function loadSummaryDatabase() {
   }
 }
 
-// Speichere zentrale Summary-Datenbank (veraltet - verwende saveSummaryToDatabase)
+// Speichere zentrale Summary-Datenbank
 async function saveSummaryDatabase(summaryDB) {
   try {
     await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
@@ -3743,80 +3238,6 @@ async function saveSummaryDatabase(summaryDB) {
   }
 }
 
-// ROBUSTE FUNKTION: Speichere einzelne Summary in Datenbank (mit Locking)
-// Diese Funktion verhindert Race Conditions bei parallelen Schreibzugriffen
-async function saveSummaryToDatabase(lectureId, summaryData) {
-  // Reihe diese Operation in die Queue ein
-  return new Promise((resolve, reject) => {
-    summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
-      try {
-        console.log(`[LOCK] Sperre DB für ${lectureId}...`);
-        
-        // Lade immer die aktuellste Version der Datenbank
-        const summaryDB = await loadSummaryDatabase();
-        
-        // Füge neue Summary hinzu oder aktualisiere bestehende
-        summaryDB[lectureId] = {
-          summary: summaryData.summary,
-          headings: summaryData.headings || [],
-          timestamp: new Date().toISOString()
-        };
-        
-        // Speichere Datenbank
-        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-        
-        console.log(`[LOCK] ✓ Summary für ${lectureId} gespeichert (${Object.keys(summaryDB).length} Einträge total)`);
-        
-        resolve(true);
-        
-      } catch (error) {
-        console.error(`[LOCK] ✗ Fehler beim Speichern von ${lectureId}:`, error);
-        reject(error);
-      }
-    }).catch(error => {
-      console.error('[LOCK] Queue-Fehler:', error);
-      reject(error);
-    });
-  });
-}
-
-// ROBUSTE FUNKTION: Lösche mehrere Summaries aus Datenbank (mit Locking)
-async function deleteSummariesFromDatabase(lectureIds) {
-  return new Promise((resolve, reject) => {
-    summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
-      try {
-        console.log(`[LOCK] Sperre DB für Bulk-Delete (${lectureIds.length} Einträge)...`);
-        
-        // Lade immer die aktuellste Version der Datenbank
-        const summaryDB = await loadSummaryDatabase();
-        
-        // Lösche Einträge
-        let deletedCount = 0;
-        lectureIds.forEach(id => {
-          if (summaryDB[id]) {
-            delete summaryDB[id];
-            deletedCount++;
-          }
-        });
-        
-        // Speichere Datenbank
-        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-        
-        console.log(`[LOCK] ✓ ${deletedCount} Summaries gelöscht (${Object.keys(summaryDB).length} Einträge verbleiben)`);
-        
-        resolve(deletedCount);
-        
-      } catch (error) {
-        console.error(`[LOCK] ✗ Fehler beim Löschen:`, error);
-        reject(error);
-      }
-    }).catch(error => {
-      console.error('[LOCK] Queue-Fehler:', error);
-      reject(error);
-    });
-  });
-}
-
 // API: Summary speichern
 app.post('/api/save-summary', async (req, res) => {
   try {
@@ -3826,13 +3247,21 @@ app.post('/api/save-summary', async (req, res) => {
       return res.status(400).json({ error: 'lectureId und summary sind erforderlich' });
     }
     
-    // Verwende robuste Speicherfunktion mit Locking
-    const success = await saveSummaryToDatabase(lectureId, {
+    // Lade aktuelle DB
+    const summaryDB = await loadSummaryDatabase();
+    
+    // Füge Summary hinzu
+    summaryDB[lectureId] = {
       summary: summary.summary,
-      headings: summary.headings || []
-    });
+      headings: summary.headings || [],
+      timestamp: new Date().toISOString()
+    };
+    
+    // Speichere DB
+    const success = await saveSummaryDatabase(summaryDB);
     
     if (success) {
+      console.log(`Summary für ${lectureId} in zentrale DB gespeichert`);
       res.json({ success: true, message: `Summary für ${lectureId} gespeichert` });
     } else {
       res.status(500).json({ error: 'Fehler beim Speichern' });
@@ -3851,1049 +3280,6 @@ app.get('/summary-database.json', async (req, res) => {
     res.json(summaryDB);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// ============================================================================
-// KEYWORDS-DATENBANK MIT LOCKING-MECHANISMUS
-// ============================================================================
-
-// Lock-Queue für sequenzielles Schreiben in die Keywords-DB
-let keywordsDbWriteQueue = Promise.resolve();
-
-// Lade zentrale Keywords-Datenbank
-async function loadKeywordsDatabase() {
-  try {
-    const data = await fs.readFile(KEYWORDS_DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.log('[KEYWORDS-DB] Datenbank nicht gefunden, erstelle neue...');
-    return {};
-  }
-}
-
-// ROBUSTE FUNKTION: Speichere Keywords in Datenbank (mit Locking)
-async function saveKeywordsToDatabase(lectureId, keywordsData) {
-  return new Promise((resolve, reject) => {
-    keywordsDbWriteQueue = keywordsDbWriteQueue.then(async () => {
-      try {
-        console.log(`[KEYWORDS-LOCK] Sperre DB für ${lectureId}...`);
-        
-        // Lade immer die aktuellste Version der Datenbank
-        const keywordsDB = await loadKeywordsDatabase();
-        
-        // Füge neue Keywords hinzu oder aktualisiere bestehende
-        keywordsDB[lectureId] = {
-          ...keywordsData,
-          timestamp: new Date().toISOString()
-        };
-        
-        // Speichere Datenbank
-        await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
-        
-        console.log(`[KEYWORDS-LOCK] ✓ Keywords für ${lectureId} gespeichert (${Object.keys(keywordsDB).length} Einträge total)`);
-        
-        resolve(true);
-        
-      } catch (error) {
-        console.error(`[KEYWORDS-LOCK] ✗ Fehler beim Speichern von ${lectureId}:`, error);
-        reject(error);
-      }
-    }).catch(error => {
-      console.error('[KEYWORDS-LOCK] Queue-Fehler:', error);
-      reject(error);
-    });
-  });
-}
-
-// Funktion: Keywords aus Überschriften generieren (HAUPTEINSTIEG)
-// Verwendet IMMER Claude KI für beste Qualität
-async function generateKeywordsFromHeadings(lecture, headings) {
-  console.log('[KEYWORDS-GEN] Verwende KI-basierte Extraktion mit Claude');
-  return await generateKeywordsWithAI(lecture, headings);
-}
-
-// OPTIONAL: Keywords mit Claude KI extrahieren (nur wenn USE_AI_FOR_KEYWORDS=true)
-// Hilfsfunktion: Parallele Verarbeitung mit Concurrency-Limit
-async function processBatchWithConcurrency(items, processFn, concurrencyLimit = 5, delayMs = 200) {
-  const results = [];
-  const executing = [];
-  
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    
-    // Erstelle Promise für dieses Item
-    const promise = (async () => {
-      try {
-        const result = await processFn(item, i);
-        return { success: true, item, index: i, result };
-      } catch (error) {
-        return { success: false, item, index: i, error: error.message };
-      }
-    })();
-    
-    results.push(promise);
-    executing.push(promise);
-    
-    // Entferne abgeschlossene Promises aus executing
-    promise.then(() => {
-      executing.splice(executing.indexOf(promise), 1);
-    });
-    
-    // Warte, wenn Concurrency-Limit erreicht
-    if (executing.length >= concurrencyLimit) {
-      await Promise.race(executing);
-    }
-    
-    // Kleine Verzögerung zwischen Starts (für Rate Limiting)
-    if (i < items.length - 1 && delayMs > 0) {
-      await new Promise(resolve => setTimeout(resolve, delayMs));
-    }
-  }
-  
-  // Warte auf alle verbleibenden Promises
-  return await Promise.all(results);
-}
-
-// Normalisiere und dedupliziere Schlagwörter
-function normalizeKeywords(keywords) {
-  if (!keywords || !Array.isArray(keywords)) return [];
-  
-  const normalized = new Map();
-  
-  keywords.forEach(kw => {
-    let term = kw.term || kw;
-    if (typeof term !== 'string') return;
-    
-    // Bereinige und kapitalisiere
-    term = term.trim();
-    
-    // Kapitalisiere erste Buchstaben von Substantiven
-    term = term.split(/\s+/).map(word => {
-      // Kleine Wörter (und, oder, etc.) kleinschreiben
-      if (['und', 'oder', 'der', 'die', 'das', 'des', 'dem', 'den'].includes(word.toLowerCase())) {
-        return word.toLowerCase();
-      }
-      // Sonst: Erster Buchstabe groß
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    }).join(' ');
-    
-    // Normalisiere ähnliche Begriffe
-    const lower = term.toLowerCase();
-    const baseForm = lower
-      .replace(/\s+/g, ' ')
-      .replace(/ä/g, 'a').replace(/ö/g, 'o').replace(/ü/g, 'u').replace(/ß/g, 'ss');
-    
-    // Erkenne Duplikate/Varianten
-    let isDuplicate = false;
-    for (const [existingBase, existingTerm] of normalized.entries()) {
-      // Exakte Übereinstimmung (case-insensitive)
-      if (existingTerm.toLowerCase() === lower) {
-        isDuplicate = true;
-        break;
-      }
-      
-      // Singular/Plural Erkennung
-      if (lower.endsWith('en') && lower.slice(0, -2) === existingTerm.toLowerCase()) {
-        isDuplicate = true;
-        break;
-      }
-      if (existingTerm.toLowerCase().endsWith('en') && existingTerm.toLowerCase().slice(0, -2) === lower) {
-        isDuplicate = true;
-        break;
-      }
-      
-      // Ähnliche zusammengesetzte Begriffe
-      const existingWords = existingTerm.toLowerCase().split(' ');
-      const currentWords = lower.split(' ');
-      
-      // "karma" vs "kosmisches karma" -> behalte längeren
-      if (existingWords.length === 1 && currentWords.length > 1 && currentWords.includes(existingWords[0])) {
-        // Ersetze kürzeren durch längeren
-        normalized.delete(existingBase);
-        break;
-      }
-      if (currentWords.length === 1 && existingWords.length > 1 && existingWords.includes(currentWords[0])) {
-        isDuplicate = true;
-        break;
-      }
-    }
-    
-    if (!isDuplicate && term.length > 0) {
-      normalized.set(baseForm, term);
-    }
-  });
-  
-  const result = Array.from(normalized.values());
-  console.log(`[NORMALIZE] ${keywords.length} Keywords → ${result.length} normalisiert`);
-  
-  return result.map(term => {
-    // Bewahre ursprüngliche Struktur falls vorhanden
-    const original = keywords.find(k => (k.term || k).toLowerCase() === term.toLowerCase());
-    if (original && typeof original === 'object') {
-      return { ...original, term };
-    }
-    return { term };
-  });
-}
-
-async function generateKeywordsWithAI(lecture, headings) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('[KEYWORDS-GEN] Kein Claude API Key - verwende Regel-basiert');
-    return extractKeywordsFromHeadings(headings);
-  }
-  
-  // Formatiere alle Überschriften für den Prompt
-  const headingsText = headings
-    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
-    .join('\n');
-  
-  const prompt = `Analysiere die folgenden Zwischenüberschriften (H3 und H4) aus einem Vortrag von Rudolf Steiner.
-Erstelle für JEDE Überschrift EIN prägnantes Schlagwort.
-
-ANFORDERUNGEN:
-- JEDE Überschrift wird zu EINEM Schlagwort
-- Schlagwörter können 1-3 Worte lang sein
-- Reduziere die Überschrift auf das Wesentliche
-- Mischung aus abstrakten (z.B. "Karma", "Erkenntnistheorie") und konkreten Begriffen (z.B. "Deutsches Reich", "Rosenkreuzer")
-- WICHTIG: Korrekte deutsche Großschreibung - Substantive IMMER groß ("Karma", "Reinkarnation", "Tod"), Adjektive und Verbformen klein ("vorgeburtlich", "kosmisch")
-- Kleine Wörter wie "und", "der", "die" immer klein
-- Behalte den Index der Original-Überschrift bei
-
-BEISPIELE:
-"Die Entstehung des deutschen Reiches" → "Deutsches Reich"
-"Karma und Reinkarnation im indischen Denken" → "Karma und Reinkarnation"
-"Die heiligen Rishis als Bewahrer der Urweisheit" → "Heilige Rishis"
-"Der Verfall des Rittertums" → "Rittertum"
-"Vorgeburtliche Erziehung" → "Vorgeburtliche Erziehung"
-"Das kosmische Karma" → "Kosmisches Karma"
-
-ÜBERSCHRIFTEN:
-${headingsText}
-
-ANTWORT-FORMAT (JSON):
-[
-  {
-    "term": "Schlagwort (1-3 Worte)",
-    "index": "^abc123",
-    "heading": "Original-Überschrift"
-  },
-  ...
-]
-
-Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
-
-  try {
-    console.log('[KEYWORDS-GEN] Rufe Claude API auf...');
-    
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    let responseText = result.content[0].text.trim();
-    
-    // Entferne Markdown Code-Blöcke falls vorhanden
-    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    
-    let keywords = JSON.parse(responseText);
-    
-    console.log('[KEYWORDS-GEN] ✓ Keywords mit KI extrahiert:', keywords.length, 'aus', headings.length, 'Überschriften');
-    
-    // Füge level-Feld hinzu basierend auf Original-Überschriften
-    keywords = keywords.map(kw => {
-      const originalHeading = headings.find(h => h.index === kw.index || h.text === kw.heading);
-      return {
-        ...kw,
-        level: originalHeading?.level || 'h3' // Übernehme level von Original-Überschrift
-      };
-    });
-    
-    // Normalisiere Keywords (Großschreibung, Deduplizierung)
-    keywords = normalizeKeywords(keywords);
-    
-    return keywords;
-
-  } catch (error) {
-    console.error('[KEYWORDS-GEN] Fehler bei Claude API:', error);
-    return extractKeywordsFromHeadings(headings);
-  }
-}
-
-// HAUPTFUNKTION: Extrahiere Keywords aus Überschriften (regel-basiert, ohne KI)
-function extractKeywordsFromHeadings(headings) {
-  console.log('[KEYWORDS-GEN] Verwende regel-basierte Extraktion');
-  
-  return headings.map(h => ({
-    term: extractKeywordFromHeading(h.text),
-    index: h.index,
-    heading: h.text,
-    level: h.level || 'h3' // Übernehme Level (h3 oder h4)
-  }));
-}
-
-// HILFSFUNKTION: Extrahiere prägnantes Keyword aus einer Überschrift
-function extractKeywordFromHeading(text) {
-  // Liste der deutschen Füllwörter
-  const stopWords = [
-    'der', 'die', 'das', 'den', 'dem', 'des',
-    'ein', 'eine', 'eines', 'einem', 'einen', 'einer',
-    'von', 'zu', 'mit', 'für', 'über', 'aus', 'in', 'an', 'bei', 'auf', 'durch', 'als',
-    'im', 'am', 'vom', 'zum', 'zur', 'ins', 'ans',
-    'ihre', 'ihr', 'sein', 'seine', 'ihren', 'seiner', 'seinen',
-    'werden', 'wurde', 'wurden', 'wird',
-    'haben', 'hat', 'hatte', 'hatten',
-    'sein', 'ist', 'war', 'sind', 'waren'
-  ];
-  
-  // Tokenize
-  let words = text.split(/\s+/);
-  
-  // Filtere Füllwörter am Anfang und Ende
-  while (words.length > 0 && stopWords.includes(words[0].toLowerCase())) {
-    words.shift();
-  }
-  while (words.length > 0 && stopWords.includes(words[words.length - 1].toLowerCase())) {
-    words.pop();
-  }
-  
-  // Baue Keyword auf: Erkenne Adjektiv + Substantiv Muster
-  let result = [];
-  
-  for (let i = 0; i < words.length; i++) {
-    const word = words[i];
-    const next = words[i + 1];
-    
-    // Überspringe Füllwörter
-    if (stopWords.includes(word.toLowerCase())) {
-      continue;
-    }
-    
-    // Substantiv gefunden (großgeschrieben)
-    if (word[0] === word[0].toUpperCase()) {
-      // Prüfe ob nächstes Wort auch Substantiv ist und durch "und" verbunden
-      if (next && next.toLowerCase() === 'und' && words[i + 2] && words[i + 2][0] === words[i + 2][0].toUpperCase()) {
-        // "Karma und Reinkarnation"
-        result.push(word);
-        result.push('und');
-        result.push(words[i + 2]);
-        i += 2; // Überspringe die nächsten beiden
-      } else {
-        result.push(word);
-      }
-    }
-    // Kleingeschrieben = potentielles Adjektiv
-    else if (word[0] === word[0].toLowerCase() && next && next[0] === next[0].toUpperCase()) {
-      // Adjektiv vor Substantiv: "deutsches Reich"
-      result.push(word);
-      result.push(next);
-      i++; // Überspringe das nächste Wort
-    }
-  }
-  
-  // Fallback: wenn nichts gefunden, nimm ersten 3 Wörter
-  if (result.length === 0) {
-    result = words.slice(0, 3);
-  }
-  
-  // Begrenze auf maximal 5 Wörter (für Fälle mit "und")
-  const keyword = result.slice(0, 5).join(' ').trim();
-  
-  return keyword || text.split(' ').slice(0, 3).join(' '); // Ultimate Fallback
-}
-
-// API: Keywords für einzelnen oder mehrere Vorträge generieren
-app.post('/api/generate-keywords', async (req, res) => {
-  try {
-    const { lectureId, batch, batchByVolumes, volumes = [], startIndex = 0, batchSize = 50, gaFilter = [] } = req.body;
-    
-    console.log(`[KEYWORDS-API] Generierungsanfrage: ${batchByVolumes ? `GA-Bände: ${volumes.join(', ')}` : batch ? `Batch (Start: ${startIndex}, Size: ${batchSize})` : lectureId}`);
-    
-    // Lade Summary-Database für Zugriff auf Überschriften
-    const summaryDB = await loadSummaryDatabase();
-    const keywordsDB = await loadKeywordsDatabase();
-    
-    const results = [];
-    let processed = 0;
-    let skipped = 0;
-    let errors = 0;
-    
-    if (batchByVolumes) {
-      // GA-BAND-BASIERTE BATCH-VERARBEITUNG (Option A: Sequenziell pro Band, parallel pro Vortrag)
-      
-      if (!volumes || volumes.length === 0) {
-        return res.status(400).json({ error: 'volumes Array erforderlich (z.B. ["GA110", "GA066"])' });
-      }
-      
-      console.log(`[GA-BATCH] Starte GA-Band-basierte Verarbeitung: ${volumes.length} Bände`);
-      
-      const volumeResults = [];
-      let totalProcessed = 0;
-      let totalSkipped = 0;
-      let totalErrors = 0;
-      
-      // Verarbeite jeden GA-Band sequenziell
-      for (const volume of volumes) {
-        console.log(`\n[GA-BATCH] ========================================`);
-        console.log(`[GA-BATCH] Starte Verarbeitung: ${volume}`);
-        console.log(`[GA-BATCH] ========================================\n`);
-        
-        // Filtere Vorträge für diesen GA-Band
-        const volumeLectures = Object.keys(summaryDB).filter(lid => 
-          lid.startsWith(volume + '/')
-        );
-        
-        if (volumeLectures.length === 0) {
-          console.log(`[GA-BATCH] ⚠ Keine Vorträge gefunden für ${volume}`);
-          volumeResults.push({
-            volume: volume,
-            processed: 0,
-            skipped: 0,
-            errors: 0,
-            total: 0,
-            status: 'no_lectures'
-          });
-          continue;
-        }
-        
-        console.log(`[GA-BATCH] ${volume}: ${volumeLectures.length} Vorträge gefunden`);
-        
-        let volumeProcessed = 0;
-        let volumeSkipped = 0;
-        let volumeErrors = 0;
-        
-        // Definiere Verarbeitungsfunktion für einen Vortrag
-        const processLecture = async (lid, index) => {
-          // Überspringe, wenn bereits Keywords existieren
-          if (keywordsDB[lid]) {
-            console.log(`[GA-BATCH] ${volume}: Überspringe ${lid} (bereits vorhanden)`);
-            return { status: 'skipped', lectureId: lid, reason: 'bereits vorhanden' };
-          }
-          
-          const summaryData = summaryDB[lid];
-          if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
-            console.log(`[GA-BATCH] ${volume}: Überspringe ${lid} (keine Überschriften)`);
-            return { status: 'skipped', lectureId: lid, reason: 'keine Überschriften' };
-          }
-          
-          // Extrahiere Datum und Jahr aus fullLectures
-          const lecture = fullLectures[lid];
-          const date = lecture?.date || lecture?.dateString || '';
-          const year = date ? parseInt(date.substring(0, 4)) : null;
-          
-          // Generiere Keywords
-          const keywords = await generateKeywordsFromHeadings(lecture, summaryData.headings);
-          
-          // Speichere in Keywords-DB
-          await saveKeywordsToDatabase(lid, {
-            lectureId: lid,
-            date: date,
-            year: year,
-            keywords: keywords,
-            theme: null,
-            generated: new Date().toISOString(),
-            model: 'claude-sonnet-4',
-            source: 'headings',
-            gaVolume: volume
-          });
-          
-          console.log(`[GA-BATCH] ${volume}: ✓ ${lid}: ${keywords.length} Keywords generiert`);
-          
-          return { 
-            status: 'processed', 
-            lectureId: lid, 
-            keywords: keywords.length, 
-            success: true 
-          };
-        };
-        
-        // Verarbeite alle Vorträge dieses Bandes parallel (max 5 gleichzeitig)
-        console.log(`[GA-BATCH] ${volume}: Starte parallele Verarbeitung (Concurrency: 5)`);
-        const startTime = Date.now();
-        
-        const batchResults = await processBatchWithConcurrency(
-          volumeLectures,
-          processLecture,
-          5,  // Concurrency Limit
-          200 // Delay zwischen Starts in ms
-        );
-        
-        // Sammle Ergebnisse für diesen Band
-        for (const result of batchResults) {
-          if (result.success) {
-            const data = result.result;
-            
-            if (data.status === 'processed') {
-              results.push({ lectureId: data.lectureId, keywords: data.keywords, success: true, volume: volume });
-              volumeProcessed++;
-            } else if (data.status === 'skipped') {
-              volumeSkipped++;
-            }
-          } else {
-            console.error(`[GA-BATCH] ${volume}: Fehler bei ${result.item}:`, result.error);
-            results.push({ lectureId: result.item, error: result.error, success: false, volume: volume });
-            volumeErrors++;
-          }
-        }
-        
-        const duration = Math.round((Date.now() - startTime) / 1000);
-        
-        console.log(`\n[GA-BATCH] ${volume}: ABGESCHLOSSEN`);
-        console.log(`[GA-BATCH] ${volume}: ✓ ${volumeProcessed} verarbeitet, ⊘ ${volumeSkipped} übersprungen, ✗ ${volumeErrors} Fehler`);
-        console.log(`[GA-BATCH] ${volume}: Dauer: ${duration}s\n`);
-        
-        volumeResults.push({
-          volume: volume,
-          processed: volumeProcessed,
-          skipped: volumeSkipped,
-          errors: volumeErrors,
-          total: volumeLectures.length,
-          duration: duration,
-          status: 'completed'
-        });
-        
-        totalProcessed += volumeProcessed;
-        totalSkipped += volumeSkipped;
-        totalErrors += volumeErrors;
-      }
-      
-      console.log(`\n[GA-BATCH] ========================================`);
-      console.log(`[GA-BATCH] ALLE BÄNDE ABGESCHLOSSEN`);
-      console.log(`[GA-BATCH] Total: ${totalProcessed} verarbeitet, ${totalSkipped} übersprungen, ${totalErrors} Fehler`);
-      console.log(`[GA-BATCH] ========================================\n`);
-      
-      return res.json({
-        success: true,
-        batchByVolumes: true,
-        volumes: volumeResults,
-        processed: totalProcessed,
-        skipped: totalSkipped,
-        errors: totalErrors,
-        results: results
-      });
-      
-    } else if (batch) {
-      // ALTE BATCH-VERARBEITUNG (mit startIndex/batchSize)
-      let allLectureIds = Object.keys(summaryDB);
-      
-      // Filter nach GA-Bänden wenn angegeben
-      if (gaFilter && gaFilter.length > 0) {
-        console.log(`[KEYWORDS-BATCH] Filter nach GAs: ${gaFilter.join(', ')}`);
-        allLectureIds = allLectureIds.filter(lid => {
-          const gaNumber = lid.split('/')[0]; // z.B. "GA110"
-          return gaFilter.includes(gaNumber);
-        });
-        console.log(`[KEYWORDS-BATCH] Nach GA-Filter: ${allLectureIds.length} Vorträge`);
-      }
-      
-      const total = allLectureIds.length;
-      const toProcess = allLectureIds.slice(startIndex, startIndex + batchSize);
-      
-      console.log(`[KEYWORDS-BATCH] Parallele Verarbeitung von ${toProcess.length}/${total} Vorträgen (${startIndex}-${startIndex + toProcess.length}, Concurrency: 5)`);
-      
-      // Definiere Verarbeitungsfunktion für einen Vortrag
-      const processLecture = async (lid, index) => {
-        // Überspringe, wenn bereits Keywords existieren
-        if (keywordsDB[lid]) {
-          console.log(`[KEYWORDS-BATCH] Überspringe ${lid} (bereits vorhanden)`);
-          return { status: 'skipped', lectureId: lid, reason: 'bereits vorhanden' };
-        }
-        
-        const summaryData = summaryDB[lid];
-        if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
-          console.log(`[KEYWORDS-BATCH] Überspringe ${lid} (keine Überschriften)`);
-          return { status: 'skipped', lectureId: lid, reason: 'keine Überschriften' };
-        }
-        
-        // Extrahiere Datum und Jahr aus fullLectures
-        const lecture = fullLectures[lid];
-        const date = lecture?.date || lecture?.dateString || '';
-        const year = date ? parseInt(date.substring(0, 4)) : null;
-        
-        // Generiere Keywords
-        const keywords = await generateKeywordsFromHeadings(lecture, summaryData.headings);
-        
-        // Speichere in Keywords-DB
-        await saveKeywordsToDatabase(lid, {
-          lectureId: lid,
-          date: date,
-          year: year,
-          keywords: keywords,
-          theme: null,
-          generated: new Date().toISOString(),
-          model: 'claude-sonnet-4',
-          source: 'headings'
-        });
-        
-        console.log(`[KEYWORDS-BATCH] ✓ ${lid}: ${keywords.length} Keywords generiert`);
-        
-        return { 
-          status: 'processed', 
-          lectureId: lid, 
-          keywords: keywords.length, 
-          success: true 
-        };
-      };
-      
-      // Verarbeite alle Vorträge parallel (max 5 gleichzeitig)
-      const batchResults = await processBatchWithConcurrency(
-        toProcess,
-        processLecture,
-        5,  // Concurrency Limit
-        200 // Delay zwischen Starts in ms
-      );
-      
-      // Sammle Ergebnisse
-      for (const result of batchResults) {
-        if (result.success) {
-          const data = result.result;
-          
-          if (data.status === 'processed') {
-            results.push({ lectureId: data.lectureId, keywords: data.keywords, success: true });
-            processed++;
-          } else if (data.status === 'skipped') {
-            skipped++;
-          }
-        } else {
-          console.error(`[KEYWORDS-BATCH] Fehler bei ${result.item}:`, result.error);
-          results.push({ lectureId: result.item, error: result.error, success: false });
-          errors++;
-        }
-      }
-      
-      res.json({
-        success: true,
-        batch: true,
-        processed: processed,
-        skipped: skipped,
-        errors: errors,
-        total: total,
-        progress: {
-          current: startIndex + toProcess.length,
-          total: total,
-          percentage: Math.round(((startIndex + toProcess.length) / total) * 100)
-        },
-        results: results
-      });
-      
-    } else {
-      // Einzelverarbeitung
-      if (!lectureId) {
-        return res.status(400).json({ error: 'lectureId ist erforderlich' });
-      }
-      
-      const summaryData = summaryDB[lectureId];
-      if (!summaryData) {
-        return res.status(404).json({ error: `Keine Summary für ${lectureId} gefunden` });
-      }
-      
-      if (!summaryData.headings || summaryData.headings.length === 0) {
-        return res.status(400).json({ error: `Keine Überschriften für ${lectureId} vorhanden` });
-      }
-      
-      // Extrahiere Datum und Jahr
-      const lecture = fullLectures[lectureId];
-      const date = lecture?.date || lecture?.dateString || '';
-      const year = date ? parseInt(date.substring(0, 4)) : null;
-      
-      // Generiere Keywords
-      const keywords = await generateKeywordsFromHeadings(lecture, summaryData.headings);
-      
-      // Speichere in Keywords-DB
-      await saveKeywordsToDatabase(lectureId, {
-        lectureId: lectureId,
-        date: date,
-        year: year,
-        keywords: keywords,
-        theme: null,
-        generated: new Date().toISOString(),
-        model: 'claude-sonnet-4',
-        source: 'headings'
-      });
-      
-      res.json({
-        success: true,
-        lectureId: lectureId,
-        keywords: keywords,
-        keywordCount: keywords.length
-      });
-    }
-    
-  } catch (error) {
-    console.error('[KEYWORDS-API] Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Keywords-Datenbank abrufen
-app.get('/api/keywords-database', async (req, res) => {
-  try {
-    const keywordsDB = await loadKeywordsDatabase();
-    res.json(keywordsDB);
-  } catch (error) {
-    console.error('[KEYWORDS-API] Fehler beim Laden:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Keywords-Statistiken
-app.get('/api/keywords-stats', async (req, res) => {
-  try {
-    const keywordsDB = await loadKeywordsDatabase();
-    const summaryDB = await loadSummaryDatabase();
-    
-    const stats = {
-      totalLectures: Object.keys(summaryDB).length,
-      keywordsGenerated: Object.keys(keywordsDB).length,
-      percentage: Math.round((Object.keys(keywordsDB).length / Object.keys(summaryDB).length) * 100),
-      withTheme: Object.values(keywordsDB).filter(k => k.theme).length,
-      withoutTheme: Object.values(keywordsDB).filter(k => !k.theme).length
-    };
-    
-    res.json(stats);
-  } catch (error) {
-    console.error('[KEYWORDS-API] Fehler bei Statistiken:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// ============================================================================
-// THEMES-DATENBANK
-// ============================================================================
-
-// Lade Themes-Datenbank
-async function loadThemesDatabase() {
-  try {
-    const data = await fs.readFile(THEMES_DB_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.log('[THEMES-DB] Datenbank nicht gefunden, erstelle neue...');
-    return {};
-  }
-}
-
-// Speichere Themes-Datenbank
-async function saveThemesDatabase(themesDB) {
-  try {
-    await fs.writeFile(THEMES_DB_FILE, JSON.stringify(themesDB, null, 2), 'utf8');
-    console.log('[THEMES-DB] Datenbank gespeichert');
-    return true;
-  } catch (error) {
-    console.error('[THEMES-DB] Fehler beim Speichern:', error);
-    return false;
-  }
-}
-
-// Funktion: Themen aus allen Keywords mit Claude generieren
-async function generateThemesFromKeywords(targetThemeCount = 30) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('[THEMES-GEN] Kein Claude API Key - verwende Fallback');
-    return generateFallbackThemes();
-  }
-  
-  // Lade alle Keywords
-  const keywordsDB = await loadKeywordsDatabase();
-  const allKeywords = [];
-  const keywordFrequency = {};
-  
-  // Sammle alle Keywords mit Häufigkeit
-  Object.values(keywordsDB).forEach(lecture => {
-    if (lecture.keywords && Array.isArray(lecture.keywords)) {
-      lecture.keywords.forEach(kw => {
-        const term = kw.term.toLowerCase().trim();
-        allKeywords.push(term);
-        keywordFrequency[term] = (keywordFrequency[term] || 0) + 1;
-      });
-    }
-  });
-  
-  // Sortiere nach Häufigkeit und nimm die Top 500
-  const topKeywords = Object.entries(keywordFrequency)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 500)
-    .map(([term, freq]) => `${term} (${freq}x)`)
-    .join(', ');
-  
-  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen`);
-  
-  const prompt = `Analysiere die folgenden Schlagwörter aus Rudolf Steiners Vortragswerk und gruppiere sie in genau ${targetThemeCount} übergeordnete Themenbereiche.
-
-HÄUFIGSTE SCHLAGWÖRTER (Top 500):
-${topKeywords}
-
-ANFORDERUNGEN:
-- Genau ${targetThemeCount} Themenbereiche
-- Themen sollten die Hauptgebiete der Anthroposophie abdecken
-- Jedes Thema mit deutschen Namen (z.B. "Erkenntnistheorie", "Christologie", "Soziale Dreigliederung")
-- Für jedes Thema: Liste der zugehörigen Hauptkeywords (10-20 wichtigste)
-- Themen sollten ausgewogen sein (nicht zu breit, nicht zu eng)
-- WICHTIG: Keywords mit korrekter deutscher Großschreibung (Substantive groß, z.B. "Karma", "Reinkarnation", "Wiederverkörperung")
-- Entferne Redundanzen: statt "karma", "kosmisches karma" nur "Karma" (kürzere Form wird automatisch konsolidiert)
-- Entferne Redundanzen: statt "reinkarnation", "reinkarnationslehre" nur "Reinkarnation", "Reinkarnationslehre" (beides behalten wenn unterschiedliche Bedeutung)
-- Entferne Redundanzen: statt "tod", "tod und sterben" nur "Tod und Sterben"
-
-BEISPIELE FÜR THEMEN:
-- Erkenntnistheorie
-- Christologie und Evangelien
-- Karma und Reinkarnation
-- Soziale Dreigliederung
-- Pädagogik und Erziehung
-- Anthroposophische Medizin
-- Kosmologie und Planetensphären
-- Mysterien und Einweihung
-- Deutsche Mystik
-- Goetheanismus
-[... weitere]
-
-ANTWORT-FORMAT (JSON):
-{
-  "Erkenntnistheorie": {
-    "keywords": ["Goetheanismus", "Phänomenologie", "Wissenschaft", "Naturerkenntnis", ...],
-    "description": "Kurze Beschreibung des Themenbereichs"
-  },
-  ...
-}
-
-Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
-
-  try {
-    console.log('[THEMES-GEN] Rufe Claude API auf...');
-    
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    let responseText = result.content[0].text.trim();
-    
-    // Entferne Markdown Code-Blöcke falls vorhanden
-    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    
-    let themes = JSON.parse(responseText);
-    
-    console.log('[THEMES-GEN] ✓ Themen erfolgreich generiert:', Object.keys(themes).length);
-    
-    // Normalisiere alle Keywords in jedem Thema
-    for (const [themeName, themeData] of Object.entries(themes)) {
-      if (themeData.keywords && Array.isArray(themeData.keywords)) {
-        // Konvertiere String-Array zu Objekt-Array für Normalisierung
-        const keywordObjects = themeData.keywords.map(kw => 
-          typeof kw === 'string' ? { term: kw } : kw
-        );
-        const normalized = normalizeKeywords(keywordObjects);
-        themes[themeName].keywords = normalized.map(kw => kw.term);
-        console.log(`[THEMES-GEN] ${themeName}: ${themeData.keywords.length} → ${themes[themeName].keywords.length} Keywords`);
-      }
-    }
-    
-    return themes;
-
-  } catch (error) {
-    console.error('[THEMES-GEN] Fehler bei Claude API:', error);
-    return generateFallbackThemes();
-  }
-}
-
-// Fallback: Einfache Themengruppierung (ohne KI)
-function generateFallbackThemes() {
-  console.log('[THEMES-GEN] Verwende Fallback-Methode');
-  
-  return {
-    "Erkenntnistheorie": {
-      keywords: ["Goetheanismus", "Wissenschaft", "Naturerkenntnis"],
-      description: "Erkenntnistheoretische Grundlagen"
-    },
-    "Christologie": {
-      keywords: ["Christus", "Evangelien", "Mysterium von Golgatha"],
-      description: "Christologische Themen"
-    },
-    "Karma und Reinkarnation": {
-      keywords: ["Karma", "Reinkarnation", "Schicksal"],
-      description: "Wiederverkörperung und Schicksalsgesetze"
-    }
-  };
-}
-
-// API: Themen generieren
-app.post('/api/generate-themes', async (req, res) => {
-  try {
-    const { targetThemeCount = 30 } = req.body;
-    
-    console.log(`[THEMES-API] Generiere ${targetThemeCount} Themen...`);
-    
-    // Generiere Themen
-    const themes = await generateThemesFromKeywords(targetThemeCount);
-    
-    // Speichere in Themes-DB
-    await saveThemesDatabase(themes);
-    
-    // Ordne jetzt allen Keywords ihre Themen zu
-    const keywordsDB = await loadKeywordsDatabase();
-    let assignedCount = 0;
-    
-    for (const [lectureId, lectureData] of Object.entries(keywordsDB)) {
-      if (lectureData.keywords && Array.isArray(lectureData.keywords)) {
-        // Finde passendes Thema für die Keywords dieses Vortrags
-        let bestTheme = null;
-        let bestScore = 0;
-        
-        for (const [themeName, themeData] of Object.entries(themes)) {
-          const themeKeywords = themeData.keywords.map(k => k.toLowerCase());
-          let score = 0;
-          
-          lectureData.keywords.forEach(kw => {
-            const term = kw.term.toLowerCase();
-            if (themeKeywords.some(tk => tk.includes(term) || term.includes(tk))) {
-              score++;
-            }
-          });
-          
-          if (score > bestScore) {
-            bestScore = score;
-            bestTheme = themeName;
-          }
-        }
-        
-        // Aktualisiere Lecture mit Thema
-        if (bestTheme) {
-          await saveKeywordsToDatabase(lectureId, {
-            ...lectureData,
-            theme: bestTheme
-          });
-          assignedCount++;
-        }
-      }
-    }
-    
-    console.log(`[THEMES-API] ✓ ${Object.keys(themes).length} Themen generiert, ${assignedCount} Vorträgen zugeordnet`);
-    
-    res.json({
-      success: true,
-      themes: themes,
-      themeCount: Object.keys(themes).length,
-      assignedLectures: assignedCount
-    });
-    
-  } catch (error) {
-    console.error('[THEMES-API] Fehler:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Themes-Datenbank abrufen
-app.get('/api/themes-database', async (req, res) => {
-  try {
-    const themesDB = await loadThemesDatabase();
-    res.json(themesDB);
-  } catch (error) {
-    console.error('[THEMES-API] Fehler beim Laden:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// API: Timeline-Daten für Visualisierung
-app.get('/api/timeline-data', async (req, res) => {
-  try {
-    const { theme, keyword, yearFrom, yearTo } = req.query;
-    
-    console.log(`[TIMELINE-DATA] Filter: theme=${theme}, keyword=${keyword}, years=${yearFrom}-${yearTo}`);
-    
-    const keywordsDB = await loadKeywordsDatabase();
-    let filteredLectures = Object.values(keywordsDB);
-    
-    // Filter nach Thema
-    if (theme && theme !== '') {
-      filteredLectures = filteredLectures.filter(l => l.theme === theme);
-    }
-    
-    // Filter nach Schlagwort
-    if (keyword && keyword !== '') {
-      filteredLectures = filteredLectures.filter(l => {
-        return l.keywords && l.keywords.some(kw => 
-          kw.term.toLowerCase().includes(keyword.toLowerCase())
-        );
-      });
-    }
-    
-    // Filter nach Jahr
-    if (yearFrom) {
-      filteredLectures = filteredLectures.filter(l => l.year >= parseInt(yearFrom));
-    }
-    if (yearTo) {
-      filteredLectures = filteredLectures.filter(l => l.year <= parseInt(yearTo));
-    }
-    
-    // Gruppiere nach Jahr
-    const byYear = {};
-    filteredLectures.forEach(lecture => {
-      const year = lecture.year || 'Unbekannt';
-      if (!byYear[year]) {
-        byYear[year] = [];
-      }
-      byYear[year].push({
-        lectureId: lecture.lectureId,
-        date: lecture.date,
-        keywords: lecture.keywords,
-        theme: lecture.theme
-      });
-    });
-    
-    // Sortiere Jahre
-    const sortedYears = Object.keys(byYear)
-      .filter(y => y !== 'Unbekannt')
-      .map(y => parseInt(y))
-      .sort((a, b) => a - b);
-    
-    console.log(`[TIMELINE-DATA] Gefunden: ${filteredLectures.length} Vorträge über ${sortedYears.length} Jahre`);
-    
-    res.json({
-      lectures: filteredLectures,
-      byYear: byYear,
-      years: sortedYears,
-      totalCount: filteredLectures.length
-    });
-    
-  } catch (error) {
-    console.error('[TIMELINE-DATA] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -5178,57 +3564,6 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-// ============================================================================
-// API: MARKIERTE WÖRTER SPEICHERN
-// ============================================================================
-
-app.post('/api/save-marked-word', async (req, res) => {
-  try {
-    const { word, gaTitle, timestamp } = req.body;
-    
-    if (!word || !gaTitle) {
-      return res.status(400).json({ error: 'Wort und GA-Titel erforderlich' });
-    }
-    
-    console.log(`[MARKED-WORD] Speichere: "${word}" aus "${gaTitle}"`);
-    
-    const markedWordsFile = path.join(__dirname, 'marked-words.json');
-    
-    // Lade existierende Einträge
-    let markedWords = [];
-    try {
-      const fileContent = await fs.readFile(markedWordsFile, 'utf8');
-      markedWords = JSON.parse(fileContent);
-    } catch (error) {
-      // Datei existiert noch nicht
-      console.log('[MARKED-WORD] Erstelle neue Datei');
-    }
-    
-    // Füge neuen Eintrag hinzu
-    markedWords.push({
-      word: word,
-      gaTitle: gaTitle,
-      timestamp: timestamp || new Date().toISOString()
-    });
-    
-    // Speichere aktualisierte Datei
-    await fs.writeFile(markedWordsFile, JSON.stringify(markedWords, null, 2), 'utf8');
-    
-    console.log(`[MARKED-WORD] Erfolgreich gespeichert. Insgesamt: ${markedWords.length} Einträge`);
-    
-    res.json({ 
-      success: true, 
-      totalEntries: markedWords.length,
-      message: `Wort "${word}" gespeichert`
-    });
-    
-  } catch (error) {
-    console.error('[MARKED-WORD] Fehler beim Speichern:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
 async function startServer() {
   try {
     console.log('\n========================================');
@@ -5297,15 +3632,8 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/keywords-delete`);
       console.log(`   GET  /api/keywords-files`);
       console.log(`   GET  /api/keywords-list`);
-      console.log(`   POST /api/save-marked-word`);
       console.log(`   GET  /summary-database.json`);
       console.log(`   GET  /thematic-search-database.json`);
-      console.log(`   POST /api/generate-keywords`);
-      console.log(`   GET  /api/keywords-database`);
-      console.log(`   GET  /api/keywords-stats`);
-      console.log(`   POST /api/generate-themes`);
-      console.log(`   GET  /api/themes-database`);
-      console.log(`   GET  /api/timeline-data`);
       console.log(`\n✓ System bereit!\n`);
     });
     

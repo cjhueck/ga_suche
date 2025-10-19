@@ -4,7 +4,6 @@
 <meta charset="utf-8"/>
 <title>Steiner GA-Suche</title>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -284,7 +283,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 550px;
+      width: 410px;
       min-width: 0px;
       max-width: none;
       overflow: hidden;
@@ -299,9 +298,8 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   flex-shrink: 0;
   padding: 0.5rem;
   background: inherit;
-  position: sticky;
-  top: 0;
-  overflow: visible;
+  overflow-y: auto;
+  max-height: 60vh;
   /* Scrollbar ausblenden */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -318,7 +316,23 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   font-size: var(--text-size);
   line-height: var(--line-height);
   color: var(--text-color);
-  /* Verwendet allgemeine Scrollbar-Regeln wie "Zuletzt gesucht" */
+  /* Scrollbar ausblenden */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+#sidebar-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Scrollbar für #results wieder einblenden */
+#results {
+  scrollbar-width: auto; /* Firefox */
+  -ms-overflow-style: auto; /* IE/Edge */
+}
+
+#results::-webkit-scrollbar {
+  display: block; /* Chrome/Safari */
 }
     
     /* Zentrale Styles für alle Sidebar-Texte */
@@ -357,197 +371,6 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       padding-left: 1.2em; 
       margin: 0;
       padding-top: 0.3rem;
-    }
-
-    /* Timeline-Darstellung für Text-Suche */
-    #sidebar-content .timeline-container {
-      padding-left: 0 !important;
-      margin: 0 !important;
-      display: block !important;
-      width: 100% !important;
-    }
-
-    #sidebar-content .timeline-year-group {
-      display: flex !important;
-      margin: 1rem 0 !important;
-      align-items: flex-start !important;
-    }
-
-    #sidebar-content .timeline-year {
-      font-size: 1em !important;
-      font-weight: bold !important;
-      color: #2c5282 !important;
-      min-width: 50px !important;
-      width: 50px !important;
-      flex-shrink: 0 !important;
-      padding-right: 1rem !important;
-      text-align: left !important;
-      padding-top: 0.2rem !important;
-    }
-
-    body.dark-mode #sidebar-content .timeline-year {
-      color: var(--dark-heading-color) !important;
-    }
-    
-    /* Neue vertikale Timeline-Visualisierung (drei Spalten) */
-    .timeline-visualization {
-      display: grid;
-      grid-template-columns: 1fr 80px 1fr;
-      gap: 1rem;
-      padding: 0.5rem;
-      font-size: 0.9em;
-    }
-    
-    .timeline-themes-column {
-      text-align: right;
-      padding-right: 1rem;
-    }
-    
-    .timeline-center-column {
-      position: relative;
-      min-height: 100%;
-      padding: 0;
-    }
-    
-    .timeline-center-column::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--accent-color);
-      transform: translateX(-50%);
-      z-index: 0;
-    }
-    
-    body.dark-mode .timeline-center-column::before {
-      background: var(--dark-accent-color);
-    }
-    
-    .timeline-keywords-column {
-      text-align: left;
-      padding-left: 1rem;
-    }
-    
-    .timeline-year-marker {
-      position: absolute;
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      background: var(--background-color);
-      font-weight: bold;
-      font-size: 0.95em;
-      color: var(--heading-color);
-      z-index: 1;
-      white-space: nowrap;
-    }
-    
-    body.dark-mode .timeline-year-marker {
-      background: var(--dark-background-color);
-      color: var(--dark-heading-color);
-    }
-    
-    .timeline-entry {
-      margin-bottom: 0.8rem;
-      line-height: 1.4;
-    }
-    
-    .timeline-entry-date {
-      font-size: 0.85em;
-      color: var(--secondary-text);
-      margin-right: 0.5rem;
-    }
-    
-    body.dark-mode .timeline-entry-date {
-      color: var(--dark-secondary-text);
-    }
-    
-    .timeline-entry-headings {
-      font-size: 0.8em;
-      color: var(--secondary-text);
-      margin-top: 0.2rem;
-      margin-left: 0.5rem;
-      line-height: 1.3;
-      font-style: italic;
-    }
-    
-    body.dark-mode .timeline-entry-headings {
-      color: var(--dark-secondary-text);
-    }
-    
-    .timeline-entry-link {
-      color: var(--link-color);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    
-    .timeline-entry-link:hover {
-      color: var(--accent-color);
-      text-decoration: underline;
-    }
-    
-    body.dark-mode .timeline-entry-link {
-      color: var(--dark-link-color);
-    }
-    
-    body.dark-mode .timeline-entry-link:hover {
-      color: var(--dark-accent-color);
-    }
-    
-    .timeline-entry-keywords {
-      font-size: 0.8em;
-      color: var(--secondary-text);
-      margin-top: 0.3rem;
-      font-style: italic;
-    }
-    
-    body.dark-mode .timeline-entry-keywords {
-      color: var(--dark-secondary-text);
-    }
-    
-    .timeline-year-group {
-      display: contents;
-    }
-
-    #sidebar-content .timeline-items-for-year {
-      flex: 1 !important;
-      display: flex !important;
-      flex-direction: column !important;
-    }
-
-    #sidebar-content .timeline-item {
-      margin: 0 0 0.5rem 0 !important;
-      padding: 0 !important;
-      list-style: none !important;
-      display: block !important;
-    }
-
-    #sidebar-content .timeline-item.first-of-year {
-      margin-top: 0 !important;
-    }
-
-    #sidebar-content .timeline-item > a {
-      font-weight: bold;
-      color: var(--link-color);
-      font-size: var(--text-size);
-      line-height: var(--line-height);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    #sidebar-content .timeline-item > a:hover {
-      text-decoration: underline;
-    }
-
-    #sidebar-content .timeline-item .snippet {
-      margin-left: 0 !important;
-      padding-left: 0 !important;
-    }
-
-    body.dark-mode #sidebar-content .timeline-item > a {
-      color: #6BA3B8 !important;
     }
     
     #sidebar-content ul.results-list > li > a { 
@@ -783,7 +606,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: var(--link-color);
       background: var(--background-color);
       padding: 0 8px;
-      font-size: 23px;
+      font-size: 20px;
       line-height: 1;
     }
     
@@ -837,9 +660,9 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: var(--link-color);
       background: var(--background-color);
       padding: 8px 0;
-      font-size: 25px;
+      font-size: 20px;
       line-height: 1;
-      font-weight: normal;
+      font-weight: bold;
       cursor: pointer;
       transition: color 0.2s;
     }
@@ -948,14 +771,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       background-color: transparent;
       cursor: col-resize;
       position: fixed;
-      right: -2px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
+      right: 0; /* Wird dynamisch über JavaScript gesetzt */
+      top: 45vh; /* Feste Position bei 50% der Viewport-Höhe */
       bottom: auto;
       height: 100px; /* Feste Höhe für das Handle */
       flex-shrink: 0;
       transition: background-color 0.2s, width 0.2s;
       display: none;
-      z-index: 1001; /* Über dem Summary-Panel und anderen Elementen */
+      z-index: 999; /* Über dem Summary-Panel */
     }
     
     .vertical-resize-handle::before {
@@ -966,13 +789,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       transform: translate(-50%, -50%);
       color: var(--link-color);
       background: var(--background-color);
-      padding: 8px 6px;
-      font-size: 25px;
+      padding: 8px 0;
+      font-size: 20px;
       line-height: 1;
-      font-weight: normal;
+      font-weight: bold;
       cursor: pointer;
       transition: color 0.2s;
-      display: inline-block;
     }
     
     .vertical-resize-handle.visible {
@@ -997,8 +819,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       content: '◀';
       font-size: 36px; /* Pfeilgröße bleibt gleich */
       background: var(--background-color);
-      padding: 8px 6px;
-      display: inline-block;
+      padding: 8px 0;
     }
     
     #summary-content {
@@ -1008,12 +829,6 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       line-height: 1.5;
       font-size: 0.95em;
       display: none;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* Internet Explorer 10+ */
-    }
-    
-    #summary-content::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
     }
     
     #summary-panel.visible #summary-content {
@@ -1144,7 +959,7 @@ body.dark-mode .loading-message {
       background: transparent;
       cursor: pointer;
   font-size: 0.95em;
-      font-weight: 700;
+      font-weight: 500;
       color: var(--secondary-text);
       border-bottom: 2px solid transparent;
       transition: all 0.2s;
@@ -1435,15 +1250,6 @@ body.dark-mode .loading-message {
   color: var(--dark-text-color);
 }
 
-#texteSearchInfo {
-  font-size: 0.9em;
-  color: var(--secondary-text);
-}
-
-body.dark-mode #texteSearchInfo {
-  color: var(--dark-text-color);
-}
-
 body.dark-mode #thematicSearchInfo {
   color: var(--dark-text-color);
 }  
@@ -1605,7 +1411,6 @@ body.dark-mode #thematicSearchInfo {
       margin-bottom: 0.5rem;
       font-weight: bold;
       font-size: var(--text-size);
-      line-height: var(--line-height);
     }
     
     .ga-overview-lecture h3 a {
@@ -1613,7 +1418,6 @@ body.dark-mode #thematicSearchInfo {
       text-decoration: none;
       font-weight: bold;
       font-size: var(--text-size);
-      line-height: var(--line-height);
     }
     
     /* Linkfarbe in GA-Übersicht folgt zentralen Sidepanel-Regeln */
@@ -2042,8 +1846,8 @@ body.dark-mode .timeline-document-title a {
 }
 
 .timeline-panel {
-  width: 50%;
-  min-width: 400px;
+  width: 10%;
+  min-width: 180px;
   background-color: var(--background-color);
   border-right: 1px solid var(--border-color);
   border-top: none;
@@ -2053,7 +1857,6 @@ body.dark-mode .timeline-document-title a {
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
-  position: relative;
   /* Scrollbar ausblenden */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -2075,54 +1878,6 @@ body.dark-mode .timeline-panel {
   background-color: var(--dark-background-color);
   border-right-color: var(--dark-border-color);
   border-top: none;
-}
-
-/* Timeline Panel Resize Button */
-.timeline-resize-handle {
-  position: absolute;
-  top: 0;
-  right: -3px;
-  width: 10px;
-  height: 100%;
-  background-color: transparent;
-  cursor: col-resize;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timeline-resize-handle::before {
-  content: '⋮';
-  font-size: 20px;
-  color: var(--link-color);
-  background: var(--background-color);
-  padding: 8px 0;
-  font-size: 25px;
-  line-height: 1;
-  font-weight: normal;
-  transition: color 0.2s;
-}
-
-.timeline-resize-handle:hover::before {
-  color: var(--link-color);
-}
-
-body.dark-mode .timeline-resize-handle {
-  background-color: transparent;
-}
-
-body.dark-mode .timeline-resize-handle:hover {
-  background-color: transparent;
-}
-
-body.dark-mode .timeline-resize-handle::before {
-  background: var(--dark-background-color);
-  color: var(--dark-link-color);
-}
-
-body.dark-mode .timeline-resize-handle:hover::before {
-  color: var(--dark-link-color);
 }
 
 .timeline-panel-header {
@@ -2244,135 +1999,6 @@ body.dark-mode .timeline-viewer-content {
   font-size: 1.5em;
 }
 
-/* Enhanced Timeline Styles */
-.timeline-analysis {
-  background: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.timeline-analysis h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--heading-color);
-  font-size: 1.1rem;
-}
-
-.timeline-analysis-points {
-  margin: 0.5rem 0;
-  padding-left: 1.2rem;
-}
-
-.timeline-analysis-points li {
-  margin: 0.3rem 0;
-  line-height: 1.4;
-}
-
-.timeline-item.enhanced {
-  margin-bottom: 1rem;
-}
-
-.timeline-content.enhanced {
-  background: var(--background-color);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.timeline-content.enhanced:hover {
-  border-color: var(--accent-color);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.timeline-lecture-title {
-  font-weight: 600;
-  color: var(--heading-color);
-  margin-bottom: 0.5rem;
-}
-
-.timeline-relevance {
-  display: inline-block;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.relevance-hoch {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.relevance-mittel {
-  background: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffeaa7;
-}
-
-.relevance-niedrig {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-.timeline-context {
-  font-size: 0.9rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
-}
-
-.timeline-quotes {
-  margin: 0.5rem 0;
-  color: var(--secondary-text);
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.timeline-focus {
-  font-size: 0.85rem;
-  color: var(--text-color);
-  margin-top: 0.5rem;
-}
-
-/* Dark Mode für erweiterte Timeline */
-body.dark-mode .timeline-analysis {
-  background: var(--dark-background-color);
-  border-color: var(--dark-border-color);
-}
-
-body.dark-mode .timeline-analysis h3 {
-  color: var(--dark-heading-color);
-}
-
-body.dark-mode .timeline-content.enhanced {
-  background: var(--dark-background-color);
-  border-color: var(--dark-border-color);
-}
-
-body.dark-mode .timeline-content.enhanced:hover {
-  border-color: var(--dark-accent-color);
-}
-
-body.dark-mode .timeline-lecture-title {
-  color: var(--dark-heading-color);
-}
-
-body.dark-mode .timeline-context,
-body.dark-mode .timeline-focus {
-  color: var(--dark-text-color);
-}
-
-body.dark-mode .timeline-quotes {
-  color: var(--dark-secondary-text);
-}
-
 /* Timeline Viewer h3 and h4 - Match Main Viewer Exactly */
 .timeline-viewer-content h3 {
   font-size: 1.0rem !important;
@@ -2473,27 +2099,6 @@ body.dark-mode .timeline-title {
 
 body.dark-mode .timeline-close:hover {
   background-color: var(--dark-accent-color);
-}
-
-/* Timeline Quote Links */
-.timeline-quote-link {
-  color: #467886;
-  cursor: pointer;
-  font-weight: 600;
-  transition: color 0.2s ease;
-}
-
-.timeline-quote-link:hover {
-  color: #2c4a52;
-  text-decoration: none;
-}
-
-body.dark-mode .timeline-quote-link {
-  color: #6bb6ff;
-}
-
-body.dark-mode .timeline-quote-link:hover {
-  color: #4a9eff;
 }
 
 /* Timeline Container */
@@ -2733,467 +2338,6 @@ body.dark-mode #sidebar h1 a, body.dark-mode #sidebar h2 a, body.dark-mode #side
 body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body.dark-mode #sidebar-content h3 a, body.dark-mode #sidebar-content h4 a,
 body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
 body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
-
-/* ============================================================================
-   HELP BUTTON & MODAL
-   ============================================================================ */
-
-.help-button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.help-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-body.dark-mode .help-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.help-button i {
-  width: 8px;
-  height: 8px;
-}
-
-.help-button svg {
-  stroke: #467886 !important;
-  stroke-width: 1.7;
-  fill: none;
-  color: #467886;
-}
-
-body.dark-mode .help-button svg {
-  stroke: #6BA3B8 !important;
-  color: #6BA3B8;
-}
-
-/* Help Modal */
-.help-modal {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  animation: fadeIn 0.2s ease;
-}
-
-.help-modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.help-modal-content {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border-radius: 0;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 800px;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.help-modal-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.help-modal-header h2 {
-  margin: 0;
-  color: var(--heading-color) !important;
-  font-size: 1.5rem;
-}
-
-body.dark-mode .help-modal-header h2 {
-  color: var(--dark-heading-color) !important;
-}
-
-.help-modal-close {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--text-color);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-}
-
-.help-modal-close:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode .help-modal-close:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.help-modal-body {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.help-choice-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.help-choice-btn {
-  flex: 1;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-  background-color: var(--background-color);
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: left;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.help-choice-btn:hover {
-  background-color: #467886;
-  color: white;
-  border-color: #467886;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(70, 120, 134, 0.2);
-}
-
-body.dark-mode .help-choice-btn {
-  border-color: var(--border-color);
-  background-color: var(--background-color);
-}
-
-body.dark-mode .help-choice-btn:hover {
-  background-color: #6BA3B8;
-  color: white;
-  border-color: #6BA3B8;
-}
-
-.help-choice-btn h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.2rem;
-  color: #467886;
-}
-
-body.dark-mode .help-choice-btn h3 {
-  color: #6BA3B8;
-}
-
-.help-choice-btn:hover h3 {
-  color: white;
-}
-
-.help-choice-btn p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--text-color);
-}
-
-.help-choice-btn:hover p {
-  color: white;
-}
-
-.help-content-display {
-  display: none;
-}
-
-.help-content-display.active {
-  display: block;
-}
-
-.help-content-display h2 {
-  color: var(--heading-color) !important;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.help-content-display h3 {
-  color: var(--heading-color) !important;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-body.dark-mode .help-content-display h2,
-body.dark-mode .help-content-display h3 {
-  color: var(--dark-heading-color) !important;
-}
-
-.help-content-display code {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
-}
-
-body.dark-mode .help-content-display code {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.help-content-display pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow-x: auto;
-}
-
-body.dark-mode .help-content-display pre {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.help-content-display table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
-
-.help-content-display table th,
-.help-content-display table td {
-  padding: 0.75rem;
-  border: 1px solid var(--border-color);
-  text-align: left;
-}
-
-.help-content-display table th {
-  background-color: rgba(70, 120, 134, 0.1);
-  font-weight: 600;
-}
-
-.help-back-btn {
-  margin-top: 2rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #467886;
-  color: white;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.help-back-btn:hover {
-  background-color: #3a6270;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-}
-
-body.dark-mode .help-back-btn {
-  background-color: #6BA3B8;
-}
-
-body.dark-mode .help-back-btn:hover {
-  background-color: #5a8a9a;
-}
-
-/* Welcome Modal */
-.welcome-modal {
-  display: none;
-  position: fixed;
-  z-index: 10001;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  animation: fadeIn 0.3s ease;
-}
-
-.welcome-modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.welcome-modal-content {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border-radius: 0;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 700px;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  animation: slideIn 0.4s ease;
-}
-
-.welcome-modal-header {
-  background-color: rgba(70, 120, 134, 0.1);
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-body.dark-mode .welcome-modal-header {
-  background-color: rgba(107, 163, 184, 0.15);
-}
-
-.welcome-modal-header h2 {
-  margin: 0;
-  color: var(--heading-color);
-  font-size: 1.5rem;
-}
-
-body.dark-mode .welcome-modal-header h2 {
-  color: var(--dark-heading-color);
-}
-
-.welcome-close-btn {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--text-color);
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0;
-  transition: background-color 0.2s ease;
-}
-
-.welcome-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-body.dark-mode .welcome-close-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.welcome-modal-body {
-  padding: 2rem;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.welcome-modal-body h1 {
-  color: var(--heading-color) !important;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-}
-
-.welcome-modal-body h2 {
-  color: var(--heading-color) !important;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  font-size: 1.3rem;
-}
-
-.welcome-modal-body h3 {
-  color: var(--heading-color) !important;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-}
-
-body.dark-mode .welcome-modal-body h1,
-body.dark-mode .welcome-modal-body h2,
-body.dark-mode .welcome-modal-body h3 {
-  color: var(--dark-heading-color) !important;
-}
-
-.welcome-modal-body code {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
-}
-
-body.dark-mode .welcome-modal-body code {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.welcome-modal-body pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  font-size: 0.9em;
-}
-
-body.dark-mode .welcome-modal-body pre {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.welcome-modal-footer {
-  padding: 1rem 2rem;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-body.dark-mode .welcome-modal-footer {
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-.welcome-start-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: #467886;
-  color: white;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.welcome-start-btn:hover {
-  background-color: #3a6571;
-}
-
-body.dark-mode .welcome-start-btn {
-  background-color: #6BA3B8;
-}
-
-body.dark-mode .welcome-start-btn:hover {
-  background-color: #5a8a9a;
-}
 </style>
 </head>
 <body>
@@ -3201,85 +2345,58 @@ body.dark-mode .welcome-start-btn:hover {
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner GA-Suche</a></h1>
-<div style="display: flex; align-items: center; gap: 0.15rem;">
-<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
-<i data-lucide="info"></i>
-</button>
 <label class="theme-switch">
 <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
 <span class="theme-slider"></span>
 </label>
 </div>
-</div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
-<button class="tab-button" onclick="switchTab('texte')">Texte</button>
+<button class="tab-button active" onclick="switchTab('keyword')">Text</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
-<button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div style="display:flex; gap:8px; margin-top:4px;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" oninput="updateProximityFilter()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
 <datalist id="word1-history"></datalist>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" placeholder="Suchwort 2 (optional)" type="text"/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" oninput="updateProximityFilter()" placeholder="Suchwort 2 (optional)" type="text"/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
 <div class="filter-row">
 <select class="filter-dropdown" id="yearFilter">
-<option value="">Jahre: alle</option>
+<option value="">alle Jahre</option>
 </select>
 <select class="filter-dropdown" id="gaFilter">
-<option value="">GA-Bände: alle</option>
+<option value="">alle GA-Bände</option>
 </select>
-<select class="filter-dropdown" id="relevanceFilter">
-<option value="ohne">Relevanz: ohne</option>
-<option value="alle">Relevanz: alle</option>
-<option value="hoch">hoch 🟩</option>
-<option value="mittel">mittel 🟧</option>
-<option value="niedrig">niedrig 🟨</option>
+<select class="filter-dropdown" disabled="" id="proximityFilter">
+<option value="">unbeschränkt</option>
+<option value="1">ein Absatz</option>
+<option value="2">zwei Absätze</option>
+<option value="3">drei Absätze</option>
 </select>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; align-items:center; justify-content: space-between; width: 100%;">
-  <div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem;">
-    <span id="serverInfo"></span>
-    <span id="resultInfo"></span>
-  </div>
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0; min-width: 126px;">Suche starten</button>
-</div>
-</div>
-<div style="display:flex; gap:8px; align-items:center; justify-content: flex-end; margin-top: 0.5rem;">
-  <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: 126px; box-sizing: border-box;">
-    <span id="viewToggleText">nur Titel</span>
-  </button>
-</div>
-<span id="status" style="display:none"></span>
-</div>
-<div class="tab-content" id="texte-tab">
-<div style="padding: 0.5rem 0;">
-<div class="filter-row">
-<select class="filter-dropdown" id="texteGAFilter" style="width: 100%;">
-<option value="">GA-Band auswählen...</option>
-</select>
-</div>
-<div style="display:flex; gap:8px; align-items:center; margin-top: 0.5rem;">
+<label><input checked="" name="scope" type="radio" value="fulltext"/><span> Text</span></label>
+<label><input name="scope" type="radio" value="title"/><span> Titel</span></label>
+<button class="depth-btn" id="showGAOverview" style="display: none;" onclick="openGAOverview()">
+GA-Übersicht →
+</button>
+<div style="display:flex; gap:8px; margin-left:auto; align-items:center;">
+  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0;">Suche starten</button>
   <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
   <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
 </div>
-<div id="texteSearchInfo" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
-<div>
-<span id="texteServerInfo"></span>
 </div>
-<button id="texteViewToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: 180px;">
-  <span id="texteViewToggleText">nur Titel</span>
-</button>
-</div>
+<span id="status" style="display:none"></span>
+<div id="searchInfo">
+<span id="serverInfo"></span>
+<span id="resultInfo"></span>
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
@@ -3295,6 +2412,7 @@ body.dark-mode .welcome-start-btn:hover {
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
+<button class="depth-btn" id="thematicShowGAOverview" style="display: none;" onclick="openGAOverview()">Band</button>
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
   Suche starten
 </button>
@@ -3302,106 +2420,6 @@ body.dark-mode .welcome-start-btn:hover {
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
-</div>
-</div>
-
-<div class="tab-content" id="timeline-tab">
-<div style="padding: 0.5rem 0; max-height: calc(100vh - 250px); overflow-y: auto;">
-<!-- Keywords-Generierung Admin Interface (nur localhost) -->
-<div id="timelineAdminSection" style="margin-bottom: 1rem; display: none;">
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keywords-Generierung</h3>
-<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
-Extrahiere aus jeder Zwischenüberschrift (H3 + H4) ein prägnantes Schlagwort (1-3 Worte) mittels Claude KI.
-</p>
-
-<!-- GA-Auswahl -->
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-GA-Bände auswählen (für Test):
-</label>
-<select id="timelineGASelect" multiple size="5" 
-style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
-<option value="">Alle GA-Bände</option>
-</select>
-<p style="font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
-(Strg/Cmd + Klick für Mehrfachauswahl. Leer = alle Bände)
-</p>
-</div>
-
-<!-- Batch-Generierung -->
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<button id="timelineBatchStart" class="depth-btn primary" onclick="startTimelineBatchGeneration()" 
-style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-Batch-Generierung starten
-</button>
-<button id="timelineBatchStop" class="depth-btn" onclick="stopTimelineBatchGeneration()" 
-style="display: none; padding: 8px 16px; font-size: 0.9em; background: #d9534f; color: white;">
-Stoppen
-</button>
-</div>
-
-<!-- Progress Bar -->
-<div id="timelineBatchProgress" style="display: none;">
-<div style="margin-bottom: 0.5rem;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
-<span id="timelineBatchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
-<span id="timelineBatchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
-</div>
-<div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
-<div id="timelineBatchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
-</div>
-</div>
-<div id="timelineBatchResults" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
-<div style="font-size: 0.85em; color: var(--text-color);">
-<div><strong>Verarbeitet:</strong> <span id="timelineBatchProcessed">0</span></div>
-<div><strong>Übersprungen:</strong> <span id="timelineBatchSkipped">0</span></div>
-<div><strong>Fehler:</strong> <span id="timelineBatchErrors">0</span></div>
-</div>
-</div>
-</div>
-
-<!-- Themen-Generierung -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-top: 0.8rem;">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Themen-Generierung</h3>
-<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
-Nach Abschluss der Keyword-Generierung: Gruppiere alle Keywords mittels KI in 30 übergeordnete Themen (einmalig ~$0.50).
-</p>
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Anzahl Themen:
-</label>
-<input type="number" id="timelineThemeCount" value="30" min="10" max="50" 
-style="width: 100px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
-</div>
-<button id="timelineGenerateThemes" class="depth-btn" onclick="generateThemes()" 
-style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-Themen generieren
-</button>
-<div id="timelineThemesStatus" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); font-size: 0.85em;"></div>
-</div>
-
-<!-- Timeline Filter (immer sichtbar - auch online) -->
-<div id="timelineFilterSection" style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-top: 0.8rem;">
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Thema auswählen:
-</label>
-<select id="timelineThemeFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
-<option value="">Themen werden noch generiert...</option>
-</select>
-</div>
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Schlagwort auswählen (optional):
-</label>
-<select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
-<option value="">Alle Schlagwörter</option>
-</select>
-</div>
-</div>
-</div>
-</div>
 </div>
 </div>
 
@@ -3512,6 +2530,42 @@ Summary neu
 </div>
 </div>
 <div id="viewer"></div>
+<!-- Timeline Split View -->
+<div id="timelineSplitView" class="timeline-split-view" style="display: none;">
+  <div class="timeline-split-content">
+    <div class="timeline-panel">
+      <div class="timeline-panel-header">
+        <h3 id="timelinePanelTitle" class="timeline-panel-title">Timeline</h3>
+        <button id="timelinePanelSearchBtn" class="timeline-panel-search-btn" onclick="searchKeywordInCurrentLecture()" title="Schlagwort im aktuellen Vortrag suchen" style="display: none;"><i data-lucide="text-search"></i></button>
+      </div>
+      <div class="timeline-container" id="timelineContainer">
+        <div class="timeline-line"></div>
+        <div id="timelineContent">
+          <!-- Timeline content will be inserted here -->
+        </div>
+      </div>
+    </div>
+    <div class="timeline-viewer">
+      <div class="timeline-viewer-header">
+        <h2 id="timelineDocumentTitle" class="timeline-document-title">Wählen Sie einen Vortrag aus der Timeline</h2>
+        <div class="timeline-viewer-buttons-container">
+          <button id="timelineViewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            Original
+          </button>
+          <button id="timelineViewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            ≡ Übersicht
+          </button>
+          <button id="timelineViewerRegenerateBtn" onclick="regenerateCurrentSummary()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+            Summary neu
+          </button>
+        </div>
+      </div>
+      <div id="timelineViewerContent" class="timeline-viewer-content">
+        <!-- Selected lecture content will be displayed here -->
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
 <div id="summary-panel">
@@ -3539,7 +2593,6 @@ Summary neu
     let currentLectureData = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
     let currentThematicQuery = '';
-    let currentThematicGAFilter = '';
     let searchHistory = {
       word1: [],
       word2: []
@@ -3891,61 +2944,6 @@ function normalizeGANumber(gaNumber) {
     }
 
     function switchTab(mode) {
-      console.log('[TABS] Wechsel zu Tab:', mode);
-      
-      // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
-      const summaryPanel = document.getElementById('summary-panel');
-      const resizeHandle = document.querySelector('.resize-handle');
-      
-      if (summaryPanel) {
-        // Entferne alle sichtbarkeitsrelevanten Klassen
-        summaryPanel.classList.remove('visible');
-        
-        // Setze alle Style-Properties explizit zurück
-        summaryPanel.style.setProperty('width', '0', 'important');
-        summaryPanel.style.setProperty('min-width', '0', 'important');
-        summaryPanel.style.setProperty('margin-right', '0', 'important');
-        summaryPanel.style.setProperty('display', 'none', 'important');
-        summaryPanel.style.setProperty('opacity', '0', 'important');
-        summaryPanel.style.setProperty('visibility', 'hidden', 'important');
-        
-        console.log('[TABS] Summary-Panel geschlossen');
-      }
-      
-      if (resizeHandle) {
-        resizeHandle.classList.remove('visible');
-        resizeHandle.style.setProperty('display', 'none', 'important');
-      }
-      
-      // Body-Klasse für collapsed State hinzufügen
-      document.body.classList.add('summary-panel-collapsed');
-      
-      // TOC leeren
-      const tocList = document.getElementById('toc-list');
-      if (tocList) {
-        tocList.innerHTML = '';
-      }
-      
-      // Document Title zurücksetzen
-      const documentTitle = document.getElementById('document-title');
-      if (documentTitle) {
-        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
-      }
-      
-      // Viewer leeren
-      const viewer = document.getElementById('viewer');
-      if (viewer) {
-        viewer.innerHTML = '';
-      }
-      
-      // currentOpenLectureId zurücksetzen
-      window.currentOpenLectureId = null;
-      
-      // Header-Position aktualisieren
-      if (typeof updateHeaderPosition === 'function') {
-        setTimeout(() => updateHeaderPosition(), 50);
-      }
-      
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
@@ -4013,22 +3011,28 @@ function normalizeGANumber(gaNumber) {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
-          const infoText = `${data.lecturesLoaded} Vorträge`;
+          const infoText = `${data.lecturesLoaded} Vorträge verfügbar`;
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
-          document.getElementById('texteServerInfo').textContent = infoText;
         }
       } catch (error) {
         const errorText = `<span style="color: #c53030;">Server nicht erreichbar</span>`;
         document.getElementById('serverInfo').innerHTML = errorText;
         document.getElementById('thematicServerInfo').innerHTML = errorText;
-        document.getElementById('texteServerInfo').innerHTML = errorText;
       }
     }
 
-    function updateRelevanceFilter() {
-      // Relevanz-Filter ist immer aktiv, keine Bedingungen
-      console.log('[RELEVANCE-FILTER] Filter aktualisiert');
+    function updateProximityFilter() {
+      const word1 = document.getElementById('word1').value.trim();
+      const word2 = document.getElementById('word2').value.trim();
+      const proximityFilter = document.getElementById('proximityFilter');
+      
+      if (word1 && word2) {
+        proximityFilter.disabled = false;
+      } else {
+        proximityFilter.disabled = true;
+        proximityFilter.selectedIndex = 0;
+      }
     }
 
     async function populateGADropdowns() {
@@ -4038,13 +3042,12 @@ function normalizeGANumber(gaNumber) {
         const gaList = await response.json();
         const gaFilter = document.getElementById('gaFilter');
         const thematicGAFilter = document.getElementById('thematicGAFilter');
-        const texteGAFilter = document.getElementById('texteGAFilter');
         if (gaFilter) {
-          gaFilter.innerHTML = '<option value="">GA-Bände: alle</option>';
+          gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            option.textContent = ga.number;
+            option.textContent = `GA ${ga.number} – ${ga.title}`;
             option.className = 'available-ga';
             gaFilter.appendChild(option);
           });
@@ -4054,20 +3057,9 @@ function normalizeGANumber(gaNumber) {
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
-            option.textContent = ga.number;
+            option.textContent = `GA ${ga.number} – ${ga.title}`;
             option.className = 'available-ga';
             thematicGAFilter.appendChild(option);
-          });
-        }
-        if (texteGAFilter) {
-          texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
-          gaList.forEach(ga => {
-            const option = document.createElement('option');
-            option.value = ga.number;
-            // Zeige Nummer und Titel (falls verfügbar und nicht identisch)
-            option.textContent = ga.title && ga.title !== ga.number ? `${ga.number} – ${ga.title}` : ga.number;
-            option.className = 'available-ga';
-            texteGAFilter.appendChild(option);
           });
         }
       } catch (error) {
@@ -4076,14 +3068,37 @@ function normalizeGANumber(gaNumber) {
     }
 
     function initGAFilter() {
-      const texteGAFilter = document.getElementById('texteGAFilter');
+      const gaFilter = document.getElementById('gaFilter');
+      const thematicGAFilter = document.getElementById('thematicGAFilter');
+      const thematicShowBtn = document.getElementById('thematicShowGAOverview');
+      const showBtn = document.getElementById('showGAOverview');
 
-      // Texte-Tab: Direkt GA-Übersicht öffnen bei Auswahl
-      if (texteGAFilter) {
-        texteGAFilter.addEventListener('change', (e) => {
+      // Textsuche: Button wie gehabt
+      if (gaFilter && showBtn) {
+        gaFilter.addEventListener('change', (e) => {
           const selectedGA = e.target.value;
           if (selectedGA) {
-            openGAOverview(selectedGA);
+            showBtn.style.display = 'inline-block';
+            showBtn.dataset.gaNumber = selectedGA;
+          } else {
+            showBtn.style.display = 'none';
+          }
+        });
+      }
+
+      // Themensuche: Button nur dort
+      if (thematicGAFilter && thematicShowBtn) {
+        thematicGAFilter.addEventListener('change', (e) => {
+          const selectedGA = e.target.value;
+          if (selectedGA) {
+            thematicShowBtn.style.display = 'inline-block';
+            thematicShowBtn.dataset.gaNumber = selectedGA;
+            thematicShowBtn.onclick = function() {
+              openGAOverview(selectedGA);
+            };
+          } else {
+            thematicShowBtn.style.display = 'none';
+            thematicShowBtn.onclick = null;
           }
         });
       }
@@ -4102,6 +3117,11 @@ function normalizeGANumber(gaNumber) {
           summaryPanel.style.marginRight = '0px';
         }
       } catch (e) { /* silent */ }
+      if (!gaNumber) {
+        // Fallback: Versuche, die GA-Nummer aus dem Button im Textsuche-Tab zu holen
+        const btn = document.getElementById('showGAOverview');
+        gaNumber = btn && btn.dataset.gaNumber ? btn.dataset.gaNumber : null;
+      }
       if (!gaNumber) return;
       try {
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
@@ -4308,22 +3328,13 @@ async function displayGAOverview(data) {
   // Zähle Vorträge mit Summaries
   const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
   
-  // Aktualisiere Statusanzeige im aktiven Tab
-  const activeTab = document.querySelector('.tab-content.active');
-  if (activeTab && activeTab.id === 'texte-tab') {
-    const texteServerInfo = document.getElementById('texteServerInfo');
-    if (texteServerInfo) {
-      // Verwende die gleiche Formatierung wie im Suche-Tab
-      texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
-    }
-    // Toggle Button im Texte-Tab anzeigen
-    const texteViewToggle = document.getElementById('texteViewToggle');
-    if (texteViewToggle) {
-      texteViewToggle.style.display = 'inline-block';
-    }
-  }
-  
   let html = `
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 0.5px solid #ddd; margin-bottom: 0.5rem;">
+      <span style="font-weight: 600;">${data.lectureCount} Vorträge</span>
+      <button class="ga-toggle-btn" onclick="toggleGASummaries()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; cursor: pointer; border-radius: 4px;">
+        ${gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen'}
+      </button>
+    </div>
     <div id="ga-lecture-list">
   `;
   
@@ -4382,13 +3393,7 @@ function toggleGASummaries() {
   });
   
   if (button) {
-    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
-  }
-  
-  // Update Toggle Button im Texte-Tab
-  const texteViewToggleText = document.getElementById('texteViewToggleText');
-  if (texteViewToggleText) {
-    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
+    button.textContent = gaOverviewShowSummaries ? 'Nur Titel' : 'Mit Zusammenfassungen';
   }
 }
 
@@ -4464,12 +3469,7 @@ function toggleGASummaries() {
       button.textContent = 'Suche läuft...';
         
         const gaFilter = document.getElementById('gaFilter').value;
-        const yearFilter = document.getElementById('yearFilter').value;
-        const relevanceFilterElement = document.getElementById('relevanceFilter');
-        const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
-        
-        console.log(`[RELEVANCE-FILTER] Sende Filter an Backend: "${relevanceFilter}"`);
-        if (yearFilter) console.log(`[YEAR-FILTER] Sende Jahr-Filter: "${yearFilter}"`);
+        const proximityFilter = document.getElementById('proximityFilter').value;
         
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
           method: 'POST',
@@ -4480,8 +3480,7 @@ function toggleGASummaries() {
             word2: word2,
             word1IsPhrase: word1IsPhrase,
             word2IsPhrase: word2IsPhrase,
-            relevanceFilter: relevanceFilter,
-            yearFilter: yearFilter
+            proximity: proximityFilter || null
           })
         });
         
@@ -4507,8 +3506,9 @@ function toggleGASummaries() {
           const isPhrase = word1Input ? word1IsPhrase : word2IsPhrase;
           displayQuery = isPhrase ? `"${word1}"` : singleTerm;
         }
-        // Übergebe geparste Werte und Phrasen-Flags an renderKeywordResults
-        renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase);
+        renderKeywordResults(displayQuery, results, word1Input, word2Input);
+        
+        document.getElementById('resultInfo').textContent = ` • ${results.length} Treffer`;
         
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
@@ -4567,78 +3567,19 @@ function toggleGASummaries() {
       return '';
     }
 
-    // Toggle zwischen Titel- und Textansicht der Ergebnisse
-    let currentView = 'text'; // 'text' oder 'title'
-    
-    function toggleResultView() {
-      const snippets = document.querySelectorAll('.snippet');
-      const toggleText = document.getElementById('viewToggleText');
-      
-      if (currentView === 'text') {
-        // Wechsle zu Titelansicht
-        snippets.forEach(snippet => snippet.style.display = 'none');
-        toggleText.textContent = 'Titel & Text';
-        currentView = 'title';
-      } else {
-        // Wechsle zu Textansicht
-        snippets.forEach(snippet => snippet.style.display = 'block');
-        toggleText.textContent = 'nur Titel';
-        currentView = 'text';
-      }
-    }
-    
-    // Hilfsfunktion: Relevanz-Filter-Status - <100 Regel entfernt
-    function updateRelevanceFilterState(resultCount) {
-      // Keine spezielle Behandlung mehr - "mittel" ist immer aktiv
-      const relevanceFilter = document.getElementById('relevanceFilter');
-      if (!relevanceFilter) return;
-      
-      const mittelOption = Array.from(relevanceFilter.options).find(opt => opt.value === 'mittel');
-      if (!mittelOption) return;
-      
-      // Stelle sicher, dass "mittel" immer aktiviert ist
-      mittelOption.disabled = false;
-      mittelOption.style.color = '';
-      mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
-    }
-
-    function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false) {
+    function renderKeywordResults(query, results, word1, word2) {
       const container = document.getElementById('results');
-      const scope = 'fulltext'; // Immer Volltext-Suche
-      
-      // Update Relevanz-Filter basierend auf Anzahl der Treffer
-      updateRelevanceFilterState(results.length);
+      const scope = document.querySelector('input[name="scope"]:checked').value;
       
       if (results.length === 0) {
         container.innerHTML = '<p><em>Keine Treffer gefunden.</em></p>';
-        // Verstecke Toggle-Button wenn keine Ergebnisse
-        const viewToggle = document.getElementById('viewToggle');
-        if (viewToggle) viewToggle.style.display = 'none';
         return;
       }
       
-      // Zeige Toggle-Button bei Ergebnissen
-      const viewToggle = document.getElementById('viewToggle');
-      if (viewToggle) viewToggle.style.display = 'inline-block';
-      
-      // Reset auf Textansicht
-      currentView = 'text';
-      const toggleText = document.getElementById('viewToggleText');
-      if (toggleText) toggleText.textContent = 'nur Titel';
-      
-      // Timeline-Container mit CSS Grid
-      const timelineContainer = document.createElement('div');
-      timelineContainer.className = 'timeline-container';
-      // Setze display: grid mit setProperty und !important
-      timelineContainer.style.setProperty('display', 'grid', 'important');
-      timelineContainer.style.gridTemplateColumns = '60px 1fr';
-      timelineContainer.style.columnGap = '0rem';
-      timelineContainer.style.rowGap = '0';
-      timelineContainer.style.alignItems = 'start';
-      timelineContainer.style.width = '100%';
-      timelineContainer.style.marginTop = '0';
-      timelineContainer.style.paddingTop = '0.5rem';
-      
+      const list = document.createElement('ul');
+      list.className = 'results-list';
+      list.style.marginTop = '0';
+      list.style.paddingTop = '0.5rem';
       
       const groupedByLecture = {};
       results.forEach(result => {
@@ -4661,86 +3602,34 @@ function toggleGASummaries() {
       const sortedLectures = Object.entries(groupedByLecture).sort((a, b) => {
         const dateA = a[1].date || '';
         const dateB = b[1].date || '';
-        // Einträge ohne Datum ans Ende sortieren
-        if (!dateA && dateB) return 1;  // a hat kein Datum, b schon -> a nach hinten
-        if (dateA && !dateB) return -1; // a hat Datum, b nicht -> a nach vorne
         return dateA.localeCompare(dateB);
       });
       
-      const filteredLectures = sortedLectures;
-      
-      // Aktualisiere Trefferanzahl
-      const totalResults = results.length;
-      const totalLecturesCount = sortedLectures.length;
-      
-      let resultText = ` • ${totalResults} Treffer in ${totalLecturesCount} Vorträgen`;
-      document.getElementById('resultInfo').textContent = resultText;
-      
-      // Timeline-Darstellung mit CSS Grid: Jahr links, Treffer rechts
-      let currentYear = null;
-      let isFirstOfYear = false;
-      
-      filteredLectures.forEach(([lectureId, lecture], index) => {
-        // Extrahiere Jahr aus dem Datum
-        const year = lecture.date ? lecture.date.substring(0, 4) : null;
-        
-        // Prüfe ob neues Jahr
-        isFirstOfYear = (year && year !== currentYear);
-        if (isFirstOfYear) {
-          currentYear = year;
-        }
-        
-        // Erstelle Jahreszahl-Zelle (linke Grid-Spalte)
-        const yearCell = document.createElement('div');
-        yearCell.className = 'timeline-year-cell';
-        yearCell.style.gridColumn = '1';
-        yearCell.style.paddingTop = '0.2rem';
-        
-        if (isFirstOfYear) {
-          // Zeige Jahreszahl nur beim ersten Eintrag des Jahres
-          const isDarkMode = document.body.classList.contains('dark-mode');
-          yearCell.textContent = year;
-          yearCell.style.fontWeight = 'bold';
-          yearCell.style.fontSize = '1em';
-          yearCell.style.color = isDarkMode ? '#6BA3B8' : '#467886';
-        } else {
-          yearCell.innerHTML = '&nbsp;'; // Leeres Space für Nicht-Jahreszellen
-        }
-        
-        timelineContainer.appendChild(yearCell);
-        
-        // Erstelle Treffer-Zelle (rechte Grid-Spalte)
-        const lectureItem = document.createElement('div');
-        lectureItem.className = 'timeline-item';
-        lectureItem.style.gridColumn = '2';
-        lectureItem.style.marginBottom = '0.5rem';
+      sortedLectures.forEach(([lectureId, lecture]) => {
+        const li = document.createElement('li');
         
         const titleLink = document.createElement('a');
         titleLink.href = "#";
-        
-        // Relevanz-Kategorie als farbigen Punkt anzeigen
-        let relevanceDot = '';
-        const firstChunk = lecture.chunks[0];
-        if (firstChunk && firstChunk.relevanceCategory) {
-          const relevanceColors = {
-            'hoch': '#28a745',      // Grün
-            'mittel': '#fd7e14',    // Orange  
-            'niedrig': '#ffc107'    // Gelb
-          };
-          const color = relevanceColors[firstChunk.relevanceCategory] || '#ffc107';
-          relevanceDot = ` <span style="color: ${color}; font-size: 1.2em; margin-left: 4px;" title="Relevanz: ${firstChunk.relevanceCategory}">●</span>`;
-        }
-        
-        titleLink.innerHTML = lecture.fileName + relevanceDot;
+        titleLink.textContent = lecture.fileName;
         titleLink.addEventListener('click', (e) => {
           e.preventDefault();
           showLectureTop(lectureId);
         });
         
-        lectureItem.appendChild(titleLink);
+        li.appendChild(titleLink);
         
         if (scope === "fulltext") {
+          const proximityFilter = document.getElementById('proximityFilter').value;
+          
           let lectureChunks = lecture.chunks;
+          
+          if (word1 && word2 && proximityFilter && proximityFilter !== '') {
+            lectureChunks = lecture.chunks.filter(chunk => {
+              const contentLower = (chunk.content || '').toLowerCase();
+              return contentLower.includes(word1.toLowerCase()) && 
+                     contentLower.includes(word2.toLowerCase());
+            });
+          }
           
           lectureChunks.slice(0, 5).forEach(chunk => {
             const snippetDiv = document.createElement("div");
@@ -4755,34 +3644,13 @@ function toggleGASummaries() {
             const contentLower = content.toLowerCase();
             const positions = [];
             
-            // Hilfsfunktion zum Finden der Position mit oder ohne Wortgrenzen
-            const findTermPosition = (text, term, isPhrase) => {
-              if (!term || !term.trim()) return -1;
-              const textLower = text.toLowerCase();
-              const termLower = term.toLowerCase();
-              
-              if (isPhrase) {
-                // Bei Phrasensuche: mit Wortgrenzen
-                const escapedTerm = termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`, 'i');
-                const match = text.match(regex);
-                if (match) {
-                  return text.toLowerCase().indexOf(match[0].toLowerCase()) + (match[1] ? match[1].length : 0);
-                }
-                return -1;
-              } else {
-                // Bei normaler Suche: auch Teilwörter
-                return textLower.indexOf(termLower);
-              }
-            };
-            
             if (word1 && word1.trim()) {
-              const pos = findTermPosition(content, word1, word1IsPhrase);
+              const pos = contentLower.indexOf(word1.toLowerCase());
               if (pos !== -1) positions.push({ pos, word: word1 });
             }
             
             if (word2 && word2.trim()) {
-              const pos = findTermPosition(content, word2, word2IsPhrase);
+              const pos = contentLower.indexOf(word2.toLowerCase());
               if (pos !== -1) positions.push({ pos, word: word2 });
             }
             
@@ -4800,28 +3668,14 @@ function toggleGASummaries() {
                         content.substring(start, end) + 
                         (end < content.length ? '...' : '');
               
-              // Hilfsfunktion für Highlighting mit oder ohne Wortgrenzen
-              const highlightTerm = (text, term, isPhrase) => {
-                if (!term || !term.trim()) return text;
-                const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                let regex;
-                if (isPhrase) {
-                  // Bei Phrasensuche: Wortgrenzen beachten
-                  regex = new RegExp(`((?:^|[\\s,.;:!?()\\-—]))(${escapedTerm})(?=$|[\\s,.;:!?()\\-—])`, "gi");
-                  return text.replace(regex, "$1<mark>$2</mark>");
-                } else {
-                  // Bei normaler Suche: auch Teilwörter highlighten
-                  regex = new RegExp(`(${escapedTerm})`, "gi");
-                  return text.replace(regex, "<mark>$1</mark>");
-                }
-              };
-              
               if (word1 && word1.trim()) {
-                snippet = highlightTerm(snippet, word1, word1IsPhrase);
+                const regex = new RegExp(`(${word1.trim()})`, "gi");
+                snippet = snippet.replace(regex, "<mark>$1</mark>");
               }
               
               if (word2 && word2.trim()) {
-                snippet = highlightTerm(snippet, word2, word2IsPhrase);
+                const regex = new RegExp(`(${word2.trim()})`, "gi");
+                snippet = snippet.replace(regex, "<mark>$1</mark>");
               }
               
               snippetDiv.innerHTML = snippet;
@@ -4847,8 +3701,17 @@ function toggleGASummaries() {
                     try { setUILocked(false); } catch (err) {}
                     e.preventDefault();
                     e.stopPropagation();
-                    
-                    // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
+                    // Close summary panel like other flows
+                    const summaryPanel = document.getElementById('summary-panel');
+                    const resizeHandle = document.getElementById('verticalResizeHandle');
+                    if (summaryPanel && summaryPanel.classList.contains('visible')) {
+                      summaryPanel.classList.remove('visible');
+                      if (resizeHandle) resizeHandle.classList.remove('visible');
+                      summaryPanel.style.width = '0';
+                      summaryPanel.style.minWidth = '0';
+                      summaryPanel.style.marginRight = '0px';
+                    }
+
                     const currentWord1 = document.getElementById('word1').value.trim();
                     const currentWord2 = document.getElementById('word2').value.trim();
                     const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
@@ -4877,20 +3740,28 @@ function toggleGASummaries() {
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
-  // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
+  const summaryPanel = document.getElementById('summary-panel');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
+  if (summaryPanel.classList.contains('visible')) {
+    summaryPanel.classList.remove('visible');
+    resizeHandle.classList.remove('visible');
+    summaryPanel.style.width = '0';
+    summaryPanel.style.minWidth = '0';
+    summaryPanel.style.marginRight = '0px';
+  }
+  
   await showLecture(lecId, chunkIdx, keywords);
 });
-              lectureItem.appendChild(snippetDiv);
+              li.appendChild(snippetDiv);
             }
           });
         }
         
-        // Füge lectureItem direkt zum Grid-Container hinzu (rechte Spalte)
-        timelineContainer.appendChild(lectureItem);
+        list.appendChild(li);
       });
       
       container.innerHTML = '';
-      container.appendChild(timelineContainer);
+      container.appendChild(list);
       
       const lectureCount = sortedLectures.length;
       const chunkCount = results.length;
@@ -4919,7 +3790,6 @@ function toggleGASummaries() {
         
         const limit = 100; // Default limit
         const gaFilter = document.getElementById('thematicGAFilter').value;
-        currentThematicGAFilter = gaFilter || '';
         
         const response = await fetch(`${API_BASE}/api/thematic-hybrid-search`, {
           method: 'POST',
@@ -4939,12 +3809,10 @@ function toggleGASummaries() {
         
         // GA-Filter wird jetzt bereits im Backend angewendet
         currentSources = sources;
-        renderThematicResults(query, answer.content, sources, (gaFilter || ''));
+        renderThematicResults(query, answer.content, sources);
 
-        // Nach erfolgreicher Suche: Liste aktualisieren (nur lokal)
-        if (isLocal) {
-          try { loadRecentThematicQueries(); } catch(_){}
-        }
+        // Nach erfolgreicher Suche: Liste aktualisieren
+        try { loadRecentThematicQueries(); } catch(_){}
         
       } catch (error) {
         console.error('Thematic Search Error:', error);
@@ -5070,16 +3938,6 @@ function toggleGASummaries() {
         }
         const effectiveQuery = autocorrectQuery(query || entry.query || '');
         currentThematicQuery = effectiveQuery;
-        // Parse GA-Filter aus dem Cache-Key (Format: query|depth|limit|ga)
-        try {
-          const parts = (cacheKey || '').split('|');
-          currentThematicGAFilter = parts && parts.length >= 4 ? (parts[3] || '') : '';
-          // Dropdown visual synchronisieren
-          const gaSel = document.getElementById('thematicGAFilter');
-          if (gaSel && currentThematicGAFilter) {
-            gaSel.value = currentThematicGAFilter;
-          }
-        } catch (_) { currentThematicGAFilter = ''; }
         const input = document.getElementById('thematicQuery');
         if (input) input.value = effectiveQuery;
         const sources = entry.sources || [];
@@ -5098,75 +3956,6 @@ function toggleGASummaries() {
       const key = decodeURIComponent(encodedKey);
       const q = decodeURIComponent(encodedQuery);
       return openSavedThematicQuery(key, q);
-    }
-
-    // Lösche das aktuell geladene Thema (nur lokal)
-    async function deleteCurrentThema() {
-      if (!isLocal) {
-        alert('Diese Funktion ist nur in der lokalen Version verfügbar.');
-        return;
-      }
-      
-      if (!currentThematicQuery) {
-        alert('Kein Thema geladen.');
-        return;
-      }
-      
-      const confirmMsg = `Möchten Sie das Thema "${currentThematicQuery}" wirklich löschen?`;
-      if (!confirm(confirmMsg)) {
-        return;
-      }
-      
-      try {
-        // Erstelle den Cache-Key (gleiche Logik wie im Backend)
-        const gaFilter = currentThematicGAFilter || '';
-        const cacheKey = `${currentThematicQuery}|7|100|${gaFilter}`;
-        
-        const response = await fetch(`${API_BASE}/api/delete-thematic-search`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cacheKey: cacheKey })
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Server Error: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          alert('Thema erfolgreich gelöscht.');
-          
-          // Leere die Ergebnisanzeige
-          const container = document.getElementById('results');
-          if (container) {
-            container.innerHTML = '<p style="color: #666; font-style: italic;">Thema wurde gelöscht.</p>';
-          }
-          
-          // Setze das Eingabefeld zurück
-          const input = document.getElementById('thematicQuery');
-          if (input) {
-            input.value = '';
-          }
-          
-          // Aktualisiere die Liste der zuletzt gesuchten Themen
-          try {
-            loadRecentThematicQueries();
-          } catch (e) {
-            console.warn('Fehler beim Aktualisieren der Themenliste:', e);
-          }
-          
-          // Zurücksetzen der globalen Variablen
-          currentThematicQuery = '';
-          currentThematicGAFilter = '';
-          currentSources = [];
-        } else {
-          alert('Fehler beim Löschen: ' + (result.error || 'Unbekannter Fehler'));
-        }
-      } catch (error) {
-        console.error('Fehler beim Löschen des Themas:', error);
-        alert('Fehler beim Löschen des Themas: ' + error.message);
-      }
     }
 
     // Einfache, erweiterbare Rechtschreib-Autokorrektur für deutsche Begriffe/GA-Kontexte
@@ -5204,17 +3993,11 @@ function toggleGASummaries() {
   
   if (!viewer) return;
   
-  // Rechtes Summary Panel öffnen bei Klick auf "Übersicht" (falls noch nicht offen)
+  // IMMER das rechte Summary Panel öffnen bei Klick auf "Übersicht"
   const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
   let panelWasJustOpened = false;
-  
   if (summaryPanel && !summaryPanel.classList.contains('visible')) {
-    summaryPanel.classList.add('visible');
-    resizeHandle.classList.add('visible');
-    summaryPanel.style.width = '280px';
-    summaryPanel.style.minWidth = '280px';
-    summaryPanel.style.marginRight = '0px';
+    toggleSummaryPanel();
     panelWasJustOpened = true;
   }
   
@@ -5830,23 +4613,6 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       console.log('[FORMATTING] Inline Styles aus Backend-HTML entfernt (CSS-Klassen beibehalten)');
     }
 
-    // Stellt einheitliche Leerzeichen um Klammern bei GA-Quellenangaben her
-    function normalizeCitationSpacing(container) {
-      if (!container) return;
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
-      const nodes = [];
-      while (walker.nextNode()) nodes.push(walker.currentNode);
-      nodes.forEach(node => {
-        let s = node.nodeValue || '';
-        if (!s) return;
-        // Leerzeichen vor "(GA" sicherstellen
-        s = s.replace(/([^\s(])\((GA)/g, '$1 ($2');
-        // Leerzeichen nach ")" sicherstellen, außer wenn direkt Satzzeichen folgt
-        s = s.replace(/\)(?=([^\s\.,;:!\?\)]))/g, ') ');
-        node.nodeValue = s;
-      });
-    }
-
     function extractKeywordsFromQuery(query) {
       const stopWords = [
         'wie', 'ist', 'das', 'verhältnis', 'von', 'und', 'der', 'die', 'des', 
@@ -5863,7 +4629,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       return words;
     }
     
-    function renderThematicResults(query, content, sources, appliedGA = '') {
+    function renderThematicResults(query, content, sources) {
       const container = document.getElementById('results');
       
       const sortedSources = [...sources].sort((a, b) => {
@@ -5872,21 +4638,10 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
         return dateA.localeCompare(dateB);
       });
       
-      // Verwende ausschließlich den GA-Band, der für DIESES Ergebnis angewendet wurde
-      const selectedGA = appliedGA || '';
-      const headingBase = autocorrectQuery(query) || '';
-      const headingWithGA = selectedGA ? `${headingBase} (aus ${selectedGA})` : headingBase;
-      const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      // Delete-Button nur in lokaler Version anzeigen
-      const deleteButtonHTML = isLocal 
-        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Thema löschen</button>`
-        : '';
+      const safeHeading = (autocorrectQuery(query) || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       container.innerHTML = `
         <div class="semantic-answer">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h1 style="margin: 0;">${safeHeading}</h1>
-            ${deleteButtonHTML}
-          </div>
+          <h1>${safeHeading}</h1>
           <div class="answer-content" id="answerContent"></div>
         </div>
       `;
@@ -5896,52 +4651,62 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
-      // Einheitliche Abstände um Klammern an GA-Quellenangaben
-      normalizeCitationSpacing(answerDiv);
 
-      // Falls die Quellen direkt in der Überschrift stehen: Überschrift säubern und Rest in neuen Absatz verschieben
-      try {
-        const titleText = 'Weitere relevante Quellen';
-        const sourcesHeading = Array.from(answerDiv.querySelectorAll('h2,h3'))
-          .find(h => (h.textContent || '').trim().toLowerCase().startsWith(titleText.toLowerCase()));
-        if (sourcesHeading) {
-          const currentHTML = (sourcesHeading.innerHTML || '').trim();
-          const reEsc = titleText.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-          const restHTML = currentHTML.replace(new RegExp('^' + reEsc + '\\s*', 'i'), '');
-          if (restHTML && restHTML.trim().length > 0) {
-            sourcesHeading.textContent = titleText;
-            const p = document.createElement('p');
-            p.innerHTML = restHTML;
-            if (sourcesHeading.nextSibling) {
-              sourcesHeading.parentNode.insertBefore(p, sourcesHeading.nextSibling);
-            } else {
-              sourcesHeading.parentNode.appendChild(p);
-            }
-          }
-        }
-      } catch (_) {}
-
-      // Sicherstellen: Nach der Überschrift "Weitere relevante Quellen" steht ein Absatz
+      // Zusätzliche Absicherung: In der Sektion "Weitere relevante Quellen"
+      // Klammern um GA-Links entfernen und Kommas sauber formatieren
       try {
         const sourcesHeading = Array.from(answerDiv.querySelectorAll('h2,h3'))
-          .find(h => (h.textContent || '').trim() === 'Weitere relevante Quellen');
+          .find(h => {
+            const txt = (h.textContent || '').trim().toLowerCase();
+            return txt.startsWith('weitere relevante quellen') || txt.startsWith('weitere quellenangaben');
+          });
         if (sourcesHeading) {
-          // Nächstes sinnvolles Geschwister ermitteln (Whitespace überspringen)
-          let ns = sourcesHeading.nextSibling;
-          while (ns && ns.nodeType === 3 && (ns.nodeValue || '').trim() === '') {
-            ns = ns.nextSibling;
-          }
-          const isBlockBreak = ns && ns.nodeType === 1 && /^(P|DIV|UL|OL|BR)$/i.test(ns.nodeName);
-          if (!isBlockBreak) {
-            const br = document.createElement('br');
-            if (sourcesHeading.nextSibling) {
-              sourcesHeading.parentNode.insertBefore(br, sourcesHeading.nextSibling);
-            } else {
-              sourcesHeading.parentNode.appendChild(br);
+          // Falls Quellen irrtümlich in derselben Zeile wie die Überschrift stehen, abtrennen
+          const headingText = (sourcesHeading.textContent || '').trim();
+          const titleMatch = headingText.match(/^(Weitere relevante Quellen|Weitere Quellenangaben)\s*/i);
+          if (titleMatch) {
+            const title = titleMatch[1];
+            const rest = headingText.slice(titleMatch[0].length).trim();
+            if (rest) {
+              sourcesHeading.textContent = title;
+              const p = document.createElement('p');
+              p.textContent = rest;
+              if (sourcesHeading.nextSibling) {
+                sourcesHeading.parentNode.insertBefore(p, sourcesHeading.nextSibling);
+              } else {
+                sourcesHeading.parentNode.appendChild(p);
+              }
             }
           }
+
+          const nodesBetween = [];
+          let n = sourcesHeading.nextSibling;
+          while (n && !(n.nodeType === 1 && /^(H2|H3)$/i.test(n.nodeName))) {
+            nodesBetween.push(n);
+            n = n.nextSibling;
+          }
+          const textNodes = [];
+          const collectTextNodes = node => {
+            if (!node) return;
+            if (node.nodeType === 3) {
+              textNodes.push(node);
+            } else if (node.nodeType === 1) {
+              Array.from(node.childNodes).forEach(collectTextNodes);
+            }
+          };
+          nodesBetween.forEach(collectTextNodes);
+          textNodes.forEach(tn => {
+            let s = tn.nodeValue || '';
+            s = s.replace(/[()]/g, '');
+            s = s.replace(/\s+,/g, ',');
+            s = s.replace(/,\s*/g, ', ');
+            s = s.replace(/\s{2,}/g, ' ');
+            tn.nodeValue = s;
+          });
         }
-      } catch (_) {}
+      } catch (e) {
+        console.warn('Sources cleanup failed:', e);
+      }
       
       console.log('HTML nach marked.parse:', answerDiv.innerHTML.substring(0, 500));
       console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
@@ -5963,7 +4728,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
       e.preventDefault();
       e.stopPropagation();
       
-      // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
+      // Summary Panel schließen (wie bei Textsuche)
+      const summaryPanel = document.getElementById('summary-panel');
+      const resizeHandle = document.getElementById('verticalResizeHandle');
+      if (summaryPanel.classList.contains('visible')) {
+        summaryPanel.classList.remove('visible');
+        resizeHandle.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '0px';
+      }
+      
       const keywords = extractKeywordsFromQuery(currentThematicQuery);
       await showLecture(lectureId, targetIndex, keywords);
     });
@@ -6043,8 +4818,15 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
   
-  // Aktuellen Vortrag tracken
-  window.currentOpenLectureId = lectureId;
+  // Summary Panel schließen
+  if (summaryPanel.classList.contains('visible')) {
+    summaryPanel.classList.remove('visible');
+    resizeHandle.classList.remove('visible');
+    summaryPanel.style.width = '0';
+    summaryPanel.style.minWidth = '0';
+    summaryPanel.style.marginRight = '0px';
+    if (tocList) tocList.innerHTML = '';
+  }
 
   try {
     const parts = lectureId.split('/');
@@ -6117,29 +4899,6 @@ setTimeout(() => {
           }
           
           updateButtonStates();
-          
-          // Öffne Summary Panel automatisch (auch bei vorhandener Summary)
-          setTimeout(() => {
-            if (summaryPanel) {
-              console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
-              summaryPanel.classList.add('visible');
-              summaryPanel.style.width = '280px';
-              summaryPanel.style.minWidth = '280px';
-              summaryPanel.style.marginRight = '0px';
-              summaryPanel.style.removeProperty('display');
-              
-              if (resizeHandle) {
-                resizeHandle.classList.add('visible');
-                resizeHandle.style.removeProperty('display');
-                resizeHandle.style.removeProperty('width');
-              }
-              
-              document.body.classList.remove('summary-panel-collapsed');
-              updateHeaderPosition();
-              buildTableOfContents();
-            }
-          }, 100);
-          
           return;
         }
       }
@@ -6165,34 +4924,6 @@ setTimeout(() => {
     
     updateButtonStates();
     displayLecture(data.lecture, targetIndex, displayKeywords);
-    
-    // Öffne Summary Panel automatisch nach dem Laden (immer)
-    setTimeout(() => {
-      if (summaryPanel) {
-        console.log('[SUMMARY-PANEL] Auto-open triggered');
-        summaryPanel.classList.add('visible');
-        summaryPanel.style.width = '280px';
-        summaryPanel.style.minWidth = '280px';
-        summaryPanel.style.marginRight = '0px';
-        summaryPanel.style.removeProperty('display');
-        
-        if (resizeHandle) {
-          resizeHandle.classList.add('visible');
-          resizeHandle.style.removeProperty('display');
-          resizeHandle.style.removeProperty('width');
-        }
-        
-        document.body.classList.remove('summary-panel-collapsed');
-        
-        // Header-Position aktualisieren
-        updateHeaderPosition();
-        
-        // TOC generieren
-        buildTableOfContents();
-      } else {
-        console.warn('[SUMMARY-PANEL] Panel nicht gefunden für auto-open');
-      }
-    }, 100);
     
   } catch (error) {
     console.error('Fehler beim Laden:', error);
@@ -6274,11 +5005,11 @@ async function regenerateCurrentSummary() {
   }
 }
 
-// Startet die Batch-Zusammenfassungs-Generation für den aktuell im Tab Texte ausgewählten GA-Band
+// Startet die Batch-Zusammenfassungs-Generation (UI-Wrapper)
 function startBatchSummaries() {
-  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  const gaNumber = document.getElementById('gaFilter')?.value;
   if (!gaNumber) {
-    alert('Bitte wählen Sie zuerst einen GA-Band im Tab Texte (Dropdown) aus.');
+    alert('Bitte wählen Sie zuerst eine GA-Nummer im Text Tab (Dropdown).');
     return;
   }
 
@@ -6321,17 +5052,6 @@ async function batchSummarizeGA(gaNumber) {
   try {
     // Sperre UI während des Batch-Laufs
     setUILocked(true);
-    
-    // Lade lokale summary-database (nur lokal verfügbar)
-    let summaryDB = {};
-    try {
-      const sresp = await fetch(`${API_BASE}/summary-database.json`, { cache: 'no-store' });
-      if (sresp.ok) summaryDB = await sresp.json();
-      console.log(`[BATCH] Summary-DB geladen: ${Object.keys(summaryDB).length} Einträge`);
-    } catch (e) {
-      console.warn('Konnte summary-database.json nicht laden:', e.message);
-    }
-    
     const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
     if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
     const data = await resp.json();
@@ -6341,18 +5061,8 @@ async function batchSummarizeGA(gaNumber) {
       return;
     }
 
-    // Nur Vorträge ohne Summary verarbeiten (prüfe gegen summary-database.json)
-    const missing = lectures.filter(l => {
-      const lectureId = l.ID;
-      const entry = summaryDB[lectureId];
-      // Vortrag hat keine Summary wenn:
-      // 1. Kein Eintrag in der DB ODER
-      // 2. Eintrag existiert aber summary ist leer/fehlt
-      return !entry || !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '');
-    });
-    
-    console.log(`[BATCH] ${missing.length} von ${lectures.length} Vorträgen ohne Summary in ${gaNumber}`);
-    
+    // Nur Vorträge ohne Summary verarbeiten (sicherstellen, dass wir die KI nicht unnötig anfragen)
+    const missing = lectures.filter(l => !l.summary || (typeof l.summary === 'string' && l.summary.trim() === ''));
     if (missing.length === 0) {
       alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
       return;
@@ -6411,79 +5121,37 @@ async function batchSummarizeGA(gaNumber) {
   }
 }
 
-// Startet die Batch-Zusammenfassungs-Generation für alle GA-Bände in der Dropdown-Liste im Tab Texte
+// Startet die Batch-Zusammenfassungs-Generation für ALLE Vorträge ohne Summary
 async function startBatchAllSummaries() {
+  if (!confirm('Batch All: Es werden für alle Vorträge ohne Summary Zusammenfassungen erzeugt. Fortfahren?')) return;
+
   try {
-    // Hole alle GA-Bände aus dem Dropdown im Tab Texte
-    const texteGAFilter = document.getElementById('texteGAFilter');
-    if (!texteGAFilter) {
-      alert('Dropdown im Tab Texte nicht gefunden.');
-      return;
-    }
-    
-    // Sammle alle GA-Nummern aus dem Dropdown (außer dem ersten leeren Eintrag)
-    const gaBands = [];
-    for (let i = 1; i < texteGAFilter.options.length; i++) {
-      const value = texteGAFilter.options[i].value;
-      if (value) gaBands.push(value);
-    }
-    
-    if (gaBands.length === 0) {
-      alert('Keine GA-Bände im Dropdown gefunden.');
-      return;
-    }
-    
-    // Lade lokale summary-database VORHER (nur lokal verfügbar)
+    // Sperre UI während des Batch-All Prozesses
+    setUILocked(true);
+    // Lade alle Lecture-IDs vom Backend
+    const resp = await fetch(`${API_BASE}/api/lectures/list`);
+    if (!resp.ok) throw new Error('Konnte Lecture-Liste nicht laden');
+    const listData = await resp.json();
+    const allIds = listData.lectures || [];
+
+    // Lade lokale summary-database (nur lokal verfügbar)
     let summaryDB = {};
     try {
       const sresp = await fetch(`${API_BASE}/summary-database.json`, { cache: 'no-store' });
       if (sresp.ok) summaryDB = await sresp.json();
-      console.log(`[BATCH-ALL] Summary-DB geladen: ${Object.keys(summaryDB).length} Einträge`);
     } catch (e) {
       console.warn('Konnte summary-database.json nicht laden:', e.message);
     }
-    
-    // Sammle alle Vorträge ohne Summary aus allen GA-Bänden
-    const lectureIdsToProcess = [];
-    
-    for (const gaNumber of gaBands) {
-      try {
-        const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-        if (!resp.ok) continue; // Überspringe GA-Bände, die nicht geladen werden können
-        const data = await resp.json();
-        const lectures = data.lectures || [];
-        
-        // Filter: nur Vorträge ohne Summary (prüfe gegen summary-database.json)
-        for (const lecture of lectures) {
-          const lectureId = lecture.ID;
-          const entry = summaryDB[lectureId];
-          // Vortrag hat keine Summary wenn:
-          // 1. Kein Eintrag in der DB ODER
-          // 2. Eintrag existiert aber summary ist leer/fehlt
-          const hasNoSummary = !entry || !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '');
-          if (hasNoSummary) {
-            lectureIdsToProcess.push(lectureId);
-          }
-        }
-      } catch (err) {
-        console.warn(`Fehler beim Laden von ${gaNumber}:`, err.message);
-      }
-    }
 
-    console.log(`[BATCH-ALL] ${lectureIdsToProcess.length} Vorträge ohne Summary gefunden`);
+    const lectureIdsToProcess = allIds.filter(id => {
+      const entry = summaryDB[id];
+      return !(entry && entry.summary && entry.summary.trim() !== '');
+    });
 
     if (lectureIdsToProcess.length === 0) {
-      alert('Keine Vorträge ohne Summary in den verfügbaren GA-Bänden gefunden.');
+      alert('Keine Vorträge ohne Summary gefunden.');
       return;
     }
-    
-    // Bestätigung mit korrekter Anzahl
-    if (!confirm(`Batch All: Es werden ${lectureIdsToProcess.length} Vorträge ohne Summary in ${gaBands.length} GA-Bänden bearbeitet. Fortfahren?`)) {
-      return;
-    }
-
-    // Sperre UI während des Batch-All Prozesses
-    setUILocked(true);
 
     // Teile in 10 Portionen auf
     const portions = 10;
@@ -6520,7 +5188,7 @@ async function startBatchAllSummaries() {
 
     const statusEl = document.getElementById('batch-status');
     const barEl = document.getElementById('batch-progress-bar');
-    if (statusEl) statusEl.textContent = `Starte ${chunks.length} Portionen parallel (${total} Vorträge aus ${gaBands.length} GA-Bänden)...`;
+    if (statusEl) statusEl.textContent = `Starte ${chunks.length} Portionen parallel (${total} Vorträge insgesamt)...`;
 
     // Shared onProgress callback
     const onProgress = ({ success }) => {
@@ -6562,7 +5230,6 @@ async function startBatchAllSummaries() {
 
   } catch (err) {
     alert('Fehler beim Starten von Batch All: ' + err.message);
-    setUILocked(false);
   }
 }
 
@@ -6594,9 +5261,6 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         if (!sResp.ok) {
           console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status);
           failed += 1;
-          if (typeof options.onProgress === 'function') {
-            try { options.onProgress({ lectureId, success: false }); } catch(e){}
-          }
         } else {
           const sData = await sResp.json();
           console.log('Summary erzeugt für', lectureId, sData);
@@ -6612,6 +5276,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         }
       }
       processed += 1;
+
+      // Notify progress for non-error case as well (if no onProgress called earlier)
+      if (typeof options.onProgress === 'function') {
+        try { options.onProgress({ lectureId, success: !(failed > 0 && processed > 0 && failed === processed) }); } catch(e){}
+      }
     }
   }
 
@@ -6626,6 +5295,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     setUILocked(false);
   }
 
+  const workers = [];
+  for (let i = 0; i < Math.min(concurrency, lectureIds.length); i++) {
+    workers.push(worker());
+  }
+
+  await Promise.all(workers);
   return { processed, failed };
 }
 
@@ -6697,54 +5372,41 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       function updateActiveTocItem() {
         const containerTop = mainContainer.getBoundingClientRect().top;
-        const containerBottom = mainContainer.getBoundingClientRect().bottom;
         
-        const activeHeadings = [];
+        let activeHeading = null;
         
-        // Immer beide H3 und H4 berücksichtigen für die Aktivmarkierung
-        const visibleHeadings = Array.from(viewer.querySelectorAll('h3, h4'));
+        const selector = viewerH4Collapsed ? 'h3' : 'h3, h4';
+        const visibleHeadings = Array.from(viewer.querySelectorAll(selector));
         
-        // Sammle alle Headings, die im sichtbaren Bereich sind
-        visibleHeadings.forEach(heading => {
+        for (let i = visibleHeadings.length - 1; i >= 0; i--) {
+          const heading = visibleHeadings[i];
           const headingRect = heading.getBoundingClientRect();
           const relativeTop = headingRect.top - containerTop;
-          const relativeBottom = headingRect.bottom - containerTop;
           
-          // Heading ist sichtbar, wenn es zwischen dem oberen Rand und dem unteren Rand des Containers ist
-          if (relativeTop >= 0 && relativeTop <= (containerBottom - containerTop)) {
-            activeHeadings.push(heading);
-          }
-        });
-        
-        // Wenn keine Headings im Viewport, nimm das letzte Heading vor dem Viewport
-        if (activeHeadings.length === 0) {
-          for (let i = visibleHeadings.length - 1; i >= 0; i--) {
-            const heading = visibleHeadings[i];
-            const headingRect = heading.getBoundingClientRect();
-            const relativeTop = headingRect.top - containerTop;
-            
-            if (relativeTop <= 50) {
-              activeHeadings.push(heading);
-              break;
-            }
+          if (relativeTop <= 50) {
+            activeHeading = heading;
+            break;
           }
         }
         
-        // Alle TOC-Items zurücksetzen
         tocItems.forEach(item => {
           item.element.style.fontWeight = 'normal';
+          // Farbe je nach Dark Mode setzen
           const isDarkMode = document.body.classList.contains('dark-mode');
           item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
         });
         
-        // Markiere alle aktiven Headings (H3 und/oder H4) fett
-        tocItems.forEach(item => {
-          if (activeHeadings.includes(item.heading)) {
-            item.element.style.fontWeight = 'bold';
+        if (!activeHeading) return;
+        
+        for (let i = 0; i < tocItems.length; i++) {
+          if (tocItems[i].heading === activeHeading) {
+            tocItems[i].element.style.fontWeight = 'bold';
+            // Farbe je nach Dark Mode setzen
             const isDarkMode = document.body.classList.contains('dark-mode');
-            item.element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
+            tocItems[i].element.style.color = isDarkMode ? '#6BA3B8' : '#467886';
+            break;
           }
-        });
+        }
       }
       
       mainContainer.removeEventListener('scroll', updateActiveTocItem);
@@ -7414,6 +6076,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   let html = '<div class="keywords-container">';
   
   filteredKeywords.forEach(keywordData => {
+    // Prüfe ob Timeline geöffnet ist und ob dieses Schlagwort das aktuelle Timeline-Schlagwort ist
+    const isTimelineOpen = document.getElementById('timelineSplitView').style.display !== 'none';
+    const isCurrentTimelineKeyword = currentTimelineKeyword === keywordData.keyword;
     // Verwende Keyword-Thematische Suche für detaillierte Analysen
     html += `
       <div class="keyword-entry">
@@ -7421,6 +6086,9 @@ function displayKeywords(selectedLetter = 'Alle') {
           <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;">
             ${keywordData.keyword}
           </a>
+          <button class="timeline-btn" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keywordData.keyword}', this);" title="Timeline anzeigen">
+            <i data-lucide="calendar"></i>
+          </button>
         </h4>
         <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
         </div>
@@ -7518,38 +6186,6 @@ function switchTabExtended(mode) {
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
   
-  // Summary-Panel schließen beim Tab-Wechsel
-  const summaryPanel = document.getElementById('summary-panel');
-  const summaryResizeHandle = document.querySelector('.vertical-resize-handle');
-  
-  if (summaryPanel) {
-    // Entferne .visible Klasse (das reicht, da CSS default width: 0 hat)
-    summaryPanel.classList.remove('visible');
-    
-    // Entferne alle inline-styles, damit CSS-Defaults greifen
-    summaryPanel.removeAttribute('style');
-    
-    console.log('[TABS] Summary-Panel geschlossen');
-  }
-  
-  if (summaryResizeHandle) {
-    summaryResizeHandle.classList.remove('visible');
-    // Resize-Handle komplett zurücksetzen
-    summaryResizeHandle.removeAttribute('style');
-    summaryResizeHandle.style.width = '0';
-    summaryResizeHandle.style.display = 'none';
-    console.log('[TABS] Resize-Handle versteckt');
-  }
-  
-  // TOC leeren
-  const tocList = document.getElementById('toc-list');
-  if (tocList) {
-    tocList.innerHTML = '';
-  }
-  
-  // currentOpenLectureId zurücksetzen
-  window.currentOpenLectureId = null;
-  
   // Horizontalen Resize-Handle basierend auf Tab ein-/ausblenden
   const resizeHandle = document.getElementById('search-panel-toggle');
   if (resizeHandle) {
@@ -7641,24 +6277,6 @@ function switchTabExtended(mode) {
     } else {
       // Keywords sind bereits geladen, zeige sie an
       displayKeywords('Alle');
-    }
-  }
-
-  // Wenn wir zum Texte-Tab wechseln, setze das Dropdown zurück
-  if (mode === 'texte') {
-    const texteGAFilter = document.getElementById('texteGAFilter');
-    if (texteGAFilter) {
-      texteGAFilter.value = '';
-      console.log('[TABS] Texte-Tab Dropdown zurückgesetzt');
-    }
-    // Toggle Button verstecken und zurücksetzen
-    const texteViewToggle = document.getElementById('texteViewToggle');
-    const texteServerInfo = document.getElementById('texteServerInfo');
-    if (texteViewToggle) {
-      texteViewToggle.style.display = 'none';
-    }
-    if (texteServerInfo) {
-      texteServerInfo.textContent = '';
     }
   }
 
@@ -7945,6 +6563,9 @@ function displayKeywordThematicResults(keyword, data) {
     <div class="semantic-answer">
       <div class="answer-header">
         <h2 class="answer-title">${keyword}</h2>
+        <button class="timeline-btn answer-action" onclick="event.preventDefault(); event.stopPropagation(); showTimeline('${keyword}', this);" title="Timeline für '${keyword}' anzeigen">
+          <i data-lucide="calendar"></i>
+        </button>
       </div>
       <div class="answer-content" id="keywordAnswerContent">
         ${contentHtml}
@@ -7954,11 +6575,6 @@ function displayKeywordThematicResults(keyword, data) {
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
   removeInlineStyles(results);
-  // Einheitliche Abstände um Klammern an GA-Quellenangaben (Keyword-Themen)
-  try {
-    const kc = document.getElementById('keywordAnswerContent');
-    if (kc) normalizeCitationSpacing(kc);
-  } catch (_) {}
   
   // Lucide Icons initialisieren
   initializeLucideIcons();
@@ -8315,8 +6931,36 @@ function handleKeywordInputKeypress(event) {
   }
 }
 
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateStr) {
+// =====================================
+// TIMELINE FUNKTIONALITÄT
+// =====================================
+
+let fullLecturesData = {};
+
+// Lade Vortragsdaten für Timeline
+async function loadFullLecturesForTimeline() {
+  if (Object.keys(fullLecturesData).length > 0) {
+    return fullLecturesData;
+  }
+  
+  try {
+    console.log('[TIMELINE] Lade Vortragsdaten...');
+    const response = await fetch(`${API_BASE}/api/full-lectures`);
+    if (response.ok) {
+      fullLecturesData = await response.json();
+      console.log(`[TIMELINE] ${Object.keys(fullLecturesData).length} Vorträge geladen`);
+    } else {
+      console.warn('[TIMELINE] Fehler beim Laden der Vortragsdaten');
+    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler:', error);
+  }
+  
+  return fullLecturesData;
+}
+
+// Verstecke Timeline und kehre zur normalen Ansicht zurück
+function hideTimeline() {
   console.log('[TIMELINE] Verstecke Timeline');
   
   const splitView = document.getElementById('timelineSplitView');
@@ -8503,138 +7147,46 @@ async function showTimeline(keyword, clickedButton) {
     // Lade Vortragsdaten
     await loadFullLecturesForTimeline();
     
-    // NEUE KI-TIMELINE-ANALYSE
-    console.log('[TIMELINE] Starte KI-Timeline-Analyse für:', keyword);
-    content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline-Analyse...</div>';
-    
-    try {
-      const timelineResponse = await fetch(`${API_BASE}/api/keyword-timeline-analysis`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ keyword: keyword, useCache: true })
-      });
-      
-      if (!timelineResponse.ok) {
-        throw new Error(`Timeline-Analyse Fehler: ${timelineResponse.status}`);
-      }
-      
-      const timelineData = await timelineResponse.json();
-      console.log('[TIMELINE] KI-Timeline-Daten erhalten:', timelineData);
-      
-      // Erstelle erweiterte Timeline mit KI-Analyse
-      const enhancedTimelineHTML = generateEnhancedTimelineHTML(timelineData);
-      content.innerHTML = enhancedTimelineHTML;
-      
-      // Timeline-Panel-Titel erweitern
-      const timelinePanelTitle = document.getElementById('timelinePanelTitle');
-      if (timelinePanelTitle) {
-        timelinePanelTitle.textContent = `${keyword} (${timelineData.relevantLectures} Vorträge)`;
-      }
-      
-    } catch (timelineError) {
-      console.warn('[TIMELINE] KI-Analyse fehlgeschlagen, verwende Fallback:', timelineError);
-      
-      // Fallback: Verwende alte Timeline-Logik
-      const keywordData = keywordsData.find(k => k.keyword === keyword);
-      if (!keywordData || !keywordData.gaReferences) {
-        content.innerHTML = '<div class="timeline-no-results">Keine GA-Referenzen für dieses Schlagwort gefunden.</div>';
-        return;
-      }
-      
-      const timelineEntries = await createTimelineEntries(keywordData.gaReferences);
-      
-      if (timelineEntries.length === 0) {
-        content.innerHTML = '<div class="timeline-no-results">Keine Vorträge mit diesem Schlagwort gefunden.</div>';
-        return;
-      }
-      
-      const groupedByYear = groupTimelineByYear(timelineEntries);
-      const timelineHTML = generateTimelineHTML(groupedByYear);
-      content.innerHTML = timelineHTML;
+    // Finde das Schlagwort in den Daten
+    const keywordData = keywordsData.find(k => k.keyword === keyword);
+    if (!keywordData || !keywordData.gaReferences) {
+      content.innerHTML = '<div class="timeline-no-results">Keine GA-Referenzen für dieses Schlagwort gefunden.</div>';
+      return;
     }
+    
+    // Erstelle Timeline-Einträge
+    const timelineEntries = await createTimelineEntries(keywordData.gaReferences);
+    
+    if (timelineEntries.length === 0) {
+      content.innerHTML = '<div class="timeline-no-results">Keine Vorträge mit diesem Schlagwort gefunden.</div>';
+      return;
+    }
+    
+    // Sortiere nach Jahr und dann nach Datum (aufsteigend)
+    timelineEntries.sort((a, b) => {
+      // Zuerst nach Jahr sortieren
+      if (a.year !== b.year) {
+        return a.year - b.year;
+      }
+      
+      // Wenn gleiches Jahr, nach Datum sortieren
+      const dateA = parseDateForSorting(a.lecture.date);
+      const dateB = parseDateForSorting(b.lecture.date);
+      
+      return dateA - dateB;
+    });
+    
+    // Gruppiere nach Jahr
+    const groupedByYear = groupTimelineByYear(timelineEntries);
+    
+    // Generiere HTML
+    const timelineHTML = generateTimelineHTML(groupedByYear);
+    content.innerHTML = timelineHTML;
     
   } catch (error) {
     console.error('[TIMELINE] Fehler:', error);
     content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline.</div>';
   }
-}
-
-// Hilfsfunktion: Mache Timeline-Zitate klickbar (verwendet gleiche Logik wie Themensuche)
-function makeTimelineQuotesClickable(quoteText, lectureId) {
-  // Verwende die gleiche Regex wie in der Themensuche
-  const gaRefRegex = /\(GA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\)/gi;
-  
-  return quoteText.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
-    const cleanIndex = index.replace(/^\^/, '');
-    return ` (<a href="#" onclick="showLectureInTimeline('${lectureId}', '${cleanIndex}'); return false;" class="timeline-quote-link" title="Zu diesem Absatz springen">GA${gaNum}/${lectureNum}</a>)`;
-  });
-}
-
-// Generiere erweiterte Timeline HTML mit KI-Analyse
-function generateEnhancedTimelineHTML(timelineData) {
-  console.log('[TIMELINE-HTML] Generiere HTML für Timeline-Daten:', timelineData);
-  
-  let html = '';
-  
-  // Prüfe ob Timeline-Daten vorhanden sind
-  if (!timelineData || !timelineData.timelineEntries || timelineData.timelineEntries.length === 0) {
-    console.warn('[TIMELINE-HTML] Keine Timeline-Einträge gefunden');
-    return '<div class="timeline-no-results">Keine Vorträge mit höchster Relevanz für dieses Schlagwort gefunden.</div>';
-  }
-  
-  // Timeline-Statistiken anzeigen (ohne Analyse)
-  html += `
-    <div class="timeline-analysis">
-      <div class="timeline-stats">
-        <span>Gefunden in ${timelineData.relevantLectures || 0} von ${timelineData.totalLectures || 0} Vorträgen</span>
-      </div>
-    </div>
-  `;
-  
-  // Sortiere Timeline-Einträge chronologisch
-  const sortedEntries = timelineData.timelineEntries.sort((a, b) => {
-    if (a.year !== b.year) return a.year - b.year;
-    return a.date.localeCompare(b.date);
-  });
-  
-  console.log('[TIMELINE-HTML] Sortierte Einträge:', sortedEntries.length);
-  
-  // Erstelle Timeline mit Jahr-Gruppierung
-  let lastYear = null;
-  sortedEntries.forEach((entry, index) => {
-    console.log(`[TIMELINE-HTML] Verarbeite Eintrag ${index + 1}/${sortedEntries.length}:`, entry);
-    
-    // Zeige Jahr nur wenn es sich ändert
-    const showYear = lastYear !== entry.year;
-    lastYear = entry.year;
-    
-    html += `
-      <div class="timeline-item enhanced">
-        ${showYear ? `<div class="timeline-year">${entry.year}</div>` : '<div class="timeline-year-spacer"></div>'}
-        <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}')">
-          <div class="timeline-lecture-number">
-            ${entry.date}
-          </div>
-          <div class="timeline-lecture-title">${entry.title} (${entry.lectureId})</div>
-          ${entry.keyQuotes && entry.keyQuotes.length > 0 ? `
-            <div class="timeline-quotes">
-              ${entry.keyQuotes.map(quote => makeTimelineQuotesClickable(quote, entry.lectureId)).join('; ')}
-            </div>
-          ` : ''}
-          ${entry.thematicFocus ? `
-            <div class="timeline-focus">
-              <strong>${entry.thematicFocus}</strong>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `;
-  });
-  
-  console.log('[TIMELINE-HTML] Generiertes HTML-Länge:', html.length);
-  console.log('[TIMELINE-HTML] Anzahl verarbeiteter Einträge:', timelineData.timelineEntries.length);
-  
-  return html;
 }
 
 // Erstelle Timeline-Einträge aus GA-Referenzen
@@ -8819,15 +7371,15 @@ function generateTimelineHTML(groupedByYear) {
 }
 
 // Zeige Vortrag im Timeline-Viewer
-async function showLectureInTimeline(lectureId, targetIndex = null) {
-  console.log('[TIMELINE] Zeige Vortrag:', lectureId, targetIndex ? `mit Index: ${targetIndex}` : '');
+async function showLectureInTimeline(lectureId) {
+  console.log('[TIMELINE] Zeige Vortrag:', lectureId);
   
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
   
   // Verwende die gleiche Funktion wie in der GA-Übersicht
   try {
-    await showLecture(lectureId, targetIndex, []);
+    await showLecture(lectureId, null, []);
     
     // Kopiere den Inhalt vom Haupt-Viewer in den Timeline-Viewer
     const mainViewer = document.getElementById('viewer');
@@ -8840,26 +7392,8 @@ async function showLectureInTimeline(lectureId, targetIndex = null) {
       // Kopiere Inhalt
       viewerContent.innerHTML = mainViewer.innerHTML;
       
-      // Scrolle nach oben (wird von showLecture überschrieben wenn targetIndex gesetzt ist)
-      if (!targetIndex) {
-        viewerContent.scrollTop = 0;
-      } else {
-        // Wenn targetIndex gesetzt ist, scrolle zum entsprechenden Absatz im Timeline-Viewer
-        setTimeout(() => {
-          const cleanIndex = targetIndex.replace(/^\^/, '');
-          const paraElement = viewerContent.querySelector(`#para-${cleanIndex}`);
-          if (paraElement) {
-            paraElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Highlighting hinzufügen
-            paraElement.style.backgroundColor = '#fff3cd';
-            paraElement.style.borderLeft = '4px solid #ffc107';
-            setTimeout(() => {
-              paraElement.style.backgroundColor = '';
-              paraElement.style.borderLeft = '';
-            }, 3000);
-          }
-        }, 200);
-      }
+      // Scrolle nach oben
+      viewerContent.scrollTop = 0;
       
       // TOC für Timeline-Viewer erstellen
       buildTableOfContents();
@@ -8919,60 +7453,6 @@ function closeTimeline() {
     buildTableOfContents();
   }, 100);
 }
-
-// Timeline Panel Resize Funktionalität
-function initializeTimelineResize() {
-  const resizeHandle = document.getElementById('timelineResizeHandle');
-  const timelinePanel = document.querySelector('.timeline-panel');
-  
-  if (!resizeHandle || !timelinePanel) {
-    console.log('[TIMELINE-RESIZE] Elements not found');
-    return;
-  }
-  
-  let isResizing = false;
-  let startX = 0;
-  let startWidth = 0;
-  
-  resizeHandle.addEventListener('mousedown', (e) => {
-    isResizing = true;
-    startX = e.clientX;
-    startWidth = timelinePanel.offsetWidth;
-    
-    // Prevent text selection during resize
-    e.preventDefault();
-    document.body.style.userSelect = 'none';
-    document.body.style.cursor = 'col-resize';
-  });
-  
-  document.addEventListener('mousemove', (e) => {
-    if (!isResizing) return;
-    
-    const deltaX = e.clientX - startX;
-    const newWidth = startWidth + deltaX;
-    
-    // Set min and max width constraints
-    const minWidth = 400;
-    const maxWidth = window.innerWidth * 0.8;
-    
-    if (newWidth >= minWidth && newWidth <= maxWidth) {
-      timelinePanel.style.width = newWidth + 'px';
-    }
-  });
-  
-  document.addEventListener('mouseup', () => {
-    if (isResizing) {
-      isResizing = false;
-      document.body.style.userSelect = '';
-      document.body.style.cursor = '';
-    }
-  });
-}
-
-// Initialize Timeline Resize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  initializeTimelineResize();
-});
 
 // Suche das Timeline-Schlagwort im aktuellen Vortragstext
 function searchKeywordInCurrentLecture() {
@@ -9116,1046 +7596,6 @@ function initializeLucideIcons() {
     lucide.createIcons();
   }
 }
-
-// Funktion zum Speichern von markierten fehlerhaften Wörtern
-async function saveMarkedWord(word, gaTitle) {
-  try {
-    console.log('[MARKED-WORD] API_BASE:', API_BASE);
-    console.log('[MARKED-WORD] Sende Request für:', word);
-    
-    const response = await fetch(`${API_BASE}/api/save-marked-word`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        word: word,
-        gaTitle: gaTitle,
-        timestamp: new Date().toISOString()
-      })
-    });
-    
-    console.log('[MARKED-WORD] Response status:', response.status);
-    
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[MARKED-WORD] Server Error:', errorText);
-      throw new Error(`Server Error (${response.status}): ${errorText}`);
-    }
-    
-    const result = await response.json();
-    console.log('[MARKED-WORD] Erfolgreich gespeichert:', result);
-    
-    // Kurze visuelle Bestätigung
-    showTemporaryMessage(`Wort "${word}" gespeichert (${result.totalEntries} Einträge)`);
-    
-    return result;
-  } catch (error) {
-    console.error('[MARKED-WORD] Fehler:', error);
-    alert(`Fehler beim Speichern:\n${error.message}\n\nBitte prüfen Sie die Browser-Konsole für Details.`);
-  }
-}
-
-// Event-Listener für Rechtsklick im Viewer
-document.addEventListener('DOMContentLoaded', function() {
-  const viewer = document.getElementById('viewer');
-  
-  if (viewer) {
-    viewer.addEventListener('contextmenu', function(e) {
-      // Hole markierten Text
-      const selection = window.getSelection();
-      const selectedText = selection.toString().trim();
-      
-      // Nur wenn Text markiert ist
-      if (selectedText && selectedText.length > 0) {
-        e.preventDefault(); // Verhindere Standard-Kontextmenü
-        
-        // Hole aktuellen Vortragstitel
-        const documentTitle = document.getElementById('document-title');
-        const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
-        
-        // Zeige Bestätigungsdialog
-        const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
-        
-        if (confirmed) {
-          saveMarkedWord(selectedText, gaTitle);
-        }
-      }
-    });
-  }
-});
-</script>
-
-<!-- Welcome Modal -->
-<div id="welcomeModal" class="welcome-modal">
-  <div class="welcome-modal-content">
-    <div class="welcome-modal-header">
-      <h1>Willkommen</h1>
-      <button class="welcome-close-btn" onclick="closeWelcomeModal()">&times;</button>
-    </div>
-    <div class="welcome-modal-body" id="welcomeModalBody">
-    </div>
-    <div class="welcome-modal-footer">
-      <button class="welcome-start-btn" onclick="closeWelcomeModal()">Start</button>
-    </div>
-  </div>
-</div>
-
-<!-- Help Modal -->
-<div id="helpModal" class="help-modal">
-  <div class="help-modal-content">
-    <div class="help-modal-header">
-      <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
-      <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
-    </div>
-    <div class="help-modal-body">
-      <!-- Choice Screen -->
-      <div id="helpChoice" class="help-choice">
-        <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
-        <div class="help-choice-buttons">
-          <button class="help-choice-btn" onclick="showHelpContent('welcome')">
-            <h3>Willkommen</h3>
-          </button>
-          <button class="help-choice-btn" onclick="showHelpContent('gesamtausgabe')">
-            <h3>Gesamtausgabe</h3>
-          </button>
-          <button class="help-choice-btn" onclick="showHelpContent('full')">
-            <h3>Anleitung</h3> 
-          </button>
-          <button class="help-choice-btn" onclick="showHelpContent('quick')">
-            <h3>Impressum</h3>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Content Display -->
-      <div id="helpContentDisplay" class="help-content-display">
-        <div id="helpContentText"></div>
-        <button class="help-back-btn" onclick="showHelpChoice()">← Zurück zur Auswahl</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-// Help Modal Functions
-function openHelpModal() {
-  const modal = document.getElementById('helpModal');
-  modal.classList.add('active');
-  showHelpChoice();
-  
-  // Lucide Icons neu rendern
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
-}
-
-function closeHelpModal() {
-  const modal = document.getElementById('helpModal');
-  modal.classList.remove('active');
-}
-
-function showHelpChoice() {
-  document.getElementById('helpChoice').style.display = 'block';
-  document.getElementById('helpContentDisplay').classList.remove('active');
-  document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
-}
-
-async function showHelpContent(type) {
-  const contentDisplay = document.getElementById('helpContentDisplay');
-  const contentText = document.getElementById('helpContentText');
-  const choice = document.getElementById('helpChoice');
-  const title = document.getElementById('helpModalTitle');
-  
-  choice.style.display = 'none';
-  contentDisplay.classList.add('active');
-  
-  // Lade-Indikator
-  contentText.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Anleitung...</p>';
-  
-  try {
-    let mdFile = '';
-    if (type === 'welcome') {
-      title.textContent = 'Willkommen';
-      mdFile = 'WILLKOMMEN.md';
-    } else if (type === 'gesamtausgabe') {
-      title.textContent = 'Gesamtausgabe';
-      mdFile = 'GESAMTAUSGABE.md';
-    } else if (type === 'full') {
-      title.textContent = 'GA-Suche Anleitung';
-      mdFile = 'BENUTZERANLEITUNG.md';
-    } else if (type === 'quick') {
-      title.textContent = 'Impressum';
-      mdFile = 'IMPRESSUM.md';
-    }
-    
-    // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
-    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-    const response = await fetch(`${API_BASE}/system/${mdFile}`);
-    if (!response.ok) {
-      throw new Error(`Fehler beim Laden: ${response.status}`);
-    }
-    const markdown = await response.text();
-    
-    // Konvertiere Markdown zu HTML mit marked.js
-    if (typeof marked !== 'undefined') {
-      // Konfiguriere marked für besseres Rendering
-      marked.setOptions({
-        breaks: true,
-        gfm: true
-      });
-      contentText.innerHTML = marked.parse(markdown);
-    } else {
-      // Fallback: Zeige Markdown als Text
-      contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
-    }
-    
-  } catch (error) {
-    console.error('Fehler beim Laden der Anleitung:', error);
-    contentText.innerHTML = `
-      <div style="text-align: center; padding: 2rem; color: #999;">
-        <p><strong>Fehler beim Laden der Anleitung</strong></p>
-        <p style="font-size: 0.9em; margin-top: 1rem;">
-          ${error.message}<br>
-          Bitte stellen Sie sicher, dass die Markdown-Dateien verfügbar sind.
-        </p>
-      </div>
-    `;
-  }
-  
-  // Scroll to top
-  contentDisplay.scrollTop = 0;
-}
-
-// Die Inhalte werden jetzt dynamisch aus system/WILLKOMMEN.md, system/GESAMTAUSGABE.md, system/BENUTZERANLEITUNG.md und system/IMPRESSUM.md geladen
-
-// Close modal when clicking outside
-document.addEventListener('click', function(event) {
-  const modal = document.getElementById('helpModal');
-  if (event.target === modal) {
-    closeHelpModal();
-  }
-});
-
-// Close modal with ESC key
-document.addEventListener('keydown', function(event) {
-  if (event.key === 'Escape') {
-    const modal = document.getElementById('helpModal');
-    if (modal && modal.classList.contains('active')) {
-      closeHelpModal();
-    }
-    const welcomeModal = document.getElementById('welcomeModal');
-    if (welcomeModal && welcomeModal.classList.contains('active')) {
-      closeWelcomeModal();
-    }
-  }
-});
-
-// ============================================================================
-// WELCOME MODAL FUNCTIONS
-// ============================================================================
-
-// Load and display welcome content
-async function loadWelcomeContent() {
-  const bodyElement = document.getElementById('welcomeModalBody');
-  
-  try {
-    // Determine API base URL
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
-    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-    
-    // Load WILLKOMMEN.md from system folder
-    const response = await fetch(`${API_BASE}/system/WILLKOMMEN.md`);
-    if (!response.ok) {
-      throw new Error(`Fehler beim Laden: ${response.status}`);
-    }
-    const markdown = await response.text();
-    
-    // Convert Markdown to HTML with marked.js
-    if (typeof marked !== 'undefined') {
-      marked.setOptions({
-        breaks: true,
-        gfm: true
-      });
-      bodyElement.innerHTML = marked.parse(markdown);
-    } else {
-      // Fallback: Show Markdown as text
-      bodyElement.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
-    }
-    
-  } catch (error) {
-    console.error('Fehler beim Laden der Willkommensnachricht:', error);
-    bodyElement.innerHTML = `
-      <div style="text-align: center; padding: 2rem; color: #999;">
-        <p><strong>Fehler beim Laden der Willkommensnachricht</strong></p>
-        <p style="font-size: 0.9em; margin-top: 1rem;">
-          ${error.message}<br>
-          Bitte stellen Sie sicher, dass der Backend-Server läuft.
-        </p>
-      </div>
-    `;
-  }
-}
-
-// Show welcome modal
-function showWelcomeModal() {
-  const modal = document.getElementById('welcomeModal');
-  if (modal) {
-    modal.classList.add('active');
-    loadWelcomeContent();
-  }
-}
-
-// Close welcome modal
-function closeWelcomeModal() {
-  const modal = document.getElementById('welcomeModal');
-  
-  if (modal) {
-    modal.classList.remove('active');
-  }
-  
-  // Speichere, dass das Popup beim aktuellen Besuch gesehen wurde
-  sessionStorage.setItem('ga-suche-welcome-shown-session', 'true');
-  console.log('[WELCOME] Willkommens-Popup geschlossen');
-}
-
-// Check if welcome should be shown and display it
-function checkAndShowWelcome() {
-  const hasSeenThisSession = sessionStorage.getItem('ga-suche-welcome-shown-session');
-  
-  if (!hasSeenThisSession) {
-    console.log('[WELCOME] Zeige Willkommensnachricht');
-    // Show welcome after a short delay (500ms) for better UX
-    setTimeout(() => {
-      showWelcomeModal();
-    }, 500);
-  } else {
-    console.log('[WELCOME] Willkommensnachricht wurde in dieser Sitzung bereits angezeigt');
-  }
-}
-
-// Initialize welcome check on page load
-document.addEventListener('DOMContentLoaded', function() {
-  checkAndShowWelcome();
-});
-
-// Close welcome modal when clicking outside
-document.addEventListener('click', function(event) {
-  const modal = document.getElementById('welcomeModal');
-  if (event.target === modal) {
-    closeWelcomeModal();
-  }
-});
-
-// ============================================================================
-// TIMELINE TAB FUNCTIONS
-// ============================================================================
-
-let timelineBatchRunning = false;
-let timelineBatchCurrentIndex = 0;
-
-// Load timeline statistics
-async function loadTimelineStats() {
-  try {
-    console.log('[TIMELINE] Lade Admin-Interface...');
-    
-    // Show admin section if localhost
-    if (API_BASE.includes('localhost')) {
-      document.getElementById('timelineAdminSection').style.display = 'block';
-      // Load available GAs
-      await loadAvailableGAs();
-    }
-    
-    // Load themes if available
-    await loadTimelineThemes();
-    
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden:', error);
-  }
-}
-
-// Load available GA numbers for selection
-async function loadAvailableGAs() {
-  try {
-    const response = await fetch(`${API_BASE}/api/available-ga`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    
-    const data = await response.json();
-    const gaList = data.availableGA || data; // Backend gibt { availableGA: [...] } zurück
-    const select = document.getElementById('timelineGASelect');
-    
-    // Clear existing options except first
-    select.innerHTML = '<option value="">Alle GA-Bände</option>';
-    
-    // Add GA options
-    if (Array.isArray(gaList)) {
-      gaList.forEach(ga => {
-        const option = document.createElement('option');
-        option.value = ga;
-        option.textContent = ga;
-        select.appendChild(option);
-      });
-      console.log('[TIMELINE] GAs geladen:', gaList.length);
-    } else {
-      console.warn('[TIMELINE] Ungültiges Format:', data);
-    }
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der GAs:', error);
-  }
-}
-
-// Lade Keywords-Datenbank
-async function loadKeywordsDatabase() {
-  try {
-    const response = await fetch(`${API_BASE}/api/keywords-database`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Keywords-DB:', error);
-    return {};
-  }
-}
-
-// Lade Keywords-Datenbank
-async function loadKeywordsDatabase() {
-  try {
-    const response = await fetch(`${API_BASE}/api/keywords-database`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Keywords-DB:', error);
-    return {};
-  }
-}
-
-// Load available themes
-async function loadTimelineThemes() {
-  try {
-    const response = await fetch(`${API_BASE}/api/themes-database`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    
-    const themes = await response.json();
-    const themeSelect = document.getElementById('timelineThemeFilterInline');
-    
-    // Element existiert nur wenn Timeline gerendert wurde
-    if (!themeSelect) {
-      console.log('[TIMELINE] Theme-Filter noch nicht gerendert, überspringe Update');
-      return;
-    }
-    
-    if (Object.keys(themes).length > 0) {
-      // Clear and populate
-      themeSelect.innerHTML = '<option value="">Alle Themen</option>';
-      Object.keys(themes).sort().forEach(theme => {
-        const option = document.createElement('option');
-        option.value = theme;
-        option.textContent = theme;
-        themeSelect.appendChild(option);
-      });
-      themeSelect.disabled = false;
-      
-      console.log('[TIMELINE] Themen geladen:', Object.keys(themes).length);
-    } else {
-      themeSelect.innerHTML = '<option value="">Noch keine Themen generiert...</option>';
-      themeSelect.disabled = true;
-    }
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
-    const themeSelect = document.getElementById('timelineThemeFilterInline');
-    if (themeSelect) {
-      themeSelect.innerHTML = '<option value="">Fehler beim Laden</option>';
-    }
-  }
-}
-
-// Load keywords for selected theme
-async function loadTimelineKeywords() {
-  const themeSelect = document.getElementById('timelineThemeFilterInline');
-  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
-  
-  // Element existiert nur wenn Timeline gerendert wurde
-  if (!themeSelect || !keywordSelect) {
-    console.log('[TIMELINE] Filter noch nicht gerendert, überspringe Update');
-    return;
-  }
-  
-  const theme = themeSelect.value;
-  
-  if (!theme || theme === '') {
-    keywordSelect.innerHTML = '<option value="">Alle Schlagwörter</option>';
-    keywordSelect.disabled = true;
-    return;
-  }
-  
-  try {
-    const response = await fetch(`${API_BASE}/api/themes-database`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    
-    const themes = await response.json();
-    const themeData = themes[theme];
-    
-    if (themeData && themeData.keywords) {
-      keywordSelect.innerHTML = '<option value="">Alle Schlagwörter des Themas</option>';
-      themeData.keywords.sort().forEach(kw => {
-        const option = document.createElement('option');
-        option.value = kw;
-        option.textContent = kw;
-        keywordSelect.appendChild(option);
-      });
-      keywordSelect.disabled = false;
-    }
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
-  }
-}
-
-// Generate themes from keywords
-async function generateThemes() {
-  const themeCount = parseInt(document.getElementById('timelineThemeCount').value) || 30;
-  const statusDiv = document.getElementById('timelineThemesStatus');
-  const button = document.getElementById('timelineGenerateThemes');
-  
-  if (!statusDiv || !button) {
-    console.error('[TIMELINE] UI-Elemente nicht gefunden');
-    return;
-  }
-  
-  button.disabled = true;
-  statusDiv.style.display = 'block';
-  statusDiv.innerHTML = '<div style="color: var(--text-color);">⏳ Generiere Themen mit KI... Dies kann einige Minuten dauern.</div>';
-  
-  try {
-    console.log(`[TIMELINE] Generiere ${themeCount} Themen...`);
-    
-    const response = await fetch(`${API_BASE}/api/generate-themes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ targetThemeCount: themeCount })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const result = await response.json();
-    console.log('[TIMELINE] Themen generiert:', result);
-    
-    statusDiv.innerHTML = `
-      <div style="color: #28a745;">
-        ✓ ${result.themeCount} Themen erfolgreich generiert!<br>
-        ${result.assignedLectures} Vorträgen zugeordnet.
-      </div>
-    `;
-    
-    // Reload themes
-    await loadTimelineThemes();
-    
-  } catch (error) {
-    console.error('[TIMELINE] Fehler bei Themen-Generierung:', error);
-    if (statusDiv) {
-      statusDiv.innerHTML = `<div style="color: #d9534f;">✗ Fehler: ${error.message}</div>`;
-    }
-  } finally {
-    if (button) {
-      button.disabled = false;
-    }
-  }
-}
-
-// Start batch keyword generation
-async function startTimelineBatchGeneration() {
-  if (timelineBatchRunning) {
-    console.log('[TIMELINE] Batch läuft bereits');
-    return;
-  }
-  
-  timelineBatchRunning = true;
-  timelineBatchCurrentIndex = 0;
-  
-  // Get selected GAs
-  const gaSelect = document.getElementById('timelineGASelect');
-  const selectedGAs = Array.from(gaSelect.selectedOptions)
-    .map(opt => opt.value)
-    .filter(v => v !== '');
-  
-  if (selectedGAs.length === 0) {
-    alert('Bitte mindestens einen GA-Band auswählen');
-    timelineBatchRunning = false;
-    return;
-  }
-  
-  console.log('[TIMELINE] Ausgewählte GAs:', selectedGAs);
-  
-  // Update UI
-  document.getElementById('timelineBatchStart').style.display = 'none';
-  document.getElementById('timelineBatchStop').style.display = 'inline-block';
-  document.getElementById('timelineBatchProgress').style.display = 'block';
-  
-  console.log('[TIMELINE] Starte GA-Band-basierte Batch-Generierung...');
-  
-  await runTimelineBatch(selectedGAs);
-}
-
-// Stop batch generation
-function stopTimelineBatchGeneration() {
-  timelineBatchRunning = false;
-  document.getElementById('timelineBatchStart').style.display = 'inline-block';
-  document.getElementById('timelineBatchStop').style.display = 'none';
-  console.log('[TIMELINE] Batch gestoppt');
-}
-
-// Run batch generation (GA-Band-basiert)
-async function runTimelineBatch(volumes = []) {
-  let totalProcessed = 0;
-  let totalSkipped = 0;
-  let totalErrors = 0;
-  
-  try {
-    console.log(`[TIMELINE] Starte GA-Band-Verarbeitung: ${volumes.join(', ')}`);
-    
-    const response = await fetch(`${API_BASE}/api/generate-keywords`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        batchByVolumes: true,
-        volumes: volumes
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const result = await response.json();
-    console.log('[TIMELINE] Batch-Ergebnis:', result);
-    
-    totalProcessed = result.processed;
-    totalSkipped = result.skipped;
-    totalErrors = result.errors;
-    
-    // Update UI für jeden Band
-    if (result.volumes && result.volumes.length > 0) {
-      let completedVolumes = 0;
-      let totalVolumeLectures = 0;
-      let processedVolumeLectures = 0;
-      
-      result.volumes.forEach(vol => {
-        if (vol.status === 'completed') completedVolumes++;
-        totalVolumeLectures += vol.total;
-        processedVolumeLectures += vol.processed + vol.skipped;
-      });
-      
-      const percentage = totalVolumeLectures > 0 
-        ? Math.round((processedVolumeLectures / totalVolumeLectures) * 100) 
-        : 100;
-      
-      document.getElementById('timelineBatchProgressText').textContent = 
-        `${completedVolumes} / ${volumes.length} Bände (${processedVolumeLectures} / ${totalVolumeLectures} Vorträge)`;
-      document.getElementById('timelineBatchProgressPercent').textContent = 
-        `${percentage}%`;
-      document.getElementById('timelineBatchProgressBar').style.width = 
-        `${percentage}%`;
-    }
-    
-    document.getElementById('timelineBatchProcessed').textContent = totalProcessed;
-    document.getElementById('timelineBatchSkipped').textContent = totalSkipped;
-    document.getElementById('timelineBatchErrors').textContent = totalErrors;
-    
-    console.log('[TIMELINE] GA-Band-Generierung abgeschlossen!');
-    timelineBatchRunning = false;
-    document.getElementById('timelineBatchStart').style.display = 'inline-block';
-    document.getElementById('timelineBatchStop').style.display = 'none';
-    
-    // Reload stats
-    await loadTimelineStats();
-    
-  } catch (error) {
-    console.error('[TIMELINE] Batch-Fehler:', error);
-    timelineBatchRunning = false;
-    document.getElementById('timelineBatchStart').style.display = 'inline-block';
-    document.getElementById('timelineBatchStop').style.display = 'none';
-    alert(`Fehler bei der Batch-Generierung: ${error.message}`);
-  }
-}
-
-// Render timeline visualization
-async function renderTimeline() {
-  // Timeline wird in #results (unterer Bereich) angezeigt
-  const contentDiv = document.getElementById('results');
-  
-  // Hole aktuelle Filter-Werte (falls vorhanden)
-  const currentTheme = document.getElementById('timelineThemeFilterInline')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterInline')?.value || '';
-  
-  // Lade Themen-Liste
-  let themesHTML = '<option value="">Themen werden noch generiert...</option>';
-  try {
-    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-    if (themesResponse.ok) {
-      const themes = await themesResponse.json();
-      if (Object.keys(themes).length > 0) {
-        themesHTML = '<option value="">Bitte Thema wählen...</option>';
-        Object.keys(themes).sort().forEach(theme => {
-          const selected = theme === currentTheme ? 'selected' : '';
-          themesHTML += `<option value="${theme}" ${selected}>${theme}</option>`;
-        });
-      }
-    }
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
-  }
-  
-  // Lade Keywords für ausgewähltes Thema
-  let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
-  if (currentTheme) {
-    try {
-      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-      if (themesResponse.ok) {
-        const themes = await themesResponse.json();
-        const themeData = themes[currentTheme];
-        if (themeData && themeData.keywords) {
-          themeData.keywords.sort().forEach(kw => {
-            const selected = kw === currentKeyword ? 'selected' : '';
-            keywordsHTML += `<option value="${kw}" ${selected}>${kw}</option>`;
-          });
-        }
-      }
-    } catch (error) {
-      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
-    }
-  }
-  
-  // Aktualisiere Filter-Dropdowns im Admin-Bereich
-  const themeSelect = document.getElementById('timelineThemeFilterInline');
-  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
-  
-  if (themeSelect) {
-    themeSelect.innerHTML = themesHTML;
-    if (currentTheme) {
-      themeSelect.value = currentTheme;
-    }
-  }
-  
-  if (keywordSelect) {
-    keywordSelect.innerHTML = keywordsHTML;
-    if (currentKeyword) {
-      keywordSelect.value = currentKeyword;
-    }
-  }
-  
-  const theme = currentTheme;
-  const keyword = currentKeyword;
-  
-  // Prüfe ob Thema oder Keyword ausgewählt
-  if (!theme && !keyword) {
-    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
-    return;
-  }
-  
-  let html = '';
-  
-  try {
-    // Zeige Lade-Indikator
-    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-color);">⏳ Lade Timeline-Daten...</div>';
-    
-    // Lade Keywords-Datenbank
-    const keywordsDB = await loadKeywordsDatabase();
-    
-    let themeLectures = [];
-    let keywordEntries = [];
-    
-    // FALL 1: Nur Thema ausgewählt (kein Keyword)
-    if (theme && !keyword) {
-      // Links: Vorträge die mindestens ein Keyword zu diesem Thema haben
-      themeLectures = Object.values(keywordsDB).filter(l => l.theme === theme);
-      
-      // Rechts: LEER (keine Keywords anzeigen)
-      keywordEntries = [];
-      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${themeLectures.length} Vorträge`);
-    }
-    
-    // FALL 2: Thema + Keyword ausgewählt
-    else if (theme && keyword) {
-      // Sammle Keywords die dem Filter entsprechen (für rechte Spalte)
-      const lectureIdsWithKeyword = new Set();
-      
-      Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: kw
-              });
-              lectureIdsWithKeyword.add(lecture.lectureId);
-            }
-          });
-        }
-      });
-      
-      // Links: Vorträge aus denen die Keywords stammen
-      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
-      
-      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
-    }
-    
-    // FALL 3: Nur Keyword ausgewählt (kein Thema)
-    else if (!theme && keyword) {
-      // Sammle alle Keywords die dem Filter entsprechen (für rechte Spalte)
-      const lectureIdsWithKeyword = new Set();
-      
-      Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: kw
-              });
-              lectureIdsWithKeyword.add(lecture.lectureId);
-            }
-          });
-        }
-      });
-      
-      // Links: Vorträge aus denen die Keywords stammen
-      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
-      
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
-    }
-    
-    if (themeLectures.length === 0 && keywordEntries.length === 0) {
-      contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Vorträge gefunden für diese Auswahl.</div>';
-      return;
-    }
-    
-    // Sammle alle Jahre
-    const allYears = new Set();
-    themeLectures.forEach(l => { if (l.year) allYears.add(l.year); });
-    keywordEntries.forEach(e => { if (e.year) allYears.add(e.year); });
-    const sortedYears = Array.from(allYears).sort((a, b) => a - b);
-    
-    console.log(`[TIMELINE] Rendering: ${themeLectures.length} Themenvorträge, ${keywordEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
-    
-    // Gruppiere nach Jahr
-    const themesByYear = {};
-    const keywordsByYear = {};
-    
-    themeLectures.forEach(lecture => {
-      const year = lecture.year || 'Unbekannt';
-      if (!themesByYear[year]) themesByYear[year] = [];
-      themesByYear[year].push(lecture);
-    });
-    
-    keywordEntries.forEach(entry => {
-      const year = entry.year || 'Unbekannt';
-      if (!keywordsByYear[year]) keywordsByYear[year] = [];
-      keywordsByYear[year].push(entry);
-    });
-    
-    // Sortiere Einträge nach Datum innerhalb jedes Jahres
-    sortedYears.forEach(year => {
-      if (themesByYear[year]) {
-        themesByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-      }
-      if (keywordsByYear[year]) {
-        keywordsByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-      }
-    });
-    
-    // Render Timeline mit drei Spalten
-    let headerTitle = '';
-    let headerInfo = '';
-    
-    if (theme && !keyword) {
-      headerTitle = theme;
-      headerInfo = `${themeLectures.length} Vorträge`;
-    } else if (theme && keyword) {
-      headerTitle = `${theme} → ${keyword}`;
-      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
-    } else if (!theme && keyword) {
-      headerTitle = keyword;
-      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
-    }
-    
-    html += `
-      <div style="margin-bottom: 1rem;">
-        <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">${headerTitle}</h4>
-        <p style="margin: 0; font-size: 0.85em; color: var(--secondary-text);">
-          ${headerInfo}
-        </p>
-      </div>
-      <div class="timeline-visualization">
-        <!-- Linke Spalte: Themen -->
-        <div class="timeline-themes-column">
-    `;
-    
-    // Render pro Jahr: Themes in linker Spalte
-    sortedYears.forEach(year => {
-      const themesForYear = themesByYear[year] || [];
-      
-      themesForYear.forEach(lecture => {
-        const date = formatDate(lecture.date);
-        const lectureId = lecture.lectureId;
-        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : '';
-        const lecNum = gaMatch ? gaMatch[2] : '';
-        
-        html += `
-          <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
-          </div>
-        `;
-      });
-    });
-    
-    html += `
-        </div>
-        
-        <!-- Mittlere Spalte: Timeline mit dynamisch positionierten Jahren -->
-        <div class="timeline-center-column">
-    `;
-    
-    // Render Jahreszahlen - Position wird via JS angepasst
-    sortedYears.forEach(year => {
-      html += `<div class="timeline-year-marker" data-year="${year}">${year}</div>`;
-    });
-    
-    html += `
-        </div>
-        
-        <!-- Rechte Spalte: Keywords -->
-        <div class="timeline-keywords-column">
-    `;
-    
-    // Render Keyword-Einträge in rechter Spalte
-    sortedYears.forEach(year => {
-      const keywordsForYear = keywordsByYear[year] || [];
-      
-      keywordsForYear.forEach(entry => {
-        const date = formatDate(entry.date);
-        const lectureId = entry.lectureId;
-        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : '';
-        const lecNum = gaMatch ? gaMatch[2] : '';
-        let index = entry.keyword.index || '';
-        // Entferne ^ vom Index falls vorhanden
-        if (index.startsWith('^')) {
-          index = index.substring(1);
-        }
-        
-        // Zeige H3 UND H4 Überschriften für das ausgewählte Keyword
-        const displayText = entry.keyword.heading || entry.keyword.term;
-        const levelInfo = entry.keyword.level ? ` (${entry.keyword.level.toUpperCase()})` : '';
-        
-        html += `
-          <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
-            <div class="timeline-entry-keywords">${displayText}</div>
-          </div>
-        `;
-      });
-    });
-    
-    html += `
-        </div>
-      </div>
-    `;
-    
-    contentDiv.innerHTML = html;
-    
-    // Positioniere Jahreszahlen dynamisch nach dem Rendern
-    setTimeout(() => {
-      positionYearMarkers();
-    }, 50);
-    
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Rendern:', error);
-    // Behalte Filter-Bereich und zeige Fehler
-    const filterHTML = contentDiv.innerHTML.split('<div style="margin-bottom: 1rem;">')[0] || '';
-    contentDiv.innerHTML = filterHTML + `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden der Timeline: ${error.message}</div>`;
-  }
-}
-
-// Positioniere Jahreszahlen dynamisch auf Höhe des ersten Eintrags
-function positionYearMarkers() {
-  const yearMarkers = document.querySelectorAll('.timeline-year-marker');
-  
-  yearMarkers.forEach(marker => {
-    const year = marker.getAttribute('data-year');
-    
-    // Finde alle Einträge dieses Jahres in beiden Spalten
-    const leftEntries = document.querySelectorAll(`.timeline-themes-column .timeline-entry[data-year="${year}"]`);
-    const rightEntries = document.querySelectorAll(`.timeline-keywords-column .timeline-entry[data-year="${year}"]`);
-    
-    // Bestimme ersten sichtbaren Eintrag (links oder rechts)
-    let firstEntry = null;
-    
-    if (leftEntries.length > 0 && rightEntries.length > 0) {
-      // Beide Spalten haben Einträge - nimm den höheren (kleinere offsetTop)
-      const leftTop = leftEntries[0].offsetTop;
-      const rightTop = rightEntries[0].offsetTop;
-      firstEntry = leftTop <= rightTop ? leftEntries[0] : rightEntries[0];
-    } else if (leftEntries.length > 0) {
-      // Nur linke Spalte hat Einträge
-      firstEntry = leftEntries[0];
-    } else if (rightEntries.length > 0) {
-      // Nur rechte Spalte hat Einträge
-      firstEntry = rightEntries[0];
-    }
-    
-    if (firstEntry) {
-      // Positioniere Jahreszahl auf Höhe des ersten Eintrags
-      const entryTop = firstEntry.offsetTop;
-      const containerTop = marker.parentElement.offsetTop;
-      const relativeTop = entryTop - containerTop;
-      
-      marker.style.position = 'absolute';
-      marker.style.top = `${relativeTop}px`;
-      marker.style.left = '50%';
-      marker.style.transform = 'translateX(-50%)';
-    }
-  });
-}
-
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateString) {
-  if (!dateString) return 'Datum unbekannt';
-  try {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', { 
-      day: '2-digit', 
-      month: '2-digit', 
-      year: 'numeric' 
-    });
-  } catch {
-    return dateString;
-  }
-}
-
-// Update switchTab function to load stats when timeline tab is opened
-const originalSwitchTab = window.switchTab;
-window.switchTab = function(tabName) {
-  // Call original function
-  if (originalSwitchTab) {
-    originalSwitchTab(tabName);
-  }
-  
-  // Load stats when timeline tab is opened
-  if (tabName === 'timeline') {
-    loadTimelineStats();
-    // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
-    renderTimeline();
-  }
-};
-
 </script>
 
 </body>
