@@ -9784,33 +9784,7 @@ async function runTimelineBatch(volumes = []) {
 // Render timeline visualization
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  // Wenn Thema geändert wurde, aktualisiere Keywords-Dropdown
-  const themeSelect = document.getElementById('timelineThemeFilterResults');
-  const keywordSelect = document.getElementById('timelineKeywordFilterResults');
-  
-  if (themeSelect && keywordSelect && themeSelect.value) {
-    try {
-      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-      if (themesResponse.ok) {
-        const themes = await themesResponse.json();
-        const themeData = themes[themeSelect.value];
-        
-        let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
-        if (themeData && themeData.keywords) {
-          themeData.keywords.sort().forEach(kw => {
-            keywordsHTML += `<option value="${kw}">${kw}</option>`;
-          });
-        }
-        keywordSelect.innerHTML = keywordsHTML;
-      }
-    } catch (error) {
-      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
-    }
-  } else if (keywordSelect && (!themeSelect || !themeSelect.value)) {
-    keywordSelect.innerHTML = '<option value="">Alle Schlagwörter</option>';
-  }
-  
-  // Render Timeline neu
+  // Render Timeline neu (aktualisiert automatisch beide Dropdowns mit aktuellen Werten)
   renderTimeline();
 }
 
