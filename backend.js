@@ -4629,18 +4629,18 @@ async function generateThemesFromKeywords(targetThemeCount = 30) {
     }
   });
   
-  // Sortiere nach Häufigkeit und nimm die Top 500
+  // Sortiere nach Häufigkeit und nimm die Top 300 (reduziert wegen Token-Limits)
   const topKeywords = Object.entries(keywordFrequency)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 500)
+    .slice(0, 300)
     .map(([term, freq]) => `${term} (${freq}x)`)
     .join(', ');
   
-  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen`);
+  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen (Top 300 für Themen-Generierung)`);
   
   const prompt = `Analysiere die folgenden Schlagwörter aus Rudolf Steiners Vortragswerk und gruppiere sie in genau ${targetThemeCount} übergeordnete Themenbereiche.
 
-HÄUFIGSTE SCHLAGWÖRTER (Top 500):
+HÄUFIGSTE SCHLAGWÖRTER (Top 300):
 ${topKeywords}
 
 ANFORDERUNGEN:
@@ -4690,7 +4690,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
+        max_tokens: 8192,
         messages: [{
           role: 'user',
           content: prompt
@@ -4699,7 +4699,9 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     });
 
     if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
+      const errorText = await response.text();
+      console.error('[THEMES-GEN] Claude API Error:', response.status, errorText);
+      throw new Error(`Claude API Fehler: ${response.status} - ${errorText.substring(0, 200)}`);
     }
 
     const result = await response.json();
@@ -4826,6 +4828,198 @@ app.get('/api/themes-database', async (req, res) => {
     res.json(themesDB);
   } catch (error) {
     console.error('[THEMES-API] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// === KEYWORD CONSOLIDATION ===
+
+async function generateConsolidationPreview(factor) {
+  const keywordsDB = await loadKeywordsDatabase();
+  
+  // Sammle alle Keywords mit Häufigkeit
+  const keywordFrequency = {};
+  Object.values(keywordsDB).forEach(lecture => {
+    if (lecture.keywords && Array.isArray(lecture.keywords)) {
+      lecture.keywords.forEach(kw => {
+        const term = kw.term.trim();
+        keywordFrequency[term] = (keywordFrequency[term] || 0) + 1;
+      });
+    }
+  });
+  
+  const uniqueBefore = Object.keys(keywordFrequency).length;
+  console.log(`[CONSOLIDATION] ${uniqueBefore} unique Keywords vor Konsolidierung`);
+  
+  // Erstelle Konsolidierungs-Mapping
+  const consolidationMap = await buildConsolidationMap(Object.keys(keywordFrequency), factor);
+  
+  // Zähle konsolidierte Keywords
+  const uniqueAfter = new Set(Object.values(consolidationMap)).size;
+  const reduction = ((uniqueBefore - uniqueAfter) / uniqueBefore * 100);
+  
+  // Erstelle Beispiele
+  const examples = [];
+  const groupedBy = {};
+  
+  Object.entries(consolidationMap).forEach(([source, target]) => {
+    if (source !== target) {
+      if (!groupedBy[target]) groupedBy[target] = [];
+      groupedBy[target].push(source);
+    }
+  });
+  
+  Object.entries(groupedBy).forEach(([target, sources]) => {
+    examples.push({ target, sources });
+  });
+  
+  // Sortiere nach Anzahl der konsolidierten Keywords
+  examples.sort((a, b) => b.sources.length - a.sources.length);
+  
+  return {
+    uniqueBefore,
+    uniqueAfter,
+    reduction,
+    consolidationCount: examples.length,
+    examples: examples.slice(0, 50) // Top 50 für Vorschau
+  };
+}
+
+async function buildConsolidationMap(keywords, factor) {
+  const consolidationMap = {};
+  const processed = new Set();
+  
+  // Sortiere Keywords nach Länge (kürzere zuerst = Ziel-Keywords)
+  const sortedKeywords = [...keywords].sort((a, b) => a.length - b.length);
+  
+  for (const keyword of sortedKeywords) {
+    if (processed.has(keyword.toLowerCase())) continue;
+    
+    const keywordLower = keyword.toLowerCase();
+    let targetKeyword = keyword;
+    
+    // Suche nach bereits verarbeitetem, ähnlichem Keyword
+    for (const existingKeyword of processed) {
+      const similarity = calculateSimilarity(keywordLower, existingKeyword, factor);
+      
+      if (similarity >= factor) {
+        // Finde das Original-Keyword (mit korrekter Groß/Kleinschreibung)
+        targetKeyword = sortedKeywords.find(k => k.toLowerCase() === existingKeyword);
+        break;
+      }
+    }
+    
+    consolidationMap[keyword] = targetKeyword;
+    processed.add(targetKeyword.toLowerCase());
+  }
+  
+  return consolidationMap;
+}
+
+function calculateSimilarity(str1, str2, factor) {
+  // Exakte Übereinstimmung
+  if (str1 === str2) return 1.0;
+  
+  // Kapitalisierung ignorieren
+  const s1 = str1.toLowerCase();
+  const s2 = str2.toLowerCase();
+  
+  if (s1 === s2) return 1.0;
+  
+  // 1. Substring-Matching (wichtigste Regel)
+  if (s1.includes(s2) || s2.includes(s1)) {
+    const longer = Math.max(s1.length, s2.length);
+    const shorter = Math.min(s1.length, s2.length);
+    return shorter / longer; // z.B. "karma" in "karmagesetz" = 5/11 = 0.45
+  }
+  
+  // 2. Levenshtein-Distanz für ähnliche Schreibweisen
+  const maxLen = Math.max(s1.length, s2.length);
+  const distance = levenshtein(s1, s2);
+  const levSimilarity = 1 - (distance / maxLen);
+  
+  // 3. Wortstamm-basiert (einfach: gemeinsame Anfangs-Zeichen)
+  let commonPrefix = 0;
+  const minLen = Math.min(s1.length, s2.length);
+  for (let i = 0; i < minLen; i++) {
+    if (s1[i] === s2[i]) commonPrefix++;
+    else break;
+  }
+  const prefixSimilarity = commonPrefix / maxLen;
+  
+  // Kombiniere die Metriken
+  return Math.max(levSimilarity, prefixSimilarity);
+}
+
+async function executeConsolidation(factor) {
+  const keywordsDB = await loadKeywordsDatabase();
+  
+  // Erstelle Backup
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const backupFile = `keywords-database-backup-${timestamp}.json`;
+  await fs.writeFile(backupFile, JSON.stringify(keywordsDB, null, 2));
+  console.log(`[CONSOLIDATION] Backup erstellt: ${backupFile}`);
+  
+  // Sammle alle Keywords
+  const allKeywords = new Set();
+  Object.values(keywordsDB).forEach(lecture => {
+    if (lecture.keywords && Array.isArray(lecture.keywords)) {
+      lecture.keywords.forEach(kw => allKeywords.add(kw.term.trim()));
+    }
+  });
+  
+  // Erstelle Konsolidierungs-Mapping
+  const consolidationMap = await buildConsolidationMap(Array.from(allKeywords), factor);
+  
+  // Wende Konsolidierung an
+  let consolidatedCount = 0;
+  Object.values(keywordsDB).forEach(lecture => {
+    if (lecture.keywords && Array.isArray(lecture.keywords)) {
+      lecture.keywords.forEach(kw => {
+        const original = kw.term.trim();
+        const consolidated = consolidationMap[original];
+        
+        if (consolidated && consolidated !== original) {
+          kw.term = consolidated;
+          consolidatedCount++;
+        }
+      });
+    }
+  });
+  
+  // Speichere konsolidierte Datenbank
+  await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2));
+  console.log(`[CONSOLIDATION] ${consolidatedCount} Keywords konsolidiert`);
+  
+  return {
+    backupFile,
+    consolidatedFile: KEYWORDS_DB_FILE,
+    consolidatedCount
+  };
+}
+
+app.post('/api/consolidate-keywords-preview', async (req, res) => {
+  try {
+    const { factor } = req.body;
+    console.log(`[CONSOLIDATION] Preview mit Faktor ${factor}`);
+    
+    const preview = await generateConsolidationPreview(factor);
+    res.json(preview);
+  } catch (error) {
+    console.error('[CONSOLIDATION] Preview-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/consolidate-keywords-execute', async (req, res) => {
+  try {
+    const { factor } = req.body;
+    console.log(`[CONSOLIDATION] Execute mit Faktor ${factor}`);
+    
+    const result = await executeConsolidation(factor);
+    res.json(result);
+  } catch (error) {
+    console.error('[CONSOLIDATION] Execute-Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
