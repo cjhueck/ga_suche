@@ -388,6 +388,127 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     body.dark-mode #sidebar-content .timeline-year {
       color: var(--dark-heading-color) !important;
     }
+    
+    /* Neue vertikale Timeline-Visualisierung (drei Spalten) */
+    .timeline-visualization {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      gap: 1rem;
+      padding: 0.5rem;
+      font-size: 0.9em;
+    }
+    
+    .timeline-themes-column {
+      text-align: right;
+      padding-right: 1rem;
+    }
+    
+    .timeline-center-column {
+      position: relative;
+      min-height: 100%;
+      padding: 0;
+    }
+    
+    .timeline-center-column::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--accent-color);
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+    
+    body.dark-mode .timeline-center-column::before {
+      background: var(--dark-accent-color);
+    }
+    
+    .timeline-keywords-column {
+      text-align: left;
+      padding-left: 1rem;
+    }
+    
+    .timeline-year-marker {
+      position: absolute;
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      background: var(--background-color);
+      font-weight: bold;
+      font-size: 0.95em;
+      color: var(--heading-color);
+      z-index: 1;
+      white-space: nowrap;
+    }
+    
+    body.dark-mode .timeline-year-marker {
+      background: var(--dark-background-color);
+      color: var(--dark-heading-color);
+    }
+    
+    .timeline-entry {
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    .timeline-entry-date {
+      font-size: 0.85em;
+      color: var(--secondary-text);
+      margin-right: 0.5rem;
+    }
+    
+    body.dark-mode .timeline-entry-date {
+      color: var(--dark-secondary-text);
+    }
+    
+    .timeline-entry-headings {
+      font-size: 0.8em;
+      color: var(--secondary-text);
+      margin-top: 0.2rem;
+      margin-left: 0.5rem;
+      line-height: 1.3;
+      font-style: italic;
+    }
+    
+    body.dark-mode .timeline-entry-headings {
+      color: var(--dark-secondary-text);
+    }
+    
+    .timeline-entry-link {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .timeline-entry-link:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .timeline-entry-link {
+      color: var(--dark-link-color);
+    }
+    
+    body.dark-mode .timeline-entry-link:hover {
+      color: var(--dark-accent-color);
+    }
+    
+    .timeline-entry-keywords {
+      font-size: 0.8em;
+      color: var(--secondary-text);
+      margin-top: 0.3rem;
+      font-style: italic;
+    }
+    
+    body.dark-mode .timeline-entry-keywords {
+      color: var(--dark-secondary-text);
+    }
+    
+    .timeline-year-group {
+      display: contents;
+    }
 
     #sidebar-content .timeline-items-for-year {
       flex: 1 !important;
@@ -3095,6 +3216,7 @@ body.dark-mode .welcome-start-btn:hover {
 <button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
+<button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
@@ -3180,6 +3302,106 @@ body.dark-mode .welcome-start-btn:hover {
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
+</div>
+</div>
+
+<div class="tab-content" id="timeline-tab">
+<div style="padding: 0.5rem 0; max-height: calc(100vh - 250px); overflow-y: auto;">
+<!-- Keywords-Generierung Admin Interface (nur localhost) -->
+<div id="timelineAdminSection" style="margin-bottom: 1rem; display: none;">
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keywords-Generierung</h3>
+<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
+Extrahiere aus jeder Zwischenüberschrift (H3 + H4) ein prägnantes Schlagwort (1-3 Worte) mittels Claude KI.
+</p>
+
+<!-- GA-Auswahl -->
+<div style="margin-bottom: 0.8rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+GA-Bände auswählen (für Test):
+</label>
+<select id="timelineGASelect" multiple size="5" 
+style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
+<option value="">Alle GA-Bände</option>
+</select>
+<p style="font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
+(Strg/Cmd + Klick für Mehrfachauswahl. Leer = alle Bände)
+</p>
+</div>
+
+<!-- Batch-Generierung -->
+<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+<button id="timelineBatchStart" class="depth-btn primary" onclick="startTimelineBatchGeneration()" 
+style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
+Batch-Generierung starten
+</button>
+<button id="timelineBatchStop" class="depth-btn" onclick="stopTimelineBatchGeneration()" 
+style="display: none; padding: 8px 16px; font-size: 0.9em; background: #d9534f; color: white;">
+Stoppen
+</button>
+</div>
+
+<!-- Progress Bar -->
+<div id="timelineBatchProgress" style="display: none;">
+<div style="margin-bottom: 0.5rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+<span id="timelineBatchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
+<span id="timelineBatchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
+</div>
+<div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
+<div id="timelineBatchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
+</div>
+</div>
+<div id="timelineBatchResults" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
+<div style="font-size: 0.85em; color: var(--text-color);">
+<div><strong>Verarbeitet:</strong> <span id="timelineBatchProcessed">0</span></div>
+<div><strong>Übersprungen:</strong> <span id="timelineBatchSkipped">0</span></div>
+<div><strong>Fehler:</strong> <span id="timelineBatchErrors">0</span></div>
+</div>
+</div>
+</div>
+
+<!-- Themen-Generierung -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-top: 0.8rem;">
+<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Themen-Generierung</h3>
+<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
+Nach Abschluss der Keyword-Generierung: Gruppiere alle Keywords mittels KI in 30 übergeordnete Themen (einmalig ~$0.50).
+</p>
+<div style="margin-bottom: 0.8rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+Anzahl Themen:
+</label>
+<input type="number" id="timelineThemeCount" value="30" min="10" max="50" 
+style="width: 100px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
+</div>
+<button id="timelineGenerateThemes" class="depth-btn" onclick="generateThemes()" 
+style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
+Themen generieren
+</button>
+<div id="timelineThemesStatus" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); font-size: 0.85em;"></div>
+</div>
+
+<!-- Timeline Filter (immer sichtbar - auch online) -->
+<div id="timelineFilterSection" style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-top: 0.8rem;">
+<div style="margin-bottom: 0.8rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+Thema auswählen:
+</label>
+<select id="timelineThemeFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
+<option value="">Themen werden noch generiert...</option>
+</select>
+</div>
+<div style="margin-bottom: 0.8rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+Schlagwort auswählen (optional):
+</label>
+<select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
+<option value="">Alle Schlagwörter</option>
+</select>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -9227,6 +9449,713 @@ document.addEventListener('click', function(event) {
     closeWelcomeModal();
   }
 });
+
+// ============================================================================
+// TIMELINE TAB FUNCTIONS
+// ============================================================================
+
+let timelineBatchRunning = false;
+let timelineBatchCurrentIndex = 0;
+
+// Load timeline statistics
+async function loadTimelineStats() {
+  try {
+    console.log('[TIMELINE] Lade Admin-Interface...');
+    
+    // Show admin section if localhost
+    if (API_BASE.includes('localhost')) {
+      document.getElementById('timelineAdminSection').style.display = 'block';
+      // Load available GAs
+      await loadAvailableGAs();
+    }
+    
+    // Load themes if available
+    await loadTimelineThemes();
+    
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden:', error);
+  }
+}
+
+// Load available GA numbers for selection
+async function loadAvailableGAs() {
+  try {
+    const response = await fetch(`${API_BASE}/api/available-ga`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    const gaList = data.availableGA || data; // Backend gibt { availableGA: [...] } zurück
+    const select = document.getElementById('timelineGASelect');
+    
+    // Clear existing options except first
+    select.innerHTML = '<option value="">Alle GA-Bände</option>';
+    
+    // Add GA options
+    if (Array.isArray(gaList)) {
+      gaList.forEach(ga => {
+        const option = document.createElement('option');
+        option.value = ga;
+        option.textContent = ga;
+        select.appendChild(option);
+      });
+      console.log('[TIMELINE] GAs geladen:', gaList.length);
+    } else {
+      console.warn('[TIMELINE] Ungültiges Format:', data);
+    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der GAs:', error);
+  }
+}
+
+// Lade Keywords-Datenbank
+async function loadKeywordsDatabase() {
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords-database`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Keywords-DB:', error);
+    return {};
+  }
+}
+
+// Lade Keywords-Datenbank
+async function loadKeywordsDatabase() {
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords-database`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Keywords-DB:', error);
+    return {};
+  }
+}
+
+// Load available themes
+async function loadTimelineThemes() {
+  try {
+    const response = await fetch(`${API_BASE}/api/themes-database`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const themes = await response.json();
+    const themeSelect = document.getElementById('timelineThemeFilterInline');
+    
+    // Element existiert nur wenn Timeline gerendert wurde
+    if (!themeSelect) {
+      console.log('[TIMELINE] Theme-Filter noch nicht gerendert, überspringe Update');
+      return;
+    }
+    
+    if (Object.keys(themes).length > 0) {
+      // Clear and populate
+      themeSelect.innerHTML = '<option value="">Alle Themen</option>';
+      Object.keys(themes).sort().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme;
+        themeSelect.appendChild(option);
+      });
+      themeSelect.disabled = false;
+      
+      console.log('[TIMELINE] Themen geladen:', Object.keys(themes).length);
+    } else {
+      themeSelect.innerHTML = '<option value="">Noch keine Themen generiert...</option>';
+      themeSelect.disabled = true;
+    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
+    const themeSelect = document.getElementById('timelineThemeFilterInline');
+    if (themeSelect) {
+      themeSelect.innerHTML = '<option value="">Fehler beim Laden</option>';
+    }
+  }
+}
+
+// Load keywords for selected theme
+async function loadTimelineKeywords() {
+  const themeSelect = document.getElementById('timelineThemeFilterInline');
+  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
+  
+  // Element existiert nur wenn Timeline gerendert wurde
+  if (!themeSelect || !keywordSelect) {
+    console.log('[TIMELINE] Filter noch nicht gerendert, überspringe Update');
+    return;
+  }
+  
+  const theme = themeSelect.value;
+  
+  if (!theme || theme === '') {
+    keywordSelect.innerHTML = '<option value="">Alle Schlagwörter</option>';
+    keywordSelect.disabled = true;
+    return;
+  }
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes-database`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const themes = await response.json();
+    const themeData = themes[theme];
+    
+    if (themeData && themeData.keywords) {
+      keywordSelect.innerHTML = '<option value="">Alle Schlagwörter des Themas</option>';
+      themeData.keywords.sort().forEach(kw => {
+        const option = document.createElement('option');
+        option.value = kw;
+        option.textContent = kw;
+        keywordSelect.appendChild(option);
+      });
+      keywordSelect.disabled = false;
+    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+  }
+}
+
+// Generate themes from keywords
+async function generateThemes() {
+  const themeCount = parseInt(document.getElementById('timelineThemeCount').value) || 30;
+  const statusDiv = document.getElementById('timelineThemesStatus');
+  const button = document.getElementById('timelineGenerateThemes');
+  
+  if (!statusDiv || !button) {
+    console.error('[TIMELINE] UI-Elemente nicht gefunden');
+    return;
+  }
+  
+  button.disabled = true;
+  statusDiv.style.display = 'block';
+  statusDiv.innerHTML = '<div style="color: var(--text-color);">⏳ Generiere Themen mit KI... Dies kann einige Minuten dauern.</div>';
+  
+  try {
+    console.log(`[TIMELINE] Generiere ${themeCount} Themen...`);
+    
+    const response = await fetch(`${API_BASE}/api/generate-themes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ targetThemeCount: themeCount })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const result = await response.json();
+    console.log('[TIMELINE] Themen generiert:', result);
+    
+    statusDiv.innerHTML = `
+      <div style="color: #28a745;">
+        ✓ ${result.themeCount} Themen erfolgreich generiert!<br>
+        ${result.assignedLectures} Vorträgen zugeordnet.
+      </div>
+    `;
+    
+    // Reload themes
+    await loadTimelineThemes();
+    
+  } catch (error) {
+    console.error('[TIMELINE] Fehler bei Themen-Generierung:', error);
+    if (statusDiv) {
+      statusDiv.innerHTML = `<div style="color: #d9534f;">✗ Fehler: ${error.message}</div>`;
+    }
+  } finally {
+    if (button) {
+      button.disabled = false;
+    }
+  }
+}
+
+// Start batch keyword generation
+async function startTimelineBatchGeneration() {
+  if (timelineBatchRunning) {
+    console.log('[TIMELINE] Batch läuft bereits');
+    return;
+  }
+  
+  timelineBatchRunning = true;
+  timelineBatchCurrentIndex = 0;
+  
+  // Get selected GAs
+  const gaSelect = document.getElementById('timelineGASelect');
+  const selectedGAs = Array.from(gaSelect.selectedOptions)
+    .map(opt => opt.value)
+    .filter(v => v !== '');
+  
+  if (selectedGAs.length === 0) {
+    alert('Bitte mindestens einen GA-Band auswählen');
+    timelineBatchRunning = false;
+    return;
+  }
+  
+  console.log('[TIMELINE] Ausgewählte GAs:', selectedGAs);
+  
+  // Update UI
+  document.getElementById('timelineBatchStart').style.display = 'none';
+  document.getElementById('timelineBatchStop').style.display = 'inline-block';
+  document.getElementById('timelineBatchProgress').style.display = 'block';
+  
+  console.log('[TIMELINE] Starte GA-Band-basierte Batch-Generierung...');
+  
+  await runTimelineBatch(selectedGAs);
+}
+
+// Stop batch generation
+function stopTimelineBatchGeneration() {
+  timelineBatchRunning = false;
+  document.getElementById('timelineBatchStart').style.display = 'inline-block';
+  document.getElementById('timelineBatchStop').style.display = 'none';
+  console.log('[TIMELINE] Batch gestoppt');
+}
+
+// Run batch generation (GA-Band-basiert)
+async function runTimelineBatch(volumes = []) {
+  let totalProcessed = 0;
+  let totalSkipped = 0;
+  let totalErrors = 0;
+  
+  try {
+    console.log(`[TIMELINE] Starte GA-Band-Verarbeitung: ${volumes.join(', ')}`);
+    
+    const response = await fetch(`${API_BASE}/api/generate-keywords`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        batchByVolumes: true,
+        volumes: volumes
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    
+    const result = await response.json();
+    console.log('[TIMELINE] Batch-Ergebnis:', result);
+    
+    totalProcessed = result.processed;
+    totalSkipped = result.skipped;
+    totalErrors = result.errors;
+    
+    // Update UI für jeden Band
+    if (result.volumes && result.volumes.length > 0) {
+      let completedVolumes = 0;
+      let totalVolumeLectures = 0;
+      let processedVolumeLectures = 0;
+      
+      result.volumes.forEach(vol => {
+        if (vol.status === 'completed') completedVolumes++;
+        totalVolumeLectures += vol.total;
+        processedVolumeLectures += vol.processed + vol.skipped;
+      });
+      
+      const percentage = totalVolumeLectures > 0 
+        ? Math.round((processedVolumeLectures / totalVolumeLectures) * 100) 
+        : 100;
+      
+      document.getElementById('timelineBatchProgressText').textContent = 
+        `${completedVolumes} / ${volumes.length} Bände (${processedVolumeLectures} / ${totalVolumeLectures} Vorträge)`;
+      document.getElementById('timelineBatchProgressPercent').textContent = 
+        `${percentage}%`;
+      document.getElementById('timelineBatchProgressBar').style.width = 
+        `${percentage}%`;
+    }
+    
+    document.getElementById('timelineBatchProcessed').textContent = totalProcessed;
+    document.getElementById('timelineBatchSkipped').textContent = totalSkipped;
+    document.getElementById('timelineBatchErrors').textContent = totalErrors;
+    
+    console.log('[TIMELINE] GA-Band-Generierung abgeschlossen!');
+    timelineBatchRunning = false;
+    document.getElementById('timelineBatchStart').style.display = 'inline-block';
+    document.getElementById('timelineBatchStop').style.display = 'none';
+    
+    // Reload stats
+    await loadTimelineStats();
+    
+  } catch (error) {
+    console.error('[TIMELINE] Batch-Fehler:', error);
+    timelineBatchRunning = false;
+    document.getElementById('timelineBatchStart').style.display = 'inline-block';
+    document.getElementById('timelineBatchStop').style.display = 'none';
+    alert(`Fehler bei der Batch-Generierung: ${error.message}`);
+  }
+}
+
+// Render timeline visualization
+async function renderTimeline() {
+  // Timeline wird in #results (unterer Bereich) angezeigt
+  const contentDiv = document.getElementById('results');
+  
+  // Hole aktuelle Filter-Werte (falls vorhanden)
+  const currentTheme = document.getElementById('timelineThemeFilterInline')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterInline')?.value || '';
+  
+  // Lade Themen-Liste
+  let themesHTML = '<option value="">Themen werden noch generiert...</option>';
+  try {
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    if (themesResponse.ok) {
+      const themes = await themesResponse.json();
+      if (Object.keys(themes).length > 0) {
+        themesHTML = '<option value="">Bitte Thema wählen...</option>';
+        Object.keys(themes).sort().forEach(theme => {
+          const selected = theme === currentTheme ? 'selected' : '';
+          themesHTML += `<option value="${theme}" ${selected}>${theme}</option>`;
+        });
+      }
+    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
+  }
+  
+  // Lade Keywords für ausgewähltes Thema
+  let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+  if (currentTheme) {
+    try {
+      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+      if (themesResponse.ok) {
+        const themes = await themesResponse.json();
+        const themeData = themes[currentTheme];
+        if (themeData && themeData.keywords) {
+          themeData.keywords.sort().forEach(kw => {
+            const selected = kw === currentKeyword ? 'selected' : '';
+            keywordsHTML += `<option value="${kw}" ${selected}>${kw}</option>`;
+          });
+        }
+      }
+    } catch (error) {
+      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+    }
+  }
+  
+  // Aktualisiere Filter-Dropdowns im Admin-Bereich
+  const themeSelect = document.getElementById('timelineThemeFilterInline');
+  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
+  
+  if (themeSelect) {
+    themeSelect.innerHTML = themesHTML;
+    if (currentTheme) {
+      themeSelect.value = currentTheme;
+    }
+  }
+  
+  if (keywordSelect) {
+    keywordSelect.innerHTML = keywordsHTML;
+    if (currentKeyword) {
+      keywordSelect.value = currentKeyword;
+    }
+  }
+  
+  const theme = currentTheme;
+  const keyword = currentKeyword;
+  
+  // Prüfe ob Thema oder Keyword ausgewählt
+  if (!theme && !keyword) {
+    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+    return;
+  }
+  
+  let html = '';
+  
+  try {
+    // Zeige Lade-Indikator
+    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-color);">⏳ Lade Timeline-Daten...</div>';
+    
+    // Lade Keywords-Datenbank
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    let themeLectures = [];
+    let keywordEntries = [];
+    
+    // FALL 1: Nur Thema ausgewählt (kein Keyword)
+    if (theme && !keyword) {
+      // Links: Vorträge die mindestens ein Keyword zu diesem Thema haben
+      themeLectures = Object.values(keywordsDB).filter(l => l.theme === theme);
+      
+      // Rechts: LEER (keine Keywords anzeigen)
+      keywordEntries = [];
+      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${themeLectures.length} Vorträge`);
+    }
+    
+    // FALL 2: Thema + Keyword ausgewählt
+    else if (theme && keyword) {
+      // Sammle Keywords die dem Filter entsprechen (für rechte Spalte)
+      const lectureIdsWithKeyword = new Set();
+      
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
+              keywordEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                keyword: kw
+              });
+              lectureIdsWithKeyword.add(lecture.lectureId);
+            }
+          });
+        }
+      });
+      
+      // Links: Vorträge aus denen die Keywords stammen
+      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
+      
+      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
+    }
+    
+    // FALL 3: Nur Keyword ausgewählt (kein Thema)
+    else if (!theme && keyword) {
+      // Sammle alle Keywords die dem Filter entsprechen (für rechte Spalte)
+      const lectureIdsWithKeyword = new Set();
+      
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
+              keywordEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                keyword: kw
+              });
+              lectureIdsWithKeyword.add(lecture.lectureId);
+            }
+          });
+        }
+      });
+      
+      // Links: Vorträge aus denen die Keywords stammen
+      themeLectures = Object.values(keywordsDB).filter(l => lectureIdsWithKeyword.has(l.lectureId));
+      
+      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${themeLectures.length} Vorträge, ${keywordEntries.length} Keywords`);
+    }
+    
+    if (themeLectures.length === 0 && keywordEntries.length === 0) {
+      contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Vorträge gefunden für diese Auswahl.</div>';
+      return;
+    }
+    
+    // Sammle alle Jahre
+    const allYears = new Set();
+    themeLectures.forEach(l => { if (l.year) allYears.add(l.year); });
+    keywordEntries.forEach(e => { if (e.year) allYears.add(e.year); });
+    const sortedYears = Array.from(allYears).sort((a, b) => a - b);
+    
+    console.log(`[TIMELINE] Rendering: ${themeLectures.length} Themenvorträge, ${keywordEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
+    
+    // Gruppiere nach Jahr
+    const themesByYear = {};
+    const keywordsByYear = {};
+    
+    themeLectures.forEach(lecture => {
+      const year = lecture.year || 'Unbekannt';
+      if (!themesByYear[year]) themesByYear[year] = [];
+      themesByYear[year].push(lecture);
+    });
+    
+    keywordEntries.forEach(entry => {
+      const year = entry.year || 'Unbekannt';
+      if (!keywordsByYear[year]) keywordsByYear[year] = [];
+      keywordsByYear[year].push(entry);
+    });
+    
+    // Sortiere Einträge nach Datum innerhalb jedes Jahres
+    sortedYears.forEach(year => {
+      if (themesByYear[year]) {
+        themesByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+      }
+      if (keywordsByYear[year]) {
+        keywordsByYear[year].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+      }
+    });
+    
+    // Render Timeline mit drei Spalten
+    let headerTitle = '';
+    let headerInfo = '';
+    
+    if (theme && !keyword) {
+      headerTitle = theme;
+      headerInfo = `${themeLectures.length} Vorträge`;
+    } else if (theme && keyword) {
+      headerTitle = `${theme} → ${keyword}`;
+      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
+    } else if (!theme && keyword) {
+      headerTitle = keyword;
+      headerInfo = `${themeLectures.length} Vorträge, ${keywordEntries.length} Keyword-Einträge`;
+    }
+    
+    html += `
+      <div style="margin-bottom: 1rem;">
+        <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">${headerTitle}</h4>
+        <p style="margin: 0; font-size: 0.85em; color: var(--secondary-text);">
+          ${headerInfo}
+        </p>
+      </div>
+      <div class="timeline-visualization">
+        <!-- Linke Spalte: Themen -->
+        <div class="timeline-themes-column">
+    `;
+    
+    // Render pro Jahr: Themes in linker Spalte
+    sortedYears.forEach(year => {
+      const themesForYear = themesByYear[year] || [];
+      
+      themesForYear.forEach(lecture => {
+        const date = formatDate(lecture.date);
+        const lectureId = lecture.lectureId;
+        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : '';
+        const lecNum = gaMatch ? gaMatch[2] : '';
+        
+        html += `
+          <div class="timeline-entry" data-year="${year}">
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
+          </div>
+        `;
+      });
+    });
+    
+    html += `
+        </div>
+        
+        <!-- Mittlere Spalte: Timeline mit dynamisch positionierten Jahren -->
+        <div class="timeline-center-column">
+    `;
+    
+    // Render Jahreszahlen - Position wird via JS angepasst
+    sortedYears.forEach(year => {
+      html += `<div class="timeline-year-marker" data-year="${year}">${year}</div>`;
+    });
+    
+    html += `
+        </div>
+        
+        <!-- Rechte Spalte: Keywords -->
+        <div class="timeline-keywords-column">
+    `;
+    
+    // Render Keyword-Einträge in rechter Spalte
+    sortedYears.forEach(year => {
+      const keywordsForYear = keywordsByYear[year] || [];
+      
+      keywordsForYear.forEach(entry => {
+        const date = formatDate(entry.date);
+        const lectureId = entry.lectureId;
+        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
+        const gaNum = gaMatch ? gaMatch[1] : '';
+        const lecNum = gaMatch ? gaMatch[2] : '';
+        let index = entry.keyword.index || '';
+        // Entferne ^ vom Index falls vorhanden
+        if (index.startsWith('^')) {
+          index = index.substring(1);
+        }
+        
+        // Zeige H3 UND H4 Überschriften für das ausgewählte Keyword
+        const displayText = entry.keyword.heading || entry.keyword.term;
+        const levelInfo = entry.keyword.level ? ` (${entry.keyword.level.toUpperCase()})` : '';
+        
+        html += `
+          <div class="timeline-entry" data-year="${year}">
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
+            <div class="timeline-entry-keywords">${displayText}</div>
+          </div>
+        `;
+      });
+    });
+    
+    html += `
+        </div>
+      </div>
+    `;
+    
+    contentDiv.innerHTML = html;
+    
+    // Positioniere Jahreszahlen dynamisch nach dem Rendern
+    setTimeout(() => {
+      positionYearMarkers();
+    }, 50);
+    
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Rendern:', error);
+    // Behalte Filter-Bereich und zeige Fehler
+    const filterHTML = contentDiv.innerHTML.split('<div style="margin-bottom: 1rem;">')[0] || '';
+    contentDiv.innerHTML = filterHTML + `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden der Timeline: ${error.message}</div>`;
+  }
+}
+
+// Positioniere Jahreszahlen dynamisch auf Höhe des ersten Eintrags
+function positionYearMarkers() {
+  const yearMarkers = document.querySelectorAll('.timeline-year-marker');
+  
+  yearMarkers.forEach(marker => {
+    const year = marker.getAttribute('data-year');
+    
+    // Finde alle Einträge dieses Jahres in beiden Spalten
+    const leftEntries = document.querySelectorAll(`.timeline-themes-column .timeline-entry[data-year="${year}"]`);
+    const rightEntries = document.querySelectorAll(`.timeline-keywords-column .timeline-entry[data-year="${year}"]`);
+    
+    // Bestimme ersten sichtbaren Eintrag (links oder rechts)
+    let firstEntry = null;
+    
+    if (leftEntries.length > 0 && rightEntries.length > 0) {
+      // Beide Spalten haben Einträge - nimm den höheren (kleinere offsetTop)
+      const leftTop = leftEntries[0].offsetTop;
+      const rightTop = rightEntries[0].offsetTop;
+      firstEntry = leftTop <= rightTop ? leftEntries[0] : rightEntries[0];
+    } else if (leftEntries.length > 0) {
+      // Nur linke Spalte hat Einträge
+      firstEntry = leftEntries[0];
+    } else if (rightEntries.length > 0) {
+      // Nur rechte Spalte hat Einträge
+      firstEntry = rightEntries[0];
+    }
+    
+    if (firstEntry) {
+      // Positioniere Jahreszahl auf Höhe des ersten Eintrags
+      const entryTop = firstEntry.offsetTop;
+      const containerTop = marker.parentElement.offsetTop;
+      const relativeTop = entryTop - containerTop;
+      
+      marker.style.position = 'absolute';
+      marker.style.top = `${relativeTop}px`;
+      marker.style.left = '50%';
+      marker.style.transform = 'translateX(-50%)';
+    }
+  });
+}
+
+// Hilfsfunktion: Formatiere Datum
+function formatDate(dateString) {
+  if (!dateString) return 'Datum unbekannt';
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('de-DE', { 
+      day: '2-digit', 
+      month: '2-digit', 
+      year: 'numeric' 
+    });
+  } catch {
+    return dateString;
+  }
+}
+
+// Update switchTab function to load stats when timeline tab is opened
+const originalSwitchTab = window.switchTab;
+window.switchTab = function(tabName) {
+  // Call original function
+  if (originalSwitchTab) {
+    originalSwitchTab(tabName);
+  }
+  
+  // Load stats when timeline tab is opened
+  if (tabName === 'timeline') {
+    loadTimelineStats();
+    // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
+    renderTimeline();
+  }
+};
+
 </script>
 
 </body>
