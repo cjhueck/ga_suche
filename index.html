@@ -9784,10 +9784,6 @@ async function runTimelineBatch(volumes = []) {
 // Render timeline visualization
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  // Lösche bisherige Timeline-Anzeige
-  const contentDiv = document.getElementById('results');
-  contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);"><div class="spinner"></div><br>Lade Timeline...</div>';
-  
   // Render Timeline neu (aktualisiert automatisch beide Dropdowns mit aktuellen Werten)
   await renderTimeline();
 }
