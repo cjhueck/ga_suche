@@ -9983,14 +9983,37 @@ async function updateTimelineFilters() {
       let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
       
       if (currentTheme) {
-        // Nur Keywords vom ausgewählten Thema
+        // Schnittmenge: Thematische Keywords die auch tatsächlich in Vorträgen vorkommen
+        console.log('[TIMELINE] Lade validierte Keywords für:', currentTheme);
         try {
+          // Lade thematische Keywords
           const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+          const keywordsDB = await loadKeywordsDatabase();
+          
           if (themesResponse.ok) {
             const themes = await themesResponse.json();
             const themeData = themes[currentTheme];
+            
             if (themeData && themeData.keywords) {
-              themeData.keywords.sort().forEach(kw => {
+              // Sammle alle Keywords die tatsächlich in Vorträgen mit diesem Thema vorkommen
+              const actualKeywords = new Set();
+              Object.values(keywordsDB).forEach(lecture => {
+                if (lecture.theme === currentTheme && lecture.keywords && Array.isArray(lecture.keywords)) {
+                  lecture.keywords.forEach(kw => {
+                    if (kw.term) actualKeywords.add(kw.term.toLowerCase());
+                  });
+                }
+              });
+              
+              // Filtere: Nur thematische Keywords die auch tatsächlich vorkommen
+              const validKeywords = themeData.keywords.filter(kw => 
+                actualKeywords.has(kw.toLowerCase())
+              );
+              
+              console.log('[TIMELINE] Thematische Keywords:', themeData.keywords.length, 
+                          '| Validierte Keywords:', validKeywords.length);
+              
+              validKeywords.sort().forEach(kw => {
                 keywordsHTML += `<option value="${kw}">${kw}</option>`;
               });
             }
