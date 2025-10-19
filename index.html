@@ -10423,10 +10423,16 @@ async function renderTimelineContent() {
       
       keywordsForYear.forEach(entry => {
         const date = formatDate(entry.date);
-        const lectureId = entry.lectureId;
-        const gaMatch = lectureId.match(/GA(\d+)\/(\d+)/);
-        const gaNum = gaMatch ? gaMatch[1] : '';
-        const lecNum = gaMatch ? gaMatch[2] : '';
+        const lectureId = entry.lectureId || '';
+        
+        // Robustes Parsing der LectureId (GA123/4 oder GA123/ oder GA/)
+        const gaMatch = lectureId.match(/GA(\d*)\/(\d*)/);
+        const gaNum = gaMatch && gaMatch[1] ? gaMatch[1] : '';
+        const lecNum = gaMatch && gaMatch[2] ? gaMatch[2] : '';
+        
+        // Falls keine Nummern gefunden, zeige die komplette lectureId
+        const displayLectureId = (gaNum || lecNum) ? `GA${gaNum}/${lecNum}` : lectureId || 'GA/';
+        
         let index = entry.keyword.index || '';
         // Entferne ^ vom Index falls vorhanden
         if (index.startsWith('^')) {
@@ -10439,7 +10445,7 @@ async function renderTimelineContent() {
         
         html += `
           <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link">GA${gaNum}/${lecNum}</a></div>
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link">${displayLectureId}</a></div>
             <div class="timeline-entry-keywords">${displayText}</div>
           </div>
         `;
