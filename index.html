@@ -9782,13 +9782,47 @@ async function runTimelineBatch(volumes = []) {
 }
 
 // Render timeline visualization
+// Update timeline filters when changed
+async function updateTimelineFilters() {
+  // Wenn Thema geändert wurde, aktualisiere Keywords-Dropdown
+  const themeSelect = document.getElementById('timelineThemeFilterResults');
+  const keywordSelect = document.getElementById('timelineKeywordFilterResults');
+  
+  if (themeSelect && keywordSelect && themeSelect.value) {
+    try {
+      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+      if (themesResponse.ok) {
+        const themes = await themesResponse.json();
+        const themeData = themes[themeSelect.value];
+        
+        let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+        if (themeData && themeData.keywords) {
+          themeData.keywords.sort().forEach(kw => {
+            keywordsHTML += `<option value="${kw}">${kw}</option>`;
+          });
+        }
+        keywordSelect.innerHTML = keywordsHTML;
+      }
+    } catch (error) {
+      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+    }
+  } else if (keywordSelect && (!themeSelect || !themeSelect.value)) {
+    keywordSelect.innerHTML = '<option value="">Alle Schlagwörter</option>';
+  }
+  
+  // Render Timeline neu
+  renderTimeline();
+}
+
 async function renderTimeline() {
   // Timeline wird in #results (unterer Bereich) angezeigt
   const contentDiv = document.getElementById('results');
   
-  // Hole aktuelle Filter-Werte (falls vorhanden)
-  const currentTheme = document.getElementById('timelineThemeFilterInline')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterInline')?.value || '';
+  // Hole aktuelle Filter-Werte (falls vorhanden) - aus Results-Bereich
+  const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || 
+                       document.getElementById('timelineThemeFilterInline')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || 
+                         document.getElementById('timelineKeywordFilterInline')?.value || '';
   
   // Lade Themen-Liste
   let themesHTML = '<option value="">Themen werden noch generiert...</option>';
@@ -9849,13 +9883,35 @@ async function renderTimeline() {
   const theme = currentTheme;
   const keyword = currentKeyword;
   
+  // Baue Filter-UI am Anfang des Results-Bereichs
+  let html = `
+    <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div>
+          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
+            Thema auswählen:
+          </label>
+          <select id="timelineThemeFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+            ${themesHTML}
+          </select>
+        </div>
+        <div>
+          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
+            Schlagwort auswählen (optional):
+          </label>
+          <select id="timelineKeywordFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+            ${keywordsHTML}
+          </select>
+        </div>
+      </div>
+    </div>
+  `;
+  
   // Prüfe ob Thema oder Keyword ausgewählt
   if (!theme && !keyword) {
-    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+    contentDiv.innerHTML = html + '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
     return;
   }
-  
-  let html = '';
   
   try {
     // Zeige Lade-Indikator
