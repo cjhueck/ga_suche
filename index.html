@@ -9782,10 +9782,49 @@ async function runTimelineBatch(volumes = []) {
 }
 
 // Render timeline visualization
+// Globale Variable für letztes ausgewähltes Thema
+let lastSelectedTheme = '';
+
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  // Render Timeline neu (aktualisiert automatisch beide Dropdowns mit aktuellen Werten)
-  await renderTimeline();
+  const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  
+  // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown UND lösche Timeline komplett
+  if (currentTheme !== lastSelectedTheme) {
+    lastSelectedTheme = currentTheme;
+    
+    // Aktualisiere Keywords-Dropdown für neues Thema
+    const keywordSelect = document.getElementById('timelineKeywordFilterResults');
+    if (keywordSelect && currentTheme) {
+      try {
+        const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+        if (themesResponse.ok) {
+          const themes = await themesResponse.json();
+          const themeData = themes[currentTheme];
+          
+          let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+          if (themeData && themeData.keywords) {
+            themeData.keywords.sort().forEach(kw => {
+              keywordsHTML += `<option value="${kw}">${kw}</option>`;
+            });
+          }
+          keywordSelect.innerHTML = keywordsHTML;
+        }
+      } catch (error) {
+        console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+      }
+    }
+    
+    // Lösche Timeline-Bereich (aber behalte Filter)
+    const timelineContainer = document.getElementById('timelineContainer');
+    if (timelineContainer) {
+      timelineContainer.innerHTML = '';
+    }
+  }
+  
+  // Render Timeline neu
+  await renderTimelineContent();
 }
 
 async function renderTimeline() {
@@ -9797,6 +9836,8 @@ async function renderTimeline() {
                        document.getElementById('timelineThemeFilterInline')?.value || '';
   const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || 
                          document.getElementById('timelineKeywordFilterInline')?.value || '';
+  
+  lastSelectedTheme = currentTheme;
   
   // Lade Themen-Liste
   let themesHTML = '<option value="">Themen werden noch generiert...</option>';
@@ -9879,13 +9920,34 @@ async function renderTimeline() {
         </div>
       </div>
     </div>
+    <div id="timelineContainer"></div>
   `;
+  
+  contentDiv.innerHTML = html;
   
   // Prüfe ob Thema oder Keyword ausgewählt
   if (!theme && !keyword) {
-    contentDiv.innerHTML = html + '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+    document.getElementById('timelineContainer').innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
     return;
   }
+  
+  // Render Timeline Content
+  await renderTimelineContent();
+}
+
+async function renderTimelineContent() {
+  const timelineContainer = document.getElementById('timelineContainer');
+  if (!timelineContainer) return;
+  
+  const theme = document.getElementById('timelineThemeFilterResults')?.value || '';
+  const keyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  
+  if (!theme && !keyword) {
+    timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+    return;
+  }
+  
+  let html = '';
   
   try {
     // Lade Keywords-Datenbank
@@ -10096,7 +10158,7 @@ async function renderTimeline() {
       </div>
     `;
     
-    contentDiv.innerHTML = html;
+    timelineContainer.innerHTML = html;
     
     // Positioniere Jahreszahlen dynamisch nach dem Rendern
     setTimeout(() => {
@@ -10105,9 +10167,7 @@ async function renderTimeline() {
     
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Rendern:', error);
-    // Behalte Filter-Bereich und zeige Fehler
-    const filterHTML = contentDiv.innerHTML.split('<div style="margin-bottom: 1rem;">')[0] || '';
-    contentDiv.innerHTML = filterHTML + `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden der Timeline: ${error.message}</div>`;
+    timelineContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden der Timeline: ${error.message}</div>`;
   }
 }
 
