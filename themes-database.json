@@ -1,84 +1,112 @@
 {
   "Erkenntnistheorie": {
     "keywords": [
-      "Erkenntnis",
+      "Erkennen",
       "Wissen",
-      "Wahrnehmung",
-      "Forschung",
       "Wahrheit",
-      "Wissenschaftliche Methode",
+      "Wahrnehmung",
       "Beobachtung",
-      "Verständnis",
+      "Forschung",
+      "Wissenschaftliche Methode",
       "Begriffe",
-      "Wirklichkeit",
-      "Realität",
-      "Grenzen"
+      "Verstand",
+      "Intuition",
+      "Inspiration",
+      "Objektivität"
     ],
-    "description": "Anthroposophische Erkenntnistheorie und wissenschaftliche Methodik"
+    "description": "Grundlagen der anthroposophischen Erkenntnismethoden und Wissenschaftstheorie"
   },
-  "Christologie und Evangelien": {
+  "Menschenkunde": {
+    "keywords": [
+      "Mensch",
+      "Bewusstsein",
+      "Ich",
+      "Vier Wesensglieder",
+      "Physischer Leib",
+      "Astralleib",
+      "Äther",
+      "Leiber",
+      "Physiologie",
+      "Anthropologie"
+    ],
+    "description": "Die Konstitution des Menschen aus anthroposophischer Sicht"
+  },
+  "Seelenkunde": {
+    "keywords": [
+      "Seele",
+      "Denken",
+      "Gefühl",
+      "Wille",
+      "Seelisches",
+      "Empfindung",
+      "Charakter",
+      "Temperamente",
+      "Egoismus"
+    ],
+    "description": "Die seelischen Kräfte und ihre Entwicklung"
+  },
+  "Geisteswissenschaft": {
+    "keywords": [
+      "Geist",
+      "Spirituell",
+      "Theosoph",
+      "Anthroposophische Geisteswissenschaft",
+      "Geistige Wesenheit",
+      "Höhere Welten",
+      "Drei Welten",
+      "Astrale Welt"
+    ],
+    "description": "Grundlagen der anthroposophischen Geisteswissenschaft"
+  },
+  "Christologie und Mysterium von Golgatha": {
     "keywords": [
       "Christus",
-      "Christentum",
-      "Golgatha",
-      "Johannes",
       "Jesus",
+      "Golgatha",
       "Auferstehung",
-      "Bibel",
-      "Paulus",
-      "Lazarus",
-      "Apokalypse",
+      "Christentum",
       "Logos",
-      "Moses"
+      "Zarathustra",
+      "Lazarus"
     ],
-    "description": "Christusgeschehen und neutestamentliche Texte in anthroposophischer Deutung"
+    "description": "Die zentrale Bedeutung des Christus-Impulses für die Menschheitsentwicklung"
+  },
+  "Evangelienbetrachtung": {
+    "keywords": [
+      "Johannes",
+      "Bibel",
+      "Apokalypse",
+      "Moses",
+      "Paulus",
+      "Eva"
+    ],
+    "description": "Spirituelle Deutung der biblischen Schriften"
   },
   "Karma und Reinkarnation": {
     "keywords": [
-      "Karma",
+      "Schicksal",
       "Inkarnation",
       "Verkörperung",
-      "Wiederholte Erdenleben",
-      "Schicksal",
       "Wiedergeburt",
+      "Wiederholte Erdenleben",
       "Vorgeburtlich",
-      "Mission"
+      "Tod"
     ],
-    "description": "Lehre von Reinkarnation und karmischen Zusammenhängen"
+    "description": "Lehre von der Wiederverkörperung und dem Schicksalsgesetz"
   },
-  "Pädagogik und Erziehung": {
+  "Entwicklungsgeschichte der Menschheit": {
     "keywords": [
-      "Erziehung",
-      "Pädagogik",
-      "Bildung",
-      "Lehrer",
-      "Waldorfschule",
-      "Schüler",
-      "Jugend",
-      "Kind",
-      "Lehrplan",
-      "Sprachunterricht",
-      "Zahnwechsel",
-      "Nachahmung",
-      "Autorität"
+      "Entwicklung",
+      "Evolution",
+      "Atlantis",
+      "Lemurische Zeit",
+      "Epochen",
+      "Kulturepoche",
+      "Rassen",
+      "Mission",
+      "Zyklen"
     ],
-    "description": "Waldorfpädagogik und anthroposophische Erziehungskunst"
-  },
-  "Anthroposophische Medizin": {
-    "keywords": [
-      "Krankheit",
-      "Gesundheit",
-      "Heilung",
-      "Medizin",
-      "Organismus",
-      "Ernährung",
-      "Nerven",
-      "Gehirn",
-      "Lunge",
-      "Atmung",
-      "Blut"
-    ],
-    "description": "Anthroposophisch erweiterte Heilkunde und Gesundheitslehre"
+    "description": "Die großen Entwicklungsstufen der Menschheit"
   },
   "Kosmologie und Planetensphären": {
     "keywords": [
@@ -87,207 +115,113 @@
       "Sonne",
       "Mond",
       "Saturn",
-      "Erde",
       "Kosmisches",
-      "Evolution",
-      "Epochen",
       "Runden",
-      "Zyklen"
+      "Erste Runde"
     ],
-    "description": "Kosmische Evolution und Planetenentwicklung"
+    "description": "Die kosmischen Zusammenhänge und Planetenentwicklung"
+  },
+  "Hierarchien und Geistige Wesenheiten": {
+    "keywords": [
+      "Hierarchie",
+      "Götter",
+      "Gewalten",
+      "Luzifer",
+      "Ahriman",
+      "Geistige Wesenheit"
+    ],
+    "description": "Die Lehre von den geistigen Hierarchien und widersachenden Kräften"
   },
   "Mysterien und Einweihung": {
     "keywords": [
-      "Mysterien",
-      "Einweihung",
-      "Initiation",
       "Eingeweihte",
-      "Schulung",
-      "Meister",
       "Schwelle",
-      "Tempel",
-      "Götter",
-      "Hierophant"
-    ],
-    "description": "Antike und moderne Einweihungswege und Mysterienstätten"
-  },
-  "Wesensgliederlehre": {
-    "keywords": [
-      "Astralleib",
-      "Physischer Leib",
-      "Äther",
-      "Vier Glieder",
-      "Vier Wesensglieder",
-      "Leiber",
-      "Seele",
-      "Seelisches",
-      "Organisation"
-    ],
-    "description": "Die vier Wesensglieder des Menschen"
-  },
-  "Bewusstseinsentwicklung": {
-    "keywords": [
-      "Bewusstsein",
-      "Entwicklung",
-      "Wandlung",
-      "Transformation",
-      "Übergang",
-      "Wendung",
-      "Wandel",
-      "Erwachen",
-      "Reife"
-    ],
-    "description": "Evolution des menschlichen Bewusstseins durch die Zeitalter"
-  },
-  "Meditation und Schulung": {
-    "keywords": [
-      "Meditation",
+      "Schulung",
       "Konzentration",
-      "Imagination",
-      "Inspiration",
-      "Intuition",
       "Läuterung",
-      "Bereitung",
-      "Disziplin",
-      "Askese"
+      "Tempel",
+      "Mysterien",
+      "Magie"
     ],
-    "description": "Meditative Praxis und geistige Schulung"
+    "description": "Wege zur geistigen Entwicklung und Einweihung"
   },
-  "Kulturgeschichte": {
+  "Hellsichtigkeit und übersinnliche Wahrnehmung": {
     "keywords": [
-      "Atlantis",
-      "Lemurische Zeit",
-      "Griechisch",
-      "Griechen",
-      "Rassen",
-      "Stände",
-      "Inder",
-      "Indische Kultur",
-      "Kulturen",
-      "Kulturepoche",
-      "Strömungen",
-      "Zivilisation"
-    ],
-    "description": "Entwicklung der Menschheitskulturen und Völker"
-  },
-  "Goetheanismus": {
-    "keywords": [
-      "Goethe",
-      "Faust",
-      "Metamorphose",
-      "Pflanze",
-      "Mineral",
-      "Naturreiche",
-      "Schöpfung",
-      "Entstehung"
-    ],
-    "description": "Goethes Naturwissenschaft und Weltanschauung"
-  },
-  "Deutsche Geistesgeschichte": {
-    "keywords": [
-      "Schiller",
-      "Nietzsche",
-      "Kant",
-      "Hegel",
-      "Deutscher Idealismus",
-      "Herman Grimm",
-      "Brentano",
-      "Wagner"
-    ],
-    "description": "Deutsche Philosophie und Literatur in anthroposophischer Betrachtung"
-  },
-  "Soziale Dreigliederung": {
-    "keywords": [
-      "Soziale Frage",
-      "Gemeinschaft",
-      "Klassen",
-      "Verwaltung",
-      "Reform",
-      "Egoismus",
-      "Einheit",
-      "Einigung"
-    ],
-    "description": "Dreigliederung des sozialen Organismus"
-  },
-  "Eurythmie und Kunst": {
-    "keywords": [
-      "Eurythmie",
-      "Kunst",
-      "Musik",
-      "Künstlerisches",
-      "Farben",
-      "Rhythmus",
-      "Bewegung",
-      "Harmonie",
-      "Phantasie"
-    ],
-    "description": "Anthroposophische Kunst- und Bewegungsformen"
-  },
-  "Tod und Nachtod": {
-    "keywords": [
-      "Tod",
-      "Schlaf",
-      "Tote",
-      "Nacht",
+      "Hellsichtigkeit",
+      "Fähigkeiten",
       "Träume",
-      "Erinnerung",
       "Gedächtnis",
-      "Vergessen"
+      "Erinnern",
+      "Akasha",
+      "Siegel"
     ],
-    "description": "Zustände zwischen Tod und neuer Geburt"
+    "description": "Entwicklung übersinnlicher Erkenntnisfähigkeiten"
   },
-  "Weltanschauungen": {
+  "Pädagogik und Erziehung": {
     "keywords": [
-      "Weltanschauung",
-      "Theosoph",
-      "Anthroposophie",
-      "Materialismus",
-      "Moderne",
-      "Philosophie",
-      "Mystik",
-      "Religion"
+      "Erziehung",
+      "Pädagogik",
+      "Bildung",
+      "Waldorfschule",
+      "Lehrer",
+      "Schüler",
+      "Kind",
+      "Jugend",
+      "Lehrplan"
     ],
-    "description": "Verschiedene Weltanschauungen und ihre Bewertung"
+    "description": "Anthroposophische Grundlagen der Erziehungskunst"
   },
-  "Sprache und Kommunikation": {
+  "Entwicklungsstufen des Kindes": {
+    "keywords": [
+      "Imitation",
+      "Nachahmung",
+      "Autorität",
+      "Spiel",
+      "Zahnwechsel",
+      "Geschlechtsreife",
+      "Alter"
+    ],
+    "description": "Die verschiedenen Entwicklungsphasen in der Kindheit"
+  },
+  "Sprachunterricht und Sprache": {
     "keywords": [
       "Sprache",
+      "Sprachunterricht",
       "Wort",
-      "Schrift",
-      "Denken",
-      "Verstand",
-      "Intellektualismus",
-      "Logik"
+      "Schrift"
     ],
-    "description": "Sprachentwicklung und Denkformen"
+    "description": "Anthroposophische Ansätze zum Sprachverständnis und -unterricht"
   },
-  "Psychologie": {
+  "Eurythmie": {
     "keywords": [
-      "Wille",
-      "Gefühl",
-      "Empfindung",
-      "Temperament",
-      "Charakter",
-      "Persönlichkeit",
-      "Instinkt",
-      "Psychologie",
-      "Interesse",
-      "Sehnsucht"
+      "Eurythmie",
+      "Bewegung",
+      "Geste",
+      "Rhythmus"
     ],
-    "description": "Anthroposophische Seelenkunde"
+    "description": "Die anthroposophische Bewegungskunst"
   },
-  "Ehe und Geschlecht": {
+  "Anthroposophische Medizin": {
     "keywords": [
-      "Ehe",
-      "Geschlecht",
-      "Liebe",
-      "Eva",
-      "Dualität",
-      "Trennung",
-      "Scheidung",
-      "Verwandtschaft"
+      "Medizin",
+      "Krankheit",
+      "Heilung",
+      "Gesundheit",
+      "Mistel",
+      "Ernährung",
+      "Atmung",
+      "Lunge"
     ],
-    "description": "Anthroposophische Betrachtung von Partnerschaft und Geschlechtern"
+    "description": "Ganzheitliche Heilkunde auf anthroposophischer Grundlage"
+  },
+  "Seelische Störungen": {
+    "keywords": [
+      "Hysterie",
+      "Schmerz",
+      "Furcht",
+      "Gefahren"
+    ],
+    "description": "Anthroposophisches Verständnis seelischer Erkrankungen"
   },
   "Vererbung und Erblichkeit": {
     "keywords": [
@@ -295,122 +229,315 @@
       "Vererbung",
       "Erbe",
       "Blut",
-      "Darwin",
-      "Abstieg"
+      "Verwandtschaft",
+      "Geschlecht"
     ],
-    "description": "Vererbungslehre und ihre geistigen Hintergründe"
+    "description": "Geistige und physische Vererbungsgesetze"
   },
-  "Widersachermächte": {
+  "Naturreiche": {
     "keywords": [
-      "Luzifer",
-      "Ahriman",
-      "Gefahren",
-      "Kampf",
-      "Widerstand",
-      "Überwindung",
-      "Schlange"
+      "Naturreiche",
+      "Pflanze",
+      "Mineral",
+      "Tier"
     ],
-    "description": "Die widersachenden Kräfte und ihre Überwindung"
+    "description": "Die verschiedenen Naturreiche und ihre geistigen Grundlagen"
   },
-  "Orientalische Weisheit": {
+  "Metamorphosenlehre": {
     "keywords": [
+      "Metamorphose",
+      "Transformation",
+      "Wandel",
+      "Umgestaltung"
+    ],
+    "description": "Goethes Metamorphosenlehre und ihre spirituelle Vertiefung"
+  },
+  "Goetheanismus": {
+    "keywords": [
+      "Goethe",
+      "Faust",
+      "Herman Grimm",
+      "Märchen"
+    ],
+    "description": "Goethes Werk aus anthroposophischer Sicht"
+  },
+  "Deutsche Geistesgeschichte": {
+    "keywords": [
+      "Deutscher Idealismus",
+      "Kant",
+      "Hegel",
+      "Nietzsche",
+      "Brentano",
+      "Wagner"
+    ],
+    "description": "Bedeutende Gestalten der deutschen Philosophie und Kultur"
+  },
+  "Religionswissenschaft": {
+    "keywords": [
+      "Religion",
+      "Theologie",
+      "Glaube",
       "Buddha",
-      "Zarathustra",
-      "Yoga",
-      "Kama",
-      "Manas",
-      "Buddhi",
-      "Osiris",
-      "Prophet",
-      "Magie"
+      "Indische Kultur",
+      "Inder"
     ],
-    "description": "Östliche Weisheitslehren und ihre Bedeutung"
+    "description": "Vergleichende Betrachtung der Weltreligionen"
   },
-  "Zeit und Geschichte": {
+  "Mythologie und Symbole": {
     "keywords": [
-      "Zeit",
-      "Zukunft",
-      "Gegenwart",
-      "Wendepunkt",
-      "Tradition",
-      "Alter",
-      "Notwendigkeit",
-      "Krise"
-    ],
-    "description": "Zeitverständnis und geschichtliche Entwicklung"
-  },
-  "Märchen und Mythen": {
-    "keywords": [
-      "Märchen",
       "Mythen",
       "Symbole",
-      "Symbolik",
-      "Bilder",
-      "Siegel",
+      "Osiris",
+      "Schlange",
       "Rose",
-      "Aum",
-      "Gestalten"
+      "Parzival"
     ],
-    "description": "Märchen, Mythen und ihre geistige Bedeutung"
+    "description": "Spirituelle Deutung mythologischer und symbolischer Inhalte"
   },
-  "Anthroposophische Geisteswissenschaft": {
+  "Schlaf und Traumleben": {
     "keywords": [
-      "Anthroposophische Geisteswissenschaft",
-      "Geist",
-      "Spirituell",
-      "Weisheit",
-      "Geistige Wesenheit",
-      "Wesen"
+      "Schlaf",
+      "Träume",
+      "Nacht",
+      "Unbewusstes"
     ],
-    "description": "Grundlagen der anthroposophischen Geisteswissenschaft"
+    "description": "Die geistigen Vorgänge während des Schlafes"
   },
-  "Hierarchien und Engelwesen": {
+  "Rhythmen und Zyklen": {
     "keywords": [
-      "Hierarchie",
-      "Engel",
-      "Erzengel",
-      "Archai",
-      "Geister",
-      "Höhere Welten",
-      "Drei Welten"
+      "Rhythmus",
+      "Zyklen",
+      "Zeit",
+      "Wendepunkt",
+      "Übergang"
     ],
-    "description": "Die geistigen Hierarchien und ihre Wirksamkeit"
+    "description": "Zeitliche Rhythmen in Natur und Menschenleben"
   },
-  "Moral und Ethik": {
+  "Freiheit und Moralität": {
     "keywords": [
-      "Moral",
-      "Tugend",
       "Freiheit",
+      "Moral",
+      "Gut und Böse",
+      "Ethik",
       "Befreiung",
-      "Ideal",
-      "Opfer",
-      "Bescheidenheit",
-      "Dank",
-      "Furcht",
-      "Schmerz"
+      "Überwindung"
     ],
-    "description": "Ethische Grundlagen und moralische Entwicklung"
+    "description": "Anthroposophische Ethik und Freiheitsphilosophie"
   },
-  "Akasha-Chronik": {
+  "Liebe und Gemeinschaft": {
     "keywords": [
-      "Akasha",
-      "Chronik",
-      "Gedächtnis",
-      "Vergangenheit",
-      "Aufzeichnung"
+      "Liebe",
+      "Gemeinschaft",
+      "Ehe",
+      "Verbundenheit",
+      "Einheit",
+      "Einigung"
     ],
-    "description": "Die geistige Weltgedächtnisschrift"
+    "description": "Zwischenmenschliche Beziehungen und Gemeinschaftsbildung"
   },
-  "Paracelsische Medizin": {
+  "Soziale Fragen": {
     "keywords": [
-      "Paracelsus",
-      "Alchemie",
-      "Heilmittel",
-      "Substanzen",
-      "Eisen",
+      "Soziale Frage",
+      "Drei Glieder",
+      "Stände",
+      "Organisation",
+      "Reform",
+      "Zivilisation"
+    ],
+    "description": "Anthroposophische Ansätze zu gesellschaftlichen Problemen"
+  },
+  "Kunst und Ästhetik": {
+    "keywords": [
+      "Kunst",
+      "Künstlerisches",
+      "Musik",
+      "Farben",
+      "Phantasie",
+      "Harmonie"
+    ],
+    "description": "Anthroposophisches Kunstverständnis"
+  },
+  "Philosophiegeschichte": {
+    "keywords": [
+      "Philosophie",
+      "Weltanschauung",
+      "Scholastik",
+      "Kritik",
+      "Ontologie"
+    ],
+    "description": "Entwicklung des philosophischen Denkens"
+  },
+  "Moderne Wissenschaft": {
+    "keywords": [
+      "Moderne",
+      "Naturalismus",
+      "Darwin",
+      "Experiment",
+      "Technik",
+      "Entdeckungen"
+    ],
+    "description": "Auseinandersetzung mit der materialistischen Wissenschaft"
+  },
+  "Mystik und Gnosis": {
+    "keywords": [
+      "Gnosis",
+      "Deutsche Mystik",
+      "Paracelsus"
+    ],
+    "description": "Esoterische Traditionen und ihre Bedeutung"
+  },
+  "Okkultismus und Magie": {
+    "keywords": [
+      "Magie",
+      "Yoga",
+      "Askese",
+      "Disziplin"
+    ],
+    "description": "Traditionelle okkulte Praktiken und ihre Bewertung"
+  },
+  "Elementarwesen und Naturgeister": {
+    "keywords": [
       "Feuer",
       "Elemente"
     ],
-    "description": "Paracelsus und die spirituelle Medizin"
+    "description": "Die unsichtbaren Kräfte in der Natur"
+  },
+  "Gedächtnis und Erinnerung": {
+    "keywords": [
+      "Gedächtnis",
+      "Erinnern",
+      "Vergessen",
+      "Tradition"
+    ],
+    "description": "Formen des Gedächtnisses und der Erinnerung"
+  },
+  "Mathematik und Geometrie": {
+    "keywords": [
+      "Mathematik",
+      "Geometrie",
+      "Zahlen",
+      "Sieben Stufen",
+      "Drei Stufen"
+    ],
+    "description": "Spirituelle Bedeutung mathematischer Gesetzmäßigkeiten"
+  },
+  "Sinnesorgane und Wahrnehmung": {
+    "keywords": [
+      "Sinnesorgan",
+      "Sinnlichkeit",
+      "Nerven",
+      "Gehirn"
+    ],
+    "description": "Die zwölf Sinne und ihre geistige Bedeutung"
+  },
+  "Verstehen und Deutung": {
+    "keywords": [
+      "Deutung",
+      "Verstehen",
+      "Verständnis",
+      "Lösung",
+      "Fragen"
+    ],
+    "description": "Hermeneutische Aspekte der Geisteswissenschaft"
+  },
+  "Temperamente und Charakterkunde": {
+    "keywords": [
+      "Charakter",
+      "Temperamente",
+      "Begabung",
+      "Interesse",
+      "Antipathie"
+    ],
+    "description": "Individuelle Wesensarten und ihre Entstehung"
+  },
+  "Zukunftsperspektiven": {
+    "keywords": [
+      "Zukunft",
+      "Ideal",
+      "Vollendung",
+      "Früchte",
+      "Reife"
+    ],
+    "description": "Entwicklungsaussichten für Mensch und Menschheit"
+  },
+  "Kulturkritik und Zeitdiagnose": {
+    "keywords": [
+      "Krise",
+      "Entfremdung",
+      "Intellektualismus",
+      "Wendung",
+      "Herausforderung"
+    ],
+    "description": "Analyse der gegenwärtigen Kulturlage"
+  },
+  "Arabismus und Kulturströmungen": {
+    "keywords": [
+      "Arabismus",
+      "Strömungen",
+      "Kulturen",
+      "Vermischung",
+      "Spaltung"
+    ],
+    "description": "Verschiedene Kulturströmungen und ihre Wirkungen"
+  },
+  "Einwände und Vorurteile": {
+    "keywords": [
+      "Einwände",
+      "Vorurteil",
+      "Grenzen",
+      "Kritik",
+      "Bescheidenheit"
+    ],
+    "description": "Auseinandersetzung mit Widerständen gegen die Anthroposophie"
+  },
+  "Praxis und Anwendung": {
+    "keywords": [
+      "Praxis",
+      "Methode",
+      "Tätigkeit",
+      "Aktivität",
+      "Wirkung"
+    ],
+    "description": "Praktische Umsetzung anthroposophischer Erkenntnisse"
+  },
+  "Dualitäten und Polaritäten": {
+    "keywords": [
+      "Dualität",
+      "Dualismus",
+      "Gegensatz",
+      "Trennung",
+      "Synthese"
+    ],
+    "description": "Polare Gegensätze und ihre Überwindung"
+  },
+  "Spirituelle Entwicklungsgesetze": {
+    "keywords": [
+      "Emanation",
+      "Abstieg",
+      "Aufstieg",
+      "Stufen",
+      "Gliederung"
+    ],
+    "description": "Gesetzmäßigkeiten der geistigen Evolution"
+  },
+  "Sehnsucht und Hoffnung": {
+    "keywords": [
+      "Sehnsucht",
+      "Hoffnung",
+      "Vertrauen",
+      "Dank",
+      "Erholung"
+    ],
+    "description": "Emotionale und spirituelle Grundhaltungen"
+  },
+  "Instinkt und Intuition": {
+    "keywords": [
+      "Instinkt",
+      "Intuition",
+      "Bildekraft",
+      "Stimmung",
+      "Notwendigkeit"
+    ],
+    "description": "Unbewusste und überbewusste Erkenntniskräfte"
   }
 }

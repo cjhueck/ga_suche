@@ -457,6 +457,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       font-size: 0.85em;
       color: var(--secondary-text);
       margin-right: 0.5rem;
+      font-weight: bold;
     }
     
     body.dark-mode .timeline-entry-date {
@@ -3433,20 +3434,39 @@ Aktivieren + Themen neu generieren
 </div> <!-- Ende timelineAdminSection --><!-- Timeline Filter (immer sichtbar - auch online) -->
 <div id="timelineFilterSection" style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 0.8rem;">
 <div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
 Thema auswählen:
 </label>
-<select id="timelineThemeFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
+<select id="timelineThemeFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
 <option value="">Themen werden noch generiert...</option>
 </select>
 </div>
-<div>
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+<div style="margin-bottom: 0.8rem;">
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
 Schlagwort auswählen:
 </label>
-<select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="renderTimeline();">
+<select id="timelineKeywordFilterInline" class="filter-dropdown" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
 <option value="">Alle Schlagwörter</option>
 </select>
+</div>
+<div>
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
+Überschriften-Level:
+</label>
+<div style="display: flex; gap: 6px; flex-wrap: wrap;">
+<button id="timelineH3BtnSidebar" class="depth-btn" onclick="setTimelineHeadingLevel('h3')" 
+        style="padding: 5px 10px; font-size: 0.8em; background: #666; color: white; flex: 1; min-width: 60px;">
+H3
+</button>
+<button id="timelineH4BtnSidebar" class="depth-btn" onclick="setTimelineHeadingLevel('h4')" 
+        style="padding: 5px 10px; font-size: 0.8em; background: #666; color: white; flex: 1; min-width: 60px;">
+H4
+</button>
+<button id="timelineBothBtnSidebar" class="depth-btn" onclick="setTimelineHeadingLevel('both')" 
+        style="padding: 5px 10px; font-size: 0.8em; background: #467886; color: white; flex: 1; min-width: 60px;">
+Beide
+</button>
+</div>
 </div>
 </div>
 </div>
@@ -10039,18 +10059,20 @@ async function runTimelineBatch(volumes = []) {
 // Globale Variable für letztes ausgewähltes Thema/Keyword
 let lastSelectedTheme = '';
 let lastSelectedKeyword = '';
+let timelineHeadingLevel = 'both'; // 'h3', 'h4', oder 'both'
 
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  // Lese Filter aus der Sidebar
+  const currentTheme = document.getElementById('timelineThemeFilterInline')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterInline')?.value || '';
   
   // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
   if (currentTheme !== lastSelectedTheme) {
     lastSelectedTheme = currentTheme;
     
     // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
-    const keywordSelect = document.getElementById('timelineKeywordFilterResults');
+    const keywordSelect = document.getElementById('timelineKeywordFilterInline');
     if (keywordSelect) {
       let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
       
@@ -10234,32 +10256,13 @@ async function renderTimeline() {
   const theme = currentTheme;
   const keyword = currentKeyword;
   
-  // Baue Filter-UI am Anfang des Results-Bereichs
-  let html = `
-    <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-        <div>
-          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-            Thema auswählen:
-          </label>
-          <select id="timelineThemeFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
-            ${themesHTML}
-          </select>
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-            Schlagwort auswählen:
-          </label>
-          <select id="timelineKeywordFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
-            ${keywordsHTML}
-          </select>
-        </div>
-      </div>
-    </div>
-    <div id="timelineContainer"></div>
-  `;
+  // Render nur Timeline-Container (Filter sind jetzt in der Sidebar)
+  let html = `<div id="timelineContainer"></div>`;
   
   contentDiv.innerHTML = html;
+  
+  // Update Button-Styles basierend auf aktuellem Level
+  updateHeadingLevelButtons();
   
   // Prüfe ob Thema oder Keyword ausgewählt
   if (!theme && !keyword) {
@@ -10271,12 +10274,42 @@ async function renderTimeline() {
   await renderTimelineContent();
 }
 
+function setTimelineHeadingLevel(level) {
+  timelineHeadingLevel = level;
+  updateHeadingLevelButtons();
+  renderTimelineContent();
+}
+
+function updateHeadingLevelButtons() {
+  // Sidebar-Buttons (immer vorhanden)
+  const h3BtnSidebar = document.getElementById('timelineH3BtnSidebar');
+  const h4BtnSidebar = document.getElementById('timelineH4BtnSidebar');
+  const bothBtnSidebar = document.getElementById('timelineBothBtnSidebar');
+  
+  if (h3BtnSidebar && h4BtnSidebar && bothBtnSidebar) {
+    // Reset alle auf inaktiv
+    h3BtnSidebar.style.background = '#666';
+    h4BtnSidebar.style.background = '#666';
+    bothBtnSidebar.style.background = '#666';
+    
+    // Aktiviere den ausgewählten Button
+    if (timelineHeadingLevel === 'h3') {
+      h3BtnSidebar.style.background = '#467886';
+    } else if (timelineHeadingLevel === 'h4') {
+      h4BtnSidebar.style.background = '#467886';
+    } else {
+      bothBtnSidebar.style.background = '#467886';
+    }
+  }
+}
+
 async function renderTimelineContent() {
   const timelineContainer = document.getElementById('timelineContainer');
   if (!timelineContainer) return;
   
-  const theme = document.getElementById('timelineThemeFilterResults')?.value || '';
-  const keyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  // Lese Filter aus der Sidebar (nicht mehr aus Results-Bereich)
+  const theme = document.getElementById('timelineThemeFilterInline')?.value || '';
+  const keyword = document.getElementById('timelineKeywordFilterInline')?.value || '';
   
   if (!theme && !keyword) {
     timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
@@ -10293,29 +10326,17 @@ async function renderTimelineContent() {
     
     // FALL 1: Nur Thema ausgewählt
     if (theme && !keyword) {
-      // Zeige ALLE Keywords zu diesem Thema
+      // Zeige Keywords basierend auf ausgewähltem Level
       Object.values(keywordsDB).forEach(lecture => {
         if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
-            keywordEntries.push({
-              lectureId: lecture.lectureId,
-              date: lecture.date,
-              year: lecture.year,
-              keyword: kw
-            });
-          });
-        }
-      });
-      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${keywordEntries.length} Keywords`);
-    }
-    
-    // FALL 2: Thema + Keyword ausgewählt
-    else if (theme && keyword) {
-      // Zeige Keywords die dem Filter entsprechen (nur aus diesem Thema)
-      Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
+            // Filter nach ausgewähltem Level
+            const showKeyword = 
+              timelineHeadingLevel === 'both' || 
+              (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
+              (timelineHeadingLevel === 'h4' && kw.level === 'h4');
+            
+            if (showKeyword) {
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
@@ -10326,16 +10347,50 @@ async function renderTimelineContent() {
           });
         }
       });
-      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
+    }
+    
+    // FALL 2: Thema + Keyword ausgewählt
+    else if (theme && keyword) {
+      // Zeige Keywords basierend auf ausgewähltem Level + Keyword-Filter
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            // Filter nach Level + Keyword
+            const showKeyword = 
+              (timelineHeadingLevel === 'both' || 
+               (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
+               (timelineHeadingLevel === 'h4' && kw.level === 'h4')) &&
+              kw.term.toLowerCase().includes(keyword.toLowerCase());
+            
+            if (showKeyword) {
+              keywordEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                keyword: kw
+              });
+            }
+          });
+        }
+      });
+      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
     }
     
     // FALL 3: Nur Keyword ausgewählt (kein Thema)
     else if (!theme && keyword) {
-      // Zeige Keywords die dem Filter entsprechen (aus allen Themen)
+      // Zeige Keywords basierend auf ausgewähltem Level + Keyword-Filter (aus allen Themen)
       Object.values(keywordsDB).forEach(lecture => {
         if (lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
-            if (kw.term.toLowerCase().includes(keyword.toLowerCase())) {
+            // Filter nach Level + Keyword
+            const showKeyword = 
+              (timelineHeadingLevel === 'both' || 
+               (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
+               (timelineHeadingLevel === 'h4' && kw.level === 'h4')) &&
+              kw.term.toLowerCase().includes(keyword.toLowerCase());
+            
+            if (showKeyword) {
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
@@ -10347,7 +10402,7 @@ async function renderTimelineContent() {
         }
       });
       
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
     }
     
     if (keywordEntries.length === 0) {
