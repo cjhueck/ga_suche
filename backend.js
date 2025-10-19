@@ -4887,31 +4887,68 @@ async function generateConsolidationPreview(factor) {
 
 async function buildConsolidationMap(keywords, factor) {
   const consolidationMap = {};
-  const processed = new Set();
   
   // Sortiere Keywords nach Länge (kürzere zuerst = Ziel-Keywords)
   const sortedKeywords = [...keywords].sort((a, b) => a.length - b.length);
   
-  for (const keyword of sortedKeywords) {
-    if (processed.has(keyword.toLowerCase())) continue;
-    
+  console.log(`[CONSOLIDATION] Verarbeite ${sortedKeywords.length} Keywords mit Faktor ${factor}...`);
+  const startTime = Date.now();
+  
+  // OPTIMIERT: Verwende nur Substring-Matching für Geschwindigkeit
+  // Bei factor < 0.6: Nur exakte Substrings
+  // Bei factor >= 0.6: Auch Levenshtein für kurze Keywords
+  
+  const targetMap = {}; // lowercase -> original keyword
+  
+  for (let i = 0; i < sortedKeywords.length; i++) {
+    const keyword = sortedKeywords[i];
     const keywordLower = keyword.toLowerCase();
     let targetKeyword = keyword;
+    let foundMatch = false;
     
-    // Suche nach bereits verarbeitetem, ähnlichem Keyword
-    for (const existingKeyword of processed) {
-      const similarity = calculateSimilarity(keywordLower, existingKeyword, factor);
+    // Schnelle Substring-Suche in bereits verarbeiteten Keywords
+    for (const [existingLower, existingOriginal] of Object.entries(targetMap)) {
+      // Substring-Check (schnell!)
+      if (keywordLower.includes(existingLower) || existingLower.includes(keywordLower)) {
+        const longer = Math.max(keywordLower.length, existingLower.length);
+        const shorter = Math.min(keywordLower.length, existingLower.length);
+        const similarity = shorter / longer;
+        
+        if (similarity >= factor) {
+          targetKeyword = existingOriginal;
+          foundMatch = true;
+          break;
+        }
+      }
       
-      if (similarity >= factor) {
-        // Finde das Original-Keyword (mit korrekter Groß/Kleinschreibung)
-        targetKeyword = sortedKeywords.find(k => k.toLowerCase() === existingKeyword);
-        break;
+      // Bei höherem Factor: Auch Levenshtein für kurze Keywords (< 15 Zeichen)
+      if (factor >= 0.6 && !foundMatch && keywordLower.length < 15 && existingLower.length < 15) {
+        const similarity = calculateSimilarity(keywordLower, existingLower, factor);
+        if (similarity >= factor) {
+          targetKeyword = existingOriginal;
+          foundMatch = true;
+          break;
+        }
       }
     }
     
+    // Speichere als neues Ziel-Keyword wenn kein Match
+    if (!foundMatch) {
+      targetMap[keywordLower] = keyword;
+    }
+    
     consolidationMap[keyword] = targetKeyword;
-    processed.add(targetKeyword.toLowerCase());
+    
+    // Progress-Logging alle 2000 Keywords
+    if ((i + 1) % 2000 === 0) {
+      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+      const percent = ((i + 1) / sortedKeywords.length * 100).toFixed(1);
+      console.log(`[CONSOLIDATION] ${i + 1}/${sortedKeywords.length} (${percent}%) - ${elapsed}s`);
+    }
   }
+  
+  const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
+  console.log(`[CONSOLIDATION] Fertig in ${totalTime}s. ${Object.keys(targetMap).length} Ziel-Keywords`);
   
   return consolidationMap;
 }
@@ -4987,14 +5024,34 @@ async function executeConsolidation(factor) {
     }
   });
   
-  // Speichere konsolidierte Datenbank
-  await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2));
-  console.log(`[CONSOLIDATION] ${consolidatedCount} Keywords konsolidiert`);
+  // Speichere konsolidierte Datenbank als SEPARATE Datei
+  const consolidatedFile = `keywords-database-consolidated-${timestamp}.json`;
+  await fs.writeFile(consolidatedFile, JSON.stringify(keywordsDB, null, 2));
+  console.log(`[CONSOLIDATION] ${consolidatedCount} Keywords konsolidiert → ${consolidatedFile}`);
   
   return {
     backupFile,
-    consolidatedFile: KEYWORDS_DB_FILE,
-    consolidatedCount
+    consolidatedFile,
+    consolidatedCount,
+    timestamp
+  };
+}
+
+async function activateConsolidatedDatabase(consolidatedFile) {
+  // Sichere aktuelle Datenbank
+  const currentDB = await fs.readFile(KEYWORDS_DB_FILE, 'utf-8');
+  const preConsolidationFile = 'keywords-database-pre-consolidation.json';
+  await fs.writeFile(preConsolidationFile, currentDB);
+  console.log(`[CONSOLIDATION] Aktuelle DB gesichert: ${preConsolidationFile}`);
+  
+  // Aktiviere konsolidierte Datenbank
+  const consolidatedDB = await fs.readFile(consolidatedFile, 'utf-8');
+  await fs.writeFile(KEYWORDS_DB_FILE, consolidatedDB);
+  console.log(`[CONSOLIDATION] Konsolidierte DB aktiviert: ${consolidatedFile} → ${KEYWORDS_DB_FILE}`);
+  
+  return {
+    preConsolidationFile,
+    activeFile: KEYWORDS_DB_FILE
   };
 }
 
@@ -5020,6 +5077,19 @@ app.post('/api/consolidate-keywords-execute', async (req, res) => {
     res.json(result);
   } catch (error) {
     console.error('[CONSOLIDATION] Execute-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/consolidate-keywords-activate', async (req, res) => {
+  try {
+    const { consolidatedFile } = req.body;
+    console.log(`[CONSOLIDATION] Aktiviere ${consolidatedFile}`);
+    
+    const result = await activateConsolidatedDatabase(consolidatedFile);
+    res.json(result);
+  } catch (error) {
+    console.error('[CONSOLIDATION] Aktivierungs-Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });

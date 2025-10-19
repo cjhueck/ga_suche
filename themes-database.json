@@ -1,456 +1,416 @@
 {
   "Erkenntnistheorie": {
     "keywords": [
-      "Geisteswissenschaft",
-      "Übersinnliche Erkenntnis",
-      "Imaginative Erkenntnis",
-      "Imagination",
-      "Inspiration",
-      "Intuition",
-      "Geistige Erkenntnis",
-      "Höhere Erkenntnis",
-      "Intuitive Erkenntnis",
-      "Inspirierte Erkenntnis",
-      "Erkenntniskräfte",
-      "Erkenntnisweg",
-      "Erkenntnisstufen",
-      "Bewusstseinsstufen",
-      "Lebendige Erkenntnis",
-      "Geisteserkenntnis",
-      "Erkenntnismethoden",
-      "Geisteswissenschaftliche Methode",
-      "Geistesforschung",
-      "Übersinnliche Forschung"
+      "Erkenntnis",
+      "Wissen",
+      "Wahrnehmung",
+      "Forschung",
+      "Wahrheit",
+      "Wissenschaftliche Methode",
+      "Beobachtung",
+      "Verständnis",
+      "Begriffe",
+      "Wirklichkeit",
+      "Realität",
+      "Grenzen"
     ],
-    "description": "Steiners Erkenntnistheorie und Methoden übersinnlicher Forschung"
-  },
-  "Anthropologie und Wesensglieder": {
-    "keywords": [
-      "Ätherleib",
-      "Astralleib",
-      "Physischer Leib",
-      "Vier Glieder",
-      "Vier Wesensglieder",
-      "Ich",
-      "Physischer Körper",
-      "Seelenglieder",
-      "Bildekräfteleib",
-      "Manas",
-      "Höhere Glieder",
-      "Seele und Leib",
-      "Ganzer Mensch",
-      "Mikrokosmos"
-    ],
-    "description": "Die Lehre von den vier Wesensgliedern des Menschen"
-  },
-  "Bewusstseinsforschung": {
-    "keywords": [
-      "Bewusstseinszustände",
-      "Bewusstseinsentwicklung",
-      "Ich-bewusstsein",
-      "Bewusstsein",
-      "Bewusstseinsseele",
-      "Bewusstseinswandel",
-      "Selbstbewusstsein",
-      "Ich-entwicklung",
-      "Wachen und Schlafen",
-      "Schlaf und Wachen",
-      "Traumleben",
-      "Schlafzustand",
-      "Konzentration",
-      "Meditation und Konzentration"
-    ],
-    "description": "Erforschung verschiedener Bewusstseinszustände und deren Entwicklung"
-  },
-  "Karma und Reinkarnation": {
-    "keywords": [
-      "Wiederholte Erdenleben",
-      "Wiederverkörperung",
-      "Karma",
-      "Karmagesetz",
-      "Wiedergeburt",
-      "Reinkarnation und Karma",
-      "Schicksal",
-      "Unsterblichkeit",
-      "Vorirdisches Dasein",
-      "Vorgeburtliches Leben",
-      "Vorgeburtliches Dasein",
-      "Leben Nach Tod",
-      "Geburt und Tod",
-      "Tod und Geburt"
-    ],
-    "description": "Lehre von wiederholten Erdenleben und dem Gesetz des Karma"
+    "description": "Anthroposophische Erkenntnistheorie und wissenschaftliche Methodik"
   },
   "Christologie und Evangelien": {
     "keywords": [
-      "Mysterium Von Golgatha",
+      "Christus",
       "Christentum",
-      "Christus-ereignis",
-      "Christus-impuls",
-      "Christus-prinzip",
-      "Johannes-evangelium",
-      "Christliche Einweihung",
-      "Christus-erkenntnis",
-      "Buddha und Christus",
-      "Mysterium Golgatha",
+      "Golgatha",
+      "Johannes",
+      "Jesus",
+      "Auferstehung",
+      "Bibel",
       "Paulus",
+      "Lazarus",
+      "Apokalypse",
+      "Logos",
       "Moses"
     ],
-    "description": "Steiners Christologie und Auslegung der Evangelien"
+    "description": "Christusgeschehen und neutestamentliche Texte in anthroposophischer Deutung"
   },
-  "Waldorfpädagogik": {
+  "Karma und Reinkarnation": {
     "keywords": [
+      "Karma",
+      "Inkarnation",
+      "Verkörperung",
+      "Wiederholte Erdenleben",
+      "Schicksal",
+      "Wiedergeburt",
+      "Vorgeburtlich",
+      "Mission"
+    ],
+    "description": "Lehre von Reinkarnation und karmischen Zusammenhängen"
+  },
+  "Pädagogik und Erziehung": {
+    "keywords": [
+      "Erziehung",
+      "Pädagogik",
+      "Bildung",
+      "Lehrer",
       "Waldorfschule",
-      "Waldorfpädagogik",
-      "Anthroposophische Pädagogik",
-      "Erziehungskunst",
-      "Nachahmung",
-      "Autorität",
-      "Zahnwechsel",
-      "Geschlechtsreife",
-      "Neuntes Lebensjahr",
+      "Schüler",
+      "Jugend",
+      "Kind",
+      "Lehrplan",
       "Sprachunterricht",
-      "Religionsunterricht",
-      "Schulorganisation",
-      "Weltschulverein",
-      "Unterrichtsmethoden",
-      "Künstlerischer Unterricht",
-      "Epochenunterricht",
-      "Geschichtsunterricht",
-      "Künstlerische Erziehung"
+      "Zahnwechsel",
+      "Nachahmung",
+      "Autorität"
     ],
-    "description": "Anthroposophische Pädagogik und Waldorfschulwesen"
+    "description": "Waldorfpädagogik und anthroposophische Erziehungskunst"
   },
-  "Soziale Dreigliederung": {
+  "Anthroposophische Medizin": {
     "keywords": [
-      "Dreigliederung",
-      "Soziale Frage",
-      "Soziales Leben",
-      "Freiheit",
-      "Zusammenarbeit",
-      "Anthroposophische Gesellschaft",
-      "Anthroposophische Bewegung",
-      "Theosophische Bewegung",
-      "Jugendbewegung"
+      "Krankheit",
+      "Gesundheit",
+      "Heilung",
+      "Medizin",
+      "Organismus",
+      "Ernährung",
+      "Nerven",
+      "Gehirn",
+      "Lunge",
+      "Atmung",
+      "Blut"
     ],
-    "description": "Steiners Konzept der sozialen Dreigliederung"
+    "description": "Anthroposophisch erweiterte Heilkunde und Gesundheitslehre"
   },
-  "Entwicklungslehre": {
+  "Kosmologie und Planetensphären": {
     "keywords": [
-      "Menschheitsentwicklung",
-      "Entwicklungsphasen",
-      "Entwicklungsstufen",
-      "Kosmische Entwicklung",
-      "Planetarische Entwicklung",
-      "Seelenentwicklung",
-      "Geistige Entwicklung",
-      "Menschliche Entwicklung",
-      "Ich-entwicklung",
+      "Kosmos",
+      "Planeten",
+      "Sonne",
+      "Mond",
+      "Saturn",
+      "Erde",
+      "Kosmisches",
       "Evolution",
-      "Erdentwicklung",
-      "Kulturentwicklung",
-      "Sprachentwicklung"
+      "Epochen",
+      "Runden",
+      "Zyklen"
     ],
-    "description": "Steiners Lehre von der Evolution des Menschen und der Erde"
+    "description": "Kosmische Evolution und Planetenentwicklung"
   },
   "Mysterien und Einweihung": {
     "keywords": [
+      "Mysterien",
       "Einweihung",
-      "Alte Mysterien",
-      "Griechische Mysterien",
-      "Mysterienweisheit",
+      "Initiation",
       "Eingeweihte",
-      "Rosenkreuzer",
-      "Hüter der Schwelle",
-      "Hellsehen",
-      "Hellsichtigkeit",
-      "Okkulte Schrift",
-      "Schwarze Magie",
-      "Stein der Weisen"
+      "Schulung",
+      "Meister",
+      "Schwelle",
+      "Tempel",
+      "Götter",
+      "Hierophant"
     ],
-    "description": "Alte und neue Einweihungswege und Mysterienschulen"
+    "description": "Antike und moderne Einweihungswege und Mysterienstätten"
   },
-  "Kosmologie": {
+  "Wesensgliederlehre": {
     "keywords": [
-      "Geistige Welten",
-      "Höhere Welten",
-      "Drei Welten",
-      "Astrale Welt",
-      "Devachan",
-      "Kamaloka",
-      "Kosmische Kräfte",
-      "Kosmische Zusammenhänge",
-      "Kosmische Zyklen",
-      "Kosmische Prinzipien",
-      "Sonne und Mond",
-      "Sphärenmusik",
-      "Sphärenharmonie",
-      "Mikrokosmos und Makrokosmos",
-      "Akasha-chronik"
+      "Astralleib",
+      "Physischer Leib",
+      "Äther",
+      "Vier Glieder",
+      "Vier Wesensglieder",
+      "Leiber",
+      "Seele",
+      "Seelisches",
+      "Organisation"
     ],
-    "description": "Steiners Kosmologie und Lehre von den geistigen Welten"
+    "description": "Die vier Wesensglieder des Menschen"
   },
-  "Geistige Hierarchien": {
+  "Bewusstseinsentwicklung": {
     "keywords": [
-      "Geistige Hierarchien",
-      "Geistige Wesenheiten",
-      "Höhere Wesenheiten",
-      "Elementarwesen",
-      "Luziferische Wesenheiten",
-      "Luzifer",
-      "Drei Logoi",
-      "Logos",
-      "Heiliger Geist",
-      "Gruppenseelen"
+      "Bewusstsein",
+      "Entwicklung",
+      "Wandlung",
+      "Transformation",
+      "Übergang",
+      "Wendung",
+      "Wandel",
+      "Erwachen",
+      "Reife"
     ],
-    "description": "Lehre von den geistigen Hierarchien und Wesenheiten"
+    "description": "Evolution des menschlichen Bewusstseins durch die Zeitalter"
   },
-  "Naturreiche": {
-    "keywords": [
-      "Naturreiche",
-      "Mineralreich",
-      "Pflanzenreich",
-      "Tierreich",
-      "Pflanzenwelt",
-      "Tierwelt",
-      "Mensch und Tier",
-      "Metamorphose",
-      "Vererbung",
-      "Lebenskraft"
-    ],
-    "description": "Die vier Naturreiche und ihre geistige Bedeutung"
-  },
-  "Goetheanismus": {
-    "keywords": [
-      "Goethes Faust",
-      "Goethes Weltanschauung",
-      "Goethe und Schiller",
-      "Herman Grimm",
-      "Ewig-weibliche",
-      "Naturwissenschaft",
-      "Naturerkenntnis",
-      "Sinneswahrnehmung",
-      "Wahrnehmungsorgane"
-    ],
-    "description": "Steiners Auseinandersetzung mit Goethe und dessen Naturanschauung"
-  },
-  "Eurythmie": {
-    "keywords": [
-      "Eurythmie",
-      "Sichtbare Sprache",
-      "Rhythmus",
-      "Harmonie",
-      "Künstlerische Erziehung"
-    ],
-    "description": "Die anthroposophische Bewegungskunst Eurythmie"
-  },
-  "Philosophiegeschichte": {
-    "keywords": [
-      "Deutscher Idealismus",
-      "Fichte",
-      "Hegel",
-      "Schelling",
-      "Kant",
-      "Nietzsche",
-      "Philosophie der Freiheit",
-      "Aristoteles",
-      "Augustinus",
-      "Scholastik",
-      "Deutsche Mystik",
-      "Jakob Böhme",
-      "Paracelsus",
-      "Franz Brentano"
-    ],
-    "description": "Steiners Auseinandersetzung mit der Philosophiegeschichte"
-  },
-  "Materialismuskritik": {
-    "keywords": [
-      "Materialismus",
-      "Materialistische Weltanschauung",
-      "Naturalismus",
-      "Darwin",
-      "Du Bois-reymond",
-      "Grenzen der Naturwissenschaft",
-      "Naturwissenschaftliche Grenzen",
-      "Naturwissenschaftliche Weltanschauung",
-      "Intellektualismus",
-      "Egoismus",
-      "Entfremdung"
-    ],
-    "description": "Steiners Kritik am Materialismus und naturwissenschaftlichen Weltbild"
-  },
-  "Seelenkunde": {
-    "keywords": [
-      "Seelenkräfte",
-      "Seelenleben",
-      "Menschenseele",
-      "Seele und Geist",
-      "Seelenverfassung",
-      "Individualität",
-      "Wesenkern",
-      "Höheres Selbst",
-      "Selbsterkenntnis",
-      "Menschenerkenntnis",
-      "Selbsterziehung"
-    ],
-    "description": "Steiners Seelenkunde und Psychologie"
-  },
-  "Anthroposophie als Bewegung": {
-    "keywords": [
-      "Anthroposophie",
-      "Theosophie",
-      "Goetheanum",
-      "Anthroposophische Gesellschaft",
-      "Anthroposophische Bewegung",
-      "Theosophische Bewegung",
-      "Missverständnisse",
-      "Einwände",
-      "Vorurteile",
-      "Widerstand",
-      "Gegnerschaft"
-    ],
-    "description": "Die anthroposophische Bewegung und ihre gesellschaftliche Stellung"
-  },
-  "Atlantis und Lemuria": {
-    "keywords": [
-      "Atlantis",
-      "Lemurische Zeit",
-      "Atlantische Zeit",
-      "Wurzelrassen",
-      "Fünfte Wurzelrasse",
-      "Urweisheit"
-    ],
-    "description": "Steiners Lehre von den vergangenen Epochen der Menschheit"
-  },
-  "Tod und Nachtod": {
-    "keywords": [
-      "Leben Nach Tod",
-      "Schlaf und Tod",
-      "Todespforte",
-      "Lebenstableau",
-      "Unsterblichkeitsfrage",
-      "Katharsis",
-      "Erdenleben"
-    ],
-    "description": "Prozesse des Sterbens und nachtodlichen Daseins"
-  },
-  "Meditative Praxis": {
+  "Meditation und Schulung": {
     "keywords": [
       "Meditation",
       "Konzentration",
-      "Willensschulung",
-      "Willensübungen",
-      "Praktische Anwendung",
-      "Praktische Umsetzung",
-      "Praktische Bedeutung",
-      "Methoden",
-      "Lebenspraxis"
+      "Imagination",
+      "Inspiration",
+      "Intuition",
+      "Läuterung",
+      "Bereitung",
+      "Disziplin",
+      "Askese"
     ],
-    "description": "Meditative und praktische Übungen zur geistigen Entwicklung"
+    "description": "Meditative Praxis und geistige Schulung"
   },
-  "Geist und Materie": {
+  "Kulturgeschichte": {
     "keywords": [
-      "Geist und Materie",
-      "Geistige Welt",
-      "Geistiges Leben",
-      "Geistige Wirklichkeit",
-      "Geistige Wahrnehmung",
-      "Geistige Forschung",
-      "Vergeistigung",
-      "Spirituelle Erkenntnis"
+      "Atlantis",
+      "Lemurische Zeit",
+      "Griechisch",
+      "Griechen",
+      "Rassen",
+      "Stände",
+      "Inder",
+      "Indische Kultur",
+      "Kulturen",
+      "Kulturepoche",
+      "Strömungen",
+      "Zivilisation"
     ],
-    "description": "Das Verhältnis zwischen Geist und Materie"
+    "description": "Entwicklung der Menschheitskulturen und Völker"
   },
-  "Sinnesphysiologie": {
+  "Goetheanismus": {
     "keywords": [
-      "Sinnesorgane",
-      "Sinneswahrnehmung",
-      "Wahrnehmungsorgane",
-      "Rhythmisches System",
-      "Gedächtnis",
-      "Erinnerung"
+      "Goethe",
+      "Faust",
+      "Metamorphose",
+      "Pflanze",
+      "Mineral",
+      "Naturreiche",
+      "Schöpfung",
+      "Entstehung"
     ],
-    "description": "Steiners Lehre von den Sinnesorganen und der Wahrnehmung"
+    "description": "Goethes Naturwissenschaft und Weltanschauung"
   },
-  "Ethik und Moral": {
+  "Deutsche Geistesgeschichte": {
     "keywords": [
-      "Gut und Böse",
-      "Liebe Als Erkenntniskraft",
-      "Weisheit und Liebe",
-      "Dankbarkeit",
-      "Autorität",
-      "Autoritätsprinzip",
-      "Befreiung",
-      "Intellektuelle Bescheidenheit"
-    ],
-    "description": "Ethische und moralische Aspekte der Anthroposophie"
-  },
-  "Christliche Symbolik": {
-    "keywords": [
-      "Heiliger Gral",
-      "Fußwaschung",
-      "Luziferisches Prinzip",
-      "Christus-prinzip",
-      "Mysterium Golgatha",
-      "Zarathustra"
-    ],
-    "description": "Christliche und religiöse Symbolik in der Anthroposophie"
-  },
-  "Deutsches Geistesleben": {
-    "keywords": [
-      "Deutsches Geistesleben",
-      "Deutsche Mystik",
+      "Schiller",
+      "Nietzsche",
+      "Kant",
+      "Hegel",
       "Deutscher Idealismus",
-      "19. Jahrhundert",
-      "Eduard Von Hartmann"
+      "Herman Grimm",
+      "Brentano",
+      "Wagner"
     ],
-    "description": "Steiners Betrachtung des deutschen Geisteslebens"
+    "description": "Deutsche Philosophie und Literatur in anthroposophischer Betrachtung"
   },
-  "Denkschulung": {
+  "Soziale Dreigliederung": {
     "keywords": [
-      "Lebendiges Denken",
-      "Reines Denken",
-      "Lebendige Begriffe",
-      "Lebendige Erkenntnis",
-      "Verstehen",
-      "Transformation",
-      "Erneuerung"
+      "Soziale Frage",
+      "Gemeinschaft",
+      "Klassen",
+      "Verwaltung",
+      "Reform",
+      "Egoismus",
+      "Einheit",
+      "Einigung"
     ],
-    "description": "Schulung des Denkens und der Begriffswelt"
+    "description": "Dreigliederung des sozialen Organismus"
   },
-  "Geschlechterlehre": {
+  "Eurythmie und Kunst": {
     "keywords": [
-      "Zweigeschlechtlichkeit",
-      "Geschlechtsreife",
-      "Geschlechtertrennung",
-      "Blutsverwandtschaft",
-      "Individualität"
+      "Eurythmie",
+      "Kunst",
+      "Musik",
+      "Künstlerisches",
+      "Farben",
+      "Rhythmus",
+      "Bewegung",
+      "Harmonie",
+      "Phantasie"
     ],
-    "description": "Steiners Lehre über die Geschlechter und ihre Evolution"
+    "description": "Anthroposophische Kunst- und Bewegungsformen"
   },
-  "Zeitgeschichte und Kultur": {
+  "Tod und Nachtod": {
     "keywords": [
-      "Zukunft der Menschheit",
-      "Zukunftsperspektiven",
-      "Wendepunkt",
-      "Kopernikanische Wende",
-      "Hindernisse",
-      "Ausblick",
-      "Zusammenfassung",
-      "Weltanschauung"
+      "Tod",
+      "Schlaf",
+      "Tote",
+      "Nacht",
+      "Träume",
+      "Erinnerung",
+      "Gedächtnis",
+      "Vergessen"
     ],
-    "description": "Anthroposophische Betrachtung von Zeitgeschichte und kultureller Entwicklung"
+    "description": "Zustände zwischen Tod und neuer Geburt"
+  },
+  "Weltanschauungen": {
+    "keywords": [
+      "Weltanschauung",
+      "Theosoph",
+      "Anthroposophie",
+      "Materialismus",
+      "Moderne",
+      "Philosophie",
+      "Mystik",
+      "Religion"
+    ],
+    "description": "Verschiedene Weltanschauungen und ihre Bewertung"
   },
   "Sprache und Kommunikation": {
     "keywords": [
       "Sprache",
-      "Sprachunterricht",
-      "Sprachentwicklung",
-      "Mythen",
-      "Geistige Chemie",
-      "Sieben Stufen",
-      "Drei Stufen"
+      "Wort",
+      "Schrift",
+      "Denken",
+      "Verstand",
+      "Intellektualismus",
+      "Logik"
     ],
-    "description": "Steiners Sprachlehre und deren pädagogische Anwendung"
+    "description": "Sprachentwicklung und Denkformen"
+  },
+  "Psychologie": {
+    "keywords": [
+      "Wille",
+      "Gefühl",
+      "Empfindung",
+      "Temperament",
+      "Charakter",
+      "Persönlichkeit",
+      "Instinkt",
+      "Psychologie",
+      "Interesse",
+      "Sehnsucht"
+    ],
+    "description": "Anthroposophische Seelenkunde"
+  },
+  "Ehe und Geschlecht": {
+    "keywords": [
+      "Ehe",
+      "Geschlecht",
+      "Liebe",
+      "Eva",
+      "Dualität",
+      "Trennung",
+      "Scheidung",
+      "Verwandtschaft"
+    ],
+    "description": "Anthroposophische Betrachtung von Partnerschaft und Geschlechtern"
+  },
+  "Vererbung und Erblichkeit": {
+    "keywords": [
+      "Erblichkeit",
+      "Vererbung",
+      "Erbe",
+      "Blut",
+      "Darwin",
+      "Abstieg"
+    ],
+    "description": "Vererbungslehre und ihre geistigen Hintergründe"
+  },
+  "Widersachermächte": {
+    "keywords": [
+      "Luzifer",
+      "Ahriman",
+      "Gefahren",
+      "Kampf",
+      "Widerstand",
+      "Überwindung",
+      "Schlange"
+    ],
+    "description": "Die widersachenden Kräfte und ihre Überwindung"
+  },
+  "Orientalische Weisheit": {
+    "keywords": [
+      "Buddha",
+      "Zarathustra",
+      "Yoga",
+      "Kama",
+      "Manas",
+      "Buddhi",
+      "Osiris",
+      "Prophet",
+      "Magie"
+    ],
+    "description": "Östliche Weisheitslehren und ihre Bedeutung"
+  },
+  "Zeit und Geschichte": {
+    "keywords": [
+      "Zeit",
+      "Zukunft",
+      "Gegenwart",
+      "Wendepunkt",
+      "Tradition",
+      "Alter",
+      "Notwendigkeit",
+      "Krise"
+    ],
+    "description": "Zeitverständnis und geschichtliche Entwicklung"
+  },
+  "Märchen und Mythen": {
+    "keywords": [
+      "Märchen",
+      "Mythen",
+      "Symbole",
+      "Symbolik",
+      "Bilder",
+      "Siegel",
+      "Rose",
+      "Aum",
+      "Gestalten"
+    ],
+    "description": "Märchen, Mythen und ihre geistige Bedeutung"
+  },
+  "Anthroposophische Geisteswissenschaft": {
+    "keywords": [
+      "Anthroposophische Geisteswissenschaft",
+      "Geist",
+      "Spirituell",
+      "Weisheit",
+      "Geistige Wesenheit",
+      "Wesen"
+    ],
+    "description": "Grundlagen der anthroposophischen Geisteswissenschaft"
+  },
+  "Hierarchien und Engelwesen": {
+    "keywords": [
+      "Hierarchie",
+      "Engel",
+      "Erzengel",
+      "Archai",
+      "Geister",
+      "Höhere Welten",
+      "Drei Welten"
+    ],
+    "description": "Die geistigen Hierarchien und ihre Wirksamkeit"
+  },
+  "Moral und Ethik": {
+    "keywords": [
+      "Moral",
+      "Tugend",
+      "Freiheit",
+      "Befreiung",
+      "Ideal",
+      "Opfer",
+      "Bescheidenheit",
+      "Dank",
+      "Furcht",
+      "Schmerz"
+    ],
+    "description": "Ethische Grundlagen und moralische Entwicklung"
+  },
+  "Akasha-Chronik": {
+    "keywords": [
+      "Akasha",
+      "Chronik",
+      "Gedächtnis",
+      "Vergangenheit",
+      "Aufzeichnung"
+    ],
+    "description": "Die geistige Weltgedächtnisschrift"
+  },
+  "Paracelsische Medizin": {
+    "keywords": [
+      "Paracelsus",
+      "Alchemie",
+      "Heilmittel",
+      "Substanzen",
+      "Eisen",
+      "Feuer",
+      "Elemente"
+    ],
+    "description": "Paracelsus und die spirituelle Medizin"
   }
 }
