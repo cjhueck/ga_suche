@@ -9782,41 +9782,77 @@ async function runTimelineBatch(volumes = []) {
 }
 
 // Render timeline visualization
-// Globale Variable für letztes ausgewähltes Thema
+// Globale Variable für letztes ausgewähltes Thema/Keyword
 let lastSelectedTheme = '';
+let lastSelectedKeyword = '';
 
 // Update timeline filters when changed
 async function updateTimelineFilters() {
   const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || '';
   const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
   
-  // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown UND lösche Timeline komplett
+  // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
   if (currentTheme !== lastSelectedTheme) {
     lastSelectedTheme = currentTheme;
     
-    // Aktualisiere Keywords-Dropdown für neues Thema
+    // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
     const keywordSelect = document.getElementById('timelineKeywordFilterResults');
-    if (keywordSelect && currentTheme) {
-      try {
-        const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-        if (themesResponse.ok) {
-          const themes = await themesResponse.json();
-          const themeData = themes[currentTheme];
-          
-          let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
-          if (themeData && themeData.keywords) {
-            themeData.keywords.sort().forEach(kw => {
-              keywordsHTML += `<option value="${kw}">${kw}</option>`;
-            });
+    if (keywordSelect) {
+      let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+      
+      if (currentTheme) {
+        // Nur Keywords vom ausgewählten Thema
+        try {
+          const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+          if (themesResponse.ok) {
+            const themes = await themesResponse.json();
+            const themeData = themes[currentTheme];
+            if (themeData && themeData.keywords) {
+              themeData.keywords.sort().forEach(kw => {
+                keywordsHTML += `<option value="${kw}">${kw}</option>`;
+              });
+            }
           }
-          keywordSelect.innerHTML = keywordsHTML;
+        } catch (error) {
+          console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
         }
-      } catch (error) {
-        console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+      } else {
+        // Alle Keywords
+        try {
+          const keywordsDB = await loadKeywordsDatabase();
+          const allKeywords = new Set();
+          
+          Object.values(keywordsDB).forEach(lecture => {
+            if (lecture.keywords && Array.isArray(lecture.keywords)) {
+              lecture.keywords.forEach(kw => {
+                if (kw.term) allKeywords.add(kw.term);
+              });
+            }
+          });
+          
+          Array.from(allKeywords).sort().forEach(kw => {
+            keywordsHTML += `<option value="${kw}">${kw}</option>`;
+          });
+        } catch (error) {
+          console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+        }
       }
+      
+      keywordSelect.innerHTML = keywordsHTML;
     }
     
-    // Lösche Timeline-Bereich (aber behalte Filter)
+    // Lösche Timeline-Bereich
+    const timelineContainer = document.getElementById('timelineContainer');
+    if (timelineContainer) {
+      timelineContainer.innerHTML = '';
+    }
+  }
+  
+  // Wenn Keyword geändert wurde
+  if (currentKeyword !== lastSelectedKeyword) {
+    lastSelectedKeyword = currentKeyword;
+    
+    // Lösche Timeline-Bereich
     const timelineContainer = document.getElementById('timelineContainer');
     if (timelineContainer) {
       timelineContainer.innerHTML = '';
@@ -9857,10 +9893,11 @@ async function renderTimeline() {
     console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
   }
   
-  // Lade Keywords für ausgewähltes Thema
+  // Lade Keywords: Wenn Thema gewählt, nur dessen Keywords; sonst alle
   let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
-  if (currentTheme) {
-    try {
+  try {
+    if (currentTheme) {
+      // Keywords NUR vom ausgewählten Thema
       const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
       if (themesResponse.ok) {
         const themes = await themesResponse.json();
@@ -9872,9 +9909,28 @@ async function renderTimeline() {
           });
         }
       }
-    } catch (error) {
-      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+    } else {
+      // Alle Keywords aus allen Vorträgen
+      const keywordsDB = await loadKeywordsDatabase();
+      const allKeywords = new Set();
+      
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) {
+              allKeywords.add(kw.term);
+            }
+          });
+        }
+      });
+      
+      Array.from(allKeywords).sort().forEach(kw => {
+        const selected = kw === currentKeyword ? 'selected' : '';
+        keywordsHTML += `<option value="${kw}" ${selected}>${kw}</option>`;
+      });
     }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
   }
   
   // Aktualisiere Filter-Dropdowns im Admin-Bereich
