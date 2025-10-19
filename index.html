@@ -9892,9 +9892,6 @@ async function renderTimeline() {
   }
   
   try {
-    // Zeige Lade-Indikator
-    contentDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-color);">⏳ Lade Timeline-Daten...</div>';
-    
     // Lade Keywords-Datenbank
     const keywordsDB = await loadKeywordsDatabase();
     
