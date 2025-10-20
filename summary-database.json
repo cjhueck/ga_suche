@@ -11527,9 +11527,120 @@
     "timestamp": "2025-10-11T22:35:24.470Z"
   },
   "GA054/2": {
-    "summary": "{\n  \"summary\": \"Rudolf Steiner untersucht das Spannungsfeld zwischen Friedensidealen und Kriegsrealität in der modernen Welt. Er kritisiert die darwinistische Anschauung vom „Kampf ums Dasein\" und zeigt anhand neuerer Forschungen (Keßler, Kropotkin) auf, dass in der Natur vielmehr das Prinzip der gegenseitigen Hilfe vorherrscht. Aus geisteswissenschaftlicher Sicht erklärt er den Unterschied zwischen tierischen Gruppenseelen und menschlicher Individualität: Während Tiere innerhalb ihrer Art kooperieren, befindet sich die Menschheit noch im Kampf zwischen Individuen. Das Christentum habe das Erdenbewusstsein gestärkt, aber die Menschheit müsse nun zur bewussten Einheit zurückfinden. Wahren Frieden könne nur die spirituelle Entwicklung bringen, die das gemeinsame Seelenwesen der Menschheit erkennt und durch Liebe überwindet.\",\n  \"headings\": [\n    {\"index\": \"^g9tq1y\", \"text\": \"Die Aufgabe der Geisteswissenschaft\", \"level\": \"h3\"},\n    {\"index\": \"^g9tq1y\", \"text\": \"Zwischen Tagesereignissen und höheren Wahrheiten\", \"level\": \"h4\"},\n    {\"index\": \"^cmxa4a\", \"text\": \"Die historischen Friedensbemühungen\", \"level\": \"h4\"},\n    {\"index\": \"^7nx0qi\", \"text\": \"Das Zarenmanifest von 1898\", \"level\": \"h4\"},\n    {\"index\": \"^ixa14d\", \"text\": \"Der Widerspruch unserer Zeit\", \"level\": \"h3\"},\n    {\"index\": \"^ixa14d\", \"text\": \"Friedensapostel und Kriegsrealität\", \"level\": \"h4\"},\n    {\"index\": \"^16abxp\", \"text\": \"Die tieferliegenden Ursachen des Krieges\", \"level\": \"h4\"},\n    {\"index\": \"^6nbjab\", \"text\": \"Der Darwinismus und der Kampf ums Dasein\", \"level\": \"h3\"},\n    {\"index\": \"^0628yn\", \"text\": \"Die Theorie des Überlebenskampfes\", \"level\": \"h4\"},\n    {\"index\": \"^uzag9o\", \"text\": \"Von Malthus zur Naturwissenschaft\", \"level\": \"h4\"},\n    {\"index\": \"^0izntw\", \"text\": \"Die Entdeckung der gegenseitigen Hilfe\", \"level\": \"h3\"},\n    {\"index\": \"^0izntw\", \"text\": \"Keßlers bahnbrechender Vortrag\", \"level\": \"h4\"},\n    {\"index\": \"^ymggw1\", \"text\": \"Kropotkins Forschungen\", \"level\": \"h4\"},\n    {\"index\": \"^hz6t44\", \"text\": \"Gruppenseelen und Individualität\", \"level\": \"h3\"},\n    {\"index\": \"^4m6002\", \"text\": \"Der Unterschied zwischen Mensch und Tier\", \"level\": \"h4\"},\n    {\"index\": \"^kddblj\", \"text\": \"Die astrale Welt und die Gruppenseelen\", \"level\": \"h4\"},\n    {\"index\": \"^143d1y\", \"text\": \"Das Prinzip der gegenseitigen Hilfe in der Natur\", \"level\": \"h4\"},\n    {\"index\": \"^67ijoh\", \"text\": \"Die Entwicklung des menschlichen Selbstbewusstseins\", \"level\": \"h3\"},\n    {\"index\": \"^obrtoj\", \"text\": \"Die fünf Rassen und ihre Entwicklung\", \"level\": \"h4\"},\n    {\"index\": \"^j5prxu\", \"text\": \"Die Rolle des Christentums\", \"level\": \"h4\"},\n    {\"index\": \"^osn0r1\", \"text\": \"Die spirituelle Einheit der Menschheit\", \"level\": \"h3\"},\n    {\"index\": \"^l6fol4\", \"text\": \"Der erste Grundsatz der Theosophie\", \"level\": \"h4\"},\n    {\"index\": \"^clim4n\", \"text\": \"Ost und West in der spirituellen Entwicklung\", \"level\": \"h4\"},\n    {\"index\": \"^5mp9sh\", \"text\": \"Der Weg zum wahren Frieden\", \"level\": \"h3\"},\n    {\"index\": \"^2f7ae3\", \"text\": \"Die Überwindung durch Liebe\", \"level\": \"h4\"}\n  ]\n}",
-    "headings": [],
-    "timestamp": "2025-10-11T22:35:30.410Z"
+    "summary": "Rudolf Steiner untersucht das Spannungsfeld zwischen Friedensbestrebungen und kriegerischen Realitäten seiner Zeit. Er kritisiert die darwinistische Theorie vom 'Kampf ums Dasein' und stellt ihr das Prinzip der gegenseitigen Hilfe gegenüber, das in der Natur tatsächlich dominiert. Aus geisteswissenschaftlicher Sicht erklärt er die menschliche Entwicklung von Gruppenseelen hin zu individuellen Seelen. Die heutige Phase des Individualismus führt zwar zu Konkurrenz und Konflikten, ist aber notwendig für die Bewusstseinsentwicklung. Das Ziel ist die bewusste Entwicklung einer gemeinsamen Menschheitsseele durch spirituelle Erkenntnis. Wahre Friedensarbeit geschieht nicht durch Kampf gegen den Krieg, sondern durch Pflege der Liebe und des Geisteslebens - dies ist die eigentliche Mission der Geisteswissenschaft.",
+    "headings": [
+      {
+        "index": "^049bp9",
+        "text": "Die Aufgabe der Geisteswissenschaft zwischen Idealismus und Praxis",
+        "level": "h3"
+      },
+      {
+        "index": "^049bp9",
+        "text": "Der Mittelweg zwischen Tagesaktualität und leeren Abstraktionen",
+        "level": "h4"
+      },
+      {
+        "index": "^g9tq1y",
+        "text": "Praktische Spiritualität und die großen Weltgesetze",
+        "level": "h4"
+      },
+      {
+        "index": "^cmxa4a",
+        "text": "Friedensbestrebungen und kriegerische Realitäten",
+        "level": "h3"
+      },
+      {
+        "index": "^7nx0qi",
+        "text": "Das zaristische Friedensmanifest von 1898",
+        "level": "h4"
+      },
+      {
+        "index": "^vni7f6",
+        "text": "Die Haager Friedenskonferenz und ihre Grenzen",
+        "level": "h4"
+      },
+      {
+        "index": "^6nbjab",
+        "text": "Der Darwinismus und der Kampf ums Dasein",
+        "level": "h3"
+      },
+      {
+        "index": "^ao4tc8",
+        "text": "Von Malthus zu Darwin: Die Theorie des Existenzkampfes",
+        "level": "h4"
+      },
+      {
+        "index": "^itvand",
+        "text": "Haeckel und die Glorifizierung des Krieges",
+        "level": "h4"
+      },
+      {
+        "index": "^0izntw",
+        "text": "Keßlers Entdeckung: Das Prinzip der gegenseitigen Hilfe",
+        "level": "h3"
+      },
+      {
+        "index": "^gmr8u0",
+        "text": "Kropotkins wissenschaftliche Beweisführung",
+        "level": "h4"
+      },
+      {
+        "index": "^hz6t44",
+        "text": "Gruppenseelen im Tierreich und individuelle Menschenseelen",
+        "level": "h3"
+      },
+      {
+        "index": "^4m6002",
+        "text": "Der Unterschied: Menschen haben Biographien, Tiere nicht",
+        "level": "h4"
+      },
+      {
+        "index": "^kddblj",
+        "text": "Astrale Welt und Gruppenseelen der Tierarten",
+        "level": "h4"
+      },
+      {
+        "index": "^67ijoh",
+        "text": "Die Entwicklung der menschlichen Individualität",
+        "level": "h3"
+      },
+      {
+        "index": "^obrtoj",
+        "text": "Die fünf Rassen und das Christentum",
+        "level": "h4"
+      },
+      {
+        "index": "^j5prxu",
+        "text": "Das Verschwinden von Reinkarnation und Karma",
+        "level": "h4"
+      },
+      {
+        "index": "^osn0r1",
+        "text": "Die gemeinsame Menschheitsseele als spirituelle Aufgabe",
+        "level": "h3"
+      },
+      {
+        "index": "^l6fol4",
+        "text": "Der erste Grundsatz: Bruderbund ohne Unterschied",
+        "level": "h4"
+      },
+      {
+        "index": "^clim4n",
+        "text": "Ost und West: Die Synthese von Spiritualität und Wissenschaft",
+        "level": "h4"
+      },
+      {
+        "index": "^5mp9sh",
+        "text": "Liebe statt Kampf: Der wahre Weg zum Frieden",
+        "level": "h3"
+      },
+      {
+        "index": "^2f7ae3",
+        "text": "Das neue Christentum und die Überwindung durch Liebe",
+        "level": "h4"
+      }
+    ],
+    "timestamp": "2025-10-20T22:01:23.428Z"
   },
   "GA054/1": {
     "summary": "Rudolf Steiner setzt sich in diesem Vortrag differenziert mit Ernst Haeckels materialistischer Weltanschauung auseinander. Er würdigt Haeckels wissenschaftlichen Mut und seine zusammenfassende Darstellungskraft, kritisiert aber die materialistische Deutung der naturwissenschaftlichen Entdeckungen. Steiner zeigt auf, dass die Grenzen der Naturwissenschaft nicht die Grenzen der Erkenntnis überhaupt sind, sondern nur die der sinnlichen Erkenntnis. Die Theosophie kann durch die Entwicklung höherer Wahrnehmungsorgane über diese Grenzen hinausgehen. Er präsentiert eine geisteswissenschaftliche Abstammungslehre, wonach die Menschenseele bereits vor der körperlichen Entwicklung existierte und die Evolution der Arten durch spirituelle Kräfte leitete. So werden Haeckels naturwissenschaftliche Erkenntnisse nicht widerlegt, sondern auf einer höheren Ebene integriert und geistig durchdrungen.",
