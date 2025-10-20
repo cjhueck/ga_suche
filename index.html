@@ -10207,6 +10207,12 @@ async function updateTimelineFilters() {
   if (currentTheme !== lastSelectedTheme) {
     lastSelectedTheme = currentTheme;
     
+    // Lösche Viewer-Inhalt beim Theme-Wechsel
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = '';
+    }
+    
     // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
     const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
     if (keywordSelect) {
