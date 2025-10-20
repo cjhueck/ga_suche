@@ -3316,7 +3316,7 @@ body.dark-mode .welcome-start-btn:hover {
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
 <div id="timelineFilterSection" style="margin-bottom: 1rem; padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
 <div>
 <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
 Thema auswählen:
@@ -3333,6 +3333,10 @@ Schlagwort auswählen:
 <option value="">Alle Schlagwörter</option>
 </select>
 </div>
+</div>
+<!-- Statistik-Anzeige -->
+<div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
+Lade Statistiken...
 </div>
 </div>
 
@@ -3627,15 +3631,27 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
+<!-- Top 100 Keywords -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">📊 Häufigste Schlagwörter</h4>
+  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
+    Zeigt die 100 Schlagwörter mit den meisten Vorkommen in den Vorträgen
+  </p>
+  
+  <button class="depth-btn" onclick="showTop100Keywords(event)" style="padding: 8px 16px; font-size: 0.85em;">
+    Top 100 anzeigen
+  </button>
+</div>
+
 <!-- Keyword- und Cluster-Management -->
 <div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
   <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">🔧 Keyword & Cluster Management</h4>
   
   <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
-    <button class="depth-btn" onclick="showKeywordEditor()" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
+    <button class="depth-btn" onclick="showKeywordEditor(event)" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
       📝 Keywords bearbeiten
     </button>
-    <button class="depth-btn" onclick="showClusterEditor()" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
+    <button class="depth-btn" onclick="showClusterEditor(event)" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
       🗂️ Cluster bearbeiten
     </button>
   </div>
@@ -10145,6 +10161,42 @@ let lastSelectedTheme = '';
 let lastSelectedKeyword = '';
 let timelineHeadingLevel = 'both'; // 'h3', 'h4', oder 'both'
 
+// Update timeline statistics display
+async function updateTimelineStats() {
+  const statsDisplay = document.getElementById('timelineStatsDisplay');
+  if (!statsDisplay) return;
+  
+  try {
+    // Lade Themen und Keywords
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    let themesCount = 0;
+    let keywordsCount = 0;
+    
+    if (themesResponse.ok) {
+      const themes = await themesResponse.json();
+      themesCount = Object.keys(themes).length;
+    }
+    
+    // Zähle eindeutige Keywords
+    const uniqueKeywords = new Set();
+    Object.values(keywordsDB).forEach(lecture => {
+      if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        lecture.keywords.forEach(kw => {
+          if (kw.term) uniqueKeywords.add(kw.term);
+        });
+      }
+    });
+    keywordsCount = uniqueKeywords.size;
+    
+    statsDisplay.innerHTML = `${themesCount} Themen | ${keywordsCount} Schlagwörter`;
+  } catch (error) {
+    console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
+    statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
+  }
+}
+
 // Update timeline filters when changed
 async function updateTimelineFilters() {
   const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
@@ -10359,6 +10411,9 @@ async function renderTimeline() {
     }
   }
   
+  // Berechne und zeige Statistiken im Admin-Bereich
+  await updateTimelineStats();
+  
   const theme = currentTheme;
   const keyword = currentKeyword;
   
@@ -10482,18 +10537,26 @@ async function renderTimelineContent() {
       return;
     }
     
-    // Sammle alle Jahre aus Keywords
+    // Filtere Einträge ohne Jahr heraus (werden nicht angezeigt)
+    const validEntries = keywordEntries.filter(e => e.year);
+    const entriesWithoutYear = keywordEntries.length - validEntries.length;
+    
+    if (entriesWithoutYear > 0) {
+      console.warn(`[TIMELINE] ${entriesWithoutYear} Einträge ohne Jahr-Feld werden nicht angezeigt`);
+    }
+    
+    // Sammle alle Jahre aus validen Keywords
     const allYears = new Set();
-    keywordEntries.forEach(e => { if (e.year) allYears.add(e.year); });
+    validEntries.forEach(e => { allYears.add(e.year); });
     const sortedYears = Array.from(allYears).sort((a, b) => a - b);
     
-    console.log(`[TIMELINE] Rendering: ${keywordEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
+    console.log(`[TIMELINE] Rendering: ${validEntries.length} Keyword-Einträge, ${sortedYears.length} Jahre`);
     
     // Gruppiere Keywords nach Jahr
     const keywordsByYear = {};
     
-    keywordEntries.forEach(entry => {
-      const year = entry.year || 'Unbekannt';
+    validEntries.forEach(entry => {
+      const year = entry.year;
       if (!keywordsByYear[year]) keywordsByYear[year] = [];
       keywordsByYear[year].push(entry);
     });
@@ -10505,28 +10568,8 @@ async function renderTimelineContent() {
       }
     });
     
-    // Render Timeline Header
-    let headerTitle = '';
-    let headerInfo = '';
-    
-    if (theme && !keyword) {
-      headerTitle = theme;
-      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
-    } else if (theme && keyword) {
-      headerTitle = `${theme} → ${keyword}`;
-      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
-    } else if (!theme && keyword) {
-      headerTitle = keyword;
-      headerInfo = `${keywordEntries.length} Keyword-Einträge`;
-    }
-    
+    // Render Timeline (ohne Header)
     html += `
-      <div style="margin-bottom: 1rem;">
-        <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">${headerTitle}</h4>
-        <p style="margin: 0; font-size: 0.85em; color: var(--secondary-text);">
-          ${headerInfo}
-        </p>
-      </div>
       <div class="timeline-visualization">
         <!-- Mittlere Spalte: Timeline mit dynamisch positionierten Jahren -->
         <div class="timeline-center-column">
@@ -10990,7 +11033,9 @@ async function generateThematicClusters() {
     return;
   }
   
+  const originalText = btn.innerHTML;
   btn.disabled = true;
+  btn.innerHTML = '<em>In Bearbeitung...</em>';
   btn.style.opacity = '0.5';
   statusDiv.style.display = 'block';
   statusDiv.innerHTML = '<span style="color: #467886;">⏳ Generiere Themenbereiche...</span>';
@@ -11025,6 +11070,7 @@ async function generateThematicClusters() {
     statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
   } finally {
     btn.disabled = false;
+    btn.innerHTML = originalText;
     btn.style.opacity = '1';
   }
 }
@@ -11191,8 +11237,9 @@ async function reorganizeClusters() {
     return;
   }
   
+  const originalText = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = 'Reorganisiere...';
+  btn.innerHTML = '<em>In Bearbeitung...</em>';
   statusDiv.style.display = 'block';
   statusDiv.innerHTML = '<span style="color: #467886;">⏳ Reorganisiere Cluster...</span>';
   
@@ -11225,7 +11272,7 @@ async function reorganizeClusters() {
     statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
   } finally {
     btn.disabled = false;
-    btn.textContent = 'Cluster reorganisieren';
+    btn.innerHTML = originalText;
   }
 }
 
@@ -11233,9 +11280,110 @@ async function reorganizeClusters() {
 // KEYWORD & CLUSTER MANAGEMENT
 // ============================================================================
 
-function showKeywordEditor() {
-  document.getElementById('keywordEditorModal').style.display = 'block';
-  document.getElementById('editorOverlay').style.display = 'block';
+// Show Top 100 Keywords by frequency
+async function showTop100Keywords(event) {
+  console.log('[TOP100] Funktion aufgerufen');
+  const btn = event?.currentTarget;
+  const originalText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<em>In Bearbeitung...</em>';
+  }
+  
+  const viewerDiv = document.getElementById('viewer');
+  if (!viewerDiv) {
+    console.error('[TOP100] Viewer-Div nicht gefunden!');
+    return;
+  }
+  viewerDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Lade Top 100 Keywords...</div>';
+  
+  try {
+    console.log('[TOP100] Lade Keywords-Datenbank...');
+    const keywordsDB = await loadKeywordsDatabase();
+    console.log('[TOP100] Keywords geladen:', Object.keys(keywordsDB).length, 'Vorträge');
+    
+    // Zähle Vorkommen jedes Keywords
+    const keywordCounts = {};
+    
+    Object.values(keywordsDB).forEach(lecture => {
+      if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        lecture.keywords.forEach(kw => {
+          if (kw.term) {
+            const term = kw.term;
+            if (!keywordCounts[term]) {
+              keywordCounts[term] = 0;
+            }
+            keywordCounts[term]++;
+          }
+        });
+      }
+    });
+    
+    // Sortiere nach Häufigkeit (absteigend)
+    const sortedKeywords = Object.entries(keywordCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 100); // Top 100
+    
+    console.log('[TOP100] Sortierte Keywords:', sortedKeywords.length);
+    
+    // Baue HTML
+    let html = `
+      <div style="padding: 1rem;">
+        <p style="color: var(--secondary-text); margin-bottom: 1rem; font-size: 0.9em;">
+          Die 100 am häufigsten vorkommenden Schlagwörter in den ${Object.keys(keywordsDB).length} Vorträgen.
+        </p>
+        
+        <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+    `;
+    
+    sortedKeywords.forEach(([keyword, count]) => {
+      html += `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+          <span style="color: var(--text-color); font-size: 0.9em;">
+            ${keyword}
+          </span>
+          <span style="color: var(--secondary-text); font-size: 0.85em; font-weight: bold;">
+            ${count}
+          </span>
+        </div>
+      `;
+    });
+    
+    html += `
+        </div>
+      </div>
+    `;
+    
+    viewerDiv.innerHTML = html;
+    console.log('[TOP100] Top 100 Keywords angezeigt');
+  } catch (error) {
+    console.error('[TOP100] Fehler beim Laden der Keywords:', error);
+    viewerDiv.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-color);">Fehler beim Laden der Keywords</div>';
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+  }
+}
+
+function showKeywordEditor(event) {
+  const btn = event?.currentTarget;
+  const originalText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<em>In Bearbeitung...</em>';
+  }
+  
+  setTimeout(() => {
+    document.getElementById('keywordEditorModal').style.display = 'block';
+    document.getElementById('editorOverlay').style.display = 'block';
+    
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+  }, 100);
 }
 
 function closeKeywordEditor() {
@@ -11246,9 +11394,23 @@ function closeKeywordEditor() {
   document.getElementById('keywordEditorStatus').style.display = 'none';
 }
 
-function showClusterEditor() {
-  document.getElementById('clusterEditorModal').style.display = 'block';
-  document.getElementById('editorOverlay').style.display = 'block';
+function showClusterEditor(event) {
+  const btn = event?.currentTarget;
+  const originalText = btn ? btn.innerHTML : '';
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<em>In Bearbeitung...</em>';
+  }
+  
+  setTimeout(() => {
+    document.getElementById('clusterEditorModal').style.display = 'block';
+    document.getElementById('editorOverlay').style.display = 'block';
+    
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+  }, 100);
 }
 
 function closeClusterEditor() {
