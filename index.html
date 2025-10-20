@@ -1377,6 +1377,11 @@ body.dark-mode .loading-message {
       background: var(--background-color);
     }
     
+    .filter-dropdown:focus {
+      outline: none;
+      border: 1px solid var(--border-color);
+    }
+    
     .filter-dropdown:disabled {
       background: #f5f5f5;
       color: var(--secondary-text);
@@ -3309,7 +3314,29 @@ body.dark-mode .welcome-start-btn:hover {
 </div>
 
 <div class="tab-content" id="timeline-tab">
-<div style="padding: 0.5rem 0; max-height: calc(100vh - 250px); overflow-y: auto;">
+<!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
+<div id="timelineFilterSection" style="margin-bottom: 1rem; padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+<div>
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
+Thema auswählen:
+</label>
+<select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+<option value="">Bitte Thema wählen...</option>
+</select>
+</div>
+<div>
+<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
+Schlagwort auswählen:
+</label>
+<select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+<option value="">Alle Schlagwörter</option>
+</select>
+</div>
+</div>
+</div>
+
+<div style="padding: 0.5rem 0; max-height: calc(100vh - 350px); overflow-y: auto;">
 <!-- Timeline-Inhalte werden hier angezeigt -->
 </div>
 </div>
@@ -10120,17 +10147,19 @@ let timelineHeadingLevel = 'both'; // 'h3', 'h4', oder 'both'
 
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
   // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
   if (currentTheme !== lastSelectedTheme) {
     lastSelectedTheme = currentTheme;
     
     // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
-    const keywordSelect = document.getElementById('timelineKeywordFilterResults');
+    const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
     if (keywordSelect) {
-      let keywordsHTML = '<option value="">Alle Schlagwörter des Themas</option>';
+      let keywordsHTML = currentTheme 
+        ? '<option value="">Schlagwörter zum Thema</option>' 
+        : '<option value="">Alle Schlagwörter</option>';
       
       if (currentTheme) {
         // Lade Keywords aus dem ausgewählten Cluster UND prüfe ob sie tatsächlich in Vorträgen vorkommen
@@ -10227,11 +10256,9 @@ async function renderTimeline() {
   // Timeline wird in #results (unterer Bereich) angezeigt
   const contentDiv = document.getElementById('results');
   
-  // Hole aktuelle Filter-Werte (falls vorhanden) - aus Results-Bereich
-  const currentTheme = document.getElementById('timelineThemeFilterResults')?.value || 
-                       document.getElementById('timelineThemeFilterInline')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterResults')?.value || 
-                         document.getElementById('timelineKeywordFilterInline')?.value || '';
+  // Hole aktuelle Filter-Werte aus Admin-Dropdowns
+  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
   lastSelectedTheme = currentTheme;
   
@@ -10254,7 +10281,9 @@ async function renderTimeline() {
   }
   
   // Lade Keywords: Wenn Thema gewählt, nur dessen Keywords; sonst alle
-  let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+  let keywordsHTML = currentTheme 
+    ? '<option value="">Schlagwörter zum Thema</option>' 
+    : '<option value="">Alle Schlagwörter</option>';
   try {
     const keywordsDB = await loadKeywordsDatabase();
     
@@ -10312,9 +10341,9 @@ async function renderTimeline() {
     console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
   }
   
-  // Aktualisiere Filter-Dropdowns im Admin-Bereich
-  const themeSelect = document.getElementById('timelineThemeFilterInline');
-  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
+  // Aktualisiere Filter-Dropdowns im Admin-Bereich (oben im Tab)
+  const themeSelect = document.getElementById('timelineThemeFilterAdmin');
+  const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
   
   if (themeSelect) {
     themeSelect.innerHTML = themesHTML;
@@ -10333,30 +10362,8 @@ async function renderTimeline() {
   const theme = currentTheme;
   const keyword = currentKeyword;
   
-  // Baue Filter-UI am Anfang des Results-Bereichs
-  let html = `
-    <div style="padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-        <div>
-          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-            Thema auswählen:
-          </label>
-          <select id="timelineThemeFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
-            ${themesHTML}
-          </select>
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-            Schlagwort auswählen:
-          </label>
-          <select id="timelineKeywordFilterResults" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
-            ${keywordsHTML}
-          </select>
-        </div>
-      </div>
-    </div>
-    <div id="timelineContainer"></div>
-  `;
+  // Results-Bereich: Nur Timeline-Container, keine Dropdowns mehr
+  let html = `<div id="timelineContainer"></div>`;
   
   contentDiv.innerHTML = html;
   
@@ -10376,8 +10383,8 @@ async function renderTimelineContent() {
   const timelineContainer = document.getElementById('timelineContainer');
   if (!timelineContainer) return;
   
-  const theme = document.getElementById('timelineThemeFilterResults')?.value || '';
-  const keyword = document.getElementById('timelineKeywordFilterResults')?.value || '';
+  const theme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  const keyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
   if (!theme && !keyword) {
     timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
