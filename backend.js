@@ -5035,9 +5035,13 @@ app.post('/api/themes/add-cluster', async (req, res) => {
     const clustersPath = path.join(__dirname, 'thematic-clusters.json');
     
     // Lade bestehende Cluster oder erstelle neue Datei
+    let clustersData = {};
     let clusters = {};
+    
     if (fsSync.existsSync(clustersPath)) {
-      clusters = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+      clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+      // Extrahiere Cluster aus verschachtelter Struktur
+      clusters = clustersData.clusters || clustersData;
     }
     
     // Prüfe ob Cluster bereits existiert
@@ -5053,8 +5057,17 @@ app.post('/api/themes/add-cluster', async (req, res) => {
       created: new Date().toISOString()
     };
     
-    // Speichere
-    fsSync.writeFileSync(clustersPath, JSON.stringify(clusters, null, 2));
+    // Aktualisiere Metadaten falls vorhanden
+    if (clustersData.clusters) {
+      clustersData.clusters = clusters;
+      clustersData.clustersCount = Object.keys(clusters).length;
+    } else {
+      // Falls alte Struktur, speichere nur Cluster
+      clustersData = clusters;
+    }
+    
+    // Speichere mit erhaltener Struktur
+    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
     
     console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${keywords.length} Keywords`);
     
@@ -5085,13 +5098,33 @@ app.post('/api/themes/reorganize-clusters', async (req, res) => {
     const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
     const clusters = clustersData.clusters || clustersData;
     
-    // Sammle alle Keywords aus allen Clustern
+    // Sammle alle Keywords aus keywords-database.json (nicht nur aus Clustern!)
     const allKeywords = new Set();
-    Object.values(clusters).forEach(cluster => {
-      if (cluster.keywords && Array.isArray(cluster.keywords)) {
-        cluster.keywords.forEach(kw => allKeywords.add(kw));
-      }
-    });
+    
+    try {
+      const keywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
+      
+      // Durchlaufe alle Vorträge und sammle alle Keywords
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) {
+              allKeywords.add(kw.term);
+            }
+          });
+        }
+      });
+      
+      console.log(`[CLUSTERS] Gefunden: ${allKeywords.size} einzigartige Keywords aus keywords-database.json`);
+    } catch (error) {
+      console.log('[CLUSTERS] Keine keywords-database.json gefunden, verwende nur Cluster-Keywords');
+      // Fallback: Sammle Keywords aus Clustern
+      Object.values(clusters).forEach(cluster => {
+        if (cluster.keywords && Array.isArray(cluster.keywords)) {
+          cluster.keywords.forEach(kw => allKeywords.add(kw));
+        }
+      });
+    }
     
     const keywordsList = Array.from(allKeywords);
     console.log(`[CLUSTERS] Reorganisiere ${keywordsList.length} Keywords über ${Object.keys(clusters).length} Cluster...`);
@@ -5215,6 +5248,198 @@ ANTWORTE im folgenden JSON-Format:
     
   } catch (error) {
     console.error('[CLUSTERS] Fehler bei Reorganisation:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Keyword umbenennen/zusammenführen
+app.post('/api/keywords/rename', async (req, res) => {
+  const { oldKeyword, newKeyword } = req.body;
+  
+  console.log(`[KEYWORDS] Rename: "${oldKeyword}" -> "${newKeyword || 'DELETE'}"`);
+  
+  try {
+    if (!oldKeyword || !oldKeyword.trim()) {
+      throw new Error('Altes Keyword erforderlich');
+    }
+    
+    // Lade Keywords-Database
+    const keywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
+    
+    let affectedLectures = 0;
+    let totalReplacements = 0;
+    
+    // Iteriere durch alle Vorträge
+    for (const [lectureId, data] of Object.entries(keywordsDB)) {
+      if (!data.keywords || !Array.isArray(data.keywords)) continue;
+      
+      let lectureModified = false;
+      const updatedKeywords = [];
+      
+      data.keywords.forEach(kw => {
+        if (kw.term.toLowerCase() === oldKeyword.toLowerCase()) {
+          totalReplacements++;
+          lectureModified = true;
+          
+          if (newKeyword && newKeyword.trim()) {
+            // Umbenennen
+            updatedKeywords.push({
+              ...kw,
+              term: newKeyword.trim()
+            });
+          }
+          // Wenn newKeyword leer: löschen (nicht hinzufügen)
+        } else {
+          updatedKeywords.push(kw);
+        }
+      });
+      
+      if (lectureModified) {
+        keywordsDB[lectureId].keywords = updatedKeywords;
+        affectedLectures++;
+      }
+    }
+    
+    // Speichere aktualisierte Database
+    fsSync.writeFileSync(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2));
+    
+    console.log(`[KEYWORDS] ✓ ${affectedLectures} Vorträge aktualisiert, ${totalReplacements} Ersetzungen`);
+    
+    res.json({
+      success: true,
+      affectedLectures: affectedLectures,
+      totalReplacements: totalReplacements,
+      action: newKeyword ? 'renamed' : 'deleted'
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS] Fehler beim Umbenennen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Cluster umbenennen
+app.post('/api/themes/rename-cluster', async (req, res) => {
+  const { oldName, newName } = req.body;
+  
+  console.log(`[CLUSTERS] Rename: "${oldName}" -> "${newName}"`);
+  
+  try {
+    if (!oldName || !newName) {
+      throw new Error('Alter und neuer Name erforderlich');
+    }
+    
+    if (oldName === newName) {
+      throw new Error('Namen sind identisch');
+    }
+    
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    
+    if (!fsSync.existsSync(clustersPath)) {
+      throw new Error('Keine Cluster gefunden');
+    }
+    
+    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+    const clusters = clustersData.clusters || clustersData;
+    
+    if (!clusters[oldName]) {
+      throw new Error(`Cluster "${oldName}" nicht gefunden`);
+    }
+    
+    if (clusters[newName]) {
+      throw new Error(`Cluster "${newName}" existiert bereits. Verwenden Sie Zusammenführen.`);
+    }
+    
+    // Umbenennen
+    clusters[newName] = { ...clusters[oldName] };
+    delete clusters[oldName];
+    
+    // Speichern
+    if (clustersData.clusters) {
+      clustersData.clusters = clusters;
+    } else {
+      Object.assign(clustersData, clusters);
+    }
+    
+    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    
+    console.log(`[CLUSTERS] ✓ Cluster umbenannt`);
+    
+    res.json({
+      success: true,
+      totalClusters: Object.keys(clusters).length
+    });
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler beim Umbenennen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Cluster zusammenführen
+app.post('/api/themes/merge-clusters', async (req, res) => {
+  const { sourceCluster, targetCluster } = req.body;
+  
+  console.log(`[CLUSTERS] Merge: "${sourceCluster}" -> "${targetCluster}"`);
+  
+  try {
+    if (!sourceCluster || !targetCluster) {
+      throw new Error('Quell- und Ziel-Cluster erforderlich');
+    }
+    
+    if (sourceCluster === targetCluster) {
+      throw new Error('Cluster müssen unterschiedlich sein');
+    }
+    
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    
+    if (!fsSync.existsSync(clustersPath)) {
+      throw new Error('Keine Cluster gefunden');
+    }
+    
+    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+    const clusters = clustersData.clusters || clustersData;
+    
+    if (!clusters[sourceCluster]) {
+      throw new Error(`Quell-Cluster "${sourceCluster}" nicht gefunden`);
+    }
+    
+    if (!clusters[targetCluster]) {
+      throw new Error(`Ziel-Cluster "${targetCluster}" nicht gefunden`);
+    }
+    
+    // Merge Keywords
+    const sourceKeywords = clusters[sourceCluster].keywords || [];
+    const targetKeywords = clusters[targetCluster].keywords || [];
+    
+    // Kombiniere und dedupliziere
+    const mergedKeywords = [...new Set([...targetKeywords, ...sourceKeywords])];
+    
+    clusters[targetCluster].keywords = mergedKeywords;
+    
+    // Lösche Quell-Cluster
+    delete clusters[sourceCluster];
+    
+    // Speichern
+    if (clustersData.clusters) {
+      clustersData.clusters = clusters;
+      clustersData.clustersCount = Object.keys(clusters).length;
+    } else {
+      Object.assign(clustersData, clusters);
+    }
+    
+    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    
+    console.log(`[CLUSTERS] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
+    
+    res.json({
+      success: true,
+      keywordsMerged: sourceKeywords.length,
+      totalClusters: Object.keys(clusters).length
+    });
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler beim Zusammenführen:', error);
     res.status(500).json({ error: error.message });
   }
 });
