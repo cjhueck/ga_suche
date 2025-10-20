@@ -5253,6 +5253,74 @@ ANTWORTE im folgenden JSON-Format:
 });
 
 // Endpoint: Keyword umbenennen/zusammenführen
+app.post('/api/keywords/move-to-cluster', async (req, res) => {
+  const { keyword, targetCluster } = req.body;
+  
+  console.log(`[KEYWORDS] Move: "${keyword}" -> Cluster "${targetCluster}"`);
+  
+  try {
+    if (!keyword || !keyword.trim()) {
+      throw new Error('Keyword erforderlich');
+    }
+    
+    if (!targetCluster || !targetCluster.trim()) {
+      throw new Error('Ziel-Cluster erforderlich');
+    }
+    
+    // Lade Thematic Clusters
+    const clustersFilePath = path.join(__dirname, 'thematic-clusters.json');
+    const clusters = JSON.parse(fsSync.readFileSync(clustersFilePath, 'utf8'));
+    
+    if (!clusters[targetCluster]) {
+      throw new Error(`Cluster "${targetCluster}" existiert nicht`);
+    }
+    
+    const normalizedKeyword = keyword.trim().toLowerCase();
+    let foundInCluster = null;
+    let removed = false;
+    
+    // Suche Keyword in allen Clustern und entferne es
+    for (const [clusterName, keywords] of Object.entries(clusters)) {
+      const index = keywords.findIndex(kw => kw.toLowerCase() === normalizedKeyword);
+      if (index !== -1) {
+        foundInCluster = clusterName;
+        clusters[clusterName].splice(index, 1);
+        removed = true;
+        console.log(`[KEYWORDS] Keyword aus Cluster "${clusterName}" entfernt`);
+      }
+    }
+    
+    if (!removed) {
+      console.log(`[KEYWORDS] Keyword nicht gefunden, füge als neu hinzu`);
+    }
+    
+    // Füge Keyword zum Ziel-Cluster hinzu (wenn nicht schon vorhanden)
+    if (!clusters[targetCluster].some(kw => kw.toLowerCase() === normalizedKeyword)) {
+      clusters[targetCluster].push(keyword.trim());
+      console.log(`[KEYWORDS] Keyword zu Cluster "${targetCluster}" hinzugefügt`);
+    } else {
+      console.log(`[KEYWORDS] Keyword bereits in Ziel-Cluster vorhanden`);
+    }
+    
+    // Speichere aktualisierte Clusters
+    fsSync.writeFileSync(clustersFilePath, JSON.stringify(clusters, null, 2));
+    
+    res.json({
+      success: true,
+      keyword: keyword.trim(),
+      fromCluster: foundInCluster || 'neu',
+      toCluster: targetCluster,
+      message: foundInCluster 
+        ? `Keyword von "${foundInCluster}" nach "${targetCluster}" verschoben`
+        : `Keyword zu "${targetCluster}" hinzugefügt`
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS] Fehler beim Verschieben:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/keywords/rename', async (req, res) => {
   const { oldKeyword, newKeyword } = req.body;
   
