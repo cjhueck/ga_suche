@@ -10636,10 +10636,16 @@ async function loadAvailableGAVolumes() {
       checkbox.className = 'ga-volume-checkbox';
       checkbox.onchange = updateStartButtonState;
       
-      const text = document.createTextNode(`${vol.volume} (${vol.lectureCount} Vorträge)`);
+      // Text-Element (fett wenn Keywords vorhanden)
+      const textSpan = document.createElement('span');
+      textSpan.textContent = `${vol.volume} (${vol.lectureCount} Vorträge)`;
+      if (vol.hasKeywords) {
+        textSpan.style.fontWeight = 'bold';
+        textSpan.title = 'Keywords bereits generiert';
+      }
       
       label.appendChild(checkbox);
-      label.appendChild(text);
+      label.appendChild(textSpan);
       container.appendChild(label);
     });
     
