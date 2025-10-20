@@ -3315,7 +3315,7 @@ body.dark-mode .welcome-start-btn:hover {
 
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
-<div id="timelineFilterSection" style="margin-bottom: 1rem; padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+<div id="timelineFilterSection" style="margin-bottom: 0; padding: 1rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
 <div>
 <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
@@ -10190,7 +10190,7 @@ async function updateTimelineStats() {
     });
     keywordsCount = uniqueKeywords.size;
     
-    statsDisplay.innerHTML = `${themesCount} Themen | ${keywordsCount} Schlagwörter`;
+    statsDisplay.innerHTML = `${themesCount} Themen • ${keywordsCount} Schlagwörter`;
   } catch (error) {
     console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
     statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
