@@ -4392,7 +4392,8 @@ function groupLecturesByGA(summaryDB) {
   const gaGroups = {};
   
   for (const lectureId of Object.keys(summaryDB)) {
-    const gaMatch = lectureId.match(/^GA(\d+)/);
+    // Match GA-Nummern mit optionalem Suffix (z.B. GA304a, GA051)
+    const gaMatch = lectureId.match(/^GA(\d+[a-z]?)/i);
     const gaNum = gaMatch ? gaMatch[1] : 'unknown';
     const gaKey = `GA${gaNum}`;
     
@@ -4402,11 +4403,22 @@ function groupLecturesByGA(summaryDB) {
     gaGroups[gaKey].push(lectureId);
   }
   
-  // Sortiere GA-Bände numerisch
+  // Sortiere GA-Bände numerisch (mit Suffix-Unterstützung)
   const sortedGAs = Object.keys(gaGroups).sort((a, b) => {
-    const numA = parseInt(a.replace('GA', '')) || 0;
-    const numB = parseInt(b.replace('GA', '')) || 0;
-    return numA - numB;
+    const matchA = a.match(/GA(\d+)([a-z]?)/i);
+    const matchB = b.match(/GA(\d+)([a-z]?)/i);
+    
+    const numA = matchA ? parseInt(matchA[1]) : 0;
+    const numB = matchB ? parseInt(matchB[1]) : 0;
+    
+    if (numA !== numB) {
+      return numA - numB;
+    }
+    
+    // Bei gleicher Nummer: Sortiere nach Suffix (a < b < c)
+    const suffixA = matchA && matchA[2] ? matchA[2].toLowerCase() : '';
+    const suffixB = matchB && matchB[2] ? matchB[2].toLowerCase() : '';
+    return suffixA.localeCompare(suffixB);
   });
   
   return { gaGroups, sortedGAs };
@@ -4495,11 +4507,25 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
     const summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
     const { gaGroups, sortedGAs } = groupLecturesByGA(summaryDB);
     
-    const volumes = sortedGAs.map(ga => ({
-      volume: ga,
-      lectureCount: gaGroups[ga].length,
-      lectures: gaGroups[ga].sort()
-    }));
+    // Lade Keywords-Database um zu prüfen welche Bände bereits verarbeitet wurden
+    let keywordsDB = {};
+    try {
+      keywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
+    } catch (error) {
+      console.log('[GA-VOLUMES] Keine Keywords-Database gefunden');
+    }
+    
+    const volumes = sortedGAs.map(ga => {
+      // Prüfe ob mindestens ein Vortrag dieses Bandes in keywordsDB vorhanden ist
+      const hasKeywords = gaGroups[ga].some(lectureId => keywordsDB[lectureId]);
+      
+      return {
+        volume: ga,
+        lectureCount: gaGroups[ga].length,
+        lectures: gaGroups[ga].sort(),
+        hasKeywords: hasKeywords
+      };
+    });
     
     res.json({ volumes });
   } catch (error) {
