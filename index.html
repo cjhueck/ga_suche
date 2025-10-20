@@ -3219,7 +3219,7 @@ body.dark-mode .welcome-start-btn:hover {
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
 <button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
-<button class="tab-button" onclick="switchTab('keywords')">Keywords</button>
+<button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" style="display: none;">Keywords</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
@@ -3600,16 +3600,113 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
-<!-- Hinweis -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">💡 Empfohlener Workflow</h4>
-  <ol style="margin: 0; padding-left: 1.5rem; font-size: 0.85em; color: var(--text-color); line-height: 1.6;">
-    <li><strong>Themenbereiche generieren</strong> aus Seed-Keywords</li>
-    <li>Starten Sie mit GA051 (mit "Bestehendes Vokabular" deaktiviert)</li>
-    <li>Verarbeiten Sie weitere GA-Bände chronologisch (mit "Bestehendes Vokabular" aktiviert)</li>
-    <li>Das Vokabular wächst iterativ und konsolidiert sich automatisch</li>
-    <li>Jeder GA-Band baut auf dem Vokabular der vorherigen auf</li>
-  </ol>
+<!-- Keyword- und Cluster-Management -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">🔧 Keyword & Cluster Management</h4>
+  
+  <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
+    <button class="depth-btn" onclick="showKeywordEditor()" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
+      📝 Keywords bearbeiten
+    </button>
+    <button class="depth-btn" onclick="showClusterEditor()" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
+      🗂️ Cluster bearbeiten
+    </button>
+  </div>
+  
+  <!-- Keyword Editor Modal -->
+  <div id="keywordEditorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords bearbeiten / zusammenführen</h3>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Altes Keyword:
+      </label>
+      <input type="text" id="oldKeyword" placeholder="z.B. Reinkarnation" 
+        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Neues Keyword:
+      </label>
+      <input type="text" id="newKeyword" placeholder="z.B. Wiederverkörperung" 
+        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
+        💡 Leer lassen zum Löschen oder zum Zusammenführen mehrerer Keywords
+      </p>
+    </div>
+    
+    <div style="display: flex; gap: 8px;">
+      <button class="depth-btn" onclick="renameKeyword()" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
+        Umbenennen/Zusammenführen
+      </button>
+      <button class="depth-btn" onclick="closeKeywordEditor()" style="padding: 8px 16px; font-size: 0.85em;">
+        Schließen
+      </button>
+    </div>
+    
+    <div id="keywordEditorStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+  </div>
+  
+  <!-- Cluster Editor Modal -->
+  <div id="clusterEditorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Cluster bearbeiten / zusammenführen</h3>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Bestehende Cluster laden:
+      </label>
+      <button class="depth-btn" onclick="loadClustersForEdit()" style="padding: 6px 12px; font-size: 0.85em;">
+        Cluster laden
+      </button>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Cluster auswählen:
+      </label>
+      <select id="clusterToEdit" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+        <option value="">-- Cluster wählen --</option>
+      </select>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Neuer Titel:
+      </label>
+      <input type="text" id="newClusterName" placeholder="Neuer Cluster-Name" 
+        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Mit anderem Cluster zusammenführen:
+      </label>
+      <select id="mergeTargetCluster" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+        <option value="">-- Optional: Ziel-Cluster --</option>
+      </select>
+      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
+        💡 Wählen Sie ein Ziel, um zwei Cluster zusammenzuführen
+      </p>
+    </div>
+    
+    <div style="display: flex; gap: 8px;">
+      <button class="depth-btn" onclick="renameCluster()" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
+        Cluster umbenennen
+      </button>
+      <button class="depth-btn" onclick="mergeClusters()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;">
+        Zusammenführen
+      </button>
+      <button class="depth-btn" onclick="closeClusterEditor()" style="padding: 8px 16px; font-size: 0.85em;">
+        Schließen
+      </button>
+    </div>
+    
+    <div id="clusterEditorStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+  </div>
+  
+  <!-- Overlay für Modals -->
+  <div id="editorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;" onclick="closeAllEditors()"></div>
 </div>
 
 </div>
@@ -7147,6 +7244,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 <script>
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("[INIT] Lade verfügbare GA-Bände...");
+  
+  // Zeige Keywords-Tab nur auf localhost
+  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const keywordsTabButton = document.getElementById("keywords-tab-button");
+  if (keywordsTabButton && isLocalhost) {
+    keywordsTabButton.style.display = 'inline-block';
+  }
+  
   const gaFilter = document.getElementById("gaFilter");
   const thematicGAFilter = document.getElementById("thematicGAFilter");
 
@@ -10244,30 +10349,11 @@ async function renderTimeline() {
           </select>
         </div>
       </div>
-      <div>
-        <div style="display: flex; gap: 8px;">
-          <button id="timelineH3Btn" class="depth-btn" onclick="setTimelineHeadingLevel('h3')" 
-                  style="padding: 6px 12px; font-size: 0.85em; background: #666; color: white;">
-            Level 1
-          </button>
-          <button id="timelineH4Btn" class="depth-btn" onclick="setTimelineHeadingLevel('h4')" 
-                  style="padding: 6px 12px; font-size: 0.85em; background: #666; color: white;">
-            Level 2
-          </button>
-          <button id="timelineBothBtn" class="depth-btn" onclick="setTimelineHeadingLevel('both')" 
-                  style="padding: 6px 12px; font-size: 0.85em; background: #467886; color: white;">
-            Level 1+2
-          </button>
-        </div>
-      </div>
     </div>
     <div id="timelineContainer"></div>
   `;
   
   contentDiv.innerHTML = html;
-  
-  // Update Button-Styles basierend auf aktuellem Level
-  updateHeadingLevelButtons();
   
   // Prüfe ob Thema oder Keyword ausgewählt
   if (!theme && !keyword) {
@@ -10279,33 +10365,7 @@ async function renderTimeline() {
   await renderTimelineContent();
 }
 
-function setTimelineHeadingLevel(level) {
-  timelineHeadingLevel = level;
-  updateHeadingLevelButtons();
-  renderTimelineContent();
-}
 
-function updateHeadingLevelButtons() {
-  const h3Btn = document.getElementById('timelineH3Btn');
-  const h4Btn = document.getElementById('timelineH4Btn');
-  const bothBtn = document.getElementById('timelineBothBtn');
-  
-  if (h3Btn && h4Btn && bothBtn) {
-    // Reset alle auf inaktiv
-    h3Btn.style.background = '#666';
-    h4Btn.style.background = '#666';
-    bothBtn.style.background = '#666';
-    
-    // Aktiviere den ausgewählten Button
-    if (timelineHeadingLevel === 'h3') {
-      h3Btn.style.background = '#467886';
-    } else if (timelineHeadingLevel === 'h4') {
-      h4Btn.style.background = '#467886';
-    } else {
-      bothBtn.style.background = '#467886';
-    }
-  }
-}
 
 async function renderTimelineContent() {
   const timelineContainer = document.getElementById('timelineContainer');
@@ -11154,6 +11214,237 @@ async function reorganizeClusters() {
   } finally {
     btn.disabled = false;
     btn.textContent = 'Cluster reorganisieren';
+  }
+}
+
+// ============================================================================
+// KEYWORD & CLUSTER MANAGEMENT
+// ============================================================================
+
+function showKeywordEditor() {
+  document.getElementById('keywordEditorModal').style.display = 'block';
+  document.getElementById('editorOverlay').style.display = 'block';
+}
+
+function closeKeywordEditor() {
+  document.getElementById('keywordEditorModal').style.display = 'none';
+  document.getElementById('editorOverlay').style.display = 'none';
+  document.getElementById('oldKeyword').value = '';
+  document.getElementById('newKeyword').value = '';
+  document.getElementById('keywordEditorStatus').style.display = 'none';
+}
+
+function showClusterEditor() {
+  document.getElementById('clusterEditorModal').style.display = 'block';
+  document.getElementById('editorOverlay').style.display = 'block';
+}
+
+function closeClusterEditor() {
+  document.getElementById('clusterEditorModal').style.display = 'none';
+  document.getElementById('editorOverlay').style.display = 'none';
+  document.getElementById('clusterEditorStatus').style.display = 'none';
+}
+
+function closeAllEditors() {
+  closeKeywordEditor();
+  closeClusterEditor();
+}
+
+async function renameKeyword() {
+  const oldKw = document.getElementById('oldKeyword').value.trim();
+  const newKw = document.getElementById('newKeyword').value.trim();
+  const statusDiv = document.getElementById('keywordEditorStatus');
+  
+  if (!oldKw) {
+    alert('Bitte altes Keyword eingeben!');
+    return;
+  }
+  
+  if (!confirm(`Keyword "${oldKw}" ${newKw ? `zu "${newKw}" umbenennen` : 'löschen'}?\n\nDies betrifft alle Vorträge in der Datenbank.`)) {
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d9edf7';
+  statusDiv.style.color = '#31708f';
+  statusDiv.innerHTML = '⏳ Verarbeite...';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords/rename`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        oldKeyword: oldKw,
+        newKeyword: newKw || null
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    statusDiv.style.background = '#dff0d8';
+    statusDiv.style.color = '#3c763d';
+    statusDiv.innerHTML = `✓ ${result.affectedLectures} Vorträge aktualisiert, ${result.totalReplacements} Ersetzungen vorgenommen`;
+    
+    // Felder leeren
+    document.getElementById('oldKeyword').value = '';
+    document.getElementById('newKeyword').value = '';
+    
+  } catch (error) {
+    console.error('[RENAME-KW] Fehler:', error);
+    statusDiv.style.background = '#f2dede';
+    statusDiv.style.color = '#a94442';
+    statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
+  }
+}
+
+async function loadClustersForEdit() {
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/clusters`);
+    if (!response.ok) throw new Error('Cluster konnten nicht geladen werden');
+    
+    const data = await response.json();
+    const clusters = data.clusters || data;
+    
+    const select1 = document.getElementById('clusterToEdit');
+    const select2 = document.getElementById('mergeTargetCluster');
+    
+    select1.innerHTML = '<option value="">-- Cluster wählen --</option>';
+    select2.innerHTML = '<option value="">-- Optional: Ziel-Cluster --</option>';
+    
+    Object.keys(clusters).sort().forEach(name => {
+      select1.innerHTML += `<option value="${name}">${name}</option>`;
+      select2.innerHTML += `<option value="${name}">${name}</option>`;
+    });
+    
+    console.log('[CLUSTERS] Geladen:', Object.keys(clusters).length, 'Cluster');
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler:', error);
+    alert('Fehler beim Laden der Cluster: ' + error.message);
+  }
+}
+
+async function renameCluster() {
+  const oldName = document.getElementById('clusterToEdit').value;
+  const newName = document.getElementById('newClusterName').value.trim();
+  const statusDiv = document.getElementById('clusterEditorStatus');
+  
+  if (!oldName) {
+    alert('Bitte Cluster auswählen!');
+    return;
+  }
+  
+  if (!newName) {
+    alert('Bitte neuen Namen eingeben!');
+    return;
+  }
+  
+  if (!confirm(`Cluster "${oldName}" zu "${newName}" umbenennen?`)) {
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d9edf7';
+  statusDiv.style.color = '#31708f';
+  statusDiv.innerHTML = '⏳ Verarbeite...';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/rename-cluster`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        oldName: oldName,
+        newName: newName
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    statusDiv.style.background = '#dff0d8';
+    statusDiv.style.color = '#3c763d';
+    statusDiv.innerHTML = `✓ Cluster umbenannt! ${result.totalClusters} Cluster gesamt`;
+    
+    // Neu laden
+    await loadClustersForEdit();
+    document.getElementById('newClusterName').value = '';
+    
+  } catch (error) {
+    console.error('[RENAME-CLUSTER] Fehler:', error);
+    statusDiv.style.background = '#f2dede';
+    statusDiv.style.color = '#a94442';
+    statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
+  }
+}
+
+async function mergeClusters() {
+  const sourceCluster = document.getElementById('clusterToEdit').value;
+  const targetCluster = document.getElementById('mergeTargetCluster').value;
+  const statusDiv = document.getElementById('clusterEditorStatus');
+  
+  if (!sourceCluster || !targetCluster) {
+    alert('Bitte beide Cluster auswählen!');
+    return;
+  }
+  
+  if (sourceCluster === targetCluster) {
+    alert('Bitte unterschiedliche Cluster wählen!');
+    return;
+  }
+  
+  if (!confirm(`Cluster "${sourceCluster}" in "${targetCluster}" zusammenführen?\n\n"${sourceCluster}" wird gelöscht und alle Keywords werden zu "${targetCluster}" verschoben.`)) {
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d9edf7';
+  statusDiv.style.color = '#31708f';
+  statusDiv.innerHTML = '⏳ Führe zusammen...';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/merge-clusters`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        sourceCluster: sourceCluster,
+        targetCluster: targetCluster
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    statusDiv.style.background = '#dff0d8';
+    statusDiv.style.color = '#3c763d';
+    statusDiv.innerHTML = `✓ ${result.keywordsMerged} Keywords zusammengeführt! ${result.totalClusters} Cluster verbleibend`;
+    
+    // Neu laden
+    await loadClustersForEdit();
+    
+  } catch (error) {
+    console.error('[MERGE-CLUSTER] Fehler:', error);
+    statusDiv.style.background = '#f2dede';
+    statusDiv.style.color = '#a94442';
+    statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
   }
 }
 
