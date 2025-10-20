@@ -3219,6 +3219,7 @@ body.dark-mode .welcome-start-btn:hover {
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
 <button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
+<button class="tab-button" onclick="switchTab('keywords')">Keywords</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
@@ -3309,149 +3310,7 @@ body.dark-mode .welcome-start-btn:hover {
 
 <div class="tab-content" id="timeline-tab">
 <div style="padding: 0.5rem 0; max-height: calc(100vh - 250px); overflow-y: auto;">
-<!-- Keywords-Generierung Admin Interface (nur localhost) -->
-<div id="timelineAdminSection" style="margin-bottom: 1rem; display: none;">
-
-<!-- Statistik-Übersicht -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 0.8rem;">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Datenbank-Statistik</h3>
-<div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 0.8rem; font-size: 0.9em;">
-<span style="color: var(--secondary-text);">Primäre Keywords:</span>
-<span id="statPrimaryKeywords" style="font-weight: 500; color: var(--text-color);">-</span>
-
-<span style="color: var(--secondary-text);">Konsolidierte Keywords:</span>
-<span id="statConsolidatedKeywords" style="font-weight: 500; color: var(--text-color);">-</span>
-
-<span style="color: var(--secondary-text);">Konsolidierungsfaktor:</span>
-<span id="statConsolidationFactor" style="font-weight: 500; color: var(--text-color);">-</span>
-
-<span style="color: var(--secondary-text);">Anzahl Themen:</span>
-<span id="statThemeCount" style="font-weight: 500; color: var(--text-color);">-</span>
-</div>
-</div>
-
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keywords-Generierung</h3>
-<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
-Extrahiere aus jeder Zwischenüberschrift (H3 + H4) ein prägnantes Schlagwort (1-3 Worte) mittels Claude KI.
-</p>
-
-<!-- GA-Auswahl -->
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-GA-Bände auswählen (für Test):
-</label>
-<select id="timelineGASelect" multiple size="5" 
-style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
-<option value="">Alle GA-Bände</option>
-</select>
-<p style="font-size: 0.85em; margin-top: 0.3rem; color: var(--secondary-text);">
-(Strg/Cmd + Klick für Mehrfachauswahl. Leer = alle Bände)
-</p>
-</div>
-
-<!-- Batch-Generierung -->
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<button id="timelineBatchStart" class="depth-btn primary" onclick="startTimelineBatchGeneration()" 
-style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-Batch-Generierung starten
-</button>
-<button id="timelineBatchStop" class="depth-btn" onclick="stopTimelineBatchGeneration()" 
-style="display: none; padding: 8px 16px; font-size: 0.9em; background: #d9534f; color: white;">
-Stoppen
-</button>
-</div>
-
-<!-- Progress Bar -->
-<div id="timelineBatchProgress" style="display: none;">
-<div style="margin-bottom: 0.5rem;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
-<span id="timelineBatchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
-<span id="timelineBatchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
-</div>
-<div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
-<div id="timelineBatchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
-</div>
-</div>
-<div id="timelineBatchResults" style="margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
-<div style="font-size: 0.85em; color: var(--text-color);">
-<div><strong>Verarbeitet:</strong> <span id="timelineBatchProcessed">0</span></div>
-<div><strong>Übersprungen:</strong> <span id="timelineBatchSkipped">0</span></div>
-<div><strong>Fehler:</strong> <span id="timelineBatchErrors">0</span></div>
-</div>
-</div>
-</div>
-
-<!-- Themen-Generierung -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-top: 0.8rem;">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Themen-Generierung</h3>
-<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
-Nach Abschluss der Keyword-Generierung: Gruppiere alle Keywords mittels KI in 30 übergeordnete Themen (einmalig ~$0.50).
-</p>
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Anzahl Themen:
-</label>
-<input type="number" id="timelineThemeCount" value="30" min="10" max="50" 
-style="width: 100px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;">
-</div>
-<button id="timelineGenerateThemes" class="depth-btn" onclick="generateThemes()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-  Themen generieren
-</button>
-<div id="timelineThemesStatus" style="display: none; margin-top: 0.5rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); font-size: 0.85em;"></div>
-</div>
-
-<!-- Keyword-Konsolidierung (nur lokal sichtbar) -->
-<div id="consolidateKeywordSection" style="display:none; margin-top: 0.8rem;">
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
-<h3 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Keyword-Konsolidierung</h3>
-<p style="font-size: 0.9em; margin-bottom: 0.8rem; color: var(--secondary-text);">
-Reduziere ähnliche Keywords durch intelligente Zusammenführung. Original-Datenbank bleibt erhalten.
-</p>
-
-<div style="margin-bottom: 0.8rem;">
-<label style="display: block; margin-bottom: 0.5rem; font-size: 0.9em; color: var(--text-color);">
-Konsolidierungsstärke: <strong><span id="consolidationFactorValue">0.5</span></strong>
-</label>
-<input type="range" id="consolidationFactorSlider" min="0" max="100" value="50" 
-       style="width: 100%;" oninput="updateConsolidationFactor(this.value)">
-<div style="display: flex; justify-content: space-between; font-size: 0.75em; color: var(--secondary-text); margin-top: 0.3rem;">
-<span>0.0 (Sehr streng)</span>
-<span>0.5 (Mittel)</span>
-<span>1.0 (Locker)</span>
-</div>
-</div>
-
-<div id="consolidationFactorDesc" style="padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 0.8rem; font-size: 0.85em; color: var(--text-color);">
-<strong>Mittel (0.5):</strong> Wortstämme werden konsolidiert (z.B. "karma", "karmagesetz" → "Karma")
-</div>
-
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<button id="consolidatePreviewBtn" class="depth-btn" onclick="previewConsolidation()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #467886; color: white;">
-Vorschau generieren
-</button>
-<button id="consolidateExecuteBtn" class="depth-btn" onclick="executeConsolidation()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #5cb85c; color: white; display: none;">
-Konsolidierung ausführen
-</button>
-<button id="consolidateActivateBtn" class="depth-btn" onclick="activateConsolidation()" 
-        style="padding: 8px 16px; font-size: 0.9em; background: #f0ad4e; color: white; display: none;">
-Aktivieren + Themen neu generieren
-</button>
-</div>
-
-<div id="consolidationPreview" style="display: none; margin-top: 0.8rem; padding: 0.5rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color); max-height: 300px; overflow-y: auto;">
-<!-- Preview wird hier angezeigt -->
-</div>
-
-<div id="consolidationStatus" style="display: none; margin-top: 0.5rem;"></div>
-</div>
-</div>
-
-</div> <!-- Ende timelineAdminSection -->
-</div>
+<!-- Timeline-Inhalte werden hier angezeigt -->
 </div>
 </div>
 
@@ -3534,6 +3393,225 @@ Bestehende Schlagwörter überschreiben
 <button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
 </div>
 <!-- removed keyword-count status line -->
+</div>
+</div>
+
+<div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
+<div style="padding: 0.5rem 0;">
+<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Iterative Keyword-Generierung</h3>
+<p style="color: var(--text-color); margin-bottom: 1rem; font-size: 0.9em;">
+  Generiert Keywords GA-Band-weise mit Seed-Vokabular und Summary-Kontext für bessere Konsolidierung.
+</p>
+
+<!-- GA-Band Auswahl -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">GA-Bände auswählen</h4>
+  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
+    Wählen Sie einen oder mehrere GA-Bände zur Keyword-Generierung aus
+  </p>
+  
+  <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+    <button id="loadGAVolumesBtn" class="depth-btn" onclick="loadAvailableGAVolumes()" style="padding: 8px 12px; font-size: 0.85em;">
+      GA-Bände laden
+    </button>
+    <button class="depth-btn" onclick="toggleSelectAllGA()" style="padding: 8px 12px; font-size: 0.85em;">
+      Alle auswählen / Abwählen
+    </button>
+  </div>
+  
+  <div id="gaVolumeCheckboxes" style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
+    <p style="text-align: center; color: var(--secondary-text); font-size: 0.85em;">Klicke auf "GA-Bände laden"</p>
+  </div>
+  
+  <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 0.5rem;">
+    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
+      <input type="checkbox" id="useExistingVocabCheckbox" checked style="margin: 0;">
+      Bestehendes Vokabular verwenden
+    </label>
+    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
+      <input type="checkbox" id="updateClustersCheckbox" style="margin: 0;">
+      Themenbereiche iterativ erweitern
+    </label>
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+      <label style="font-size: 0.85em; color: var(--text-color);">
+        Parallele Verarbeitung:
+      </label>
+      <select id="parallelBatchSizeSelect" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-color);">
+        <option value="1">1 (Sequenziell)</option>
+        <option value="3">3 (Langsam)</option>
+        <option value="5" selected>5 (Empfohlen)</option>
+        <option value="10">10 (Schnell - Tier 2)</option>
+        <option value="20">20 (Sehr schnell - Tier 2)</option>
+      </select>
+      <span style="font-size: 0.75em; color: var(--secondary-text);">Vorträge/Batch</span>
+    </div>
+  </div>
+  
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <button id="startGABatchBtn" class="depth-btn primary" onclick="startGABatch()" style="padding: 8px 16px; font-size: 0.85em;" disabled>
+      Batch starten
+    </button>
+    <button id="reprocessGABatchBtn" class="depth-btn" onclick="reprocessGABatch()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;" disabled title="Bereits verarbeitete Vorträge NEU verarbeiten">
+      🔄 Neu verarbeiten
+    </button>
+    <button id="cancelGABatchBtn" class="depth-btn" onclick="cancelGABatch()" style="padding: 8px 16px; font-size: 0.85em; display: none; background: #d9534f; color: white;">
+      Abbrechen
+    </button>
+  </div>
+  
+  <div id="gaBatchStatus" style="display: none; margin-top: 0.5rem;"></div>
+  
+  <div id="gaBatchProgressContainer" style="display: none; margin-top: 0.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.3rem;">
+      <span id="gaBatchProgressText" style="font-size: 0.85em; color: var(--text-color);">Verarbeite...</span>
+      <span id="gaBatchProgressPercent" style="font-size: 0.85em; color: var(--text-color);">0%</span>
+    </div>
+    <div style="width: 100%; height: 8px; background: var(--border-color); border-radius: 4px; overflow: hidden;">
+      <div id="gaBatchProgressBar" style="width: 0%; height: 100%; background: #467886; transition: width 0.3s ease;"></div>
+    </div>
+  </div>
+  
+  <div id="gaBatchResults" style="display: none; margin-top: 1rem; padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Batch-Ergebnisse</h4>
+    <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: 0.85em;">
+      <span style="color: var(--secondary-text);">GA-Band:</span>
+      <strong id="gaBatchStatVolume" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Verarbeitet:</span>
+      <strong id="gaBatchStatProcessed" style="color: var(--text-color);">-</strong>
+      
+      <span id="gaBatchSkippedLabel" style="color: var(--secondary-text); display: none;">Übersprungen:</span>
+      <strong id="gaBatchStatSkipped" style="color: var(--text-color); display: none;">-</strong>
+      
+      <span style="color: var(--secondary-text);">Total Keywords:</span>
+      <strong id="gaBatchStatTotal" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Neue Keywords:</span>
+      <strong id="gaBatchStatNew" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Wiederverwendet:</span>
+      <strong id="gaBatchStatReused" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Wiederverwendungsrate:</span>
+      <strong id="gaBatchStatReuseRate" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">End-Vokabular:</span>
+      <strong id="gaBatchStatFinalVocab" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Ergebnis-Datei:</span>
+      <strong id="gaBatchStatFile" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Haupt-DB aktualisiert:</span>
+      <strong id="gaBatchStatMainDB" style="color: var(--text-color);">-</strong>
+    </div>
+    
+    <!-- Cluster-Erweiterungs-Info -->
+    <div id="gaBatchClusterInfo" style="display: none; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: 0.85em; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
+      <span style="color: var(--secondary-text);">Cluster-Erweiterung:</span>
+      <strong id="gaBatchStatClusterStatus" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Neue Keywords:</span>
+      <strong id="gaBatchStatNewKWs" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Cluster erweitert:</span>
+      <strong id="gaBatchStatClustersExtended" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Neue Cluster:</span>
+      <strong id="gaBatchStatNewClusters" style="color: var(--text-color);">-</strong>
+      
+      <span style="color: var(--secondary-text);">Gesamt Cluster:</span>
+      <strong id="gaBatchStatTotalClusters" style="color: var(--text-color);">-</strong>
+    </div>
+  </div>
+</div>
+
+<!-- Thematische Cluster Generierung -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Thematische Cluster erstellen</h4>
+  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
+    Generiert übergeordnete Themenbereiche aus den Seed-Keywords (Keywords - merged.md)
+  </p>
+  
+  <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
+    <button id="generateClustersBtn" class="depth-btn primary" onclick="generateThematicClusters()" style="padding: 8px 16px; font-size: 0.85em;">
+      Themenbereiche generieren
+    </button>
+    <button id="loadClustersBtn" class="depth-btn" onclick="loadExistingClusters()" style="padding: 8px 16px; font-size: 0.85em;">
+      Bestehende laden
+    </button>
+    <button id="reorganizeClustersBtn" class="depth-btn" onclick="reorganizeClusters()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;">
+      Cluster reorganisieren
+    </button>
+  </div>
+  
+  <div id="clustersStatus" style="display: none; margin-top: 0.5rem;"></div>
+  
+  <div id="clustersResults" style="display: none; margin-top: 1rem; max-height: 400px; overflow-y: auto;">
+    <h5 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Generierte Themenbereiche:</h5>
+    <div id="clustersResultsContent" style="font-size: 0.85em;"></div>
+  </div>
+</div>
+
+<!-- Manueller Cluster hinzufügen -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">➕ Themenbereich manuell hinzufügen</h4>
+  <p style="margin: 0 0 0.8rem 0; font-size: 0.85em; color: var(--secondary-text);">
+    Füge einen eigenen Themenbereich mit ausgewählten Keywords hinzu
+  </p>
+  
+  <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+    <div>
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Cluster-Name:
+      </label>
+      <input type="text" id="manualClusterName" placeholder="z.B. Soziale Dreigliederung" 
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+    </div>
+    
+    <div>
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Beschreibung:
+      </label>
+      <textarea id="manualClusterDescription" placeholder="Kurze Beschreibung des Themenbereichs..." 
+        style="width: 100%; height: 60px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
+    </div>
+    
+    <div>
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Keywords (eines pro Zeile):
+      </label>
+      <textarea id="manualClusterKeywords" placeholder="Keyword1&#10;Keyword2&#10;Keyword3" 
+        style="width: 100%; height: 100px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
+      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
+        Tipp: Keywords müssen in Keywords - merged.md oder bereits generiert sein
+      </p>
+    </div>
+    
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <button id="addManualClusterBtn" class="depth-btn" onclick="addManualCluster()" style="padding: 8px 16px; font-size: 0.85em; background: #5cb85c; color: white;">
+        Cluster hinzufügen
+      </button>
+      <button class="depth-btn" onclick="clearManualClusterForm()" style="padding: 8px 16px; font-size: 0.85em;">
+        Zurücksetzen
+      </button>
+    </div>
+    
+    <div id="manualClusterStatus" style="display: none; margin-top: 0.5rem;"></div>
+  </div>
+</div>
+
+<!-- Hinweis -->
+<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">💡 Empfohlener Workflow</h4>
+  <ol style="margin: 0; padding-left: 1.5rem; font-size: 0.85em; color: var(--text-color); line-height: 1.6;">
+    <li><strong>Themenbereiche generieren</strong> aus Seed-Keywords</li>
+    <li>Starten Sie mit GA051 (mit "Bestehendes Vokabular" deaktiviert)</li>
+    <li>Verarbeiten Sie weitere GA-Bände chronologisch (mit "Bestehendes Vokabular" aktiviert)</li>
+    <li>Das Vokabular wächst iterativ und konsolidiert sich automatisch</li>
+    <li>Jeder GA-Band baut auf dem Vokabular der vorherigen auf</li>
+  </ol>
+</div>
+
 </div>
 </div>
 
@@ -4015,6 +4093,9 @@ function normalizeGANumber(gaNumber) {
   populateGADropdowns();
   initGAFilter();
   updateButtonStates(); // Verstecke Buttons beim ersten Laden
+  
+  // Prüfe ob konsolidierte Dateien vorhanden sind
+  checkForConsolidatedFiles();
   
   // Initialisiere Resize-Handle basierend auf aktivem Tab
   const activeTabButton = document.querySelector('.tab-button.active');
@@ -7252,6 +7333,9 @@ async function initializeKeywordSystem() {
 async function loadKeywordsData() {
   console.log('[KEYWORDS] Lade Schlagwort-Daten...');
   
+  // Prüfe ob konsolidierte Dateien vorhanden sind
+  await checkForConsolidatedFiles();
+  
   try {
     // Versuche zuerst eine vollständige Schlagwort-Liste zu laden
     const response = await fetch(`${API_BASE}/api/keywords-list`);
@@ -8222,8 +8306,28 @@ function cancelBatchKeywords() {
 
 // === KEYWORD CONSOLIDATION ===
 let consolidationFactor = 0.5;
-let consolidationPreviewData = null;
+let consolidationLastResult = null;
 let lastConsolidatedFile = null;
+
+// Prüfe beim Laden, ob konsolidierte Dateien vorhanden sind
+async function checkForConsolidatedFiles() {
+  try {
+    const filesResponse = await fetch(`${API_BASE}/api/list-files`);
+    const files = await filesResponse.json();
+    const consolidatedFiles = files.filter(f => f.startsWith('keywords-database-consolidated-')).sort().reverse();
+    
+    if (consolidatedFiles.length > 0) {
+      // Zeige Aktivieren-Button wenn konsolidierte Dateien existieren
+      const activateBtn = document.getElementById('consolidateActivateBtn');
+      if (activateBtn) {
+        activateBtn.style.display = 'inline-block';
+        console.log('[CONSOLIDATION] Gefundene konsolidierte Dateien:', consolidatedFiles.length);
+      }
+    }
+  } catch (error) {
+    console.log('[CONSOLIDATION] Fehler beim Prüfen konsolidierter Dateien:', error);
+  }
+}
 
 function updateConsolidationFactor(value) {
   consolidationFactor = parseInt(value) / 100;
@@ -8239,87 +8343,21 @@ function updateConsolidationFactor(value) {
     desc.innerHTML = '<strong>Locker (> 0.7):</strong> Semantisch ähnliche Keywords werden zusammengeführt (z.B. "reinkarnation", "wiederverkörperung" → "Reinkarnation")';
   }
   
-  // Reset preview wenn Faktor geändert wurde
-  consolidationPreviewData = null;
+  // Reset wenn Faktor geändert wurde
+  consolidationLastResult = null;
   document.getElementById('consolidationPreview').style.display = 'none';
-  document.getElementById('consolidateExecuteBtn').style.display = 'none';
   document.getElementById('consolidateActivateBtn').style.display = 'none';
 }
 
-async function previewConsolidation() {
-  const previewBtn = document.getElementById('consolidatePreviewBtn');
-  const previewDiv = document.getElementById('consolidationPreview');
-  const statusDiv = document.getElementById('consolidationStatus');
-  
-  previewBtn.disabled = true;
-  previewBtn.textContent = 'Generiere Vorschau...';
-  statusDiv.style.display = 'none';
-  previewDiv.style.display = 'none';
-  
-  try {
-    const response = await fetch(`${API_BASE}/api/consolidate-keywords-preview`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ factor: consolidationFactor })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const data = await response.json();
-    consolidationPreviewData = data;
-    
-    // Zeige Vorschau
-    let previewHTML = `
-      <div style="margin-bottom: 0.5rem;">
-        <strong>Konsolidierungs-Vorschau:</strong><br>
-        ${data.uniqueBefore.toLocaleString()} unique Keywords → ${data.uniqueAfter.toLocaleString()} unique Keywords<br>
-        <strong style="color: #5cb85c;">Reduktion: ${data.reduction.toFixed(1)}%</strong> (${data.consolidationCount.toLocaleString()} Gruppen)
-      </div>
-      <div style="font-size: 0.85em; max-height: 200px; overflow-y: auto;">
-        <strong>Beispiele (erste 20 Gruppen):</strong><br>
-    `;
-    
-    data.examples.slice(0, 20).forEach(group => {
-      previewHTML += `<div style="margin: 0.3rem 0; padding: 0.3rem; background: var(--sidebar-bg); border-radius: 3px;">`;
-      previewHTML += `<strong>${group.target}</strong> ← ${group.sources.join(', ')}`;
-      previewHTML += `</div>`;
-    });
-    
-    previewHTML += `</div>`;
-    previewDiv.innerHTML = previewHTML;
-    previewDiv.style.display = 'block';
-    
-    // Zeige Execute-Button
-    document.getElementById('consolidateExecuteBtn').style.display = 'inline-block';
-    
-  } catch (error) {
-    console.error('[CONSOLIDATION] Fehler:', error);
-    statusDiv.innerHTML = `<div style="color: #d9534f; font-size: 0.85em;">✗ Fehler: ${error.message}</div>`;
-    statusDiv.style.display = 'block';
-  } finally {
-    previewBtn.disabled = false;
-    previewBtn.textContent = 'Vorschau generieren';
-  }
-}
-
 async function executeConsolidation() {
-  if (!consolidationPreviewData) {
-    alert('Bitte erst eine Vorschau generieren!');
-    return;
-  }
-  
-  if (!confirm(`Konsolidierung ausführen?\n\n${consolidationPreviewData.uniqueBefore.toLocaleString()} → ${consolidationPreviewData.uniqueAfter.toLocaleString()} Keywords\nReduktion: ${consolidationPreviewData.reduction.toFixed(1)}%\n\nOriginal-Datenbank wird als Backup gespeichert.`)) {
-    return;
-  }
-  
   const executeBtn = document.getElementById('consolidateExecuteBtn');
+  const previewDiv = document.getElementById('consolidationPreview');
   const statusDiv = document.getElementById('consolidationStatus');
   
   executeBtn.disabled = true;
   executeBtn.textContent = 'Konsolidiere...';
   statusDiv.style.display = 'none';
+  previewDiv.style.display = 'none';
   
   try {
     const response = await fetch(`${API_BASE}/api/consolidate-keywords-execute`, {
@@ -8333,16 +8371,28 @@ async function executeConsolidation() {
     }
     
     const data = await response.json();
+    consolidationLastResult = data;
     
     // Speichere konsolidierte Datei für Aktivierung
     lastConsolidatedFile = data.consolidatedFile;
     
-    statusDiv.innerHTML = `<div style="color: #5cb85c; font-size: 0.85em;">✓ Konsolidierung erfolgreich!<br>Backup: ${data.backupFile}<br>Konsolidierte DB: ${data.consolidatedFile}<br><br><strong>Nächster Schritt:</strong> Klicken Sie auf "Aktivieren" um die konsolidierte Datenbank zu verwenden.</div>`;
-    statusDiv.style.display = 'block';
+    // Zeige Ergebnis
+    let resultHTML = `
+      <div style="margin-bottom: 0.5rem;">
+        <strong style="color: #5cb85c;">✓ Konsolidierung abgeschlossen!</strong><br>
+        ${data.consolidatedCount.toLocaleString()} Keywords konsolidiert<br>
+        <div style="margin-top: 0.5rem; font-size: 0.9em;">
+          Backup: <code style="font-size: 0.85em;">${data.backupFile}</code><br>
+          Konsolidiert: <code style="font-size: 0.85em;">${data.consolidatedFile}</code>
+        </div>
+      </div>
+    `;
     
-    // Zeige Aktivieren-Button
+    previewDiv.innerHTML = resultHTML;
+    previewDiv.style.display = 'block';
+    
+    // Zeige Activate-Button
     document.getElementById('consolidateActivateBtn').style.display = 'inline-block';
-    executeBtn.style.display = 'none';
     
     // Reload keywords
     await loadKeywords();
@@ -8358,12 +8408,27 @@ async function executeConsolidation() {
 }
 
 async function activateConsolidation() {
+  // Finde neueste konsolidierte Datei, falls keine in Variable gespeichert
   if (!lastConsolidatedFile) {
-    alert('Keine konsolidierte Datenbank gefunden. Bitte erst "Konsolidierung ausführen" klicken.');
-    return;
+    try {
+      const filesResponse = await fetch(`${API_BASE}/api/list-files`);
+      const files = await filesResponse.json();
+      const consolidatedFiles = files.filter(f => f.startsWith('keywords-database-consolidated-')).sort().reverse();
+      
+      if (consolidatedFiles.length === 0) {
+        alert('Keine konsolidierte Datenbank gefunden. Bitte erst "Konsolidierung ausführen" klicken.');
+        return;
+      }
+      
+      lastConsolidatedFile = consolidatedFiles[0];
+      console.log('[CONSOLIDATION] Verwende neueste konsolidierte Datei:', lastConsolidatedFile);
+    } catch (error) {
+      alert('Fehler beim Suchen der konsolidierten Datenbank: ' + error.message);
+      return;
+    }
   }
   
-  if (!confirm(`Konsolidierte Datenbank aktivieren?\n\n1. Aktuelle keywords-database.json wird gesichert\n2. Konsolidierte DB wird aktiviert\n3. Themen werden automatisch neu generiert\n\nMöchten Sie fortfahren?`)) {
+  if (!confirm(`Konsolidierte Datenbank aktivieren?\n\nDatei: ${lastConsolidatedFile}\n\n1. Aktuelle keywords-database.json wird gesichert\n2. Konsolidierte DB wird aktiviert\n3. Themen werden automatisch neu generiert\n\nMöchten Sie fortfahren?`)) {
     return;
   }
   
@@ -8402,7 +8467,7 @@ async function activateConsolidation() {
     
     // Reset
     lastConsolidatedFile = null;
-    consolidationPreviewData = null;
+    consolidationLastResult = null;
     document.getElementById('consolidationPreview').style.display = 'none';
     activateBtn.style.display = 'none';
     
@@ -9725,6 +9790,84 @@ async function loadTimelineStats() {
       await loadAvailableGAs();
     }
     
+    // Statistiken berechnen
+    let primaryKeywordsCount = 0;
+    let consolidatedKeywordsCount = 0;
+    let consolidationFactor = '-';
+    
+    const filesResponse = await fetch(`${API_BASE}/api/list-files`);
+    const files = await filesResponse.json();
+    
+    // Suche das älteste Backup (= originale, unkonsolidierte Keywords)
+    const backupFiles = files.filter(f => f.startsWith('keywords-database-backup-')).sort();
+    
+    if (backupFiles.length > 0) {
+      // Lade das älteste Backup als Referenz für Primary Keywords
+      const oldestBackup = backupFiles[0];
+      console.log('[TIMELINE-STATS] Verwende ältestes Backup als Referenz:', oldestBackup);
+      
+      const primaryResponse = await fetch(`${API_BASE}/api/file/${oldestBackup}`);
+      const primaryData = await primaryResponse.json();
+      
+      const primaryKeywordsSet = new Set();
+      Object.values(primaryData).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) primaryKeywordsSet.add(kw.term);
+          });
+        }
+      });
+      primaryKeywordsCount = primaryKeywordsSet.size;
+      
+      // Aktuelle DB als konsolidiert
+      const currentResponse = await fetch(`${API_BASE}/api/keywords-database`);
+      const currentData = await currentResponse.json();
+      
+      const consolidatedKeywordsSet = new Set();
+      Object.values(currentData).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) consolidatedKeywordsSet.add(kw.term);
+          });
+        }
+      });
+      consolidatedKeywordsCount = consolidatedKeywordsSet.size;
+      
+      // Berechne Reduktionsfaktor
+      if (primaryKeywordsCount > 0) {
+        const reduction = ((primaryKeywordsCount - consolidatedKeywordsCount) / primaryKeywordsCount * 100).toFixed(1);
+        consolidationFactor = `${reduction}%`;
+      }
+    } else {
+      // Kein Backup vorhanden - zeige aktuelle Keywords als Primary
+      const currentResponse = await fetch(`${API_BASE}/api/keywords-database`);
+      const currentData = await currentResponse.json();
+      
+      const primaryKeywordsSet = new Set();
+      Object.values(currentData).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) primaryKeywordsSet.add(kw.term);
+          });
+        }
+      });
+      primaryKeywordsCount = primaryKeywordsSet.size;
+    }
+    
+    // 3. Lade Themen aus thematic-clusters.json (neue Struktur)
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    const themesData = await themesResponse.json();
+    const themeCount = Object.keys(themesData).length;
+    
+    console.log('[TIMELINE-STATS] Primary:', primaryKeywordsCount, '| Consolidated:', consolidatedKeywordsCount, '| Factor:', consolidationFactor, '| Themes:', themeCount);
+    console.log('[TIMELINE-STATS] Nutze neue Cluster-Struktur:', themeCount > 0 ? 'Ja' : 'Nein');
+    
+    // Aktualisiere UI
+    document.getElementById('statPrimaryKeywords').textContent = primaryKeywordsCount.toLocaleString();
+    document.getElementById('statConsolidatedKeywords').textContent = consolidatedKeywordsCount > 0 ? consolidatedKeywordsCount.toLocaleString() : '-';
+    document.getElementById('statConsolidationFactor').textContent = consolidationFactor;
+    document.getElementById('statThemeCount').textContent = themeCount > 0 ? themeCount.toLocaleString() : '-';
+    
     // Load themes if available
     await loadTimelineThemes();
     
@@ -9775,56 +9918,7 @@ async function loadKeywordsDatabase() {
   }
 }
 
-// Lade Keywords-Datenbank
-async function loadKeywordsDatabase() {
-  try {
-    const response = await fetch(`${API_BASE}/api/keywords-database`);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    return await response.json();
-  } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Keywords-DB:', error);
-    return {};
-  }
-}
-
-// Lade und zeige Timeline-Statistiken
-async function loadTimelineStatistics() {
-  try {
-    const keywordsDB = await loadKeywordsDatabase();
-    
-    // Zähle primäre Keywords (alle Keywords in der Datenbank)
-    let totalKeywords = 0;
-    const uniqueKeywords = new Set();
-    
-    Object.values(keywordsDB).forEach(lecture => {
-      if (lecture.keywords && Array.isArray(lecture.keywords)) {
-        lecture.keywords.forEach(kw => {
-          if (kw.term) {
-            totalKeywords++;
-            uniqueKeywords.add(kw.term.toLowerCase());
-          }
-        });
-      }
-    });
-    
-    // Lade Themen
-    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-    const themes = themesResponse.ok ? await themesResponse.json() : {};
-    const themeCount = Object.keys(themes).length;
-    
-    // Update UI
-    document.getElementById('statPrimaryKeywords').textContent = uniqueKeywords.size.toLocaleString();
-    document.getElementById('statConsolidatedKeywords').textContent = 'nicht konsolidiert';
-    document.getElementById('statConsolidationFactor').textContent = '-';
-    document.getElementById('statThemeCount').textContent = themeCount > 0 ? themeCount : 'nicht generiert';
-    
-    console.log('[TIMELINE-STATS] Primäre Keywords:', uniqueKeywords.size, '| Themen:', themeCount);
-  } catch (error) {
-    console.error('[TIMELINE-STATS] Fehler:', error);
-  }
-}
-
-// Load available themes
+// Load available themes (aus thematic-clusters.json)
 async function loadTimelineThemes() {
   try {
     const response = await fetch(`${API_BASE}/api/themes-database`);
@@ -9850,16 +9944,13 @@ async function loadTimelineThemes() {
       });
       themeSelect.disabled = false;
       
-      console.log('[TIMELINE] Themen geladen:', Object.keys(themes).length);
+      console.log('[TIMELINE] Thematische Cluster geladen:', Object.keys(themes).length);
     } else {
-      themeSelect.innerHTML = '<option value="">Noch keine Themen generiert...</option>';
+      themeSelect.innerHTML = '<option value="">Noch keine Themenbereiche generiert...</option>';
       themeSelect.disabled = true;
     }
-    
-    // Aktualisiere Statistiken
-    await loadTimelineStatistics();
   } catch (error) {
-    console.error('[TIMELINE] Fehler beim Laden der Themen:', error);
+    console.error('[TIMELINE] Fehler beim Laden der Themenbereiche:', error);
     const themeSelect = document.getElementById('timelineThemeFilterInline');
     if (themeSelect) {
       themeSelect.innerHTML = '<option value="">Fehler beim Laden</option>';
@@ -9908,174 +9999,8 @@ async function loadTimelineKeywords() {
   }
 }
 
-// Generate themes from keywords
-async function generateThemes() {
-  const themeCount = parseInt(document.getElementById('timelineThemeCount').value) || 30;
-  const statusDiv = document.getElementById('timelineThemesStatus');
-  const button = document.getElementById('timelineGenerateThemes');
-  
-  if (!statusDiv || !button) {
-    console.error('[TIMELINE] UI-Elemente nicht gefunden');
-    return;
-  }
-  
-  button.disabled = true;
-  statusDiv.style.display = 'block';
-  statusDiv.innerHTML = '<div style="color: var(--text-color);">⏳ Generiere Themen mit KI... Dies kann einige Minuten dauern.</div>';
-  
-  try {
-    console.log(`[TIMELINE] Generiere ${themeCount} Themen...`);
-    
-    const response = await fetch(`${API_BASE}/api/generate-themes`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ targetThemeCount: themeCount })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const result = await response.json();
-    console.log('[TIMELINE] Themen generiert:', result);
-    
-    statusDiv.innerHTML = `
-      <div style="color: #28a745;">
-        ✓ ${result.themeCount} Themen erfolgreich generiert!<br>
-        ${result.assignedLectures} Vorträgen zugeordnet.
-      </div>
-    `;
-    
-    // Reload themes
-    await loadTimelineThemes();
-    
-  } catch (error) {
-    console.error('[TIMELINE] Fehler bei Themen-Generierung:', error);
-    if (statusDiv) {
-      statusDiv.innerHTML = `<div style="color: #d9534f;">✗ Fehler: ${error.message}</div>`;
-    }
-  } finally {
-    if (button) {
-      button.disabled = false;
-    }
-  }
-}
-
-// Start batch keyword generation
-async function startTimelineBatchGeneration() {
-  if (timelineBatchRunning) {
-    console.log('[TIMELINE] Batch läuft bereits');
-    return;
-  }
-  
-  timelineBatchRunning = true;
-  timelineBatchCurrentIndex = 0;
-  
-  // Get selected GAs
-  const gaSelect = document.getElementById('timelineGASelect');
-  const selectedGAs = Array.from(gaSelect.selectedOptions)
-    .map(opt => opt.value)
-    .filter(v => v !== '');
-  
-  if (selectedGAs.length === 0) {
-    alert('Bitte mindestens einen GA-Band auswählen');
-    timelineBatchRunning = false;
-    return;
-  }
-  
-  console.log('[TIMELINE] Ausgewählte GAs:', selectedGAs);
-  
-  // Update UI
-  document.getElementById('timelineBatchStart').style.display = 'none';
-  document.getElementById('timelineBatchStop').style.display = 'inline-block';
-  document.getElementById('timelineBatchProgress').style.display = 'block';
-  
-  console.log('[TIMELINE] Starte GA-Band-basierte Batch-Generierung...');
-  
-  await runTimelineBatch(selectedGAs);
-}
-
-// Stop batch generation
-function stopTimelineBatchGeneration() {
-  timelineBatchRunning = false;
-  document.getElementById('timelineBatchStart').style.display = 'inline-block';
-  document.getElementById('timelineBatchStop').style.display = 'none';
-  console.log('[TIMELINE] Batch gestoppt');
-}
-
-// Run batch generation (GA-Band-basiert)
-async function runTimelineBatch(volumes = []) {
-  let totalProcessed = 0;
-  let totalSkipped = 0;
-  let totalErrors = 0;
-  
-  try {
-    console.log(`[TIMELINE] Starte GA-Band-Verarbeitung: ${volumes.join(', ')}`);
-    
-    const response = await fetch(`${API_BASE}/api/generate-keywords`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        batchByVolumes: true,
-        volumes: volumes
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    
-    const result = await response.json();
-    console.log('[TIMELINE] Batch-Ergebnis:', result);
-    
-    totalProcessed = result.processed;
-    totalSkipped = result.skipped;
-    totalErrors = result.errors;
-    
-    // Update UI für jeden Band
-    if (result.volumes && result.volumes.length > 0) {
-      let completedVolumes = 0;
-      let totalVolumeLectures = 0;
-      let processedVolumeLectures = 0;
-      
-      result.volumes.forEach(vol => {
-        if (vol.status === 'completed') completedVolumes++;
-        totalVolumeLectures += vol.total;
-        processedVolumeLectures += vol.processed + vol.skipped;
-      });
-      
-      const percentage = totalVolumeLectures > 0 
-        ? Math.round((processedVolumeLectures / totalVolumeLectures) * 100) 
-        : 100;
-      
-      document.getElementById('timelineBatchProgressText').textContent = 
-        `${completedVolumes} / ${volumes.length} Bände (${processedVolumeLectures} / ${totalVolumeLectures} Vorträge)`;
-      document.getElementById('timelineBatchProgressPercent').textContent = 
-        `${percentage}%`;
-      document.getElementById('timelineBatchProgressBar').style.width = 
-        `${percentage}%`;
-    }
-    
-    document.getElementById('timelineBatchProcessed').textContent = totalProcessed;
-    document.getElementById('timelineBatchSkipped').textContent = totalSkipped;
-    document.getElementById('timelineBatchErrors').textContent = totalErrors;
-    
-    console.log('[TIMELINE] GA-Band-Generierung abgeschlossen!');
-    timelineBatchRunning = false;
-    document.getElementById('timelineBatchStart').style.display = 'inline-block';
-    document.getElementById('timelineBatchStop').style.display = 'none';
-    
-    // Reload stats
-    await loadTimelineStats();
-    
-  } catch (error) {
-    console.error('[TIMELINE] Batch-Fehler:', error);
-    timelineBatchRunning = false;
-    document.getElementById('timelineBatchStart').style.display = 'inline-block';
-    document.getElementById('timelineBatchStop').style.display = 'none';
-    alert(`Fehler bei der Batch-Generierung: ${error.message}`);
-  }
-}
+// === ALTE TIMELINE-GENERIERUNGS-FUNKTIONEN ENTFERNT ===
+// Die Keyword- und Themen-Generierung erfolgt jetzt über den Keywords-Tab
 
 // Render timeline visualization
 // Globale Variable für letztes ausgewähltes Thema/Keyword
@@ -10095,13 +10020,12 @@ async function updateTimelineFilters() {
     // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
     const keywordSelect = document.getElementById('timelineKeywordFilterResults');
     if (keywordSelect) {
-      let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
+      let keywordsHTML = '<option value="">Alle Schlagwörter des Themas</option>';
       
       if (currentTheme) {
-        // Schnittmenge: Thematische Keywords die auch tatsächlich in Vorträgen vorkommen
-        console.log('[TIMELINE] Lade validierte Keywords für:', currentTheme);
+        // Lade Keywords aus dem ausgewählten Cluster UND prüfe ob sie tatsächlich in Vorträgen vorkommen
+        console.log('[TIMELINE] Lade Keywords für Thema:', currentTheme);
         try {
-          // Lade thematische Keywords
           const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
           const keywordsDB = await loadKeywordsDatabase();
           
@@ -10110,25 +10034,28 @@ async function updateTimelineFilters() {
             const themeData = themes[currentTheme];
             
             if (themeData && themeData.keywords) {
-              // Sammle alle Keywords die tatsächlich in Vorträgen mit diesem Thema vorkommen
-              const actualKeywords = new Set();
+              // Sammle alle Keywords die tatsächlich in der keywords-database vorkommen
+              const existingKeywords = new Set();
               Object.values(keywordsDB).forEach(lecture => {
-                if (lecture.theme === currentTheme && lecture.keywords && Array.isArray(lecture.keywords)) {
+                if (lecture.keywords && Array.isArray(lecture.keywords)) {
                   lecture.keywords.forEach(kw => {
-                    if (kw.term) actualKeywords.add(kw.term.toLowerCase());
+                    if (kw.term) {
+                      existingKeywords.add(kw.term.toLowerCase());
+                    }
                   });
                 }
               });
               
-              // Filtere: Nur thematische Keywords die auch tatsächlich vorkommen
-              const validKeywords = themeData.keywords.filter(kw => 
-                actualKeywords.has(kw.toLowerCase())
+              // Filtere: Nur Cluster-Keywords die auch tatsächlich existieren
+              const availableKeywords = themeData.keywords.filter(kw => 
+                existingKeywords.has(kw.toLowerCase())
               );
               
-              console.log('[TIMELINE] Thematische Keywords:', themeData.keywords.length, 
-                          '| Validierte Keywords:', validKeywords.length);
+              console.log('[TIMELINE] Cluster-Keywords:', themeData.keywords.length, 
+                          '| Verfügbar:', availableKeywords.length);
               
-              validKeywords.sort().forEach(kw => {
+              // Sortiere und füge nur verfügbare Keywords hinzu
+              availableKeywords.sort().forEach(kw => {
                 keywordsHTML += `<option value="${kw}">${kw}</option>`;
               });
             }
@@ -10219,14 +10146,33 @@ async function renderTimeline() {
   // Lade Keywords: Wenn Thema gewählt, nur dessen Keywords; sonst alle
   let keywordsHTML = '<option value="">Alle Schlagwörter</option>';
   try {
+    const keywordsDB = await loadKeywordsDatabase();
+    
     if (currentTheme) {
-      // Keywords NUR vom ausgewählten Thema
+      // Keywords NUR vom ausgewählten Thema UND die tatsächlich existieren
       const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
       if (themesResponse.ok) {
         const themes = await themesResponse.json();
         const themeData = themes[currentTheme];
         if (themeData && themeData.keywords) {
-          themeData.keywords.sort().forEach(kw => {
+          // Sammle existierende Keywords
+          const existingKeywords = new Set();
+          Object.values(keywordsDB).forEach(lecture => {
+            if (lecture.keywords && Array.isArray(lecture.keywords)) {
+              lecture.keywords.forEach(kw => {
+                if (kw.term) {
+                  existingKeywords.add(kw.term.toLowerCase());
+                }
+              });
+            }
+          });
+          
+          // Filtere und sortiere
+          const availableKeywords = themeData.keywords.filter(kw => 
+            existingKeywords.has(kw.toLowerCase())
+          );
+          
+          availableKeywords.sort().forEach(kw => {
             const selected = kw === currentKeyword ? 'selected' : '';
             keywordsHTML += `<option value="${kw}" ${selected}>${kw}</option>`;
           });
@@ -10376,78 +10322,72 @@ async function renderTimelineContent() {
   let html = '';
   
   try {
-    // Lade Keywords-Datenbank
+    // Lade Keywords-Datenbank und Cluster
     const keywordsDB = await loadKeywordsDatabase();
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    const clusters = themesResponse.ok ? await themesResponse.json() : {};
     
     let keywordEntries = [];
     
-    // FALL 1: Nur Thema ausgewählt
+    // Erstelle Mapping: Keyword -> Cluster
+    const keywordToCluster = {};
+    Object.entries(clusters).forEach(([clusterName, clusterData]) => {
+      if (clusterData.keywords && Array.isArray(clusterData.keywords)) {
+        clusterData.keywords.forEach(kw => {
+          keywordToCluster[kw.toLowerCase()] = clusterName;
+        });
+      }
+    });
+    
+    // FALL 1: Nur Thema (Cluster) ausgewählt
     if (theme && !keyword) {
-      // Zeige Keywords basierend auf ausgewähltem Level
-      Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            // Filter nach ausgewähltem Level
-            const showKeyword = 
-              timelineHeadingLevel === 'both' || 
-              (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
-              (timelineHeadingLevel === 'h4' && kw.level === 'h4');
-            
-            if (showKeyword) {
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: kw
-              });
-            }
-          });
-        }
-      });
-      console.log(`[TIMELINE] Fall 1: Nur Thema "${theme}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
-    }
-    
-    // FALL 2: Thema + Keyword ausgewählt
-    else if (theme && keyword) {
-      // Zeige Keywords basierend auf ausgewähltem Level + Keyword-Filter
-      Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.theme === theme && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            // Filter nach Level + Keyword
-            const showKeyword = 
-              (timelineHeadingLevel === 'both' || 
-               (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
-               (timelineHeadingLevel === 'h4' && kw.level === 'h4')) &&
-              kw.term.toLowerCase().includes(keyword.toLowerCase());
-            
-            if (showKeyword) {
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: kw
-              });
-            }
-          });
-        }
-      });
-      console.log(`[TIMELINE] Fall 2: Thema "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
-    }
-    
-    // FALL 3: Nur Keyword ausgewählt (kein Thema)
-    else if (!theme && keyword) {
-      // Zeige Keywords basierend auf ausgewähltem Level + Keyword-Filter (aus allen Themen)
+      // Zeige alle Keywords die zu diesem Cluster gehören
       Object.values(keywordsDB).forEach(lecture => {
         if (lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
-            // Filter nach Level + Keyword
-            const showKeyword = 
-              (timelineHeadingLevel === 'both' || 
-               (timelineHeadingLevel === 'h3' && kw.level === 'h3') ||
-               (timelineHeadingLevel === 'h4' && kw.level === 'h4')) &&
-              kw.term.toLowerCase().includes(keyword.toLowerCase());
-            
-            if (showKeyword) {
+            const kwCluster = keywordToCluster[kw.term.toLowerCase()];
+            if (kwCluster === theme) {
+              keywordEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                keyword: kw
+              });
+            }
+          });
+        }
+      });
+      console.log(`[TIMELINE] Fall 1: Cluster "${theme}" - ${keywordEntries.length} Keywords`);
+    }
+    
+    // FALL 2: Cluster + Keyword ausgewählt
+    else if (theme && keyword) {
+      // Zeige nur exakt dieses Keyword aus diesem Cluster
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            const kwCluster = keywordToCluster[kw.term.toLowerCase()];
+            if (kwCluster === theme && kw.term.toLowerCase() === keyword.toLowerCase()) {
+              keywordEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                keyword: kw
+              });
+            }
+          });
+        }
+      });
+      console.log(`[TIMELINE] Fall 2: Cluster "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
+    }
+    
+    // FALL 3: Nur Keyword ausgewählt (kein Cluster)
+    else if (!theme && keyword) {
+      // Zeige exakt dieses Keyword aus allen Clustern
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term.toLowerCase() === keyword.toLowerCase()) {
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
@@ -10459,10 +10399,13 @@ async function renderTimelineContent() {
         }
       });
       
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords (Level: ${timelineHeadingLevel})`);
+      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
     }
     
     if (keywordEntries.length === 0) {
+      console.warn('[TIMELINE] Keine Keyword-Einträge gefunden!');
+      console.warn('[TIMELINE] Theme:', theme, '| Keyword:', keyword);
+      console.warn('[TIMELINE] Cluster-Keys:', Object.keys(clusters));
       timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Keywords gefunden für diese Auswahl.</div>';
       return;
     }
@@ -10555,9 +10498,13 @@ async function renderTimelineContent() {
         const displayText = entry.keyword.heading || entry.keyword.term;
         const levelInfo = entry.keyword.level ? ` (${entry.keyword.level.toUpperCase()})` : '';
         
+        // H3 Keywords fett darstellen
+        const isH3 = entry.keyword.level === 'h3';
+        const linkStyle = isH3 ? 'font-weight: bold;' : '';
+        
         html += `
           <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link">${displayLectureId}</a></div>
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link" style="${linkStyle}">${displayLectureId}</a></div>
             <div class="timeline-entry-keywords">${displayText}</div>
           </div>
         `;
@@ -10648,11 +10595,561 @@ window.switchTab = function(tabName) {
   
   // Load stats when timeline tab is opened
   if (tabName === 'timeline') {
-    loadTimelineStatistics();
+    loadTimelineStats(); // Lädt Admin-Bereich
     // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
     renderTimeline();
   }
 };
+
+// ============================================================================
+// ITERATIVE KEYWORD-GENERIERUNG GA-BAND-WEISE
+// ============================================================================
+
+let gaBatchRunning = false;
+let availableGAVolumes = [];
+
+// Lade verfügbare GA-Bände
+async function loadAvailableGAVolumes() {
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
+    if (!response.ok) throw new Error(`Fehler: ${response.status}`);
+    
+    const data = await response.json();
+    availableGAVolumes = data.volumes;
+    
+    const container = document.getElementById('gaVolumeCheckboxes');
+    container.innerHTML = '';
+    
+    availableGAVolumes.forEach(vol => {
+      const label = document.createElement('label');
+      label.style.display = 'flex';
+      label.style.alignItems = 'center';
+      label.style.gap = '8px';
+      label.style.padding = '4px';
+      label.style.fontSize = '0.85em';
+      label.style.color = 'var(--text-color)';
+      label.style.cursor = 'pointer';
+      
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = vol.volume;
+      checkbox.className = 'ga-volume-checkbox';
+      checkbox.onchange = updateStartButtonState;
+      
+      const text = document.createTextNode(`${vol.volume} (${vol.lectureCount} Vorträge)`);
+      
+      label.appendChild(checkbox);
+      label.appendChild(text);
+      container.appendChild(label);
+    });
+    
+    updateStartButtonState();
+    
+    console.log('[GA-VOLUMES] Geladen:', availableGAVolumes.length, 'GA-Bände');
+    
+  } catch (error) {
+    console.error('[GA-VOLUMES] Fehler:', error);
+    alert('Fehler beim Laden der GA-Bände: ' + error.message);
+  }
+}
+
+// Toggle alle GA-Bände auswählen/abwählen
+function toggleSelectAllGA() {
+  const checkboxes = document.querySelectorAll('.ga-volume-checkbox');
+  const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+  
+  checkboxes.forEach(cb => {
+    cb.checked = !allChecked;
+  });
+  
+  updateStartButtonState();
+}
+
+// Update Start-Button Status
+function updateStartButtonState() {
+  const checkboxes = document.querySelectorAll('.ga-volume-checkbox');
+  const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+  const useExisting = document.getElementById('useExistingVocabCheckbox').checked;
+  
+  document.getElementById('startGABatchBtn').disabled = !anyChecked;
+  // Reprocess-Button nur aktiv wenn bestehendes Vokabular verwendet wird
+  document.getElementById('reprocessGABatchBtn').disabled = !anyChecked || !useExisting;
+}
+
+// Reprocess GA-Batch (wrapper für startGABatch mit forceReprocess=true)
+async function reprocessGABatch() {
+  await startGABatch(true);
+}
+
+// Starte GA-Batch (mit optionalem forceReprocess)
+async function startGABatch(forceReprocess = false) {
+  if (gaBatchRunning) {
+    alert('Batch läuft bereits!');
+    return;
+  }
+  
+  // Sammle ausgewählte GA-Bände
+  const checkboxes = document.querySelectorAll('.ga-volume-checkbox:checked');
+  const selectedVolumes = Array.from(checkboxes).map(cb => cb.value);
+  
+  if (selectedVolumes.length === 0) {
+    alert('Bitte wählen Sie mindestens einen GA-Band aus!');
+    return;
+  }
+  
+  const useExisting = document.getElementById('useExistingVocabCheckbox').checked;
+  const updateClusters = document.getElementById('updateClustersCheckbox').checked;
+  const parallelBatchSize = parseInt(document.getElementById('parallelBatchSizeSelect').value) || 5;
+  
+  // Berechne Gesamtstatistiken
+  let totalLectures = 0;
+  selectedVolumes.forEach(vol => {
+    const volInfo = availableGAVolumes.find(v => v.volume === vol);
+    if (volInfo) totalLectures += volInfo.lectureCount;
+  });
+  
+  const estimatedMinutes = Math.ceil(totalLectures / (parallelBatchSize * 6));
+  
+  let message = `${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''} verarbeiten?\n\n` +
+    `Bände: ${selectedVolumes.join(', ')}\n` +
+    `Total Vorträge: ${totalLectures}\n` +
+    `Bestehendes Vokabular: ${useExisting ? 'Ja' : 'Nein (nur Seeds)'}\n` +
+    `Parallele Verarbeitung: ${parallelBatchSize} Vorträge/Batch`;
+  
+  if (updateClusters) {
+    message += `\nThemenbereiche: Iterativ erweitern`;
+  }
+  
+  if (forceReprocess) {
+    message += `\n\n⚠️ REPROCESS-MODUS: Bereits verarbeitete Vorträge werden NEU verarbeitet!`;
+  } else if (useExisting) {
+    message += `\n\nℹ️ Bereits verarbeitete Vorträge werden übersprungen.`;
+  }
+  
+  message += `\nGeschätzte Dauer: ca. ${estimatedMinutes} Minuten`;
+  
+  if (!confirm(message)) return;
+  
+  gaBatchRunning = true;
+  
+  const btn = document.getElementById('startGABatchBtn');
+  const cancelBtn = document.getElementById('cancelGABatchBtn');
+  const statusDiv = document.getElementById('gaBatchStatus');
+  const progressContainer = document.getElementById('gaBatchProgressContainer');
+  const resultsDiv = document.getElementById('gaBatchResults');
+  
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  checkboxes.forEach(cb => cb.disabled = true);
+  cancelBtn.style.display = 'inline-block';
+  statusDiv.style.display = 'block';
+  progressContainer.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  
+  // Verarbeite jeden GA-Band nacheinander
+  let allResults = [];
+  let currentBand = 1;
+  
+  for (const gaVolume of selectedVolumes) {
+    if (!gaBatchRunning) {
+      statusDiv.innerHTML += `<br><span style="color: #d9534f;">⚠ Abgebrochen nach ${currentBand-1}/${selectedVolumes.length} Bänden</span>`;
+      break;
+    }
+    
+    statusDiv.innerHTML = `<span style="color: #467886;">⏳ Verarbeite ${gaVolume} (${currentBand}/${selectedVolumes.length})...</span>`;
+    
+    try {
+        const response = await fetch(`${API_BASE}/api/keywords/regenerate-ga-volume`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          gaVolume: gaVolume,
+          useExistingVocab: useExisting,
+          updateClusters: updateClusters,
+          parallelBatchSize: parallelBatchSize,
+          forceReprocess: forceReprocess
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Server-Fehler: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        allResults.push(result);
+        statusDiv.innerHTML += `<br><span style="color: #5cb85c;">✓ ${gaVolume} fertig (${result.stats.totalKeywords} KWs, ${result.stats.newKeywords} neu)</span>`;
+      } else {
+        throw new Error(result.error || 'Unbekannter Fehler');
+      }
+      
+    } catch (error) {
+      console.error(`[GA-BATCH] Fehler bei ${gaVolume}:`, error);
+      statusDiv.innerHTML += `<br><span style="color: #d9534f;">✗ ${gaVolume}: ${error.message}</span>`;
+    }
+    
+    currentBand++;
+  }
+  
+  // Zeige Gesamt-Ergebnisse
+  if (allResults.length > 0) {
+    const lastResult = allResults[allResults.length - 1];
+    resultsDiv.style.display = 'block';
+    
+    // Summiere Statistiken
+    let totalProcessed = 0;
+    let totalKeywords = 0;
+    let totalNew = 0;
+    let totalReused = 0;
+    let totalSkipped = 0;
+    
+    allResults.forEach(r => {
+      totalProcessed += r.stats.processed;
+      totalKeywords += r.stats.totalKeywords;
+      totalNew += r.stats.newKeywords;
+      totalReused += r.stats.reusedKeywords;
+      if (r.stats.skipped) totalSkipped += r.stats.skipped;
+    });
+    
+    const avgReuseRate = totalKeywords > 0 ? ((totalReused / totalKeywords * 100).toFixed(1) + '%') : '0%';
+    
+    document.getElementById('gaBatchStatVolume').textContent = allResults.length > 1 ? 
+      `${allResults.length} Bände (${selectedVolumes.join(', ')})` : lastResult.gaVolume;
+    document.getElementById('gaBatchStatProcessed').textContent = totalProcessed + ' Vorträge';
+    
+    // Zeige übersprungene Vorträge nur wenn vorhanden
+    if (totalSkipped > 0) {
+      document.getElementById('gaBatchSkippedLabel').style.display = 'block';
+      document.getElementById('gaBatchStatSkipped').style.display = 'block';
+      document.getElementById('gaBatchStatSkipped').textContent = totalSkipped + ' Vorträge (bereits verarbeitet)';
+    } else {
+      document.getElementById('gaBatchSkippedLabel').style.display = 'none';
+      document.getElementById('gaBatchStatSkipped').style.display = 'none';
+    }
+    
+    document.getElementById('gaBatchStatTotal').textContent = totalKeywords;
+    document.getElementById('gaBatchStatNew').textContent = totalNew;
+    document.getElementById('gaBatchStatReused').textContent = totalReused;
+    document.getElementById('gaBatchStatReuseRate').textContent = avgReuseRate;
+    document.getElementById('gaBatchStatFinalVocab').textContent = lastResult.stats.finalVocabulary + ' Keywords';
+    document.getElementById('gaBatchStatFile').textContent = allResults.length > 1 ? 
+      'Mehrere Dateien erstellt' : lastResult.resultFile;
+    document.getElementById('gaBatchStatMainDB').textContent = lastResult.mainDatabaseUpdated ? 'Ja ✓' : 'Nein';
+    
+    // Cluster-Update-Info vom letzten Durchlauf
+    if (lastResult.clusterUpdate) {
+      const clusterInfoDiv = document.getElementById('gaBatchClusterInfo');
+      if (clusterInfoDiv) {
+        clusterInfoDiv.style.display = 'grid';
+        
+        if (lastResult.clusterUpdate.error) {
+          document.getElementById('gaBatchStatClusterStatus').innerHTML = 
+            `<span style="color: #d9534f;">Fehler: ${lastResult.clusterUpdate.error}</span>`;
+          document.getElementById('gaBatchStatNewKWs').textContent = '-';
+          document.getElementById('gaBatchStatClustersExtended').textContent = '-';
+          document.getElementById('gaBatchStatNewClusters').textContent = '-';
+          document.getElementById('gaBatchStatTotalClusters').textContent = '-';
+        } else {
+          document.getElementById('gaBatchStatClusterStatus').innerHTML = 
+            '<span style="color: #5cb85c;">✓ Erweitert</span>';
+          document.getElementById('gaBatchStatNewKWs').textContent = lastResult.clusterUpdate.newKeywordsProcessed;
+          document.getElementById('gaBatchStatClustersExtended').textContent = lastResult.clusterUpdate.clustersExtended;
+          document.getElementById('gaBatchStatNewClusters').textContent = lastResult.clusterUpdate.newClustersCreated;
+          document.getElementById('gaBatchStatTotalClusters').textContent = lastResult.clusterUpdate.totalClusters;
+        }
+      }
+    }
+    
+    if (lastResult.mainDatabaseUpdated) {
+      statusDiv.innerHTML += '<br><span style="color: #5cb85c;">📁 Haupt-Datenbank wurde aktualisiert. Seite neu laden für Timeline-Update.</span>';
+    }
+  }
+  
+  progressContainer.style.display = 'none';
+  gaBatchRunning = false;
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  checkboxes.forEach(cb => cb.disabled = false);
+  cancelBtn.style.display = 'none';
+}
+
+function cancelGABatch() {
+  if (confirm('Batch wirklich abbrechen?\n\nBereits generierte Keywords gehen verloren.')) {
+    gaBatchRunning = false;
+    location.reload();
+  }
+}
+
+// Lade GA-Bände beim Öffnen des Keywords-Tabs
+if (document.getElementById('gaVolumeCheckboxes')) {
+  loadAvailableGAVolumes();
+}
+
+// Event-Listener für useExistingVocab Checkbox
+document.addEventListener('DOMContentLoaded', function() {
+  const checkbox = document.getElementById('useExistingVocabCheckbox');
+  if (checkbox) {
+    checkbox.addEventListener('change', function() {
+      console.log('[GA-BATCH] useExistingVocab:', this.checked);
+      updateStartButtonState(); // Update auch Reprocess-Button Status
+    });
+  }
+});
+
+// ============================================================================
+// THEMATISCHE CLUSTER-GENERIERUNG
+// ============================================================================
+
+async function generateThematicClusters() {
+  const btn = document.getElementById('generateClustersBtn');
+  const statusDiv = document.getElementById('clustersStatus');
+  const resultsDiv = document.getElementById('clustersResults');
+  
+  if (!confirm('Thematische Cluster aus Seed-Keywords generieren?\n\nDies wird die Claude API verwenden und dauert ca. 1-2 Minuten.')) {
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  statusDiv.style.display = 'block';
+  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Generiere Themenbereiche...</span>';
+  resultsDiv.style.display = 'none';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/generate-clusters-from-seeds`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Server-Fehler: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ ${result.clustersCount} Themenbereiche generiert! Abdeckung: ${result.coverage}</span>`;
+      
+      // Zeige Ergebnisse
+      displayClusters(result.clusters, result.totalSeedKeywords);
+      
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
+    }
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler:', error);
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  }
+}
+
+async function loadExistingClusters() {
+  const statusDiv = document.getElementById('clustersStatus');
+  const resultsDiv = document.getElementById('clustersResults');
+  
+  statusDiv.style.display = 'block';
+  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Lade Cluster...</span>';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/clusters`);
+    
+    if (!response.ok) {
+      throw new Error('Keine Cluster gefunden');
+    }
+    
+    const data = await response.json();
+    
+    statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Cluster geladen (${data.clustersCount} Themenbereiche, Abdeckung: ${data.coverage})</span>`;
+    displayClusters(data.clusters, data.seedKeywordsCount);
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler:', error);
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ ${error.message}</span>`;
+    resultsDiv.style.display = 'none';
+  }
+}
+
+function displayClusters(clusters, totalKeywords) {
+  const resultsDiv = document.getElementById('clustersResults');
+  const contentDiv = document.getElementById('clustersResultsContent');
+  
+  let html = '<div style="display: grid; gap: 0.8rem;">';
+  
+  // Sortiere nach Anzahl Keywords
+  const sortedClusters = Object.entries(clusters).sort((a, b) => 
+    b[1].keywords.length - a[1].keywords.length
+  );
+  
+  sortedClusters.forEach(([name, data]) => {
+    const percentage = ((data.keywords.length / totalKeywords) * 100).toFixed(1);
+    const keywordsPreview = data.keywords.slice(0, 15).join(', ');
+    const moreCount = data.keywords.length > 15 ? ` ... (+${data.keywords.length - 15} weitere)` : '';
+    const manualBadge = data.manual ? '<span style="margin-left: 0.5rem; padding: 2px 6px; background: #5cb85c; color: white; font-size: 0.7em; border-radius: 3px;">Manuell</span>' : '';
+    
+    html += `
+      <div style="padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+          <div>
+            <strong style="color: var(--heading-color); font-size: 1em;">${name}</strong>${manualBadge}
+          </div>
+          <span style="color: var(--secondary-text); font-size: 0.85em;">${data.keywords.length} KWs (${percentage}%)</span>
+        </div>
+        <div style="color: var(--secondary-text); font-size: 0.85em; margin-bottom: 0.5rem;">
+          ${data.description}
+        </div>
+        <div style="color: var(--text-color); font-size: 0.8em; font-style: italic;">
+          ${keywordsPreview}${moreCount}
+        </div>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  
+  contentDiv.innerHTML = html;
+  resultsDiv.style.display = 'block';
+}
+
+// Manuellen Cluster hinzufügen
+async function addManualCluster() {
+  const nameInput = document.getElementById('manualClusterName');
+  const descInput = document.getElementById('manualClusterDescription');
+  const keywordsInput = document.getElementById('manualClusterKeywords');
+  const btn = document.getElementById('addManualClusterBtn');
+  const statusDiv = document.getElementById('manualClusterStatus');
+  
+  const name = nameInput.value.trim();
+  const description = descInput.value.trim();
+  const keywordsText = keywordsInput.value.trim();
+  
+  // Validierung
+  if (!name) {
+    alert('Bitte Cluster-Name eingeben!');
+    return;
+  }
+  
+  if (!keywordsText) {
+    alert('Bitte mindestens ein Keyword eingeben!');
+    return;
+  }
+  
+  // Parse Keywords (ein Keyword pro Zeile)
+  const keywords = keywordsText.split('\n')
+    .map(kw => kw.trim())
+    .filter(kw => kw.length > 0);
+  
+  if (keywords.length === 0) {
+    alert('Bitte mindestens ein Keyword eingeben!');
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.textContent = 'Speichere...';
+  statusDiv.style.display = 'none';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/add-cluster`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        description: description,
+        keywords: keywords
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    statusDiv.style.display = 'block';
+    statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Cluster "${result.clusterName}" hinzugefügt mit ${result.keywordCount} Keywords! Gesamt: ${result.totalClusters} Cluster</span>`;
+    
+    // Formular zurücksetzen
+    clearManualClusterForm();
+    
+    // Cluster neu laden
+    await loadExistingClusters();
+    
+    // Timeline-Themes auch neu laden (falls Timeline geöffnet)
+    await loadTimelineThemes();
+    
+  } catch (error) {
+    console.error('[MANUAL-CLUSTER] Fehler:', error);
+    statusDiv.style.display = 'block';
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Cluster hinzufügen';
+  }
+}
+
+function clearManualClusterForm() {
+  document.getElementById('manualClusterName').value = '';
+  document.getElementById('manualClusterDescription').value = '';
+  document.getElementById('manualClusterKeywords').value = '';
+  document.getElementById('manualClusterStatus').style.display = 'none';
+}
+
+// Cluster reorganisieren
+async function reorganizeClusters() {
+  const btn = document.getElementById('reorganizeClustersBtn');
+  const statusDiv = document.getElementById('clustersStatus');
+  
+  if (!confirm('Cluster reorganisieren?\n\nAlle Keywords werden neu analysiert und optimal zugeordnet.\nDies kann einige Minuten dauern.')) {
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.textContent = 'Reorganisiere...';
+  statusDiv.style.display = 'block';
+  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Reorganisiere Cluster...</span>';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/reorganize-clusters`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Reorganisation abgeschlossen!</span><br>` +
+      `<span style="font-size: 0.85em;">Keywords verschoben: ${result.keywordsMoved || 0} | ` +
+      `Neue Cluster: ${result.newClustersCreated || 0} | ` +
+      `Total Cluster: ${result.totalClusters}</span>`;
+    
+    // Cluster neu laden
+    await loadExistingClusters();
+    await loadTimelineThemes();
+    
+  } catch (error) {
+    console.error('[REORGANIZE] Fehler:', error);
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Cluster reorganisieren';
+  }
+}
 
 </script>
 

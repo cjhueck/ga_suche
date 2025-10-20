@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
+const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
 
 const app = express();
@@ -4140,6 +4141,1060 @@ Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zus
   }
 }
 
+// ============================================================================
+// ITERATIVE KEYWORD-GENERIERUNG MIT SEED-VOKABULAR
+// ============================================================================
+
+// Lade Seed-Keywords aus Keywords - merged.md
+function loadSeedKeywords() {
+  try {
+    const content = fsSync.readFileSync(path.join(__dirname, 'Keywords', 'Keywords - merged.md'), 'utf8');
+    const regex = /^## \[\[([^\]]+)\]\]/gm;
+    const matches = [...content.matchAll(regex)];
+    const seedKeywords = matches.map(m => m[1].trim());
+    
+    console.log(`[SEED] Geladen: ${seedKeywords.length} Seed-Keywords aus Keywords - merged.md`);
+    return seedKeywords;
+  } catch (error) {
+    console.error('[SEED] Fehler beim Laden der Seed-Keywords:', error.message);
+    return [];
+  }
+}
+
+// Extrahiere Hauptbegriffe aus Summary
+async function extractKeyTermsFromSummary(summary, existingVocabulary) {
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
+  
+  if (!claudeApiKey) {
+    console.log('[SUMMARY-TERMS] Kein Claude API Key - Fallback auf Regel-basiert');
+    // Einfache Regel: Häufigste Substantive mit Großbuchstaben
+    const words = summary.split(/\s+/);
+    const capitalWords = words.filter(w => w.length > 3 && /^[A-ZÄÖÜ]/.test(w));
+    return [...new Set(capitalWords)].slice(0, 8);
+  }
+  
+  const vocabSample = existingVocabulary.slice(0, 500).join(', ');
+  
+  const prompt = `Analysiere diese Vortrag-Summary und extrahiere die 5-8 wichtigsten HAUPTTHEMEN.
+
+BEVORZUGE Begriffe aus diesem bestehenden Vokabular:
+${vocabSample}
+
+SUMMARY:
+"${summary}"
+
+REGELN:
+1. Nur zentrale Themen/Konzepte (keine Details)
+2. Substantive oder feste Begriffe
+3. BEVORZUGT bestehende Vokabular-Begriffe verwenden
+4. 1-3 Worte pro Begriff
+5. Korrekte deutsche Großschreibung
+
+BEISPIELE:
+"Steiner analysiert das Hochmittelalter... Kreuzzüge... Rittertum..."
+→ ["Mittelalter", "Kreuzzüge", "Rittertum", "Deutsche Geschichte"]
+
+"Die Entwicklung der Karma-Lehre in verschiedenen Kulturen..."
+→ ["Karma", "Reinkarnation", "Östliche Weisheit", "Kulturentwicklung"]
+
+Ausgabe als JSON-Array: ["Begriff1", "Begriff2", ...]
+Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1024,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    let responseText = result.content[0].text.trim();
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    const terms = JSON.parse(responseText);
+    console.log(`[SUMMARY-TERMS] Extrahiert: ${terms.join(', ')}`);
+    return terms;
+    
+  } catch (error) {
+    console.error('[SUMMARY-TERMS] Fehler bei Claude API:', error.message);
+    return [];
+  }
+}
+
+// Generiere Keywords iterativ mit Summary-Kontext und bestehendem Vokabular
+async function generateKeywordsIterativeWithSummary(lectureId, summary, headings, vocabulary, frequencyMap = {}) {
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
+  
+  if (!claudeApiKey) {
+    console.log('[KEYWORDS-ITER] Kein Claude API Key - verwende Regel-basiert');
+    return extractKeywordsFromHeadings(headings);
+  }
+  
+  // 1. Extrahiere Hauptbegriffe aus Summary
+  const summaryKeyTerms = await extractKeyTermsFromSummary(summary, vocabulary);
+  
+  // 2. Finde thematisch passende Keywords (die in Summary-Begriffen vorkommen)
+  const relatedKeywords = vocabulary.filter(kw => 
+    summaryKeyTerms.some(term => 
+      kw.toLowerCase().includes(term.toLowerCase()) || 
+      term.toLowerCase().includes(kw.toLowerCase())
+    )
+  ).slice(0, 50);
+  
+  // 3. Häufigste Keywords (Top 100)
+  const sortedByFreq = Object.entries(frequencyMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(([term]) => term)
+    .slice(0, 100);
+  
+  // 4. Formatiere Überschriften
+  const headingsText = headings
+    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .join('\n');
+  
+  const prompt = `VORTRAG: ${lectureId}
+
+VORTRAG-SUMMARY (Übergeordnetes Thema):
+"${summary}"
+
+HAUPTBEGRIFFE AUS SUMMARY:
+${summaryKeyTerms.join(', ')}
+
+BESTEHENDES VOKABULAR:
+Gesamt: ${vocabulary.length} Begriffe
+Thematisch passend: ${relatedKeywords.join(', ') || 'keine'}
+Häufigste: ${sortedByFreq.slice(0, 80).join(', ')}
+
+NEUE ÜBERSCHRIFTEN (zu verschlagworten):
+${headingsText}
+
+AUFGABE:
+Erstelle für JEDE Überschrift EIN prägnantes Schlagwort (1-3 Worte).
+
+PRIORITÄTEN:
+1. HÖCHSTE: Begriffe die in der Summary vorkommen
+2. HOHE: Thematisch passende bestehende Keywords
+3. MITTLERE: Häufige bestehende Keywords
+4. NIEDRIGE: Neue Keywords (NUR wenn kein bestehendes passt)
+
+REGELN:
+- BEVORZUGT bestehende Begriffe wiederverwenden
+- Bei Synonymen: Wähle die häufigere/in-Summary-erwähnte Form
+- Korrekte deutsche Großschreibung (Substantive groß)
+- "und", "oder", "der", "die" etc. kleinschreiben
+- Bei hierarchischen Begriffen: Passende Granularität wählen
+
+SEMANTIC MATCHING:
+- "Astralleib" ≈ "Astralischer Leib" → VERWENDE das häufigere
+- "Karma und Reinkarnation" vs "Karma" → WÄHLE passende Granularität
+
+AUSGABE (JSON):
+[
+  {
+    "term": "Gewähltes Schlagwort",
+    "index": "^abc123",
+    "heading": "Original-Überschrift",
+    "matchType": "summary-derived|existing-exact|existing-similar|new",
+    "matchedExisting": "Name des gematchten Keywords (oder null)",
+    "summaryMentioned": true/false,
+    "confidence": 0.0-1.0
+  }
+]
+
+Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
+
+  try {
+    console.log(`[KEYWORDS-ITER] ${lectureId}: Rufe Claude API auf...`);
+    
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4096,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    let responseText = result.content[0].text.trim();
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    let keywords = JSON.parse(responseText);
+    
+    // Füge level-Feld hinzu
+    keywords = keywords.map(kw => {
+      const originalHeading = headings.find(h => h.index === kw.index || h.text === kw.heading);
+      return {
+        ...kw,
+        level: originalHeading?.level || 'h3'
+      };
+    });
+    
+    console.log(`[KEYWORDS-ITER] ${lectureId}: ✓ ${keywords.length} Keywords generiert`);
+    console.log(`[KEYWORDS-ITER]   Existing: ${keywords.filter(k => k.matchType !== 'new').length}, New: ${keywords.filter(k => k.matchType === 'new').length}`);
+    
+    return keywords;
+
+  } catch (error) {
+    console.error(`[KEYWORDS-ITER] ${lectureId}: Fehler bei Claude API:`, error.message);
+    return extractKeywordsFromHeadings(headings);
+  }
+}
+
+// Berechne Keyword-Häufigkeit
+function calculateKeywordFrequency(keywordsDB) {
+  const frequencyMap = {};
+  
+  for (const [lectureId, data] of Object.entries(keywordsDB)) {
+    if (!data.keywords) continue;
+    data.keywords.forEach(kw => {
+      const term = kw.term.trim();
+      frequencyMap[term] = (frequencyMap[term] || 0) + 1;
+    });
+  }
+  
+  return frequencyMap;
+}
+
+// ============================================================================
+// BATCH-REGENERIERUNG GA-BAND-WEISE
+// ============================================================================
+
+// Hilfsfunktion: Gruppiere Vorträge nach GA-Band
+function groupLecturesByGA(summaryDB) {
+  const gaGroups = {};
+  
+  for (const lectureId of Object.keys(summaryDB)) {
+    const gaMatch = lectureId.match(/^GA(\d+)/);
+    const gaNum = gaMatch ? gaMatch[1] : 'unknown';
+    const gaKey = `GA${gaNum}`;
+    
+    if (!gaGroups[gaKey]) {
+      gaGroups[gaKey] = [];
+    }
+    gaGroups[gaKey].push(lectureId);
+  }
+  
+  // Sortiere GA-Bände numerisch
+  const sortedGAs = Object.keys(gaGroups).sort((a, b) => {
+    const numA = parseInt(a.replace('GA', '')) || 0;
+    const numB = parseInt(b.replace('GA', '')) || 0;
+    return numA - numB;
+  });
+  
+  return { gaGroups, sortedGAs };
+}
+
+// Funktion: Erweitere bestehende Cluster mit neuen Keywords
+async function expandClustersWithNewKeywords(newKeywords, existingClusters) {
+  console.log(`[CLUSTERS] Erweitere Cluster mit ${newKeywords.length} neuen Keywords...`);
+  
+  const prompt = `Du bist ein Experte für thematische Klassifikation von philosophischen und anthroposophischen Begriffen.
+
+BESTEHENDE THEMATISCHE CLUSTER:
+${JSON.stringify(existingClusters, null, 2)}
+
+NEUE KEYWORDS ZUM ZUORDNEN:
+${newKeywords.join(', ')}
+
+AUFGABE:
+1. Ordne jedes neue Keyword einem passenden bestehenden Cluster zu
+2. Wenn ein Keyword zu KEINEM bestehenden Cluster passt, schlage einen NEUEN Cluster vor
+3. Vermeide redundante Cluster - nur neue Cluster wenn wirklich nötig
+4. Sei konservativ: Bevorzuge Zuordnung zu bestehenden Clustern
+
+ANTWORTE im folgenden JSON-Format:
+{
+  "assignments": {
+    "ClusterName": ["keyword1", "keyword2", ...],
+    ...
+  },
+  "newClusters": {
+    "NewClusterName": {
+      "description": "Beschreibung des neuen Themenbereichs",
+      "keywords": ["keyword1", ...]
+    },
+    ...
+  },
+  "reasoning": "Kurze Erklärung der Entscheidungen"
+}`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.CLAUDE_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 8000,
+        temperature: 0.3,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Claude API Error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    const responseText = data.content[0].text;
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    
+    if (!jsonMatch) {
+      throw new Error('No valid JSON in Claude response');
+    }
+
+    const result = JSON.parse(jsonMatch[0]);
+    console.log(`[CLUSTERS] Expansion: ${Object.keys(result.assignments || {}).length} bestehende erweitert, ${Object.keys(result.newClusters || {}).length} neue erstellt`);
+    
+    return result;
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler bei Expansion:', error);
+    throw error;
+  }
+}
+
+// Endpoint: Liste verfügbare GA-Bände
+app.get('/api/keywords/available-ga-volumes', async (req, res) => {
+  try {
+    const summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
+    const { gaGroups, sortedGAs } = groupLecturesByGA(summaryDB);
+    
+    const volumes = sortedGAs.map(ga => ({
+      volume: ga,
+      lectureCount: gaGroups[ga].length,
+      lectures: gaGroups[ga].sort()
+    }));
+    
+    res.json({ volumes });
+  } catch (error) {
+    console.error('[GA-VOLUMES] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Regeneriere einen GA-Band
+app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
+  const { gaVolume, useExistingVocab, updateClusters, parallelBatchSize, forceReprocess } = req.body;
+  const PARALLEL_BATCH_SIZE = parallelBatchSize || 5; // Default: 5 parallel
+  
+  console.log(`\n[GA-BATCH] Starte Regenerierung für ${gaVolume}...`);
+  console.log(`[GA-BATCH] Verwende bestehendes Vokabular: ${useExistingVocab ? 'Ja' : 'Nein (nur Seeds)'}`);
+  console.log(`[GA-BATCH] Cluster iterativ erweitern: ${updateClusters ? 'Ja' : 'Nein'}`);
+  console.log(`[GA-BATCH] Parallele Verarbeitung: ${PARALLEL_BATCH_SIZE} Vorträge pro Batch`);
+  console.log(`[GA-BATCH] Bereits verarbeitete neu verarbeiten: ${forceReprocess ? 'Ja' : 'Nein'}`);
+  
+  try {
+    // 1. Lade Seed-Keywords
+    const seedKeywords = loadSeedKeywords();
+    if (seedKeywords.length === 0) {
+      throw new Error('Keine Seed-Keywords gefunden');
+    }
+    
+    // 2. Lade Full Lectures für Datum/Jahr
+    if (Object.keys(fullLectures).length === 0) {
+      console.log('[GA-BATCH] Lade Full Lectures für Metadaten...');
+      await loadFullLectures();
+    }
+    
+    // 3. Lade Summary-Database
+    const summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
+    
+    // 3. Lade existierende Keywords-Database (falls useExistingVocab)
+    let existingKeywordsDB = {};
+    let masterVocabulary = new Set(seedKeywords);
+    let frequencyMap = {};
+    
+    if (useExistingVocab) {
+      try {
+        existingKeywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
+        
+        // Extrahiere alle bereits verwendeten Keywords
+        for (const [lectureId, data] of Object.entries(existingKeywordsDB)) {
+          if (!data.keywords) continue;
+          data.keywords.forEach(kw => {
+            masterVocabulary.add(kw.term);
+            frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
+          });
+        }
+        
+        console.log(`[GA-BATCH] Geladen: ${masterVocabulary.size} Keywords aus bestehender Datenbank`);
+      } catch (error) {
+        console.log(`[GA-BATCH] Keine bestehende Datenbank gefunden, starte mit Seeds`);
+      }
+    }
+    
+    // 4. Filtere Vorträge für diesen GA-Band
+    const { gaGroups } = groupLecturesByGA(summaryDB);
+    const lectures = gaGroups[gaVolume];
+    
+    if (!lectures || lectures.length === 0) {
+      throw new Error(`Keine Vorträge für ${gaVolume} gefunden`);
+    }
+    
+    console.log(`[GA-BATCH] ${gaVolume}: ${lectures.length} Vorträge`);
+    console.log(`[GA-BATCH] Start-Vokabular: ${masterVocabulary.size} Keywords`);
+    
+    // 5. Sortiere Vorträge innerhalb des GA-Bands
+    const sortedLectures = lectures.sort();
+    
+    const newKeywordsDB = {};
+    const stats = {
+      gaVolume: gaVolume,
+      processed: 0,
+      skipped: 0,
+      totalKeywords: 0,
+      newKeywords: 0,
+      reusedKeywords: 0,
+      errors: 0,
+      vocabularyGrowth: []
+    };
+    
+    // 6. Iteriere durch Vorträge dieses GA-Bands (PARALLEL mit Batching)
+    // PARALLEL_BATCH_SIZE aus Request-Parameter übernommen
+    // Empfohlene Werte:
+    //   - 3-5: Sicher für Claude Tier 1 (50 req/min, 50k tokens/min)
+    //   - 10-20: Optimal für Claude Tier 2 (1000 req/min, 2M tokens/min)
+    //   - 5: Default - funktioniert zuverlässig für beide Tiers
+    
+    for (let batchStart = 0; batchStart < sortedLectures.length; batchStart += PARALLEL_BATCH_SIZE) {
+      const batchEnd = Math.min(batchStart + PARALLEL_BATCH_SIZE, sortedLectures.length);
+      const batch = sortedLectures.slice(batchStart, batchEnd);
+      
+      console.log(`\n[GA-BATCH] Batch ${Math.floor(batchStart/PARALLEL_BATCH_SIZE)+1}: Verarbeite ${batch.length} Vorträge parallel...`);
+      
+      // Erstelle Array von Promises für parallele Verarbeitung
+      const batchPromises = batch.map(async (lectureId, batchIndex) => {
+        const globalIndex = batchStart + batchIndex;
+        const data = summaryDB[lectureId];
+        
+        if (!data.headings || data.headings.length === 0) {
+          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Überspringe (keine Überschriften)`);
+          return { lectureId, skipped: true };
+        }
+        
+        // Überspringe bereits verarbeitete Vorträge (nur wenn useExistingVocab aktiv)
+        if (useExistingVocab && existingKeywordsDB[lectureId]) {
+          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Überspringe (bereits verarbeitet)`);
+          return { lectureId, skipped: true, reason: 'already_processed' };
+        }
+        
+        try {
+          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Starte...`);
+          
+          // Snapshot des aktuellen Vokabulars für diese Verarbeitung
+          const vocabSnapshot = Array.from(masterVocabulary);
+          const freqSnapshot = { ...frequencyMap };
+          
+          // Generiere Keywords mit aktuellem Vokabular
+          const keywords = await generateKeywordsIterativeWithSummary(
+            lectureId,
+            data.summary || '',
+            data.headings,
+            vocabSnapshot,
+            freqSnapshot
+          );
+          
+          // Analysiere Results
+          const newKws = keywords.filter(k => k.matchType === 'new');
+          const reusedKws = keywords.filter(k => k.matchType !== 'new');
+          
+          // Extrahiere Datum und Jahr aus fullLectures
+          const lecture = fullLectures[lectureId];
+          const date = lecture?.date || lecture?.dateString || '';
+          const year = date ? parseInt(date.substring(0, 4)) : null;
+          const gaMatch = lectureId.match(/^GA(\d+)/);
+          const gaVol = gaMatch ? `GA${gaMatch[1]}` : null;
+          
+          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu, ${reusedKws.length} wiederverwendet)`);
+          
+          return {
+            lectureId,
+            date,
+            year,
+            gaVolume: gaVol,
+            summary: data.summary,
+            keywords,
+            newKws,
+            reusedKws,
+            skipped: false
+          };
+          
+        } catch (error) {
+          console.error(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: FEHLER:`, error.message);
+          return { lectureId, error: error.message, skipped: false };
+        }
+      });
+      
+      // Warte auf alle Promises in diesem Batch
+      const batchResults = await Promise.all(batchPromises);
+      
+      // Verarbeite Batch-Ergebnisse sequenziell (wichtig für Vokabular-Updates!)
+      for (const result of batchResults) {
+        if (result.skipped) {
+          stats.skipped++;
+          continue;
+        }
+        
+        if (result.error) {
+          stats.errors++;
+          continue;
+        }
+        
+        // Update Master-Vokabular (NACH der Verarbeitung, sequenziell!)
+        result.newKws.forEach(kw => masterVocabulary.add(kw.term));
+        
+        // Update Frequency Map
+        result.keywords.forEach(kw => {
+          frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
+        });
+        
+        // Speichere mit aktualisierter Vokabular-Größe
+        newKeywordsDB[result.lectureId] = {
+          lectureId: result.lectureId,
+          date: result.date,
+          year: result.year,
+          gaVolume: result.gaVolume,
+          summary: result.summary,
+          keywords: result.keywords,
+          vocabSizeAtGeneration: masterVocabulary.size,
+          generated: new Date().toISOString()
+        };
+        
+        // Update Stats
+        stats.processed++;
+        stats.totalKeywords += result.keywords.length;
+        stats.newKeywords += result.newKws.length;
+        stats.reusedKeywords += result.reusedKws.length;
+        stats.vocabularyGrowth.push({
+          lecture: result.lectureId,
+          vocabSize: masterVocabulary.size,
+          newInThisLecture: result.newKws.length
+        });
+      }
+      
+      console.log(`[GA-BATCH] Batch abgeschlossen. Vokabular: ${masterVocabulary.size} Keywords\n`);
+      
+      // Kleine Pause zwischen Batches (Rate Limit Protection)
+      if (batchEnd < sortedLectures.length) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
+    
+    // 7. Finale Statistiken
+    const startVocabSize = useExistingVocab ? Object.keys(existingKeywordsDB).length * 10 : seedKeywords.length; // Schätzung
+    console.log(`\n[GA-BATCH] === ${gaVolume} FERTIG ===`);
+    console.log(`[GA-BATCH] Verarbeitet: ${stats.processed}/${sortedLectures.length}`);
+    if (stats.skipped > 0) {
+      console.log(`[GA-BATCH] Übersprungen: ${stats.skipped} (bereits verarbeitet)`);
+    }
+    console.log(`[GA-BATCH] Fehler: ${stats.errors}`);
+    console.log(`[GA-BATCH] Total Keywords generiert: ${stats.totalKeywords}`);
+    console.log(`[GA-BATCH] Neue Keywords: ${stats.newKeywords}`);
+    console.log(`[GA-BATCH] Wiederverwendet: ${stats.reusedKeywords}`);
+    console.log(`[GA-BATCH] Wiederverwendungsrate: ${(stats.reusedKeywords / stats.totalKeywords * 100).toFixed(1)}%`);
+    console.log(`[GA-BATCH] End-Vokabular: ${masterVocabulary.size} Keywords`);
+    
+    // 8. Merge mit bestehender Datenbank (falls useExistingVocab)
+    let finalDB = newKeywordsDB;
+    if (useExistingVocab) {
+      finalDB = { ...existingKeywordsDB, ...newKeywordsDB };
+      console.log(`[GA-BATCH] Gemerged mit bestehender Datenbank: ${Object.keys(finalDB).length} total Vorträge`);
+    }
+    
+    // 9. Speichere Ergebnis
+    const resultPath = path.join(__dirname, `keywords-database-${gaVolume}.json`);
+    fsSync.writeFileSync(resultPath, JSON.stringify(finalDB, null, 2));
+    console.log(`[GA-BATCH] Gespeichert: ${resultPath}`);
+    
+    // 10. Optional: Aktualisiere Haupt-Datenbank
+    if (useExistingVocab) {
+      fsSync.writeFileSync(KEYWORDS_DB_FILE, JSON.stringify(finalDB, null, 2));
+      console.log(`[GA-BATCH] Haupt-Datenbank aktualisiert: keywords-database.json`);
+    }
+    
+    // 11. Optional: Erweitere Cluster mit neuen Keywords
+    let clusterUpdateInfo = null;
+    if (updateClusters && stats.newKeywords > 0) {
+      console.log(`\n[GA-BATCH] Erweitere Cluster mit ${stats.newKeywords} neuen Keywords...`);
+      
+      try {
+        // Sammle alle neuen Keywords
+        const newKeywords = [];
+        for (const [lectureId, data] of Object.entries(newKeywordsDB)) {
+          if (data.keywords) {
+            data.keywords.forEach(kw => {
+              // Nur Keywords die nicht im Seed-Vokabular waren
+              if (!seedKeywords.includes(kw.term) && !newKeywords.includes(kw.term)) {
+                newKeywords.push(kw.term);
+              }
+            });
+          }
+        }
+        
+        if (newKeywords.length > 0) {
+          // Lade existierende Cluster
+          let existingClusters = null;
+          const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+          
+          if (fsSync.existsSync(clustersPath)) {
+            existingClusters = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+            
+            // Erweitere Cluster iterativ
+            const expansion = await expandClustersWithNewKeywords(newKeywords, existingClusters);
+            
+            // Merge assignments in bestehende Cluster
+            if (expansion.assignments) {
+              Object.entries(expansion.assignments).forEach(([clusterName, keywords]) => {
+                if (existingClusters[clusterName]) {
+                  existingClusters[clusterName].keywords = [
+                    ...new Set([...existingClusters[clusterName].keywords, ...keywords])
+                  ];
+                }
+              });
+            }
+            
+            // Füge neue Cluster hinzu
+            if (expansion.newClusters) {
+              Object.entries(expansion.newClusters).forEach(([clusterName, data]) => {
+                existingClusters[clusterName] = data;
+              });
+            }
+            
+            // Speichere erweiterte Cluster
+            fsSync.writeFileSync(clustersPath, JSON.stringify(existingClusters, null, 2));
+            
+            clusterUpdateInfo = {
+              newKeywordsProcessed: newKeywords.length,
+              clustersExtended: Object.keys(expansion.assignments || {}).length,
+              newClustersCreated: Object.keys(expansion.newClusters || {}).length,
+              totalClusters: Object.keys(existingClusters).length
+            };
+            
+            console.log(`[GA-BATCH] ✓ Cluster erweitert: ${clusterUpdateInfo.clustersExtended} bestehende, ${clusterUpdateInfo.newClustersCreated} neue`);
+          } else {
+            console.log(`[GA-BATCH] Keine Cluster gefunden - bitte erst initial generieren`);
+            clusterUpdateInfo = { error: 'Keine Cluster gefunden' };
+          }
+        }
+      } catch (error) {
+        console.error('[GA-BATCH] Fehler bei Cluster-Erweiterung:', error);
+        clusterUpdateInfo = { error: error.message };
+      }
+    }
+    
+    res.json({
+      success: true,
+      gaVolume: gaVolume,
+      stats: {
+        ...stats,
+        startVocabulary: startVocabSize,
+        finalVocabulary: masterVocabulary.size,
+        vocabularyGrowth: masterVocabulary.size - startVocabSize,
+        reuseRate: stats.totalKeywords > 0 
+          ? (stats.reusedKeywords / stats.totalKeywords * 100).toFixed(1) + '%'
+          : '0%'
+      },
+      resultFile: `keywords-database-${gaVolume}.json`,
+      mainDatabaseUpdated: useExistingVocab,
+      clusterUpdate: clusterUpdateInfo
+    });
+    
+  } catch (error) {
+    console.error(`[GA-BATCH] Fehler:`, error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// THEMATISCHE CLUSTER-GENERIERUNG
+// ============================================================================
+
+// Generiere übergeordnete Themenbereiche aus Seed-Keywords
+app.post('/api/themes/generate-clusters-from-seeds', async (req, res) => {
+  console.log('\n[THEMES] Generiere thematische Cluster aus Seed-Keywords...');
+  
+  try {
+    const claudeApiKey = process.env.CLAUDE_API_KEY;
+    if (!claudeApiKey) {
+      throw new Error('CLAUDE_API_KEY nicht gefunden');
+    }
+    
+    // 1. Lade Seed-Keywords
+    const seedKeywords = loadSeedKeywords();
+    if (seedKeywords.length === 0) {
+      throw new Error('Keine Seed-Keywords gefunden');
+    }
+    
+    console.log(`[THEMES] Analysiere ${seedKeywords.length} Seed-Keywords...`);
+    
+    // 2. Erstelle Prompt für Claude
+    const prompt = `Analysiere diese Liste von Schlüsselbegriffen aus Rudolf Steiners Gesamtausgabe und erstelle daraus übergeordnete THEMENBEREICHE.
+
+ALLE SEED-KEYWORDS (${seedKeywords.length} Begriffe):
+${seedKeywords.join(', ')}
+
+AUFGABE:
+Identifiziere die natürlichen thematischen Gruppierungen in dieser Liste.
+Erstelle ÜBERGEORDNETE THEMENBEREICHE, die diese Keywords sinnvoll strukturieren.
+
+ANFORDERUNGEN:
+1. Anzahl: Finde die natürliche Anzahl von Themenbereichen (vermutlich 8-15)
+2. Keine vorab festgelegte Anzahl - lass die Struktur organisch entstehen
+3. Jeder Themenbereich sollte:
+   - Einen klaren, prägnanten deutschen Namen haben
+   - Eine kurze Beschreibung (1-2 Sätze) haben
+   - Mindestens 20-30 Keywords umfassen
+   - Thematisch kohärent sein
+4.Deckung: Zusammen sollten die Bereiche >90% der Keywords abdecken
+5. Restliche Keywords: Sammle in "Verschiedenes" oder ähnlich
+
+BEISPIEL-STRUKTUR (nur als Orientierung):
+{
+  "Themenbereich-Name": {
+    "description": "Kurze Beschreibung des Themenbereichs",
+    "keywords": ["Keyword1", "Keyword2", ...],
+    "keywordCount": 45,
+    "coverage": "12%"
+  },
+  ...
+}
+
+WICHTIG:
+- Verwende die EXAKTEN Keyword-Schreibweisen aus der Liste
+- Sei inklusiv: Ein Keyword kann zu mehreren Bereichen gehören
+- Priorisiere thematische Kohärenz über gleichmäßige Verteilung
+- Deutsche Begriffe für Themenbereiche
+
+Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
+
+    console.log('[THEMES] Rufe Claude API auf...');
+    
+    // 3. Claude API Call
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': claudeApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 8192,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Claude API Fehler: ${response.status}`);
+    }
+
+    const result = await response.json();
+    let responseText = result.content[0].text.trim();
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    const clusters = JSON.parse(responseText);
+    
+    // 4. Validierung und Statistiken
+    const clusterNames = Object.keys(clusters);
+    let totalKeywordsInClusters = 0;
+    let uniqueKeywords = new Set();
+    
+    for (const [name, data] of Object.entries(clusters)) {
+      totalKeywordsInClusters += data.keywords.length;
+      data.keywords.forEach(kw => uniqueKeywords.add(kw));
+    }
+    
+    const coverage = (uniqueKeywords.size / seedKeywords.length * 100).toFixed(1);
+    
+    console.log(`[THEMES] ✓ ${clusterNames.length} Themenbereiche generiert`);
+    console.log(`[THEMES] Abdeckung: ${uniqueKeywords.size}/${seedKeywords.length} (${coverage}%)`);
+    clusterNames.forEach(name => {
+      console.log(`[THEMES]   - ${name}: ${clusters[name].keywords.length} Keywords`);
+    });
+    
+    // 5. Speichere Ergebnis
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    fsSync.writeFileSync(clustersPath, JSON.stringify({
+      generated: new Date().toISOString(),
+      seedKeywordsCount: seedKeywords.length,
+      clustersCount: clusterNames.length,
+      coverage: coverage + '%',
+      clusters: clusters
+    }, null, 2));
+    
+    console.log(`[THEMES] Gespeichert: ${clustersPath}`);
+    
+    res.json({
+      success: true,
+      clustersCount: clusterNames.length,
+      coverage: coverage + '%',
+      uniqueKeywordsCovered: uniqueKeywords.size,
+      totalSeedKeywords: seedKeywords.length,
+      clusters: clusters,
+      clusterNames: clusterNames
+    });
+    
+  } catch (error) {
+    console.error('[THEMES] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Lade bestehende Cluster
+app.get('/api/themes/clusters', async (req, res) => {
+  try {
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+    res.json(data);
+  } catch (error) {
+    res.status(404).json({ error: 'Keine Cluster gefunden. Bitte erst generieren.' });
+  }
+});
+
+// Manuell Cluster hinzufügen
+app.post('/api/themes/add-cluster', async (req, res) => {
+  const { name, description, keywords } = req.body;
+  
+  console.log(`[CLUSTERS] Füge manuellen Cluster hinzu: ${name}`);
+  
+  try {
+    // Validierung
+    if (!name || !name.trim()) {
+      throw new Error('Cluster-Name ist erforderlich');
+    }
+    
+    if (!keywords || !Array.isArray(keywords) || keywords.length === 0) {
+      throw new Error('Mindestens ein Keyword erforderlich');
+    }
+    
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    
+    // Lade bestehende Cluster oder erstelle neue Datei
+    let clusters = {};
+    if (fsSync.existsSync(clustersPath)) {
+      clusters = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+    }
+    
+    // Prüfe ob Cluster bereits existiert
+    if (clusters[name]) {
+      throw new Error(`Cluster "${name}" existiert bereits`);
+    }
+    
+    // Füge neuen Cluster hinzu
+    clusters[name] = {
+      description: description || `Manuell hinzugefügter Themenbereich: ${name}`,
+      keywords: keywords.filter(kw => kw && kw.trim()),
+      manual: true, // Markierung für manuell hinzugefügte Cluster
+      created: new Date().toISOString()
+    };
+    
+    // Speichere
+    fsSync.writeFileSync(clustersPath, JSON.stringify(clusters, null, 2));
+    
+    console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${keywords.length} Keywords`);
+    
+    res.json({
+      success: true,
+      clusterName: name,
+      keywordCount: keywords.length,
+      totalClusters: Object.keys(clusters).length
+    });
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler beim Hinzufügen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Cluster reorganisieren (Keywords neu zuordnen)
+app.post('/api/themes/reorganize-clusters', async (req, res) => {
+  console.log('[CLUSTERS] Starte Reorganisation...');
+  
+  try {
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    
+    if (!fsSync.existsSync(clustersPath)) {
+      throw new Error('Keine Cluster gefunden. Bitte erst generieren.');
+    }
+    
+    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+    const clusters = clustersData.clusters || clustersData;
+    
+    // Sammle alle Keywords aus allen Clustern
+    const allKeywords = new Set();
+    Object.values(clusters).forEach(cluster => {
+      if (cluster.keywords && Array.isArray(cluster.keywords)) {
+        cluster.keywords.forEach(kw => allKeywords.add(kw));
+      }
+    });
+    
+    const keywordsList = Array.from(allKeywords);
+    console.log(`[CLUSTERS] Reorganisiere ${keywordsList.length} Keywords über ${Object.keys(clusters).length} Cluster...`);
+    
+    // Erstelle Prompt für Claude
+    const prompt = `Du bist ein Experte für thematische Klassifikation von philosophischen und anthroposophischen Begriffen.
+
+BESTEHENDE THEMATISCHE CLUSTER:
+${JSON.stringify(clusters, null, 2)}
+
+AUFGABE:
+Analysiere ALLE Keywords aus ALLEN Clustern und ordne sie neu zu:
+1. Jedes Keyword dem am besten passenden Cluster zuordnen
+2. Falls ein Keyword zu keinem bestehenden Cluster passt, einen NEUEN Cluster vorschlagen
+3. Cluster können leer werden (Keywords wandern woanders hin)
+4. Ziel: Optimale thematische Kohärenz
+
+ANTWORTE im folgenden JSON-Format:
+{
+  "reorganized": {
+    "ClusterName": ["keyword1", "keyword2", ...],
+    ...
+  },
+  "newClusters": {
+    "NewClusterName": {
+      "description": "Beschreibung",
+      "keywords": ["keyword1", ...]
+    },
+    ...
+  },
+  "moved": 123,
+  "reasoning": "Kurze Erklärung der Hauptänderungen"
+}`;
+
+    // Call Claude API
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.CLAUDE_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 16000,
+        temperature: 0.3,
+        messages: [{
+          role: 'user',
+          content: prompt
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Claude API Error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    const responseText = data.content[0].text;
+    
+    // Parse JSON response
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('Keine JSON-Antwort von Claude erhalten');
+    }
+    
+    const result = JSON.parse(jsonMatch[0]);
+    
+    // Merge reorganisierte Cluster mit neuen Clustern
+    const finalClusters = {};
+    
+    // Bestehende Cluster mit neu zugeordneten Keywords
+    Object.entries(result.reorganized).forEach(([name, keywords]) => {
+      if (keywords.length > 0) { // Nur nicht-leere Cluster behalten
+        const originalCluster = clusters[name];
+        finalClusters[name] = {
+          description: originalCluster?.description || name,
+          keywords: keywords,
+          manual: originalCluster?.manual || false
+        };
+      }
+    });
+    
+    // Neue Cluster hinzufügen
+    if (result.newClusters) {
+      Object.entries(result.newClusters).forEach(([name, data]) => {
+        finalClusters[name] = {
+          description: data.description,
+          keywords: data.keywords,
+          manual: false,
+          newFromReorg: true
+        };
+      });
+    }
+    
+    // Behalte Metadaten
+    const finalData = {
+      generated: new Date().toISOString(),
+      reorganized: true,
+      seedKeywordsCount: clustersData.seedKeywordsCount || 0,
+      clustersCount: Object.keys(finalClusters).length,
+      clusters: finalClusters
+    };
+    
+    // Speichere
+    fsSync.writeFileSync(clustersPath, JSON.stringify(finalData, null, 2));
+    
+    console.log(`[CLUSTERS] ✓ Reorganisation abgeschlossen`);
+    console.log(`[CLUSTERS] Keywords verschoben: ${result.moved || 0}`);
+    console.log(`[CLUSTERS] Neue Cluster: ${Object.keys(result.newClusters || {}).length}`);
+    console.log(`[CLUSTERS] Total Cluster: ${Object.keys(finalClusters).length}`);
+    
+    res.json({
+      success: true,
+      keywordsMoved: result.moved || 0,
+      newClustersCreated: Object.keys(result.newClusters || {}).length,
+      totalClusters: Object.keys(finalClusters).length,
+      reasoning: result.reasoning
+    });
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler bei Reorganisation:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+
 // HAUPTFUNKTION: Extrahiere Keywords aus Überschriften (regel-basiert, ohne KI)
 function extractKeywordsFromHeadings(headings) {
   console.log('[KEYWORDS-GEN] Verwende regel-basierte Extraktion');
@@ -4821,10 +5876,23 @@ app.post('/api/generate-themes', async (req, res) => {
   }
 });
 
-// API: Themes-Datenbank abrufen
+// API: Themes-Datenbank abrufen (nutzt neue thematic-clusters.json)
 app.get('/api/themes-database', async (req, res) => {
   try {
+    // Versuche zuerst neue thematic-clusters.json zu laden
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    if (fsSync.existsSync(clustersPath)) {
+      const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+      // Extrahiere nur die Cluster selbst (nicht die Metadaten)
+      const clusters = data.clusters || data;
+      console.log('[THEMES-API] Liefere thematic-clusters.json');
+      res.json(clusters);
+      return;
+    }
+    
+    // Fallback: alte themes-database.json
     const themesDB = await loadThemesDatabase();
+    console.log('[THEMES-API] Liefere themes-database.json (Fallback)');
     res.json(themesDB);
   } catch (error) {
     console.error('[THEMES-API] Fehler beim Laden:', error);
@@ -5490,6 +6558,41 @@ app.post('/api/save-marked-word', async (req, res) => {
   } catch (error) {
     console.error('[MARKED-WORD] Fehler beim Speichern:', error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// API: FILE MANAGEMENT
+// ============================================================================
+
+// Liste alle JSON-Dateien im Root-Verzeichnis
+app.get('/api/list-files', async (req, res) => {
+  try {
+    const files = await fs.readdir(__dirname);
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+    res.json(jsonFiles);
+  } catch (error) {
+    console.error('Fehler beim Listen der Dateien:', error);
+    res.status(500).json({ error: 'Fehler beim Listen der Dateien' });
+  }
+});
+
+// Lade eine spezifische JSON-Datei
+app.get('/api/file/:filename', async (req, res) => {
+  try {
+    const filename = req.params.filename;
+    
+    // Sicherheitsprüfung: Nur JSON-Dateien im Root-Verzeichnis
+    if (!filename.endsWith('.json') || filename.includes('/') || filename.includes('\\')) {
+      return res.status(400).json({ error: 'Ungültiger Dateiname' });
+    }
+    
+    const filePath = path.join(__dirname, filename);
+    const data = await fs.readFile(filePath, 'utf-8');
+    res.json(JSON.parse(data));
+  } catch (error) {
+    console.error(`Fehler beim Laden von ${req.params.filename}:`, error);
+    res.status(500).json({ error: 'Fehler beim Laden der Datei' });
   }
 });
 
