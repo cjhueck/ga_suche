@@ -1,0 +1,5633 @@
+{
+  "GA054/1": {
+    "lectureId": "GA054/1",
+    "date": "1905-10-05",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner setzt sich in diesem Vortrag differenziert mit Ernst Haeckels materialistischer Weltanschauung auseinander. Er würdigt Haeckels wissenschaftlichen Mut und seine zusammenfassende Darstellungskraft, kritisiert aber die materialistische Deutung der naturwissenschaftlichen Entdeckungen. Steiner zeigt auf, dass die Grenzen der Naturwissenschaft nicht die Grenzen der Erkenntnis überhaupt sind, sondern nur die der sinnlichen Erkenntnis. Die Theosophie kann durch die Entwicklung höherer Wahrnehmungsorgane über diese Grenzen hinausgehen. Er präsentiert eine geisteswissenschaftliche Abstammungslehre, wonach die Menschenseele bereits vor der körperlichen Entwicklung existierte und die Evolution der Arten durch spirituelle Kräfte leitete. So werden Haeckels naturwissenschaftliche Erkenntnisse nicht widerlegt, sondern auf einer höheren Ebene integriert und geistig durchdrungen.",
+    "keywords": [
+      {
+        "term": "Theosophie",
+        "index": "^tc9qww",
+        "heading": "Haeckels Bedeutung und die theosophische Stellungnahme",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismuskritik",
+        "index": "^tc9qww",
+        "heading": "Die Herausforderung der Auseinandersetzung",
+        "matchType": "existing-similar",
+        "matchedExisting": "Materialismuskritik",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Persönliche Haltung",
+        "index": "^asamtz",
+        "heading": "Steiners persönliche Haltung zu Haeckel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Moralische Kraft",
+        "index": "^a8rkvf",
+        "heading": "Anerkennung von Haeckels moralischer Kraft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesgeschichte",
+        "index": "^tfytpq",
+        "heading": "Der geistesgeschichtliche Kontext des 19. Jahrhunderts",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^tfytpq",
+        "heading": "Die Wende zum Materialismus",
+        "matchType": "summary-derived",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Tradition",
+        "index": "^pjl9cb",
+        "heading": "Die spirituelle Tradition der ersten Jahrhunderthälfte",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Zellenforschung",
+        "index": "^plu2yh",
+        "heading": "Die Entdeckung der Zellen und ihre Auswirkungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Naturwissenschaft",
+        "index": "^x330bu",
+        "heading": "Die materialistische Naturwissenschaft der 1840er-50er Jahre",
+        "matchType": "summary-derived",
+        "matchedExisting": "Naturwissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Materialistische Erziehung",
+        "index": "^l7vt8h",
+        "heading": "Die materialistische Erziehung der Menschheit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Darwin",
+        "index": "^ryxmiu",
+        "heading": "Darwin und die materialistische Deutung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Haltung",
+        "index": "^ryxmiu",
+        "heading": "Darwins ursprüngliche spirituelle Haltung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Materialistische Interpretation",
+        "index": "^woy06g",
+        "heading": "Haeckels materialistische Interpretation",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Innerer Widerspruch",
+        "index": "^xb1i76",
+        "heading": "Haeckels innerer Widerspruch zwischen Denken und Gefühl",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Huxleys Wandel",
+        "index": "^wwb9sx",
+        "heading": "Huxleys Entwicklung und Wandel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Erkenntnisgrenzen",
+        "index": "^uj8v3c",
+        "heading": "Du Bois-Reymonds Welträtsel und die Grenzen der Naturforschung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Naturwissenschaftliche Grenzen",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Naturerkenntnis",
+        "index": "^uj8v3c",
+        "heading": "Die Rede über die Grenzen des Naturerkennens",
+        "matchType": "existing-similar",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Welträtsel",
+        "index": "^42cc17",
+        "heading": "Die sieben Welträtsel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Bewusstseinszustände",
+        "index": "^1w71uk",
+        "heading": "Die Unterscheidung zwischen schlafendem und wachem Menschen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^51gf9o",
+        "heading": "Der Einsatzpunkt der theosophischen Weltanschauung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^qcsuf0",
+        "heading": "Theosophie als Entwicklung höherer Erkenntnisfähigkeiten",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Naturwissenschaft",
+        "index": "^qcsuf0",
+        "heading": "Der Unterschied zur Naturwissenschaft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Naturwissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Okkulte Forschung",
+        "index": "^qe4vfh",
+        "heading": "Die okkulte Forschungsmethode",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Höhere Wahrnehmung",
+        "index": "^xrcjai",
+        "heading": "Der Weg über die Träume zur höheren Wahrnehmung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geistiges Schauen",
+        "index": "^am2ly8",
+        "heading": "Die Sphärenharmonie und das geistige Schauen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Abstammungslehre",
+        "index": "^4k5tn0",
+        "heading": "Die geisteswissenschaftliche Abstammungslehre",
+        "matchType": "summary-derived",
+        "matchedExisting": "Abstammungslehre",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^4k5tn0",
+        "heading": "Der Zusammenhang zwischen Naturforschung und Theosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklungslehre",
+        "index": "^ekfi7f",
+        "heading": "Die wahre theosophische Entwickelungslehre",
+        "matchType": "existing-similar",
+        "matchedExisting": "Evolutionslehre",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^mtwhds",
+        "heading": "Der Denkfehler des Materialismus",
+        "matchType": "summary-derived",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Gemeinsames Urwesen",
+        "index": "^s5ua7n",
+        "heading": "Das gemeinsame Urwesen von Mensch und Affe",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Menschenseele",
+        "index": "^f1ev4g",
+        "heading": "Die Rolle der Menschenseele in der Evolution",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Evolution",
+        "index": "^kc51qf",
+        "heading": "Die Entstehung der gesamten Lebewelt aus dem Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Evolution",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Stammbaum-Vergleich",
+        "index": "^olis5o",
+        "heading": "Vergleich der Stammbäume Haeckels und der Geisteswissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Naturwissenschaft & Geisteswissenschaft",
+        "index": "^gquhm6",
+        "heading": "Die Versöhnung von Naturwissenschaft und Geisteswissenschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturwissenschaft & Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Integration",
+        "index": "^gquhm6",
+        "heading": "Die Möglichkeit der Integration",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Weltanschauung",
+        "index": "^omhvq3",
+        "heading": "Die Abhängigkeit der Weltanschauung vom Menschen selbst",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Fetischismus",
+        "index": "^e4xcae",
+        "heading": "Fetischismus und Materialismus als verwandte Phänomene",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^c4f0io",
+        "heading": "Die einheitliche theosophische Weltanschauung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1958,
+    "generated": "2025-10-20T15:14:27.857Z"
+  },
+  "GA054/10": {
+    "lectureId": "GA054/10",
+    "date": "1905-12-14",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner deutet das Weihnachtsfest als universelles Wahrzeichen des Sonnensieges, das in allen Weisheitsreligionen gefeiert wurde. Er erklärt, wie der rhythmische Sonnenlauf der chaotischen Menschennatur als Ideal entgegensteht. Das Fest erinnere an den Moment, als die unsterbliche Menschenseele in der lemurischen Zeit in den physischen Körper eintrat - symbolisiert durch den Sieg des Lichts über die Finsternis. Steiner beschreibt die sieben Einweihungsgrade der Mysterien, besonders den 'Sonnenhelden' im sechsten Grad, der innere Harmonie mit dem kosmischen Rhythmus erreicht hat. Das Weihnachtsfest sei das Geburtsfest des Ideals einer zukünftigen Menschheit, in der Buddhi oder Chrestos - die Universalseele - verkörpert ist und Frieden unter den Menschen bringt.",
+    "keywords": [
+      {
+        "term": "Weihnachtsfest",
+        "index": "^f5r9oh",
+        "heading": "Die verlorene Bedeutung des Weihnachtsfestes",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entfremdung",
+        "index": "^f5r9oh",
+        "heading": "Moderne Entfremdung von den großen Festen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Naturgefühl",
+        "index": "^n9s21t",
+        "heading": "Goethes Naturgefühl als Beispiel lebendiger Welterkenntnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Weihnachtsfest",
+        "index": "^0dbrhy",
+        "heading": "Das universelle Weihnachtsfest",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Weihnachtsfest",
+        "index": "^0dbrhy",
+        "heading": "Weihnachten in allen Kulturen und Zeiten",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sonnensieg",
+        "index": "^seydq8",
+        "heading": "Der Sonnensieg über die Finsternis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^oj1trj",
+        "heading": "Die Geheimlehre des Weihnachtsfestes",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^oj1trj",
+        "heading": "Das große Erinnerungszeichen der Mysterien",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschenseele",
+        "index": "^5vo2sw",
+        "heading": "Das Herabsteigen der unsterblichen Menschenseele",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Kosmische Rhythmen",
+        "index": "^jk3y8u",
+        "heading": "Die kosmischen Zusammenhänge der Menschheitsentwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Rhythmen",
+        "index": "^x3zo9f",
+        "heading": "Rhythmus und Harmonie als Ideale",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rhythmen",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Naturharmonie",
+        "index": "^x3zo9f",
+        "heading": "Der harmonische Gang der Natur",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Leidenschaften",
+        "index": "^7e0bek",
+        "heading": "Das Chaos der menschlichen Leidenschaften",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Seelenentwicklung",
+        "index": "^6th1ek",
+        "heading": "Die Sonne als Vorbild der Seelenentwicklung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^lhg6f5",
+        "heading": "Die Einweihungsgrade und der Sonnenheld",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sieben Stufen der Einweihung",
+        "index": "^lhg6f5",
+        "heading": "Die sieben Grade der Mysterieneinweihung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Sieben Stufen der Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Sonnenheld",
+        "index": "^b65nbu",
+        "heading": "Der Sonnenheld als Ideal der Seelenharmonie",
+        "matchType": "existing-exact",
+        "matchedExisting": "Sonnenheld",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Sonnenheld",
+        "index": "^jhh60b",
+        "heading": "Sonnenmythen und Sonnenhelden der Völker",
+        "matchType": "existing-exact",
+        "matchedExisting": "Sonnenheld",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Universalseele",
+        "index": "^mtmhku",
+        "heading": "Die Universalseele und die Zukunft der Menschheit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Buddhi",
+        "index": "^mtmhku",
+        "heading": "Chrestos und Buddhi als kosmische Seelenkraft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Buddhi",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsgemeinschaft",
+        "index": "^5o21n1",
+        "heading": "Das Ideal der harmonischen Menschheitsgemeinschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Vergottung",
+        "index": "^nyqfqx",
+        "heading": "Vergottung als Entwicklungsweg",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Weihnachtsfest",
+        "index": "^1d01c2",
+        "heading": "Die anthroposophische Weihnachtsempfindung",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Frieden",
+        "index": "^1d01c2",
+        "heading": "Gloria in den Höhen und Friede auf Erden",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Zuversicht",
+        "index": "^2muyk5",
+        "heading": "Das Fest der Zuversicht und des Vertrauens",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Weisheitsreligionen",
+        "index": "^2yhl3g",
+        "heading": "Das Christentum im Einklang mit den Weisheitsreligionen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^5ivgpy",
+        "heading": "Geisteswissenschaft als lebendige Praxis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1966,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/11": {
+    "lectureId": "GA054/11",
+    "date": "1906-02-01",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner beschreibt die Menschheitsentwicklung als einen dreistufigen Prozess mit dem Christus-Ereignis als zentralem Wendepunkt. Die vorchristlichen Epochen umfassten zunächst eine instinktive Periode der körperlichen Entwicklung, gefolgt von einer gesetzmäßigen Periode des Verstandes. Große Eingeweihte leiteten die Menschheit durch Mysterienweisheit, in der wenige Auserwählte durch symbolischen Tod und Auferstehung geistige Erkenntnis erlangten. Das Christentum revolutionierte dies, indem es diese Mysterienwahrheit als historisches Faktum vor aller Augen stellte. Nun konnten Menschen 'selig werden durch Glauben, ohne zu schauen'. Dies bereitete die materielle Eroberung der Welt vor, während der Glaube das geistige Bewusstsein bewahrte. Die vierte Epoche beginnt nun mit der anthroposophischen Vertiefung des Christentums, die materielle Weltkultur mit geistiger Erkenntnis verbinden soll.",
+    "keywords": [
+      {
+        "term": "Weltanschauung",
+        "index": "^1vz09s",
+        "heading": "Die verwirrende Mannigfaltigkeit der Welt",
+        "matchType": "existing-similar",
+        "matchedExisting": "Weltanschauung",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Welträtsel",
+        "index": "^1vz09s",
+        "heading": "Das Rätsel der äußeren Natur und des Menschenlebens",
+        "matchType": "existing-similar",
+        "matchedExisting": "Welträtsel",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^hpsryi",
+        "heading": "Die geschichtliche Entwicklung als größtes Rätsel",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Gesetzmäßigkeit",
+        "index": "^03jx75",
+        "heading": "Große Geister und die Gesetzmäßigkeit der Geschichte",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Christus-Ereignis",
+        "index": "^s41xg8",
+        "heading": "Die Zweiteilung der Geschichte durch Christus",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christus-Ereignis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Zeitrechnung",
+        "index": "^s41xg8",
+        "heading": "Die unbewusste Bedeutung der christlichen Zeitrechnung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Anthroposophie",
+        "index": "^fdio8j",
+        "heading": "Die anthroposophische Aufgabe der Christentums-Vertiefung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Missverständnisse der Geisteswissenschaft",
+        "index": "^5edcsh",
+        "heading": "Missverständnisse und die Notwendigkeit neuer Verkündigung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Missverständnisse der Geisteswissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^g1qa4z",
+        "heading": "Die drei Epochen der Menschheitsentwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sündenfall",
+        "index": "^g1qa4z",
+        "heading": "Der geistige Ursprung des Menschen und der 'Fall'",
+        "matchType": "existing-similar",
+        "matchedExisting": "Sündenfall",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Instinktive Epoche",
+        "index": "^wz98q8",
+        "heading": "Die instinktive Epoche: Erlernen der Gliedmaßen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Verstandesepoche",
+        "index": "^d14j5c",
+        "heading": "Die gesetzmäßige Epoche: Verstand und Ordnung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^40oqv9",
+        "heading": "Die Hüter der Weisheit und die Mysterien",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Eingeweihte",
+        "index": "^40oqv9",
+        "heading": "Die Leitung durch höher entwickelte Individualitäten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^i1xrib",
+        "heading": "Das Geheimnis der Einweihung: Sieg über den Tod",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterienschulen",
+        "index": "^l74i9e",
+        "heading": "Der Einweihungsweg in den alten Mysterientempeln",
+        "matchType": "existing-similar",
+        "matchedExisting": "Einweihungsschulen",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Christentum",
+        "index": "^t378im",
+        "heading": "Das Christentum als Wendepunkt der Geschichte",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Glaube",
+        "index": "^t378im",
+        "heading": "Von der Schau zum Glauben: 'Selig, die da glauben'",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^x6zn2a",
+        "heading": "Christus als Person gewordene Wahrheit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Materielle Epoche",
+        "index": "^vm7ouq",
+        "heading": "Die Vorbereitung auf die materielle Epoche",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Wissenschaft",
+        "index": "^499fv8",
+        "heading": "Der Wandel von alter Weisheit zu moderner Wissenschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterienweisheit",
+        "index": "^cc4odo",
+        "heading": "Die Wiederkehr der Mysterienweisheit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Stirb und Werde",
+        "index": "^cc4odo",
+        "heading": "Das 'Stirb und Werde' der geistigen Entwicklung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Verklärung",
+        "index": "^3esu2h",
+        "heading": "Das Mysterium der Verklärung auf dem Berg Tabor",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Epochenwandel",
+        "index": "^f3mfbv",
+        "heading": "Die vierte Epoche: Vom Glauben zur Weisheit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Epochenwandel",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Weltkultur",
+        "index": "^f3mfbv",
+        "heading": "Die materielle Weltkultur und ihre geistige Vollendung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Anthroposophie",
+        "index": "^aieoga",
+        "heading": "Anthroposophie als lebendige Zukunftskraft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1976,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/12": {
+    "lectureId": "GA054/12",
+    "date": "1906-02-15",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner behandelt die beiden zentralen Begriffe der geisteswissenschaftlichen Weltanschauung: Wiederverkörperung und Karma. Er erklärt, dass Geistig-Seelisches nur aus Geistig-Seelischem entstehen kann, analog zu Redis Erkenntnis, dass Lebendiges nur aus Lebendigem kommt. Der Mensch besteht aus einem physischen Körper und einem ewigen Wesenskern (Atma, Buddhi, Manas), der durch wiederholte Erdenleben zur Vollkommenheit entwickelt wird. Das Karma-Gesetz besagt, dass jeder Mensch durch seine Handlungen sein zukünftiges Schicksal selbst bestimmt. Nach dem Tod durchläuft die Seele Kamaloka (Läuterung) und Devachan (Geisterland), wo Erfahrungen zu Charakterkräften werden. Diese Lehre gibt dem Leben Sinn, Kraft und Sicherheit, da sie zeigt, dass alles nach geistigen Gesetzmäßigkeiten verläuft. Große Denker wie Goethe, Lessing und Giordano Bruno erkannten bereits diese Wahrheiten.",
+    "keywords": [
+      {
+        "term": "Daseinsrätsel",
+        "index": "^oyrr5j",
+        "heading": "Die großen Rätsel des Daseins",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsfragen",
+        "index": "^oyrr5j",
+        "heading": "Theoretische und lebenspraktische Menschheitsfragen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Schicksalsrätsel",
+        "index": "^wzkhuc",
+        "heading": "Die Ungleichheit menschlicher Schicksale als Daseinsrätsel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^mlnk4o",
+        "heading": "Die geisteswissenschaftliche Antwort",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Wiederverkörperung",
+        "index": "^mlnk4o",
+        "heading": "Wiederverkörperung und Karma als Grundbegriffe",
+        "matchType": "summary-derived",
+        "matchedExisting": "Verkörperung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaftliche Erkenntnis",
+        "index": "^bp1vqb",
+        "heading": "Der Charakter geisteswissenschaftlicher Wahrheiten",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaftliche Erkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geist-Seele-Leib",
+        "index": "^dmpb7a",
+        "heading": "Das Gesetz: Geistig-Seelisches aus Geistig-Seelischem",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geist-Seele-Leib",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Wissenschaft",
+        "index": "^dmpb7a",
+        "heading": "Redis Entdeckung als Analogie",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^xqd0of",
+        "heading": "Die Entwicklung des individuellen Wesenskerns",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Ewigkeitskräfte",
+        "index": "^9ahuh7",
+        "heading": "Die dreifache Natur des menschlichen Wesenskerns",
+        "matchType": "summary-derived",
+        "matchedExisting": "Ewigkeitskräfte",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Wesenskern",
+        "index": "^9ahuh7",
+        "heading": "Atma, Buddhi und Manas",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Körper",
+        "index": "^b93j51",
+        "heading": "Der Ausdruck des Wesenskerns im physischen Menschen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Körper",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Karma",
+        "index": "^fpp85o",
+        "heading": "Das Gesetz des Karma",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Schicksalsgesetz",
+        "index": "^fpp85o",
+        "heading": "Die Bedeutung von Karma als Schicksalsgesetz",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Karma",
+        "index": "^r9z22k",
+        "heading": "Beispiele für karmische Wirkungen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Wesenglieder",
+        "index": "^lqobjm",
+        "heading": "Die Gliederung der menschlichen Wesenheit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Körper",
+        "index": "^lqobjm",
+        "heading": "Physischer Leib, Ätherleib, Astralleib und Ich",
+        "matchType": "existing-exact",
+        "matchedExisting": "Körper",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Läuterung",
+        "index": "^0bgc6l",
+        "heading": "Der Läuterungsprozess nach dem Tod",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Nachtod",
+        "index": "^mg3egy",
+        "heading": "Die Zustände nach dem Tod",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Kamaloka",
+        "index": "^mg3egy",
+        "heading": "Kamaloka - das Läuterungsfeuer",
+        "matchType": "summary-derived",
+        "matchedExisting": "Kamaloka",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Devachan",
+        "index": "^pb7dup",
+        "heading": "Devachan - die Verarbeitung der Erfahrungen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Devachan",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Erinnerung",
+        "index": "^r2s1i1",
+        "heading": "Die Erinnerung an frühere Leben",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Karma",
+        "index": "^9vzvmh",
+        "heading": "Karma und freier Wille",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Fatalismus",
+        "index": "^9vzvmh",
+        "heading": "Das Missverständnis vom Fatalismus",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Karma",
+        "index": "^4qpwlb",
+        "heading": "Karma als Naturgesetz des geistigen Lebens",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Wiederverkörperung",
+        "index": "^fuhtx9",
+        "heading": "Große Denker und die Wiederverkörperungslehre",
+        "matchType": "summary-derived",
+        "matchedExisting": "Verkörperung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Deutsche Theosophie",
+        "index": "^fuhtx9",
+        "heading": "Giordano Bruno, Lessing und die deutsche Theosophie",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Goethe",
+        "index": "^y81rv9",
+        "heading": "Goethes Erkenntnis der geistigen Gesetze",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1985,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/13": {
+    "lectureId": "GA054/13",
+    "date": "1906-02-22",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner analysiert das luziferische Prinzip als notwendige Ergänzung zur göttlichen Liebe in der menschlichen Entwicklung. Luzifer, der 'Lichtträger', wird nicht als böse Macht dargestellt, sondern als Bringer von Selbständigkeit, Freiheit und Erkenntnis. Während die Götter den Menschen durch Liebe zur Vollkommenheit führen würden, ermöglicht Luzifer dem Menschen, diese Entwicklung aus eigener Kraft zu vollziehen. Steiner zeigt auf, wie sich diese beiden Prinzipien - göttliche Liebe und luziferisches Licht - vom Alten Testament über das Christentum bis zur modernen Geisteswissenschaft entwickeln. Die Zukunft erfordert eine Synthese beider Kräfte: Die Wissenschaft soll zur Weisheit, die Freiheit zur Opferwilligkeit und die Selbständigkeit zur Selbstlosigkeit vertieft werden - alles durchdrungen von der Kraft der Liebe.",
+    "keywords": [
+      {
+        "term": "Luzifer",
+        "index": "^rgxop1",
+        "heading": "Die Bedeutung Luzifers als Lichtträger",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^rgxop1",
+        "heading": "Etymologie und religiöse Symbolik",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^hzc4s1",
+        "heading": "Wandel der Luzifervorstellung in der Geistesgeschichte",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^ntwp43",
+        "heading": "Luzifers Rolle in der okkulten Betrachtung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^k5sbdi",
+        "heading": "Die Entwicklung der Menschheit und höhere Wesenheiten",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^k5sbdi",
+        "heading": "Der Ausgangspunkt menschlicher Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^btlh5p",
+        "heading": "Götter und luziferische Wesen als Entwicklungsstufen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^dg305l",
+        "heading": "Das luziferische Prinzip zwischen Göttern und Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Naturerkenntnis",
+        "index": "^emr5ut",
+        "heading": "Das Gesetz der Stufenentwicklung in der Natur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturerkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Liebe",
+        "index": "^emr5ut",
+        "heading": "Weisheit, Leben und Liebe als Naturprinzipien",
+        "matchType": "summary-derived",
+        "matchedExisting": "Liebe",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Göttliche Liebe",
+        "index": "^7km5am",
+        "heading": "Das Verhältnis zwischen Göttern und Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Göttliche Liebe",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^4o3opp",
+        "heading": "Luzifers Eingriff in die menschliche Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Freiheit",
+        "index": "^4o3opp",
+        "heading": "Selbständigkeit und Freiheit durch Luzifer",
+        "matchType": "summary-derived",
+        "matchedExisting": "Freiheit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschenerkenntnis",
+        "index": "^ccyehr",
+        "heading": "Die vier Prinzipien des Menschen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschenerkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^ljsoeg",
+        "heading": "Göttliche Passivität versus luziferische Aktivität",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^ne9z2k",
+        "heading": "Die alttestamentliche und christliche Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Naturliebe",
+        "index": "^ne9z2k",
+        "heading": "Jehova als Prinzip der Naturliebe",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^c8fpmz",
+        "heading": "Christus als vergeistigte Liebe",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^us3rdx",
+        "heading": "Das luziferische Prinzip in der christlichen Zeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^wyk4e9",
+        "heading": "Die Zukunft der menschlichen Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^wyk4e9",
+        "heading": "Von der Wissenschaft zur Weisheit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^kt20zj",
+        "heading": "Geisteswissenschaft als Vertiefung des Christentums",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Christus-Impuls",
+        "index": "^bd9cyv",
+        "heading": "Die innere Kirche und individuelle Christuserfahrung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christus-Impuls",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Liebe",
+        "index": "^8szelo",
+        "heading": "Die drei großen Tugenden und ihre Vertiefung durch Liebe",
+        "matchType": "summary-derived",
+        "matchedExisting": "Liebe",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1986,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/14": {
+    "lectureId": "GA054/14",
+    "date": "1906-03-01",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner behandelt Edouard Schurés Drama 'Die Kinder des Luzifer' als Beispiel für theosophische Kunst. Er erläutert den griechischen Mysterienhintergrund, wo Dionysos als der letztgeborene Gott dargestellt wird, der den Menschen zur Geschlechtsreife und damit zur Selbständigkeit führte. Diese Entwicklung ermöglichte dem Menschen Selbstbewusstsein und Freiheit, trennte ihn aber vom göttlichen Bewusstsein. Luzifer wird als Lichtträger verstanden, der den Menschen hilft, den göttlichen Funken in sich zu entwickeln. Das Drama zeigt zwei Protagonisten - Phosphorus und Kleonis - die sich von äußeren Zwängen befreien und zu geistiger Entwicklung finden. Steiner betont, dass wahre Theosophie nicht weltfremd ist, sondern alle Lebensbereiche durchdringt und besonders in der Kunst fruchtbar wird.",
+    "keywords": [
+      {
+        "term": "Theosophie",
+        "index": "^5oc75v",
+        "heading": "Theosophie als lebendige Kulturkraft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^5oc75v",
+        "heading": "Theosophie jenseits von Dogmen und Sektierertum",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kinder des Luzifer",
+        "index": "^2abhyg",
+        "heading": "Edouard Schuré als theosophischer Schriftsteller",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kinder des Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^q3ifsg",
+        "heading": "Die griechischen Mysterien und das göttliche Leben",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^q3ifsg",
+        "heading": "Der Geist im 19. Jahrhundert und Margherita Albana",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^i75hv4",
+        "heading": "Die griechische Auffassung der Götter",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^arf3hc",
+        "heading": "Der Umgang mit den Göttern in den Mysterien",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^00kyv1",
+        "heading": "Richard Wagner und das griechische Mysterienwesen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kunst",
+        "index": "^00kyv1",
+        "heading": "Nietzsche und die dionysische Kunst",
+        "matchType": "summary-derived",
+        "matchedExisting": "Kunst",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^0a1hyt",
+        "heading": "Schurés Verständnis der griechischen Mysterien",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Dionysos-Mysterien",
+        "index": "^la6ghy",
+        "heading": "Dionysos als der letztgeborene Gott",
+        "matchType": "summary-derived",
+        "matchedExisting": "Dionysos-Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Dionysos-Mysterien",
+        "index": "^la6ghy",
+        "heading": "Die Dionysos-Sage und ihre Bedeutung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Dionysos-Mysterien",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^69b06p",
+        "heading": "Geschlechtsreife und menschliche Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Selbstbewusstsein",
+        "index": "^zbnxrv",
+        "heading": "Die Entstehung des Selbstbewusstseins",
+        "matchType": "summary-derived",
+        "matchedExisting": "Selbstbewusstsein",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geist",
+        "index": "^xuwuye",
+        "heading": "Die zwei geistigen Strömungen der Kultur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^xuwuye",
+        "heading": "Hellenischer Geist und römische Staatskunst",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^cgegy1",
+        "heading": "Das Christentum als Veredelung des Triebes",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Kinder des Luzifer",
+        "index": "^wacbyp",
+        "heading": "Das Drama 'Die Kinder des Luzifer'",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kinder des Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kinder des Luzifer",
+        "index": "^wacbyp",
+        "heading": "Die Handlung in Dionysia im 4. Jahrhundert",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kinder des Luzifer",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kinder des Luzifer",
+        "index": "^iz5sv1",
+        "heading": "Phosphorus und Kleonis als Hauptgestalten",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kinder des Luzifer",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^ozekae",
+        "heading": "Der Weg zum unbekannten Gott",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^904f3n",
+        "heading": "Luzifer als Prinzip der geistigen Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Freiheit",
+        "index": "^904f3n",
+        "heading": "Die Luziferkraft und menschliche Freiheit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Freiheit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^ufn3gs",
+        "heading": "Die Vereinigung von Christus und Luzifer",
+        "matchType": "summary-derived",
+        "matchedExisting": "Luzifer",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^oj7sne",
+        "heading": "Tod und Auferstehung im geistigen Sinne",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^ng7jlw",
+        "heading": "Theosophie als Lebensgestaltung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^ng7jlw",
+        "heading": "Ontologie, Mystik und Symbolik",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^wv9ons",
+        "heading": "Das Astrallicht und bewusste Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1986,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/15": {
+    "lectureId": "GA054/15",
+    "date": "1906-03-08",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner zeigt in diesem Vortrag, dass die theosophische Weltanschauung nicht als fremde buddhistische Lehre zu verstehen ist, sondern ihre Wurzeln auch in der germanisch-deutschen Kultur hat. Er erläutert die siebenfache Natur des Menschen (physischer Leib, Ätherleib, Astralleib, Ich, Geistselbst, Lebensgeist, Geistesmensch) und die Lehre von Wiederverkörperung und Karma. Durch Vergleich germanischer Mythologie mit indischen Geheimlehren demonstriert er, wie beide auf denselben spirituellen Grundwahrheiten basieren, jedoch unterschiedlich ausgedrückt werden. Die germanischen Göttervorstellungen entstanden aus astralem Bilderbewusstsein früherer Zeiten, während die indische Lehre mehr begrifflich-geistig orientiert ist. Wotan wird als großer Eingeweihter dargestellt, der die klassischen drei Stufen der Einweihung durchlief. Steiner zeigt, dass alle Kulturen auf derselben Geheimlehre fußen: Der Mensch ist ein werdender Gott.",
+    "keywords": [
+      {
+        "term": "Theosophie",
+        "index": "^nck0k3",
+        "heading": "Theosophie als universelle Weisheitslehre",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Einwände gegen Theosophie",
+        "index": "^nck0k3",
+        "heading": "Gegen das Missverständnis einer rein buddhistischen Bewegung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einwände gegen Theosophie",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Weltanschauung",
+        "index": "^jihqk2",
+        "heading": "Vergleich zwischen europäischen und orientalischen Weltanschauungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Siebenfache Menschennatur",
+        "index": "^bxw76r",
+        "heading": "Die siebenfache Natur des Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Körper",
+        "index": "^bxw76r",
+        "heading": "Die vier Hüllenglieder des Menschen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Körper",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesmensch",
+        "index": "^rhjti6",
+        "heading": "Die drei höheren geistigen Glieder",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Drei Welten",
+        "index": "^a9nsvo",
+        "heading": "Der Mensch als Bürger dreier Welten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Wiederverkörperung",
+        "index": "^ytj2m9",
+        "heading": "Wiederverkörperung und das Gesetz des Karma",
+        "matchType": "summary-derived",
+        "matchedExisting": "Verkörperung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kreislauf der Welten",
+        "index": "^n2n54k",
+        "heading": "Der Kreislauf zwischen den Welten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Hierarchie",
+        "index": "^3xicyh",
+        "heading": "Die Hierarchie der Wesenheiten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^zsw4g6",
+        "heading": "Eingeweihte und die Entwicklung des Bewusstseins",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^zsw4g6",
+        "heading": "Die Möglichkeit beschleunigter geistiger Entwicklung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^pbth9b",
+        "heading": "Volksweisheit und astrale Erfahrungen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Traumzustände",
+        "index": "^m0c611",
+        "heading": "Traumzustände als Zugang zu höheren Welten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Bewusstseinsentwicklung",
+        "index": "^snxgmt",
+        "heading": "Die Entwicklung des menschlichen Bewusstseins",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Germanische Mythologie",
+        "index": "^61fbku",
+        "heading": "Die germanische Götterwelt als Spiegelbild der Geheimlehre",
+        "matchType": "summary-derived",
+        "matchedExisting": "Germanische Mythologie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Asen und Riesen",
+        "index": "^61fbku",
+        "heading": "Riesen und Asen als Entwicklungsstufen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Wotan-Einweihung",
+        "index": "^icrg8s",
+        "heading": "Wotan als großer Eingeweihter",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wotan-Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Sieben Stufen der Einweihung",
+        "index": "^sn96ok",
+        "heading": "Die drei Stufen der Einweihung Wotans",
+        "matchType": "existing-similar",
+        "matchedExisting": "Sieben Stufen der Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Baldur-Sage",
+        "index": "^jxmyq1",
+        "heading": "Die Baldur-Sage und das Bewusstseinsmysterium",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Loki",
+        "index": "^pxgxqn",
+        "heading": "Loki und seine Kinder als kosmische Prinzipien",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Indische Geheimlehre",
+        "index": "^4d67lu",
+        "heading": "Die indische Geheimlehre",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Brahma",
+        "index": "^4d67lu",
+        "heading": "Brahma und das schaffende Wissen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Schöpfung",
+        "index": "^avducj",
+        "heading": "Die drei Welten und der Aufbau der Schöpfung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Spiritualitätsvergleich",
+        "index": "^zrp7xo",
+        "heading": "Unterschiede zwischen germanischer und indischer Spiritualität",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Bildhafte Darstellung",
+        "index": "^zrp7xo",
+        "heading": "Bildhafte versus begriffliche Darstellung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Kriegsreligion",
+        "index": "^26xfjr",
+        "heading": "Kriegsreligion versus Innenschau",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Einheit der Geheimlehren",
+        "index": "^89ekca",
+        "heading": "Die Einheit aller Geheimlehren",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1997,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/16": {
+    "lectureId": "GA054/16",
+    "date": "1906-03-15",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner analysiert die deutsche Geistesgeschichte um 1800 als wichtige Vorstufe zur Theosophie. Er kritisiert die mangelnde Kenntnis der Gelehrtenwelt über diese Epoche und zeigt auf, wie deutsche Denker wie Fichte, Novalis, Schelling und andere bereits theosophische Erkenntnisse entwickelten. Fichte überwand Kants Beschränkungen durch seine Lehre vom Ich als 'Tathandlung', Novalis vereinte mystische Schau mit wissenschaftlicher Erkenntnis, und Schelling erforschte das Wesen von Gut und Böse. Diese Denker bereiteten den Weg für ein tieferes Verständnis der geistigen Welt vor, das durch die moderne Geisteswissenschaft vollendet wird.",
+    "keywords": [
+      {
+        "term": "Wissenschaft",
+        "index": "^psz5ti",
+        "heading": "Das Problem der wissenschaftlichen Autorität",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Missverständnisse der Geisteswissenschaft",
+        "index": "^psz5ti",
+        "heading": "Mangelndes Verständnis der Gelehrten für die Geisteswissenschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Missverständnisse der Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Einwände gegen Theosophie",
+        "index": "^c017xk",
+        "heading": "Die Unwissenheit der öffentlichen Meinung",
+        "matchType": "existing-similar",
+        "matchedExisting": "Einwände gegen Theosophie",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Deutsche Geistesgeschichte",
+        "index": "^jq2spy",
+        "heading": "Die vernachlässigte deutsche Geistestradition",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesgeschichte",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^b6uarr",
+        "heading": "Von der Aufklärung zur höheren Erkenntnis",
+        "matchType": "existing-exact",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Aufklärung",
+        "index": "^b6uarr",
+        "heading": "Die Aufklärung und ihre Bedeutung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Fichte",
+        "index": "^4y9a0z",
+        "heading": "Fichtes Überwindung der Aufklärung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Fichte",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Fichte & Kant",
+        "index": "^af8k5c",
+        "heading": "Kants Philosophie und ihre Grenzen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Fichte & Kant",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Fichte",
+        "index": "^2inowd",
+        "heading": "Johann Gottlieb Fichte - Der Philosoph des Ich",
+        "matchType": "summary-derived",
+        "matchedExisting": "Fichte",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^kobtqq",
+        "heading": "Fichtes Wiederentdeckung durch moderne Theosophen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Ich",
+        "index": "^uskj3d",
+        "heading": "Die Lehre von der Tathandlung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^6k75xv",
+        "heading": "Selbsterkenntnis als geistige Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Individualität",
+        "index": "^lsq5ng",
+        "heading": "Persönlichkeit und Individualität",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Deutscher Idealismus",
+        "index": "^dkrxpe",
+        "heading": "Novalis - Der deutsche Theosoph",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutscher Idealismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^eep9jv",
+        "heading": "Der Bergmann als Geistesforscher",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Mathematik",
+        "index": "^frzjoj",
+        "heading": "Mathematik als Zugang zur Wahrheit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Inkarnation",
+        "index": "^0xa2s0",
+        "heading": "Erinnerung an frühere Inkarnationen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Deutscher Idealismus",
+        "index": "^g4lr34",
+        "heading": "Schelling und die Naturphilosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutscher Idealismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Naturwissenschaft & Geisteswissenschaft",
+        "index": "^ij964f",
+        "heading": "Der Mensch als Schlüssel zur Natur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturwissenschaft & Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Gut und Böse",
+        "index": "^ivi4vm",
+        "heading": "Das Wesen des Bösen und die Freiheit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Mythologie",
+        "index": "^4r8dfd",
+        "heading": "Die Berliner Vorlesungen über Mythologie und Offenbarung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^6hbcec",
+        "heading": "Die Definition der Theosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Deutscher Idealismus",
+        "index": "^tpbk8e",
+        "heading": "Weitere deutsche Theosophen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutscher Idealismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^b4211c",
+        "heading": "Schubert und die Erforschung der Seele",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Seherin von Prevorst",
+        "index": "^yxuall",
+        "heading": "Die Seherin von Prevorst und ihre Bedeutung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Deutsche Geistesgeschichte",
+        "index": "^11wu41",
+        "heading": "Andere Vertreter der geistigen Bewegung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesgeschichte",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^g9x83s",
+        "heading": "Das theosophische Vermächtnis der Epoche",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1998,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/17": {
+    "lectureId": "GA054/17",
+    "date": "1906-03-22",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner interpretiert die Siegfried-Sage als spirituelle Einweihungsgeschichte. Er erklärt, wie die germanischen Mythen auf realen übersinnlichen Erfahrungen beruhen, die das Volk in der Vorzeit hatte. Siegfried verkörpert den germanischen Eingeweihten, der durch die Überwindung des Drachen (niedere Natur) höhere Bewusstseinsstufen erreicht und sich mit der Walküre Brünhilde (unsterbliche Seele) vereinigt. Die Götterdämmerung symbolisiert den historischen Übergang von der alten spirituellen Kultur zur materialistischen Zeit, wobei das höhere Bewusstsein zerstörerisch wirkt, wenn es nicht durch echte Einweihung erworben wird. Richard Wagners Kunst erneuert diese alten Wahrheiten und weist prophetisch auf eine kommende spirituelle Erneuerung der Menschheit hin.",
+    "keywords": [
+      {
+        "term": "Germanische Mythologie",
+        "index": "^rhtd0k",
+        "heading": "Die Wiederentdeckung der germanischen Sage",
+        "matchType": "existing-exact",
+        "matchedExisting": "Germanische Mythologie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mythologie",
+        "index": "^rhtd0k",
+        "heading": "Die Bedeutung der Nibelungensage für das deutsche Volk",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Erneuerung",
+        "index": "^9tc6ci",
+        "heading": "Richard Wagners künstlerische Erneuerung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Spirituelle Erneuerung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^50bf22",
+        "heading": "Geisteswissenschaftliche Deutung der Siegfried-Gestalt",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mythologie",
+        "index": "^50bf22",
+        "heading": "Über die symbolische Auslegung hinaus",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Germanische Mythologie",
+        "index": "^x1doze",
+        "heading": "Die Hauptzüge des Siegfried-Mythos",
+        "matchType": "existing-exact",
+        "matchedExisting": "Germanische Mythologie",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geist",
+        "index": "^ng8pu0",
+        "heading": "Die geistige Wirklichkeit hinter dem Mythos",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^ng8pu0",
+        "heading": "Vom astralen Sehen zur sinnlichen Wahrnehmung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^3yur7i",
+        "heading": "Das Hinuntersinken des astralen Bewusstseins",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Götterdämmerung",
+        "index": "^dmj2br",
+        "heading": "Der Übergang von der Liebe zum Gold",
+        "matchType": "existing-exact",
+        "matchedExisting": "Götterdämmerung",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^2urc4c",
+        "heading": "Siegfried als germanischer Eingeweihter",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Drache",
+        "index": "^2urc4c",
+        "heading": "Die Überwindung der niederen Natur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Drache",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^rz0mgr",
+        "heading": "Die Aufgabe der Eingeweihten",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Brünhilde",
+        "index": "^b1v89e",
+        "heading": "Die Vereinigung mit der Walküre",
+        "matchType": "existing-exact",
+        "matchedExisting": "Brünhilde",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^vt0epv",
+        "heading": "Der Niedergang der alten Einweihung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^vt0epv",
+        "heading": "Die Trennung von Tapferkeit und Weisheit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^4q77bw",
+        "heading": "Die Gefahr des höheren Bewusstseins ohne Einweihung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Götterdämmerung",
+        "index": "^p118cy",
+        "heading": "Die Götterdämmerung und das Christentum",
+        "matchType": "existing-exact",
+        "matchedExisting": "Götterdämmerung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Götter",
+        "index": "^p118cy",
+        "heading": "Das Ende der alten Götterwelt",
+        "matchType": "existing-exact",
+        "matchedExisting": "Götter",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Erneuerung",
+        "index": "^6nhdco",
+        "heading": "Richard Wagners prophetische Kunst",
+        "matchType": "existing-exact",
+        "matchedExisting": "Spirituelle Erneuerung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^oqyi35",
+        "heading": "Die Zukunft der Geisteswissenschaft und des Mythos",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Erneuerung",
+        "index": "^oqyi35",
+        "heading": "Die Erneuerung der alten Wahrheiten",
+        "matchType": "existing-exact",
+        "matchedExisting": "Spirituelle Erneuerung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      }
+    ],
+    "vocabSizeAtGeneration": 1998,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/18": {
+    "lectureId": "GA054/18",
+    "date": "1906-03-29",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner analysiert die Parzival- und Lohengrin-Sagen als Ausdruck christlicher Einweihungswege im Gegensatz zu den heidnischen Nibelungensagen. Parzival repräsentiert den inneren Entwicklungsweg zur Erlangung des Heiligen Grals als Symbol des göttlichen Funkens in der menschlichen Seele. Lohengrin verkörpert die historisch-soziale Mission der mittelalterlichen Städtegründung und Befreiung des Bürgertums. Beide Gestalten entstammen christlichen Einweihungsgemeinschaften - der Tafelrunde des Artus als weltlicher und der Gralsburg als geistlicher Führungsinstanz. Wagner hat diese esoterischen Wahrheiten künstlerisch erneuert, um den Geist der Liebe gegen den Materialismus zu setzen. Die Geisteswissenschaft enthält dieselben Wahrheiten wie die alten Sagen, nur in zeitgemäßer Form ausgedrückt.",
+    "keywords": [
+      {
+        "term": "Christentum",
+        "index": "^qly7s4",
+        "heading": "Von heidnischen zu christlichen Sagen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^qly7s4",
+        "heading": "Der Übergang vom Nibelungenlied zu Parzival und Lohengrin",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalter",
+        "index": "^vq99nv",
+        "heading": "Das Wesen der mittelalterlichen Entwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mittelalter",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Christentum",
+        "index": "^7r9i3z",
+        "heading": "Das Christentum als neue Weltanschauung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihungsschulen",
+        "index": "^ahf9ch",
+        "heading": "Die zwei geistigen Zentren des Mittelalters",
+        "matchType": "existing-similar",
+        "matchedExisting": "Einweihungsschulen",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^ahf9ch",
+        "heading": "Die Tafelrunde des Königs Artus",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^fgb690",
+        "heading": "Die keltischen Wurzeln und die Große Loge",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Gralsmysterien",
+        "index": "^o9an27",
+        "heading": "Die Burg des Heiligen Gral",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^ne2499",
+        "heading": "Der Entwicklungsweg des Parzival",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^ne2499",
+        "heading": "Die vier Wesensglieder des Menschen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^96kscn",
+        "heading": "Christliche Einweihung als Verinnerlichung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Gralsmysterien",
+        "index": "^6h8k0r",
+        "heading": "Die Prüfungen und der Gral",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Sieben Stufen der Einweihung",
+        "index": "^ntl5yx",
+        "heading": "Die drei Stufen des Erkenntnispfades",
+        "matchType": "existing-similar",
+        "matchedExisting": "Sieben Stufen der Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Mystik",
+        "index": "^ntl5yx",
+        "heading": "Durch Mitleid wissend werden",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mystik",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^meiwz1",
+        "heading": "Die objektive Liebe des heimatlosen Menschen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^z234l5",
+        "heading": "Zweifel, Kundalinilicht und der Schwan",
+        "matchType": "summary-derived",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^e6tjed",
+        "heading": "Lohengrin und die historisch-soziale Mission",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalter",
+        "index": "^e6tjed",
+        "heading": "Die Entstehung der Städtekultur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mittelalter",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^oxvv6o",
+        "heading": "Elsa als Symbol der mittelalterlichen Volksseele",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^3jcmgi",
+        "heading": "Das Verbot der Namensfrage",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Kunst",
+        "index": "^15wbzh",
+        "heading": "Richard Wagners künstlerische Erneuerung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kunst",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kunstverständnis",
+        "index": "^15wbzh",
+        "heading": "Von 'Die Sieger' zum Parsifal",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Gralsmysterien",
+        "index": "^52ou5t",
+        "heading": "Die Karfreitag-Inspiration und der Parsifal",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Kunst",
+        "index": "^ic6njv",
+        "heading": "Wagner als religiöser Künstler",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kunst",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^nw08fb",
+        "heading": "Geisteswissenschaft und die ewigen Wahrheiten",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Esoterische Lehre",
+        "index": "^nw08fb",
+        "heading": "Sagen als Bilder großer Wahrheiten",
+        "matchType": "summary-derived",
+        "matchedExisting": "Esoterische Lehre",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^pmubih",
+        "heading": "Die eine Wahrheit in verschiedenen Formen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 1998,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/19": {
+    "lectureId": "GA054/19",
+    "date": "1906-04-12",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner verbindet das Osterfest mit kosmischen und spirituellen Entwicklungszyklen der Menschheit. Er zeigt auf, wie alle großen Völker Frühlingsfeste feierten, die mit der aufsteigenden Sonnenkraft und dem Erwachen der Natur verbunden sind. Der Mensch als Mikrokosmos trägt die kristallisierte Weltenweisheit in seinem physischen Leib, während seine Seele erst langsam erwacht, um diese Weisheit zu verstehen. Das Osterfest symbolisiert nicht nur die äußere Auferstehung der Natur, sondern vor allem die innere Auferstehung des astralen Lichts im Menschen - den Übergang vom physischen zum geistigen Schauen. Steiner verbindet den christlichen Erlösungsgedanken mit der Karma-Lehre und sieht im Osterfest die Verheißung der zukünftigen geistigen Entwicklung der Menschheit.",
+    "keywords": [
+      {
+        "term": "Osterfest",
+        "index": "^tzu018",
+        "heading": "Die universelle Bedeutung der großen Feste",
+        "matchType": "summary-derived",
+        "matchedExisting": "Osterfest",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Osterfest",
+        "index": "^tzu018",
+        "heading": "Das Osterfest und die Naturerscheinungen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Osterfest",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Frühlingsfeste",
+        "index": "^ksid7h",
+        "heading": "Frühlingsfeste der verschiedenen Kulturen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Kosmische Rhythmen",
+        "index": "^h8fi0u",
+        "heading": "Der Zusammenhang mit den Sternbildern",
+        "matchType": "summary-derived",
+        "matchedExisting": "Rhythmen",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Mikrokosmos",
+        "index": "^qt3qy9",
+        "heading": "Der Mensch als Mikrokosmos und Makrokosmos",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Osterfest",
+        "index": "^qt3qy9",
+        "heading": "Das tiefere Mysterium des Osterfestes",
+        "matchType": "summary-derived",
+        "matchedExisting": "Osterfest",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Doppelnatur",
+        "index": "^rpcgpp",
+        "heading": "Die doppelte Natur des Menschen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklungszyklen",
+        "index": "^9zmuq1",
+        "heading": "Die Evolution der Menschenseele",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklungszyklen",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^8j2ya0",
+        "heading": "Vom astralen Schauen zum physischen Sehen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sinneswahrnehmung",
+        "index": "^8j2ya0",
+        "heading": "Die Entstehung der Sinneswahrnehmung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^k5gw67",
+        "heading": "Das ursprüngliche Hellsehen der Menschheit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^3v1gsu",
+        "heading": "Die geistige Auferstehung und ihre Führer",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Osterfest",
+        "index": "^185dq0",
+        "heading": "Das Osterfest als Symbol der geistigen Wiedergeburt",
+        "matchType": "summary-derived",
+        "matchedExisting": "Osterfest",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Auferstehung",
+        "index": "^185dq0",
+        "heading": "Tod und Auferstehung des astralen Lichts",
+        "matchType": "summary-derived",
+        "matchedExisting": "Auferstehung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Osterfest",
+        "index": "^fg5dy2",
+        "heading": "Große Geister und der Ostergedanke",
+        "matchType": "summary-derived",
+        "matchedExisting": "Osterfest",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Karma",
+        "index": "^ij06ke",
+        "heading": "Karma und Erlösung im Ostergedanken",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Karma",
+        "index": "^ij06ke",
+        "heading": "Die scheinbaren Widersprüche auflösen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Karma",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklungszyklen",
+        "index": "^msnwsz",
+        "heading": "Die Zukunft der Menschheit und das Osterfest",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklungszyklen",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2001,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/20": {
+    "lectureId": "GA054/20",
+    "date": "1906-04-19",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner erklärt den Weg zur inneren Entwicklung und höheren Erkenntnis. Der Mensch lebt in drei Welten - der physischen, astralen und geistigen - und kann durch systematische Übung seine seelischen Wahrnehmungsorgane entwickeln. Die Entwicklung erfordert zunächst grundlegende Tugenden wie Gedankenkontrolle, bewusste Handlungen und Unbefangenheit, um harmonische Kräfte freizusetzen. Weitere Stufen umfassen die Überwindung persönlicher Meinungen und des Aberglaubens, die Erkenntnis der Welt als Gleichnis sowie Atem- und Meditationsübungen. Durch diese Praxis erwacht das geistige Auge und der Mensch kann astrale und geistige Welten wahrnehmen. Der Weg führt über Selbsterkenntnis zur Welterkenntnis, wobei das Ziel nicht persönliche Erhöhung, sondern selbstloser Dienst am Weltganzen ist.",
+    "keywords": [
+      {
+        "term": "Drei Welten",
+        "index": "^4ty7tl",
+        "heading": "Die drei Welten des Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Drei Welten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astrale Welt",
+        "index": "^4ty7tl",
+        "heading": "Physische, astrale und geistige Welt",
+        "matchType": "summary-derived",
+        "matchedExisting": "Astrale Welt",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^h2fqv4",
+        "heading": "Die Notwendigkeit höherer Erkenntnis",
+        "matchType": "existing-exact",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Individualität",
+        "index": "^j2sida",
+        "heading": "Der Mensch als Individualität",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^ettlvx",
+        "heading": "Grundlagen der inneren Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Gefahren",
+        "index": "^ettlvx",
+        "heading": "Gefahren und Schwierigkeiten des Weges",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Wege",
+        "index": "^xc1o2l",
+        "heading": "Falsche spirituelle Wege",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Okkulte Methoden",
+        "index": "^yuehql",
+        "heading": "Okkulte Methoden und freier Wille",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Tugenden",
+        "index": "^x8dv8c",
+        "heading": "Die fundamentalen Tugenden",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Rhythmus",
+        "index": "^x8dv8c",
+        "heading": "Rhythmus und Harmonie im Leben",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Gedankenkontrolle",
+        "index": "^gfqmty",
+        "heading": "Kontrolle von Gedanken und Handlungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Unbefangenheit",
+        "index": "^x45yzh",
+        "heading": "Unbefangenheit und positive Betrachtung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Schulung",
+        "index": "^c4zdpo",
+        "heading": "Die höheren Stufen der Schulung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Meinungen",
+        "index": "^c4zdpo",
+        "heading": "Überwindung persönlicher Meinungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Aberglauben",
+        "index": "^t5ve4c",
+        "heading": "Befreiung vom Aberglauben",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Gleichnis",
+        "index": "^p7o0rh",
+        "heading": "Die Welt als Gleichnis verstehen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Meditation",
+        "index": "^ool0bl",
+        "heading": "Atem- und Meditationsübungen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Meditation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atmung",
+        "index": "^ool0bl",
+        "heading": "Bewusste Regulierung des Atmens",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Meditation",
+        "index": "^mie3ai",
+        "heading": "Die drei Stufen der Meditation",
+        "matchType": "summary-derived",
+        "matchedExisting": "Meditation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Astrale Wahrnehmung",
+        "index": "^safk1o",
+        "heading": "Gefühlsentwicklung und astrale Wahrnehmung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Selbsterkenntnis",
+        "index": "^0ac1d0",
+        "heading": "Selbsterkenntnis und Welterkenntnis",
+        "matchType": "summary-derived",
+        "matchedExisting": "Selbsterkenntnis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hüter der Schwelle",
+        "index": "^0ac1d0",
+        "heading": "Der Hüter der Schwelle",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Weltdienst",
+        "index": "^2twce0",
+        "heading": "Dienst am Weltganzen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2013,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/21": {
+    "lectureId": "GA054/21",
+    "date": "1906-04-26",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner stellt Paracelsus (1493-1541) als revolutionären Geist vor, der gegen die materialistische Medizin seiner Zeit kämpfte. Paracelsus suchte durch intuitive Naturerkenntnis die ursprüngliche geistige Heilkunst wiederzubeleben. Er sah den Menschen dreigliedrig: als elementarischen Leib (aus irdischen Kräften), astralischen Leib (aus Sternenkräften) und Geist (aus göttlichen Kräften). Krankheit entsteht durch Störungen im feinstofflichen Ätherleib, nicht nur im Physischen. Seine Begriffe Salz, Merkur und Schwefel entsprechen Leib, Seele und Geist. Paracelsus wanderte unter einfachen Menschen, um deren ursprüngliche Naturverbundenheit zu erlernen. Steiner betont, dass nur geisteswissenschaftliche Forschung Paracelsus' wahre Bedeutung erfassen kann, da er eine ganzheitliche Weltanschauung vertrat, die Astronomie, Medizin und Gotteserkenntnis vereinte.",
+    "keywords": [
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^i2uog6",
+        "heading": "Paracelsus als Wegweiser für die Geisteswissenschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^i2uog6",
+        "heading": "Die besondere Bedeutung für die heutige Zeit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Paracelsus",
+        "index": "^1bluyo",
+        "heading": "Paracelsus und seine Zeit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bürgertum",
+        "index": "^1bluyo",
+        "heading": "Das Heraufkommen des Bürgertums",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Paracelsus",
+        "index": "^qwm2uk",
+        "heading": "Die revolutionäre Persönlichkeit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Medizin",
+        "index": "^fezun5",
+        "heading": "Der Kampf gegen die materialistische Medizin",
+        "matchType": "existing-exact",
+        "matchedExisting": "Medizin",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Medizin",
+        "index": "^fezun5",
+        "heading": "Hippokrates versus Galen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Medizin",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Vier Säfte",
+        "index": "^fz93du",
+        "heading": "Die vier Säfte als geistige Kräfte",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Intuitive Naturerkenntnis",
+        "index": "^ou4cns",
+        "heading": "Zurück zur intuitiven Naturerkenntnis",
+        "matchType": "summary-derived",
+        "matchedExisting": "Naturerkenntnis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Naturerkenntnis",
+        "index": "^hemp0f",
+        "heading": "Paracelsus' Methode der Naturforschung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturerkenntnis",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Volkswissen",
+        "index": "^hemp0f",
+        "heading": "Lernen vom einfachen Volk",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^otjuax",
+        "heading": "Der einheitliche Blick in das Geistige",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Dreigliedrigkeit des Menschen",
+        "index": "^6wft3i",
+        "heading": "Die Dreigliedrigkeit des Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Dreigliedrigkeit des Menschen",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Elementarischer Leib",
+        "index": "^6wft3i",
+        "heading": "Der elementarische Mensch",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^zlrbtk",
+        "heading": "Der astralische Leib",
+        "matchType": "summary-derived",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geist",
+        "index": "^lfhq32",
+        "heading": "Der göttliche Geist",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Alchemie",
+        "index": "^h2ttcx",
+        "heading": "Salz, Merkur und Schwefel",
+        "matchType": "summary-derived",
+        "matchedExisting": "Alchemie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Alchemie",
+        "index": "^h2ttcx",
+        "heading": "Die wahre Bedeutung der Begriffe",
+        "matchType": "summary-derived",
+        "matchedExisting": "Alchemie",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Kosmogonie",
+        "index": "^g9qji4",
+        "heading": "Die Entstehung von Mensch und Welt",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Anthroposophische Medizin",
+        "index": "^p588jw",
+        "heading": "Die praktische Heilkunst",
+        "matchType": "summary-derived",
+        "matchedExisting": "Anthroposophische Medizin",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^p588jw",
+        "heading": "Das magnetische Gleichgewicht",
+        "matchType": "summary-derived",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Paracelsus",
+        "index": "^b9cs59",
+        "heading": "Paracelsus' bleibendes Vermächtnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Vernunft",
+        "index": "^b9cs59",
+        "heading": "Die zwei Arten der Vernunft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^xvrcay",
+        "heading": "Sein Selbstbewusstsein und seine Unsterblichkeit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2017,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/22": {
+    "lectureId": "GA054/22",
+    "date": "1906-05-03",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner stellt Jakob Böhme (1575-1624) als einen der größten Magier und Mystiker der Neuzeit vor. Der einfache Schuhmacher aus Görlitz entwickelte aus direkter geistiger Schau eine umfassende Weltanschauung. Böhme beschreibt die Weltentwicklung aus der 'Tinctura', einer Urmaterie, aus der sich sieben Naturgestalten (Salz, Merkur, Schwefel, Feuer, Wasser, Schall, Weisheit) differenzierten. Der Mensch besitzt die Kraft der Imagination, durch die er magisch auf die Tinctura einwirken kann. Böhmes Lehre erklärt den Ursprung des Bösen als notwendigen Schatten des Lichts und verbindet christliche Mystik mit naturphilosophischer Erkenntnis. Steiner sieht in Böhme einen Höhepunkt deutscher Geistigkeit, der nach der materialistischen Epoche wieder verstanden werden wird.",
+    "keywords": [
+      {
+        "term": "Deutsche Mystik",
+        "index": "^6f1cno",
+        "heading": "Jakob Böhme - Eine merkwürdige Persönlichkeit der Wendezeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutsche Mystik",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Deutsche Geistigkeit",
+        "index": "^6f1cno",
+        "heading": "Der Philosophus teutonicus an der Schwelle zur Neuzeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutsche Geistigkeit",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^2z5tcn",
+        "heading": "Das Unverständnis der modernen Zeit",
+        "matchType": "existing-similar",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Mystik",
+        "index": "^qo3o5f",
+        "heading": "Jugend und mystische Erlebnisse",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mystik",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Handwerker",
+        "index": "^qo3o5f",
+        "heading": "Kindheit und Lehrzeit des einfachen Handwerkers",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesschau",
+        "index": "^d407al",
+        "heading": "Die mysteriöse Begegnung im Schuhmacherladen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesschau",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Offenbarung",
+        "index": "^75pm1b",
+        "heading": "Niederschrift der Offenbarungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Inspiration",
+        "index": "^twt5hg",
+        "heading": "Der Zustand der Inspiration",
+        "matchType": "existing-exact",
+        "matchedExisting": "Inspiration",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^twt5hg",
+        "heading": "Das höhere Selbst und die Aurora",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Seele",
+        "index": "^pv8a8r",
+        "heading": "Das erweiterte Bewusstsein der ewigen Seele",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Verfolgung",
+        "index": "^qqk0mh",
+        "heading": "Verfolgung und Schreibverbot",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h4"
+      },
+      {
+        "term": "Naturphilosophie",
+        "index": "^7q552e",
+        "heading": "Die Lehre von der Tinctura und den sieben Naturgestalten",
+        "matchType": "summary-derived",
+        "matchedExisting": "Naturphilosophie",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Tinctura",
+        "index": "^7q552e",
+        "heading": "Die Tinctura als Urmaterie der Weltentwicklung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Sieben Naturgestalten",
+        "index": "^gj5hqg",
+        "heading": "Die sieben Grundeigenschaften der Natur",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Schwefel",
+        "index": "^5usafu",
+        "heading": "Herbigkeit, Merkur und Schwefel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Deutsche Geistigkeit",
+        "index": "^mi7gv9",
+        "heading": "Das Feuer und die deutsche Volksweisheit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutsche Geistigkeit",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Weisheit",
+        "index": "^swsr96",
+        "heading": "Wasser, Schall und Weisheit als höhere Gestalten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geist",
+        "index": "^p80ny5",
+        "heading": "Die Tinctura als Bindeglied zwischen Geist und Materie",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^p80ny5",
+        "heading": "Der bewegliche Begriff und die lebendige Erkenntnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Imagination",
+        "index": "^s01la4",
+        "heading": "Imagination als schöpferische Kraft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Imagination",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Schöpfung",
+        "index": "^oa1kiw",
+        "heading": "Die Schöpfung des Menschen und der Fall",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Imagination",
+        "index": "^oa1kiw",
+        "heading": "Der ursprüngliche Adam und die göttliche Imagination",
+        "matchType": "summary-derived",
+        "matchedExisting": "Imagination",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^mvybqn",
+        "heading": "Der Übergang vom hellseherischen zum sinnlichen Menschen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Böses",
+        "index": "^iutzh4",
+        "heading": "Das Problem des Bösen und die Theodizee",
+        "matchType": "summary-derived",
+        "matchedExisting": "Böses",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Böses",
+        "index": "^iutzh4",
+        "heading": "Licht und Schatten - die Notwendigkeit des Bösen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Böses",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Freiheit",
+        "index": "^0pv3wb",
+        "heading": "Freiheit und die Möglichkeit der Disharmonie",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Deutsche Geistigkeit",
+        "index": "^9hhjwz",
+        "heading": "Jakob Böhmes Bedeutung für die Zukunft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Deutsche Geistigkeit",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^9hhjwz",
+        "heading": "Die materialistische Epoche und die Wiederentdeckung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^x4n40t",
+        "heading": "Theosophie im Sinne Jakob Böhmes",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2021,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/3": {
+    "lectureId": "GA054/3",
+    "date": "1905-10-19",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "In diesem Vortrag entwickelt Rudolf Steiner die theosophische Dreiteilung des Menschen in Körper, Seele und Geist. Während der Körper sinnlich wahrnehmbar ist, kann die Seele (mit Lust, Leid, Leidenschaften) durch entwickelte seelische Sinne erkannt werden. Der Geist durchdringt das ganze Universum und manifestiert sich als Gedankeninhalt. Durch innere Schulung und Meditation kann der Mensch seelische und geistige Wahrnehmungsorgane entwickeln. Die Seele erweitert sich durch Verbindung mit dem Geist über das persönliche Innere hinaus ins Kosmische. Durch Erinnerung und Bewusstseinserweiterung wird das Gesetz der Wiederverkörperung erkennbar. Das Ziel ist die Vereinigung der Seele mit dem Allgeist - wahre Selbsterkenntnis führt zur Erkenntnis des Göttlichen im Universum.",
+    "keywords": [
+      {
+        "term": "Dreigliederung des Menschen",
+        "index": "^y3qrrv",
+        "heading": "Die Dreiteilung des Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Dreigliederung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geist-Seele-Leib",
+        "index": "^y3qrrv",
+        "heading": "Körper, Seele und Geist als Grundgliederung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist-Seele-Leib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Übersinnliche Wahrnehmung",
+        "index": "^rma93l",
+        "heading": "Das Verhältnis von sinnlicher und übersinnlicher Wahrnehmung",
+        "matchType": "existing-similar",
+        "matchedExisting": "Wahrnehmung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Wahrnehmungsorgane",
+        "index": "^60zmuc",
+        "heading": "Die Entwicklung höherer Wahrnehmungsorgane",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wahrnehmungsorgane",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Seelische Wahrnehmungsorgane",
+        "index": "^60zmuc",
+        "heading": "Schulung der seelischen Sinne",
+        "matchType": "summary-derived",
+        "matchedExisting": "Wahrnehmungsorgane",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesschulung",
+        "index": "^788fa2",
+        "heading": "Die Unterweisung durch ewige Gedankeninhalte",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Astrale Wahrnehmung",
+        "index": "^xf61gd",
+        "heading": "Das innere Licht und die astrale Wahrnehmung",
+        "matchType": "existing-similar",
+        "matchedExisting": "Wahrnehmung",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Seele und Geist",
+        "index": "^9jpfa8",
+        "heading": "Die Natur der Seele und des Geistes",
+        "matchType": "existing-exact",
+        "matchedExisting": "Seele",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Seele",
+        "index": "^9jpfa8",
+        "heading": "Das Seelische als Innenleben",
+        "matchType": "existing-exact",
+        "matchedExisting": "Seele",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^9d1lmz",
+        "heading": "Der Geist als universelles Prinzip",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geist",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Daseinspläne",
+        "index": "^l0ujoc",
+        "heading": "Die drei Daseinspläne",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Vergeistigung",
+        "index": "^gtvse4",
+        "heading": "Die Vergeistigung der Seele",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Weltengeist",
+        "index": "^gtvse4",
+        "heading": "Die Verbindung mit dem ewigen Weltengeist",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Erinnerung",
+        "index": "^e5drz7",
+        "heading": "Die Erinnerung als Beginn der Vergeistigung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Reinkarnation",
+        "index": "^a4cx9h",
+        "heading": "Die Erkenntnis der Wiederverkörperung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Reinkarnation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Selbsterkenntnis",
+        "index": "^g3vnx0",
+        "heading": "Wahre Selbsterkenntnis und Weltverbundenheit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Selbsterkenntnis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Unsterblichkeit",
+        "index": "^g3vnx0",
+        "heading": "Die Unsterblichkeit der vergeistigten Seele",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinserweiterung",
+        "index": "^s3p9b7",
+        "heading": "Die Erweiterung des Selbst zum Allgeist",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinserweiterung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2024,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/4": {
+    "lectureId": "GA054/4",
+    "date": "1908-03-02",
+    "year": 1908,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner behandelt die soziale Frage aus geisteswissenschaftlicher Sicht. Er argumentiert, dass die moderne soziale Frage durch die industrielle Revolution entstanden ist und sich von historischen Aufständen unterscheidet. Steiner kritisiert sowohl die Unwissenheit der Privilegierten als auch materialistische Lösungsansätze, die nur äußere Verhältnisse ändern wollen. Am Beispiel Robert Owens zeigt er, dass Verbesserung der Zustände ohne innere Menschenbildung scheitert. Die Geisteswissenschaft schult das Denken und befähigt zu wahrem Verständnis sozialer Zusammenhänge. Steiner sieht Egoismus als Grundursache sozialer Not und fordert die Trennung von Arbeit und persönlicher Entlohnung. Nur durch geistige Vertiefung und Überwindung des Eigennutzes könne echter sozialer Fortschritt erreicht werden.",
+    "keywords": [
+      {
+        "term": "Soziale Frage",
+        "index": "^cvny73",
+        "heading": "Das Wesen der modernen sozialen Frage",
+        "matchType": "summary-derived",
+        "matchedExisting": "Soziale Frage",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Soziale Empfindungen",
+        "index": "^cvny73",
+        "heading": "Die verschiedenen Empfindungen gegenüber der sozialen Frage",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Soziale Bewegungen",
+        "index": "^347y5y",
+        "heading": "Der Unterschied zu früheren sozialen Bewegungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Proletariat",
+        "index": "^g2rhlk",
+        "heading": "Die neue Menschenklasse des Proletariats",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Praktische Geisteswissenschaft",
+        "index": "^7r4ooh",
+        "heading": "Geisteswissenschaft und praktische Lebensfragen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Praktische Geisteswissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^7r4ooh",
+        "heading": "Der scheinbare Widerspruch zwischen Geistesforschung und Praxis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Industrielle Revolution",
+        "index": "^ipj88j",
+        "heading": "Die sozialen Missstände der industriellen Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^fjxylq",
+        "heading": "Das Versäumnis in der geistigen Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Unwissenheit",
+        "index": "^pl6obq",
+        "heading": "Die Unwissenheit der Verantwortlichen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Regierungsrat Kolb",
+        "index": "^pl6obq",
+        "heading": "Das Beispiel des Regierungsrats Kolb",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Menschenkenntnis",
+        "index": "^bucp7w",
+        "heading": "Die Notwendigkeit der Menschenkenntnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^jubwui",
+        "heading": "Materialistische Lösungsansätze und ihre Grenzen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Verhältnisänderung",
+        "index": "^jubwui",
+        "heading": "Die Theorie der Verhältnisänderung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Robert Owen",
+        "index": "^2zedof",
+        "heading": "Robert Owen als praktisches Beispiel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^igxnnv",
+        "heading": "Die geisteswissenschaftliche Betrachtungsweise",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschenbild",
+        "index": "^igxnnv",
+        "heading": "Der Blick auf den Menschen statt auf die Zustände",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Seelenkräfte",
+        "index": "^ddsck5",
+        "heading": "Geisteswissenschaft als Erziehung der Seelenkräfte",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Denkschulung",
+        "index": "^04ld8e",
+        "heading": "Die Schulung des Denkens durch Geisteswissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Soziales Urteil",
+        "index": "^vft640",
+        "heading": "Geisteswissenschaft als Grundlage für soziales Urteil",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Schulung",
+        "index": "^vft640",
+        "heading": "Die praktische Bedeutung geistiger Schulung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Freiheitsprinzip",
+        "index": "^yf0e36",
+        "heading": "Das freiheitliche Prinzip der Geisteswissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Soziales Leid",
+        "index": "^vdcyf9",
+        "heading": "Die Grundursachen sozialen Leids",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Egoismus",
+        "index": "^vdcyf9",
+        "heading": "Egoismus als Wurzel von Not und Elend",
+        "matchType": "summary-derived",
+        "matchedExisting": "Egoismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entlohnung",
+        "index": "^8b9ad4",
+        "heading": "Das Problem der persönlichen Entlohnung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Arbeit",
+        "index": "^01sbea",
+        "heading": "Arbeit und ihre wahre Bedeutung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Arbeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Selbstlose Arbeit",
+        "index": "^ov8g4z",
+        "heading": "Der Grundsatz der selbstlosen Arbeit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Freie Arbeit",
+        "index": "^ov8g4z",
+        "heading": "Die Trennung von Arbeit und persönlichem Ertrag",
+        "matchType": "existing-similar",
+        "matchedExisting": "Freie Arbeit",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Ausbeutung",
+        "index": "^g46ub4",
+        "heading": "Ausbeuter und Ausgebeutete im wahren Verständnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Soziale Ideale",
+        "index": "^0wzp0e",
+        "heading": "Der Weg zur Verwirklichung sozialer Ideale",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Liebe",
+        "index": "^0wzp0e",
+        "heading": "Liebe als Antrieb zur Arbeit",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismuskritik",
+        "index": "^k8czy8",
+        "heading": "Die Antwort auf materialistische Einwände",
+        "matchType": "existing-similar",
+        "matchedExisting": "Materialismuskritik",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Transformation",
+        "index": "^oj8azq",
+        "heading": "Die transformative Kraft der Geisteswissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Sozialer Fortschritt",
+        "index": "^11goey",
+        "heading": "Die Zukunft des sozialen Fortschritts",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Soziale Weltanschauung",
+        "index": "^11goey",
+        "heading": "Geisteswissenschaft als Grundlage sozialer Weltanschauung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Goethes Weisheit",
+        "index": "^eynxev",
+        "heading": "Goethes Weisheit über die wahre Befreiung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2042,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/5": {
+    "lectureId": "GA054/5",
+    "date": "1906-11-17",
+    "year": 1906,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner behandelt die Frauenfrage aus geisteswissenschaftlicher Perspektive und zeigt, wie diese Frage ein Produkt unserer materialistischen Männerkultur ist. Er erklärt die siebengliedrige Menschennatur (physischer Leib, Ätherleib, Astralleib, Ich, Manas, Buddhi, Atman) und offenbart eine okkulte Tatsache: Der Ätherleib des Mannes hat weibliche Eigenschaften, der der Frau männliche. Diese Polarität macht jeden Menschen zu einer Totalität aus beiden Geschlechtscharakteren. Die theosophische Bewegung, symbolisch von Helena Blavatsky begründet, weist den Weg zu einer übergeschlechtlichen Geisteskultur. Die wahre Lösung der Frauenfrage liegt nicht in äußeren Reformen, sondern in der Erkenntnis des übergeschlechtlichen, ewig Menschlichen in jedem Individuum.",
+    "keywords": [
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^cb6ev1",
+        "heading": "Geisteswissenschaft und die Fragen der Zeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Praktische Geisteswissenschaft",
+        "index": "^cb6ev1",
+        "heading": "Die praktische Aufgabe der Geisteswissenschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Praktische Geisteswissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Idealismus",
+        "index": "^io5alv",
+        "heading": "Wahre Praktiker und verschrieene Idealisten",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Frauenfrage",
+        "index": "^q0izvc",
+        "heading": "Die Frauenfrage als Kulturfrage der Gegenwart",
+        "matchType": "summary-derived",
+        "matchedExisting": "Frauenfrage",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Wissenschaft",
+        "index": "^q0izvc",
+        "heading": "Wissenschaftliche Vorurteile gegen die Frauen",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Praktischer Erfolg",
+        "index": "^qflasi",
+        "heading": "Praktische Erfolge trotz theoretischer Hindernisse",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h4"
+      },
+      {
+        "term": "Frauenwesen",
+        "index": "^nf9t8g",
+        "heading": "Widersprüchliche Urteile über das Wesen der Frau",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Gesellschaftsfragen",
+        "index": "^hpke4p",
+        "heading": "Die gesellschaftlichen Wurzeln der Frauenfrage",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Soziale Stände",
+        "index": "^hpke4p",
+        "heading": "Verschiedene Frauenfragen in verschiedenen Ständen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Kulturwandel",
+        "index": "^meb3t4",
+        "heading": "Der Wandel der Kultur und der Frauenrolle",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Männerkultur",
+        "index": "^57jell",
+        "heading": "Das Maschinenzeitalter als Männerkultur",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^itri0p",
+        "heading": "Geisteswissenschaft als Antwort der Zeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesströmung",
+        "index": "^itri0p",
+        "heading": "Die Notwendigkeit einer neuen Geistesströmung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Helena Blavatsky",
+        "index": "^jea1l2",
+        "heading": "Helena Blavatsky als Wegbereiterin",
+        "matchType": "summary-derived",
+        "matchedExisting": "Blavatsky, Helena",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Siebengliedrige Menschennatur",
+        "index": "^1xcbmo",
+        "heading": "Die siebengliedrige Natur des Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Siebengliedrige Menschennatur",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Vier niedere Glieder",
+        "index": "^1xcbmo",
+        "heading": "Die vier niederen Glieder der Menschennatur",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^kql0ep",
+        "heading": "Die Entwicklung der höheren geistigen Glieder",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Geschlechterpolarität",
+        "index": "^05wr81",
+        "heading": "Die okkulte Wahrheit über Mann und Frau",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geschlechterpolarität",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^05wr81",
+        "heading": "Die polare Struktur des Ätherleibes",
+        "matchType": "summary-derived",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ewig-Weibliches",
+        "index": "^jx57d1",
+        "heading": "Das Ewig-Weibliche und die Mystik",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Übergeschlechtlichkeit",
+        "index": "^gumldu",
+        "heading": "Der Weg zur übergeschlechtlichen Menschheit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spirituelle Lösung",
+        "index": "^gumldu",
+        "heading": "Die spirituelle Lösung der Frauenfrage",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Ewig Menschliches",
+        "index": "^c8i6w7",
+        "heading": "Das ewig Menschliche als Ziel",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2050,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/6": {
+    "lectureId": "GA054/6",
+    "date": "1905-11-09",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "In diesem Vortrag erklärt Rudolf Steiner die Entstehung und Entwicklung der Menschenrassen aus geisteswissenschaftlicher Sicht. Er beschreibt, wie sich die Menschheit durch verschiedene Epochen entwickelte: von den Lemuriern mit ihren magischen Fähigkeiten über die Atlantier mit Gedächtnis und Sprache bis zu den heutigen Kulturmenschen mit Verstandeskraft. Die verschiedenen Rassen entstanden durch die Wanderung und Entwicklung atlantischer Völker, wobei manche auf früheren Entwicklungsstufen zurückblieben. Steiner betont, dass jede Seele durch Reinkarnation alle Rassenstufen durchläuft, wodurch die scheinbare Ungerechtigkeit der Rassenunterschiede aufgelöst wird. Die Rassenentwicklung dient als Schulung für den sich entwickelnden Menschengeist, der nacheinander Astralleib, Ätherleib und physischen Leib erobert.",
+    "keywords": [
+      {
+        "term": "Menschenrassen",
+        "index": "^f5pncx",
+        "heading": "Das Rätsel der Menschenrassen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Rassenentwicklung",
+        "index": "^f5pncx",
+        "heading": "Die Vielfalt und scheinbare Ungerechtigkeit der Rassen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Rassenentwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Reinkarnation",
+        "index": "^tfzpog",
+        "heading": "Die geisteswissenschaftliche Lösung durch Reinkarnation",
+        "matchType": "existing-exact",
+        "matchedExisting": "Reinkarnation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Menschheitsgeschichte",
+        "index": "^v9bpx6",
+        "heading": "Die Erforschung der übersinnlichen Menschheitsgeschichte",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Naturwissenschaft",
+        "index": "^v9bpx6",
+        "heading": "Die Grenzen der Naturwissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Akasha-Chronik",
+        "index": "^e3h2lv",
+        "heading": "Die Akasha-Chronik als Quelle der Erkenntnis",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Atlantische Zeit",
+        "index": "^rskhcu",
+        "heading": "Die atlantische Menschheit",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantische Zeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^rskhcu",
+        "heading": "Der untergegangene Kontinent Atlantis",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantier",
+        "index": "^laujuo",
+        "heading": "Fähigkeiten und Bewusstsein der Atlantier",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Lemurische Epoche",
+        "index": "^ox1rvg",
+        "heading": "Die lemurische Epoche",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Lemurier",
+        "index": "^ox1rvg",
+        "heading": "Die magischen Kräfte der Lemurier",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Physischer Leib",
+        "index": "^hc5qim",
+        "heading": "Die Entstehung des physischen Leibes",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklungsstufen",
+        "index": "^acitq7",
+        "heading": "Die Entwicklung der heutigen Menschenrassen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklungsstufen",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Völkerwanderung",
+        "index": "^acitq7",
+        "heading": "Die Wanderung und Differenzierung der Völker",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Rassenmerkmale",
+        "index": "^os9ewf",
+        "heading": "Die Charakteristika der verschiedenen Rassen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Atlantische Unterrassen",
+        "index": "^y28u79",
+        "heading": "Die atlantischen Unterrassen und ihre Nachkommen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Kulturentwicklung",
+        "index": "^ixk4n1",
+        "heading": "Die fünf Kulturrassen der Gegenwart",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kulturentwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Arier",
+        "index": "^ixk4n1",
+        "heading": "Von den Indo-Ariern zu den Germanen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^uv0ktl",
+        "heading": "Die spirituelle Bedeutung der Rassenentwicklung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2057,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/7": {
+    "lectureId": "GA054/7",
+    "date": "1905-11-16",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner erläutert in diesem Vortrag das Verhältnis der Theosophie zu den Religionen. Er stellt die These auf, dass hinter allen religiösen Schriften, wie hinter wissenschaftlichen Erkenntnissen, Forscher stehen müssen - in diesem Fall geistige Forscher, die übersinnliche Tatsachen durch besondere Methoden erforschen. Diese Forscher gehören zur 'Loge der Meister der Weisheit', einem geistigen Laboratorium der Menschheit. Alle großen Religionen gehen auf diese eine Quelle zurück und enthalten denselben Weisheitskern, nur in verschiedenen Formen für verschiedene Völker und Zeiten dargestellt. Steiner verfolgt die Entwicklung vom ursprünglichen Tao-Bewusstsein der Atlantis über die indische Brahman-Religion, die persische Dualität bis zur ägyptischen und christlichen Dreieinigkeit. Die Theosophie soll das verlorengegangene Bewusstsein für geistige Forschung erneuern und zu den ursprünglichen Quellen aller Religionen zurückführen.",
+    "keywords": [
+      {
+        "term": "Religion",
+        "index": "^jtn4fk",
+        "heading": "Die Grundlage religiöser Erkenntnis",
+        "matchType": "existing-exact",
+        "matchedExisting": "Religion",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^jtn4fk",
+        "heading": "Voraussetzungen für das Verständnis religiöser Schriften",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^jw3zn6",
+        "heading": "Die Notwendigkeit übersinnlicher Forscher",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^wtqcve",
+        "heading": "Das Wesen der Theosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^wtqcve",
+        "heading": "Theosophie als Wiederbelebung geistiger Forschung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^3kky1u",
+        "heading": "Die wahre Bedeutung der Theosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Meister der Weisheit",
+        "index": "^mp9hno",
+        "heading": "Die Loge der Meister der Weisheit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^mp9hno",
+        "heading": "Das geistige Laboratorium der Menschheit",
+        "matchType": "existing-similar",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Religion",
+        "index": "^ife5uk",
+        "heading": "Die großen Religionsstifter und ihre gemeinsame Quelle",
+        "matchType": "existing-exact",
+        "matchedExisting": "Religion",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^k6imye",
+        "heading": "Die Entwicklung der Religionen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Tao",
+        "index": "^k6imye",
+        "heading": "Die ursprüngliche Tao-Religion",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^h1l0ci",
+        "heading": "Das atlantische Bewusstsein und seine Eigenschaften",
+        "matchType": "summary-derived",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Brahmanentum",
+        "index": "^mf8o1z",
+        "heading": "Die indische Brahman-Religion",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brahmanentum",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Dualität",
+        "index": "^62pwmd",
+        "heading": "Die persische Dualität von Licht und Dunkel",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Dreieinigkeit",
+        "index": "^95jti2",
+        "heading": "Die Dreieinigkeit in den Religionen",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Osiris",
+        "index": "^95jti2",
+        "heading": "Die ägyptische Dreiheit: Osiris, Isis, Horus",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^5inciy",
+        "heading": "Das Verständnis der christlichen Trinität",
+        "matchType": "summary-derived",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^pq2gt4",
+        "heading": "Die Erneuerung geistiger Forschung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^pq2gt4",
+        "heading": "Von der Theologie zurück zur Theosophie",
+        "matchType": "summary-derived",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^68n67t",
+        "heading": "Die Mission der Geisteswissenschaft",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2059,
+    "generated": "2025-10-20T15:14:27.858Z"
+  },
+  "GA054/8": {
+    "lectureId": "GA054/8",
+    "date": "1905-11-23",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner untersucht das scheinbare Spannungsverhältnis zwischen Bruderschaft und Daseinskampf. Er zeigt anhand historischer Beispiele, insbesondere der mittelalterlichen Städtekultur und Gilden, dass Bruderschaft praktisch wirksam war und große kulturelle Leistungen ermöglichte. Während der Daseinskampf heute dominiert, argumentiert Steiner, dass wahre menschliche Entwicklung nur durch Bruderschaft möglich ist. Er vergleicht menschliche Gemeinschaften mit einem Organismus, wo einzelne Zellen (Menschen) ihre Selbstheit aufgeben, damit höhere geistige Wesenheiten wirken können. Die geisteswissenschaftliche Bewegung soll das Bruderschaftsprinzip aus geistigen Idealen heraus erneuern, indem Kampf durch positive Arbeit ersetzt wird und Menschen lernen, in liebevoller Gesinnung zusammenzuwirken.",
+    "keywords": [
+      {
+        "term": "Brüderlichkeit",
+        "index": "^0zkxhk",
+        "heading": "Das Ideal der Bruderschaft in der Geisteswissenschaft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brüderlichkeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Theosophie",
+        "index": "^0zkxhk",
+        "heading": "Der erste Grundsatz der theosophischen Bewegung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Theosophie",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Brüderlichkeit",
+        "index": "^99zkca",
+        "heading": "Scheinbare Widersprüche zur Bruderschaft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brüderlichkeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Daseinskampf",
+        "index": "^k0ifl5",
+        "heading": "Die Naturwissenschaft und der Kampf ums Dasein",
+        "matchType": "summary-derived",
+        "matchedExisting": "Daseinskampf",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kampf",
+        "index": "^k0ifl5",
+        "heading": "Huxleys Gladiatorenkampf-Metapher",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kampf",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^iwv02v",
+        "heading": "Gegenseitige Hilfe als Entwicklungsprinzip",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Brüderlichkeit",
+        "index": "^415m2j",
+        "heading": "Historische Beispiele der Bruderschaft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brüderlichkeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Germanische Mythologie",
+        "index": "^415m2j",
+        "heading": "Germanische Gemeinbesitz-Kultur",
+        "matchType": "existing-similar",
+        "matchedExisting": "Germanische Mythologie",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^box7yv",
+        "heading": "Die mittelalterliche Städtekultur",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mittelalterliche Kultur",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^ua9qau",
+        "heading": "Schwurbruderschaften und Gilden",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mittelalterliche Kultur",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^vu693b",
+        "heading": "Kulturelle Früchte des Bruderschaftsprinzips",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mittelalterliche Kultur",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^3k0j3u",
+        "heading": "Der Wandel zur Abstraktion und Trennung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^3k0j3u",
+        "heading": "Verlust der Harmonie zwischen Ideal und Praxis",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mittelalterliche Kultur",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Mittelalterliche Kultur",
+        "index": "^bsuuq9",
+        "heading": "Sachverständigkeit versus abstrakter Jurisprudenz",
+        "matchType": "summary-derived",
+        "matchedExisting": "Mittelalterliche Kultur",
+        "summaryMentioned": true,
+        "confidence": 0.5,
+        "level": "h4"
+      },
+      {
+        "term": "Daseinskampf",
+        "index": "^cn5ysj",
+        "heading": "Die Berechtigung des Daseinskampfes",
+        "matchType": "summary-derived",
+        "matchedExisting": "Daseinskampf",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^cn5ysj",
+        "heading": "Egoismus als notwendige Initiative",
+        "matchType": "existing-similar",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Organismus",
+        "index": "^1hvy5g",
+        "heading": "Das organische Prinzip der Zusammenarbeit",
+        "matchType": "summary-derived",
+        "matchedExisting": "Organismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^x2hvi7",
+        "heading": "Höhere Wesenheiten in Gemeinschaften",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^x2hvi7",
+        "heading": "Das Geheimnis geistiger Vereinigung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geist",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Brüderlichkeit",
+        "index": "^ysl4bn",
+        "heading": "Die Zukunft der Bruderschaft",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brüderlichkeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^ysl4bn",
+        "heading": "Bruderschaften aus geistigen Idealen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Kampf",
+        "index": "^jpx52s",
+        "heading": "Positive Arbeit statt Kampf",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kampf",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Praktische Geisteswissenschaft",
+        "index": "^hpdlmk",
+        "heading": "Praktische Verwirklichung der Bruderschaft",
+        "matchType": "existing-exact",
+        "matchedExisting": "Praktische Geisteswissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geist",
+        "index": "^hpdlmk",
+        "heading": "Geistige Kräfte zwischen Menschen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geist",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Brüderlichkeit",
+        "index": "^jd2jh3",
+        "heading": "Daseinskampf und Bruderschaft vereinen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Brüderlichkeit",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^0hnm29",
+        "heading": "Die Vollendung der menschlichen Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2059,
+    "generated": "2025-10-20T15:14:57.413Z"
+  },
+  "GA054/9": {
+    "lectureId": "GA054/9",
+    "date": "1905-12-07",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner beschreibt die innere Entwicklung des Menschen zur Erlangung übersinnlicher Erkenntnisse. Er betont, dass Okkultismus nicht für jeden bestimmt ist, sondern spezielle Vorbedingungen erfordert: geistige Einsamkeit und Überwindung des Egoismus. Die Entwicklung gleicht einer Neugeburt der höheren Seele und erfordert strenge Charakterschulung. Steiner beschreibt sechs wesentliche Eigenschaften: Unterscheidung zwischen Bedeutendem und Unbedeutendem, Kontrolle der Gedanken und Handlungen, Ertragsamkeit, Verständnis für alle Wesen, Unbefangenheit gegenüber Neuem und innere Harmonie. Durch rhythmische Meditation werden astrale Sinnesorgane entwickelt, die den Zugang zur geistigen Welt ermöglichen. Der Weg erfordert absolute Wahrhaftigkeit und die Führung eines spirituellen Lehrers. Wahre Selbsterkenntnis findet der Mensch nicht im Inneren, sondern durch die Erkenntnis der geistigen Welt um ihn herum.",
+    "keywords": [
+      {
+        "term": "Geistige Entwicklung",
+        "index": "^t1xix8",
+        "heading": "Einführung in die innere Entwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistige Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^t1xix8",
+        "heading": "Die Frage nach übersinnlichen Erkenntnissen",
+        "matchType": "summary-derived",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Esoterische Lehre",
+        "index": "^uzva6q",
+        "heading": "Abgrenzung des Okkultismus von allgemeiner Ethik",
+        "matchType": "summary-derived",
+        "matchedExisting": "Esoterische Lehre",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Materialismuskritik",
+        "index": "^oyoxib",
+        "heading": "Die Hindernisse in der modernen Kultur",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismuskritik",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Einsamkeit",
+        "index": "^oyoxib",
+        "heading": "Mangel an Isolation und geistiger Einsamkeit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Egoismus",
+        "index": "^smpdmw",
+        "heading": "Der unbewusste Egoismus der Zeit",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Wiedergeburt",
+        "index": "^22dby1",
+        "heading": "Die Neugeburt der höheren Seele",
+        "matchType": "existing-similar",
+        "matchedExisting": "Wiederverkörperung",
+        "summaryMentioned": true,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^22dby1",
+        "heading": "Das Wesen der okkulten Entwicklung als Wiedergeburt",
+        "matchType": "summary-derived",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Spaltung",
+        "index": "^hqrlx8",
+        "heading": "Die Spaltung der menschlichen Natur",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h4"
+      },
+      {
+        "term": "Charakterschulung",
+        "index": "^wjw232",
+        "heading": "Die sechs Grundeigenschaften des Okkultisten",
+        "matchType": "summary-derived",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Unterscheidungsvermögen",
+        "index": "^wjw232",
+        "heading": "Unterscheidung von Bedeutendem und Unbedeutendem",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Gedankenkontrolle",
+        "index": "^dpchrl",
+        "heading": "Kontrolle der Gedanken und Handlungen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Ertragsamkeit",
+        "index": "^b4hru5",
+        "heading": "Ertragsamkeit und Verständnis für alle Wesen",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Unbefangenheit",
+        "index": "^v2i75a",
+        "heading": "Unbefangenheit und innere Harmonie",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Rhythmus",
+        "index": "^yk6waq",
+        "heading": "Die Rhythmisierung des Lebens",
+        "matchType": "existing-similar",
+        "matchedExisting": "Kosmische Rhythmen",
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Kosmische Rhythmen",
+        "index": "^yk6waq",
+        "heading": "Rhythmus in der Natur und im menschlichen Leben",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kosmische Rhythmen",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Rhythmische Übungen",
+        "index": "^e0lru8",
+        "heading": "Praktische Übungen zur Rhythmisierung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h4"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^lky4dd",
+        "heading": "Die Entwicklung höherer Bewusstseinszustände",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinszustände",
+        "index": "^lky4dd",
+        "heading": "Die vier Zustände des menschlichen Bewusstseins",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Imagination",
+        "index": "^ldv8ef",
+        "heading": "Imaginative Erkenntnis und bewusste Traumlenkung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Imagination",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Astrale Welt",
+        "index": "^kflxfd",
+        "heading": "Die Entwicklung astraler Sinnesorgane",
+        "matchType": "summary-derived",
+        "matchedExisting": "Astrale Welt",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Meditation",
+        "index": "^kflxfd",
+        "heading": "Meditation als Mittel zur Organentwicklung",
+        "matchType": "summary-derived",
+        "matchedExisting": "Meditation",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Welt",
+        "index": "^sv0jtm",
+        "heading": "Das Leben in der übersinnlichen Welt",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Wahrhaftigkeit",
+        "index": "^uk6p6p",
+        "heading": "Wahrhaftigkeit als Grundlage der Führung",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geistiger Lehrer",
+        "index": "^uk6p6p",
+        "heading": "Die Notwendigkeit des spirituellen Lehrers",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Wahrhaftigkeit",
+        "index": "^c2lt4z",
+        "heading": "Absolute Wahrhaftigkeit als Kontrollfunktion",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Entwicklungsdauer",
+        "index": "^b3nwsg",
+        "heading": "Die Ungewissheit des Entwicklungszeitraums",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Individualität",
+        "index": "^b3nwsg",
+        "heading": "Zeitdauer und individuelle Veranlagung",
+        "matchType": "existing-exact",
+        "matchedExisting": "Individualität",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Selbsterkenntnis",
+        "index": "^1i9ku8",
+        "heading": "Wahre Selbsterkenntnis durch Welterkenntnis",
+        "matchType": "summary-derived",
+        "matchedExisting": "Selbsterkenntnis",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h4"
+      }
+    ],
+    "vocabSizeAtGeneration": 2064,
+    "generated": "2025-10-20T15:14:57.413Z"
+  }
+}
