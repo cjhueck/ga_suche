@@ -3680,11 +3680,43 @@ Bestehende Schlagwörter überschreiben
       </p>
     </div>
     
+    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+    
+    <h4 style="margin: 0 0 1rem 0; color: var(--heading-color); font-size: 1em;">Keyword in anderen Cluster verschieben</h4>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Keyword:
+      </label>
+      <input type="text" id="moveKeywordInput" placeholder="z.B. Karma" 
+        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Ziel-Cluster:
+      </label>
+      <select id="moveTargetCluster" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+        <option value="">-- Zuerst Cluster laden --</option>
+      </select>
+      <button id="btnLoadClusters" class="depth-btn" style="padding: 6px 12px; font-size: 0.75em; margin-top: 0.5rem;">
+        🔄 Cluster laden
+      </button>
+    </div>
+    
+    <button id="btnMoveKeyword" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white; width: 100%; margin-bottom: 0.5rem;">
+      Keyword verschieben
+    </button>
+    
+    <div id="keywordMoveStatus" style="display: none; margin-bottom: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+    
+    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+    
     <div style="display: flex; gap: 8px;">
-      <button class="depth-btn" onclick="renameKeyword()" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
+      <button id="btnRenameKeyword" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
         Umbenennen/Zusammenführen
       </button>
-      <button class="depth-btn" onclick="closeKeywordEditor()" style="padding: 8px 16px; font-size: 0.85em;">
+      <button id="btnCloseKeywordEditor" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em;">
         Schließen
       </button>
     </div>
@@ -10213,6 +10245,20 @@ async function updateTimelineFilters() {
       viewer.innerHTML = '';
     }
     
+    // Schließe Summary-Panel beim Theme-Wechsel
+    const summaryPanel = document.getElementById('summary-panel');
+    const summaryResizeHandle = document.querySelector('.vertical-resize-handle');
+    if (summaryPanel) {
+      summaryPanel.classList.remove('visible');
+      summaryPanel.removeAttribute('style');
+    }
+    if (summaryResizeHandle) {
+      summaryResizeHandle.classList.remove('visible');
+      summaryResizeHandle.removeAttribute('style');
+      summaryResizeHandle.style.width = '0';
+      summaryResizeHandle.style.display = 'none';
+    }
+    
     // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
     const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
     if (keywordSelect) {
@@ -11027,6 +11073,62 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+// Event Listener für Keyword Editor Modal Buttons
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('[MODAL] Initialisiere Event Listener...');
+  
+  const btnLoadClusters = document.getElementById('btnLoadClusters');
+  const btnMoveKeyword = document.getElementById('btnMoveKeyword');
+  const btnRenameKeyword = document.getElementById('btnRenameKeyword');
+  const btnCloseKeywordEditor = document.getElementById('btnCloseKeywordEditor');
+  
+  if (btnLoadClusters) {
+    btnLoadClusters.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[MODAL] Cluster laden Button geklickt');
+      loadClustersForMove();
+    });
+  } else {
+    console.error('[MODAL] btnLoadClusters nicht gefunden');
+  }
+  
+  if (btnMoveKeyword) {
+    btnMoveKeyword.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[MODAL] Move Keyword Button geklickt');
+      moveKeywordToCluster();
+    });
+  } else {
+    console.error('[MODAL] btnMoveKeyword nicht gefunden');
+  }
+  
+  if (btnRenameKeyword) {
+    btnRenameKeyword.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[MODAL] Rename Keyword Button geklickt');
+      renameKeyword();
+    });
+  } else {
+    console.error('[MODAL] btnRenameKeyword nicht gefunden');
+  }
+  
+  if (btnCloseKeywordEditor) {
+    btnCloseKeywordEditor.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('[MODAL] Close Button geklickt');
+      closeKeywordEditor();
+    });
+  } else {
+    console.error('[MODAL] btnCloseKeywordEditor nicht gefunden');
+  }
+  
+  console.log('[MODAL] ✓ Event Listener initialisiert');
+});
+
 // ============================================================================
 // THEMATISCHE CLUSTER-GENERIERUNG
 // ============================================================================
@@ -11394,11 +11496,109 @@ function showKeywordEditor(event) {
 }
 
 function closeKeywordEditor() {
-  document.getElementById('keywordEditorModal').style.display = 'none';
-  document.getElementById('editorOverlay').style.display = 'none';
-  document.getElementById('oldKeyword').value = '';
-  document.getElementById('newKeyword').value = '';
-  document.getElementById('keywordEditorStatus').style.display = 'none';
+  console.log('[EDITOR] Schließe Keyword Editor');
+  try {
+    document.getElementById('keywordEditorModal').style.display = 'none';
+    document.getElementById('editorOverlay').style.display = 'none';
+    document.getElementById('oldKeyword').value = '';
+    document.getElementById('newKeyword').value = '';
+    document.getElementById('keywordEditorStatus').style.display = 'none';
+    document.getElementById('moveKeywordInput').value = '';
+    document.getElementById('moveTargetCluster').innerHTML = '<option value="">-- Zuerst Cluster laden --</option>';
+    document.getElementById('keywordMoveStatus').style.display = 'none';
+    console.log('[EDITOR] ✓ Keyword Editor geschlossen');
+  } catch (error) {
+    console.error('[EDITOR] Fehler beim Schließen:', error);
+  }
+}
+
+async function loadClustersForMove() {
+  console.log('[MOVE-KW] Lade Cluster...');
+  try {
+    const response = await fetch(`${API_BASE}/api/themes/clusters`);
+    console.log('[MOVE-KW] Response Status:', response.status);
+    if (!response.ok) throw new Error('Cluster konnten nicht geladen werden');
+    
+    const data = await response.json();
+    const clusters = data.clusters || data;
+    console.log('[MOVE-KW] Erhaltene Cluster:', Object.keys(clusters).length);
+    
+    const select = document.getElementById('moveTargetCluster');
+    if (!select) {
+      console.error('[MOVE-KW] Dropdown Element nicht gefunden!');
+      return;
+    }
+    
+    select.innerHTML = '<option value="">-- Ziel-Cluster wählen --</option>';
+    
+    Object.keys(clusters).sort().forEach(name => {
+      const keywordCount = clusters[name].length;
+      select.innerHTML += `<option value="${name}">${name} (${keywordCount} Keywords)</option>`;
+    });
+    
+    console.log('[MOVE-KW] ✓ Cluster geladen:', Object.keys(clusters).length);
+    alert(`✓ ${Object.keys(clusters).length} Cluster geladen`);
+    
+  } catch (error) {
+    console.error('[MOVE-KW] Fehler beim Laden der Cluster:', error);
+    alert('Fehler beim Laden der Cluster: ' + error.message);
+  }
+}
+
+async function moveKeywordToCluster() {
+  console.log('[MOVE-KW] Starte Verschiebung...');
+  const keyword = document.getElementById('moveKeywordInput').value.trim();
+  const targetCluster = document.getElementById('moveTargetCluster').value;
+  const statusDiv = document.getElementById('keywordMoveStatus');
+  
+  console.log('[MOVE-KW] Keyword:', keyword, 'Target:', targetCluster);
+  
+  if (!keyword) {
+    alert('Bitte Keyword eingeben');
+    return;
+  }
+  
+  if (!targetCluster) {
+    alert('Bitte Ziel-Cluster auswählen');
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d9edf7';
+  statusDiv.style.color = '#31708f';
+  statusDiv.innerHTML = 'Verschiebe Keyword...';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords/move-to-cluster`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        keyword: keyword,
+        targetCluster: targetCluster
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || 'Fehler beim Verschieben');
+    }
+    
+    const result = await response.json();
+    console.log('[MOVE-KW] Erfolg:', result);
+    
+    statusDiv.style.background = '#dff0d8';
+    statusDiv.style.color = '#3c763d';
+    statusDiv.innerHTML = `✓ Keyword "${keyword}" nach "${targetCluster}" verschoben`;
+    
+    // Felder leeren
+    document.getElementById('moveKeywordInput').value = '';
+    
+  } catch (error) {
+    console.error('[MOVE-KW] Fehler:', error);
+    statusDiv.style.background = '#f2dede';
+    statusDiv.style.color = '#a94442';
+    statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
+  }
 }
 
 function showClusterEditor(event) {
