@@ -7245,11 +7245,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("[INIT] Lade verfügbare GA-Bände...");
   
-  // Zeige Keywords-Tab nur auf localhost
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  // Zeige Keywords-Tab nur auf lokalem Server (Port 3003)
+  const isLocalServer = window.location.hostname === 'localhost' || 
+                        window.location.hostname === '127.0.0.1' || 
+                        window.location.port === '3003';
   const keywordsTabButton = document.getElementById("keywords-tab-button");
-  if (keywordsTabButton && isLocalhost) {
+  if (keywordsTabButton && isLocalServer) {
     keywordsTabButton.style.display = 'inline-block';
+    console.log('[INIT] Keywords-Tab aktiviert (lokaler Server)');
+  } else if (keywordsTabButton) {
+    console.log('[INIT] Keywords-Tab versteckt (Online-Modus)');
   }
   
   const gaFilter = document.getElementById("gaFilter");
