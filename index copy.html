@@ -7321,17 +7321,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("[INIT] Lade verfügbare GA-Bände...");
   
-// Verstecke Keywords-Tab nur online (nicht auf localhost)
-const hostname = window.location.hostname;
-const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
-
-if (!isLocalhost) {
-  const keywordsTabButton = document.getElementById("keywords-tab-button");
-  if (keywordsTabButton) {
-    keywordsTabButton.style.display = 'none';
-    console.log('[INIT] Keywords-Tab versteckt (Online-Deployment)');
+  // Verstecke Keywords-Tab nur auf Render.com (Online-Deployment)
+  const hostname = window.location.hostname;
+  const isRenderDeployment = hostname && hostname.includes('onrender.com');
+  
+  if (isRenderDeployment) {
+    const keywordsTabButton = document.getElementById("keywords-tab-button");
+    if (keywordsTabButton) {
+      keywordsTabButton.style.display = 'none';
+      console.log('[INIT] Keywords-Tab versteckt (Render.com)');
+    }
   }
-}
   
   const gaFilter = document.getElementById("gaFilter");
   const thematicGAFilter = document.getElementById("thematicGAFilter");
