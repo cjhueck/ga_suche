@@ -12,6 +12,20 @@ const PORT = 3003;
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
 app.use(express.json());
+app.post('/api/themes/save-clusters', async (req, res) => {
+  try {
+    const clusters = req.body.clusters;
+    if (!clusters || typeof clusters !== 'object') {
+      return res.status(400).json({ error: 'Ungültige Cluster-Daten' });
+    }
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    await fs.writeFile(clustersPath, JSON.stringify(clusters, null, 2), 'utf8');
+    res.json({ success: true, message: 'Cluster gespeichert' });
+  } catch (error) {
+    console.error('[CLUSTERS-SAVE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
