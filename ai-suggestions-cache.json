@@ -1,0 +1,186 @@
+{
+  "generated": "2025-10-21T20:05:04.278Z",
+  "keywordsAnalyzed": 1000,
+  "suggestions": [
+    {
+      "keywords": [
+        "Plato",
+        "Platon"
+      ],
+      "mainKeyword": "Platon",
+      "reason": "Unterschiedliche Schreibvarianten des gleichen Namens",
+      "confidence": "Hoch"
+    },
+    {
+      "keywords": [
+        "Planetensystem",
+        "Planetensysteme"
+      ],
+      "mainKeyword": "Planetensysteme",
+      "reason": "Singular und Plural Varianten",
+      "confidence": "Hoch"
+    },
+    {
+      "keywords": [
+        "Planetengeist",
+        "Planetengeister"
+      ],
+      "mainKeyword": "Planetengeister",
+      "reason": "Singular und Plural Varianten",
+      "confidence": "Hoch"
+    },
+    {
+      "keywords": [
+        "Religionsvergleich",
+        "Religionsvergleichung"
+      ],
+      "mainKeyword": "Religionsvergleich",
+      "reason": "Synonyme Begriffe für den Vergleich zwischen Religionen",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Pflanzenreich",
+        "Pflanzenwelt"
+      ],
+      "mainKeyword": "Pflanzenreich",
+      "reason": "Begriffe mit ähnlicher Bedeutung im Kontext botanischer Klassifizierung",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Religiöses Empfinden",
+        "Religiöse Empfindung"
+      ],
+      "mainKeyword": "Religiöse Empfindung",
+      "reason": "Synonyme Ausdrücke für das Erleben oder Empfinden von Religion",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Philosophie der Freiheit",
+        "Philosophie Freiheit"
+      ],
+      "mainKeyword": "Philosophie der Freiheit",
+      "reason": "Beide Begriffe beziehen sich auf dasselbe Werk von Rudolf Steiner",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Praktische Anwendung",
+        "Praktische Anwendungen"
+      ],
+      "mainKeyword": "Praktische Anwendungen",
+      "reason": "Singular und Plural Varianten",
+      "confidence": "Hoch"
+    },
+    {
+      "keywords": [
+        "Rosenkreuz",
+        "Rosenkreuzer"
+      ],
+      "mainKeyword": "Rosenkreuzer",
+      "reason": "Verwandte Begriffe im Kontext der Rosenkreuzer-Bewegung",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Phantasie",
+        "Phantasiebilder"
+      ],
+      "mainKeyword": "Phantasie",
+      "reason": "Phantasiebilder sind eine Manifestation der Phantasie",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Schlaf",
+        "Schlafen und Wachen"
+      ],
+      "mainKeyword": "Schlaf",
+      "reason": "Beide Begriffe beziehen sich auf das Bewusstseins- und Ruhebedürfnis",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Pythagoräischer Lehrsatz",
+        "Pythagoreische Lehre"
+      ],
+      "mainKeyword": "Pythagoreische Lehre",
+      "reason": "Beide Begriffe betreffen das Gedankengut von Pythagoras",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Religiöse Bekenntnisse",
+        "Religiöse Durchdringung"
+      ],
+      "mainKeyword": "Religiöse Bekenntnisse",
+      "reason": "Ähnliche Bedeutung im Kontext des Ausdrucks religiöser Überzeugungen",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Saturn",
+        "Saturn-Dasein"
+      ],
+      "mainKeyword": "Saturn",
+      "reason": "Beide beziehen sich auf den Planeten Saturn im esoterischen Kontext",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Raum",
+        "Raumesleben"
+      ],
+      "mainKeyword": "Raum",
+      "reason": "Ähnliche Bedeutung in Bezug auf die Dimension des Raumes",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Planeten",
+        "Planetenbewusstsein"
+      ],
+      "mainKeyword": "Planeten",
+      "reason": "Planetenbewusstsein ist ein Aspekt von Planeten",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Pforte Todes",
+        "Pforte Todes Selbstbewusstsein"
+      ],
+      "mainKeyword": "Pforte Todes",
+      "reason": "Beide Begriffe beziehen sich auf den Übergang durch den Tod",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Prälatale Schocks",
+        "Paranatales Dasein"
+      ],
+      "mainKeyword": "Pränatales Dasein",
+      "reason": "Verwandte Begriffe im Kontext pränataler Existenz",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Reiche",
+        "Reich Gottes"
+      ],
+      "mainKeyword": "Reiche",
+      "reason": "Reich Gottes gehört zu den verschiedenen Konzepten von 'Reiche'",
+      "confidence": "Niedrig"
+    },
+    {
+      "keywords": [
+        "Resignation",
+        "Resignative Kräfte"
+      ],
+      "mainKeyword": "Resignation",
+      "reason": "Beide Begriffe betreffen das Aufgeben oder den Rückzug",
+      "confidence": "Niedrig"
+    }
+  ]
+}

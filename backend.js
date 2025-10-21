@@ -5344,17 +5344,28 @@ app.post('/api/keywords/rename', async (req, res) => {
       let lectureModified = false;
       const updatedKeywords = [];
       
+      // Prüfe ob beide Keywords vorhanden sind (für Merge-Logik)
+      const hasOldKeyword = data.keywords.some(kw => kw.term.toLowerCase() === oldKeyword.toLowerCase());
+      const hasNewKeyword = newKeyword && newKeyword.trim() 
+        ? data.keywords.some(kw => kw.term.toLowerCase() === newKeyword.toLowerCase())
+        : false;
+      
       data.keywords.forEach(kw => {
         if (kw.term.toLowerCase() === oldKeyword.toLowerCase()) {
           totalReplacements++;
           lectureModified = true;
           
           if (newKeyword && newKeyword.trim()) {
-            // Umbenennen
-            updatedKeywords.push({
-              ...kw,
-              term: newKeyword.trim()
-            });
+            // MERGE-LOGIK: Nur umbenennen wenn newKeyword NICHT bereits existiert
+            if (!hasNewKeyword) {
+              // Umbenennen (newKeyword existiert noch nicht im Vortrag)
+              updatedKeywords.push({
+                ...kw,
+                term: newKeyword.trim()
+              });
+            }
+            // Wenn newKeyword bereits existiert: oldKeyword einfach entfernen (nicht hinzufügen)
+            // Dies verhindert Duplikate beim Zusammenführen
           }
           // Wenn newKeyword leer: löschen (nicht hinzufügen)
         } else {
@@ -5445,6 +5456,207 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
 });
 
 // Endpoint: Cluster zusammenführen
+// ============================================================================
+// KI-ANALYSE ENDPOINT (PROXY) MIT CACHING
+// ============================================================================
+
+const AI_CACHE_FILE = path.join(__dirname, 'ai-suggestions-cache.json');
+
+// Cache laden
+async function loadAICache() {
+  try {
+    if (fsSync.existsSync(AI_CACHE_FILE)) {
+      const data = await fs.readFile(AI_CACHE_FILE, 'utf8');
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error('[AI-CACHE] Fehler beim Laden:', error);
+  }
+  return { generated: null, suggestions: [] };
+}
+
+// Cache speichern
+async function saveAICache(suggestions) {
+  try {
+    const cacheData = {
+      generated: new Date().toISOString(),
+      keywordsAnalyzed: 1000,
+      suggestions: suggestions
+    };
+    await fs.writeFile(AI_CACHE_FILE, JSON.stringify(cacheData, null, 2));
+    console.log('[AI-CACHE] ✓ Gespeichert:', suggestions.length, 'Vorschläge');
+  } catch (error) {
+    console.error('[AI-CACHE] Fehler beim Speichern:', error);
+  }
+}
+
+// Endpoint: Cache abrufen
+app.get('/api/ai/suggestions-cache', async (req, res) => {
+  try {
+    const cache = await loadAICache();
+    res.json(cache);
+  } catch (error) {
+    console.error('[AI-CACHE] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/ai/analyze-keywords', async (req, res) => {
+  const { provider, apiKey, keywords } = req.body;
+  
+  console.log(`[AI] Analyse mit ${provider}, ${keywords.length} Keywords`);
+  
+  try {
+    if (!apiKey) {
+      throw new Error('API-Key erforderlich');
+    }
+    
+    if (!keywords || !Array.isArray(keywords)) {
+      throw new Error('Keywords-Array erforderlich');
+    }
+    
+    const keywordList = keywords.join(', ');
+    
+    const prompt = `Du bist ein Experte für semantische Analyse. Analysiere diese Liste von Keywords aus Rudolf Steiners Gesamtausgabe und finde Duplikate, Synonyme und ähnliche Begriffe, die zusammengeführt werden sollten.
+
+Keywords (${keywords.length} Keywords):
+${keywordList}
+
+Finde Keywords, die:
+1. Synonyme sind (z.B. "Reinkarnation" und "Wiederverkörperung")
+2. Singular/Plural-Varianten (z.B. "Engel" und "Engeln")
+3. Ähnliche Bedeutung haben im anthroposophischen Kontext
+4. Rechtschreibvarianten
+
+Gib JSON zurück mit diesem Format:
+{
+  "suggestions": [
+    {
+      "keywords": ["Hauptbegriff", "Synonym1", "Synonym2"],
+      "mainKeyword": "Hauptbegriff",
+      "reason": "Kurze Begründung warum diese zusammengehören",
+      "confidence": "Hoch|Mittel|Niedrig"
+    }
+  ]
+}
+
+Maximal 20 wichtigste Vorschläge. Nur JSON, keine zusätzlichen Erklärungen.`;
+
+    let result;
+    
+    if (provider === 'claude') {
+      // Claude API (verwendet globales fetch in Node 18+)
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-3-5-sonnet-20241022',
+          max_tokens: 4000,
+          messages: [{
+            role: 'user',
+            content: prompt
+          }]
+        })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error?.message || 'Claude API Fehler');
+      }
+      
+      const data = await response.json();
+      const jsonText = data.content[0].text;
+      
+      const jsonMatch = jsonText.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        throw new Error('Keine gültige JSON-Antwort von Claude');
+      }
+      
+      result = JSON.parse(jsonMatch[0]);
+      
+    } else if (provider === 'openai') {
+      // OpenAI API (verwendet globales fetch in Node 18+)
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o',
+          messages: [{
+            role: 'user',
+            content: prompt
+          }],
+          response_format: { type: "json_object" }
+        })
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error?.message || 'OpenAI API Fehler');
+      }
+      
+      const data = await response.json();
+      result = JSON.parse(data.choices[0].message.content);
+      
+    } else {
+      throw new Error('Unbekannter Provider');
+    }
+    
+    console.log(`[AI] ✓ ${result.suggestions.length} Vorschläge gefunden`);
+    
+    // Speichere in Cache
+    await saveAICache(result.suggestions);
+    
+    res.json(result);
+    
+  } catch (error) {
+    console.error('[AI] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Cluster speichern
+app.post('/api/themes/save-clusters', async (req, res) => {
+  const { clusters } = req.body;
+  
+  console.log('[CLUSTERS] Speichere Cluster...');
+  
+  try {
+    if (!clusters || typeof clusters !== 'object') {
+      throw new Error('Cluster-Objekt erforderlich');
+    }
+    
+    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    
+    // Erstelle vollständige Struktur
+    const clustersData = {
+      generated: new Date().toISOString(),
+      reorganized: true,
+      clustersCount: Object.keys(clusters).length,
+      clusters: clusters
+    };
+    
+    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    
+    console.log('[CLUSTERS] ✓ Gespeichert:', Object.keys(clusters).length, 'Cluster');
+    
+    res.json({
+      success: true,
+      totalClusters: Object.keys(clusters).length
+    });
+    
+  } catch (error) {
+    console.error('[CLUSTERS] Fehler beim Speichern:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/themes/merge-clusters', async (req, res) => {
   const { sourceCluster, targetCluster } = req.body;
   
