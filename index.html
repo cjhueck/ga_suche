@@ -3658,25 +3658,41 @@ Bestehende Schlagwörter überschreiben
   </div>
   
   <!-- Keyword Editor Modal -->
-  <div id="keywordEditorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords bearbeiten / zusammenführen</h3>
+  <div id="keywordEditorModal" style="display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 0; max-width: 700px; width: 90%; max-height: 90vh; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden;">
+    <div style="padding: 1.5rem; max-height: 90vh; overflow-y: auto;">
+    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords zusammenführen / umbenennen</h3>
     
     <div style="margin-bottom: 1rem;">
       <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Altes Keyword:
+        Keywords laden:
       </label>
-      <input type="text" id="oldKeyword" placeholder="z.B. Reinkarnation" 
-        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+      <button id="btnLoadKeywords" class="depth-btn" onclick="loadKeywordsForEdit(); return false;" style="padding: 6px 12px; font-size: 0.75em;">
+        🔄 Keywords laden
+      </button>
     </div>
     
     <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Neues Keyword:
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
+        Quell-Keyword (wird entfernt):
       </label>
-      <input type="text" id="newKeyword" placeholder="z.B. Wiederverkörperung" 
+      <select id="oldKeyword" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
+        <option value="">-- Zuerst Keywords laden --</option>
+      </select>
+      <p style="font-size: 0.7em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
+        Dieses Keyword wird in allen Vorträgen ersetzt oder gelöscht
+      </p>
+    </div>
+    
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
+        Ziel-Keyword (wird behalten):
+      </label>
+      <input type="text" id="newKeyword" placeholder="z.B. Wiederverkörperung (leer lassen zum Löschen)" 
         style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
-        💡 Leer lassen zum Löschen oder zum Zusammenführen mehrerer Keywords
+      <p style="font-size: 0.7em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
+        💡 <strong>Zusammenführen:</strong> Quell-Keyword wird mit diesem vereint (keine Duplikate)<br>
+        💡 <strong>Löschen:</strong> Leer lassen um Quell-Keyword zu entfernen<br>
+        💡 <strong>Umbenennen:</strong> Funktioniert auch wenn Ziel-Keyword noch nicht existiert
       </p>
     </div>
     
@@ -3699,12 +3715,12 @@ Bestehende Schlagwörter überschreiben
       <select id="moveTargetCluster" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
         <option value="">-- Zuerst Cluster laden --</option>
       </select>
-      <button id="btnLoadClusters" class="depth-btn" style="padding: 6px 12px; font-size: 0.75em; margin-top: 0.5rem;">
+      <button id="btnLoadClusters" class="depth-btn" onclick="loadClustersForMove(); return false;" style="padding: 6px 12px; font-size: 0.75em; margin-top: 0.5rem;">
         🔄 Cluster laden
       </button>
     </div>
     
-    <button id="btnMoveKeyword" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white; width: 100%; margin-bottom: 0.5rem;">
+    <button id="btnMoveKeyword" class="depth-btn" onclick="moveKeywordToCluster(); return false;" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white; width: 100%; margin-bottom: 0.5rem;">
       Keyword verschieben
     </button>
     
@@ -3713,15 +3729,16 @@ Bestehende Schlagwörter überschreiben
     <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
     
     <div style="display: flex; gap: 8px;">
-      <button id="btnRenameKeyword" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
-        Umbenennen/Zusammenführen
+      <button id="btnRenameKeyword" class="depth-btn" onclick="console.log('[BTN] Zusammenführen geklickt'); renameKeyword(); return false;" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
+        🔀 Zusammenführen / Umbenennen
       </button>
-      <button id="btnCloseKeywordEditor" class="depth-btn" style="padding: 8px 16px; font-size: 0.85em;">
+      <button id="btnCloseKeywordEditor" class="depth-btn" onclick="console.log('[BTN] Schließen geklickt'); closeKeywordEditor();" style="padding: 8px 16px; font-size: 0.85em;">
         Schließen
       </button>
     </div>
     
     <div id="keywordEditorStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+    </div>
   </div>
   
   <!-- Cluster Editor Modal -->
@@ -3782,7 +3799,7 @@ Bestehende Schlagwörter überschreiben
   </div>
   
   <!-- Overlay für Modals -->
-  <div id="editorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;" onclick="closeAllEditors()"></div>
+  <div id="editorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;" onclick="console.log('[OVERLAY] Geklickt'); closeKeywordEditor();"></div>
 </div>
 
 </div>
@@ -11077,60 +11094,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-// Event Listener für Keyword Editor Modal Buttons
+// Event Listener für Keyword Editor Modal Buttons - DEAKTIVIERT
+// Verwendet nur onclick-Handler im HTML
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('[MODAL] Initialisiere Event Listener...');
-  
-  const btnLoadClusters = document.getElementById('btnLoadClusters');
-  const btnMoveKeyword = document.getElementById('btnMoveKeyword');
-  const btnRenameKeyword = document.getElementById('btnRenameKeyword');
-  const btnCloseKeywordEditor = document.getElementById('btnCloseKeywordEditor');
-  
-  if (btnLoadClusters) {
-    btnLoadClusters.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('[MODAL] Cluster laden Button geklickt');
-      loadClustersForMove();
-    });
-  } else {
-    console.error('[MODAL] btnLoadClusters nicht gefunden');
-  }
-  
-  if (btnMoveKeyword) {
-    btnMoveKeyword.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('[MODAL] Move Keyword Button geklickt');
-      moveKeywordToCluster();
-    });
-  } else {
-    console.error('[MODAL] btnMoveKeyword nicht gefunden');
-  }
-  
-  if (btnRenameKeyword) {
-    btnRenameKeyword.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('[MODAL] Rename Keyword Button geklickt');
-      renameKeyword();
-    });
-  } else {
-    console.error('[MODAL] btnRenameKeyword nicht gefunden');
-  }
-  
-  if (btnCloseKeywordEditor) {
-    btnCloseKeywordEditor.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('[MODAL] Close Button geklickt');
-      closeKeywordEditor();
-    });
-  } else {
-    console.error('[MODAL] btnCloseKeywordEditor nicht gefunden');
-  }
-  
-  console.log('[MODAL] ✓ Event Listener initialisiert');
+  console.log('[MODAL] DOM geladen - keine Event Listener registriert (nur onclick)');
 });
 
 // ============================================================================
@@ -11481,44 +11448,76 @@ async function showTop100Keywords(event) {
 }
 
 function showKeywordEditor(event) {
-  const btn = event?.currentTarget;
-  const originalText = btn ? btn.innerHTML : '';
-  if (btn) {
-    btn.disabled = true;
-    btn.innerHTML = '<em>In Bearbeitung...</em>';
-  }
-  
-  setTimeout(() => {
-    document.getElementById('keywordEditorModal').style.display = 'block';
-    document.getElementById('editorOverlay').style.display = 'block';
+  try {
+    console.log('[EDITOR] Öffne Modal');
     
-    if (btn) {
-      btn.disabled = false;
-      btn.innerHTML = originalText;
+    const modal = document.getElementById('keywordEditorModal');
+    const overlay = document.getElementById('editorOverlay');
+    
+    if (!modal || !overlay) {
+      console.error('[EDITOR] Modal oder Overlay nicht gefunden!');
+      alert('Fehler: Modal-Elemente nicht gefunden');
+      return;
     }
-  }, 100);
+    
+    // Modal anzeigen
+    modal.style.display = 'block';
+    overlay.style.display = 'block';
+    
+    console.log('[EDITOR] ✓ Modal geöffnet');
+  } catch (error) {
+    console.error('[EDITOR] Fehler beim Öffnen:', error);
+    alert('Fehler beim Öffnen: ' + error.message);
+  }
 }
 
 function closeKeywordEditor() {
-  console.log('[EDITOR] Schließe Keyword Editor');
   try {
-    document.getElementById('keywordEditorModal').style.display = 'none';
-    document.getElementById('editorOverlay').style.display = 'none';
-    document.getElementById('oldKeyword').value = '';
-    document.getElementById('newKeyword').value = '';
-    document.getElementById('keywordEditorStatus').style.display = 'none';
-    document.getElementById('moveKeywordInput').value = '';
-    document.getElementById('moveTargetCluster').innerHTML = '<option value="">-- Zuerst Cluster laden --</option>';
-    document.getElementById('keywordMoveStatus').style.display = 'none';
+    console.log('[EDITOR] Schließe Keyword Editor');
+    
+    const modal = document.getElementById('keywordEditorModal');
+    const overlay = document.getElementById('editorOverlay');
+    
+    if (modal) {
+      modal.style.display = 'none';
+      console.log('[EDITOR] Modal ausgeblendet');
+    }
+    
+    if (overlay) {
+      overlay.style.display = 'none';
+      console.log('[EDITOR] Overlay ausgeblendet');
+    }
+    
+    // Felder zurücksetzen
+    const oldKeywordSelect = document.getElementById('oldKeyword');
+    const newKeywordInput = document.getElementById('newKeyword');
+    const moveKeywordInput = document.getElementById('moveKeywordInput');
+    
+    if (oldKeywordSelect) oldKeywordSelect.selectedIndex = 0;
+    if (newKeywordInput) newKeywordInput.value = '';
+    if (moveKeywordInput) moveKeywordInput.value = '';
+    
+    const statusDiv = document.getElementById('keywordEditorStatus');
+    const moveStatusDiv = document.getElementById('keywordMoveStatus');
+    
+    if (statusDiv) statusDiv.style.display = 'none';
+    if (moveStatusDiv) moveStatusDiv.style.display = 'none';
+    
     console.log('[EDITOR] ✓ Keyword Editor geschlossen');
   } catch (error) {
     console.error('[EDITOR] Fehler beim Schließen:', error);
+    alert('Fehler beim Schließen: ' + error.message);
   }
 }
 
 async function loadClustersForMove() {
   console.log('[MOVE-KW] Lade Cluster...');
   try {
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
     const response = await fetch(`${API_BASE}/api/themes/clusters`);
     console.log('[MOVE-KW] Response Status:', response.status);
     if (!response.ok) throw new Error('Cluster konnten nicht geladen werden');
@@ -11541,11 +11540,11 @@ async function loadClustersForMove() {
     });
     
     console.log('[MOVE-KW] ✓ Cluster geladen:', Object.keys(clusters).length);
-    alert(`✓ ${Object.keys(clusters).length} Cluster geladen`);
+    // alert(`✓ ${Object.keys(clusters).length} Cluster geladen`); // Entfernt - blockiert UI
     
   } catch (error) {
     console.error('[MOVE-KW] Fehler beim Laden der Cluster:', error);
-    alert('Fehler beim Laden der Cluster: ' + error.message);
+    // alert('Fehler beim Laden der Cluster: ' + error.message); // Entfernt - blockiert UI
   }
 }
 
@@ -11573,6 +11572,11 @@ async function moveKeywordToCluster() {
   statusDiv.innerHTML = 'Verschiebe Keyword...';
   
   try {
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
     const response = await fetch(`${API_BASE}/api/keywords/move-to-cluster`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -11636,18 +11640,26 @@ function closeAllEditors() {
 }
 
 async function renameKeyword() {
-  const oldKw = document.getElementById('oldKeyword').value.trim();
-  const newKw = document.getElementById('newKeyword').value.trim();
+  console.log('[RENAME] Funktion aufgerufen');
+  const oldKeywordSelect = document.getElementById('oldKeyword');
+  const newKeywordInput = document.getElementById('newKeyword');
   const statusDiv = document.getElementById('keywordEditorStatus');
   
+  console.log('[RENAME] oldKeywordSelect:', oldKeywordSelect);
+  console.log('[RENAME] newKeywordInput:', newKeywordInput);
+  
+  const oldKw = oldKeywordSelect ? oldKeywordSelect.value.trim() : '';
+  const newKw = newKeywordInput ? newKeywordInput.value.trim() : '';
+  
+  console.log('[RENAME] oldKw:', oldKw, 'newKw:', newKw);
+  
   if (!oldKw) {
-    alert('Bitte altes Keyword eingeben!');
+    alert('Bitte Quell-Keyword auswählen!');
     return;
   }
   
-  if (!confirm(`Keyword "${oldKw}" ${newKw ? `zu "${newKw}" umbenennen` : 'löschen'}?\n\nDies betrifft alle Vorträge in der Datenbank.`)) {
-    return;
-  }
+  // Kein Confirm-Dialog mehr - direkt ausführen
+  console.log('[RENAME] Führe Zusammenführung/Umbenennung aus:', oldKw, '->', newKw || 'DELETE');
   
   statusDiv.style.display = 'block';
   statusDiv.style.background = '#d9edf7';
@@ -11655,6 +11667,12 @@ async function renameKeyword() {
   statusDiv.innerHTML = '⏳ Verarbeite...';
   
   try {
+    // API Base ermitteln
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
     const response = await fetch(`${API_BASE}/api/keywords/rename`, {
       method: 'POST',
       headers: {
@@ -11675,22 +11693,117 @@ async function renameKeyword() {
     
     statusDiv.style.background = '#dff0d8';
     statusDiv.style.color = '#3c763d';
-    statusDiv.innerHTML = `✓ ${result.affectedLectures} Vorträge aktualisiert, ${result.totalReplacements} Ersetzungen vorgenommen`;
     
-    // Felder leeren
-    document.getElementById('oldKeyword').value = '';
-    document.getElementById('newKeyword').value = '';
+    let successMsg = '';
+    if (result.action === 'deleted') {
+      successMsg = `✓ Keyword gelöscht! ${result.totalReplacements} Vorkommen entfernt in ${result.affectedLectures} Vorträgen`;
+    } else {
+      successMsg = `✓ Keywords zusammengeführt! ${result.totalReplacements} Vorkommen verarbeitet in ${result.affectedLectures} Vorträgen (keine Duplikate)`;
+    }
+    statusDiv.innerHTML = successMsg;
+    
+    // Felder zurücksetzen
+    if (oldKeywordSelect) oldKeywordSelect.selectedIndex = 0;
+    if (newKeywordInput) newKeywordInput.value = '';
     
   } catch (error) {
     console.error('[RENAME-KW] Fehler:', error);
+    console.error('[RENAME-KW] Error stack:', error.stack);
     statusDiv.style.background = '#f2dede';
     statusDiv.style.color = '#a94442';
     statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
+  }
+  
+  console.log('[RENAME] Funktion beendet');
+}
+
+async function loadKeywordsForEdit() {
+  console.log('[LOAD-KW] Funktion wird ausgeführt');
+  
+  const btnLoadKeywords = document.getElementById('btnLoadKeywords');
+  if (btnLoadKeywords) {
+    btnLoadKeywords.disabled = true;
+    btnLoadKeywords.innerHTML = '⏳ Lädt...';
+  }
+  
+  try {
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
+    console.log('[LOAD-KW] API_BASE:', API_BASE);
+    
+    const response = await fetch(`${API_BASE}/api/keywords-database`);
+    console.log('[LOAD-KW] Response status:', response.status);
+    
+    if (!response.ok) throw new Error('Keywords konnten nicht geladen werden');
+    
+    const keywordsDB = await response.json();
+    console.log('[LOAD-KW] KeywordsDB geladen:', Object.keys(keywordsDB).length, 'Vorträge');
+    
+    // Sammle alle einzigartigen Keywords
+    const keywordsSet = new Set();
+    Object.values(keywordsDB).forEach(lecture => {
+      if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        lecture.keywords.forEach(kw => {
+          if (kw.term) keywordsSet.add(kw.term);
+        });
+      }
+    });
+    
+    // Sortiere alphabetisch
+    const sortedKeywords = Array.from(keywordsSet).sort((a, b) => 
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    );
+    
+    console.log('[LOAD-KW] Gefundene Keywords:', sortedKeywords.length);
+    
+    // Speichere alle Keywords global
+    window.allKeywords = sortedKeywords;
+    
+    // Fülle das SELECT Dropdown
+    const oldKeywordSelect = document.getElementById('oldKeyword');
+    
+    if (!oldKeywordSelect) {
+      console.error('[LOAD-KW] oldKeyword Dropdown nicht gefunden!');
+      throw new Error('Dropdown nicht gefunden');
+    }
+    
+    console.log('[LOAD-KW] Generiere HTML für', sortedKeywords.length, 'Keywords...');
+    
+    // String-Konkatenation
+    let optionsHTML = '<option value="">-- Keyword wählen --</option>';
+    sortedKeywords.forEach(keyword => {
+      optionsHTML += `<option value="${keyword}">${keyword}</option>`;
+    });
+    oldKeywordSelect.innerHTML = optionsHTML;
+    
+    console.log('[LOAD-KW] ✓ Alle', sortedKeywords.length, 'Keywords geladen!');
+    
+    if (btnLoadKeywords) {
+      btnLoadKeywords.disabled = false;
+      btnLoadKeywords.innerHTML = '✓ Keywords geladen';
+    }
+    
+  } catch (error) {
+    console.error('[LOAD-KW] Fehler:', error);
+    alert('Fehler beim Laden der Keywords: ' + error.message);
+    
+    if (btnLoadKeywords) {
+      btnLoadKeywords.disabled = false;
+      btnLoadKeywords.innerHTML = '🔄 Keywords laden';
+    }
   }
 }
 
 async function loadClustersForEdit() {
   try {
+    const isLocal = window.location.hostname === 'localhost' ||
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.protocol === 'file:';
+    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    
     const response = await fetch(`${API_BASE}/api/themes/clusters`);
     if (!response.ok) throw new Error('Cluster konnten nicht geladen werden');
     
@@ -11712,7 +11825,7 @@ async function loadClustersForEdit() {
     
   } catch (error) {
     console.error('[CLUSTERS] Fehler:', error);
-    alert('Fehler beim Laden der Cluster: ' + error.message);
+    // alert('Fehler beim Laden der Cluster: ' + error.message); // Entfernt - blockiert UI
   }
 }
 
@@ -11832,6 +11945,26 @@ async function mergeClusters() {
     statusDiv.innerHTML = `✗ Fehler: ${error.message}`;
   }
 }
+
+// ============================================================================
+// GLOBALE FUNKTIONEN FÜR ONCLICK-HANDLER EXPLIZIT REGISTRIEREN
+// ============================================================================
+window.loadKeywordsForEdit = loadKeywordsForEdit;
+window.renameKeyword = renameKeyword;
+window.closeKeywordEditor = closeKeywordEditor;
+window.loadClustersForMove = loadClustersForMove;
+window.moveKeywordToCluster = moveKeywordToCluster;
+window.loadClustersForEdit = loadClustersForEdit;
+window.renameCluster = renameCluster;
+window.mergeClusters = mergeClusters;
+window.showKeywordEditor = showKeywordEditor;
+window.showClusterEditor = showClusterEditor;
+window.closeClusterEditor = closeClusterEditor;
+
+console.log('[INIT] ✓ Globale Funktionen registriert');
+console.log('[INIT] loadKeywordsForEdit verfügbar:', typeof window.loadKeywordsForEdit);
+console.log('[INIT] renameKeyword verfügbar:', typeof window.renameKeyword);
+console.log('[INIT] closeKeywordEditor verfügbar:', typeof window.closeKeywordEditor);
 
 </script>
 

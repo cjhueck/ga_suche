@@ -2,7 +2,7 @@
   "generated": "2025-10-20T20:55:32.148Z",
   "reorganized": true,
   "seedKeywordsCount": 1947,
-  "clustersCount": 19,
+  "clustersCount": 26,
   "clusters": {
     "Anthroposophische Grundlagen und Methodik": {
       "description": "Zentrale Begriffe der Anthroposophie, ihre Forschungsmethoden und erkenntnistheoretischen Grundlagen.",
@@ -865,6 +865,88 @@
       ],
       "manual": false,
       "newFromReorg": true
+    },
+    "Anthroposophische Gesellschaft und Goetheanum": {
+      "description": "Steiners Äußerungen zur Anthroposophischen Gesellschaft und zum Goetheanum inklusive der Brandkatastrophe und der Weihnachtstagung",
+      "keywords": [
+        "Goetheanum",
+        "Brandkatastrophe",
+        "Weihnachtstagung",
+        "Allgemeine Anthroposophische Gesellschaft"
+      ],
+      "manual": true,
+      "created": "2025-10-21T16:56:03.667Z"
+    },
+    "Personen": {
+      "description": "Liste der Personen und Persönlichkeiten",
+      "keywords": [
+        "Goethe",
+        "Kant",
+        "Schiller",
+        "Hegel",
+        "Aristotels",
+        "Thomas von Aquin",
+        "Plato",
+        "Novalis",
+        "Fichte",
+        "Averroes"
+      ],
+      "manual": true,
+      "created": "2025-10-21T19:25:54.299Z"
+    },
+    "Akasha-Chronik": {
+      "description": "Das übersinnliche Weltgedächtnis der Akasha Chronik",
+      "keywords": [
+        "Akasha",
+        "Akasha-Chronik",
+        "Akasha-Forschung"
+      ],
+      "manual": true,
+      "created": "2025-10-21T19:33:10.816Z"
+    },
+    "Physiologie und Lebenskunde": {
+      "description": "Auf- und Abbauprozesse sowie Gestaltungen des Lebendigen",
+      "keywords": [
+        "Abbauprozesse",
+        "Aufbauprozesse",
+        "Leben",
+        "Stoffwechsel",
+        "Atmung",
+        "Wärmung",
+        "Ernährung",
+        "Reproduktion",
+        "Ausscheidung"
+      ],
+      "manual": true,
+      "created": "2025-10-21T19:36:45.840Z"
+    },
+    "Gedächtnis und Erinnerung": {
+      "description": "Vielfältige Darstellungen Rudolf Steiners zu Wesen und Funktion des Gedächtnisses und der Erinnerungsfähigkeit und -kraft",
+      "keywords": [
+        "Gedächtnis",
+        "Erinnerung"
+      ],
+      "manual": true,
+      "created": "2025-10-21T19:38:48.013Z"
+    },
+    "Ahriman und Luzifer": {
+      "description": "Die letztlich hilfreichen geistigen Gegenmächte gegen die Entwicklung des Menschen",
+      "keywords": [
+        "Ahriman",
+        "Luzifer",
+        "Ahrimanische Wesen",
+        "Luziferische Wesen"
+      ],
+      "manual": true,
+      "created": "2025-10-21T20:02:32.629Z"
+    },
+    "Michael": {
+      "description": "Die für die Anthroposophie grundlegende geistige Macht des Erzengels und Zeitgeistes Michael",
+      "keywords": [
+        "Michael"
+      ],
+      "manual": true,
+      "created": "2025-10-21T20:04:32.106Z"
     }
   }
 }
