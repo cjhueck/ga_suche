@@ -6,6 +6,7 @@
 - **Stichwortsuche** – Mit Relevanzbewertung
 - **Texte anzeigen lassen** – Texte mit Zusammenfassungen und Gliederungen
 - **Thematische Suche** – KI-gestützte semantische Analyse
+- **Timeline (Zeitverlauf)** - Anzeige des zeitlichen Verlaufs eines ausgewählten Themas/Schlagwortes  
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
 Ihre Such-Anfragen werden **nicht gespeichert**.
