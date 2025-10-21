@@ -7323,7 +7323,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   
 // Verstecke Keywords-Tab nur online (nicht auf localhost)
 const hostname = window.location.hostname;
-const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+const isLocalhost = hostname === 'localhost' || 
+                    hostname === '127.0.0.1' || 
+                    window.location.protocol === 'file:';
 
 if (!isLocalhost) {
   const keywordsTabButton = document.getElementById("keywords-tab-button");
@@ -7331,6 +7333,8 @@ if (!isLocalhost) {
     keywordsTabButton.style.display = 'none';
     console.log('[INIT] Keywords-Tab versteckt (Online-Deployment)');
   }
+} else {
+  console.log('[INIT] Keywords-Tab sichtbar (Lokale Umgebung)');
 }
   
   const gaFilter = document.getElementById("gaFilter");
