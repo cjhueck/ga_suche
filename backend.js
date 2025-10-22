@@ -12,6 +12,24 @@ const PORT = 3003;
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
 app.use(express.json());
+
+// Cache-Control für API-Endpunkte (verhindert Browser-Caching)
+app.use('/api', (req, res, next) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
+  next();
+});
+
+// Cache-Control für HTML-Dateien
+app.use((req, res, next) => {
+  if (req.path.endsWith('.html') || req.path === '/' || req.path === '/keyword-manager.html') {
+    res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+  }
+  next();
+});
 app.post('/api/themes/save-clusters', async (req, res) => {
   try {
     const clusters = req.body.clusters;

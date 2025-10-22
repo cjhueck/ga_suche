@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Keyword & Cluster Manager - GA Suche</title>
   <style>
     :root {
@@ -439,7 +442,7 @@
     }
   </style>
 </head>
-<body>
+<body onload="initApp()">
   <div class="container">
     <header>
       <h1>🔧 Keyword & Cluster Manager</h1>
@@ -464,9 +467,14 @@
       <div class="panel">
         <div class="panel-header">
           <h2 class="panel-title">📋 Keywords</h2>
-          <button class="btn btn-primary" onclick="loadKeywords()" style="width: auto; margin: 0; padding: 6px 12px;">
-            🔄 Laden
-          </button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" onclick="loadKeywords()" style="width: auto; margin: 0; padding: 6px 12px;">
+              🔄 Laden
+            </button>
+            <button class="btn btn-secondary" onclick="forceRefresh()" style="width: auto; margin: 0; padding: 6px 12px;" title="Cache leeren und neu laden">
+              🚀 Force Refresh
+            </button>
+          </div>
         </div>
 
         <input type="text" id="keywordSearch" class="search-box" placeholder="🔍 Keywords suchen..." oninput="filterKeywords()">
@@ -641,7 +649,7 @@
     const isLocal = window.location.hostname === 'localhost' ||
                     window.location.hostname === '127.0.0.1' ||
                     window.location.protocol === 'file:';
-    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+    window.API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
 
     let allKeywords = [];
     let filteredKeywords = [];
@@ -650,6 +658,28 @@
     let selectedKeyword = null;
     let currentPage = 1;
     const itemsPerPage = 100;
+
+    // ============================================================================
+    // INITIALISIERUNG
+    // ============================================================================
+    async function initApp() {
+      console.log('[INIT] Starte Keyword-Manager...');
+
+      // Cache-Busting beim Start
+      if ('caches' in window) {
+        try {
+          const cacheNames = await caches.keys();
+          console.log('[INIT] Cache-Names gefunden:', cacheNames);
+          await Promise.all(cacheNames.map(name => caches.delete(name)));
+          console.log('[INIT] Browser-Cache geleert');
+        } catch (error) {
+          console.warn('[INIT] Cache leeren fehlgeschlagen:', error);
+        }
+      }
+
+      console.log('[INIT] API_BASE:', window.API_BASE);
+      showStatus('info', '✅ System bereit - klicken Sie auf "Laden" um zu starten');
+    }
 
     console.log('[INIT] API_BASE:', API_BASE);
 
@@ -662,8 +692,8 @@
       keywordList.innerHTML = '<div class="loading-spinner">⏳ Lade Keywords...</div>';
 
       try {
-        // Lade Keywords-Database
-        const response = await fetch(`${API_BASE}/api/keywords-database`);
+        // Lade Keywords-Database (mit Cache-Busting)
+        const response = await fetchWithCacheBust(`${API_BASE}/api/keywords-database`);
         if (!response.ok) throw new Error('Fehler beim Laden');
 
         keywordsDatabase = await response.json();
@@ -848,8 +878,39 @@
     }
 
     // ============================================================================
-    // KEYWORD OPERATIONEN
+    // FORCE REFRESH FUNKTION
     // ============================================================================
+    async function forceRefresh() {
+      console.log('[FORCE-REFRESH] Erzwinge Neuladen aller Daten...');
+      showStatus('info', '🔄 Erzwinge Neuladen...');
+
+      try {
+        // Cache leeren
+        if ('caches' in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(cacheNames.map(name => caches.delete(name)));
+        }
+
+        // Seite neu laden mit Cache-Busting
+        window.location.reload(true);
+      } catch (error) {
+        console.error('[FORCE-REFRESH] Fehler:', error);
+        // Fallback: normale Seite neu laden
+        window.location.reload();
+      }
+    }
+    function fetchWithCacheBust(url, options = {}) {
+      const separator = url.includes('?') ? '&' : '?';
+      const cacheBustUrl = `${url}${separator}_=${Date.now()}`;
+      return fetch(cacheBustUrl, {
+        ...options,
+        headers: {
+          ...options.headers,
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
+      });
+    }
     async function renameSelectedKeyword() {
       if (!selectedKeyword) {
         alert('Kein Keyword ausgewählt');
@@ -978,11 +1039,7 @@
 
     async function deleteSelectedKeyword() {
       if (!selectedKeyword) {
-        alert('Kein Keyword ausgewählt');
-        return;
-      }
-
-      if (!confirm(`Keyword "${selectedKeyword.term}" wirklich löschen?\n\nDies entfernt es aus ${selectedKeyword.lectureCount} Vorträgen.`)) {
+        showStatus('error', 'Kein Keyword ausgewählt');
         return;
       }
 
@@ -1028,7 +1085,7 @@
       console.log('[CLUSTERS] Lade Cluster...');
 
       try {
-        const response = await fetch(`${API_BASE}/api/themes/clusters`);
+        const response = await fetchWithCacheBust(`${API_BASE}/api/themes/clusters`);
         if (!response.ok) throw new Error('Fehler beim Laden');
 
         const data = await response.json();
@@ -1526,7 +1583,7 @@
       
       try {
         // Lade aktuelle Cluster-Datei
-        const response = await fetch(`${API_BASE}/api/themes/clusters`);
+        const response = await fetchWithCacheBust(`${API_BASE}/api/themes/clusters`);
         if (!response.ok) throw new Error('Fehler beim Laden der Cluster');
         
         const data = await response.json();
