@@ -81,7 +81,8 @@
         "Brentano, Franz",
         "Bergson, Henri",
         "Bauernphilosophie",
-        "Bildnatur der Natur"
+        "Bildnatur der Natur",
+        "Abstraktion"
       ],
       "manual": false
     },
@@ -316,7 +317,6 @@
         "Yoga",
         "Yoga-Methoden",
         "Persische Mythologie",
-        "Ahriman",
         "Ahura Mazdao",
         "Ormuzd",
         "Amshaspands",
@@ -932,10 +932,10 @@
     "Ahriman und Luzifer": {
       "description": "Die letztlich hilfreichen geistigen Gegenmächte gegen die Entwicklung des Menschen",
       "keywords": [
-        "Ahriman",
         "Luzifer",
         "Ahrimanische Wesen",
-        "Luziferische Wesen"
+        "Luziferische Wesen",
+        "Ahriman"
       ],
       "manual": true,
       "created": "2025-10-21T20:02:32.629Z"
