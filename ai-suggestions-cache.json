@@ -1,186 +1,100 @@
 {
-  "generated": "2025-10-21T20:05:04.278Z",
+  "generated": "2025-10-22T11:34:04.196Z",
   "keywordsAnalyzed": 1000,
   "suggestions": [
     {
       "keywords": [
-        "Plato",
-        "Platon"
+        "Zukunft",
+        "Zukunftsbild",
+        "Zukunftsdenken"
       ],
-      "mainKeyword": "Platon",
-      "reason": "Unterschiedliche Schreibvarianten des gleichen Namens",
+      "mainKeyword": "Zukunft",
+      "reason": "Ähnliche Bedeutungen und Fokus auf zukünftige Ereignisse oder Verständnis",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Zusammenarbeit",
+        "Zusammenarbeit geistigen Bewegungen"
+      ],
+      "mainKeyword": "Zusammenarbeit",
+      "reason": "Einschluss spezifischer Arten der Zusammenarbeit",
       "confidence": "Hoch"
     },
     {
       "keywords": [
-        "Planetensystem",
-        "Planetensysteme"
+        "Zivilisation",
+        "Zivilisationssprache"
       ],
-      "mainKeyword": "Planetensysteme",
-      "reason": "Singular und Plural Varianten",
+      "mainKeyword": "Zivilisation",
+      "reason": "Bezieht sich auf den zivilisatorischen Kontext und Ausdrucksformen dessen",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Zukunftsentwicklung",
+        "Zukunftsentwicklung Menschheit",
+        "Zukunftsentwicklung menschlichen Bewusstseins"
+      ],
+      "mainKeyword": "Zukunftsentwicklung",
+      "reason": "Fokus auf Entwicklung in der Zukunft, spezifische und allgemeine Anwendungen",
       "confidence": "Hoch"
     },
     {
       "keywords": [
-        "Planetengeist",
-        "Planetengeister"
+        "Zweiheit",
+        "Zweiheit Bewusstseins"
       ],
-      "mainKeyword": "Planetengeister",
-      "reason": "Singular und Plural Varianten",
+      "mainKeyword": "Zweiheit",
+      "reason": "Beschreibung eines dualistischen Prinzips, einmal allgemein und einmal im Bewusstseinskontext",
+      "confidence": "Mittel"
+    },
+    {
+      "keywords": [
+        "Zwiespalt",
+        "Zwiespalt zwischen Wissen und Glauben"
+      ],
+      "mainKeyword": "Zwiespalt",
+      "reason": "Allgemeiner Begriff und spezialisierter Fall innerhalb der gleichen emotionalen oder intellektuellen Spannung",
       "confidence": "Hoch"
     },
     {
       "keywords": [
-        "Religionsvergleich",
-        "Religionsvergleichung"
+        "Zeremonien",
+        "Zeugnisgestaltung"
       ],
-      "mainKeyword": "Religionsvergleich",
-      "reason": "Synonyme Begriffe für den Vergleich zwischen Religionen",
-      "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Pflanzenreich",
-        "Pflanzenwelt"
-      ],
-      "mainKeyword": "Pflanzenreich",
-      "reason": "Begriffe mit ähnlicher Bedeutung im Kontext botanischer Klassifizierung",
-      "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Religiöses Empfinden",
-        "Religiöse Empfindung"
-      ],
-      "mainKeyword": "Religiöse Empfindung",
-      "reason": "Synonyme Ausdrücke für das Erleben oder Empfinden von Religion",
-      "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Philosophie der Freiheit",
-        "Philosophie Freiheit"
-      ],
-      "mainKeyword": "Philosophie der Freiheit",
-      "reason": "Beide Begriffe beziehen sich auf dasselbe Werk von Rudolf Steiner",
-      "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Praktische Anwendung",
-        "Praktische Anwendungen"
-      ],
-      "mainKeyword": "Praktische Anwendungen",
-      "reason": "Singular und Plural Varianten",
-      "confidence": "Hoch"
-    },
-    {
-      "keywords": [
-        "Rosenkreuz",
-        "Rosenkreuzer"
-      ],
-      "mainKeyword": "Rosenkreuzer",
-      "reason": "Verwandte Begriffe im Kontext der Rosenkreuzer-Bewegung",
-      "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Phantasie",
-        "Phantasiebilder"
-      ],
-      "mainKeyword": "Phantasie",
-      "reason": "Phantasiebilder sind eine Manifestation der Phantasie",
+      "mainKeyword": "Zeremonien",
+      "reason": "Beide beziehen sich auf formale und rituelle Ausdrucksformen",
       "confidence": "Niedrig"
     },
     {
       "keywords": [
-        "Schlaf",
-        "Schlafen und Wachen"
+        "Zusammenhang Buch Hiob",
+        "Zusammenhang zwischen Gefühl und Gedächtnis",
+        "Zusammenhang zwischen Seelischem kosmischen Gesetzen"
       ],
-      "mainKeyword": "Schlaf",
-      "reason": "Beide Begriffe beziehen sich auf das Bewusstseins- und Ruhebedürfnis",
+      "mainKeyword": "Zusammenhang",
+      "reason": "Fokus auf Verbindung oder Korrelation zwischen verschiedenen Elementen",
       "confidence": "Mittel"
     },
     {
       "keywords": [
-        "Pythagoräischer Lehrsatz",
-        "Pythagoreische Lehre"
+        "Zukunft der Menschheit",
+        "Zukunft Geisteswissenschaft"
       ],
-      "mainKeyword": "Pythagoreische Lehre",
-      "reason": "Beide Begriffe betreffen das Gedankengut von Pythagoras",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Religiöse Bekenntnisse",
-        "Religiöse Durchdringung"
-      ],
-      "mainKeyword": "Religiöse Bekenntnisse",
-      "reason": "Ähnliche Bedeutung im Kontext des Ausdrucks religiöser Überzeugungen",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Saturn",
-        "Saturn-Dasein"
-      ],
-      "mainKeyword": "Saturn",
-      "reason": "Beide beziehen sich auf den Planeten Saturn im esoterischen Kontext",
+      "mainKeyword": "Zukunft",
+      "reason": "Bezieht sich auf zukünftige Trends und Entwicklungen in spezifischen Bereichen",
       "confidence": "Mittel"
     },
     {
       "keywords": [
-        "Raum",
-        "Raumesleben"
+        "Zukunftsplanung",
+        "Zukunftsverantwortung",
+        "Zukunftswirkung"
       ],
-      "mainKeyword": "Raum",
-      "reason": "Ähnliche Bedeutung in Bezug auf die Dimension des Raumes",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Planeten",
-        "Planetenbewusstsein"
-      ],
-      "mainKeyword": "Planeten",
-      "reason": "Planetenbewusstsein ist ein Aspekt von Planeten",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Pforte Todes",
-        "Pforte Todes Selbstbewusstsein"
-      ],
-      "mainKeyword": "Pforte Todes",
-      "reason": "Beide Begriffe beziehen sich auf den Übergang durch den Tod",
+      "mainKeyword": "Zukunftsplanung",
+      "reason": "Fokus auf die Verantwortung und Auswirkungen von Zukunftsentscheidungen",
       "confidence": "Mittel"
-    },
-    {
-      "keywords": [
-        "Prälatale Schocks",
-        "Paranatales Dasein"
-      ],
-      "mainKeyword": "Pränatales Dasein",
-      "reason": "Verwandte Begriffe im Kontext pränataler Existenz",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Reiche",
-        "Reich Gottes"
-      ],
-      "mainKeyword": "Reiche",
-      "reason": "Reich Gottes gehört zu den verschiedenen Konzepten von 'Reiche'",
-      "confidence": "Niedrig"
-    },
-    {
-      "keywords": [
-        "Resignation",
-        "Resignative Kräfte"
-      ],
-      "mainKeyword": "Resignation",
-      "reason": "Beide Begriffe betreffen das Aufgeben oder den Rückzug",
-      "confidence": "Niedrig"
     }
   ]
 }
