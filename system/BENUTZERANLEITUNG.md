@@ -3,11 +3,12 @@
 - **Suche**: Stichwortsuche in Texten und Vorträgen (mit Bewertung der Relevanz gefundener Stellen)
 - **Texte**: Übersicht über die Texte und Vorträge aus den aufgelisteten GA-Bänden
 - **Themen**: Thematische Suche (KI-gestützt)
+- **Timeline**: Zeitlicher Verlauf einzelner Themen und Schlagwörter in der GA
 - **Index**: Liste wichtiger Schlagwörter
 
-Suche, Themen und Schlagwörter sind mit den entsprechenden Quellen verlinkt.
-Die Fenster können über die drei Punkte geöffnet und geschlossen werden.
-Das rechte Seitenfenster zeigt Zwischenüberschriften zu den angezeigten Vorträgen. 
+Suche, Themen, Timeline und Schlagwörter sind mit den entsprechenden Quellen verlinkt.
+Die Fenster können über die **drei blauen Punkte** geöffnet und geschlossen werden.
+Das rechte Seitenfenster zeigt Zwischenüberschriften zu den angezeigten Vorträgen; oben rechts kann man zwischen zwei Überschriftenniveaus wechseln. 
 
 ---
 
@@ -57,6 +58,15 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 
 ---
 
+#### Tab "Timeline"
+
+Themenspezifische Darstellung.
+
+- Thema auswählen, zusätzlich optional Schlagwort auswählen
+- Schlagwörter können auch ohne vorherige Themenwahl ausgewählt werden 
+
+---
+
 #### Tab "Index"
 
 - Wachsende Liste wichtiger Schlagwörter, mit KI-Unterstützung erstellt
@@ -95,7 +105,7 @@ KI-gestützte thematische Suchen mit Claude AI (Anthropic)
 
 #### Version & Technik
 
-**Version** 2.0 
+**Version** 2.1 
 
 **Entwickelt für**
 - Rudolf Steiner Gesamtausgabe (GA)

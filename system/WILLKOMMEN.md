@@ -1,4 +1,5 @@
 # Rudolf Steiner Gesamtausgabe - Text- und thematische Suche
+**(Testversion in Bearbeitung)**
 
 ---
 **Diese Anwendung ermöglicht Ihnen die intelligente Suche in der Rudolf Steiner Gesamtausgabe (GA)**
@@ -29,6 +30,9 @@ Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldunge
 **Themensuche**
 - Formulieren Sie Fragen 
 - Vertiefen Sie die Antwort anhand der angegebenen Quellen
+
+**Timeline**
+- Wählen sie Thema und/oder Schlagwort und studieren Sie den zeitlichen Verlauf in der GA
 
 ---
 ## Hilfe
