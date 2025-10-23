@@ -4,3 +4,6 @@ node_modules/
 
 # Auto-generierte Kontext-Indizes
 context-indices.json
+
+# Automatische Backups
+backups/

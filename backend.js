@@ -16,6 +16,9 @@ app.use(express.json());
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
 
+// Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
+app.use(express.static(__dirname));
+
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path}`);
@@ -3712,6 +3715,161 @@ const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes-database.json');
+const CLUSTERS_FILE = path.join(__dirname, 'thematic-clusters.json');
+
+// Backup-Verzeichnisse
+const BACKUP_BASE_DIR = path.join(__dirname, 'backups');
+const KEYWORDS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'keywords');
+const SUMMARY_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'summary');
+const THEMES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'themes');
+const CLUSTERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'clusters');
+const CODE_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'code');
+const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
+
+// ============================================================================
+// AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
+// ============================================================================
+
+// Erstelle alle Backup-Ordner falls nicht vorhanden
+async function ensureBackupDirectories() {
+  const dirs = [
+    KEYWORDS_BACKUP_DIR,
+    SUMMARY_BACKUP_DIR,
+    THEMES_BACKUP_DIR,
+    CLUSTERS_BACKUP_DIR,
+    CODE_BACKUP_DIR,
+    HTML_BACKUP_DIR
+  ];
+  
+  for (const dir of dirs) {
+    try {
+      await fs.mkdir(dir, { recursive: true });
+    } catch (error) {
+      console.error(`[BACKUP] Fehler beim Erstellen von ${dir}:`, error);
+    }
+  }
+}
+
+// Legacy-Funktion für Abwärtskompatibilität
+async function ensureBackupDirectory() {
+  await ensureBackupDirectories();
+}
+
+// Generische Backup-Funktion für jede Datei
+async function createBackup(sourceFile, backupDir, prefix, maxBackups = 10) {
+  try {
+    await ensureBackupDirectories();
+    
+    // Prüfe ob Datei existiert und nicht leer ist
+    try {
+      const stats = await fs.stat(sourceFile);
+      if (stats.size === 0) {
+        console.warn(`[BACKUP] WARNUNG: ${path.basename(sourceFile)} ist leer - kein Backup erstellt`);
+        return null;
+      }
+    } catch (error) {
+      console.log(`[BACKUP] ${path.basename(sourceFile)} nicht gefunden - kein Backup erstellt`);
+      return null;
+    }
+    
+    // Erstelle Backup mit Timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupFile = path.join(backupDir, `${prefix}-${timestamp}.json`);
+    
+    const data = await fs.readFile(sourceFile, 'utf8');
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    console.log(`[BACKUP] ✓ ${prefix}: ${path.basename(backupFile)}`);
+    
+    // Bereinige alte Backups
+    await cleanOldBackupsGeneric(backupDir, prefix, maxBackups);
+    
+    return backupFile;
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim Backup von ${prefix}:`, error);
+    return null;
+  }
+}
+
+// Generische Bereinigungsfunktion
+async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
+  try {
+    const files = await fs.readdir(backupDir);
+    const backupFiles = files
+      .filter(f => f.startsWith(prefix) && f.endsWith('.json'))
+      .map(f => ({
+        name: f,
+        fullPath: path.join(backupDir, f)
+      }));
+    
+    // Sortiere nach Dateinamen (Timestamp im Namen)
+    backupFiles.sort((a, b) => b.name.localeCompare(a.name));
+    
+    // Lösche alle außer den letzten N
+    const toDelete = backupFiles.slice(maxBackups);
+    for (const file of toDelete) {
+      await fs.unlink(file.fullPath);
+    }
+    
+    if (toDelete.length > 0) {
+      console.log(`[BACKUP] ${toDelete.length} alte ${prefix}-Backups gelöscht`);
+    }
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim Bereinigen von ${prefix}:`, error);
+  }
+}
+
+// Spezifische Backup-Funktionen für jede Datei
+async function createKeywordsBackup() {
+  return await createBackup(KEYWORDS_DB_FILE, KEYWORDS_BACKUP_DIR, 'keywords-database', 10);
+}
+
+async function createSummaryBackup() {
+  return await createBackup(SUMMARY_DB_FILE, SUMMARY_BACKUP_DIR, 'summary-database', 10);
+}
+
+async function createThemesBackup() {
+  return await createBackup(THEMES_DB_FILE, THEMES_BACKUP_DIR, 'themes-database', 10);
+}
+
+async function createClustersBackup() {
+  return await createBackup(CLUSTERS_FILE, CLUSTERS_BACKUP_DIR, 'thematic-clusters', 10);
+}
+
+async function createCodeBackup() {
+  const backendFile = path.join(__dirname, 'backend.js');
+  return await createBackup(backendFile, CODE_BACKUP_DIR, 'backend', 20);
+}
+
+async function createHtmlBackup(htmlFile = 'index.html') {
+  const sourceFile = path.join(__dirname, htmlFile);
+  const prefix = htmlFile.replace('.html', '');
+  return await createBackup(sourceFile, HTML_BACKUP_DIR, prefix, 10);
+}
+
+// Umfassendes Backup aller wichtigen Dateien
+async function createFullBackup() {
+  console.log('[BACKUP] Erstelle umfassendes Backup...');
+  const results = await Promise.all([
+    createKeywordsBackup(),
+    createSummaryBackup(),
+    createThemesBackup(),
+    createClustersBackup(),
+    createCodeBackup(),
+    createHtmlBackup('index.html'),
+    createHtmlBackup('keyword-manager-advanced.html')
+  ]);
+  
+  const successful = results.filter(r => r !== null).length;
+  console.log(`[BACKUP] ✓ ${successful} von ${results.length} Backups erstellt`);
+  
+  return successful;
+}
+
+// Legacy-Funktion für Abwärtskompatibilität
+async function cleanOldBackups() {
+  await cleanOldBackupsGeneric(KEYWORDS_BACKUP_DIR, 'keywords-database', 10);
+}
 
 // ============================================================================
 // ROBUSTE SUMMARY-DATENBANK MIT LOCKING-MECHANISMUS
@@ -3874,12 +4032,22 @@ async function loadKeywordsDatabase() {
   }
 }
 
-// ROBUSTE FUNKTION: Speichere gesamte Keywords-Datenbank (mit Locking)
+// ROBUSTE FUNKTION: Speichere gesamte Keywords-Datenbank (mit Locking & Backup)
 async function saveCompleteKeywordsDatabase(keywordsDB) {
   return new Promise((resolve, reject) => {
     keywordsDbWriteQueue = keywordsDbWriteQueue.then(async () => {
       try {
         console.log(`[KEYWORDS-LOCK] Sperre DB für komplettes Speichern...`);
+        
+        // WICHTIG: Erstelle Backup BEVOR wir speichern
+        await createKeywordsBackup();
+        
+        // Validiere dass wir nicht versuchen, leere Daten zu speichern
+        if (!keywordsDB || Object.keys(keywordsDB).length === 0) {
+          console.error('[KEYWORDS-LOCK] ✗ WARNUNG: Versuch, leere Datenbank zu speichern - ABGEBROCHEN!');
+          reject(new Error('Datenbank ist leer - Speichern abgebrochen'));
+          return;
+        }
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
@@ -3903,6 +4071,9 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
       try {
         console.log(`[KEYWORDS-LOCK] Sperre DB für ${lectureId}...`);
         
+        // WICHTIG: Erstelle Backup BEVOR wir speichern
+        await createKeywordsBackup();
+        
         // Lade immer die aktuellste Version der Datenbank
         const keywordsDB = await loadKeywordsDatabase();
         
@@ -3911,6 +4082,13 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
           ...keywordsData,
           timestamp: new Date().toISOString()
         };
+        
+        // Validiere dass Datenbank nicht leer ist
+        if (Object.keys(keywordsDB).length === 0) {
+          console.error('[KEYWORDS-LOCK] ✗ WARNUNG: Datenbank wäre leer - ABGEBROCHEN!');
+          reject(new Error('Datenbank ist leer - Speichern abgebrochen'));
+          return;
+        }
         
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
@@ -4792,8 +4970,16 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
     
     // 10. Optional: Aktualisiere Haupt-Datenbank
     if (useExistingVocab) {
-      fsSync.writeFileSync(KEYWORDS_DB_FILE, JSON.stringify(finalDB, null, 2));
-      console.log(`[GA-BATCH] Haupt-Datenbank aktualisiert: keywords-database.json`);
+      // BACKUP erstellen vor dem Speichern
+      await createKeywordsBackup();
+      
+      // Validiere dass Datenbank nicht leer ist
+      if (Object.keys(finalDB).length === 0) {
+        console.error('[GA-BATCH] ✗ WARNUNG: finalDB ist leer - Haupt-Datenbank wird NICHT überschrieben!');
+      } else {
+        fsSync.writeFileSync(KEYWORDS_DB_FILE, JSON.stringify(finalDB, null, 2));
+        console.log(`[GA-BATCH] Haupt-Datenbank aktualisiert: keywords-database.json`);
+      }
     }
     
     // 11. Optional: Erweitere Cluster mit neuen Keywords
@@ -5050,9 +5236,8 @@ app.post('/api/themes/add-cluster', async (req, res) => {
       throw new Error('Cluster-Name ist erforderlich');
     }
     
-    if (!keywords || !Array.isArray(keywords) || keywords.length === 0) {
-      throw new Error('Mindestens ein Keyword erforderlich');
-    }
+    // Keywords sind optional - leere Cluster sind erlaubt
+    const validKeywords = (keywords && Array.isArray(keywords)) ? keywords.filter(kw => kw && kw.trim()) : [];
     
     const clustersPath = path.join(__dirname, 'thematic-clusters.json');
     
@@ -5074,7 +5259,7 @@ app.post('/api/themes/add-cluster', async (req, res) => {
     // Füge neuen Cluster hinzu
     clusters[name] = {
       description: description || `Manuell hinzugefügter Themenbereich: ${name}`,
-      keywords: keywords.filter(kw => kw && kw.trim()),
+      keywords: validKeywords,
       manual: true, // Markierung für manuell hinzugefügte Cluster
       created: new Date().toISOString()
     };
@@ -5091,12 +5276,12 @@ app.post('/api/themes/add-cluster', async (req, res) => {
     // Speichere mit erhaltener Struktur
     fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
     
-    console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${keywords.length} Keywords`);
+    console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${validKeywords.length} Keywords`);
     
     res.json({
       success: true,
       clusterName: name,
-      keywordCount: keywords.length,
+      keywordCount: validKeywords.length,
       totalClusters: Object.keys(clusters).length
     });
     
@@ -5291,7 +5476,8 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     
     // Lade Thematic Clusters
     const clustersFilePath = path.join(__dirname, 'thematic-clusters.json');
-    const clusters = JSON.parse(fsSync.readFileSync(clustersFilePath, 'utf8'));
+    const clustersData = JSON.parse(fsSync.readFileSync(clustersFilePath, 'utf8'));
+    const clusters = clustersData.clusters || clustersData;
     
     if (!clusters[targetCluster]) {
       throw new Error(`Cluster "${targetCluster}" existiert nicht`);
@@ -5302,11 +5488,14 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     let removed = false;
     
     // Suche Keyword in allen Clustern und entferne es
-    for (const [clusterName, keywords] of Object.entries(clusters)) {
+    for (const [clusterName, clusterInfo] of Object.entries(clusters)) {
+      const keywords = clusterInfo.keywords || clusterInfo;
+      if (!Array.isArray(keywords)) continue;
+      
       const index = keywords.findIndex(kw => kw.toLowerCase() === normalizedKeyword);
       if (index !== -1) {
         foundInCluster = clusterName;
-        clusters[clusterName].splice(index, 1);
+        keywords.splice(index, 1);
         removed = true;
         console.log(`[KEYWORDS] Keyword aus Cluster "${clusterName}" entfernt`);
       }
@@ -5317,15 +5506,26 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     }
     
     // Füge Keyword zum Ziel-Cluster hinzu (wenn nicht schon vorhanden)
-    if (!clusters[targetCluster].some(kw => kw.toLowerCase() === normalizedKeyword)) {
-      clusters[targetCluster].push(keyword.trim());
+    // Stelle sicher, dass das keywords-Array existiert
+    if (!clusters[targetCluster].keywords) {
+      clusters[targetCluster].keywords = [];
+    }
+    
+    const keywordsArray = clusters[targetCluster].keywords;
+    if (!keywordsArray.some(kw => kw.toLowerCase() === normalizedKeyword)) {
+      keywordsArray.push(keyword.trim());
       console.log(`[KEYWORDS] Keyword zu Cluster "${targetCluster}" hinzugefügt`);
     } else {
       console.log(`[KEYWORDS] Keyword bereits in Ziel-Cluster vorhanden`);
     }
     
-    // Speichere aktualisierte Clusters
-    fsSync.writeFileSync(clustersFilePath, JSON.stringify(clusters, null, 2));
+    // Speichere aktualisierte Clusters (mit Original-Struktur)
+    if (clustersData.clusters) {
+      clustersData.clusters = clusters;
+      fsSync.writeFileSync(clustersFilePath, JSON.stringify(clustersData, null, 2));
+    } else {
+      fsSync.writeFileSync(clustersFilePath, JSON.stringify(clusters, null, 2));
+    }
     
     res.json({
       success: true,
@@ -6469,6 +6669,9 @@ async function executeConsolidation(factor) {
 }
 
 async function activateConsolidatedDatabase(consolidatedFile) {
+  // BACKUP erstellen vor dem Aktivieren
+  await createKeywordsBackup();
+  
   // Sichere aktuelle Datenbank
   const currentDB = await fs.readFile(KEYWORDS_DB_FILE, 'utf-8');
   const preConsolidationFile = 'keywords-database-pre-consolidation.json';
@@ -6477,6 +6680,13 @@ async function activateConsolidatedDatabase(consolidatedFile) {
   
   // Aktiviere konsolidierte Datenbank
   const consolidatedDB = await fs.readFile(consolidatedFile, 'utf-8');
+  
+  // Validiere dass konsolidierte DB nicht leer ist
+  const parsedDB = JSON.parse(consolidatedDB);
+  if (Object.keys(parsedDB).length === 0) {
+    throw new Error('Konsolidierte Datenbank ist leer - Aktivierung abgebrochen');
+  }
+  
   await fs.writeFile(KEYWORDS_DB_FILE, consolidatedDB);
   console.log(`[CONSOLIDATION] Konsolidierte DB aktiviert: ${consolidatedFile} → ${KEYWORDS_DB_FILE}`);
   
@@ -6956,6 +7166,211 @@ app.get('/api/file/:filename', async (req, res) => {
   } catch (error) {
     console.error(`Fehler beim Laden von ${req.params.filename}:`, error);
     res.status(500).json({ error: 'Fehler beim Laden der Datei' });
+  }
+});
+
+// ============================================================================
+// BACKUP-VERWALTUNGS-ENDPUNKTE
+// ============================================================================
+
+// Liste alle verfügbaren Backups auf (Legacy - zeigt Keywords-Backups)
+app.get('/api/backups/list', async (req, res) => {
+  try {
+    await ensureBackupDirectories();
+    
+    const files = await fs.readdir(KEYWORDS_BACKUP_DIR);
+    const backupFiles = files
+      .filter(f => f.startsWith('keywords-database-') && f.endsWith('.json'))
+      .map(f => {
+        const filePath = path.join(KEYWORDS_BACKUP_DIR, f);
+        const stats = fsSync.statSync(filePath);
+        return {
+          name: f,
+          path: filePath,
+          size: stats.size,
+          created: stats.birthtime,
+          modified: stats.mtime,
+          type: 'keywords'
+        };
+      });
+    
+    // Sortiere nach Änderungsdatum (neueste zuerst)
+    backupFiles.sort((a, b) => b.modified - a.modified);
+    
+    res.json({
+      backups: backupFiles,
+      count: backupFiles.length
+    });
+  } catch (error) {
+    console.error('[BACKUP-API] Fehler beim Auflisten:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Stelle ein Backup wieder her
+app.post('/api/backups/restore', async (req, res) => {
+  try {
+    const { backupName } = req.body;
+    
+    if (!backupName) {
+      return res.status(400).json({ error: 'Backup-Name erforderlich' });
+    }
+    
+    const backupPath = path.join(KEYWORDS_BACKUP_DIR, backupName);
+    
+    // Prüfe ob Backup existiert
+    try {
+      await fs.access(backupPath);
+    } catch (error) {
+      return res.status(404).json({ error: 'Backup nicht gefunden' });
+    }
+    
+    // Erstelle Backup der aktuellen Datei vor der Wiederherstellung
+    console.log('[BACKUP-API] Erstelle Sicherung der aktuellen Datenbank...');
+    await createKeywordsBackup();
+    
+    // Lade und validiere Backup
+    const backupData = await fs.readFile(backupPath, 'utf8');
+    const parsedBackup = JSON.parse(backupData);
+    
+    if (Object.keys(parsedBackup).length === 0) {
+      return res.status(400).json({ error: 'Backup ist leer' });
+    }
+    
+    // Stelle Backup wieder her
+    await fs.writeFile(KEYWORDS_DB_FILE, backupData, 'utf8');
+    
+    console.log(`[BACKUP-API] ✓ Backup wiederhergestellt: ${backupName}`);
+    console.log(`[BACKUP-API] ${Object.keys(parsedBackup).length} Einträge wiederhergestellt`);
+    
+    res.json({
+      success: true,
+      restored: backupName,
+      entries: Object.keys(parsedBackup).length
+    });
+  } catch (error) {
+    console.error('[BACKUP-API] Fehler bei Wiederherstellung:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Manuelles Backup erstellen
+app.post('/api/backups/create', async (req, res) => {
+  try {
+    const { type = 'keywords' } = req.body;
+    let backupFile;
+    
+    switch (type) {
+      case 'keywords':
+        backupFile = await createKeywordsBackup();
+        break;
+      case 'summary':
+        backupFile = await createSummaryBackup();
+        break;
+      case 'themes':
+        backupFile = await createThemesBackup();
+        break;
+      case 'clusters':
+        backupFile = await createClustersBackup();
+        break;
+      case 'code':
+        backupFile = await createCodeBackup();
+        break;
+      case 'full':
+        const count = await createFullBackup();
+        return res.json({
+          success: true,
+          backupsCreated: count,
+          type: 'full'
+        });
+      default:
+        return res.status(400).json({ error: 'Ungültiger Backup-Typ' });
+    }
+    
+    if (backupFile) {
+      res.json({
+        success: true,
+        backup: path.basename(backupFile),
+        type: type
+      });
+    } else {
+      res.status(500).json({ error: 'Backup konnte nicht erstellt werden' });
+    }
+  } catch (error) {
+    console.error('[BACKUP-API] Fehler beim Erstellen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Liste Backups nach Typ
+app.get('/api/backups/list/:type', async (req, res) => {
+  try {
+    const { type } = req.params;
+    let backupDir, prefix;
+    
+    switch (type) {
+      case 'keywords':
+        backupDir = KEYWORDS_BACKUP_DIR;
+        prefix = 'keywords-database';
+        break;
+      case 'summary':
+        backupDir = SUMMARY_BACKUP_DIR;
+        prefix = 'summary-database';
+        break;
+      case 'themes':
+        backupDir = THEMES_BACKUP_DIR;
+        prefix = 'themes-database';
+        break;
+      case 'clusters':
+        backupDir = CLUSTERS_BACKUP_DIR;
+        prefix = 'thematic-clusters';
+        break;
+      case 'code':
+        backupDir = CODE_BACKUP_DIR;
+        prefix = 'backend';
+        break;
+      case 'html':
+        backupDir = HTML_BACKUP_DIR;
+        prefix = null; // Alle HTML-Dateien
+        break;
+      default:
+        return res.status(400).json({ error: 'Ungültiger Backup-Typ' });
+    }
+    
+    await ensureBackupDirectories();
+    
+    const files = await fs.readdir(backupDir);
+    const backupFiles = files
+      .filter(f => {
+        if (prefix) {
+          return f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html'));
+        }
+        return f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html');
+      })
+      .map(f => {
+        const filePath = path.join(backupDir, f);
+        const stats = fsSync.statSync(filePath);
+        return {
+          name: f,
+          path: filePath,
+          size: stats.size,
+          created: stats.birthtime,
+          modified: stats.mtime,
+          type: type
+        };
+      });
+    
+    // Sortiere nach Änderungsdatum (neueste zuerst)
+    backupFiles.sort((a, b) => b.modified - a.modified);
+    
+    res.json({
+      backups: backupFiles,
+      count: backupFiles.length,
+      type: type
+    });
+  } catch (error) {
+    console.error('[BACKUP-API] Fehler beim Auflisten:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
