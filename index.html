@@ -3658,8 +3658,8 @@ Bestehende Schlagwörter überschreiben
   </div>
   
   <!-- Keyword Editor Modal -->
-  <div id="keywordEditorModal" style="display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 0; max-width: 700px; width: 90%; max-height: 90vh; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden;">
-    <div style="padding: 1.5rem; max-height: 90vh; overflow-y: auto;">
+  <div id="keywordEditorModal" style="display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 0; max-width: 700px; width: 90%; max-height: 90vh; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden; will-change: transform, opacity; contain: layout style paint;">
+    <div style="padding: 1.5rem; max-height: 90vh; overflow-y: auto; contain: layout paint; content-visibility: auto;">
     <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords zusammenführen / umbenennen</h3>
     
     <div style="margin-bottom: 1rem;">
@@ -11449,7 +11449,13 @@ async function showTop100Keywords(event) {
 
 function showKeywordEditor(event) {
   try {
-    console.log('[EDITOR] Öffne Modal');
+    // Verhindere Standard-Verhalten und Propagation
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    
+    console.log('[EDITOR] Öffne Modal - Start');
     
     const modal = document.getElementById('keywordEditorModal');
     const overlay = document.getElementById('editorOverlay');
@@ -11460,11 +11466,75 @@ function showKeywordEditor(event) {
       return;
     }
     
-    // Modal anzeigen
-    modal.style.display = 'block';
-    overlay.style.display = 'block';
+    // KRITISCH: Leere das Select-Element BEVOR das Modal angezeigt wird
+    // (verhindert Rendering von tausenden Options beim ersten Display)
+    console.log('[EDITOR] Checkpoint 1: Select suchen');
+    const oldKeywordSelect = document.getElementById('oldKeyword');
+    console.log('[EDITOR] Checkpoint 2: Select gefunden, Options:', oldKeywordSelect ? oldKeywordSelect.options.length : 'null');
     
-    console.log('[EDITOR] ✓ Modal geöffnet');
+    if (oldKeywordSelect && oldKeywordSelect.options.length > 100) {
+      console.log('[EDITOR] ⚠️ Starte Leeren von', oldKeywordSelect.options.length, 'Options...');
+      const startTime = performance.now();
+      
+      oldKeywordSelect.innerHTML = '<option value="">-- Zuerst Keywords laden --</option>';
+      
+      const endTime = performance.now();
+      console.log('[EDITOR] ✓ Select geleert in', (endTime - startTime).toFixed(2), 'ms');
+      
+      // KRITISCH: Erzwinge Reflow, damit Browser die DOM-Änderung verarbeitet
+      void oldKeywordSelect.offsetHeight;
+      console.log('[EDITOR] Checkpoint 3: Reflow erzwungen');
+    }
+    
+    // Setze Button zurück
+    const btnLoadKeywords = document.getElementById('btnLoadKeywords');
+    if (btnLoadKeywords) {
+      btnLoadKeywords.disabled = false;
+      btnLoadKeywords.innerHTML = '🔄 Keywords laden';
+    }
+    
+    // Leere Eingabefelder
+    const newKeywordInput = document.getElementById('newKeyword');
+    if (newKeywordInput) newKeywordInput.value = '';
+    
+    const moveKeywordInput = document.getElementById('moveKeywordInput');
+    if (moveKeywordInput) moveKeywordInput.value = '';
+    
+    // Verstecke Status-Nachrichten
+    const statusDiv = document.getElementById('keywordEditorStatus');
+    if (statusDiv) statusDiv.style.display = 'none';
+    
+    const moveStatusDiv = document.getElementById('keywordMoveStatus');
+    if (moveStatusDiv) moveStatusDiv.style.display = 'none';
+    
+    console.log('[EDITOR] Checkpoint 4: Modal vorbereitet, öffne jetzt...');
+    
+    // BRUTALE LÖSUNG: Explizite Verzögerung
+    // requestAnimationFrame reicht nicht - Console gibt mehr Zeit
+    // => Wir geben dem Browser mit setTimeout mehr Zeit
+    
+    const t1 = performance.now();
+    
+    // Schritt 1: Zeige Overlay sofort
+    overlay.style.display = 'block';
+    console.log('[EDITOR] Checkpoint 5: Overlay angezeigt');
+    
+    // Schritt 2: Modal mit Opacity 0 anzeigen
+    modal.style.opacity = '0';
+    modal.style.display = 'block';
+    console.log('[EDITOR] Checkpoint 6: Modal display=block (opacity 0)');
+    
+    // Schritt 3: Warte 100ms (genug Zeit für Browser-Layout, auch ohne Console)
+    setTimeout(() => {
+      console.log('[EDITOR] Checkpoint 7: Nach 100ms timeout');
+      
+      // Schritt 4: Fade-In
+      modal.style.transition = 'opacity 0.2s ease-out';
+      modal.style.opacity = '1';
+      
+      const t2 = performance.now();
+      console.log('[EDITOR] ✓ Modal geöffnet - Total:', (t2-t1).toFixed(2), 'ms');
+    }, 100);
   } catch (error) {
     console.error('[EDITOR] Fehler beim Öffnen:', error);
     alert('Fehler beim Öffnen: ' + error.message);
@@ -11480,6 +11550,8 @@ function closeKeywordEditor() {
     
     if (modal) {
       modal.style.display = 'none';
+      modal.style.opacity = '1'; // Reset für nächstes Öffnen
+      modal.style.transition = ''; // Reset transition
       console.log('[EDITOR] Modal ausgeblendet');
     }
     
@@ -11493,7 +11565,14 @@ function closeKeywordEditor() {
     const newKeywordInput = document.getElementById('newKeyword');
     const moveKeywordInput = document.getElementById('moveKeywordInput');
     
-    if (oldKeywordSelect) oldKeywordSelect.selectedIndex = 0;
+    // WICHTIG: Leere Select-Element komplett (Performance beim nächsten Öffnen)
+    if (oldKeywordSelect && oldKeywordSelect.options.length > 100) {
+      console.log('[EDITOR] Leere Select beim Schließen (hatte', oldKeywordSelect.options.length, 'Options)');
+      oldKeywordSelect.innerHTML = '<option value="">-- Zuerst Keywords laden --</option>';
+    } else if (oldKeywordSelect) {
+      oldKeywordSelect.selectedIndex = 0;
+    }
+    
     if (newKeywordInput) newKeywordInput.value = '';
     if (moveKeywordInput) moveKeywordInput.value = '';
     
@@ -11772,19 +11851,59 @@ async function loadKeywordsForEdit() {
     
     console.log('[LOAD-KW] Generiere HTML für', sortedKeywords.length, 'Keywords...');
     
-    // String-Konkatenation
-    let optionsHTML = '<option value="">-- Keyword wählen --</option>';
-    sortedKeywords.forEach(keyword => {
-      optionsHTML += `<option value="${keyword}">${keyword}</option>`;
-    });
-    oldKeywordSelect.innerHTML = optionsHTML;
+    // Performance-optimiert: DocumentFragment verwenden
+    // Leere das Dropdown zuerst
+    oldKeywordSelect.innerHTML = '';
     
-    console.log('[LOAD-KW] ✓ Alle', sortedKeywords.length, 'Keywords geladen!');
+    // Erstelle DocumentFragment für bessere Performance
+    const fragment = document.createDocumentFragment();
     
-    if (btnLoadKeywords) {
-      btnLoadKeywords.disabled = false;
-      btnLoadKeywords.innerHTML = '✓ Keywords geladen';
-    }
+    // Erste Option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = '-- Keyword wählen --';
+    fragment.appendChild(defaultOption);
+    
+    // Keywords in Batches hinzufügen (verhindert Browser-Freeze)
+    const batchSize = 100;
+    let currentBatch = 0;
+    
+    const addBatch = () => {
+      const start = currentBatch * batchSize;
+      const end = Math.min(start + batchSize, sortedKeywords.length);
+      
+      for (let i = start; i < end; i++) {
+        const option = document.createElement('option');
+        option.value = sortedKeywords[i];
+        option.textContent = sortedKeywords[i];
+        fragment.appendChild(option);
+      }
+      
+      currentBatch++;
+      
+      // Update Progress
+      if (btnLoadKeywords) {
+        const progress = Math.round((end / sortedKeywords.length) * 100);
+        btnLoadKeywords.innerHTML = `⏳ Lädt... ${progress}%`;
+      }
+      
+      if (end < sortedKeywords.length) {
+        // Weitere Batches mit requestAnimationFrame
+        requestAnimationFrame(addBatch);
+      } else {
+        // Alle Batches fertig - füge zum DOM hinzu
+        oldKeywordSelect.appendChild(fragment);
+        console.log('[LOAD-KW] ✓ Alle', sortedKeywords.length, 'Keywords geladen!');
+        
+        if (btnLoadKeywords) {
+          btnLoadKeywords.disabled = false;
+          btnLoadKeywords.innerHTML = `✓ ${sortedKeywords.length} Keywords geladen`;
+        }
+      }
+    };
+    
+    // Starte das Batch-Processing
+    addBatch();
     
   } catch (error) {
     console.error('[LOAD-KW] Fehler:', error);

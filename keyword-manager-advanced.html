@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Manager</title>
+    <style>
+        :root {
+            --text-color: #333333;
+            --heading-color: #467886;
+            --accent-color: #467886;
+            --background-color: #ffffff;
+            --border-color: #ddd;
+            --secondary-text: #666;
+            --text-size: 0.9rem;
+            --heading-size: 0.95rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+            font-size: var(--text-size);
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: var(--background-color);
+        }
+
+        .page-title {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 10px;
+            padding: 10px;
+            max-width: 100%;
+        }
+
+        .panel {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 10px;
+            grid-row: 1;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .panel-header h2 {
+            color: var(--heading-color);
+            font-size: var(--heading-size);
+            font-weight: 600;
+        }
+
+        .stats {
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            transition: border-color 0.3s;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .list-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            background: var(--background-color);
+        }
+
+        .list-item {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+            font-size: 0.85rem;
+        }
+
+        .list-item:hover {
+            background: #f5f5f5;
+        }
+
+        .list-item.selected {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .keyword-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .keyword-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .keyword-cluster {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            background: #e8f0f2;
+            color: var(--accent-color);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+
+        .list-item.selected .keyword-cluster {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .no-cluster {
+            background: #f5f5f5;
+            color: var(--secondary-text);
+        }
+
+        .list-item.selected .no-cluster {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .actions-panel {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            background: #f8f9fa;
+            border: 1px solid var(--border-color);
+            margin-top: 0;
+        }
+
+        .actions-panel .panel-header {
+            border-bottom-color: var(--border-color);
+        }
+
+        .actions-panel .panel-header h2 {
+            color: var(--heading-color);
+        }
+
+        .action-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .action-group {
+            background: var(--background-color);
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+        }
+
+        .action-group h3 {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--heading-color);
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 8px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 0.8rem;
+            color: var(--secondary-text);
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-size: 0.85rem;
+            background: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-top: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .selection-info {
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .selection-info strong {
+            color: var(--heading-color);
+        }
+
+        .similar-keywords {
+            grid-column: 1 / -1;
+        }
+
+        .similar-keywords-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .similar-keyword-item {
+            padding: 6px;
+            background: var(--background-color);
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .similar-keyword-item:hover {
+            border-color: var(--accent-color);
+            background: #f5f5f5;
+        }
+
+        .similar-keyword-item.selected {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .similarity-score {
+            font-size: 0.7rem;
+            color: #28a745;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        .similar-keyword-item.selected .similarity-score {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+        }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--accent-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 15px;
+            background: white;
+            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            animation: slideIn 0.3s;
+            font-size: 0.85rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid #10b981;
+        }
+
+        .toast-error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .toast-info {
+            border-left: 4px solid #667eea;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a5c66;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-title">
+            Keyword Manager
+            <button class="btn btn-success" onclick="showBackupPanel()" style="float: right; width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                Backup-Verwaltung
+            </button>
+        </div>
+
+        <!-- Backup Panel (Modal) -->
+        <div id="backupModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 2000; padding: 20px; overflow: auto;">
+            <div style="max-width: 800px; margin: 40px auto; background: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid var(--border-color);">
+                    <h2 style="color: var(--heading-color); font-size: 1.2rem; margin: 0;">🛡️ Backup-Verwaltung</h2>
+                    <button class="btn btn-primary" onclick="closeBackupPanel()" style="width: auto; padding: 4px 12px; margin: 0;">Schließen</button>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <button class="btn btn-success" onclick="createManualBackup()" style="width: auto; padding: 6px 15px;">
+                        Neues Backup erstellen
+                    </button>
+                    <button class="btn btn-primary" onclick="loadBackupList()" style="width: auto; padding: 6px 15px; margin-left: 10px;">
+                        Liste aktualisieren
+                    </button>
+                </div>
+                
+                <div id="backupList" style="border: 1px solid var(--border-color); border-radius: 4px; max-height: 400px; overflow-y: auto;">
+                    <div class="loading"><div class="spinner"></div>Lade Backups...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Keywords Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Keywords</h2>
+                    <span class="stats" id="keywordStats">0 Keywords</span>
+                </div>
+                <div id="clusterFilterInfo" style="display: none; background: #e8f0f2; padding: 5px 8px; border-radius: 3px; margin-bottom: 5px; font-size: 0.75rem; color: var(--accent-color);">
+                    <strong>Filter:</strong> <span id="clusterFilterName"></span>
+                    <button onclick="clearClusterFilter()" style="background: none; border: none; color: var(--accent-color); cursor: pointer; font-weight: bold; margin-left: 5px;">×</button>
+                </div>
+                <input type="text" class="search-box" id="keywordSearch" placeholder="🔍 Keywords durchsuchen...">
+                <div class="list-container" id="keywordsList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Lade Keywords...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clusters Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Cluster</h2>
+                    <span class="stats" id="clusterStats">0 Cluster</span>
+                </div>
+                <input type="text" class="search-box" id="clusterSearch" placeholder="🔍 Cluster durchsuchen...">
+                <div class="list-container" id="clustersList">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Lade Cluster...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions Panel -->
+            <div class="panel actions-panel">
+                <div class="panel-header">
+                    <h2>Aktionen</h2>
+                </div>
+                
+                <div class="selection-info" id="selectionInfo">
+                    <strong>Auswahl:</strong> Keine Keywords ausgewählt<br>
+                    <small>Verwenden Sie Strg/Cmd-Klick für Mehrfachauswahl oder Shift-Klick für Bereichsauswahl</small>
+                </div>
+
+                <div class="action-groups">
+                    <!-- Keyword Aktionen -->
+                    <div class="action-group">
+                        <h3>Keyword Aktionen</h3>
+                        
+                        <div class="input-group">
+                            <label>Neuer Name:</label>
+                            <input type="text" id="renameInput" placeholder="Neuer Keyword-Name">
+                        </div>
+                        <button class="btn btn-primary" onclick="renameKeyword()" id="renameBtn" disabled>
+                            Umbenennen
+                        </button>
+
+                        <div class="input-group" style="margin-top: 20px;">
+                            <label>Mit Keyword zusammenführen:</label>
+                            <input type="text" id="mergeInput" placeholder="Ziel-Keyword eingeben">
+                        </div>
+                        <button class="btn btn-success" onclick="mergeKeywords()" id="mergeBtn" disabled>
+                            Zusammenführen
+                        </button>
+
+                        <button class="btn btn-danger" onclick="deleteKeywords()" id="deleteBtn" disabled style="margin-top: 10px;">
+                            Löschen
+                        </button>
+                    </div>
+
+                    <!-- Cluster Zuordnung -->
+                    <div class="action-group">
+                        <h3>Cluster Zuordnung</h3>
+                        
+                        <div class="input-group">
+                            <label>Cluster auswählen:</label>
+                            <select id="targetClusterSelect">
+                                <option value="">Cluster wählen...</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="assignToCluster()" id="assignBtn" disabled>
+                            Zu Cluster zuordnen
+                        </button>
+
+                        <button class="btn btn-success" onclick="showSimilarKeywords()" id="similarBtn" disabled style="margin-top: 10px;">
+                            Ähnliche Keywords finden
+                        </button>
+                    </div>
+
+                    <!-- Cluster Verwaltung -->
+                    <div class="action-group">
+                        <h3>Cluster Verwaltung</h3>
+                        
+                        <div class="input-group">
+                            <label>Neuer Cluster-Name:</label>
+                            <input type="text" id="newClusterInput" placeholder="Name eingeben">
+                        </div>
+                        <div class="input-group">
+                            <label>Beschreibung (optional):</label>
+                            <input type="text" id="newClusterDesc" placeholder="Beschreibung">
+                        </div>
+                        <button class="btn btn-success" onclick="addCluster()">
+                            Cluster hinzufügen
+                        </button>
+
+                        <div class="input-group" style="margin-top: 10px;">
+                            <label>Ausgewählten Cluster umbenennen:</label>
+                            <input type="text" id="renameClusterInput" placeholder="Neuer Name">
+                        </div>
+                        <button class="btn btn-primary" onclick="renameCluster()" id="renameClusterBtn" disabled>
+                            Cluster umbenennen
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Similar Keywords Panel -->
+            <div class="panel similar-keywords" id="similarPanel" style="display: none;">
+                <div class="panel-header">
+                    <h2>Ähnliche Keywords</h2>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary" onclick="closeSimilarPanel()" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                            Schließen
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="selection-info" style="margin-bottom: 10px;">
+                    <strong>Ausgewählte ähnliche Keywords:</strong> <span id="similarSelectionCount">0</span>
+                    <div style="margin-top: 5px; display: flex; gap: 5px; align-items: center;">
+                        <select id="similarClusterSelect" style="flex: 1; padding: 4px; font-size: 0.8rem; border: 1px solid var(--border-color); border-radius: 3px;">
+                            <option value="">Cluster wählen...</option>
+                        </select>
+                        <button class="btn btn-success" onclick="assignSimilarToCluster()" id="assignSimilarBtn" disabled style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                            Zuordnen
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="similarKeywordsList" class="similar-keywords-list">
+                    <!-- Wird dynamisch befüllt -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3003/api';
+        
+        let allKeywords = [];
+        let allClusters = {};
+        let keywordToClusterMap = {}; // Map: Keyword-Name -> Cluster-Name
+        let selectedKeywords = new Set();
+        let selectedCluster = null;
+        let lastSelectedIndex = -1;
+        let similarKeywordsData = [];
+        let keywordListScrollPosition = 0; // Speichert die Scroll-Position
+
+        // Beim Laden
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Erst Cluster laden, dann Keywords (damit wir die Zuordnung haben)
+            await loadClusters();
+            await loadKeywords();
+            
+            // Event Listener für Suche
+            document.getElementById('keywordSearch').addEventListener('input', filterKeywords);
+            document.getElementById('clusterSearch').addEventListener('input', filterClusters);
+        });
+
+        // Keywords laden
+        async function loadKeywords(preserveScroll = false) {
+            try {
+                // Speichere Scroll-Position wenn gewünscht
+                if (preserveScroll) {
+                    const container = document.getElementById('keywordsList');
+                    keywordListScrollPosition = container.scrollTop;
+                }
+                
+                const response = await fetch(`${API_BASE}/keywords-database`);
+                const keywordsDB = await response.json();
+                
+                // Extrahiere alle Keywords aus allen Vorträgen
+                const keywordMap = new Map();
+                
+                Object.entries(keywordsDB).forEach(([lectureId, lectureData]) => {
+                    if (lectureData.keywords && Array.isArray(lectureData.keywords)) {
+                        lectureData.keywords.forEach(kw => {
+                            const term = kw.term || kw;
+                            if (typeof term === 'string') {
+                                if (!keywordMap.has(term)) {
+                                    keywordMap.set(term, {
+                                        name: term,
+                                        cluster: keywordToClusterMap[term] || null, // Cluster aus Map holen
+                                        gaReferences: new Set(),
+                                        lectures: []
+                                    });
+                                }
+                                
+                                const kwData = keywordMap.get(term);
+                                kwData.lectures.push(lectureId);
+                                
+                                // Extrahiere GA-Nummer aus lectureId (z.B. "GA051/1" -> "GA051")
+                                const gaMatch = lectureId.match(/^(GA\d+)/);
+                                if (gaMatch) {
+                                    kwData.gaReferences.add(gaMatch[1]);
+                                }
+                            }
+                        });
+                    }
+                });
+                
+                // Konvertiere Map zu Array und Set zu Array
+                allKeywords = Array.from(keywordMap.values()).map(kw => ({
+                    ...kw,
+                    gaReferences: Array.from(kw.gaReferences),
+                    lectureCount: kw.lectures.length
+                }));
+
+                allKeywords.sort((a, b) => a.name.localeCompare(b.name));
+                
+                console.log(`[KEYWORDS] ${allKeywords.length} einzigartige Keywords aus ${Object.keys(keywordsDB).length} Vorträgen geladen`);
+                
+                renderKeywords(allKeywords);
+                updateStats();
+            } catch (error) {
+                console.error('Fehler beim Laden der Keywords:', error);
+                showToast('Fehler beim Laden der Keywords', 'error');
+            }
+        }
+
+        // Cluster laden
+        async function loadClusters() {
+            try {
+                const response = await fetch(`${API_BASE}/themes/clusters`);
+                const data = await response.json();
+                
+                allClusters = data.clusters || {};
+                
+                // Erstelle Reverse-Map: Keyword -> Cluster
+                keywordToClusterMap = {};
+                Object.entries(allClusters).forEach(([clusterName, clusterInfo]) => {
+                    if (clusterInfo.keywords && Array.isArray(clusterInfo.keywords)) {
+                        clusterInfo.keywords.forEach(keyword => {
+                            keywordToClusterMap[keyword] = clusterName;
+                        });
+                    }
+                });
+                
+                console.log(`[CLUSTERS] ${Object.keys(allClusters).length} Cluster geladen, ${Object.keys(keywordToClusterMap).length} Keyword-Zuordnungen`);
+                
+                renderClusters();
+                updateClusterSelect();
+                updateStats();
+            } catch (error) {
+                console.error('Fehler beim Laden der Cluster:', error);
+                showToast('Fehler beim Laden der Cluster', 'error');
+            }
+        }
+
+        // Keywords rendern
+        function renderKeywords(keywords) {
+            const container = document.getElementById('keywordsList');
+            
+            // Speichere aktuelle Scroll-Position
+            const currentScroll = container.scrollTop;
+            
+            if (keywords.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine Keywords gefunden</div>';
+                return;
+            }
+            
+            container.innerHTML = keywords.map((kw, index) => `
+                <div class="list-item" data-keyword="${kw.name}" data-index="${index}" onclick="selectKeyword(event, '${kw.name}', ${index})">
+                    <div class="keyword-info">
+                        <span class="keyword-name">${kw.name}</span>
+                        ${kw.cluster 
+                            ? `<span class="keyword-cluster">${kw.cluster}</span>` 
+                            : '<span class="keyword-cluster no-cluster">Kein Cluster</span>'}
+                    </div>
+                </div>
+            `).join('');
+            
+            // Stelle Scroll-Position wieder her
+            // Verwende requestAnimationFrame um sicherzustellen, dass DOM aktualisiert wurde
+            requestAnimationFrame(() => {
+                if (keywordListScrollPosition > 0) {
+                    container.scrollTop = keywordListScrollPosition;
+                } else if (currentScroll > 0) {
+                    container.scrollTop = currentScroll;
+                }
+            });
+        }
+
+        // Cluster rendern
+        function renderClusters() {
+            const container = document.getElementById('clustersList');
+            const clusterArray = Object.entries(allClusters);
+            
+            if (clusterArray.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine Cluster gefunden</div>';
+                return;
+            }
+            
+            // Alphabetisch sortieren
+            clusterArray.sort((a, b) => a[0].localeCompare(b[0]));
+            
+            container.innerHTML = clusterArray.map(([name, info]) => `
+                <div class="list-item" data-cluster="${name}" onclick="selectCluster('${name}')">
+                    <div class="keyword-info">
+                        <span class="keyword-name">${name}</span>
+                        <span class="keyword-cluster">${info.keywords ? info.keywords.length : 0} Keywords</span>
+                    </div>
+                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${info.description}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Keyword auswählen
+        function selectKeyword(event, keyword, index) {
+            const item = event.currentTarget;
+            
+            if (event.shiftKey && lastSelectedIndex !== -1) {
+                // Shift-Klick: Bereich auswählen
+                const start = Math.min(lastSelectedIndex, index);
+                const end = Math.max(lastSelectedIndex, index);
+                
+                for (let i = start; i <= end; i++) {
+                    const kw = allKeywords[i];
+                    if (kw) {
+                        selectedKeywords.add(kw.name);
+                        document.querySelector(`[data-index="${i}"]`)?.classList.add('selected');
+                    }
+                }
+            } else if (event.ctrlKey || event.metaKey) {
+                // Strg/Cmd-Klick: Einzeln hinzufügen/entfernen
+                if (selectedKeywords.has(keyword)) {
+                    selectedKeywords.delete(keyword);
+                    item.classList.remove('selected');
+                } else {
+                    selectedKeywords.add(keyword);
+                    item.classList.add('selected');
+                }
+            } else {
+                // Einfacher Klick: Neue Auswahl
+                document.querySelectorAll('#keywordsList .list-item').forEach(el => el.classList.remove('selected'));
+                selectedKeywords.clear();
+                selectedKeywords.add(keyword);
+                item.classList.add('selected');
+            }
+            
+            lastSelectedIndex = index;
+            updateSelectionInfo();
+            updateActionButtons();
+        }
+
+        // Cluster auswählen
+        function selectCluster(clusterName) {
+            document.querySelectorAll('#clustersList .list-item').forEach(el => el.classList.remove('selected'));
+            
+            if (selectedCluster === clusterName) {
+                // Deselektieren - zeige alle Keywords
+                selectedCluster = null;
+                renderKeywords(allKeywords);
+                hideClusterFilter();
+            } else {
+                // Selektieren - zeige nur Keywords dieses Clusters
+                selectedCluster = clusterName;
+                document.querySelector(`[data-cluster="${clusterName}"]`)?.classList.add('selected');
+                
+                // Filtere Keywords nach Cluster
+                const clusterKeywords = allKeywords.filter(kw => kw.cluster === clusterName);
+                renderKeywords(clusterKeywords);
+                
+                // Zeige Filter-Info
+                showClusterFilter(clusterName, clusterKeywords.length);
+            }
+            
+            updateActionButtons();
+        }
+        
+        function showClusterFilter(clusterName, count) {
+            const filterInfo = document.getElementById('clusterFilterInfo');
+            const filterName = document.getElementById('clusterFilterName');
+            
+            if (filterInfo && filterName) {
+                filterName.textContent = `${clusterName} (${count} Keywords)`;
+                filterInfo.style.display = 'block';
+            }
+        }
+        
+        function hideClusterFilter() {
+            const filterInfo = document.getElementById('clusterFilterInfo');
+            if (filterInfo) {
+                filterInfo.style.display = 'none';
+            }
+        }
+        
+        function clearClusterFilter() {
+            selectedCluster = null;
+            document.querySelectorAll('#clustersList .list-item').forEach(el => el.classList.remove('selected'));
+            renderKeywords(allKeywords);
+            hideClusterFilter();
+            updateActionButtons();
+            
+            // Lösche auch Suchfeld
+            document.getElementById('keywordSearch').value = '';
+        }
+
+        // Auswahl-Info aktualisieren
+        function updateSelectionInfo() {
+            const info = document.getElementById('selectionInfo');
+            const count = selectedKeywords.size;
+            
+            if (count === 0) {
+                info.innerHTML = '<strong>Auswahl:</strong> Keine Keywords ausgewählt<br><small>Verwenden Sie Strg/Cmd-Klick für Mehrfachauswahl oder Shift-Klick für Bereichsauswahl</small>';
+            } else if (count === 1) {
+                info.innerHTML = `<strong>Auswahl:</strong> 1 Keyword ausgewählt: <em>${Array.from(selectedKeywords)[0]}</em>`;
+            } else {
+                info.innerHTML = `<strong>Auswahl:</strong> ${count} Keywords ausgewählt`;
+            }
+        }
+
+        // Action Buttons aktualisieren
+        function updateActionButtons() {
+            const hasSelection = selectedKeywords.size > 0;
+            const hasSingleSelection = selectedKeywords.size === 1;
+            const hasClusterSelection = selectedCluster !== null;
+            
+            document.getElementById('renameBtn').disabled = !hasSingleSelection;
+            document.getElementById('mergeBtn').disabled = !hasSelection;
+            document.getElementById('deleteBtn').disabled = !hasSelection;
+            document.getElementById('assignBtn').disabled = !hasSelection;
+            document.getElementById('similarBtn').disabled = !hasSelection;
+            document.getElementById('renameClusterBtn').disabled = !hasClusterSelection;
+        }
+
+        // Statistiken aktualisieren
+        function updateStats() {
+            document.getElementById('keywordStats').textContent = `${allKeywords.length} Keywords`;
+            document.getElementById('clusterStats').textContent = `${Object.keys(allClusters).length} Cluster`;
+        }
+
+        // Cluster Select aktualisieren
+        function updateClusterSelect() {
+            const select = document.getElementById('targetClusterSelect');
+            select.innerHTML = '<option value="">Cluster wählen...</option>' +
+                Object.keys(allClusters).sort().map(name => 
+                    `<option value="${name}">${name}</option>`
+                ).join('');
+        }
+
+        // Keywords filtern
+        function filterKeywords() {
+            const search = document.getElementById('keywordSearch').value.toLowerCase();
+            
+            // Wenn ein Cluster ausgewählt ist, filtere innerhalb des Clusters
+            let baseKeywords = allKeywords;
+            if (selectedCluster) {
+                baseKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+            }
+            
+            const filtered = baseKeywords.filter(kw => 
+                kw.name.toLowerCase().includes(search) ||
+                (kw.cluster && kw.cluster.toLowerCase().includes(search))
+            );
+            
+            // Bei Filter wird Scroll-Position zurückgesetzt
+            keywordListScrollPosition = 0;
+            renderKeywords(filtered);
+        }
+
+        // Cluster filtern
+        function filterClusters() {
+            const search = document.getElementById('clusterSearch').value.toLowerCase();
+            const filtered = Object.entries(allClusters).filter(([name, info]) =>
+                name.toLowerCase().includes(search) ||
+                (info.description && info.description.toLowerCase().includes(search))
+            );
+            
+            // Alphabetisch sortieren
+            filtered.sort((a, b) => a[0].localeCompare(b[0]));
+            
+            const container = document.getElementById('clustersList');
+            container.innerHTML = filtered.map(([name, info]) => `
+                <div class="list-item" data-cluster="${name}" onclick="selectCluster('${name}')">
+                    <div class="keyword-info">
+                        <span class="keyword-name">${name}</span>
+                        <span class="keyword-cluster">${info.keywords ? info.keywords.length : 0} Keywords</span>
+                    </div>
+                    ${info.description ? `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">${info.description}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // ============================================================================
+        // KEYWORD AKTIONEN
+        // ============================================================================
+
+        // Keyword umbenennen
+        async function renameKeyword() {
+            if (selectedKeywords.size !== 1) return;
+            
+            const oldKeyword = Array.from(selectedKeywords)[0];
+            const newKeyword = document.getElementById('renameInput').value.trim();
+            
+            if (!newKeyword) {
+                showToast('Bitte geben Sie einen neuen Namen ein', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/keywords/rename`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ oldKeyword, newKeyword })
+                });
+                
+                if (response.ok) {
+                    showToast(`Keyword "${oldKeyword}" wurde zu "${newKeyword}" umbenannt`, 'success');
+                    document.getElementById('renameInput').value = '';
+                    selectedKeywords.clear();
+                    await loadClusters(); // Erst Cluster neu laden
+                    await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                    
+                    // Wenn ein Cluster-Filter aktiv ist, aktualisiere die Ansicht
+                    if (selectedCluster) {
+                        const clusterKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+                        renderKeywords(clusterKeywords);
+                        showClusterFilter(selectedCluster, clusterKeywords.length);
+                    }
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Umbenennen:', error);
+                showToast('Fehler beim Umbenennen', 'error');
+            }
+        }
+
+        // Keywords zusammenführen
+        async function mergeKeywords() {
+            if (selectedKeywords.size === 0) return;
+            
+            const sourceKeywords = Array.from(selectedKeywords);
+            const targetKeyword = document.getElementById('mergeInput').value.trim();
+            
+            if (!targetKeyword) {
+                showToast('Bitte geben Sie ein Ziel-Keyword ein', 'error');
+                return;
+            }
+            
+            // Prüfe, ob Ziel-Keyword in Quell-Keywords enthalten ist
+            if (sourceKeywords.some(kw => kw.toLowerCase() === targetKeyword.toLowerCase())) {
+                showToast('Ziel-Keyword darf nicht in der Auswahl enthalten sein', 'error');
+                return;
+            }
+            
+            try {
+                let successCount = 0;
+                let errorCount = 0;
+                
+                // Führe alle ausgewählten Keywords mit dem Ziel-Keyword zusammen
+                for (const sourceKeyword of sourceKeywords) {
+                    const response = await fetch(`${API_BASE}/keywords/rename`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ oldKeyword: sourceKeyword, newKeyword: targetKeyword })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    } else {
+                        errorCount++;
+                        const error = await response.json();
+                        console.error(`Fehler bei "${sourceKeyword}":`, error);
+                    }
+                }
+                
+                if (successCount > 0) {
+                    const msg = sourceKeywords.length === 1
+                        ? `Keyword erfolgreich mit "${targetKeyword}" zusammengeführt`
+                        : `${successCount} von ${sourceKeywords.length} Keywords erfolgreich mit "${targetKeyword}" zusammengeführt`;
+                    showToast(msg, 'success');
+                }
+                
+                if (errorCount > 0) {
+                    showToast(`${errorCount} Fehler beim Zusammenführen`, 'error');
+                }
+                
+                document.getElementById('mergeInput').value = '';
+                selectedKeywords.clear();
+                await loadClusters(); // Erst Cluster neu laden
+                await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                
+                // Wenn ein Cluster-Filter aktiv ist, aktualisiere die Ansicht
+                if (selectedCluster) {
+                    const clusterKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+                    renderKeywords(clusterKeywords);
+                    showClusterFilter(selectedCluster, clusterKeywords.length);
+                }
+            } catch (error) {
+                console.error('Fehler beim Zusammenführen:', error);
+                showToast('Fehler beim Zusammenführen', 'error');
+            }
+        }
+
+        // Keywords löschen
+        async function deleteKeywords() {
+            if (selectedKeywords.size === 0) return;
+            
+            const keywords = Array.from(selectedKeywords);
+            
+            try {
+                let successCount = 0;
+                for (const keyword of keywords) {
+                    const response = await fetch(`${API_BASE}/keywords-delete`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ keyword })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    }
+                }
+                
+                showToast(`${successCount} von ${keywords.length} Keywords gelöscht`, 'success');
+                selectedKeywords.clear();
+                await loadClusters(); // Erst Cluster neu laden
+                await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                
+                // Wenn ein Cluster-Filter aktiv ist, aktualisiere die Ansicht
+                if (selectedCluster) {
+                    const clusterKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+                    renderKeywords(clusterKeywords);
+                    showClusterFilter(selectedCluster, clusterKeywords.length);
+                }
+            } catch (error) {
+                console.error('Fehler beim Löschen:', error);
+                showToast('Fehler beim Löschen', 'error');
+            }
+        }
+
+        // Zu Cluster zuordnen
+        async function assignToCluster() {
+            if (selectedKeywords.size === 0) return;
+            
+            const targetCluster = document.getElementById('targetClusterSelect').value;
+            if (!targetCluster) {
+                showToast('Bitte wählen Sie einen Cluster aus', 'error');
+                return;
+            }
+            
+            try {
+                let successCount = 0;
+                for (const keyword of selectedKeywords) {
+                    const response = await fetch(`${API_BASE}/keywords/move-to-cluster`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ keyword, targetCluster })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    }
+                }
+                
+                showToast(`${successCount} Keywords zu "${targetCluster}" zugeordnet`, 'success');
+                selectedKeywords.clear();
+                await loadClusters(); // Erst Cluster neu laden
+                await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                
+                // Wenn ein Cluster-Filter aktiv ist, aktualisiere die Ansicht
+                if (selectedCluster) {
+                    const clusterKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+                    renderKeywords(clusterKeywords);
+                    showClusterFilter(selectedCluster, clusterKeywords.length);
+                }
+            } catch (error) {
+                console.error('Fehler beim Zuordnen:', error);
+                showToast('Fehler beim Zuordnen', 'error');
+            }
+        }
+
+        // ============================================================================
+        // CLUSTER AKTIONEN
+        // ============================================================================
+
+        // Cluster hinzufügen
+        async function addCluster() {
+            const name = document.getElementById('newClusterInput').value.trim();
+            const description = document.getElementById('newClusterDesc').value.trim();
+            
+            if (!name) {
+                showToast('Bitte geben Sie einen Cluster-Namen ein', 'error');
+                return;
+            }
+            
+            if (allClusters[name]) {
+                showToast('Ein Cluster mit diesem Namen existiert bereits', 'error');
+                return;
+            }
+            
+            // Verwende ausgewählte Keywords, falls vorhanden
+            const keywords = Array.from(selectedKeywords);
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/add-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        name, 
+                        description: description || `Manuell erstellter Cluster: ${name}`,
+                        keywords: keywords
+                    })
+                });
+                
+                if (response.ok) {
+                    const msg = keywords.length > 0 
+                        ? `Cluster "${name}" mit ${keywords.length} Keywords hinzugefügt`
+                        : `Cluster "${name}" hinzugefügt`;
+                    showToast(msg, 'success');
+                    document.getElementById('newClusterInput').value = '';
+                    document.getElementById('newClusterDesc').value = '';
+                    selectedKeywords.clear();
+                    await loadClusters();
+                    await loadKeywords(true); // Mit Scroll-Erhalt
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Hinzufügen:', error);
+                showToast('Fehler beim Hinzufügen des Clusters', 'error');
+            }
+        }
+
+        // Cluster umbenennen
+        async function renameCluster() {
+            if (!selectedCluster) return;
+            
+            const newName = document.getElementById('renameClusterInput').value.trim();
+            
+            if (!newName) {
+                showToast('Bitte geben Sie einen neuen Namen ein', 'error');
+                return;
+            }
+            
+            if (allClusters[newName]) {
+                showToast('Ein Cluster mit diesem Namen existiert bereits', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/themes/rename-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ oldName: selectedCluster, newName })
+                });
+                
+                if (response.ok) {
+                    showToast(`Cluster "${selectedCluster}" wurde zu "${newName}" umbenannt`, 'success');
+                    document.getElementById('renameClusterInput').value = '';
+                    const wasSelected = selectedCluster;
+                    selectedCluster = null;
+                    await loadClusters(); // Erst Cluster neu laden
+                    await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                    
+                    // Wenn vorher ein Cluster ausgewählt war, zeige alle Keywords
+                    if (wasSelected) {
+                        renderKeywords(allKeywords);
+                    }
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Umbenennen:', error);
+                showToast('Fehler beim Umbenennen des Clusters', 'error');
+            }
+        }
+
+        // ============================================================================
+        // ÄHNLICHE KEYWORDS
+        // ============================================================================
+
+        async function showSimilarKeywords() {
+            if (selectedKeywords.size === 0) return;
+            
+            const panel = document.getElementById('similarPanel');
+            const list = document.getElementById('similarKeywordsList');
+            
+            // Aktualisiere Cluster-Dropdown im Similar Panel
+            const similarSelect = document.getElementById('similarClusterSelect');
+            similarSelect.innerHTML = '<option value="">Cluster wählen...</option>' +
+                Object.keys(allClusters).sort().map(name => 
+                    `<option value="${name}">${name}</option>`
+                ).join('');
+            
+            panel.style.display = 'block';
+            list.innerHTML = '<div class="loading"><div class="spinner"></div>Analysiere Keywords...</div>';
+            
+            // Speichere die ursprüngliche Auswahl
+            const searchKeywords = Array.from(selectedKeywords);
+            
+            // Leere Auswahl (wird beim Klicken auf ähnliche Keywords neu gefüllt)
+            selectedKeywords.clear();
+            document.querySelectorAll('#keywordsList .list-item.selected').forEach(el => el.classList.remove('selected'));
+            updateSelectionInfo();
+            updateActionButtons();
+            
+            // Reset Auswahl-Counter
+            updateSimilarSelectionCount();
+            
+            try {
+                // Hier verwenden wir eine einfache String-Ähnlichkeitsanalyse
+                // Im Backend könnte man dies durch KI erweitern
+                const selectedArray = searchKeywords;
+                const similar = [];
+                
+                for (const keyword of allKeywords) {
+                    if (searchKeywords.includes(keyword.name)) continue;
+                    
+                    let maxSimilarity = 0;
+                    for (const selected of selectedArray) {
+                        const similarity = calculateSimilarity(selected, keyword.name);
+                        maxSimilarity = Math.max(maxSimilarity, similarity);
+                    }
+                    
+                    if (maxSimilarity > 0.3) {
+                        similar.push({
+                            name: keyword.name,
+                            cluster: keywordToClusterMap[keyword.name] || keyword.cluster,
+                            similarity: maxSimilarity
+                        });
+                    }
+                }
+                
+                similar.sort((a, b) => b.similarity - a.similarity);
+                similarKeywordsData = similar.slice(0, 30);
+                
+                if (similarKeywordsData.length === 0) {
+                    list.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine ähnlichen Keywords gefunden</div>';
+                } else {
+                    renderSimilarKeywords();
+                }
+            } catch (error) {
+                console.error('Fehler bei der Ähnlichkeitsanalyse:', error);
+                showToast('Fehler bei der Analyse', 'error');
+                list.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Fehler bei der Analyse</div>';
+            }
+        }
+
+        function renderSimilarKeywords() {
+            const list = document.getElementById('similarKeywordsList');
+            
+            list.innerHTML = similarKeywordsData.map(kw => `
+                <div class="similar-keyword-item" onclick="toggleSimilarKeyword('${kw.name}')">
+                    <div><strong>${kw.name}</strong></div>
+                    ${kw.cluster ? `<div style="font-size: 0.8em; color: #666; margin-top: 3px;">${kw.cluster}</div>` : ''}
+                    <div class="similarity-score">${Math.round(kw.similarity * 100)}% ähnlich</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSimilarKeyword(keyword) {
+            const item = event.currentTarget;
+            
+            if (selectedKeywords.has(keyword)) {
+                selectedKeywords.delete(keyword);
+                item.classList.remove('selected');
+            } else {
+                selectedKeywords.add(keyword);
+                item.classList.add('selected');
+            }
+            
+            updateSelectionInfo();
+            updateActionButtons();
+            updateSimilarSelectionCount();
+        }
+        
+        function updateSimilarSelectionCount() {
+            const count = selectedKeywords.size;
+            const countEl = document.getElementById('similarSelectionCount');
+            const assignBtn = document.getElementById('assignSimilarBtn');
+            
+            if (countEl) {
+                countEl.textContent = count;
+            }
+            
+            if (assignBtn) {
+                assignBtn.disabled = count === 0;
+            }
+        }
+        
+        async function assignSimilarToCluster() {
+            if (selectedKeywords.size === 0) return;
+            
+            const targetCluster = document.getElementById('similarClusterSelect').value;
+            if (!targetCluster) {
+                showToast('Bitte wählen Sie einen Cluster aus', 'error');
+                return;
+            }
+            
+            try {
+                let successCount = 0;
+                for (const keyword of selectedKeywords) {
+                    const response = await fetch(`${API_BASE}/keywords/move-to-cluster`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ keyword, targetCluster })
+                    });
+                    
+                    if (response.ok) {
+                        successCount++;
+                    }
+                }
+                
+                showToast(`${successCount} Keywords zu "${targetCluster}" zugeordnet`, 'success');
+                selectedKeywords.clear();
+                closeSimilarPanel();
+                await loadClusters(); // Erst Cluster neu laden
+                await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                
+                // Wenn ein Cluster-Filter aktiv ist, aktualisiere die Ansicht
+                if (selectedCluster) {
+                    const clusterKeywords = allKeywords.filter(kw => kw.cluster === selectedCluster);
+                    renderKeywords(clusterKeywords);
+                    showClusterFilter(selectedCluster, clusterKeywords.length);
+                }
+            } catch (error) {
+                console.error('Fehler beim Zuordnen:', error);
+                showToast('Fehler beim Zuordnen', 'error');
+            }
+        }
+
+        function closeSimilarPanel() {
+            document.getElementById('similarPanel').style.display = 'none';
+            similarKeywordsData = [];
+            
+            // Entferne Auswahl aus ähnlichen Keywords
+            document.querySelectorAll('#similarKeywordsList .similar-keyword-item.selected').forEach(item => {
+                const keyword = item.querySelector('strong').textContent;
+                selectedKeywords.delete(keyword);
+            });
+            
+            updateSelectionInfo();
+            updateActionButtons();
+        }
+
+        // Einfache String-Ähnlichkeit (Levenshtein-basiert)
+        function calculateSimilarity(str1, str2) {
+            const s1 = str1.toLowerCase();
+            const s2 = str2.toLowerCase();
+            
+            // Exakte Teilstring-Übereinstimmung
+            if (s1.includes(s2) || s2.includes(s1)) {
+                return 0.9;
+            }
+            
+            // Levenshtein-Distanz
+            const distance = levenshteinDistance(s1, s2);
+            const maxLength = Math.max(s1.length, s2.length);
+            return 1 - (distance / maxLength);
+        }
+
+        function levenshteinDistance(str1, str2) {
+            const matrix = [];
+            
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
+
+        // ============================================================================
+        // HILFSFUNKTIONEN
+        // ============================================================================
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ============================================================================
+        // BACKUP-VERWALTUNG
+        // ============================================================================
+
+        function showBackupPanel() {
+            document.getElementById('backupModal').style.display = 'block';
+            loadBackupList();
+        }
+
+        function closeBackupPanel() {
+            document.getElementById('backupModal').style.display = 'none';
+        }
+
+        async function loadBackupList() {
+            const container = document.getElementById('backupList');
+            container.innerHTML = '<div class="loading"><div class="spinner"></div>Lade Backups...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/backups/list`);
+                const data = await response.json();
+                
+                if (data.backups.length === 0) {
+                    container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine Backups gefunden</div>';
+                    return;
+                }
+                
+                container.innerHTML = data.backups.map(backup => {
+                    const date = new Date(backup.modified);
+                    const sizeKB = (backup.size / 1024).toFixed(0);
+                    return `
+                        <div style="padding: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500; font-size: 0.9rem;">${backup.name}</div>
+                                <div style="font-size: 0.75rem; color: var(--secondary-text); margin-top: 3px;">
+                                    ${date.toLocaleString('de-DE')} • ${sizeKB} KB
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="restoreBackup('${backup.name}')" style="width: auto; padding: 4px 12px; margin: 0; font-size: 0.8rem;">
+                                Wiederherstellen
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error('Fehler beim Laden der Backups:', error);
+                container.innerHTML = '<div style="padding: 20px; text-align: center; color: #dc3545;">Fehler beim Laden der Backups</div>';
+            }
+        }
+
+        async function createManualBackup() {
+            try {
+                const response = await fetch(`${API_BASE}/backups/create`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    showToast(`Backup erstellt: ${data.backup}`, 'success');
+                    loadBackupList();
+                } else {
+                    showToast('Fehler beim Erstellen des Backups', 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Erstellen:', error);
+                showToast('Fehler beim Erstellen des Backups', 'error');
+            }
+        }
+
+        async function restoreBackup(backupName) {
+            if (!confirm(`Backup "${backupName}" wirklich wiederherstellen?\n\nDie aktuelle Datenbank wird vorher gesichert.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/backups/restore`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ backupName })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    showToast(`Backup wiederhergestellt: ${data.entries} Einträge`, 'success');
+                    closeBackupPanel();
+                    
+                    // Lade Daten neu
+                    await loadClusters();
+                    await loadKeywords();
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler bei Wiederherstellung:', error);
+                showToast('Fehler bei Wiederherstellung', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
+
