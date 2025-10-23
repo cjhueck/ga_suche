@@ -3902,7 +3902,7 @@ async function saveSummaryDatabase(summaryDB) {
   }
 }
 
-// ROBUSTE FUNKTION: Speichere einzelne Summary in Datenbank (mit Locking)
+// ROBUSTE FUNKTION: Speichere einzelne Summary in Datenbank (mit Locking & Backup)
 // Diese Funktion verhindert Race Conditions bei parallelen Schreibzugriffen
 async function saveSummaryToDatabase(lectureId, summaryData) {
   // Reihe diese Operation in die Queue ein
@@ -3910,6 +3910,9 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
     summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
       try {
         console.log(`[LOCK] Sperre DB für ${lectureId}...`);
+        
+        // Erstelle Backup vor dem Speichern
+        await createSummaryBackup();
         
         // Lade immer die aktuellste Version der Datenbank
         const summaryDB = await loadSummaryDatabase();
