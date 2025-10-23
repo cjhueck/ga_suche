@@ -82,13 +82,13 @@
     }
 
     .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  /* overflow-y: auto; entfernt, damit nur die Liste scrollt */
+  display: flex;
+  flex-direction: column;
     }
 
     .panel-header {
@@ -123,8 +123,10 @@
     }
 
     .keyword-list {
-      flex: 1;
-      overflow-y: auto;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 60vh;
+  min-height: 200px;
     }
 
     .keyword-item {
@@ -443,6 +445,17 @@
   </style>
 </head>
 <body onload="initApp()">
+  <!-- MODALS FÜR BATCH-AKTIONEN -->
+  <div id="batchModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:1000; align-items:center; justify-content:center;">
+    <div id="batchModalContent" style="background:white; border-radius:8px; box-shadow:0 2px 16px rgba(0,0,0,0.2); padding:32px; min-width:320px; max-width:90vw;">
+      <div id="batchModalTitle" style="font-size:1.2em; font-weight:600; margin-bottom:16px; color:var(--primary-color);">Aktion</div>
+      <div id="batchModalBody"></div>
+      <div style="margin-top:24px; display:flex; gap:12px; justify-content:flex-end;">
+        <button class="btn btn-secondary" onclick="closeBatchModal()">Abbrechen</button>
+        <button id="batchModalSubmit" class="btn btn-primary">OK</button>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <header>
       <h1>🔧 Keyword & Cluster Manager</h1>
@@ -463,34 +476,42 @@
     </header>
 
     <div class="three-column-layout">
-      <!-- LINKE SPALTE: KEYWORDS -->
-      <div class="panel">
-        <div class="panel-header">
-          <h2 class="panel-title">📋 Keywords</h2>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" onclick="loadKeywords()" style="width: auto; margin: 0; padding: 6px 12px;">
-              🔄 Laden
-            </button>
-            <button class="btn btn-secondary" onclick="forceRefresh()" style="width: auto; margin: 0; padding: 6px 12px;" title="Cache leeren und neu laden">
-              🚀 Force Refresh
-            </button>
+      <!-- LINKE SPALTE: KEYWORDS + BATCH PANEL -->
+      <div style="display: flex; gap: 20px; align-items: flex-start; height: 100%;">
+        <div class="panel" style="flex: 1 1 0; min-width: 0;">
+          <div class="panel-header">
+            <h2 class="panel-title">📋 Keywords</h2>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary" onclick="loadKeywords()" style="width: auto; margin: 0; padding: 6px 12px;">
+                🔄 Laden
+              </button>
+              <button class="btn btn-secondary" onclick="forceRefresh()" style="width: auto; margin: 0; padding: 6px 12px;" title="Cache leeren und neu laden">
+                🚀 Force Refresh
+              </button>
+            </div>
+          </div>
+
+          <input type="text" id="keywordSearch" class="search-box" placeholder="🔍 Keywords suchen..." oninput="filterKeywords()">
+
+          <div id="keywordList" class="keyword-list">
+            <div class="loading-spinner">Klicken Sie auf "Laden" um Keywords zu laden</div>
+          </div>
+
+          <div class="pagination" id="keywordPagination" style="display: none;">
+            <button class="page-btn" onclick="previousPage()" id="prevBtn">◄</button>
+            <span id="pageInfo" style="color: var(--text-secondary); font-size: 0.85em;">-</span>
+            <button class="page-btn" onclick="nextPage()" id="nextBtn">►</button>
           </div>
         </div>
-
-        <input type="text" id="keywordSearch" class="search-box" placeholder="🔍 Keywords suchen..." oninput="filterKeywords()">
-
-        <div id="keywordList" class="keyword-list">
-          <div class="loading-spinner">Klicken Sie auf "Laden" um Keywords zu laden</div>
-        </div>
-
-        <div class="pagination" id="keywordPagination" style="display: none;">
-          <button class="page-btn" onclick="previousPage()" id="prevBtn">◄</button>
-          <span id="pageInfo" style="color: var(--text-secondary); font-size: 0.85em;">-</span>
-          <button class="page-btn" onclick="nextPage()" id="nextBtn">►</button>
+        <div id="batchActionPanel" class="panel" style="width: 220px; min-width: 180px; background: var(--surface-light); border: 1px solid var(--border); border-radius: 8px; padding: 20px; display: none; flex-direction: column; gap: 12px; align-items: stretch; justify-content: flex-start;">
+          <div class="panel-title" style="margin-bottom: 16px; color: var(--primary-color); font-size: 1.1em;">🔧 Aktionen für Auswahl</div>
+          <button class="btn btn-primary" style="margin-bottom: 8px; width: 100%;" onclick="batchRenameKeywords()">📝 Umbenennen</button>
+          <button class="btn btn-warning" style="margin-bottom: 8px; width: 100%;" onclick="batchMergeKeywords()">🔀 Zusammenführen</button>
+          <button class="btn btn-success" style="margin-bottom: 8px; width: 100%;" onclick="batchAssignCluster()">🗂️ Cluster zuordnen</button>
+          <button class="btn btn-danger" style="margin-bottom: 8px; width: 100%;" onclick="batchDeleteKeywords()">🗑️ Löschen</button>
         </div>
       </div>
-
-      <!-- MITTLERE SPALTE: KI-VORSCHLÄGE -->
+       <!-- MITTLERE SPALTE: KI-VORSCHLÄGE -->
       <div class="panel">
         <div class="panel-header">
           <h2 class="panel-title">🤖 KI-Vorschläge</h2>
@@ -547,7 +568,7 @@
           </div>
         </div>
       </div>
-
+     
       <!-- RECHTE SPALTE: AKTIONEN & CLUSTER -->
       <div class="panel">
         <div class="panel-header">
@@ -643,6 +664,62 @@
   </div>
 
   <script>
+    // MODAL LOGIK
+    function openBatchModal(type) {
+      const modal = document.getElementById('batchModal');
+      const body = document.getElementById('batchModalBody');
+      const title = document.getElementById('batchModalTitle');
+      const submit = document.getElementById('batchModalSubmit');
+      modal.style.display = 'flex';
+      let html = '';
+      if (type === 'rename') {
+        title.textContent = `Batch-Umbenennen (${selectedKeywords.length} Keywords)`;
+        html = `<label>Neuer Name für alle ausgewählten Keywords:</label><input type='text' id='batchRenameInput' style='width:100%;margin-top:8px;'>`;
+        submit.onclick = function() {
+          const newName = document.getElementById('batchRenameInput').value.trim();
+          if (!newName) { alert('Bitte neuen Namen eingeben'); return; }
+          modal.style.display = 'none';
+          batchRenameKeywordsDo(newName);
+        };
+      } else if (type === 'merge') {
+        title.textContent = `Batch-Zusammenführen (${selectedKeywords.length} Keywords)`;
+        html = `<label>Ziel-Keyword (alle ausgewählten werden zusammengeführt):</label><input type='text' id='batchMergeInput' style='width:100%;margin-top:8px;'>`;
+        submit.onclick = function() {
+          const target = document.getElementById('batchMergeInput').value.trim();
+          if (!target) { alert('Bitte Ziel-Keyword eingeben'); return; }
+          modal.style.display = 'none';
+          batchMergeKeywordsDo(target);
+        };
+      } else if (type === 'cluster') {
+        title.textContent = `Batch-Cluster-Zuordnung (${selectedKeywords.length} Keywords)`;
+        let options = '<option value="">-- Cluster wählen --</option>';
+        Object.keys(allClusters).forEach(c => { options += `<option value="${c}">${c}</option>`; });
+        html = `<label>Cluster auswählen:</label><select id='batchClusterSelect' style='width:100%;margin-top:8px;'>${options}</select>`;
+        submit.onclick = function() {
+          const cluster = document.getElementById('batchClusterSelect').value;
+          if (!cluster) { alert('Bitte Cluster wählen'); return; }
+          modal.style.display = 'none';
+          batchAssignClusterDo(cluster);
+        };
+      }
+      body.innerHTML = html;
+    }
+    function closeBatchModal() {
+      document.getElementById('batchModal').style.display = 'none';
+    }
+    // Batch-Aktion: Backend-Call (Stub)
+    function batchRenameKeywordsDo(newName) {
+      alert('Backend-Umbenennen für: ' + selectedKeywords.join(', ') + ' → ' + newName);
+      // Hier Backend-API für alle ausgewählten Keywords aufrufen
+    }
+    function batchMergeKeywordsDo(target) {
+      alert('Backend-Merge für: ' + selectedKeywords.join(', ') + ' → ' + target);
+      // Hier Backend-API für alle ausgewählten Keywords aufrufen
+    }
+    function batchAssignClusterDo(cluster) {
+      alert('Backend-Cluster-Zuordnung für: ' + selectedKeywords.join(', ') + ' → ' + cluster);
+      // Hier Backend-API für alle ausgewählten Keywords aufrufen
+    }
     // ============================================================================
     // GLOBALE VARIABLEN
     // ============================================================================
@@ -651,13 +728,15 @@
                     window.location.protocol === 'file:';
     window.API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
 
-    let allKeywords = [];
-    let filteredKeywords = [];
-    let allClusters = {};
-    let keywordsDatabase = {};
-    let selectedKeyword = null;
-    let currentPage = 1;
-    const itemsPerPage = 100;
+  let allKeywords = [];
+  let filteredKeywords = [];
+  let allClusters = {};
+  let keywordsDatabase = {};
+  let selectedKeyword = null;
+  let selectedKeywords = [];
+  let lastSelectedKeywordIndex = null;
+  let currentPage = 1;
+  const itemsPerPage = 100;
 
     // ============================================================================
     // INITIALISIERUNG
@@ -793,22 +872,80 @@
       }
 
       let html = '';
-      pageKeywords.forEach(kw => {
-        const isSelected = selectedKeyword && selectedKeyword.term === kw.term;
+      // Show/hide batch action panel (side panel)
+      const batchPanel = document.getElementById('batchActionPanel');
+      if (batchPanel) {
+        if (window.selectedKeywords && window.selectedKeywords.length > 0) {
+          batchPanel.style.display = 'flex';
+          batchPanel.querySelector('.panel-title').textContent = `🔧 Aktionen für Auswahl (${window.selectedKeywords.length})`;
+        } else {
+          batchPanel.style.display = 'none';
+        }
+      }
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/'/g, "&#39;")
+          .replace(/"/g, "&quot;");
+      }
+      function escapeJs(str) {
+        return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
+      }
+      pageKeywords.forEach((kw, idx) => {
+        const isSelected = window.selectedKeywords && window.selectedKeywords.includes(kw.term);
         const clusterHTML = kw.cluster 
-          ? `<span class="cluster-badge">${kw.cluster}</span>`
+          ? `<span class="cluster-badge">${escapeHtml(kw.cluster)}</span>`
           : `<span class="cluster-badge no-cluster">kein Cluster</span>`;
-        
-        html += `
-          <div class="keyword-item ${isSelected ? 'selected' : ''}" onclick="selectKeyword('${kw.term.replace(/'/g, "\\'")}')">
-            <div class="keyword-name">${kw.term}</div>
-            <div class="keyword-meta">
-              <span>${kw.count}× in ${kw.lectureCount} Vorträgen</span>
-              ${clusterHTML}
-            </div>
+        const safeTermHtml = escapeHtml(kw.term);
+        const safeTermJs = escapeJs(kw.term);
+        html += `<div class="keyword-item${isSelected ? ' selected' : ''}" onclick="toggleKeywordSelection(event, '${safeTermJs}', ${startIndex + idx})" style="cursor:pointer;">
+          <span class="keyword-name">${safeTermHtml}</span>
+          <div class="keyword-meta">
+            <span>${kw.count}× in ${kw.lectureCount} Vorträgen</span>
+            ${clusterHTML}
           </div>
-        `;
+        </div>`;
       });
+    // Multiselect-Logik
+    window.toggleKeywordSelection = function(event, term, idx) {
+      // Nur Links- oder Shift-Klick zulassen
+      if (event.type !== 'click' && event.type !== 'mousedown') return;
+      if (!window.selectedKeywords) window.selectedKeywords = [];
+      if (event.shiftKey && window.lastSelectedKeywordIndex !== null) {
+        // Bereichsauswahl mit Shift
+        const allTerms = filteredKeywords.map(kw => kw.term);
+        const start = Math.min(window.lastSelectedKeywordIndex, idx);
+        const end = Math.max(window.lastSelectedKeywordIndex, idx);
+        for (let i = start; i <= end; i++) {
+          if (!window.selectedKeywords.includes(allTerms[i])) window.selectedKeywords.push(allTerms[i]);
+        }
+      } else {
+        if (window.selectedKeywords.includes(term)) {
+          window.selectedKeywords = window.selectedKeywords.filter(t => t !== term);
+        } else {
+          window.selectedKeywords.push(term);
+        }
+        window.lastSelectedKeywordIndex = idx;
+      }
+      displayKeywords();
+    }
+
+    // Batch Action Functions (stubs)
+    window.batchRenameKeywords = function() {
+  openBatchModal('rename');
+    }
+    window.batchMergeKeywords = function() {
+  openBatchModal('merge');
+    }
+    window.batchAssignCluster = function() {
+  openBatchModal('cluster');
+    }
+    window.batchDeleteKeywords = function() {
+      alert('Batch-Löschen für: ' + selectedKeywords.join(', '));
+      // Hier Logik für Löschen mehrerer Keywords einbauen
+    }
 
       keywordList.innerHTML = html;
 
