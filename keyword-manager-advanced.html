@@ -426,6 +426,15 @@
                 </div>
                 
                 <div style="margin-bottom: 15px;">
+                    <select id="backupTypeSelect" style="padding: 6px; font-size: 0.85rem; border: 1px solid var(--border-color); border-radius: 3px; margin-right: 10px;">
+                        <option value="keywords">Keywords DB</option>
+                        <option value="summary">Summary DB</option>
+                        <option value="themes">Themes DB</option>
+                        <option value="clusters">Clusters</option>
+                        <option value="code">Backend Code</option>
+                        <option value="html">HTML Dateien</option>
+                        <option value="full">🛡️ Alles (Full Backup)</option>
+                    </select>
                     <button class="btn btn-success" onclick="createManualBackup()" style="width: auto; padding: 6px 15px;">
                         Neues Backup erstellen
                     </button>
@@ -1459,6 +1468,12 @@
 
         function showBackupPanel() {
             document.getElementById('backupModal').style.display = 'block';
+            const typeSelect = document.getElementById('backupTypeSelect');
+            typeSelect.value = 'keywords'; // Default
+            
+            // Event Listener für Typ-Änderung
+            typeSelect.onchange = loadBackupList;
+            
             loadBackupList();
         }
 
@@ -1468,10 +1483,16 @@
 
         async function loadBackupList() {
             const container = document.getElementById('backupList');
+            const type = document.getElementById('backupTypeSelect').value;
+            
             container.innerHTML = '<div class="loading"><div class="spinner"></div>Lade Backups...</div>';
             
             try {
-                const response = await fetch(`${API_BASE}/backups/list`);
+                const url = type === 'keywords' 
+                    ? `${API_BASE}/backups/list`
+                    : `${API_BASE}/backups/list/${type}`;
+                    
+                const response = await fetch(url);
                 const data = await response.json();
                 
                 if (data.backups.length === 0) {
@@ -1503,15 +1524,22 @@
         }
 
         async function createManualBackup() {
+            const type = document.getElementById('backupTypeSelect').value;
+            
             try {
                 const response = await fetch(`${API_BASE}/backups/create`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type })
                 });
                 
                 if (response.ok) {
                     const data = await response.json();
-                    showToast(`Backup erstellt: ${data.backup}`, 'success');
+                    if (type === 'full') {
+                        showToast(`${data.backupsCreated} Backups erstellt`, 'success');
+                    } else {
+                        showToast(`Backup erstellt: ${data.backup}`, 'success');
+                    }
                     loadBackupList();
                 } else {
                     showToast('Fehler beim Erstellen des Backups', 'error');

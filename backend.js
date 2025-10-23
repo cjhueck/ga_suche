@@ -3796,7 +3796,7 @@ async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
   try {
     const files = await fs.readdir(backupDir);
     const backupFiles = files
-      .filter(f => f.startsWith(prefix) && f.endsWith('.json'))
+      .filter(f => f.startsWith(prefix) && (f.endsWith('.json') || f.endsWith('.js') || f.endsWith('.html')))
       .map(f => ({
         name: f,
         fullPath: path.join(backupDir, f)
@@ -3837,14 +3837,78 @@ async function createClustersBackup() {
 }
 
 async function createCodeBackup() {
-  const backendFile = path.join(__dirname, 'backend.js');
-  return await createBackup(backendFile, CODE_BACKUP_DIR, 'backend', 20);
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceFile = path.join(__dirname, 'backend.js');
+    
+    // Prüfe ob Datei existiert
+    try {
+      const stats = await fs.stat(sourceFile);
+      if (stats.size === 0) {
+        console.warn('[BACKUP] backend.js ist leer - kein Backup erstellt');
+        return null;
+      }
+    } catch (error) {
+      console.log('[BACKUP] backend.js nicht gefunden');
+      return null;
+    }
+    
+    // Erstelle Backup mit Timestamp (behalte .js Endung!)
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupFile = path.join(CODE_BACKUP_DIR, `backend-${timestamp}.js`);
+    
+    const data = await fs.readFile(sourceFile, 'utf8');
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    console.log(`[BACKUP] ✓ Code: ${path.basename(backupFile)}`);
+    
+    // Bereinige alte Backups
+    await cleanOldBackupsGeneric(CODE_BACKUP_DIR, 'backend', 20);
+    
+    return backupFile;
+  } catch (error) {
+    console.error('[BACKUP] Fehler beim Code-Backup:', error);
+    return null;
+  }
 }
 
 async function createHtmlBackup(htmlFile = 'index.html') {
-  const sourceFile = path.join(__dirname, htmlFile);
-  const prefix = htmlFile.replace('.html', '');
-  return await createBackup(sourceFile, HTML_BACKUP_DIR, prefix, 10);
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceFile = path.join(__dirname, htmlFile);
+    
+    // Prüfe ob Datei existiert
+    try {
+      const stats = await fs.stat(sourceFile);
+      if (stats.size === 0) {
+        console.warn(`[BACKUP] ${htmlFile} ist leer - kein Backup erstellt`);
+        return null;
+      }
+    } catch (error) {
+      console.log(`[BACKUP] ${htmlFile} nicht gefunden`);
+      return null;
+    }
+    
+    // Erstelle Backup mit Timestamp (behalte .html Endung!)
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const prefix = htmlFile.replace('.html', '');
+    const backupFile = path.join(HTML_BACKUP_DIR, `${prefix}-${timestamp}.html`);
+    
+    const data = await fs.readFile(sourceFile, 'utf8');
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    console.log(`[BACKUP] ✓ HTML: ${path.basename(backupFile)}`);
+    
+    // Bereinige alte Backups (nur für diesen Dateityp)
+    await cleanOldBackupsGeneric(HTML_BACKUP_DIR, prefix, 10);
+    
+    return backupFile;
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim HTML-Backup:`, error);
+    return null;
+  }
 }
 
 // Umfassendes Backup aller wichtigen Dateien
@@ -3864,6 +3928,24 @@ async function createFullBackup() {
   console.log(`[BACKUP] ✓ ${successful} von ${results.length} Backups erstellt`);
   
   return successful;
+}
+
+// Sichere Funktion zum Speichern der Cluster-Datei (mit Backup)
+async function saveClustersFile(clustersData) {
+  const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+  
+  // Erstelle Backup vor dem Speichern
+  await createClustersBackup();
+  
+  // Validiere Daten
+  if (!clustersData || (clustersData.clusters && Object.keys(clustersData.clusters).length === 0)) {
+    console.warn('[CLUSTERS] WARNUNG: Leere Cluster-Daten - Speichern übersprungen');
+    return false;
+  }
+  
+  fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+  console.log('[CLUSTERS] ✓ Cluster-Datei gespeichert');
+  return true;
 }
 
 // Legacy-Funktion für Abwärtskompatibilität
@@ -5033,8 +5115,8 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
               });
             }
             
-            // Speichere erweiterte Cluster
-            fsSync.writeFileSync(clustersPath, JSON.stringify(existingClusters, null, 2));
+            // Speichere erweiterte Cluster (mit Backup)
+            await saveClustersFile(existingClusters);
             
             clusterUpdateInfo = {
               newKeywordsProcessed: newKeywords.length,
@@ -5189,14 +5271,13 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     });
     
     // 5. Speichere Ergebnis
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
-    fsSync.writeFileSync(clustersPath, JSON.stringify({
+    await saveClustersFile({
       generated: new Date().toISOString(),
       seedKeywordsCount: seedKeywords.length,
       clustersCount: clusterNames.length,
       coverage: coverage + '%',
       clusters: clusters
-    }, null, 2));
+    });
     
     console.log(`[THEMES] Gespeichert: ${clustersPath}`);
     
@@ -5276,8 +5357,8 @@ app.post('/api/themes/add-cluster', async (req, res) => {
       clustersData = clusters;
     }
     
-    // Speichere mit erhaltener Struktur
-    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    // Speichere mit erhaltener Struktur (mit Backup)
+    await saveClustersFile(clustersData);
     
     console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${validKeywords.length} Keywords`);
     
@@ -5440,8 +5521,8 @@ ANTWORTE im folgenden JSON-Format:
       clusters: finalClusters
     };
     
-    // Speichere
-    fsSync.writeFileSync(clustersPath, JSON.stringify(finalData, null, 2));
+    // Speichere (mit Backup)
+    await saveClustersFile(finalData);
     
     console.log(`[CLUSTERS] ✓ Reorganisation abgeschlossen`);
     console.log(`[CLUSTERS] Keywords verschoben: ${result.moved || 0}`);
@@ -5522,12 +5603,12 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
       console.log(`[KEYWORDS] Keyword bereits in Ziel-Cluster vorhanden`);
     }
     
-    // Speichere aktualisierte Clusters (mit Original-Struktur)
+    // Speichere aktualisierte Clusters (mit Original-Struktur und Backup)
     if (clustersData.clusters) {
       clustersData.clusters = clusters;
-      fsSync.writeFileSync(clustersFilePath, JSON.stringify(clustersData, null, 2));
+      await saveClustersFile(clustersData);
     } else {
-      fsSync.writeFileSync(clustersFilePath, JSON.stringify(clusters, null, 2));
+      await saveClustersFile(clusters);
     }
     
     res.json({
@@ -5676,7 +5757,7 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
       Object.assign(clustersData, clusters);
     }
     
-    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    await saveClustersFile(clustersData);
     
     console.log(`[CLUSTERS] ✓ Cluster umbenannt`);
     
@@ -5743,7 +5824,7 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
       Object.assign(clustersData, clusters);
     }
     
-    fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
+    await saveClustersFile(clustersData);
     
     console.log(`[CLUSTERS] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
     
