@@ -1258,6 +1258,21 @@ body.dark-mode .loading-message {
       cursor: pointer;
     }
     
+    /* H3-Keyword-Links im Texte-Tab */
+    .h3-keyword-link {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    
+    .h3-keyword-link:hover {
+      opacity: 0.7;
+    }
+    
+    body.dark-mode .h3-keyword-link {
+      color: var(--dark-link-color);
+    }
+    
     /* Spezielle Klasse für Schlagwort-Suche - Link fett */
     .keyword-text .ga-reference {
       font-weight: bold;
@@ -3280,7 +3295,7 @@ body.dark-mode .welcome-start-btn:hover {
 <option value="">GA-Band auswählen...</option>
 </select>
 </div>
-<div style="display:flex; gap:8px; align-items:center; margin-top: 0.5rem;">
+<div style="display:flex; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
   <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
   <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
 </div>
@@ -3339,8 +3354,13 @@ Schlagwort auswählen:
 </div>
 </div>
 <!-- Statistik-Anzeige -->
+<div style="display: flex; justify-content: space-between; align-items: center;">
 <div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
 Lade Statistiken...
+</div>
+<button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
+← Zurück zu Texte
+</button>
 </div>
 </div>
 
@@ -3433,9 +3453,15 @@ Bestehende Schlagwörter überschreiben
 
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0;">
-<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Iterative Keyword-Generierung</h3>
-<p style="color: var(--text-color); margin-bottom: 1rem; font-size: 0.9em;">
-  Generiert Keywords GA-Band-weise mit Seed-Vokabular und Summary-Kontext für bessere Konsolidierung.
+<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">
+  Iterative Keyword-Generierung 
+  <span style="background: #5cb85c; color: white; padding: 2px 8px; font-size: 0.7em; border-radius: 3px; margin-left: 0.5rem; font-weight: normal;">V2</span>
+</h3>
+<p style="color: var(--text-color); margin-bottom: 0.5rem; font-size: 0.9em;">
+  Generiert Keywords aus H3/H4 Überschriften mit vordefiniertem Themen-Vokabular (Template-basiert).
+</p>
+<p style="color: var(--secondary-text); margin-bottom: 1rem; font-size: 0.8em; font-style: italic;">
+  ✓ Extrahiert aus Überschriften (nicht Summary) • ✓ Konservativ (max. 2 KW/Überschrift) • ✓ Themen-Zuordnung
 </p>
 
 <!-- GA-Band Auswahl -->
@@ -3458,36 +3484,49 @@ Bestehende Schlagwörter überschreiben
     <p style="text-align: center; color: var(--secondary-text); font-size: 0.85em;">Klicke auf "GA-Bände laden"</p>
   </div>
   
+  <!-- LLM Provider Auswahl -->
+  <div style="margin-bottom: 1rem; padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color);">
+    <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 0.9em;">KI-Provider auswählen</h4>
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
+        <input type="radio" name="llmProvider" value="openai" checked style="margin: 0;">
+        <span style="font-weight: 600;">OpenAI (GPT-4o)</span>
+        <span id="openaiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
+        <input type="radio" name="llmProvider" value="claude" style="margin: 0;">
+        <span style="font-weight: 600;">Claude (Sonnet 4)</span>
+        <span id="claudeStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
+        <input type="radio" name="llmProvider" value="gemini" style="margin: 0;">
+        <span style="font-weight: 600;">Gemini (2.0 Flash)</span>
+        <span id="geminiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
+      </label>
+    </div>
+    <p style="margin: 0.5rem 0 0 0; font-size: 0.75em; color: var(--secondary-text); font-style: italic;">
+      💡 Tipp: Bei Rate-Limit zu anderem Provider wechseln
+    </p>
+  </div>
+  
   <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 0.5rem;">
     <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
       <input type="checkbox" id="useExistingVocabCheckbox" checked style="margin: 0;">
-      Bestehendes Vokabular verwenden
+      Bestehendes Vokabular verwenden (iterativ wachsend)
     </label>
     <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
-      <input type="checkbox" id="updateClustersCheckbox" style="margin: 0;">
-      Themenbereiche iterativ erweitern
+      <input type="checkbox" id="consolidateSynonymsCheckbox" checked style="margin: 0;">
+      Synonyme automatisch konsolidieren
     </label>
-    <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-      <label style="font-size: 0.85em; color: var(--text-color);">
-        Parallele Verarbeitung:
-      </label>
-      <select id="parallelBatchSizeSelect" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--input-bg); color: var(--text-color);">
-        <option value="1">1 (Sequenziell)</option>
-        <option value="3">3 (Langsam)</option>
-        <option value="5" selected>5 (Empfohlen)</option>
-        <option value="10">10 (Schnell - Tier 2)</option>
-        <option value="20">20 (Sehr schnell - Tier 2)</option>
-      </select>
-      <span style="font-size: 0.75em; color: var(--secondary-text);">Vorträge/Batch</span>
-    </div>
+    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
+      <input type="checkbox" id="forceReprocessCheckbox" style="margin: 0;">
+      <span style="color: #f0ad4e; font-weight: 600;">⚠️ Bereits verarbeitete Vorträge NEU verarbeiten</span>
+    </label>
   </div>
   
   <div style="display: flex; gap: 8px; align-items: center;">
-    <button id="startGABatchBtn" class="depth-btn primary" onclick="startGABatch()" style="padding: 8px 16px; font-size: 0.85em;" disabled>
-      Batch starten
-    </button>
-    <button id="reprocessGABatchBtn" class="depth-btn" onclick="reprocessGABatch()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;" disabled title="Bereits verarbeitete Vorträge NEU verarbeiten">
-      🔄 Neu verarbeiten
+    <button id="startGABatchBtn" class="depth-btn primary" onclick="startGABatchV2()" style="padding: 8px 16px; font-size: 0.85em;" disabled>
+      Batch starten (V2)
     </button>
     <button id="cancelGABatchBtn" class="depth-btn" onclick="cancelGABatch()" style="padding: 8px 16px; font-size: 0.85em; display: none; background: #d9534f; color: white;">
       Abbrechen
@@ -3524,38 +3563,14 @@ Bestehende Schlagwörter überschreiben
       <span style="color: var(--secondary-text);">Neue Keywords:</span>
       <strong id="gaBatchStatNew" style="color: var(--text-color);">-</strong>
       
-      <span style="color: var(--secondary-text);">Wiederverwendet:</span>
-      <strong id="gaBatchStatReused" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Wiederverwendungsrate:</span>
-      <strong id="gaBatchStatReuseRate" style="color: var(--text-color);">-</strong>
-      
       <span style="color: var(--secondary-text);">End-Vokabular:</span>
       <strong id="gaBatchStatFinalVocab" style="color: var(--text-color);">-</strong>
       
-      <span style="color: var(--secondary-text);">Ergebnis-Datei:</span>
-      <strong id="gaBatchStatFile" style="color: var(--text-color);">-</strong>
+      <span style="color: var(--secondary-text);">Synonyme konsolidiert:</span>
+      <strong id="gaBatchStatSynonyms" style="color: var(--text-color);">-</strong>
       
-      <span style="color: var(--secondary-text);">Haupt-DB aktualisiert:</span>
-      <strong id="gaBatchStatMainDB" style="color: var(--text-color);">-</strong>
-    </div>
-    
-    <!-- Cluster-Erweiterungs-Info -->
-    <div id="gaBatchClusterInfo" style="display: none; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: 0.85em; margin-top: 0.8rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
-      <span style="color: var(--secondary-text);">Cluster-Erweiterung:</span>
-      <strong id="gaBatchStatClusterStatus" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Neue Keywords:</span>
-      <strong id="gaBatchStatNewKWs" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Cluster erweitert:</span>
-      <strong id="gaBatchStatClustersExtended" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Neue Cluster:</span>
-      <strong id="gaBatchStatNewClusters" style="color: var(--text-color);">-</strong>
-      
-      <span style="color: var(--secondary-text);">Gesamt Cluster:</span>
-      <strong id="gaBatchStatTotalClusters" style="color: var(--text-color);">-</strong>
+      <span style="color: var(--secondary-text);">Generierungs-Methode:</span>
+      <strong id="gaBatchStatMethod" style="color: var(--text-color);">-</strong>
     </div>
   </div>
 </div>
@@ -4605,6 +4620,159 @@ function getSummaryText(summary) {
   return summary || '';
 }
 
+// Hilfsfunktion: Lade Keywords-Database für Themen
+let keywordsDatabaseCache = null;
+async function loadKeywordsDatabaseForThemes() {
+  if (keywordsDatabaseCache) return keywordsDatabaseCache;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords-database`);
+    if (response.ok) {
+      keywordsDatabaseCache = await response.json();
+      console.log('[THEMES] Keywords-Database geladen:', Object.keys(keywordsDatabaseCache).length, 'Einträge');
+      return keywordsDatabaseCache;
+    }
+  } catch (error) {
+    console.warn('[THEMES] Fehler beim Laden der Keywords-Database:', error.message);
+  }
+  return {};
+}
+
+// Navigation zum Themen-Tab und Thema auswählen
+function navigateToTheme(themeName) {
+  console.log('[NAVIGATION] Navigiere zu Thema:', themeName);
+  
+  // Wechsle zum Themen-Tab
+  switchTab('thematic');
+  
+  // Warte kurz, damit der Tab geladen ist
+  setTimeout(() => {
+    // Versuche das Thema im Theme-Filter zu setzen
+    const themeFilter = document.getElementById('timelineThemeFilterInline');
+    if (themeFilter) {
+      // Setze Dropdown-Wert
+      themeFilter.value = themeName;
+      
+      // Trigger change event
+      const event = new Event('change');
+      themeFilter.dispatchEvent(event);
+      
+      console.log('[NAVIGATION] Thema ausgewählt:', themeName);
+    } else {
+      console.warn('[NAVIGATION] Themen-Filter nicht gefunden');
+      // Fallback: Führe Themensuche aus
+      const thematicInput = document.getElementById('thematicQuery');
+      if (thematicInput) {
+        thematicInput.value = themeName;
+        console.log('[NAVIGATION] Thema in Suchfeld eingetragen:', themeName);
+      }
+    }
+  }, 100);
+}
+
+// Globale Variable für Timeline-Zurück-Navigation
+let timelineBackToGA = null;
+let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werden soll
+
+// Navigation zum Timeline-Tab und Keyword auswählen
+async function navigateToTimelineKeyword(keyword, gaNumber) {
+  console.log('[NAVIGATION] Navigiere zu Timeline-Keyword:', keyword, 'von GA:', gaNumber);
+  
+  // Speichere GA-Nummer für Zurück-Button
+  timelineBackToGA = gaNumber;
+  
+  // Speichere Keyword für späteres Setzen
+  timelinePendingKeyword = keyword;
+  
+  // Wechsle zum Timeline-Tab (renderTimeline wird NICHT aufgerufen wegen timelinePendingKeyword)
+  switchTab('timeline');
+  
+  // Warte, dann setze Keyword und rendere Timeline
+  setTimeout(async () => {
+    if (timelinePendingKeyword) {
+      const keywordToSet = timelinePendingKeyword;
+      
+      // Jetzt erst renderTimeline aufrufen, damit Dropdown befüllt wird
+      await renderTimeline();
+      
+      // Warte nochmal kurz bis Dropdown fertig gerendert ist
+      setTimeout(() => {
+        timelinePendingKeyword = null; // Reset
+        
+        const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+        if (keywordDropdown) {
+          console.log('[NAVIGATION] Dropdown gefunden, setze Keyword:', keywordToSet);
+          console.log('[NAVIGATION] Dropdown-Optionen:', keywordDropdown.options.length);
+          
+          // Setze Dropdown-Wert
+          keywordDropdown.value = keywordToSet;
+          
+          console.log('[NAVIGATION] Dropdown-Wert nach Setzen:', keywordDropdown.value);
+          
+          // Rufe updateTimelineFilters() direkt auf (das ist der onchange-Handler)
+          if (typeof updateTimelineFilters === 'function') {
+            updateTimelineFilters();
+            console.log('[NAVIGATION] updateTimelineFilters() aufgerufen');
+          } else {
+            console.warn('[NAVIGATION] updateTimelineFilters ist keine Funktion');
+          }
+          
+          console.log('[NAVIGATION] Timeline-Keyword ausgewählt:', keywordToSet);
+        } else {
+          console.warn('[NAVIGATION] Timeline-Keyword-Dropdown nicht gefunden');
+        }
+        
+        // Zeige Zurück-Button
+        showTimelineBackButton();
+      }, 100);
+    }
+  }, 100);
+}
+
+// Zeige/Verstecke Zurück-Button im Timeline-Tab
+function showTimelineBackButton() {
+  const backButton = document.getElementById('timelineBackButton');
+  if (backButton) {
+    if (timelineBackToGA) {
+      backButton.style.display = 'inline-block';
+      console.log('[NAVIGATION] Zurück-Button angezeigt für GA:', timelineBackToGA);
+    } else {
+      backButton.style.display = 'none';
+    }
+  }
+}
+
+// Navigiere zurück zum Texte-Tab mit der gespeicherten GA-Nummer
+function navigateBackToTexteGA() {
+  if (!timelineBackToGA) return;
+  
+  const savedGA = timelineBackToGA;
+  console.log('[NAVIGATION] Navigiere zurück zu Texte-Tab, GA:', savedGA);
+  
+  // Wechsle zum Texte-Tab
+  switchTab('texte');
+  
+  // Warte kurz, dann lade GA-Übersicht
+  setTimeout(async () => {
+    const texteGAFilter = document.getElementById('texteGAFilter');
+    if (texteGAFilter) {
+      texteGAFilter.value = savedGA;
+      console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
+    }
+    
+    // Lade GA-Übersicht direkt mit der richtigen Funktion
+    try {
+      await openGAOverview(savedGA);
+      console.log('[NAVIGATION] GA-Übersicht geladen für:', savedGA);
+    } catch (error) {
+      console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
+    }
+    
+    // Zurücksetzen
+    timelineBackToGA = null;
+  }, 200);
+}
+
 // Ändere die displayGAOverview Funktion (in index.html)
 async function displayGAOverview(data) {
   const resultsContainer = document.getElementById('results');
@@ -4630,6 +4798,13 @@ async function displayGAOverview(data) {
   
   // Lade Summaries aus zentraler Datenbank
   await loadSummariesFromDB(data);
+  
+  // Lade Keywords-Database (enthält Themen und H3-Keywords)
+  const keywordsDB = await loadKeywordsDatabaseForThemes();
+  
+  console.log('[GA-OVERVIEW] Keywords-DB geladen, Anzahl Einträge:', Object.keys(keywordsDB).length);
+  console.log('[GA-OVERVIEW] Erste paar Lecture-IDs in Keywords-DB:', Object.keys(keywordsDB).slice(0, 10));
+  console.log('[GA-OVERVIEW] Erste paar Lecture-IDs in data.lectures:', data.lectures.slice(0, 5).map(l => l.ID));
   
   // Zähle Vorträge mit Summaries
   const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
@@ -4664,12 +4839,34 @@ async function displayGAOverview(data) {
       titleText += `, ${locationParts.join(', ')}`;
     }
     
-    const hasSummary = lecture.summary && lecture.summary.trim() !== '';
+    // Hole H3-Keywords aus keywords-database (mit Index-Links)
+    const lectureKeywordData = keywordsDB[lecture.ID];
+    const h3Keywords = lectureKeywordData && lectureKeywordData.keywords 
+      ? lectureKeywordData.keywords.filter(kw => kw.level === 'h3')
+      : [];
     
-    // Debug: Log wenn Summary vorhanden ist
-    if (hasSummary) {
-      console.log(`Vortrag ${lecture.ID} hat Summary:`, lecture.summary.substring(0, 100) + '...');
+    // Dedupliziere Keywords (nur einzigartige Begriffe, behalte das erste Vorkommen)
+    const uniqueKeywords = [];
+    const seenTerms = new Set();
+    h3Keywords.forEach(kw => {
+      const term = kw.term.toLowerCase();
+      if (!seenTerms.has(term)) {
+        seenTerms.add(term);
+        uniqueKeywords.push(kw);
+      }
+    });
+    
+    // Debug-Log
+    if (idx === 0) {
+      console.log('[GA-OVERVIEW-DEBUG] Erste Lecture:', lecture.ID);
+      console.log('[GA-OVERVIEW-DEBUG] Lecture Keyword Data:', lectureKeywordData);
+      console.log('[GA-OVERVIEW-DEBUG] H3 Keywords gefunden:', h3Keywords.length, '| Unique:', uniqueKeywords.length);
+      if (uniqueKeywords.length > 0) {
+        console.log('[GA-OVERVIEW-DEBUG] Beispiel H3-Keyword:', uniqueKeywords[0]);
+      }
     }
+    
+    const hasKeywords = uniqueKeywords.length > 0;
     
     html += `
       <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
@@ -4679,12 +4876,18 @@ async function displayGAOverview(data) {
           </a>
         </h3>
         
-        ${hasSummary ? `
+        ${hasKeywords ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; font-style: italic; line-height: 1.3; font-size: 1.0em; color: #666;">${getSummaryText(lecture.summary)}</p>
+            <p style="margin: 0; line-height: 1.3; font-size: 0.9em;">
+              ${uniqueKeywords.map(kw => {
+                const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
+                const escapedGANumber = data.gaNumber.replace(/'/g, "\\'");
+                return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+              }).join(' | ')}
+            </p>
           </div>
         ` : `
-          <!-- Keine Zusammenfassung für ${lecture.ID} -->
+          <!-- Keine Keywords für ${lecture.ID} -->
         `}
       </div>
     `;
@@ -4708,13 +4911,13 @@ function toggleGASummaries() {
   });
   
   if (button) {
-    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
+    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Schlagwörtern';
   }
   
   // Update Toggle Button im Texte-Tab
   const texteViewToggleText = document.getElementById('texteViewToggleText');
   if (texteViewToggleText) {
-    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Zusammenfassungen';
+    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Schlagwörtern';
   }
 }
 
@@ -6897,6 +7100,12 @@ async function startBatchAllSummaries() {
   }
 }
 
+// ============================================================================
+// HINWEIS: Summary-Keywords werden nicht mehr generiert!
+// Die H3-Keywords existieren bereits in der keywords-database.json
+// und werden direkt von dort geladen und angezeigt.
+// ============================================================================
+
 // Führt Zusammenfassungs-Requests mit begrenzter Parallelität aus
 async function batchSummarizeLectures(lectureIds, options = {}) {
   const concurrency = options.concurrency || 5;
@@ -8011,6 +8220,16 @@ function switchTabExtended(mode) {
     }
     if (texteServerInfo) {
       texteServerInfo.textContent = '';
+    }
+  }
+  
+  // Wenn wir zum Timeline-Tab wechseln, Zurück-Button anzeigen/verstecken
+  if (mode === 'timeline') {
+    showTimelineBackButton();
+  } else {
+    // Bei allen anderen Tabs: Zurück-Navigation zurücksetzen
+    if (mode !== 'timeline') {
+      timelineBackToGA = null;
     }
   }
 
@@ -10794,8 +11013,15 @@ window.switchTab = function(tabName) {
   // Load stats when timeline tab is opened
   if (tabName === 'timeline') {
     loadTimelineStats(); // Lädt Admin-Bereich
-    // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
-    renderTimeline();
+    
+    // Nur renderTimeline() aufrufen wenn KEIN pending Keyword vorhanden
+    // (navigateToTimelineKeyword() wird renderTimeline später selbst aufrufen)
+    if (!timelinePendingKeyword) {
+      // Render Timeline mit leerer Auswahl (zeigt nur Dropdowns)
+      renderTimeline();
+    } else {
+      console.log('[TIMELINE] Pending Keyword vorhanden, überspringe renderTimeline()');
+    }
   }
 };
 
@@ -10873,20 +11099,16 @@ function toggleSelectAllGA() {
 function updateStartButtonState() {
   const checkboxes = document.querySelectorAll('.ga-volume-checkbox');
   const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
-  const useExisting = document.getElementById('useExistingVocabCheckbox').checked;
   
   document.getElementById('startGABatchBtn').disabled = !anyChecked;
-  // Reprocess-Button nur aktiv wenn bestehendes Vokabular verwendet wird
-  document.getElementById('reprocessGABatchBtn').disabled = !anyChecked || !useExisting;
 }
 
-// Reprocess GA-Batch (wrapper für startGABatch mit forceReprocess=true)
-async function reprocessGABatch() {
-  await startGABatch(true);
-}
+// ============================================================================
+// NEUE V2 KEYWORD-GENERIERUNG
+// ============================================================================
 
-// Starte GA-Batch (mit optionalem forceReprocess)
-async function startGABatch(forceReprocess = false) {
+// Starte GA-Batch mit neuer V2 Template-basierter Generierung
+async function startGABatchV2() {
   if (gaBatchRunning) {
     alert('Batch läuft bereits!');
     return;
@@ -10902,8 +11124,11 @@ async function startGABatch(forceReprocess = false) {
   }
   
   const useExisting = document.getElementById('useExistingVocabCheckbox').checked;
-  const updateClusters = document.getElementById('updateClustersCheckbox').checked;
-  const parallelBatchSize = parseInt(document.getElementById('parallelBatchSizeSelect').value) || 5;
+  const consolidateSynonyms = document.getElementById('consolidateSynonymsCheckbox').checked;
+  const forceReprocess = document.getElementById('forceReprocessCheckbox').checked;
+  
+  // Hole ausgewählten Provider
+  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || 'openai';
   
   // Berechne Gesamtstatistiken
   let totalLectures = 0;
@@ -10912,25 +11137,21 @@ async function startGABatch(forceReprocess = false) {
     if (volInfo) totalLectures += volInfo.lectureCount;
   });
   
-  const estimatedMinutes = Math.ceil(totalLectures / (parallelBatchSize * 6));
+  const estimatedMinutes = Math.ceil(totalLectures / 30); // ~30 Vorträge/Minute mit V2
   
-  let message = `${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''} verarbeiten?\n\n` +
+  let message = `🆕 NEUE V2 GENERIERUNG\n\n` +
+    `${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''} verarbeiten?\n\n` +
     `Bände: ${selectedVolumes.join(', ')}\n` +
     `Total Vorträge: ${totalLectures}\n` +
-    `Bestehendes Vokabular: ${useExisting ? 'Ja' : 'Nein (nur Seeds)'}\n` +
-    `Parallele Verarbeitung: ${parallelBatchSize} Vorträge/Batch`;
-  
-  if (updateClusters) {
-    message += `\nThemenbereiche: Iterativ erweitern`;
-  }
-  
-  if (forceReprocess) {
-    message += `\n\n⚠️ REPROCESS-MODUS: Bereits verarbeitete Vorträge werden NEU verarbeitet!`;
-  } else if (useExisting) {
-    message += `\n\nℹ️ Bereits verarbeitete Vorträge werden übersprungen.`;
-  }
-  
-  message += `\nGeschätzte Dauer: ca. ${estimatedMinutes} Minuten`;
+    `KI-Provider: ${selectedProvider.toUpperCase()}\n` +
+    `Bestehendes Vokabular: ${useExisting ? 'Ja (iterativ)' : 'Nein (nur Template)'}\n` +
+    `Synonyme konsolidieren: ${consolidateSynonyms ? 'Ja' : 'Nein'}\n` +
+    `Neu verarbeiten: ${forceReprocess ? '⚠️ JA (überschreibt alte)' : 'Nein (überspringt vorhandene)'}\n\n` +
+    `✓ Keywords aus H3/H4 Überschriften\n` +
+    `✓ Template-basiert (~560 Basis-Keywords)\n` +
+    `✓ Konservativ (1-2 Worte pro KW)\n` +
+    `✓ Confidence: 0.6\n\n` +
+    `Geschätzte Dauer: ca. ${estimatedMinutes} Minuten`;
   
   if (!confirm(message)) return;
   
@@ -10941,6 +11162,9 @@ async function startGABatch(forceReprocess = false) {
   const statusDiv = document.getElementById('gaBatchStatus');
   const progressContainer = document.getElementById('gaBatchProgressContainer');
   const resultsDiv = document.getElementById('gaBatchResults');
+  const progressText = document.getElementById('gaBatchProgressText');
+  const progressPercent = document.getElementById('gaBatchProgressPercent');
+  const progressBar = document.getElementById('gaBatchProgressBar');
   
   btn.disabled = true;
   btn.style.opacity = '0.5';
@@ -10950,126 +11174,92 @@ async function startGABatch(forceReprocess = false) {
   progressContainer.style.display = 'block';
   resultsDiv.style.display = 'none';
   
-  // Verarbeite jeden GA-Band nacheinander
-  let allResults = [];
-  let currentBand = 1;
+  statusDiv.innerHTML = `<span style="color: #467886;">⏳ Starte V2 Generierung für ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''}...</span>`;
   
-  for (const gaVolume of selectedVolumes) {
-    if (!gaBatchRunning) {
-      statusDiv.innerHTML += `<br><span style="color: #d9534f;">⚠ Abgebrochen nach ${currentBand-1}/${selectedVolumes.length} Bänden</span>`;
-      break;
-    }
-    
-    statusDiv.innerHTML = `<span style="color: #467886;">⏳ Verarbeite ${gaVolume} (${currentBand}/${selectedVolumes.length})...</span>`;
-    
-    try {
-        const response = await fetch(`${API_BASE}/api/keywords/regenerate-ga-volume`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          gaVolume: gaVolume,
-          useExistingVocab: useExisting,
-          updateClusters: updateClusters,
-          parallelBatchSize: parallelBatchSize,
-          forceReprocess: forceReprocess
-        })
-      });
-      
-      if (!response.ok) {
-        throw new Error(`Server-Fehler: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        allResults.push(result);
-        statusDiv.innerHTML += `<br><span style="color: #5cb85c;">✓ ${gaVolume} fertig (${result.stats.totalKeywords} KWs, ${result.stats.newKeywords} neu)</span>`;
-      } else {
-        throw new Error(result.error || 'Unbekannter Fehler');
-      }
-      
-    } catch (error) {
-      console.error(`[GA-BATCH] Fehler bei ${gaVolume}:`, error);
-      statusDiv.innerHTML += `<br><span style="color: #d9534f;">✗ ${gaVolume}: ${error.message}</span>`;
-    }
-    
-    currentBand++;
-  }
-  
-  // Zeige Gesamt-Ergebnisse
-  if (allResults.length > 0) {
-    const lastResult = allResults[allResults.length - 1];
-    resultsDiv.style.display = 'block';
-    
-    // Summiere Statistiken
-    let totalProcessed = 0;
-    let totalKeywords = 0;
-    let totalNew = 0;
-    let totalReused = 0;
-    let totalSkipped = 0;
-    
-    allResults.forEach(r => {
-      totalProcessed += r.stats.processed;
-      totalKeywords += r.stats.totalKeywords;
-      totalNew += r.stats.newKeywords;
-      totalReused += r.stats.reusedKeywords;
-      if (r.stats.skipped) totalSkipped += r.stats.skipped;
+  try {
+    // NEUE V2 API: Alle GA-Bände in EINEM Request
+    const response = await fetch(`${API_BASE}/api/generate-keywords-v2`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        gaVolumes: selectedVolumes,
+        useExistingVocab: useExisting,
+        consolidateSynonyms: consolidateSynonyms,
+        forceReprocess: forceReprocess,
+        preferredProvider: selectedProvider  // NEU: Explizite Provider-Auswahl
+      })
     });
     
-    const avgReuseRate = totalKeywords > 0 ? ((totalReused / totalKeywords * 100).toFixed(1) + '%') : '0%';
-    
-    document.getElementById('gaBatchStatVolume').textContent = allResults.length > 1 ? 
-      `${allResults.length} Bände (${selectedVolumes.join(', ')})` : lastResult.gaVolume;
-    document.getElementById('gaBatchStatProcessed').textContent = totalProcessed + ' Vorträge';
-    
-    // Zeige übersprungene Vorträge nur wenn vorhanden
-    if (totalSkipped > 0) {
-      document.getElementById('gaBatchSkippedLabel').style.display = 'block';
-      document.getElementById('gaBatchStatSkipped').style.display = 'block';
-      document.getElementById('gaBatchStatSkipped').textContent = totalSkipped + ' Vorträge (bereits verarbeitet)';
-    } else {
-      document.getElementById('gaBatchSkippedLabel').style.display = 'none';
-      document.getElementById('gaBatchStatSkipped').style.display = 'none';
+    if (!response.ok) {
+      throw new Error(`Server-Fehler: ${response.status}`);
     }
     
-    document.getElementById('gaBatchStatTotal').textContent = totalKeywords;
-    document.getElementById('gaBatchStatNew').textContent = totalNew;
-    document.getElementById('gaBatchStatReused').textContent = totalReused;
-    document.getElementById('gaBatchStatReuseRate').textContent = avgReuseRate;
-    document.getElementById('gaBatchStatFinalVocab').textContent = lastResult.stats.finalVocabulary + ' Keywords';
-    document.getElementById('gaBatchStatFile').textContent = allResults.length > 1 ? 
-      'Mehrere Dateien erstellt' : lastResult.resultFile;
-    document.getElementById('gaBatchStatMainDB').textContent = lastResult.mainDatabaseUpdated ? 'Ja ✓' : 'Nein';
+    const result = await response.json();
     
-    // Cluster-Update-Info vom letzten Durchlauf
-    if (lastResult.clusterUpdate) {
-      const clusterInfoDiv = document.getElementById('gaBatchClusterInfo');
-      if (clusterInfoDiv) {
-        clusterInfoDiv.style.display = 'grid';
-        
-        if (lastResult.clusterUpdate.error) {
-          document.getElementById('gaBatchStatClusterStatus').innerHTML = 
-            `<span style="color: #d9534f;">Fehler: ${lastResult.clusterUpdate.error}</span>`;
-          document.getElementById('gaBatchStatNewKWs').textContent = '-';
-          document.getElementById('gaBatchStatClustersExtended').textContent = '-';
-          document.getElementById('gaBatchStatNewClusters').textContent = '-';
-          document.getElementById('gaBatchStatTotalClusters').textContent = '-';
-        } else {
-          document.getElementById('gaBatchStatClusterStatus').innerHTML = 
-            '<span style="color: #5cb85c;">✓ Erweitert</span>';
-          document.getElementById('gaBatchStatNewKWs').textContent = lastResult.clusterUpdate.newKeywordsProcessed;
-          document.getElementById('gaBatchStatClustersExtended').textContent = lastResult.clusterUpdate.clustersExtended;
-          document.getElementById('gaBatchStatNewClusters').textContent = lastResult.clusterUpdate.newClustersCreated;
-          document.getElementById('gaBatchStatTotalClusters').textContent = lastResult.clusterUpdate.totalClusters;
-        }
+    if (result.success) {
+      // Erfolg!
+      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Generierung abgeschlossen!</span>`;
+      
+      // Zeige Ergebnisse
+      resultsDiv.style.display = 'block';
+      
+      // Berechne Statistiken
+      const stats = result.stats;
+      const successResults = result.results.filter(r => r.success);
+      
+      let totalKeywords = 0;
+      let totalNewKeywords = 0;
+      successResults.forEach(r => {
+        totalKeywords += r.keywordsCount || 0;
+        totalNewKeywords += r.newKeywordsCount || 0;
+      });
+      
+      document.getElementById('gaBatchStatVolume').textContent = 
+        `${selectedVolumes.length} Band${selectedVolumes.length > 1 ? 'e' : ''} (${selectedVolumes.join(', ')})`;
+      document.getElementById('gaBatchStatProcessed').textContent = stats.processed + ' Vorträge';
+      
+      // Zeige übersprungene Vorträge
+      if (stats.skipped > 0) {
+        document.getElementById('gaBatchSkippedLabel').style.display = 'block';
+        document.getElementById('gaBatchStatSkipped').style.display = 'block';
+        document.getElementById('gaBatchStatSkipped').textContent = stats.skipped + ' Vorträge (bereits vorhanden)';
+      } else {
+        document.getElementById('gaBatchSkippedLabel').style.display = 'none';
+        document.getElementById('gaBatchStatSkipped').style.display = 'none';
       }
+      
+      document.getElementById('gaBatchStatTotal').textContent = totalKeywords;
+      document.getElementById('gaBatchStatNew').textContent = totalNewKeywords;
+      document.getElementById('gaBatchStatFinalVocab').textContent = stats.newVocabularySize + ' Keywords';
+      document.getElementById('gaBatchStatSynonyms').textContent = stats.synonymsConsolidated || 0;
+      document.getElementById('gaBatchStatMethod').textContent = 'Template V2 (H3/H4)';
+      
+      // Progress auf 100%
+      if (progressBar) progressBar.style.width = '100%';
+      if (progressPercent) progressPercent.textContent = '100%';
+      if (progressText) progressText.textContent = 'Abgeschlossen!';
+      
+      // Zeige Detail-Log
+      statusDiv.innerHTML += `<br><br><strong>Details:</strong>`;
+      statusDiv.innerHTML += `<br>• Verarbeitet: ${stats.processed} Vorträge`;
+      statusDiv.innerHTML += `<br>• Übersprungen: ${stats.skipped} Vorträge`;
+      statusDiv.innerHTML += `<br>• Fehler: ${stats.errors}`;
+      statusDiv.innerHTML += `<br>• Total Keywords: ${totalKeywords}`;
+      statusDiv.innerHTML += `<br>• Neue Keywords: ${totalNewKeywords} (${totalKeywords > 0 ? ((totalNewKeywords/totalKeywords)*100).toFixed(1) : 0}%)`;
+      statusDiv.innerHTML += `<br>• Vokabular-Größe: ${stats.newVocabularySize}`;
+      if (consolidateSynonyms) {
+        statusDiv.innerHTML += `<br>• Synonyme konsolidiert: ${stats.synonymsConsolidated}`;
+      }
+      
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
     }
     
-    if (lastResult.mainDatabaseUpdated) {
-      statusDiv.innerHTML += '<br><span style="color: #5cb85c;">📁 Haupt-Datenbank wurde aktualisiert. Seite neu laden für Timeline-Update.</span>';
-    }
+  } catch (error) {
+    console.error('[GA-BATCH-V2] Fehler:', error);
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
   }
   
   progressContainer.style.display = 'none';
@@ -11091,6 +11281,61 @@ function cancelGABatch() {
 if (document.getElementById('gaVolumeCheckboxes')) {
   loadAvailableGAVolumes();
 }
+
+// Lade Provider-Status
+async function loadProviderStatus() {
+  try {
+    const response = await fetch(`${API_BASE}/api/keywords-template-info`);
+    if (response.ok) {
+      const data = await response.json();
+      
+      // Update Status-Labels
+      const openaiStatus = document.getElementById('openaiStatus');
+      const claudeStatus = document.getElementById('claudeStatus');
+      const geminiStatus = document.getElementById('geminiStatus');
+      
+      if (openaiStatus) {
+        if (data.providers.openai.available) {
+          openaiStatus.textContent = data.providers.openai.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
+          openaiStatus.style.color = data.providers.openai.rateLimited ? '#d9534f' : '#5cb85c';
+        } else {
+          openaiStatus.textContent = '❌ Kein API-Key';
+          openaiStatus.style.color = '#999';
+        }
+      }
+      
+      if (claudeStatus) {
+        if (data.providers.claude.available) {
+          claudeStatus.textContent = data.providers.claude.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
+          claudeStatus.style.color = data.providers.claude.rateLimited ? '#d9534f' : '#5cb85c';
+        } else {
+          claudeStatus.textContent = '❌ Kein API-Key';
+          claudeStatus.style.color = '#999';
+        }
+      }
+      
+      if (geminiStatus) {
+        if (data.providers.gemini.available) {
+          geminiStatus.textContent = data.providers.gemini.rateLimited ? '🔴 Rate-Limited' : '✅ Verfügbar';
+          geminiStatus.style.color = data.providers.gemini.rateLimited ? '#d9534f' : '#5cb85c';
+        } else {
+          geminiStatus.textContent = '❌ Kein API-Key';
+          geminiStatus.style.color = '#999';
+        }
+      }
+    }
+  } catch (error) {
+    console.error('[PROVIDER-STATUS] Fehler:', error);
+  }
+}
+
+// Lade Status beim Öffnen des Keywords-Tabs
+document.addEventListener('DOMContentLoaded', function() {
+  loadProviderStatus();
+  
+  // Aktualisiere Status alle 30 Sekunden
+  setInterval(loadProviderStatus, 30000);
+});
 
 // Event-Listener für useExistingVocab Checkbox
 document.addEventListener('DOMContentLoaded', function() {
