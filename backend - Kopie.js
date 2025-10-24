@@ -7310,76 +7310,37 @@ app.post('/api/backups/restore', async (req, res) => {
       return res.status(400).json({ error: 'Backup-Name erforderlich' });
     }
     
-    // Erkenne Backup-Typ aus Dateiname
-    let backupDir, targetFile, backupFunc;
-    
-    if (backupName.startsWith('keywords-database-')) {
-      backupDir = KEYWORDS_BACKUP_DIR;
-      targetFile = KEYWORDS_DB_FILE;
-      backupFunc = createKeywordsBackup;
-    } else if (backupName.startsWith('summary-database-')) {
-      backupDir = SUMMARY_BACKUP_DIR;
-      targetFile = SUMMARY_DB_FILE;
-      backupFunc = createSummaryBackup;
-    } else if (backupName.startsWith('themes-database-')) {
-      backupDir = THEMES_BACKUP_DIR;
-      targetFile = THEMES_DB_FILE;
-      backupFunc = createThemesBackup;
-    } else if (backupName.startsWith('thematic-clusters-')) {
-      backupDir = CLUSTERS_BACKUP_DIR;
-      targetFile = CLUSTERS_FILE;
-      backupFunc = createClustersBackup;
-    } else if (backupName.startsWith('backend-')) {
-      backupDir = CODE_BACKUP_DIR;
-      targetFile = path.join(__dirname, 'backend.js');
-      backupFunc = createCodeBackup;
-    } else if (backupName.startsWith('index-')) {
-      backupDir = HTML_BACKUP_DIR;
-      targetFile = path.join(__dirname, 'index.html');
-      backupFunc = () => createHtmlBackup('index.html');
-    } else if (backupName.startsWith('keyword-manager-advanced-')) {
-      backupDir = HTML_BACKUP_DIR;
-      targetFile = path.join(__dirname, 'keyword-manager-advanced.html');
-      backupFunc = () => createHtmlBackup('keyword-manager-advanced.html');
-    } else {
-      return res.status(400).json({ error: 'Unbekannter Backup-Typ' });
-    }
-    
-    const backupPath = path.join(backupDir, backupName);
+    const backupPath = path.join(KEYWORDS_BACKUP_DIR, backupName);
     
     // Prüfe ob Backup existiert
     try {
       await fs.access(backupPath);
     } catch (error) {
-      console.error(`[BACKUP-API] Backup nicht gefunden: ${backupPath}`);
       return res.status(404).json({ error: 'Backup nicht gefunden' });
     }
     
     // Erstelle Backup der aktuellen Datei vor der Wiederherstellung
-    console.log('[BACKUP-API] Erstelle Sicherung der aktuellen Datei...');
-    await backupFunc();
+    console.log('[BACKUP-API] Erstelle Sicherung der aktuellen Datenbank...');
+    await createKeywordsBackup();
     
-    // Lade Backup
+    // Lade und validiere Backup
     const backupData = await fs.readFile(backupPath, 'utf8');
+    const parsedBackup = JSON.parse(backupData);
     
-    // Validiere Backup (nur für JSON-Dateien)
-    if (backupName.endsWith('.json')) {
-      const parsedBackup = JSON.parse(backupData);
-      if (Object.keys(parsedBackup).length === 0) {
-        return res.status(400).json({ error: 'Backup ist leer' });
-      }
+    if (Object.keys(parsedBackup).length === 0) {
+      return res.status(400).json({ error: 'Backup ist leer' });
     }
     
     // Stelle Backup wieder her
-    await fs.writeFile(targetFile, backupData, 'utf8');
+    await fs.writeFile(KEYWORDS_DB_FILE, backupData, 'utf8');
     
-    console.log(`[BACKUP-API] ✓ Backup wiederhergestellt: ${backupName} → ${path.basename(targetFile)}`);
+    console.log(`[BACKUP-API] ✓ Backup wiederhergestellt: ${backupName}`);
+    console.log(`[BACKUP-API] ${Object.keys(parsedBackup).length} Einträge wiederhergestellt`);
     
     res.json({
       success: true,
       restored: backupName,
-      targetFile: path.basename(targetFile),
-      entries: backupName.endsWith('.json') ? Object.keys(JSON.parse(backupData)).length : 'N/A'
+      entries: Object.keys(parsedBackup).length
     });
   } catch (error) {
     console.error('[BACKUP-API] Fehler bei Wiederherstellung:', error);

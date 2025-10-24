@@ -12130,8 +12130,8 @@ async function loadBackupList() {
   
   try {
     const url = type === 'keywords' 
-      ? 'http://localhost:3003/api/backups/list'
-      : `http://localhost:3003/api/backups/list/${type}`;
+      ? `${API_BASE}/backups/list`
+      : `${API_BASE}/backups/list/${type}`;
       
     const response = await fetch(url);
     const data = await response.json();
@@ -12168,7 +12168,7 @@ async function createManualBackup() {
   const type = document.getElementById('backupTypeSelect').value;
   
   try {
-    const response = await fetch('http://localhost:3003/api/backups/create', {
+    const response = await fetch(`${API_BASE}/backups/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type })
@@ -12193,7 +12193,7 @@ async function createManualBackup() {
 
 async function restoreBackup(backupName) {
   try {
-    const response = await fetch('http://localhost:3003/api/backups/restore', {
+    const response = await fetch(`${API_BASE}/backups/restore`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ backupName })
