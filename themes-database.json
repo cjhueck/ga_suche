@@ -1,0 +1,846 @@
+{
+  "Anthroposophie & Theosophie": {
+    "description": "Grundlagen und Methodik der Anthroposophie und Theosophie",
+    "keywords": [
+      "Anthroposophie",
+      "Anthroposophische Architektur",
+      "Anthroposophische Forschung",
+      "Anthroposophische Medizin",
+      "Anthroposophische Methode",
+      "Anthroposophische Mission",
+      "Antisophie",
+      "Theosophie",
+      "Theosophie & Christentum",
+      "Theosophische Bewegung",
+      "Theosophische Gesellschaft"
+    ]
+  },
+  "Geisteswissenschaft": {
+    "description": "Geisteswissenschaftliche Forschung und Methoden",
+    "keywords": [
+      "Geisteswissenschaft",
+      "Geisteswissenschaftliche Erkenntnis",
+      "Geistesforschung",
+      "Geheimwissenschaft",
+      "Geheimwissenschaftliche Traditionen"
+    ]
+  },
+  "Geistige Schulung": {
+    "description": "Methoden der inneren Entwicklung und Schulung",
+    "keywords": [
+      "Bewusstseinsschulung",
+      "Denkschulung",
+      "Exakte Clairvoyance",
+      "Geistige Schulung",
+      "Hellsehen",
+      "Konzentration",
+      "Meditation",
+      "Okkulte Schulung",
+      "Willensschulung"
+    ]
+  },
+  "Übersinnliche Welten": {
+    "description": "Geistige Welten und übersinnliche Bereiche",
+    "keywords": [
+      "Astrale Welt",
+      "Devachan",
+      "Geistige Welt",
+      "Geistige Wesenheiten",
+      "Kamaloka",
+      "Mentale Welt"
+    ]
+  },
+  "Übersinnliche Erkenntnis": {
+    "description": "Höhere Erkenntnisstufen und Wahrnehmungsformen",
+    "keywords": [
+      "Übersinnliche Wahrnehmung",
+      "Imagination",
+      "Inspiration",
+      "Intuition"
+    ]
+  },
+  "Bewusstsein": {
+    "description": "Bewusstseinszustände und Bewusstseinsentwicklung",
+    "keywords": [
+      "Bewusstsein",
+      "Bewusstseinserweiterung",
+      "Bewusstseinsevolution",
+      "Bewusstseinszustände",
+      "Bewusstsein nach dem Tod",
+      "Instinktives Bewusstsein",
+      "Leeres Bewusstsein",
+      "Schauendes Bewusstsein",
+      "Spirituelles Bewusstsein",
+      "Traumzustand",
+      "Wachen & Schlafen"
+    ]
+  },
+  "Seelenglieder": {
+    "description": "Die drei Seelenglieder des Menschen",
+    "keywords": [
+      "Bewusstseinsseele",
+      "Empfindungsseele",
+      "Verstandes- & Gemütsseele"
+    ]
+  },
+  "Seelenfähigkeiten": {
+    "description": "Grundlegende Seelenfähigkeiten",
+    "keywords": [
+      "Sinneswahrnehmung",
+      "Denken",
+      "Vorstellen",
+      "Fühlen",
+      "Wollen"
+    ]
+  },
+  "Personen": {
+    "description": "Bedeutende Persönlichkeiten und Philosophen",
+    "keywords": [
+      "Vinzenz Knaur",
+      "Otto Erich Hartleben",
+      "Ita Wegmann",
+      "Marie Steiner",
+      "Karl-Julius Schröer",
+      "Darwin",
+      "Aristoteles",
+      "Fichte",
+      "Hegel",
+      "Kant",
+      "Nietzsche",
+      "Schelling",
+      "Descartes, René",
+      "Spinoza",
+      "Thomas von Aquino"
+    ]
+  },
+  "Wesensglieder": {
+    "description": "Die Wesensglieder des Menschen",
+    "keywords": [
+      "Physischer Leib",
+      "Ätherleib",
+      "Astralleib",
+      "Ich",
+      "Ich-Entwicklung",
+      "Geistselbst (Manas)",
+      "Lebensgeist (Buddhi, Budhi)",
+      "Geistesmensch (Atma)"
+    ]
+  },
+  "Seelenleben": {
+    "description": "Seelische Prozesse und Seelenerkenntnis",
+    "keywords": [
+      "Gefühlsleben",
+      "Seele",
+      "Seelenentwicklung",
+      "Seelenerkenntnis",
+      "Seelenerlebnisse",
+      "Seelenkräfte",
+      "Seelenlehre",
+      "Seelenverfassung",
+      "Vorstellungsleben",
+      "Willensleben"
+    ]
+  },
+  "Geistige Fähigkeiten": {
+    "description": "Höhere geistige Fähigkeiten und Wahrnehmungen",
+    "keywords": [
+      "Geistige Wahrnehmung",
+      "Geistiges Anschauen",
+      "Halluzination",
+      "Sehergabe",
+      "Somnambulismus"
+    ]
+  },
+  "Entwicklung & Evolution": {
+    "description": "Allgemeine Entwicklungsprinzipien",
+    "keywords": [
+      "Menschheitsentwicklung",
+      "Entwickelungsgedanke",
+      "Entwicklung",
+      "Entwicklungslehre",
+      "Entwicklungsgesetz",
+      "Entwicklungsphasen",
+      "Entwicklungszyklen",
+      "Evolution",
+      "Evolution und Involution"
+    ]
+  },
+  "Kosmische Entwicklung": {
+    "description": "Planetarische und kosmische Entwicklungsstufen",
+    "keywords": [
+      "Erdenentwicklung",
+      "Planetarische Entwicklung",
+      "Kosmische Entwicklung",
+      "Kosmische Evolution",
+      "Weltentwicklung"
+    ]
+  },
+  "Kulturentwicklung": {
+    "description": "Kulturelle Epochen und Entwicklungsstufen",
+    "keywords": [
+      "Atlantis",
+      "Atlantische Zeit",
+      "Griechisch-römische Kultur",
+      "Kulturentwicklung",
+      "Lemuris",
+      "Kulturepochen",
+      "Ägyptisch-chaldäische Kultur",
+      "Zeitalter der Empfindungsseele",
+      "Zeitalter der Verstandesseele",
+      "Zeitalter der Bewusstseinsseele"
+    ]
+  },
+  "Individuelle Entwicklung": {
+    "description": "Persönliche und spirituelle Entwicklung",
+    "keywords": [
+      "Kindliche Entwicklung",
+      "Spirituelle Entwicklung"
+    ]
+  },
+  "Christentum": {
+    "description": "Christologie und christliche Mysterien",
+    "keywords": [
+      "Christentum",
+      "Christologie",
+      "Christus",
+      "Christus-Impuls",
+      "Christus-Ereignis",
+      "Christus-Erlebnis",
+      "Christliche Einweihung",
+      "Christliche Kunst",
+      "Christliche Mystik",
+      "Jesus von Nazareth",
+      "Mysterium von Golgatha"
+    ]
+  },
+  "Bibel & Evangelien": {
+    "description": "Bibelverständnis und Evangelienlehre",
+    "keywords": [
+      "Bibel",
+      "Bibelkritik",
+      "Bibelverständnis",
+      "Evangelien",
+      "Johannes-Evangelium"
+    ]
+  },
+  "Mystik & Esoterik": {
+    "description": "Mystische und esoterische Traditionen",
+    "keywords": [
+      "Mystik",
+      "Mystische Erfahrung",
+      "Mystische Tatsache",
+      "Esoterik",
+      "Esoterische Lehre",
+      "Gnosis",
+      "Gnostiker"
+    ]
+  },
+  "Mysterien & Einweihung": {
+    "description": "Alte Mysterien und Einweihungswege",
+    "keywords": [
+      "Einweihung, Initiation",
+      "Mysterien",
+      "Mysterien des Altertums",
+      "Mysteriendramen",
+      "Einweihungsschulen"
+    ]
+  },
+  "Religionen & Traditionen": {
+    "description": "Weltreligionen und religiöse Traditionen",
+    "keywords": [
+      "Religion",
+      "Buddhismus",
+      "Indische Weisheit",
+      "Persische Religion",
+      "Vedische Weisheit",
+      "Weltreligionen"
+    ]
+  },
+  "Erkenntnistheorie": {
+    "description": "Erkenntnistheorie und Erkenntnismethodik",
+    "keywords": [
+      "Erkenntnis",
+      "Erkenntnisentwicklung",
+      "Erkenntnismethoden",
+      "Erkenntnistheorie",
+      "Erkenntnisweg",
+      "Grenzen des Erkennens",
+      "Erkenntniskraft",
+      "Erkenntnisparadox",
+      "Erkenntnisrätsel",
+      "Erkenntnisstufen"
+    ]
+  },
+  "Philosophische Strömungen": {
+    "description": "Philosophische Richtungen und Schulen",
+    "keywords": [
+      "Idealismus",
+      "Materialismus",
+      "Materialismuskritik",
+      "Monismus",
+      "Pragmatismus",
+      "Antike Philosophie",
+      "Kritischer Idealismus",
+      "Moderne Philosophie",
+      "Neuplatonismus"
+    ]
+  },
+  "Weltanschauung": {
+    "description": "Weltanschauungsfragen und Weltbilder",
+    "keywords": [
+      "Weltanschauungsentwicklung",
+      "Weltanschauungsstreit",
+      "Lebendige Weltanschauung",
+      "Spirituelle Weltanschauung",
+      "Mechanistisches Weltbild"
+    ]
+  },
+  "Naturwissenschaft": {
+    "description": "Naturwissenschaft und ihre Beziehung zur Geisteswissenschaft",
+    "keywords": [
+      "Naturwissenschaft",
+      "Naturwissenschaft & Geisteswissenschaft",
+      "Naturwissenschaft & Religion",
+      "Naturwissenschaftliche Methodik"
+    ]
+  },
+  "Wissenschaftliche Methodik": {
+    "description": "Forschungsmethoden und Wissenschaftskritik",
+    "keywords": [
+      "Wissenschaftskritik",
+      "Experimentelle Methode",
+      "Forschungsmethoden",
+      "Kritische Methodik"
+    ]
+  },
+  "Einzelwissenschaften": {
+    "description": "Verschiedene wissenschaftliche Disziplinen",
+    "keywords": [
+      "Anatomie",
+      "Botanik",
+      "Geologie",
+      "Mathematik",
+      "Physik",
+      "Psychologie",
+      "Geographie"
+    ]
+  },
+  "Pädagogik & Erziehung": {
+    "description": "Erziehungskunst und Waldorfpädagogik",
+    "keywords": [
+      "Pädagogik",
+      "Erziehung",
+      "Waldorfpädagogik",
+      "Waldorfschule",
+      "Autorität in der Erziehung",
+      "Erziehungskunst",
+      "Lebendige Pädagogik"
+    ]
+  },
+  "Entwicklungsphasen": {
+    "description": "Kindliche Entwicklungsphasen",
+    "keywords": [
+      "Jahrsiebte",
+      "Zahnwechsel",
+      "Geschlechtsreife",
+      "Kindheitserinnerung",
+      "Kindheitskräfte",
+      "Stimmbruch"
+    ]
+  },
+  "Unterricht": {
+    "description": "Unterrichtsmethoden und didaktische Prinzipien",
+    "keywords": [
+      "Nachahmungsprinzip",
+      "Lebendiger Unterricht",
+      "Künstlerische Erziehung",
+      "Schreibunterricht",
+      "Rechenunterricht",
+      "Eurythmieunterricht",
+      "Epochenunterricht"
+    ]
+  },
+  "Kunstformen": {
+    "description": "Verschiedene künstlerische Ausdrucksformen",
+    "keywords": [
+      "Architektur",
+      "Bildhauerkunst",
+      "Drama",
+      "Eurythmie",
+      "Malerei",
+      "Musik",
+      "Plastik"
+    ]
+  },
+  "Ästhetik": {
+    "description": "Ästhetische Anschauung und Schönheit",
+    "keywords": [
+      "Ästhetische Schriften",
+      "Ästhetik",
+      "Ästhetische Weltanschauung",
+      "Ästhetisches Anschauen",
+      "Schönheit"
+    ]
+  },
+  "Künstlerisches Schaffen": {
+    "description": "Künstlerische Gestaltung und Inspiration",
+    "keywords": [
+      "Künstlerisches Schaffen",
+      "Künstlerische Architektur",
+      "Künstlerische Inspiration",
+      "Kunstphilosophie"
+    ]
+  },
+  "Medizin & Heilkunde": {
+    "description": "Anthroposophische und komplementäre Medizin",
+    "keywords": [
+      "Heilkunst",
+      "Heilung",
+      "Homöopathie",
+      "Naturheilkunde"
+    ]
+  },
+  "Gesundheit & Krankheit": {
+    "description": "Gesundheit auf verschiedenen Ebenen",
+    "keywords": [
+      "Gesundheit & Krankheit",
+      "Krankheit",
+      "Geistige Gesundheit",
+      "Physische Gesundheit",
+      "Seelische Gesundheit"
+    ]
+  },
+  "Therapeutische Methoden": {
+    "description": "Therapeutische Ansätze und Heilmethoden",
+    "keywords": [
+      "Farbentherapie",
+      "Intuitive Medizin",
+      "Medizinische Therapie",
+      "Spirituelle Medizin",
+      "Therapeutische Anwendung"
+    ]
+  },
+  "Soziale Dreigliederung": {
+    "description": "Dreigliederung des sozialen Organismus",
+    "keywords": [
+      "Dreigliederung des sozialen Organismus",
+      "Soziale Dreigliederung",
+      "Soziale Frage",
+      "Sozialer Organismus",
+      "Soziales Leben",
+      "Demokratie",
+      "Rechtsleben",
+      "Wirtschaftsleben",
+      "Freies Geistesleben",
+      "Freiheit",
+      "Brüderlichkeit"
+    ]
+  },
+  "Wirtschaft": {
+    "description": "Wirtschaftliche Zusammenhänge und Organisation",
+    "keywords": [
+      "Kapital",
+      "Wirtschaftliche Assoziationen",
+      "Wirtschaftsorganismus",
+      "Volkswirtschaft"
+    ]
+  },
+  "Naturreiche": {
+    "description": "Die vier Naturreiche und ihre Eigenschaften",
+    "keywords": [
+      "Mineralisches Reich",
+      "Pflanze",
+      "Naturreiche",
+      "Tier",
+      "Mensch & Tier",
+      "Kristall",
+      "Erdbeben"
+    ]
+  },
+  "Kosmische Zusammenhänge": {
+    "description": "Kosmische Gesetzmäßigkeiten und Beziehungen",
+    "keywords": [
+      "Mikrokosmos-Makrokosmos",
+      "Kosmische Kräfte",
+      "Kosmische Ordnung",
+      "Kosmische Zusammenhänge",
+      "Kosmos"
+    ]
+  },
+  "Naturerkenntnis": {
+    "description": "Erkenntnis der Natur und Naturgesetze",
+    "keywords": [
+      "Naturerkenntnis",
+      "Natur & Geist",
+      "Naturphilosophie",
+      "Naturgesetze"
+    ]
+  },
+  "Tod & Sterben": {
+    "description": "Der Tod und seine Bedeutung",
+    "keywords": [
+      "Tod",
+      "Todespforte",
+      "Tod & Geburt",
+      "Tod & Leben",
+      "Tod & Wiedergeburt"
+    ]
+  },
+  "Leben zwischen den Inkarnationen": {
+    "description": "Nachtodliches und vorgeburtliches Dasein",
+    "keywords": [
+      "Leben zwischen Tod & Geburt",
+      "Vorgeburtliches Leben",
+      "Nachtodliches Leben",
+      "Lebenstableau"
+    ]
+  },
+  "Wiederverkörperung": {
+    "description": "Reinkarnation und Karma",
+    "keywords": [
+      "Reinkarnation",
+      "Karma",
+      "Geistige Wiedergeburt",
+      "Inkarnation",
+      "Inkarnationslehre"
+    ]
+  },
+  "Übersinnliche Wesenheiten": {
+    "description": "Geistige Hierarchien und Wesenheiten",
+    "keywords": [
+      "Ahriman",
+      "Elohim",
+      "Jahve",
+      "Luzifer",
+      "Geistige Hierarchien",
+      "Hierarchien",
+      "Seraphim, Cherubim, Throne",
+      "Exusiai, Kyriotetes, Dynamis",
+      "Angeloi, Archangeloi, Archai"
+    ]
+  },
+  "Hüter & Führer": {
+    "description": "Geistige Führer und Hüter",
+    "keywords": [
+      "Hüter der Schwelle",
+      "Hüter der Weisheit",
+      "Geistige Führer",
+      "Geistige Führung"
+    ]
+  },
+  "Goethe - Faust": {
+    "description": "Goethes Faust-Drama",
+    "keywords": [
+      "Faust - Homunculus",
+      "Homunculus",
+      "Mephistopheles"
+    ]
+  },
+  "Goethe - Märchen": {
+    "description": "Goethes Märchen von der grünen Schlange",
+    "keywords": [
+      "Schlange und schöne Lilie",
+      "Irrlichter",
+      "Könige",
+      "Alter mit der Lampe"
+    ]
+  },
+  "Goethe - Naturanschauung": {
+    "description": "Goethes Naturwissenschaft und Farbenlehre",
+    "keywords": [
+      "Goetheanismus",
+      "Urpflanze",
+      "Urtier",
+      "Anschauende Urteilskraft",
+      "Farbenlehre",
+      "Goethes Bedeutung"
+    ]
+  },
+  "Goetheanum": {
+    "description": "Das Goetheanum in Dornach",
+    "keywords": []
+  },
+  "Märchen & Mythen": {
+    "description": "Märchen, Mythen und ihre Weisheit",
+    "keywords": [
+      "Märchen",
+      "Märchen & Weisheit",
+      "Volksmärchen",
+      "Grimm'sche Märchen",
+      "Mythen & Sagen",
+      "Mythologie"
+    ]
+  },
+  "Deutsche Literatur": {
+    "description": "Deutsche Literaturgeschichte und Dichter",
+    "keywords": [
+      "Deutsche Literaturgeschichte",
+      "Schiller",
+      "Herder",
+      "Novalis"
+    ]
+  },
+  "Geschichtserkenntnis": {
+    "description": "Philosophie und Wissenschaft der Geschichte",
+    "keywords": [
+      "Geschichte",
+      "Geschichtsphilosophie",
+      "Geschichtswissenschaft",
+      "Geschichtserkenntnis"
+    ]
+  },
+  "Geschichts-Epochen": {
+    "description": "Historische Epochen der Menschheit",
+    "keywords": [
+      "Mittelalter",
+      "Renaissance",
+      "Neuzeit",
+      "Aufklärung"
+    ]
+  },
+  "Kulturen & Völker": {
+    "description": "Volksseelen und Kulturcharaktere",
+    "keywords": [
+      "Deutsche Geistigkeit",
+      "Deutsche Volksseele",
+      "Mitteleuropa",
+      "Volksseelen",
+      "Europäische Kulturen",
+      "Orientalische Kultur"
+    ]
+  },
+  "Kulturkritik": {
+    "description": "Kritische Betrachtung kultureller Entwicklungen",
+    "keywords": [
+      "Kulturkritik",
+      "Kulturphilosophie",
+      "Kulturwissenschaft"
+    ]
+  },
+  "Menschliches Wesen": {
+    "description": "Das Wesen und die Organisation des Menschen",
+    "keywords": [
+      "Menschenerkenntnis",
+      "Menschenverstãndnis",
+      "Menschenwesen",
+      "Menschliche Organisation",
+      "Menschenseele",
+      "Menschwerdung"
+    ]
+  },
+  "Temperamente": {
+    "description": "Die vier Temperamente des Menschen",
+    "keywords": [
+      "Sanguinisches Temperament",
+      "Cholerisches Temperament",
+      "Melancholisches Temperament",
+      "Phlegmatisches Temperament"
+    ]
+  },
+  "Leibliche Organisation": {
+    "description": "Die Gliederung des menschlichen Organismus",
+    "keywords": [
+      "Nerven-Sinnes-System",
+      "Rhythmisches System",
+      "Stoffwechsel-Gliedmaßen-System",
+      "Viergliedrigkeit des Menschen"
+    ]
+  },
+  "Moralische Entwicklung": {
+    "description": "Moralische Intuition und Weltordnung",
+    "keywords": [
+      "Moral",
+      "Moralische Entwicklung",
+      "Moralische Intuition",
+      "Moralische Phantasie",
+      "Moralische Weltordnung"
+    ]
+  },
+  "Tugenden & Eigenschaften": {
+    "description": "Menschliche Tugenden und Eigenschaften",
+    "keywords": [
+      "Demut",
+      "Ehrfurcht",
+      "Gerechtigkeit",
+      "Liebe",
+      "Liebe als Erkenntniskraft",
+      "Liebeskraft",
+      "Selbstlosigkeit",
+      "Toleranz"
+    ]
+  },
+  "Ethische Prinzipien": {
+    "description": "Ethik und sittliche Prinzipien",
+    "keywords": [
+      "Ethik",
+      "Ethischer Individualismus",
+      "Sittlichkeit",
+      "Goldene Regel"
+    ]
+  },
+  "Lebensfragen": {
+    "description": "Praktische Lebensfragen und Lebenserfahrung",
+    "keywords": [
+      "Lebenserfahrung",
+      "Lebenslauf",
+      "Lebenspraxis",
+      "Lebenskraft",
+      "Lebensfragen",
+      "Lebensgesetze"
+    ]
+  },
+  "Praktische Anthroposophie": {
+    "description": "Praktische Anwendung anthroposophischer Prinzipien",
+    "keywords": [
+      "Praktische Geisteswissenschaft",
+      "Praktische Pädagogik"
+    ]
+  },
+  "Mediumismus & Spiritismus": {
+    "description": "Spiritistische Phänomene und Mediumismus",
+    "keywords": [
+      "Mediumismus",
+      "Spiritismus",
+      "Automatisches Schreiben",
+      "Tischrücken"
+    ]
+  },
+  "Übersinnliche Phänomene": {
+    "description": "Okkulte und paranormale Phänomene",
+    "keywords": [
+      "Außerkörperliche Erfahrung",
+      "Telepathie & okkulte Phänomene",
+      "Suggestion",
+      "Hypnose"
+    ]
+  },
+  "Alchemistische Traditionen": {
+    "description": "Alchemie und ihre Vertreter",
+    "keywords": [
+      "Alchemie",
+      "Archaeus",
+      "Paracelsus",
+      "Stein der Weisen"
+    ]
+  },
+  "Hermetische Lehren": {
+    "description": "Hermetische und rosenkreuzerische Traditionen",
+    "keywords": [
+      "Hermes Trismegistos",
+      "Hermetischer Grundsatz",
+      "Rosenkreuz",
+      "Rosenkreuzer"
+    ]
+  },
+  "Zeitrhythmen": {
+    "description": "Rhythmische Lebensgesetze und Zeitzyklen",
+    "keywords": [
+      "Jahreszeiten",
+      "Zeitrhythmen",
+      "Rhythmische Lebensgesetze"
+    ]
+  },
+  "Kosmische Zyklen": {
+    "description": "Kosmische und zyklische Entwicklungsgesetze",
+    "keywords": [
+      "Kosmische Zyklen",
+      "Zyklische Gesetze"
+    ]
+  },
+  "Symbolische Erkenntnis": {
+    "description": "Symbolik und symbolische Meditation",
+    "keywords": [
+      "Symbolik",
+      "Symbol",
+      "Symbolische Erkenntnis",
+      "Symbolische Meditation"
+    ]
+  },
+  "Mythologische Gestalten": {
+    "description": "Gestalten aus Mythen und Legenden",
+    "keywords": [
+      "Helena",
+      "Prometheus",
+      "Siegfried"
+    ]
+  },
+  "Meditative Praxis": {
+    "description": "Meditative und kontemplative Übungen",
+    "keywords": [
+      "Kontemplation",
+      "Andacht",
+      "Gebet"
+    ]
+  },
+  "Innere Entwicklung": {
+    "description": "Selbsterkenntnis und innere Verwandlung",
+    "keywords": [
+      "Selbstbeobachtung",
+      "Selbsterkenntnis",
+      "Selbsterziehung",
+      "Innere Entwicklung",
+      "Innere Verwandlung"
+    ]
+  },
+  "Sprachentwicklung": {
+    "description": "Sprachphilosophie und Sprachentwicklung",
+    "keywords": [
+      "Sprachentwicklung",
+      "Sprache",
+      "Sprachphilosophie",
+      "Sprechenlernen"
+    ]
+  },
+  "Ausdrucksformen": {
+    "description": "Künstlerische Ausdrucksformen der Sprache",
+    "keywords": [
+      "Deklamation",
+      "Rezitation",
+      "Sichtbare Sprache"
+    ]
+  },
+  "Zeitkritik": {
+    "description": "Kritische Zeitbetrachtung",
+    "keywords": [
+      "Zeitfragen",
+      "Zeitkritik",
+      "Zeitgeist",
+      "Moderne Zivilisation"
+    ]
+  },
+  "Kulturelle Herausforderungen": {
+    "description": "Materialismus und technisches Zeitalter",
+    "keywords": [
+      "Mechanisierung",
+      "Technisches Zeitalter"
+    ]
+  },
+  "Darwinismus": {
+    "description": "Darwinismus und Evolutionstheorie",
+    "keywords": [
+      "Kampf ums Dasein",
+      "Haeckelismus",
+      "Evolution der Organismen"
+    ]
+  },
+  "Physiologie & Lebensprozesse": {
+    "description": "Physiologische Prozesse und Organsysteme",
+    "keywords": [
+      "Atmung",
+      "Wärmung",
+      "Ernährung",
+      "Fortpflanzung",
+      "Verdauung",
+      "Blutsystem",
+      "Nervensystem",
+      "Stoffwechselsystem"
+    ]
+  },
+  "Gedächtnis & Erinnerung": {
+    "description": "Gedächtnis und Erinnerungsvermögen",
+    "keywords": [
+      "Gedächtnis",
+      "Erinnerung"
+    ]
+  }
+}

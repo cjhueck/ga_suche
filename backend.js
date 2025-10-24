@@ -5,6 +5,7 @@ const cors = require('cors');
 const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
+const { getProviderForTask, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 
 const app = express();
 const PORT = 3003;
@@ -1745,10 +1746,12 @@ app.post('/api/fulltext-search', async (req, res) => {
 async function generateAnalysis(query, results, depth = 'allgemein') {
   console.log('generateAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('Kein Claude API Key - verwende Fallback');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('analysis');
+  } catch (error) {
+    console.log('[ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackAnalysis(query, results);
   }
   
@@ -1883,33 +1886,15 @@ ${contextText}
 ANALYSE:`;
 
   try {
-    console.log('Rufe Claude API auf...');
+    console.log(`[ANALYSIS] Rufe ${provider.name} API auf...`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens[effectiveDepth] || 8192,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    let analysisText = await provider.generateCompletion(prompt, {
+      maxTokens: maxTokens[effectiveDepth] || 8192,
+      temperature: 0.7
     });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    let analysisText = result.content[0].text;
     
-    console.log('Claude Antwort erhalten, Länge:', analysisText.length);
+    console.log(`[ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
     
     analysisText = addClickableReferences(analysisText, topResults);
     
@@ -2155,10 +2140,12 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
 });
 
 async function generateLectureSummary(lecture) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('Kein Claude API Key - verwende Fallback-Zusammenfassung');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('summary');
+  } catch (error) {
+    console.log('[SUMMARY] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackSummary(lecture);
   }
   
@@ -2244,44 +2231,15 @@ ${textToSummarize}
 AUSGABE (JSON):`;
 
   try {
-    console.log('Rufe Claude API für Zusammenfassung auf...');
+    console.log(`[SUMMARY] Rufe ${provider.name} API für Zusammenfassung auf...`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    let summaryText = await provider.generateCompletion(prompt, {
+      maxTokens: 4000,
+      temperature: 0.7
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      
-      // Spezielle Behandlung für Budget/Rate-Limit-Fehler
-      if (response.status === 429) {
-        throw new Error(`Claude API Rate Limit erreicht (Status 429). Bitte warten Sie und versuchen es später erneut. Details: ${errorText}`);
-      } else if (response.status === 402) {
-        throw new Error(`Claude API Budget aufgebraucht (Status 402). Bitte prüfen Sie Ihr Anthropic-Konto und fügen Sie Budget hinzu. Details: ${errorText}`);
-      } else if (response.status === 401) {
-        throw new Error(`Claude API Authentifizierung fehlgeschlagen (Status 401). Bitte prüfen Sie Ihren API-Key. Details: ${errorText}`);
-      }
-      
-      throw new Error(`Claude API Fehler: ${response.status} - ${errorText}`);
-    }
-
-    const result = await response.json();
-    let summaryText = result.content[0].text;
     
-    console.log('\n=== CLAUDE RESPONSE DEBUG ===');
+    console.log(`\n=== ${provider.name.toUpperCase()} RESPONSE DEBUG ===`);
     console.log('Rohe Antwort (erste 500 Zeichen):', summaryText.substring(0, 500));
     console.log('Antwort Länge:', summaryText.length);
     
@@ -2342,6 +2300,7 @@ function generateFallbackSummary(lecture) {
 
 app.get('/debug/status', async (req, res) => {
   const summaryDB = await loadSummaryDatabase();
+  
   res.json({
     server: 'hybrid-search-unified',
     status: 'running',
@@ -2350,7 +2309,12 @@ app.get('/debug/status', async (req, res) => {
     synonymGroups: Object.keys(synonyms).length,
     summariesInDB: Object.keys(summaryDB).length,
     queryLogSize: Object.keys(queryLog).length,
-    claudeConfigured: !!process.env.CLAUDE_API_KEY
+    llmProviders: {
+      claude: !!process.env.CLAUDE_API_KEY,
+      openai: !!process.env.OPENAI_API_KEY,
+      gemini: !!process.env.GEMINI_API_KEY,
+      default: process.env.LLM_PROVIDER_DEFAULT || 'claude'
+    }
   });
 });
 
@@ -3722,10 +3686,12 @@ app.post('/api/keywords-delete', async (req, res) => {
 // ============================================================================
 
 const SUMMARY_DB_FILE = path.join(__dirname, 'summary-database.json');
+const SUMMARY_KEYWORDS_DB_FILE = path.join(__dirname, 'summary-keywords-database.json');
 const THEMATIC_SEARCH_DB_FILE = path.join(__dirname, 'thematic-search-database.json');
 const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes-database.json');
 const CLUSTERS_FILE = path.join(__dirname, 'thematic-clusters.json');
+const THEMES_KEYWORDS_TEMPLATE_FILE = path.join(__dirname, 'themes-keywords-template.json');
 
 // Backup-Verzeichnisse
 const BACKUP_BASE_DIR = path.join(__dirname, 'backups');
@@ -3994,6 +3960,33 @@ async function saveSummaryDatabase(summaryDB) {
   }
 }
 
+// ============================================================================
+// SUMMARY-KEYWORDS-DATENBANK
+// ============================================================================
+
+// Lade Summary-Keywords-Datenbank
+async function loadSummaryKeywordsDatabase() {
+  try {
+    const data = await fs.readFile(SUMMARY_KEYWORDS_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('Summary-Keywords-DB nicht gefunden, erstelle neue...');
+    return {};
+  }
+}
+
+// Speichere Summary-Keywords-Datenbank
+async function saveSummaryKeywordsDatabase(keywordsDB) {
+  try {
+    await fs.writeFile(SUMMARY_KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
+    console.log('Summary-Keywords-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('Fehler beim Speichern der Summary-Keywords-DB:', error);
+    return false;
+  }
+}
+
 // ROBUSTE FUNKTION: Speichere einzelne Summary in Datenbank (mit Locking & Backup)
 // Diese Funktion verhindert Race Conditions bei parallelen Schreibzugriffen
 async function saveSummaryToDatabase(lectureId, summaryData) {
@@ -4105,6 +4098,240 @@ app.get('/summary-database.json', async (req, res) => {
     res.json(summaryDB);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// SUMMARY-KEYWORDS API
+// ============================================================================
+
+// Funktion: Generiere 1-2 Keywords aus jeder H3-Überschrift mit LLM
+async function generateKeywordsFromHeadings(lectureId, headings) {
+  try {
+    // Filtere nur H3-Überschriften
+    const h3Headings = headings.filter(h => h.level === 'h3');
+    
+    if (h3Headings.length === 0) {
+      console.log(`[SUMMARY-KEYWORDS] ${lectureId}: Keine H3-Überschriften vorhanden`);
+      return [];
+    }
+    
+    const provider = getProviderForTask('summary');
+    
+    // Erstelle Liste der H3-Überschriften für den Prompt
+    const headingsList = h3Headings.map((h, idx) => `${idx + 1}. "${h.text}"`).join('\n');
+    
+    const prompt = `Fasse jede dieser H3-Überschriften aus einem Vortrag von Rudolf Steiner in 1-2 prägnante Schlagworte zusammen.
+
+H3-ÜBERSCHRIFTEN:
+${headingsList}
+
+REGELN:
+1. Pro Überschrift genau 1-2 Schlagworte generieren
+2. Die Schlagworte sollen das Kernthema der Überschrift erfassen
+3. Verwende prägnante, aussagekräftige Begriffe
+4. Bevorzuge anthroposophische/geisteswissenschaftliche Fachbegriffe wo angebracht
+5. Wenn eine Überschrift schon prägnant ist, kannst du sie auch leicht gekürzt übernehmen
+
+AUSGABE als JSON-Array mit Strings (ein String pro Überschrift, 1-2 Worte):
+["Schlagwort 1", "Schlagwort 2", "Schlagwort 3", ...]
+
+Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
+
+    const responseText = await provider.generateCompletion(prompt, 300, 0.3);
+    
+    // Extrahiere JSON aus der Antwort
+    const jsonMatch = responseText.match(/\[[\s\S]*?\]/);
+    if (!jsonMatch) {
+      throw new Error('Keine gültige JSON-Antwort vom LLM erhalten');
+    }
+    
+    const keywords = JSON.parse(jsonMatch[0]);
+    
+    // Validiere: Soll so viele Keywords wie H3-Überschriften geben (oder ähnlich)
+    if (!Array.isArray(keywords)) {
+      throw new Error('Ungültiges Keywords-Array erhalten');
+    }
+    
+    // Wenn zu viele/wenige Keywords, versuche anzupassen
+    if (keywords.length !== h3Headings.length) {
+      console.warn(`[SUMMARY-KEYWORDS] ${lectureId}: ${keywords.length} Keywords für ${h3Headings.length} H3-Überschriften (erwartet gleiche Anzahl)`);
+    }
+    
+    console.log(`[SUMMARY-KEYWORDS] ${lectureId}: ${keywords.length} Keywords aus ${h3Headings.length} H3-Überschriften generiert`);
+    return keywords;
+    
+  } catch (error) {
+    console.error(`[SUMMARY-KEYWORDS] Fehler bei ${lectureId}:`, error.message);
+    throw error;
+  }
+}
+
+// API: Generiere Keywords für alle Summaries (Batch)
+app.post('/api/generate-summary-keywords-batch', async (req, res) => {
+  try {
+    const { startIndex = 0, batchSize = 10 } = req.body;
+    
+    console.log(`[SUMMARY-KEYWORDS-BATCH] Starte Generierung ab Index ${startIndex}, Batch-Größe: ${batchSize}`);
+    
+    // Lade Datenbanken
+    const summaryDB = await loadSummaryDatabase();
+    const summaryKeywordsDB = await loadSummaryKeywordsDatabase();
+    
+    const lectureIds = Object.keys(summaryDB);
+    const totalLectures = lectureIds.length;
+    
+    if (startIndex >= totalLectures) {
+      return res.json({
+        success: true,
+        message: 'Alle Summaries bereits verarbeitet',
+        processed: 0,
+        total: totalLectures,
+        completed: true
+      });
+    }
+    
+    // Verarbeite Batch
+    const batchLectureIds = lectureIds.slice(startIndex, startIndex + batchSize);
+    let processedCount = 0;
+    let errorCount = 0;
+    
+    for (const lectureId of batchLectureIds) {
+      // Skip wenn bereits Keywords vorhanden
+      if (summaryKeywordsDB[lectureId] && summaryKeywordsDB[lectureId].keywords) {
+        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Bereits vorhanden, überspringe`);
+        processedCount++;
+        continue;
+      }
+      
+      const lectureData = summaryDB[lectureId];
+      if (!lectureData || !lectureData.summary) {
+        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Keine Summary vorhanden, überspringe`);
+        errorCount++;
+        continue;
+      }
+      
+      try {
+        const keywords = await generateKeywordsFromSummary(lectureId, lectureData.summary);
+        
+        // Speichere in Datenbank
+        summaryKeywordsDB[lectureId] = {
+          lectureId: lectureId,
+          keywords: keywords,
+          generatedAt: new Date().toISOString()
+        };
+        
+        processedCount++;
+        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: ✓ Keywords generiert`);
+        
+      } catch (error) {
+        console.error(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Fehler -`, error.message);
+        errorCount++;
+      }
+    }
+    
+    // Speichere aktualisierte Datenbank
+    await saveSummaryKeywordsDatabase(summaryKeywordsDB);
+    
+    const nextIndex = startIndex + batchSize;
+    const isCompleted = nextIndex >= totalLectures;
+    
+    console.log(`[SUMMARY-KEYWORDS-BATCH] Batch abgeschlossen: ${processedCount} erfolgreich, ${errorCount} Fehler`);
+    
+    res.json({
+      success: true,
+      processed: processedCount,
+      errors: errorCount,
+      total: totalLectures,
+      nextIndex: nextIndex,
+      completed: isCompleted,
+      progress: Math.round((nextIndex / totalLectures) * 100)
+    });
+    
+  } catch (error) {
+    console.error('[SUMMARY-KEYWORDS-BATCH] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Summary-Keywords-Datenbank abrufen
+app.get('/summary-keywords-database.json', async (req, res) => {
+  try {
+    const summaryKeywordsDB = await loadSummaryKeywordsDatabase();
+    res.json(summaryKeywordsDB);
+  } catch (error) {
+    console.error('Fehler beim Laden der Summary-Keywords-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Generiere Keywords für spezifische Lecture-IDs (für einzelne GA-Bände)
+app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
+  try {
+    const { lectureIds } = req.body;
+    
+    if (!lectureIds || !Array.isArray(lectureIds)) {
+      return res.status(400).json({ error: 'lectureIds Array ist erforderlich' });
+    }
+    
+    console.log(`[SUMMARY-KEYWORDS-LECTURES] Generiere Keywords für ${lectureIds.length} Vorträge`);
+    
+    // Lade Datenbanken
+    const summaryDB = await loadSummaryDatabase();
+    const summaryKeywordsDB = await loadSummaryKeywordsDatabase();
+    
+    let processedCount = 0;
+    let errorCount = 0;
+    
+    for (const lectureId of lectureIds) {
+      // Skip wenn bereits Keywords vorhanden
+      if (summaryKeywordsDB[lectureId] && summaryKeywordsDB[lectureId].keywords) {
+        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Bereits vorhanden, überspringe`);
+        processedCount++;
+        continue;
+      }
+      
+      const lectureData = summaryDB[lectureId];
+      if (!lectureData || !lectureData.summary) {
+        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Keine Summary vorhanden, überspringe`);
+        errorCount++;
+        continue;
+      }
+      
+      try {
+        const keywords = await generateKeywordsFromSummary(lectureId, lectureData.summary);
+        
+        // Speichere in Datenbank
+        summaryKeywordsDB[lectureId] = {
+          lectureId: lectureId,
+          keywords: keywords,
+          generatedAt: new Date().toISOString()
+        };
+        
+        processedCount++;
+        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: ✓ Keywords generiert`);
+        
+      } catch (error) {
+        console.error(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Fehler -`, error.message);
+        errorCount++;
+      }
+    }
+    
+    // Speichere aktualisierte Datenbank
+    await saveSummaryKeywordsDatabase(summaryKeywordsDB);
+    
+    console.log(`[SUMMARY-KEYWORDS-LECTURES] Batch abgeschlossen: ${processedCount} erfolgreich, ${errorCount} Fehler`);
+    
+    res.json({
+      success: true,
+      processed: processedCount,
+      errors: errorCount,
+      total: lectureIds.length
+    });
+    
+  } catch (error) {
+    console.error('[SUMMARY-KEYWORDS-LECTURES] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -4458,10 +4685,12 @@ function loadSeedKeywords() {
 
 // Extrahiere Hauptbegriffe aus Summary
 async function extractKeyTermsFromSummary(summary, existingVocabulary) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('[SUMMARY-TERMS] Kein Claude API Key - Fallback auf Regel-basiert');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('keywords');
+  } catch (error) {
+    console.log('[SUMMARY-TERMS] Kein LLM-Provider verfügbar - Fallback auf Regel-basiert:', error.message);
     // Einfache Regel: Häufigste Substantive mit Großbuchstaben
     const words = summary.split(/\s+/);
     const capitalWords = words.filter(w => w.length > 3 && /^[A-ZÄÖÜ]/.test(w));
@@ -4496,47 +4725,32 @@ Ausgabe als JSON-Array: ["Begriff1", "Begriff2", ...]
 Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 1024,
+      temperature: 0.5
     });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    let responseText = result.content[0].text.trim();
+    
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
     const terms = JSON.parse(responseText);
-    console.log(`[SUMMARY-TERMS] Extrahiert: ${terms.join(', ')}`);
+    console.log(`[SUMMARY-TERMS] ${provider.name} extrahiert: ${terms.join(', ')}`);
     return terms;
     
   } catch (error) {
-    console.error('[SUMMARY-TERMS] Fehler bei Claude API:', error.message);
+    console.error(`[SUMMARY-TERMS] Fehler bei ${provider.name} API:`, error.message);
     return [];
   }
 }
 
 // Generiere Keywords iterativ mit Summary-Kontext und bestehendem Vokabular
 async function generateKeywordsIterativeWithSummary(lectureId, summary, headings, vocabulary, frequencyMap = {}) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('[KEYWORDS-ITER] Kein Claude API Key - verwende Regel-basiert');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('keywords');
+  } catch (error) {
+    console.log('[KEYWORDS-ITER] Kein LLM-Provider verfügbar - verwende Regel-basiert:', error.message);
     return extractKeywordsFromHeadings(headings);
   }
   
@@ -4579,24 +4793,38 @@ NEUE ÜBERSCHRIFTEN (zu verschlagworten):
 ${headingsText}
 
 AUFGABE:
-Erstelle für JEDE Überschrift EIN prägnantes Schlagwort (1-3 Worte).
+Für JEDE Überschrift: WÄHLE DAS PASSENDSTE EXISTIERENDE Keyword aus dem Vokabular.
+NUR wenn KEIN passendes existiert (Confidence < 0.7): Erstelle ein NEUES Keyword.
 
-PRIORITÄTEN:
-1. HÖCHSTE: Begriffe die in der Summary vorkommen
-2. HOHE: Thematisch passende bestehende Keywords
-3. MITTLERE: Häufige bestehende Keywords
-4. NIEDRIGE: Neue Keywords (NUR wenn kein bestehendes passt)
+HIERARCHIE (ZWINGEND BEACHTEN):
+1. 🏆 HÖCHSTE PRIORITÄT: Summary-erwähnte Begriffe aus dem Vokabular
+2. 🥈 HOHE PRIORITÄT: Thematisch passende Vokabular-Begriffe
+3. 🥉 MITTLERE PRIORITÄT: Häufige Vokabular-Begriffe  
+4. ⚠️ LETZTE OPTION: Neues Keyword (NUR bei Confidence < 0.7)
 
-REGELN:
-- BEVORZUGT bestehende Begriffe wiederverwenden
-- Bei Synonymen: Wähle die häufigere/in-Summary-erwähnte Form
-- Korrekte deutsche Großschreibung (Substantive groß)
-- "und", "oder", "der", "die" etc. kleinschreiben
-- Bei hierarchischen Begriffen: Passende Granularität wählen
+STRIKTE REGELN:
+- ✅ IMMER zuerst im Vokabular suchen (auch semantisch ähnliche)
+- ✅ Bei Synonymen: Wähle das HÄUFIGSTE aus dem Vokabular
+- ✅ Bei Varianten (z.B. "Karma", "Karmagesetz"): Wähle den ALLGEMEINEREN Begriff
+- ✅ Korrekte deutsche Großschreibung (Substantive groß)
+- ❌ NICHT neu erfinden, was bereits existiert!
 
-SEMANTIC MATCHING:
-- "Astralleib" ≈ "Astralischer Leib" → VERWENDE das häufigere
-- "Karma und Reinkarnation" vs "Karma" → WÄHLE passende Granularität
+SEMANTIC MATCHING (Beispiele):
+- Überschrift: "Der astralische Leib und seine Funktionen"
+  → Vokabular hat: "Astralleib" (150x), "astralischer Leib" (12x)
+  → WÄHLE: "Astralleib" (häufiger, matchType: "existing-exact", confidence: 0.95)
+  
+- Überschrift: "Wiederverkörperung und Schicksalsausgleich"  
+  → Vokabular hat: "Reinkarnation" (200x), "Karma" (180x)
+  → WÄHLE: "Reinkarnation" (semantisch identisch, matchType: "existing-similar", confidence: 0.9)
+  
+- Überschrift: "Die vier Äther-Arten"
+  → Vokabular hat: "Ätherleib" (100x), "Äther" (45x), "Lebenskräfte" (30x)
+  → WÄHLE: "Ätherleib" (thematisch passend, matchType: "existing-similar", confidence: 0.8)
+  
+- Überschrift: "Spezifisches neues Konzept ohne Vokabular-Match"
+  → Vokabular hat nichts passendes
+  → ERSTELLE NEU: matchType: "new", confidence: 0.6
 
 AUSGABE (JSON):
 [
@@ -4614,31 +4842,14 @@ AUSGABE (JSON):
 Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
 
   try {
-    console.log(`[KEYWORDS-ITER] ${lectureId}: Rufe Claude API auf...`);
+    console.log(`[KEYWORDS-ITER] ${lectureId}: Rufe ${provider.name} API auf...`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 4096,
+      temperature: 0.5
     });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    let responseText = result.content[0].text.trim();
+    
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
     let keywords = JSON.parse(responseText);
@@ -4658,7 +4869,7 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
     return keywords;
 
   } catch (error) {
-    console.error(`[KEYWORDS-ITER] ${lectureId}: Fehler bei Claude API:`, error.message);
+    console.error(`[KEYWORDS-ITER] ${lectureId}: Fehler bei ${provider.name} API:`, error.message);
     return extractKeywordsFromHeadings(headings);
   }
 }
@@ -4676,6 +4887,849 @@ function calculateKeywordFrequency(keywordsDB) {
   }
   
   return frequencyMap;
+}
+
+// ============================================================================
+// NEUE KEYWORD-GENERIERUNG MIT THEMES-KEYWORDS-TEMPLATE
+// ============================================================================
+
+/**
+ * Lädt die Themes-Keywords-Template Datei mit vordefinierten Themen und Keywords
+ */
+async function loadThemesKeywordsTemplate() {
+  try {
+    const data = await fs.readFile(THEMES_KEYWORDS_TEMPLATE_FILE, 'utf8');
+    const template = JSON.parse(data);
+    console.log(`[TEMPLATE] Geladen: ${Object.keys(template.themes).length} Themen, Confidence: ${template.metadata.confidenceThreshold}`);
+    return template;
+  } catch (error) {
+    console.error('[TEMPLATE] Fehler beim Laden:', error.message);
+    throw new Error('Themes-Keywords-Template nicht gefunden. Bitte themes-keywords-template.json erstellen.');
+  }
+}
+
+/**
+ * Extrahiert alle Keywords aus dem Template als flache Liste
+ */
+function extractVocabularyFromTemplate(template) {
+  const vocabulary = new Set();
+  const themeMapping = {}; // Keyword -> Theme
+  const synonymMap = {}; // Kanonischer Begriff -> Synonyme
+  
+  for (const [themeName, themeData] of Object.entries(template.themes)) {
+    // Keywords sammeln
+    themeData.keywords.forEach(kw => {
+      vocabulary.add(kw);
+      themeMapping[kw.toLowerCase().trim()] = themeName;
+    });
+    
+    // Synonym-Gruppen verarbeiten
+    if (themeData.synonymGroups && Array.isArray(themeData.synonymGroups)) {
+      themeData.synonymGroups.forEach(group => {
+        // Erstes Element ist der kanonische Begriff
+        const canonical = group[0];
+        synonymMap[canonical.toLowerCase()] = group.slice(1).map(s => s.toLowerCase());
+      });
+    }
+  }
+  
+  console.log(`[TEMPLATE] Vokabular extrahiert: ${vocabulary.size} Keywords, ${Object.keys(synonymMap).length} Synonym-Gruppen`);
+  
+  return {
+    vocabulary: Array.from(vocabulary),
+    themeMapping,
+    synonymMap
+  };
+}
+
+/**
+ * Extrahiert Hauptbegriffe aus H3 und H4 Überschriften
+ * Statt aus der Summary
+ */
+function extractKeyTermsFromHeadings(headings) {
+  // Filtere H3 und H4
+  const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
+  
+  // Extrahiere wichtige Begriffe (Substantive, Namen)
+  const keyTerms = new Set();
+  
+  relevantHeadings.forEach(heading => {
+    const text = heading.text || '';
+    
+    // Teile in Wörter
+    const words = text.split(/[\s\-–—,;:()]+/);
+    
+    words.forEach(word => {
+      // Filtere kurze Wörter und Artikel
+      if (word.length < 4) return;
+      if (['über', 'durch', 'nach', 'beim', 'sein', 'sind', 'wird', 'werden', 'wurde', 'wurden', 'haben', 'hatte'].includes(word.toLowerCase())) return;
+      
+      // Großgeschriebene Wörter sind oft Substantive/Namen
+      if (word[0] === word[0].toUpperCase()) {
+        keyTerms.add(word);
+      }
+    });
+  });
+  
+  return Array.from(keyTerms);
+}
+
+/**
+ * NEUE HAUPT-FUNKTION: Generiere Keywords aus H3/H4 mit Template-Vokabular
+ * Verwendet die vordefinierte Themen-Keywords-Struktur
+ */
+async function generateKeywordsFromHeadingsWithTemplate(lectureId, headings, template, existingVocabulary = [], frequencyMap = {}, preferredProvider = null) {
+  // Hole Provider - DIREKT wenn preferredProvider gesetzt
+  let provider;
+  
+  if (preferredProvider) {
+    // Nutzer hat explizit einen Provider gewählt - verwende NUR diesen
+    const { createProvider } = require('./llm-providers');
+    try {
+      provider = createProvider(preferredProvider);
+      if (!provider.isAvailable()) {
+        throw new Error(`${preferredProvider} nicht verfügbar (kein API-Key)`);
+      }
+      console.log(`[KEYWORDS-NEW] ${lectureId}: Verwende explizit gewählten Provider: ${provider.name}`);
+    } catch (error) {
+      console.error(`[KEYWORDS-NEW] ${lectureId}: Gewählter Provider ${preferredProvider} nicht verfügbar:`, error.message);
+      return extractKeywordsFromHeadings(headings);
+    }
+  } else {
+    // Kein expliziter Provider - verwende automatischen Fallback
+    const { getAllAvailableProviders } = require('./llm-providers');
+    const availableProviders = getAllAvailableProviders('keywords');
+    
+    if (availableProviders.length === 0) {
+      console.log('[KEYWORDS-NEW] Kein LLM-Provider verfügbar - verwende Regel-basiert');
+      return extractKeywordsFromHeadings(headings);
+    }
+    
+    provider = availableProviders[0];
+    console.log(`[KEYWORDS-NEW] ${lectureId}: Auto-Auswahl: ${provider.name}`);
+  }
+  
+  // Extrahiere Template-Vokabular
+  const { vocabulary: templateVocab, themeMapping, synonymMap } = extractVocabularyFromTemplate(template);
+  
+  // Kombiniere Template-Vokabular mit existierenden Keywords
+  const fullVocabulary = [...new Set([...templateVocab, ...existingVocabulary])];
+  
+  // Extrahiere Hauptbegriffe aus Überschriften
+  const headingKeyTerms = extractKeyTermsFromHeadings(headings);
+  
+  // Finde thematisch passende Keywords aus Vokabular
+  const relatedKeywords = fullVocabulary.filter(kw => 
+    headingKeyTerms.some(term => 
+      kw.toLowerCase().includes(term.toLowerCase()) || 
+      term.toLowerCase().includes(kw.toLowerCase())
+    )
+  ).slice(0, 50);
+  
+  // Häufigste Keywords (Top 100)
+  const sortedByFreq = Object.entries(frequencyMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(([term]) => term)
+    .slice(0, 100);
+  
+  // Formatiere Überschriften (nur H3 und H4)
+  const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
+  const headingsText = relevantHeadings
+    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .join('\n');
+  
+  // Formatiere Synonym-Gruppen für Prompt
+  const synonymInfo = Object.entries(synonymMap)
+    .map(([canonical, syns]) => `"${canonical}" (bevorzugt) = ${syns.join(', ')}`)
+    .join('\n');
+  
+  const confidenceThreshold = template.metadata.confidenceThreshold || 0.6;
+  
+  // Erstelle vollständige Vokabular-Liste (alle Template-Keywords + Top-Häufige)
+  const templateKeywordsOnly = Array.from(templateVocab);
+  const priorityVocab = [...new Set([...relatedKeywords, ...sortedByFreq.slice(0, 100)])];
+  
+  const prompt = `STRIKTE VERSCHLAGWORTUNG - Verwende NUR Begriffe aus dem VOKABULAR!
+
+⚠️ ZWINGEND: Wähle für JEDE Überschrift ein Keyword AUS DEM VOKABULAR (unten).
+⚠️ NUR wenn KEIN passender Begriff existiert (confidence < ${confidenceThreshold}): Erstelle neues Keyword.
+
+TEMPLATE-VOKABULAR (${templateKeywordsOnly.length} vordefinierte Begriffe):
+${templateKeywordsOnly.slice(0, 200).join(', ')}
+
+ZUSÄTZLICH VERFÜGBAR (häufig verwendet):
+${priorityVocab.slice(0, 100).join(', ')}
+
+SYNONYME (verwende IMMER den kanonischen Begriff):
+${synonymInfo || 'keine'}
+
+ÜBERSCHRIFTEN (H3/H4):
+${headingsText}
+
+VORGEHEN FÜR JEDE ÜBERSCHRIFT:
+1. Kern-Konzept identifizieren (z.B. "Geisteswissenschaft", "Reinkarnation", "Kant")
+2. Im VOKABULAR oben suchen (exakt, Wortstamm, oder Synonym)
+3. Wenn gefunden → verwenden (confidence 0.8-1.0)
+4. Wenn NICHT gefunden → NUR DANN neues Keyword (confidence < ${confidenceThreshold})
+5. Füllwörter entfernen: "Wesen", "Problem", "Lehre", "Stellung", "Bedeutung"
+6. Adjektive entfernen: "griechischen", "suggestive", "materialistische"
+7. ZIEL: 1 Wort (selten 2, maximal 3)
+
+KRITISCHE BEISPIELE (GENAU SO):
+
+KRITISCHE REGEL - NUR EIN WORT ODER KOMPAKTE BEGRIFFE:
+
+❌ FALSCH: "Wesen Geisteswissenschaft" (Füllwort + falsches Format)
+✅ RICHTIG: "Geisteswissenschaft" (nur 1 Wort)
+
+❌ FALSCH: "suggestive Macht Naturwissenschaft" (viel zu lang)
+✅ RICHTIG: "Naturwissenschaft" (nur 1 Wort)
+
+❌ FALSCH: "Methoden geisteswissenschaftlichen Forschung" (zu lang + falsche Grammatik)
+✅ RICHTIG: "Geisteswissenschaftliche Forschung" (kompakt, korrekt)
+
+❌ FALSCH: "erwachende Bedürfnis nach Geisteswissenschaft" (viel zu lang)
+✅ RICHTIG: "Erkenntnisbedürfnisse" (1 Wort)
+
+❌ FALSCH: "Materialistische geisteswissenschaftliche Betrachtung Leben und" (viel zu lang)
+✅ RICHTIG: "Materialistische Betrachtung" (2 Worte, kompakt)
+
+❌ FALSCH: "geisteswissenschaftliche Analogie biologischen Grundsatz" (zu lang + falsch)
+✅ RICHTIG: "biologischer Grundsatz" (2 Worte, korrekt)
+
+❌ FALSCH: "Lebensprozess Wechselwirkung Leben und Tod" (zu lang)
+✅ RICHTIG: "Leben und Tod" (kompakt, korrekt)
+
+❌ FALSCH: "Problem Erinnerung frühere Leben" (zu lang)
+✅ RICHTIG: "Erinnerung an frühere Leben" (kompakt, grammatisch korrekt)
+
+❌ FALSCH: "ewige Natur menschlichen Wesenskerns" (zu lang + falsch)
+✅ RICHTIG: "Wesenskern" (1 Wort, oder "Ewigkeit")
+
+❌ FALSCH: "Unterscheidung zwischen Seele und Geist" (zu lang)
+✅ RICHTIG: "Seele und Geist" (kompakt)
+
+❌ FALSCH: "viergliederige Wesenheit Menschen" (zu lang + falsch)
+✅ RICHTIG: "Viergliederigkeit Mensch" (kompakt, korrekt)
+
+❌ FALSCH: "Geist Tierreich" (falsche Grammatik, unklar)
+✅ RICHTIG: "Tierreich" (1 Wort)
+
+❌ FALSCH: "seelische Erleben Tier und Mensch" (falsche Grammatik)
+✅ RICHTIG: "Tier und Mensch" (kompakt)
+
+❌ FALSCH: "Emanzipation menschlichen Seele" (falsche Grammatik)
+✅ RICHTIG: "Emanzipation der Seele" (grammatisch korrekt)
+
+❌ FALSCH: "Neue Erkenntnisbedürfnisse Gegenwart" (zu lang)
+✅ RICHTIG: "Erkenntnisbedürfnisse" (1 Wort)
+
+❌ FALSCH: "Geisteswissenschaft und Monismus" (wird getrennt)
+✅ RICHTIG: "Monismus" (1 Wort, "Geisteswissenschaft" separat wenn nötig)
+
+❌ FALSCH: "Widerstand und Widerlegungen" (redundant)
+✅ RICHTIG: "Widerlegungen" (1 Wort)
+
+❌ FALSCH: "Theosophische Methodik und Zielsetzung" (zu lang)
+✅ RICHTIG: "Theosophische Methodik" (kompakt)
+
+❌ FALSCH: "Dreigliederung Seele" (ohne Artikel klingt falsch)
+✅ RICHTIG: "Dreigliederung Seele" (akzeptabel, kompakt)
+
+❌ FALSCH: "Ursprung individuellen Seele" (grammatisch falsch)
+✅ RICHTIG: "Ursprung der Seele" (grammatisch korrekt)
+
+❌ FALSCH: "Aufgabe Theosophischen Gesellschaft" (falsch)
+✅ RICHTIG: "Theosophische Gesellschaft" (korrekt)
+
+WEITERE BEISPIELE AUS GA060:
+
+❌ FALSCH: "Wesen Geisteswissenschaft"
+✅ RICHTIG: "Geisteswissenschaft"
+
+❌ FALSCH: "suggestive Macht Naturwissenschaft"
+✅ RICHTIG: "Naturwissenschaft"
+
+❌ FALSCH: "Methoden geisteswissenschaftlichen Forschung"
+✅ RICHTIG: "Geisteswissenschaftliche Forschung"
+
+❌ FALSCH: "Materialistische geisteswissenschaftliche Betrachtung Leben und"
+✅ RICHTIG: "Materialistische Betrachtung"
+
+❌ FALSCH: "viergliederige Wesenheit Menschen"
+✅ RICHTIG: "Viergliederigkeit Mensch"
+
+❌ FALSCH: "Emanzipation menschlichen Seele"
+✅ RICHTIG: "Emanzipation der Seele"
+
+STRIKTE REGELN FÜR KEYWORD-BILDUNG:
+1. ✅ BEVORZUGE 1 WORT (z.B. "Karma", "Christentum", "Parmenides")
+2. ✅ MAXIMAL 2-3 Worte (z.B. "Ich-Entwicklung", "deutscher Idealismus")
+3. ❌ ENTFERNE Füllwörter: "Problem", "Lehre", "Stellung", "Wendung zu"
+4. ❌ ENTFERNE überflüssige Adjektive: "griechischen", "individuellen"
+5. ❌ ENTFERNE Artikel: "die", "der", "das", "dem", "den"
+6. ✅ Bei Personen: Nur Name (z.B. "Kant", "Platon", "Aristoteles")
+7. ✅ Bei Personen mit Kontext: "Person: Konzept" (z.B. "Platon: Ideenwelt")
+8. ✅ Verwende Substantive (keine ganzen Phrasen)
+
+KEYWORD-LÄNGE: Bevorzuge 1 Wort. Maximal 3 Worte NUR wenn unbedingt nötig!
+
+ZWINGEND BEFOLGEN:
+1. ✅ Suche ZUERST im Vokabular (oben) - verwende exakte/ähnliche Begriffe
+2. ✅ ZIEL: 1 Wort (z.B. "Karma", "Parmenides", "Christentum")
+3. ✅ Maximal 2-3 Worte bei Komposita (z.B. "Leben und Tod", "deutscher Idealismus")
+4. ❌ Entferne Füllwörter: "Wesen", "Problem", "Lehre", "Stellung", "Aufgabe"
+5. ❌ Entferne Adjektive: "griechischen", "suggestive", "materialistische"
+6. ❌ NUR neue Keywords wenn im Vokabular NICHTS passt (confidence < ${confidenceThreshold})
+7. ✅ Korrekte Grammatik (z.B. "biologischer Grundsatz" nicht "biologischen Grundsatz")
+
+BEISPIELE (KORREKTE VERSCHLAGWORTUNG):
+
+Überschrift: "Das Problem der Unsterblichkeitsfrage"
+→ Keyword: "Unsterblichkeitsfrage" (NICHT: "Problem Unsterblichkeitsfrage")
+
+Überschrift: "Die Ewige und die Vergängliche Natur des Menschen"
+→ Keyword: "Vergänglichkeit" (NICHT: "Ewige Vergängliche Natur")
+
+Überschrift: "Die Entwicklung der Menschenseele"
+→ Keyword: "Seelenentwicklung" (NICHT: "Menschenseele Entwicklung")
+
+Überschrift: "Die Lehre von der Reinkarnation"
+→ Keyword: "Reinkarnation" (NICHT: "Lehre Reinkarnation")
+
+Überschrift: "Die Stellung der Theosophie zwischen Wissenschaft und Religion"
+→ Keyword: "Theosophie" (NICHT: "Stellung Theosophie zwischen...")
+
+Überschrift: "Historische Parallelen zur zukünftigen Entwicklung"
+→ Keyword: "Zukünftige Entwicklung" (NICHT: "Historische Parallelen...")
+
+Überschrift: "Die griechischen Naturphilosophen"
+→ Keyword: "Naturphilosophen" (NICHT: "griechischen Naturphilosophen")
+
+Überschrift: "Parmenides und seine Kritik der Sinnenwelt"
+→ Keyword: "Parmenides" (NICHT: "Parmenides Kritik Sinnenwelt")
+
+Überschrift: "Die Sophistik und die Wendung zum Menschen"
+→ Keyword: "Sophistik" (NICHT: "Sophistik Wendung Menschen")
+
+Überschrift: "Platon und die Welt der Ideen"
+→ Keywords: "Platon", "Ideenwelt" (NICHT: "Platon Ideenwelt")
+
+Überschrift: "Die hellenistischen Schulen der Philosophie"
+→ Keyword: "Hellenismus" (NICHT: "hellenistischen Schulen")
+
+Überschrift: "Das Christentum und der Glaube"
+→ Keyword: "Christentum" (NICHT: "Christentum Glaube")
+
+Überschrift: "Kant und die Kritik der reinen Vernunft"
+→ Keyword: "Kant" (NICHT: "Kant Kritik Vernunft")
+
+Überschrift: "Der deutsche Idealismus von Fichte bis Hegel"
+→ Keyword: "deutscher Idealismus" (NICHT: "deutsche Idealismus")
+
+WICHTIG:
+- 95% der Keywords MÜSSEN aus dem VOKABULAR stammen!
+- Nur 5% dürfen neu sein (wenn wirklich nichts passt)
+- matchType: "exact" (im Vokabular), "wordstem" (ähnlich), "synonym", "new" (selten!)
+- confidence: 0.9-1.0 wenn im Vokabular, <${confidenceThreshold} für neu
+
+JSON (NUR Array, kein Markdown, kein Text):
+[{"term":"Schlagwort","index":"^abc","heading":"...","level":"h3","matchType":"exact","confidence":0.95}]`;
+
+  try {
+    console.log(`[KEYWORDS-NEW] ${lectureId}: Starte Generierung mit ${provider.name}...`);
+    
+    // Verwende DIREKT den ausgewählten Provider (kein Fallback)
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 4096,
+      temperature: 0.2  // SEHR niedrig für strikte Befolgung
+    });
+    
+    const usedProvider = provider.name;
+    
+    console.log(`[KEYWORDS-NEW] ${lectureId}: ✓ Antwort von ${usedProvider} erhalten`);
+    
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    
+    let keywords = JSON.parse(responseText);
+    
+    // VALIDIERUNG: Filtere zu lange Keywords und bereinige
+    const validatedKeywords = [];
+    const rejectedKeywords = [];
+    const cleanedKeywords = [];
+    
+    keywords.forEach(kw => {
+      let term = kw.term.trim();
+      const wordCount = term.split(/\s+/).length;
+      
+      // AUTOMATISCHE BEREINIGUNG - VIEL AGGRESSIVER
+      const originalTerm = term;
+      
+      // 1. Entferne häufige Füllwörter (am Anfang ODER in der Mitte)
+      const fillWords = [
+        'Problem', 'Lehre', 'Stellung', 'Wendung', 'Bedeutung', 'Wesen', 'Begriff', 'Frage',
+        'Aufgabe', 'Prozess', 'Natur', 'Macht', 'Bedürfnis', 'Wesenheit'
+      ];
+      fillWords.forEach(fw => {
+        // Am Anfang
+        term = term.replace(new RegExp(`^${fw}\\s+`, 'i'), '');
+        // In der Mitte (ohne Kontext)
+        if (term.split(/\s+/).length > 3) {
+          term = term.replace(new RegExp(`\\s+${fw}\\s+`, 'i'), ' ');
+        }
+      });
+      
+      // 2. Entferne Adjektive am Anfang
+      const adjectives = [
+        'griechischen', 'individuellen', 'historische', 'hellenistischen', 'neuzeitlichen',
+        'suggestive', 'erwachende', 'ewige', 'materialistische', 'geisteswissenschaftliche',
+        'viergliederige', 'menschlichen', 'seelische'
+      ];
+      adjectives.forEach(adj => {
+        term = term.replace(new RegExp(`^${adj}\\s+`, 'i'), '');
+      });
+      
+      // 3. Repariere häufige grammatische Fehler
+      term = term.replace(/geisteswissenschaftlichen Forschung/i, 'Geisteswissenschaftliche Forschung');
+      term = term.replace(/biologischen Grundsatz/i, 'biologischer Grundsatz');
+      term = term.replace(/menschlichen Wesenskern/i, 'Wesenskern');
+      term = term.replace(/menschlichen Seele/i, 'der Seele');
+      term = term.replace(/Viergliederige Wesenheit Menschen/i, 'Viergliederigkeit Mensch');
+      
+      // 4. Entferne unvollständige Phrasen (endet mit "und", "oder", "zwischen")
+      term = term.replace(/\s+(und|oder|zwischen|nach|zu)\s*$/i, '');
+      
+      // 5. Kürze wenn immer noch zu lang - suche im Vokabular
+      if (term.split(/\s+/).length > 3) {
+        const words = term.split(/\s+/);
+        
+        // Strategie A: Letztes Wort (oft das Hauptsubstantiv)
+        const lastWord = words[words.length - 1];
+        if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
+          console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${lastWord}" (letztes Wort)`);
+          term = lastWord;
+        }
+        // Strategie B: Letzte 2 Worte
+        else if (words.length >= 2) {
+          const lastTwo = words.slice(-2).join(' ');
+          if (fullVocabulary.some(v => v.toLowerCase() === lastTwo.toLowerCase())) {
+            console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${lastTwo}" (letzte 2 Worte)`);
+            term = lastTwo;
+          }
+          // Strategie C: Erste 2 Worte
+          else {
+            const firstTwo = words.slice(0, 2).join(' ');
+            if (fullVocabulary.some(v => v.toLowerCase() === firstTwo.toLowerCase())) {
+              console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${firstTwo}" (erste 2 Worte)`);
+              term = firstTwo;
+            }
+          }
+        }
+      }
+      
+      // Log wenn bereinigt
+      if (term !== originalTerm) {
+        console.log(`[KEYWORDS-CLEAN] ${lectureId}: "${originalTerm}" → "${term}"`);
+        cleanedKeywords.push({ old: originalTerm, new: term });
+      }
+      
+      // Prüfe Länge nach Bereinigung - NOCH STRENGER
+      const finalWordCount = term.split(/\s+/).length;
+      
+      if (finalWordCount > 3) {
+        // Immer noch zu lang - aggressiv kürzen
+        const words = term.split(/\s+/);
+        let found = false;
+        
+        // Strategie 1: Letztes Wort im Vokabular?
+        const lastWord = words[words.length - 1];
+        if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
+          console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${lastWord}"`);
+          term = lastWord;
+          found = true;
+        }
+        // Strategie 2: Letzte 2 Worte im Vokabular?
+        else if (words.length >= 2) {
+          const lastTwo = words.slice(-2).join(' ');
+          if (fullVocabulary.some(v => v.toLowerCase() === lastTwo.toLowerCase())) {
+            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${lastTwo}"`);
+            term = lastTwo;
+            found = true;
+          }
+        }
+        // Strategie 3: Erste 2 Worte im Vokabular?
+        if (!found && words.length >= 2) {
+          const firstTwo = words.slice(0, 2).join(' ');
+          if (fullVocabulary.some(v => v.toLowerCase() === firstTwo.toLowerCase())) {
+            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${firstTwo}"`);
+            term = firstTwo;
+            found = true;
+          }
+        }
+        // Strategie 4: Hauptsubstantiv finden (Wörter mit Großbuchstaben am Anfang)
+        if (!found) {
+          const capitalWords = words.filter(w => /^[A-ZÄÖÜ]/.test(w));
+          if (capitalWords.length === 1) {
+            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${capitalWords[0]}" (Hauptsubstantiv)`);
+            term = capitalWords[0];
+            found = true;
+          } else if (capitalWords.length >= 2) {
+            const twoCapitals = capitalWords.slice(0, 2).join(' ');
+            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${twoCapitals}" (2 Substantive)`);
+            term = twoCapitals;
+            found = true;
+          }
+        }
+        // Strategie 5: Verwerfen wenn nichts funktioniert
+        if (!found) {
+          console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Verworfen (zu lang, nicht im Vokabular): "${term}"`);
+          rejectedKeywords.push(originalTerm);
+          return; // Nicht hinzufügen
+        }
+      }
+      
+      // STRIKTE VOKABULAR-VALIDIERUNG
+      const existsInTemplate = templateVocab.some(v => v.toLowerCase() === term.toLowerCase());
+      const existsInFull = fullVocabulary.some(v => v.toLowerCase() === term.toLowerCase());
+      
+      // Prüfe ob Keyword aus Template stammt oder legitim neu ist
+      if (existsInTemplate) {
+        // Perfekt - aus Template
+        validatedKeywords.push({
+          ...kw,
+          term: term,
+          matchType: kw.matchType === 'new' ? 'exact' : kw.matchType, // Korrigiere matchType
+          confidence: Math.max(kw.confidence || 0.9, 0.9) // Mindestens 0.9
+        });
+      } else if (existsInFull) {
+        // Aus erweiterten Vokabular (existingVocabulary)
+        validatedKeywords.push({
+          ...kw,
+          term: term
+        });
+      } else if (kw.matchType === 'new' && (kw.confidence || 0) < confidenceThreshold) {
+        // Legitim neues Keyword (niedrige Confidence)
+        validatedKeywords.push({
+          ...kw,
+          term: term
+        });
+      } else {
+        // Nicht im Vokabular und nicht legitim neu → verwerfen
+        console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Verworfen (nicht im Vokabular): "${term}" (matchType: ${kw.matchType}, confidence: ${kw.confidence})`);
+        rejectedKeywords.push(originalTerm);
+      }
+    });
+    
+    if (rejectedKeywords.length > 0) {
+      console.log(`[KEYWORDS-VALIDATE] ${lectureId}: ${rejectedKeywords.length} Keywords verworfen`);
+    }
+    if (cleanedKeywords.length > 0) {
+      console.log(`[KEYWORDS-CLEAN] ${lectureId}: ${cleanedKeywords.length} Keywords bereinigt`);
+    }
+    
+    // Füge Themen-Zuordnung hinzu basierend auf themeMapping
+    const finalKeywords = validatedKeywords.map(kw => {
+      const theme = themeMapping[kw.term.toLowerCase().trim()];
+      return {
+        ...kw,
+        theme: theme || null
+      };
+    });
+    
+    // Statistiken
+    const newKws = finalKeywords.filter(k => k.matchType === 'new');
+    const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
+    const synKws = finalKeywords.filter(k => k.matchType === 'synonym');
+    
+    console.log(`[KEYWORDS-NEW] ${lectureId}: ✓ ${finalKeywords.length} Keywords generiert (${rejectedKeywords.length} verworfen)`);
+    console.log(`[KEYWORDS-NEW]   Provider: ${usedProvider}, Exact: ${exactKws.length}, Synonym: ${synKws.length}, New: ${newKws.length}`);
+    
+    return finalKeywords;
+
+  } catch (error) {
+    console.error(`[KEYWORDS-NEW] ${lectureId}: Alle Provider fehlgeschlagen:`, error.message);
+    console.log(`[KEYWORDS-NEW] ${lectureId}: Fallback auf regel-basierte Extraktion`);
+    return extractKeywordsFromHeadings(headings);
+  }
+}
+
+/**
+ * OPTIMIERTE VERSION: Generiere Keywords OHNE Template neu zu laden
+ * Provider wird als Parameter übergeben (bereits initialisiert)
+ */
+async function generateKeywordsFromHeadingsWithTemplateOptimized(lectureId, headings, template, existingVocabulary = [], frequencyMap = {}, provider = null) {
+  // Verwende übergebenen Provider (bereits initialisiert) oder erstelle neuen
+  if (!provider) {
+    // Fallback wenn kein Provider übergeben wurde
+    const { getAllAvailableProviders } = require('./llm-providers');
+    const availableProviders = getAllAvailableProviders('keywords');
+    
+    if (availableProviders.length === 0) {
+      console.log('[KEYWORDS-OPT] Kein Provider verfügbar - verwende Regel-basiert');
+      return extractKeywordsFromHeadings(headings);
+    }
+    
+    provider = availableProviders[0];
+  }
+  
+  // Extrahiere Template-Vokabular (nur einmal pro Batch wäre besser, aber ok)
+  const { vocabulary: templateVocab, themeMapping, synonymMap } = extractVocabularyFromTemplate(template);
+  
+  // Kombiniere Template-Vokabular mit existierenden Keywords
+  const fullVocabulary = [...new Set([...templateVocab, ...existingVocabulary])];
+  
+  // Extrahiere Hauptbegriffe aus Überschriften
+  const headingKeyTerms = extractKeyTermsFromHeadings(headings);
+  
+  // Finde thematisch passende Keywords aus Vokabular
+  const relatedKeywords = fullVocabulary.filter(kw => 
+    headingKeyTerms.some(term => 
+      kw.toLowerCase().includes(term.toLowerCase()) || 
+      term.toLowerCase().includes(kw.toLowerCase())
+    )
+  ).slice(0, 50);
+  
+  // Häufigste Keywords (Top 100)
+  const sortedByFreq = Object.entries(frequencyMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(([term]) => term)
+    .slice(0, 100);
+  
+  // Formatiere Überschriften (nur H3 und H4)
+  const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
+  const headingsText = relevantHeadings
+    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .join('\n');
+  
+  // Formatiere Synonym-Gruppen für Prompt
+  const synonymInfo = Object.entries(synonymMap)
+    .map(([canonical, syns]) => `"${canonical}" (bevorzugt) = ${syns.join(', ')}`)
+    .join('\n');
+  
+  const confidenceThreshold = template.metadata.confidenceThreshold || 0.6;
+  
+  // Erstelle vollständige Vokabular-Liste
+  const templateKeywordsOnly = Array.from(templateVocab);
+  const priorityVocab = [...new Set([...relatedKeywords, ...sortedByFreq.slice(0, 100)])];
+  
+  // Verwende den GLEICHEN Prompt wie in der Hauptfunktion
+  const prompt = `STRIKTE VERSCHLAGWORTUNG - Verwende NUR Begriffe aus dem VOKABULAR!
+
+⚠️ ZWINGEND: Wähle für JEDE Überschrift ein Keyword AUS DEM VOKABULAR (unten).
+⚠️ NUR wenn KEIN passender Begriff existiert (confidence < ${confidenceThreshold}): Erstelle neues Keyword.
+
+TEMPLATE-VOKABULAR (${templateKeywordsOnly.length} vordefinierte Begriffe):
+${templateKeywordsOnly.slice(0, 200).join(', ')}
+
+ZUSÄTZLICH VERFÜGBAR (häufig verwendet):
+${priorityVocab.slice(0, 100).join(', ')}
+
+SYNONYME (verwende IMMER den kanonischen Begriff):
+${synonymInfo || 'keine'}
+
+ÜBERSCHRIFTEN (H3/H4):
+${headingsText}
+
+VORGEHEN FÜR JEDE ÜBERSCHRIFT:
+1. Kern-Konzept identifizieren (z.B. "Geisteswissenschaft", "Reinkarnation", "Kant")
+2. Im VOKABULAR oben suchen (exakt, Wortstamm, oder Synonym)
+3. Wenn gefunden → verwenden (confidence 0.8-1.0)
+4. Wenn NICHT gefunden → NUR DANN neues Keyword (confidence < ${confidenceThreshold})
+5. Füllwörter entfernen: "Wesen", "Problem", "Lehre", "Stellung", "Bedeutung"
+6. Adjektive entfernen: "griechischen", "suggestive", "materialistische"
+7. ZIEL: 1 Wort (selten 2, maximal 3)
+
+ZWINGEND BEFOLGEN:
+1. ✅ Suche ZUERST im Vokabular (oben) - verwende exakte/ähnliche Begriffe
+2. ✅ ZIEL: 1 Wort (z.B. "Karma", "Parmenides", "Christentum")
+3. ✅ Maximal 2-3 Worte bei Komposita (z.B. "Leben und Tod", "deutscher Idealismus")
+4. ❌ Entferne Füllwörter: "Wesen", "Problem", "Lehre", "Stellung", "Aufgabe"
+5. ❌ Entferne Adjektive: "griechischen", "suggestive", "materialistische"
+6. ❌ NUR neue Keywords wenn im Vokabular NICHTS passt (confidence < ${confidenceThreshold})
+7. ✅ Korrekte Grammatik (z.B. "biologischer Grundsatz" nicht "biologischen Grundsatz")
+
+WICHTIG:
+- 95% der Keywords MÜSSEN aus dem VOKABULAR stammen!
+- Nur 5% dürfen neu sein (wenn wirklich nichts passt)
+- matchType: "exact" (im Vokabular), "wordstem" (ähnlich), "synonym", "new" (selten!)
+- confidence: 0.9-1.0 wenn im Vokabular, <${confidenceThreshold} für neu
+
+JSON (NUR Array, kein Markdown, kein Text):
+[{"term":"Schlagwort","index":"^abc","heading":"...","level":"h3","matchType":"exact","confidence":0.95}]`;
+
+  try {
+    // Verwende DIREKT den übergebenen Provider (KEINE neue Initialisierung)
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 4096,
+      temperature: 0.2
+    });
+    
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    let keywords = JSON.parse(responseText);
+    
+    // Validierung und Bereinigung (gleicher Code wie in Hauptfunktion)
+    const validatedKeywords = [];
+    const rejectedKeywords = [];
+    const cleanedKeywords = [];
+    
+    keywords.forEach(kw => {
+      let term = kw.term.trim();
+      const originalTerm = term;
+      
+      // Automatische Bereinigung
+      const fillWords = [
+        'Problem', 'Lehre', 'Stellung', 'Wendung', 'Bedeutung', 'Wesen', 'Begriff', 'Frage',
+        'Aufgabe', 'Prozess', 'Natur', 'Macht', 'Bedürfnis', 'Wesenheit'
+      ];
+      fillWords.forEach(fw => {
+        term = term.replace(new RegExp(`^${fw}\\s+`, 'i'), '');
+        if (term.split(/\s+/).length > 3) {
+          term = term.replace(new RegExp(`\\s+${fw}\\s+`, 'i'), ' ');
+        }
+      });
+      
+      const adjectives = [
+        'griechischen', 'individuellen', 'historische', 'hellenistischen', 'neuzeitlichen',
+        'suggestive', 'erwachende', 'ewige', 'materialistische', 'geisteswissenschaftliche',
+        'viergliederige', 'menschlichen', 'seelische'
+      ];
+      adjectives.forEach(adj => {
+        term = term.replace(new RegExp(`^${adj}\\s+`, 'i'), '');
+      });
+      
+      term = term.replace(/geisteswissenschaftlichen Forschung/i, 'Geisteswissenschaftliche Forschung');
+      term = term.replace(/biologischen Grundsatz/i, 'biologischer Grundsatz');
+      term = term.replace(/menschlichen Wesenskern/i, 'Wesenskern');
+      term = term.replace(/menschlichen Seele/i, 'der Seele');
+      term = term.replace(/Viergliederige Wesenheit Menschen/i, 'Viergliederigkeit Mensch');
+      term = term.replace(/\s+(und|oder|zwischen|nach|zu)\s*$/i, '');
+      
+      // Weitere Bereinigung bei zu langen Keywords
+      if (term.split(/\s+/).length > 3) {
+        const words = term.split(/\s+/);
+        const lastWord = words[words.length - 1];
+        if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
+          term = lastWord;
+        } else if (words.length >= 2) {
+          const lastTwo = words.slice(-2).join(' ');
+          if (fullVocabulary.some(v => v.toLowerCase() === lastTwo.toLowerCase())) {
+            term = lastTwo;
+          }
+        }
+      }
+      
+      if (term !== originalTerm) {
+        cleanedKeywords.push({ old: originalTerm, new: term });
+      }
+      
+      const finalWordCount = term.split(/\s+/).length;
+      if (finalWordCount > 3) {
+        const words = term.split(/\s+/);
+        const capitalWords = words.filter(w => /^[A-ZÄÖÜ]/.test(w));
+        if (capitalWords.length <= 2 && capitalWords.length > 0) {
+          term = capitalWords.slice(0, 2).join(' ');
+        } else if (words.length >= 2) {
+          term = words.slice(0, 2).join(' ');
+        }
+      }
+      
+      // Vokabular-Validierung
+      const existsInTemplate = templateVocab.some(v => v.toLowerCase() === term.toLowerCase());
+      const existsInFull = fullVocabulary.some(v => v.toLowerCase() === term.toLowerCase());
+      
+      if (existsInTemplate || existsInFull) {
+        validatedKeywords.push({ ...kw, term: term });
+      } else if (kw.matchType === 'new' && (kw.confidence || 0) < confidenceThreshold) {
+        validatedKeywords.push({ ...kw, term: term });
+      } else if (finalWordCount <= 3) {
+        validatedKeywords.push({ ...kw, term: term, matchType: 'new', confidence: 0.5 });
+      } else {
+        rejectedKeywords.push(originalTerm);
+      }
+    });
+    
+    // Themen-Zuordnung
+    const finalKeywords = validatedKeywords.map(kw => {
+      const theme = themeMapping[kw.term.toLowerCase().trim()];
+      return { ...kw, theme: theme || null };
+    });
+    
+    const newKws = finalKeywords.filter(k => k.matchType === 'new');
+    const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
+    
+    console.log(`[KEYWORDS-OPT] ${lectureId}: ✓ ${finalKeywords.length} Keywords (${rejectedKeywords.length} verworfen, ${cleanedKeywords.length} bereinigt)`);
+    
+    return finalKeywords;
+    
+  } catch (error) {
+    console.error(`[KEYWORDS-OPT] ${lectureId}: Fehler:`, error.message);
+    return extractKeywordsFromHeadings(headings);
+  }
+}
+
+/**
+ * Synonym-Konsolidierung: Findet und merged ähnliche Keywords
+ */
+async function consolidateSynonymsInKeywords(keywordsDB, synonymMap) {
+  console.log('[SYNONYM-CONSOLIDATION] Starte Konsolidierung...');
+  
+  let consolidatedCount = 0;
+  
+  for (const [lectureId, data] of Object.entries(keywordsDB)) {
+    if (!data.keywords || !Array.isArray(data.keywords)) continue;
+    
+    data.keywords.forEach(kw => {
+      const term = kw.term.toLowerCase().trim();
+      
+      // Prüfe ob dieser Begriff ein Synonym ist
+      for (const [canonical, synonyms] of Object.entries(synonymMap)) {
+        if (synonyms.map(s => s.toLowerCase()).includes(term)) {
+          // Ersetze durch kanonischen Begriff
+          const originalTerm = kw.term;
+          kw.term = canonical.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          
+          if (originalTerm !== kw.term) {
+            console.log(`[SYNONYM-CONSOLIDATION] ${lectureId}: "${originalTerm}" → "${kw.term}"`);
+            consolidatedCount++;
+          }
+        }
+      }
+    });
+  }
+  
+  console.log(`[SYNONYM-CONSOLIDATION] ✓ ${consolidatedCount} Keywords konsolidiert`);
+  
+  return consolidatedCount;
+}
+
+/**
+ * Aktualisiert themes-database.json basierend auf Template
+ * Frontend erwartet diese Struktur für Timeline-Tab
+ */
+async function updateThemesDatabaseFromTemplate(template) {
+  console.log('[THEMES-UPDATE] Aktualisiere themes-database.json aus Template...');
+  
+  try {
+    // Konvertiere Template-Struktur in themes-database Format
+    const themesDB = {};
+    
+    for (const [themeName, themeData] of Object.entries(template.themes)) {
+      themesDB[themeName] = {
+        description: themeData.description || '',
+        keywords: themeData.keywords || []
+      };
+    }
+    
+    // Speichere in themes-database.json
+    await saveThemesDatabase(themesDB);
+    
+    console.log(`[THEMES-UPDATE] ✓ themes-database.json aktualisiert: ${Object.keys(themesDB).length} Themen`);
+    
+    return themesDB;
+  } catch (error) {
+    console.error('[THEMES-UPDATE] Fehler:', error);
+    throw error;
+  }
 }
 
 // ============================================================================
@@ -5310,11 +6364,29 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 // Lade bestehende Cluster
 app.get('/api/themes/clusters', async (req, res) => {
   try {
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
-    const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
-    res.json(data);
+    // Lade themes-database.json (neue Struktur) und konvertiere zu Cluster-Format
+    const themesPath = path.join(__dirname, 'themes-database.json');
+    const themes = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
+    
+    // Konvertiere zu Cluster-Format für Keyword-Manager
+    const clusters = {};
+    Object.entries(themes).forEach(([name, data]) => {
+      clusters[name] = {
+        keywords: data.keywords || [],
+        description: data.description || ''
+      };
+    });
+    
+    res.json({ clusters });
   } catch (error) {
-    res.status(404).json({ error: 'Keine Cluster gefunden. Bitte erst generieren.' });
+    // Fallback auf alte thematic-clusters.json
+    try {
+      const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+      const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
+      res.json(data);
+    } catch (fallbackError) {
+      res.status(404).json({ error: 'Keine Cluster gefunden. Bitte erst generieren.' });
+    }
   }
 });
 
@@ -5322,82 +6394,62 @@ app.get('/api/themes/clusters', async (req, res) => {
 app.post('/api/themes/add-cluster', async (req, res) => {
   const { name, description, keywords } = req.body;
   
-  console.log(`[CLUSTERS] Füge manuellen Cluster hinzu: ${name}`);
+  console.log(`[THEMES] Füge manuellen Themenbereich hinzu: ${name}`);
   
   try {
     // Validierung
     if (!name || !name.trim()) {
-      throw new Error('Cluster-Name ist erforderlich');
+      throw new Error('Themen-Name ist erforderlich');
     }
     
-    // Keywords sind optional - leere Cluster sind erlaubt
+    // Keywords sind optional - leere Themen sind erlaubt
     const validKeywords = (keywords && Array.isArray(keywords)) ? keywords.filter(kw => kw && kw.trim()) : [];
     
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    // GEÄNDERT: Speichere in themes-database.json statt thematic-clusters.json
+    const themesDB = await loadThemesDatabase();
     
-    // Lade bestehende Cluster oder erstelle neue Datei
-    let clustersData = {};
-    let clusters = {};
-    
-    if (fsSync.existsSync(clustersPath)) {
-      clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
-      // Extrahiere Cluster aus verschachtelter Struktur
-      clusters = clustersData.clusters || clustersData;
+    // Prüfe ob Thema bereits existiert
+    if (themesDB[name]) {
+      throw new Error(`Themenbereich "${name}" existiert bereits`);
     }
     
-    // Prüfe ob Cluster bereits existiert
-    if (clusters[name]) {
-      throw new Error(`Cluster "${name}" existiert bereits`);
-    }
-    
-    // Füge neuen Cluster hinzu
-    clusters[name] = {
+    // Füge neuen Themenbereich hinzu
+    themesDB[name] = {
       description: description || `Manuell hinzugefügter Themenbereich: ${name}`,
-      keywords: validKeywords,
-      manual: true, // Markierung für manuell hinzugefügte Cluster
-      created: new Date().toISOString()
+      keywords: validKeywords
     };
     
-    // Aktualisiere Metadaten falls vorhanden
-    if (clustersData.clusters) {
-      clustersData.clusters = clusters;
-      clustersData.clustersCount = Object.keys(clusters).length;
-    } else {
-      // Falls alte Struktur, speichere nur Cluster
-      clustersData = clusters;
-    }
+    // Speichere in themes-database.json
+    await saveThemesDatabase(themesDB);
     
-    // Speichere mit erhaltener Struktur (mit Backup)
-    await saveClustersFile(clustersData);
-    
-    console.log(`[CLUSTERS] ✓ Cluster "${name}" hinzugefügt mit ${validKeywords.length} Keywords`);
+    console.log(`[THEMES] ✓ Themenbereich "${name}" hinzugefügt mit ${validKeywords.length} Keywords`);
     
     res.json({
       success: true,
       clusterName: name,
       keywordCount: validKeywords.length,
-      totalClusters: Object.keys(clusters).length
+      totalClusters: Object.keys(themesDB).length
     });
     
   } catch (error) {
-    console.error('[CLUSTERS] Fehler beim Hinzufügen:', error);
+    console.error('[THEMES] Fehler beim Hinzufügen:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
 // Endpoint: Cluster reorganisieren (Keywords neu zuordnen)
 app.post('/api/themes/reorganize-clusters', async (req, res) => {
-  console.log('[CLUSTERS] Starte Reorganisation...');
+  console.log('[THEMES] Starte Reorganisation...');
   
   try {
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    // GEÄNDERT: Verwende themes-database.json statt thematic-clusters.json
+    const themesDB = await loadThemesDatabase();
     
-    if (!fsSync.existsSync(clustersPath)) {
-      throw new Error('Keine Cluster gefunden. Bitte erst generieren.');
+    if (Object.keys(themesDB).length === 0) {
+      throw new Error('Keine Themen gefunden. Bitte erst generieren.');
     }
     
-    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
-    const clusters = clustersData.clusters || clustersData;
+    const clusters = themesDB;
     
     // Sammle alle Keywords aus keywords-database.json (nicht nur aus Clustern!)
     const allKeywords = new Set();
@@ -5515,26 +6567,15 @@ ANTWORTE im folgenden JSON-Format:
       Object.entries(result.newClusters).forEach(([name, data]) => {
         finalClusters[name] = {
           description: data.description,
-          keywords: data.keywords,
-          manual: false,
-          newFromReorg: true
+          keywords: data.keywords
         };
       });
     }
     
-    // Behalte Metadaten
-    const finalData = {
-      generated: new Date().toISOString(),
-      reorganized: true,
-      seedKeywordsCount: clustersData.seedKeywordsCount || 0,
-      clustersCount: Object.keys(finalClusters).length,
-      clusters: finalClusters
-    };
+    // GEÄNDERT: Speichere direkt in themes-database.json (ohne Metadaten-Wrapper)
+    await saveThemesDatabase(finalClusters);
     
-    // Speichere (mit Backup)
-    await saveClustersFile(finalData);
-    
-    console.log(`[CLUSTERS] ✓ Reorganisation abgeschlossen`);
+    console.log(`[THEMES] ✓ Reorganisation abgeschlossen`);
     console.log(`[CLUSTERS] Keywords verschoben: ${result.moved || 0}`);
     console.log(`[CLUSTERS] Neue Cluster: ${Object.keys(result.newClusters || {}).length}`);
     console.log(`[CLUSTERS] Total Cluster: ${Object.keys(finalClusters).length}`);
@@ -5739,41 +6780,33 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
       throw new Error('Namen sind identisch');
     }
     
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    // GEÄNDERT: Verwende themes-database.json
+    const themesDB = await loadThemesDatabase();
     
-    if (!fsSync.existsSync(clustersPath)) {
-      throw new Error('Keine Cluster gefunden');
+    if (Object.keys(themesDB).length === 0) {
+      throw new Error('Keine Themen gefunden');
     }
     
-    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
-    const clusters = clustersData.clusters || clustersData;
-    
-    if (!clusters[oldName]) {
-      throw new Error(`Cluster "${oldName}" nicht gefunden`);
+    if (!themesDB[oldName]) {
+      throw new Error(`Themenbereich "${oldName}" nicht gefunden`);
     }
     
-    if (clusters[newName]) {
-      throw new Error(`Cluster "${newName}" existiert bereits. Verwenden Sie Zusammenführen.`);
+    if (themesDB[newName]) {
+      throw new Error(`Themenbereich "${newName}" existiert bereits. Verwenden Sie Zusammenführen.`);
     }
     
     // Umbenennen
-    clusters[newName] = { ...clusters[oldName] };
-    delete clusters[oldName];
+    themesDB[newName] = { ...themesDB[oldName] };
+    delete themesDB[oldName];
     
     // Speichern
-    if (clustersData.clusters) {
-      clustersData.clusters = clusters;
-    } else {
-      Object.assign(clustersData, clusters);
-    }
+    await saveThemesDatabase(themesDB);
     
-    await saveClustersFile(clustersData);
-    
-    console.log(`[CLUSTERS] ✓ Cluster umbenannt`);
+    console.log(`[THEMES] ✓ Themenbereich umbenannt`);
     
     res.json({
       success: true,
-      totalClusters: Object.keys(clusters).length
+      totalClusters: Object.keys(themesDB).length
     });
     
   } catch (error) {
@@ -5797,51 +6830,42 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
       throw new Error('Cluster müssen unterschiedlich sein');
     }
     
-    const clustersPath = path.join(__dirname, 'thematic-clusters.json');
+    // GEÄNDERT: Verwende themes-database.json
+    const themesDB = await loadThemesDatabase();
     
-    if (!fsSync.existsSync(clustersPath)) {
-      throw new Error('Keine Cluster gefunden');
+    if (Object.keys(themesDB).length === 0) {
+      throw new Error('Keine Themen gefunden');
     }
     
-    const clustersData = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
-    const clusters = clustersData.clusters || clustersData;
-    
-    if (!clusters[sourceCluster]) {
-      throw new Error(`Quell-Cluster "${sourceCluster}" nicht gefunden`);
+    if (!themesDB[sourceCluster]) {
+      throw new Error(`Quell-Themenbereich "${sourceCluster}" nicht gefunden`);
     }
     
-    if (!clusters[targetCluster]) {
-      throw new Error(`Ziel-Cluster "${targetCluster}" nicht gefunden`);
+    if (!themesDB[targetCluster]) {
+      throw new Error(`Ziel-Themenbereich "${targetCluster}" nicht gefunden`);
     }
     
     // Merge Keywords
-    const sourceKeywords = clusters[sourceCluster].keywords || [];
-    const targetKeywords = clusters[targetCluster].keywords || [];
+    const sourceKeywords = themesDB[sourceCluster].keywords || [];
+    const targetKeywords = themesDB[targetCluster].keywords || [];
     
     // Kombiniere und dedupliziere
     const mergedKeywords = [...new Set([...targetKeywords, ...sourceKeywords])];
     
-    clusters[targetCluster].keywords = mergedKeywords;
+    themesDB[targetCluster].keywords = mergedKeywords;
     
-    // Lösche Quell-Cluster
-    delete clusters[sourceCluster];
+    // Lösche Quell-Themenbereich
+    delete themesDB[sourceCluster];
     
     // Speichern
-    if (clustersData.clusters) {
-      clustersData.clusters = clusters;
-      clustersData.clustersCount = Object.keys(clusters).length;
-    } else {
-      Object.assign(clustersData, clusters);
-    }
+    await saveThemesDatabase(themesDB);
     
-    await saveClustersFile(clustersData);
-    
-    console.log(`[CLUSTERS] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
+    console.log(`[THEMES] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
     
     res.json({
       success: true,
       keywordsMerged: sourceKeywords.length,
-      totalClusters: Object.keys(clusters).length
+      totalClusters: Object.keys(themesDB).length
     });
     
   } catch (error) {
@@ -6290,6 +7314,272 @@ app.get('/api/keywords-stats', async (req, res) => {
 });
 
 // ============================================================================
+// NEUE TEMPLATE-BASIERTE KEYWORD-GENERIERUNG (V2)
+// ============================================================================
+
+/**
+ * API: Neue Template-basierte Keyword-Generierung
+ * Verwendet themes-keywords-template.json als Vokabular-Basis
+ * Extrahiert Keywords aus H3/H4 Überschriften (nicht aus Summary)
+ * Confidence-Schwelle: 0.6 (aus Template)
+ */
+app.post('/api/generate-keywords-v2', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      gaVolumes = [], 
+      startIndex = 0, 
+      batchSize = 50,
+      useExistingVocab = true,
+      consolidateSynonyms = true,
+      forceReprocess = false,
+      preferredProvider = null  // NEU: Expliziter Provider vom Frontend
+    } = req.body;
+    
+    console.log('[KEYWORDS-V2] Neue Template-basierte Generierung gestartet');
+    console.log(`[KEYWORDS-V2] Params: ${lectureIds.length} Lectures, ${gaVolumes.length} GA-Bände, existingVocab=${useExistingVocab}, forceReprocess=${forceReprocess}, provider=${preferredProvider || 'auto'}`);
+    
+    // 1. Lade Template
+    const template = await loadThemesKeywordsTemplate();
+    const { synonymMap } = extractVocabularyFromTemplate(template);
+    
+    // 1b. Setze bevorzugten Provider falls angegeben
+    if (preferredProvider) {
+      // Temporär für diese Anfrage den Provider setzen
+      process.env.LLM_PROVIDER_KEYWORDS = preferredProvider;
+      console.log(`[KEYWORDS-V2] Verwende explizit ausgewählten Provider: ${preferredProvider}`);
+    }
+    
+    // 2. Lade bestehende Datenbanken
+    const summaryDB = await loadSummaryDatabase();
+    let keywordsDB = await loadKeywordsDatabase();
+    
+    // 3. Baue Vokabular auf
+    let existingVocabulary = [];
+    let frequencyMap = {};
+    
+    if (useExistingVocab) {
+      for (const [lid, data] of Object.entries(keywordsDB)) {
+        if (!data.keywords) continue;
+        data.keywords.forEach(kw => {
+          existingVocabulary.push(kw.term);
+          frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
+        });
+      }
+      console.log(`[KEYWORDS-V2] Existierendes Vokabular: ${existingVocabulary.length} Keywords`);
+    }
+    
+    // 4. Bestimme zu verarbeitende Vorträge
+    let lectureIdsToProcess = [];
+    
+    if (gaVolumes.length > 0) {
+      // Filtere nach GA-Bänden
+      gaVolumes.forEach(gaVol => {
+        const volumeLectures = Object.keys(summaryDB).filter(lid => 
+          lid.startsWith(gaVol + '/')
+        );
+        lectureIdsToProcess.push(...volumeLectures);
+      });
+    } else if (lectureIds.length > 0) {
+      lectureIdsToProcess = lectureIds;
+    } else {
+      return res.status(400).json({ 
+        error: 'Bitte lectureIds oder gaVolumes angeben' 
+      });
+    }
+    
+    console.log(`[KEYWORDS-V2] Zu verarbeiten: ${lectureIdsToProcess.length} Vorträge`);
+    
+    // 5. Provider-Setup (EINMAL für alle Vorträge)
+    let provider = null;
+    if (preferredProvider) {
+      const { createProvider } = require('./llm-providers');
+      try {
+        provider = createProvider(preferredProvider);
+        if (!provider.isAvailable()) {
+          throw new Error(`${preferredProvider} nicht verfügbar`);
+        }
+        console.log(`[KEYWORDS-V2] Provider gewählt: ${provider.name} (wird für ALLE Vorträge verwendet)`);
+      } catch (error) {
+        console.error(`[KEYWORDS-V2] Gewählter Provider nicht verfügbar:`, error.message);
+        return res.status(400).json({ error: `Provider ${preferredProvider} nicht verfügbar: ${error.message}` });
+      }
+    }
+    
+    // 6. Verarbeite Vorträge
+    const results = [];
+    let processed = 0;
+    let skipped = 0;
+    let errors = 0;
+    
+    for (let i = 0; i < lectureIdsToProcess.length; i++) {
+      const lectureId = lectureIdsToProcess[i];
+      
+      // Überspringe bereits verarbeitete (außer bei forceReprocess)
+      if (keywordsDB[lectureId] && !forceReprocess) {
+        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Überspringe (bereits vorhanden)`);
+        skipped++;
+        continue;
+      }
+      
+      // Bei forceReprocess: Log dass wir überschreiben
+      if (keywordsDB[lectureId] && forceReprocess) {
+        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ♻️ NEU verarbeiten (überschreibt alte)`);
+      }
+      
+      const summaryData = summaryDB[lectureId];
+      if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
+        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Überspringe (keine Überschriften)`);
+        skipped++;
+        continue;
+      }
+      
+      try {
+        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Starte...`);
+        
+        // Generiere Keywords - mit VORBEREITETEM Provider
+        const keywords = await generateKeywordsFromHeadingsWithTemplateOptimized(
+          lectureId,
+          summaryData.headings,
+          template,
+          existingVocabulary,
+          frequencyMap,
+          provider  // Bereits initialisierter Provider
+        );
+        
+        // Extrahiere Metadaten
+        const lecture = fullLectures[lectureId];
+        const date = lecture?.date || lecture?.dateString || '';
+        const year = date ? parseInt(date.substring(0, 4)) : null;
+        const gaMatch = lectureId.match(/^GA(\d+)/);
+        const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+        
+        // Speichere in Keywords-DB
+        await saveKeywordsToDatabase(lectureId, {
+          lectureId: lectureId,
+          date: date,
+          year: year,
+          gaVolume: gaVolume,
+          summary: summaryData.summary || '',
+          keywords: keywords,
+          generated: new Date().toISOString(),
+          generationMethod: 'template-v2',
+          confidenceThreshold: template.metadata.confidenceThreshold
+        });
+        
+        // Aktualisiere Vokabular für nächste Iteration
+        keywords.forEach(kw => {
+          if (!existingVocabulary.includes(kw.term)) {
+            existingVocabulary.push(kw.term);
+          }
+          frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
+        });
+        
+        const newKws = keywords.filter(k => k.matchType === 'new');
+        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu)`);
+        
+        results.push({
+          lectureId,
+          keywordsCount: keywords.length,
+          newKeywordsCount: newKws.length,
+          success: true
+        });
+        
+        processed++;
+        
+        // Rate Limiting: 200ms zwischen Requests
+        if (i < lectureIdsToProcess.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 200));
+        }
+        
+      } catch (error) {
+        console.error(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: FEHLER:`, error.message);
+        results.push({
+          lectureId,
+          error: error.message,
+          success: false
+        });
+        errors++;
+      }
+    }
+    
+    // 7. Optional: Synonym-Konsolidierung
+    let consolidatedCount = 0;
+    if (consolidateSynonyms && processed > 0) {
+      console.log('[KEYWORDS-V2] Starte Synonym-Konsolidierung...');
+      keywordsDB = await loadKeywordsDatabase();
+      consolidatedCount = await consolidateSynonymsInKeywords(keywordsDB, synonymMap);
+      
+      if (consolidatedCount > 0) {
+        await saveCompleteKeywordsDatabase(keywordsDB);
+      }
+    }
+    
+    // 8. Aktualisiere themes-database.json für Frontend-Kompatibilität
+    if (processed > 0) {
+      try {
+        await updateThemesDatabaseFromTemplate(template);
+        console.log('[KEYWORDS-V2] ✓ themes-database.json aktualisiert');
+      } catch (error) {
+        console.error('[KEYWORDS-V2] Fehler beim Aktualisieren der themes-database:', error);
+      }
+    }
+    
+    // 9. Statistiken
+    const finalStats = {
+      totalRequested: lectureIdsToProcess.length,
+      processed: processed,
+      skipped: skipped,
+      errors: errors,
+      newVocabularySize: existingVocabulary.length,
+      synonymsConsolidated: consolidatedCount
+    };
+    
+    console.log('[KEYWORDS-V2] ✓ Abgeschlossen:', finalStats);
+    
+    res.json({
+      success: true,
+      stats: finalStats,
+      results: results
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-V2] Fehler:', error);
+    res.status(500).json({ 
+      error: error.message,
+      stack: error.stack 
+    });
+  }
+});
+
+// API: Template-Info abrufen
+app.get('/api/keywords-template-info', async (req, res) => {
+  try {
+    const template = await loadThemesKeywordsTemplate();
+    const { vocabulary, themeMapping, synonymMap } = extractVocabularyFromTemplate(template);
+    
+    res.json({
+      metadata: template.metadata,
+      stats: {
+        totalThemes: Object.keys(template.themes).length,
+        totalKeywords: vocabulary.length,
+        synonymGroups: Object.keys(synonymMap).length,
+        confidenceThreshold: template.metadata.confidenceThreshold
+      },
+      themes: Object.keys(template.themes),
+      providers: {
+        gemini: { available: !!process.env.GEMINI_API_KEY, rateLimited: isProviderRateLimited('gemini') },
+        openai: { available: !!process.env.OPENAI_API_KEY, rateLimited: isProviderRateLimited('openai') },
+        claude: { available: !!process.env.CLAUDE_API_KEY, rateLimited: isProviderRateLimited('claude') }
+      }
+    });
+  } catch (error) {
+    console.error('[TEMPLATE-INFO] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // THEMES-DATENBANK
 // ============================================================================
 
@@ -6316,12 +7606,29 @@ async function saveThemesDatabase(themesDB) {
   }
 }
 
-// Funktion: Themen aus allen Keywords mit Claude generieren
+// Funktion: Themen aus allen Keywords mit LLM generieren
 async function generateThemesFromKeywords(targetThemeCount = 30) {
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('[THEMES-GEN] Kein Claude API Key - verwende Fallback');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  // Bevorzuge OpenAI für Themen-Generierung (stabiler JSON, höheres Token-Limit)
+  let provider;
+  try {
+    // Versuche zuerst OpenAI (falls verfügbar)
+    try {
+      const { OpenAIProvider } = require('./llm-providers');
+      const openaiProvider = new OpenAIProvider();
+      if (openaiProvider.isAvailable()) {
+        provider = openaiProvider;
+        console.log('[THEMES-GEN] Verwende OpenAI (beste Wahl für strukturiertes JSON)');
+      }
+    } catch (e) {
+      // OpenAI nicht verfügbar, verwende configurierten Provider
+    }
+    
+    if (!provider) {
+      provider = getProviderForTask('themes');
+    }
+  } catch (error) {
+    console.log('[THEMES-GEN] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackThemes();
   }
   
@@ -6341,108 +7648,136 @@ async function generateThemesFromKeywords(targetThemeCount = 30) {
     }
   });
   
-  // Sortiere nach Häufigkeit und nimm die Top 300 (reduziert wegen Token-Limits)
+  // Sortiere nach Häufigkeit und nimm die Top 1000 (erweitert von 300)
   const topKeywords = Object.entries(keywordFrequency)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 300)
+    .slice(0, 1000)
     .map(([term, freq]) => `${term} (${freq}x)`)
     .join(', ');
   
-  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen (Top 300 für Themen-Generierung)`);
+  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen (Top 1000 für Themen-Generierung)`);
   
-  const prompt = `Analysiere die folgenden Schlagwörter aus Rudolf Steiners Vortragswerk und gruppiere sie in genau ${targetThemeCount} übergeordnete Themenbereiche.
+  const prompt = `Analysiere die folgenden Schlagwörter aus Rudolf Steiners Vortragswerk und erstelle genau ${targetThemeCount} übergeordnete Themenbereiche.
 
-HÄUFIGSTE SCHLAGWÖRTER (Top 300):
+HÄUFIGSTE SCHLAGWÖRTER (Top 1000):
 ${topKeywords}
+
+AUFGABE - ZWEIPHASIGER ANSATZ:
+Erstelle NUR die THEMEN-NAMEN und BESCHREIBUNGEN.
+Die Keyword-Zuordnung erfolgt später automatisch per Batch.
 
 ANFORDERUNGEN:
 - Genau ${targetThemeCount} Themenbereiche
 - Themen sollten die Hauptgebiete der Anthroposophie abdecken
-- Jedes Thema mit deutschen Namen (z.B. "Erkenntnistheorie", "Christologie", "Soziale Dreigliederung")
-- Für jedes Thema: Liste der zugehörigen Hauptkeywords (10-20 wichtigste)
-- Themen sollten ausgewogen sein (nicht zu breit, nicht zu eng)
-- WICHTIG: Keywords mit korrekter deutscher Großschreibung (Substantive groß, z.B. "Karma", "Reinkarnation", "Wiederverkörperung")
-- Entferne Redundanzen: statt "karma", "kosmisches karma" nur "Karma" (kürzere Form wird automatisch konsolidiert)
-- Entferne Redundanzen: statt "reinkarnation", "reinkarnationslehre" nur "Reinkarnation", "Reinkarnationslehre" (beides behalten wenn unterschiedliche Bedeutung)
-- Entferne Redundanzen: statt "tod", "tod und sterben" nur "Tod und Sterben"
+- Deutsche Namen (z.B. "Erkenntnistheorie", "Christologie und Evangelien", "Soziale Dreigliederung")
+- Kurze prägnante Beschreibung pro Thema (1 Satz)
+- Themen sollten ausgewogen und komplementär sein
+- Decke das gesamte Spektrum ab
 
 BEISPIELE FÜR THEMEN:
-- Erkenntnistheorie
+- Erkenntnistheorie und Methodologie
 - Christologie und Evangelien
 - Karma und Reinkarnation
-- Soziale Dreigliederung
+- Soziale Dreigliederung und Wirtschaft
 - Pädagogik und Erziehung
-- Anthroposophische Medizin
+- Anthroposophische Medizin und Heilkunst
 - Kosmologie und Planetensphären
 - Mysterien und Einweihung
-- Deutsche Mystik
-- Goetheanismus
+- Deutsche Mystik und Geistesgeschichte
+- Goetheanismus und Naturwissenschaft
+- Kunst und Eurythmie
+- Menschenkunde und Wesensglieder
 [... weitere]
 
-ANTWORT-FORMAT (JSON):
+ANTWORT-FORMAT (JSON) - NUR Namen + Beschreibung, KEINE Keywords-Liste!
 {
-  "Erkenntnistheorie": {
-    "keywords": ["Goetheanismus", "Phänomenologie", "Wissenschaft", "Naturerkenntnis", ...],
-    "description": "Kurze Beschreibung des Themenbereichs"
+  "Erkenntnistheorie und Methodologie": {
+    "description": "Theoretische Grundlagen der Geisteswissenschaft, Erkenntnismethoden, Goetheanismus"
+  },
+  "Christologie und Evangelien": {
+    "description": "Christuswesen, Mysterium von Golgatha, Evangelien-Auslegung"
   },
   ...
 }
 
+WICHTIG: Gib KEINE keywords-Arrays zurück, nur description!
+Die Keywords werden später automatisch zugeordnet.
+
 Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 
   try {
-    console.log('[THEMES-GEN] Rufe Claude API auf...');
+    console.log(`[THEMES-GEN] Rufe ${provider.name} API auf...`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 8192,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    // Phase 1: Nur Themen-Namen (klein, passt in alle Provider)
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 8192,
+      temperature: 0.3
+      // Kein model-Parameter - jeder Provider nutzt sein Default-Modell
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('[THEMES-GEN] Claude API Error:', response.status, errorText);
-      throw new Error(`Claude API Fehler: ${response.status} - ${errorText.substring(0, 200)}`);
-    }
-
-    const result = await response.json();
-    let responseText = result.content[0].text.trim();
+    
+    console.log(`[THEMES-GEN] Rohe Antwort Länge: ${responseText.length} Zeichen`);
+    
+    // DEBUG: Speichere rohe Antwort für Analyse
+    const fs = require('fs');
+    fs.writeFileSync('debug-gemini-response.txt', responseText);
+    console.log(`[THEMES-GEN] DEBUG: Rohe Antwort gespeichert in debug-gemini-response.txt`);
+    console.log(`[THEMES-GEN] Letzte 200 Zeichen: ${responseText.substring(responseText.length - 200)}`);
     
     // Entferne Markdown Code-Blöcke falls vorhanden
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
-    let themes = JSON.parse(responseText);
+    // Robustes JSON Parsing mit Fehlerbehandlung
+    let themes;
+    try {
+      themes = JSON.parse(responseText);
+    } catch (parseError) {
+      console.log(`[THEMES-GEN] JSON Parse Fehler: ${parseError.message}`);
+      console.log(`[THEMES-GEN] Erste 500 Zeichen: ${responseText.substring(0, 500)}`);
+      console.log(`[THEMES-GEN] Letzte 500 Zeichen: ${responseText.substring(responseText.length - 500)}`);
+      console.log(`[THEMES-GEN] Versuche JSON zu reparieren...`);
+      
+      // Strategie 1: Finde das JSON-Objekt im Text
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        try {
+          themes = JSON.parse(jsonMatch[0]);
+          console.log(`[THEMES-GEN] ✓ JSON repariert via Regex-Extraktion`);
+        } catch (e2) {
+          console.log(`[THEMES-GEN] Regex-Extraktion fehlgeschlagen`);
+          throw parseError; // Original Error werfen
+        }
+      } else {
+        throw parseError;
+      }
+    }
     
-    console.log('[THEMES-GEN] ✓ Themen erfolgreich generiert:', Object.keys(themes).length);
+    console.log(`[THEMES-GEN] ✓ ${provider.name}: Themen erfolgreich generiert:`, Object.keys(themes).length);
+    console.log(`[THEMES-GEN] Zweiphasiger Ansatz: Phase 1 (Namen) abgeschlossen`);
     
-    // Normalisiere alle Keywords in jedem Thema
+    // Initialisiere leere Keywords-Arrays (werden in Phase 2 per Batch gefüllt)
     for (const [themeName, themeData] of Object.entries(themes)) {
-      if (themeData.keywords && Array.isArray(themeData.keywords)) {
-        // Konvertiere String-Array zu Objekt-Array für Normalisierung
+      // Phase 1 sollte KEINE Keywords zurückgeben, aber falls doch...
+      if (!themeData.keywords || !Array.isArray(themeData.keywords)) {
+        themeData.keywords = [];
+        console.log(`[THEMES-GEN] ${themeName}: Keywords-Array initialisiert (leer)`);
+      } else if (themeData.keywords.length > 0) {
+        // Falls doch Keywords da sind, normalisiere sie
+        console.log(`[THEMES-GEN] ${themeName}: ${themeData.keywords.length} Keywords vorhanden (unexpected)`);
         const keywordObjects = themeData.keywords.map(kw => 
           typeof kw === 'string' ? { term: kw } : kw
         );
         const normalized = normalizeKeywords(keywordObjects);
-        themes[themeName].keywords = normalized.map(kw => kw.term);
-        console.log(`[THEMES-GEN] ${themeName}: ${themeData.keywords.length} → ${themes[themeName].keywords.length} Keywords`);
+        themeData.keywords = normalized.map(kw => kw.term);
       }
     }
+    
+    console.log(`[THEMES-GEN] Phase 2: Batch-Zuordnung bereit (${Object.keys(themes).length} Themen)`);
     
     return themes;
 
   } catch (error) {
-    console.error('[THEMES-GEN] Fehler bei Claude API:', error);
+    console.error(`[THEMES-GEN] Fehler bei ${provider?.name || 'LLM'} API:`, error);
     return generateFallbackThemes();
   }
 }
@@ -6466,6 +7801,209 @@ function generateFallbackThemes() {
     }
   };
 }
+
+// ============================================================================
+// BATCH-ZUORDNUNG: Alle Keywords zu bestehenden Themen zuordnen
+// ============================================================================
+
+/**
+ * Ordnet ALLE Keywords aus der keywords-database den generierten Themen zu
+ * Verwendet Batch-Verarbeitung für Skalierbarkeit (500 Keywords/Batch)
+ */
+async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
+  const BATCH_SIZE = 200; // Reduziert von 500 - passt besser in Gemini's 4k Token-Limit
+  
+  const themeNames = Object.keys(themesDB);
+  console.log(`[BATCH-ASSIGN] Verfügbare Themen: ${themeNames.length}`);
+  
+  // Sammle ALLE unique Keywords
+  const allKeywords = new Set();
+  const keywordFrequency = {};
+  
+  Object.values(keywordsDB).forEach(lecture => {
+    if (lecture.keywords && Array.isArray(lecture.keywords)) {
+      lecture.keywords.forEach(kw => {
+        const term = kw.term.trim();
+        allKeywords.add(term);
+        keywordFrequency[term] = (keywordFrequency[term] || 0) + 1;
+      });
+    }
+  });
+  
+  const allKeywordsArray = Array.from(allKeywords);
+  console.log(`[BATCH-ASSIGN] Total unique Keywords: ${allKeywordsArray.length}`);
+  
+  // Filtere bereits zugeordnete Keywords
+  const alreadyAssignedSet = new Set();
+  Object.values(themesDB).forEach(theme => {
+    if (theme.keywords && Array.isArray(theme.keywords)) {
+      theme.keywords.forEach(kw => {
+        const term = typeof kw === 'string' ? kw : kw.term;
+        alreadyAssignedSet.add(term.toLowerCase().trim());
+      });
+    }
+  });
+  
+  const unassignedKeywords = allKeywordsArray.filter(kw => 
+    !alreadyAssignedSet.has(kw.toLowerCase().trim())
+  );
+  
+  console.log(`[BATCH-ASSIGN] Bereits zugeordnet: ${alreadyAssignedSet.size}`);
+  console.log(`[BATCH-ASSIGN] Noch zuzuordnen: ${unassignedKeywords.length}`);
+  
+  if (unassignedKeywords.length === 0) {
+    console.log('[BATCH-ASSIGN] Alle Keywords bereits zugeordnet');
+    return { assigned: 0, total: allKeywordsArray.length };
+  }
+  
+  // Hole Provider
+  let provider;
+  try {
+    provider = getProviderForTask('batch');
+  } catch (error) {
+    console.error('[BATCH-ASSIGN] Kein Provider verfügbar:', error.message);
+    return { assigned: 0, total: allKeywordsArray.length, error: error.message };
+  }
+  
+  // Erstelle Batches
+  const batches = [];
+  for (let i = 0; i < unassignedKeywords.length; i += BATCH_SIZE) {
+    batches.push(unassignedKeywords.slice(i, i + BATCH_SIZE));
+  }
+  
+  console.log(`[BATCH-ASSIGN] Verarbeite ${batches.length} Batches mit ${provider.name}`);
+  
+  // Sammle Zuordnungen
+  const assignments = {};
+  
+  // Verarbeite jeden Batch
+  for (let batchIdx = 0; batchIdx < batches.length; batchIdx++) {
+    const batch = batches[batchIdx];
+    const batchNum = batchIdx + 1;
+    
+    console.log(`\n[BATCH-ASSIGN] Batch ${batchNum}/${batches.length}: ${batch.length} Keywords`);
+    
+    // Keywords mit Häufigkeit
+    const keywordsWithFreq = batch.map(kw => {
+      const freq = keywordFrequency[kw] || 1;
+      return `${kw} (${freq}x)`;
+    }).join(', ');
+    
+    const prompt = `Ordne diese ${batch.length} Keywords aus Rudolf Steiners Werk jeweils EINEM der folgenden ${themeNames.length} Themen zu.
+
+VERFÜGBARE THEMEN:
+${themeNames.map((name, idx) => `${idx + 1}. ${name}`).join('\n')}
+
+KEYWORDS (mit Häufigkeit):
+${keywordsWithFreq}
+
+REGELN:
+1. Jedes Keyword genau EINEM Thema zuordnen
+2. Wähle das thematisch am besten passende Thema
+3. Bei Unsicherheit: Wähle das allgemeinste/breiteste Thema
+4. Häufige Keywords (hohe Zahl) sind wichtiger → sorgfältig zuordnen
+
+AUSGABE als JSON-Objekt:
+{
+  "keyword1": "Themenname",
+  "keyword2": "Themenname",
+  ...
+}
+
+Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
+
+    try {
+      const responseText = await provider.generateCompletion(prompt, {
+        maxTokens: 8192, // Erhöht von 4096 für größere Batches
+        temperature: 0.3
+      });
+      
+      // Parse JSON
+      let cleanedResponse = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+      const batchAssignments = JSON.parse(cleanedResponse);
+      
+      // Merge
+      Object.assign(assignments, batchAssignments);
+      
+      const progress = ((batchNum / batches.length) * 100).toFixed(1);
+      console.log(`[BATCH-ASSIGN] Batch ${batchNum}: ✓ ${Object.keys(batchAssignments).length} Keywords | Progress: ${progress}%`);
+      
+      // Pause zwischen Batches
+      if (batchNum < batches.length) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+      
+    } catch (error) {
+      console.error(`[BATCH-ASSIGN] Fehler in Batch ${batchNum}:`, error.message);
+      continue;
+    }
+  }
+  
+  console.log(`\n[BATCH-ASSIGN] ✓ Verarbeitung abgeschlossen: ${Object.keys(assignments).length} neue Zuordnungen`);
+  
+  // Merge mit bestehenden Themen
+  const updatedThemesDB = { ...themesDB };
+  
+  for (const [keyword, themeName] of Object.entries(assignments)) {
+    if (updatedThemesDB[themeName]) {
+      if (!updatedThemesDB[themeName].keywords) {
+        updatedThemesDB[themeName].keywords = [];
+      }
+      // Füge hinzu wenn noch nicht vorhanden
+      const existingTerms = updatedThemesDB[themeName].keywords.map(kw => 
+        typeof kw === 'string' ? kw : kw.term
+      );
+      if (!existingTerms.includes(keyword)) {
+        updatedThemesDB[themeName].keywords.push(keyword);
+      }
+    }
+  }
+  
+  // Speichere erweiterte Themes-Database
+  await saveThemesDatabase(updatedThemesDB);
+  console.log('[BATCH-ASSIGN] ✓ Erweiterte themes-database.json gespeichert');
+  
+  return {
+    assigned: Object.keys(assignments).length,
+    total: allKeywordsArray.length,
+    coverage: (((alreadyAssignedSet.size + Object.keys(assignments).length) / allKeywordsArray.length) * 100).toFixed(1),
+    provider: provider.name
+  };
+}
+
+// API: Batch-Zuordnung aller Keywords zu Themen
+app.post('/api/themes/assign-all-keywords', async (req, res) => {
+  try {
+    console.log('\n[BATCH-ASSIGN-API] Starte Batch-Zuordnung...');
+    
+    // Lade Themen und Keywords
+    const themesDB = await loadThemesDatabase();
+    if (!themesDB || Object.keys(themesDB).length === 0) {
+      return res.status(400).json({ 
+        error: 'Keine Themen gefunden. Bitte zuerst Themen generieren.' 
+      });
+    }
+    
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    // Führe Batch-Zuordnung durch
+    const result = await assignAllKeywordsToThemes(themesDB, keywordsDB);
+    
+    if (result.error) {
+      return res.status(500).json({ error: result.error });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Batch-Zuordnung erfolgreich abgeschlossen',
+      stats: result
+    });
+    
+  } catch (error) {
+    console.error('[BATCH-ASSIGN-API] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // API: Themen generieren
 app.post('/api/generate-themes', async (req, res) => {
@@ -6533,10 +8071,17 @@ app.post('/api/generate-themes', async (req, res) => {
   }
 });
 
-// API: Themes-Datenbank abrufen (nutzt neue thematic-clusters.json)
+// API: Themes-Datenbank abrufen (nutzt themes-database.json)
 app.get('/api/themes-database', async (req, res) => {
   try {
-    // Versuche zuerst neue thematic-clusters.json zu laden
+    // Versuche zuerst themes-database.json zu laden (neue Struktur)
+    const themesPath = path.join(__dirname, 'themes-database.json');
+    if (fsSync.existsSync(themesPath)) {
+      const data = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
+      return res.json(data);
+    }
+    
+    // Fallback auf alte thematic-clusters.json
     const clustersPath = path.join(__dirname, 'thematic-clusters.json');
     if (fsSync.existsSync(clustersPath)) {
       const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
@@ -7009,10 +8554,12 @@ async function synchronizeKeywordSystems() {
 async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
   console.log('generateKeywordAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
-  const claudeApiKey = process.env.CLAUDE_API_KEY;
-  
-  if (!claudeApiKey) {
-    console.log('Kein Claude API Key - verwende Fallback');
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('analysis');
+  } catch (error) {
+    console.log('[KEYWORD-ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackKeywordAnalysis(query, results);
   }
   
@@ -7079,38 +8626,20 @@ ${contextText}
 ANALYSE:`;
 
   try {
-    console.log('Rufe Claude API auf...');
+    console.log(`[KEYWORD-ANALYSIS] Rufe ${provider.name} API auf...`);
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': claudeApiKey,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: maxTokens[effectiveDepth] || 8000,
-        messages: [{
-          role: 'user',
-          content: prompt
-        }]
-      })
+    // Verwende Provider-Abstraction
+    const analysisText = await provider.generateCompletion(prompt, {
+      maxTokens: maxTokens[effectiveDepth] || 8000,
+      temperature: 0.7
     });
-
-    if (!response.ok) {
-      throw new Error(`Claude API Fehler: ${response.status}`);
-    }
-
-    const result = await response.json();
-    const analysisText = result.content[0].text.trim();
     
-    console.log('Claude Antwort erhalten, Länge:', analysisText.length);
+    console.log(`[KEYWORD-ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
     
-    return analysisText;
+    return analysisText.trim();
     
   } catch (error) {
-    console.error('Claude API Fehler:', error.message);
+    console.error(`[KEYWORD-ANALYSIS] ${provider.name} API Fehler:`, error.message);
     return generateFallbackKeywordAnalysis(query, results);
   }
 }
@@ -7577,6 +9106,9 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/keywords-list`);
       console.log(`   POST /api/save-marked-word`);
       console.log(`   GET  /summary-database.json`);
+      console.log(`   POST /api/generate-summary-keywords-batch`);
+      console.log(`   POST /api/generate-summary-keywords-for-lectures`);
+      console.log(`   GET  /summary-keywords-database.json`);
       console.log(`   GET  /thematic-search-database.json`);
       console.log(`   POST /api/generate-keywords`);
       console.log(`   GET  /api/keywords-database`);
