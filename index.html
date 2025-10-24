@@ -3210,6 +3210,9 @@ body.dark-mode .welcome-start-btn:hover {
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner GA-Suche</a></h1>
 <div style="display: flex; align-items: center; gap: 0.15rem;">
+<button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
+<i data-lucide="database"></i>
+</button>
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
 <i data-lucide="info"></i>
 </button>
@@ -5577,7 +5580,8 @@ try {
         });
         
         if (!response.ok) {
-          throw new Error(`Server Error: ${response.status}`);
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Server Error: ${response.status}`);
         }
         
         const data = await response.json();
@@ -6556,7 +6560,10 @@ async function regenerateCurrentSummary() {
       body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
     });
 
-    if (!resp.ok) throw new Error(`Server returned ${resp.status}`);
+    if (!resp.ok) {
+      const errorData = await resp.json();
+      throw new Error(errorData.error || `Server returned ${resp.status}`);
+    }
     const data = await resp.json();
 
     // Speichere das Ergebnis in der zentralen DB
@@ -6700,7 +6707,8 @@ async function batchSummarizeGA(gaNumber) {
         });
 
         if (!sResp.ok) {
-          console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status);
+          const errorData = await sResp.json();
+          console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status, errorData.error);
           failed += 1;
         } else {
           const sData = await sResp.json();
@@ -6915,7 +6923,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         });
 
         if (!sResp.ok) {
-          console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status);
+          const errorData = await sResp.json();
+          console.warn('Fehler bei Zusammenfassung', lectureId, sResp.status, errorData.error);
           failed += 1;
           if (typeof options.onProgress === 'function') {
             try { options.onProgress({ lectureId, success: false }); } catch(e){}
@@ -12085,7 +12094,160 @@ console.log('[INIT] loadKeywordsForEdit verfügbar:', typeof window.loadKeywords
 console.log('[INIT] renameKeyword verfügbar:', typeof window.renameKeyword);
 console.log('[INIT] closeKeywordEditor verfügbar:', typeof window.closeKeywordEditor);
 
+// ============================================================================
+// BACKUP-VERWALTUNG (nur bei lokalem Server)
+// ============================================================================
+
+// Prüfe ob wir auf localhost laufen
+function isLocalhost() {
+  return window.location.hostname === 'localhost' || 
+         window.location.hostname === '127.0.0.1' ||
+         window.location.hostname === '';
+}
+
+// Zeige Backup-Button nur bei localhost
+if (isLocalhost()) {
+  const backupBtn = document.getElementById('backup-button');
+  if (backupBtn) {
+    backupBtn.style.display = 'block';
+  }
+}
+
+function openBackupModal() {
+  document.getElementById('backupModal').style.display = 'block';
+  loadBackupList();
+}
+
+function closeBackupModal() {
+  document.getElementById('backupModal').style.display = 'none';
+}
+
+async function loadBackupList() {
+  const container = document.getElementById('backupListContainer');
+  const type = document.getElementById('backupTypeSelect').value;
+  
+  container.innerHTML = '<div style="padding: 20px; text-align: center;"><div style="border: 2px solid var(--accent-color); border-top-color: transparent; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>Lade Backups...</div>';
+  
+  try {
+    const url = type === 'keywords' 
+      ? 'http://localhost:3003/api/backups/list'
+      : `http://localhost:3003/api/backups/list/${type}`;
+      
+    const response = await fetch(url);
+    const data = await response.json();
+    
+    if (data.backups.length === 0) {
+      container.innerHTML = '<div style="padding: 20px; text-align: center; color: #666;">Keine Backups gefunden</div>';
+      return;
+    }
+    
+    container.innerHTML = data.backups.map(backup => {
+      const date = new Date(backup.modified);
+      const sizeKB = (backup.size / 1024).toFixed(0);
+      return `
+        <div style="padding: 12px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-weight: 500; font-size: 0.9rem;">${backup.name}</div>
+            <div style="font-size: 0.75rem; color: var(--secondary-text); margin-top: 3px;">
+              ${date.toLocaleString('de-DE')} • ${sizeKB} KB
+            </div>
+          </div>
+          <button class="depth-btn" onclick="restoreBackup('${backup.name}')" style="padding: 4px 12px; font-size: 0.8rem;">
+            Wiederherstellen
+          </button>
+        </div>
+      `;
+    }).join('');
+  } catch (error) {
+    console.error('Fehler beim Laden der Backups:', error);
+    container.innerHTML = '<div style="padding: 20px; text-align: center; color: #dc3545;">Fehler beim Laden</div>';
+  }
+}
+
+async function createManualBackup() {
+  const type = document.getElementById('backupTypeSelect').value;
+  
+  try {
+    const response = await fetch('http://localhost:3003/api/backups/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (type === 'full') {
+        alert(`${data.backupsCreated} Backups erstellt`);
+      } else {
+        alert(`Backup erstellt: ${data.backup}`);
+      }
+      loadBackupList();
+    } else {
+      alert('Fehler beim Erstellen des Backups');
+    }
+  } catch (error) {
+    console.error('Fehler:', error);
+    alert('Fehler beim Erstellen');
+  }
+}
+
+async function restoreBackup(backupName) {
+  try {
+    const response = await fetch('http://localhost:3003/api/backups/restore', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ backupName })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      alert(`Backup wiederhergestellt: ${data.entries} Einträge`);
+      closeBackupModal();
+      // Seite neu laden um neue Daten anzuzeigen
+      location.reload();
+    } else {
+      const error = await response.json();
+      alert(`Fehler: ${error.error}`);
+    }
+  } catch (error) {
+    console.error('Fehler:', error);
+    alert('Fehler bei Wiederherstellung');
+  }
+}
+
 </script>
+
+<!-- Backup Modal -->
+<div id="backupModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; padding: 20px; overflow: auto;">
+  <div style="max-width: 800px; margin: 40px auto; background: var(--background-color); border-radius: 8px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid var(--border-color);">
+      <h2 style="color: var(--heading-color); font-size: 1.2rem; margin: 0;">🛡️ Backup-Verwaltung</h2>
+      <button class="depth-btn" onclick="closeBackupModal()" style="padding: 4px 12px; font-size: 0.85rem;">Schließen</button>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <select id="backupTypeSelect" onchange="loadBackupList()" style="padding: 6px; font-size: 0.85rem; border: 1px solid var(--border-color); border-radius: 3px; margin-right: 10px; background: var(--background-color); color: var(--text-color);">
+        <option value="keywords">Keywords DB</option>
+        <option value="summary">Summary DB</option>
+        <option value="themes">Themes DB</option>
+        <option value="clusters">Clusters</option>
+        <option value="code">Backend Code</option>
+        <option value="html">HTML Dateien</option>
+        <option value="full">🛡️ Alles (Full Backup)</option>
+      </select>
+      <button class="depth-btn" onclick="createManualBackup()" style="padding: 6px 15px; font-size: 0.85rem;">
+        Neues Backup erstellen
+      </button>
+      <button class="depth-btn" onclick="loadBackupList()" style="padding: 6px 15px; margin-left: 10px; font-size: 0.85rem;">
+        Aktualisieren
+      </button>
+    </div>
+    
+    <div id="backupListContainer" style="border: 1px solid var(--border-color); border-radius: 4px; max-height: 400px; overflow-y: auto; background: var(--background-color);">
+      <div style="padding: 20px; text-align: center;">Lade Backups...</div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html> 
