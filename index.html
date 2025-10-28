@@ -3345,8 +3345,8 @@ body.dark-mode .welcome-start-btn:hover {
 <option value="">GA-Band auswählen...</option>
 </select>
 </div>
-<div style="display:flex; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
-  <!-- NEUE 3-BUTTON ARCHITEKTUR - UNIFIED GENERATION -->
+<div id="texte-admin-buttons" style="display:none; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
+  <!-- NEUE 3-BUTTON ARCHITEKTUR - UNIFIED GENERATION (nur lokal) -->
   <button id="batch-structure-btn" class="depth-btn" onclick="batchGenerateStructure()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
     S&H&C
   </button>
@@ -8498,20 +8498,35 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 document.addEventListener("DOMContentLoaded", async function () {
   console.log("[INIT] Lade verfügbare GA-Bände...");
   
-// Verstecke Keywords-Tab nur online (nicht auf localhost)
+// Verstecke Keywords-Tab und Admin-Buttons nur online (nicht auf localhost)
 const hostname = window.location.hostname;
 const isLocalhost = hostname === 'localhost' || 
                     hostname === '127.0.0.1' || 
                     window.location.protocol === 'file:';
 
 if (!isLocalhost) {
+  // Keywords-Tab verstecken
   const keywordsTabButton = document.getElementById("keywords-tab-button");
   if (keywordsTabButton) {
     keywordsTabButton.style.display = 'none';
     console.log('[INIT] Keywords-Tab versteckt (Online-Deployment)');
   }
+  
+  // Admin-Buttons im Texte-Tab verstecken
+  const texteAdminButtons = document.getElementById("texte-admin-buttons");
+  if (texteAdminButtons) {
+    texteAdminButtons.style.display = 'none';
+    console.log('[INIT] Texte-Admin-Buttons versteckt (Online-Deployment)');
+  }
 } else {
   console.log('[INIT] Keywords-Tab sichtbar (Lokale Umgebung)');
+  
+  // Admin-Buttons im Texte-Tab anzeigen
+  const texteAdminButtons = document.getElementById("texte-admin-buttons");
+  if (texteAdminButtons) {
+    texteAdminButtons.style.display = 'flex';
+    console.log('[INIT] Texte-Admin-Buttons sichtbar (Lokale Umgebung)');
+  }
 }
   
   const gaFilter = document.getElementById("gaFilter");
