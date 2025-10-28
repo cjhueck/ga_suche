@@ -5786,7 +5786,16 @@ try {
   }
       
       showingSummaryInMain = true;
-      displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+      
+      // Hole Keywords aus Suchfeldern wenn nicht vorhanden
+      let displayKeywords = [];
+      const currentWord1 = document.getElementById('word1').value.trim();
+      const currentWord2 = document.getElementById('word2').value.trim();
+      if (currentWord1 || currentWord2) {
+        displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+      }
+      
+      displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
@@ -5852,7 +5861,16 @@ async function regenerateSummary() {
     lastHighlightedIndex = null;
     
     showingSummaryInMain = true;
-    displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+    
+    // Hole Keywords wenn vorhanden
+    let displayKeywords = [];
+    const currentWord1 = document.getElementById('word1').value.trim();
+    const currentWord2 = document.getElementById('word2').value.trim();
+    if (currentWord1 || currentWord2) {
+      displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+    }
+    
+    displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
@@ -5967,7 +5985,16 @@ function showSummaryView() {
   lastHighlightedIndex = null;
   
   showingSummaryInMain = true;
-  displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+  
+  // Hole Keywords aus Suchfeldern wenn vorhanden
+  let displayKeywords = [];
+  const currentWord1 = document.getElementById('word1').value.trim();
+  const currentWord2 = document.getElementById('word2').value.trim();
+  if (currentWord1 || currentWord2) {
+    displayKeywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  }
+  
+  displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
   
   setTimeout(() => {
     const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
@@ -6119,7 +6146,7 @@ function showSummaryView() {
       }
     }
 
-  function displaySummaryWithHeadings(lecture, summaryObj) {
+  function displaySummaryWithHeadings(lecture, summaryObj, keywordsParam = null) {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
   
@@ -6128,16 +6155,22 @@ function showSummaryView() {
   const onlineLink = createOnlineURL(lecture);
   titleElement.innerHTML = `<a href="${onlineLink}" target="rudolf-steiner-online">${displayTitle}</a>`;
   
-  const currentWord1 = document.getElementById('word1').value.trim();
-  const currentWord2 = document.getElementById('word2').value.trim();
-  let keywords = [];
+  // Verwende übergebene Keywords oder hole sie aus Suchfeldern
+  let keywords = keywordsParam;
   
-  if ((currentWord1 || currentWord2) && searchResults.length > 0) {
-    const isFromCurrentSearch = searchResults.some(result => result.ID === lecture.ID);
-    if (isFromCurrentSearch) {
-      keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  if (!keywords || keywords.length === 0) {
+    const currentWord1 = document.getElementById('word1').value.trim();
+    const currentWord2 = document.getElementById('word2').value.trim();
+    
+    if ((currentWord1 || currentWord2) && searchResults.length > 0) {
+      const isFromCurrentSearch = searchResults.some(result => result.ID === lecture.ID);
+      if (isFromCurrentSearch) {
+        keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+      }
     }
   }
+  
+  console.log('[DISPLAY-SUMMARY] Highlighting Keywords:', keywords);
   
   let html = '';
   
@@ -6212,10 +6245,13 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // Keyword-Highlighting
     if (keywords && keywords.length > 0) {
+      console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
       keywords.forEach(word => {
         if (word && word.trim()) {
-          const regex = new RegExp(`(${word.trim()})`, "gi");
+          const escapedWord = word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(`(${escapedWord})`, "gi");
           content = content.replace(regex, "<mark>$1</mark>");
         }
       });
@@ -6539,6 +6575,9 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               displayKeywords = extractKeywordsFromQuery(currentThematicQuery);
             }
           }
+          
+          console.log('[SHOW-LECTURE] Display Keywords:', displayKeywords);
+          
           // Setze lastHighlightedIndex VOR dem Rendern für Highlighting
           if (targetIndex) {
             const cleanIndex = targetIndex.replace(/^\^/, '');
@@ -6548,7 +6587,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             lastHighlightedIndex = null;
           }
           
-          displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+          displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
