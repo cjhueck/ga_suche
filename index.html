@@ -137,6 +137,20 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
     }
     
+    /* Absatz-Auswahl für Keyword-Zuordnung (nur lokal, Strg+Klick) */
+    .paragraph.selected-for-keyword {
+      background: rgba(70, 120, 134, 0.15);
+      border-left: 4px solid #467886;
+      box-shadow: 0 0 0 0.2rem rgba(70, 120, 134, 0.15);
+      padding-left: 8px;
+      margin-left: -8px;
+    }
+    
+    body.dark-mode .paragraph.selected-for-keyword {
+      background: rgba(70, 120, 134, 0.25);
+      border-left: 4px solid #467886;
+    }
+    
     body.dark-mode .resize-handle,
     body.dark-mode .vertical-resize-handle {
       background-color: transparent;
@@ -295,7 +309,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       transition: width 0.3s ease, min-width 0.3s ease;
     }
     
-#sidebar-header {
+    #sidebar-header {
   flex-shrink: 0;
   padding: 0.5rem;
   background: inherit;
@@ -309,6 +323,35 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
 
 #sidebar-header::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
+}
+
+/* Logo-Styling */
+.site-logo {
+  height: 120px;
+  width: auto;
+  margin-right: 0.5rem;
+  border-radius: 4px;
+  vertical-align: middle;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s;
+}
+
+.site-logo:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+body.dark-mode .site-logo {
+  box-shadow: 0 1px 3px rgba(255,255,255,0.1);
+}
+
+body.dark-mode .site-logo:hover {
+  box-shadow: 0 2px 6px rgba(255,255,255,0.15);
+}
+
+.site-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 0;
 }
     
     #sidebar-content {
@@ -1601,6 +1644,10 @@ body.dark-mode #thematicSearchInfo {
     
     body.dark-mode .toc-item a {
       color: var(--dark-link-color) !important;
+    }
+    
+    body.dark-mode .toc-link {
+      color: var(--dark-accent-color) !important;
     }
     
     /* Diese Dark Mode Styles sind jetzt in den zentralen Überschriften-Styles */
@@ -3223,7 +3270,10 @@ body.dark-mode .welcome-start-btn:hover {
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
-<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner GA-Suche</a></h1>
+<div class="site-header-flex">
+<img src="steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
+<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner<br>GA-Suche</a></h1>
+</div>
 <div style="display: flex; align-items: center; gap: 0.15rem;">
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
 <i data-lucide="database"></i>
@@ -3296,8 +3346,22 @@ body.dark-mode .welcome-start-btn:hover {
 </select>
 </div>
 <div style="display:flex; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
-  <button id="batch-btn" class="depth-btn" onclick="startBatchSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch</button>
-  <button id="batch-all-btn" class="depth-btn" onclick="startBatchAllSummaries()" style="padding: 6px 10px; font-size: 0.85em;">batch all</button>
+  <!-- NEUE 3-BUTTON ARCHITEKTUR - UNIFIED GENERATION -->
+  <button id="batch-structure-btn" class="depth-btn" onclick="batchGenerateStructure()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
+    S&H&C
+  </button>
+  <button id="batch-keywords-btn" class="depth-btn" onclick="batchGenerateKeywords()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
+    C&K
+  </button>
+  <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
+    S&H&C&K
+  </button>
+  <select id="batch-provider-select" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--sidebar-bg); color: var(--text-color);">
+    <option value="claude">Claude</option>
+    <option value="openai">OpenAI</option>
+    <option value="gemini">Gemini</option>
+  </select>
+  <span id="texteSelectionInfo" style="font-size: 0.8em; color: #666; margin-left: 4px; display: none;"></span>
 </div>
 <div id="texteSearchInfo" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.5rem;">
 <div>
@@ -3370,7 +3434,7 @@ Lade Statistiken...
 </div>
 
 <div class="tab-content" id="schlagworte-tab">
-<div style="margin-bottom: 1rem;">
+<div style="max-height: 100px; max-width: 800px; overflow-y: auto; margin-bottom: 1rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
 <!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
 <div id="addKeywordSection" style="display:none;">
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.8rem;">
@@ -3454,22 +3518,12 @@ Bestehende Schlagwörter überschreiben
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0;">
 <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">
-  Iterative Keyword-Generierung 
-  <span style="background: #5cb85c; color: white; padding: 2px 8px; font-size: 0.7em; border-radius: 3px; margin-left: 0.5rem; font-weight: normal;">V2</span>
+  KI-Bearbeitung von Vorträgen
 </h3>
-<p style="color: var(--text-color); margin-bottom: 0.5rem; font-size: 0.9em;">
-  Generiert Keywords aus H3/H4 Überschriften mit vordefiniertem Themen-Vokabular (Template-basiert).
-</p>
-<p style="color: var(--secondary-text); margin-bottom: 1rem; font-size: 0.8em; font-style: italic;">
-  ✓ Extrahiert aus Überschriften (nicht Summary) • ✓ Konservativ (max. 2 KW/Überschrift) • ✓ Themen-Zuordnung
-</p>
 
 <!-- GA-Band Auswahl -->
 <div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
   <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">GA-Bände auswählen</h4>
-  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
-    Wählen Sie einen oder mehrere GA-Bände zur Keyword-Generierung aus
-  </p>
   
   <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
     <button id="loadGAVolumesBtn" class="depth-btn" onclick="loadAvailableGAVolumes()" style="padding: 8px 12px; font-size: 0.85em;">
@@ -3489,14 +3543,14 @@ Bestehende Schlagwörter überschreiben
     <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 0.9em;">KI-Provider auswählen</h4>
     <div style="display: flex; flex-direction: column; gap: 4px;">
       <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
-        <input type="radio" name="llmProvider" value="openai" checked style="margin: 0;">
-        <span style="font-weight: 600;">OpenAI (GPT-4o)</span>
-        <span id="openaiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
-      </label>
-      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
-        <input type="radio" name="llmProvider" value="claude" style="margin: 0;">
+        <input type="radio" name="llmProvider" value="claude" checked style="margin: 0;">
         <span style="font-weight: 600;">Claude (Sonnet 4)</span>
         <span id="claudeStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
+        <input type="radio" name="llmProvider" value="openai" style="margin: 0;">
+        <span style="font-weight: 600;">OpenAI (GPT-4o)</span>
+        <span id="openaiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
       </label>
       <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85em; color: var(--text-color); cursor: pointer;">
         <input type="radio" name="llmProvider" value="gemini" style="margin: 0;">
@@ -3504,32 +3558,11 @@ Bestehende Schlagwörter überschreiben
         <span id="geminiStatus" style="font-size: 0.75em; color: var(--secondary-text);">prüfe...</span>
       </label>
     </div>
-    <p style="margin: 0.5rem 0 0 0; font-size: 0.75em; color: var(--secondary-text); font-style: italic;">
-      💡 Tipp: Bei Rate-Limit zu anderem Provider wechseln
-    </p>
-  </div>
-  
-  <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 0.5rem;">
-    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
-      <input type="checkbox" id="useExistingVocabCheckbox" checked style="margin: 0;">
-      Bestehendes Vokabular verwenden (iterativ wachsend)
-    </label>
-    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
-      <input type="checkbox" id="consolidateSynonymsCheckbox" checked style="margin: 0;">
-      Synonyme automatisch konsolidieren
-    </label>
-    <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
-      <input type="checkbox" id="forceReprocessCheckbox" style="margin: 0;">
-      <span style="color: #f0ad4e; font-weight: 600;">⚠️ Bereits verarbeitete Vorträge NEU verarbeiten</span>
-    </label>
   </div>
   
   <div style="display: flex; gap: 8px; align-items: center;">
-    <button id="startGABatchBtn" class="depth-btn primary" onclick="startGABatchV2()" style="padding: 8px 16px; font-size: 0.85em;" disabled>
-      Batch starten (V2)
-    </button>
-    <button id="cancelGABatchBtn" class="depth-btn" onclick="cancelGABatch()" style="padding: 8px 16px; font-size: 0.85em; display: none; background: #d9534f; color: white;">
-      Abbrechen
+    <button id="startGABatchBtn" class="depth-btn" onclick="startGABatchFullRegenerate()" style="padding: 8px 16px; font-size: 0.85em; background: #d9534f; color: white;" disabled>
+      S&H&C&K starten
     </button>
   </div>
   
@@ -3575,250 +3608,6 @@ Bestehende Schlagwörter überschreiben
   </div>
 </div>
 
-<!-- Thematische Cluster Generierung -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Thematische Cluster erstellen</h4>
-  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
-    Generiert übergeordnete Themenbereiche aus den Seed-Keywords (Keywords - merged.md)
-  </p>
-  
-  <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-    <button id="generateClustersBtn" class="depth-btn primary" onclick="generateThematicClusters()" style="padding: 8px 16px; font-size: 0.85em;">
-      Themenbereiche generieren
-    </button>
-    <button id="loadClustersBtn" class="depth-btn" onclick="loadExistingClusters()" style="padding: 8px 16px; font-size: 0.85em;">
-      Bestehende laden
-    </button>
-    <button id="reorganizeClustersBtn" class="depth-btn" onclick="reorganizeClusters()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;">
-      Cluster reorganisieren
-    </button>
-  </div>
-  
-  <div id="clustersStatus" style="display: none; margin-top: 0.5rem;"></div>
-  
-  <div id="clustersResults" style="display: none; margin-top: 1rem; max-height: 400px; overflow-y: auto;">
-    <h5 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Generierte Themenbereiche:</h5>
-    <div id="clustersResultsContent" style="font-size: 0.85em;"></div>
-  </div>
-</div>
-
-<!-- Manueller Cluster hinzufügen -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">➕ Themenbereich manuell hinzufügen</h4>
-  <p style="margin: 0 0 0.8rem 0; font-size: 0.85em; color: var(--secondary-text);">
-    Füge einen eigenen Themenbereich mit ausgewählten Keywords hinzu
-  </p>
-  
-  <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-    <div>
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Cluster-Name:
-      </label>
-      <input type="text" id="manualClusterName" placeholder="z.B. Soziale Dreigliederung" 
-        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-    </div>
-    
-    <div>
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Beschreibung:
-      </label>
-      <textarea id="manualClusterDescription" placeholder="Kurze Beschreibung des Themenbereichs..." 
-        style="width: 100%; height: 60px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
-    </div>
-    
-    <div>
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Keywords (eines pro Zeile):
-      </label>
-      <textarea id="manualClusterKeywords" placeholder="Keyword1&#10;Keyword2&#10;Keyword3" 
-        style="width: 100%; height: 100px; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
-      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
-        Tipp: Keywords müssen in Keywords - merged.md oder bereits generiert sein
-      </p>
-    </div>
-    
-    <div style="display: flex; gap: 8px; align-items: center;">
-      <button id="addManualClusterBtn" class="depth-btn" onclick="addManualCluster()" style="padding: 8px 16px; font-size: 0.85em; background: #5cb85c; color: white;">
-        Cluster hinzufügen
-      </button>
-      <button class="depth-btn" onclick="clearManualClusterForm()" style="padding: 8px 16px; font-size: 0.85em;">
-        Zurücksetzen
-      </button>
-    </div>
-    
-    <div id="manualClusterStatus" style="display: none; margin-top: 0.5rem;"></div>
-  </div>
-</div>
-
-<!-- Top 100 Keywords -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">📊 Häufigste Schlagwörter</h4>
-  <p style="margin: 0 0 0.5rem 0; font-size: 0.85em; color: var(--secondary-text);">
-    Zeigt die 100 Schlagwörter mit den meisten Vorkommen in den Vorträgen
-  </p>
-  
-  <button class="depth-btn" onclick="showTop100Keywords(event)" style="padding: 8px 16px; font-size: 0.85em;">
-    Top 100 anzeigen
-  </button>
-</div>
-
-<!-- Keyword- und Cluster-Management -->
-<div style="padding: 0.8rem; background: var(--sidebar-bg); border-radius: 4px; border: 1px solid var(--border-color); margin-bottom: 1rem;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">🔧 Keyword & Cluster Management</h4>
-  
-  <div style="display: flex; gap: 8px; margin-bottom: 1rem;">
-    <button class="depth-btn" onclick="showKeywordEditor(event)" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
-      📝 Keywords bearbeiten
-    </button>
-    <button class="depth-btn" onclick="showClusterEditor(event)" style="padding: 8px 12px; font-size: 0.85em; flex: 1;">
-      🗂️ Cluster bearbeiten
-    </button>
-  </div>
-  
-  <!-- Keyword Editor Modal -->
-  <div id="keywordEditorModal" style="display: none; position: fixed; top: 5%; left: 50%; transform: translateX(-50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 0; max-width: 700px; width: 90%; max-height: 90vh; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3); overflow: hidden; will-change: transform, opacity; contain: layout style paint;">
-    <div style="padding: 1.5rem; max-height: 90vh; overflow-y: auto; contain: layout paint; content-visibility: auto;">
-    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords zusammenführen / umbenennen</h3>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Keywords laden:
-      </label>
-      <button id="btnLoadKeywords" class="depth-btn" onclick="loadKeywordsForEdit(); return false;" style="padding: 6px 12px; font-size: 0.75em;">
-        🔄 Keywords laden
-      </button>
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
-        Quell-Keyword (wird entfernt):
-      </label>
-      <select id="oldKeyword" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-        <option value="">-- Zuerst Keywords laden --</option>
-      </select>
-      <p style="font-size: 0.7em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
-        Dieses Keyword wird in allen Vorträgen ersetzt oder gelöscht
-      </p>
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
-        Ziel-Keyword (wird behalten):
-      </label>
-      <input type="text" id="newKeyword" placeholder="z.B. Wiederverkörperung (leer lassen zum Löschen)" 
-        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-      <p style="font-size: 0.7em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
-        💡 <strong>Zusammenführen:</strong> Quell-Keyword wird mit diesem vereint (keine Duplikate)<br>
-        💡 <strong>Löschen:</strong> Leer lassen um Quell-Keyword zu entfernen<br>
-        💡 <strong>Umbenennen:</strong> Funktioniert auch wenn Ziel-Keyword noch nicht existiert
-      </p>
-    </div>
-    
-    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
-    
-    <h4 style="margin: 0 0 1rem 0; color: var(--heading-color); font-size: 1em;">Keyword in anderen Cluster verschieben</h4>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Keyword:
-      </label>
-      <input type="text" id="moveKeywordInput" placeholder="z.B. Karma" 
-        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Ziel-Cluster:
-      </label>
-      <select id="moveTargetCluster" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-        <option value="">-- Zuerst Cluster laden --</option>
-      </select>
-      <button id="btnLoadClusters" class="depth-btn" onclick="loadClustersForMove(); return false;" style="padding: 6px 12px; font-size: 0.75em; margin-top: 0.5rem;">
-        🔄 Cluster laden
-      </button>
-    </div>
-    
-    <button id="btnMoveKeyword" class="depth-btn" onclick="moveKeywordToCluster(); return false;" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white; width: 100%; margin-bottom: 0.5rem;">
-      Keyword verschieben
-    </button>
-    
-    <div id="keywordMoveStatus" style="display: none; margin-bottom: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
-    
-    <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
-    
-    <div style="display: flex; gap: 8px;">
-      <button id="btnRenameKeyword" class="depth-btn" onclick="console.log('[BTN] Zusammenführen geklickt'); renameKeyword(); return false;" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
-        🔀 Zusammenführen / Umbenennen
-      </button>
-      <button id="btnCloseKeywordEditor" class="depth-btn" onclick="console.log('[BTN] Schließen geklickt'); closeKeywordEditor();" style="padding: 8px 16px; font-size: 0.85em;">
-        Schließen
-      </button>
-    </div>
-    
-    <div id="keywordEditorStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
-    </div>
-  </div>
-  
-  <!-- Cluster Editor Modal -->
-  <div id="clusterEditorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10000; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-    <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Cluster bearbeiten / zusammenführen</h3>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Bestehende Cluster laden:
-      </label>
-      <button class="depth-btn" onclick="loadClustersForEdit()" style="padding: 6px 12px; font-size: 0.85em;">
-        Cluster laden
-      </button>
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Cluster auswählen:
-      </label>
-      <select id="clusterToEdit" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-        <option value="">-- Cluster wählen --</option>
-      </select>
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Neuer Titel:
-      </label>
-      <input type="text" id="newClusterName" placeholder="Neuer Cluster-Name" 
-        style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-    </div>
-    
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-        Mit anderem Cluster zusammenführen:
-      </label>
-      <select id="mergeTargetCluster" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--input-bg); color: var(--text-color);">
-        <option value="">-- Optional: Ziel-Cluster --</option>
-      </select>
-      <p style="font-size: 0.75em; color: var(--secondary-text); margin: 0.3rem 0 0 0;">
-        💡 Wählen Sie ein Ziel, um zwei Cluster zusammenzuführen
-      </p>
-    </div>
-    
-    <div style="display: flex; gap: 8px;">
-      <button class="depth-btn" onclick="renameCluster()" style="padding: 8px 16px; font-size: 0.85em; background: #467886; color: white;">
-        Cluster umbenennen
-      </button>
-      <button class="depth-btn" onclick="mergeClusters()" style="padding: 8px 16px; font-size: 0.85em; background: #f0ad4e; color: white;">
-        Zusammenführen
-      </button>
-      <button class="depth-btn" onclick="closeClusterEditor()" style="padding: 8px 16px; font-size: 0.85em;">
-        Schließen
-      </button>
-    </div>
-    
-    <div id="clusterEditorStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
-  </div>
-  
-  <!-- Overlay für Modals -->
-  <div id="editorOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;" onclick="console.log('[OVERLAY] Geklickt'); closeKeywordEditor();"></div>
-</div>
 
 </div>
 </div>
@@ -3843,9 +3632,15 @@ Original
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
-<!-- Lokal sichtbarer Button zum Neuerzeugen/Überschreiben einer Summary -->
-<button id="viewerRegenerateBtn" onclick="regenerateCurrentSummary()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-Summary neu
+<!-- NEUE 3-BUTTON ARCHITEKTUR für einzelnen Vortrag -->
+<button id="viewerStructureBtn" onclick="generateCurrentStructure()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; border: 1px solid var(--accent-color);">
+S&H&C
+</button>
+<button id="viewerTOCKWBtn" onclick="generateCurrentTOCKW()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; border: 1px solid var(--accent-color);">
+C&K
+</button>
+<button id="viewerRegenerateBtn" onclick="generateCurrentAll()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; border: 1px solid #d9534f;">
+S&H&C&K
 </button>
 </div>
 </div>
@@ -3978,12 +3773,15 @@ Summary neu
               if (external[lecture.ID]) {
                 lecture.summary = external[lecture.ID].summary;
                 lecture.headings = external[lecture.ID].headings || [];
+                lecture.tableOfContents = external[lecture.ID].tableOfContents || [];
+                lecture.lectureKeywords = external[lecture.ID].lectureKeywords || [];
+                lecture.version = external[lecture.ID].version || 'v1';
                 loadedCount++;
               }
             });
             console.log(`[SUMMARIES] ${loadedCount} Summaries aus externer GitHub-DB geladen`);
-            // Wenn wir etwas geladen haben, sind wir fertig (keine weitere Aktion nötig)
-            if (loadedCount > 0) return;
+            // WICHTIG: Nicht früh returnen - lokale DB könnte neuere V2-Daten haben!
+            // if (loadedCount > 0) return; // DEAKTIVIERT - überschreibe mit lokaler DB falls besser
           }
         } catch (extErr) {
           console.warn('[SUMMARIES] Externe Summary-DB nicht verfügbar:', extErr.message);
@@ -3998,6 +3796,9 @@ Summary neu
               if (summaryDB[lecture.ID]) {
                 lecture.summary = summaryDB[lecture.ID].summary;
                 lecture.headings = summaryDB[lecture.ID].headings || [];
+                lecture.tableOfContents = summaryDB[lecture.ID].tableOfContents || [];
+                lecture.lectureKeywords = summaryDB[lecture.ID].lectureKeywords || [];
+                lecture.version = summaryDB[lecture.ID].version || 'v1';
                 loadedCount++;
               }
             });
@@ -4424,8 +4225,13 @@ function normalizeGANumber(gaNumber) {
         texteGAFilter.addEventListener('change', (e) => {
           const selectedGA = e.target.value;
           if (selectedGA) {
+            // Setze Auswahl zurück beim Wechsel des GA-Bands
+            selectedLectureIds.clear();
+            updateSelectionInfo();
             openGAOverview(selectedGA);
           }
+          // Aktualisiere Button-Status (für Keywords-Regeneration)
+          updateButtonStates();
         });
       }
     }
@@ -4609,6 +4415,37 @@ async function saveSummaryToCentral(lectureId, summaryData) {
 
 // Globale Variable für den Toggle-Zustand
 let gaOverviewShowSummaries = true;
+
+// Globale Variable für ausgewählte Vorträge
+let selectedLectureIds = new Set();
+
+// Funktion: Toggle Vortrag-Auswahl (nur lokal)
+function toggleLectureSelection(lectureId) {
+  if (!isLocal) return;
+  
+  if (selectedLectureIds.has(lectureId)) {
+    selectedLectureIds.delete(lectureId);
+  } else {
+    selectedLectureIds.add(lectureId);
+  }
+  updateSelectionInfo();
+}
+
+// Funktion: Auswahl-Info aktualisieren (nur lokal)
+function updateSelectionInfo() {
+  if (!isLocal) return; // Nur lokal anzeigen
+  
+  const count = selectedLectureIds.size;
+  const infoElement = document.getElementById('texteSelectionInfo');
+  if (infoElement) {
+    if (count > 0) {
+      infoElement.textContent = `${count} Vortrag${count > 1 ? 'e' : ''} ausgewählt`;
+      infoElement.style.display = 'inline';
+    } else {
+      infoElement.style.display = 'none';
+    }
+  }
+}
 
 // Hilfsfunktion zum Extrahieren des Summary-Texts
 function getSummaryText(summary) {
@@ -4796,15 +4633,10 @@ async function displayGAOverview(data) {
   showingSummaryInMain = false;
   updateButtonStates();
   
-  // Lade Summaries aus zentraler Datenbank
+  // Lade Summaries aus zentraler Datenbank (enthält jetzt auch lectureKeywords in V2)
   await loadSummariesFromDB(data);
   
-  // Lade Keywords-Database (enthält Themen und H3-Keywords)
-  const keywordsDB = await loadKeywordsDatabaseForThemes();
-  
-  console.log('[GA-OVERVIEW] Keywords-DB geladen, Anzahl Einträge:', Object.keys(keywordsDB).length);
-  console.log('[GA-OVERVIEW] Erste paar Lecture-IDs in Keywords-DB:', Object.keys(keywordsDB).slice(0, 10));
-  console.log('[GA-OVERVIEW] Erste paar Lecture-IDs in data.lectures:', data.lectures.slice(0, 5).map(l => l.ID));
+  console.log('[GA-OVERVIEW] Summaries geladen, prüfe auf V2-Keywords...');
   
   // Zähle Vorträge mit Summaries
   const summaryCount = data.lectures.filter(l => l.summary && l.summary.trim() !== '').length;
@@ -4839,56 +4671,55 @@ async function displayGAOverview(data) {
       titleText += `, ${locationParts.join(', ')}`;
     }
     
-    // Hole H3-Keywords aus keywords-database (mit Index-Links)
-    const lectureKeywordData = keywordsDB[lecture.ID];
-    const h3Keywords = lectureKeywordData && lectureKeywordData.keywords 
-      ? lectureKeywordData.keywords.filter(kw => kw.level === 'h3')
-      : [];
-    
-    // Dedupliziere Keywords (nur einzigartige Begriffe, behalte das erste Vorkommen)
-    const uniqueKeywords = [];
-    const seenTerms = new Set();
-    h3Keywords.forEach(kw => {
-      const term = kw.term.toLowerCase();
-      if (!seenTerms.has(term)) {
-        seenTerms.add(term);
-        uniqueKeywords.push(kw);
-      }
-    });
+    // Hole lectureKeywords aus summary-database V2 (Keywords aus Textinhalt)
+    // Falls V2 nicht vorhanden, zeige keine Keywords
+    const lectureKeywords = lecture.lectureKeywords || [];
     
     // Debug-Log
     if (idx === 0) {
       console.log('[GA-OVERVIEW-DEBUG] Erste Lecture:', lecture.ID);
-      console.log('[GA-OVERVIEW-DEBUG] Lecture Keyword Data:', lectureKeywordData);
-      console.log('[GA-OVERVIEW-DEBUG] H3 Keywords gefunden:', h3Keywords.length, '| Unique:', uniqueKeywords.length);
-      if (uniqueKeywords.length > 0) {
-        console.log('[GA-OVERVIEW-DEBUG] Beispiel H3-Keyword:', uniqueKeywords[0]);
+      console.log('[GA-OVERVIEW-DEBUG] Summary Version:', lecture.version || 'v1');
+      console.log('[GA-OVERVIEW-DEBUG] lectureKeywords:', lectureKeywords.length);
+      if (lectureKeywords.length > 0) {
+        console.log('[GA-OVERVIEW-DEBUG] Erste 3 Keywords:', lectureKeywords.slice(0,3).map(k => k.term));
       }
     }
     
-    const hasKeywords = uniqueKeywords.length > 0;
+    const hasKeywords = lectureKeywords.length > 0;
+    
+    const isSelected = selectedLectureIds.has(lecture.ID);
     
     html += `
-      <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none;">
-        <h3 style="margin: 0 0 0rem 0;">
-          <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
-            ${titleText}
-          </a>
-        </h3>
+      <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none; display: flex; align-items: flex-start; gap: 8px;">
+        ${isLocal ? `
+          <input type="checkbox" 
+                 id="chk-${lecture.ID}" 
+                 class="lecture-checkbox" 
+                 ${isSelected ? 'checked' : ''} 
+                 onchange="toggleLectureSelection('${lecture.ID}')"
+                 style="margin-top: 4px; cursor: pointer; flex-shrink: 0;">
+        ` : ''}
+        <div style="flex: 1;">
+          <h3 style="margin: 0 0 0rem 0;">
+            <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
+              ${titleText}
+            </a>
+          </h3>
         
         ${hasKeywords ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
             <p style="margin: 0; line-height: 1.3; font-size: 0.9em;">
-              ${uniqueKeywords.map(kw => {
+              ${lectureKeywords.map(kw => {
                 const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
                 const escapedGANumber = data.gaNumber.replace(/'/g, "\\'");
                 return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
-              }).join(' | ')}
+              }).join(' &middot; ')}
             </p>
           </div>
         ` : `
-          <!-- Keine Keywords für ${lecture.ID} -->
+          <!-- Keine V2-Keywords für ${lecture.ID} -->
         `}
+        </div>
       </div>
     `;
   });
@@ -4897,6 +4728,9 @@ async function displayGAOverview(data) {
   resultsContainer.innerHTML = html;
   
   document.getElementById('sidebar-content').scrollTop = 0;
+  
+  // Aktualisiere Auswahl-Info
+  updateSelectionInfo();
 }
 
 // Toggle-Funktion für Zusammenfassungen
@@ -5519,16 +5353,22 @@ function toggleGASummaries() {
     viewerSummaryBtn.style.display = 'inline-block';
   }
 
-  // Regenerate-Button nur lokal verfügbar
+  // NEUE 3-BUTTON ARCHITEKTUR - nur lokal verfügbar
+  const viewerStructureBtn = document.getElementById('viewerStructureBtn');
+  const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
   const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
-  if (viewerRegenerateBtn) {
-    if (currentLectureData && isLocal) {
-      viewerRegenerateBtn.style.display = 'inline-block';
-    } else {
-      viewerRegenerateBtn.style.display = 'none';
-    }
+  
+  if (currentLectureData && isLocal) {
+    if (viewerStructureBtn) viewerStructureBtn.style.display = 'inline-block';
+    if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'inline-block';
+    if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'inline-block';
+  } else {
+    if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
+    if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
+    if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
   }
 }
+
 
     async function loadRecentThematicQueries() {
       try {
@@ -5745,6 +5585,10 @@ function toggleGASummaries() {
     summaryPanel.style.minWidth = '280px';
     summaryPanel.style.marginRight = '0px';
     panelWasJustOpened = true;
+    
+    // Layout anpassen: Viewer verkleinern statt überlagern
+    document.body.classList.remove('summary-panel-collapsed');
+    updateHeaderPosition();
   }
   
   // Fall 1: Original wird angezeigt → Übersicht anzeigen/generieren
@@ -5817,24 +5661,30 @@ try {
     // Nach dem Anzeigen/Generieren der Summary weiter zum H4-Toggle
   }
   
-  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4
+  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4 und TOC
   const tocList = document.getElementById('toc-list');
   const viewerH4 = viewer.querySelectorAll('h4');
   const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
   
-  // Beim ersten Öffnen des Panels sollen H4s sichtbar bleiben
+  // TOC-Container im Viewer finden
+  const viewerTOC = viewer.querySelector('.lecture-toc-section');
+  const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
+  
+  // Beim ersten Öffnen des Panels sollen H4s und TOC sichtbar bleiben
   if (panelWasJustOpened) {
-    // Panel wurde gerade geöffnet → H4s sichtbar lassen
+    // Panel wurde gerade geöffnet → H4s und TOC sichtbar lassen
     viewerH4Collapsed = false;
   } else {
     // Normaler Toggle
     viewerH4Collapsed = !viewerH4Collapsed;
   }
   
+  // Toggle H4 im Viewer
   viewerH4.forEach(h4 => {
     h4.style.display = viewerH4Collapsed ? 'none' : 'block';
   });
   
+  // Toggle H4 im rechten TOC-Panel
   tocH4.forEach(h4 => {
     if (viewerH4Collapsed) {
       h4.classList.add('hidden');
@@ -5842,6 +5692,16 @@ try {
       h4.classList.remove('hidden');
     }
   });
+  
+  // Toggle TOC-Container im Viewer
+  if (viewerTOC) {
+    viewerTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
+  }
+  
+  // Toggle TOC-Container im rechten Panel
+  if (tocListTOC) {
+    tocListTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
+  }
 }
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
@@ -6059,6 +5919,12 @@ setTimeout(() => {
   panel.style.minWidth = '0';
   panel.style.marginRight = '0px';
   
+  // TOC leeren beim Wechsel zur Original-Ansicht
+  const tocList = document.getElementById('toc-list');
+  if (tocList) {
+    tocList.innerHTML = '';
+  }
+  
   const visibleIndex = getCurrentVisibleParagraphIndex();
   if (visibleIndex) {
     lastHighlightedIndex = visibleIndex;
@@ -6116,6 +5982,9 @@ function showSummaryView() {
       viewerSummaryBtn.innerHTML = '≡ Übersicht';
       viewerSummaryBtn.style.opacity = '1';
     }
+    
+    // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
+    updateHeaderPosition();
   }, 50);
 }
     function getCurrentVisibleParagraphIndex() {
@@ -6142,12 +6011,18 @@ function showSummaryView() {
     // ZENTRALE HIGHLIGHTING-VERWALTUNG
     let highlightTimeout = null;
 
+    // Hilfsfunktion: Prüfe ob Timeline-Tab aktiv ist
+    function isTimelineTabActive() {
+      const activeTab = document.querySelector('.tab-content.active');
+      return activeTab && activeTab.id === 'timeline-tab';
+    }
+
     function addHighlightingWithAutoRemove(element) {
       // Entferne vorherige Markierung und Timer (ohne Fade-Out)
       clearPreviousHighlighting();
       
-      // Füge neue Markierung hinzu
-      if (element) {
+      // Füge neue Markierung hinzu - NICHT im Timeline-Tab
+      if (element && !isTimelineTabActive()) {
         element.classList.add('highlighted-paragraph');
         
         // Entferne automatisch nach 5 Sekunden konstanter Anzeige
@@ -6274,8 +6149,34 @@ function showSummaryView() {
     html += '<div style="margin-bottom: 1rem;">';
     html += '<p><strong>Zusammenfassung</strong></p>';
     html += `<p style="font-style: italic;">${summaryObj.summary}</p>`;
-    html += '<hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">';
     html += '</div>';
+    
+    // Zeige lectureKeywords (nur lokal mit + Button)
+    const lectureKeywords = summaryObj.lectureKeywords || [];
+    if (lectureKeywords.length > 0 || isLocal) {
+      html += '<div style="margin-bottom: 1rem;">';
+      html += '<p style="margin: 0 0 0.5rem 0;"><strong>Schlagwörter</strong></p>';
+      html += '<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">';
+      
+      lectureKeywords.forEach(kw => {
+        html += `<span style="background: #e3f2fd; padding: 3px 8px; border-radius: 3px; font-size: 0.9em;">${kw.term}</span>`;
+      });
+      
+      if (isLocal) {
+        html += `<button onclick="openAddKeywordModal('${lecture.ID}')" style="padding: 3px 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;" title="Keyword zu diesem Vortrag hinzufügen (optional: Absatz im Text anklicken für genaue Zuordnung)">+ Keyword</button>`;
+      }
+      
+      html += '</div></div>';
+    }
+    
+    // Add Table of Contents after keywords - use V2 data from summaryObj if available
+    const tocHtml = displayLectureTableOfContents(lecture, headings, summaryObj);
+    
+    if (tocHtml) {
+      html += tocHtml;
+    }
+    
+    html += '<hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">';
   }
   
   const paragraphs = lecture.paragraphs || [];
@@ -6321,12 +6222,20 @@ function showSummaryView() {
     }
     
     const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
-const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+    // Highlighting nur wenn NICHT im Timeline-Tab
+    const highlightClass = (isTargetPara && !isTimelineTabActive()) ? 'highlighted-paragraph' : '';
+    
+    const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+    const contextHandler = isLocal ? `oncontextmenu="openKeywordModalFromParagraph('${paraIndexWithCaret}', event)"` : '';
+    const cursorStyle = isLocal ? 'cursor: pointer;' : '';
 
-html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-array-index="${idx}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextHandler} style="${cursorStyle}">${content}</div>`;
   });
   
   viewer.innerHTML = html;
+  
+  // Activate TOC links after rendering
+  activateTOCLinks();
   
   // Scrolle zum markierten Absatz in der Summary oder nach oben
   if (lastHighlightedIndex) {
@@ -6602,8 +6511,19 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-ar
         if (summaryData.exists && summaryData.summary) {
           currentLectureSummary = {
             summary: summaryData.summary,
-            headings: summaryData.headings || []
+            headings: summaryData.headings || [],
+            tableOfContents: summaryData.tableOfContents || [],
+            lectureKeywords: summaryData.lectureKeywords || [],
+            version: summaryData.version || 'v1'
           };
+          
+          console.log('[SUMMARY-LOAD] Loaded summary version:', summaryData.version || 'v1');
+          if (summaryData.tableOfContents) {
+            console.log('[SUMMARY-LOAD] Has tableOfContents:', summaryData.tableOfContents.length);
+          }
+          if (summaryData.lectureKeywords) {
+            console.log('[SUMMARY-LOAD] Has lectureKeywords:', summaryData.lectureKeywords.length);
+          }
           
           // Zeige bearbeitete Version mit Überschriften
           showingSummaryInMain = true;
@@ -6740,7 +6660,7 @@ async function regenerateCurrentSummary() {
     alert('Kein Vortrag geladen.');
     return;
   }
-  if (!confirm('Summary neu erzeugen und alte Version überschreiben?')) return;
+  if (!confirm('TOC und Keywords neu erzeugen und überschreiben?')) return;
 
   const lectureId = currentLectureData.ID;
   // Sperre die UI während der Regeneration
@@ -6756,11 +6676,21 @@ async function regenerateCurrentSummary() {
       regenBtn.appendChild(spinner);
     }
 
+    // Hole ausgewählten Provider aus Keywords-Tab
+    const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+    const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+    
+    console.log('[SUMMARY-REGEN] Nutze Provider:', selectedProvider || 'auto');
+    
     // Fordere Regeneration vom Backend an
     const resp = await fetch(`${API_BASE}/api/summarize-lecture`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
+      body: JSON.stringify({ 
+        lectureId: lectureId, 
+        forceRegenerate: true,
+        preferredProvider: selectedProvider
+      })
     });
 
     if (!resp.ok) {
@@ -6769,29 +6699,72 @@ async function regenerateCurrentSummary() {
     }
     const data = await resp.json();
 
-    // Speichere das Ergebnis in der zentralen DB
-    const saveResp = await fetch(`${API_BASE}/api/save-summary`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lectureId: lectureId, summary: { summary: data.summary, headings: data.headings || [] } })
-    });
+    // NICHT nochmal speichern - Backend hat bereits gespeichert!
+    // (Vermeidet Überschreiben der V2-Daten mit altem Format)
 
-    if (!saveResp.ok) throw new Error(`Speichern fehlgeschlagen: ${saveResp.status}`);
-
-    alert('Summary neu erzeugt und gespeichert.');
-    // Aktualisiere aktuelle Anzeige
-    currentLectureSummary = { summary: data.summary, headings: data.headings || [] };
+    // Prüfe ob V2-Daten vorhanden
+    const isV2 = data.version === 'v2' || data.tableOfContents || data.lectureKeywords;
+    const keywordsGenerated = data.keywordsGenerated || false;
+    
+    // Erstelle detaillierte Erfolgsmeldung
+    const summaryReused = data.summaryReused || false;
+    
+    let successMessage = summaryReused 
+      ? `Inhaltsverzeichnis & Schlagwörter neu generiert!\n\n`
+      : `Summary V2 neu erzeugt und gespeichert!\n\n`;
+    
+    if (summaryReused) {
+      successMessage += `✓ Zusammenfassung (behalten)\n`;
+    } else {
+      successMessage += `✓ Zusammenfassung neu erstellt\n`;
+    }
+    
+    successMessage += `✓ ${(data.headings || []).length} Überschriften (H3/H4)\n`;
+    successMessage += `✓ ${(data.tableOfContents || []).length} Inhaltsverzeichnis-Einträge ${summaryReused ? '(neu)' : ''}\n`;
+    
+    if (keywordsGenerated && data.keywords) {
+      const newKws = data.keywords.filter(k => k.matchType === 'new').length;
+      const existingKws = data.keywords.length - newKws;
+      successMessage += `✓ ${data.keywords.length} Schlagwörter (V3 ${summaryReused ? 'neu' : 'flexibel'})\n`;
+      successMessage += `  - ${existingKws} existierend, ${newKws} neu`;
+    } else if (data.lectureKeywords && data.lectureKeywords.length > 0) {
+      successMessage += `✓ ${data.lectureKeywords.length} Schlagwörter`;
+    }
+    
+    alert(successMessage);
+    
+    // Aktualisiere aktuelle Anzeige mit V2-Daten
+    currentLectureSummary = { 
+      summary: data.summary, 
+      headings: data.headings || [],
+      tableOfContents: data.tableOfContents || [],
+      lectureKeywords: data.keywords || data.lectureKeywords || [],
+      version: data.version || 'v1'
+    };
+    
+    console.log('[SUMMARY-REGEN] Neue Summary:', currentLectureSummary);
     displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
     
     // Aktualisiere GA-Übersicht falls geöffnet
     if (currentLectureData && currentLectureData.ID) {
       const gaNumber = currentLectureData.ID.split('/')[0];
-      console.log('GA-Übersicht aktualisieren nach Summary-Generierung für', gaNumber);
+      console.log('[SUMMARY-REGEN] Aktualisiere GA-Übersicht nach Keywords-Generierung für', gaNumber);
+      
       // Cache zurücksetzen, um aktualisierte Datenbank zu laden
       externalSummaryDBCache = null;
-      setTimeout(() => {
-        openGAOverview(gaNumber);
-      }, 500);
+      
+      // Prüfe ob GA-Übersicht aktuell geöffnet ist
+      const resultsContainer = document.getElementById('results');
+      const isGAOverviewOpen = resultsContainer && resultsContainer.innerHTML.includes('ga-overview-lecture');
+      
+      if (isGAOverviewOpen) {
+        console.log('[SUMMARY-REGEN] GA-Übersicht ist geöffnet, lade neu...');
+        setTimeout(() => {
+          openGAOverview(gaNumber);
+        }, 500);
+      } else {
+        console.log('[SUMMARY-REGEN] GA-Übersicht nicht geöffnet, Cache nur zurückgesetzt');
+      }
     }
   } catch (err) {
     console.error('Regenerate error:', err);
@@ -6807,6 +6780,378 @@ async function regenerateCurrentSummary() {
   }
 }
 
+// ============================================================================
+// NEUE 3-BUTTON ARCHITEKTUR - EINZELNER VORTRAG
+// ============================================================================
+
+/**
+ * Button 1: Grundstruktur für aktuellen Vortrag
+ */
+async function generateCurrentStructure() {
+  if (!currentLectureData || !currentLectureData.ID) {
+    alert('Kein Vortrag geladen.');
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('viewerStructureBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const lectureId = currentLectureData.ID;
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[CURRENT-STRUCTURE] ${lectureId}, Provider: ${selectedProvider || 'auto'}`);
+  
+  setUILocked(true);
+  try {
+    const resp = await fetch(`${API_BASE}/api/batch-generate-structure`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: [lectureId],
+        preferredProvider: selectedProvider,
+        skipExisting: false  // Auch wenn vorhanden, neu generieren
+      })
+    });
+    
+    if (!resp.ok) throw new Error(`Server-Fehler: ${resp.status}`);
+    
+    const result = await resp.json();
+    
+    if (result.processed > 0) {
+      alert(`✓ Grundstruktur generiert:\nSummary, Headings und TOC erstellt`);
+      
+      // Lade aktualisierte Summary-Daten vom Server
+      const summaryResp = await fetch(`${API_BASE}/api/check-summary/${lectureId.split('/')[0]}/${lectureId.split('/')[1]}`);
+      if (summaryResp.ok) {
+        const summaryData = await summaryResp.json();
+        
+        // Aktualisiere lokale Daten
+        currentLectureSummary = summaryData;
+        
+        // Zeige aktualisierte Ansicht im Viewer
+        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+        
+        // Aktualisiere GA-Übersicht im linken Panel
+        const gaNumber = lectureId.split('/')[0];
+        externalSummaryDBCache = null; // Cache löschen
+        openGAOverview(gaNumber);
+      }
+    } else if (result.failed > 0) {
+      alert(`✗ Fehler bei der Generierung`);
+    }
+  } catch (err) {
+    alert('Fehler: ' + err.message);
+  } finally {
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * Button 2: TOC + Keywords für aktuellen Vortrag
+ */
+async function generateCurrentTOCKW() {
+  if (!currentLectureData || !currentLectureData.ID) {
+    alert('Kein Vortrag geladen.');
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('viewerTOCKWBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const lectureId = currentLectureData.ID;
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[CURRENT-TOCKW] ${lectureId}, Provider: ${selectedProvider || 'auto'}`);
+  
+  setUILocked(true);
+  try {
+    const resp = await fetch(`${API_BASE}/api/batch-generate-keywords`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: [lectureId],
+        preferredProvider: selectedProvider,
+        skipExisting: false  // Auch wenn vorhanden, neu generieren
+      })
+    });
+    
+    if (!resp.ok) throw new Error(`Server-Fehler: ${resp.status}`);
+    
+    const result = await resp.json();
+    
+    if (result.processed > 0) {
+      alert(`✓ TOC + Keywords generiert:\nInhaltsverzeichnis und Schlagwörter erstellt`);
+      
+      // Lade aktualisierte Summary-Daten vom Server
+      const summaryResp = await fetch(`${API_BASE}/api/check-summary/${lectureId.split('/')[0]}/${lectureId.split('/')[1]}`);
+      if (summaryResp.ok) {
+        const summaryData = await summaryResp.json();
+        
+        // Aktualisiere lokale Daten
+        currentLectureSummary = summaryData;
+        
+        // Zeige aktualisierte Ansicht im Viewer
+        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+        
+        // Aktualisiere GA-Übersicht im linken Panel (zeigt neue Keywords!)
+        const gaNumber = lectureId.split('/')[0];
+        externalSummaryDBCache = null; // Cache löschen
+        openGAOverview(gaNumber);
+      }
+    } else if (result.failed > 0) {
+      alert(`✗ Fehler bei der Generierung`);
+    }
+  } catch (err) {
+    alert('Fehler: ' + err.message);
+  } finally {
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * Button 3: Alles neu für aktuellen Vortrag
+ */
+async function generateCurrentAll() {
+  if (!currentLectureData || !currentLectureData.ID) {
+    alert('Kein Vortrag geladen.');
+    return;
+  }
+  
+  if (!confirm('WARNUNG: Alle Daten (S+H+TOC+KW) werden komplett neu generiert und überschrieben. Fortfahren?')) {
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('viewerRegenerateBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const lectureId = currentLectureData.ID;
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[CURRENT-ALL] ${lectureId}, Provider: ${selectedProvider || 'auto'}`);
+  
+  setUILocked(true);
+  try {
+    const resp = await fetch(`${API_BASE}/api/batch-regenerate-all`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: [lectureId],
+        preferredProvider: selectedProvider
+      })
+    });
+    
+    if (!resp.ok) throw new Error(`Server-Fehler: ${resp.status}`);
+    
+    const result = await resp.json();
+    
+    if (result.processed > 0) {
+      alert(`✓ Alles neu generiert:\nSummary, Headings, TOC und Keywords komplett neu erstellt`);
+      
+      // Lade aktualisierte Summary-Daten vom Server
+      const summaryResp = await fetch(`${API_BASE}/api/check-summary/${lectureId.split('/')[0]}/${lectureId.split('/')[1]}`);
+      if (summaryResp.ok) {
+        const summaryData = await summaryResp.json();
+        
+        // Aktualisiere lokale Daten
+        currentLectureSummary = summaryData;
+        
+        // Zeige aktualisierte Ansicht im Viewer
+        displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
+        
+        // Aktualisiere GA-Übersicht im linken Panel (zeigt neue Keywords!)
+        const gaNumber = lectureId.split('/')[0];
+        externalSummaryDBCache = null; // Cache löschen
+        openGAOverview(gaNumber);
+      }
+    } else if (result.failed > 0) {
+      alert(`✗ Fehler bei der Generierung`);
+    }
+  } catch (err) {
+    alert('Fehler: ' + err.message);
+  } finally {
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+// ENTFERNT: regenerateLectureKeywords() - Keywords werden jetzt nur über "Summary neu" generiert
+// (zusammen mit TOC in einem KI-Call)
+
+/*
+async function regenerateLectureKeywords() {
+  const regenerateBtn = document.getElementById('regenerate-lecture-keywords-btn');
+  const gaDropdown = document.getElementById('texteGAFilter');
+  const selectedGA = gaDropdown?.value;
+  
+  // Fall 1: Einzelner Vortrag ist geladen
+  if (currentLectureData && currentLectureData.ID) {
+    const lectureId = currentLectureData.ID;
+    
+    if (!confirm(`Keywords für ${lectureId} neu generieren und bestehende überschreiben?`)) {
+      return;
+    }
+    
+    try {
+      // Ermittle den ausgewählten Provider aus dem Keywords-Tab
+      const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+      const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+      
+      console.log('[KEYWORDS-REGEN] Regeneriere Keywords für einzelnen Vortrag:', lectureId, 'mit Provider:', selectedProvider || 'auto');
+      
+      // UI: Spinner + Disable
+      if (regenerateBtn) {
+        regenerateBtn.disabled = true;
+        regenerateBtn.textContent = 'Generiere...';
+      }
+      
+      // Rufe Backend API auf (mit forceReprocess=true und explizitem Provider)
+      const response = await fetch(`${API_BASE}/api/generate-keywords-v2`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          lectureIds: [lectureId],
+          forceReprocess: true,
+          useExistingVocab: true,
+          consolidateSynonyms: true,
+          preferredProvider: selectedProvider
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Server returned ${response.status}`);
+      }
+      
+      const result = await response.json();
+      
+      console.log('[KEYWORDS-REGEN] Erfolgreich:', result);
+      alert(`Keywords für ${lectureId} erfolgreich neu generiert!\n\nVerarbeitet: ${result.processed || 1}\nProvider: ${selectedProvider || 'auto'}`);
+      
+      // Aktualisiere die GA-Übersicht falls geöffnet
+      const gaNumber = currentLectureData.ID.split('/')[0];
+      console.log('[KEYWORDS-REGEN] GA-Übersicht aktualisieren für', gaNumber);
+      
+      // Cache zurücksetzen
+      keywordsDatabaseCache = null;
+      
+      // GA-Übersicht neu laden nach kurzer Verzögerung
+      setTimeout(() => {
+        openGAOverview(gaNumber);
+      }, 500);
+      
+    } catch (error) {
+      console.error('[KEYWORDS-REGEN] Fehler:', error);
+      alert('Fehler beim Regenerieren der Keywords:\n' + error.message);
+    } finally {
+      // UI wieder aktivieren
+      if (regenerateBtn) {
+        regenerateBtn.disabled = false;
+        updateKeywordsButtonText();
+      }
+    }
+    return;
+  }
+  
+  // Fall 2: Kein Vortrag geladen, aber GA-Band ausgewählt → Alle Vorträge des Bandes verarbeiten
+  if (!selectedGA) {
+    alert('Bitte wählen Sie zuerst einen GA-Band im Dropdown aus.');
+    return;
+  }
+  
+  if (!confirm(`Keywords für ALLE Vorträge in ${selectedGA} neu generieren und bestehende überschreiben?\n\nDies kann einige Zeit dauern.`)) {
+    return;
+  }
+  
+  try {
+    // Ermittle den ausgewählten Provider aus dem Keywords-Tab
+    const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+    const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+    
+    console.log('[KEYWORDS-REGEN] Regeneriere Keywords für gesamten GA-Band:', selectedGA, 'mit Provider:', selectedProvider || 'auto');
+    
+    // UI: Spinner + Disable
+    if (regenerateBtn) {
+      regenerateBtn.disabled = true;
+      regenerateBtn.textContent = 'Generiere alle...';
+    }
+    
+    // Rufe Backend API auf mit gaVolumes statt lectureIds
+    const response = await fetch(`${API_BASE}/api/generate-keywords-v2`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        gaVolumes: [selectedGA],
+        forceReprocess: true,  // WICHTIG: Überschreibt bestehende Keywords
+        useExistingVocab: true,
+        consolidateSynonyms: true,
+        preferredProvider: selectedProvider
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `Server returned ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    console.log('[KEYWORDS-REGEN] Erfolgreich:', result);
+    alert(`Keywords für ${selectedGA} erfolgreich neu generiert!\n\nVerarbeitet: ${result.processed || 0}\nÜbersprungen: ${result.skipped || 0}\nFehler: ${result.errors || 0}\nProvider: ${selectedProvider || 'auto'}`);
+    
+    // Aktualisiere die GA-Übersicht
+    console.log('[KEYWORDS-REGEN] GA-Übersicht aktualisieren für', selectedGA);
+    
+    // Cache zurücksetzen
+    keywordsDatabaseCache = null;
+    
+    // GA-Übersicht neu laden nach kurzer Verzögerung
+    setTimeout(() => {
+      openGAOverview(selectedGA);
+    }, 500);
+    
+  } catch (error) {
+    console.error('[KEYWORDS-REGEN] Fehler:', error);
+    alert('Fehler beim Regenerieren der Keywords:\n' + error.message);
+  } finally {
+    // UI wieder aktivieren
+    if (regenerateBtn) {
+      regenerateBtn.disabled = false;
+      updateKeywordsButtonText();
+    }
+  }
+}
+*/
+
+// ENTFERNT: updateKeywordsButtonText() und regenerateLectureKeywords()
+// Keywords werden jetzt über "Summary neu" Button generiert (zusammen mit TOC)
+
 // Startet die Batch-Zusammenfassungs-Generation für den aktuell im Tab Texte ausgewählten GA-Band
 function startBatchSummaries() {
   const gaNumber = document.getElementById('texteGAFilter')?.value;
@@ -6815,28 +7160,8 @@ function startBatchSummaries() {
     return;
   }
 
-  (async () => {
-    try {
-      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
-      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden (${resp.status})`);
-      const data = await resp.json();
-      const lectures = data.lectures || [];
-      // Filter: nur Vorträge ohne Summary
-      const noSummary = lectures.filter(l => !l.summary || l.summary.trim() === '');
-      if (noSummary.length === 0) {
-        alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
-        return;
-      }
-
-      if (!confirm(`Es werden ${noSummary.length} Vorträge ohne Zusammenfassung in ${gaNumber} erzeugt. Fortfahren?`)) {
-        return;
-      }
-
-      batchSummarizeGA(gaNumber);
-    } catch (err) {
-      alert('Fehler beim Prüfen der GA-Übersicht: ' + err.message);
-    }
-  })();
+  // Starte direkt Batch-Verarbeitung (detaillierte Prüfung erfolgt in batchSummarizeGA)
+  batchSummarizeGA(gaNumber);
 }
 
 // Führt die Summarizer-Requests sequentiell aus und zeigt Fortschritt an
@@ -6852,6 +7177,11 @@ async function batchSummarizeGA(gaNumber) {
   `;
 
   try {
+    // Hole ausgewählten Provider aus Keywords-Tab (wie bei "Summary neu")
+    const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+    const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+    console.log(`[BATCH] Nutze Provider: ${selectedProvider || 'auto'}`);
+    
     // Sperre UI während des Batch-Laufs
     setUILocked(true);
     
@@ -6874,20 +7204,25 @@ async function batchSummarizeGA(gaNumber) {
       return;
     }
 
-    // Nur Vorträge ohne Summary verarbeiten (prüfe gegen summary-database.json)
+    // Nur Vorträge ohne Summary/TOC/Keywords verarbeiten (prüfe gegen summary-database.json)
     const missing = lectures.filter(l => {
       const lectureId = l.ID;
       const entry = summaryDB[lectureId];
-      // Vortrag hat keine Summary wenn:
+      // Vortrag braucht Verarbeitung wenn:
       // 1. Kein Eintrag in der DB ODER
-      // 2. Eintrag existiert aber summary ist leer/fehlt
-      return !entry || !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '');
+      // 2. Summary fehlt/leer ODER
+      // 3. TOC fehlt/leer ODER
+      // 4. Keywords fehlen/leer
+      return !entry || 
+             !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '') ||
+             !entry.tableOfContents || entry.tableOfContents.length === 0 ||
+             !entry.lectureKeywords || entry.lectureKeywords.length === 0;
     });
     
-    console.log(`[BATCH] ${missing.length} von ${lectures.length} Vorträgen ohne Summary in ${gaNumber}`);
+    console.log(`[BATCH] ${missing.length} von ${lectures.length} Vorträgen brauchen Verarbeitung (fehlende Summary/TOC/Keywords) in ${gaNumber}`);
     
     if (missing.length === 0) {
-      alert(`Alle Vorträge in ${gaNumber} haben bereits Zusammenfassungen.`);
+      alert(`Alle Vorträge in ${gaNumber} haben bereits vollständige Daten (Summary, TOC, Keywords).`);
       return;
     }
     lectures = missing;
@@ -6906,7 +7241,11 @@ async function batchSummarizeGA(gaNumber) {
         const sResp = await fetch(`${API_BASE}/api/summarize-lecture`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
+          body: JSON.stringify({ 
+            lectureId: lectureId, 
+            forceRegenerate: false,  // Batch: Nur fehlende Daten ergänzen
+            preferredProvider: selectedProvider
+          })
         });
 
         if (!sResp.ok) {
@@ -6948,6 +7287,11 @@ async function batchSummarizeGA(gaNumber) {
 // Startet die Batch-Zusammenfassungs-Generation für alle GA-Bände in der Dropdown-Liste im Tab Texte
 async function startBatchAllSummaries() {
   try {
+    // Hole ausgewählten Provider aus Keywords-Tab (wie bei "Summary neu")
+    const selectedProviderRadio = document.querySelector('input[name="llmProvider"]:checked');
+    const selectedProvider = selectedProviderRadio ? selectedProviderRadio.value : null;
+    console.log(`[BATCH-ALL] Nutze Provider: ${selectedProvider || 'auto'}`);
+    
     // Hole alle GA-Bände aus dem Dropdown im Tab Texte
     const texteGAFilter = document.getElementById('texteGAFilter');
     if (!texteGAFilter) {
@@ -6987,15 +7331,20 @@ async function startBatchAllSummaries() {
         const data = await resp.json();
         const lectures = data.lectures || [];
         
-        // Filter: nur Vorträge ohne Summary (prüfe gegen summary-database.json)
+        // Filter: nur Vorträge ohne Summary/TOC/Keywords (prüfe gegen summary-database.json)
         for (const lecture of lectures) {
           const lectureId = lecture.ID;
           const entry = summaryDB[lectureId];
-          // Vortrag hat keine Summary wenn:
+          // Vortrag braucht Verarbeitung wenn:
           // 1. Kein Eintrag in der DB ODER
-          // 2. Eintrag existiert aber summary ist leer/fehlt
-          const hasNoSummary = !entry || !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '');
-          if (hasNoSummary) {
+          // 2. Summary fehlt/leer ODER
+          // 3. TOC fehlt/leer ODER
+          // 4. Keywords fehlen/leer
+          const needsProcessing = !entry || 
+                                  !entry.summary || (typeof entry.summary === 'string' && entry.summary.trim() === '') ||
+                                  !entry.tableOfContents || entry.tableOfContents.length === 0 ||
+                                  !entry.lectureKeywords || entry.lectureKeywords.length === 0;
+          if (needsProcessing) {
             lectureIdsToProcess.push(lectureId);
           }
         }
@@ -7004,15 +7353,15 @@ async function startBatchAllSummaries() {
       }
     }
 
-    console.log(`[BATCH-ALL] ${lectureIdsToProcess.length} Vorträge ohne Summary gefunden`);
+    console.log(`[BATCH-ALL] ${lectureIdsToProcess.length} Vorträge brauchen Verarbeitung (fehlende Summary/TOC/Keywords)`);
 
     if (lectureIdsToProcess.length === 0) {
-      alert('Keine Vorträge ohne Summary in den verfügbaren GA-Bänden gefunden.');
+      alert('Alle Vorträge in den verfügbaren GA-Bänden haben bereits vollständige Daten (Summary, TOC, Keywords).');
       return;
     }
     
     // Bestätigung mit korrekter Anzahl
-    if (!confirm(`Batch All: Es werden ${lectureIdsToProcess.length} Vorträge ohne Summary in ${gaBands.length} GA-Bänden bearbeitet. Fortfahren?`)) {
+    if (!confirm(`Batch All: Es werden ${lectureIdsToProcess.length} Vorträge in ${gaBands.length} GA-Bänden verarbeitet (fehlende Summary/TOC/Keywords werden ergänzt). Fortfahren?`)) {
       return;
     }
 
@@ -7068,7 +7417,7 @@ async function startBatchAllSummaries() {
 
     const promises = chunks.map((chunk, idx) => {
       if (!chunk || chunk.length === 0) return Promise.resolve({ processed: 0, failed: 0 });
-      return batchSummarizeLectures(chunk, { concurrency: 10, signal: abortController.signal, onProgress });
+      return batchSummarizeLectures(chunk, { concurrency: 10, signal: abortController.signal, onProgress, preferredProvider: selectedProvider });
     });
 
     const settled = await Promise.allSettled(promises);
@@ -7101,6 +7450,347 @@ async function startBatchAllSummaries() {
 }
 
 // ============================================================================
+// NEUE 3-BUTTON ARCHITEKTUR - UNIFIED BATCH GENERATION
+// ============================================================================
+
+/**
+ * BUTTON 1: Grundstruktur generieren (S+H+TOC)
+ * Überspringt Vorträge die bereits S+H+TOC haben
+ */
+async function batchGenerateStructure() {
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('batch-structure-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[BATCH-STRUCTURE] Start für ${gaNumber}, Provider: ${selectedProvider || 'auto'}`);
+  
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = `
+    <div class="batch-progress" id="batch-progress-ui">
+      <div id="batch-status">Vorbereiten...</div>
+      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+        <div class="bar" id="batch-progress-bar"></div>
+      </div>
+    </div>
+  `;
+  
+  try {
+    setUILocked(true);
+    
+    let lectureIds;
+    
+    // Prüfe ob Vorträge ausgewählt sind
+    if (selectedLectureIds.size > 0) {
+      // Verwende nur ausgewählte Vorträge
+      lectureIds = Array.from(selectedLectureIds);
+      console.log(`[BATCH-STRUCTURE] Verwende ${lectureIds.length} ausgewählte Vorträge`);
+    } else {
+      // Hole alle Vorträge des GA-Bands
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
+      const data = await resp.json();
+      const lectures = data.lectures || [];
+      
+      if (lectures.length === 0) {
+        resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+        return;
+      }
+      
+      lectureIds = lectures.map(l => l.ID);
+      console.log(`[BATCH-STRUCTURE] Verwende alle ${lectureIds.length} Vorträge des GA-Bands`);
+    }
+    
+    // Rufe Backend-API auf
+    const statusEl = document.getElementById('batch-status');
+    if (statusEl) statusEl.textContent = `Sende ${lectureIds.length} Vorträge an Server...`;
+    
+    const batchResp = await fetch(`${API_BASE}/api/batch-generate-structure`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: lectureIds,
+        preferredProvider: selectedProvider,
+        skipExisting: true
+      })
+    });
+    
+    if (!batchResp.ok) {
+      const errorData = await batchResp.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await batchResp.json();
+    console.log('[BATCH-STRUCTURE] Ergebnis:', result);
+    
+    const doneMsg = `✓ Grundstruktur: ${result.processed} generiert, ${result.skipped} übersprungen, ${result.failed} Fehler`;
+    if (statusEl) statusEl.textContent = doneMsg;
+    
+    const barEl = document.getElementById('batch-progress-bar');
+    if (barEl) barEl.style.width = '100%';
+    
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Cache löschen und GA-Übersicht aktualisieren
+    externalSummaryDBCache = null;
+    setTimeout(() => {
+      openGAOverview(gaNumber);
+    }, 800);
+    
+  } catch (err) {
+    console.error('[BATCH-STRUCTURE] Fehler:', err);
+    resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * BUTTON 2: Keywords ergänzen
+ * Überspringt Vorträge die bereits Keywords haben
+ * Benötigt existierende S+H+TOC
+ */
+async function batchGenerateKeywords() {
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('batch-keywords-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[BATCH-KEYWORDS] Start für ${gaNumber}, Provider: ${selectedProvider || 'auto'}`);
+  
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = `
+    <div class="batch-progress" id="batch-progress-ui">
+      <div id="batch-status">Vorbereiten...</div>
+      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+        <div class="bar" id="batch-progress-bar"></div>
+      </div>
+    </div>
+  `;
+  
+  try {
+    setUILocked(true);
+    
+    let lectureIds;
+    
+    // Prüfe ob Vorträge ausgewählt sind
+    if (selectedLectureIds.size > 0) {
+      // Verwende nur ausgewählte Vorträge
+      lectureIds = Array.from(selectedLectureIds);
+      console.log(`[BATCH-KEYWORDS] Verwende ${lectureIds.length} ausgewählte Vorträge`);
+    } else {
+      // Lade GA-Overview
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
+      const data = await resp.json();
+      const lectures = data.lectures || [];
+      
+      if (lectures.length === 0) {
+        resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+        return;
+      }
+      
+      lectureIds = lectures.map(l => l.ID);
+      console.log(`[BATCH-KEYWORDS] Verwende alle ${lectureIds.length} Vorträge des GA-Bands`);
+    }
+    
+    // Rufe Backend-API auf
+    const statusEl = document.getElementById('batch-status');
+    if (statusEl) statusEl.textContent = `Sende ${lectureIds.length} Vorträge an Server...`;
+    
+    const batchResp = await fetch(`${API_BASE}/api/batch-generate-keywords`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: lectureIds,
+        preferredProvider: selectedProvider,
+        skipExisting: true
+      })
+    });
+    
+    if (!batchResp.ok) {
+      const errorData = await batchResp.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await batchResp.json();
+    console.log('[BATCH-KEYWORDS] Ergebnis:', result);
+    
+    const doneMsg = `✓ Keywords: ${result.processed} generiert, ${result.skipped} übersprungen, ${result.failed} Fehler`;
+    if (statusEl) statusEl.textContent = doneMsg;
+    
+    const barEl = document.getElementById('batch-progress-bar');
+    if (barEl) barEl.style.width = '100%';
+    
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Cache löschen und GA-Übersicht aktualisieren
+    externalSummaryDBCache = null;
+    setTimeout(() => {
+      openGAOverview(gaNumber);
+    }, 800);
+    
+  } catch (err) {
+    console.error('[BATCH-KEYWORDS] Fehler:', err);
+    resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * BUTTON 3: Alles neu generieren (S+H+TOC+KW)
+ * Überschreibt IMMER existierende Daten
+ */
+async function batchRegenerateAll() {
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
+    return;
+  }
+  
+  let lectureIds;
+  
+  // Prüfe ob Vorträge ausgewählt sind
+  if (selectedLectureIds.size > 0) {
+    lectureIds = Array.from(selectedLectureIds);
+    if (!confirm(`WARNUNG: ${lectureIds.length} ausgewählte Vorträge werden komplett neu generiert (S+H+TOC+KW). Bestehende Daten werden überschrieben. Fortfahren?`)) {
+      return;
+    }
+  } else {
+    if (!confirm(`WARNUNG: Alle Vorträge in ${gaNumber} werden komplett neu generiert (S+H+TOC+KW). Bestehende Daten werden überschrieben. Fortfahren?`)) {
+      return;
+    }
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('batch-regenerate-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[BATCH-REGENERATE] Start für ${gaNumber}, Provider: ${selectedProvider || 'auto'}`);
+  
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = `
+    <div class="batch-progress" id="batch-progress-ui">
+      <div id="batch-status">Vorbereiten...</div>
+      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+        <div class="bar" id="batch-progress-bar"></div>
+      </div>
+    </div>
+  `;
+  
+  try {
+    setUILocked(true);
+    
+    // Verwende entweder ausgewählte Vorträge oder alle
+    if (!lectureIds) {
+      // Hole alle Vorträge des GA-Bands
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
+      const data = await resp.json();
+      const lectures = data.lectures || [];
+      
+      if (lectures.length === 0) {
+        resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+        return;
+      }
+      
+      lectureIds = lectures.map(l => l.ID);
+      console.log(`[BATCH-REGENERATE] Verwende alle ${lectureIds.length} Vorträge des GA-Bands`);
+    } else {
+      console.log(`[BATCH-REGENERATE] Verwende ${lectureIds.length} ausgewählte Vorträge`);
+    }
+    
+    // Rufe Backend-API auf
+    const statusEl = document.getElementById('batch-status');
+    if (statusEl) statusEl.textContent = `Regeneriere ${lectureIds.length} Vorträge...`;
+    
+    const batchResp = await fetch(`${API_BASE}/api/batch-regenerate-all`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: lectureIds,
+        preferredProvider: selectedProvider
+      })
+    });
+    
+    if (!batchResp.ok) {
+      const errorData = await batchResp.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await batchResp.json();
+    console.log('[BATCH-REGENERATE] Ergebnis:', result);
+    
+    const doneMsg = `✓ Regeneriert: ${result.processed} komplett neu, ${result.failed} Fehler`;
+    if (statusEl) statusEl.textContent = doneMsg;
+    
+    const barEl = document.getElementById('batch-progress-bar');
+    if (barEl) barEl.style.width = '100%';
+    
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Cache löschen und GA-Übersicht aktualisieren
+    externalSummaryDBCache = null;
+    setTimeout(() => {
+      openGAOverview(gaNumber);
+    }, 800);
+    
+  } catch (err) {
+    console.error('[BATCH-REGENERATE] Fehler:', err);
+    resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+// ============================================================================
 // HINWEIS: Summary-Keywords werden nicht mehr generiert!
 // Die H3-Keywords existieren bereits in der keywords-database.json
 // und werden direkt von dort geladen und angezeigt.
@@ -7110,6 +7800,7 @@ async function startBatchAllSummaries() {
 async function batchSummarizeLectures(lectureIds, options = {}) {
   const concurrency = options.concurrency || 5;
   const signal = options.signal;
+  const preferredProvider = options.preferredProvider || null;
 
   let processed = 0;
   let failed = 0;
@@ -7128,7 +7819,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         const sResp = await fetch(`${API_BASE}/api/summarize-lecture`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ lectureId: lectureId, forceRegenerate: true })
+          body: JSON.stringify({ 
+            lectureId: lectureId, 
+            forceRegenerate: false,  // Batch All: Nur fehlende Daten ergänzen
+            preferredProvider: preferredProvider
+          })
         });
 
         if (!sResp.ok) {
@@ -7169,6 +7864,197 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
   return { processed, failed };
 }
+
+    // Display Table of Contents from lecture data (Inhaltsverzeichnis) in Main Viewer
+    // Prefer V2 data from summary-database, fallback to matching with steiner-full-lectures
+    function displayLectureTableOfContents(lecture, summaryHeadings, summaryObj) {
+      if (!summaryHeadings || summaryHeadings.length === 0) {
+        return '';
+      }
+
+      // Check if we have V2 tableOfContents from summary-database
+      if (summaryObj && summaryObj.tableOfContents && summaryObj.tableOfContents.length > 0) {
+        console.log('[TOC] Using V2 tableOfContents from summary-database:', summaryObj.tableOfContents.length, 'entries');
+        
+        let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
+        html += '<p style="margin: 0 0 0.8rem 0;"><strong>Inhaltsverzeichnis</strong></p>';
+        html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+        
+        summaryObj.tableOfContents.forEach((entry, index) => {
+          html += `
+            <li style="margin-bottom: 0.4rem;">
+              <a href="#" 
+                 class="toc-link" 
+                 data-heading="${entry.heading.replace(/"/g, '&quot;')}"
+                 style="color: var(--accent-color); text-decoration: none; font-weight: normal; display: block; margin-bottom: 0.1rem;">
+                ${entry.heading}
+              </a>
+              <div style="font-size: 0.9em; color: var(--secondary-text); font-style: italic; line-height: 1.3;">
+                ${entry.description}
+              </div>
+            </li>
+          `;
+        });
+        
+        html += '</ul></div>';
+        return html;
+      }
+
+      // Fallback: Build from H3 headings and match with steiner-full-lectures tableOfContents
+      const summaryH3s = summaryHeadings.filter(h => h.level === 'h3');
+
+      if (summaryH3s.length === 0) {
+        return '';
+      }
+
+      console.log('[TOC] Fallback: Building Inhalt from', summaryH3s.length, 'summary H3 headings');
+
+      let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
+      
+      html += '<p style="margin: 0 0 0.8rem 0;"><strong>Inhaltsverzeichnis</strong></p>';
+      
+      html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+      
+      summaryH3s.forEach((summaryH3, index) => {
+        const headingText = summaryH3.text || summaryH3.title || '';
+        
+        // Try to find matching description from tableOfContents
+        let description = '';
+        if (lecture.tableOfContents) {
+          const tocEntry = lecture.tableOfContents.find(toc => {
+            const tocLower = toc.heading.toLowerCase();
+            const h3Lower = headingText.toLowerCase();
+            
+            // 1. Exact match
+            if (tocLower === h3Lower) return true;
+            
+            // 2. Contains match (one contains the other)
+            if (tocLower.includes(h3Lower) || h3Lower.includes(tocLower)) return true;
+            
+            // 3. Significant word matching (for cases like "Die ersten griechischen..." vs "Die griechischen...")
+            const tocWords = tocLower.split(/\s+/).filter(w => w.length > 3);
+            const h3Words = h3Lower.split(/\s+/).filter(w => w.length > 3);
+            
+            if (tocWords.length === 0 || h3Words.length === 0) return false;
+            
+            // Count matching significant words
+            const matchingWords = tocWords.filter(tw => 
+              h3Words.some(hw => tw === hw || tw.includes(hw) || hw.includes(tw))
+            );
+            
+            // Match if at least 70% of the SMALLER set's words match
+            const minWords = Math.min(tocWords.length, h3Words.length);
+            const matchRatio = matchingWords.length / minWords;
+            
+            if (matchRatio >= 0.7) {
+              console.log('[TOC-MATCH] Word match:', tocLower, '<->', h3Lower, '| Ratio:', matchRatio.toFixed(2));
+              return true;
+            }
+            
+            return false;
+          });
+          
+          if (tocEntry) {
+            description = tocEntry.description;
+            console.log('[TOC] ✓ Found description for:', headingText, '→', tocEntry.heading);
+          } else {
+            console.log('[TOC] ✗ No description found for:', headingText);
+          }
+        }
+        
+        html += `
+          <li style="margin-bottom: 0.4rem;">
+            <a href="#" 
+               class="toc-link" 
+               data-heading="${headingText.replace(/"/g, '&quot;')}"
+               style="color: var(--accent-color); text-decoration: none; font-weight: normal; display: block; margin-bottom: 0.1rem;">
+              ${headingText}
+            </a>
+            ${description ? `
+              <div style="font-size: 0.9em; color: var(--secondary-text); font-style: italic; line-height: 1.3;">
+                ${description}
+              </div>
+            ` : ''}
+          </li>
+        `;
+      });
+      
+      html += '</ul></div>';
+      
+      return html;
+    }
+
+    // Activate TOC links after rendering
+    function activateTOCLinks() {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      
+      tocLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          const headingText = link.getAttribute('data-heading');
+          if (!headingText) return;
+          
+          const viewer = document.getElementById('viewer');
+          const mainContainer = document.getElementById('main');
+          if (!viewer || !mainContainer) return;
+          
+          // Find the H3 or H4 heading that matches this TOC entry (case-insensitive)
+          const headings = viewer.querySelectorAll('h3, h4');
+          let foundHeading = null;
+          
+          for (const heading of headings) {
+            const headingTextContent = heading.textContent.trim();
+            const searchText = headingText.trim();
+            
+            // Try exact match first
+            if (headingTextContent === searchText) {
+              foundHeading = heading;
+              break;
+            }
+            
+            // Try case-insensitive match
+            if (headingTextContent.toLowerCase() === searchText.toLowerCase()) {
+              foundHeading = heading;
+              break;
+            }
+            
+            // Try partial match (contains)
+            if (headingTextContent.includes(searchText) || searchText.includes(headingTextContent)) {
+              foundHeading = heading;
+              break;
+            }
+          }
+          
+          if (foundHeading) {
+            const header = document.getElementById('viewer-header');
+            const headerHeight = header ? header.offsetHeight + 5 : 5;
+            
+            const mainRect = mainContainer.getBoundingClientRect();
+            const headingRect = foundHeading.getBoundingClientRect();
+            const relativeTop = headingRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+            mainContainer.scrollTop = Math.max(0, relativeTop);
+            
+            // Highlight the heading briefly
+            const originalBg = foundHeading.style.backgroundColor;
+            foundHeading.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+            setTimeout(() => {
+              foundHeading.style.backgroundColor = originalBg;
+            }, 1000);
+          } else {
+            console.warn('[TOC] Heading not found:', headingText);
+          }
+        });
+        
+        // Add hover effect
+        link.addEventListener('mouseenter', (e) => {
+          e.target.style.textDecoration = 'underline';
+        });
+        link.addEventListener('mouseleave', (e) => {
+          e.target.style.textDecoration = 'none';
+        });
+      });
+    }
 
     function buildTableOfContents() {
       // Prüfe ob Timeline-Viewer aktiv ist
@@ -7347,44 +8233,100 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       let html = '<div>';
       
-      if (lecture.paragraphs) {
-        lecture.paragraphs.forEach((para, idx) => {
-          const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
-          const isTargetPara = cleanIndex && paraIndex === cleanIndex;
-          
-          let content = para.content || para.text || '';
-          
-          if (keywords && keywords.length > 0) {
-            keywords.forEach(word => {
-              if (word && word.trim()) {
-                const regex = new RegExp(`(${word.trim()})`, "gi");
-                content = content.replace(regex, "<mark>$1</mark>");
-              }
+      // Note: In Original view, we don't show the "Inhalt" (table of contents)
+      // The "Inhalt" is only shown in Summary view where we have the AI-selected H3 headings
+      
+      // Combine headings and paragraphs in order
+      if (lecture.headings || lecture.paragraphs) {
+        const allElements = [];
+        
+        // Add headings - aber NUR in der Übersicht-Ansicht, nicht in Original
+        if (lecture.headings && showingSummaryInMain) {
+          lecture.headings.forEach(heading => {
+            allElements.push({
+              type: 'heading',
+              level: heading.level,
+              text: heading.text,
+              id: heading.id,
+              index: heading.id ? heading.id.replace(/^\^/, '') : ''
             });
+          });
+        }
+        
+        // Add paragraphs
+        if (lecture.paragraphs) {
+          lecture.paragraphs.forEach(para => {
+            allElements.push({
+              type: 'paragraph',
+              content: para.content || para.text || '',
+              index: para.index ? para.index.replace(/^\^/, '') : ''
+            });
+          });
+        }
+        
+        // Render all elements
+        allElements.forEach((elem, idx) => {
+          if (elem.type === 'heading') {
+            const headingTag = elem.level === 3 ? 'h3' : 'h4';
+            const headingIndex = elem.index || `heading_${idx}`;
+            const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
+            // Highlighting nur wenn NICHT im Timeline-Tab
+            const shouldApplyHeadingHighlight = isTargetHeading && !isTimelineTabActive();
+            
+            html += `
+              <${headingTag} id="para-${headingIndex}" class="${shouldApplyHeadingHighlight ? 'highlighted-paragraph' : ''}">
+                ${elem.text}
+              </${headingTag}>
+            `;
+          } else {
+            const paraIndex = elem.index || `para_${idx}`;
+            const isTargetPara = cleanIndex && paraIndex === cleanIndex;
+            
+            let content = elem.content;
+            
+            if (keywords && keywords.length > 0) {
+              keywords.forEach(word => {
+                if (word && word.trim()) {
+                  const regex = new RegExp(`(${word.trim()})`, "gi");
+                  content = content.replace(regex, "<mark>$1</mark>");
+                }
+              });
+            }
+            
+            const contentLower = content.toLowerCase();
+            const hasBothWords = keywords.length === 2 && 
+                                 keywords[0] && keywords[1] &&
+                                 contentLower.includes(keywords[0].toLowerCase()) && 
+                                 contentLower.includes(keywords[1].toLowerCase());
+            
+            const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+            const applyHighlight = shouldHighlight && isTargetPara && 
+                                   (isFromThematicSearch || keywords.length === 1 || hasBothWords) &&
+                                   !isTimelineTabActive(); // Highlighting nur wenn NICHT im Timeline-Tab
+            
+            const paraIndexWithCaret = elem.para?.index || `^${paraIndex}`;
+            const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+            const contextHandler = isLocal ? `oncontextmenu="openKeywordModalFromParagraph('${paraIndexWithCaret}', event)"` : '';
+            const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+            
+            html += `
+              <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+                   id="para-${paraIndex}"
+                   data-index="${paraIndexWithCaret}"
+                   ${clickHandler}
+                   ${contextHandler}
+                   style="${cursorStyle}">
+                ${content}
+              </div>
+            `;
           }
-          
-          const contentLower = content.toLowerCase();
-          const hasBothWords = keywords.length === 2 && 
-                               keywords[0] && keywords[1] &&
-                               contentLower.includes(keywords[0].toLowerCase()) && 
-                               contentLower.includes(keywords[1].toLowerCase());
-          
-          // For thematic search, highlight target paragraph regardless of keyword presence
-          // For keyword search, only highlight if keywords are found
-          const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
-          const applyHighlight = shouldHighlight && isTargetPara && 
-                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords);
-          
-          html += `
-            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
-                 id="para-${paraIndex}">
-              ${content}
-            </div>
-          `;
         });
       }
       html += `</div>`;
       viewer.innerHTML = html;
+      
+      // Activate TOC links
+      activateTOCLinks();
       
       if (cleanIndex) {
         const targetElement = document.getElementById(`para-${cleanIndex}`);
@@ -7756,66 +8698,155 @@ async function initializeKeywordSystem() {
 }
 
 async function loadKeywordsData() {
-  console.log('[KEYWORDS] Lade Schlagwort-Daten...');
+  console.log('[KEYWORDS] ========== START LOADING ==========');
+  console.log('[KEYWORDS] Aktueller Stand:', keywordsData.length, 'Keywords');
   
   // Prüfe ob konsolidierte Dateien vorhanden sind
   await checkForConsolidatedFiles();
   
+  // STRATEGIE: Lade Basis-Keywords, dann füge Obsidian-Keywords hinzu (merge)
+  keywordsData = [];
+  
+  console.log('[KEYWORDS] Lade Basis-Keywords...');
   try {
     // Versuche zuerst eine vollständige Schlagwort-Liste zu laden
-    const response = await fetch(`${API_BASE}/api/keywords-list`);
+    const response = await fetch(`${API_BASE}/api/concepts-list`);
     if (response.ok) {
       const data = await response.json();
       keywordsData = data.keywords || [];
-      console.log('[KEYWORDS] Schlagwörter von API geladen:', keywordsData.length);
-      return;
+      console.log('[KEYWORDS] ✓ Basis-Keywords von API geladen:', keywordsData.length);
     }
   } catch (error) {
-    console.warn('[KEYWORDS] API nicht verfügbar, verwende lokale Dateien');
+    console.warn('[KEYWORDS] API nicht verfügbar:', error.message);
+    
+    // Fallback: Versuche lokale Schlagwort-Dateien zu laden
+    try {
+      await loadLocalKeywordFiles();
+      console.log('[KEYWORDS] ✓ Basis-Keywords aus lokalen Dateien geladen:', keywordsData.length);
+    } catch (localError) {
+      console.warn('[KEYWORDS] Lokale Dateien nicht verfügbar:', localError.message);
+    }
   }
   
-  // Versuche lokale Schlagwort-Dateien zu laden
+  // Hinweis: Obsidian-Exports wurden einmalig migriert in concepts-database.json
+  // Alle Concepts (KI + Obsidian) sind jetzt in concepts-database.json vereint
+  
+  console.log('[KEYWORDS] ========== ENDE ==========');
+  console.log('[KEYWORDS] ✓ Total geladen:', keywordsData.length, 'Concepts');
+  
+  // Wenn nichts geladen wurde, zeige leere Liste
+  if (keywordsData.length === 0) {
+    console.warn('[KEYWORDS] ⚠️ Keine Concepts geladen!');
+  }
+}
+
+// ALTE FUNKTION - Nicht mehr benötigt seit finaler Migration
+// Alle Obsidian-Concepts sind jetzt permanent in concepts.json
+/*
+async function loadObsidianKeywords() {
+  console.log('[OBSIDIAN-KW] ========== START MERGE ==========');
+  console.log('[OBSIDIAN-KW] Bestehende Keywords:', keywordsData.length);
+  
+  // Lade Blacklist
+  let blacklist = [];
   try {
-    await loadLocalKeywordFiles();
-    if (keywordsData.length > 0) {
-      console.log('[KEYWORDS] Lokale Schlagwort-Dateien geladen:', keywordsData.length);
-      return;
+    const blacklistResponse = await fetch(`${API_BASE}/concepts-blacklist.json`);
+    if (blacklistResponse.ok) {
+      blacklist = await blacklistResponse.json();
+      console.log('[OBSIDIAN-KW] Blacklist geladen:', blacklist.length, 'Einträge');
     }
   } catch (error) {
-    console.warn('[KEYWORDS] Lokale Dateien nicht verfügbar:', error.message);
+    console.log('[OBSIDIAN-KW] Keine Blacklist vorhanden (normal bei Erststart)');
   }
   
-  // Fallback: Demo-Daten basierend auf der Abbauprozesse.json Struktur
-  keywordsData = [
-    {
-      keyword: "Abbauprozesse",
-      alphabetical: "A",
-      text: "**Abbauprozesse** stellen einen grundlegenden physiologischen Mechanismus dar, bei dem die **Seele fortwährend Zerstörungs- und Zerfallprozesse im Nervensystem** vollführt, die paradoxerweise die **Grundlage für Wahrnehmung** bilden ([[GA066/1]]). Diese **destruktiven Prozesse im Nervensystem** erweisen sich als unabdingbare Voraussetzung für **bewusstes Seelenleben** ([[GA067/4]]).",
-      gaReferences: ["GA066/1", "GA067/4", "GA067/10"]
-    },
-    {
-      keyword: "Astralleib", 
-      alphabetical: "A",
-      text: "Der **Astralleib** ist das dritte Wesensglied des Menschen und trägt Emotionen, Triebe und Bewusstsein ([[GA013/3]]). Er entwickelt sich durch Meditation und spirituelle Übung ([[GA013/5]]).",
-      gaReferences: ["GA013/3", "GA013/5"]
-    },
-    {
-      keyword: "Bewusstsein",
-      alphabetical: "B", 
-      text: "**Bewusstsein** entsteht durch Abbauprozesse im Nervensystem ([[GA066/1]]) und entwickelt sich stufenweise vom Traumlosen Schlaf über das Traumbewusstsein zum Tagesbewusstsein ([[GA013/2]]).",
-      gaReferences: ["GA066/1", "GA013/2"]
-    }
+  // Versuche verschiedene mögliche Dateinamen
+  const possibleFiles = [
+    'schlagworte-az-all.json',  // Alle Buchstaben
+    // Einzelne Buchstaben könnten auch existieren: schlagworte-az-a.json, etc.
   ];
   
-  console.log('[KEYWORDS] Demo-Daten geladen:', keywordsData.length, 'Schlagwörter');
+  // Prüfe auch auf einzelne Buchstaben-Dateien
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+  for (const letter of alphabet) {
+    possibleFiles.push(`schlagworte-az-${letter}.json`);
+  }
+  
+  const obsidianKeywords = [];
+  let filesLoaded = 0;
+  
+  // Sammle alle Obsidian-Keywords aus allen gefundenen Dateien
+  for (const fileName of possibleFiles) {
+    try {
+      const response = await fetch(`${API_BASE}/${fileName}`);
+      if (!response.ok) continue;
+      
+      const data = await response.json();
+      console.log(`[OBSIDIAN-KW] ✓ Geladen: ${fileName} (${data.keywords?.length || 0} Einträge)`);
+      filesLoaded++;
+      
+      if (data.keywords && Array.isArray(data.keywords)) {
+        obsidianKeywords.push(...data.keywords);
+      }
+    } catch (error) {
+      // Datei existiert nicht - normal wenn gelöscht
+      continue;
+    }
+  }
+  
+  if (obsidianKeywords.length === 0) {
+    console.log('[OBSIDIAN-KW] Keine Obsidian-Exports gefunden (normal wenn gelöscht)');
+    return;
+  }
+  
+  console.log(`[OBSIDIAN-KW] ✓ ${obsidianKeywords.length} Keywords aus ${filesLoaded} Datei(en) geladen`);
+  
+  // Erstelle Map der bestehenden Keywords (case-insensitive)
+  const existingKeywords = new Map();
+  keywordsData.forEach(kw => {
+    const normalizedName = kw.keyword.trim().toLowerCase();
+    existingKeywords.set(normalizedName, kw);
+  });
+  
+  console.log('[OBSIDIAN-KW] Bestehende Keywords (normalisiert):', existingKeywords.size);
+  
+  // Füge nur neue Keywords hinzu (keine Duplikate)
+  let addedCount = 0;
+  let skippedCount = 0;
+  
+  obsidianKeywords.forEach(kw => {
+    const normalizedName = kw.keyword.trim().toLowerCase();
+    
+    if (!existingKeywords.has(normalizedName)) {
+      // Markiere als Obsidian-Import
+      kw.source = 'obsidian-az';
+      keywordsData.push(kw);
+      existingKeywords.set(normalizedName, kw);
+      addedCount++;
+    } else {
+      skippedCount++;
+      if (skippedCount <= 3) {
+        console.log(`[OBSIDIAN-KW] Übersprungen (existiert bereits): "${kw.keyword}"`);
+      }
+    }
+  });
+  
+  console.log(`[OBSIDIAN-KW] ✓ ${addedCount} neue Keywords hinzugefügt`);
+  console.log(`[OBSIDIAN-KW] ⊘ ${skippedCount} Duplikate übersprungen`);
+  
+  // Sortiere alphabetisch
+  keywordsData.sort((a, b) => a.keyword.localeCompare(b.keyword));
+  
+  console.log(`[OBSIDIAN-KW] ✓ Total nach Merge:`, keywordsData.length, 'Concepts');
+  console.log('[OBSIDIAN-KW] ========== ENDE MERGE ==========');
 }
+*/
 
 async function loadLocalKeywordFiles() {
   console.log('[KEYWORDS] Lade lokale Schlagwort-Dateien aus keywords/ Ordner...');
   
   try {
     // Versuche eine Dateiliste vom Server zu bekommen
-    const listResponse = await fetch(`${API_BASE}/api/keywords-files`);
+    const listResponse = await fetch(`${API_BASE}/api/concepts-files`);
     if (listResponse.ok) {
       const fileList = await listResponse.json();
       console.log('[KEYWORDS] Dateiliste von API erhalten:', fileList.files?.length || 0, 'Dateien');
@@ -7949,10 +8980,30 @@ function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
   
+  console.log('[DISPLAY] ========== displayKeywords aufgerufen ==========');
+  console.log('[DISPLAY] keywordsData.length:', keywordsData.length);
+  console.log('[DISPLAY] selectedLetter:', selectedLetter);
+  
+  // WICHTIG: Prüfe auf Duplikate in keywordsData
+  const keywordNames = keywordsData.map(kw => kw.keyword);
+  const uniqueNames = new Set(keywordNames);
+  if (keywordNames.length !== uniqueNames.size) {
+    console.error('[DISPLAY] ⚠️ DUPLIKATE IN keywordsData gefunden!');
+    console.error('[DISPLAY] Total:', keywordNames.length, 'Unique:', uniqueNames.size);
+    
+    // Finde und zeige Duplikate
+    const duplicates = keywordNames.filter((name, index) => keywordNames.indexOf(name) !== index);
+    console.error('[DISPLAY] Duplikate:', [...new Set(duplicates)].slice(0, 10));
+  } else {
+    console.log('[DISPLAY] ✓ Keine Duplikate in keywordsData');
+  }
+  
   // Filtere Schlagwörter nach Buchstabe
   filteredKeywords = selectedLetter === 'Alle' 
     ? keywordsData 
     : keywordsData.filter(k => (k.alphabetical || k.keyword.charAt(0).toUpperCase()) === selectedLetter);
+  
+  console.log('[DISPLAY] Nach Buchstaben-Filter:', filteredKeywords.length);
   
   // Weitere Filterung nach Suchtext
   const searchText = document.getElementById('keywordSearch').value.toLowerCase();
@@ -7961,6 +9012,8 @@ function displayKeywords(selectedLetter = 'Alle') {
       k.keyword.toLowerCase().includes(searchText)
     );
   }
+  
+  console.log('[DISPLAY] Nach Such-Filter:', filteredKeywords.length);
   
   if (countContainer) countContainer.textContent = '';
   
@@ -7972,10 +9025,12 @@ function displayKeywords(selectedLetter = 'Alle') {
   // Sortiere alphabetisch
   filteredKeywords.sort((a, b) => a.keyword.localeCompare(b.keyword));
   
+  console.log('[DISPLAY] Erste 5 nach Sortierung:', filteredKeywords.slice(0, 5).map(k => k.keyword));
+  
   let html = '<div class="keywords-container">';
   
   filteredKeywords.forEach(keywordData => {
-    // Verwende Keyword-Thematische Suche für detaillierte Analysen
+    // URSPRÜNGLICHES VERHALTEN: Klick öffnet Concept im Ergebnisbereich
     html += `
       <div class="keyword-entry">
         <h4>
@@ -7983,14 +9038,34 @@ function displayKeywords(selectedLetter = 'Alle') {
             ${keywordData.keyword}
           </a>
         </h4>
-        <div class="keyword-text" ${showKeywordTexts ? '' : 'style="display: none;"'}>
-        </div>
       </div>
     `;
   });
   
   html += '</div>';
+  
+  console.log('[DISPLAY] HTML Länge:', html.length, 'Zeichen');
+  console.log('[DISPLAY] Keyword-Entries im HTML:', (html.match(/class="keyword-entry"/g) || []).length);
+  
+  console.log('[DISPLAY] resultsContainer vor innerHTML:', resultsContainer.children.length, 'Kinder');
   resultsContainer.innerHTML = html;
+  console.log('[DISPLAY] resultsContainer nach innerHTML:', resultsContainer.children.length, 'Kinder');
+  
+  // Zähle tatsächliche keyword-entry Elemente im DOM
+  const entryElements = resultsContainer.querySelectorAll('.keyword-entry');
+  console.log('[DISPLAY] Tatsächliche .keyword-entry Elemente im DOM:', entryElements.length);
+  
+  // Prüfe ob es doppelte H4-Texte gibt
+  const h4Elements = resultsContainer.querySelectorAll('.keyword-entry h4');
+  const h4Texts = Array.from(h4Elements).map(h4 => h4.textContent.trim());
+  const uniqueH4 = new Set(h4Texts);
+  if (h4Texts.length !== uniqueH4.size) {
+    console.error('[DISPLAY] ⚠️ DUPLIKATE IM DOM gefunden!');
+    const duplicateH4 = h4Texts.filter((text, index) => h4Texts.indexOf(text) !== index);
+    console.error('[DISPLAY] Doppelte Einträge im DOM:', [...new Set(duplicateH4)].slice(0, 10));
+  } else {
+    console.log('[DISPLAY] ✓ Keine Duplikate im gerenderten DOM');
+  }
   
   // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Schlagwort-HTML entfernen
   removeInlineStyles(resultsContainer);
@@ -8000,6 +9075,8 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   // Scrolle nach oben in der Sidebar
   document.getElementById('sidebar-content').scrollTop = 0;
+  
+  console.log('[DISPLAY] ========== ENDE ==========');
 }
 
 function processKeywordText(text, gaReferences = []) {
@@ -8010,13 +9087,27 @@ function processKeywordText(text, gaReferences = []) {
   // Verarbeite Markdown-Formatierung für fette Schrift **text**
   processedText = processedText.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   
-  // Verarbeite Markdown-Links im Format [[GA066/1]] oder [[GA066 (1.) TITLE|GA066/1]]
-  processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, gaId) => {
-    const cleanGAId = gaId.trim();
+  // Verarbeite Markdown-Links im Format:
+  // [[GA066/1]] oder 
+  // [[GA066 (1.) TITLE|GA066/1]] (Obsidian-Format mit vollem Titel)
+  processedText = processedText.replace(/\[\[([^\]]*\|)?([^|\]]+)\]\]/g, (match, titlePart, lastPart) => {
+    let gaId;
+    
+    if (titlePart) {
+      // Format: [[TITLE|GA066/1]] - lastPart ist die GA-ID
+      gaId = lastPart.trim();
+    } else {
+      // Format: [[GA066/1]] - lastPart ist direkt die GA-ID
+      gaId = lastPart.trim();
+    }
     
     // Prüfe ob es eine gültige GA-ID ist (Format: GA123/4 oder GA123a/4)
-    if (/^GA\d{3}[a-z]?\/\d+$/i.test(cleanGAId)) {
-      return `<a href="#" class="ga-keyword-link" data-ga-id="${cleanGAId}" onclick="openFromKeyword('${cleanGAId}'); return false;">${cleanGAId}</a>`;
+    if (/^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
+      // Konvertiere zu Kleinbuchstaben für Konsistenz
+      const normalizedGaId = gaId.replace(/^GA(\d{3}[a-z]?)\/(\d+)$/i, (m, ga, num) => 
+        `GA${ga.toLowerCase()}/${num}`
+      );
+      return `<a href="#" class="ga-keyword-link" data-ga-id="${normalizedGaId}" onclick="showLecture('${normalizedGaId}'); return false;">${normalizedGaId}</a>`;
     }
     
     return match; // Fallback: ursprünglichen Text beibehalten
@@ -8395,10 +9486,43 @@ async function performKeywordThematicSearch(keyword) {
   hideTimelineIfOpen();
   
   try {
-    // Zeige Loading-Status
     const results = document.getElementById('results');
     const countContainer = document.getElementById('keyword-count');
     
+    // WICHTIG: Prüfe zuerst ob das Keyword bereits einen Text hat
+    const existingKeyword = keywordsData.find(kw => kw.keyword === keyword);
+    
+    if (existingKeyword && existingKeyword.text) {
+      const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
+      const isOnlyKeyword = textWithoutFormatting === keyword;
+      
+      // Wenn Text mehr als nur das Keyword selbst ist, zeige ihn direkt an
+      if (!isOnlyKeyword && existingKeyword.text.length > 50) {
+        console.log('[KEYWORD-THEMATIC] Verwende vorhandenen Text für:', keyword);
+        
+        // Bereite Daten vor
+        const data = {
+          query: keyword,
+          content: existingKeyword.text,
+          sources: existingKeyword.sources || [],
+          fromCache: false,
+          fromKeywordData: true
+        };
+        
+        // Zeige direkt an
+        displayKeywordThematicResults(keyword, data);
+        
+        if (countContainer) {
+          countContainer.textContent = '';
+        }
+        
+        return;
+      }
+    }
+    
+    console.log('[KEYWORD-THEMATIC] Kein lokaler Text, rufe API auf für:', keyword);
+    
+    // Zeige Loading-Status
     if (results) {
       results.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
@@ -8492,11 +9616,19 @@ function displayKeywordThematicResults(keyword, data) {
     // Regex für GA-Referenzen: (GA###/Y:index) oder (GA###a/Y:index)
     const gaRefRegex = /\(GA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\)/gi;
     
-    return text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
+    let result = text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
       const cleanIndex = index.replace(/^\^/, '');
       return ` (<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>)`;
     });
+    
+    // Auch Obsidian-Format unterstützen: [[GA066 (1.) TITLE|GA066/1]]
+    result = result.replace(/\[\[([^\]]*\|)?GA(\d{3}[a-z]?)\/(\d+)\]\]/gi, (match, titlePart, gaNum, lectureNum) => {
+      const lectureId = `GA${gaNum}/${lectureNum}`;
+      return `<a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">${lectureId}</a>`;
+    });
+    
+    return result;
   }
   
   // Hauptinhalt (KI-Analyse) mit Markdown-zu-HTML und klickbaren GA-Referenzen
@@ -8665,7 +9797,7 @@ async function addBatchKeywords() {
   try {
     console.log(`[BATCH-KEYWORDS] Starte Batch-Verarbeitung für ${keywords.length} Schlagwörter`);
     
-    const response = await fetch('http://localhost:3003/api/keywords-batch-add', {
+    const response = await fetch('http://localhost:3003/api/concepts-batch-add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -8941,7 +10073,7 @@ async function addNewKeyword() {
   try {
     console.log('[ADD-KEYWORD] Füge neues Schlagwort hinzu:', keyword);
     
-    const response = await fetch('http://localhost:3003/api/keywords-add', {
+    const response = await fetch('http://localhost:3003/api/concepts-add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -9025,7 +10157,7 @@ window.deleteKeyword = async function() {
   try {
     console.log('[DELETE-KEYWORD] Lösche Schlagwort:', keyword);
     
-    const response = await fetch(`${API_BASE}/api/keywords-delete`, {
+    const response = await fetch(`${API_BASE}/api/concepts-delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -9259,54 +10391,108 @@ async function showTimeline(keyword, clickedButton) {
     // Lade Vortragsdaten
     await loadFullLecturesForTimeline();
     
-    // NEUE KI-TIMELINE-ANALYSE
-    console.log('[TIMELINE] Starte KI-Timeline-Analyse für:', keyword);
-    content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline-Analyse...</div>';
+    // NEUE METHODE: Verwende keywords-database.json direkt (wie Admin-Tab)
+    console.log('[TIMELINE] Lade Timeline aus keywords-database.json für:', keyword);
+    content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline...</div>';
     
     try {
-      const timelineResponse = await fetch(`${API_BASE}/api/keyword-timeline-analysis`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ keyword: keyword, useCache: true })
+      // Lade Keywords-Database
+      const keywordsDBResponse = await fetch(`${API_BASE}/api/keywords-database`);
+      if (!keywordsDBResponse.ok) {
+        throw new Error(`Keywords-DB Fehler: ${keywordsDBResponse.status}`);
+      }
+      
+      const keywordsDB = await keywordsDBResponse.json();
+      console.log('[TIMELINE] Keywords-DB geladen, suche nach:', keyword);
+      
+      // Sammle alle Vorträge mit diesem Keyword
+      const timelineEntries = [];
+      
+      Object.values(keywordsDB).forEach(lecture => {
+        // Filtere nur neue unified/manual Keywords
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term.toLowerCase() === keyword.toLowerCase()) {
+              timelineEntries.push({
+                lectureId: lecture.lectureId,
+                date: lecture.date,
+                year: lecture.year,
+                title: fullLectures[lecture.lectureId]?.title || lecture.lectureId,
+                keyword: kw,
+                heading: kw.heading || kw.term
+              });
+            }
+          });
+        }
       });
       
-      if (!timelineResponse.ok) {
-        throw new Error(`Timeline-Analyse Fehler: ${timelineResponse.status}`);
-      }
-      
-      const timelineData = await timelineResponse.json();
-      console.log('[TIMELINE] KI-Timeline-Daten erhalten:', timelineData);
-      
-      // Erstelle erweiterte Timeline mit KI-Analyse
-      const enhancedTimelineHTML = generateEnhancedTimelineHTML(timelineData);
-      content.innerHTML = enhancedTimelineHTML;
-      
-      // Timeline-Panel-Titel erweitern
-      const timelinePanelTitle = document.getElementById('timelinePanelTitle');
-      if (timelinePanelTitle) {
-        timelinePanelTitle.textContent = `${keyword} (${timelineData.relevantLectures} Vorträge)`;
-      }
-      
-    } catch (timelineError) {
-      console.warn('[TIMELINE] KI-Analyse fehlgeschlagen, verwende Fallback:', timelineError);
-      
-      // Fallback: Verwende alte Timeline-Logik
-      const keywordData = keywordsData.find(k => k.keyword === keyword);
-      if (!keywordData || !keywordData.gaReferences) {
-        content.innerHTML = '<div class="timeline-no-results">Keine GA-Referenzen für dieses Schlagwort gefunden.</div>';
-        return;
-      }
-      
-      const timelineEntries = await createTimelineEntries(keywordData.gaReferences);
+      console.log('[TIMELINE] Gefunden:', timelineEntries.length, 'Einträge');
       
       if (timelineEntries.length === 0) {
         content.innerHTML = '<div class="timeline-no-results">Keine Vorträge mit diesem Schlagwort gefunden.</div>';
         return;
       }
       
-      const groupedByYear = groupTimelineByYear(timelineEntries);
-      const timelineHTML = generateTimelineHTML(groupedByYear);
-      content.innerHTML = timelineHTML;
+      // Sortiere chronologisch
+      timelineEntries.sort((a, b) => {
+        if (a.year !== b.year) return a.year - b.year;
+        return (a.date || '').localeCompare(b.date || '');
+      });
+      
+      // Generiere Timeline HTML (vereinfacht)
+      let html = `
+        <div class="timeline-analysis">
+          <div class="timeline-stats">
+            <span>Gefunden in ${timelineEntries.length} Vorträgen</span>
+          </div>
+        </div>
+      `;
+      
+      let lastYear = null;
+      timelineEntries.forEach(entry => {
+        const showYear = lastYear !== entry.year;
+        lastYear = entry.year;
+        
+        // Entferne ^ vom Index falls vorhanden
+        let cleanIndex = entry.keyword.index || '';
+        if (cleanIndex.startsWith('^')) {
+          cleanIndex = cleanIndex.substring(1);
+        }
+        
+        html += `
+          <div class="timeline-item enhanced">
+            ${showYear ? `<div class="timeline-year">${entry.year}</div>` : '<div class="timeline-year-spacer"></div>'}
+            <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}', '${cleanIndex}')">
+              <div class="timeline-lecture-number">
+                ${formatDateToDDMMYYYY(entry.date)}
+              </div>
+              <div class="timeline-lecture-title">${entry.title} (${entry.lectureId})</div>
+              <div class="timeline-quotes">
+                ${entry.heading}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      content.innerHTML = html;
+      
+      // Timeline-Panel-Titel erweitern
+      const timelinePanelTitle = document.getElementById('timelinePanelTitle');
+      if (timelinePanelTitle) {
+        timelinePanelTitle.textContent = `${keyword} (${timelineEntries.length} Vorträge)`;
+      }
+      
+    } catch (timelineError) {
+      console.error('[TIMELINE] Fehler:', timelineError);
+      content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline.</div>';
+      return;
     }
     
   } catch (error) {
@@ -9910,12 +11096,20 @@ async function saveMarkedWord(word, gaTitle) {
   }
 }
 
-// Event-Listener für Rechtsklick im Viewer
+// Event-Listener für Rechtsklick im Viewer (nur für Textmarkierung)
+// HINWEIS: Rechtsklick auf Absätze wird jetzt durch oncontextmenu im HTML behandelt
 document.addEventListener('DOMContentLoaded', function() {
   const viewer = document.getElementById('viewer');
   
   if (viewer) {
     viewer.addEventListener('contextmenu', function(e) {
+      // Prüfe ob auf einem Absatz geklickt wurde (wird durch oncontextmenu im HTML behandelt)
+      const isParagraph = e.target.closest('.paragraph');
+      if (isParagraph && isLocal) {
+        // Absatz-Rechtsklick wird durch openKeywordModalFromParagraph() behandelt
+        return;
+      }
+      
       // Hole markierten Text
       const selection = window.getSelection();
       const selectedText = selection.toString().trim();
@@ -10461,18 +11655,30 @@ async function updateTimelineStats() {
       themesCount = Object.keys(themes).length;
     }
     
-    // Zähle eindeutige Keywords
+    // Zähle eindeutige Keywords (NUR aus neu generierten Vorträgen)
     const uniqueKeywords = new Set();
+    let newGenerationCount = 0;
+    
     Object.values(keywordsDB).forEach(lecture => {
-      if (lecture.keywords && Array.isArray(lecture.keywords)) {
-        lecture.keywords.forEach(kw => {
-          if (kw.term) uniqueKeywords.add(kw.term);
-        });
+      // Filtere: NUR Vorträge mit neuem unified generationMethod
+      const isNewGeneration = lecture.generationMethod && 
+        (lecture.generationMethod.includes('unified-batch') || 
+         lecture.generationMethod.includes('unified') ||
+         lecture.generationMethod.includes('manual-add') ||
+         lecture.generationMethod.includes('manual'));
+      
+      if (isNewGeneration) {
+        newGenerationCount++;
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) uniqueKeywords.add(kw.term);
+          });
+        }
       }
     });
     keywordsCount = uniqueKeywords.size;
     
-    statsDisplay.innerHTML = `${themesCount} Themen • ${keywordsCount} Schlagwörter`;
+    statsDisplay.innerHTML = `${themesCount} Themen • ${keywordsCount} Schlagwörter • ${newGenerationCount} Vorträge`;
   } catch (error) {
     console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
     statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
@@ -10481,10 +11687,46 @@ async function updateTimelineStats() {
 
 // Update timeline filters when changed
 async function updateTimelineFilters() {
-  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  let currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
   const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
-  // Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
+  // ZUERST: Wenn Keyword geändert wurde, finde und setze das zugehörige Thema
+  if (currentKeyword !== lastSelectedKeyword && currentKeyword !== '') {
+    try {
+      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+      if (themesResponse.ok) {
+        const themes = await themesResponse.json();
+        
+        // Finde das Thema, das dieses Keyword enthält
+        let foundTheme = null;
+        for (const [themeName, themeData] of Object.entries(themes)) {
+          if (themeData.keywords && Array.isArray(themeData.keywords)) {
+            // Case-insensitive Vergleich
+            if (themeData.keywords.some(kw => kw.toLowerCase() === currentKeyword.toLowerCase())) {
+              foundTheme = themeName;
+              break;
+            }
+          }
+        }
+        
+        // Setze das Thema im Dropdown, falls gefunden
+        if (foundTheme && foundTheme !== currentTheme) {
+          const themeSelect = document.getElementById('timelineThemeFilterAdmin');
+          if (themeSelect) {
+            console.log('[TIMELINE] Keyword', currentKeyword, '→ Thema:', foundTheme);
+            themeSelect.value = foundTheme;
+            currentTheme = foundTheme; // Aktualisiere currentTheme für diese Iteration
+          }
+        } else if (!foundTheme) {
+          console.log('[TIMELINE] Kein Thema gefunden für Keyword:', currentKeyword);
+        }
+      }
+    } catch (error) {
+      console.error('[TIMELINE] Fehler beim Zuordnen des Themas:', error);
+    }
+  }
+  
+  // DANN: Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
   if (currentTheme !== lastSelectedTheme) {
     lastSelectedTheme = currentTheme;
     
@@ -10591,11 +11833,11 @@ async function updateTimelineFilters() {
     }
   }
   
-  // Wenn Keyword geändert wurde
+  // Aktualisiere lastSelectedKeyword
   if (currentKeyword !== lastSelectedKeyword) {
     lastSelectedKeyword = currentKeyword;
     
-    // Lösche Timeline-Bereich
+    // Lösche Timeline-Bereich beim Keyword-Wechsel
     const timelineContainer = document.getElementById('timelineContainer');
     if (timelineContainer) {
       timelineContainer.innerHTML = '';
@@ -10642,16 +11884,23 @@ async function renderTimeline() {
     const keywordsDB = await loadKeywordsDatabase();
     
     if (currentTheme) {
-      // Keywords NUR vom ausgewählten Thema UND die tatsächlich existieren
+      // Keywords NUR vom ausgewählten Thema UND die tatsächlich existieren (NUR neue unified Generierungen)
       const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
       if (themesResponse.ok) {
         const themes = await themesResponse.json();
         const themeData = themes[currentTheme];
         if (themeData && themeData.keywords) {
-          // Sammle existierende Keywords
+          // Sammle existierende Keywords (NUR aus neu generierten Vorträgen)
           const existingKeywords = new Set();
           Object.values(keywordsDB).forEach(lecture => {
-            if (lecture.keywords && Array.isArray(lecture.keywords)) {
+            // Filtere: NUR Vorträge mit neuem unified generationMethod
+            const isNewGeneration = lecture.generationMethod && 
+              (lecture.generationMethod.includes('unified-batch') || 
+               lecture.generationMethod.includes('unified') ||
+               lecture.generationMethod.includes('manual-add') ||
+               lecture.generationMethod.includes('manual'));
+            
+            if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
               lecture.keywords.forEach(kw => {
                 if (kw.term) {
                   existingKeywords.add(kw.term.toLowerCase());
@@ -10672,12 +11921,19 @@ async function renderTimeline() {
         }
       }
     } else {
-      // Alle Keywords aus allen Vorträgen
+      // Alle Keywords aus allen Vorträgen (NUR mit neuem unified System)
       const keywordsDB = await loadKeywordsDatabase();
       const allKeywords = new Set();
       
       Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        // Filtere: NUR Vorträge mit neuem unified generationMethod
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             if (kw.term) {
               allKeywords.add(kw.term);
@@ -10770,9 +12026,16 @@ async function renderTimelineContent() {
     
     // FALL 1: Nur Thema (Cluster) ausgewählt
     if (theme && !keyword) {
-      // Zeige alle Keywords die zu diesem Cluster gehören
+      // Zeige alle Keywords die zu diesem Cluster gehören (NUR neue unified Generierungen)
       Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        // Filtere: NUR Vorträge mit neuem unified generationMethod
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             const kwCluster = keywordToCluster[kw.term.toLowerCase()];
             if (kwCluster === theme) {
@@ -10786,14 +12049,21 @@ async function renderTimelineContent() {
           });
         }
       });
-      console.log(`[TIMELINE] Fall 1: Cluster "${theme}" - ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 1: Cluster "${theme}" - ${keywordEntries.length} Keywords (nur unified)`);
     }
     
     // FALL 2: Cluster + Keyword ausgewählt
     else if (theme && keyword) {
-      // Zeige nur exakt dieses Keyword aus diesem Cluster
+      // Zeige nur exakt dieses Keyword aus diesem Cluster (NUR neue unified Generierungen)
       Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        // Filtere: NUR Vorträge mit neuem unified generationMethod
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             const kwCluster = keywordToCluster[kw.term.toLowerCase()];
             if (kwCluster === theme && kw.term.toLowerCase() === keyword.toLowerCase()) {
@@ -10807,14 +12077,21 @@ async function renderTimelineContent() {
           });
         }
       });
-      console.log(`[TIMELINE] Fall 2: Cluster "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 2: Cluster "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords (nur unified)`);
     }
     
     // FALL 3: Nur Keyword ausgewählt (kein Cluster)
     else if (!theme && keyword) {
-      // Zeige exakt dieses Keyword aus allen Clustern
+      // Zeige exakt dieses Keyword aus allen Clustern (NUR neue unified Generierungen)
       Object.values(keywordsDB).forEach(lecture => {
-        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        // Filtere: NUR Vorträge mit neuem unified generationMethod
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             if (kw.term.toLowerCase() === keyword.toLowerCase()) {
               keywordEntries.push({
@@ -10828,7 +12105,7 @@ async function renderTimelineContent() {
         }
       });
       
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords`);
+      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords (nur unified)`);
     }
     
     if (keywordEntries.length === 0) {
@@ -11029,7 +12306,6 @@ window.switchTab = function(tabName) {
 // ITERATIVE KEYWORD-GENERIERUNG GA-BAND-WEISE
 // ============================================================================
 
-let gaBatchRunning = false;
 let availableGAVolumes = [];
 
 // Lade verfügbare GA-Bände
@@ -11108,12 +12384,8 @@ function updateStartButtonState() {
 // ============================================================================
 
 // Starte GA-Batch mit neuer V2 Template-basierter Generierung
-async function startGABatchV2() {
-  if (gaBatchRunning) {
-    alert('Batch läuft bereits!');
-    return;
-  }
-  
+// NEUE FUNKTION: S&H&C&K für ausgewählte GA-Bände
+async function startGABatchFullRegenerate() {
   // Sammle ausgewählte GA-Bände
   const checkboxes = document.querySelectorAll('.ga-volume-checkbox:checked');
   const selectedVolumes = Array.from(checkboxes).map(cb => cb.value);
@@ -11123,72 +12395,66 @@ async function startGABatchV2() {
     return;
   }
   
-  const useExisting = document.getElementById('useExistingVocabCheckbox').checked;
-  const consolidateSynonyms = document.getElementById('consolidateSynonymsCheckbox').checked;
-  const forceReprocess = document.getElementById('forceReprocessCheckbox').checked;
-  
   // Hole ausgewählten Provider
-  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || 'openai';
+  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || null;
   
-  // Berechne Gesamtstatistiken
+  // Berechne Gesamtanzahl Vorträge
   let totalLectures = 0;
   selectedVolumes.forEach(vol => {
     const volInfo = availableGAVolumes.find(v => v.volume === vol);
     if (volInfo) totalLectures += volInfo.lectureCount;
   });
   
-  const estimatedMinutes = Math.ceil(totalLectures / 30); // ~30 Vorträge/Minute mit V2
-  
-  let message = `🆕 NEUE V2 GENERIERUNG\n\n` +
-    `${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''} verarbeiten?\n\n` +
+  const message = `WARNUNG: Alle Vorträge in ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} werden komplett neu generiert (S+H+TOC+KW).\n\n` +
     `Bände: ${selectedVolumes.join(', ')}\n` +
-    `Total Vorträge: ${totalLectures}\n` +
-    `KI-Provider: ${selectedProvider.toUpperCase()}\n` +
-    `Bestehendes Vokabular: ${useExisting ? 'Ja (iterativ)' : 'Nein (nur Template)'}\n` +
-    `Synonyme konsolidieren: ${consolidateSynonyms ? 'Ja' : 'Nein'}\n` +
-    `Neu verarbeiten: ${forceReprocess ? '⚠️ JA (überschreibt alte)' : 'Nein (überspringt vorhandene)'}\n\n` +
-    `✓ Keywords aus H3/H4 Überschriften\n` +
-    `✓ Template-basiert (~560 Basis-Keywords)\n` +
-    `✓ Konservativ (1-2 Worte pro KW)\n` +
-    `✓ Confidence: 0.6\n\n` +
-    `Geschätzte Dauer: ca. ${estimatedMinutes} Minuten`;
+    `Total Vorträge: ~${totalLectures}\n` +
+    `KI-Provider: ${selectedProvider ? selectedProvider.toUpperCase() : 'Claude (Default)'}\n\n` +
+    `Bestehende Daten werden überschrieben. Fortfahren?`;
   
   if (!confirm(message)) return;
   
-  gaBatchRunning = true;
-  
   const btn = document.getElementById('startGABatchBtn');
-  const cancelBtn = document.getElementById('cancelGABatchBtn');
   const statusDiv = document.getElementById('gaBatchStatus');
   const progressContainer = document.getElementById('gaBatchProgressContainer');
   const resultsDiv = document.getElementById('gaBatchResults');
-  const progressText = document.getElementById('gaBatchProgressText');
-  const progressPercent = document.getElementById('gaBatchProgressPercent');
   const progressBar = document.getElementById('gaBatchProgressBar');
   
   btn.disabled = true;
   btn.style.opacity = '0.5';
   checkboxes.forEach(cb => cb.disabled = true);
-  cancelBtn.style.display = 'inline-block';
   statusDiv.style.display = 'block';
   progressContainer.style.display = 'block';
   resultsDiv.style.display = 'none';
   
-  statusDiv.innerHTML = `<span style="color: #467886;">⏳ Starte V2 Generierung für ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'e' : ''}...</span>`;
+  statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Sammle Vorträge...</span>`;
   
   try {
-    // NEUE V2 API: Alle GA-Bände in EINEM Request
-    const response = await fetch(`${API_BASE}/api/generate-keywords-v2`, {
+    // Sammle alle Lecture IDs der ausgewählten GA-Bände
+    let allLectureIds = [];
+    
+    for (const gaVolume of selectedVolumes) {
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaVolume)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        const lectureIds = (data.lectures || []).map(l => l.ID);
+        allLectureIds.push(...lectureIds);
+      }
+    }
+    
+    if (allLectureIds.length === 0) {
+      throw new Error('Keine Vorträge gefunden');
+    }
+    
+    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge komplett neu (S+H+TOC+KW)...</span>`;
+    
+    // Rufe den gleichen Endpoint wie S&H&C&K Button auf
+    const response = await fetch(`${API_BASE}/api/batch-regenerate-all`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        gaVolumes: selectedVolumes,
-        useExistingVocab: useExisting,
-        consolidateSynonyms: consolidateSynonyms,
-        forceReprocess: forceReprocess,
-        preferredProvider: selectedProvider  // NEU: Explizite Provider-Auswahl
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: allLectureIds,
+        preferredProvider: selectedProvider,
+        parallelChunkSize: 5
       })
     });
     
@@ -11199,83 +12465,37 @@ async function startGABatchV2() {
     const result = await response.json();
     
     if (result.success) {
-      // Erfolg!
       statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Generierung abgeschlossen!</span>`;
-      
-      // Zeige Ergebnisse
       resultsDiv.style.display = 'block';
-      
-      // Berechne Statistiken
-      const stats = result.stats;
-      const successResults = result.results.filter(r => r.success);
-      
-      let totalKeywords = 0;
-      let totalNewKeywords = 0;
-      successResults.forEach(r => {
-        totalKeywords += r.keywordsCount || 0;
-        totalNewKeywords += r.newKeywordsCount || 0;
-      });
       
       document.getElementById('gaBatchStatVolume').textContent = 
         `${selectedVolumes.length} Band${selectedVolumes.length > 1 ? 'e' : ''} (${selectedVolumes.join(', ')})`;
-      document.getElementById('gaBatchStatProcessed').textContent = stats.processed + ' Vorträge';
+      document.getElementById('gaBatchStatProcessed').textContent = result.processed + ' Vorträge';
+      document.getElementById('gaBatchStatSkipped').style.display = 'none';
+      document.getElementById('gaBatchSkippedLabel').style.display = 'none';
+      document.getElementById('gaBatchStatTotal').textContent = result.processed + ' komplett neu';
+      document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
+      document.getElementById('gaBatchStatFinalVocab').textContent = '-';
+      document.getElementById('gaBatchStatSynonyms').textContent = '-';
+      document.getElementById('gaBatchStatMethod').textContent = 'Unified Full (S+H+TOC+KW)';
       
-      // Zeige übersprungene Vorträge
-      if (stats.skipped > 0) {
-        document.getElementById('gaBatchSkippedLabel').style.display = 'block';
-        document.getElementById('gaBatchStatSkipped').style.display = 'block';
-        document.getElementById('gaBatchStatSkipped').textContent = stats.skipped + ' Vorträge (bereits vorhanden)';
-      } else {
-        document.getElementById('gaBatchSkippedLabel').style.display = 'none';
-        document.getElementById('gaBatchStatSkipped').style.display = 'none';
-      }
-      
-      document.getElementById('gaBatchStatTotal').textContent = totalKeywords;
-      document.getElementById('gaBatchStatNew').textContent = totalNewKeywords;
-      document.getElementById('gaBatchStatFinalVocab').textContent = stats.newVocabularySize + ' Keywords';
-      document.getElementById('gaBatchStatSynonyms').textContent = stats.synonymsConsolidated || 0;
-      document.getElementById('gaBatchStatMethod').textContent = 'Template V2 (H3/H4)';
-      
-      // Progress auf 100%
       if (progressBar) progressBar.style.width = '100%';
-      if (progressPercent) progressPercent.textContent = '100%';
-      if (progressText) progressText.textContent = 'Abgeschlossen!';
-      
-      // Zeige Detail-Log
-      statusDiv.innerHTML += `<br><br><strong>Details:</strong>`;
-      statusDiv.innerHTML += `<br>• Verarbeitet: ${stats.processed} Vorträge`;
-      statusDiv.innerHTML += `<br>• Übersprungen: ${stats.skipped} Vorträge`;
-      statusDiv.innerHTML += `<br>• Fehler: ${stats.errors}`;
-      statusDiv.innerHTML += `<br>• Total Keywords: ${totalKeywords}`;
-      statusDiv.innerHTML += `<br>• Neue Keywords: ${totalNewKeywords} (${totalKeywords > 0 ? ((totalNewKeywords/totalKeywords)*100).toFixed(1) : 0}%)`;
-      statusDiv.innerHTML += `<br>• Vokabular-Größe: ${stats.newVocabularySize}`;
-      if (consolidateSynonyms) {
-        statusDiv.innerHTML += `<br>• Synonyme konsolidiert: ${stats.synonymsConsolidated}`;
-      }
       
     } else {
       throw new Error(result.error || 'Unbekannter Fehler');
     }
     
   } catch (error) {
-    console.error('[GA-BATCH-V2] Fehler:', error);
+    console.error('[GA-BATCH-FULL] Fehler:', error);
     statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
   }
   
   progressContainer.style.display = 'none';
-  gaBatchRunning = false;
   btn.disabled = false;
   btn.style.opacity = '1';
   checkboxes.forEach(cb => cb.disabled = false);
-  cancelBtn.style.display = 'none';
 }
 
-function cancelGABatch() {
-  if (confirm('Batch wirklich abbrechen?\n\nBereits generierte Keywords gehen verloren.')) {
-    gaBatchRunning = false;
-    location.reload();
-  }
-}
 
 // Lade GA-Bände beim Öffnen des Keywords-Tabs
 if (document.getElementById('gaVolumeCheckboxes')) {
@@ -11329,13 +12549,13 @@ async function loadProviderStatus() {
   }
 }
 
-// Lade Status beim Öffnen des Keywords-Tabs
-document.addEventListener('DOMContentLoaded', function() {
-  loadProviderStatus();
-  
-  // Aktualisiere Status alle 30 Sekunden
-  setInterval(loadProviderStatus, 30000);
-});
+// Provider-Status-Prüfung deaktiviert
+// document.addEventListener('DOMContentLoaded', function() {
+//   loadProviderStatus();
+//   
+//   // Aktualisiere Status alle 30 Sekunden
+//   setInterval(loadProviderStatus, 30000);
+// });
 
 // Event-Listener für useExistingVocab Checkbox
 document.addEventListener('DOMContentLoaded', function() {
@@ -12358,6 +13578,30 @@ if (isLocalhost()) {
   }
 }
 
+// Erstelle automatisches HTML-Backup beim Laden (nur lokal)
+if (isLocalhost()) {
+  createAutoHtmlBackup();
+}
+
+// Automatisches HTML-Backup beim Laden der Seite
+async function createAutoHtmlBackup() {
+  try {
+    console.log('[HTML-BACKUP] Erstelle automatisches Backup beim Laden...');
+    const response = await fetch('http://localhost:3003/api/backups/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'html' })
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      console.log('[HTML-BACKUP] ✓ Automatisches Backup erstellt:', data.count, 'Dateien');
+    }
+  } catch (error) {
+    console.warn('[HTML-BACKUP] Automatisches Backup fehlgeschlagen:', error.message);
+  }
+}
+
 function openBackupModal() {
   document.getElementById('backupModal').style.display = 'block';
   loadBackupList();
@@ -12493,6 +13737,284 @@ async function restoreBackup(backupName) {
     </div>
   </div>
 </div>
+
+<script>
+// ============================================================================
+// ADD KEYWORD TO LECTURE MODAL (nur lokal)
+// ============================================================================
+
+let addKeywordTargetLectureId = null;
+let selectedParagraphIndex = null;
+
+// Absatz für Keyword-Zuordnung auswählen (nur lokal, nur mit Strg+Klick)
+function selectParagraphForKeyword(paragraphIndex, element, event) {
+  if (!isLocal) return;
+  
+  // Nur bei Strg+Klick (oder Cmd+Klick auf Mac) reagieren
+  if (!event || (!event.ctrlKey && !event.metaKey)) {
+    return;
+  }
+  
+  // Entferne vorherige Markierung
+  document.querySelectorAll('.paragraph.selected-for-keyword').forEach(el => {
+    el.classList.remove('selected-for-keyword');
+  });
+  
+  // Markiere aktuellen Absatz
+  if (selectedParagraphIndex === paragraphIndex) {
+    // Deselektieren
+    selectedParagraphIndex = null;
+    console.log('[SELECT-PARA] Absatz deselektiert');
+  } else {
+    // Selektieren
+    selectedParagraphIndex = paragraphIndex;
+    element.classList.add('selected-for-keyword');
+    console.log('[SELECT-PARA] Absatz ausgewählt:', paragraphIndex);
+  }
+}
+
+// Öffne Keyword-Modal direkt per Rechtsklick auf Absatz (nur lokal)
+function openKeywordModalFromParagraph(paragraphIndex, event) {
+  if (!isLocal) return;
+  
+  // Verhindere Standard-Kontextmenü
+  event.preventDefault();
+  event.stopPropagation();
+  
+  // Markiere den Absatz automatisch
+  const paragraphElement = event.target.closest('.paragraph');
+  if (paragraphElement) {
+    // Entferne vorherige Markierungen
+    document.querySelectorAll('.paragraph.selected-for-keyword').forEach(el => {
+      el.classList.remove('selected-for-keyword');
+    });
+    
+    // Markiere aktuellen Absatz
+    selectedParagraphIndex = paragraphIndex;
+    paragraphElement.classList.add('selected-for-keyword');
+    console.log('[CONTEXTMENU] Absatz per Rechtsklick ausgewählt:', paragraphIndex);
+  }
+  
+  // Öffne Modal mit der aktuellen Lecture-ID
+  if (currentLectureData && currentLectureData.ID) {
+    openAddKeywordModal(currentLectureData.ID);
+  } else {
+    console.warn('[CONTEXTMENU] Kein Vortrag geladen');
+  }
+}
+
+async function openAddKeywordModal(lectureId) {
+  if (!isLocal) return;
+  
+  addKeywordTargetLectureId = lectureId;
+  document.getElementById('addKeywordLectureId').textContent = lectureId;
+  document.getElementById('addKeywordNameInput').value = '';
+  document.getElementById('addKeywordStatus').style.display = 'none';
+  
+  // Zeige ausgewählten Absatz an (falls vorhanden)
+  const paragraphInfo = document.getElementById('addKeywordParagraphInfo');
+  if (selectedParagraphIndex) {
+    paragraphInfo.style.display = 'block';
+    paragraphInfo.innerHTML = `<span style="color: #5cb85c;">✓ Absatz ausgewählt: ${selectedParagraphIndex}</span>`;
+  } else {
+    paragraphInfo.style.display = 'block';
+    paragraphInfo.innerHTML = `<span style="color: #666;">ℹ Kein Absatz ausgewählt (verwendet ersten Absatz)</span>`;
+  }
+  
+  // Lade Cluster-Liste
+  try {
+    const response = await fetch(`${API_BASE}/api/themes-database`);
+    if (response.ok) {
+      const themes = await response.json();
+      const select = document.getElementById('addKeywordClusterSelect');
+      select.innerHTML = '<option value="">Kein Cluster</option>';
+      
+      Object.keys(themes).sort().forEach(themeName => {
+        const option = document.createElement('option');
+        option.value = themeName;
+        option.textContent = themeName;
+        select.appendChild(option);
+      });
+    }
+  } catch (error) {
+    console.error('[ADD-KW] Fehler beim Laden der Cluster:', error);
+  }
+  
+  document.getElementById('addKeywordModal').style.display = 'block';
+  document.getElementById('addKeywordOverlay').style.display = 'block';
+  document.getElementById('addKeywordNameInput').focus();
+}
+
+function closeAddKeywordModal() {
+  document.getElementById('addKeywordModal').style.display = 'none';
+  document.getElementById('addKeywordOverlay').style.display = 'none';
+  addKeywordTargetLectureId = null;
+  
+  // Leere Eingabefelder
+  document.getElementById('addKeywordNameInput').value = '';
+  document.getElementById('addKeywordDescInput').value = '';
+  document.getElementById('addKeywordClusterSelect').value = '';
+  
+  // Entferne Absatz-Markierung
+  document.querySelectorAll('.paragraph.selected-for-keyword').forEach(el => {
+    el.classList.remove('selected-for-keyword');
+  });
+  selectedParagraphIndex = null;
+}
+
+async function addKeywordToLecture() {
+  const keywordName = document.getElementById('addKeywordNameInput').value.trim();
+  const keywordDesc = document.getElementById('addKeywordDescInput').value.trim();
+  const cluster = document.getElementById('addKeywordClusterSelect').value;
+  const statusDiv = document.getElementById('addKeywordStatus');
+  
+  if (!keywordName) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Bitte geben Sie einen Keyword-Namen ein';
+    return;
+  }
+  
+  if (!addKeywordTargetLectureId) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Fehler: Keine Vortrag-ID';
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d1ecf1';
+  statusDiv.style.color = '#0c5460';
+  statusDiv.textContent = 'Füge Keyword hinzu...';
+  
+  try {
+    // Erstelle Keyword-Objekt (mit ausgewähltem Absatz-Index)
+    const keywordIndex = selectedParagraphIndex || "^manual";
+    
+    const newKeyword = {
+      term: keywordName,
+      index: keywordIndex,
+      heading: keywordDesc || "Manuell hinzugefügt",  // Verwende eigenen Text oder Platzhalter
+      customDescription: !!keywordDesc,  // Flag: true wenn eigener Text
+      source: "manual",
+      matchType: "manual",
+      matchedExisting: null,
+      summaryMentioned: false,
+      confidence: 1.0,
+      level: "h3"
+    };
+    
+    console.log('[ADD-KW] Neues Keyword:', keywordName, 'Index:', keywordIndex);
+    
+    // Rufe Backend-Endpoint auf (aktualisiert BEIDE Datenbanken)
+    const response = await fetch(`${API_BASE}/api/add-keyword-to-lecture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: addKeywordTargetLectureId,
+        keyword: newKeyword
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await response.json();
+    
+    // Füge zu Cluster hinzu (wenn gewählt)
+    if (cluster) {
+      await fetch(`${API_BASE}/keywords/move-to-cluster`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ keyword: keywordName, targetCluster: cluster })
+      });
+    }
+    
+    // Erfolg!
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = `✓ Keyword "${keywordName}" hinzugefügt${cluster ? ' zu Cluster "' + cluster + '"' : ''} (in beiden DBs)`;
+    
+    // Schließe Modal und aktualisiere Anzeige
+    setTimeout(() => {
+      closeAddKeywordModal();
+      // Lade Vortrag neu (zeigt das neue Keyword an)
+      if (currentLectureData && currentLectureData.ID === addKeywordTargetLectureId) {
+        showLecture(addKeywordTargetLectureId, null, []);
+      }
+    }, 1500);
+    
+  } catch (error) {
+    console.error('[ADD-KW] Fehler:', error);
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Fehler: ' + error.message;
+  }
+}
+</script>
+
+<!-- Modal: Keyword zu Vortrag hinzufügen (nur lokal) -->
+<div id="addKeywordModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 500px; width: 90%; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keyword zu Vortrag hinzufügen</h3>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+      Vortrag: <strong id="addKeywordLectureId"></strong>
+    </label>
+  </div>
+  
+  <div id="addKeywordParagraphInfo" style="margin-bottom: 1rem; padding: 8px; background: #f0f0f0; border-radius: 4px; font-size: 0.85em;">
+    <span style="color: #666;">Klicken Sie auf einen Absatz im Vortrag, um ihn auszuwählen</span>
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+      Keyword-Name:
+    </label>
+    <input type="text" id="addKeywordNameInput" placeholder="z.B. Meditation" 
+      style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: var(--input-bg); color: var(--text-color);"
+      onkeypress="if(event.key==='Enter') addKeywordToLecture()">
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+      Beschreibung (optional):
+    </label>
+    <input type="text" id="addKeywordDescInput" placeholder="Eigener Text für Timeline (leer = automatische Überschrift)" 
+      style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: var(--input-bg); color: var(--text-color);"
+      onkeypress="if(event.key==='Enter') addKeywordToLecture()">
+    <small style="display: block; margin-top: 0.3rem; font-size: 0.75em; color: var(--secondary-text); font-style: italic;">
+      Leer lassen = Überschrift des Absatzes wird verwendet
+    </small>
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+      Cluster (optional):
+    </label>
+    <select id="addKeywordClusterSelect" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: var(--input-bg); color: var(--text-color);">
+      <option value="">Kein Cluster</option>
+    </select>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <button onclick="addKeywordToLecture()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; background: #5cb85c; color: white; flex: 1;">
+      Hinzufügen
+    </button>
+    <button onclick="closeAddKeywordModal()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em;">
+      Abbrechen
+    </button>
+  </div>
+  
+  <div id="addKeywordStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+</div>
+
+<!-- Overlay für Add Keyword Modal -->
+<div id="addKeywordOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeAddKeywordModal()"></div>
 
 </body>
 </html> 

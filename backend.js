@@ -5,7 +5,7 @@ const cors = require('cors');
 const fs = require('fs').promises;
 const fsSync = require('fs'); // Für synchrone Operationen (Seed-Keywords laden)
 const path = require('path');
-const { getProviderForTask, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
+const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 
 const app = express();
 const PORT = 3003;
@@ -420,7 +420,11 @@ async function generateGAOverview(gaNumber) {
         fileName: lec.fileName,
         location: lec.location,
         date: formatDate(lec.date),
-        summary: summaryText
+        summary: summaryText,
+        headings: summaryData?.headings || [],
+        tableOfContents: summaryData?.tableOfContents || [],
+        lectureKeywords: summaryData?.lectureKeywords || [],
+        version: summaryData?.version || 'v1'
       };
     })
   };
@@ -2039,30 +2043,13 @@ function generateFallbackAnalysis(query, results) {
 
 app.post('/api/summarize-lecture', async (req, res) => {
   try {
-    const { lectureId, forceRegenerate = false } = req.body;
+    const { lectureId, forceRegenerate = false, preferredProvider = null } = req.body;
     
     if (!lectureId) {
       return res.status(400).json({ error: 'Lecture ID erforderlich' });
     }
     
-    console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate})...`);
-    
-    // Prüfe zuerst zentrale Summary-Datenbank
-    if (!forceRegenerate) {
-      const summaryDB = await loadSummaryDatabase();
-      if (summaryDB[lectureId]) {
-        console.log(`  ✓ Summary aus zentraler DB für ${lectureId}`);
-        const dbData = summaryDB[lectureId];
-        
-        return res.json({
-          lectureId: lectureId,
-          summary: dbData.summary,
-          headings: dbData.headings || [],
-          fromCache: true,
-          paragraphCount: fullLectures[lectureId]?.paragraphs?.length || 0
-        });
-      }
-    }
+    console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate}, provider: ${preferredProvider || 'auto'})...`);
     
     const lecture = fullLectures[lectureId];
     
@@ -2073,33 +2060,694 @@ app.post('/api/summarize-lecture', async (req, res) => {
       });
     }
     
-    console.log(`  → Generiere neue Zusammenfassung...`);
-    const summaryData = await generateLectureSummary(lecture);
+    // Prüfe zuerst zentrale Summary-Datenbank
+    const summaryDB = await loadSummaryDatabase();
+    const existingSummary = summaryDB[lectureId] || null;
+        
+    if (!forceRegenerate && existingSummary) {
+      // Prüfe ob V2 (vollständig mit TOC und Keywords)
+      if (existingSummary.version === 'v2' && 
+          existingSummary.tableOfContents && existingSummary.tableOfContents.length > 0 &&
+          existingSummary.lectureKeywords && existingSummary.lectureKeywords.length > 0) {
+        console.log(`  ✓ V2-Summary vollständig vorhanden für ${lectureId}`);
+        return res.json({
+          lectureId: lectureId,
+          summary: existingSummary.summary,
+          headings: existingSummary.headings || [],
+          tableOfContents: existingSummary.tableOfContents || [],
+          lectureKeywords: existingSummary.lectureKeywords || [],
+          fromCache: true,
+          version: 'v2',
+          paragraphCount: lecture.paragraphs?.length || 0
+        });
+      } else {
+        // V1 vorhanden oder V2 unvollständig → Ergänze zu V2
+        console.log(`  → V1 oder unvollständiges V2 vorhanden, ergänze fehlende Daten...`);
+      }
+    } else if (!forceRegenerate && !existingSummary) {
+      console.log(`  → Keine Summary vorhanden, generiere V2...`);
+    } else if (forceRegenerate && existingSummary && existingSummary.summary) {
+      // WICHTIG: Bei forceRegenerate mit existierender Summary
+      // → Nur TOC und Keywords neu generieren, Summary behalten!
+      console.log(`  → Force-Regenerate mit existierender Summary: Behalte Summary, generiere TOC + Keywords neu...`);
+    } else {
+      console.log(`  → Force-Regenerate ohne Summary, erstelle alles neu...`);
+    }
+    
+    // Entscheide ob Summary neu generiert werden muss
+    let summaryData;
+    
+    if (forceRegenerate && existingSummary && existingSummary.summary && existingSummary.headings) {
+      // FALL: Summary + Headings existieren bereits
+      // → Behalte beide, generiere nur neue Keywords
+      console.log(`  ℹ Behalte existierende Summary + Headings, generiere nur Keywords neu`);
+      
+      summaryData = {
+        summary: existingSummary.summary,
+        headings: existingSummary.headings,
+        tableOfContents: existingSummary.tableOfContents || [],
+        lectureKeywords: existingSummary.lectureKeywords || [],
+        version: 'v2'
+      };
+    } else {
+      // FALL: Keine Summary oder forceRegenerate ohne existierende Daten
+      // → Generiere alles neu
+      summaryData = await generateLectureSummary(lecture, existingSummary, 'auto', preferredProvider);
+    }
     
     // Speichere in zentrale Summary-Datenbank mit robustem Locking
     try {
       await saveSummaryToDatabase(lectureId, {
         summary: summaryData.summary,
-        headings: summaryData.headings || []
+        headings: summaryData.headings || [],
+        tableOfContents: tableOfContents,  // Neu generiertes TOC
+        lectureKeywords: summaryData.lectureKeywords || [],
+        version: summaryData.version || 'v2'
       });
-      console.log(`  ✓ Summary für ${lectureId} sicher in DB gespeichert`);
+      console.log(`  ✓ Summary V2 für ${lectureId} sicher in DB gespeichert`);
     } catch (dbError) {
       console.error(`[SPEICHERUNG] ✗ Fehler beim Speichern von ${lectureId}:`, dbError.message);
       // Werfe Fehler nicht weiter, Response sollte trotzdem gesendet werden
     }
     
-    console.log(`  ✓ Zusammenfassung erstellt und in zentrale DB gespeichert`);
+    // NEU: Generiere TOC + Keywords mit V3 (flexible + Budget) wenn forceRegenerate
+    let generatedKeywords = summaryData.lectureKeywords || [];
+    let tableOfContents = summaryData.tableOfContents || [];
+    
+    if (forceRegenerate && summaryData.headings && summaryData.headings.length > 0) {
+      // Bei forceRegenerate: TOC IMMER neu generieren (auch wenn vorhanden)
+      if (forceRegenerate || !tableOfContents || tableOfContents.length === 0) {
+        try {
+          console.log(`  → Generiere Inhaltsverzeichnis neu...`);
+          
+          // Hole Provider
+          let tocProvider;
+          try {
+            if (preferredProvider) {
+              const { createProvider } = require('./llm-providers');
+              tocProvider = createProvider(preferredProvider);
+              if (!tocProvider.isAvailable()) {
+                throw new Error(`${preferredProvider} nicht verfügbar`);
+              }
+            } else {
+              tocProvider = getProviderForTask('summary');
+            }
+          } catch (providerError) {
+            console.warn(`[TOC] Provider-Fehler: ${providerError.message}, überspringe TOC-Generierung`);
+            tocProvider = null;
+          }
+          
+          if (tocProvider) {
+            // Filtere H3-Überschriften für TOC
+            const h3Headings = summaryData.headings.filter(h => h.level === 'h3');
+            
+            if (h3Headings.length > 0) {
+              const headingsText = h3Headings.map((h, idx) => 
+                `${idx + 1}. ${h.text} [Index: ${h.index}]`
+              ).join('\n');
+              
+              const tocPrompt = `Erstelle für jede H3-Überschrift eine prägnante Beschreibung (10-15 Wörter) was in diesem Abschnitt behandelt wird.
+
+⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE:
+❌ NIEMALS: "Rudolf Steiner beschreibt...", "Steiner erklärt...", "Es wird untersucht..."
+❌ NIEMALS: "Diskussion über...", "Analyse der...", "Betrachtung von..."
+❌ NIEMALS: "Der Vortrag behandelt...", "Hier wird gezeigt..."
+❌ NIEMALS: "Im Folgenden...", "Zunächst wird..."
+
+✅ STATTDESSEN: Direkte, sachliche Formulierung!
+✅ Schreibe als wäre es eine Lexikon-Definition
+✅ Beginne direkt mit dem Inhalt
+
+BEISPIELE:
+❌ FALSCH: "Rudolf Steiner beschreibt die Transformation Roms zur Kirchenmacht"
+✅ RICHTIG: "Transformation Roms zur Kirchenmacht nach dem Untergang des römischen Reiches"
+
+❌ FALSCH: "Es wird die Entwicklung des Ich-Bewusstseins untersucht"
+✅ RICHTIG: "Entwicklung des Ich-Bewusstseins vom antiken Griechenland bis zur Gegenwart"
+
+❌ FALSCH: "Steiner erläutert die Bedeutung der Mysterien"
+✅ RICHTIG: "Bedeutung der Mysterien für die geistige Entwicklung der Menschheit"
+
+H3-ÜBERSCHRIFTEN:
+${headingsText}
+
+AUSGABE als JSON-Array:
+[
+  {
+    "heading": "Überschrift-Text",
+    "description": "Kurzbeschreibung in 20-30 Wörtern OHNE Meta-Sprache",
+    "index": "^abc123"
+  }
+]
+
+Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
+
+              const tocResponse = await tocProvider.generateCompletion(tocPrompt, {
+                maxTokens: 2000,
+                temperature: 0.5
+              });
+              
+              const cleanedResponse = tocResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+              tableOfContents = JSON.parse(cleanedResponse);
+              
+              console.log(`  ✓ Inhaltsverzeichnis generiert: ${tableOfContents.length} Einträge`);
+            }
+          }
+        } catch (tocError) {
+          console.error(`[TOC] Fehler bei TOC-Generierung:`, tocError.message);
+          // Fahre fort ohne TOC
+        }
+      }
+      
+      // Generiere Keywords V3 (bei forceRegenerate: IMMER neu, auch wenn vorhanden)
+      try {
+        console.log(`  → Generiere Keywords mit V3 neu (force)...`);
+        
+        // Lade Template
+        const template = await loadThemesKeywordsTemplate();
+        
+        // Lade existierendes Vokabular
+        const existingKeywordsDB = await loadKeywordsDatabase();
+        const existingVocabulary = [];
+        const frequencyMap = {};
+        
+        Object.values(existingKeywordsDB).forEach(lectureData => {
+          if (lectureData.keywords && Array.isArray(lectureData.keywords)) {
+            lectureData.keywords.forEach(kw => {
+              const term = kw.term.trim();
+              if (!existingVocabulary.includes(term)) {
+                existingVocabulary.push(term);
+              }
+              frequencyMap[term] = (frequencyMap[term] || 0) + 1;
+            });
+          }
+        });
+        
+        // Hole Provider
+        let provider;
+        try {
+          if (preferredProvider) {
+            const { createProvider } = require('./llm-providers');
+            provider = createProvider(preferredProvider);
+            if (!provider.isAvailable()) {
+              throw new Error(`${preferredProvider} nicht verfügbar`);
+            }
+          } else {
+            provider = getProviderForTask('keywords');
+          }
+        } catch (providerError) {
+          console.warn(`[KEYWORDS-V3] Provider-Fehler: ${providerError.message}, überspringe Keyword-Generierung`);
+          provider = null;
+        }
+        
+        if (template && provider) {
+          // Generiere Keywords mit V3
+          generatedKeywords = await generateKeywordsFlexibleWithBudget(
+            lectureId,
+            summaryData.headings,
+            template,
+            existingVocabulary,
+            frequencyMap,
+            provider,
+            4  // Budget: 4 neue Keywords
+          );
+          
+          // Extrahiere Metadaten
+          const date = lecture?.date || lecture?.dateString || '';
+          const year = date ? parseInt(date.substring(0, 4)) : null;
+          const gaMatch = lectureId.match(/^GA(\d+)/);
+          const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+          
+          // Speichere Keywords in Keywords-DB
+          await saveKeywordsToDatabase(lectureId, {
+            lectureId: lectureId,
+            date: date,
+            year: year,
+            gaVolume: gaVolume,
+            summary: summaryData.summary || '',
+            keywords: generatedKeywords,
+            generated: new Date().toISOString(),
+            generationMethod: 'flexible-v3-auto',
+            maxNewKeywordsBudget: 4
+          });
+          
+          const newKws = generatedKeywords.filter(k => k.matchType === 'new');
+          console.log(`  ✓ Keywords V3 generiert: ${generatedKeywords.length} total (${newKws.length} neu, ${generatedKeywords.length - newKws.length} existierend)`);
+          
+          // WICHTIG: Aktualisiere auch Summary-DB mit neuen Keywords (für Side Panel)
+          try {
+            await saveSummaryToDatabase(lectureId, {
+              summary: summaryData.summary,
+              headings: summaryData.headings || [],
+              tableOfContents: tableOfContents,
+              lectureKeywords: generatedKeywords,  // ← Neue Keywords auch hier!
+              version: summaryData.version || 'v2'
+            });
+            console.log(`  ✓ Keywords auch in Summary-DB aktualisiert (für Side Panel)`);
+          } catch (updateError) {
+            console.warn(`[KEYWORDS-V3] Warnung: Summary-DB konnte nicht aktualisiert werden:`, updateError.message);
+          }
+        }
+      } catch (keywordError) {
+        console.error(`[KEYWORDS-V3] Fehler bei Keyword-Generierung:`, keywordError.message);
+        // Fahre fort mit den Keywords aus der Summary
+      }
+    }
+    
+    console.log(`  ✓ Zusammenfassung ${summaryData.version || 'v2'} erstellt und in zentrale DB gespeichert`);
     
     res.json({
       lectureId: lectureId,
       summary: summaryData.summary,
       headings: summaryData.headings || [],
+      tableOfContents: tableOfContents,  // Neu generiertes TOC
+      lectureKeywords: generatedKeywords,  // V3 Keywords wenn regeneriert
+      keywords: generatedKeywords,  // Zusätzlich für Kompatibilität
       fromCache: false,
-      paragraphCount: lecture.paragraphs?.length || 0
+      version: summaryData.version || 'v2',
+      paragraphCount: lecture.paragraphs?.length || 0,
+      keywordsGenerated: forceRegenerate && generatedKeywords.length > 0,
+      summaryReused: forceRegenerate && existingSummary && existingSummary.summary ? true : false
     });
     
   } catch (error) {
     console.error('✗ Zusammenfassungs-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// NEUE 3-BUTTON ARCHITEKTUR - UNIFIED BATCH APIs
+// ============================================================================
+
+/**
+ * BUTTON 1: Batch-Generierung - Grundstruktur (S+H+TOC)
+ * Überspringt Vorträge die bereits S+H+TOC haben
+ */
+app.post('/api/batch-generate-structure', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      preferredProvider = null,
+      skipExisting = true,  // Standard: überspringen
+      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+    } = req.body;
+    
+    if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
+    }
+    
+    console.log(`\n[BATCH-STRUCTURE] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Skip: ${skipExisting}, Parallel: ${parallelChunkSize})`);
+    
+    // Lade Vokabular
+    const vocabularyTerms = await loadSeedVocabulary();
+    
+    // Lade existierende Summary-DB
+    const summaryDB = await loadSummaryDatabase();
+    
+    const results = {
+      processed: 0,
+      skipped: 0,
+      failed: 0,
+      errors: []
+    };
+    
+    // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
+    const processLecture = async (lectureId, index, total) => {
+      try {
+        // Prüfe ob bereits vorhanden
+        const existingData = summaryDB[lectureId];
+        const hasStructure = existingData && existingData.summary && 
+                           existingData.headings && existingData.headings.length > 0 &&
+                           existingData.tableOfContents && existingData.tableOfContents.length > 0;
+        
+        if (skipExisting && hasStructure) {
+          console.log(`[BATCH-STRUCTURE] ${index + 1}/${total} ${lectureId}: Bereits vorhanden, überspringe`);
+          return { success: true, skipped: true, lectureId };
+        }
+        
+        console.log(`[BATCH-STRUCTURE] ${index + 1}/${total} ${lectureId}: Generiere Structure...`);
+        
+        // Generiere S+H+TOC
+        const generatedData = await generateUnifiedLectureData(lectureId, 'structure', {
+          provider: preferredProvider,
+          vocabularyTerms: vocabularyTerms
+        });
+        
+        // Speichere in Summary-DB
+        await saveSummaryToDatabase(lectureId, {
+          summary: generatedData.summary,
+          headings: generatedData.headings,
+          tableOfContents: generatedData.tableOfContents,
+          lectureKeywords: [],  // Noch keine Keywords
+          version: generatedData.version,
+          generated: generatedData.generated
+        });
+        
+        console.log(`[BATCH-STRUCTURE] ✓ ${lectureId} gespeichert`);
+        return { success: true, skipped: false, lectureId };
+        
+      } catch (error) {
+        console.error(`[BATCH-STRUCTURE] ✗ ${lectureId} fehlgeschlagen:`, error.message);
+        return { success: false, skipped: false, lectureId, error: error.message };
+      }
+    };
+    
+    // Verarbeite in parallelen Chunks
+    for (let i = 0; i < lectureIds.length; i += parallelChunkSize) {
+      const chunk = lectureIds.slice(i, i + parallelChunkSize);
+      const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
+      const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
+      
+      console.log(`\n[BATCH-STRUCTURE] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
+      
+      // Verarbeite Chunk parallel
+      const chunkResults = await Promise.allSettled(
+        chunk.map((lectureId, idx) => processLecture(lectureId, i + idx, lectureIds.length))
+      );
+      
+      // Sammle Ergebnisse
+      chunkResults.forEach(result => {
+        if (result.status === 'fulfilled') {
+          if (result.value.success && result.value.skipped) {
+            results.skipped++;
+          } else if (result.value.success) {
+            results.processed++;
+          } else {
+            results.failed++;
+            results.errors.push({ 
+              lectureId: result.value.lectureId, 
+              error: result.value.error 
+            });
+          }
+        } else {
+          results.failed++;
+          results.errors.push({ 
+            lectureId: 'unknown', 
+            error: result.reason?.message || 'Unbekannter Fehler' 
+          });
+        }
+      });
+      
+      console.log(`[BATCH-STRUCTURE] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} fehlgeschlagen)`);
+    }
+    
+    console.log(`\n[BATCH-STRUCTURE] Abgeschlossen: ${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} Fehler`);
+    
+    res.json({
+      success: true,
+      ...results
+    });
+    
+  } catch (error) {
+    console.error('[BATCH-STRUCTURE] Kritischer Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * BUTTON 2: Batch-Generierung - Keywords ergänzen
+ * Überspringt Vorträge die bereits Keywords haben
+ * Benötigt existierende S+H+TOC
+ */
+app.post('/api/batch-generate-keywords', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      preferredProvider = null,
+      skipExisting = true,
+      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+    } = req.body;
+    
+    if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
+    }
+    
+    console.log(`\n[BATCH-KEYWORDS] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Skip: ${skipExisting}, Parallel: ${parallelChunkSize})`);
+    
+    // Lade Vokabular und Template
+    const vocabularyTerms = await loadSeedVocabulary();
+    const template = await loadThemesKeywordsTemplate();
+    
+    // Lade existierende Datenbanken
+    const summaryDB = await loadSummaryDatabase();
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    // Baue Frequency Map aus existierenden Keywords
+    const frequencyMap = calculateKeywordFrequency(keywordsDB);
+    
+    const results = {
+      processed: 0,
+      skipped: 0,
+      failed: 0,
+      errors: []
+    };
+    
+    // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
+    const processLecture = async (lectureId, index, total) => {
+      try {
+        // Prüfe ob MINDESTENS Summary + Headings vorhanden (TOC wird neu generiert wenn nötig)
+        const existingData = summaryDB[lectureId];
+        if (!existingData || !existingData.summary || !existingData.headings || existingData.headings.length === 0) {
+          console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Keine Summary/Headings vorhanden, überspringe`);
+          return { success: true, skipped: true, reason: 'no-structure', lectureId };
+        }
+        
+        // Prüfe ob bereits Keywords in SUMMARY-DB vorhanden (das ist was im Browser angezeigt wird)
+        // keywords-database.json wird ignoriert, da diese synchronisiert wird
+        const hasKeywordsInSummaryDB = existingData.lectureKeywords && existingData.lectureKeywords.length > 0;
+        
+        if (skipExisting && hasKeywordsInSummaryDB) {
+          console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Bereits Keywords in Summary-DB, überspringe`);
+          return { success: true, skipped: true, reason: 'already-exists', lectureId };
+        }
+        
+        console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Generiere TOC + Keywords (S+H vorhanden${existingData.tableOfContents ? ', TOC wird überschrieben' : ', TOC neu'})...`);
+        
+        // Generiere TOC + Keywords
+        const generatedData = await generateUnifiedLectureData(lectureId, 'keywords', {
+          provider: preferredProvider,
+          vocabularyTerms: vocabularyTerms,
+          frequencyMap: frequencyMap
+        });
+        
+        const keywords = generatedData.keywords;
+        const tableOfContents = generatedData.tableOfContents;
+        
+        // Speichere in Summary-DB (aktualisiere TOC + Keywords)
+        await saveSummaryToDatabase(lectureId, {
+          summary: existingData.summary,
+          headings: existingData.headings,
+          tableOfContents: tableOfContents,  // NEU: TOC überschreiben
+          lectureKeywords: keywords,  // NEU: Keywords hinzufügen
+          version: existingData.version || 'v2-unified',
+          generated: existingData.generated
+        });
+        
+        // Extrahiere Metadaten für Keywords-DB
+        const lecture = fullLectures[lectureId];
+        const date = lecture?.date || lecture?.dateString || '';
+        const year = date ? parseInt(date.substring(0, 4)) : null;
+        const gaMatch = lectureId.match(/^GA(\d+)/);
+        const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+        
+        // Speichere parallel in Keywords-DB
+        await saveKeywordsToDatabase(lectureId, {
+          lectureId: lectureId,
+          date: date,
+          year: year,
+          gaVolume: gaVolume,
+          summary: existingData.summary || '',
+          keywords: keywords,
+          generated: new Date().toISOString(),
+          generationMethod: 'unified-batch-keywords'
+        });
+        
+        console.log(`[BATCH-KEYWORDS] ✓ ${lectureId}: ${keywords.length} Keywords gespeichert (beide DBs)`);
+        return { success: true, skipped: false, lectureId, keywordsCount: keywords.length };
+        
+      } catch (error) {
+        console.error(`[BATCH-KEYWORDS] ✗ ${lectureId} fehlgeschlagen:`, error.message);
+        return { success: false, skipped: false, lectureId, error: error.message };
+      }
+    };
+    
+    // Verarbeite in parallelen Chunks
+    for (let i = 0; i < lectureIds.length; i += parallelChunkSize) {
+      const chunk = lectureIds.slice(i, i + parallelChunkSize);
+      const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
+      const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
+      
+      console.log(`\n[BATCH-KEYWORDS] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
+      
+      // Verarbeite Chunk parallel
+      const chunkResults = await Promise.allSettled(
+        chunk.map((lectureId, idx) => processLecture(lectureId, i + idx, lectureIds.length))
+      );
+      
+      // Sammle Ergebnisse
+      chunkResults.forEach(result => {
+        if (result.status === 'fulfilled') {
+          if (result.value.success && result.value.skipped) {
+            results.skipped++;
+          } else if (result.value.success) {
+            results.processed++;
+          } else {
+            results.failed++;
+            results.errors.push({ 
+              lectureId: result.value.lectureId, 
+              error: result.value.error 
+            });
+          }
+        } else {
+          results.failed++;
+          results.errors.push({ 
+            lectureId: 'unknown', 
+            error: result.reason?.message || 'Unbekannter Fehler' 
+          });
+        }
+      });
+      
+      console.log(`[BATCH-KEYWORDS] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} fehlgeschlagen)`);
+    }
+    
+    console.log(`\n[BATCH-KEYWORDS] Abgeschlossen: ${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} Fehler`);
+    
+    res.json({
+      success: true,
+      ...results
+    });
+    
+  } catch (error) {
+    console.error('[BATCH-KEYWORDS] Kritischer Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * BUTTON 3: Batch-Generierung - Alles neu (S+H+TOC+KW)
+ * Überschreibt IMMER existierende Daten
+ */
+app.post('/api/batch-regenerate-all', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      preferredProvider = null,
+      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+    } = req.body;
+    
+    if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
+      return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
+    }
+    
+    console.log(`\n[BATCH-REGENERATE] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Parallel: ${parallelChunkSize})`);
+    
+    // Lade Vokabular und Template
+    const vocabularyTerms = await loadSeedVocabulary();
+    const template = await loadThemesKeywordsTemplate();
+    
+    // Lade existierende Keywords-DB für Frequency Map
+    const keywordsDB = await loadKeywordsDatabase();
+    const frequencyMap = calculateKeywordFrequency(keywordsDB);
+    
+    const results = {
+      processed: 0,
+      failed: 0,
+      errors: []
+    };
+    
+    // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
+    const processLecture = async (lectureId, index, total) => {
+      try {
+        console.log(`[BATCH-REGENERATE] ${index + 1}/${total} ${lectureId}: Regeneriere alles (S+H+TOC+KW)...`);
+        
+        // Generiere ALLES in einem Call
+        const generatedData = await generateUnifiedLectureData(lectureId, 'full', {
+          provider: preferredProvider,
+          vocabularyTerms: vocabularyTerms,
+          frequencyMap: frequencyMap,
+          forceRegenerate: true
+        });
+        
+        // Speichere in Summary-DB
+        await saveSummaryToDatabase(lectureId, {
+          summary: generatedData.summary,
+          headings: generatedData.headings,
+          tableOfContents: generatedData.tableOfContents,
+          lectureKeywords: generatedData.keywords,
+          version: generatedData.version,
+          generated: generatedData.generated
+        });
+        
+        // Extrahiere Metadaten für Keywords-DB
+        const lecture = fullLectures[lectureId];
+        const date = lecture?.date || lecture?.dateString || '';
+        const year = date ? parseInt(date.substring(0, 4)) : null;
+        const gaMatch = lectureId.match(/^GA(\d+)/);
+        const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+        
+        // Speichere parallel in Keywords-DB
+        await saveKeywordsToDatabase(lectureId, {
+          lectureId: lectureId,
+          date: date,
+          year: year,
+          gaVolume: gaVolume,
+          summary: generatedData.summary || '',
+          keywords: generatedData.keywords,
+          generated: new Date().toISOString(),
+          generationMethod: 'unified-batch-full'
+        });
+        
+        console.log(`[BATCH-REGENERATE] ✓ ${lectureId}: Komplett neu generiert (beide DBs)`);
+        return { success: true, lectureId };
+        
+      } catch (error) {
+        console.error(`[BATCH-REGENERATE] ✗ ${lectureId} fehlgeschlagen:`, error.message);
+        return { success: false, lectureId, error: error.message };
+      }
+    };
+    
+    // Verarbeite in parallelen Chunks
+    for (let i = 0; i < lectureIds.length; i += parallelChunkSize) {
+      const chunk = lectureIds.slice(i, i + parallelChunkSize);
+      const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
+      const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
+      
+      console.log(`\n[BATCH-REGENERATE] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
+      
+      // Verarbeite Chunk parallel
+      const chunkResults = await Promise.allSettled(
+        chunk.map((lectureId, idx) => processLecture(lectureId, i + idx, lectureIds.length))
+      );
+      
+      // Sammle Ergebnisse
+      chunkResults.forEach(result => {
+        if (result.status === 'fulfilled' && result.value.success) {
+          results.processed++;
+        } else {
+          results.failed++;
+          const error = result.status === 'rejected' 
+            ? result.reason?.message || 'Unbekannter Fehler'
+            : result.value.error;
+          results.errors.push({ 
+            lectureId: result.value?.lectureId || 'unknown', 
+            error 
+          });
+        }
+      });
+      
+      console.log(`[BATCH-REGENERATE] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} erfolgreich, ${results.failed} fehlgeschlagen)`);
+    }
+    
+    console.log(`\n[BATCH-REGENERATE] Abgeschlossen: ${results.processed} verarbeitet, ${results.failed} Fehler`);
+    
+    res.json({
+      success: true,
+      ...results
+    });
+    
+  } catch (error) {
+    console.error('[BATCH-REGENERATE] Kritischer Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -2114,13 +2762,16 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
     if (summaryDB[lectureId]) {
       const dbData = summaryDB[lectureId];
       
-      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId}`);
+      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId} (Version: ${dbData.version || 'v1'})`);
       
       return res.json({
         exists: true,
         lectureId: lectureId,
         summary: dbData.summary,
-        headings: dbData.headings || []
+        headings: dbData.headings || [],
+        tableOfContents: dbData.tableOfContents || [],
+        lectureKeywords: dbData.lectureKeywords || [],
+        version: dbData.version || 'v1'
       });
     }
     
@@ -2139,7 +2790,531 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   }
 });
 
-async function generateLectureSummary(lecture) {
+// ============================================================================
+// HILFSFUNKTIONEN FÜR SUMMARY V2
+// ============================================================================
+
+// Lade Seed-Vokabular aus themes-keywords-template.json
+async function loadSeedVocabulary() {
+  try {
+    const templatePath = path.join(__dirname, 'themes-keywords-template.json');
+    const fileContent = fsSync.readFileSync(templatePath, 'utf8');
+    const data = JSON.parse(fileContent);
+    
+    const vocabulary = [];
+    Object.values(data.themes || {}).forEach(theme => {
+      if (theme.keywords && Array.isArray(theme.keywords)) {
+        vocabulary.push(...theme.keywords);
+      }
+    });
+    
+    console.log(`[VOCAB] Seed-Vokabular geladen: ${vocabulary.length} Keywords`);
+    return vocabulary;
+  } catch (error) {
+    console.warn('[VOCAB] Fehler beim Laden des Seed-Vokabulars:', error.message);
+    return [];
+  }
+}
+
+// Intelligentes Sampling für lange Vorträge
+// Nimmt repräsentative Absätze pro H3-Abschnitt statt kompletten Text
+function sampleParagraphsForLongLectures(paragraphs, maxParagraphs = 60) {
+  if (paragraphs.length <= maxParagraphs) {
+    return paragraphs; // Kurzer Vortrag: alle nehmen
+  }
+  
+  console.log(`[SAMPLING] Vortrag zu lang (${paragraphs.length} Absätze), reduziere auf ~${maxParagraphs}`);
+  
+  // Strategie: Gleichmäßig verteilt über den Text
+  const sampledIndices = [];
+  const step = Math.floor(paragraphs.length / maxParagraphs);
+  
+  for (let i = 0; i < paragraphs.length; i += step) {
+    sampledIndices.push(i);
+    if (sampledIndices.length >= maxParagraphs) break;
+  }
+  
+  // Stelle sicher, dass letzter Absatz dabei ist
+  if (!sampledIndices.includes(paragraphs.length - 1)) {
+    sampledIndices[sampledIndices.length - 1] = paragraphs.length - 1;
+  }
+  
+  const sampled = sampledIndices.map(i => paragraphs[i]);
+  console.log(`[SAMPLING] Reduziert auf ${sampled.length} Absätze`);
+  
+  return sampled;
+}
+
+// ============================================================================
+// NEUE V2 SUMMARY-GENERIERUNG
+// ============================================================================
+
+// Hilfsfunktion: Entfernt Meta-Sprache aus Summary und TOC
+function removeMetaLanguage(text) {
+  if (!text) return text;
+  
+  let cleaned = text;
+  
+  // 1. Entferne Sätze die mit "Der Vortrag GA..." beginnen
+  cleaned = cleaned.replace(/^Der Vortrag\s+GA\d{3}[a-z]?\/\d+\s+(bietet|gibt|zeigt|behandelt|beleuchtet|erörtert)\s+/gi, '');
+  cleaned = cleaned.replace(/^Der Vortrag\s+(bietet|gibt|zeigt|behandelt|beleuchtet|erörtert|liefert)\s+(einen|eine|ein)?\s*/gi, '');
+  
+  // 2. Entferne "Rudolf Steiner" / "Steiner" am Satzanfang
+  cleaned = cleaned.replace(/^Rudolf Steiner\s+(beschreibt|erklärt|erläutert|zeigt|stellt dar|erörtert|behandelt|untersucht|beleuchtet|schildert|bietet)\s+/gi, '');
+  cleaned = cleaned.replace(/^Steiner\s+(beschreibt|erklärt|erläutert|zeigt|stellt dar|erörtert|behandelt|untersucht|beleuchtet|schildert|bietet)\s+/gi, '');
+  
+  // 3. Entferne "Es wird..." Konstruktionen
+  cleaned = cleaned.replace(/Es wird\s+(betont|erwähnt|gezeigt|erklärt|hervorgehoben|deutlich|dargelegt),?\s+(dass|wie)?\s*/gi, '');
+  cleaned = cleaned.replace(/\.\s*Es wird\s+(betont|erwähnt|gezeigt|erklärt|hervorgehoben|deutlich|dargelegt),?\s+(dass|wie)?\s*/gi, '. ');
+  
+  // 4. Entferne "Die X soll/sollte helfen/unterstützen..." → "Die X hilft/unterstützt..."
+  cleaned = cleaned.replace(/\b(soll|sollte|sollen)\s+(helfen|unterstützen|ermöglichen|klären|begleiten|fördern)/gi, (match, modal, verb) => {
+    const verbMap = {
+      'helfen': 'hilft',
+      'unterstützen': 'unterstützt',
+      'ermöglichen': 'ermöglicht',
+      'klären': 'klärt',
+      'begleiten': 'begleitet',
+      'fördern': 'fördert'
+    };
+    return verbMap[verb.toLowerCase()] || verb;
+  });
+  
+  // 5. Entferne andere Meta-Konstruktionen
+  cleaned = cleaned.replace(/^(Im|In diesem|Dieser)\s+Vortrag\s+/gi, '');
+  cleaned = cleaned.replace(/^(Der|Die|Das)\s+(Text|Redner|Vortragende)\s+(beschreibt|erklärt|zeigt)\s+/gi, '');
+  
+  // 6. Entferne Meta-Phrasen mitten im Text
+  cleaned = cleaned.replace(/,\s+wie\s+Rudolf Steiner\s+(beschreibt|erklärt|erläutert|zeigt)/gi, '');
+  cleaned = cleaned.replace(/,\s+wie\s+Steiner\s+(beschreibt|erklärt|erläutert|zeigt)/gi, '');
+  cleaned = cleaned.replace(/,\s+wie\s+(im Vortrag|hier|der Text)\s+(beschrieben|erklärt|erläutert|gezeigt)/gi, '');
+  
+  // 7. Bereinige Doppelpunkte und Kommata nach Entfernungen
+  cleaned = cleaned.replace(/^[,\s]+/, '');  // Führende Kommata entfernen
+  cleaned = cleaned.replace(/\s{2,}/g, ' '); // Doppelte Leerzeichen entfernen
+  
+  // 8. Kapitalisiere ersten Buchstaben
+  cleaned = cleaned.trim();
+  if (cleaned.length > 0) {
+    cleaned = cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+  }
+  
+  return cleaned;
+}
+
+// Vollständige Generierung (neue Vorträge): Summary + H3/H4 + TOC + Keywords
+async function generateFullSummaryV2(lecture, vocabulary, preferredProvider = null) {
+  const provider = preferredProvider 
+    ? getSpecificProvider(preferredProvider)
+    : getProviderForTask('summary');
+  
+  // Bereite Text vor
+  let paragraphsToAnalyze = lecture.paragraphs;
+  const estimatedTokens = JSON.stringify(paragraphsToAnalyze).length / 4;
+  
+  // Bei langen Vorträgen: Intelligentes Sampling
+  if (estimatedTokens > 180000) {
+    console.log(`[SUMMARY-V2] Langer Vortrag (${estimatedTokens} tokens), nutze Sampling`);
+    paragraphsToAnalyze = sampleParagraphsForLongLectures(paragraphsToAnalyze, 80);
+  }
+  
+  const fullText = paragraphsToAnalyze
+    .map((p, idx) => {
+      const content = p.content || p.text || '';
+      const paraIndex = p.index || `para_${idx}`;
+      return `[Index: ${paraIndex}]\n${content}`;
+    })
+    .filter(text => text.trim().length > 0)
+    .join('\n\n');
+  
+  // Top 50 häufigste Vokabular-Keywords
+  const topVocab = vocabulary.slice(0, 50);
+  
+  const prompt = `🚨 KRITISCHE REGEL - SOFORT LESEN 🚨
+SCHREIBE NIEMALS ÜBER DEN VORTRAG ODER DEN REDNER!
+SCHREIBE NUR ÜBER DIE INHALTE SELBST!
+
+STRIKT VERBOTEN IN SUMMARY UND TABLE OF CONTENTS:
+❌ "Rudolf Steiner..." / "Steiner..."
+❌ "Im Vortrag..." / "Der Vortrag..." / "Dieser Vortrag..."
+❌ "Es wird..." / "Hier wird..." / "Der Text..."
+❌ "beschreibt", "erklärt", "zeigt", "erörtert", "behandelt"
+❌ Jede Erwähnung des Redners oder des Vortrags selbst
+
+✅ RICHTIG: Schreibe wie eine sachliche Enzyklopädie
+✅ NUR die Inhalte, Konzepte, Ideen selbst beschreiben
+✅ Als würdest du ein Lexikon über die Themen schreiben
+
+BEISPIEL FALSCH: "Rudolf Steiner erläutert die Entwicklung des Bewusstseins..."
+BEISPIEL RICHTIG: "Die Entwicklung des Bewusstseins vollzieht sich von der Antike..."
+
+BEISPIEL FALSCH: "Der Vortrag behandelt die Mysterien der Antike..."
+BEISPIEL RICHTIG: "Die antiken Mysterien bilden die Brücke zwischen..."
+
+NOCH EINMAL ZUR KLARSTELLUNG:
+- Du bist kein Redakteur, der einen Vortrag beschreibt
+- Du bist ein Enzyklopädie-Autor, der Fakten beschreibt
+- Schreibe DIREKT über die Themen, nicht über den Vortrag
+
+---
+
+VORTRAG: ${lecture.fileName || lecture.title || lecture.ID}
+${lecture.location ? `ORT: ${lecture.location}` : ''}
+${lecture.date ? `DATUM: ${lecture.date}` : ''}
+Absätze: ${lecture.paragraphs.length}
+
+SEED-VOKABULAR (${vocabulary.length} Begriffe, häufigste):
+${topVocab.join(', ')}
+
+AUFGABE:
+1. ZUSAMMENFASSUNG (100-150 Wörter) - DIREKT die Inhalte beschreiben, NICHT den Vortrag
+   🚨 ERINNERE DICH: Kein "Steiner", kein "Vortrag", keine Meta-Sprache!
+
+2. HIERARCHISCHE GLIEDERUNG - 🔴 KRITISCH WICHTIG:
+   
+   H3 = HAUPTTHEMA (große thematische Abschnitte)
+   - Markiert einen neuen Hauptgedanken oder großes Themengebiet
+   - Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike"
+   
+   H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
+   - Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+   - Beispiele unter H3 "Die Entwicklung des Bewusstseins":
+     * H4: "Das alte Bewusstsein in Atlantis"
+     * H4: "Der Übergang zur nachatlantischen Zeit"
+     * H4: "Das moderne Ich-Bewusstsein"
+   
+   🎯 STRUKTUR-REGEL:
+   - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+   - JEDES H3 MUSS 2-4 H4-Unterthemen haben
+   - H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
+
+3. INHALTSVERZEICHNIS - Für jede H3: Prägnante Kurzbeschreibung (10-15 Wörter) was in diesem Abschnitt behandelt wird
+   ⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE in Beschreibungen!
+   ❌ NIEMALS: "Rudolf Steiner beschreibt...", "Steiner erklärt...", "Untersucht wird...", "Diskussion über...", "Analyse der...", "Der Vortrag behandelt..."
+   ✅ STATTDESSEN: Direkte, sachliche Formulierung wie in einem Lexikon
+   ✅ BEISPIELE: "Transformation Roms zur Kirchenmacht", "Die fortbestehende Würde des Menschen", "Entwicklung des Ich-Bewusstseins"
+5. SCHLAGWORTE (maximal 12 Keywords):
+   
+   🚨 SCHRITT 1: TITEL ANALYSIEREN (ABSOLUTE PRIORITÄT - PFLICHT-KEYWORDS!)
+   
+   EXTRAHIERE die HAUPTBEGRIFFE (Substantive) aus dem Vortragstitel
+   
+   ✅ BEISPIELE FÜR PFLICHT-KEYWORDS AUS TITELN:
+   → "DIE SEELE DER TIERE..." → Keyword: "Tiere" (MUSS erscheinen!)
+   → "DIE SOGENANNTEN GEFAHREN..." → Keyword: "Gefahren" (MUSS erscheinen!)
+   → "BIBEL UND WEISHEIT" → Keyword: "Bibel" (MUSS erscheinen!)
+   → "DER LEBENSLAUF DES MENSCHEN" → Keyword: "Lebenslauf" (MUSS erscheinen!)
+   → "WEISHEIT UND GESUNDHEIT" → Keyword: "Gesundheit" (MUSS erscheinen!)
+   → "BLUT IST EIN GANZ BESONDERER SAFT" → Keyword: "Blut" (MUSS erscheinen!)
+   
+   ❌ NUR IGNORIEREN wenn Titel NICHT inhaltlich:
+   → "Erster Vortrag", "Zweiter Vortrag", "Öffentlicher Vortrag"
+   
+   ⚠️ KRITISCH: Diese Titel-Keywords erscheinen oft AUCH in Summary und H3!
+      → Das ist KEIN Problem! Verwende sie trotzdem als Keyword!
+   
+   🔴 SCHRITT 2: SUMMARY ERGÄNZEN (falls noch kein Hauptthema/Person aus Titel)
+   - Falls Titel keine klare Person/Hauptthema hatte:
+     * Extrahiere aus der ZUSAMMENFASSUNG (Punkt 1) die wichtigste Person ODER das Hauptthema
+     * ⚠️ NIEMALS: "Rudolf Steiner" (er ist der Vortragende, kein Inhalt!)
+     * ✅ Personen: "Platon", "Kant", "Buddha", "Christus", "Paracelsus" etc.
+   
+   🔴 SCHRITT 3: H3-ABSCHNITTE (10-11 weitere Keywords)
+   - Wähle die wichtigsten Begriffe aus dem Vortragstextinhalt basierend auf den H3-Abschnitten
+   - Bevorzuge das Seed-Vokabular (iteratives Wachstum)
+
+WICHTIG ZU INDIZES:
+- Jeder Absatz ist markiert: [Index: ^abc123]
+- H3/H4: Index gibt an, VOR welchem Absatz die Überschrift eingefügt wird
+- Keywords: Index des H3-Abschnitts, wo das Thema hauptsächlich behandelt wird
+- tableOfContents: Gleicher Index wie die entsprechende H3
+
+SCHLAGWORT-REGELN (WICHTIG):
+- MAXIMAL 12 Keywords total!
+- 1-3 Worte, 1-2 Substantive
+- Nominativ (z.B. "Mittelalterliche Philosophie" NICHT "mittelalterlichen Philosophie")
+- BEVORZUGE STARK Seed-Vokabular (iterativ wachsend)
+- NUR neue Keywords wenn kein passendes im Vokabular existiert
+- Analysiere Summary UND TEXTINHALT der H3-Abschnitte
+- Jedes Keyword mit Index des H3-Abschnitts wo es hauptsächlich behandelt wird
+- Verteile Keywords über verschiedene H3-Abschnitte (nicht alle aus einem Thema)
+- ⚠️ KRITISCH: KEINE doppelten Keywords! Jeder Begriff nur EINMAL pro Vortrag
+
+AUSGABEFORMAT (JSON):
+{
+  "summary": "Zusammenfassung in 100-150 Wörtern",
+  "headings": [
+    {"index": "^8ju77n", "text": "Die griechische Philosophie", "level": "h3"},
+    {"index": "^8ju77n", "text": "Thales und die Wasserlehre", "level": "h4"},
+    {"index": "^9kv88p", "text": "Heraklit und der Fluss des Werdens", "level": "h4"},
+    {"index": "^a2w99q", "text": "Pythagoras und die Zahl", "level": "h4"},
+    {"index": "^r38v26", "text": "Parmenides und die Kritik", "level": "h3"},
+    {"index": "^r38v26", "text": "Die Lehre vom unveränderlichen Sein", "level": "h4"},
+    {"index": "^s49w37", "text": "Kritik der Sinneswahrnehmung", "level": "h4"}
+  ],
+  "tableOfContents": [
+    {
+      "heading": "Die griechische Philosophie",
+      "description": "Die ersten Denker suchten den Urgrund in natürlichen Elementen wie Wasser und Luft",
+      "index": "^8ju77n"
+    },
+    {
+      "heading": "Parmenides und die Kritik",
+      "description": "Kritik der Sinnenwelt und die Suche nach ewiger Wahrheit durch reines Denken",
+      "index": "^r38v26"
+    }
+  ],
+  "lectureKeywords": [
+    {"term": "Antike Philosophie", "index": "^8ju77n", "confidence": 0.95},
+    {"term": "Vorsokratiker", "index": "^8ju77n", "confidence": 0.9},
+    {"term": "Erkenntnistheorie", "index": "^r38v26", "confidence": 0.85}
+  ]
+}
+
+VORTRAG-TEXT:
+${fullText}
+
+AUSGABE (nur JSON, keine Erklärungen):`;
+
+  try {
+    console.log(`[SUMMARY-V2] Rufe ${provider.name} für vollständige Generierung auf...`);
+    
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 6000,
+      temperature: 0.3  // Niedrig für deterministischeres, regelkonformeres Verhalten
+    });
+    
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const data = JSON.parse(responseText);
+    
+    // POST-PROCESSING: Entferne Meta-Sprache automatisch
+    data.summary = removeMetaLanguage(data.summary);
+    if (data.tableOfContents) {
+      data.tableOfContents.forEach(toc => {
+        toc.description = removeMetaLanguage(toc.description);
+      });
+    }
+    
+    console.log('[SUMMARY-V2] ✓ Vollständige Generierung erfolgreich');
+    console.log(`  Summary: ${data.summary?.length} Zeichen`);
+    console.log(`  H3: ${data.headings?.filter(h => h.level === 'h3').length || 0}`);
+    console.log(`  TOC: ${data.tableOfContents?.length || 0} Einträge`);
+    console.log(`  Keywords: ${data.lectureKeywords?.length || 0}`);
+    
+    return {
+      summary: data.summary,
+      headings: data.headings || [],
+      tableOfContents: data.tableOfContents || [],
+      lectureKeywords: data.lectureKeywords || [],
+      version: 'v2'
+    };
+    
+  } catch (error) {
+    console.error('[SUMMARY-V2] Fehler:', error.message);
+    throw error;
+  }
+}
+
+// Ergänzung für alte Summaries: Nur TOC + Keywords hinzufügen
+async function enhanceSummaryV2(lecture, existingSummary, vocabulary, preferredProvider = null) {
+  const provider = preferredProvider 
+    ? getSpecificProvider(preferredProvider)
+    : getProviderForTask('summary');
+  
+  const h3Headings = (existingSummary.headings || []).filter(h => h.level === 'h3');
+  
+  if (h3Headings.length === 0) {
+    console.log('[ENHANCE-V2] Keine H3-Überschriften vorhanden, überspringe Enhancement');
+    return existingSummary;
+  }
+  
+  // Bereite Text vor (mit Sampling bei langen Vorträgen)
+  let paragraphsToAnalyze = lecture.paragraphs;
+  const estimatedTokens = JSON.stringify(paragraphsToAnalyze).length / 4;
+  
+  if (estimatedTokens > 180000) {
+    console.log(`[ENHANCE-V2] Langer Vortrag, nutze Sampling`);
+    paragraphsToAnalyze = sampleParagraphsForLongLectures(paragraphsToAnalyze, 80);
+  }
+  
+  const fullText = paragraphsToAnalyze
+    .map((p, idx) => {
+      const content = p.content || p.text || '';
+      const paraIndex = p.index || `para_${idx}`;
+      return `[Index: ${paraIndex}]\n${content}`;
+    })
+    .filter(text => text.trim().length > 0)
+    .join('\n\n');
+  
+  const h3List = h3Headings.map((h, i) => `${i+1}. ${h.text} (Index: ${h.index})`).join('\n');
+  const topVocab = vocabulary.slice(0, 50);
+  
+  const prompt = `🚨 KRITISCHE REGEL - TABLE OF CONTENTS 🚨
+NIEMALS ÜBER DEN VORTRAG ODER REDNER SCHREIBEN!
+NUR DIE INHALTE SELBST BESCHREIBEN!
+
+STRIKT VERBOTEN:
+❌ "Rudolf Steiner..." / "Steiner..."
+❌ "Der Vortrag..." / "Im Vortrag..."
+❌ "beschreibt", "erklärt", "zeigt", "behandelt"
+
+✅ RICHTIG: Schreibe wie in einer Enzyklopädie - NUR über die Themen selbst
+
+---
+
+Ergänze eine bestehende Vortragszusammenfassung um Inhaltsverzeichnis und Schlagworte.
+
+VORTRAG: ${lecture.fileName || lecture.title || lecture.ID}
+
+BESTEHENDE SUMMARY:
+"${existingSummary.summary}"
+
+BESTEHENDE H3-ÜBERSCHRIFTEN (${h3Headings.length}):
+${h3List}
+
+SEED-VOKABULAR (${vocabulary.length} Begriffe, häufigste):
+${topVocab.join(', ')}
+
+AUFGABE:
+1. INHALTSVERZEICHNIS - Für jede H3: 10-15 Wörter DIREKT über die Inhalte
+   🚨 ERINNERE DICH: Keine Meta-Sprache! Schreibe über die Themen, nicht über den Vortrag!
+2. SCHLAGWORTE (maximal 12 Keywords):
+   
+   🚨 SCHRITT 1: TITEL ANALYSIEREN (ABSOLUTE PRIORITÄT - PFLICHT-KEYWORDS!)
+   
+   EXTRAHIERE die HAUPTBEGRIFFE (Substantive) aus dem Vortragstitel
+   
+   ✅ BEISPIELE FÜR PFLICHT-KEYWORDS AUS TITELN:
+   → "DIE SEELE DER TIERE..." → Keyword: "Tiere" (MUSS erscheinen!)
+   → "DIE SOGENANNTEN GEFAHREN..." → Keyword: "Gefahren" (MUSS erscheinen!)
+   → "BIBEL UND WEISHEIT" → Keyword: "Bibel" (MUSS erscheinen!)
+   → "DER LEBENSLAUF DES MENSCHEN" → Keyword: "Lebenslauf" (MUSS erscheinen!)
+   → "WEISHEIT UND GESUNDHEIT" → Keyword: "Gesundheit" (MUSS erscheinen!)
+   → "BLUT IST EIN GANZ BESONDERER SAFT" → Keyword: "Blut" (MUSS erscheinen!)
+   
+   ❌ NUR IGNORIEREN wenn Titel NICHT inhaltlich:
+   → "Erster Vortrag", "Zweiter Vortrag", "Öffentlicher Vortrag"
+   
+   ⚠️ KRITISCH: Diese Titel-Keywords erscheinen oft AUCH in Summary und H3!
+      → Das ist KEIN Problem! Verwende sie trotzdem als Keyword!
+   
+   🔴 SCHRITT 2: SUMMARY ERGÄNZEN (falls noch kein Hauptthema/Person aus Titel)
+   - Falls Titel keine klare Person/Hauptthema hatte:
+     * Identifiziere aus der BESTEHENDEN SUMMARY die Hauptperson ODER das Hauptthema
+     * ⚠️ NIEMALS: "Rudolf Steiner" (er ist der Vortragende, kein Inhalt!)
+     * ✅ Personen: "Platon", "Kant", "Shakespeare", "Buddha", "Christus" etc.
+   
+   🔴 SCHRITT 3: H3-ABSCHNITTE (10-11 weitere Keywords)
+   - Wähle die wichtigsten Begriffe aus Summary + Vortragstextinhalt
+
+SCHLAGWORT-REGELN:
+- MAXIMAL 12 Keywords total!
+- 1-3 Worte, 1-2 Substantive, Nominativ
+- BEVORZUGE STARK Seed-Vokabular (iterativ)
+- Analysiere Summary UND Textinhalt der H3-Abschnitte
+- Jedes Keyword mit Index des passendsten H3-Abschnitts
+- Verteile über verschiedene Abschnitte
+- ⚠️ KRITISCH: KEINE doppelten Keywords! Jeder Begriff nur EINMAL pro Vortrag
+
+AUSGABEFORMAT (JSON):
+{
+  "tableOfContents": [
+    {
+      "heading": "Die ersten griechischen Naturphilosophen",
+      "description": "Prägnante Beschreibung 10-15 Wörter",
+      "index": "^8ju77n"
+    }
+  ],
+  "lectureKeywords": [
+    {"term": "Antike Philosophie", "index": "^8ju77n", "confidence": 0.95}
+  ]
+}
+
+VORTRAG-TEXT:
+${fullText}
+
+AUSGABE (nur JSON):`;
+
+  try {
+    console.log(`[ENHANCE-V2] Rufe ${provider.name} für Enhancement auf...`);
+    
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 4000,
+      temperature: 0.3  // Niedrig für regelkonformeres Verhalten
+    });
+    
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const data = JSON.parse(responseText);
+    
+    // POST-PROCESSING: Entferne Meta-Sprache aus TOC
+    if (data.tableOfContents) {
+      data.tableOfContents.forEach(toc => {
+        toc.description = removeMetaLanguage(toc.description);
+      });
+    }
+    
+    console.log('[ENHANCE-V2] ✓ Enhancement erfolgreich');
+    console.log(`  TOC: ${data.tableOfContents?.length || 0} Einträge`);
+    console.log(`  Keywords: ${data.lectureKeywords?.length || 0}`);
+    
+    // Kombiniere mit bestehender Summary
+    return {
+      ...existingSummary,
+      tableOfContents: data.tableOfContents || [],
+      lectureKeywords: data.lectureKeywords || [],
+      version: 'v2'
+    };
+    
+  } catch (error) {
+    console.error('[ENHANCE-V2] Fehler:', error.message);
+    // Bei Fehler: Behalte alte Summary unverändert
+    return existingSummary;
+  }
+}
+
+// ============================================================================
+// HAUPT-ROUTER: Entscheidet zwischen V1 und V2
+// ============================================================================
+
+async function generateLectureSummary(lecture, existingSummary = null, mode = 'auto', preferredProvider = null) {
+  // Lade Seed-Vokabular
+  const vocabulary = await loadSeedVocabulary();
+  
+  // Entscheide Modus
+  if (mode === 'auto') {
+    if (existingSummary && existingSummary.summary) {
+      // Hat bereits Summary → Prüfe Version
+      if (existingSummary.version === 'v2') {
+        console.log('[SUMMARY] V2 bereits vorhanden, überspringe');
+        return existingSummary;
+      } else {
+        console.log('[SUMMARY] V1 vorhanden → Ergänze zu V2');
+        mode = 'enhance';
+      }
+    } else {
+      console.log('[SUMMARY] Keine Summary → Vollständige V2 Generierung');
+      mode = 'full';
+    }
+  }
+  
+  // Führe entsprechenden Modus aus
+  if (mode === 'enhance' && existingSummary) {
+    return await enhanceSummaryV2(lecture, existingSummary, vocabulary, preferredProvider);
+  } else if (mode === 'full') {
+    return await generateFullSummaryV2(lecture, vocabulary, preferredProvider);
+  } else if (mode === 'v1') {
+    // Fallback auf alte Methode
+    return await generateLectureSummaryV1(lecture);
+  } else {
+    throw new Error(`Unbekannter Modus: ${mode}`);
+  }
+}
+
+// ============================================================================
+// ALTE V1 FUNKTION (als Fallback)
+// ============================================================================
+
+async function generateLectureSummaryV1(lecture) {
   // Hole passenden LLM-Provider (mit Fallback-Chain)
   let provider;
   try {
@@ -2183,6 +3358,9 @@ Der Vortrag hat ${lecture.paragraphs.length} Absätze.
 
 AUFGABE:
 1. Schreibe eine prägnante ZUSAMMENFASSUNG (100-150 Wörter) der Kernaussagen
+   ⚠️ WICHTIG: KEINE META-SPRACHE! Sachliche, direkte Formulierung!
+   ❌ NIEMALS: "Rudolf Steiner stellt dar...", "Im Vortrag wird erklärt...", "Steiner beschreibt...", "Der Redner zeigt..."
+   ✅ STATTDESSEN: Direkt die Inhalte beschreiben, als wäre es ein Lexikon-Eintrag
 ${headingsDisabled ? '' : `2. Erstelle eine hierarchische Gliederung mit:
    - 3-6 HAUPTÜBERSCHRIFTEN (H3) für die großen thematischen Abschnitte
    - Jeweils 2-4 UNTERÜBERSCHRIFTEN (H4) pro Hauptabschnitt für Unterabschnitte
@@ -2292,6 +3470,579 @@ function generateFallbackSummary(lecture) {
     summary: `Automatische Zusammenfassung nicht verfügbar (kein Claude API-Schlüssel konfiguriert). Der Vortrag "${displayTitle}" enthält ${lecture.paragraphs?.length || 0} Absätze. Für eine detaillierte KI-Zusammenfassung benötigt das System einen Claude API-Schlüssel in der .env Datei.`,
     headings: []
   };
+}
+
+// ============================================================================
+// ZENTRALE UNIFIED GENERATION SYSTEM - 3 BUTTON ARCHITEKTUR
+// ============================================================================
+
+/**
+ * Formatiert Vortragtext für Prompts (mit Sampling für lange Vorträge)
+ */
+function formatLectureTextForPrompt(lecture, maxParagraphs = 80) {
+  let paragraphs = lecture.paragraphs || [];
+  
+  // Sampling für sehr lange Vorträge
+  const estimatedTokens = JSON.stringify(paragraphs).length / 4;
+  if (estimatedTokens > 180000 && paragraphs.length > maxParagraphs) {
+    console.log(`[UNIFIED] Vortrag lang (${estimatedTokens} tokens), nutze Sampling`);
+    paragraphs = sampleParagraphsForLongLectures(paragraphs, maxParagraphs);
+  }
+  
+  return paragraphs
+    .map((p, idx) => {
+      const content = p.content || p.text || '';
+      const paraIndex = p.index || `para_${idx}`;
+      return `[Index: ${paraIndex}]\n${content}`;
+    })
+    .filter(text => text.trim().length > 0)
+    .join('\n\n');
+}
+
+/**
+ * Formatiert Headings für Prompts
+ */
+function formatHeadingsForPrompt(headings) {
+  if (!headings || headings.length === 0) return 'Keine Überschriften vorhanden';
+  
+  return headings
+    .map((h, idx) => `${idx + 1}. [${h.level.toUpperCase()}] ${h.text} [Index: ${h.index}]`)
+    .join('\n');
+}
+
+/**
+ * ZENTRALE PROMPT-TEMPLATES (an EINER Stelle definiert)
+ */
+const UNIFIED_PROMPTS = {
+  
+  // ========== STRUCTURE MODE: Summary + Headings + TOC ==========
+  STRUCTURE: (lectureId, lectureText, vocabularyTop50 = []) => `
+Erstelle eine vollständige Analyse für diesen Vortrag von Rudolf Steiner.
+
+VORTRAG: ${lectureId}
+
+AUFGABEN:
+1. SUMMARY: Prägnante Zusammenfassung in 100-150 Wörtern
+2. HEADINGS: Gliedere den Text in inhaltliche Abschnitte (H3) und Unterabschnitte (H4)
+3. TABLE OF CONTENTS: Erstelle für jede H3-Überschrift eine prägnante Kurzbeschreibung (10-15 Wörter)
+
+WICHTIGE VOKABULAR-BEGRIFFE (zur Orientierung):
+${vocabularyTop50.slice(0, 50).join(', ') || 'keine'}
+
+REGELN FÜR SUMMARY:
+- 100-150 Wörter
+- Erfasse die Kernthesen des Vortrags
+- Sachlich und präzise
+⚠️ WICHTIG: KEINE META-SPRACHE!
+❌ NIEMALS: "Rudolf Steiner stellt dar...", "Im Vortrag wird erklärt...", "Steiner beschreibt...", "Der Redner zeigt..."
+❌ NIEMALS: "In diesem Vortrag...", "Hier wird untersucht...", "Der Text behandelt..."
+✅ STATTDESSEN: Direkt die Inhalte beschreiben wie in einem Lexikon-Artikel
+
+REGELN FÜR HEADINGS - 🔴 HIERARCHIE BEACHTEN:
+
+H3 = HAUPTTHEMA (große thematische Abschnitte)
+- Markiert einen neuen Hauptgedanken oder großes Themengebiet
+- Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike", "Das Verhältnis von Geist und Materie"
+
+H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
+- Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+- Beispiele unter H3 "Die Entwicklung des Bewusstseins":
+  * H4: "Das alte Bewusstsein in Atlantis"
+  * H4: "Der Übergang zur nachatlantischen Zeit"
+  * H4: "Das moderne Ich-Bewusstsein"
+
+🎯 STRUKTUR-REGEL:
+- Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+- JEDES H3 MUSS 2-4 H4-Unterthemen haben
+- H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
+- Verwende die Index-Markierungen [Index: ^abc123] aus dem Text
+- Überschriften sollen das kommende Thema ankündigen
+
+REGELN FÜR TABLE OF CONTENTS:
+⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE:
+❌ NIEMALS: "Rudolf Steiner beschreibt...", "Steiner erklärt...", "Es wird untersucht..."
+❌ NIEMALS: "Diskussion über...", "Analyse der...", "Betrachtung von..."
+❌ NIEMALS: "Der Vortrag behandelt...", "Hier wird gezeigt..."
+
+✅ STATTDESSEN: Direkte, sachliche Formulierung wie in einem Lexikon
+✅ Beginne direkt mit dem Inhalt
+
+BEISPIELE:
+❌ FALSCH: "Rudolf Steiner beschreibt die Transformation Roms"
+✅ RICHTIG: "Transformation Roms zur Kirchenmacht nach dem Untergang des römischen Reiches"
+
+VORTRAG-TEXT:
+${lectureText}
+
+JSON-AUSGABE (NUR JSON, kein zusätzlicher Text):
+{
+  "summary": "Deine Zusammenfassung in 100-150 Wörtern",
+  "headings": [
+    {"index": "^abc123", "text": "Die Entwicklung des Bewusstseins", "level": "h3"},
+    {"index": "^abc123", "text": "Das alte Bewusstsein in Atlantis", "level": "h4"},
+    {"index": "^def456", "text": "Der Übergang zur nachatlantischen Zeit", "level": "h4"},
+    {"index": "^ghi789", "text": "Das moderne Ich-Bewusstsein", "level": "h4"},
+    {"index": "^jkl012", "text": "Die Mysterien der Antike", "level": "h3"},
+    {"index": "^jkl012", "text": "Ägyptische Mysterien", "level": "h4"},
+    {"index": "^mno345", "text": "Griechische Mysterien", "level": "h4"}
+  ],
+  "tableOfContents": [
+    {
+      "heading": "Die Entwicklung des Bewusstseins",
+      "description": "Vom alten traumhaften Bewusstsein zum modernen Ich-Bewusstsein",
+      "index": "^abc123"
+    },
+    {
+      "heading": "Die Mysterien der Antike",
+      "description": "Einweihungswege in Ägypten und Griechenland",
+      "index": "^jkl012"
+    }
+  ]
+}
+`,
+
+  // ========== KEYWORDS MODE: TOC + Keywords (mit existierenden S+H) ==========
+  KEYWORDS: (lectureId, lectureText, existingSummary, existingHeadings, vocabularyTerms = [], frequencyMap = {}) => {
+    const headingsText = formatHeadingsForPrompt(existingHeadings);
+    const h3Headings = existingHeadings.filter(h => h.level === 'h3');
+    const topVocab = vocabularyTerms.slice(0, 80);
+    const topFrequent = Object.entries(frequencyMap)
+      .sort((a, b) => b[1] - a[1])
+      .map(([term]) => term)
+      .slice(0, 100);
+    
+    return `
+TOC + KEYWORD-GENERIERUNG aus vollem Kontext
+
+VORTRAG: ${lectureId}
+
+BEREITS VORHANDEN (nutze diese Information):
+
+SUMMARY:
+${existingSummary}
+
+GLIEDERUNG:
+${headingsText}
+
+VERFÜGBARES VOKABULAR (bevorzuge diese Begriffe!):
+Thematisch passend: ${topVocab.join(', ') || 'keine'}
+Häufigste global: ${topFrequent.slice(0, 80).join(', ') || 'keine'}
+
+AUFGABEN:
+1. TABLE OF CONTENTS: Erstelle für jede H3-Überschrift eine prägnante Kurzbeschreibung (10-15 Wörter, KEINE Meta-Sprache)
+2. KEYWORDS: Generiere 8-15 Keywords aus dem VOLLEN KONTEXT (Titel + Summary + Headings + Originaltext)
+
+🔴 KRITISCHE KEYWORD-REGELN:
+
+🚨 SCHRITT 1: TITEL ANALYSIEREN (ABSOLUTE PRIORITÄT - PFLICHT-KEYWORDS!)
+
+EXTRAHIERE die HAUPTBEGRIFFE (Substantive) aus dem Titel: ${lectureId}
+
+✅ BEISPIELE FÜR PFLICHT-KEYWORDS AUS TITELN:
+→ "DIE SEELE DER TIERE..." → Keyword: "Tiere" (MUSS erscheinen!)
+→ "DIE SOGENANNTEN GEFAHREN..." → Keyword: "Gefahren" (MUSS erscheinen!)
+→ "BIBEL UND WEISHEIT" → Keyword: "Bibel" (MUSS erscheinen!)
+→ "DER LEBENSLAUF DES MENSCHEN" → Keyword: "Lebenslauf" (MUSS erscheinen!)
+→ "WEISHEIT UND GESUNDHEIT" → Keyword: "Gesundheit" (MUSS erscheinen!)
+→ "BLUT IST EIN GANZ BESONDERER SAFT" → Keyword: "Blut" (MUSS erscheinen!)
+
+❌ NUR IGNORIEREN wenn Titel NICHT inhaltlich:
+→ "Erster Vortrag", "Zweiter Vortrag", "Öffentlicher Vortrag" → KEINE Keywords
+
+⚠️ KRITISCH: Diese Titel-Keywords erscheinen oft AUCH in Summary und H3!
+   → Das ist KEIN Problem! Verwende sie trotzdem als Keyword!
+   → Markiere mit "source": "title-summary"
+
+SCHRITT 2: SUMMARY ERGÄNZEN (falls noch kein Hauptthema/Person aus Titel)
+- Falls Titel keine klare Person/Hauptthema hatte:
+  * Extrahiere aus der vorhandenen SUMMARY die wichtigste Person ODER das Hauptthema
+  * ⚠️ NIEMALS: "Rudolf Steiner" (er ist der Vortragende, kein Inhalt!)
+  * ✅ Personen: "Platon", "Kant", "Buddha", "Christus", "Paracelsus" etc.
+- Markiere diese mit "source": "title-summary"
+
+SCHRITT 3: H3-ABSCHNITTE (${h3Headings.length} H3-Abschnitte vorhanden)
+- Für jeden H3-Abschnitt: 1-2 zentrale Begriffe
+- Bevorzuge STARK Vokabular-Begriffe (iteratives Wachstum!)
+- Markiere diese mit "source": "h3"
+
+BUDGET-REGEL:
+- Maximal 4 NEUE Keywords (matchType: "new")
+- Alle anderen MÜSSEN aus dem Vokabular stammen ("existing-exact" oder "existing-similar")
+- Gesamt: 8-15 Keywords total
+- ⚠️ KRITISCH: KEINE doppelten Keywords! Jeder Begriff nur EINMAL pro Vortrag
+  (Wenn ein Begriff in mehreren H3-Abschnitten relevant ist, nutze ihn nur für den wichtigsten Abschnitt)
+
+MATCHING-HIERARCHIE:
+1. Exakt im Vokabular → "matchType": "existing-exact", "confidence": 0.9-1.0
+2. Ähnlich im Vokabular → "matchType": "existing-similar", "confidence": 0.75-0.85
+3. Wenn Budget erlaubt UND nichts passt → "matchType": "new", "confidence": 0.6-0.7
+
+REGELN FÜR TABLE OF CONTENTS:
+⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE:
+❌ NIEMALS: "Rudolf Steiner beschreibt...", "Steiner erklärt...", "Es wird untersucht..."
+❌ NIEMALS: "Diskussion über...", "Analyse der...", "Betrachtung von..."
+
+✅ STATTDESSEN: Direkte, sachliche Formulierung wie in einem Lexikon
+
+WICHTIG FÜR KEYWORDS:
+- Verwende die Index-Positionen aus den Headings
+- Für Summary-Keywords verwende den ersten Absatz-Index (z.B. der erste ^index im Text)
+
+ORIGINALTEXT (zur Orientierung, nutze die Indizes):
+${lectureText}
+
+JSON-AUSGABE (NUR JSON-Objekt, kein zusätzlicher Text):
+{
+  "tableOfContents": [
+    {
+      "heading": "H3-Überschrift (exakter Text)",
+      "description": "Prägnante Beschreibung in 10-15 Wörtern OHNE Meta-Sprache",
+      "index": "^abc123"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Goethe",
+      "index": "^abc123",
+      "heading": "Summary",
+      "source": "title-summary",
+      "matchType": "existing-exact",
+      "matchedExisting": "Goethe",
+      "summaryMentioned": true,
+      "confidence": 1.0,
+      "level": "h3"
+    },
+    {
+      "term": "Erkenntnis",
+      "index": "^def456",
+      "heading": "Die Erkenntnislehre",
+      "source": "h3",
+      "matchType": "existing-similar",
+      "matchedExisting": "Erkenntnistheorie",
+      "summaryMentioned": false,
+      "confidence": 0.85,
+      "level": "h3"
+    }
+  ]
+}
+`;
+  },
+
+  // ========== FULL MODE: Alles in einem Call (S+H+TOC+KW) ==========
+  FULL: (lectureId, lectureText, vocabularyTerms = [], frequencyMap = {}) => {
+    const topVocab = vocabularyTerms.slice(0, 50);
+    const topFrequent = Object.entries(frequencyMap)
+      .sort((a, b) => b[1] - a[1])
+      .map(([term]) => term)
+      .slice(0, 100);
+    
+    return `
+VOLLSTÄNDIGE VORTRAG-ANALYSE in einem Durchgang
+
+VORTRAG: ${lectureId}
+
+VERFÜGBARES VOKABULAR (nutze für Keywords):
+Wichtigste: ${topVocab.join(', ') || 'keine'}
+Häufigste: ${topFrequent.slice(0, 80).join(', ') || 'keine'}
+
+AUFGABEN:
+1. SUMMARY: 100-150 Wörter Zusammenfassung
+   ⚠️ WICHTIG: KEINE META-SPRACHE! Sachlich wie ein Lexikon-Artikel!
+   ❌ NIEMALS: "Rudolf Steiner stellt dar...", "Im Vortrag wird erklärt...", "Steiner beschreibt..."
+   ✅ STATTDESSEN: Direkt die Inhalte beschreiben
+
+2. HEADINGS: Hierarchische Gliederung mit H3 (Hauptthemen) und H4 (Unterthemen)
+   
+   🔴 KRITISCH WICHTIG - HIERARCHIE BEACHTEN:
+   
+   H3 = HAUPTTHEMA (große thematische Abschnitte)
+   - Markiert einen neuen Hauptgedanken oder großes Themengebiet
+   - Beispiele: "Die Entwicklung des Bewusstseins", "Die Mysterien der Antike", "Das Verhältnis von Geist und Materie"
+   
+   H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
+   - Gehört IMMER zu einem H3-Thema und vertieft/untergliedert dieses
+   - Beispiele unter H3 "Die Entwicklung des Bewusstseins":
+     * H4: "Das alte Bewusstsein in Atlantis"
+     * H4: "Der Übergang zur nachatlantischen Zeit"
+     * H4: "Das moderne Ich-Bewusstsein"
+   
+   🎯 STRUKTUR-REGEL:
+   - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
+   - JEDES H3 MUSS 2-4 H4-Unterthemen haben
+   - H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
+   - Nutze die Index-Markierungen [Index: ^abc123] aus dem Text
+
+3. TABLE OF CONTENTS: Für jede H3 eine Kurzbeschreibung (10-15 Wörter, KEINE Meta-Sprache)
+4. KEYWORDS: 8-15 Keywords
+
+🔴 KRITISCHE KEYWORD-REGELN:
+
+🚨 SCHRITT 1: TITEL ANALYSIEREN (ABSOLUTE PRIORITÄT - PFLICHT-KEYWORDS!)
+
+EXTRAHIERE die HAUPTBEGRIFFE (Substantive) aus dem Titel: ${lectureId}
+
+✅ BEISPIELE FÜR PFLICHT-KEYWORDS AUS TITELN:
+→ "DIE SEELE DER TIERE..." → Keyword: "Tiere" (MUSS erscheinen!)
+→ "DIE SOGENANNTEN GEFAHREN..." → Keyword: "Gefahren" (MUSS erscheinen!)
+→ "BIBEL UND WEISHEIT" → Keyword: "Bibel" (MUSS erscheinen!)
+→ "DER LEBENSLAUF DES MENSCHEN" → Keyword: "Lebenslauf" (MUSS erscheinen!)
+→ "WEISHEIT UND GESUNDHEIT" → Keyword: "Gesundheit" (MUSS erscheinen!)
+→ "BLUT IST EIN GANZ BESONDERER SAFT" → Keyword: "Blut" (MUSS erscheinen!)
+→ "Goethe und die Naturwissenschaft" → Keyword: "Goethe" (MUSS erscheinen!)
+
+❌ NUR IGNORIEREN wenn Titel NICHT inhaltlich:
+→ "Erster Vortrag", "Zweiter Vortrag", "Öffentlicher Vortrag" → KEINE Keywords
+
+⚠️ KRITISCH: Diese Titel-Keywords erscheinen oft AUCH in Summary und H3!
+   → Das ist KEIN Problem! Verwende sie trotzdem als Keyword!
+   → Markiere mit "source": "title-summary"
+
+SCHRITT 2: SUMMARY ERGÄNZEN (falls noch kein Hauptthema/Person aus Titel)
+- Falls Titel keine klare Person/Hauptthema hatte:
+  * Extrahiere aus der SUMMARY die wichtigste Person ODER das Hauptthema
+  * ⚠️ NIEMALS: "Rudolf Steiner" (er ist der Vortragende, kein Inhalt!)
+  * ✅ Personen: "Platon", "Kant", "Buddha", "Christus", "Paracelsus" etc.
+- Markiere diese mit "source": "title-summary"
+
+SCHRITT 3: H3-ABSCHNITTE (1-2 Keywords pro H3)
+- Für jeden H3-Abschnitt: 1-2 zentrale Begriffe
+- Bevorzuge STARK Vokabular-Begriffe (iteratives Wachstum!)
+- Markiere diese mit "source": "h3"
+
+BUDGET-REGEL:
+- Maximal 4 NEUE Keywords (matchType: "new")
+- Alle anderen MÜSSEN aus dem Vokabular stammen ("existing-exact" oder "existing-similar")
+- Gesamt: 8-15 Keywords total
+- ⚠️ KRITISCH: KEINE doppelten Keywords! Jeder Begriff nur EINMAL pro Vortrag
+  (Wenn ein Begriff in mehreren H3-Abschnitten relevant ist, nutze ihn nur für den wichtigsten Abschnitt)
+
+MATCHING:
+- "existing-exact": Exakt im Vokabular (confidence: 0.9-1.0)
+- "existing-similar": Ähnlich im Vokabular (confidence: 0.75-0.85)
+- "new": Neu, nur wenn Budget erlaubt (confidence: 0.6-0.7)
+
+⚠️ TABLE OF CONTENTS: KEINE Meta-Sprache wie "Steiner beschreibt..."
+✅ Direkte sachliche Formulierungen wie in einem Lexikon
+
+VORTRAG-TEXT:
+${lectureText}
+
+JSON-AUSGABE (NUR JSON, kein zusätzlicher Text):
+{
+  "summary": "Zusammenfassung in 100-150 Wörtern",
+  "headings": [
+    {"index": "^abc123", "text": "Die Entwicklung des Bewusstseins", "level": "h3"},
+    {"index": "^abc123", "text": "Das alte Bewusstsein in Atlantis", "level": "h4"},
+    {"index": "^def456", "text": "Der Übergang zur nachatlantischen Zeit", "level": "h4"},
+    {"index": "^ghi789", "text": "Das moderne Ich-Bewusstsein", "level": "h4"},
+    {"index": "^jkl012", "text": "Die Mysterien der Antike", "level": "h3"},
+    {"index": "^jkl012", "text": "Ägyptische Mysterien", "level": "h4"},
+    {"index": "^mno345", "text": "Griechische Mysterien", "level": "h4"}
+  ],
+  "tableOfContents": [
+    {
+      "heading": "Die Entwicklung des Bewusstseins",
+      "description": "Vom alten traumhaften Bewusstsein zum modernen Ich-Bewusstsein",
+      "index": "^abc123"
+    },
+    {
+      "heading": "Die Mysterien der Antike",
+      "description": "Einweihungswege in Ägypten und Griechenland",
+      "index": "^jkl012"
+    }
+  ],
+  "keywords": [
+    {
+      "term": "Goethe",
+      "index": "^abc123",
+      "heading": "Summary",
+      "source": "title-summary",
+      "matchType": "existing-exact",
+      "matchedExisting": "Goethe",
+      "summaryMentioned": true,
+      "confidence": 1.0,
+      "level": "h3"
+    },
+    {
+      "term": "Bewusstseinsentwicklung",
+      "index": "^abc123",
+      "heading": "Die Entwicklung des Bewusstseins",
+      "source": "h3",
+      "matchType": "existing-similar",
+      "matchedExisting": "Bewusstsein",
+      "summaryMentioned": false,
+      "confidence": 0.85,
+      "level": "h3"
+    },
+    {
+      "term": "Mysterien",
+      "index": "^jkl012",
+      "heading": "Die Mysterien der Antike",
+      "source": "h3",
+      "matchType": "existing-exact",
+      "matchedExisting": "Mysterien",
+      "summaryMentioned": false,
+      "confidence": 0.95,
+      "level": "h3"
+    }
+  ]
+}
+`;
+  }
+};
+
+/**
+ * ZENTRALE UNIFIED GENERATION FUNKTION
+ * Führt die Generierung basierend auf dem Modus aus
+ * 
+ * @param {string} lectureId - ID des Vortrags
+ * @param {string} mode - 'structure' | 'keywords' | 'full'
+ * @param {Object} options - Zusätzliche Optionen
+ * @returns {Object} Generierte Daten
+ */
+async function generateUnifiedLectureData(lectureId, mode, options = {}) {
+  const {
+    provider = null,
+    forceRegenerate = false,
+    vocabularyTerms = [],
+    frequencyMap = {}
+  } = options;
+  
+  console.log(`\n[UNIFIED] ${lectureId} - Modus: ${mode}, Regenerate: ${forceRegenerate}`);
+  
+  // 1. Lade Vortrag
+  const lecture = fullLectures[lectureId];
+  if (!lecture) {
+    throw new Error(`Vortrag nicht gefunden: ${lectureId}`);
+  }
+  
+  // 2. Hole LLM-Provider
+  let llmProvider;
+  try {
+    if (provider) {
+      const { createProvider } = require('./llm-providers');
+      llmProvider = createProvider(provider);
+      if (!llmProvider.isAvailable()) {
+        throw new Error(`${provider} nicht verfügbar`);
+      }
+    } else {
+      llmProvider = getProviderForTask('summary');
+    }
+  } catch (providerError) {
+    console.error(`[UNIFIED] Provider-Fehler: ${providerError.message}`);
+    throw new Error(`Kein LLM-Provider verfügbar: ${providerError.message}`);
+  }
+  
+  // 3. Formatiere Vortragtext
+  const lectureText = formatLectureTextForPrompt(lecture);
+  
+  // 4. Generiere basierend auf Modus
+  let prompt, result;
+  
+  if (mode === 'structure') {
+    // ========== MODE: Nur S+H+TOC ==========
+    prompt = UNIFIED_PROMPTS.STRUCTURE(lectureId, lectureText, vocabularyTerms);
+    
+    console.log(`[UNIFIED] Rufe ${llmProvider.name} für Structure auf...`);
+    const responseText = await llmProvider.generateCompletion(prompt, {
+      maxTokens: 4000,
+      temperature: 0.7
+    });
+    
+    const cleaned = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    result = JSON.parse(cleaned);
+    
+    // Validierung
+    if (!result.summary || !Array.isArray(result.headings) || !Array.isArray(result.tableOfContents)) {
+      throw new Error('Ungültiges JSON-Format von LLM (Structure Mode)');
+    }
+    
+    console.log(`[UNIFIED] ✓ Structure generiert: Summary (${result.summary.length} chars), Headings (${result.headings.length}), TOC (${result.tableOfContents.length})`);
+    
+    return {
+      summary: result.summary,
+      headings: result.headings,
+      tableOfContents: result.tableOfContents,
+      version: 'v2-unified',
+      generated: new Date().toISOString()
+    };
+    
+  } else if (mode === 'keywords') {
+    // ========== MODE: TOC + Keywords (benötigt existierende S+H) ==========
+    
+    // Lade existierende Daten
+    const summaryDB = await loadSummaryDatabase();
+    const existingData = summaryDB[lectureId];
+    
+    if (!existingData || !existingData.summary || !existingData.headings) {
+      throw new Error('Keine existierenden Summary/Headings gefunden für Keywords-Only Modus');
+    }
+    
+    prompt = UNIFIED_PROMPTS.KEYWORDS(
+      lectureId, 
+      lectureText,
+      existingData.summary,
+      existingData.headings,
+      vocabularyTerms,
+      frequencyMap
+    );
+    
+    console.log(`[UNIFIED] Rufe ${llmProvider.name} für TOC + Keywords auf...`);
+    const responseText = await llmProvider.generateCompletion(prompt, {
+      maxTokens: 4000,
+      temperature: 0.4
+    });
+    
+    const cleaned = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    result = JSON.parse(cleaned);
+    
+    if (!result.tableOfContents || !Array.isArray(result.tableOfContents) || 
+        !result.keywords || !Array.isArray(result.keywords)) {
+      throw new Error('Ungültiges JSON-Format von LLM (Keywords Mode - erwartet tableOfContents + keywords)');
+    }
+    
+    console.log(`[UNIFIED] ✓ TOC + Keywords generiert: ${result.tableOfContents.length} TOC-Einträge, ${result.keywords.length} Keywords`);
+    
+    return {
+      tableOfContents: result.tableOfContents,
+      keywords: result.keywords,
+      generated: new Date().toISOString()
+    };
+    
+  } else if (mode === 'full') {
+    // ========== MODE: Alles (S+H+TOC+KW in einem Call) ==========
+    
+    prompt = UNIFIED_PROMPTS.FULL(lectureId, lectureText, vocabularyTerms, frequencyMap);
+    
+    console.log(`[UNIFIED] Rufe ${llmProvider.name} für Full Mode auf...`);
+    const responseText = await llmProvider.generateCompletion(prompt, {
+      maxTokens: 6000,
+      temperature: 0.7
+    });
+    
+    const cleaned = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    result = JSON.parse(cleaned);
+    
+    // Validierung
+    if (!result.summary || !Array.isArray(result.headings) || 
+        !Array.isArray(result.tableOfContents) || !Array.isArray(result.keywords)) {
+      throw new Error('Ungültiges JSON-Format von LLM (Full Mode)');
+    }
+    
+    console.log(`[UNIFIED] ✓ Full generiert: Summary (${result.summary.length} chars), Headings (${result.headings.length}), TOC (${result.tableOfContents.length}), Keywords (${result.keywords.length})`);
+    
+    return {
+      summary: result.summary,
+      headings: result.headings,
+      tableOfContents: result.tableOfContents,
+      keywords: result.keywords,
+      version: 'v2-unified',
+      generated: new Date().toISOString()
+    };
+    
+  } else {
+    throw new Error(`Unbekannter Modus: ${mode}`);
+  }
 }
 
 // ============================================================================
@@ -2615,7 +4366,7 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
 // ============================================================================
 
 // API-Endpunkt: Liste aller verfügbaren Schlagwort-Dateien
-app.get('/api/keywords-files', async (req, res) => {
+app.get('/api/concepts-files', async (req, res) => {
   try {
     console.log('[KEYWORDS-API] Lade verfügbare Schlagwort-Dateien...');
     
@@ -2650,24 +4401,24 @@ app.get('/api/keywords-files', async (req, res) => {
 });
 
 // API-Endpunkt: Vollständige Schlagwort-Liste laden
-app.get('/api/keywords-list', async (req, res) => {
+app.get('/api/concepts-list', async (req, res) => {
   try {
     console.log('[KEYWORDS-API] Lade alle Schlagwörter...');
     
     const keywordsPath = path.join(__dirname, 'keywords');
     let allKeywords = [];
     
-    // Versuche zuerst zentrale keywords.json im Hauptordner zu laden
+    // Versuche zuerst zentrale concepts-database.json im Hauptordner zu laden
     try {
-      const filePath = path.join(__dirname, 'keywords.json');
+      const filePath = path.join(__dirname, 'concepts-database.json');
       const fileContent = await fs.readFile(filePath, 'utf8');
       const data = JSON.parse(fileContent);
       if (Array.isArray(data)) {
         allKeywords = allKeywords.concat(data);
-        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords.json geladen`);
+        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus concepts-database.json geladen`);
       }
     } catch (error) {
-      console.warn('[KEYWORDS-API] Keine zentrale keywords.json gefunden:', error.message);
+      console.warn('[KEYWORDS-API] Keine zentrale concepts-database.json gefunden:', error.message);
       // Fallback: Lese alle .json Dateien im keywords/ Ordner
       try {
         const files = await fs.readdir(keywordsPath);
@@ -3078,7 +4829,7 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
 });
 
 // API-Endpunkt: Keyword speichern
-app.post('/api/keywords-save', async (req, res) => {
+app.post('/api/concepts-save', async (req, res) => {
   try {
     const { keyword, alphabetical, text, gaReferences } = req.body;
     
@@ -3154,13 +4905,13 @@ app.post('/api/keywords-save', async (req, res) => {
 // KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN (vor /api/keywords-add)
 // ============================================================================
 
-// Keyword-Thematische-Suche-Cache-Datenbank
-const KEYWORD_THEMATIC_DB_FILE = path.join(__dirname, 'keyword-thematic-search.json');
+// Concepts-Thematic-Search-Cache-Database
+const CONCEPTS_THEMATIC_DB_FILE = path.join(__dirname, 'concepts-thematic-search.json');
 
 // Lade Keyword-Thematische-Suche-Cache-Datenbank
 async function loadKeywordThematicDatabase() {
   try {
-    const data = await fs.readFile(KEYWORD_THEMATIC_DB_FILE, 'utf8');
+    const data = await fs.readFile(CONCEPTS_THEMATIC_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.log('Keyword-Thematische-Suche-Cache-DB nicht gefunden, erstelle neue');
@@ -3171,7 +4922,7 @@ async function loadKeywordThematicDatabase() {
 // Speichere Keyword-Thematische-Suche-Cache-Datenbank
 async function saveKeywordThematicDatabase(keywordThematicDB) {
   try {
-    await fs.writeFile(KEYWORD_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
+    await fs.writeFile(CONCEPTS_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
     console.log('Keyword-Thematische-Suche-Cache-DB gespeichert');
     return true;
   } catch (error) {
@@ -3181,7 +4932,7 @@ async function saveKeywordThematicDatabase(keywordThematicDB) {
 }
 
 // API-Endpunkt: Batch-Schlagwort-Generierung
-app.post('/api/keywords-batch-add', async (req, res) => {
+app.post('/api/concepts-batch-add', async (req, res) => {
   try {
     const { keywords, overwrite = false, batchId = null } = req.body;
     
@@ -3204,15 +4955,15 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       startTime: new Date().toISOString()
     };
     
-    // Lade keywords.json einmalig vor der Verarbeitung
-    const keywordsFile = path.join(__dirname, 'keywords.json');
-    let allKeywords = [];
+    // Lade concepts-database.json einmalig vor der Verarbeitung
+    const conceptsFile = path.join(__dirname, 'concepts-database.json');
+    let allConcepts = [];
     
     try {
-      const fileContent = await fs.readFile(keywordsFile, 'utf8');
-      allKeywords = JSON.parse(fileContent);
+      const fileContent = await fs.readFile(conceptsFile, 'utf8');
+      allConcepts = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[KEYWORDS-BATCH-ADD] keywords.json nicht gefunden, erstelle neue');
+      console.log('[KEYWORDS-BATCH-ADD] concepts-database.json nicht gefunden, erstelle neue');
     }
     
     // Definiere Verarbeitungsfunktion für ein Schlagwort
@@ -3231,17 +4982,17 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       console.log(`[KEYWORDS-BATCH-ADD] Verarbeite ${i + 1}/${keywords.length}: "${trimmedKeyword}"`);
       
       // Prüfe auf Duplikate
-      const existingKeywordIndex = allKeywords.findIndex(k => 
+      const existingConceptIndex = allConcepts.findIndex(k => 
         k.keyword.toLowerCase() === trimmedKeyword.toLowerCase()
       );
       
-      if (existingKeywordIndex !== -1 && !overwrite) {
+      if (existingConceptIndex !== -1 && !overwrite) {
         return {
           status: 'skipped',
           keyword: trimmedKeyword,
-          reason: 'Schlagwort bereits vorhanden',
+          reason: 'Concept bereits vorhanden',
           index: i,
-          existingKeyword: allKeywords[existingKeywordIndex].keyword
+          existingKeyword: allConcepts[existingConceptIndex].keyword
         };
       }
       
@@ -3260,44 +5011,24 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       // Generiere KI-Analyse
       const analysis = await generateKeywordAnalysis(trimmedKeyword, keywordResults, 'ausführlich');
       
-      // Erstelle neues Schlagwort-Objekt
-      const newKeyword = {
+      // Erstelle neues Concept-Objekt mit vollständigem Text
+      const newConcept = {
         keyword: trimmedKeyword,
         alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
-        text: `**${trimmedKeyword}**`,
+        text: analysis, // ← VOLLSTÄNDIGER Text
+        sources: keywordResults.slice(0, 20).map(result => ({
+          id: result.ID,
+          index: result.index,
+          title: result.title,
+          fileName: result.fileName
+        })),
         gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+        source: 'ki-generated-batch',
         generatedAt: new Date().toISOString(),
-        sourceAnalysis: 'ki-generated-batch',
-        analysisLength: analysis.length,
-        resultCount: keywordResults.length,
-        hasDetailedAnalysis: true,
+        totalMatches: keywordResults.length,
         batchId: results.batchId,
         batchIndex: i
       };
-      
-      // Speichere detaillierte Analyse im Cache
-      const keywordThematicDB = await loadKeywordThematicDatabase();
-      const cacheKey = `keyword_${trimmedKeyword.toLowerCase().trim()}_ausführlich_30`;
-      
-      keywordThematicDB[cacheKey] = {
-        query: trimmedKeyword,
-        content: analysis,
-        sources: keywordResults.slice(0, 20).map(result => ({
-          ID: result.ID,
-          index: result.index,
-          title: result.title,
-          fileName: result.fileName,
-          score: Math.round(result.finalScore || 100),
-          matchedTerms: result.matchedTerms || [trimmedKeyword]
-        })),
-        searchMethod: 'keyword-thematic-search',
-        totalMatches: keywordResults.length,
-        llmUsed: !!process.env.CLAUDE_API_KEY,
-        timestamp: new Date().toISOString(),
-        batchId: results.batchId
-      };
-      
-      await saveKeywordThematicDatabase(keywordThematicDB);
       
       console.log(`[KEYWORDS-BATCH-ADD] ✓ "${trimmedKeyword}" erfolgreich verarbeitet`);
       
@@ -3307,8 +5038,8 @@ app.post('/api/keywords-batch-add', async (req, res) => {
         index: i,
         resultCount: keywordResults.length,
         analysisLength: analysis.length,
-        newKeyword: newKeyword,
-        existingKeywordIndex: existingKeywordIndex
+        newConcept: newConcept,
+        existingConceptIndex: existingConceptIndex
       };
     };
     
@@ -3320,17 +5051,17 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       200 // Delay zwischen Starts in ms
     );
     
-    // Sammle Ergebnisse und aktualisiere keywords.json
+    // Sammle Ergebnisse und aktualisiere concepts.json
     for (const result of batchResults) {
       if (result.success) {
         const data = result.result;
         
         if (data.status === 'successful') {
-          // Aktualisiere allKeywords Array
-          if (data.existingKeywordIndex !== -1 && overwrite) {
-            allKeywords[data.existingKeywordIndex] = data.newKeyword;
-          } else if (data.existingKeywordIndex === -1) {
-            allKeywords.push(data.newKeyword);
+          // Aktualisiere allConcepts Array
+          if (data.existingConceptIndex !== -1 && overwrite) {
+            allConcepts[data.existingConceptIndex] = data.newConcept;
+          } else if (data.existingConceptIndex === -1) {
+            allConcepts.push(data.newConcept);
           }
           
           results.successful.push({
@@ -3355,9 +5086,9 @@ app.post('/api/keywords-batch-add', async (req, res) => {
       results.processed++;
     }
     
-    // Speichere aktualisierte keywords.json
-    await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
-    console.log('[KEYWORDS-BATCH-ADD] keywords.json aktualisiert');
+    // Speichere aktualisierte concepts-database.json
+    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    console.log('[KEYWORDS-BATCH-ADD] concepts-database.json aktualisiert');
     
     results.endTime = new Date().toISOString();
     results.duration = new Date(results.endTime) - new Date(results.startTime);
@@ -3381,7 +5112,7 @@ app.post('/api/keywords-batch-add', async (req, res) => {
 });
 
 // API-Endpunkt: Neues Schlagwort hinzufügen und durch KI-Analyse befüllen
-app.post('/api/keywords-add', async (req, res) => {
+app.post('/api/concepts-add', async (req, res) => {
   try {
     const { keyword, overwrite = false } = req.body;
     
@@ -3430,77 +5161,64 @@ app.post('/api/keywords-add', async (req, res) => {
     // Generiere KI-Analyse
     const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'ausführlich');
     
-    // Erstelle neues Schlagwort-Objekt für Index (keywords.json)
-    const newKeyword = {
+    // Erstelle neues Schlagwort-Objekt mit vollständigem Text und Sources
+    const conceptsFile = path.join(__dirname, 'concepts-database.json');
+    
+    const newConcept = {
       keyword: cleanKeyword,
       alphabetical: cleanKeyword.charAt(0).toUpperCase(),
-      text: `**${cleanKeyword}**`,
-      gaReferences: keywordResults.slice(0, 20).map(r => r.ID), // Top 20 GA-Referenzen (erhöht von 10)
-      generatedAt: new Date().toISOString(),
-      sourceAnalysis: 'ki-generated',
-      analysisLength: analysis.length,
-      resultCount: keywordResults.length,
-      hasDetailedAnalysis: true // Flag für Frontend
-    };
-    
-    if (existingKeywordIndex !== -1 && overwrite) {
-      // Überschreibe bestehendes Schlagwort
-      allKeywords[existingKeywordIndex] = newKeyword;
-      console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" überschrieben`);
-    } else {
-      // Füge zur Liste hinzu
-      allKeywords.push(newKeyword);
-      console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" neu hinzugefügt`);
-    }
-    
-    // Speichere zurück in keywords.json
-    await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
-    
-    // Speichere auch die detaillierte Analyse im Cache
-    const keywordThematicDB = await loadKeywordThematicDatabase();
-    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_ausführlich_30`;
-    
-    keywordThematicDB[cacheKey] = {
-      query: cleanKeyword,
-      content: analysis,
+      text: analysis, // ← VOLLSTÄNDIGER Text, nicht nur **Keyword**
       sources: keywordResults.slice(0, 20).map(result => ({
-        ID: result.ID,
+        id: result.ID,
         index: result.index,
         title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore || 100),
-        matchedTerms: result.matchedTerms || [cleanKeyword]
+        fileName: result.fileName
       })),
-      searchMethod: 'keyword-thematic-search',
-      totalMatches: keywordResults.length,
-      llmUsed: !!process.env.CLAUDE_API_KEY,
-      timestamp: new Date().toISOString()
+      gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
+      source: 'ki-generated',
+      generatedAt: new Date().toISOString(),
+      totalMatches: keywordResults.length
     };
     
-    await saveKeywordThematicDatabase(keywordThematicDB);
+    // Lade concepts-database.json
+    let allConcepts = [];
+    try {
+      const conceptsContent = await fs.readFile(conceptsFile, 'utf8');
+      allConcepts = JSON.parse(conceptsContent);
+    } catch (error) {
+      console.log('[KEYWORDS-ADD] concepts-database.json nicht gefunden, erstelle neue');
+    }
     
-    console.log(`[KEYWORDS-ADD] Schlagwort "${cleanKeyword}" erfolgreich hinzugefügt`);
+    // Prüfe auf Duplikate in concepts-database.json
+    const existingConceptIndex = allConcepts.findIndex(k => 
+      k.keyword.toLowerCase() === cleanKeyword.toLowerCase()
+    );
+    
+    if (existingConceptIndex !== -1 && overwrite) {
+      // Überschreibe bestehendes Concept
+      allConcepts[existingConceptIndex] = newConcept;
+      console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" überschrieben`);
+    } else if (existingConceptIndex === -1) {
+      // Füge zur Liste hinzu
+      allConcepts.push(newConcept);
+      console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" neu hinzugefügt`);
+    }
+    
+    // Speichere direkt in concepts-database.json
+    await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+    
+    console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" erfolgreich in concepts-database.json gespeichert`);
     console.log(`[KEYWORDS-ADD] Analyse-Länge: ${analysis.length} Zeichen`);
     console.log(`[KEYWORDS-ADD] Gefundene Ergebnisse: ${keywordResults.length}`);
-    console.log(`[KEYWORDS-ADD] Detaillierte Analyse im Cache gespeichert`);
+    console.log(`[KEYWORDS-ADD] Sources: ${newConcept.sources.length}`);
     
     res.json({ 
       success: true, 
-      message: 'Schlagwort erfolgreich hinzugefügt und analysiert',
-      keyword: newKeyword,
-      totalKeywords: allKeywords.length,
+      message: 'Concept erfolgreich hinzugefügt und analysiert',
+      keyword: newConcept,
+      totalConcepts: allConcepts.length,
       analysisLength: analysis.length,
-      resultCount: keywordResults.length,
-      // Neue Felder für direkte Anzeige
-      content: analysis,
-      sources: keywordResults.slice(0, 20).map(result => ({
-        ID: result.ID,
-        index: result.index,
-        title: result.title,
-        fileName: result.fileName,
-        score: Math.round(result.finalScore || 100),
-        matchedTerms: result.matchedTerms || [cleanKeyword]
-      }))
+      resultCount: keywordResults.length
     });
     
   } catch (error) {
@@ -3593,7 +5311,7 @@ app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
 // KEYWORD LÖSCHEN
 // ============================================================================
 
-app.post('/api/keywords-delete', async (req, res) => {
+app.post('/api/concepts-delete', async (req, res) => {
   try {
     const { keyword } = req.body;
     if (!keyword || !keyword.trim()) {
@@ -3601,76 +5319,59 @@ app.post('/api/keywords-delete', async (req, res) => {
     }
 
     const cleanKeyword = keyword.trim();
-    console.log(`[KEYWORDS-DELETE] Lösche Schlagwort: "${cleanKeyword}"`);
+    console.log(`[CONCEPTS-DELETE] Lösche Concept: "${cleanKeyword}"`);
 
-    // 1) Entferne aus keywords.json
-    const keywordsFile = path.join(__dirname, 'keywords.json');
-    let allKeywords = [];
+    // Entferne aus concepts-database.json
+    const conceptsFile = path.join(__dirname, 'concepts-database.json');
+    let allConcepts = [];
     try {
-      const fileContent = await fs.readFile(keywordsFile, 'utf8');
-      allKeywords = JSON.parse(fileContent);
+      const fileContent = await fs.readFile(conceptsFile, 'utf8');
+      allConcepts = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[KEYWORDS-DELETE] keywords.json nicht gefunden, nichts zu entfernen');
+      console.log('[CONCEPTS-DELETE] concepts-database.json nicht gefunden, nichts zu entfernen');
     }
 
-    const beforeCount = allKeywords.length;
-    allKeywords = allKeywords.filter(k => k.keyword.toLowerCase() !== cleanKeyword.toLowerCase());
-    const removedFromIndex = beforeCount - allKeywords.length;
+    const beforeCount = allConcepts.length;
+    
+    // Finde das zu löschende Concept
+    const conceptToDelete = allConcepts.find(k => k.keyword.toLowerCase() === cleanKeyword.toLowerCase());
+    
+    // Filter heraus
+    allConcepts = allConcepts.filter(k => k.keyword.toLowerCase() !== cleanKeyword.toLowerCase());
+    const removedCount = beforeCount - allConcepts.length;
 
-    if (beforeCount !== allKeywords.length) {
-      await fs.writeFile(keywordsFile, JSON.stringify(allKeywords, null, 2), 'utf8');
-      console.log(`[KEYWORDS-DELETE] Aus keywords.json entfernt: ${removedFromIndex}`);
-    } else {
-      console.log('[KEYWORDS-DELETE] Kein Eintrag in keywords.json gefunden');
-    }
-
-    // 2) Entferne aus allen Dateien im keywords/ Ordner
-    const keywordsDir = path.join(__dirname, 'keywords');
-    let removedFromFolderFiles = 0;
-    try {
-      const files = await fs.readdir(keywordsDir);
-      const jsonFiles = files.filter(f => f.endsWith('.json'));
-      for (const fileName of jsonFiles) {
+    if (beforeCount !== allConcepts.length) {
+      await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
+      console.log(`[CONCEPTS-DELETE] Aus concepts-database.json entfernt: ${removedCount}`);
+      
+      // Wenn es ein Obsidian-Concept war, zur Blacklist hinzufügen
+      if (conceptToDelete && conceptToDelete.source === 'obsidian-az') {
+        const blacklistFile = path.join(__dirname, 'concepts-blacklist.json');
+        let blacklist = [];
+        
         try {
-          const filePath = path.join(keywordsDir, fileName);
-          const content = await fs.readFile(filePath, 'utf8');
-          const data = JSON.parse(content);
-          if (Array.isArray(data) && data.length > 0) {
-            const before = data.length;
-            const filtered = data.filter(k => String(k.keyword || '').toLowerCase() !== cleanKeyword.toLowerCase());
-            if (filtered.length !== before) {
-              await fs.writeFile(filePath, JSON.stringify(filtered, null, 2), 'utf8');
-              removedFromFolderFiles += (before - filtered.length);
-              console.log(`[KEYWORDS-DELETE] Aus ${fileName} entfernt: ${before - filtered.length}`);
-            }
-          }
-        } catch (innerErr) {
-          console.warn(`[KEYWORDS-DELETE] Datei konnte nicht verarbeitet werden: ${fileName}:`, innerErr.message);
+          const blacklistContent = await fs.readFile(blacklistFile, 'utf8');
+          blacklist = JSON.parse(blacklistContent);
+        } catch (error) {
+          console.log('[CONCEPTS-DELETE] Erstelle neue Blacklist');
+        }
+        
+        if (!blacklist.includes(cleanKeyword)) {
+          blacklist.push(cleanKeyword);
+          await fs.writeFile(blacklistFile, JSON.stringify(blacklist, null, 2), 'utf8');
+          console.log(`[CONCEPTS-DELETE] "${cleanKeyword}" zur Blacklist hinzugefügt (Obsidian-Concept)`);
         }
       }
-    } catch (dirErr) {
-      console.log('[KEYWORDS-DELETE] keywords/ Ordner nicht vorhanden oder nicht lesbar');
-    }
-
-    // 3) Entferne aus keyword-thematic-search.json Cache
-    const keywordThematicDB = await loadKeywordThematicDatabase();
-    const cacheKey = `keyword_${cleanKeyword.toLowerCase().trim()}_allgemein_30`;
-    let removedFromCache = false;
-    if (keywordThematicDB[cacheKey]) {
-      delete keywordThematicDB[cacheKey];
-      removedFromCache = true;
-      await saveKeywordThematicDatabase(keywordThematicDB);
-      console.log(`[KEYWORDS-DELETE] Cache-Eintrag entfernt: ${cacheKey}`);
     } else {
-      console.log('[KEYWORDS-DELETE] Kein Cache-Eintrag gefunden');
+      console.log('[CONCEPTS-DELETE] Kein Eintrag in concepts-database.json gefunden');
     }
 
     return res.json({
       success: true,
-      message: 'Schlagwort gelöscht',
-      removedFromIndex: removedFromIndex > 0,
-      removedFromFolderFiles,
-      removedFromCache
+      message: removedCount > 0 ? 'Concept erfolgreich gelöscht' : 'Concept nicht gefunden',
+      removed: removedCount > 0,
+      deletedCount: removedCount,
+      wasObsidian: conceptToDelete?.source === 'obsidian-az'
     });
   } catch (error) {
     console.error('[KEYWORDS-DELETE] Fehler beim Löschen:', error);
@@ -4006,6 +5707,9 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         summaryDB[lectureId] = {
           summary: summaryData.summary,
           headings: summaryData.headings || [],
+          tableOfContents: summaryData.tableOfContents || [],
+          lectureKeywords: summaryData.lectureKeywords || [],
+          version: summaryData.version || 'v1',
           timestamp: new Date().toISOString()
         };
         
@@ -4064,7 +5768,251 @@ async function deleteSummariesFromDatabase(lectureIds) {
   });
 }
 
+// ROBUSTE FUNKTION: Speichere komplette Summary-Database (mit Locking)
+async function saveCompleteSummaryDatabase(summaryDB) {
+  return new Promise((resolve, reject) => {
+    summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
+      try {
+        console.log(`[SUMMARY-LOCK] Sperre DB für komplettes Speichern...`);
+        
+        // Erstelle Backup vor dem Speichern
+        await createSummaryBackup();
+        
+        // Validiere dass wir nicht versuchen, leere Daten zu speichern
+        if (!summaryDB || Object.keys(summaryDB).length === 0) {
+          console.error('[SUMMARY-LOCK] ✗ WARNUNG: Versuch, leere Datenbank zu speichern - ABGEBROCHEN!');
+          reject(new Error('Datenbank ist leer - Speichern abgebrochen'));
+          return;
+        }
+        
+        // Speichere Datenbank
+        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+        
+        console.log(`[SUMMARY-LOCK] ✓ Komplette Summary-DB gespeichert (${Object.keys(summaryDB).length} Einträge)`);
+        
+        resolve(true);
+        
+      } catch (error) {
+        console.error('[SUMMARY-LOCK] ✗ Fehler beim Speichern:', error);
+        reject(error);
+      }
+    }).catch(error => {
+      console.error('[SUMMARY-LOCK] Queue-Fehler:', error);
+      reject(error);
+    });
+  });
+}
+
 // API: Summary speichern
+// API: Keyword löschen (aus allen Vorträgen)
+app.post('/api/keywords-delete', async (req, res) => {
+  try {
+    const { keyword } = req.body;
+    
+    if (!keyword) {
+      return res.status(400).json({ error: 'keyword ist erforderlich' });
+    }
+    
+    console.log(`[DELETE-KW] Lösche Keyword "${keyword}" aus allen Vorträgen...`);
+    
+    // 1. Aktualisiere Keywords-Database
+    const keywordsDB = await loadKeywordsDatabase();
+    let deletedFromLectures = 0;
+    let totalDeleted = 0;
+    
+    for (const [lectureId, lectureData] of Object.entries(keywordsDB)) {
+      if (lectureData.keywords && Array.isArray(lectureData.keywords)) {
+        const beforeCount = lectureData.keywords.length;
+        lectureData.keywords = lectureData.keywords.filter(kw => kw.term !== keyword);
+        const afterCount = lectureData.keywords.length;
+        
+        if (beforeCount > afterCount) {
+          deletedFromLectures++;
+          totalDeleted += (beforeCount - afterCount);
+        }
+      }
+    }
+    
+    await saveCompleteKeywordsDatabase(keywordsDB);
+    console.log(`[DELETE-KW] ✓ Keywords-Database: ${totalDeleted} Vorkommen aus ${deletedFromLectures} Vorträgen gelöscht`);
+    
+    // 2. Aktualisiere Summary-Database
+    const summaryDB = await loadSummaryDatabase();
+    let deletedFromSummary = 0;
+    
+    for (const [lectureId, summaryData] of Object.entries(summaryDB)) {
+      if (summaryData.lectureKeywords && Array.isArray(summaryData.lectureKeywords)) {
+        const beforeCount = summaryData.lectureKeywords.length;
+        summaryData.lectureKeywords = summaryData.lectureKeywords.filter(kw => kw.term !== keyword);
+        const afterCount = summaryData.lectureKeywords.length;
+        
+        if (beforeCount > afterCount) {
+          deletedFromSummary++;
+        }
+      }
+    }
+    
+    await saveCompleteSummaryDatabase(summaryDB);
+    console.log(`[DELETE-KW] ✓ Summary-Database: Aus ${deletedFromSummary} Vorträgen gelöscht`);
+    
+    // 3. Aktualisiere Clusters (entferne Keyword aus allen Clustern)
+    try {
+      const clustersData = await loadClustersFile();
+      const clusters = clustersData.clusters || {};
+      let removedFromClusters = 0;
+      
+      for (const [clusterName, clusterInfo] of Object.entries(clusters)) {
+        if (clusterInfo.keywords && Array.isArray(clusterInfo.keywords)) {
+          const beforeCount = clusterInfo.keywords.length;
+          clusterInfo.keywords = clusterInfo.keywords.filter(kw => kw !== keyword);
+          
+          if (beforeCount > clusterInfo.keywords.length) {
+            removedFromClusters++;
+          }
+        }
+      }
+      
+      if (removedFromClusters > 0) {
+        await saveClustersFile({ ...clustersData, clusters });
+        console.log(`[DELETE-KW] ✓ Aus ${removedFromClusters} Clustern entfernt`);
+      }
+    } catch (error) {
+      console.warn(`[DELETE-KW] Warnung: Clusters konnten nicht aktualisiert werden:`, error.message);
+    }
+    
+    res.json({ 
+      success: true, 
+      message: `Keyword "${keyword}" gelöscht`,
+      deletedFromLectures: deletedFromLectures,
+      totalOccurrences: totalDeleted
+    });
+    
+  } catch (error) {
+    console.error('[DELETE-KW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Keyword zu Vortrag hinzufügen (aktualisiert beide DBs)
+app.post('/api/add-keyword-to-lecture', async (req, res) => {
+  try {
+    const { lectureId, keyword } = req.body;
+    
+    if (!lectureId || !keyword || !keyword.term) {
+      return res.status(400).json({ error: 'lectureId und keyword.term sind erforderlich' });
+    }
+    
+    console.log(`[ADD-KW] Füge "${keyword.term}" zu ${lectureId} hinzu (Index: ${keyword.index})`);
+    
+    // 1. Aktualisiere Summary-Database
+    const summaryDB = await loadSummaryDatabase();
+    
+    if (!summaryDB[lectureId]) {
+      return res.status(404).json({ error: 'Vortrag nicht in Summary-Database gefunden' });
+    }
+    
+    // Finde echte Überschrift aus headings basierend auf index
+    // ABER: Nur wenn KEINE benutzerdefinierte Beschreibung vorhanden ist
+    if (!keyword.customDescription && keyword.index && summaryDB[lectureId].headings) {
+      const cleanIndex = keyword.index.startsWith('^') ? keyword.index.substring(1) : keyword.index;
+      const matchingHeading = summaryDB[lectureId].headings.find(h => {
+        const hIndex = h.index.startsWith('^') ? h.index.substring(1) : h.index;
+        return hIndex === cleanIndex;
+      });
+      
+      if (matchingHeading) {
+        keyword.heading = matchingHeading.text;
+        keyword.level = matchingHeading.level || 'h3';
+        console.log(`[ADD-KW] Echte Überschrift gefunden: "${matchingHeading.text}"`);
+      } else {
+        console.warn(`[ADD-KW] Keine passende Überschrift für Index ${keyword.index} gefunden`);
+      }
+    } else if (keyword.customDescription) {
+      console.log(`[ADD-KW] Benutzerdefinierte Beschreibung verwendet: "${keyword.heading}"`);
+    }
+    
+    summaryDB[lectureId].lectureKeywords = summaryDB[lectureId].lectureKeywords || [];
+    summaryDB[lectureId].lectureKeywords.push(keyword);
+    
+    await saveCompleteSummaryDatabase(summaryDB);
+    console.log(`[ADD-KW] ✓ Summary-Database aktualisiert`);
+    
+    // 2. Aktualisiere Keywords-Database
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    // Hole Datum/Jahr aus fullLectures (IMMER, auch bei bestehenden Einträgen)
+    const lecture = fullLectures[lectureId];
+    let date = lecture?.date || lecture?.dateString || '';
+    
+    // FALLBACK: Wenn date null/leer, versuche aus fileName oder location zu extrahieren
+    if (!date && lecture) {
+      // Beispiel: "GA073/3 - ANTHROPOSOPHIE UND NATURWISSENSCHAFT, 12. November 1917"
+      // Oder: "location": "12. November 1917"
+      const locationMatch = (lecture.location || lecture.fileName || '').match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+      
+      if (locationMatch) {
+        const day = locationMatch[1].padStart(2, '0');
+        const monthNames = {
+          'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+          'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+        };
+        const month = monthNames[locationMatch[2].toLowerCase()];
+        const year = locationMatch[3];
+        date = `${year}-${month}-${day}`;
+        console.log(`[ADD-KW] Datum aus location/fileName extrahiert: ${date}`);
+      }
+    }
+    
+    const year = date ? parseInt(date.substring(0, 4)) : null;
+    const gaMatch = lectureId.match(/^GA(\d+)/);
+    const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+    
+    if (!keywordsDB[lectureId]) {
+      // Erstelle neuen Eintrag
+      keywordsDB[lectureId] = {
+        lectureId: lectureId,
+        date: date,
+        year: year,
+        gaVolume: gaVolume,
+        summary: summaryDB[lectureId].summary || '',
+        keywords: [keyword],
+        generated: new Date().toISOString(),
+        generationMethod: 'manual-add'
+      };
+    } else {
+      // Aktualisiere bestehenden Eintrag: Füge Keyword hinzu UND aktualisiere Datum/Jahr
+      keywordsDB[lectureId].keywords = keywordsDB[lectureId].keywords || [];
+      keywordsDB[lectureId].keywords.push(keyword);
+      
+      // Aktualisiere Datum/Jahr falls leer (wichtig für alte Einträge ohne Datum)
+      if (!keywordsDB[lectureId].date && date) {
+        keywordsDB[lectureId].date = date;
+        console.log(`[ADD-KW] Datum aktualisiert: ${date}`);
+      }
+      if (!keywordsDB[lectureId].year && year) {
+        keywordsDB[lectureId].year = year;
+        console.log(`[ADD-KW] Jahr aktualisiert: ${year}`);
+      }
+      
+      keywordsDB[lectureId].generationMethod = keywordsDB[lectureId].generationMethod || 'manual-add';
+    }
+    
+    await saveCompleteKeywordsDatabase(keywordsDB);
+    console.log(`[ADD-KW] ✓ Keywords-Database aktualisiert`);
+    
+    res.json({ 
+      success: true, 
+      message: `Keyword "${keyword.term}" zu ${lectureId} hinzugefügt`,
+      keywordCount: summaryDB[lectureId].lectureKeywords.length
+    });
+    
+  } catch (error) {
+    console.error('[ADD-KW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/save-summary', async (req, res) => {
   try {
     const { lectureId, summary } = req.body;
@@ -4120,7 +6068,7 @@ async function generateKeywordsFromHeadings(lectureId, headings) {
     const provider = getProviderForTask('summary');
     
     // Erstelle Liste der H3-Überschriften für den Prompt
-    const headingsList = h3Headings.map((h, idx) => `${idx + 1}. "${h.text}"`).join('\n');
+    const headingsList = h3Headings.map((h, idx) => `${idx + 1}. ${h.text}`).join('\n');
     
     const prompt = `Fasse jede dieser H3-Überschriften aus einem Vortrag von Rudolf Steiner in 1-2 prägnante Schlagworte zusammen.
 
@@ -4571,7 +6519,7 @@ async function generateKeywordsWithAI(lecture, headings) {
   
   // Formatiere alle Überschriften für den Prompt
   const headingsText = headings
-    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .map((h, idx) => `${idx + 1}. ${h.text} [${h.level}, Index: ${h.index}]`)
     .join('\n');
   
   const prompt = `Analysiere die folgenden Zwischenüberschriften (H3 und H4) aus einem Vortrag von Rudolf Steiner.
@@ -4773,7 +6721,7 @@ async function generateKeywordsIterativeWithSummary(lectureId, summary, headings
   
   // 4. Formatiere Überschriften
   const headingsText = headings
-    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .map((h, idx) => `${idx + 1}. ${h.text} [${h.level}, Index: ${h.index}]`)
     .join('\n');
   
   const prompt = `VORTRAG: ${lectureId}
@@ -5035,7 +6983,7 @@ async function generateKeywordsFromHeadingsWithTemplate(lectureId, headings, tem
   // Formatiere Überschriften (nur H3 und H4)
   const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
   const headingsText = relevantHeadings
-    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .map((h, idx) => `${idx + 1}. ${h.text} [${h.level}, Index: ${h.index}]`)
     .join('\n');
   
   // Formatiere Synonym-Gruppen für Prompt
@@ -5454,6 +7402,293 @@ JSON (NUR Array, kein Markdown, kein Text):
 }
 
 /**
+ * NEU: Ordnet ein neues Keyword einem passenden Thema zu (oder null)
+ * Verwendet LLM um das beste Thema aus den 81 vordefinierten zu finden
+ */
+async function assignThemeToNewKeyword(keyword, themesList, provider) {
+  try {
+    const themeNames = Object.keys(themesList);
+    
+    // Erstelle kompakte Themen-Beschreibungen für Prompt
+    const themesDescription = themeNames.map((name, idx) => {
+      const desc = themesList[name].description || '';
+      const keywords = themesList[name].keywords || [];
+      const sampleKw = keywords.slice(0, 5).join(', ');
+      return `${idx + 1}. ${name}\n   ${desc}\n   Beispiel-KW: ${sampleKw}`;
+    }).join('\n\n');
+    
+    const prompt = `Ordne das folgende Schlagwort aus Rudolf Steiners Werk EINEM der ${themeNames.length} Themen zu.
+
+SCHLAGWORT: "${keyword}"
+
+VERFÜGBARE THEMEN:
+${themesDescription}
+
+REGELN:
+1. Wähle das thematisch am besten passende Thema
+2. Wenn KEIN Thema wirklich gut passt (Confidence < 0.6): Antworte mit "NONE"
+3. Antworte NUR mit dem exakten Themennamen (oder "NONE")
+
+BEISPIELE:
+- "Ätherkräfte" → "Wesensglieder"
+- "Soziale Gerechtigkeit" → "Soziale Dreigliederung"
+- "Quantenphysik" → "NONE" (passt zu keinem Thema gut)
+
+ANTWORT (nur Themenname oder "NONE"):`;
+
+    const responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 100,
+      temperature: 0.3
+    });
+    
+    const themeName = responseText.trim().replace(/["']/g, '');
+    
+    // Validiere dass Thema existiert
+    if (themeName === 'NONE' || !themesList[themeName]) {
+      console.log(`[THEME-ASSIGN] "${keyword}" → kein passendes Thema gefunden`);
+      return null;
+    }
+    
+    console.log(`[THEME-ASSIGN] "${keyword}" → "${themeName}"`);
+    return themeName;
+    
+  } catch (error) {
+    console.error(`[THEME-ASSIGN] Fehler bei Themen-Zuordnung für "${keyword}":`, error.message);
+    return null;
+  }
+}
+
+/**
+ * NEU: Flexible Keyword-Generierung mit Budget-System
+ * Generiert so viele Keywords wie nötig (nicht fest 10-12)
+ * Budget-System begrenzt neue Keywords (z.B. max 3-4 pro Vortrag)
+ */
+async function generateKeywordsFlexibleWithBudget(
+  lectureId, 
+  headings, 
+  template, 
+  existingVocabulary = [], 
+  frequencyMap = {},
+  provider = null,
+  maxNewKeywords = 4  // Budget: Max. neue Keywords
+) {
+  // Extrahiere Template-Vokabular
+  const { vocabulary: templateVocab, themeMapping, synonymMap } = extractVocabularyFromTemplate(template);
+  
+  // Kombiniere Template-Vokabular mit existierenden Keywords
+  const fullVocabulary = [...new Set([...templateVocab, ...existingVocabulary])];
+  
+  // Extrahiere Hauptbegriffe aus Überschriften
+  const headingKeyTerms = extractKeyTermsFromHeadings(headings);
+  
+  // Finde thematisch passende Keywords aus Vokabular
+  const relatedKeywords = fullVocabulary.filter(kw => 
+    headingKeyTerms.some(term => 
+      kw.toLowerCase().includes(term.toLowerCase()) || 
+      term.toLowerCase().includes(kw.toLowerCase())
+    )
+  ).slice(0, 80);
+  
+  // Häufigste Keywords (Top 120)
+  const sortedByFreq = Object.entries(frequencyMap)
+    .sort((a, b) => b[1] - a[1])
+    .map(([term]) => term)
+    .slice(0, 120);
+  
+  // Formatiere Überschriften (nur H3 und H4)
+  const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
+  const headingsText = relevantHeadings
+    .map((h, idx) => `${idx + 1}. ${h.text} [${h.level}, Index: ${h.index}]`)
+    .join('\n');
+  
+  const confidenceThreshold = template.metadata.confidenceThreshold || 0.6;
+  
+  // NEUER PROMPT: Keine feste Anzahl, sondern flexible Generierung
+  const prompt = `FLEXIBLE VERSCHLAGWORTUNG - Verwende bevorzugt EXISTIERENDES Vokabular!
+
+VORTRAG: ${lectureId}
+ÜBERSCHRIFTEN: ${relevantHeadings.length}
+
+VERFÜGBARES VOKABULAR (${fullVocabulary.length} Begriffe):
+Thematisch passend (Top 80): ${relatedKeywords.join(', ') || 'keine'}
+Häufigste (Top 120): ${sortedByFreq.slice(0, 120).join(', ')}
+
+ÜBERSCHRIFTEN ZU VERSCHLAGWORTEN:
+${headingsText}
+
+AUFGABE:
+Analysiere den INHALT dieser Überschriften und erstelle eine FLEXIBLE Anzahl von Schlagworten.
+
+BUDGET & REGELN:
+1. ✅ BEVORZUGE STARK existierende Vokabular-Begriffe
+2. ✅ Mehrere Überschriften können das GLEICHE Keyword verwenden
+3. ✅ Nicht jede Überschrift braucht ein eigenes Keyword
+4. ⚠️ BUDGET: Maximal ${maxNewKeywords} NEUE Keywords für diesen Vortrag
+5. ✅ Ziel: 6-10 Keywords TOTAL (Mischung aus existierend + wenige neue)
+6. ✅ Confidence > ${confidenceThreshold} für existierende, < ${confidenceThreshold} für neue
+
+MATCHING-HIERARCHIE:
+1. Exaktes Match im Vokabular → VERWENDEN (matchType: "exact", confidence: 0.9-1.0)
+2. Wortstamm-Match → VERWENDEN (matchType: "wordstem", confidence: 0.8-0.9)
+3. Semantisch ähnlich → VERWENDEN (matchType: "similar", confidence: 0.7-0.85)
+4. Wenn Budget erlaubt UND nichts passt → NEU (matchType: "new", confidence: 0.5-0.65)
+5. Wenn Budget erschöpft → Verwende generischeres existierendes Keyword
+
+BEISPIELE:
+Überschrift: "Der ätherische Leib und seine Funktionen"
+→ Vokabular hat: "Ätherleib" (150x)
+→ WÄHLE: "Ätherleib" (exact, 0.95)
+
+Überschrift: "Karma in verschiedenen Kulturen"
+→ Vokabular hat: "Karma" (200x), "Reinkarnation" (180x)
+→ WÄHLE: "Karma" (exact, 0.95)
+
+Überschriften: "Das Ich im Denken", "Die Entwicklung des Ich", "Ich und Selbst"
+→ Vokabular hat: "Ich-Entwicklung" (80x)
+→ WÄHLE für ALLE 3: "Ich-Entwicklung" (similar, 0.85)
+→ Ergebnis: 3 Überschriften, aber nur 1 Keyword
+
+Überschrift: "Spezifisches neues Konzept XYZ"
+→ Vokabular hat nichts passendes
+→ Budget erlaubt noch 2 neue
+→ ERSTELLE NEU: "Konzept XYZ" (new, 0.6)
+
+JSON-AUSGABE (NUR Array, kein Text):
+[
+  {
+    "term": "Schlagwort",
+    "index": "^abc123",
+    "heading": "Original-Überschrift",
+    "level": "h3",
+    "matchType": "exact|wordstem|similar|new",
+    "matchedExisting": "Name des gematchten Keywords (oder null bei new)",
+    "confidence": 0.0-1.0
+  }
+]
+
+WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
+
+  try {
+    console.log(`[KEYWORDS-FLEX] ${lectureId}: Rufe ${provider.name} auf (Budget: ${maxNewKeywords} neue KW)...`);
+    
+    let responseText = await provider.generateCompletion(prompt, {
+      maxTokens: 4000,
+      temperature: 0.4
+    });
+    
+    responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    const keywords = JSON.parse(responseText);
+    
+    if (!Array.isArray(keywords)) {
+      throw new Error('LLM gab kein Array zurück');
+    }
+    
+    console.log(`[KEYWORDS-FLEX] ${lectureId}: ${keywords.length} Keywords erhalten`);
+    
+    // VALIDIERUNG & BUDGET-ENFORCEMENT
+    const validatedKeywords = [];
+    const rejectedKeywords = [];
+    let newKeywordsCount = 0;
+    
+    for (const kw of keywords) {
+      let term = kw.term.trim();
+      
+      // Bereinige zu lange Keywords
+      const wordCount = term.split(/\s+/).length;
+      if (wordCount > 3) {
+        // Versuche zu kürzen
+        const words = term.split(/\s+/);
+        
+        // Strategie: Letztes Wort wenn im Vokabular
+        const lastWord = words[words.length - 1];
+        if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
+          term = lastWord;
+        } else if (words.length >= 2) {
+          term = words.slice(-2).join(' ');
+        }
+        
+        console.log(`[KEYWORDS-FLEX] ${lectureId}: Gekürzt "${kw.term}" → "${term}"`);
+      }
+      
+      // Prüfe ob neu
+      const isNew = kw.matchType === 'new' || !fullVocabulary.some(
+        v => v.toLowerCase() === term.toLowerCase()
+      );
+      
+      // Budget-Check
+      if (isNew) {
+        if (newKeywordsCount >= maxNewKeywords) {
+          console.log(`[KEYWORDS-FLEX] ${lectureId}: Budget erschöpft, verwerfe neues KW "${term}"`);
+          rejectedKeywords.push({ term, reason: 'Budget erschöpft' });
+          continue;
+        }
+        newKeywordsCount++;
+      }
+      
+      // Akzeptiere Keyword
+      validatedKeywords.push({
+        term: term,
+        index: kw.index,
+        heading: kw.heading,
+        level: kw.level || 'h3',
+        matchType: isNew ? 'new' : (kw.matchType || 'existing'),
+        matchedExisting: kw.matchedExisting || null,
+        confidence: kw.confidence || (isNew ? 0.6 : 0.85),
+        theme: null  // Wird nachher zugeordnet
+      });
+    }
+    
+    // Deduplizierung (gleiche Keywords zusammenfassen)
+    const uniqueKeywords = [];
+    const seen = new Set();
+    
+    for (const kw of validatedKeywords) {
+      const normalizedTerm = kw.term.toLowerCase().trim();
+      if (!seen.has(normalizedTerm)) {
+        seen.add(normalizedTerm);
+        uniqueKeywords.push(kw);
+      }
+    }
+    
+    console.log(`[KEYWORDS-FLEX] ${lectureId}: Validiert: ${uniqueKeywords.length} unique KW (${newKeywordsCount} neu, ${rejectedKeywords.length} verworfen)`);
+    
+    // THEMEN-ZUORDNUNG für neue Keywords
+    const themesList = template.themes;
+    const finalKeywords = [];
+    
+    for (const kw of uniqueKeywords) {
+      let theme = themeMapping[kw.term.toLowerCase().trim()];
+      
+      // Wenn nicht im Template UND neu → versuche Thema zu finden
+      if (!theme && kw.matchType === 'new') {
+        theme = await assignThemeToNewKeyword(kw.term, themesList, provider);
+      }
+      
+      finalKeywords.push({
+        ...kw,
+        theme: theme || null
+      });
+    }
+    
+    // Statistiken
+    const newKws = finalKeywords.filter(k => k.matchType === 'new');
+    const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
+    const withTheme = finalKeywords.filter(k => k.theme !== null);
+    
+    console.log(`[KEYWORDS-FLEX] ${lectureId}: ✓ FINAL: ${finalKeywords.length} Keywords`);
+    console.log(`[KEYWORDS-FLEX]   Existierend: ${finalKeywords.length - newKws.length}, Neu: ${newKws.length}`);
+    console.log(`[KEYWORDS-FLEX]   Mit Thema: ${withTheme.length}, Ohne Thema: ${finalKeywords.length - withTheme.length}`);
+    
+    return finalKeywords;
+    
+  } catch (error) {
+    console.error(`[KEYWORDS-FLEX] ${lectureId}: Fehler:`, error.message);
+    console.log(`[KEYWORDS-FLEX] ${lectureId}: Fallback auf existierende Methode`);
+    return extractKeywordsFromHeadings(headings);
+  }
+}
+
+/**
  * OPTIMIERTE VERSION: Generiere Keywords OHNE Template neu zu laden
  * Provider wird als Parameter übergeben (bereits initialisiert)
  */
@@ -5498,7 +7733,7 @@ async function generateKeywordsFromHeadingsWithTemplateOptimized(lectureId, head
   // Formatiere Überschriften (nur H3 und H4)
   const relevantHeadings = headings.filter(h => h.level === 'h3' || h.level === 'h4');
   const headingsText = relevantHeadings
-    .map((h, idx) => `${idx + 1}. "${h.text}" [${h.level}, Index: ${h.index}]`)
+    .map((h, idx) => `${idx + 1}. ${h.text} [${h.level}, Index: ${h.index}]`)
     .join('\n');
   
   // Formatiere Synonym-Gruppen für Prompt
@@ -6609,12 +8844,11 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
       throw new Error('Ziel-Cluster erforderlich');
     }
     
-    // Lade Thematic Clusters
-    const clustersFilePath = path.join(__dirname, 'thematic-clusters.json');
-    const clustersData = JSON.parse(fsSync.readFileSync(clustersFilePath, 'utf8'));
-    const clusters = clustersData.clusters || clustersData;
+    // Lade themes-database.json (neue Struktur)
+    const themesPath = path.join(__dirname, 'themes-database.json');
+    const themes = JSON.parse(fsSync.readFileSync(themesPath, 'utf8'));
     
-    if (!clusters[targetCluster]) {
+    if (!themes[targetCluster]) {
       throw new Error(`Cluster "${targetCluster}" existiert nicht`);
     }
     
@@ -6623,14 +8857,13 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     let removed = false;
     
     // Suche Keyword in allen Clustern und entferne es
-    for (const [clusterName, clusterInfo] of Object.entries(clusters)) {
-      const keywords = clusterInfo.keywords || clusterInfo;
-      if (!Array.isArray(keywords)) continue;
+    for (const [clusterName, clusterData] of Object.entries(themes)) {
+      if (!clusterData.keywords || !Array.isArray(clusterData.keywords)) continue;
       
-      const index = keywords.findIndex(kw => kw.toLowerCase() === normalizedKeyword);
+      const index = clusterData.keywords.findIndex(kw => kw.toLowerCase() === normalizedKeyword);
       if (index !== -1) {
         foundInCluster = clusterName;
-        keywords.splice(index, 1);
+        clusterData.keywords.splice(index, 1);
         removed = true;
         console.log(`[KEYWORDS] Keyword aus Cluster "${clusterName}" entfernt`);
       }
@@ -6641,12 +8874,11 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     }
     
     // Füge Keyword zum Ziel-Cluster hinzu (wenn nicht schon vorhanden)
-    // Stelle sicher, dass das keywords-Array existiert
-    if (!clusters[targetCluster].keywords) {
-      clusters[targetCluster].keywords = [];
+    if (!themes[targetCluster].keywords) {
+      themes[targetCluster].keywords = [];
     }
     
-    const keywordsArray = clusters[targetCluster].keywords;
+    const keywordsArray = themes[targetCluster].keywords;
     if (!keywordsArray.some(kw => kw.toLowerCase() === normalizedKeyword)) {
       keywordsArray.push(keyword.trim());
       console.log(`[KEYWORDS] Keyword zu Cluster "${targetCluster}" hinzugefügt`);
@@ -6654,13 +8886,9 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
       console.log(`[KEYWORDS] Keyword bereits in Ziel-Cluster vorhanden`);
     }
     
-    // Speichere aktualisierte Clusters (mit Original-Struktur und Backup)
-    if (clustersData.clusters) {
-      clustersData.clusters = clusters;
-      await saveClustersFile(clustersData);
-    } else {
-      await saveClustersFile(clusters);
-    }
+    // Speichere aktualisierte themes-database.json
+    await fs.writeFile(themesPath, JSON.stringify(themes, null, 2), 'utf8');
+    console.log(`[KEYWORDS] themes-database.json gespeichert`);
     
     res.json({
       success: true,
@@ -6746,14 +8974,71 @@ app.post('/api/keywords/rename', async (req, res) => {
       }
     }
     
-    // Speichere aktualisierte Database mit Locking-Mechanismus
+    // Speichere aktualisierte Keywords-Database mit Locking-Mechanismus
     await saveCompleteKeywordsDatabase(keywordsDB);
     
-    console.log(`[KEYWORDS] ✓ ${affectedLectures} Vorträge aktualisiert, ${totalReplacements} Ersetzungen, ${duplicatesRemoved} Duplikate entfernt`);
+    // SYNC: Aktualisiere auch Summary-Database (für Vorträge im Texte-Tab)
+    console.log('[KEYWORDS] Synchronisiere Summary-Database...');
+    const summaryDB = await loadSummaryDatabase();
+    let summaryAffected = 0;
+    let summaryChecked = 0;
+    
+    for (const [lectureId, data] of Object.entries(summaryDB)) {
+      if (!data.lectureKeywords || !Array.isArray(data.lectureKeywords)) continue;
+      summaryChecked++;
+      
+      let lectureModified = false;
+      const updatedKeywords = [];
+      
+      // Prüfe ob Vortrag bereits das neue Keyword hat
+      const hasNewKeyword = newKwLower && data.lectureKeywords.some(kw => 
+        kw.term.toLowerCase() === newKwLower
+      );
+      
+      data.lectureKeywords.forEach(kw => {
+        const kwLower = kw.term.toLowerCase();
+        
+        if (kwLower === oldKwLower) {
+          lectureModified = true;
+          
+          if (newKeyword && newKeyword.trim()) {
+            // Zusammenführen/Umbenennen
+            if (!hasNewKeyword) {
+              // Kein Duplikat: Umbenennen
+              updatedKeywords.push({
+                ...kw,
+                term: newKeyword.trim()
+              });
+            }
+            // Bei Duplikat: altes Keyword einfach entfernen
+          }
+          // Wenn newKeyword leer: löschen
+        } else {
+          updatedKeywords.push(kw);
+        }
+      });
+      
+      if (lectureModified) {
+        summaryDB[lectureId].lectureKeywords = updatedKeywords;
+        summaryAffected++;
+      }
+    }
+    
+    console.log(`[KEYWORDS] Summary-DB: ${summaryChecked} Vorträge mit Keywords geprüft, ${summaryAffected} Änderungen gefunden`);
+    
+    if (summaryAffected > 0) {
+      await saveCompleteSummaryDatabase(summaryDB); // Speichere komplette DB mit Locking
+      console.log(`[KEYWORDS] ✓ Summary-Database synchronisiert: ${summaryAffected} Vorträge aktualisiert`);
+    } else {
+      console.log(`[KEYWORDS] ℹ Summary-Database: Keine Änderungen nötig`);
+    }
+    
+    console.log(`[KEYWORDS] ✓ GESAMT: Keywords-DB ${affectedLectures} Vorträge | Summary-DB ${summaryAffected} Vorträge | ${totalReplacements} Ersetzungen, ${duplicatesRemoved} Duplikate entfernt`);
     
     res.json({
       success: true,
       affectedLectures: affectedLectures,
+      summaryAffected: summaryAffected,
       totalReplacements: totalReplacements,
       duplicatesRemoved: duplicatesRemoved,
       action: newKeyword ? (duplicatesRemoved > 0 ? 'merged' : 'renamed') : 'deleted'
@@ -7314,6 +9599,231 @@ app.get('/api/keywords-stats', async (req, res) => {
 });
 
 // ============================================================================
+// FLEXIBLE KEYWORD-GENERIERUNG V3 (mit Budget-System)
+// ============================================================================
+
+/**
+ * API: Flexible Keyword-Generierung mit Budget-System
+ * - Keine feste Anzahl von Keywords (6-10 statt 10-12)
+ * - Budget begrenzt neue Keywords pro Vortrag
+ * - Automatische Themen-Zuordnung für neue Keywords
+ * - Iteratives Vokabular-Wachstum
+ */
+app.post('/api/generate-keywords-v3', async (req, res) => {
+  try {
+    const { 
+      lectureIds = [], 
+      gaVolumes = [], 
+      useExistingVocab = true,
+      maxNewKeywordsPerLecture = 4,  // Budget pro Vortrag
+      forceReprocess = false,
+      preferredProvider = null
+    } = req.body;
+    
+    console.log('\n=== KEYWORD GENERATION V3 (FLEXIBLE + BUDGET) ===');
+    console.log(`Budget: Max. ${maxNewKeywordsPerLecture} neue KW pro Vortrag`);
+    
+    // Lade Template
+    const template = await loadThemesKeywordsTemplate();
+    if (!template) {
+      return res.status(500).json({ error: 'Template konnte nicht geladen werden' });
+    }
+    
+    // Initialisiere Provider EINMAL
+    let provider;
+    try {
+      if (preferredProvider) {
+        const { createProvider } = require('./llm-providers');
+        provider = createProvider(preferredProvider);
+        if (!provider.isAvailable()) {
+          throw new Error(`${preferredProvider} nicht verfügbar`);
+        }
+      } else {
+        provider = getProviderForTask('keywords');
+      }
+      console.log(`[KEYWORDS-V3] Provider: ${provider.name}`);
+    } catch (error) {
+      return res.status(500).json({ 
+        error: 'Kein LLM-Provider verfügbar',
+        details: error.message 
+      });
+    }
+    
+    // Sammle Lecture IDs
+    let lectureIdsToProcess = [...lectureIds];
+    
+    if (gaVolumes.length > 0) {
+      for (const gaVolume of gaVolumes) {
+        const volumeLectures = Object.keys(fullLectures).filter(id => id.startsWith(gaVolume));
+        lectureIdsToProcess.push(...volumeLectures);
+      }
+    }
+    
+    lectureIdsToProcess = [...new Set(lectureIdsToProcess)];
+    
+    if (lectureIdsToProcess.length === 0) {
+      return res.status(400).json({ error: 'Keine Lecture IDs angegeben' });
+    }
+    
+    console.log(`[KEYWORDS-V3] Zu verarbeiten: ${lectureIdsToProcess.length} Vorträge`);
+    
+    // Lade existierende Keywords für iteratives Vokabular
+    const existingKeywordsDB = await loadKeywordsDatabase();
+    const summaryDB = await loadSummaryDatabase();
+    
+    // Extrahiere existierendes Vokabular und Frequenzen
+    let existingVocabulary = [];
+    const frequencyMap = {};
+    
+    if (useExistingVocab) {
+      Object.values(existingKeywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            const term = kw.term.trim();
+            if (!existingVocabulary.includes(term)) {
+              existingVocabulary.push(term);
+            }
+            frequencyMap[term] = (frequencyMap[term] || 0) + 1;
+          });
+        }
+      });
+      console.log(`[KEYWORDS-V3] Start-Vokabular: ${existingVocabulary.length} Keywords`);
+    }
+    
+    // Verarbeite Vorträge iterativ
+    const results = [];
+    let processed = 0;
+    let skipped = 0;
+    let errors = 0;
+    let totalNewKeywords = 0;
+    let totalKeywords = 0;
+    
+    for (let i = 0; i < lectureIdsToProcess.length; i++) {
+      const lectureId = lectureIdsToProcess[i];
+      
+      // Prüfe ob bereits verarbeitet
+      if (!forceReprocess && existingKeywordsDB[lectureId] && existingKeywordsDB[lectureId].keywords) {
+        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Bereits verarbeitet, überspringe`);
+        skipped++;
+        continue;
+      }
+      
+      // Prüfe ob Summary vorhanden
+      const summaryData = summaryDB[lectureId];
+      if (!summaryData || !summaryData.headings) {
+        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Keine Summary vorhanden, überspringe`);
+        skipped++;
+        continue;
+      }
+      
+      try {
+        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Starte flexible Generierung...`);
+        
+        // FLEXIBLE GENERIERUNG mit Budget
+        const keywords = await generateKeywordsFlexibleWithBudget(
+          lectureId,
+          summaryData.headings,
+          template,
+          existingVocabulary,
+          frequencyMap,
+          provider,
+          maxNewKeywordsPerLecture
+        );
+        
+        // Extrahiere Metadaten
+        const lecture = fullLectures[lectureId];
+        const date = lecture?.date || lecture?.dateString || '';
+        const year = date ? parseInt(date.substring(0, 4)) : null;
+        const gaMatch = lectureId.match(/^GA(\d+)/);
+        const gaVolume = gaMatch ? `GA${gaMatch[1]}` : null;
+        
+        // Speichere in Keywords-DB
+        await saveKeywordsToDatabase(lectureId, {
+          lectureId: lectureId,
+          date: date,
+          year: year,
+          gaVolume: gaVolume,
+          summary: summaryData.summary || '',
+          keywords: keywords,
+          generated: new Date().toISOString(),
+          generationMethod: 'flexible-v3',
+          maxNewKeywordsBudget: maxNewKeywordsPerLecture
+        });
+        
+        // Aktualisiere Vokabular für nächste Iteration
+        keywords.forEach(kw => {
+          if (!existingVocabulary.includes(kw.term)) {
+            existingVocabulary.push(kw.term);
+          }
+          frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
+        });
+        
+        const newKws = keywords.filter(k => k.matchType === 'new');
+        totalKeywords += keywords.length;
+        totalNewKeywords += newKws.length;
+        
+        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu, ${keywords.length - newKws.length} existierend)`);
+        
+        results.push({
+          lectureId,
+          keywordsCount: keywords.length,
+          newKeywordsCount: newKws.length,
+          existingKeywordsCount: keywords.length - newKws.length,
+          withTheme: keywords.filter(k => k.theme).length,
+          withoutTheme: keywords.filter(k => !k.theme).length,
+          success: true
+        });
+        
+        processed++;
+        
+        // Rate Limiting: 200ms zwischen Requests
+        if (i < lectureIdsToProcess.length - 1) {
+          await new Promise(resolve => setTimeout(resolve, 200));
+        }
+        
+      } catch (error) {
+        console.error(`[KEYWORDS-V3] ${lectureId}: Fehler:`, error.message);
+        errors++;
+        results.push({
+          lectureId,
+          success: false,
+          error: error.message
+        });
+      }
+    }
+    
+    console.log('\n=== KEYWORD GENERATION V3 ABGESCHLOSSEN ===');
+    console.log(`Verarbeitet: ${processed}`);
+    console.log(`Übersprungen: ${skipped}`);
+    console.log(`Fehler: ${errors}`);
+    console.log(`Total Keywords: ${totalKeywords}`);
+    console.log(`Davon neu: ${totalNewKeywords} (${((totalNewKeywords / totalKeywords) * 100).toFixed(1)}%)`);
+    console.log(`End-Vokabular: ${existingVocabulary.length} Keywords`);
+    
+    res.json({
+      success: true,
+      stats: {
+        totalRequested: lectureIdsToProcess.length,
+        processed,
+        skipped,
+        errors,
+        totalKeywords,
+        newKeywords: totalNewKeywords,
+        existingKeywords: totalKeywords - totalNewKeywords,
+        newKeywordsPercentage: totalKeywords > 0 ? ((totalNewKeywords / totalKeywords) * 100).toFixed(1) : 0,
+        vocabularySize: existingVocabulary.length,
+        budgetPerLecture: maxNewKeywordsPerLecture
+      },
+      results
+    });
+    
+  } catch (error) {
+    console.error('[KEYWORDS-V3] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // NEUE TEMPLATE-BASIERTE KEYWORD-GENERIERUNG (V2)
 // ============================================================================
 
@@ -7466,6 +9976,19 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
           generationMethod: 'template-v2',
           confidenceThreshold: template.metadata.confidenceThreshold
         });
+        
+        // NEU: Übertrage Keywords auch in Summary-DB (für Side Panel Anzeige)
+        try {
+          await saveSummaryToDatabase(lectureId, {
+            summary: summaryData.summary,
+            headings: summaryData.headings || [],
+            tableOfContents: summaryData.tableOfContents || [],
+            lectureKeywords: keywords,
+            version: summaryData.version || 'v2'
+          });
+        } catch (syncError) {
+          console.warn(`[KEYWORDS-V2] Warnung: Summary-DB für ${lectureId} konnte nicht aktualisiert werden:`, syncError.message);
+        }
         
         // Aktualisiere Vokabular für nächste Iteration
         keywords.forEach(kw => {
@@ -8071,6 +10594,109 @@ app.post('/api/generate-themes', async (req, res) => {
   }
 });
 
+// API: Cluster löschen
+app.post('/api/themes/delete-cluster', async (req, res) => {
+  try {
+    const { clusterName } = req.body;
+    
+    if (!clusterName) {
+      return res.status(400).json({ error: 'clusterName ist erforderlich' });
+    }
+    
+    console.log(`[DELETE-CLUSTER] Lösche Cluster "${clusterName}"...`);
+    
+    // Lade themes-database
+    const themesDB = await loadThemesDatabase();
+    
+    if (!themesDB[clusterName]) {
+      return res.status(404).json({ error: `Cluster "${clusterName}" nicht gefunden` });
+    }
+    
+    const keywordCount = themesDB[clusterName].keywords?.length || 0;
+    
+    // Lösche Cluster
+    delete themesDB[clusterName];
+    
+    // Speichere
+    await saveThemesDatabase(themesDB);
+    
+    console.log(`[DELETE-CLUSTER] ✓ Cluster "${clusterName}" gelöscht (${keywordCount} Keywords waren zugeordnet)`);
+    
+    res.json({ 
+      success: true, 
+      message: `Cluster "${clusterName}" gelöscht`,
+      keywordsWereInCluster: keywordCount
+    });
+    
+  } catch (error) {
+    console.error('[DELETE-CLUSTER] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Cluster zusammenführen
+app.post('/api/themes/merge-clusters', async (req, res) => {
+  try {
+    const { sourceCluster, targetCluster } = req.body;
+    
+    if (!sourceCluster || !targetCluster) {
+      return res.status(400).json({ error: 'sourceCluster und targetCluster sind erforderlich' });
+    }
+    
+    if (sourceCluster === targetCluster) {
+      return res.status(400).json({ error: 'Quell- und Ziel-Cluster müssen unterschiedlich sein' });
+    }
+    
+    console.log(`[MERGE-CLUSTER] Führe "${sourceCluster}" in "${targetCluster}" zusammen...`);
+    
+    // Lade themes-database
+    const themesDB = await loadThemesDatabase();
+    
+    if (!themesDB[sourceCluster]) {
+      return res.status(404).json({ error: `Quell-Cluster "${sourceCluster}" nicht gefunden` });
+    }
+    
+    if (!themesDB[targetCluster]) {
+      return res.status(404).json({ error: `Ziel-Cluster "${targetCluster}" nicht gefunden` });
+    }
+    
+    // Merge Keywords
+    const sourceKeywords = themesDB[sourceCluster].keywords || [];
+    const targetKeywords = themesDB[targetCluster].keywords || [];
+    
+    // Füge Quell-Keywords zum Ziel hinzu (ohne Duplikate)
+    const mergedKeywords = [...new Set([...targetKeywords, ...sourceKeywords])];
+    themesDB[targetCluster].keywords = mergedKeywords;
+    
+    // Merge Beschreibungen
+    if (themesDB[sourceCluster].description && themesDB[targetCluster].description) {
+      themesDB[targetCluster].description = `${themesDB[targetCluster].description}; ${themesDB[sourceCluster].description}`;
+    } else if (themesDB[sourceCluster].description) {
+      themesDB[targetCluster].description = themesDB[sourceCluster].description;
+    }
+    
+    // Lösche Quell-Cluster
+    delete themesDB[sourceCluster];
+    
+    // Speichere
+    await saveThemesDatabase(themesDB);
+    
+    console.log(`[MERGE-CLUSTER] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
+    console.log(`[MERGE-CLUSTER] ✓ "${targetCluster}" hat jetzt ${mergedKeywords.length} Keywords`);
+    
+    res.json({ 
+      success: true, 
+      message: `Cluster "${sourceCluster}" wurde in "${targetCluster}" zusammengeführt`,
+      mergedKeywords: sourceKeywords.length,
+      totalKeywordsInTarget: mergedKeywords.length
+    });
+    
+  } catch (error) {
+    console.error('[MERGE-CLUSTER] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Themes-Datenbank abrufen (nutzt themes-database.json)
 app.get('/api/themes-database', async (req, res) => {
   try {
@@ -8479,12 +11105,12 @@ function generateThematicCacheKey(query, depth, limit, gaFilter = '') {
 // KEYWORD THEMATIC SEARCH HILFSFUNKTIONEN (Funktionen bereits oben definiert)
 // ============================================================================
 
-// Synchronisiere keywords.json mit keyword-thematic-search.json
+// Synchronisiere concepts.json mit concepts-thematic-search.json
 async function synchronizeKeywordSystems() {
   try {
-    console.log('[SYNC] Starte Synchronisation der Keyword-Systeme...');
+    console.log('[SYNC] Starte Synchronisation der Concept-Systeme...');
     
-    const keywordsFile = path.join(__dirname, 'keywords.json');
+    const keywordsFile = path.join(__dirname, 'concepts.json');
     const keywordThematicDB = await loadKeywordThematicDatabase();
     
     let allKeywords = [];
@@ -8938,6 +11564,17 @@ app.post('/api/backups/create', async (req, res) => {
       case 'code':
         backupFile = await createCodeBackup();
         break;
+      case 'html':
+        // Erstelle Backups für beide HTML-Dateien
+        const indexBackup = await createHtmlBackup('index.html');
+        const managerBackup = await createHtmlBackup('keyword-manager-advanced.html');
+        const htmlBackups = [indexBackup, managerBackup].filter(b => b !== null);
+        return res.json({
+          success: true,
+          backups: htmlBackups.map(b => path.basename(b)),
+          count: htmlBackups.length,
+          type: 'html'
+        });
       case 'full':
         const count = await createFullBackup();
         return res.json({
@@ -9042,6 +11679,13 @@ async function startServer() {
     console.log('Initialisiere Server...');
     console.log('========================================');
     
+// Erstelle automatisches Backup beim Start
+console.log('\n[BACKUP] Erstelle automatische Backups...');
+await createCodeBackup();
+await createHtmlBackup('index.html');
+await createHtmlBackup('keyword-manager-advanced.html');
+console.log('[BACKUP] ✓ Code-Backups erstellt\n');
+
 await loadSynonyms();
 await loadFullLectures();
 
@@ -9099,11 +11743,11 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/save-summary`);
       console.log(`   POST /api/keywords-generate`);
       console.log(`   POST /api/keyword-thematic-search`);
-      console.log(`   POST /api/keywords-save`);
-      console.log(`   POST /api/keywords-add`);
-      console.log(`   POST /api/keywords-delete`);
-      console.log(`   GET  /api/keywords-files`);
-      console.log(`   GET  /api/keywords-list`);
+      console.log(`   POST /api/concepts-save`);
+      console.log(`   POST /api/concepts-add`);
+      console.log(`   POST /api/concepts-delete`);
+      console.log(`   GET  /api/concepts-files`);
+      console.log(`   GET  /api/concepts-list`);
       console.log(`   POST /api/save-marked-word`);
       console.log(`   GET  /summary-database.json`);
       console.log(`   POST /api/generate-summary-keywords-batch`);

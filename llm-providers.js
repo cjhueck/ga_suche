@@ -327,7 +327,7 @@ function createProvider(providerName) {
 
 /**
  * Hole den konfigurierten Provider für eine bestimmte Aufgabe
- * Fallback-Chain: Spezifischer Provider → Default Provider → Claude
+ * Fallback-Chain: Spezifischer Provider → Claude (default) → OpenAI → Gemini
  * @param {string} task - Aufgabentyp ('summary', 'keywords', 'themes', 'batch', 'analysis')
  * @returns {LLMProvider}
  */
@@ -342,7 +342,6 @@ function getProviderForTask(task) {
   };
 
   const specificProvider = taskProviderMap[task];
-  const defaultProvider = process.env.LLM_PROVIDER_DEFAULT || 'claude';
 
   // Versuche task-spezifischen Provider
   if (specificProvider) {
@@ -357,22 +356,19 @@ function getProviderForTask(task) {
     }
   }
 
-  // Fallback auf Default-Provider
-  try {
-    const provider = createProvider(defaultProvider);
-    if (provider.isAvailable()) {
-      console.log(`[LLM-PROVIDER] Task '${task}': Fallback auf ${provider.name} (default)`);
-      return provider;
+  // Fallback-Chain: Claude → OpenAI → Gemini
+  const fallbackChain = ['claude', 'openai', 'gemini'];
+  
+  for (const providerName of fallbackChain) {
+    try {
+      const provider = createProvider(providerName);
+      if (provider.isAvailable()) {
+        console.log(`[LLM-PROVIDER] Task '${task}': Fallback auf ${provider.name} (default)`);
+        return provider;
+      }
+    } catch (error) {
+      console.warn(`[LLM-PROVIDER] Provider ${providerName} nicht verfügbar:`, error.message);
     }
-  } catch (error) {
-    console.warn(`[LLM-PROVIDER] Default provider ${defaultProvider} nicht verfügbar:`, error.message);
-  }
-
-  // Ultimate Fallback auf Claude
-  const claudeProvider = new ClaudeProvider();
-  if (claudeProvider.isAvailable()) {
-    console.log(`[LLM-PROVIDER] Task '${task}': Fallback auf Claude`);
-    return claudeProvider;
   }
 
   throw new Error(`[LLM-PROVIDER] Kein verfügbarer LLM-Provider gefunden. Bitte API-Keys konfigurieren.`);
@@ -397,17 +393,19 @@ function getAllAvailableProviders(task) {
   };
   
   const specificProviderName = taskProviderMap[task];
-  const defaultProviderName = process.env.LLM_PROVIDER_DEFAULT || 'claude';
   
-  // Prioritätsliste (ohne Duplikate)
-  const providerNames = new Set();
-  if (specificProviderName) providerNames.add(specificProviderName.toLowerCase());
-  if (defaultProviderName) providerNames.add(defaultProviderName.toLowerCase());
-  // Alle verfügbaren Provider als Fallback
-  ['openai', 'claude', 'gemini'].forEach(name => providerNames.add(name));
+  // Prioritätsliste: Spezifisch → Claude (default) → OpenAI → Gemini
+  const providerPriority = [];
+  if (specificProviderName) providerPriority.push(specificProviderName.toLowerCase());
+  // Fallback-Chain
+  ['claude', 'openai', 'gemini'].forEach(name => {
+    if (!providerPriority.includes(name)) {
+      providerPriority.push(name);
+    }
+  });
   
   // Erstelle Provider-Instanzen für verfügbare (filtere Rate-Limited)
-  for (const name of providerNames) {
+  for (const name of providerPriority) {
     // Überspringe Rate-Limited Provider
     if (isProviderRateLimited(name)) {
       const entry = rateLimitedProviders.get(name.toLowerCase());
@@ -492,6 +490,35 @@ async function generateCompletionWithFallback(prompt, options = {}, task = 'keyw
 }
 
 // ============================================================================
+// GET SPECIFIC PROVIDER (für explizite Auswahl)
+// ============================================================================
+
+/**
+ * Hole einen spezifischen Provider (für explizite Nutzer-Auswahl)
+ * @param {string} providerName - 'openai', 'claude', oder 'gemini'
+ * @returns {LLMProvider}
+ */
+function getSpecificProvider(providerName) {
+  const name = providerName.toLowerCase();
+  
+  // Prüfe ob Rate-Limited
+  if (isProviderRateLimited(name)) {
+    const entry = rateLimitedProviders.get(name);
+    const minutesRemaining = Math.ceil((entry.until - Date.now()) / 60000);
+    console.warn(`[PROVIDER] ⚠️ ${name} ist Rate-Limited (noch ${minutesRemaining} Min)`);
+  }
+  
+  const provider = createProvider(name);
+  
+  if (!provider.isAvailable()) {
+    throw new Error(`Provider ${name} ist nicht verfügbar (kein API-Key)`);
+  }
+  
+  console.log(`[PROVIDER] Nutze explizit ausgewählten Provider: ${provider.name}`);
+  return provider;
+}
+
+// ============================================================================
 // EXPORTS
 // ============================================================================
 
@@ -502,6 +529,7 @@ module.exports = {
   OpenAIProvider,
   createProvider,
   getProviderForTask,
+  getSpecificProvider,
   getAllAvailableProviders,
   generateCompletionWithFallback,
   markProviderRateLimited,
