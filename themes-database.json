@@ -47,7 +47,12 @@
       "Geistige Welt",
       "Geistige Wesenheiten",
       "Kamaloka",
-      "Mentale Welt"
+      "Mentale Welt",
+      "Astrales Schauen",
+      "Astrales Licht",
+      "Arupa-Sphäre",
+      "Achte Sphäre",
+      "Arupaplan"
     ]
   },
   "Übersinnliche Erkenntnis": {
@@ -80,7 +85,8 @@
     "keywords": [
       "Bewusstseinsseele",
       "Empfindungsseele",
-      "Verstandes- & Gemütsseele"
+      "Verstandes- & Gemütsseele",
+      "Bewusstseinseele"
     ]
   },
   "Seelenfähigkeiten": {
@@ -101,29 +107,104 @@
       "Ita Wegmann",
       "Marie Steiner",
       "Karl-Julius Schröer",
-      "Darwin",
       "Aristoteles",
-      "Fichte",
       "Hegel",
       "Kant",
       "Nietzsche",
-      "Schelling",
       "Descartes, René",
+      "Thomas von Aquino",
+      "Helena Blavatsky",
+      "Herman Grimm",
+      "Hermann Bahr",
+      "Giordano Bruno",
+      "Fichte",
+      "Fechner",
+      "Descartes",
+      "Darwin",
+      "Dante",
+      "Angelus Silesius",
+      "Paracelsus",
+      "Caesar",
+      "Carnegie",
+      "Äschylos",
+      "Buddha",
+      "Dionysos",
+      "Karl von Rokitansky",
+      "Lamprecht",
+      "Lohengrin",
+      "Lessing",
+      "Leonardo da Vinci",
+      "Lotze",
+      "Mainländer",
+      "Maeterlinck",
+      "Max Planck",
+      "Maurice Maeterlinck",
+      "Meister Eckhart",
+      "Moses",
+      "Orpheus",
+      "Oscar Hertwig",
+      "Otto Liebmann",
+      "Paulus",
+      "Plato",
+      "Platon",
+      "Plotin",
+      "Richard Wagner",
+      "Robert Owen",
+      "Schelling",
+      "Schiller",
+      "Schopenhauer",
+      "Scotus Eriugena",
+      "Solowjew",
+      "Solowjow",
+      "Spencer",
       "Spinoza",
-      "Thomas von Aquino"
-    ]
-  },
-  "Wesensglieder": {
-    "description": "Die Wesensglieder des Menschen",
-    "keywords": [
-      "Physischer Leib",
-      "Ätherleib",
-      "Astralleib",
-      "Ich",
-      "Ich-Entwicklung",
-      "Geistselbst (Manas)",
-      "Lebensgeist (Buddhi, Budhi)",
-      "Geistesmensch (Atma)"
+      "Wagner",
+      "William Shakespeare",
+      "Achilles",
+      "Attila",
+      "Augustinus",
+      "Apollonius von Tyana",
+      "Dädalus",
+      "Hiram",
+      "Hiram Abiff",
+      "Huxley",
+      "Hiram-Abiff",
+      "Ikarus",
+      "Jakob Böhme",
+      "Jean Christophe",
+      "Johannes der Täufer",
+      "Joseph",
+      "Judas",
+      "Josephus",
+      "Kain",
+      "Kain und Abel",
+      "Kepler",
+      "Kopernikus",
+      "Krishna",
+      "Adolf Fick",
+      "Baco von Verulam",
+      "Bergson",
+      "Bismarck",
+      "Bolzano",
+      "Brentano",
+      "Brüder Grimm",
+      "Cagliostro",
+      "Calderón",
+      "Christian Rosenkreutz",
+      "Cyprianus",
+      "Dionysius Areopagita",
+      "Du Bois-Reymond",
+      "Edouard Schuré",
+      "Empedokles",
+      "Franz Brentano",
+      "Francesco Redi",
+      "Fra Angelico",
+      "Franz von Assisi",
+      "Fortlage",
+      "Fröbel",
+      "Garibaldi",
+      "Gandhi",
+      "Galilei"
     ]
   },
   "Seelenleben": {
@@ -210,7 +291,14 @@
       "Christliche Kunst",
       "Christliche Mystik",
       "Jesus von Nazareth",
-      "Mysterium von Golgatha"
+      "Mysterium von Golgatha",
+      "Damaskus",
+      "Apokalypse",
+      "Bergpredigt",
+      "Auferstehung",
+      "Ätherischer Christus",
+      "Christliche Gnade",
+      "Christus-Prinzip"
     ]
   },
   "Bibel & Evangelien": {
@@ -220,7 +308,10 @@
       "Bibelkritik",
       "Bibelverständnis",
       "Evangelien",
-      "Johannes-Evangelium"
+      "Johannes-Evangelium",
+      "Biblische Symbolik",
+      "Altes Testament",
+      "Hochzeit zu Kana"
     ]
   },
   "Mystik & Esoterik": {
@@ -268,21 +359,9 @@
       "Erkenntniskraft",
       "Erkenntnisparadox",
       "Erkenntnisrätsel",
-      "Erkenntnisstufen"
-    ]
-  },
-  "Philosophische Strömungen": {
-    "description": "Philosophische Richtungen und Schulen",
-    "keywords": [
-      "Idealismus",
-      "Materialismus",
-      "Materialismuskritik",
-      "Monismus",
-      "Pragmatismus",
-      "Antike Philosophie",
-      "Kritischer Idealismus",
-      "Moderne Philosophie",
-      "Neuplatonismus"
+      "Erkenntnisstufen",
+      "Spiegelmetapher",
+      "Spiegelmetapher (1)"
     ]
   },
   "Weltanschauung": {
@@ -397,7 +476,8 @@
       "Heilkunst",
       "Heilung",
       "Homöopathie",
-      "Naturheilkunde"
+      "Naturheilkunde",
+      "Heilmittel"
     ]
   },
   "Gesundheit & Krankheit": {
@@ -433,7 +513,8 @@
       "Wirtschaftsleben",
       "Freies Geistesleben",
       "Freiheit",
-      "Brüderlichkeit"
+      "Brüderlichkeit",
+      "Assoziationen"
     ]
   },
   "Wirtschaft": {
@@ -483,7 +564,8 @@
       "Todespforte",
       "Tod & Geburt",
       "Tod & Leben",
-      "Tod & Wiedergeburt"
+      "Tod & Wiedergeburt",
+      "Erinnerungstableau"
     ]
   },
   "Leben zwischen den Inkarnationen": {
@@ -516,7 +598,21 @@
       "Hierarchien",
       "Seraphim, Cherubim, Throne",
       "Exusiai, Kyriotetes, Dynamis",
-      "Angeloi, Archangeloi, Archai"
+      "Angeloi, Archangeloi, Archai",
+      "Ahrimanische Kräfte",
+      "Luziferische Wesenheiten",
+      "Abraham",
+      "Abstammung",
+      "Devas",
+      "Dhyan-Chohans",
+      "Ahura Mazdao",
+      "Asuras",
+      "Cherubim",
+      "Archai",
+      "Engel",
+      "Abbauprozess",
+      "Abendmahl",
+      "Zeitgeist"
     ]
   },
   "Hüter & Führer": {
@@ -533,7 +629,8 @@
     "keywords": [
       "Faust - Homunculus",
       "Homunculus",
-      "Mephistopheles"
+      "Mephistopheles",
+      "Chorus mysticus"
     ]
   },
   "Goethe - Märchen": {
@@ -575,7 +672,6 @@
     "description": "Deutsche Literaturgeschichte und Dichter",
     "keywords": [
       "Deutsche Literaturgeschichte",
-      "Schiller",
       "Herder",
       "Novalis"
     ]
@@ -719,7 +815,6 @@
     "keywords": [
       "Alchemie",
       "Archaeus",
-      "Paracelsus",
       "Stein der Weisen"
     ]
   },
@@ -804,7 +899,6 @@
     "keywords": [
       "Zeitfragen",
       "Zeitkritik",
-      "Zeitgeist",
       "Moderne Zivilisation"
     ]
   },
@@ -813,14 +907,6 @@
     "keywords": [
       "Mechanisierung",
       "Technisches Zeitalter"
-    ]
-  },
-  "Darwinismus": {
-    "description": "Darwinismus und Evolutionstheorie",
-    "keywords": [
-      "Kampf ums Dasein",
-      "Haeckelismus",
-      "Evolution der Organismen"
     ]
   },
   "Physiologie & Lebensprozesse": {
@@ -841,6 +927,70 @@
     "keywords": [
       "Gedächtnis",
       "Erinnerung"
+    ]
+  },
+  "Ernährung": {
+    "description": "Manuell erstellter Cluster: Ernährung",
+    "keywords": [
+      "Alkohol"
+    ]
+  },
+  "Philosophische Strömungen & Weltanschauungen": {
+    "description": "Philosophische Richtungen und Schulen",
+    "keywords": [
+      "Idealismus",
+      "Materialismus",
+      "Materialismuskritik",
+      "Monismus",
+      "Pragmatismus",
+      "Antike Philosophie",
+      "Kritischer Idealismus",
+      "Moderne Philosophie",
+      "Neuplatonismus",
+      "Agnostizismus",
+      "Aristotelismus",
+      "Deutscher Idealismus",
+      "Kantianismus",
+      "Arianismus",
+      "Atomismus",
+      "Atheismus",
+      "Bolschewismus"
+    ]
+  },
+  "Menschenkunde & Wesesglieder": {
+    "description": "Die Wesensglieder des Menschen",
+    "keywords": [
+      "Physischer Leib",
+      "Ätherleib",
+      "Astralleib",
+      "Ich",
+      "Ich-Entwicklung",
+      "Geistselbst (Manas)",
+      "Lebensgeist (Buddhi, Budhi)",
+      "Geistesmensch (Atma)",
+      "Bildekräfteleib",
+      "Buddhi",
+      "Atma",
+      "Manas",
+      "Dreigliederung des Menschen"
+    ]
+  },
+  "Darwinismus & Evolutionslehre": {
+    "description": "Darwinismus und Evolutionstheorie",
+    "keywords": [
+      "Kampf ums Dasein",
+      "Haeckelismus",
+      "Evolution der Organismen",
+      "Darwinismus",
+      "Daseinskampf",
+      "Biogenetisches Grundgesetz"
+    ]
+  },
+  "Materie & Geist": {
+    "description": "Manuell erstellter Cluster: Materie & Geist",
+    "keywords": [
+      "Materie",
+      "Geist & Materie"
     ]
   }
 }
