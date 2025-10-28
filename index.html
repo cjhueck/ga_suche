@@ -6151,22 +6151,22 @@ function showSummaryView() {
     html += `<p style="font-style: italic;">${summaryObj.summary}</p>`;
     html += '</div>';
     
-    // Zeige lectureKeywords (nur lokal mit + Button)
-    const lectureKeywords = summaryObj.lectureKeywords || [];
-    if (lectureKeywords.length > 0 || isLocal) {
-      html += '<div style="margin-bottom: 1rem;">';
-      html += '<p style="margin: 0 0 0.5rem 0;"><strong>Schlagwörter</strong></p>';
-      html += '<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">';
-      
-      lectureKeywords.forEach(kw => {
-        html += `<span style="background: #e3f2fd; padding: 3px 8px; border-radius: 3px; font-size: 0.9em;">${kw.term}</span>`;
-      });
-      
-      if (isLocal) {
+    // Zeige lectureKeywords nur lokal
+    if (isLocal) {
+      const lectureKeywords = summaryObj.lectureKeywords || [];
+      if (lectureKeywords.length > 0 || isLocal) {
+        html += '<div style="margin-bottom: 1rem;">';
+        html += '<p style="margin: 0 0 0.5rem 0;"><strong>Schlagwörter</strong></p>';
+        html += '<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">';
+        
+        lectureKeywords.forEach(kw => {
+          html += `<span style="background: #e3f2fd; padding: 3px 8px; border-radius: 3px; font-size: 0.9em;">${kw.term}</span>`;
+        });
+        
         html += `<button onclick="openAddKeywordModal('${lecture.ID}')" style="padding: 3px 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;" title="Keyword zu diesem Vortrag hinzufügen (optional: Absatz im Text anklicken für genaue Zuordnung)">+ Keyword</button>`;
+        
+        html += '</div></div>';
       }
-      
-      html += '</div></div>';
     }
     
     // Add Table of Contents after keywords - use V2 data from summaryObj if available
@@ -10483,7 +10483,7 @@ async function showTimeline(keyword, clickedButton) {
         html += `
           <div class="timeline-item enhanced">
             ${showYear ? `<div class="timeline-year">${entry.year}</div>` : '<div class="timeline-year-spacer"></div>'}
-            <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}', '${cleanIndex}')">
+            <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}', '${cleanIndex}', '${entry.keyword.term.replace(/'/g, "\\'")}')">
               <div class="timeline-lecture-number">
                 ${formatDateToDDMMYYYY(entry.date)}
               </div>
@@ -10776,15 +10776,18 @@ function generateTimelineHTML(groupedByYear) {
 }
 
 // Zeige Vortrag im Timeline-Viewer
-async function showLectureInTimeline(lectureId, targetIndex = null) {
-  console.log('[TIMELINE] Zeige Vortrag:', lectureId, targetIndex ? `mit Index: ${targetIndex}` : '');
+async function showLectureInTimeline(lectureId, targetIndex = null, keyword = null) {
+  console.log('[TIMELINE] Zeige Vortrag:', lectureId, targetIndex ? `mit Index: ${targetIndex}` : '', keyword ? `Keyword: ${keyword}` : '');
   
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
   
   // Verwende die gleiche Funktion wie in der GA-Übersicht
+  // Übergebe Keyword für Highlighting
+  const keywords = keyword ? [keyword] : [];
+  
   try {
-    await showLecture(lectureId, targetIndex, []);
+    await showLecture(lectureId, targetIndex, keywords);
     
     // Kopiere den Inhalt vom Haupt-Viewer in den Timeline-Viewer
     const mainViewer = document.getElementById('viewer');
@@ -12188,6 +12191,7 @@ async function renderTimelineContent() {
       keywordsForYear.forEach(entry => {
         const date = formatDate(entry.date);
         const lectureId = entry.lectureId || '';
+        const keywordTerm = entry.keyword.term || '';
         
         // Robustes Parsing der LectureId (GA123/4 oder GA123/ oder GA/)
         const gaMatch = lectureId.match(/GA(\d*)\/(\d*)/);
@@ -12211,9 +12215,12 @@ async function renderTimelineContent() {
         const isH3 = entry.keyword.level === 'h3';
         const linkStyle = isH3 ? 'font-weight: bold;' : '';
         
+        // Escape Keyword für JavaScript String
+        const escapedKeyword = keywordTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        
         html += `
           <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}'); return false;" class="ga-keyword-link" style="${linkStyle}">${displayLectureId}</a></div>
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}', ['${escapedKeyword}']); return false;" class="ga-keyword-link" style="${linkStyle}">${displayLectureId}</a></div>
             <div class="timeline-entry-keywords">${displayText}</div>
           </div>
         `;
