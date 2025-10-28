@@ -5372,6 +5372,13 @@ function toggleGASummaries() {
 
     async function loadRecentThematicQueries() {
       try {
+        // Nur lokal anzeigen
+        if (!isLocal) {
+          const container = document.getElementById('thematicRecentContainer');
+          if (container) container.style.display = 'none';
+          return;
+        }
+        
         const container = document.getElementById('thematicRecentContainer');
         const list = document.getElementById('thematicRecentList');
         if (!container || !list) return;

@@ -4126,8 +4126,18 @@ app.post('/api/hybrid-search', async (req, res) => {
 
 app.post('/api/thematic-hybrid-search', async (req, res) => {
   try {
-    const { query, limit = 100, gaFilter = '' } = req.body;
+    const { query, limit = 100, gaFilter = '', skipCache = false } = req.body;
     const effectiveDepth = 'ausführlich';
+    
+    // Prüfe ob Request von localhost kommt
+    const isLocalRequest = req.hostname === 'localhost' || 
+                           req.hostname === '127.0.0.1' || 
+                           req.ip === '::1' ||
+                           req.ip === '127.0.0.1';
+    
+    const shouldCache = isLocalRequest && !skipCache;
+    
+    console.log(`[THEMATIC-SEARCH] Request von: ${req.hostname || req.ip}, Cache: ${shouldCache ? 'JA' : 'NEIN'}`);
     
     // Konsolidierte Hybrid-Cache-Logik
     const cacheKey = generateThematicCacheKey(query, effectiveDepth, limit, gaFilter);
@@ -4159,12 +4169,17 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
         totalMatches: 0,
         llmUsed: false
       };
-      // Auch leere Ergebnisse cachen (um wiederholte Suchen zu vermeiden)
-      thematicDB[cacheKey] = {
-        ...emptyResult,
-        timestamp: new Date().toISOString()
-      };
-      await saveThematicSearchDatabase(thematicDB);
+      // Leere Ergebnisse nur bei localhost cachen
+      if (shouldCache) {
+        thematicDB[cacheKey] = {
+          ...emptyResult,
+          timestamp: new Date().toISOString()
+        };
+        await saveThematicSearchDatabase(thematicDB);
+        console.log('[THEMATIC-CACHE] Leeres Ergebnis gecacht (localhost)');
+      } else {
+        console.log('[THEMATIC-CACHE] Leeres Ergebnis NICHT gecacht (online)');
+      }
       return res.json(emptyResult);
     }
 
@@ -4192,18 +4207,22 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
       llmUsed: !!process.env.CLAUDE_API_KEY
     };
 
-    // Speichere Ergebnis im Cache
-    thematicDB[cacheKey] = {
-      ...searchResult,
-      timestamp: new Date().toISOString()
-    };
+    // Speichere Ergebnis nur bei localhost
+    if (shouldCache) {
+      thematicDB[cacheKey] = {
+        ...searchResult,
+        timestamp: new Date().toISOString()
+      };
 
-    // Speichere Cache-DB (non-blocking)
-    saveThematicSearchDatabase(thematicDB).then(() => {
-      console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (ausführlich, ${limit})`);
-    }).catch(err => {
-      console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
-    });
+      // Speichere Cache-DB (non-blocking)
+      saveThematicSearchDatabase(thematicDB).then(() => {
+        console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (ausführlich, ${limit}) [LOCALHOST]`);
+      }).catch(err => {
+        console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
+      });
+    } else {
+      console.log(`[THEMATIC-CACHE] Ergebnis NICHT gecacht (online): "${query}"`);
+    }
 
     return res.json(searchResult);
   } catch (error) {
