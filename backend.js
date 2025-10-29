@@ -11878,6 +11878,52 @@ app.post('/api/quotes/delete', async (req, res) => {
   }
 });
 
+// API: Thematische Suchanfrage löschen
+app.post('/api/thematic-search/delete', async (req, res) => {
+  try {
+    const { cacheKey } = req.body;
+    
+    if (!cacheKey) {
+      return res.status(400).json({ error: 'Cache-Key erforderlich' });
+    }
+    
+    // Lade Thematic-Search-Datenbank
+    const thematicDB = await loadThematicSearchDatabase();
+    
+    // Prüfe ob Key existiert
+    if (!thematicDB[cacheKey]) {
+      return res.status(404).json({ 
+        success: false,
+        error: 'Suchanfrage nicht in Datenbank gefunden' 
+      });
+    }
+    
+    // Speichere Query für Logging
+    const deletedQuery = thematicDB[cacheKey].query || 'unbekannt';
+    
+    // Lösche den Eintrag
+    delete thematicDB[cacheKey];
+    
+    // Speichere aktualisierte Datenbank
+    await saveThematicSearchDatabase(thematicDB);
+    
+    console.log(`[THEMATIC-DELETE] ✓ Suchanfrage gelöscht: "${deletedQuery}" (Key: ${cacheKey})`);
+    
+    res.json({
+      success: true,
+      message: 'Suchanfrage erfolgreich gelöscht',
+      deletedQuery: deletedQuery
+    });
+    
+  } catch (error) {
+    console.error('[THEMATIC-DELETE] Fehler beim Löschen:', error);
+    res.status(500).json({ 
+      success: false,
+      error: error.message 
+    });
+  }
+});
+
 // API: Zitat aktivieren/deaktivieren für Popup
 app.post('/api/quotes/toggle-active', async (req, res) => {
   try {
