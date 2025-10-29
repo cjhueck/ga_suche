@@ -5698,36 +5698,82 @@ function toggleGASummaries() {
       return openSavedThematicQuery(key, q);
     }
 
-    // Lösche die aktuelle Themenanzeige (nur lokal)
-    window.deleteCurrentThema = function() {
+    // Lösche die thematische Suchanfrage dauerhaft (nur lokal)
+    window.deleteCurrentThema = async function() {
+      if (!isLocal) {
+        alert('Diese Funktion ist nur in der lokalen Version verfügbar.');
+        return;
+      }
+      
       if (!currentThematicQuery) {
         alert('Kein Thema geladen.');
         return;
       }
       
-      const confirmMsg = `Möchten Sie die Anzeige des Themas "${currentThematicQuery}" wirklich löschen?`;
+      const confirmMsg = `Möchten Sie die Suchanfrage "${currentThematicQuery}" dauerhaft löschen?\n\nDies entfernt die Anfrage aus der "Zuletzt gesucht"-Liste.`;
       if (!confirm(confirmMsg)) {
         return;
       }
       
-      // Leere die Ergebnisanzeige
-      const container = document.getElementById('results');
-      if (container) {
-        container.innerHTML = '<p style="color: #666; font-style: italic;">Anzeige wurde gelöscht.</p>';
+      try {
+        // Erstelle den Cache-Key (gleiche Logik wie im Backend)
+        const gaFilter = currentThematicGAFilter || '';
+        // Normalisiere Query wie im Backend (toLowerCase + trim)
+        const normalizedQuery = currentThematicQuery.toLowerCase().trim();
+        const cacheKey = `${normalizedQuery}|ausführlich|100|${gaFilter}`;
+        
+        console.log('[THEMATIC-DELETE] Lösche Cache-Key:', cacheKey);
+        
+        // Rufe Backend-Endpunkt auf (muss im Backend implementiert sein!)
+        const response = await fetch(`${API_BASE}/api/thematic-search/delete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cacheKey: cacheKey })
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('[THEMATIC-DELETE] Server-Fehler:', response.status, errorText);
+          throw new Error(`Server-Fehler: ${response.status}. Möglicherweise fehlt der Backend-Endpunkt '/api/thematic-search/delete'.`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          console.log('[THEMATIC-DELETE] Erfolgreich gelöscht');
+          
+          // Leere die Ergebnisanzeige
+          const container = document.getElementById('results');
+          if (container) {
+            container.innerHTML = '<p style="color: #666; font-style: italic;">Thema wurde dauerhaft gelöscht.</p>';
+          }
+          
+          // Setze das Eingabefeld zurück
+          const input = document.getElementById('thematicQuery');
+          if (input) {
+            input.value = '';
+          }
+          
+          // Zurücksetzen der globalen Variablen
+          currentThematicQuery = '';
+          currentThematicGAFilter = '';
+          currentSources = [];
+          
+          // Aktualisiere die "Zuletzt gesucht"-Liste
+          try {
+            await loadRecentThematicQueries();
+          } catch (e) {
+            console.warn('[THEMATIC-DELETE] Fehler beim Aktualisieren der Liste:', e);
+          }
+          
+          alert('Suchanfrage wurde erfolgreich gelöscht.');
+        } else {
+          throw new Error(result.error || 'Unbekannter Fehler');
+        }
+      } catch (error) {
+        console.error('[THEMATIC-DELETE] Fehler beim Löschen:', error);
+        alert('Fehler beim Löschen:\n\n' + error.message + '\n\nHINWEIS: Das Backend benötigt einen Endpunkt "/api/thematic-search/delete", der den Eintrag aus "thematic-search-database.json" entfernt.');
       }
-      
-      // Setze das Eingabefeld zurück
-      const input = document.getElementById('thematicQuery');
-      if (input) {
-        input.value = '';
-      }
-      
-      // Zurücksetzen der globalen Variablen
-      currentThematicQuery = '';
-      currentThematicGAFilter = '';
-      currentSources = [];
-      
-      console.log('[THEMATIC] Anzeige gelöscht');
     }
 
     // Einfache, erweiterbare Rechtschreib-Autokorrektur für deutsche Begriffe/GA-Kontexte
@@ -6577,7 +6623,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       // Delete-Button nur in lokaler Version anzeigen
       const deleteButtonHTML = isLocal 
-        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Anzeige löschen</button>`
+        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Suchanfrage löschen</button>`
         : '';
       container.innerHTML = `
         <div class="semantic-answer">
