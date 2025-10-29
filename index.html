@@ -1885,7 +1885,7 @@ body.dark-mode .loading-tooltip::before {
   text-decoration: none;
   padding: 0;
   border: none;
-  font-weight: 600;
+  font-weight: bold !important;
 }
 
 .ga-keyword-link:hover {
@@ -10324,6 +10324,67 @@ function formatDate(dateStr) {
   }, 300);
 }
 
+// Hilfsfunktion: Finde die beste Überschrift für einen Absatz-Index
+// Bevorzugt H4 am gleichen Index, dann nächste H3 darüber
+function findBestHeadingForIndex(paragraphIndex, headings) {
+  if (!paragraphIndex || !headings || headings.length === 0) {
+    return null;
+  }
+  
+  // Normalisiere den Index (entferne ^)
+  const cleanIndex = paragraphIndex.replace(/^\^/, '');
+  
+  // Suche zuerst nach H4 mit genau diesem Index
+  const h4Match = headings.find(h => {
+    const hIndex = (h.id || h.index || '').replace(/^\^/, '');
+    return h.level === 'h4' && hIndex === cleanIndex;
+  });
+  
+  if (h4Match) {
+    console.log(`[HEADING] H4 gefunden für ${cleanIndex}:`, h4Match.text);
+    return h4Match.text;
+  }
+  
+  // Suche nach H3 mit genau diesem Index
+  const h3Match = headings.find(h => {
+    const hIndex = (h.id || h.index || '').replace(/^\^/, '');
+    return h.level === 'h3' && hIndex === cleanIndex;
+  });
+  
+  if (h3Match) {
+    console.log(`[HEADING] H3 gefunden für ${cleanIndex}:`, h3Match.text);
+    return h3Match.text;
+  }
+  
+  // Wenn keine exakte Übereinstimmung: Finde die nächstgelegene Überschrift DARÜBER
+  // Sortiere Überschriften nach Index
+  const sortedHeadings = [...headings]
+    .map(h => ({
+      ...h,
+      cleanIndex: (h.id || h.index || '').replace(/^\^/, '')
+    }))
+    .filter(h => h.cleanIndex) // Nur Überschriften mit Index
+    .sort((a, b) => a.cleanIndex.localeCompare(b.cleanIndex));
+  
+  // Finde die letzte Überschrift vor diesem Index
+  let lastHeading = null;
+  for (const heading of sortedHeadings) {
+    if (heading.cleanIndex <= cleanIndex) {
+      lastHeading = heading;
+    } else {
+      break; // Stoppe wenn wir über den gesuchten Index hinaus sind
+    }
+  }
+  
+  if (lastHeading) {
+    console.log(`[HEADING] Nächste Überschrift darüber für ${cleanIndex}:`, lastHeading.text);
+    return lastHeading.text;
+  }
+  
+  console.log(`[HEADING] Keine Überschrift gefunden für ${cleanIndex}`);
+  return null;
+}
+
 // Zeige Timeline für ein Schlagwort
 async function showTimeline(keyword, clickedButton) {
   console.log('[TIMELINE] Öffne Timeline für:', keyword);
@@ -10447,6 +10508,10 @@ async function showTimeline(keyword, clickedButton) {
       const keywordsDB = await keywordsDBResponse.json();
       console.log('[TIMELINE] Keywords-DB geladen, suche nach:', keyword);
       
+      // Lade Summary-Database für Überschriften
+      const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+      const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
+      
       // Sammle alle Vorträge mit diesem Keyword
       const timelineEntries = [];
       
@@ -10461,13 +10526,19 @@ async function showTimeline(keyword, clickedButton) {
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             if (kw.term.toLowerCase() === keyword.toLowerCase()) {
+              // Finde die beste Überschrift für diesen Absatz-Index
+              const bestHeading = findBestHeadingForIndex(
+                kw.index, 
+                summaryDB[lecture.lectureId]?.headings || []
+              );
+              
               timelineEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
                 year: lecture.year,
                 title: fullLectures[lecture.lectureId]?.title || lecture.lectureId,
                 keyword: kw,
-                heading: kw.heading || kw.term
+                heading: bestHeading || kw.heading || kw.term
               });
             }
           });
@@ -12078,10 +12149,12 @@ async function renderTimelineContent() {
   let html = '';
   
   try {
-    // Lade Keywords-Datenbank und Cluster
+    // Lade Keywords-Datenbank, Cluster und Summary-Database (für Überschriften)
     const keywordsDB = await loadKeywordsDatabase();
     const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
     const clusters = themesResponse.ok ? await themesResponse.json() : {};
+    const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+    const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
     
     let keywordEntries = [];
     
@@ -12110,17 +12183,38 @@ async function renderTimelineContent() {
           lecture.keywords.forEach(kw => {
             const kwCluster = keywordToCluster[kw.term.toLowerCase()];
             if (kwCluster === theme) {
+              // Finde beste Überschrift für diesen Absatz
+              const bestHeading = findBestHeadingForIndex(
+                kw.index, 
+                summaryDB[lecture.lectureId]?.headings || []
+              );
+              
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
                 year: lecture.year,
-                keyword: kw
+                keyword: {
+                  ...kw,
+                  heading: bestHeading || kw.heading || kw.term
+                }
               });
             }
           });
         }
       });
-      console.log(`[TIMELINE] Fall 1: Cluster "${theme}" - ${keywordEntries.length} Keywords (nur unified)`);
+      
+      // Dedupliziere: Pro Vortrag sollte dieselbe Überschrift nur einmal erscheinen
+      // (verschiedene Keywords können auf denselben Absatz zeigen)
+      const uniqueEntries = new Map();
+      keywordEntries.forEach(entry => {
+        const key = `${entry.lectureId}|||${entry.keyword.heading}`;
+        if (!uniqueEntries.has(key)) {
+          uniqueEntries.set(key, entry);
+        }
+      });
+      keywordEntries = Array.from(uniqueEntries.values());
+      
+      console.log(`[TIMELINE] Fall 1: Cluster "${theme}" - ${keywordEntries.length} eindeutige Einträge (dedupliziert nach Vortrag+Überschrift)`);
     }
     
     // FALL 2: Cluster + Keyword ausgewählt
@@ -12138,11 +12232,20 @@ async function renderTimelineContent() {
           lecture.keywords.forEach(kw => {
             const kwCluster = keywordToCluster[kw.term.toLowerCase()];
             if (kwCluster === theme && kw.term.toLowerCase() === keyword.toLowerCase()) {
+              // Finde beste Überschrift für diesen Absatz
+              const bestHeading = findBestHeadingForIndex(
+                kw.index, 
+                summaryDB[lecture.lectureId]?.headings || []
+              );
+              
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
                 year: lecture.year,
-                keyword: kw
+                keyword: {
+                  ...kw,
+                  heading: bestHeading || kw.heading || kw.term
+                }
               });
             }
           });
@@ -12165,11 +12268,20 @@ async function renderTimelineContent() {
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
             if (kw.term.toLowerCase() === keyword.toLowerCase()) {
+              // Finde beste Überschrift für diesen Absatz
+              const bestHeading = findBestHeadingForIndex(
+                kw.index, 
+                summaryDB[lecture.lectureId]?.headings || []
+              );
+              
               keywordEntries.push({
                 lectureId: lecture.lectureId,
                 date: lecture.date,
                 year: lecture.year,
-                keyword: kw
+                keyword: {
+                  ...kw,
+                  heading: bestHeading || kw.heading || kw.term
+                }
               });
             }
           });
@@ -12264,16 +12376,12 @@ async function renderTimelineContent() {
         const displayText = entry.keyword.heading || entry.keyword.term;
         const levelInfo = entry.keyword.level ? ` (${entry.keyword.level.toUpperCase()})` : '';
         
-        // H3 Keywords fett darstellen
-        const isH3 = entry.keyword.level === 'h3';
-        const linkStyle = isH3 ? 'font-weight: bold;' : '';
-        
         // Escape Keyword für JavaScript String
         const escapedKeyword = keywordTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;');
         
         html += `
           <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}', ['${escapedKeyword}']); return false;" class="ga-keyword-link" style="${linkStyle}">${displayLectureId}</a></div>
+            <div><span class="timeline-entry-date">${date}</span><a href="#" onclick="showLecture('${lectureId}', '${index}', ['${escapedKeyword}']); return false;" class="ga-keyword-link">${displayLectureId}</a></div>
             <div class="timeline-entry-keywords">${displayText}</div>
           </div>
         `;
@@ -13896,6 +14004,14 @@ async function openAddKeywordModal(lectureId) {
     paragraphInfo.innerHTML = `<span style="color: #666;">ℹ Kein Absatz ausgewählt (verwendet ersten Absatz)</span>`;
   }
   
+  // Lade bereits verknüpfte Keywords für den ausgewählten Absatz
+  if (selectedParagraphIndex) {
+    await loadExistingKeywordsForParagraph(lectureId, selectedParagraphIndex);
+  } else {
+    // Verstecke Sektion wenn kein Absatz ausgewählt
+    document.getElementById('existingKeywordsSection').style.display = 'none';
+  }
+  
   // Lade Cluster-Liste
   try {
     const response = await fetch(`${API_BASE}/api/themes-database`);
@@ -13918,6 +14034,113 @@ async function openAddKeywordModal(lectureId) {
   document.getElementById('addKeywordModal').style.display = 'block';
   document.getElementById('addKeywordOverlay').style.display = 'block';
   document.getElementById('addKeywordNameInput').focus();
+}
+
+// Lade bereits verknüpfte Keywords für einen Absatz
+async function loadExistingKeywordsForParagraph(lectureId, paragraphIndex) {
+  try {
+    console.log(`[LOAD-EXISTING-KW] Lade Keywords für ${lectureId}, Absatz ${paragraphIndex}`);
+    
+    const response = await fetch(`${API_BASE}/api/get-paragraph-keywords`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lectureId, paragraphIndex })
+    });
+    
+    if (!response.ok) {
+      console.error('[LOAD-EXISTING-KW] Fehler beim Laden:', response.status);
+      document.getElementById('existingKeywordsSection').style.display = 'none';
+      return;
+    }
+    
+    const data = await response.json();
+    const keywords = data.keywords || [];
+    
+    console.log(`[LOAD-EXISTING-KW] Gefunden: ${keywords.length} Keywords`);
+    
+    const section = document.getElementById('existingKeywordsSection');
+    const list = document.getElementById('existingKeywordsList');
+    const count = document.getElementById('existingKeywordsCount');
+    
+    if (keywords.length === 0) {
+      section.style.display = 'none';
+      return;
+    }
+    
+    // Zeige die Sektion
+    section.style.display = 'block';
+    count.textContent = keywords.length;
+    
+    // Rendere Keywords als Pills mit Löschen-Button
+    list.innerHTML = keywords.map(kw => `
+      <div style="display: flex; align-items: center; gap: 5px; background: white; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.85em;">
+        <span style="color: var(--text-color);">${kw.term}</span>
+        <button onclick="removeKeywordFromParagraph('${kw.term.replace(/'/g, "\\'")}', event)" 
+          style="background: #dc3545; color: white; border: none; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-size: 0.75em; line-height: 1;" 
+          title="Keyword entfernen">×</button>
+      </div>
+    `).join('');
+    
+  } catch (error) {
+    console.error('[LOAD-EXISTING-KW] Fehler:', error);
+    document.getElementById('existingKeywordsSection').style.display = 'none';
+  }
+}
+
+// Entferne ein Keyword von einem Absatz
+async function removeKeywordFromParagraph(keywordTerm, event) {
+  event.stopPropagation();
+  
+  try {
+    console.log(`[REMOVE-KW] Entferne "${keywordTerm}" von ${addKeywordTargetLectureId}, Absatz ${selectedParagraphIndex}`);
+    
+    const response = await fetch(`${API_BASE}/api/remove-keyword-from-paragraph`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureId: addKeywordTargetLectureId, 
+        paragraphIndex: selectedParagraphIndex, 
+        keywordTerm 
+      })
+    });
+    
+    if (!response.ok) {
+      const error = await response.json();
+      const statusDiv = document.getElementById('addKeywordStatus');
+      statusDiv.style.display = 'block';
+      statusDiv.style.background = '#f8d7da';
+      statusDiv.style.color = '#721c24';
+      statusDiv.textContent = `Fehler beim Entfernen: ${error.error || 'Unbekannter Fehler'}`;
+      setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+      return;
+    }
+    
+    const data = await response.json();
+    console.log(`[REMOVE-KW] Erfolgreich entfernt:`, data);
+    
+    // Aktualisiere die Anzeige
+    await loadExistingKeywordsForParagraph(addKeywordTargetLectureId, selectedParagraphIndex);
+    
+    // Zeige Erfolg-Nachricht
+    const statusDiv = document.getElementById('addKeywordStatus');
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = `✓ Keyword "${keywordTerm}" entfernt`;
+    
+    setTimeout(() => {
+      statusDiv.style.display = 'none';
+    }, 2000);
+    
+  } catch (error) {
+    console.error('[REMOVE-KW] Fehler:', error);
+    const statusDiv = document.getElementById('addKeywordStatus');
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Fehler beim Entfernen des Keywords';
+    setTimeout(() => { statusDiv.style.display = 'none'; }, 3000);
+  }
 }
 
 function closeAddKeywordModal() {
@@ -14014,14 +14237,23 @@ async function addKeywordToLecture() {
     statusDiv.style.color = '#155724';
     statusDiv.textContent = `✓ Keyword "${keywordName}" hinzugefügt${cluster ? ' zu Cluster "' + cluster + '"' : ''} (in beiden DBs)`;
     
-    // Schließe Modal und aktualisiere Anzeige
+    // Aktualisiere die Liste der verknüpften Keywords, falls ein Absatz ausgewählt ist
+    if (selectedParagraphIndex) {
+      await loadExistingKeywordsForParagraph(addKeywordTargetLectureId, selectedParagraphIndex);
+    }
+    
+    // Leere Eingabefeld für weiteres Hinzufügen
+    document.getElementById('addKeywordNameInput').value = '';
+    document.getElementById('addKeywordDescInput').value = '';
+    document.getElementById('addKeywordClusterSelect').value = '';
+    
+    // Optional: Modal nach 2 Sekunden schließen (oder manuell)
     setTimeout(() => {
-      closeAddKeywordModal();
-      // Lade Vortrag neu (zeigt das neue Keyword an)
-      if (currentLectureData && currentLectureData.ID === addKeywordTargetLectureId) {
-        showLecture(addKeywordTargetLectureId, null, []);
-      }
-    }, 1500);
+      statusDiv.style.display = 'none';
+    }, 3000);
+    
+    // Entferne automatisches Schließen, damit Nutzer weitere Keywords hinzufügen kann
+    // Modal bleibt offen für weitere Keyword-Eingaben
     
   } catch (error) {
     console.error('[ADD-KW] Fehler:', error);
@@ -14044,6 +14276,19 @@ async function addKeywordToLecture() {
   
   <div id="addKeywordParagraphInfo" style="margin-bottom: 1rem; padding: 8px; background: #f0f0f0; border-radius: 4px; font-size: 0.85em;">
     <span style="color: #666;">Klicken Sie auf einen Absatz im Vortrag, um ihn auszuwählen</span>
+  </div>
+  
+  <!-- Bereits verknüpfte Keywords anzeigen -->
+  <div id="existingKeywordsSection" style="display: none; margin-bottom: 1rem; padding: 10px; background: #e8f4f8; border: 1px solid #b8dce8; border-radius: 4px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+      <label style="font-size: 0.9em; color: var(--heading-color); font-weight: 600; margin: 0;">
+        Verknüpfte Keywords an diesem Absatz:
+      </label>
+      <span id="existingKeywordsCount" style="font-size: 0.75em; color: #666; background: white; padding: 2px 8px; border-radius: 3px;">0</span>
+    </div>
+    <div id="existingKeywordsList" style="display: flex; flex-wrap: wrap; gap: 5px; max-height: 150px; overflow-y: auto;">
+      <!-- Wird dynamisch befüllt -->
+    </div>
   </div>
   
   <div style="margin-bottom: 1rem;">
@@ -14092,4 +14337,5 @@ async function addKeywordToLecture() {
 <div id="addKeywordOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeAddKeywordModal()"></div>
 
 </body>
+</html> 
 </html> 
