@@ -5288,11 +5288,10 @@ function toggleGASummaries() {
         
         if (isFirstOfYear) {
           // Zeige Jahreszahl nur beim ersten Eintrag des Jahres
-          const isDarkMode = document.body.classList.contains('dark-mode');
           yearCell.textContent = year;
           yearCell.style.fontWeight = 'bold';
           yearCell.style.fontSize = '1em';
-          yearCell.style.color = isDarkMode ? '#6BA3B8' : '#467886';
+          yearCell.style.color = 'var(--heading-color)';
         } else {
           yearCell.innerHTML = '&nbsp;'; // Leeres Space für Nicht-Jahreszellen
         }
