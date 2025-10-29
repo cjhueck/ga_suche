@@ -468,7 +468,7 @@ body.dark-mode .site-sign {
       display: grid;
       grid-template-columns: 80px 1fr;
       gap: 1.5rem;
-      padding: 2rem 0.5rem 0.5rem 0.5rem;
+      padding: 0 0.5rem 0.5rem 0.5rem;
       font-size: 0.9em;
     }
     
@@ -3436,8 +3436,8 @@ body.dark-mode .welcome-start-btn:hover {
 
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
-<div id="timelineFilterSection" style="margin-bottom: 0; padding: 0.5rem 0;">
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+<div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem;">
 <div>
 <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
 <option value="">Bitte Thema wählen...</option>
@@ -3460,14 +3460,24 @@ Lade Statistiken...
 </div>
 </div>
 
-<div style="padding: 0.5rem 0; max-height: calc(100vh - 350px); overflow-y: auto;">
+<div style="padding: 0; max-height: calc(100vh - 350px); overflow-y: auto;">
 <!-- Timeline-Inhalte werden hier angezeigt -->
 </div>
 </div>
 
 <div class="tab-content" id="zitate-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0;">
-<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+  <h3 style="margin: 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
+  <button id="toggleQuotePopupBtn" onclick="toggleQuotePopup()" style="display: none; padding: 6px 12px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap;">
+    <span id="toggleQuotePopupText">Auto-Popup: An</span>
+  </button>
+</div>
+
+<!-- Info: Zitat aus Vortrag speichern (nur lokal) -->
+<div id="quoteFromTextInfo" style="display: none; margin-bottom: 1rem; padding: 0.8rem; background: #e8f4f8; border-left: 4px solid #467886; font-size: 0.85em; color: var(--text-color);">
+  <strong>💡 Tipp:</strong> Sie können Zitate direkt aus einem Vortrag speichern: <strong>Alt+Klick</strong> auf einen Absatz öffnet den Speichern-Dialog mit automatischer Quellenverknüpfung.
+</div>
 
 <!-- Neues Zitat erstellen -->
 <div style="margin-bottom: 1.5rem; padding: 1rem; background: #f0f8ff; border: 1px solid #b8dce8; border-radius: 4px;">
@@ -3586,7 +3596,7 @@ Bestehende Schlagwörter überschreiben
 </div>
 
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
-<div style="padding: 0.5rem 0;">
+<div style="padding: 0.5rem 0 2rem 0;">
 <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">
   KI-Bearbeitung von Vorträgen
 </h3>
@@ -3651,7 +3661,7 @@ Bestehende Schlagwörter überschreiben
     </div>
   </div>
   
-  <div id="gaBatchResults" style="display: none; margin-top: 1rem; padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
+  <div id="gaBatchResults" style="display: none; margin-top: 1rem; margin-bottom: 2rem; padding: 0.8rem; background: var(--background-color); border-radius: 4px; border: 1px solid var(--border-color);">
     <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Batch-Ergebnisse</h4>
     <div style="display: grid; grid-template-columns: auto 1fr; gap: 0.3rem 1rem; font-size: 0.85em;">
       <span style="color: var(--secondary-text);">GA-Band:</span>
@@ -8951,11 +8961,24 @@ if (!isLocalhost) {
     texteAdminButtons.style.display = 'flex';
     console.log('[INIT] Texte-Admin-Buttons sichtbar (Lokale Umgebung)');
   }
+  
+  // Toggle-Button für Auto-Popup anzeigen
+  const toggleQuotePopupBtn = document.getElementById("toggleQuotePopupBtn");
+  if (toggleQuotePopupBtn) {
+    toggleQuotePopupBtn.style.display = 'block';
+    updateQuotePopupButtonText();
+    console.log('[INIT] Quote-Popup-Toggle-Button sichtbar (Lokale Umgebung)');
+  }
 }
 
-// Auto-Popup nach 1 Minute (lokal und online)
+// Auto-Popup nach 1 Minute (nur wenn aktiviert)
 setTimeout(() => {
-  openQuotesPopup();
+  const isEnabled = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
+  if (isEnabled) {
+    openQuotesPopup();
+  } else {
+    console.log('[QUOTES-POPUP] Auto-Popup deaktiviert');
+  }
 }, 60000); // 60 Sekunden
   
   const gaFilter = document.getElementById("gaFilter");
@@ -14464,8 +14487,16 @@ let addKeywordTargetLectureId = null;
 let selectedParagraphIndex = null;
 
 // Absatz für Keyword-Zuordnung auswählen (nur lokal, nur mit Strg+Klick)
+// Alt+Klick öffnet Dialog zum Speichern als Zitat
 function selectParagraphForKeyword(paragraphIndex, element, event) {
   if (!isLocal) return;
+  
+  // Alt+Klick: Als Zitat speichern
+  if (event && event.altKey) {
+    event.preventDefault();
+    openSaveQuoteDialog(paragraphIndex, element);
+    return;
+  }
   
   // Nur bei Strg+Klick (oder Cmd+Klick auf Mac) reagieren
   if (!event || (!event.ctrlKey && !event.metaKey)) {
@@ -15096,9 +15127,58 @@ async function editQuote(quoteId) {
 }
 
 // Öffne Zitate-Popup
-function openQuotesPopup() {
-  document.getElementById('quotesPopup').style.display = 'flex';
-  loadQuotesIntoPopup();
+async function openQuotesPopup() {
+  try {
+    // Prüfe erst, ob aktive Zitate vorhanden sind
+    const response = await fetch(`${API_BASE}/api/quotes`);
+    if (!response.ok) return;
+    
+    const quotesDB = await response.json();
+    const activeQuotes = (quotesDB.quotes || []).filter(q => q.isActive);
+    
+    // Nur öffnen, wenn aktive Zitate existieren
+    if (activeQuotes.length === 0) {
+      console.log('[QUOTES-POPUP] Keine aktiven Zitate vorhanden - Popup wird nicht geöffnet');
+      return;
+    }
+    
+    document.getElementById('quotesPopup').style.display = 'flex';
+    loadQuotesIntoPopup();
+  } catch (error) {
+    console.error('[QUOTES-POPUP] Fehler beim Prüfen:', error);
+  }
+}
+
+// Toggle Auto-Popup an/aus (nur lokal)
+function toggleQuotePopup() {
+  const currentState = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
+  const newState = !currentState;
+  
+  localStorage.setItem('quotePopupEnabled', newState ? 'true' : 'false');
+  updateQuotePopupButtonText();
+  
+  console.log('[QUOTES-POPUP] Auto-Popup', newState ? 'aktiviert' : 'deaktiviert');
+}
+
+// Aktualisiere Button-Text
+function updateQuotePopupButtonText() {
+  const isEnabled = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
+  const textElement = document.getElementById('toggleQuotePopupText');
+  const btnElement = document.getElementById('toggleQuotePopupBtn');
+  
+  if (textElement) {
+    textElement.textContent = isEnabled ? 'Auto-Popup: An' : 'Auto-Popup: Aus';
+  }
+  
+  if (btnElement) {
+    if (isEnabled) {
+      btnElement.style.color = '#5cb85c';
+      btnElement.style.borderColor = '#5cb85c';
+    } else {
+      btnElement.style.color = '#d9534f';
+      btnElement.style.borderColor = '#d9534f';
+    }
+  }
 }
 
 // Schließe Zitate-Popup
@@ -15136,17 +15216,147 @@ async function loadQuotesIntoPopup() {
       }
     }
     
+    // Erstelle Quellenlink wenn lectureId vorhanden und nicht 'manual'
+    let sourceLink = '';
+    if (randomQuote.lectureId && randomQuote.lectureId !== 'manual') {
+      sourceLink = `<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${randomQuote.lectureId}', '${randomQuote.paragraphIndex}'), 100); closeQuotesPopup(); return false;" 
+                       class="h3-keyword-link" style="font-weight: normal;">
+                      ${randomQuote.lectureId}
+                    </a>`;
+    }
+    
     container.innerHTML = `
       <div style="font-style: italic; font-size: 1.1em; line-height: 1.6; margin-bottom: 1rem; text-align: justify;">
         „${randomQuote.text}"
       </div>
       <div style="text-align: right; font-size: 0.9em; color: #666;">
-        ${dateStr ? `(${dateStr})` : ''}
+        ${dateStr ? `(${dateStr}${sourceLink ? ', ' : ''})` : ''}${sourceLink}
       </div>
     `;
     
   } catch (error) {
     console.error('[QUOTES-POPUP] Fehler:', error);
+  }
+}
+
+// ============================================================================
+// ZITAT AUS ABSATZ SPEICHERN (nur lokal)
+// ============================================================================
+
+let saveQuoteData = null;
+
+// Öffne Dialog zum Speichern eines Zitats aus einem Absatz
+function openSaveQuoteDialog(paragraphIndex, element) {
+  if (!isLocal || !currentLectureData) {
+    console.warn('[SAVE-QUOTE] Nur lokal verfügbar oder kein Vortrag geladen');
+    return;
+  }
+  
+  // Extrahiere Absatztext (entferne HTML-Tags)
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = element.innerHTML;
+  const paragraphText = tempDiv.textContent.trim();
+  
+  // Speichere Daten für später
+  saveQuoteData = {
+    lectureId: currentLectureData.ID,
+    paragraphIndex: paragraphIndex,
+    date: currentLectureData.date || '',
+    text: paragraphText
+  };
+  
+  // Fülle Modal-Felder
+  document.getElementById('saveQuoteLectureId').textContent = saveQuoteData.lectureId;
+  document.getElementById('saveQuoteParagraphIndex').textContent = paragraphIndex;
+  document.getElementById('saveQuoteText').value = paragraphText;
+  document.getElementById('saveQuoteActive').checked = true;
+  
+  // Zeige Modal
+  document.getElementById('saveQuoteModal').style.display = 'block';
+  document.getElementById('saveQuoteOverlay').style.display = 'block';
+  
+  // Fokus auf Textarea
+  setTimeout(() => {
+    document.getElementById('saveQuoteText').focus();
+  }, 100);
+  
+  console.log('[SAVE-QUOTE] Dialog geöffnet für:', saveQuoteData.lectureId, paragraphIndex);
+}
+
+// Schließe Save-Quote-Dialog
+function closeSaveQuoteDialog() {
+  document.getElementById('saveQuoteModal').style.display = 'none';
+  document.getElementById('saveQuoteOverlay').style.display = 'none';
+  saveQuoteData = null;
+  
+  // Status zurücksetzen
+  const statusDiv = document.getElementById('saveQuoteStatus');
+  statusDiv.style.display = 'none';
+  statusDiv.textContent = '';
+}
+
+// Bestätige und speichere Zitat
+async function confirmSaveQuote() {
+  if (!saveQuoteData) {
+    console.warn('[SAVE-QUOTE] Keine Daten vorhanden');
+    return;
+  }
+  
+  const statusDiv = document.getElementById('saveQuoteStatus');
+  const quoteText = document.getElementById('saveQuoteText').value.trim();
+  const isActive = document.getElementById('saveQuoteActive').checked;
+  
+  if (!quoteText) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Bitte geben Sie einen Zitat-Text ein.';
+    return;
+  }
+  
+  try {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#d1ecf1';
+    statusDiv.style.color = '#0c5460';
+    statusDiv.textContent = 'Speichere Zitat...';
+    
+    const quoteData = {
+      text: quoteText,
+      lectureId: saveQuoteData.lectureId,
+      paragraphIndex: saveQuoteData.paragraphIndex,
+      date: saveQuoteData.date,
+      isActive: isActive
+    };
+    
+    const response = await fetch(`${API_BASE}/api/quotes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(quoteData)
+    });
+    
+    if (!response.ok) {
+      throw new Error('Fehler beim Speichern');
+    }
+    
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = '✓ Zitat erfolgreich gespeichert!';
+    
+    // Aktualisiere Zitate-Liste im Tab
+    await loadQuotes();
+    
+    // Schließe Dialog nach kurzer Verzögerung
+    setTimeout(() => {
+      closeSaveQuoteDialog();
+    }, 1500);
+    
+    console.log('[SAVE-QUOTE] Zitat gespeichert:', quoteData.lectureId, quoteData.paragraphIndex);
+    
+  } catch (error) {
+    console.error('[SAVE-QUOTE] Fehler:', error);
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Fehler: ' + error.message;
   }
 }
 
@@ -15611,6 +15821,52 @@ async function addKeywordToLecture() {
 
 <!-- Overlay für Keyword Management Modal -->
 <div id="kwMgmtOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeKeywordManagementModal()"></div>
+
+<!-- Modal: Zitat aus Absatz speichern (nur lokal) -->
+<div id="saveQuoteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid #467886; border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Zitat speichern</h3>
+  
+  <div style="margin-bottom: 1rem; padding: 0.8rem; background: #f0f8ff; border: 1px solid #b8dce8; border-radius: 4px;">
+    <div style="font-size: 0.85em; color: var(--secondary-text); margin-bottom: 0.3rem;">
+      <strong>Quelle:</strong> <span id="saveQuoteLectureId"></span>
+    </div>
+    <div style="font-size: 0.85em; color: var(--secondary-text);">
+      <strong>Absatz-Index:</strong> <span id="saveQuoteParagraphIndex"></span>
+    </div>
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
+      Zitat-Text:
+    </label>
+    <textarea id="saveQuoteText" 
+              style="width: 100%; min-height: 200px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; font-family: inherit; resize: vertical; line-height: 1.5; background: var(--input-bg); color: var(--text-color);"></textarea>
+    <div style="font-size: 0.75em; color: var(--secondary-text); margin-top: 0.3rem;">
+      Sie können den Text vor dem Speichern bearbeiten.
+    </div>
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+      <input type="checkbox" id="saveQuoteActive" checked style="margin: 0;">
+      <span style="font-size: 0.9em; color: var(--text-color);">Als aktives Zitat markieren (erscheint im Auto-Popup)</span>
+    </label>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <button onclick="closeSaveQuoteDialog()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; flex: 1; background: transparent; color: var(--text-color); border: 1px solid var(--border-color);">
+      Abbrechen
+    </button>
+    <button onclick="confirmSaveQuote()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; flex: 1; background: #5cb85c; color: white;">
+      Zitat speichern
+    </button>
+  </div>
+  
+  <div id="saveQuoteStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+</div>
+
+<!-- Overlay für Save Quote Modal -->
+<div id="saveQuoteOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeSaveQuoteDialog()"></div>
 
 <!-- Zitate-Popup Modal -->
 <div id="quotesPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 12000; align-items: center; justify-content: center;">
