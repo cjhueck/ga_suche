@@ -6032,6 +6032,112 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
   }
 });
 
+// API: Keywords eines spezifischen Absatzes abrufen
+app.post('/api/get-paragraph-keywords', async (req, res) => {
+  try {
+    const { lectureId, paragraphIndex } = req.body;
+    
+    if (!lectureId || !paragraphIndex) {
+      return res.status(400).json({ error: 'lectureId und paragraphIndex sind erforderlich' });
+    }
+    
+    console.log(`[GET-PARA-KW] Lade Keywords für ${lectureId}, Absatz ${paragraphIndex}`);
+    
+    // Lade Keywords aus beiden Datenbanken
+    const keywordsDB = await loadKeywordsDatabase();
+    const summaryDB = await loadSummaryDatabase();
+    
+    const keywords = [];
+    
+    // Prüfe Keywords-Database
+    if (keywordsDB[lectureId] && keywordsDB[lectureId].keywords) {
+      const matchingKW = keywordsDB[lectureId].keywords.filter(kw => kw.index === paragraphIndex);
+      keywords.push(...matchingKW);
+    }
+    
+    // Prüfe Summary-Database (falls unterschiedlich)
+    if (summaryDB[lectureId] && summaryDB[lectureId].lectureKeywords) {
+      const matchingKW = summaryDB[lectureId].lectureKeywords.filter(kw => kw.index === paragraphIndex);
+      // Füge nur hinzu wenn noch nicht vorhanden
+      matchingKW.forEach(kw => {
+        if (!keywords.some(existing => existing.term === kw.term)) {
+          keywords.push(kw);
+        }
+      });
+    }
+    
+    console.log(`[GET-PARA-KW] Gefunden: ${keywords.length} Keywords`);
+    
+    res.json({ 
+      success: true, 
+      keywords: keywords 
+    });
+    
+  } catch (error) {
+    console.error('[GET-PARA-KW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Keyword von einem spezifischen Absatz löschen
+app.post('/api/remove-keyword-from-paragraph', async (req, res) => {
+  try {
+    const { lectureId, paragraphIndex, keywordTerm } = req.body;
+    
+    if (!lectureId || !paragraphIndex || !keywordTerm) {
+      return res.status(400).json({ error: 'lectureId, paragraphIndex und keywordTerm sind erforderlich' });
+    }
+    
+    console.log(`[REMOVE-PARA-KW] Entferne "${keywordTerm}" von ${lectureId}, Absatz ${paragraphIndex}`);
+    
+    let removedCount = 0;
+    
+    // 1. Aktualisiere Keywords-Database
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    if (keywordsDB[lectureId] && keywordsDB[lectureId].keywords) {
+      const beforeCount = keywordsDB[lectureId].keywords.length;
+      keywordsDB[lectureId].keywords = keywordsDB[lectureId].keywords.filter(kw => 
+        !(kw.index === paragraphIndex && kw.term === keywordTerm)
+      );
+      const afterCount = keywordsDB[lectureId].keywords.length;
+      removedCount += (beforeCount - afterCount);
+      
+      await saveCompleteKeywordsDatabase(keywordsDB);
+      console.log(`[REMOVE-PARA-KW] ✓ Keywords-Database: ${beforeCount - afterCount} entfernt`);
+    }
+    
+    // 2. Aktualisiere Summary-Database
+    const summaryDB = await loadSummaryDatabase();
+    
+    if (summaryDB[lectureId] && summaryDB[lectureId].lectureKeywords) {
+      const beforeCount = summaryDB[lectureId].lectureKeywords.length;
+      summaryDB[lectureId].lectureKeywords = summaryDB[lectureId].lectureKeywords.filter(kw => 
+        !(kw.index === paragraphIndex && kw.term === keywordTerm)
+      );
+      const afterCount = summaryDB[lectureId].lectureKeywords.length;
+      removedCount += (beforeCount - afterCount);
+      
+      await saveSummaryDatabase(summaryDB);
+      console.log(`[REMOVE-PARA-KW] ✓ Summary-Database: ${beforeCount - afterCount} entfernt`);
+    }
+    
+    if (removedCount === 0) {
+      return res.status(404).json({ error: 'Keyword nicht gefunden' });
+    }
+    
+    res.json({ 
+      success: true, 
+      message: `Keyword "${keywordTerm}" von Absatz ${paragraphIndex} entfernt`,
+      removedCount: removedCount
+    });
+    
+  } catch (error) {
+    console.error('[REMOVE-PARA-KW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/save-summary', async (req, res) => {
   try {
     const { lectureId, summary } = req.body;

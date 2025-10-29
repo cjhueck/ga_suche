@@ -370155,39 +370155,6 @@
         "level": "h3"
       },
       {
-        "term": "Empfindungsseele",
-        "index": "^6azb4f",
-        "heading": "Saturn als Archetyp des Sonnensystems",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Empfindungsseele",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h4"
-      },
-      {
-        "term": "Verstandes- & Gemütsseele",
-        "index": "^6azb4f",
-        "heading": "Saturn als Archetyp des Sonnensystems",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Verstandes- & Gemütsseele",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h4"
-      },
-      {
-        "term": "Bewusstseinsseele",
-        "index": "^6azb4f",
-        "heading": "Saturn als Archetyp des Sonnensystems",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Bewusstseinsseele",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h4"
-      },
-      {
         "term": "Atlantis",
         "index": "^tiu7z3",
         "heading": "Entstehung der Planetoiden",
@@ -373102,39 +373069,6 @@
         "matchedExisting": "Bibel",
         "summaryMentioned": false,
         "confidence": 0.95,
-        "level": "h3"
-      },
-      {
-        "term": "Empfindungsseele",
-        "index": "^5te0tt",
-        "heading": "Die esoterische Bedeutung der seelischen Elemente",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Empfindungsseele",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Verstandes- & Gemütsseele",
-        "index": "^5te0tt",
-        "heading": "Die esoterische Bedeutung der seelischen Elemente",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Verstandes- & Gemütsseele",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Bewusstseinsseele",
-        "index": "^5te0tt",
-        "heading": "Die esoterische Bedeutung der seelischen Elemente",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Bewusstseinsseele",
-        "summaryMentioned": true,
-        "confidence": 1,
         "level": "h3"
       },
       {
@@ -430841,50 +430775,6 @@
         "matchType": "existing-exact",
         "matchedExisting": "Dreigliedrigkeit des Menschen",
         "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Ätherleib",
-        "index": "^moma8w",
-        "heading": "Die okkulte Anatomie der Hauptöffnungen",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Ätherleib",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Astralleib",
-        "index": "^moma8w",
-        "heading": "Die okkulte Anatomie der Hauptöffnungen",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Astralleib",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Empfindungsseele",
-        "index": "^moma8w",
-        "heading": "Die okkulte Anatomie der Hauptöffnungen",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Empfindungsseele",
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Verstandes- & Gemütsseele",
-        "index": "^moma8w",
-        "heading": "Die okkulte Anatomie der Hauptöffnungen",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Verstandes- & Gemütsseele",
-        "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
       },
