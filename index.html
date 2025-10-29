@@ -5698,73 +5698,36 @@ function toggleGASummaries() {
       return openSavedThematicQuery(key, q);
     }
 
-    // Lösche das aktuell geladene Thema (nur lokal)
-    async function deleteCurrentThema() {
-      if (!isLocal) {
-        alert('Diese Funktion ist nur in der lokalen Version verfügbar.');
-        return;
-      }
-      
+    // Lösche die aktuelle Themenanzeige (nur lokal)
+    window.deleteCurrentThema = function() {
       if (!currentThematicQuery) {
         alert('Kein Thema geladen.');
         return;
       }
       
-      const confirmMsg = `Möchten Sie das Thema "${currentThematicQuery}" wirklich löschen?`;
+      const confirmMsg = `Möchten Sie die Anzeige des Themas "${currentThematicQuery}" wirklich löschen?`;
       if (!confirm(confirmMsg)) {
         return;
       }
       
-      try {
-        // Erstelle den Cache-Key (gleiche Logik wie im Backend)
-        const gaFilter = currentThematicGAFilter || '';
-        const cacheKey = `${currentThematicQuery}|7|100|${gaFilter}`;
-        
-        const response = await fetch(`${API_BASE}/api/delete-thematic-search`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ cacheKey: cacheKey })
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Server Error: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        
-        if (result.success) {
-          alert('Thema erfolgreich gelöscht.');
-          
-          // Leere die Ergebnisanzeige
-          const container = document.getElementById('results');
-          if (container) {
-            container.innerHTML = '<p style="color: #666; font-style: italic;">Thema wurde gelöscht.</p>';
-          }
-          
-          // Setze das Eingabefeld zurück
-          const input = document.getElementById('thematicQuery');
-          if (input) {
-            input.value = '';
-          }
-          
-          // Aktualisiere die Liste der zuletzt gesuchten Themen
-          try {
-            loadRecentThematicQueries();
-          } catch (e) {
-            console.warn('Fehler beim Aktualisieren der Themenliste:', e);
-          }
-          
-          // Zurücksetzen der globalen Variablen
-          currentThematicQuery = '';
-          currentThematicGAFilter = '';
-          currentSources = [];
-        } else {
-          alert('Fehler beim Löschen: ' + (result.error || 'Unbekannter Fehler'));
-        }
-      } catch (error) {
-        console.error('Fehler beim Löschen des Themas:', error);
-        alert('Fehler beim Löschen des Themas: ' + error.message);
+      // Leere die Ergebnisanzeige
+      const container = document.getElementById('results');
+      if (container) {
+        container.innerHTML = '<p style="color: #666; font-style: italic;">Anzeige wurde gelöscht.</p>';
       }
+      
+      // Setze das Eingabefeld zurück
+      const input = document.getElementById('thematicQuery');
+      if (input) {
+        input.value = '';
+      }
+      
+      // Zurücksetzen der globalen Variablen
+      currentThematicQuery = '';
+      currentThematicGAFilter = '';
+      currentSources = [];
+      
+      console.log('[THEMATIC] Anzeige gelöscht');
     }
 
     // Einfache, erweiterbare Rechtschreib-Autokorrektur für deutsche Begriffe/GA-Kontexte
@@ -6614,7 +6577,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       const safeHeading = headingWithGA.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       // Delete-Button nur in lokaler Version anzeigen
       const deleteButtonHTML = isLocal 
-        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Thema löschen</button>`
+        ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Anzeige löschen</button>`
         : '';
       container.innerHTML = `
         <div class="semantic-answer">
@@ -15335,14 +15298,14 @@ async function confirmSaveQuote() {
       isActive: isActive
     };
     
-    const response = await fetch(`${API_BASE}/api/quotes`, {
+    const response = await fetch(`${API_BASE}/api/quotes/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(quoteData)
     });
     
     if (!response.ok) {
-      throw new Error('Fehler beim Speichern');
+      throw new Error('Server-Fehler');
     }
     
     statusDiv.style.background = '#d4edda';
@@ -15350,7 +15313,7 @@ async function confirmSaveQuote() {
     statusDiv.textContent = '✓ Zitat erfolgreich gespeichert!';
     
     // Aktualisiere Zitate-Liste im Tab
-    await loadQuotes();
+    await loadQuotesForTab();
     
     // Schließe Dialog nach kurzer Verzögerung
     setTimeout(() => {
