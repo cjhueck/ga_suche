@@ -4678,24 +4678,26 @@ function navigateBackToTexteGA() {
   // Wechsle zum Texte-Tab
   switchTab('texte');
   
-  // Warte kurz, dann öffne den Vortrag oder GA-Übersicht
+  // Warte kurz, dann öffne GA-Übersicht und Vortrag
   setTimeout(async () => {
     try {
+      // Setze GA-Dropdown
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter) {
+        texteGAFilter.value = savedGA;
+        console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
+      }
+      
+      // Öffne GA-Übersicht im linken Panel
+      console.log('[NAVIGATION] Lade GA-Übersicht:', savedGA);
+      await openGAOverview(savedGA);
+      console.log('[NAVIGATION] ✓ GA-Übersicht geladen');
+      
+      // Wenn ein spezifischer Vortrag vorhanden, öffne ihn im Hauptbereich
       if (savedLecture) {
-        // Öffne den spezifischen Vortrag
         console.log('[NAVIGATION] Öffne Vortrag:', savedLecture);
         await showLecture(savedLecture);
         console.log('[NAVIGATION] ✓ Vortrag geöffnet');
-      } else {
-        // Fallback: Öffne GA-Übersicht
-        const texteGAFilter = document.getElementById('texteGAFilter');
-        if (texteGAFilter) {
-          texteGAFilter.value = savedGA;
-          console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
-        }
-        
-        await openGAOverview(savedGA);
-        console.log('[NAVIGATION] GA-Übersicht geladen für:', savedGA);
       }
     } catch (error) {
       console.error('[NAVIGATION] Fehler beim Öffnen:', error);
