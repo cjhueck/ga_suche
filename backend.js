@@ -6188,6 +6188,64 @@ app.post('/api/remove-keyword-from-paragraph', async (req, res) => {
   }
 });
 
+// Update Keyword in einem Vortrag
+app.post('/api/update-lecture-keyword', async (req, res) => {
+  try {
+    const { lectureId, oldKeyword, newKeyword } = req.body;
+    
+    if (!lectureId || !oldKeyword || !newKeyword) {
+      return res.status(400).json({ error: 'Lecture ID, oldKeyword und newKeyword erforderlich' });
+    }
+    
+    console.log(`[UPDATE-KW] Aktualisiere "${oldKeyword.term}" zu "${newKeyword.term}" in ${lectureId}`);
+    
+    // 1. Aktualisiere Keywords-Database
+    const keywordsDB = await loadKeywordsDatabase();
+    
+    if (keywordsDB[lectureId] && keywordsDB[lectureId].keywords) {
+      const kwIndex = keywordsDB[lectureId].keywords.findIndex(kw => 
+        kw.term === oldKeyword.term && kw.index === oldKeyword.index
+      );
+      
+      if (kwIndex !== -1) {
+        keywordsDB[lectureId].keywords[kwIndex] = {
+          ...keywordsDB[lectureId].keywords[kwIndex],
+          ...newKeyword
+        };
+        await saveCompleteKeywordsDatabase(keywordsDB);
+        console.log(`[UPDATE-KW] ✓ Keywords-Database aktualisiert`);
+      }
+    }
+    
+    // 2. Aktualisiere Summary-Database
+    const summaryDB = await loadSummaryDatabase();
+    
+    if (summaryDB[lectureId] && summaryDB[lectureId].lectureKeywords) {
+      const kwIndex = summaryDB[lectureId].lectureKeywords.findIndex(kw => 
+        kw.term === oldKeyword.term && kw.index === oldKeyword.index
+      );
+      
+      if (kwIndex !== -1) {
+        summaryDB[lectureId].lectureKeywords[kwIndex] = {
+          ...summaryDB[lectureId].lectureKeywords[kwIndex],
+          ...newKeyword
+        };
+        await saveCompleteSummaryDatabase(summaryDB);
+        console.log(`[UPDATE-KW] ✓ Summary-Database aktualisiert`);
+      }
+    }
+    
+    res.json({
+      success: true,
+      message: `Keyword "${newKeyword.term}" aktualisiert`
+    });
+    
+  } catch (error) {
+    console.error('[UPDATE-KW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.post('/api/save-summary', async (req, res) => {
   try {
     const { lectureId, summary } = req.body;

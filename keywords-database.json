@@ -279624,5 +279624,100 @@
     "generated": "2025-10-28T21:26:44.451Z",
     "generationMethod": "manual-add",
     "location": "Berlin"
+  },
+  "GA054/1": {
+    "lectureId": "GA054/1",
+    "date": "1905-10-05",
+    "year": 1905,
+    "gaVolume": "GA054",
+    "summary": "Rudolf Steiner setzt sich in diesem Vortrag differenziert mit Ernst Haeckels materialistischer Weltanschauung auseinander. Er würdigt Haeckels wissenschaftlichen Mut und seine zusammenfassende Darstellungskraft, kritisiert aber die materialistische Deutung der naturwissenschaftlichen Entdeckungen. Steiner zeigt auf, dass die Grenzen der Naturwissenschaft nicht die Grenzen der Erkenntnis überhaupt sind, sondern nur die der sinnlichen Erkenntnis. Die Theosophie kann durch die Entwicklung höherer Wahrnehmungsorgane über diese Grenzen hinausgehen. Er präsentiert eine geisteswissenschaftliche Abstammungslehre, wonach die Menschenseele bereits vor der körperlichen Entwicklung existierte und die Evolution der Arten durch spirituelle Kräfte leitete. So werden Haeckels naturwissenschaftliche Erkenntnisse nicht widerlegt, sondern auf einer höheren Ebene integriert und geistig durchdrungen.",
+    "keywords": [
+      {
+        "term": "Ernst Haeckel",
+        "index": "^asamtz",
+        "heading": "Steiners persönliche Haltung zu Haeckel",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Du Bois-Reymond",
+        "index": "^uj8v3c",
+        "heading": "Du Bois-Reymonds Welträtsel und die Grenzen der Naturforschung",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sieben Welträtsel",
+        "index": "^42cc17",
+        "heading": "Die sieben Welträtsel",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Träume",
+        "index": "^xrcjai",
+        "heading": "Der Weg über die Träume zur höheren Wahrnehmung",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophische Abstammungslehre",
+        "index": "^ekfi7f",
+        "heading": "Die wahre theosophische Entwickelungslehre",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Stammbaum",
+        "index": "^olis5o",
+        "heading": "Vergleich der Stammbäume Haeckels und der Geisteswissenschaft",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Materialistische Naturwissenschaft",
+        "index": "^x330bu",
+        "heading": "Die materialistische Naturwissenschaft der 1840er-50er Jahre",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      }
+    ],
+    "generated": "2025-10-29T18:29:09.303Z",
+    "generationMethod": "manual-add"
   }
 }

@@ -24796,46 +24796,6 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Materialismus",
-        "index": "^tfytpq",
-        "heading": "Die Wende zum Materialismus",
-        "level": "h4",
-        "matchType": "exact",
-        "matchedExisting": "Materialismus",
-        "confidence": 0.95,
-        "theme": "Philosophische Strömungen"
-      },
-      {
-        "term": "Naturwissenschaft",
-        "index": "^ryxmiu",
-        "heading": "Darwin und die materialistische Deutung",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Naturwissenschaft",
-        "confidence": 0.95,
-        "theme": "Naturwissenschaft"
-      },
-      {
-        "term": "Geisteswissenschaft",
-        "index": "^qcsuf0",
-        "heading": "Theosophie als Entwicklung höherer Erkenntnisfähigkeiten",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Geisteswissenschaft",
-        "confidence": 0.95,
-        "theme": "Geisteswissenschaft"
-      },
-      {
-        "term": "Erkenntnis",
-        "index": "^uj8v3c",
-        "heading": "Du Bois-Reymonds Welträtsel und die Grenzen der Naturforschung",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Erkenntnis",
-        "confidence": 0.95,
-        "theme": "Erkenntnistheorie"
-      },
-      {
         "term": "Geistige Entwicklung",
         "index": "^4k5tn0",
         "heading": "Die geisteswissenschaftliche Abstammungslehre",
@@ -24856,24 +24816,88 @@
         "theme": "Entwicklung & Evolution"
       },
       {
-        "term": "Integration von Wissenschaften",
-        "index": "^gquhm6",
-        "heading": "Die Versöhnung von Naturwissenschaft und Geisteswissenschaft",
-        "level": "h3",
-        "matchType": "new",
+        "term": "Ernst Haeckel",
+        "index": "^asamtz",
+        "heading": "Steiners persönliche Haltung zu Haeckel",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
         "matchedExisting": null,
-        "confidence": 0.6,
-        "theme": "Naturwissenschaft"
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
       },
       {
-        "term": "Theosophische Weltanschauung",
-        "index": "^c4f0io",
-        "heading": "Die einheitliche theosophische Weltanschauung",
-        "level": "h4",
-        "matchType": "new",
+        "term": "Du Bois-Reymond",
+        "index": "^uj8v3c",
+        "heading": "Du Bois-Reymonds Welträtsel und die Grenzen der Naturforschung",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
         "matchedExisting": null,
-        "confidence": 0.6,
-        "theme": "Anthroposophie & Theosophie"
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Sieben Welträtsel",
+        "index": "^42cc17",
+        "heading": "Die sieben Welträtsel",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Träume",
+        "index": "^xrcjai",
+        "heading": "Der Weg über die Träume zur höheren Wahrnehmung",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Theosophische Abstammungslehre",
+        "index": "^ekfi7f",
+        "heading": "Die wahre theosophische Entwickelungslehre",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Stammbaum",
+        "index": "^olis5o",
+        "heading": "Vergleich der Stammbäume Haeckels und der Geisteswissenschaft",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Materialistische Naturwissenschaft",
+        "index": "^x330bu",
+        "heading": "Die materialistische Naturwissenschaft der 1840er-50er Jahre",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
       }
     ],
     "version": "v2",

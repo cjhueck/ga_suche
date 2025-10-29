@@ -151,6 +151,12 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       border-left: 4px solid #467886;
     }
     
+    /* Keyword Management Item Hover */
+    .kw-mgmt-item:hover {
+      background: #f0f8ff !important;
+      border-color: #467886 !important;
+    }
+    
     body.dark-mode .resize-handle,
     body.dark-mode .vertical-resize-handle {
       background-color: transparent;
@@ -4610,6 +4616,7 @@ function navigateToTheme(themeName) {
 // Globale Variable für Timeline-Zurück-Navigation
 let timelineBackToGA = null;
 let timelineBackToLecture = null; // Speichere die Lecture ID für Zurück-Navigation
+let timelineBackToLeftPanel = null; // Speichere den HTML-Inhalt des linken Panels
 let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werden soll
 
 // Navigation zum Timeline-Tab und Keyword auswählen
@@ -4620,6 +4627,13 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   // Speichere GA-Nummer und Lecture ID für Zurück-Button
   timelineBackToGA = gaNumber;
   timelineBackToLecture = lectureId || (currentLectureData ? currentLectureData.ID : null);
+  
+  // Speichere den aktuellen Zustand des linken Panels
+  const resultsContainer = document.getElementById('results');
+  if (resultsContainer) {
+    timelineBackToLeftPanel = resultsContainer.innerHTML;
+    console.log('[NAVIGATION] Linkes Panel gespeichert');
+  }
   
   // IMMER zum Timeline-Tab wechseln (auch wenn schon dort) um alles zurückzusetzen
   timelinePendingKeyword = keyword;
@@ -4673,12 +4687,13 @@ function navigateBackToTexteGA() {
   
   const savedGA = timelineBackToGA;
   const savedLecture = timelineBackToLecture;
-  console.log('[NAVIGATION] Navigiere zurück zu Texte-Tab, GA:', savedGA, 'Lecture:', savedLecture);
+  const savedLeftPanel = timelineBackToLeftPanel;
+  console.log('[NAVIGATION] Navigiere zurück zu Texte-Tab, GA:', savedGA, 'Lecture:', savedLecture, 'Panel:', !!savedLeftPanel);
   
   // Wechsle zum Texte-Tab
   switchTab('texte');
   
-  // Warte kurz, dann öffne GA-Übersicht und Vortrag
+  // Warte kurz, dann stelle den Zustand wieder her
   setTimeout(async () => {
     try {
       // Setze GA-Dropdown
@@ -4688,13 +4703,21 @@ function navigateBackToTexteGA() {
         console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
       }
       
-      // Öffne GA-Übersicht im linken Panel
-      console.log('[NAVIGATION] Lade GA-Übersicht:', savedGA);
-      await openGAOverview(savedGA);
-      console.log('[NAVIGATION] ✓ GA-Übersicht geladen');
+      // Wenn gespeicherter Panel-Zustand vorhanden, stelle ihn wieder her
+      if (savedLeftPanel) {
+        const resultsContainer = document.getElementById('results');
+        if (resultsContainer) {
+          resultsContainer.innerHTML = savedLeftPanel;
+          console.log('[NAVIGATION] ✓ Linkes Panel wiederhergestellt');
+        }
+      } else {
+        // Fallback: Lade GA-Übersicht neu
+        console.log('[NAVIGATION] Lade GA-Übersicht neu:', savedGA);
+        await openGAOverview(savedGA);
+        console.log('[NAVIGATION] ✓ GA-Übersicht geladen');
+      }
       
-      // Warte kurz, damit die GA-Übersicht vollständig gerendert ist
-      // Dann öffne den Vortrag im Hauptbereich (ohne das linke Panel zu überschreiben)
+      // Öffne den Vortrag im Hauptbereich
       if (savedLecture) {
         setTimeout(async () => {
           try {
@@ -4708,17 +4731,20 @@ function navigateBackToTexteGA() {
           // Zurücksetzen nach Vortrag-Öffnung
           timelineBackToGA = null;
           timelineBackToLecture = null;
-        }, 300);
+          timelineBackToLeftPanel = null;
+        }, 100);
       } else {
         // Zurücksetzen wenn kein Vortrag
         timelineBackToGA = null;
         timelineBackToLecture = null;
+        timelineBackToLeftPanel = null;
       }
     } catch (error) {
       console.error('[NAVIGATION] Fehler beim Öffnen:', error);
       // Zurücksetzen bei Fehler
       timelineBackToGA = null;
       timelineBackToLecture = null;
+      timelineBackToLeftPanel = null;
     }
   }, 200);
 }
@@ -4774,14 +4800,22 @@ async function displayGAOverview(data) {
   `;
   
   data.lectures.forEach((lecture, idx) => {
-    let titleText = `${lecture.ID} - ${lecture.title}`;
-    
-    const locationParts = [];
-    if (lecture.location) locationParts.push(lecture.location);
-    if (lecture.date) locationParts.push(lecture.date);
-    
-    if (locationParts.length > 0) {
-      titleText += `, ${locationParts.join(', ')}`;
+    // Verwende fileName für vollständigen Titel, falls vorhanden
+    let titleText;
+    if (lecture.fileName) {
+      // fileName enthält bereits den vollständigen Titel mit Location und Datum
+      titleText = lecture.fileName;
+    } else {
+      // Fallback: Baue aus Einzelteilen
+      titleText = `${lecture.ID} - ${lecture.title}`;
+      
+      const locationParts = [];
+      if (lecture.location) locationParts.push(lecture.location);
+      if (lecture.date) locationParts.push(lecture.date);
+      
+      if (locationParts.length > 0) {
+        titleText += `, ${locationParts.join(', ')}`;
+      }
     }
     
     // Hole lectureKeywords aus summary-database V2 (Keywords aus Textinhalt)
@@ -6337,12 +6371,6 @@ function showSummaryView() {
         return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
       }).join(' &middot; ');
       
-      // "+ Keyword" Button nur lokal anzeigen
-      if (isLocal) {
-        html += ' &nbsp;';
-        html += `<button onclick="openAddKeywordModal('${lecture.ID}')" style="padding: 3px 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;" title="Keyword zu diesem Vortrag hinzufügen (optional: Absatz im Text anklicken für genaue Zuordnung)">+ Keyword</button>`;
-      }
-      
       html += '</p></div>';
     }
     
@@ -6409,9 +6437,10 @@ function showSummaryView() {
     const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+    const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
     const cursorStyle = isLocal ? 'cursor: pointer;' : '';
 
-html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} style="${cursorStyle}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
   
   viewer.innerHTML = html;
@@ -9649,6 +9678,7 @@ function switchTabExtended(mode) {
     if (mode !== 'timeline') {
       timelineBackToGA = null;
       timelineBackToLecture = null;
+      timelineBackToLeftPanel = null;
     }
   }
 
@@ -14372,36 +14402,422 @@ function selectParagraphForKeyword(paragraphIndex, element, event) {
   }
 }
 
-// Öffne Keyword-Modal direkt per Rechtsklick auf Absatz (nur lokal)
-// DEPRECATED: Nicht mehr in Verwendung - Rechtsklick wird für Schreibfehlerkorrektur benötigt
-function openKeywordModalFromParagraph(paragraphIndex, event) {
+// Aktualisiere nur die Keywords-Anzeige unter der Summary (ohne Vortrag neu zu laden)
+function updateKeywordsDisplay() {
+  if (!currentLectureSummary || !currentLectureData) return;
+  
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  // Finde den Keywords-Container
+  const keywordsSection = viewer.querySelector('.lecture-keywords-section');
+  if (!keywordsSection) {
+    console.warn('[UPDATE-KW] Keywords-Section nicht gefunden');
+    return;
+  }
+  
+  const lectureKeywords = currentLectureSummary.lectureKeywords || [];
+  
+  if (lectureKeywords.length === 0) {
+    // Keine Keywords vorhanden - entferne Section
+    keywordsSection.remove();
+    return;
+  }
+  
+  // Erstelle neuen HTML-Inhalt
+  let html = '<p style="margin: 0;">';
+  
+  // Extrahiere GA-Nummer aus lecture.ID
+  const gaNumber = currentLectureData.ID.split('/')[0].replace('GA', '');
+  
+  // Keywords als Links mit Mittelpunkten formatieren
+  html += lectureKeywords.map(kw => {
+    const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
+    const escapedGANumber = gaNumber.replace(/'/g, "\\'");
+    const escapedLectureId = currentLectureData.ID.replace(/'/g, "\\'");
+    return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+  }).join(' &middot; ');
+  
+  html += '</p>';
+  
+  // Aktualisiere den Inhalt
+  keywordsSection.innerHTML = html;
+  console.log('[UPDATE-KW] Keywords-Anzeige aktualisiert:', lectureKeywords.length, 'Keywords');
+}
+
+// Rechtsklick auf Absatz - öffnet Keyword-Management-Modal bei Strg+Rechtsklick
+function handleParagraphRightClick(paragraphIndex, element, event) {
   if (!isLocal) return;
   
   // Verhindere Standard-Kontextmenü
   event.preventDefault();
   event.stopPropagation();
   
-  // Markiere den Absatz automatisch
-  const paragraphElement = event.target.closest('.paragraph');
-  if (paragraphElement) {
-    // Entferne vorherige Markierungen
-    document.querySelectorAll('.paragraph.selected-for-keyword').forEach(el => {
-      el.classList.remove('selected-for-keyword');
-    });
+  // Prüfe ob Strg-Taste gedrückt ist
+  if (event.ctrlKey || event.metaKey) {
+    // Strg+Rechtsklick -> öffne Keyword-Management-Modal
+    console.log('[CONTEXTMENU] Strg+Rechtsklick - öffne Keyword-Management-Modal');
     
-    // Markiere aktuellen Absatz
-    selectedParagraphIndex = paragraphIndex;
-    paragraphElement.classList.add('selected-for-keyword');
-    console.log('[CONTEXTMENU] Absatz per Rechtsklick ausgewählt:', paragraphIndex);
-  }
-  
-  // Öffne Modal mit der aktuellen Lecture-ID
-  if (currentLectureData && currentLectureData.ID) {
-    openAddKeywordModal(currentLectureData.ID);
+    if (currentLectureData && currentLectureData.ID) {
+      openKeywordManagementModal(currentLectureData.ID);
+    } else {
+      console.warn('[CONTEXTMENU] Kein Vortrag geladen');
+    }
   } else {
-    console.warn('[CONTEXTMENU] Kein Vortrag geladen');
+    // Normaler Rechtsklick ohne Funktion
+    console.log('[CONTEXTMENU] Rechtsklick ohne Strg - keine Aktion');
   }
 }
+
+// ============================================================================
+// KEYWORD MANAGEMENT MODAL - Alle Keywords verwalten
+// ============================================================================
+
+let kwMgmtTargetLectureId = null;
+let kwMgmtSelectedKeyword = null;
+let kwMgmtSelectedIndex = null;
+
+// Öffne Keyword-Management-Modal
+async function openKeywordManagementModal(lectureId) {
+  if (!isLocal) return;
+  
+  kwMgmtTargetLectureId = lectureId;
+  kwMgmtSelectedKeyword = null;
+  kwMgmtSelectedIndex = null;
+  
+  document.getElementById('kwMgmtLectureId').textContent = lectureId;
+  
+  // Verstecke Edit-Section initial
+  document.getElementById('kwMgmtEditSection').style.display = 'none';
+  
+  // Lade alle Keywords des Vortrags
+  await loadAllKeywordsForLecture(lectureId);
+  
+  // Zeige Modal
+  document.getElementById('keywordManagementModal').style.display = 'block';
+  document.getElementById('kwMgmtOverlay').style.display = 'block';
+  
+  // Fokus auf neues Keyword-Feld
+  setTimeout(() => {
+    document.getElementById('kwMgmtNewName').focus();
+  }, 100);
+}
+
+// Schließe Keyword-Management-Modal
+function closeKeywordManagementModal() {
+  document.getElementById('keywordManagementModal').style.display = 'none';
+  document.getElementById('kwMgmtOverlay').style.display = 'none';
+  
+  // Reset
+  kwMgmtTargetLectureId = null;
+  kwMgmtSelectedKeyword = null;
+  kwMgmtSelectedIndex = null;
+  
+  // Leere Eingabefelder
+  document.getElementById('kwMgmtNewName').value = '';
+  document.getElementById('kwMgmtNewDesc').value = '';
+  document.getElementById('kwMgmtEditName').value = '';
+  document.getElementById('kwMgmtEditDesc').value = '';
+  
+  // Verstecke Edit-Section und Status
+  document.getElementById('kwMgmtEditSection').style.display = 'none';
+  document.getElementById('kwMgmtStatus').style.display = 'none';
+}
+
+// Lade alle Keywords eines Vortrags
+async function loadAllKeywordsForLecture(lectureId) {
+  try {
+    const listDiv = document.getElementById('kwMgmtList');
+    const countSpan = document.getElementById('kwMgmtCount');
+    
+    listDiv.innerHTML = '<p style="margin: 0; color: #666; font-style: italic;">Lade Keywords...</p>';
+    
+    // Hole Keywords aus currentLectureSummary
+    const lectureKeywords = currentLectureSummary?.lectureKeywords || [];
+    
+    if (lectureKeywords.length === 0) {
+      listDiv.innerHTML = '<p style="margin: 0; color: #666; font-style: italic;">Keine Keywords vorhanden</p>';
+      countSpan.textContent = '0';
+      return;
+    }
+    
+    countSpan.textContent = lectureKeywords.length;
+    
+    // Behalte Keywords in ursprünglicher Reihenfolge (keine Sortierung)
+    
+    // Erstelle Liste
+    let html = '<div style="display: flex; flex-direction: column; gap: 4px;">';
+    
+    lectureKeywords.forEach((kw, idx) => {
+      const indexDisplay = kw.index ? kw.index.replace(/^\^/, '') : 'manual';
+      html += `
+        <div class="kw-mgmt-item" data-index="${idx}" 
+             onclick="selectKeywordForEdit(${idx})"
+             style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.2s; background: white;">
+          <div style="font-weight: 600; color: var(--heading-color);">${kw.term}</div>
+          <div style="font-size: 0.85em; color: #666; margin-top: 2px;">${kw.heading || 'Keine Beschreibung'}</div>
+          <div style="font-size: 0.75em; color: #999; margin-top: 2px;">Index: ${indexDisplay}</div>
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    listDiv.innerHTML = html;
+    
+  } catch (error) {
+    console.error('[KW-MGMT] Fehler beim Laden der Keywords:', error);
+    document.getElementById('kwMgmtList').innerHTML = '<p style="margin: 0; color: #d9534f;">Fehler beim Laden</p>';
+  }
+}
+
+// Wähle Keyword zur Bearbeitung aus
+function selectKeywordForEdit(keywordIndex) {
+  const lectureKeywords = currentLectureSummary?.lectureKeywords || [];
+  if (keywordIndex >= lectureKeywords.length) return;
+  
+  const keyword = lectureKeywords[keywordIndex];
+  kwMgmtSelectedKeyword = keyword;
+  kwMgmtSelectedIndex = keywordIndex;
+  
+  console.log('[KW-MGMT] Keyword ausgewählt:', keyword.term);
+  
+  // Markiere ausgewähltes Item in der Liste
+  document.querySelectorAll('.kw-mgmt-item').forEach((item, idx) => {
+    if (idx === keywordIndex) {
+      item.style.background = '#d1ecf1';
+      item.style.borderColor = '#467886';
+    } else {
+      item.style.background = 'white';
+      item.style.borderColor = '#ddd';
+    }
+  });
+  
+  // Fülle Edit-Felder
+  document.getElementById('kwMgmtEditName').value = keyword.term;
+  document.getElementById('kwMgmtEditDesc').value = keyword.heading || '';
+  
+  // Zeige Edit-Section
+  document.getElementById('kwMgmtEditSection').style.display = 'block';
+}
+
+// Speichere Änderungen an Keyword
+async function saveKeywordEdit() {
+  if (!kwMgmtSelectedKeyword || kwMgmtSelectedIndex === null) return;
+  
+  const newName = document.getElementById('kwMgmtEditName').value.trim();
+  const newDesc = document.getElementById('kwMgmtEditDesc').value.trim();
+  const statusDiv = document.getElementById('kwMgmtStatus');
+  
+  if (!newName) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Keyword-Name darf nicht leer sein';
+    setTimeout(() => statusDiv.style.display = 'none', 3000);
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d1ecf1';
+  statusDiv.style.color = '#0c5460';
+  statusDiv.textContent = 'Speichere Änderungen...';
+  
+  try {
+    // Aktualisiere das Keyword in currentLectureSummary
+    const lectureKeywords = currentLectureSummary.lectureKeywords;
+    lectureKeywords[kwMgmtSelectedIndex].term = newName;
+    lectureKeywords[kwMgmtSelectedIndex].heading = newDesc || lectureKeywords[kwMgmtSelectedIndex].heading;
+    lectureKeywords[kwMgmtSelectedIndex].customDescription = !!newDesc;
+    
+    // Speichere in Datenbank (kompletten Vortrag-Eintrag aktualisieren)
+    const response = await fetch(`${API_BASE}/api/update-lecture-keyword`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: kwMgmtTargetLectureId,
+        oldKeyword: kwMgmtSelectedKeyword,
+        newKeyword: lectureKeywords[kwMgmtSelectedIndex]
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Server-Fehler beim Speichern');
+    }
+    
+    // Aktualisiere Anzeige
+    updateKeywordsDisplay();
+    await loadAllKeywordsForLecture(kwMgmtTargetLectureId);
+    
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = `✓ Keyword "${newName}" aktualisiert`;
+    
+    // Verstecke Edit-Section
+    document.getElementById('kwMgmtEditSection').style.display = 'none';
+    kwMgmtSelectedKeyword = null;
+    kwMgmtSelectedIndex = null;
+    
+    setTimeout(() => statusDiv.style.display = 'none', 2000);
+    
+  } catch (error) {
+    console.error('[KW-MGMT] Fehler beim Speichern:', error);
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = `Fehler: ${error.message}`;
+  }
+}
+
+// Lösche ausgewähltes Keyword
+async function deleteSelectedKeyword() {
+  if (!kwMgmtSelectedKeyword || kwMgmtSelectedIndex === null) return;
+  
+  const keywordName = kwMgmtSelectedKeyword.term;
+  
+  if (!confirm(`Keyword "${keywordName}" wirklich löschen?`)) return;
+  
+  const statusDiv = document.getElementById('kwMgmtStatus');
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d1ecf1';
+  statusDiv.style.color = '#0c5460';
+  statusDiv.textContent = 'Lösche Keyword...';
+  
+  try {
+    // Entferne aus currentLectureSummary
+    currentLectureSummary.lectureKeywords.splice(kwMgmtSelectedIndex, 1);
+    
+    // Lösche aus Datenbank
+    const response = await fetch(`${API_BASE}/api/remove-keyword-from-paragraph`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: kwMgmtTargetLectureId,
+        paragraphIndex: kwMgmtSelectedKeyword.index,
+        keywordTerm: keywordName
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error('Server-Fehler beim Löschen');
+    }
+    
+    // Aktualisiere Anzeige
+    updateKeywordsDisplay();
+    await loadAllKeywordsForLecture(kwMgmtTargetLectureId);
+    
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = `✓ Keyword "${keywordName}" gelöscht`;
+    
+    // Verstecke Edit-Section
+    document.getElementById('kwMgmtEditSection').style.display = 'none';
+    kwMgmtSelectedKeyword = null;
+    kwMgmtSelectedIndex = null;
+    
+    setTimeout(() => statusDiv.style.display = 'none', 2000);
+    
+  } catch (error) {
+    console.error('[KW-MGMT] Fehler beim Löschen:', error);
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = `Fehler: ${error.message}`;
+  }
+}
+
+// Abbrechen Bearbeitung
+function cancelKeywordEdit() {
+  document.getElementById('kwMgmtEditSection').style.display = 'none';
+  kwMgmtSelectedKeyword = null;
+  kwMgmtSelectedIndex = null;
+  
+  // Entferne Markierung
+  document.querySelectorAll('.kw-mgmt-item').forEach(item => {
+    item.style.background = 'white';
+    item.style.borderColor = '#ddd';
+  });
+}
+
+// Füge neues Keyword hinzu (aus Management-Modal)
+async function addKeywordFromManagement() {
+  const keywordName = document.getElementById('kwMgmtNewName').value.trim();
+  const keywordDesc = document.getElementById('kwMgmtNewDesc').value.trim();
+  const statusDiv = document.getElementById('kwMgmtStatus');
+  
+  if (!keywordName) {
+    statusDiv.style.display = 'block';
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = 'Bitte geben Sie einen Keyword-Namen ein';
+    setTimeout(() => statusDiv.style.display = 'none', 3000);
+    return;
+  }
+  
+  statusDiv.style.display = 'block';
+  statusDiv.style.background = '#d1ecf1';
+  statusDiv.style.color = '#0c5460';
+  statusDiv.textContent = 'Füge Keyword hinzu...';
+  
+  try {
+    // Erstelle Keyword-Objekt
+    const newKeyword = {
+      term: keywordName,
+      index: selectedParagraphIndex || "^manual",
+      heading: keywordDesc || "Manuell hinzugefügt",
+      customDescription: !!keywordDesc,
+      source: "manual",
+      matchType: "manual",
+      matchedExisting: null,
+      summaryMentioned: false,
+      confidence: 1.0,
+      level: "h3"
+    };
+    
+    // Rufe Backend-Endpoint auf
+    const response = await fetch(`${API_BASE}/api/add-keyword-to-lecture`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lectureId: kwMgmtTargetLectureId,
+        keyword: newKeyword
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    // Füge zur lokalen Summary hinzu
+    if (currentLectureSummary) {
+      if (!currentLectureSummary.lectureKeywords) {
+        currentLectureSummary.lectureKeywords = [];
+      }
+      currentLectureSummary.lectureKeywords.push(newKeyword);
+    }
+    
+    // Aktualisiere Anzeigen
+    updateKeywordsDisplay();
+    await loadAllKeywordsForLecture(kwMgmtTargetLectureId);
+    
+    statusDiv.style.background = '#d4edda';
+    statusDiv.style.color = '#155724';
+    statusDiv.textContent = `✓ Keyword "${keywordName}" hinzugefügt`;
+    
+    // Leere Eingabefelder
+    document.getElementById('kwMgmtNewName').value = '';
+    document.getElementById('kwMgmtNewDesc').value = '';
+    
+    setTimeout(() => statusDiv.style.display = 'none', 2000);
+    
+  } catch (error) {
+    console.error('[KW-MGMT] Fehler beim Hinzufügen:', error);
+    statusDiv.style.background = '#f8d7da';
+    statusDiv.style.color = '#721c24';
+    statusDiv.textContent = `Fehler: ${error.message}`;
+  }
+}
+
+// ============================================================================
+
 
 async function openAddKeywordModal(lectureId) {
   if (!isLocal) return;
@@ -14535,7 +14951,17 @@ async function removeKeywordFromParagraph(keywordTerm, event) {
     const data = await response.json();
     console.log(`[REMOVE-KW] Erfolgreich entfernt:`, data);
     
-    // Aktualisiere die Anzeige
+    // Entferne das Keyword aus der aktuellen Summary
+    if (currentLectureSummary && currentLectureSummary.lectureKeywords) {
+      currentLectureSummary.lectureKeywords = currentLectureSummary.lectureKeywords.filter(
+        kw => !(kw.term === keywordTerm && kw.index === selectedParagraphIndex)
+      );
+      // Aktualisiere die Keywords-Anzeige unter der Summary
+      updateKeywordsDisplay();
+      console.log('[REMOVE-KW] Keywords-Anzeige aktualisiert');
+    }
+    
+    // Aktualisiere die Anzeige der verknüpften Keywords im Modal
     await loadExistingKeywordsForParagraph(addKeywordTargetLectureId, selectedParagraphIndex);
     
     // Zeige Erfolg-Nachricht
@@ -14659,6 +15085,18 @@ async function addKeywordToLecture() {
       await loadExistingKeywordsForParagraph(addKeywordTargetLectureId, selectedParagraphIndex);
     }
     
+    // Füge das neue Keyword zur aktuellen Summary hinzu und aktualisiere die Anzeige
+    if (currentLectureSummary) {
+      if (!currentLectureSummary.lectureKeywords) {
+        currentLectureSummary.lectureKeywords = [];
+      }
+      currentLectureSummary.lectureKeywords.push(newKeyword);
+      
+      // Aktualisiere nur den Keywords-Bereich unter der Summary
+      updateKeywordsDisplay();
+      console.log('[ADD-KW] Keywords-Anzeige aktualisiert');
+    }
+    
     // Leere Eingabefeld für weiteres Hinzufügen
     document.getElementById('addKeywordNameInput').value = '';
     document.getElementById('addKeywordDescInput').value = '';
@@ -14752,6 +15190,93 @@ async function addKeywordToLecture() {
 
 <!-- Overlay für Add Keyword Modal -->
 <div id="addKeywordOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeAddKeywordModal()"></div>
+
+<!-- Modal: Keyword-Management für gesamten Vortrag (nur lokal) -->
+<div id="keywordManagementModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid var(--border-color); border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Keywords verwalten</h3>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
+      Vortrag: <strong id="kwMgmtLectureId"></strong>
+    </label>
+  </div>
+  
+  <!-- Liste aller Keywords des Vortrags -->
+  <div style="margin-bottom: 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+      <h4 style="margin: 0; color: var(--heading-color); font-size: 1em;">Alle Keywords des Vortrags</h4>
+      <span id="kwMgmtCount" style="font-size: 0.85em; color: #666; background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">0</span>
+    </div>
+    <div id="kwMgmtList" style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
+      <!-- Wird dynamisch befüllt -->
+    </div>
+  </div>
+  
+  <!-- Bereich für ausgewähltes Keyword bearbeiten -->
+  <div id="kwMgmtEditSection" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 4px;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color); font-size: 0.95em;">Ausgewähltes Keyword bearbeiten</h4>
+    
+    <div style="margin-bottom: 0.8rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Keyword-Name:
+      </label>
+      <input type="text" id="kwMgmtEditName" placeholder="Keyword-Name" 
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);">
+    </div>
+    
+    <div style="margin-bottom: 0.8rem;">
+      <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
+        Beschreibung:
+      </label>
+      <input type="text" id="kwMgmtEditDesc" placeholder="Beschreibung" 
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);">
+    </div>
+    
+    <div style="display: flex; gap: 6px;">
+      <button onclick="saveKeywordEdit()" class="depth-btn" style="padding: 6px 12px; font-size: 0.85em; background: #467886; color: white; flex: 1;">
+        Speichern
+      </button>
+      <button onclick="deleteSelectedKeyword()" class="depth-btn" style="padding: 6px 12px; font-size: 0.85em; background: #d9534f; color: white;">
+        Löschen
+      </button>
+      <button onclick="cancelKeywordEdit()" class="depth-btn" style="padding: 6px 12px; font-size: 0.85em;">
+        Abbrechen
+      </button>
+    </div>
+  </div>
+  
+  <!-- Neues Keyword hinzufügen -->
+  <div style="margin-bottom: 1rem; padding: 1rem; background: #e8f4f8; border: 1px solid #b8dce8; border-radius: 4px;">
+    <h4 style="margin: 0 0 0.8rem 0; color: var(--heading-color); font-size: 0.95em;">Neues Keyword hinzufügen</h4>
+    
+    <div style="margin-bottom: 0.8rem;">
+      <input type="text" id="kwMgmtNewName" placeholder="Keyword-Name" 
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);"
+        onkeypress="if(event.key==='Enter') addKeywordFromManagement()">
+    </div>
+    
+    <div style="margin-bottom: 0.8rem;">
+      <input type="text" id="kwMgmtNewDesc" placeholder="Beschreibung (optional)" 
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);"
+        onkeypress="if(event.key==='Enter') addKeywordFromManagement()">
+    </div>
+    
+    <button onclick="addKeywordFromManagement()" class="depth-btn" style="padding: 6px 12px; font-size: 0.85em; background: #5cb85c; color: white; width: 100%;">
+      Hinzufügen
+    </button>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <button onclick="closeKeywordManagementModal()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; flex: 1;">
+      Schließen
+    </button>
+  </div>
+  
+  <div id="kwMgmtStatus" style="display: none; margin-top: 1rem; padding: 0.8rem; border-radius: 4px;"></div>
+</div>
+
+<!-- Overlay für Keyword Management Modal -->
+<div id="kwMgmtOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeKeywordManagementModal()"></div>
 
 <!-- Image Popup Modal -->
 <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 11000; justify-content: center; align-items: center;">
