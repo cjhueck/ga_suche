@@ -13,7 +13,7 @@
       --heading-color: #467886;        /* Teal für Überschriften */
       --link-color: #467886;           /* Teal für Links */
       --accent-color: #467886;         /* Teal für Akzente */
-      --background-color: #ffffff;     /* Weißer Hintergrund */
+      --background-color: #FAF8F3;     /* Sehr helles Sandfarben */
       --border-color: #ddd;            /* Graue Rahmen */
       --secondary-text: #666;          /* Sekundärer Text */
       
@@ -293,7 +293,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       width: 14px;
       left: 4px;
       bottom: 4px;
-      background-color: white;
+      background-color: var(--background-color);
       transition: 0.3s;
       border-radius: 50%;
       display: flex;
@@ -374,9 +374,7 @@ body.dark-mode .site-logo:hover {
 }
 
 body.dark-mode .site-sign {
-  filter: invert(1);
-  background: var(--dark-background-color);
-  mix-blend-mode: screen;
+  filter: invert(1) brightness(0.72);
 }
 
 .site-header-flex {
@@ -3304,7 +3302,7 @@ body.dark-mode .welcome-start-btn:hover {
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="site-header-flex">
 <img src="steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
-<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="steiner-sign.jpg" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
+<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <div style="display: flex; align-items: center; gap: 0.15rem;">
@@ -14693,7 +14691,7 @@ async function loadAllKeywordsForLecture(lectureId) {
       html += `
         <div class="kw-mgmt-item" data-index="${idx}" 
              onclick="selectKeywordForEdit(${idx})"
-             style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.2s; background: white;">
+             style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.2s; background: var(--background-color);">
           <div style="font-weight: 600; color: var(--heading-color);">${kw.term}</div>
           <div style="font-size: 0.85em; color: #666; margin-top: 2px;">${kw.heading || 'Keine Beschreibung'}</div>
           <div style="font-size: 0.75em; color: #999; margin-top: 2px;">Index: ${indexDisplay}</div>
@@ -15471,7 +15469,7 @@ async function loadExistingKeywordsForParagraph(lectureId, paragraphIndex) {
     
     // Rendere Keywords als Pills mit Löschen-Button
     list.innerHTML = keywords.map(kw => `
-      <div style="display: flex; align-items: center; gap: 5px; background: white; padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.85em;">
+      <div style="display: flex; align-items: center; gap: 5px; background: var(--background-color); padding: 5px 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.85em;">
         <span style="color: var(--text-color);">${kw.term}</span>
         <button onclick="removeKeywordFromParagraph('${kw.term.replace(/'/g, "\\'")}', event)" 
           style="background: #dc3545; color: white; border: none; border-radius: 3px; padding: 2px 6px; cursor: pointer; font-size: 0.75em; line-height: 1;" 
@@ -15704,7 +15702,7 @@ async function addKeywordToLecture() {
       <label style="font-size: 0.9em; color: var(--heading-color); font-weight: 600; margin: 0;">
         Verknüpfte Keywords an diesem Absatz:
       </label>
-      <span id="existingKeywordsCount" style="font-size: 0.75em; color: #666; background: white; padding: 2px 8px; border-radius: 3px;">0</span>
+      <span id="existingKeywordsCount" style="font-size: 0.75em; color: #666; background: var(--background-color); padding: 2px 8px; border-radius: 3px;">0</span>
     </div>
     <div id="existingKeywordsList" style="display: flex; flex-wrap: wrap; gap: 5px; max-height: 150px; overflow-y: auto;">
       <!-- Wird dynamisch befüllt -->
@@ -15786,7 +15784,7 @@ async function addKeywordToLecture() {
         Keyword-Name:
       </label>
       <input type="text" id="kwMgmtEditName" placeholder="Keyword-Name" 
-        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);">
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: var(--background-color); color: var(--text-color);">
     </div>
     
     <div style="margin-bottom: 0.8rem;">
@@ -15794,7 +15792,7 @@ async function addKeywordToLecture() {
         Beschreibung:
       </label>
       <input type="text" id="kwMgmtEditDesc" placeholder="Beschreibung" 
-        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: white; color: var(--text-color);">
+        style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; background: var(--background-color); color: var(--text-color);">
     </div>
     
     <div style="display: flex; gap: 6px;">
