@@ -49,11 +49,11 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto auto;
+            grid-template-columns: 1.2fr 1.2fr 1fr 1fr;
             gap: 10px;
             padding: 10px;
             max-width: 100%;
+            height: calc(100vh - 100px);
         }
 
         .panel {
@@ -61,7 +61,9 @@
             border: 1px solid var(--border-color);
             border-radius: 4px;
             padding: 10px;
-            grid-row: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
         .panel-header {
@@ -102,7 +104,7 @@
         }
 
         .list-container {
-            height: 300px;
+            flex: 1;
             overflow-y: auto;
             border: 1px solid var(--border-color);
             border-radius: 3px;
@@ -168,15 +170,13 @@
         }
 
         .actions-panel {
-            grid-column: 1 / -1;
-            grid-row: 2;
-            background: #f8f9fa;
-            border: 1px solid var(--border-color);
-            margin-top: 0;
+            background: var(--background-color);
+            overflow-y: auto;
         }
 
         .actions-panel .panel-header {
             border-bottom-color: var(--border-color);
+            flex-shrink: 0;
         }
 
         .actions-panel .panel-header h2 {
@@ -184,16 +184,17 @@
         }
 
         .action-groups {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
         }
 
         .action-group {
-            background: var(--background-color);
+            background: #f8f9fa;
             padding: 10px;
             border-radius: 3px;
             border: 1px solid var(--border-color);
+            margin-bottom: 10px;
         }
 
         .action-group h3 {
@@ -289,7 +290,25 @@
         }
 
         .similar-keywords {
-            grid-column: 1 / -1;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 1200px;
+            max-height: 80vh;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .similar-keywords-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
         }
 
         .similar-keywords-list {
@@ -297,6 +316,9 @@
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             gap: 6px;
             margin-top: 8px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px;
         }
 
         .similar-keyword-item {
@@ -450,17 +472,17 @@
         </div>
 
         <div class="main-content">
-            <!-- Keywords Panel -->
+            <!-- LINKE SPALTE: Keywords Panel -->
             <div class="panel">
                 <div class="panel-header">
                     <h2>Keywords</h2>
                     <span class="stats" id="keywordStats">0 Keywords</span>
                 </div>
-                <div id="clusterFilterInfo" style="display: none; background: #e8f0f2; padding: 5px 8px; border-radius: 3px; margin-bottom: 5px; font-size: 0.75rem; color: var(--accent-color);">
+                <div id="clusterFilterInfo" style="display: none; background: #e8f0f2; padding: 5px 8px; border-radius: 3px; margin-bottom: 5px; font-size: 0.75rem; color: var(--accent-color); flex-shrink: 0;">
                     <strong>Filter:</strong> <span id="clusterFilterName"></span>
                     <button onclick="clearClusterFilter()" style="background: none; border: none; color: var(--accent-color); cursor: pointer; font-weight: bold; margin-left: 5px;">×</button>
                 </div>
-                <input type="text" class="search-box" id="keywordSearch" placeholder="🔍 Keywords durchsuchen...">
+                <input type="text" class="search-box" id="keywordSearch" placeholder="🔍 Keywords durchsuchen..." style="flex-shrink: 0;">
                 <div class="list-container" id="keywordsList">
                     <div class="loading">
                         <div class="spinner"></div>
@@ -469,13 +491,13 @@
                 </div>
             </div>
 
-            <!-- Clusters Panel -->
+            <!-- MITTLERE SPALTE: Clusters Panel -->
             <div class="panel">
                 <div class="panel-header">
                     <h2>Cluster</h2>
                     <span class="stats" id="clusterStats">0 Cluster</span>
                 </div>
-                <input type="text" class="search-box" id="clusterSearch" placeholder="🔍 Cluster durchsuchen...">
+                <input type="text" class="search-box" id="clusterSearch" placeholder="🔍 Cluster durchsuchen..." style="flex-shrink: 0;">
                 <div class="list-container" id="clustersList">
                     <div class="loading">
                         <div class="spinner"></div>
@@ -484,47 +506,39 @@
                 </div>
             </div>
 
-            <!-- Actions Panel -->
+            <!-- SPALTE 3: Keyword-Funktionen -->
             <div class="panel actions-panel">
-                <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <h2>Aktionen</h2>
-                    <div class="selection-info" id="selectionInfo" style="font-size: 0.75em; color: #666; margin: 0;">
-                        <strong>Auswahl:</strong> Keine Keywords ausgewählt
-                    </div>
+                <div class="panel-header">
+                    <h2>Keyword-Funktionen</h2>
+                </div>
+                
+                <div class="selection-info" id="selectionInfo" style="flex-shrink: 0; margin-bottom: 10px;">
+                    <strong>Auswahl:</strong> Keine<br>
+                    <small>Strg/Cmd für Mehrfach, Shift für Bereich</small>
                 </div>
 
                 <div class="action-groups">
                     <!-- Keyword Aktionen -->
                     <div class="action-group">
-                        <h3>Keyword Aktionen</h3>
+                        <h3>Bearbeiten</h3>
                         
                         <div class="input-group">
-                            <label>Neues Keyword hinzufügen:</label>
-                            <input type="text" id="newKeywordInput" placeholder="Keyword-Name eingeben" onkeypress="if(event.key==='Enter') addNewKeyword()">
-                        </div>
-                        <button class="btn btn-success" onclick="addNewKeyword()" id="addNewKeywordBtn">
-                            Hinzufügen
-                        </button>
-                        
-                        <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
-                        
-                        <div class="input-group">
-                            <label>Neuer Name:</label>
-                            <input type="text" id="renameInput" placeholder="Neuer Keyword-Name">
+                            <label>Umbenennen zu:</label>
+                            <input type="text" id="renameInput" placeholder="Neuer Name">
                         </div>
                         <button class="btn btn-primary" onclick="renameKeyword()" id="renameBtn" disabled>
                             Umbenennen
                         </button>
 
-                        <div class="input-group" style="margin-top: 20px;">
-                            <label>Mit Keyword zusammenführen:</label>
-                            <input type="text" id="mergeInput" placeholder="Ziel-Keyword eingeben">
+                        <div class="input-group" style="margin-top: 15px;">
+                            <label>Zusammenführen mit:</label>
+                            <input type="text" id="mergeInput" placeholder="Ziel-Keyword">
                         </div>
                         <button class="btn btn-success" onclick="mergeKeywords()" id="mergeBtn" disabled>
                             Zusammenführen
                         </button>
 
-                        <button class="btn btn-danger" onclick="deleteKeywords()" id="deleteBtn" disabled style="margin-top: 10px;">
+                        <button class="btn btn-danger" onclick="deleteKeywords()" id="deleteBtn" disabled style="margin-top: 15px;">
                             Löschen
                         </button>
                     </div>
@@ -534,49 +548,96 @@
                         <h3>Cluster Zuordnung</h3>
                         
                         <div class="input-group">
-                            <label>Cluster auswählen:</label>
+                            <label>Zu Cluster zuordnen:</label>
                             <select id="targetClusterSelect">
                                 <option value="">Cluster wählen...</option>
                             </select>
                         </div>
                         <button class="btn btn-primary" onclick="assignToCluster()" id="assignBtn" disabled>
-                            Zu Cluster zuordnen
+                            Zuordnen
                         </button>
 
                         <button class="btn btn-success" onclick="showSimilarKeywords()" id="similarBtn" disabled style="margin-top: 10px;">
-                            Ähnliche Keywords finden
-                        </button>
-                    </div>
-
-                    <!-- Cluster Verwaltung -->
-                    <div class="action-group">
-                        <h3>Cluster Verwaltung</h3>
-                        
-                        <div class="input-group">
-                            <label>Neuer Cluster-Name:</label>
-                            <input type="text" id="newClusterInput" placeholder="Name eingeben">
-                        </div>
-                        <div class="input-group">
-                            <label>Beschreibung (optional):</label>
-                            <input type="text" id="newClusterDesc" placeholder="Beschreibung">
-                        </div>
-                        <button class="btn btn-success" onclick="addCluster()">
-                            Cluster hinzufügen
-                        </button>
-
-                        <div class="input-group" style="margin-top: 10px;">
-                            <label>Ausgewählten Cluster umbenennen:</label>
-                            <input type="text" id="renameClusterInput" placeholder="Neuer Name">
-                        </div>
-                        <button class="btn btn-primary" onclick="renameCluster()" id="renameClusterBtn" disabled>
-                            Cluster umbenennen
+                            Ähnliche finden
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Similar Keywords Panel -->
-            <div class="panel similar-keywords" id="similarPanel" style="display: none;">
+            <!-- SPALTE 4: Cluster-Funktionen -->
+            <div class="panel actions-panel">
+                <div class="panel-header">
+                    <h2>Cluster-Funktionen</h2>
+                </div>
+                
+                <div style="flex-shrink: 0; margin-bottom: 10px; padding: 8px; background: #f8f9fa; border-radius: 3px; font-size: 0.8rem;">
+                    <strong>Ausgewählt:</strong> <span id="clusterSelectionInfo">Kein Cluster</span>
+                </div>
+
+                <div class="action-groups">
+                    <!-- Cluster Erstellen -->
+                    <div class="action-group">
+                        <h3>Neuer Cluster</h3>
+                        
+                        <div class="input-group">
+                            <label>Cluster-Name:</label>
+                            <input type="text" id="newClusterInput" placeholder="Name eingeben">
+                        </div>
+                        <div class="input-group">
+                            <label>Beschreibung:</label>
+                            <input type="text" id="newClusterDesc" placeholder="Optional">
+                        </div>
+                        <button class="btn btn-success" onclick="addCluster()">
+                            Erstellen
+                        </button>
+                    </div>
+
+                    <!-- Cluster Bearbeiten -->
+                    <div class="action-group">
+                        <h3>Bearbeiten</h3>
+                        
+                        <div class="input-group">
+                            <label>Umbenennen zu:</label>
+                            <input type="text" id="renameClusterInput" placeholder="Neuer Name">
+                        </div>
+                        <button class="btn btn-primary" onclick="renameCluster()" id="renameClusterBtn" disabled>
+                            Umbenennen
+                        </button>
+
+                        <button class="btn btn-danger" onclick="deleteCluster()" id="deleteClusterBtn" disabled style="margin-top: 15px;">
+                            Löschen
+                        </button>
+                    </div>
+
+                    <!-- Cluster Zusammenführen -->
+                    <div class="action-group">
+                        <h3>Zusammenführen</h3>
+                        
+                        <div class="input-group">
+                            <label>Quell-Cluster:</label>
+                            <select id="mergeSourceCluster">
+                                <option value="">Wählen...</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Ziel-Cluster:</label>
+                            <select id="mergeTargetCluster">
+                                <option value="">Wählen...</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="mergeClusters()">
+                            Zusammenführen →
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <!-- Similar Keywords Panel (Modal) -->
+        <div class="similar-keywords-overlay" id="similarOverlay" style="display: none;" onclick="closeSimilarPanel()"></div>
+        <div class="panel similar-keywords" id="similarPanel" style="display: none;">
                 <div class="panel-header">
                     <h2>Ähnliche Keywords</h2>
                     <div style="display: flex; gap: 8px;">
@@ -602,7 +663,6 @@
                     <!-- Wird dynamisch befüllt -->
                 </div>
             </div>
-        </div>
     </div>
 
     <script>
@@ -622,6 +682,10 @@
             // Erst Cluster laden, dann Keywords (damit wir die Zuordnung haben)
             await loadClusters();
             await loadKeywords();
+            
+            // Initialisiere Auswahl-Infos
+            updateSelectionInfo();
+            updateClusterSelectionInfo();
             
             // Event Listener für Suche
             document.getElementById('keywordSearch').addEventListener('input', filterKeywords);
@@ -740,9 +804,12 @@
                 <div class="list-item" data-keyword="${kw.name}" data-index="${index}" onclick="selectKeyword(event, '${kw.name}', ${index})">
                     <div class="keyword-info">
                         <span class="keyword-name">${kw.name}</span>
-                        ${kw.cluster 
-                            ? `<span class="keyword-cluster">${kw.cluster}</span>` 
-                            : '<span class="keyword-cluster no-cluster">Kein Cluster</span>'}
+                        <div style="display: flex; gap: 5px; align-items: center;">
+                            ${kw.cluster 
+                                ? `<span class="keyword-cluster">${kw.cluster}</span>` 
+                                : '<span class="keyword-cluster no-cluster">Kein Cluster</span>'}
+                            <span style="font-size: 0.75rem; padding: 2px 6px; border-radius: 3px; background: #f0f0f0; color: #666;">${kw.lectureCount || 0}</span>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -843,6 +910,21 @@
             }
             
             updateActionButtons();
+            updateClusterSelectionInfo();
+        }
+        
+        // Cluster-Auswahl Info aktualisieren
+        function updateClusterSelectionInfo() {
+            const info = document.getElementById('clusterSelectionInfo');
+            if (!info) return;
+            
+            if (selectedCluster) {
+                const clusterInfo = allClusters[selectedCluster];
+                const keywordCount = clusterInfo?.keywords?.length || 0;
+                info.innerHTML = `<strong>${selectedCluster}</strong><br><small>${keywordCount} Keywords</small>`;
+            } else {
+                info.textContent = 'Kein Cluster';
+            }
         }
         
         function showClusterFilter(clusterName, count) {
@@ -879,11 +961,13 @@
             const count = selectedKeywords.size;
             
             if (count === 0) {
-                info.innerHTML = '<strong>Auswahl:</strong> Keine Keywords ausgewählt';
+                info.innerHTML = '<strong>Auswahl:</strong> Keine<br><small>Strg/Cmd für Mehrfach, Shift für Bereich</small>';
             } else if (count === 1) {
-                info.innerHTML = `<strong>Auswahl:</strong> 1 Keyword: <em>${Array.from(selectedKeywords)[0]}</em>`;
+                const keyword = Array.from(selectedKeywords)[0];
+                const shortName = keyword.length > 25 ? keyword.substring(0, 25) + '...' : keyword;
+                info.innerHTML = `<strong>Auswahl:</strong><br><em>${shortName}</em>`;
             } else {
-                info.innerHTML = `<strong>Auswahl:</strong> ${count} Keywords`;
+                info.innerHTML = `<strong>Auswahl:</strong><br>${count} Keywords`;
             }
         }
 
@@ -899,6 +983,7 @@
             document.getElementById('assignBtn').disabled = !hasSelection;
             document.getElementById('similarBtn').disabled = !hasSelection;
             document.getElementById('renameClusterBtn').disabled = !hasClusterSelection;
+            document.getElementById('deleteClusterBtn').disabled = !hasClusterSelection;
         }
 
         // Statistiken aktualisieren
@@ -910,10 +995,28 @@
         // Cluster Select aktualisieren
         function updateClusterSelect() {
             const select = document.getElementById('targetClusterSelect');
+            const sortedClusters = Object.keys(allClusters).sort();
+            
             select.innerHTML = '<option value="">Cluster wählen...</option>' +
-                Object.keys(allClusters).sort().map(name => 
+                sortedClusters.map(name => 
                     `<option value="${name}">${name}</option>`
                 ).join('');
+            
+            // Aktualisiere auch Merge-Selects
+            const mergeSource = document.getElementById('mergeSourceCluster');
+            const mergeTarget = document.getElementById('mergeTargetCluster');
+            
+            if (mergeSource && mergeTarget) {
+                mergeSource.innerHTML = '<option value="">Quell-Cluster wählen...</option>' +
+                    sortedClusters.map(name => 
+                        `<option value="${name}">${name}</option>`
+                    ).join('');
+                
+                mergeTarget.innerHTML = '<option value="">Ziel-Cluster wählen...</option>' +
+                    sortedClusters.map(name => 
+                        `<option value="${name}">${name}</option>`
+                    ).join('');
+            }
         }
 
         // Keywords filtern
@@ -1304,6 +1407,7 @@
                     selectedCluster = null;
                     await loadClusters(); // Erst Cluster neu laden
                     await loadKeywords(true); // Dann Keywords mit Scroll-Erhalt
+                    updateClusterSelectionInfo();
                     
                     // Wenn vorher ein Cluster ausgewählt war, zeige alle Keywords
                     if (wasSelected) {
@@ -1319,6 +1423,93 @@
             }
         }
 
+        // Cluster löschen
+        async function deleteCluster() {
+            if (!selectedCluster) return;
+            
+            const clusterInfo = allClusters[selectedCluster];
+            const keywordCount = clusterInfo?.keywords?.length || 0;
+            
+            if (!confirm(`Cluster "${selectedCluster}" wirklich löschen?\n\nDieser Cluster enthält ${keywordCount} Keywords.\nDie Keywords bleiben erhalten, verlieren aber ihre Cluster-Zuordnung.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/themes/delete-cluster`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ clusterName: selectedCluster })
+                });
+                
+                if (response.ok) {
+                    showToast(`Cluster "${selectedCluster}" wurde gelöscht`, 'success');
+                    selectedCluster = null;
+                    await loadClusters();
+                    await loadKeywords(true);
+                    renderKeywords(allKeywords);
+                    updateClusterSelectionInfo();
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Löschen:', error);
+                showToast('Fehler beim Löschen des Clusters', 'error');
+            }
+        }
+
+        // Cluster zusammenführen
+        async function mergeClusters() {
+            const sourceCluster = document.getElementById('mergeSourceCluster').value;
+            const targetCluster = document.getElementById('mergeTargetCluster').value;
+            
+            if (!sourceCluster || !targetCluster) {
+                showToast('Bitte wählen Sie beide Cluster aus', 'error');
+                return;
+            }
+            
+            if (sourceCluster === targetCluster) {
+                showToast('Quell- und Ziel-Cluster müssen unterschiedlich sein', 'error');
+                return;
+            }
+            
+            const sourceInfo = allClusters[sourceCluster];
+            const targetInfo = allClusters[targetCluster];
+            const sourceKeywordCount = sourceInfo?.keywords?.length || 0;
+            const targetKeywordCount = targetInfo?.keywords?.length || 0;
+            
+            if (!confirm(`Cluster "${sourceCluster}" in "${targetCluster}" zusammenführen?\n\n"${sourceCluster}": ${sourceKeywordCount} Keywords\n"${targetCluster}": ${targetKeywordCount} Keywords\n\nDer Quell-Cluster wird danach gelöscht.`)) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/themes/merge-clusters`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sourceCluster, targetCluster })
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showToast(`Cluster zusammengeführt: ${result.mergedKeywords} Keywords aus "${sourceCluster}" nach "${targetCluster}"`, 'success');
+                    
+                    document.getElementById('mergeSourceCluster').value = '';
+                    document.getElementById('mergeTargetCluster').value = '';
+                    
+                    await loadClusters();
+                    await loadKeywords(true);
+                    renderKeywords(allKeywords);
+                    updateClusterSelectionInfo();
+                } else {
+                    const error = await response.json();
+                    showToast(`Fehler: ${error.error || 'Unbekannter Fehler'}`, 'error');
+                }
+            } catch (error) {
+                console.error('Fehler beim Zusammenführen:', error);
+                showToast('Fehler beim Zusammenführen der Cluster', 'error');
+            }
+        }
+
         // ============================================================================
         // ÄHNLICHE KEYWORDS
         // ============================================================================
@@ -1327,7 +1518,10 @@
             if (selectedKeywords.size === 0) return;
             
             const panel = document.getElementById('similarPanel');
+            const overlay = document.getElementById('similarOverlay');
             const list = document.getElementById('similarKeywordsList');
+            
+            overlay.style.display = 'block';
             
             // Aktualisiere Cluster-Dropdown im Similar Panel
             const similarSelect = document.getElementById('similarClusterSelect');
@@ -1475,6 +1669,7 @@
 
         function closeSimilarPanel() {
             document.getElementById('similarPanel').style.display = 'none';
+            document.getElementById('similarOverlay').style.display = 'none';
             similarKeywordsData = [];
             
             // Entferne Auswahl aus ähnlichen Keywords
