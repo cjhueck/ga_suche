@@ -192,6 +192,32 @@ async function loadChunks() {
   }
 }
 
+// Bilder-Datenbank
+let steinerImages = {};
+
+async function loadSteinerImages() {
+  try {
+    const imagesPath = path.join(__dirname, 'steiner-images.json');
+    
+    if (!fsSync.existsSync(imagesPath)) {
+      console.log('steiner-images.json nicht gefunden - keine Bilder verfügbar');
+      return {};
+    }
+    
+    console.log('Lade steiner-images.json...');
+    const data = await fs.readFile(imagesPath, 'utf8');
+    steinerImages = JSON.parse(data);
+    
+    const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
+    console.log(`✓ steiner-images.json geladen: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder`);
+    
+    return steinerImages;
+  } catch (error) {
+    console.error('Fehler beim Laden von steiner-images.json:', error.message);
+    return {};
+  }
+}
+
 async function loadFullLectures() {
   try {
     const { lectureFiles } = await findDataFiles();
@@ -9706,6 +9732,16 @@ app.post('/api/generate-keywords', async (req, res) => {
   }
 });
 
+// API: Bilder-Datenbank abrufen
+app.get('/api/steiner-images', async (req, res) => {
+  try {
+    res.json(steinerImages);
+  } catch (error) {
+    console.error('[IMAGES-API] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // API: Keywords-Datenbank abrufen
 app.get('/api/keywords-database', async (req, res) => {
   try {
@@ -11828,6 +11864,7 @@ console.log('[BACKUP] ✓ Code-Backups erstellt\n');
 
 await loadSynonyms();
 await loadFullLectures();
+await loadSteinerImages();
 
 // Synchronisiere Keyword-Systeme beim Start
 await synchronizeKeywordSystems();
