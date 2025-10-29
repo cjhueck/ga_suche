@@ -3466,7 +3466,7 @@ Lade Statistiken...
 </div>
 
 <div class="tab-content" id="zitate-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
-<div style="padding: 0.5rem 0;">
+<div style="padding: 0.5rem 0 2rem 0;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
   <h3 style="margin: 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
   <button id="toggleQuotePopupBtn" onclick="toggleQuotePopup()" style="display: none; padding: 6px 12px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap;">
@@ -3500,7 +3500,7 @@ Lade Statistiken...
 </div>
 
 <!-- Gespeicherte Zitate -->
-<div style="margin-bottom: 1rem;">
+<div style="margin-bottom: 2rem;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
     <h4 style="margin: 0; color: var(--heading-color);">Gespeicherte Zitate</h4>
     <span id="quotesCount" style="font-size: 0.85em; color: #666; background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">0</span>
@@ -12932,6 +12932,11 @@ window.switchTab = function(tabName) {
     } else {
       console.log('[TIMELINE] Pending Keyword vorhanden, überspringe renderTimeline()');
     }
+  }
+  
+  // Load quotes when zitate tab is opened
+  if (tabName === 'zitate') {
+    loadQuotesForTab();
   }
 };
 
