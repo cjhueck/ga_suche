@@ -3421,7 +3421,7 @@ body.dark-mode .welcome-start-btn:hover {
 Lade Statistiken...
 </div>
 <button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
-← Zurück zu Texte
+← Zurück zum Text
 </button>
 </div>
 </div>
@@ -3558,9 +3558,12 @@ Bestehende Schlagwörter überschreiben
     </div>
   </div>
   
-  <div style="display: flex; gap: 8px; align-items: center;">
+  <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
     <button id="startGABatchBtn" class="depth-btn" onclick="startGABatchFullRegenerate()" style="padding: 8px 16px; font-size: 0.85em; background: #d9534f; color: white;" disabled>
       S&H&C&K starten
+    </button>
+    <button id="startShortSumBatchBtn" class="depth-btn" onclick="startGABatchShortSummaries()" style="padding: 8px 16px; font-size: 0.85em; background: #5cb85c; color: white;" disabled>
+      ShortSum starten
     </button>
   </div>
   
@@ -4606,15 +4609,17 @@ function navigateToTheme(themeName) {
 
 // Globale Variable für Timeline-Zurück-Navigation
 let timelineBackToGA = null;
+let timelineBackToLecture = null; // Speichere die Lecture ID für Zurück-Navigation
 let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werden soll
 
 // Navigation zum Timeline-Tab und Keyword auswählen
-async function navigateToTimelineKeyword(keyword, gaNumber) {
+async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   console.log('[NAVIGATION] ========================================');
-  console.log('[NAVIGATION] Keyword-Click:', keyword, 'von GA:', gaNumber);
+  console.log('[NAVIGATION] Keyword-Click:', keyword, 'von GA:', gaNumber, 'Lecture:', lectureId);
   
-  // Speichere GA-Nummer für Zurück-Button
+  // Speichere GA-Nummer und Lecture ID für Zurück-Button
   timelineBackToGA = gaNumber;
+  timelineBackToLecture = lectureId || (currentLectureData ? currentLectureData.ID : null);
   
   // IMMER zum Timeline-Tab wechseln (auch wenn schon dort) um alles zurückzusetzen
   timelinePendingKeyword = keyword;
@@ -4662,34 +4667,43 @@ function showTimelineBackButton() {
   }
 }
 
-// Navigiere zurück zum Texte-Tab mit der gespeicherten GA-Nummer
+// Navigiere zurück zum Texte-Tab mit der gespeicherten GA-Nummer und Vortrag
 function navigateBackToTexteGA() {
   if (!timelineBackToGA) return;
   
   const savedGA = timelineBackToGA;
-  console.log('[NAVIGATION] Navigiere zurück zu Texte-Tab, GA:', savedGA);
+  const savedLecture = timelineBackToLecture;
+  console.log('[NAVIGATION] Navigiere zurück zu Texte-Tab, GA:', savedGA, 'Lecture:', savedLecture);
   
   // Wechsle zum Texte-Tab
   switchTab('texte');
   
-  // Warte kurz, dann lade GA-Übersicht
+  // Warte kurz, dann öffne den Vortrag oder GA-Übersicht
   setTimeout(async () => {
-    const texteGAFilter = document.getElementById('texteGAFilter');
-    if (texteGAFilter) {
-      texteGAFilter.value = savedGA;
-      console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
-    }
-    
-    // Lade GA-Übersicht direkt mit der richtigen Funktion
     try {
-      await openGAOverview(savedGA);
-      console.log('[NAVIGATION] GA-Übersicht geladen für:', savedGA);
+      if (savedLecture) {
+        // Öffne den spezifischen Vortrag
+        console.log('[NAVIGATION] Öffne Vortrag:', savedLecture);
+        await showLecture(savedLecture);
+        console.log('[NAVIGATION] ✓ Vortrag geöffnet');
+      } else {
+        // Fallback: Öffne GA-Übersicht
+        const texteGAFilter = document.getElementById('texteGAFilter');
+        if (texteGAFilter) {
+          texteGAFilter.value = savedGA;
+          console.log('[NAVIGATION] GA-Band Dropdown gesetzt:', savedGA);
+        }
+        
+        await openGAOverview(savedGA);
+        console.log('[NAVIGATION] GA-Übersicht geladen für:', savedGA);
+      }
     } catch (error) {
-      console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
+      console.error('[NAVIGATION] Fehler beim Öffnen:', error);
     }
     
     // Zurücksetzen
     timelineBackToGA = null;
+    timelineBackToLecture = null;
   }, 200);
 }
 
@@ -6294,8 +6308,7 @@ function showSummaryView() {
     const lectureKeywords = summaryObj.lectureKeywords || [];
     if (lectureKeywords.length > 0) {
       html += '<div class="lecture-keywords-section" style="margin-bottom: 1rem;">';
-      html += '<p style="margin: 0 0 0.5rem 0;"><strong>Schlagwörter</strong></p>';
-      html += '<p style="margin: 0; line-height: 1.3; font-size: 0.9em;">';
+      html += '<p style="margin: 0;">';
       
       // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
       const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
@@ -6304,7 +6317,8 @@ function showSummaryView() {
       html += lectureKeywords.map(kw => {
         const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
         const escapedGANumber = gaNumber.replace(/'/g, "\\'");
-        return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+        const escapedLectureId = lecture.ID.replace(/'/g, "\\'");
+        return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
       }).join(' &middot; ');
       
       // "+ Keyword" Button nur lokal anzeigen
@@ -9618,6 +9632,7 @@ function switchTabExtended(mode) {
     // Bei allen anderen Tabs: Zurück-Navigation zurücksetzen
     if (mode !== 'timeline') {
       timelineBackToGA = null;
+      timelineBackToLecture = null;
     }
   }
 
@@ -12822,6 +12837,7 @@ function updateStartButtonState() {
   const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
   
   document.getElementById('startGABatchBtn').disabled = !anyChecked;
+  document.getElementById('startShortSumBatchBtn').disabled = !anyChecked;
 }
 
 // ============================================================================
@@ -12941,6 +12957,127 @@ async function startGABatchFullRegenerate() {
   checkboxes.forEach(cb => cb.disabled = false);
 }
 
+// Starte GA-Batch Short Summaries für ausgewählte GA-Bände
+async function startGABatchShortSummaries() {
+  // Sammle ausgewählte GA-Bände
+  const checkboxes = document.querySelectorAll('.ga-volume-checkbox:checked');
+  const selectedVolumes = Array.from(checkboxes).map(cb => cb.value);
+  
+  if (selectedVolumes.length === 0) {
+    alert('Bitte wählen Sie mindestens einen GA-Band aus!');
+    return;
+  }
+  
+  // Hole ausgewählten Provider
+  const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || 'claude';
+  
+  // Berechne Gesamtanzahl Vorträge
+  let totalLectures = 0;
+  selectedVolumes.forEach(vol => {
+    const volInfo = availableGAVolumes.find(v => v.volume === vol);
+    if (volInfo) totalLectures += volInfo.lectureCount;
+  });
+  
+  const message = `Kurzzusammenfassungen für ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} generieren?\n\n` +
+    `Bände: ${selectedVolumes.join(', ')}\n` +
+    `Total Vorträge: ~${totalLectures}\n` +
+    `KI-Provider: ${selectedProvider.toUpperCase()}\n\n` +
+    `Hinweis: Nur bestehende Summaries werden verarbeitet (sehr schnell und günstig).\n` +
+    `Vorträge ohne Summary werden übersprungen.`;
+  
+  if (!confirm(message)) return;
+  
+  const btn = document.getElementById('startShortSumBatchBtn');
+  const statusDiv = document.getElementById('gaBatchStatus');
+  const progressContainer = document.getElementById('gaBatchProgressContainer');
+  const resultsDiv = document.getElementById('gaBatchResults');
+  const progressBar = document.getElementById('gaBatchProgressBar');
+  
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+  checkboxes.forEach(cb => cb.disabled = true);
+  statusDiv.style.display = 'block';
+  progressContainer.style.display = 'block';
+  resultsDiv.style.display = 'none';
+  
+  statusDiv.innerHTML = `<span style="color: #5cb85c;">⏳ Sammle Vorträge...</span>`;
+  
+  try {
+    // Sammle alle Lecture IDs der ausgewählten GA-Bände
+    let allLectureIds = [];
+    
+    for (const gaVolume of selectedVolumes) {
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaVolume)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        const lectureIds = (data.lectures || []).map(l => l.ID);
+        allLectureIds.push(...lectureIds);
+      }
+    }
+    
+    if (allLectureIds.length === 0) {
+      throw new Error('Keine Vorträge gefunden');
+    }
+    
+    statusDiv.innerHTML = `<span style="color: #5cb85c;">⏳ Generiere Kurzzusammenfassungen für ${allLectureIds.length} Vorträge...</span>`;
+    
+    // Rufe Short Summary Batch Endpoint auf
+    const response = await fetch(`${API_BASE}/api/batch-generate-short-summaries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: allLectureIds,
+        preferredProvider: selectedProvider,
+        forceRegenerate: false
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Server-Fehler: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    if (result.success) {
+      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Kurzzusammenfassungen abgeschlossen!</span>`;
+      resultsDiv.style.display = 'block';
+      
+      const skipped = allLectureIds.length - result.processed - result.failed;
+      
+      document.getElementById('gaBatchStatVolume').textContent = 
+        `${selectedVolumes.length} Band${selectedVolumes.length > 1 ? 'e' : ''} (${selectedVolumes.join(', ')})`;
+      document.getElementById('gaBatchStatProcessed').textContent = result.processed + ' Kurzzusammenfassungen';
+      
+      if (skipped > 0) {
+        document.getElementById('gaBatchStatSkipped').style.display = 'block';
+        document.getElementById('gaBatchSkippedLabel').style.display = 'block';
+        document.getElementById('gaBatchStatSkipped').textContent = skipped + ' (keine Summary)';
+      } else {
+        document.getElementById('gaBatchStatSkipped').style.display = 'none';
+        document.getElementById('gaBatchSkippedLabel').style.display = 'none';
+      }
+      
+      document.getElementById('gaBatchStatTotal').textContent = allLectureIds.length + ' gesamt';
+      document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
+      document.getElementById('gaBatchStatFinalVocab').textContent = '-';
+      document.getElementById('gaBatchStatSynonyms').textContent = '-';
+      document.getElementById('gaBatchStatMethod').textContent = 'Short Summary Generation';
+      
+      if (progressBar) progressBar.style.width = '100%';
+      
+    } else {
+      throw new Error(result.error || 'Unbekannter Fehler');
+    }
+    
+  } catch (err) {
+    console.error('[SHORT-SUM-BATCH] Fehler:', err);
+    statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${err.message}</span>`;
+  } finally {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    checkboxes.forEach(cb => cb.disabled = false);
+  }
+}
 
 // Lade GA-Bände beim Öffnen des Keywords-Tabs
 if (document.getElementById('gaVolumeCheckboxes')) {
