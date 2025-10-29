@@ -5454,6 +5454,7 @@ const KEYWORDS_DB_FILE = path.join(__dirname, 'keywords-database.json');
 const THEMES_DB_FILE = path.join(__dirname, 'themes-database.json');
 const CLUSTERS_FILE = path.join(__dirname, 'thematic-clusters.json');
 const THEMES_KEYWORDS_TEMPLATE_FILE = path.join(__dirname, 'themes-keywords-template.json');
+const QUOTES_DB_FILE = path.join(__dirname, 'quotes-database.json');
 
 // Backup-Verzeichnisse
 const BACKUP_BASE_DIR = path.join(__dirname, 'backups');
@@ -11721,6 +11722,192 @@ app.get('/thematic-search-database.json', async (req, res) => {
     res.json(thematicDB);
   } catch (error) {
     console.error('Fehler beim Laden der Themensuchen-Cache-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Themensuche löschen
+app.post('/api/delete-thematic-search', async (req, res) => {
+  try {
+    const { cacheKey } = req.body;
+    
+    if (!cacheKey) {
+      return res.status(400).json({ error: 'Cache-Key erforderlich' });
+    }
+    
+    console.log(`[DELETE-THEMATIC] Lösche Themensuche mit Key: ${cacheKey}`);
+    
+    // Lade Datenbank
+    const thematicDB = await loadThematicSearchDatabase();
+    
+    // Prüfe ob Key existiert
+    if (!thematicDB[cacheKey]) {
+      console.log(`[DELETE-THEMATIC] Key nicht gefunden: ${cacheKey}`);
+      return res.status(404).json({ error: 'Themensuche nicht gefunden' });
+    }
+    
+    // Lösche Eintrag
+    delete thematicDB[cacheKey];
+    
+    // Speichere aktualisierte Datenbank
+    await saveThematicSearchDatabase(thematicDB);
+    
+    console.log(`[DELETE-THEMATIC] ✓ Themensuche gelöscht: ${cacheKey}`);
+    
+    res.json({
+      success: true,
+      message: 'Themensuche erfolgreich gelöscht',
+      deletedKey: cacheKey
+    });
+    
+  } catch (error) {
+    console.error('[DELETE-THEMATIC] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// QUOTES DATABASE (Zitate-Verwaltung)
+// ============================================================================
+
+// Lade Zitate-Datenbank
+async function loadQuotesDatabase() {
+  try {
+    const data = await fs.readFile(QUOTES_DB_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.log('[QUOTES] Zitate-DB nicht gefunden, erstelle neue...');
+    return { quotes: [] };
+  }
+}
+
+// Speichere Zitate-Datenbank
+async function saveQuotesDatabase(quotesDB) {
+  try {
+    await fs.writeFile(QUOTES_DB_FILE, JSON.stringify(quotesDB, null, 2), 'utf8');
+    console.log('[QUOTES] Zitate-DB gespeichert');
+    return true;
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Speichern:', error);
+    throw error;
+  }
+}
+
+// API: Alle Zitate abrufen
+app.get('/api/quotes', async (req, res) => {
+  try {
+    const quotesDB = await loadQuotesDatabase();
+    res.json(quotesDB);
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Neues Zitat hinzufügen
+app.post('/api/quotes/add', async (req, res) => {
+  try {
+    const { text, lectureId, paragraphIndex, date } = req.body;
+    
+    if (!text || !lectureId || !paragraphIndex) {
+      return res.status(400).json({ error: 'Text, lectureId und paragraphIndex erforderlich' });
+    }
+    
+    const quotesDB = await loadQuotesDatabase();
+    
+    // Erstelle neues Zitat
+    const newQuote = {
+      id: Date.now().toString(),
+      text: text,
+      lectureId: lectureId,
+      paragraphIndex: paragraphIndex,
+      date: date || new Date().toISOString(),
+      addedAt: new Date().toISOString(),
+      isActive: false // Standardmäßig nicht im Popup aktiv
+    };
+    
+    quotesDB.quotes.push(newQuote);
+    
+    await saveQuotesDatabase(quotesDB);
+    
+    console.log(`[QUOTES] ✓ Zitat hinzugefügt: ${lectureId}:${paragraphIndex}`);
+    
+    res.json({
+      success: true,
+      quote: newQuote,
+      message: 'Zitat erfolgreich hinzugefügt'
+    });
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Hinzufügen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Zitat löschen
+app.post('/api/quotes/delete', async (req, res) => {
+  try {
+    const { quoteId } = req.body;
+    
+    if (!quoteId) {
+      return res.status(400).json({ error: 'Quote ID erforderlich' });
+    }
+    
+    const quotesDB = await loadQuotesDatabase();
+    
+    const beforeLength = quotesDB.quotes.length;
+    quotesDB.quotes = quotesDB.quotes.filter(q => q.id !== quoteId);
+    const afterLength = quotesDB.quotes.length;
+    
+    if (beforeLength === afterLength) {
+      return res.status(404).json({ error: 'Zitat nicht gefunden' });
+    }
+    
+    await saveQuotesDatabase(quotesDB);
+    
+    console.log(`[QUOTES] ✓ Zitat gelöscht: ${quoteId}`);
+    
+    res.json({
+      success: true,
+      message: 'Zitat erfolgreich gelöscht'
+    });
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Löschen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Zitat aktivieren/deaktivieren für Popup
+app.post('/api/quotes/toggle-active', async (req, res) => {
+  try {
+    const { quoteId, isActive } = req.body;
+    
+    if (!quoteId) {
+      return res.status(400).json({ error: 'Quote ID erforderlich' });
+    }
+    
+    const quotesDB = await loadQuotesDatabase();
+    
+    const quote = quotesDB.quotes.find(q => q.id === quoteId);
+    if (!quote) {
+      return res.status(404).json({ error: 'Zitat nicht gefunden' });
+    }
+    
+    quote.isActive = isActive;
+    
+    await saveQuotesDatabase(quotesDB);
+    
+    console.log(`[QUOTES] ✓ Zitat ${isActive ? 'aktiviert' : 'deaktiviert'}: ${quoteId}`);
+    
+    res.json({
+      success: true,
+      quote: quote,
+      message: `Zitat ${isActive ? 'aktiviert' : 'deaktiviert'}`
+    });
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Toggle:', error);
     res.status(500).json({ error: error.message });
   }
 });

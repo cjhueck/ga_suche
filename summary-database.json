@@ -17118,6 +17118,18 @@
         "matchedExisting": "Theosophische Bewegung",
         "confidence": 0.95,
         "theme": "Anthroposophie & Theosophie"
+      },
+      {
+        "term": "Schöpferische Tätigkeit",
+        "index": "^bypain",
+        "heading": "Tätigkeit als unvergängliches Element",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2",
@@ -471714,7 +471726,8 @@
       }
     ],
     "version": "v2-unified",
-    "timestamp": "2025-10-28T17:13:22.137Z"
+    "timestamp": "2025-10-28T17:13:22.137Z",
+    "shortSummary": "Die kosmische Entwicklung verläuft durch sieben Bewusstseinszustände (Saturn bis Vulkan), die jeweils sieben Lebenszustände mit je sieben Formzuständen durchlaufen. Die Erde befindet sich aktuell im vierten Formzustand des Mineralreiches des vierten Bewusstseinszustandes."
   },
   "GA095/14": {
     "summary": "Die Rosenkreuzer-Schulung entwickelte sich seit dem 14. Jahrhundert als Antwort auf den entstehenden Zwiespalt zwischen Glauben und Wissen. Diese Methode zeigt, dass höchstes weltliches Wissen mit übersinnlicher Erkenntnis vereinbar ist. Das Wesen der Schulung besteht in wahrer Selbsterkenntnis durch Überwindung des niederen Selbst und Selbstentäußerung zum höheren Selbst. Die sieben Stufen umfassen: Studium, Imagination, okkulte Schrift, Rhythmisierung des Lebens, Entsprechung von Mikrokosmos und Makrokosmos, Verweilen im Makrokosmos und Gottseligkeit. Die Erde wird als neunschichtiges Wesen beschrieben, dessen Entwicklung mit der menschlichen Evolution verbunden ist. Menschliche Leidenschaften beeinflussen die inneren Erdschichten und können Erdbeben verursachen. Die theosophische Bewegung soll harmonisierend wirken und zur Vergeistigung der Erde beitragen.",
@@ -472324,7 +472337,8 @@
       }
     ],
     "version": "v2-unified",
-    "timestamp": "2025-10-28T17:13:30.066Z"
+    "timestamp": "2025-10-28T17:13:30.066Z",
+    "shortSummary": "Tiere entstanden durch Ausscheidung aus der ursprünglichen Menschheitsentwicklung, wobei die Tierkreisnamen diese Entwicklungsphasen widerspiegeln. Christus verkörpert als einzigartige Logos-Inkarnation Weg, Wahrheit und Leben in sich vereint."
   },
   "GA095/15": {
     "summary": "Der Vortrag behandelt grundlegende Fragen der theosophischen Geisteswissenschaft in Form von Antworten auf konkrete Zuhörerfragen. Die Arbeit des Ich an den verschiedenen Wesensgliedern wird erläutert - vom Astralleib über den Ätherleib bis zum physischen Leib. Der vierdimensionale Astralraum wird geometrisch beschrieben, ebenso die Zustände nach dem Tod in Kamaloka und Devachan. Die Gestalt des Astralleibs als Eiform und seine Transformation nach dem Tod zu leuchtenden Kraftzentren wird dargestellt. Weitere Themen umfassen die Entwicklung der Lotusblumen, karmische Familienbeziehungen, das Wesen der Kunst als Offenbarung geheimer Naturgesetze, die Entstehung von Gold aus verdichtetem Sonnenlicht, die Bewohner des Mondes als luziferische Wesenheiten und die Entwicklung des inneren Wortes bei Eingeweihten.",

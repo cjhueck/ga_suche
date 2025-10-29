@@ -279719,5 +279719,28 @@
     ],
     "generated": "2025-10-29T18:29:09.303Z",
     "generationMethod": "manual-add"
+  },
+  "GA052/15": {
+    "lectureId": "GA052/15",
+    "date": "1904-03-08",
+    "year": 1904,
+    "gaVolume": "GA052",
+    "summary": "Rudolf Steiner stellt die theosophische Weltanschauung als Alternative zur kulturwissenschaftlichen Religionsforschung vor. Während letztere den Ursprung der Religion bei primitiven Völkern sucht, fragt die Theosophie nach den Erfahrungen höher entwickelter Menschen mit übersinnlichen Welten. Steiner unterscheidet drei Daseinsstufen: die vergängliche Welt der Formen (Geburt und Tod), die Welt des Lebens (Wiedergeburt) und die Welt des Geistes (Karma - ewige Tätigkeit). Die Seele entwickelt sich durch Wiederverkörperung vom Verlangen zur Liebe, geleitet vom unvergänglichen Geist. Diese Weltanschauung bietet dem modernen Menschen eine rationale Erklärung für Schicksalsunterschiede und ethische Fragen, führt zur Brüderlichkeit und gibt Trost sowie Mut durch die Erkenntnis des ewigen geistigen Wesenskerns im Menschen.",
+    "keywords": [
+      {
+        "term": "Schöpferische Tätigkeit",
+        "index": "^bypain",
+        "heading": "Tätigkeit als unvergängliches Element",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-10-29T20:25:41.492Z",
+    "generationMethod": "manual-add"
   }
 }
