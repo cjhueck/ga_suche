@@ -354,6 +354,17 @@ body.dark-mode .site-logo:hover {
   box-shadow: 0 2px 6px rgba(255,255,255,0.15);
 }
 
+/* Site-Sign Styling */
+.site-sign {
+  transition: all 0.3s ease;
+}
+
+body.dark-mode .site-sign {
+  filter: invert(1);
+  background: var(--dark-background-color);
+  mix-blend-mode: screen;
+}
+
 .site-header-flex {
   display: flex;
   align-items: center;
@@ -3279,19 +3290,21 @@ body.dark-mode .welcome-start-btn:hover {
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="site-header-flex">
 <img src="steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
-<h1 id="site-title"><a href="index.html" style="color: inherit; text-decoration: none;">Steiner<br>GA-Suche</a></h1>
+<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="steiner-sign.jpg" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <div style="display: flex; align-items: center; gap: 0.15rem;">
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
 <i data-lucide="database"></i>
-</button>
-<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
-<i data-lucide="info"></i>
 </button>
 <label class="theme-switch">
 <input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
 <span class="theme-slider"></span>
 </label>
+</div>
+<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
+<i data-lucide="info"></i>
+</button>
 </div>
 </div>
 <div class="tab-container">
