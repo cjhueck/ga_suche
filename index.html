@@ -4693,19 +4693,33 @@ function navigateBackToTexteGA() {
       await openGAOverview(savedGA);
       console.log('[NAVIGATION] ✓ GA-Übersicht geladen');
       
-      // Wenn ein spezifischer Vortrag vorhanden, öffne ihn im Hauptbereich
+      // Warte kurz, damit die GA-Übersicht vollständig gerendert ist
+      // Dann öffne den Vortrag im Hauptbereich (ohne das linke Panel zu überschreiben)
       if (savedLecture) {
-        console.log('[NAVIGATION] Öffne Vortrag:', savedLecture);
-        await showLecture(savedLecture);
-        console.log('[NAVIGATION] ✓ Vortrag geöffnet');
+        setTimeout(async () => {
+          try {
+            console.log('[NAVIGATION] Öffne Vortrag:', savedLecture);
+            await showLecture(savedLecture);
+            console.log('[NAVIGATION] ✓ Vortrag geöffnet');
+          } catch (err) {
+            console.error('[NAVIGATION] Fehler beim Öffnen des Vortrags:', err);
+          }
+          
+          // Zurücksetzen nach Vortrag-Öffnung
+          timelineBackToGA = null;
+          timelineBackToLecture = null;
+        }, 300);
+      } else {
+        // Zurücksetzen wenn kein Vortrag
+        timelineBackToGA = null;
+        timelineBackToLecture = null;
       }
     } catch (error) {
       console.error('[NAVIGATION] Fehler beim Öffnen:', error);
+      // Zurücksetzen bei Fehler
+      timelineBackToGA = null;
+      timelineBackToLecture = null;
     }
-    
-    // Zurücksetzen
-    timelineBackToGA = null;
-    timelineBackToLecture = null;
   }, 200);
 }
 
