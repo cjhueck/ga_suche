@@ -523,7 +523,7 @@ body.dark-mode .site-logo:hover {
     .timeline-entry-link {
       color: var(--link-color);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
       transition: color 0.2s ease;
     }
     
@@ -2675,6 +2675,7 @@ body.dark-mode .timeline-lecture-title {
 .timeline-lecture-link {
   color: var(--link-color);
   text-decoration: none;
+  font-weight: 600;
   transition: color 0.2s ease;
   outline: none;
   border: none;
@@ -3401,18 +3402,12 @@ body.dark-mode .welcome-start-btn:hover {
 <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0.5rem 0;">
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
 <div>
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-Thema auswählen:
-</label>
-<select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+<select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
 <option value="">Bitte Thema wählen...</option>
 </select>
 </div>
 <div>
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color); font-weight: 500;">
-Schlagwort auswählen:
-</label>
-<select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters();">
+<select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
 <option value="">Alle Schlagwörter</option>
 </select>
 </div>
@@ -4513,15 +4508,14 @@ let timelinePendingKeyword = null; // Keyword das nach Tab-Wechsel gesetzt werde
 
 // Navigation zum Timeline-Tab und Keyword auswählen
 async function navigateToTimelineKeyword(keyword, gaNumber) {
-  console.log('[NAVIGATION] Navigiere zu Timeline-Keyword:', keyword, 'von GA:', gaNumber);
+  console.log('[NAVIGATION] ========================================');
+  console.log('[NAVIGATION] Keyword-Click:', keyword, 'von GA:', gaNumber);
   
   // Speichere GA-Nummer für Zurück-Button
   timelineBackToGA = gaNumber;
   
-  // Speichere Keyword für späteres Setzen
+  // IMMER zum Timeline-Tab wechseln (auch wenn schon dort) um alles zurückzusetzen
   timelinePendingKeyword = keyword;
-  
-  // Wechsle zum Timeline-Tab (renderTimeline wird NICHT aufgerufen wegen timelinePendingKeyword)
   switchTab('timeline');
   
   // Warte, dann setze Keyword und rendere Timeline
@@ -4529,37 +4523,24 @@ async function navigateToTimelineKeyword(keyword, gaNumber) {
     if (timelinePendingKeyword) {
       const keywordToSet = timelinePendingKeyword;
       
-      // Jetzt erst renderTimeline aufrufen, damit Dropdown befüllt wird
+      // renderTimeline lädt Dropdowns komplett neu (beide leer)
       await renderTimeline();
       
-      // Warte nochmal kurz bis Dropdown fertig gerendert ist
-      setTimeout(() => {
-        timelinePendingKeyword = null; // Reset
+      // Warte bis Dropdowns fertig gerendert sind
+      setTimeout(async () => {
+        timelinePendingKeyword = null;
         
         const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
         if (keywordDropdown) {
-          console.log('[NAVIGATION] Dropdown gefunden, setze Keyword:', keywordToSet);
-          console.log('[NAVIGATION] Dropdown-Optionen:', keywordDropdown.options.length);
-          
-          // Setze Dropdown-Wert
+          console.log('[NAVIGATION] Setze Keyword:', keywordToSet);
           keywordDropdown.value = keywordToSet;
           
-          console.log('[NAVIGATION] Dropdown-Wert nach Setzen:', keywordDropdown.value);
-          
-          // Rufe updateTimelineFilters() direkt auf (das ist der onchange-Handler)
+          // updateTimelineFilters() findet und setzt automatisch das Thema
           if (typeof updateTimelineFilters === 'function') {
-            updateTimelineFilters();
-            console.log('[NAVIGATION] updateTimelineFilters() aufgerufen');
-          } else {
-            console.warn('[NAVIGATION] updateTimelineFilters ist keine Funktion');
+            await updateTimelineFilters();
           }
-          
-          console.log('[NAVIGATION] Timeline-Keyword ausgewählt:', keywordToSet);
-        } else {
-          console.warn('[NAVIGATION] Timeline-Keyword-Dropdown nicht gefunden');
         }
         
-        // Zeige Zurück-Button
         showTimelineBackButton();
       }, 100);
     }
@@ -11697,8 +11678,7 @@ async function loadTimelineKeywords() {
 
 // Render timeline visualization
 // Globale Variable für letztes ausgewähltes Thema/Keyword
-let lastSelectedTheme = '';
-let lastSelectedKeyword = '';
+// Cache-Variablen entfernt - nicht mehr nötig!
 let timelineHeadingLevel = 'both'; // 'h3', 'h4', oder 'both'
 
 // Update timeline statistics display
@@ -11706,13 +11686,50 @@ async function updateTimelineStats() {
   const statsDisplay = document.getElementById('timelineStatsDisplay');
   if (!statsDisplay) return;
   
+  // Hole aktuelle Auswahl
+  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  
   try {
-    // Lade Themen und Keywords
-    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
     const keywordsDB = await loadKeywordsDatabase();
     
+    // Wenn THEMA ausgewählt ist
+    if (currentTheme) {
+      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+      if (themesResponse.ok) {
+        const themes = await themesResponse.json();
+        const themeData = themes[currentTheme];
+        
+        if (themeData && themeData.keywords) {
+          // Zähle Keywords und Vorträge für dieses Thema
+          const themeKeywords = new Set();
+          const lecturesWithThemeKeywords = new Set();
+          
+          Object.entries(keywordsDB).forEach(([lectureId, lecture]) => {
+            const isNewGeneration = lecture.generationMethod && 
+              (lecture.generationMethod.includes('unified-batch') || 
+               lecture.generationMethod.includes('unified') ||
+               lecture.generationMethod.includes('manual-add') ||
+               lecture.generationMethod.includes('manual'));
+            
+            if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
+              lecture.keywords.forEach(kw => {
+                if (kw.term && themeData.keywords.some(tk => tk.toLowerCase() === kw.term.toLowerCase())) {
+                  themeKeywords.add(kw.term);
+                  lecturesWithThemeKeywords.add(lectureId);
+                }
+              });
+            }
+          });
+          
+          statsDisplay.innerHTML = `${themeKeywords.size} Schlagwörter • ${lecturesWithThemeKeywords.size} Vorträge`;
+          return;
+        }
+      }
+    }
+    
+    // DEFAULT: Keine Auswahl - zeige alles
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
     let themesCount = 0;
-    let keywordsCount = 0;
     
     if (themesResponse.ok) {
       const themes = await themesResponse.json();
@@ -11724,7 +11741,6 @@ async function updateTimelineStats() {
     let newGenerationCount = 0;
     
     Object.values(keywordsDB).forEach(lecture => {
-      // Filtere: NUR Vorträge mit neuem unified generationMethod
       const isNewGeneration = lecture.generationMethod && 
         (lecture.generationMethod.includes('unified-batch') || 
          lecture.generationMethod.includes('unified') ||
@@ -11740,9 +11756,8 @@ async function updateTimelineStats() {
         }
       }
     });
-    keywordsCount = uniqueKeywords.size;
     
-    statsDisplay.innerHTML = `${themesCount} Themen • ${keywordsCount} Schlagwörter • ${newGenerationCount} Vorträge`;
+    statsDisplay.innerHTML = `${themesCount} Themen • ${uniqueKeywords.size} Schlagwörter • ${newGenerationCount} Vorträge`;
   } catch (error) {
     console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
     statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
@@ -11750,177 +11765,169 @@ async function updateTimelineStats() {
 }
 
 // Update timeline filters when changed
-async function updateTimelineFilters() {
-  let currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+// changedBy: 'theme' = User hat Thema geändert, 'keyword' = User hat Keyword geändert
+async function updateTimelineFilters(changedBy = 'keyword') {
+  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
   const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
-  // ZUERST: Wenn Keyword geändert wurde, finde und setze das zugehörige Thema
-  if (currentKeyword !== lastSelectedKeyword && currentKeyword !== '') {
-    try {
-      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-      if (themesResponse.ok) {
-        const themes = await themesResponse.json();
-        
-        // Finde das Thema, das dieses Keyword enthält
-        let foundTheme = null;
-        for (const [themeName, themeData] of Object.entries(themes)) {
-          if (themeData.keywords && Array.isArray(themeData.keywords)) {
-            // Case-insensitive Vergleich
-            if (themeData.keywords.some(kw => kw.toLowerCase() === currentKeyword.toLowerCase())) {
-              foundTheme = themeName;
-              break;
-            }
-          }
-        }
-        
-        // Setze das Thema im Dropdown, falls gefunden
-        if (foundTheme && foundTheme !== currentTheme) {
-          const themeSelect = document.getElementById('timelineThemeFilterAdmin');
-          if (themeSelect) {
-            console.log('[TIMELINE] Keyword', currentKeyword, '→ Thema:', foundTheme);
-            themeSelect.value = foundTheme;
-            currentTheme = foundTheme; // Aktualisiere currentTheme für diese Iteration
-          }
-        } else if (!foundTheme) {
-          console.log('[TIMELINE] Kein Thema gefunden für Keyword:', currentKeyword);
-        }
-      }
-    } catch (error) {
-      console.error('[TIMELINE] Fehler beim Zuordnen des Themas:', error);
-    }
+  console.log('[TIMELINE] ========================');
+  console.log('[TIMELINE] changedBy:', changedBy);
+  console.log('[TIMELINE] Theme:', currentTheme);
+  console.log('[TIMELINE] Keyword:', currentKeyword);
+  
+  // === FALL 1: Thema wurde geändert → Zeige Keywords für dieses Thema ===
+  if (changedBy === 'theme') {
+    await loadKeywordsForTheme(currentTheme);
   }
   
-  // DANN: Wenn Thema geändert wurde, aktualisiere Keyword-Dropdown
-  if (currentTheme !== lastSelectedTheme) {
-    lastSelectedTheme = currentTheme;
-    
-    // Lösche Viewer-Inhalt beim Theme-Wechsel
-    const viewer = document.getElementById('viewer');
-    if (viewer) {
-      viewer.innerHTML = '';
-    }
-    
-    // Schließe Summary-Panel beim Theme-Wechsel
-    const summaryPanel = document.getElementById('summary-panel');
-    const summaryResizeHandle = document.querySelector('.vertical-resize-handle');
-    if (summaryPanel) {
-      summaryPanel.classList.remove('visible');
-      summaryPanel.removeAttribute('style');
-    }
-    if (summaryResizeHandle) {
-      summaryResizeHandle.classList.remove('visible');
-      summaryResizeHandle.removeAttribute('style');
-      summaryResizeHandle.style.width = '0';
-      summaryResizeHandle.style.display = 'none';
-    }
-    
-    // Keyword-Dropdown neu laden (eingeschränkt auf Thema oder alle)
-    const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
-    if (keywordSelect) {
-      let keywordsHTML = currentTheme 
-        ? '<option value="">Schlagwörter zum Thema</option>' 
-        : '<option value="">Alle Schlagwörter</option>';
+  // === FALL 2: Keyword wurde geändert → Zeige zugehöriges Thema ===
+  if (changedBy === 'keyword' && currentKeyword !== '') {
+    await setThemeForKeyword(currentKeyword);
+  }
+  
+  // Statistik aktualisieren
+  await updateTimelineStats();
+  
+  // Timeline neu rendern
+  const timelineContainer = document.getElementById('timelineContainer');
+  if (timelineContainer) {
+    timelineContainer.innerHTML = '';
+  }
+  await renderTimelineContent();
+}
+
+// Hilfsfunktion: Lade Keywords für ein bestimmtes Thema
+async function loadKeywordsForTheme(themeName) {
+  const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
+  if (!keywordSelect) return;
+  
+  let keywordsHTML = themeName 
+    ? '<option value="">Schlagwörter zum Thema</option>' 
+    : '<option value="">Alle Schlagwörter</option>';
+  
+  if (themeName) {
+    // Keywords für das gewählte Thema
+    console.log('[TIMELINE] Lade Keywords für Thema:', themeName);
+    try {
+      const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+      const keywordsDB = await loadKeywordsDatabase();
       
-      if (currentTheme) {
-        // Lade Keywords aus dem ausgewählten Cluster UND prüfe ob sie tatsächlich in Vorträgen vorkommen
-        console.log('[TIMELINE] Lade Keywords für Thema:', currentTheme);
-        try {
-          const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
-          const keywordsDB = await loadKeywordsDatabase();
-          
-          if (themesResponse.ok) {
-            const themes = await themesResponse.json();
-            const themeData = themes[currentTheme];
-            
-            if (themeData && themeData.keywords) {
-              // Sammle alle Keywords die tatsächlich in der keywords-database vorkommen
-              const existingKeywords = new Set();
-              Object.values(keywordsDB).forEach(lecture => {
-                if (lecture.keywords && Array.isArray(lecture.keywords)) {
-                  lecture.keywords.forEach(kw => {
-                    if (kw.term) {
-                      existingKeywords.add(kw.term.toLowerCase());
-                    }
-                  });
-                }
-              });
-              
-              // Filtere: Nur Cluster-Keywords die auch tatsächlich existieren
-              const availableKeywords = themeData.keywords.filter(kw => 
-                existingKeywords.has(kw.toLowerCase())
-              );
-              
-              console.log('[TIMELINE] Cluster-Keywords:', themeData.keywords.length, 
-                          '| Verfügbar:', availableKeywords.length);
-              
-              // Sortiere und füge nur verfügbare Keywords hinzu
-              availableKeywords.sort().forEach(kw => {
-                keywordsHTML += `<option value="${kw}">${kw}</option>`;
-              });
-            }
-          }
-        } catch (error) {
-          console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
-        }
-      } else {
-        // Alle Keywords (kein Thema ausgewählt)
-        console.log('[TIMELINE] Lade alle Keywords (kein Thema)');
-        try {
-          const keywordsDB = await loadKeywordsDatabase();
-          const allKeywords = new Set();
-          
+      if (themesResponse.ok) {
+        const themes = await themesResponse.json();
+        const themeData = themes[themeName];
+        
+        if (themeData && themeData.keywords) {
+          // Sammle existierende Keywords
+          const existingKeywords = new Set();
           Object.values(keywordsDB).forEach(lecture => {
             if (lecture.keywords && Array.isArray(lecture.keywords)) {
               lecture.keywords.forEach(kw => {
-                if (kw.term) allKeywords.add(kw.term);
+                if (kw.term) existingKeywords.add(kw.term.toLowerCase());
               });
             }
           });
           
-          console.log('[TIMELINE] Alle Keywords geladen:', allKeywords.size);
+          // Nur verfügbare Keywords
+          const availableKeywords = themeData.keywords.filter(kw => 
+            existingKeywords.has(kw.toLowerCase())
+          );
           
-          Array.from(allKeywords).sort().forEach(kw => {
+          availableKeywords.sort().forEach(kw => {
             keywordsHTML += `<option value="${kw}">${kw}</option>`;
           });
-        } catch (error) {
-          console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+        }
+      }
+    } catch (error) {
+      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+    }
+  } else {
+    // Alle Keywords
+    console.log('[TIMELINE] Lade alle Keywords');
+    try {
+      const keywordsDB = await loadKeywordsDatabase();
+      const allKeywords = new Set();
+      
+      Object.values(keywordsDB).forEach(lecture => {
+        if (lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term) allKeywords.add(kw.term);
+          });
+        }
+      });
+      
+      Array.from(allKeywords).sort().forEach(kw => {
+        keywordsHTML += `<option value="${kw}">${kw}</option>`;
+      });
+    } catch (error) {
+      console.error('[TIMELINE] Fehler beim Laden der Keywords:', error);
+    }
+  }
+  
+  keywordSelect.innerHTML = keywordsHTML;
+}
+
+// Hilfsfunktion: Finde und setze Thema für ein Keyword
+async function setThemeForKeyword(keyword) {
+  console.log('[TIMELINE] ========== setThemeForKeyword ==========');
+  console.log('[TIMELINE] Keyword:', keyword);
+  
+  const themeSelect = document.getElementById('timelineThemeFilterAdmin');
+  if (!themeSelect) {
+    console.error('[TIMELINE] Theme-Dropdown nicht gefunden!');
+    return;
+  }
+  
+  console.log('[TIMELINE] Aktuelles Theme im Dropdown:', themeSelect.value);
+  
+  try {
+    const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
+    if (themesResponse.ok) {
+      const themes = await themesResponse.json();
+      
+      // Finde das Thema
+      let foundTheme = null;
+      for (const [themeName, themeData] of Object.entries(themes)) {
+        if (themeData.keywords && Array.isArray(themeData.keywords)) {
+          if (themeData.keywords.some(kw => kw.toLowerCase() === keyword.toLowerCase())) {
+            foundTheme = themeName;
+            break;
+          }
         }
       }
       
-      keywordSelect.innerHTML = keywordsHTML;
+      // Setze IMMER das Thema (oder leer, falls nicht gefunden)
+      const newTheme = foundTheme || '';
+      const oldTheme = themeSelect.value;
+      
+      console.log('[TIMELINE] Altes Theme:', oldTheme);
+      console.log('[TIMELINE] Neues Theme:', newTheme);
+      console.log('[TIMELINE] Setze Theme-Dropdown...');
+      
+      themeSelect.value = newTheme;
+      
+      console.log('[TIMELINE] Theme-Dropdown nach Setzen:', themeSelect.value);
+      
+      // Prüfe ob es funktioniert hat
+      if (themeSelect.value !== newTheme) {
+        console.error('[TIMELINE] FEHLER: Theme wurde nicht gesetzt!');
+        console.error('[TIMELINE] Sollte sein:', newTheme);
+        console.error('[TIMELINE] Ist aber:', themeSelect.value);
+      } else {
+        console.log('[TIMELINE] ✓ Theme erfolgreich gesetzt!');
+      }
     }
-    
-    // Lösche Timeline-Bereich
-    const timelineContainer = document.getElementById('timelineContainer');
-    if (timelineContainer) {
-      timelineContainer.innerHTML = '';
-    }
+  } catch (error) {
+    console.error('[TIMELINE] Fehler beim Finden des Themas:', error);
   }
-  
-  // Aktualisiere lastSelectedKeyword
-  if (currentKeyword !== lastSelectedKeyword) {
-    lastSelectedKeyword = currentKeyword;
-    
-    // Lösche Timeline-Bereich beim Keyword-Wechsel
-    const timelineContainer = document.getElementById('timelineContainer');
-    if (timelineContainer) {
-      timelineContainer.innerHTML = '';
-    }
-  }
-  
-  // Render Timeline neu
-  await renderTimelineContent();
 }
 
 async function renderTimeline() {
   // Timeline wird in #results (unterer Bereich) angezeigt
   const contentDiv = document.getElementById('results');
   
-  // Hole aktuelle Filter-Werte aus Admin-Dropdowns
-  const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
-  const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
-  
-  lastSelectedTheme = currentTheme;
+  // WICHTIG: Beim Rendern KEINE alten Werte verwenden - Dropdowns sollen leer starten
+  const currentTheme = '';
+  const currentKeyword = '';
   
   // Lade Themen-Liste
   let themesHTML = '<option value="">Themen werden noch generiert...</option>';
