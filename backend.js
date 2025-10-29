@@ -5462,6 +5462,7 @@ const THEMES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'themes');
 const CLUSTERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'clusters');
 const CODE_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'code');
 const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
+const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -5475,7 +5476,8 @@ async function ensureBackupDirectories() {
     THEMES_BACKUP_DIR,
     CLUSTERS_BACKUP_DIR,
     CODE_BACKUP_DIR,
-    HTML_BACKUP_DIR
+    HTML_BACKUP_DIR,
+    IMAGES_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -5573,6 +5575,11 @@ async function createClustersBackup() {
   return await createBackup(CLUSTERS_FILE, CLUSTERS_BACKUP_DIR, 'thematic-clusters', 10);
 }
 
+async function createImagesBackup() {
+  const imagesFile = path.join(__dirname, 'steiner-images.json');
+  return await createBackup(imagesFile, IMAGES_BACKUP_DIR, 'steiner-images', 10);
+}
+
 async function createCodeBackup() {
   try {
     await ensureBackupDirectories();
@@ -5656,6 +5663,7 @@ async function createFullBackup() {
     createSummaryBackup(),
     createThemesBackup(),
     createClustersBackup(),
+    createImagesBackup(),
     createCodeBackup(),
     createHtmlBackup('index.html'),
     createHtmlBackup('keyword-manager-advanced.html')
@@ -11660,6 +11668,10 @@ app.post('/api/backups/restore', async (req, res) => {
       backupDir = CLUSTERS_BACKUP_DIR;
       targetFile = CLUSTERS_FILE;
       backupFunc = createClustersBackup;
+    } else if (backupName.startsWith('steiner-images-')) {
+      backupDir = IMAGES_BACKUP_DIR;
+      targetFile = path.join(__dirname, 'steiner-images.json');
+      backupFunc = createImagesBackup;
     } else if (backupName.startsWith('backend-')) {
       backupDir = CODE_BACKUP_DIR;
       targetFile = path.join(__dirname, 'backend.js');
@@ -11737,6 +11749,9 @@ app.post('/api/backups/create', async (req, res) => {
       case 'clusters':
         backupFile = await createClustersBackup();
         break;
+      case 'images':
+        backupFile = await createImagesBackup();
+        break;
       case 'code':
         backupFile = await createCodeBackup();
         break;
@@ -11800,6 +11815,10 @@ app.get('/api/backups/list/:type', async (req, res) => {
         backupDir = CLUSTERS_BACKUP_DIR;
         prefix = 'thematic-clusters';
         break;
+      case 'images':
+        backupDir = IMAGES_BACKUP_DIR;
+        prefix = 'steiner-images';
+        break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;
         prefix = 'backend';
@@ -11860,7 +11879,11 @@ console.log('\n[BACKUP] Erstelle automatische Backups...');
 await createCodeBackup();
 await createHtmlBackup('index.html');
 await createHtmlBackup('keyword-manager-advanced.html');
-console.log('[BACKUP] ✓ Code-Backups erstellt\n');
+// Wichtige Datenbank-Backups beim Start
+await createKeywordsBackup();
+await createSummaryBackup();
+await createImagesBackup();
+console.log('[BACKUP] ✓ Backups erstellt\n');
 
 await loadSynonyms();
 await loadFullLectures();

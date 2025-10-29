@@ -4211,8 +4211,8 @@ function normalizeGANumber(gaNumber) {
           `![${img.altText}](${decodedPath})`
         ];
         
-        // Erstelle img-Tag mit Base64-Daten
-        const imgTag = `<img src="${img.base64}" alt="${img.altText}" style="max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem;" />`;
+        // Erstelle img-Tag mit Base64-Daten (klickbar für Popup)
+        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" style="max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem; cursor: pointer;" />`;
         
         // Versuche beide Pattern-Varianten
         patterns.forEach(pattern => {
@@ -4229,6 +4229,43 @@ function normalizeGANumber(gaNumber) {
       // Relevanz-Filter ist immer aktiv, keine Bedingungen
       console.log('[RELEVANCE-FILTER] Filter aktualisiert');
     }
+
+    // Bild-Popup-Funktion
+    function openImagePopup(imageSrc, altText) {
+      const popup = document.getElementById('imagePopup');
+      const popupImg = document.getElementById('popupImage');
+      const popupCaption = document.getElementById('popupCaption');
+      
+      popupImg.src = imageSrc;
+      popupCaption.textContent = altText;
+      popup.style.display = 'flex';
+      
+      // Schließen bei Klick außerhalb des Bildes
+      popup.onclick = function(e) {
+        if (e.target === popup) {
+          closeImagePopup();
+        }
+      };
+    }
+
+    function closeImagePopup() {
+      const popup = document.getElementById('imagePopup');
+      popup.style.display = 'none';
+    }
+
+    // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('lecture-image')) {
+        openImagePopup(e.target.src, e.target.alt);
+      }
+    });
+
+    // ESC-Taste zum Schließen
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeImagePopup();
+      }
+    });
 
     async function populateGADropdowns() {
       try {
@@ -14398,6 +14435,17 @@ async function addKeywordToLecture() {
 
 <!-- Overlay für Add Keyword Modal -->
 <div id="addKeywordOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeAddKeywordModal()"></div>
+
+<!-- Image Popup Modal -->
+<div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 11000; justify-content: center; align-items: center;">
+  <div style="position: relative; max-width: 60%; max-height: 90vh; display: flex; flex-direction: column; align-items: center;">
+    <button onclick="closeImagePopup()" style="position: absolute; top: -40px; right: 0; background: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 24px; line-height: 1; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 11001;">
+      ×
+    </button>
+    <img id="popupImage" src="" alt="" style="max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 4px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" />
+    <div id="popupCaption" style="color: white; margin-top: 1rem; font-size: 0.9em; text-align: center;"></div>
+  </div>
+</div>
 
 </body>
 </html> 
