@@ -5725,7 +5725,7 @@ try {
     }
   }
   
-  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4 und TOC
+  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4, TOC und Schlagwörter
   const tocList = document.getElementById('toc-list');
   const viewerH4 = viewer.querySelectorAll('h4');
   const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
@@ -5733,6 +5733,9 @@ try {
   // TOC-Container im Viewer finden
   const viewerTOC = viewer.querySelector('.lecture-toc-section');
   const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
+  
+  // Schlagwörter-Container im Viewer finden
+  const viewerKeywords = viewer.querySelector('.lecture-keywords-section');
   
   // Normaler Toggle der H4-Anzeige
   viewerH4Collapsed = !viewerH4Collapsed;
@@ -5760,7 +5763,32 @@ try {
   if (tocListTOC) {
     tocListTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
   }
+  
+  // Toggle Schlagwörter-Container im Viewer
+  if (viewerKeywords) {
+    viewerKeywords.style.display = viewerH4Collapsed ? 'none' : 'block';
+  }
 }
+
+    // Toggle Table of Contents Inhalt
+    function toggleTOCContent() {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      const tocList = viewer.querySelector('.toc-content-list');
+      const tocButton = event.target;
+      
+      if (tocList) {
+        const isHidden = tocList.style.display === 'none';
+        tocList.style.display = isHidden ? 'block' : 'none';
+        
+        // Ändere Button-Symbol
+        if (tocButton) {
+          tocButton.textContent = isHidden ? '▲' : '▼';
+        }
+      }
+    }
+
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
       const resizeHandle = document.getElementById('verticalResizeHandle');
@@ -6266,22 +6294,29 @@ function showSummaryView() {
     if (isLocal) {
       const lectureKeywords = summaryObj.lectureKeywords || [];
       if (lectureKeywords.length > 0 || isLocal) {
-        html += '<div style="margin-bottom: 1rem;">';
+        html += '<div class="lecture-keywords-section" style="margin-bottom: 1rem;">';
         html += '<p style="margin: 0 0 0.5rem 0;"><strong>Schlagwörter</strong></p>';
-        html += '<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">';
+        html += '<p style="margin: 0; line-height: 1.3; font-size: 0.9em;">';
         
-        lectureKeywords.forEach(kw => {
-          html += `<span style="background: #e3f2fd; padding: 3px 8px; border-radius: 3px; font-size: 0.9em;">${kw.term}</span>`;
-        });
+        // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
+        const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
         
+        // Keywords als Links mit Mittelpunkten formatieren
+        html += lectureKeywords.map(kw => {
+          const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
+          const escapedGANumber = gaNumber.replace(/'/g, "\\'");
+          return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+        }).join(' &middot; ');
+        
+        html += ' &nbsp;';
         html += `<button onclick="openAddKeywordModal('${lecture.ID}')" style="padding: 3px 8px; font-size: 0.85em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;" title="Keyword zu diesem Vortrag hinzufügen (optional: Absatz im Text anklicken für genaue Zuordnung)">+ Keyword</button>`;
         
-        html += '</div></div>';
+        html += '</p></div>';
       }
     }
     
     // Add Table of Contents after keywords - use V2 data from summaryObj if available
-    const tocHtml = displayLectureTableOfContents(lecture, headings, summaryObj);
+    const tocHtml = displayLectureTableOfContents(lecture, headings, summaryObj, isLocal);
     
     if (tocHtml) {
       html += tocHtml;
@@ -7986,7 +8021,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
     // Display Table of Contents from lecture data (Inhaltsverzeichnis) in Main Viewer
     // Prefer V2 data from summary-database, fallback to matching with steiner-full-lectures
-    function displayLectureTableOfContents(lecture, summaryHeadings, summaryObj) {
+    function displayLectureTableOfContents(lecture, summaryHeadings, summaryObj, isLocal = false) {
       if (!summaryHeadings || summaryHeadings.length === 0) {
         return '';
       }
@@ -7996,8 +8031,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         console.log('[TOC] Using V2 tableOfContents from summary-database:', summaryObj.tableOfContents.length, 'entries');
         
         let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
-        html += '<p style="margin: 0 0 0.8rem 0;"><strong>Inhaltsverzeichnis</strong></p>';
-        html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+        html += '<p style="margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">';
+        html += '<strong>Inhaltsverzeichnis</strong>';
+        // Toggle-Button nur auf lokalem Server anzeigen
+        if (isLocal) {
+          html += '<button onclick="toggleTOCContent()" style="padding: 2px 8px; font-size: 0.8em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;">▼</button>';
+        }
+        html += '</p>';
+        // TOC-Inhalt standardmäßig ausgeblendet wenn isLocal, sonst sichtbar
+        html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0; display: ${isLocal ? 'none' : 'block'};">`;
         
         summaryObj.tableOfContents.forEach((entry, index) => {
           html += `
@@ -8030,9 +8072,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
       let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
       
-      html += '<p style="margin: 0 0 0.8rem 0;"><strong>Inhaltsverzeichnis</strong></p>';
+      html += '<p style="margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">';
+      html += '<strong>Inhaltsverzeichnis</strong>';
+      // Toggle-Button nur auf lokalem Server anzeigen
+      if (isLocal) {
+        html += '<button onclick="toggleTOCContent()" style="padding: 2px 8px; font-size: 0.8em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;">▼</button>';
+      }
+      html += '</p>';
       
-      html += '<ul style="list-style: none; padding: 0; margin: 0;">';
+      // TOC-Inhalt standardmäßig ausgeblendet wenn isLocal, sonst sichtbar
+      html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0; display: ${isLocal ? 'none' : 'block'};">`;
       
       summaryH3s.forEach((summaryH3, index) => {
         const headingText = summaryH3.text || summaryH3.title || '';
