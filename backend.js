@@ -4761,7 +4761,13 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
       return res.status(400).json({ error: 'Query erforderlich' });
     }
     
-    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (ausführlich, ${limit})`);
+    // Prüfe ob Request von localhost kommt
+    const isLocalRequest = req.hostname === 'localhost' || 
+                           req.hostname === '127.0.0.1' || 
+                           req.ip === '::1' ||
+                           req.ip === '127.0.0.1';
+    
+    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (ausführlich, ${limit}), Cache: ${isLocalRequest ? 'JA' : 'NEIN'}`);
     
     // Cache-System für Keyword-Thematische Suche
     const cacheKey = `keyword_${query.toLowerCase().trim()}_${effectiveDepth}_${limit}`;
@@ -4790,12 +4796,17 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
         llmUsed: false
       };
       
-      // Cache leeres Ergebnis
-      keywordThematicDB[cacheKey] = {
-        ...emptyResult,
-        timestamp: new Date().toISOString()
-      };
-      await saveKeywordThematicDatabase(keywordThematicDB);
+      // Cache leeres Ergebnis nur bei localhost
+      if (isLocalRequest) {
+        keywordThematicDB[cacheKey] = {
+          ...emptyResult,
+          timestamp: new Date().toISOString()
+        };
+        await saveKeywordThematicDatabase(keywordThematicDB);
+        console.log('[KEYWORD-THEMATIC-CACHE] Leeres Ergebnis gecacht (localhost)');
+      } else {
+        console.log('[KEYWORD-THEMATIC-CACHE] Leeres Ergebnis NICHT gecacht (online)');
+      }
       return res.json(emptyResult);
     }
     
@@ -4822,18 +4833,22 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
       llmUsed: !!process.env.CLAUDE_API_KEY
     };
     
-    // Speichere im Cache
-    keywordThematicDB[cacheKey] = {
-      ...searchResult,
-      timestamp: new Date().toISOString()
-    };
-    
-    // Speichere Cache-DB (non-blocking)
-    saveKeywordThematicDatabase(keywordThematicDB).then(() => {
-      console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis gecacht für: "${query}"`);
-    }).catch(err => {
-      console.warn('[KEYWORD-THEMATIC-CACHE] Fehler beim Cachen:', err.message);
-    });
+    // Speichere im Cache nur bei localhost
+    if (isLocalRequest) {
+      keywordThematicDB[cacheKey] = {
+        ...searchResult,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Speichere Cache-DB (non-blocking)
+      saveKeywordThematicDatabase(keywordThematicDB).then(() => {
+        console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis gecacht für: "${query}" [LOCALHOST]`);
+      }).catch(err => {
+        console.warn('[KEYWORD-THEMATIC-CACHE] Fehler beim Cachen:', err.message);
+      });
+    } else {
+      console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis NICHT gecacht (online): "${query}"`);
+    }
     
     return res.json({
       ...searchResult,
