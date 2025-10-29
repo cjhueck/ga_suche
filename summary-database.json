@@ -351925,6 +351925,18 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Spiegelmetapher",
+        "index": "^kcpb6g",
+        "heading": "Wachen und Schlafen im astralen Bewusstsein",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",

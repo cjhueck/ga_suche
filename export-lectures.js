@@ -149,7 +149,30 @@ class SteinerLecturesExporter {
     // Filter Trennlinien
     if (/^[-=*]{3,}$/.test(l)) return null;
     
+    // BEHALTE Bildmarkierungen (werden später verarbeitet)
+    // ![img-name](path) wird nicht gefiltert
+    
     return l;
+  }
+
+  // Extract image references from text
+  extractImageReferences(text) {
+    const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+    const images = [];
+    let match;
+    
+    while ((match = imageRegex.exec(text)) !== null) {
+      const altText = match[1] || '';
+      const imagePath = match[2] || '';
+      
+      images.push({
+        altText,
+        path: imagePath,
+        fullMatch: match[0]
+      });
+    }
+    
+    return images;
   }
 
   // Find GA title from master file
@@ -230,6 +253,7 @@ class SteinerLecturesExporter {
     console.log('🔍 Searching for lecture files...');
     const allFiles = this.findMarkdownFiles(this.sourceDir);
     const lectures = [];
+    const allImages = {}; // Sammelt alle Bildverweise: { lectureId: [ {index, altText, path, ...} ] }
 
     console.log(`📚 Found ${allFiles.length} markdown files`);
     console.log('📖 Processing lectures...\n');
@@ -258,6 +282,7 @@ class SteinerLecturesExporter {
 
       // NUR Absätze extrahieren (KEINE Summaries, TOC, Überschriften)
       const paragraphs = [];
+      const lectureImages = []; // Bilder für diesen Vortrag
       
       for (let line of lines) {
         // Überspringe H3/H4 Überschriften (werden NICHT exportiert)
@@ -273,6 +298,19 @@ class SteinerLecturesExporter {
           const text = blockMatch[1].trim();
           const blockId = blockMatch[2];
           if (text.length > 0) {
+            // Prüfe ob dieser Absatz Bildmarkierungen enthält
+            const imageRefs = this.extractImageReferences(text);
+            if (imageRefs.length > 0) {
+              imageRefs.forEach(img => {
+                lectureImages.push({
+                  index: `^${blockId}`,
+                  altText: img.altText,
+                  path: img.path,
+                  markdownRef: img.fullMatch
+                });
+              });
+            }
+            
             paragraphs.push({
               index: `^${blockId}`,
               content: text
@@ -295,6 +333,12 @@ class SteinerLecturesExporter {
           date: meta.date,
           paragraphs
         });
+        
+        // Speichere Bilder für diesen Vortrag
+        if (lectureImages.length > 0) {
+          allImages[meta.ID] = lectureImages;
+          console.log(`   📷 ${meta.ID}: ${lectureImages.length} Bild(er) gefunden`);
+        }
 
         processed++;
         if (processed % 50 === 0) {
@@ -363,6 +407,14 @@ class SteinerLecturesExporter {
     console.log(`   ${lectures.length} lectures exported to ${chunks.length} file(s)`);
     console.log(`   Files: ${exportedFiles.join(', ')}`);
     
+    // Exportiere Bilder in separate JSON-Datei
+    if (Object.keys(allImages).length > 0) {
+      console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+      console.log(`📷 Verarbeite ${Object.keys(allImages).length} Vorträge mit Bildern...\n`);
+      
+      await this.exportImages(allImages);
+    }
+    
     // Automatische Synchronisation der Metadaten (optional)
     if (syncMetadata) {
       console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
@@ -378,6 +430,131 @@ class SteinerLecturesExporter {
       console.log('\n⚠️  Metadaten-Synchronisation übersprungen (--no-sync Option)');
       console.log('   Führen Sie später aus: node sync-metadata-from-fulllectures.js');
     }
+  }
+  
+  // Exportiere Bilder in separate JSON-Datei
+  async exportImages(allImages) {
+    const imagesWithData = {};
+    let processedImages = 0;
+    let failedImages = 0;
+    
+    for (const [lectureId, images] of Object.entries(allImages)) {
+      imagesWithData[lectureId] = [];
+      
+      for (const img of images) {
+        try {
+          // Dekodiere URL-encoded Pfad
+          const decodedPath = decodeURIComponent(img.path);
+          
+          // Der Pfad kann verschiedene Formate haben:
+          // 1. "assets/GA089-Bewusstsein Leben Form_img-24.jpeg"
+          // 2. "GA110-Geistige Hierarchien und ihre Widerspiegelung in der physischen Welt_img-0.jpeg"
+          
+          // Finde den GA-Ordner des Vortrags
+          const gaNumber = lectureId.split('/')[0]; // z.B. "GA089"
+          const gaDir = this.findGADirectory(gaNumber);
+          
+          if (!gaDir) {
+            console.warn(`   ⚠ ${lectureId}: GA-Verzeichnis nicht gefunden für ${gaNumber}`);
+            failedImages++;
+            continue;
+          }
+          
+          // Versuche verschiedene Pfad-Varianten
+          let fullImagePath = null;
+          
+          // Variante 1: Pfad beginnt mit vollständigem GA-Ordnernamen (z.B. "GA101-Mythen.../assets/...")
+          // Dies ist ein Pfad relativ zum Steiner_GA Root
+          if (decodedPath.match(/^GA\d{3}[a-z]?[-\s]/i)) {
+            // Pfad ist vom Root aus (this.sourceDir)
+            fullImagePath = path.join(this.sourceDir, decodedPath);
+          }
+          // Variante 2: Pfad enthält nur "assets/" am Anfang (z.B. "assets/GA089-...")
+          else if (decodedPath.startsWith('assets/') || decodedPath.startsWith('assets\\')) {
+            fullImagePath = path.join(gaDir, decodedPath);
+          } 
+          // Variante 3: Pfad ist nur Dateiname (z.B. "GA110-...jpg")
+          else if (decodedPath.match(/^GA\d{3}/i)) {
+            fullImagePath = path.join(gaDir, 'assets', decodedPath);
+          }
+          // Variante 4: Relativer Pfad ohne GA-Präfix
+          else {
+            fullImagePath = path.join(gaDir, 'assets', decodedPath);
+          }
+          
+          if (!fs.existsSync(fullImagePath)) {
+            console.warn(`   ⚠ ${lectureId}: Bild nicht gefunden: ${decodedPath}`);
+            console.warn(`      Geprüfter Pfad: ${fullImagePath}`);
+            failedImages++;
+            continue;
+          }
+          
+          // Lese Bilddatei und konvertiere zu Base64
+          const imageBuffer = fs.readFileSync(fullImagePath);
+          const base64 = imageBuffer.toString('base64');
+          
+          // Bestimme MIME-Type aus Dateiendung
+          const ext = path.extname(fullImagePath).toLowerCase();
+          const mimeTypes = {
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif',
+            '.webp': 'image/webp'
+          };
+          const mimeType = mimeTypes[ext] || 'image/jpeg';
+          
+          imagesWithData[lectureId].push({
+            index: img.index,
+            altText: img.altText,
+            path: img.path,
+            markdownRef: img.markdownRef,
+            base64: `data:${mimeType};base64,${base64}`,
+            size: imageBuffer.length
+          });
+          
+          processedImages++;
+          
+        } catch (error) {
+          console.warn(`   ⚠ ${lectureId}: Fehler bei ${img.path}: ${error.message}`);
+          failedImages++;
+        }
+      }
+    }
+    
+    // Speichere in steiner-images.json
+    const imagesFilePath = path.join(this.outputDir, 'steiner-images.json');
+    fs.writeFileSync(imagesFilePath, JSON.stringify(imagesWithData, null, 2), 'utf8');
+    
+    const totalSize = (fs.statSync(imagesFilePath).size / (1024 * 1024)).toFixed(2);
+    
+    console.log(`\n✅ Bilder-Export abgeschlossen:`);
+    console.log(`   📷 ${processedImages} Bilder erfolgreich exportiert`);
+    console.log(`   ⚠  ${failedImages} Bilder nicht gefunden`);
+    console.log(`   💾 steiner-images.json (${totalSize} MB)`);
+  }
+  
+  // Finde GA-Verzeichnis für einen GA-Band
+  findGADirectory(gaNumber) {
+    const normalizedGA = gaNumber.toUpperCase();
+    
+    // Durchsuche das Source-Verzeichnis nach GA-Ordnern
+    const files = fs.readdirSync(this.sourceDir);
+    
+    for (const file of files) {
+      const filePath = path.join(this.sourceDir, file);
+      const stat = fs.statSync(filePath);
+      
+      if (stat.isDirectory()) {
+        // Prüfe ob der Ordnername mit dem GA-Band übereinstimmt
+        const match = file.match(/^(GA\d{2,3}[a-z]?)/i);
+        if (match && match[1].toUpperCase() === normalizedGA) {
+          return filePath;
+        }
+      }
+    }
+    
+    return null;
   }
   
   // Synchronisiere Metadaten (date, year, location) in bestehende Datenbanken
@@ -509,7 +686,7 @@ if (require.main === module) {
   const gaArgs = args.filter(a => !a.startsWith('--'));
   
   // Default paths
-  const sourceDir = path.join(__dirname, 'Steiner_GA');
+  const sourceDir = 'C:\\Users\\chuec\\OneDrive\\GitHub\\Steiner_GA';
   const outputDir = __dirname;
 
   const exporter = new SteinerLecturesExporter(sourceDir, outputDir);

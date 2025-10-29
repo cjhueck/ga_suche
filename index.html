@@ -357,7 +357,7 @@ body.dark-mode .site-logo:hover {
     #sidebar-content {
   flex: 1;
   overflow-y: auto;
-  padding: 0rem 1rem 1rem 1.5rem;
+  padding: 2rem 1rem 1rem 1.5rem;
   font-size: var(--text-size);
   line-height: var(--line-height);
   color: var(--text-color);
@@ -3667,6 +3667,7 @@ S&H&C&K
     let currentLectureData = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
     let currentThematicQuery = '';
+    let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
     let searchHistory = {
       word1: [],
@@ -4093,6 +4094,7 @@ function normalizeGANumber(gaNumber) {
   initResizeHandle();
   initVerticalResizeHandle();
   checkServerConnection();
+  loadSteinerImages(); // Lade Bilder-Datenbank
   initTheme();
   populateGADropdowns();
   initGAFilter();
@@ -4145,6 +4147,25 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    async function loadSteinerImages() {
+      try {
+        console.log('[IMAGES] Lade steiner-images.json...');
+        const response = await fetch(`${API_BASE}/api/steiner-images`);
+        
+        if (!response.ok) {
+          console.log('[IMAGES] steiner-images.json nicht verfügbar');
+          return;
+        }
+        
+        steinerImages = await response.json();
+        const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
+        console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder geladen`);
+        
+      } catch (error) {
+        console.error('[IMAGES] Fehler beim Laden:', error);
+      }
+    }
+
     async function checkServerConnection() {
       try {
         const response = await fetch(`${API_BASE}/debug/status`);
@@ -4161,6 +4182,47 @@ function normalizeGANumber(gaNumber) {
         document.getElementById('thematicServerInfo').innerHTML = errorText;
         document.getElementById('texteServerInfo').innerHTML = errorText;
       }
+    }
+    
+    // Ersetze Bildmarkierungen durch tatsächliche img-Tags
+    function replaceImageMarkersWithTags(text, lectureId, paragraphIndex) {
+      if (!text || !steinerImages[lectureId]) {
+        return text;
+      }
+      
+      // Finde alle Bilder für diesen Vortrag am angegebenen Index
+      const imagesForParagraph = steinerImages[lectureId].filter(img => img.index === paragraphIndex);
+      
+      if (imagesForParagraph.length === 0) {
+        return text;
+      }
+      
+      let result = text;
+      
+      // Ersetze jede Bildmarkierung durch ein img-Tag
+      imagesForParagraph.forEach(img => {
+        // Markdown-Format: ![alt](path)
+        // Erstelle Pattern mit sowohl URL-encoded als auch normalen Leerzeichen
+        const decodedPath = decodeURIComponent(img.path);
+        
+        // Versuche beide Varianten: URL-encoded und decoded
+        const patterns = [
+          `![${img.altText}](${img.path})`,
+          `![${img.altText}](${decodedPath})`
+        ];
+        
+        // Erstelle img-Tag mit Base64-Daten
+        const imgTag = `<img src="${img.base64}" alt="${img.altText}" style="max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem;" />`;
+        
+        // Versuche beide Pattern-Varianten
+        patterns.forEach(pattern => {
+          const escapedPattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(escapedPattern, 'g');
+          result = result.replace(regex, imgTag);
+        });
+      });
+      
+      return result;
     }
 
     function updateRelevanceFilter() {
@@ -5554,31 +5616,14 @@ function toggleGASummaries() {
   
   if (!viewer) return;
   
-  // Rechtes Summary Panel öffnen bei Klick auf "Übersicht" (falls noch nicht offen)
-  const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
-  let panelWasJustOpened = false;
-  
-  if (summaryPanel && !summaryPanel.classList.contains('visible')) {
-    summaryPanel.classList.add('visible');
-    resizeHandle.classList.add('visible');
-    summaryPanel.style.width = '280px';
-    summaryPanel.style.minWidth = '280px';
-    summaryPanel.style.marginRight = '0px';
-    panelWasJustOpened = true;
-    
-    // Layout anpassen: Viewer verkleinern statt überlagern
-    document.body.classList.remove('summary-panel-collapsed');
-    updateHeaderPosition();
-  }
-  
   // Fall 1: Original wird angezeigt → Übersicht anzeigen/generieren
   if (!showingSummaryInMain) {
     // Prüfe ob Zusammenfassung existiert
     if (currentLectureSummary) {
-      // Zusammenfassung vorhanden → zeige sie an
+      // Zusammenfassung vorhanden → zeige sie an (öffnet automatisch das Panel)
       showSummaryView();
-      // Nach dem Anzeigen weiter zum H4-Toggle (kein return hier)
+      // RETURN: Beim ersten Wechsel zu Übersicht kein H4-Toggle
+      return;
     } else {
       // Keine Zusammenfassung → generiere neue
       if (!currentLectureData) {
@@ -5638,8 +5683,9 @@ try {
           summaryBtn.style.opacity = '1';
         }
       }
+      // RETURN: Nach dem Generieren einer neuen Summary kein H4-Toggle
+      return;
     }
-    // Nach dem Anzeigen/Generieren der Summary weiter zum H4-Toggle
   }
   
   // Fall 2: Zusammenfassung wird angezeigt → Toggle H4 und TOC
@@ -5651,14 +5697,8 @@ try {
   const viewerTOC = viewer.querySelector('.lecture-toc-section');
   const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
   
-  // Beim ersten Öffnen des Panels sollen H4s und TOC sichtbar bleiben
-  if (panelWasJustOpened) {
-    // Panel wurde gerade geöffnet → H4s und TOC sichtbar lassen
-    viewerH4Collapsed = false;
-  } else {
-    // Normaler Toggle
-    viewerH4Collapsed = !viewerH4Collapsed;
-  }
+  // Normaler Toggle der H4-Anzeige
+  viewerH4Collapsed = !viewerH4Collapsed;
   
   // Toggle H4 im Viewer
   viewerH4.forEach(h4 => {
@@ -5967,6 +6007,23 @@ function showSummaryView() {
   
   showingSummaryInMain = true;
   
+  // Öffne rechtes Side-Panel (TOC) automatisch beim Wechsel zur Übersicht
+  const summaryPanel = document.getElementById('summary-panel');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
+  
+  if (summaryPanel && !summaryPanel.classList.contains('visible')) {
+    summaryPanel.classList.add('visible');
+    summaryPanel.style.width = '280px';
+    summaryPanel.style.minWidth = '280px';
+    summaryPanel.style.marginRight = '0px';
+    if (resizeHandle) {
+      resizeHandle.classList.add('visible');
+    }
+    
+    // Layout anpassen: Viewer verkleinern statt überlagern
+    document.body.classList.remove('summary-panel-collapsed');
+  }
+  
   // Hole Keywords aus Suchfeldern wenn vorhanden
   let displayKeywords = [];
   const currentWord1 = document.getElementById('word1').value.trim();
@@ -5993,6 +6050,9 @@ function showSummaryView() {
     
     // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
     updateHeaderPosition();
+    
+    // Baue TOC für das rechte Side-Panel
+    buildTableOfContents();
   }, 50);
 }
     function getCurrentVisibleParagraphIndex() {
@@ -6029,8 +6089,8 @@ function showSummaryView() {
       // Entferne vorherige Markierung und Timer (ohne Fade-Out)
       clearPreviousHighlighting();
       
-      // Füge neue Markierung hinzu - NICHT im Timeline-Tab
-      if (element && !isTimelineTabActive()) {
+      // Füge neue Markierung hinzu
+      if (element) {
         element.classList.add('highlighted-paragraph');
         
         // Entferne automatisch nach 5 Sekunden konstanter Anzeige
@@ -6226,6 +6286,9 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // Bildmarkierungen durch img-Tags ersetzen
+    content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
+    
     // Keyword-Highlighting
     if (keywords && keywords.length > 0) {
       console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
@@ -6239,14 +6302,13 @@ function showSummaryView() {
     }
     
     const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
-    // Highlighting nur wenn NICHT im Timeline-Tab
-    const highlightClass = (isTargetPara && !isTimelineTabActive()) ? 'highlighted-paragraph' : '';
+    // Highlighting aktiviert
+    const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-    const contextHandler = isLocal ? `oncontextmenu="openKeywordModalFromParagraph('${paraIndexWithCaret}', event)"` : '';
     const cursorStyle = isLocal ? 'cursor: pointer;' : '';
 
-html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextHandler} style="${cursorStyle}">${content}</div>`;
+html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} style="${cursorStyle}">${content}</div>`;
   });
   
   viewer.innerHTML = html;
@@ -8290,8 +8352,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             const headingTag = elem.level === 3 ? 'h3' : 'h4';
             const headingIndex = elem.index || `heading_${idx}`;
             const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
-            // Highlighting nur wenn NICHT im Timeline-Tab
-            const shouldApplyHeadingHighlight = isTargetHeading && !isTimelineTabActive();
+            // Highlighting aktiviert
+            const shouldApplyHeadingHighlight = isTargetHeading;
             
             html += `
               <${headingTag} id="para-${headingIndex}" class="${shouldApplyHeadingHighlight ? 'highlighted-paragraph' : ''}">
@@ -8301,8 +8363,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           } else {
             const paraIndex = elem.index || `para_${idx}`;
             const isTargetPara = cleanIndex && paraIndex === cleanIndex;
+            const paraIndexWithCaret = `^${paraIndex}`;
             
             let content = elem.content;
+            
+            // Bildmarkierungen durch img-Tags ersetzen
+            content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
             
             if (keywords && keywords.length > 0) {
               keywords.forEach(word => {
@@ -8321,12 +8387,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             
             const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
             const applyHighlight = shouldHighlight && isTargetPara && 
-                                   (isFromThematicSearch || keywords.length === 1 || hasBothWords) &&
-                                   !isTimelineTabActive(); // Highlighting nur wenn NICHT im Timeline-Tab
+                                   (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
             
-            const paraIndexWithCaret = elem.para?.index || `^${paraIndex}`;
             const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-            const contextHandler = isLocal ? `oncontextmenu="openKeywordModalFromParagraph('${paraIndexWithCaret}', event)"` : '';
             const cursorStyle = isLocal ? 'cursor: pointer;' : '';
             
             html += `
@@ -8334,7 +8397,6 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                    id="para-${paraIndex}"
                    data-index="${paraIndexWithCaret}"
                    ${clickHandler}
-                   ${contextHandler}
                    style="${cursorStyle}">
                 ${content}
               </div>
@@ -10350,27 +10412,42 @@ function findBestHeadingForIndex(paragraphIndex, headings) {
   }
   
   // Wenn keine exakte Übereinstimmung: Finde die nächstgelegene Überschrift DARÜBER
-  // Sortiere Überschriften nach Index
+  // Sortiere Überschriften nach Index (numerisch, dann alphabetisch)
   const sortedHeadings = [...headings]
     .map(h => ({
       ...h,
       cleanIndex: (h.id || h.index || '').replace(/^\^/, '')
     }))
     .filter(h => h.cleanIndex) // Nur Überschriften mit Index
-    .sort((a, b) => a.cleanIndex.localeCompare(b.cleanIndex));
+    .sort((a, b) => {
+      // Versuche numerischen Vergleich
+      const numA = parseInt(a.cleanIndex);
+      const numB = parseInt(b.cleanIndex);
+      
+      if (!isNaN(numA) && !isNaN(numB)) {
+        if (numA !== numB) return numA - numB;
+        // Bei gleichem Index: H4 vor H3 (spezifischere Überschrift bevorzugen)
+        if (a.level === 'h4' && b.level === 'h3') return 1; // H4 kommt später in Liste
+        if (a.level === 'h3' && b.level === 'h4') return -1;
+        return 0;
+      }
+      
+      // Fallback: lexikographischer Vergleich
+      return a.cleanIndex.localeCompare(b.cleanIndex);
+    });
   
-  // Finde die letzte Überschrift vor diesem Index
+  // Finde die letzte Überschrift vor oder bei diesem Index
   let lastHeading = null;
   for (const heading of sortedHeadings) {
     if (heading.cleanIndex <= cleanIndex) {
-      lastHeading = heading;
+      lastHeading = heading; // Nimm die letzte (= nächstgelegene)
     } else {
       break; // Stoppe wenn wir über den gesuchten Index hinaus sind
     }
   }
   
   if (lastHeading) {
-    console.log(`[HEADING] Nächste Überschrift darüber für ${cleanIndex}:`, lastHeading.text);
+    console.log(`[HEADING] Nächste Überschrift darüber für ${cleanIndex}: [${lastHeading.level}] ${lastHeading.text}`);
     return lastHeading.text;
   }
   
@@ -11205,20 +11282,12 @@ async function saveMarkedWord(word, gaTitle) {
   }
 }
 
-// Event-Listener für Rechtsklick im Viewer (nur für Textmarkierung)
-// HINWEIS: Rechtsklick auf Absätze wird jetzt durch oncontextmenu im HTML behandelt
+// Event-Listener für Rechtsklick im Viewer (für Textmarkierung und Schreibfehlerkorrektur)
 document.addEventListener('DOMContentLoaded', function() {
   const viewer = document.getElementById('viewer');
   
   if (viewer) {
     viewer.addEventListener('contextmenu', function(e) {
-      // Prüfe ob auf einem Absatz geklickt wurde (wird durch oncontextmenu im HTML behandelt)
-      const isParagraph = e.target.closest('.paragraph');
-      if (isParagraph && isLocal) {
-        // Absatz-Rechtsklick wird durch openKeywordModalFromParagraph() behandelt
-        return;
-      }
-      
       // Hole markierten Text
       const selection = window.getSelection();
       const selectedText = selection.toString().trim();
@@ -13950,6 +14019,7 @@ function selectParagraphForKeyword(paragraphIndex, element, event) {
 }
 
 // Öffne Keyword-Modal direkt per Rechtsklick auf Absatz (nur lokal)
+// DEPRECATED: Nicht mehr in Verwendung - Rechtsklick wird für Schreibfehlerkorrektur benötigt
 function openKeywordModalFromParagraph(paragraphIndex, event) {
   if (!isLocal) return;
   

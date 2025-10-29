@@ -98248,6 +98248,18 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Spiegelmetapher",
+        "index": "^kcpb6g",
+        "heading": "Wachen und Schlafen im astralen Bewusstsein",
+        "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T16:19:41.702Z",
@@ -200480,7 +200492,8 @@
     ],
     "generated": "2025-10-28T20:48:06.051Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:06.355Z"
+    "timestamp": "2025-10-28T20:48:06.355Z",
+    "location": "Dornach"
   },
   "GA111/3": {
     "lectureId": "GA111/3",
@@ -252133,7 +252146,7 @@
   },
   "GA300b/3": {
     "lectureId": "GA300b/3",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "In einer Lehrerkonferenz der Waldorfschule werden organisatorische und pädagogische Fragen besprochen. Die Klassenverteilung wird neu geordnet, eine Hilfsklasse eingerichtet und der Sprachunterricht reorganisiert. Besondere Aufmerksamkeit gilt der Einführung eines ästhetischen Unterrichts für die oberen Klassen, der Kunst- und Literaturverständnis vermitteln soll. Diskutiert werden Hausaufgaben in der Mathematik, wobei betont wird, dass diese aus eigenem Interesse der Schüler entstehen sollen, nicht als Zwang. Der Geometrie- und Mechanikunterricht wird besprochen, ebenso die Bedeutung von Baravalles Dissertation für den Zeichenunterricht. Abschließend wird der anthroposophische Kongress in Stuttgart bewertet, dessen fachlicher Teil erfolgreich war, während die Mitgliederversammlung enttäuschend verlief.",
@@ -252251,11 +252264,12 @@
     ],
     "generated": "2025-10-28T20:34:46.250Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:34:46.353Z"
+    "timestamp": "2025-10-28T20:34:46.353Z",
+    "location": "17 Uhr"
   },
   "GA300b/5": {
     "lectureId": "GA300b/5",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Konferenz der Waldorfschule Stuttgart behandelt praktische Schulfragen und pädagogische Methoden. Diskutiert werden Berichte für Schulbehörden, Hospitantenstatus für Teilzeitschüler und die Hilfsklasse für schwächere Schüler. Einzelne Schüler werden besprochen, darunter Kinder mit Lernschwierigkeiten und Verhaltensauffälligkeiten. Unterrichtsmethoden werden erörtert: künstlerisch-intellektuelle Ansätze für schwächere Schüler, Literaturauswahl für verschiedene Klassenstufen und biblische Geschichten für die dritte Klasse. Empfohlen werden katholische Bibelübersetzungen statt der lutherischen Version. Die Waldorfschul-Bewegung soll durch Kurse für die anthroposophische Jugend propagiert werden. Praktische Fragen zu Heizung, Gesundheit und Personalsuche für Musik- und Turnunterricht werden behandelt. Der Turnunterricht soll auf Basis anthroposophischer Menschenkunde entwickelt werden, wobei die seelische Durchbildung des Organismus im Mittelpunkt steht.",
@@ -252395,11 +252409,12 @@
     ],
     "generated": "2025-10-28T20:34:51.204Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:34:51.635Z"
+    "timestamp": "2025-10-28T20:34:51.635Z",
+    "location": "19 Uhr"
   },
   "GA300b/2": {
     "lectureId": "GA300b/2",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Waldorfschule bereitet sich auf das neue Schuljahr vor. Organisatorische Fragen werden besprochen: Klassenverteilung, Lehrerzuteilung und die Schuleröffnungsfeier. Für die 10. Klasse wird ein detaillierter Lehrplan entwickelt. In deutscher Sprache stehen Metrik, Poetik, das Nibelungenlied und mittelhochdeutsche Grammatik im Mittelpunkt. Geschichte umfasst die Zeit von der ältesten indischen Epoche bis zum Untergang der griechischen Freiheit. Geographie behandelt die Erde als morphologisches und physikalisches Ganzes. Mathematik führt in die Trigonometrie ein, Physik zur Mechanik, Chemie zu Säure-Base-Reaktionen. Anthropologie beschäftigt sich mit dem Menschen in seinen Organ- und Seelenfunktionen. Handfertigkeitsunterricht entwickelt sich zum Kunstgewerblichen, Musik zur Harmonielehre. Technische Mechanik, Feldmessen und Gesundheitslehre kommen als neue Fächer hinzu. Praktische Aspekte wie Stundenverteilung, Raumprobleme und Finanzierung werden erörtert.",
@@ -252539,11 +252554,12 @@
     ],
     "generated": "2025-10-28T20:34:53.753Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:34:54.187Z"
+    "timestamp": "2025-10-28T20:34:54.187Z",
+    "location": "16 Uhr"
   },
   "GA300b/1": {
     "lectureId": "GA300b/1",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Waldorfschule entsteht aus sozialen Anschauungen der Gegenwart und soll Kinder zu lebenstüchtigen Menschen erziehen. Die Pädagogik muss auf wirklicher Erkenntnis des heranwachsenden Menschen basieren, nicht auf abstrakten Normen. Verschiedene Entwicklungsphasen prägen das Kind: bis zum 6./7. Lebensjahr wirkt der Nachahmungstrieb, danach entsteht Autorität als Lerngrundlage. Um das 9. Lebensjahr entwickelt sich das Ich-Gefühl neu, um das 12. Jahr die Fähigkeit zum Begreifen außermenschlicher Phänomene. Der Unterricht soll aus künstlerischen Elementen entstehen - Schreiben aus Zeichnen, Eurythmie statt mechanischer Bewegung. Gedächtnisbildung hat ihre Berechtigung neben dem Anschauungsunterricht. Naturbetrachtung soll den Menschen als Gipfel der Lebewesen zeigen. Die Lehrerschaft braucht lebendige Menschenerkenntnis und Interesse am gesamten Leben, um Zöglinge sowohl geistig als auch praktisch zu bilden.",
@@ -252698,7 +252714,7 @@
   },
   "GA300b/4": {
     "lectureId": "GA300b/4",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "In einer Lehrerkonferenz der Waldorfschule werden verschiedene pädagogische und organisatorische Fragen behandelt. Zentrale Themen sind der Umgang mit problematischen Schülern, insbesondere die Frage, ob pathologische oder verdorbene Kinder abgelehnt werden sollen. Es wird über die Jugendbewegung als bedeutende Kulturbewegung diskutiert und deren übersinnliche Gründe betont. Praktische Unterrichtsfragen werden erörtert: die Behandlung von Sexualität im Schulalltag, Rauchverbot versus Aufklärung über Nikotinwirkung, sowie die Organisation von Sprachunterricht und Kunstunterricht. Der Handwerksunterricht soll konzentriert statt zerstückelt erfolgen. Weitere Themen umfassen Internate als Surrogate für fehlende Waldorfschulen, esoterische Stunden für Lehrer und die Einrichtung einer Sonntagshandlung für das Kollegium. Die Esoterik wird als problematisch beschrieben aufgrund von Cliquenwesen und Indiskretionen in der anthroposophischen Bewegung.",
@@ -252838,11 +252854,12 @@
     ],
     "generated": "2025-10-28T20:34:56.027Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:34:56.298Z"
+    "timestamp": "2025-10-28T20:34:56.298Z",
+    "location": "20.30 Uhr"
   },
   "GA300b/7": {
     "lectureId": "GA300b/7",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt praktische Fragen der Waldorfschule-Organisation und pädagogische Methoden. Für den Kunstunterricht in der 11. Klasse wird die Verbindung von Kunst und Kulturentwicklung empfohlen, einschließlich der Entstehung der Musik und Landschaftsmalerei. Der Religionsunterricht soll religiöse Stimmung fördern statt intellektuelle Elemente. Praktische Herausforderungen umfassen die Vorbereitung auf Examina und Finanzierungsprobleme bei der Lehrereinstellung. Für den Klavierunterricht werden temperamentsbezogene Ansätze vorgeschlagen: Melancholiker sollen die rechte Hand bevorzugen, Choleriker die linke, während Phlegmatiker und Sanguiniker beide Hände gleichmäßig entwickeln. Das mechanische Gefühl beim Klavierspiel soll durch bewusstes Tasten-Fühlen ergänzt werden. Zusätzlich werden organisatorische Termine und die Unterscheidung zwischen Unsterblichkeit und Ungeborenheit erwähnt.",
@@ -252949,11 +252966,12 @@
     ],
     "generated": "2025-10-28T20:35:26.265Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:35:26.473Z"
+    "timestamp": "2025-10-28T20:35:26.473Z",
+    "location": "15-18 Uhr"
   },
   "GA300b/8": {
     "lectureId": "GA300b/8",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt die schwierigen Verhältnisse in der obersten Klasse. Die 10. Klasse (künftige 11. Klasse) zeigt Probleme mit Disziplin, mangelndem Interesse am Unterrichtsstoff und fehlender Verbindung zur Lehrerschaft. Die Schüler entwickelten eine skeptische Haltung und stellten häufig die Frage \"Warum lernen wir das?\". Als Korrekturmaßnahmen werden umfassende Änderungen in der Lehrerverteilung vorgenommen. Der Lehrplan wird neu strukturiert mit Schwerpunkten auf deutscher Literatur, Geschichte, Ästhetik, Mathematik, Physik, Naturgeschichte und Chemie. Zusätzlich sollen praktische Fächer wie Handarbeitsunterricht, Buchbinderei, Kartonage und Technologie (Wasserräder, Turbinen, Papierfabrikation) eingeführt werden. Die Diskussion zeigt die Herausforderungen beim Übergang der Schüler in das schwierige Alter der Geschlechtsreife und die Notwendigkeit, den Ruf der Waldorfschule zu bewahren.",
@@ -253082,11 +253100,12 @@
     ],
     "generated": "2025-10-28T20:35:30.132Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:35:30.394Z"
+    "timestamp": "2025-10-28T20:35:30.394Z",
+    "location": "20 Uhr"
   },
   "GA300b/10": {
     "lectureId": "GA300b/10",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt praktische Fragen der Waldorfschule-Pädagogik und organisatorische Herausforderungen. Steiner diskutiert die Integration verschiedener Religionsbekenntnisse in der Schule und betont die Bedeutung gebetsartiger Erhebung im Religionsunterricht. Er äußert sich zur Messe als grandiosem Erlebnis und zur notwendigen Einheit trotz konfessioneller Unterschiede. Weitere Themen umfassen individuelle Förderung schwieriger Schüler, Lehrziele der Waldorfpädagogik und den Sprachunterricht mit bildhaften Elementen. Steiner bespricht praktische Arrangements für Eurythmie-Aufführungen, Lehrerfortbildung und warnt vor Überlastung der Lehrerschaft. Er mahnt zur Öffnung gegenüber der Außenwelt und kritisiert die Tendenz zur Abkapselung der anthroposophischen Bewegung.",
@@ -253226,11 +253245,12 @@
     ],
     "generated": "2025-10-28T20:35:32.113Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:35:32.352Z"
+    "timestamp": "2025-10-28T20:35:32.352Z",
+    "location": "20.30-22.30 Uhr"
   },
   "GA300b/9": {
     "lectureId": "GA300b/9",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt detaillierte Lehrpläne und Unterrichtsmethoden für die 11. Klasse der Waldorfschule. Im Mittelpunkt stehen literarisch-geschichtliche Inhalte wie die Parzival-Sage und der \"Arme Heinrich\", verbunden mit historischen Betrachtungen und Gegenwartsbezug. In Mathematik werden Trigonometrie und analytische Geometrie gelehrt, in Physik moderne Errungenschaften wie drahtlose Telegraphie und Röntgenstrahlen. Die Chemie fokussiert auf Leitbegriffe wie Säure, Salz und Base, während Stoffe als \"erstarrte Prozesse\" verstanden werden. Naturgeschichte umfasst Zellenlehre und Botanik mit teleologischen Betrachtungen. Besondere Aufmerksamkeit gilt der Stilbildung in Kunst und Eurythmie, wobei objektive Stilprinzipien vermittelt werden. Der dialogische Sprachunterricht soll die Schüler zum eigenständigen Sprechen ermutigen. Humor wird als wesentliches Element des Unterrichts betont - als \"Ausatmen der Seele\".",
@@ -253370,11 +253390,12 @@
     ],
     "generated": "2025-10-28T20:35:33.387Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:35:33.626Z"
+    "timestamp": "2025-10-28T20:35:33.626Z",
+    "location": "20.30-22.30 Uhr"
   },
   "GA300b/6": {
     "lectureId": "GA300b/6",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Besprechung der Schulinspektion an der Waldorfschule und deren Auswirkungen. Die Inspektion zeigt die Unvereinbarkeit herkömmlicher Prüfungsmethoden mit der Waldorfpädagogik auf. Diskutiert werden verschiedene pädagogische Prinzipien wie das späte Lesenlernen, der Epochenunterricht und die Vermeidung des Sitzenbleibens. Es werden konkrete Schülerfälle besprochen und pädagogische Maßnahmen erörtert. Die Bedeutung künstlerischer Erziehung wird betont, ebenso die Notwendigkeit einer durchdachten Literaturauswahl für verschiedene Altersstufen. Besondere Aufmerksamkeit gilt der Frage nach angemessenen Unterrichtsmethoden und der individuellen Förderung schwieriger Schüler. Die Diskussion umfasst auch praktische Aspekte des Schulbetriebs und die Herausforderungen bei der Umsetzung anthroposophischer Pädagogik.",
@@ -253514,11 +253535,12 @@
     ],
     "generated": "2025-10-28T20:35:36.674Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:35:36.933Z"
+    "timestamp": "2025-10-28T20:35:36.933Z",
+    "location": "15-17. 45 Uhr"
   },
   "GA300b/15": {
     "lectureId": "GA300b/15",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt organisatorische und pädagogische Herausforderungen. Der Sprachunterricht soll neu strukturiert werden, wobei Gruppierungen nach Kenntnisstufen anstelle von Klassenverbänden diskutiert werden. Die Gabelung zwischen humanistischer und realgymnasialer Matura wird auf die 9. Klasse verschoben. Griechisch und Latein bleiben bis zur 8. Klasse obligatorisch, danach können Schüler zwischen Griechisch oder Englisch wählen. Praktische Probleme wie ein Explosionsvorfall im Physiksaal zeigen die Notwendigkeit besserer Sicherheitsmaßnahmen. Gesundheitliche Aspekte einzelner Schüler werden besprochen, wobei Unterernährung als weitverbreitetes Problem der Nachkriegszeit identifiziert wird. Die Stundenplangestaltung erweist sich als komplexe Aufgabe zwischen pädagogischen Idealen und praktischen Zwängen.",
@@ -253625,11 +253647,12 @@
     ],
     "generated": "2025-10-28T20:36:10.474Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:10.572Z"
+    "timestamp": "2025-10-28T20:36:10.572Z",
+    "location": "20 Uhr"
   },
   "GA300b/12": {
     "lectureId": "GA300b/12",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt schwerwiegende Disziplinarprobleme mit mehreren Schülern der oberen Klassen. Drei Schüler (N. G., H. B. und O. R.) sollen ausgeschlossen werden, da sie als Störenfriede empfunden werden und die Klasse nicht mehr mit ihnen zusammenarbeiten will. Die Diskussion dreht sich um die Begründung des Ausschlusses und die möglichen Auswirkungen auf die anthroposophische Bewegung. Ein weiterer Schüler (U. A.) wird nach einem Alkoholvorfall verwarnt, aber nicht ausgeschlossen. Auch eine Schülerin (S. H.) soll wegen Verleumdungen gegen die Lehrerschaft entfernt werden. Die Lehrer ringen um angemessene Formulierungen für die Ausschlüsse und diskutieren pädagogische Grundsätze im Umgang mit schwierigen Schülern.",
@@ -253725,11 +253748,12 @@
     ],
     "generated": "2025-10-28T20:36:11.988Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:12.080Z"
+    "timestamp": "2025-10-28T20:36:12.080Z",
+    "location": "21 Uhr"
   },
   "GA300b/14": {
     "lectureId": "GA300b/14",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine umfassende Lehrerkonferenz zur Reorganisation des Stundenplans der Waldorfschule. Der bestehende Stundenplan wird als unpädagogisches \"Ungetüm\" kritisiert aufgrund seiner Zersplitterung und Zerstreuung. Hauptthemen sind die Neuordnung des Sprachunterrichts mit einer Gabelung ab der 7. Klasse zwischen Griechisch-Latein für das Gymnasium-Abiturium und Französisch-Englisch für andere Schüler. Der Handarbeitsunterricht wird in die Nachmittagsstunden verlegt und reduziert. Diskutiert werden auch methodische Probleme wie zu viel Dozieren statt aktivem Mitarbeiten der Schüler, sowie pädagogische und heileurythmische Behandlung einzelner Schüler. Die Konferenz betont die Notwendigkeit von Enthusiasmus und Feuer im Unterricht sowie die Verantwortung der Lehrerschaft für die anthroposophische Mission der Schule.",
@@ -253858,11 +253882,12 @@
     ],
     "generated": "2025-10-28T20:36:12.758Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:12.939Z"
+    "timestamp": "2025-10-28T20:36:12.939Z",
+    "location": "20-1.30 Uhr"
   },
   "GA300b/11": {
     "lectureId": "GA300b/11",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Krisensitzung der Waldorfschule behandelt schwerwiegende Disziplinarprobleme in den oberen Klassen. Schüler der 9., 10. und 11. Klasse haben Betrügereien, Diebstähle und Alkoholkonsum begangen. Ein Schüler namens G. S. hat Hypnose- und Injektionsversuche an Mitschülern unternommen. Die Lehrerschaft hat den Kontakt zu den problematischen Schülern verloren, besonders zu N. G., einem psychisch belasteten Jugendlichen aus zerrütteten Familienverhältnissen. Die Situation wird als Bedrohung für die anthroposophische Bewegung betrachtet, da Gegner diese Vorfälle gegen die Waldorfpädagogik verwenden könnten. Die Diskussion zeigt strukturelle Probleme in den oberen Klassen auf: mangelnde Autorität der Lehrer, fehlende Lebendigkeit im Unterricht und schlafende Schüler. Es wird deutlich, dass grundlegende Veränderungen in der pädagogischen Herangehensweise notwendig sind, um solche Krisen künftig zu vermeiden.",
@@ -254002,11 +254027,12 @@
     ],
     "generated": "2025-10-28T20:36:14.411Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:14.530Z"
+    "timestamp": "2025-10-28T20:36:14.530Z",
+    "location": "20-0.30 Uhr"
   },
   "GA300b/13": {
     "lectureId": "GA300b/13",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule Stuttgart behandelt schwerwiegende pädagogische und organisatorische Probleme. Der Kontakt zwischen Lehrerschaft und Schülern der höheren Klassen ist verloren gegangen, was zu einem offenen Konflikt geführt hat. Mehrere Schüler wurden ausgeschlossen, nachdem ein Vorfall mit Injektionen aufgetreten war. Die Unterrichtsqualität zeigt erhebliche Mängel: mechanische Methoden ersetzen lebendigen Unterricht, Lehrer sind unvorbereitet und gleichgültig geworden. Stundenplanprobleme erschweren den Sprachunterricht, eine Dreiteilung in humanistische, realistische und künstlerische Richtungen wird diskutiert. Die Waldorfschule droht ihre Vorbildfunktion zu verlieren und das Ansehen der anthroposophischen Bewegung zu schädigen. Konkrete Verbesserungsmaßnahmen werden besprochen: bessere Vorbereitung, mehr Enthusiasmus im Unterricht, Kontaktpflege zu Schülern und eine öffentliche Erklärung zu den Ausschlüssen.",
@@ -254135,11 +254161,12 @@
     ],
     "generated": "2025-10-28T20:36:15.361Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:15.542Z"
+    "timestamp": "2025-10-28T20:36:15.542Z",
+    "location": "14.30 Uhr"
   },
   "GA300b/16": {
     "lectureId": "GA300b/16",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Konferenz behandelt organisatorische Fragen der Waldorfschule, insbesondere die Stundenplangestaltung und Lehrerverteilung. Sprachunterricht wird vormittags gelegt, handwerkliche Fächer nachmittags. Die Lehrerbelastung wird diskutiert, wobei 16-17 Wochenstunden als erstrebenswert gelten. Ein zentrales Thema ist der freie Religionsunterricht und die Kultushandlungen. Steiner betont, dass Religionslehrer selbst die Kultushandlungen durchführen müssen, da sonst wichtige pädagogische Imponderabilien verloren gehen. Methodische Fragen zum Sprachunterricht werden erörtert, wobei Französisch und Englisch sich in ihrer Wirkung auf die Kinder kompensieren. Weitere Themen sind die Jugendfeier, die künstlerische Ausgestaltung des Handlungsraumes und anatomische Erläuterungen zum menschlichen Ohr als Beispiel für die Dreigliederung der Sinne.",
@@ -254246,11 +254273,12 @@
     ],
     "generated": "2025-10-28T20:36:46.954Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:47.056Z"
+    "timestamp": "2025-10-28T20:36:47.056Z",
+    "location": "16-18.30 Uhr"
   },
   "GA300b/17": {
     "lectureId": "GA300b/17",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt praktische Aspekte der Waldorfschul-Pädagogik und Stundenplangestaltung. Diskutiert werden Probleme mit dem neuen Stundenplan, Elternbeschwerden über lange Schulzeiten und die Notwendigkeit einer Elternumfrage. Ein zentrales Thema ist der bevorstehende Engländerbesuch und die richtige Empfangshaltung ohne übertriebene Vorbereitungen. Ausführlich wird der Parzival-Unterricht in der 11. Klasse erörtert, wobei die drei Entwicklungsstufen des Menschen - Unschuld, Zweifel und innere Gewissheit - im Religionsunterricht hervorgehoben werden sollen. Der historische Kontext von Wolfram von Eschenbachs Werk wird beleuchtet, sowie Verbindungen zu Goethe und modernen Autoren aufgezeigt. Weitere Themen umfassen Kunstunterricht mit Dürer und Rembrandt, Sprachunterricht-Methodik und die Bedeutung der Waldorfschul-Methodik gegenüber konventionellem Schulschlendrian.",
@@ -254390,11 +254418,12 @@
     ],
     "generated": "2025-10-28T20:36:51.328Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:51.451Z"
+    "timestamp": "2025-10-28T20:36:51.451Z",
+    "location": "16 Uhr"
   },
   "GA300b/18": {
     "lectureId": "GA300b/18",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Diese Lehrerkonferenz der Waldorfschule behandelt praktische Unterrichtsfragen und grundsätzliche anthroposophische Anliegen. Diskutiert werden Raumprobleme zwischen Turn- und Eurythmieunterricht, die Einführung systematischer Bewegungsspiele für die unteren Klassen sowie Personalfragen bei Lehrerausfällen. Im Sprachunterricht werden Lektüreempfehlungen für Französisch, Latein und Englisch besprochen, wobei biographische Texte bevorzugt werden. Der Religionsunterricht soll Autorität bewahren und Diskutiererei vermeiden. Steiner kritisiert scharf die Entwicklung der Anthroposophischen Gesellschaft seit 1919, die in Cliquen zerfalle und harmonisches Zusammenarbeiten verloren habe. Die Dornacher Katastrophe verstärke die Gegnerschaft. Das Waldorfschul-Lehrerkollegium solle als Musterbild anthroposophischen Zusammenwirkens vorangehen und sich intensiv für allgemein-anthroposophische Angelegenheiten interessieren, da die Schule allein nicht isoliert bestehen könne.",
@@ -254512,11 +254541,12 @@
     ],
     "generated": "2025-10-28T20:36:52.573Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:52.692Z"
+    "timestamp": "2025-10-28T20:36:52.692Z",
+    "location": "abends"
   },
   "GA300b/19": {
     "lectureId": "GA300b/19",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die künstlerische Ausgestaltung der Waldorfschule-Klassenzimmer folgt der Entwicklung des Kindes. In den unteren Klassen dominieren Märchen- und Legendendarstellungen, gefolgt von Pflanzendarstellungen und Tierwelt. Ab der 5. Klasse kommen Menschengruppen hinzu, in der 6. Klasse der einzelne Mensch. Die 7./8. Klasse führt ins Künstlerische mit Raffael und Leonardo ein. Höhere Klassen verbinden Kunst mit praktischen Lebensbereichen - Giotto und Dürer mit technischen Darstellungen, geologischen Durchschnitten und anatomischen Bildern. Diese Wandgestaltung wirkt der intellektualistischen Vergiftung der modernen Pädagogik entgegen. Zusätzlich werden Fragen der Lehrerausbildung, Unterrichtsvorbereitung und Schulverwaltung durch ein gewähltes Komitee besprochen.",
@@ -254667,11 +254697,12 @@
     ],
     "generated": "2025-10-28T20:36:53.203Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:53.358Z"
+    "timestamp": "2025-10-28T20:36:53.358Z",
+    "location": "nachmittags"
   },
   "GA300b/20": {
     "lectureId": "GA300b/20",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Konferenz behandelt hauptsächlich organisatorische Fragen der Waldorfschule. Zunächst werden Richtlinien für die künstlerische Ausschmückung verschiedener Unterrichtsräume besprochen: Musikalische Räume sollen nur mit Farbharmonien oder Plastiken, Eurythmiesäle mit Motiven der seelischen Dynamik des Menschen, Turnsäle mit Darstellungen des Menschen in Beziehung zur Welt ausgeschmückt werden. Der Hauptteil widmet sich der Einrichtung eines dreiköpfigen Verwaltungskollegiums, das innere und äußere Schulangelegenheiten übernehmen soll. Nach intensiver Diskussion über Kompetenzen und Verfahrensweisen wird das Gremium mit einer Amtsdauer von zwei Monaten im Rotationsprinzip eingerichtet. Weitere Themen sind die Propagandaarbeit, wobei Steiner betont, dass die Waldorfschule aus ihrer eigenen pädagogischen Substanz heraus wirken und nicht in politische Tagesfragen eingreifen sollte, sowie praktische Fragen des Schulbetriebs und der Lehrmethoden.",
@@ -254789,11 +254820,12 @@
     ],
     "generated": "2025-10-28T20:36:53.642Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:36:53.748Z"
+    "timestamp": "2025-10-28T20:36:53.748Z",
+    "location": "16-19 Uhr"
   },
   "GA300b/24": {
     "lectureId": "GA300b/24",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Konferenz behandelt die praktische Organisation der Waldorfschule für das kommende Schuljahr. Es werden Personalfragen für verschiedene Klassenstufen besprochen, wobei neue Lehrkräfte wie Tittmann und Dr. Lehrs für höhere Klassen vorgesehen sind. Besondere Aufmerksamkeit gilt der 12. Klasse und deren Examensvorbereitung, wobei kritisiert wird, dass zu viel vortragsmäßig unterrichtet und zu wenig Mitarbeit der Schüler gefördert wurde. Ein weiterer Schwerpunkt liegt auf der Frage des Zugangs von Schülern zu anthroposophischen Vorträgen, wobei Steiner dies für problematisch hält. Religionsunterricht und Jugendfeier werden diskutiert, ebenso der Umgang mit schwächeren Schülern und individuellen Fördermaßnahmen. Die Konferenz zeigt die praktischen Herausforderungen beim Aufbau einer reformpädagogischen Schule.",
@@ -254889,11 +254921,12 @@
     ],
     "generated": "2025-10-28T20:37:21.905Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:37:22.019Z"
+    "timestamp": "2025-10-28T20:37:22.019Z",
+    "location": "17 Uhr"
   },
   "GA300b/23": {
     "lectureId": "GA300b/23",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Graf Bothmer hält ein Referat über den Turnunterricht in der Waldorfschule, das Freiübungen, Geräteturnen und Spiele umfasst. Rudolf Steiner erläutert die fundamentalen Unterschiede zwischen Turnen und Eurythmie: Eurythmie bezieht sich auf den Atmungsprozess und plastische Gestaltung des Organismus, während Turnen den Übergang des Blutes in die Muskeln und die Statik-Dynamik des Körpers betrifft. Der Turnlehrer soll einen idealen Menschen vor Augen haben und die Kinder in dynamischer Beziehung zu diesem Ideal bringen. Geräteturnen kann durch Kombinationen verschiedener Geräte belebt werden, wobei Geistesgegenwart entwickelt wird. Bei Spielen und Sport soll das unterhaltende Element im Vordergrund stehen, nicht die reine körperliche Anstrengung. Praktische Fragen zu Baden, Ernährung und Gesundheit der Kinder werden besprochen.",
@@ -255011,11 +255044,12 @@
     ],
     "generated": "2025-10-28T20:37:29.760Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:37:29.861Z"
+    "timestamp": "2025-10-28T20:37:29.861Z",
+    "location": "18.30-20 Uhr"
   },
   "GA300b/22": {
     "lectureId": "GA300b/22",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt den Antrag von Dr. Karutz, die französische Sprache als Pflichtfach abzuschaffen und durch Russisch zu ersetzen. Steiner erklärt die französische Sprache als dekadente Erscheinung eines untergehenden romanischen Volkes, die die Seele zur Oberflächlichkeit führt und keine Verbindung zur Innerlichkeit besitzt. Trotz dieser kritischen Einschätzung kann die Waldorfschule aufgrund staatlicher Zwänge und der Notwendigkeit, Übergangsmöglichkeiten zu anderen Schulen zu gewährleisten, nicht als Einzelschule den Anfang machen. Eine solche Reform müsse durch eine große Kulturbewegung erfolgen. Zusätzlich werden medizinische Fragen zur Unterernährung der Kinder besprochen, wobei Steiner Behandlungsvorschläge mit kohlensaurem und phosphorsaurem Kalk macht.",
@@ -255144,11 +255178,12 @@
     ],
     "generated": "2025-10-28T20:37:33.249Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:37:33.397Z"
+    "timestamp": "2025-10-28T20:37:33.397Z",
+    "location": "18 Uhr"
   },
   "GA300b/25": {
     "lectureId": "GA300b/25",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Diese Übersicht dokumentiert Rudolf Steiners pädagogische Vortragsaktivitäten von Juni 1921 bis März 1923. Der Zeitraum umfasst intensive Waldorfschul-Arbeit mit regelmäßigen Lehrerkonferenzen, Ergänzungskursen und Elternabenden. Zentrale Themen sind die gesunde Entwicklung des Kindes, künstlerische Unterrichtsgestaltung und anthroposophische Erziehungsmethoden. Steiner hält Theologenkurse, internationale Hochschulveranstaltungen in Oxford und Wien sowie öffentliche Vorträge über Anthroposophie und Wissenschaft. Die Dokumentation zeigt die systematische Ausarbeitung der Waldorfpädagogik durch praktische Schulungsarbeit, theoretische Grundlagenvorträge und die Verbindung zu medizinischen, künstlerischen und religiösen Aspekten der Erziehung. Bedeutsam ist der Weihnachtskurs 1921/22 über die leiblich-physische Entwicklung als Grundlage seelisch-geistiger Entfaltung.",
@@ -255270,7 +255305,7 @@
   },
   "GA300b/21": {
     "lectureId": "GA300b/21",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Waldorfschul-Pädagogik trägt einen therapeutischen Charakter und wirkt gesundend auf das Kind. Grundlage ist die Dreigliederung des menschlichen Organismus in Nerven-Sinnessystem, rhythmisches System und Stoffwechsel-Gliedmaßensystem. Lehrer müssen instinktiv erkennen, welches System beim Kind überwiegt und entsprechend ausgleichend wirken. Das Nerven-Sinnessystem wird durch Salziges angeregt, bei Störungen hilft Blei. Das Stoffwechsel-Gliedmaßensystem benötigt Zuckeriges, bei Problemen wird Silber verwendet. Äußere Anzeichen wie Kopfgröße, Blässe oder Ungeschicklichkeit sind wichtige Symptome. Auch die Unterrichtsgestaltung muss zwischen Elementen wechseln, die zur Körperperipherie führen (Lachen) und solchen, die nach innen führen (Rührung). Die moralische Verfassung des Lehrers hat große hygienische Bedeutung für die Schüler.",
@@ -255410,11 +255445,12 @@
     ],
     "generated": "2025-10-28T20:37:39.109Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:37:39.218Z"
+    "timestamp": "2025-10-28T20:37:39.218Z",
+    "location": "16 Uhr"
   },
   "GA300c/3": {
     "lectureId": "GA300c/3",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz zur organisatorischen Vorbereitung des Schuljahres behandelt die Verteilung der Lehrer auf Klassen und Fächer. Der Kunstunterricht wird mit dem geschichtlichen und literaturgeschichtlichen Unterricht koordiniert, wobei germanische Mythologie als Ausgangspunkt für künstlerische Entwicklungen dient. In der Geschichtsvermittlung sollen die großen historischen Motive der Jahrhunderte herausgearbeitet werden - die Erweiterung des Gesichtskreises im 15./16. Jahrhundert, die Aufklärung im 17./18. Jahrhundert und das Ineinanderfließen der Völker im 19. Jahrhundert. Für den Mathematikunterricht wird die Differential- und Integralrechnung bis zur Anwendung auf die Kurvenlehre geplant. Praktische Fragen zu Sprachunterricht, Religionsunterricht und der Förderung eines hörgeschädigten Kindes durch Heileurythmie und Edelweiß-Präparate werden besprochen.",
@@ -255532,11 +255568,12 @@
     ],
     "generated": "2025-10-28T20:38:11.522Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:11.619Z"
+    "timestamp": "2025-10-28T20:38:11.619Z",
+    "location": "16.30-19 Uhr"
   },
   "GA300c/4": {
     "lectureId": "GA300c/4",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "In einer Lehrerkonferenz der Waldorfschule diskutiert Steiner die Herausforderungen der 12. Klasse, die sich dem staatlichen Abitur unterwerfen muss und damit das Waldorfschul-Prinzip verleugnet. Er bedauert, dass spirituelle Inhalte wie kosmische Geographie und organische Chemie nicht gelehrt werden können, da die Schüler diese im Examen nicht verwenden dürfen. Steiner erklärt das Konzept des \"Jüngerwerdens\" der Menschheit - während frühere Epochen seelische Entwicklung bis zum 60. Jahr kannten, liegt heute die Grenze bei 27 Jahren. Er betont, dass heutige Gymnasialbildung die Gehirne ruiniert und Vorstellungsunmöglichkeiten für anthroposophische Wahrheiten schafft. Praktische Fragen zu Lehrplänen verschiedener Fächer werden besprochen, einschließlich Religionsunterricht mit Fokus auf Religionsentwicklung von ethnographischen über Volksreligionen zu Universalreligionen wie Buddhismus und Christentum. Steiner erläutert auch seine Theorie schwimmender Kontinente, die durch Sternenkräfte gehalten werden.",
@@ -255654,11 +255691,12 @@
     ],
     "generated": "2025-10-28T20:38:12.566Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:12.714Z"
+    "timestamp": "2025-10-28T20:38:12.714Z",
+    "location": "16.30-19 Uhr"
   },
   "GA300c/2": {
     "lectureId": "GA300c/2",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Nach der künstlerisch-pädagogischen Tagung der Waldorfschule reflektiert Steiner über deren Erfolg und notwendige Verbesserungen. Er betont die Wichtigkeit der Verbindung zur Anthroposophischen Gesellschaft, kritisiert das Fehlen spezifisch anthroposophischer Veranstaltungen während der Tagung und warnt vor dem Zerfall in Einzelunternehmungen. Steiner mahnt zur Vermeidung übermäßiger negativer Kritik in Vorträgen und fordert positive Darstellungen. Bei der Lehrerbesetzung werden praktische Fragen diskutiert, wobei Sprachschulung als wesentlich für pädagogischen Erfolg hervorgehoben wird. Die Diskussion umfasst Personalentscheidungen, Stundenverteilungen und die Entwicklung der Eurythmieschule. Besonders wird die Abituriumsfrage als problematisch thematisiert, da externe Prüfer die Schüler leicht durchfallen lassen könnten.",
@@ -255798,11 +255836,12 @@
     ],
     "generated": "2025-10-28T20:38:12.991Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:13.091Z"
+    "timestamp": "2025-10-28T20:38:13.091Z",
+    "location": "9-14 Uhr"
   },
   "GA300c/5": {
     "lectureId": "GA300c/5",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Waldorfschul-Konferenz behandelt praktische Fragen zur Schulführung. Die zentrale Problematik betrifft das Abiturientenexamen und den Konflikt zwischen Waldorfschul-Prinzipien und staatlichen Anforderungen. Steiner betont, dass Kompromisse notwendig sind, warnt aber vor Hintertür-Methoden. Die Schule müsse zeigen, wie unmöglich vernünftiges Schulwesen unter heutigen Verhältnissen sei. Diskutiert werden Fortbildungsschulen, schwache Schüler, Aufnahmekriterien und Hospitationen. Bei der Schüleraufnahme soll festgestellt werden, was Kinder können, nicht was ihnen fehlt. Heileurythmie soll den Hauptunterricht nicht beeinträchtigen. Geschichtsunterricht in der 12. Klasse soll Überblicke über alle Perioden schaffen. Turnunterricht erfordert mehr Strammheit und individuelle Ermahnungen.",
@@ -255931,11 +255970,12 @@
     ],
     "generated": "2025-10-28T20:38:14.417Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:14.536Z"
+    "timestamp": "2025-10-28T20:38:14.536Z",
+    "location": "21 Uhr"
   },
   "GA300c/1": {
     "lectureId": "GA300c/1",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Waldorfschule in Stuttgart wurde als Antwort auf die Unbefriedigtheit im Erziehungswesen gegründet. Trotz guter pädagogischer Grundsätze und gutem Willen der Erzieher fehlt es an wahrer Seelenerkenntnis, die nur durch Geisteswissenschaft erworben werden kann. Diese erfordert künstlerische Anschauung statt bloßer Gesetzmäßigkeit, um die individuelle Kindesentwicklung zu verstehen. Die Entwicklung vollzieht sich in Phasen: vom Nachahmungstrieb bis zum Zahnwechsel, dann unter Autorität bis etwa zum neunten Lebensjahr. Ein geisteswissenschaftlich geschulter Lehrer kann diese Individualität erfassen und entsprechend erziehen. Die Waldorfschule verbindet pädagogische mit sozialer Aufgabe als Einheits-Volksschule. Wahre Erziehungskunst erfordert autonome Schulverwaltung durch die Lehrerschaft selbst, was nur im dreigliedrigen sozialen Organismus mit freiem Geistesleben möglich ist. Eurythmie ergänzt das Turnen als beseelte Bewegungskunst. Die Schule will durch Menschenerkenntnis kraftvolle Menschen für das soziale Leben heranbilden.",
@@ -256175,11 +256215,12 @@
     ],
     "generated": "2025-10-28T20:38:40.222Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:40.328Z"
+    "timestamp": "2025-10-28T20:38:40.328Z",
+    "location": "Donnerstag"
   },
   "GA300c/8": {
     "lectureId": "GA300c/8",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz behandelt disziplinäre Probleme in verschiedenen Klassen der Waldorfschule. Steiner gibt Anweisungen zum Umgang mit schwierigen Schülern und betont, dass Lehrer absolute Sicherheit ausstrahlen müssen. Ausführlich wird die Interpunktion im Deutschunterricht besprochen, insbesondere die Behandlung von Relativsätzen und die Entwicklung eines Gefühls für Satzgestaltung. Steiner empfiehlt, die Tropenlehre zu verwenden und an Herman Grimms Stil zu arbeiten. Ein medizinischer Fall führt zu Steiners Erläuterungen über ichlose Menschen - Wesen in menschlicher Gestalt, die von Naturdämonen beseelt sind statt von menschlichen Individualitäten. Diese Phänomene seien seit den 1890er Jahren häufiger geworden.",
@@ -256308,11 +256349,12 @@
     ],
     "generated": "2025-10-28T20:38:50.118Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:50.238Z"
+    "timestamp": "2025-10-28T20:38:50.238Z",
+    "location": "21 Uhr"
   },
   "GA300c/7": {
     "lectureId": "GA300c/7",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Steiner bespricht dringende pädagogische Probleme in der Waldorfschule, insbesondere die moralische Verwilderung in Klasse 9b und Interpunktionsschwierigkeiten. Fünf problematische Schüler werden detailliert analysiert: F.R. leidet an Verfolgungswahn und Frauenhass, T.L. ist besessungsanfällig, D.M. und K.F. zeigen schwachsinnige Züge. Diese Schüler vergiften das Klassenklima durch Respektlosigkeit und obszöne Handlungen. Steiner diagnostiziert Psychopathien und erklärt die Verhaltensmuster aus biographischen Traumata. Der Deutschunterricht weist gravierende Mängel auf - den Schülern fehlt Stilgefühl, Satzverständnis und Kenntnis von Stilfiguren. Dies behindert ihre geistige Reifung während der Pubertät. Eine Hilfsklasse für moralisch psychopathische Schüler wird vorgeschlagen. Trotz der Probleme betreffen diese nur etwa 5% der Schülerschaft, können aber ganze Klassen dominieren.",
@@ -256441,11 +256483,12 @@
     ],
     "generated": "2025-10-28T20:38:52.852Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:52.950Z"
+    "timestamp": "2025-10-28T20:38:52.950Z",
+    "location": "nachmittags"
   },
   "GA300c/6": {
     "lectureId": "GA300c/6",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt praktische Unterrichtsfragen und pädagogische Methoden. Zentrale Themen sind die Verwendung selbstgeschriebener Hefte statt Lehrbücher, mathematische Prüfungsaufgaben für die 12. Klasse und Probleme mit der deutschen Interpunktion. Besondere Aufmerksamkeit gilt der Schulung der Umgangsformen und der Überwindung des 'Geistes der Schwere' durch anthroposophische Pädagogik. Medizinische Aspekte umfassen Tuberkulose-Behandlung und Ernährungsfragen. Ein bedeutender Abschnitt widmet sich der Linkshändigkeit als karmischem Phänomen, das durch Überarbeitung in früheren Leben entsteht. Die Zusammenhänge zwischen Schlafgewohnheiten und Lernfähigkeiten werden erläutert, wobei zu wenig Schlaf das musikalische Empfinden schwächt und zu viel Schlaf die plastische Vorstellungskraft beeinträchtigt. Die Notwendigkeit humorvoller Führung und individueller Behandlung der Schüler wird betont.",
@@ -256585,11 +256628,12 @@
     ],
     "generated": "2025-10-28T20:38:56.948Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:38:57.100Z"
+    "timestamp": "2025-10-28T20:38:57.100Z",
+    "location": "20.30 Uhr"
   },
   "GA300c/10": {
     "lectureId": "GA300c/10",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Lehrerkonferenz behandelt pädagogische Herausforderungen mit der 9b-Klasse, deren Schüler durch übersprudelnde Intelligenz und geschlechtsreife bedingte Entwicklung auffallen. Steiner betont, dass diese intellektuellen Kräfte sinnvoll im Unterricht eingesetzt werden müssen, statt sie durch bloßes Zuhören zu vernachlässigen. Die Vorbereitung auf das Abitur erfordert Anpassungen im Lehrplan, besonders in Chemie und Geologie. Für die Zoologie entwickelt Steiner eine Dreigliederung in zwölf Tiergruppen entsprechend dem Tierkreis. Deutsche Literatur des 19. Jahrhunderts wird für die Maturavorbereitung besprochen. Praktische Unterrichtsfragen wie Malunterricht und der Umgang mit schwierigen Schülern werden erörtert. Steiner warnt vor zu anthroposophischer Gestaltung des regulären Unterrichts und betont die Notwendigkeit, Schüler nicht in pädagogische Entscheidungen einzubeziehen.",
@@ -256740,11 +256784,12 @@
     ],
     "generated": "2025-10-28T20:39:01.768Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:39:01.906Z"
+    "timestamp": "2025-10-28T20:39:01.906Z",
+    "location": "20 Uhr"
   },
   "GA300c/12": {
     "lectureId": "GA300c/12",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Konferenz der Waldorfschule behandelt organisatorische und pädagogische Fragen. Die Erfolge der Waldorflehrer in England werden besprochen, wobei deren individuelle Ausstrahlung besonderen Eindruck hinterließ. Die Teilung der 5. Klasse wird beschlossen mit neuen Lehrkräften. Pädagogische Prinzipien werden diskutiert: nur Dinge aus dem wirklichen Leben sollen in die Schule, keine künstlichen Fröbel-Materialien. Spezielle Förderung einzelner Schüler wird erörtert, darunter ein hochbegabter Junge und ein Kind mit Wahrnehmungsstörungen. Praktische Fragen zu Eurythmie, Musik und Gartenbau werden geklärt. Die Stellung der Frau in den antiken Mysterien wird thematisiert - ausgewählte Frauen spielten wichtige Rollen, während Familienfrauen vom öffentlichen Leben ausgeschlossen blieben.",
@@ -256873,11 +256918,12 @@
     ],
     "generated": "2025-10-28T20:39:37.890Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:39:38.153Z"
+    "timestamp": "2025-10-28T20:39:38.153Z",
+    "location": "18.30-22.30 Uhr"
   },
   "GA300c/15": {
     "lectureId": "GA300c/15",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Nach der Dornacher Weihnachtstagung stellt sich die Frage der organisatorischen Neuausrichtung der Waldorfschule zur Anthroposophischen Gesellschaft. Die Schule war bisher eine unabhängige Institution, die anthroposophische Pädagogik anwendet, ohne formal anthroposophisch zu sein. Verschiedene Anschlussformen werden diskutiert: direkter Anschluss der Schule an das Goetheanum, Mitgliedschaft des Lehrerkollegiums in der Freien Hochschule für Geisteswissenschaft oder individuelle Mitgliedschaft der Lehrer. Die weltgeschichtliche Situation zeigt drei Hauptströmungen: Katholizismus, Bolschewismus und Anthroposophie. Praktische Fragen umfassen die Maturavorbereitung, pädagogische Methoden in verschiedenen Fächern und die Einrichtung eines dreizehnten Schuljahres als Vorbereitungsklasse für das Abitur.",
@@ -257017,12 +257063,13 @@
     ],
     "generated": "2025-10-28T20:39:39.923Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:39:40.181Z"
+    "timestamp": "2025-10-28T20:39:40.181Z",
+    "location": "20 Uhr"
   },
   "GA300c/11": {
     "lectureId": "GA300c/11",
-    "date": "",
-    "year": null,
+    "date": "1923-07-31",
+    "year": 1923,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt verschiedene pädagogische und disziplinäre Herausforderungen. Im Zentrum stehen Probleme mit mehreren Schülern der 9. Klasse, insbesondere ein Diebstahlsfall mit sechzehn silbernen Löffeln. Rudolf Steiner betont die Notwendigkeit persönlicher Beziehungen zu den Schülern und warnt vor subjektiven Verurteilungen der Persönlichkeit. Stattdessen sollen Taten getadelt werden. Die Diskussion umfasst methodische Fragen der Unterrichtsvorbereitung, Lehrplaninhalte für verschiedene Klassenstufen und die Behandlung schwieriger Schüler. Auch administrative Themen wie Schulreformveranstaltungen, Publikationen im Goetheanum und die schwierige wirtschaftliche Lage Deutschlands werden besprochen. Steiner empfiehlt spezielle Behandlungsmethoden für einzelne Schüler und ermutigt die Lehrer zu eigenen schriftstellerischen Beiträgen über waldorfpädagogische Prinzipien.",
     "keywords": [
@@ -257165,7 +257212,7 @@
   },
   "GA300c/17": {
     "lectureId": "GA300c/17",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Waldorfschule behandelt praktische Schulangelegenheiten und pädagogische Entwicklungen. Zentrale Themen sind die Qualität der individualisierten Zeugnisse, die kritisiert wird wegen mangelnder Sorgfalt und unbrauchbarer Formulierungen. Die Unpünktlichkeit von Schülern und Lehrern wird als Problem identifiziert, ebenso die unzureichende Aufsicht vor Unterrichtsbeginn. Ein schwieriger Disziplinarfall eines langjährigen Schülers wird diskutiert, wobei die fehlende natürliche Autorität in der Klasse als Grundproblem erkannt wird. Organisatorische Fragen betreffen die Einrichtung einer 13. Klasse als Abiturvorbereitungsklasse und den Personalbedarf. Die Entwicklung einer Jugend-Anthroposophie wird als wichtiges Zukunftsprojekt vorgestellt, wofür eine Lehrkraft nach Dornach entsandt werden soll. Die Freie Hochschule in Dornach wird als Ergänzung zu bestehenden Hochschulen konzipiert, nicht als Ersatz.",
@@ -257283,11 +257330,12 @@
     ],
     "generated": "2025-10-28T20:40:13.916Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:40:14.139Z"
+    "timestamp": "2025-10-28T20:40:14.139Z",
+    "location": "11 Uhr"
   },
   "GA300c/18": {
     "lectureId": "GA300c/18",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Diese Lehrerkonferenz behandelt organisatorische und pädagogische Fragen der Waldorfschule. Überfüllte Klassen in den unteren Jahrgängen erfordern Anträge für höhere Schülerquoten. Die Klassenlehrer für das kommende Schuljahr werden bestimmt, einschließlich der Berufung neuer Lehrkräfte. Zentral ist die Diskussion über das Abitur und eine mögliche 13. Klasse. Für die 12. Klasse wird ein qualitativ orientierter Physikunterricht entwickelt, der Strahlenoptik durch Bildfelder ersetzt und das unmittelbar Wahrnehmbare betont. Der Geschichtsunterricht soll Kulturkreise als lebendige Organismen mit Altertum, Mittelalter und Neuzeit darstellen. Im Kunstunterricht wird Hegels Dreigliederung in symbolische, klassische und romantische Kunst als Grundlage verwendet. Praktische Pädagogik umfasst individuelle Schülerbetreuung und methodische Fragen der Sitzordnung im Sprachunterricht.",
@@ -257427,11 +257475,12 @@
     ],
     "generated": "2025-10-28T20:40:15.530Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:40:15.759Z"
+    "timestamp": "2025-10-28T20:40:15.759Z",
+    "location": "21 Uhr"
   },
   "GA300c/16": {
     "lectureId": "GA300c/16",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Konferenz der Waldorfschule behandelt verschiedene Disziplinarfälle und pädagogische Fragen. Diskutiert werden problematische Schüler, deren Verhalten durch Vererbung und familiäre Umstände bedingt ist. Die organische Übertragung psychischer Eigenschaften von Eltern auf Kinder wird am Beispiel eines Schülers erläutert, dessen Mutter psychisch labil ist. Das schlechte Abitur-Ergebnis wird auf mangelnde Individualisierung im Unterricht zurückgeführt. Nationalistische Umtriebe unter Schülern erfordern Gegenmaßnahmen durch verstärkte Betreuung. Die geplante Ostertagung soll die Bedeutung der Waldorfpädagogik verdeutlichen und der verfrühten Alterung der heutigen Jugend entgegenwirken. Schwierigkeiten mit einem Lehrer zeigen die Notwendigkeit pädagogischer Autorität auf. Die Waldorfschule soll den Kindern ihre natürliche Kindheit zurückgeben.",
@@ -257571,11 +257620,12 @@
     ],
     "generated": "2025-10-28T20:40:18.016Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:40:18.289Z"
+    "timestamp": "2025-10-28T20:40:18.289Z",
+    "location": "10 Uhr"
   },
   "GA300c/20": {
     "lectureId": "GA300c/20",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt die Lehrplangestaltung für den Sprachunterricht in der Waldorfschule. In den ersten drei Schuljahren soll das Kind durch direktes Sprechen ohne Grammatik lernen, wobei fremdsprachliche Wörter direkt mit Gegenständen verknüpft werden. Ab der vierten Klasse beginnt die induktive Grammatikeinführung parallel zur Ich-Entwicklung. Der Unterricht entwickelt sich von Poesie zu Prosa, von Wortformenlehre zu Syntax. Höhere Klassen behandeln Landeskunde, Literaturgeschichte und dramatische Lektüre. Weitere Themen umfassen biblische Geschichte im Hauptunterricht versus Religionsunterricht, Stenographie als obligatorisches Fach, Heileurythmie als Therapie, geometrisches Zeichnen und die Bedeutung liebevoll gestalteter Zeugnisse. Individuelle Schülerfälle werden besprochen, sowie organisatorische Fragen zu Eurythmie- und Heilpädagogik-Kursen.",
@@ -257715,11 +257765,12 @@
     ],
     "generated": "2025-10-28T20:40:19.087Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:40:19.306Z"
+    "timestamp": "2025-10-28T20:40:19.306Z",
+    "location": "22-1 Uhr"
   },
   "GA300c/19": {
     "lectureId": "GA300c/19",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Die Konferenz behandelt die Lehrplangestaltung für die 12. Klasse der Waldorfschule. Literaturgeschichte soll als Überblick von gotischer Zeit bis zur Gegenwart vermittelt werden, mit besonderem Fokus auf moderne Autoren wie Nietzsche, Ibsen und Dostojewski. Geschichte wird nach spirituellen Entwicklungsprinzipien gegliedert, wobei die sieben römischen Könige den sieben Prinzipien des Menschen entsprechen. Mathematik umfasst sphärische Trigonometrie, analytische Geometrie des Raumes und Grundlagen der Differential- und Integralrechnung. Chemie wird in Verbindung mit menschlichen Prozessen gelehrt, von Salzsäure bis zu Pepsinbildung. Der freie Religionsunterricht gipfelt in einer Weltreligionsübersicht mit dem Christentum als Synthese. Für die geplanten Hochschulkurse werden fünf Fachgebiete vorgeschlagen, die jeweils zur Lebensansicht beitragen sollen.",
@@ -257881,11 +257932,12 @@
     ],
     "generated": "2025-10-28T20:40:23.563Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:40:23.789Z"
+    "timestamp": "2025-10-28T20:40:23.789Z",
+    "location": "20.30 Uhr"
   },
   "GA300c/25": {
     "lectureId": "GA300c/25",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Das vorliegende Dokument enthält ein systematisches Verzeichnis der Lehrer und Mitarbeiter der ersten Waldorfschule sowie weiterer Persönlichkeiten aus der Anthroposophischen Gesellschaft. Die Auflistung umfasst sowohl die pädagogischen Mitarbeiter des Schulkollegiums als auch externe Personen, die in Rudolf Steiners Ausführungen zur Waldorfpädagogik erwähnt werden. Zu jeder Person sind präzise Seitenangaben vermerkt, die auf entsprechende Stellen in den dokumentierten Vorträgen und Konferenzen verweisen. Das Verzeichnis dokumentiert die Entstehungszeit der anthroposophischen Pädagogik und zeigt die Zusammenarbeit zwischen Lehrern, Ärzten, Pastoren und anderen Fachkräften auf. Besonders hervorzuheben sind die Gründerpersönlichkeiten wie Emil Molt und die ersten Waldorflehrer, die das pädagogische Konzept in die Praxis umsetzten.",
@@ -257985,7 +258037,7 @@
   },
   "GA300c/23": {
     "lectureId": "GA300c/23",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine Lehrerkonferenz der Freien Waldorfschule behandelt praktische Schulangelegenheiten und pädagogische Fragen. Hospitationen werden auf maximal drei Personen pro Klasse begrenzt, um Störungen zu minimieren. Steiner erläutert die menschheitlichen Entwicklungsstufen am Beispiel der Urinder und Ägypter: Die Urinder entwickelten durch die Trennung von physischem Leib und Ätherleib eine besondere Erkenntnis des physischen Leibes als Spiegelung des Makrokosmos, erlebten jedoch einen vollständigen Gedächtnisbruch um das dreißigste Lebensjahr. Die Ägypter bildeten den Astralleib aus und konnten dadurch den Ätherleib beobachten, wodurch sie ihre charakteristische Anschauung über das Leben nach dem Tode entwickelten. Weitere Themen umfassen die Vorbereitung auf das Abitur, wobei die zwölfte Klasse noch ein Jahr ohne Examen fortgeführt werden soll, sowie organisatorische Fragen zu Eurythmie, Kunstunterricht und geplanten pädagogischen Vorträgen in verschiedenen Städten.",
@@ -258125,11 +258177,12 @@
     ],
     "generated": "2025-10-28T20:41:02.163Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:41:02.534Z"
+    "timestamp": "2025-10-28T20:41:02.534Z",
+    "location": "19-21 Uhr"
   },
   "GA300c/21": {
     "lectureId": "GA300c/21",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Der Vortrag behandelt pädagogische Fragen der Waldorfschule, insbesondere den Sprachunterricht und Religionsunterricht. Grammatik wird erst ab dem neunten Lebensjahr gelehrt, da sie mit der Ich-Entwicklung verbunden ist. In der Ästhetik der Sprache werden verschiedene Vokale charakterisiert: U und O wirken musikalisch, E und I detonierend. Das Sanskrit mit seinem A-Reichtum steht zwischen musikalischen und plastischen Qualitäten. Verschiedene Sprachen werden charakterisiert: Englisch kämpft gegen Wind und Wellen, Italienisch wirkt rein musikalisch, Französisch intellektuell-logisch, Deutsch plastisch. Für den Religionsunterricht wird die Vereinbarkeit zwischen Waldorfschule und Christengemeinschaft diskutiert. Die Jugendfeier soll zu Ostern stattfinden. Hospitanten müssen nach Waldorfschul-Methodik behandelt werden. Individuelle Behandlung der Schüler wird als essentiell betont.",
@@ -258280,11 +258333,12 @@
     ],
     "generated": "2025-10-28T20:41:03.104Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:41:03.477Z"
+    "timestamp": "2025-10-28T20:41:03.477Z",
+    "location": "21 Uhr"
   },
   "GA300c/22": {
     "lectureId": "GA300c/22",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Eine dringende Lehrerkonferenz behandelt schwerwiegende Diebstahlsfälle zweier Schüler, S. Z. und W. R., in der Waldorfschule. Steiner diagnostiziert bei beiden konstitutionellen Schwachsinn unterschiedlicher Grade - bei Z. mäßigen, bei R. starken moralischen und intellektuellen Schwachsinn. Der Hauptfokus liegt auf dem fundamentalen Problem fehlenden moralischen Kontakts zwischen Lehrern und Schülern ab der 8. Klasse. Während die Waldorfschul-Methode die Kinder intellektuell weit voranbringe, fehle die entsprechende moralisch-seelische Entwicklung. Steiner kritisiert den akademischen Dozier-Ton im Unterricht und die mangelnde psychologische Durchdringung der Schülerindividualitäten durch die Lehrerschaft. Er erklärt die Unterschiede zwischen Kleptomanie und dem vorliegenden Schwachsinn anhand der menschlichen Organisation. W. R. müsse die Schule verlassen, bei S. Z. sei eine Probezeit denkbar.",
@@ -258424,11 +258478,12 @@
     ],
     "generated": "2025-10-28T20:41:04.513Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:41:04.878Z"
+    "timestamp": "2025-10-28T20:41:04.878Z",
+    "location": "20.30 Uhr"
   },
   "GA300c/24": {
     "lectureId": "GA300c/24",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA300",
     "summary": "Das vorliegende Sachwortverzeichnis zu den siebzig Waldorfschul-Konferenzen ermöglicht eine zusammenfassende Übersicht über die pädagogischen Diskussionen und praktischen Fragen des Schulbetriebs. Es verzeichnet systematisch Unterrichtsmethoden, Lehrplaninhalte und menschenkundliche Betrachtungen einzelner Kinder. Besondere Aufmerksamkeit gilt der Entwicklung der Waldorfpädagogik, den verschiedenen Altersstufen der Schüler und den entsprechenden Unterrichtsansätzen. Das Register erfasst sowohl allgemeine pädagogische Prinzipien als auch konkrete Unterrichtsfächer wie Deutsch, Mathematik, Geschichte und die künstlerischen Fächer. Anthroposophische Menschenkunde bildet die Grundlage für die pädagogischen Überlegungen. Die Zusammenarbeit im Lehrerkollegium, Verwaltungsfragen und das Verhältnis zur Öffentlichkeit werden ebenso dokumentiert wie die kulturelle Mission der Waldorfschule als Modellschule für eine neue Pädagogik.",
@@ -261625,7 +261680,8 @@
     ],
     "generated": "2025-10-28T20:44:51.352Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:44:51.976Z"
+    "timestamp": "2025-10-28T20:44:51.976Z",
+    "location": "Stuttgart"
   },
   "GA302/1": {
     "lectureId": "GA302/1",
@@ -261780,7 +261836,8 @@
     ],
     "generated": "2025-10-28T20:44:52.638Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:44:53.145Z"
+    "timestamp": "2025-10-28T20:44:53.145Z",
+    "location": "Stuttgart"
   },
   "GA302/4": {
     "lectureId": "GA302/4",
@@ -261924,7 +261981,8 @@
     ],
     "generated": "2025-10-28T20:44:53.793Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:44:54.149Z"
+    "timestamp": "2025-10-28T20:44:54.149Z",
+    "location": "Stuttgart"
   },
   "GA302/5": {
     "lectureId": "GA302/5",
@@ -262090,7 +262148,8 @@
     ],
     "generated": "2025-10-28T20:44:54.773Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:44:55.001Z"
+    "timestamp": "2025-10-28T20:44:55.001Z",
+    "location": "Stuttgart"
   },
   "GA302/3": {
     "lectureId": "GA302/3",
@@ -262256,7 +262315,8 @@
     ],
     "generated": "2025-10-28T20:44:56.559Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:44:56.845Z"
+    "timestamp": "2025-10-28T20:44:56.845Z",
+    "location": "Stuttgart"
   },
   "GA302/7": {
     "lectureId": "GA302/7",
@@ -262400,7 +262460,8 @@
     ],
     "generated": "2025-10-28T20:45:34.981Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:45:35.225Z"
+    "timestamp": "2025-10-28T20:45:35.225Z",
+    "location": "Stuttgart"
   },
   "GA302/8": {
     "lectureId": "GA302/8",
@@ -262544,7 +262605,8 @@
     ],
     "generated": "2025-10-28T20:45:40.079Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:45:40.548Z"
+    "timestamp": "2025-10-28T20:45:40.548Z",
+    "location": "Stuttgart"
   },
   "GA302a/1": {
     "lectureId": "GA302a/1",
@@ -262710,7 +262772,8 @@
     ],
     "generated": "2025-10-28T20:45:41.338Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:45:41.592Z"
+    "timestamp": "2025-10-28T20:45:41.592Z",
+    "location": "Stuttgart"
   },
   "GA302/6": {
     "lectureId": "GA302/6",
@@ -262865,7 +262928,8 @@
     ],
     "generated": "2025-10-28T20:45:43.584Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:45:43.818Z"
+    "timestamp": "2025-10-28T20:45:43.818Z",
+    "location": "Stuttgart"
   },
   "GA302a/2": {
     "lectureId": "GA302a/2",
@@ -263042,7 +263106,8 @@
     ],
     "generated": "2025-10-28T20:45:45.979Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:45:46.300Z"
+    "timestamp": "2025-10-28T20:45:46.300Z",
+    "location": "Stuttgart"
   },
   "GA302a/3": {
     "lectureId": "GA302a/3",
@@ -263186,7 +263251,8 @@
     ],
     "generated": "2025-10-28T20:46:23.740Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:46:23.974Z"
+    "timestamp": "2025-10-28T20:46:23.974Z",
+    "location": "Stuttgart"
   },
   "GA302a/5": {
     "lectureId": "GA302a/5",
@@ -263352,7 +263418,8 @@
     ],
     "generated": "2025-10-28T20:46:25.040Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:46:25.278Z"
+    "timestamp": "2025-10-28T20:46:25.278Z",
+    "location": "Stuttgart"
   },
   "GA302a/6": {
     "lectureId": "GA302a/6",
@@ -263496,7 +263563,8 @@
     ],
     "generated": "2025-10-28T20:46:27.113Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:46:27.392Z"
+    "timestamp": "2025-10-28T20:46:27.392Z",
+    "location": "Stuttgart"
   },
   "GA302a/7": {
     "lectureId": "GA302a/7",
@@ -263673,7 +263741,8 @@
     ],
     "generated": "2025-10-28T20:46:28.409Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:46:28.632Z"
+    "timestamp": "2025-10-28T20:46:28.632Z",
+    "location": "Stuttgart"
   },
   "GA302a/4": {
     "lectureId": "GA302a/4",
@@ -263817,7 +263886,8 @@
     ],
     "generated": "2025-10-28T20:46:32.994Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:46:33.273Z"
+    "timestamp": "2025-10-28T20:46:33.273Z",
+    "location": "Stuttgart"
   },
   "GA302a/9": {
     "lectureId": "GA302a/9",
@@ -263961,7 +264031,8 @@
     ],
     "generated": "2025-10-28T20:47:13.357Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:13.609Z"
+    "timestamp": "2025-10-28T20:47:13.609Z",
+    "location": "Stuttgart"
   },
   "GA302a/8": {
     "lectureId": "GA302a/8",
@@ -264105,7 +264176,8 @@
     ],
     "generated": "2025-10-28T20:47:15.312Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:15.624Z"
+    "timestamp": "2025-10-28T20:47:15.624Z",
+    "location": "Stuttgart"
   },
   "GA303/1": {
     "lectureId": "GA303/1",
@@ -264260,7 +264332,8 @@
     ],
     "generated": "2025-10-28T20:47:16.284Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:16.467Z"
+    "timestamp": "2025-10-28T20:47:16.467Z",
+    "location": "Dornach"
   },
   "GA303/2": {
     "lectureId": "GA303/2",
@@ -264426,7 +264499,8 @@
     ],
     "generated": "2025-10-28T20:47:18.662Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:19.028Z"
+    "timestamp": "2025-10-28T20:47:19.028Z",
+    "location": "Dornach"
   },
   "GA303/3": {
     "lectureId": "GA303/3",
@@ -264590,7 +264664,8 @@
     ],
     "generated": "2025-10-28T20:47:19.740Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:19.970Z"
+    "timestamp": "2025-10-28T20:47:19.970Z",
+    "location": "Dornach"
   },
   "GA303/7": {
     "lectureId": "GA303/7",
@@ -264723,7 +264798,8 @@
     ],
     "generated": "2025-10-28T20:47:57.245Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:47:57.732Z"
+    "timestamp": "2025-10-28T20:47:57.732Z",
+    "location": "Dornach"
   },
   "GA303/8": {
     "lectureId": "GA303/8",
@@ -264867,7 +264943,8 @@
     ],
     "generated": "2025-10-28T20:47:59.707Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:00.052Z"
+    "timestamp": "2025-10-28T20:48:00.052Z",
+    "location": "Dornach"
   },
   "GA303/6": {
     "lectureId": "GA303/6",
@@ -265022,7 +265099,8 @@
     ],
     "generated": "2025-10-28T20:48:01.647Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:01.929Z"
+    "timestamp": "2025-10-28T20:48:01.929Z",
+    "location": "Dornach"
   },
   "GA303/4": {
     "lectureId": "GA303/4",
@@ -265188,7 +265266,8 @@
     ],
     "generated": "2025-10-28T20:48:04.935Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:05.319Z"
+    "timestamp": "2025-10-28T20:48:05.319Z",
+    "location": "Dornach"
   },
   "GA303/9": {
     "lectureId": "GA303/9",
@@ -265343,7 +265422,8 @@
     ],
     "generated": "2025-10-28T20:48:44.597Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:44.907Z"
+    "timestamp": "2025-10-28T20:48:44.907Z",
+    "location": "Dornach"
   },
   "GA303/12": {
     "lectureId": "GA303/12",
@@ -265487,7 +265567,8 @@
     ],
     "generated": "2025-10-28T20:48:47.477Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:47.699Z"
+    "timestamp": "2025-10-28T20:48:47.699Z",
+    "location": "Dornach"
   },
   "GA303/10": {
     "lectureId": "GA303/10",
@@ -265642,7 +265723,8 @@
     ],
     "generated": "2025-10-28T20:48:49.673Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:49.897Z"
+    "timestamp": "2025-10-28T20:48:49.897Z",
+    "location": "Dornach"
   },
   "GA303/11": {
     "lectureId": "GA303/11",
@@ -265797,7 +265879,8 @@
     ],
     "generated": "2025-10-28T20:48:52.195Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:52.457Z"
+    "timestamp": "2025-10-28T20:48:52.457Z",
+    "location": "Dornach"
   },
   "GA303/13": {
     "lectureId": "GA303/13",
@@ -265941,7 +266024,8 @@
     ],
     "generated": "2025-10-28T20:48:53.325Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:48:53.539Z"
+    "timestamp": "2025-10-28T20:48:53.539Z",
+    "location": "Dornach"
   },
   "GA303/14": {
     "lectureId": "GA303/14",
@@ -266085,7 +266169,8 @@
     ],
     "generated": "2025-10-28T20:49:33.587Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:49:33.826Z"
+    "timestamp": "2025-10-28T20:49:33.826Z",
+    "location": "Dornach"
   },
   "GA304/1": {
     "lectureId": "GA304/1",
@@ -266262,12 +266347,13 @@
     ],
     "generated": "2025-10-28T20:49:36.257Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:49:36.527Z"
+    "timestamp": "2025-10-28T20:49:36.527Z",
+    "location": "Den Haag"
   },
   "GA303/17": {
     "lectureId": "GA303/17",
-    "date": "",
-    "year": null,
+    "date": "1922-01-03",
+    "year": 1922,
     "gaVolume": "GA303",
     "summary": "Der Vortrag behandelt die praktische Umsetzung anthroposophischer Erziehungsprinzipien am Beispiel der Waldorfschule. Steiner beschreibt die Entstehung der Waldorfschule aus der deutschen Revolution 1919 und den Herausforderungen einer niedergehenden Zivilisation. Er erläutert die Notwendigkeit einer auf wirklicher Menschenerkenntnis basierenden Erziehung und diskutiert praktische Fragen zur Schulorganisation, zur Behandlung schwachsinniger Kinder und zu verschiedenen pädagogischen Methoden. Ausführlich wird die Funktion sensitiver und motorischer Nerven aus anthroposophischer Sicht erklärt. Der Vortrag umfasst auch Fragen zu Temperamenten, Eurythmie, Musik und anderen Erziehungsaspekten. Steiner betont die Bedeutung individueller Behandlung und warnt vor mechanisierenden Einflüssen wie dem Film auf die kindliche Entwicklung.",
     "keywords": [
@@ -266561,7 +266647,8 @@
     ],
     "generated": "2025-10-28T20:49:41.757Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:49:42.070Z"
+    "timestamp": "2025-10-28T20:49:42.070Z",
+    "location": "Dornach"
   },
   "GA303/16": {
     "lectureId": "GA303/16",
@@ -266716,7 +266803,8 @@
     ],
     "generated": "2025-10-28T20:49:51.300Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:49:51.840Z"
+    "timestamp": "2025-10-28T20:49:51.840Z",
+    "location": "Dornach"
   },
   "GA304/5": {
     "lectureId": "GA304/5",
@@ -266860,7 +266948,8 @@
     ],
     "generated": "2025-10-28T20:50:30.574Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:50:30.841Z"
+    "timestamp": "2025-10-28T20:50:30.841Z",
+    "location": "Kristiania (Oslo)"
   },
   "GA304/2": {
     "lectureId": "GA304/2",
@@ -267015,7 +267104,8 @@
     ],
     "generated": "2025-10-28T20:50:31.946Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:50:32.162Z"
+    "timestamp": "2025-10-28T20:50:32.162Z",
+    "location": "Den Haag"
   },
   "GA304/3": {
     "lectureId": "GA304/3",
@@ -267182,7 +267272,8 @@
     ],
     "generated": "2025-10-28T20:50:35.357Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:50:35.781Z"
+    "timestamp": "2025-10-28T20:50:35.781Z",
+    "location": "Dornach"
   },
   "GA304/4": {
     "lectureId": "GA304/4",
@@ -267337,7 +267428,8 @@
     ],
     "generated": "2025-10-28T20:50:36.669Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:50:37.078Z"
+    "timestamp": "2025-10-28T20:50:37.078Z",
+    "location": "Aarau"
   },
   "GA304/6": {
     "lectureId": "GA304/6",
@@ -267503,7 +267595,8 @@
     ],
     "generated": "2025-10-28T20:50:37.858Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:50:38.199Z"
+    "timestamp": "2025-10-28T20:50:38.199Z",
+    "location": "Kristiania (Oslo)"
   },
   "GA304/9": {
     "lectureId": "GA304/9",
@@ -267647,7 +267740,8 @@
     ],
     "generated": "2025-10-28T20:51:13.084Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:51:13.369Z"
+    "timestamp": "2025-10-28T20:51:13.369Z",
+    "location": "Dornach"
   },
   "GA304/7": {
     "lectureId": "GA304/7",
@@ -267799,7 +267893,8 @@
     ],
     "generated": "2025-10-28T20:51:14.303Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:51:14.720Z"
+    "timestamp": "2025-10-28T20:51:14.720Z",
+    "location": "Stratford-en-Avon"
   },
   "GA304/8": {
     "lectureId": "GA304/8",
@@ -267976,7 +268071,8 @@
     ],
     "generated": "2025-10-28T20:51:24.491Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:51:24.931Z"
+    "timestamp": "2025-10-28T20:51:24.931Z",
+    "location": "Stratford-on-Avon"
   },
   "GA304a/2": {
     "lectureId": "GA304a/2",
@@ -268120,7 +268216,8 @@
     ],
     "generated": "2025-10-28T20:51:31.825Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:51:32.264Z"
+    "timestamp": "2025-10-28T20:51:32.264Z",
+    "location": "Stuttgart"
   },
   "GA304a/1": {
     "lectureId": "GA304a/1",
@@ -268286,7 +268383,8 @@
     ],
     "generated": "2025-10-28T20:51:33.256Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:51:33.528Z"
+    "timestamp": "2025-10-28T20:51:33.528Z",
+    "location": "Stuttgart"
   },
   "GA304a/3": {
     "lectureId": "GA304a/3",
@@ -268441,7 +268539,8 @@
     ],
     "generated": "2025-10-28T20:52:08.262Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:08.602Z"
+    "timestamp": "2025-10-28T20:52:08.602Z",
+    "location": "Stuttgart"
   },
   "GA304a/4": {
     "lectureId": "GA304a/4",
@@ -268585,7 +268684,8 @@
     ],
     "generated": "2025-10-28T20:52:10.589Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:10.831Z"
+    "timestamp": "2025-10-28T20:52:10.831Z",
+    "location": "Dornach"
   },
   "GA304a/6": {
     "lectureId": "GA304a/6",
@@ -268729,7 +268829,8 @@
     ],
     "generated": "2025-10-28T20:52:12.962Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:13.302Z"
+    "timestamp": "2025-10-28T20:52:13.302Z",
+    "location": "Ilkley"
   },
   "GA304a/7": {
     "lectureId": "GA304a/7",
@@ -268884,7 +268985,8 @@
     ],
     "generated": "2025-10-28T20:52:15.021Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:15.338Z"
+    "timestamp": "2025-10-28T20:52:15.338Z",
+    "location": "Den Haag"
   },
   "GA304a/5": {
     "lectureId": "GA304a/5",
@@ -269061,7 +269163,8 @@
     ],
     "generated": "2025-10-28T20:52:20.800Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:21.049Z"
+    "timestamp": "2025-10-28T20:52:21.049Z",
+    "location": "Dornach"
   },
   "GA305/2": {
     "lectureId": "GA305/2",
@@ -269205,7 +269308,8 @@
     ],
     "generated": "2025-10-28T20:52:56.473Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:52:56.583Z"
+    "timestamp": "2025-10-28T20:52:56.583Z",
+    "location": "Oxford"
   },
   "GA304a/8": {
     "lectureId": "GA304a/8",
@@ -269349,7 +269453,8 @@
     ],
     "generated": "2025-10-28T20:53:01.490Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:01.713Z"
+    "timestamp": "2025-10-28T20:53:01.713Z",
+    "location": "Den Haag"
   },
   "GA305/1": {
     "lectureId": "GA305/1",
@@ -269515,7 +269620,8 @@
     ],
     "generated": "2025-10-28T20:53:04.505Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:05.024Z"
+    "timestamp": "2025-10-28T20:53:05.024Z",
+    "location": "Oxford"
   },
   "GA304a/10": {
     "lectureId": "GA304a/10",
@@ -269692,7 +269798,8 @@
     ],
     "generated": "2025-10-28T20:53:07.008Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:07.334Z"
+    "timestamp": "2025-10-28T20:53:07.334Z",
+    "location": "London"
   },
   "GA304a/9": {
     "lectureId": "GA304a/9",
@@ -269836,7 +269943,8 @@
     ],
     "generated": "2025-10-28T20:53:09.700Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:10.010Z"
+    "timestamp": "2025-10-28T20:53:10.010Z",
+    "location": "London"
   },
   "GA305/3": {
     "lectureId": "GA305/3",
@@ -270002,7 +270110,8 @@
     ],
     "generated": "2025-10-28T20:53:53.293Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:53.701Z"
+    "timestamp": "2025-10-28T20:53:53.701Z",
+    "location": "Oxford"
   },
   "GA305/6": {
     "lectureId": "GA305/6",
@@ -270146,7 +270255,8 @@
     ],
     "generated": "2025-10-28T20:53:54.341Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:54.747Z"
+    "timestamp": "2025-10-28T20:53:54.747Z",
+    "location": "Oxford"
   },
   "GA305/5": {
     "lectureId": "GA305/5",
@@ -270290,7 +270400,8 @@
     ],
     "generated": "2025-10-28T20:53:55.578Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:56.019Z"
+    "timestamp": "2025-10-28T20:53:56.019Z",
+    "location": "Oxford"
   },
   "GA305/7": {
     "lectureId": "GA305/7",
@@ -270434,7 +270545,8 @@
     ],
     "generated": "2025-10-28T20:53:56.689Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:56.830Z"
+    "timestamp": "2025-10-28T20:53:56.830Z",
+    "location": "Oxford"
   },
   "GA305/4": {
     "lectureId": "GA305/4",
@@ -270589,7 +270701,8 @@
     ],
     "generated": "2025-10-28T20:53:59.099Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:53:59.197Z"
+    "timestamp": "2025-10-28T20:53:59.197Z",
+    "location": "Oxford"
   },
   "GA305/9": {
     "lectureId": "GA305/9",
@@ -270733,7 +270846,8 @@
     ],
     "generated": "2025-10-28T20:54:34.557Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:54:34.662Z"
+    "timestamp": "2025-10-28T20:54:34.662Z",
+    "location": "Oxford"
   },
   "GA305/8": {
     "lectureId": "GA305/8",
@@ -270877,7 +270991,8 @@
     ],
     "generated": "2025-10-28T20:54:39.183Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:54:39.278Z"
+    "timestamp": "2025-10-28T20:54:39.278Z",
+    "location": "Oxford"
   },
   "GA305/11": {
     "lectureId": "GA305/11",
@@ -271054,7 +271169,8 @@
     ],
     "generated": "2025-10-28T20:54:43.230Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:54:43.360Z"
+    "timestamp": "2025-10-28T20:54:43.360Z",
+    "location": "Oxford"
   },
   "GA305/12": {
     "lectureId": "GA305/12",
@@ -271187,7 +271303,8 @@
     ],
     "generated": "2025-10-28T20:54:44.482Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:54:44.599Z"
+    "timestamp": "2025-10-28T20:54:44.599Z",
+    "location": "Oxford"
   },
   "GA305/10": {
     "lectureId": "GA305/10",
@@ -271342,7 +271459,8 @@
     ],
     "generated": "2025-10-28T20:54:47.111Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:54:47.281Z"
+    "timestamp": "2025-10-28T20:54:47.281Z",
+    "location": "Oxford"
   },
   "GA305/15": {
     "lectureId": "GA305/15",
@@ -271442,7 +271560,8 @@
     ],
     "generated": "2025-10-28T20:55:14.492Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:55:14.621Z"
+    "timestamp": "2025-10-28T20:55:14.621Z",
+    "location": "Oxford"
   },
   "GA305/14": {
     "lectureId": "GA305/14",
@@ -271586,7 +271705,8 @@
     ],
     "generated": "2025-10-28T20:55:20.696Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:55:20.881Z"
+    "timestamp": "2025-10-28T20:55:20.881Z",
+    "location": "Oxford"
   },
   "GA306/1": {
     "lectureId": "GA306/1",
@@ -271730,7 +271850,8 @@
     ],
     "generated": "2025-10-28T20:55:29.152Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:55:29.339Z"
+    "timestamp": "2025-10-28T20:55:29.339Z",
+    "location": "Dornach"
   },
   "GA306/2": {
     "lectureId": "GA306/2",
@@ -271896,7 +272017,8 @@
     ],
     "generated": "2025-10-28T20:55:34.206Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:55:34.316Z"
+    "timestamp": "2025-10-28T20:55:34.316Z",
+    "location": "Dornach"
   },
   "GA305/13": {
     "lectureId": "GA305/13",
@@ -272051,7 +272173,8 @@
     ],
     "generated": "2025-10-28T20:55:39.810Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:55:39.925Z"
+    "timestamp": "2025-10-28T20:55:39.925Z",
+    "location": "Oxford"
   },
   "GA306/3": {
     "lectureId": "GA306/3",
@@ -272195,7 +272318,8 @@
     ],
     "generated": "2025-10-28T20:56:27.866Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:56:27.977Z"
+    "timestamp": "2025-10-28T20:56:27.977Z",
+    "location": "Dornach"
   },
   "GA306/4": {
     "lectureId": "GA306/4",
@@ -272350,7 +272474,8 @@
     ],
     "generated": "2025-10-28T20:56:29.624Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:56:29.731Z"
+    "timestamp": "2025-10-28T20:56:29.731Z",
+    "location": "Dornach"
   },
   "GA306/5": {
     "lectureId": "GA306/5",
@@ -272527,7 +272652,8 @@
     ],
     "generated": "2025-10-28T20:56:30.390Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:56:30.548Z"
+    "timestamp": "2025-10-28T20:56:30.548Z",
+    "location": "Dornach"
   },
   "GA306/9": {
     "lectureId": "GA306/9",
@@ -272660,7 +272786,8 @@
     ],
     "generated": "2025-10-28T20:57:03.990Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:04.092Z"
+    "timestamp": "2025-10-28T20:57:04.092Z",
+    "location": "Dornach"
   },
   "GA307/1": {
     "lectureId": "GA307/1",
@@ -272815,7 +272942,8 @@
     ],
     "generated": "2025-10-28T20:57:07.778Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:07.877Z"
+    "timestamp": "2025-10-28T20:57:07.877Z",
+    "location": "Ilkley"
   },
   "GA307/2": {
     "lectureId": "GA307/2",
@@ -272959,7 +273087,8 @@
     ],
     "generated": "2025-10-28T20:57:09.212Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:09.310Z"
+    "timestamp": "2025-10-28T20:57:09.310Z",
+    "location": "Ilkley"
   },
   "GA306/8": {
     "lectureId": "GA306/8",
@@ -273103,7 +273232,8 @@
     ],
     "generated": "2025-10-28T20:57:12.297Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:12.477Z"
+    "timestamp": "2025-10-28T20:57:12.477Z",
+    "location": "Dornach"
   },
   "GA307/3": {
     "lectureId": "GA307/3",
@@ -273258,7 +273388,8 @@
     ],
     "generated": "2025-10-28T20:57:12.742Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:13.028Z"
+    "timestamp": "2025-10-28T20:57:13.028Z",
+    "location": "Ilkley"
   },
   "GA307/7": {
     "lectureId": "GA307/7",
@@ -273402,7 +273533,8 @@
     ],
     "generated": "2025-10-28T20:57:48.986Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:49.121Z"
+    "timestamp": "2025-10-28T20:57:49.121Z",
+    "location": "Ilkley"
   },
   "GA307/8": {
     "lectureId": "GA307/8",
@@ -273546,7 +273678,8 @@
     ],
     "generated": "2025-10-28T20:57:49.423Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:49.531Z"
+    "timestamp": "2025-10-28T20:57:49.531Z",
+    "location": "Ilkley"
   },
   "GA307/5": {
     "lectureId": "GA307/5",
@@ -273690,7 +273823,8 @@
     ],
     "generated": "2025-10-28T20:57:52.272Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:52.384Z"
+    "timestamp": "2025-10-28T20:57:52.384Z",
+    "location": "Ilkley"
   },
   "GA307/4": {
     "lectureId": "GA307/4",
@@ -273834,7 +273968,8 @@
     ],
     "generated": "2025-10-28T20:57:52.671Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:52.819Z"
+    "timestamp": "2025-10-28T20:57:52.819Z",
+    "location": "Ilkley"
   },
   "GA307/6": {
     "lectureId": "GA307/6",
@@ -273978,7 +274113,8 @@
     ],
     "generated": "2025-10-28T20:57:54.706Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:57:54.840Z"
+    "timestamp": "2025-10-28T20:57:54.840Z",
+    "location": "Ilkley"
   },
   "GA307/9": {
     "lectureId": "GA307/9",
@@ -274122,7 +274258,8 @@
     ],
     "generated": "2025-10-28T20:58:32.430Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:58:32.625Z"
+    "timestamp": "2025-10-28T20:58:32.625Z",
+    "location": "Ilkley"
   },
   "GA307/11": {
     "lectureId": "GA307/11",
@@ -274266,7 +274403,8 @@
     ],
     "generated": "2025-10-28T20:58:34.455Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:58:34.597Z"
+    "timestamp": "2025-10-28T20:58:34.597Z",
+    "location": "Ilkley"
   },
   "GA307/12": {
     "lectureId": "GA307/12",
@@ -274443,7 +274581,8 @@
     ],
     "generated": "2025-10-28T20:58:35.823Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:58:36.072Z"
+    "timestamp": "2025-10-28T20:58:36.072Z",
+    "location": "Ilkley"
   },
   "GA307/13": {
     "lectureId": "GA307/13",
@@ -274587,7 +274726,8 @@
     ],
     "generated": "2025-10-28T20:58:36.471Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:58:36.663Z"
+    "timestamp": "2025-10-28T20:58:36.663Z",
+    "location": "Ilkley"
   },
   "GA307/10": {
     "lectureId": "GA307/10",
@@ -274764,7 +274904,8 @@
     ],
     "generated": "2025-10-28T20:58:40.307Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:58:40.479Z"
+    "timestamp": "2025-10-28T20:58:40.479Z",
+    "location": "Ilkley"
   },
   "GA307/15": {
     "lectureId": "GA307/15",
@@ -275019,7 +275160,8 @@
     ],
     "generated": "2025-10-28T20:59:20.378Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:20.534Z"
+    "timestamp": "2025-10-28T20:59:20.534Z",
+    "location": "Stuttgart"
   },
   "GA308/1": {
     "lectureId": "GA308/1",
@@ -275163,7 +275305,8 @@
     ],
     "generated": "2025-10-28T20:59:22.104Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:22.281Z"
+    "timestamp": "2025-10-28T20:59:22.281Z",
+    "location": "Stuttgart"
   },
   "GA307/14": {
     "lectureId": "GA307/14",
@@ -275329,7 +275472,8 @@
     ],
     "generated": "2025-10-28T20:59:22.587Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:22.761Z"
+    "timestamp": "2025-10-28T20:59:22.761Z",
+    "location": "Ilkley"
   },
   "GA308/3": {
     "lectureId": "GA308/3",
@@ -275495,11 +275639,12 @@
     ],
     "generated": "2025-10-28T20:59:23.146Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:23.274Z"
+    "timestamp": "2025-10-28T20:59:23.274Z",
+    "location": "Stuttgart"
   },
   "GA308/6": {
     "lectureId": "GA308/6",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA308",
     "summary": "Eine Erziehungstagung in Stuttgart vom 7. bis 13. April behandelt die Stellung der Erziehung im persönlichen und kulturellen Leben der Gegenwart. Die moderne naturwissenschaftliche Weltanschauung erfasst nur das Äußere des Menschen, während wahre Menschenerkenntnis den Menschen nach Leib, Seele und Geist erforschen muss. Der Menschenleib ist ein Werk des Geistes und eine Offenbarung der Seele. Körperliche Erziehung kann nicht allein durch Einfluss auf den Körper erfolgen, da seelische Impulse im Kind sich in gesunde oder kranke körperliche Verfassung übertragen. Die seit dem fünfzehnten Jahrhundert entwickelte Denkart kann diese Wahrheiten nicht erfassen und dringt daher nicht zu einer lebendigen pädagogischen Kunst durch. Die anthroposophische Pädagogik gibt der Erziehung eine Stellung, die der Menschennatur entspricht. Die Tagung umfasste Vorträge, Schulführungen, Eurythmieaufführungen und eine Jugendversammlung.",
@@ -275617,7 +275762,8 @@
     ],
     "generated": "2025-10-28T20:59:50.242Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:50.401Z"
+    "timestamp": "2025-10-28T20:59:50.401Z",
+    "location": "April 1924"
   },
   "GA309/1": {
     "lectureId": "GA309/1",
@@ -275761,7 +275907,8 @@
     ],
     "generated": "2025-10-28T20:59:56.891Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T20:59:57.040Z"
+    "timestamp": "2025-10-28T20:59:57.040Z",
+    "location": "Bern"
   },
   "GA308/5": {
     "lectureId": "GA308/5",
@@ -275905,7 +276052,8 @@
     ],
     "generated": "2025-10-28T21:00:01.924Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:02.063Z"
+    "timestamp": "2025-10-28T21:00:02.063Z",
+    "location": "Stuttgart"
   },
   "GA308/4": {
     "lectureId": "GA308/4",
@@ -276060,7 +276208,8 @@
     ],
     "generated": "2025-10-28T21:00:06.740Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:06.954Z"
+    "timestamp": "2025-10-28T21:00:06.954Z",
+    "location": "Stuttgart"
   },
   "GA309/2": {
     "lectureId": "GA309/2",
@@ -276204,7 +276353,8 @@
     ],
     "generated": "2025-10-28T21:00:10.398Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:10.611Z"
+    "timestamp": "2025-10-28T21:00:10.611Z",
+    "location": "Bern"
   },
   "GA309/3": {
     "lectureId": "GA309/3",
@@ -276348,7 +276498,8 @@
     ],
     "generated": "2025-10-28T21:00:46.763Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:47.105Z"
+    "timestamp": "2025-10-28T21:00:47.105Z",
+    "location": "Bern"
   },
   "GA310/1": {
     "lectureId": "GA310/1",
@@ -276503,7 +276654,8 @@
     ],
     "generated": "2025-10-28T21:00:49.621Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:49.996Z"
+    "timestamp": "2025-10-28T21:00:49.996Z",
+    "location": "Arnheim"
   },
   "GA310/2": {
     "lectureId": "GA310/2",
@@ -276647,7 +276799,8 @@
     ],
     "generated": "2025-10-28T21:00:50.688Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:51.098Z"
+    "timestamp": "2025-10-28T21:00:51.098Z",
+    "location": "Arnheim"
   },
   "GA309/4": {
     "lectureId": "GA309/4",
@@ -276813,7 +276966,8 @@
     ],
     "generated": "2025-10-28T21:00:51.686Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:51.919Z"
+    "timestamp": "2025-10-28T21:00:51.919Z",
+    "location": "Bern"
   },
   "GA309/5": {
     "lectureId": "GA309/5",
@@ -276979,7 +277133,8 @@
     ],
     "generated": "2025-10-28T21:00:53.455Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:00:53.688Z"
+    "timestamp": "2025-10-28T21:00:53.688Z",
+    "location": "Bern"
   },
   "GA310/5": {
     "lectureId": "GA310/5",
@@ -277123,7 +277278,8 @@
     ],
     "generated": "2025-10-28T21:01:31.336Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:01:31.463Z"
+    "timestamp": "2025-10-28T21:01:31.463Z",
+    "location": "Arnheim"
   },
   "GA310/4": {
     "lectureId": "GA310/4",
@@ -277267,7 +277423,8 @@
     ],
     "generated": "2025-10-28T21:01:36.178Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:01:36.356Z"
+    "timestamp": "2025-10-28T21:01:36.356Z",
+    "location": "Arnheim"
   },
   "GA310/7": {
     "lectureId": "GA310/7",
@@ -277411,7 +277568,8 @@
     ],
     "generated": "2025-10-28T21:01:36.863Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:01:37.091Z"
+    "timestamp": "2025-10-28T21:01:37.091Z",
+    "location": "Arnheim"
   },
   "GA310/6": {
     "lectureId": "GA310/6",
@@ -277566,7 +277724,8 @@
     ],
     "generated": "2025-10-28T21:01:38.085Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:01:38.380Z"
+    "timestamp": "2025-10-28T21:01:38.380Z",
+    "location": "Arnheim"
   },
   "GA310/3": {
     "lectureId": "GA310/3",
@@ -277743,7 +277902,8 @@
     ],
     "generated": "2025-10-28T21:01:38.942Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:01:39.275Z"
+    "timestamp": "2025-10-28T21:01:39.275Z",
+    "location": "Arnheim"
   },
   "GA310/9": {
     "lectureId": "GA310/9",
@@ -277876,7 +278036,8 @@
     ],
     "generated": "2025-10-28T21:02:16.246Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:02:16.450Z"
+    "timestamp": "2025-10-28T21:02:16.450Z",
+    "location": "Arnheim"
   },
   "GA310/8": {
     "lectureId": "GA310/8",
@@ -278031,7 +278192,8 @@
     ],
     "generated": "2025-10-28T21:02:18.102Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:02:18.223Z"
+    "timestamp": "2025-10-28T21:02:18.223Z",
+    "location": "Arnheim"
   },
   "GA311/2": {
     "lectureId": "GA311/2",
@@ -278197,7 +278359,8 @@
     ],
     "generated": "2025-10-28T21:02:19.713Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:02:19.878Z"
+    "timestamp": "2025-10-28T21:02:19.878Z",
+    "location": "Torquay"
   },
   "GA311/1": {
     "lectureId": "GA311/1",
@@ -278341,7 +278504,8 @@
     ],
     "generated": "2025-10-28T21:02:22.591Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:02:22.792Z"
+    "timestamp": "2025-10-28T21:02:22.792Z",
+    "location": "Torquay"
   },
   "GA310/10": {
     "lectureId": "GA310/10",
@@ -278485,7 +278649,8 @@
     ],
     "generated": "2025-10-28T21:02:27.202Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:02:27.356Z"
+    "timestamp": "2025-10-28T21:02:27.356Z",
+    "location": "Arnheim"
   },
   "GA311/3": {
     "lectureId": "GA311/3",
@@ -278640,7 +278805,8 @@
     ],
     "generated": "2025-10-28T21:03:05.517Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:06.103Z"
+    "timestamp": "2025-10-28T21:03:06.103Z",
+    "location": "Torquay"
   },
   "GA311/4": {
     "lectureId": "GA311/4",
@@ -278795,7 +278961,8 @@
     ],
     "generated": "2025-10-28T21:03:07.029Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:07.381Z"
+    "timestamp": "2025-10-28T21:03:07.381Z",
+    "location": "Torquay"
   },
   "GA311/5": {
     "lectureId": "GA311/5",
@@ -278961,7 +279128,8 @@
     ],
     "generated": "2025-10-28T21:03:08.479Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:08.997Z"
+    "timestamp": "2025-10-28T21:03:08.997Z",
+    "location": "Torquay"
   },
   "GA311/7": {
     "lectureId": "GA311/7",
@@ -279105,7 +279273,8 @@
     ],
     "generated": "2025-10-28T21:03:10.003Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:10.558Z"
+    "timestamp": "2025-10-28T21:03:10.558Z",
+    "location": "Torquay"
   },
   "GA311/6": {
     "lectureId": "GA311/6",
@@ -279260,7 +279429,8 @@
     ],
     "generated": "2025-10-28T21:03:11.410Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:11.723Z"
+    "timestamp": "2025-10-28T21:03:11.723Z",
+    "location": "Torquay"
   },
   "GA311/8": {
     "lectureId": "GA311/8",
@@ -279404,7 +279574,8 @@
     ],
     "generated": "2025-10-28T21:03:49.055Z",
     "generationMethod": "unified-batch-full",
-    "timestamp": "2025-10-28T21:03:49.355Z"
+    "timestamp": "2025-10-28T21:03:49.355Z",
+    "location": "Torquay"
   },
   "GA053/16": {
     "lectureId": "GA053/16",
@@ -279427,7 +279598,8 @@
       }
     ],
     "generated": "2025-10-28T21:23:59.171Z",
-    "generationMethod": "manual-add"
+    "generationMethod": "manual-add",
+    "location": "Berlin"
   },
   "GA053/19": {
     "lectureId": "GA053/19",
@@ -279450,6 +279622,7 @@
       }
     ],
     "generated": "2025-10-28T21:26:44.451Z",
-    "generationMethod": "manual-add"
+    "generationMethod": "manual-add",
+    "location": "Berlin"
   }
 }
