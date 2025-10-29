@@ -3357,6 +3357,9 @@ body.dark-mode .welcome-start-btn:hover {
   <button id="batch-regenerate-btn" class="depth-btn" onclick="batchRegenerateAll()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #d9534f; border: 1px solid #d9534f;">
     S&H&C&K
   </button>
+  <button id="batch-short-summary-btn" class="depth-btn" onclick="batchGenerateShortSummaries()" style="padding: 6px 10px; font-size: 0.85em; background: transparent; color: #5cb85c; border: 1px solid #5cb85c;">
+    ShortSum
+  </button>
   <select id="batch-provider-select" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--border-color); border-radius: 4px; background: var(--sidebar-bg); color: var(--text-color);">
     <option value="claude">Claude</option>
     <option value="openai">OpenAI</option>
@@ -4760,12 +4763,13 @@ async function displayGAOverview(data) {
       console.log('[GA-OVERVIEW-DEBUG] Erste Lecture:', lecture.ID);
       console.log('[GA-OVERVIEW-DEBUG] Summary Version:', lecture.version || 'v1');
       console.log('[GA-OVERVIEW-DEBUG] lectureKeywords:', lectureKeywords.length);
+      console.log('[GA-OVERVIEW-DEBUG] shortSummary:', lecture.shortSummary ? 'vorhanden' : 'fehlt');
       if (lectureKeywords.length > 0) {
         console.log('[GA-OVERVIEW-DEBUG] Erste 3 Keywords:', lectureKeywords.slice(0,3).map(k => k.term));
       }
     }
     
-    const hasKeywords = lectureKeywords.length > 0;
+    const hasShortSummary = lecture.shortSummary && lecture.shortSummary.trim().length > 0;
     
     const isSelected = selectedLectureIds.has(lecture.ID);
     
@@ -4786,18 +4790,14 @@ async function displayGAOverview(data) {
             </a>
           </h3>
         
-        ${hasKeywords ? `
+        ${lecture.shortSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; line-height: 1.3; font-size: 0.9em;">
-              ${lectureKeywords.map(kw => {
-                const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-                const escapedGANumber = data.gaNumber.replace(/'/g, "\\'");
-                return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
-              }).join(' &middot; ')}
+            <p style="margin: 0; line-height: 1.4; font-size: 0.9em; color: #666; font-style: italic;">
+              ${lecture.shortSummary}
             </p>
           </div>
         ` : `
-          <!-- Keine V2-Keywords für ${lecture.ID} -->
+          <!-- Keine shortSummary für ${lecture.ID} -->
         `}
         </div>
       </div>
@@ -4825,13 +4825,13 @@ function toggleGASummaries() {
   });
   
   if (button) {
-    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Schlagwörtern';
+    button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Kurzzusammenfassung';
   }
   
   // Update Toggle Button im Texte-Tab
   const texteViewToggleText = document.getElementById('texteViewToggleText');
   if (texteViewToggleText) {
-    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Schlagwörtern';
+    texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'mit Kurzzusammenfassung';
   }
 }
 
@@ -7817,6 +7817,118 @@ async function batchGenerateKeywords() {
     
   } catch (err) {
     console.error('[BATCH-KEYWORDS] Fehler:', err);
+    resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+  }
+}
+
+/**
+ * Generiert Kurzzusammenfassungen für alle Vorträge (aus bestehenden Summaries)
+ */
+async function batchGenerateShortSummaries() {
+  const gaNumber = document.getElementById('texteGAFilter')?.value;
+  if (!gaNumber) {
+    alert('Bitte wählen Sie zuerst einen GA-Band aus.');
+    return;
+  }
+  
+  if (!confirm('Kurzzusammenfassungen für alle Vorträge generieren?\n\nDies verarbeitet nur bestehende Summaries (nicht die vollständigen Vorträge) und ist schnell und günstig.')) {
+    return;
+  }
+  
+  // Button Status auf "aktiv..." setzen
+  const btn = document.getElementById('batch-short-summary-btn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<em>aktiv...</em>';
+  btn.disabled = true;
+  
+  const providerSelect = document.getElementById('batch-provider-select');
+  const selectedProvider = providerSelect?.value || null;
+  
+  console.log(`[BATCH-SHORT-SUMMARY] Start für ${gaNumber}, Provider: ${selectedProvider || 'auto'}`);
+  
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = `
+    <div class="batch-progress" id="batch-progress-ui">
+      <div id="batch-status">Vorbereiten...</div>
+      <div style="margin-top:8px; background:#e9eef0; border-radius:4px; overflow:hidden;">
+        <div class="bar" id="batch-progress-bar"></div>
+      </div>
+    </div>
+  `;
+  
+  try {
+    setUILocked(true);
+    
+    let lectureIds;
+    
+    // Prüfe ob Vorträge ausgewählt sind
+    if (selectedLectureIds.size > 0) {
+      // Verwende nur ausgewählte Vorträge
+      lectureIds = Array.from(selectedLectureIds);
+      console.log(`[BATCH-SHORT-SUMMARY] Verwende ${lectureIds.length} ausgewählte Vorträge`);
+    } else {
+      // Lade GA-Overview
+      const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaNumber)}`);
+      if (!resp.ok) throw new Error(`GA-Overview konnte nicht geladen werden: ${resp.status}`);
+      const data = await resp.json();
+      const lectures = data.lectures || [];
+      
+      if (lectures.length === 0) {
+        resultsContainer.innerHTML = '<p>Keine Vorträge in dieser GA gefunden.</p>';
+        return;
+      }
+      
+      lectureIds = lectures.map(l => l.ID);
+      console.log(`[BATCH-SHORT-SUMMARY] Verwende alle ${lectureIds.length} Vorträge des GA-Bands`);
+    }
+    
+    // Rufe Backend-API auf
+    const statusEl = document.getElementById('batch-status');
+    if (statusEl) statusEl.textContent = `Generiere Kurzzusammenfassungen für ${lectureIds.length} Vorträge...`;
+    
+    const batchResp = await fetch(`${API_BASE}/api/batch-generate-short-summaries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        lectureIds: lectureIds,
+        preferredProvider: selectedProvider,
+        forceRegenerate: false
+      })
+    });
+    
+    if (!batchResp.ok) {
+      const errorData = await batchResp.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    const result = await batchResp.json();
+    console.log('[BATCH-SHORT-SUMMARY] Ergebnis:', result);
+    
+    const doneMsg = `✓ Kurzzusammenfassungen: ${result.processed} generiert, ${result.failed} Fehler`;
+    if (statusEl) statusEl.textContent = doneMsg;
+    
+    const barEl = document.getElementById('batch-progress-bar');
+    if (barEl) barEl.style.width = '100%';
+    
+    setUILocked(false);
+    
+    // Button-Text wiederherstellen
+    btn.innerHTML = originalText;
+    btn.disabled = false;
+    
+    // Cache löschen und GA-Übersicht aktualisieren
+    externalSummaryDBCache = null;
+    setTimeout(() => {
+      openGAOverview(gaNumber);
+    }, 800);
+    
+  } catch (err) {
+    console.error('[BATCH-SHORT-SUMMARY] Fehler:', err);
     resultsContainer.innerHTML = `<div class="error-message"><strong>Fehler:</strong><br>${err.message}</div>`;
     setUILocked(false);
     

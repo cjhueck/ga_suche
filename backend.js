@@ -447,6 +447,7 @@ async function generateGAOverview(gaNumber) {
         location: lec.location,
         date: formatDate(lec.date),
         summary: summaryText,
+        shortSummary: summaryData?.shortSummary || null,
         headings: summaryData?.headings || [],
         tableOfContents: summaryData?.tableOfContents || [],
         lectureKeywords: summaryData?.lectureKeywords || [],
@@ -6220,6 +6221,191 @@ app.get('/summary-database.json', async (req, res) => {
     res.json(summaryDB);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// SHORT SUMMARY GENERATION (2-3 Sätze aus bestehender Summary)
+// ============================================================================
+
+/**
+ * Generiert Kurzzusammenfassung (1-2 Sätze) aus bestehender Summary
+ */
+async function generateShortSummary(fullSummary, lectureId, preferredProvider = null) {
+  try {
+    // Standardmäßig Claude verwenden, oder bevorzugten Provider
+    let provider;
+    if (preferredProvider) {
+      const { createProvider } = require('./llm-providers');
+      provider = createProvider(preferredProvider);
+      if (!provider.isAvailable()) {
+        console.warn(`[SHORT-SUMMARY] ${preferredProvider} nicht verfügbar, verwende Claude`);
+        provider = createProvider('claude');
+      }
+    } else {
+      // Default: Claude
+      const { createProvider } = require('./llm-providers');
+      provider = createProvider('claude');
+    }
+    
+    const prompt = `Fasse diese Vortrags-Zusammenfassung in MAXIMAL 2 Sätzen zusammen. Sei extrem prägnant.
+
+REGELN:
+- Maximal 1-2 Sätze (nicht mehr!)
+- Nur die allerwichtigste Kernaussage
+- Keine Meta-Sprache ("Rudolf Steiner beschreibt...")
+- Direkt und sachlich
+
+ZUSAMMENFASSUNG:
+${fullSummary}
+
+Antworte NUR mit 1-2 Sätzen.`;
+
+    const response = await provider.generateCompletion(prompt, {
+      maxTokens: 150,
+      temperature: 0.3
+    });
+    
+    return response.trim();
+  } catch (error) {
+    console.error(`[SHORT-SUMMARY] Fehler bei ${lectureId}:`, error.message);
+    throw error;
+  }
+}
+
+/**
+ * Batch-Generierung von Kurzzusammenfassungen für alle Vorträge
+ */
+app.post('/api/batch-generate-short-summaries', async (req, res) => {
+  try {
+    const { 
+      lectureIds = null,
+      forceRegenerate = false,
+      preferredProvider = null
+    } = req.body;
+    
+    console.log(`\n[SHORT-SUMMARY-BATCH] Starte Batch-Generierung...`);
+    console.log(`[SHORT-SUMMARY-BATCH] Force Regenerate: ${forceRegenerate}`);
+    console.log(`[SHORT-SUMMARY-BATCH] Preferred Provider: ${preferredProvider || 'auto'}`);
+    
+    // Lade Summary-Datenbank
+    const summaryDB = await loadSummaryDatabase();
+    
+    // Bestimme zu verarbeitende Vorträge
+    let lectureIdsToProcess;
+    if (lectureIds && lectureIds.length > 0) {
+      lectureIdsToProcess = lectureIds;
+    } else {
+      // Alle Vorträge aus summary-database
+      lectureIdsToProcess = Object.keys(summaryDB);
+    }
+    
+    // Filtere: Nur Vorträge MIT Summary aber OHNE shortSummary (oder force)
+    const toProcess = lectureIdsToProcess.filter(id => {
+      const entry = summaryDB[id];
+      if (!entry || !entry.summary) return false;
+      if (forceRegenerate) return true;
+      return !entry.shortSummary;
+    });
+    
+    console.log(`[SHORT-SUMMARY-BATCH] ${toProcess.length} von ${lectureIdsToProcess.length} Vorträgen benötigen shortSummary`);
+    
+    if (toProcess.length === 0) {
+      return res.json({
+        success: true,
+        message: 'Alle Vorträge haben bereits Kurzzusammenfassungen',
+        processed: 0,
+        failed: 0
+      });
+    }
+    
+    const results = {
+      processed: 0,
+      failed: 0,
+      errors: []
+    };
+    
+    // Verarbeite Vorträge in Batches von 5
+    const BATCH_SIZE = 5;
+    
+    for (let batchStart = 0; batchStart < toProcess.length; batchStart += BATCH_SIZE) {
+      const batchEnd = Math.min(batchStart + BATCH_SIZE, toProcess.length);
+      const batch = toProcess.slice(batchStart, batchEnd);
+      
+      console.log(`[SHORT-SUMMARY-BATCH] Batch ${Math.floor(batchStart / BATCH_SIZE) + 1}/${Math.ceil(toProcess.length / BATCH_SIZE)}: Verarbeite ${batch.length} Vorträge parallel...`);
+      
+      // Verarbeite alle Vorträge in diesem Batch parallel
+      const batchPromises = batch.map(async (lectureId, idx) => {
+        const entry = summaryDB[lectureId];
+        const overallIdx = batchStart + idx + 1;
+        
+        try {
+          console.log(`[SHORT-SUMMARY-BATCH] ${overallIdx}/${toProcess.length} ${lectureId}: Generiere shortSummary...`);
+          
+          // Generiere Kurzzusammenfassung mit bevorzugtem Provider
+          const shortSummary = await generateShortSummary(entry.summary, lectureId, preferredProvider);
+          
+          console.log(`[SHORT-SUMMARY-BATCH] ✓ ${lectureId}: Kurzzusammenfassung generiert (${shortSummary.length} Zeichen)`);
+          
+          return {
+            success: true,
+            lectureId,
+            shortSummary
+          };
+          
+        } catch (error) {
+          console.error(`[SHORT-SUMMARY-BATCH] ✗ ${lectureId}: Fehler:`, error.message);
+          return {
+            success: false,
+            lectureId,
+            error: error.message
+          };
+        }
+      });
+      
+      // Warte auf alle Generierungen in diesem Batch
+      const batchResults = await Promise.all(batchPromises);
+      
+      // Aktualisiere Datenbank mit allen erfolgreichen Ergebnissen dieses Batches
+      const updatedSummaryDB = await loadSummaryDatabase();
+      let savedInThisBatch = 0;
+      
+      batchResults.forEach(result => {
+        if (result.success) {
+          updatedSummaryDB[result.lectureId].shortSummary = result.shortSummary;
+          results.processed++;
+          savedInThisBatch++;
+        } else {
+          results.failed++;
+          results.errors.push({
+            lectureId: result.lectureId,
+            error: result.error
+          });
+        }
+      });
+      
+      // Speichere Batch in Datenbank
+      if (savedInThisBatch > 0) {
+        await saveCompleteSummaryDatabase(updatedSummaryDB);
+        console.log(`[SHORT-SUMMARY-BATCH] ✓ Batch gespeichert: ${savedInThisBatch} Kurzzusammenfassungen`);
+      }
+    }
+    
+    console.log(`\n[SHORT-SUMMARY-BATCH] Batch abgeschlossen:`);
+    console.log(`[SHORT-SUMMARY-BATCH] ✓ Erfolgreich: ${results.processed}`);
+    console.log(`[SHORT-SUMMARY-BATCH] ✗ Fehlgeschlagen: ${results.failed}`);
+    
+    res.json({
+      success: true,
+      processed: results.processed,
+      failed: results.failed,
+      total: toProcess.length,
+      errors: results.errors
+    });
+    
+  } catch (error) {
+    console.error('[SHORT-SUMMARY-BATCH] Kritischer Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
