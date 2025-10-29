@@ -8969,6 +8969,13 @@ if (!isLocalhost) {
     updateQuotePopupButtonText();
     console.log('[INIT] Quote-Popup-Toggle-Button sichtbar (Lokale Umgebung)');
   }
+  
+  // Info-Text für Alt+Klick Zitat-Funktion anzeigen
+  const quoteFromTextInfo = document.getElementById("quoteFromTextInfo");
+  if (quoteFromTextInfo) {
+    quoteFromTextInfo.style.display = 'block';
+    console.log('[INIT] Quote-from-Text-Info sichtbar (Lokale Umgebung)');
+  }
 }
 
 // Auto-Popup nach 1 Minute (nur wenn aktiviert)
