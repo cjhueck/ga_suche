@@ -690,6 +690,66 @@
             // Event Listener für Suche
             document.getElementById('keywordSearch').addEventListener('input', filterKeywords);
             document.getElementById('clusterSearch').addEventListener('input', filterClusters);
+            
+            // Enter-Taste für Keyword-Funktionen
+            document.getElementById('renameInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('renameBtn').disabled) {
+                    e.preventDefault();
+                    renameKeyword();
+                }
+            });
+            
+            document.getElementById('mergeInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('mergeBtn').disabled) {
+                    e.preventDefault();
+                    mergeKeywords();
+                }
+            });
+            
+            document.getElementById('targetClusterSelect').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('assignBtn').disabled) {
+                    e.preventDefault();
+                    assignToCluster();
+                }
+            });
+            
+            // Enter-Taste für Cluster-Funktionen
+            document.getElementById('newClusterInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addCluster();
+                }
+            });
+            
+            document.getElementById('newClusterDesc').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addCluster();
+                }
+            });
+            
+            document.getElementById('renameClusterInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('renameClusterBtn').disabled) {
+                    e.preventDefault();
+                    renameCluster();
+                }
+            });
+            
+            // Enter-Taste für Similar Keywords Panel
+            document.getElementById('similarClusterSelect').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('assignSimilarBtn').disabled) {
+                    e.preventDefault();
+                    assignSimilarToCluster();
+                }
+            });
+            
+            // Enter-Taste für Merge-Cluster Dropdowns
+            document.getElementById('mergeTargetCluster').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    mergeClusters();
+                }
+            });
         });
 
         // Keywords laden
@@ -1435,7 +1495,7 @@
             }
             
             try {
-                const response = await fetch(`${API_BASE}/api/themes/delete-cluster`, {
+                const response = await fetch(`${API_BASE}/themes/delete-cluster`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ clusterName: selectedCluster })
@@ -1483,7 +1543,7 @@
             }
             
             try {
-                const response = await fetch(`${API_BASE}/api/themes/merge-clusters`, {
+                const response = await fetch(`${API_BASE}/themes/merge-clusters`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ sourceCluster, targetCluster })

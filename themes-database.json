@@ -204,7 +204,26 @@
       "Fröbel",
       "Garibaldi",
       "Gandhi",
-      "Galilei"
+      "Galilei",
+      "Elias",
+      "Rousseau",
+      "Zarathustra",
+      "Woodrow Wilson",
+      "Wolfram von Eschenbach",
+      "Sophie von Kühn",
+      "Spengler",
+      "Swedenborg",
+      "Theophilus",
+      "Tolstoj",
+      "Troxler",
+      "Nikolaus Cusanus",
+      "Nostradamus",
+      "Novalis",
+      "Odysseus",
+      "Origenes",
+      "Pestalozzi",
+      "Philo von Alexandrien",
+      "Philon"
     ]
   },
   "Seelenleben": {
@@ -253,7 +272,11 @@
       "Planetarische Entwicklung",
       "Kosmische Entwicklung",
       "Kosmische Evolution",
-      "Weltentwicklung"
+      "Weltentwicklung",
+      "Planetengeister",
+      "Planetensystem",
+      "Kosmische Zyklen",
+      "Zyklische Gesetze"
     ]
   },
   "Kulturentwicklung": {
@@ -269,13 +292,6 @@
       "Zeitalter der Empfindungsseele",
       "Zeitalter der Verstandesseele",
       "Zeitalter der Bewusstseinsseele"
-    ]
-  },
-  "Individuelle Entwicklung": {
-    "description": "Persönliche und spirituelle Entwicklung",
-    "keywords": [
-      "Kindliche Entwicklung",
-      "Spirituelle Entwicklung"
     ]
   },
   "Christentum": {
@@ -298,20 +314,24 @@
       "Auferstehung",
       "Ätherischer Christus",
       "Christliche Gnade",
-      "Christus-Prinzip"
+      "Christus-Prinzip",
+      "Abendmahl",
+      "Apostel"
     ]
   },
   "Bibel & Evangelien": {
     "description": "Bibelverständnis und Evangelienlehre",
     "keywords": [
       "Bibel",
-      "Bibelkritik",
       "Bibelverständnis",
       "Evangelien",
       "Johannes-Evangelium",
-      "Biblische Symbolik",
       "Altes Testament",
-      "Hochzeit zu Kana"
+      "Hochzeit zu Kana",
+      "Biblische Symbolik",
+      "Bibelkritik",
+      "Abraham",
+      "Arche Noah"
     ]
   },
   "Mystik & Esoterik": {
@@ -413,7 +433,9 @@
       "Waldorfschule",
       "Autorität in der Erziehung",
       "Erziehungskunst",
-      "Lebendige Pädagogik"
+      "Lebendige Pädagogik",
+      "Pädagogische Gesinnung",
+      "Pädagogischer Kurs"
     ]
   },
   "Entwicklungsphasen": {
@@ -601,7 +623,6 @@
       "Angeloi, Archangeloi, Archai",
       "Ahrimanische Kräfte",
       "Luziferische Wesenheiten",
-      "Abraham",
       "Abstammung",
       "Devas",
       "Dhyan-Chohans",
@@ -611,8 +632,10 @@
       "Archai",
       "Engel",
       "Abbauprozess",
-      "Abendmahl",
-      "Zeitgeist"
+      "Zeitgeist",
+      "Sorat",
+      "Throne",
+      "Ormuzd"
     ]
   },
   "Hüter & Führer": {
@@ -650,7 +673,8 @@
       "Urtier",
       "Anschauende Urteilskraft",
       "Farbenlehre",
-      "Goethes Bedeutung"
+      "Goethes Bedeutung",
+      "Zwischenkieferknochen"
     ]
   },
   "Goetheanum": {
@@ -672,8 +696,7 @@
     "description": "Deutsche Literaturgeschichte und Dichter",
     "keywords": [
       "Deutsche Literaturgeschichte",
-      "Herder",
-      "Novalis"
+      "Herder"
     ]
   },
   "Geschichtserkenntnis": {
@@ -835,13 +858,6 @@
       "Rhythmische Lebensgesetze"
     ]
   },
-  "Kosmische Zyklen": {
-    "description": "Kosmische und zyklische Entwicklungsgesetze",
-    "keywords": [
-      "Kosmische Zyklen",
-      "Zyklische Gesetze"
-    ]
-  },
   "Symbolische Erkenntnis": {
     "description": "Symbolik und symbolische Meditation",
     "keywords": [
@@ -874,16 +890,9 @@
       "Selbsterkenntnis",
       "Selbsterziehung",
       "Innere Entwicklung",
-      "Innere Verwandlung"
-    ]
-  },
-  "Sprachentwicklung": {
-    "description": "Sprachphilosophie und Sprachentwicklung",
-    "keywords": [
-      "Sprachentwicklung",
-      "Sprache",
-      "Sprachphilosophie",
-      "Sprechenlernen"
+      "Innere Verwandlung",
+      "Kindliche Entwicklung",
+      "Spirituelle Entwicklung"
     ]
   },
   "Ausdrucksformen": {
@@ -954,7 +963,14 @@
       "Arianismus",
       "Atomismus",
       "Atheismus",
-      "Bolschewismus"
+      "Bolschewismus",
+      "Spiritualismus",
+      "Stoizismus",
+      "Subjektivismus",
+      "Vitalismus",
+      "Naturalismus",
+      "Nominalismus",
+      "Phänomenalismus"
     ]
   },
   "Menschenkunde & Wesesglieder": {
@@ -972,7 +988,8 @@
       "Buddhi",
       "Atma",
       "Manas",
-      "Dreigliederung des Menschen"
+      "Dreigliederung des Menschen",
+      "Anthropologie"
     ]
   },
   "Darwinismus & Evolutionslehre": {
@@ -991,6 +1008,17 @@
     "keywords": [
       "Materie",
       "Geist & Materie"
+    ]
+  },
+  "Sprache": {
+    "description": "Sprachphilosophie und Sprachentwicklung",
+    "keywords": [
+      "Sprachentwicklung",
+      "Sprache",
+      "Sprachphilosophie",
+      "Sprechenlernen",
+      "Vokale",
+      "Konsonanten"
     ]
   }
 }

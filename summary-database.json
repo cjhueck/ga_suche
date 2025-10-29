@@ -2035,17 +2035,6 @@
         "level": "h4"
       },
       {
-        "term": "Abbauprozess",
-        "index": "^wq5hsj",
-        "heading": "Der Abbauprozess des Geistes im Nervensystem",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.65,
-        "level": "h4"
-      },
-      {
         "term": "Fortlage",
         "index": "^mkg8eh",
         "heading": "Fortlages Erkenntnis des Bewusstseins als abgeschwächtes Sterben",
@@ -2990,7 +2979,7 @@
         "level": "h3"
       },
       {
-        "term": "Nibelungenlied",
+        "term": "Nibelungen",
         "index": "^1kkui0",
         "heading": "Das Nibelungenlied als Ausdruck germanischer Seelenverfassung",
         "source": "h3",
@@ -5900,16 +5889,6 @@
         "summaryMentioned": false,
         "confidence": 0.65,
         "level": "h3"
-      },
-      {
-        "term": "Emanzipation",
-        "index": "^mlhlwq",
-        "heading": "Emanzipation als Folge mangelnder edler Liebesauffassung",
-        "source": "h3",
-        "matchType": "new",
-        "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -6465,7 +6444,7 @@
         "level": "h3"
       },
       {
-        "term": "Stoiker",
+        "term": "Stoizismus",
         "index": "^g0vv47",
         "heading": "Historische Antworten auf das Problem des Bösen",
         "source": "h3",
@@ -7040,7 +7019,7 @@
         "level": "h4"
       },
       {
-        "term": "Symptomatische Geschichtsbetrachtung",
+        "term": "Symptomatologie",
         "index": "^6oq6z4",
         "heading": "Symptomatische Geschichtsbetrachtung",
         "source": "h3",
@@ -7965,7 +7944,7 @@
         "level": "h3"
       },
       {
-        "term": "Tugend",
+        "term": "Tugenden",
         "index": "^k0o6mg",
         "heading": "Deutsche Tugend und reine Minne",
         "source": "h3",
@@ -8676,28 +8655,6 @@
         "level": "h3"
       },
       {
-        "term": "Autorschaftskontroverse",
-        "index": "^wpbht7",
-        "heading": "Shakespeares Bedeutung für die deutsche Literatur",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Charakterdrama",
-        "index": "^s0wau7",
-        "heading": "Shakespeares Charakterdramen und ihre Besonderheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Renaissance",
         "index": "^njb0vu",
         "heading": "Shakespeares Charakterdramen und ihre Besonderheit",
@@ -8709,28 +8666,6 @@
         "level": "h3"
       },
       {
-        "term": "Stratford",
-        "index": "^dmhraa",
-        "heading": "Shakespeares Lebensweg",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Theaterlaufbahn",
-        "index": "^jotpq8",
-        "heading": "Shakespeares Lebensweg",
-        "source": "h3",
-        "matchType": "existing-similar",
-        "matchedExisting": "Theater",
-        "summaryMentioned": false,
-        "confidence": 0.8,
-        "level": "h3"
-      },
-      {
         "term": "Große Charakterdramen",
         "index": "^f2dolf",
         "heading": "Die Entwicklung seiner dramatischen Kunst",
@@ -8739,17 +8674,6 @@
         "matchedExisting": null,
         "summaryMentioned": false,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Bühnenwirksamkeit",
-        "index": "^9b8nbe",
-        "heading": "Zeitlose Bühnenwirksamkeit",
-        "source": "h3",
-        "matchType": "existing-similar",
-        "matchedExisting": "Bühne",
-        "summaryMentioned": false,
-        "confidence": 0.8,
         "level": "h3"
       }
     ],
@@ -9080,16 +9004,6 @@
         "matchedExisting": "Christentum",
         "confidence": 0.95,
         "theme": "Christentum"
-      },
-      {
-        "term": "Bildung",
-        "index": "^85qdmz",
-        "heading": "Das mittelalterliche Bildungssystem der Kirche",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Bildung",
-        "confidence": 0.95,
-        "theme": null
       },
       {
         "term": "Dialektik",
@@ -9725,16 +9639,6 @@
         "theme": "Soziale Dreigliederung"
       },
       {
-        "term": "Bildung",
-        "index": "^6n6mb5",
-        "heading": "Die Bildungskultur des frühen Mittelalters",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Bildung",
-        "confidence": 0.95,
-        "theme": null
-      },
-      {
         "term": "Städteentwicklung",
         "index": "^35apm8",
         "heading": "Die Entstehung der Städtekultur als Weg zur Freiheit",
@@ -10132,7 +10036,7 @@
         "theme": "Mystik & Esoterik"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^91csll",
         "heading": "Die mystische Vollendung in der Sphärenmusik",
         "level": "h4",
@@ -12736,16 +12640,6 @@
         "level": "h4",
         "matchType": "exact",
         "matchedExisting": "Jugend",
-        "confidence": 0.95,
-        "theme": null
-      },
-      {
-        "term": "Bildung",
-        "index": "^9iehr2",
-        "heading": "Prägung der deutschen Bildung",
-        "level": "h4",
-        "matchType": "exact",
-        "matchedExisting": "Bildung",
         "confidence": 0.95,
         "theme": null
       },
@@ -19199,7 +19093,7 @@
         "theme": "Geisteswissenschaft"
       },
       {
-        "term": "Bibelkritik",
+        "term": "Bibel",
         "index": "^xvtyrq",
         "heading": "Die Bibelkritik und ihre Folgen",
         "level": "h4",
@@ -24062,16 +23956,6 @@
         "theme": null
       },
       {
-        "term": "Bildung",
-        "index": "^9pm4g6",
-        "heading": "Das Problem der modernen Bildung",
-        "level": "h3",
-        "matchType": "exact",
-        "matchedExisting": "Bildung",
-        "confidence": 0.95,
-        "theme": null
-      },
-      {
         "term": "Pädagogik",
         "index": "^o214ac",
         "heading": "Pädagogik als Kunst der Menschenbildung",
@@ -24344,17 +24228,6 @@
         "matchedExisting": "Selbsterkenntnis",
         "summaryMentioned": true,
         "confidence": 0.9,
-        "level": "h3"
-      },
-      {
-        "term": "Allgeist",
-        "index": "^s3p9b7",
-        "heading": "Wahre Selbsterkenntnis und Weltverbundenheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
         "level": "h3"
       }
     ],
@@ -25727,7 +25600,7 @@
         "level": "h3"
       },
       {
-        "term": "Tao",
+        "term": "TAO",
         "index": "^k6imye",
         "heading": "Die Entwicklung der Religionen",
         "source": "h3",
@@ -28110,17 +27983,6 @@
         "summaryMentioned": false,
         "confidence": 0.9,
         "level": "h3"
-      },
-      {
-        "term": "Ontologie",
-        "index": "^ng7jlw",
-        "heading": "Theosophie als Lebensgestaltung",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Ontologie",
-        "summaryMentioned": false,
-        "confidence": 0.9,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -28279,7 +28141,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Siegfried-Sage",
+        "term": "Siegfried",
         "index": "^rhtd0k",
         "heading": "Summary",
         "source": "summary",
@@ -28356,7 +28218,7 @@
         "level": "h3"
       },
       {
-        "term": "Mythos",
+        "term": "Mythologie",
         "index": "^oqyi35",
         "heading": "Die Zukunft der Geisteswissenschaft und des Mythos",
         "source": "h3",
@@ -29676,7 +29538,7 @@
         "level": "h3"
       },
       {
-        "term": "Okkulte Methoden",
+        "term": "Okkulute Schulung",
         "index": "^yuehql",
         "heading": "Grundlagen der inneren Entwicklung",
         "source": "h3",
@@ -30880,17 +30742,6 @@
         "matchedExisting": "Geisteswissenschaft",
         "summaryMentioned": false,
         "confidence": 0.9,
-        "level": "h3"
-      },
-      {
-        "term": "Tinctura",
-        "index": "^7q552e",
-        "heading": "Die Lehre von der Tinctura und den sieben Naturgestalten",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
         "level": "h3"
       },
       {
@@ -32401,17 +32252,6 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
-      },
-      {
-        "term": "Bilderbewusstsein",
-        "index": "^u998hn",
-        "heading": "Das atlantische Bewusstsein",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -33618,7 +33458,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Rosenkreuzertum",
+        "term": "Rosenkreuzer",
         "index": "^52koke",
         "heading": "Das Rosenkreuzertum und seine geschichtlichen Grundlagen",
         "source": "summary",
@@ -36797,17 +36637,6 @@
         "level": "h3"
       },
       {
-        "term": "Todesfurcht",
-        "index": "^d9f0wm",
-        "heading": "Die geistigen Welten und ihre Gefahren",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Lebensreife",
         "index": "^daxevy",
         "heading": "Reife und Unreife in der Geisteswissenschaft",
@@ -38338,7 +38167,7 @@
         "level": "h3"
       },
       {
-        "term": "Soziale Struktur",
+        "term": "Soziale Dreigliederung",
         "index": "^g94eb0",
         "heading": "Fortschritt und soziale Disharmonie",
         "source": "h3",
@@ -39892,17 +39721,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.6,
-        "level": "h3"
-      },
-      {
-        "term": "Lilie",
-        "index": "^1bwxd4",
-        "heading": "Der Jüngling und die schöne Lilie",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h3"
       },
       {
@@ -44516,7 +44334,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^mutyce",
         "heading": "Die Geschichte von Osiris und Set",
         "source": "new",
@@ -49704,17 +49522,6 @@
         "level": "h3"
       },
       {
-        "term": "Äschylos",
-        "index": "^k4rr6u",
-        "heading": "Äschylos und Euripides - Die Entwicklung des Gewissensbegriffs",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Materialismus",
         "index": "^35rnlx",
         "heading": "Philosophische Erklärungen des Gewissens",
@@ -51560,7 +51367,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^m2cgbc",
         "heading": "Die Notwendigkeit konkreter Geisterkenntnis",
         "source": "title-summary",
@@ -53743,7 +53550,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^0v4yv7",
         "heading": "Die Osiris-Isis-Legende",
         "source": "new",
@@ -60112,7 +59919,7 @@
         "level": "h3"
       },
       {
-        "term": "Einwände",
+        "term": "Einwände gegen Theosophie",
         "index": "^sxos10",
         "heading": "Einführung in die Problematik der Geisteswissenschaft",
         "source": "new",
@@ -61631,7 +61438,7 @@
         "level": "h3"
       },
       {
-        "term": "Yoga-Methoden",
+        "term": "Yoga",
         "index": "^lu7qdu",
         "heading": "Alte Weisheitstraditionen",
         "source": "h3",
@@ -61909,7 +61716,7 @@
         "level": "h4"
       },
       {
-        "term": "Entwicklungszyklen",
+        "term": "Entwicklungphasen",
         "index": "^347dgr",
         "heading": "Die Vier-Jahres-Zyklen der Raffael-Seele",
         "source": "h3",
@@ -63136,28 +62943,6 @@
         "summaryMentioned": false,
         "confidence": 0.9,
         "level": "h3"
-      },
-      {
-        "term": "Rumpelstilzchen",
-        "index": "^hil1pe",
-        "heading": "Märchenbilder und Seelenerlebnisse",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h4"
-      },
-      {
-        "term": "Brüder Grimm",
-        "index": "^ghbznr",
-        "heading": "Märchen und Kindheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h4"
       },
       {
         "term": "Geistige Welt",
@@ -73573,17 +73358,6 @@
         "summaryMentioned": false,
         "confidence": 0.9,
         "level": "h4"
-      },
-      {
-        "term": "Bolzano",
-        "index": "^w6z14j",
-        "heading": "Bernard Bolzanos «Athanasia» als Beispiel",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h4"
       }
     ],
     "version": "v2-unified",
@@ -76283,7 +76057,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Traumleben",
+        "term": "Traumzustand",
         "index": "^hiurwp",
         "heading": "Das Traumleben als Grenzgebiet",
         "source": "title-summary",
@@ -77638,7 +77412,7 @@
         "level": "h3"
       },
       {
-        "term": "Erinnerungsvermögen",
+        "term": "Erinnerung",
         "index": "^rrygtx",
         "heading": "Das Wesen von Erinnerung und Vorstellung",
         "source": "h3",
@@ -80315,17 +80089,6 @@
         "matchedExisting": "Weisheit",
         "summaryMentioned": false,
         "confidence": 0.85,
-        "level": "h3"
-      },
-      {
-        "term": "Bibelkritik",
-        "index": "^ekuo16",
-        "heading": "Der Wandel zur Bibelkritik im 19. Jahrhundert",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h3"
       },
       {
@@ -85978,7 +85741,7 @@
         "level": "h4"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^u4bxqt",
         "heading": "Die Osirissage und die Vergeistigung der Seele",
         "source": "h3",
@@ -87084,7 +86847,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^ghm89u",
         "heading": "Temperament und Schicksalserfahrung",
         "source": "h3",
@@ -87436,7 +87199,7 @@
         "level": "h3"
       },
       {
-        "term": "Ätherischer Christus",
+        "term": "Christus",
         "index": "^f63z4d",
         "heading": "Die Erscheinung des ätherischen Christus",
         "source": "h3",
@@ -90895,7 +90658,7 @@
         "level": "h3"
       },
       {
-        "term": "Nibelungensage",
+        "term": "Nibelungen",
         "index": "^4bqfh5",
         "heading": "Die Nibelungensage als Bewusstseinsentwicklung",
         "source": "h3",
@@ -90906,7 +90669,7 @@
         "level": "h3"
       },
       {
-        "term": "Parsifal",
+        "term": "Parzival",
         "index": "^9prad3",
         "heading": "Der Parsifal und die christliche Einweihung",
         "source": "h3",
@@ -91323,7 +91086,7 @@
         "level": "h4"
       },
       {
-        "term": "Nibelungenring",
+        "term": "Nibelungen",
         "index": "^vhpzl4",
         "heading": "Der Nibelungenring als Menschheitsentwicklung",
         "source": "h3",
@@ -91345,7 +91108,7 @@
         "level": "h4"
       },
       {
-        "term": "Parsifal",
+        "term": "Parzival",
         "index": "^2lv8wu",
         "heading": "Das Parsifal-Geheimnis und der Heilige Gral",
         "source": "h3",
@@ -91559,7 +91322,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Tolstoi",
+        "term": "Tolstoj",
         "index": "^3w1pmb",
         "heading": "Tolstoi und Carnegie als gegensätzliche Persönlichkeiten",
         "source": "title-summary",
@@ -95762,17 +95525,6 @@
         "summaryMentioned": true,
         "confidence": 1,
         "level": "h3"
-      },
-      {
-        "term": "Daseinsfragen",
-        "index": "^8rn7w1",
-        "heading": "Die ewigen Rätselfragen des Daseins",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -99833,17 +99585,6 @@
         "level": "h3"
       },
       {
-        "term": "Spirituelle Alchemie",
-        "index": "^rdipa4",
-        "heading": "Die spirituelle Alchemie im Märchen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
-      },
-      {
         "term": "Weisheit",
         "index": "^jg4ju1",
         "heading": "Theosophie als uralte Weisheit",
@@ -99874,17 +99615,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.6,
-        "level": "h3"
-      },
-      {
-        "term": "Lilie",
-        "index": "^afm7ym",
-        "heading": "Die Symbolik von Lilie und Löwe",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h3"
       },
       {
@@ -101659,7 +101389,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^mi7pd2",
         "heading": "Die höheren Welten und Sphärenmusik",
         "source": "h3",
@@ -106172,7 +105902,7 @@
         "level": "h3"
       },
       {
-        "term": "Arbeiterbewegung",
+        "term": "Arbeit",
         "index": "^19lcwk",
         "heading": "Die soziale Frage als Tatsache der Gegenwart",
         "source": "new",
@@ -109406,7 +109136,7 @@
         "level": "h3"
       },
       {
-        "term": "Biblische Symbolik",
+        "term": "Bibel",
         "index": "^vx2oaa",
         "heading": "Die biblische Bestätigung geisteswissenschaftlicher Erkenntnisse",
         "source": "h3",
@@ -112512,7 +112242,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^0su55y",
         "heading": "Das Temperament als Vermittler",
         "source": "title-summary",
@@ -112780,7 +112510,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^e7i52s",
         "heading": "Das Menschenrätsel und die Temperamente",
         "source": "title-summary",
@@ -113408,7 +113138,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^gmx1te",
         "heading": "Das Temperament als Grundton der Individualität",
         "source": "title-summary",
@@ -114112,7 +113842,7 @@
         "level": "h3"
       },
       {
-        "term": "Entwicklungszyklen",
+        "term": "Entwicklungphasen",
         "index": "^iptkfm",
         "heading": "Die Rhythmen der menschlichen Wesensglieder",
         "source": "h3",
@@ -116525,7 +116255,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Kräfte",
+        "term": "Ahriman",
         "index": "^r1cvq5",
         "heading": "Materialismus und ahrimanische Kräfte",
         "source": "new",
@@ -117481,17 +117211,6 @@
         "matchedExisting": "",
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Autoritätswahn",
-        "index": "^f7w51v",
-        "heading": "Autoritätswahn und unkritische Gläubigkeit",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -119823,7 +119542,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^wi5w33",
         "heading": "Väterliche und mütterliche Vererbungslinien",
         "source": "h3",
@@ -119856,7 +119575,7 @@
         "level": "h4"
       },
       {
-        "term": "Organanlagen",
+        "term": "Organe",
         "index": "^p24lnc",
         "heading": "Von der Seele zu den Organanlagen",
         "source": "h3",
@@ -120161,17 +119880,6 @@
         "matchedExisting": "",
         "summaryMentioned": true,
         "confidence": 0.65,
-        "level": "h3"
-      },
-      {
-        "term": "Anlage",
-        "index": "^8wxfx0",
-        "heading": "Die Gesetze der Seelenentwicklung",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -121769,7 +121477,7 @@
         "level": "h3"
       },
       {
-        "term": "Damaskus",
+        "term": "Damaskus-Ereignis",
         "index": "^3eymqm",
         "heading": "Die kommende geistige Christus-Offenbarung",
         "source": "h3",
@@ -126315,7 +126023,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^tx671f",
         "heading": "Temperament und frühere Erdenleben",
         "source": "h3",
@@ -131653,7 +131361,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachtätigkeit",
+        "term": "Sprache",
         "index": "^wm4o08",
         "heading": "Die Loslösung der Sprachtätigkeit und Karmaerkenntnis",
         "source": "h3",
@@ -133450,7 +133158,7 @@
         "level": "h3"
       },
       {
-        "term": "Einwände",
+        "term": "Einwände gegen Theosophie",
         "index": "^jt5z0i",
         "heading": "Die Methode der Widerlegung und Begründung",
         "source": "title-summary",
@@ -135360,7 +135068,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Kräfte",
+        "term": "Ahriman",
         "index": "^zvuqud",
         "heading": "Ahrimanische und dämonische Kräfte",
         "source": "h3",
@@ -139948,17 +139656,6 @@
         "level": "h3"
       },
       {
-        "term": "Automatismus",
-        "index": "^zcer9x",
-        "heading": "Das mathematische Denken als Erden-Automatismus",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Telepathie",
         "index": "^n8fywn",
         "heading": "Die okkulte Verbindung zwischen Mensch und Tier",
@@ -141291,17 +140988,6 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
-      },
-      {
-        "term": "Barbarenvolk",
-        "index": "^mhznjr",
-        "heading": "Die Frage nach dem deutschen Wesen in schicksalsschwerer Zeit",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -141642,17 +141328,6 @@
         "summaryMentioned": true,
         "confidence": 1,
         "level": "h4"
-      },
-      {
-        "term": "Einkreisung",
-        "index": "^2y03s5",
-        "heading": "Die geschichtliche Einkreisung Mitteleuropas",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -146249,17 +145924,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Russischer Hochmut",
-        "index": "^ct3obl",
-        "heading": "Das russische Wesen und die schwebende Volksseele",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -154987,7 +154651,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Anthroposophische Geisteswissenschaft",
+        "term": "Geisteswissenschaft",
         "index": "^vr9drk",
         "heading": "Begrüßung und Ausgangspunkt der anthroposophischen Geisteswissenschaft",
         "source": "title-summary",
@@ -157113,7 +156777,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Anthroposophische Geisteswissenschaft",
+        "term": "Geisteswissenschaft",
         "index": "^wvkwod",
         "heading": "Der Unterschied zwischen gewöhnlicher und anthroposophischer Wissenschaft",
         "source": "title-summary",
@@ -157453,17 +157117,6 @@
         "matchedExisting": "Anthroposophie",
         "summaryMentioned": true,
         "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Wissenschaftsgeist",
-        "index": "^h2ogyi",
-        "heading": "Die Ohnmacht der modernen Wissenschaft gegenüber sittlichen Impulsen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
         "level": "h3"
       },
       {
@@ -162218,7 +161871,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Mächte",
+        "term": "Ahriman",
         "index": "^u0nyin",
         "heading": "Die Gefahr der ahrimanischen Mächte durch den Intellekt",
         "source": "new",
@@ -162227,17 +161880,6 @@
         "summaryMentioned": true,
         "confidence": 0.7,
         "level": "h4"
-      },
-      {
-        "term": "Durchchristung",
-        "index": "^8pbnej",
-        "heading": "Die Durchchristung aller Wissenschaft und Erkenntnis",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       },
       {
         "term": "Urweisheit",
@@ -162589,7 +162231,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Kräfte",
+        "term": "Ahriman",
         "index": "^138w6i",
         "heading": "Die Bedrohung durch ahrimanische Kräfte",
         "source": "h3",
@@ -164021,7 +163663,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Mächte",
+        "term": "Ahriman",
         "index": "^59bwm3",
         "heading": "Die Überwindung der ahrimanischen Mächte",
         "source": "h3",
@@ -166133,7 +165775,7 @@
         "level": "h3"
       },
       {
-        "term": "Studentenschaft",
+        "term": "Studenten",
         "index": "^stsgr6",
         "heading": "Die Aufgabe der Jugend für das freie Geistesleben",
         "source": "new",
@@ -166141,17 +165783,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Barbarei",
-        "index": "^1tu2hv",
-        "heading": "Die drohende Verwandlung in Beamtenschulen",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       },
       {
@@ -166450,7 +166081,7 @@
         "level": "h3"
       },
       {
-        "term": "Studentenbewegung",
+        "term": "Studenten",
         "index": "^5immbz",
         "heading": "Die studentische Bewegung und ihre Aufgaben",
         "source": "h3",
@@ -168257,28 +167888,6 @@
         "level": "h3"
       },
       {
-        "term": "Sündenerhebung",
-        "index": "^ieqncl",
-        "heading": "Die spirituelle Sündenerhebung als Menschheitsideal",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Außerirdisch",
-        "index": "^fxn29r",
-        "heading": "Die kosmische Erkenntnis und das Außerirdische",
-        "source": "new",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Scholastik",
         "index": "^c77g4a",
         "heading": "Die scholastische Weisheit und der intellektuelle Sündenfall",
@@ -168441,7 +168050,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Naturerkennen",
+        "term": "Naturbetrachtung",
         "index": "^6aujnv",
         "heading": "Das verlorene lebendige Naturerleben",
         "source": "title-summary",
@@ -168551,7 +168160,7 @@
         "level": "h3"
       },
       {
-        "term": "Elementargeister",
+        "term": "Elementarwesen",
         "index": "^8sno27",
         "heading": "Die Wesenheiten als ehemalige Menschenerzieher",
         "source": "h3",
@@ -171651,7 +171260,7 @@
         "level": "h4"
       },
       {
-        "term": "Erinnerungsfähigkeit",
+        "term": "Erinnerung",
         "index": "^cr4eh2",
         "heading": "Das Versagen der Mystik",
         "source": "h3",
@@ -178638,17 +178247,6 @@
         "level": "h3"
       },
       {
-        "term": "Wissenschaftlicher Kursus",
-        "index": "^ujpqw7",
-        "heading": "Summary",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Waldorfschule",
         "index": "^ujpqw7",
         "heading": "Aufgabe und Zielsetzung des Haager Kursus",
@@ -179866,7 +179464,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenkräfte",
+        "term": "Planetengeister",
         "index": "^hgruhy",
         "heading": "Planetenkräfte und ihre Wirkung auf den Menschen",
         "source": "h3",
@@ -180448,7 +180046,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenkräfte",
+        "term": "Planetengeister",
         "index": "^8wcyeu",
         "heading": "Die moralischen Aspekte der Planetenkräfte",
         "source": "h3",
@@ -180459,7 +180057,7 @@
         "level": "h3"
       },
       {
-        "term": "Kosmische Erinnerung",
+        "term": "Erinnerung",
         "index": "^rbtj9a",
         "heading": "Der Verlust der kosmischen Erinnerung",
         "source": "h3",
@@ -183472,7 +183070,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprechübungen",
+        "term": "Sprachschulung",
         "index": "^coj219",
         "heading": "Sprechübungen und Stimmbildung",
         "source": "h3",
@@ -183491,17 +183089,6 @@
         "matchedExisting": "",
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Analogien",
-        "index": "^k6euj7",
-        "heading": "Vorbereitende Gespräche mit Kindern",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h3"
       }
     ],
@@ -183728,7 +183315,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprechübung",
+        "term": "Sprachschulung",
         "index": "^5azxak",
         "heading": "Sprechübungen und Atemschulung",
         "source": "new",
@@ -184279,7 +183866,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenunterricht",
+        "term": "Pflanze",
         "index": "^4lf5s1",
         "heading": "Grundlagen des Pflanzenunterrichts",
         "source": "h3",
@@ -184754,7 +184341,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenwelt",
+        "term": "Pflanze",
         "index": "^tfry0j",
         "heading": "Die Pflanze als Seelenwelt der Erde",
         "source": "new",
@@ -185028,17 +184615,6 @@
         "level": "h3"
       },
       {
-        "term": "Zinsrechnung",
-        "index": "^mjso5o",
-        "heading": "Zinsrechnung als Grundlage",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Buchstabenrechnung",
         "index": "^s0q5yj",
         "heading": "Übergang zur Buchstabenrechnung",
@@ -185296,7 +184872,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzen",
+        "term": "Pflanze",
         "index": "^uh50k3",
         "heading": "Systematische Pflanzengliederung nach Organteilen",
         "source": "h3",
@@ -186311,7 +185887,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachgenius",
+        "term": "Sprache",
         "index": "^q5j75w",
         "heading": "Die lebendige Sprachkraft der Goethe-Zeit",
         "source": "h3",
@@ -187413,28 +186989,6 @@
         "summaryMentioned": false,
         "confidence": 0.65,
         "level": "h3"
-      },
-      {
-        "term": "Bedeutungswandel",
-        "index": "^36t2r8",
-        "heading": "Bedeutungswandel und Volksseele",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Abstraktion",
-        "index": "^chivdl",
-        "heading": "Vom Gefühlselement zur Abstraktion",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -187955,7 +187509,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachgenius",
+        "term": "Sprache",
         "index": "^pxldg8",
         "heading": "Ursprüngliche Sprachformen und Wirklichkeitssinn",
         "source": "h3",
@@ -188439,17 +187993,6 @@
         "level": "h3"
       },
       {
-        "term": "Duktus",
-        "index": "^ls1txk",
-        "heading": "Die verborgene Gesamtkomposition",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Schuljahr",
         "index": "^ls1txk",
         "heading": "Methodische Erschließung der inneren Struktur",
@@ -188719,7 +188262,7 @@
         "level": "h3"
       },
       {
-        "term": "Urteilsfähigkeit",
+        "term": "Urteilskraft",
         "index": "^l9ixzv",
         "heading": "Zusammenhänge zwischen früher und später Gelerntem",
         "source": "h3",
@@ -189874,7 +189417,7 @@
         "level": "h3"
       },
       {
-        "term": "Atmungsprozeß",
+        "term": "Atmung",
         "index": "^8u2c61",
         "heading": "Der Atmungsprozeß und die Korrektur der Umgebung",
         "source": "h3",
@@ -189885,7 +189428,7 @@
         "level": "h3"
       },
       {
-        "term": "Verantwortungsgefühl",
+        "term": "Verantwortung",
         "index": "^lsh9co",
         "heading": "Unterrichtsmethoden und ihre Wirkung auf den Kopf",
         "source": "h3",
@@ -191410,7 +190953,7 @@
         "level": "h4"
       },
       {
-        "term": "Zeitorganismus",
+        "term": "Ätherleib",
         "index": "^01rg4i",
         "heading": "Der ganze Mensch als Zeitorganismus",
         "source": "new",
@@ -196931,7 +196474,7 @@
         "level": "h3"
       },
       {
-        "term": "Arbeitskraft",
+        "term": "Arbeit",
         "index": "^o8s2il",
         "heading": "Die marxistische Analyse der Arbeitskraft als Ware",
         "source": "h3",
@@ -200799,7 +200342,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^tjeb3z",
         "heading": "Temperamente und ihre Behandlung",
         "source": "h3",
@@ -204425,17 +203968,6 @@
         "level": "h3"
       },
       {
-        "term": "Abstraktion",
-        "index": "^3skm3v",
-        "heading": "Die dämonische Weltbedeutung der Wissenschaft",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Naturwissenschaft",
         "index": "^3skm3v",
         "heading": "Die dämonische Weltbedeutung der Wissenschaft",
@@ -206458,7 +205990,7 @@
         "level": "h3"
       },
       {
-        "term": "Soziale Organismen",
+        "term": "Soziale Dreigliederung",
         "index": "^4xfpml",
         "heading": "Die Dreigliederung und die sozial-pädagogische Kraft",
         "source": "h3",
@@ -206469,7 +206001,7 @@
         "level": "h3"
       },
       {
-        "term": "Pädagogische Kraft",
+        "term": "Pädagogische Gesinnung",
         "index": "^oqwr89",
         "heading": "Die Dreigliederung und die sozial-pädagogische Kraft",
         "source": "h3",
@@ -206715,7 +206247,7 @@
         "level": "h3"
       },
       {
-        "term": "Pädagogische Krise",
+        "term": "Pädagogische Gesinnung",
         "index": "^ff8jzs",
         "heading": "Moralische Verwilderung und Schulausschlüsse",
         "source": "h3",
@@ -208095,7 +207627,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperamentenlehre",
+        "term": "Temperamente",
         "index": "^2fhjov",
         "heading": "Temperamentenlehre und Klassenführung",
         "source": "h3",
@@ -208193,7 +207725,7 @@
         "level": "h4"
       },
       {
-        "term": "Planetenbewegung",
+        "term": "Planetensystem",
         "index": "^eo76ad",
         "heading": "Astronomie und Planetenbewegung",
         "source": "h3",
@@ -208203,7 +207735,7 @@
         "level": "h4"
       },
       {
-        "term": "Pädagogische Ideale",
+        "term": "Pädagogische Gesinnung",
         "index": "^mcaset",
         "heading": "Ideale und äußere Bedingungen",
         "source": "h3",
@@ -208783,7 +208315,7 @@
         "level": "h3"
       },
       {
-        "term": "Turnen",
+        "term": "Turnunterricht",
         "index": "^x48lra",
         "heading": "Kritik am mechanischen Turnen",
         "source": "h3",
@@ -208794,7 +208326,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^6r4jjh",
         "heading": "Kosmische und irdische Kinder in der Erziehung",
         "source": "h3",
@@ -209948,7 +209480,7 @@
         "level": "h3"
       },
       {
-        "term": "Stoffwechsel",
+        "term": "Stoffwechselsystem",
         "index": "^q03ywy",
         "heading": "Stoffwechselprozesse beim Lesen und Erzählen",
         "source": "h3",
@@ -211279,7 +210811,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^s277vp",
         "heading": "Die musikalisch-sprachlichen Kräfte",
         "source": "h3",
@@ -211831,7 +211363,7 @@
         "level": "h3"
       },
       {
-        "term": "Stoffwechsel",
+        "term": "Stoffwechselsystem",
         "index": "^5sgk5g",
         "heading": "Körperliche Grundlagen des Seelenlebens",
         "source": "h3",
@@ -212712,7 +212244,7 @@
         "level": "h4"
       },
       {
-        "term": "Pflanzenlehre",
+        "term": "Pflanze",
         "index": "^j0tity",
         "heading": "Pflanzenlehre - die Erde als Organismus",
         "source": "h4",
@@ -213543,7 +213075,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^viirm4",
         "heading": "Gesundheitliche Zusammenhänge in der Entwicklung",
         "source": "h3",
@@ -215497,7 +215029,7 @@
         "level": "h3"
       },
       {
-        "term": "Stoffwechsel",
+        "term": "Stoffwechselsystem",
         "index": "^dnpy05",
         "heading": "Willensimpulse und Stoffwechselvorgänge",
         "source": "h3",
@@ -216829,28 +216361,6 @@
         "level": "h3"
       },
       {
-        "term": "Tumulte",
-        "index": "^d9gvsp",
-        "heading": "Summary",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
-      },
-      {
-        "term": "Saalschlacht",
-        "index": "^km98qx",
-        "heading": "Die Saalschlacht und ihre Folgen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Polizeidirektion",
         "index": "^6thqdl",
         "heading": "Ankunft und Vorbereitung des Vortrags",
@@ -217058,7 +216568,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachstörungen",
+        "term": "Sprachschulung",
         "index": "^n8sjs7",
         "heading": "Therapeutische Behandlung von Sprachstörungen",
         "source": "h3",
@@ -219697,7 +219207,7 @@
         "level": "h3"
       },
       {
-        "term": "Yoga-Methoden",
+        "term": "Yoga",
         "index": "^v5ho48",
         "heading": "Der Unterschied zu Yoga-Übungen",
         "source": "h3",
@@ -224580,7 +224090,7 @@
         "level": "h3"
       },
       {
-        "term": "Elementargeister",
+        "term": "Elementarwesen",
         "index": "^amufvs",
         "heading": "Die Vermittlung spiritueller Weisheit",
         "source": "h3",
@@ -224892,17 +224402,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h4"
-      },
-      {
-        "term": "Standpunkt",
-        "index": "^c0xhcb",
-        "heading": "Die Tyrannei der Standpunkte",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h4"
       },
       {
@@ -226149,7 +225648,7 @@
         "level": "h3"
       },
       {
-        "term": "Objektive Wissenschaft",
+        "term": "Wissenschaft",
         "index": "^a3qto1",
         "heading": "Die objektive Wissenschaft als unmenschliche Wesenheit",
         "source": "h3",
@@ -230773,7 +230272,7 @@
         "level": "h3"
       },
       {
-        "term": "Verantwortungsgefühl",
+        "term": "Verantwortung",
         "index": "^qgkvdi",
         "heading": "Pädagogik als Gefühl und Verantwortung",
         "source": "h3",
@@ -233535,7 +233034,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperamentenlehre",
+        "term": "Temperamente",
         "index": "^twfxrv",
         "heading": "Die Verflechtung der Kursreihen",
         "source": "h3",
@@ -233829,7 +233328,7 @@
         "level": "h3"
       },
       {
-        "term": "Urteilen",
+        "term": "Urteilskraft",
         "index": "^t3tbh2",
         "heading": "Urteilen als lebendiger Vorgang",
         "source": "h3",
@@ -235713,7 +235212,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanisch",
+        "term": "Ahriman",
         "index": "^s2uyd7",
         "heading": "Die Notwendigkeit der Christus-Kraft gegen das Böse",
         "source": "h3",
@@ -236829,17 +236328,6 @@
         "level": "h3"
       },
       {
-        "term": "Nachmittagshort",
-        "index": "^2ofhef",
-        "heading": "Organisation des Nachmittagshorts",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Jupitertag",
         "index": "^655hgz",
         "heading": "Gestaltung der Monatsfeiern",
@@ -236848,17 +236336,6 @@
         "matchedExisting": null,
         "summaryMentioned": false,
         "confidence": 0.65,
-        "level": "h3"
-      },
-      {
-        "term": "Aquarellfarben",
-        "index": "^unrlx2",
-        "heading": "Unterrichtsmethoden in den unteren Klassen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       },
       {
@@ -237646,7 +237123,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^6qf9eu",
         "heading": "Temperamentenlehre und Schülerbeobachtung",
         "source": "h3",
@@ -239309,7 +238786,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^w5spe2",
         "heading": "Die große Metamorphose der Geschlechtsreife",
         "source": "h3",
@@ -239609,7 +239086,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachgenius",
+        "term": "Sprache",
         "index": "^gauwxv",
         "heading": "Künstlerische Behandlung der Sprache",
         "source": "h3",
@@ -241741,7 +241218,7 @@
         "level": "h3"
       },
       {
-        "term": "Zeitbegriff",
+        "term": "Zeit",
         "index": "^r2005d",
         "heading": "Lebendiger Geschichtsunterricht",
         "source": "h3",
@@ -243733,7 +243210,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^w7nhur",
         "heading": "Körper und Seele im Einklang",
         "source": "h3",
@@ -244843,7 +244320,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^mkcmom",
         "heading": "Die Wirkung der Lehrertemperamente auf das Kind",
         "source": "h3",
@@ -245439,7 +244916,7 @@
         "level": "h3"
       },
       {
-        "term": "Sprachgenius",
+        "term": "Sprache",
         "index": "^1cntsu",
         "heading": "Die Vereinigung von Physiologie und Philologie",
         "source": "h3",
@@ -245735,17 +245212,6 @@
         "level": "h4"
       },
       {
-        "term": "Spezialistentum",
-        "index": "^ubv1qo",
-        "heading": "Die Lähmung durch Spezialistentum",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h4"
-      },
-      {
         "term": "Soziale Frage",
         "index": "^m61wsa",
         "heading": "Die soziale Frage und Geisteswissenschaft",
@@ -245757,7 +245223,7 @@
         "level": "h3"
       },
       {
-        "term": "Studentenschaft",
+        "term": "Studenten",
         "index": "^usvgmr",
         "heading": "Aufruf an die Studentenschaft",
         "source": "h3",
@@ -245934,7 +245400,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Anthroposophische Geisteswissenschaft",
+        "term": "Geisteswissenschaft",
         "index": "^i3u6o6",
         "heading": "Summary",
         "source": "title-summary",
@@ -247267,28 +246733,6 @@
       {
         "term": "Telepathie",
         "index": "^xk7mtk",
-        "heading": "Kritische Betrachtung abnormer Seelenzustände",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h4"
-      },
-      {
-        "term": "Telekinese",
-        "index": "^xk7mtk",
-        "heading": "Kritische Betrachtung abnormer Seelenzustände",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h4"
-      },
-      {
-        "term": "Teleplastik",
-        "index": "^hzyi0e",
         "heading": "Kritische Betrachtung abnormer Seelenzustände",
         "source": "h3",
         "matchType": "new",
@@ -253508,7 +252952,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Mächte",
+        "term": "Ahriman",
         "index": "^waan3m",
         "heading": "Die Entwicklung der menschlichen Freiheit durch Intellektualität",
         "source": "h3",
@@ -253541,7 +252985,7 @@
         "level": "h3"
       },
       {
-        "term": "Organbildung",
+        "term": "Organe",
         "index": "^6d8lry",
         "heading": "Die kosmische Arbeit an der zukünftigen Menschengestalt",
         "source": "h3",
@@ -254662,17 +254106,6 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenfarben",
-        "index": "^26enc6",
-        "heading": "Die Wesensqualitäten der Farben",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Gesicht",
         "index": "^i3fg7p",
         "heading": "Farbwirkungen in der Porträtmalerei",
@@ -254903,17 +254336,6 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenfarben",
-        "index": "^87c8y8",
-        "heading": "Malmaterial und Pflanzenfarben",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Farbenperspektive",
         "index": "^p005h5",
         "heading": "Die Farbenperspektive",
@@ -254922,28 +254344,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Dürer",
-        "index": "^9roco8",
-        "heading": "Dürers Melancholie als Beispiel",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
-        "term": "Antlitz",
-        "index": "^ekaoit",
-        "heading": "Das menschliche Antlitz und die Farbe",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -255543,7 +254943,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenbewegungen",
+        "term": "Planetensystem",
         "index": "^bqor1z",
         "heading": "Kosmische Nachbilder der Planetenbewegungen",
         "source": "h3",
@@ -255807,7 +255207,7 @@
         "level": "h3"
       },
       {
-        "term": "Organsysteme",
+        "term": "Organe",
         "index": "^7z65cb",
         "heading": "Die Zusammenarbeit der Organsysteme",
         "source": "h3",
@@ -258317,17 +257717,6 @@
         "level": "h3"
       },
       {
-        "term": "Belladonna",
-        "index": "^yav5fy",
-        "heading": "Belladonna als Beispiel direkter astraler Wirkung",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h4"
-      },
-      {
         "term": "Heilungsprozesse",
         "index": "^ok6yl1",
         "heading": "Fremdkörper und Heilungsprozesse",
@@ -260277,7 +259666,7 @@
         "level": "h4"
       },
       {
-        "term": "Stoffwechsel",
+        "term": "Stoffwechselsystem",
         "index": "^ue5pio",
         "heading": "Das Aufsaugen und die Zerstörung durch den Geist",
         "source": "h3",
@@ -260288,7 +259677,7 @@
         "level": "h4"
       },
       {
-        "term": "Nerven",
+        "term": "Nervensystem",
         "index": "^dercaz",
         "heading": "Die Entstehung der Nerven und geistige Durchströmung",
         "source": "h3",
@@ -262309,16 +261698,6 @@
         "level": "h3"
       },
       {
-        "term": "Sprechen",
-        "index": "^jeo77p",
-        "heading": "Das Sprechen als Ausdruck der Brusttätigkeit",
-        "source": "title-summary",
-        "matchType": "new",
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h4"
-      },
-      {
         "term": "Gefühl",
         "index": "^mg5hgd",
         "heading": "Die Entstehung der Selbstlaute aus Gefühlsregungen",
@@ -264299,7 +263678,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Anthroposophische Geisteswissenschaft",
+        "term": "Geisteswissenschaft",
         "index": "^v3hmv0",
         "heading": "Anthroposophische Geisteswissenschaft als Erkenntnisweg",
         "source": "title-summary",
@@ -266477,7 +265856,7 @@
         "level": "h4"
       },
       {
-        "term": "Tierwelt",
+        "term": "Tiere",
         "index": "^1t9u36",
         "heading": "Der Mensch als Synthese der Tierwelt",
         "source": "h3",
@@ -266970,7 +266349,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Urteilsvermögen",
+        "term": "Urteilskraft",
         "index": "^2grcxh",
         "heading": "Die drei Abschnitte der Volksschulzeit und die Entwicklung des Urteilsvermögens",
         "source": "title-summary",
@@ -269379,17 +268758,6 @@
         "level": "h4"
       },
       {
-        "term": "Definitionen",
-        "index": "^n0wdxq",
-        "heading": "Charakterisieren statt Definieren",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h4"
-      },
-      {
         "term": "Geometrie",
         "index": "^w6mk6a",
         "heading": "Lebendige Geometrie und bewegliche Begriffe",
@@ -270244,7 +269612,7 @@
         "level": "h3"
       },
       {
-        "term": "Apollinischer Spruch",
+        "term": "Apollo",
         "index": "^y6m537",
         "heading": "Von der ursprünglichen Gotteserkenntnis zur Forderung der Selbsterkenntnis",
         "source": "h3",
@@ -270857,7 +270225,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierformen",
+        "term": "Tiere",
         "index": "^hnmmd4",
         "heading": "Der Mensch als Synthese der Tierwelt",
         "source": "h3",
@@ -270879,7 +270247,7 @@
         "level": "h4"
       },
       {
-        "term": "Pflanzenwachstum",
+        "term": "Pflanze",
         "index": "^t9n5yu",
         "heading": "Sonnen- und Mondkräfte im Pflanzenwachstum",
         "source": "h3",
@@ -271421,7 +270789,7 @@
         "level": "h3"
       },
       {
-        "term": "Turnen",
+        "term": "Turnunterricht",
         "index": "^7gry3t",
         "heading": "Unterschiede zwischen Turnen und Eurythmie",
         "source": "h3",
@@ -272593,7 +271961,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^o89pj6",
         "heading": "Die Wirkung des Lehrertemperaments",
         "source": "h3",
@@ -278582,7 +277950,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetensphären",
+        "term": "Planetensystem",
         "index": "^3e3tzu",
         "heading": "Das vorirdische Leben",
         "source": "h3",
@@ -278590,17 +277958,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Spirituelle Diät",
-        "index": "^p49q1l",
-        "heading": "Wandel durch das Mysterium von Golgatha",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -278768,7 +278125,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Wesen",
+        "term": "Ahriman",
         "index": "^um9lte",
         "heading": "Die ahrimanischen Wesenheiten in Erde und Wasser",
         "source": "h3",
@@ -278812,7 +278169,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Mächte",
+        "term": "Planetengeister",
         "index": "^dc4ge3",
         "heading": "Die planetarischen Mächte und ihre Aufgaben",
         "source": "h3",
@@ -280873,7 +280230,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetensphären",
+        "term": "Planetensystem",
         "index": "^g8oxmi",
         "heading": "Der Aufstieg durch die Planetensphären",
         "source": "h3",
@@ -284714,7 +284071,7 @@
         "level": "h3"
       },
       {
-        "term": "Veden",
+        "term": "Vedanta-Philosophie",
         "index": "^jsg0er",
         "heading": "Geisteswissenschaftliche Menschheitsentwicklung",
         "source": "h3",
@@ -285101,17 +284458,6 @@
         "matchType": "new",
         "matchedExisting": null,
         "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
-        "term": "Abstraktion",
-        "index": "^mnofyv",
-        "heading": "Abstraktion durch Lautverschiebungsgesetz",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
       }
@@ -288130,7 +287476,7 @@
         "level": "h3"
       },
       {
-        "term": "Sterne",
+        "term": "Sternenwelt",
         "index": "^6yfwpr",
         "heading": "Planetenbewegungen als Inspirationen",
         "source": "h3",
@@ -290003,7 +289349,7 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^pn6jm9",
         "heading": "Die Druidenmysterien und ihre kosmische Weisheit",
         "source": "h3",
@@ -290285,7 +289631,7 @@
         "level": "h4"
       },
       {
-        "term": "Naturbewusstsein",
+        "term": "Naturbetrachtung",
         "index": "^kqziyb",
         "heading": "Naturbewusstsein und Selbstbewusstsein",
         "source": "title-summary",
@@ -293486,17 +292832,6 @@
         "level": "h3"
       },
       {
-        "term": "Elternschaft",
-        "index": "^pw4ax8",
-        "heading": "Die Bedeutung der Zusammenarbeit zwischen Schule und Eltern",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Lebenskraft",
         "index": "^fghi20",
         "heading": "Praktische Herausforderungen und Kompromisse",
@@ -294621,7 +293956,7 @@
         "level": "h4"
       },
       {
-        "term": "Wissenschaftliche Gegnerschaft",
+        "term": "Gegnerschaft",
         "index": "^0tsfzs",
         "heading": "Anthroposophie und wissenschaftliche Gegnerschaft",
         "source": "h3",
@@ -295247,7 +294582,7 @@
         "level": "h4"
       },
       {
-        "term": "Apollinisches Wort",
+        "term": "Apollo",
         "index": "^30uxi4",
         "heading": "Das apollinische Wort 'Erkenne dich selbst'",
         "source": "h3",
@@ -301360,7 +300695,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanisch",
+        "term": "Ahriman",
         "index": "^zznc9l",
         "heading": "Das menschliche Wesen zwischen luziferischen und ahrimanischen Kräften",
         "source": "h3",
@@ -301434,17 +300769,6 @@
         "matchedExisting": "Erkenntnis",
         "summaryMentioned": false,
         "confidence": 0.9,
-        "level": "h3"
-      },
-      {
-        "term": "Bismarck",
-        "index": "^j05mlx",
-        "heading": "Von der Phrase zur lebendigen Wahrheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -303902,17 +303226,6 @@
         "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
-      },
-      {
-        "term": "Adolf Fick",
-        "index": "^d411nt",
-        "heading": "Zwei Hörsäle in Würzburg: Brentano und Fick",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -304443,7 +303756,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanisch",
+        "term": "Ahriman",
         "index": "^v510wm",
         "heading": "Das Einschnappen in das Ahrimanische",
         "source": "h3",
@@ -304910,7 +304223,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Zeitbewusstsein",
+        "term": "Zeit",
         "index": "^5suvj3",
         "heading": "Das Zeitbewusstsein und die Notwendigkeit spiritueller Entwicklung",
         "source": "title-summary",
@@ -305697,7 +305010,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenbewegungen",
+        "term": "Planetensystem",
         "index": "^88fdhq",
         "heading": "Die erste Sphäre: Planetenbewegungen",
         "source": "h3",
@@ -305708,7 +305021,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierkreiskräfte",
+        "term": "Tierkreis",
         "index": "^1q8pvu",
         "heading": "Die zweite Sphäre: Tierkreiskräfte und Christus-Führung",
         "source": "h3",
@@ -310040,17 +309353,6 @@
         "level": "h3"
       },
       {
-        "term": "Begeisterung",
-        "index": "^n153i1",
-        "heading": "Neue Herzen und wahre Begeisterung",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
-      },
-      {
         "term": "Geistige Welt",
         "index": "^064xy3",
         "heading": "Die Michael-Zeit und die neue Gestalt der geistigen Welt",
@@ -311516,7 +310818,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetensphären",
+        "term": "Planetensystem",
         "index": "^y2v515",
         "heading": "Der Durchgang durch die Planetensphären",
         "source": "h3",
@@ -312857,7 +312159,7 @@
         "level": "h3"
       },
       {
-        "term": "Erinnerungskraft",
+        "term": "Erinnerung",
         "index": "^jeib9q",
         "heading": "Zeitverdichtung und Gedächtniskraft",
         "source": "h3",
@@ -312868,7 +312170,7 @@
         "level": "h4"
       },
       {
-        "term": "Atmungsrhythmus",
+        "term": "Atmung",
         "index": "^hk7fp9",
         "heading": "Astralleib und Atmungsrhythmus",
         "source": "h3",
@@ -312890,7 +312192,7 @@
         "level": "h3"
       },
       {
-        "term": "Zeitverdichtung",
+        "term": "Zeit",
         "index": "^jeib9q",
         "heading": "Zeitverdichtung und Gedächtniskraft",
         "source": "h3",
@@ -313235,7 +312537,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Mächte",
+        "term": "Ahriman",
         "index": "^nbh84q",
         "heading": "Die Gefahr der ahrimanischen Mächte",
         "source": "h3",
@@ -314993,7 +314295,7 @@
         "level": "h3"
       },
       {
-        "term": "Zeichnen",
+        "term": "Zeichenunterricht",
         "index": "^7dqoco",
         "heading": "Zeichenmethoden für verschiedene Temperamente",
         "source": "h3",
@@ -315684,7 +314986,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Mächte",
+        "term": "Ahriman",
         "index": "^gj60kd",
         "heading": "Die Gefahr der ahrimanischen Mächte",
         "source": "h3",
@@ -315879,17 +315181,6 @@
         "summaryMentioned": false,
         "confidence": 0.8,
         "level": "h4"
-      },
-      {
-        "term": "Blumen",
-        "index": "^p7lede",
-        "heading": "Die Geschichte der zwei Blumensträuße",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
       },
       {
         "term": "Tiere",
@@ -321535,7 +320826,7 @@
         "level": "h3"
       },
       {
-        "term": "Thomismus",
+        "term": "Thomas von Aquino",
         "index": "^sptbws",
         "heading": "Goethe und die Erneuerung des Thomismus",
         "source": "title-summary",
@@ -322222,7 +321513,7 @@
         "level": "h3"
       },
       {
-        "term": "Yoga-Praxis",
+        "term": "Yoga",
         "index": "^ccc0nv",
         "heading": "Die indische Yoga-Praxis",
         "source": "h3",
@@ -324295,17 +323586,6 @@
         "term": "Joga-Schulung",
         "index": "^ulz17q",
         "heading": "Die ursprüngliche Joga-Schulung und das Aum",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Aum",
-        "index": "^bippxd",
-        "heading": "Der Aum-Laut als Weltenerkenntnis",
         "source": "h3",
         "matchType": "new",
         "matchedExisting": null,
@@ -326517,7 +325797,7 @@
         "level": "h3"
       },
       {
-        "term": "Ahrimanische Wesenheiten",
+        "term": "Ahriman",
         "index": "^ehalqn",
         "heading": "Ahrimanische Einflüsse im Schlaf",
         "source": "new",
@@ -327629,7 +326909,7 @@
         "level": "h3"
       },
       {
-        "term": "Stoffwechsel",
+        "term": "Stoffwechselsystem",
         "index": "^64h8hh",
         "heading": "Spezifische Behandlungsansätze",
         "source": "h3",
@@ -328780,7 +328060,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^wj3iyd",
         "heading": "Die Tierwelt in Beziehung zum Menschen",
         "source": "h3",
@@ -329683,7 +328963,7 @@
         "level": "h4"
       },
       {
-        "term": "Nibelungenlied",
+        "term": "Nibelungen",
         "index": "^smhdru",
         "heading": "Deutsche Sprache: Metrik, Poetik und Nibelungenlied",
         "source": "h3",
@@ -332564,17 +331844,6 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h3"
-      },
-      {
-        "term": "Ausschluss",
-        "index": "^4f3jfy",
-        "heading": "Schülerausschlüsse und deren Behandlung",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -334327,17 +333596,6 @@
         "level": "h3"
       },
       {
-        "term": "Verwaltung",
-        "index": "^8ksnrq",
-        "heading": "Einrichtung des Verwaltungskollegiums",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Eurythmie",
         "index": "^6nkiee",
         "heading": "Eurythmiesäle und seelische Dynamik",
@@ -334603,7 +333861,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^mslogd",
         "heading": "Die Dreigliederung des menschlichen Organismus",
         "source": "h3",
@@ -334864,17 +334122,6 @@
       {
         "term": "Französische Sprache",
         "index": "^943o7u",
-        "heading": "Die spirituelle Betrachtung der französischen Dekadenz",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Dekadenz",
-        "index": "^yjcxx8",
         "heading": "Die spirituelle Betrachtung der französischen Dekadenz",
         "source": "h3",
         "matchType": "new",
@@ -336733,17 +335980,6 @@
         "summaryMentioned": true,
         "confidence": 0.65,
         "level": "h4"
-      },
-      {
-        "term": "Bildung",
-        "index": "^690m4r",
-        "heading": "Bildung und Vorstellungsunmöglichkeiten",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -338160,17 +337396,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.65,
-        "level": "h3"
-      },
-      {
-        "term": "Abitur",
-        "index": "^9938de",
-        "heading": "Abitur-Vorbereitung und Lehrplan-Anpassungen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -341029,7 +340254,7 @@
         "level": "h3"
       },
       {
-        "term": "Pädagogischer Kontakt",
+        "term": "Pädagogische Gesinnung",
         "index": "^h0635y",
         "heading": "Enthusiasmus und Interesse als pädagogische Grundhaltung",
         "source": "h3",
@@ -341297,17 +340522,6 @@
         "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
-      },
-      {
-        "term": "Abitur",
-        "index": "^nd5xxg",
-        "heading": "Schulabschluss und Abiturientenexamen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -341470,17 +340684,6 @@
       }
     ],
     "lectureKeywords": [
-      {
-        "term": "Sachwortverzeichnis",
-        "index": "^6udlvt",
-        "heading": "Summary",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
       {
         "term": "Anthroposophie",
         "index": "^jctbh6",
@@ -343035,17 +342238,6 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.6,
-        "level": "h3"
-      },
-      {
-        "term": "Sozialwissenschaft",
-        "index": "^hqxofr",
-        "heading": "Die drei Gebiete des sozialen Lebens",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
         "level": "h3"
       },
       {
@@ -345881,7 +345073,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^3ll46z",
         "heading": "Die sittliche Weltaufgabe des Menschen",
         "source": "h3",
@@ -346394,7 +345586,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^fxzcu7",
         "heading": "Die ägyptischen Mysterien als Grundlage",
         "source": "h3",
@@ -349362,7 +348554,7 @@
         "level": "h4"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^wzvvxb",
         "heading": "Die Prüfungen des Einzuweihenden",
         "source": "h3",
@@ -349687,7 +348879,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^gtqo0j",
         "heading": "Der Osiris-Mythos als Initiationsdrama",
         "source": "h3",
@@ -349960,7 +349152,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^rw68y6",
         "heading": "Die zweiundvierzig Entwicklungsstufen zur Göttlichkeit",
         "source": "h3",
@@ -349971,7 +349163,7 @@
         "level": "h3"
       },
       {
-        "term": "Ägyptische Mysterien",
+        "term": "Ägypten",
         "index": "^rw68y6",
         "heading": "Die zweiundvierzig Entwicklungsstufen zur Göttlichkeit",
         "source": "h3",
@@ -354557,7 +353749,7 @@
         "level": "h4"
       },
       {
-        "term": "Vedanta-Weisheit",
+        "term": "Vedanta-Philosophie",
         "index": "^0v5in6",
         "heading": "Erste Region: Urbilder der physischen Welt",
         "source": "h3",
@@ -354847,7 +354039,7 @@
         "level": "h3"
       },
       {
-        "term": "Ägyptische Mysterien",
+        "term": "Ägypten",
         "index": "^x8sv26",
         "heading": "Die ägyptische Priesterweisheit im Christentum",
         "source": "h3",
@@ -356755,7 +355947,7 @@
         "level": "h3"
       },
       {
-        "term": "Okkulte Geschichtsforschung",
+        "term": "Okkulte Geschichte",
         "index": "^j4i5ef",
         "heading": "Der kommende dritte Band zur okkulten Geschichte",
         "source": "title-summary",
@@ -359758,7 +358950,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Theosophische Kosmologie",
+        "term": "Kosmologie",
         "index": "^64gkhb",
         "heading": "Die Grundlagen der theosophischen Kosmologie",
         "source": "title-summary",
@@ -359877,17 +359069,6 @@
         "summaryMentioned": true,
         "confidence": 0.9,
         "level": "h3"
-      },
-      {
-        "term": "Dzyan-Strophen",
-        "index": "^kkqu28",
-        "heading": "Die Dzyan-Strophen als göttliche Urweisheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
-        "level": "h4"
       },
       {
         "term": "Rosenkreuzer",
@@ -360156,7 +359337,7 @@
         "level": "h3"
       },
       {
-        "term": "Elementarreich",
+        "term": "Elementarreiche",
         "index": "^4g3ipi",
         "heading": "Die sieben Runden der Weltentwicklung",
         "source": "h3",
@@ -361188,17 +360369,6 @@
         "level": "h3"
       },
       {
-        "term": "Spiritualität",
-        "index": "^v88kl9",
-        "heading": "Die spirituelle Grundlage der ersten Unterrasse",
-        "source": "h3",
-        "matchType": "existing-similar",
-        "matchedExisting": "Spirituelles Bewusstsein",
-        "summaryMentioned": false,
-        "confidence": 0.8,
-        "level": "h3"
-      },
-      {
         "term": "Religion",
         "index": "^189bxx",
         "heading": "Die Entwicklung der Flammenreligion",
@@ -361539,7 +360709,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Systeme",
+        "term": "Planetensystem",
         "index": "^mzye6l",
         "heading": "Die kosmische Evolutionsordnung",
         "source": "h3",
@@ -361833,7 +361003,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenentwicklung",
+        "term": "Planetarische Entwicklung",
         "index": "^1g5g5g",
         "heading": "Die sieben Bewusstseinsstufen der Planeten",
         "source": "h3",
@@ -362150,7 +361320,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarischer Logos",
+        "term": "Planetengeister",
         "index": "^k0cygk",
         "heading": "Der planetarische Logos und die internationale Einheit",
         "source": "h3",
@@ -364864,28 +364034,6 @@
         "level": "h3"
       },
       {
-        "term": "All-Seele",
-        "index": "^1jus68",
-        "heading": "Die göttliche Offenbarung als All-Seele und All-Leben",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "All-Leben",
-        "index": "^1jus68",
-        "heading": "Die göttliche Offenbarung als All-Seele und All-Leben",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Naturreiche",
         "index": "^0xgnqu",
         "heading": "Die Entstehung der Naturreiche",
@@ -365395,7 +364543,7 @@
         "level": "h4"
       },
       {
-        "term": "Planetarische Evolution",
+        "term": "Planetarische Entwicklung",
         "index": "^gyz528",
         "heading": "Die Entwicklung von Saturn bis Vulkan",
         "source": "h3",
@@ -366561,17 +365709,6 @@
         "level": "h3"
       },
       {
-        "term": "Aggregatzustände",
-        "index": "^b318o7",
-        "heading": "Die vier Aggregatzustände der physischen Erde",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Involution",
         "index": "^dra29z",
         "heading": "Evolution und Involution in allen Erscheinungen",
@@ -367302,17 +366439,6 @@
         "level": "h3"
       },
       {
-        "term": "Neuschöpfung",
-        "index": "^flf2bs",
-        "heading": "Schöpfung aus dem Nichts als drittes Prinzip",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
-        "level": "h3"
-      },
-      {
         "term": "Gedankenschöpfung",
         "index": "^yxmui4",
         "heading": "Die Dreiheit der kosmischen Prinzipien",
@@ -367512,7 +366638,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenkette",
+        "term": "Planetensystem",
         "index": "^15bgxr",
         "heading": "Die drei Logoi als schöpferische Prinzipien",
         "source": "h3",
@@ -369530,7 +368656,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Runden",
+        "term": "Planetarische Entwicklung",
         "index": "^7edwdv",
         "heading": "Die Entwicklung durch Runden und Rassen",
         "source": "h3",
@@ -372420,7 +371546,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Kette",
+        "term": "Planetarische Entwicklung",
         "index": "^ca56k3",
         "heading": "Die planetarische Kette",
         "source": "h3",
@@ -372846,7 +371972,7 @@
         "level": "h3"
       },
       {
-        "term": "Lipika",
+        "term": "Lipikas",
         "index": "^ssntdc",
         "heading": "Die höchsten Intelligenzen",
         "source": "h3",
@@ -378847,7 +377973,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Ketten",
+        "term": "Planetarische Entwicklung",
         "index": "^wc9fgz",
         "heading": "Die sieben planetarischen Ketten",
         "source": "h3",
@@ -379399,7 +378525,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Ketten",
+        "term": "Planetarische Entwicklung",
         "index": "^cp4ygm",
         "heading": "Die planetarische Entwicklung",
         "source": "h3",
@@ -379641,7 +378767,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenketten",
+        "term": "Planetensystem",
         "index": "^uyvgmn",
         "heading": "Die Herrschaft der Gewalten über die planetarischen Ketten",
         "source": "h3",
@@ -382378,7 +381504,7 @@
         "level": "h3"
       },
       {
-        "term": "Wurzelrasse",
+        "term": "Wurzelrassen",
         "index": "^6vz1xu",
         "heading": "Verkörperung der Arhats und Mahas",
         "source": "h3",
@@ -384168,7 +383294,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Apokalypsen",
+        "term": "Apokalypse",
         "index": "^ucv0dd",
         "heading": "Das Wesen der Apokalypsen",
         "source": "title-summary",
@@ -384579,7 +383705,7 @@
         "level": "h3"
       },
       {
-        "term": "Veden-Kultur",
+        "term": "Vedanta-Philosophie",
         "index": "^f9so6q",
         "heading": "Die Gemeinde von Ephesus",
         "source": "h3",
@@ -385434,17 +384560,6 @@
         "matchedExisting": "Weisheit",
         "summaryMentioned": false,
         "confidence": 0.85,
-        "level": "h3"
-      },
-      {
-        "term": "Älteste",
-        "index": "^x0z6fs",
-        "heading": "Die Dreigliederung der Evolution",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.65,
         "level": "h3"
       },
       {
@@ -386804,7 +385919,7 @@
         "level": "h4"
       },
       {
-        "term": "Planeten",
+        "term": "Planetensystem",
         "index": "^ysclvs",
         "heading": "Das chaldäische Planetensystem",
         "source": "h3",
@@ -388532,7 +387647,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^ud0zg0",
         "heading": "Die Aussonderung der Naturreiche",
         "source": "h3",
@@ -388744,7 +387859,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Planetenkette",
+        "term": "Planetensystem",
         "index": "^r1sme7",
         "heading": "Die Planetenkette und ihre sieben Entwicklungsstufen",
         "source": "title-summary",
@@ -389553,7 +388668,7 @@
         "level": "h4"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^58xizr",
         "heading": "Das empfindende Pflanzenreich",
         "source": "h3",
@@ -389564,7 +388679,7 @@
         "level": "h4"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^jn3dl4",
         "heading": "Die traumhafte Tierwelt",
         "source": "h3",
@@ -390985,7 +390100,7 @@
         "level": "h3"
       },
       {
-        "term": "Elementargeister",
+        "term": "Elementarwesen",
         "index": "^c0zlod",
         "heading": "Die drei Kategorien von Wesenheiten",
         "source": "h3",
@@ -391226,7 +390341,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenkette",
+        "term": "Planetensystem",
         "index": "^zeorxt",
         "heading": "Die große Entwicklungskette und das esoterische Zahlensystem",
         "source": "h3",
@@ -392664,7 +391779,7 @@
         "level": "h3"
       },
       {
-        "term": "Wurzelrasse",
+        "term": "Wurzelrassen",
         "index": "^k7zlf4",
         "heading": "Die Entwicklung zur göttlichen Funktion",
         "source": "h3",
@@ -393702,7 +392817,7 @@
         "level": "h4"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^s6o0hc",
         "heading": "Die drei Hüllen und Naturreiche",
         "source": "h3",
@@ -393713,7 +392828,7 @@
         "level": "h4"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^yq8q7f",
         "heading": "Die drei Hüllen und Naturreiche",
         "source": "h3",
@@ -394231,17 +393346,6 @@
         "term": "Übersein",
         "index": "^cvdpj0",
         "heading": "Das kosmische Prinzip von Vater, Mutter und Sohn",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h4"
-      },
-      {
-        "term": "Objektiv",
-        "index": "^ou2pdc",
-        "heading": "Die Verwandlung des Subjektiven ins Objektive",
         "source": "h3",
         "matchType": "new",
         "matchedExisting": "",
@@ -394775,7 +393879,7 @@
         "level": "h4"
       },
       {
-        "term": "Objektivierung",
+        "term": "Wissenschaft",
         "index": "^8ev705",
         "heading": "Der Weg zur wahren Befreiung",
         "source": "h3",
@@ -395033,7 +394137,7 @@
         "level": "h3"
       },
       {
-        "term": "Vedanta",
+        "term": "Vedanta-Philosophie",
         "index": "^1hxrdm",
         "heading": "Das Vedanta-Prinzip 'Tat twam asi'",
         "source": "new",
@@ -397685,7 +396789,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenstadien",
+        "term": "Planetensystem",
         "index": "^mvptnp",
         "heading": "Die Planetenstadien Saturn, Sonne und Mond",
         "source": "h3",
@@ -397995,7 +397099,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^fwityh",
         "heading": "Die Verwandlung im Astralleib",
         "source": "new",
@@ -399846,7 +398950,7 @@
         "level": "h3"
       },
       {
-        "term": "Druidenmysterien",
+        "term": "Druiden & Drotten",
         "index": "^edzunj",
         "heading": "Die nordischen Mysterien und ihre Bedeutung",
         "source": "h3",
@@ -401050,7 +400154,7 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^sg6l0e",
         "heading": "Die okkulten Grundlagen der nordischen Traditionen",
         "source": "h3",
@@ -404580,7 +403684,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^j1quhq",
         "heading": "Das jenseitige Tonbewusstsein",
         "source": "h3",
@@ -405147,7 +404251,7 @@
         "level": "h3"
       },
       {
-        "term": "Elemental-Reiche",
+        "term": "Elementarreiche",
         "index": "^69xzqr",
         "heading": "Die vier Entwicklungsstufen der Verkörperung",
         "source": "h3",
@@ -405431,7 +404535,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^pdnt4w",
         "heading": "Die vier Temperamente und ihre Harmonisierung",
         "source": "h3",
@@ -405683,17 +404787,6 @@
         "level": "h4"
       },
       {
-        "term": "Spirale",
-        "index": "^kusjeq",
-        "heading": "Die spiralförmige Bewegung als Lebensprinzip",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Chakren",
         "index": "^z6rts6",
         "heading": "Die zwölf Strömungen des Tierkreises im Herzchakra",
@@ -405918,7 +405011,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^of4agk",
         "heading": "Das Pflanzenreich als Vermittler der Lebensströme",
         "source": "h3",
@@ -405929,7 +405022,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^jsrf31",
         "heading": "Die drei Reiche als Stufen der göttlichen Manifestation",
         "source": "h3",
@@ -407340,7 +406433,7 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^jd4v2w",
         "heading": "Die Druiden als Hüter der Mysterien",
         "source": "new",
@@ -407964,17 +407057,6 @@
         "level": "h3"
       },
       {
-        "term": "Argonauten",
-        "index": "^8r467g",
-        "heading": "Die Argonauten-Sage als Symbol der verlorenen Urweisheit",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Odysseus",
         "index": "^3b136r",
         "heading": "Die Odysseus-Sage als Darstellung der Einweihung",
@@ -408559,7 +407641,7 @@
         "level": "h3"
       },
       {
-        "term": "Nibelungenlied",
+        "term": "Nibelungen",
         "index": "^6f56yn",
         "heading": "Wotan, Sig und Odin als nordische Initiierte",
         "source": "h3",
@@ -408570,7 +407652,7 @@
         "level": "h3"
       },
       {
-        "term": "Siegfried-Sage",
+        "term": "Siegfried",
         "index": "^8aidq6",
         "heading": "Die Siegfried-Sage als nordische Apokalypse",
         "source": "h3",
@@ -408581,7 +407663,7 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^kck0d2",
         "heading": "Wotan, Sig und Odin als nordische Initiierte",
         "source": "h3",
@@ -408873,17 +407955,6 @@
         "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
-      },
-      {
-        "term": "Achilles",
-        "index": "^f90crc",
-        "heading": "Achilles als Initiierter des physischen Planes",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.65,
-        "level": "h4"
       }
     ],
     "version": "v2-unified",
@@ -409647,7 +408718,7 @@
         "level": "h4"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^095hjx",
         "heading": "Die germanischen Druiden und ihre Weisheit",
         "source": "h3",
@@ -409878,7 +408949,7 @@
         "level": "h3"
       },
       {
-        "term": "Parsifal",
+        "term": "Parzival",
         "index": "^fw4l9y",
         "heading": "Summary",
         "source": "title-summary",
@@ -411801,7 +410872,7 @@
         "level": "h3"
       },
       {
-        "term": "Wurzelrasse",
+        "term": "Wurzelrassen",
         "index": "^p7w1ps",
         "heading": "Die Zukunft der Menschheit",
         "source": "h3",
@@ -414010,7 +413081,7 @@
         "level": "h3"
       },
       {
-        "term": "Drotten",
+        "term": "Druiden & Drotten",
         "index": "^9u31k8",
         "heading": "Die Priesterschaft der Drotten und ihre Macht",
         "source": "h3",
@@ -415210,7 +414281,7 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^ffy340",
         "heading": "Etymologie und geographische Verbreitung des Druidentums",
         "source": "title-summary",
@@ -416629,7 +415700,7 @@
         "level": "h3"
       },
       {
-        "term": "Physischer Körper",
+        "term": "Physischer Leib",
         "index": "^e2mvvz",
         "heading": "Die Zusammensetzung und Entwicklung des physischen Körpers",
         "source": "h3",
@@ -417164,7 +416235,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierkreiszeichen",
+        "term": "Tierkreis",
         "index": "^6wz1wh",
         "heading": "Die Präzession und kulturelle Zyklen",
         "source": "h3",
@@ -417506,17 +416577,6 @@
       },
       {
         "term": "Nidanas",
-        "index": "^l3pb5c",
-        "heading": "Avidya und die zwölf Nidanas des Karma",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Avidya",
         "index": "^l3pb5c",
         "heading": "Avidya und die zwölf Nidanas des Karma",
         "source": "h3",
@@ -418493,17 +417553,6 @@
         "term": "Nidanas",
         "index": "^8jcj46",
         "heading": "Die zwölf Nidanas als karmische Kräfte der Reinkarnation",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Avitchi",
-        "index": "^tf7khq",
-        "heading": "Die achte Sphäre und das Schicksal zurückbleibender Wesen",
         "source": "h3",
         "matchType": "new",
         "matchedExisting": null,
@@ -420211,7 +419260,7 @@
         "level": "h4"
       },
       {
-        "term": "Planetensysteme",
+        "term": "Planetensystem",
         "index": "^ichmgv",
         "heading": "Die sieben Bewusstseinszustände der Planeten",
         "source": "h3",
@@ -421322,7 +420371,7 @@
         "level": "h4"
       },
       {
-        "term": "Planeten",
+        "term": "Planetensystem",
         "index": "^qecy3o",
         "heading": "Die sieben Prinzipien des Menschen",
         "source": "h3",
@@ -426832,7 +425881,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Pfingstfest",
+        "term": "Pfingsten",
         "index": "^27atmu",
         "heading": "Die ursprüngliche Bedeutung des Pfingstfestes",
         "source": "title-summary",
@@ -427777,7 +426826,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Pfingstfest",
+        "term": "Pfingsten",
         "index": "^v4ehfg",
         "heading": "Summary",
         "source": "title-summary",
@@ -429352,17 +428401,6 @@
         "level": "h3"
       },
       {
-        "term": "Bienen",
-        "index": "^zxbzrn",
-        "heading": "Das Bewusstsein der Naturreiche",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Alchemie",
         "index": "^a0oopn",
         "heading": "Die wahre Alchimie und der Stein der Weisen",
@@ -429822,7 +428860,7 @@
         "level": "h3"
       },
       {
-        "term": "Nirvana",
+        "term": "Nirwana",
         "index": "^afkbm0",
         "heading": "Das Wesen von Karma und Nirvana",
         "source": "title-summary",
@@ -430755,17 +429793,6 @@
         "term": "Heiliger Geist",
         "index": "^lcxubm",
         "heading": "Die drei Logoi als kosmische Schöpfungsprinzipien",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Skandhas",
-        "index": "^z8a8v4",
-        "heading": "Die fünf Skandhas als karmische Grundlagen",
         "source": "h3",
         "matchType": "new",
         "matchedExisting": null,
@@ -431873,7 +430900,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenzuordnung",
+        "term": "Planetensystem",
         "index": "^c542yd",
         "heading": "Die okkulte Anatomie der Hauptöffnungen",
         "source": "h3",
@@ -434041,7 +433068,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Runden",
+        "term": "Planetarische Entwicklung",
         "index": "^us6aaa",
         "heading": "Die sieben planetarischen Bewusstseinszustände",
         "source": "h3",
@@ -434553,7 +433580,7 @@
         "level": "h4"
       },
       {
-        "term": "Wurzelrasse",
+        "term": "Wurzelrassen",
         "index": "^haang9",
         "heading": "Die Entwicklung von Manas in den Wurzelrassen",
         "source": "h3",
@@ -437028,7 +436055,7 @@
         "level": "h3"
       },
       {
-        "term": "Elementarreich",
+        "term": "Elementarreiche",
         "index": "^xr79jg",
         "heading": "Emanation und göttliches Bewusstsein",
         "source": "h3",
@@ -437039,7 +436066,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetengeist",
+        "term": "Planetengeister",
         "index": "^jz4pq6",
         "heading": "Die Vulkanentwicklung und das Ich als Planetengeist",
         "source": "h3",
@@ -438274,7 +437301,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Evolution",
+        "term": "Planetarische Entwicklung",
         "index": "^wm0k59",
         "heading": "Die planetarische Evolution der Wesenheiten",
         "source": "h3",
@@ -438955,7 +437982,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^44l9gj",
         "heading": "Die Entstehung der Kohle",
         "source": "h3",
@@ -438966,7 +437993,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^5aowmv",
         "heading": "Die drei uralten Naturreiche",
         "source": "h3",
@@ -439232,7 +438259,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenentwicklung",
+        "term": "Planetarische Entwicklung",
         "index": "^tvjdsa",
         "heading": "Die Entwicklung der menschlichen Wesensglieder",
         "source": "h3",
@@ -439492,20 +438519,9 @@
         "level": "h3"
       },
       {
-        "term": "Druiden",
+        "term": "Druiden & Drotten",
         "index": "^3yhk9l",
         "heading": "Die keltischen Mysterien und das Christentum",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Beda Venerabilis",
-        "index": "^il838m",
-        "heading": "Beda Venerabilis und die vergessenen Lehren",
         "source": "h3",
         "matchType": "new",
         "matchedExisting": null,
@@ -440022,7 +439038,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetengeist",
+        "term": "Planetengeister",
         "index": "^ebxjht",
         "heading": "Schöpferische Gestaltung in höheren Dimensionen",
         "source": "h3",
@@ -441835,7 +440851,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^nlz1wx",
         "heading": "Das Pflanzenreich als Symbol der Evolution",
         "source": "new",
@@ -449562,7 +448578,7 @@
         "level": "h3"
       },
       {
-        "term": "Empfindungen",
+        "term": "Empfindung",
         "index": "^7dybqo",
         "heading": "Die Innenwelt der Seele",
         "source": "h3",
@@ -449720,7 +448736,7 @@
         "level": "h3"
       },
       {
-        "term": "Parsifal",
+        "term": "Parzival",
         "index": "^3o2wbf",
         "heading": "Summary",
         "source": "title-summary",
@@ -450344,7 +449360,7 @@
         "level": "h3"
       },
       {
-        "term": "Parsifal",
+        "term": "Parzival",
         "index": "^dis9il",
         "heading": "Summary",
         "source": "title-summary",
@@ -453066,7 +452082,7 @@
         "level": "h4"
       },
       {
-        "term": "Pfingstfest",
+        "term": "Pfingsten",
         "index": "^558ymw",
         "heading": "Das Pfingstfest als Symbol der höheren Gruppenseele",
         "source": "h3",
@@ -453938,7 +452954,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^ogh9a0",
         "heading": "Das zweite Elementarreich",
         "source": "h3",
@@ -454526,7 +453542,7 @@
         "level": "h4"
       },
       {
-        "term": "Planetenwesen",
+        "term": "Planetengeister",
         "index": "^zctvtt",
         "heading": "Wesenheiten der astralischen Welt",
         "source": "h3",
@@ -455156,7 +454172,7 @@
         "level": "h3"
       },
       {
-        "term": "Natur- und Geistwesen",
+        "term": "Naturgeister",
         "index": "^lgs19g",
         "heading": "Summary",
         "source": "new",
@@ -455178,7 +454194,7 @@
         "level": "h3"
       },
       {
-        "term": "Planeten",
+        "term": "Planetensystem",
         "index": "^ml0fyk",
         "heading": "Planetarische Verkörperungen",
         "source": "new",
@@ -455473,7 +454489,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetarische Einflüsse",
+        "term": "Planetengeister",
         "index": "^1lrbka",
         "heading": "Spirituelle Erkenntnis gegen Materialismus",
         "source": "h3",
@@ -455484,7 +454500,7 @@
         "level": "h3"
       },
       {
-        "term": "Nahrung",
+        "term": "Ernährung",
         "index": "^3ebyv5",
         "heading": "Venuswesenheiten und die Nahrung",
         "source": "h3",
@@ -455752,7 +454768,7 @@
         "level": "h3"
       },
       {
-        "term": "Venuswesenheiten",
+        "term": "Venus",
         "index": "^bkkddy",
         "heading": "Die geistigen Wesenheiten der Planeten",
         "source": "h3",
@@ -457199,7 +456215,7 @@
         "level": "h4"
       },
       {
-        "term": "Rosenkreuzertum",
+        "term": "Rosenkreuzer",
         "index": "^tamtym",
         "heading": "Die rosenkreuzerische Methode und ihre geschichtliche Grundlage",
         "source": "h3",
@@ -465616,7 +464632,7 @@
         "level": "h3"
       },
       {
-        "term": "Erdinnere",
+        "term": "Erdschichten",
         "index": "^0wg96h",
         "heading": "Das Erdinnere und seine neun Schichten",
         "source": "title-summary",
@@ -466599,7 +465615,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^iexcpa",
         "heading": "Die pythagoräische Sphärenmusik als Weltenwort",
         "source": "new",
@@ -468031,7 +467047,7 @@
         "level": "h3"
       },
       {
-        "term": "Rosenkreuzerisch",
+        "term": "Rosenkreuzer",
         "index": "^b5ohyk",
         "heading": "Die drei Wege der okkulten Schulung",
         "source": "h3",
@@ -470137,7 +469153,7 @@
         "level": "h3"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^e2y4j9",
         "heading": "Die vier Temperamente und ihre karmischen Ursachen",
         "source": "h3",
@@ -471415,7 +470431,7 @@
         "level": "h3"
       },
       {
-        "term": "Yoga-Schulung",
+        "term": "Yoga",
         "index": "^qc8ekn",
         "heading": "Die acht Stufen der orientalischen Yoga-Schulung",
         "source": "h3",
@@ -471703,7 +470719,7 @@
         "level": "h3"
       },
       {
-        "term": "Planeten",
+        "term": "Planetensystem",
         "index": "^958nf9",
         "heading": "Die sieben Bewusstseinszustände",
         "source": "h3",
@@ -472980,7 +471996,7 @@
         "level": "h3"
       },
       {
-        "term": "Okkultisten",
+        "term": "Okkultismus",
         "index": "^zezb7v",
         "heading": "Der Rückzug der Meister im 19. Jahrhundert",
         "source": "h3",
@@ -473582,17 +472598,6 @@
         "level": "h3"
       },
       {
-        "term": "Erdinnere",
-        "index": "^jdtryg",
-        "heading": "Die neun Schichten des Erdinneren",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Erdschichten",
         "index": "^jdtryg",
         "heading": "Die neun Schichten des Erdinneren",
@@ -473888,17 +472893,6 @@
         "matchedExisting": "",
         "summaryMentioned": false,
         "confidence": 0.65,
-        "level": "h3"
-      },
-      {
-        "term": "Dzyanstrophen",
-        "index": "^8tpqwn",
-        "heading": "Die Geheimlehre und die Dzyanstrophen",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.6,
         "level": "h3"
       }
     ],
@@ -478560,7 +477554,7 @@
         "level": "h3"
       },
       {
-        "term": "Osterbetrachtung",
+        "term": "Osterfest",
         "index": "^gyb7f2",
         "heading": "Summary",
         "source": "title-summary",
@@ -480078,7 +479072,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenentwicklung",
+        "term": "Planetarische Entwicklung",
         "index": "^2hkzhs",
         "heading": "Die Saturnentwicklung und die ersten Menschenanlagen",
         "source": "title-summary",
@@ -481512,7 +480506,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Rosenkreuzerschulung",
+        "term": "Rosenkreuzer",
         "index": "^dsqy20",
         "heading": "Die Rosenkreuzerschulung",
         "source": "title-summary",
@@ -483369,7 +482363,7 @@
         "level": "h3"
       },
       {
-        "term": "Zahlengeheimnis",
+        "term": "Zahlensymbolik",
         "index": "^s8ohnb",
         "heading": "Das Zahlengeheimnis und die mystische Fünfzahl",
         "source": "h3",
@@ -486029,17 +485023,6 @@
         "matchedExisting": "Freiheit",
         "summaryMentioned": false,
         "confidence": 0.9,
-        "level": "h3"
-      },
-      {
-        "term": "Verkörperungen",
-        "index": "^45ml4q",
-        "heading": "Das universelle Karmagesetz",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
         "level": "h3"
       },
       {
@@ -491343,17 +490326,6 @@
         "level": "h3"
       },
       {
-        "term": "Erkenntnis des Guten und Bösen",
-        "index": "^2x7q37",
-        "heading": "Die luziferischen Wesenheiten als Verführer",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.6,
-        "level": "h3"
-      },
-      {
         "term": "Menschheitsentwicklung",
         "index": "^3jr97b",
         "heading": "Die kosmische Entwicklung der Erde",
@@ -493668,7 +492640,7 @@
         "level": "h4"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^dhdta7",
         "heading": "Die Sphärenmusik und das Devachan",
         "source": "title-summary",
@@ -496160,7 +495132,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenharmonien",
+        "term": "Sphärenharmonie",
         "index": "^zbkdl7",
         "heading": "Wasser, Sphärenharmonien und Protoplasma",
         "source": "h3",
@@ -497484,7 +496456,7 @@
         "level": "h3"
       },
       {
-        "term": "Epochalgeister",
+        "term": "Zeitgeist",
         "index": "^1i85z4",
         "heading": "Die Urkräfte als Epochalgeister",
         "source": "h3",
@@ -498140,7 +497112,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenharmonien",
+        "term": "Sphärenharmonie",
         "index": "^7asfso",
         "heading": "Musik als Erinnerung an Sphärenharmonien",
         "source": "h3",
@@ -502817,17 +501789,6 @@
         "level": "h3"
       },
       {
-        "term": "Erdensohn",
-        "index": "^0c38r6",
-        "heading": "Der Mensch als Erdensohn - das Mysterium der ursprünglichen Verbindung",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Geistiger Leib",
         "index": "^b1bxjz",
         "heading": "Die Verwandlung des physischen Leibes in den geistigen Leib",
@@ -507473,7 +506434,7 @@
         "level": "h4"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^d835j6",
         "heading": "Der Osirismythos als kosmische Erinnerung",
         "source": "h3",
@@ -507494,7 +506455,7 @@
         "level": "h4"
       },
       {
-        "term": "Planetenentwicklung",
+        "term": "Planetarische Entwicklung",
         "index": "^5wtsx9",
         "heading": "Die höheren Hierarchien und ihre planetarischen Aufgaben",
         "source": "h3",
@@ -509531,7 +508492,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^wagn7w",
         "heading": "Ägyptische Mysterien und Osiris",
         "source": "h3",
@@ -509871,7 +508832,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^ue9b7m",
         "heading": "Die Ermordung des Osiris durch Typhon",
         "source": "h3",
@@ -510423,7 +509384,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierkreiszeichen",
+        "term": "Tierkreis",
         "index": "^4dfizx",
         "heading": "Die Entwicklung der Tierkreiszeichen",
         "source": "h3",
@@ -512612,7 +511573,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^a68ucj",
         "heading": "Schauen der Göttergestalten und Mysterien",
         "source": "h3",
@@ -512906,7 +511867,7 @@
         "level": "h4"
       },
       {
-        "term": "Temperament",
+        "term": "Temperamente",
         "index": "^qe642f",
         "heading": "Temperamente und ihre Wirkung auf Gesundheit",
         "source": "h3",
@@ -513353,7 +512314,7 @@
         "level": "h3"
       },
       {
-        "term": "Erbsünde",
+        "term": "Christentum",
         "index": "^znfm7m",
         "heading": "Die Entstehung der Erbsünde",
         "source": "title-summary",
@@ -517156,7 +516117,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^0h5nr6",
         "heading": "Das beseelte Wesen der Natur",
         "source": "h3",
@@ -519145,17 +518106,6 @@
         "level": "h3"
       },
       {
-        "term": "Beobachtung",
-        "index": "^o8rtxg",
-        "heading": "Beobachtung aufeinanderfolgender Ereignisse",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Naturwissenschaft",
         "index": "^aok3k8",
         "heading": "Denkfehler in der Wissenschaft",
@@ -520627,7 +519577,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^ib3jro",
         "heading": "Die ägyptische Kultur und Hermes",
         "source": "h3",
@@ -521517,7 +520467,7 @@
         "level": "h3"
       },
       {
-        "term": "Sphärenmusik",
+        "term": "Sphärenharmonie",
         "index": "^gbv6hi",
         "heading": "Die Zahlenverhältnisse der Planeten",
         "source": "h3",
@@ -523336,16 +522286,6 @@
         "matchType": "new",
         "summaryMentioned": true,
         "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Bienen",
-        "index": "^auk7q5",
-        "heading": "Elementarwesen an Grenzgebieten der Naturreiche",
-        "source": "h3",
-        "matchType": "new",
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       },
       {
@@ -527542,7 +526482,7 @@
         "level": "h4"
       },
       {
-        "term": "Rosenkreuzertum",
+        "term": "Rosenkreuzer",
         "index": "^8m24o6",
         "heading": "Das Rosenkreuzertum als Synthese",
         "source": "h3",
@@ -528105,17 +527045,6 @@
         "matchedExisting": "Naturwissenschaft",
         "summaryMentioned": false,
         "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Siphonophoren",
-        "index": "^ncjlqj",
-        "heading": "Spezialisierte Organe der Meerestiere",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
         "level": "h3"
       },
       {
@@ -528930,7 +527859,7 @@
         "level": "h3"
       },
       {
-        "term": "Atmungsprozeß",
+        "term": "Atmung",
         "index": "^mgqj90",
         "heading": "Der Atmungsprozess bei Lachen und Weinen",
         "source": "h3",
@@ -530738,7 +529667,7 @@
         "level": "h3"
       },
       {
-        "term": "Urteile",
+        "term": "Urteilskraft",
         "index": "^3zo9v9",
         "heading": "Arten der Urteile",
         "source": "h3",
@@ -531015,7 +529944,7 @@
         "level": "h3"
       },
       {
-        "term": "Urteil",
+        "term": "Urteilskraft",
         "index": "^encxf8",
         "heading": "Richtigkeit und Gültigkeit von Urteilen",
         "source": "h3",
@@ -531597,7 +530526,7 @@
         "level": "h4"
       },
       {
-        "term": "Ahrimanische Kräfte",
+        "term": "Ahriman",
         "index": "^zjnqks",
         "heading": "Ahriman und die Illusion der physischen Welt",
         "source": "h3",
@@ -534409,7 +533338,7 @@
         "level": "h3"
       },
       {
-        "term": "Osiris",
+        "term": "Osiris-Isis-Sage",
         "index": "^0w1vab",
         "heading": "Dunkelheit zwischen Tod und Geburt",
         "source": "h3",
@@ -534937,7 +533866,7 @@
         "level": "h3"
       },
       {
-        "term": "Rosenkreuzerokkultismus",
+        "term": "Rosenkreuzer",
         "index": "^fxn93g",
         "heading": "Die Rosenkreuzermission und die drei heiligen Meister",
         "source": "h3",
@@ -535321,7 +534250,7 @@
         "level": "h3"
       },
       {
-        "term": "Pflanzenreich",
+        "term": "Pflanze",
         "index": "^rj1yjf",
         "heading": "Das Pflanzenreich und die Welt der Form",
         "source": "h3",
@@ -535332,7 +534261,7 @@
         "level": "h3"
       },
       {
-        "term": "Tierreich",
+        "term": "Tiere",
         "index": "^ee445j",
         "heading": "Das Tierreich und die astrale Welt",
         "source": "h3",
@@ -539787,7 +538716,7 @@
         "level": "h3"
       },
       {
-        "term": "Venusgeister",
+        "term": "Venus",
         "index": "^8h4cs8",
         "heading": "Venusgeister als erste Führer",
         "source": "h3",
@@ -541808,7 +540737,7 @@
         "level": "h3"
       },
       {
-        "term": "Sonnenwesenheit",
+        "term": "Sonnengeist",
         "index": "^i8neh4",
         "heading": "Das Christus-Ereignis",
         "source": "h3",
@@ -543151,7 +542080,7 @@
         "level": "h3"
       },
       {
-        "term": "Planetenzustände",
+        "term": "Planetensystem",
         "index": "^4u6m0w",
         "heading": "Die sieben planetarischen Verkörperungen",
         "source": "h3",
@@ -549789,7 +548718,7 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Erbsünde",
+        "term": "Christentum",
         "index": "^mz44c7",
         "heading": "Die Evolution des menschlichen Seelenlebens",
         "source": "title-summary",
@@ -550491,7 +549420,7 @@
         "level": "h4"
       },
       {
-        "term": "Rosenkreuzerweg",
+        "term": "Rosenkreuzer",
         "index": "^8d7yds",
         "heading": "Christian Rosenkreutz als Begründer",
         "source": "title-summary",
