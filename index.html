@@ -4299,7 +4299,15 @@ function normalizeGANumber(gaNumber) {
     async function loadSteinerImages() {
       try {
         console.log('[IMAGES] Lade steiner-images.json...');
-        const response = await fetch(`${API_BASE}/api/steiner-images`);
+        
+        // Versuche zuerst vom Backend zu laden
+        let response = await fetch(`${API_BASE}/api/steiner-images`);
+        
+        // Fallback: Lade direkt von GitHub
+        if (!response.ok) {
+          console.log('[IMAGES] Backend nicht verfügbar, lade von GitHub...');
+          response = await fetch('https://raw.githubusercontent.com/cjhueck/ga_suche/main/steiner-images.json');
+        }
         
         if (!response.ok) {
           console.log('[IMAGES] steiner-images.json nicht verfügbar');
