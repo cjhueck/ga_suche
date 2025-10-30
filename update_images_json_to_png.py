@@ -69,10 +69,9 @@ def update_images_json(json_path, assets_dir):
                         # Generiere neue Base64-Daten
                         base64_str, file_size = encode_image_to_base64(full_path)
                         
-                        # Aktualisiere Objekt
+                        # Aktualisiere Objekt - NUR path, base64 und size!
                         img_obj['path'] = new_path
-                        img_obj['altText'] = img_obj['altText'].replace('.jpeg', '.png').replace('.jpg', '.png')
-                        img_obj['markdownRef'] = img_obj['markdownRef'].replace('.jpeg', '.png').replace('.jpg', '.png')
+                        # altText und markdownRef NICHT ändern - müssen .jpeg bleiben!
                         img_obj['base64'] = base64_str
                         img_obj['size'] = file_size
                         
