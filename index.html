@@ -4353,8 +4353,16 @@ function normalizeGANumber(gaNumber) {
         // Verwende markdownRef aus JSON - das ist die Original-Referenz aus dem Text!
         const markdownRef = img.markdownRef || `![${img.altText}](${img.path})`;
         
+        // Prüfe, ob es eine Tafelzeichnung ist (WebP oder T-Nummer im Dateinamen)
+        const isBlackboardDrawing = img.path.includes('.webp') || /T\d+\./.test(img.path) || img.altText.includes('-T');
+        
         // Erstelle img-Tag mit Base64-Daten (klickbar für Popup)
-        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" style="max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem; cursor: pointer;" onclick="openImagePopup('${img.base64}', '${img.altText}')" />`;
+        // Tafelzeichnungen werden in voller Breite angezeigt
+        const imgStyle = isBlackboardDrawing
+          ? "width: 100%; height: auto; display: block; margin: 1rem 0; cursor: pointer;"
+          : "max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem; cursor: pointer;";
+        
+        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" style="${imgStyle}" onclick="openImagePopup('${img.base64}', '${img.altText}')" />`;
         
         // Escape special regex characters
         const escapedRef = markdownRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
