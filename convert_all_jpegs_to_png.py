@@ -95,7 +95,7 @@ def process_ga_folder(ga_folder_path, folder_name):
             errors += 1
     
     if converted > 0 or skipped > 0:
-        print(f"  → {converted} konvertiert, {skipped} übersprungen, {errors} Fehler")
+        print(f"  > {converted} konvertiert, {skipped} uebersprungen, {errors} Fehler")
     
     return converted, skipped, errors
 

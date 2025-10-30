@@ -4679,7 +4679,8 @@ app.get('/api/full-lectures', async (req, res) => {
           date: lecture.date,
           gaNumber: lecture.gaNumber,
           gaTitle: lecture.gaTitle,
-          lectureNumber: lecture.lectureNumber
+          lectureNumber: lecture.lectureNumber,
+          paragraphs: lecture.paragraphs || []  // NEU: Absätze mit Indices für Timeline-Überschriften
         };
       }
     });

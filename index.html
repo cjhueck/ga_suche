@@ -3819,6 +3819,7 @@ S&H&C&K
     let isGeneratingSummary = false;
     let isThematicSearchRunning = false;
     let isKeywordSearchRunning = false;
+    let fullLecturesData = {}; // Speichert vollständige Vortragsdaten mit Absatz-Reihenfolge
 
     // === ZENTRALE SUMMARY-DATENBANK ===
     // Einfaches System: Alle Summaries in einer JSON-Datei
@@ -5273,7 +5274,8 @@ function toggleGASummaries() {
       timelineContainer.className = 'timeline-container';
       // Setze display: grid mit setProperty und !important
       timelineContainer.style.setProperty('display', 'grid', 'important');
-      timelineContainer.style.gridTemplateColumns = '60px 1fr';
+      timelineContainer.style.gridTemplateColumns = '1fr'; // Nur noch eine Spalte (Jahr-Spalte entfernt)
+      // timelineContainer.style.gridTemplateColumns = '60px 1fr'; // Original mit Jahr-Spalte
       timelineContainer.style.columnGap = '0rem';
       timelineContainer.style.rowGap = '0';
       timelineContainer.style.alignItems = 'start';
@@ -5332,7 +5334,8 @@ function toggleGASummaries() {
           currentYear = year;
         }
         
-        // Erstelle Jahreszahl-Zelle (linke Grid-Spalte)
+        // Erstelle Jahreszahl-Zelle (linke Grid-Spalte) - AUSKOMMENTIERT
+        /* 
         const yearCell = document.createElement('div');
         yearCell.className = 'timeline-year-cell';
         yearCell.style.gridColumn = '1';
@@ -5349,11 +5352,13 @@ function toggleGASummaries() {
         }
         
         timelineContainer.appendChild(yearCell);
+        */
         
-        // Erstelle Treffer-Zelle (rechte Grid-Spalte)
+        // Erstelle Treffer-Zelle (jetzt einzige Grid-Spalte)
         const lectureItem = document.createElement('div');
         lectureItem.className = 'timeline-item';
-        lectureItem.style.gridColumn = '2';
+        lectureItem.style.gridColumn = '1'; // Geändert von '2' auf '1'
+        // lectureItem.style.gridColumn = '2'; // Original mit Jahr-Spalte
         lectureItem.style.marginBottom = '0.5rem';
         
         const titleLink = document.createElement('a');
@@ -10816,9 +10821,54 @@ function formatDate(dateStr) {
   }, 300);
 }
 
+// Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
+async function loadFullLecturesForTimeline() {
+  // Wenn bereits geladen, überspringe
+  if (Object.keys(fullLecturesData).length > 0) {
+    console.log('[LECTURES] Bereits geladen:', Object.keys(fullLecturesData).length, 'Vorträge');
+    return fullLecturesData;
+  }
+  
+  console.log('[LECTURES] Lade Vortragsdaten von API...');
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/full-lectures`);
+    if (!response.ok) {
+      throw new Error(`API Fehler: ${response.status}`);
+    }
+    
+    fullLecturesData = await response.json();
+    console.log('[LECTURES] Geladen:', Object.keys(fullLecturesData).length, 'Vorträge');
+    return fullLecturesData;
+    
+  } catch (error) {
+    console.error('[LECTURES] Fehler beim Laden:', error);
+    fullLecturesData = {};
+    return {};
+  }
+}
+
+// Hilfsfunktion: Ermittelt die Reihenfolge der Absatz-Indices für einen Vortrag
+// Gibt ein Array von Indices in der Reihenfolge zurück, wie sie im Text erscheinen
+function getParagraphOrderForLecture(lectureId) {
+  const lecture = fullLecturesData[lectureId];
+  if (!lecture || !lecture.paragraphs || !Array.isArray(lecture.paragraphs)) {
+    console.warn(`[PARAGRAPH_ORDER] Keine Absätze gefunden für ${lectureId}`);
+    return [];
+  }
+  
+  // Extrahiere alle Indices in der Reihenfolge wie sie im paragraphs-Array erscheinen
+  const order = lecture.paragraphs
+    .map(p => (p.index || '').replace(/^\^/, '')) // Entferne ^ prefix
+    .filter(idx => idx); // Nur nicht-leere Indices
+  
+  console.log(`[PARAGRAPH_ORDER] ${lectureId}: ${order.length} Absätze`);
+  return order;
+}
+
 // Hilfsfunktion: Finde die beste Überschrift für einen Absatz-Index
-// Bevorzugt H4 am gleichen Index, dann nächste H3 darüber
-function findBestHeadingForIndex(paragraphIndex, headings) {
+// Verwendet die tatsächliche Absatzreihenfolge aus steiner-full-lectures-...json
+function findBestHeadingForIndex(paragraphIndex, headings, lectureId = null) {
   if (!paragraphIndex || !headings || headings.length === 0) {
     return null;
   }
@@ -10826,7 +10876,7 @@ function findBestHeadingForIndex(paragraphIndex, headings) {
   // Normalisiere den Index (entferne ^)
   const cleanIndex = paragraphIndex.replace(/^\^/, '');
   
-  // Suche zuerst nach H4 mit genau diesem Index
+  // Suche zuerst nach H4 mit genau diesem Index (Überschrift direkt am Absatz)
   const h4Match = headings.find(h => {
     const hIndex = (h.id || h.index || '').replace(/^\^/, '');
     return h.level === 'h4' && hIndex === cleanIndex;
@@ -10837,7 +10887,7 @@ function findBestHeadingForIndex(paragraphIndex, headings) {
     return h4Match.text;
   }
   
-  // Suche nach H3 mit genau diesem Index
+  // Suche nach H3 mit genau diesem Index (Überschrift direkt am Absatz)
   const h3Match = headings.find(h => {
     const hIndex = (h.id || h.index || '').replace(/^\^/, '');
     return h.level === 'h3' && hIndex === cleanIndex;
@@ -10848,43 +10898,98 @@ function findBestHeadingForIndex(paragraphIndex, headings) {
     return h3Match.text;
   }
   
-  // Wenn keine exakte Übereinstimmung: Finde die nächstgelegene Überschrift DARÜBER
-  // Sortiere Überschriften nach Index (numerisch, dann alphabetisch)
+  // NEUE METHODE: Verwende tatsächliche Absatzreihenfolge aus steiner-full-lectures
+  if (lectureId && fullLecturesData[lectureId]) {
+    // Hole die Absatzreihenfolge für diesen Vortrag
+    const paragraphOrder = getParagraphOrderForLecture(lectureId);
+    
+    if (paragraphOrder.length === 0) {
+      console.warn(`[HEADING] Keine Absatzreihenfolge für ${lectureId}`);
+      return null;
+    }
+    
+    // Finde Position des gesuchten Absatzes
+    const targetPosition = paragraphOrder.indexOf(cleanIndex);
+    
+    if (targetPosition === -1) {
+      console.warn(`[HEADING] Index ${cleanIndex} nicht gefunden in ${lectureId}`);
+      return null;
+    }
+    
+    // Erstelle Mapping: Index -> Position im Text
+    const indexToPosition = new Map();
+    paragraphOrder.forEach((idx, pos) => {
+      indexToPosition.set(idx, pos);
+    });
+    
+    // Erweitere Überschriften mit Position-Information
+    const headingsWithPosition = headings
+      .map(h => {
+        const hIndex = (h.id || h.index || '').replace(/^\^/, '');
+        const position = indexToPosition.get(hIndex);
+        return {
+          ...h,
+          cleanIndex: hIndex,
+          position: position !== undefined ? position : -1
+        };
+      })
+      .filter(h => h.position >= 0) // Nur Überschriften mit gültiger Position
+      .filter(h => h.position < targetPosition); // Nur Überschriften VOR dem target
+    
+    if (headingsWithPosition.length === 0) {
+      console.log(`[HEADING] Keine Überschrift vor Position ${targetPosition} für ${cleanIndex}`);
+      return null;
+    }
+    
+    // Sortiere nach Position (aufsteigend)
+    headingsWithPosition.sort((a, b) => a.position - b.position);
+    
+    // Nimm die letzte (= nächstgelegene vor dem target)
+    // Bevorzuge H4 wenn mehrere Überschriften an gleicher Position
+    const lastPosition = headingsWithPosition[headingsWithPosition.length - 1].position;
+    const candidatesAtLastPosition = headingsWithPosition.filter(h => h.position === lastPosition);
+    
+    // Bevorzuge H4 über H3 (spezifischer)
+    const bestHeading = candidatesAtLastPosition.find(h => h.level === 'h4') || candidatesAtLastPosition[0];
+    
+    console.log(`[HEADING] Gefunden für ${cleanIndex} (Position ${targetPosition}): [${bestHeading.level}] ${bestHeading.text} (Position ${bestHeading.position})`);
+    return bestHeading.text;
+  }
+  
+  // FALLBACK: Alte Methode (wenn keine lectureId oder Daten nicht geladen)
+  console.warn(`[HEADING] Fallback-Methode für ${cleanIndex} (keine Vortragsdaten verfügbar)`);
+  
   const sortedHeadings = [...headings]
     .map(h => ({
       ...h,
       cleanIndex: (h.id || h.index || '').replace(/^\^/, '')
     }))
-    .filter(h => h.cleanIndex) // Nur Überschriften mit Index
+    .filter(h => h.cleanIndex)
     .sort((a, b) => {
-      // Versuche numerischen Vergleich
       const numA = parseInt(a.cleanIndex);
       const numB = parseInt(b.cleanIndex);
       
       if (!isNaN(numA) && !isNaN(numB)) {
         if (numA !== numB) return numA - numB;
-        // Bei gleichem Index: H4 vor H3 (spezifischere Überschrift bevorzugen)
-        if (a.level === 'h4' && b.level === 'h3') return 1; // H4 kommt später in Liste
+        if (a.level === 'h4' && b.level === 'h3') return 1;
         if (a.level === 'h3' && b.level === 'h4') return -1;
         return 0;
       }
       
-      // Fallback: lexikographischer Vergleich
       return a.cleanIndex.localeCompare(b.cleanIndex);
     });
   
-  // Finde die letzte Überschrift vor oder bei diesem Index
   let lastHeading = null;
   for (const heading of sortedHeadings) {
     if (heading.cleanIndex <= cleanIndex) {
-      lastHeading = heading; // Nimm die letzte (= nächstgelegene)
+      lastHeading = heading;
     } else {
-      break; // Stoppe wenn wir über den gesuchten Index hinaus sind
+      break;
     }
   }
   
   if (lastHeading) {
-    console.log(`[HEADING] Nächste Überschrift darüber für ${cleanIndex}: [${lastHeading.level}] ${lastHeading.text}`);
+    console.log(`[HEADING] Fallback - Nächste Überschrift für ${cleanIndex}: [${lastHeading.level}] ${lastHeading.text}`);
     return lastHeading.text;
   }
   
@@ -11036,7 +11141,8 @@ async function showTimeline(keyword, clickedButton) {
               // Finde die beste Überschrift für diesen Absatz-Index
               const bestHeading = findBestHeadingForIndex(
                 kw.index, 
-                summaryDB[lecture.lectureId]?.headings || []
+                summaryDB[lecture.lectureId]?.headings || [],
+                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
               );
               
               timelineEntries.push({
@@ -12684,6 +12790,11 @@ async function renderTimelineContent() {
   let html = '';
   
   try {
+    // WICHTIG: Lade zuerst vollständige Vortragsdaten für korrekte Überschriften-Zuordnung
+    console.log('[TIMELINE] Lade Vortragsdaten für Überschriften-Zuordnung...');
+    await loadFullLecturesForTimeline();
+    console.log('[TIMELINE] Vortragsdaten geladen:', Object.keys(fullLecturesData).length, 'Vorträge');
+    
     // Lade Keywords-Datenbank, Cluster und Summary-Database (für Überschriften)
     const keywordsDB = await loadKeywordsDatabase();
     const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
@@ -12721,7 +12832,8 @@ async function renderTimelineContent() {
               // Finde beste Überschrift für diesen Absatz
               const bestHeading = findBestHeadingForIndex(
                 kw.index, 
-                summaryDB[lecture.lectureId]?.headings || []
+                summaryDB[lecture.lectureId]?.headings || [],
+                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
               );
               
               keywordEntries.push({
@@ -12770,7 +12882,8 @@ async function renderTimelineContent() {
               // Finde beste Überschrift für diesen Absatz
               const bestHeading = findBestHeadingForIndex(
                 kw.index, 
-                summaryDB[lecture.lectureId]?.headings || []
+                summaryDB[lecture.lectureId]?.headings || [],
+                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
               );
               
               keywordEntries.push({
@@ -12806,7 +12919,8 @@ async function renderTimelineContent() {
               // Finde beste Überschrift für diesen Absatz
               const bestHeading = findBestHeadingForIndex(
                 kw.index, 
-                summaryDB[lecture.lectureId]?.headings || []
+                summaryDB[lecture.lectureId]?.headings || [],
+                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
               );
               
               keywordEntries.push({
@@ -13062,6 +13176,11 @@ async function showSearchResultsTimelineV2() {
   }
   
   try {
+    // WICHTIG: Lade zuerst vollständige Vortragsdaten für korrekte Überschriften-Zuordnung
+    console.log('[SEARCH-TIMELINE] Lade Vortragsdaten für Überschriften-Zuordnung...');
+    await loadFullLecturesForTimeline();
+    console.log('[SEARCH-TIMELINE] Vortragsdaten geladen:', Object.keys(fullLecturesData).length, 'Vorträge');
+    
     // Lade Summary-Database für Überschriften
     const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
     const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
@@ -13097,7 +13216,11 @@ async function showSearchResultsTimelineV2() {
       // Suchergebnisse haben index direkt im result-Objekt
       if (result.index) {
         // Finde beste Überschrift für diesen Index
-        const bestHeading = findBestHeadingForIndex(result.index, lectureHeadings);
+        const bestHeading = findBestHeadingForIndex(
+          result.index, 
+          lectureHeadings, 
+          result.ID  // NEU: lectureId übergeben für korrekte Positionsermittlung
+        );
         
         timelineEntries.push({
           lectureId: result.ID,
