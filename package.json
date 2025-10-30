@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "start": "node backend.js",
+    "start": "node --max-old-space-size=512 backend.js",
     "export-lectures": "node export-lectures.js",
     "export-lectures:ga": "node export-lectures.js"
   },
