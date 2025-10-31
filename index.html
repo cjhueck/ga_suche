@@ -261,58 +261,40 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       scrollbar-color: #555 transparent;
     }
     
-    .theme-switch {
-      position: relative;
-      display: inline-block;
-      width: 40px;
-      height: 20px;
-    }
-    
-    .theme-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    
-    .theme-slider {
-      position: absolute;
+    .theme-toggle-btn {
+      background: none;
+      border: none;
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ECECEC;
-      transition: 0.3s;
-      border-radius: 24px;
-    }
-    
-    .theme-slider:before {
-      position: absolute;
-      content: "☀️";
-      height: 14px;
-      width: 14px;
-      left: 4px;
-      bottom: 4px;
-      background-color: var(--background-color);
-      transition: 0.3s;
-      border-radius: 50%;
+      padding: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      transition: opacity 0.3s ease;
+      width: 32px;
+      height: 32px;
     }
     
-    input:checked + .theme-slider {
-      background-color: var(--link-color);
+    .theme-toggle-btn:hover {
+      opacity: 0.85;
     }
     
-    input:checked + .theme-slider:before {
-      transform: translateX(18px);
-      content: "🌙";
+    .theme-toggle-btn svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+      /* Light Mode: Teal für Mond-Symbol (var(--link-color) = #467886) */
+      stroke: var(--link-color);
+      fill: none;
+      transition: stroke 0.3s ease, transform 0.3s ease;
     }
     
-    body.dark-mode .theme-slider {
-      background-color: var(--link-color);
+    .theme-toggle-btn:hover svg {
+      transform: scale(1.1);
+    }
+    
+    /* Dark Mode: Helleres Blau für Sonnen-Symbol (var(--dark-link-color) = #63B3ED) */
+    body.dark-mode .theme-toggle-btn svg {
+      stroke: var(--dark-link-color);
     }
     
     #sidebar {
@@ -3312,6 +3294,11 @@ body.dark-mode .lecture-image {
   filter: invert(1);  /* Macht schwarze Linien zu hellgrauen Linien */
 }
 
+/* WebP-Bilder sollen im Dark Mode nicht invertiert werden */
+body.dark-mode .lecture-image[data-format="webp"] {
+  filter: none !important;
+}
+
 /* Popup-Bilder - Light Mode */
 #popupImage {
   background: transparent !important;
@@ -3323,6 +3310,11 @@ body.dark-mode .lecture-image {
 body.dark-mode #popupImage {
   background: transparent !important;
   filter: invert(1);
+}
+
+/* Popup: WebP-Bilder sollen im Dark Mode nicht invertiert werden */
+body.dark-mode #popupImage[data-format="webp"] {
+  filter: none !important;
 }
 
 /* Popup-Hintergrund - Light Mode */
@@ -3351,19 +3343,16 @@ body.dark-mode #popupCaption {
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="site-header-flex">
-<img src="steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
-<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
+<img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
+<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<div style="display: flex; align-items: center; gap: 0.15rem;">
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
 <i data-lucide="database"></i>
 </button>
-<label class="theme-switch">
-<input id="theme-checkbox" onchange="toggleThemeCheckbox()" type="checkbox"/>
-<span class="theme-slider"></span>
-</label>
-</div>
+<button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
+<i id="theme-icon" data-lucide="moon"></i>
+</button>
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
 <i data-lucide="info"></i>
 </button>
@@ -4272,17 +4261,32 @@ function normalizeGANumber(gaNumber) {
 
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'light';
-      const checkbox = document.getElementById('theme-checkbox');
       if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
-        if (checkbox) checkbox.checked = true;
       }
+      updateThemeIcon();
     }
 
-    function toggleThemeCheckbox() {
+    function toggleTheme() {
       document.body.classList.toggle('dark-mode');
       const isDark = document.body.classList.contains('dark-mode');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeIcon();
+    }
+    
+    function updateThemeIcon() {
+      const themeIcon = document.getElementById('theme-icon');
+      if (!themeIcon) return;
+      
+      const isDark = document.body.classList.contains('dark-mode');
+      // Im Dark Mode: Sonne anzeigen (um zu Light zu wechseln)
+      // Im Light Mode: Mond anzeigen (um zu Dark zu wechseln)
+      themeIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+      
+      // Lucide Icons neu rendern
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
     }
 
     function populateYearFilter() {
@@ -4356,13 +4360,16 @@ function normalizeGANumber(gaNumber) {
         // Prüfe, ob es eine Tafelzeichnung ist (WebP oder T-Nummer im Dateinamen)
         const isBlackboardDrawing = img.path.includes('.webp') || /T\d+\./.test(img.path) || img.altText.includes('-T');
         
+        // Prüfe, ob es ein WebP-Bild ist
+        const isWebP = img.path.toLowerCase().includes('.webp');
+        
         // Erstelle img-Tag mit Base64-Daten (klickbar für Popup)
         // Tafelzeichnungen werden in voller Breite angezeigt
         const imgStyle = isBlackboardDrawing
           ? "width: 100%; height: auto; display: block; margin: 1rem 0; cursor: pointer;"
           : "max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem; cursor: pointer;";
         
-        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" style="${imgStyle}" onclick="openImagePopup('${img.base64}', '${img.altText}')" />`;
+        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" ${isWebP ? 'data-format="webp"' : ''} style="${imgStyle}" />`;
         
         // Escape special regex characters
         const escapedRef = markdownRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -4381,13 +4388,21 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Bild-Popup-Funktion
-    function openImagePopup(imageSrc, altText) {
+    function openImagePopup(imageSrc, altText, dataFormat) {
       const popup = document.getElementById('imagePopup');
       const popupImg = document.getElementById('popupImage');
       const popupCaption = document.getElementById('popupCaption');
       
       popupImg.src = imageSrc;
       popupCaption.textContent = altText;
+      
+      // Übertrage data-format Attribut für WebP-Erkennung im Dark Mode
+      if (dataFormat) {
+        popupImg.setAttribute('data-format', dataFormat);
+      } else {
+        popupImg.removeAttribute('data-format');
+      }
+      
       popup.style.display = 'flex';
       
       // Schließen bei Klick außerhalb des Bildes
@@ -4406,7 +4421,7 @@ function normalizeGANumber(gaNumber) {
     // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
     document.addEventListener('click', function(e) {
       if (e.target.classList.contains('lecture-image')) {
-        openImagePopup(e.target.src, e.target.alt);
+        openImagePopup(e.target.src, e.target.alt, e.target.getAttribute('data-format'));
       }
     });
 
@@ -16380,7 +16395,7 @@ async function addKeywordToLecture() {
     
     <!-- Bild von Rudolf Steiner -->
     <div style="float: right; margin: 0 0 1rem 1.5rem;">
-      <img src="steiner-logo.jpg" alt="Rudolf Steiner" style="width: 120px; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" style="width: 120px; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     </div>
     
     <!-- Zitat-Inhalt -->
