@@ -21,6 +21,8 @@ def encode_image_to_base64(image_path):
             mime_type = 'image/png'
         elif image_path.lower().endswith(('.jpg', '.jpeg')):
             mime_type = 'image/jpeg'
+        elif image_path.lower().endswith('.webp'):
+            mime_type = 'image/webp'
         else:
             mime_type = 'image/png'  # Default
         
@@ -69,8 +71,11 @@ def extract_images_from_lectures(lectures_files, assets_base_dir):
                         # Dekodiere URL-encoding
                         img_path_decoded = img_path.replace('%20', ' ')
                         
-                        # Versuche PNG-Version zu finden
-                        png_path = re.sub(r'\.(jpe?g)$', '.png', img_path_decoded, flags=re.IGNORECASE)
+                        # Versuche PNG-Version zu finden, falls WebP, dann WebP behalten
+                        if img_path_decoded.lower().endswith('.webp'):
+                            final_path = img_path_decoded  # WebP bleibt WebP
+                        else:
+                            final_path = re.sub(r'\.(jpe?g)$', '.png', img_path_decoded, flags=re.IGNORECASE)
                         
                         # Extrahiere GA-Nummer und finde tatsächlichen Ordnernamen
                         ga_number = lecture_id.split('/')[0]
@@ -87,43 +92,58 @@ def extract_images_from_lectures(lectures_files, assets_base_dir):
                             ga_title = lecture.get('gaTitle', '').split('(')[0].strip()
                             ga_folder = f"{ga_number}-{ga_title}"
                         
-                        # Entferne "assets/" aus png_path, falls vorhanden
-                        png_filename = png_path.replace('assets/', '')
+                        # Entferne "assets/" aus final_path, falls vorhanden
+                        final_filename = final_path.replace('assets/', '')
                         
                         # Konstruiere vollständigen Pfad: Steiner_GA/GA089-Bewusstsein Leben Form/assets/...
-                        full_png_path = os.path.join(
+                        full_image_path = os.path.join(
                             assets_base_dir,  # Das ist jetzt steiner_ga_dir
                             ga_folder,
                             'assets',  # Füge assets-Ordner hinzu
-                            png_filename
+                            final_filename
                         )
                         
                         # DEBUG: Zeige konstruierten Pfad für GA089
-                        if 'GA089' in lecture_id and 'img-0' in png_path:
+                        if 'GA089' in lecture_id and 'img-0' in final_path:
                             print(f"\n  === DEBUG für GA089/img-0 ===")
                             print(f"  img_path (original): {img_path}")
-                            print(f"  png_path: {png_path}")
-                            print(f"  png_filename: {png_filename}")
+                            print(f"  final_path: {final_path}")
+                            print(f"  final_filename: {final_filename}")
                             print(f"  ga_folder: {ga_folder}")
                             print(f"  assets_base_dir: {assets_base_dir}")
-                            print(f"  full_png_path: {full_png_path}")
-                            print(f"  exists: {os.path.exists(full_png_path)}")
+                            print(f"  full_image_path: {full_image_path}")
+                            print(f"  exists: {os.path.exists(full_image_path)}")
                             print(f"  ===========================\n")
                         
-                        if os.path.exists(full_png_path):
+                        # Falls PNG nicht existiert, versuche WebP als Alternative (Tafelzeichnungen)
+                        if not os.path.exists(full_image_path):
+                            # Versuche WebP-Version
+                            webp_path = re.sub(r'\.(png|jpe?g)$', '.webp', final_path, flags=re.IGNORECASE)
+                            webp_filename = webp_path.replace('assets/', '')
+                            full_webp_path = os.path.join(
+                                assets_base_dir,
+                                ga_folder,
+                                'assets',
+                                webp_filename
+                            )
+                            if os.path.exists(full_webp_path):
+                                full_image_path = full_webp_path
+                                final_path = webp_path
+                        
+                        if os.path.exists(full_image_path):
                             print(f"  OK {lecture_id} - {alt_text}")
                             
                             try:
                                 # Encodiere Bild
-                                base64_str, file_size = encode_image_to_base64(full_png_path)
+                                base64_str, file_size = encode_image_to_base64(full_image_path)
                                 
                                 # Erstelle Eintrag
-                                # WICHTIG: altText und markdownRef behalten ORIGINAL (aus Text, mit .jpeg)
-                                # path enthält .png (für tatsächliche Datei)
+                                # WICHTIG: altText und markdownRef behalten ORIGINAL (aus Text)
+                                # path enthält den finalen Pfad (PNG oder WebP)
                                 image_entry = {
                                     'index': para_index,
                                     'altText': alt_text,  # Original aus Text
-                                    'path': png_path,  # PNG-Pfad für die Datei
+                                    'path': final_path,  # Finaler Pfad (PNG oder WebP)
                                     'markdownRef': f"![{alt_text}]({img_path})",  # Original-Referenz aus Text!
                                     'base64': base64_str,
                                     'size': file_size
@@ -140,7 +160,7 @@ def extract_images_from_lectures(lectures_files, assets_base_dir):
                                 print(f"  X Fehler beim Encodieren: {e}")
                                 total_not_found += 1
                         else:
-                            print(f"  X PNG nicht gefunden: {lecture_id} - {png_path}")
+                            print(f"  X Bild nicht gefunden: {lecture_id} - {final_path}")
                             total_not_found += 1
     
     return images_data, total_found, total_encoded, total_not_found
