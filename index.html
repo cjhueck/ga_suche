@@ -10409,6 +10409,13 @@ function displayKeywordThematicResults(keyword, data) {
     countContainer.textContent = '';
   }
   
+  // WICHTIG: Scrolle Ergebnisfenster immer nach oben bei neuem Schlagwort
+  const mainContainer = document.getElementById('main');
+  if (mainContainer) {
+    mainContainer.scrollTop = 0;
+    console.log('[KEYWORD-THEMATIC] Ergebnisfenster nach oben gescrollt');
+  }
+  
   console.log('[KEYWORD-THEMATIC] Ergebnisse angezeigt für:', keyword);
 }
 
