@@ -3574,10 +3574,9 @@ Lade Statistiken...
 </div>
 
 <div class="tab-content" id="schlagworte-tab">
-<div style="max-height: 100px; max-width: 800px; overflow-y: auto; margin-bottom: 1rem; padding: 0.5rem; border-bottom: 1px solid var(--border-color);">
 <!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
-<div id="addKeywordSection" style="display:none;">
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.8rem;">
+<div id="addKeywordSection" style="display:none; margin-bottom: 0.8rem;">
+<div style="display: flex; gap: 8px; align-items: center;">
 <input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleKeywordInputKeypress(event)">
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
@@ -3585,8 +3584,8 @@ Lade Statistiken...
 </div>
 
 <!-- Schlagwort löschen (nur lokal sichtbar) -->
-<div id="regenerateKeywordSection" style="display:none;">
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 1.0rem;">
+<div id="regenerateKeywordSection" style="display:none; margin-bottom: 0.8rem;">
+<div style="display: flex; gap: 8px; align-items: center;">
 <input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort löschen..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleDeleteKeywordInputKeypress(event)">
 <button id="regenerateKeywordButton" class="depth-btn" onclick="deleteKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort löschen</button>
 </div>
@@ -3594,8 +3593,8 @@ Lade Statistiken...
 </div>
 
 <!-- Batch-Schlagwort-Generierung (nur lokal sichtbar) -->
-<div id="batchKeywordSection" style="display:none;">
-<div style="margin-bottom: 1.0rem;">
+<div id="batchKeywordSection" style="display:none; margin-bottom: 0.8rem;">
+<div>
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
 <h4 style="margin: 0; color: var(--heading-color);">Batch-Schlagwort-Generierung</h4>
 <button id="batchToggleButton" class="depth-btn" onclick="toggleBatchSection()" style="padding: 4px 8px; font-size: 0.75em; background: #666; color: white;">Ausblenden</button>
@@ -3644,7 +3643,7 @@ Bestehende Schlagwörter überschreiben
 
 <!-- Keyword-Konsolidierung wurde in Timeline-Tab verschoben -->
 
-<div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem;">
+<div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
 <!-- Alphabet-Buttons werden dynamisch generiert -->
 </div>
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
@@ -3652,7 +3651,6 @@ Bestehende Schlagwörter überschreiben
 <button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
 </div>
 <!-- removed keyword-count status line -->
-</div>
 </div>
 
 <div class="tab-content" id="keywords-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
