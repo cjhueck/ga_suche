@@ -1554,15 +1554,16 @@ body.dark-mode #thematicSearchInfo {
     
     /* ONLINE Version: Original und Übersicht übereinander */
     body.online-mode .viewer-buttons-container {
-      flex-direction: column;
+      flex-direction: column-reverse; /* Umgekehrte Reihenfolge: Übersicht oben, Original unten */
       align-items: flex-end;
     }
     
-    /* LOKALE Version: Zwei Zeilen mit Umbruch */
+    /* LOKALE Version: Grid mit 3 Buttons pro Zeile */
     body.local-mode .viewer-buttons-container {
-      flex-wrap: wrap;
-      max-width: 300px; /* Erzwingt Umbruch nach 3 Buttons */
-      justify-content: flex-end;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 8px;
+      justify-content: end;
     }
     
     /* Ensure buttons always stay on the right */
