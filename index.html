@@ -3755,6 +3755,9 @@ Original
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
+<button id="viewerTOCToggleBtn" onclick="toggleTOCContent()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+▼
+</button>
 <!-- NEUE 3-BUTTON ARCHITEKTUR für einzelnen Vortrag -->
 <button id="viewerStructureBtn" onclick="generateCurrentStructure()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; border: 1px solid var(--accent-color);">
 S&H&C
@@ -5668,6 +5671,16 @@ function toggleGASummaries() {
     viewerSummaryBtn.style.display = 'inline-block';
   }
 
+  // TOC-Toggle Button - nur lokal verfügbar und nur in Übersicht-Ansicht
+  const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
+  if (viewerTOCToggleBtn) {
+    if (currentLectureData && isLocal && showingSummaryInMain) {
+      viewerTOCToggleBtn.style.display = 'inline-block';
+    } else {
+      viewerTOCToggleBtn.style.display = 'none';
+    }
+  }
+
   // NEUE 3-BUTTON ARCHITEKTUR - nur lokal verfügbar
   const viewerStructureBtn = document.getElementById('viewerStructureBtn');
   const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
@@ -6019,14 +6032,14 @@ try {
       const viewer = document.getElementById('viewer');
       if (!viewer) return;
       
-      const tocList = viewer.querySelector('.toc-content-list');
-      const tocButton = event.target;
+      const tocSection = viewer.querySelector('.lecture-toc-section');
+      const tocButton = document.getElementById('viewerTOCToggleBtn');
       
-      if (tocList) {
-        const isHidden = tocList.style.display === 'none';
-        tocList.style.display = isHidden ? 'block' : 'none';
+      if (tocSection) {
+        const isHidden = tocSection.style.display === 'none';
+        tocSection.style.display = isHidden ? 'block' : 'none';
         
-        // Ändere Button-Symbol
+        // Ändere Button-Symbol im Header (nur Symbol, kein Text)
         if (tocButton) {
           tocButton.textContent = isHidden ? '▲' : '▼';
         }
@@ -6282,11 +6295,16 @@ setTimeout(() => {
   
   // Buttons zurücksetzen
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
   
   if (viewerSummaryBtn) {
     viewerSummaryBtn.disabled = false;
     viewerSummaryBtn.innerHTML = '≡ Übersicht';
     viewerSummaryBtn.style.opacity = '1';
+  }
+  // TOC-Toggle-Button ausblenden in Original-Ansicht
+  if (viewerTOCToggleBtn) {
+    viewerTOCToggleBtn.style.display = 'none';
   }
   
   const currentWord1 = document.getElementById('word1').value.trim();
@@ -6346,6 +6364,7 @@ function showSummaryView() {
   setTimeout(() => {
     const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
     const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+    const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
     
     if (viewerOriginalBtn) {
       viewerOriginalBtn.style.display = 'inline-block';
@@ -6355,6 +6374,10 @@ function showSummaryView() {
       viewerSummaryBtn.disabled = false;
       viewerSummaryBtn.innerHTML = '≡ Übersicht';
       viewerSummaryBtn.style.opacity = '1';
+    }
+    // TOC-Toggle-Button anzeigen (nur lokal)
+    if (viewerTOCToggleBtn && isLocal) {
+      viewerTOCToggleBtn.style.display = 'inline-block';
     }
     
     // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
@@ -8387,14 +8410,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       if (summaryObj && summaryObj.tableOfContents && summaryObj.tableOfContents.length > 0) {
         console.log('[TOC] Using V2 tableOfContents from summary-database:', summaryObj.tableOfContents.length, 'entries');
         
-        let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
-        html += '<p style="margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">';
+        let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0; display: none;">';
+        html += '<p style="margin: 0 0 0.8rem 0;">';
         html += '<strong>Inhaltsverzeichnis</strong>';
-        // Toggle-Button
-        html += '<button onclick="toggleTOCContent()" style="padding: 2px 8px; font-size: 0.8em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;">▼</button>';
         html += '</p>';
-        // TOC-Inhalt standardmäßig ausgeblendet
-        html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0; display: none;">`;
+        // TOC-Inhalt
+        html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0;">`;
         
         summaryObj.tableOfContents.forEach((entry, index) => {
           html += `
@@ -8425,16 +8446,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
       console.log('[TOC] Fallback: Building Inhalt from', summaryH3s.length, 'summary H3 headings');
 
-      let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0;">';
+      let html = '<div class="lecture-toc-section" style="margin: 1.5rem 0 1rem 0; display: none;">';
       
-      html += '<p style="margin: 0 0 0.8rem 0; display: flex; align-items: center; gap: 8px;">';
+      html += '<p style="margin: 0 0 0.8rem 0;">';
       html += '<strong>Inhaltsverzeichnis</strong>';
-      // Toggle-Button (nur lokal verfügbar, da gesamtes TOC nur lokal ist)
-      html += '<button onclick="toggleTOCContent()" style="padding: 2px 8px; font-size: 0.8em; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); border-radius: 3px; cursor: pointer;">▼</button>';
       html += '</p>';
       
-      // TOC-Inhalt standardmäßig ausgeblendet
-      html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0; display: none;">`;
+      // TOC-Inhalt
+      html += `<ul class="toc-content-list" style="list-style: none; padding: 0; margin: 0;">`;
       
       summaryH3s.forEach((summaryH3, index) => {
         const headingText = summaryH3.text || summaryH3.title || '';
