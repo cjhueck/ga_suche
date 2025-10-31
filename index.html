@@ -27,7 +27,7 @@
       --dark-secondary-text: #999;     /* Sekundärer Text */
       
       /* Zentrale Textgrößen */
-      --text-size: 1.0rem;             /* Einheitliche Textgröße für alle Bereiche */
+      --text-size: 0.9rem;             /* Einheitliche Textgröße für alle Bereiche */
       --heading-size: 1.0rem;           /* Überschriften-Größe */
       --line-height: 1.3;               /* Zeilenabstand */
       --paragraph-margin: 0.5rem;      /* Absatz-Abstände */
@@ -3404,7 +3404,7 @@ body.dark-mode #popupCaption {
 </div>
 </div>
 <div style="display:flex; gap:8px; align-items:center; justify-content: flex-end; margin-top: 0.5rem;">
-  <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: 126px; box-sizing: border-box;">
+  <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: auto; box-sizing: border-box;">
     <span id="viewToggleText">nur Titel</span>
   </button>
   <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: auto; box-sizing: border-box;">
@@ -4204,6 +4204,15 @@ function normalizeGANumber(gaNumber) {
       
       // currentOpenLectureId zurücksetzen
       window.currentOpenLectureId = null;
+      
+      // Verstecke Toggle-Button und Timeline-Button beim Tab-Wechsel zum Suche-Tab
+      if (mode === 'keyword') {
+        const viewToggle = document.getElementById('viewToggle');
+        if (viewToggle) viewToggle.style.display = 'none';
+        
+        const timelineBtn = document.getElementById('showTimelineBtn');
+        if (timelineBtn) timelineBtn.style.display = 'none';
+      }
       
       // Header-Position aktualisieren
       if (typeof updateHeaderPosition === 'function') {
@@ -5009,7 +5018,7 @@ async function displayGAOverview(data) {
         
         ${lecture.shortSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; line-height: 1.4; font-size: 0.9em; color: #666; font-style: italic;">
+            <p style="margin: 0; line-height: var(--line-height); font-size: var(--text-size); color: #666; font-style: italic;">
               ${lecture.shortSummary}
             </p>
           </div>
@@ -9856,6 +9865,20 @@ function switchTabExtended(mode) {
     }
   }
 
+  // Wenn wir zum Keyword/Suche-Tab wechseln, verstecke die Toggle-Buttons
+  if (mode === 'keyword') {
+    const viewToggle = document.getElementById('viewToggle');
+    if (viewToggle) {
+      viewToggle.style.display = 'none';
+      console.log('[TABS] viewToggle Button versteckt');
+    }
+    const timelineBtn = document.getElementById('showTimelineBtn');
+    if (timelineBtn) {
+      timelineBtn.style.display = 'none';
+      console.log('[TABS] Timeline Button versteckt');
+    }
+  }
+  
   // Wenn wir zum Texte-Tab wechseln, setze das Dropdown zurück
   if (mode === 'texte') {
     const texteGAFilter = document.getElementById('texteGAFilter');
