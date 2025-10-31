@@ -1555,7 +1555,12 @@ body.dark-mode #thematicSearchInfo {
     /* ONLINE Version: Original und Übersicht übereinander */
     body.online-mode .viewer-buttons-container {
       flex-direction: column-reverse; /* Umgekehrte Reihenfolge: Übersicht oben, Original unten */
-      align-items: flex-end;
+      align-items: stretch; /* Buttons nehmen volle Breite ein */
+    }
+    
+    /* Buttons in Online-Version: gleiche Breite */
+    body.online-mode .viewer-buttons-container button {
+      width: 100%;
     }
     
     /* LOKALE Version: Grid mit 3 Buttons pro Zeile */
