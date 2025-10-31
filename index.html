@@ -4036,7 +4036,11 @@ function normalizeGANumber(gaNumber) {
           const mainContainer = document.getElementById('main-container');
           setTimeout(() => {
             const headerHeight = header.offsetHeight;
-            summaryPanel.style.top = headerHeight + 'px';
+            
+            // Summary Panel beginnt direkt unter dem Header (ohne margin-bottom)
+            // Das margin-bottom ist nur für den Main-Content gedacht
+            // -1px für perfekte Ausrichtung (border-Überlappung)
+            summaryPanel.style.top = (headerHeight - 1) + 'px';
             
             // Main-Container Margin anpassen je nach Panel-Sichtbarkeit
             if (mainContainer) {
