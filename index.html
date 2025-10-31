@@ -1546,10 +1546,13 @@ body.dark-mode #thematicSearchInfo {
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-left: auto;
       flex-shrink: 0;
       align-items: center;
+      max-width: 400px; /* Begrenzt die Breite, damit Buttons umbrechen */
+      justify-content: flex-end;
     }
     
     /* Ensure buttons always stay on the right */
