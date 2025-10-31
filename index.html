@@ -1546,12 +1546,22 @@ body.dark-mode #thematicSearchInfo {
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
       margin-left: auto;
       flex-shrink: 0;
       align-items: center;
-      max-width: 400px; /* Begrenzt die Breite, damit Buttons umbrechen */
+    }
+    
+    /* ONLINE Version: Original und Übersicht übereinander */
+    body.online-mode .viewer-buttons-container {
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    
+    /* LOKALE Version: Zwei Zeilen mit Umbruch */
+    body.local-mode .viewer-buttons-container {
+      flex-wrap: wrap;
+      max-width: 300px; /* Erzwingt Umbruch nach 3 Buttons */
       justify-content: flex-end;
     }
     
@@ -3807,6 +3817,13 @@ S&H&C&K
     const isLocal = window.location.hostname === 'localhost' || 
                     window.location.hostname === '127.0.0.1' ||
                     window.location.protocol === 'file:';
+    
+    // Setze Body-Klasse für CSS-Styling
+    if (isLocal) {
+      document.body.classList.add('local-mode');
+    } else {
+      document.body.classList.add('online-mode');
+    }
     
     const API_BASE = isLocal
       ? 'http://localhost:3003'
