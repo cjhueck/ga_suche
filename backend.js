@@ -4995,9 +4995,10 @@ async function saveKeywordThematicDatabase(keywordThematicDB) {
 }
 
 // API-Endpunkt: Batch-Schlagwort-Generierung
+// Verarbeitet bis zu 5 Schlagwörter parallel
 app.post('/api/concepts-batch-add', async (req, res) => {
   try {
-    const { keywords, overwrite = false, batchId = null } = req.body;
+    const { keywords, overwrite = false, batchId = null, concurrency = 5 } = req.body;
     
     if (!keywords || !Array.isArray(keywords) || keywords.length === 0) {
       return res.status(400).json({ 
@@ -5006,7 +5007,10 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       });
     }
     
-    console.log(`[KEYWORDS-BATCH-ADD] Starte parallele Batch-Verarbeitung für ${keywords.length} Schlagwörter (Concurrency: 5)`);
+    // Maximale Concurrency: 5 (um API Rate Limits zu vermeiden)
+    const effectiveConcurrency = Math.min(concurrency, 5);
+    
+    console.log(`[KEYWORDS-BATCH-ADD] Starte parallele Batch-Verarbeitung für ${keywords.length} Schlagwörter (Concurrency: ${effectiveConcurrency})`);
     
     const results = {
       batchId: batchId || `batch_${Date.now()}`,
@@ -5071,8 +5075,8 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         };
       }
       
-      // Generiere KI-Analyse
-      const analysis = await generateKeywordAnalysis(trimmedKeyword, keywordResults, 'ausführlich');
+      // Generiere KI-Analyse mit CONCEPT-spezifischem Prompt
+      const analysis = await generateConceptAnalysis(trimmedKeyword, keywordResults);
       
       // Erstelle neues Concept-Objekt mit vollständigem Text
       const newConcept = {
@@ -5087,6 +5091,7 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         })),
         gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
         source: 'ki-generated-batch',
+        promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
         generatedAt: new Date().toISOString(),
         totalMatches: keywordResults.length,
         batchId: results.batchId,
@@ -5106,11 +5111,13 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       };
     };
     
-    // Verarbeite alle Schlagwörter parallel (max 5 gleichzeitig, 200ms Verzögerung zwischen Starts)
+    // Verarbeite alle Schlagwörter parallel
+    // Concurrency: 5 = Bis zu 5 API-Anfragen gleichzeitig
+    // Delay: 200ms = Verzögerung zwischen Starts (Rate-Limit-Schutz)
     const batchResults = await processBatchWithConcurrency(
       keywords,
       processKeyword,
-      5,  // Concurrency Limit
+      effectiveConcurrency,  // Concurrency Limit (max 5)
       200 // Delay zwischen Starts in ms
     );
     
@@ -5161,6 +5168,7 @@ app.post('/api/concepts-batch-add', async (req, res) => {
     res.json({
       success: true,
       message: `Batch-Verarbeitung abgeschlossen: ${results.successful.length}/${results.totalKeywords} Schlagwörter erfolgreich`,
+      concurrency: effectiveConcurrency,
       results: results
     });
     
@@ -5221,8 +5229,8 @@ app.post('/api/concepts-add', async (req, res) => {
       });
     }
     
-    // Generiere KI-Analyse
-    const analysis = await generateKeywordAnalysis(cleanKeyword, keywordResults, 'ausführlich');
+    // Generiere KI-Analyse mit CONCEPT-spezifischem Prompt
+    const analysis = await generateConceptAnalysis(cleanKeyword, keywordResults);
     
     // Erstelle neues Schlagwort-Objekt mit vollständigem Text und Sources
     const conceptsFile = path.join(__dirname, 'concepts-database.json');
@@ -5239,6 +5247,7 @@ app.post('/api/concepts-add', async (req, res) => {
       })),
       gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
       source: 'ki-generated',
+      promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
       generatedAt: new Date().toISOString(),
       totalMatches: keywordResults.length
     };
@@ -11608,6 +11617,11 @@ async function synchronizeKeywordSystems() {
 }
 
 // Generiere Keyword-spezifische Analyse
+// ============================================================================
+// KEYWORD ANALYSIS - Für Thematische Suchen (Tab Themen)
+// ============================================================================
+// Hinweis: Für Concept-Einträge (Tab Index) wird generateConceptAnalysis verwendet!
+
 async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
   console.log('generateKeywordAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
@@ -11701,7 +11715,139 @@ ANALYSE:`;
   }
 }
 
-// Fallback-Analyse für Keywords
+// ============================================================================
+// CONCEPT ANALYSIS - Speziell für Index-Tab Einträge
+// ============================================================================
+
+async function generateConceptAnalysis(query, results) {
+  console.log('generateConceptAnalysis aufgerufen für:', query, '| Results:', results.length);
+  
+  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  let provider;
+  try {
+    provider = getProviderForTask('analysis');
+  } catch (error) {
+    console.log('[CONCEPT-ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
+    return generateFallbackConceptAnalysis(query, results);
+  }
+  
+  const topResults = results;  // Verwende alle übergebenen Ergebnisse
+
+  console.log('=== DEBUG topResults (Concept) ===');
+  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
+    ID: r.ID, 
+    index: r.index,
+    fileName: r.fileName 
+  })), null, 2));
+  
+  const contextText = topResults
+    .map((result, index) => {
+      const refId = `${result.ID}:${result.index}`;
+      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+    })
+    .join('\n\n---\n\n');
+    
+  const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
+  
+  console.log(`Concept-Generierung: ${topResults.length} Textstellen für "${query}"`);
+
+  const prompt = `Erstelle einen prägnanten Lexikon-Eintrag zum Begriff: "${query}"
+
+🚨 KRITISCHE REGEL - KEINE META-SPRACHE:
+❌ NIEMALS: "Rudolf Steiner beschreibt...", "Steiner erklärt...", "Im Vortrag wird..."
+❌ NIEMALS: "Nach Steiner...", "Steiner sagt...", "Der Text behandelt..."
+❌ NIEMALS: Extra-Überschrift mit dem Begriff selbst
+❌ NIEMALS: Einleitende Zusammenfassung wie "Der Begriff XY bezeichnet..."
+
+✅ RICHTIG: Beginne DIREKT mit den inhaltlichen Aussagen
+✅ RICHTIG: Schreibe wie in einem Lexikon - sachlich, direkt, über die Sache selbst
+
+BEISPIEL FALSCH: 
+"**Karma**
+Rudolf Steiner beschreibt Karma als..."
+
+BEISPIEL RICHTIG:
+"Das Gesetz von Ursache und Wirkung durchzieht alle Inkarnationen..." (GA120/5:abc123)
+
+---
+
+VORGEHEN:
+
+1. FINDE alle Textstellen zu "${query}" in den folgenden Passagen
+
+2. IDENTIFIZIERE relevante Textstellen mit inhaltlichen Aussagen über "${query}"
+   - Fokus auf Definitionen, Eigenschaften, Funktionen, Zusammenhänge
+   - Überspringe bloße Erwähnungen ohne Erklärung
+
+3. INHALTLICHES DEDUPE - Schließe ähnliche Aussagen aus
+   - Wenn mehrere Stellen das Gleiche sagen: Wähle die prägnanteste
+   - Vermeide Wiederholungen des gleichen Gedankens
+
+4. ZUSAMMENFASSENDE DARSTELLUNG:
+
+   ❌ KEINE extra Überschrift (nicht "**${query}**" oder "## ${query}")
+   ❌ KEINE einleitende Zusammenfassung
+   ❌ KEINE Meta-Sprache (siehe oben)
+   
+   ✅ Beginne DIREKT mit der ersten inhaltlichen Aussage
+   ✅ Bei längeren Darstellungen: Gliedere mit #### Zwischenüberschriften (OHNE Nummerierung)
+   ✅ Verwende direkte Zitate in "Anführungszeichen" mit Quellenangaben
+   ✅ Zitate dürfen gekürzt sein (mit ...)
+   ✅ Minimaler erläuternder Text - nur zur Verbindung der Zitate
+   ✅ Schreibe sachlich wie in einem Lexikon - DIREKT über die Sache
+
+5. QUELLENLINKS am Ende:
+   - Liste NUR weitere RELEVANTE Quellen auf (zusätzlich zu den bereits zitierten)
+   - Format: "**Weitere Quellen:** GA###/Y:index, GA###/Y:index, ..."
+   - WICHTIG: OHNE Klammern um die einzelnen Quellenangaben!
+   - Nur wenn es tatsächlich weitere relevante Quellen gibt
+
+FORMATIERUNG:
+- **Fette wenige, wichtige Wörter** (sparsam einsetzen)
+- Zitate: "Text" (GA###/Y:index) oder "Text" (GA###a/Y:index)
+- Zwischenüberschriften: #### Überschrift (ohne Nummerierung)
+- KEINE Leerzeichen um Klammern bei Quellenangaben
+
+QUELLENANGABEN:
+- Format: (GA###/Y:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- Verfügbare Referenzen: ${availableRefs}
+
+TEXTPASSAGEN ZU "${query}":
+${contextText}
+
+LEXIKON-EINTRAG (beginne DIREKT mit Inhalt, OHNE Überschrift):`;
+
+  try {
+    console.log(`[CONCEPT-ANALYSIS] Rufe ${provider.name} API auf...`);
+    
+    const analysisText = await provider.generateCompletion(prompt, {
+      maxTokens: 8000,
+      temperature: 0.7
+    });
+    
+    console.log(`[CONCEPT-ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
+    
+    return analysisText.trim();
+    
+  } catch (error) {
+    console.error(`[CONCEPT-ANALYSIS] ${provider.name} API Fehler:`, error.message);
+    return generateFallbackConceptAnalysis(query, results);
+  }
+}
+
+// Fallback-Analyse für Concepts
+function generateFallbackConceptAnalysis(query, results) {
+  return `Automatische Analyse nicht verfügbar (kein API-Schlüssel konfiguriert). 
+
+Gefundene Textstellen: ${results.length}
+
+Für eine detaillierte KI-Analyse des Begriffs "${query}" benötigt das System einen API-Schlüssel in der .env Datei.
+
+**Verfügbare Quellen:**
+${results.slice(0, 10).map(r => `(${r.ID}:${r.index})`).join(', ')}`;
+}
+
+// Fallback-Analyse für Keywords (Themensuche)
 function generateFallbackKeywordAnalysis(query, results) {
   const displayTitle = `Schlagwort: ${query}`;
   
