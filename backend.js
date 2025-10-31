@@ -11731,7 +11731,14 @@ async function generateConceptAnalysis(query, results) {
     return generateFallbackConceptAnalysis(query, results);
   }
   
-  const topResults = results;  // Verwende alle übergebenen Ergebnisse
+  // WICHTIG: Begrenze auf maximal 40 Textstellen um Token-Limit nicht zu überschreiten
+  // Claude hat ein Maximum von 200k Tokens (~150k Wörter)
+  const MAX_RESULTS = 40;
+  const topResults = results.slice(0, MAX_RESULTS);
+  
+  if (results.length > MAX_RESULTS) {
+    console.log(`[CONCEPT-ANALYSIS] ⚠️ Begrenze von ${results.length} auf ${MAX_RESULTS} Textstellen (Token-Limit)`);
+  }
 
   console.log('=== DEBUG topResults (Concept) ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -11749,7 +11756,7 @@ async function generateConceptAnalysis(query, results) {
     
   const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
   
-  console.log(`Concept-Generierung: ${topResults.length} Textstellen für "${query}"`);
+  console.log(`Concept-Generierung: ${topResults.length} Textstellen für "${query}" (von ${results.length} gefunden)`);
 
   const prompt = `Erstelle einen prägnanten Lexikon-Eintrag zum Begriff: "${query}"
 
@@ -11831,12 +11838,28 @@ LEXIKON-EINTRAG (beginne DIREKT mit Inhalt, OHNE Überschrift):`;
     
   } catch (error) {
     console.error(`[CONCEPT-ANALYSIS] ${provider.name} API Fehler:`, error.message);
+    
+    // Prüfe ob es ein Token-Limit-Fehler war
+    if (error.message.includes('too long') || error.message.includes('maximum')) {
+      console.error(`[CONCEPT-ANALYSIS] ⚠️ Token-Limit überschritten trotz Begrenzung auf ${topResults.length} Textstellen`);
+      return generateFallbackConceptAnalysis(query, results, 'token-limit');
+    }
+    
     return generateFallbackConceptAnalysis(query, results);
   }
 }
 
 // Fallback-Analyse für Concepts
-function generateFallbackConceptAnalysis(query, results) {
+function generateFallbackConceptAnalysis(query, results, reason = 'no-api-key') {
+  if (reason === 'token-limit') {
+    return `⚠️ Der Begriff "${query}" kommt zu häufig vor (${results.length} Textstellen).
+
+Eine automatische Analyse würde das Token-Limit überschreiten. Bitte verwenden Sie eine spezifischere Suchanfrage oder kontaktieren Sie den Administrator.
+
+**Verfügbare Quellen (erste 20):**
+${results.slice(0, 20).map(r => `${r.ID}:${r.index}`).join(', ')}`;
+  }
+  
   return `Automatische Analyse nicht verfügbar (kein API-Schlüssel konfiguriert). 
 
 Gefundene Textstellen: ${results.length}
@@ -11844,7 +11867,7 @@ Gefundene Textstellen: ${results.length}
 Für eine detaillierte KI-Analyse des Begriffs "${query}" benötigt das System einen API-Schlüssel in der .env Datei.
 
 **Verfügbare Quellen:**
-${results.slice(0, 10).map(r => `(${r.ID}:${r.index})`).join(', ')}`;
+${results.slice(0, 10).map(r => `${r.ID}:${r.index}`).join(', ')}`;
 }
 
 // Fallback-Analyse für Keywords (Themensuche)
