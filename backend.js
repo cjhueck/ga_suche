@@ -1781,8 +1781,9 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
   let provider;
   try {
     provider = getProviderForTask('analysis');
+    console.log(`[ANALYSIS] ✓ Provider ausgewählt: ${provider.name}`);
   } catch (error) {
-    console.log('[ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
+    console.log('[ANALYSIS] ❌ Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackAnalysis(query, results);
   }
   
