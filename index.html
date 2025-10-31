@@ -3640,12 +3640,9 @@ Lade Statistiken...
 </div>
 <div id="batchContent">
 <div style="margin-bottom: 0.5rem;">
-<label style="display: block; margin-bottom: 0.3rem; font-size: 0.9em; color: var(--text-color);">
-Schlagwort-Liste (ein Schlagwort pro Zeile):
-</label>
 <textarea id="batchKeywordsInput" 
           placeholder="Astralleib&#10;Ätherleib&#10;Bewusstsein&#10;Karma&#10;Reinkarnation" 
-          style="width: 100%; height: 120px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
+          style="width: 100%; height: 40px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.85em; resize: vertical; background: var(--input-bg); color: var(--text-color);"></textarea>
 </div>
 <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
 <label style="display: flex; align-items: center; gap: 4px; font-size: 0.85em; color: var(--text-color);">
@@ -9714,11 +9711,15 @@ function displayKeywords(selectedLetter = 'Alle') {
   let html = '<div class="keywords-container">';
   
   filteredKeywords.forEach(keywordData => {
+    // Prüfe ob es mit dem neuen Concept-Prompt generiert wurde
+    const isNewPrompt = keywordData.promptVersion === 'concept-v1';
+    const keywordStyle = isNewPrompt ? 'font-style: italic;' : '';
+    
     // URSPRÜNGLICHES VERHALTEN: Klick öffnet Concept im Ergebnisbereich
     html += `
       <div class="keyword-entry">
         <h4>
-          <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;">
+          <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;" style="${keywordStyle}">
             ${keywordData.keyword}
           </a>
         </h4>
@@ -10301,6 +10302,8 @@ function displayKeywordThematicResults(keyword, data) {
       .replace(/^# (.+)$/gm, '')
       // Entfernt H3-Überschriften (### ...) vollständig
       .replace(/^### (.+)$/gm, '')
+      // Wandelt H4 (#### ...) in <h4> um
+      .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
       // Wandelt H2 (## ...) in semantische Überschriften ohne Inline-Styles
       .replace(/^## (.+)$/gm, '<h3>$1</h3>')
       // Fett: **text** -> <strong>text</strong>
@@ -10343,7 +10346,22 @@ function displayKeywordThematicResults(keyword, data) {
   let contentHtml = '';
   if (data.content) {
     const markdownHtml = markdownToHtml(data.content);
-    const contentWithLinks = makeGAReferencesClickable(markdownHtml);
+    let contentWithLinks = makeGAReferencesClickable(markdownHtml);
+    
+    // Entferne äußere Klammern bei "Weitere Quellen:" Zeilen
+    // z.B. "**Weitere Quellen:** (<a>GA123/4</a>), (<a>GA456/7</a>)" -> "**Weitere Quellen:** <a>GA123/4</a>, <a>GA456/7</a>"
+    contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^<]*) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, function(match, prefix, link) {
+      return prefix + ' ' + link;
+    });
+    // Falls mehrere Quellenangaben: Ersetze alle Klammern nach "Weitere Quellen" in derselben Zeile/Absatz
+    contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^\n<]*?) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, function(match, prefix, link) {
+      return prefix + ' ' + link;
+    });
+    // Mehrfach ausführen für alle Quellenangaben in der Zeile
+    for (let i = 0; i < 10; i++) {
+      contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^\n]*?) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, '$1 $2');
+    }
+    
     // Wrappe in <p> nur wenn noch keine Paragraphen vorhanden sind
     const hasParagraphs = contentWithLinks.includes('</p>');
     const wrappedContent = hasParagraphs ? contentWithLinks : `<p>${contentWithLinks}</p>`;
