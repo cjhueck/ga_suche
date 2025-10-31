@@ -3325,17 +3325,21 @@ body.dark-mode .welcome-start-btn:hover {
   /* Kein extra Hintergrund - transparent zeigt sandbraun */
   background: transparent;
   transition: filter 0.3s ease;
+  /* Blend-Mode für PNG-Transparenz im Light Mode */
+  mix-blend-mode: multiply;
 }
 
-/* Bilder im Text - Dark Mode: Invertiere nur die Zeichnung */
+/* Bilder im Text - Dark Mode: Invertiere nur die Zeichnung, Hintergrund bleibt transparent */
 body.dark-mode .lecture-image {
   background: transparent;
   filter: invert(1);  /* Macht schwarze Linien zu hellgrauen Linien */
+  mix-blend-mode: screen;  /* Transparent bleibt transparent, dunkle Bereiche werden heller */
 }
 
 /* WebP-Bilder sollen im Dark Mode nicht invertiert werden */
 body.dark-mode .lecture-image[data-format="webp"] {
   filter: none !important;
+  mix-blend-mode: normal !important;  /* Normale Anzeige ohne Blend-Effekt */
 }
 
 /* Popup-Bilder - Light Mode */
@@ -3343,17 +3347,21 @@ body.dark-mode .lecture-image[data-format="webp"] {
   background: transparent !important;
   padding: 20px;
   transition: filter 0.3s ease;
+  /* Blend-Mode für PNG-Transparenz im Light Mode */
+  mix-blend-mode: multiply;
 }
 
 /* Popup-Bilder - Dark Mode */
 body.dark-mode #popupImage {
   background: transparent !important;
   filter: invert(1);
+  mix-blend-mode: screen;  /* Transparent bleibt transparent, dunkle Bereiche werden heller */
 }
 
 /* Popup: WebP-Bilder sollen im Dark Mode nicht invertiert werden */
 body.dark-mode #popupImage[data-format="webp"] {
   filter: none !important;
+  mix-blend-mode: normal !important;  /* Normale Anzeige ohne Blend-Effekt */
 }
 
 /* Popup-Hintergrund - Light Mode */
@@ -3364,6 +3372,18 @@ body.dark-mode #popupImage[data-format="webp"] {
 /* Popup-Hintergrund im Dark Mode anpassen */
 body.dark-mode #imagePopup {
   background: rgba(0, 0, 0, 0.92) !important;
+}
+
+/* Popup Close Button Styling */
+#imagePopupCloseBtn {
+  background: white !important;
+  color: #333 !important;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode #imagePopupCloseBtn {
+  background: #333 !important;
+  color: #b8b8b8 !important;
 }
 
 /* Popup-Caption - Light Mode */
@@ -16542,7 +16562,7 @@ async function addKeywordToLecture() {
 <!-- Image Popup Modal -->
 <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 11000; justify-content: center; align-items: center;">
   <div style="position: relative; max-width: 60%; max-height: 90vh; display: flex; flex-direction: column; align-items: center;">
-    <button onclick="closeImagePopup()" style="position: absolute; top: -40px; right: 0; background: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 24px; line-height: 1; color: #333; z-index: 11001;">
+    <button id="imagePopupCloseBtn" onclick="closeImagePopup()" style="position: absolute; top: -40px; right: 0; background: white; border: none; border-radius: 50%; width: 35px; height: 35px; cursor: pointer; font-size: 24px; line-height: 1; color: #333; z-index: 11001;">
       ×
     </button>
     <img id="popupImage" src="" alt="" style="max-width: 100%; max-height: 90vh; object-fit: contain;" />
