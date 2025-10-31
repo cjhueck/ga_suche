@@ -342,14 +342,23 @@ function getProviderForTask(task) {
   };
 
   const specificProvider = taskProviderMap[task];
+  
+  // DEBUG: Zeige verfügbare API-Keys (nur erste 10 Zeichen aus Sicherheitsgründen)
+  const claudeAvailable = !!process.env.CLAUDE_API_KEY;
+  const openaiAvailable = !!process.env.OPENAI_API_KEY;
+  const geminiAvailable = !!process.env.GEMINI_API_KEY;
+  console.log(`[LLM-PROVIDER] API-Keys verfügbar: Claude=${claudeAvailable}, OpenAI=${openaiAvailable}, Gemini=${geminiAvailable}`);
+  console.log(`[LLM-PROVIDER] Task '${task}': Konfiguriert=${specificProvider || 'none'}`);
 
   // Versuche task-spezifischen Provider
   if (specificProvider) {
     try {
       const provider = createProvider(specificProvider);
       if (provider.isAvailable()) {
-        console.log(`[LLM-PROVIDER] Task '${task}': Verwende ${provider.name}`);
+        console.log(`[LLM-PROVIDER] Task '${task}': ✓ Verwende ${provider.name} (task-specific)`);
         return provider;
+      } else {
+        console.warn(`[LLM-PROVIDER] Task '${task}': ⚠️ ${specificProvider} konfiguriert, aber nicht verfügbar`);
       }
     } catch (error) {
       console.warn(`[LLM-PROVIDER] Task '${task}': Provider ${specificProvider} nicht verfügbar:`, error.message);
@@ -363,11 +372,13 @@ function getProviderForTask(task) {
     try {
       const provider = createProvider(providerName);
       if (provider.isAvailable()) {
-        console.log(`[LLM-PROVIDER] Task '${task}': Fallback auf ${provider.name} (default)`);
+        console.log(`[LLM-PROVIDER] Task '${task}': ✓ Fallback auf ${provider.name}`);
         return provider;
+      } else {
+        console.log(`[LLM-PROVIDER] Task '${task}': ⏭️ ${providerName} nicht verfügbar (kein API-Key)`);
       }
     } catch (error) {
-      console.warn(`[LLM-PROVIDER] Provider ${providerName} nicht verfügbar:`, error.message);
+      console.warn(`[LLM-PROVIDER] Provider ${providerName} Fehler:`, error.message);
     }
   }
 
