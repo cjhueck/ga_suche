@@ -1962,6 +1962,11 @@ body.dark-mode .ga-keyword-link {
   text-decoration: none;
 }
 
+/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt */
+.keyword-entry h4 a.new-prompt-concept {
+  font-style: italic;
+}
+
 body.dark-mode .keyword-entry h4 a {
   color: #6BA3B8 !important;
 }
@@ -9710,16 +9715,21 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   let html = '<div class="keywords-container">';
   
-  filteredKeywords.forEach(keywordData => {
+  filteredKeywords.forEach((keywordData, idx) => {
     // Prüfe ob es mit dem neuen Concept-Prompt generiert wurde
     const isNewPrompt = keywordData.promptVersion === 'concept-v1';
-    const keywordStyle = isNewPrompt ? 'font-style: italic;' : '';
+    const cssClass = isNewPrompt ? 'new-prompt-concept' : '';
+    
+    // Debug: Zeige erste 3 Keywords mit promptVersion Info
+    if (idx < 3) {
+      console.log(`[DISPLAY] Keyword "${keywordData.keyword}": promptVersion=${keywordData.promptVersion}, isNewPrompt=${isNewPrompt}, cssClass="${cssClass}"`);
+    }
     
     // URSPRÜNGLICHES VERHALTEN: Klick öffnet Concept im Ergebnisbereich
     html += `
       <div class="keyword-entry">
         <h4>
-          <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;" style="${keywordStyle}">
+          <a href="#" onclick="performKeywordThematicSearch('${keywordData.keyword}'); return false;" class="${cssClass}">
             ${keywordData.keyword}
           </a>
         </h4>
