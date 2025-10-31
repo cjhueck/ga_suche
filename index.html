@@ -10339,6 +10339,14 @@ function displayKeywordThematicResults(keyword, data) {
       return `<a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">${lectureId}</a>`;
     });
     
+    // NEU: Wandle GA-Referenzen OHNE Klammern in Links um (für "Weitere Quellen:")
+    // Format: GA###/Y:index oder GA###a/Y:index (ohne Klammern drumherum)
+    result = result.replace(/\bGA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\b/gi, (match, gaNum, lectureNum, index) => {
+      const lectureId = `GA${gaNum}/${lectureNum}`;
+      const cleanIndex = index.replace(/^\^/, '');
+      return `<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>`;
+    });
+    
     return result;
   }
   
@@ -10346,21 +10354,10 @@ function displayKeywordThematicResults(keyword, data) {
   let contentHtml = '';
   if (data.content) {
     const markdownHtml = markdownToHtml(data.content);
-    let contentWithLinks = makeGAReferencesClickable(markdownHtml);
+    const contentWithLinks = makeGAReferencesClickable(markdownHtml);
     
-    // Entferne äußere Klammern bei "Weitere Quellen:" Zeilen
-    // z.B. "**Weitere Quellen:** (<a>GA123/4</a>), (<a>GA456/7</a>)" -> "**Weitere Quellen:** <a>GA123/4</a>, <a>GA456/7</a>"
-    contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^<]*) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, function(match, prefix, link) {
-      return prefix + ' ' + link;
-    });
-    // Falls mehrere Quellenangaben: Ersetze alle Klammern nach "Weitere Quellen" in derselben Zeile/Absatz
-    contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^\n<]*?) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, function(match, prefix, link) {
-      return prefix + ' ' + link;
-    });
-    // Mehrfach ausführen für alle Quellenangaben in der Zeile
-    for (let i = 0; i < 10; i++) {
-      contentWithLinks = contentWithLinks.replace(/(\*\*Weitere Quellen:\*\*[^\n]*?) \((<a[^>]*>GA\d{3}[a-z]?\/\d+<\/a>)\)/gi, '$1 $2');
-    }
+    // Hinweis: Klammern-Entfernung ist nicht mehr nötig, da der neue Prompt 
+    // "Weitere Quellen" bereits ohne Klammern generiert und die Links korrekt erstellt werden
     
     // Wrappe in <p> nur wenn noch keine Paragraphen vorhanden sind
     const hasParagraphs = contentWithLinks.includes('</p>');
