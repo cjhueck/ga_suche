@@ -130007,8 +130007,8 @@
   },
   "GA091/26": {
     "lectureId": "GA091/26",
-    "date": null,
-    "year": null,
+    "date": "1905-06-21",
+    "year": 1905,
     "gaVolume": "GA091",
     "summary": "Die menschliche Entwicklung vollzieht sich durch sieben planetarische Stadien, die in den Wochentagen symbolisch bewahrt sind. Der physische Leib entstand auf dem Saturn, der Ätherleib auf der Sonne, der Astralleib auf dem Mond. Auf der Erde erhielt der Mensch durch Marskräfte den Egoismus und durch Merkurkräfte die Verstandesseele. Die Bewusstseinsseele kommt vom Jupiter, das Geistselbst wird sich auf Venus entwickeln, und die höchste Stufe erreicht der Mensch auf Vulkan. Jede Entwicklungsstufe bringt ein neues Reich hervor: Saturn das Mineralreich, Sonne das Pflanzenreich, Mond das Tierreich. Die Wochentage erinnern täglich an diese kosmische Vergangenheit und Zukunft der Menschheit.",
     "keywords": [
@@ -130159,7 +130159,7 @@
     "generated": "2025-10-28T16:49:38.472Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-10-28T16:49:38.706Z",
-    "location": "Vierte Stunde"
+    "location": "Berlin"
   },
   "GA091/28": {
     "lectureId": "GA091/28",
@@ -279718,7 +279718,8 @@
       }
     ],
     "generated": "2025-10-29T18:29:09.303Z",
-    "generationMethod": "manual-add"
+    "generationMethod": "manual-add",
+    "location": "Berlin"
   },
   "GA052/15": {
     "lectureId": "GA052/15",
@@ -279741,6 +279742,7 @@
       }
     ],
     "generated": "2025-10-29T20:25:41.492Z",
-    "generationMethod": "manual-add"
+    "generationMethod": "manual-add",
+    "location": "Berlin"
   }
 }

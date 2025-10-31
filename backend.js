@@ -4162,7 +4162,8 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
                            req.ip === '::1' ||
                            req.ip === '127.0.0.1';
     
-    const shouldCache = isLocalRequest && !skipCache;
+    // DEAKTIVIERT: Neue Themensuchen werden nicht mehr gespeichert
+    const shouldCache = false; // isLocalRequest && !skipCache;
     
     console.log(`[THEMATIC-SEARCH] Request von: ${req.hostname || req.ip}, Cache: ${shouldCache ? 'JA' : 'NEIN'}`);
     
