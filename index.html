@@ -40,6 +40,9 @@
       height: 100vh;
       display: flex;
       transition: background-color 0.3s, color 0.3s;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
       background-color: var(--background-color);
       color: var(--text-color);
     }
@@ -402,6 +405,7 @@ body.dark-mode .site-sign {
       font-size: var(--text-size);
       line-height: var(--line-height);
       color: var(--secondary-text);
+      font-weight: normal;
       margin: 4px 0;
       cursor: pointer;
     }
@@ -1381,7 +1385,7 @@ body.dark-mode .loading-message {
       font-weight: normal;
       font-size: var(--text-size);
       line-height: var(--line-height);
-      color: var(--text-color);
+      color: var(--secondary-text);
     }
     
     .answer-content strong {
@@ -1396,7 +1400,7 @@ body.dark-mode .loading-message {
     /* Dark Mode für Summary-Text */
     /* Dark Mode für Answer-Content Text (nur für Paragraphen, nicht für Überschriften) */
     body.dark-mode .answer-content p {
-      color: var(--dark-text-color);
+      color: var(--dark-secondary-text);
       font-size: var(--text-size);
       line-height: var(--line-height);
     }
@@ -1821,8 +1825,10 @@ body.dark-mode .loading-tooltip::before {
 
 /* Themensuche-Ergebnisse Styling */
 .semantic-answer {
-  font-size: 1.1rem;        /* Textgröße anpassen */
-  line-height: 1.3rem;        /* Zeilenabstand anpassen */
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  color: var(--secondary-text);
+  font-weight: normal;
 }
 
 /* Results header: keyword + timeline button in one line */
@@ -1875,7 +1881,6 @@ body.dark-mode .loading-tooltip::before {
 
 .semantic-answer p {
   margin-bottom: 0.9rem;      /* Abstand zwischen Absätzen */
-  line-height: 1.35rem;         /* Zeilenabstand in Absätzen */
 }
 
 .semantic-answer ul, .semantic-answer ol {
@@ -1918,8 +1923,10 @@ body.dark-mode .ga-keyword-link {
 
 .keyword-entry h4 {
   margin: 0 0 0.2rem 0;
-  font-size: var(--heading-size);
+  font-size: var(--text-size);
   line-height: var(--line-height);
+  font-weight: normal;
+  color: var(--secondary-text);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1943,11 +1950,24 @@ body.dark-mode .keyword-entry h4 a {
 .keyword-text {
   font-size: var(--text-size);
   line-height: var(--line-height);
-  color: var(--text-color);
+  color: var(--secondary-text);
+  font-weight: normal;
 }
 
 body.dark-mode .keyword-text {
-  color: var(--dark-text-color);
+  color: var(--dark-secondary-text);
+}
+
+.keyword-answer p {
+  margin: var(--paragraph-margin) 0;
+  font-size: var(--text-size);
+  line-height: var(--line-height);
+  color: var(--secondary-text);
+  font-weight: normal;
+}
+
+body.dark-mode .keyword-answer p {
+  color: var(--dark-secondary-text);
 }
 
 .no-results-message {
@@ -6683,6 +6703,32 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log('[FORMATTING] Inline Styles aus Backend-HTML entfernt (CSS-Klassen beibehalten)');
     }
 
+    // Normalisiert Unicode-Zeichen für einheitliche Darstellung
+    function normalizeUnicode(element) {
+      if (!element) return;
+      
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      
+      nodes.forEach(node => {
+        if (!node.nodeValue) return;
+        let text = node.nodeValue;
+        
+        // Normalisiere verschiedene Leerzeichen zu normalem Space
+        text = text.replace(/[\u00A0\u2000-\u200B\u202F\u205F\u3000]/g, ' ');
+        
+        // Normalisiere verschiedene Bindestriche zu normalem Bindestrich
+        text = text.replace(/[\u2010-\u2015]/g, '-');
+        
+        // Normalisiere verschiedene Anführungszeichen
+        text = text.replace(/[""]/g, '"');
+        text = text.replace(/['']/g, "'");
+        
+        node.nodeValue = text;
+      });
+    }
+
     // Stellt einheitliche Leerzeichen um Klammern bei GA-Quellenangaben her
     function normalizeCitationSpacing(container) {
       if (!container) return;
@@ -6749,6 +6795,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
+      // Normalisiere Unicode-Zeichen für einheitliche Darstellung
+      normalizeUnicode(answerDiv);
       // Einheitliche Abstände um Klammern an GA-Quellenangaben
       normalizeCitationSpacing(answerDiv);
 
@@ -9657,6 +9705,8 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Schlagwort-HTML entfernen
   removeInlineStyles(resultsContainer);
+  // Normalisiere Unicode-Zeichen für einheitliche Darstellung
+  normalizeUnicode(resultsContainer);
   
   // Lucide Icons initialisieren
   initializeLucideIcons();
@@ -10010,11 +10060,11 @@ body.dark-mode #keyword-count {
 /* Entfernt: Schlagwörter-Tab nutzt zentrale Sidepanel-Regeln */
 
 body.dark-mode .keyword-text {
-  color: #e0e0e0 !important;
+  color: var(--dark-secondary-text) !important;
 }
 
 body.dark-mode .keyword-text strong {
-  color: #e0e0e0 !important;
+  color: var(--dark-secondary-text) !important;
 }
 
 /* Zentrale Styles für Schlagwort-Ergebnisfenster */
@@ -10198,7 +10248,7 @@ function displayKeywordThematicResults(keyword, data) {
   
   // Hilfsfunktion: Wandle Markdown zu HTML um
   function markdownToHtml(text) {
-    return text
+    const processed = text
       // Entfernt H1-Überschriften vollständig
       .replace(/^# (.+)$/gm, '')
       // Entfernt H3-Überschriften (### ...) vollständig
@@ -10213,6 +10263,12 @@ function displayKeywordThematicResults(keyword, data) {
       .replace(/\n\n/g, '</p><p>')
       // Einzelne Zeilenumbrüche: \n -> <br>
       .replace(/\n/g, '<br>');
+    
+    // Wenn Paragraphen erstellt wurden, füge öffnendes <p> am Anfang und schließendes </p> am Ende hinzu
+    if (processed.includes('</p><p>')) {
+      return `<p>${processed}</p>`;
+    }
+    return processed;
   }
   
   // Hilfsfunktion: Wandle GA-Referenzen in klickbare Links um (verkürzte Version)
@@ -10240,9 +10296,12 @@ function displayKeywordThematicResults(keyword, data) {
   if (data.content) {
     const markdownHtml = markdownToHtml(data.content);
     const contentWithLinks = makeGAReferencesClickable(markdownHtml);
+    // Wrappe in <p> nur wenn noch keine Paragraphen vorhanden sind
+    const hasParagraphs = contentWithLinks.includes('</p>');
+    const wrappedContent = hasParagraphs ? contentWithLinks : `<p>${contentWithLinks}</p>`;
     contentHtml = `
       <div class="keyword-answer">
-        <p>${contentWithLinks}</p>
+        ${wrappedContent}
       </div>
     `;
   }
@@ -10261,6 +10320,8 @@ function displayKeywordThematicResults(keyword, data) {
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
   removeInlineStyles(results);
+  // Normalisiere Unicode-Zeichen für einheitliche Darstellung
+  normalizeUnicode(results);
   // Einheitliche Abstände um Klammern an GA-Quellenangaben (Keyword-Themen)
   try {
     const kc = document.getElementById('keywordAnswerContent');
