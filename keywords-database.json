@@ -53553,17 +53553,6 @@
     "summary": "Die Geisteswissenschaft wird mit gewichtigen wissenschaftlichen und philosophischen Einwänden konfrontiert. Kritiker wenden ein, dass ihre Methoden der inneren Entwicklung und Meditation nicht objektiv kontrollierbar seien und Ähnlichkeit mit krankhaften Zuständen aufweisen. Der Ätherleib wird als Rückgriff auf die überwundene Lebenskraft kritisiert, während das Schlaf- und Wachleben durch organische Selbststeuerung erklärbar sei. Die Lehre der wiederholten Erdenleben entbehre des notwendigen Gedächtnisses und könne durch Vererbung und frühe Kindheitserfahrungen erklärt werden. Moralisch wird eingewendet, die Geisteswissenschaft fördere Egoismus statt selbstloser Hingabe und führe zur Selbstvergottung. Diese Einwände entspringen nicht bloßem Widerspruchsgeist, sondern der ehrlichen Auseinandersetzung mit den Grundlagen wissenschaftlicher Erkenntnis und religiöser Erfahrung der Zeit.",
     "keywords": [
       {
-        "term": "Geisteswissenschaft",
-        "index": "^bb2n2t",
-        "heading": "Einführung in die Problematik der Geisteswissenschaft",
-        "source": "title-summary",
-        "matchType": "existing-exact",
-        "matchedExisting": "Geisteswissenschaft",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
         "term": "Geistesforschung",
         "index": "^wre84v",
         "heading": "Grundlagen und Methoden der Geisteswissenschaft",

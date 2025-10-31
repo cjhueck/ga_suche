@@ -60020,17 +60020,6 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Geisteswissenschaft",
-        "index": "^bb2n2t",
-        "heading": "Einführung in die Problematik der Geisteswissenschaft",
-        "source": "title-summary",
-        "matchType": "existing-exact",
-        "matchedExisting": "Geisteswissenschaft",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
         "term": "Geistesforschung",
         "index": "^wre84v",
         "heading": "Grundlagen und Methoden der Geisteswissenschaft",
