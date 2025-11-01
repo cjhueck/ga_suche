@@ -3730,7 +3730,7 @@ Bestehende Schlagwörter überschreiben
     </button>
   </div>
   
-  <div id="gaVolumeCheckboxes" style="max-height: 300px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
+  <div id="gaVolumeCheckboxes" style="max-height: 180px; overflow-y: auto; border: 1px solid var(--border-color); border-radius: 4px; padding: 0.5rem; background: var(--input-bg);">
     <p style="text-align: center; color: var(--secondary-text); font-size: 0.85em;">Klicke auf "GA-Bände laden"</p>
   </div>
   
@@ -8534,7 +8534,8 @@ async function batchRegenerateAll() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
         lectureIds: lectureIds,
-        preferredProvider: selectedProvider
+        preferredProvider: selectedProvider,
+        parallelChunkSize: 5
       })
     });
     
@@ -9084,7 +9085,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             // Bildmarkierungen durch img-Tags ersetzen
             content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
             
-            if (keywords && keywords.length > 0) {
+            // Prüfe ZUERST ob wir von thematischer Suche kommen
+            const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+            
+            // Markiere Schlagwörter NUR wenn NICHT von thematischer Suche
+            if (keywords && keywords.length > 0 && !isFromThematicSearch) {
               keywords.forEach(word => {
                 if (word && word.trim()) {
                   const regex = new RegExp(`(${word.trim()})`, "gi");
@@ -9098,8 +9103,6 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                                  keywords[0] && keywords[1] &&
                                  contentLower.includes(keywords[0].toLowerCase()) && 
                                  contentLower.includes(keywords[1].toLowerCase());
-            
-            const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
             const applyHighlight = shouldHighlight && isTargetPara && 
                                    (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
             
@@ -13799,16 +13802,30 @@ async function loadAvailableGAVolumes() {
       
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
-      checkbox.value = vol.volume;
+      checkbox.value = vol.volume.toLowerCase(); // Stelle sicher dass es lowercase ist
       checkbox.className = 'ga-volume-checkbox';
       checkbox.onchange = updateStartButtonState;
       
-      // Text-Element (fett wenn Keywords vorhanden)
+      // Text-Element mit Status-Anzeige
       const textSpan = document.createElement('span');
-      textSpan.textContent = `${vol.volume} (${vol.lectureCount} Vorträge)`;
-      if (vol.hasKeywords) {
+      textSpan.textContent = `${vol.volume.toUpperCase()} (${vol.lectureCount} Vorträge)`;
+      
+      // Styling basierend auf Bearbeitungsstatus
+      if (vol.isComplete) {
+        // ALLE Vorträge vollständig (Summary + Headings + Keywords)
         textSpan.style.fontWeight = 'bold';
-        textSpan.title = 'Keywords bereits generiert';
+        textSpan.style.color = 'var(--accent-color)';
+        textSpan.title = 'Vollständig bearbeitet: Summary, Headings und Keywords vorhanden';
+      } else if (vol.hasKeywords) {
+        // TEILWEISE bearbeitet
+        textSpan.style.fontWeight = 'normal';
+        textSpan.style.fontStyle = 'italic';
+        textSpan.title = 'Teilweise bearbeitet: Einige Vorträge haben Summary/Headings/Keywords';
+      } else {
+        // Noch NICHT bearbeitet
+        textSpan.style.fontWeight = 'normal';
+        textSpan.style.color = 'var(--secondary-text)';
+        textSpan.title = 'Noch nicht bearbeitet';
       }
       
       label.appendChild(checkbox);
@@ -13866,6 +13883,9 @@ async function startGABatchFullRegenerate() {
   // Hole ausgewählten Provider
   const selectedProvider = document.querySelector('input[name="llmProvider"]:checked')?.value || null;
   
+  console.log('[GA-BATCH] Ausgewählter Provider:', selectedProvider);
+  console.log('[GA-BATCH] Ausgewählte Bände:', selectedVolumes);
+  
   // Berechne Gesamtanzahl Vorträge
   let totalLectures = 0;
   selectedVolumes.forEach(vol => {
@@ -13876,6 +13896,7 @@ async function startGABatchFullRegenerate() {
   const message = `WARNUNG: Alle Vorträge in ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} werden komplett neu generiert (S+H+TOC+KW).\n\n` +
     `Bände: ${selectedVolumes.join(', ')}\n` +
     `Total Vorträge: ~${totalLectures}\n` +
+    `Batch-Größe: 5 Vorträge parallel\n` +
     `KI-Provider: ${selectedProvider ? selectedProvider.toUpperCase() : 'Claude (Default)'}\n\n` +
     `Bestehende Daten werden überschrieben. Fortfahren?`;
   
@@ -13884,6 +13905,8 @@ async function startGABatchFullRegenerate() {
   const btn = document.getElementById('startGABatchBtn');
   const statusDiv = document.getElementById('gaBatchStatus');
   const progressContainer = document.getElementById('gaBatchProgressContainer');
+  const progressText = document.getElementById('gaBatchProgressText');
+  const progressPercent = document.getElementById('gaBatchProgressPercent');
   const resultsDiv = document.getElementById('gaBatchResults');
   const progressBar = document.getElementById('gaBatchProgressBar');
   
@@ -13895,27 +13918,52 @@ async function startGABatchFullRegenerate() {
   resultsDiv.style.display = 'none';
   
   statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Sammle Vorträge...</span>`;
+  if (progressText) progressText.textContent = 'Bereite vor...';
+  if (progressPercent) progressPercent.textContent = '0%';
+  if (progressBar) progressBar.style.width = '0%';
   
   try {
     // Sammle alle Lecture IDs der ausgewählten GA-Bände
     let allLectureIds = [];
     
     for (const gaVolume of selectedVolumes) {
+      statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Lade Vorträge von ${gaVolume}...</span>`;
       const resp = await fetch(`${API_BASE}/api/ga-overview/${encodeURIComponent(gaVolume)}`);
       if (resp.ok) {
         const data = await resp.json();
+        console.log(`[GA-BATCH] ${gaVolume}: Response:`, data);
+        
         const lectureIds = (data.lectures || []).map(l => l.ID);
-        allLectureIds.push(...lectureIds);
+        
+        if (lectureIds.length === 0) {
+          console.warn(`[GA-BATCH] ${gaVolume}: Keine Vorträge in Response gefunden`);
+          console.warn(`[GA-BATCH] ${gaVolume}: data.lectures =`, data.lectures);
+        } else {
+          allLectureIds.push(...lectureIds);
+          console.log(`[GA-BATCH] ${gaVolume}: ${lectureIds.length} Vorträge gefunden`);
+        }
+      } else {
+        const errorText = await resp.text();
+        console.error(`[GA-BATCH] ${gaVolume}: API-Fehler (${resp.status}):`, errorText);
       }
     }
     
     if (allLectureIds.length === 0) {
-      throw new Error('Keine Vorträge gefunden');
+      console.error('[GA-BATCH] FEHLER: Keine Vorträge gefunden!');
+      console.error('[GA-BATCH] Ausgewählte Bände:', selectedVolumes);
+      throw new Error(`Keine Vorträge gefunden für: ${selectedVolumes.join(', ')}`);
     }
     
-    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge komplett neu (S+H+TOC+KW)...</span>`;
+    console.log(`[GA-BATCH] Total: ${allLectureIds.length} Vorträge zu verarbeiten`);
     
-    // Rufe den gleichen Endpoint wie S&H&C&K Button auf
+    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge (Batch-Größe: 5)...</span>`;
+    if (progressText) progressText.textContent = `Verarbeite ${allLectureIds.length} Vorträge in Batches...`;
+    if (progressBar) progressBar.style.width = '5%';
+    
+    // Rufe Backend-API auf
+    console.log('[GA-BATCH] Starte API-Call...');
+    const startTime = Date.now();
+    
     const response = await fetch(`${API_BASE}/api/batch-regenerate-all`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -13926,14 +13974,20 @@ async function startGABatchFullRegenerate() {
       })
     });
     
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`[GA-BATCH] API-Call abgeschlossen in ${elapsed}s`);
+    
     if (!response.ok) {
-      throw new Error(`Server-Fehler: ${response.status}`);
+      const errorText = await response.text();
+      console.error('[GA-BATCH] Server-Fehler:', errorText);
+      throw new Error(`Server-Fehler: ${response.status} - ${errorText.substring(0, 200)}`);
     }
     
     const result = await response.json();
+    console.log('[GA-BATCH] Ergebnis:', result);
     
     if (result.success) {
-      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Generierung abgeschlossen!</span>`;
+      statusDiv.innerHTML = `<span style="color: #5cb85c;">✓ Generierung abgeschlossen in ${elapsed}s!</span>`;
       resultsDiv.style.display = 'block';
       
       document.getElementById('gaBatchStatVolume').textContent = 
@@ -13945,9 +13999,11 @@ async function startGABatchFullRegenerate() {
       document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
       document.getElementById('gaBatchStatFinalVocab').textContent = '-';
       document.getElementById('gaBatchStatSynonyms').textContent = '-';
-      document.getElementById('gaBatchStatMethod').textContent = 'Unified Full (S+H+TOC+KW)';
+      document.getElementById('gaBatchStatMethod').textContent = `Unified Full (Batch: 5, ${elapsed}s)`;
       
       if (progressBar) progressBar.style.width = '100%';
+      if (progressText) progressText.textContent = 'Abgeschlossen!';
+      if (progressPercent) progressPercent.textContent = '100%';
       
     } else {
       throw new Error(result.error || 'Unbekannter Fehler');
@@ -13956,9 +14012,13 @@ async function startGABatchFullRegenerate() {
   } catch (error) {
     console.error('[GA-BATCH-FULL] Fehler:', error);
     statusDiv.innerHTML = `<span style="color: #d9534f;">✗ Fehler: ${error.message}</span>`;
+    if (progressText) progressText.textContent = 'Fehler!';
   }
   
-  progressContainer.style.display = 'none';
+  setTimeout(() => {
+    progressContainer.style.display = 'none';
+  }, 2000);
+  
   btn.disabled = false;
   btn.style.opacity = '1';
   checkboxes.forEach(cb => cb.disabled = false);
