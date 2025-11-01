@@ -229,12 +229,35 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                 content = para.get('content', '')
                 para_index = para.get('index', '')
                 
-                # Suche nach Bildmarkierungen: ![alt](path)
-                image_pattern = r'!\[([^\]]+)\]\(([^)]+)\)'
-                matches = re.findall(image_pattern, content)
+                # Sammle alle Bildmarkierungen (beide Formate)
+                all_matches = []
                 
-                if matches:
-                    for alt_text, img_path in matches:
+                # Pattern 1: Standard Markdown ![alt](path)
+                markdown_pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
+                markdown_matches = re.findall(markdown_pattern, content)
+                for alt_text, img_path in markdown_matches:
+                    # Speichere auch das Original-Format (Markdown)
+                    all_matches.append((alt_text, img_path, f'![{alt_text}]({img_path})'))
+                
+                # Pattern 2: Obsidian Wiki-Links ![[filename]]
+                wiki_pattern = r'!\[\[([^\]]+)\]\]'
+                wiki_matches = re.findall(wiki_pattern, content)
+                for filename in wiki_matches:
+                    # Konvertiere zu assets/filename Format
+                    img_path = filename if filename.startswith('assets/') else f'assets/{filename}'
+                    alt_text = filename.replace('.webp', '').replace('.png', '').replace('.jpeg', '').replace('.jpg', '')
+                    # Speichere auch das Original-Format (Wiki-Link)
+                    all_matches.append((alt_text, img_path, f'![[{filename}]]'))
+                
+                if all_matches:
+                    for match_tuple in all_matches:
+                        # Entpacke Match (entweder 2 oder 3 Elemente)
+                        if len(match_tuple) == 3:
+                            alt_text, img_path, original_ref = match_tuple
+                        else:
+                            alt_text, img_path = match_tuple
+                            original_ref = f'![{alt_text}]({img_path})'
+                        
                         total_found += 1
                         
                         # Dekodiere URL-encoding
@@ -301,7 +324,7 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                                     'index': para_index,
                                     'altText': alt_text,  # Original aus Text
                                     'path': final_path,  # Finaler Pfad (PNG oder WebP)
-                                    'markdownRef': f"![{alt_text}]({img_path})",  # Original-Referenz aus Text!
+                                    'markdownRef': original_ref,  # Original-Referenz aus Text (Markdown oder Wiki-Link)!
                                     'base64': base64_str,
                                     'size': file_size
                                 }

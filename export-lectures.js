@@ -157,16 +157,34 @@ class SteinerLecturesExporter {
 
   // Extract image references from text
   extractImageReferences(text) {
-    const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
     const images = [];
+    
+    // Pattern 1: Standard Markdown ![alt](path)
+    const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
     let match;
     
-    while ((match = imageRegex.exec(text)) !== null) {
+    while ((match = markdownRegex.exec(text)) !== null) {
       const altText = match[1] || '';
       const imagePath = match[2] || '';
       
       images.push({
         altText,
+        path: imagePath,
+        fullMatch: match[0]
+      });
+    }
+    
+    // Pattern 2: Obsidian Wiki-Links ![[filename]]
+    const wikiRegex = /!\[\[([^\]]+)\]\]/g;
+    
+    while ((match = wikiRegex.exec(text)) !== null) {
+      const filename = match[1] || '';
+      
+      // Konvertiere zu assets/filename Format
+      const imagePath = filename.startsWith('assets/') ? filename : `assets/${filename}`;
+      
+      images.push({
+        altText: filename.replace(/\.(webp|png|jpe?g)$/i, ''), // Dateiname ohne Endung
         path: imagePath,
         fullMatch: match[0]
       });
