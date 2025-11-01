@@ -197,23 +197,56 @@ let steinerImages = {};
 
 async function loadSteinerImages() {
   try {
-    const imagesPath = path.join(__dirname, 'steiner-images.json');
+    const singleFilePath = path.join(__dirname, 'steiner-images.json');
     
-    if (!fsSync.existsSync(imagesPath)) {
-      console.log('steiner-images.json nicht gefunden - keine Bilder verfügbar');
+    // Versuche zuerst Einzeldatei zu laden
+    if (fsSync.existsSync(singleFilePath)) {
+      console.log('Lade steiner-images.json...');
+      const data = await fs.readFile(singleFilePath, 'utf8');
+      steinerImages = JSON.parse(data);
+      
+      const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
+      console.log(`✓ steiner-images.json geladen: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder`);
+      
+      return steinerImages;
+    }
+    
+    // Falls keine Einzeldatei: Suche nach Part-Dateien
+    const files = await fs.readdir(__dirname);
+    const partFiles = files
+      .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
+      .sort();
+    
+    if (partFiles.length === 0) {
+      console.log('Keine steiner-images*.json Dateien gefunden - keine Bilder verfügbar');
       return {};
     }
     
-    console.log('Lade steiner-images.json...');
-    const data = await fs.readFile(imagesPath, 'utf8');
-    steinerImages = JSON.parse(data);
+    // Lade alle Part-Dateien
+    console.log(`Lade steiner-images aus ${partFiles.length} Chunks...`);
     
-    const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
-    console.log(`✓ steiner-images.json geladen: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder`);
+    steinerImages = {};
+    let totalImages = 0;
+    
+    for (const partFile of partFiles) {
+      const partPath = path.join(__dirname, partFile);
+      const data = await fs.readFile(partPath, 'utf8');
+      const partData = JSON.parse(data);
+      
+      // Merge in steinerImages
+      Object.assign(steinerImages, partData);
+      
+      const partImages = Object.values(partData).reduce((sum, imgs) => sum + imgs.length, 0);
+      totalImages += partImages;
+      
+      console.log(`  ✓ ${partFile}: ${Object.keys(partData).length} Vorträge, ${partImages} Bilder`);
+    }
+    
+    console.log(`✓ Gesamt: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder aus ${partFiles.length} Chunks`);
     
     return steinerImages;
   } catch (error) {
-    console.error('Fehler beim Laden von steiner-images.json:', error.message);
+    console.error('Fehler beim Laden von steiner-images:', error.message);
     return {};
   }
 }
