@@ -5,6 +5,8 @@
 <title>Steiner GA-Suche</title>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -1284,6 +1286,21 @@ body.dark-mode .loading-message {
     
     .depth-btn:hover {
       opacity: 0.8;
+    }
+    
+    /* PDF Export Button */
+    #exportThemaPdfBtn:hover {
+      background: #467886 !important;
+      color: white !important;
+    }
+    
+    #exportThemaPdfBtn:hover svg {
+      stroke: white !important;
+    }
+    
+    #exportThemaPdfBtn:disabled {
+      opacity: 0.6 !important;
+      cursor: not-allowed !important;
     }
     
     .depth-btn:disabled {
@@ -5945,6 +5962,113 @@ function toggleGASummaries() {
       }
     }
 
+    // Exportiere das thematische Suchergebnis als PDF
+    window.exportThematicResultToPdf = async function() {
+      const button = document.getElementById('exportThemaPdfBtn');
+      
+      try {
+        // Button-Status ändern
+        const originalHTML = button.innerHTML;
+        button.disabled = true;
+        button.style.opacity = '0.6';
+        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg> Erstelle PDF...';
+        
+        // Hole das answerContent Element direkt
+        const answerDiv = document.getElementById('answerContent');
+        if (!answerDiv) {
+          throw new Error('Kein Suchergebnis gefunden. Bitte führen Sie zuerst eine Themensuche durch.');
+        }
+        
+        // Prüfe ob Inhalt vorhanden ist
+        const textContent = answerDiv.textContent.trim();
+        if (!textContent || textContent.length < 50) {
+          throw new Error('Kein ausreichender Inhalt zum Exportieren vorhanden.');
+        }
+        
+        // Hole die Überschrift
+        const resultsContainer = document.getElementById('results');
+        const heading = resultsContainer ? resultsContainer.querySelector('h1') : null;
+        const headingText = heading ? heading.textContent.trim() : 'Thematische Suche';
+        
+        console.log('[PDF-EXPORT] Starte Export für:', headingText);
+        console.log('[PDF-EXPORT] Inhaltslänge:', textContent.length);
+        
+        // Nutze html2canvas direkt auf das SICHTBARE answerDiv mit reduzierter Scale
+        const canvas = await html2canvas(answerDiv, {
+          scale: 1.2,
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          windowWidth: answerDiv.scrollWidth,
+          windowHeight: answerDiv.scrollHeight
+        });
+        
+        console.log('[PDF-EXPORT] Canvas erstellt:', canvas.width, 'x', canvas.height);
+        
+        // Erstelle PDF mit jsPDF
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        // Füge Überschrift hinzu
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        pdf.text(headingText, 15, 15, { maxWidth: 180 });
+        
+        // Berechne die Größe für das Bild
+        const imgWidth = 180; // A4 Breite minus Margins
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const pageHeight = 297; // A4 Höhe in mm
+        const availableHeight = pageHeight - 35; // Mit Margins
+        
+        let heightLeft = imgHeight;
+        let position = 35; // Start nach der Überschrift
+        
+        // Füge Canvas als Bild hinzu
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        
+        // Erste Seite
+        if (heightLeft > availableHeight) {
+          pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
+          heightLeft -= availableHeight;
+          
+          // Weitere Seiten
+          while (heightLeft > 0) {
+            position = heightLeft - imgHeight + 15;
+            pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
+            heightLeft -= (pageHeight - 30);
+          }
+        } else {
+          pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
+        }
+        
+        // Speichere das PDF
+        pdf.save(`Themensuche_${headingText.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, '_').substring(0, 40).trim()}.pdf`);
+        
+        console.log('[PDF-EXPORT] PDF erfolgreich erstellt');
+        
+        // Button zurücksetzen
+        button.disabled = false;
+        button.style.opacity = '1';
+        button.innerHTML = originalHTML;
+        
+      } catch (error) {
+        console.error('[PDF-EXPORT] Fehler:', error);
+        alert('Fehler beim Erstellen des PDFs:\n\n' + error.message);
+        
+        // Button zurücksetzen bei Fehler
+        if (button) {
+          button.disabled = false;
+          button.style.opacity = '1';
+          button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> PDF';
+        }
+      }
+    }
+
     // Einfache, erweiterbare Rechtschreib-Autokorrektur für deutsche Begriffe/GA-Kontexte
     function autocorrectQuery(q) {
       if (!q) return q;
@@ -6830,11 +6954,21 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       const deleteButtonHTML = isLocal 
         ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Suchanfrage löschen</button>`
         : '';
+      
+      // PDF-Export Button
+      const pdfButtonHTML = `<button id="exportThemaPdfBtn" onclick="exportThematicResultToPdf()" title="Als PDF speichern" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; gap: 4px; margin-left: 8px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        PDF
+      </button>`;
+      
       container.innerHTML = `
         <div class="semantic-answer">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 style="margin: 0;">${safeHeading}</h1>
-            ${deleteButtonHTML}
+            <div style="display: flex; align-items: center; gap: 8px;">
+              ${pdfButtonHTML}
+              ${deleteButtonHTML}
+            </div>
           </div>
           <div class="answer-content" id="answerContent"></div>
         </div>
