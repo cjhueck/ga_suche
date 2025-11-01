@@ -410,23 +410,85 @@ def main():
         steiner_ga_dir
     )
     
-    # SCHRITT 3: Speichere Ergebnis
+    # SCHRITT 3: Speichere Ergebnis mit automatischem Splitting
     if images_data:
-        # Erstelle Backup
-        if os.path.exists(output_file):
-            from datetime import datetime
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-            backup_file = output_file.replace('.json', f'_backup_{timestamp}.json')
-            print(f"\nErstelle Backup: {backup_file}")
-            
-            with open(output_file, 'r', encoding='utf-8') as original:
-                with open(backup_file, 'w', encoding='utf-8') as backup:
-                    backup.write(original.read())
+        from datetime import datetime
         
-        # Speichere neue steiner-images.json
-        print(f"Speichere: {output_file}")
-        with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(images_data, f, ensure_ascii=False, indent=2)
+        # Prüfe Größe der JSON
+        test_json = json.dumps(images_data, ensure_ascii=False, indent=2)
+        total_size_mb = len(test_json.encode('utf-8')) / (1024 * 1024)
+        
+        print(f"\nGesamtgroesse: {total_size_mb:.2f} MB")
+        
+        # Entscheide: Einzeldatei oder Chunks
+        MAX_CHUNK_SIZE_MB = 10
+        
+        if total_size_mb > MAX_CHUNK_SIZE_MB:
+            print(f"Datei zu gross (>{MAX_CHUNK_SIZE_MB} MB) - teile in Chunks auf...\n")
+            
+            # Sortiere Vorträge
+            sorted_lectures = sorted(images_data.keys())
+            
+            # Teile in Chunks
+            chunks = []
+            current_chunk = {}
+            
+            for lecture_id in sorted_lectures:
+                images = images_data[lecture_id]
+                
+                # Test ob hinzufügen noch passt
+                test_chunk = {**current_chunk, lecture_id: images}
+                test_size_mb = len(json.dumps(test_chunk, ensure_ascii=False).encode('utf-8')) / (1024 * 1024)
+                
+                if test_size_mb > MAX_CHUNK_SIZE_MB and current_chunk:
+                    # Chunk ist voll
+                    chunks.append(current_chunk)
+                    current_chunk = {lecture_id: images}
+                else:
+                    current_chunk[lecture_id] = images
+            
+            # Letzten Chunk speichern
+            if current_chunk:
+                chunks.append(current_chunk)
+            
+            print(f"Erstelle {len(chunks)} Chunks:")
+            
+            # Speichere Chunks
+            for i, chunk in enumerate(chunks):
+                chunk_file = os.path.join(project_root, f'steiner-images-part{i+1:02d}.json')
+                
+                with open(chunk_file, 'w', encoding='utf-8') as f:
+                    json.dump(chunk, f, ensure_ascii=False, indent=2)
+                
+                chunk_size = len(json.dumps(chunk, ensure_ascii=False).encode('utf-8')) / (1024 * 1024)
+                chunk_images = sum(len(imgs) for imgs in chunk.values())
+                
+                print(f"  + steiner-images-part{i+1:02d}.json ({chunk_size:.2f} MB, {len(chunk)} Vortraege, {chunk_images} Bilder)")
+            
+            # Lösche alte einzelne Datei (falls vorhanden)
+            if os.path.exists(output_file):
+                backup_file = output_file.replace('.json', f'_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
+                os.rename(output_file, backup_file)
+                print(f"\nAlte steiner-images.json umbenannt zu: {os.path.basename(backup_file)}")
+        
+        else:
+            # Datei klein genug - als Einzeldatei speichern
+            print(f"Datei klein genug (<={MAX_CHUNK_SIZE_MB} MB) - speichere als Einzeldatei\n")
+            
+            # Erstelle Backup
+            if os.path.exists(output_file):
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                backup_file = output_file.replace('.json', f'_backup_{timestamp}.json')
+                print(f"Erstelle Backup: {backup_file}")
+                
+                with open(output_file, 'r', encoding='utf-8') as original:
+                    with open(backup_file, 'w', encoding='utf-8') as backup:
+                        backup.write(original.read())
+            
+            # Speichere neue steiner-images.json
+            print(f"Speichere: {output_file}")
+            with open(output_file, 'w', encoding='utf-8') as f:
+                json.dump(images_data, f, ensure_ascii=False, indent=2)
         
         # Finale Statistik
         print(f"\n" + "=" * 60)
