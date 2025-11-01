@@ -409,8 +409,11 @@ function formatDate(dateStr) {
 }
 
 async function generateGAOverview(gaNumber) {
+  // Case-insensitive Vergleich
+  const gaNumberNormalized = gaNumber.toLowerCase();
+  
   const lectures = Object.values(fullLectures)
-    .filter(lec => lec.gaNumber === gaNumber)
+    .filter(lec => lec.gaNumber && lec.gaNumber.toLowerCase() === gaNumberNormalized)
     .sort((a, b) => {
       const numA = parseInt(a.lectureNumber) || 0;
       const numB = parseInt(b.lectureNumber) || 0;
@@ -418,6 +421,7 @@ async function generateGAOverview(gaNumber) {
     });
   
   if (lectures.length === 0) {
+    console.warn(`[GA-OVERVIEW] Keine Vorträge für ${gaNumber} gefunden (fullLectures hat ${Object.keys(fullLectures).length} Einträge)`);
     return null;
   }
   
@@ -5680,7 +5684,7 @@ async function createFullBackup() {
     createImagesBackup(),
     createCodeBackup(),
     createHtmlBackup('index.html'),
-    createHtmlBackup('keyword-manager-advanced.html')
+    createHtmlBackup('keyword-manager.html')
   ]);
   
   const successful = results.filter(r => r !== null).length;
@@ -8519,10 +8523,15 @@ ANTWORTE im folgenden JSON-Format:
 // Endpoint: Liste verfügbare GA-Bände
 app.get('/api/keywords/available-ga-volumes', async (req, res) => {
   try {
-    const summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
-    const { gaGroups, sortedGAs } = groupLecturesByGA(summaryDB);
+    // Lade Summary-Database
+    let summaryDB = {};
+    try {
+      summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
+    } catch (error) {
+      console.log('[GA-VOLUMES] Keine Summary-Database gefunden');
+    }
     
-    // Lade Keywords-Database um zu prüfen welche Bände bereits verarbeitet wurden
+    // Lade Keywords-Database
     let keywordsDB = {};
     try {
       keywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
@@ -8530,15 +8539,85 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       console.log('[GA-VOLUMES] Keine Keywords-Database gefunden');
     }
     
+    // Sammle ALLE GA-Bände aus fullLectures UND summaryDB
+    const allGABands = new Set();
+    
+    // GA-Bände aus fullLectures
+    Object.keys(fullLectures).forEach(lectureId => {
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\//i);
+      if (gaMatch) {
+        allGABands.add(gaMatch[1].toLowerCase());
+      }
+    });
+    
+    // GA-Bände aus summaryDB
+    Object.keys(summaryDB).forEach(lectureId => {
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\//i);
+      if (gaMatch) {
+        allGABands.add(gaMatch[1].toLowerCase());
+      }
+    });
+    
+    // Gruppiere Vorträge nach GA-Band
+    const gaGroups = {};
+    Object.keys(fullLectures).forEach(lectureId => {
+      const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\//i);
+      if (gaMatch) {
+        const ga = gaMatch[1].toLowerCase();
+        if (!gaGroups[ga]) gaGroups[ga] = [];
+        gaGroups[ga].push(lectureId);
+      }
+    });
+    
+    // Sortiere GA-Bände
+    const sortedGAs = Array.from(allGABands).sort((a, b) => {
+      const numA = parseInt(a.replace(/^ga/i, ''));
+      const numB = parseInt(b.replace(/^ga/i, ''));
+      return numA - numB;
+    });
+    
     const volumes = sortedGAs.map(ga => {
-      // Prüfe ob mindestens ein Vortrag dieses Bandes in keywordsDB vorhanden ist
-      const hasKeywords = gaGroups[ga].some(lectureId => keywordsDB[lectureId]);
+      const lectures = gaGroups[ga] || [];
+      
+      // Prüfe ob ALLE Vorträge des Bandes vollständig bearbeitet sind
+      const allLecturesComplete = lectures.length > 0 && lectures.every(lectureId => {
+        // Prüfe ob Vortrag in summaryDB existiert
+        const summaryEntry = summaryDB[lectureId];
+        if (!summaryEntry) return false;
+        
+        // Prüfe ob V2-Struktur vorhanden (mit tableOfContents und lectureKeywords)
+        const hasTableOfContents = summaryEntry.tableOfContents && summaryEntry.tableOfContents.length > 0;
+        const hasLectureKeywords = summaryEntry.lectureKeywords && summaryEntry.lectureKeywords.length > 0;
+        
+        // Prüfe ob Keywords-Eintrag vorhanden
+        const hasKeywordsEntry = keywordsDB[lectureId] && 
+                                  keywordsDB[lectureId].keywords && 
+                                  keywordsDB[lectureId].keywords.length > 0;
+        
+        // Alle drei müssen vorhanden sein
+        return hasTableOfContents && hasLectureKeywords && hasKeywordsEntry;
+      });
+      
+      // Wenn mindestens ein Vortrag vollständig ist, markiere als "teilweise bearbeitet"
+      const someLecturesComplete = lectures.length > 0 && lectures.some(lectureId => {
+        const summaryEntry = summaryDB[lectureId];
+        if (!summaryEntry) return false;
+        
+        const hasTableOfContents = summaryEntry.tableOfContents && summaryEntry.tableOfContents.length > 0;
+        const hasLectureKeywords = summaryEntry.lectureKeywords && summaryEntry.lectureKeywords.length > 0;
+        const hasKeywordsEntry = keywordsDB[lectureId] && 
+                                  keywordsDB[lectureId].keywords && 
+                                  keywordsDB[lectureId].keywords.length > 0;
+        
+        return hasTableOfContents && hasLectureKeywords && hasKeywordsEntry;
+      });
       
       return {
         volume: ga,
-        lectureCount: gaGroups[ga].length,
-        lectures: gaGroups[ga].sort(),
-        hasKeywords: hasKeywords
+        lectureCount: lectures.length,
+        lectures: lectures.sort(),
+        hasKeywords: someLecturesComplete,  // Mindestens ein Vortrag vollständig
+        isComplete: allLecturesComplete     // ALLE Vorträge vollständig
       };
     });
     
@@ -12329,10 +12408,10 @@ app.post('/api/backups/restore', async (req, res) => {
       backupDir = HTML_BACKUP_DIR;
       targetFile = path.join(__dirname, 'index.html');
       backupFunc = () => createHtmlBackup('index.html');
-    } else if (backupName.startsWith('keyword-manager-advanced-')) {
+    } else if (backupName.startsWith('keyword-manager-advanced-') || backupName.startsWith('keyword-manager-')) {
       backupDir = HTML_BACKUP_DIR;
-      targetFile = path.join(__dirname, 'keyword-manager-advanced.html');
-      backupFunc = () => createHtmlBackup('keyword-manager-advanced.html');
+      targetFile = path.join(__dirname, 'keyword-manager.html');
+      backupFunc = () => createHtmlBackup('keyword-manager.html');
     } else {
       return res.status(400).json({ error: 'Unbekannter Backup-Typ' });
     }
@@ -12407,7 +12486,7 @@ app.post('/api/backups/create', async (req, res) => {
       case 'html':
         // Erstelle Backups für beide HTML-Dateien
         const indexBackup = await createHtmlBackup('index.html');
-        const managerBackup = await createHtmlBackup('keyword-manager-advanced.html');
+        const managerBackup = await createHtmlBackup('keyword-manager.html');
         const htmlBackups = [indexBackup, managerBackup].filter(b => b !== null);
         return res.json({
           success: true,
@@ -12527,7 +12606,7 @@ async function startServer() {
 console.log('\n[BACKUP] Erstelle automatische Backups...');
 await createCodeBackup();
 await createHtmlBackup('index.html');
-await createHtmlBackup('keyword-manager-advanced.html');
+await createHtmlBackup('keyword-manager.html');
 // Wichtige Datenbank-Backups beim Start
 await createKeywordsBackup();
 await createSummaryBackup();
