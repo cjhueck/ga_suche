@@ -5993,15 +5993,39 @@ function toggleGASummaries() {
         console.log('[PDF-EXPORT] Starte Export für:', headingText);
         console.log('[PDF-EXPORT] Inhaltslänge:', textContent.length);
         
-        // Nutze html2canvas direkt auf das SICHTBARE answerDiv mit reduzierter Scale
-        const canvas = await html2canvas(answerDiv, {
-          scale: 1.2,
+        // Erstelle einen temporären breiteren Container für bessere Darstellung
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '0';
+        tempContainer.style.width = '800px';
+        tempContainer.style.backgroundColor = '#ffffff';
+        tempContainer.style.padding = '30px';
+        tempContainer.style.fontFamily = window.getComputedStyle(answerDiv).fontFamily;
+        tempContainer.style.fontSize = '11pt';
+        tempContainer.style.lineHeight = '1.5';
+        tempContainer.style.color = '#333';
+        
+        // Klone den Inhalt
+        const contentClone = answerDiv.cloneNode(true);
+        tempContainer.appendChild(contentClone);
+        
+        // Füge Container zum DOM hinzu
+        document.body.appendChild(tempContainer);
+        
+        // Warte kurz
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Nutze html2canvas auf den breiteren temporären Container
+        const canvas = await html2canvas(tempContainer, {
+          scale: 1.5,
           useCORS: true,
           logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: answerDiv.scrollWidth,
-          windowHeight: answerDiv.scrollHeight
+          backgroundColor: '#ffffff'
         });
+        
+        // Entferne temporären Container
+        document.body.removeChild(tempContainer);
         
         console.log('[PDF-EXPORT] Canvas erstellt:', canvas.width, 'x', canvas.height);
         
