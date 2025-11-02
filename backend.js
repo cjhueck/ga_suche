@@ -1638,7 +1638,7 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     // Proximity-Filter:
     // null/"" = kein Limit (beliebiger Abstand im gesamten Vortrag)
-    // 2 oder 3 = max. X Absätze Abstand zwischen den Wörtern
+    // 1, 2 oder 3 = max. X Absätze Abstand zwischen den Wörtern
     const effectiveProximity = proximity || null;
     
     const operatorText = word2 ? ` ${wordOperator.toUpperCase()} ` : '';
@@ -1727,7 +1727,7 @@ app.post('/api/fulltext-search', async (req, res) => {
             paragraphsToAdd.push(paraIndex);
           }
         } else {
-          // UND-Suche MIT Proximity-Limit (max. 2 oder 3 Absätze)
+          // UND-Suche MIT Proximity-Limit (max. 1, 2 oder 3 Absätze)
           const maxDist = parseInt(effectiveProximity);
           
           if (hasWord1 && hasWord2) {
