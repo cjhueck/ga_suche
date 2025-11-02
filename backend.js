@@ -6175,11 +6175,18 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
       console.log(`[ADD-KW] Benutzerdefinierte Beschreibung verwendet: "${keyword.heading}"`);
     }
     
+    // ✅ Markiere manuell hinzugefügtes Keyword
+    const manualKeyword = {
+      ...keyword,
+      manuallyEdited: true,
+      lastEditedAt: new Date().toISOString()
+    };
+    
     summaryDB[lectureId].lectureKeywords = summaryDB[lectureId].lectureKeywords || [];
-    summaryDB[lectureId].lectureKeywords.push(keyword);
+    summaryDB[lectureId].lectureKeywords.push(manualKeyword);
     
     await saveCompleteSummaryDatabase(summaryDB);
-    console.log(`[ADD-KW] ✓ Summary-Database aktualisiert`);
+    console.log(`[ADD-KW] ✓ Summary-Database aktualisiert (manuallyEdited=true)`);
     
     // 2. Aktualisiere Keywords-Database
     const keywordsDB = await loadKeywordsDatabase();
@@ -6220,14 +6227,14 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
         year: year,
         gaVolume: gaVolume,
         summary: summaryDB[lectureId].summary || '',
-        keywords: [keyword],
+        keywords: [manualKeyword],
         generated: new Date().toISOString(),
         generationMethod: 'manual-add'
       };
     } else {
       // Aktualisiere bestehenden Eintrag: Füge Keyword hinzu UND aktualisiere Datum/Jahr
       keywordsDB[lectureId].keywords = keywordsDB[lectureId].keywords || [];
-      keywordsDB[lectureId].keywords.push(keyword);
+      keywordsDB[lectureId].keywords.push(manualKeyword);
       
       // Aktualisiere Datum/Jahr falls leer (wichtig für alte Einträge ohne Datum)
       if (!keywordsDB[lectureId].date && date) {
@@ -6243,7 +6250,7 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
     }
     
     await saveCompleteKeywordsDatabase(keywordsDB);
-    console.log(`[ADD-KW] ✓ Keywords-Database aktualisiert`);
+    console.log(`[ADD-KW] ✓ Keywords-Database aktualisiert (manuallyEdited=true)`);
     
     res.json({ 
       success: true, 
@@ -6385,10 +6392,12 @@ app.post('/api/update-lecture-keyword', async (req, res) => {
       if (kwIndex !== -1) {
         keywordsDB[lectureId].keywords[kwIndex] = {
           ...keywordsDB[lectureId].keywords[kwIndex],
-          ...newKeyword
+          ...newKeyword,
+          manuallyEdited: true,  // ✅ Markiere als manuell bearbeitet
+          lastEditedAt: new Date().toISOString()
         };
         await saveCompleteKeywordsDatabase(keywordsDB);
-        console.log(`[UPDATE-KW] ✓ Keywords-Database aktualisiert`);
+        console.log(`[UPDATE-KW] ✓ Keywords-Database aktualisiert (manuallyEdited=true)`);
       }
     }
     
@@ -6403,10 +6412,12 @@ app.post('/api/update-lecture-keyword', async (req, res) => {
       if (kwIndex !== -1) {
         summaryDB[lectureId].lectureKeywords[kwIndex] = {
           ...summaryDB[lectureId].lectureKeywords[kwIndex],
-          ...newKeyword
+          ...newKeyword,
+          manuallyEdited: true,  // ✅ Markiere als manuell bearbeitet
+          lastEditedAt: new Date().toISOString()
         };
         await saveCompleteSummaryDatabase(summaryDB);
-        console.log(`[UPDATE-KW] ✓ Summary-Database aktualisiert`);
+        console.log(`[UPDATE-KW] ✓ Summary-Database aktualisiert (manuallyEdited=true)`);
       }
     }
     
@@ -6927,7 +6938,7 @@ async function saveCompleteKeywordsDatabase(keywordsDB) {
   });
 }
 
-// ROBUSTE FUNKTION: Speichere Keywords in Datenbank (mit Locking)
+// ROBUSTE FUNKTION: Speichere Keywords in Datenbank (mit Locking & Merge)
 async function saveKeywordsToDatabase(lectureId, keywordsData) {
   return new Promise((resolve, reject) => {
     keywordsDbWriteQueue = keywordsDbWriteQueue.then(async () => {
@@ -6940,10 +6951,47 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
         // Lade immer die aktuellste Version der Datenbank
         const keywordsDB = await loadKeywordsDatabase();
         
-        // Füge neue Keywords hinzu oder aktualisiere bestehende
+        // ============================================================================
+        // MERGE-STRATEGIE: Manuelle Bearbeitungen erhalten
+        // ============================================================================
+        
+        const existingEntry = keywordsDB[lectureId];
+        let mergedKeywords = keywordsData.keywords || [];
+        
+        if (existingEntry && existingEntry.keywords && Array.isArray(existingEntry.keywords)) {
+          console.log(`[KEYWORDS-MERGE] Merge für ${lectureId}: ${existingEntry.keywords.length} bestehende + ${keywordsData.keywords?.length || 0} neue Keywords`);
+          
+          // 1. Behalte alle manuell bearbeiteten Keywords
+          const manualKeywords = existingEntry.keywords.filter(kw => kw.manuallyEdited === true);
+          console.log(`[KEYWORDS-MERGE] Erhalte ${manualKeywords.length} manuell bearbeitete Keywords`);
+          
+          // 2. Erstelle Set der bestehenden Keyword-Signaturen (term + index)
+          const existingSignatures = new Set(
+            existingEntry.keywords.map(kw => `${kw.term}|${kw.index}`)
+          );
+          
+          // 3. Füge nur neue Keywords hinzu (keine Duplikate)
+          const newKeywords = (keywordsData.keywords || []).filter(kw => {
+            const signature = `${kw.term}|${kw.index}`;
+            return !existingSignatures.has(signature);
+          });
+          
+          console.log(`[KEYWORDS-MERGE] Füge ${newKeywords.length} neue Keywords hinzu`);
+          
+          // 4. Merge: Manuelle zuerst, dann neue
+          mergedKeywords = [...manualKeywords, ...newKeywords];
+          
+          console.log(`[KEYWORDS-MERGE] ✓ Merge abgeschlossen: ${mergedKeywords.length} Keywords total`);
+        } else {
+          console.log(`[KEYWORDS-MERGE] Keine bestehenden Keywords für ${lectureId} - füge ${mergedKeywords.length} neue hinzu`);
+        }
+        
+        // Speichere gemergten Eintrag
         keywordsDB[lectureId] = {
           ...keywordsData,
-          timestamp: new Date().toISOString()
+          keywords: mergedKeywords,
+          timestamp: new Date().toISOString(),
+          lastMerge: existingEntry ? new Date().toISOString() : null
         };
         
         // Validiere dass Datenbank nicht leer ist

@@ -229,7 +229,8 @@
       "Philon",
       "Comenius",
       "Dionysios Areopagita",
-      "Dürer"
+      "Dürer",
+      "Barbarossa"
     ]
   },
   "Seelenleben": {
@@ -532,7 +533,8 @@
       "Freies Geistesleben",
       "Freiheit",
       "Brüderlichkeit",
-      "Assoziationen"
+      "Assoziationen",
+      "Arbeit"
     ]
   },
   "Wirtschaft": {
@@ -1042,6 +1044,14 @@
       "Seraphim",
       "Archangeloi",
       "Angeloi"
+    ]
+  },
+  "Soziale & politische Richtungen": {
+    "description": "Manuell erstellter Cluster: Soziale & politische Richtungen",
+    "keywords": [
+      "Bolschewismus",
+      "Sozialismus",
+      "Marxismus"
     ]
   }
 }
