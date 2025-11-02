@@ -1667,25 +1667,32 @@ app.post('/api/fulltext-search', async (req, res) => {
     const addedParagraphs = new Set();
     
     Object.values(fullLectures).forEach(lecture => {
-      // GA-Filter: Überspringe Vorträge, die nicht zum ausgewählten GA-Band gehören
+      // GA-Filter: Überspringe Vorträge, die nicht zu den ausgewählten GA-Bänden gehören
       if (gaFilter) {
         const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : ''; // z.B. "GA110"
+        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
         
-        // Prüfe verschiedene Formate: "GA110", "110", "ga110"
-        const matchesFilter = lectureGA === gaFilter || 
-                              lectureGA === `GA${gaFilter}` || 
-                              lectureGA.replace('GA', '').replace('ga', '') === gaFilter;
+        // Prüfe ob der Vortrag zu einem der ausgewählten GA-Bände gehört
+        const matchesFilter = gaFilters.some(filter => 
+          lectureGA === filter || 
+          lectureGA === `GA${filter}` || 
+          lectureGA.replace('GA', '').replace('ga', '') === filter
+        );
         
         if (!matchesFilter) {
           return; // Überspringe diesen Vortrag
         }
       }
       
-      // Jahr-Filter: Überspringe Vorträge, die nicht zum ausgewählten Jahr gehören
+      // Jahr-Filter: Überspringe Vorträge, die nicht zu den ausgewählten Jahren gehören
       if (yearFilter) {
         const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
+        const yearFilters = yearFilter.split(',').map(f => f.trim()).filter(f => f);
         
-        if (lectureYear !== yearFilter) {
+        // Prüfe ob der Vortrag zu einem der ausgewählten Jahre gehört
+        const matchesYearFilter = yearFilters.some(filter => lectureYear === filter);
+        
+        if (!matchesYearFilter) {
           return; // Überspringe diesen Vortrag
         }
       }
@@ -4342,6 +4349,28 @@ app.get('/api/available-ga', async (req, res) => {
     res.json({ availableGA: result });
   } catch (error) {
     console.error("[ERROR] Fehler bei /api/available-ga:", error);
+    res.status(500).json({ error: "Interner Serverfehler" });
+  }
+});
+
+app.get('/api/available-years', async (req, res) => {
+  try {
+    const yearSet = new Set();
+
+    Object.values(fullLectures).forEach(lecture => {
+      if (lecture.date && typeof lecture.date === 'string') {
+        const year = lecture.date.substring(0, 4);
+        if (year && /^\d{4}$/.test(year)) {
+          yearSet.add(year);
+        }
+      }
+    });
+
+    const result = Array.from(yearSet).sort();
+    console.log("[INFO] Verfügbare Jahre:", result.length, "Jahre von", result[0], "bis", result[result.length - 1]);
+    res.json({ years: result });
+  } catch (error) {
+    console.error("[ERROR] Fehler bei /api/available-years:", error);
     res.status(500).json({ error: "Interner Serverfehler" });
   }
 });
