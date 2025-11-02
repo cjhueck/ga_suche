@@ -543,6 +543,25 @@
                         </button>
                     </div>
 
+                    <!-- Synonym hinzufügen -->
+                    <div class="action-group">
+                        <h3>Synonym</h3>
+                        
+                        <div class="input-group">
+                            <label>Haupt-Keyword:</label>
+                            <input type="text" id="synonymBaseInput" placeholder="z.B. Buddhi">
+                        </div>
+                        <div class="input-group">
+                            <label>Synonym:</label>
+                            <input type="text" id="synonymAltInput" placeholder="z.B. Budhi">
+                        </div>
+                        <button class="btn btn-success" onclick="addSynonymManual()">
+                            Synonym hinzufügen
+                        </button>
+                        
+                        <div id="synonymStatus" style="margin-top: 8px; font-size: 0.8rem; color: var(--secondary-text); display: none;"></div>
+                    </div>
+
                     <!-- Cluster Zuordnung -->
                     <div class="action-group">
                         <h3>Cluster Zuordnung</h3>
@@ -713,6 +732,21 @@
                 }
             });
             
+            // Enter-Taste für Synonym-Inputs
+            document.getElementById('synonymBaseInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSynonymManual();
+                }
+            });
+            
+            document.getElementById('synonymAltInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSynonymManual();
+                }
+            });
+            
             // Enter-Taste für Cluster-Funktionen
             document.getElementById('newClusterInput').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
@@ -748,6 +782,27 @@
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     mergeClusters();
+                }
+            });
+            
+            // Generischer Enter-Support für alle Input-Felder in action-groups
+            document.querySelectorAll('.action-group input, .action-group select').forEach(input => {
+                if (!input.hasAttribute('data-enter-bound')) {
+                    input.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            
+                            // Finde den nächsten Button in der gleichen action-group
+                            const actionGroup = input.closest('.action-group');
+                            if (actionGroup) {
+                                const button = actionGroup.querySelector('button.btn:not([disabled])');
+                                if (button) {
+                                    button.click();
+                                }
+                            }
+                        }
+                    });
+                    input.setAttribute('data-enter-bound', 'true');
                 }
             });
         });
@@ -1269,6 +1324,64 @@
             } catch (error) {
                 console.error('Fehler beim Löschen:', error);
                 showToast('Fehler beim Löschen', 'error');
+            }
+        }
+
+        // Synonym hinzufügen
+        async function addSynonymManual() {
+            const baseKeyword = document.getElementById('synonymBaseInput').value.trim();
+            const synonym = document.getElementById('synonymAltInput').value.trim();
+            const statusEl = document.getElementById('synonymStatus');
+            
+            if (!baseKeyword || !synonym) {
+                showToast('Bitte beide Felder ausfüllen', 'error');
+                return;
+            }
+            
+            if (baseKeyword.toLowerCase() === synonym.toLowerCase()) {
+                showToast('Synonym muss unterschiedlich sein', 'error');
+                return;
+            }
+            
+            statusEl.style.display = 'block';
+            statusEl.textContent = 'Füge Synonym hinzu...';
+            statusEl.style.color = 'var(--secondary-text)';
+            
+            try {
+                const response = await fetch(`${API_BASE}/synonyms/add`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        baseKeyword: baseKeyword,
+                        synonym: synonym
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server-Fehler: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.alreadyExists) {
+                    showToast(`Synonym "${synonym}" ist bereits vorhanden`, 'info');
+                    statusEl.textContent = `"${synonym}" existiert bereits für "${baseKeyword}"`;
+                    statusEl.style.color = '#f0ad4e';
+                } else {
+                    showToast(`✓ Synonym "${synonym}" zu "${baseKeyword}" hinzugefügt`, 'success');
+                    statusEl.textContent = `✓ Synonym hinzugefügt! Gruppe hat ${result.totalSynonyms} Einträge: ${result.allSynonyms.join(', ')}`;
+                    statusEl.style.color = '#5cb85c';
+                    
+                    // Felder leeren
+                    document.getElementById('synonymBaseInput').value = '';
+                    document.getElementById('synonymAltInput').value = '';
+                }
+                
+            } catch (error) {
+                console.error('Fehler beim Synonym-Hinzufügen:', error);
+                showToast('Fehler beim Hinzufügen: ' + error.message, 'error');
+                statusEl.textContent = '✗ Fehler beim Hinzufügen';
+                statusEl.style.color = '#d9534f';
             }
         }
 
