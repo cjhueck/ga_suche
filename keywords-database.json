@@ -11492,13 +11492,14 @@
       {
         "term": "Erinnerungstableau",
         "index": "^rxk1ax",
-        "heading": "Manuell hinzugefügt",
+        "heading": "Das Erinnerungstableau nach dem Tod",
         "source": "manual",
         "matchType": "manual",
         "matchedExisting": null,
         "summaryMentioned": false,
         "confidence": 1,
-        "level": "h3"
+        "level": "h3",
+        "customDescription": true
       }
     ],
     "generated": "2025-10-28T10:33:43.726Z",

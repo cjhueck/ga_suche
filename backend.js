@@ -1630,20 +1630,20 @@ async function performHybridSearch(query, limit = 20) {
 
 app.post('/api/fulltext-search', async (req, res) => {
   try {
-    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null, relevanceFilter = 'alle', yearFilter = '' } = req.body;
+    const { word1, word2, word1IsPhrase = false, word2IsPhrase = false, wordOperator = 'and', proximity = null, relevanceFilter = 'alle', yearFilter = '', gaFilter = '' } = req.body;
     
     if (!word1) {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
-    // Bei Zwei-Wort-Suche ohne explizite Proximity: Setze automatisch auf max. 3 Absätze
-    let effectiveProximity = proximity;
-    if (word2 && !proximity) {
-      effectiveProximity = 3;
-      console.log(`[2-WORD-PROXIMITY] Automatische Proximity für Zwei-Wort-Suche: max. 3 Absätze`);
-    }
+    // Proximity-Filter:
+    // null/"" = kein Limit (beliebiger Abstand im gesamten Vortrag)
+    // 2 oder 3 = max. X Absätze Abstand zwischen den Wörtern
+    const effectiveProximity = proximity || null;
     
-    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? ` + ${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${effectiveProximity ? ` (Proximity: ${effectiveProximity})` : ''} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}`);
+    const operatorText = word2 ? ` ${wordOperator.toUpperCase()} ` : '';
+    const proximityInfo = effectiveProximity ? ` (Proximity: max. ${effectiveProximity} Absätze)` : word2 ? ' (beliebiger Abstand)' : '';
+    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? `${operatorText}${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${proximityInfo} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}${gaFilter ? ` [GA-Filter: ${gaFilter}]` : ''}`);
     
     // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
     const searchInText = (text, searchTerm, isPhrase) => {
@@ -1667,25 +1667,42 @@ app.post('/api/fulltext-search', async (req, res) => {
     const addedParagraphs = new Set();
     
     Object.values(fullLectures).forEach(lecture => {
-      // Jahr-Filter: Überspringe Vorträge, die nicht dem ausgewählten Jahr entsprechen
+      // GA-Filter: Überspringe Vorträge, die nicht zum ausgewählten GA-Band gehören
+      if (gaFilter) {
+        const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : ''; // z.B. "GA110"
+        
+        // Prüfe verschiedene Formate: "GA110", "110", "ga110"
+        const matchesFilter = lectureGA === gaFilter || 
+                              lectureGA === `GA${gaFilter}` || 
+                              lectureGA.replace('GA', '').replace('ga', '') === gaFilter;
+        
+        if (!matchesFilter) {
+          return; // Überspringe diesen Vortrag
+        }
+      }
+      
+      // Jahr-Filter: Überspringe Vorträge, die nicht zum ausgewählten Jahr gehören
       if (yearFilter) {
         const lectureYear = lecture.date ? lecture.date.substring(0, 4) : '';
         
-        // Prüfe ob es ein Jahresbereich ist (z.B. "1910-1915")
-        if (yearFilter.includes('-')) {
-          const [startYear, endYear] = yearFilter.split('-').map(y => y.trim());
-          if (lectureYear < startYear || lectureYear > endYear) {
-            return; // Überspringe diesen Vortrag (außerhalb des Bereichs)
-          }
-        } else {
-          // Einzelnes Jahr
-          if (lectureYear !== yearFilter) {
-            return; // Überspringe diesen Vortrag
-          }
+        if (lectureYear !== yearFilter) {
+          return; // Überspringe diesen Vortrag
         }
       }
       
       const paragraphs = lecture.paragraphs || [];
+      
+      // Bei UND ohne Proximity: Prüfe erst ob beide Wörter irgendwo im Vortrag vorkommen
+      let lectureHasWord1 = false;
+      let lectureHasWord2 = false;
+      if (word2 && wordOperator === 'and' && !effectiveProximity) {
+        for (const para of paragraphs) {
+          const content = (para.content || para.text || '');
+          if (!lectureHasWord1) lectureHasWord1 = searchInText(content, word1, word1IsPhrase);
+          if (!lectureHasWord2) lectureHasWord2 = searchInText(content, word2, word2IsPhrase);
+          if (lectureHasWord1 && lectureHasWord2) break;
+        }
+      }
       
       paragraphs.forEach((para, paraIndex) => {
         const content = (para.content || para.text || '');
@@ -1699,13 +1716,18 @@ app.post('/api/fulltext-search', async (req, res) => {
           if (hasWord1) {
             paragraphsToAdd.push(paraIndex);
           }
-        } else if (!effectiveProximity) {
-          // Zwei-Wort-Suche OHNE Proximity (sollte nicht mehr vorkommen, da effectiveProximity automatisch gesetzt wird)
+        } else if (wordOperator === 'or') {
+          // ODER-Suche: Mindestens ein Wort muss vorkommen (Proximity irrelevant)
           if (hasWord1 || hasWord2) {
             paragraphsToAdd.push(paraIndex);
           }
+        } else if (!effectiveProximity) {
+          // UND-Suche OHNE Proximity-Limit (beide Wörter müssen irgendwo im Vortrag vorkommen)
+          if (lectureHasWord1 && lectureHasWord2 && (hasWord1 || hasWord2)) {
+            paragraphsToAdd.push(paraIndex);
+          }
         } else {
-          // Zwei-Wort-Suche MIT Proximity (Standard: max. 2 Absätze)
+          // UND-Suche MIT Proximity-Limit (max. 2 oder 3 Absätze)
           const maxDist = parseInt(effectiveProximity);
           
           if (hasWord1 && hasWord2) {
