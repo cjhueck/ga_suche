@@ -4588,7 +4588,7 @@ function normalizeGANumber(gaNumber) {
       // currentOpenLectureId zurücksetzen
       window.currentOpenLectureId = null;
       
-      // Beim Wechsel ZUM Suche-Tab: Lösche alte Statistik
+      // Beim Wechsel ZUM Suche-Tab: Lösche alte Statistik und setze auf Default
       if (mode === 'keyword') {
         const viewToggle = document.getElementById('viewToggle');
         if (viewToggle) viewToggle.style.display = 'none';
@@ -4596,12 +4596,28 @@ function normalizeGANumber(gaNumber) {
         const timelineBtn = document.getElementById('showTimelineBtn');
         if (timelineBtn) timelineBtn.style.display = 'none';
         
-        // Lösche Statistik-Anzeige auch beim Zurückkehren zum Tab
+        // Lösche Suchergebnis-Statistik
         const resultInfo = document.getElementById('resultInfo');
         if (resultInfo) {
           resultInfo.textContent = '';
           resultInfo.innerHTML = '';
         }
+        
+        // Setze Dropdowns zurück, damit Default-Statistik angezeigt wird
+        if (typeof yearFilterDropdown !== 'undefined' && yearFilterDropdown) {
+          yearFilterDropdown.clear();
+        }
+        if (typeof gaFilterDropdown !== 'undefined' && gaFilterDropdown) {
+          gaFilterDropdown.clear();
+        }
+        
+        // Setze serverInfo auf Default-Wert (Gesamtanzahl der Vorträge)
+        // Mit kleinem Timeout, damit Dropdowns zurückgesetzt sind
+        setTimeout(() => {
+          if (typeof updateServerInfo === 'function') {
+            updateServerInfo();
+          }
+        }, 50);
       }
       
       // Header-Position aktualisieren
@@ -4741,16 +4757,32 @@ function normalizeGANumber(gaNumber) {
     
     // Update serverInfo basierend auf GA-Filter Auswahl
     function updateServerInfo() {
-      const gaFilter = document.getElementById('gaFilter');
       const serverInfo = document.getElementById('serverInfo');
       
-      if (!gaFilter || !serverInfo) return;
+      if (!serverInfo) return;
       
-      const selectedGA = gaFilter.value;
+      // Hole ausgewählte GA-Bände aus Custom Dropdown
+      const selectedGAs = gaFilterDropdown ? gaFilterDropdown.getSelectedValues() : [];
       
-      if (selectedGA && gaLectureCounts[selectedGA]) {
-        serverInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+      if (selectedGAs.length === 1) {
+        // Ein GA-Band ausgewählt: Zeige spezifische Anzahl
+        const selectedGA = selectedGAs[0];
+        if (gaLectureCounts[selectedGA]) {
+          serverInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+        } else {
+          serverInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
+        }
+      } else if (selectedGAs.length > 1) {
+        // Mehrere GA-Bände ausgewählt: Zeige Summe
+        let totalSelected = 0;
+        selectedGAs.forEach(ga => {
+          if (gaLectureCounts[ga]) {
+            totalSelected += gaLectureCounts[ga];
+          }
+        });
+        serverInfo.textContent = `${totalSelected} Vorträge in ${selectedGAs.length} GA-Bänden`;
       } else {
+        // Keine Auswahl: Zeige Gesamtanzahl (Default)
         serverInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
       }
     }
@@ -14459,6 +14491,31 @@ window.switchTab = function(tabName) {
   // Load quotes when zitate tab is opened
   if (tabName === 'zitate') {
     loadQuotesForTab();
+  }
+  
+  // Reset statistics when keyword/search tab is opened
+  if (tabName === 'keyword') {
+    // Lösche Suchergebnis-Statistik
+    const resultInfo = document.getElementById('resultInfo');
+    if (resultInfo) {
+      resultInfo.textContent = '';
+      resultInfo.innerHTML = '';
+    }
+    
+    // Setze Dropdowns zurück
+    if (typeof yearFilterDropdown !== 'undefined' && yearFilterDropdown) {
+      yearFilterDropdown.clear();
+    }
+    if (typeof gaFilterDropdown !== 'undefined' && gaFilterDropdown) {
+      gaFilterDropdown.clear();
+    }
+    
+    // Setze serverInfo auf Default-Wert
+    setTimeout(() => {
+      if (typeof updateServerInfo === 'function') {
+        updateServerInfo();
+      }
+    }, 50);
   }
 };
 
