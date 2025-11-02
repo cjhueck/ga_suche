@@ -5878,9 +5878,7 @@ function toggleGASummaries() {
         
         console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
         
-        if (gaFilter) {
-          results = results.filter(r => r.ID && r.ID.startsWith(gaFilter));
-        }
+        // GA-Filter wird bereits im Backend angewendet - keine zusätzliche Frontend-Filterung nötig
         
         searchResults = results;
         let displayQuery;
