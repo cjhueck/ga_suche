@@ -94,6 +94,51 @@
     background-color: #333;
     color: var(--dark-text-color);
     }
+    
+    /* UND/ODER Operator Box */
+    .word-operator-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      padding: 2px 4px;
+      flex-shrink: 0;
+      width: auto;
+    }
+    
+    .word-operator-label {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      font-size: 0.65em;
+      white-space: nowrap;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .word-operator-label input[type="radio"] {
+      margin: 0;
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+      accent-color: var(--accent-color);
+      background-color: transparent;
+    }
+    
+    body.dark-mode .word-operator-label input[type="radio"] {
+      accent-color: var(--dark-accent-color);
+      background-color: transparent;
+    }
+    
+    .word-operator-label span {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .word-operator-label span {
+      color: var(--dark-text-color);
+    }
     body.dark-mode .search-input:-webkit-autofill,
     body.dark-mode .search-input:-webkit-autofill:hover,
     body.dark-mode .search-input:-webkit-autofill:focus {
@@ -1448,6 +1493,12 @@ body.dark-mode .loading-message {
       border: 1px solid #ccc;
       background: var(--background-color);
       font-size: 0.9em;
+    }
+    
+    .search-words-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
     }
     
     .filter-row {
@@ -3450,10 +3501,20 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="keyword-tab">
-<div style="display:flex; gap:8px; margin-top:4px;">
+<div class="search-words-row">
 <div style="flex:1; position: relative;">
 <input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
 <datalist id="word1-history"></datalist>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="wordOperator" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="wordOperator" value="or">
+<span>ODER</span>
+</label>
 </div>
 <div style="flex:1; position: relative;">
 <input class="search-input" id="word2" list="word2-history" onfocus="this.select()" placeholder="Suchwort 2 (optional)" type="text"/>
@@ -3462,14 +3523,19 @@ body.dark-mode #popupCaption {
 </div>
 <div class="filter-row">
 <select class="filter-dropdown" id="yearFilter">
-<option value="">Jahre: alle</option>
+<option value="">Jahre</option>
 </select>
 <select class="filter-dropdown" id="gaFilter">
-<option value="">GA-Bände: alle</option>
+<option value="">GA-Bände</option>
+</select>
+<select class="filter-dropdown" id="proximityFilter">
+<option value="">Abstand</option>
+<option value="2">2 Absätze</option>
+<option value="3">3 Absätze</option>
 </select>
 <select class="filter-dropdown" id="relevanceFilter">
-<option value="ohne">Relevanz: ohne</option>
-<option value="alle">Relevanz: alle</option>
+<option value="ohne">Relevanz</option>
+<option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
 <option value="mittel">mittel 🟧</option>
 <option value="niedrig">niedrig 🟨</option>
@@ -4540,7 +4606,7 @@ function normalizeGANumber(gaNumber) {
         const thematicGAFilter = document.getElementById('thematicGAFilter');
         const texteGAFilter = document.getElementById('texteGAFilter');
         if (gaFilter) {
-          gaFilter.innerHTML = '<option value="">GA-Bände: alle</option>';
+          gaFilter.innerHTML = '<option value="">GA-Bände</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
             option.value = ga.number;
@@ -5224,11 +5290,23 @@ function toggleGASummaries() {
         
         const gaFilter = document.getElementById('gaFilter').value;
         const yearFilter = document.getElementById('yearFilter').value;
+        const proximityFilterElement = document.getElementById('proximityFilter');
+        const proximityFilter = proximityFilterElement ? proximityFilterElement.value : '';
         const relevanceFilterElement = document.getElementById('relevanceFilter');
         const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'alle';
         
+        // Hole UND/ODER Operator
+        const wordOperatorElement = document.querySelector('input[name="wordOperator"]:checked');
+        const wordOperator = wordOperatorElement ? wordOperatorElement.value : 'and';
+        
+        // Proximity: Leer = kein Limit, sonst der gewählte Wert (2 oder 3)
+        const proximity = proximityFilter || null;
+        
         console.log(`[RELEVANCE-FILTER] Sende Filter an Backend: "${relevanceFilter}"`);
         if (yearFilter) console.log(`[YEAR-FILTER] Sende Jahr-Filter: "${yearFilter}"`);
+        if (gaFilter) console.log(`[GA-FILTER] Sende GA-Filter: "${gaFilter}"`);
+        if (proximity) console.log(`[PROXIMITY-FILTER] Sende Proximity-Filter: "${proximity} Absätze"`);
+        console.log(`[WORD-OPERATOR] Sende Operator: "${wordOperator.toUpperCase()}"`);
         
         const response = await fetch(`${API_BASE}/api/fulltext-search`, {
           method: 'POST',
@@ -5239,8 +5317,11 @@ function toggleGASummaries() {
             word2: word2,
             word1IsPhrase: word1IsPhrase,
             word2IsPhrase: word2IsPhrase,
+            wordOperator: wordOperator,
+            proximity: proximity,
             relevanceFilter: relevanceFilter,
-            yearFilter: yearFilter
+            yearFilter: yearFilter,
+            gaFilter: gaFilter
           })
         });
         
@@ -5260,7 +5341,8 @@ function toggleGASummaries() {
         if (word1Input && word2Input) {
           const term1 = word1IsPhrase ? `"${word1}"` : word1;
           const term2 = word2IsPhrase ? `"${word2}"` : word2;
-          displayQuery = `${term1} + ${term2}`;
+          const opSymbol = wordOperator === 'or' ? ' ODER ' : ' UND ';
+          displayQuery = `${term1}${opSymbol}${term2}`;
         } else {
           const singleTerm = word1Input || word2Input;
           const isPhrase = word1Input ? word1IsPhrase : word2IsPhrase;
@@ -9372,8 +9454,8 @@ setTimeout(() => {
     return;
   }
 
-  gaFilter.innerHTML = '<option value="">alle GA-Bände</option>';
-  thematicGAFilter.innerHTML = '<option value="">alle GA-Bände</option>';
+  gaFilter.innerHTML = '<option value="">GA-Bände</option>';
+  thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
 
   try {
     const response = await fetch(`${API_BASE}/api/available-ga`);

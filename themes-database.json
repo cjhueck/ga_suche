@@ -580,7 +580,8 @@
       "Tod & Geburt",
       "Tod & Leben",
       "Tod & Wiedergeburt",
-      "Erinnerungstableau"
+      "Erinnerungstableau",
+      "Lebenstableau"
     ]
   },
   "Leben zwischen den Inkarnationen": {
@@ -588,8 +589,7 @@
     "keywords": [
       "Leben zwischen Tod & Geburt",
       "Vorgeburtliches Leben",
-      "Nachtodliches Leben",
-      "Lebenstableau"
+      "Nachtodliches Leben"
     ]
   },
   "Wiederverkörperung": {
