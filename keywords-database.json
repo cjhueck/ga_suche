@@ -18092,17 +18092,6 @@
         "level": "h3"
       },
       {
-        "term": "Bewusstsein",
-        "index": "^r98vt1",
-        "heading": "Aufbau und Abbau im Organismus",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Bewusstsein",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
         "term": "Ich",
         "index": "^mi3yn1",
         "heading": "Aufbau und Abbau im Organismus",
@@ -18188,6 +18177,18 @@
         "matchedExisting": null,
         "summaryMentioned": false,
         "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^r98vt1",
+        "heading": "Bewusstseinstätigkeit durch Zersetzungsprozesse",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],
@@ -60490,17 +60491,6 @@
         "level": "h3"
       },
       {
-        "term": "Schauendes Bewusstsein",
-        "index": "^pfsg7v",
-        "heading": "Das schauende Bewusstsein und die drei Bewusstseinszustände",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Schauendes Bewusstsein",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
         "term": "Meditation",
         "index": "^pfsg7v",
         "heading": "Das schauende Bewusstsein und die drei Bewusstseinszustände",
@@ -60559,18 +60549,6 @@
         "term": "Bewusstsein",
         "index": "^d39rru",
         "heading": "Bewusstsein durch Abbau des Leibes",
-        "customDescription": true,
-        "source": "manual",
-        "matchType": "manual",
-        "matchedExisting": null,
-        "summaryMentioned": false,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Bewusstsein",
-        "index": "^8dcn2m",
-        "heading": "Bewusstsein als Todesprozess",
         "customDescription": true,
         "source": "manual",
         "matchType": "manual",
@@ -62050,6 +62028,30 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h4"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^i6gjiy",
+        "heading": "Fortlages Erkenntnis des Bewusstseins als abgeschwächtes Sterben",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^wq5hsj",
+        "heading": "Der Abbauprozess des Geistes im Nervensystem",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T10:26:27.254Z",
@@ -62186,23 +62188,24 @@
         "level": "h3"
       },
       {
-        "term": "Bewusstsein",
-        "index": "^vhldye",
-        "heading": "Die drei Stufen des schauenden Bewusstseins",
-        "source": "h3",
-        "matchType": "existing-exact",
-        "matchedExisting": "Bewusstsein",
-        "summaryMentioned": true,
-        "confidence": 1,
-        "level": "h3"
-      },
-      {
         "term": "Geistesforschung",
         "index": "^zi18yt",
         "heading": "Die Bedeutung der Geisteswissenschaft für die Menschheit",
         "source": "h3",
         "matchType": "existing-exact",
         "matchedExisting": "Geistesforschung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^urj2v7",
+        "heading": "Der Abbau der Kopforganisation",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
@@ -65994,6 +65997,18 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^s3wzz8",
+        "heading": "Die Rückentwicklung des Hauptes-Organismus - Vorstellen als Hungern",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T12:13:09.190Z",
@@ -67812,13 +67827,14 @@
       {
         "term": "Bewusstsein",
         "index": "^rw34gz",
-        "heading": "Der schlafende zweite Mensch",
+        "heading": "Bewusstsein als Abbauvorgang",
         "source": "h3",
         "matchType": "existing-exact",
         "matchedExisting": "Bewusstsein",
         "summaryMentioned": true,
         "confidence": 1,
-        "level": "h3"
+        "level": "h3",
+        "customDescription": true
       },
       {
         "term": "Tod",
@@ -67951,6 +67967,18 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h4"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^a6vcbt",
+        "heading": "Bewusstsein nur durch Todesprozesse",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T12:14:55.531Z",
@@ -69443,6 +69471,18 @@
         "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^rdebkj",
+        "heading": "Das Nervensystem als abbauender Prozess",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T12:22:17.365Z",
@@ -69775,6 +69815,18 @@
         "summaryMentioned": true,
         "confidence": 1,
         "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^q8vblf",
+        "heading": "Das Hungergefühl des verstärkten Denkens",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T12:22:18.952Z",
@@ -69930,6 +69982,18 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^egl1eg",
+        "heading": "Fortlages Einsichten über Bewusstsein und Tod",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],
@@ -73040,6 +73104,18 @@
         "index": "^x7rrwp",
         "heading": "Goethesche Morphologie und Denken in Formen",
         "customDescription": false,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Morphologie",
+        "index": "^x7rrwp",
+        "heading": "Goethesche Morphologie und Denken in Formen",
+        "customDescription": true,
         "source": "manual",
         "matchType": "manual",
         "matchedExisting": null,
@@ -89090,6 +89166,18 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Lebenstableau",
+        "index": "^at9x8n",
+        "heading": "Der Zeitleib (Ätherleib) als Lebenstableau",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],
@@ -119268,17 +119356,6 @@
         "matchedExisting": "Geistige Schulung",
         "summaryMentioned": false,
         "confidence": 1,
-        "level": "h3"
-      },
-      {
-        "term": "Temperament",
-        "index": "^ciy54k",
-        "heading": "Die Umwandlung des Ätherkörpers",
-        "source": "h3",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": false,
-        "confidence": 0.6,
         "level": "h3"
       },
       {
@@ -209347,6 +209424,18 @@
         "summaryMentioned": false,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Bewusstsein & Abbau",
+        "index": "^7mlere",
+        "heading": "Der Abbau der Kopforganisation",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T19:25:06.912Z",
@@ -237547,6 +237636,30 @@
         "summaryMentioned": false,
         "confidence": 0.85,
         "level": "h4"
+      },
+      {
+        "term": "Angst",
+        "index": "^a68vh8",
+        "heading": "Bildcharakter der Vorstellungen und Daseinsangst",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Zorn",
+        "index": "^lvgtmz",
+        "heading": "Die zornmütige Unterströmung des Willenslebens",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T20:08:13.602Z",
