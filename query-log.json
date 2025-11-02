@@ -8,8 +8,8 @@
     "last": "2025-10-28T15:47:48.457Z"
   },
   "lebenstableau": {
-    "count": 51,
-    "last": "2025-11-02T09:38:52.123Z"
+    "count": 55,
+    "last": "2025-11-02T10:21:26.568Z"
   },
   "goetheanismus": {
     "count": 34,
@@ -20,12 +20,12 @@
     "last": "2025-10-31T07:05:40.216Z"
   },
   "goethe": {
-    "count": 7,
-    "last": "2025-10-31T08:12:39.087Z"
+    "count": 8,
+    "last": "2025-11-02T10:02:23.266Z"
   },
   "schiller": {
-    "count": 2,
-    "last": "2025-10-30T20:04:57.449Z"
+    "count": 3,
+    "last": "2025-11-02T10:02:23.267Z"
   },
   "urpflanze": {
     "count": 6,
@@ -50,5 +50,17 @@
   "exusiai": {
     "count": 2,
     "last": "2025-11-02T09:49:19.455Z"
+  },
+  "erinnerungstableau": {
+    "count": 2,
+    "last": "2025-11-02T10:21:26.574Z"
+  },
+  "ätherleib": {
+    "count": 1,
+    "last": "2025-11-02T10:44:38.266Z"
+  },
+  "leben": {
+    "count": 1,
+    "last": "2025-11-02T10:44:38.267Z"
   }
 }

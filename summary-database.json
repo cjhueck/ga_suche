@@ -35480,6 +35480,18 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
+      },
+      {
+        "term": "Leben",
+        "index": "^0e4zrp",
+        "heading": "Leben als fortwährender Kampf gegen den Zerfall",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -41810,6 +41822,18 @@
         "matchedExisting": "Mythologie",
         "summaryMentioned": false,
         "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Lebenstableau",
+        "index": "^oxzx6z",
+        "heading": "Trennung des Ätherleibes und Lebensrückblick",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],
@@ -78055,6 +78079,30 @@
         "matchedExisting": "",
         "summaryMentioned": true,
         "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^d39rru",
+        "heading": "Bewusstsein durch Abbau des Leibes",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^8dcn2m",
+        "heading": "Bewusstsein als Todesprozess",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],
@@ -398855,6 +398903,18 @@
         "summaryMentioned": true,
         "confidence": 0.6,
         "level": "h3"
+      },
+      {
+        "term": "Selbsterziehung",
+        "index": "^y13m2l",
+        "heading": "Sebsterziehung als Verjüngungsprozess",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -427481,6 +427541,30 @@
         "summaryMentioned": false,
         "confidence": 0.65,
         "level": "h4"
+      },
+      {
+        "term": "Sonnentrennung",
+        "index": "^8te0pu",
+        "heading": "Abspaltung der Sonne führt zum Entstehen des Todes",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mondentrennung",
+        "index": "^8te0pu",
+        "heading": "Abspaltung des Mondes führt zur Geschlechtertrennung",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -477968,6 +478052,18 @@
         "summaryMentioned": false,
         "confidence": 0.7,
         "level": "h4"
+      },
+      {
+        "term": "Leben",
+        "index": "^vjktdo",
+        "heading": "Leben als Verhinderung des stofflichen Zerfalls",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -491448,6 +491544,18 @@
         "matchedExisting": null,
         "summaryMentioned": true,
         "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Leben",
+        "index": "^r9t88j",
+        "heading": "Ätherleib ist Kämpfer gegen den physischen Zerfall",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
         "level": "h3"
       }
     ],

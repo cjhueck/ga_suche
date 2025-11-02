@@ -4498,11 +4498,14 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    let totalLecturesCount = 0;
+    
     async function checkServerConnection() {
       try {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
+          totalLecturesCount = data.lecturesLoaded;
           const infoText = `${data.lecturesLoaded} Vorträge`;
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
@@ -4513,6 +4516,38 @@ function normalizeGANumber(gaNumber) {
         document.getElementById('serverInfo').innerHTML = errorText;
         document.getElementById('thematicServerInfo').innerHTML = errorText;
         document.getElementById('texteServerInfo').innerHTML = errorText;
+      }
+    }
+    
+    // Update serverInfo basierend auf GA-Filter Auswahl
+    function updateServerInfo() {
+      const gaFilter = document.getElementById('gaFilter');
+      const serverInfo = document.getElementById('serverInfo');
+      
+      if (!gaFilter || !serverInfo) return;
+      
+      const selectedGA = gaFilter.value;
+      
+      if (selectedGA && gaLectureCounts[selectedGA]) {
+        serverInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+      } else {
+        serverInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
+      }
+    }
+    
+    // Update thematicServerInfo basierend auf GA-Filter Auswahl
+    function updateThematicServerInfo() {
+      const thematicGAFilter = document.getElementById('thematicGAFilter');
+      const thematicServerInfo = document.getElementById('thematicServerInfo');
+      
+      if (!thematicGAFilter || !thematicServerInfo) return;
+      
+      const selectedGA = thematicGAFilter.value;
+      
+      if (selectedGA && gaLectureCounts[selectedGA]) {
+        thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+      } else {
+        thematicServerInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
       }
     }
     
@@ -4611,11 +4646,24 @@ function normalizeGANumber(gaNumber) {
       }
     });
 
+    // Speichere GA-Band Vortragszahlen
+    let gaLectureCounts = {};
+    
     async function populateGADropdowns() {
       try {
         const response = await fetch(`${API_BASE}/api/ga-list`);
         if (!response.ok) throw new Error('GA-Liste konnte nicht geladen werden');
         const gaList = await response.json();
+        
+        // Zähle Vorträge pro GA-Band
+        const lectureCountResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
+        if (lectureCountResponse.ok) {
+          const volumeData = await lectureCountResponse.json();
+          volumeData.volumes.forEach(vol => {
+            gaLectureCounts[vol.volume] = vol.lectureCount;
+          });
+        }
+        
         const gaFilter = document.getElementById('gaFilter');
         const thematicGAFilter = document.getElementById('thematicGAFilter');
         const texteGAFilter = document.getElementById('texteGAFilter');
@@ -4628,6 +4676,9 @@ function normalizeGANumber(gaNumber) {
             option.className = 'available-ga';
             gaFilter.appendChild(option);
           });
+          
+          // Event-Listener für GA-Filter hinzufügen
+          gaFilter.addEventListener('change', updateServerInfo);
         }
         if (thematicGAFilter) {
           thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
@@ -4638,6 +4689,9 @@ function normalizeGANumber(gaNumber) {
             option.className = 'available-ga';
             thematicGAFilter.appendChild(option);
           });
+          
+          // Event-Listener für Thematic GA-Filter hinzufügen
+          thematicGAFilter.addEventListener('change', updateThematicServerInfo);
         }
         if (texteGAFilter) {
           texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
