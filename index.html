@@ -351,7 +351,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #sidebar {
       display: flex;
       flex-direction: column;
-      width: 455px;
+      width: 460px;
       min-width: 0px;
       max-width: none;
       overflow: hidden;
@@ -3532,6 +3532,7 @@ body.dark-mode #popupCaption {
 </select>
 <select class="filter-dropdown" id="proximityFilter">
 <option value="">Abstand</option>
+<option value="1">1 Absatz</option>
 <option value="2">2 Absätze</option>
 <option value="3">3 Absätze</option>
 </select>
@@ -9175,11 +9176,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             // Prüfe ZUERST ob wir von thematischer Suche kommen
             const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
             
-            // Markiere Schlagwörter NUR wenn NICHT von thematischer Suche
-            if (keywords && keywords.length > 0 && !isFromThematicSearch) {
+            // Markiere Keywords immer, wenn sie explizit übergeben wurden
+            // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+            if (keywords && keywords.length > 0) {
               keywords.forEach(word => {
                 if (word && word.trim()) {
-                  const regex = new RegExp(`(${word.trim()})`, "gi");
+                  const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
                   content = content.replace(regex, "<mark>$1</mark>");
                 }
               });
@@ -12831,11 +12833,38 @@ async function updateTimelineStats() {
   
   // Hole aktuelle Auswahl
   const currentTheme = document.getElementById('timelineThemeFilterAdmin')?.value || '';
+  const currentKeyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
   try {
     const keywordsDB = await loadKeywordsDatabase();
     
-    // Wenn THEMA ausgewählt ist
+    // === FALL 1: Spezifisches KEYWORD ausgewählt ===
+    if (currentKeyword) {
+      let hitCount = 0; // Anzahl der Fundstellen für dieses Keyword
+      const lecturesWithKeyword = new Set();
+      
+      Object.entries(keywordsDB).forEach(([lectureId, lecture]) => {
+        const isNewGeneration = lecture.generationMethod && 
+          (lecture.generationMethod.includes('unified-batch') || 
+           lecture.generationMethod.includes('unified') ||
+           lecture.generationMethod.includes('manual-add') ||
+           lecture.generationMethod.includes('manual'));
+        
+        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
+          lecture.keywords.forEach(kw => {
+            if (kw.term && kw.term.toLowerCase() === currentKeyword.toLowerCase()) {
+              hitCount++; // Jedes Vorkommen zählt als Fundstelle
+              lecturesWithKeyword.add(lectureId);
+            }
+          });
+        }
+      });
+      
+      statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithKeyword.size} ${lecturesWithKeyword.size === 1 ? 'Vortrag' : 'Vorträge'}`;
+      return;
+    }
+    
+    // === FALL 2: Nur THEMA ausgewählt (kein spezifisches Keyword) ===
     if (currentTheme) {
       const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
       if (themesResponse.ok) {
@@ -12843,8 +12872,7 @@ async function updateTimelineStats() {
         const themeData = themes[currentTheme];
         
         if (themeData && themeData.keywords) {
-          // Zähle Keywords und Vorträge für dieses Thema
-          const themeKeywords = new Set();
+          let hitCount = 0; // Anzahl aller Fundstellen für alle Keywords in diesem Thema
           const lecturesWithThemeKeywords = new Set();
           
           Object.entries(keywordsDB).forEach(([lectureId, lecture]) => {
@@ -12857,20 +12885,20 @@ async function updateTimelineStats() {
             if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
               lecture.keywords.forEach(kw => {
                 if (kw.term && themeData.keywords.some(tk => tk.toLowerCase() === kw.term.toLowerCase())) {
-                  themeKeywords.add(kw.term);
+                  hitCount++; // Jedes Vorkommen zählt als Fundstelle
                   lecturesWithThemeKeywords.add(lectureId);
                 }
               });
             }
           });
           
-          statsDisplay.innerHTML = `${themeKeywords.size} Schlagwörter • ${lecturesWithThemeKeywords.size} Vorträge`;
+          statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithThemeKeywords.size} ${lecturesWithThemeKeywords.size === 1 ? 'Vortrag' : 'Vorträge'}`;
           return;
         }
       }
     }
     
-    // DEFAULT: Keine Auswahl - zeige alles
+    // === FALL 3: DEFAULT - Keine Auswahl, zeige Gesamtstatistik ===
     const themesResponse = await fetch(`${API_BASE}/api/themes-database`);
     let themesCount = 0;
     
@@ -13755,7 +13783,7 @@ async function showSearchResultsTimelineV2() {
     // Aktualisiere Statusanzeige im Admin-Bereich
     const statsDisplay = document.getElementById('timelineStatsDisplay');
     if (statsDisplay) {
-      statsDisplay.innerHTML = `${validEntries.length} Links • ${lectureCount} Vorträge`;
+      statsDisplay.innerHTML = `${validEntries.length} ${validEntries.length === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lectureCount} ${lectureCount === 1 ? 'Vortrag' : 'Vorträge'}`;
     }
     
     // Hole aktuelle Suchbegriffe für die Keyword-Links
