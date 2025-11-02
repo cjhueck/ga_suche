@@ -243,9 +243,31 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                 wiki_pattern = r'!\[\[([^\]]+)\]\]'
                 wiki_matches = re.findall(wiki_pattern, content)
                 for filename in wiki_matches:
+                    # Bereinige Pfad - entferne GA-Ordner-Präfix falls vorhanden
+                    # ![[GA223-.../assets/223-T01.webp]] → assets/223-T01.webp
+                    cleaned_path = filename
+                    
+                    # Entferne GA-Ordner-Präfix (z.B. "GA223-Der Jahreskreislauf.../assets/" → "assets/")
+                    if re.match(r'GA\d{3}[a-z]?-', cleaned_path):
+                        # Extrahiere nur den Teil nach dem ersten "assets/"
+                        assets_match = re.search(r'assets/(.+)$', cleaned_path)
+                        if assets_match:
+                            cleaned_path = f'assets/{assets_match.group(1)}'
+                    
                     # Konvertiere zu assets/filename Format
-                    img_path = filename if filename.startswith('assets/') else f'assets/{filename}'
-                    alt_text = filename.replace('.webp', '').replace('.png', '').replace('.jpeg', '').replace('.jpg', '')
+                    img_path = cleaned_path if cleaned_path.startswith('assets/') else f'assets/{cleaned_path}'
+                    
+                    # Bereinige Dateinamen: Entferne Leerzeichen und Zahlen-Suffix
+                    # "213-T01 3.webp" → "213-T01.webp"
+                    img_path = re.sub(r'(\d{3}-T\d{2})\s+\d+\.webp', r'\1.webp', img_path)
+                    
+                    # Ersetze Unterstrich durch Bindestrich
+                    # "221_T01.webp" → "221-T01.webp"
+                    img_path = re.sub(r'(\d{3})_T(\d{2})\.webp', r'\1-T\2.webp', img_path)
+                    
+                    # Alt-Text aus bereinigtem Pfad
+                    alt_text = os.path.basename(img_path).replace('.webp', '').replace('.png', '').replace('.jpeg', '').replace('.jpg', '')
+                    
                     # Speichere auch das Original-Format (Wiki-Link)
                     all_matches.append((alt_text, img_path, f'![[{filename}]]'))
                 

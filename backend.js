@@ -4447,6 +4447,80 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
 });
 
 // ============================================================================
+// SYNONYM-VERWALTUNG (Manuell)
+// ============================================================================
+
+// Endpoint: Manuelles Hinzufügen von Synonymen
+app.post('/api/synonyms/add', async (req, res) => {
+  try {
+    const { baseKeyword, synonym } = req.body;
+    
+    if (!baseKeyword || !synonym) {
+      return res.status(400).json({ error: 'baseKeyword und synonym erforderlich' });
+    }
+    
+    const baseNormalized = baseKeyword.toLowerCase().trim();
+    const synonymNormalized = synonym.toLowerCase().trim();
+    
+    console.log(`[SYNONYM-ADD] Füge hinzu: "${synonymNormalized}" → "${baseNormalized}"`);
+    
+    // Initialisiere Array falls noch nicht vorhanden
+    if (!synonyms[baseNormalized]) {
+      synonyms[baseNormalized] = [baseNormalized];
+      console.log(`[SYNONYM-ADD] Neue Synonym-Gruppe erstellt für: ${baseNormalized}`);
+    }
+    
+    // Prüfe ob Synonym bereits existiert
+    if (synonyms[baseNormalized].includes(synonymNormalized)) {
+      return res.json({
+        success: true,
+        message: 'Synonym existiert bereits',
+        alreadyExists: true
+      });
+    }
+    
+    // Füge Synonym hinzu
+    synonyms[baseNormalized].push(synonymNormalized);
+    
+    // Speichere
+    await saveSynonyms();
+    
+    console.log(`[SYNONYM-ADD] ✓ "${synonymNormalized}" zu "${baseNormalized}" hinzugefügt`);
+    console.log(`[SYNONYM-ADD] Gruppe hat jetzt ${synonyms[baseNormalized].length} Einträge`);
+    
+    res.json({
+      success: true,
+      baseKeyword: baseNormalized,
+      synonym: synonymNormalized,
+      totalSynonyms: synonyms[baseNormalized].length,
+      allSynonyms: synonyms[baseNormalized]
+    });
+    
+  } catch (error) {
+    console.error('[SYNONYM-ADD] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Endpoint: Hole alle Synonyme für ein Keyword
+app.get('/api/synonyms/:keyword', (req, res) => {
+  try {
+    const keyword = req.params.keyword.toLowerCase().trim();
+    
+    const synonymList = synonyms[keyword] || [];
+    
+    res.json({
+      keyword: keyword,
+      synonyms: synonymList,
+      count: synonymList.length
+    });
+    
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // SCHLAGWORT-SYSTEM API
 // ============================================================================
 

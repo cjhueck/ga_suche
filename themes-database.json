@@ -224,7 +224,9 @@
       "Origenes",
       "Pestalozzi",
       "Philo von Alexandrien",
-      "Philon"
+      "Philon",
+      "Comenius",
+      "Dionysios Areopagita"
     ]
   },
   "Seelenleben": {
@@ -383,16 +385,6 @@
       "Erkenntnisstufen",
       "Spiegelmetapher",
       "Spiegelmetapher (1)"
-    ]
-  },
-  "Weltanschauung": {
-    "description": "Weltanschauungsfragen und Weltbilder",
-    "keywords": [
-      "Weltanschauungsentwicklung",
-      "Weltanschauungsstreit",
-      "Lebendige Weltanschauung",
-      "Spirituelle Weltanschauung",
-      "Mechanistisches Weltbild"
     ]
   },
   "Naturwissenschaft": {
@@ -937,35 +929,6 @@
       "Alkohol"
     ]
   },
-  "Philosophische Strömungen & Weltanschauungen": {
-    "description": "Philosophische Richtungen und Schulen",
-    "keywords": [
-      "Idealismus",
-      "Materialismus",
-      "Materialismuskritik",
-      "Monismus",
-      "Pragmatismus",
-      "Antike Philosophie",
-      "Kritischer Idealismus",
-      "Moderne Philosophie",
-      "Neuplatonismus",
-      "Agnostizismus",
-      "Aristotelismus",
-      "Deutscher Idealismus",
-      "Kantianismus",
-      "Arianismus",
-      "Atomismus",
-      "Atheismus",
-      "Bolschewismus",
-      "Spiritualismus",
-      "Stoizismus",
-      "Subjektivismus",
-      "Vitalismus",
-      "Naturalismus",
-      "Nominalismus",
-      "Phänomenalismus"
-    ]
-  },
   "Menschenkunde & Wesesglieder": {
     "description": "Die Wesensglieder des Menschen",
     "keywords": [
@@ -982,7 +945,8 @@
       "Atma",
       "Manas",
       "Dreigliederung des Menschen",
-      "Anthropologie"
+      "Anthropologie",
+      "Budhi"
     ]
   },
   "Darwinismus & Evolutionslehre": {
@@ -1012,6 +976,58 @@
       "Sprechenlernen",
       "Vokale",
       "Konsonanten"
+    ]
+  },
+  "Weltanschauungen & Ismen": {
+    "description": "Philosophische Richtungen und Schulen",
+    "keywords": [
+      "Idealismus",
+      "Materialismus",
+      "Materialismuskritik",
+      "Monismus",
+      "Pragmatismus",
+      "Antike Philosophie",
+      "Kritischer Idealismus",
+      "Moderne Philosophie",
+      "Neuplatonismus",
+      "Agnostizismus",
+      "Aristotelismus",
+      "Deutscher Idealismus",
+      "Kantianismus",
+      "Arianismus",
+      "Atomismus",
+      "Atheismus",
+      "Bolschewismus",
+      "Spiritualismus",
+      "Stoizismus",
+      "Subjektivismus",
+      "Vitalismus",
+      "Naturalismus",
+      "Nominalismus",
+      "Phänomenalismus",
+      "Dogmatismus",
+      "Weltanschauungsentwicklung",
+      "Weltanschauungsstreit",
+      "Lebendige Weltanschauung",
+      "Spirituelle Weltanschauung",
+      "Mechanistisches Weltbild",
+      "Pythagoreismus",
+      "Realismus",
+      "Sakramentalismus",
+      "Slawophilismus",
+      "Vegetarismus",
+      "Okkultismus",
+      "Arabismus",
+      "Dilettantismus",
+      "Fanatismus",
+      "Fetischismus",
+      "Gnostizismus",
+      "Henotheismus",
+      "Individualismus",
+      "Intellektualismus",
+      "Katholizismus",
+      "Manichäismus",
+      "Zarathustrismus"
     ]
   }
 }

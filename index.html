@@ -6841,8 +6841,11 @@ function showSummaryView() {
     // Bildmarkierungen durch img-Tags ersetzen
     content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
     
-    // Keyword-Highlighting
-    if (keywords && keywords.length > 0) {
+    // Prüfe ZUERST ob wir von thematischer Suche kommen
+    const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
+    
+    // Keyword-Highlighting NUR wenn NICHT von thematischer Suche
+    if (keywords && keywords.length > 0 && !isFromThematicSearch) {
       console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
       keywords.forEach(word => {
         if (word && word.trim()) {
