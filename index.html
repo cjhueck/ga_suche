@@ -3703,21 +3703,21 @@ body.dark-mode #popupCaption {
 </select>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; align-items:center; justify-content: space-between; width: 100%;">
-  <div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem;">
-    <span id="serverInfo"></span>
-    <span id="resultInfo"></span>
+<div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
+  <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+  <div style="display:flex; gap:8px; align-items:stretch;">
+    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 16px;">
+      <span id="viewToggleText">nur Titel</span>
+    </button>
+    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 16px;">
+      Timeline
+    </button>
   </div>
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="margin-bottom: 0; min-width: 126px;">Suche starten</button>
 </div>
 </div>
-<div style="display:flex; gap:8px; align-items:center; justify-content: flex-end; margin-top: 0.5rem;">
-  <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: auto; box-sizing: border-box;">
-    <span id="viewToggleText">nur Titel</span>
-  </button>
-  <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="display: none; font-size: 0.8em; padding: 4px 16px; width: auto; box-sizing: border-box;">
-    Timeline
-  </button>
+<div id="searchInfo" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+  <span id="serverInfo"></span>
+  <span id="resultInfo"></span>
 </div>
 <span id="status" style="display:none"></span>
 </div>
@@ -6039,10 +6039,10 @@ function toggleGASummaries() {
       
       // Zeige Toggle-Button und Timeline-Button bei Ergebnissen
       const viewToggle = document.getElementById('viewToggle');
-      if (viewToggle) viewToggle.style.display = 'inline-block';
+      if (viewToggle) viewToggle.style.display = 'block';
       
       const timelineBtn = document.getElementById('showTimelineBtn');
-      if (timelineBtn) timelineBtn.style.display = 'inline-block';
+      if (timelineBtn) timelineBtn.style.display = 'block';
       
       // Reset auf Textansicht
       currentView = 'text';
