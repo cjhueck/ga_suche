@@ -4324,8 +4324,71 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    // Setze Suche-Tab zurück (Eingaben und Ergebnisse löschen)
+    function resetSearchTab() {
+      console.log('[TABS] Zurücksetzen des Suche-Tabs');
+      
+      // Leere Eingabefelder
+      const word1 = document.getElementById('word1');
+      const word2 = document.getElementById('word2');
+      if (word1) word1.value = '';
+      if (word2) word2.value = '';
+      
+      // Setze Dropdowns zurück
+      const yearFilter = document.getElementById('yearFilter');
+      const gaFilter = document.getElementById('gaFilter');
+      const proximityFilter = document.getElementById('proximityFilter');
+      const relevanceFilter = document.getElementById('relevanceFilter');
+      
+      if (yearFilter) yearFilter.value = '';
+      if (gaFilter) {
+        gaFilter.value = '';
+        updateServerInfo(); // Aktualisiere Statistik-Anzeige
+      }
+      if (proximityFilter) proximityFilter.value = '';
+      if (relevanceFilter) relevanceFilter.value = 'ohne';
+      
+      // Setze UND/ODER zurück auf UND
+      const andRadio = document.querySelector('input[name="wordOperator"][value="and"]');
+      if (andRadio) andRadio.checked = true;
+      
+      // Leere Suchergebnisse
+      const results = document.getElementById('results');
+      if (results) results.innerHTML = '';
+      
+      // Leere Status und Statistik-Anzeigen
+      const status = document.getElementById('status');
+      const resultInfo = document.getElementById('resultInfo');
+      if (status) {
+        status.textContent = '';
+        status.innerHTML = '';
+      }
+      if (resultInfo) {
+        resultInfo.textContent = '';
+        resultInfo.innerHTML = '';
+      }
+      
+      // Leere searchResults Array
+      searchResults = [];
+      
+      // Verstecke Toggle-Buttons
+      const viewToggle = document.getElementById('viewToggle');
+      const timelineBtn = document.getElementById('showTimelineBtn');
+      if (viewToggle) viewToggle.style.display = 'none';
+      if (timelineBtn) timelineBtn.style.display = 'none';
+      
+      console.log('[TABS] Suche-Tab zurückgesetzt');
+    }
+    
     function switchTab(mode) {
       console.log('[TABS] Wechsel zu Tab:', mode);
+      
+      // Prüfe, ob wir vom Suche-Tab wegwechseln
+      const currentActiveTab = document.querySelector('.tab-content.active');
+      if (currentActiveTab && currentActiveTab.id === 'keyword-tab' && mode !== 'keyword') {
+        // Lösche Suchfelder und Ergebnisse beim Verlassen des Suche-Tabs
+        resetSearchTab();
+      }
       
       // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
       const summaryPanel = document.getElementById('summary-panel');
@@ -4375,13 +4438,20 @@ function normalizeGANumber(gaNumber) {
       // currentOpenLectureId zurücksetzen
       window.currentOpenLectureId = null;
       
-      // Verstecke Toggle-Button und Timeline-Button beim Tab-Wechsel zum Suche-Tab
+      // Beim Wechsel ZUM Suche-Tab: Lösche alte Statistik
       if (mode === 'keyword') {
         const viewToggle = document.getElementById('viewToggle');
         if (viewToggle) viewToggle.style.display = 'none';
         
         const timelineBtn = document.getElementById('showTimelineBtn');
         if (timelineBtn) timelineBtn.style.display = 'none';
+        
+        // Lösche Statistik-Anzeige auch beim Zurückkehren zum Tab
+        const resultInfo = document.getElementById('resultInfo');
+        if (resultInfo) {
+          resultInfo.textContent = '';
+          resultInfo.innerHTML = '';
+        }
       }
       
       // Header-Position aktualisieren
@@ -6934,8 +7004,19 @@ function showSummaryView() {
       // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
       const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
       
+      // Entferne Duplikate basierend auf term (case-insensitive)
+      const seenTerms = new Set();
+      const uniqueKeywords = lectureKeywords.filter(kw => {
+        const termLower = kw.term.toLowerCase();
+        if (seenTerms.has(termLower)) {
+          return false;
+        }
+        seenTerms.add(termLower);
+        return true;
+      });
+      
       // Keywords als Links mit Mittelpunkten formatieren
-      html += lectureKeywords.map(kw => {
+      html += uniqueKeywords.map(kw => {
         const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
         const escapedGANumber = gaNumber.replace(/'/g, "\\'");
         const escapedLectureId = lecture.ID.replace(/'/g, "\\'");
@@ -15662,8 +15743,19 @@ function updateKeywordsDisplay() {
   // Extrahiere GA-Nummer aus lecture.ID
   const gaNumber = currentLectureData.ID.split('/')[0].replace('GA', '');
   
+  // Entferne Duplikate basierend auf term (case-insensitive)
+  const seenTerms = new Set();
+  const uniqueKeywords = lectureKeywords.filter(kw => {
+    const termLower = kw.term.toLowerCase();
+    if (seenTerms.has(termLower)) {
+      return false;
+    }
+    seenTerms.add(termLower);
+    return true;
+  });
+  
   // Keywords als Links mit Mittelpunkten formatieren
-  html += lectureKeywords.map(kw => {
+  html += uniqueKeywords.map(kw => {
     const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
     const escapedGANumber = gaNumber.replace(/'/g, "\\'");
     const escapedLectureId = currentLectureData.ID.replace(/'/g, "\\'");
@@ -15674,7 +15766,7 @@ function updateKeywordsDisplay() {
   
   // Aktualisiere den Inhalt
   keywordsSection.innerHTML = html;
-  console.log('[UPDATE-KW] Keywords-Anzeige aktualisiert:', lectureKeywords.length, 'Keywords');
+  console.log('[UPDATE-KW] Keywords-Anzeige aktualisiert:', lectureKeywords.length, 'Keywords (', uniqueKeywords.length, 'eindeutig)');
 }
 
 // Rechtsklick auf Absatz - öffnet Keyword-Management-Modal bei Strg+Rechtsklick
