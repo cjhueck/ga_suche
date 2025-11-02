@@ -236,8 +236,17 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                 markdown_pattern = r'!\[([^\]]*)\]\(([^)]+)\)'
                 markdown_matches = re.findall(markdown_pattern, content)
                 for alt_text, img_path in markdown_matches:
+                    # Bereinige doppelte Ordnernamen auch hier
+                    # GA118-.../GA118-.../assets/... → assets/...
+                    cleaned_img_path = img_path
+                    if re.match(r'GA\d{3}[a-z]?-', cleaned_img_path):
+                        # Extrahiere nur den Teil nach dem LETZTEN "assets/"
+                        assets_match = re.search(r'assets/(.+)$', cleaned_img_path)
+                        if assets_match:
+                            cleaned_img_path = f'assets/{assets_match.group(1)}'
+                    
                     # Speichere auch das Original-Format (Markdown)
-                    all_matches.append((alt_text, img_path, f'![{alt_text}]({img_path})'))
+                    all_matches.append((alt_text, cleaned_img_path, f'![{alt_text}]({img_path})'))
                 
                 # Pattern 2: Obsidian Wiki-Links ![[filename]]
                 wiki_pattern = r'!\[\[([^\]]+)\]\]'
@@ -245,11 +254,14 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                 for filename in wiki_matches:
                     # Bereinige Pfad - entferne GA-Ordner-Präfix falls vorhanden
                     # ![[GA223-.../assets/223-T01.webp]] → assets/223-T01.webp
+                    # ![[GA118-.../GA118-.../assets/...]] → assets/... (doppelte Ordner entfernen)
                     cleaned_path = filename
                     
-                    # Entferne GA-Ordner-Präfix (z.B. "GA223-Der Jahreskreislauf.../assets/" → "assets/")
+                    # Entferne GA-Ordner-Präfix (auch doppelte!)
+                    # Pattern: GA118-.../GA118-.../assets/... oder GA118-.../assets/...
                     if re.match(r'GA\d{3}[a-z]?-', cleaned_path):
-                        # Extrahiere nur den Teil nach dem ersten "assets/"
+                        # Extrahiere nur den Teil nach dem LETZTEN "assets/"
+                        # Dies behandelt sowohl einfache als auch doppelte Ordnernamen
                         assets_match = re.search(r'assets/(.+)$', cleaned_path)
                         if assets_match:
                             cleaned_path = f'assets/{assets_match.group(1)}'
@@ -317,9 +329,9 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                             final_filename
                         )
                         
-                        # Falls PNG nicht existiert, versuche WebP als Alternative (Tafelzeichnungen)
+                        # Falls PNG nicht existiert, versuche Alternativen (WebP, JPEG)
                         if not os.path.exists(full_image_path):
-                            # Versuche WebP-Version
+                            # Versuche WebP-Version (Tafelzeichnungen)
                             webp_path = re.sub(r'\.(png|jpe?g)$', '.webp', final_path, flags=re.IGNORECASE)
                             webp_filename = webp_path.replace('assets/', '')
                             full_webp_path = os.path.join(
@@ -331,6 +343,32 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                             if os.path.exists(full_webp_path):
                                 full_image_path = full_webp_path
                                 final_path = webp_path
+                            else:
+                                # Versuche JPEG-Version (falls noch nicht konvertiert)
+                                jpeg_path = re.sub(r'\.png$', '.jpeg', final_path, flags=re.IGNORECASE)
+                                jpeg_filename = jpeg_path.replace('assets/', '')
+                                full_jpeg_path = os.path.join(
+                                    steiner_ga_dir,
+                                    ga_folder,
+                                    'assets',
+                                    jpeg_filename
+                                )
+                                if os.path.exists(full_jpeg_path):
+                                    full_image_path = full_jpeg_path
+                                    final_path = jpeg_path
+                                else:
+                                    # Versuche JPG-Version (alternatives Format)
+                                    jpg_path = re.sub(r'\.png$', '.jpg', final_path, flags=re.IGNORECASE)
+                                    jpg_filename = jpg_path.replace('assets/', '')
+                                    full_jpg_path = os.path.join(
+                                        steiner_ga_dir,
+                                        ga_folder,
+                                        'assets',
+                                        jpg_filename
+                                    )
+                                    if os.path.exists(full_jpg_path):
+                                        full_image_path = full_jpg_path
+                                        final_path = jpg_path
                         
                         if os.path.exists(full_image_path):
                             print(f"  OK {lecture_id} - {alt_text}")
