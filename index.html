@@ -379,6 +379,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
   position: sticky;
   top: 0;
   overflow: visible;
+  z-index: 9999;
   /* Scrollbar ausblenden */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
@@ -871,7 +872,7 @@ body.dark-mode .site-sign {
     /* Einklappbares Suchpanel */
     .tab-container {
       transition: all 0.3s ease-in-out;
-      overflow: hidden;
+      overflow: visible;
     }
     
     .tab-container.collapsed {
@@ -879,6 +880,7 @@ body.dark-mode .site-sign {
       opacity: 0;
       margin-bottom: 0;
       padding: 0;
+      overflow: hidden;
     }
     
     /* Horizontaler Resize-Handle für Suchpanel */
@@ -1281,10 +1283,12 @@ body.dark-mode .loading-message {
     .tab-content {
       display: none;
       padding: 0 0.8rem;
+      overflow: visible;
     }
     
     .tab-content.active {
       display: block;
+      overflow: visible;
     }
     
     .thematic-input {
@@ -1517,6 +1521,8 @@ body.dark-mode .loading-message {
       display: flex;
       gap: 10px;
       margin-top: 2px;
+      overflow: visible;
+      position: relative;
     }
     
     .filter-dropdown {
@@ -1540,6 +1546,136 @@ body.dark-mode .loading-message {
       background: #f5f5f5;
       color: var(--secondary-text);
       cursor: not-allowed;
+    }
+    
+    /* Custom Multi-Select Dropdown Styles */
+    .custom-dropdown {
+      position: relative;
+      flex: 1;
+      overflow: visible;
+    }
+    
+    .custom-dropdown-button {
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .custom-dropdown-button:focus {
+      outline: none;
+      border: 1px solid var(--border-color);
+    }
+    
+    .custom-dropdown-arrow {
+      width: 5.9px;
+      height: 5.9px;
+      border-left: 2.2px solid #666;
+      border-bottom: 2.2px solid #666;
+      transform: rotate(-45deg);
+      margin-left: 8px;
+      margin-bottom: 3px;
+      transition: transform 0.2s;
+    }
+    
+    body.dark-mode .custom-dropdown-arrow {
+      border-left-color: #b8b8b8;
+      border-bottom-color: #b8b8b8;
+    }
+    
+    .custom-dropdown.open .custom-dropdown-arrow {
+      transform: rotate(135deg);
+      margin-bottom: 0;
+      margin-top: 3px;
+    }
+    
+    .custom-dropdown-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #FAF8F3 !important;
+      border: 1px solid #ccc;
+      border-top: none;
+      max-height: 300px;
+      overflow-y: auto;
+      z-index: 99999 !important;
+      display: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      opacity: 1 !important;
+    }
+    
+    .custom-dropdown.open .custom-dropdown-list {
+      display: block;
+    }
+    
+    .custom-dropdown-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      user-select: none;
+      background: #FAF8F3 !important;
+      opacity: 1 !important;
+    }
+    
+    .custom-dropdown-item:hover {
+      background: #e8f4f8;
+    }
+    
+    .custom-dropdown-item.selected {
+      font-weight: bold;
+      color: #467886;
+    }
+    
+    .custom-dropdown-clear {
+      font-style: italic;
+      color: #999;
+      font-size: 0.9em;
+    }
+    
+    .custom-dropdown-clear:hover {
+      background: #f5f5f5 !important;
+      color: #666;
+    }
+    
+    .custom-dropdown-separator {
+      height: 1px;
+      background: #ddd;
+      margin: 4px 0;
+    }
+    
+    body.dark-mode .custom-dropdown-list {
+      background-color: #2a2a2a !important;
+      border-color: #555;
+      opacity: 1 !important;
+    }
+    
+    body.dark-mode .custom-dropdown-item {
+      background-color: #2a2a2a !important;
+      opacity: 1 !important;
+    }
+    
+    body.dark-mode .custom-dropdown-clear {
+      color: #888;
+    }
+    
+    body.dark-mode .custom-dropdown-clear:hover {
+      background: #3a3a3a !important;
+      color: #aaa;
+    }
+    
+    body.dark-mode .custom-dropdown-separator {
+      background: #555;
+    }
+    
+    body.dark-mode .custom-dropdown-item:hover {
+      background-color: #3a4a52;
+    }
+    
+    body.dark-mode .custom-dropdown-item.selected {
+      font-weight: bold;
+      color: #6ba3b3;
     }
     
     .radio-group {
@@ -3534,19 +3670,31 @@ body.dark-mode #popupCaption {
 </div>
 </div>
 <div class="filter-row">
-<select class="filter-dropdown" id="yearFilter">
-<option value="">Jahre</option>
-</select>
-<select class="filter-dropdown" id="gaFilter">
-<option value="">GA-Bände</option>
-</select>
-<select class="filter-dropdown" id="proximityFilter">
+<!-- Custom Multi-Select Dropdown für Jahre -->
+<div class="custom-dropdown" id="yearFilterContainer" style="flex: 0.7;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="yearFilterButton">
+    <span class="custom-dropdown-text">Jahre</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="yearFilterList"></div>
+</div>
+
+<!-- Custom Multi-Select Dropdown für GA-Bände -->
+<div class="custom-dropdown" id="gaFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="gaFilterButton">
+    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="gaFilterList"></div>
+</div>
+
+<select class="filter-dropdown" id="proximityFilter" style="flex: 0.6;">
 <option value="">Abstand</option>
 <option value="1">1 Absatz</option>
 <option value="2">2 Absätze</option>
 <option value="3">3 Absätze</option>
 </select>
-<select class="filter-dropdown" id="relevanceFilter">
+<select class="filter-dropdown" id="relevanceFilter" style="flex: 0.7;">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
@@ -4335,16 +4483,18 @@ function normalizeGANumber(gaNumber) {
       if (word2) word2.value = '';
       
       // Setze Dropdowns zurück
-      const yearFilter = document.getElementById('yearFilter');
-      const gaFilter = document.getElementById('gaFilter');
       const proximityFilter = document.getElementById('proximityFilter');
       const relevanceFilter = document.getElementById('relevanceFilter');
       
-      if (yearFilter) yearFilter.value = '';
-      if (gaFilter) {
-        gaFilter.value = '';
+      // Setze Custom Dropdowns zurück
+      if (yearFilterDropdown) {
+        yearFilterDropdown.clear();
+      }
+      if (gaFilterDropdown) {
+        gaFilterDropdown.clear();
         updateServerInfo(); // Aktualisiere Statistik-Anzeige
       }
+      
       if (proximityFilter) proximityFilter.value = '';
       if (relevanceFilter) relevanceFilter.value = 'ohne';
       
@@ -4477,13 +4627,13 @@ function normalizeGANumber(gaNumber) {
 
     document.addEventListener('DOMContentLoaded', function() {
       
-  populateYearFilter();
   initResizeHandle();
   initVerticalResizeHandle();
   checkServerConnection();
   loadSteinerImages(); // Lade Bilder-Datenbank
   initTheme();
-  populateGADropdowns();
+  initCustomDropdowns(); // Initialisiere Custom Multi-Select Dropdowns
+  populateGADropdowns(); // Befüllt auch Jahre
   initGAFilter();
   updateButtonStates(); // Verstecke Buttons beim ersten Laden
   
@@ -4719,6 +4869,218 @@ function normalizeGANumber(gaNumber) {
     // Speichere GA-Band Vortragszahlen
     let gaLectureCounts = {};
     
+    // Custom Multi-Select Dropdown Verwaltung
+    class MultiSelectDropdown {
+      constructor(containerId, buttonId, listId, placeholderText) {
+        this.container = document.getElementById(containerId);
+        this.button = document.getElementById(buttonId);
+        this.list = document.getElementById(listId);
+        this.placeholderText = placeholderText;
+        this.selectedValues = new Set();
+        this.items = [];
+        this.lastClickedIndex = -1;
+        
+        this.init();
+      }
+      
+      init() {
+        // Toggle Dropdown beim Button-Klick
+        this.button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggle();
+        });
+        
+        // Schließe Dropdown bei Klick außerhalb
+        document.addEventListener('click', (e) => {
+          if (!this.container.contains(e.target)) {
+            this.close();
+          }
+        });
+      }
+      
+      toggle() {
+        const isOpen = this.container.classList.contains('open');
+        // Schließe alle anderen Dropdowns
+        document.querySelectorAll('.custom-dropdown.open').forEach(dd => {
+          dd.classList.remove('open');
+        });
+        
+        if (!isOpen) {
+          this.container.classList.add('open');
+        }
+      }
+      
+      close() {
+        this.container.classList.remove('open');
+      }
+      
+      setItems(items) {
+        this.items = items;
+        this.render();
+      }
+      
+      render() {
+        this.list.innerHTML = '';
+        
+        // Füge "Keine Auswahl" Item am Anfang hinzu
+        const clearDiv = document.createElement('div');
+        clearDiv.className = 'custom-dropdown-item custom-dropdown-clear';
+        clearDiv.textContent = 'keine';
+        clearDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.clearSelection();
+        });
+        this.list.appendChild(clearDiv);
+        
+        // Trennlinie
+        const separator = document.createElement('div');
+        separator.className = 'custom-dropdown-separator';
+        this.list.appendChild(separator);
+        
+        this.items.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = 'custom-dropdown-item';
+          div.dataset.value = item.value;
+          div.dataset.index = index;
+          div.textContent = item.label;
+          
+          if (this.selectedValues.has(item.value)) {
+            div.classList.add('selected');
+          }
+          
+          // Click-Handler für das Item (mit Shift/Strg-Unterstützung)
+          div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.handleItemClick(item.value, index, e);
+          });
+          
+          this.list.appendChild(div);
+        });
+      }
+      
+      clearSelection() {
+        this.selectedValues.clear();
+        this.lastClickedIndex = -1;
+        this.updateDisplay();
+        this.triggerChange();
+        console.log('[DROPDOWN]', this.placeholderText, '- Auswahl gelöscht');
+      }
+      
+      handleItemClick(value, index, event) {
+        if (event.shiftKey && this.lastClickedIndex !== -1) {
+          // Shift-Klick: Bereichsauswahl
+          const start = Math.min(this.lastClickedIndex, index);
+          const end = Math.max(this.lastClickedIndex, index);
+          
+          for (let i = start; i <= end; i++) {
+            const itemValue = this.items[i].value;
+            this.selectedValues.add(itemValue);
+          }
+        } else if (event.ctrlKey || event.metaKey) {
+          // Strg/Cmd-Klick: Toggle einzelnes Item
+          if (this.selectedValues.has(value)) {
+            this.selectedValues.delete(value);
+          } else {
+            this.selectedValues.add(value);
+          }
+        } else {
+          // Normaler Klick: Toggle einzelnes Item
+          if (this.selectedValues.has(value)) {
+            this.selectedValues.delete(value);
+          } else {
+            this.selectedValues.add(value);
+          }
+        }
+        
+        this.lastClickedIndex = index;
+        this.updateDisplay();
+        this.triggerChange();
+      }
+      
+      updateDisplay() {
+        this.render();
+        
+        const textSpan = this.button.querySelector('.custom-dropdown-text');
+        if (!textSpan) {
+          console.error('[DROPDOWN] Text-Span nicht gefunden!');
+          return;
+        }
+        
+        // Zeige immer nur den Placeholder-Text, unabhängig von der Auswahl
+        textSpan.textContent = this.placeholderText;
+        
+        // Style anpassen wenn Items ausgewählt sind
+        if (this.selectedValues.size > 0) {
+          textSpan.style.fontWeight = 'bold';
+          // Prüfe Dark Mode
+          const isDarkMode = document.body.classList.contains('dark-mode');
+          textSpan.style.color = isDarkMode ? '#6ba3b3' : '#467886';
+        } else {
+          textSpan.style.fontWeight = 'normal';
+          textSpan.style.color = '';
+        }
+        
+        console.log('[DROPDOWN]', this.placeholderText, '- Ausgewählte Items:', this.selectedValues.size);
+      }
+      
+      triggerChange() {
+        // Trigger ein custom Event, das von anderen Funktionen abgefangen werden kann
+        const event = new CustomEvent('multiselect-change', {
+          detail: { values: Array.from(this.selectedValues) }
+        });
+        this.container.dispatchEvent(event);
+      }
+      
+      getSelectedValues() {
+        return Array.from(this.selectedValues);
+      }
+      
+      clear() {
+        // Verwende clearSelection für konsistentes Verhalten
+        this.clearSelection();
+      }
+      
+      // Kompatibilitätsmethode für bestehenden Code
+      get value() {
+        return this.getSelectedValues().join(',');
+      }
+    }
+    
+    // Initialisiere Custom Dropdowns
+    let yearFilterDropdown = null;
+    let gaFilterDropdown = null;
+    
+    function initCustomDropdowns() {
+      yearFilterDropdown = new MultiSelectDropdown(
+        'yearFilterContainer',
+        'yearFilterButton',
+        'yearFilterList',
+        'Jahre'
+      );
+      
+      gaFilterDropdown = new MultiSelectDropdown(
+        'gaFilterContainer',
+        'gaFilterButton',
+        'gaFilterList',
+        'GA-Bände'
+      );
+      
+      // Event-Listener für Änderungen
+      document.getElementById('yearFilterContainer').addEventListener('multiselect-change', updateServerInfo);
+      document.getElementById('gaFilterContainer').addEventListener('multiselect-change', updateServerInfo);
+      
+      console.log('[CUSTOM-DROPDOWNS] Initialisiert');
+    }
+    
+    // Hilfsfunktionen für Kompatibilität mit bestehendem Code
+    function getYearFilterValue() {
+      return yearFilterDropdown ? yearFilterDropdown.getSelectedValues() : [];
+    }
+    
+    function getGAFilterValue() {
+      return gaFilterDropdown ? gaFilterDropdown.getSelectedValues() : [];
+    }
+    
     async function populateGADropdowns() {
       try {
         const response = await fetch(`${API_BASE}/api/ga-list`);
@@ -4734,22 +5096,20 @@ function normalizeGANumber(gaNumber) {
           });
         }
         
-        const gaFilter = document.getElementById('gaFilter');
+        // Befülle Custom Dropdown für GA-Bände im Suche-Tab
+        if (gaFilterDropdown) {
+          const gaItems = gaList.map(ga => ({
+            value: ga.number,
+            label: ga.number
+          }));
+          gaFilterDropdown.setItems(gaItems);
+          console.log('[GA-FILTER] Custom Dropdown befüllt mit', gaItems.length, 'Einträgen');
+        }
+        
+        // Befülle normale Dropdowns in anderen Tabs
         const thematicGAFilter = document.getElementById('thematicGAFilter');
         const texteGAFilter = document.getElementById('texteGAFilter');
-        if (gaFilter) {
-          gaFilter.innerHTML = '<option value="">GA-Bände</option>';
-          gaList.forEach(ga => {
-            const option = document.createElement('option');
-            option.value = ga.number;
-            option.textContent = ga.number;
-            option.className = 'available-ga';
-            gaFilter.appendChild(option);
-          });
-          
-          // Event-Listener für GA-Filter hinzufügen
-          gaFilter.addEventListener('change', updateServerInfo);
-        }
+        
         if (thematicGAFilter) {
           thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
           gaList.forEach(ga => {
@@ -4774,8 +5134,52 @@ function normalizeGANumber(gaNumber) {
             texteGAFilter.appendChild(option);
           });
         }
+        
+        // Lade und befülle Jahre
+        await populateYearFilter();
       } catch (error) {
         console.error('Fehler beim Laden der GA-Liste:', error);
+      }
+    }
+    
+    async function populateYearFilter() {
+      try {
+        // Extrahiere Jahre aus den verfügbaren Vorträgen
+        const response = await fetch(`${API_BASE}/api/available-years`);
+        if (!response.ok) {
+          console.warn('Konnte Jahre nicht vom Server laden, versuche Fallback');
+          // Fallback: Generiere Jahre von 1900 bis heute
+          const currentYear = new Date().getFullYear();
+          const years = [];
+          for (let year = 1900; year <= currentYear; year++) {
+            years.push(year.toString());
+          }
+          populateYearFilterWithData(years);
+          return;
+        }
+        
+        const data = await response.json();
+        const years = data.years || [];
+        populateYearFilterWithData(years);
+      } catch (error) {
+        console.warn('Fehler beim Laden der Jahre:', error);
+        // Fallback: Generiere Jahre von 1900 bis 1925 (Steiners aktive Jahre)
+        const years = [];
+        for (let year = 1900; year <= 1925; year++) {
+          years.push(year.toString());
+        }
+        populateYearFilterWithData(years);
+      }
+    }
+    
+    function populateYearFilterWithData(years) {
+      if (yearFilterDropdown) {
+        const yearItems = years.map(year => ({
+          value: year,
+          label: year
+        }));
+        yearFilterDropdown.setItems(yearItems);
+        console.log('[YEAR-FILTER] Custom Dropdown befüllt mit', yearItems.length, 'Jahren');
       }
     }
 
@@ -5426,8 +5830,12 @@ function toggleGASummaries() {
       button.classList.add('processing');
       button.textContent = 'Suche läuft...';
         
-        const gaFilter = document.getElementById('gaFilter').value;
-        const yearFilter = document.getElementById('yearFilter').value;
+        // Hole Filter-Werte aus Custom Dropdowns (als Arrays)
+        const gaFilterValues = getGAFilterValue();
+        const yearFilterValues = getYearFilterValue();
+        const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
+        const yearFilter = yearFilterValues.length > 0 ? yearFilterValues.join(',') : '';
+        
         const proximityFilterElement = document.getElementById('proximityFilter');
         const proximityFilter = proximityFilterElement ? proximityFilterElement.value : '';
         const relevanceFilterElement = document.getElementById('relevanceFilter');
