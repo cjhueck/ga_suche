@@ -8042,17 +8042,6 @@
     "summary": "Die Abstammungsfrage wird von geisteswissenschaftlicher Sicht betrachtet, wobei die materialistische Entwicklungslehre kritisiert wird. Das Vollkommene stammt nicht vom Unvollkommenen ab, sondern beide haben gemeinsame Ursprünge. Niedere Lebewesen sind zurückgebliebene, degenerierte Formen früherer Entwicklungsstufen. Der Mensch besteht aus vier Gliedern: physischem Leib, Ätherleib, Astralleib und Ich. In urferner Vergangenheit war der Astralleib länger außerhalb des physischen Leibes und besaß hellseherische Fähigkeiten. Er formte aktiv den physischen Leib um, schuf das Vorderhirn und die aufrechte Haltung. Der physische Leib entstand durch Verdichtung aus dem Ätherleib, ähnlich wie Eis aus Wasser. Der Mensch existierte zuerst als geistiges Wesen, bevor er physische Form annahm. Alle niederen Lebewesen sind Seitenzweige der Menschheitsentwicklung. Goethe erkannte diese geistige Abstammung des Menschen.",
     "keywords": [
       {
-        "term": "Abstammung",
-        "index": "^jjgnsr",
-        "heading": "Summary",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Entwicklung",
         "index": "^jjgnsr",
         "heading": "Die Kritik der materialistischen Entwicklungslehre",
@@ -97796,6 +97785,42 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
+      },
+      {
+        "term": "Kyriotetes",
+        "index": "^6j0b37",
+        "heading": "Geister der Weisheit, Herrschaften",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Dynamis",
+        "index": "^6j0b37",
+        "heading": "Geister der Bewegung, Mächte",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Exusiai",
+        "index": "^6j0b37",
+        "heading": "Geister der Form, Gewalten",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-10-28T16:23:07.571Z",
@@ -178916,6 +178941,30 @@
         "matchType": "existing-exact",
         "matchedExisting": "Bewusstsein",
         "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archai",
+        "index": "^nfd2ox",
+        "heading": "Urbeginne, Geister der Persönlichkeit, Zeitgeister",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archangeloi",
+        "index": "^nfd2ox",
+        "heading": "Erzengel, Feuergeister",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
         "confidence": 1,
         "level": "h3"
       }
@@ -271862,6 +271911,42 @@
         "summaryMentioned": true,
         "confidence": 0.65,
         "level": "h4"
+      },
+      {
+        "term": "Kyriotetes",
+        "index": "^0cikbm",
+        "heading": "Geister der Weisheit, Herrschaften",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Angeloi",
+        "index": "^366nto",
+        "heading": "Engel, Boten, Söhne des Zwielichts",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archangeloi",
+        "index": "^l7fn19",
+        "heading": "Erzengel, Geister der Persönlichkeit",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "generated": "2025-11-01T20:34:05.566Z",
@@ -284352,17 +284437,6 @@
         "term": "Johannes-Taufe",
         "index": "^tjuzcb",
         "heading": "Johannes-Taufe und ihre Wirkung",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Christus-Taufe",
-        "index": "^g9ais5",
-        "heading": "Christus-Taufe mit Feuer und Geist",
         "source": "title-summary",
         "matchType": "new",
         "matchedExisting": "",

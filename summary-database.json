@@ -96243,17 +96243,6 @@
     ],
     "lectureKeywords": [
       {
-        "term": "Abstammung",
-        "index": "^jjgnsr",
-        "heading": "Summary",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
         "term": "Entwicklung",
         "index": "^jjgnsr",
         "heading": "Die Kritik der materialistischen Entwicklungslehre",
@@ -352692,6 +352681,42 @@
         "summaryMentioned": true,
         "confidence": 0.65,
         "level": "h4"
+      },
+      {
+        "term": "Kyriotetes",
+        "index": "^0cikbm",
+        "heading": "Geister der Weisheit, Herrschaften",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Angeloi",
+        "index": "^366nto",
+        "heading": "Engel, Boten, Söhne des Zwielichts",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archangeloi",
+        "index": "^l7fn19",
+        "heading": "Erzengel, Geister der Persönlichkeit",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -359956,6 +359981,42 @@
         "term": "Kyriotetes",
         "index": "^6j0b37",
         "heading": "Geister der Weisheit",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kyriotetes",
+        "index": "^6j0b37",
+        "heading": "Geister der Weisheit, Herrschaften",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Dynamis",
+        "index": "^6j0b37",
+        "heading": "Geister der Bewegung, Mächte",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Exusiai",
+        "index": "^6j0b37",
+        "heading": "Geister der Form, Gewalten",
         "customDescription": true,
         "source": "manual",
         "matchType": "manual",
@@ -506300,6 +506361,30 @@
         "summaryMentioned": true,
         "confidence": 1,
         "level": "h3"
+      },
+      {
+        "term": "Archai",
+        "index": "^nfd2ox",
+        "heading": "Urbeginne, Geister der Persönlichkeit, Zeitgeister",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archangeloi",
+        "index": "^nfd2ox",
+        "heading": "Erzengel, Feuergeister",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
       }
     ],
     "version": "v2-unified",
@@ -553960,17 +554045,6 @@
         "term": "Johannes-Taufe",
         "index": "^tjuzcb",
         "heading": "Johannes-Taufe und ihre Wirkung",
-        "source": "title-summary",
-        "matchType": "new",
-        "matchedExisting": "",
-        "summaryMentioned": true,
-        "confidence": 0.7,
-        "level": "h3"
-      },
-      {
-        "term": "Christus-Taufe",
-        "index": "^g9ais5",
-        "heading": "Christus-Taufe mit Feuer und Geist",
         "source": "title-summary",
         "matchType": "new",
         "matchedExisting": "",

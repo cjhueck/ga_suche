@@ -226,7 +226,8 @@
       "Philo von Alexandrien",
       "Philon",
       "Comenius",
-      "Dionysios Areopagita"
+      "Dionysios Areopagita",
+      "Dürer"
     ]
   },
   "Seelenleben": {
@@ -610,7 +611,6 @@
       "Jahve",
       "Luzifer",
       "Geistige Hierarchien",
-      "Hierarchien",
       "Seraphim, Cherubim, Throne",
       "Exusiai, Kyriotetes, Dynamis",
       "Angeloi, Archangeloi, Archai",
@@ -621,13 +621,9 @@
       "Dhyan-Chohans",
       "Ahura Mazdao",
       "Asuras",
-      "Cherubim",
-      "Archai",
-      "Engel",
       "Abbauprozess",
       "Zeitgeist",
       "Sorat",
-      "Throne",
       "Ormuzd"
     ]
   },
@@ -1028,6 +1024,22 @@
       "Katholizismus",
       "Manichäismus",
       "Zarathustrismus"
+    ]
+  },
+  "Hierarchien": {
+    "description": "Neun Hierarchien schöpferischer geistiger Wesen",
+    "keywords": [
+      "Dynamis",
+      "Engel",
+      "Hierarchien",
+      "Throne",
+      "Archai",
+      "Cherubim",
+      "Kyriotetes",
+      "Exusiai",
+      "Seraphim",
+      "Archangeloi",
+      "Angeloi"
     ]
   }
 }
