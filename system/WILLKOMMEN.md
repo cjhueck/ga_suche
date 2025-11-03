@@ -2,12 +2,12 @@
 **(Testversion in Bearbeitung)**
 
 ---
-**Diese Anwendung ermöglicht Ihnen die intelligente Suche in der Rudolf Steiner Gesamtausgabe (GA)**
+**Diese Anwendung ermöglicht Ihnen umfassende Suche in der Rudolf Steiner Gesamtausgabe (GA)**
 
 - **Stichwortsuche** – Mit Relevanzbewertung
-- **Texte anzeigen lassen** – Texte mit Zusammenfassungen und Gliederungen
+- **Texte anzeigen lassen** – Texte mit Zusammenfassungen, Gliederungen und Schlagworten
 - **Thematische Suche** – KI-gestützte semantische Analyse
-- **Timeline** - Zeitverlauf von Suchergebnissen, Themen und Schlagworten
+- **Timeline** - Zeitverlauf von Suchergebnissen und Schlagworten
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
 Ihre Such-Anfragen werden **nicht gespeichert**.
