@@ -1040,7 +1040,8 @@ body.dark-mode .site-sign {
       display: flex;
       flex-direction: column;
       border-left: none;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       width: 0;
       min-width: 0;
       background: transparent;
@@ -1142,6 +1143,23 @@ body.dark-mode .site-sign {
       color: var(--dark-link-color);
     }
     
+    /* Erweiterte Suche: Überschriften in Snippets */
+    .advanced-search-snippet h3,
+    .advanced-search-snippet h4,
+    .advanced-search-snippet strong,
+    .advanced-search-heading {
+      color: #467886;
+      font-weight: bold;
+    }
+    
+    body.dark-mode .advanced-search-snippet h3,
+    body.dark-mode .advanced-search-snippet h4,
+    body.dark-mode .advanced-search-snippet strong,
+    body.dark-mode .advanced-search-heading {
+      color: #6BA3B8;
+      font-weight: bold;
+    }
+    
     .vertical-resize-handle.visible {
       display: block;
     }
@@ -1175,12 +1193,38 @@ body.dark-mode .site-sign {
       line-height: 1.5;
       font-size: 0.95em;
       display: none;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* Internet Explorer 10+ */
+      scrollbar-width: thin; /* Firefox - dünne Scrollbar */
+      -ms-overflow-style: auto; /* Internet Explorer 10+ */
     }
     
     #summary-content::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
+      width: 8px; /* Chrome, Safari, Edge - Scrollbar-Breite */
+    }
+    
+    #summary-content::-webkit-scrollbar-track {
+      background: var(--background-color);
+    }
+    
+    #summary-content::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    
+    #summary-content::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-color);
+    }
+    
+    /* Dark Mode für Scrollbar */
+    body.dark-mode #summary-content::-webkit-scrollbar-track {
+      background: var(--dark-background-color);
+    }
+    
+    body.dark-mode #summary-content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+    
+    body.dark-mode #summary-content::-webkit-scrollbar-thumb:hover {
+      background: var(--dark-accent-color);
     }
     
     #summary-panel.visible #summary-content {
@@ -3751,10 +3795,10 @@ body.dark-mode #popupCaption {
 </div>
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
-  <div style="display:flex; gap:8px;">
-    <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
-    <button class="depth-btn" onclick="openAdvancedSearch()" style="min-width: 126px; padding: 6px 16px;">Erweiterte Suche</button>
-  </div>
+    <div style="display:flex; gap:8px;">
+      <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 16px;">erweitert</button>
+    </div>
   <div style="display:flex; gap:8px; align-items:stretch;">
     <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 16px;">
       <span id="viewToggleText">nur Titel</span>
@@ -3774,7 +3818,6 @@ body.dark-mode #popupCaption {
 
 <!-- Verstecktes Tab für erweiterte Suche -->
 <div class="tab-content" id="advanced-search-tab" style="display: none;">
-<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Erweiterte Suche (bis zu 7 Worte)</h3>
 
 <!-- Filter-Zeile: GA-Band und Proximity -->
 <div class="filter-row" style="margin-bottom: 1rem;">
@@ -6421,7 +6464,7 @@ function toggleGASummaries() {
       
       // Spaltenüberschriften
       words.forEach(word => {
-        html += `<th style="border: 1px solid var(--border-color); padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${word}</th>`;
+        html += `<th style="border: 1px solid var(--border-color); padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%; color: var(--text-color);">${word}</th>`;
       });
       
       html += '</tr></thead>';
@@ -6448,7 +6491,7 @@ function toggleGASummaries() {
             
             html += `<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
             html += `<div style="font-size: 0.75em; color: var(--secondary-text); margin-bottom: 0.25rem;">${result.lectureTitle}</div>`;
-            html += `<div style="font-size: 0.85em;">${highlightedSnippet}</div>`;
+            html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
             html += '</td>';
           } else {
             html += '<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; background: var(--input-bg);"></td>';
@@ -6588,6 +6631,21 @@ function toggleGASummaries() {
       if (!text || !terms || terms.length === 0) return text;
       
       let result = text;
+      
+      // Erkenne und formatiere Überschriften (komplett in Großbuchstaben)
+      // Muster: Mindestens 10 Zeichen, die fast ausschließlich aus Großbuchstaben bestehen
+      // Erlaubt: Großbuchstaben, Umlaute, Leerzeichen, Bindestriche, und wenige andere Zeichen
+      result = result.replace(/([A-ZÄÖÜ][A-ZÄÖÜ\s\-ÄÖÜÉÈÊËÁÀÂ]{9,})/g, (match) => {
+        // Prüfe ob mindestens 70% Großbuchstaben sind
+        const upperCount = (match.match(/[A-ZÄÖÜ]/g) || []).length;
+        const ratio = upperCount / match.replace(/\s/g, '').length;
+        if (ratio > 0.7) {
+          return `<span class="advanced-search-heading">${match}</span>`;
+        }
+        return match;
+      });
+      
+      // Highlighte Suchbegriffe
       terms.forEach(term => {
         if (!term || !term.trim()) return;
         const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
