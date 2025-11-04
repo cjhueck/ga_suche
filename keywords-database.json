@@ -290842,7 +290842,8 @@
     "generated": "2025-11-02T21:41:36.866Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:41:37.061Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Köln"
   },
   "GA118/4": {
     "lectureId": "GA118/4",
@@ -291009,7 +291010,8 @@
     "generated": "2025-11-02T21:41:41.324Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:41:41.494Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Düsseldorf"
   },
   "GA118/2": {
     "lectureId": "GA118/2",
@@ -291165,7 +291167,8 @@
     "generated": "2025-11-02T21:41:43.203Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:41:43.392Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Heidelberg"
   },
   "GA118/3": {
     "lectureId": "GA118/3",
@@ -291332,7 +291335,8 @@
     "generated": "2025-11-02T21:41:45.391Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:41:45.582Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Pforzheim"
   },
   "GA118/1": {
     "lectureId": "GA118/1",
@@ -291499,7 +291503,8 @@
     "generated": "2025-11-02T21:41:53.617Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:41:53.815Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Karlsruhe"
   },
   "GA118/8": {
     "lectureId": "GA118/8",
@@ -291677,7 +291682,8 @@
     "generated": "2025-11-02T21:42:35.171Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:42:35.358Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "München"
   },
   "GA118/10": {
     "lectureId": "GA118/10",
@@ -291844,7 +291850,8 @@
     "generated": "2025-11-02T21:42:35.628Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:42:35.817Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Palermo"
   },
   "GA118/9": {
     "lectureId": "GA118/9",
@@ -292011,7 +292018,8 @@
     "generated": "2025-11-02T21:42:36.148Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:42:36.300Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "München"
   },
   "GA118/7": {
     "lectureId": "GA118/7",
@@ -292178,7 +292186,8 @@
     "generated": "2025-11-02T21:42:36.555Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:42:36.680Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA118/6": {
     "lectureId": "GA118/6",
@@ -292323,7 +292332,8 @@
     "generated": "2025-11-02T21:42:40.542Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:42:40.714Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA118/14": {
     "lectureId": "GA118/14",
@@ -292490,7 +292500,8 @@
     "generated": "2025-11-02T21:43:15.974Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:43:16.100Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Rom"
   },
   "GA118/13": {
     "lectureId": "GA118/13",
@@ -292635,7 +292646,8 @@
     "generated": "2025-11-02T21:43:17.043Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:43:17.153Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kassel"
   },
   "GA118/11": {
     "lectureId": "GA118/11",
@@ -292802,7 +292814,8 @@
     "generated": "2025-11-02T21:43:20.338Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:43:20.490Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Hannover"
   },
   "GA118/15": {
     "lectureId": "GA118/15",
@@ -292958,7 +292971,8 @@
     "generated": "2025-11-02T21:43:21.463Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:43:21.573Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Rom"
   },
   "GA118/12": {
     "lectureId": "GA118/12",
@@ -293136,7 +293150,8 @@
     "generated": "2025-11-02T21:43:27.530Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:43:27.674Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Hamburg"
   },
   "GA119/2": {
     "lectureId": "GA119/2",
@@ -293281,7 +293296,8 @@
     "generated": "2025-11-02T21:44:06.867Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:07.208Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/3": {
     "lectureId": "GA119/3",
@@ -293437,7 +293453,8 @@
     "generated": "2025-11-02T21:44:07.668Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:07.924Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA118/16": {
     "lectureId": "GA118/16",
@@ -293593,7 +293610,8 @@
     "generated": "2025-11-02T21:44:08.334Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:08.656Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Rom"
   },
   "GA119/1": {
     "lectureId": "GA119/1",
@@ -293760,7 +293778,8 @@
     "generated": "2025-11-02T21:44:09.065Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:09.262Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/4": {
     "lectureId": "GA119/4",
@@ -293927,7 +293946,8 @@
     "generated": "2025-11-02T21:44:13.622Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:13.832Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/7": {
     "lectureId": "GA119/7",
@@ -294071,7 +294091,8 @@
     "generated": "2025-11-02T21:44:52.532Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:52.739Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/5": {
     "lectureId": "GA119/5",
@@ -294216,7 +294237,8 @@
     "generated": "2025-11-02T21:44:54.218Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:54.443Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/8": {
     "lectureId": "GA119/8",
@@ -294372,7 +294394,8 @@
     "generated": "2025-11-02T21:44:55.000Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:55.237Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/6": {
     "lectureId": "GA119/6",
@@ -294550,7 +294573,8 @@
     "generated": "2025-11-02T21:44:58.460Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:58.666Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/9": {
     "lectureId": "GA119/9",
@@ -294717,7 +294741,8 @@
     "generated": "2025-11-02T21:44:59.524Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:44:59.717Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/10": {
     "lectureId": "GA119/10",
@@ -294862,7 +294887,8 @@
     "generated": "2025-11-02T21:45:39.041Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:45:39.163Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA120/1": {
     "lectureId": "GA120/1",
@@ -294930,7 +294956,8 @@
     "generated": "2025-11-02T21:50:52.071Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:50:52.328Z",
-    "lastMerge": "2025-11-02T21:50:52.328Z"
+    "lastMerge": "2025-11-02T21:50:52.328Z",
+    "location": "Hamburg"
   },
   "GA119/11": {
     "lectureId": "GA119/11",
@@ -295075,7 +295102,8 @@
     "generated": "2025-11-02T21:45:45.965Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:45:46.112Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA119/12": {
     "lectureId": "GA119/12",
@@ -295253,7 +295281,8 @@
     "generated": "2025-11-02T21:45:46.757Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:45:46.887Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Wien"
   },
   "GA120/2": {
     "lectureId": "GA120/2",
@@ -295310,7 +295339,8 @@
     "generated": "2025-11-02T21:51:00.120Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:00.388Z",
-    "lastMerge": "2025-11-02T21:51:00.388Z"
+    "lastMerge": "2025-11-02T21:51:00.388Z",
+    "location": "Hamburg"
   },
   "GA120/4": {
     "lectureId": "GA120/4",
@@ -295411,7 +295441,8 @@
     "generated": "2025-11-02T21:50:53.212Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:50:53.465Z",
-    "lastMerge": "2025-11-02T21:50:53.465Z"
+    "lastMerge": "2025-11-02T21:50:53.465Z",
+    "location": "Hamburg"
   },
   "GA120/5": {
     "lectureId": "GA120/5",
@@ -295545,7 +295576,8 @@
     "generated": "2025-11-02T21:50:47.817Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:50:48.128Z",
-    "lastMerge": "2025-11-02T21:50:48.128Z"
+    "lastMerge": "2025-11-02T21:50:48.128Z",
+    "location": "Hamburg"
   },
   "GA120/3": {
     "lectureId": "GA120/3",
@@ -295602,7 +295634,8 @@
     "generated": "2025-11-02T21:50:51.041Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:50:51.452Z",
-    "lastMerge": "2025-11-02T21:50:51.452Z"
+    "lastMerge": "2025-11-02T21:50:51.452Z",
+    "location": "Hamburg"
   },
   "GA120/7": {
     "lectureId": "GA120/7",
@@ -295659,7 +295692,8 @@
     "generated": "2025-11-02T21:51:43.993Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:44.304Z",
-    "lastMerge": "2025-11-02T21:51:44.305Z"
+    "lastMerge": "2025-11-02T21:51:44.305Z",
+    "location": "Hamburg"
   },
   "GA120/6": {
     "lectureId": "GA120/6",
@@ -295727,7 +295761,8 @@
     "generated": "2025-11-02T21:51:49.673Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:49.894Z",
-    "lastMerge": "2025-11-02T21:51:49.895Z"
+    "lastMerge": "2025-11-02T21:51:49.895Z",
+    "location": "Hamburg"
   },
   "GA120/8": {
     "lectureId": "GA120/8",
@@ -295795,7 +295830,8 @@
     "generated": "2025-11-02T21:51:48.512Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:48.763Z",
-    "lastMerge": "2025-11-02T21:51:48.763Z"
+    "lastMerge": "2025-11-02T21:51:48.763Z",
+    "location": "Hamburg"
   },
   "GA120/11": {
     "lectureId": "GA120/11",
@@ -295863,7 +295899,8 @@
     "generated": "2025-11-02T21:52:47.962Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:52:48.237Z",
-    "lastMerge": "2025-11-02T21:52:48.237Z"
+    "lastMerge": "2025-11-02T21:52:48.237Z",
+    "location": "Hamburg"
   },
   "GA120/9": {
     "lectureId": "GA120/9",
@@ -296008,7 +296045,8 @@
     "generated": "2025-11-02T21:51:34.181Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:34.487Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Hamburg"
   },
   "GA120/10": {
     "lectureId": "GA120/10",
@@ -296175,6 +296213,3141 @@
     "generated": "2025-11-02T21:51:42.876Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-02T21:51:43.323Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Hamburg"
+  },
+  "GA121/1": {
+    "lectureId": "GA121/1",
+    "date": "1918-02-08",
+    "year": 1918,
+    "gaVolume": "GA121",
+    "summary": "Die Psychologie der Völkerentwicklung erfordert eine geistige Betrachtungsweise, die über anthropologische und historische Methoden hinausgeht. Volksseelen sind reale geistige Wesenheiten, vergleichbar mit dem Verhältnis von Leib und Seele beim einzelnen Menschen. Die Entwicklung der Völker steht in Verbindung mit kosmischen Kräften, ähnlich wie eine Magnetnadel durch den Erdmagnetismus ausgerichtet wird. Höhere geistige Wesenheiten - Engel, Erzengel, Throne - wirken auf die Völkerentwicklung ein. Diese Betrachtung verwendet christliche Bezeichnungen entsprechend der abendländischen Kultur. Die Mission der einzelnen Volksseelen gewinnt besondere Bedeutung, da die Menschheit zu einer gemeinsamen Mission zusammengeführt wird. Selbsterkenntnis des Volkstums ermöglicht den freien Beitrag zur Menschheitsentwicklung. Eine auf das Geistige ausgerichtete Wissenschaft ist für die Kulturmittel des geistigen Lebens notwendig.",
+    "keywords": [
+      {
+        "term": "Völkerpsychologie",
+        "index": "^n8a5q6",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Seele",
+        "index": "^n8a5q6",
+        "heading": "Grundlegung einer geistigen Völkerpsychologie",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Seele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^056ax4",
+        "heading": "Geistige Wesenheiten und ihre Bezeichnungen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^056ax4",
+        "heading": "Geistige Wesenheiten und ihre Bezeichnungen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^1zjtrw",
+        "heading": "Die Mission der Volksseelen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:52:23.992Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:52:24.277Z",
+    "lastMerge": "2025-11-04T07:52:24.277Z",
+    "location": "Berlin"
+  },
+  "GA121/2": {
+    "lectureId": "GA121/2",
+    "date": "1910-06-07",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die geistige Hierarchie gliedert sich in verschiedene Wesensstufen: Archai (Zeitgeister) als höchste Stufe leiten ganze Epochen der Menschheitsentwicklung, Archangeloi (Volksgeister) inspirieren einzelne Völker, während Angeloi zwischen Volksgeist und Einzelmensch vermitteln. Diese Wesenheiten entwickelten ihre Menschheitsstufe in früheren kosmischen Zuständen - Archai auf dem Saturn, Archangeloi auf der Sonne, Angeloi auf dem Mond. Der Mensch durchläuft heute auf der Erde seine Menschheitsstufe. Die Volksgeister arbeiten am Ätherleib der Menschen und prägen dadurch die charakteristischen Eigenschaften der Völker. Zeitgeister wechseln sich ab und kehren zyklisch wieder, wodurch sich Kulturepochen wiederholen. Die nachatlantischen Kulturen folgen diesem Muster: nach der griechisch-lateinischen Wendezeit wiederholt sich die ägyptisch-chaldäische in unserer Zeit, später folgen Wiederholungen der persischen und urindischen Kultur.",
+    "keywords": [
+      {
+        "term": "Geistige Hierarchien",
+        "index": "^kpptxm",
+        "heading": "Die geistige Hierarchie der Wesenheiten",
+        "source": "title-summary",
+        "matchType": "existing-similar",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Zeitgeister",
+        "index": "^rragtk",
+        "heading": "Die Zeitgeister und ihre zyklische Wiederkehr",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^vjqit6",
+        "heading": "Die Gliederung der menschlichen Wesenheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^vjqit6",
+        "heading": "Die Gliederung der menschlichen Wesenheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^vjqit6",
+        "heading": "Die Gliederung der menschlichen Wesenheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^s5d3sb",
+        "heading": "Die Mission der geisteswissenschaftlichen Weltanschauung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Archai",
+        "index": "^kpptxm",
+        "heading": "Die geistige Hierarchie der Wesenheiten",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Archangeloi",
+        "index": "^kpptxm",
+        "heading": "Die geistige Hierarchie der Wesenheiten",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:52:36.379Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:52:36.809Z",
+    "lastMerge": "2025-11-04T07:52:36.809Z",
+    "location": "Kristiania"
+  },
+  "GA121/3": {
+    "lectureId": "GA121/3",
+    "date": "1910-06-08",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die Volksgeister oder Erzengel verkörpern sich in den Äther-Auren verschiedener Erdengebiete und wirken auf die menschlichen Temperamente ein. Diese Äther-Auren entstehen durch die Verbindung von Bodeneigenschaften mit den Völkerwanderungen. Neben den normalen Erzengeln wirken zurückgebliebene Geister der Form, die als abnorme Erzengel die Sprache gestalten, sowie zurückgebliebene Geister der Persönlichkeit, die das Denken von innen beeinflussen. Das Zusammenwirken dieser verschiedenen geistigen Wesenheiten bestimmt den Charakter der Völker. Bei den alten Indern entstand ein harmonischer Vertrag zwischen normalem Erzengel, abnormem Sprachgeist und abnormem Denkgeist, wodurch die Sanskrit-Sprache und die geschlossene indische Philosophie entstanden. Andere Völker zeigen unterschiedliche Konstellationen dieser Kräfte, was ihre jeweiligen kulturellen Eigenarten erklärt.",
+    "keywords": [
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^jeb9a8",
+        "heading": "Veränderungen durch Völkerwanderungen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Indien",
+        "index": "^iioih5",
+        "heading": "Der Vertrag bei den alten Indern",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:52:33.565Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:52:33.803Z",
+    "lastMerge": "2025-11-04T07:52:33.803Z",
+    "location": "Kristiania"
+  },
+  "GA121/4": {
+    "lectureId": "GA121/4",
+    "date": "1910-06-09",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Das innere Leben der Volksgeister wird als dreigliedriges Bewusstsein im Ätherleib beschrieben, analog zur menschlichen Seelenstruktur. Volksgeister nehmen die physische Sinnenwelt nicht wahr, sondern erleben die menschlichen Individualitäten als Bewusstseinszentren in ihrem astralischen Wahrnehmungsfeld. Engelwesen vermitteln zwischen Erzengeln und einzelnen Menschen, indem sie die Befehle der Volksgeister in die individuellen Seelen hineintragen. Abnorme Geister der Persönlichkeit können die Maßnahmen der Erzengel durchkreuzen und zur Bildung von Volksgruppen führen. Der Zeitgeist kann zeitweise die Oberhand über den Erzengel gewinnen und Völker abspalten, wie bei Holland und Portugal geschehen. Normale und abnorme Geister der Form wirken zusammen bei der Ausgestaltung der Menschenrassen, wobei die normalen das allgemein Menschliche bewirken und die abnormen die Rassengliederung schaffen.",
+    "keywords": [
+      {
+        "term": "Empfindungsseele",
+        "index": "^18kveu",
+        "heading": "Die dreigliedrige Struktur des menschlichen Inneren",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Empfindungsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Verstandes- & Gemütsseele",
+        "index": "^wiuog2",
+        "heading": "Die dreigliedrige Struktur des menschlichen Inneren",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Verstandes- & Gemütsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "index": "^4how9y",
+        "heading": "Die dreigliedrige Struktur des menschlichen Inneren",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^q0oydh",
+        "heading": "Das innere Leben der Volksgeister",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^o7hlfs",
+        "heading": "Höhere geistige Hierarchien und Rassen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Zeitgeist",
+        "index": "^g8icnn",
+        "heading": "Volksabspaltungen durch den Zeitgeist",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Rassen",
+        "index": "^hr45jl",
+        "heading": "Höhere geistige Hierarchien und Rassen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Hierarchien",
+        "index": "^tj9jax",
+        "heading": "Höhere geistige Hierarchien und Rassen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:52:37.494Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:52:37.766Z",
+    "lastMerge": "2025-11-04T07:52:37.766Z",
+    "location": "Kristiania"
+  },
+  "GA121/5": {
+    "lectureId": "GA121/5",
+    "date": "1910-06-10",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die Menschenrassen entstehen durch das Wirken abnormer Geister der Form, die den Menschen bereits vor seinem 20. Lebensjahr auf die Erde herabführen, anstatt erst im reifen Alter. Dadurch wird der Mensch abhängig vom Ort seiner Geburt und den dort wirkenden Erdenkräften. Die schwarze Rasse entsteht durch Kräfte aus Afrika, die gelbe Rasse durch asiatische Einflüsse, während Europa die reifsten Merkmale prägt. Diese Rassencharaktere vererben sich und bestimmen die Menschheitsentwicklung von der lemurischen Zeit bis heute. Die Kulturen folgen einer ähnlichen Gesetzmäßigkeit von Ost nach West, wobei die Produktivität nach Westen abnimmt. In der nachatlantischen Zeit entwickeln sich aus den Rassen die Völker, und die Rassenmerkmale werden allmählich überwunden.",
+    "keywords": [
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^p8bf08",
+        "heading": "Das Wirken der Geister der Form",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^g23kaa",
+        "heading": "Die vier Glieder der menschlichen Wesenheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^g23kaa",
+        "heading": "Die vier Glieder der menschlichen Wesenheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Rassen",
+        "index": "^g23kaa",
+        "heading": "Die komplexe Entstehung des Menschen",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Erdenkräfte",
+        "index": "^qfechd",
+        "heading": "Die geographische Verteilung der Rassen",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Geister der Form",
+        "index": "^p8bf08",
+        "heading": "Das Wirken der Geister der Form",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:52:35.045Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:52:35.558Z",
+    "lastMerge": "2025-11-04T07:52:35.558Z",
+    "location": "Kristiania"
+  },
+  "GA121/6": {
+    "lectureId": "GA121/6",
+    "date": "1910-06-11",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die geistigen Hierarchien wirken in komplexer Weise bei der Gestaltung der Erde zusammen. Drei Hierarchien prägen unseren Planeten: Die höchste (Seraphim, Cherubim, Throne) wirkt aus dem Erdinneren in Wärme, Luft und dem flüssigen Element. Die zweite Hierarchie (Geister der Weisheit, Bewegung, Form) strahlt aus dem Weltenraum ein und manifestiert sich in Leben, Sphärenmusik und Licht. Die erste Hierarchie (Archai, Erzengel, Engel) wirkt in der Kulturentwicklung und Volksmissionen. Die Erdenmission besteht darin, das Gleichgewicht zwischen Denken, Fühlen und Wollen herzustellen, wodurch als viertes Element die Liebe entsteht. Frühere Planetenzustände (Saturn, Sonne, Mond) entwickelten jeweils eines dieser Elemente zur Vorherrschaft. Abnorme Geister der Form weben von innen und erzeugen die Rassendifferenzierung. Das Verstehen dieser Zusammenhänge erfordert die Lehre von Karma und Reinkarnation als Grundlage vorurteilsfreier Betrachtung.",
+    "keywords": [
+      {
+        "term": "Geistige Hierarchien",
+        "index": "^8gjm9i",
+        "heading": "Die Struktur der geistigen Hierarchien",
+        "source": "title-summary",
+        "matchType": "existing-similar",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^vts11s",
+        "heading": "Voraussetzungen für die Betrachtung der Völkermissionen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^q3kvbp",
+        "heading": "Die planetarischen Missionen und Erdentwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Goethe",
+        "index": "^0v5imk",
+        "heading": "Die Wirkungsweise der zweiten Hierarchie",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Goethe",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^0y7gat",
+        "heading": "Das Zusammenwirken der Hierarchien in der Erdgestaltung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:53:22.085Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:53:22.531Z",
+    "lastMerge": "2025-11-04T07:53:22.531Z",
+    "location": "Kristiania"
+  },
+  "GA121/10": {
+    "lectureId": "GA121/10",
+    "date": "1910-06-15",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die germanisch-nordische Mythologie zeigt einzigartig die zweifachen Einflüsse auf die Menschheitsentwicklung: den luziferischen und ahrimanischen Einfluß. Luzifer wirkt von innen durch den Astralleib und bewirkt Selbstsucht, Lüge und Krankheit/Tod. Diese Wirkungen verkörpern sich in Lokis drei Sprößlingen: Midgardschlange, Fenriswolf und Hel. Der ahrimanische Einfluß folgt als Konsequenz des luziferischen. Die Baldur-Mythe symbolisiert das Hinschwinden des alten Hellsehens durch Lokis Einfluß. Während andere Kulturen nur einen der beiden Einflüsse erkannten, erfaßte die nordische Mythologie beide vollständig. Die Götterdämmerung stellt eine Zukunftsvision dar, in der diese Mächte endgültig überwunden werden. Das nordische Bewußtsein erlebte den Übergang vom hellseherischen Schauen zur physischen Weltanschauung als tragischen Verlust, verbunden mit der Hoffnung auf zukünftige Wiedererlangung geistiger Erkenntnis.",
+    "keywords": [
+      {
+        "term": "Mythologie",
+        "index": "^9sw7ya",
+        "heading": "Die germanisch-nordische Mythologie und Loki",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "index": "^k8yico",
+        "heading": "Die Entwicklung des Ich-Bewusstseins in verschiedenen Kulturen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich-Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^xgyn7m",
+        "heading": "Die Baldur-Mythe als Verlust des Hellsehens",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^fb10xb",
+        "heading": "Die luziferischen Einflüsse auf den Menschen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^r8yin5",
+        "heading": "Die dreifache Wirkung Luzifers",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^da42h4",
+        "heading": "Die Baldur-Mythe als Verlust des Hellsehens",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Tod",
+        "index": "^lrbjhd",
+        "heading": "Die dreifache Wirkung Luzifers",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Tod",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^qy8hfk",
+        "heading": "Das Christentum und die nordische Weltanschauung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kulturentwicklung",
+        "index": "^h5avbj",
+        "heading": "Kulturelle Unterschiede in der Wahrnehmung der Widersacher",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kulturentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Böses",
+        "index": "^fb10xb",
+        "heading": "Die luziferischen Einflüsse auf den Menschen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Böses",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Freiheit",
+        "index": "^9sw7ya",
+        "heading": "Die germanisch-nordische Mythologie und Loki",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Freiheit",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^fb10xb",
+        "heading": "Die luziferischen Einflüsse auf den Menschen",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Ahriman",
+        "index": "^15mdcg",
+        "heading": "Die luziferischen Einflüsse auf den Menschen",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Loki",
+        "index": "^9sw7ya",
+        "heading": "Die germanisch-nordische Mythologie und Loki",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Baldur",
+        "index": "^xgyn7m",
+        "heading": "Die Baldur-Mythe als Verlust des Hellsehens",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:53:26.098Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:53:26.417Z",
+    "lastMerge": "2025-11-04T07:53:26.417Z",
+    "location": "Kristiania"
+  },
+  "GA121/7": {
+    "lectureId": "GA121/7",
+    "date": "1910-06-12",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die sieben Geister der Form oder Elohim wirken aus der Sonne, während sich Jahve mit dem Mond absonderte, um das Gleichgewicht zu halten. Abnorme Geister der Form, zentriert in den fünf Planeten Saturn, Jupiter, Mars, Venus und Merkur, beeinflussen die normalen Elohim-Kräfte und schaffen dadurch die fünf Grundrassen der Menschheit. Die Merkur-Rasse entspricht der äthiopischen Rasse, die Venus-Rasse der malayischen, die Mars-Rasse der mongolischen, die Jupiter-Rasse der kaukasischen und die Saturn-Rasse der indianischen Rasse. Diese Rassengeister wirken durch verschiedene Körpersysteme: das Drüsensystem, Nervensystem und Blut. Die atlantischen Mysterien-Orakel leiteten ursprünglich die Völkerverteilung nach diesen kosmischen Einflüssen. Besonders das Semitentum entstand durch das Zusammenwirken von Jahve und den Marsgeistern, wodurch die Bedeutung des Blutes für dieses Volk erklärt wird.",
+    "keywords": [
+      {
+        "term": "Geister der Form",
+        "index": "^tuh6h5",
+        "heading": "Die sieben Geister der Form und ihre kosmische Verteilung",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^y5pjbm",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Jahve",
+        "index": "^tuh6h5",
+        "heading": "Die sieben Geister der Form und ihre kosmische Verteilung",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Karma",
+        "index": "^439m78",
+        "heading": "Die große Polarität zwischen mongolischer und semitischer Rasse",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Karma",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Rassen",
+        "index": "^0ep26i",
+        "heading": "Die fünf Grundrassen und ihre planetarischen Zuordnungen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:53:23.234Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:53:23.520Z",
+    "lastMerge": "2025-11-04T07:53:23.520Z",
+    "location": "Kristiania"
+  },
+  "GA121/11": {
+    "lectureId": "GA121/11",
+    "date": "1910-06-16",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die europäischen Völker haben unterschiedliche Missionen in der Entwicklung des menschlichen Ich. Während die germanisch-nordischen Völker das Ich durch hellseherische Erfahrungen aus der geistigen Welt empfingen und Thor als Geber des individuellen Ich verehrten, entwickelten andere europäische Kulturen verschiedene Aspekte der Seelenglieder. Die nachatlantischen Kulturen zeigen eine Stufenfolge: die indische Kultur arbeitete am Ätherleib, die persische am Astralleib, die ägyptisch-chaldäische an der Empfindungsseele, die griechisch-lateinische an der Verstandes- oder Gemütsseele. Die germanischen Völker entwickelten die Bewußtseinsseele, deren sublimierte Form sich in der deutschen Philosophie von Fichte, Schelling und Hegel zeigt. Die slawischen Völker Osteuropas bereiten als vorgeschobene Posten die sechste Kulturperiode vor, in der das Geistselbst in die Bewußtseinsseele eintreten wird. Solowjows fortgeschrittener Christus-Begriff deutet prophetisch auf diese kommende Entwicklung hin.",
+    "keywords": [
+      {
+        "term": "Ich-Entwicklung",
+        "index": "^y6p5mq",
+        "heading": "Die Entwicklung des Ich in der germanisch-nordischen Kultur",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich-Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^hkudw4",
+        "heading": "Die Missionen der europäischen Völker",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^krotjm",
+        "heading": "Die Stufenfolge der nachatlantischen Kulturen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "index": "^9mfpph",
+        "heading": "Die westeuropäischen Völker und die Bewußtseinsseele",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinsseele",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^fxiinx",
+        "heading": "Die germanische Philosophie als Erbe des alten Hellsehens",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^qjdp1q",
+        "heading": "Chinesische und indische Kultur als Gegensätze",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^xzjgsb",
+        "heading": "Solowjows Christus-Begriff als Morgenröte der Zukunft",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^y6p5mq",
+        "heading": "Die Entwicklung des Ich in der germanisch-nordischen Kultur",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kulturentwicklung",
+        "index": "^krotjm",
+        "heading": "Die Stufenfolge der nachatlantischen Kulturen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kulturentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Empfindungsseele",
+        "index": "^gs89ft",
+        "heading": "Persische, ägyptische und griechische Kulturentwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Empfindungsseele",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Verstandesseele",
+        "index": "^gs89ft",
+        "heading": "Persische, ägyptische und griechische Kulturentwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Verstandesseele",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^gs89ft",
+        "heading": "Persische, ägyptische und griechische Kulturentwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Volksgeist",
+        "index": "^y6p5mq",
+        "heading": "Die Entwicklung des Ich in der germanisch-nordischen Kultur",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Solowjow",
+        "index": "^xzjgsb",
+        "heading": "Solowjows Christus-Begriff als Morgenröte der Zukunft",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Geistselbst",
+        "index": "^zqr8nz",
+        "heading": "Die slawischen Völker als Vorbereiter der sechsten Kulturperiode",
+        "source": "new",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:54:17.734Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:54:17.925Z",
+    "lastMerge": "2025-11-04T07:54:17.925Z",
+    "location": "Kristiania"
+  },
+  "GA121/8": {
+    "lectureId": "GA121/8",
+    "date": "1910-06-12",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die geistigen Wesenheiten der Hierarchien durchlaufen selbst eine Evolution. Seit der atlantischen Zeit steigen Erzengel zu Zeitgeistern auf. Die frühe Rassenverteilung wurde durch eine spätere Völkerströmung von West nach Osten ergänzt, wobei verschiedene Erzengel ihre Völker führten. Der indische, persische und ägyptische Erzengel stiegen zu Zeitgeistern ihrer jeweiligen Kulturepochen auf. Das Semitentum erhielt unter Jahve eine besondere Mission als Träger des Monotheismus, während andere Völker pluralistische Impulse entwickelten. Der griechische Zeitgeist verzichtete auf seinen Aufstieg und wurde Führer des exoterischen Christentums. Der keltische Erzengel blieb zurück und inspirierte das esoterische Christentum durch Gral und Rosenkreuzertum. Die germanischen Völker wurden lange von Erzengeln geführt, bis sich der Zeitgeist der fünften Kulturepoche bildete, der unter Einfluss des ägyptischen Zeitgeistes steht und materialistische Tendenzen zeigt.",
+    "keywords": [
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^qcm5lm",
+        "heading": "Die Evolution der Hierarchien und Rassenverteilung",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^qcm5lm",
+        "heading": "Die Evolution der Hierarchien und Rassenverteilung",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^cst0sk",
+        "heading": "Die Evolution der Hierarchien und Rassenverteilung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^cst0sk",
+        "heading": "Die Evolution der Hierarchien und Rassenverteilung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Monotheismus",
+        "index": "^j0ryae",
+        "heading": "Pluralismus und Monotheismus als geistige Strömungen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Mythologie",
+        "index": "^4wojpj",
+        "heading": "Pluralismus und Monotheismus als geistige Strömungen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^xk9uec",
+        "heading": "Der Aufstieg des griechischen Zeitgeistes",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^xk9uec",
+        "heading": "Der Aufstieg des griechischen Zeitgeistes",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Rosenkreuzer",
+        "index": "^e0k82w",
+        "heading": "Verzichtleistungen und besondere Missionen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rosenkreuzer",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Graal",
+        "index": "^e0k82w",
+        "heading": "Verzichtleistungen und besondere Missionen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^gxrcwb",
+        "heading": "Die Entstehung des fünften Zeitgeistes",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Kulturentwicklung",
+        "index": "^uobx9z",
+        "heading": "Die Entstehung des fünften Zeitgeistes",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kulturentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Germanische Völker",
+        "index": "^47s7l9",
+        "heading": "Die nordische Mythologie und germanische Anlagen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Skandinavien",
+        "index": "^o2czpz",
+        "heading": "Die nordische Mythologie und germanische Anlagen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:53:19.472Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:53:19.795Z",
+    "lastMerge": "2025-11-04T07:53:19.795Z",
+    "location": "Kristiania"
+  },
+  "GA121/9": {
+    "lectureId": "GA121/9",
+    "date": "1910-06-14",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die germanisch-nordische Mythologie unterscheidet sich grundlegend von anderen Mythologien durch ihre besondere Entstehungsweise. Während die östlichen Völker (Indien, Persien, Ägypten-Chaldäa) ihr Ich-Bewusstsein auf bereits entwickelten Seelenstufen erlangten, erwachten die germanischen Völker mit ihrem Ich auf elementarer Stufe und erlebten unmittelbar das Wirken der Engel und Erzengel in ihrer Seele. Die indischen Völker hatten bereits in Dumpfheit durchgemacht, was die Germanen bewusst mit ihrem Ich miterlebten. Die Griechen formten ihre Mythologie aus Erinnerungen an diese Engelwirkungen, während die Germanen sie als gegenwärtige Realität erfuhren. Odin erscheint als abnormer Erzengel, der den Völkern Sprache und Runenkunde verlieh. Thor wirkt als mächtiger Engel im individuellen Ich. Diese unmittelbare Anschauung der geistigen Wirkungen ermöglichte den germanischen Völkern ein einzigartiges Verständnis der kosmischen Zusammenhänge zwischen Makrokosmos und menschlichem Mikrokosmos.",
+    "keywords": [
+      {
+        "term": "Mythologie",
+        "index": "^xuc577",
+        "heading": "Die Eigenart der germanisch-nordischen Mythologie",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^5n79f2",
+        "heading": "Die fünf nachatlantischen Kulturperioden",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "index": "^b2t7ny",
+        "heading": "Verschiedene Stufen des Ich-Erwachens",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich-Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^d9dmsy",
+        "heading": "Das Heraustreten aus dem atlantischen Hellsehen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^d9dmsy",
+        "heading": "Das Heraustreten aus dem atlantischen Hellsehen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^om5hdb",
+        "heading": "Die Amshaspands als Geister der Form",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^inf13c",
+        "heading": "Das Vergessen der östlichen Völker",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^wq5tsy",
+        "heading": "Die Einweihung durch den Göttertrank",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Individualität",
+        "index": "^fgjxhg",
+        "heading": "Der Verzicht auf höhere Entwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Individualität",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Odin",
+        "index": "^wq5tsy",
+        "heading": "Odin als abnormer Erzengel der Sprache",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Thor",
+        "index": "^fgjxhg",
+        "heading": "Thor als mächtiger Engelführer",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Germanische Völker",
+        "index": "^faisdb",
+        "heading": "Das unmittelbare Erleben der Germanen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Wanen und Asen",
+        "index": "^xpbd9c",
+        "heading": "Wanen und Asen - die alten und neuen Götter",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:53:27.629Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:53:27.928Z",
+    "lastMerge": null,
+    "location": "Kristiania"
+  },
+  "GA121/12": {
+    "lectureId": "GA121/12",
+    "date": "1910-06-17",
+    "year": 1910,
+    "gaVolume": "GA121",
+    "summary": "Die germanisch-nordische Mythologie enthält in imaginativer Form die größten okkulten Wahrheiten, die mit moderner Geistesforschung übereinstimmen. Der nordische Volksgeist bewahrt Erinnerungen an das Herabsteigen planetarischer Seelen während der atlantischen Zeit. Götter wie Freyr, Freya und Njordr repräsentieren die Verbindung zwischen geistig-seelischen Kräften und physischen Menschenleibern. Nach dem Ende des Kali Yuga 1899 entwickeln Menschen neue hellseherische Fähigkeiten, besonders ätherisches Hellsehen. Die Götterdämmerung prophezeit das Ende alter Hellseherkräfte und die Ankunft des Widar, der chaotische Reste überwinden wird. Eine neue Christus-Offenbarung im ätherischen Bereich wird ab dem 20. Jahrhundert möglich, jedoch drohen materialistische Fehlinterpretationen und falsche Messiasse. Die Geisteswissenschaft bereitet auf diese Entwicklung vor und vereint alle Völker in harmonischem Zusammenwirken für die gesamte Menschheit.",
+    "keywords": [
+      {
+        "term": "Mythologie",
+        "index": "^na0aqw",
+        "heading": "Die germanisch-nordische Mythologie als Quelle okkulter Wahrheiten",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mythologie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistesforschung",
+        "index": "^na0aqw",
+        "heading": "Die germanisch-nordische Mythologie als Quelle okkulter Wahrheiten",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistesforschung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^0y27vv",
+        "heading": "Das Herabsteigen der Planeten-Seelen in atlantischer Zeit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^fthdc8",
+        "heading": "Freyr und Freya als Vermittler hellseherischer Kräfte",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^jdhz83",
+        "heading": "Das Ende des Kali Yuga und neue menschliche Fähigkeiten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^gb98cx",
+        "heading": "Die neue Christus-Offenbarung im Ätherischen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^gb98cx",
+        "heading": "Die neue Christus-Offenbarung im Ätherischen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^t2zxmu",
+        "heading": "Gefahren des Materialismus und falsche Messiasse",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^fthdc8",
+        "heading": "Freyr und Freya als Vermittler hellseherischer Kräfte",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kali Yuga",
+        "index": "^jdhz83",
+        "heading": "Das Ende des Kali Yuga und neue menschliche Fähigkeiten",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Widar",
+        "index": "^rjntic",
+        "heading": "Widar als Überwinder der alten Hellseherkräfte",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Götterdämmerung",
+        "index": "^aqo7nj",
+        "heading": "Die Götterdämmerung als Zukunftsvision",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Rosenkreuzer",
+        "index": "^wgixxc",
+        "heading": "Prüfung statt Autoritätsglaube",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rosenkreuzer",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Sabbatai Zewi",
+        "index": "^efc1cr",
+        "heading": "Das Beispiel des Sabbatai Zewi",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T07:54:11.935Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T07:54:12.214Z",
+    "lastMerge": null,
+    "location": "Kristiania"
+  },
+  "GA122/5": {
+    "lectureId": "GA122/5",
+    "date": "1910-08-20",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis wiederholt in den ersten Schöpfungstagen die kosmischen Entwicklungsstufen von Saturn, Sonne und Mond. Der alte Saturn war ein Ineinanderweben von Wärmezuständen, die alte Sonne fügte Licht und Luft hinzu, der alte Mond brachte Wasser und Schalläther. Das Erdenwerden zeigt diese Wiederholung: Zuerst durchstrahlt die Wärme der Elohim die elementarischen Massen, dann wird das Licht geschaffen, schließlich ordnet der Schalläther die Materie durch das rakia. Am dritten Tag strömt Lebensäther ein und lässt das Grüne hervorsprossen. Die Elohim sind Geister der Form, die vier hierarchische Stufen über dem Menschen stehen. Sie bedienen sich der Archai oder Zeitgeister als untergeordneter Wesenheiten. Die Schöpfungstage (jom) sind keine Zeiträume, sondern diese dienenden geistigen Wesenheiten, die das von den Elohim Angeordnete ausführen.",
+    "keywords": [
+      {
+        "term": "Genesis",
+        "index": "^gfe31a",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Anthroposophie",
+        "index": "^gfe31a",
+        "heading": "Die kosmischen Entwicklungsstufen vor der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^gfe31a",
+        "heading": "Die kosmischen Entwicklungsstufen vor der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^gfe31a",
+        "heading": "Die kosmischen Entwicklungsstufen vor der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^i4r087",
+        "heading": "Das Einströmen des Lebensäthers am dritten Tag",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^u6msd8",
+        "heading": "Die Elohim als Geister der Form",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Elohim",
+        "index": "^u6msd8",
+        "heading": "Die Elohim als Geister der Form",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^gfe31a",
+        "heading": "Die kosmischen Entwicklungsstufen vor der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^pbcfed",
+        "heading": "Die hierarchische Einordnung der Elohim",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^gfe31a",
+        "heading": "Die kosmischen Entwicklungsstufen vor der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Archai",
+        "index": "^4pselg",
+        "heading": "Die Archai als dienende Zeitgeister",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Schöpfungstage",
+        "index": "^71eb3u",
+        "heading": "Das Problem der Schöpfungstage in der Auslegung",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h4"
+      }
+    ],
+    "generated": "2025-11-04T08:50:19.111Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:50:19.400Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/3": {
+    "lectureId": "GA122/3",
+    "date": "1910-08-18",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Schöpfungsworte der Bibel werden als Ausdruck kosmischer Entwicklungsvorgänge gedeutet. Die Elohim ersinnen aus kosmischer Erinnerung zwei Komplexe: haschamajim (das nach außen Strahlende) und ha'arez (das innerlich Regsame). Das ha'arez befindet sich im Zustand tohu wabohu - einem Durcheinanderwogen der Elemente Wärme, Luft und Wasser ohne Licht. Der Geist der Elohim durchwebt diese Elemente wie brütende Wärme. Mit der Trennung von Sonnen- und Erdenhaftem ging das Lichtelement in das haschamajim über, während das ha'arez in Finsternis zurückblieb. Durch das kosmische Sprechen \"Es werde Licht\" strahlt das höchste Geistige der Elohim von außen in die Finsternis ein und organisiert das elementarische Chaos. Die ursprüngliche Sprache der Bibel besitzt gestaltenschaffende Kraft - ihre Laute kristallisieren sich in der Seele zu Bildern des Übersinnlichen.",
+    "keywords": [
+      {
+        "term": "Bibel",
+        "index": "^c3uq42",
+        "heading": "Die Schöpfungsworte der Bibel",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Naturwissenschaft",
+        "index": "^yvpi5h",
+        "heading": "Das Verhältnis zur modernen Wissenschaft",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^0cl9cr",
+        "heading": "Die kosmischen Komplexe haschamajim und ha'arez",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^8kr5t9",
+        "heading": "Die Entwicklung der Elemente",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^3o9auk",
+        "heading": "Der Zustand tohu wabohu",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^qd77ia",
+        "heading": "Die ätherischen Zustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Logos",
+        "index": "^qwa3t7",
+        "heading": "Das kosmische Wort",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Logos",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^kkzzcg",
+        "heading": "Die Organisation des makrokosmischen Menschen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Übersinnliche Wahrnehmung",
+        "index": "^xxrh54",
+        "heading": "Die gestaltenschaffende Kraft der Laute",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Übersinnliche Wahrnehmung",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^c3uq42",
+        "heading": "Die Schöpfungsworte der Bibel",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^0cl9cr",
+        "heading": "Die kosmischen Komplexe haschamajim und ha'arez",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Elohim",
+        "index": "^b6jlia",
+        "heading": "Die Leiblichkeit der Elohim",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:50:21.654Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:50:22.122Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/4": {
+    "lectureId": "GA122/4",
+    "date": "1910-08-19",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Das Sechstagewerk der Genesis stellt eine Wiederholung und Neugestaltung der vorhergehenden Saturn-, Sonnen- und Mondenzustände dar. Die Elohim erweckten aus ihrem kosmischen Sinnen heraus die elementarischen Zustände in neuer Form. Zunächst schlugen sie das Licht in das chaotische tohu wabohu ein, dann trennten sie das Luftförmige vom Wässerigen und schließlich das Feste vom Flüssigen. In diesen elementarischen Zuständen wiederholten sich die Entwicklungsstufen: das Pflanzenhafte als Gruppenseelen im dritten Schöpfungstag, das Tierische in Luft und Wasser am fünften Tag. Erst am sechsten Tag konnte das neue erdengebundene Tierische entstehen. Die Krönung bildete die Erschaffung des Menschen durch das Zusammenwirken aller sieben Elohim, die ihre vereinten Fähigkeiten in die menschliche Form hineingossen. Der Mensch wurde so zum Ziel göttlicher Entwicklung und trägt die Verantwortung für seine weitere Vervollkommnung.",
+    "keywords": [
+      {
+        "term": "Elohim",
+        "index": "^pyp405",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "summary"
+      },
+      {
+        "term": "Bibel",
+        "index": "^pyp405",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "summary"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^pyp405",
+        "heading": "Die Wiederholung der planetarischen Entwicklungszustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^ky865m",
+        "heading": "Die Wiederholung der planetarischen Entwicklungszustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^ky865m",
+        "heading": "Die Wiederholung der planetarischen Entwicklungszustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^sxz8cr",
+        "heading": "Die Wiederholung der planetarischen Entwicklungszustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^zu74l2",
+        "heading": "Die Entstehung des festen Elements",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^5z0p46",
+        "heading": "Die Entstehung des festen Elements",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^5z0p46",
+        "heading": "Die Entstehung des festen Elements",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Gruppenseelen",
+        "index": "^zu74l2",
+        "heading": "Die Entstehung des festen Elements",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^sxz8cr",
+        "heading": "Die Wiederholung der planetarischen Entwicklungszustände",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Anthroposophie",
+        "index": "^rtf9du",
+        "heading": "Die kosmische Bestrahlung vom Weltenraum",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^6xejem",
+        "heading": "Das Zusammenwirken der sieben Elohim",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Rosenkreuzer",
+        "index": "^lfqx2q",
+        "heading": "Das Zusammenwirken der sieben Elohim",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rosenkreuzer",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Schöpfungstage",
+        "index": "^at4r5t",
+        "heading": "Die Entstehung des festen Elements",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.65,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:50:22.902Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:50:23.386Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/1": {
+    "lectureId": "GA122/1",
+    "date": "1910-08-16",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Der erste Vortrag eines bedeutsamen Zyklus beginnt mit einer Reflexion über die anthroposophische Bewegung und ihre künstlerischen Errungenschaften. Die Aufführungen der 'Kinder des Luzifer' und eines neuen Mysterienspiels werden als Marksteine der anthroposophischen Entwicklung gewürdigt. Das neue Drama zeigt den Erkenntnisweg des Johannes Thomasius durch verschiedene Bewusstseinszustände und geistige Welten. Der Aufstieg führt von physischen Erfahrungen über die Begegnung mit Maja und Illusion bis zur Wahrnehmung der astralen und devachanischen Bereiche. Besondere Bedeutung haben die drei Helferinnen Philia, Astrid und Luna als reale geistige Wesenheiten, nicht bloße Symbole. Der Erkenntnisweg erfordert Verantwortungsbewusstsein, da menschliche Gedanken und Gefühle kosmische Wirkungen haben. Die Vorbereitung auf den Vortragszyklus über die biblische Schöpfungsgeschichte erfordert neue Empfindungswerte für die verwendeten Worte, um deren ursprüngliche spirituelle Bedeutung zu erfassen.",
+    "keywords": [
+      {
+        "term": "Anthroposophie",
+        "index": "^78azs1",
+        "heading": "Die anthroposophische Bewegung und ihre Vorbereitung",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Mysterien",
+        "index": "^ec9m81",
+        "heading": "Der Erkenntnisweg des Johannes Thomasius",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Mysterien",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Welt",
+        "index": "^fvxpl2",
+        "heading": "Die geistige Welt als objektive Realität",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Welt",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^ec9m81",
+        "heading": "Der Erkenntnisweg des Johannes Thomasius",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Devachan",
+        "index": "^aogv5o",
+        "heading": "Die drei Seelenkräfte als reale Wesenheiten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Devachan",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Empfindungsseele",
+        "index": "^aogv5o",
+        "heading": "Die drei Seelenkräfte als reale Wesenheiten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Empfindungsseele",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "index": "^aogv5o",
+        "heading": "Die drei Seelenkräfte als reale Wesenheiten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinsseele",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^aogv5o",
+        "heading": "Die drei Seelenkräfte als reale Wesenheiten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Christus",
+        "index": "^ckfa6o",
+        "heading": "Theodora als Seherin in Vergangenheit und Zukunft",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kunst",
+        "index": "^vimswd",
+        "heading": "Die künstlerische Darstellung und ihre Wirkung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kunst",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^ec9m81",
+        "heading": "Der Erkenntnisweg des Johannes Thomasius",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bibel",
+        "index": "^3cag36",
+        "heading": "Die Vorbereitung auf die biblischen Urworte",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:50:24.086Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:50:24.427Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/2": {
+    "lectureId": "GA122/2",
+    "date": "1910-08-17",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis beginnt nicht mit sinnlich wahrnehmbaren Ereignissen, sondern beschreibt übersinnliche Vorgänge aus der Erdentstehung. Die hebräische Sprache wirkte bildhaft auf die Seele und rief Visionen hervor, die den Sehererfahrungen ähnelten. Der Urbeginne B'reschit bezeichnet den Moment, als sich das Sonnenhafte vom Erdhaften trennte und das feste Element entstehen konnte. Die Elohim sind eine Gruppe geistiger Wesenheiten, die durch kosmisches Sinnen zwei Komplexe erschufen: das nach außen sich Offenbarende (Himmel) und das innerlich Regsame (Erde). Diese Wesenheiten, die sich durch Saturn-, Sonnen- und Mondentwicklung entfaltet hatten, vereinten ihre verschiedenen Fähigkeiten mit dem gemeinsamen Ziel, den Menschen hervorzubringen. Das elementarische Gehäuse aus Feuer, Luft und Wasser diente als Ausdrucksmittel für die webende Geistigkeit dieser Urgeister.",
+    "keywords": [
+      {
+        "term": "Bibel",
+        "index": "^t2fgdu",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Genesis",
+        "index": "^t2fgdu",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^pk65s5",
+        "heading": "Die geistigen Wesenheiten als Träger der Entwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Übersinnliche Wahrnehmung",
+        "index": "^lrfshk",
+        "heading": "Die Genesis als übersinnliches Dokument",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Übersinnliche Wahrnehmung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^6jf7n5",
+        "heading": "Die bildhafte Wirkung der hebräischen Sprache",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^x9wzc4",
+        "heading": "Die planetarische Entwicklung bis zur Erdenentstehung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Elohim",
+        "index": "^blvjfm",
+        "heading": "Die Elohim als Wesenheitsgruppe mit gemeinsamem Ziel",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Sinneswahrnehmung",
+        "index": "^lrfshk",
+        "heading": "Die Genesis als übersinnliches Dokument",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Sinneswahrnehmung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Imagination",
+        "index": "^x2u8hn",
+        "heading": "Die bildhafte Wirkung der hebräischen Sprache",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Imagination",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^6jf7n5",
+        "heading": "Die bildhafte Wirkung der hebräischen Sprache",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^2dnsf0",
+        "heading": "Die planetarische Entwicklung bis zur Erdenentstehung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^x9wzc4",
+        "heading": "Die planetarische Entwicklung bis zur Erdenentstehung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kosmisches Denken",
+        "index": "^70dn6f",
+        "heading": "Das kosmische Sinnen der Elohim",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Urbeginne",
+        "index": "^udvx68",
+        "heading": "Die planetarische Entwicklung bis zur Erdenentstehung",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:50:25.398Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:50:25.713Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/10": {
+    "lectureId": "GA122/10",
+    "date": "1910-08-25",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis wird als Schilderung der Erdenentwicklung von der Sonnen- bis zur Mondentrennung gedeutet. Nach der Sonnentrennung mussten die meisten Menschenseelen die zu grob gewordene Erde verlassen und auf benachbarte Planeten ausweichen. Nur wenige starke Seelengeister blieben zurück und entwickelten die physischen und ätherischen Leiber weiter. Mit der Mondentrennung während der lemurischen Zeit wurde die Erde wieder bewohnbar. Die aus dem Weltraum zurückkehrenden Seelen inkarnieren sich in die vorbereiteten Leiber, wodurch die Rassendifferenzierung entstand. Jahve-Elohim prägte dem Menschen den mondhaften Erdenstaub ein, was seine Selbständigkeit und Sterblichkeit ermöglichte. Die biblischen Schöpfungstage entsprechen präzise den geisteswissenschaftlich erforschten kosmischen Entwicklungsstufen.",
+    "keywords": [
+      {
+        "term": "Genesis",
+        "index": "^nx1c9w",
+        "heading": "Genesis und geisteswissenschaftliche Forschung",
+        "source": "title-summary",
+        "matchType": "new",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^glx7ge",
+        "heading": "Die Sonnentrennung von der Erde",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^glx7ge",
+        "heading": "Die Sonnentrennung von der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^glx7ge",
+        "heading": "Die Sonnentrennung von der Erde",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^gud3v7",
+        "heading": "Astralleib und Planetenverbindung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^bp3es1",
+        "heading": "Die Schöpfungstage und Planetenentwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^of5n2x",
+        "heading": "Zeitbestimmung der Genesis",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Reinkarnation",
+        "index": "^jgspba",
+        "heading": "Flucht der Menschenseelen zu den Planeten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Reinkarnation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Inkarnation",
+        "index": "^jgspba",
+        "heading": "Flucht der Menschenseelen zu den Planeten",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Inkarnation",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^of5n2x",
+        "heading": "Zeitbestimmung der Genesis",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Elohim",
+        "index": "^808q94",
+        "heading": "Der mondhafte Erdenstaub",
+        "source": "h3",
+        "matchType": "new",
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Jahve-Elohim",
+        "index": "^ur3nxl",
+        "heading": "Jahve-Elohim und die Mondenkräfte",
+        "source": "h3",
+        "matchType": "new",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Lemurische Zeit",
+        "index": "^zk2dq9",
+        "heading": "Flucht der Menschenseelen zu den Planeten",
+        "source": "h3",
+        "matchType": "new",
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:51:07.003Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:07.539Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/7": {
+    "lectureId": "GA122/7",
+    "date": "1910-08-22",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis-Berichte werden aus anthroposophischer Sicht als Beschreibungen übersinnlicher Entwicklungsprozesse verstanden. Hinter den elementaren Daseinsformen - dem Erdigen, Wässerigen, Luftförmigen und Wärmehaften - wirken verschiedene Hierarchien geistiger Wesenheiten: die Geister des Willens (Throne) im Festen, die Geister der Weisheit im Flüssigen, die Geister der Bewegung im Luftförmigen und die Elohim im Wärmehaften. Diese Hierarchien entwickelten sich durch Saturn-, Sonnen- und Monddasein hindurch bis zum Erdendasein. Die Elohim wuchsen während ihrer Schöpfungsarbeit von einer Gruppe zu einer Einheit heran, die als Jahve-Elohim bezeichnet wird. Die moderne Bibelexegese mit ihrer Quellenscheidung verfehlt diese spirituellen Zusammenhänge, da sie den Bezug zu den okkulten Quellen verloren hat. Nur durch Geisteserkenntnis kann das wahre Verständnis der religiösen Urkunden wiedererlangt werden.",
+    "keywords": [
+      {
+        "term": "Genesis",
+        "index": "^vrd0qf",
+        "heading": "Der anthroposophische Zugang zur Genesis",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Anthroposophie",
+        "index": "^vrd0qf",
+        "heading": "Der anthroposophische Zugang zur Genesis",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Anthroposophie",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^3cg6i0",
+        "heading": "Maja und Illusion in der Sinneswelt",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^3cg6i0",
+        "heading": "Maja und Illusion in der Sinneswelt",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geister des Willens",
+        "index": "^p127is",
+        "heading": "Die Hierarchien und ihre planetarische Entwicklung",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^p127is",
+        "heading": "Die Hierarchien und ihre planetarische Entwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^p127is",
+        "heading": "Die Hierarchien und ihre planetarische Entwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^z2n2k9",
+        "heading": "Die Zuordnung der Hierarchien zu den Elementen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Cherubim",
+        "index": "^hqg7is",
+        "heading": "Die Cherubim und Seraphim im Erdenumkreis",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Seraphim",
+        "index": "^zbmi23",
+        "heading": "Die Cherubim und Seraphim im Erdenumkreis",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^twmoff",
+        "heading": "Die Entwicklung der Elohim zur Einheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstsein",
+        "index": "^3nric4",
+        "heading": "Die Entwicklung der Elohim zur Einheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bibel",
+        "index": "^zrf4cn",
+        "heading": "Die Entwicklung der Elohim zur Einheit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^9ntdic",
+        "heading": "Kritik an der modernen Bibelexegese",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Erkenntnis",
+        "index": "^664vmp",
+        "heading": "Kritik an der modernen Bibelexegese",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Erkenntnis",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:51:08.224Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:08.718Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/8": {
+    "lectureId": "GA122/8",
+    "date": "1910-08-23",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Entwicklung des menschlichen Bewusstseins vollzieht sich von einem alten traumhaften Bilderbewusstsein zum heutigen Gegenstandsbewusstsein. Während der alten Mondenentwicklung nahmen die Menschen ihre eigene Organbildung als Bilderwelt wahr, ohne zwischen Innen und Außen zu unterscheiden. Das Licht der Elohim wirkte nicht als äußere Erscheinung, sondern als innere Kraft beim Aufbau der Sinnesorgane. Mit der Erdenentwicklung entstand erstmals die Fähigkeit, äußere Gegenstände wahrzunehmen. Die Genesis beschreibt diesen Übergang präzise: 'Und die Elohim sahen das Licht' markiert das neue Erdenbewusstsein. Am zweiten Schöpfungstag fehlt bewusst der Satz vom Sehen, da das Klangätherische noch nicht äußerlich wahrnehmbar ist. Hellseherische Entwicklung durchläuft ähnliche Stufen, beginnend mit Organbewusstsein und Bildwahrnehmungen eigener innerer Vorgänge.",
+    "keywords": [
+      {
+        "term": "Bewusstsein",
+        "index": "^dw4rhy",
+        "heading": "Die Entwicklung des menschlichen Bewusstseins",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstsein",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^dw4rhy",
+        "heading": "Die Entwicklung des menschlichen Bewusstseins",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^q37g75",
+        "heading": "Hellseherische Entwicklung und Bewusstseinsstufen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Rosenkreuzer",
+        "index": "^q37g75",
+        "heading": "Das Rosenkreuzermysterium als Beispiel",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rosenkreuzer",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Imagination",
+        "index": "^ld6hyv",
+        "heading": "Unterscheidung von Realität und Bilderbewusstsein",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Imagination",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Goethe",
+        "index": "^9vr7xi",
+        "heading": "Goethes Erkenntnis über Licht und Auge",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Goethe",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h4"
+      },
+      {
+        "term": "Sinneswahrnehmung",
+        "index": "^9vr7xi",
+        "heading": "Die Organbildung während der Mondenzeit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Sinneswahrnehmung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^n6og11",
+        "heading": "Kosmische Entwicklung und Bewusstseinsformen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Bibel",
+        "index": "^1y39xv",
+        "heading": "Die Genesis als Bewusstseinsdokument",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^dw4rhy",
+        "heading": "Die Entwicklung des menschlichen Bewusstseins",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Traumzustand",
+        "index": "^mmne5d",
+        "heading": "Bildhaftes Bewusstsein ohne Außen-Innen-Unterscheidung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Traumzustand",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Devachan",
+        "index": "^ld6hyv",
+        "heading": "Unterscheidung von Realität und Bilderbewusstsein",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Devachan",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Elohim",
+        "index": "^uxq46p",
+        "heading": "Das neue Erdenbewusstsein der Elohim",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h4"
+      }
+    ],
+    "generated": "2025-11-04T08:51:09.485Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:10.080Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/6": {
+    "lectureId": "GA122/6",
+    "date": "1910-08-21",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis beschreibt wesenhaftes Geschehen hinter den elementarischen Vorgängen des Erdenwerdens. Hinter dem Begriff \"Tag\" (jom) stehen die Geister der Persönlichkeit (Archai), während \"Nacht\" (laj'lah) die auf der Saturnstufe zurückgebliebenen Archai bezeichnet. Finsternis ist die Offenbarung zurückgebliebener saturnischer Wesenheiten, während Licht die fortgeschrittenen Sonnenwesen repräsentiert. Diese zurückgebliebenen Wesenheiten erfüllen notwendige Funktionen im kosmischen Gefüge - sie wirken während des Schlafes aufbauend am physischen Leib, während die Lichtwesen tagsüber zerstörende Prozesse bewirken. Die Goetheschen Erkenntnisse über Licht und Finsternis entsprechen diesen kosmischen Wahrheiten. Ab dem vierten Schöpfungstag wirken die Erzengel als Ordner des Zeitenlaufs von außen auf die Erde ein, wodurch tierisches Leben mit Innenleben entstehen kann.",
+    "keywords": [
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^92xl3y",
+        "heading": "Das Wesenhafte hinter den Genesis-Begriffen",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Goethe",
+        "index": "^ba8t93",
+        "heading": "Goethesche Farbenlehre und das Geheimnis von Licht und Finsternis",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Goethe",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^51cp95",
+        "heading": "Zurückgebliebene Wesenheiten in der kosmischen Entwicklung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Wachen & Schlafen",
+        "index": "^hsmuq3",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Wachen & Schlafen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^4ul5ug",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^4ul5ug",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^ba8t93",
+        "heading": "Goethesche Farbenlehre und das Geheimnis von Licht und Finsternis",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Naturwissenschaft",
+        "index": "^ba8t93",
+        "heading": "Goethesche Farbenlehre und das Geheimnis von Licht und Finsternis",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Naturwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^c1gk4e",
+        "heading": "Die Erzengel als Ordner des Zeitenlaufs",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Ich",
+        "index": "^hsmuq3",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ich",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h4"
+      },
+      {
+        "term": "Devachan",
+        "index": "^e53ilq",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Devachan",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h4"
+      },
+      {
+        "term": "Rosenkreuzer",
+        "index": "^e53ilq",
+        "heading": "Wachen und Schlafen im kosmischen Zusammenhang",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Rosenkreuzer",
+        "summaryMentioned": false,
+        "confidence": 0.8,
+        "level": "h4"
+      },
+      {
+        "term": "Bibel",
+        "index": "^c1gk4e",
+        "heading": "Die Erzengel als Ordner des Zeitenlaufs",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Volksgeister",
+        "index": "^6oc479",
+        "heading": "Die Erzengel als Ordner des Zeitenlaufs",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      },
+      {
+        "term": "Zeitgeist",
+        "index": "^6oc479",
+        "heading": "Die Erzengel als Ordner des Zeitenlaufs",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.7,
+        "level": "h4"
+      }
+    ],
+    "generated": "2025-11-04T08:51:10.783Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:11.272Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/9": {
+    "lectureId": "GA122/9",
+    "date": "1910-08-24",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis schildert die stufenweise Verdichtung des Menschen von geistig-seelischen zu physischen Zuständen. Zunächst entwickeln sich in den ersten drei Schöpfungstagen Empfindungsseele, Verstandes- oder Gemütsseele und Bewußtseinsseele im geistigen Umkreis der Erde. Am vierten Tag umkleidet sich der Mensch mit dem Astralleib durch Sternenkräfte. Während des fünften Schöpfungstags verdichtet er sich zum Ätherleib, bleibt aber im Geistigen, da die Erde noch nicht reif für die Menschengestalt ist. Die zu früh herabgestiegenen Gattungsseelen werden zu Tieren. Erst am sechsten Tag entsteht der physische Mensch als Wärmewesen durch die zu Jahve-Elohim gewordenen Elohim. Der luziferische Einfluß bewirkt die weitere Verdichtung zu Fleisch und das Herabsinken aus dem Paradies auf die Erde. Diese geisteswissenschaftlichen Erkenntnisse stimmen vollständig mit dem Bibelbericht überein.",
+    "keywords": [
+      {
+        "term": "Genesis",
+        "index": "^mg5srn",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "summary"
+      },
+      {
+        "term": "Empfindungsseele",
+        "index": "^h07clp",
+        "heading": "Die Entwicklung der menschlichen Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Empfindungsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Verstandes- & Gemütsseele",
+        "index": "^h07clp",
+        "heading": "Die Entwicklung der menschlichen Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Verstandes- & Gemütsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "index": "^h07clp",
+        "heading": "Die Entwicklung der menschlichen Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Astralleib",
+        "index": "^h72juc",
+        "heading": "Die Bildung des Astralleibes am vierten Schöpfungstag",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Astralleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^w67z8j",
+        "heading": "Die Entwicklung der menschlichen Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^svp0f0",
+        "heading": "Die Entstehung der Tiere und das Warten des Menschen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^mg5srn",
+        "heading": "Die Entwicklung der menschlichen Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Tiere",
+        "index": "^svp0f0",
+        "heading": "Die Entstehung der Tiere und das Warten des Menschen",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Paradies",
+        "index": "^0qcw13",
+        "heading": "Der luziferische Einfluß und die Vertreibung aus dem Paradies",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.6,
+        "level": "h3"
+      },
+      {
+        "term": "Luzifer",
+        "index": "^0qcw13",
+        "heading": "Der luziferische Einfluß und die Vertreibung aus dem Paradies",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Geheimwissenschaft",
+        "index": "^uq6i76",
+        "heading": "Der luziferische Einfluß und die Vertreibung aus dem Paradies",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geheimwissenschaft",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Bibel",
+        "index": "^3me0qu",
+        "heading": "Die wahre Bedeutung der Genesis gegen moderne Mißverständnisse",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bibel",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:51:12.002Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:12.308Z",
+    "lastMerge": null,
+    "location": "München"
+  },
+  "GA122/11": {
+    "lectureId": "GA122/11",
+    "date": "1910-08-26",
+    "year": 1910,
+    "gaVolume": "GA122",
+    "summary": "Die Genesis beschreibt die Entstehung des Menschen durch die Elohim und später durch Jahve-Elohim in parallelen Entwicklungsstufen zur geisteswissenschaftlichen Darstellung. Während der ersten sechs Schöpfungstage entstehen zunächst die niederen Wesenheiten als lebende Wesen (nephesch). Der Mensch wird am sechsten Tag von den Elohim als männlich-weibliches, noch ätherisches Wesen geschaffen. Erst durch Jahve-Elohim erhält er die höhere Wesenheit n'schamah eingeprägt und wird zum physischen Menschen mit Ich-Bewusstsein. Die Geschlechtertrennung erfolgt durch Verdichtung und Verfeinerung der Leiblichkeit. Der siebente Tag markiert das Ruhen der Elohim-Tätigkeit und deren Aufstieg zu Jahve-Elohim. Diese hellseherisch erfassten geistigen Vorgänge kristallisieren sich erst später zu physisch wahrnehmbaren Formen. Die wahre Evolutionslehre zeigt den Menschen nicht als Entwicklung aus dem Tierreich, sondern als herabsteigendes geistiges Wesen.",
+    "keywords": [
+      {
+        "term": "Genesis",
+        "index": "^9080sq",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "new",
+        "matchedExisting": "",
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "index": "^9080sq",
+        "heading": "Die zeitliche Einordnung der Genesis in die Erdenentwicklung",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geisteswissenschaft",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "index": "^3w39b5",
+        "heading": "Die Entstehung der lebenden Wesen am fünften und sechsten Schöpfungstag",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Menschheitsentwicklung",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Empfindungsseele",
+        "index": "^bezvmf",
+        "heading": "Die Eingliederung der drei Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Empfindungsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Verstandes- & Gemütsseele",
+        "index": "^bezvmf",
+        "heading": "Die Eingliederung der drei Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Verstandes- & Gemütsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "index": "^bezvmf",
+        "heading": "Die Eingliederung der drei Seelenglieder",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinsseele",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Hellsehen",
+        "index": "^i8aa31",
+        "heading": "Die hellseherische Grundlage der Genesis",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Hellsehen",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Entwicklung",
+        "index": "^wb5wcv",
+        "heading": "Die wahre Evolutionslehre gegen den Materialismus",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Entwicklung",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Materialismus",
+        "index": "^wb5wcv",
+        "heading": "Die wahre Evolutionslehre gegen den Materialismus",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Materialismus",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^bm54y5",
+        "heading": "Der männlich-weibliche Mensch der Elohim",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Atlantis",
+        "index": "^r8qu2v",
+        "heading": "Die Nachkommenschaft vom Elohim-Menschen zum Jahve-Menschen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Atlantis",
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Christus-Impuls",
+        "index": "^x8mgci",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christus-Impuls",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-04T08:51:52.729Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-04T08:51:53.069Z",
+    "lastMerge": null,
+    "location": "München"
   }
 }

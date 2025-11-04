@@ -7,3 +7,6 @@ context-indices.json
 
 # Automatische Backups
 backups/
+
+# Steiner GA Quelldaten (zu groß für Git)
+Steiner_GA/

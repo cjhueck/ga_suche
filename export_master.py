@@ -32,7 +32,7 @@ from pathlib import Path
 class ExportMaster:
     def __init__(self):
         self.project_root = os.path.dirname(os.path.abspath(__file__))
-        self.steiner_ga_dir = r"C:\Users\chuec\OneDrive\GitHub\Steiner_GA"
+        self.steiner_ga_dir = os.path.join(self.project_root, "Steiner_GA")
         self.steps_completed = []
         self.steps_failed = []
         

@@ -43,7 +43,7 @@ Die Zusammenfassungen, Schlagworte und Zwischenüberschriften wurden mit der KI 
 
 **Rechtliche Hinweise**
 
-Die hier verwendeten Texte wurden weitgehend aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe (GA) (https://steiner.wiki/Die_Rudolf_Steiner_Gesamtausgabe; http://bdn-steiner.ru/modules.php?name=Ga) entnommen. Anhänge und editorische Hinweise wurden hier nicht mit übernommen. 
+Die hier verwendeten Texte wurden weitgehend aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe (GA) (https://steiner.wiki/Die_Rudolf_Steiner_Gesamtausgabe; http://bdn-steiner.ru/modules.php?name=Ga; https://rsarchive.org/Volumes.html) entnommen. Anhänge und editorische Hinweise wurden hier nicht mit übernommen. 
 
 Diese Plattform dient ausschließlich wissenschaftlichen und Studienzwecken.
 

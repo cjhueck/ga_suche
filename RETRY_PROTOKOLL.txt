@@ -1,0 +1,41 @@
+======================================================================
+RETRY-PROTOKOLL - FEHLGESCHLAGENE GA-BÄNDE NOCHMAL VERSUCHT
+======================================================================
+
+Datum: 03.11.2025 13:04:51
+
+ZUSAMMENFASSUNG
+----------------------------------------------------------------------
+Erneut versucht: 18 GA-Bände
+✓ Jetzt erfolgreich: 13
+✗ Immer noch fehlgeschlagen: 5
+✓ Vorträge heruntergeladen: 451
+
+
+======================================================================
+JETZT ERFOLGREICH
+======================================================================
+
+GA337a: 7 Vorträge (2 fehlgeschlagen)
+GA337b: 15 Vorträge
+GA266/I: 100 Vorträge (1 fehlgeschlagen)
+GA266/II: 68 Vorträge
+GA266/III: 46 Vorträge
+GA277c: 54 Vorträge (1 fehlgeschlagen)
+GA174b: 16 Vorträge
+GA324a: 7 Vorträge
+GA185a: 8 Vorträge
+GA332b: 38 Vorträge
+GA277a: 65 Vorträge (11 fehlgeschlagen)
+GA174a: 12 Vorträge
+GA217a: 15 Vorträge
+
+======================================================================
+IMMER NOCH FEHLGESCHLAGEN
+======================================================================
+
+GA277d: Alle Vorträge fehlgeschlagen
+GA291a: Keine Vorträge gefunden
+GA255b: Keine Vorträge gefunden
+GA260a: Keine Vorträge gefunden
+GA265a: Keine Vorträge gefunden

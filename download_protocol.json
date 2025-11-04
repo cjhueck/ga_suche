@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-11-03T12:27:28.626826",
+  "failed_ga_volumes": [
+    {
+      "ga": "337a",
+      "reason": "2 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "337b",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "266/I",
+      "reason": "4 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "266/II",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "266/III",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "277c",
+      "reason": "0 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "277d",
+      "reason": "1 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "291a",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "174b",
+      "reason": "16 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "255b",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "260a",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    },
+    {
+      "ga": "324a",
+      "reason": "7 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "185a",
+      "reason": "8 Vorträge gefunden, aber alle fehlgeschlagen"
+    },
+    {
+      "ga": "265a",
+      "reason": "Keine Vorträge gefunden oder Seite nicht erreichbar"
+    }
+  ],
+  "failed_lectures": [
+    {
+      "ga": "332b",
+      "count": 1,
+      "lectures": []
+    },
+    {
+      "ga": "277a",
+      "count": 17,
+      "lectures": []
+    },
+    {
+      "ga": "174a",
+      "count": 8,
+      "lectures": []
+    },
+    {
+      "ga": "217a",
+      "count": 13,
+      "lectures": []
+    }
+  ],
+  "summary": {
+    "total_ga_volumes": 25,
+    "successful_ga_volumes": 11,
+    "failed_ga_volumes": 14,
+    "total_lectures_downloaded": 62,
+    "total_lectures_failed": 39,
+    "duration_minutes": 5.486860223611196
+  }
+}
