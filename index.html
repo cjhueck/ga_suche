@@ -4745,6 +4745,13 @@ function normalizeGANumber(gaNumber) {
         resetSearchTab();
       }
       
+      // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
+      if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
+        // Verstecke das erweiterte Such-Tab
+        currentActiveTab.style.display = 'none';
+        currentActiveTab.classList.remove('active');
+      }
+      
       // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
       const summaryPanel = document.getElementById('summary-panel');
       const resizeHandle = document.querySelector('.resize-handle');
@@ -4767,6 +4774,17 @@ function normalizeGANumber(gaNumber) {
       if (resizeHandle) {
         resizeHandle.classList.remove('visible');
         resizeHandle.style.setProperty('display', 'none', 'important');
+      }
+      
+      // Verstecke den erweiterten Such-Toggle und zeige den normalen verticalResizeHandle
+      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
+      if (advancedToggle) {
+        advancedToggle.style.display = 'none';
+      }
+      
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      if (verticalHandle && mode !== 'advanced-search') {
+        // verticalHandle wird später in updateButtonStates() gesteuert
       }
       
       // Body-Klasse für collapsed State hinzufügen
