@@ -537,23 +537,17 @@ def main():
             
             # Lösche alte einzelne Datei (falls vorhanden)
             if os.path.exists(output_file):
-                backup_file = output_file.replace('.json', f'_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json')
-                os.rename(output_file, backup_file)
-                print(f"\nAlte steiner-images.json umbenannt zu: {os.path.basename(backup_file)}")
+                os.remove(output_file)
+                print(f"\nAlte steiner-images.json gelöscht")
         
         else:
             # Datei klein genug - als Einzeldatei speichern
             print(f"Datei klein genug (<={MAX_CHUNK_SIZE_MB} MB) - speichere als Einzeldatei\n")
             
-            # Erstelle Backup
+            # Lösche alte Datei (falls vorhanden)
             if os.path.exists(output_file):
-                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                backup_file = output_file.replace('.json', f'_backup_{timestamp}.json')
-                print(f"Erstelle Backup: {backup_file}")
-                
-                with open(output_file, 'r', encoding='utf-8') as original:
-                    with open(backup_file, 'w', encoding='utf-8') as backup:
-                        backup.write(original.read())
+                os.remove(output_file)
+                print(f"Alte steiner-images.json gelöscht")
             
             # Speichere neue steiner-images.json
             print(f"Speichere: {output_file}")

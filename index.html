@@ -1095,6 +1095,53 @@ body.dark-mode .site-sign {
       display: inline-block;
     }
     
+    /* Toggle-Button für erweiterte Suche (rechtes Panel) */
+    .advanced-search-panel-toggle {
+      width: 1px;
+      background-color: transparent;
+      cursor: pointer;
+      position: fixed;
+      right: -2px;
+      top: 45vh;
+      bottom: auto;
+      height: 100px;
+      flex-shrink: 0;
+      transition: background-color 0.2s, width 0.2s;
+      display: none; /* Standardmäßig versteckt */
+      z-index: 1002; /* Über dem normalen resize-handle */
+    }
+    
+    .advanced-search-panel-toggle::before {
+      content: '⋮';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--link-color);
+      background: var(--background-color);
+      padding: 8px 6px;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: normal;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: inline-block;
+    }
+    
+    .advanced-search-panel-toggle:hover::before {
+      color: var(--accent-color);
+    }
+    
+    /* Dark Mode */
+    body.dark-mode .advanced-search-panel-toggle::before {
+      background: var(--dark-background-color);
+      color: var(--dark-link-color);
+    }
+    
+    body.dark-mode .advanced-search-panel-toggle:hover::before {
+      color: var(--dark-link-color);
+    }
+    
     .vertical-resize-handle.visible {
       display: block;
     }
@@ -3704,7 +3751,10 @@ body.dark-mode #popupCaption {
 </div>
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+  <div style="display:flex; gap:8px;">
+    <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+    <button class="depth-btn" onclick="openAdvancedSearch()" style="min-width: 126px; padding: 6px 16px;">Erweiterte Suche</button>
+  </div>
   <div style="display:flex; gap:8px; align-items:stretch;">
     <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 16px;">
       <span id="viewToggleText">nur Titel</span>
@@ -3721,6 +3771,160 @@ body.dark-mode #popupCaption {
 </div>
 <span id="status" style="display:none"></span>
 </div>
+
+<!-- Verstecktes Tab für erweiterte Suche -->
+<div class="tab-content" id="advanced-search-tab" style="display: none;">
+<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Erweiterte Suche (bis zu 7 Worte)</h3>
+
+<!-- Filter-Zeile: GA-Band und Proximity -->
+<div class="filter-row" style="margin-bottom: 1rem;">
+<!-- Custom Multi-Select Dropdown für GA-Bände -->
+<div class="custom-dropdown" id="advancedGAFilterContainer">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="advancedGAFilterButton">
+    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="advancedGAFilterList"></div>
+</div>
+
+<select class="filter-dropdown" id="advancedProximityFilter" style="flex: 0.6;">
+<option value="">Abstand</option>
+<option value="1">1 Absatz</option>
+<option value="2">2 Absätze</option>
+<option value="3">3 Absätze</option>
+</select>
+</div>
+
+<!-- Suchwort 1 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator1" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator1" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 2 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator2" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator2" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 3 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator3" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator3" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 4 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator4" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator4" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 5 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator5" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator5" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 6 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator6" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator6" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 7 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator7" value="and">
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator7" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Buttons -->
+<div style="display:flex; gap:8px; margin-top: 1rem;">
+<button class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suche starten</button>
+<button class="depth-btn" onclick="closeAdvancedSearch()" style="padding: 6px 16px;">Zurück</button>
+</div>
+
+<div id="advancedSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
+<span id="advancedSearchStatus"></span>
+</div>
+</div>
+
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0;">
 <div class="filter-row">
@@ -4077,6 +4281,7 @@ S&H&C&K
 <div id="viewer"></div>
 </div>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
+<div class="advanced-search-panel-toggle" id="advancedSearchPanelToggle" onclick="toggleAdvancedSearchPanel()"></div>
 <div id="summary-panel">
   <div class="summary-buttons">
   </div>
@@ -4823,8 +5028,9 @@ function normalizeGANumber(gaNumber) {
         // Verwende markdownRef aus JSON - das ist die Original-Referenz aus dem Text!
         const markdownRef = img.markdownRef || `![${img.altText}](${img.path})`;
         
-        // Prüfe, ob es eine Tafelzeichnung ist (WebP oder T-Nummer im Dateinamen)
-        const isBlackboardDrawing = img.path.includes('.webp') || /T\d+\./.test(img.path) || img.altText.includes('-T');
+        // Prüfe, ob es eine Tafelzeichnung ist (nur T-Nummer im Dateinamen)
+        // WebP alleine reicht nicht - manche WebP sind normale Diagramme, keine Tafelzeichnungen
+        const isBlackboardDrawing = /T\d+\./.test(img.path) || img.altText.includes('-T') || /\d{3}-T\d+/.test(img.path);
         
         // Prüfe, ob es ein WebP-Bild ist
         const isWebP = img.path.toLowerCase().includes('.webp');
@@ -5081,6 +5287,7 @@ function normalizeGANumber(gaNumber) {
     // Initialisiere Custom Dropdowns
     let yearFilterDropdown = null;
     let gaFilterDropdown = null;
+    let advancedGAFilterDropdown = null;
     
     function initCustomDropdowns() {
       yearFilterDropdown = new MultiSelectDropdown(
@@ -5094,6 +5301,13 @@ function normalizeGANumber(gaNumber) {
         'gaFilterContainer',
         'gaFilterButton',
         'gaFilterList',
+        'GA-Bände'
+      );
+      
+      advancedGAFilterDropdown = new MultiSelectDropdown(
+        'advancedGAFilterContainer',
+        'advancedGAFilterButton',
+        'advancedGAFilterList',
         'GA-Bände'
       );
       
@@ -5111,6 +5325,10 @@ function normalizeGANumber(gaNumber) {
     
     function getGAFilterValue() {
       return gaFilterDropdown ? gaFilterDropdown.getSelectedValues() : [];
+    }
+    
+    function getAdvancedGAFilterValue() {
+      return advancedGAFilterDropdown ? advancedGAFilterDropdown.getSelectedValues() : [];
     }
     
     async function populateGADropdowns() {
@@ -5136,6 +5354,16 @@ function normalizeGANumber(gaNumber) {
           }));
           gaFilterDropdown.setItems(gaItems);
           console.log('[GA-FILTER] Custom Dropdown befüllt mit', gaItems.length, 'Einträgen');
+        }
+        
+        // Befülle Custom Dropdown für GA-Bände in erweiterter Suche
+        if (advancedGAFilterDropdown) {
+          const gaItems = gaList.map(ga => ({
+            value: ga.number,
+            label: ga.number
+          }));
+          advancedGAFilterDropdown.setItems(gaItems);
+          console.log('[ADVANCED-GA-FILTER] Custom Dropdown befüllt mit', gaItems.length, 'Einträgen');
         }
         
         // Befülle normale Dropdowns in anderen Tabs
@@ -5945,6 +6173,412 @@ function toggleGASummaries() {
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
       }
+    }
+
+    // ============================================================================
+    // ERWEITERTE SUCHE FUNKTIONEN
+    // ============================================================================
+    
+    function openAdvancedSearch() {
+      console.log('[ADVANCED-SEARCH] Öffne erweiterte Suche');
+      
+      // Verstecke alle normalen Tabs
+      const allTabs = document.querySelectorAll('.tab-content');
+      allTabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.display = 'none';
+      });
+      
+      // Zeige das erweiterte Such-Tab an
+      const advancedTab = document.getElementById('advanced-search-tab');
+      if (advancedTab) {
+        advancedTab.style.display = 'block';
+        advancedTab.classList.add('active');
+      }
+      
+      // Zeige den Toggle-Button für das rechte Panel
+      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
+      if (advancedToggle) {
+        advancedToggle.style.display = 'block';
+        advancedToggle.style.right = '0px'; // Am rechten Rand wenn Panel geschlossen
+      }
+      
+      // Verstecke den normalen verticalResizeHandle
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      if (verticalHandle) {
+        verticalHandle.style.display = 'none';
+      }
+      
+      // Leere den Viewer
+      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
+      document.getElementById('document-title').textContent = 'Erweiterte Suche';
+    }
+    
+    function closeAdvancedSearch() {
+      console.log('[ADVANCED-SEARCH] Schließe erweiterte Suche');
+      
+      // Schließe das rechte Panel
+      const summaryPanel = document.getElementById('summary-panel');
+      if (summaryPanel) {
+        summaryPanel.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.display = 'none';
+      }
+      
+      // Verstecke den Toggle-Button
+      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
+      if (advancedToggle) {
+        advancedToggle.style.display = 'none';
+      }
+      
+      document.body.classList.add('summary-panel-collapsed');
+      
+      // Verstecke das erweiterte Such-Tab
+      const advancedTab = document.getElementById('advanced-search-tab');
+      if (advancedTab) {
+        advancedTab.style.display = 'none';
+        advancedTab.classList.remove('active');
+      }
+      
+      // Zurück zum Suche-Tab
+      switchTab('keyword');
+    }
+    
+    function toggleAdvancedSearchPanel() {
+      console.log('[ADVANCED-SEARCH] Toggle Panel');
+      
+      const panel = document.getElementById('summary-panel');
+      const toggle = document.getElementById('advancedSearchPanelToggle');
+      
+      if (!panel || !toggle) return;
+      
+      // Hole aktuelle Breite
+      const currentWidth = panel.offsetWidth || 0;
+      
+      // 3 Zustände: Geschlossen (0) -> Groß (50%) -> Klein (280px) -> Geschlossen (0)
+      if (currentWidth === 0) {
+        // Öffne Panel groß
+        panel.classList.add('visible');
+        panel.style.width = '50%';
+        panel.style.minWidth = '300px';
+        panel.style.display = 'block';
+        panel.style.opacity = '1';
+        panel.style.visibility = 'visible';
+        toggle.style.right = '50%';
+        document.body.classList.remove('summary-panel-collapsed');
+        console.log('[ADVANCED-SEARCH] Panel geöffnet (50%)');
+      } else if (currentWidth > 400) {
+        // Verkleinere Panel
+        panel.style.width = '280px';
+        panel.style.minWidth = '280px';
+        toggle.style.right = '280px';
+        console.log('[ADVANCED-SEARCH] Panel verkleinert (280px)');
+      } else {
+        // Schließe Panel
+        panel.classList.remove('visible');
+        panel.style.width = '0';
+        panel.style.minWidth = '0';
+        panel.style.display = 'none';
+        toggle.style.right = '0px';
+        document.body.classList.add('summary-panel-collapsed');
+        console.log('[ADVANCED-SEARCH] Panel geschlossen');
+      }
+    }
+    
+    async function performAdvancedSearch() {
+      console.log('[ADVANCED-SEARCH] Starte erweiterte Suche');
+      
+      // Sammle alle Suchworte
+      const words = [];
+      const operators = [];
+      
+      for (let i = 1; i <= 7; i++) {
+        const wordInput = document.getElementById(`advWord${i}`);
+        const word = wordInput ? wordInput.value.trim() : '';
+        
+        if (word) {
+          words.push(word);
+          
+          // Hole Operator (außer für das letzte Wort)
+          if (i < 7) {
+            const operatorElement = document.querySelector(`input[name="advOperator${i}"]:checked`);
+            const operator = operatorElement ? operatorElement.value : 'and';
+            operators.push(operator);
+          }
+        }
+      }
+      
+      if (words.length === 0) {
+        alert('Bitte mindestens ein Suchwort eingeben');
+        return;
+      }
+      
+      // Hole Proximity-Filter
+      const proximityElement = document.getElementById('advancedProximityFilter');
+      const proximity = proximityElement ? proximityElement.value : '';
+      
+      // Hole GA-Filter
+      const gaFilterValues = getAdvancedGAFilterValue();
+      const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
+      
+      console.log(`[ADVANCED-SEARCH] Suche nach: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}, Proximity: ${proximity || 'gesamter Text'}, GA-Filter: ${gaFilter || 'alle'}`);
+      
+      const button = document.querySelector('#advanced-search-tab .depth-btn.primary');
+      const statusElement = document.getElementById('advancedSearchStatus');
+      
+      try {
+        button.disabled = true;
+        button.classList.add('processing');
+        button.textContent = 'Suche läuft...';
+        statusElement.textContent = 'Suche läuft...';
+        
+        // Sende Anfrage an Backend
+        const response = await fetch(`${API_BASE}/api/advanced-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            words: words,
+            operators: operators,
+            proximity: proximity || null,
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+        
+        const data = await response.json();
+        const results = data.results;
+        
+        console.log(`[ADVANCED-SEARCH] ${results.length} Treffer gefunden`);
+        statusElement.textContent = `${results.length} Treffer gefunden`;
+        
+        // Rendere Ergebnisse als Grid-Tabelle im Viewer
+        renderAdvancedSearchResults(words, results);
+        
+      } catch (error) {
+        console.error('[ADVANCED-SEARCH] Fehler:', error);
+        statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
+        document.getElementById('viewer').innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: red;">
+            <strong>Fehler bei der Suche:</strong><br>${error.message}
+          </div>
+        `;
+      } finally {
+        button.disabled = false;
+        button.classList.remove('processing');
+        button.textContent = 'Suche starten';
+      }
+    }
+    
+    function renderAdvancedSearchResults(words, results) {
+      console.log('[ADVANCED-SEARCH] Rendere Ergebnisse als Grid');
+      
+      const viewer = document.getElementById('viewer');
+      
+      if (!results || results.length === 0) {
+        viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Keine Treffer gefunden</div>';
+        return;
+      }
+      
+      // Erstelle eine Map: Wort -> Array von Snippets
+      const wordSnippets = {};
+      words.forEach(word => {
+        wordSnippets[word] = [];
+      });
+      
+      // Verteile die Ergebnisse auf die Wörter
+      results.forEach(result => {
+        // Jedes Ergebnis enthält: lectureId, lectureTitle, snippet, matchedWord
+        const word = result.matchedWord;
+        if (wordSnippets[word]) {
+          wordSnippets[word].push(result);
+        }
+      });
+      
+      // Erstelle Grid-HTML
+      let html = '<div style="padding: 1rem; overflow-x: auto;">';
+      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
+      html += '<thead><tr>';
+      
+      // Spaltenüberschriften
+      words.forEach(word => {
+        html += `<th style="border: 1px solid var(--border-color); padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${word}</th>`;
+      });
+      
+      html += '</tr></thead>';
+      html += '<tbody>';
+      
+      // Finde die maximale Anzahl von Snippets pro Wort
+      let maxSnippets = 0;
+      words.forEach(word => {
+        if (wordSnippets[word].length > maxSnippets) {
+          maxSnippets = wordSnippets[word].length;
+        }
+      });
+      
+      // Erstelle Zeilen
+      for (let i = 0; i < maxSnippets; i++) {
+        html += '<tr>';
+        
+        words.forEach(word => {
+          const snippets = wordSnippets[word];
+          
+          if (i < snippets.length) {
+            const result = snippets[i];
+            const highlightedSnippet = highlightSearchTerms(result.snippet, [word]);
+            
+            html += `<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
+            html += `<div style="font-size: 0.75em; color: var(--secondary-text); margin-bottom: 0.25rem;">${result.lectureTitle}</div>`;
+            html += `<div style="font-size: 0.85em;">${highlightedSnippet}</div>`;
+            html += '</td>';
+          } else {
+            html += '<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; background: var(--input-bg);"></td>';
+          }
+        });
+        
+        html += '</tr>';
+      }
+      
+      html += '</tbody></table>';
+      html += '</div>';
+      
+      viewer.innerHTML = html;
+    }
+    
+    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
+      console.log(`[ADVANCED-SEARCH] Zeige Vortrag ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex}`);
+      
+      try {
+        // Lade den vollständigen Vortrag mit Paragraphen
+        const parts = lectureId.split('/');
+        const url = parts.length === 2 
+                    ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+                    : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Vortrag nicht gefunden: ${lectureId}`);
+        
+        const data = await response.json();
+        const lecture = data.lecture;
+        
+        // Öffne das rechte Summary-Panel
+        const summaryPanel = document.getElementById('summary-panel');
+        const advancedToggle = document.getElementById('advancedSearchPanelToggle');
+        
+        if (summaryPanel) {
+          summaryPanel.classList.add('visible');
+          summaryPanel.style.width = '50%';
+          summaryPanel.style.minWidth = '300px';
+          summaryPanel.style.display = 'block';
+          summaryPanel.style.opacity = '1';
+          summaryPanel.style.visibility = 'visible';
+        }
+        
+        // Positioniere den Toggle-Button neben dem Panel
+        if (advancedToggle) {
+          advancedToggle.style.right = '50%';
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Rendere den Vortrag im rechten Panel
+        const summaryContent = document.getElementById('summary-content');
+        if (summaryContent && lecture.paragraphs) {
+          let html = '<div style="padding: 1rem;">';
+          
+          // Titel
+          const displayTitle = lecture.fileName || lecture.title || lecture.ID;
+          html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
+          
+          // Rendere alle Paragraphen
+          lecture.paragraphs.forEach((para, idx) => {
+            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            const isTargetPara = paragraphIndex !== null && idx === paragraphIndex;
+            
+            let content = para.content || para.text || '';
+            
+            // Highlighte den Suchbegriff
+            if (searchTerm && searchTerm.trim()) {
+              const escapedTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(`(${escapedTerm})`, 'gi');
+              content = content.replace(regex, '<mark>$1</mark>');
+            }
+            
+            const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+            
+            html += `
+              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" style="margin-bottom: 1rem;">
+                ${content}
+              </div>
+            `;
+          });
+          
+          html += '</div>';
+          summaryContent.innerHTML = html;
+          
+          // Scrolle zum Ziel-Paragraph
+          if (paragraphIndex !== null) {
+            setTimeout(() => {
+              const targetElement = document.getElementById(`adv-para-${paragraphIndex}`);
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 100);
+          } else {
+            // Scrolle zum ersten Highlight wenn kein spezifischer Paragraph angegeben
+            setTimeout(() => {
+              const firstHighlight = summaryContent.querySelector('mark');
+              if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 100);
+          }
+        }
+        
+        // Setze Titel
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          documentTitle.textContent = lecture.title || lecture.fileName || lectureId;
+        }
+        
+      } catch (error) {
+        console.error('[ADVANCED-SEARCH] Fehler beim Laden des Vortrags:', error);
+        alert('Fehler beim Laden des Vortrags: ' + error.message);
+      }
+    }
+    
+    function highlightSearchTermInLecture(text, searchTerm) {
+      if (!text || !searchTerm) return text;
+      
+      // Teile den Text in Absätze
+      const paragraphs = text.split('\n\n');
+      
+      const highlightedParagraphs = paragraphs.map(para => {
+        // Highlighte den Suchbegriff (case-insensitive) - verwende einfaches <mark> wie in der normalen Suche
+        const escapedTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedTerm})`, 'gi');
+        const highlighted = para.replace(regex, '<mark>$1</mark>');
+        
+        return `<p class="paragraph">${highlighted}</p>`;
+      });
+      
+      return highlightedParagraphs.join('\n');
+    }
+    
+    function highlightSearchTerms(text, terms) {
+      if (!text || !terms || terms.length === 0) return text;
+      
+      let result = text;
+      terms.forEach(term => {
+        if (!term || !term.trim()) return;
+        const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Verwende einfaches <mark> wie in der normalen Suche
+        const regex = new RegExp(`(${escapedTerm})`, 'gi');
+        result = result.replace(regex, '<mark>$1</mark>');
+      });
+      
+      return result;
     }
 
     function extractDateFromFileName(fileName) {

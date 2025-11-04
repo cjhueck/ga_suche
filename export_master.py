@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
-Master Export-Skript fuer Steiner GA-Suche
-==========================================
+Master Export-Skript fuer Steiner GA-Suche (Integriert)
+========================================================
 Fuehrt den kompletten Export-Workflow automatisch aus:
-1. Bildpfade in Obsidian korrigieren (optional)
+1. Bildpfade in Obsidian korrigieren (INTEGRIERT - optional)
+   - Korrigiert fehlerhafte Markdown/Wiki-Links
+   - Vereinfacht GA-Ordner-Pfade zu assets/...
+   - Backup-Dateien werden automatisch erstellt
 2. JPEG zu PNG Konvertierung (optional)
 3. Lectures aus Obsidian exportieren
 4. Bilder in steiner-images.json exportieren
@@ -17,17 +20,125 @@ Verwendung:
     python export_master.py --restart-server     # Server automatisch neu starten
     
 Beispiele:
-    python export_master.py GA089                # Nur GA089
+    python export_master.py                      # Alles mit Bildpfad-Korrektur
+    python export_master.py GA089                # Nur GA089 mit Bildpfad-Korrektur
     python export_master.py GA112-GA117a --restart-server
     python export_master.py --skip-path-fix --skip-conversion
+    
+Hinweis:
+    Bildpfad-Korrektur ist jetzt INTEGRIERT und verwendet keine externen Skripte mehr.
+    Alle Funktionen sind in einem einzigen Skript vereint.
 """
 
 import subprocess
 import sys
 import os
+import re
 import time
 from datetime import datetime
 from pathlib import Path
+
+
+# ============================================================================
+# BILDPFAD-KORREKTUR FUNKTIONEN (Integriert)
+# ============================================================================
+
+def fix_image_refs_in_file(filepath, apply_changes=False):
+    """Korrigiert Bildreferenzen in einer Markdown-Datei"""
+    
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        original_content = content
+        changes = []
+        
+        # Fix 1: Wiki-Links mit vollem Pfad vereinfachen
+        # ![[GA223-Der Jahreskreislauf.../assets/223-T01.webp]] → ![[223-T01.webp]]
+        pattern1 = r'!\[\[GA\d{3}[a-z]?-[^/]+/assets/([^\]]+)\]\]'
+        
+        def replace1(match):
+            filename = match.group(1)
+            new_ref = f'![[{filename}]]'
+            changes.append(f"  - Wiki-Link vereinfacht: {match.group(0)} -> {new_ref}")
+            return new_ref
+        
+        content = re.sub(pattern1, replace1, content)
+        
+        # Fix 2: Falsche Dateinamen mit Leerzeichen korrigieren
+        # ![[213-T01 3.webp]] → ![[213-T01.webp]]
+        pattern2 = r'!\[\[(\d{3})-T(\d{2})\s+\d+\.webp\]\]'
+        
+        def replace2(match):
+            num1 = match.group(1)
+            num2 = match.group(2)
+            new_ref = f'![[{num1}-T{num2}.webp]]'
+            changes.append(f"  - Leerzeichen entfernt: {match.group(0)} -> {new_ref}")
+            return new_ref
+        
+        content = re.sub(pattern2, replace2, content)
+        
+        # Fix 3: Unterstrich zu Bindestrich
+        # ![[221_T01.webp]] → ![[221-T01.webp]]
+        pattern3 = r'!\[\[(\d{3})_T(\d{2})\.webp\]\]'
+        
+        def replace3(match):
+            num1 = match.group(1)
+            num2 = match.group(2)
+            new_ref = f'![[{num1}-T{num2}.webp]]'
+            changes.append(f"  - Unterstrich zu Bindestrich: {match.group(0)} -> {new_ref}")
+            return new_ref
+        
+        content = re.sub(pattern3, replace3, content)
+        
+        # Fix 4: Markdown-Links mit vollem Pfad (Pattern 1: assets/GA...)
+        # ![text](assets/GA223-.../assets/223-T01.webp) → ![text](assets/223-T01.webp)
+        pattern4 = r'(!\[[^\]]*\]\()assets/GA\d{3}[a-z]?-[^/]+/assets/([^)]+)\)'
+        
+        def replace4(match):
+            prefix = match.group(1)
+            filename = match.group(2)
+            new_ref = f'{prefix}assets/{filename})'
+            changes.append(f"  - Markdown-Pfad bereinigt: {match.group(0)} -> {new_ref}")
+            return new_ref
+        
+        content = re.sub(pattern4, replace4, content)
+        
+        # Fix 5: Markdown-Links mit GA-Ordner am Anfang (Pattern 2: GA...)
+        # ![text](GA145-Welche Bedeutung.../assets/img-0.jpeg) → ![text](assets/img-0.jpeg)
+        # ![text](GA151-Der menschliche.../assets/img-2.jpeg) → ![text](assets/img-2.jpeg)
+        pattern5 = r'(!\[[^\]]*\]\()GA\d{3}[a-z]?-[^/]+/assets/([^)]+)\)'
+        
+        def replace5(match):
+            prefix = match.group(1)
+            filename = match.group(2)
+            new_ref = f'{prefix}assets/{filename})'
+            changes.append(f"  - Markdown-Pfad vereinfacht: {match.group(0)} -> {new_ref}")
+            return new_ref
+        
+        content = re.sub(pattern5, replace5, content)
+        
+        # Wende Änderungen an
+        if changes and apply_changes:
+            # Backup
+            backup_path = filepath + '.backup'
+            with open(backup_path, 'w', encoding='utf-8') as f:
+                f.write(original_content)
+            
+            # Speichere
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(content)
+        
+        return len(changes), changes
+        
+    except Exception as e:
+        print(f"  X Fehler bei {filepath}: {e}")
+        return 0, []
+
+
+# ============================================================================
+# EXPORT MASTER CLASS
+# ============================================================================
 
 class ExportMaster:
     def __init__(self):
@@ -94,8 +205,57 @@ class ExportMaster:
         
         self.print_step(1, 5, "Bildpfade in Obsidian korrigieren")
         
-        command = [sys.executable, "fix_obsidian_image_paths.py", "--apply"]
-        return self.run_command(command, "Bildpfad-Korrektur")
+        try:
+            total_files = 0
+            total_fixes = 0
+            
+            # Durchlaufe alle GA-Ordner
+            for folder_name in sorted(os.listdir(self.steiner_ga_dir)):
+                folder_path = os.path.join(self.steiner_ga_dir, folder_name)
+                
+                if not os.path.isdir(folder_path) or not folder_name.startswith('GA'):
+                    continue
+                
+                # Finde Markdown-Dateien
+                md_files = [f for f in os.listdir(folder_path) 
+                           if f.endswith('.md') and '(' in f and ')' in f]
+                
+                if not md_files:
+                    continue
+                
+                folder_had_changes = False
+                
+                for md_file in md_files:
+                    md_path = os.path.join(folder_path, md_file)
+                    num_fixes, changes = fix_image_refs_in_file(md_path, apply_changes=True)
+                    
+                    if num_fixes > 0:
+                        if not folder_had_changes:
+                            print(f"\n{folder_name}:")
+                            folder_had_changes = True
+                        
+                        print(f"  {md_file}: {num_fixes} Korrektur(en)")
+                        total_fixes += num_fixes
+                        total_files += 1
+            
+            print(f"\n{'='*70}")
+            print(f"Dateien mit Korrekturen: {total_files}")
+            print(f"Gesamt-Korrekturen: {total_fixes}")
+            
+            if total_fixes > 0:
+                print(f"Backups erstellt: *.backup")
+                print("Änderungen wurden angewendet!")
+            else:
+                print("Keine Korrekturen notwendig.")
+            print(f"{'='*70}")
+            
+            self.steps_completed.append("Bildpfad-Korrektur")
+            return True
+            
+        except Exception as e:
+            print(f"\nFEHLER bei Bildpfad-Korrektur: {e}")
+            self.steps_failed.append("Bildpfad-Korrektur")
+            return False
     
     def step2_convert_jpegs(self, skip=False):
         """Schritt 2: JPEGs zu PNGs konvertieren"""
