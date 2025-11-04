@@ -179,6 +179,28 @@ class SteinerLecturesExporter {
   }
   
   // Extract image references from text
+  // Hilfsfunktion: Bereinigt Bildpfade automatisch
+  cleanImagePath(imagePath) {
+    let cleaned = imagePath;
+    
+    // 1. Entferne URL-Encoding (%20 -> Leerzeichen, etc.)
+    cleaned = decodeURIComponent(cleaned);
+    
+    // 2. Entferne GA-Ordnernamen aus dem Pfad
+    // Pattern: GA###-Langer Ordnername/assets/file -> assets/file
+    cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^/]+\//, '');
+    
+    // 3. Entferne GA###-Name_img-X.jpeg -> assets/img-X.jpeg
+    cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^_]+_/, 'assets/');
+    
+    // 4. Wenn kein assets/ am Anfang, füge es hinzu (für Dateien wie "img-0.jpeg")
+    if (!cleaned.startsWith('assets/') && !cleaned.startsWith('../')) {
+      cleaned = `assets/${cleaned}`;
+    }
+    
+    return cleaned;
+  }
+  
   extractImageReferences(text) {
     const images = [];
     
@@ -190,9 +212,12 @@ class SteinerLecturesExporter {
       const altText = match[1] || '';
       const imagePath = match[2] || '';
       
+      // Automatische Bildpfad-Bereinigung
+      const cleanedPath = this.cleanImagePath(imagePath);
+      
       images.push({
         altText,
-        path: imagePath,
+        path: cleanedPath,
         fullMatch: match[0]
       });
     }

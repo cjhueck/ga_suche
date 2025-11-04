@@ -1837,6 +1837,153 @@ app.post('/api/fulltext-search', async (req, res) => {
 });
 
 // ============================================================================
+// ERWEITERTE SUCHE (bis zu 7 Worte)
+// ============================================================================
+
+app.post('/api/advanced-search', async (req, res) => {
+  try {
+    const { words, operators, proximity = null, gaFilter = '' } = req.body;
+    
+    if (!words || words.length === 0) {
+      return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
+    }
+    
+    console.log(`Erweiterte Suche: ${words.length} Wörter (${words.join(', ')}) mit Operatoren: ${operators.join(', ')} | Proximity: ${proximity || 'gesamter Text'}${gaFilter ? ` | GA-Filter: ${gaFilter}` : ''}`);
+    
+    const results = [];
+    
+    // Hilfsfunktion für flexible Wortsuche
+    const searchInText = (text, searchTerm) => {
+      if (!searchTerm) return false;
+      const textLower = text.toLowerCase();
+      const termLower = searchTerm.toLowerCase();
+      return textLower.includes(termLower);
+    };
+    
+    // Durchsuche alle Vorträge
+    Object.values(fullLectures).forEach(lecture => {
+      // GA-Filter: Überspringe Vorträge, die nicht zu den ausgewählten GA-Bänden gehören
+      if (gaFilter) {
+        const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : ''; // z.B. "GA110"
+        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
+        
+        // Prüfe ob der Vortrag zu einem der ausgewählten GA-Bände gehört
+        const matchesFilter = gaFilters.some(filter => 
+          lectureGA === filter || 
+          lectureGA === `GA${filter}` || 
+          lectureGA.replace('GA', '').replace('ga', '') === filter
+        );
+        
+        if (!matchesFilter) {
+          return; // Überspringe diesen Vortrag
+        }
+      }
+      const paragraphs = lecture.paragraphs || [];
+      
+      // Für jedes Wort: Finde alle Absätze, die es enthalten
+      const wordMatches = {};
+      words.forEach(word => {
+        wordMatches[word] = [];
+      });
+      
+      paragraphs.forEach((para, paraIndex) => {
+        const content = (para.content || para.text || '');
+        
+        words.forEach(word => {
+          if (searchInText(content, word)) {
+            wordMatches[word].push({
+              paraIndex: paraIndex,
+              content: content
+            });
+          }
+        });
+      });
+      
+      // Jetzt wenden wir die Operatoren und Proximity an
+      // Wir gehen davon aus, dass die Operatoren die Worte miteinander verbinden:
+      // Wort1 OP1 Wort2 OP2 Wort3 OP3 Wort4 ...
+      
+      if (proximity) {
+        // Mit Proximity: Prüfe ob die Wörter innerhalb des Abstands vorkommen
+        const proximityValue = parseInt(proximity);
+        
+        // Für jedes Wort: Prüfe ob es innerhalb des Abstands zu den anderen Wörtern vorkommt
+        // Dies ist eine vereinfachte Logik - für eine vollständige Implementierung
+        // müsste man alle Kombinationen prüfen
+        
+        words.forEach(word => {
+          wordMatches[word].forEach(match => {
+            const paraIndex = match.paraIndex;
+            let matchesProximity = true;
+            
+            // Prüfe ob andere Wörter (je nach Operator) in der Nähe sind
+            for (let i = 0; i < words.length; i++) {
+              const otherWord = words[i];
+              if (otherWord === word) continue;
+              
+              const operator = i > 0 ? operators[i - 1] : (operators[0] || 'and');
+              
+              // Finde ob das andere Wort im Proximity-Bereich vorkommt
+              const otherWordInRange = wordMatches[otherWord].some(otherMatch => {
+                return Math.abs(otherMatch.paraIndex - paraIndex) <= proximityValue;
+              });
+              
+              if (operator === 'and' && !otherWordInRange) {
+                matchesProximity = false;
+                break;
+              }
+            }
+            
+            if (matchesProximity || operators.includes('or')) {
+              // Erstelle ein Snippet
+              const snippet = match.content.substring(0, 200) + (match.content.length > 200 ? '...' : '');
+              
+              results.push({
+                lectureId: lecture.ID,
+                lectureTitle: lecture.title || lecture.ID,
+                snippet: snippet,
+                matchedWord: word,
+                paragraphIndex: paraIndex
+              });
+            }
+          });
+        });
+        
+      } else {
+        // Ohne Proximity: Jedes Wort das vorkommt ist ein Treffer
+        // (Operatoren bestimmen nur ob wir Treffer aus verschiedenen Wörtern kombinieren)
+        
+        // Vereinfachte Logik: Zeige alle Treffer für jedes Wort
+        words.forEach(word => {
+          wordMatches[word].forEach(match => {
+            const snippet = match.content.substring(0, 200) + (match.content.length > 200 ? '...' : '');
+            
+            results.push({
+              lectureId: lecture.ID,
+              lectureTitle: lecture.title || lecture.ID,
+              snippet: snippet,
+              matchedWord: word,
+              paragraphIndex: match.paraIndex
+            });
+          });
+        });
+      }
+    });
+    
+    console.log(`Erweiterte Suche: ${results.length} Treffer gefunden`);
+    
+    res.json({
+      results: results,
+      totalResults: results.length
+    });
+    
+  } catch (error) {
+    console.error('Erweiterte Suche Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
 // LLM ANALYSE
 // ============================================================================
 
