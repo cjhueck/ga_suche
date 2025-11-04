@@ -252,6 +252,8 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                 wiki_pattern = r'!\[\[([^\]]+)\]\]'
                 wiki_matches = re.findall(wiki_pattern, content)
                 for filename in wiki_matches:
+                    # WICHTIG: Speichere ORIGINAL-Referenz für später
+                    original_wiki_ref = f'![[{filename}]]'
                     # Bereinige Pfad - entferne GA-Ordner-Präfix falls vorhanden
                     # ![[GA223-.../assets/223-T01.webp]] → assets/223-T01.webp
                     # ![[GA118-.../GA118-.../assets/...]] → assets/... (doppelte Ordner entfernen)
@@ -280,8 +282,8 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                     # Alt-Text aus bereinigtem Pfad
                     alt_text = os.path.basename(img_path).replace('.webp', '').replace('.png', '').replace('.jpeg', '').replace('.jpg', '')
                     
-                    # Speichere auch das Original-Format (Wiki-Link)
-                    all_matches.append((alt_text, img_path, f'![[{filename}]]'))
+                    # Speichere mit ORIGINAL Wiki-Link (vor jeder Bereinigung!)
+                    all_matches.append((alt_text, img_path, original_wiki_ref))
                 
                 if all_matches:
                     for match_tuple in all_matches:
@@ -331,44 +333,54 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                         
                         # Falls PNG nicht existiert, versuche Alternativen (WebP, JPEG)
                         if not os.path.exists(full_image_path):
-                            # Versuche WebP-Version (Tafelzeichnungen)
-                            webp_path = re.sub(r'\.(png|jpe?g)$', '.webp', final_path, flags=re.IGNORECASE)
-                            webp_filename = webp_path.replace('assets/', '')
-                            full_webp_path = os.path.join(
-                                steiner_ga_dir,
-                                ga_folder,
-                                'assets',
-                                webp_filename
-                            )
-                            if os.path.exists(full_webp_path):
-                                full_image_path = full_webp_path
-                                final_path = webp_path
-                            else:
-                                # Versuche JPEG-Version (falls noch nicht konvertiert)
-                                jpeg_path = re.sub(r'\.png$', '.jpeg', final_path, flags=re.IGNORECASE)
-                                jpeg_filename = jpeg_path.replace('assets/', '')
-                                full_jpeg_path = os.path.join(
-                                    steiner_ga_dir,
-                                    ga_folder,
-                                    'assets',
-                                    jpeg_filename
-                                )
-                                if os.path.exists(full_jpeg_path):
-                                    full_image_path = full_jpeg_path
-                                    final_path = jpeg_path
-                                else:
-                                    # Versuche JPG-Version (alternatives Format)
-                                    jpg_path = re.sub(r'\.png$', '.jpg', final_path, flags=re.IGNORECASE)
-                                    jpg_filename = jpg_path.replace('assets/', '')
-                                    full_jpg_path = os.path.join(
+                            # Flexiblere Suche: Versuche verschiedene Dateinamen-Varianten
+                            assets_dir = os.path.join(steiner_ga_dir, ga_folder, 'assets')
+                            
+                            if os.path.exists(assets_dir):
+                                # Extrahiere Bildnummer aus Dateinamen (z.B. "img-4" aus "GA121-..._img-4.jpeg")
+                                img_number_match = re.search(r'img-(\d+)', final_filename)
+                                
+                                if img_number_match:
+                                    img_num = img_number_match.group(1)
+                                    
+                                    # Versuche verschiedene Dateinamen-Varianten
+                                    # 1. GA121_img-4.jpeg
+                                    # 2. img-4.jpeg  
+                                    # 3. Beliebige Datei mit img-4 im Namen
+                                    
+                                    for file in os.listdir(assets_dir):
+                                        # Pattern: *img-4.* (beliebige Extension)
+                                        if f'img-{img_num}' in file:
+                                            test_path = os.path.join(assets_dir, file)
+                                            if os.path.exists(test_path):
+                                                full_image_path = test_path
+                                                final_path = f'assets/{file}'
+                                                break
+                            
+                            # Falls immer noch nicht gefunden: Versuche WebP/JPEG/JPG
+                            if not os.path.exists(full_image_path):
+                                # Liste möglicher Extensions
+                                extensions = ['.webp', '.jpeg', '.jpg']
+                                original_ext = os.path.splitext(final_path)[1]
+                                
+                                for ext in extensions:
+                                    if ext == original_ext.lower():
+                                        continue  # Überspringe Original-Extension
+                                    
+                                    # Versuche diese Extension
+                                    test_path = re.sub(r'\.(png|webp|jpe?g)$', ext, final_path, flags=re.IGNORECASE)
+                                    test_filename = test_path.replace('assets/', '')
+                                    full_test_path = os.path.join(
                                         steiner_ga_dir,
                                         ga_folder,
                                         'assets',
-                                        jpg_filename
+                                        test_filename
                                     )
-                                    if os.path.exists(full_jpg_path):
-                                        full_image_path = full_jpg_path
-                                        final_path = jpg_path
+                                    
+                                    if os.path.exists(full_test_path):
+                                        full_image_path = full_test_path
+                                        final_path = test_path
+                                        break
                         
                         if os.path.exists(full_image_path):
                             print(f"  OK {lecture_id} - {alt_text}")
@@ -427,15 +439,13 @@ def main():
     
     # Pfade
     project_root = os.path.dirname(os.path.abspath(__file__))
-    steiner_ga_dir = r"C:\Users\chuec\OneDrive\GitHub\Steiner_GA"
+    steiner_ga_dir = os.path.join(project_root, "Steiner_GA")
     output_file = os.path.join(project_root, 'steiner-images.json')
     
-    # Finde alle lecture-Dateien
-    lecture_files = [
-        os.path.join(project_root, f'steiner-full-lectures-051-311-part0{i}.json')
-        for i in range(1, 8)
-    ]
-    lecture_files = [f for f in lecture_files if os.path.exists(f)]
+    # Finde ALLE lecture-Dateien (inkl. neu erstellte)
+    import glob
+    lecture_files = glob.glob(os.path.join(project_root, 'steiner-full-lectures*.json'))
+    lecture_files = sorted([f for f in lecture_files if os.path.exists(f)])
     
     print("\n" + "=" * 60)
     print("INTEGRIERTER STEINER IMAGES EXPORT")

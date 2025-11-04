@@ -1,0 +1,93 @@
+======================================================================
+DOWNLOAD-PROTOKOLL GA29 BIS GA46
+======================================================================
+
+Datum: 03.11.2025 13:10:15
+Dauer: 1.9 Minuten
+
+ZUSAMMENFASSUNG
+----------------------------------------------------------------------
+Versucht: 72 GA-Varianten
+✓ Erfolgreich: 0 GA-Bände
+⊘ Nicht verfügbar: 72 GA-Bände
+✗ Fehlgeschlagen: 0 GA-Bände
+
+✓ Gesamt Vorträge: 0
+
+
+======================================================================
+NICHT VERFÜGBAR AUF RSARCHIVE.ORG
+======================================================================
+
+GA29
+GA29a
+GA29b
+GA29c
+GA30
+GA30a
+GA30b
+GA30c
+GA31
+GA31a
+GA31b
+GA31c
+GA32
+GA32a
+GA32b
+GA32c
+GA33
+GA33a
+GA33b
+GA33c
+GA34
+GA34a
+GA34b
+GA34c
+GA35
+GA35a
+GA35b
+GA35c
+GA36
+GA36a
+GA36b
+GA36c
+GA37
+GA37a
+GA37b
+GA37c
+GA38
+GA38a
+GA38b
+GA38c
+GA39
+GA39a
+GA39b
+GA39c
+GA40
+GA40a
+GA40b
+GA40c
+GA41
+GA41a
+GA41b
+GA41c
+GA42
+GA42a
+GA42b
+GA42c
+GA43
+GA43a
+GA43b
+GA43c
+GA44
+GA44a
+GA44b
+GA44c
+GA45
+GA45a
+GA45b
+GA45c
+GA46
+GA46a
+GA46b
+GA46c

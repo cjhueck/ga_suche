@@ -155,6 +155,29 @@ class SteinerLecturesExporter {
     return l;
   }
 
+  // Konvertiere Wiki-Links zu Markdown-Format
+  convertWikiLinksToMarkdown(text) {
+    // Pattern: ![[dateiname.ext]] → ![](assets/dateiname.ext)
+    return text.replace(/!\[\[([^\]]+)\]\]/g, (match, filename) => {
+      // Extrahiere nur Dateinamen
+      let cleanName = filename.split('/').pop();
+      
+      // Falls "assets/" im Namen: Extrahiere danach
+      if (cleanName.includes('assets/')) {
+        cleanName = cleanName.split('assets/').pop();
+      }
+      
+      // Für img-N: Vereinfache
+      // GA121_img-4.jpeg → img-4.jpeg
+      const imgMatch = cleanName.match(/img-(\d+)\.(jpe?g|png|webp)/i);
+      if (imgMatch) {
+        cleanName = `img-${imgMatch[1]}.${imgMatch[2]}`;
+      }
+      
+      return `![](assets/${cleanName})`;
+    });
+  }
+  
   // Extract image references from text
   extractImageReferences(text) {
     const images = [];
@@ -329,9 +352,12 @@ class SteinerLecturesExporter {
               });
             }
             
+            // Konvertiere Wiki-Links zu Markdown-Format
+            const convertedText = this.convertWikiLinksToMarkdown(text);
+            
             paragraphs.push({
               index: `^${blockId}`,
-              content: text
+              content: convertedText
             });
           }
         }
@@ -703,8 +729,8 @@ if (require.main === module) {
   const noSync = args.includes('--no-sync');
   const gaArgs = args.filter(a => !a.startsWith('--'));
   
-  // Default paths
-  const sourceDir = 'C:\\Users\\chuec\\OneDrive\\GitHub\\Steiner_GA';
+  // Default paths (relativ zum Script)
+  const sourceDir = path.join(__dirname, 'Steiner_GA');
   const outputDir = __dirname;
 
   const exporter = new SteinerLecturesExporter(sourceDir, outputDir);
