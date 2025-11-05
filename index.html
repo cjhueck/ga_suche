@@ -6243,7 +6243,7 @@ async function showGALectures(gaNumber) {
     }
     
     documentTitle.textContent = `${formatLectureId(gaNumber)}: ${gaInfo.title}`;
-    viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color);">Lade Vorträge...</div>';
+    viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div>';
     
     // Lade GA-Übersicht-Daten
     const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
