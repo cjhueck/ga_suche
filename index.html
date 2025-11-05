@@ -3816,6 +3816,7 @@ body.dark-mode #popupCaption {
 
 <!-- Filter-Zeile: GA-Band und Proximity -->
 <div class="filter-row" style="margin-bottom: 1rem;">
+<div style="flex: 1; display: flex; gap: 8px;">
 <!-- Custom Multi-Select Dropdown für GA-Bände -->
 <div class="custom-dropdown" id="advancedGAFilterContainer" style="flex: 1;">
   <button type="button" class="filter-dropdown custom-dropdown-button" id="advancedGAFilterButton">
@@ -3831,6 +3832,18 @@ body.dark-mode #popupCaption {
 <option value="2">2 Absätze</option>
 <option value="3">3 Absätze</option>
 </select>
+</div>
+<!-- Unsichtbarer Platzhalter für gleiche Breite wie Suchwort-Zeilen -->
+<div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
+<label class="word-operator-label">
+<input type="radio" disabled>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" disabled>
+<span>ODER</span>
+</label>
+</div>
 </div>
 
 <!-- Suchwort 1 -->
