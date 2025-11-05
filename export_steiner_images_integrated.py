@@ -245,8 +245,14 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                         if assets_match:
                             cleaned_img_path = f'assets/{assets_match.group(1)}'
                     
-                    # Speichere auch das Original-Format (Markdown)
-                    all_matches.append((alt_text, cleaned_img_path, f'![{alt_text}]({img_path})'))
+                    # NORMALISIERE die Markdown-Referenz für besseres Matching:
+                    # - Dekodiere URL-encoding (%20 → Leerzeichen)
+                    # - Entferne Dateiendung aus Alt-Text falls vorhanden
+                    alt_text_normalized = re.sub(r'\.(jpe?g|png|webp|gif)$', '', alt_text, flags=re.IGNORECASE)
+                    img_path_decoded = img_path.replace('%20', ' ')
+                    
+                    # Speichere ORIGINAL + NORMALISIERTE Version
+                    all_matches.append((alt_text_normalized, cleaned_img_path, f'![{alt_text}]({img_path_decoded})'))
                 
                 # Pattern 2: Obsidian Wiki-Links ![[filename]]
                 wiki_pattern = r'!\[\[([^\]]+)\]\]'
@@ -279,11 +285,15 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                     # "221_T01.webp" → "221-T01.webp"
                     img_path = re.sub(r'(\d{3})_T(\d{2})\.webp', r'\1-T\2.webp', img_path)
                     
-                    # Alt-Text aus bereinigtem Pfad
-                    alt_text = os.path.basename(img_path).replace('.webp', '').replace('.png', '').replace('.jpeg', '').replace('.jpg', '')
+                    # Alt-Text aus bereinigtem Pfad (ohne Dateiendung)
+                    alt_text = os.path.basename(img_path)
+                    alt_text = re.sub(r'\.(jpe?g|png|webp|gif)$', '', alt_text, flags=re.IGNORECASE)
                     
-                    # Speichere mit ORIGINAL Wiki-Link (vor jeder Bereinigung!)
-                    all_matches.append((alt_text, img_path, original_wiki_ref))
+                    # Normalisiere Wiki-Link: Dekodiere URL-encoding
+                    normalized_wiki_ref = original_wiki_ref.replace('%20', ' ')
+                    
+                    # Speichere mit NORMALISIERTEM Wiki-Link
+                    all_matches.append((alt_text, img_path, normalized_wiki_ref))
                 
                 if all_matches:
                     for match_tuple in all_matches:
@@ -390,14 +400,14 @@ def extract_images_from_lectures(lectures_files, steiner_ga_dir):
                                 base64_str, file_size = encode_image_to_base64(full_image_path)
                                 
                                 # Erstelle Eintrag
-                                # WICHTIG: altText und markdownRef behalten ORIGINAL (aus Text)
-                                # path enthält den finalen Pfad (PNG oder WebP)
+                                # WICHTIG: altText ohne Dateiendung, path mit tatsächlicher Endung
+                                # markdownRef ist normalisiert (ohne URL-encoding)
                                 image_entry = {
                                     'index': para_index,
-                                    'altText': alt_text,  # Original aus Text
+                                    'altText': alt_text,  # Bereits normalisiert (ohne Dateiendung)
                                     'path': final_path,  # Finaler Pfad (PNG oder WebP)
-                                    'markdownRef': original_ref,  # Original-Referenz aus Text (Markdown oder Wiki-Link)!
-                                    'base64': base64_str,
+                                    'markdownRef': original_ref,  # Normalisiert (URL-decoding bereits erfolgt)
+                                    'base64': base64_str,  # Vollständiger Data-URL mit MIME-Type
                                     'size': file_size
                                 }
                                 

@@ -5172,7 +5172,7 @@ function normalizeGANumber(gaNumber) {
       
       // Ersetze jede Bildmarkierung durch ein img-Tag
       imagesForParagraph.forEach(img => {
-        // Verwende markdownRef aus JSON - das ist die Original-Referenz aus dem Text!
+        // Verwende markdownRef aus JSON - das ist die normalisierte Referenz!
         const markdownRef = img.markdownRef || `![${img.altText}](${img.path})`;
         
         // Prüfe, ob es eine Tafelzeichnung ist (nur T-Nummer im Dateinamen)
@@ -5190,12 +5190,23 @@ function normalizeGANumber(gaNumber) {
         
         const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" ${isWebP ? 'data-format="webp"' : ''} style="${imgStyle}" />`;
         
-        // Escape special regex characters
-        const escapedRef = markdownRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(escapedRef, 'g');
+        // Erstelle mehrere Varianten der Referenz für robustes Matching:
+        const refVariants = [
+          markdownRef,  // Normalisierte Version aus JSON
+          markdownRef.replace(/ /g, '%20'),  // Mit URL-encoding
+          `![[${img.altText}]]`,  // Obsidian Wiki-Link Format
+          `![[${img.altText}.png]]`,  // Wiki-Link mit .png
+          `![[${img.altText}.jpg]]`,  // Wiki-Link mit .jpg
+          `![[${img.altText}.jpeg]]`,  // Wiki-Link mit .jpeg
+          `![[${img.altText}.webp]]`  // Wiki-Link mit .webp
+        ];
         
-        // Ersetze die Markdown-Referenz durch das img-Tag
-        result = result.replace(regex, imgTag);
+        // Versuche jede Variante zu ersetzen
+        refVariants.forEach(variant => {
+          const escapedRef = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(escapedRef, 'g');
+          result = result.replace(regex, imgTag);
+        });
       });
       
       return result;
