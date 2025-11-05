@@ -9,3 +9,8 @@ GA098/16 - DIE ZUSAMMENHÄNGE DER WELTEN UND WESEN, München, 29. April 1908:
 
 
 6457        panel.style.minWidth = '400px';
+6555        padding ergebnisfenster erweiterte suche: let html = '<div style="padding: 1rem 1rem 1rem 0rem; overflow-x: auto;">';
+
+die auswahlfenster "GA-Bände" und "Abstand" sollen zusammen so breit sein wie die fenster für die Suchworteingabe
+
+wenn ein Vortrag durch Klick auf einen Titel im Tab GA  im Tab Texte angezeigt wird, sollen zugleich auch die entsprechenden Summary, Keywords, TOC und Headings eingeblendet werden. 
