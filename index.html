@@ -4676,7 +4676,7 @@ function normalizeGANumber(gaNumber) {
                 const panelWidth = summaryPanel.offsetWidth || 280;
                 mainContainer.style.marginRight = panelWidth + 'px';
               } else {
-                mainContainer.style.marginRight = '0px';
+                mainContainer.style.marginRight = 'px';
               }
             }
             
@@ -4716,7 +4716,7 @@ function normalizeGANumber(gaNumber) {
             if (isSummaryPanelVisible) {
               // Panel offen: Handle auf der Trennlinie positionieren (3px nach rechts)
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = (panelWidth - 3) + 'px';
+              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
             } else {
               // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
               verticalResizeHandle.style.right = '-3px';
@@ -6887,15 +6887,20 @@ function toggleGASummaries() {
       
       document.body.classList.add('summary-panel-collapsed');
       
-      // Verstecke die Header-Buttons (Übersicht und Original)
+      // Verstecke ALLE Header-Buttons
       const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
       const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-      if (viewerSummaryBtn) {
-        viewerSummaryBtn.style.display = 'none';
-      }
-      if (viewerOriginalBtn) {
-        viewerOriginalBtn.style.display = 'none';
-      }
+      const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
+      const viewerStructureBtn = document.getElementById('viewerStructureBtn');
+      const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
+      const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
+      
+      if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+      if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
+      if (viewerTOCToggleBtn) viewerTOCToggleBtn.style.display = 'none';
+      if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
+      if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
+      if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
       
       // Zeige den verticalResizeHandle
       const verticalHandle = document.getElementById('verticalResizeHandle');
@@ -7844,66 +7849,69 @@ function toggleGASummaries() {
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   
-  // Prüfe, ob wir im erweiterten Such-Tab sind
-  const advancedSearchTab = document.getElementById('advanced-search-tab');
-  const isInAdvancedSearch = advancedSearchTab && advancedSearchTab.classList.contains('active');
+  // Prüfe, ob wir im Texte-Tab sind
+  const texteTab = document.getElementById('texte-tab');
+  const isInTexteTab = texteTab && texteTab.classList.contains('active');
   
-  // Wenn wir im erweiterten Such-Tab sind, verstecke alle Buttons
-  if (isInAdvancedSearch) {
-    if (viewerOriginalBtn) {
-      viewerOriginalBtn.style.display = 'none';
-    }
-    if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'none';
-    }
-    return;
-  }
-  
-  // Wenn kein Vortrag geladen ist, verstecke alle Buttons
-  if (!currentLectureData) {
-    if (viewerOriginalBtn) {
-      viewerOriginalBtn.style.display = 'none';
-    }
-    if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'none';
-    }
-    return;
-  }
-  
-  // Wenn Vortrag geladen ist, zeige Buttons basierend auf Zustand
-  if (viewerOriginalBtn && showingSummaryInMain) {
-    viewerOriginalBtn.style.display = 'inline-block';
-  } else if (viewerOriginalBtn) {
-    viewerOriginalBtn.style.display = 'none';
-  }
-  
-  if (viewerSummaryBtn) {
-    viewerSummaryBtn.style.display = 'inline-block';
-  }
-
-  // TOC-Toggle Button - nur lokal verfügbar und nur in Übersicht-Ansicht
+  // Hole alle anderen Button-Referenzen
   const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
-  if (viewerTOCToggleBtn) {
-    if (currentLectureData && isLocal && showingSummaryInMain) {
-      viewerTOCToggleBtn.style.display = 'inline-block';
-    } else {
-      viewerTOCToggleBtn.style.display = 'none';
-    }
-  }
-
-  // NEUE 3-BUTTON ARCHITEKTUR - nur lokal verfügbar
   const viewerStructureBtn = document.getElementById('viewerStructureBtn');
   const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
   const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
   
-  if (currentLectureData && isLocal) {
-    if (viewerStructureBtn) viewerStructureBtn.style.display = 'inline-block';
-    if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'inline-block';
-    if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'inline-block';
-  } else {
+  // Wenn wir NICHT im Texte-Tab sind, verstecke ALLE Header-Buttons
+  if (!isInTexteTab) {
+    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
+    if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+    if (viewerTOCToggleBtn) viewerTOCToggleBtn.style.display = 'none';
     if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
     if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
     if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
+    return; // Beende Funktion, keine weiteren Buttons anzeigen
+  } else {
+    // Wir sind im Texte-Tab - zeige Buttons basierend auf normalen Bedingungen
+    
+    // Wenn kein Vortrag geladen ist, verstecke alle Buttons
+    if (!currentLectureData) {
+      if (viewerOriginalBtn) {
+        viewerOriginalBtn.style.display = 'none';
+      }
+      if (viewerSummaryBtn) {
+        viewerSummaryBtn.style.display = 'none';
+      }
+      // Weiter mit anderen Buttons unten
+    } else {
+      // Wenn Vortrag geladen ist, zeige Buttons basierend auf Zustand
+      if (viewerOriginalBtn && showingSummaryInMain) {
+        viewerOriginalBtn.style.display = 'inline-block';
+      } else if (viewerOriginalBtn) {
+        viewerOriginalBtn.style.display = 'none';
+      }
+      
+      if (viewerSummaryBtn) {
+        viewerSummaryBtn.style.display = 'inline-block';
+      }
+
+      // TOC-Toggle Button - nur lokal verfügbar und nur in Übersicht-Ansicht
+      if (viewerTOCToggleBtn) {
+        if (currentLectureData && isLocal && showingSummaryInMain) {
+          viewerTOCToggleBtn.style.display = 'inline-block';
+        } else {
+          viewerTOCToggleBtn.style.display = 'none';
+        }
+      }
+      
+      // NEUE 3-BUTTON ARCHITEKTUR - nur lokal verfügbar und nur im Texte-Tab
+      if (currentLectureData && isLocal) {
+        if (viewerStructureBtn) viewerStructureBtn.style.display = 'inline-block';
+        if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'inline-block';
+        if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'inline-block';
+      } else {
+        if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
+        if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
+        if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
+      }
+    }
   }
 }
 
