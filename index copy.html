@@ -994,105 +994,74 @@ body.dark-mode .ga-missing-text {
     }
 
     
-    .resize-handle {
-  width: 1px;
-  background-color: transparent;
-      cursor: col-resize;
-      position: fixed;
-      left: 440px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
-      bottom: auto;
-      height: 100px; /* Feste Höhe für das Handle */
-      flex-shrink: 0;
-      transition: background-color 0.2s;
-      z-index: 999; /* Über anderen Elementen */
-    }
+    /* ============================================ */
+    /* CURSOR-STYLE RESIZE ZONES - NEU */
+    /* ============================================ */
     
-    .resize-handle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 0;
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    
-    .resize-handle:hover {
-      background-color: transparent;
-    }
-    
-    .resize-handle:hover::before {
-      color: var(--link-color);
-    }
-    
-    /* Symbol für geschlossene Sidebar */
-    .sidebar-collapsed .resize-handle::before {
-      content: '▶';
-      font-size: 36px; /* Pfeiljgröße bleibt gleich */
-      background: var(--background-color);
-      padding: 8px 0;
-    }
-    
-    /* Vertikaler Resize-Handle für rechtes Summary-Panel */
+    /* Unsichtbare Resize-Zones an den Trennlinien */
+    .resize-handle,
     .vertical-resize-handle {
-      width: 20px; /* Breitere Klickfläche */
-      background-color: transparent;
-      cursor: col-resize;
       position: fixed;
-      right: auto; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh;
-      bottom: auto;
-      height: 100px;
-      flex-shrink: 0;
-      transition: background-color 0.2s;
-      z-index: 9999; /* Höherer z-index */
-      display: none; /* Standardmäßig versteckt */
-      pointer-events: auto; /* Explizit klickbar machen */
-    }
-    
-    .vertical-resize-handle.visible {
-      display: block;
-    }
-    
-    .vertical-resize-handle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 4px; /* Mehr Padding für größere Klickfläche */
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: col-resize; /* Cursor auch am Pseudo-Element */
-      transition: color 0.2s;
+      width: 8px; /* Etwas breitere Hover-Zone für besseres Greifen */
+      height: 100vh;
+      top: 0;
+      bottom: 0;
+      cursor: col-resize;
+      z-index: 10000;
       pointer-events: auto;
+      transition: none; /* Keine Transitions für bessere Performance */
+      background: transparent;
+      transform: none; /* Kein Transform - nur direkte Positionierung */
     }
     
+    /* Geöffneter Zustand: Kein visuelles Feedback beim Hover */
+    .resize-handle:hover,
     .vertical-resize-handle:hover {
-      background-color: transparent;
+      background: transparent;
     }
     
-    .vertical-resize-handle:hover::before {
-      color: var(--link-color);
+    /* LINKES RESIZE-ZONE (Sidebar Border) */
+    .resize-handle {
+      left: 460px; /* Wird dynamisch angepasst */
     }
     
-    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
-    .summary-panel-collapsed .vertical-resize-handle::before {
-      content: '◀';
-      font-size: 36px;
-      background: var(--background-color);
-      padding: 8px 0;
-      color: transparent; /* Pfeil unsichtbar machen */
+    /* LINKES RESIZE-ZONE - GESCHLOSSENER ZUSTAND */
+    .sidebar-collapsed .resize-handle {
+      left: 0px;
+      width: 8px;
+      cursor: e-resize; /* Pfeil nach rechts beim Öffnen */
+    }
+    
+    /* Geschlossener Zustand: Sichtbares Feedback beim Hover */
+    .sidebar-collapsed .resize-handle:hover {
+      background: var(--link-color);
+      opacity: 0.5;
+      width: 4px; /* Schmaler beim Hover */
+    }
+    
+    /* RECHTES RESIZE-ZONE (Summary-Panel Border) */
+    .vertical-resize-handle {
+      right: 280px; /* Wird dynamisch angepasst */
+    }
+    
+    /* RECHTES RESIZE-ZONE - GESCHLOSSENER ZUSTAND */
+    .summary-panel-collapsed .vertical-resize-handle {
+      right: 0px;
+      width: 8px;
+      cursor: w-resize; /* Pfeil nach links beim Öffnen */
+    }
+    
+    /* Geschlossener Zustand: Sichtbares Feedback beim Hover */
+    .summary-panel-collapsed .vertical-resize-handle:hover {
+      background: var(--link-color);
+      opacity: 0.5;
+      width: 4px; /* Schmaler beim Hover */
+    }
+    
+    /* Dark Mode Anpassungen */
+    body.dark-mode .sidebar-collapsed .resize-handle:hover,
+    body.dark-mode .summary-panel-collapsed .vertical-resize-handle:hover {
+      background: var(--dark-link-color);
     }
     
     #main-container {
@@ -4631,98 +4600,92 @@ function normalizeGANumber(gaNumber) {
       console.log(locked ? 'UI locked (flag only) - Summary generation in progress' : 'UI unlocked - Summary generation finished');
     }
 
-    // Header-Position dynamisch anpassen
+    // ============================================
+    // UNIFIED HEADER & RESIZE HANDLES POSITION - NEU
+    // ============================================
     function updateHeaderPosition() {
       const header = document.getElementById('viewer-header');
       const mainElement = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
       const sidebar = document.getElementById('sidebar');
       const viewer = document.getElementById('viewer');
+      const mainContainer = document.getElementById('main-container');
+      const resizeHandle = document.getElementById('resizeHandle');
+      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
       
-      if (header && mainElement) {
-        const mainRect = mainElement.getBoundingClientRect();
-        const isSummaryPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
-        const isSidebarCollapsed = sidebar && sidebar.classList.contains('collapsed');
+      if (!header || !mainElement) return;
+      
+      // Zustände ermitteln
+      const isSummaryPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
+      const isSidebarCollapsed = sidebar && sidebar.classList.contains('collapsed');
+      
+      // === HEADER POSITIONIERUNG ===
+      const mainRect = mainElement.getBoundingClientRect();
+      const headerLeft = isSidebarCollapsed ? 0 : mainRect.left;
+      const headerWidth = window.innerWidth - headerLeft;
+      
+      header.style.left = headerLeft + 'px';
+      header.style.width = headerWidth + 'px';
+      
+      // === HEIGHTS & POSITIONING - Sofort ohne setTimeout ===
+      const headerHeight = header.offsetHeight;
+      
+      // Summary Panel Position
+      if (summaryPanel) {
+        summaryPanel.style.top = (headerHeight - 1) + 'px';
+      }
+      
+      // Main Container Margins
+      if (mainContainer) {
+        mainContainer.style.marginTop = headerHeight + 'px';
         
-        let headerLeft, headerWidth;
+        if (isSummaryPanelVisible) {
+          const panelWidth = summaryPanel.offsetWidth || 280;
+          mainContainer.style.marginRight = panelWidth + 'px';
+        } else {
+          mainContainer.style.marginRight = '0px';
+        }
+      }
+      
+      // Viewer Padding
+      if (viewer) {
+        viewer.style.paddingTop = '0px';
+      }
+      
+      // === RESIZE ZONES POSITIONIERUNG - Präzise auf Trennlinien (Cursor-Style) ===
+      
+      // LINKES RESIZE-ZONE (Sidebar Border)
+      if (resizeHandle) {
+        // Entferne transform falls vorhanden
+        resizeHandle.style.transform = 'none';
         
         if (isSidebarCollapsed) {
-          // Sidebar kollabiert - Header beginnt am linken Bildschirmrand
-          headerLeft = 0;
-          headerWidth = window.innerWidth; // Header immer volle Breite
+          // Am linken Rand: Klickfläche von oben bis unten
+          resizeHandle.style.left = '0px';
+          resizeHandle.style.width = '8px';
         } else {
-          // Sidebar offen - Header beginnt am #main Element
-          headerLeft = mainRect.left;
-          headerWidth = window.innerWidth - mainRect.left; // Header bis zum rechten Rand
+          // An der rechten Sidebar-Border: Resize-Zone auf der Trennlinie
+          const sidebarWidth = sidebar ? sidebar.offsetWidth : 460;
+          resizeHandle.style.left = (sidebarWidth - 4) + 'px'; // 4px nach links, damit zentriert
+          resizeHandle.style.width = '8px';
         }
+      }
+      
+      // RECHTES RESIZE-ZONE (Summary-Panel Border)
+      if (verticalResizeHandle) {
+        // Entferne transform falls vorhanden
+        verticalResizeHandle.style.transform = 'none';
         
-        header.style.left = headerLeft + 'px';
-        header.style.width = headerWidth + 'px';
-        
-        // Positioniere das Summary-Panel unter dem Header und passe Main-Container an
-        if (summaryPanel) {
-          const mainContainer = document.getElementById('main-container');
-          setTimeout(() => {
-            const headerHeight = header.offsetHeight;
-            
-            // Summary Panel beginnt direkt unter dem Header (ohne margin-bottom)
-            // Das margin-bottom ist nur für den Main-Content gedacht
-            // -1px für perfekte Ausrichtung (border-Überlappung)
-            summaryPanel.style.top = (headerHeight - 1) + 'px';
-            
-            // Main-Container Margin anpassen je nach Panel-Sichtbarkeit
-            if (mainContainer) {
-              if (isSummaryPanelVisible) {
-                const panelWidth = summaryPanel.offsetWidth || 280;
-                mainContainer.style.marginRight = panelWidth + 'px';
-              } else {
-                mainContainer.style.marginRight = '0px';
-              }
-            }
-            
-          }, 10);
+        if (isSummaryPanelVisible) {
+          // An der linken Panel-Border: Resize-Zone auf der Trennlinie
+          const panelWidth = summaryPanel.offsetWidth || 280;
+          verticalResizeHandle.style.right = (panelWidth - 4) + 'px'; // 4px nach rechts, damit zentriert
+          verticalResizeHandle.style.width = '8px';
+        } else {
+          // Am rechten Rand: Klickfläche von oben bis unten
+          verticalResizeHandle.style.right = '0px';
+          verticalResizeHandle.style.width = '8px';
         }
-        
-        // Main-Container unter Header positionieren
-        const mainContainer = document.getElementById('main-container');
-        const resizeHandle = document.getElementById('resizeHandle');
-        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-        
-        setTimeout(() => {
-          const headerHeight = header.offsetHeight;
-          
-          if (mainContainer) {
-            mainContainer.style.marginTop = headerHeight + 'px';
-          }
-          
-          // Viewer-Padding entfernen da Main-Container bereits korrekt positioniert ist
-          if (viewer) {
-            viewer.style.paddingTop = '0px';
-          }
-          
-          // Resize-Handles horizontal positionieren (Höhe über CSS: 45vh)
-          if (resizeHandle) {
-            // Linkes Handle: Position abhängig von Sidebar-Zustand
-            if (isSidebarCollapsed) {
-              resizeHandle.style.left = '0px';
-            } else {
-              const sidebarWidth = sidebar ? sidebar.offsetWidth : 440;
-              resizeHandle.style.left = sidebarWidth + 'px';
-            }
-          }
-          
-          if (verticalResizeHandle) {
-            // Rechtes Handle: Position abhängig von Panel-Zustand
-            if (isSummaryPanelVisible) {
-              // Panel offen: Handle auf der Trennlinie positionieren (3px nach rechts)
-              const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = (panelWidth - 3) + 'px';
-            } else {
-              // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
-              verticalResizeHandle.style.right = '-3px';
-            }
-          }
-        }, 10);
       }
     }
 
@@ -4905,13 +4868,6 @@ function normalizeGANumber(gaNumber) {
         currentActiveTab.style.display = 'none';
         currentActiveTab.classList.remove('active');
         
-        // Verstecke den verticalResizeHandle
-        const verticalHandle = document.getElementById('verticalResizeHandle');
-        if (verticalHandle) {
-          verticalHandle.style.display = 'none';
-          verticalHandle.classList.remove('visible');
-        }
-        
         // Schließe das rechte Panel
         const summaryPanel = document.getElementById('summary-panel');
         if (summaryPanel) {
@@ -4956,13 +4912,6 @@ function normalizeGANumber(gaNumber) {
       if (resizeHandle) {
         resizeHandle.classList.remove('visible');
         resizeHandle.style.setProperty('display', 'none', 'important');
-      }
-      
-      // Verstecke den verticalResizeHandle beim Tab-Wechsel
-      const verticalHandle = document.getElementById('verticalResizeHandle');
-      if (verticalHandle) {
-        verticalHandle.style.display = 'none';
-        verticalHandle.classList.remove('visible');
       }
       
       // Body-Klasse für collapsed State hinzufügen
@@ -5023,7 +4972,7 @@ function normalizeGANumber(gaNumber) {
       
       // Header-Position aktualisieren
       if (typeof updateHeaderPosition === 'function') {
-        setTimeout(() => updateHeaderPosition(), 50);
+        updateHeaderPosition();
       }
       
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
@@ -6887,26 +6836,8 @@ function toggleGASummaries() {
       
       document.body.classList.add('summary-panel-collapsed');
       
-      // Verstecke die Header-Buttons (Übersicht und Original)
-      const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-      const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-      if (viewerSummaryBtn) {
-        viewerSummaryBtn.style.display = 'none';
-      }
-      if (viewerOriginalBtn) {
-        viewerOriginalBtn.style.display = 'none';
-      }
-      
-      // Zeige den verticalResizeHandle
-      const verticalHandle = document.getElementById('verticalResizeHandle');
-      if (verticalHandle) {
-        console.log('[ADVANCED-SEARCH] Zeige verticalResizeHandle');
-        verticalHandle.style.display = 'block';
-        verticalHandle.classList.add('visible');
-        console.log('[ADVANCED-SEARCH] verticalResizeHandle display:', verticalHandle.style.display, 'classList:', verticalHandle.classList.toString());
-        // Positioniere Handle sofort
-        updateHeaderPosition();
-      }
+      // Positioniere beide Handles korrekt
+      updateHeaderPosition();
       
       // Leere den Viewer
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
@@ -6947,12 +6878,6 @@ function toggleGASummaries() {
           mainContainer.style.marginRight = '450px';
         }
         
-        // Zeige verticalResizeHandle
-        if (verticalHandle) {
-          verticalHandle.style.display = 'block';
-          verticalHandle.classList.add('visible');
-        }
-        
         console.log('[ADVANCED-SEARCH] Panel geöffnet (450px)');
       } else {
         // Schließe Panel
@@ -6967,14 +6892,11 @@ function toggleGASummaries() {
           mainContainer.style.marginRight = '0px';
         }
         
-        // Verstecke verticalResizeHandle
-        if (verticalHandle) {
-          verticalHandle.style.display = 'none';
-          verticalHandle.classList.remove('visible');
-        }
-        
         console.log('[ADVANCED-SEARCH] Panel geschlossen');
       }
+      
+      // Positioniere Handles konsistent
+      updateHeaderPosition();
     }
     
     async function performAdvancedSearch() {
@@ -7177,18 +7099,10 @@ function toggleGASummaries() {
           }
         }
         
-        // Zeige den verticalResizeHandle
-        const verticalHandle = document.getElementById('verticalResizeHandle');
-        if (verticalHandle) {
-          console.log('[SNIPPET-CLICK] Zeige verticalResizeHandle');
-          verticalHandle.style.display = 'block';
-          verticalHandle.classList.add('visible');
-          console.log('[SNIPPET-CLICK] verticalResizeHandle right:', verticalHandle.style.right, 'display:', verticalHandle.style.display);
-          // Positioniere Handle korrekt
-          setTimeout(() => updateHeaderPosition(), 50);
-        }
-        
         document.body.classList.remove('summary-panel-collapsed');
+        
+        // Positioniere Handles konsistent
+        updateHeaderPosition();
         
         // Lade headings aus summary-database.json
         let headings = [];
@@ -7843,21 +7757,6 @@ function toggleGASummaries() {
   // Prüfe ob Buttons existieren, bevor du sie verwendest
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-  
-  // Prüfe, ob wir im erweiterten Such-Tab sind
-  const advancedSearchTab = document.getElementById('advanced-search-tab');
-  const isInAdvancedSearch = advancedSearchTab && advancedSearchTab.classList.contains('active');
-  
-  // Wenn wir im erweiterten Such-Tab sind, verstecke alle Buttons
-  if (isInAdvancedSearch) {
-    if (viewerOriginalBtn) {
-      viewerOriginalBtn.style.display = 'none';
-    }
-    if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'none';
-    }
-    return;
-  }
   
   // Wenn kein Vortrag geladen ist, verstecke alle Buttons
   if (!currentLectureData) {
@@ -11327,6 +11226,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
     }
 
+    // ============================================
+    // UNIFIED RESIZE HANDLE INIT - LINKES HANDLE (Sidebar)
+    // ============================================
     function initResizeHandle() {
       const resizeHandle = document.getElementById('resizeHandle');
       const sidebar = document.getElementById('sidebar');
@@ -11335,15 +11237,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
+        console.log('[RESIZE LEFT] Mousedown');
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
         
-        // Toggle für flüssiges Resize optimieren
-        const toggle = document.querySelector('.sidebar-toggle');
-        if (toggle) {
-          toggle.style.transition = 'background 0.2s, left 0.05s ease'; // Schnellere Transition beim Resize
-        }
+        // Deaktiviere Sidebar-Transitions während Resize
+        sidebar.style.transition = 'none';
         
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
@@ -11354,49 +11254,51 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         if (!isResizing) return;
         
         // Prüfe ob sich die Maus bewegt hat (für Click vs. Drag Unterscheidung)
-        if (Math.abs(e.clientX - startX) > 3) {
+        const deltaX = Math.abs(e.clientX - startX);
+        if (deltaX > 3) {
           hasMoved = true;
         }
         
-        const containerWidth = document.body.clientWidth;
-        const newSidebarWidth = (e.clientX / containerWidth) * 100;
-        
-        if (newSidebarWidth >= 15 && newSidebarWidth <= 90) {
-          const pixelWidth = (newSidebarWidth / 100) * containerWidth;
-          if (pixelWidth >= 250) {
-            sidebar.style.width = newSidebarWidth + '%';
-            updateHeaderPosition(); // Header beim Resize anpassen
+        if (hasMoved) {
+          const containerWidth = document.body.clientWidth;
+          const newSidebarWidth = (e.clientX / containerWidth) * 100;
+          
+          if (newSidebarWidth >= 15 && newSidebarWidth <= 90) {
+            const pixelWidth = (newSidebarWidth / 100) * containerWidth;
+            if (pixelWidth >= 250) {
+              sidebar.style.width = newSidebarWidth + '%';
+              updateHeaderPosition(); // Sofortige Aktualisierung während Resize
+            }
           }
         }
       }
 
       function handleMouseUp() {
+        console.log('[RESIZE LEFT] Mouseup, hasMoved:', hasMoved);
         isResizing = false;
+        
+        // Reaktiviere Transitions
+        sidebar.style.transition = 'width 0.3s ease, min-width 0.3s ease';
         
         // Wenn keine Bewegung stattgefunden hat: Toggle-Funktion
         if (!hasMoved) {
           toggleSidebar();
-          // Header-Position nach Toggle-Aktion mehrfach aktualisieren
-          setTimeout(updateHeaderPosition, 100);
-          setTimeout(updateHeaderPosition, 200);
-          setTimeout(updateHeaderPosition, 350);
-        }
-        
-        // Toggle-Transition zurücksetzen
-        const toggle = document.querySelector('.sidebar-toggle');
-        if (toggle) {
-          toggle.style.transition = 'background 0.2s, left 0.3s ease'; // Normale Transition zurück
+          // Nach Toggle: Position mit kurzer Verzögerung aktualisieren
+          setTimeout(() => updateHeaderPosition(), 50);
+        } else {
+          updateHeaderPosition(); // Finale Position nach Resize
         }
         
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
-        updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
 
+    // ============================================
+    // UNIFIED RESIZE HANDLE INIT - RECHTES HANDLE (Summary-Panel)
+    // ============================================
     function initVerticalResizeHandle() {
       const resizeHandle = document.getElementById('verticalResizeHandle');
-      const mainPanel = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
       
       if (!resizeHandle) {
@@ -11411,10 +11313,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
-        console.log('[RESIZE] Mousedown auf verticalResizeHandle');
+        console.log('[RESIZE RIGHT] Mousedown');
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
+        
+        // Deaktiviere Panel-Transitions während Resize
+        summaryPanel.style.transition = 'none';
         
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
@@ -11449,12 +11354,18 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               mainContainer.style.marginRight = newPanelWidth + 'px';
             }
             
-            updateHeaderPosition(); // Header beim Resize anpassen
+            updateHeaderPosition(); // Sofortige Aktualisierung während Resize
           }
         }
       }
 
       function handleMouseUp() {
+        console.log('[RESIZE RIGHT] Mouseup, hasMoved:', hasMoved);
+        isResizing = false;
+        
+        // Reaktiviere Transitions
+        summaryPanel.style.transition = 'width 0.3s ease, background-color 0.3s ease, border-left 0.3s ease';
+        
         if (!hasMoved) {
           // Toggle bei Klick - prüfe ob erweiterte Suche aktiv ist
           const advancedSearchTab = document.getElementById('advanced-search-tab');
@@ -11465,12 +11376,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           } else {
             toggleSummaryPanel();
           }
+          // Nach Toggle: Position mit kurzer Verzögerung aktualisieren
+          setTimeout(() => updateHeaderPosition(), 50);
+        } else {
+          updateHeaderPosition(); // Finale Position nach Resize
         }
         
-        isResizing = false;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
-        updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
   </script>
@@ -12263,13 +12176,6 @@ function switchTabExtended(mode) {
     // Verstecke das erweiterte Such-Tab
     currentActiveTab.style.display = 'none';
     currentActiveTab.classList.remove('active');
-    
-    // Verstecke den verticalResizeHandle
-    const verticalHandle = document.getElementById('verticalResizeHandle');
-    if (verticalHandle) {
-      verticalHandle.style.display = 'none';
-      verticalHandle.classList.remove('visible');
-    }
     
     // Schließe das rechte Panel
     const summaryPanel = document.getElementById('summary-panel');
