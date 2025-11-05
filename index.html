@@ -3747,8 +3747,8 @@ body.dark-mode #popupCaption {
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
-<button class="tab-button" onclick="switchTab('ga')">GA</button>
-<button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
+<button class="tab-button active" onclick="switchTab('ga')">GA</button>
+<button class="tab-button" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
 <button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
@@ -3756,14 +3756,14 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button">Zitate</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
-<div class="tab-content" id="ga-tab">
+<div class="tab-content active" id="ga-tab">
 <div style="padding: 0.5rem;">
 <div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
 <span id="ga-volumes-count">Lade GA-Bände...</span>
 </div>
 </div>
 </div>
-<div class="tab-content active" id="keyword-tab">
+<div class="tab-content" id="keyword-tab">
 <div class="search-words-row">
 <div style="flex:1; position: relative;">
 <input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
@@ -5057,10 +5057,33 @@ function normalizeGANumber(gaNumber) {
       resizeHandle.style.cursor = 'row-resize';
     }
     // Wenn Themen-Tab aktiv ist, lade letzte gespeicherte Anfragen
+    // Wenn GA-Tab aktiv ist, lade GA-Bände-Liste
     try {
       const activeTabMode = activeTabButton.getAttribute('onclick').match(/switchTab\('([^']+)'\)/)[1];
       if (activeTabMode === 'thematic') {
         loadRecentThematicQueries();
+      } else if (activeTabMode === 'ga') {
+        // Setze Document Title
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          documentTitle.textContent = 'GA-Bände Übersicht';
+        }
+        
+        // Setze Viewer-Nachricht
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: center;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+        }
+        
+        // Lade GA-Bände-Liste
+        setTimeout(() => {
+          if (typeof loadGAVolumesInSidebar === 'function') {
+            console.log('[GA-TAB] Initial: Lade GA-Bände-Liste...');
+            loadGAVolumesInSidebar();
+          } else {
+            console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
+          }
+        }, 100);
       }
     } catch (_) {}
   }
