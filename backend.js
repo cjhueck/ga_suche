@@ -1941,6 +1941,7 @@ app.post('/api/advanced-search', async (req, res) => {
               results.push({
                 lectureId: lecture.ID,
                 lectureTitle: lecture.title || lecture.ID,
+              lectureDate: lecture.date || '',
                 snippet: snippet,
                 matchedWord: word,
                 paragraphIndex: paraIndex
@@ -1961,6 +1962,7 @@ app.post('/api/advanced-search', async (req, res) => {
             results.push({
               lectureId: lecture.ID,
               lectureTitle: lecture.title || lecture.ID,
+            lectureDate: lecture.date || '',
               snippet: snippet,
               matchedWord: word,
               paragraphIndex: match.paraIndex
