@@ -442,6 +442,42 @@ body.dark-mode .site-sign {
   filter: invert(1) brightness(0.72);
 }
 
+/* GA-Volume-Links Styling */
+.ga-volume-link {
+  color: var(--link-color);
+}
+
+body.dark-mode .ga-volume-link {
+  color: var(--dark-link-color);
+}
+
+/* GA-Lecture-Links im Viewer */
+.ga-lecture-link {
+  color: var(--link-color);
+}
+
+body.dark-mode .ga-lecture-link {
+  color: var(--dark-link-color);
+}
+
+/* GA-Lecture-Text im Viewer */
+.ga-lecture-text {
+  color: var(--text-color);
+}
+
+body.dark-mode .ga-lecture-text {
+  color: #b8b8b8;
+}
+
+/* GA-Missing-Text im Viewer */
+.ga-missing-text {
+  color: #999;
+}
+
+body.dark-mode .ga-missing-text {
+  color: #666;
+}
+
 .site-header-flex {
   display: flex;
   align-items: center;
@@ -1264,6 +1300,17 @@ body.dark-mode .site-sign {
     .summary-buttons .search-button {
       width: 100%;
       text-align: center;
+    }
+    
+    /* Trennlinie unter der Vortrags-Summary */
+    .summary-separator {
+      margin: 2rem 0;
+      border: none;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .summary-separator {
+      border-top-color: var(--dark-border-color);
     }
     
     /* Diese Überschriften-Styles sind jetzt zentralisiert */
@@ -5002,6 +5049,11 @@ function normalizeGANumber(gaNumber) {
         }, 100);
       }
       
+      // Setze currentGANumber zurück, wenn GA-Tab verlassen wird
+      if (mode !== 'ga' && typeof currentGANumber !== 'undefined') {
+        currentGANumber = null;
+      }
+      
       // Lade GA-Bände wenn zum GA-Tab gewechselt wird
       if (mode === 'ga') {
         // Leere Results-Bereich (linkes Panel)
@@ -5089,6 +5141,47 @@ function normalizeGANumber(gaNumber) {
   }
     });
 
+    // Hilfsfunktion: Formatiere Lecture ID mit Kleinbuchstaben-Suffix
+    // GA157A -> GA157a, GA077B/3 -> GA077b/3, GA001/001B -> GA001/001b
+    function formatLectureId(lectureId) {
+      if (!lectureId) return lectureId;
+      
+      // Regex: Finde Buchstaben-Suffix
+      // Format 1: GA123A (Suffix am Ende)
+      // Format 2: GA123A/4 (Suffix vor dem Slash)
+      // Format 3: GA001/001A (Suffix am Ende nach Slash)
+      
+      // Prüfe zuerst auf Format mit Slash: GA123A/4 oder GA001/001A
+      const slashMatch = lectureId.match(/^(GA\d{3})([A-Za-z])(\/\d+.*)$/i);
+      if (slashMatch) {
+        // GA-Band-Teil mit Suffix vor dem Slash
+        const gaPart = slashMatch[1].toUpperCase();  // GA077
+        const suffix = slashMatch[2].toLowerCase();   // a, b, c
+        const rest = slashMatch[3];                   // /3 oder /001B
+        
+        // Prüfe ob es nach dem Slash auch einen Suffix gibt
+        const afterSlashMatch = rest.match(/^(\/\d+)([A-Za-z])$/i);
+        if (afterSlashMatch) {
+          const numberPart = afterSlashMatch[1];     // /001
+          const afterSuffix = afterSlashMatch[2].toLowerCase(); // a, b
+          return gaPart + suffix + numberPart + afterSuffix;
+        }
+        
+        return gaPart + suffix + rest;
+      }
+      
+      // Prüfe auf Suffix am Ende (ohne vorangehenden Suffix): GA157A oder GA001/001A
+      const endMatch = lectureId.match(/^(.+?)([A-Za-z])$/);
+      if (endMatch) {
+        const mainPart = endMatch[1].toUpperCase();  // GA157 oder GA001/001
+        const suffix = endMatch[2].toLowerCase();     // a, b, c
+        return mainPart + suffix;
+      }
+      
+      // Kein Suffix - einfach uppercase
+      return lectureId.toUpperCase();
+    }
+
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'light';
       if (savedTheme === 'dark') {
@@ -5102,6 +5195,19 @@ function normalizeGANumber(gaNumber) {
       const isDark = document.body.classList.contains('dark-mode');
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
       updateThemeIcon();
+      
+      // Rendere GA-Liste neu, wenn GA-Tab aktiv ist
+      const gaTab = document.getElementById('ga-tab');
+      if (gaTab && gaTab.classList.contains('active') && gaVolumesData.length > 0) {
+        console.log('[THEME] Rendere GA-Liste nach Theme-Wechsel neu');
+        displayGAVolumesInSidebar();
+        
+        // Rendere auch GA-Lectures neu, wenn ein GA-Band angezeigt wird
+        if (currentGANumber) {
+          console.log('[THEME] Rendere GA-Lectures für', currentGANumber, 'nach Theme-Wechsel neu');
+          showGALectures(currentGANumber);
+        }
+      }
     }
     
     function updateThemeIcon() {
@@ -5776,7 +5882,7 @@ function normalizeGANumber(gaNumber) {
           lectureId.replace('/', '_'),  // z.B. "GA001_001"
           lectureId.replace('/', '-'),  // z.B. "GA001-001"
           lectureId.toLowerCase(),      // kleingeschrieben
-          lectureId.toUpperCase(),      // großgeschrieben
+          formatLectureId(lectureId),   // mit lowercase-Suffix
         ];
         
         for (const key of possibleKeys) {
@@ -5929,6 +6035,7 @@ async function loadKeywordsDatabaseForThemes() {
 // Globale Variable für GA-Bände-Daten
 let gaVolumesData = [];
 let summaryDatabaseCache = null;
+let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
 
 // Funktion: Lade GA-Bände im Sidebar
 async function loadGAVolumesInSidebar() {
@@ -6005,19 +6112,16 @@ function displayGAVolumesInSidebar() {
   
   console.log('[GA-TAB] Zeige', gaVolumesData.length, 'GA-Bände im Sidebar');
   
-  const isDarkMode = document.body.classList.contains('dark-mode');
-  const linkColor = isDarkMode ? '#7EB8C8' : '#467886';
-  
   let html = '';
   
   gaVolumesData.forEach(ga => {
     html += `
       <div style="margin-bottom: 0.4rem;">
         <a href="#" 
+           class="ga-volume-link"
            onclick="showGALectures('${ga.number}'); return false;"
            style="
              font-weight: bold; 
-             color: ${linkColor}; 
              text-decoration: none;
              font-size: 1rem;
              display: block;
@@ -6025,7 +6129,7 @@ function displayGAVolumesInSidebar() {
            "
            onmouseover="this.style.textDecoration='underline'"
            onmouseout="this.style.textDecoration='none'">
-          ${ga.number.toUpperCase()} - ${ga.title}
+          ${formatLectureId(ga.number)} - ${ga.title}
         </a>
       </div>
     `;
@@ -6045,19 +6149,16 @@ function displayGAVolumesInTabContent() {
   
   console.log('[GA-TAB] Zeige', gaVolumesData.length, 'GA-Bände im Tab-Content');
   
-  const isDarkMode = document.body.classList.contains('dark-mode');
-  const linkColor = isDarkMode ? '#6BA3B8' : '#467886';
-  
   let html = '<div style="padding: 0;">';
   
   gaVolumesData.forEach(ga => {
     html += `
       <div style="margin-bottom: 0.4rem;">
         <a href="#" 
+           class="ga-volume-link"
            onclick="showGALectures('${ga.number}'); return false;"
            style="
              font-weight: bold; 
-             color: ${linkColor}; 
              text-decoration: none;
              font-size: 0.95em;
              display: block;
@@ -6065,7 +6166,7 @@ function displayGAVolumesInTabContent() {
            "
            onmouseover="this.style.textDecoration='underline'"
            onmouseout="this.style.textDecoration='none'">
-          ${ga.number.toUpperCase()} - ${ga.title}
+          ${formatLectureId(ga.number)} - ${ga.title}
         </a>
       </div>
     `;
@@ -6112,6 +6213,9 @@ async function showGALectures(gaNumber) {
   try {
     console.log('[GA-TAB] Lade Vorträge für', gaNumber);
     
+    // Speichere aktuellen GA-Band für Theme-Wechsel
+    currentGANumber = gaNumber;
+    
     // Zeige Loading-Nachricht
     const viewer = document.getElementById('viewer');
     const documentTitle = document.getElementById('document-title');
@@ -6125,7 +6229,7 @@ async function showGALectures(gaNumber) {
       return;
     }
     
-    documentTitle.textContent = `${gaNumber.toUpperCase()}: ${gaInfo.title}`;
+    documentTitle.textContent = `${formatLectureId(gaNumber)}: ${gaInfo.title}`;
     viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color);">Lade Vorträge...</div>';
     
     // Lade GA-Übersicht-Daten
@@ -6144,11 +6248,6 @@ async function showGALectures(gaNumber) {
     });
     
     // Erstelle HTML für Vorträge
-    const isDarkMode = document.body.classList.contains('dark-mode');
-    const linkColor = isDarkMode ? '#6BA3B8' : '#467886';
-    const textColor = isDarkMode ? '#b8b8b8' : '#333';
-    const missingTextColor = isDarkMode ? '#666' : '#999';
-    
     let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
     
     lectures.forEach(lecture => {
@@ -6165,21 +6264,20 @@ async function showGALectures(gaNumber) {
         <div style="margin-bottom: 1rem;">
           <div style="margin-bottom: 0.3rem;">
             <a href="#" 
+               class="ga-lecture-link"
                onclick="switchTab('texte'); setTimeout(() => showLectureFromGA('${lectureId}'), 100); return false;"
                style="
                  font-weight: bold; 
                  font-size: 0.9rem;
-                 color: ${linkColor}; 
                  text-decoration: none;
                "
                onmouseover="this.style.textDecoration='underline'"
                onmouseout="this.style.textDecoration='none'">
-              ${lectureId.toUpperCase()}${lectureTitle ? ' - ' + lectureTitle : ''}${location ? ', ' + location : ''}${date ? ', ' + date : ''}
+              ${formatLectureId(lectureId)}${lectureTitle ? ' - ' + lectureTitle : ''}${location ? ', ' + location : ''}${date ? ', ' + date : ''}
             </a>
           </div>
           ${shortSummary ? `
-            <div style="
-              color: ${textColor}; 
+            <div class="ga-lecture-text" style="
               line-height: 1.6; 
               font-size: 0.9rem;
               text-align: left;
@@ -6188,7 +6286,7 @@ async function showGALectures(gaNumber) {
               ${shortSummary}
             </div>
           ` : `
-            <div style="color: ${missingTextColor}; font-style: italic; font-size: 0.9rem;">
+            <div class="ga-missing-text" style="font-style: italic; font-size: 0.9rem;">
               Keine Kurzzusammenfassung verfügbar
             </div>
           `}
@@ -6224,7 +6322,7 @@ function showLectureFromGA(lectureId) {
     // Setze GA-Filter
     const texteGAFilter = document.getElementById('texteGAFilter');
     if (texteGAFilter) {
-      texteGAFilter.value = gaNumber.toUpperCase();
+      texteGAFilter.value = formatLectureId(gaNumber);
       texteGAFilter.dispatchEvent(new Event('change'));
     }
     
@@ -6461,7 +6559,7 @@ async function displayGAOverview(data) {
       titleText = lecture.fileName;
     } else {
       // Fallback: Baue aus Einzelteilen
-      titleText = `${lecture.ID} - ${lecture.title}`;
+      titleText = `${formatLectureId(lecture.ID)} - ${lecture.title}`;
       
       const locationParts = [];
       if (lecture.location) locationParts.push(lecture.location);
@@ -7010,7 +7108,7 @@ function toggleGASummaries() {
             const result = snippets[i];
             const highlightedSnippet = highlightSearchTerms(result.snippet, [word]);
             const formattedDate = formatDate(result.lectureDate);
-            const lectureInfo = `${result.lectureId} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
+            const lectureInfo = `${formatLectureId(result.lectureId)} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
             
             html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
             html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
@@ -8737,7 +8835,7 @@ function showSummaryView() {
   const titleElement = document.getElementById('document-title');
   
   // NEU: Setze den Vortragstitel als Link
-  const displayTitle = lecture.fileName || lecture.title || lecture.ID;
+  let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
   const onlineLink = createOnlineURL(lecture);
   titleElement.innerHTML = `<a href="${onlineLink}" target="rudolf-steiner-online">${displayTitle}</a>`;
   
@@ -8808,7 +8906,7 @@ function showSummaryView() {
       html += tocHtml;
     }
     
-    html += '<hr style="margin: 2rem 0; border: none; border-top: 1px solid #ddd;">';
+    html += '<hr class="summary-separator">';
   }
   
   const paragraphs = lecture.paragraphs || [];
@@ -12014,11 +12112,12 @@ function processKeywordText(text, gaReferences = []) {
     
     // Prüfe ob es eine gültige GA-ID ist (Format: GA123/4 oder GA123a/4)
     if (/^GA\d{3}[a-z]?\/\d+$/i.test(gaId)) {
-      // Konvertiere zu Kleinbuchstaben für Konsistenz
+      // Normalisiere GA-ID
       const normalizedGaId = gaId.replace(/^GA(\d{3}[a-z]?)\/(\d+)$/i, (m, ga, num) => 
-        `GA${ga.toLowerCase()}/${num}`
+        `GA${ga}/${num}`
       );
-      return `<a href="#" class="ga-keyword-link" data-ga-id="${normalizedGaId}" onclick="showLecture('${normalizedGaId}'); return false;">${normalizedGaId}</a>`;
+      const displayId = formatLectureId(normalizedGaId);
+      return `<a href="#" class="ga-keyword-link" data-ga-id="${normalizedGaId}" onclick="showLecture('${normalizedGaId}'); return false;">${displayId}</a>`;
     }
     
     return match; // Fallback: ursprünglichen Text beibehalten
@@ -12724,13 +12823,15 @@ function displayKeywordThematicResults(keyword, data) {
     let result = text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
       const cleanIndex = index.replace(/^\^/, '');
-      return ` (<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>)`;
+      const displayId = formatLectureId(lectureId);
+      return ` (<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">${displayId}</a>)`;
     });
     
     // Auch Obsidian-Format unterstützen: [[GA066 (1.) TITLE|GA066/1]]
     result = result.replace(/\[\[([^\]]*\|)?GA(\d{3}[a-z]?)\/(\d+)\]\]/gi, (match, titlePart, gaNum, lectureNum) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
-      return `<a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">${lectureId}</a>`;
+      const displayId = formatLectureId(lectureId);
+      return `<a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">${displayId}</a>`;
     });
     
     // NEU: Wandle GA-Referenzen OHNE Klammern in Links um (für "Weitere Quellen:")
@@ -12738,7 +12839,8 @@ function displayKeywordThematicResults(keyword, data) {
     result = result.replace(/\bGA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\b/gi, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
       const cleanIndex = index.replace(/^\^/, '');
-      return `<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">GA${gaNum}/${lectureNum}</a>`;
+      const displayId = formatLectureId(lectureId);
+      return `<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">${displayId}</a>`;
     });
     
     return result;
@@ -13768,7 +13870,9 @@ function makeTimelineQuotesClickable(quoteText, lectureId) {
   
   return quoteText.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
     const cleanIndex = index.replace(/^\^/, '');
-    return ` (<a href="#" onclick="showLectureInTimeline('${lectureId}', '${cleanIndex}'); return false;" class="timeline-quote-link" title="Zu diesem Absatz springen">GA${gaNum}/${lectureNum}</a>)`;
+    const refLectureId = `GA${gaNum}/${lectureNum}`;
+    const displayId = formatLectureId(refLectureId);
+    return ` (<a href="#" onclick="showLectureInTimeline('${lectureId}', '${cleanIndex}'); return false;" class="timeline-quote-link" title="Zu diesem Absatz springen">${displayId}</a>)`;
   });
 }
 
@@ -15573,7 +15677,8 @@ async function renderTimelineContent() {
         const lecNum = gaMatch && gaMatch[2] ? gaMatch[2] : '';
         
         // Falls keine Nummern gefunden, zeige die komplette lectureId
-        const displayLectureId = (gaNum || lecNum) ? `GA${gaNum}/${lecNum}` : lectureId || 'GA/';
+        const rawLectureId = (gaNum || lecNum) ? `GA${gaNum}/${lecNum}` : lectureId || 'GA/';
+        const displayLectureId = formatLectureId(rawLectureId);
         
         let index = entry.keyword.index || '';
         // Entferne ^ vom Index falls vorhanden
@@ -15999,7 +16104,7 @@ async function loadAvailableGAVolumes() {
       
       // Text-Element mit Status-Anzeige
       const textSpan = document.createElement('span');
-      textSpan.textContent = `${vol.volume.toUpperCase()} (${vol.lectureCount} Vorträge)`;
+      textSpan.textContent = `${formatLectureId(vol.volume)} (${vol.lectureCount} Vorträge)`;
       
       // Styling basierend auf Bearbeitungsstatus
       if (vol.isComplete) {
@@ -18331,9 +18436,10 @@ async function loadQuotesIntoPopup() {
     // Erstelle Quellenlink wenn lectureId vorhanden und nicht 'manual'
     let sourceLink = '';
     if (randomQuote.lectureId && randomQuote.lectureId !== 'manual') {
+      const displayId = formatLectureId(randomQuote.lectureId);
       sourceLink = `<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${randomQuote.lectureId}', '${randomQuote.paragraphIndex}'), 100); closeQuotesPopup(); return false;" 
                        class="h3-keyword-link" style="font-weight: normal;">
-                      ${randomQuote.lectureId}
+                      ${displayId}
                     </a>`;
     }
     
