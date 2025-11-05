@@ -1860,6 +1860,50 @@ app.post('/api/advanced-search', async (req, res) => {
       return textLower.includes(termLower);
     };
     
+    // Hilfsfunktion: Erstelle Snippet mit dem Suchwort im Kontext
+    const createContextSnippet = (content, searchWord, maxLength = 200) => {
+      const contentLower = content.toLowerCase();
+      const wordLower = searchWord.toLowerCase();
+      const wordIndex = contentLower.indexOf(wordLower);
+      
+      if (wordIndex === -1) {
+        // Fallback: Anfang des Textes wenn Wort nicht gefunden
+        return content.substring(0, maxLength) + (content.length > maxLength ? '...' : '');
+      }
+      
+      // Berechne Start und Ende des Snippets so, dass das Wort zentral ist
+      const contextBefore = Math.floor((maxLength - searchWord.length) / 2);
+      const contextAfter = maxLength - searchWord.length - contextBefore;
+      
+      let start = Math.max(0, wordIndex - contextBefore);
+      let end = Math.min(content.length, wordIndex + searchWord.length + contextAfter);
+      
+      // Versuche an Wortgrenzen zu schneiden
+      if (start > 0) {
+        // Finde Wortgrenze (Leerzeichen) vor dem Start
+        const spaceBeforeStart = content.lastIndexOf(' ', start);
+        if (spaceBeforeStart > start - 20 && spaceBeforeStart !== -1) {
+          start = spaceBeforeStart + 1;
+        }
+      }
+      
+      if (end < content.length) {
+        // Finde Wortgrenze (Leerzeichen) nach dem Ende
+        const spaceAfterEnd = content.indexOf(' ', end);
+        if (spaceAfterEnd < end + 20 && spaceAfterEnd !== -1) {
+          end = spaceAfterEnd;
+        }
+      }
+      
+      let snippet = content.substring(start, end);
+      
+      // Füge Ellipsen hinzu
+      if (start > 0) snippet = '...' + snippet;
+      if (end < content.length) snippet = snippet + '...';
+      
+      return snippet;
+    };
+    
     // Durchsuche alle Vorträge
     Object.values(fullLectures).forEach(lecture => {
       // GA-Filter: Überspringe Vorträge, die nicht zu den ausgewählten GA-Bänden gehören
@@ -1935,8 +1979,8 @@ app.post('/api/advanced-search', async (req, res) => {
             }
             
             if (matchesProximity || operators.includes('or')) {
-              // Erstelle ein Snippet
-              const snippet = match.content.substring(0, 200) + (match.content.length > 200 ? '...' : '');
+              // Erstelle ein Snippet mit dem Suchwort im Kontext
+              const snippet = createContextSnippet(match.content, word, 200);
               
               results.push({
                 lectureId: lecture.ID,
@@ -1957,7 +2001,8 @@ app.post('/api/advanced-search', async (req, res) => {
         // Vereinfachte Logik: Zeige alle Treffer für jedes Wort
         words.forEach(word => {
           wordMatches[word].forEach(match => {
-            const snippet = match.content.substring(0, 200) + (match.content.length > 200 ? '...' : '');
+            // Erstelle ein Snippet mit dem Suchwort im Kontext
+            const snippet = createContextSnippet(match.content, word, 200);
             
             results.push({
               lectureId: lecture.ID,
