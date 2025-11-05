@@ -150,6 +150,25 @@
     body.dark-mode .word-operator-label span {
       color: var(--dark-text-color);
     }
+    
+    /* Erweiterte Suche: Spaltenüberschriften */
+    .advanced-search-header {
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .advanced-search-header {
+      color: var(--dark-text-color);
+    }
+    
+    /* Erweiterte Suche: Grid-Zellen Borders */
+    .advanced-search-cell {
+      border: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .advanced-search-cell {
+      border: 1px solid var(--dark-border-color);
+    }
+    
     body.dark-mode .search-input:-webkit-autofill,
     body.dark-mode .search-input:-webkit-autofill:hover,
     body.dark-mode .search-input:-webkit-autofill:focus {
@@ -256,6 +275,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     body.dark-mode .sidebar-collapsed .resize-handle::before,
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
       background: var(--dark-background-color);
+      color: transparent; /* Pfeil unsichtbar machen */
     }
     
     /* Diese Dark Mode Styles sind jetzt in #sidebar-content zentralisiert */
@@ -785,6 +805,7 @@ body.dark-mode .site-sign {
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
       font-weight: 600;
+      text-align: left;
     }
     
     #summary-content h4 {
@@ -792,8 +813,9 @@ body.dark-mode .site-sign {
       line-height: var(--line-height);
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
-      margin-left: 1rem;
+      margin-left: 0;
       font-weight: 600;
+      text-align: left;
     }
     
     body.dark-mode #summary-content h3,
@@ -980,6 +1002,61 @@ body.dark-mode .site-sign {
       padding: 8px 0;
     }
     
+    /* Vertikaler Resize-Handle für rechtes Summary-Panel */
+    .vertical-resize-handle {
+      width: 20px; /* Breitere Klickfläche */
+      background-color: transparent;
+      cursor: col-resize;
+      position: fixed;
+      right: auto; /* Wird dynamisch über JavaScript gesetzt */
+      top: 45vh;
+      bottom: auto;
+      height: 100px;
+      flex-shrink: 0;
+      transition: background-color 0.2s;
+      z-index: 9999; /* Höherer z-index */
+      display: none; /* Standardmäßig versteckt */
+      pointer-events: auto; /* Explizit klickbar machen */
+    }
+    
+    .vertical-resize-handle.visible {
+      display: block;
+    }
+    
+    .vertical-resize-handle::before {
+      content: '⋮';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--link-color);
+      background: var(--background-color);
+      padding: 8px 4px; /* Mehr Padding für größere Klickfläche */
+      font-size: 25px;
+      line-height: 1;
+      font-weight: normal;
+      cursor: col-resize; /* Cursor auch am Pseudo-Element */
+      transition: color 0.2s;
+      pointer-events: auto;
+    }
+    
+    .vertical-resize-handle:hover {
+      background-color: transparent;
+    }
+    
+    .vertical-resize-handle:hover::before {
+      color: var(--link-color);
+    }
+    
+    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
+    .summary-panel-collapsed .vertical-resize-handle::before {
+      content: '◀';
+      font-size: 36px;
+      background: var(--background-color);
+      padding: 8px 0;
+      color: transparent; /* Pfeil unsichtbar machen */
+    }
+    
     #main-container {
       flex: 1;
       display: flex;
@@ -1040,7 +1117,8 @@ body.dark-mode .site-sign {
       display: flex;
       flex-direction: column;
       border-left: none;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       width: 0;
       min-width: 0;
       background: transparent;
@@ -1063,36 +1141,34 @@ body.dark-mode .site-sign {
     
 
     
-    .vertical-resize-handle {
-      width: 1px;
-      background-color: transparent;
-      cursor: col-resize;
-      position: fixed;
-      right: -2px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
-      bottom: auto;
-      height: 100px; /* Feste Höhe für das Handle */
-      flex-shrink: 0;
-      transition: background-color 0.2s, width 0.2s;
-      display: none;
-      z-index: 1001; /* Über dem Summary-Panel und anderen Elementen */
+    
+    /* Erweiterte Suche: Überschriften in Snippets */
+    .advanced-search-snippet h3,
+    .advanced-search-snippet h4,
+    .advanced-search-snippet strong,
+    .advanced-search-heading {
+      color: #467886;
+      font-weight: bold;
     }
     
-    .vertical-resize-handle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 6px;
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: pointer;
-      transition: color 0.2s;
-      display: inline-block;
+    body.dark-mode .advanced-search-snippet h3,
+    body.dark-mode .advanced-search-snippet h4,
+    body.dark-mode .advanced-search-snippet strong,
+    body.dark-mode .advanced-search-heading {
+      color: #6BA3B8;
+      font-weight: bold;
+    }
+    
+    /* Erweiterte Suche: Ergebnistitel (GA-Nummer, Titel, Datum) */
+    .advanced-search-result-title {
+      font-size: 0.7em;
+      font-weight: bold;
+      color: var(--heading-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    body.dark-mode .advanced-search-result-title {
+      color: var(--dark-heading-color);
     }
     
     .vertical-resize-handle.visible {
@@ -1112,13 +1188,14 @@ body.dark-mode .site-sign {
       color: var(--link-color);
     }
     
-    /* Symbol für geschlossenes Summary-Panel */
+    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
     .summary-panel-collapsed .vertical-resize-handle::before {
       content: '◀';
       font-size: 36px; /* Pfeilgröße bleibt gleich */
       background: var(--background-color);
       padding: 8px 6px;
       display: inline-block;
+      color: transparent; /* Pfeil unsichtbar machen */
     }
     
     #summary-content {
@@ -1128,12 +1205,38 @@ body.dark-mode .site-sign {
       line-height: 1.5;
       font-size: 0.95em;
       display: none;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* Internet Explorer 10+ */
+      scrollbar-width: thin; /* Firefox - dünne Scrollbar */
+      -ms-overflow-style: auto; /* Internet Explorer 10+ */
     }
     
     #summary-content::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Edge */
+      width: 8px; /* Chrome, Safari, Edge - Scrollbar-Breite */
+    }
+    
+    #summary-content::-webkit-scrollbar-track {
+      background: var(--background-color);
+    }
+    
+    #summary-content::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    
+    #summary-content::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-color);
+    }
+    
+    /* Dark Mode für Scrollbar */
+    body.dark-mode #summary-content::-webkit-scrollbar-track {
+      background: var(--dark-background-color);
+    }
+    
+    body.dark-mode #summary-content::-webkit-scrollbar-thumb {
+      background: #444;
+    }
+    
+    body.dark-mode #summary-content::-webkit-scrollbar-thumb:hover {
+      background: var(--dark-accent-color);
     }
     
     #summary-panel.visible #summary-content {
@@ -1289,6 +1392,48 @@ body.dark-mode .loading-message {
     .tab-content.active {
       display: block;
       overflow: visible;
+    }
+    
+    /* GA Tab Styles */
+    #ga-tab {
+      height: calc(100vh - 120px);
+    }
+    
+    #ga-sidebar {
+      background-color: var(--background-color);
+    }
+    
+    body.dark-mode #ga-sidebar {
+      background-color: var(--dark-background-color);
+      border-right-color: var(--dark-border-color);
+    }
+    
+    .ga-volume-link {
+      font-size: 0.95em;
+    }
+    
+    .ga-volume-link:hover {
+      text-decoration: none;
+    }
+    
+    body.dark-mode .ga-volume-link {
+      color: var(--dark-link-color);
+    }
+    
+    body.dark-mode #ga-main-viewer {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode #ga-content {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode .lecture-title-link {
+      color: var(--dark-link-color);
+    }
+    
+    .lecture-title-link:hover {
+      text-decoration: underline;
     }
     
     .thematic-input {
@@ -1843,6 +1988,7 @@ body.dark-mode #thematicSearchInfo {
       color: #467886 !important;
       display: block;
       line-height: 1.3 !important;
+      text-align: left !important;
     }
     
     #viewer h4 {
@@ -1852,6 +1998,7 @@ body.dark-mode #thematicSearchInfo {
       color: #467886 !important;
       display: block;
       line-height: 1.3 !important;
+      text-align: left !important;
     }
     
     /* Dark Mode für Viewer */
@@ -3640,6 +3787,7 @@ body.dark-mode #popupCaption {
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
+<button class="tab-button" onclick="switchTab('ga')">GA</button>
 <button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
@@ -3648,6 +3796,26 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button">Zitate</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
+
+<!-- GA Tab -->
+<div class="tab-content" id="ga-tab">
+<div style="display: flex; height: 100%; gap: 1rem;">
+<!-- GA Sidebar -->
+<div id="ga-sidebar" style="width: 250px; overflow-y: auto; border-right: 1px solid var(--border-color); padding-right: 1rem;">
+<h3 style="margin: 0 0 1rem 0; color: var(--heading-color); font-size: var(--heading-size);">GA Bände</h3>
+<div id="ga-volumes-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+<!-- GA Bände werden hier dynamisch geladen -->
+</div>
+</div>
+<!-- GA Main Viewer -->
+<div id="ga-main-viewer" style="flex: 1; overflow-y: auto; padding: 0 0.5rem;">
+<div id="ga-content" style="color: var(--text-color); font-size: var(--text-size); line-height: var(--line-height);">
+<p style="color: var(--secondary-text);">Wählen Sie einen GA-Band aus der Liste links aus.</p>
+</div>
+</div>
+</div>
+</div>
+
 <div class="tab-content active" id="keyword-tab">
 <div class="search-words-row">
 <div style="flex:1; position: relative;">
@@ -3704,7 +3872,10 @@ body.dark-mode #popupCaption {
 </div>
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
-  <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+    <div style="display:flex; gap:8px;">
+      <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 16px;">erweitert</button>
+    </div>
   <div style="display:flex; gap:8px; align-items:stretch;">
     <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 16px;">
       <span id="viewToggleText">nur Titel</span>
@@ -3721,6 +3892,171 @@ body.dark-mode #popupCaption {
 </div>
 <span id="status" style="display:none"></span>
 </div>
+
+<!-- Verstecktes Tab für erweiterte Suche -->
+<div class="tab-content" id="advanced-search-tab" style="display: none;">
+
+<!-- Filter-Zeile: GA-Band und Proximity -->
+<div class="filter-row" style="margin-bottom: 1rem;">
+<div style="flex: 1; display: flex; gap: 8px;">
+<!-- Custom Multi-Select Dropdown für GA-Bände -->
+<div class="custom-dropdown" id="advancedGAFilterContainer" style="flex: 1;">
+  <button type="button" class="filter-dropdown custom-dropdown-button" id="advancedGAFilterButton">
+    <span class="custom-dropdown-text">GA-Bände</span>
+    <span class="custom-dropdown-arrow"></span>
+  </button>
+  <div class="custom-dropdown-list" id="advancedGAFilterList"></div>
+</div>
+
+<select class="filter-dropdown" id="advancedProximityFilter" style="flex: 1;">
+<option value="">Abstand</option>
+<option value="1">1 Absatz</option>
+<option value="2">2 Absätze</option>
+<option value="3">3 Absätze</option>
+</select>
+</div>
+<!-- Unsichtbarer Platzhalter für gleiche Breite wie Suchwort-Zeilen -->
+<div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
+<label class="word-operator-label">
+<input type="radio" disabled>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" disabled>
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 1 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator1" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator1" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 2 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator2" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator2" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 3 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator3" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator3" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 4 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator4" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator4" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 5 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator5" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator5" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 6 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container">
+<label class="word-operator-label">
+<input type="radio" name="advOperator6" value="and" checked>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator6" value="or">
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Suchwort 7 -->
+<div class="search-words-row" style="margin-bottom: 0.5rem;">
+<div style="flex:1; position: relative;">
+<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+</div>
+<div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
+<label class="word-operator-label">
+<input type="radio" name="advOperator7dummy" disabled>
+<span>UND</span>
+</label>
+<label class="word-operator-label">
+<input type="radio" name="advOperator7dummy" disabled>
+<span>ODER</span>
+</label>
+</div>
+</div>
+
+<!-- Buttons -->
+<div style="display:flex; gap:8px; margin-top: 1rem;">
+<button class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suche starten</button>
+</div>
+
+<div id="advancedSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
+<span id="advancedSearchStatus"></span>
+</div>
+</div>
+
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0;">
 <div class="filter-row">
@@ -4379,12 +4715,12 @@ function normalizeGANumber(gaNumber) {
           if (verticalResizeHandle) {
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
-              // Panel offen: Handle neben Panel positionieren
+              // Panel offen: Handle auf der Trennlinie positionieren (10px nach rechts)
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = panelWidth + 'px';
+              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
             } else {
-              // Panel geschlossen: Handle am rechten Bildschirmrand
-              verticalResizeHandle.style.right = '0px';
+              // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
+              verticalResizeHandle.style.right = '-3px';
             }
           }
         }, 10);
@@ -4394,6 +4730,22 @@ function normalizeGANumber(gaNumber) {
     // Header-Position und Toggle-Position bei Resize und Laden aktualisieren
     window.addEventListener('resize', function() {
       updateHeaderPosition();
+      
+      // Passe Main-Container bei Fenstergrößenänderung an (nur in erweiterter Suche)
+      const advancedSearchTab = document.getElementById('advanced-search-tab');
+      const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+      
+      if (isAdvancedSearchActive) {
+        const summaryPanel = document.getElementById('summary-panel');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel && mainContainer && summaryPanel.classList.contains('visible')) {
+          const panelWidth = summaryPanel.offsetWidth;
+          if (panelWidth > 0) {
+            mainContainer.style.marginRight = panelWidth + 'px';
+          }
+        }
+      }
     });
     document.addEventListener('DOMContentLoaded', function() {
       updateHeaderPosition();
@@ -4440,8 +4792,15 @@ function normalizeGANumber(gaNumber) {
         // Sidebar öffnen
         sidebar.classList.remove('collapsed');
         document.body.classList.remove('sidebar-collapsed');
+        
+        // Prüfe, ob erweiterte Suche aktiv ist
+        const advancedSearchTab = document.getElementById('advanced-search-tab');
+        const isAdvancedSearchActive = advancedSearchTab && 
+                                       advancedSearchTab.classList.contains('active');
+        
+        // Sidebar öffnet mit Standard-CSS-Breite (460px) in allen Tabs - resizable
         sidebar.style.width = '';
-        sidebar.style.minWidth = ''; 
+        sidebar.style.minWidth = '';
         
         updateHeaderPosition();
       } else {
@@ -4540,6 +4899,42 @@ function normalizeGANumber(gaNumber) {
         resetSearchTab();
       }
       
+      // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
+      if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
+        console.log('[TABS] Verlasse erweiterten Such-Tab');
+        // Verstecke das erweiterte Such-Tab
+        currentActiveTab.style.display = 'none';
+        currentActiveTab.classList.remove('active');
+        
+        // Verstecke den verticalResizeHandle
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          verticalHandle.style.display = 'none';
+          verticalHandle.classList.remove('visible');
+        }
+        
+        // Schließe das rechte Panel
+        const summaryPanel = document.getElementById('summary-panel');
+        if (summaryPanel) {
+          summaryPanel.classList.remove('visible');
+          summaryPanel.style.width = '0';
+          summaryPanel.style.minWidth = '0';
+          summaryPanel.style.display = 'none';
+        }
+        
+        // Setze Main-Container zurück
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        // Setze display-Style für alle normalen Tabs zurück
+        const normalTabs = document.querySelectorAll('.tab-content:not(#advanced-search-tab)');
+        normalTabs.forEach(tab => {
+          tab.style.display = ''; // Entferne inline display-style
+        });
+      }
+      
       // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
       const summaryPanel = document.getElementById('summary-panel');
       const resizeHandle = document.querySelector('.resize-handle');
@@ -4562,6 +4957,13 @@ function normalizeGANumber(gaNumber) {
       if (resizeHandle) {
         resizeHandle.classList.remove('visible');
         resizeHandle.style.setProperty('display', 'none', 'important');
+      }
+      
+      // Verstecke den verticalResizeHandle beim Tab-Wechsel
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      if (verticalHandle) {
+        verticalHandle.style.display = 'none';
+        verticalHandle.classList.remove('visible');
       }
       
       // Body-Klasse für collapsed State hinzufügen
@@ -4628,8 +5030,21 @@ function normalizeGANumber(gaNumber) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      document.getElementById(`${mode}-tab`).classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+        // Verstecke das advanced-search-tab explizit beim Tab-Wechsel
+        if (content.id === 'advanced-search-tab') {
+          content.style.display = 'none';
+        }
+      });
+      
+      // Aktiviere den Ziel-Tab und setze inline-style zurück
+      const targetTab = document.getElementById(`${mode}-tab`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
+        targetTab.style.display = '';
+      }
       
       // Lade Zitate wenn zum Zitate-Tab gewechselt wird
       if (mode === 'zitate' && isLocal) {
@@ -4820,7 +5235,7 @@ function normalizeGANumber(gaNumber) {
       
       // Ersetze jede Bildmarkierung durch ein img-Tag
       imagesForParagraph.forEach(img => {
-        // Verwende markdownRef aus JSON - das ist die Original-Referenz aus dem Text!
+        // Verwende markdownRef aus JSON - das ist die normalisierte Referenz!
         const markdownRef = img.markdownRef || `![${img.altText}](${img.path})`;
         
         // Prüfe, ob es eine Tafelzeichnung ist (nur T-Nummer im Dateinamen)
@@ -4838,12 +5253,23 @@ function normalizeGANumber(gaNumber) {
         
         const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" ${isWebP ? 'data-format="webp"' : ''} style="${imgStyle}" />`;
         
-        // Escape special regex characters
-        const escapedRef = markdownRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(escapedRef, 'g');
+        // Erstelle mehrere Varianten der Referenz für robustes Matching:
+        const refVariants = [
+          markdownRef,  // Normalisierte Version aus JSON
+          markdownRef.replace(/ /g, '%20'),  // Mit URL-encoding
+          `![[${img.altText}]]`,  // Obsidian Wiki-Link Format
+          `![[${img.altText}.png]]`,  // Wiki-Link mit .png
+          `![[${img.altText}.jpg]]`,  // Wiki-Link mit .jpg
+          `![[${img.altText}.jpeg]]`,  // Wiki-Link mit .jpeg
+          `![[${img.altText}.webp]]`  // Wiki-Link mit .webp
+        ];
         
-        // Ersetze die Markdown-Referenz durch das img-Tag
-        result = result.replace(regex, imgTag);
+        // Versuche jede Variante zu ersetzen
+        refVariants.forEach(variant => {
+          const escapedRef = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(escapedRef, 'g');
+          result = result.replace(regex, imgTag);
+        });
       });
       
       return result;
@@ -5082,6 +5508,7 @@ function normalizeGANumber(gaNumber) {
     // Initialisiere Custom Dropdowns
     let yearFilterDropdown = null;
     let gaFilterDropdown = null;
+    let advancedGAFilterDropdown = null;
     
     function initCustomDropdowns() {
       yearFilterDropdown = new MultiSelectDropdown(
@@ -5095,6 +5522,13 @@ function normalizeGANumber(gaNumber) {
         'gaFilterContainer',
         'gaFilterButton',
         'gaFilterList',
+        'GA-Bände'
+      );
+      
+      advancedGAFilterDropdown = new MultiSelectDropdown(
+        'advancedGAFilterContainer',
+        'advancedGAFilterButton',
+        'advancedGAFilterList',
         'GA-Bände'
       );
       
@@ -5112,6 +5546,10 @@ function normalizeGANumber(gaNumber) {
     
     function getGAFilterValue() {
       return gaFilterDropdown ? gaFilterDropdown.getSelectedValues() : [];
+    }
+    
+    function getAdvancedGAFilterValue() {
+      return advancedGAFilterDropdown ? advancedGAFilterDropdown.getSelectedValues() : [];
     }
     
     async function populateGADropdowns() {
@@ -5137,6 +5575,16 @@ function normalizeGANumber(gaNumber) {
           }));
           gaFilterDropdown.setItems(gaItems);
           console.log('[GA-FILTER] Custom Dropdown befüllt mit', gaItems.length, 'Einträgen');
+        }
+        
+        // Befülle Custom Dropdown für GA-Bände in erweiterter Suche
+        if (advancedGAFilterDropdown) {
+          const gaItems = gaList.map(ga => ({
+            value: ga.number,
+            label: ga.number
+          }));
+          advancedGAFilterDropdown.setItems(gaItems);
+          console.log('[ADVANCED-GA-FILTER] Custom Dropdown befüllt mit', gaItems.length, 'Einträgen');
         }
         
         // Befülle normale Dropdowns in anderen Tabs
@@ -5807,6 +6255,35 @@ function toggleGASummaries() {
       await showLecture(lectureId, null, []);
     }
 
+    // Navigiere zum Texte-Tab und zeige den spezifischen Vortrag
+    async function navigateToLectureInTexteTab(lectureId) {
+      console.log(`[NAVIGATION] Navigiere zu Vortrag ${lectureId} im Texte-Tab`);
+      
+      // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
+      const gaNumber = lectureId.split('/')[0];
+      
+      // Wechsle zum Texte-Tab
+      switchTab('texte');
+      
+      // Warte kurz, damit der Tab geladen ist
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Setze den GA-Filter im Texte-Tab
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter && gaNumber) {
+        texteGAFilter.value = gaNumber;
+        // Trigger Change Event um die GA-Übersicht zu laden
+        const changeEvent = new Event('change', { bubbles: true });
+        texteGAFilter.dispatchEvent(changeEvent);
+        
+        // Warte bis GA-Übersicht geladen ist, dann zeige den Vortrag
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Lade den spezifischen Vortrag
+        await showLectureFromOverview(lectureId);
+      }
+    }
+
     function parseSearchTerm(input) {
       if (!input) return { term: '', isPhrase: false };
       
@@ -5946,6 +6423,552 @@ function toggleGASummaries() {
         button.classList.remove('processing');
         button.textContent = 'Suche starten';
       }
+    }
+
+    // ============================================================================
+    // ERWEITERTE SUCHE FUNKTIONEN
+    // ============================================================================
+    
+    function openAdvancedSearch() {
+      console.log('[ADVANCED-SEARCH] Öffne erweiterte Suche');
+      
+      // Verstecke alle normalen Tabs
+      const allTabs = document.querySelectorAll('.tab-content');
+      allTabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.style.display = 'none';
+      });
+      
+      // Zeige das erweiterte Such-Tab an
+      const advancedTab = document.getElementById('advanced-search-tab');
+      if (advancedTab) {
+        advancedTab.style.display = 'block';
+        advancedTab.classList.add('active');
+      }
+      
+      // Passe Sidebar-Breite an (falls geöffnet)
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar && !sidebar.classList.contains('collapsed')) {
+        sidebar.style.width = '';
+        sidebar.style.minWidth = '';
+        updateHeaderPosition();
+      }
+      
+      // Schließe das rechte Panel, falls es offen ist (leere vorherige Anzeigen)
+      const summaryPanel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      
+      if (summaryPanel) {
+        summaryPanel.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.display = 'none';
+      }
+      
+      if (mainContainer) {
+        mainContainer.style.marginRight = '0';
+      }
+      
+      document.body.classList.add('summary-panel-collapsed');
+      
+      // Zeige den verticalResizeHandle
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      if (verticalHandle) {
+        console.log('[ADVANCED-SEARCH] Zeige verticalResizeHandle');
+        verticalHandle.style.display = 'block';
+        verticalHandle.classList.add('visible');
+        console.log('[ADVANCED-SEARCH] verticalResizeHandle display:', verticalHandle.style.display, 'classList:', verticalHandle.classList.toString());
+        // Positioniere Handle sofort
+        updateHeaderPosition();
+      }
+      
+      // Leere den Viewer
+      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
+      document.getElementById('document-title').textContent = 'Erweiterte Suche';
+      
+      // Leere die Ergebnisanzeige im Sidebar (unter dem Admin-Bereich)
+      const resultsContainer = document.getElementById('results');
+      if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+      }
+    }
+    
+    function toggleAdvancedSearchPanel() {
+      console.log('[ADVANCED-SEARCH] Toggle Panel');
+      
+      const panel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      
+      if (!panel) return;
+      
+      // Hole aktuelle Breite
+      const currentWidth = panel.offsetWidth || 0;
+      
+      // 2 Zustände: Geschlossen (0) -> Offen (450px) -> Geschlossen (0)
+      if (currentWidth === 0) {
+        // Öffne Panel mit 450px
+        panel.classList.add('visible');
+        panel.style.width = '450px';
+        panel.style.minWidth = '450px';
+        panel.style.display = 'block';
+        panel.style.opacity = '1';
+        panel.style.visibility = 'visible';
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Passe Main-Container an
+        if (mainContainer) {
+          mainContainer.style.marginRight = '450px';
+        }
+        
+        // Zeige verticalResizeHandle
+        if (verticalHandle) {
+          verticalHandle.style.display = 'block';
+          verticalHandle.classList.add('visible');
+        }
+        
+        console.log('[ADVANCED-SEARCH] Panel geöffnet (450px)');
+      } else {
+        // Schließe Panel
+        panel.classList.remove('visible');
+        panel.style.width = '0';
+        panel.style.minWidth = '0';
+        panel.style.display = 'none';
+        document.body.classList.add('summary-panel-collapsed');
+        
+        // Setze Main-Container zurück
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        // Verstecke verticalResizeHandle
+        if (verticalHandle) {
+          verticalHandle.style.display = 'none';
+          verticalHandle.classList.remove('visible');
+        }
+        
+        console.log('[ADVANCED-SEARCH] Panel geschlossen');
+      }
+    }
+    
+    async function performAdvancedSearch() {
+      console.log('[ADVANCED-SEARCH] Starte erweiterte Suche');
+      
+      // Sammle alle Suchworte und Operatoren
+      // Operatoren-Logik:
+      // - Der Operator nach Wort N bezieht sich auf die Beziehung zwischen Wort N und Wort N+1
+      // - "UND" bedeutet: Die beiden Wörter müssen INNERHALB des gewählten Abstands (Proximity) vorkommen
+      // - "ODER" bedeutet: Die beiden Wörter können UNABHÄNGIG voneinander (ohne Proximity-Einschränkung) vorkommen
+      const words = [];
+      const operators = [];
+      
+      for (let i = 1; i <= 7; i++) {
+        const wordInput = document.getElementById(`advWord${i}`);
+        const word = wordInput ? wordInput.value.trim() : '';
+        
+        if (word) {
+          words.push(word);
+          
+          // Hole Operator (nur für Worte 1-6, da Operator sich auf nächstes Wort bezieht)
+          if (i < 7) {
+            const operatorElement = document.querySelector(`input[name="advOperator${i}"]:checked`);
+            const operator = operatorElement ? operatorElement.value : 'and';
+            operators.push(operator);
+          }
+        }
+      }
+      
+      if (words.length === 0) {
+        alert('Bitte mindestens ein Suchwort eingeben');
+        return;
+      }
+      
+      // Hole Proximity-Filter
+      const proximityElement = document.getElementById('advancedProximityFilter');
+      const proximity = proximityElement ? proximityElement.value : '';
+      
+      // Hole GA-Filter
+      const gaFilterValues = getAdvancedGAFilterValue();
+      const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
+      
+      console.log(`[ADVANCED-SEARCH] Suche nach: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}, Proximity: ${proximity || 'gesamter Text'}, GA-Filter: ${gaFilter || 'alle'}`);
+      
+      const button = document.querySelector('#advanced-search-tab .depth-btn.primary');
+      const statusElement = document.getElementById('advancedSearchStatus');
+      
+      try {
+        button.disabled = true;
+        button.classList.add('processing');
+        button.textContent = 'Suche läuft...';
+        statusElement.textContent = 'Suche läuft...';
+        
+        // Sende Anfrage an Backend
+        const response = await fetch(`${API_BASE}/api/advanced-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            words: words,
+            operators: operators,
+            proximity: proximity || null,
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+        
+        const data = await response.json();
+        const results = data.results;
+        
+        console.log(`[ADVANCED-SEARCH] ${results.length} Treffer gefunden`);
+        statusElement.textContent = `${results.length} Treffer gefunden`;
+        
+        // Rendere Ergebnisse als Grid-Tabelle im Viewer
+        renderAdvancedSearchResults(words, results);
+        
+      } catch (error) {
+        console.error('[ADVANCED-SEARCH] Fehler:', error);
+        statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
+        document.getElementById('viewer').innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: red;">
+            <strong>Fehler bei der Suche:</strong><br>${error.message}
+          </div>
+        `;
+      } finally {
+        button.disabled = false;
+        button.classList.remove('processing');
+        button.textContent = 'Suche starten';
+      }
+    }
+    
+    function renderAdvancedSearchResults(words, results) {
+      console.log('[ADVANCED-SEARCH] Rendere Ergebnisse als Grid');
+      
+      const viewer = document.getElementById('viewer');
+      
+      if (!results || results.length === 0) {
+        viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Keine Treffer gefunden</div>';
+        return;
+      }
+      
+      // Erstelle eine Map: Wort -> Array von Snippets
+      const wordSnippets = {};
+      words.forEach(word => {
+        wordSnippets[word] = [];
+      });
+      
+      // Verteile die Ergebnisse auf die Wörter
+      results.forEach(result => {
+        // Jedes Ergebnis enthält: lectureId, lectureTitle, snippet, matchedWord
+        const word = result.matchedWord;
+        if (wordSnippets[word]) {
+          wordSnippets[word].push(result);
+        }
+      });
+      
+      // Erstelle Grid-HTML
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
+      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
+      html += '<thead><tr>';
+      
+      // Spaltenüberschriften
+      words.forEach(word => {
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${word}</th>`;
+      });
+      
+      html += '</tr></thead>';
+      html += '<tbody>';
+      
+      // Finde die maximale Anzahl von Snippets pro Wort
+      let maxSnippets = 0;
+      words.forEach(word => {
+        if (wordSnippets[word].length > maxSnippets) {
+          maxSnippets = wordSnippets[word].length;
+        }
+      });
+      
+      // Erstelle Zeilen
+      for (let i = 0; i < maxSnippets; i++) {
+        html += '<tr>';
+        
+        words.forEach(word => {
+          const snippets = wordSnippets[word];
+          
+          if (i < snippets.length) {
+            const result = snippets[i];
+            const highlightedSnippet = highlightSearchTerms(result.snippet, [word]);
+            const formattedDate = formatDate(result.lectureDate);
+            const lectureInfo = `${result.lectureId} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
+            
+            html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
+            html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
+            html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
+            html += '</td>';
+          } else {
+            html += '<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; background: var(--input-bg);"></td>';
+          }
+        });
+        
+        html += '</tr>';
+      }
+      
+      html += '</tbody></table>';
+      html += '</div>';
+      
+      viewer.innerHTML = html;
+    }
+    
+    async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
+      console.log(`[ADVANCED-SEARCH] Zeige Vortrag ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex}`);
+      
+      try {
+        // Lade den vollständigen Vortrag mit Paragraphen
+        const parts = lectureId.split('/');
+        const url = parts.length === 2 
+                    ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+                    : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Vortrag nicht gefunden: ${lectureId}`);
+        
+        const data = await response.json();
+        const lecture = data.lecture;
+        
+        // Öffne das rechte Summary-Panel
+        const summaryPanel = document.getElementById('summary-panel');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel) {
+          summaryPanel.classList.add('visible');
+          summaryPanel.style.width = '450px';
+          summaryPanel.style.minWidth = '450px';
+          summaryPanel.style.display = 'block';
+          summaryPanel.style.opacity = '1';
+          summaryPanel.style.visibility = 'visible';
+          
+          // Passe Main-Container an, damit Viewer sich verkleinert
+          if (mainContainer) {
+            mainContainer.style.marginRight = '450px';
+          }
+        }
+        
+        // Zeige den verticalResizeHandle
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          console.log('[SNIPPET-CLICK] Zeige verticalResizeHandle');
+          verticalHandle.style.display = 'block';
+          verticalHandle.classList.add('visible');
+          console.log('[SNIPPET-CLICK] verticalResizeHandle right:', verticalHandle.style.right, 'display:', verticalHandle.style.display);
+          // Positioniere Handle korrekt
+          setTimeout(() => updateHeaderPosition(), 50);
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Lade headings aus summary-database.json
+        let headings = [];
+        try {
+          const summaryData = await loadSummaryFromDB(lectureId);
+          if (summaryData && summaryData.headings) {
+            headings = summaryData.headings;
+            console.log('[ADV-SEARCH] Headings aus summary-database geladen:', headings.length);
+          }
+        } catch (e) {
+          console.log('[ADV-SEARCH] Keine Headings verfügbar:', e.message);
+        }
+        
+        // Rendere den Vortrag im rechten Panel MIT Zwischenüberschriften
+        const summaryContent = document.getElementById('summary-content');
+        if (summaryContent && lecture.paragraphs) {
+          let html = '<div style="padding: 1rem;">';
+          
+          // Titel
+          const displayTitle = lecture.fileName || lecture.title || lecture.ID;
+          html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
+          
+          // Rendere alle Paragraphen MIT Zwischenüberschriften
+          lecture.paragraphs.forEach((para, idx) => {
+            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            const paraIndexWithCaret = para.index || `^${paraIndex}`;
+            const isTargetPara = paragraphIndex !== null && idx === paragraphIndex;
+            
+            // Finde passende Überschriften für diesen Paragraph
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = h.index || '';
+              const hIndexClean = hIndex.replace(/^\^/, '');
+              return hIndex === paraIndex || 
+                     hIndex === paraIndexWithCaret || 
+                     hIndexClean === paraIndex;
+            });
+            
+            // Sortiere Überschriften: H3 vor H4
+            const sortedHeadings = matchingHeadings.sort((a, b) => {
+              if (a.level === 'h3' && b.level === 'h4') return -1;
+              if (a.level === 'h4' && b.level === 'h3') return 1;
+              return 0;
+            });
+            
+            // Füge Überschriften VOR dem Paragraph ein
+            sortedHeadings.forEach((heading, hIdx) => {
+              const headingText = heading.text || heading.title || 'Überschrift';
+              const level = heading.level || 'h3';
+              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              
+              html += `<${headingTag} id="adv-heading-${idx}-${hIdx}">${headingText}</${headingTag}>`;
+            });
+            
+            let content = para.content || para.text || '';
+            
+            // Highlighte den Suchbegriff
+            if (searchTerm && searchTerm.trim()) {
+              const escapedTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(`(${escapedTerm})`, 'gi');
+              content = content.replace(regex, '<mark>$1</mark>');
+            }
+            
+            const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+            
+            html += `
+              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" style="margin-bottom: 1rem;">
+                ${content}
+              </div>
+            `;
+          });
+          
+          html += '</div>';
+          summaryContent.innerHTML = html;
+          
+          // Scrolle zum Ziel-Paragraph
+          if (paragraphIndex !== null) {
+            setTimeout(() => {
+              const targetElement = document.getElementById(`adv-para-${paragraphIndex}`);
+              if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 100);
+          } else {
+            // Scrolle zum ersten Highlight wenn kein spezifischer Paragraph angegeben
+            setTimeout(() => {
+              const firstHighlight = summaryContent.querySelector('mark');
+              if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+            }, 100);
+          }
+        }
+        
+        // Setze Titel mit GA-Nummer, Titel, Ort und Datum
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          // Extrahiere GA-Nummer aus lectureId (z.B. "GA100/8")
+          const gaNumber = lectureId || lecture.ID || '';
+          
+          // Baue den Titel-String zusammen
+          let titleParts = [];
+          
+          // GA-Nummer
+          if (gaNumber) {
+            titleParts.push(gaNumber);
+          }
+          
+          // Titel
+          const title = lecture.title || '';
+          if (title) {
+            titleParts.push(title);
+          }
+          
+          // Ort und Datum
+          let locationDateParts = [];
+          if (lecture.location) {
+            locationDateParts.push(lecture.location);
+          }
+          if (lecture.date) {
+            locationDateParts.push(formatDate(lecture.date));
+          }
+          
+          // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+          let fullTitle = '';
+          if (titleParts.length > 0) {
+            fullTitle = titleParts.join(' - ');
+          }
+          if (locationDateParts.length > 0) {
+            fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+          }
+          
+          // Fallback wenn nichts gefunden wurde
+          if (!fullTitle) {
+            fullTitle = lecture.fileName || lectureId;
+          }
+          
+          // Setze Titel-Text und mache ihn klickbar
+          documentTitle.textContent = fullTitle;
+          documentTitle.style.cursor = 'pointer';
+          documentTitle.style.color = 'var(--link-color)';
+          documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+          
+          // Hover-Effekt
+          documentTitle.onmouseenter = () => {
+            documentTitle.style.opacity = '0.7';
+          };
+          documentTitle.onmouseleave = () => {
+            documentTitle.style.opacity = '1';
+          };
+          
+          // Füge onclick-Handler hinzu
+          documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
+        }
+        
+      } catch (error) {
+        console.error('[ADVANCED-SEARCH] Fehler beim Laden des Vortrags:', error);
+        alert('Fehler beim Laden des Vortrags: ' + error.message);
+      }
+    }
+    
+    function highlightSearchTermInLecture(text, searchTerm) {
+      if (!text || !searchTerm) return text;
+      
+      // Teile den Text in Absätze
+      const paragraphs = text.split('\n\n');
+      
+      const highlightedParagraphs = paragraphs.map(para => {
+        // Highlighte den Suchbegriff (case-insensitive) - verwende einfaches <mark> wie in der normalen Suche
+        const escapedTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedTerm})`, 'gi');
+        const highlighted = para.replace(regex, '<mark>$1</mark>');
+        
+        return `<p class="paragraph">${highlighted}</p>`;
+      });
+      
+      return highlightedParagraphs.join('\n');
+    }
+    
+    function highlightSearchTerms(text, terms) {
+      if (!text || !terms || terms.length === 0) return text;
+      
+      let result = text;
+      
+      // Erkenne und formatiere Überschriften (komplett in Großbuchstaben)
+      // Muster: Mindestens 10 Zeichen, die fast ausschließlich aus Großbuchstaben bestehen
+      // Erlaubt: Großbuchstaben, Umlaute, Leerzeichen, Bindestriche, und wenige andere Zeichen
+      result = result.replace(/([A-ZÄÖÜ][A-ZÄÖÜ\s\-ÄÖÜÉÈÊËÁÀÂ]{9,})/g, (match) => {
+        // Prüfe ob mindestens 70% Großbuchstaben sind
+        const upperCount = (match.match(/[A-ZÄÖÜ]/g) || []).length;
+        const ratio = upperCount / match.replace(/\s/g, '').length;
+        if (ratio > 0.7) {
+          return `<span class="advanced-search-heading">${match}</span>`;
+        }
+        return match;
+      });
+      
+      // Highlighte Suchbegriffe
+      terms.forEach(term => {
+        if (!term || !term.trim()) return;
+        const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Verwende einfaches <mark> wie in der normalen Suche
+        const regex = new RegExp(`(${escapedTerm})`, 'gi');
+        result = result.replace(regex, '<mark>$1</mark>');
+      });
+      
+      return result;
     }
 
     function extractDateFromFileName(fileName) {
@@ -7929,6 +8952,13 @@ setTimeout(() => {
           setTimeout(() => {
             if (summaryPanel) {
               console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
+              
+              // Setze summary-content zurück auf Standard-Struktur (TOC only)
+              const summaryContent = document.getElementById('summary-content');
+              if (summaryContent) {
+                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              }
+              
               summaryPanel.classList.add('visible');
               summaryPanel.style.width = '280px';
               summaryPanel.style.minWidth = '280px';
@@ -7977,6 +9007,13 @@ setTimeout(() => {
     setTimeout(() => {
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
+        
+        // Setze summary-content zurück auf Standard-Struktur (TOC only)
+        const summaryContent = document.getElementById('summary-content');
+        if (summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        
         summaryPanel.classList.add('visible');
         summaryPanel.style.width = '280px';
         summaryPanel.style.minWidth = '280px';
@@ -9719,91 +10756,87 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // Combine headings and paragraphs in order
       if (lecture.headings || lecture.paragraphs) {
-        const allElements = [];
+        const headings = lecture.headings || [];
+        const paragraphs = lecture.paragraphs || [];
         
-        // Add headings - aber NUR in der Übersicht-Ansicht, nicht in Original
-        if (lecture.headings && showingSummaryInMain) {
-          lecture.headings.forEach(heading => {
-            allElements.push({
-              type: 'heading',
-              level: heading.level,
-              text: heading.text,
-              id: heading.id,
-              index: heading.id ? heading.id.replace(/^\^/, '') : ''
-            });
+        // Render paragraphs and insert matching headings before each paragraph
+        paragraphs.forEach((para, idx) => {
+          const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+          const paraIndexWithCaret = para.index || `^${paraIndex}`;
+          
+          // Find and render matching headings BEFORE this paragraph
+          const matchingHeadings = headings.filter(h => {
+            const hIndex = h.index || '';
+            const hIndexClean = hIndex.replace(/^\^/, '');
+            return hIndex === paraIndex || 
+                   hIndex === paraIndexWithCaret || 
+                   hIndexClean === paraIndex;
           });
-        }
-        
-        // Add paragraphs
-        if (lecture.paragraphs) {
-          lecture.paragraphs.forEach(para => {
-            allElements.push({
-              type: 'paragraph',
-              content: para.content || para.text || '',
-              index: para.index ? para.index.replace(/^\^/, '') : ''
-            });
+          
+          // Sort headings: h3 before h4
+          const sortedHeadings = matchingHeadings.sort((a, b) => {
+            if (a.level === 'h3' && b.level === 'h4') return -1;
+            if (a.level === 'h4' && b.level === 'h3') return 1;
+            return 0;
           });
-        }
-        
-        // Render all elements
-        allElements.forEach((elem, idx) => {
-          if (elem.type === 'heading') {
-            const headingTag = elem.level === 3 ? 'h3' : 'h4';
-            const headingIndex = elem.index || `heading_${idx}`;
+          
+          // Render headings
+          sortedHeadings.forEach((heading, hIdx) => {
+            const headingText = heading.text || heading.title || 'Überschrift';
+            const level = heading.level || 'h3';
+            const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+            const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
             const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
-            // Highlighting aktiviert
-            const shouldApplyHeadingHighlight = isTargetHeading;
             
             html += `
-              <${headingTag} id="para-${headingIndex}" class="${shouldApplyHeadingHighlight ? 'highlighted-paragraph' : ''}">
-                ${elem.text}
+              <${headingTag} id="para-${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''}">
+                ${headingText}
               </${headingTag}>
             `;
-          } else {
-            const paraIndex = elem.index || `para_${idx}`;
-            const isTargetPara = cleanIndex && paraIndex === cleanIndex;
-            const paraIndexWithCaret = `^${paraIndex}`;
-            
-            let content = elem.content;
-            
-            // Bildmarkierungen durch img-Tags ersetzen
-            content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
-            
-            // Prüfe ZUERST ob wir von thematischer Suche kommen
-            const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
-            
-            // Markiere Keywords immer, wenn sie explizit übergeben wurden
-            // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
-            if (keywords && keywords.length > 0) {
-              keywords.forEach(word => {
-                if (word && word.trim()) {
-                  const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-                  content = content.replace(regex, "<mark>$1</mark>");
-                }
-              });
-            }
-            
-            const contentLower = content.toLowerCase();
-            const hasBothWords = keywords.length === 2 && 
-                                 keywords[0] && keywords[1] &&
-                                 contentLower.includes(keywords[0].toLowerCase()) && 
-                                 contentLower.includes(keywords[1].toLowerCase());
-            const applyHighlight = shouldHighlight && isTargetPara && 
-                                   (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
-            
-            const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-            const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-            
-            html += `
-              <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
-                   id="para-${paraIndex}"
-                   data-index="${paraIndexWithCaret}"
-                   ${clickHandler}
-                   style="${cursorStyle}">
-                ${content}
-              </div>
-            `;
+          });
+          
+          // Now render the paragraph
+          const isTargetPara = cleanIndex && paraIndex === cleanIndex;
+          
+          let content = para.content || para.text || '';
+          
+          // Bildmarkierungen durch img-Tags ersetzen
+          content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
+          
+          // Prüfe ZUERST ob wir von thematischer Suche kommen
+          const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+          
+          // Markiere Keywords immer, wenn sie explizit übergeben wurden
+          // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+          if (keywords && keywords.length > 0) {
+            keywords.forEach(word => {
+              if (word && word.trim()) {
+                const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+                content = content.replace(regex, "<mark>$1</mark>");
+              }
+            });
           }
+          
+          const contentLower = content.toLowerCase();
+          const hasBothWords = keywords.length === 2 && 
+                               keywords[0] && keywords[1] &&
+                               contentLower.includes(keywords[0].toLowerCase()) && 
+                               contentLower.includes(keywords[1].toLowerCase());
+          const applyHighlight = shouldHighlight && isTargetPara && 
+                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
+          
+          const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+          const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+          
+          html += `
+            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+                 id="para-${paraIndex}"
+                 data-index="${paraIndexWithCaret}"
+                 ${clickHandler}
+                 style="${cursorStyle}">
+              ${content}
+            </div>
+          `;
         });
       }
       html += `</div>`;
@@ -9844,6 +10877,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     function handleThematicKeydown(event) {
       if (event.key === 'Enter') {
         performThematicSearch();
+      }
+    }
+
+    function handleAdvancedSearchKeydown(event) {
+      if (event.key === 'Enter') {
+        performAdvancedSearch();
       }
     }
 
@@ -9918,11 +10957,20 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const mainPanel = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
+      
+      if (!resizeHandle) {
+        console.error('[RESIZE] verticalResizeHandle nicht gefunden!');
+        return;
+      }
+      
+      console.log('[RESIZE] initVerticalResizeHandle() erfolgreich initialisiert');
+      
       let isResizing = false;
       let startX = 0;
       let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
+        console.log('[RESIZE] Mousedown auf verticalResizeHandle');
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
@@ -9967,8 +11015,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
       function handleMouseUp() {
         if (!hasMoved) {
-          // Toggle bei Klick
-          toggleSummaryPanel();
+          // Toggle bei Klick - prüfe ob erweiterte Suche aktiv ist
+          const advancedSearchTab = document.getElementById('advanced-search-tab');
+          const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+          
+          if (isAdvancedSearchActive) {
+            toggleAdvancedSearchPanel();
+          } else {
+            toggleSummaryPanel();
+          }
         }
         
         isResizing = false;
@@ -10710,6 +11765,92 @@ function clearKeywordSearch() {
 function switchTabExtended(mode) {
   console.log('[TABS] Wechsel zu Tab:', mode);
   
+  // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
+  const currentActiveTab = document.querySelector('.tab-content.active');
+  if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
+    console.log('[TABS] Verlasse erweiterten Such-Tab - Lösche Ergebnisse und setze zurück');
+    
+    // Lösche Viewer-Inhalt (Suchergebnisse)
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = '';
+      console.log('[TABS] Viewer geleert');
+    }
+    
+    // Lösche Sidebar-Ergebnisse
+    const results = document.getElementById('results');
+    if (results) {
+      results.innerHTML = '';
+      console.log('[TABS] Sidebar-Ergebnisse geleert');
+    }
+    
+    // Lösche Status-Anzeige
+    const statusElement = document.getElementById('advancedSearchStatus');
+    if (statusElement) {
+      statusElement.textContent = '';
+      console.log('[TABS] Status geleert');
+    }
+    
+    // Setze alle Eingabefelder zurück
+    for (let i = 1; i <= 7; i++) {
+      const wordInput = document.getElementById(`advWord${i}`);
+      if (wordInput) {
+        wordInput.value = '';
+      }
+      
+      // Setze Operatoren auf "UND" zurück
+      const andRadio = document.querySelector(`input[name="advOperator${i}"][value="and"]`);
+      if (andRadio) {
+        andRadio.checked = true;
+      }
+    }
+    
+    // Setze Proximity-Filter zurück
+    const proximityFilter = document.getElementById('advancedProximityFilter');
+    if (proximityFilter) {
+      proximityFilter.value = '';
+    }
+    
+    // Setze GA-Filter zurück (Custom Dropdown)
+    if (typeof advancedGAFilterDropdown !== 'undefined' && advancedGAFilterDropdown) {
+      advancedGAFilterDropdown.clear();
+    }
+    
+    console.log('[TABS] Erweiterte Suche zurückgesetzt');
+    
+    // Verstecke das erweiterte Such-Tab
+    currentActiveTab.style.display = 'none';
+    currentActiveTab.classList.remove('active');
+    
+    // Verstecke den verticalResizeHandle
+    const verticalHandle = document.getElementById('verticalResizeHandle');
+    if (verticalHandle) {
+      verticalHandle.style.display = 'none';
+      verticalHandle.classList.remove('visible');
+    }
+    
+    // Schließe das rechte Panel
+    const summaryPanel = document.getElementById('summary-panel');
+    if (summaryPanel) {
+      summaryPanel.classList.remove('visible');
+      summaryPanel.style.width = '0';
+      summaryPanel.style.minWidth = '0';
+      summaryPanel.style.display = 'none';
+    }
+    
+    // Setze Main-Container zurück
+    const mainContainer = document.getElementById('main-container');
+    if (mainContainer) {
+      mainContainer.style.marginRight = '0px';
+    }
+    
+    // Setze display-Style für alle normalen Tabs zurück
+    const normalTabs = document.querySelectorAll('.tab-content:not(#advanced-search-tab)');
+    normalTabs.forEach(tab => {
+      tab.style.display = ''; // Entferne inline display-style
+    });
+  }
+  
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
   
@@ -10819,14 +11960,72 @@ function switchTabExtended(mode) {
   }
 
   // Alle Tab-Inhalte verstecken
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+    // Verstecke das advanced-search-tab explizit beim Tab-Wechsel
+    if (content.id === 'advanced-search-tab') {
+      content.style.display = 'none';
+    }
+  });
 
   // Gewünschten Tab-Inhalt anzeigen
   const targetContent = document.getElementById(targetId);
   if (targetContent) {
     targetContent.classList.add('active');
+    // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
+    if (targetContent.id !== 'advanced-search-tab') {
+      targetContent.style.display = '';
+    }
   } else {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
+  }
+  
+  // Setze Standard-Viewer-Ansicht und Document-Title für jeden Tab
+  const viewer = document.getElementById('viewer');
+  const documentTitle = document.getElementById('document-title');
+  
+  if (viewer) {
+    let defaultMessage = 'Bitte ein Suchergebnis auswählen…';
+    let titleText = 'Bitte ein Suchergebnis auswählen…';
+    
+    switch(mode) {
+      case 'keyword':
+        defaultMessage = 'Bitte eine Suche durchführen…';
+        titleText = 'Suche';
+        break;
+      case 'texte':
+        defaultMessage = 'Bitte einen Text auswählen…';
+        titleText = 'Texte';
+        break;
+      case 'thematic':
+        defaultMessage = 'Bitte ein Thema auswählen…';
+        titleText = 'Themen';
+        break;
+      case 'timeline':
+        defaultMessage = 'Bitte ein Keyword eingeben…';
+        titleText = 'Timeline';
+        break;
+      case 'keywords':
+        defaultMessage = 'Bitte ein Keyword auswählen…';
+        titleText = 'Keywords';
+        break;
+      case 'zitate':
+        defaultMessage = 'Bitte ein Zitat auswählen…';
+        titleText = 'Zitate';
+        break;
+      case 'schlagworte':
+        defaultMessage = 'Bitte ein Schlagwort auswählen…';
+        titleText = 'Index';
+        break;
+    }
+    
+    viewer.innerHTML = `<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">${defaultMessage}</div>`;
+    
+    if (documentTitle) {
+      documentTitle.textContent = titleText;
+    }
+    
+    console.log('[TABS] Standard-Viewer-Ansicht und Titel gesetzt für:', mode);
   }
   
   // Initialisiere Schlagwort-System beim ersten Aufruf oder zeige Keywords wenn bereits geladen
@@ -11815,85 +13014,6 @@ function handleQuoteTextKeydown(event) {
     event.preventDefault();
     saveNewQuote();
   }
-}
-
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateStr) {
-  console.log('[TIMELINE] Verstecke Timeline');
-  
-  const splitView = document.getElementById('timelineSplitView');
-  const timelinePanel = document.querySelector('.timeline-panel');
-  
-  // Timeline Viewer leeren wenn Timeline geschlossen wird
-  const timelineViewerContent = document.getElementById('timelineViewerContent');
-  if (timelineViewerContent) {
-    timelineViewerContent.innerHTML = '';
-    console.log('[TIMELINE] Timeline Viewer geleert');
-  }
-  
-  // Timeline Document Title zurücksetzen
-  const timelineDocumentTitle = document.getElementById('timelineDocumentTitle');
-  if (timelineDocumentTitle) {
-    timelineDocumentTitle.textContent = 'Wählen Sie einen Vortrag aus der Timeline';
-    console.log('[TIMELINE] Timeline Document Title zurückgesetzt');
-  }
-  
-  // Timeline-Panel verstecken
-  if (timelinePanel) {
-    timelinePanel.classList.add('hidden');
-  }
-  
-  // Timeline-Panel-Titel zurücksetzen
-  const timelinePanelTitle = document.getElementById('timelinePanelTitle');
-  if (timelinePanelTitle) {
-    timelinePanelTitle.textContent = 'Timeline';
-  }
-  
-  // Timeline-Panel-Such-Button verstecken
-  const timelinePanelSearchBtn = document.getElementById('timelinePanelSearchBtn');
-  if (timelinePanelSearchBtn) {
-    timelinePanelSearchBtn.style.display = 'none';
-  }
-  
-  // Nach kurzer Verzögerung Split-View komplett verstecken
-  setTimeout(() => {
-    splitView.style.display = 'none';
-    
-    // Haupt-Viewer wieder anzeigen
-    document.getElementById('viewer').style.display = 'block';
-    document.getElementById('document-title').style.display = 'block';
-    document.getElementById('viewer-header').style.display = 'flex';
-    
-    // Header-Styles zurücksetzen, Update kümmert sich um korrekte Werte
-    const mainContainerEl = document.getElementById('main-container');
-    const summaryPanelEl = document.getElementById('summary-panel');
-    if (mainContainerEl) mainContainerEl.style.marginTop = '';
-    if (summaryPanelEl) summaryPanelEl.style.top = '';
-    
-    // Header-Position und Layout korrekt wiederherstellen
-    setTimeout(() => {
-      updateHeaderPosition();
-    }, 50);
-    
-    // TOC-Links für Haupt-Viewer wiederherstellen
-    setTimeout(() => {
-      buildTableOfContents();
-    }, 100);
-    
-    // Reset Timeline-Viewer-Buttons
-    resetTimelineViewerButtons();
-    
-    // Timeline-Keyword zurücksetzen und Keywords neu rendern
-    currentTimelineKeyword = null;
-    displayKeywords(currentAlphabet); // Keywords neu rendern um Such-Button zu entfernen
-    
-    // Alle Timeline-Buttons auf inaktiv setzen
-    document.querySelectorAll('.timeline-btn').forEach(btn => {
-      btn.classList.remove('active');
-      btn.innerHTML = '📅';
-      btn.title = 'Timeline anzeigen';
-    });
-  }, 300);
 }
 
 // Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
@@ -14195,33 +15315,6 @@ function positionYearMarkers() {
       marker.style.transform = 'translateX(-50%)';
     }
   });
-}
-
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateString) {
-  if (!dateString) return 'Datum unbekannt';
-  
-  // Format: YYYY-MM-DD -> DD.MM.YYYY
-  if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    const [year, month, day] = dateString.split('-');
-    return `${day}.${month}.${year}`;
-  }
-  
-  // Versuche als Date zu parsen
-  try {
-    const date = new Date(dateString);
-    if (!isNaN(date.getTime())) {
-      return date.toLocaleDateString('de-DE', { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric' 
-      });
-    }
-  } catch {
-    // Fall through
-  }
-  
-  return dateString;
 }
 
 // Flag um zu verhindern, dass renderTimeline() die Suchergebnisse-Timeline überschreibt
@@ -17589,6 +18682,270 @@ async function addKeywordToLecture() {
     <div id="popupCaption" style="color: white; margin-top: 1rem; font-size: 0.9em; text-align: center;"></div>
   </div>
 </div>
+
+<script>
+// ============================================================================
+// GA TAB FUNKTIONEN
+// ============================================================================
+
+// Globale Variable für aktuell gewählten GA Band
+let currentSelectedGA = null;
+
+// Lade verfügbare GA Bände beim Start
+async function loadGAVolumes() {
+  try {
+    console.log('[GA-TAB] Lade verfügbare GA-Bände...');
+    const response = await fetch(`${API_BASE}/api/available-ga`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP-Fehler ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const volumes = data.availableGA || [];
+    
+    console.log('[GA-TAB] Gefundene GA-Bände:', volumes.length);
+    
+    displayGAVolumes(volumes);
+  } catch (error) {
+    console.error('[GA-TAB] Fehler beim Laden der GA-Bände:', error);
+    const listContainer = document.getElementById('ga-volumes-list');
+    if (listContainer) {
+      listContainer.innerHTML = `<p style="color: var(--secondary-text); font-size: 0.9em;">Fehler beim Laden der GA-Bände: ${error.message}</p>`;
+    }
+  }
+}
+
+// Zeige GA Bände als klickbare Liste
+function displayGAVolumes(volumes) {
+  const listContainer = document.getElementById('ga-volumes-list');
+  
+  if (!listContainer) {
+    console.error('[GA-TAB] Container ga-volumes-list nicht gefunden');
+    return;
+  }
+  
+  if (!volumes || volumes.length === 0) {
+    listContainer.innerHTML = '<p style="color: var(--secondary-text); font-size: 0.9em;">Keine GA-Bände verfügbar.</p>';
+    return;
+  }
+  
+  // Sortiere GA Bände numerisch
+  const sortedVolumes = volumes.sort((a, b) => {
+    const numA = parseInt(a.replace(/^GA/i, ''));
+    const numB = parseInt(b.replace(/^GA/i, ''));
+    return numA - numB;
+  });
+  
+  listContainer.innerHTML = sortedVolumes.map(ga => {
+    return `<a href="#" 
+               class="ga-volume-link" 
+               data-ga="${ga}" 
+               onclick="loadGAOverview('${ga}'); return false;"
+               style="display: block; padding: 0.5rem; color: var(--link-color); text-decoration: none; border-radius: 4px; transition: background-color 0.2s;"
+               onmouseover="this.style.backgroundColor = 'rgba(70, 120, 134, 0.1)'"
+               onmouseout="this.style.backgroundColor = 'transparent'">
+              ${ga.toUpperCase()}
+            </a>`;
+  }).join('');
+}
+
+// Lade Übersicht für einen GA Band
+async function loadGAOverview(gaNumber) {
+  try {
+    console.log('[GA-TAB] Lade Übersicht für', gaNumber);
+    
+    const gaContent = document.getElementById('ga-content');
+    if (!gaContent) {
+      console.error('[GA-TAB] Container ga-content nicht gefunden');
+      return;
+    }
+    
+    // Zeige Lade-Indikator
+    gaContent.innerHTML = `<p style="color: var(--secondary-text); font-size: 0.9em;">Lade ${gaNumber.toUpperCase()}...</p>`;
+    
+    // Markiere ausgewählten GA Band
+    currentSelectedGA = gaNumber;
+    document.querySelectorAll('.ga-volume-link').forEach(link => {
+      if (link.dataset.ga === gaNumber) {
+        link.style.fontWeight = 'bold';
+        link.style.backgroundColor = 'rgba(70, 120, 134, 0.15)';
+      } else {
+        link.style.fontWeight = 'normal';
+        link.style.backgroundColor = 'transparent';
+      }
+    });
+    
+    // Lade GA Overview vom Backend
+    const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP-Fehler ${response.status}`);
+    }
+    
+    const overview = await response.json();
+    
+    console.log('[GA-TAB] Übersicht geladen:', overview);
+    
+    displayGAOverview(overview);
+    
+  } catch (error) {
+    console.error('[GA-TAB] Fehler beim Laden der GA-Übersicht:', error);
+    const gaContent = document.getElementById('ga-content');
+    if (gaContent) {
+      gaContent.innerHTML = `<p style="color: red; font-size: 0.9em;">Fehler beim Laden von ${gaNumber}: ${error.message}</p>`;
+    }
+  }
+}
+
+// Zeige GA Übersicht mit Vorträgen
+function displayGAOverview(overview) {
+  const gaContent = document.getElementById('ga-content');
+  
+  if (!gaContent) {
+    console.error('[GA-TAB] Container ga-content nicht gefunden');
+    return;
+  }
+  
+  // Überschrift mit GA-Titel
+  let html = `
+    <div style="margin-bottom: 2rem;">
+      <h2 style="margin: 0 0 0.5rem 0; color: var(--heading-color); font-size: 1.3rem;">
+        ${overview.gaNumber.toUpperCase()}
+      </h2>
+      <h3 style="margin: 0 0 1rem 0; color: var(--heading-color); font-size: 1.1rem; font-weight: normal;">
+        ${overview.gaTitle || ''}
+      </h3>
+      <p style="color: var(--secondary-text); font-size: 0.9em; margin: 0;">
+        ${overview.lectureCount} Vortrag${overview.lectureCount !== 1 ? 'äge' : ''}
+      </p>
+    </div>
+  `;
+  
+  // Liste der Vorträge
+  if (overview.lectures && overview.lectures.length > 0) {
+    html += '<div style="display: flex; flex-direction: column; gap: 2rem;">';
+    
+    overview.lectures.forEach(lecture => {
+      // Formatiere Datum
+      const dateStr = lecture.date ? formatLectureDate(lecture.date) : '';
+      
+      // Vortragstitel als Link zum Texte-Tab
+      html += `
+        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem;">
+          <div style="margin-bottom: 0.5rem;">
+            <a href="#" 
+               class="lecture-title-link"
+               onclick="openLectureInTexteTab('${lecture.lectureId}'); return false;"
+               style="color: var(--link-color); text-decoration: none; font-weight: 600; font-size: 1.05em; line-height: 1.4;">
+              ${lecture.lectureTitle || lecture.lectureId}
+            </a>
+          </div>
+      `;
+      
+      // Datum und Ort
+      if (dateStr || lecture.location) {
+        html += '<div style="color: var(--secondary-text); font-size: 0.85em; margin-bottom: 0.5rem;">';
+        if (dateStr) html += dateStr;
+        if (dateStr && lecture.location) html += ' • ';
+        if (lecture.location) html += lecture.location;
+        html += '</div>';
+      }
+      
+      // Kurzzusammenfassung
+      if (lecture.summary) {
+        html += `
+          <div style="color: var(--text-color); font-size: var(--text-size); line-height: var(--line-height); margin-top: 0.5rem;">
+            ${lecture.summary}
+          </div>
+        `;
+      } else {
+        html += `<div style="color: var(--secondary-text); font-size: 0.9em; font-style: italic;">Keine Zusammenfassung verfügbar</div>`;
+      }
+      
+      html += '</div>';
+    });
+    
+    html += '</div>';
+  } else {
+    html += '<p style="color: var(--secondary-text); font-size: 0.9em;">Keine Vorträge gefunden.</p>';
+  }
+  
+  gaContent.innerHTML = html;
+  
+  // Scrolle zum Anfang des Inhalts
+  gaContent.scrollTop = 0;
+}
+
+// Formatiere Datum für Anzeige
+function formatLectureDate(dateStr) {
+  if (!dateStr) return '';
+  
+  // Versuche verschiedene Datumsformate zu parsen
+  try {
+    // Format: YYYY-MM-DD
+    const match = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+    if (match) {
+      const [_, year, month, day] = match;
+      const date = new Date(year, parseInt(month) - 1, day);
+      
+      const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                         'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+      
+      return `${parseInt(day)}. ${monthNames[date.getMonth()]} ${year}`;
+    }
+  } catch (e) {
+    console.warn('[GA-TAB] Fehler beim Formatieren des Datums:', dateStr, e);
+  }
+  
+  return dateStr;
+}
+
+// Öffne Vortrag im Texte-Tab
+async function openLectureInTexteTab(lectureId) {
+  console.log('[GA-TAB] Öffne Vortrag im Texte-Tab:', lectureId);
+  
+  try {
+    // Wechsle zum Texte-Tab
+    switchTab('texte');
+    
+    // Warte kurz, damit der Tab-Wechsel abgeschlossen ist
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
+    // Zeige den Vortrag
+    await showLecture(lectureId);
+    
+  } catch (error) {
+    console.error('[GA-TAB] Fehler beim Öffnen des Vortrags:', error);
+    alert(`Fehler beim Laden des Vortrags: ${error.message}`);
+  }
+}
+
+// Initialisiere GA-Tab beim ersten Öffnen
+let gaTabInitialized = false;
+
+// Erweitere die switchTab Funktion um GA-Tab Initialisierung
+const gaOriginalSwitchTab = window.switchTab || window.switchTabExtended;
+window.switchTab = function(mode) {
+  // Rufe ursprüngliche switchTab Funktion auf
+  if (gaOriginalSwitchTab) {
+    gaOriginalSwitchTab(mode);
+  }
+  
+  // Initialisiere GA-Tab beim ersten Öffnen
+  if (mode === 'ga' && !gaTabInitialized) {
+    console.log('[GA-TAB] Initialisiere GA-Tab...');
+    gaTabInitialized = true;
+    loadGAVolumes();
+  }
+};
+
+// Fallback wenn switchTab noch nicht definiert ist
+if (!gaOriginalSwitchTab) {
+  console.warn('[GA-TAB] switchTab Funktion noch nicht definiert, verwende Fallback');
+}
+
+</script>
 
 </body>
 </html> 
