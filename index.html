@@ -5076,7 +5076,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: left;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
         }
         
         setTimeout(() => {
@@ -5129,7 +5129,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: left;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
         }
         
         // Lade GA-Bände-Liste
@@ -6230,7 +6230,7 @@ async function showGALectures(gaNumber) {
     // Finde GA-Band-Info
     const gaInfo = gaVolumesData.find(ga => ga.number.toLowerCase() === gaNumber.toLowerCase());
     if (!gaInfo) {
-      viewer.innerHTML = '<div style="padding: 1rem;">GA-Band nicht gefunden.</div>';
+      viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">GA-Band nicht gefunden.</div>';
       return;
     }
     
@@ -6899,7 +6899,7 @@ function toggleGASummaries() {
       }
       
       // Leere den Viewer
-      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
+      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
       document.getElementById('document-title').textContent = 'Erweiterte Suche';
       
       // Leere die Ergebnisanzeige im Sidebar (unter dem Admin-Bereich)
@@ -7062,7 +7062,7 @@ function toggleGASummaries() {
       const viewer = document.getElementById('viewer');
       
       if (!results || results.length === 0) {
-        viewer.innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Keine Treffer gefunden</div>';
+        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Treffer gefunden</div>';
         return;
       }
       
@@ -12436,7 +12436,7 @@ function switchTabExtended(mode) {
         break;
     }
     
-    viewer.innerHTML = `<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">${defaultMessage}</div>`;
+    viewer.innerHTML = `<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">${defaultMessage}</div>`;
     
     if (documentTitle) {
       documentTitle.textContent = titleText;
@@ -12532,7 +12532,7 @@ function switchTabExtended(mode) {
     // Setze Viewer-Nachricht
     const viewer = document.getElementById('viewer');
     if (viewer) {
-      viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: left;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+      viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
     }
     
     setTimeout(() => {
@@ -17528,10 +17528,10 @@ if (isLocalhost()) {
   }
 }
 
-// Erstelle automatisches HTML-Backup beim Laden (nur lokal)
-if (isLocalhost()) {
-  createAutoHtmlBackup();
-}
+// Automatisches HTML-Backup beim Laden deaktiviert
+// if (isLocalhost()) {
+//   createAutoHtmlBackup();
+// }
 
 // Automatisches HTML-Backup beim Laden der Seite
 async function createAutoHtmlBackup() {
