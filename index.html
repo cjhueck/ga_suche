@@ -150,6 +150,25 @@
     body.dark-mode .word-operator-label span {
       color: var(--dark-text-color);
     }
+    
+    /* Erweiterte Suche: Spaltenüberschriften */
+    .advanced-search-header {
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .advanced-search-header {
+      color: var(--dark-text-color);
+    }
+    
+    /* Erweiterte Suche: Grid-Zellen Borders */
+    .advanced-search-cell {
+      border: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .advanced-search-cell {
+      border: 1px solid var(--dark-border-color);
+    }
+    
     body.dark-mode .search-input:-webkit-autofill,
     body.dark-mode .search-input:-webkit-autofill:hover,
     body.dark-mode .search-input:-webkit-autofill:focus {
@@ -6579,7 +6598,7 @@ function toggleGASummaries() {
       
       // Spaltenüberschriften
       words.forEach(word => {
-        html += `<th style="border: 1px solid var(--border-color); padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%; color: var(--text-color);">${word}</th>`;
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${word}</th>`;
       });
       
       html += '</tr></thead>';
@@ -6606,12 +6625,12 @@ function toggleGASummaries() {
             const formattedDate = formatDate(result.lectureDate);
             const lectureInfo = `${result.lectureId} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
             
-            html += `<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
+            html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
             html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
             html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
             html += '</td>';
           } else {
-            html += '<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; background: var(--input-bg);"></td>';
+            html += '<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; background: var(--input-bg);"></td>';
           }
         });
         
