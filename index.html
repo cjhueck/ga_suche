@@ -384,6 +384,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       width: 460px;
       min-width: 0px;
       max-width: none;
+      height: 100vh;
       overflow: hidden;
       border-right: 1px solid var(--border-color);
       padding: 0;
@@ -449,6 +450,7 @@ body.dark-mode .site-sign {
     
     #sidebar-content {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 2rem 1rem 1rem 1.5rem;
   font-size: var(--text-size);
@@ -3745,6 +3747,7 @@ body.dark-mode #popupCaption {
 </div>
 <div class="tab-container">
 <div class="tab-buttons">
+<button class="tab-button" onclick="switchTab('ga')">GA</button>
 <button class="tab-button active" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
@@ -3752,6 +3755,13 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button">Keywords</button>
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button">Zitate</button>
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
+</div>
+<div class="tab-content" id="ga-tab">
+<div style="padding: 0.5rem;">
+<div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
+<span id="ga-volumes-count">Lade GA-Bände...</span>
+</div>
+</div>
 </div>
 <div class="tab-content active" id="keyword-tab">
 <div class="search-words-row">
@@ -4991,6 +5001,36 @@ function normalizeGANumber(gaNumber) {
           }
         }, 100);
       }
+      
+      // Lade GA-Bände wenn zum GA-Tab gewechselt wird
+      if (mode === 'ga') {
+        // Leere Results-Bereich (linkes Panel)
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+          resultsDiv.innerHTML = '';
+        }
+        
+        // Setze Document Title
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          documentTitle.textContent = 'GA-Bände Übersicht';
+        }
+        
+        // Setze Viewer-Nachricht
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: center;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+        }
+        
+        setTimeout(() => {
+          if (typeof loadGAVolumesInSidebar === 'function') {
+            console.log('[GA-TAB] Lade GA-Bände-Liste...');
+            loadGAVolumesInSidebar();
+          } else {
+            console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
+          }
+        }, 100);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -5857,6 +5897,319 @@ async function loadKeywordsDatabaseForThemes() {
     console.warn('[THEMES] Fehler beim Laden der Keywords-Database:', error.message);
   }
   return {};
+}
+
+// =====================================
+// GA-TAB FUNKTIONEN
+// =====================================
+
+// Globale Variable für GA-Bände-Daten
+let gaVolumesData = [];
+let summaryDatabaseCache = null;
+
+// Funktion: Lade GA-Bände im Sidebar
+async function loadGAVolumesInSidebar() {
+  try {
+    console.log('[GA-TAB] Lade GA-Bände...');
+    
+    // Lade GA-Liste mit Titeln
+    const gaListResponse = await fetch(`${API_BASE}/api/ga-list`);
+    if (!gaListResponse.ok) throw new Error('GA-Liste konnte nicht geladen werden');
+    const gaList = await gaListResponse.json();
+    
+    console.log('[GA-TAB] GA-Liste erhalten:', gaList.length, 'Bände');
+    
+    // Lade Vortrags-Count
+    const volumesResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
+    if (!volumesResponse.ok) throw new Error('GA-Volumes-Daten konnten nicht geladen werden');
+    const volumesData = await volumesResponse.json();
+    
+    console.log('[GA-TAB] Volumes-Daten erhalten');
+    
+    gaVolumesData = gaList.map(ga => {
+      const volumeInfo = volumesData.volumes.find(v => v.volume.toLowerCase() === ga.number.toLowerCase());
+      return {
+        number: ga.number,
+        title: ga.title,
+        lectureCount: volumeInfo ? volumeInfo.lectureCount : 0
+      };
+    });
+    
+    console.log('[GA-TAB] GA-Bände geladen:', gaVolumesData.length);
+    
+    // Zeige GA-Bände im Sidebar (im #results Bereich)
+    displayGAVolumesInSidebar();
+    
+    // Berechne Gesamtanzahl der Vorträge
+    const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
+    
+    // Aktualisiere Info
+    const countElement = document.getElementById('ga-volumes-count');
+    if (countElement) {
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${totalLectures} Vorträge`;
+    }
+    
+  } catch (error) {
+    console.error('[GA-TAB] Fehler beim Laden der GA-Bände:', error);
+    
+    // Zeige Fehler im results Bereich
+    const errorHtml = `
+      <div style="padding: 1rem; color: var(--text-color);">
+        <strong>Fehler beim Laden der GA-Bände:</strong><br>
+        ${error.message}
+      </div>
+    `;
+    
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv) {
+      resultsDiv.innerHTML = errorHtml;
+    }
+    
+    const countElement = document.getElementById('ga-volumes-count');
+    if (countElement) {
+      countElement.textContent = `Fehler: ${error.message}`;
+    }
+  }
+}
+
+// Funktion: Zeige GA-Bände im Sidebar
+function displayGAVolumesInSidebar() {
+  const resultsDiv = document.getElementById('results');
+  if (!resultsDiv) {
+    console.warn('[GA-TAB] results div nicht gefunden');
+    return;
+  }
+  
+  console.log('[GA-TAB] Zeige', gaVolumesData.length, 'GA-Bände im Sidebar');
+  
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const linkColor = isDarkMode ? '#7EB8C8' : '#467886';
+  
+  let html = '';
+  
+  gaVolumesData.forEach(ga => {
+    html += `
+      <div style="margin-bottom: 0.4rem;">
+        <a href="#" 
+           onclick="showGALectures('${ga.number}'); return false;"
+           style="
+             font-weight: bold; 
+             color: ${linkColor}; 
+             text-decoration: none;
+             font-size: 1rem;
+             display: block;
+             padding: 0.25rem 0;
+           "
+           onmouseover="this.style.textDecoration='underline'"
+           onmouseout="this.style.textDecoration='none'">
+          ${ga.number.toUpperCase()} - ${ga.title}
+        </a>
+      </div>
+    `;
+  });
+  
+  resultsDiv.innerHTML = html;
+  console.log('[GA-TAB] GA-Bände im Sidebar angezeigt - Parent #sidebar-content scrollt automatisch');
+}
+
+// Funktion: Zeige GA-Bände im Tab-Content (Fallback)
+function displayGAVolumesInTabContent() {
+  const listDiv = document.getElementById('ga-volumes-list');
+  if (!listDiv) {
+    console.warn('[GA-TAB] ga-volumes-list div nicht gefunden');
+    return;
+  }
+  
+  console.log('[GA-TAB] Zeige', gaVolumesData.length, 'GA-Bände im Tab-Content');
+  
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const linkColor = isDarkMode ? '#6BA3B8' : '#467886';
+  
+  let html = '<div style="padding: 0;">';
+  
+  gaVolumesData.forEach(ga => {
+    html += `
+      <div style="margin-bottom: 0.4rem;">
+        <a href="#" 
+           onclick="showGALectures('${ga.number}'); return false;"
+           style="
+             font-weight: bold; 
+             color: ${linkColor}; 
+             text-decoration: none;
+             font-size: 0.95em;
+             display: block;
+             padding: 0.25rem 0;
+           "
+           onmouseover="this.style.textDecoration='underline'"
+           onmouseout="this.style.textDecoration='none'">
+          ${ga.number.toUpperCase()} - ${ga.title}
+        </a>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  listDiv.innerHTML = html;
+  console.log('[GA-TAB] GA-Bände im Tab-Content angezeigt');
+}
+
+// Funktion: Lade Summary-Database (mit Cache)
+async function loadSummaryDatabase() {
+  if (summaryDatabaseCache) {
+    return summaryDatabaseCache;
+  }
+  
+  try {
+    // Versuche externe (GitHub) summary-database.json zu laden
+    const externalDB = await loadExternalSummaryDB();
+    if (externalDB) {
+      summaryDatabaseCache = externalDB;
+      console.log('[GA-TAB] Summary-Database geladen (extern):', Object.keys(summaryDatabaseCache).length, 'Einträge');
+      return summaryDatabaseCache;
+    }
+    
+    // Fallback: Lokale summary-database.json
+    if (isLocal) {
+      const response = await fetch(`${API_BASE}/summary-database.json`);
+      if (response.ok) {
+        summaryDatabaseCache = await response.json();
+        console.log('[GA-TAB] Summary-Database geladen (lokal):', Object.keys(summaryDatabaseCache).length, 'Einträge');
+        return summaryDatabaseCache;
+      }
+    }
+  } catch (error) {
+    console.warn('[GA-TAB] Fehler beim Laden der Summary-Database:', error.message);
+  }
+  
+  return {};
+}
+
+// Funktion: Zeige Vorträge eines GA-Bandes im Main Viewer
+async function showGALectures(gaNumber) {
+  try {
+    console.log('[GA-TAB] Lade Vorträge für', gaNumber);
+    
+    // Zeige Loading-Nachricht
+    const viewer = document.getElementById('viewer');
+    const documentTitle = document.getElementById('document-title');
+    
+    if (!viewer || !documentTitle) return;
+    
+    // Finde GA-Band-Info
+    const gaInfo = gaVolumesData.find(ga => ga.number.toLowerCase() === gaNumber.toLowerCase());
+    if (!gaInfo) {
+      viewer.innerHTML = '<div style="padding: 1rem;">GA-Band nicht gefunden.</div>';
+      return;
+    }
+    
+    documentTitle.textContent = `${gaNumber.toUpperCase()}: ${gaInfo.title}`;
+    viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color);">Lade Vorträge...</div>';
+    
+    // Lade GA-Übersicht-Daten
+    const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await response.json();
+    
+    // Lade Summary-Database
+    const summaryDB = await loadSummaryDatabase();
+    
+    // Sortiere Vorträge nach Vortragsnummer
+    const lectures = data.lectures.sort((a, b) => {
+      const numA = parseInt(a.lectureNumber) || 0;
+      const numB = parseInt(b.lectureNumber) || 0;
+      return numA - numB;
+    });
+    
+    // Erstelle HTML für Vorträge
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const linkColor = isDarkMode ? '#6BA3B8' : '#467886';
+    const textColor = isDarkMode ? '#b8b8b8' : '#333';
+    const missingTextColor = isDarkMode ? '#666' : '#999';
+    
+    let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+    
+    lectures.forEach(lecture => {
+      const lectureId = lecture.ID;
+      const summaryData = summaryDB[lectureId];
+      const shortSummary = summaryData?.shortSummary || '';
+      
+      // Vortragstitel und Metadaten
+      const lectureTitle = lecture.title || '';
+      const location = lecture.location || '';
+      const date = lecture.date || '';
+      
+      html += `
+        <div style="margin-bottom: 1rem;">
+          <div style="margin-bottom: 0.3rem;">
+            <a href="#" 
+               onclick="switchTab('texte'); setTimeout(() => showLectureFromGA('${lectureId}'), 100); return false;"
+               style="
+                 font-weight: bold; 
+                 font-size: 0.9rem;
+                 color: ${linkColor}; 
+                 text-decoration: none;
+               "
+               onmouseover="this.style.textDecoration='underline'"
+               onmouseout="this.style.textDecoration='none'">
+              ${lectureId.toUpperCase()}${lectureTitle ? ' - ' + lectureTitle : ''}${location ? ', ' + location : ''}${date ? ', ' + date : ''}
+            </a>
+          </div>
+          ${shortSummary ? `
+            <div style="
+              color: ${textColor}; 
+              line-height: 1.6; 
+              font-size: 0.9rem;
+              text-align: left;
+              font-style: italic;
+            ">
+              ${shortSummary}
+            </div>
+          ` : `
+            <div style="color: ${missingTextColor}; font-style: italic; font-size: 0.9rem;">
+              Keine Kurzzusammenfassung verfügbar
+            </div>
+          `}
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    viewer.innerHTML = html;
+    
+  } catch (error) {
+    console.error('[GA-TAB] Fehler beim Laden der Vorträge:', error);
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
+        <div style="padding: 1rem; color: var(--text-color);">
+          <strong>Fehler beim Laden der Vorträge:</strong><br>
+          ${error.message}
+        </div>
+      `;
+    }
+  }
+}
+
+// Hilfsfunktion: Zeige Vortrag im Texte-Tab
+function showLectureFromGA(lectureId) {
+  // Setze das GA-Filter im Texte-Tab
+  const parts = lectureId.split('/');
+  if (parts.length === 2) {
+    const gaNumber = parts[0];
+    const lectureNumber = parts[1];
+    
+    // Setze GA-Filter
+    const texteGAFilter = document.getElementById('texteGAFilter');
+    if (texteGAFilter) {
+      texteGAFilter.value = gaNumber.toUpperCase();
+      texteGAFilter.dispatchEvent(new Event('change'));
+    }
+    
+    // Warte kurz und zeige dann den Vortrag
+    setTimeout(() => {
+      showLecture(lectureId);
+    }, 200);
+  }
 }
 
 // Navigation zum Themen-Tab und Thema auswählen
@@ -12037,6 +12390,32 @@ function switchTabExtended(mode) {
     } catch (err) {
       console.warn('[TABS] Fehler beim Löschen des letzten Stichworts:', err);
     }
+  }
+  
+  // Lade GA-Bände wenn zum GA-Tab gewechselt wird
+  if (mode === 'ga') {
+    console.log('[TABS] GA-Tab erkannt, lade Bände...');
+    
+    // Setze Document Title
+    const documentTitle = document.getElementById('document-title');
+    if (documentTitle) {
+      documentTitle.textContent = 'GA-Bände Übersicht';
+    }
+    
+    // Setze Viewer-Nachricht
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = '<div style="padding: 1.5rem; color: var(--text-color); text-align: center;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+    }
+    
+    setTimeout(() => {
+      if (typeof loadGAVolumesInSidebar === 'function') {
+        console.log('[GA-TAB] Rufe loadGAVolumesInSidebar auf...');
+        loadGAVolumesInSidebar();
+      } else {
+        console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
+      }
+    }, 100);
   }
 }
 
