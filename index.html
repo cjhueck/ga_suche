@@ -4714,9 +4714,9 @@ function normalizeGANumber(gaNumber) {
           if (verticalResizeHandle) {
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
-              // Panel offen: Handle auf der Trennlinie positionieren (10px nach rechts)
+              // Panel offen: Handle auf der Trennlinie positionieren (3px nach rechts)
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
+              verticalResizeHandle.style.right = (panelWidth - 3) + 'px';
             } else {
               // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
               verticalResizeHandle.style.right = '-3px';
@@ -6887,6 +6887,16 @@ function toggleGASummaries() {
       
       document.body.classList.add('summary-panel-collapsed');
       
+      // Verstecke die Header-Buttons (Übersicht und Original)
+      const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+      const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+      if (viewerSummaryBtn) {
+        viewerSummaryBtn.style.display = 'none';
+      }
+      if (viewerOriginalBtn) {
+        viewerOriginalBtn.style.display = 'none';
+      }
+      
       // Zeige den verticalResizeHandle
       const verticalHandle = document.getElementById('verticalResizeHandle');
       if (verticalHandle) {
@@ -7833,6 +7843,21 @@ function toggleGASummaries() {
   // Prüfe ob Buttons existieren, bevor du sie verwendest
   const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+  
+  // Prüfe, ob wir im erweiterten Such-Tab sind
+  const advancedSearchTab = document.getElementById('advanced-search-tab');
+  const isInAdvancedSearch = advancedSearchTab && advancedSearchTab.classList.contains('active');
+  
+  // Wenn wir im erweiterten Such-Tab sind, verstecke alle Buttons
+  if (isInAdvancedSearch) {
+    if (viewerOriginalBtn) {
+      viewerOriginalBtn.style.display = 'none';
+    }
+    if (viewerSummaryBtn) {
+      viewerSummaryBtn.style.display = 'none';
+    }
+    return;
+  }
   
   // Wenn kein Vortrag geladen ist, verstecke alle Buttons
   if (!currentLectureData) {
