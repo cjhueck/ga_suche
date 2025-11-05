@@ -1330,6 +1330,11 @@ body.dark-mode .ga-missing-text {
       border-bottom: none;
     }
     
+    /* H4-Überschriften in TOC einrücken (nur im rechten Sidepanel) */
+    #toc-list h4 {
+      padding-left: 1.2rem;
+    }
+    
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
     #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
     #document-title { margin-top: 0; margin-bottom: 0; margin-left: 1rem !important; }
@@ -4709,9 +4714,9 @@ function normalizeGANumber(gaNumber) {
           if (verticalResizeHandle) {
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
-              // Panel offen: Handle auf der Trennlinie positionieren (10px nach rechts)
+              // Panel offen: Handle auf der Trennlinie positionieren (3px nach rechts)
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
+              verticalResizeHandle.style.right = (panelWidth - 3) + 'px';
             } else {
               // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
               verticalResizeHandle.style.right = '-3px';
