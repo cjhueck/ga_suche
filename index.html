@@ -1086,15 +1086,6 @@ body.dark-mode .ga-missing-text {
       color: var(--link-color);
     }
     
-    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
-    .summary-panel-collapsed .vertical-resize-handle::before {
-      content: '◀';
-      font-size: 36px;
-      background: var(--background-color);
-      padding: 8px 0;
-      color: transparent; /* Pfeil unsichtbar machen */
-    }
-    
     #main-container {
       flex: 1;
       display: flex;
@@ -1279,6 +1270,11 @@ body.dark-mode .ga-missing-text {
     
     #summary-panel.visible #summary-content {
       display: block;
+    }
+    
+    /* Reduziertes vertikales Padding im erweiterten Such-Tab */
+    body.advanced-search-active #summary-content {
+      padding: 0.5rem 1.5rem;
     }
     
     .summary-buttons {
@@ -4714,12 +4710,20 @@ function normalizeGANumber(gaNumber) {
           if (verticalResizeHandle) {
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
-              // Panel offen: Handle auf der Trennlinie positionieren (3px nach rechts)
+              // Panel offen: Handle auf der Trennlinie positionieren
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
+              
+              // Prüfe, ob erweiterte Suche aktiv ist
+              const advancedSearchTab = document.getElementById('advanced-search-tab');
+              const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+              
+              // Im erweiterten Such-Tab: größerer Offset (20px)
+              // In anderen Tabs: normaler Offset (10px)
+              const offset = isAdvancedSearchActive ? 1 : 10;
+              verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
             } else {
               // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
-              verticalResizeHandle.style.right = '-3px';
+              verticalResizeHandle.style.right = '0px';
             }
           }
         }, 10);
@@ -4901,6 +4905,10 @@ function normalizeGANumber(gaNumber) {
       // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
       if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
         console.log('[TABS] Verlasse erweiterten Such-Tab');
+        
+        // Entferne Body-Klasse für reduziertes Padding
+        document.body.classList.remove('advanced-search-active');
+        
         // Verstecke das erweiterte Such-Tab
         currentActiveTab.style.display = 'none';
         currentActiveTab.classList.remove('active');
@@ -6847,6 +6855,9 @@ function toggleGASummaries() {
     
     function openAdvancedSearch() {
       console.log('[ADVANCED-SEARCH] Öffne erweiterte Suche');
+      
+      // Setze Body-Klasse für reduziertes Padding
+      document.body.classList.add('advanced-search-active');
       
       // Verstecke alle normalen Tabs
       const allTabs = document.querySelectorAll('.tab-content');
