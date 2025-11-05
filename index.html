@@ -256,6 +256,7 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     body.dark-mode .sidebar-collapsed .resize-handle::before,
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
       background: var(--dark-background-color);
+      color: transparent; /* Pfeil unsichtbar machen */
     }
     
     /* Diese Dark Mode Styles sind jetzt in #sidebar-content zentralisiert */
@@ -785,6 +786,7 @@ body.dark-mode .site-sign {
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
       font-weight: 600;
+      text-align: left;
     }
     
     #summary-content h4 {
@@ -792,8 +794,9 @@ body.dark-mode .site-sign {
       line-height: var(--line-height);
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
-      margin-left: 1rem;
+      margin-left: 0;
       font-weight: 600;
+      text-align: left;
     }
     
     body.dark-mode #summary-content h3,
@@ -980,6 +983,61 @@ body.dark-mode .site-sign {
       padding: 8px 0;
     }
     
+    /* Vertikaler Resize-Handle für rechtes Summary-Panel */
+    .vertical-resize-handle {
+      width: 20px; /* Breitere Klickfläche */
+      background-color: transparent;
+      cursor: col-resize;
+      position: fixed;
+      right: auto; /* Wird dynamisch über JavaScript gesetzt */
+      top: 45vh;
+      bottom: auto;
+      height: 100px;
+      flex-shrink: 0;
+      transition: background-color 0.2s;
+      z-index: 9999; /* Höherer z-index */
+      display: none; /* Standardmäßig versteckt */
+      pointer-events: auto; /* Explizit klickbar machen */
+    }
+    
+    .vertical-resize-handle.visible {
+      display: block;
+    }
+    
+    .vertical-resize-handle::before {
+      content: '⋮';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--link-color);
+      background: var(--background-color);
+      padding: 8px 4px; /* Mehr Padding für größere Klickfläche */
+      font-size: 25px;
+      line-height: 1;
+      font-weight: normal;
+      cursor: col-resize; /* Cursor auch am Pseudo-Element */
+      transition: color 0.2s;
+      pointer-events: auto;
+    }
+    
+    .vertical-resize-handle:hover {
+      background-color: transparent;
+    }
+    
+    .vertical-resize-handle:hover::before {
+      color: var(--link-color);
+    }
+    
+    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
+    .summary-panel-collapsed .vertical-resize-handle::before {
+      content: '◀';
+      font-size: 36px;
+      background: var(--background-color);
+      padding: 8px 0;
+      color: transparent; /* Pfeil unsichtbar machen */
+    }
+    
     #main-container {
       flex: 1;
       display: flex;
@@ -1064,84 +1122,6 @@ body.dark-mode .site-sign {
     
 
     
-    .vertical-resize-handle {
-      width: 1px;
-      background-color: transparent;
-      cursor: col-resize;
-      position: fixed;
-      right: -2px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
-      bottom: auto;
-      height: 100px; /* Feste Höhe für das Handle */
-      flex-shrink: 0;
-      transition: background-color 0.2s, width 0.2s;
-      display: none;
-      z-index: 1001; /* Über dem Summary-Panel und anderen Elementen */
-    }
-    
-    .vertical-resize-handle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 6px;
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: pointer;
-      transition: color 0.2s;
-      display: inline-block;
-    }
-    
-    /* Toggle-Button für erweiterte Suche (rechtes Panel) */
-    .advanced-search-panel-toggle {
-      width: 1px;
-      background-color: transparent;
-      cursor: pointer;
-      position: fixed;
-      right: -2px;
-      top: 45vh;
-      bottom: auto;
-      height: 100px;
-      flex-shrink: 0;
-      transition: background-color 0.2s, width 0.2s;
-      display: none; /* Standardmäßig versteckt */
-      z-index: 1002; /* Über dem normalen resize-handle */
-    }
-    
-    .advanced-search-panel-toggle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 6px;
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: pointer;
-      transition: color 0.2s;
-      display: inline-block;
-    }
-    
-    .advanced-search-panel-toggle:hover::before {
-      color: var(--accent-color);
-    }
-    
-    /* Dark Mode */
-    body.dark-mode .advanced-search-panel-toggle::before {
-      background: var(--dark-background-color);
-      color: var(--dark-link-color);
-    }
-    
-    body.dark-mode .advanced-search-panel-toggle:hover::before {
-      color: var(--dark-link-color);
-    }
     
     /* Erweiterte Suche: Überschriften in Snippets */
     .advanced-search-snippet h3,
@@ -1158,6 +1138,18 @@ body.dark-mode .site-sign {
     body.dark-mode .advanced-search-heading {
       color: #6BA3B8;
       font-weight: bold;
+    }
+    
+    /* Erweiterte Suche: Ergebnistitel (GA-Nummer, Titel, Datum) */
+    .advanced-search-result-title {
+      font-size: 0.7em;
+      font-weight: bold;
+      color: var(--heading-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    body.dark-mode .advanced-search-result-title {
+      color: var(--dark-heading-color);
     }
     
     .vertical-resize-handle.visible {
@@ -1177,13 +1169,14 @@ body.dark-mode .site-sign {
       color: var(--link-color);
     }
     
-    /* Symbol für geschlossenes Summary-Panel */
+    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
     .summary-panel-collapsed .vertical-resize-handle::before {
       content: '◀';
       font-size: 36px; /* Pfeilgröße bleibt gleich */
       background: var(--background-color);
       padding: 8px 6px;
       display: inline-block;
+      color: transparent; /* Pfeil unsichtbar machen */
     }
     
     #summary-content {
@@ -1934,6 +1927,7 @@ body.dark-mode #thematicSearchInfo {
       color: #467886 !important;
       display: block;
       line-height: 1.3 !important;
+      text-align: left !important;
     }
     
     #viewer h4 {
@@ -1943,6 +1937,7 @@ body.dark-mode #thematicSearchInfo {
       color: #467886 !important;
       display: block;
       line-height: 1.3 !important;
+      text-align: left !important;
     }
     
     /* Dark Mode für Viewer */
@@ -3822,7 +3817,7 @@ body.dark-mode #popupCaption {
 <!-- Filter-Zeile: GA-Band und Proximity -->
 <div class="filter-row" style="margin-bottom: 1rem;">
 <!-- Custom Multi-Select Dropdown für GA-Bände -->
-<div class="custom-dropdown" id="advancedGAFilterContainer">
+<div class="custom-dropdown" id="advancedGAFilterContainer" style="flex: 1;">
   <button type="button" class="filter-dropdown custom-dropdown-button" id="advancedGAFilterButton">
     <span class="custom-dropdown-text">GA-Bände</span>
     <span class="custom-dropdown-arrow"></span>
@@ -3830,7 +3825,7 @@ body.dark-mode #popupCaption {
   <div class="custom-dropdown-list" id="advancedGAFilterList"></div>
 </div>
 
-<select class="filter-dropdown" id="advancedProximityFilter" style="flex: 0.6;">
+<select class="filter-dropdown" id="advancedProximityFilter" style="flex: 1;">
 <option value="">Abstand</option>
 <option value="1">1 Absatz</option>
 <option value="2">2 Absätze</option>
@@ -3841,7 +3836,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 1 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3858,7 +3853,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 2 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3875,7 +3870,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 3 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3892,7 +3887,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 4 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3909,7 +3904,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 5 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3926,7 +3921,7 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 6 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -3943,15 +3938,15 @@ body.dark-mode #popupCaption {
 <!-- Suchwort 7 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()"/>
+<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
 </div>
-<div class="word-operator-container">
+<div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
 <label class="word-operator-label">
-<input type="radio" name="advOperator7" value="and">
+<input type="radio" name="advOperator7dummy" disabled>
 <span>UND</span>
 </label>
 <label class="word-operator-label">
-<input type="radio" name="advOperator7" value="or">
+<input type="radio" name="advOperator7dummy" disabled>
 <span>ODER</span>
 </label>
 </div>
@@ -3960,7 +3955,6 @@ body.dark-mode #popupCaption {
 <!-- Buttons -->
 <div style="display:flex; gap:8px; margin-top: 1rem;">
 <button class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suche starten</button>
-<button class="depth-btn" onclick="closeAdvancedSearch()" style="padding: 6px 16px;">Zurück</button>
 </div>
 
 <div id="advancedSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
@@ -4324,7 +4318,6 @@ S&H&C&K
 <div id="viewer"></div>
 </div>
 <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
-<div class="advanced-search-panel-toggle" id="advancedSearchPanelToggle" onclick="toggleAdvancedSearchPanel()"></div>
 <div id="summary-panel">
   <div class="summary-buttons">
   </div>
@@ -4627,12 +4620,12 @@ function normalizeGANumber(gaNumber) {
           if (verticalResizeHandle) {
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
-              // Panel offen: Handle neben Panel positionieren
+              // Panel offen: Handle auf der Trennlinie positionieren (10px nach rechts)
               const panelWidth = summaryPanel.offsetWidth || 280;
-              verticalResizeHandle.style.right = panelWidth + 'px';
+              verticalResizeHandle.style.right = (panelWidth - 10) + 'px';
             } else {
-              // Panel geschlossen: Handle am rechten Bildschirmrand
-              verticalResizeHandle.style.right = '0px';
+              // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
+              verticalResizeHandle.style.right = '-3px';
             }
           }
         }, 10);
@@ -4642,6 +4635,22 @@ function normalizeGANumber(gaNumber) {
     // Header-Position und Toggle-Position bei Resize und Laden aktualisieren
     window.addEventListener('resize', function() {
       updateHeaderPosition();
+      
+      // Passe Main-Container bei Fenstergrößenänderung an (nur in erweiterter Suche)
+      const advancedSearchTab = document.getElementById('advanced-search-tab');
+      const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+      
+      if (isAdvancedSearchActive) {
+        const summaryPanel = document.getElementById('summary-panel');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel && mainContainer && summaryPanel.classList.contains('visible')) {
+          const panelWidth = summaryPanel.offsetWidth;
+          if (panelWidth > 0) {
+            mainContainer.style.marginRight = panelWidth + 'px';
+          }
+        }
+      }
     });
     document.addEventListener('DOMContentLoaded', function() {
       updateHeaderPosition();
@@ -4688,8 +4697,15 @@ function normalizeGANumber(gaNumber) {
         // Sidebar öffnen
         sidebar.classList.remove('collapsed');
         document.body.classList.remove('sidebar-collapsed');
+        
+        // Prüfe, ob erweiterte Suche aktiv ist
+        const advancedSearchTab = document.getElementById('advanced-search-tab');
+        const isAdvancedSearchActive = advancedSearchTab && 
+                                       advancedSearchTab.classList.contains('active');
+        
+        // Sidebar öffnet mit Standard-CSS-Breite (460px) in allen Tabs - resizable
         sidebar.style.width = '';
-        sidebar.style.minWidth = ''; 
+        sidebar.style.minWidth = '';
         
         updateHeaderPosition();
       } else {
@@ -4790,9 +4806,38 @@ function normalizeGANumber(gaNumber) {
       
       // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
       if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
+        console.log('[TABS] Verlasse erweiterten Such-Tab');
         // Verstecke das erweiterte Such-Tab
         currentActiveTab.style.display = 'none';
         currentActiveTab.classList.remove('active');
+        
+        // Verstecke den verticalResizeHandle
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          verticalHandle.style.display = 'none';
+          verticalHandle.classList.remove('visible');
+        }
+        
+        // Schließe das rechte Panel
+        const summaryPanel = document.getElementById('summary-panel');
+        if (summaryPanel) {
+          summaryPanel.classList.remove('visible');
+          summaryPanel.style.width = '0';
+          summaryPanel.style.minWidth = '0';
+          summaryPanel.style.display = 'none';
+        }
+        
+        // Setze Main-Container zurück
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        // Setze display-Style für alle normalen Tabs zurück
+        const normalTabs = document.querySelectorAll('.tab-content:not(#advanced-search-tab)');
+        normalTabs.forEach(tab => {
+          tab.style.display = ''; // Entferne inline display-style
+        });
       }
       
       // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
@@ -4819,15 +4864,11 @@ function normalizeGANumber(gaNumber) {
         resizeHandle.style.setProperty('display', 'none', 'important');
       }
       
-      // Verstecke den erweiterten Such-Toggle und zeige den normalen verticalResizeHandle
-      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
-      if (advancedToggle) {
-        advancedToggle.style.display = 'none';
-      }
-      
+      // Verstecke den verticalResizeHandle beim Tab-Wechsel
       const verticalHandle = document.getElementById('verticalResizeHandle');
-      if (verticalHandle && mode !== 'advanced-search') {
-        // verticalHandle wird später in updateButtonStates() gesteuert
+      if (verticalHandle) {
+        verticalHandle.style.display = 'none';
+        verticalHandle.classList.remove('visible');
       }
       
       // Body-Klasse für collapsed State hinzufügen
@@ -4894,8 +4935,21 @@ function normalizeGANumber(gaNumber) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
-      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      document.getElementById(`${mode}-tab`).classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+        // Verstecke das advanced-search-tab explizit beim Tab-Wechsel
+        if (content.id === 'advanced-search-tab') {
+          content.style.display = 'none';
+        }
+      });
+      
+      // Aktiviere den Ziel-Tab und setze inline-style zurück
+      const targetTab = document.getElementById(`${mode}-tab`);
+      if (targetTab) {
+        targetTab.classList.add('active');
+        // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
+        targetTab.style.display = '';
+      }
       
       // Lade Zitate wenn zum Zitate-Tab gewechselt wird
       if (mode === 'zitate' && isLocal) {
@@ -6095,6 +6149,35 @@ function toggleGASummaries() {
       await showLecture(lectureId, null, []);
     }
 
+    // Navigiere zum Texte-Tab und zeige den spezifischen Vortrag
+    async function navigateToLectureInTexteTab(lectureId) {
+      console.log(`[NAVIGATION] Navigiere zu Vortrag ${lectureId} im Texte-Tab`);
+      
+      // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
+      const gaNumber = lectureId.split('/')[0];
+      
+      // Wechsle zum Texte-Tab
+      switchTab('texte');
+      
+      // Warte kurz, damit der Tab geladen ist
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Setze den GA-Filter im Texte-Tab
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter && gaNumber) {
+        texteGAFilter.value = gaNumber;
+        // Trigger Change Event um die GA-Übersicht zu laden
+        const changeEvent = new Event('change', { bubbles: true });
+        texteGAFilter.dispatchEvent(changeEvent);
+        
+        // Warte bis GA-Übersicht geladen ist, dann zeige den Vortrag
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Lade den spezifischen Vortrag
+        await showLectureFromOverview(lectureId);
+      }
+    }
+
     function parseSearchTerm(input) {
       if (!input) return { term: '', isPhrase: false };
       
@@ -6257,29 +6340,18 @@ function toggleGASummaries() {
         advancedTab.classList.add('active');
       }
       
-      // Zeige den Toggle-Button für das rechte Panel
-      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
-      if (advancedToggle) {
-        advancedToggle.style.display = 'block';
-        advancedToggle.style.right = '0px'; // Am rechten Rand wenn Panel geschlossen
+      // Passe Sidebar-Breite an (falls geöffnet)
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar && !sidebar.classList.contains('collapsed')) {
+        sidebar.style.width = '';
+        sidebar.style.minWidth = '';
+        updateHeaderPosition();
       }
       
-      // Verstecke den normalen verticalResizeHandle
-      const verticalHandle = document.getElementById('verticalResizeHandle');
-      if (verticalHandle) {
-        verticalHandle.style.display = 'none';
-      }
-      
-      // Leere den Viewer
-      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
-      document.getElementById('document-title').textContent = 'Erweiterte Suche';
-    }
-    
-    function closeAdvancedSearch() {
-      console.log('[ADVANCED-SEARCH] Schließe erweiterte Suche');
-      
-      // Schließe das rechte Panel
+      // Schließe das rechte Panel, falls es offen ist (leere vorherige Anzeigen)
       const summaryPanel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      
       if (summaryPanel) {
         summaryPanel.classList.remove('visible');
         summaryPanel.style.width = '0';
@@ -6287,62 +6359,88 @@ function toggleGASummaries() {
         summaryPanel.style.display = 'none';
       }
       
-      // Verstecke den Toggle-Button
-      const advancedToggle = document.getElementById('advancedSearchPanelToggle');
-      if (advancedToggle) {
-        advancedToggle.style.display = 'none';
+      if (mainContainer) {
+        mainContainer.style.marginRight = '0';
       }
       
       document.body.classList.add('summary-panel-collapsed');
       
-      // Verstecke das erweiterte Such-Tab
-      const advancedTab = document.getElementById('advanced-search-tab');
-      if (advancedTab) {
-        advancedTab.style.display = 'none';
-        advancedTab.classList.remove('active');
+      // Zeige den verticalResizeHandle
+      const verticalHandle = document.getElementById('verticalResizeHandle');
+      if (verticalHandle) {
+        console.log('[ADVANCED-SEARCH] Zeige verticalResizeHandle');
+        verticalHandle.style.display = 'block';
+        verticalHandle.classList.add('visible');
+        console.log('[ADVANCED-SEARCH] verticalResizeHandle display:', verticalHandle.style.display, 'classList:', verticalHandle.classList.toString());
+        // Positioniere Handle sofort
+        updateHeaderPosition();
       }
       
-      // Zurück zum Suche-Tab
-      switchTab('keyword');
+      // Leere den Viewer
+      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">Starte eine erweiterte Suche um Ergebnisse zu sehen</div>';
+      document.getElementById('document-title').textContent = 'Erweiterte Suche';
+      
+      // Leere die Ergebnisanzeige im Sidebar (unter dem Admin-Bereich)
+      const resultsContainer = document.getElementById('results');
+      if (resultsContainer) {
+        resultsContainer.innerHTML = '';
+      }
     }
     
     function toggleAdvancedSearchPanel() {
       console.log('[ADVANCED-SEARCH] Toggle Panel');
       
       const panel = document.getElementById('summary-panel');
-      const toggle = document.getElementById('advancedSearchPanelToggle');
+      const mainContainer = document.getElementById('main-container');
+      const verticalHandle = document.getElementById('verticalResizeHandle');
       
-      if (!panel || !toggle) return;
+      if (!panel) return;
       
       // Hole aktuelle Breite
       const currentWidth = panel.offsetWidth || 0;
       
-      // 3 Zustände: Geschlossen (0) -> Groß (50%) -> Klein (280px) -> Geschlossen (0)
+      // 2 Zustände: Geschlossen (0) -> Offen (450px) -> Geschlossen (0)
       if (currentWidth === 0) {
-        // Öffne Panel groß
+        // Öffne Panel mit 450px
         panel.classList.add('visible');
-        panel.style.width = '50%';
-        panel.style.minWidth = '300px';
+        panel.style.width = '450px';
+        panel.style.minWidth = '450px';
         panel.style.display = 'block';
         panel.style.opacity = '1';
         panel.style.visibility = 'visible';
-        toggle.style.right = '50%';
         document.body.classList.remove('summary-panel-collapsed');
-        console.log('[ADVANCED-SEARCH] Panel geöffnet (50%)');
-      } else if (currentWidth > 400) {
-        // Verkleinere Panel
-        panel.style.width = '280px';
-        panel.style.minWidth = '280px';
-        toggle.style.right = '280px';
-        console.log('[ADVANCED-SEARCH] Panel verkleinert (280px)');
+        
+        // Passe Main-Container an
+        if (mainContainer) {
+          mainContainer.style.marginRight = '450px';
+        }
+        
+        // Zeige verticalResizeHandle
+        if (verticalHandle) {
+          verticalHandle.style.display = 'block';
+          verticalHandle.classList.add('visible');
+        }
+        
+        console.log('[ADVANCED-SEARCH] Panel geöffnet (450px)');
       } else {
         // Schließe Panel
         panel.classList.remove('visible');
         panel.style.width = '0';
         panel.style.minWidth = '0';
         panel.style.display = 'none';
-        toggle.style.right = '0px';
         document.body.classList.add('summary-panel-collapsed');
+        
+        // Setze Main-Container zurück
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        // Verstecke verticalResizeHandle
+        if (verticalHandle) {
+          verticalHandle.style.display = 'none';
+          verticalHandle.classList.remove('visible');
+        }
+        
         console.log('[ADVANCED-SEARCH] Panel geschlossen');
       }
     }
@@ -6350,7 +6448,11 @@ function toggleGASummaries() {
     async function performAdvancedSearch() {
       console.log('[ADVANCED-SEARCH] Starte erweiterte Suche');
       
-      // Sammle alle Suchworte
+      // Sammle alle Suchworte und Operatoren
+      // Operatoren-Logik:
+      // - Der Operator nach Wort N bezieht sich auf die Beziehung zwischen Wort N und Wort N+1
+      // - "UND" bedeutet: Die beiden Wörter müssen INNERHALB des gewählten Abstands (Proximity) vorkommen
+      // - "ODER" bedeutet: Die beiden Wörter können UNABHÄNGIG voneinander (ohne Proximity-Einschränkung) vorkommen
       const words = [];
       const operators = [];
       
@@ -6361,7 +6463,7 @@ function toggleGASummaries() {
         if (word) {
           words.push(word);
           
-          // Hole Operator (außer für das letzte Wort)
+          // Hole Operator (nur für Worte 1-6, da Operator sich auf nächstes Wort bezieht)
           if (i < 7) {
             const operatorElement = document.querySelector(`input[name="advOperator${i}"]:checked`);
             const operator = operatorElement ? operatorElement.value : 'and';
@@ -6458,7 +6560,7 @@ function toggleGASummaries() {
       });
       
       // Erstelle Grid-HTML
-      let html = '<div style="padding: 1rem; overflow-x: auto;">';
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
       html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
       html += '<thead><tr>';
       
@@ -6488,9 +6590,11 @@ function toggleGASummaries() {
           if (i < snippets.length) {
             const result = snippets[i];
             const highlightedSnippet = highlightSearchTerms(result.snippet, [word]);
+            const formattedDate = formatDate(result.lectureDate);
+            const lectureInfo = `${result.lectureId} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
             
             html += `<td style="border: 1px solid var(--border-color); padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
-            html += `<div style="font-size: 0.75em; color: var(--secondary-text); margin-bottom: 0.25rem;">${result.lectureTitle}</div>`;
+            html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
             html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
             html += '</td>';
           } else {
@@ -6525,25 +6629,48 @@ function toggleGASummaries() {
         
         // Öffne das rechte Summary-Panel
         const summaryPanel = document.getElementById('summary-panel');
-        const advancedToggle = document.getElementById('advancedSearchPanelToggle');
+        const mainContainer = document.getElementById('main-container');
         
         if (summaryPanel) {
           summaryPanel.classList.add('visible');
-          summaryPanel.style.width = '50%';
-          summaryPanel.style.minWidth = '300px';
+          summaryPanel.style.width = '450px';
+          summaryPanel.style.minWidth = '450px';
           summaryPanel.style.display = 'block';
           summaryPanel.style.opacity = '1';
           summaryPanel.style.visibility = 'visible';
+          
+          // Passe Main-Container an, damit Viewer sich verkleinert
+          if (mainContainer) {
+            mainContainer.style.marginRight = '450px';
+          }
         }
         
-        // Positioniere den Toggle-Button neben dem Panel
-        if (advancedToggle) {
-          advancedToggle.style.right = '50%';
+        // Zeige den verticalResizeHandle
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          console.log('[SNIPPET-CLICK] Zeige verticalResizeHandle');
+          verticalHandle.style.display = 'block';
+          verticalHandle.classList.add('visible');
+          console.log('[SNIPPET-CLICK] verticalResizeHandle right:', verticalHandle.style.right, 'display:', verticalHandle.style.display);
+          // Positioniere Handle korrekt
+          setTimeout(() => updateHeaderPosition(), 50);
         }
         
         document.body.classList.remove('summary-panel-collapsed');
         
-        // Rendere den Vortrag im rechten Panel
+        // Lade headings aus summary-database.json
+        let headings = [];
+        try {
+          const summaryData = await loadSummaryFromDB(lectureId);
+          if (summaryData && summaryData.headings) {
+            headings = summaryData.headings;
+            console.log('[ADV-SEARCH] Headings aus summary-database geladen:', headings.length);
+          }
+        } catch (e) {
+          console.log('[ADV-SEARCH] Keine Headings verfügbar:', e.message);
+        }
+        
+        // Rendere den Vortrag im rechten Panel MIT Zwischenüberschriften
         const summaryContent = document.getElementById('summary-content');
         if (summaryContent && lecture.paragraphs) {
           let html = '<div style="padding: 1rem;">';
@@ -6552,10 +6679,36 @@ function toggleGASummaries() {
           const displayTitle = lecture.fileName || lecture.title || lecture.ID;
           html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
           
-          // Rendere alle Paragraphen
+          // Rendere alle Paragraphen MIT Zwischenüberschriften
           lecture.paragraphs.forEach((para, idx) => {
             const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            const paraIndexWithCaret = para.index || `^${paraIndex}`;
             const isTargetPara = paragraphIndex !== null && idx === paragraphIndex;
+            
+            // Finde passende Überschriften für diesen Paragraph
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = h.index || '';
+              const hIndexClean = hIndex.replace(/^\^/, '');
+              return hIndex === paraIndex || 
+                     hIndex === paraIndexWithCaret || 
+                     hIndexClean === paraIndex;
+            });
+            
+            // Sortiere Überschriften: H3 vor H4
+            const sortedHeadings = matchingHeadings.sort((a, b) => {
+              if (a.level === 'h3' && b.level === 'h4') return -1;
+              if (a.level === 'h4' && b.level === 'h3') return 1;
+              return 0;
+            });
+            
+            // Füge Überschriften VOR dem Paragraph ein
+            sortedHeadings.forEach((heading, hIdx) => {
+              const headingText = heading.text || heading.title || 'Überschrift';
+              const level = heading.level || 'h3';
+              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              
+              html += `<${headingTag} id="adv-heading-${idx}-${hIdx}">${headingText}</${headingTag}>`;
+            });
             
             let content = para.content || para.text || '';
             
@@ -6597,10 +6750,65 @@ function toggleGASummaries() {
           }
         }
         
-        // Setze Titel
+        // Setze Titel mit GA-Nummer, Titel, Ort und Datum
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
-          documentTitle.textContent = lecture.title || lecture.fileName || lectureId;
+          // Extrahiere GA-Nummer aus lectureId (z.B. "GA100/8")
+          const gaNumber = lectureId || lecture.ID || '';
+          
+          // Baue den Titel-String zusammen
+          let titleParts = [];
+          
+          // GA-Nummer
+          if (gaNumber) {
+            titleParts.push(gaNumber);
+          }
+          
+          // Titel
+          const title = lecture.title || '';
+          if (title) {
+            titleParts.push(title);
+          }
+          
+          // Ort und Datum
+          let locationDateParts = [];
+          if (lecture.location) {
+            locationDateParts.push(lecture.location);
+          }
+          if (lecture.date) {
+            locationDateParts.push(formatDate(lecture.date));
+          }
+          
+          // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+          let fullTitle = '';
+          if (titleParts.length > 0) {
+            fullTitle = titleParts.join(' - ');
+          }
+          if (locationDateParts.length > 0) {
+            fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+          }
+          
+          // Fallback wenn nichts gefunden wurde
+          if (!fullTitle) {
+            fullTitle = lecture.fileName || lectureId;
+          }
+          
+          // Setze Titel-Text und mache ihn klickbar
+          documentTitle.textContent = fullTitle;
+          documentTitle.style.cursor = 'pointer';
+          documentTitle.style.color = 'var(--link-color)';
+          documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+          
+          // Hover-Effekt
+          documentTitle.onmouseenter = () => {
+            documentTitle.style.opacity = '0.7';
+          };
+          documentTitle.onmouseleave = () => {
+            documentTitle.style.opacity = '1';
+          };
+          
+          // Füge onclick-Handler hinzu
+          documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
         }
         
       } catch (error) {
@@ -8638,6 +8846,13 @@ setTimeout(() => {
           setTimeout(() => {
             if (summaryPanel) {
               console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
+              
+              // Setze summary-content zurück auf Standard-Struktur (TOC only)
+              const summaryContent = document.getElementById('summary-content');
+              if (summaryContent) {
+                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              }
+              
               summaryPanel.classList.add('visible');
               summaryPanel.style.width = '280px';
               summaryPanel.style.minWidth = '280px';
@@ -8686,6 +8901,13 @@ setTimeout(() => {
     setTimeout(() => {
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
+        
+        // Setze summary-content zurück auf Standard-Struktur (TOC only)
+        const summaryContent = document.getElementById('summary-content');
+        if (summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        
         summaryPanel.classList.add('visible');
         summaryPanel.style.width = '280px';
         summaryPanel.style.minWidth = '280px';
@@ -10428,91 +10650,87 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       // Combine headings and paragraphs in order
       if (lecture.headings || lecture.paragraphs) {
-        const allElements = [];
+        const headings = lecture.headings || [];
+        const paragraphs = lecture.paragraphs || [];
         
-        // Add headings - aber NUR in der Übersicht-Ansicht, nicht in Original
-        if (lecture.headings && showingSummaryInMain) {
-          lecture.headings.forEach(heading => {
-            allElements.push({
-              type: 'heading',
-              level: heading.level,
-              text: heading.text,
-              id: heading.id,
-              index: heading.id ? heading.id.replace(/^\^/, '') : ''
-            });
+        // Render paragraphs and insert matching headings before each paragraph
+        paragraphs.forEach((para, idx) => {
+          const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+          const paraIndexWithCaret = para.index || `^${paraIndex}`;
+          
+          // Find and render matching headings BEFORE this paragraph
+          const matchingHeadings = headings.filter(h => {
+            const hIndex = h.index || '';
+            const hIndexClean = hIndex.replace(/^\^/, '');
+            return hIndex === paraIndex || 
+                   hIndex === paraIndexWithCaret || 
+                   hIndexClean === paraIndex;
           });
-        }
-        
-        // Add paragraphs
-        if (lecture.paragraphs) {
-          lecture.paragraphs.forEach(para => {
-            allElements.push({
-              type: 'paragraph',
-              content: para.content || para.text || '',
-              index: para.index ? para.index.replace(/^\^/, '') : ''
-            });
+          
+          // Sort headings: h3 before h4
+          const sortedHeadings = matchingHeadings.sort((a, b) => {
+            if (a.level === 'h3' && b.level === 'h4') return -1;
+            if (a.level === 'h4' && b.level === 'h3') return 1;
+            return 0;
           });
-        }
-        
-        // Render all elements
-        allElements.forEach((elem, idx) => {
-          if (elem.type === 'heading') {
-            const headingTag = elem.level === 3 ? 'h3' : 'h4';
-            const headingIndex = elem.index || `heading_${idx}`;
+          
+          // Render headings
+          sortedHeadings.forEach((heading, hIdx) => {
+            const headingText = heading.text || heading.title || 'Überschrift';
+            const level = heading.level || 'h3';
+            const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+            const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
             const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
-            // Highlighting aktiviert
-            const shouldApplyHeadingHighlight = isTargetHeading;
             
             html += `
-              <${headingTag} id="para-${headingIndex}" class="${shouldApplyHeadingHighlight ? 'highlighted-paragraph' : ''}">
-                ${elem.text}
+              <${headingTag} id="para-${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''}">
+                ${headingText}
               </${headingTag}>
             `;
-          } else {
-            const paraIndex = elem.index || `para_${idx}`;
-            const isTargetPara = cleanIndex && paraIndex === cleanIndex;
-            const paraIndexWithCaret = `^${paraIndex}`;
-            
-            let content = elem.content;
-            
-            // Bildmarkierungen durch img-Tags ersetzen
-            content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
-            
-            // Prüfe ZUERST ob wir von thematischer Suche kommen
-            const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
-            
-            // Markiere Keywords immer, wenn sie explizit übergeben wurden
-            // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
-            if (keywords && keywords.length > 0) {
-              keywords.forEach(word => {
-                if (word && word.trim()) {
-                  const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-                  content = content.replace(regex, "<mark>$1</mark>");
-                }
-              });
-            }
-            
-            const contentLower = content.toLowerCase();
-            const hasBothWords = keywords.length === 2 && 
-                                 keywords[0] && keywords[1] &&
-                                 contentLower.includes(keywords[0].toLowerCase()) && 
-                                 contentLower.includes(keywords[1].toLowerCase());
-            const applyHighlight = shouldHighlight && isTargetPara && 
-                                   (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
-            
-            const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-            const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-            
-            html += `
-              <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
-                   id="para-${paraIndex}"
-                   data-index="${paraIndexWithCaret}"
-                   ${clickHandler}
-                   style="${cursorStyle}">
-                ${content}
-              </div>
-            `;
+          });
+          
+          // Now render the paragraph
+          const isTargetPara = cleanIndex && paraIndex === cleanIndex;
+          
+          let content = para.content || para.text || '';
+          
+          // Bildmarkierungen durch img-Tags ersetzen
+          content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
+          
+          // Prüfe ZUERST ob wir von thematischer Suche kommen
+          const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
+          
+          // Markiere Keywords immer, wenn sie explizit übergeben wurden
+          // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+          if (keywords && keywords.length > 0) {
+            keywords.forEach(word => {
+              if (word && word.trim()) {
+                const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
+                content = content.replace(regex, "<mark>$1</mark>");
+              }
+            });
           }
+          
+          const contentLower = content.toLowerCase();
+          const hasBothWords = keywords.length === 2 && 
+                               keywords[0] && keywords[1] &&
+                               contentLower.includes(keywords[0].toLowerCase()) && 
+                               contentLower.includes(keywords[1].toLowerCase());
+          const applyHighlight = shouldHighlight && isTargetPara && 
+                                 (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
+          
+          const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+          const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+          
+          html += `
+            <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+                 id="para-${paraIndex}"
+                 data-index="${paraIndexWithCaret}"
+                 ${clickHandler}
+                 style="${cursorStyle}">
+              ${content}
+            </div>
+          `;
         });
       }
       html += `</div>`;
@@ -10553,6 +10771,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     function handleThematicKeydown(event) {
       if (event.key === 'Enter') {
         performThematicSearch();
+      }
+    }
+
+    function handleAdvancedSearchKeydown(event) {
+      if (event.key === 'Enter') {
+        performAdvancedSearch();
       }
     }
 
@@ -10627,11 +10851,20 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const mainPanel = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
+      
+      if (!resizeHandle) {
+        console.error('[RESIZE] verticalResizeHandle nicht gefunden!');
+        return;
+      }
+      
+      console.log('[RESIZE] initVerticalResizeHandle() erfolgreich initialisiert');
+      
       let isResizing = false;
       let startX = 0;
       let hasMoved = false;
 
       resizeHandle.addEventListener('mousedown', function(e) {
+        console.log('[RESIZE] Mousedown auf verticalResizeHandle');
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
@@ -10676,8 +10909,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
 
       function handleMouseUp() {
         if (!hasMoved) {
-          // Toggle bei Klick
-          toggleSummaryPanel();
+          // Toggle bei Klick - prüfe ob erweiterte Suche aktiv ist
+          const advancedSearchTab = document.getElementById('advanced-search-tab');
+          const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+          
+          if (isAdvancedSearchActive) {
+            toggleAdvancedSearchPanel();
+          } else {
+            toggleSummaryPanel();
+          }
         }
         
         isResizing = false;
@@ -11419,6 +11659,92 @@ function clearKeywordSearch() {
 function switchTabExtended(mode) {
   console.log('[TABS] Wechsel zu Tab:', mode);
   
+  // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
+  const currentActiveTab = document.querySelector('.tab-content.active');
+  if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
+    console.log('[TABS] Verlasse erweiterten Such-Tab - Lösche Ergebnisse und setze zurück');
+    
+    // Lösche Viewer-Inhalt (Suchergebnisse)
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = '';
+      console.log('[TABS] Viewer geleert');
+    }
+    
+    // Lösche Sidebar-Ergebnisse
+    const results = document.getElementById('results');
+    if (results) {
+      results.innerHTML = '';
+      console.log('[TABS] Sidebar-Ergebnisse geleert');
+    }
+    
+    // Lösche Status-Anzeige
+    const statusElement = document.getElementById('advancedSearchStatus');
+    if (statusElement) {
+      statusElement.textContent = '';
+      console.log('[TABS] Status geleert');
+    }
+    
+    // Setze alle Eingabefelder zurück
+    for (let i = 1; i <= 7; i++) {
+      const wordInput = document.getElementById(`advWord${i}`);
+      if (wordInput) {
+        wordInput.value = '';
+      }
+      
+      // Setze Operatoren auf "UND" zurück
+      const andRadio = document.querySelector(`input[name="advOperator${i}"][value="and"]`);
+      if (andRadio) {
+        andRadio.checked = true;
+      }
+    }
+    
+    // Setze Proximity-Filter zurück
+    const proximityFilter = document.getElementById('advancedProximityFilter');
+    if (proximityFilter) {
+      proximityFilter.value = '';
+    }
+    
+    // Setze GA-Filter zurück (Custom Dropdown)
+    if (typeof advancedGAFilterDropdown !== 'undefined' && advancedGAFilterDropdown) {
+      advancedGAFilterDropdown.clear();
+    }
+    
+    console.log('[TABS] Erweiterte Suche zurückgesetzt');
+    
+    // Verstecke das erweiterte Such-Tab
+    currentActiveTab.style.display = 'none';
+    currentActiveTab.classList.remove('active');
+    
+    // Verstecke den verticalResizeHandle
+    const verticalHandle = document.getElementById('verticalResizeHandle');
+    if (verticalHandle) {
+      verticalHandle.style.display = 'none';
+      verticalHandle.classList.remove('visible');
+    }
+    
+    // Schließe das rechte Panel
+    const summaryPanel = document.getElementById('summary-panel');
+    if (summaryPanel) {
+      summaryPanel.classList.remove('visible');
+      summaryPanel.style.width = '0';
+      summaryPanel.style.minWidth = '0';
+      summaryPanel.style.display = 'none';
+    }
+    
+    // Setze Main-Container zurück
+    const mainContainer = document.getElementById('main-container');
+    if (mainContainer) {
+      mainContainer.style.marginRight = '0px';
+    }
+    
+    // Setze display-Style für alle normalen Tabs zurück
+    const normalTabs = document.querySelectorAll('.tab-content:not(#advanced-search-tab)');
+    normalTabs.forEach(tab => {
+      tab.style.display = ''; // Entferne inline display-style
+    });
+  }
+  
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
   
@@ -11528,14 +11854,72 @@ function switchTabExtended(mode) {
   }
 
   // Alle Tab-Inhalte verstecken
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(content => {
+    content.classList.remove('active');
+    // Verstecke das advanced-search-tab explizit beim Tab-Wechsel
+    if (content.id === 'advanced-search-tab') {
+      content.style.display = 'none';
+    }
+  });
 
   // Gewünschten Tab-Inhalt anzeigen
   const targetContent = document.getElementById(targetId);
   if (targetContent) {
     targetContent.classList.add('active');
+    // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
+    if (targetContent.id !== 'advanced-search-tab') {
+      targetContent.style.display = '';
+    }
   } else {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
+  }
+  
+  // Setze Standard-Viewer-Ansicht und Document-Title für jeden Tab
+  const viewer = document.getElementById('viewer');
+  const documentTitle = document.getElementById('document-title');
+  
+  if (viewer) {
+    let defaultMessage = 'Bitte ein Suchergebnis auswählen…';
+    let titleText = 'Bitte ein Suchergebnis auswählen…';
+    
+    switch(mode) {
+      case 'keyword':
+        defaultMessage = 'Bitte eine Suche durchführen…';
+        titleText = 'Suche';
+        break;
+      case 'texte':
+        defaultMessage = 'Bitte einen Text auswählen…';
+        titleText = 'Texte';
+        break;
+      case 'thematic':
+        defaultMessage = 'Bitte ein Thema auswählen…';
+        titleText = 'Themen';
+        break;
+      case 'timeline':
+        defaultMessage = 'Bitte ein Keyword eingeben…';
+        titleText = 'Timeline';
+        break;
+      case 'keywords':
+        defaultMessage = 'Bitte ein Keyword auswählen…';
+        titleText = 'Keywords';
+        break;
+      case 'zitate':
+        defaultMessage = 'Bitte ein Zitat auswählen…';
+        titleText = 'Zitate';
+        break;
+      case 'schlagworte':
+        defaultMessage = 'Bitte ein Schlagwort auswählen…';
+        titleText = 'Index';
+        break;
+    }
+    
+    viewer.innerHTML = `<div style="padding: 2rem; text-align: center; color: var(--secondary-text);">${defaultMessage}</div>`;
+    
+    if (documentTitle) {
+      documentTitle.textContent = titleText;
+    }
+    
+    console.log('[TABS] Standard-Viewer-Ansicht und Titel gesetzt für:', mode);
   }
   
   // Initialisiere Schlagwort-System beim ersten Aufruf oder zeige Keywords wenn bereits geladen
@@ -12524,85 +12908,6 @@ function handleQuoteTextKeydown(event) {
     event.preventDefault();
     saveNewQuote();
   }
-}
-
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateStr) {
-  console.log('[TIMELINE] Verstecke Timeline');
-  
-  const splitView = document.getElementById('timelineSplitView');
-  const timelinePanel = document.querySelector('.timeline-panel');
-  
-  // Timeline Viewer leeren wenn Timeline geschlossen wird
-  const timelineViewerContent = document.getElementById('timelineViewerContent');
-  if (timelineViewerContent) {
-    timelineViewerContent.innerHTML = '';
-    console.log('[TIMELINE] Timeline Viewer geleert');
-  }
-  
-  // Timeline Document Title zurücksetzen
-  const timelineDocumentTitle = document.getElementById('timelineDocumentTitle');
-  if (timelineDocumentTitle) {
-    timelineDocumentTitle.textContent = 'Wählen Sie einen Vortrag aus der Timeline';
-    console.log('[TIMELINE] Timeline Document Title zurückgesetzt');
-  }
-  
-  // Timeline-Panel verstecken
-  if (timelinePanel) {
-    timelinePanel.classList.add('hidden');
-  }
-  
-  // Timeline-Panel-Titel zurücksetzen
-  const timelinePanelTitle = document.getElementById('timelinePanelTitle');
-  if (timelinePanelTitle) {
-    timelinePanelTitle.textContent = 'Timeline';
-  }
-  
-  // Timeline-Panel-Such-Button verstecken
-  const timelinePanelSearchBtn = document.getElementById('timelinePanelSearchBtn');
-  if (timelinePanelSearchBtn) {
-    timelinePanelSearchBtn.style.display = 'none';
-  }
-  
-  // Nach kurzer Verzögerung Split-View komplett verstecken
-  setTimeout(() => {
-    splitView.style.display = 'none';
-    
-    // Haupt-Viewer wieder anzeigen
-    document.getElementById('viewer').style.display = 'block';
-    document.getElementById('document-title').style.display = 'block';
-    document.getElementById('viewer-header').style.display = 'flex';
-    
-    // Header-Styles zurücksetzen, Update kümmert sich um korrekte Werte
-    const mainContainerEl = document.getElementById('main-container');
-    const summaryPanelEl = document.getElementById('summary-panel');
-    if (mainContainerEl) mainContainerEl.style.marginTop = '';
-    if (summaryPanelEl) summaryPanelEl.style.top = '';
-    
-    // Header-Position und Layout korrekt wiederherstellen
-    setTimeout(() => {
-      updateHeaderPosition();
-    }, 50);
-    
-    // TOC-Links für Haupt-Viewer wiederherstellen
-    setTimeout(() => {
-      buildTableOfContents();
-    }, 100);
-    
-    // Reset Timeline-Viewer-Buttons
-    resetTimelineViewerButtons();
-    
-    // Timeline-Keyword zurücksetzen und Keywords neu rendern
-    currentTimelineKeyword = null;
-    displayKeywords(currentAlphabet); // Keywords neu rendern um Such-Button zu entfernen
-    
-    // Alle Timeline-Buttons auf inaktiv setzen
-    document.querySelectorAll('.timeline-btn').forEach(btn => {
-      btn.classList.remove('active');
-      btn.innerHTML = '📅';
-      btn.title = 'Timeline anzeigen';
-    });
-  }, 300);
 }
 
 // Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
@@ -14904,33 +15209,6 @@ function positionYearMarkers() {
       marker.style.transform = 'translateX(-50%)';
     }
   });
-}
-
-// Hilfsfunktion: Formatiere Datum
-function formatDate(dateString) {
-  if (!dateString) return 'Datum unbekannt';
-  
-  // Format: YYYY-MM-DD -> DD.MM.YYYY
-  if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
-    const [year, month, day] = dateString.split('-');
-    return `${day}.${month}.${year}`;
-  }
-  
-  // Versuche als Date zu parsen
-  try {
-    const date = new Date(dateString);
-    if (!isNaN(date.getTime())) {
-      return date.toLocaleDateString('de-DE', { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric' 
-      });
-    }
-  } catch {
-    // Fall through
-  }
-  
-  return dateString;
 }
 
 // Flag um zu verhindern, dass renderTimeline() die Suchergebnisse-Timeline überschreibt
