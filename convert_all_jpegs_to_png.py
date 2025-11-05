@@ -101,7 +101,9 @@ def process_ga_folder(ga_folder_path, folder_name):
 
 
 if __name__ == "__main__":
-    steiner_ga_dir = r"C:\Users\chuec\OneDrive\GitHub\Steiner_GA"
+    # Bestimme Projekt-Root dynamisch
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    steiner_ga_dir = os.path.join(project_root, "Steiner_GA")
     
     print("=" * 60)
     print("JPEG zu PNG Konverter - Alle GA-Bände")
