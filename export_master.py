@@ -26,8 +26,8 @@ Beispiele:
     python export_master.py --skip-path-fix
     
 Hinweis:
-    Bilder werden automatisch mit den Lectures exportiert.
-    Separater Bilder-Export ist nicht mehr notwendig.
+    Bilder werden automatisch mit den Lectures exportiert und gesplittet.
+    Es wird keine steiner-images.json mehr erstellt, nur part-Dateien.
 """
 
 import subprocess
@@ -529,14 +529,14 @@ class ExportMaster:
                 print("\nExport abgebrochen.")
                 return False
         
-        # Schritt 2: Lectures exportieren (enthält Bilder-Export)
+        # Schritt 2: Lectures und Bilder exportieren (bereits gesplittet)
         if not self.step2_export_lectures(ga_bands):
             print("\nKRITISCHER FEHLER: Lecture-Export fehlgeschlagen!")
             print("   Export wird abgebrochen.")
             self.print_summary(start_time, ga_bands)
             return False
         
-        # Schritt 3: steiner-images.json splitten
+        # Schritt 3 (Legacy): Übersprungen - Bilder werden bereits von export-lectures.js gesplittet
         if not self.step3_split_images():
             print("\nWarnung: Bilder-Split fehlgeschlagen")
             print("   Export wird fortgesetzt...")
