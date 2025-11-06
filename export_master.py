@@ -273,7 +273,7 @@ class ExportMaster:
             print("\nSCHRITT 1 UEBERSPRUNGEN (--skip-path-fix)")
             return True
         
-        self.print_step(1, 5, "Bildpfade in Obsidian korrigieren")
+        self.print_step(1, 3, "Bildpfade in Obsidian korrigieren")
         
         try:
             total_files = 0
@@ -329,7 +329,7 @@ class ExportMaster:
     
     def step2_export_lectures(self, ga_bands=None):
         """Schritt 2: Lectures aus Obsidian exportieren (mit Bildern)"""
-        self.print_step(2, 4, "Lectures exportieren (inkl. Bilder)")
+        self.print_step(2, 3, "Lectures und Bilder exportieren (gesplittet)")
         
         if ga_bands:
             command = ["node", "export-lectures.js"] + ga_bands
@@ -416,13 +416,13 @@ class ExportMaster:
             return False
     
     def step4_restart_server(self, restart=False):
-        """Schritt 4: Server neu starten (optional)"""
+        """Schritt 3: Server neu starten (optional)"""
         if not restart:
-            print("\nSCHRITT 4 UEBERSPRUNGEN")
+            print("\nSCHRITT 3 UEBERSPRUNGEN")
             print("   Server-Neustart mit --restart-server")
             return True
         
-        self.print_step(4, 4, "Server neu starten")
+        self.print_step(3, 3, "Server neu starten")
         
         print("Stoppe laufenden Server (falls aktiv)...")
         
