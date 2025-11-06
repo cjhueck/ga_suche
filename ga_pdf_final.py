@@ -665,6 +665,29 @@ def markiere_vortraege(text):
 
 def korrigiere_rechtschreibung(text):
     """Korrigiere alte Rechtschreibung zu neuer"""
+    # Ersetze lange Gedankenstriche durch kurze
+    text = text.replace('—', '-')
+    
+    # Ersetze kk durch ck in deutschen Wörtern (Entwikklung → Entwicklung)
+    # Pattern: kk innerhalb von Wörtern (mit Buchstaben davor und danach)
+    def replace_kk(match):
+        before = match.group(1)
+        after = match.group(2)
+        word = before + 'kk' + after
+        
+        # Überspringe wenn:
+        # - Zu kurz (< 5 Zeichen)
+        # - Enthält Sonderzeichen (URL, etc.)
+        # - kk am Anfang des Wortes
+        if len(word) < 5 or not before or any(c in word for c in ['/', ':', '.', '@', '_']):
+            return match.group(0)
+        
+        # Ersetze kk durch ck
+        return before + 'ck' + after
+    
+    kk_pattern = r'\b(\w+?)kk(\w+?)\b'
+    text = re.sub(kk_pattern, replace_kk, text)
+    
     # Wörterliste aus Obsidian-Plugin
     replacements = {
         # Häufigste
