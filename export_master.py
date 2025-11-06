@@ -147,7 +147,10 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
             # - Zu kurz (< 5 Zeichen)
             # - Enthält Sonderzeichen (URL, etc.)
             # - kk am Anfang des Wortes
-            if len(word) < 5 or not before or any(c in word for c in ['/', ':', '.', '@', '_']):
+            # - Wort ist "okkult" oder beginnt mit "okkult" (z.B. Okkultismus)
+            if (len(word) < 5 or not before or 
+                any(c in word for c in ['/', ':', '.', '@', '_']) or
+                word.lower().startswith('okkult')):
                 return match.group(0)
             
             # Ersetze kk durch ck
@@ -162,6 +165,30 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         if num_kk_replaced > 0:
             changes.append(f"  - kk→ck ersetzt: {num_kk_replaced}× (Entwikklung → Entwicklung)")
+        
+        # Fix 8: URL-codierte Bildpfade decodieren
+        # ![alt](assets/GA091-Kosmologie%20und%20menschliche%20Evolution_img-19.png) 
+        # → ![alt](assets/GA091-Kosmologie und menschliche Evolution_img-19.png)
+        from urllib.parse import unquote
+        
+        original_before_image_fix = content
+        
+        # Pattern für Markdown-Bilder mit URL-codierten Pfaden (enthält %)
+        image_pattern = r'!\[([^\]]*)\]\(([^)]*%[^)]*)\)'
+        
+        def decode_image_path(match):
+            alt_text = match.group(1)
+            encoded_path = match.group(2)
+            decoded_path = unquote(encoded_path)
+            return f'![{alt_text}]({decoded_path})'
+        
+        content = re.sub(image_pattern, decode_image_path, content)
+        
+        # Zähle wie viele Bildpfade decodiert wurden
+        num_images_decoded = len(re.findall(image_pattern, original_before_image_fix))
+        
+        if num_images_decoded > 0:
+            changes.append(f"  - Bildpfade decodiert: {num_images_decoded}× (URL-Codierung entfernt)")
         
         # Wende Änderungen an
         if changes and apply_changes:
