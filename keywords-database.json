@@ -364023,6 +364023,20 @@
         "summaryMentioned": false,
         "confidence": 1,
         "level": "h4"
+      },
+      {
+        "term": "Lebebstableau",
+        "index": "^0bmpob",
+        "heading": "Frühere Bewegungen des Ätherleibes wieder hervorbringen",
+        "customDescription": true,
+        "source": "manual",
+        "matchType": "manual",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 1,
+        "level": "h3",
+        "manuallyEdited": true,
+        "lastEditedAt": "2025-11-06T22:37:16.593Z"
       }
     ],
     "generated": "2025-11-05T13:21:16.199Z",
