@@ -591,16 +591,74 @@ class SteinerLecturesExporter {
       }
     }
     
-    // Speichere in steiner-images.json
-    const imagesFilePath = path.join(this.outputDir, 'steiner-images.json');
-    fs.writeFileSync(imagesFilePath, JSON.stringify(imagesWithData, null, 2), 'utf8');
-    
-    const totalSize = (fs.statSync(imagesFilePath).size / (1024 * 1024)).toFixed(2);
+    // HINWEIS: steiner-images.json wird nicht mehr erstellt - nur part-Dateien
+    // Die Bilder werden direkt in gesplitteten part-Dateien gespeichert
     
     console.log(`\n✅ Bilder-Export abgeschlossen:`);
     console.log(`   📷 ${processedImages} Bilder erfolgreich exportiert`);
     console.log(`   ⚠  ${failedImages} Bilder nicht gefunden`);
-    console.log(`   💾 steiner-images.json (${totalSize} MB)`);
+    
+    // Splitte Bilder in chunks und speichere als part-Dateien
+    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+    console.log(`📦 Erstelle gesplittete Bilder-Dateien...`);
+    
+    // Konvertiere imagesWithData zu Array
+    const allImages = [];
+    for (const lectureId in imagesWithData) {
+      for (const img of imagesWithData[lectureId]) {
+        allImages.push({
+          lectureId: lectureId,
+          ...img
+        });
+      }
+    }
+    
+    // Dynamisches Splitting
+    const MAX_SIZE_MB = 9.5;
+    const maxSizeBytes = MAX_SIZE_MB * 1024 * 1024;
+    const chunks = [];
+    let currentChunk = [];
+    
+    for (let idx = 0; idx < allImages.length; idx++) {
+      const img = allImages[idx];
+      currentChunk.push(img);
+      
+      // Prüfe alle 5 Bilder die Größe
+      if (currentChunk.length % 5 === 0 || idx === allImages.length - 1) {
+        const testJson = JSON.stringify(currentChunk, null, 2);
+        const sizeBytes = Buffer.byteLength(testJson, 'utf8');
+        
+        // Wenn zu groß und mehr als 1 Bild, splitte
+        if (sizeBytes > maxSizeBytes && currentChunk.length > 1) {
+          const lastImg = currentChunk.pop();
+          chunks.push([...currentChunk]);
+          currentChunk = [lastImg];
+        }
+      }
+    }
+    
+    // Letzten Chunk hinzufügen
+    if (currentChunk.length > 0) {
+      chunks.push(currentChunk);
+    }
+    
+    console.log(`\n   Erstelle ${chunks.length} part-Dateien...\n`);
+    
+    // Speichere chunks
+    for (let i = 0; i < chunks.length; i++) {
+      const chunk = chunks[i];
+      const filename = `steiner-images-part${String(i + 1).padStart(2, '0')}.json`;
+      const filepath = path.join(this.outputDir, filename);
+      
+      fs.writeFileSync(filepath, JSON.stringify(chunk, null, 2), 'utf8');
+      
+      const sizeBytes = fs.statSync(filepath).size;
+      const sizeMB = (sizeBytes / (1024 * 1024)).toFixed(2);
+      
+      console.log(`   [${String(i + 1).padStart(2, ' ')}] ${filename}: ${chunk.length} Bilder (${sizeMB} MB)`);
+    }
+    
+    console.log(`\n   💾 ${chunks.length} part-Dateien erstellt (steiner-images-part01.json - part${String(chunks.length).padStart(2, '0')}.json)`);
   }
   
   // Finde GA-Verzeichnis für einen GA-Band

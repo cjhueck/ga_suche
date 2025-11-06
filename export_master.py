@@ -8,12 +8,10 @@ Fuehrt den kompletten Export-Workflow automatisch aus:
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
 2. Lectures aus Obsidian exportieren (inkl. Bilder)
-   - Exportiert Vortraege als JSON
-   - Bilder werden in steiner-images.json exportiert
-3. steiner-images.json splitten
-   - Teilt grosse steiner-images.json in kleinere part-Dateien
+   - Exportiert Vortraege als JSON (gesplittete part-Dateien)
+   - Bilder werden direkt als gesplittete part-Dateien exportiert
    - Jede Datei < 10 MB (GitHub-kompatibel)
-4. Server neu starten (optional)
+3. Server neu starten (optional)
 
 Verwendung:
     python export_master.py                      # Kompletter Export (ALLE GA-Baende)
@@ -345,13 +343,18 @@ class ExportMaster:
     
     def step3_split_images(self):
         """Schritt 3: steiner-images.json in kleinere Dateien splitten"""
-        self.print_step(3, 4, "Splitte steiner-images.json")
+        # HINWEIS: Dieser Schritt ist nicht mehr notwendig, da export-lectures.js
+        # bereits direkt gesplittete part-Dateien erstellt
+        print("\nSCHRITT 3 ÜBERSPRUNGEN")
+        print("   Bilder werden bereits von export-lectures.js gesplittet")
+        self.steps_completed.append("Bilder-Split (automatisch)")
+        return True
         
+        # Legacy-Code (falls steiner-images.json manuell existiert)
         try:
             images_file = os.path.join(self.project_root, 'steiner-images.json')
             
             if not os.path.exists(images_file):
-                print("  steiner-images.json nicht gefunden, überspringe Split...")
                 return True
             
             # Lade Bilder
