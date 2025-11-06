@@ -121,6 +121,48 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         content = re.sub(pattern5, replace5, content)
         
+        # Fix 6: Lange Gedankenstriche durch kurze ersetzen
+        # — (em dash) → - (hyphen)
+        original_before_dash_fix = content
+        content = content.replace('—', '-')
+        
+        # Zähle wie viele Gedankenstriche ersetzt wurden
+        num_dashes_replaced = original_before_dash_fix.count('—')
+        if num_dashes_replaced > 0:
+            changes.append(f"  - Gedankenstriche ersetzt: {num_dashes_replaced}× (— → -)")
+        
+        # Fix 7: kk durch ck in deutschen Wörtern ersetzen
+        # Entwikklung → Entwicklung, strikken → stricken, etc.
+        original_before_kk_fix = content
+        
+        # Pattern: kk innerhalb von Wörtern (mit Buchstaben davor und danach)
+        kk_pattern = r'\b(\w+?)kk(\w+?)\b'
+        
+        def replace_kk(match):
+            before = match.group(1)
+            after = match.group(2)
+            word = before + 'kk' + after
+            
+            # Überspringe wenn:
+            # - Zu kurz (< 5 Zeichen)
+            # - Enthält Sonderzeichen (URL, etc.)
+            # - kk am Anfang des Wortes
+            if len(word) < 5 or not before or any(c in word for c in ['/', ':', '.', '@', '_']):
+                return match.group(0)
+            
+            # Ersetze kk durch ck
+            return before + 'ck' + after
+        
+        content = re.sub(kk_pattern, replace_kk, content)
+        
+        # Zähle wie viele kk ersetzt wurden (ungefähr)
+        num_kk_before = len(re.findall(kk_pattern, original_before_kk_fix))
+        num_kk_after = len(re.findall(kk_pattern, content))
+        num_kk_replaced = num_kk_before - num_kk_after
+        
+        if num_kk_replaced > 0:
+            changes.append(f"  - kk→ck ersetzt: {num_kk_replaced}× (Entwikklung → Entwicklung)")
+        
         # Wende Änderungen an
         if changes and apply_changes:
             # Backup
