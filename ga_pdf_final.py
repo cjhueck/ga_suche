@@ -679,7 +679,10 @@ def korrigiere_rechtschreibung(text):
         # - Zu kurz (< 5 Zeichen)
         # - Enthält Sonderzeichen (URL, etc.)
         # - kk am Anfang des Wortes
-        if len(word) < 5 or not before or any(c in word for c in ['/', ':', '.', '@', '_']):
+        # - Wort ist "okkult" oder beginnt mit "okkult" (z.B. Okkultismus)
+        if (len(word) < 5 or not before or 
+            any(c in word for c in ['/', ':', '.', '@', '_']) or
+            word.lower().startswith('okkult')):
             return match.group(0)
         
         # Ersetze kk durch ck
