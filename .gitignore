@@ -10,3 +10,9 @@ backups/
 
 # Steiner GA Quelldaten (zu groß für Git)
 Steiner_GA/
+
+# Steiner GA_Parken (wird online nicht gebraucht) 
+Steiner_GA_Parken/
+
+# Anleitungen
+Anleitungen/

@@ -6265,8 +6265,8 @@ async function showGALectures(gaNumber) {
     
     lectures.forEach(lecture => {
       const lectureId = lecture.ID;
-      const summaryData = summaryDB[lectureId];
-      const shortSummary = summaryData?.shortSummary || '';
+      // Verwende shortSummary von der lecture (kommt vom Backend) oder lade aus summaryDB
+      const shortSummary = lecture.shortSummary || summaryDB[lectureId]?.shortSummary || '';
       
       // Vortragstitel und Metadaten
       const lectureTitle = lecture.title || '';

@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
 """
-Master Export-Skript fuer Steiner GA-Suche (Integriert)
-========================================================
+Master Export-Skript fuer Steiner GA-Suche
+==========================================
 Fuehrt den kompletten Export-Workflow automatisch aus:
-1. Bildpfade in Obsidian korrigieren (INTEGRIERT - optional)
+1. Bildpfade in Obsidian korrigieren (optional)
    - Korrigiert fehlerhafte Markdown/Wiki-Links
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
-2. JPEG zu PNG Konvertierung (optional)
-3. Lectures aus Obsidian exportieren
-4. Bilder in steiner-images.json exportieren
-5. Server neu starten (optional)
+2. Lectures aus Obsidian exportieren (inkl. Bilder)
+   - Exportiert Vortraege als JSON
+   - Bilder werden in steiner-images.json exportiert
+3. steiner-images.json splitten
+   - Teilt grosse steiner-images.json in kleinere part-Dateien
+   - Jede Datei < 10 MB (GitHub-kompatibel)
+4. Server neu starten (optional)
 
 Verwendung:
     python export_master.py                      # Kompletter Export (ALLE GA-Baende)
     python export_master.py GA112-GA117a         # Nur bestimmte GA-Baende
     python export_master.py --skip-path-fix      # Bildpfad-Korrektur ueberspringen
-    python export_master.py --skip-conversion    # JPEG-Konvertierung ueberspringen
     python export_master.py --restart-server     # Server automatisch neu starten
     
 Beispiele:
     python export_master.py                      # Alles mit Bildpfad-Korrektur
-    python export_master.py GA089                # Nur GA089 mit Bildpfad-Korrektur
-    python export_master.py GA112-GA117a --restart-server
-    python export_master.py --skip-path-fix --skip-conversion
+    python export_master.py GA089                # Nur GA089
+    python export_master.py GA175-GA209 --restart-server
+    python export_master.py --skip-path-fix
     
 Hinweis:
-    Bildpfad-Korrektur ist jetzt INTEGRIERT und verwendet keine externen Skripte mehr.
-    Alle Funktionen sind in einem einzigen Skript vereint.
+    Bilder werden automatisch mit den Lectures exportiert.
+    Separater Bilder-Export ist nicht mehr notwendig.
 """
 
 import subprocess
@@ -35,6 +37,7 @@ import sys
 import os
 import re
 import time
+import json
 from datetime import datetime
 from pathlib import Path
 
@@ -257,22 +260,9 @@ class ExportMaster:
             self.steps_failed.append("Bildpfad-Korrektur")
             return False
     
-    def step2_convert_jpegs(self, skip=False):
-        """Schritt 2: JPEGs zu PNGs konvertieren"""
-        if skip:
-            print("\nSCHRITT 2 UEBERSPRUNGEN (--skip-conversion)")
-            return True
-        
-        self.print_step(2, 5, "JPEG zu PNG Konvertierung")
-        
-        # Verwende das integrierte Skript, aber mit subprocess für JPEG-Konvertierung
-        # Alternativ: rufe convert_all_jpegs_to_png.py direkt auf
-        command = [sys.executable, "convert_all_jpegs_to_png.py"]
-        return self.run_command(command, "JPEG-Konvertierung")
-    
-    def step3_export_lectures(self, ga_bands=None):
-        """Schritt 3: Lectures aus Obsidian exportieren"""
-        self.print_step(3, 5, "Lectures exportieren")
+    def step2_export_lectures(self, ga_bands=None):
+        """Schritt 2: Lectures aus Obsidian exportieren (mit Bildern)"""
+        self.print_step(2, 4, "Lectures exportieren (inkl. Bilder)")
         
         if ga_bands:
             command = ["node", "export-lectures.js"] + ga_bands
@@ -284,22 +274,83 @@ class ExportMaster:
         
         return self.run_command(command, "Lecture-Export", shell=True)
     
-    def step4_export_images(self):
-        """Schritt 4: Bilder in steiner-images.json exportieren"""
-        self.print_step(4, 5, "Bilder exportieren")
+    def step3_split_images(self):
+        """Schritt 3: steiner-images.json in kleinere Dateien splitten"""
+        self.print_step(3, 4, "Splitte steiner-images.json")
         
-        # Verwende das Python-Skript nur für den Export (ohne Konvertierung)
-        command = [sys.executable, "export_steiner_images_integrated.py", "--skip-conversion"]
-        return self.run_command(command, "Bilder-Export")
+        try:
+            images_file = os.path.join(self.project_root, 'steiner-images.json')
+            
+            if not os.path.exists(images_file):
+                print("  steiner-images.json nicht gefunden, überspringe Split...")
+                return True
+            
+            # Lade Bilder
+            with open(images_file, 'r', encoding='utf-8') as f:
+                all_images_data = json.load(f)
+            
+            # Konvertiere zu Liste falls es ein Objekt ist
+            if isinstance(all_images_data, dict):
+                all_images = list(all_images_data.values())
+            else:
+                all_images = all_images_data
+            
+            total_size_mb = os.path.getsize(images_file) / (1024 * 1024)
+            print(f"  Gesamt: {len(all_images)} Bilder ({total_size_mb:.2f} MB)")
+            
+            # Dynamisches Splitting
+            MAX_SIZE_MB = 9.5
+            chunks = []
+            current_chunk = []
+            
+            for idx, img in enumerate(all_images):
+                current_chunk.append(img)
+                
+                # Prüfe alle 5 Bilder die Größe
+                if len(current_chunk) % 5 == 0 or idx == len(all_images) - 1:
+                    test_json = json.dumps(current_chunk, ensure_ascii=False, indent=2)
+                    size_mb = len(test_json.encode('utf-8')) / (1024 * 1024)
+                    
+                    # Wenn zu groß und mehr als 1 Bild, splitte
+                    if size_mb > MAX_SIZE_MB and len(current_chunk) > 1:
+                        last_img = current_chunk.pop()
+                        chunks.append(current_chunk)
+                        current_chunk = [last_img]
+            
+            # Letzten Chunk hinzufügen
+            if current_chunk:
+                chunks.append(current_chunk)
+            
+            # Speichere chunks
+            print(f"  Erstelle {len(chunks)} part-Dateien...\n")
+            
+            for i, chunk in enumerate(chunks, 1):
+                filename = f'steiner-images-part{i:02d}.json'
+                filepath = os.path.join(self.project_root, filename)
+                
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    json.dump(chunk, f, ensure_ascii=False, indent=2)
+                
+                size_mb = os.path.getsize(filepath) / (1024 * 1024)
+                print(f"  [{i:2d}] {filename}: {len(chunk)} Bilder ({size_mb:.2f} MB)")
+            
+            print(f"\n  [OK] {len(chunks)} part-Dateien erstellt")
+            self.steps_completed.append("Bilder-Split")
+            return True
+            
+        except Exception as e:
+            print(f"\nFEHLER beim Bilder-Split: {e}")
+            self.steps_failed.append("Bilder-Split")
+            return False
     
-    def step5_restart_server(self, restart=False):
-        """Schritt 5: Server neu starten (optional)"""
+    def step4_restart_server(self, restart=False):
+        """Schritt 4: Server neu starten (optional)"""
         if not restart:
-            print("\nSCHRITT 5 UEBERSPRUNGEN")
+            print("\nSCHRITT 4 UEBERSPRUNGEN")
             print("   Server-Neustart mit --restart-server")
             return True
         
-        self.print_step(5, 5, "Server neu starten")
+        self.print_step(4, 4, "Server neu starten")
         
         print("Stoppe laufenden Server (falls aktiv)...")
         
@@ -378,7 +429,6 @@ class ExportMaster:
         options = options or {}
         
         skip_path_fix = options.get('skip_path_fix', False)
-        skip_conversion = options.get('skip_conversion', False)
         restart_server = options.get('restart_server', False)
         
         # Start
@@ -396,7 +446,6 @@ class ExportMaster:
         
         print(f"\nOptionen:")
         print(f"  Bildpfad-Korrektur: {'NEIN' if skip_path_fix else 'JA'}")
-        print(f"  JPEG-Konvertierung: {'NEIN' if skip_conversion else 'JA'}")
         print(f"  Server-Neustart: {'JA' if restart_server else 'NEIN'}")
         
         # Schritt 1: Bildpfade korrigieren
@@ -408,31 +457,20 @@ class ExportMaster:
                 print("\nExport abgebrochen.")
                 return False
         
-        # Schritt 2: JPEG-Konvertierung
-        if not self.step2_convert_jpegs(skip=skip_conversion):
-            print("\nWarnung: JPEG-Konvertierung fehlgeschlagen")
-            print("   Moechten Sie trotzdem fortfahren? (j/n): ", end='')
-            response = input().lower()
-            if response not in ['j', 'ja', 'y', 'yes']:
-                print("\nExport abgebrochen.")
-                return False
-        
-        # Schritt 3: Lectures exportieren
-        if not self.step3_export_lectures(ga_bands):
+        # Schritt 2: Lectures exportieren (enthält Bilder-Export)
+        if not self.step2_export_lectures(ga_bands):
             print("\nKRITISCHER FEHLER: Lecture-Export fehlgeschlagen!")
             print("   Export wird abgebrochen.")
             self.print_summary(start_time, ga_bands)
             return False
         
-        # Schritt 4: Bilder exportieren
-        if not self.step4_export_images():
-            print("\nKRITISCHER FEHLER: Bilder-Export fehlgeschlagen!")
-            print("   Export wird abgebrochen.")
-            self.print_summary(start_time, ga_bands)
-            return False
+        # Schritt 3: steiner-images.json splitten
+        if not self.step3_split_images():
+            print("\nWarnung: Bilder-Split fehlgeschlagen")
+            print("   Export wird fortgesetzt...")
         
-        # Schritt 5: Server neu starten (optional)
-        self.step5_restart_server(restart=restart_server)
+        # Schritt 4: Server neu starten (optional)
+        self.step4_restart_server(restart=restart_server)
         
         # Finale Zusammenfassung
         self.print_summary(start_time, ga_bands)
@@ -447,7 +485,6 @@ def parse_arguments():
     ga_bands = []
     options = {
         'skip_path_fix': False,
-        'skip_conversion': False,
         'restart_server': False
     }
     
@@ -456,8 +493,6 @@ def parse_arguments():
             # Optionen
             if arg == '--skip-path-fix':
                 options['skip_path_fix'] = True
-            elif arg == '--skip-conversion':
-                options['skip_conversion'] = True
             elif arg == '--restart-server':
                 options['restart_server'] = True
             elif arg == '--help' or arg == '-h':
