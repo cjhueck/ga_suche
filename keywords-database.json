@@ -457391,7 +457391,8 @@
     "generated": "2025-11-07T18:48:07.120Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:08.643Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA224/1": {
     "lectureId": "GA224/1",
@@ -457558,7 +457559,8 @@
     "generated": "2025-11-07T18:48:10.921Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:12.068Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Bern"
   },
   "GA224/4": {
     "lectureId": "GA224/4",
@@ -457703,7 +457705,8 @@
     "generated": "2025-11-07T18:48:13.589Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:14.980Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA224/2": {
     "lectureId": "GA224/2",
@@ -457848,7 +457851,8 @@
     "generated": "2025-11-07T18:48:16.465Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:17.497Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA224/5": {
     "lectureId": "GA224/5",
@@ -458004,7 +458008,8 @@
     "generated": "2025-11-07T18:48:19.159Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:19.926Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA224/7": {
     "lectureId": "GA224/7",
@@ -458149,7 +458154,8 @@
     "generated": "2025-11-07T18:48:57.046Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:48:57.760Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Prag"
   },
   "GA224/10": {
     "lectureId": "GA224/10",
@@ -458294,7 +458300,8 @@
     "generated": "2025-11-07T18:49:04.305Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:49:08.150Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA224/6": {
     "lectureId": "GA224/6",
@@ -458450,7 +458457,8 @@
     "generated": "2025-11-07T18:49:12.691Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:49:14.457Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Prag"
   },
   "GA224/9": {
     "lectureId": "GA224/9",
@@ -458606,7 +458614,8 @@
     "generated": "2025-11-07T18:49:17.254Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:49:18.517Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA224/8": {
     "lectureId": "GA224/8",
@@ -458784,7 +458793,8 @@
     "generated": "2025-11-07T18:49:20.681Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:49:21.606Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/3": {
     "lectureId": "GA225/3",
@@ -458929,7 +458939,8 @@
     "generated": "2025-11-07T18:50:04.488Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:50:05.669Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/2": {
     "lectureId": "GA225/2",
@@ -459096,7 +459107,8 @@
     "generated": "2025-11-07T18:50:08.611Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:50:10.702Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/4": {
     "lectureId": "GA225/4",
@@ -459241,7 +459253,8 @@
     "generated": "2025-11-07T18:50:12.656Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:50:16.125Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/1": {
     "lectureId": "GA225/1",
@@ -459397,7 +459410,8 @@
     "generated": "2025-11-07T18:50:18.909Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:50:21.282Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA224/11": {
     "lectureId": "GA224/11",
@@ -459551,7 +459565,8 @@
     "generated": "2025-11-07T18:50:22.910Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:50:23.805Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Berlin"
   },
   "GA225/8": {
     "lectureId": "GA225/8",
@@ -459696,7 +459711,8 @@
     "generated": "2025-11-07T18:51:02.416Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:03.286Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/6": {
     "lectureId": "GA225/6",
@@ -459841,7 +459857,8 @@
     "generated": "2025-11-07T18:51:05.339Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:06.481Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/9": {
     "lectureId": "GA225/9",
@@ -460019,7 +460036,8 @@
     "generated": "2025-11-07T18:51:08.215Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:09.046Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/5": {
     "lectureId": "GA225/5",
@@ -460175,7 +460193,8 @@
     "generated": "2025-11-07T18:51:10.893Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:11.855Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/7": {
     "lectureId": "GA225/7",
@@ -460338,7 +460357,8 @@
     "generated": "2025-11-07T18:51:13.787Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:14.377Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/11": {
     "lectureId": "GA225/11",
@@ -460483,7 +460503,8 @@
     "generated": "2025-11-07T18:51:55.091Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:56.402Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA226/1": {
     "lectureId": "GA226/1",
@@ -460650,7 +460671,8 @@
     "generated": "2025-11-07T18:51:58.496Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:51:59.823Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA226/2": {
     "lectureId": "GA226/2",
@@ -460817,7 +460839,8 @@
     "generated": "2025-11-07T18:52:02.103Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:02.894Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA225/12": {
     "lectureId": "GA225/12",
@@ -460984,7 +461007,8 @@
     "generated": "2025-11-07T18:52:04.847Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:05.875Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA225/10": {
     "lectureId": "GA225/10",
@@ -461162,7 +461186,8 @@
     "generated": "2025-11-07T18:52:07.812Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:08.285Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA226/4": {
     "lectureId": "GA226/4",
@@ -461307,7 +461332,8 @@
     "generated": "2025-11-07T18:52:47.224Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:48.231Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA226/7": {
     "lectureId": "GA226/7",
@@ -461463,7 +461489,8 @@
     "generated": "2025-11-07T18:52:50.434Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:51.691Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA226/5": {
     "lectureId": "GA226/5",
@@ -461619,7 +461646,8 @@
     "generated": "2025-11-07T18:52:54.042Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:55.069Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA226/6": {
     "lectureId": "GA226/6",
@@ -461775,7 +461803,8 @@
     "generated": "2025-11-07T18:52:56.928Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:52:58.620Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA226/3": {
     "lectureId": "GA226/3",
@@ -461920,7 +461949,8 @@
     "generated": "2025-11-07T18:53:01.421Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:02.360Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Kristiania (Oslo)"
   },
   "GA227/1": {
     "lectureId": "GA227/1",
@@ -462065,7 +462095,8 @@
     "generated": "2025-11-07T18:53:39.446Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:40.701Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/3": {
     "lectureId": "GA227/3",
@@ -462210,7 +462241,8 @@
     "generated": "2025-11-07T18:53:42.454Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:43.624Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/4": {
     "lectureId": "GA227/4",
@@ -462366,7 +462398,8 @@
     "generated": "2025-11-07T18:53:46.687Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:48.562Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/2": {
     "lectureId": "GA227/2",
@@ -462511,7 +462544,8 @@
     "generated": "2025-11-07T18:53:49.987Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:51.211Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/5": {
     "lectureId": "GA227/5",
@@ -462689,7 +462723,8 @@
     "generated": "2025-11-07T18:53:52.571Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:53:53.498Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/8": {
     "lectureId": "GA227/8",
@@ -462823,7 +462858,8 @@
     "generated": "2025-11-07T18:54:31.821Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:54:32.504Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/6": {
     "lectureId": "GA227/6",
@@ -462990,7 +463026,8 @@
     "generated": "2025-11-07T18:54:34.871Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:54:35.410Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/7": {
     "lectureId": "GA227/7",
@@ -463146,7 +463183,8 @@
     "generated": "2025-11-07T18:54:41.188Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:54:42.340Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/10": {
     "lectureId": "GA227/10",
@@ -463302,7 +463340,8 @@
     "generated": "2025-11-07T18:54:45.436Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:54:46.761Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/9": {
     "lectureId": "GA227/9",
@@ -463480,7 +463519,8 @@
     "generated": "2025-11-07T18:54:47.626Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:54:47.974Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/11": {
     "lectureId": "GA227/11",
@@ -463647,7 +463687,8 @@
     "generated": "2025-11-07T18:55:29.337Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:55:30.265Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/12": {
     "lectureId": "GA227/12",
@@ -463814,7 +463855,8 @@
     "generated": "2025-11-07T18:55:31.884Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:55:32.647Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/13": {
     "lectureId": "GA227/13",
@@ -463992,7 +464034,8 @@
     "generated": "2025-11-07T18:55:34.370Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:55:34.893Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/14": {
     "lectureId": "GA227/14",
@@ -464159,7 +464202,8 @@
     "generated": "2025-11-07T18:55:36.025Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:55:36.590Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA227/15": {
     "lectureId": "GA227/15",
@@ -464326,7 +464370,8 @@
     "generated": "2025-11-07T18:55:37.891Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:55:38.231Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA228/2": {
     "lectureId": "GA228/2",
@@ -464504,7 +464549,8 @@
     "generated": "2025-11-07T18:56:18.308Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:56:18.855Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA228/1": {
     "lectureId": "GA228/1",
@@ -464814,7 +464860,8 @@
     "generated": "2025-11-07T18:56:22.114Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:56:22.626Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA228/3": {
     "lectureId": "GA228/3",
@@ -464970,7 +465017,8 @@
     "generated": "2025-11-07T18:56:23.684Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:56:24.054Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA227/16": {
     "lectureId": "GA227/16",
@@ -465148,7 +465196,8 @@
     "generated": "2025-11-07T18:56:25.482Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:56:25.825Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Penmaenmawr"
   },
   "GA228/7": {
     "lectureId": "GA228/7",
@@ -465315,7 +465364,8 @@
     "generated": "2025-11-07T18:57:07.082Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:07.601Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "GEGENWART UND ZUKUNFT VOM GESICHTSPUNKT DER BEWUSSTSEINSENTWICKELUNG. Erster Vortrag. Stuttgart"
   },
   "GA228/9": {
     "lectureId": "GA228/9",
@@ -465482,7 +465532,8 @@
     "generated": "2025-11-07T18:57:08.786Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:09.158Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA228/6": {
     "lectureId": "GA228/6",
@@ -465660,7 +465711,8 @@
     "generated": "2025-11-07T18:57:11.244Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:11.597Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA228/4": {
     "lectureId": "GA228/4",
@@ -465827,7 +465879,8 @@
     "generated": "2025-11-07T18:57:14.440Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:14.795Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "London"
   },
   "GA228/8": {
     "lectureId": "GA228/8",
@@ -466005,11 +466058,12 @@
     "generated": "2025-11-07T18:57:16.263Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:16.660Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA229/5": {
     "lectureId": "GA229/5",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA229",
     "summary": "Der Vortrag behandelt die geistige Bedeutung des Eisens im Verhältnis zur menschlichen Entwicklung. Im Jahreslauf steigen zur Hochsommerzeit Naturgeister mit sulfurischen Kräften in die Höhen auf, wo sie ahrimanische Begierden verkörpern. Als Gegenkraft wirkt das kosmische Meteoreisen, das diese animalischen Kräfte reinigt und klärt. Dieser kosmische Prozess spiegelt sich im menschlichen Organismus wider: Das Eisen im Blut bekämpft kontinuierlich die Sulfurisierungsprozesse. Während die moderne Kultur das Eisen nur materiell nutzt, mahnt die geistige Welt zur Erkenntnis seiner spirituellen Bedeutung. Aus diesem Verständnis entsteht die Imagination des Michael mit dem meteorischen Flammenschwert im Kampf gegen den sulfurischen Drachen. Diese Imagination soll zum Michael-Fest führen, das den Übergang vom Naturbewusstsein zum Selbstbewusstsein im Herbst feiert und den Menschen befähigt, die inneren Eisenprozesse bewusst zu handhaben.",
@@ -466150,7 +466204,8 @@
     "generated": "2025-11-07T18:57:56.295Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:56.653Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Stuttgart"
   },
   "GA229/1": {
     "lectureId": "GA229/1",
@@ -466295,7 +466350,8 @@
     "generated": "2025-11-07T18:57:59.384Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:57:59.723Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA229/2": {
     "lectureId": "GA229/2",
@@ -466440,7 +466496,8 @@
     "generated": "2025-11-07T18:58:03.876Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:04.559Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA229/4": {
     "lectureId": "GA229/4",
@@ -466618,7 +466675,8 @@
     "generated": "2025-11-07T18:58:06.304Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:07.097Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA229/3": {
     "lectureId": "GA229/3",
@@ -466785,7 +466843,8 @@
     "generated": "2025-11-07T18:58:08.499Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:08.867Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/4": {
     "lectureId": "GA230/4",
@@ -466930,7 +466989,8 @@
     "generated": "2025-11-07T18:58:44.941Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:45.387Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/2": {
     "lectureId": "GA230/2",
@@ -467075,7 +467135,8 @@
     "generated": "2025-11-07T18:58:49.140Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:50.270Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/3": {
     "lectureId": "GA230/3",
@@ -467220,7 +467281,8 @@
     "generated": "2025-11-07T18:58:53.023Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:55.195Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/1": {
     "lectureId": "GA230/1",
@@ -467376,7 +467438,8 @@
     "generated": "2025-11-07T18:58:57.117Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:58:58.665Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/5": {
     "lectureId": "GA230/5",
@@ -467532,7 +467595,8 @@
     "generated": "2025-11-07T18:59:01.638Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:59:02.157Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/10": {
     "lectureId": "GA230/10",
@@ -467666,7 +467730,8 @@
     "generated": "2025-11-07T18:59:42.828Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:59:43.865Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/8": {
     "lectureId": "GA230/8",
@@ -467833,7 +467898,8 @@
     "generated": "2025-11-07T18:59:46.316Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:59:48.031Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/9": {
     "lectureId": "GA230/9",
@@ -467989,7 +468055,8 @@
     "generated": "2025-11-07T18:59:50.653Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:59:52.340Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/6": {
     "lectureId": "GA230/6",
@@ -468134,7 +468201,8 @@
     "generated": "2025-11-07T18:59:56.177Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T18:59:57.629Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/7": {
     "lectureId": "GA230/7",
@@ -468290,7 +468358,8 @@
     "generated": "2025-11-07T19:00:00.115Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:00:01.329Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/11": {
     "lectureId": "GA230/11",
@@ -468435,7 +468504,8 @@
     "generated": "2025-11-07T19:00:41.534Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:00:42.429Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA230/12": {
     "lectureId": "GA230/12",
@@ -468580,7 +468650,8 @@
     "generated": "2025-11-07T19:00:46.780Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:00:49.003Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA231/3": {
     "lectureId": "GA231/3",
@@ -468736,11 +468807,12 @@
     "generated": "2025-11-07T19:00:52.296Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:00:53.939Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA231/1": {
     "lectureId": "GA231/1",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA231",
     "summary": "Die moderne Zivilisation steht vor dem Problem vermeintlicher Erkenntnisgrenzen, die besonders das Übersinnliche betreffen. Diese Begrenzung führt zu einer inneren Tragik, da der Mensch sein wahres geistiges Wesen nicht erkennen kann und damit das Selbstvertrauen in seine wertvollsten Eigenschaften verliert. Die moralischen Impulse finden keine Verbindung zu den anerkannten Naturkräften. Aus diesem Dilemma erwächst eine Sehnsucht nach übersinnlicher Erkenntnis. Durch systematische meditative Übungen, die den Traum bewusst nachahmen, kann das Seelenleben verstärkt werden. Diese Schulung führt zunächst zu einem schmerzhaften leeren Bewusstsein, das sich dann mit geistigem Inhalt füllt. Der Erkennende erblickt sein gesamtes Erdenleben in einem Zeittableau und kann schließlich das vorgeburtliche Dasein und das Leben nach dem Tod erfassen. Wahre Selbsterkenntnis umfasst beide Seiten der Ewigkeit: Ungeborenheit und Unsterblichkeit.",
@@ -468892,11 +468964,12 @@
     "generated": "2025-11-07T19:00:56.666Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:00:57.964Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA231/2": {
     "lectureId": "GA231/2",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA231",
     "summary": "Die persönliche Dimension der geisteswissenschaftlichen Erkenntnis unterscheidet sich fundamental von der unpersönlichen modernen Wissenschaft. Während herkömmliche Erkenntnis abstrakt bleibt und nur zwischen 'wahr' und 'falsch' unterscheidet, führt geistige Erkenntnis zu den Begriffen 'gesund' und 'krank'. Gesunde Erkenntnisse bereichern das Leben und führen zur selbstlosen Liebe, kranke Erkenntnisse lassen den Menschen sich selbst verzehren und fördern Egoismus. Diese Erkenntnis wird zur charakterbildenden Kraft und führt unmittelbar ins Moralische. Durch liebende Erkenntnis erschließt sich die Realität wiederholter Erdenleben und die moralische Weltordnung. Sittliche Impulse gestalten den Menschen harmonisch, während unsittliches Handeln zu geistig-seelischen Verkrüpplungen führt. Die Wirkungen zeigen sich im nächsten Erdenleben als Schicksal. Geisteswissenschaft wird so zur persönlichsten Angelegenheit, die den Menschen mit seinem ewigen Wesen und der geistigen Welt verbindet, wo auf jeden Einzelnen als Individualität gewartet wird.",
@@ -469048,7 +469121,8 @@
     "generated": "2025-11-07T19:00:59.568Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:00.796Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den H"
   },
   "GA232/1": {
     "lectureId": "GA232/1",
@@ -469204,7 +469278,8 @@
     "generated": "2025-11-07T19:01:37.719Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:38.978Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA231/6": {
     "lectureId": "GA231/6",
@@ -469334,7 +469409,8 @@
     "generated": "2025-11-07T19:01:40.845Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:43.068Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA231/5": {
     "lectureId": "GA231/5",
@@ -469501,7 +469577,8 @@
     "generated": "2025-11-07T19:01:46.581Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:48.419Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA231/7": {
     "lectureId": "GA231/7",
@@ -469657,7 +469734,8 @@
     "generated": "2025-11-07T19:01:50.288Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:51.134Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA231/4": {
     "lectureId": "GA231/4",
@@ -469835,7 +469913,8 @@
     "generated": "2025-11-07T19:01:55.613Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:01:56.247Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Den Haag"
   },
   "GA232/6": {
     "lectureId": "GA232/6",
@@ -469991,7 +470070,8 @@
     "generated": "2025-11-07T19:02:34.581Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:02:35.505Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/2": {
     "lectureId": "GA232/2",
@@ -470136,7 +470216,8 @@
     "generated": "2025-11-07T19:02:37.211Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:02:38.245Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/3": {
     "lectureId": "GA232/3",
@@ -470288,7 +470369,8 @@
     "generated": "2025-11-07T19:02:40.125Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:02:40.979Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/4": {
     "lectureId": "GA232/4",
@@ -470455,7 +470537,8 @@
     "generated": "2025-11-07T19:02:42.981Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:02:43.799Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/5": {
     "lectureId": "GA232/5",
@@ -470611,11 +470694,12 @@
     "generated": "2025-11-07T19:02:46.106Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:02:46.679Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/7": {
     "lectureId": "GA232/7",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA232",
     "summary": "Die hybernischen Mysterien auf der irischen Insel stellten eine besondere Einweihungsstätte dar, die schwer durch übersinnliche Forschung zugänglich ist. Die Schüler durchliefen eine intensive Vorbereitung, bei der sie alle Schwierigkeiten des gewöhnlichen Erkenntnisweges und die Grenzen menschlichen Glücks erfuhren. Zentral waren zwei kolossale Bildsäulen - eine männliche aus elastischem Material unter Sonneneinfluss und eine weibliche aus plastischem Material unter Mondenkräften. Diese Statuen verkörperten Erkenntnis ohne Sein und Phantasie ohne Wahrheit, entsprechend Wissenschaft und Kunst. Nach intensiven Prüfungen und dem Erleben dieser Gegensätze wurden die Schüler zur Christus-Gestalt geführt, die beide Aspekte - Wissenschaft und Kunst - in sich vereinte und überwand.",
@@ -470756,7 +470840,8 @@
     "generated": "2025-11-07T19:03:23.307Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:03:24.782Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/10": {
     "lectureId": "GA232/10",
@@ -470912,7 +470997,8 @@
     "generated": "2025-11-07T19:03:26.484Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:03:27.404Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/11": {
     "lectureId": "GA232/11",
@@ -471057,7 +471143,8 @@
     "generated": "2025-11-07T19:03:29.020Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:03:29.895Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/9": {
     "lectureId": "GA232/9",
@@ -471202,7 +471289,8 @@
     "generated": "2025-11-07T19:03:31.588Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:03:32.438Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/8": {
     "lectureId": "GA232/8",
@@ -471369,7 +471457,8 @@
     "generated": "2025-11-07T19:03:34.214Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:03:34.740Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/16": {
     "lectureId": "GA232/16",
@@ -471470,7 +471559,8 @@
     "generated": "2025-11-07T19:04:01.802Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:04:02.346Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/15": {
     "lectureId": "GA232/15",
@@ -471604,7 +471694,8 @@
     "generated": "2025-11-07T19:04:05.484Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:04:06.032Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/12": {
     "lectureId": "GA232/12",
@@ -471738,7 +471829,8 @@
     "generated": "2025-11-07T19:04:12.951Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:04:14.870Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/14": {
     "lectureId": "GA232/14",
@@ -471883,7 +471975,8 @@
     "generated": "2025-11-07T19:04:16.794Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:04:17.414Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/13": {
     "lectureId": "GA232/13",
@@ -472039,7 +472132,8 @@
     "generated": "2025-11-07T19:04:52.214Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:04:52.767Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA232/17": {
     "lectureId": "GA232/17",
@@ -472118,7 +472212,8 @@
     "generated": "2025-11-07T19:05:13.660Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:05:14.162Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/1": {
     "lectureId": "GA233/1",
@@ -472237,7 +472332,8 @@
     "generated": "2025-11-07T19:05:25.819Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:05:26.342Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/2": {
     "lectureId": "GA233/2",
@@ -472404,7 +472500,8 @@
     "generated": "2025-11-07T19:05:30.895Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:05:31.448Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/4": {
     "lectureId": "GA233/4",
@@ -472582,7 +472679,8 @@
     "generated": "2025-11-07T19:05:33.653Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:05:34.292Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/3": {
     "lectureId": "GA233/3",
@@ -472760,7 +472858,8 @@
     "generated": "2025-11-07T19:05:39.122Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:05:39.668Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/5": {
     "lectureId": "GA233/5",
@@ -472894,7 +472993,8 @@
     "generated": "2025-11-07T19:06:20.021Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:06:20.902Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/6": {
     "lectureId": "GA233/6",
@@ -473050,7 +473150,8 @@
     "generated": "2025-11-07T19:06:22.956Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:06:23.900Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/7": {
     "lectureId": "GA233/7",
@@ -473195,7 +473296,8 @@
     "generated": "2025-11-07T19:06:25.492Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:06:26.336Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/9": {
     "lectureId": "GA233/9",
@@ -473351,7 +473453,8 @@
     "generated": "2025-11-07T19:06:27.703Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:06:28.523Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233/8": {
     "lectureId": "GA233/8",
@@ -473529,7 +473632,8 @@
     "generated": "2025-11-07T19:06:30.106Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:06:30.691Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/2": {
     "lectureId": "GA233a/2",
@@ -473696,7 +473800,8 @@
     "generated": "2025-11-07T19:07:11.157Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:07:12.166Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/1": {
     "lectureId": "GA233a/1",
@@ -473852,7 +473957,8 @@
     "generated": "2025-11-07T19:07:13.605Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:07:14.403Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/5": {
     "lectureId": "GA233a/5",
@@ -474015,7 +474121,8 @@
     "generated": "2025-11-07T19:07:15.932Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:07:16.802Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/3": {
     "lectureId": "GA233a/3",
@@ -474160,7 +474267,8 @@
     "generated": "2025-11-07T19:07:18.398Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:07:19.191Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/4": {
     "lectureId": "GA233a/4",
@@ -474338,7 +474446,8 @@
     "generated": "2025-11-07T19:07:20.950Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:07:21.479Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/8": {
     "lectureId": "GA233a/8",
@@ -474483,7 +474592,8 @@
     "generated": "2025-11-07T19:08:02.786Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:03.300Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/9": {
     "lectureId": "GA233a/9",
@@ -474635,7 +474745,8 @@
     "generated": "2025-11-07T19:08:05.183Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:06.189Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/6": {
     "lectureId": "GA233a/6",
@@ -474791,7 +474902,8 @@
     "generated": "2025-11-07T19:08:07.471Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:08.268Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/10": {
     "lectureId": "GA233a/10",
@@ -474958,7 +475070,8 @@
     "generated": "2025-11-07T19:08:10.019Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:11.028Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA233a/7": {
     "lectureId": "GA233a/7",
@@ -475114,7 +475227,8 @@
     "generated": "2025-11-07T19:08:13.010Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:13.905Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/1": {
     "lectureId": "GA234/1",
@@ -475270,7 +475384,8 @@
     "generated": "2025-11-07T19:08:50.420Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:50.957Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/3": {
     "lectureId": "GA234/3",
@@ -475426,7 +475541,8 @@
     "generated": "2025-11-07T19:08:56.753Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:08:57.718Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/2": {
     "lectureId": "GA234/2",
@@ -475571,7 +475687,8 @@
     "generated": "2025-11-07T19:08:59.526Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:00.949Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/4": {
     "lectureId": "GA234/4",
@@ -475727,7 +475844,8 @@
     "generated": "2025-11-07T19:09:02.547Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:03.423Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/5": {
     "lectureId": "GA234/5",
@@ -475894,7 +476012,8 @@
     "generated": "2025-11-07T19:09:05.002Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:05.649Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/1": {
     "lectureId": "GA235/1",
@@ -476039,7 +476158,8 @@
     "generated": "2025-11-07T19:09:44.780Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:45.655Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/8": {
     "lectureId": "GA234/8",
@@ -476184,7 +476304,8 @@
     "generated": "2025-11-07T19:09:47.764Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:48.691Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/9": {
     "lectureId": "GA234/9",
@@ -476329,7 +476450,8 @@
     "generated": "2025-11-07T19:09:50.286Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:51.161Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/7": {
     "lectureId": "GA234/7",
@@ -476485,7 +476607,8 @@
     "generated": "2025-11-07T19:09:52.841Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:53.710Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA234/6": {
     "lectureId": "GA234/6",
@@ -476641,7 +476764,8 @@
     "generated": "2025-11-07T19:09:56.498Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:09:57.044Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/4": {
     "lectureId": "GA235/4",
@@ -476797,7 +476921,8 @@
     "generated": "2025-11-07T19:10:34.463Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:10:35.009Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/2": {
     "lectureId": "GA235/2",
@@ -476942,7 +477067,8 @@
     "generated": "2025-11-07T19:10:37.247Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:10:38.082Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/6": {
     "lectureId": "GA235/6",
@@ -477109,7 +477235,8 @@
     "generated": "2025-11-07T19:10:39.939Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:10:40.866Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/5": {
     "lectureId": "GA235/5",
@@ -477265,7 +477392,8 @@
     "generated": "2025-11-07T19:10:43.041Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:10:44.272Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/3": {
     "lectureId": "GA235/3",
@@ -477410,7 +477538,8 @@
     "generated": "2025-11-07T19:10:47.104Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:10:47.954Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/11": {
     "lectureId": "GA235/11",
@@ -477544,7 +477673,8 @@
     "generated": "2025-11-07T19:11:24.077Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:11:25.304Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/7": {
     "lectureId": "GA235/7",
@@ -477700,7 +477830,8 @@
     "generated": "2025-11-07T19:11:28.931Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:11:30.047Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/8": {
     "lectureId": "GA235/8",
@@ -477878,7 +478009,8 @@
     "generated": "2025-11-07T19:11:33.193Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:11:34.393Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/10": {
     "lectureId": "GA235/10",
@@ -478023,7 +478155,8 @@
     "generated": "2025-11-07T19:11:37.278Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:11:38.406Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/9": {
     "lectureId": "GA235/9",
@@ -478190,7 +478323,8 @@
     "generated": "2025-11-07T19:11:41.589Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:11:42.304Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA235/12": {
     "lectureId": "GA235/12",
@@ -478335,7 +478469,8 @@
     "generated": "2025-11-07T19:12:18.118Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:12:18.524Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/1": {
     "lectureId": "GA236/1",
@@ -478513,7 +478648,8 @@
     "generated": "2025-11-07T19:12:23.167Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:12:24.046Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/3": {
     "lectureId": "GA236/3",
@@ -478691,7 +478827,8 @@
     "generated": "2025-11-07T19:12:25.806Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:12:26.751Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/2": {
     "lectureId": "GA236/2",
@@ -478869,7 +479006,8 @@
     "generated": "2025-11-07T19:12:28.480Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:12:29.238Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/4": {
     "lectureId": "GA236/4",
@@ -479036,7 +479174,8 @@
     "generated": "2025-11-07T19:12:30.891Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:12:31.414Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/6": {
     "lectureId": "GA236/6",
@@ -479181,7 +479320,8 @@
     "generated": "2025-11-07T19:13:12.911Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:13:14.889Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/8": {
     "lectureId": "GA236/8",
@@ -479326,7 +479466,8 @@
     "generated": "2025-11-07T19:13:17.784Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:13:19.232Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/5": {
     "lectureId": "GA236/5",
@@ -479482,7 +479623,8 @@
     "generated": "2025-11-07T19:13:22.267Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:13:23.279Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/9": {
     "lectureId": "GA236/9",
@@ -479649,7 +479791,8 @@
     "generated": "2025-11-07T19:13:25.074Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:13:26.581Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/7": {
     "lectureId": "GA236/7",
@@ -479794,7 +479937,8 @@
     "generated": "2025-11-07T19:13:28.658Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:13:29.481Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/12": {
     "lectureId": "GA236/12",
@@ -479939,7 +480083,8 @@
     "generated": "2025-11-07T19:14:07.824Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:14:08.407Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/11": {
     "lectureId": "GA236/11",
@@ -480084,7 +480229,8 @@
     "generated": "2025-11-07T19:14:11.259Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:14:11.756Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/13": {
     "lectureId": "GA236/13",
@@ -480240,7 +480386,8 @@
     "generated": "2025-11-07T19:14:14.538Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:14:16.120Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/10": {
     "lectureId": "GA236/10",
@@ -480407,7 +480554,8 @@
     "generated": "2025-11-07T19:14:19.171Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:14:21.236Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/14": {
     "lectureId": "GA236/14",
@@ -480563,7 +480711,8 @@
     "generated": "2025-11-07T19:14:24.491Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:14:25.981Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/2": {
     "lectureId": "GA238/2",
@@ -480719,7 +480868,8 @@
     "generated": "2025-11-07T19:15:05.387Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:15:06.444Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/1": {
     "lectureId": "GA238/1",
@@ -480875,7 +481025,8 @@
     "generated": "2025-11-07T19:15:08.862Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:15:09.959Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/15": {
     "lectureId": "GA236/15",
@@ -481031,7 +481182,8 @@
     "generated": "2025-11-07T19:15:12.941Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:15:14.146Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/16": {
     "lectureId": "GA236/16",
@@ -481209,7 +481361,8 @@
     "generated": "2025-11-07T19:15:16.031Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:15:17.063Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA236/17": {
     "lectureId": "GA236/17",
@@ -481387,7 +481540,8 @@
     "generated": "2025-11-07T19:15:19.274Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:15:20.388Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/5": {
     "lectureId": "GA238/5",
@@ -481543,7 +481697,8 @@
     "generated": "2025-11-07T19:16:01.661Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:02.570Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/6": {
     "lectureId": "GA238/6",
@@ -481699,7 +481854,8 @@
     "generated": "2025-11-07T19:16:04.563Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:05.759Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/7": {
     "lectureId": "GA238/7",
@@ -481866,7 +482022,8 @@
     "generated": "2025-11-07T19:16:07.592Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:08.536Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/3": {
     "lectureId": "GA238/3",
@@ -482044,7 +482201,8 @@
     "generated": "2025-11-07T19:16:10.170Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:10.908Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/4": {
     "lectureId": "GA238/4",
@@ -482222,12 +482380,13 @@
     "generated": "2025-11-07T19:16:13.364Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:14.279Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/12": {
     "lectureId": "GA238/12",
-    "date": "",
-    "year": null,
+    "date": "1924-09-28",
+    "year": 1924,
     "gaVolume": "GA238",
     "summary": "Das Lazarus-Johannes-Mysterium bildet den zentralen Inhalt dieses unvollendeten Vortrags. Bei der Auferweckung des Lazarus dringt von oben die geistige Wesenheit Johannes des Täufers bis zur Bewusstseinsseele ein, während von unten die Wesenheit des Lazarus aufsteigt. Diese Durchdringung erschafft den Lazarus-Johannes als den \"Jünger, den der Herr lieb hatte\". Lazarus konnte aus den Erdenkräften nur bis zur Verstandes- und Gemütsseele entwickelt werden, da das Mysterium von Golgatha im vierten nachatlantischen Zeitraum stattfindet. Daher musste ihm von einer kosmischen Wesenheit Manas, Buddhi und Atma verliehen werden. So entstand ein vollkommener Mensch, der von den Erdentiefen bis zu den höchsten Himmelshöhen reichte und alle Glieder bis zu den Geistesgliedern in sich trug.",
     "keywords": [
@@ -482519,7 +482678,8 @@
     "generated": "2025-11-07T19:16:52.296Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:53.100Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/9": {
     "lectureId": "GA238/9",
@@ -482664,7 +482824,8 @@
     "generated": "2025-11-07T19:16:56.247Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:16:57.479Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/11": {
     "lectureId": "GA238/11",
@@ -482820,7 +482981,8 @@
     "generated": "2025-11-07T19:16:59.660Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:17:01.544Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA238/10": {
     "lectureId": "GA238/10",
@@ -482965,6 +483127,7 @@
     "generated": "2025-11-07T19:17:03.249Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-07T19:17:03.987Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   }
 }
