@@ -2088,14 +2088,14 @@ Identifiziere die relevanten Suchwörter der Themenanfrage
 Lokalisiere alle Textstellen (Absätze), in denen die Suchwörter vorkommen (inklusive Kontext)
 Vergleiche die Textstellen auf inhaltliche Ähnlichkeit
 Wähle aus: Nur inhaltlich verschiedene Textstellen (keine Redundanzen)
-Gliedere das Material mit eigenen, aussagekräftigen Zwischenüberschriften
+Gliedere das Material mit wenigen, aussagekräftigen Zwischenüberschriften
 Beziehe alle Aussagen inhaltlich auf die Suchwörter der Themenanfrage
 Schreibe am Ende ein kurzes inhaltliches Fazit
-Liste unter dem Fazit die verwendeten Quellenangaben auf
+Liste unter dem Fazit weitere relevante Quellenangaben als GA-Links auf
 
 KRITISCH WICHTIG: Stelle nur Aspekte dar, die sich inhaltlich unmittelbar auf die Themenanfrage beziehen. Lasse alles weg, was nur am Rande oder indirekt mit dem Thema zu tun hat.
 Inhaltliche Perspektiven (als Orientierung)
-Wähle aus folgenden Perspektiven die relevanten aus:
+Wähle aus folgenden Perspektiven die jeweils relevanten Aspekte aus:
 
 Sachliche Aspekte (konkrete Phänomene, Substanzen, leibliche Prozesse)
 Funktionelle Aspekte (Wirkungsweisen, Prozesse, physiologische Aspekte)
@@ -2103,7 +2103,7 @@ Erlebnismäßige und seelisch-psychologische Aspekte
 Begriffliche und geistige Aspekte (Ideen, Prinzipien)
 Methodische und erkenntnistheoretische Aspekte
 Vergleich mit anderen Inhalten
-Entwicklung und Evolution
+Entwicklung und/oder Evolution
 Besonderheiten und Sonstiges
 
 Wichtig: Keine eigenen Bewertungen oder Interpretationen.
@@ -2127,7 +2127,7 @@ Starte unmittelbar mit substanziellen Aussagen oder Zitaten
 Formulierungsstil:
 
 Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
-Minimaler erläuternder Text - nur zur Verbindung der Zitate
+Minimaler erläuternder Text - nur zur Verbindung der Zitate; keine Wiederholung des Inhalts der Zitate im verbindenden Text
 VERMEIDE Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
 Formuliere direkt: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
 Verwende aktive Formulierungen: "Die anschauende Urteilskraft unterscheidet sich..." statt "Steiner unterscheidet..."
@@ -2142,7 +2142,7 @@ Keine Paraphrasen von bereits zitierten Stellen
 Formatierung
 
 Markdown-Formatierung
-Fette wichtige Schlagwörter und zentrale Aussagen
+Wenige ette wichtige Schlagwörter und zentrale Aussagen
 FETT sehr sparsam einsetzen: Innerhalb von Zitaten nur relevante Begriffe/Kernaussagen fett markieren, niemals ganze Zitate; Begriffe/Kernaussagen nur einmal fett markieren (keine Redundanzen) ! wichtig
 Zitiere kurz und prägnant - nur das Wesentliche
 Halte die Darstellung insgesamt prägnant
