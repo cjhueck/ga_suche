@@ -9078,24 +9078,24 @@ function showSummaryView() {
     });
     
     // Gebe Überschriften aus
-    // REGEL: Bei mehrfachen H4s nur die ERSTE ausgeben
-    let h4AlreadyShown = false;
+    // REGEL: Nur EINE Überschrift pro Absatz - entweder H3 oder erste H4
+    let headingAlreadyShown = false;
     
     sortedHeadings.forEach((heading, hIdx) => {
       const headingText = heading.text || heading.title || 'Überschrift';
       const level = heading.level || 'h3';
       
-      // H3 immer ausgeben
-      if (level === 'h3') {
-        html += `<h3 id="heading-${idx}-${hIdx}">${headingText}</h3>`;
-        h4AlreadyShown = false; // Reset für neue Gruppe
-      } 
-      // H4: Nur die ERSTE H4 ausgeben
-      else if (level === 'h4' && !h4AlreadyShown) {
-        html += `<h4 id="heading-${idx}-${hIdx}">${headingText}</h4>`;
-        h4AlreadyShown = true; // Keine weiteren H4s mehr
+      // Nur ausgeben wenn noch keine Überschrift für diesen Absatz gezeigt wurde
+      if (!headingAlreadyShown) {
+        if (level === 'h3') {
+          html += `<h3 id="heading-${idx}-${hIdx}">${headingText}</h3>`;
+          headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
+        } else if (level === 'h4') {
+          html += `<h4 id="heading-${idx}-${hIdx}">${headingText}</h4>`;
+          headingAlreadyShown = true; // Keine weiteren Überschriften mehr für diesen Absatz
+        }
       }
-      // Weitere H4s werden übersprungen
+      // Weitere Überschriften werden übersprungen
     });
     
     let content = para.content || para.text || '';
