@@ -640,7 +640,7 @@ body.dark-mode .ga-missing-text {
     }
     
     .timeline-entry-date {
-      font-size: 0.9em;
+      font-size: 0.85rem;
       color: var(--secondary-text);
       margin-right: 0.5rem;
       font-weight: bold;
@@ -5888,12 +5888,18 @@ function normalizeGANumber(gaNumber) {
       try {
         const summaryPanel = document.getElementById('summary-panel');
         const resizeHandle = document.getElementById('verticalResizeHandle');
+        const mainContainer = document.getElementById('main-container');
         if (summaryPanel && summaryPanel.classList.contains('visible')) {
           summaryPanel.classList.remove('visible');
           if (resizeHandle) resizeHandle.classList.remove('visible');
           summaryPanel.style.width = '0';
           summaryPanel.style.minWidth = '0';
           summaryPanel.style.marginRight = '0px';
+          
+          // Main-Container bis zum rechten Rand ausdehnen
+          if (mainContainer) {
+            mainContainer.style.marginRight = '0px';
+          }
         }
       } catch (e) { /* silent */ }
       if (!gaNumber) return;
@@ -6359,7 +6365,7 @@ async function showGALectures(gaNumber) {
           <div style="margin-bottom: 0.3rem;">
             <a href="#" 
                class="ga-lecture-link"
-               onclick="switchTab('texte'); setTimeout(() => showLectureFromGA('${lectureId}'), 100); return false;"
+               onclick="navigateToLectureInTexteTab('${lectureId}'); return false;"
                style="
                  font-weight: bold; 
                  font-size: 0.9rem;
@@ -6406,7 +6412,9 @@ async function showGALectures(gaNumber) {
 }
 
 // Hilfsfunktion: Zeige Vortrag im Texte-Tab
-function showLectureFromGA(lectureId) {
+async function showLectureFromGA(lectureId) {
+  console.log('[GA-TAB] showLectureFromGA aufgerufen für:', lectureId);
+  
   // Setze das GA-Filter im Texte-Tab
   const parts = lectureId.split('/');
   if (parts.length === 2) {
@@ -6421,9 +6429,10 @@ function showLectureFromGA(lectureId) {
     }
     
     // Warte kurz und zeige dann den Vortrag
-    setTimeout(() => {
-      showLecture(lectureId);
-    }, 200);
+    await new Promise(resolve => setTimeout(resolve, 300));
+    await showLecture(lectureId);
+    
+    console.log('[GA-TAB] Vortrag geladen, überprüfe Panel-Status');
   }
 }
 
@@ -6771,7 +6780,7 @@ function toggleGASummaries() {
       switchTab('texte');
       
       // Warte kurz, damit der Tab geladen ist
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 200));
       
       // Setze den GA-Filter im Texte-Tab
       const texteGAFilter = document.getElementById('texteGAFilter');
@@ -6782,10 +6791,14 @@ function toggleGASummaries() {
         texteGAFilter.dispatchEvent(changeEvent);
         
         // Warte bis GA-Übersicht geladen ist, dann zeige den Vortrag
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 800));
         
-        // Lade den spezifischen Vortrag
-        await showLectureFromOverview(lectureId);
+        console.log(`[NAVIGATION] Lade jetzt Vortrag ${lectureId}`);
+        
+        // Lade den spezifischen Vortrag (dies sollte Summary und TOC öffnen)
+        await showLecture(lectureId, null, []);
+        
+        console.log(`[NAVIGATION] Vortrag ${lectureId} geladen`);
       }
     }
 
@@ -7059,7 +7072,8 @@ function toggleGASummaries() {
         panel.style.display = 'none';
         document.body.classList.add('summary-panel-collapsed');
         
-        // Setze Main-Container zurück
+        // Main-Container bis zum rechten Rand ausdehnen
+        const mainContainer = document.getElementById('main-container');
         if (mainContainer) {
           mainContainer.style.marginRight = '0px';
         }
@@ -8466,6 +8480,7 @@ try {
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
       const resizeHandle = document.getElementById('verticalResizeHandle');
+      const mainContainer = document.getElementById('main-container');
       
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
@@ -8474,6 +8489,11 @@ try {
         panel.style.width = '0';
         panel.style.minWidth = '0';
         panel.style.marginRight = '';
+        
+        // Main-Container bis zum rechten Rand ausdehnen
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
       } else {
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
@@ -9464,52 +9484,54 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
 
-// Buttons nach dem Anzeigen aktualisieren
-setTimeout(() => {
-  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-  
-  if (viewerOriginalBtn) {
-    viewerOriginalBtn.style.display = 'inline-block';
-  }
-  // ...existing code...
-}, 50);
-          
-          if (targetIndex) {
-            const cleanIndex = targetIndex.replace(/^\^/, '');
-            setTimeout(() => scrollToIndexInViewer(cleanIndex), 100);
-          }
-          
-          updateButtonStates();
-          
-          // Öffne Summary Panel automatisch (auch bei vorhandener Summary)
-          setTimeout(() => {
-            if (summaryPanel) {
-              console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
-              
-              // Setze summary-content zurück auf Standard-Struktur (TOC only)
-              const summaryContent = document.getElementById('summary-content');
-              if (summaryContent) {
-                summaryContent.innerHTML = '<div id="toc-list"></div>';
-              }
-              
-              summaryPanel.classList.add('visible');
-              summaryPanel.style.width = '280px';
-              summaryPanel.style.minWidth = '280px';
-              summaryPanel.style.marginRight = '0px';
-              summaryPanel.style.removeProperty('display');
-              
-              if (resizeHandle) {
-                resizeHandle.classList.add('visible');
-                resizeHandle.style.removeProperty('display');
-                resizeHandle.style.removeProperty('width');
-              }
-              
-              document.body.classList.remove('summary-panel-collapsed');
-              updateHeaderPosition();
-              buildTableOfContents();
+          // Öffne Summary Panel SOFORT (nicht mit setTimeout)
+          if (summaryPanel) {
+            console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
+            
+            // Setze summary-content zurück auf Standard-Struktur (TOC only)
+            const summaryContent = document.getElementById('summary-content');
+            if (summaryContent) {
+              summaryContent.innerHTML = '<div id="toc-list"></div>';
             }
-          }, 100);
+            
+            summaryPanel.classList.add('visible');
+            summaryPanel.style.width = '280px';
+            summaryPanel.style.minWidth = '280px';
+            summaryPanel.style.marginRight = '0px';
+            // Entferne !important Properties von switchTab
+            summaryPanel.style.removeProperty('display');
+            summaryPanel.style.removeProperty('opacity');
+            summaryPanel.style.removeProperty('visibility');
+            summaryPanel.style.display = 'block'; // Dann explizit setzen
+            
+            if (resizeHandle) {
+              resizeHandle.classList.add('visible');
+              resizeHandle.style.removeProperty('display'); // Entferne !important
+              resizeHandle.style.display = 'block'; // Dann explizit setzen
+              resizeHandle.style.removeProperty('width');
+            }
+            
+            document.body.classList.remove('summary-panel-collapsed');
+            updateHeaderPosition();
+          }
+
+          // Buttons und TOC nach dem Anzeigen aktualisieren
+          setTimeout(() => {
+            const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+            const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+            
+            if (viewerOriginalBtn) {
+              viewerOriginalBtn.style.display = 'inline-block';
+            }
+            
+            updateButtonStates();
+            buildTableOfContents();
+            
+            if (targetIndex) {
+              const cleanIndex = targetIndex.replace(/^\^/, '');
+              scrollToIndexInViewer(cleanIndex);
+            }
+          }, 150);
           
           return;
         }
@@ -9552,11 +9574,16 @@ setTimeout(() => {
         summaryPanel.style.width = '280px';
         summaryPanel.style.minWidth = '280px';
         summaryPanel.style.marginRight = '0px';
+        // Entferne !important Properties von switchTab
         summaryPanel.style.removeProperty('display');
+        summaryPanel.style.removeProperty('opacity');
+        summaryPanel.style.removeProperty('visibility');
+        summaryPanel.style.display = 'block'; // Dann explizit setzen
         
         if (resizeHandle) {
           resizeHandle.classList.add('visible');
-          resizeHandle.style.removeProperty('display');
+          resizeHandle.style.removeProperty('display'); // Entferne !important
+          resizeHandle.style.display = 'block'; // Dann explizit setzen
           resizeHandle.style.removeProperty('width');
         }
         
@@ -12260,12 +12287,18 @@ async function openFromKeyword(gaId) {
     // Schließe Summary Panel falls geöffnet
     const summaryPanel = document.getElementById('summary-panel');
     const resizeHandle = document.getElementById('verticalResizeHandle');
+    const mainContainer = document.getElementById('main-container');
     if (summaryPanel.classList.contains('visible')) {
       summaryPanel.classList.remove('visible');
       resizeHandle.classList.remove('visible');
       summaryPanel.style.width = '0';
       summaryPanel.style.minWidth = '0';
       summaryPanel.style.marginRight = '0px';
+      
+      // Main-Container bis zum rechten Rand ausdehnen
+      if (mainContainer) {
+        mainContainer.style.marginRight = '0px';
+      }
     }
     
     // Zeige Vortrag
@@ -12366,6 +12399,7 @@ function switchTabExtended(mode) {
     
     // Schließe das rechte Panel
     const summaryPanel = document.getElementById('summary-panel');
+    const mainContainer = document.getElementById('main-container');
     if (summaryPanel) {
       summaryPanel.classList.remove('visible');
       summaryPanel.style.width = '0';
@@ -12373,8 +12407,7 @@ function switchTabExtended(mode) {
       summaryPanel.style.display = 'none';
     }
     
-    // Setze Main-Container zurück
-    const mainContainer = document.getElementById('main-container');
+    // Main-Container bis zum rechten Rand ausdehnen
     if (mainContainer) {
       mainContainer.style.marginRight = '0px';
     }
@@ -12401,6 +12434,12 @@ function switchTabExtended(mode) {
     summaryPanel.removeAttribute('style');
     
     console.log('[TABS] Summary-Panel geschlossen');
+  }
+  
+  // Main-Container bis zum rechten Rand ausdehnen
+  const mainContainer = document.getElementById('main-container');
+  if (mainContainer) {
+    mainContainer.style.marginRight = '0px';
   }
   
   if (summaryResizeHandle) {
