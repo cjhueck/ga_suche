@@ -4970,12 +4970,13 @@ function normalizeGANumber(gaNumber) {
     function switchTab(mode) {
       console.log('[TABS] Wechsel zu Tab:', mode);
       
-      // Prüfe, ob wir vom Suche-Tab wegwechseln
-      const currentActiveTab = document.querySelector('.tab-content.active');
-      if (currentActiveTab && currentActiveTab.id === 'keyword-tab' && mode !== 'keyword') {
-        // Lösche Suchfelder und Ergebnisse beim Verlassen des Suche-Tabs
+      // Prüfe, ob wir ZUM Suche-Tab wechseln
+      if (mode === 'keyword') {
+        // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
         resetSearchTab();
       }
+      
+      const currentActiveTab = document.querySelector('.tab-content.active');
       
       // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
       if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
@@ -12332,6 +12333,12 @@ function clearKeywordSearch() {
 // Erweitere die bestehende switchTab Funktion
 function switchTabExtended(mode) {
   console.log('[TABS] Wechsel zu Tab:', mode);
+  
+  // Prüfe, ob wir ZUM Suche-Tab wechseln
+  if (mode === 'keyword') {
+    // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
+    resetSearchTab();
+  }
   
   // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
   const currentActiveTab = document.querySelector('.tab-content.active');
