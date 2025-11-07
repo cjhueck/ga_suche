@@ -2144,6 +2144,7 @@ Formatierung
 Markdown-Formatierung
 Wenige ette wichtige Schlagwörter und zentrale Aussagen
 FETT sehr sparsam einsetzen: Innerhalb von Zitaten nur relevante Begriffe/Kernaussagen fett markieren, niemals ganze Zitate; Begriffe/Kernaussagen nur einmal fett markieren (keine Redundanzen) ! wichtig
+Keine GANZEN ZITATE fett markieren!
 Zitiere kurz und prägnant - nur das Wesentliche
 Halte die Darstellung insgesamt prägnant
 
