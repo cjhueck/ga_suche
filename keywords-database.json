@@ -509697,7 +509697,7 @@
   },
   "GA252/1": {
     "lectureId": "GA252/1",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA252",
     "summary": "Die spirituelle Strömung der Geisteswissenschaft steht vor entscheidenden Herausforderungen, die den Bau eigener Weihestätten notwendig machen. Die Abhängigkeit von fremden Räumen behindert die Entwicklung authentischer Mysterienspiele und geisteswissenschaftlicher Arbeit. Der geplante Johannesbau in München soll als Zentrum für eine Hochschule für Geisteswissenschaft dienen und die Synthese von Kunst, Wissenschaft und Religion ermöglichen. Architektur wirkt formgebend auf zukünftige Menschheitsentwicklung ein, weshalb spirituelle Prinzipien die Bauformen bestimmen müssen. Der Johannesbau-Verein organisiert die Finanzierung durch Wohnbauten für Theosophen, die den Zentralbau umgeben sollen. Das Projekt erfordert 1.600.000 Mark, wobei 400.000 Mark noch ungedeckt sind. Die Verwirklichung hängt vom Verständnis und der Opferbereitschaft der Mitglieder ab.",
@@ -509838,7 +509838,8 @@
     "generated": "2025-11-08T08:13:05.579Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:05.792Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "DEN JOHANNESBAU BETREFFEND"
   },
   "GA252/4": {
     "lectureId": "GA252/4",
@@ -509983,11 +509984,12 @@
     "generated": "2025-11-08T08:13:07.137Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:07.401Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "DEN JOHANNESBAU BETREFFEND Broschüre"
   },
   "GA252/3": {
     "lectureId": "GA252/3",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA252",
     "summary": "Die Entwicklung der Baukunst steht in direktem Zusammenhang mit der Evolution der menschlichen Seelenentwicklung durch die nachatlantischen Kulturepochen. Beginnend mit den Höhlenbauten als Vorstadium entwickelt sich die Architektur parallel zur Empfindungsseele (Pyramidenbau mit kosmischen Proportionen), Verstandes- oder Gemütsseele (griechisch-römische Baukunst mit statischen Trägerverhältnissen) und Bewusstseinsseele (gotische Architektur mit dynamischem Aufstreben). Die kommende Epoche des Geistselbst erfordert eine völlig neue Baukunst, die durch Formen, Farben und Gestaltung die materiellen Wände überwindet und den Raum ins Unendliche öffnet. Diese neue anthroposophische Architektur soll nicht mehr von innen abschließen, sondern durch künstlerische Mittel die Illusion schaffen, dass sich der Raum in die Weltenweiten erweitert. Jede Säule wird dabei wie ein Buchstabe einer kosmischen Schrift, die gemeinsam eine Botschaft formuliert.",
@@ -510143,7 +510145,7 @@
   },
   "GA252/2": {
     "lectureId": "GA252/2",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA252",
     "summary": "Die Entwicklung der Tempelkunst spiegelt die Evolution des menschlichen Bewusstseins wider. Vorderasiatische Tempel entsprechen dem sich aufrichtenden physischen Menschen, ägyptische Tempel dem rätselhaften Seelenmenschen, griechische Tempel dem in sich vollendeten durchseelten Menschen. Die christliche Kirche strebt über ihre Grenzen hinaus ins Unendliche. Der zukünftige geisteswissenschaftliche Mysterienraum soll den geistempfangenden Menschen darstellen - einen Innenraum, der zugleich abgeschlossen und offen zur spirituellen Welt ist. Die Bewusstseinsseele des fünften nachatlantischen Zeitalters erfordert bewusstes Schaffen ohne göttliche Hilfe. Geisteswissenschaft muss trotz ihrer abstrakten Natur als Kreuz und Opfer empfunden werden, um durch Tod zur Auferstehung zu gelangen und neue künstlerische Impulse zu schaffen. Der Johannesbau soll diese neue Tempelkunst verwirklichen.",
@@ -510310,8 +510312,8 @@
   },
   "GA252/8": {
     "lectureId": "GA252/8",
-    "date": "",
-    "year": null,
+    "date": "1914-04-14",
+    "year": 1914,
     "gaVolume": "GA252",
     "summary": "Der Johannesbau in Dornach soll als Zentralstätte und Wahrzeichen der anthroposophischen Bewegung entstehen. Die Architektur verkörpert spirituelle Prinzipien durch Formen, die das geistige Leben eröffnen und Ausblicke in spirituelle Weiten ermöglichen. Anders als griechische Tempel oder gotische Dome schließen die Wände nicht ab, sondern kommunizieren mit unendlichen spirituellen Dimensionen. Die Formen heben sich selbst auf und werden spirituell durchsichtig. Dieser neuartige Baustil erfordert Zeit, Arbeit und erhebliche finanzielle Opfer der Freunde. Die Eröffnung ist für die letzten zwei Monate des Jahres geplant. Der Bau soll in allen seinen Teilen künstlerisch, nicht symbolisch, das Wesen der spirituellen Bewegung zum Ausdruck bringen.",
     "keywords": [
@@ -510541,7 +510543,8 @@
     "generated": "2025-11-08T08:13:45.617Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:45.798Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/6": {
     "lectureId": "GA252/6",
@@ -510675,11 +510678,12 @@
     "generated": "2025-11-08T08:13:48.217Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:48.455Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Basel"
   },
   "GA252/7": {
     "lectureId": "GA252/7",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA252",
     "summary": "Der Vortrag behandelt die Pläne für eine anthroposophische Kolonie um den Johannesbau in Dornach. Die architektonische Gestaltung soll eine einheitliche künstlerische Vision verkörpern, die aus der geisteswissenschaftlichen Gesinnung hervorgeht. Bereits realisierte Bauten wie das Glasfenster-Häuschen und das Kesselhaus zeigen neue Formsprachen, die moderne Zwecke mit ästhetischen Prinzipien verbinden. Die Kolonisten sollen ihre Häuser in harmonischer Abstimmung errichten, wobei jedes Gebäude individuell gestaltet, aber dem Gesamtkonzept untergeordnet wird. Eine Kommission könnte die künstlerischen Aspekte koordinieren. Wichtig ist auch die langfristige Sicherung der Kolonie für Mitglieder der Anthroposophischen Gesellschaft durch entsprechende juristische Regelungen. Die Kolonie soll als Modell dienen und beweisen, dass die anthroposophische Bewegung Kulturaufgaben ernst nimmt und nicht nur eine Sekte darstellt.",
@@ -510820,7 +510824,8 @@
     "generated": "2025-11-08T08:13:56.454Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:56.682Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "2"
   },
   "GA252/10": {
     "lectureId": "GA252/10",
@@ -510976,11 +510981,12 @@
     "generated": "2025-11-08T08:13:59.303Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:13:59.499Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/15": {
     "lectureId": "GA252/15",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA252",
     "summary": "Das Goetheanum wird als Stätte für eine neue Geisterkenntnis eröffnet, die Wissenschaft, Kunst und Religion wieder vereinen soll. In früheren Zeiten der Menschheitsentwicklung bildeten diese drei Bereiche eine instinktive Einheit, trennten sich jedoch für die weitere Entwicklung. Die gegenwärtige Zivilisation steht vor der Aufgabe, diese Einheit auf bewusster Ebene wiederzufinden. Die anthroposophische Geisteswissenschaft entwickelt methodisch Seelenkräfte, die über das bloße Denken hinaus zu geistigem Schauen führen. Diese Erkenntnisart ermöglicht sowohl wissenschaftliche Einsicht als auch künstlerische Gestaltung und religiöse Verehrung. Goethe erkannte bereits, dass die Natur ihre Geheimnisse durch Kunst offenbart. Die neue Geistesströmung soll auch den sozialen Nöten der Gegenwart begegnen, da die bisherige intellektuelle Wissenschaft allein keine Kraft für soziale Gestaltung besitzt.",
@@ -511121,7 +511127,8 @@
     "generated": "2025-11-08T08:14:32.392Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:14:32.579Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Nr. 4 5 (März 1921)"
   },
   "GA252/13": {
     "lectureId": "GA252/13",
@@ -511255,7 +511262,8 @@
     "generated": "2025-11-08T08:14:35.290Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:14:35.511Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/12": {
     "lectureId": "GA252/12",
@@ -511400,7 +511408,8 @@
     "generated": "2025-11-08T08:14:38.658Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:14:38.871Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/14": {
     "lectureId": "GA252/14",
@@ -511567,7 +511576,8 @@
     "generated": "2025-11-08T08:14:40.525Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:14:40.757Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/11": {
     "lectureId": "GA252/11",
@@ -511745,7 +511755,8 @@
     "generated": "2025-11-08T08:14:44.245Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:14:44.465Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/20": {
     "lectureId": "GA252/20",
@@ -511868,7 +511879,8 @@
     "generated": "2025-11-08T08:15:11.950Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:15:12.155Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/16": {
     "lectureId": "GA252/16",
@@ -511980,7 +511992,8 @@
     "generated": "2025-11-08T08:15:17.451Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:15:17.646Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/19": {
     "lectureId": "GA252/19",
@@ -512103,7 +512116,8 @@
     "generated": "2025-11-08T08:15:19.891Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:15:20.124Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/17": {
     "lectureId": "GA252/17",
@@ -512248,7 +512262,8 @@
     "generated": "2025-11-08T08:15:22.195Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:15:22.413Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA252/18": {
     "lectureId": "GA252/18",
@@ -512393,11 +512408,12 @@
     "generated": "2025-11-08T08:15:26.591Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:15:26.776Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Dornach"
   },
   "GA250/14": {
     "lectureId": "GA250/14",
-    "date": "",
+    "date": null,
     "year": null,
     "gaVolume": "GA250",
     "summary": "Der Münchener Kongress der Föderation europäischer Sektionen der Theosophischen Gesellschaft an den Pfingsttagen 1907 stellte erstmals die praktische Umsetzung theosophischer Weltanschauung in künstlerische und architektonische Formen dar. Der rot ausgekleidete Versammlungsraum wurde mit den sieben apokalyptischen Siegeln und sieben Säulenkapitellen geschmückt, welche die Menschheitsentwicklung und planetarische Entwicklungsstufen in okkulter Symbolik darstellen. Die Siegel zeigen astralische Erlebnisse des Hellsehers als Schattenrisse übersinnlicher Vorgänge. Edouard Schurés Drama von Eleusis mit Stavenhagens musikalischer Begleitung demonstrierte die Verbindung von Mysterienweisheit und moderner Kunst. Vorträge behandelten Rosenkreuzer-Einweihung, Planetenentwicklung und die Mission der theosophischen Bewegung. Der Kongress verwirklichte das Ideal einer Harmonie zwischen spiritueller Erkenntnis und sinnlicher Gestaltung in Raum, Farbe und Form nach dem Vorbild alter Kulturen.",
@@ -512560,7 +512576,8 @@
     "generated": "2025-11-08T08:57:16.741Z",
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T08:57:17.357Z",
-    "lastMerge": null
+    "lastMerge": null,
+    "location": "Bericht von Rudolf Steiner in «Lucifer — Gnosis» Nr. 34 1907"
   },
   "GA250/17": {
     "lectureId": "GA250/17",
