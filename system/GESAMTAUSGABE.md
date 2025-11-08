@@ -1,6 +1,18 @@
 Die **Rudolf Steiner Gesamtausgabe (GA)** umfasst das gesamte schriftliche und vortragsweise überlieferte Werk von Rudolf Steiner (1861-1925), dem Begründer der Anthroposophie.
 
-**Umfang und Struktur**
+Die **Herausgeber der Rudolf Steiner Nachlassverwaltung** schreiben: 
+
+"Zu den Veröffentlichungenaus dem Vortragswerk von Rudolf Steiner
+
+Rudolf Steiner hat seine Vorträge stets frei, also ohne Manuskript, gehalten. Viele seiner Vorüberlegungen hielt er lediglich in Stichworten, manchmal auch in kurzen Sätzen, Schemata oder Skizzen in seinen Notizbüchern fest, ohne dass er sie weiter schriftlich ausgearbeitet hätte. Nur in ganz wenigen Fällen liegen vorbereitete schriftliche Zusammenfassungen vor, die für Übersetzer bestimmt waren. Er hat jedoch der Veröffentlichung von Mitschriften seiner Vorträge zugestimmt, auch wenn er selbst nur einige wenige für den Druck vorbereiten konnte.
+
+Die in der Rudolf Steiner Gesamtausgabe veröffentlichten Vorträge basieren in der Regel auf Übertragungen stenografischer Aufzeichnungen, die während des Vortrags von Zuhörern oder hinzugezogenen Fachstenografen angefertigt wurden. Verschiedentlich - dies gilt vor allem für die Anfangsjahre seiner Vortragstätigkeit, etwa bis 1905 - dienen auch Notizen und Referate von Zuhörern als Textgrundlage. Für die Drucklegung werden die Übertragungen in Langschrift oder die Zuhörernotizen von den Herausgebenden einer eingehenden Prüfung unterzogen, insbesondere hinsichtlich Sinn, Satzbau und Genauigkeit der Wiedergabe von Zitaten, Eigennamen oder Fachbegriffen. Bei auftretenden Komplikationen, wie zum Beispiel nicht entschlüsselbaren Satz- und Wortgebilden oder Lücken im Text, werden, soweit vorhanden, die Originalstenogramme zur Abklärung hinzugezogen.
+
+Die Herausgeber"
+
+Spezifische Hinweise und Anmerkungen der Herausgeber zur Textgestalt und Textredaktion sowie zur Entstehungsgeschichte findet sich am Schluss jedes Bandes und wurde hier weggelassen.
+
+**Umfang und Struktur der GA**
 
 Die Gesamtausgabe gliedert sich in mehrere Hauptabteilungen:
 
