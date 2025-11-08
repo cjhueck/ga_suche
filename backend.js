@@ -1648,17 +1648,17 @@ app.post('/api/fulltext-search', async (req, res) => {
     // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
     const searchInText = (text, searchTerm, isPhrase) => {
       if (!searchTerm) return false;
-      const textLower = text.toLowerCase();
-      const termLower = searchTerm.toLowerCase();
       
       if (isPhrase) {
-        // Exakte Phrasensuche: Wortgrenzen beachten
+        // Exakte Phrasensuche: Wortgrenzen UND case-sensitive
         // \b funktioniert nicht gut mit Umlauten, daher verwende manuelle Wortgrenze
-        const escapedTerm = termLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`, 'i');
+        const escapedTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(^|[\\s,.;:!?()\\-—])${escapedTerm}($|[\\s,.;:!?()\\-—])`);
         return regex.test(text);
       } else {
-        // Flexible Suche: auch Teilwörter erlaubt
+        // Flexible Suche: auch Teilwörter erlaubt, case-insensitive
+        const textLower = text.toLowerCase();
+        const termLower = searchTerm.toLowerCase();
         return textLower.includes(termLower);
       }
     };
@@ -1852,19 +1852,50 @@ app.post('/api/advanced-search', async (req, res) => {
     
     const results = [];
     
-    // Hilfsfunktion für flexible Wortsuche
+    // Hilfsfunktion für flexible oder exakte Wortsuche
     const searchInText = (text, searchTerm) => {
       if (!searchTerm) return false;
-      const textLower = text.toLowerCase();
-      const termLower = searchTerm.toLowerCase();
-      return textLower.includes(termLower);
+      
+      // Prüfe ob searchTerm in Anführungszeichen steht (exakte Suche)
+      const isExactMatch = searchTerm.startsWith('"') && searchTerm.endsWith('"');
+      
+      if (isExactMatch) {
+        // Exakte Suche: Entferne Anführungszeichen und suche mit Wortgrenzen
+        const exactTerm = searchTerm.slice(1, -1); // Entferne " am Anfang und Ende
+        
+        // Suche mit Wortgrenzen (word boundaries)
+        // OHNE 'i' Flag für case-sensitive Suche bei exaktem Matching
+        const regex = new RegExp(`\\b${exactTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`);
+        return regex.test(text);
+      } else {
+        // Flexible Suche wie bisher (case-insensitive)
+        const textLower = text.toLowerCase();
+        const termLower = searchTerm.toLowerCase();
+        return textLower.includes(termLower);
+      }
     };
     
     // Hilfsfunktion: Erstelle Snippet mit dem Suchwort im Kontext
     const createContextSnippet = (content, searchWord, maxLength = 200) => {
-      const contentLower = content.toLowerCase();
-      const wordLower = searchWord.toLowerCase();
-      const wordIndex = contentLower.indexOf(wordLower);
+      // Prüfe ob exakte Suche (mit Anführungszeichen)
+      const isExactMatch = searchWord.startsWith('"') && searchWord.endsWith('"');
+      
+      // Entferne Anführungszeichen falls vorhanden
+      const cleanWord = isExactMatch 
+        ? searchWord.slice(1, -1) 
+        : searchWord;
+      
+      // Finde das Wort im Inhalt
+      let wordIndex;
+      if (isExactMatch) {
+        // Case-sensitive Suche bei exaktem Matching
+        wordIndex = content.indexOf(cleanWord);
+      } else {
+        // Case-insensitive Suche bei flexibler Suche
+        const contentLower = content.toLowerCase();
+        const wordLower = cleanWord.toLowerCase();
+        wordIndex = contentLower.indexOf(wordLower);
+      }
       
       if (wordIndex === -1) {
         // Fallback: Anfang des Textes wenn Wort nicht gefunden
@@ -1872,11 +1903,11 @@ app.post('/api/advanced-search', async (req, res) => {
       }
       
       // Berechne Start und Ende des Snippets so, dass das Wort zentral ist
-      const contextBefore = Math.floor((maxLength - searchWord.length) / 2);
-      const contextAfter = maxLength - searchWord.length - contextBefore;
+      const contextBefore = Math.floor((maxLength - cleanWord.length) / 2);
+      const contextAfter = maxLength - cleanWord.length - contextBefore;
       
       let start = Math.max(0, wordIndex - contextBefore);
-      let end = Math.min(content.length, wordIndex + searchWord.length + contextAfter);
+      let end = Math.min(content.length, wordIndex + cleanWord.length + contextAfter);
       
       // Versuche an Wortgrenzen zu schneiden
       if (start > 0) {
