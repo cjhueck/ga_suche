@@ -6861,7 +6861,7 @@ function displayGAChronological(lectures) {
         <thead>
           <tr style="background: var(--sidebar-bg); border-bottom: 2px solid var(--border-color);">
             <th style="padding: 0.4rem; text-align: left; width: 6%; font-size: 0.9em;">Jahr</th>
-            <th style="padding: 0.4rem; text-align: right; width: 15%; font-size: 0.9em;">Datum</th>
+            <th style="padding: 0.4rem; padding-right: 1rem; text-align: right; width: 15%; font-size: 0.9em;">Datum</th>
             <th style="padding: 0.4rem; text-align: left; width: 10%; font-size: 0.9em;">Ort</th>
             <th style="padding: 0.4rem; text-align: left; width: 64%; font-size: 0.9em;">Vortrag</th>
           </tr>
@@ -7039,7 +7039,7 @@ function displayGAChronological(lectures) {
       html += `
         <tr style="border-bottom: ${borderStyle};">
           <td style="padding: 0.3rem; vertical-align: top; font-weight: ${idx === 0 ? 'bold' : 'normal'}; font-size: 0.85em;">${yearCell}</td>
-          <td style="padding: 0.3rem; vertical-align: top; text-align: right; font-size: 0.85em;">${date}</td>
+          <td style="padding: 0.3rem; padding-right: 1rem; vertical-align: top; text-align: right; font-size: 0.85em;">${date}</td>
           <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${location}</td>
           <td style="padding: 0.3rem; font-size: 0.85em;">
             <a href="#" onclick="navigateToLectureInTexteTab('${lecture.ID}'); return false;" 
