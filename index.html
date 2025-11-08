@@ -3882,13 +3882,18 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="ga-tab">
-<div style="padding: 0.5rem;">
+<div style="padding: 0.2rem;">
+<!-- View Toggle Buttons -->
+<div id="ga-view-toggle" style="display: flex; gap: 8px; margin-bottom: 0.5rem;">
+<button id="ga-chronological-view-btn" class="depth-btn" onclick="showGAChronologicalView()" style="padding: 8px; font-size: 0.85em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color);">
+Chronologisch
+</button>
+</div>
 <div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
 <span id="ga-volumes-count">Lade GA-Bände...</span>
 </div>
 </div>
-</div>
-<div class="tab-content" id="keyword-tab">
+</div><div class="tab-content" id="keyword-tab">
 <div class="search-words-row">
 <div style="flex:1; position: relative;">
 <input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text"/>
@@ -6226,9 +6231,9 @@ function displayGAVolumesInSidebar() {
            style="
              font-weight: bold; 
              text-decoration: none;
-             font-size: 1rem;
+             font-size: 0.9rem;
              display: block;
-             padding: 0.25rem 0;
+             padding: 0.1rem 0;
            "
            onmouseover="this.style.textDecoration='underline'"
            onmouseout="this.style.textDecoration='none'">
@@ -6755,6 +6760,305 @@ function toggleGASummaries() {
   if (texteViewToggleText) {
     texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
   }
+}
+
+// ============================================================================
+// GA CHRONOLOGICAL VIEW
+// ============================================================================
+
+let currentGAView = 'volumes'; // 'volumes' oder 'chronological'
+
+// Zeige GA-Bände Ansicht (Standard)
+function showGAVolumesView() {
+  currentGAView = 'volumes';
+  
+  // Zeige GA-Bände Liste
+  const viewer = document.getElementById('viewer');
+  viewer.innerHTML = '<p style="color: #666; font-style: italic;">Bitte wählen Sie einen GA-Band aus dem Menü "Texte".</p>';
+  
+  const titleElement = document.getElementById('document-title');
+  titleElement.textContent = 'Rudolf Steiner Gesamtausgabe';
+  
+  // Lösche Sidebar
+  const resultsContainer = document.getElementById('results');
+  resultsContainer.innerHTML = '';
+}
+
+// Zeige chronologische Ansicht
+async function showGAChronologicalView() {
+  currentGAView = 'chronological';
+  
+  // Update Button Styling
+  const chronBtn = document.getElementById('ga-chronological-view-btn');
+  if (chronBtn) {
+    chronBtn.style.background = 'var(--accent-color)';
+    chronBtn.style.color = 'white';
+  }
+  
+  // Lade alle Vorträge chronologisch
+  try {
+    const viewer = document.getElementById('viewer');
+    viewer.innerHTML = '<p style="color: #666; font-style: italic;">Lade chronologische Übersicht...</p>';
+    
+    const titleElement = document.getElementById('document-title');
+    titleElement.textContent = 'Vorträge chronologisch';
+    
+    const response = await fetch(`${API_BASE}/api/lectures/chronological`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    
+    const data = await response.json();
+    displayGAChronological(data.lectures);
+    
+  } catch (error) {
+    console.error('Fehler beim Laden der chronologischen Ansicht:', error);
+    const viewer = document.getElementById('viewer');
+    viewer.innerHTML = `
+      <div class="error-message">
+        <strong>Fehler beim Laden der chronologischen Ansicht:</strong><br>${error.message}
+      </div>
+    `;
+  }
+}
+
+// Zeige chronologisches Grid
+function displayGAChronological(lectures) {
+  const viewer = document.getElementById('viewer');
+  const titleElement = document.getElementById('document-title');
+  
+  if (!lectures || lectures.length === 0) {
+    viewer.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
+    titleElement.textContent = 'Vorträge chronologisch';
+    return;
+  }
+  
+  // Setze Titel im Header
+  titleElement.textContent = `Vorträge chronologisch (${lectures.length} Vorträge)`;
+  
+  // Sortiere Vorträge chronologisch (sollten schon sortiert sein vom Server)
+  const sortedLectures = lectures.sort((a, b) => {
+    if (a.date && b.date) {
+      return new Date(a.date) - new Date(b.date);
+    }
+    return 0;
+  });
+  
+  // Gruppiere nach Jahr
+  const lecturesByYear = {};
+  sortedLectures.forEach(lecture => {
+    if (lecture.date) {
+      const year = new Date(lecture.date).getFullYear();
+      if (!lecturesByYear[year]) {
+        lecturesByYear[year] = [];
+      }
+      lecturesByYear[year].push(lecture);
+    }
+  });
+  
+  // Erstelle Grid HTML (ohne h2-Überschrift und ohne extra Padding - nutzt Main-Container Padding)
+  let html = `
+    <div>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 0;">
+        <thead>
+          <tr style="background: var(--sidebar-bg); border-bottom: 2px solid var(--border-color);">
+            <th style="padding: 0.4rem; text-align: left; width: 6%; font-size: 0.9em;">Jahr</th>
+            <th style="padding: 0.4rem; text-align: left; width: 15%; font-size: 0.9em;">Datum</th>
+            <th style="padding: 0.4rem; text-align: left; width: 10%; font-size: 0.9em;">Ort</th>
+            <th style="padding: 0.4rem; text-align: left; width: 64%; font-size: 0.9em;">Vortrag</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+  
+  // Sortiere Jahre aufsteigend
+  const years = Object.keys(lecturesByYear).sort((a, b) => parseInt(a) - parseInt(b));
+  
+  // Hilfsfunktion: Extrahiere nur den Ortsnamen mit intelligenter Erkennung
+  const cleanLocation = (loc, fullTitle = '') => {
+    // Liste bekannter Vortragsorte (häufigste zuerst)
+    const knownCities = [
+      'Dornach', 'Berlin', 'Stuttgart', 'München', 'Basel', 'Wien', 'Zürich',
+      'Karlsruhe', 'Hamburg', 'Köln', 'Frankfurt', 'Leipzig', 'Dresden', 'Hannover',
+      'Nürnberg', 'Breslau', 'Düsseldorf', 'Bremen', 'Mannheim', 'Heidelberg',
+      'Bern', 'Genf', 'Luzern', 'St. Gallen', 'Winterthur',
+      'Prag', 'Budapest', 'Kristiania', 'Oslo', 'Stockholm', 'Kopenhagen',
+      'London', 'Paris', 'Amsterdam', 'Den Haag', 'Haag',
+      'Barmen', 'Elberfeld', 'Kassel', 'Weimar', 'Jena', 'Erfurt',
+      'Darmstadt', 'Straßburg', 'Freiburg', 'Ulm', 'Augsburg',
+      'Bochum', 'Essen', 'Dortmund', 'Münster', 'Wuppertal',
+      'Braunschweig', 'Magdeburg', 'Halle', 'Chemnitz',
+      'Danzig', 'Stettin', 'Königsberg',
+      'Arlesheim', 'Neuchâtel', 'La Chaux-de-Fonds',
+      'Torquay', 'Oxford', 'Manchester', 'Penmaenmawr',
+      'Helsingfors', 'Helsinki', 'Christiania',
+      'Hermannstadt', 'Stratford-on-Avon', 'Stratford'
+    ];
+    
+    // Funktion: Normalisiere Ortsnamen (Capitalize)
+    const normalizeCity = (city) => {
+      // Spezialfälle mit mehreren Teilen
+      const specialCases = {
+        'st. gallen': 'St. Gallen',
+        'den haag': 'Den Haag',
+        'la chaux-de-fonds': 'La Chaux-de-Fonds',
+        'stratford-on-avon': 'Stratford-on-Avon',
+        'stratford-en-avon': 'Stratford-on-Avon'
+      };
+      
+      const lowerCity = city.toLowerCase();
+      if (specialCases[lowerCity]) {
+        return specialCases[lowerCity];
+      }
+      
+      // Für Städte mit Bindestrichen: jeden Teil kapitalisieren
+      if (city.includes('-')) {
+        return city.split('-').map(part => 
+          part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+        ).join('-');
+      }
+      
+      // Standard: Erster Buchstabe groß, Rest klein
+      return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+    };
+    
+    // Liste von ungültigen Mustern/Texten
+    const invalidPatterns = [
+      /^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster|Zweiundzwanzigster|Dreiundzwanzigster|Vierundzwanzigster|Fünfundzwanzigster|Sechsundzwanzigster|Siebenundzwanzigster|Achtundzwanzigster|Neunundzwanzigster|Dreißigster)\s+Vortrag$/i,
+      /^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte|Dreizehnte|Vierzehnte|Fünfzehnte|Sechzehnte|Siebzehnte|Achtzehnte|Neunzehnte|Zwanzigste)\s+Stunde$/i,
+      /^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag$/i,
+      /^(Montag|Dienstag|Mittwoch|Donnerstag|Freitag|Samstag|Sonntag|Pfingstmontag|Pfingstsonntag|Karfreitag|Ostermontag|Ostersamstag|Ostersonntag|Gründonnerstag|Himmelfahrt|Dreikönigstag)$/i,
+      /^(Notizen|Mündliche\s+Mitteilung|Beilage|Aus\s+einem\s+Brief|Zu\s+einem\s+Brief)/i,
+      /^(Ansprache|Schlusswort|Eröffnungsansprache|Fragenbeantwortung|Diskussion|Anmerkung)$/i,
+      /^[A-ZÄÖÜ\s]{10,}$/,  // Nur Großbuchstaben (wahrscheinlich Titel)
+      /die\s+(größte|klassische)/i,  // Textfragmente
+      /^GOETHE|^DIE\s+ENTWICKLUNG|^SCHULUNG/i,  // Bekannte Vortragstitel
+      /johannesbau|broschüre|nachrichtenblatt/i,  // Spezielle Begriffe
+      /^(Der|Die|Das|Den|Dem|Des)\s+[a-zäöü]/i  // Artikel + Kleinbuchstabe
+    ];
+    
+    // Hilfsfunktion: Suche nach bekanntem Ort in Text
+    const findCityInText = (text) => {
+      if (!text) return null;
+      
+      // Spezialfall: Suche nach "Vortrag in [Stadt]" oder "Vortrag, [Stadt]"
+      const inMatch = text.match(/Vortrag\s+in\s+([A-ZÄÖÜ][a-zäöüß]+)/);
+      if (inMatch) {
+        const cityCandidate = inMatch[1];
+        const cityLower = cityCandidate.toLowerCase();
+        // Prüfe ob es eine bekannte Stadt ist
+        for (const city of knownCities) {
+          if (city.toLowerCase() === cityLower) {
+            return normalizeCity(city);
+          }
+        }
+        // Auch wenn nicht in knownCities, nehme es wenn es plausibel aussieht
+        if (cityCandidate.length >= 4 && !invalidPatterns.some(p => p.test(cityCandidate))) {
+          return normalizeCity(cityCandidate);
+        }
+      }
+      
+      const textLower = text.toLowerCase();
+      for (const city of knownCities) {
+        const cityLower = city.toLowerCase();
+        if (textLower.includes(cityLower)) {
+          // Normalisiere Schreibweise
+          return normalizeCity(city);
+        }
+      }
+      return null;
+    };
+    
+    // Entferne Klammern und deren Inhalt (z.B. "(Siebenbürgen)")
+    let cleanedLoc = loc ? loc.replace(/\s*\([^)]*\)/g, '').trim() : loc;
+    
+    // Entferne "In " oder "in " am Anfang
+    if (cleanedLoc && /^(In|in)\s+/.test(cleanedLoc)) {
+      cleanedLoc = cleanedLoc.replace(/^(In|in)\s+/, '');
+    }
+    
+    // 1. Wenn loc ungültig ist, suche im Titel
+    if (!cleanedLoc || cleanedLoc === '-' || cleanedLoc.length > 100 || invalidPatterns.some(p => p.test(cleanedLoc.trim()))) {
+      const cityFromTitle = findCityInText(fullTitle);
+      return cityFromTitle || '-';
+    }
+    
+    // 2. Suche nach bekannten Ortsnamen in loc
+    const cityFromLoc = findCityInText(cleanedLoc);
+    if (cityFromLoc) {
+      return cityFromLoc;
+    }
+    
+    // 3. Versuche Text zu bereinigen
+    let cleaned = cleanedLoc
+      .replace(/^(Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter|Dreizehnter|Vierzehnter|Fünfzehnter|Sechzehnter|Siebzehnter|Achtzehnter|Neunzehnter|Zwanzigster|Einundzwanzigster)\s+Vortrag[,\s]*/i, '')
+      .replace(/^(Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte)\s+Stunde[,\s]*/i, '')
+      .replace(/^(öffentlicher|nicht\s+öffentlicher|Mitglieder)\s*Vortrag[,\s]*/i, '')
+      .replace(/^Vortrag[,\s]*/i, '')
+      .replace(/^\s*[,;]\s*/, '')
+      .trim();
+    
+    // Wenn nach Komma getrennt, nimm den ersten sinnvollen Teil
+    if (cleaned.includes(',')) {
+      const parts = cleaned.split(',').map(p => p.trim());
+      for (const part of parts) {
+        if (part.length >= 3 && !invalidPatterns.some(p => p.test(part))) {
+          // Suche auch hier nach bekannten Städten
+          const cityInPart = findCityInText(part);
+          if (cityInPart) return cityInPart;
+          return normalizeCity(part);
+        }
+      }
+    }
+    
+    // Prüfe ob cleaned ein gültiger Ort ist
+    if (cleaned.length < 3 || invalidPatterns.some(p => p.test(cleaned))) {
+      // Als letztes Resort: Suche im Titel
+      const cityFromTitle = findCityInText(fullTitle);
+      return cityFromTitle || '-';
+    }
+    
+    // Normalisiere Schreibweise
+    return normalizeCity(cleaned);
+  };
+  
+  years.forEach((year, yearIndex) => {
+    const yearLectures = lecturesByYear[year];
+    
+    yearLectures.forEach((lecture, idx) => {
+      const date = lecture.date ? formatDate(lecture.date) : '-';
+      const title = lecture.fileName || `${formatLectureId(lecture.ID)} - ${lecture.title}`;
+      const location = cleanLocation(lecture.location, title);
+      
+      // Erste Zeile eines Jahres zeigt das Jahr, danach leer
+      const yearCell = idx === 0 ? year : '';
+      
+      // Linie nur nach dem letzten Vortrag eines Jahres (außer beim letzten Jahr)
+      const isLastLectureOfYear = idx === yearLectures.length - 1;
+      const isLastYear = yearIndex === years.length - 1;
+      const borderStyle = (isLastLectureOfYear && !isLastYear) ? '2px solid var(--border-color)' : 'none';
+      
+      html += `
+        <tr style="border-bottom: ${borderStyle};">
+          <td style="padding: 0.3rem; vertical-align: top; font-weight: ${idx === 0 ? 'bold' : 'normal'}; font-size: 0.85em;">${yearCell}</td>
+          <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${date}</td>
+          <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${location}</td>
+          <td style="padding: 0.3rem; font-size: 0.85em;">
+            <a href="#" onclick="navigateToLectureInTexteTab('${lecture.ID}'); return false;" 
+               style="text-decoration: none; color: var(--accent-color);">
+              ${title}
+            </a>
+          </td>
+        </tr>
+      `;
+    });
+  });
+  
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+  
+  viewer.innerHTML = html;
 }
 
 // Summary-Manager Interface
@@ -10870,7 +11174,7 @@ async function batchRegenerateAll() {
       body: JSON.stringify({ 
         lectureIds: lectureIds,
         preferredProvider: selectedProvider,
-        parallelChunkSize: 5
+        parallelChunkSize: 10
       })
     });
     
@@ -10919,7 +11223,7 @@ async function batchRegenerateAll() {
 
 // Führt Zusammenfassungs-Requests mit begrenzter Parallelität aus
 async function batchSummarizeLectures(lectureIds, options = {}) {
-  const concurrency = options.concurrency || 5;
+  const concurrency = options.concurrency || 10;
   const signal = options.signal;
   const preferredProvider = options.preferredProvider || null;
 
@@ -16426,7 +16730,7 @@ async function startGABatchFullRegenerate() {
   const message = `WARNUNG: Alle Vorträge in ${selectedVolumes.length} GA-Band${selectedVolumes.length > 1 ? 'en' : ''} werden komplett neu generiert (S+H+TOC+KW).\n\n` +
     `Bände: ${selectedVolumes.join(', ')}\n` +
     `Total Vorträge: ~${totalLectures}\n` +
-    `Batch-Größe: 5 Vorträge parallel\n` +
+    `Batch-Größe: 10 Vorträge parallel\n` +
     `KI-Provider: ${selectedProvider ? selectedProvider.toUpperCase() : 'Claude (Default)'}\n\n` +
     `Bestehende Daten werden überschrieben. Fortfahren?`;
   
@@ -16486,7 +16790,7 @@ async function startGABatchFullRegenerate() {
     
     console.log(`[GA-BATCH] Total: ${allLectureIds.length} Vorträge zu verarbeiten`);
     
-    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge (Batch-Größe: 5)...</span>`;
+    statusDiv.innerHTML = `<span style="color: #d9534f;">⏳ Generiere ${allLectureIds.length} Vorträge (Batch-Größe: 10)...</span>`;
     if (progressText) progressText.textContent = `Verarbeite ${allLectureIds.length} Vorträge in Batches...`;
     if (progressBar) progressBar.style.width = '5%';
     
@@ -16500,7 +16804,7 @@ async function startGABatchFullRegenerate() {
       body: JSON.stringify({ 
         lectureIds: allLectureIds,
         preferredProvider: selectedProvider,
-        parallelChunkSize: 5
+        parallelChunkSize: 10
       })
     });
     
@@ -16529,7 +16833,7 @@ async function startGABatchFullRegenerate() {
       document.getElementById('gaBatchStatNew').textContent = result.failed + ' Fehler';
       document.getElementById('gaBatchStatFinalVocab').textContent = '-';
       document.getElementById('gaBatchStatSynonyms').textContent = '-';
-      document.getElementById('gaBatchStatMethod').textContent = `Unified Full (Batch: 5, ${elapsed}s)`;
+      document.getElementById('gaBatchStatMethod').textContent = `Unified Full (Batch: 10, ${elapsed}s)`;
       
       if (progressBar) progressBar.style.width = '100%';
       if (progressText) progressText.textContent = 'Abgeschlossen!';
