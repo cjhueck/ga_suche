@@ -603,10 +603,10 @@ class SteinerLecturesExporter {
     console.log(`📦 Erstelle gesplittete Bilder-Dateien...`);
     
     // Konvertiere imagesWithData zu Array
-    const allImages = [];
+    const imagesList = [];
     for (const lectureId in imagesWithData) {
       for (const img of imagesWithData[lectureId]) {
-        allImages.push({
+        imagesList.push({
           lectureId: lectureId,
           ...img
         });
@@ -619,12 +619,12 @@ class SteinerLecturesExporter {
     const chunks = [];
     let currentChunk = [];
     
-    for (let idx = 0; idx < allImages.length; idx++) {
-      const img = allImages[idx];
+    for (let idx = 0; idx < imagesList.length; idx++) {
+      const img = imagesList[idx];
       currentChunk.push(img);
       
       // Prüfe alle 5 Bilder die Größe
-      if (currentChunk.length % 5 === 0 || idx === allImages.length - 1) {
+      if (currentChunk.length % 5 === 0 || idx === imagesList.length - 1) {
         const testJson = JSON.stringify(currentChunk, null, 2);
         const sizeBytes = Buffer.byteLength(testJson, 'utf8');
         
