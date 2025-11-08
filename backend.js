@@ -2639,7 +2639,7 @@ app.post('/api/batch-generate-structure', async (req, res) => {
       lectureIds = [], 
       preferredProvider = null,
       skipExisting = true,  // Standard: überspringen
-      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+      parallelChunkSize = 10  // NEU: Anzahl paralleler Verarbeitungen
     } = req.body;
     
     if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
@@ -2765,7 +2765,7 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
       lectureIds = [], 
       preferredProvider = null,
       skipExisting = true,
-      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+      parallelChunkSize = 10  // NEU: Anzahl paralleler Verarbeitungen
     } = req.body;
     
     if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
@@ -2922,7 +2922,7 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
     const { 
       lectureIds = [], 
       preferredProvider = null,
-      parallelChunkSize = 5  // NEU: Anzahl paralleler Verarbeitungen
+      parallelChunkSize = 10  // NEU: Anzahl paralleler Verarbeitungen
     } = req.body;
     
     if (!Array.isArray(lectureIds) || lectureIds.length === 0) {
@@ -5353,10 +5353,10 @@ async function saveKeywordThematicDatabase(keywordThematicDB) {
 }
 
 // API-Endpunkt: Batch-Schlagwort-Generierung
-// Verarbeitet bis zu 5 Schlagwörter parallel
+// Verarbeitet bis zu 10 Schlagwörter parallel
 app.post('/api/concepts-batch-add', async (req, res) => {
   try {
-    const { keywords, overwrite = false, batchId = null, concurrency = 5 } = req.body;
+    const { keywords, overwrite = false, batchId = null, concurrency = 10 } = req.body;
     
     if (!keywords || !Array.isArray(keywords) || keywords.length === 0) {
       return res.status(400).json({ 
@@ -5365,8 +5365,8 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       });
     }
     
-    // Maximale Concurrency: 5 (um API Rate Limits zu vermeiden)
-    const effectiveConcurrency = Math.min(concurrency, 5);
+    // Maximale Concurrency: 10 (um API Rate Limits zu vermeiden)
+    const effectiveConcurrency = Math.min(concurrency, 10);
     
     console.log(`[KEYWORDS-BATCH-ADD] Starte parallele Batch-Verarbeitung für ${keywords.length} Schlagwörter (Concurrency: ${effectiveConcurrency})`);
     
@@ -6765,8 +6765,8 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       errors: []
     };
     
-    // Verarbeite Vorträge in Batches von 5
-    const BATCH_SIZE = 5;
+    // Verarbeite Vorträge in Batches von 10
+    const BATCH_SIZE = 10;
     
     for (let batchStart = 0; batchStart < toProcess.length; batchStart += BATCH_SIZE) {
       const batchEnd = Math.min(batchStart + BATCH_SIZE, toProcess.length);
@@ -9032,7 +9032,7 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
 // Endpoint: Regeneriere einen GA-Band
 app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
   const { gaVolume, useExistingVocab, updateClusters, parallelBatchSize, forceReprocess } = req.body;
-  const PARALLEL_BATCH_SIZE = parallelBatchSize || 5; // Default: 5 parallel
+  const PARALLEL_BATCH_SIZE = parallelBatchSize || 10; // Default: 10 parallel
   
   console.log(`\n[GA-BATCH] Starte Regenerierung für ${gaVolume}...`);
   console.log(`[GA-BATCH] Verwende bestehendes Vokabular: ${useExistingVocab ? 'Ja' : 'Nein (nur Seeds)'}`);
@@ -10259,14 +10259,14 @@ app.post('/api/generate-keywords', async (req, res) => {
           };
         };
         
-        // Verarbeite alle Vorträge dieses Bandes parallel (max 5 gleichzeitig)
-        console.log(`[GA-BATCH] ${volume}: Starte parallele Verarbeitung (Concurrency: 5)`);
+        // Verarbeite alle Vorträge dieses Bandes parallel (max 10 gleichzeitig)
+        console.log(`[GA-BATCH] ${volume}: Starte parallele Verarbeitung (Concurrency: 10)`);
         const startTime = Date.now();
         
         const batchResults = await processBatchWithConcurrency(
           volumeLectures,
           processLecture,
-          5,  // Concurrency Limit
+          10,  // Concurrency Limit
           200 // Delay zwischen Starts in ms
         );
         
@@ -10341,7 +10341,7 @@ app.post('/api/generate-keywords', async (req, res) => {
       const total = allLectureIds.length;
       const toProcess = allLectureIds.slice(startIndex, startIndex + batchSize);
       
-      console.log(`[KEYWORDS-BATCH] Parallele Verarbeitung von ${toProcess.length}/${total} Vorträgen (${startIndex}-${startIndex + toProcess.length}, Concurrency: 5)`);
+      console.log(`[KEYWORDS-BATCH] Parallele Verarbeitung von ${toProcess.length}/${total} Vorträgen (${startIndex}-${startIndex + toProcess.length}, Concurrency: 10)`);
       
       // Definiere Verarbeitungsfunktion für einen Vortrag
       const processLecture = async (lid, index) => {
@@ -10387,11 +10387,11 @@ app.post('/api/generate-keywords', async (req, res) => {
         };
       };
       
-      // Verarbeite alle Vorträge parallel (max 5 gleichzeitig)
+      // Verarbeite alle Vorträge parallel (max 10 gleichzeitig)
       const batchResults = await processBatchWithConcurrency(
         toProcess,
         processLecture,
-        5,  // Concurrency Limit
+        10,  // Concurrency Limit
         200 // Delay zwischen Starts in ms
       );
       
