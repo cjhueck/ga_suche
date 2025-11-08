@@ -7210,9 +7210,10 @@ function toggleGASummaries() {
       html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
       html += '<thead><tr>';
       
-      // Spaltenüberschriften
+      // Spaltenüberschriften (entferne Anführungszeichen für die Anzeige)
       words.forEach(word => {
-        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${word}</th>`;
+        const displayWord = word.startsWith('"') && word.endsWith('"') ? word.slice(1, -1) : word;
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${displayWord}</th>`;
       });
       
       html += '</tr></thead>';
@@ -7235,11 +7236,24 @@ function toggleGASummaries() {
           
           if (i < snippets.length) {
             const result = snippets[i];
-            const highlightedSnippet = highlightSearchTerms(result.snippet, [word]);
+            // Behalte Info über exakte Suche und entferne Anführungszeichen für Anzeige
+            const isExactMatch = word.startsWith('"') && word.endsWith('"');
+            const cleanWord = isExactMatch ? word.slice(1, -1) : word;
+            const highlightedSnippet = highlightSearchTerms(result.snippet, [cleanWord], !isExactMatch); // case-insensitive nur wenn NICHT exakt
             const formattedDate = formatDate(result.lectureDate);
             const lectureInfo = `${formatLectureId(result.lectureId)} - ${result.lectureTitle}${formattedDate ? ', ' + formattedDate : ''}`;
             
-            html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" onclick="showLectureFromAdvancedSearch('${result.lectureId}', '${word.replace(/'/g, "\\'")}', ${result.paragraphIndex})">`;
+            // Verwende data-Attribute um Probleme mit Anführungszeichen zu vermeiden
+            // Encode das Wort als base64 oder verwende einen Flag-basierten Ansatz
+            const searchWord = isExactMatch ? cleanWord : word;
+            const exactFlag = isExactMatch ? '1' : '0';
+            
+            html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" 
+                      data-lecture-id="${result.lectureId}" 
+                      data-search-word="${searchWord.replace(/"/g, '&quot;')}" 
+                      data-exact-match="${exactFlag}"
+                      data-paragraph-index="${result.paragraphIndex}"
+                      onclick="showLectureFromAdvancedSearchData(this)">`;
             html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
             html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
             html += '</td>';
@@ -7255,6 +7269,18 @@ function toggleGASummaries() {
       html += '</div>';
       
       viewer.innerHTML = html;
+    }
+    
+    function showLectureFromAdvancedSearchData(element) {
+      const lectureId = element.dataset.lectureId;
+      const searchWord = element.dataset.searchWord;
+      const isExactMatch = element.dataset.exactMatch === '1';
+      const paragraphIndex = element.dataset.paragraphIndex ? parseInt(element.dataset.paragraphIndex) : null;
+      
+      // Rekonstruiere das Suchwort mit Anführungszeichen wenn nötig
+      const searchTerm = isExactMatch ? `"${searchWord}"` : searchWord;
+      
+      showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex);
     }
     
     async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
@@ -7360,8 +7386,16 @@ function toggleGASummaries() {
             
             // Highlighte den Suchbegriff
             if (searchTerm && searchTerm.trim()) {
-              const escapedTerm = searchTerm.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-              const regex = new RegExp(`(${escapedTerm})`, 'gi');
+              const cleanTerm = searchTerm.trim();
+              // Prüfe ob exakte Suche (mit Anführungszeichen)
+              const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
+              const termToHighlight = isExactMatch 
+                ? cleanTerm.slice(1, -1) 
+                : cleanTerm;
+              const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              // Bei exakter Suche: case-sensitive, sonst case-insensitive
+              const flags = isExactMatch ? 'g' : 'gi';
+              const regex = new RegExp(`(${escapedTerm})`, flags);
               content = content.replace(regex, '<mark>$1</mark>');
             }
             
@@ -7481,7 +7515,7 @@ function toggleGASummaries() {
       return highlightedParagraphs.join('\n');
     }
     
-    function highlightSearchTerms(text, terms) {
+    function highlightSearchTerms(text, terms, caseInsensitive = true) {
       if (!text || !terms || terms.length === 0) return text;
       
       let result = text;
@@ -7504,7 +7538,9 @@ function toggleGASummaries() {
         if (!term || !term.trim()) return;
         const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         // Verwende einfaches <mark> wie in der normalen Suche
-        const regex = new RegExp(`(${escapedTerm})`, 'gi');
+        // Case-sensitive oder case-insensitive je nach Parameter
+        const flags = caseInsensitive ? 'gi' : 'g';
+        const regex = new RegExp(`(${escapedTerm})`, flags);
         result = result.replace(regex, '<mark>$1</mark>');
       });
       
@@ -7796,11 +7832,11 @@ function toggleGASummaries() {
                 const escapedTerm = term.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                 let regex;
                 if (isPhrase) {
-                  // Bei Phrasensuche: Wortgrenzen beachten
-                  regex = new RegExp(`((?:^|[\\s,.;:!?()\\-—]))(${escapedTerm})(?=$|[\\s,.;:!?()\\-—])`, "gi");
+                  // Bei Phrasensuche: Wortgrenzen beachten UND case-sensitive
+                  regex = new RegExp(`((?:^|[\\s,.;:!?()\\-—]))(${escapedTerm})(?=$|[\\s,.;:!?()\\-—])`, "g");
                   return text.replace(regex, "$1<mark>$2</mark>");
                 } else {
-                  // Bei normaler Suche: auch Teilwörter highlighten
+                  // Bei normaler Suche: auch Teilwörter highlighten, case-insensitive
                   regex = new RegExp(`(${escapedTerm})`, "gi");
                   return text.replace(regex, "<mark>$1</mark>");
                 }
@@ -7867,8 +7903,12 @@ function toggleGASummaries() {
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
+  // Parse die Suchworte um herauszufinden ob sie Phrasen sind
+  const word1Parsed = parseSearchTerm(currentWord1);
+  const word2Parsed = parseSearchTerm(currentWord2);
+  
   // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
-  await showLecture(lecId, chunkIdx, keywords);
+  await showLecture(lecId, chunkIdx, keywords, [word1Parsed.isPhrase, word2Parsed.isPhrase]);
 });
               lectureItem.appendChild(snippetDiv);
             }
@@ -8976,7 +9016,7 @@ function showSummaryView() {
       }
     }
 
-  function displaySummaryWithHeadings(lecture, summaryObj, keywordsParam = null) {
+  function displaySummaryWithHeadings(lecture, summaryObj, keywordsParam = null, isPhraseArray = []) {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
   
@@ -9108,10 +9148,20 @@ function showSummaryView() {
     // Keyword-Highlighting NUR wenn NICHT von thematischer Suche
     if (keywords && keywords.length > 0 && !isFromThematicSearch) {
       console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
-      keywords.forEach(word => {
+      keywords.forEach((word, wordIndex) => {
         if (word && word.trim()) {
-          const escapedWord = word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(`(${escapedWord})`, "gi");
+          // Prüfe ob es sich um eine Phrasensuche handelt (mit Anführungszeichen)
+          const isPhrase = isPhraseArray[wordIndex] || false;
+          const cleanWord = word.trim();
+          // Entferne Anführungszeichen falls vorhanden (sollten schon entfernt sein, aber zur Sicherheit)
+          const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
+            ? cleanWord.slice(1, -1) 
+            : cleanWord;
+          
+          const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          // Bei Phrasensuche: case-sensitive, sonst case-insensitive
+          const flags = isPhrase ? "g" : "gi";
+          const regex = new RegExp(`(${escapedWord})`, flags);
           content = content.replace(regex, "<mark>$1</mark>");
         }
       });
@@ -9411,7 +9461,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       setTimeout(() => msgDiv.remove(), 3000);
     }
 
-    async function showLecture(lectureId, targetIndex, keywords = []) {
+    async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = []) {
   const summaryPanel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
@@ -9485,7 +9535,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             lastHighlightedIndex = null;
           }
           
-          displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
+          displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords, isPhraseArray);
 
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
           if (summaryPanel) {
@@ -12587,7 +12637,7 @@ function switchTabExtended(mode) {
         titleText = 'Texte';
         break;
       case 'thematic':
-        defaultMessage = 'Bitte ein Thema auswählen…';
+        defaultMessage = 'Bitte eine Themenanfrage stellen...';
         titleText = 'Themen';
         break;
       case 'timeline':
