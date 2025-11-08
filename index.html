@@ -6332,7 +6332,7 @@ async function showGALectures(gaNumber) {
       return;
     }
     
-    documentTitle.textContent = `${formatLectureId(gaNumber)}: ${gaInfo.title}`;
+    documentTitle.textContent = `${formatLectureId(gaNumber)} - ${gaInfo.title}`;
     viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div>';
     
     // Lade GA-Übersicht-Daten
@@ -6620,7 +6620,7 @@ async function displayGAOverview(data) {
     }
   });
   
-  titleElement.textContent = `${data.gaNumber}: ${data.gaTitle}`;
+  titleElement.textContent = `${data.gaNumber} - ${data.gaTitle}`;
   
   viewer.innerHTML = '<p style="color: #666; font-style: italic;">Wählen Sie einen Vortrag aus der Liste links.</p>';
   

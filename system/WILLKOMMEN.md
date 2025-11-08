@@ -1,4 +1,5 @@
-# Rudolf Steiner Gesamtausgabe - Text- und thematische Suche
+# Rudolf Steiner Gesamtausgabe - 
+# Text- und thematische Suche
 **(Testversion in Bearbeitung)**
 
 ---
