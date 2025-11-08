@@ -4623,6 +4623,46 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   }
 });
 
+// API: Alle Vorträge chronologisch sortiert
+app.get('/api/lectures/chronological', async (req, res) => {
+  try {
+    console.log('[CHRONOLOGICAL] Anfrage für chronologische Übersicht');
+    
+    // Sammle alle Vorträge mit Datum
+    const lecturesWithDate = [];
+    
+    Object.values(fullLectures).forEach(lecture => {
+      if (lecture.date) {
+        lecturesWithDate.push({
+          ID: lecture.ID,
+          title: lecture.title,
+          fileName: lecture.fileName,
+          date: lecture.date,
+          location: lecture.location,
+          gaNumber: lecture.gaNumber
+        });
+      }
+    });
+    
+    // Sortiere chronologisch aufsteigend
+    lecturesWithDate.sort((a, b) => {
+      return new Date(a.date) - new Date(b.date);
+    });
+    
+    console.log(`[CHRONOLOGICAL] ${lecturesWithDate.length} Vorträge mit Datum gefunden`);
+    
+    res.json({
+      success: true,
+      count: lecturesWithDate.length,
+      lectures: lecturesWithDate
+    });
+    
+  } catch (error) {
+    console.error('[CHRONOLOGICAL] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/ga-overview-map.json', async (req, res) => {
   try {
     const mapPath = path.join(__dirname, 'ga-overview-map.json');

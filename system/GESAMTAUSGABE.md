@@ -2,7 +2,7 @@ Die **Rudolf Steiner Gesamtausgabe (GA)** umfasst das gesamte schriftliche und v
 
 Die **Herausgeber der Rudolf Steiner Nachlassverwaltung** schreiben: 
 
-"Zu den Veröffentlichungenaus dem Vortragswerk von Rudolf Steiner
+"Zu den Veröffentlichungen aus dem Vortragswerk von Rudolf Steiner
 
 Rudolf Steiner hat seine Vorträge stets frei, also ohne Manuskript, gehalten. Viele seiner Vorüberlegungen hielt er lediglich in Stichworten, manchmal auch in kurzen Sätzen, Schemata oder Skizzen in seinen Notizbüchern fest, ohne dass er sie weiter schriftlich ausgearbeitet hätte. Nur in ganz wenigen Fällen liegen vorbereitete schriftliche Zusammenfassungen vor, die für Übersetzer bestimmt waren. Er hat jedoch der Veröffentlichung von Mitschriften seiner Vorträge zugestimmt, auch wenn er selbst nur einige wenige für den Druck vorbereiten konnte.
 
