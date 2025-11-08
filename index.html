@@ -3308,6 +3308,15 @@ body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body
 body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
 body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
 
+/* Chronological lecture links */
+.chronological-lecture-link {
+  color: var(--accent-color);
+}
+
+body.dark-mode .chronological-lecture-link {
+  color: var(--dark-accent-color);
+}
+
 /* ============================================================================
    HELP BUTTON & MODAL
    ============================================================================ */
@@ -7043,7 +7052,8 @@ function displayGAChronological(lectures) {
           <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${location}</td>
           <td style="padding: 0.3rem; font-size: 0.85em;">
             <a href="#" onclick="navigateToLectureInTexteTab('${lecture.ID}'); return false;" 
-               style="text-decoration: none; color: var(--accent-color);">
+               class="chronological-lecture-link"
+               style="text-decoration: none;">
               ${title}
             </a>
           </td>

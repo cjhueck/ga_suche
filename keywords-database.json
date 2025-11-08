@@ -536523,5 +536523,161 @@
     "generationMethod": "unified-batch-full",
     "timestamp": "2025-11-08T19:01:44.539Z",
     "lastMerge": null
+  },
+  "GA286/5": {
+    "lectureId": "GA286/5",
+    "date": "1914-06-17",
+    "year": 1914,
+    "gaVolume": "GA286",
+    "summary": "Der Vortrag behandelt die anthroposophische Architektur als Sprachorgan der Götter. Der griechische Tempel diente als Wohnhaus des Gottes im Territorium, während die christliche Kirche die Gemeinde umschloss und vom Alltag absonderte. Die Gotik integrierte das kristallisierte Handwerk der Gemeinde. Der neue anthroposophische Bau soll lebendige Wände schaffen, die wie Reliefs aus sich herauswachsen und als Sprachorgane der Götter fungieren. Die Glasfenster zeigen den Weg zum Geist durch verschiedene Bewusstseinszustände. Anders als frühere Bauten, die abschlossen, sollen diese Wände durchbrochen werden und den Menschen den Pfad zur geistigen Welt weisen. Kunst wird zum Gesetzgeber, der Frieden und Harmonie durch göttliche Sprache schafft, statt durch äußere Verordnungen.",
+    "keywords": [
+      {
+        "term": "Anthroposophische Architektur",
+        "index": "^sdzkg0",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Anthroposophische Architektur",
+        "summaryMentioned": true,
+        "confidence": 1,
+        "level": "h3"
+      },
+      {
+        "term": "Kunst",
+        "index": "^1l150z",
+        "heading": "Summary",
+        "source": "title-summary",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kunst",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Wesenheiten",
+        "index": "^1l150z",
+        "heading": "Kunst als Sprachorgan der Götter",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Wesenheiten",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Kulturentwicklung",
+        "index": "^r2kizr",
+        "heading": "Die Entwicklung der Baukunst durch die Kulturepochen",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Kulturentwicklung",
+        "summaryMentioned": false,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Christentum",
+        "index": "^rx0um7",
+        "heading": "Die christliche Kirche und die Absonderung vom Alltag",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Christentum",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Ätherleib",
+        "index": "^07asi6",
+        "heading": "Ätherwände als geistige Lebendigkeit",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Ätherleib",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Geistige Welt",
+        "index": "^3onvuz",
+        "heading": "Die Glasfenster als Wegweiser zum Geist",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Geistige Welt",
+        "summaryMentioned": true,
+        "confidence": 0.95,
+        "level": "h3"
+      },
+      {
+        "term": "Bewusstseinszustände",
+        "index": "^f7rkyn",
+        "heading": "Die Darstellung der geistigen Welten in den Fenstern",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Bewusstseinszustände",
+        "summaryMentioned": true,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Tod",
+        "index": "^f7rkyn",
+        "heading": "Die Darstellung der geistigen Welten in den Fenstern",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Tod",
+        "summaryMentioned": false,
+        "confidence": 0.85,
+        "level": "h3"
+      },
+      {
+        "term": "Einweihung",
+        "index": "^f7rkyn",
+        "heading": "Die Darstellung der geistigen Welten in den Fenstern",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Einweihung",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      },
+      {
+        "term": "Glasfenster",
+        "index": "^xoc0ns",
+        "heading": "Geist und Materie in den einfarbigen Glasfenstern",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": true,
+        "confidence": 0.7,
+        "level": "h3"
+      },
+      {
+        "term": "Relief",
+        "index": "^gl4xpf",
+        "heading": "Die wahre Reliefkunst als lebendige Wandgestaltung",
+        "source": "h3",
+        "matchType": "new",
+        "matchedExisting": null,
+        "summaryMentioned": false,
+        "confidence": 0.65,
+        "level": "h3"
+      },
+      {
+        "term": "Liebe",
+        "index": "^hnieed",
+        "heading": "Die heilige Aufgabe der Glasfenster-Gestaltung",
+        "source": "h3",
+        "matchType": "existing-exact",
+        "matchedExisting": "Liebe",
+        "summaryMentioned": false,
+        "confidence": 0.9,
+        "level": "h3"
+      }
+    ],
+    "generated": "2025-11-08T22:05:08.302Z",
+    "generationMethod": "unified-batch-full",
+    "timestamp": "2025-11-08T22:05:19.981Z",
+    "lastMerge": null
   }
 }
