@@ -795,7 +795,7 @@ body.dark-mode .ga-missing-text {
     #sidebar-content h1,
     #sidebar-content h2,
     #sidebar-content h3 {
-      font-size: 1.1rem !important;
+      font-size: 1.0rem !important;
     }
     #sidebar-content h4 {
       font-size: 1.0rem !important;
@@ -854,7 +854,7 @@ body.dark-mode .ga-missing-text {
     /* Zentrale Styles für alle Überschriften im Summary-Panel - DIREKT */
     /* TOC-Überschriften im Summary-Panel */
     #summary-content h3 {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       line-height: var(--line-height);
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
@@ -1196,6 +1196,10 @@ body.dark-mode .ga-missing-text {
     .advanced-search-heading {
       color: #467886;
       font-weight: bold;
+    }
+    
+    .advanced-search-snippet h3 {
+      font-size: 1.1rem;
     }
     
     body.dark-mode .advanced-search-snippet h3,
@@ -4544,6 +4548,7 @@ S&H&C&K
     let isGeneratingSummary = false;
     let isThematicSearchRunning = false;
     let isKeywordSearchRunning = false;
+    let savedSummaryPanelWidth = null; // Speichert die manuell angepasste Breite des Summary-Panels
     let fullLecturesData = {}; // Speichert vollständige Vortragsdaten mit Absatz-Reihenfolge
 
     // === ZENTRALE SUMMARY-DATENBANK ===
@@ -7358,12 +7363,14 @@ function displayGAChronological(lectures) {
       // Hole aktuelle Breite
       const currentWidth = panel.offsetWidth || 0;
       
-      // 2 Zustände: Geschlossen (0) -> Offen (450px) -> Geschlossen (0)
+      // 2 Zustände: Geschlossen (0) -> Offen (gespeicherte Breite oder 450px) -> Geschlossen (0)
       if (currentWidth === 0) {
-        // Öffne Panel mit 450px
+        // Verwende gespeicherte Breite oder Standard (450px)
+        const panelWidth = savedSummaryPanelWidth || 450;
+        
         panel.classList.add('visible');
-        panel.style.width = '450px';
-        panel.style.minWidth = '450px';
+        panel.style.width = panelWidth + 'px';
+        panel.style.minWidth = panelWidth + 'px';
         panel.style.display = 'block';
         panel.style.opacity = '1';
         panel.style.visibility = 'visible';
@@ -7371,7 +7378,7 @@ function displayGAChronological(lectures) {
         
         // Passe Main-Container an
         if (mainContainer) {
-          mainContainer.style.marginRight = '450px';
+          mainContainer.style.marginRight = panelWidth + 'px';
         }
         
         // Zeige verticalResizeHandle
@@ -7380,7 +7387,7 @@ function displayGAChronological(lectures) {
           verticalHandle.classList.add('visible');
         }
         
-        console.log('[ADVANCED-SEARCH] Panel geöffnet (450px)');
+        console.log('[ADVANCED-SEARCH] Panel geöffnet (' + panelWidth + 'px)');
       } else {
         // Schließe Panel
         panel.classList.remove('visible');
@@ -7618,17 +7625,29 @@ function displayGAChronological(lectures) {
         const mainContainer = document.getElementById('main-container');
         
         if (summaryPanel) {
+          // Prüfe ob Panel bereits offen ist
+          const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+          const currentPanelWidth = summaryPanel.offsetWidth || 0;
+          
           summaryPanel.classList.add('visible');
-          summaryPanel.style.width = '450px';
-          summaryPanel.style.minWidth = '450px';
+          
+          // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
+          if (!wasAlreadyVisible || currentPanelWidth === 0) {
+            // Verwende gespeicherte Breite oder Standard (450px für erweiterte Suche)
+            const panelWidth = savedSummaryPanelWidth || 450;
+            summaryPanel.style.width = panelWidth + 'px';
+            summaryPanel.style.minWidth = panelWidth + 'px';
+            
+            // Passe Main-Container an, damit Viewer sich verkleinert
+            if (mainContainer) {
+              mainContainer.style.marginRight = panelWidth + 'px';
+            }
+          }
+          // Wenn Panel bereits offen war, behalte die aktuelle Breite
+          
           summaryPanel.style.display = 'block';
           summaryPanel.style.opacity = '1';
           summaryPanel.style.visibility = 'visible';
-          
-          // Passe Main-Container an, damit Viewer sich verkleinert
-          if (mainContainer) {
-            mainContainer.style.marginRight = '450px';
-          }
         }
         
         // Zeige den verticalResizeHandle
@@ -9147,8 +9166,11 @@ function showSummaryView() {
     // Panel öffnen (falls noch nicht offen)
     if (!summaryPanel.classList.contains('visible')) {
       summaryPanel.classList.add('visible');
-      summaryPanel.style.width = '280px';
-      summaryPanel.style.minWidth = '280px';
+      
+      // Verwende gespeicherte Breite oder Standard (280px)
+      const panelWidth = savedSummaryPanelWidth || 280;
+      summaryPanel.style.width = panelWidth + 'px';
+      summaryPanel.style.minWidth = panelWidth + 'px';
       summaryPanel.style.marginRight = '0px';
       if (resizeHandle) {
         resizeHandle.classList.add('visible');
@@ -9861,9 +9883,21 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               summaryContent.innerHTML = '<div id="toc-list"></div>';
             }
             
+            // Prüfe ob Panel bereits offen ist
+            const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+            const currentPanelWidth = summaryPanel.offsetWidth || 0;
+            
             summaryPanel.classList.add('visible');
-            summaryPanel.style.width = '280px';
-            summaryPanel.style.minWidth = '280px';
+            
+            // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
+            if (!wasAlreadyVisible || currentPanelWidth === 0) {
+              // Verwende gespeicherte Breite oder Standard (280px für normale Tabs)
+              const panelWidth = savedSummaryPanelWidth || 280;
+              summaryPanel.style.width = panelWidth + 'px';
+              summaryPanel.style.minWidth = panelWidth + 'px';
+            }
+            // Wenn Panel bereits offen war, behalte die aktuelle Breite
+            
             summaryPanel.style.marginRight = '0px';
             // Entferne !important Properties von switchTab
             summaryPanel.style.removeProperty('display');
@@ -9937,9 +9971,21 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           summaryContent.innerHTML = '<div id="toc-list"></div>';
         }
         
+        // Prüfe ob Panel bereits offen ist
+        const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+        const currentPanelWidth = summaryPanel.offsetWidth || 0;
+        
         summaryPanel.classList.add('visible');
-        summaryPanel.style.width = '280px';
-        summaryPanel.style.minWidth = '280px';
+        
+        // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
+        if (!wasAlreadyVisible || currentPanelWidth === 0) {
+          // Verwende gespeicherte Breite oder Standard (280px)
+          const panelWidth = savedSummaryPanelWidth || 280;
+          summaryPanel.style.width = panelWidth + 'px';
+          summaryPanel.style.minWidth = panelWidth + 'px';
+        }
+        // Wenn Panel bereits offen war, behalte die aktuelle Breite
+        
         summaryPanel.style.marginRight = '0px';
         // Entferne !important Properties von switchTab
         summaryPanel.style.removeProperty('display');
@@ -11929,6 +11975,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (newPanelWidth >= minPanelWidth && newPanelWidth <= maxPanelWidth) {
             summaryPanel.style.width = newPanelWidth + 'px';
             summaryPanel.style.minWidth = newPanelWidth + 'px';
+            
+            // Speichere die neue Breite
+            savedSummaryPanelWidth = newPanelWidth;
             
             // Main-Container entsprechend anpassen
             const mainContainer = document.getElementById('main-container');

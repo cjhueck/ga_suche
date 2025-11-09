@@ -188,6 +188,25 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         if num_images_decoded > 0:
             changes.append(f"  - Bildpfade decodiert: {num_images_decoded}× (URL-Codierung entfernt)")
         
+        # Fix 9: Deutsche Rechtschreibkorrekturen
+        original_before_spelling_fix = content
+        spelling_replacements = [
+            ('Fleiss', 'Fleiß'),
+            ('fleiss', 'fleiß'),
+            ('vergeßlich', 'vergesslich'),
+            ('heiss', 'heiß')
+        ]
+        
+        num_spelling_fixes = 0
+        for old_spelling, new_spelling in spelling_replacements:
+            count = content.count(old_spelling)
+            if count > 0:
+                content = content.replace(old_spelling, new_spelling)
+                num_spelling_fixes += count
+        
+        if num_spelling_fixes > 0:
+            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (Fleiss→Fleiß, vergeßlich→vergesslich, heiss→heiß)")
+        
         # Wende Änderungen an
         if changes and apply_changes:
             # Backup
