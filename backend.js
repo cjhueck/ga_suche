@@ -233,13 +233,24 @@ async function loadSteinerImages() {
       const data = await fs.readFile(partPath, 'utf8');
       const partData = JSON.parse(data);
       
-      // Merge in steinerImages
-      Object.assign(steinerImages, partData);
-      
-      const partImages = Object.values(partData).reduce((sum, imgs) => sum + imgs.length, 0);
-      totalImages += partImages;
-      
-      console.log(`  ✓ ${partFile}: ${Object.keys(partData).length} Vorträge, ${partImages} Bilder`);
+      // Prüfe ob Array oder Objekt
+      if (Array.isArray(partData)) {
+        // Konvertiere Array zu Objekt gruppiert nach lectureId
+        partData.forEach(img => {
+          if (!steinerImages[img.lectureId]) {
+            steinerImages[img.lectureId] = [];
+          }
+          steinerImages[img.lectureId].push(img);
+          totalImages++;
+        });
+        console.log(`  ✓ ${partFile}: ${partData.length} Bilder (Array-Format)`);
+      } else {
+        // Objekt-Format (legacy)
+        Object.assign(steinerImages, partData);
+        const partImages = Object.values(partData).reduce((sum, imgs) => sum + imgs.length, 0);
+        totalImages += partImages;
+        console.log(`  ✓ ${partFile}: ${Object.keys(partData).length} Vorträge, ${partImages} Bilder (Objekt-Format)`);
+      }
     }
     
     console.log(`✓ Gesamt: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder aus ${partFiles.length} Chunks`);
