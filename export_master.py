@@ -194,7 +194,9 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
             ('Fleiss', 'Fleiß'),
             ('fleiss', 'fleiß'),
             ('vergeßlich', 'vergesslich'),
-            ('heiss', 'heiß')
+            ('heiss', 'heiß'),
+            ('zurücckommen', 'zurückkommen'),
+            ('ackurat', 'akkurat')
         ]
         
         num_spelling_fixes = 0
@@ -205,7 +207,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
                 num_spelling_fixes += count
         
         if num_spelling_fixes > 0:
-            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (Fleiss→Fleiß, vergeßlich→vergesslich, heiss→heiß)")
+            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (Fleiss→Fleiß, vergeßlich→vergesslich, heiss→heiß, zurücckommen→zurückkommen, ackurat→akkurat)")
         
         # Wende Änderungen an
         if changes and apply_changes:
