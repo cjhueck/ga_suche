@@ -4991,6 +4991,9 @@ function normalizeGANumber(gaNumber) {
     function switchTab(mode) {
       console.log('[TABS] Wechsel zu Tab:', mode);
       
+      // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
+      savedSummaryPanelWidth = null;
+      
       // Prüfe, ob wir ZUM Suche-Tab wechseln
       if (mode === 'keyword') {
         // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
@@ -12748,6 +12751,9 @@ function clearKeywordSearch() {
 // Erweitere die bestehende switchTab Funktion
 function switchTabExtended(mode) {
   console.log('[TABS] Wechsel zu Tab:', mode);
+  
+  // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
+  savedSummaryPanelWidth = null;
   
   // Prüfe, ob wir ZUM Suche-Tab wechseln
   if (mode === 'keyword') {
