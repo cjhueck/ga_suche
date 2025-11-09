@@ -93,27 +93,35 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         content = re.sub(pattern3, replace3, content)
         
         # Fix 4: Markdown-Links mit vollem Pfad (Pattern 1: assets/GA...)
-        # ![text](assets/GA223-.../assets/223-T01.webp) → ![text](assets/223-T01.webp)
+        # ![text](assets/GA223-.../assets/223-T01.webp) → ![text](<assets/223-T01.webp>)
         pattern4 = r'(!\[[^\]]*\]\()assets/GA\d{3}[a-z]?-[^/]+/assets/([^)]+)\)'
         
         def replace4(match):
             prefix = match.group(1)
             filename = match.group(2)
-            new_ref = f'{prefix}assets/{filename})'
+            # Wenn Pfad Leerzeichen enthält, in <> einschließen (Markdown-Standard)
+            path = f'assets/{filename}'
+            if ' ' in path:
+                path = f'<{path}>'
+            new_ref = f'{prefix}{path})'
             changes.append(f"  - Markdown-Pfad bereinigt: {match.group(0)} -> {new_ref}")
             return new_ref
         
         content = re.sub(pattern4, replace4, content)
         
         # Fix 5: Markdown-Links mit GA-Ordner am Anfang (Pattern 2: GA...)
-        # ![text](GA145-Welche Bedeutung.../assets/img-0.jpeg) → ![text](assets/img-0.jpeg)
-        # ![text](GA151-Der menschliche.../assets/img-2.jpeg) → ![text](assets/img-2.jpeg)
+        # ![text](GA145-Welche Bedeutung.../assets/img-0.jpeg) → ![text](<assets/img-0.jpeg>)
+        # ![text](GA151-Der menschliche.../assets/img-2.jpeg) → ![text](<assets/img-2.jpeg>)
         pattern5 = r'(!\[[^\]]*\]\()GA\d{3}[a-z]?-[^/]+/assets/([^)]+)\)'
         
         def replace5(match):
             prefix = match.group(1)
             filename = match.group(2)
-            new_ref = f'{prefix}assets/{filename})'
+            # Wenn Pfad Leerzeichen enthält, in <> einschließen (Markdown-Standard)
+            path = f'assets/{filename}'
+            if ' ' in path:
+                path = f'<{path}>'
+            new_ref = f'{prefix}{path})'
             changes.append(f"  - Markdown-Pfad vereinfacht: {match.group(0)} -> {new_ref}")
             return new_ref
         
@@ -166,7 +174,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         # Fix 8: URL-codierte Bildpfade decodieren
         # ![alt](assets/GA091-Kosmologie%20und%20menschliche%20Evolution_img-19.png) 
-        # → ![alt](assets/GA091-Kosmologie und menschliche Evolution_img-19.png)
+        # → ![alt](<assets/GA091-Kosmologie und menschliche Evolution_img-19.png>)
         from urllib.parse import unquote
         
         original_before_image_fix = content
@@ -178,6 +186,9 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
             alt_text = match.group(1)
             encoded_path = match.group(2)
             decoded_path = unquote(encoded_path)
+            # Wenn Pfad Leerzeichen enthält, in <> einschließen (Markdown-Standard)
+            if ' ' in decoded_path:
+                decoded_path = f'<{decoded_path}>'
             return f'![{alt_text}]({decoded_path})'
         
         content = re.sub(image_pattern, decode_image_path, content)
@@ -188,7 +199,31 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         if num_images_decoded > 0:
             changes.append(f"  - Bildpfade decodiert: {num_images_decoded}× (URL-Codierung entfernt)")
         
-        # Fix 9: Deutsche Rechtschreibkorrekturen
+        # Fix 9: Bildpfade mit Leerzeichen in <> einschließen (für Markdown-Parser)
+        # ![alt](assets/path with spaces.jpg) → ![alt](<assets/path with spaces.jpg>)
+        original_before_space_fix = content
+        
+        # Pattern für Markdown-Bilder mit Leerzeichen im Pfad (aber noch nicht in <> eingeschlossen)
+        # Wichtig: Match nur, wenn Leerzeichen im Pfad sind UND noch keine <> vorhanden sind
+        space_image_pattern = r'!\[([^\]]*)\]\((?!<)([^)<\s][^)<]*\s[^)<]*?)(?<!>)\)'
+        
+        def wrap_spaced_path(match):
+            alt_text = match.group(1)
+            path = match.group(2)
+            # Nur einschließen, wenn tatsächlich Leerzeichen vorhanden sind
+            if ' ' in path:
+                return f'![{alt_text}](<{path}>)'
+            return match.group(0)
+        
+        content = re.sub(space_image_pattern, wrap_spaced_path, content)
+        
+        # Zähle wie viele Bildpfade mit <> versehen wurden
+        num_spaces_wrapped = content.count('(<assets/') - original_before_space_fix.count('(<assets/')
+        
+        if num_spaces_wrapped > 0:
+            changes.append(f"  - Bildpfade mit <> versehen: {num_spaces_wrapped}× (Leerzeichen im Pfad)")
+        
+        # Fix 10: Deutsche Rechtschreibkorrekturen
         original_before_spelling_fix = content
         spelling_replacements = [
             ('Fleiss', 'Fleiß'),

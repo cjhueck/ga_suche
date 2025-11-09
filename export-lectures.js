@@ -174,7 +174,8 @@ class SteinerLecturesExporter {
         cleanName = `img-${imgMatch[1]}.${imgMatch[2]}`;
       }
       
-      return `![](assets/${cleanName})`;
+      // WICHTIG: URLs mit Leerzeichen in <> einschließen für Markdown
+      return `![](<assets/${cleanName}>)`;
     });
   }
   
@@ -182,6 +183,9 @@ class SteinerLecturesExporter {
   // Hilfsfunktion: Bereinigt Bildpfade automatisch
   cleanImagePath(imagePath) {
     let cleaned = imagePath;
+    
+    // 0. Entferne < und > aus URLs (Markdown-Format für URLs mit Leerzeichen)
+    cleaned = cleaned.replace(/^<(.+)>$/, '$1');
     
     // 1. Entferne URL-Encoding (%20 -> Leerzeichen, etc.)
     cleaned = decodeURIComponent(cleaned);

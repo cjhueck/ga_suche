@@ -5365,9 +5365,25 @@ function normalizeGANumber(gaNumber) {
           return;
         }
         
-        steinerImages = await response.json();
-        const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
-        console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder geladen`);
+        const imagesData = await response.json();
+        
+        // Konvertiere Array-Format in Objekt-Format gruppiert nach lectureId
+        if (Array.isArray(imagesData)) {
+          console.log('[IMAGES] Konvertiere Array-Format zu Objekt-Format');
+          steinerImages = {};
+          imagesData.forEach(img => {
+            if (!steinerImages[img.lectureId]) {
+              steinerImages[img.lectureId] = [];
+            }
+            steinerImages[img.lectureId].push(img);
+          });
+          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${imagesData.length} Bilder geladen`);
+        } else {
+          // Falls bereits als Objekt strukturiert
+          steinerImages = imagesData;
+          const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
+          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder geladen`);
+        }
         
       } catch (error) {
         console.error('[IMAGES] Fehler beim Laden:', error);
@@ -5443,61 +5459,74 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
-    // Ersetze Bildmarkierungen durch tatsächliche img-Tags
-    function replaceImageMarkersWithTags(text, lectureId, paragraphIndex) {
-      if (!text || !steinerImages[lectureId]) {
-        return text;
+    // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
+    function replaceImageSrcWithBase64(htmlContent, lectureId) {
+      if (!htmlContent || !steinerImages[lectureId]) {
+        return htmlContent;
       }
       
-      // Finde alle Bilder für diesen Vortrag am angegebenen Index
-      const imagesForParagraph = steinerImages[lectureId].filter(img => img.index === paragraphIndex);
-      
-      if (imagesForParagraph.length === 0) {
-        return text;
+      const images = steinerImages[lectureId];
+      if (!images || images.length === 0) {
+        return htmlContent;
       }
       
-      let result = text;
+      // Erstelle ein temporäres DOM-Element zum Parsen
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
       
-      // Ersetze jede Bildmarkierung durch ein img-Tag
-      imagesForParagraph.forEach(img => {
-        // Verwende markdownRef aus JSON - das ist die normalisierte Referenz!
-        const markdownRef = img.markdownRef || `![${img.altText}](${img.path})`;
+      // Finde alle img-Tags die auf assets/ verweisen
+      const imgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
+      
+      imgTags.forEach(imgTag => {
+        const originalSrc = imgTag.getAttribute('src');
         
-        // Prüfe, ob es eine Tafelzeichnung ist (nur T-Nummer im Dateinamen)
-        // WebP alleine reicht nicht - manche WebP sind normale Diagramme, keine Tafelzeichnungen
-        const isBlackboardDrawing = /T\d+\./.test(img.path) || img.altText.includes('-T') || /\d{3}-T\d+/.test(img.path);
+        // Decode URL-encoded Zeichen (z.B. %20 -> Leerzeichen)
+        const decodedSrc = decodeURIComponent(originalSrc);
         
-        // Prüfe, ob es ein WebP-Bild ist
-        const isWebP = img.path.toLowerCase().includes('.webp');
+        console.log('[IMAGES] Suche Bild:', originalSrc);
+        console.log('[IMAGES] Decoded:', decodedSrc);
         
-        // Erstelle img-Tag mit Base64-Daten (klickbar für Popup)
-        // Tafelzeichnungen werden in voller Breite angezeigt
-        const imgStyle = isBlackboardDrawing
-          ? "width: 100%; height: auto; display: block; margin: 1rem 0; cursor: pointer;"
-          : "max-width: 35%; height: auto; float: right; margin: 0 0 1rem 1rem; cursor: pointer;";
+        // Finde das passende Bild in unserer Datenbank
+        const matchingImage = images.find(img => img.path === decodedSrc || img.path === originalSrc);
         
-        const imgTag = `<img src="${img.base64}" alt="${img.altText}" class="lecture-image" ${isWebP ? 'data-format="webp"' : ''} style="${imgStyle}" />`;
-        
-        // Erstelle mehrere Varianten der Referenz für robustes Matching:
-        const refVariants = [
-          markdownRef,  // Normalisierte Version aus JSON
-          markdownRef.replace(/ /g, '%20'),  // Mit URL-encoding
-          `![[${img.altText}]]`,  // Obsidian Wiki-Link Format
-          `![[${img.altText}.png]]`,  // Wiki-Link mit .png
-          `![[${img.altText}.jpg]]`,  // Wiki-Link mit .jpg
-          `![[${img.altText}.jpeg]]`,  // Wiki-Link mit .jpeg
-          `![[${img.altText}.webp]]`  // Wiki-Link mit .webp
-        ];
-        
-        // Versuche jede Variante zu ersetzen
-        refVariants.forEach(variant => {
-          const escapedRef = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(escapedRef, 'g');
-          result = result.replace(regex, imgTag);
-        });
+        if (matchingImage) {
+          // Ersetze src durch Base64-Daten
+          imgTag.setAttribute('src', matchingImage.base64);
+          console.log('[IMAGES] ✓ Bild ersetzt:', decodedSrc);
+          
+          // Prüfe, ob es eine Tafelzeichnung ist
+          const isBlackboardDrawing = /T\d+\./.test(matchingImage.path) || 
+                                       matchingImage.altText.includes('-T') || 
+                                       /\d{3}-T\d+/.test(matchingImage.path);
+          
+          // Prüfe, ob es ein WebP-Bild ist
+          const isWebP = matchingImage.path.toLowerCase().includes('.webp');
+          
+          // Setze Style und Klassen
+          imgTag.className = 'lecture-image';
+          imgTag.style.cursor = 'pointer';
+          
+          if (isBlackboardDrawing) {
+            imgTag.style.width = '100%';
+            imgTag.style.height = 'auto';
+            imgTag.style.display = 'block';
+            imgTag.style.margin = '1rem 0';
+          } else {
+            imgTag.style.maxWidth = '35%';
+            imgTag.style.height = 'auto';
+            imgTag.style.float = 'right';
+            imgTag.style.margin = '0 0 1rem 1rem';
+          }
+          
+          if (isWebP) {
+            imgTag.setAttribute('data-format', 'webp');
+          }
+          
+          console.log('[IMAGES] Bild ersetzt:', originalSrc);
+        }
       });
       
-      return result;
+      return tempDiv.innerHTML;
     }
 
     function updateRelevanceFilter() {
@@ -7720,6 +7749,20 @@ function displayGAChronological(lectures) {
             
             let content = para.content || para.text || '';
             
+            // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
+            if (typeof marked !== 'undefined' && marked.parse) {
+              content = marked.parse(content, { breaks: true, gfm: true });
+              console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
+            } else if (typeof marked !== 'undefined' && marked.marked) {
+              content = marked.marked(content, { breaks: true, gfm: true });
+              console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+            } else if (typeof marked !== 'undefined') {
+              content = marked(content, { breaks: true, gfm: true });
+              console.log('[MARKDOWN] Content konvertiert mit marked()');
+            } else {
+              console.error('[MARKDOWN] marked ist nicht verfügbar!');
+            }
+            
             // Highlighte den Suchbegriff
             if (searchTerm && searchTerm.trim()) {
               const cleanTerm = searchTerm.trim();
@@ -9478,8 +9521,33 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
-    // Bildmarkierungen durch img-Tags ersetzen
-    content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
+    // DEBUG: Zeige Content VOR der Konvertierung
+    if (content.includes('![') || content.includes('img-')) {
+      console.log('[MARKDOWN-DEBUG] Content VOR marked.parse():', content.substring(0, 300));
+      console.log('[MARKDOWN-DEBUG] Enthält HTML-Entities?', content.includes('&lt;') || content.includes('&gt;') || content.includes('&quot;'));
+    }
+    
+    // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
+    if (typeof marked !== 'undefined' && marked.parse) {
+      content = marked.parse(content, { breaks: true, gfm: true });
+      console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
+      // Debug: Zeige ob Bilder enthalten sind
+      if (content.includes('![')) {
+        console.warn('[MARKDOWN] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
+        console.log('[MARKDOWN] Content NACH marked.parse():', content.substring(0, 300));
+      }
+      if (content.includes('<img')) {
+        console.log('[MARKDOWN] ✓ <img> Tag gefunden im konvertierten Content');
+      }
+    } else if (typeof marked !== 'undefined' && marked.marked) {
+      content = marked.marked(content, { breaks: true, gfm: true });
+      console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+    } else if (typeof marked !== 'undefined') {
+      content = marked(content, { breaks: true, gfm: true });
+      console.log('[MARKDOWN] Content konvertiert mit marked()');
+    } else {
+      console.error('[MARKDOWN] marked ist nicht verfügbar!');
+    }
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
@@ -9518,6 +9586,20 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   });
   
   viewer.innerHTML = html;
+  
+  // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
+  if (lecture && lecture.ID && steinerImages[lecture.ID]) {
+    console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+    
+    // Debug: Prüfe ob img-Tags vorhanden sind
+    const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
+    console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
+    imgTags.forEach((img, idx) => {
+      console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
+    });
+    
+    viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+  }
   
   // Activate TOC links after rendering
   activateTOCLinks();
@@ -11777,8 +11859,19 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           let content = para.content || para.text || '';
           
-          // Bildmarkierungen durch img-Tags ersetzen
-          content = replaceImageMarkersWithTags(content, lecture.ID, paraIndexWithCaret);
+          // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
+          if (typeof marked !== 'undefined' && marked.parse) {
+            content = marked.parse(content, { breaks: true, gfm: true });
+            console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
+          } else if (typeof marked !== 'undefined' && marked.marked) {
+            content = marked.marked(content, { breaks: true, gfm: true });
+            console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+          } else if (typeof marked !== 'undefined') {
+            content = marked(content, { breaks: true, gfm: true });
+            console.log('[MARKDOWN] Content konvertiert mit marked()');
+          } else {
+            console.error('[MARKDOWN] marked ist nicht verfügbar!');
+          }
           
           // Prüfe ZUERST ob wir von thematischer Suche kommen
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
@@ -11818,6 +11911,25 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
       html += `</div>`;
       viewer.innerHTML = html;
+      
+      // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
+      console.log('[IMAGES-DEBUG] lecture:', lecture);
+      console.log('[IMAGES-DEBUG] lecture.ID:', lecture?.ID);
+      console.log('[IMAGES-DEBUG] steinerImages hat lecture.ID?', !!steinerImages[lecture?.ID]);
+      console.log('[IMAGES-DEBUG] Verfügbare IDs in steinerImages:', Object.keys(steinerImages).slice(0, 10));
+      
+      if (lecture && lecture.ID && steinerImages[lecture.ID]) {
+        console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+        
+        // Debug: Prüfe ob img-Tags vorhanden sind
+        const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
+        console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
+        imgTags.forEach((img, idx) => {
+          console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
+        });
+        
+        viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+      }
       
       // Activate TOC links
       activateTOCLinks();
