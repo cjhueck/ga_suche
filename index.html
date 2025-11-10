@@ -93,9 +93,10 @@
     }
     
     .portrait {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+      width: 400px;
+      height: 600px;
+      object-fit: cover;
+      object-position: center;
       border-radius: 4px;
       margin-left: 10rem;
     }
@@ -245,6 +246,8 @@
       
       .portrait {
         margin-left: 0;
+        width: 300px;
+        height: 450px;
       }
       
       .portrait-caption {
@@ -281,7 +284,7 @@
   <div class="container">
     <div class="left-panel">
       <div class="portrait-container">
-        <img src="images/Steiner_1916.jpg" alt="Rudolf Steiner Portrait" class="portrait">
+        <img id="steinerPortrait" src="images/Steiner_1.jpg" alt="Rudolf Steiner Portrait" class="portrait">
         <div class="portrait-caption">Rudolf Steiner (1861-1925)</div>
       </div>
     </div>
@@ -322,6 +325,13 @@
       const darkMode = localStorage.getItem('darkMode');
       if (darkMode === 'enabled') {
         document.body.classList.add('dark-mode');
+      }
+      
+      // Zufälliges Steiner-Portrait auswählen (Steiner_1 bis Steiner_8)
+      const randomNumber = Math.floor(Math.random() * 8) + 1;
+      const portraitImg = document.getElementById('steinerPortrait');
+      if (portraitImg) {
+        portraitImg.src = `images/Steiner_${randomNumber}.jpg`;
       }
     });
   </script>
