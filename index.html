@@ -3869,7 +3869,7 @@ body.dark-mode #popupCaption {
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div class="site-header-flex">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
-<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
+<h1 id="site-title" style="padding-top: 10px;"><a href="landing.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
@@ -12247,6 +12247,38 @@ setTimeout(() => {
   if (batchAllBtn) batchAllBtn.style.display = isLocal ? 'inline-block' : 'none';
   } catch (err) {
     console.warn('[INIT] Konnte Keyword-Input-Listener nicht registrieren:', err);
+  }
+});
+</script>
+
+<!-- Hash-basierte Tab-Navigation für Landing Page -->
+<script>
+// Aktiviere Tab basierend auf URL-Hash beim Laden
+window.addEventListener('DOMContentLoaded', function() {
+  const hash = window.location.hash.substring(1); // Entferne das #
+  
+  if (hash) {
+    console.log('[HASH-NAV] Hash erkannt:', hash);
+    
+    // Map Hash-Werte zu Tab-Namen
+    const tabMap = {
+      'ga': 'ga',
+      'keyword': 'keyword',
+      'texte': 'texte',
+      'thematic': 'thematic',
+      'timeline': 'timeline',
+      'schlagworte': 'schlagworte'
+    };
+    
+    const tabName = tabMap[hash];
+    
+    if (tabName) {
+      // Warte kurz, bis alle Initialisierungen abgeschlossen sind
+      setTimeout(() => {
+        console.log('[HASH-NAV] Wechsle zu Tab:', tabName);
+        switchTab(tabName);
+      }, 100);
+    }
   }
 });
 </script>
