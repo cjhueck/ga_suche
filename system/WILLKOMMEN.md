@@ -5,13 +5,14 @@
 ---
 **Diese Anwendung ermöglicht Ihnen umfassende Suche in der Rudolf Steiner Gesamtausgabe (GA)**
 
+- **Gesamtausgabe** - Vorträge mit Kurzusammenfassungen und chronologische Liste
 - **Stichwortsuche** – Mit Relevanzbewertung
 - **Texte anzeigen lassen** – Texte mit Zusammenfassungen, Gliederungen und Schlagworten
 - **Thematische Suche** – KI-gestützte semantische Analyse
 - **Timeline** - Zeitverlauf von Suchergebnissen und Schlagworten
 - **Index** – Wichtige Schlagworte mit Verlinkung
 
-Ihre Such-Anfragen werden **nicht gespeichert**.
+Ihre Themen-Suchanfragen werden **nicht gespeichert**.
 
 Mit **Fragen**, **Anregungen**, **Ergänzungsvorschlägen** oder **Rückmeldungen** wenden Sie sich bitte an Dr. Christoph Hueck, hueck@akanthos-akademie.de. 
 
