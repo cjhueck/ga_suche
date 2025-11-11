@@ -68,23 +68,48 @@ function createMemberMenu() {
     <div id="login-modal" class="login-modal">
       <div class="login-modal-content">
         <button class="login-close" onclick="closeLoginModal()">×</button>
-        <h2>Anmelden</h2>
+        
+        <h2 id="modal-title">Mitglieder Login</h2>
+        
+        <div id="login-message"></div>
         
         <div id="login-form">
-          <input type="email" id="login-email" placeholder="E-Mail" />
-          <input type="password" id="login-password" placeholder="Passwort" />
-          <button onclick="handleLogin()">Anmelden</button>
-          <button onclick="showRegisterForm()" class="secondary">Registrieren</button>
+          <div class="form-group">
+            <label for="login-email">E-Mail</label>
+            <input type="email" id="login-email" />
+          </div>
+          
+          <div class="form-group">
+            <label for="login-password">Passwort</label>
+            <input type="password" id="login-password" />
+          </div>
+          
+          <button onclick="handleLogin()" style="width: 100%;">Anmelden</button>
+          
+          <p class="auth-switch">
+            <span id="switch-text">Noch kein Account?</span>
+            <a href="#" onclick="showRegisterForm(); return false;" id="switch-link">Jetzt registrieren</a>
+          </p>
         </div>
         
         <div id="register-form" style="display:none;">
-          <input type="email" id="register-email" placeholder="E-Mail" />
-          <input type="password" id="register-password" placeholder="Passwort" />
-          <button onclick="handleRegister()">Registrieren</button>
-          <button onclick="showLoginForm()" class="secondary">Zurück zum Login</button>
+          <div class="form-group">
+            <label for="register-email">E-Mail</label>
+            <input type="email" id="register-email" />
+          </div>
+          
+          <div class="form-group">
+            <label for="register-password">Passwort</label>
+            <input type="password" id="register-password" />
+          </div>
+          
+          <button onclick="handleRegister()" style="width: 100%;">Registrieren</button>
+          
+          <p class="auth-switch">
+            <span id="switch-text-reg">Bereits registriert?</span>
+            <a href="#" onclick="showLoginForm(); return false;" id="switch-link-reg">Jetzt anmelden</a>
+          </p>
         </div>
-        
-        <div id="login-message"></div>
       </div>
     </div>
   `;
@@ -119,6 +144,8 @@ async function handleMemberIconClick() {
 function openLoginModal() {
   menuState = 'login-open';
   document.getElementById('login-modal').classList.add('open');
+  // Reset zur Login-Form
+  showLoginForm();
 }
 
 /**
@@ -165,7 +192,8 @@ function handleOutsideClick(e) {
 function showLoginForm() {
   document.getElementById('login-form').style.display = 'block';
   document.getElementById('register-form').style.display = 'none';
-  document.querySelector('.login-modal-content h2').textContent = 'Anmelden';
+  document.getElementById('modal-title').textContent = 'Mitglieder Login';
+  document.getElementById('login-message').innerHTML = '';
 }
 
 /**
@@ -174,7 +202,8 @@ function showLoginForm() {
 function showRegisterForm() {
   document.getElementById('login-form').style.display = 'none';
   document.getElementById('register-form').style.display = 'block';
-  document.querySelector('.login-modal-content h2').textContent = 'Registrieren';
+  document.getElementById('modal-title').textContent = 'Registrierung';
+  document.getElementById('login-message').innerHTML = '';
 }
 
 /**
@@ -526,145 +555,199 @@ function addMenuStyles() {
     }
     
     /* Login Modal */
-    .login-modal {
+    #login-modal {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 9999;
+      background: rgba(0,0,0,0.6);
+      z-index: 99999;
       justify-content: center;
       align-items: center;
     }
     
-    .login-modal.open {
+    #login-modal.open {
       display: flex;
     }
     
-    .login-modal-content {
+    #login-modal .login-modal-content {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 400px;
+      padding: 3rem;
+      padding-top: 2.5rem;
+      border-radius: 0;
+      max-width: 500px;
       width: 90%;
       position: relative;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ddd;
     }
     
-    .login-close {
+    #login-modal .login-close {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      top: 15px;
+      right: 15px;
       background: transparent;
       border: none;
-      font-size: 32px;
+      font-size: 24px;
       cursor: pointer;
       color: #999;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
+      line-height: 1;
+      transition: color 0.2s;
     }
     
-    .login-close:hover {
-      color: #333;
-    }
-    
-    .login-modal-content h2 {
-      margin: 0 0 20px 0;
+    #login-modal .login-close:hover {
       color: #467886;
-      font-family: Georgia, serif;
     }
     
-    @media (prefers-color-scheme: dark) {
-      .login-modal-content {
-        background: #1a1a1a;
-        color: #b8b8b8;
-      }
-      .login-modal-content h2 {
-        color: #6BA3B8;
-      }
-      .login-modal-content input {
-        background: #2a2a2a;
-        border-color: #6BA3B8;
-        color: #b8b8b8;
-      }
+    #login-modal h2 {
+      color: #467886;
+      margin: 0 0 2rem 0;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: normal;
     }
     
-    .login-modal-content input {
+    #login-modal .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    #login-modal label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #467886;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    #login-modal .auth-switch {
+      text-align: center;
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      font-size: 0.95rem;
+      color: #666;
+    }
+    
+    #login-modal .auth-switch a {
+      color: #467886;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+    
+    #login-modal .auth-switch a:hover {
+      text-decoration: underline;
+    }
+    
+    #login-modal input[type="email"],
+    #login-modal input[type="password"] {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
+      padding: 0.75rem;
       border: 1px solid #ddd;
-      border-radius: 6px;
+      border-radius: 0;
       font-size: 1rem;
       font-family: Georgia, serif;
       box-sizing: border-box;
+      transition: border-color 0.2s;
+      margin-bottom: 0;
     }
     
-    .login-modal-content button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 8px;
+    #login-modal input:focus {
+      outline: none;
+      border-color: #467886;
+    }
+    
+    #login-modal button {
+      padding: 0.75rem 1.5rem;
       background: #467886;
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 0;
       font-size: 1rem;
       cursor: pointer;
       font-family: Georgia, serif;
-      transition: background 0.2s;
+      transition: background 0.3s ease;
+      font-weight: normal;
     }
     
-    .login-modal-content button:hover {
+    #login-modal button:hover {
       background: #3a6270;
     }
     
-    .login-modal-content button.secondary {
-      background: transparent;
-      color: #467886;
-      border: 1px solid #467886;
+    #login-modal #login-message {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      text-align: center;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      border-radius: 0;
     }
     
-    .login-modal-content button.secondary:hover {
-      background: #f5f5f5;
+    #login-modal #login-message .error {
+      background: #ffebee;
+      color: #c62828;
+      padding: 0.75rem;
+      border: 1px solid #ef9a9a;
     }
     
+    #login-modal #login-message .success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 0.75rem;
+      border: 1px solid #a5d6a7;
+    }
+    
+    /* Dark Mode für Login Modal */
     @media (prefers-color-scheme: dark) {
-      .login-modal-content button {
-        background: #6BA3B8;
+      #login-modal .login-modal-content {
+        background: #1a1a1a;
+        color: #b8b8b8;
+        border-color: #404040;
       }
-      .login-modal-content button:hover {
-        background: #5a8fa0;
-      }
-      .login-modal-content button.secondary {
-        background: transparent;
-        border-color: #6BA3B8;
+      
+      #login-modal h2 {
         color: #6BA3B8;
       }
-      .login-modal-content button.secondary:hover {
-        background: rgba(107, 163, 184, 0.15);
+      
+      #login-modal label {
+        color: #6BA3B8;
       }
-      .login-close:hover {
+      
+      #login-modal input {
+        background: #2a2a2a;
+        border-color: #404040;
         color: #b8b8b8;
       }
-    }
-    
-    #login-message {
-      margin-top: 15px;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-    
-    #login-message .error {
-      color: #f44336;
-    }
-    
-    #login-message .success {
-      color: #4CAF50;
+      
+      #login-modal input:focus {
+        border-color: #6BA3B8;
+      }
+      
+      #login-modal button {
+        background: #6BA3B8;
+      }
+      
+      #login-modal button:hover {
+        background: #5a8fa0;
+      }
+      
+      #login-modal .login-close:hover {
+        color: #6BA3B8;
+      }
+      
+      #login-modal .auth-switch {
+        color: #999;
+      }
+      
+      #login-modal .auth-switch a {
+        color: #6BA3B8;
+      }
     }
     
     /* Notification */
