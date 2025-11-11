@@ -1,0 +1,739 @@
+// ============================================
+// GA-Suche Mitgliederbereich - API Functions
+// ============================================
+
+import { supabase, getCurrentUser } from './members-auth.js';
+
+
+// ============================================
+// BOOKMARKS
+// ============================================
+
+/**
+ * Bookmark erstellen
+ */
+export async function createBookmark(gaNumber, lectureTitle, paragraphId, paragraphText, note = '', tags = []) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('bookmarks')
+      .insert({
+        user_id: user.id,
+        ga_number: gaNumber,
+        lecture_title: lectureTitle,
+        paragraph_id: paragraphId,
+        paragraph_text: paragraphText,
+        note: note,
+        tags: tags
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Bookmarks:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Alle Bookmarks des Users abrufen
+ */
+export async function getBookmarks(gaNumber = null) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    let query = supabase
+      .from('bookmarks')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
+    if (gaNumber) {
+      query = query.eq('ga_number', gaNumber);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Bookmarks:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Bookmark löschen
+ */
+export async function deleteBookmark(bookmarkId) {
+  try {
+    const { error } = await supabase
+      .from('bookmarks')
+      .delete()
+      .eq('id', bookmarkId);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Fehler beim Löschen des Bookmarks:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Bookmark aktualisieren
+ */
+export async function updateBookmark(bookmarkId, updates) {
+  try {
+    const { data, error } = await supabase
+      .from('bookmarks')
+      .update(updates)
+      .eq('id', bookmarkId)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren des Bookmarks:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+// ============================================
+// QUOTES (Zitate)
+// ============================================
+
+/**
+ * Zitat erstellen
+ */
+export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('quotes')
+      .insert({
+        user_id: user.id,
+        quote_text: quoteText,
+        ga_reference: gaReference,
+        lecture_title: lectureTitle,
+        context_before: contextBefore,
+        context_after: contextAfter,
+        personal_note: personalNote,
+        tags: tags,
+        is_public: isPublic
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Erstellen des Zitats:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Zitate abrufen
+ */
+export async function getQuotes(filters = {}) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    let query = supabase
+      .from('quotes')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
+    if (filters.gaReference) {
+      query = query.eq('ga_reference', filters.gaReference);
+    }
+
+    if (filters.tags && filters.tags.length > 0) {
+      query = query.contains('tags', filters.tags);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Zitate:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Öffentliche Zitate abrufen
+ */
+export async function getPublicQuotes(gaReference = null) {
+  try {
+    let query = supabase
+      .from('quotes')
+      .select('*, user_profiles(display_name)')
+      .eq('is_public', true)
+      .order('created_at', { ascending: false });
+
+    if (gaReference) {
+      query = query.eq('ga_reference', gaReference);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen öffentlicher Zitate:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Zitat löschen
+ */
+export async function deleteQuote(quoteId) {
+  try {
+    const { error } = await supabase
+      .from('quotes')
+      .delete()
+      .eq('id', quoteId);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Fehler beim Löschen des Zitats:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+// ============================================
+// NOTES (Notizen) mit Obsidian-Features
+// ============================================
+
+/**
+ * Wiki-Links aus Text extrahieren [[Link]]
+ */
+export function extractWikiLinks(text) {
+  const regex = /\[\[(.*?)\]\]/g;
+  const matches = [];
+  let match;
+  
+  while ((match = regex.exec(text)) !== null) {
+    matches.push(match[1]);
+  }
+  
+  return [...new Set(matches)]; // Duplikate entfernen
+}
+
+
+/**
+ * Tags aus Text extrahieren #tag
+ */
+export function extractTags(text) {
+  const regex = /#(\w+)/g;
+  const matches = [];
+  let match;
+  
+  while ((match = regex.exec(text)) !== null) {
+    matches.push(match[1]);
+  }
+  
+  return [...new Set(matches)]; // Duplikate entfernen
+}
+
+
+/**
+ * GA-Referenzen aus Text extrahieren (GA110/5, GA107/3, etc.)
+ */
+export function extractGAReferences(text) {
+  const regex = /GA\s?(\d{1,3})\/(\d{1,3})|GA\s?(\d{1,3})/gi;
+  const matches = [];
+  let match;
+  
+  while ((match = regex.exec(text)) !== null) {
+    if (match[1] && match[2]) {
+      matches.push(`GA${match[1]}/${match[2]}`);
+    } else if (match[3]) {
+      matches.push(`GA${match[3]}`);
+    }
+  }
+  
+  return [...new Set(matches)]; // Duplikate entfernen
+}
+
+
+/**
+ * Notiz erstellen mit automatischer Link-Extraktion
+ */
+export async function createNote(title, content, isPublic = false) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    // Automatisch Links und Tags extrahieren
+    const wikiLinks = extractWikiLinks(content);
+    const tags = extractTags(content);
+    const gaReferences = extractGAReferences(content);
+
+    const { data, error } = await supabase
+      .from('notes')
+      .insert({
+        user_id: user.id,
+        title: title,
+        content: content,
+        ga_references: gaReferences,
+        wiki_links: wikiLinks,
+        tags: tags,
+        is_public: isPublic
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Backlinks erstellen
+    await updateBacklinks(data.id, 'note', [...wikiLinks, ...gaReferences]);
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Erstellen der Notiz:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Notiz aktualisieren
+ */
+export async function updateNote(noteId, title, content, isPublic = false) {
+  try {
+    // Links und Tags neu extrahieren
+    const wikiLinks = extractWikiLinks(content);
+    const tags = extractTags(content);
+    const gaReferences = extractGAReferences(content);
+
+    const { data, error } = await supabase
+      .from('notes')
+      .update({
+        title: title,
+        content: content,
+        ga_references: gaReferences,
+        wiki_links: wikiLinks,
+        tags: tags,
+        is_public: isPublic
+      })
+      .eq('id', noteId)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    // Backlinks aktualisieren
+    await deleteBacklinks(noteId);
+    await updateBacklinks(noteId, 'note', [...wikiLinks, ...gaReferences]);
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der Notiz:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Notizen abrufen
+ */
+export async function getNotes(filters = {}) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    let query = supabase
+      .from('notes')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('updated_at', { ascending: false });
+
+    if (filters.tag) {
+      query = query.contains('tags', [filters.tag]);
+    }
+
+    if (filters.gaReference) {
+      query = query.contains('ga_references', [filters.gaReference]);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Notizen:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Einzelne Notiz abrufen
+ */
+export async function getNote(noteId) {
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('id', noteId)
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Notiz:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Notiz löschen
+ */
+export async function deleteNote(noteId) {
+  try {
+    // Erst Backlinks löschen
+    await deleteBacklinks(noteId);
+
+    // Dann Notiz löschen
+    const { error } = await supabase
+      .from('notes')
+      .delete()
+      .eq('id', noteId);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Fehler beim Löschen der Notiz:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * In Notizen suchen (Volltext)
+ */
+export async function searchNotes(searchTerm) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('notes')
+      .select('*')
+      .eq('user_id', user.id)
+      .textSearch('content', searchTerm, {
+        type: 'websearch',
+        config: 'german'
+      });
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Durchsuchen der Notizen:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+// ============================================
+// BACKLINKS (für Obsidian-Features)
+// ============================================
+
+/**
+ * Backlinks erstellen/aktualisieren
+ */
+async function updateBacklinks(sourceId, sourceType, targetReferences) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const backlinks = targetReferences.map(ref => ({
+      user_id: user.id,
+      source_type: sourceType,
+      source_id: sourceId,
+      target_reference: ref
+    }));
+
+    if (backlinks.length === 0) return;
+
+    const { error } = await supabase
+      .from('backlinks')
+      .insert(backlinks);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('Fehler beim Erstellen der Backlinks:', error);
+  }
+}
+
+
+/**
+ * Backlinks löschen
+ */
+async function deleteBacklinks(sourceId) {
+  try {
+    const { error } = await supabase
+      .from('backlinks')
+      .delete()
+      .eq('source_id', sourceId);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('Fehler beim Löschen der Backlinks:', error);
+  }
+}
+
+
+/**
+ * Backlinks zu einer Referenz abrufen
+ */
+export async function getBacklinks(targetReference) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('backlinks')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('target_reference', targetReference);
+
+    if (error) throw error;
+
+    // Detaillierte Infos zu den verlinkenden Items abrufen
+    const detailedBacklinks = [];
+
+    for (const backlink of data) {
+      let itemData = null;
+      
+      if (backlink.source_type === 'note') {
+        const result = await getNote(backlink.source_id);
+        itemData = result.success ? result.data : null;
+      }
+      // Weitere Types können hier hinzugefügt werden
+
+      if (itemData) {
+        detailedBacklinks.push({
+          ...backlink,
+          item: itemData
+        });
+      }
+    }
+
+    return { success: true, data: detailedBacklinks };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Backlinks:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Graph-Daten für Visualisierung generieren
+ */
+export async function generateGraphData() {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    // Alle Notizen abrufen
+    const notesResult = await getNotes();
+    if (!notesResult.success) throw new Error('Fehler beim Abrufen der Notizen');
+
+    const notes = notesResult.data;
+    const nodes = [];
+    const links = [];
+    const nodeMap = new Map();
+
+    // Notizen als Nodes hinzufügen
+    notes.forEach(note => {
+      const nodeId = note.id;
+      nodes.push({
+        id: nodeId,
+        label: note.title || 'Unbenannte Notiz',
+        type: 'note',
+        data: note
+      });
+      nodeMap.set(nodeId, true);
+
+      // GA-Referenzen als Nodes
+      note.ga_references?.forEach(ref => {
+        if (!nodeMap.has(ref)) {
+          nodes.push({
+            id: ref,
+            label: ref,
+            type: 'ga_reference'
+          });
+          nodeMap.set(ref, true);
+        }
+        
+        links.push({
+          source: nodeId,
+          target: ref
+        });
+      });
+
+      // Wiki-Links als Nodes
+      note.wiki_links?.forEach(link => {
+        if (!nodeMap.has(link)) {
+          nodes.push({
+            id: link,
+            label: link,
+            type: 'wiki_link'
+          });
+          nodeMap.set(link, true);
+        }
+        
+        links.push({
+          source: nodeId,
+          target: link
+        });
+      });
+    });
+
+    return {
+      success: true,
+      data: { nodes, links }
+    };
+  } catch (error) {
+    console.error('Fehler beim Generieren der Graph-Daten:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+// ============================================
+// CHAT
+// ============================================
+
+/**
+ * Chat-Nachricht senden
+ */
+export async function sendChatMessage(message, room = 'general') {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    // User-Profil für Anzeigename abrufen
+    const profile = await getUserProfile(user.id);
+    const userName = profile?.display_name || user.email;
+
+    const { data, error } = await supabase
+      .from('chat_messages')
+      .insert({
+        user_id: user.id,
+        user_name: userName,
+        message: message,
+        room: room
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Senden der Nachricht:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Chat-Nachrichten abrufen
+ */
+export async function getChatMessages(room = 'general', limit = 50) {
+  try {
+    const { data, error } = await supabase
+      .from('chat_messages')
+      .select('*')
+      .eq('room', room)
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+
+    return { success: true, data: data.reverse() }; // Älteste zuerst
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Nachrichten:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Realtime-Listener für neue Chat-Nachrichten
+ */
+export function subscribeToChatMessages(room, callback) {
+  const channel = supabase
+    .channel(`chat:${room}`)
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'chat_messages',
+        filter: `room=eq.${room}`
+      },
+      (payload) => {
+        callback(payload.new);
+      }
+    )
+    .subscribe();
+
+  return channel;
+}
+
+
+/**
+ * Realtime-Listener beenden
+ */
+export function unsubscribeFromChat(channel) {
+  supabase.removeChannel(channel);
+}
+
+
+// Helper: User-Profil abrufen (aus members-auth.js importiert, aber hier nochmal für einfache Nutzung)
+async function getUserProfile(userId) {
+  const { data } = await supabase
+    .from('user_profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+  
+  return data;
+}
+

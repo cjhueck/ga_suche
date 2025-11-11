@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GA-Suche Mitgliederbereich</title>
+  <style>
+    /* ===== Design im Stil der GA-Suche ===== */
+    :root {
+      --text-color: #333333;
+      --heading-color: #467886;
+      --link-color: #467886;
+      --accent-color: #467886;
+      --background-color: #FAF8F3;
+      --border-color: #ddd;
+      --secondary-text: #666;
+      --success-color: #4CAF50;
+      --error-color: #f44336;
+      --warning-color: #ff9800;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      border-bottom: 2px solid var(--accent-color);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      color: var(--heading-color);
+      font-size: 1.8rem;
+      font-weight: normal;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-email {
+      color: var(--secondary-text);
+      font-size: 0.9rem;
+    }
+
+    /* Buttons */
+    button, .btn {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover, .btn:hover {
+      background-color: #3a6270;
+    }
+
+    button.secondary, .btn.secondary {
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+    }
+
+    button.secondary:hover, .btn.secondary:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    button.danger {
+      background-color: var(--error-color);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--heading-color);
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      font-size: 1rem;
+      font-family: inherit;
+      background: white;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    /* Tabs Navigation */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .tab {
+      padding: 1rem 2rem;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--secondary-text);
+      transition: all 0.3s ease;
+    }
+
+    .tab:hover {
+      color: var(--accent-color);
+    }
+
+    .tab.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+      background: transparent;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards */
+    .card {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      color: var(--heading-color);
+      font-size: 1.2rem;
+    }
+
+    .card-meta {
+      color: var(--secondary-text);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .card-actions button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      background: var(--accent-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.85rem;
+      border-radius: 3px;
+    }
+
+    /* Auth Views */
+    .auth-container {
+      max-width: 500px;
+      margin: 4rem auto;
+    }
+
+    .auth-card {
+      background: white;
+      padding: 3rem;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-card h2 {
+      color: var(--heading-color);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .auth-switch {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--secondary-text);
+    }
+
+    .auth-switch a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Messages */
+    .message {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .message.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--secondary-text);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: var(--secondary-text);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Chat */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      background: white;
+      border: 1px solid var(--border-color);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .chat-message {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: #f5f5f5;
+      border-radius: 4px;
+    }
+
+    .chat-message-author {
+      font-weight: 600;
+      color: var(--accent-color);
+      margin-bottom: 0.25rem;
+    }
+
+    .chat-message-time {
+      font-size: 0.75rem;
+      color: var(--secondary-text);
+    }
+
+    .chat-input-container {
+      display: flex;
+      gap: 0.5rem;
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .chat-input-container input {
+      flex: 1;
+    }
+
+    /* Graph Container */
+    #graph-container {
+      width: 100%;
+      height: 600px;
+      background: white;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Markdown Preview */
+    .markdown-preview {
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      min-height: 200px;
+      margin-top: 1rem;
+    }
+
+    .wiki-link {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .wiki-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Backlinks */
+    .backlinks-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid var(--border-color);
+    }
+
+    .backlink-item {
+      padding: 1rem;
+      background: #f9f9f9;
+      margin-bottom: 0.5rem;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      .tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Hide sections initially */
+    #app-view {
+      display: none;
+    }
+
+    #auth-view {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Auth View (Login/Register) -->
+  <div id="auth-view">
+    <div class="auth-container">
+      <div class="auth-card">
+        <h2 id="auth-title">Mitglieder Login</h2>
+        
+        <div id="auth-message"></div>
+
+        <!-- Login Form -->
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email">E-Mail</label>
+            <input type="email" id="login-email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="login-password">Passwort</label>
+            <input type="password" id="login-password" required>
+          </div>
+          
+          <button type="submit" style="width: 100%;">Anmelden</button>
+        </form>
+
+        <!-- Register Form -->
+        <form id="register-form" style="display: none;">
+          <div class="form-group">
+            <label for="register-name">Anzeigename</label>
+            <input type="text" id="register-name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-email">E-Mail</label>
+            <input type="email" id="register-email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="register-password">Passwort (mind. 6 Zeichen)</label>
+            <input type="password" id="register-password" minlength="6" required>
+          </div>
+          
+          <button type="submit" style="width: 100%;">Registrieren</button>
+        </form>
+
+        <div class="auth-switch">
+          <span id="auth-switch-text">Noch kein Account?</span>
+          <a href="#" id="auth-switch-link">Jetzt registrieren</a>
+        </div>
+
+        <div class="auth-switch" style="margin-top: 1rem;">
+          <a href="index.html">← Zurück zur Startseite</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App View -->
+  <div id="app-view">
+    <header>
+      <h1>GA-Suche Mitgliederbereich</h1>
+      <div class="user-info">
+        <span class="user-email" id="user-email"></span>
+        <button id="logout-btn" class="secondary">Abmelden</button>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Tabs Navigation -->
+      <div class="tabs">
+        <button class="tab active" data-tab="bookmarks">Bookmarks</button>
+        <button class="tab" data-tab="quotes">Zitate</button>
+        <button class="tab" data-tab="notes">Notizen</button>
+        <button class="tab" data-tab="graph">Graph</button>
+        <button class="tab" data-tab="chat">Chat</button>
+      </div>
+
+      <!-- Bookmarks Tab -->
+      <div class="tab-content active" id="bookmarks-tab">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Neues Bookmark</h3>
+          </div>
+          
+          <form id="bookmark-form">
+            <div class="form-group">
+              <label for="bookmark-ga">GA-Nummer (z.B. GA110/5)</label>
+              <input type="text" id="bookmark-ga" placeholder="GA110/5" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="bookmark-title">Vortragstitel</label>
+              <input type="text" id="bookmark-title" placeholder="Optional">
+            </div>
+            
+            <div class="form-group">
+              <label for="bookmark-text">Zitierter Text</label>
+              <textarea id="bookmark-text" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="bookmark-note">Persönliche Notiz</label>
+              <textarea id="bookmark-note"></textarea>
+            </div>
+            
+            <button type="submit">Bookmark speichern</button>
+          </form>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Meine Bookmarks</h3>
+        <div id="bookmarks-list" class="grid"></div>
+      </div>
+
+      <!-- Quotes Tab -->
+      <div class="tab-content" id="quotes-tab">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Neues Zitat</h3>
+          </div>
+          
+          <form id="quote-form">
+            <div class="form-group">
+              <label for="quote-text">Zitat-Text</label>
+              <textarea id="quote-text" required></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="quote-ga">GA-Referenz (z.B. GA110/5)</label>
+              <input type="text" id="quote-ga" placeholder="GA110/5" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="quote-note">Persönliche Notiz</label>
+              <textarea id="quote-note"></textarea>
+            </div>
+            
+            <div class="form-group">
+              <label for="quote-tags">Tags (kommagetrennt)</label>
+              <input type="text" id="quote-tags" placeholder="Karma, Ätherleib, Reinkarnation">
+            </div>
+            
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="quote-public"> 
+                Für andere Mitglieder sichtbar machen
+              </label>
+            </div>
+            
+            <button type="submit">Zitat speichern</button>
+          </form>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Meine Zitate</h3>
+        <div id="quotes-list" class="grid"></div>
+      </div>
+
+      <!-- Notes Tab -->
+      <div class="tab-content" id="notes-tab">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Neue Notiz</h3>
+          </div>
+          
+          <form id="note-form">
+            <div class="form-group">
+              <label for="note-title">Titel</label>
+              <input type="text" id="note-title" placeholder="Notiz-Titel">
+            </div>
+            
+            <div class="form-group">
+              <label for="note-content">Inhalt (Markdown unterstützt)</label>
+              <textarea id="note-content" style="min-height: 300px;" placeholder="Verwende [[GA110/5]] für Verlinkungen und #Tags für Schlagworte"></textarea>
+              <small style="color: var(--secondary-text); display: block; margin-top: 0.5rem;">
+                💡 Tipp: Verwende [[GA110/5]] für automatische Verlinkungen und #Karma für Tags
+              </small>
+            </div>
+            
+            <div class="form-group">
+              <label>
+                <input type="checkbox" id="note-public"> 
+                Für andere Mitglieder sichtbar machen
+              </label>
+            </div>
+            
+            <input type="hidden" id="note-edit-id">
+            <button type="submit" id="note-submit-btn">Notiz speichern</button>
+            <button type="button" id="note-cancel-btn" class="secondary" style="display: none;">Abbrechen</button>
+          </form>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem;">Meine Notizen</h3>
+        <div id="notes-list"></div>
+      </div>
+
+      <!-- Graph Tab -->
+      <div class="tab-content" id="graph-tab">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Wissens-Graph</h3>
+            <button id="refresh-graph-btn" class="secondary">Aktualisieren</button>
+          </div>
+          
+          <p style="color: var(--secondary-text); margin-bottom: 1rem;">
+            Visualisierung Ihrer Notizen und deren Verbindungen zu GA-Vorträgen.
+          </p>
+          
+          <div id="graph-container"></div>
+          <div id="graph-info" style="margin-top: 1rem; padding: 1rem; background: #f5f5f5;"></div>
+        </div>
+      </div>
+
+      <!-- Chat Tab -->
+      <div class="tab-content" id="chat-tab">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Mitglieder-Chat</h3>
+          </div>
+          
+          <div class="chat-container">
+            <div class="chat-messages" id="chat-messages"></div>
+            
+            <div class="chat-input-container">
+              <input type="text" id="chat-input" placeholder="Nachricht schreiben..." autocomplete="off">
+              <button id="chat-send-btn">Senden</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { 
+      signUp, signIn, signOut, getCurrentUser, onAuthStateChange 
+    } from './members-auth.js';
+    
+    import { 
+      createBookmark, getBookmarks, deleteBookmark, updateBookmark,
+      createQuote, getQuotes, deleteQuote,
+      createNote, getNotes, getNote, updateNote, deleteNote,
+      getBacklinks, generateGraphData,
+      sendChatMessage, getChatMessages, subscribeToChatMessages
+    } from './members-api.js';
+
+    // ===== State =====
+    let currentUser = null;
+    let currentView = 'login';
+    let currentEditingNoteId = null;
+    let chatSubscription = null;
+
+    // ===== Init =====
+    async function init() {
+      setupAuthListeners();
+      setupTabListeners();
+      setupFormListeners();
+      
+      // Check auth state
+      const user = await getCurrentUser();
+      if (user) {
+        await showApp(user);
+      } else {
+        showAuth();
+      }
+    }
+
+    // ===== Auth Functions =====
+    function showAuth() {
+      document.getElementById('auth-view').style.display = 'block';
+      document.getElementById('app-view').style.display = 'none';
+    }
+
+    async function showApp(user) {
+      currentUser = user;
+      document.getElementById('auth-view').style.display = 'none';
+      document.getElementById('app-view').style.display = 'block';
+      document.getElementById('user-email').textContent = user.email;
+      
+      // Load initial data
+      await loadBookmarks();
+      await loadQuotes();
+      await loadNotes();
+    }
+
+    function setupAuthListeners() {
+      // Auth switch
+      document.getElementById('auth-switch-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const title = document.getElementById('auth-title');
+        const switchText = document.getElementById('auth-switch-text');
+        const switchLink = document.getElementById('auth-switch-link');
+        
+        if (loginForm.style.display !== 'none') {
+          loginForm.style.display = 'none';
+          registerForm.style.display = 'block';
+          title.textContent = 'Registrierung';
+          switchText.textContent = 'Bereits registriert?';
+          switchLink.textContent = 'Jetzt anmelden';
+        } else {
+          loginForm.style.display = 'block';
+          registerForm.style.display = 'none';
+          title.textContent = 'Mitglieder Login';
+          switchText.textContent = 'Noch kein Account?';
+          switchLink.textContent = 'Jetzt registrieren';
+        }
+        
+        clearAuthMessage();
+      });
+
+      // Login
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        const result = await signIn(email, password);
+        
+        if (result.success) {
+          showAuthMessage(result.message, 'success');
+          await showApp(result.user);
+        } else {
+          showAuthMessage(result.message, 'error');
+        }
+      });
+
+      // Register
+      document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('register-name').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        
+        const result = await signUp(email, password, name);
+        
+        if (result.success) {
+          showAuthMessage(result.message, 'success');
+        } else {
+          showAuthMessage(result.message, 'error');
+        }
+      });
+
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', async () => {
+        await signOut();
+        if (chatSubscription) {
+          chatSubscription.unsubscribe();
+        }
+        showAuth();
+      });
+    }
+
+    function showAuthMessage(message, type) {
+      const messageDiv = document.getElementById('auth-message');
+      messageDiv.innerHTML = `<div class="message ${type}">${message}</div>`;
+    }
+
+    function clearAuthMessage() {
+      document.getElementById('auth-message').innerHTML = '';
+    }
+
+    // ===== Tab Functions =====
+    function setupTabListeners() {
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          const tabName = tab.dataset.tab;
+          switchTab(tabName);
+        });
+      });
+    }
+
+    function switchTab(tabName) {
+      // Update tab buttons
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(`${tabName}-tab`).classList.add('active');
+      
+      // Load data for specific tabs
+      if (tabName === 'chat') {
+        initChat();
+      } else if (tabName === 'graph') {
+        loadGraph();
+      }
+    }
+
+    // ===== Form Listeners =====
+    function setupFormListeners() {
+      // Bookmark form
+      document.getElementById('bookmark-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const result = await createBookmark(
+          document.getElementById('bookmark-ga').value,
+          document.getElementById('bookmark-title').value,
+          null,
+          document.getElementById('bookmark-text').value,
+          document.getElementById('bookmark-note').value,
+          []
+        );
+        
+        if (result.success) {
+          e.target.reset();
+          await loadBookmarks();
+          alert('Bookmark gespeichert!');
+        } else {
+          alert('Fehler: ' + result.error);
+        }
+      });
+
+      // Quote form
+      document.getElementById('quote-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const tags = document.getElementById('quote-tags').value
+          .split(',')
+          .map(t => t.trim())
+          .filter(t => t);
+        
+        const result = await createQuote(
+          document.getElementById('quote-text').value,
+          document.getElementById('quote-ga').value,
+          '',
+          '',
+          '',
+          document.getElementById('quote-note').value,
+          tags,
+          document.getElementById('quote-public').checked
+        );
+        
+        if (result.success) {
+          e.target.reset();
+          await loadQuotes();
+          alert('Zitat gespeichert!');
+        } else {
+          alert('Fehler: ' + result.error);
+        }
+      });
+
+      // Note form
+      document.getElementById('note-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('note-title').value;
+        const content = document.getElementById('note-content').value;
+        const isPublic = document.getElementById('note-public').checked;
+        const editId = document.getElementById('note-edit-id').value;
+        
+        let result;
+        if (editId) {
+          result = await updateNote(editId, title, content, isPublic);
+        } else {
+          result = await createNote(title, content, isPublic);
+        }
+        
+        if (result.success) {
+          e.target.reset();
+          document.getElementById('note-edit-id').value = '';
+          document.getElementById('note-submit-btn').textContent = 'Notiz speichern';
+          document.getElementById('note-cancel-btn').style.display = 'none';
+          currentEditingNoteId = null;
+          await loadNotes();
+          alert(editId ? 'Notiz aktualisiert!' : 'Notiz gespeichert!');
+        } else {
+          alert('Fehler: ' + result.error);
+        }
+      });
+
+      document.getElementById('note-cancel-btn').addEventListener('click', () => {
+        document.getElementById('note-form').reset();
+        document.getElementById('note-edit-id').value = '';
+        document.getElementById('note-submit-btn').textContent = 'Notiz speichern';
+        document.getElementById('note-cancel-btn').style.display = 'none';
+        currentEditingNoteId = null;
+      });
+
+      // Refresh graph
+      document.getElementById('refresh-graph-btn').addEventListener('click', loadGraph);
+    }
+
+    // ===== Load Data Functions =====
+    async function loadBookmarks() {
+      const result = await getBookmarks();
+      const container = document.getElementById('bookmarks-list');
+      
+      if (!result.success || result.data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📑</div><p>Noch keine Bookmarks vorhanden</p></div>';
+        return;
+      }
+      
+      container.innerHTML = result.data.map(bookmark => `
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">${bookmark.ga_number}</div>
+            <div class="card-meta">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</div>
+          </div>
+          
+          ${bookmark.lecture_title ? `<p style="color: var(--secondary-text); margin-bottom: 0.5rem;">${bookmark.lecture_title}</p>` : ''}
+          
+          <p style="font-style: italic; color: var(--secondary-text); border-left: 3px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0;">
+            ${bookmark.paragraph_text}
+          </p>
+          
+          ${bookmark.note ? `<p>${bookmark.note}</p>` : ''}
+          
+          <div class="card-actions">
+            <button class="danger" onclick="window.deleteBookmarkHandler('${bookmark.id}')">Löschen</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadQuotes() {
+      const result = await getQuotes();
+      const container = document.getElementById('quotes-list');
+      
+      if (!result.success || result.data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💬</div><p>Noch keine Zitate vorhanden</p></div>';
+        return;
+      }
+      
+      container.innerHTML = result.data.map(quote => `
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">${quote.ga_reference}</div>
+            <div class="card-meta">${new Date(quote.created_at).toLocaleDateString('de-DE')}</div>
+          </div>
+          
+          <p style="font-style: italic; color: var(--text-color); border-left: 3px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0;">
+            "${quote.quote_text}"
+          </p>
+          
+          ${quote.personal_note ? `<p><strong>Notiz:</strong> ${quote.personal_note}</p>` : ''}
+          
+          ${quote.tags.length > 0 ? `<div class="tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}</div>` : ''}
+          
+          ${quote.is_public ? '<p style="color: var(--secondary-text); font-size: 0.85rem; margin-top: 0.5rem;">👁️ Öffentlich sichtbar</p>' : ''}
+          
+          <div class="card-actions">
+            <button class="danger" onclick="window.deleteQuoteHandler('${quote.id}')">Löschen</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function loadNotes() {
+      const result = await getNotes();
+      const container = document.getElementById('notes-list');
+      
+      if (!result.success || result.data.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📝</div><p>Noch keine Notizen vorhanden</p></div>';
+        return;
+      }
+      
+      container.innerHTML = result.data.map(note => {
+        // Convert wiki links to HTML
+        let content = note.content.replace(/\[\[(.*?)\]\]/g, '<span class="wiki-link">[[$1]]</span>');
+        // Convert tags to HTML
+        content = content.replace(/#(\w+)/g, '<span class="tag">#$1</span>');
+        
+        return `
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">${note.title || 'Unbenannte Notiz'}</div>
+              <div class="card-meta">${new Date(note.updated_at).toLocaleDateString('de-DE')}</div>
+            </div>
+            
+            <div style="white-space: pre-wrap;">${content}</div>
+            
+            ${note.ga_references.length > 0 ? `
+              <div style="margin-top: 1rem; color: var(--secondary-text); font-size: 0.9rem;">
+                📚 Referenzen: ${note.ga_references.join(', ')}
+              </div>
+            ` : ''}
+            
+            ${note.is_public ? '<p style="color: var(--secondary-text); font-size: 0.85rem; margin-top: 0.5rem;">👁️ Öffentlich sichtbar</p>' : ''}
+            
+            <div class="card-actions">
+              <button class="secondary" onclick="window.editNoteHandler('${note.id}')">Bearbeiten</button>
+              <button class="danger" onclick="window.deleteNoteHandler('${note.id}')">Löschen</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function loadGraph() {
+      const container = document.getElementById('graph-container');
+      const info = document.getElementById('graph-info');
+      
+      container.innerHTML = '<div class="loading">Graph wird geladen...</div>';
+      
+      const result = await generateGraphData();
+      
+      if (!result.success) {
+        container.innerHTML = '<div class="empty-state"><p>Fehler beim Laden des Graphs</p></div>';
+        return;
+      }
+      
+      const { nodes, links } = result.data;
+      
+      info.innerHTML = `
+        <strong>Graph-Statistik:</strong> 
+        ${nodes.length} Knoten, 
+        ${links.length} Verbindungen
+      `;
+      
+      // Simple visualization with text (for basic demo)
+      container.innerHTML = `
+        <div style="padding: 2rem;">
+          <h4>Ihre Notizen-Netzwerk:</h4>
+          <ul style="list-style: none; padding: 0;">
+            ${nodes.filter(n => n.type === 'note').map(node => `
+              <li style="margin: 1rem 0; padding: 1rem; background: #f5f5f5; border-left: 4px solid var(--accent-color);">
+                <strong>${node.label}</strong>
+                ${links.filter(l => l.source === node.id).length > 0 ? `
+                  <br>
+                  <small style="color: var(--secondary-text);">
+                    → Verlinkt zu: ${links.filter(l => l.source === node.id).map(l => l.target).join(', ')}
+                  </small>
+                ` : ''}
+              </li>
+            `).join('')}
+          </ul>
+          
+          <p style="margin-top: 2rem; color: var(--secondary-text); font-size: 0.9rem;">
+            💡 Für eine interaktive Graph-Visualisierung kann später eine Library wie D3.js oder Force-Graph integriert werden.
+          </p>
+        </div>
+      `;
+    }
+
+    // ===== Chat Functions =====
+    async function initChat() {
+      await loadChatMessages();
+      
+      // Subscribe to new messages
+      if (!chatSubscription) {
+        chatSubscription = subscribeToChatMessages('general', (message) => {
+          appendChatMessage(message);
+        });
+      }
+      
+      // Send message
+      document.getElementById('chat-send-btn').onclick = sendMessage;
+      document.getElementById('chat-input').onkeypress = (e) => {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      };
+    }
+
+    async function loadChatMessages() {
+      const result = await getChatMessages('general', 50);
+      const container = document.getElementById('chat-messages');
+      
+      if (!result.success) {
+        container.innerHTML = '<div class="empty-state"><p>Fehler beim Laden der Nachrichten</p></div>';
+        return;
+      }
+      
+      container.innerHTML = result.data.map(msg => createChatMessageHTML(msg)).join('');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function createChatMessageHTML(message) {
+      return `
+        <div class="chat-message">
+          <div class="chat-message-author">${message.user_name || 'Unbekannt'}</div>
+          <div>${message.message}</div>
+          <div class="chat-message-time">${new Date(message.created_at).toLocaleString('de-DE')}</div>
+        </div>
+      `;
+    }
+
+    function appendChatMessage(message) {
+      const container = document.getElementById('chat-messages');
+      container.innerHTML += createChatMessageHTML(message);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const message = input.value.trim();
+      
+      if (!message) return;
+      
+      const result = await sendChatMessage(message, 'general');
+      
+      if (result.success) {
+        input.value = '';
+      } else {
+        alert('Fehler beim Senden: ' + result.error);
+      }
+    }
+
+    // ===== Global Handlers (for onclick in HTML) =====
+    window.deleteBookmarkHandler = async (id) => {
+      if (!confirm('Bookmark wirklich löschen?')) return;
+      await deleteBookmark(id);
+      await loadBookmarks();
+    };
+
+    window.deleteQuoteHandler = async (id) => {
+      if (!confirm('Zitat wirklich löschen?')) return;
+      await deleteQuote(id);
+      await loadQuotes();
+    };
+
+    window.editNoteHandler = async (id) => {
+      const result = await getNote(id);
+      if (!result.success) {
+        alert('Fehler beim Laden der Notiz');
+        return;
+      }
+      
+      const note = result.data;
+      document.getElementById('note-title').value = note.title || '';
+      document.getElementById('note-content').value = note.content;
+      document.getElementById('note-public').checked = note.is_public;
+      document.getElementById('note-edit-id').value = id;
+      document.getElementById('note-submit-btn').textContent = 'Notiz aktualisieren';
+      document.getElementById('note-cancel-btn').style.display = 'inline-block';
+      
+      // Scroll to form
+      document.getElementById('note-form').scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.deleteNoteHandler = async (id) => {
+      if (!confirm('Notiz wirklich löschen?')) return;
+      await deleteNote(id);
+      await loadNotes();
+    };
+
+    // ===== Start App =====
+    init();
+  </script>
+</body>
+</html>
+
