@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>GA-Suche - mit Mitglieder-Integration</title>
+  <!-- Ihre bestehenden Styles -->
+</head>
+<body>
+  
+  <!-- Ihr bestehender Content von app.html -->
+  
+  <h1>GA110/5 - Die geistige Hierarchien</h1>
+  
+  <p>Der Mensch ist in seinem tiefsten Wesen ein geistiges Wesen, das sich durch verschiedene Stadien der Evolution entwickelt...</p>
+  
+  <p>Die übersinnliche Erkenntnis zeigt, dass der Mensch aus vier Gliedern besteht: dem physischen Leib, dem Ätherleib, dem Astralleib und dem Ich...</p>
+  
+  <!-- Mehr Vortrags-Text hier -->
+  
+  
+  <!-- ============================================ -->
+  <!-- MITGLIEDER-INTEGRATION (am Ende einfügen) -->
+  <!-- ============================================ -->
+  
+  <script type="module">
+    // Import der Integration
+    import { 
+      initSelectionPopup,
+      addParagraphBookmarkIcons,
+      createMemberToolbar,
+      cleanupIntegration
+    } from './members-integration.js';
+    
+    // Aktuelle GA-Daten (diese müssen Sie aus Ihrer App holen)
+    const currentGA = 'GA110/5';  // Aus Ihrer App-Logik
+    const currentLectureTitle = 'Die geistige Hierarchien';  // Aus Ihrer App-Logik
+    
+    // Warten bis Seite geladen ist
+    document.addEventListener('DOMContentLoaded', async () => {
+      
+      // 1. Toolbar für eingeloggte User (oben)
+      await createMemberToolbar(currentGA, currentLectureTitle);
+      
+      // 2. Text-Selektion Popup aktivieren
+      initSelectionPopup(currentGA, currentLectureTitle);
+      
+      // 3. Hover-Icons bei Absätzen hinzufügen
+      addParagraphBookmarkIcons(currentGA, currentLectureTitle);
+      
+      console.log('✓ Mitglieder-Integration aktiv');
+    });
+    
+    // Cleanup wenn Seite verlassen wird
+    window.addEventListener('beforeunload', () => {
+      cleanupIntegration();
+    });
+  </script>
+  
+</body>
+</html>
+

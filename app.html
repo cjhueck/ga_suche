@@ -19571,6 +19571,58 @@ async function addKeywordToLecture() {
   </div>
 </div>
 
+<!-- ============================================ -->
+<!-- MITGLIEDER-INTEGRATION: Header Icons -->
+<!-- ============================================ -->
+
+<!-- Supabase Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Basis-Integration (Supabase Init) -->
+<script src="members-integration-standalone.js"></script>
+
+<!-- Header Icons -->
+<script src="members-header-icons.js"></script>
+
+<!-- Aktivierung -->
+<script>
+  // Initiale Aktivierung beim Laden
+  document.addEventListener('DOMContentLoaded', async function() {
+    console.log('🎯 Initialisiere Member Header Icons...');
+    
+    // Initiale Aktivierung (ohne spezifische GA-Nummer)
+    try {
+      await window.initMemberHeaderIcons('', '');
+      console.log('✓ Member Icons aktiviert');
+    } catch (error) {
+      console.error('Fehler bei Icon-Aktivierung:', error);
+    }
+  });
+  
+  // Funktion um Icons mit aktueller GA-Nummer zu aktualisieren
+  window.updateMemberIcons = async function(gaNumber, title) {
+    if (window.currentContext) {
+      window.currentContext.gaNumber = gaNumber || '';
+      window.currentContext.lectureTitle = title || '';
+      console.log('✓ Member Icons aktualisiert für:', gaNumber);
+    }
+  };
+  
+  // Automatische Aktualisierung wenn currentLectureData sich ändert
+  // (kann in Ihrer bestehenden Logik aufgerufen werden)
+  if (typeof currentLectureData !== 'undefined') {
+    const originalLectureData = currentLectureData;
+    Object.defineProperty(window, 'currentLectureData', {
+      get: function() { return originalLectureData; },
+      set: function(value) {
+        originalLectureData = value;
+        if (value && value.ga) {
+          window.updateMemberIcons(value.ga, value.title || value.lecture_title || '');
+        }
+      }
+    });
+  }
+</script>
+
 </body>
-</html> 
-</html> 
+</html>

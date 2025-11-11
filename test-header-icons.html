@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test - Header Icons</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #FAF8F3;
+      color: #333;
+      line-height: 1.8;
+    }
+    
+    h1 {
+      color: #467886;
+    }
+    
+    .info-box {
+      background: #d1ecf1;
+      border: 1px solid #bee5eb;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .success-box {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    p {
+      margin: 15px 0;
+    }
+    
+    .test-section {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    
+    .test-section h3 {
+      color: #467886;
+      margin-top: 0;
+    }
+    
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.9em;
+    }
+    
+    .highlight {
+      background: yellow;
+      padding: 2px 4px;
+    }
+  </style>
+</head>
+<body>
+  
+  <h1>GA110/5 - Die geistige Hierarchien</h1>
+  
+  <div class="success-box">
+    <strong>🎯 Neue Header-Icons!</strong><br>
+    Schauen Sie <strong>oben rechts</strong> → Dort sollte eine Icon-Leiste erscheinen<br><br>
+    
+    <strong>Nicht eingeloggt:</strong><br>
+    Nur 👤 Icon (Anmelden)<br><br>
+    
+    <strong>Eingeloggt:</strong><br>
+    👤 (Ihr Account)<br>
+    ─────<br>
+    💬 (Zitat)<br>
+    🔖 (Bookmark)<br>
+    📝 (Notiz)
+  </div>
+  
+  <div class="info-box">
+    <strong>✅ So testen Sie die Icons:</strong><br>
+    1. <strong>Text markieren</strong> (z.B. unten einen Absatz)<br>
+    2. <strong>Auf 💬 klicken</strong> → Zitat wird gespeichert<br>
+    3. <strong>Auf 🔖 klicken</strong> → Bookmark wird gespeichert<br>
+    4. <strong>Auf 📝 klicken</strong> → Notiz-Editor öffnet sich
+  </div>
+  
+  <div class="test-section">
+    <h3>Einleitung</h3>
+    <p>
+      Der Mensch ist in seinem tiefsten Wesen ein geistiges Wesen, das sich durch 
+      verschiedene Stadien der Evolution entwickelt. Diese Entwicklung führt ihn 
+      von einfacheren zu immer komplexeren Formen des Bewusstseins und der Selbsterkenntnis.
+    </p>
+  </div>
+  
+  <div class="test-section">
+    <h3>Die vier Wesensglieder</h3>
+    <p>
+      Die übersinnliche Erkenntnis zeigt, dass der Mensch aus vier Gliedern besteht: 
+      dem physischen Leib, dem Ätherleib, dem Astralleib und dem Ich. Jedes dieser 
+      Glieder hat seine eigene Entwicklung durchlaufen und erfüllt spezifische 
+      Funktionen im Gesamtorganismus des Menschen.
+    </p>
+    
+    <p>
+      Der physische Leib ist das sichtbare, materielle Instrument, durch das der 
+      Mensch in der physischen Welt wirkt. Der Ätherleib ist der Träger der 
+      Lebenskräfte und durchdringt den physischen Leib vollständig.
+    </p>
+  </div>
+  
+  <div class="test-section">
+    <h3>Karma und Reinkarnation</h3>
+    <p>
+      Karma ist das Gesetz von Ursache und Wirkung im geistigen Sinne. Was der 
+      Mensch in einem Leben an Taten, Gedanken und Gefühlen entwickelt, wirkt 
+      sich in späteren Leben als seine Lebensumstände und Fähigkeiten aus.
+    </p>
+    
+    <p>
+      Die Reinkarnation ist der Prozess, durch den die menschliche Individualität 
+      immer wieder in einem neuen physischen Leib zur Erde zurückkehrt, um ihre 
+      Entwicklung fortzusetzen. Zwischen den Erdenleben verbringt die Seele 
+      Perioden in der geistigen Welt.
+    </p>
+  </div>
+  
+  <div class="info-box">
+    <strong>💡 Workflow:</strong><br>
+    1. Text markieren: <span class="highlight">"Karma ist das Gesetz von Ursache und Wirkung"</span><br>
+    2. Auf Icon klicken: 💬 oder 🔖<br>
+    3. → Gespeichert!<br>
+    4. Benachrichtigung erscheint rechts neben den Icons
+  </div>
+  
+  
+  <!-- ============================================ -->
+  <!-- MITGLIEDER-INTEGRATION MIT HEADER ICONS -->
+  <!-- ============================================ -->
+  
+  <!-- Supabase Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Basis-Integration (für Supabase-Init) -->
+  <script src="members-integration-standalone.js"></script>
+  
+  <!-- Header Icons -->
+  <script src="members-header-icons.js"></script>
+  
+  <!-- Aktivieren -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      console.log('%c🎨 Header Icons Test', 'color: green; font-weight: bold; font-size: 16px');
+      
+      const gaNumber = 'GA110/5';
+      const lectureTitle = 'Die geistige Hierarchien';
+      
+      try {
+        // Header Icons aktivieren
+        await window.initMemberHeaderIcons(gaNumber, lectureTitle);
+        console.log('%c✓ Header Icons aktiv - Schauen Sie oben rechts!', 'color: green');
+      } catch (error) {
+        console.error('%c✗ Fehler:', 'color: red', error);
+      }
+      
+      setTimeout(() => {
+        console.log('%c📋 Test-Anweisungen:', 'color: blue; font-weight: bold');
+        console.log('1. Schauen Sie OBEN RECHTS → Icon-Leiste');
+        console.log('2. Markieren Sie Text unten');
+        console.log('3. Klicken Sie auf 💬 oder 🔖');
+        console.log('4. Notification erscheint!');
+        console.log(' ');
+        console.log('Falls Sie nicht eingeloggt sind:');
+        console.log('→ Klicken Sie auf 👤 → Login');
+      }, 1000);
+    });
+  </script>
+  
+</body>
+</html>
+
