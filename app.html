@@ -3607,181 +3607,6 @@ body.dark-mode .help-back-btn:hover {
   background-color: #5a8a9a;
 }
 
-/* Welcome Modal */
-.welcome-modal {
-  display: none;
-  position: fixed;
-  z-index: 10001;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  animation: fadeIn 0.3s ease;
-}
-
-.welcome-modal.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.welcome-modal-content {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border-radius: 0;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 700px;
-  max-height: 85vh;
-  display: flex;
-  flex-direction: column;
-  animation: slideIn 0.4s ease;
-}
-
-.welcome-modal-header {
-  background-color: rgba(70, 120, 134, 0.1);
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-body.dark-mode .welcome-modal-header {
-  background-color: rgba(107, 163, 184, 0.15);
-}
-
-.welcome-modal-header h2 {
-  margin: 0;
-  color: var(--heading-color);
-  font-size: 1.5rem;
-}
-
-body.dark-mode .welcome-modal-header h2 {
-  color: var(--dark-heading-color);
-}
-
-.welcome-close-btn {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: var(--text-color);
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0;
-  transition: background-color 0.2s ease;
-}
-
-.welcome-close-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-}
-
-body.dark-mode .welcome-close-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.welcome-modal-body {
-  padding: 2rem;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.welcome-modal-body h1 {
-  color: var(--heading-color) !important;
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-}
-
-.welcome-modal-body h2 {
-  color: var(--heading-color) !important;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  font-size: 1.3rem;
-}
-
-.welcome-modal-body h3 {
-  color: var(--heading-color) !important;
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
-}
-
-body.dark-mode .welcome-modal-body h1,
-body.dark-mode .welcome-modal-body h2,
-body.dark-mode .welcome-modal-body h3 {
-  color: var(--dark-heading-color) !important;
-}
-
-.welcome-modal-body code {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 0.2rem 0.4rem;
-  border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
-}
-
-body.dark-mode .welcome-modal-body code {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.welcome-modal-body pre {
-  background-color: rgba(0, 0, 0, 0.05);
-  padding: 1rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  font-size: 0.9em;
-}
-
-body.dark-mode .welcome-modal-body pre {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.welcome-modal-footer {
-  padding: 1rem 2rem;
-  border-top: 1px solid var(--border-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-body.dark-mode .welcome-modal-footer {
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-.welcome-start-btn {
-  padding: 0.75rem 1.5rem;
-  background-color: #467886;
-  color: white;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.welcome-start-btn:hover {
-  background-color: #3a6571;
-}
-
-body.dark-mode .welcome-start-btn {
-  background-color: #6BA3B8;
-}
-
-body.dark-mode .welcome-start-btn:hover {
-  background-color: #5a8a9a;
-}
-
 /* ========================================
    PNG-Bilder mit Transparenz - Light/Dark Mode
    ======================================== */
@@ -4477,7 +4302,7 @@ Bestehende Schlagwörter überschreiben
 <div id="main-container">
 <div id="main">
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-<h2 id="document-title" style="margin: 0; flex: 1;">Bitte ein Suchergebnis auswählen…</h2>
+<h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
@@ -5082,11 +4907,7 @@ function normalizeGANumber(gaNumber) {
         tocList.innerHTML = '';
       }
       
-      // Document Title zurücksetzen
-      const documentTitle = document.getElementById('document-title');
-      if (documentTitle) {
-        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
-      }
+      // Document Title wird später basierend auf dem mode gesetzt (siehe switch-Logik unten)
       
       // Viewer leeren
       const viewer = document.getElementById('viewer');
@@ -7156,6 +6977,47 @@ function displayGAChronological(lectures) {
       }
     }
 
+    // Extrahiere GA-Nummer aus Lecture-Objekt
+    function extractGANumber(lecture) {
+      if (!lecture) return null;
+      
+      // Versuche aus ID (z.B. "GA100/8" -> "GA100")
+      if (lecture.ID) {
+        const match = lecture.ID.match(/^(GA\d{3}[a-z]?)/i);
+        if (match) return match[1];
+      }
+      
+      // Versuche aus fileName (z.B. "GA100/8 - TITLE" -> "GA100")
+      if (lecture.fileName) {
+        const match = lecture.fileName.match(/^(GA\d{3}[a-z]?)/i);
+        if (match) return match[1];
+      }
+      
+      return null;
+    }
+
+    // Navigiere zum Texte-Tab und öffne GA-Band-Übersicht
+    async function navigateToGAInTexteTab(gaNumber) {
+      console.log(`[NAVIGATION] Navigiere zu GA-Band ${gaNumber} im Texte-Tab`);
+      
+      // Wechsle zum Texte-Tab
+      switchTab('texte');
+      
+      // Warte kurz, damit der Tab geladen ist
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      // Setze den GA-Filter im Texte-Tab
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter && gaNumber) {
+        texteGAFilter.value = gaNumber;
+        // Trigger Change Event um die GA-Übersicht zu laden
+        const changeEvent = new Event('change', { bubbles: true });
+        texteGAFilter.dispatchEvent(changeEvent);
+        
+        console.log(`[NAVIGATION] GA-Band ${gaNumber} Übersicht geladen`);
+      }
+    }
+
     function parseSearchTerm(input) {
       if (!input) return { term: '', isPhrase: false };
       
@@ -7181,8 +7043,8 @@ function displayGAChronological(lectures) {
         return;
       }
       
-      document.getElementById('viewer').innerHTML = '';
-      document.getElementById('document-title').textContent = 'Bitte ein Suchergebnis auswählen…';
+      document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen…</div>';
+      document.getElementById('document-title').textContent = 'Suche';
       
       // Setze currentLectureData zurück und verstecke Buttons
       currentLectureData = null;
@@ -9402,10 +9264,15 @@ function showSummaryView() {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
   
-  // NEU: Setze den Vortragstitel als Link
+  // Setze den Vortragstitel als klickbaren Link zum Texte-Tab
   let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
-  const onlineLink = createOnlineURL(lecture);
-  titleElement.innerHTML = `<a href="${onlineLink}" target="rudolf-steiner-online">${displayTitle}</a>`;
+  const gaNumber = extractGANumber(lecture);
+  
+  if (gaNumber) {
+    titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
+  } else {
+    titleElement.textContent = displayTitle;
+  }
   
   // Verwende übergebene Keywords oder hole sie aus Suchfeldern
   let keywords = keywordsParam;
@@ -11757,26 +11624,6 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       updateActiveTocItem();
     }
 
-    function createOnlineURL(lecture) {
-      if (!lecture.fileName) {
-        return `https://rudolf-steiner-online.de/${lecture.ID || ''}`;
-      }
-      
-      const fileName = lecture.fileName;
-      const match = fileName.match(/^(GA\d{3}[a-z]?)\/(\d+)\s*-\s*(.+)$/);
-      
-      if (!match) {
-        return `https://rudolf-steiner-online.de/${lecture.ID || ''}`;
-      }
-      
-      const [, gaNumber, lectureNumber, rest] = match;
-      
-      const titleForUrl = rest.replace(/ /g, '+');
-      const encodedTitle = encodeURIComponent(titleForUrl).replace(/%2B/g, '+');
-      
-      return `https://rudolf-steiner-online.de/${gaNumber}+(${lectureNumber}.)+${encodedTitle}`;
-    }
-
     function displayLecture(lecture, highlightIndex, keywords = [], shouldHighlight = true) {
       const viewer = document.getElementById('viewer');
       const mainContainer = document.getElementById('main');
@@ -11804,9 +11651,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       viewer.innerHTML = '';
       
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
-      const onlineLink = createOnlineURL(lecture);
+      const gaNumber = extractGANumber(lecture);
       
-      titleElement.innerHTML = `<a href="${onlineLink}" target="rudolf-steiner-online">${displayTitle}</a>`;
+      if (gaNumber) {
+        titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
+      } else {
+        titleElement.textContent = displayTitle;
+      }
       
       let html = '<div>';
       
@@ -12340,19 +12191,7 @@ async function populateGesamtausgabeDropdown() {
     select.dataset.populated = 'true';
     console.log('[GA-TAB] Dropdown befüllt mit', gaList.length, 'Einträgen');
     
-    if (!select.dataset.listenerAdded) {
-      select.addEventListener('change', (e) => {
-        const selectedPath = e.target.value;
-        if (selectedPath) {
-          const fullUrl = `https://rudolf-steiner-online.de${selectedPath}`;
-          console.log('[GA-TAB] Öffne:', fullUrl);
-          window.open(fullUrl, 'ga-window');
-          e.target.selectedIndex = 0;
-        }
-      });
-      select.dataset.listenerAdded = 'true';
-      console.log('[GA-TAB] Event Listener registriert');
-    }
+    // Event Listener für Dropdown wurde entfernt (keine externen Links mehr)
     
   } catch (err) {
     console.error('[GA-TAB] Fehler beim Laden der GA-Liste:', err);
@@ -13095,12 +12934,7 @@ function switchTabExtended(mode) {
         console.log('[TABS] Main Viewer geleert');
       }
       
-      // Document Title zurücksetzen
-      const documentTitle = document.getElementById('document-title');
-      if (documentTitle) {
-        documentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
-        console.log('[TABS] Document Title zurückgesetzt');
-      }
+      // Document Title wird später basierend auf dem mode gesetzt (siehe switch-Logik unten)
       
       // Setze ggf. die Scroll-Position der Sidebar zurück
       const sidebarContent = document.getElementById('sidebar-content');
@@ -13146,7 +12980,7 @@ function switchTabExtended(mode) {
         titleText = 'Suche';
         break;
       case 'texte':
-        defaultMessage = 'Bitte einen Text auswählen…';
+        defaultMessage = 'Bitte einen GA-Band auswählen…';
         titleText = 'Texte';
         break;
       case 'thematic':
@@ -13154,7 +12988,7 @@ function switchTabExtended(mode) {
         titleText = 'Themen';
         break;
       case 'timeline':
-        defaultMessage = 'Bitte ein Keyword eingeben…';
+        defaultMessage = 'Bitte ein Schlagwort auswählen…';
         titleText = 'Timeline';
         break;
       case 'keywords':
@@ -14402,11 +14236,11 @@ async function showTimeline(keyword, clickedButton) {
     console.log('[TIMELINE] Main Viewer geleert');
   }
   
-  // Document Title zurücksetzen
+  // Document Title auf Timeline setzen
   const mainDocumentTitle = document.getElementById('document-title');
   if (mainDocumentTitle) {
-    mainDocumentTitle.textContent = 'Bitte ein Suchergebnis auswählen…';
-    console.log('[TIMELINE] Document Title zurückgesetzt');
+    mainDocumentTitle.textContent = 'Timeline';
+    console.log('[TIMELINE] Document Title auf Timeline gesetzt');
   }
   
   // Alle anderen Timeline-Buttons auf inaktiv setzen (außer dem geklickten)
@@ -15138,27 +14972,6 @@ function formatDate(dateStr) {
   }
 }
 
-// Hilfsfunktion: Erstelle Online-URL (aus existierender Funktion kopiert)
-function createOnlineURL(lecture) {
-  if (!lecture.fileName) {
-    return `https://rudolf-steiner-online.de/${lecture.ID || ''}`;
-  }
-  
-  const fileName = lecture.fileName;
-  const match = fileName.match(/^(GA\d{3}[a-z]?)\/(\d+)\s*-\s*(.+)$/);
-  
-  if (!match) {
-    return `https://rudolf-steiner-online.de/${lecture.ID || ''}`;
-  }
-  
-  const [, gaNumber, lectureNumber, rest] = match;
-  
-  const titleForUrl = rest.replace(/ /g, '+');
-  const encodedTitle = encodeURIComponent(titleForUrl).replace(/%2B/g, '+');
-  
-  return `https://rudolf-steiner-online.de/${gaNumber}+(${lectureNumber}.)+${encodedTitle}`;
-}
-
 // Initialize Lucide icons
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof lucide !== 'undefined') {
@@ -15239,21 +15052,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
-<!-- Welcome Modal -->
-<div id="welcomeModal" class="welcome-modal">
-  <div class="welcome-modal-content">
-    <div class="welcome-modal-header">
-      <h1>Willkommen</h1>
-      <button class="welcome-close-btn" onclick="closeWelcomeModal()">&times;</button>
-    </div>
-    <div class="welcome-modal-body" id="welcomeModalBody">
-    </div>
-    <div class="welcome-modal-footer">
-      <button class="welcome-start-btn" onclick="closeWelcomeModal()">Start</button>
-    </div>
-  </div>
-</div>
 
 <!-- Help Modal -->
 <div id="helpModal" class="help-modal">
@@ -15401,108 +15199,6 @@ document.addEventListener('keydown', function(event) {
     if (modal && modal.classList.contains('active')) {
       closeHelpModal();
     }
-    const welcomeModal = document.getElementById('welcomeModal');
-    if (welcomeModal && welcomeModal.classList.contains('active')) {
-      closeWelcomeModal();
-    }
-  }
-});
-
-// ============================================================================
-// WELCOME MODAL FUNCTIONS
-// ============================================================================
-
-// Load and display welcome content
-async function loadWelcomeContent() {
-  const bodyElement = document.getElementById('welcomeModalBody');
-  
-  try {
-    // Determine API base URL
-    const isLocal = window.location.hostname === 'localhost' ||
-                    window.location.hostname === '127.0.0.1' ||
-                    window.location.protocol === 'file:';
-    const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
-    
-    // Load WILLKOMMEN.md from system folder
-    const response = await fetch(`${API_BASE}/system/WILLKOMMEN.md`);
-    if (!response.ok) {
-      throw new Error(`Fehler beim Laden: ${response.status}`);
-    }
-    const markdown = await response.text();
-    
-    // Convert Markdown to HTML with marked.js
-    if (typeof marked !== 'undefined') {
-      marked.setOptions({
-        breaks: true,
-        gfm: true
-      });
-      bodyElement.innerHTML = marked.parse(markdown);
-    } else {
-      // Fallback: Show Markdown as text
-      bodyElement.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
-    }
-    
-  } catch (error) {
-    console.error('Fehler beim Laden der Willkommensnachricht:', error);
-    bodyElement.innerHTML = `
-      <div style="text-align: center; padding: 2rem; color: #999;">
-        <p><strong>Fehler beim Laden der Willkommensnachricht</strong></p>
-        <p style="font-size: 0.9em; margin-top: 1rem;">
-          ${error.message}<br>
-          Bitte stellen Sie sicher, dass der Backend-Server läuft.
-        </p>
-      </div>
-    `;
-  }
-}
-
-// Show welcome modal
-function showWelcomeModal() {
-  const modal = document.getElementById('welcomeModal');
-  if (modal) {
-    modal.classList.add('active');
-    loadWelcomeContent();
-  }
-}
-
-// Close welcome modal
-function closeWelcomeModal() {
-  const modal = document.getElementById('welcomeModal');
-  
-  if (modal) {
-    modal.classList.remove('active');
-  }
-  
-  // Speichere, dass das Popup beim aktuellen Besuch gesehen wurde
-  sessionStorage.setItem('ga-suche-welcome-shown-session', 'true');
-  console.log('[WELCOME] Willkommens-Popup geschlossen');
-}
-
-// Check if welcome should be shown and display it
-function checkAndShowWelcome() {
-  const hasSeenThisSession = sessionStorage.getItem('ga-suche-welcome-shown-session');
-  
-  if (!hasSeenThisSession) {
-    console.log('[WELCOME] Zeige Willkommensnachricht');
-    // Show welcome after a short delay (500ms) for better UX
-    setTimeout(() => {
-      showWelcomeModal();
-    }, 500);
-  } else {
-    console.log('[WELCOME] Willkommensnachricht wurde in dieser Sitzung bereits angezeigt');
-  }
-}
-
-// Initialize welcome check on page load
-document.addEventListener('DOMContentLoaded', function() {
-  checkAndShowWelcome();
-});
-
-// Close welcome modal when clicking outside
-document.addEventListener('click', function(event) {
-  const modal = document.getElementById('welcomeModal');
-  if (event.target === modal) {
-    closeWelcomeModal();
   }
 });
 
