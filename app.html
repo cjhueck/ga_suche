@@ -2035,6 +2035,7 @@ body.dark-mode #thematicSearchInfo {
       background-color: var(--background-color) !important;
       border-bottom: 1px solid var(--border-color);
       padding: 1rem;
+      padding-right: 70px; /* Platz für Mitglieder-Icon */
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -19581,47 +19582,27 @@ async function addKeywordToLecture() {
 <!-- Basis-Integration (Supabase Init) -->
 <script src="members-integration-standalone.js"></script>
 
-<!-- Header Icons -->
-<script src="members-header-icons.js"></script>
+<!-- Mitglieder-Menu -->
+<script src="members-menu.js"></script>
 
 <!-- Aktivierung -->
 <script>
-  // Initiale Aktivierung beim Laden
   document.addEventListener('DOMContentLoaded', async function() {
-    console.log('🎯 Initialisiere Member Header Icons...');
-    
-    // Initiale Aktivierung (ohne spezifische GA-Nummer)
     try {
-      await window.initMemberHeaderIcons('', '');
-      console.log('✓ Member Icons aktiviert');
+      await window.initMemberMenu('', '');
+      console.log('✓ Member Menu aktiviert');
     } catch (error) {
-      console.error('Fehler bei Icon-Aktivierung:', error);
+      console.error('Fehler:', error);
     }
   });
   
-  // Funktion um Icons mit aktueller GA-Nummer zu aktualisieren
-  window.updateMemberIcons = async function(gaNumber, title) {
+  // Context-Update wenn Vortrag geladen wird
+  window.updateMemberContext = async function(gaNumber, title) {
     if (window.currentContext) {
       window.currentContext.gaNumber = gaNumber || '';
       window.currentContext.lectureTitle = title || '';
-      console.log('✓ Member Icons aktualisiert für:', gaNumber);
     }
   };
-  
-  // Automatische Aktualisierung wenn currentLectureData sich ändert
-  // (kann in Ihrer bestehenden Logik aufgerufen werden)
-  if (typeof currentLectureData !== 'undefined') {
-    const originalLectureData = currentLectureData;
-    Object.defineProperty(window, 'currentLectureData', {
-      get: function() { return originalLectureData; },
-      set: function(value) {
-        originalLectureData = value;
-        if (value && value.ga) {
-          window.updateMemberIcons(value.ga, value.title || value.lecture_title || '');
-        }
-      }
-    });
-  }
 </script>
 
 </body>
