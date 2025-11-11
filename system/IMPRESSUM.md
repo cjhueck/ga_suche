@@ -1,14 +1,10 @@
 Verantwortlich:
 
-
-
 Dr. Christoph Hueck
 Akanthos Akademie Stuttgart, e.V.
 Zur Uhlandshöhe 10
 70188 Stuttgart
 hueck@akanthos-akademie.de
-
-
 
 
 
