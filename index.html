@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <title>Rudolf Steiner Gesamtausgabe - Willkommen</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -139,7 +140,7 @@
       margin-top: 2rem;
       align-self: flex-end;
       padding-right: 3rem;
-      padding-bottom: 0.7rem;
+      padding-bottom: 1.0rem;
     }
     
     .footer-links a {
@@ -275,6 +276,441 @@
         font-size: 1.1rem;
       }
     }
+    
+    /* Help Modal Styles */
+    .help-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .help-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .help-modal-content {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 800px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .help-modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .help-modal-header h2 {
+      margin: 0;
+      color: var(--heading-color) !important;
+      font-size: 1.5rem;
+    }
+    
+    body.dark-mode .help-modal-header h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    body.dark-mode .help-modal-content {
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-modal-close {
+      color: var(--dark-text-color);
+    }
+    
+    .help-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+    
+    .help-modal-close:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-mode .help-modal-close:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .help-modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+    
+    .help-choice {
+      display: block;
+    }
+    
+    .help-choice p {
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-choice p {
+      color: var(--dark-text-color);
+    }
+    
+    .help-choice-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .help-choice-btn {
+      flex: 1;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      background-color: var(--background-color);
+      border-radius: 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    
+    .help-choice-btn:hover {
+      background-color: #467886;
+      color: white;
+      border-color: #467886;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(70, 120, 134, 0.2);
+    }
+    
+    body.dark-mode .help-choice-btn {
+      border-color: var(--border-color);
+      background-color: var(--background-color);
+    }
+    
+    body.dark-mode .help-choice-btn:hover {
+      background-color: #6BA3B8;
+      color: white;
+      border-color: #6BA3B8;
+    }
+    
+    .help-choice-btn h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+      color: #467886;
+    }
+    
+    body.dark-mode .help-choice-btn h3 {
+      color: #6BA3B8;
+    }
+    
+    .help-choice-btn:hover h3 {
+      color: white;
+    }
+    
+    .help-choice-btn p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+    
+    .help-choice-btn:hover p {
+      color: white;
+    }
+    
+    .help-content-display {
+      display: none;
+    }
+    
+    .help-content-display.active {
+      display: block;
+    }
+    
+    .help-content-display h2 {
+      color: var(--heading-color) !important;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display h3 {
+      color: var(--heading-color) !important;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display h4 {
+      color: var(--heading-color) !important;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .help-content-display h2,
+    body.dark-mode .help-content-display h3,
+    body.dark-mode .help-content-display h4 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .help-content-display blockquote {
+      margin: var(--paragraph-margin) 0;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-color);
+      font-style: italic;
+      color: var(--secondary-text);
+    }
+    
+    body.dark-mode .help-content-display blockquote {
+      border-left-color: var(--dark-accent-color);
+      color: var(--dark-secondary-text);
+    }
+    
+    .help-content-display p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display p {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display ul,
+    .help-content-display ol {
+      margin: var(--paragraph-margin) 0;
+      padding-left: 1.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display li {
+      margin: 0.25rem 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display li {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .help-content-display a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .help-content-display a {
+      color: var(--dark-link-color);
+    }
+    
+    .help-content-display strong {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display strong {
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display em {
+      font-style: italic;
+    }
+    
+    .help-content-display code {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .help-content-display code {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--dark-text-color);
+    }
+    
+    .help-content-display kbd {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      border: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .help-content-display kbd {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: var(--dark-border-color);
+    }
+    
+    .help-content-display pre {
+      background-color: rgba(0, 0, 0, 0.05);
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: var(--paragraph-margin) 0;
+    }
+    
+    body.dark-mode .help-content-display pre {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .help-content-display table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: var(--text-size);
+    }
+    
+    .help-content-display table th,
+    .help-content-display table td {
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      line-height: var(--line-height);
+    }
+    
+    .help-content-display table th {
+      background-color: rgba(70, 120, 134, 0.1);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .help-content-display table th,
+    body.dark-mode .help-content-display table td {
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .help-content-display table th {
+      background-color: rgba(107, 163, 184, 0.15);
+    }
+    
+    .help-content-display hr {
+      margin: 1.5rem 0;
+      border: none;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .help-content-display hr {
+      border-top-color: var(--dark-border-color);
+    }
+    
+    .help-content-display img {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    
+    .help-content-display dl {
+      margin: var(--paragraph-margin) 0;
+    }
+    
+    .help-content-display dt {
+      font-weight: 600;
+      margin-top: 0.5rem;
+      color: var(--heading-color);
+    }
+    
+    body.dark-mode .help-content-display dt {
+      color: var(--dark-heading-color);
+    }
+    
+    .help-content-display dd {
+      margin-left: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+    }
+    
+    .help-back-btn {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #467886;
+      color: white;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .help-back-btn:hover {
+      background-color: #3a6270;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+    
+    body.dark-mode .help-back-btn {
+      background-color: #6BA3B8;
+    }
+    
+    body.dark-mode .help-back-btn:hover {
+      background-color: #5a8a9a;
+    }
+    
+    /* Responsive Modal */
+    @media (max-width: 900px) {
+      .help-choice-buttons {
+        flex-wrap: wrap;
+      }
+      
+      .help-choice-btn {
+        flex: 1 1 calc(50% - 0.5rem);
+        min-width: 120px;
+      }
+    }
 </style>
 </head>
 <body>
@@ -310,8 +746,44 @@
       </div>
       
       <div class="footer-links">
-        <a href="system/BENUTZERANLEITUNG.md">Erläuterungen</a>
-        <a href="system/IMPRESSUM.md">Impressum</a>
+        <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
+        <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Help Modal -->
+  <div id="helpModal" class="help-modal">
+    <div class="help-modal-content">
+      <div class="help-modal-header">
+        <h2 id="helpModalTitle">GA-Suche Anleitung</h2>
+        <button class="help-modal-close" onclick="closeHelpModal()">&times;</button>
+      </div>
+      <div class="help-modal-body">
+        <!-- Choice Screen -->
+        <div id="helpChoice" class="help-choice">
+          <p style="margin-bottom: 1.5rem;">Wählen Sie die gewünschte Anleitung:</p>
+          <div class="help-choice-buttons">
+            <button class="help-choice-btn" onclick="showHelpContent('welcome')">
+              <h3>Willkommen</h3>
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('gesamtausgabe')">
+              <h3>Gesamtausgabe</h3>
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('full')">
+              <h3>Anleitung</h3> 
+            </button>
+            <button class="help-choice-btn" onclick="showHelpContent('quick')">
+              <h3>Impressum</h3>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Content Display -->
+        <div id="helpContentDisplay" class="help-content-display">
+          <div id="helpContentText"></div>
+          <button class="help-back-btn" onclick="showHelpChoice()">← Zurück zur Auswahl</button>
+        </div>
       </div>
     </div>
   </div>
@@ -322,6 +794,117 @@
       const darkMode = localStorage.getItem('darkMode');
       if (darkMode === 'enabled') {
         document.body.classList.add('dark-mode');
+      }
+    });
+    
+    // Help Modal Functions
+    function openHelpModal() {
+      const modal = document.getElementById('helpModal');
+      modal.classList.add('active');
+      showHelpChoice();
+    }
+    
+    function openHelpModalDirect(type) {
+      const modal = document.getElementById('helpModal');
+      modal.classList.add('active');
+      showHelpContent(type);
+    }
+    
+    function closeHelpModal() {
+      const modal = document.getElementById('helpModal');
+      modal.classList.remove('active');
+    }
+    
+    function showHelpChoice() {
+      document.getElementById('helpChoice').style.display = 'block';
+      document.getElementById('helpContentDisplay').classList.remove('active');
+      document.getElementById('helpModalTitle').textContent = 'GA-Suche Anleitung';
+    }
+    
+    async function showHelpContent(type) {
+      const contentDisplay = document.getElementById('helpContentDisplay');
+      const contentText = document.getElementById('helpContentText');
+      const choice = document.getElementById('helpChoice');
+      const title = document.getElementById('helpModalTitle');
+      
+      choice.style.display = 'none';
+      contentDisplay.classList.add('active');
+      
+      // Lade-Indikator
+      contentText.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Anleitung...</p>';
+      
+      try {
+        let mdFile = '';
+        if (type === 'welcome') {
+          title.textContent = 'Willkommen';
+          mdFile = 'WILLKOMMEN.md';
+        } else if (type === 'gesamtausgabe') {
+          title.textContent = 'Gesamtausgabe';
+          mdFile = 'GESAMTAUSGABE.md';
+        } else if (type === 'full') {
+          title.textContent = 'GA-Suche Anleitung';
+          mdFile = 'BENUTZERANLEITUNG.md';
+        } else if (type === 'quick') {
+          title.textContent = 'Impressum';
+          mdFile = 'IMPRESSUM.md';
+        }
+        
+        // Lade Markdown-Datei vom Backend-Server (alle aus system-Ordner)
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        const response = await fetch(`${API_BASE}/system/${mdFile}`);
+        if (!response.ok) {
+          throw new Error(`Fehler beim Laden: ${response.status}`);
+        }
+        const markdown = await response.text();
+        
+        // Konvertiere Markdown zu HTML mit marked.js
+        if (typeof marked !== 'undefined') {
+          // Konfiguriere marked für besseres Rendering
+          marked.setOptions({
+            breaks: true,
+            gfm: true
+          });
+          contentText.innerHTML = marked.parse(markdown);
+        } else {
+          // Fallback: Zeige Markdown als Text
+          contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+        }
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der Anleitung:', error);
+        contentText.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: #999;">
+            <p><strong>Fehler beim Laden der Anleitung</strong></p>
+            <p style="font-size: 0.9em; margin-top: 1rem;">
+              ${error.message}<br>
+              Bitte stellen Sie sicher, dass die Markdown-Dateien verfügbar sind.
+            </p>
+          </div>
+        `;
+      }
+      
+      // Scroll to top
+      contentDisplay.scrollTop = 0;
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const modal = document.getElementById('helpModal');
+      if (event.target === modal) {
+        closeHelpModal();
+      }
+    });
+    
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') {
+        const modal = document.getElementById('helpModal');
+        if (modal && modal.classList.contains('active')) {
+          closeHelpModal();
+        }
       }
     });
   </script>
