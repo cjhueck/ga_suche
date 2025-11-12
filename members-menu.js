@@ -261,12 +261,20 @@ async function handleRegister() {
   try {
     const { data, error } = await supabaseClient.auth.signUp({
       email: email,
-      password: password
+      password: password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/members.html`
+      }
     });
     
     if (error) throw error;
     
     messageDiv.innerHTML = '<span class="success">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.</span>';
+    
+    // Nach 5 Sekunden Form ausblenden
+    setTimeout(() => {
+      messageDiv.innerHTML = '<span class="success">Bitte prüfen Sie Ihren Posteingang und bestätigen Sie Ihre E-Mail-Adresse, um sich anmelden zu können.</span>';
+    }, 3000);
     
   } catch (error) {
     messageDiv.innerHTML = `<span class="error">✗ ${error.message}</span>`;
