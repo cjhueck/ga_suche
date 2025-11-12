@@ -63,49 +63,47 @@
       color: var(--dark-link-color);
     }
     
-    body.dark-mode .left-panel {
-      background-color: var(--dark-background-color);
-    }
-    
     .container {
       display: flex;
       height: 100vh;
       width: 100vw;
+      padding-top: 150px;
+      padding-left: 6rem;
+      padding-right: 2rem;
     }
     
     .left-panel {
-      width: 30%;
-      min-width: 300px;
-      background-color: var(--background-color);
+      width: 350px;
+      min-width: 350px;
+      background-color: transparent;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 2rem 3rem 2rem 3rem;
     }
     
     .portrait-container {
       max-width: 100%;
-      max-height: 80vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      margin-top: 0rem;
     }
     
     .portrait {
       max-width: 100%;
-      max-height: 100%;
+      width: 300px;
+      height: auto;
       object-fit: contain;
       border-radius: 4px;
-      margin-left: 9.5rem;
+      margin-left: 0;
     }
     
     .portrait-caption {
-      margin-top: 1.5rem;
-      margin-left: 8.5rem;
+      margin-top: 1rem;
+      margin-left: 0;
       color: var(--text-color);
-      font-size: 1rem;
+      font-size: 0.85rem;
       text-align: center;
     }
     
@@ -119,18 +117,18 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-between;
-      padding: 3rem 4rem 3rem 6rem;
+      padding: 1.7rem 4rem 3rem 1rem;
       position: relative;
     }
     
     .content {
-      max-width: 800px;
+      max-width: 900px;
       width: 100%;
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: 2rem;
+      padding-top: 0;
     }
     
     .footer-links {
@@ -159,16 +157,17 @@
     
     h1 {
       color: var(--heading-color);
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
       font-weight: normal;
+      margin-top: 0;
     }
     
     h3 {
       color: var(--heading-color);
-      font-size: 2.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
       font-weight: normal;
     }
     
@@ -178,9 +177,9 @@
     
     .intro-text {
       color: var(--text-color);
-      font-size: 1.1rem;
+      font-size: 1rem;
       line-height: 1.8;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       white-space: nowrap;
     }
     
@@ -188,23 +187,36 @@
       color: var(--dark-text-color);
     }
     
+    .subtitle {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      margin-top: 0rem;
+    }
+    
+    body.dark-mode .subtitle {
+      color: var(--dark-text-color);
+    }
+    
     .nav-links {
       list-style: none;
       padding-left: 0;
       margin: 0;
+      margin-top: 0.5rem;
     }
     
     .nav-links li {
-      margin-bottom: 1rem;
-      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
     }
     
     .nav-links a {
       color: var(--link-color);
       text-decoration: none;
       transition: all 0.3s ease;
-      font-size: 1.1rem;
+      font-size: 1rem;
       display: inline;
+      font-weight: 600;
     }
     
     .nav-links a:hover {
@@ -228,52 +240,147 @@
       color: var(--dark-text-color);
     }
     
+    /* Logo oben links mit Text */
+    .logo-container {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      z-index: 1000;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .logo-container img {
+      height: 130px;
+      width: auto;
+      opacity: 0.95;
+      transition: opacity 0.3s ease;
+      background: transparent;
+      mix-blend-mode: multiply;
+      filter: contrast(1.1);
+    }
+    
+    body.dark-mode .logo-container img {
+      mix-blend-mode: screen;
+      filter: invert(1) contrast(1.1);
+    }
+    
+    .logo-container img:hover {
+      opacity: 1;
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .logo-text h2 {
+      font-size: 0.95rem;
+      color: var(--heading-color);
+      font-weight: 600;
+      margin: 0;
+      letter-spacing: 0.3px;
+    }
+    
+    .logo-text p {
+      font-size: 0.7rem;
+      color: var(--text-color);
+      margin: 0;
+      line-height: 1.3;
+    }
+    
+    body.dark-mode .logo-text h2 {
+      color: var(--dark-heading-color);
+    }
+    
+    body.dark-mode .logo-text p {
+      color: var(--dark-text-color);
+    }
+    
     /* Responsive Design */
     @media (max-width: 900px) {
       .container {
         flex-direction: column;
+        padding-top: 120px;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
       
       .left-panel {
         width: 100%;
         min-width: auto;
-        height: 40vh;
+        padding: 1rem;
+        align-items: center;
+        justify-content: center;
       }
       
       .portrait-container {
-        margin-top: 2rem;
+        margin-top: 0;
       }
       
       .portrait {
-        margin-left: 0;
+        width: 150px;
       }
       
       .portrait-caption {
-        margin-left: 0;
+        font-size: 0.8rem;
       }
       
       .footer-links {
         align-self: center;
-        margin-top: 3rem;
+        margin-top: 2rem;
+        padding-right: 0;
       }
       
       .right-panel {
-        padding: 2rem 1.5rem;
+        padding: 1rem 1.5rem 2rem 1.5rem;
         align-items: flex-start;
       }
       
       h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
+      }
+      
+      h3 {
+        font-size: 1.3rem;
       }
       
       .intro-text {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         white-space: normal;
+      }
+      
+      .subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
       }
       
       .nav-links a,
       .nav-links .description {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
+      }
+      
+      .logo-container {
+        top: 10px;
+        left: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .logo-container img {
+        height: 60px;
+      }
+      
+      .logo-text h2 {
+        font-size: 0.9rem;
+      }
+      
+      .logo-text p {
+        font-size: 0.65rem;
       }
     }
     
@@ -714,6 +821,11 @@
 </style>
 </head>
 <body>
+  <!-- Logo oben links -->
+  <div class="logo-container">
+    <img src="images/Logo.png" alt="GA Suche Logo">
+  </div>
+  
   <div class="container">
     <div class="left-panel">
       <div class="portrait-container">
@@ -725,23 +837,22 @@
     <div class="right-panel">
       <div class="content">
         <h1>Rudolf Steiner Gesamtausgabe</h1>
-        
-        <p class="intro-text">Umfassende Suche in der Rudolf Steiner Gesamtausgabe (GA)</p>
+        <p class="subtitle">Volltext-Suche und semantische Analyse</p>
         
         <ul class="nav-links">
-          <li><strong><a href="app.html#ga">Gesamtausgabe</a></strong> <span class="description">- Vorträge mit Kurzusammenfassungen und chronologischer Liste</span></li>
-          <li><strong><a href="app.html#keyword">Volltext- und Stichwortsuche</a></strong> <span class="description">– mit Relevanzbewertung</span></li>
-          <li><strong><a href="app.html#texte">Texte anzeigen lassen</a></strong> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
-          <li><strong><a href="app.html#thematic">Thematische Suche</a></strong> <span class="description">– KI-gestützte semantische Analyse</span></li>
-          <li><strong><a href="app.html#timeline">Timeline</a></strong> <span class="description">- Zeitverlauf von Suchergebnissen und Schlagworten</span></li>
-          <li><strong><a href="app.html#schlagworte">Index</a></strong> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
+          <li><a href="app.html#ga">Gesamtausgabe</a> <span class="description">- Vorträge mit Kurzusammenfassungen und chronologischer Liste</span></li>
+          <li><a href="app.html#keyword">Volltext- und Stichwortsuche</a> <span class="description">– mit Relevanzbewertung</span></li>
+          <li><a href="app.html#texte">Texte anzeigen lassen</a> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
+          <li><a href="app.html#thematic">Thematische Suche</a> <span class="description">– KI-gestützte semantische Analyse</span></li>
+          <li><a href="app.html#timeline">Timeline</a> <span class="description">- Zeitverlauf von Suchergebnissen und Schlagworten</span></li>
+          <li><a href="app.html#schlagworte">Index</a> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
         </ul>
         
         <h3>Sammlungen zu einzelnen Themen</h3>
         
         <ul class="nav-links">
-          <li><strong><a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer">Entwicklung des Kindes</a></strong> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
-          <li><strong><a href="https://publish.obsidian.md/steiner-goetheanism" target="_blank" rel="noopener noreferrer">Goetheanistische Naturschauung</a></strong> <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
+          <li><a href="https://publish.obsidian.md/anthropologie/Start" target="_blank" rel="noopener noreferrer">Entwicklung des Kindes</a> <span class="description">- sämtliche Darstellungen Rudolf Steiners zur Entwicklungsanthropologie</span></li>
+          <li><a href="https://publish.obsidian.md/steiner-goetheanism" target="_blank" rel="noopener noreferrer">Goetheanistische Naturschauung</a> <span class="description">- Sammlung von Zitaten zu Goethes Naturerkenntnis</span></li>
         
         </ul>
       </div>
