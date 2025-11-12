@@ -1,0 +1,778 @@
+{
+  "timestamp": "2025-11-12T22:14:41.486Z",
+  "rulesApplied": 70,
+  "summary": {
+    "keywordsBefore": 2983,
+    "keywordsAfter": 2875,
+    "consolidated": 109,
+    "reduction": 108,
+    "reductionPercent": 4
+  },
+  "consolidations": [
+    {
+      "original": "Geistige Welten",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geist & Materie",
+      "consolidatedTo": "Geist",
+      "reason": "Polarität im Grundbegriff enthalten",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsches Wesen",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geisteswissenschaftliche Erkenntnis",
+      "consolidatedTo": "Geisteswissenschaft",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geist-Seele-Leib",
+      "consolidatedTo": "Geist",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Architektur",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Methode",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziales Leben",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Forschung",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Organische Kosmologie",
+      "consolidatedTo": "Organische Architektur",
+      "reason": "Hauptanwendungsbereich",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Geschichtsforschung",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmisches Wesen",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Germanische Rasse",
+      "consolidatedTo": "Germanische Mythologie",
+      "reason": "Hauptthema",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetenketten",
+      "consolidatedTo": "Planetenkette",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetarische Runden",
+      "consolidatedTo": "Planetarische Entwicklung",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Rhythmen",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Monaden",
+      "consolidatedTo": "Monade",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Gralslegenden",
+      "consolidatedTo": "Gralslegende",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Christliche Gnade",
+      "consolidatedTo": "Christliche Einweihung",
+      "reason": "Teil des Einweihungsweges",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Germanische Mythen",
+      "consolidatedTo": "Germanische Mythologie",
+      "reason": "Hauptthema",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Zeichen",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Pyramiden",
+      "consolidatedTo": "Pyramide",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Geschichte",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Mission",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Kommunikation",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmisches Anschauen",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Sphären",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Tätigkeit",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Moralische Intuitionen",
+      "consolidatedTo": "Moralische Intuition",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Gesellschaft",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Produktion",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Schwert",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Moralische Wesenheit",
+      "consolidatedTo": "Moralische Intuition",
+      "reason": "Zentralbegriff in Philosophie der Freiheit",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Offenbarung",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Bewegung",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Organische Wirkung",
+      "consolidatedTo": "Organische Architektur",
+      "reason": "Hauptanwendungsbereich",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Praktische Bildung",
+      "consolidatedTo": "Praktische Geisteswissenschaft",
+      "reason": "Hauptbegriff umfasst Anwendungen",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Moralische Erziehung",
+      "consolidatedTo": "Moralische Intuition",
+      "reason": "Zentralbegriff in Philosophie der Freiheit",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Pädagogik",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Gebärden",
+      "consolidatedTo": "Gebärde",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Johannes-Taufe",
+      "consolidatedTo": "Johannes",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Forschung",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Praktische Fertigkeiten",
+      "consolidatedTo": "Praktische Geisteswissenschaft",
+      "reason": "Hauptbegriff umfasst Anwendungen",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Germanische Völker",
+      "consolidatedTo": "Germanische Mythologie",
+      "reason": "Hauptthema",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmisches Denken",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Physiologie",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Griechische Götterwelt",
+      "consolidatedTo": "Griechische Philosophie",
+      "reason": "Hauptthema",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetensphären",
+      "consolidatedTo": "Planetensphäre",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetarische Sphären",
+      "consolidatedTo": "Planetarische Entwicklung",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Nahrung",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Johannes-Raffael-Zweig",
+      "consolidatedTo": "Johannes",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Zeitalter",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Glauben",
+      "consolidatedTo": "Glaube",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Schrift",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Christus-Gestalt",
+      "consolidatedTo": "Christus",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetarische Entwicklungsstufen",
+      "consolidatedTo": "Planetarische Entwicklung",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Gesellschaften",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Übungen",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziales Verständnis",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Epochen",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Christus-Mysterium",
+      "consolidatedTo": "Christus",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Baldur-Mythus",
+      "consolidatedTo": "Baldur-Mythos",
+      "reason": "Korrekte Schreibweise",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Bruderschaften",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Phrasen",
+      "consolidatedTo": "Phrase",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsches Reich",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Kräfte",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Dämonische Natur",
+      "consolidatedTo": "Dämonische Wesenheiten",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Volksseelen",
+      "consolidatedTo": "Volksseele",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Mächte",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Impfungen",
+      "consolidatedTo": "Impfung",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Orientalische Eingeweihte",
+      "consolidatedTo": "Orientalische Weisheit",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Zentren",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziale Struktur",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziale Triebe",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Antisoziale Triebe",
+      "consolidatedTo": "Antisoziale Impulse",
+      "reason": "Gebräuchlicherer Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Anschauung",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsches Volk",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziales Problem",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Zeit",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Kultur",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsche Idealisten",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Dämonische Kräfte",
+      "consolidatedTo": "Dämonische Wesenheiten",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geist-Erkenntnis",
+      "consolidatedTo": "Geist",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Moralische Ideale",
+      "consolidatedTo": "Moralische Intuition",
+      "reason": "Zentralbegriff in Philosophie der Freiheit",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Ahrimanische Gewalten",
+      "consolidatedTo": "Ahriman",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Soziale Bindungen",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmisches Dasein",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Pflanzen",
+      "consolidatedTo": "Pflanze",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Substanz",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmisches Eisen",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Christus-Sonne",
+      "consolidatedTo": "Christus",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Strömung",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Michael-Herrschaft",
+      "consolidatedTo": "Michael",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsche Sektion",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Orientalische Mystik",
+      "consolidatedTo": "Orientalische Weisheit",
+      "reason": "Umfassender Begriff",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Anthroposophische Geisteswissenschaft",
+      "consolidatedTo": "Anthroposophie",
+      "reason": "Grundbegriff umfasst alle Bereiche",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geisteswissenschaftliche Ergebnisse",
+      "consolidatedTo": "Geisteswissenschaft",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Praktische Lebensforderungen",
+      "consolidatedTo": "Praktische Geisteswissenschaft",
+      "reason": "Hauptbegriff umfasst Anwendungen",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Okkulte Gesetze",
+      "consolidatedTo": "Okkultismus",
+      "reason": "Grundbegriff umfasst alle Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Deutsche Kolonisten",
+      "consolidatedTo": "Deutsche Geistigkeit",
+      "reason": "Hauptbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Praktische Lösung",
+      "consolidatedTo": "Praktische Geisteswissenschaft",
+      "reason": "Hauptbegriff umfasst Anwendungen",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Organische Formen",
+      "consolidatedTo": "Organische Architektur",
+      "reason": "Hauptanwendungsbereich",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Griechische Tempel",
+      "consolidatedTo": "Griechische Philosophie",
+      "reason": "Hauptthema",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Planetenbewegungen",
+      "consolidatedTo": "Planetenbewegung",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geisteswissenschaftliche Methode",
+      "consolidatedTo": "Geisteswissenschaft",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Soziale Ordnung",
+      "consolidatedTo": "Soziale Frage",
+      "reason": "Hauptthema umfasst Aspekte",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Geistige Erfahrungen",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Allgemeiner Begriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Kosmische Dichtung",
+      "consolidatedTo": "Kosmos",
+      "reason": "Grundbegriff ausreichend",
+      "theme": "Allgemein"
+    },
+    {
+      "original": "Sprachen",
+      "consolidatedTo": "Sprache",
+      "reason": "Singular bevorzugt",
+      "theme": "Allgemein"
+    }
+  ],
+  "mapping": {
+    "Geistige Welten": "Geistige Welt",
+    "Geist & Materie": "Geist",
+    "Deutsches Wesen": "Deutsche Geistigkeit",
+    "Geisteswissenschaftliche Erkenntnis": "Geisteswissenschaft",
+    "Geist-Seele-Leib": "Geist",
+    "Anthroposophische Architektur": "Anthroposophie",
+    "Anthroposophische Methode": "Anthroposophie",
+    "Soziales Leben": "Soziale Frage",
+    "Anthroposophische Forschung": "Anthroposophie",
+    "Organische Kosmologie": "Organische Architektur",
+    "Okkulte Geschichtsforschung": "Okkultismus",
+    "Kosmisches Wesen": "Kosmos",
+    "Germanische Rasse": "Germanische Mythologie",
+    "Planetenketten": "Planetenkette",
+    "Planetarische Runden": "Planetarische Entwicklung",
+    "Kosmische Rhythmen": "Kosmos",
+    "Monaden": "Monade",
+    "Gralslegenden": "Gralslegende",
+    "Christliche Gnade": "Christliche Einweihung",
+    "Germanische Mythen": "Germanische Mythologie",
+    "Okkulte Zeichen": "Okkultismus",
+    "Pyramiden": "Pyramide",
+    "Okkulte Geschichte": "Okkultismus",
+    "Anthroposophische Mission": "Anthroposophie",
+    "Kosmische Kommunikation": "Kosmos",
+    "Kosmisches Anschauen": "Kosmos",
+    "Kosmische Sphären": "Kosmos",
+    "Kosmische Tätigkeit": "Kosmos",
+    "Moralische Intuitionen": "Moralische Intuition",
+    "Anthroposophische Gesellschaft": "Anthroposophie",
+    "Geistige Produktion": "Geistige Welt",
+    "Michael-Schwert": "Michael",
+    "Moralische Wesenheit": "Moralische Intuition",
+    "Michael-Offenbarung": "Michael",
+    "Anthroposophische Bewegung": "Anthroposophie",
+    "Organische Wirkung": "Organische Architektur",
+    "Praktische Bildung": "Praktische Geisteswissenschaft",
+    "Moralische Erziehung": "Moralische Intuition",
+    "Anthroposophische Pädagogik": "Anthroposophie",
+    "Gebärden": "Gebärde",
+    "Johannes-Taufe": "Johannes",
+    "Geistige Forschung": "Geistige Welt",
+    "Praktische Fertigkeiten": "Praktische Geisteswissenschaft",
+    "Germanische Völker": "Germanische Mythologie",
+    "Kosmisches Denken": "Kosmos",
+    "Okkulte Physiologie": "Okkultismus",
+    "Griechische Götterwelt": "Griechische Philosophie",
+    "Planetensphären": "Planetensphäre",
+    "Planetarische Sphären": "Planetarische Entwicklung",
+    "Geistige Nahrung": "Geistige Welt",
+    "Johannes-Raffael-Zweig": "Johannes",
+    "Michael-Zeitalter": "Michael",
+    "Glauben": "Glaube",
+    "Okkulte Schrift": "Okkultismus",
+    "Christus-Gestalt": "Christus",
+    "Planetarische Entwicklungsstufen": "Planetarische Entwicklung",
+    "Okkulte Gesellschaften": "Okkultismus",
+    "Geistige Übungen": "Geistige Welt",
+    "Soziales Verständnis": "Soziale Frage",
+    "Kosmische Epochen": "Kosmos",
+    "Christus-Mysterium": "Christus",
+    "Baldur-Mythus": "Baldur-Mythos",
+    "Okkulte Bruderschaften": "Okkultismus",
+    "Phrasen": "Phrase",
+    "Deutsches Reich": "Deutsche Geistigkeit",
+    "Okkulte Kräfte": "Okkultismus",
+    "Dämonische Natur": "Dämonische Wesenheiten",
+    "Volksseelen": "Volksseele",
+    "Okkulte Mächte": "Okkultismus",
+    "Impfungen": "Impfung",
+    "Orientalische Eingeweihte": "Orientalische Weisheit",
+    "Okkulte Zentren": "Okkultismus",
+    "Soziale Struktur": "Soziale Frage",
+    "Soziale Triebe": "Soziale Frage",
+    "Antisoziale Triebe": "Antisoziale Impulse",
+    "Geistige Anschauung": "Geistige Welt",
+    "Deutsches Volk": "Deutsche Geistigkeit",
+    "Soziales Problem": "Soziale Frage",
+    "Michael-Zeit": "Michael",
+    "Michael-Kultur": "Michael",
+    "Deutsche Idealisten": "Deutsche Geistigkeit",
+    "Dämonische Kräfte": "Dämonische Wesenheiten",
+    "Geist-Erkenntnis": "Geist",
+    "Moralische Ideale": "Moralische Intuition",
+    "Ahrimanische Gewalten": "Ahriman",
+    "Soziale Bindungen": "Soziale Frage",
+    "Kosmisches Dasein": "Kosmos",
+    "Pflanzen": "Pflanze",
+    "Geistige Substanz": "Geistige Welt",
+    "Kosmisches Eisen": "Kosmos",
+    "Christus-Sonne": "Christus",
+    "Michael-Strömung": "Michael",
+    "Michael-Herrschaft": "Michael",
+    "Deutsche Sektion": "Deutsche Geistigkeit",
+    "Orientalische Mystik": "Orientalische Weisheit",
+    "Anthroposophische Geisteswissenschaft": "Anthroposophie",
+    "Geisteswissenschaftliche Ergebnisse": "Geisteswissenschaft",
+    "Praktische Lebensforderungen": "Praktische Geisteswissenschaft",
+    "Okkulte Gesetze": "Okkultismus",
+    "Deutsche Kolonisten": "Deutsche Geistigkeit",
+    "Praktische Lösung": "Praktische Geisteswissenschaft",
+    "Organische Formen": "Organische Architektur",
+    "Griechische Tempel": "Griechische Philosophie",
+    "Planetenbewegungen": "Planetenbewegung",
+    "Geisteswissenschaftliche Methode": "Geisteswissenschaft",
+    "Soziale Ordnung": "Soziale Frage",
+    "Geistige Erfahrungen": "Geistige Welt",
+    "Kosmische Dichtung": "Kosmos",
+    "Sprachen": "Sprache"
+  }
+}

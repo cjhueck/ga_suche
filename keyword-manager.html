@@ -823,13 +823,14 @@
                 const keywordMap = new Map();
                 
                 Object.entries(keywordsDB).forEach(([lectureId, lectureData]) => {
-                    // Filtere: NUR Vorträge mit neuem unified generationMethod
-                    const isNewGeneration = lectureData.generationMethod && 
+                    // Filtere: ALLE Vorträge mit Keywords (inkl. synced)
+                    const hasKeywords = lectureData.generationMethod && 
                         (lectureData.generationMethod.includes('unified-batch') || 
                          lectureData.generationMethod.includes('unified') ||
-                        lectureData.generationMethod.includes('manual'));
+                         lectureData.generationMethod.includes('manual') ||
+                         lectureData.generationMethod.includes('synced-from-summary-db'));
                     
-                    if (isNewGeneration && lectureData.keywords && Array.isArray(lectureData.keywords)) {
+                    if (hasKeywords && lectureData.keywords && Array.isArray(lectureData.keywords)) {
                         lectureData.keywords.forEach(kw => {
                             const term = kw.term || kw;
                             if (typeof term === 'string') {

@@ -1,0 +1,1194 @@
+{
+  "timestamp": "2025-11-12T22:12:58.088Z",
+  "totalKeywords": 2983,
+  "pluralPairs": [
+    {
+      "plural": "Gebärden",
+      "singular": "Gebärde"
+    },
+    {
+      "plural": "Glauben",
+      "singular": "Glaube"
+    },
+    {
+      "plural": "Gralslegenden",
+      "singular": "Gralslegende"
+    },
+    {
+      "plural": "Impfungen",
+      "singular": "Impfung"
+    },
+    {
+      "plural": "Monaden",
+      "singular": "Monade"
+    },
+    {
+      "plural": "Pflanzen",
+      "singular": "Pflanze"
+    },
+    {
+      "plural": "Phrasen",
+      "singular": "Phrase"
+    },
+    {
+      "plural": "Planetenbewegungen",
+      "singular": "Planetenbewegung"
+    },
+    {
+      "plural": "Planetenketten",
+      "singular": "Planetenkette"
+    },
+    {
+      "plural": "Planetensphären",
+      "singular": "Planetensphäre"
+    },
+    {
+      "plural": "Pyramiden",
+      "singular": "Pyramide"
+    },
+    {
+      "plural": "Sprachen",
+      "singular": "Sprache"
+    },
+    {
+      "plural": "Volksseelen",
+      "singular": "Volksseele"
+    }
+  ],
+  "compoundGroups": [
+    {
+      "stem": "Geistige",
+      "keywords": [
+        "Geistige Anschauung",
+        "Geistige Chemie",
+        "Geistige Entwicklung",
+        "Geistige Erfahrungen",
+        "Geistige Erkenntnis",
+        "Geistige Forschung",
+        "Geistige Gemeinschaft",
+        "Geistige Geographie",
+        "Geistige Hierarchien",
+        "Geistige Kommunion",
+        "Geistige Lehrer",
+        "Geistige Mitternacht",
+        "Geistige Nahrung",
+        "Geistige Produktion",
+        "Geistige Schulung",
+        "Geistige Substanz",
+        "Geistige Vervollkommnung",
+        "Geistige Welt",
+        "Geistige Welten",
+        "Geistige Wesenheiten",
+        "Geistige Übungen"
+      ],
+      "count": 21
+    },
+    {
+      "stem": "Okkulte",
+      "keywords": [
+        "Okkulte Bruderschaften",
+        "Okkulte Geschichte",
+        "Okkulte Geschichtsforschung",
+        "Okkulte Gesellschaften",
+        "Okkulte Gesetze",
+        "Okkulte Kräfte",
+        "Okkulte Mächte",
+        "Okkulte Physiologie",
+        "Okkulte Schrift",
+        "Okkulte Schulung",
+        "Okkulte Zeichen",
+        "Okkulte Zentren"
+      ],
+      "count": 12
+    },
+    {
+      "stem": "Kosmische",
+      "keywords": [
+        "Kosmische Dichtung",
+        "Kosmische Entwicklung",
+        "Kosmische Epochen",
+        "Kosmische Intelligenz",
+        "Kosmische Kommunikation",
+        "Kosmische Kräfte",
+        "Kosmische Rhythmen",
+        "Kosmische Sphären",
+        "Kosmische Tätigkeit",
+        "Kosmische Zusammenhänge",
+        "Kosmische Zyklen"
+      ],
+      "count": 11
+    },
+    {
+      "stem": "Anthroposophische",
+      "keywords": [
+        "Anthroposophische Architektur",
+        "Anthroposophische Bewegung",
+        "Anthroposophische Forschung",
+        "Anthroposophische Geisteswissenschaft",
+        "Anthroposophische Gesellschaft",
+        "Anthroposophische Medizin",
+        "Anthroposophische Methode",
+        "Anthroposophische Mission",
+        "Anthroposophische Pädagogik"
+      ],
+      "count": 9
+    },
+    {
+      "stem": "Johannes",
+      "keywords": [
+        "Johannes Ruysbroek",
+        "Johannes Scotus Erigena",
+        "Johannes Tauler",
+        "Johannes Thomasius",
+        "Johannes der Täufer",
+        "Johannes vom Kreuz",
+        "Johannes-Evangelium",
+        "Johannes-Raffael-Zweig",
+        "Johannes-Taufe"
+      ],
+      "count": 9
+    },
+    {
+      "stem": "Michael",
+      "keywords": [
+        "Michael-Herrschaft",
+        "Michael-Kultur",
+        "Michael-Offenbarung",
+        "Michael-Schwert",
+        "Michael-Strömung",
+        "Michael-Zeit",
+        "Michael-Zeitalter"
+      ],
+      "count": 7
+    },
+    {
+      "stem": "Kosmisches",
+      "keywords": [
+        "Kosmisches Anschauen",
+        "Kosmisches Bewusstsein",
+        "Kosmisches Dasein",
+        "Kosmisches Denken",
+        "Kosmisches Eisen",
+        "Kosmisches Wesen"
+      ],
+      "count": 6
+    },
+    {
+      "stem": "Soziale",
+      "keywords": [
+        "Soziale Bindungen",
+        "Soziale Dreigliederung",
+        "Soziale Frage",
+        "Soziale Ordnung",
+        "Soziale Struktur",
+        "Soziale Triebe"
+      ],
+      "count": 6
+    },
+    {
+      "stem": "Deutsche",
+      "keywords": [
+        "Deutsche Geistigkeit",
+        "Deutsche Idealisten",
+        "Deutsche Kolonisten",
+        "Deutsche Mystik",
+        "Deutsche Sektion"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Geister",
+      "keywords": [
+        "Geister der Bewegung",
+        "Geister der Finsternis",
+        "Geister der Form",
+        "Geister der Persönlichkeit",
+        "Geister des Willens"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Praktische",
+      "keywords": [
+        "Praktische Bildung",
+        "Praktische Fertigkeiten",
+        "Praktische Geisteswissenschaft",
+        "Praktische Lebensforderungen",
+        "Praktische Lösung"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Christus",
+      "keywords": [
+        "Christus-Ereignis",
+        "Christus-Gestalt",
+        "Christus-Mysterium",
+        "Christus-Sonne"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Geist",
+      "keywords": [
+        "Geist & Materie",
+        "Geist der Wahrheit",
+        "Geist-Erkenntnis",
+        "Geist-Seele-Leib"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Germanische",
+      "keywords": [
+        "Germanische Mythen",
+        "Germanische Mythologie",
+        "Germanische Rasse",
+        "Germanische Völker"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Griechische",
+      "keywords": [
+        "Griechische Götterwelt",
+        "Griechische Mythologie",
+        "Griechische Philosophie",
+        "Griechische Tempel"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Kosmischer",
+      "keywords": [
+        "Kosmischer Kultus",
+        "Kosmischer Mensch",
+        "Kosmischer Zusammenhang",
+        "Kosmischer Äther"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Moralische",
+      "keywords": [
+        "Moralische Erziehung",
+        "Moralische Ideale",
+        "Moralische Intuitionen",
+        "Moralische Wesenheit"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Organische",
+      "keywords": [
+        "Organische Architektur",
+        "Organische Formen",
+        "Organische Kosmologie",
+        "Organische Wirkung"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Planetarische",
+      "keywords": [
+        "Planetarische Entwicklung",
+        "Planetarische Entwicklungsstufen",
+        "Planetarische Runden",
+        "Planetarische Sphären"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Bewusstsein",
+      "keywords": [
+        "Bewusstsein & Abbau",
+        "Bewusstsein nach dem Tod",
+        "Bewusstsein ohne einen gewußten Gegenstand"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Deutsches",
+      "keywords": [
+        "Deutsches Reich",
+        "Deutsches Volk",
+        "Deutsches Wesen"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Dämonische",
+      "keywords": [
+        "Dämonische Kräfte",
+        "Dämonische Natur",
+        "Dämonische Wesenheiten"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Franz",
+      "keywords": [
+        "Franz Brentano",
+        "Franz Ferdinand",
+        "Franz von Assisi"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Geisteswissenschaftliche",
+      "keywords": [
+        "Geisteswissenschaftliche Ergebnisse",
+        "Geisteswissenschaftliche Erkenntnis",
+        "Geisteswissenschaftliche Methode"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Heinrich",
+      "keywords": [
+        "Heinrich Heine",
+        "Heinrich VIII",
+        "Heinrich von Ofterdingen"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Jakob",
+      "keywords": [
+        "Jakob Böhme",
+        "Jakob Grimm",
+        "Jakob I."
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Karl",
+      "keywords": [
+        "Karl Julius Schröer",
+        "Karl Marx",
+        "Karl der Große"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Orientalische",
+      "keywords": [
+        "Orientalische Eingeweihte",
+        "Orientalische Mystik",
+        "Orientalische Weisheit"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Otto",
+      "keywords": [
+        "Otto Hausner",
+        "Otto Liebmann",
+        "Otto Ludwig"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Soziales",
+      "keywords": [
+        "Soziales Leben",
+        "Soziales Problem",
+        "Soziales Verständnis"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Wilhelm",
+      "keywords": [
+        "Wilhelm Hübbe-Schleiden",
+        "Wilhelm Jordan",
+        "Wilhelm Meister"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Adam",
+      "keywords": [
+        "Adam Kadmon",
+        "Adam und Eva"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ahrimanische",
+      "keywords": [
+        "Ahrimanische Gewalten",
+        "Ahrimanische und luziferische Kräfte"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Antisoziale",
+      "keywords": [
+        "Antisoziale Impulse",
+        "Antisoziale Triebe"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Baldur",
+      "keywords": [
+        "Baldur-Mythos",
+        "Baldur-Mythus"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Britisches",
+      "keywords": [
+        "Britisches Imperium",
+        "Britisches Reich"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Chinesische",
+      "keywords": [
+        "Chinesische Geistergeschichten",
+        "Chinesische Weltanschauung"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Chor",
+      "keywords": [
+        "Chor der Urtriebe",
+        "Chor der Urträume"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Christian",
+      "keywords": [
+        "Christian Morgenstern",
+        "Christian Rosenkreutz"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Christliche",
+      "keywords": [
+        "Christliche Einweihung",
+        "Christliche Gnade"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Dornacher",
+      "keywords": [
+        "Dornacher Bau",
+        "Dornacher Katastrophe"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Dramatische",
+      "keywords": [
+        "Dramatische Darstellung",
+        "Dramatische Kunst"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ewig",
+      "keywords": [
+        "Ewig-Männliche",
+        "Ewig-Weibliche"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ewiger",
+      "keywords": [
+        "Ewiger Frieden",
+        "Ewiger Jude"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Friedrich",
+      "keywords": [
+        "Friedrich Lienhard",
+        "Friedrich Schlegel"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Golgatha",
+      "keywords": [
+        "Golgatha-Mysterium",
+        "Golgatha-Opfer"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Göttliche",
+      "keywords": [
+        "Göttliche Führung",
+        "Göttliche Komödie"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Heiliger",
+      "keywords": [
+        "Heiliger Geist",
+        "Heiliger Gral"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Jungfrau",
+      "keywords": [
+        "Jungfrau Sophia",
+        "Jungfrau von Orleans"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Katholische",
+      "keywords": [
+        "Katholische Kirche",
+        "Katholische Messe"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Mechanische",
+      "keywords": [
+        "Mechanische Arbeit",
+        "Mechanische Wärmetheorie"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Mysterium",
+      "keywords": [
+        "Mysterium des Willens",
+        "Mysterium von Golgatha"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Philosophische",
+      "keywords": [
+        "Philosophische Epochen",
+        "Philosophische Fakultät"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Praktisches",
+      "keywords": [
+        "Praktisches Denken",
+        "Praktisches Leben"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ptolemäisches",
+      "keywords": [
+        "Ptolemäisches System",
+        "Ptolemäisches Weltensystem"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Richard",
+      "keywords": [
+        "Richard Wagner",
+        "Richard Wahle"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Römische",
+      "keywords": [
+        "Römische Geschichte",
+        "Römische Könige"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Römisches",
+      "keywords": [
+        "Römisches Imperium",
+        "Römisches Reich"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Seelische",
+      "keywords": [
+        "Seelische Gesundheit",
+        "Seelische Wirkungen"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Sozialer",
+      "keywords": [
+        "Sozialer Impuls",
+        "Sozialer Organismus"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Spirituelles",
+      "keywords": [
+        "Spirituelles Bewusstsein",
+        "Spirituelles Leben"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Theosophische",
+      "keywords": [
+        "Theosophische Bewegung",
+        "Theosophische Gesellschaft"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Therapeutische",
+      "keywords": [
+        "Therapeutische Eurythmie",
+        "Therapeutische Methoden"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Thomas",
+      "keywords": [
+        "Thomas Morus",
+        "Thomas von Aquino"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Vorgeburtliches",
+      "keywords": [
+        "Vorgeburtliches Dasein",
+        "Vorgeburtliches Leben"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Weiße",
+      "keywords": [
+        "Weiße Loge",
+        "Weiße Magie"
+      ],
+      "count": 2
+    }
+  ],
+  "top50CompoundGroups": [
+    {
+      "stem": "Geistige",
+      "keywords": [
+        "Geistige Anschauung",
+        "Geistige Chemie",
+        "Geistige Entwicklung",
+        "Geistige Erfahrungen",
+        "Geistige Erkenntnis",
+        "Geistige Forschung",
+        "Geistige Gemeinschaft",
+        "Geistige Geographie",
+        "Geistige Hierarchien",
+        "Geistige Kommunion",
+        "Geistige Lehrer",
+        "Geistige Mitternacht",
+        "Geistige Nahrung",
+        "Geistige Produktion",
+        "Geistige Schulung",
+        "Geistige Substanz",
+        "Geistige Vervollkommnung",
+        "Geistige Welt",
+        "Geistige Welten",
+        "Geistige Wesenheiten",
+        "Geistige Übungen"
+      ],
+      "count": 21
+    },
+    {
+      "stem": "Okkulte",
+      "keywords": [
+        "Okkulte Bruderschaften",
+        "Okkulte Geschichte",
+        "Okkulte Geschichtsforschung",
+        "Okkulte Gesellschaften",
+        "Okkulte Gesetze",
+        "Okkulte Kräfte",
+        "Okkulte Mächte",
+        "Okkulte Physiologie",
+        "Okkulte Schrift",
+        "Okkulte Schulung",
+        "Okkulte Zeichen",
+        "Okkulte Zentren"
+      ],
+      "count": 12
+    },
+    {
+      "stem": "Kosmische",
+      "keywords": [
+        "Kosmische Dichtung",
+        "Kosmische Entwicklung",
+        "Kosmische Epochen",
+        "Kosmische Intelligenz",
+        "Kosmische Kommunikation",
+        "Kosmische Kräfte",
+        "Kosmische Rhythmen",
+        "Kosmische Sphären",
+        "Kosmische Tätigkeit",
+        "Kosmische Zusammenhänge",
+        "Kosmische Zyklen"
+      ],
+      "count": 11
+    },
+    {
+      "stem": "Anthroposophische",
+      "keywords": [
+        "Anthroposophische Architektur",
+        "Anthroposophische Bewegung",
+        "Anthroposophische Forschung",
+        "Anthroposophische Geisteswissenschaft",
+        "Anthroposophische Gesellschaft",
+        "Anthroposophische Medizin",
+        "Anthroposophische Methode",
+        "Anthroposophische Mission",
+        "Anthroposophische Pädagogik"
+      ],
+      "count": 9
+    },
+    {
+      "stem": "Johannes",
+      "keywords": [
+        "Johannes Ruysbroek",
+        "Johannes Scotus Erigena",
+        "Johannes Tauler",
+        "Johannes Thomasius",
+        "Johannes der Täufer",
+        "Johannes vom Kreuz",
+        "Johannes-Evangelium",
+        "Johannes-Raffael-Zweig",
+        "Johannes-Taufe"
+      ],
+      "count": 9
+    },
+    {
+      "stem": "Michael",
+      "keywords": [
+        "Michael-Herrschaft",
+        "Michael-Kultur",
+        "Michael-Offenbarung",
+        "Michael-Schwert",
+        "Michael-Strömung",
+        "Michael-Zeit",
+        "Michael-Zeitalter"
+      ],
+      "count": 7
+    },
+    {
+      "stem": "Kosmisches",
+      "keywords": [
+        "Kosmisches Anschauen",
+        "Kosmisches Bewusstsein",
+        "Kosmisches Dasein",
+        "Kosmisches Denken",
+        "Kosmisches Eisen",
+        "Kosmisches Wesen"
+      ],
+      "count": 6
+    },
+    {
+      "stem": "Soziale",
+      "keywords": [
+        "Soziale Bindungen",
+        "Soziale Dreigliederung",
+        "Soziale Frage",
+        "Soziale Ordnung",
+        "Soziale Struktur",
+        "Soziale Triebe"
+      ],
+      "count": 6
+    },
+    {
+      "stem": "Deutsche",
+      "keywords": [
+        "Deutsche Geistigkeit",
+        "Deutsche Idealisten",
+        "Deutsche Kolonisten",
+        "Deutsche Mystik",
+        "Deutsche Sektion"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Geister",
+      "keywords": [
+        "Geister der Bewegung",
+        "Geister der Finsternis",
+        "Geister der Form",
+        "Geister der Persönlichkeit",
+        "Geister des Willens"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Praktische",
+      "keywords": [
+        "Praktische Bildung",
+        "Praktische Fertigkeiten",
+        "Praktische Geisteswissenschaft",
+        "Praktische Lebensforderungen",
+        "Praktische Lösung"
+      ],
+      "count": 5
+    },
+    {
+      "stem": "Christus",
+      "keywords": [
+        "Christus-Ereignis",
+        "Christus-Gestalt",
+        "Christus-Mysterium",
+        "Christus-Sonne"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Geist",
+      "keywords": [
+        "Geist & Materie",
+        "Geist der Wahrheit",
+        "Geist-Erkenntnis",
+        "Geist-Seele-Leib"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Germanische",
+      "keywords": [
+        "Germanische Mythen",
+        "Germanische Mythologie",
+        "Germanische Rasse",
+        "Germanische Völker"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Griechische",
+      "keywords": [
+        "Griechische Götterwelt",
+        "Griechische Mythologie",
+        "Griechische Philosophie",
+        "Griechische Tempel"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Kosmischer",
+      "keywords": [
+        "Kosmischer Kultus",
+        "Kosmischer Mensch",
+        "Kosmischer Zusammenhang",
+        "Kosmischer Äther"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Moralische",
+      "keywords": [
+        "Moralische Erziehung",
+        "Moralische Ideale",
+        "Moralische Intuitionen",
+        "Moralische Wesenheit"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Organische",
+      "keywords": [
+        "Organische Architektur",
+        "Organische Formen",
+        "Organische Kosmologie",
+        "Organische Wirkung"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Planetarische",
+      "keywords": [
+        "Planetarische Entwicklung",
+        "Planetarische Entwicklungsstufen",
+        "Planetarische Runden",
+        "Planetarische Sphären"
+      ],
+      "count": 4
+    },
+    {
+      "stem": "Bewusstsein",
+      "keywords": [
+        "Bewusstsein & Abbau",
+        "Bewusstsein nach dem Tod",
+        "Bewusstsein ohne einen gewußten Gegenstand"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Deutsches",
+      "keywords": [
+        "Deutsches Reich",
+        "Deutsches Volk",
+        "Deutsches Wesen"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Dämonische",
+      "keywords": [
+        "Dämonische Kräfte",
+        "Dämonische Natur",
+        "Dämonische Wesenheiten"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Franz",
+      "keywords": [
+        "Franz Brentano",
+        "Franz Ferdinand",
+        "Franz von Assisi"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Geisteswissenschaftliche",
+      "keywords": [
+        "Geisteswissenschaftliche Ergebnisse",
+        "Geisteswissenschaftliche Erkenntnis",
+        "Geisteswissenschaftliche Methode"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Heinrich",
+      "keywords": [
+        "Heinrich Heine",
+        "Heinrich VIII",
+        "Heinrich von Ofterdingen"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Jakob",
+      "keywords": [
+        "Jakob Böhme",
+        "Jakob Grimm",
+        "Jakob I."
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Karl",
+      "keywords": [
+        "Karl Julius Schröer",
+        "Karl Marx",
+        "Karl der Große"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Orientalische",
+      "keywords": [
+        "Orientalische Eingeweihte",
+        "Orientalische Mystik",
+        "Orientalische Weisheit"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Otto",
+      "keywords": [
+        "Otto Hausner",
+        "Otto Liebmann",
+        "Otto Ludwig"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Soziales",
+      "keywords": [
+        "Soziales Leben",
+        "Soziales Problem",
+        "Soziales Verständnis"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Wilhelm",
+      "keywords": [
+        "Wilhelm Hübbe-Schleiden",
+        "Wilhelm Jordan",
+        "Wilhelm Meister"
+      ],
+      "count": 3
+    },
+    {
+      "stem": "Adam",
+      "keywords": [
+        "Adam Kadmon",
+        "Adam und Eva"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ahrimanische",
+      "keywords": [
+        "Ahrimanische Gewalten",
+        "Ahrimanische und luziferische Kräfte"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Antisoziale",
+      "keywords": [
+        "Antisoziale Impulse",
+        "Antisoziale Triebe"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Baldur",
+      "keywords": [
+        "Baldur-Mythos",
+        "Baldur-Mythus"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Britisches",
+      "keywords": [
+        "Britisches Imperium",
+        "Britisches Reich"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Chinesische",
+      "keywords": [
+        "Chinesische Geistergeschichten",
+        "Chinesische Weltanschauung"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Chor",
+      "keywords": [
+        "Chor der Urtriebe",
+        "Chor der Urträume"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Christian",
+      "keywords": [
+        "Christian Morgenstern",
+        "Christian Rosenkreutz"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Christliche",
+      "keywords": [
+        "Christliche Einweihung",
+        "Christliche Gnade"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Dornacher",
+      "keywords": [
+        "Dornacher Bau",
+        "Dornacher Katastrophe"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Dramatische",
+      "keywords": [
+        "Dramatische Darstellung",
+        "Dramatische Kunst"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ewig",
+      "keywords": [
+        "Ewig-Männliche",
+        "Ewig-Weibliche"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Ewiger",
+      "keywords": [
+        "Ewiger Frieden",
+        "Ewiger Jude"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Friedrich",
+      "keywords": [
+        "Friedrich Lienhard",
+        "Friedrich Schlegel"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Golgatha",
+      "keywords": [
+        "Golgatha-Mysterium",
+        "Golgatha-Opfer"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Göttliche",
+      "keywords": [
+        "Göttliche Führung",
+        "Göttliche Komödie"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Heiliger",
+      "keywords": [
+        "Heiliger Geist",
+        "Heiliger Gral"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Jungfrau",
+      "keywords": [
+        "Jungfrau Sophia",
+        "Jungfrau von Orleans"
+      ],
+      "count": 2
+    },
+    {
+      "stem": "Katholische",
+      "keywords": [
+        "Katholische Kirche",
+        "Katholische Messe"
+      ],
+      "count": 2
+    }
+  ]
+}
