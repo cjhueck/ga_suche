@@ -1148,13 +1148,19 @@ body.dark-mode .ga-missing-text {
     
     body.dark-mode .depth-btn.primary {
       background: var(--link-color);
-      color: var(--dark-text-color);
+      color: #1a1a1a;
       border: 2px solid var(--link-color);
     }
     
     body.dark-mode .depth-btn.primary:hover {
       background: #355d68;
       border-color: #355d68;
+      color: #1a1a1a;
+    }
+    
+    /* Chronologisch Button im Dark Mode */
+    body.dark-mode #ga-chronological-view-btn {
+      color: #1a1a1a !important;
     }
     
     body.dark-mode .summary-buttons .search-button {
@@ -3491,7 +3497,7 @@ body.dark-mode .help-choice-btn {
 
 body.dark-mode .help-choice-btn:hover {
   background-color: #6BA3B8;
-  color: white;
+  color: #1a1a1a;
   border-color: #6BA3B8;
 }
 
@@ -3605,10 +3611,12 @@ body.dark-mode .help-content-display pre {
 
 body.dark-mode .help-back-btn {
   background-color: #6BA3B8;
+  color: #1a1a1a;
 }
 
 body.dark-mode .help-back-btn:hover {
   background-color: #5a8a9a;
+  color: #1a1a1a;
 }
 
 /* ========================================
@@ -5088,6 +5096,22 @@ function normalizeGANumber(gaNumber) {
           console.log('[HISTORY] GA Chronologische Ansicht');
           setTimeout(() => {
             showGAChronologicalView(true);
+          }, 300);
+        }
+        
+        // Wenn erweiterte Suche im State ist, führe sie aus
+        if (event.state.searchType === 'advanced' && event.state.tab === 'erweitert') {
+          console.log('[HISTORY] Erweiterte Suche wiederherstellen:', event.state.searchParams);
+          setTimeout(() => {
+            restoreAdvancedSearch(event.state.searchParams);
+          }, 300);
+        }
+        
+        // Wenn Häufigkeitsanalyse im State ist, führe sie aus
+        if (event.state.searchType === 'frequency' && event.state.tab === 'erweitert') {
+          console.log('[HISTORY] Häufigkeitsanalyse wiederherstellen:', event.state.searchParams);
+          setTimeout(() => {
+            restoreFrequencyAnalysis(event.state.searchParams);
           }, 300);
         }
       } else {
@@ -7526,6 +7550,21 @@ function displayGAChronological(lectures) {
         // Rendere Ergebnisse als Grid-Tabelle im Viewer
         renderAdvancedSearchResults(words, results);
         
+        // Browser History Eintrag hinzufügen
+        const searchParams = {
+          words: words,
+          operators: operators,
+          proximity: proximity,
+          gaFilter: gaFilter
+        };
+        const url = `${window.location.pathname}#erweitert?q=${encodeURIComponent(JSON.stringify(searchParams))}`;
+        history.pushState({ 
+          tab: 'erweitert',
+          searchType: 'advanced',
+          searchParams: searchParams
+        }, '', url);
+        console.log('[HISTORY] Erweiterte Suche gespeichert');
+        
       } catch (error) {
         console.error('[ADVANCED-SEARCH] Fehler:', error);
         statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
@@ -7948,6 +7987,21 @@ function displayGAChronological(lectures) {
         // Rendere Häufigkeitsanalyse im Viewer
         renderFrequencyAnalysis(words, frequencies, proximityFrequencies, proximity);
         
+        // Browser History Eintrag hinzufügen
+        const searchParams = {
+          words: words,
+          operators: operators,
+          proximity: proximity,
+          gaFilter: gaFilter
+        };
+        const url = `${window.location.pathname}#erweitert?freq=${encodeURIComponent(JSON.stringify(searchParams))}`;
+        history.pushState({ 
+          tab: 'erweitert',
+          searchType: 'frequency',
+          searchParams: searchParams
+        }, '', url);
+        console.log('[HISTORY] Häufigkeitsanalyse gespeichert');
+        
       } catch (error) {
         console.error('[FREQUENCY-ANALYSIS] Fehler:', error);
         statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
@@ -7961,6 +8015,69 @@ function displayGAChronological(lectures) {
         button.classList.remove('processing');
         button.textContent = 'Häufigkeit';
       }
+    }
+    
+    // Stelle erweiterte Suche aus Browser-History wieder her
+    async function restoreAdvancedSearch(searchParams) {
+      console.log('[HISTORY] Stelle erweiterte Suche wieder her:', searchParams);
+      
+      // Fülle Eingabefelder
+      for (let i = 0; i < searchParams.words.length && i < 7; i++) {
+        const wordInput = document.getElementById(`advWord${i + 1}`);
+        if (wordInput) {
+          wordInput.value = searchParams.words[i];
+        }
+        
+        // Setze Operator (falls vorhanden)
+        if (i < searchParams.operators.length) {
+          const operatorRadio = document.querySelector(`input[name="advOperator${i + 1}"][value="${searchParams.operators[i]}"]`);
+          if (operatorRadio) {
+            operatorRadio.checked = true;
+          }
+        }
+      }
+      
+      // Setze Proximity
+      const proximityElement = document.getElementById('advancedProximityFilter');
+      if (proximityElement) {
+        proximityElement.value = searchParams.proximity || '';
+      }
+      
+      // Setze GA-Filter (vereinfacht - könnte erweitert werden)
+      // Hinweis: GA-Filter Wiederherstellung könnte komplexer sein, abhängig von der Implementierung
+      
+      // Führe Suche aus
+      await performAdvancedSearch();
+    }
+    
+    // Stelle Häufigkeitsanalyse aus Browser-History wieder her
+    async function restoreFrequencyAnalysis(searchParams) {
+      console.log('[HISTORY] Stelle Häufigkeitsanalyse wieder her:', searchParams);
+      
+      // Fülle Eingabefelder
+      for (let i = 0; i < searchParams.words.length && i < 7; i++) {
+        const wordInput = document.getElementById(`advWord${i + 1}`);
+        if (wordInput) {
+          wordInput.value = searchParams.words[i];
+        }
+        
+        // Setze Operator (falls vorhanden)
+        if (i < searchParams.operators.length) {
+          const operatorRadio = document.querySelector(`input[name="advOperator${i + 1}"][value="${searchParams.operators[i]}"]`);
+          if (operatorRadio) {
+            operatorRadio.checked = true;
+          }
+        }
+      }
+      
+      // Setze Proximity
+      const proximityElement = document.getElementById('advancedProximityFilter');
+      if (proximityElement) {
+        proximityElement.value = searchParams.proximity || '';
+      }
+      
+      // Führe Häufigkeitsanalyse aus
+      await performAdvancedFrequencyAnalysis();
     }
     
     async function calculateFrequenciesFromSearch(words, operators, proximity, gaFilter) {
