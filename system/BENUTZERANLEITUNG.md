@@ -2,7 +2,7 @@
 
 - **GA** - Auswahl einzelner GA-Bände, Anzeige der darin enthaltenen Vorträge mit Kurzusammenfassungen, sowie eine chronologische Liste der Vorträge Rudolf Steiners
 - **Suche**: Stichwortsuche in Texten und Vorträgen (mit Bewertung der Relevanz gefundener Stellen) 
-- **Suche erweitert**: bis zu sieben Stichworte gleichzeitig suchen
+- **Suche erweitert**: bis zu sieben Stichworte gleichzeitig suchen; Anzeige der Häufigkeit der Suchworte in GA-Bänden und Vorträgen
 - **Texte**: Übersicht über die Texte und Vorträge aus den aufgelisteten GA-Bänden, mit Zusammenfassungen, Schlagwörtern und Zwischenüberschriften
 - **Themen**: Thematische Suche (KI-gestützt)
 - **Timeline**: Zeitlicher Verlauf einzelner Such- und Schlagwörter in der GA
