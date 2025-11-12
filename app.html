@@ -6514,7 +6514,7 @@ function navigateToTheme(themeName) {
   // Warte kurz, damit der Tab geladen ist
   setTimeout(() => {
     // Versuche das Thema im Theme-Filter zu setzen
-    const themeFilter = document.getElementById('timelineThemeFilterInline');
+    const themeFilter = document.getElementById('timelineThemeFilterAdmin');
     if (themeFilter) {
       // Setze Dropdown-Wert
       themeFilter.value = themeName;
@@ -15447,7 +15447,8 @@ async function showTimeline(keyword, clickedButton) {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -16461,7 +16462,7 @@ async function loadTimelineThemes() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const themes = await response.json();
-    const themeSelect = document.getElementById('timelineThemeFilterInline');
+    const themeSelect = document.getElementById('timelineThemeFilterAdmin');
     
     // Element existiert nur wenn Timeline gerendert wurde
     if (!themeSelect) {
@@ -16487,7 +16488,7 @@ async function loadTimelineThemes() {
     }
   } catch (error) {
     console.error('[TIMELINE] Fehler beim Laden der Themenbereiche:', error);
-    const themeSelect = document.getElementById('timelineThemeFilterInline');
+    const themeSelect = document.getElementById('timelineThemeFilterAdmin');
     if (themeSelect) {
       themeSelect.innerHTML = '<option value="">Fehler beim Laden</option>';
     }
@@ -16496,8 +16497,8 @@ async function loadTimelineThemes() {
 
 // Load keywords for selected theme
 async function loadTimelineKeywords() {
-  const themeSelect = document.getElementById('timelineThemeFilterInline');
-  const keywordSelect = document.getElementById('timelineKeywordFilterInline');
+  const themeSelect = document.getElementById('timelineThemeFilterAdmin');
+  const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
   
   // Element existiert nur wenn Timeline gerendert wurde
   if (!themeSelect || !keywordSelect) {
@@ -16570,7 +16571,8 @@ async function updateTimelineStats() {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -16601,8 +16603,9 @@ async function updateTimelineStats() {
             const isNewGeneration = lecture.generationMethod && 
               (lecture.generationMethod.includes('unified-batch') || 
                lecture.generationMethod.includes('unified') ||
-               lecture.generationMethod.includes('manual-add') ||
-               lecture.generationMethod.includes('manual'));
+             lecture.generationMethod.includes('manual-add') ||
+             lecture.generationMethod.includes('manual') ||
+             lecture.generationMethod.includes('synced-from-summary-db'));
             
             if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
               lecture.keywords.forEach(kw => {
@@ -16629,18 +16632,19 @@ async function updateTimelineStats() {
       themesCount = Object.keys(themes).length;
     }
     
-    // Zähle eindeutige Keywords (NUR aus neu generierten Vorträgen)
+    // Zähle eindeutige Keywords (aus ALLEN generierten Vorträgen)
     const uniqueKeywords = new Set();
     let newGenerationCount = 0;
     
     Object.values(keywordsDB).forEach(lecture => {
-      const isNewGeneration = lecture.generationMethod && 
+      const hasKeywords = lecture.generationMethod && 
         (lecture.generationMethod.includes('unified-batch') || 
          lecture.generationMethod.includes('unified') ||
          lecture.generationMethod.includes('manual-add') ||
-         lecture.generationMethod.includes('manual'));
+         lecture.generationMethod.includes('manual') ||
+         lecture.generationMethod.includes('synced-from-summary-db'));
       
-      if (isNewGeneration) {
+      if (hasKeywords) {
         newGenerationCount++;
         if (lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -16873,8 +16877,9 @@ async function renderTimeline() {
             const isNewGeneration = lecture.generationMethod && 
               (lecture.generationMethod.includes('unified-batch') || 
                lecture.generationMethod.includes('unified') ||
-               lecture.generationMethod.includes('manual-add') ||
-               lecture.generationMethod.includes('manual'));
+             lecture.generationMethod.includes('manual-add') ||
+             lecture.generationMethod.includes('manual') ||
+             lecture.generationMethod.includes('synced-from-summary-db'));
             
             if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
               lecture.keywords.forEach(kw => {
@@ -16907,7 +16912,8 @@ async function renderTimeline() {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -17027,7 +17033,8 @@ async function renderTimelineContent() {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -17077,7 +17084,8 @@ async function renderTimelineContent() {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {
@@ -17115,7 +17123,8 @@ async function renderTimelineContent() {
           (lecture.generationMethod.includes('unified-batch') || 
            lecture.generationMethod.includes('unified') ||
            lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual'));
+           lecture.generationMethod.includes('manual') ||
+           lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
           lecture.keywords.forEach(kw => {

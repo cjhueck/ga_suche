@@ -1,0 +1,2466 @@
+{
+  "timestamp": "2025-11-12T21:45:10.766Z",
+  "summary": {
+    "totalKeywordsBefore": 460,
+    "totalKeywordsAfter": 181,
+    "consolidationsMade": 279,
+    "newThemesCreated": 32
+  },
+  "consolidations": [
+    {
+      "original": "Abstrakte Begriffe",
+      "consolidatedTo": "Abstraktion",
+      "reason": "Inhaltlich sehr ähnlich, Abstraktion ist der grundlegendere Begriff",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Abstraktionen",
+      "consolidatedTo": "Abstraktion",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Ahriman-Inkarnation",
+      "consolidatedTo": "Ahrimanische Inkarnation",
+      "reason": "Gleicher Begriff, unterschiedliche Schreibweise",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Alchimie",
+      "consolidatedTo": "Alchemie",
+      "reason": "Moderne Schreibweise des gleichen Begriffs",
+      "theme": "Alchemistische Traditionen"
+    },
+    {
+      "original": "Anthroposophische Entwicklung",
+      "consolidatedTo": "Anthroposophische Bewegung",
+      "reason": "Inhaltlich sehr ähnlich, beide beschreiben die Entwicklung der anthroposophischen Bewegung",
+      "theme": "Anthroposophie & Theosophie"
+    },
+    {
+      "original": "Atembehandlung",
+      "consolidatedTo": "Atemübungen",
+      "reason": "Inhaltlich sehr ähnlich, beide beziehen sich auf therapeutische Atemarbeit",
+      "theme": "Therapeutische Methoden"
+    },
+    {
+      "original": "Atemtechnik",
+      "consolidatedTo": "Atemübungen",
+      "reason": "Inhaltlich sehr ähnlich, Technik ist Teil der Übungen",
+      "theme": "Therapeutische Methoden"
+    },
+    {
+      "original": "Atemübung",
+      "consolidatedTo": "Atemübungen",
+      "reason": "Singular-Form des gleichen Begriffs",
+      "theme": "Therapeutische Methoden"
+    },
+    {
+      "original": "Atmungsprozeß",
+      "consolidatedTo": "Atmung",
+      "reason": "Inhaltlich sehr ähnlich, Prozess ist Teil des Atmungsbegriffs",
+      "theme": "Physiologie & Lebensprozesse"
+    },
+    {
+      "original": "Atmungsrhythmus",
+      "consolidatedTo": "Atmung",
+      "reason": "Spezialaspekt der Atmung, kann unter Oberbegriff subsumiert werden",
+      "theme": "Physiologie & Lebensprozesse"
+    },
+    {
+      "original": "Auren",
+      "consolidatedTo": "Aura",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Übersinnliche Phänomene"
+    },
+    {
+      "original": "Bacon von Verulam",
+      "consolidatedTo": "Bacon",
+      "reason": "Gleiche Person, vollständiger vs. verkürzter Name",
+      "theme": "Personen"
+    },
+    {
+      "original": "Baco von Verulam",
+      "consolidatedTo": "Bacon",
+      "reason": "Gleiche Person, alternative Schreibweise",
+      "theme": "Personen"
+    },
+    {
+      "original": "Begabtenprüfungen",
+      "consolidatedTo": "Begabtenprüfung",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Bewußtsein",
+      "consolidatedTo": "Bewusstsein",
+      "reason": "Alte vs. neue Rechtschreibung des gleichen Begriffs",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Bewußtseinsseele",
+      "consolidatedTo": "Bewusstseinsseele",
+      "reason": "Alte vs. neue Rechtschreibung des gleichen Begriffs",
+      "theme": "Seelenglieder"
+    },
+    {
+      "original": "Bewußtseinserweiterung",
+      "consolidatedTo": "Bewusstseinserweiterung",
+      "reason": "Alte vs. neue Rechtschreibung des gleichen Begriffs",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Biographien",
+      "consolidatedTo": "Biographie",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Lebensfragen"
+    },
+    {
+      "original": "Bodhisattvas",
+      "consolidatedTo": "Bodhisattva",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Bruderlogen",
+      "consolidatedTo": "Bruderloge",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Bruderschaften",
+      "consolidatedTo": "Bruderschaft",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Brüderschaften",
+      "consolidatedTo": "Bruderschaft",
+      "reason": "Alternative Schreibweise, Plural-Form",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Brüderschaft",
+      "consolidatedTo": "Bruderschaft",
+      "reason": "Alternative Schreibweise des gleichen Begriffs",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Budhi",
+      "consolidatedTo": "Buddhi",
+      "reason": "Alternative Schreibweise des gleichen Sanskrit-Begriffs",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Bühnendarstellung",
+      "consolidatedTo": "Bühnenkunst",
+      "reason": "Inhaltlich sehr ähnlich, Darstellung ist Teil der Bühnenkunst",
+      "theme": "Kunstformen"
+    },
+    {
+      "original": "Bühnengestaltung",
+      "consolidatedTo": "Bühnenkunst",
+      "reason": "Inhaltlich sehr ähnlich, Gestaltung ist Teil der Bühnenkunst",
+      "theme": "Kunstformen"
+    },
+    {
+      "original": "Christus-Erlebnis",
+      "consolidatedTo": "Christus-Ereignis",
+      "reason": "Inhaltlich sehr ähnlich, beide beschreiben die Christus-Erfahrung",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Christus-Geheimnis",
+      "consolidatedTo": "Christus-Mysterium",
+      "reason": "Inhaltlich identisch, Mysterium ist der gebräuchlichere Begriff",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Christus-Problem",
+      "consolidatedTo": "Christus-Ereignis",
+      "reason": "Inhaltlich ähnlich, Problem bezieht sich auf das Verständnis des Ereignisses",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Dimensionen",
+      "consolidatedTo": "Dimension",
+      "reason": "Plural-Form des gleichen Begriffs",
+      "theme": "Naturwissenschaft"
+    },
+    {
+      "original": "Dostojewskij",
+      "consolidatedTo": "Dostojewski",
+      "reason": "Alternative Schreibweise des gleichen Autors",
+      "theme": "Personen"
+    },
+    {
+      "original": "Dreigliederung des Menschen",
+      "consolidatedTo": "Dreigliederung",
+      "reason": "Spezialfall der allgemeinen Dreigliederungslehre",
+      "theme": "Soziale Dreigliederung"
+    },
+    {
+      "original": "Eingeweihte",
+      "consolidatedTo": "Einweihung",
+      "reason": "Inhaltlich sehr ähnlich, Einweihung ist der übergeordnete Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Eingeweihung",
+      "consolidatedTo": "Einweihung",
+      "reason": "Wortstamm-Variante, Einweihung ist die gebräuchlichere Form",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Eiszeit",
+      "consolidatedTo": "Eiszeiten",
+      "reason": "Singular/Plural-Variante, Plural umfasst Singular",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Elementare Welt",
+      "consolidatedTo": "Elementarwelten",
+      "reason": "Inhaltlich identisch, Plural umfasst Singular",
+      "theme": "Übersinnliche Welten"
+    },
+    {
+      "original": "Elementarische Welt",
+      "consolidatedTo": "Elementarwelten",
+      "reason": "Inhaltlich identisch, verschiedene Schreibweise",
+      "theme": "Übersinnliche Welten"
+    },
+    {
+      "original": "Elementarische Geister",
+      "consolidatedTo": "Elementargeister",
+      "reason": "Wortstamm-Variante, kompakte Form ist gebräuchlicher",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Elementenwelt",
+      "consolidatedTo": "Elementarwelten",
+      "reason": "Inhaltlich identisch, Elementarwelten ist gebräuchlicher",
+      "theme": "Übersinnliche Welten"
+    },
+    {
+      "original": "Emanationen",
+      "consolidatedTo": "Emanation",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Übersinnliche Welten"
+    },
+    {
+      "original": "Engelwelt",
+      "consolidatedTo": "Engel",
+      "reason": "Inhaltlich sehr ähnlich, Engel ist der Grundbegriff",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Engelwesen",
+      "consolidatedTo": "Engel",
+      "reason": "Inhaltlich identisch, Engel ist die gebräuchlichere Form",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Entwicklungphasen",
+      "consolidatedTo": "Entwicklungsphasen",
+      "reason": "Schreibfehler korrigiert",
+      "theme": "Entwicklung & Evolution"
+    },
+    {
+      "original": "Erdenentwicklung",
+      "consolidatedTo": "Erdentwicklung",
+      "reason": "Wortstamm-Variante, Erdentwicklung ist gebräuchlicher",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Erinnerungen",
+      "consolidatedTo": "Erinnerung",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Gedächtnis & Erinnerung"
+    },
+    {
+      "original": "Erkenntnisgrenzen",
+      "consolidatedTo": "Erkenntnisgrenze",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Esoterisches Christentum",
+      "consolidatedTo": "Esoterik",
+      "reason": "Spezialfall von Esoterik, übergeordneter Begriff umfasst dies",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Esoteriker",
+      "consolidatedTo": "Esoterik",
+      "reason": "Inhaltlich sehr ähnlich, Esoterik ist der übergeordnete Begriff",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Esoterismus",
+      "consolidatedTo": "Esoterik",
+      "reason": "Wortstamm-Variante, Esoterik ist gebräuchlicher",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Experimentalpsychologie",
+      "consolidatedTo": "Experimentelle Psychologie",
+      "reason": "Inhaltlich identisch, verschiedene Schreibweise",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Farben",
+      "consolidatedTo": "Farbe",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Goethe - Naturanschauung"
+    },
+    {
+      "original": "Farblehre",
+      "consolidatedTo": "Farbenlehre",
+      "reason": "Wortstamm-Variante, Farbenlehre ist die vollständige Form",
+      "theme": "Goethe - Naturanschauung"
+    },
+    {
+      "original": "Feuer-Geister",
+      "consolidatedTo": "Feuergeister",
+      "reason": "Schreibweise vereinheitlicht, ohne Bindestrich gebräuchlicher",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Fixsterne",
+      "consolidatedTo": "Fixstern",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Französische Sprache",
+      "consolidatedTo": "Französisch",
+      "reason": "Inhaltlich identisch, kompakte Form ist gebräuchlicher",
+      "theme": "Sprache"
+    },
+    {
+      "original": "Gedanken",
+      "consolidatedTo": "Gedanke",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Seelenfähigkeiten"
+    },
+    {
+      "original": "Geheimwissenschaftliche Traditionen",
+      "consolidatedTo": "Geheimwissenschaft",
+      "reason": "Inhaltlich sehr ähnlich, Geheimwissenschaft ist der übergeordnete Begriff",
+      "theme": "Geisteswissenschaft"
+    },
+    {
+      "original": "Geistige Welt",
+      "consolidatedTo": "Geistige Welten",
+      "reason": "Singular/Plural-Variante, Plural umfasst verschiedene geistige Bereiche",
+      "theme": "Übersinnliche Welten"
+    },
+    {
+      "original": "Geistiges",
+      "consolidatedTo": "Geist",
+      "reason": "Inhaltlich sehr ähnlich, Geist ist der Grundbegriff",
+      "theme": "Materie & Geist"
+    },
+    {
+      "original": "Geschlechter",
+      "consolidatedTo": "Geschlecht",
+      "reason": "Singular/Plural-Variante, Singular ist der Grundbegriff",
+      "theme": "Menschliches Wesen"
+    },
+    {
+      "original": "Gnostiker",
+      "consolidatedTo": "Gnosis",
+      "reason": "Inhaltlich sehr ähnlich, Gnosis ist der übergeordnete Begriff",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Gnostizismus",
+      "consolidatedTo": "Gnosis",
+      "reason": "Wortstamm-Variante, Gnosis ist der Grundbegriff",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Goetheum",
+      "consolidatedTo": "Goetheanum",
+      "reason": "Wortstamm-Variante, Goetheanum ist die korrekte Bezeichnung",
+      "theme": "Goetheanum"
+    },
+    {
+      "original": "Grals-Strömung",
+      "consolidatedTo": "Gral",
+      "reason": "Inhaltlich sehr ähnlich, Gral ist der übergeordnete Begriff",
+      "theme": "Märchen & Mythen"
+    },
+    {
+      "original": "Graal",
+      "consolidatedTo": "Gral",
+      "reason": "Wortstamm-Variante, Gral ist die gebräuchlichere deutsche Form",
+      "theme": "Märchen & Mythen"
+    },
+    {
+      "original": "Gruppen-Iche",
+      "consolidatedTo": "Gruppen-Ich",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Gruppeniche",
+      "consolidatedTo": "Gruppen-Ich",
+      "reason": "Wortstamm-Variante, andere Schreibweise",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Gruppenseelen",
+      "consolidatedTo": "Gruppenseele",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Götter",
+      "consolidatedTo": "Göttliches",
+      "reason": "Inhaltlich sehr ähnlich, Göttliches umfasst Götter",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Göttlichkeit",
+      "consolidatedTo": "Göttliches",
+      "reason": "Wortstamm-Variante, inhaltlich identisch",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "H.P. Blavatsky",
+      "consolidatedTo": "Helena Petrowna Blavatsky",
+      "reason": "Verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Halluzinationen",
+      "consolidatedTo": "Halluzination",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Geistige Fähigkeiten"
+    },
+    {
+      "original": "Handfertigkeitsunterricht",
+      "consolidatedTo": "Handarbeitsunterricht",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen handwerklichen Unterricht",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Handwerksunterricht",
+      "consolidatedTo": "Handarbeitsunterricht",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen handwerklichen Unterricht",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Harmonien",
+      "consolidatedTo": "Harmonie",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Kunstformen"
+    },
+    {
+      "original": "Heilkräfte der Pflanzen",
+      "consolidatedTo": "Heilkräfte",
+      "reason": "Spezifischer Begriff unter allgemeinerem Begriff",
+      "theme": "Medizin & Heilkunde"
+    },
+    {
+      "original": "Heilkräuter",
+      "consolidatedTo": "Heilkräfte",
+      "reason": "Inhaltlich verwandt, Heilkräuter enthalten Heilkräfte",
+      "theme": "Medizin & Heilkunde"
+    },
+    {
+      "original": "Heilkunde",
+      "consolidatedTo": "Heilkunst",
+      "reason": "Wortstamm-Variante, inhaltlich identisch",
+      "theme": "Medizin & Heilkunde"
+    },
+    {
+      "original": "Heilungsprozesse",
+      "consolidatedTo": "Heilung",
+      "reason": "Spezifischer Begriff unter allgemeinerem Begriff",
+      "theme": "Medizin & Heilkunde"
+    },
+    {
+      "original": "Heilwirkungen",
+      "consolidatedTo": "Heilung",
+      "reason": "Inhaltlich sehr ähnlich, Heilwirkungen sind Teil der Heilung",
+      "theme": "Medizin & Heilkunde"
+    },
+    {
+      "original": "Hellsichtigkeit",
+      "consolidatedTo": "Hellsehen",
+      "reason": "Wortstamm-Variante, inhaltlich identisch",
+      "theme": "Geistige Schulung"
+    },
+    {
+      "original": "Herzen",
+      "consolidatedTo": "Herz",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Leibliche Organisation"
+    },
+    {
+      "original": "Hexen",
+      "consolidatedTo": "Hexenküche",
+      "reason": "Inhaltlich verwandt, Hexenküche ist spezifischer anthroposophischer Begriff",
+      "theme": "Goethe - Faust"
+    },
+    {
+      "original": "Hiram Abiff",
+      "consolidatedTo": "Hiram",
+      "reason": "Verschiedene Schreibweisen derselben Person",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Hiram-Abiff",
+      "consolidatedTo": "Hiram",
+      "reason": "Verschiedene Schreibweisen derselben Person",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Hiram-Legende",
+      "consolidatedTo": "Hiram",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Hochschulkurs",
+      "consolidatedTo": "Hochschulkurse",
+      "reason": "Wortstamm-Variante, Singular zu Plural",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Hochschulkursus",
+      "consolidatedTo": "Hochschulkurse",
+      "reason": "Wortstamm-Variante, andere Schreibweise",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Homunkuli",
+      "consolidatedTo": "Homunculus",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Goethe - Faust"
+    },
+    {
+      "original": "Homunkulus",
+      "consolidatedTo": "Homunculus",
+      "reason": "Verschiedene Schreibweisen desselben Begriffs",
+      "theme": "Goethe - Faust"
+    },
+    {
+      "original": "Hybernische Mysterien",
+      "consolidatedTo": "Hybernia",
+      "reason": "Spezifischer Begriff unter allgemeinerem Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Hypophysis",
+      "consolidatedTo": "Hypophyse",
+      "reason": "Verschiedene Schreibweisen desselben Organs",
+      "theme": "Leibliche Organisation"
+    },
+    {
+      "original": "Ich-Bewusstsein",
+      "consolidatedTo": "Ich",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Ich-Entwicklung",
+      "consolidatedTo": "Ich",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Ich-Sinn",
+      "consolidatedTo": "Ich",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Impressionen",
+      "consolidatedTo": "Impressionismus",
+      "reason": "Inhaltlich verwandt, Impressionen sind Teil des Impressionismus",
+      "theme": "Kunstformen"
+    },
+    {
+      "original": "Indische Geheimlehre",
+      "consolidatedTo": "Indien",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Industrielle",
+      "consolidatedTo": "Industrialismus",
+      "reason": "Inhaltlich verwandt, Industrielle sind Teil des Industrialismus",
+      "theme": "Soziale & politische Richtungen"
+    },
+    {
+      "original": "Initiationserkenntnis",
+      "consolidatedTo": "Initiation",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Initiationsweisheit",
+      "consolidatedTo": "Initiation",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Initiationswissenschaft",
+      "consolidatedTo": "Initiation",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Initiierten",
+      "consolidatedTo": "Initiation",
+      "reason": "Inhaltlich verwandt, Initiierte sind Resultat der Initiation",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Innere Entwicklung",
+      "consolidatedTo": "Innere Entwicklung",
+      "reason": "Bereits existierender Begriff",
+      "theme": "Innere Entwicklung"
+    },
+    {
+      "original": "Instinktive Erkenntnis",
+      "consolidatedTo": "Instinktives Bewusstsein",
+      "reason": "Inhaltlich sehr ähnlich, Bewusstsein umfasst Erkenntnis",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Instinktive Weisheit",
+      "consolidatedTo": "Instinktives Bewusstsein",
+      "reason": "Inhaltlich sehr ähnlich, Bewusstsein umfasst Weisheit",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Internationale Gesellschaft",
+      "consolidatedTo": "Internationale Bewegung",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen internationale Organisationen",
+      "theme": "Anthroposophie & Theosophie"
+    },
+    {
+      "original": "Irrtümer",
+      "consolidatedTo": "Irrtum",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Jahve-Elohim",
+      "consolidatedTo": "Jahve",
+      "reason": "Spezifischer Begriff unter allgemeinerem Begriff",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Jahve-Politik",
+      "consolidatedTo": "Jahve",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Jahve-Religion",
+      "consolidatedTo": "Jahve",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Jahwe",
+      "consolidatedTo": "Jahve",
+      "reason": "Verschiedene Schreibweisen desselben Wesens",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Jehova",
+      "consolidatedTo": "Jahve",
+      "reason": "Verschiedene Schreibweisen desselben Wesens",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Jesus-Empfindung",
+      "consolidatedTo": "Jesus von Nazareth",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Jesusknaben",
+      "consolidatedTo": "Jesusknabe",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Joga-Schulung",
+      "consolidatedTo": "Joga",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Jogasystem",
+      "consolidatedTo": "Joga",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Jogaweg",
+      "consolidatedTo": "Joga",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Johannes-Taufe",
+      "consolidatedTo": "Johannes-Taufe",
+      "reason": "Bereits korrekt",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Johannestaufe",
+      "consolidatedTo": "Johannes-Taufe",
+      "reason": "Verschiedene Schreibweisen desselben Begriffs",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Johannisfest",
+      "consolidatedTo": "Johannifest",
+      "reason": "Verschiedene Schreibweisen desselben Festes",
+      "theme": "Zeitrhythmen"
+    },
+    {
+      "original": "Julian der Apostat",
+      "consolidatedTo": "Julian Apostata",
+      "reason": "Verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Julianus Apostata",
+      "consolidatedTo": "Julian Apostata",
+      "reason": "Verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Jupiter-Entwicklung",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Verschiedene Schreibweisen desselben Begriffs",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupiter-Planet",
+      "consolidatedTo": "Jupiterplanet",
+      "reason": "Verschiedene Schreibweisen desselben Begriffs",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupiterdasein",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen Jupiter-Zustand",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupitermenschen",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupiterperiode",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen Jupiter-Zustand",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupitertag",
+      "consolidatedTo": "Jupiter",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupiterwesenheiten",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Spezifischer Aspekt unter allgemeinerem Begriff",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Jupiterzeit",
+      "consolidatedTo": "Jupiterentwicklung",
+      "reason": "Inhaltlich sehr ähnlich, beide bezeichnen Jupiter-Zustand",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Kain und Abel",
+      "consolidatedTo": "Kain-Abel-Geschichte",
+      "reason": "Inhaltlich identisch, verschiedene Schreibweisen",
+      "theme": "Bibel & Evangelien"
+    },
+    {
+      "original": "Kali-Yuga",
+      "consolidatedTo": "Kali Yuga",
+      "reason": "Verschiedene Schreibweisen desselben Begriffs",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Kant-Laplace-Theorie",
+      "consolidatedTo": "Kant-Laplace",
+      "reason": "Wortstamm-Variante, kürzere Form",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Kant-Laplacesche Theorie",
+      "consolidatedTo": "Kant-Laplace",
+      "reason": "Wortstamm-Variante, kürzere Form",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Krankheiten",
+      "consolidatedTo": "Krankheit",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Gesundheit & Krankheit"
+    },
+    {
+      "original": "Kometen",
+      "consolidatedTo": "Komet",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Konsonanten",
+      "consolidatedTo": "Konsonant",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Sprache"
+    },
+    {
+      "original": "Kosmische Einflüsse",
+      "consolidatedTo": "Kosmische Kräfte",
+      "reason": "Inhaltlich sehr ähnlich, Einflüsse sind Kräfte",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Kosmische Impulse",
+      "consolidatedTo": "Kosmische Kräfte",
+      "reason": "Inhaltlich sehr ähnlich, Impulse sind Kräfte",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Kosmische Intelligenzen",
+      "consolidatedTo": "Kosmische Intelligenz",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Kosmische Wesen",
+      "consolidatedTo": "Kosmisches Wesen",
+      "reason": "Wortstamm-Variante, Plural zu Singular",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Kristalle",
+      "consolidatedTo": "Kristall",
+      "reason": "Plural-Singular Variante",
+      "theme": "Naturreiche"
+    },
+    {
+      "original": "Kulturentwicklung",
+      "consolidatedTo": "Kulturentwicklung",
+      "reason": "Bereits in verfügbaren Themen vorhanden",
+      "theme": "Kulturentwicklung"
+    },
+    {
+      "original": "Kulturstufen",
+      "consolidatedTo": "Kulturentwicklung",
+      "reason": "Inhaltlich sehr ähnlich, Kulturstufen sind Teil der Kulturentwicklung",
+      "theme": "Kulturentwicklung"
+    },
+    {
+      "original": "Kultushandlungen",
+      "consolidatedTo": "Kultus",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Kultus",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Laute",
+      "consolidatedTo": "Laut",
+      "reason": "Plural-Singular Variante",
+      "theme": "Sprache"
+    },
+    {
+      "original": "Lebechöre",
+      "consolidatedTo": "Lebebstableau",
+      "reason": "Wortstamm-Variante, beide beziehen sich auf Lebenspanorama",
+      "theme": "Tod & Sterben"
+    },
+    {
+      "original": "Lebenskräfte",
+      "consolidatedTo": "Lebenskraft",
+      "reason": "Plural-Singular Variante",
+      "theme": "Lebensfragen"
+    },
+    {
+      "original": "Lebenstableau",
+      "consolidatedTo": "Lebebstableau",
+      "reason": "Wortstamm-Variante, gleicher Begriff",
+      "theme": "Tod & Sterben"
+    },
+    {
+      "original": "Lebensvorbilck (vorgeburtlich)",
+      "consolidatedTo": "Lebensvorblick (vorgeburtlich)",
+      "reason": "Schreibfehler korrigiert",
+      "theme": "Leben zwischen den Inkarnationen"
+    },
+    {
+      "original": "Lehrerkonferenzen",
+      "consolidatedTo": "Lehrerkonferenz",
+      "reason": "Plural-Singular Variante",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Lehrmethoden",
+      "consolidatedTo": "Lehrmethode",
+      "reason": "Plural-Singular Variante",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Lemniskaten",
+      "consolidatedTo": "Lemniskate",
+      "reason": "Plural-Singular Variante",
+      "theme": "Symbolische Erkenntnis"
+    },
+    {
+      "original": "Lemuren",
+      "consolidatedTo": "Lemurien",
+      "reason": "Wortstamm-Variante, beide beziehen sich auf lemurische Zeit",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Lemurier",
+      "consolidatedTo": "Lemurien",
+      "reason": "Wortstamm-Variante, beide beziehen sich auf lemurische Zeit",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Lemurische Rasse",
+      "consolidatedTo": "Lemurien",
+      "reason": "Inhaltlich sehr ähnlich, bezieht sich auf dieselbe Entwicklungsepoche",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Lemurische Zeit",
+      "consolidatedTo": "Lemurien",
+      "reason": "Inhaltlich sehr ähnlich, bezieht sich auf dieselbe Entwicklungsepoche",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Lionardo da Vinci",
+      "consolidatedTo": "Leonardo da Vinci",
+      "reason": "Schreibvariante desselben Namens",
+      "theme": "Personen"
+    },
+    {
+      "original": "Lotosblumen",
+      "consolidatedTo": "Lotosblume",
+      "reason": "Plural-Singular Variante",
+      "theme": "Symbolische Erkenntnis"
+    },
+    {
+      "original": "Lotosblüten",
+      "consolidatedTo": "Lotosblume",
+      "reason": "Wortstamm-Variante",
+      "theme": "Symbolische Erkenntnis"
+    },
+    {
+      "original": "Lotusblumen",
+      "consolidatedTo": "Lotosblume",
+      "reason": "Schreibvariante, Lotos ist die anthroposophische Schreibweise",
+      "theme": "Symbolische Erkenntnis"
+    },
+    {
+      "original": "Luziferisch",
+      "consolidatedTo": "Luzifer",
+      "reason": "Adjektiv zum Hauptbegriff",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferische Geister",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferische Kräfte",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferische Mächte",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferische Wesen",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferische Wesenheiten",
+      "consolidatedTo": "Luzifer",
+      "reason": "Bereits in verfügbaren Themen als Luziferische Wesenheiten vorhanden",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferischer Einfluss",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Luziferisches Prinzip",
+      "consolidatedTo": "Luzifer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Luzifer",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Lügen",
+      "consolidatedTo": "Lüge",
+      "reason": "Plural-Singular Variante",
+      "theme": "Ethische Prinzipien"
+    },
+    {
+      "original": "Maitreya-Buddha",
+      "consolidatedTo": "Maitreya Buddha",
+      "reason": "Schreibvariante ohne Bindestrich",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Mantrams",
+      "consolidatedTo": "Mantram",
+      "reason": "Plural-Singular Variante",
+      "theme": "Meditative Praxis"
+    },
+    {
+      "original": "Mantren",
+      "consolidatedTo": "Mantram",
+      "reason": "Plural-Singular Variante",
+      "theme": "Meditative Praxis"
+    },
+    {
+      "original": "Mantrische Sprüche",
+      "consolidatedTo": "Mantram",
+      "reason": "Inhaltlich sehr ähnlich",
+      "theme": "Meditative Praxis"
+    },
+    {
+      "original": "Menschheitsentwickelung",
+      "consolidatedTo": "Menschheitsentwicklung",
+      "reason": "Schreibvariante, moderne Schreibweise",
+      "theme": "Entwicklung & Evolution"
+    },
+    {
+      "original": "Michael-Bewegung",
+      "consolidatedTo": "Michaels-Bewegung",
+      "reason": "Wortstamm-Variante",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Michael-Fest",
+      "consolidatedTo": "Michaelfest",
+      "reason": "Schreibvariante ohne Bindestrich",
+      "theme": "Zeitrhythmen"
+    },
+    {
+      "original": "Michaeli-Fest",
+      "consolidatedTo": "Michaelfest",
+      "reason": "Wortstamm-Variante",
+      "theme": "Zeitrhythmen"
+    },
+    {
+      "original": "Michaelströmung",
+      "consolidatedTo": "Michael-Strömung",
+      "reason": "Schreibvariante mit Bindestrich",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Mineralien",
+      "consolidatedTo": "Mineral",
+      "reason": "Plural-Singular Variante",
+      "theme": "Naturreiche"
+    },
+    {
+      "original": "Mineralisch",
+      "consolidatedTo": "Mineralisches Reich",
+      "reason": "Adjektiv zum Hauptbegriff",
+      "theme": "Naturreiche"
+    },
+    {
+      "original": "Mineralreich",
+      "consolidatedTo": "Mineralisches Reich",
+      "reason": "Wortstamm-Variante",
+      "theme": "Naturreiche"
+    },
+    {
+      "original": "Monde",
+      "consolidatedTo": "Mond",
+      "reason": "Plural-Singular Variante",
+      "theme": "Kosmische Entwicklung"
+    },
+    {
+      "original": "Mysteriendramen",
+      "consolidatedTo": "Mysteriendramen",
+      "reason": "Bereits in verfügbaren Themen vorhanden",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Mysterienspiele",
+      "consolidatedTo": "Mysteriendramen",
+      "reason": "Inhaltlich sehr ähnlich",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Märchendichtung",
+      "consolidatedTo": "Märchen",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Märchen",
+      "theme": "Märchen & Mythen"
+    },
+    {
+      "original": "Nirmanakayas",
+      "consolidatedTo": "Nirmanakaya",
+      "reason": "Plural-Singular Variante",
+      "theme": "Übersinnliche Wesenheiten"
+    },
+    {
+      "original": "Nirwana",
+      "consolidatedTo": "Nirvana",
+      "reason": "Schreibvariante, Sanskrit-Schreibweise",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Oberuferer Spiele",
+      "consolidatedTo": "Oberufer",
+      "reason": "Spezifischer Begriff unter dem allgemeineren Oberufer",
+      "theme": "Kunstformen"
+    },
+    {
+      "original": "Offenbarungen",
+      "consolidatedTo": "Offenbarung",
+      "reason": "Plural-Singular Variante",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Okkulte Brüderschaften",
+      "consolidatedTo": "Okkulte Gesellschaften",
+      "reason": "Inhaltlich sehr ähnlich, Gesellschaften ist umfassender",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Okkulte Verbrüderungen",
+      "consolidatedTo": "Okkulte Gesellschaften",
+      "reason": "Inhaltlich sehr ähnlich, Gesellschaften ist umfassender",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Okkultist",
+      "consolidatedTo": "Okkultisten",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Mystik & Esoterik"
+    },
+    {
+      "original": "Opfertode",
+      "consolidatedTo": "Opfertod",
+      "reason": "Wortstamm-Variante, Singular ist gebräuchlicher",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Osiris-Isis-Mythe",
+      "consolidatedTo": "Osiris-Isis-Sage",
+      "reason": "Inhaltlich identisch, Sage ist gebräuchlicher",
+      "theme": "Mysterien & Einweihung"
+    },
+    {
+      "original": "Selbstbewußtsein",
+      "consolidatedTo": "Selbstbewusstsein",
+      "reason": "Alte/neue Rechtschreibung",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Plato",
+      "consolidatedTo": "Platon",
+      "reason": "Verschiedene Schreibweisen, Platon ist gebräuchlicher",
+      "theme": "Personen"
+    },
+    {
+      "original": "Rafael",
+      "consolidatedTo": "Raffael",
+      "reason": "Verschiedene Schreibweisen, Raffael ist gebräuchlicher",
+      "theme": "Personen"
+    },
+    {
+      "original": "Raphael",
+      "consolidatedTo": "Raffael",
+      "reason": "Verschiedene Schreibweisen, Raffael ist gebräuchlicher",
+      "theme": "Personen"
+    },
+    {
+      "original": "Scotus Erigena",
+      "consolidatedTo": "Scotus Eriugena",
+      "reason": "Verschiedene Schreibweisen, Eriugena ist korrekt",
+      "theme": "Personen"
+    },
+    {
+      "original": "Seelen Erwachen",
+      "consolidatedTo": "Seelenerwachen",
+      "reason": "Zusammengeschriebene Form ist korrekt",
+      "theme": "Seelenleben"
+    },
+    {
+      "original": "Pythagoräer",
+      "consolidatedTo": "Pythagoreer",
+      "reason": "Verschiedene Schreibweisen, Pythagoreer ist gebräuchlicher",
+      "theme": "Personen"
+    },
+    {
+      "original": "Solowjow",
+      "consolidatedTo": "Solowjew",
+      "reason": "Wortstamm-Variante, verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Somnambule",
+      "consolidatedTo": "Somnambulismus",
+      "reason": "Inhaltlich sehr ähnlich, Somnambulismus ist der Oberbegriff",
+      "theme": "Geistige Fähigkeiten"
+    },
+    {
+      "original": "Sonnenhelden",
+      "consolidatedTo": "Sonnenheld",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Mythologische Gestalten"
+    },
+    {
+      "original": "Sternkonstellationen",
+      "consolidatedTo": "Sternenkonstellation",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Traumbewußtsein",
+      "consolidatedTo": "Traumbewusstsein",
+      "reason": "Wortstamm-Variante, moderne Schreibweise",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Unterbewußtsein",
+      "consolidatedTo": "Unterbewusstsein",
+      "reason": "Wortstamm-Variante, moderne Schreibweise",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Unterbewusstes",
+      "consolidatedTo": "Unterbewusstsein",
+      "reason": "Inhaltlich identisch, verschiedene Wortformen",
+      "theme": "Bewusstsein"
+    },
+    {
+      "original": "Unwahrheiten",
+      "consolidatedTo": "Unwahrheit",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Ethische Prinzipien"
+    },
+    {
+      "original": "Verleumdungen",
+      "consolidatedTo": "Verleumdung",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Ethische Prinzipien"
+    },
+    {
+      "original": "Volksseelen",
+      "consolidatedTo": "Volksseele",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Völkergeister",
+      "consolidatedTo": "Volksgeister",
+      "reason": "Inhaltlich identisch, verschiedene Begriffe für dasselbe Konzept",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Tolstoj",
+      "consolidatedTo": "Tolstoi",
+      "reason": "Wortstamm-Variante, verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Tycho de Brahe",
+      "consolidatedTo": "Tycho Brahe",
+      "reason": "Wortstamm-Variante, verschiedene Schreibweisen derselben Person",
+      "theme": "Personen"
+    },
+    {
+      "original": "Völkermischung",
+      "consolidatedTo": "Völkerpsychologie",
+      "reason": "Inhaltlich verwandt, beide behandeln Völkercharakteristika",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Völkermissionen",
+      "consolidatedTo": "Völkerpsychologie",
+      "reason": "Inhaltlich verwandt, beide behandeln Völkeraufgaben",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Völkerseelen",
+      "consolidatedTo": "Volksseelen",
+      "reason": "Wortstamm-Variante, Volksseelen ist gebräuchlicher",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Völkerströme",
+      "consolidatedTo": "Völkerwanderung",
+      "reason": "Inhaltlich sehr ähnlich, beide behandeln Völkerbewegungen",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Wahrheit und Irrtum",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Inhaltlich verwandt, Irrtum ist Gegenpol zur Wahrheit",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Wahrheitsbegriff",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Begriffsvariante",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Wahrheitserkenntnis",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Begriffsvariante",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Wahrheitsforschung",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Begriffsvariante",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Wahrheitssinn",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Begriffsvariante",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Wahrheitsstreben",
+      "consolidatedTo": "Wahrheit",
+      "reason": "Begriffsvariante",
+      "theme": "Erkenntnistheorie"
+    },
+    {
+      "original": "Waldorf-Schule",
+      "consolidatedTo": "Waldorfschule",
+      "reason": "Schreibweise-Variante",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Waldorfschul-Pädagogik",
+      "consolidatedTo": "Waldorfpädagogik",
+      "reason": "Begriffsvariante",
+      "theme": "Pädagogik & Erziehung"
+    },
+    {
+      "original": "Wanen und Asen",
+      "consolidatedTo": "Asen",
+      "reason": "Asen ist bereits in vorherigen Batches, Wanen sind verwandt",
+      "theme": "Mythologische Gestalten"
+    },
+    {
+      "original": "Weihenacht",
+      "consolidatedTo": "Weihnachten",
+      "reason": "Schreibweise-Variante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnacht",
+      "consolidatedTo": "Weihnachten",
+      "reason": "Schreibweise-Variante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtsfest",
+      "consolidatedTo": "Weihnachten",
+      "reason": "Begriffsvariante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtsgedanke",
+      "consolidatedTo": "Weihnachten",
+      "reason": "Begriffsvariante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtsgeheimnis",
+      "consolidatedTo": "Weihnachtsmysterium",
+      "reason": "Inhaltlich sehr ähnlich",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtsspiele",
+      "consolidatedTo": "Weihnachtspiele",
+      "reason": "Schreibweise-Variante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtspiele",
+      "consolidatedTo": "Weihnachtspiele",
+      "reason": "Begriffsvariante zu Weihnachtsspiele",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weihnachtszeit",
+      "consolidatedTo": "Weihnachten",
+      "reason": "Begriffsvariante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Weltengeheimnisse",
+      "consolidatedTo": "Weltgeheimnisse",
+      "reason": "Wortstamm-Variante",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Weltenseele",
+      "consolidatedTo": "Weltseele",
+      "reason": "Wortstamm-Variante",
+      "theme": "Kosmische Zusammenhänge"
+    },
+    {
+      "original": "Wiederholte Erdenleben",
+      "consolidatedTo": "Reinkarnation",
+      "reason": "Inhaltlich identisch",
+      "theme": "Wiederverkörperung"
+    },
+    {
+      "original": "Wiederverkörperung",
+      "consolidatedTo": "Reinkarnation",
+      "reason": "Inhaltlich identisch",
+      "theme": "Wiederverkörperung"
+    },
+    {
+      "original": "Wiederkunft Christi",
+      "consolidatedTo": "Wiederkunft",
+      "reason": "Begriffsvariante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Willensimpulse",
+      "consolidatedTo": "Willensimpuls",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Seelenfähigkeiten"
+    },
+    {
+      "original": "Willenskräfte",
+      "consolidatedTo": "Willenskraft",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Seelenfähigkeiten"
+    },
+    {
+      "original": "Wilsonianismus",
+      "consolidatedTo": "Wilsonismus",
+      "reason": "Begriffsvariante",
+      "theme": "Soziale & politische Richtungen"
+    },
+    {
+      "original": "Wintersonnwende",
+      "consolidatedTo": "Wintersonnenwende",
+      "reason": "Schreibweise-Variante",
+      "theme": "Zeitrhythmen"
+    },
+    {
+      "original": "Wissenschaftliche Methode",
+      "consolidatedTo": "Wissenschaftskritik",
+      "reason": "Inhaltlich verwandt, beide behandeln wissenschaftliche Methodik",
+      "theme": "Wissenschaftliche Methodik"
+    },
+    {
+      "original": "Woodrow Wilson",
+      "consolidatedTo": "Wilson",
+      "reason": "Vollname vs. Kurzname",
+      "theme": "Personen"
+    },
+    {
+      "original": "Wurzelrassen",
+      "consolidatedTo": "Wurzelrasse",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Kulturentwicklung"
+    },
+    {
+      "original": "Wärmeausdehnung",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmeeffekte",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmeelement",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmelehre",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmeleitung",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmeorgan",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmeorganismus",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmewesen",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Wärmewirkungen",
+      "consolidatedTo": "Wärme",
+      "reason": "Begriffsvariante",
+      "theme": "Einzelwissenschaften"
+    },
+    {
+      "original": "Zarathustrismus",
+      "consolidatedTo": "Zarathustra",
+      "reason": "Begriffsvariante",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Zeitalter der Bewusstseinsseele",
+      "consolidatedTo": "Zeitalter der Bewusstseinsseele",
+      "reason": "Bereits in verfügbaren Themen",
+      "theme": "Kulturentwicklung"
+    },
+    {
+      "original": "Zeitgeister",
+      "consolidatedTo": "Zeitgeist",
+      "reason": "Singular/Plural-Variante",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Zivilisationschaos",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zivilisationsentwicklung",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zivilisationsepochen",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zivilisationskatastrophen",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zivilisationskrise",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zivilisationsniedergang",
+      "consolidatedTo": "Zivilisation",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturelle Herausforderungen"
+    },
+    {
+      "original": "Zoroaster",
+      "consolidatedTo": "Zarathustra",
+      "reason": "Verschiedene Namen für dieselbe Person",
+      "theme": "Religionen & Traditionen"
+    },
+    {
+      "original": "Zusammenarbeiten",
+      "consolidatedTo": "Zusammenarbeit",
+      "reason": "Wortstamm-Variante",
+      "theme": "Soziale Dreigliederung"
+    },
+    {
+      "original": "Zwischenkieferknochen",
+      "consolidatedTo": "Zwischenkiefer",
+      "reason": "Begriffsvariante",
+      "theme": "Goethe - Naturanschauung"
+    },
+    {
+      "original": "Zwölf Weltanschauungstypen",
+      "consolidatedTo": "Weltanschauung",
+      "reason": "Begriffsvariante",
+      "theme": "Weltanschauungen & Ismen"
+    },
+    {
+      "original": "Ägyptisch-chaldäische Zeit",
+      "consolidatedTo": "Ägyptisch-chaldäische Kultur",
+      "reason": "Begriffsvariante, Kultur ist gebräuchlicher",
+      "theme": "Kulturentwicklung"
+    },
+    {
+      "original": "Ätherische Erscheinung",
+      "consolidatedTo": "Äther",
+      "reason": "Begriffsvariante",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Ätherischer Christus",
+      "consolidatedTo": "Christus",
+      "reason": "Begriffsvariante",
+      "theme": "Christentum"
+    },
+    {
+      "original": "Ätherschwingungen",
+      "consolidatedTo": "Äther",
+      "reason": "Begriffsvariante",
+      "theme": "Menschenkunde & Wesesglieder"
+    },
+    {
+      "original": "Österreich-Ungarn",
+      "consolidatedTo": "Österreich",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Österreichisches Geistesleben",
+      "consolidatedTo": "Österreich",
+      "reason": "Begriffsvariante",
+      "theme": "Kulturen & Völker"
+    },
+    {
+      "original": "Übersinnliche Erfahrung",
+      "consolidatedTo": "Übersinnliche Erkenntnis",
+      "reason": "Begriffsvariante",
+      "theme": "Übersinnliche Erkenntnis"
+    },
+    {
+      "original": "Übersinnliche Wahrnehmung",
+      "consolidatedTo": "Übersinnliche Erkenntnis",
+      "reason": "Begriffsvariante",
+      "theme": "Übersinnliche Erkenntnis"
+    },
+    {
+      "original": "Übersinnliche Welt",
+      "consolidatedTo": "Geistige Welt",
+      "reason": "Begriffsvariante",
+      "theme": "Übersinnliche Welten"
+    }
+  ],
+  "newThemes": [
+    {
+      "name": "Gegenspieler-Kräfte",
+      "description": "Ahrimanische und luziferische Kräfte als Gegenspieler in der menschlichen Entwicklung",
+      "keywords": [
+        "Ahriman",
+        "Ahrimanisch",
+        "Ahrimanische Dämonen",
+        "Ahrimanische Geister",
+        "Ahrimanische Gewalten",
+        "Ahrimanische Inkarnation",
+        "Ahrimanische Kräfte",
+        "Ahrimanische Mächte",
+        "Ahrimanische Unsterblichkeit",
+        "Ahrimanische und luziferische Kräfte"
+      ]
+    },
+    {
+      "name": "Persische Kultur",
+      "description": "Altpersische Religion und Kultur, Zarathustra-Impuls",
+      "keywords": [
+        "Ahura Mazdao",
+        "Amshaspands"
+      ]
+    },
+    {
+      "name": "Antisoziale Tendenzen",
+      "description": "Antisoziale Impulse und Triebe in der menschlichen Natur",
+      "keywords": [
+        "Antisozial",
+        "Antisoziale Impulse",
+        "Antisoziale Triebe"
+      ]
+    },
+    {
+      "name": "Architektonische Gestaltung",
+      "description": "Architektonische Formen und Baustile in der anthroposophischen Architektur",
+      "keywords": [
+        "Architektonische Formen",
+        "Architrave",
+        "Baustil",
+        "Baustile"
+      ]
+    },
+    {
+      "name": "Bewegungskunst & Eurythmie",
+      "description": "Bewegungskunst, Eurythmie und bewegte Plastik",
+      "keywords": [
+        "Bewegte Plastik",
+        "Bewegungsformen",
+        "Bewegungskunst",
+        "Bewegungssprache",
+        "Bewegungsübungen"
+      ]
+    },
+    {
+      "name": "Bewusstseins-Entwicklung",
+      "description": "Verschiedene Aspekte der Bewusstseinsentwicklung und -schulung",
+      "keywords": [
+        "Bewusstseinsbeherrschung",
+        "Bewusstseinsdurchleuchtung",
+        "Bewusstseinsentwicklung",
+        "Bewusstseinserweiterung",
+        "Bewusstseinsevolution",
+        "Bewusstseinsimpulse",
+        "Bewusstseinsschulung",
+        "Bewusstseinsseelenentwicklung",
+        "Bewusstseinstäuschung",
+        "Bewusstseinszustände"
+      ]
+    },
+    {
+      "name": "Elementarwesen",
+      "description": "Elementargeister und elementarische Wesenheiten der verschiedenen Naturreiche",
+      "keywords": [
+        "Elementargeister",
+        "Elementarwesen",
+        "Elementarreiche",
+        "Elementarisches Leben",
+        "Elementaressenz",
+        "Elementarereignisse",
+        "Gnomen"
+      ]
+    },
+    {
+      "name": "Embryologie & Entwicklung",
+      "description": "Embryonale Entwicklung und vorgeburtliche Prozesse",
+      "keywords": [
+        "Embryo",
+        "Embryologie",
+        "Embryonalentwicklung",
+        "Embryonalleben",
+        "Embryonalzeit"
+      ]
+    },
+    {
+      "name": "Erdentwicklung",
+      "description": "Entwicklung und Zukunft der Erde als Planetenstufe",
+      "keywords": [
+        "Erde",
+        "Erdenanfang",
+        "Erdenaura",
+        "Erdenende",
+        "Erdentwicklung",
+        "Erdengeist",
+        "Erdenkräfte",
+        "Erdenmission",
+        "Erdenorganismus",
+        "Erdenseele",
+        "Erdenzerstörung",
+        "Erdgeist",
+        "Erdschichten",
+        "Erdverfestigung"
+      ]
+    },
+    {
+      "name": "Gralslegenden",
+      "description": "Gralsmysterium und Gralslegenden",
+      "keywords": [
+        "Gral",
+        "Gralskelch",
+        "Gralslegende",
+        "Gralslegenden",
+        "Gralsritter",
+        "Graltempel"
+      ]
+    },
+    {
+      "name": "Kristallkunde",
+      "description": "Kristalle, Kristallformen und Kristallisation in der Anthroposophie",
+      "keywords": [
+        "Kristall",
+        "Kristallformen",
+        "Kristallisation"
+      ]
+    },
+    {
+      "name": "Lautlehre & Eurythmie",
+      "description": "Lautbildung, Lauteurythmie und sprachliche Gestaltung",
+      "keywords": [
+        "Laut",
+        "Lautbildung",
+        "Lauteurythmie",
+        "Lautgebärden",
+        "Lautgestaltung",
+        "Lautsprache",
+        "Lautverschiebung"
+      ]
+    },
+    {
+      "name": "Lebensphasen & Lebenslauf",
+      "description": "Verschiedene Aspekte des menschlichen Lebenslaufs und der Lebensphasen",
+      "keywords": [
+        "Lebensabschnitte",
+        "Lebensalter",
+        "Lebensbedingungen",
+        "Lebensepochen",
+        "Lebensführung",
+        "Lebensgemeinschaften",
+        "Lebensgeschicklichkeit",
+        "Lebenskeime",
+        "Lebensknotenpunkt",
+        "Lebenskraft",
+        "Lebenslauf",
+        "Lebenslüge",
+        "Lebensnähe",
+        "Lebenspanorama",
+        "Lebenspraxis",
+        "Lebensprozesse",
+        "Lebensreife",
+        "Lebensrhythmen",
+        "Lebensrückschau",
+        "Lebensschule",
+        "Lebensstufen",
+        "Lebensvorblick (vorgeburtlich)"
+      ]
+    },
+    {
+      "name": "Mondentwicklung",
+      "description": "Alle Aspekte der Mondentwicklung und Mondenkräfte",
+      "keywords": [
+        "Mond",
+        "Mond-Pitris",
+        "Mondadepten",
+        "Mondaustritt",
+        "Mondenbevölkerung",
+        "Mondenbewusstsein",
+        "Mondendasein",
+        "Mondendienst",
+        "Mondenkräfte",
+        "Mondensphäre",
+        "Mondentrennung",
+        "Mondentwicklung",
+        "Mondenwandler",
+        "Mondenwesen",
+        "Mondgeheimnis",
+        "Mondgott",
+        "Mondkräfte",
+        "Mondplanet",
+        "Mondwesenheiten"
+      ]
+    },
+    {
+      "name": "Mantram & Mantra",
+      "description": "Mantrams, Mantras und mantrische Praxis",
+      "keywords": [
+        "Mantra",
+        "Mantram"
+      ]
+    },
+    {
+      "name": "Okkultismus & Geheimwissenschaften",
+      "description": "Okkulte Traditionen, Geheimwissenschaften und esoterische Gesellschaften",
+      "keywords": [
+        "Okkultismus",
+        "Okkulte Gesellschaften",
+        "Okkulte Geschichte",
+        "Okkulte Geschichtsforschung",
+        "Okkulte Gesetze",
+        "Okkulte Kräfte",
+        "Okkulte Mächte",
+        "Okkulte Physiologie",
+        "Okkulte Schrift",
+        "Okkulte Schulung",
+        "Okkulte Zeichen",
+        "Okkulte Zentren",
+        "Okkultes Lesen",
+        "Okkultisten",
+        "Schwarze Magie"
+      ]
+    },
+    {
+      "name": "Geometrie & Mathematik",
+      "description": "Geometrische Formen und mathematische Prinzipien in der Anthroposophie",
+      "keywords": [
+        "Oktaeder",
+        "Pentagramm",
+        "Primzahlen",
+        "Projektive Geometrie",
+        "Qualitative Mathematik",
+        "Pythagoräischer Lehrsatz",
+        "Quadrivium"
+      ]
+    },
+    {
+      "name": "Opfer & Hingabe",
+      "description": "Opfergedanke und Hingabe in spiritueller Entwicklung",
+      "keywords": [
+        "Opfer",
+        "Opferbereitschaft",
+        "Opferblut",
+        "Opfergaben",
+        "Opferkraft",
+        "Opferrauch",
+        "Opfertod",
+        "Opferwilligkeit"
+      ]
+    },
+    {
+      "name": "Organische Entwicklung",
+      "description": "Organische Prinzipien in Natur und Architektur",
+      "keywords": [
+        "Organbildung",
+        "Organe",
+        "Organentwicklung",
+        "Organisch",
+        "Organische Architektur",
+        "Organische Formen",
+        "Organische Kosmologie",
+        "Organische Wirkung",
+        "Organischer Baustil",
+        "Organismus",
+        "Organsysteme"
+      ]
+    },
+    {
+      "name": "Planetarische Entwicklung",
+      "description": "Planetarische Entwicklungsstufen und kosmische Zyklen",
+      "keywords": [
+        "Planetare Zuordnungen",
+        "Planetarische Entwicklung",
+        "Planetarische Entwicklungsstufen",
+        "Planetarische Runden",
+        "Planetarische Sphären",
+        "Planeten",
+        "Planetenbahnen",
+        "Planetenbewegung",
+        "Planetenbewegungen",
+        "Planetenentwicklung",
+        "Planetengeister",
+        "Planetengötter",
+        "Planetenkette",
+        "Planetenketten",
+        "Planetenkräfte",
+        "Planetensphäre",
+        "Planetensphären",
+        "Planetenstadien",
+        "Planetensystem",
+        "Planetentanz",
+        "Planetenumläufe",
+        "Planetenwelt",
+        "Planetenwirkungen",
+        "Planetenzyklen",
+        "Planetoiden"
+      ]
+    },
+    {
+      "name": "Christliche Feste",
+      "description": "Christliche Feste und ihre spirituelle Bedeutung",
+      "keywords": [
+        "Osterfest",
+        "Ostergeheimnis",
+        "Ostern",
+        "Pfingst",
+        "Pfingsten",
+        "Pfingstereignis",
+        "Pfingstfest",
+        "Pfingstwunder"
+      ]
+    },
+    {
+      "name": "Astronomie & Kosmologie",
+      "description": "Astronomische Erkenntnisse und kosmologische Zusammenhänge",
+      "keywords": [
+        "Sterne",
+        "Sternbilder",
+        "Sternenerkenntnis",
+        "Sternenkonstellation",
+        "Sternenkräfte",
+        "Sternenschrift",
+        "Sternensphären",
+        "Sternenweisheit",
+        "Sternenwelt",
+        "Spektralanalyse",
+        "Spektren",
+        "Spektroskop",
+        "Spektroskopie",
+        "Spektrum",
+        "Sonnenflecken",
+        "Sonnensystem"
+      ]
+    },
+    {
+      "name": "Sonnenmysterien",
+      "description": "Sonnengeheimnisse und Sonnenwesen in der Anthroposophie",
+      "keywords": [
+        "Sonne",
+        "Sonnen- und Mondenströmungen",
+        "Sonnendasein",
+        "Sonnendämon",
+        "Sonnengeflecht",
+        "Sonnengeheimnis",
+        "Sonnengeist",
+        "Sonnenheld",
+        "Sonnenkraft",
+        "Sonnenlicht",
+        "Sonnenlogos",
+        "Sonnenmotiv",
+        "Sonnennetz",
+        "Sonnenstaat",
+        "Sonnentrennung",
+        "Sonnenwesen",
+        "Sonnenwirkungen"
+      ]
+    },
+    {
+      "name": "Sprachkunst & Sprachpflege",
+      "description": "Sprachliche Gestaltung und Sprachentwicklung",
+      "keywords": [
+        "Sprachbeherrschung",
+        "Sprachen",
+        "Sprachentwicklung",
+        "Sprachgefühl",
+        "Sprachgeist",
+        "Sprachgenius",
+        "Sprachgestaltung",
+        "Sprachkritik",
+        "Sprachkunst",
+        "Sprachliche Bilder",
+        "Sprachorgane",
+        "Sprachschulung",
+        "Sprachstörungen",
+        "Sprachunterricht",
+        "Sprachwissenschaft",
+        "Sichtbare Sprache",
+        "Symbolische Sprache"
+      ]
+    },
+    {
+      "name": "Selbstentwicklung",
+      "description": "Selbsterkenntnis und Selbstvervollkommnung",
+      "keywords": [
+        "Selbstvernichtung",
+        "Selbstvervollkommnung",
+        "Selbstzucht",
+        "Selbständigkeit"
+      ]
+    },
+    {
+      "name": "Wahrheit & Erkenntnis",
+      "description": "Wahrheitsbegriff und Wahrheitserkenntnis in der Anthroposophie",
+      "keywords": [
+        "Wahrheit",
+        "Wahrhaftigkeit"
+      ]
+    },
+    {
+      "name": "Weihnachtsmysterien",
+      "description": "Weihnachtliche Mysterien und Festeszeiten",
+      "keywords": [
+        "Weihnachten",
+        "Weihnachtsbaum",
+        "Weihnachtsmysterium",
+        "Weihnachtspiele",
+        "Weihnachtstagung"
+      ]
+    },
+    {
+      "name": "Kosmische Weisheit",
+      "description": "Kosmische Zusammenhänge und Weltweisheit",
+      "keywords": [
+        "Weltenall",
+        "Weltenbewusstsein",
+        "Weltenkörper",
+        "Weltenlogos",
+        "Weltenmitternacht",
+        "Weltenmusik",
+        "Weltenrätsel",
+        "Weltenschlaf",
+        "Weltenschrift",
+        "Weltenstaub",
+        "Weltensubstanz",
+        "Weltenton",
+        "Weltentstehung",
+        "Weltentwicklung",
+        "Weltenuhr",
+        "Weltenweisheit",
+        "Weltenwort",
+        "Weltenwunder",
+        "Weltenäther",
+        "Weltgedanken",
+        "Weltgeheimnisse",
+        "Weltgericht",
+        "Weltgesetzmäßigkeit",
+        "Weltharmonie",
+        "Weltherrschaft",
+        "Welträtsel",
+        "Weltseele",
+        "Weltverstand"
+      ]
+    },
+    {
+      "name": "Willensschulung & Willenskraft",
+      "description": "Entwicklung und Schulung des Willens",
+      "keywords": [
+        "Wille",
+        "Willensbetätigung",
+        "Willensfreiheit",
+        "Willensimpuls",
+        "Willensinitiative",
+        "Willenskraft",
+        "Willensschulung",
+        "Wollen"
+      ]
+    },
+    {
+      "name": "Wärmelehre",
+      "description": "Anthroposophische Wärmelehre und Wärmewirkungen",
+      "keywords": [
+        "Wärme",
+        "Wärmtod"
+      ]
+    },
+    {
+      "name": "Zahlen & Zahlensymbolik",
+      "description": "Zahlensymbolik und Zahlengesetze",
+      "keywords": [
+        "Zahlen",
+        "Zahlengesetze",
+        "Zahlensymbolik",
+        "Zahlenverhältnisse",
+        "Zehnersystem",
+        "Zählen"
+      ]
+    },
+    {
+      "name": "Zeit & Zeitbewusstsein",
+      "description": "Zeitbegriff und Zeitorganismus",
+      "keywords": [
+        "Zeit",
+        "Zeitalter",
+        "Zeitenwende",
+        "Zeitereignisse",
+        "Zeitgefühl",
+        "Zeitgeist",
+        "Zeitgeschichte",
+        "Zeitorganismus"
+      ]
+    }
+  ],
+  "mapping": {
+    "Abstrakte Begriffe": "Abstraktion",
+    "Abstraktionen": "Abstraktion",
+    "Ahriman-Inkarnation": "Ahrimanische Inkarnation",
+    "Alchimie": "Alchemie",
+    "Anthroposophische Entwicklung": "Anthroposophische Bewegung",
+    "Atembehandlung": "Atemübungen",
+    "Atemtechnik": "Atemübungen",
+    "Atemübung": "Atemübungen",
+    "Atmungsprozeß": "Atmung",
+    "Atmungsrhythmus": "Atmung",
+    "Auren": "Aura",
+    "Bacon von Verulam": "Bacon",
+    "Baco von Verulam": "Bacon",
+    "Begabtenprüfungen": "Begabtenprüfung",
+    "Bewußtsein": "Bewusstsein",
+    "Bewußtseinsseele": "Bewusstseinsseele",
+    "Bewußtseinserweiterung": "Bewusstseinserweiterung",
+    "Biographien": "Biographie",
+    "Bodhisattvas": "Bodhisattva",
+    "Bruderlogen": "Bruderloge",
+    "Bruderschaften": "Bruderschaft",
+    "Brüderschaften": "Bruderschaft",
+    "Brüderschaft": "Bruderschaft",
+    "Budhi": "Buddhi",
+    "Bühnendarstellung": "Bühnenkunst",
+    "Bühnengestaltung": "Bühnenkunst",
+    "Christus-Erlebnis": "Christus-Ereignis",
+    "Christus-Geheimnis": "Christus-Mysterium",
+    "Christus-Problem": "Christus-Ereignis",
+    "Dimensionen": "Dimension",
+    "Dostojewskij": "Dostojewski",
+    "Dreigliederung des Menschen": "Dreigliederung",
+    "Eingeweihte": "Einweihung",
+    "Eingeweihung": "Einweihung",
+    "Eiszeit": "Eiszeiten",
+    "Elementare Welt": "Elementarwelten",
+    "Elementarische Welt": "Elementarwelten",
+    "Elementarische Geister": "Elementargeister",
+    "Elementenwelt": "Elementarwelten",
+    "Emanationen": "Emanation",
+    "Engelwelt": "Engel",
+    "Engelwesen": "Engel",
+    "Entwicklungphasen": "Entwicklungsphasen",
+    "Erdenentwicklung": "Erdentwicklung",
+    "Erinnerungen": "Erinnerung",
+    "Erkenntnisgrenzen": "Erkenntnisgrenze",
+    "Esoterisches Christentum": "Esoterik",
+    "Esoteriker": "Esoterik",
+    "Esoterismus": "Esoterik",
+    "Experimentalpsychologie": "Experimentelle Psychologie",
+    "Farben": "Farbe",
+    "Farblehre": "Farbenlehre",
+    "Feuer-Geister": "Feuergeister",
+    "Fixsterne": "Fixstern",
+    "Französische Sprache": "Französisch",
+    "Gedanken": "Gedanke",
+    "Geheimwissenschaftliche Traditionen": "Geheimwissenschaft",
+    "Geistige Welt": "Geistige Welten",
+    "Geistiges": "Geist",
+    "Geschlechter": "Geschlecht",
+    "Gnostiker": "Gnosis",
+    "Gnostizismus": "Gnosis",
+    "Goetheum": "Goetheanum",
+    "Grals-Strömung": "Gral",
+    "Graal": "Gral",
+    "Gruppen-Iche": "Gruppen-Ich",
+    "Gruppeniche": "Gruppen-Ich",
+    "Gruppenseelen": "Gruppenseele",
+    "Götter": "Göttliches",
+    "Göttlichkeit": "Göttliches",
+    "H.P. Blavatsky": "Helena Petrowna Blavatsky",
+    "Halluzinationen": "Halluzination",
+    "Handfertigkeitsunterricht": "Handarbeitsunterricht",
+    "Handwerksunterricht": "Handarbeitsunterricht",
+    "Harmonien": "Harmonie",
+    "Heilkräfte der Pflanzen": "Heilkräfte",
+    "Heilkräuter": "Heilkräfte",
+    "Heilkunde": "Heilkunst",
+    "Heilungsprozesse": "Heilung",
+    "Heilwirkungen": "Heilung",
+    "Hellsichtigkeit": "Hellsehen",
+    "Herzen": "Herz",
+    "Hexen": "Hexenküche",
+    "Hiram Abiff": "Hiram",
+    "Hiram-Abiff": "Hiram",
+    "Hiram-Legende": "Hiram",
+    "Hochschulkurs": "Hochschulkurse",
+    "Hochschulkursus": "Hochschulkurse",
+    "Homunkuli": "Homunculus",
+    "Homunkulus": "Homunculus",
+    "Hybernische Mysterien": "Hybernia",
+    "Hypophysis": "Hypophyse",
+    "Ich-Bewusstsein": "Ich",
+    "Ich-Entwicklung": "Ich",
+    "Ich-Sinn": "Ich",
+    "Impressionen": "Impressionismus",
+    "Indische Geheimlehre": "Indien",
+    "Industrielle": "Industrialismus",
+    "Initiationserkenntnis": "Initiation",
+    "Initiationsweisheit": "Initiation",
+    "Initiationswissenschaft": "Initiation",
+    "Initiierten": "Initiation",
+    "Innere Entwicklung": "Innere Entwicklung",
+    "Instinktive Erkenntnis": "Instinktives Bewusstsein",
+    "Instinktive Weisheit": "Instinktives Bewusstsein",
+    "Internationale Gesellschaft": "Internationale Bewegung",
+    "Irrtümer": "Irrtum",
+    "Jahve-Elohim": "Jahve",
+    "Jahve-Politik": "Jahve",
+    "Jahve-Religion": "Jahve",
+    "Jahwe": "Jahve",
+    "Jehova": "Jahve",
+    "Jesus-Empfindung": "Jesus von Nazareth",
+    "Jesusknaben": "Jesusknabe",
+    "Joga-Schulung": "Joga",
+    "Jogasystem": "Joga",
+    "Jogaweg": "Joga",
+    "Johannes-Taufe": "Johannes-Taufe",
+    "Johannestaufe": "Johannes-Taufe",
+    "Johannisfest": "Johannifest",
+    "Julian der Apostat": "Julian Apostata",
+    "Julianus Apostata": "Julian Apostata",
+    "Jupiter-Entwicklung": "Jupiterentwicklung",
+    "Jupiter-Planet": "Jupiterplanet",
+    "Jupiterdasein": "Jupiterentwicklung",
+    "Jupitermenschen": "Jupiterentwicklung",
+    "Jupiterperiode": "Jupiterentwicklung",
+    "Jupitertag": "Jupiter",
+    "Jupiterwesenheiten": "Jupiterentwicklung",
+    "Jupiterzeit": "Jupiterentwicklung",
+    "Kain und Abel": "Kain-Abel-Geschichte",
+    "Kali-Yuga": "Kali Yuga",
+    "Kant-Laplace-Theorie": "Kant-Laplace",
+    "Kant-Laplacesche Theorie": "Kant-Laplace",
+    "Krankheiten": "Krankheit",
+    "Kometen": "Komet",
+    "Konsonanten": "Konsonant",
+    "Kosmische Einflüsse": "Kosmische Kräfte",
+    "Kosmische Impulse": "Kosmische Kräfte",
+    "Kosmische Intelligenzen": "Kosmische Intelligenz",
+    "Kosmische Wesen": "Kosmisches Wesen",
+    "Kristalle": "Kristall",
+    "Kulturentwicklung": "Kulturentwicklung",
+    "Kulturstufen": "Kulturentwicklung",
+    "Kultushandlungen": "Kultus",
+    "Laute": "Laut",
+    "Lebechöre": "Lebebstableau",
+    "Lebenskräfte": "Lebenskraft",
+    "Lebenstableau": "Lebebstableau",
+    "Lebensvorbilck (vorgeburtlich)": "Lebensvorblick (vorgeburtlich)",
+    "Lehrerkonferenzen": "Lehrerkonferenz",
+    "Lehrmethoden": "Lehrmethode",
+    "Lemniskaten": "Lemniskate",
+    "Lemuren": "Lemurien",
+    "Lemurier": "Lemurien",
+    "Lemurische Rasse": "Lemurien",
+    "Lemurische Zeit": "Lemurien",
+    "Lionardo da Vinci": "Leonardo da Vinci",
+    "Lotosblumen": "Lotosblume",
+    "Lotosblüten": "Lotosblume",
+    "Lotusblumen": "Lotosblume",
+    "Luziferisch": "Luzifer",
+    "Luziferische Geister": "Luzifer",
+    "Luziferische Kräfte": "Luzifer",
+    "Luziferische Mächte": "Luzifer",
+    "Luziferische Wesen": "Luzifer",
+    "Luziferische Wesenheiten": "Luzifer",
+    "Luziferischer Einfluss": "Luzifer",
+    "Luziferisches Prinzip": "Luzifer",
+    "Lügen": "Lüge",
+    "Maitreya-Buddha": "Maitreya Buddha",
+    "Mantrams": "Mantram",
+    "Mantren": "Mantram",
+    "Mantrische Sprüche": "Mantram",
+    "Menschheitsentwickelung": "Menschheitsentwicklung",
+    "Michael-Bewegung": "Michaels-Bewegung",
+    "Michael-Fest": "Michaelfest",
+    "Michaeli-Fest": "Michaelfest",
+    "Michaelströmung": "Michael-Strömung",
+    "Mineralien": "Mineral",
+    "Mineralisch": "Mineralisches Reich",
+    "Mineralreich": "Mineralisches Reich",
+    "Monde": "Mond",
+    "Mysteriendramen": "Mysteriendramen",
+    "Mysterienspiele": "Mysteriendramen",
+    "Märchendichtung": "Märchen",
+    "Nirmanakayas": "Nirmanakaya",
+    "Nirwana": "Nirvana",
+    "Oberuferer Spiele": "Oberufer",
+    "Offenbarungen": "Offenbarung",
+    "Okkulte Brüderschaften": "Okkulte Gesellschaften",
+    "Okkulte Verbrüderungen": "Okkulte Gesellschaften",
+    "Okkultist": "Okkultisten",
+    "Opfertode": "Opfertod",
+    "Osiris-Isis-Mythe": "Osiris-Isis-Sage",
+    "Selbstbewußtsein": "Selbstbewusstsein",
+    "Plato": "Platon",
+    "Rafael": "Raffael",
+    "Raphael": "Raffael",
+    "Scotus Erigena": "Scotus Eriugena",
+    "Seelen Erwachen": "Seelenerwachen",
+    "Pythagoräer": "Pythagoreer",
+    "Solowjow": "Solowjew",
+    "Somnambule": "Somnambulismus",
+    "Sonnenhelden": "Sonnenheld",
+    "Sternkonstellationen": "Sternenkonstellation",
+    "Traumbewußtsein": "Traumbewusstsein",
+    "Unterbewußtsein": "Unterbewusstsein",
+    "Unterbewusstes": "Unterbewusstsein",
+    "Unwahrheiten": "Unwahrheit",
+    "Verleumdungen": "Verleumdung",
+    "Volksseelen": "Volksseele",
+    "Völkergeister": "Volksgeister",
+    "Tolstoj": "Tolstoi",
+    "Tycho de Brahe": "Tycho Brahe",
+    "Völkermischung": "Völkerpsychologie",
+    "Völkermissionen": "Völkerpsychologie",
+    "Völkerseelen": "Volksseelen",
+    "Völkerströme": "Völkerwanderung",
+    "Wahrheit und Irrtum": "Wahrheit",
+    "Wahrheitsbegriff": "Wahrheit",
+    "Wahrheitserkenntnis": "Wahrheit",
+    "Wahrheitsforschung": "Wahrheit",
+    "Wahrheitssinn": "Wahrheit",
+    "Wahrheitsstreben": "Wahrheit",
+    "Waldorf-Schule": "Waldorfschule",
+    "Waldorfschul-Pädagogik": "Waldorfpädagogik",
+    "Wanen und Asen": "Asen",
+    "Weihenacht": "Weihnachten",
+    "Weihnacht": "Weihnachten",
+    "Weihnachtsfest": "Weihnachten",
+    "Weihnachtsgedanke": "Weihnachten",
+    "Weihnachtsgeheimnis": "Weihnachtsmysterium",
+    "Weihnachtsspiele": "Weihnachtspiele",
+    "Weihnachtspiele": "Weihnachtspiele",
+    "Weihnachtszeit": "Weihnachten",
+    "Weltengeheimnisse": "Weltgeheimnisse",
+    "Weltenseele": "Weltseele",
+    "Wiederholte Erdenleben": "Reinkarnation",
+    "Wiederverkörperung": "Reinkarnation",
+    "Wiederkunft Christi": "Wiederkunft",
+    "Willensimpulse": "Willensimpuls",
+    "Willenskräfte": "Willenskraft",
+    "Wilsonianismus": "Wilsonismus",
+    "Wintersonnwende": "Wintersonnenwende",
+    "Wissenschaftliche Methode": "Wissenschaftskritik",
+    "Woodrow Wilson": "Wilson",
+    "Wurzelrassen": "Wurzelrasse",
+    "Wärmeausdehnung": "Wärme",
+    "Wärmeeffekte": "Wärme",
+    "Wärmeelement": "Wärme",
+    "Wärmelehre": "Wärme",
+    "Wärmeleitung": "Wärme",
+    "Wärmeorgan": "Wärme",
+    "Wärmeorganismus": "Wärme",
+    "Wärmewesen": "Wärme",
+    "Wärmewirkungen": "Wärme",
+    "Zarathustrismus": "Zarathustra",
+    "Zeitalter der Bewusstseinsseele": "Zeitalter der Bewusstseinsseele",
+    "Zeitgeister": "Zeitgeist",
+    "Zivilisationschaos": "Zivilisation",
+    "Zivilisationsentwicklung": "Zivilisation",
+    "Zivilisationsepochen": "Zivilisation",
+    "Zivilisationskatastrophen": "Zivilisation",
+    "Zivilisationskrise": "Zivilisation",
+    "Zivilisationsniedergang": "Zivilisation",
+    "Zoroaster": "Zarathustra",
+    "Zusammenarbeiten": "Zusammenarbeit",
+    "Zwischenkieferknochen": "Zwischenkiefer",
+    "Zwölf Weltanschauungstypen": "Weltanschauung",
+    "Ägyptisch-chaldäische Zeit": "Ägyptisch-chaldäische Kultur",
+    "Ätherische Erscheinung": "Äther",
+    "Ätherischer Christus": "Christus",
+    "Ätherschwingungen": "Äther",
+    "Österreich-Ungarn": "Österreich",
+    "Österreichisches Geistesleben": "Österreich",
+    "Übersinnliche Erfahrung": "Übersinnliche Erkenntnis",
+    "Übersinnliche Wahrnehmung": "Übersinnliche Erkenntnis",
+    "Übersinnliche Welt": "Geistige Welt"
+  }
+}

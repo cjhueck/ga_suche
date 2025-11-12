@@ -9,10 +9,7 @@
       "Anthroposophische Methode",
       "Anthroposophische Mission",
       "Antisophie",
-      "Theosophie",
-      "Theosophie & Christentum",
-      "Theosophische Bewegung",
-      "Theosophische Gesellschaft"
+      "Theosophie"
     ]
   },
   "Geisteswissenschaft": {
@@ -20,9 +17,7 @@
     "keywords": [
       "Geisteswissenschaft",
       "Geisteswissenschaftliche Erkenntnis",
-      "Geistesforschung",
-      "Geheimwissenschaft",
-      "Geheimwissenschaftliche Traditionen"
+      "Geheimwissenschaft"
     ]
   },
   "Geistige Schulung": {
@@ -30,9 +25,8 @@
     "keywords": [
       "Bewusstseinsschulung",
       "Denkschulung",
-      "Exakte Clairvoyance",
-      "Geistige Schulung",
       "Hellsehen",
+      "Geistesschulung",
       "Konzentration",
       "Meditation",
       "Okkulte Schulung",
@@ -44,10 +38,10 @@
     "keywords": [
       "Astrale Welt",
       "Devachan",
-      "Geistige Welt",
-      "Geistige Wesenheiten",
+      "Geistige Welten",
+      "Geistige Hierarchien",
       "Kamaloka",
-      "Mentale Welt",
+      "Mental-Leib",
       "Astrales Schauen",
       "Astrales Licht",
       "Arupa-Sphäre",
@@ -58,7 +52,7 @@
   "Übersinnliche Erkenntnis": {
     "description": "Höhere Erkenntnisstufen und Wahrnehmungsformen",
     "keywords": [
-      "Übersinnliche Wahrnehmung",
+      "Übersinnliche Erkenntnis",
       "Imagination",
       "Inspiration",
       "Intuition"
@@ -69,16 +63,15 @@
     "keywords": [
       "Bewusstsein",
       "Bewusstseinserweiterung",
-      "Bewusstseinsevolution",
+      "Bewusstseinsentwicklung",
       "Bewusstseinszustände",
       "Bewusstsein nach dem Tod",
       "Instinktives Bewusstsein",
       "Leeres Bewusstsein",
       "Schauendes Bewusstsein",
-      "Spirituelles Bewusstsein",
-      "Traumzustand",
+      "Spiritualität",
+      "Traumbewusstsein",
       "Wachen & Schlafen",
-      "Bewusstseinsentwicklung",
       "Bewusstsein & Abbau"
     ]
   },
@@ -87,9 +80,8 @@
     "keywords": [
       "Bewusstseinsseele",
       "Empfindungsseele",
-      "Verstandes- & Gemütsseele",
-      "Bewusstseinseele",
-      "Verstandesseele"
+      "Verstandesseele",
+      "Bewusstseinseele"
     ]
   },
   "Seelenfähigkeiten": {
@@ -99,7 +91,7 @@
       "Denken",
       "Vorstellen",
       "Fühlen",
-      "Wollen"
+      "Wille"
     ]
   },
   "Personen": {
@@ -141,14 +133,12 @@
       "Mainländer",
       "Maeterlinck",
       "Max Planck",
-      "Maurice Maeterlinck",
       "Meister Eckhart",
       "Moses",
       "Orpheus",
       "Oscar Hertwig",
       "Otto Liebmann",
       "Paulus",
-      "Plato",
       "Platon",
       "Plotin",
       "Richard Wagner",
@@ -158,7 +148,6 @@
       "Schopenhauer",
       "Scotus Eriugena",
       "Solowjew",
-      "Solowjow",
       "Spencer",
       "Spinoza",
       "Wagner",
@@ -169,9 +158,7 @@
       "Apollonius von Tyana",
       "Dädalus",
       "Hiram",
-      "Hiram Abiff",
       "Huxley",
-      "Hiram-Abiff",
       "Ikarus",
       "Jakob Böhme",
       "Jean Christophe",
@@ -180,12 +167,12 @@
       "Judas",
       "Josephus",
       "Kain",
-      "Kain und Abel",
+      "Kain-Abel-Geschichte",
       "Kepler",
       "Kopernikus",
       "Krishna",
       "Adolf Fick",
-      "Baco von Verulam",
+      "Bacon",
       "Bergson",
       "Bismarck",
       "Bolzano",
@@ -211,13 +198,13 @@
       "Elias",
       "Rousseau",
       "Zarathustra",
-      "Woodrow Wilson",
+      "Wilson",
       "Wolfram von Eschenbach",
       "Sophie von Kühn",
       "Spengler",
       "Swedenborg",
       "Theophilus",
-      "Tolstoj",
+      "Tolstoi",
       "Troxler",
       "Nikolaus Cusanus",
       "Nostradamus",
@@ -226,9 +213,7 @@
       "Origenes",
       "Pestalozzi",
       "Philo von Alexandrien",
-      "Philon",
       "Comenius",
-      "Dionysios Areopagita",
       "Dürer",
       "Barbarossa"
     ]
@@ -242,7 +227,7 @@
       "Seelenerkenntnis",
       "Seelenerlebnisse",
       "Seelenkräfte",
-      "Seelenlehre",
+      "Seelenwissenschaft",
       "Seelenverfassung",
       "Vorstellungsleben",
       "Willensleben"
@@ -275,7 +260,7 @@
   "Kosmische Entwicklung": {
     "description": "Planetarische und kosmische Entwicklungsstufen",
     "keywords": [
-      "Erdenentwicklung",
+      "Erdentwicklung",
       "Planetarische Entwicklung",
       "Kosmische Entwicklung",
       "Kosmische Evolution",
@@ -292,7 +277,7 @@
       "Atlantis",
       "Atlantische Zeit",
       "Griechisch-römische Kultur",
-      "Kulturentwicklung",
+      "Kultur",
       "Lemuris",
       "Kulturepochen",
       "Ägyptisch-chaldäische Kultur",
@@ -309,17 +294,15 @@
       "Christus",
       "Christus-Impuls",
       "Christus-Ereignis",
-      "Christus-Erlebnis",
       "Christliche Einweihung",
       "Christliche Kunst",
       "Christliche Mystik",
-      "Jesus von Nazareth",
+      "Jesus",
       "Mysterium von Golgatha",
       "Damaskus",
       "Apokalypse",
       "Bergpredigt",
       "Auferstehung",
-      "Ätherischer Christus",
       "Christliche Gnade",
       "Christus-Prinzip",
       "Abendmahl",
@@ -349,8 +332,7 @@
       "Mystische Tatsache",
       "Esoterik",
       "Esoterische Lehre",
-      "Gnosis",
-      "Gnostiker"
+      "Gnosis"
     ]
   },
   "Mysterien & Einweihung": {
@@ -380,7 +362,6 @@
       "Erkenntnis",
       "Erkenntnisentwicklung",
       "Erkenntnismethoden",
-      "Erkenntnistheorie",
       "Erkenntnisweg",
       "Grenzen des Erkennens",
       "Erkenntniskraft",
@@ -427,12 +408,9 @@
       "Pädagogik",
       "Erziehung",
       "Waldorfpädagogik",
-      "Waldorfschule",
       "Autorität in der Erziehung",
       "Erziehungskunst",
-      "Lebendige Pädagogik",
-      "Pädagogische Gesinnung",
-      "Pädagogischer Kurs"
+      "Lebendige Pädagogik"
     ]
   },
   "Entwicklungsphasen": {
@@ -453,7 +431,7 @@
       "Lebendiger Unterricht",
       "Künstlerische Erziehung",
       "Schreibunterricht",
-      "Rechenunterricht",
+      "Rechnen",
       "Eurythmieunterricht",
       "Epochenunterricht"
     ]
@@ -492,11 +470,10 @@
   "Medizin & Heilkunde": {
     "description": "Anthroposophische und komplementäre Medizin",
     "keywords": [
-      "Heilkunst",
+      "Heilkräfte",
       "Heilung",
       "Homöopathie",
-      "Naturheilkunde",
-      "Heilmittel"
+      "Naturheilkunde"
     ]
   },
   "Gesundheit & Krankheit": {
@@ -525,7 +502,6 @@
       "Dreigliederung des sozialen Organismus",
       "Soziale Dreigliederung",
       "Soziale Frage",
-      "Sozialer Organismus",
       "Soziales Leben",
       "Demokratie",
       "Rechtsleben",
@@ -540,7 +516,7 @@
   "Wirtschaft": {
     "description": "Wirtschaftliche Zusammenhänge und Organisation",
     "keywords": [
-      "Kapital",
+      "Kapitalismus",
       "Wirtschaftliche Assoziationen",
       "Wirtschaftsorganismus",
       "Volkswirtschaft"
@@ -549,10 +525,10 @@
   "Naturreiche": {
     "description": "Die vier Naturreiche und ihre Eigenschaften",
     "keywords": [
-      "Mineralisches Reich",
+      "Mineralreich",
       "Pflanze",
       "Naturreiche",
-      "Tier",
+      "Tierreich",
       "Mensch & Tier",
       "Kristall",
       "Erdbeben"
@@ -586,14 +562,14 @@
       "Tod & Leben",
       "Tod & Wiedergeburt",
       "Erinnerungstableau",
-      "Lebenstableau"
+      "Lebenspanorama"
     ]
   },
   "Leben zwischen den Inkarnationen": {
     "description": "Nachtodliches und vorgeburtliches Dasein",
     "keywords": [
       "Leben zwischen Tod & Geburt",
-      "Vorgeburtliches Leben",
+      "Vorgeburtliches Dasein",
       "Nachtodliches Leben"
     ]
   },
@@ -619,7 +595,6 @@
       "Exusiai, Kyriotetes, Dynamis",
       "Angeloi, Archangeloi, Archai",
       "Ahrimanische Kräfte",
-      "Luziferische Wesenheiten",
       "Abstammung",
       "Devas",
       "Dhyan-Chohans",
@@ -667,7 +642,7 @@
       "Anschauende Urteilskraft",
       "Farbenlehre",
       "Goethes Bedeutung",
-      "Zwischenkieferknochen"
+      "Zwischenkiefer"
     ]
   },
   "Goetheanum": {
@@ -716,7 +691,7 @@
       "Deutsche Geistigkeit",
       "Deutsche Volksseele",
       "Mitteleuropa",
-      "Volksseelen",
+      "Volksseele",
       "Europäische Kulturen",
       "Orientalische Kultur"
     ]
@@ -732,7 +707,7 @@
   "Menschliches Wesen": {
     "description": "Das Wesen und die Organisation des Menschen",
     "keywords": [
-      "Menschenerkenntnis",
+      "Menschenkunde",
       "Menschenverstãndnis",
       "Menschenwesen",
       "Menschliche Organisation",
@@ -794,7 +769,7 @@
     "description": "Praktische Lebensfragen und Lebenserfahrung",
     "keywords": [
       "Lebenserfahrung",
-      "Lebenslauf",
+      "Lebenspanorama",
       "Lebenspraxis",
       "Lebenskraft",
       "Lebensfragen",
@@ -837,16 +812,15 @@
   "Hermetische Lehren": {
     "description": "Hermetische und rosenkreuzerische Traditionen",
     "keywords": [
-      "Hermes Trismegistos",
+      "Hermes",
       "Hermetischer Grundsatz",
-      "Rosenkreuz",
-      "Rosenkreuzer"
+      "Rosenkreuz"
     ]
   },
   "Zeitrhythmen": {
     "description": "Rhythmische Lebensgesetze und Zeitzyklen",
     "keywords": [
-      "Jahreszeiten",
+      "Jahreskreislauf",
       "Zeitrhythmen",
       "Rhythmische Lebensgesetze"
     ]
@@ -911,7 +885,7 @@
       "Ernährung",
       "Fortpflanzung",
       "Verdauung",
-      "Blutsystem",
+      "Blutsverwandtschaft",
       "Nervensystem",
       "Stoffwechselsystem"
     ]
@@ -936,7 +910,6 @@
       "Ätherleib",
       "Astralleib",
       "Ich",
-      "Ich-Entwicklung",
       "Geistselbst (Manas)",
       "Lebensgeist (Buddhi, Budhi)",
       "Geistesmensch (Atma)",
@@ -944,9 +917,8 @@
       "Buddhi",
       "Atma",
       "Manas",
-      "Dreigliederung des Menschen",
-      "Anthropologie",
-      "Budhi"
+      "Dreigliederung",
+      "Anthropologie"
     ]
   },
   "Darwinismus & Evolutionslehre": {
@@ -974,8 +946,8 @@
       "Sprache",
       "Sprachphilosophie",
       "Sprechenlernen",
-      "Vokale",
-      "Konsonanten"
+      "Vokal",
+      "Konsonant"
     ]
   },
   "Weltanschauungen & Ismen": {
@@ -983,7 +955,6 @@
     "keywords": [
       "Idealismus",
       "Materialismus",
-      "Materialismuskritik",
       "Monismus",
       "Pragmatismus",
       "Antike Philosophie",
@@ -998,7 +969,7 @@
       "Atomismus",
       "Atheismus",
       "Bolschewismus",
-      "Spiritualismus",
+      "Spiritualität",
       "Stoizismus",
       "Subjektivismus",
       "Vitalismus",
@@ -1013,21 +984,21 @@
       "Mechanistisches Weltbild",
       "Pythagoreismus",
       "Realismus",
-      "Sakramentalismus",
-      "Slawophilismus",
+      "Sakrament",
+      "Slawentum",
       "Vegetarismus",
-      "Okkultismus",
+      "Okkulte Schulung",
       "Arabismus",
       "Dilettantismus",
       "Fanatismus",
       "Fetischismus",
-      "Gnostizismus",
+      "Gnosis",
       "Henotheismus",
-      "Individualismus",
-      "Intellektualismus",
+      "Individualität",
+      "Intellekt",
       "Katholizismus",
       "Manichäismus",
-      "Zarathustrismus"
+      "Zarathustra"
     ]
   },
   "Hierarchien": {
@@ -1052,6 +1023,409 @@
       "Bolschewismus",
       "Sozialismus",
       "Marxismus"
+    ]
+  },
+  "Gegenspieler-Kräfte": {
+    "description": "Ahrimanische und luziferische Kräfte als Gegenspieler in der menschlichen Entwicklung",
+    "keywords": [
+      "Ahriman",
+      "Ahrimanisch",
+      "Ahrimanische Dämonen",
+      "Ahrimanische Geister",
+      "Ahrimanische Gewalten",
+      "Ahrimanische Inkarnation",
+      "Ahrimanische Kräfte",
+      "Ahrimanische Mächte",
+      "Ahrimanische Unsterblichkeit"
+    ]
+  },
+  "Persische Kultur": {
+    "description": "Altpersische Religion und Kultur, Zarathustra-Impuls",
+    "keywords": [
+      "Ahura Mazdao",
+      "Amshaspands"
+    ]
+  },
+  "Antisoziale Tendenzen": {
+    "description": "Antisoziale Impulse und Triebe in der menschlichen Natur",
+    "keywords": [
+      "Antisozial",
+      "Antisoziale Triebe"
+    ]
+  },
+  "Architektonische Gestaltung": {
+    "description": "Architektonische Formen und Baustile in der anthroposophischen Architektur",
+    "keywords": [
+      "Architektonische Formen",
+      "Architrave",
+      "Baukunst"
+    ]
+  },
+  "Bewegungskunst & Eurythmie": {
+    "description": "Bewegungskunst, Eurythmie und bewegte Plastik",
+    "keywords": [
+      "Bewegte Plastik",
+      "Bewegungsformen",
+      "Bewegungskunst",
+      "Bewegungsübungen"
+    ]
+  },
+  "Bewusstseins-Entwicklung": {
+    "description": "Verschiedene Aspekte der Bewusstseinsentwicklung und -schulung",
+    "keywords": [
+      "Bewusstseinsbeherrschung",
+      "Bewusstseinsdurchleuchtung",
+      "Bewusstseinsentwicklung",
+      "Bewusstseinserweiterung",
+      "Bewusstseinsimpulse",
+      "Bewusstseinsschulung",
+      "Bewusstseinsseele",
+      "Bewusstseinstäuschung",
+      "Bewusstseinszustände"
+    ]
+  },
+  "Elementarwesen": {
+    "description": "Elementargeister und elementarische Wesenheiten der verschiedenen Naturreiche",
+    "keywords": [
+      "Elementarwesen",
+      "Elementarwelten",
+      "Elementarisches Leben",
+      "Elementaressenz",
+      "Elementarereignisse",
+      "Gnomen"
+    ]
+  },
+  "Embryologie & Entwicklung": {
+    "description": "Embryonale Entwicklung und vorgeburtliche Prozesse",
+    "keywords": [
+      "Embryologie"
+    ]
+  },
+  "Erdentwicklung": {
+    "description": "Entwicklung und Zukunft der Erde als Planetenstufe",
+    "keywords": [
+      "Erde",
+      "Erdentwicklung",
+      "Erdenseele",
+      "Erdenorganismus",
+      "Erdenkräfte",
+      "Erdenmission",
+      "Erdenzerstörung",
+      "Erdgeist",
+      "Erdschichten",
+      "Erdverfestigung"
+    ]
+  },
+  "Gralslegenden": {
+    "description": "Gralsmysterium und Gralslegenden",
+    "keywords": [
+      "Gral",
+      "Gralslegende",
+      "Gralslegenden",
+      "Gralsritter",
+      "Graltempel"
+    ]
+  },
+  "Kristallkunde": {
+    "description": "Kristalle, Kristallformen und Kristallisation in der Anthroposophie",
+    "keywords": [
+      "Kristall"
+    ]
+  },
+  "Lautlehre & Eurythmie": {
+    "description": "Lautbildung, Lauteurythmie und sprachliche Gestaltung",
+    "keywords": [
+      "Laut",
+      "Lautbildung",
+      "Lauteurythmie",
+      "Lautgebärden",
+      "Lautsprache",
+      "Lautverschiebung"
+    ]
+  },
+  "Lebensphasen & Lebenslauf": {
+    "description": "Verschiedene Aspekte des menschlichen Lebenslaufs und der Lebensphasen",
+    "keywords": [
+      "Lebensepochen",
+      "Lebensbedingungen",
+      "Lebensführung",
+      "Lebensgemeinschaften",
+      "Lebensgeschicklichkeit",
+      "Lebenskeime",
+      "Lebensknotenpunkt",
+      "Lebenskraft",
+      "Lebenspanorama",
+      "Lebenslüge",
+      "Lebensnähe",
+      "Lebenspraxis",
+      "Lebensprozesse",
+      "Lebensreife",
+      "Lebensrhythmen",
+      "Lebensschule",
+      "Lebensvorblick (vorgeburtlich)"
+    ]
+  },
+  "Mondentwicklung": {
+    "description": "Alle Aspekte der Mondentwicklung und Mondenkräfte",
+    "keywords": [
+      "Mond",
+      "Mond-Pitris",
+      "Mondadepten",
+      "Mondaustritt",
+      "Mondenbevölkerung",
+      "Mondenbewusstsein",
+      "Mondendasein",
+      "Mondendienst",
+      "Mondenkräfte",
+      "Mondensphäre",
+      "Mondentrennung",
+      "Mondentwicklung",
+      "Mondenwandler",
+      "Mondwesenheiten",
+      "Mondgeheimnis",
+      "Mondgott"
+    ]
+  },
+  "Mantram & Mantra": {
+    "description": "Mantrams, Mantras und mantrische Praxis",
+    "keywords": [
+      "Mantram"
+    ]
+  },
+  "Okkultismus & Geheimwissenschaften": {
+    "description": "Okkulte Traditionen, Geheimwissenschaften und esoterische Gesellschaften",
+    "keywords": [
+      "Okkulte Schulung",
+      "Okkulte Gesellschaften",
+      "Okkulte Geschichte",
+      "Okkulte Geschichtsforschung",
+      "Okkulte Gesetze",
+      "Okkulte Kräfte",
+      "Okkulte Mächte",
+      "Okkulte Physiologie",
+      "Okkulte Schrift",
+      "Okkulte Zeichen",
+      "Okkulte Zentren",
+      "Okkultes Lesen",
+      "Schwarze Magie"
+    ]
+  },
+  "Geometrie & Mathematik": {
+    "description": "Geometrische Formen und mathematische Prinzipien in der Anthroposophie",
+    "keywords": [
+      "Oktaeder",
+      "Pentagramm",
+      "Primzahlen",
+      "Projektive Geometrie",
+      "Qualitative Mathematik",
+      "Pythagoräischer Lehrsatz",
+      "Quadrivium"
+    ]
+  },
+  "Opfer & Hingabe": {
+    "description": "Opfergedanke und Hingabe in spiritueller Entwicklung",
+    "keywords": [
+      "Opfer"
+    ]
+  },
+  "Organische Entwicklung": {
+    "description": "Organische Prinzipien in Natur und Architektur",
+    "keywords": [
+      "Organbildung",
+      "Organe",
+      "Organisch",
+      "Organische Architektur",
+      "Organische Formen",
+      "Organische Kosmologie",
+      "Organische Wirkung",
+      "Organismus",
+      "Organsysteme"
+    ]
+  },
+  "Planetarische Entwicklung": {
+    "description": "Planetarische Entwicklungsstufen und kosmische Zyklen",
+    "keywords": [
+      "Planetare Zuordnungen",
+      "Planetarische Entwicklung",
+      "Planetarische Entwicklungsstufen",
+      "Planetarische Runden",
+      "Planetarische Sphären",
+      "Planeten",
+      "Planetenbahnen",
+      "Planetenbewegung",
+      "Planetenbewegungen",
+      "Planetenentwicklung",
+      "Planetengeister",
+      "Planetengötter",
+      "Planetenkette",
+      "Planetenketten",
+      "Planetenkräfte",
+      "Planetensphäre",
+      "Planetensphären",
+      "Planetenstadien",
+      "Planetensystem",
+      "Planetentanz",
+      "Planetenumläufe",
+      "Planetenwelt",
+      "Planetenwirkungen",
+      "Planetenzyklen",
+      "Planetoiden"
+    ]
+  },
+  "Christliche Feste": {
+    "description": "Christliche Feste und ihre spirituelle Bedeutung",
+    "keywords": [
+      "Ostergeheimnis",
+      "Osterfest",
+      "Pfingsten"
+    ]
+  },
+  "Astronomie & Kosmologie": {
+    "description": "Astronomische Erkenntnisse und kosmologische Zusammenhänge",
+    "keywords": [
+      "Sterne",
+      "Sternbilder",
+      "Sternenweisheit",
+      "Sternenkräfte",
+      "Sternenschrift",
+      "Sternenwelt",
+      "Spektralanalyse",
+      "Sonnenflecken",
+      "Sonnensystem"
+    ]
+  },
+  "Sonnenmysterien": {
+    "description": "Sonnengeheimnisse und Sonnenwesen in der Anthroposophie",
+    "keywords": [
+      "Sonne",
+      "Sonnen- und Mondenströmungen",
+      "Sonnendämon",
+      "Sonnengeflecht",
+      "Sonnengeheimnis",
+      "Sonnengeist",
+      "Sonnenheld",
+      "Sonnenkraft",
+      "Sonnenmotiv",
+      "Sonnennetz",
+      "Sonnenstaat",
+      "Sonnentrennung"
+    ]
+  },
+  "Sprachkunst & Sprachpflege": {
+    "description": "Sprachliche Gestaltung und Sprachentwicklung",
+    "keywords": [
+      "Sprachbeherrschung",
+      "Sprachen",
+      "Sprachentwicklung",
+      "Sprachgefühl",
+      "Sprachgeist",
+      "Sprachgestaltung",
+      "Sprachkritik",
+      "Sprachliche Bilder",
+      "Sprachorgane",
+      "Sprachschulung",
+      "Sprachstörungen",
+      "Sprachwissenschaft",
+      "Sichtbare Sprache",
+      "Symbolische Sprache"
+    ]
+  },
+  "Selbstentwicklung": {
+    "description": "Selbsterkenntnis und Selbstvervollkommnung",
+    "keywords": [
+      "Selbstvernichtung",
+      "Selbstvervollkommnung",
+      "Selbstbeherrschung",
+      "Selbständigkeit"
+    ]
+  },
+  "Wahrheit & Erkenntnis": {
+    "description": "Wahrheitsbegriff und Wahrheitserkenntnis in der Anthroposophie",
+    "keywords": [
+      "Wahrheit",
+      "Wahrhaftigkeit"
+    ]
+  },
+  "Weihnachtsmysterien": {
+    "description": "Weihnachtliche Mysterien und Festeszeiten",
+    "keywords": [
+      "Weihnachten",
+      "Weihnachtsbaum",
+      "Weihnachtsmysterium",
+      "Weihnachtstagung"
+    ]
+  },
+  "Kosmische Weisheit": {
+    "description": "Kosmische Zusammenhänge und Weltweisheit",
+    "keywords": [
+      "Weltenall",
+      "Weltenbewusstsein",
+      "Weltenkörper",
+      "Weltenlogos",
+      "Weltenmitternacht",
+      "Weltenmusik",
+      "Weltenrätsel",
+      "Weltenschlaf",
+      "Weltenschrift",
+      "Weltenstaub",
+      "Weltensubstanz",
+      "Weltenton",
+      "Weltentstehung",
+      "Weltentwicklung",
+      "Weltenuhr",
+      "Weltenweisheit",
+      "Weltenwort",
+      "Weltenwunder",
+      "Weltenäther",
+      "Weltgedanken",
+      "Weltgeheimnisse",
+      "Weltgericht",
+      "Weltgesetzmäßigkeit",
+      "Weltharmonie",
+      "Weltherrschaft",
+      "Weltseele",
+      "Weltverstand"
+    ]
+  },
+  "Willensschulung & Willenskraft": {
+    "description": "Entwicklung und Schulung des Willens",
+    "keywords": [
+      "Wille",
+      "Willenskraft",
+      "Willensfreiheit",
+      "Willensimpuls",
+      "Willensinitiative",
+      "Willensschulung"
+    ]
+  },
+  "Wärmelehre": {
+    "description": "Anthroposophische Wärmelehre und Wärmewirkungen",
+    "keywords": [
+      "Wärme",
+      "Wärmtod"
+    ]
+  },
+  "Zahlen & Zahlensymbolik": {
+    "description": "Zahlensymbolik und Zahlengesetze",
+    "keywords": [
+      "Zahlen",
+      "Zahlengesetze",
+      "Zahlensymbolik",
+      "Zehnersystem",
+      "Zählen"
+    ]
+  },
+  "Zeit & Zeitbewusstsein": {
+    "description": "Zeitbegriff und Zeitorganismus",
+    "keywords": [
+      "Zeit",
+      "Zeitalter",
+      "Zeitenwende",
+      "Zeitereignisse",
+      "Zeitgefühl",
+      "Zeitgeist",
+      "Zeitgeschichte",
+      "Zeitorganismus"
     ]
   }
 }
