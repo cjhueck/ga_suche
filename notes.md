@@ -4,4 +4,4 @@ Abb. 123-01.webp nicht ok
 
 
 
-
+Im dark mode soll die Schrift in den farblich blau ausgefüllten buttons dunkel sein (Buttons "chronologisch", "Suche starten",  "Häufigkeit"

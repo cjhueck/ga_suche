@@ -53,6 +53,17 @@
     }
     
     body.dark-mode {
+      /* Überschreibe Farb-Variablen für Dark Mode */
+      --link-color: var(--dark-link-color);
+      --accent-color: var(--dark-accent-color);
+      --heading-color: var(--dark-heading-color);
+      --text-color: var(--dark-text-color);
+      --secondary-text: var(--dark-secondary-text);
+      --background-color: var(--dark-background-color);
+      --border-color: var(--dark-border-color);
+      --sidebar-bg: #222;
+      --input-bg: #2a2a2a;
+      
       background-color: var(--dark-background-color);
       color: var(--dark-text-color);
     }
@@ -230,20 +241,20 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .paragraph.selected-for-keyword {
-      background: rgba(70, 120, 134, 0.25);
-      border-left: 4px solid #467886;
+      background: rgba(107, 163, 184, 0.25);
+      border-left: 4px solid #6BA3B8;
     }
     
     /* Keyword Management Item Hover */
     .kw-mgmt-item:hover {
       background: #f0f8ff !important;
-      border-color: #467886 !important;
+      border-color: var(--link-color) !important;
     }
     
     /* Zitate-Popup Dark Mode */
     body.dark-mode #quotesPopup > div {
       background: var(--dark-sidebar-bg) !important;
-      border-color: #467886 !important;
+      border-color: #6BA3B8 !important;
     }
     
     body.dark-mode #quotesPopup h2 {
@@ -565,7 +576,7 @@ body.dark-mode .ga-missing-text {
     #sidebar-content .timeline-year {
       font-size: 1em !important;
       font-weight: bold !important;
-      color: #2c5282 !important;
+      color: var(--link-color) !important;
       min-width: 50px !important;
       width: 50px !important;
       flex-shrink: 0 !important;
@@ -1194,7 +1205,7 @@ body.dark-mode .ga-missing-text {
     .advanced-search-snippet h4,
     .advanced-search-snippet strong,
     .advanced-search-heading {
-      color: #467886;
+      color: var(--link-color);
       font-weight: bold;
     }
     
@@ -1819,7 +1830,7 @@ body.dark-mode .loading-message {
     
     .custom-dropdown-item.selected {
       font-weight: bold;
-      color: #467886;
+      color: var(--link-color);
     }
     
     .custom-dropdown-clear {
@@ -2075,7 +2086,7 @@ body.dark-mode #thematicSearchInfo {
       font-size: 0.9rem !important;
       margin: 0.7rem 0 0.5rem 0 !important;
       font-weight: 700 !important;
-      color: #467886 !important;
+      color: var(--link-color) !important;
       display: block;
       line-height: 1.3 !important;
       text-align: left !important;
@@ -2085,7 +2096,7 @@ body.dark-mode #thematicSearchInfo {
       font-size: 0.9rem !important;
       margin: 0.7rem 0 0.5rem 0 !important;
       font-weight: normal !important;
-      color: #467886 !important;
+      color: var(--link-color) !important;
       display: block;
       line-height: 1.3 !important;
       text-align: left !important;
@@ -2956,7 +2967,7 @@ body.dark-mode .timeline-quotes {
   font-size: 1.0rem !important;
   margin: 0.7rem 0 0.5rem 0 !important;
   font-weight: 700 !important;
-  color: #467886 !important;
+  color: var(--link-color) !important;
   display: block;
   line-height: 1.3 !important;
 }
@@ -2965,7 +2976,7 @@ body.dark-mode .timeline-quotes {
   font-size: 1.0rem !important;
   margin: 0.7rem 0 0.5rem 0 !important;
   font-weight: normal !important;
-  color: #467886 !important;
+  color: var(--link-color) !important;
   display: block;
   line-height: 1.3 !important;
 }
@@ -3055,23 +3066,15 @@ body.dark-mode .timeline-close:hover {
 
 /* Timeline Quote Links */
 .timeline-quote-link {
-  color: #467886;
+  color: var(--link-color);
   cursor: pointer;
   font-weight: 600;
   transition: color 0.2s ease;
 }
 
 .timeline-quote-link:hover {
-  color: #2c4a52;
+  color: var(--accent-color);
   text-decoration: none;
-}
-
-body.dark-mode .timeline-quote-link {
-  color: #6bb6ff;
-}
-
-body.dark-mode .timeline-quote-link:hover {
-  color: #4a9eff;
 }
 
 /* Timeline Container */
@@ -3352,10 +3355,10 @@ body.dark-mode .help-button:hover {
 }
 
 .help-button svg {
-  stroke: #467886 !important;
+  stroke: var(--link-color) !important;
   stroke-width: 1.7;
   fill: none;
-  color: #467886;
+  color: var(--link-color);
 }
 
 body.dark-mode .help-button svg {
@@ -3474,9 +3477,9 @@ body.dark-mode .help-modal-close:hover {
 }
 
 .help-choice-btn:hover {
-  background-color: #467886;
+  background-color: var(--link-color);
   color: white;
-  border-color: #467886;
+  border-color: var(--link-color);
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(70, 120, 134, 0.2);
 }
@@ -3495,7 +3498,7 @@ body.dark-mode .help-choice-btn:hover {
 .help-choice-btn h3 {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
-  color: #467886;
+  color: var(--link-color);
 }
 
 body.dark-mode .help-choice-btn h3 {
@@ -3585,7 +3588,7 @@ body.dark-mode .help-content-display pre {
 .help-back-btn {
   margin-top: 2rem;
   padding: 0.75rem 1.5rem;
-  background-color: #467886;
+  background-color: var(--link-color);
   color: white;
   border: none;
   border-radius: 0;
@@ -4306,13 +4309,13 @@ Bestehende Schlagwörter überschreiben
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
-<button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
 </button>
-<button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
-<button id="viewerTOCToggleBtn" onclick="toggleTOCContent()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<button id="viewerTOCToggleBtn" onclick="toggleTOCContent()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ▼
 </button>
 <!-- NEUE 3-BUTTON ARCHITEKTUR für einzelnen Vortrag -->
@@ -8070,20 +8073,24 @@ function displayGAChronological(lectures) {
         });
       }
       
-      // Wenn Proximity gesetzt ist UND es UND-Operatoren gibt,
-      // führe eine kombinierte Suche durch und zähle die Proximity-Treffer pro Wort
-      if (proximity && operators.some(op => op === 'and')) {
+      // Wenn Proximity gesetzt ist, führe eine kombinierte Suche durch
+      // und zähle die Proximity-Treffer pro Wort (unabhängig von Operatoren)
+      if (proximity && words.length > 0) {
         const statusElement = document.getElementById('advancedSearchStatus');
         if (statusElement) {
           statusElement.textContent = `Analysiere Abstände (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})...`;
         }
+        
+        // Für die Häufigkeitsanalyse verwenden wir AND-Operatoren,
+        // um die Kookkurrenz innerhalb des Abstands zu ermitteln
+        const proximityOperators = words.length > 1 ? new Array(words.length - 1).fill('and') : [];
         
         const response = await fetch(`${API_BASE}/api/advanced-search`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             words: words,
-            operators: operators,
+            operators: proximityOperators,
             proximity: proximity,
             gaFilter: gaFilter
           })
@@ -8137,6 +8144,25 @@ function displayGAChronological(lectures) {
           });
         });
       });
+      
+      // Initialisiere proximityFrequencies für alle GA-Bände und Wörter (auch mit 0)
+      if (proximity && Object.keys(proximityFrequencies).length > 0) {
+        Object.keys(proximityFrequencies).forEach(gaBand => {
+          words.forEach(word => {
+            if (!proximityFrequencies[gaBand].total[word]) {
+              proximityFrequencies[gaBand].total[word] = 0;
+            }
+          });
+          
+          Object.keys(proximityFrequencies[gaBand].lectures).forEach(lectureId => {
+            words.forEach(word => {
+              if (!proximityFrequencies[gaBand].lectures[lectureId][word]) {
+                proximityFrequencies[gaBand].lectures[lectureId][word] = 0;
+              }
+            });
+          });
+        });
+      }
       
       return { frequencies, proximityFrequencies };
     }
@@ -8216,6 +8242,8 @@ function displayGAChronological(lectures) {
       html += 'body.dark-mode .frequency-table .ga-band-row { background: var(--dark-background-color); }';
       html += 'body.dark-mode .frequency-table .ga-band-row:hover { background: #2a2a2a; }';
       html += 'body.dark-mode .frequency-table .lecture-row { background: #1f1f1f; }';
+      html += 'body.dark-mode .frequency-table .ga-link { color: #6BA3B8; }';
+      html += 'body.dark-mode .frequency-table .lecture-link { color: #6BA3B8; }';
       html += '</style>';
       
       html += '<table class="frequency-table">';
@@ -10443,7 +10471,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         : '';
       
       // PDF-Export Button
-      const pdfButtonHTML = `<button id="exportThemaPdfBtn" onclick="exportThematicResultToPdf()" title="Als PDF speichern" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #467886; background: transparent; color: #467886; cursor: pointer; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
+      const pdfButtonHTML = `<button id="exportThemaPdfBtn" onclick="exportThematicResultToPdf()" title="Als PDF speichern" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         PDF
       </button>`;
@@ -14020,12 +14048,12 @@ window.switchTab = switchTabExtended;
 // CSS für Schlagwort-Links hinzufügen
 const keywordStyles = `
 body.dark-mode .ga-keyword-link {
-  color: #7EB8C8;
-  background: rgba(126, 184, 200, 0.15);
+  color: #6BA3B8;
+  background: rgba(107, 163, 184, 0.15);
 }
 
 body.dark-mode .ga-keyword-link:hover {
-  background: rgba(126, 184, 200, 0.25);
+  background: rgba(107, 163, 184, 0.25);
 }
 
 .batch-progress {
@@ -14137,7 +14165,7 @@ body.dark-mode #results h4 {
 
 /* Schlagwort-Links in Ergebnissen - DIREKT */
 #results .ga-keyword-link {
-  color: #467886 !important;
+  color: var(--link-color) !important;
 }
 
 body.dark-mode #results .ga-keyword-link {
@@ -17879,7 +17907,7 @@ async function generateThematicClusters() {
   btn.innerHTML = '<em>In Bearbeitung...</em>';
   btn.style.opacity = '0.5';
   statusDiv.style.display = 'block';
-  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Generiere Themenbereiche...</span>';
+  statusDiv.innerHTML = '<span style="color: var(--link-color);">⏳ Generiere Themenbereiche...</span>';
   resultsDiv.style.display = 'none';
   
   try {
@@ -17921,7 +17949,7 @@ async function loadExistingClusters() {
   const resultsDiv = document.getElementById('clustersResults');
   
   statusDiv.style.display = 'block';
-  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Lade Cluster...</span>';
+  statusDiv.innerHTML = '<span style="color: var(--link-color);">⏳ Lade Cluster...</span>';
   
   try {
     const response = await fetch(`${API_BASE}/api/themes/clusters`);
@@ -18082,7 +18110,7 @@ async function reorganizeClusters() {
   btn.disabled = true;
   btn.innerHTML = '<em>In Bearbeitung...</em>';
   statusDiv.style.display = 'block';
-  statusDiv.innerHTML = '<span style="color: #467886;">⏳ Reorganisiere Cluster...</span>';
+  statusDiv.innerHTML = '<span style="color: var(--link-color);">⏳ Reorganisiere Cluster...</span>';
   
   try {
     const response = await fetch(`${API_BASE}/api/themes/reorganize-clusters`, {
