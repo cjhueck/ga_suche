@@ -4843,6 +4843,13 @@ function normalizeGANumber(gaNumber) {
       if (mode === 'keyword') {
         // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
         resetSearchTab();
+        
+        // Explizit sicherstellen, dass GA-Bände-Liste gelöscht wird
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+          resultsDiv.innerHTML = '';
+          console.log('[TABS] Results-Bereich beim Wechsel zu Suche-Tab geleert');
+        }
       }
       
       const currentActiveTab = document.querySelector('.tab-content.active');
@@ -5012,6 +5019,17 @@ function normalizeGANumber(gaNumber) {
       // Setze currentGANumber zurück, wenn GA-Tab verlassen wird
       if (mode !== 'ga' && typeof currentGANumber !== 'undefined') {
         currentGANumber = null;
+      }
+      
+      // Leere Results-Bereich bei Tabs, die keine eigene Logik dafür haben
+      // (außer GA-Tab, der seine eigene Liste lädt, und keyword-Tab, der schon oben behandelt wurde)
+      if (mode !== 'ga' && mode !== 'keyword') {
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv && resultsDiv.innerHTML.includes('ga-volume-link')) {
+          // Nur löschen wenn GA-Bände-Liste noch sichtbar ist
+          resultsDiv.innerHTML = '';
+          console.log('[TABS] GA-Bände-Liste beim Wechsel zu', mode, 'Tab entfernt');
+        }
       }
       
       // Lade GA-Bände wenn zum GA-Tab gewechselt wird
@@ -5208,9 +5226,16 @@ function normalizeGANumber(gaNumber) {
     // Wenn GA-Tab aktiv ist, lade GA-Bände-Liste
     try {
       const activeTabMode = activeTabButton.getAttribute('onclick').match(/switchTab\('([^']+)'\)/)[1];
-      if (activeTabMode === 'thematic') {
+      
+      // Prüfe URL-Hash - wenn ein Hash vorhanden ist, wird der Tab durch Hash-Navigation gewechselt
+      const urlHash = window.location.hash.substring(1);
+      
+      if (activeTabMode === 'thematic' && !urlHash) {
         loadRecentThematicQueries();
-      } else if (activeTabMode === 'ga') {
+      } else if (activeTabMode === 'ga' && (!urlHash || urlHash === 'ga')) {
+        // Nur GA-Liste laden wenn GA-Tab wirklich aktiv bleiben soll
+        console.log('[INIT] GA-Tab ist initial aktiv, lade GA-Bände-Liste');
+        
         // Setze Document Title
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
@@ -5232,6 +5257,8 @@ function normalizeGANumber(gaNumber) {
             console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
           }
         }, 100);
+      } else {
+        console.log('[INIT] Hash vorhanden:', urlHash, '- überspringe initiales Laden für', activeTabMode);
       }
     } catch (_) {}
   }
@@ -13794,6 +13821,13 @@ function switchTabExtended(mode) {
   if (mode === 'keyword') {
     // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
     resetSearchTab();
+    
+    // Explizit sicherstellen, dass GA-Bände-Liste gelöscht wird
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv) {
+      resultsDiv.innerHTML = '';
+      console.log('[TABS] Results-Bereich beim Wechsel zu Suche-Tab geleert (Extended)');
+    }
   }
   
   // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
@@ -14137,6 +14171,17 @@ function switchTabExtended(mode) {
       }
     } catch (err) {
       console.warn('[TABS] Fehler beim Löschen des letzten Stichworts:', err);
+    }
+  }
+  
+  // Leere Results-Bereich bei Tabs, die keine eigene Logik dafür haben
+  // (außer GA-Tab, der seine eigene Liste lädt, und keyword-Tab, der schon oben behandelt wurde)
+  if (mode !== 'ga' && mode !== 'keyword') {
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv && resultsDiv.innerHTML.includes('ga-volume-link')) {
+      // Nur löschen wenn GA-Bände-Liste noch sichtbar ist
+      resultsDiv.innerHTML = '';
+      console.log('[TABS] GA-Bände-Liste beim Wechsel zu', mode, 'Tab entfernt (Extended)');
     }
   }
   
