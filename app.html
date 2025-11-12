@@ -5055,11 +5055,17 @@ function normalizeGANumber(gaNumber) {
           switchTab(event.state.tab, true);
         }
         
-        // Wenn ein Vortrag im State ist, lade ihn
+        // Wenn ein Vortrag im State ist, lade ihn mit allen gespeicherten Parametern
         if (event.state.lecture) {
-          console.log('[HISTORY] Lade Vortrag:', event.state.lecture);
+          console.log('[HISTORY] Lade Vortrag:', event.state.lecture, 'mit Keywords:', event.state.keywords);
           setTimeout(() => {
-            showLecture(event.state.lecture, event.state.targetIndex || null, [], [], true);
+            showLecture(
+              event.state.lecture, 
+              event.state.targetIndex || null, 
+              event.state.keywords || [], 
+              event.state.isPhraseArray || [], 
+              true // skipHistory = true
+            );
           }, 200); // Kurze Verzögerung, damit Tab-Wechsel abgeschlossen ist
         }
         
@@ -10770,9 +10776,11 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     history.pushState({ 
       tab: currentTab, 
       lecture: lectureId,
-      targetIndex: targetIndex
+      targetIndex: targetIndex,
+      keywords: keywords,
+      isPhraseArray: isPhraseArray
     }, '', url);
-    console.log('[HISTORY] Vortrag geöffnet:', lectureId);
+    console.log('[HISTORY] Vortrag geöffnet:', lectureId, 'Keywords:', keywords);
   }
 
   try {
