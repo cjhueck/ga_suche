@@ -7567,10 +7567,11 @@ function displayGAChronological(lectures) {
       html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
       html += '<thead><tr>';
       
-      // Spaltenüberschriften (entferne Anführungszeichen für die Anzeige)
+      // Spaltenüberschriften (entferne Anführungszeichen für die Anzeige und zeige Trefferanzahl)
       words.forEach(word => {
         const displayWord = word.startsWith('"') && word.endsWith('"') ? word.slice(1, -1) : word;
-        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; width: ${100/words.length}%;">${displayWord}</th>`;
+        const hitCount = wordSnippets[word].length;
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${100/words.length}%;"><strong>${displayWord}</strong> <span style="font-weight: normal; font-size: 0.85em; color: var(--secondary-text);">(${hitCount} Treffer)</span></th>`;
       });
       
       html += '</tr></thead>';
