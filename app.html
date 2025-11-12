@@ -4814,8 +4814,15 @@ function normalizeGANumber(gaNumber) {
       console.log('[TABS] Suche-Tab zurückgesetzt');
     }
     
-    function switchTab(mode) {
+    function switchTab(mode, skipHistory = false) {
       console.log('[TABS] Wechsel zu Tab:', mode);
+      
+      // Füge Browser History Eintrag hinzu (außer bei popstate)
+      if (!skipHistory) {
+        const url = `${window.location.pathname}#${mode}`;
+        history.pushState({ tab: mode }, '', url);
+        console.log('[HISTORY] Neuer Eintrag:', mode);
+      }
       
       // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
       savedSummaryPanelWidth = null;
@@ -5025,6 +5032,120 @@ function normalizeGANumber(gaNumber) {
         }, 100);
       }
     }
+
+    // Browser Zurück/Vorwärts-Button Handler
+    window.addEventListener('popstate', function(event) {
+      console.log('[HISTORY] Popstate Event:', event.state);
+      
+      if (event.state) {
+        // Wechsle zu Tab ohne neuen History-Eintrag zu erstellen
+        if (event.state.tab) {
+          switchTab(event.state.tab, true);
+        }
+        
+        // Wenn ein Vortrag im State ist, lade ihn
+        if (event.state.lecture) {
+          console.log('[HISTORY] Lade Vortrag:', event.state.lecture);
+          setTimeout(() => {
+            showLecture(event.state.lecture, event.state.targetIndex || null, [], [], true);
+          }, 200); // Kurze Verzögerung, damit Tab-Wechsel abgeschlossen ist
+        }
+        
+        // Wenn eine thematische Suche im State ist, führe sie aus
+        if (event.state.query && event.state.tab === 'thematic') {
+          console.log('[HISTORY] Thematische Suche:', event.state.query);
+          setTimeout(() => {
+            document.getElementById('thematicQuery').value = event.state.query;
+            performThematicSearch(true);
+          }, 300);
+        }
+        
+        // Wenn ein Schlagwort-Buchstabe im State ist, wähle ihn
+        if (event.state.letter && event.state.tab === 'schlagworte') {
+          console.log('[HISTORY] Schlagworte Buchstabe:', event.state.letter);
+          setTimeout(() => {
+            const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn')).find(btn => btn.textContent === event.state.letter);
+            if (button) {
+              selectAlphabet(event.state.letter, button, true);
+            }
+          }, 300);
+        }
+        
+        // Wenn ein GA-Band im State ist, zeige es
+        if (event.state.gaVolume && event.state.tab === 'ga') {
+          console.log('[HISTORY] GA-Band:', event.state.gaVolume);
+          setTimeout(() => {
+            showGALectures(event.state.gaVolume, true);
+          }, 300);
+        }
+        
+        // Wenn chronologische GA-Ansicht im State ist, zeige sie
+        if (event.state.gaView === 'chronological' && event.state.tab === 'ga') {
+          console.log('[HISTORY] GA Chronologische Ansicht');
+          setTimeout(() => {
+            showGAChronologicalView(true);
+          }, 300);
+        }
+      } else {
+        // Falls kein State vorhanden, parse URL
+        const url = window.location.hash;
+        const hashParts = url.split('?');
+        const hash = hashParts[0].substring(1);
+        
+        if (hash) {
+          switchTab(hash, true);
+        }
+        
+        // Prüfe auf Parameter in URL
+        if (hashParts[1]) {
+          const params = new URLSearchParams(hashParts[1]);
+          
+          // Lecture Parameter
+          const lectureId = params.get('lecture');
+          if (lectureId) {
+            setTimeout(() => {
+              showLecture(lectureId, null, [], [], true);
+            }, 200);
+          }
+          
+          // Thematic Query Parameter
+          const query = params.get('q');
+          if (query && hash === 'thematic') {
+            setTimeout(() => {
+              document.getElementById('thematicQuery').value = decodeURIComponent(query);
+              performThematicSearch(true);
+            }, 300);
+          }
+          
+          // Schlagworte Letter Parameter
+          const letter = params.get('letter');
+          if (letter && hash === 'schlagworte') {
+            setTimeout(() => {
+              const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn')).find(btn => btn.textContent === decodeURIComponent(letter));
+              if (button) {
+                selectAlphabet(decodeURIComponent(letter), button, true);
+              }
+            }, 300);
+          }
+          
+          // GA Volume Parameter
+          const gaVolume = params.get('volume');
+          if (gaVolume && hash === 'ga') {
+            setTimeout(() => {
+              showGALectures(decodeURIComponent(gaVolume), true);
+            }, 300);
+          }
+          
+          // GA View Parameter (chronological)
+          const gaView = params.get('view');
+          if (gaView === 'chronological' && hash === 'ga') {
+            setTimeout(() => {
+              showGAChronologicalView(true);
+            }, 300);
+          }
+        }
+      }
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
       
@@ -6185,9 +6306,19 @@ async function loadSummaryDatabase() {
 }
 
 // Funktion: Zeige Vorträge eines GA-Bandes im Main Viewer
-async function showGALectures(gaNumber) {
+async function showGALectures(gaNumber, skipHistory = false) {
   try {
     console.log('[GA-TAB] Lade Vorträge für', gaNumber);
+    
+    // Browser History Eintrag hinzufügen
+    if (!skipHistory) {
+      const url = `${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`;
+      history.pushState({ 
+        tab: 'ga', 
+        gaVolume: gaNumber 
+      }, '', url);
+      console.log('[HISTORY] GA-Band:', gaNumber);
+    }
     
     // Speichere aktuellen GA-Band für Theme-Wechsel
     currentGANumber = gaNumber;
@@ -6653,8 +6784,18 @@ function showGAVolumesView() {
 }
 
 // Zeige chronologische Ansicht
-async function showGAChronologicalView() {
+async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
+  
+  // Browser History Eintrag hinzufügen
+  if (!skipHistory) {
+    const url = `${window.location.pathname}#ga?view=chronological`;
+    history.pushState({ 
+      tab: 'ga', 
+      gaView: 'chronological' 
+    }, '', url);
+    console.log('[HISTORY] GA Chronologische Ansicht');
+  }
   
   // Update Button Styling
   const chronBtn = document.getElementById('ga-chronological-view-btn');
@@ -8169,11 +8310,21 @@ function displayGAChronological(lectures) {
       document.getElementById('status').textContent = `${lectureCount} Vorträge mit ${chunkCount} Treffern`;
     }
 
-    async function performThematicSearch() {
+    async function performThematicSearch(skipHistory = false) {
       const query = document.getElementById('thematicQuery').value.trim();
       if (!query) return;
       
       currentThematicQuery = query;
+      
+      // Browser History Eintrag hinzufügen
+      if (!skipHistory) {
+        const url = `${window.location.pathname}#thematic?q=${encodeURIComponent(query)}`;
+        history.pushState({ 
+          tab: 'thematic', 
+          query: query 
+        }, '', url);
+        console.log('[HISTORY] Thematische Suche:', query);
+      }
       
       // Setze currentLectureData zurück und verstecke Buttons
       currentLectureData = null;
@@ -9750,13 +9901,25 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       setTimeout(() => msgDiv.remove(), 3000);
     }
 
-    async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = []) {
+    async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = [], skipHistory = false) {
   const summaryPanel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const tocList = document.getElementById('toc-list');
   
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
+  
+  // Browser History Eintrag hinzufügen (außer bei popstate)
+  if (!skipHistory) {
+    const currentTab = window.location.hash.substring(1) || 'ga';
+    const url = `${window.location.pathname}#${currentTab}?lecture=${lectureId}`;
+    history.pushState({ 
+      tab: currentTab, 
+      lecture: lectureId,
+      targetIndex: targetIndex
+    }, '', url);
+    console.log('[HISTORY] Vortrag geöffnet:', lectureId);
+  }
 
   try {
     const parts = lectureId.split('/');
@@ -12128,8 +12291,24 @@ window.addEventListener('DOMContentLoaded', function() {
       // Warte kurz, bis alle Initialisierungen abgeschlossen sind
       setTimeout(() => {
         console.log('[HASH-NAV] Wechsle zu Tab:', tabName);
-        switchTab(tabName);
+        // Setze initialen History State ohne neuen Eintrag
+        history.replaceState({ tab: tabName }, '', `${window.location.pathname}#${tabName}`);
+        switchTab(tabName, true); // skipHistory = true beim ersten Laden
       }, 100);
+    }
+  } else {
+    // Kein Hash vorhanden - setze initialen State für aktiven Tab
+    const activeTabButton = document.querySelector('.tab-button.active');
+    if (activeTabButton) {
+      const onclick = activeTabButton.getAttribute('onclick');
+      const match = onclick.match(/switchTab\('([^']+)'\)/);
+      if (match) {
+        const initialTab = match[1];
+        setTimeout(() => {
+          console.log('[HASH-NAV] Setze initialen State:', initialTab);
+          history.replaceState({ tab: initialTab }, '', `${window.location.pathname}#${initialTab}`);
+        }, 100);
+      }
     }
   }
 });
@@ -12514,7 +12693,7 @@ function createAlphabetNavigation() {
   });
 }
 
-function selectAlphabet(letter, buttonElement) {
+function selectAlphabet(letter, buttonElement, skipHistory = false) {
   // Alle Buttons deaktivieren
   document.querySelectorAll('#alphabet-nav .depth-btn').forEach(btn => {
     btn.classList.remove('active');
@@ -12525,6 +12704,16 @@ function selectAlphabet(letter, buttonElement) {
   
   currentAlphabet = letter;
   displayKeywords(letter);
+  
+  // Browser History Eintrag hinzufügen
+  if (!skipHistory) {
+    const url = `${window.location.pathname}#schlagworte?letter=${encodeURIComponent(letter)}`;
+    history.pushState({ 
+      tab: 'schlagworte', 
+      letter: letter 
+    }, '', url);
+    console.log('[HISTORY] Schlagworte:', letter);
+  }
 }
 
 function displayKeywords(selectedLetter = 'Alle') {
