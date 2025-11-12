@@ -3966,6 +3966,7 @@ Chronologisch
 <!-- Buttons -->
 <div style="display:flex; gap:8px; margin-top: 1rem;">
 <button class="depth-btn primary" onclick="performAdvancedSearch()" style="padding: 6px 16px;">Suche starten</button>
+<button class="depth-btn primary" onclick="performAdvancedFrequencyAnalysis()" style="padding: 6px 16px;">Häufigkeit</button>
 </div>
 
 <div id="advancedSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
@@ -7878,6 +7879,713 @@ function displayGAChronological(lectures) {
       } catch (error) {
         console.error('[ADVANCED-SEARCH] Fehler beim Laden des Vortrags:', error);
         alert('Fehler beim Laden des Vortrags: ' + error.message);
+      }
+    }
+    
+    // ============================================================================
+    // HÄUFIGKEITSANALYSE FÜR ERWEITERTE SUCHE
+    // ============================================================================
+    
+    async function performAdvancedFrequencyAnalysis() {
+      console.log('[FREQUENCY-ANALYSIS] Starte Häufigkeitsanalyse');
+      
+      // Sammle alle Suchworte
+      const words = [];
+      
+      for (let i = 1; i <= 7; i++) {
+        const wordInput = document.getElementById(`advWord${i}`);
+        const word = wordInput ? wordInput.value.trim() : '';
+        
+        if (word) {
+          words.push(word);
+        }
+      }
+      
+      if (words.length === 0) {
+        alert('Bitte mindestens ein Suchwort eingeben');
+        return;
+      }
+      
+      // Sammle Operatoren
+      const operators = [];
+      for (let i = 1; i < words.length; i++) {
+        const operatorElement = document.querySelector(`input[name="advOperator${i}"]:checked`);
+        const operator = operatorElement ? operatorElement.value : 'and';
+        operators.push(operator);
+      }
+      
+      // Hole Proximity-Filter
+      const proximityElement = document.getElementById('advancedProximityFilter');
+      const proximity = proximityElement ? proximityElement.value : '';
+      
+      // Hole GA-Filter
+      const gaFilterValues = getAdvancedGAFilterValue();
+      const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
+      
+      const proximityText = proximity ? ` (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})` : ' (gesamter Text)';
+      console.log(`[FREQUENCY-ANALYSIS] Analysiere Häufigkeit für: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}${proximityText}, GA-Filter: ${gaFilter || 'alle'}`);
+      
+      const button = event.target;
+      const statusElement = document.getElementById('advancedSearchStatus');
+      
+      try {
+        button.disabled = true;
+        button.classList.add('processing');
+        button.textContent = 'Analysiere...';
+        statusElement.textContent = 'Häufigkeitsanalyse läuft...';
+        
+        // Führe einzelne Suchen für jedes Wort durch und sammle Häufigkeitsdaten
+        const result = await calculateFrequenciesFromSearch(words, operators, proximity, gaFilter);
+        const frequencies = result.frequencies;
+        const proximityFrequencies = result.proximityFrequencies;
+        
+        console.log(`[FREQUENCY-ANALYSIS] Ergebnisse berechnet:`, frequencies, proximityFrequencies);
+        statusElement.textContent = `Häufigkeitsanalyse abgeschlossen${proximityText}`;
+        
+        // Rendere Häufigkeitsanalyse im Viewer
+        renderFrequencyAnalysis(words, frequencies, proximityFrequencies, proximity);
+        
+      } catch (error) {
+        console.error('[FREQUENCY-ANALYSIS] Fehler:', error);
+        statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
+        document.getElementById('viewer').innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: red;">
+            <strong>Fehler bei der Häufigkeitsanalyse:</strong><br>${error.message}
+          </div>
+        `;
+      } finally {
+        button.disabled = false;
+        button.classList.remove('processing');
+        button.textContent = 'Häufigkeit';
+      }
+    }
+    
+    async function calculateFrequenciesFromSearch(words, operators, proximity, gaFilter) {
+      // Führe für jedes Wort einzeln eine Suche durch und zähle die Treffer pro GA-Band und Vortrag
+      // Berücksichtige dabei Proximity und Operators
+      const frequencies = {};
+      const proximityFrequencies = {}; // Speichere Proximity-Treffer pro Wort separat
+      
+      // Wenn es nur ein Wort gibt, einfache Einzelsuche
+      if (words.length === 1) {
+        const word = words[0];
+        const statusElement = document.getElementById('advancedSearchStatus');
+        if (statusElement) {
+          statusElement.textContent = `Analysiere "${word}"...`;
+        }
+        
+        const response = await fetch(`${API_BASE}/api/advanced-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            words: [word],
+            operators: [],
+            proximity: null, // Bei einem Wort ist Proximity irrelevant
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (!response.ok) {
+          console.warn(`[FREQUENCY-ANALYSIS] Fehler bei Suche nach "${word}"`);
+          return { frequencies, proximityFrequencies };
+        }
+        
+        const data = await response.json();
+        const results = data.results || [];
+        
+        // Zähle Treffer
+        results.forEach(result => {
+          const lectureId = result.lectureId;
+          const parts = lectureId.split('/');
+          const gaBand = parts[0];
+          
+          if (!frequencies[gaBand]) {
+            frequencies[gaBand] = { total: {}, lectures: {} };
+          }
+          if (!frequencies[gaBand].total[word]) {
+            frequencies[gaBand].total[word] = 0;
+          }
+          frequencies[gaBand].total[word]++;
+          
+          if (!frequencies[gaBand].lectures[lectureId]) {
+            frequencies[gaBand].lectures[lectureId] = {};
+          }
+          if (!frequencies[gaBand].lectures[lectureId][word]) {
+            frequencies[gaBand].lectures[lectureId][word] = 0;
+          }
+          frequencies[gaBand].lectures[lectureId][word]++;
+        });
+        
+        return { frequencies, proximityFrequencies };
+      }
+      
+      // Mehrere Wörter: Führe für jedes Wort eine eigene Suche durch
+      for (const word of words) {
+        const statusElement = document.getElementById('advancedSearchStatus');
+        if (statusElement) {
+          statusElement.textContent = `Analysiere "${word}"...`;
+        }
+        
+        // Einzelne Wort-Suche (ohne Proximity zu anderen Wörtern)
+        const response = await fetch(`${API_BASE}/api/advanced-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            words: [word],
+            operators: [],
+            proximity: null,
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (!response.ok) {
+          console.warn(`[FREQUENCY-ANALYSIS] Fehler bei Suche nach "${word}"`);
+          continue;
+        }
+        
+        const data = await response.json();
+        const results = data.results || [];
+        
+        // Zähle Treffer pro GA-Band und Vortrag
+        results.forEach(result => {
+          const lectureId = result.lectureId;
+          const parts = lectureId.split('/');
+          const gaBand = parts[0];
+          
+          if (!frequencies[gaBand]) {
+            frequencies[gaBand] = { total: {}, lectures: {} };
+          }
+          if (!frequencies[gaBand].total[word]) {
+            frequencies[gaBand].total[word] = 0;
+          }
+          frequencies[gaBand].total[word]++;
+          
+          if (!frequencies[gaBand].lectures[lectureId]) {
+            frequencies[gaBand].lectures[lectureId] = {};
+          }
+          if (!frequencies[gaBand].lectures[lectureId][word]) {
+            frequencies[gaBand].lectures[lectureId][word] = 0;
+          }
+          frequencies[gaBand].lectures[lectureId][word]++;
+        });
+      }
+      
+      // Wenn Proximity gesetzt ist UND es UND-Operatoren gibt,
+      // führe eine kombinierte Suche durch und zähle die Proximity-Treffer pro Wort
+      if (proximity && operators.some(op => op === 'and')) {
+        const statusElement = document.getElementById('advancedSearchStatus');
+        if (statusElement) {
+          statusElement.textContent = `Analysiere Abstände (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})...`;
+        }
+        
+        const response = await fetch(`${API_BASE}/api/advanced-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            words: words,
+            operators: operators,
+            proximity: proximity,
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          const results = data.results || [];
+          
+          // Zähle für jedes Wort-Vorkommen in Proximity-Treffern
+          results.forEach(result => {
+            const lectureId = result.lectureId;
+            const parts = lectureId.split('/');
+            const gaBand = parts[0];
+            const matchedWord = result.matchedWord; // Das tatsächlich gematchte Wort in diesem Result
+            
+            // Initialisiere Strukturen
+            if (!proximityFrequencies[gaBand]) {
+              proximityFrequencies[gaBand] = { total: {}, lectures: {} };
+            }
+            if (!proximityFrequencies[gaBand].lectures[lectureId]) {
+              proximityFrequencies[gaBand].lectures[lectureId] = {};
+            }
+            
+            // Zähle NUR das gematchte Wort für dieses result (= ein Wort-Vorkommen)
+            if (!proximityFrequencies[gaBand].total[matchedWord]) {
+              proximityFrequencies[gaBand].total[matchedWord] = 0;
+            }
+            if (!proximityFrequencies[gaBand].lectures[lectureId][matchedWord]) {
+              proximityFrequencies[gaBand].lectures[lectureId][matchedWord] = 0;
+            }
+            proximityFrequencies[gaBand].total[matchedWord]++;
+            proximityFrequencies[gaBand].lectures[lectureId][matchedWord]++;
+          });
+        }
+      }
+      
+      // Stelle sicher, dass alle Wörter in allen GA-Bänden und Vorträgen initialisiert sind (auch mit 0)
+      Object.keys(frequencies).forEach(gaBand => {
+        words.forEach(word => {
+          if (!frequencies[gaBand].total[word]) {
+            frequencies[gaBand].total[word] = 0;
+          }
+        });
+        
+        Object.keys(frequencies[gaBand].lectures).forEach(lectureId => {
+          words.forEach(word => {
+            if (!frequencies[gaBand].lectures[lectureId][word]) {
+              frequencies[gaBand].lectures[lectureId][word] = 0;
+            }
+          });
+        });
+      });
+      
+      return { frequencies, proximityFrequencies };
+    }
+    
+    function renderFrequencyAnalysis(words, frequencies, proximityFrequencies, proximity) {
+      console.log('[FREQUENCY-ANALYSIS] Rendere Häufigkeitsanalyse');
+      
+      const viewer = document.getElementById('viewer');
+      
+      if (!frequencies || Object.keys(frequencies).length === 0) {
+        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div>';
+        return;
+      }
+      
+      // Determine which data to use: proximity data if available and proximity is set, otherwise normal frequencies
+      const hasProximityData = proximity && proximityFrequencies && Object.keys(proximityFrequencies).length > 0;
+      
+      // Calculate total hits per word for display in column headers
+      const totalHitsPerWord = {};
+      const totalProximityHitsPerWord = {};
+      
+      words.forEach(word => {
+        totalHitsPerWord[word] = 0;
+        totalProximityHitsPerWord[word] = 0;
+        
+        // Sum up from frequencies
+        Object.keys(frequencies).forEach(gaBand => {
+          totalHitsPerWord[word] += frequencies[gaBand].total[word] || 0;
+        });
+        
+        // Sum up from proximityFrequencies
+        if (hasProximityData) {
+          Object.keys(proximityFrequencies).forEach(gaBand => {
+            totalProximityHitsPerWord[word] += proximityFrequencies[gaBand].total[word] || 0;
+          });
+        }
+      });
+      
+      // Sortiere GA-Bände numerisch (initial)
+      const gaBands = Object.keys(frequencies).sort((a, b) => {
+        const numA = parseInt(a.replace('GA', ''));
+        const numB = parseInt(b.replace('GA', ''));
+        return numA - numB;
+      });
+      
+      // Store data globally for sorting
+      window.frequencyTableData = {
+        words,
+        frequencies,
+        proximityFrequencies,
+        hasProximityData,
+        gaBands,
+        currentSort: { column: 'ga', order: 'asc' }
+      };
+      
+      // Erstelle HTML
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
+      html += '<style>';
+      html += '.frequency-table { width: 100%; border-collapse: collapse; table-layout: auto; }';
+      html += '.frequency-table th { padding: 0.5rem; background: var(--sidebar-bg); font-weight: bold; text-align: left; border: 1px solid var(--border-color); position: relative; }';
+      html += '.frequency-table td { padding: 0.5rem; border: 1px solid var(--border-color); vertical-align: middle; }';
+      html += '.frequency-table .ga-band-row { background: var(--background-color); cursor: pointer; }';
+      html += '.frequency-table .ga-band-row:hover { background: var(--sidebar-bg); }';
+      html += '.frequency-table .lecture-row { background: var(--input-bg); display: none; }';
+      html += '.frequency-table .lecture-row.visible { display: table-row; }';
+      html += '.frequency-table .ga-link { color: var(--link-color); text-decoration: none; font-weight: bold; }';
+      html += '.frequency-table .ga-link:hover { text-decoration: underline; }';
+      html += '.frequency-table .lecture-link { color: var(--link-color); text-decoration: none; }';
+      html += '.frequency-table .lecture-link:hover { text-decoration: underline; }';
+      html += '.frequency-table .expand-icon { margin-right: 0.5rem; display: inline-block; width: 1em; transition: transform 0.2s; }';
+      html += '.frequency-table .expand-icon.expanded { transform: rotate(90deg); }';
+      html += '.frequency-table .sort-header { cursor: pointer; user-select: none; }';
+      html += '.frequency-table .sort-header:hover { background: var(--input-bg); }';
+      html += '.frequency-table .sort-icon { margin-left: 0.5rem; opacity: 0.3; font-size: 1.1em; font-weight: bold; }';
+      html += '.frequency-table .sort-icon.active { opacity: 1; color: var(--accent-color); }';
+      html += '.frequency-table .column-stats { display: block; font-size: 0.85em; color: var(--secondary-text); font-weight: normal; margin-top: 0.25rem; }';
+      html += 'body.dark-mode .frequency-table .ga-band-row { background: var(--dark-background-color); }';
+      html += 'body.dark-mode .frequency-table .ga-band-row:hover { background: #2a2a2a; }';
+      html += 'body.dark-mode .frequency-table .lecture-row { background: #1f1f1f; }';
+      html += '</style>';
+      
+      html += '<table class="frequency-table">';
+      html += '<thead><tr>';
+      
+      // GA column with toggle all icon and sort arrow
+      html += '<th class="sort-header" onclick="sortFrequencyTable(\'ga\')"><span class="expand-icon" id="toggle-all-ga" onclick="event.stopPropagation(); toggleAllGABands();" style="cursor: pointer; margin-right: 0.5rem;" title="Alle auf-/zuklappen">▶</span>GA<span class="sort-icon active" id="sort-icon-ga">↑</span></th>';
+      
+      // Spaltenüberschriften für Suchworte mit Trefferanzahl
+      words.forEach((word, idx) => {
+        const displayWord = word.startsWith('"') && word.endsWith('"') ? word.slice(1, -1) : word;
+        const totalHits = totalHitsPerWord[word];
+        const proximityHits = totalProximityHitsPerWord[word];
+        
+        html += `<th class="sort-header" onclick="sortFrequencyTable(${idx})">
+          <div>
+            ${displayWord}<span class="sort-icon" id="sort-icon-${idx}">↓</span>`;
+        
+        // If proximity data is available, show ONLY the proximity hits
+        if (hasProximityData && proximityHits > 0) {
+          html += `<span class="column-stats">(${proximityHits} Treffer)</span>`;
+        } else {
+          // Otherwise, show all hits
+          html += `<span class="column-stats">(${totalHits} Treffer)</span>`;
+        }
+        
+        html += `</div>
+          </th>`;
+      });
+      
+      html += '<th class="sort-header" onclick="sortFrequencyTable(\'total\')">Gesamt<span class="sort-icon" id="sort-icon-total">↓</span></th>';
+      html += '</tr></thead>';
+      html += '<tbody id="frequency-table-body">';
+      
+      // Erstelle Zeilen für jeden GA-Band
+      gaBands.forEach(gaBand => {
+        const bandData = frequencies[gaBand];
+        const totalCounts = bandData.total;
+        const lectures = bandData.lectures || {};
+        
+        // If proximity data is available, use these instead of total frequencies
+        const proxBandData = hasProximityData && proximityFrequencies[gaBand] ? proximityFrequencies[gaBand] : null;
+        const displayCounts = proxBandData ? proxBandData.total : totalCounts;
+        const displayLectures = proxBandData ? proxBandData.lectures : lectures;
+        
+        // Berechne Gesamtsumme für den GA-Band
+        let bandTotal = 0;
+        words.forEach(word => {
+          bandTotal += displayCounts[word] || 0;
+        });
+        
+        // GA-Band Zeile (aufklappbar)
+        html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
+        html += `<td><span class="expand-icon" id="icon-${gaBand}">▶</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        
+        // Spalten für jedes Suchwort
+        words.forEach(word => {
+          const count = displayCounts[word] || 0;
+          html += `<td style="text-align: right;">${count}</td>`;
+        });
+        
+        html += `<td style="text-align: right; font-weight: bold;">${bandTotal}</td>`;
+        html += '</tr>';
+        
+        // Vortrags-Zeilen (versteckt, aufklappbar)
+        const lectureIds = Object.keys(displayLectures).sort((a, b) => {
+          // Sortiere nach Vortragsnummer (z.B. GA100/1, GA100/2, ...)
+          const numA = parseInt(a.split('/')[1] || '0');
+          const numB = parseInt(b.split('/')[1] || '0');
+          return numA - numB;
+        });
+        
+        lectureIds.forEach(lectureId => {
+          const lectureCounts = displayLectures[lectureId];
+          
+          // Berechne Gesamtsumme für diesen Vortrag
+          let lectureTotal = 0;
+          words.forEach(word => {
+            lectureTotal += lectureCounts[word] || 0;
+          });
+          
+          html += `<tr class="lecture-row" data-ga="${gaBand}">`;
+          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}'); return false;">${lectureId}</a></td>`;
+          
+          // Spalten für jedes Suchwort
+          words.forEach(word => {
+            const count = lectureCounts[word] || 0;
+            html += `<td style="text-align: right;">${count}</td>`;
+          });
+          
+          html += `<td style="text-align: right;">${lectureTotal}</td>`;
+          html += '</tr>';
+        });
+      });
+      
+      html += '</tbody></table>';
+      html += '</div>';
+      
+      viewer.innerHTML = html;
+    }
+    
+    function toggleGABand(gaBand) {
+      console.log('[FREQUENCY-ANALYSIS] Toggle GA-Band:', gaBand);
+      
+      // Finde alle Vortrags-Zeilen für diesen GA-Band
+      const lectureRows = document.querySelectorAll(`.lecture-row[data-ga="${gaBand}"]`);
+      const icon = document.getElementById(`icon-${gaBand}`);
+      
+      // Toggle Sichtbarkeit
+      const isCurrentlyVisible = lectureRows[0]?.classList.contains('visible');
+      
+      lectureRows.forEach(row => {
+        if (isCurrentlyVisible) {
+          row.classList.remove('visible');
+        } else {
+          row.classList.add('visible');
+        }
+      });
+      
+      // Toggle Icon
+      if (icon) {
+        if (isCurrentlyVisible) {
+          icon.classList.remove('expanded');
+        } else {
+          icon.classList.add('expanded');
+        }
+      }
+      
+      // Update toggle-all icon
+      updateToggleAllIcon();
+    }
+    
+    function toggleAllGABands() {
+      console.log('[FREQUENCY-ANALYSIS] Toggle alle GA-Bände');
+      
+      if (!window.frequencyTableData) return;
+      
+      const gaBands = window.frequencyTableData.gaBands;
+      
+      // Check if all are expanded
+      const firstIcon = document.getElementById(`icon-${gaBands[0]}`);
+      const allExpanded = firstIcon?.classList.contains('expanded');
+      
+      // Toggle all
+      gaBands.forEach(gaBand => {
+        const lectureRows = document.querySelectorAll(`.lecture-row[data-ga="${gaBand}"]`);
+        const icon = document.getElementById(`icon-${gaBand}`);
+        
+        lectureRows.forEach(row => {
+          if (allExpanded) {
+            row.classList.remove('visible');
+          } else {
+            row.classList.add('visible');
+          }
+        });
+        
+        if (icon) {
+          if (allExpanded) {
+            icon.classList.remove('expanded');
+          } else {
+            icon.classList.add('expanded');
+          }
+        }
+      });
+      
+      // Update toggle-all icon
+      updateToggleAllIcon();
+    }
+    
+    function updateToggleAllIcon() {
+      const toggleAllIcon = document.getElementById('toggle-all-ga');
+      if (!toggleAllIcon || !window.frequencyTableData) return;
+      
+      const gaBands = window.frequencyTableData.gaBands;
+      
+      // Check if all are expanded
+      const allExpanded = gaBands.every(gaBand => {
+        const icon = document.getElementById(`icon-${gaBand}`);
+        return icon?.classList.contains('expanded');
+      });
+      
+      // Update toggle-all icon
+      if (allExpanded) {
+        toggleAllIcon.classList.add('expanded');
+      } else {
+        toggleAllIcon.classList.remove('expanded');
+      }
+    }
+    
+    function sortFrequencyTable(columnIndex) {
+      console.log('[FREQUENCY-ANALYSIS] Sortiere nach Spalte:', columnIndex);
+      
+      if (!window.frequencyTableData) return;
+      
+      const { words, frequencies, proximityFrequencies, hasProximityData, currentSort } = window.frequencyTableData;
+      const dataToSort = hasProximityData ? proximityFrequencies : frequencies; // Use proximity data for sorting if available
+      
+      // Determine new sort order
+      let newOrder = 'desc';
+      if (columnIndex === 'ga') {
+        newOrder = currentSort.column === 'ga' && currentSort.order === 'asc' ? 'desc' : 'asc';
+      } else if (currentSort.column === columnIndex) {
+        newOrder = currentSort.order === 'desc' ? 'asc' : 'desc';
+      }
+      
+      // Save expanded state of each GA band
+      const expandedBands = {};
+      window.frequencyTableData.gaBands.forEach(gaBand => {
+        const icon = document.getElementById(`icon-${gaBand}`);
+        expandedBands[gaBand] = icon?.classList.contains('expanded') || false;
+      });
+      
+      // Sort GA bands
+      let sortedGaBands = Object.keys(dataToSort); // Sort based on the chosen data source
+      
+      if (columnIndex === 'ga') {
+        // Sort by GA number
+        sortedGaBands.sort((a, b) => {
+          const numA = parseInt(a.replace('GA', ''));
+          const numB = parseInt(b.replace('GA', ''));
+          return newOrder === 'asc' ? numA - numB : numB - numA;
+        });
+      } else if (columnIndex === 'total') {
+        // Sort by total column
+        sortedGaBands.sort((a, b) => {
+          const bandDataA = dataToSort[a];
+          const bandDataB = dataToSort[b];
+          const sumA = words.reduce((sum, word) => sum + (bandDataA.total[word] || 0), 0);
+          const sumB = words.reduce((sum, word) => sum + (bandDataB.total[word] || 0), 0);
+          return newOrder === 'desc' ? sumB - sumA : sumA - sumB;
+        });
+      } else if (typeof columnIndex === 'number') {
+        // Sort by specific word
+        const word = words[columnIndex];
+        sortedGaBands.sort((a, b) => {
+          const countA = dataToSort[a].total[word] || 0;
+          const countB = dataToSort[b].total[word] || 0;
+          return newOrder === 'desc' ? countB - countA : countA - countB;
+        });
+      }
+      
+      // Update current sort
+      window.frequencyTableData.currentSort = { column: columnIndex, order: newOrder };
+      window.frequencyTableData.gaBands = sortedGaBands;
+      
+      // Update sort icons
+      document.querySelectorAll('.sort-icon').forEach(icon => {
+        icon.classList.remove('active');
+      });
+      
+      const activeIconId = typeof columnIndex === 'number' ? `sort-icon-${columnIndex}` : `sort-icon-${columnIndex}`;
+      const activeIcon = document.getElementById(activeIconId);
+      if (activeIcon) {
+        activeIcon.classList.add('active');
+        activeIcon.textContent = newOrder === 'asc' ? '↑' : '↓';
+      }
+      
+      // Re-render table body
+      const tbody = document.getElementById('frequency-table-body');
+      if (!tbody) return;
+      
+      let html = '';
+      
+      sortedGaBands.forEach(gaBand => {
+        const bandData = frequencies[gaBand];
+        const totalCounts = bandData.total;
+        const lectures = bandData.lectures || {};
+        
+        // If proximity data is available, use these instead of total frequencies
+        const proxBandData = hasProximityData && proximityFrequencies[gaBand] ? proximityFrequencies[gaBand] : null;
+        const displayCounts = proxBandData ? proxBandData.total : totalCounts;
+        const displayLectures = proxBandData ? proxBandData.lectures : lectures;
+        
+        // Berechne Gesamtsumme für den GA-Band
+        let bandTotal = 0;
+        words.forEach(word => {
+          bandTotal += displayCounts[word] || 0;
+        });
+        
+        // GA-Band Zeile
+        const isExpanded = expandedBands[gaBand];
+        html += `<tr class="ga-band-row" onclick="toggleGABand('${gaBand}')">`;
+        html += `<td><span class="expand-icon ${isExpanded ? 'expanded' : ''}" id="icon-${gaBand}">▶</span><a href="#" class="ga-link" onclick="event.stopPropagation(); navigateToGABandInTexteTab('${gaBand}'); return false;">${gaBand}</a></td>`;
+        
+        words.forEach(word => {
+          const count = displayCounts[word] || 0;
+          html += `<td style="text-align: right;">${count}</td>`;
+        });
+        
+        html += `<td style="text-align: right; font-weight: bold;">${bandTotal}</td>`;
+        html += '</tr>';
+        
+        // Sort lecture IDs within this GA band based on current sort column
+        let lectureIds = Object.keys(displayLectures);
+        
+        // The actual data used for sorting lectures should also respect 'hasProximityData'
+        const lectureDataForSorting = hasProximityData ? (proximityFrequencies[gaBand]?.lectures || {}) : (frequencies[gaBand]?.lectures || {});
+        
+        if (columnIndex === 'ga') {
+          // Sort by lecture number
+          lectureIds.sort((a, b) => {
+            const numA = parseInt(a.split('/')[1] || '0');
+            const numB = parseInt(b.split('/')[1] || '0');
+            return newOrder === 'asc' ? numA - numB : numB - numA;
+          });
+        } else if (columnIndex === 'total') {
+          // Sort by total column
+          lectureIds.sort((a, b) => {
+            const sumA = words.reduce((sum, word) => sum + (lectureDataForSorting[a]?.[word] || 0), 0);
+            const sumB = words.reduce((sum, word) => sum + (lectureDataForSorting[b]?.[word] || 0), 0);
+            return newOrder === 'desc' ? sumB - sumA : sumA - sumB;
+          });
+        } else if (typeof columnIndex === 'number') {
+          // Sort by specific word
+          const word = words[columnIndex];
+          lectureIds.sort((a, b) => {
+            const countA = lectureDataForSorting[a]?.[word] || 0;
+            const countB = lectureDataForSorting[b]?.[word] || 0;
+            return newOrder === 'desc' ? countB - countA : countA - countB;
+          });
+        } else {
+          // Fallback: Sort by lecture number
+          lectureIds.sort((a, b) => {
+            const numA = parseInt(a.split('/')[1] || '0');
+            const numB = parseInt(b.split('/')[1] || '0');
+            return numA - numB;
+          });
+        }
+        
+        // Vortrags-Zeilen
+        lectureIds.forEach(lectureId => {
+          const lectureCounts = displayLectures[lectureId];
+          
+          let lectureTotal = 0;
+          words.forEach(word => {
+            lectureTotal += lectureCounts[word] || 0;
+          });
+          
+          html += `<tr class="lecture-row ${isExpanded ? 'visible' : ''}" data-ga="${gaBand}">`;
+          html += `<td style="padding-left: 2rem;"><a href="#" class="lecture-link" onclick="navigateToLectureInTexteTab('${lectureId}'); return false;">${lectureId}</a></td>`;
+          
+          words.forEach(word => {
+            const count = lectureCounts[word] || 0;
+            html += `<td style="text-align: right;">${count}</td>`;
+          });
+          
+          html += `<td style="text-align: right;">${lectureTotal}</td>`;
+          html += '</tr>';
+        });
+      });
+      
+      tbody.innerHTML = html;
+      
+      // Update toggle-all icon after rendering
+      updateToggleAllIcon();
+    }
+    
+    function navigateToGABandInTexteTab(gaBand) {
+      console.log('[FREQUENCY-ANALYSIS] Navigiere zu GA-Band:', gaBand);
+      
+      // Wechsle zum Texte-Tab
+      switchTab('texte');
+      
+      // Setze den GA-Filter
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter) {
+        texteGAFilter.value = gaBand;
+        // Trigger Change Event um die GA-Übersicht zu laden
+        const changeEvent = new Event('change', { bubbles: true });
+        texteGAFilter.dispatchEvent(changeEvent);
       }
     }
     
