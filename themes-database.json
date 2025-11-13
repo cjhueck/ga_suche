@@ -20,19 +20,6 @@
       "Geheimwissenschaft"
     ]
   },
-  "Geistige Schulung": {
-    "description": "Methoden der inneren Entwicklung und Schulung",
-    "keywords": [
-      "Bewusstseinsschulung",
-      "Denkschulung",
-      "Hellsehen",
-      "Geistesschulung",
-      "Konzentration",
-      "Meditation",
-      "Okkulte Schulung",
-      "Willensschulung"
-    ]
-  },
   "Übersinnliche Welten": {
     "description": "Geistige Welten und übersinnliche Bereiche",
     "keywords": [
@@ -1426,6 +1413,20 @@
       "Zeitgeist",
       "Zeitgeschichte",
       "Zeitorganismus"
+    ]
+  },
+  "Schulungswege": {
+    "description": "Manuell erstellter Cluster: Schulungswege",
+    "keywords": [
+      "Achtgliedriger Pfad",
+      "Bewusstseinsschulung",
+      "Denkschulung",
+      "Hellsehen",
+      "Geistesschulung",
+      "Konzentration",
+      "Meditation",
+      "Okkulte Schulung",
+      "Willensschulung"
     ]
   }
 }
