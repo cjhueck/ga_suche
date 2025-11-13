@@ -3698,6 +3698,13 @@ body.dark-mode #imagePopupCloseBtn {
 body.dark-mode #popupCaption {
   color: var(--dark-text-color) !important;
 }
+
+/* Sortierpfeile in Häufigkeitstabelle stärker machen */
+.sort-icon {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 0.3em;
+}
 </style>
 </head>
 <body>
@@ -3798,17 +3805,19 @@ Chronologisch
 </select>
 </div>
 <div class="radio-group">
-<div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
-    <div style="display:flex; gap:8px;">
-      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 16px;">Suche starten</button>
-      <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 16px;">Häufigkeit</button>
-      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 16px;">erweitert</button>
+<div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
+    <div style="display:flex; flex-direction: column; gap:8px;">
+      <div style="display:flex; gap:8px;">
+        <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 12px;">Suche starten</button>
+        <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 12px;">erweitert</button>
+      </div>
+      <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 12px; width: fit-content;">Häufigkeit</button>
     </div>
-  <div style="display:flex; gap:8px; align-items:stretch;">
-    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 16px;">
+  <div style="display:flex; gap:8px;">
+    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 12px;">
       <span id="viewToggleText">nur Titel</span>
     </button>
-    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 16px;">
+    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 12px;">
       Timeline
     </button>
   </div>
@@ -4844,12 +4853,6 @@ function normalizeGANumber(gaNumber) {
       if (mode === 'keyword') {
         // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
         resetSearchTab();
-        
-        // Zeige Häufigkeit-Button wieder an beim Tab-Wechsel
-        const frequencyBtn = document.getElementById('frequencyBtnSimple');
-        if (frequencyBtn) {
-          frequencyBtn.style.display = '';
-        }
         
         // Explizit sicherstellen, dass GA-Bände-Liste gelöscht wird
         const resultsDiv = document.getElementById('results');
@@ -7427,12 +7430,6 @@ function displayGAChronological(lectures) {
         return;
       }
       
-      // Zeige Häufigkeit-Button wieder an (falls ausgeblendet)
-      const frequencyBtn = document.getElementById('frequencyBtnSimple');
-      if (frequencyBtn) {
-        frequencyBtn.style.display = '';
-      }
-      
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen…</div>';
       document.getElementById('document-title').textContent = 'Suche';
       
@@ -7527,7 +7524,7 @@ function displayGAChronological(lectures) {
           displayQuery = isPhrase ? `"${word1}"` : singleTerm;
         }
         // Übergebe geparste Werte und Phrasen-Flags an renderKeywordResults
-        renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase);
+        renderKeywordResults(displayQuery, results, word1, word2, word1IsPhrase, word2IsPhrase, proximity);
         
       } catch (error) {
         console.error('Keyword-Suche Fehler:', error);
@@ -8152,6 +8149,28 @@ function displayGAChronological(lectures) {
     async function performSimpleFrequencyAnalysis() {
       console.log('[FREQUENCY-ANALYSIS] Starte Häufigkeitsanalyse (Simple)');
       
+      // Schließe Summary Panel (TOC)
+      const summaryPanel = document.getElementById('summary-panel');
+      const resizeHandle = document.querySelector('.vertical-resize-handle');
+      const mainContainer = document.getElementById('main-container');
+      
+      if (summaryPanel && summaryPanel.classList.contains('visible')) {
+        summaryPanel.classList.remove('visible');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '0px';
+        
+        if (resizeHandle) {
+          resizeHandle.classList.remove('visible');
+        }
+        
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        console.log('[FREQUENCY-ANALYSIS] Summary Panel geschlossen');
+      }
+      
       // Sammle Suchworte aus einfacher Suche
       const words = [];
       for (let i = 1; i <= 3; i++) {
@@ -8179,7 +8198,12 @@ function displayGAChronological(lectures) {
       const gaFilterElement = document.getElementById('gaFilter');
       const gaFilter = gaFilterElement ? gaFilterElement.value : '';
       
-      console.log(`[FREQUENCY-ANALYSIS] Analysiere Häufigkeit für: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}, GA-Filter: ${gaFilter || 'alle'}`);
+      // Hole Proximity-Filter aus einfacher Suche
+      const proximityElement = document.getElementById('proximityFilter');
+      const proximity = proximityElement ? proximityElement.value : '';
+      
+      const proximityText = proximity ? ` (innerhalb ${proximity} ${proximity === '1' ? 'Absatz' : 'Absätze'})` : ' (gesamter Text)';
+      console.log(`[FREQUENCY-ANALYSIS] Analysiere Häufigkeit für: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}${proximityText}, GA-Filter: ${gaFilter || 'alle'}`);
       
       const button = document.getElementById('frequencyBtnSimple');
       const statusElement = document.getElementById('status');
@@ -8196,7 +8220,7 @@ function displayGAChronological(lectures) {
         }
         
         // Führe Häufigkeitsanalyse durch
-        const result = await calculateFrequenciesFromSearch(words, operators, '', gaFilter);
+        const result = await calculateFrequenciesFromSearch(words, operators, proximity, gaFilter);
         const frequencies = result.frequencies;
         const proximityFrequencies = result.proximityFrequencies;
         
@@ -8207,17 +8231,13 @@ function displayGAChronological(lectures) {
         }
         
         // Rendere Häufigkeitsanalyse im Viewer
-        renderFrequencyAnalysis(words, frequencies, proximityFrequencies, '');
-        
-        // Verstecke den Häufigkeit-Button nach erfolgreicher Analyse
-        if (button) {
-          button.style.display = 'none';
-        }
+        renderFrequencyAnalysis(words, frequencies, proximityFrequencies, proximity);
         
         // Browser History Eintrag hinzufügen
         const searchParams = {
           words: words,
           operators: operators,
+          proximity: proximity,
           gaFilter: gaFilter
         };
         const url = `${window.location.pathname}#suche?freq=${encodeURIComponent(JSON.stringify(searchParams))}`;
@@ -8779,6 +8799,20 @@ function displayGAChronological(lectures) {
       html += '</div>';
       
       viewer.innerHTML = html;
+      
+      // Scrolle nach oben im Viewer und Main-Container (mit Timeout für Rendering)
+      setTimeout(() => {
+        viewer.scrollTop = 0;
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) {
+          mainContainer.scrollTop = 0;
+        }
+        const main = document.getElementById('main');
+        if (main) {
+          main.scrollTop = 0;
+        }
+        console.log('[FREQUENCY-ANALYSIS] Viewer nach oben gescrollt');
+      }, 0);
     }
     
     function toggleGABand(gaBand) {
@@ -9175,7 +9209,7 @@ function displayGAChronological(lectures) {
       mittelOption.textContent = 'mittel 🟧'; // Oranges Quadrat
     }
 
-    function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false) {
+    function renderKeywordResults(query, results, word1, word2, word1IsPhrase = false, word2IsPhrase = false, proximity = null) {
       const container = document.getElementById('results');
       const scope = 'fulltext'; // Immer Volltext-Suche
       
@@ -17719,6 +17753,23 @@ async function showSearchResultsTimelineV2() {
         });
       }
     }
+    
+    // Entferne nur EXAKT identische Duplikate (gleiche lectureId, Datum UND heading)
+    const uniqueEntries = [];
+    const seenEntries = new Set();
+    
+    for (const entry of timelineEntries) {
+      // Erstelle eindeutigen Schlüssel aus lectureId, Datum und heading
+      const key = `${entry.lectureId}|${entry.date}|${entry.heading}`;
+      
+      if (!seenEntries.has(key)) {
+        seenEntries.add(key);
+        uniqueEntries.push(entry);
+      }
+    }
+    
+    console.log(`[TIMELINE-V2] Exakt identische Duplikate entfernt: ${timelineEntries.length} -> ${uniqueEntries.length} Einträge`);
+    timelineEntries = uniqueEntries;
     
     // Filtere Einträge ohne Jahr heraus
     const validEntries = timelineEntries.filter(e => e.year);
