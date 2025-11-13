@@ -3740,7 +3740,7 @@ Chronologisch
 </button>
 </div>
 <div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
-<span id="ga-volumes-count">Lade GA-Bände...</span>
+<span id="ga-volumes-count">--</span>
 </div>
 </div>
 </div><div class="tab-content" id="keyword-tab">
@@ -3800,7 +3800,8 @@ Chronologisch
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items:stretch; justify-content: space-between; width: 100%;">
     <div style="display:flex; gap:8px;">
-      <button class="depth-btn primary" onclick="performKeywordSearch()" style="min-width: 126px; padding: 6px 16px;">Suche starten</button>
+      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 16px;">Suche starten</button>
+      <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 16px;">Häufigkeit</button>
       <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 16px;">erweitert</button>
     </div>
   <div style="display:flex; gap:8px; align-items:stretch;">
@@ -4844,6 +4845,12 @@ function normalizeGANumber(gaNumber) {
         // Lösche Suchfelder und Ergebnisse beim Öffnen des Suche-Tabs
         resetSearchTab();
         
+        // Zeige Häufigkeit-Button wieder an beim Tab-Wechsel
+        const frequencyBtn = document.getElementById('frequencyBtnSimple');
+        if (frequencyBtn) {
+          frequencyBtn.style.display = '';
+        }
+        
         // Explizit sicherstellen, dass GA-Bände-Liste gelöscht wird
         const resultsDiv = document.getElementById('results');
         if (resultsDiv) {
@@ -5037,7 +5044,7 @@ function normalizeGANumber(gaNumber) {
         // Leere Results-Bereich (linkes Panel)
         const resultsDiv = document.getElementById('results');
         if (resultsDiv) {
-          resultsDiv.innerHTML = '';
+          resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände...</div>';
         }
         
         // Setze Document Title
@@ -5052,14 +5059,15 @@ function normalizeGANumber(gaNumber) {
           viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
         }
         
-        setTimeout(() => {
-          if (typeof loadGAVolumesInSidebar === 'function') {
-            console.log('[GA-TAB] Lade GA-Bände-Liste...');
-            loadGAVolumesInSidebar();
-          } else {
-            console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
-          }
-        }, 100);
+        // Lade GA-Bände direkt (ohne setTimeout für bessere Zuverlässigkeit)
+        if (typeof loadGAVolumesInSidebar === 'function') {
+          console.log('[GA-TAB] Lade GA-Bände-Liste...');
+          loadGAVolumesInSidebar().catch(err => {
+            console.error('[GA-TAB] Fehler beim Laden:', err);
+          });
+        } else {
+          console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
+        }
       }
     }
 
@@ -5248,15 +5256,21 @@ function normalizeGANumber(gaNumber) {
           viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
         }
         
-        // Lade GA-Bände-Liste
-        setTimeout(() => {
-          if (typeof loadGAVolumesInSidebar === 'function') {
-            console.log('[GA-TAB] Initial: Lade GA-Bände-Liste...');
-            loadGAVolumesInSidebar();
-          } else {
-            console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
-          }
-        }, 100);
+        // Setze Ladeanzeiger im Results-Bereich
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+          resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände...</div>';
+        }
+        
+        // Lade GA-Bände-Liste direkt (ohne setTimeout für bessere Zuverlässigkeit)
+        if (typeof loadGAVolumesInSidebar === 'function') {
+          console.log('[GA-TAB] Initial: Lade GA-Bände-Liste...');
+          loadGAVolumesInSidebar().catch(err => {
+            console.error('[GA-TAB] Fehler beim initialen Laden:', err);
+          });
+        } else {
+          console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
+        }
       } else {
         console.log('[INIT] Hash vorhanden:', urlHash, '- überspringe initiales Laden für', activeTabMode);
       }
@@ -6311,11 +6325,36 @@ async function loadKeywordsDatabaseForThemes() {
 let gaVolumesData = [];
 let summaryDatabaseCache = null;
 let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
+let gaVolumesLoading = false; // Verhindert doppeltes Laden
+let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
 
 // Funktion: Lade GA-Bände im Sidebar
-async function loadGAVolumesInSidebar() {
+async function loadGAVolumesInSidebar(retryAttempt = 0) {
+  // Verhindere doppeltes Laden
+  if (gaVolumesLoading && retryAttempt === 0) {
+    console.log('[GA-TAB] Laden bereits im Gange, überspringe...');
+    return;
+  }
+  
+  // Wenn Daten bereits geladen sind, zeige sie nur an
+  if (gaVolumesData.length > 0) {
+    console.log('[GA-TAB] Daten bereits vorhanden, zeige sie an...');
+    displayGAVolumesInSidebar();
+    
+    // Aktualisiere Info-Element auch beim erneuten Anzeigen
+    const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const countElement = document.getElementById('ga-volumes-count');
+    if (countElement) {
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${totalLectures} Vorträge`;
+      countElement.style.fontStyle = 'normal';
+    }
+    return;
+  }
+  
+  gaVolumesLoading = true;
+  
   try {
-    console.log('[GA-TAB] Lade GA-Bände...');
+    console.log('[GA-TAB] Lade GA-Bände...', retryAttempt > 0 ? `(Versuch ${retryAttempt + 1})` : '');
     
     // Lade GA-Liste mit Titeln
     const gaListResponse = await fetch(`${API_BASE}/api/ga-list`);
@@ -6352,16 +6391,38 @@ async function loadGAVolumesInSidebar() {
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       countElement.textContent = `${gaVolumesData.length} GA-Bände · ${totalLectures} Vorträge`;
+      countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
+    
+    gaVolumesLoading = false; // Erfolgreich geladen
     
   } catch (error) {
     console.error('[GA-TAB] Fehler beim Laden der GA-Bände:', error);
+    gaVolumesLoading = false; // Reset bei Fehler
     
-    // Zeige Fehler im results Bereich
+    // Retry-Mechanismus: Versuche es bis zu 3 Mal
+    if (retryAttempt < 2) {
+      console.log(`[GA-TAB] Retry in ${(retryAttempt + 1) * 1000}ms...`);
+      setTimeout(() => {
+        loadGAVolumesInSidebar(retryAttempt + 1);
+      }, (retryAttempt + 1) * 1000); // 1s, 2s delays
+      
+      // Zeige Retry-Nachricht
+      const resultsDiv = document.getElementById('results');
+      if (resultsDiv) {
+        resultsDiv.innerHTML = `<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände... (Versuch ${retryAttempt + 2}/3)</div>`;
+      }
+      return;
+    }
+    
+    // Nach 3 Versuchen: Zeige Fehler
     const errorHtml = `
       <div style="padding: 1rem; color: var(--text-color);">
         <strong>Fehler beim Laden der GA-Bände:</strong><br>
-        ${error.message}
+        ${error.message}<br><br>
+        <button onclick="gaVolumesData = []; loadGAVolumesInSidebar()" class="depth-btn" style="padding: 8px 12px;">
+          Erneut versuchen
+        </button>
       </div>
     `;
     
@@ -6373,6 +6434,7 @@ async function loadGAVolumesInSidebar() {
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       countElement.textContent = `Fehler: ${error.message}`;
+      countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift bei Fehler
     }
   }
 }
@@ -7365,6 +7427,12 @@ function displayGAChronological(lectures) {
         return;
       }
       
+      // Zeige Häufigkeit-Button wieder an (falls ausgeblendet)
+      const frequencyBtn = document.getElementById('frequencyBtnSimple');
+      if (frequencyBtn) {
+        frequencyBtn.style.display = '';
+      }
+      
       document.getElementById('viewer').innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Bitte ein Suchergebnis auswählen…</div>';
       document.getElementById('document-title').textContent = 'Suche';
       
@@ -8079,6 +8147,105 @@ function displayGAChronological(lectures) {
     // ============================================================================
     // HÄUFIGKEITSANALYSE FÜR ERWEITERTE SUCHE
     // ============================================================================
+    
+    // Häufigkeitsanalyse für einfachen Suche-Tab
+    async function performSimpleFrequencyAnalysis() {
+      console.log('[FREQUENCY-ANALYSIS] Starte Häufigkeitsanalyse (Simple)');
+      
+      // Sammle Suchworte aus einfacher Suche
+      const words = [];
+      for (let i = 1; i <= 3; i++) {
+        const wordInput = document.getElementById(`word${i}`);
+        const word = wordInput ? wordInput.value.trim() : '';
+        if (word) {
+          words.push(word);
+        }
+      }
+      
+      if (words.length === 0) {
+        alert('Bitte mindestens ein Suchwort eingeben');
+        return;
+      }
+      
+      // Sammle Operatoren aus einfacher Suche
+      const operators = [];
+      for (let i = 1; i < words.length; i++) {
+        const operatorElement = document.querySelector(`input[name="operator${i}"]:checked`);
+        const operator = operatorElement ? operatorElement.value : 'and';
+        operators.push(operator);
+      }
+      
+      // Hole GA-Filter aus einfacher Suche
+      const gaFilterElement = document.getElementById('gaFilter');
+      const gaFilter = gaFilterElement ? gaFilterElement.value : '';
+      
+      console.log(`[FREQUENCY-ANALYSIS] Analysiere Häufigkeit für: ${words.join(', ')} mit Operatoren: ${operators.join(', ')}, GA-Filter: ${gaFilter || 'alle'}`);
+      
+      const button = document.getElementById('frequencyBtnSimple');
+      const statusElement = document.getElementById('status');
+      
+      try {
+        if (button) {
+          button.disabled = true;
+          button.classList.add('processing');
+          button.textContent = 'Analysiere...';
+        }
+        if (statusElement) {
+          statusElement.style.display = 'inline';
+          statusElement.textContent = 'Häufigkeitsanalyse läuft...';
+        }
+        
+        // Führe Häufigkeitsanalyse durch
+        const result = await calculateFrequenciesFromSearch(words, operators, '', gaFilter);
+        const frequencies = result.frequencies;
+        const proximityFrequencies = result.proximityFrequencies;
+        
+        console.log(`[FREQUENCY-ANALYSIS] Ergebnisse berechnet:`, frequencies);
+        if (statusElement) {
+          statusElement.textContent = '';
+          statusElement.style.display = 'none';
+        }
+        
+        // Rendere Häufigkeitsanalyse im Viewer
+        renderFrequencyAnalysis(words, frequencies, proximityFrequencies, '');
+        
+        // Verstecke den Häufigkeit-Button nach erfolgreicher Analyse
+        if (button) {
+          button.style.display = 'none';
+        }
+        
+        // Browser History Eintrag hinzufügen
+        const searchParams = {
+          words: words,
+          operators: operators,
+          gaFilter: gaFilter
+        };
+        const url = `${window.location.pathname}#suche?freq=${encodeURIComponent(JSON.stringify(searchParams))}`;
+        history.pushState({ 
+          tab: 'suche',
+          searchType: 'frequency',
+          searchParams: searchParams
+        }, '', url);
+        console.log('[HISTORY] Häufigkeitsanalyse gespeichert');
+        
+      } catch (error) {
+        console.error('[FREQUENCY-ANALYSIS] Fehler:', error);
+        if (statusElement) {
+          statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
+        }
+        document.getElementById('viewer').innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: red;">
+            <strong>Fehler bei der Häufigkeitsanalyse:</strong><br>${error.message}
+          </div>
+        `;
+      } finally {
+        if (button) {
+          button.disabled = false;
+          button.classList.remove('processing');
+          button.textContent = 'Häufigkeit';
+        }
+      }
+    }
     
     async function performAdvancedFrequencyAnalysis() {
       console.log('[FREQUENCY-ANALYSIS] Starte Häufigkeitsanalyse');

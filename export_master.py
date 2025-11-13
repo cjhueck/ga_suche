@@ -231,7 +231,10 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
             ('vergeßlich', 'vergesslich'),
             ('heiss', 'heiß'),
             ('zurücckommen', 'zurückkommen'),
-            ('ackurat', 'akkurat')
+            ('ackurat', 'akkurat'),
+            ('paßt', 'passt'),
+            ('römischkatholisch', 'römisch-katholisch'),
+            ('seelischgeistig', 'seelisch-geistig')
         ]
         
         num_spelling_fixes = 0
@@ -242,7 +245,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
                 num_spelling_fixes += count
         
         if num_spelling_fixes > 0:
-            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (Fleiss→Fleiß, vergeßlich→vergesslich, heiss→heiß, zurücckommen→zurückkommen, ackurat→akkurat)")
+            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (paßt→passt, römischkatholisch→römisch-katholisch, seelischgeistig→seelisch-geistig, etc.)")
         
         # Wende Änderungen an
         if changes and apply_changes:
