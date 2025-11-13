@@ -5994,6 +5994,123 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    // Lade GA-Übersicht nur im linken Side Panel, ohne den Hauptviewer zu überschreiben
+    async function loadGAOverviewInSidePanelOnly(gaNumber) {
+      console.log(`[NAVIGATION] Lade GA-Übersicht ${gaNumber} nur im Side Panel`);
+      
+      if (!gaNumber) return;
+      
+      try {
+        // Lade GA-Übersicht Daten vom Server
+        const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        
+        console.log('[NAVIGATION] GA-Übersicht Daten geladen:', data.gaNumber);
+        
+        // Lade Summaries aus Datenbank
+        await loadSummariesFromDB(data);
+        
+        // Normalisiere Summary-Daten
+        data.lectures.forEach(lecture => {
+          if (lecture.summary) {
+            lecture.summary = getSummaryText(lecture.summary);
+          }
+        });
+        
+        // Fülle NUR das linke Panel (results container)
+        const resultsContainer = document.getElementById('results');
+        if (!resultsContainer) {
+          console.error('[NAVIGATION] Results Container nicht gefunden');
+          return;
+        }
+        
+        // Setze Titel im Header (aber nicht currentLectureData - das bleibt vom Vortrag)
+        const titleElement = document.getElementById('document-title');
+        if (titleElement && currentLectureData) {
+          // Behalte den Vortragstitel, füge nur GA-Info hinzu falls noch nicht vorhanden
+          if (!titleElement.textContent.includes(data.gaNumber)) {
+            titleElement.textContent = `${currentLectureData.ID} - ${currentLectureData.title || ''}`;
+          }
+        }
+        
+        // Erstelle HTML für linkes Panel
+        let html = `<div id="ga-lecture-list">`;
+        
+        data.lectures.forEach((lecture, idx) => {
+          let titleText;
+          if (lecture.fileName) {
+            titleText = lecture.fileName;
+          } else {
+            titleText = `${formatLectureId(lecture.ID)} - ${lecture.title}`;
+            const locationParts = [];
+            if (lecture.location) locationParts.push(lecture.location);
+            if (lecture.date) locationParts.push(lecture.date);
+            if (locationParts.length > 0) {
+              titleText += `, ${locationParts.join(', ')}`;
+            }
+          }
+          
+          const lectureKeywords = lecture.lectureKeywords || [];
+          const hasShortSummary = lecture.shortSummary && lecture.shortSummary.trim().length > 0;
+          const isSelected = selectedLectureIds.has(lecture.ID);
+          
+          html += `
+            <div class="ga-overview-lecture" style="margin-bottom: 0.5rem; padding-bottom: 0rem; border-bottom: none; display: flex; align-items: flex-start; gap: 8px;">
+              ${isLocal ? `
+                <input type="checkbox" 
+                       id="chk-${lecture.ID}" 
+                       class="lecture-checkbox" 
+                       ${isSelected ? 'checked' : ''} 
+                       onchange="toggleLectureSelection('${lecture.ID}')"
+                       style="margin-top: 4px; cursor: pointer; flex-shrink: 0;">
+              ` : ''}
+              <div style="flex: 1;">
+                <h3 style="margin: 0 0 0rem 0;">
+                  <a href="#" onclick="showLectureFromOverview('${lecture.ID}'); return false;" style="text-decoration: none;">
+                    ${titleText}
+                  </a>
+                </h3>
+              
+              ${lecture.shortSummary ? `
+                <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
+                  <p style="margin: 0; line-height: var(--line-height); font-size: var(--text-size); color: #666; font-style: italic;">
+                    ${lecture.shortSummary}
+                  </p>
+                </div>
+              ` : ''}
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `</div>`;
+        resultsContainer.innerHTML = html;
+        
+        // Scroll to top
+        const sidebarContent = document.getElementById('sidebar-content');
+        if (sidebarContent) {
+          sidebarContent.scrollTop = 0;
+        }
+        
+        // Aktualisiere Auswahl-Info
+        updateSelectionInfo();
+        
+        console.log('[NAVIGATION] ✓ GA-Übersicht im Side Panel geladen');
+        
+      } catch (error) {
+        console.error('[NAVIGATION] Fehler beim Laden der GA-Übersicht:', error);
+        const resultsContainer = document.getElementById('results');
+        if (resultsContainer) {
+          resultsContainer.innerHTML = `
+            <div class="error-message">
+              <strong>Fehler beim Laden der GA-Übersicht:</strong><br>${error.message}
+            </div>
+          `;
+        }
+      }
+    }
+
     // Hilfsfunktion: Lade Summaries aus zentraler Datenbank
     async function loadSummariesForOverview(data) {
       console.log('Lade Summaries aus zentraler Datenbank für GA-Übersicht...');
@@ -6489,18 +6606,22 @@ async function showLectureFromGA(lectureId) {
     const gaNumber = parts[0];
     const lectureNumber = parts[1];
     
-    // Setze GA-Filter
+    // Setze GA-Filter OHNE Change Event zu triggern
     const texteGAFilter = document.getElementById('texteGAFilter');
     if (texteGAFilter) {
       texteGAFilter.value = formatLectureId(gaNumber);
-      texteGAFilter.dispatchEvent(new Event('change'));
+      console.log('[GA-TAB] GA-Filter gesetzt auf:', gaNumber);
     }
     
-    // Warte kurz und zeige dann den Vortrag
-    await new Promise(resolve => setTimeout(resolve, 300));
+    // Lade zuerst den spezifischen Vortrag im Hauptviewer
+    console.log('[GA-TAB] Lade Vortrag im Hauptviewer:', lectureId);
     await showLecture(lectureId);
     
-    console.log('[GA-TAB] Vortrag geladen, überprüfe Panel-Status');
+    // Dann lade die GA-Übersicht im linken Panel (ohne den Viewer zu überschreiben)
+    console.log('[GA-TAB] Lade GA-Übersicht im linken Panel:', gaNumber);
+    await loadGAOverviewInSidePanelOnly(gaNumber);
+    
+    console.log('[GA-TAB] ✓ Vortrag geladen, Panel-Status OK');
   }
 }
 
@@ -7160,23 +7281,21 @@ function displayGAChronological(lectures) {
       // Warte kurz, damit der Tab geladen ist
       await new Promise(resolve => setTimeout(resolve, 200));
       
-      // Setze den GA-Filter im Texte-Tab
+      // Setze den GA-Filter im Texte-Tab OHNE Change Event zu triggern
       const texteGAFilter = document.getElementById('texteGAFilter');
       if (texteGAFilter && gaNumber) {
         texteGAFilter.value = gaNumber;
-        // Trigger Change Event um die GA-Übersicht zu laden
-        const changeEvent = new Event('change', { bubbles: true });
-        texteGAFilter.dispatchEvent(changeEvent);
+        console.log(`[NAVIGATION] GA-Filter gesetzt auf: ${gaNumber}`);
         
-        // Warte bis GA-Übersicht geladen ist, dann zeige den Vortrag
-        await new Promise(resolve => setTimeout(resolve, 800));
-        
-        console.log(`[NAVIGATION] Lade jetzt Vortrag ${lectureId}`);
-        
-        // Lade den spezifischen Vortrag (dies sollte Summary und TOC öffnen)
+        // Lade zuerst den spezifischen Vortrag im Hauptviewer
+        console.log(`[NAVIGATION] Lade Vortrag ${lectureId} im Hauptviewer`);
         await showLecture(lectureId, null, []);
         
-        console.log(`[NAVIGATION] Vortrag ${lectureId} geladen`);
+        // Dann lade die GA-Übersicht im linken Panel (ohne den Viewer zu überschreiben)
+        console.log(`[NAVIGATION] Lade GA-Übersicht ${gaNumber} im linken Panel`);
+        await loadGAOverviewInSidePanelOnly(gaNumber);
+        
+        console.log(`[NAVIGATION] Vortrag ${lectureId} und GA-Übersicht ${gaNumber} geladen`);
       }
     }
 

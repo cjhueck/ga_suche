@@ -53,3 +53,4 @@ console.log(`Ersetzt: ${count} Filter-Stellen\n`);
 fs.writeFileSync('app.html', content, 'utf8');
 console.log('✓ app.html aktualisiert');
 
+
