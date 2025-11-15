@@ -35,15 +35,12 @@ function createContextMenu() {
   contextMenu.className = 'members-context-menu';
   contextMenu.innerHTML = `
     <div class="context-menu-item" onclick="contextMenuAction('bookmark')">
-      <span class="context-menu-icon">🔖</span>
       <span class="context-menu-text">Bookmark setzen</span>
     </div>
     <div class="context-menu-item" onclick="contextMenuAction('quote')">
-      <span class="context-menu-icon">💬</span>
       <span class="context-menu-text">Zitat speichern</span>
     </div>
     <div class="context-menu-item" onclick="contextMenuAction('note')">
-      <span class="context-menu-icon">📝</span>
       <span class="context-menu-text">Notiz erstellen</span>
     </div>
   `;
@@ -197,6 +194,13 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       throw new Error('Supabase Client nicht initialisiert');
     }
     
+    // Zeige Keyword-Eingabe-Dialog
+    const keywords = await showKeywordDialog('Bookmark', text);
+    if (keywords === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
     const insertData = {
       user_id: currentUser.id,
       ga_number: lectureId,
@@ -204,7 +208,7 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       paragraph_id: paragraphIndex,
       paragraph_text: text,
       note: '',
-      tags: []
+      tags: keywords
     };
     
     const { data, error } = await supabaseClient
@@ -242,6 +246,13 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error('Supabase Client nicht initialisiert');
     }
     
+    // Zeige Keyword-Eingabe-Dialog
+    const keywords = await showKeywordDialog('Zitat', text);
+    if (keywords === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
     const insertData = {
       user_id: currentUser.id,
       quote_text: text,
@@ -251,7 +262,7 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       context_before: contextBefore,
       context_after: contextAfter,
       personal_note: '',
-      tags: [],
+      tags: keywords,
       is_public: false
     };
     
@@ -422,6 +433,82 @@ function highlightContextSelection(color) {
 }
 
 /**
+ * Keyword-Eingabe-Dialog anzeigen
+ */
+function showKeywordDialog(type, text) {
+  return new Promise((resolve) => {
+    // Erstelle Dialog
+    const dialog = document.createElement('div');
+    dialog.className = 'keyword-dialog-overlay';
+    dialog.innerHTML = `
+      <div class="keyword-dialog">
+        <div class="keyword-dialog-header">
+          <h3>${type} speichern</h3>
+        </div>
+        <div class="keyword-dialog-body">
+          <div class="keyword-preview">"${text.substring(0, 100)}${text.length > 100 ? '...' : ''}"</div>
+          <label for="keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <input type="text" id="keyword-input" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
+          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+        </div>
+        <div class="keyword-dialog-footer">
+          <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
+          <button class="keyword-dialog-btn keyword-dialog-save">Speichern</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Focus auf Input
+    const input = dialog.querySelector('#keyword-input');
+    setTimeout(() => input.focus(), 100);
+    
+    // Event Handlers
+    const saveBtn = dialog.querySelector('.keyword-dialog-save');
+    const cancelBtn = dialog.querySelector('.keyword-dialog-cancel');
+    
+    const handleSave = () => {
+      const keywords = input.value
+        .split(',')
+        .map(kw => kw.trim())
+        .filter(kw => kw.length > 0);
+      dialog.remove();
+      resolve(keywords);
+    };
+    
+    const handleCancel = () => {
+      dialog.remove();
+      resolve(null);
+    };
+    
+    saveBtn.addEventListener('click', handleSave);
+    cancelBtn.addEventListener('click', handleCancel);
+    
+    // Enter zum Speichern
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        handleSave();
+      }
+    });
+    
+    // ESC zum Abbrechen
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    });
+    
+    // Click auf Overlay schließt Dialog
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        handleCancel();
+      }
+    });
+  });
+}
+
+/**
  * Notification anzeigen
  */
 function showContextNotification(message, type = 'info') {
@@ -461,7 +548,6 @@ function addContextMenuStyles() {
     .context-menu-item {
       display: flex;
       align-items: center;
-      gap: 8px;
       padding: 10px 14px;
       cursor: pointer;
       transition: background 0.2s;
@@ -472,10 +558,6 @@ function addContextMenuStyles() {
     .context-menu-item:hover {
       background: var(--accent-color);
       color: white;
-    }
-    
-    .context-menu-icon {
-      font-size: 1rem;
     }
     
     .context-menu-text {
@@ -546,6 +628,180 @@ function addContextMenuStyles() {
     body.dark-mode .context-menu-item:hover {
       background: var(--dark-accent-color);
       color: white;
+    }
+    
+    /* Keyword Dialog */
+    .keyword-dialog-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10003;
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .keyword-dialog {
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      font-family: Georgia, serif;
+    }
+    
+    .keyword-dialog-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .keyword-dialog-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--heading-color);
+      font-weight: normal;
+    }
+    
+    .keyword-dialog-body {
+      padding: 1.25rem;
+    }
+    
+    .keyword-preview {
+      font-style: italic;
+      color: var(--secondary-text);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 4px;
+      line-height: 1.4;
+    }
+    
+    .keyword-dialog-body label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .keyword-dialog-body input {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      background: var(--background-color);
+      color: var(--text-color);
+      box-sizing: border-box;
+    }
+    
+    .keyword-dialog-body input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+    
+    .keyword-hint {
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--secondary-text);
+    }
+    
+    .keyword-dialog-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.75rem;
+      justify-content: flex-end;
+    }
+    
+    .keyword-dialog-btn {
+      padding: 0.5rem 1.25rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .keyword-dialog-cancel {
+      background: transparent;
+      color: var(--text-color);
+    }
+    
+    .keyword-dialog-cancel:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    
+    .keyword-dialog-save {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+    
+    .keyword-dialog-save:hover {
+      background: #3a6270;
+    }
+    
+    /* Dark Mode für Keyword Dialog */
+    body.dark-mode .keyword-dialog {
+      background: var(--dark-background-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .keyword-dialog-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .keyword-dialog-header h3 {
+      color: var(--dark-heading-color);
+    }
+    
+    body.dark-mode .keyword-dialog-body label {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode .keyword-dialog-body input {
+      background: var(--dark-background-color);
+      color: var(--dark-text-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .keyword-dialog-body input:focus {
+      border-color: var(--dark-accent-color);
+    }
+    
+    body.dark-mode .keyword-preview {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--dark-secondary-text);
+    }
+    
+    body.dark-mode .keyword-dialog-footer {
+      border-top-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .keyword-dialog-cancel {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode .keyword-dialog-cancel:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    body.dark-mode .keyword-dialog-save {
+      background: var(--dark-accent-color);
+      border-color: var(--dark-accent-color);
+    }
+    
+    body.dark-mode .keyword-dialog-save:hover {
+      background: #5a8fa0;
     }
   `;
   document.head.appendChild(style);
