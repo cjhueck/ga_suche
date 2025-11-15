@@ -422,7 +422,7 @@ async function loadBookmarksTab(container) {
     <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}">
       <div class="member-item-header">
         ${bookmark.paragraph_id 
-          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
+          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
           : `<strong>${bookmark.ga_number}</strong>`
         }
         <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
@@ -468,7 +468,7 @@ async function loadQuotesTab(container) {
     <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}">
       <div class="member-item-header">
         ${quote.paragraph_id 
-          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
+          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
           : `<strong>${quote.ga_reference}</strong>`
         }
         <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
@@ -488,9 +488,11 @@ async function loadQuotesTab(container) {
 
 /**
  * Navigiere zu Vortrag aus Members Panel (behält Panel offen)
+ * @param {string} lectureId - Die Vortrags-ID (z.B. "GA121/6")
+ * @param {string} targetIndex - Optional: Der Index des Absatzes zum Scrollen
  */
-async function navigateToLectureFromMembersPanel(lectureId) {
-  console.log('[MB-NAVIGATION] Navigiere zu Vortrag:', lectureId);
+async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) {
+  console.log('[MB-NAVIGATION] Navigiere zu Vortrag:', lectureId, 'mit targetIndex:', targetIndex);
   
   // Speichere Members Panel Zustand
   const summaryPanel = document.getElementById('summary-panel');
@@ -603,10 +605,10 @@ async function navigateToLectureFromMembersPanel(lectureId) {
     
     maintainPanelState();
     
-    // Lade Vortrag im Hauptviewer
-    console.log(`[MB-NAVIGATION] Lade Vortrag ${lectureId}`);
+    // Lade Vortrag im Hauptviewer mit optionalem targetIndex
+    console.log(`[MB-NAVIGATION] Lade Vortrag ${lectureId} mit targetIndex: ${targetIndex || 'keiner'}`);
     if (typeof showLecture === 'function') {
-      await showLecture(lectureId, null, []);
+      await showLecture(lectureId, targetIndex, []);
     }
     
     maintainPanelState();
