@@ -20,6 +20,17 @@ Abb. 123-01.webp nicht ok
 - showMembersContent() passt Main-Container an MB-Breite an (400px)
 - toggleViewerH4() ruft updateHeaderPosition() mit Timeouts auf (20ms + 100ms)
 - Mehrfache Layout-Updates sichern korrekte Anpassung des Main-Viewers
+- Main-Container wird NACH updateHeaderPosition() ERZWUNGEN (20ms, 50ms, 100ms)
+- updateHeaderPosition() kann Main-Container nicht mehr überschreiben
+
+✅ Automatische Synchronisation (ROBUSTE LÖSUNG):
+- Neue Funktion syncMainContainerWithPanel() läuft alle 100ms
+- Liest AKTUELLE Panel-Breite aus dem DOM (offsetWidth)
+- Setzt Main-Container marginRight EXAKT auf Panel-Breite
+- Positioniert Resize-Handle EXAKT an Panel-Grenze (Breite - 10px)
+- Aktualisiert nur bei Breitenänderung (kein unnötiges DOM-Update)
+- GARANTIERT keinen Gap zwischen Panel und Main-Viewer
+- Funktioniert automatisch für MB (400px) und TOC (280px)
 
 ✅ Resize-Handle Position:
 - Resize-Handle wird EXAKT an Panel-Grenze positioniert
@@ -35,4 +46,25 @@ Abb. 123-01.webp nicht ok
 - Test-Button (🐛) für Context Menu entfernt
 - testContextMenu() Debug-Funktion entfernt
 - Debug-Script Block entfernt
+
+✅ MB-Öffnung von Original-Ansicht:
+- showMembersContent() setzt explizit display: block, opacity: 1, visibility: visible
+- showMembersLoginPanel() setzt explizit display: block, opacity: 1, visibility: visible
+- Resize-Handle wird auch explizit auf display: block gesetzt
+- Nachkorrektur nach 100ms stellt sicher, dass Panel und Content sichtbar bleiben
+- Funktioniert jetzt auch beim Klick auf MB-Icon von Original-Ansicht aus
+
+✅ MB-Icon ersetzt:
+- Floating MB-Icon in members-menu.js ENTFERNT
+- Stattdessen: Header-Button mit kleinem Icon (16x16) verwendet
+- Button im Header ruft openMembersPanel() auf
+- Nur EIN Icon statt zwei (Header + floating)
+- handleOutsideClick() angepasst (kein member-icon mehr)
+
+✅ MB-Icon Login-Verhalten (Header-Button):
+- Button onclick="openMembersPanel()" im Header
+- openMembersPanel() prüft Login-Status mit initSupabase()
+- Nicht eingeloggt: showMembersLoginPanel() → Login-Form im rechten Side-Panel
+- Eingeloggt: showMembersContent() → Mitgliederbereich im rechten Side-Panel
+- Button hat kompakte Größe (padding: 4px 8px) mit 16x16 Icon
 

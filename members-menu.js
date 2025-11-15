@@ -34,13 +34,7 @@ function createMemberMenu() {
   memberMenuContainer = document.createElement('div');
   memberMenuContainer.id = 'member-menu';
   memberMenuContainer.innerHTML = `
-    <!-- Main Icon (immer sichtbar) -->
-    <button id="member-icon" class="member-icon" onclick="handleMemberIconClick()">
-      <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
-        <circle cx="12" cy="8" r="4"/>
-        <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
-      </svg>
-    </button>
+    <!-- Main Icon entfernt - stattdessen wird der Header-Button verwendet -->
     
     <!-- Action Icons (nur wenn eingeloggt & menu-open) -->
     <div id="action-icons" class="action-icons">
@@ -131,11 +125,13 @@ async function handleMemberIconClick() {
   if (typeof openMembersPanel === 'function') {
     await openMembersPanel();
   } else {
-    // Fallback: Zeige Login-Modal
+    // Fallback: Navigation zu members.html
     await initSupabase();
     if (!currentUser) {
-      openLoginModal();
+      // Nicht eingeloggt → zu members.html mit Login
+      window.location.href = 'members.html';
     } else {
+      // Eingeloggt → zu members.html mit Bookmarks
       window.location.href = 'members.html?tab=bookmarks';
     }
   }
@@ -181,9 +177,8 @@ function handleOutsideClick(e) {
   const modal = document.getElementById('login-modal');
   
   // Wenn Login-Modal offen und Click außerhalb
-  if (menuState === 'login-open' && modal.classList.contains('open')) {
-    if (!modal.querySelector('.login-modal-content').contains(e.target) && 
-        !document.getElementById('member-icon').contains(e.target)) {
+  if (menuState === 'login-open' && modal && modal.classList.contains('open')) {
+    if (!modal.querySelector('.login-modal-content').contains(e.target)) {
       closeLoginModal();
     }
   }
