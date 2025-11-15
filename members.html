@@ -934,7 +934,7 @@
           
           ${bookmark.note ? `<p>${bookmark.note}</p>` : ''}
           
-          ${bookmark.lecture_url ? `<p style="margin-top: 0.75rem;"><a href="${bookmark.lecture_url}" target="_blank" style="color: var(--accent-color); text-decoration: none; font-size: 0.9rem;">🔗 Zur Vortragsstelle springen</a></p>` : ''}
+          ${bookmark.paragraph_id ? `<p style="margin-top: 0.75rem;"><a href="#" onclick="showLecture('${bookmark.ga_number}', '${bookmark.paragraph_id}', []); return false;" style="color: var(--accent-color); text-decoration: none; font-size: 0.9rem;">🔗 Zur Vortragsstelle springen</a></p>` : ''}
           
           <div class="card-actions">
             <button class="danger" onclick="window.deleteBookmarkHandler('${bookmark.id}')">Löschen</button>
@@ -969,7 +969,7 @@
           
           ${quote.is_public ? '<p style="color: var(--secondary-text); font-size: 0.85rem; margin-top: 0.5rem;">👁️ Öffentlich sichtbar</p>' : ''}
           
-          ${quote.lecture_url ? `<p style="margin-top: 0.75rem;"><a href="${quote.lecture_url}" target="_blank" style="color: var(--accent-color); text-decoration: none; font-size: 0.9rem;">🔗 Zur Vortragsstelle springen</a></p>` : ''}
+          ${quote.paragraph_id ? `<p style="margin-top: 0.75rem;"><a href="#" onclick="handleQuoteLinkStandalone('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--accent-color); text-decoration: none; font-size: 0.9rem;">🔗 Zur Vortragsstelle springen</a></p>` : ''}
           
           <div class="card-actions">
             <button class="danger" onclick="window.deleteQuoteHandler('${quote.id}')">Löschen</button>
@@ -1169,6 +1169,20 @@
 
     // ===== Start App =====
     init();
+    // Handle Quote Link Standalone
+    function handleQuoteLinkStandalone(gaReference, paragraphId) {
+      try {
+        if (typeof showLecture === 'function') {
+          showLecture(gaReference, paragraphId, []);
+        } else {
+          window.location.href = `app.html?ga=${gaReference}&index=${paragraphId}`;
+        }
+      } catch (err) {
+        console.error('Fehler:', err);
+      }
+    }
+    window.handleQuoteLinkStandalone = handleQuoteLinkStandalone;
+
   </script>
 </body>
 </html>
