@@ -5,6 +5,168 @@
 
 let membersPanelActive = false;
 let currentMembersTab = 'bookmarks';
+let savedScrollPositions = {
+  summaryPanel: 0,
+  summaryContent: 0,
+  membersTabContent: 0
+}; // Globale Variable für ALLE Scroll-Positionen
+let savedPanelTop = null; // Speichere die top-Position des Panels
+let membersScrollObserver = null; // MutationObserver für Scroll-Position
+
+/**
+ * Speichert die aktuelle Scroll-Position ALLER scrollenden Elemente UND die Panel-Position
+ */
+function saveMembersScrollPosition() {
+  const summaryPanel = document.getElementById('summary-panel');
+  const summaryContent = document.getElementById('summary-content');
+  const membersTabContent = document.getElementById('members-tab-content');
+  
+  savedScrollPositions = {
+    summaryPanel: summaryPanel ? summaryPanel.scrollTop : 0,
+    summaryContent: summaryContent ? summaryContent.scrollTop : 0,
+    membersTabContent: membersTabContent ? membersTabContent.scrollTop : 0
+  };
+  
+  // WICHTIG: Speichere auch die top-Position des Panels (wird von updateHeaderPosition() geändert)
+  savedPanelTop = summaryPanel ? summaryPanel.style.top : null;
+  
+  console.log('[MB-SCROLL] Alle Positionen gespeichert:', savedScrollPositions, 'Panel top:', savedPanelTop);
+}
+
+/**
+ * Stellt ALLE gespeicherten Scroll-Positionen UND Panel-Position wieder her
+ */
+function restoreMembersScrollPosition() {
+  const summaryPanel = document.getElementById('summary-panel');
+  const summaryContent = document.getElementById('summary-content');
+  const membersTabContent = document.getElementById('members-tab-content');
+  
+  // WICHTIG: Stelle die top-Position des Panels zuerst wieder her
+  if (summaryPanel && savedPanelTop) {
+    summaryPanel.style.top = savedPanelTop;
+  }
+  
+  if (summaryPanel && savedScrollPositions.summaryPanel > 0) {
+    summaryPanel.scrollTop = savedScrollPositions.summaryPanel;
+  }
+  
+  if (summaryContent && savedScrollPositions.summaryContent > 0) {
+    summaryContent.scrollTop = savedScrollPositions.summaryContent;
+  }
+  
+  if (membersTabContent && savedScrollPositions.membersTabContent > 0) {
+    membersTabContent.scrollTop = savedScrollPositions.membersTabContent;
+  }
+  
+  console.log('[MB-SCROLL] Alle Positionen + Panel top wiederhergestellt:', savedScrollPositions, savedPanelTop);
+}
+
+/**
+ * Startet die automatische Wiederherstellung der Scroll-Position bei DOM-Änderungen
+ */
+function startScrollPositionProtection() {
+  // Stoppe vorherigen Observer falls vorhanden
+  stopScrollPositionProtection();
+  
+  const summaryContent = document.getElementById('summary-content');
+  if (!summaryContent) return;
+  
+  console.log('[MB-SCROLL] Starte Scroll-Position Schutz für ALLE Ebenen');
+  
+  // MutationObserver um DOM-Änderungen zu erkennen
+  membersScrollObserver = new MutationObserver((mutations) => {
+    if (!membersPanelActive || !window.membersNavigating) return;
+    
+    // Stelle ALLE Scroll-Positionen UND Panel-Top wieder her
+    const summaryPanel = document.getElementById('summary-panel');
+    const summaryContent = document.getElementById('summary-content');
+    const membersTabContent = document.getElementById('members-tab-content');
+    
+    let restored = false;
+    
+    // WICHTIG: Prüfe und stelle die top-Position des Panels wieder her
+    if (summaryPanel && savedPanelTop && summaryPanel.style.top !== savedPanelTop) {
+      summaryPanel.style.top = savedPanelTop;
+      restored = true;
+      console.log('[MB-SCROLL] Panel top-Position wiederhergestellt:', savedPanelTop);
+    }
+    
+    if (summaryPanel && savedScrollPositions.summaryPanel > 0) {
+      if (Math.abs(summaryPanel.scrollTop - savedScrollPositions.summaryPanel) > 5) {
+        summaryPanel.scrollTop = savedScrollPositions.summaryPanel;
+        restored = true;
+      }
+    }
+    
+    if (summaryContent && savedScrollPositions.summaryContent > 0) {
+      if (Math.abs(summaryContent.scrollTop - savedScrollPositions.summaryContent) > 5) {
+        summaryContent.scrollTop = savedScrollPositions.summaryContent;
+        restored = true;
+      }
+    }
+    
+    if (membersTabContent && savedScrollPositions.membersTabContent > 0) {
+      if (Math.abs(membersTabContent.scrollTop - savedScrollPositions.membersTabContent) > 5) {
+        membersTabContent.scrollTop = savedScrollPositions.membersTabContent;
+        restored = true;
+      }
+    }
+    
+    if (restored) {
+      console.log('[MB-SCROLL] Auto-Wiederherstellung bei DOM-Änderung (multi-level + top)');
+    }
+  });
+  
+  // Beobachte Änderungen im summary-content UND am summary-panel selbst
+  membersScrollObserver.observe(summaryContent, {
+    childList: true,
+    subtree: true,
+    attributes: false
+  });
+  
+  // Zusätzlicher Observer für das summary-panel Element selbst (für style-Änderungen)
+  const summaryPanel = document.getElementById('summary-panel');
+  if (summaryPanel) {
+    const panelObserver = new MutationObserver((mutations) => {
+      if (!membersPanelActive || !window.membersNavigating) return;
+      
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+          // style-Attribut wurde geändert - stelle top-Position wieder her
+          if (savedPanelTop && summaryPanel.style.top !== savedPanelTop) {
+            summaryPanel.style.top = savedPanelTop;
+            console.log('[MB-SCROLL] Panel top-Position nach style-Änderung wiederhergestellt');
+          }
+        }
+      });
+    });
+    
+    panelObserver.observe(summaryPanel, {
+      attributes: true,
+      attributeFilter: ['style']
+    });
+    
+    // Speichere beide Observer
+    window.membersPanelObserver = panelObserver;
+  }
+}
+
+/**
+ * Stoppt die automatische Wiederherstellung
+ */
+function stopScrollPositionProtection() {
+  if (membersScrollObserver) {
+    membersScrollObserver.disconnect();
+    membersScrollObserver = null;
+  }
+  
+  if (window.membersPanelObserver) {
+    window.membersPanelObserver.disconnect();
+    window.membersPanelObserver = null;
+  }
+  
+  console.log('[MB-SCROLL] Scroll-Position und Panel-Position Schutz gestoppt');
+}
 
 /**
  * Öffnet den Mitgliederbereich im Summary Panel
@@ -260,7 +422,7 @@ async function loadBookmarksTab(container) {
     <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}">
       <div class="member-item-header">
         ${bookmark.paragraph_id 
-          ? `<strong><a href="#" onclick="navigateToLectureFromMembersPanel('${bookmark.ga_number}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
+          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
           : `<strong>${bookmark.ga_number}</strong>`
         }
         <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
@@ -274,6 +436,9 @@ async function loadBookmarksTab(container) {
   `).join('');
   
   container.innerHTML = html;
+  
+  // Scroll-Position wiederherstellen nach Rendering
+  setTimeout(() => restoreMembersScrollPosition(), 50);
 }
 
 /**
@@ -303,7 +468,7 @@ async function loadQuotesTab(container) {
     <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}">
       <div class="member-item-header">
         ${quote.paragraph_id 
-          ? `<strong><a href="#" onclick="navigateToLectureFromMembersPanel('${quote.ga_reference}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
+          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
           : `<strong>${quote.ga_reference}</strong>`
         }
         <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
@@ -316,6 +481,9 @@ async function loadQuotesTab(container) {
   `).join('');
   
   container.innerHTML = html;
+  
+  // Scroll-Position wiederherstellen nach Rendering
+  setTimeout(() => restoreMembersScrollPosition(), 50);
 }
 
 /**
@@ -336,41 +504,18 @@ async function navigateToLectureFromMembersPanel(lectureId) {
   }
   
   const mbWidth = 400; // Members Panel Breite
-  const savedPanelHTML = summaryContent ? summaryContent.innerHTML : '';
   
-  // Speichere Scroll-Position des Members Content
-  const membersContent = document.getElementById('members-tab-content');
-  const savedScrollTop = membersContent ? membersContent.scrollTop : 0;
+  // WICHTIG: Klone das GESAMTE summary-content Element (inkl. Event Listener)
+  const savedContentNode = summaryContent ? summaryContent.cloneNode(true) : null;
   
-  // Speichere die aktuelle Position des gesamten Panels
-  const savedPanelPosition = summaryPanel ? {
-    position: summaryPanel.style.position,
-    top: summaryPanel.style.top,
-    right: summaryPanel.style.right,
-    bottom: summaryPanel.style.bottom
-  } : null;
-  
-  console.log('[MB-NAVIGATION] Speichere Panel-Zustand (Scroll:', savedScrollTop + 'px)');
-  
-  // Fixiere das gesamte Panel absolut während der Navigation
-  if (summaryPanel) {
-    summaryPanel.style.position = 'fixed';
-    summaryPanel.style.top = '0';
-    summaryPanel.style.right = '0';
-    summaryPanel.style.bottom = '0';
-  }
-  
-  // Friere Scroll-Position ein
-  if (membersContent) {
-    membersContent.style.overflow = 'hidden';
-    membersContent.style.scrollBehavior = 'auto';
-  }
+  // Scroll-Positionen sind bereits in der globalen Variable gespeichert (durch saveMembersScrollPosition())
+  console.log('[MB-NAVIGATION] Nutze gespeicherte Scroll-Positionen:', savedScrollPositions);
   
   // Setze Flag, dass wir gerade navigieren
   window.membersNavigating = true;
   
-  // Track ob wir gerade HTML wiederherstellen um Endlos-Loops zu vermeiden
-  let restoringHTML = false;
+  // Starte automatische Scroll-Position Wiederherstellung
+  startScrollPositionProtection();
   
   // Funktion zum Beibehalten der Panel-Eigenschaften
   const maintainPanelState = () => {
@@ -384,11 +529,10 @@ async function navigateToLectureFromMembersPanel(lectureId) {
       summaryPanel.style.opacity = '1';
       summaryPanel.style.visibility = 'visible';
       
-      // Halte Panel fixiert
-      summaryPanel.style.position = 'fixed';
-      summaryPanel.style.top = '0';
-      summaryPanel.style.right = '0';
-      summaryPanel.style.bottom = '0';
+      // WICHTIG: Stelle die top-Position wieder her
+      if (savedPanelTop) {
+        summaryPanel.style.top = savedPanelTop;
+      }
     }
     
     if (mainContainer) {
@@ -402,39 +546,42 @@ async function navigateToLectureFromMembersPanel(lectureId) {
       resizeHandle.style.right = (mbWidth - offset) + 'px';
     }
     
-    // HTML-Wiederherstellung nur wenn nötig und nicht schon am Wiederherstellen
-    if (!restoringHTML && summaryContent && savedPanelHTML && summaryContent.innerHTML !== savedPanelHTML) {
-      restoringHTML = true;
-      summaryContent.innerHTML = savedPanelHTML;
-      setTimeout(() => { restoringHTML = false; }, 100);
-    }
-    
-    // Stelle Scroll-Position IMMER sicher (sehr aggressiv)
-    const currentMembersContent = document.getElementById('members-tab-content');
-    if (currentMembersContent) {
-      currentMembersContent.scrollTop = savedScrollTop;
-    }
-  };
-  
-  // Blockiere Scroll-Events während der Navigation
-  const preventScroll = (e) => {
-    const target = e.target;
-    const membersContentEl = document.getElementById('members-tab-content');
-    if (membersContentEl && (target === membersContentEl || membersContentEl.contains(target))) {
-      e.preventDefault();
-      e.stopPropagation();
-      membersContentEl.scrollTop = savedScrollTop;
+    // Stelle das gesamte summary-content wieder her wenn es verändert wurde
+    if (savedContentNode && summaryContent) {
+      const currentMembersContent = summaryContent.querySelector('#members-tab-content');
+      
+      // Wenn members-tab-content nicht mehr existiert, wurde der Inhalt überschrieben
+      if (!currentMembersContent) {
+        // Ersetze das gesamte summaryContent mit dem geklonten Node
+        const newNode = savedContentNode.cloneNode(true);
+        summaryContent.parentNode.replaceChild(newNode, summaryContent);
+        
+        // Aktualisiere Referenz
+        const restoredSummaryContent = document.getElementById('summary-content');
+        
+        // Alle Scroll-Positionen wiederherstellen
+        restoreMembersScrollPosition();
+        console.log('[MB-NAVIGATION] Content und ALLE Scroll-Positionen komplett wiederhergestellt');
+      }
     }
   };
   
-  // Füge Scroll-Blocker hinzu
-  document.addEventListener('scroll', preventScroll, true);
-  
-  // Überwache Panel-Zustand während der Navigation (alle 30ms für bessere Reaktion)
-  const intervalId = setInterval(maintainPanelState, 30);
+  // Überwache Panel-Zustand während der Navigation (alle 50ms)
+  const intervalId = setInterval(maintainPanelState, 50);
   
   // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
   const gaNumber = lectureId.split('/')[0];
+  
+  // WICHTIG: Verhindere, dass showLecture das summary-content zurücksetzt
+  // Setze temporär eine Funktion die buildTableOfContents blockiert
+  const originalBuildTOC = window.buildTableOfContents;
+  window.buildTableOfContents = function() {
+    if (window.membersNavigating) {
+      console.log('[MB-NAVIGATION] buildTableOfContents blockiert während Members Navigation');
+      return;
+    }
+    return originalBuildTOC ? originalBuildTOC.apply(this, arguments) : null;
+  };
   
   // Wechsle zum Texte-Tab
   if (typeof switchTab === 'function') {
@@ -456,62 +603,49 @@ async function navigateToLectureFromMembersPanel(lectureId) {
     
     maintainPanelState();
     
-    // Lade Vortrag im Hauptviewer (nur einmal!)
-    console.log(`[MB-NAVIGATION] START Lade Vortrag ${lectureId} (Members Panel bleibt offen)`);
+    // Lade Vortrag im Hauptviewer
+    console.log(`[MB-NAVIGATION] Lade Vortrag ${lectureId}`);
     if (typeof showLecture === 'function') {
       await showLecture(lectureId, null, []);
-      console.log(`[MB-NAVIGATION] ENDE Vortrag ${lectureId} geladen`);
     }
     
     maintainPanelState();
     
-    // Lade GA-Übersicht im linken Panel (nur einmal!)
-    console.log(`[MB-NAVIGATION] START Lade GA-Übersicht ${gaNumber} (nur im Side Panel)`);
+    // Lade GA-Übersicht im linken Panel
+    console.log(`[MB-NAVIGATION] Lade GA-Übersicht ${gaNumber}`);
     if (typeof loadGAOverviewInSidePanelOnly === 'function') {
       await loadGAOverviewInSidePanelOnly(gaNumber);
-      console.log(`[MB-NAVIGATION] ENDE GA-Übersicht ${gaNumber} geladen`);
     }
     
     maintainPanelState();
   }
   
+  // Stelle buildTableOfContents nach Navigation wieder her
+  setTimeout(() => {
+    if (originalBuildTOC) {
+      window.buildTableOfContents = originalBuildTOC;
+      console.log('[MB-NAVIGATION] buildTableOfContents wieder aktiviert');
+    }
+  }, 1000);
+  
   // Beende Überwachung nach kurzer Zeit
   setTimeout(() => {
     clearInterval(intervalId);
-    
-    // Entferne Scroll-Blocker
-    document.removeEventListener('scroll', preventScroll, true);
-    
     window.membersNavigating = false;
     
     // Finale Korrektur
     maintainPanelState();
     
-    // Stelle Panel-Position und Scrolling wieder her
+    // Finale Scroll-Position Wiederherstellung (mehrfach, um sicherzustellen dass es klappt)
+    restoreMembersScrollPosition();
+    setTimeout(() => restoreMembersScrollPosition(), 100);
+    setTimeout(() => restoreMembersScrollPosition(), 300);
+    setTimeout(() => restoreMembersScrollPosition(), 500);
+    
+    // Stoppe den MutationObserver nach weiterer Verzögerung
     setTimeout(() => {
-      // Stelle Panel-Position wieder her
-      if (summaryPanel && savedPanelPosition) {
-        summaryPanel.style.position = savedPanelPosition.position || 'fixed';
-        summaryPanel.style.top = savedPanelPosition.top || '0';
-        summaryPanel.style.right = savedPanelPosition.right || '0';
-        summaryPanel.style.bottom = savedPanelPosition.bottom || '0';
-      }
-      
-      const finalMembersContent = document.getElementById('members-tab-content');
-      if (finalMembersContent) {
-        // Setze Scroll-Position final
-        finalMembersContent.scrollTop = savedScrollTop;
-        
-        // Aktiviere Scrolling wieder
-        finalMembersContent.style.overflow = 'auto';
-        
-        // Stelle sicher, dass Position bleibt
-        setTimeout(() => {
-          finalMembersContent.scrollTop = savedScrollTop;
-          console.log('[MB-NAVIGATION] Panel-Position und Scroll-Position wiederhergestellt:', savedScrollTop + 'px');
-        }, 50);
-      }
-    }, 50);
+      stopScrollPositionProtection();
+    }, 800);
     
     console.log('[MB-NAVIGATION] Navigation abgeschlossen, Panel bleibt offen');
   }, 600);
@@ -975,4 +1109,6 @@ window.generateMemberGraph = generateMemberGraph;
 window.sendMemberChatMessage = sendMemberChatMessage;
 window.handleKeywordFilter = handleKeywordFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
+window.saveMembersScrollPosition = saveMembersScrollPosition;
+window.restoreMembersScrollPosition = restoreMembersScrollPosition;
 
