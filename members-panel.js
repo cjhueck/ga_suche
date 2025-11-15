@@ -148,11 +148,11 @@ async function showMembersContent() {
       </div>
       
       <div class="members-tabs">
-        <button class="members-tab ${currentMembersTab === 'bookmarks' ? 'active' : ''}" onclick="switchMembersTab('bookmarks')">🔖 Bookmarks</button>
-        <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">💬 Zitate</button>
-        <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">📝 Notizen</button>
-        <button class="members-tab ${currentMembersTab === 'graph' ? 'active' : ''}" onclick="switchMembersTab('graph')">🕸️ Graph</button>
-        <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">💭 Chat</button>
+        <button class="members-tab ${currentMembersTab === 'bookmarks' ? 'active' : ''}" onclick="switchMembersTab('bookmarks')">Bookmarks</button>
+        <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
+        <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
+        <button class="members-tab ${currentMembersTab === 'graph' ? 'active' : ''}" onclick="switchMembersTab('graph')">Graph</button>
+        <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
       </div>
       
       <div class="members-content" id="members-tab-content">
@@ -236,13 +236,15 @@ async function loadBookmarksTab(container) {
   const html = result.data.map(bookmark => `
     <div class="member-item">
       <div class="member-item-header">
-        <strong>${bookmark.ga_number}</strong>
+        ${bookmark.paragraph_id 
+          ? `<strong><a href="#" onclick="showLecture('${bookmark.ga_number}', '${bookmark.paragraph_id}', []); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
+          : `<strong>${bookmark.ga_number}</strong>`
+        }
         <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
       </div>
       ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
       <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
       ${bookmark.note ? `<div class="member-item-note">📌 ${bookmark.note}</div>` : ''}
-      ${bookmark.paragraph_id ? `<div class="member-item-link"><a href="#" onclick="showLecture('${bookmark.ga_number}', '${bookmark.paragraph_id}', []); return false;">🔗 Zur Stelle</a></div>` : ''}
       <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')">🗑️</button>
     </div>
   `).join('');
@@ -257,20 +259,22 @@ async function loadQuotesTab(container) {
   const result = await getQuotes();
   
   if (!result.success || result.data.length === 0) {
-    container.innerHTML = '<div class="empty-state">💬<br>Noch keine Zitate</div>';
+    container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
     return;
   }
   
   const html = result.data.map(quote => `
     <div class="member-item">
       <div class="member-item-header">
-        <strong>${quote.ga_reference}</strong>
+        ${quote.paragraph_id 
+          ? `<strong><a href="#" onclick="handleQuoteLink('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
+          : `<strong>${quote.ga_reference}</strong>`
+        }
         <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
       </div>
       <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
       ${quote.personal_note ? `<div class="member-item-note">📌 ${quote.personal_note}</div>` : ''}
       ${quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      ${quote.paragraph_id ? `<div class="member-item-link"><a href="#" onclick="handleQuoteLink('${quote.ga_reference}', '${quote.paragraph_id}'); return false;">🔗 Zur Stelle</a></div>` : ''}
       <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')">🗑️</button>
     </div>
   `).join('');
@@ -317,7 +321,7 @@ async function loadSavedNotes() {
   const list = document.getElementById('notes-list');
   
   if (!result.success || result.data.length === 0) {
-    list.innerHTML = '<div class="empty-state" style="margin-top: 1rem;">📝<br>Noch keine Notizen</div>';
+    list.innerHTML = '<div class="empty-state" style="margin-top: 1rem;">Noch keine Notizen</div>';
     return;
   }
   
@@ -363,7 +367,6 @@ function loadGraphTab(container) {
   container.innerHTML = `
     <div class="graph-placeholder">
       <div class="empty-state">
-        🕸️<br>
         Graph-Visualisierung<br>
         <small style="opacity: 0.7;">Zeigt Verbindungen zwischen<br>Notizen, Tags und GA-Referenzen</small>
       </div>
@@ -384,8 +387,8 @@ async function generateMemberGraph() {
   const container = document.getElementById('graph-container');
   container.innerHTML = `
     <div class="graph-stats">
-      <div>📝 ${result.data.nodes.filter(n => n.type === 'note').length} Notizen</div>
-      <div>🔗 ${result.data.links.length} Verbindungen</div>
+      <div>${result.data.nodes.filter(n => n.type === 'note').length} Notizen</div>
+      <div>${result.data.links.length} Verbindungen</div>
     </div>
     <div class="graph-nodes">
       ${result.data.nodes.filter(n => n.type === 'note').map(node => `
@@ -422,7 +425,7 @@ async function loadChatMessages() {
   const container = document.getElementById('chat-messages');
   
   if (!result.success || result.data.length === 0) {
-    container.innerHTML = '<div class="empty-state">💭<br>Noch keine Nachrichten</div>';
+    container.innerHTML = '<div class="empty-state">Noch keine Nachrichten</div>';
     return;
   }
   

@@ -68,3 +68,24 @@ Abb. 123-01.webp nicht ok
 - Eingeloggt: showMembersContent() → Mitgliederbereich im rechten Side-Panel
 - Button hat kompakte Größe (padding: 4px 8px) mit 16x16 Icon
 
+✅ Emojis von Buttons entfernt (members-panel.js):
+- Tab-Buttons: 🔖 Bookmarks → Bookmarks
+- Tab-Buttons: 💬 Zitate → Zitate
+- Tab-Buttons: 📝 Notizen → Notizen
+- Tab-Buttons: 🕸️ Graph → Graph
+- Tab-Buttons: 💭 Chat → Chat
+- Empty-States: Emojis entfernt (nur Text bleibt)
+- Graph-Stats: Emoji-Icons entfernt (nur Zahlen/Text)
+
+✅ Header-Padding korrigiert (app.html):
+- padding-right: 70px entfernt (war für altes floating Mitglieder-Icon)
+- Jetzt einheitlich padding: 1rem auf allen Seiten
+- MB-Button im Header ist jetzt rechtsbündig positioniert
+
+✅ "Zur Stelle" Link optimiert (members-panel.js):
+- Bookmarks: Vortragsnummer (ga_number) ist jetzt direkt klickbar
+- Zitate: GA-Referenz (ga_reference) ist jetzt direkt klickbar
+- Separater "🔗 Zur Stelle" Link unten entfernt
+- Link-Farbe: var(--link-color), keine Unterstreichung
+- Falls kein paragraph_id vorhanden: Nummer bleibt nicht-klickbar
+
