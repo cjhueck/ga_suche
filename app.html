@@ -2019,25 +2019,35 @@ body.dark-mode #thematicSearchInfo {
       grid-row: 2;
     }
     
-    /* ONLINE Version: Nur 1 Spalte mit 2 Buttons */
+    /* ONLINE Version: Schmalerer MB Button oben + 2 Buttons darunter */
     body.online-mode .viewer-buttons-container {
       grid-template-columns: auto; /* Nur 1 Spalte */
-      grid-template-rows: repeat(2, auto);
+      grid-template-rows: repeat(3, auto); /* 3 Zeilen: MB, Übersicht, Original */
     }
     
     body.online-mode .viewer-buttons-container button {
       width: 100%;
     }
     
+    /* MB Button in Online-Version: oben, schmal */
+    body.online-mode #membersPanelBtn {
+      grid-column: 1;
+      grid-row: 1;
+      width: auto; /* Schmal statt volle Breite */
+      justify-self: end; /* Rechts ausrichten */
+      padding: 4px 8px;
+      margin-right: 0;
+    }
+    
     /* In Online-Version nur Original und Übersicht anzeigen */
     body.online-mode #viewerSummaryBtn {
       grid-column: 1;
-      grid-row: 1;
+      grid-row: 2;
     }
     
     body.online-mode #viewerOriginalBtn {
       grid-column: 1;
-      grid-row: 2;
+      grid-row: 3;
     }
     
     /* Ensure buttons always stay on the right */
@@ -4329,7 +4339,7 @@ Bestehende Schlagwörter überschreiben
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <!-- Mitglieder Button -->
-<button onclick="openMembersPanel()" title="Mitgliederbereich öffnen" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; margin-right: 4px;">
+<button id="membersPanelBtn" onclick="openMembersPanel()" title="Mitgliederbereich öffnen" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; margin-right: 4px;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 <circle cx="12" cy="8" r="4"/>
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
