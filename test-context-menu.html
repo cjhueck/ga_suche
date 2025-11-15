@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Test - Rechtsklick Menü</title>
+  <style>
+    :root {
+      --text-color: #333333;
+      --accent-color: #467886;
+      --background-color: #FAF8F3;
+      --border-color: #ddd;
+      --secondary-text: #666;
+    }
+    
+    body {
+      font-family: Georgia, serif;
+      padding: 2rem;
+      background: var(--background-color);
+      color: var(--text-color);
+    }
+    
+    #test-content {
+      max-width: 800px;
+      margin: 2rem auto;
+      line-height: 1.8;
+      background: white;
+      padding: 2rem;
+      border: 1px solid var(--border-color);
+    }
+    
+    .status {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      background: #e8f5e9;
+      border: 1px solid #4CAF50;
+      border-radius: 4px;
+      font-size: 0.85rem;
+    }
+    
+    .error {
+      background: #ffebee;
+      border-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+
+<div class="status" id="status">Lade...</div>
+
+<h1>Rechtsklick Context-Menü Test</h1>
+
+<div id="test-content">
+  <p>Dies ist ein Test-Paragraph. Markieren Sie Text und klicken Sie mit der rechten Maustaste.</p>
+  
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  
+  <p><strong>Anleitung:</strong></p>
+  <ol>
+    <li>Markieren Sie Text (mindestens 3 Zeichen)</li>
+    <li>Rechtsklick auf den markierten Text</li>
+    <li>Context-Menü sollte erscheinen</li>
+  </ol>
+</div>
+
+<div id="console-log" style="background: #f5f5f5; padding: 1rem; margin-top: 2rem; font-family: monospace; font-size: 0.8rem; white-space: pre-wrap; max-height: 300px; overflow-y: auto;"></div>
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Members Integration -->
+<script src="members-integration-standalone.js"></script>
+
+<!-- Members Context Menu -->
+<script src="members-context-menu.js"></script>
+
+<script>
+  // Console Log Capture
+  const consoleDiv = document.getElementById('console-log');
+  const originalLog = console.log;
+  const originalError = console.error;
+  
+  function addToConsole(type, ...args) {
+    const time = new Date().toLocaleTimeString();
+    const msg = `[${time}] ${type}: ${args.join(' ')}\n`;
+    consoleDiv.textContent += msg;
+    consoleDiv.scrollTop = consoleDiv.scrollHeight;
+  }
+  
+  console.log = function(...args) {
+    originalLog.apply(console, args);
+    addToConsole('LOG', ...args);
+  };
+  
+  console.error = function(...args) {
+    originalError.apply(console, args);
+    addToConsole('ERROR', ...args);
+  };
+  
+  // Status Check
+  setTimeout(() => {
+    const status = document.getElementById('status');
+    
+    const checks = {
+      'initSupabase': typeof initSupabase !== 'undefined',
+      'supabaseClient': typeof supabaseClient !== 'undefined',
+      'contextMenuAction': typeof contextMenuAction !== 'undefined',
+      'Context Menu Element': !!document.getElementById('members-context-menu')
+    };
+    
+    console.log('=== Status Check ===');
+    Object.entries(checks).forEach(([name, result]) => {
+      console.log(`${name}: ${result ? '✓' : '✗'}`);
+    });
+    
+    const allOk = Object.values(checks).every(v => v);
+    
+    if (allOk) {
+      status.textContent = '✓ Alles geladen - Bereit zum Testen';
+      status.style.background = '#e8f5e9';
+      status.style.borderColor = '#4CAF50';
+    } else {
+      status.textContent = '✗ Fehler beim Laden';
+      status.className = 'status error';
+    }
+  }, 1000);
+  
+  // Event Logging
+  document.addEventListener('contextmenu', (e) => {
+    console.log('Contextmenu Event triggered');
+  });
+</script>
+
+</body>
+</html>
+

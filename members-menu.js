@@ -127,14 +127,17 @@ function createMemberMenu() {
  * Handler für Member-Icon Klick
  */
 async function handleMemberIconClick() {
-  await initSupabase();
-  
-  if (!currentUser) {
-    // Nicht eingeloggt → Login-Modal öffnen
-    openLoginModal();
+  // Öffne Mitglieder-Panel im Summary Panel (falls openMembersPanel verfügbar ist)
+  if (typeof openMembersPanel === 'function') {
+    await openMembersPanel();
   } else {
-    // Eingeloggt → Mitgliederbereich öffnen
-    window.location.href = 'members.html?tab=bookmarks';
+    // Fallback: Zeige Login-Modal
+    await initSupabase();
+    if (!currentUser) {
+      openLoginModal();
+    } else {
+      window.location.href = 'members.html?tab=bookmarks';
+    }
   }
 }
 

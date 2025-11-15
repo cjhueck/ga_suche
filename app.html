@@ -7,6 +7,8 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<!-- Mitglieder Panel Styles -->
+<link rel="stylesheet" href="members-panel.css">
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -4327,6 +4329,13 @@ Bestehende Schlagwörter überschreiben
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
+<!-- Mitglieder Icon -->
+<button onclick="openMembersPanel()" title="Mitgliederbereich öffnen" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; gap: 4px; margin-right: 4px;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+<circle cx="12" cy="8" r="4"/>
+<path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
+</svg>
+</button>
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
 </button>
@@ -4616,7 +4625,7 @@ function normalizeGANumber(gaNumber) {
                 const panelWidth = summaryPanel.offsetWidth || 280;
                 mainContainer.style.marginRight = panelWidth + 'px';
               } else {
-                mainContainer.style.marginRight = 'px';
+                mainContainer.style.marginRight = '0px';
               }
             }
             
@@ -4671,6 +4680,29 @@ function normalizeGANumber(gaNumber) {
             }
           }
         }, 10);
+      }
+    }
+
+    /**
+     * Hilfsfunktion: Setzt die Panel-Breite und passt den Main-Container automatisch an
+     * @param {number} width - Neue Breite des Panels in Pixeln
+     */
+    function setSummaryPanelWidth(width) {
+      const summaryPanel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      
+      if (summaryPanel && summaryPanel.classList.contains('visible')) {
+        summaryPanel.style.width = width + 'px';
+        summaryPanel.style.minWidth = width + 'px';
+        
+        // Main-Container automatisch anpassen
+        if (mainContainer) {
+          mainContainer.style.marginRight = width + 'px';
+          console.log('[LAYOUT] Panel-Breite:', width + 'px, Main-Container margin-right:', width + 'px');
+        }
+        
+        // Header-Position aktualisieren
+        updateHeaderPosition();
       }
     }
 
@@ -9998,6 +10030,59 @@ function displayGAChronological(lectures) {
   
   if (!viewer) return;
   
+  // Mitgliederbereich zum TOC wechseln wenn offen (Panel bleibt offen)
+  const wasMembersPanelActive = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+  if (wasMembersPanelActive) {
+    if (typeof switchFromMembersPanelToTOC === 'function') {
+      switchFromMembersPanelToTOC();
+    } else {
+      closeMembersPanel();
+    }
+    
+    // Header-Position sofort aktualisieren nach MB→TOC Wechsel
+    setTimeout(() => {
+      updateHeaderPosition();
+      
+      // Stelle sicher, dass Resize-Handle nach updateHeaderPosition() NOCHMAL korrekt positioniert wird
+      const summaryPanel = document.getElementById('summary-panel');
+      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+      if (summaryPanel && verticalResizeHandle && summaryPanel.classList.contains('visible')) {
+        const tocWidth = 280;
+        const offset = 10;
+        verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+        console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT auf:', (tocWidth - offset) + 'px');
+      }
+      
+      console.log('[TOGGLE-H4] updateHeaderPosition() nach MB→TOC aufgerufen');
+    }, 20);
+    
+    // Nach Wechsel vom MB zum TOC: 
+    // Wenn Original angezeigt wird, zur Übersicht wechseln
+    if (!showingSummaryInMain) {
+      if (currentLectureSummary) {
+        showSummaryView();
+      }
+      return; // Früher Return nach MB-Wechsel
+    } else {
+      // Wenn bereits Übersicht angezeigt wird, nur TOC neu bauen
+      setTimeout(() => {
+        buildTableOfContents();
+        updateHeaderPosition();
+        
+        // Stelle sicher, dass Resize-Handle auch hier korrekt positioniert wird
+        const summaryPanel = document.getElementById('summary-panel');
+        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+        if (summaryPanel && verticalResizeHandle && summaryPanel.classList.contains('visible')) {
+          const tocWidth = 280;
+          const offset = 10;
+          verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+          console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
+        }
+      }, 100);
+      return; // Früher Return nach MB-Wechsel
+    }
+  }
+  
   // Fall 1: Original wird angezeigt → Übersicht anzeigen/generieren
   if (!showingSummaryInMain) {
     // Prüfe ob Zusammenfassung existiert
@@ -10365,6 +10450,11 @@ setTimeout(() => {
 }
 
     function closeAndShowOriginal() {
+  // Mitgliederbereich schließen wenn offen
+  if (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) {
+    closeMembersPanel();
+  }
+  
   const panel = document.getElementById('summary-panel');
   const resizeHandle = document.getElementById('verticalResizeHandle');
   const mainContainer = document.getElementById('main-container');
@@ -10496,6 +10586,16 @@ function showSummaryView() {
     
     // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
     updateHeaderPosition();
+    
+    // Stelle sicher, dass Resize-Handle nach updateHeaderPosition() korrekt positioniert ist
+    const summaryPanelCheck = document.getElementById('summary-panel');
+    const verticalResizeHandleCheck = document.getElementById('verticalResizeHandle');
+    if (summaryPanelCheck && verticalResizeHandleCheck && summaryPanelCheck.classList.contains('visible')) {
+      const currentWidth = parseInt(summaryPanelCheck.style.width) || 280;
+      const offset = 10;
+      verticalResizeHandleCheck.style.right = (currentWidth - offset) + 'px';
+      console.log('[SHOW-SUMMARY-VIEW] Resize-Handle korrigiert auf:', (currentWidth - offset) + 'px');
+    }
     
     // Baue TOC für das rechte Side-Panel
     buildTableOfContents();
@@ -11216,10 +11316,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           if (summaryPanel) {
             console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
             
-            // Setze summary-content zurück auf Standard-Struktur (TOC only)
-            const summaryContent = document.getElementById('summary-content');
-            if (summaryContent) {
-              summaryContent.innerHTML = '<div id="toc-list"></div>';
+            // Prüfe ob Mitglieder-Panel aktiv ist - wenn ja, NICHT zurücksetzen
+            const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+            
+            if (!isMembersPanelOpen) {
+              // Setze summary-content zurück auf Standard-Struktur (TOC only) nur wenn MB nicht aktiv
+              const summaryContent = document.getElementById('summary-content');
+              if (summaryContent) {
+                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              }
+            } else {
+              console.log('[SUMMARY-PANEL] Mitglieder-Panel ist aktiv - Inhalt wird NICHT zurückgesetzt');
             }
             
             // Prüfe ob Panel bereits offen ist
@@ -11304,10 +11411,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
         
-        // Setze summary-content zurück auf Standard-Struktur (TOC only)
-        const summaryContent = document.getElementById('summary-content');
-        if (summaryContent) {
-          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        // Prüfe ob Mitglieder-Panel aktiv ist - wenn ja, NICHT zurücksetzen
+        const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+        
+        if (!isMembersPanelOpen) {
+          // Setze summary-content zurück auf Standard-Struktur (TOC only) nur wenn MB nicht aktiv
+          const summaryContent = document.getElementById('summary-content');
+          if (summaryContent) {
+            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          }
+        } else {
+          console.log('[SUMMARY-PANEL] Mitglieder-Panel ist aktiv - Inhalt wird NICHT zurückgesetzt');
         }
         
         // Prüfe ob Panel bereits offen ist
@@ -16456,6 +16570,8 @@ async function saveMarkedWord(word, gaTitle) {
 }
 
 // Event-Listener für Rechtsklick im Viewer (für Textmarkierung und Schreibfehlerkorrektur)
+// DEAKTIVIERT - Wird durch Members Context Menu ersetzt
+// Nur noch bei Strg+Shift+Rechtsklick aktiv (für Fehlerkorrektur)
 document.addEventListener('DOMContentLoaded', function() {
   const viewer = document.getElementById('viewer');
   
@@ -16465,8 +16581,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const selection = window.getSelection();
       const selectedText = selection.toString().trim();
       
-      // Nur wenn Text markiert ist
-      if (selectedText && selectedText.length > 0) {
+      // NUR bei Strg+Shift+Rechtsklick (für Fehlerkorrektur)
+      // Normaler Rechtsklick wird vom Members Context Menu behandelt
+      if (selectedText && selectedText.length > 0 && e.ctrlKey && e.shiftKey) {
         e.preventDefault(); // Verhindere Standard-Kontextmenü
         
         // Hole aktuellen Vortragstitel
@@ -16483,6 +16600,86 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// ============================================
+// Auto-Scroll zu Absatz bei URL-Parameter &index=...
+// Verwendet die gleiche Struktur wie Timeline-Links
+// ============================================
+function scrollToParagraphFromURL() {
+  // Prüfe URL-Parameter (wie Timeline: ?ga=GA051&index=1a)
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetIndex = urlParams.get('index');
+  
+  if (!targetIndex) return;
+  
+  console.log('[PARAGRAPH-SCROLL] Index aus URL:', targetIndex);
+  
+  // Funktion zum Finden und Scrollen (verwendet gleiche Logik wie scrollToIndexInViewer)
+  function findAndScroll() {
+    // Suche Element mit ID "para-{index}" (z.B. "para-1a", "para-42")
+    const targetElement = document.getElementById(`para-${targetIndex}`);
+    
+    if (targetElement) {
+      console.log('[PARAGRAPH-SCROLL] Element gefunden:', targetElement);
+      
+      // Verwende die gleiche Scroll-Logik wie scrollToIndexInViewer
+      const mainContainer = document.getElementById('main');
+      if (mainContainer) {
+        const header = document.getElementById('viewer-header');
+        const headerHeight = header ? header.offsetHeight + 5 : 5;
+        
+        const mainRect = mainContainer.getBoundingClientRect();
+        const paraRect = targetElement.getBoundingClientRect();
+        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+        
+        mainContainer.scrollTop = Math.max(0, relativeTop);
+      } else {
+        // Fallback: Standard scrollIntoView
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      
+      // Highlighting (wie in scrollToIndexInViewer)
+      targetElement.style.transition = 'background-color 0.5s ease, box-shadow 0.5s ease';
+      targetElement.style.backgroundColor = '#fff3cd';
+      targetElement.style.boxShadow = '0 0 0 0.4rem rgba(255, 193, 7, 0.3)';
+      
+      setTimeout(() => {
+        targetElement.style.backgroundColor = '';
+        targetElement.style.boxShadow = '';
+        setTimeout(() => {
+          targetElement.style.transition = '';
+        }, 500);
+      }, 2500);
+      
+      return true;
+    } else {
+      console.warn('[PARAGRAPH-SCROLL] Element nicht gefunden: para-' + targetIndex);
+      return false;
+    }
+  }
+  
+  // Versuche mehrmals zu scrollen (falls Content noch lädt)
+  if (!findAndScroll()) {
+    console.log('[PARAGRAPH-SCROLL] Warte auf Content-Laden...');
+    setTimeout(findAndScroll, 300);
+    setTimeout(findAndScroll, 800);
+    setTimeout(findAndScroll, 1500);
+    setTimeout(findAndScroll, 2500);
+  }
+}
+
+// Beim Laden ausführen
+window.addEventListener('load', scrollToParagraphFromURL);
+
+// Bei DOMContentLoaded (früher als load)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(scrollToParagraphFromURL, 100);
+  });
+} else {
+  // Falls schon geladen
+  setTimeout(scrollToParagraphFromURL, 100);
+}
 </script>
 
 <!-- Help Modal -->
@@ -19685,7 +19882,18 @@ function updateKeywordsDisplay() {
 function handleParagraphRightClick(paragraphIndex, element, event) {
   if (!isLocal) return;
   
-  // Verhindere Standard-Kontextmenü
+  // Prüfe ob Text markiert ist
+  const selection = window.getSelection();
+  const selectedText = selection.toString().trim();
+  
+  // Wenn Text markiert ist (3+ Zeichen) → Members Context Menu hat Priorität
+  if (selectedText.length >= 3) {
+    console.log('[CONTEXTMENU] Text markiert - Members Context Menu wird angezeigt');
+    // NICHT preventDefault! Lasse das Members Context Menu Event durch
+    return;
+  }
+  
+  // Verhindere Standard-Kontextmenü nur wenn KEIN Text markiert
   event.preventDefault();
   event.stopPropagation();
   
@@ -19700,8 +19908,8 @@ function handleParagraphRightClick(paragraphIndex, element, event) {
       console.warn('[CONTEXTMENU] Kein Vortrag geladen');
     }
   } else {
-    // Normaler Rechtsklick ohne Funktion
-    console.log('[CONTEXTMENU] Rechtsklick ohne Strg - keine Aktion');
+    // Normaler Rechtsklick ohne Text-Selektion - keine Aktion
+    console.log('[CONTEXTMENU] Rechtsklick ohne Strg und ohne Text-Selektion - keine Aktion');
   }
 }
 
@@ -21060,6 +21268,45 @@ async function addKeywordToLecture() {
     }
   };
 </script>
+
+<!-- ============================================ -->
+<!-- Mitglieder Panel Integration -->
+<!-- ============================================ -->
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- Members Integration - Supabase Setup -->
+<script src="members-integration-standalone.js"></script>
+
+<!-- Members API Bridge (ES6 Module → Global) -->
+<script type="module">
+  import * as MembersAPI from './members-api.js';
+  
+  // API-Funktionen global verfügbar machen
+  window.getBookmarks = MembersAPI.getBookmarks;
+  window.getQuotes = MembersAPI.getQuotes;
+  window.getNotes = MembersAPI.getNotes;
+  window.createNote = MembersAPI.createNote;
+  window.deleteBookmark = MembersAPI.deleteBookmark;
+  window.deleteQuote = MembersAPI.deleteQuote;
+  window.deleteNote = MembersAPI.deleteNote;
+  window.generateGraphData = MembersAPI.generateGraphData;
+  window.getChatMessages = MembersAPI.getChatMessages;
+  window.sendChatMessage = MembersAPI.sendChatMessage;
+  window.subscribeToChatMessages = MembersAPI.subscribeToChatMessages;
+  window.unsubscribeFromChat = MembersAPI.unsubscribeFromChat;
+  
+  console.log('✓ Members API functions loaded');
+</script>
+
+<!-- Members Panel UI -->
+<script src="members-panel.js"></script>
+
+<!-- Members Context Menu (Rechtsklick) -->
+<script src="members-context-menu.js"></script>
+
+<!-- Debug & Test Functions -->
 
 </body>
 </html>
