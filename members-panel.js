@@ -152,6 +152,11 @@ async function showMembersContent() {
         <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
         <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
         <button class="members-tab ${currentMembersTab === 'graph' ? 'active' : ''}" onclick="switchMembersTab('graph')">Graph</button>
+        <div class="keyword-filter-tab">
+          <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
+            <option value="">Schlagwörter</option>
+          </select>
+        </div>
         <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
       </div>
       
@@ -192,6 +197,12 @@ async function switchMembersTab(tabName) {
   });
   event.target.classList.add('active');
   
+  // Keyword-Filter zurücksetzen
+  const keywordSelect = document.getElementById('keyword-filter-select');
+  if (keywordSelect) {
+    keywordSelect.value = '';
+  }
+  
   // Content laden
   await loadMembersTab(tabName);
 }
@@ -229,15 +240,27 @@ async function loadBookmarksTab(container) {
   const result = await getBookmarks();
   
   if (!result.success || result.data.length === 0) {
-    container.innerHTML = '<div class="empty-state">📑<br>Noch keine Bookmarks</div>';
+    container.innerHTML = '<div class="empty-state">Noch keine Bookmarks</div>';
+    updateKeywordFilterDropdown([]);
     return;
   }
   
+  // Sammle alle Keywords
+  const allKeywords = new Set();
+  result.data.forEach(bookmark => {
+    if (bookmark.tags && Array.isArray(bookmark.tags)) {
+      bookmark.tags.forEach(tag => allKeywords.add(tag));
+    }
+  });
+  
+  const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
+  updateKeywordFilterDropdown(sortedKeywords);
+  
   const html = result.data.map(bookmark => `
-    <div class="member-item">
+    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}">
       <div class="member-item-header">
         ${bookmark.paragraph_id 
-          ? `<strong><a href="#" onclick="showLecture('${bookmark.ga_number}', '${bookmark.paragraph_id}', []); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
+          ? `<strong><a href="#" onclick="navigateToLectureFromMembersPanel('${bookmark.ga_number}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
           : `<strong>${bookmark.ga_number}</strong>`
         }
         <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
@@ -245,6 +268,7 @@ async function loadBookmarksTab(container) {
       ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
       <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
       ${bookmark.note ? `<div class="member-item-note">📌 ${bookmark.note}</div>` : ''}
+      ${bookmark.tags && bookmark.tags.length > 0 ? `<div class="member-item-tags">${bookmark.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
       <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')">🗑️</button>
     </div>
   `).join('');
@@ -260,21 +284,33 @@ async function loadQuotesTab(container) {
   
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
+    updateKeywordFilterDropdown([]);
     return;
   }
   
+  // Sammle alle Keywords
+  const allKeywords = new Set();
+  result.data.forEach(quote => {
+    if (quote.tags && Array.isArray(quote.tags)) {
+      quote.tags.forEach(tag => allKeywords.add(tag));
+    }
+  });
+  
+  const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
+  updateKeywordFilterDropdown(sortedKeywords);
+  
   const html = result.data.map(quote => `
-    <div class="member-item">
+    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}">
       <div class="member-item-header">
         ${quote.paragraph_id 
-          ? `<strong><a href="#" onclick="handleQuoteLink('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
+          ? `<strong><a href="#" onclick="navigateToLectureFromMembersPanel('${quote.ga_reference}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
           : `<strong>${quote.ga_reference}</strong>`
         }
         <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
       </div>
       <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
       ${quote.personal_note ? `<div class="member-item-note">📌 ${quote.personal_note}</div>` : ''}
-      ${quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+      ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
       <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')">🗑️</button>
     </div>
   `).join('');
@@ -282,24 +318,211 @@ async function loadQuotesTab(container) {
   container.innerHTML = html;
 }
 
-// Handle Quote Link
-function handleQuoteLink(gaReference, paragraphId) {
-  try {
-    if (typeof showLecture === 'function') {
-      showLecture(gaReference, paragraphId, []);
-    } else {
-      console.error('showLecture nicht verfügbar');
-    }
-  } catch (err) {
-    console.error('Fehler:', err);
+/**
+ * Navigiere zu Vortrag aus Members Panel (behält Panel offen)
+ */
+async function navigateToLectureFromMembersPanel(lectureId) {
+  console.log('[MB-NAVIGATION] Navigiere zu Vortrag:', lectureId);
+  
+  // Speichere Members Panel Zustand
+  const summaryPanel = document.getElementById('summary-panel');
+  const mainContainer = document.getElementById('main-container');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const summaryContent = document.getElementById('summary-content');
+  
+  if (!summaryPanel || !membersPanelActive) {
+    console.error('[MB-NAVIGATION] Members Panel nicht aktiv');
+    return;
   }
+  
+  const mbWidth = 400; // Members Panel Breite
+  const savedPanelHTML = summaryContent ? summaryContent.innerHTML : '';
+  
+  // Speichere Scroll-Position des Members Content
+  const membersContent = document.getElementById('members-tab-content');
+  const savedScrollTop = membersContent ? membersContent.scrollTop : 0;
+  
+  // Speichere die aktuelle Position des gesamten Panels
+  const savedPanelPosition = summaryPanel ? {
+    position: summaryPanel.style.position,
+    top: summaryPanel.style.top,
+    right: summaryPanel.style.right,
+    bottom: summaryPanel.style.bottom
+  } : null;
+  
+  console.log('[MB-NAVIGATION] Speichere Panel-Zustand (Scroll:', savedScrollTop + 'px)');
+  
+  // Fixiere das gesamte Panel absolut während der Navigation
+  if (summaryPanel) {
+    summaryPanel.style.position = 'fixed';
+    summaryPanel.style.top = '0';
+    summaryPanel.style.right = '0';
+    summaryPanel.style.bottom = '0';
+  }
+  
+  // Friere Scroll-Position ein
+  if (membersContent) {
+    membersContent.style.overflow = 'hidden';
+    membersContent.style.scrollBehavior = 'auto';
+  }
+  
+  // Setze Flag, dass wir gerade navigieren
+  window.membersNavigating = true;
+  
+  // Track ob wir gerade HTML wiederherstellen um Endlos-Loops zu vermeiden
+  let restoringHTML = false;
+  
+  // Funktion zum Beibehalten der Panel-Eigenschaften
+  const maintainPanelState = () => {
+    if (!window.membersNavigating) return;
+    
+    if (summaryPanel) {
+      summaryPanel.style.width = mbWidth + 'px';
+      summaryPanel.style.minWidth = mbWidth + 'px';
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.display = 'block';
+      summaryPanel.style.opacity = '1';
+      summaryPanel.style.visibility = 'visible';
+      
+      // Halte Panel fixiert
+      summaryPanel.style.position = 'fixed';
+      summaryPanel.style.top = '0';
+      summaryPanel.style.right = '0';
+      summaryPanel.style.bottom = '0';
+    }
+    
+    if (mainContainer) {
+      mainContainer.style.marginRight = mbWidth + 'px';
+    }
+    
+    if (resizeHandle) {
+      resizeHandle.classList.add('visible');
+      resizeHandle.style.display = 'block';
+      const offset = 10;
+      resizeHandle.style.right = (mbWidth - offset) + 'px';
+    }
+    
+    // HTML-Wiederherstellung nur wenn nötig und nicht schon am Wiederherstellen
+    if (!restoringHTML && summaryContent && savedPanelHTML && summaryContent.innerHTML !== savedPanelHTML) {
+      restoringHTML = true;
+      summaryContent.innerHTML = savedPanelHTML;
+      setTimeout(() => { restoringHTML = false; }, 100);
+    }
+    
+    // Stelle Scroll-Position IMMER sicher (sehr aggressiv)
+    const currentMembersContent = document.getElementById('members-tab-content');
+    if (currentMembersContent) {
+      currentMembersContent.scrollTop = savedScrollTop;
+    }
+  };
+  
+  // Blockiere Scroll-Events während der Navigation
+  const preventScroll = (e) => {
+    const target = e.target;
+    const membersContentEl = document.getElementById('members-tab-content');
+    if (membersContentEl && (target === membersContentEl || membersContentEl.contains(target))) {
+      e.preventDefault();
+      e.stopPropagation();
+      membersContentEl.scrollTop = savedScrollTop;
+    }
+  };
+  
+  // Füge Scroll-Blocker hinzu
+  document.addEventListener('scroll', preventScroll, true);
+  
+  // Überwache Panel-Zustand während der Navigation (alle 30ms für bessere Reaktion)
+  const intervalId = setInterval(maintainPanelState, 30);
+  
+  // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
+  const gaNumber = lectureId.split('/')[0];
+  
+  // Wechsle zum Texte-Tab
+  if (typeof switchTab === 'function') {
+    switchTab('texte');
+  }
+  
+  // Halte Panel-Zustand bei
+  maintainPanelState();
+  
+  // Warte kurz, damit der Tab geladen ist
+  await new Promise(resolve => setTimeout(resolve, 200));
+  maintainPanelState();
+  
+  // Setze den GA-Filter im Texte-Tab
+  const texteGAFilter = document.getElementById('texteGAFilter');
+  if (texteGAFilter && gaNumber) {
+    texteGAFilter.value = gaNumber;
+    console.log(`[MB-NAVIGATION] GA-Filter gesetzt auf: ${gaNumber}`);
+    
+    maintainPanelState();
+    
+    // Lade Vortrag im Hauptviewer (nur einmal!)
+    console.log(`[MB-NAVIGATION] START Lade Vortrag ${lectureId} (Members Panel bleibt offen)`);
+    if (typeof showLecture === 'function') {
+      await showLecture(lectureId, null, []);
+      console.log(`[MB-NAVIGATION] ENDE Vortrag ${lectureId} geladen`);
+    }
+    
+    maintainPanelState();
+    
+    // Lade GA-Übersicht im linken Panel (nur einmal!)
+    console.log(`[MB-NAVIGATION] START Lade GA-Übersicht ${gaNumber} (nur im Side Panel)`);
+    if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+      await loadGAOverviewInSidePanelOnly(gaNumber);
+      console.log(`[MB-NAVIGATION] ENDE GA-Übersicht ${gaNumber} geladen`);
+    }
+    
+    maintainPanelState();
+  }
+  
+  // Beende Überwachung nach kurzer Zeit
+  setTimeout(() => {
+    clearInterval(intervalId);
+    
+    // Entferne Scroll-Blocker
+    document.removeEventListener('scroll', preventScroll, true);
+    
+    window.membersNavigating = false;
+    
+    // Finale Korrektur
+    maintainPanelState();
+    
+    // Stelle Panel-Position und Scrolling wieder her
+    setTimeout(() => {
+      // Stelle Panel-Position wieder her
+      if (summaryPanel && savedPanelPosition) {
+        summaryPanel.style.position = savedPanelPosition.position || 'fixed';
+        summaryPanel.style.top = savedPanelPosition.top || '0';
+        summaryPanel.style.right = savedPanelPosition.right || '0';
+        summaryPanel.style.bottom = savedPanelPosition.bottom || '0';
+      }
+      
+      const finalMembersContent = document.getElementById('members-tab-content');
+      if (finalMembersContent) {
+        // Setze Scroll-Position final
+        finalMembersContent.scrollTop = savedScrollTop;
+        
+        // Aktiviere Scrolling wieder
+        finalMembersContent.style.overflow = 'auto';
+        
+        // Stelle sicher, dass Position bleibt
+        setTimeout(() => {
+          finalMembersContent.scrollTop = savedScrollTop;
+          console.log('[MB-NAVIGATION] Panel-Position und Scroll-Position wiederhergestellt:', savedScrollTop + 'px');
+        }, 50);
+      }
+    }, 50);
+    
+    console.log('[MB-NAVIGATION] Navigation abgeschlossen, Panel bleibt offen');
+  }, 600);
 }
-window.handleQuoteLink = handleQuoteLink;
 
 /**
  * Notes Tab
  */
 function loadNotesTab(container) {
+  updateKeywordFilterDropdown([]); // Keine Keywords für Notes
+  
   container.innerHTML = `
     <div class="notes-editor">
       <textarea id="members-note-content" placeholder="Schreibe deine Notiz hier...
@@ -364,6 +587,8 @@ async function saveMemberNote() {
  * Graph Tab
  */
 function loadGraphTab(container) {
+  updateKeywordFilterDropdown([]); // Keine Keywords für Graph
+  
   container.innerHTML = `
     <div class="graph-placeholder">
       <div class="empty-state">
@@ -402,6 +627,8 @@ async function generateMemberGraph() {
  * Chat Tab
  */
 async function loadChatTab(container) {
+  updateKeywordFilterDropdown([]); // Keine Keywords für Chat
+  
   container.innerHTML = `
     <div class="chat-panel">
       <div id="chat-messages" class="chat-messages"></div>
@@ -673,6 +900,63 @@ function isMembersPanelActive() {
   return membersPanelActive;
 }
 
+/**
+ * Aktualisiert das Keyword-Filter Dropdown mit neuen Keywords
+ */
+function updateKeywordFilterDropdown(keywords) {
+  const select = document.getElementById('keyword-filter-select');
+  if (!select) return;
+  
+  // Reset
+  select.innerHTML = '<option value="">Schlagwörter</option>';
+  
+  // Füge Keywords hinzu
+  if (keywords && keywords.length > 0) {
+    keywords.forEach(kw => {
+      const option = document.createElement('option');
+      option.value = kw;
+      option.textContent = kw;
+      select.appendChild(option);
+    });
+    select.disabled = false;
+  } else {
+    select.disabled = true;
+  }
+}
+
+/**
+ * Handler für Keyword-Filter - leitet an den richtigen Tab weiter
+ */
+function handleKeywordFilter(keyword) {
+  if (currentMembersTab === 'bookmarks') {
+    filterItemsByKeyword(keyword);
+  } else if (currentMembersTab === 'quotes') {
+    filterItemsByKeyword(keyword);
+  }
+}
+
+/**
+ * Filtert die aktuell sichtbaren Items nach Keyword
+ */
+function filterItemsByKeyword(keyword) {
+  const items = document.querySelectorAll('#members-tab-content .member-item');
+  
+  items.forEach(item => {
+    if (!keyword) {
+      // Zeige alle
+      item.style.display = 'block';
+    } else {
+      // Prüfe ob Keyword vorhanden
+      const keywords = item.getAttribute('data-keywords');
+      if (keywords && keywords.split(',').includes(keyword)) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    }
+  });
+}
+
 // Global verfügbar machen
 window.openMembersPanel = openMembersPanel;
 window.closeMembersPanel = closeMembersPanel;
@@ -689,4 +973,6 @@ window.deleteMemberNote = deleteMemberNote;
 window.saveMemberNote = saveMemberNote;
 window.generateMemberGraph = generateMemberGraph;
 window.sendMemberChatMessage = sendMemberChatMessage;
+window.handleKeywordFilter = handleKeywordFilter;
+window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
 
