@@ -89,3 +89,16 @@ Abb. 123-01.webp nicht ok
 - Link-Farbe: var(--link-color), keine Unterstreichung
 - Falls kein paragraph_id vorhanden: Nummer bleibt nicht-klickbar
 
+✅ Member-Item Design vereinfacht (members-panel.css):
+- Umrandete Boxen entfernt (border + border-radius)
+- Background auf transparent gesetzt
+- Stattdessen: dezente border-bottom als Trennlinie zwischen Items
+- Padding angepasst: 0.75rem 0 (nur oben/unten, nicht mehr links/rechts)
+- Dark Mode ebenfalls angepasst
+
+✅ Zitat-Anzeige und Button-Position angepasst (members-panel.css):
+- Farbiger Streifen links vom Zitat entfernt (border-left bei .member-item-quote)
+- Mülleimer-Button von oben rechts nach unten rechts verschoben (top → bottom)
+- Gilt für Bookmarks und Zitate
+- Zeilenabstand (line-height: 1.4) einheitlich für beide
+
