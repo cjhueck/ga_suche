@@ -12,7 +12,7 @@ import { supabase, getCurrentUser } from './members-auth.js';
 /**
  * Bookmark erstellen
  */
-export async function createBookmark(gaNumber, lectureTitle, paragraphId, paragraphText, note = '', tags = []) {
+export async function createBookmark(gaNumber, lectureTitle, paragraphId, paragraphText, note = '', tags = [], lectureUrl = '') {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
@@ -23,6 +23,7 @@ export async function createBookmark(gaNumber, lectureTitle, paragraphId, paragr
         user_id: user.id,
         ga_number: gaNumber,
         lecture_title: lectureTitle,
+        lecture_url: lectureUrl,
         paragraph_id: paragraphId,
         paragraph_text: paragraphText,
         note: note,
@@ -119,7 +120,7 @@ export async function updateBookmark(bookmarkId, updates) {
 /**
  * Zitat erstellen
  */
-export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false) {
+export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false, lectureUrl = '') {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
@@ -131,6 +132,7 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
         quote_text: quoteText,
         ga_reference: gaReference,
         lecture_title: lectureTitle,
+        lecture_url: lectureUrl,
         context_before: contextBefore,
         context_after: contextAfter,
         personal_note: personalNote,

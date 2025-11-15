@@ -5044,12 +5044,6 @@ function normalizeGANumber(gaNumber) {
       
       // Lade GA-Bände wenn zum GA-Tab gewechselt wird
       if (mode === 'ga') {
-        // Leere Results-Bereich (linkes Panel)
-        const resultsDiv = document.getElementById('results');
-        if (resultsDiv) {
-          resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände...</div>';
-        }
-        
         // Setze Document Title
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
@@ -5062,12 +5056,21 @@ function normalizeGANumber(gaNumber) {
           viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
         }
         
-        // Lade GA-Bände direkt (ohne setTimeout für bessere Zuverlässigkeit)
+        // Setze Loading-Nachricht im Results-Bereich
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) {
+          resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände...</div>';
+        }
+        
+        // Lade GA-Bände mit kurzem Delay für DOM-Stabilität
         if (typeof loadGAVolumesInSidebar === 'function') {
           console.log('[GA-TAB] Lade GA-Bände-Liste...');
-          loadGAVolumesInSidebar().catch(err => {
-            console.error('[GA-TAB] Fehler beim Laden:', err);
-          });
+          // Kurzes Delay stellt sicher, dass DOM-Updates abgeschlossen sind
+          setTimeout(() => {
+            loadGAVolumesInSidebar().catch(err => {
+              console.error('[GA-TAB] Fehler beim Laden:', err);
+            });
+          }, 50);
         } else {
           console.error('[GA-TAB] loadGAVolumesInSidebar Funktion nicht gefunden!');
         }
@@ -6340,8 +6343,19 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
   }
   
   // Wenn Daten bereits geladen sind, zeige sie nur an
-  if (gaVolumesData.length > 0) {
+  if (gaVolumesData.length > 0 && retryAttempt === 0) {
     console.log('[GA-TAB] Daten bereits vorhanden, zeige sie an...');
+    
+    // Warte kurz, damit das DOM bereit ist
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    // Prüfe ob results-div existiert, bevor wir anzeigen
+    const resultsDiv = document.getElementById('results');
+    if (!resultsDiv) {
+      console.warn('[GA-TAB] Results-DIV noch nicht bereit, warte...');
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
     displayGAVolumesInSidebar();
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
