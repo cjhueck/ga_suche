@@ -42,6 +42,9 @@ function showMembersLoginPanel() {
   summaryPanel.style.width = '350px';
   summaryPanel.style.minWidth = '350px';
   summaryPanel.style.marginRight = '0px';
+  summaryPanel.style.display = 'block'; // Explizit sichtbar machen
+  summaryPanel.style.opacity = '1';
+  summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
   // Login-Form HTML
@@ -117,6 +120,9 @@ async function showMembersContent() {
   summaryPanel.style.width = mbWidth + 'px';
   summaryPanel.style.minWidth = mbWidth + 'px';
   summaryPanel.style.marginRight = '0px';
+  summaryPanel.style.display = 'block'; // Explizit sichtbar machen
+  summaryPanel.style.opacity = '1';
+  summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
   // Main-Container anpassen für breiteres MB Panel
@@ -127,6 +133,7 @@ async function showMembersContent() {
   // Resize-Handle EXAKT an Panel-Grenze positionieren
   const verticalResizeHandle = document.getElementById('verticalResizeHandle');
   if (verticalResizeHandle) {
+    verticalResizeHandle.style.display = 'block'; // Auch Handle sichtbar machen
     const offset = 10; // Standard-Offset für MB
     verticalResizeHandle.style.right = (mbWidth - offset) + 'px';
     console.log('[MB-OPEN] Resize-Handle positioniert bei:', (mbWidth - offset) + 'px');
@@ -156,6 +163,21 @@ async function showMembersContent() {
   
   // Aktuellen Tab laden
   await loadMembersTab(currentMembersTab);
+  
+  // Stelle sicher, dass Panel nach dem Laden sichtbar bleibt
+  setTimeout(() => {
+    if (summaryPanel) {
+      summaryPanel.style.display = 'block';
+      summaryPanel.style.opacity = '1';
+      summaryPanel.style.visibility = 'visible';
+    }
+    if (summaryContent) {
+      summaryContent.style.display = 'block';
+      summaryContent.style.opacity = '1';
+      summaryContent.style.visibility = 'visible';
+    }
+    console.log('[MB-OPEN] Panel und Content-Sichtbarkeit nachkorrigiert');
+  }, 100);
 }
 
 /**

@@ -4706,6 +4706,52 @@ function normalizeGANumber(gaNumber) {
       }
     }
 
+    /**
+     * Synchronisiert Main-Container mit der aktuellen Panel-Breite
+     * Diese Funktion stellt sicher, dass KEIN Gap zwischen Panel und Main-Viewer entsteht
+     */
+    let lastSyncedWidth = null;
+    function syncMainContainerWithPanel() {
+      const summaryPanel = document.getElementById('summary-panel');
+      const mainContainer = document.getElementById('main-container');
+      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+      
+      if (!summaryPanel || !mainContainer) return;
+      
+      if (summaryPanel.classList.contains('visible')) {
+        // Hole die AKTUELLE Panel-Breite direkt aus dem DOM
+        const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || 280;
+        
+        // Nur aktualisieren wenn sich die Breite geändert hat
+        if (currentPanelWidth !== lastSyncedWidth) {
+          // Setze Main-Container margin-right EXAKT auf Panel-Breite
+          mainContainer.style.marginRight = currentPanelWidth + 'px';
+          
+          // Positioniere Resize-Handle EXAKT an Panel-Grenze
+          if (verticalResizeHandle) {
+            const offset = 10;
+            verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
+          }
+          
+          lastSyncedWidth = currentPanelWidth;
+          console.log('[SYNC] Panel-Breite:', currentPanelWidth + 'px → Main-Container angepasst');
+        }
+      } else {
+        // Panel geschlossen - Main-Container auf volle Breite
+        if (lastSyncedWidth !== 0) {
+          mainContainer.style.marginRight = '0px';
+          lastSyncedWidth = 0;
+          console.log('[SYNC] Panel geschlossen → Main-Container auf volle Breite');
+        }
+      }
+    }
+
+    // Führe Synchronisation kontinuierlich aus, um Gap zu vermeiden (alle 100ms)
+    setInterval(syncMainContainerWithPanel, 100);
+    
+    // Initiale Synchronisation beim Laden
+    setTimeout(syncMainContainerWithPanel, 0);
+
     // Header-Position und Toggle-Position bei Resize und Laden aktualisieren
     window.addEventListener('resize', function() {
       updateHeaderPosition();
@@ -10043,14 +10089,26 @@ function displayGAChronological(lectures) {
     setTimeout(() => {
       updateHeaderPosition();
       
-      // Stelle sicher, dass Resize-Handle nach updateHeaderPosition() NOCHMAL korrekt positioniert wird
+      // WICHTIG: Main-Container NACHKORRIGIEREN, da updateHeaderPosition() ihn möglicherweise falsch setzt
+      const mainContainer = document.getElementById('main-container');
       const summaryPanel = document.getElementById('summary-panel');
       const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-      if (summaryPanel && verticalResizeHandle && summaryPanel.classList.contains('visible')) {
+      
+      if (summaryPanel && summaryPanel.classList.contains('visible')) {
         const tocWidth = 280;
-        const offset = 10;
-        verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-        console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT auf:', (tocWidth - offset) + 'px');
+        
+        // Main-Container ERZWINGEN
+        if (mainContainer) {
+          mainContainer.style.marginRight = tocWidth + 'px';
+          console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT auf:', tocWidth + 'px');
+        }
+        
+        // Resize-Handle auch korrigieren
+        if (verticalResizeHandle) {
+          const offset = 10;
+          verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+          console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT auf:', (tocWidth - offset) + 'px');
+        }
       }
       
       console.log('[TOGGLE-H4] updateHeaderPosition() nach MB→TOC aufgerufen');
@@ -10069,14 +10127,26 @@ function displayGAChronological(lectures) {
         buildTableOfContents();
         updateHeaderPosition();
         
-        // Stelle sicher, dass Resize-Handle auch hier korrekt positioniert wird
+        // WICHTIG: Main-Container NACHKORRIGIEREN
+        const mainContainer = document.getElementById('main-container');
         const summaryPanel = document.getElementById('summary-panel');
         const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-        if (summaryPanel && verticalResizeHandle && summaryPanel.classList.contains('visible')) {
+        
+        if (summaryPanel && summaryPanel.classList.contains('visible')) {
           const tocWidth = 280;
-          const offset = 10;
-          verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-          console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
+          
+          // Main-Container ERZWINGEN
+          if (mainContainer) {
+            mainContainer.style.marginRight = tocWidth + 'px';
+            console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (2) auf:', tocWidth + 'px');
+          }
+          
+          // Resize-Handle auch korrigieren
+          if (verticalResizeHandle) {
+            const offset = 10;
+            verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+            console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
+          }
         }
       }, 100);
       return; // Früher Return nach MB-Wechsel
@@ -10587,14 +10657,26 @@ function showSummaryView() {
     // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
     updateHeaderPosition();
     
-    // Stelle sicher, dass Resize-Handle nach updateHeaderPosition() korrekt positioniert ist
+    // WICHTIG: Main-Container und Resize-Handle nach updateHeaderPosition() korrigieren
+    const mainContainerCheck = document.getElementById('main-container');
     const summaryPanelCheck = document.getElementById('summary-panel');
     const verticalResizeHandleCheck = document.getElementById('verticalResizeHandle');
-    if (summaryPanelCheck && verticalResizeHandleCheck && summaryPanelCheck.classList.contains('visible')) {
+    
+    if (summaryPanelCheck && summaryPanelCheck.classList.contains('visible')) {
       const currentWidth = parseInt(summaryPanelCheck.style.width) || 280;
-      const offset = 10;
-      verticalResizeHandleCheck.style.right = (currentWidth - offset) + 'px';
-      console.log('[SHOW-SUMMARY-VIEW] Resize-Handle korrigiert auf:', (currentWidth - offset) + 'px');
+      
+      // Main-Container ERZWINGEN
+      if (mainContainerCheck) {
+        mainContainerCheck.style.marginRight = currentWidth + 'px';
+        console.log('[SHOW-SUMMARY-VIEW] Main-Container korrigiert auf:', currentWidth + 'px');
+      }
+      
+      // Resize-Handle korrigieren
+      if (verticalResizeHandleCheck) {
+        const offset = 10;
+        verticalResizeHandleCheck.style.right = (currentWidth - offset) + 'px';
+        console.log('[SHOW-SUMMARY-VIEW] Resize-Handle korrigiert auf:', (currentWidth - offset) + 'px');
+      }
     }
     
     // Baue TOC für das rechte Side-Panel
