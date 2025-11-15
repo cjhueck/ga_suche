@@ -2019,35 +2019,32 @@ body.dark-mode #thematicSearchInfo {
       grid-row: 2;
     }
     
-    /* ONLINE Version: Schmalerer MB Button oben + 2 Buttons darunter */
+    /* ONLINE Version: MB + Übersicht in Zeile 1, Original in Zeile 2 */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: auto; /* Nur 1 Spalte */
-      grid-template-rows: repeat(3, auto); /* 3 Zeilen: MB, Übersicht, Original */
+      grid-template-columns: 1fr auto; /* 2 Spalten: Übersicht (volle Breite) + MB (schmal) */
+      grid-template-rows: repeat(2, auto); /* 2 Zeilen */
     }
     
-    body.online-mode .viewer-buttons-container button {
+    /* MB Button in Online-Version: Zeile 1, Spalte 2 (rechts), schmal */
+    body.online-mode #membersPanelBtn {
+      grid-column: 2;
+      grid-row: 1;
+      padding: 4px 8px;
+      margin-left: 6px;
+    }
+    
+    /* Übersicht Button: Zeile 1, Spalte 1 (links) */
+    body.online-mode #viewerSummaryBtn {
+      grid-column: 1;
+      grid-row: 1;
       width: 100%;
     }
     
-    /* MB Button in Online-Version: oben, schmal */
-    body.online-mode #membersPanelBtn {
-      grid-column: 1;
-      grid-row: 1;
-      width: auto; /* Schmal statt volle Breite */
-      justify-self: end; /* Rechts ausrichten */
-      padding: 4px 8px;
-      margin-right: 0;
-    }
-    
-    /* In Online-Version nur Original und Übersicht anzeigen */
-    body.online-mode #viewerSummaryBtn {
-      grid-column: 1;
-      grid-row: 2;
-    }
-    
+    /* Original Button: Zeile 2, Spalte 1 (UNTER Übersicht, GLEICHE Breite) */
     body.online-mode #viewerOriginalBtn {
       grid-column: 1;
-      grid-row: 3;
+      grid-row: 2;
+      width: 100%;
     }
     
     /* Ensure buttons always stay on the right */
