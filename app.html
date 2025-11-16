@@ -97,7 +97,7 @@
     body.dark-mode #summary-panel {
       background-color: var(--dark-background-color);
       border-left-color: var(--dark-border-color);
-      border-top: none;
+      border-top: none !important;
     }
     
     body.dark-mode .search-input,
@@ -1184,6 +1184,7 @@ body.dark-mode .ga-missing-text {
       display: flex;
       flex-direction: column;
       border-left: none;
+      border-top: none !important;
       overflow-y: auto;
       overflow-x: hidden;
       width: 0;
@@ -1203,7 +1204,7 @@ body.dark-mode .ga-missing-text {
       max-width: none;
       background: var(--background-color);
       border-left: 1px solid var(--border-color);
-      border-top: none;
+      border-top: none !important;
 
     }
     
@@ -1985,6 +1986,46 @@ body.dark-mode #thematicSearchInfo {
       margin-left: auto;
       flex-shrink: 0;
       align-items: stretch;
+      position: relative; /* Für absolute Positionierung des MB-Buttons */
+      padding-right: 40px; /* Platz für MB-Button rechts */
+    }
+    
+    /* Mitglieder-Button: IMMER ganz oben rechts, aus dem Grid-Flow */
+    #membersPanelBtn {
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
+      padding: 4px 8px !important;
+      margin: 0 !important;
+      width: auto !important;
+      min-width: 32px !important;
+      grid-column: unset !important;
+      grid-row: unset !important;
+      font-size: 0.85em !important;
+      border: 1px solid var(--accent-color) !important;
+      background: transparent !important;
+      color: var(--accent-color) !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      transition: all 0.2s !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    
+    #membersPanelBtn:hover {
+      background: var(--accent-color) !important;
+      color: white !important;
+    }
+    
+    body.dark-mode #membersPanelBtn {
+      border-color: var(--dark-accent-color) !important;
+      color: var(--dark-accent-color) !important;
+    }
+    
+    body.dark-mode #membersPanelBtn:hover {
+      background: var(--dark-accent-color) !important;
+      color: white !important;
     }
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
@@ -2021,18 +2062,18 @@ body.dark-mode #thematicSearchInfo {
       grid-row: 2;
     }
     
-    /* ONLINE Version: MB + Übersicht in Zeile 1, Original in Zeile 2 */
+    /* ONLINE Version: Nur Übersicht und Original im Grid (MB ist absolut positioniert) */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: 1fr auto; /* 2 Spalten: Übersicht (volle Breite) + MB (schmal) */
+      grid-template-columns: 1fr; /* 1 Spalte: volle Breite */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
+      padding-right: 40px; /* Platz für MB-Button rechts */
     }
     
-    /* MB Button in Online-Version: Zeile 1, Spalte 2 (rechts), schmal */
+    /* MB Button in Online-Version: Bleibt absolut positioniert */
     body.online-mode #membersPanelBtn {
-      grid-column: 2;
-      grid-row: 1;
-      padding: 4px 8px;
-      margin-left: 6px;
+      position: absolute !important;
+      top: 0 !important;
+      right: 0 !important;
     }
     
     /* Übersicht Button: Zeile 1, Spalte 1 (links) */
@@ -4338,7 +4379,7 @@ Bestehende Schlagwörter überschreiben
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <!-- Mitglieder Button -->
-<button id="membersPanelBtn" onclick="openMembersPanel()" title="Mitgliederbereich öffnen" style="padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: inline-flex; align-items: center; margin-right: 4px;">
+<button id="membersPanelBtn" onclick="openMembersPanel()" title="Mitgliederbereich öffnen">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 <circle cx="12" cy="8" r="4"/>
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
