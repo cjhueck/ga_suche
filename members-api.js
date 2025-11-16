@@ -96,6 +96,16 @@ export async function deleteBookmark(bookmarkId) {
  */
 export async function updateBookmark(bookmarkId, updates) {
   try {
+    // Ensure marker_color is valid or null
+    if (updates.marker_color !== undefined) {
+      if (updates.marker_color !== null && 
+          updates.marker_color !== 'red' && 
+          updates.marker_color !== 'yellow' && 
+          updates.marker_color !== 'green') {
+        updates.marker_color = null;
+      }
+    }
+    
     const { data, error } = await supabase
       .from('bookmarks')
       .update(updates)
@@ -103,12 +113,19 @@ export async function updateBookmark(bookmarkId, updates) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase Fehler beim Aktualisieren des Bookmarks:', error);
+      // Check if marker_color column is missing
+      if (error.message && error.message.includes('marker_color')) {
+        throw new Error('Die marker_color Spalte fehlt in der Datenbank. Bitte führen Sie das SQL-Script supabase-add-marker-color.sql im Supabase SQL Editor aus.');
+      }
+      throw error;
+    }
 
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Aktualisieren des Bookmarks:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error.message || 'Unbekannter Fehler' };
   }
 }
 
@@ -236,6 +253,16 @@ export async function deleteQuote(quoteId) {
  */
 export async function updateQuote(quoteId, updates) {
   try {
+    // Ensure marker_color is valid or null
+    if (updates.marker_color !== undefined) {
+      if (updates.marker_color !== null && 
+          updates.marker_color !== 'red' && 
+          updates.marker_color !== 'yellow' && 
+          updates.marker_color !== 'green') {
+        updates.marker_color = null;
+      }
+    }
+    
     const { data, error } = await supabase
       .from('quotes')
       .update(updates)
@@ -243,12 +270,19 @@ export async function updateQuote(quoteId, updates) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase Fehler beim Aktualisieren des Zitats:', error);
+      // Check if marker_color column is missing
+      if (error.message && error.message.includes('marker_color')) {
+        throw new Error('Die marker_color Spalte fehlt in der Datenbank. Bitte führen Sie das SQL-Script supabase-add-marker-color.sql im Supabase SQL Editor aus.');
+      }
+      throw error;
+    }
 
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Aktualisieren des Zitats:', error);
-    return { success: false, error: error.message };
+    return { success: false, error: error.message || 'Unbekannter Fehler' };
   }
 }
 
