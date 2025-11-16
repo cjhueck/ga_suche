@@ -11458,7 +11458,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords, isPhraseArray);
 
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
-          if (summaryPanel) {
+          if (summaryPanel && !window.membersNavigating) {
             console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
             
             // Prüfe ob Mitglieder-Panel aktiv ist - wenn ja, NICHT zurücksetzen
@@ -11505,10 +11505,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             
             document.body.classList.remove('summary-panel-collapsed');
             updateHeaderPosition();
+          } else if (window.membersNavigating) {
+            console.log('[SUMMARY-PANEL] Members Navigation aktiv - Panel-Manipulation übersprungen');
           }
 
           // Buttons und TOC nach dem Anzeigen aktualisieren
           setTimeout(() => {
+            if (window.membersNavigating) {
+              console.log('[SUMMARY-PANEL] Members Navigation aktiv - buildTableOfContents übersprungen');
+              return;
+            }
+            
             const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
             const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
             
@@ -11553,6 +11560,11 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     
     // Öffne Summary Panel automatisch nach dem Laden (immer)
     setTimeout(() => {
+      if (window.membersNavigating) {
+        console.log('[SUMMARY-PANEL] Members Navigation aktiv - Panel-Manipulation übersprungen');
+        return;
+      }
+      
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
         
