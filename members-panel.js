@@ -132,6 +132,19 @@ function stopScrollPositionProtection() {
 }
 
 /**
+ * Öffnet members.html in einem neuen Fenster mit window.opener
+ */
+function openMembersWindow() {
+  const membersWindow = window.open('members.html', '_blank');
+  if (membersWindow) {
+    console.log('[MEMBERS-WINDOW] Neues Fenster geöffnet, window.opener sollte gesetzt sein');
+  } else {
+    console.error('[MEMBERS-WINDOW] Popup-Blocker verhindert das Öffnen des Fensters');
+    alert('Bitte erlauben Sie Popups für diese Seite, um den Mitgliederbereich zu öffnen.');
+  }
+}
+
+/**
  * Öffnet den Mitgliederbereich im Summary Panel
  */
 async function openMembersPanel() {
@@ -284,7 +297,7 @@ async function showMembersContent() {
     <div class="members-panel">
       <div class="members-header-container">
         <div class="members-header">
-          <h2><a href="members.html" target="_blank" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+          <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
         
@@ -1287,10 +1300,10 @@ async function jumpToBookmarkOrQuote(lectureId, paragraphId, hasBookmark, hasQuo
             // Fallback: scrollIntoView mit 'start'
             targetItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-          // Highlighte kurz
-          targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+          // Highlighte kurz mit abgerundeten Ecken und minimalem Padding
+          targetItem.classList.add('member-item-highlighted');
           setTimeout(() => {
-            targetItem.style.backgroundColor = '';
+            targetItem.classList.remove('member-item-highlighted');
           }, 2000);
         }
       }
@@ -1526,6 +1539,7 @@ function filterItemsByKeyword(keyword) {
 
 // Global verfügbar machen
 window.openMembersPanel = openMembersPanel;
+window.openMembersWindow = openMembersWindow;
 window.closeMembersPanel = closeMembersPanel;
 window.switchFromMembersPanelToTOC = switchFromMembersPanelToTOC;
 window.isMembersPanelActive = isMembersPanelActive;

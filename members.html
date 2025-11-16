@@ -59,6 +59,30 @@
       gap: 1rem;
     }
 
+    .back-button {
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-button:hover {
+      background-color: #3a6270;
+    }
+
+    .back-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
     .user-email {
       color: var(--secondary-text);
       font-size: 0.9rem;
@@ -470,7 +494,15 @@
   <!-- Main App View -->
   <div id="app-view">
     <header>
-      <h1>GA-Suche Mitgliederbereich</h1>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <button class="back-button" id="back-to-app-btn" title="Zurück zu app.html" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Zurück
+        </button>
+        <h1>GA-Suche Mitgliederbereich</h1>
+      </div>
       <div class="user-info">
         <span class="user-email" id="user-email"></span>
         <button class="secondary" id="logout-btn">Abmelden</button>
@@ -554,6 +586,7 @@
       setupAuthListeners();
       setupToolbarListeners();
       setupDragAndDrop();
+      setupBackButton();
       
       const user = await getCurrentUser();
       if (user) {
@@ -574,6 +607,9 @@
       document.getElementById('auth-view').classList.remove('active');
       document.getElementById('app-view').classList.add('active');
       document.getElementById('user-email').textContent = user.email;
+      
+      // Setup Back-Button nach dem Laden der App
+      setupBackButton();
       
       await loadItems();
     }
@@ -733,7 +769,7 @@
                draggable="${!multiDeleteMode}">
             ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" style="position: absolute; top: 1rem; right: 1rem;" onchange="updateDeleteButton()">` : ''}
             <div class="item-header">
-              <a href="#" class="item-ga" onclick="navigateToLecture('${gaNumber}', '${item.paragraph_id || ''}'); return false;">
+              <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
                 ${gaNumber}
               </a>
               <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
@@ -748,10 +784,15 @@
         `;
       }).join('');
       
-      // Add click listeners
+      // Event-Delegation für GA-Links (funktioniert auch nach dynamischem Rendern)
+      // Entferne alte Listener falls vorhanden
+      container.removeEventListener('click', handleGALinkClick);
+      container.addEventListener('click', handleGALinkClick);
+      
+      // Add click listeners für Item-Cards
       container.querySelectorAll('.item-card').forEach(card => {
         card.addEventListener('click', (e) => {
-          if (e.target.type === 'checkbox') return;
+          if (e.target.type === 'checkbox' || e.target.classList.contains('item-ga')) return;
           const itemId = card.dataset.id;
           selectItem(itemId);
         });
@@ -892,42 +933,311 @@
     }
 
     // ===== Navigation =====
-    function navigateToLecture(gaNumber, paragraphId) {
+    // Back-Button Funktion
+    function setupBackButton() {
+      const backButton = document.getElementById('back-to-app-btn');
+      if (!backButton) return;
+      
+      // Zeige Button nur wenn window.opener vorhanden ist
+      if (window.opener && !window.opener.closed) {
+        backButton.style.display = 'flex';
+        backButton.addEventListener('click', () => {
+          try {
+            // Versuche das opener-Fenster zu fokussieren
+            if (window.opener && !window.opener.closed) {
+              window.opener.focus();
+              // Schließe dieses Fenster
+              window.close();
+            }
+          } catch (err) {
+            console.warn('[BACK-BUTTON] Fehler beim Zurückkehren:', err);
+            // Falls window.close() nicht funktioniert, versuche trotzdem zu fokussieren
+            try {
+              window.opener.focus();
+            } catch (e) {
+              console.error('[BACK-BUTTON] Konnte Fenster nicht fokussieren:', e);
+            }
+          }
+        });
+      } else {
+        backButton.style.display = 'none';
+      }
+    }
+    
+    // Event-Handler für GA-Link-Clicks (Event-Delegation)
+    function handleGALinkClick(e) {
+      const link = e.target.closest('.item-ga');
+      if (!link) return;
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      console.log('[MEMBERS-CLICK] ========== LINK GEKLICKT ==========');
+      const gaNumber = link.dataset.ga;
+      const paragraphId = link.dataset.paragraphId || '';
+      console.log('[MEMBERS-CLICK] GA-Nummer:', gaNumber);
+      console.log('[MEMBERS-CLICK] Absatz-ID:', paragraphId);
+      console.log('[MEMBERS-CLICK] window.opener:', !!window.opener);
+      console.log('[MEMBERS-CLICK] saveMembersScrollPosition verfügbar:', typeof window.saveMembersScrollPosition);
+      console.log('[MEMBERS-CLICK] navigateToLectureFromMembersPanel verfügbar:', typeof window.navigateToLectureFromMembersPanel);
+      
+      if (!gaNumber) {
+        console.error('[MEMBERS-CLICK] Keine GA-Nummer gefunden!');
+        return;
+      }
+      
+      // WICHTIG: Fokussiere das opener-Fenster SOFORT beim Click (funktioniert besser bei direkter User-Interaktion)
+      if (window.opener && !window.opener.closed) {
+        try {
+          console.log('[MEMBERS-CLICK] Versuche opener-Fenster zu fokussieren...');
+          window.opener.focus();
+          // Versuche auch über window-Objekt
+          if (window.opener.window) {
+            window.opener.window.focus();
+          }
+          console.log('[MEMBERS-CLICK] Opener-Fenster fokussiert');
+        } catch (err) {
+          console.warn('[MEMBERS-CLICK] Konnte opener-Fenster nicht fokussieren:', err);
+        }
+      }
+      
+      try {
+        if (typeof window.saveMembersScrollPosition === 'function') {
+          window.saveMembersScrollPosition();
+        } else {
+          console.warn('[MEMBERS-CLICK] saveMembersScrollPosition ist keine Funktion!');
+        }
+      } catch (err) {
+        console.error('[MEMBERS-CLICK] Fehler bei saveMembersScrollPosition:', err);
+      }
+      
+      if (typeof window.navigateToLectureFromMembersPanel === 'function') {
+        console.log('[MEMBERS-CLICK] Rufe navigateToLectureFromMembersPanel auf...');
+        
+        // Rufe Navigation auf
+        window.navigateToLectureFromMembersPanel(gaNumber, paragraphId);
+        
+        // Nach kurzer Verzögerung: Fokussiere opener-Fenster und schließe dieses Fenster
+        setTimeout(() => {
+          try {
+            if (window.opener && !window.opener.closed) {
+              console.log('[MEMBERS-CLICK] Fokussiere opener-Fenster und schließe members.html...');
+              window.opener.focus();
+              // Schließe dieses Fenster
+              window.close();
+            }
+          } catch (err) {
+            console.warn('[MEMBERS-CLICK] Fehler beim Zurückkehren:', err);
+            // Falls window.close() nicht funktioniert, versuche trotzdem zu fokussieren
+            try {
+              if (window.opener && !window.opener.closed) {
+                window.opener.focus();
+              }
+            } catch (e) {
+              console.error('[MEMBERS-CLICK] Konnte Fenster nicht fokussieren:', e);
+            }
+          }
+        }, 500); // Kurze Verzögerung, damit die Navigation starten kann
+      } else {
+        console.error('[MEMBERS-CLICK] navigateToLectureFromMembersPanel nicht verfügbar!');
+        console.error('[MEMBERS-CLICK] Verfügbare window-Funktionen:', Object.keys(window).filter(k => k.includes('navigate') || k.includes('Lecture')));
+      }
+    }
+    
+    function saveMembersScrollPosition() {
+      try {
+        // Wenn wir in einem neuen Fenster sind, rufe die Funktion im opener-Fenster auf
+        if (window.opener && !window.opener.closed && typeof window.opener.saveMembersScrollPosition === 'function') {
+          window.opener.saveMembersScrollPosition();
+        }
+        // Falls direkt geöffnet, gibt es nichts zu speichern
+      } catch (err) {
+        console.warn('[MEMBERS-NAV] Fehler beim Speichern der Scroll-Position:', err);
+        // Ignoriere Fehler - nicht kritisch
+      }
+    }
+    window.saveMembersScrollPosition = saveMembersScrollPosition;
+
+    function navigateToLectureFromMembersPanel(gaNumber, paragraphId) {
+      console.log('[MEMBERS-NAV] ========== START ==========');
+      console.log('[MEMBERS-NAV] Funktion aufgerufen!');
+      console.log('[MEMBERS-NAV] GA-Nummer:', gaNumber);
+      console.log('[MEMBERS-NAV] Absatz-ID:', paragraphId);
+      console.log('[MEMBERS-NAV] window.opener vorhanden:', !!window.opener);
+      console.log('[MEMBERS-NAV] window.opener geschlossen:', window.opener ? window.opener.closed : 'N/A');
+      
+      // Sicherstellen, dass die Funktion wirklich aufgerufen wird
+      if (!gaNumber) {
+        console.error('[MEMBERS-NAV] FEHLER: Keine GA-Nummer übergeben!');
+        return;
+      }
+      
       // Prüfe ob wir in einem neuen Fenster sind (von app.html geöffnet)
       if (window.opener && !window.opener.closed) {
+        console.log('[MEMBERS-NAV] Öffne im opener-Fenster');
         // Springe zurück zum ursprünglichen Fenster
         const openerWindow = window.opener;
         
-        // Fokussiere das ursprüngliche Fenster
-        openerWindow.focus();
+        // Fokussiere das ursprüngliche Fenster - mehrfach versuchen
+        try {
+          // Prüfe ob Fenster minimiert ist
+          if (openerWindow.document && openerWindow.document.hidden !== undefined) {
+            console.log('[MEMBERS-NAV] Fenster versteckt:', openerWindow.document.hidden);
+          }
+          
+          // Versuche verschiedene Methoden zum Fokussieren
+          openerWindow.focus();
+          
+          // Versuche auch über postMessage zu kommunizieren (falls das Fenster es unterstützt)
+          if (openerWindow.postMessage) {
+            openerWindow.postMessage({ type: 'focus', source: 'members-panel' }, '*');
+          }
+          
+          // Versuche auch window.focus() falls verfügbar
+          if (openerWindow.window && openerWindow.window.focus) {
+            openerWindow.window.focus();
+          }
+          
+          // Versuche auch blur() auf dem aktuellen Fenster
+          window.blur();
+          openerWindow.focus();
+          
+          // Warte kurz und fokussiere nochmal
+          setTimeout(() => {
+            try {
+              openerWindow.focus();
+            } catch (e) {
+              console.warn('[MEMBERS-NAV] Fokus-Retry fehlgeschlagen:', e);
+            }
+          }, 100);
+          
+          console.log('[MEMBERS-NAV] Opener-Fenster fokussiert');
+        } catch (err) {
+          console.warn('[MEMBERS-NAV] Konnte Fenster nicht fokussieren:', err);
+        }
+        
+        // Prüfe ob showLecture verfügbar ist
+        const hasShowLecture = typeof openerWindow.showLecture === 'function';
+        console.log('[MEMBERS-NAV] showLecture verfügbar:', hasShowLecture);
         
         // Navigiere im ursprünglichen Fenster zum Vortrag
-        if (paragraphId) {
-          // Verwende showLecture Funktion falls verfügbar
-          if (typeof openerWindow.showLecture === 'function') {
-            openerWindow.showLecture(gaNumber, paragraphId, []);
-          } else {
+        if (hasShowLecture) {
+          // Verwende showLecture Funktion direkt - das ist der beste Weg
+          // showLecture scrollt automatisch zum Absatz, wenn targetIndex übergeben wird
+          console.log('[MEMBERS-NAV] Rufe showLecture im opener-Fenster auf');
+          console.log('[MEMBERS-NAV] Parameter:', gaNumber, paragraphId || null);
+          
+          try {
+            // Rufe showLecture auf (ist async)
+            const result = openerWindow.showLecture(gaNumber, paragraphId || null, []);
+            console.log('[MEMBERS-NAV] showLecture aufgerufen, Ergebnis:', result);
+            
+            // Wenn es ein Promise ist, warte darauf und scrolle dann zum Absatz
+            if (result && typeof result.then === 'function') {
+              result.then(() => {
+                console.log('[MEMBERS-NAV] showLecture abgeschlossen');
+                
+                // Nach dem Laden explizit zum Absatz scrollen
+                if (paragraphId) {
+                  // Fokussiere das Fenster nochmal nach dem Laden
+                  try {
+                    openerWindow.focus();
+                  } catch (e) {
+                    console.warn('[MEMBERS-NAV] Konnte Fenster nach Laden nicht fokussieren:', e);
+                  }
+                  
+                  setTimeout(() => {
+                    console.log('[MEMBERS-NAV] Scrolle zum Absatz:', paragraphId);
+                    console.log('[MEMBERS-NAV] scrollToIndexInViewer verfügbar:', typeof openerWindow.scrollToIndexInViewer);
+                    
+                    // Versuche scrollToIndexInViewer zu verwenden
+                    if (typeof openerWindow.scrollToIndexInViewer === 'function') {
+                      console.log('[MEMBERS-NAV] Verwende scrollToIndexInViewer');
+                      openerWindow.scrollToIndexInViewer(paragraphId);
+                    } else {
+                      console.log('[MEMBERS-NAV] scrollToIndexInViewer nicht verfügbar, verwende Fallback');
+                      // Fallback: Direktes Scrollen zum Element
+                      const cleanIndex = paragraphId.replace(/^\^/, '');
+                      console.log('[MEMBERS-NAV] Suche Element: para-' + cleanIndex);
+                      const paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                      if (paraElement) {
+                        console.log('[MEMBERS-NAV] Element gefunden, scrolle...');
+                        const mainContainer = openerWindow.document.getElementById('main');
+                        if (mainContainer) {
+                          const header = openerWindow.document.getElementById('viewer-header');
+                          const headerHeight = header ? header.offsetHeight + 5 : 5;
+                          const mainRect = mainContainer.getBoundingClientRect();
+                          const paraRect = paraElement.getBoundingClientRect();
+                          const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+                          mainContainer.scrollTop = Math.max(0, relativeTop);
+                          console.log('[MEMBERS-NAV] Gescrollt zu Position:', relativeTop);
+                        } else {
+                          console.log('[MEMBERS-NAV] main-Container nicht gefunden, verwende scrollIntoView');
+                          paraElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                      } else {
+                        console.warn('[MEMBERS-NAV] Absatz-Element nicht gefunden: para-' + cleanIndex);
+                        // Versuche nochmal nach kurzer Verzögerung
+                        setTimeout(() => {
+                          const retryElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                          if (retryElement) {
+                            console.log('[MEMBERS-NAV] Element bei Retry gefunden');
+                            retryElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          } else {
+                            console.error('[MEMBERS-NAV] Element auch bei Retry nicht gefunden');
+                          }
+                        }, 500);
+                      }
+                    }
+                  }, 1000); // Mehr Zeit für das Laden geben
+                }
+              }).catch(err => {
+                console.error('[MEMBERS-NAV] Fehler in showLecture Promise:', err);
+              });
+            } else if (paragraphId) {
+              // Falls showLecture kein Promise zurückgibt, warte trotzdem und scrolle
+              setTimeout(() => {
+                if (typeof openerWindow.scrollToIndexInViewer === 'function') {
+                  openerWindow.scrollToIndexInViewer(paragraphId);
+                }
+              }, 1500);
+            }
+          } catch (err) {
+            console.error('[MEMBERS-NAV] Fehler beim Aufruf von showLecture:', err);
+            console.error('[MEMBERS-NAV] Stack:', err.stack);
             // Fallback: URL-basierte Navigation
-            openerWindow.location.href = `app.html?ga=${gaNumber}&index=${paragraphId}`;
+            console.log('[MEMBERS-NAV] Fallback zu URL-Navigation');
+            if (paragraphId) {
+              openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
+            } else {
+              openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
+            }
           }
         } else {
-          if (typeof openerWindow.showLecture === 'function') {
-            openerWindow.showLecture(gaNumber, null, []);
+          // Fallback: URL-basierte Navigation
+          console.log('[MEMBERS-NAV] showLecture nicht verfügbar, verwende URL-basierte Navigation');
+          if (paragraphId) {
+            openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
           } else {
-            openerWindow.location.href = `app.html?ga=${gaNumber}`;
+            openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
           }
         }
-        
-        // Optional: Schließe das Mitgliederbereichs-Fenster
-        // window.close();
       } else {
         // Normale Navigation (falls direkt geöffnet)
+        console.log('[MEMBERS-NAV] Normale Navigation (kein opener oder opener geschlossen)');
         if (paragraphId) {
-          window.location.href = `app.html?ga=${gaNumber}&index=${paragraphId}`;
+          window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
         } else {
-          window.location.href = `app.html?ga=${gaNumber}`;
+          window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
         }
       }
+      console.log('[MEMBERS-NAV] ========== ENDE ==========');
+    }
+    window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
+
+    // Alte Funktion für Rückwärtskompatibilität
+    function navigateToLecture(gaNumber, paragraphId) {
+      navigateToLectureFromMembersPanel(gaNumber, paragraphId);
     }
     window.navigateToLecture = navigateToLecture;
 
@@ -976,7 +1286,7 @@
                data-id="${item.id}" 
                data-index="${index}">
             <div class="item-header">
-              <a href="#" class="item-ga" onclick="navigateToLecture('${gaNumber}', '${item.paragraph_id || ''}'); return false;">
+              <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
                 ${gaNumber}
               </a>
               <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
@@ -990,6 +1300,8 @@
           </div>
         `;
       }).join('');
+      
+      // Event-Delegation funktioniert auch für gefilterte Items (keine zusätzlichen Listener nötig)
     }
 
     // ===== Multi-Delete =====
@@ -1052,3 +1364,4 @@
   </script>
 </body>
 </html>
+

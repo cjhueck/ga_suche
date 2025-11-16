@@ -16935,6 +16935,31 @@ function scrollToParagraphFromURL() {
 // Beim Laden ausführen
 window.addEventListener('load', scrollToParagraphFromURL);
 
+// Verarbeite URL-Parameter beim Laden (?ga= und ?index=)
+window.addEventListener('load', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const gaParam = urlParams.get('ga');
+  const indexParam = urlParams.get('index');
+  
+  if (gaParam) {
+    console.log('[URL-PARAMS] GA-Parameter gefunden:', gaParam, 'Index:', indexParam);
+    // Wechsle zum Texte-Tab falls nötig
+    const texteTab = document.getElementById('texte-tab');
+    if (texteTab && !texteTab.classList.contains('active')) {
+      if (typeof switchTab === 'function') {
+        switchTab('texte');
+      }
+    }
+    
+    // Warte kurz, dann öffne den Vortrag
+    setTimeout(() => {
+      if (typeof showLecture === 'function') {
+        showLecture(gaParam, indexParam || null, []);
+      }
+    }, 300);
+  }
+});
+
 // Bei DOMContentLoaded (früher als load)
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
