@@ -698,3 +698,26 @@ body.dark-mode .chat-input button:hover {
   background: #5a8fa0;
 }
 
+/* Highlight für Einträge im Mitgliederbereich beim Klick auf Absatz-Icon */
+.member-item-highlighted {
+  position: relative;
+}
+
+.member-item-highlighted::before {
+  content: '';
+  position: absolute;
+  top: -0.25rem;
+  left: -0.5rem;
+  right: -0.5rem;
+  bottom: -0.25rem;
+  background-color: rgba(70, 120, 134, 0.2);
+  border-radius: 6px;
+  z-index: -1;
+  pointer-events: none;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .member-item-highlighted::before {
+  background-color: rgba(107, 179, 237, 0.2);
+}
+
