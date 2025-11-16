@@ -284,7 +284,7 @@ async function showMembersContent() {
     <div class="members-panel">
       <div class="members-header-container">
         <div class="members-header">
-          <h2>Mitgliederbereich</h2>
+          <h2><a href="members.html" target="_blank" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
         
