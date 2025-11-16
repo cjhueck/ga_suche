@@ -284,6 +284,11 @@
   color: var(--text-color);
   line-height: 1.4;
   margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .member-item-quote {
@@ -292,6 +297,11 @@
   color: var(--text-color);
   line-height: 1.4;
   margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .member-item-note {
