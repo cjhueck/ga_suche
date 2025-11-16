@@ -1,12 +1,14 @@
 **Die GA-Suche ermöglicht inhaltliche Orientierung in der Rudolf Steiner Gesamtausgabe mit vier Hauptfunktionen**
 
 - **GA** - Auswahl einzelner GA-Bände, Anzeige der darin enthaltenen Vorträge mit Kurzusammenfassungen, sowie eine chronologische Liste der Vorträge Rudolf Steiners
-- **Suche**: Stichwortsuche in Texten und Vorträgen (mit Bewertung der Relevanz gefundener Stellen) 
+- **Suche**: Stichwortsuche in Texten und Vorträgen (mit Bewertung der Relevanz gefundener Stellen)
 - **Suche erweitert**: bis zu sieben Stichworte gleichzeitig suchen; Anzeige der Häufigkeit der Suchworte in GA-Bänden und Vorträgen
 - **Texte**: Übersicht über die Texte und Vorträge aus den aufgelisteten GA-Bänden, mit Zusammenfassungen, Schlagwörtern und Zwischenüberschriften
-- **Themen**: Thematische Suche (KI-gestützt)
+- **Themen**: Thematische Suche (KI-gestützt) 
 - **Timeline**: Zeitlicher Verlauf einzelner Such- und Schlagwörter in der GA
 - **Index**: Liste wichtiger Begriffe
+
+- **Mitgliederbereich**: Nach Anmeldung Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren
 
 Suche, Themen, Timeline und Schlagwörter sind mit den entsprechenden Quellen verlinkt.
 Die Fenster können über die **drei blauen Punkte** geöffnet und geschlossen werden.
@@ -20,6 +22,7 @@ Das rechte Seitenfenster zeigt Zwischenüberschriften zu den angezeigten Vorträ
 - Auch Teilwörter werden gefunden
 - Für exakte Ergebnisse Suchwort oder -Phrase in Anführungszeichen setzen 
 - Bei Eingabe von zwei Suchwörtern werden Textstellen gefunden, bei denen beide Wörter innerhalb von max. 2 Absätzen vorkommen
+- "Suche erweitert" findet parallel bis zu 7 Suchwörter und zeigt die Häufigkeit der Suchwörter pro Vortrag und GA-Band
 
 **Relevanz-Filter**
 
@@ -71,7 +74,7 @@ Themenspezifische Darstellung.
 
 #### Tab "Index"
 
-- Wachsende Liste wichtiger Schlagwörter, mit KI-Unterstützung erstellt
+- Liste wichtiger Schlagwörter, Erläuterungen mit KI-Unterstützung erstellt
 
 ---
 
