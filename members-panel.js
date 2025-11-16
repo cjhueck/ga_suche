@@ -258,6 +258,13 @@ function showMembersLoginPanel() {
       </div>
     </div>
   `;
+  
+  // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC)
+  setTimeout(() => {
+    if (typeof updateHeaderPosition === 'function') {
+      updateHeaderPosition();
+    }
+  }, 100);
 }
 
 /**
@@ -343,6 +350,12 @@ async function showMembersContent() {
       summaryContent.style.opacity = '1';
       summaryContent.style.visibility = 'visible';
     }
+    
+    // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC)
+    if (typeof updateHeaderPosition === 'function') {
+      updateHeaderPosition();
+    }
+    
     console.log('[MB-OPEN] Panel und Content-Sichtbarkeit nachkorrigiert');
   }, 100);
 }

@@ -1274,7 +1274,7 @@ body.dark-mode .ga-missing-text {
     #summary-content {
       flex: 1;
       overflow-y: auto;
-      padding: 0.3rem 1rem 1.5rem 1.2rem;
+      padding: 0rem 1rem 1.5rem 1.2rem;
       line-height: 1;
       font-size: 0.95em;
       display: none;
@@ -1985,20 +1985,23 @@ body.dark-mode #thematicSearchInfo {
       gap: 6px;
       margin-left: auto;
       flex-shrink: 0;
-      align-items: stretch;
+      align-items: flex-start; /* Alle Buttons oben ausrichten */
+      padding-right: 30px; /* Platz für MB-Button rechts */
       position: relative; /* Für absolute Positionierung des MB-Buttons */
-      padding-right: 40px; /* Platz für MB-Button rechts */
+      min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* Mitglieder-Button: IMMER ganz oben rechts, aus dem Grid-Flow */
+    /* Mitglieder-Button: IMMER ganz oben rechts, FEST am Viewport */
     #membersPanelBtn {
-      position: absolute !important;
-      top: 0 !important;
-      right: 0 !important;
+      position: fixed !important;
+      top: 1rem !important; /* Gleicher Abstand wie Header padding */
+      right: 1rem !important;
       padding: 4px 8px !important;
       margin: 0 !important;
       width: auto !important;
       min-width: 32px !important;
+      height: auto !important; /* Höhe automatisch durch Padding/Inhalt wie Übersicht-Button */
+      line-height: 1 !important;
       grid-column: unset !important;
       grid-row: unset !important;
       font-size: 0.85em !important;
@@ -2007,10 +2010,12 @@ body.dark-mode #thematicSearchInfo {
       color: var(--accent-color) !important;
       cursor: pointer !important;
       border-radius: 4px !important;
-      transition: all 0.2s !important;
+      transition: background 0.2s, color 0.2s !important; /* Nur background/color animieren, nicht position */
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
+      z-index: 1001 !important; /* Über Header (z-index: 1000) */
+      flex-shrink: 0 !important;
     }
     
     #membersPanelBtn:hover {
@@ -2033,33 +2038,39 @@ body.dark-mode #thematicSearchInfo {
     #viewerSummaryBtn {
       grid-column: 1;
       grid-row: 1;
+      align-self: start;
     }
     
     #viewerOriginalBtn {
       grid-column: 1;
       grid-row: 2;
+      align-self: start;
     }
     
     /* Spalte 2: TOC Toggle (Zeile 1), Structure (Zeile 2) */
     #viewerTOCToggleBtn {
       grid-column: 2;
       grid-row: 1;
+      align-self: start;
     }
     
     #viewerStructureBtn {
       grid-column: 2;
       grid-row: 2;
+      align-self: start;
     }
     
     /* Spalte 3: TOC-KW (Zeile 1), Regenerate (Zeile 2) */
     #viewerTOCKWBtn {
       grid-column: 3;
       grid-row: 1;
+      align-self: start;
     }
     
     #viewerRegenerateBtn {
       grid-column: 3;
       grid-row: 2;
+      align-self: start;
     }
     
     /* ONLINE Version: Nur Übersicht und Original im Grid (MB ist absolut positioniert) */
@@ -2067,13 +2078,14 @@ body.dark-mode #thematicSearchInfo {
       grid-template-columns: 1fr; /* 1 Spalte: volle Breite */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
       padding-right: 40px; /* Platz für MB-Button rechts */
+      min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* MB Button in Online-Version: Bleibt absolut positioniert */
+    /* MB Button in Online-Version: Bleibt fixed am Viewport */
     body.online-mode #membersPanelBtn {
-      position: absolute !important;
-      top: 0 !important;
-      right: 0 !important;
+      position: fixed !important;
+      top: 1rem !important;
+      right: 1rem !important;
     }
     
     /* Übersicht Button: Zeile 1, Spalte 1 (links) */
@@ -2081,6 +2093,7 @@ body.dark-mode #thematicSearchInfo {
       grid-column: 1;
       grid-row: 1;
       width: 100%;
+      align-self: start;
     }
     
     /* Original Button: Zeile 2, Spalte 1 (UNTER Übersicht, GLEICHE Breite) */
@@ -2088,6 +2101,7 @@ body.dark-mode #thematicSearchInfo {
       grid-column: 1;
       grid-row: 2;
       width: 100%;
+      align-self: start;
     }
     
     /* Ensure buttons always stay on the right */
@@ -2106,7 +2120,7 @@ body.dark-mode #thematicSearchInfo {
       padding: 1rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       min-height: 0px;
       width: 100%;
       box-sizing: border-box;
@@ -4375,7 +4389,7 @@ Bestehende Schlagwörter überschreiben
 <div class="resize-handle" id="resizeHandle"></div>
 <div id="main-container">
 <div id="main">
-<div id="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<div id="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <!-- Mitglieder Button -->
