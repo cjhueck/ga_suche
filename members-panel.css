@@ -7,6 +7,14 @@
   flex-direction: column;
   height: 100%;
   padding: 0;
+  overflow: hidden;
+}
+
+/* Container für Header und Tabs - feste Größe, nicht scrollbar */
+.members-header-container {
+  flex-shrink: 0;
+  background: var(--background-color);
+  overflow: visible;
 }
 
 .members-header {
@@ -136,7 +144,9 @@
 .members-content {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 0.75rem;
+  min-height: 0;
 }
 
 /* Login Form */

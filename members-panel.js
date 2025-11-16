@@ -170,6 +170,10 @@ function showMembersLoginPanel() {
   summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
+  // Setze Klasse auf summary-panel und summary-content
+  summaryPanel.classList.add('has-members-panel');
+  summaryContent.classList.add('has-members-panel');
+  
   // Login-Form HTML
   summaryContent.innerHTML = `
     <div class="members-panel">
@@ -269,15 +273,20 @@ async function showMembersContent() {
     console.log('[MB-OPEN] Resize-Handle positioniert bei:', (mbWidth - offset) + 'px');
   }
   
+  // Setze Klasse auf summary-panel und summary-content damit CSS-Regeln greifen (Fallback für :has())
+  summaryPanel.classList.add('has-members-panel');
+  summaryContent.classList.add('has-members-panel');
+  
   // Content HTML
   summaryContent.innerHTML = `
     <div class="members-panel">
-      <div class="members-header">
-        <h2>Mitgliederbereich</h2>
-        <button class="close-btn" onclick="closeMembersPanel()">×</button>
-      </div>
-      
-      <div class="members-tabs">
+      <div class="members-header-container">
+        <div class="members-header">
+          <h2>Mitgliederbereich</h2>
+          <button class="close-btn" onclick="closeMembersPanel()">×</button>
+        </div>
+        
+        <div class="members-tabs">
         <button class="members-tab ${currentMembersTab === 'bookmarks' ? 'active' : ''}" onclick="switchMembersTab('bookmarks')">Bookmarks</button>
         <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
         <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
@@ -288,6 +297,7 @@ async function showMembersContent() {
           </select>
         </div>
         <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+        </div>
       </div>
       
       <div class="members-content" id="members-tab-content">
@@ -500,52 +510,60 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     return originalBuildTOC ? originalBuildTOC.apply(this, arguments) : null;
   };
   
-  // Wechsle zum Texte-Tab
-  if (typeof switchTab === 'function') {
+  // Prüfe ob wir bereits im Texte-Tab sind
+  const texteTab = document.getElementById('texte-tab');
+  const isInTexteTab = texteTab && texteTab.classList.contains('active');
+  
+  // Nur Tab wechseln wenn nötig - ABER OHNE Panel zu schließen
+  if (!isInTexteTab && typeof switchTab === 'function') {
+    // Temporär Flag setzen damit switchTab das Panel nicht schließt
     switchTab('texte');
+    await new Promise(resolve => setTimeout(resolve, 200));
   }
   
-  await new Promise(resolve => setTimeout(resolve, 200));
-  
-  // Setze den GA-Filter
+  // Setze den GA-Filter (nur wenn GA-Band wechselt)
   const texteGAFilter = document.getElementById('texteGAFilter');
   if (texteGAFilter && gaNumber) {
-    texteGAFilter.value = gaNumber;
-    
-    // Lade Vortrag
-    if (typeof showLecture === 'function') {
-      await showLecture(lectureId, targetIndex, []);
+    const currentGA = texteGAFilter.value;
+    if (currentGA !== gaNumber) {
+      texteGAFilter.value = gaNumber;
+      console.log(`[MB-NAVIGATION] GA-Filter geändert von ${currentGA} zu ${gaNumber}`);
     }
-    
-    // SOFORT DANACH: Stelle Members Content wieder her (showLecture hat es überschrieben!)
-    if (savedContentNode && summaryContent) {
-      const newNode = savedContentNode.cloneNode(true);
-      summaryContent.parentNode.replaceChild(newNode, summaryContent);
-      console.log('[MB-NAVIGATION] Members Content wiederhergestellt');
-    }
-    
-    // Stelle Panel-Eigenschaften sicher
-    if (summaryPanel) {
-      summaryPanel.style.width = mbWidth + 'px';
-      summaryPanel.style.minWidth = mbWidth + 'px';
-      summaryPanel.classList.add('visible');
-      summaryPanel.style.display = 'block';
-    }
-    
-    if (mainContainer) {
-      mainContainer.style.marginRight = mbWidth + 'px';
-    }
-    
-    if (resizeHandle) {
-      resizeHandle.classList.add('visible');
-      resizeHandle.style.display = 'block';
-      resizeHandle.style.right = (mbWidth - 10) + 'px';
-    }
-    
-    // Lade GA-Übersicht
-    if (typeof loadGAOverviewInSidePanelOnly === 'function') {
-      await loadGAOverviewInSidePanelOnly(gaNumber);
-    }
+  }
+  
+  // Lade Vortrag - EINFACH wie showLectureFromOverview()
+  if (typeof showLecture === 'function') {
+    await showLecture(lectureId, targetIndex, []);
+  }
+  
+  // SOFORT DANACH: Stelle Members Content wieder her (showLecture hat es überschrieben!)
+  if (savedContentNode && summaryContent) {
+    const newNode = savedContentNode.cloneNode(true);
+    summaryContent.parentNode.replaceChild(newNode, summaryContent);
+    console.log('[MB-NAVIGATION] Members Content wiederhergestellt');
+  }
+  
+  // Stelle Panel-Eigenschaften sicher
+  if (summaryPanel) {
+    summaryPanel.style.width = mbWidth + 'px';
+    summaryPanel.style.minWidth = mbWidth + 'px';
+    summaryPanel.classList.add('visible');
+    summaryPanel.style.display = 'block';
+  }
+  
+  if (mainContainer) {
+    mainContainer.style.marginRight = mbWidth + 'px';
+  }
+  
+  if (resizeHandle) {
+    resizeHandle.classList.add('visible');
+    resizeHandle.style.display = 'block';
+    resizeHandle.style.right = (mbWidth - 10) + 'px';
+  }
+  
+  // Lade GA-Übersicht im linken Panel (wie beim normalen Vortragswechsel)
+  if (gaNumber && typeof loadGAOverviewInSidePanelOnly === 'function') {
+    await loadGAOverviewInSidePanelOnly(gaNumber);
   }
   
   // Cleanup
@@ -886,7 +904,11 @@ function closeMembersPanel() {
     summaryPanel.style.minWidth = '0';
     
     // Zurück zur Standard-TOC-Ansicht
+    if (summaryPanel) {
+      summaryPanel.classList.remove('has-members-panel');
+    }
     if (summaryContent) {
+      summaryContent.classList.remove('has-members-panel');
       summaryContent.innerHTML = '<div id="toc-list"></div>';
     }
   }

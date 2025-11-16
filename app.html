@@ -1282,6 +1282,21 @@ body.dark-mode .ga-missing-text {
       -ms-overflow-style: auto; /* Internet Explorer 10+ */
     }
     
+    /* Wenn Members Panel aktiv ist, sollte #summary-panel NICHT scrollen (nur .members-content scrollt) */
+    #summary-panel:has(.members-panel),
+    #summary-panel.has-members-panel {
+      overflow-y: hidden !important;
+    }
+    
+    #summary-content:has(.members-panel),
+    #summary-content.has-members-panel {
+      overflow-y: visible !important;
+      padding-top: 0 !important;
+      height: 100%;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
     #summary-content::-webkit-scrollbar {
       width: 8px; /* Chrome, Safari, Edge - Scrollbar-Breite */
     }
@@ -5046,38 +5061,49 @@ function normalizeGANumber(gaNumber) {
       }
       
       // Summary-Panel komplett schließen und verstecken beim Tab-Wechsel
-      const summaryPanel = document.getElementById('summary-panel');
-      const resizeHandle = document.querySelector('.resize-handle');
+      // ABER: NICHT wenn Members Panel aktiv ist oder Members Navigation läuft
+      const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+      const isMembersNavigating = window.membersNavigating === true;
       
-      if (summaryPanel) {
-        // Entferne alle sichtbarkeitsrelevanten Klassen
-        summaryPanel.classList.remove('visible');
+      if (!isMembersPanelOpen && !isMembersNavigating) {
+        const summaryPanel = document.getElementById('summary-panel');
+        const resizeHandle = document.querySelector('.resize-handle');
         
-        // Setze alle Style-Properties explizit zurück
-        summaryPanel.style.setProperty('width', '0', 'important');
-        summaryPanel.style.setProperty('min-width', '0', 'important');
-        summaryPanel.style.setProperty('margin-right', '0', 'important');
-        summaryPanel.style.setProperty('display', 'none', 'important');
-        summaryPanel.style.setProperty('opacity', '0', 'important');
-        summaryPanel.style.setProperty('visibility', 'hidden', 'important');
+        if (summaryPanel) {
+          // Entferne alle sichtbarkeitsrelevanten Klassen
+          summaryPanel.classList.remove('visible');
+          
+          // Setze alle Style-Properties explizit zurück
+          summaryPanel.style.setProperty('width', '0', 'important');
+          summaryPanel.style.setProperty('min-width', '0', 'important');
+          summaryPanel.style.setProperty('margin-right', '0', 'important');
+          summaryPanel.style.setProperty('display', 'none', 'important');
+          summaryPanel.style.setProperty('opacity', '0', 'important');
+          summaryPanel.style.setProperty('visibility', 'hidden', 'important');
+          
+          console.log('[TABS] Summary-Panel geschlossen');
+        }
         
-        console.log('[TABS] Summary-Panel geschlossen');
+        if (resizeHandle) {
+          resizeHandle.classList.remove('visible');
+          resizeHandle.style.setProperty('display', 'none', 'important');
+        }
+        
+        // Verstecke den verticalResizeHandle beim Tab-Wechsel
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          verticalHandle.style.display = 'none';
+          verticalHandle.classList.remove('visible');
+        }
+      } else {
+        console.log('[TABS] Summary-Panel bleibt offen (Members Panel aktiv oder Navigation läuft)');
+        // Body-Klasse NICHT setzen wenn Panel offen bleibt
       }
       
-      if (resizeHandle) {
-        resizeHandle.classList.remove('visible');
-        resizeHandle.style.setProperty('display', 'none', 'important');
+      // Body-Klasse für collapsed State hinzufügen (nur wenn Panel geschlossen wurde)
+      if (!isMembersPanelOpen && !isMembersNavigating) {
+        document.body.classList.add('summary-panel-collapsed');
       }
-      
-      // Verstecke den verticalResizeHandle beim Tab-Wechsel
-      const verticalHandle = document.getElementById('verticalResizeHandle');
-      if (verticalHandle) {
-        verticalHandle.style.display = 'none';
-        verticalHandle.classList.remove('visible');
-      }
-      
-      // Body-Klasse für collapsed State hinzufügen
-      document.body.classList.add('summary-panel-collapsed');
       
       // TOC leeren
       const tocList = document.getElementById('toc-list');
@@ -11481,13 +11507,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             summaryPanel.classList.add('visible');
             
             // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
-            if (!wasAlreadyVisible || currentPanelWidth === 0) {
+            // ABER: Wenn Members Panel aktiv ist, behalte die aktuelle Breite (400px)
+            if ((!wasAlreadyVisible || currentPanelWidth === 0) && !isMembersPanelOpen) {
               // Verwende gespeicherte Breite oder Standard (280px für normale Tabs)
               const panelWidth = savedSummaryPanelWidth || 280;
               summaryPanel.style.width = panelWidth + 'px';
               summaryPanel.style.minWidth = panelWidth + 'px';
             }
-            // Wenn Panel bereits offen war, behalte die aktuelle Breite
+            // Wenn Panel bereits offen war ODER Members Panel aktiv ist, behalte die aktuelle Breite
             
             summaryPanel.style.marginRight = '0px';
             // Entferne !important Properties von switchTab
@@ -11511,6 +11538,9 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
 
           // Buttons und TOC nach dem Anzeigen aktualisieren
           setTimeout(() => {
+            // Buttons IMMER aktualisieren, auch wenn Members Navigation aktiv ist
+            updateButtonStates();
+            
             if (window.membersNavigating) {
               console.log('[SUMMARY-PANEL] Members Navigation aktiv - buildTableOfContents übersprungen');
               return;
@@ -11523,7 +11553,6 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               viewerOriginalBtn.style.display = 'inline-block';
             }
             
-            updateButtonStates();
             buildTableOfContents();
             
             if (targetIndex) {
@@ -11588,13 +11617,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         summaryPanel.classList.add('visible');
         
         // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
-        if (!wasAlreadyVisible || currentPanelWidth === 0) {
+        // ABER: Wenn Members Panel aktiv ist, behalte die aktuelle Breite (400px)
+        if ((!wasAlreadyVisible || currentPanelWidth === 0) && !isMembersPanelOpen) {
           // Verwende gespeicherte Breite oder Standard (280px)
           const panelWidth = savedSummaryPanelWidth || 280;
           summaryPanel.style.width = panelWidth + 'px';
           summaryPanel.style.minWidth = panelWidth + 'px';
         }
-        // Wenn Panel bereits offen war, behalte die aktuelle Breite
+        // Wenn Panel bereits offen war ODER Members Panel aktiv ist, behalte die aktuelle Breite
         
         summaryPanel.style.marginRight = '0px';
         // Entferne !important Properties von switchTab
