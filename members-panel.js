@@ -27,8 +27,8 @@ function saveMembersScrollPosition() {
     membersTabContent: membersTabContent ? membersTabContent.scrollTop : 0
   };
   
-  // WICHTIG: Speichere auch die top-Position des Panels (wird von updateHeaderPosition() geändert)
-  savedPanelTop = summaryPanel ? summaryPanel.style.top : null;
+  // ENTFERNT: top-Position wird NICHT mehr gespeichert - updateHeaderPosition() soll sie frei setzen können
+  savedPanelTop = null;
   
   console.log('[MB-SCROLL] Alle Positionen gespeichert:', savedScrollPositions, 'Panel top:', savedPanelTop);
 }
@@ -41,10 +41,7 @@ function restoreMembersScrollPosition() {
   const summaryContent = document.getElementById('summary-content');
   const membersTabContent = document.getElementById('members-tab-content');
   
-  // WICHTIG: Stelle die top-Position des Panels zuerst wieder her
-  if (summaryPanel && savedPanelTop) {
-    summaryPanel.style.top = savedPanelTop;
-  }
+  // ENTFERNT: top-Position wird NICHT mehr wiederhergestellt - updateHeaderPosition() soll sie dynamisch setzen
   
   if (summaryPanel && savedScrollPositions.summaryPanel > 0) {
     summaryPanel.scrollTop = savedScrollPositions.summaryPanel;
@@ -84,12 +81,7 @@ function startScrollPositionProtection() {
     
     let restored = false;
     
-    // WICHTIG: Prüfe und stelle die top-Position des Panels wieder her
-    if (summaryPanel && savedPanelTop && summaryPanel.style.top !== savedPanelTop) {
-      summaryPanel.style.top = savedPanelTop;
-      restored = true;
-      console.log('[MB-SCROLL] Panel top-Position wiederhergestellt:', savedPanelTop);
-    }
+    // ENTFERNT: top-Position wird NICHT mehr wiederhergestellt - updateHeaderPosition() soll sie dynamisch setzen
     
     if (summaryPanel && savedScrollPositions.summaryPanel > 0) {
       if (Math.abs(summaryPanel.scrollTop - savedScrollPositions.summaryPanel) > 5) {
@@ -130,15 +122,7 @@ function startScrollPositionProtection() {
     const panelObserver = new MutationObserver((mutations) => {
       if (!membersPanelActive || !window.membersNavigating) return;
       
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-          // style-Attribut wurde geändert - stelle top-Position wieder her
-          if (savedPanelTop && summaryPanel.style.top !== savedPanelTop) {
-            summaryPanel.style.top = savedPanelTop;
-            console.log('[MB-SCROLL] Panel top-Position nach style-Änderung wiederhergestellt');
-          }
-        }
-      });
+      // ENTFERNT: top-Position wird NICHT mehr wiederhergestellt - updateHeaderPosition() soll sie dynamisch setzen
     });
     
     panelObserver.observe(summaryPanel, {
@@ -544,10 +528,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
       summaryPanel.style.opacity = '1';
       summaryPanel.style.visibility = 'visible';
       
-      // WICHTIG: Stelle die top-Position wieder her
-      if (savedPanelTop) {
-        summaryPanel.style.top = savedPanelTop;
-      }
+      // ENTFERNT: top-Position wird NICHT mehr wiederhergestellt - updateHeaderPosition() soll sie dynamisch setzen
     }
     
     if (mainContainer) {
