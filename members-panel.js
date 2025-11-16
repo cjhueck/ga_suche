@@ -413,9 +413,25 @@ async function loadBookmarksTab(container) {
       </div>
       ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
       <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
-      ${bookmark.note ? `<div class="member-item-note">📌 ${bookmark.note}</div>` : ''}
+      ${bookmark.note ? `<div class="member-item-note">${bookmark.note}</div>` : ''}
       ${bookmark.tags && bookmark.tags.length > 0 ? `<div class="member-item-tags">${bookmark.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')">🗑️</button>
+      <div class="member-item-actions">
+        <button class="edit-btn" onclick="editMemberBookmark('${bookmark.id}')" title="Bearbeiten">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        </button>
+        <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')" title="Löschen">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+          </svg>
+        </button>
+      </div>
     </div>
   `).join('');
   
@@ -458,9 +474,25 @@ async function loadQuotesTab(container) {
         <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
       </div>
       <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
-      ${quote.personal_note ? `<div class="member-item-note">📌 ${quote.personal_note}</div>` : ''}
+      ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
       ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')">🗑️</button>
+      <div class="member-item-actions">
+        <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        </button>
+        <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')" title="Löschen">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            <line x1="10" y1="11" x2="10" y2="17"></line>
+            <line x1="14" y1="11" x2="14" y2="17"></line>
+          </svg>
+        </button>
+      </div>
     </div>
   `).join('');
   
@@ -778,6 +810,187 @@ async function sendMemberChatMessage() {
 }
 
 /**
+ * Edit Handlers
+ */
+async function editMemberBookmark(id) {
+  try {
+    // Hole Bookmark-Daten
+    const result = await getBookmarks();
+    if (!result.success) {
+      alert('Fehler beim Laden des Bookmarks');
+      return;
+    }
+    
+    const bookmark = result.data.find(b => b.id === id);
+    if (!bookmark) {
+      alert('Bookmark nicht gefunden');
+      return;
+    }
+    
+    // Zeige Bearbeitungs-Dialog
+    const editResult = await showEditDialog('Bookmark', {
+      text: bookmark.paragraph_text,
+      keywords: bookmark.tags ? bookmark.tags.join(', ') : '',
+      note: bookmark.note || ''
+    });
+    
+    if (editResult === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
+    const { keywords, note } = editResult;
+    const tags = keywords
+      .split(',')
+      .map(kw => kw.trim())
+      .filter(kw => kw.length > 0);
+    
+    // Update in Supabase
+    const updateResult = await updateBookmark(id, {
+      tags: tags,
+      note: note || ''
+    });
+    
+    if (updateResult.success) {
+      await loadMembersTab('bookmarks');
+    } else {
+      alert('Fehler beim Speichern: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Bearbeiten:', error);
+    alert('Fehler beim Bearbeiten des Bookmarks');
+  }
+}
+
+async function editMemberQuote(id) {
+  try {
+    // Hole Zitat-Daten
+    const result = await getQuotes();
+    if (!result.success) {
+      alert('Fehler beim Laden des Zitats');
+      return;
+    }
+    
+    const quote = result.data.find(q => q.id === id);
+    if (!quote) {
+      alert('Zitat nicht gefunden');
+      return;
+    }
+    
+    // Zeige Bearbeitungs-Dialog
+    const editResult = await showEditDialog('Zitat', {
+      text: quote.quote_text,
+      keywords: quote.tags ? quote.tags.join(', ') : '',
+      note: quote.personal_note || ''
+    });
+    
+    if (editResult === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
+    const { keywords, note } = editResult;
+    const tags = keywords
+      .split(',')
+      .map(kw => kw.trim())
+      .filter(kw => kw.length > 0);
+    
+    // Update in Supabase
+    const updateResult = await updateQuote(id, {
+      tags: tags,
+      personal_note: note || ''
+    });
+    
+    if (updateResult.success) {
+      await loadMembersTab('quotes');
+    } else {
+      alert('Fehler beim Speichern: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Bearbeiten:', error);
+    alert('Fehler beim Bearbeiten des Zitats');
+  }
+}
+
+/**
+ * Bearbeitungs-Dialog anzeigen
+ */
+function showEditDialog(type, data) {
+  return new Promise((resolve) => {
+    // Erstelle Dialog
+    const dialog = document.createElement('div');
+    dialog.className = 'keyword-dialog-overlay';
+    dialog.innerHTML = `
+      <div class="keyword-dialog">
+        <div class="keyword-dialog-header">
+          <h3>${type} bearbeiten</h3>
+        </div>
+        <div class="keyword-dialog-body">
+          <div class="keyword-preview">"${data.text.substring(0, 100)}${data.text.length > 100 ? '...' : ''}"</div>
+          <label for="edit-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <input type="text" id="edit-keyword-input" value="${(data.keywords || '').replace(/"/g, '&quot;')}" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
+          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <label for="edit-note-input" style="margin-top: 1rem; display: block;">Notiz (optional):</label>
+          <textarea id="edit-note-input" rows="4" placeholder="Persönliche Notiz zu diesem ${type.toLowerCase()}..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;">${(data.note || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+        </div>
+        <div class="keyword-dialog-footer">
+          <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
+          <button class="keyword-dialog-btn keyword-dialog-save">Speichern</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Focus auf Input
+    const input = dialog.querySelector('#edit-keyword-input');
+    setTimeout(() => input.focus(), 100);
+    
+    // Event Handlers
+    const saveBtn = dialog.querySelector('.keyword-dialog-save');
+    const cancelBtn = dialog.querySelector('.keyword-dialog-cancel');
+    const noteInput = dialog.querySelector('#edit-note-input');
+    
+    const handleSave = () => {
+      const keywords = input.value.trim();
+      const note = noteInput.value.trim();
+      dialog.remove();
+      resolve({ keywords, note });
+    };
+    
+    const handleCancel = () => {
+      dialog.remove();
+      resolve(null);
+    };
+    
+    saveBtn.addEventListener('click', handleSave);
+    cancelBtn.addEventListener('click', handleCancel);
+    
+    // Enter zum Speichern (nur wenn nicht in Textarea)
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSave();
+      }
+    });
+    
+    // ESC zum Abbrechen
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    });
+    
+    // Click auf Overlay schließt Dialog
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        handleCancel();
+      }
+    });
+  });
+}
+
+/**
  * Delete Handlers
  */
 async function deleteMemberBookmark(id) {
@@ -1041,6 +1254,8 @@ window.handleMembersLogin = handleMembersLogin;
 window.handleMembersRegister = handleMembersRegister;
 window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
+window.editMemberBookmark = editMemberBookmark;
+window.editMemberQuote = editMemberQuote;
 window.deleteMemberBookmark = deleteMemberBookmark;
 window.deleteMemberQuote = deleteMemberQuote;
 window.deleteMemberNote = deleteMemberNote;

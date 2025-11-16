@@ -231,6 +231,28 @@ export async function deleteQuote(quoteId) {
 }
 
 
+/**
+ * Zitat aktualisieren
+ */
+export async function updateQuote(quoteId, updates) {
+  try {
+    const { data, error } = await supabase
+      .from('quotes')
+      .update(updates)
+      .eq('id', quoteId)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren des Zitats:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
 // ============================================
 // NOTES (Notizen) mit Obsidian-Features
 // ============================================
