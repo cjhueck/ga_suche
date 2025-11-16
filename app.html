@@ -5128,6 +5128,22 @@ function normalizeGANumber(gaNumber) {
       // Verstecke Viewer-Buttons beim Tab-Wechsel
       updateButtonStates();
       
+      // WICHTIG: Bei Tab-Wechsel → MB schließen und TOC anzeigen (falls Panel offen)
+      try {
+        const summaryPanel = document.getElementById('summary-panel');
+        const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+        if (isMembersPanelOpen && summaryPanel && summaryPanel.classList.contains('visible')) {
+          console.log('[TABS] Tab-Wechsel → MB schließen und TOC anzeigen');
+          if (typeof switchFromMembersPanelToTOC === 'function') {
+            switchFromMembersPanelToTOC();
+          } else if (typeof closeMembersPanel === 'function') {
+            closeMembersPanel();
+          }
+        }
+      } catch (error) {
+        console.warn('[TABS] Fehler beim Schließen des MB:', error);
+      }
+      
       // Beim Wechsel ZUM Suche-Tab: Lösche alte Statistik und setze auf Default
       if (mode === 'keyword') {
         const viewToggle = document.getElementById('viewToggle');
@@ -11487,17 +11503,40 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           if (summaryPanel && !window.membersNavigating) {
             console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
             
-            // Prüfe ob Mitglieder-Panel aktiv ist - wenn ja, NICHT zurücksetzen
+            // Prüfe ob Mitglieder-Panel aktiv ist
             const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
             
-            if (!isMembersPanelOpen) {
-              // Setze summary-content zurück auf Standard-Struktur (TOC only) nur wenn MB nicht aktiv
+            // WICHTIG: Bei normalem Vortragswechsel (nicht aus MB) → immer TOC anzeigen
+            try {
+              if (isMembersPanelOpen) {
+                // MB ist aktiv, aber Vortrag kommt NICHT aus MB-Navigation → MB schließen und TOC anzeigen
+                console.log('[SUMMARY-PANEL] MB aktiv, aber Vortrag kommt nicht aus MB → wechsle zu TOC');
+                if (typeof switchFromMembersPanelToTOC === 'function') {
+                  switchFromMembersPanelToTOC();
+                } else {
+                  // Fallback: MB schließen
+                  if (typeof closeMembersPanel === 'function') {
+                    closeMembersPanel();
+                  }
+                  const summaryContent = document.getElementById('summary-content');
+                  if (summaryContent) {
+                    summaryContent.innerHTML = '<div id="toc-list"></div>';
+                  }
+                }
+              } else {
+                // MB nicht aktiv → TOC anzeigen
+                const summaryContent = document.getElementById('summary-content');
+                if (summaryContent) {
+                  summaryContent.innerHTML = '<div id="toc-list"></div>';
+                }
+              }
+            } catch (error) {
+              console.warn('[SUMMARY-PANEL] Fehler beim Wechseln zu TOC:', error);
+              // Fallback: TOC anzeigen
               const summaryContent = document.getElementById('summary-content');
               if (summaryContent) {
                 summaryContent.innerHTML = '<div id="toc-list"></div>';
               }
-            } else {
-              console.log('[SUMMARY-PANEL] Mitglieder-Panel ist aktiv - Inhalt wird NICHT zurückgesetzt');
             }
             
             // Prüfe ob Panel bereits offen ist
@@ -11597,17 +11636,40 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       if (summaryPanel) {
         console.log('[SUMMARY-PANEL] Auto-open triggered');
         
-        // Prüfe ob Mitglieder-Panel aktiv ist - wenn ja, NICHT zurücksetzen
+        // Prüfe ob Mitglieder-Panel aktiv ist
         const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
         
-        if (!isMembersPanelOpen) {
-          // Setze summary-content zurück auf Standard-Struktur (TOC only) nur wenn MB nicht aktiv
+        // WICHTIG: Bei normalem Vortragswechsel (nicht aus MB) → immer TOC anzeigen
+        try {
+          if (isMembersPanelOpen) {
+            // MB ist aktiv, aber Vortrag kommt NICHT aus MB-Navigation → MB schließen und TOC anzeigen
+            console.log('[SUMMARY-PANEL] MB aktiv, aber Vortrag kommt nicht aus MB → wechsle zu TOC');
+            if (typeof switchFromMembersPanelToTOC === 'function') {
+              switchFromMembersPanelToTOC();
+            } else {
+              // Fallback: MB schließen
+              if (typeof closeMembersPanel === 'function') {
+                closeMembersPanel();
+              }
+              const summaryContent = document.getElementById('summary-content');
+              if (summaryContent) {
+                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              }
+            }
+          } else {
+            // MB nicht aktiv → TOC anzeigen
+            const summaryContent = document.getElementById('summary-content');
+            if (summaryContent) {
+              summaryContent.innerHTML = '<div id="toc-list"></div>';
+            }
+          }
+        } catch (error) {
+          console.warn('[SUMMARY-PANEL] Fehler beim Wechseln zu TOC:', error);
+          // Fallback: TOC anzeigen
           const summaryContent = document.getElementById('summary-content');
           if (summaryContent) {
             summaryContent.innerHTML = '<div id="toc-list"></div>';
           }
-        } else {
-          console.log('[SUMMARY-PANEL] Mitglieder-Panel ist aktiv - Inhalt wird NICHT zurückgesetzt');
         }
         
         // Prüfe ob Panel bereits offen ist
