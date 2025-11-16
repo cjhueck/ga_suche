@@ -12,6 +12,8 @@ let savedScrollPositions = {
 }; // Globale Variable für ALLE Scroll-Positionen
 let savedPanelTop = null; // Speichere die top-Position des Panels
 let membersScrollObserver = null; // MutationObserver für Scroll-Position
+let sortOrder = 'desc'; // 'asc' oder 'desc' - Standard: neueste zuerst
+let multiDeleteMode = false; // Multi-Delete-Modus aktiviert?
 
 /**
  * Speichert die aktuelle Scroll-Position ALLER scrollenden Elemente UND die Panel-Position
@@ -297,6 +299,16 @@ async function showMembersContent() {
           </select>
         </div>
         <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+        <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18M7 12h10M11 18h6"></path>
+          </svg>
+        </button>
+        <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+          </svg>
+        </button>
         </div>
       </div>
       
@@ -391,9 +403,16 @@ async function loadBookmarksTab(container) {
     return;
   }
   
+  // Sortiere nach Datum
+  const sortedData = [...result.data].sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+  });
+  
   // Sammle alle Keywords
   const allKeywords = new Set();
-  result.data.forEach(bookmark => {
+  sortedData.forEach(bookmark => {
     if (bookmark.tags && Array.isArray(bookmark.tags)) {
       bookmark.tags.forEach(tag => allKeywords.add(tag));
     }
@@ -402,35 +421,46 @@ async function loadBookmarksTab(container) {
   const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
   updateKeywordFilterDropdown(sortedKeywords);
   
-  const html = result.data.map(bookmark => `
-    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}">
-      <div class="member-item-header">
-        ${bookmark.paragraph_id 
-          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
-          : `<strong>${bookmark.ga_number}</strong>`
-        }
-        <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
-      </div>
-      ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
-      <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
-      ${bookmark.note ? `<div class="member-item-note">${bookmark.note}</div>` : ''}
-      ${bookmark.tags && bookmark.tags.length > 0 ? `<div class="member-item-tags">${bookmark.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      <div class="member-item-actions">
-        <button class="edit-btn" onclick="editMemberBookmark('${bookmark.id}')" title="Bearbeiten">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </button>
-        <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')" title="Löschen">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18"></path>
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-            <line x1="10" y1="11" x2="10" y2="17"></line>
-            <line x1="14" y1="11" x2="14" y2="17"></line>
-          </svg>
-        </button>
+  // Multi-Delete-Button hinzufügen wenn Modus aktiv
+  const multiDeleteHtml = multiDeleteMode ? `
+    <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 0.85rem; color: var(--text-color);">Auswahl-Modus aktiv</span>
+      <button id="multi-delete-btn" onclick="deleteSelectedItems()" disabled style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: #c62828; color: white; border: none; border-radius: 4px; cursor: pointer;">Ausgewählte löschen</button>
+    </div>
+  ` : '';
+  
+  const html = multiDeleteHtml + sortedData.map(bookmark => `
+    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}">
+      ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${bookmark.id}" onchange="updateMultiDeleteButton()">` : ''}
+      <div style="flex: 1;">
+        <div class="member-item-header">
+          ${bookmark.paragraph_id 
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
+            : `<strong>${bookmark.ga_number}</strong>`
+          }
+          <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
+        </div>
+        ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
+        <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
+        ${bookmark.note ? `<div class="member-item-note">${bookmark.note}</div>` : ''}
+        ${bookmark.tags && bookmark.tags.length > 0 ? `<div class="member-item-tags">${bookmark.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+        <div class="member-item-actions">
+          <button class="edit-btn" onclick="editMemberBookmark('${bookmark.id}')" title="Bearbeiten">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')" title="Löschen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   `).join('');
@@ -453,9 +483,16 @@ async function loadQuotesTab(container) {
     return;
   }
   
+  // Sortiere nach Datum
+  const sortedData = [...result.data].sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+  });
+  
   // Sammle alle Keywords
   const allKeywords = new Set();
-  result.data.forEach(quote => {
+  sortedData.forEach(quote => {
     if (quote.tags && Array.isArray(quote.tags)) {
       quote.tags.forEach(tag => allKeywords.add(tag));
     }
@@ -464,34 +501,45 @@ async function loadQuotesTab(container) {
   const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
   updateKeywordFilterDropdown(sortedKeywords);
   
-  const html = result.data.map(quote => `
-    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}">
-      <div class="member-item-header">
-        ${quote.paragraph_id 
-          ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
-          : `<strong>${quote.ga_reference}</strong>`
-        }
-        <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
-      </div>
-      <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
-      ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
-      ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      <div class="member-item-actions">
-        <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-          </svg>
-        </button>
-        <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')" title="Löschen">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18"></path>
-            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-            <line x1="10" y1="11" x2="10" y2="17"></line>
-            <line x1="14" y1="11" x2="14" y2="17"></line>
-          </svg>
-        </button>
+  // Multi-Delete-Button hinzufügen wenn Modus aktiv
+  const multiDeleteHtml = multiDeleteMode ? `
+    <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 0.85rem; color: var(--text-color);">Auswahl-Modus aktiv</span>
+      <button id="multi-delete-btn" onclick="deleteSelectedItems()" disabled style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: #c62828; color: white; border: none; border-radius: 4px; cursor: pointer;">Ausgewählte löschen</button>
+    </div>
+  ` : '';
+  
+  const html = multiDeleteHtml + sortedData.map(quote => `
+    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}">
+      ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${quote.id}" onchange="updateMultiDeleteButton()">` : ''}
+      <div style="flex: 1;">
+        <div class="member-item-header">
+          ${quote.paragraph_id 
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
+            : `<strong>${quote.ga_reference}</strong>`
+          }
+          <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
+        </div>
+        <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+        ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
+        ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+        <div class="member-item-actions">
+          <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')" title="Löschen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   `).join('');
@@ -1021,6 +1069,86 @@ async function deleteMemberNote(id) {
 }
 
 /**
+ * Sortier-Reihenfolge umschalten
+ */
+function toggleSortOrder() {
+  sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+  // Aktuellen Tab neu laden
+  if (currentMembersTab === 'bookmarks') {
+    loadMembersTab('bookmarks');
+  } else if (currentMembersTab === 'quotes') {
+    loadMembersTab('quotes');
+  }
+}
+
+/**
+ * Multi-Delete-Modus umschalten
+ */
+function toggleMultiDeleteMode() {
+  multiDeleteMode = !multiDeleteMode;
+  // Aktuellen Tab neu laden
+  if (currentMembersTab === 'bookmarks') {
+    loadMembersTab('bookmarks');
+  } else if (currentMembersTab === 'quotes') {
+    loadMembersTab('quotes');
+  }
+  
+  // Update Button-Status
+  setTimeout(() => updateMultiDeleteButton(), 100);
+}
+
+/**
+ * Multi-Delete-Button Status aktualisieren
+ */
+function updateMultiDeleteButton() {
+  const checkboxes = document.querySelectorAll('.member-item-checkbox:checked');
+  const deleteBtn = document.getElementById('multi-delete-btn');
+  
+  if (deleteBtn) {
+    if (checkboxes.length > 0) {
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = `${checkboxes.length} löschen`;
+    } else {
+      deleteBtn.disabled = true;
+      deleteBtn.textContent = 'Ausgewählte löschen';
+    }
+  }
+}
+
+/**
+ * Ausgewählte Items löschen
+ */
+async function deleteSelectedItems() {
+  const checkboxes = document.querySelectorAll('.member-item-checkbox:checked');
+  if (checkboxes.length === 0) return;
+  
+  if (!confirm(`Wirklich ${checkboxes.length} ${currentMembersTab === 'bookmarks' ? 'Bookmark(s)' : 'Zitat(e)'} löschen?`)) {
+    return;
+  }
+  
+  const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+  
+  try {
+    if (currentMembersTab === 'bookmarks') {
+      for (const id of ids) {
+        await deleteBookmark(id);
+      }
+    } else if (currentMembersTab === 'quotes') {
+      for (const id of ids) {
+        await deleteQuote(id);
+      }
+    }
+    
+    // Multi-Delete-Modus beenden und Tab neu laden
+    multiDeleteMode = false;
+    await loadMembersTab(currentMembersTab);
+  } catch (error) {
+    console.error('Fehler beim Löschen:', error);
+    alert('Fehler beim Löschen einiger Items');
+  }
+}
+
+/**
  * Login/Register Handlers
  */
 async function handleMembersLogin() {
@@ -1259,6 +1387,10 @@ window.editMemberQuote = editMemberQuote;
 window.deleteMemberBookmark = deleteMemberBookmark;
 window.deleteMemberQuote = deleteMemberQuote;
 window.deleteMemberNote = deleteMemberNote;
+window.toggleSortOrder = toggleSortOrder;
+window.toggleMultiDeleteMode = toggleMultiDeleteMode;
+window.updateMultiDeleteButton = updateMultiDeleteButton;
+window.deleteSelectedItems = deleteSelectedItems;
 window.saveMemberNote = saveMemberNote;
 window.generateMemberGraph = generateMemberGraph;
 window.sendMemberChatMessage = sendMemberChatMessage;

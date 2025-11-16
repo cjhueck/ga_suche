@@ -74,6 +74,23 @@
   cursor: pointer;
   transition: all 0.2s;
   border-radius: 4px;
+  text-align: center;
+}
+
+.members-action-btn {
+  flex: 0 0 auto;
+  min-width: auto;
+  width: auto;
+  padding: 0.4rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.members-action-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
 }
 
 .members-tab:hover {
@@ -253,6 +270,21 @@
   margin-bottom: 0.75rem;
   position: relative;
   border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.member-item > *:not(.member-item-checkbox) {
+  flex: 1;
+}
+
+.member-item-checkbox {
+  margin-top: 0.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .member-item-header {
