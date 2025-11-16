@@ -194,12 +194,14 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       throw new Error('Supabase Client nicht initialisiert');
     }
     
-    // Zeige Keyword-Eingabe-Dialog
-    const keywords = await showKeywordDialog('Bookmark', text);
-    if (keywords === null) {
+    // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+    const result = await showKeywordDialog('Bookmark', text);
+    if (result === null) {
       // Benutzer hat abgebrochen
       return;
     }
+    
+    const { keywords, note } = result;
     
     const insertData = {
       user_id: currentUser.id,
@@ -207,7 +209,7 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       lecture_title: lectureTitle,
       paragraph_id: paragraphIndex,
       paragraph_text: text,
-      note: '',
+      note: note || '',
       tags: keywords
     };
     
@@ -246,12 +248,14 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error('Supabase Client nicht initialisiert');
     }
     
-    // Zeige Keyword-Eingabe-Dialog
-    const keywords = await showKeywordDialog('Zitat', text);
-    if (keywords === null) {
+    // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+    const result = await showKeywordDialog('Zitat', text);
+    if (result === null) {
       // Benutzer hat abgebrochen
       return;
     }
+    
+    const { keywords, note } = result;
     
     const insertData = {
       user_id: currentUser.id,
@@ -261,7 +265,7 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       paragraph_id: paragraphIndex,
       context_before: contextBefore,
       context_after: contextAfter,
-      personal_note: '',
+      personal_note: note || '',
       tags: keywords,
       is_public: false
     };
@@ -433,7 +437,7 @@ function highlightContextSelection(color) {
 }
 
 /**
- * Keyword-Eingabe-Dialog anzeigen
+ * Keyword-Eingabe-Dialog anzeigen (mit Notizen-Feld)
  */
 function showKeywordDialog(type, text) {
   return new Promise((resolve) => {
@@ -450,6 +454,8 @@ function showKeywordDialog(type, text) {
           <label for="keyword-input">Keywords (optional, durch Komma getrennt):</label>
           <input type="text" id="keyword-input" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
           <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <label for="note-input" style="margin-top: 1rem; display: block;">Notiz (optional):</label>
+          <textarea id="note-input" rows="4" placeholder="Persönliche Notiz zu diesem ${type.toLowerCase()}..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;"></textarea>
         </div>
         <div class="keyword-dialog-footer">
           <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
@@ -467,14 +473,16 @@ function showKeywordDialog(type, text) {
     // Event Handlers
     const saveBtn = dialog.querySelector('.keyword-dialog-save');
     const cancelBtn = dialog.querySelector('.keyword-dialog-cancel');
+    const noteInput = dialog.querySelector('#note-input');
     
     const handleSave = () => {
       const keywords = input.value
         .split(',')
         .map(kw => kw.trim())
         .filter(kw => kw.length > 0);
+      const note = noteInput.value.trim();
       dialog.remove();
-      resolve(keywords);
+      resolve({ keywords, note });
     };
     
     const handleCancel = () => {
@@ -485,9 +493,10 @@ function showKeywordDialog(type, text) {
     saveBtn.addEventListener('click', handleSave);
     cancelBtn.addEventListener('click', handleCancel);
     
-    // Enter zum Speichern
+    // Enter zum Speichern (nur wenn nicht in Textarea)
     input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
         handleSave();
       }
     });
@@ -768,14 +777,35 @@ function addContextMenuStyles() {
       color: var(--dark-text-color);
     }
     
-    body.dark-mode .keyword-dialog-body input {
+    body.dark-mode .keyword-dialog-body input,
+    body.dark-mode .keyword-dialog-body textarea {
       background: var(--dark-background-color);
       color: var(--dark-text-color);
       border-color: var(--dark-border-color);
     }
     
-    body.dark-mode .keyword-dialog-body input:focus {
+    body.dark-mode .keyword-dialog-body input:focus,
+    body.dark-mode .keyword-dialog-body textarea:focus {
       border-color: var(--dark-accent-color);
+      outline: none;
+    }
+    
+    .keyword-dialog-body textarea {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      background: var(--background-color);
+      color: var(--text-color);
+      box-sizing: border-box;
+      resize: vertical;
+    }
+    
+    .keyword-dialog-body textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
     }
     
     body.dark-mode .keyword-preview {
