@@ -201,6 +201,14 @@
   padding: 1rem;
 }
 
+.login-description {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }

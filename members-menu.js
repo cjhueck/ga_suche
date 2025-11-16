@@ -64,6 +64,7 @@ function createMemberMenu() {
         <button class="login-close" onclick="closeLoginModal()">×</button>
         
         <h2 id="modal-title">Mitglieder Login</h2>
+        <p class="login-description">Nach Anmeldung können Sie Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren, sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
         
         <div id="login-message"></div>
         
@@ -616,10 +617,18 @@ function addMenuStyles() {
     
     #login-modal h2 {
       color: #467886;
-      margin: 0 0 2rem 0;
+      margin: 0 0 1rem 0;
       text-align: center;
       font-size: 1.5rem;
       font-weight: normal;
+    }
+    
+    #login-modal .login-description {
+      color: #666;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
     
     #login-modal .form-group {
@@ -755,6 +764,10 @@ function addMenuStyles() {
       
       #login-modal .auth-switch a {
         color: #6BA3B8;
+      }
+      
+      #login-modal .login-description {
+        color: #999;
       }
     }
     

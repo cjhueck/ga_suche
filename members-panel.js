@@ -198,6 +198,7 @@ function showMembersLoginPanel() {
       </div>
       
       <div class="members-login-form">
+        <p class="login-description">Nach Anmeldung können Sie Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
         <div id="login-message"></div>
         
         <div id="login-form-content">
