@@ -1149,6 +1149,158 @@ async function deleteSelectedItems() {
 }
 
 /**
+ * Markiere Absätze im Viewer, die bereits Bookmarks oder Zitate haben
+ */
+async function markParagraphsWithBookmarksAndQuotes(lectureId) {
+  try {
+    // Prüfe ob User angemeldet ist
+    if (typeof currentUser === 'undefined' || !currentUser) {
+      return; // Nicht angemeldet - keine Markierungen
+    }
+    
+    // Lade alle Bookmarks und Zitate für diesen Vortrag
+    const [bookmarksResult, quotesResult] = await Promise.all([
+      getBookmarks(),
+      getQuotes()
+    ]);
+    
+    if (!bookmarksResult.success && !quotesResult.success) {
+      return; // Fehler beim Laden
+    }
+    
+    // Sammle alle paragraph_ids für diesen Vortrag
+    const paragraphIds = new Set();
+    
+    if (bookmarksResult.success && bookmarksResult.data) {
+      bookmarksResult.data
+        .filter(b => b.ga_number === lectureId && b.paragraph_id)
+        .forEach(b => paragraphIds.add(b.paragraph_id));
+    }
+    
+    if (quotesResult.success && quotesResult.data) {
+      quotesResult.data
+        .filter(q => q.ga_reference === lectureId && q.paragraph_id)
+        .forEach(q => paragraphIds.add(q.paragraph_id));
+    }
+    
+    // Markiere alle Absätze im Viewer
+    paragraphIds.forEach(paraId => {
+      const paraElement = document.getElementById(`para-${paraId}`);
+      if (paraElement && !paraElement.querySelector('.bookmark-quote-indicator')) {
+        // Prüfe ob Bookmark oder Zitat (oder beides)
+        const hasBookmark = bookmarksResult.success && bookmarksResult.data.some(b => 
+          b.ga_number === lectureId && b.paragraph_id === paraId
+        );
+        const hasQuote = quotesResult.success && quotesResult.data.some(q => 
+          q.ga_reference === lectureId && q.paragraph_id === paraId
+        );
+        
+        // Erstelle Markierung
+        const indicator = document.createElement('span');
+        indicator.className = 'bookmark-quote-indicator';
+        indicator.title = `${hasBookmark ? 'Bookmark' : ''}${hasBookmark && hasQuote ? ' & ' : ''}${hasQuote ? 'Zitat' : ''} vorhanden - Klick zum Öffnen`;
+        indicator.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        `;
+        indicator.onclick = (e) => {
+          e.stopPropagation();
+          jumpToBookmarkOrQuote(lectureId, paraId, hasBookmark, hasQuote);
+        };
+        
+        // Füge am Anfang des Absatzes hinzu
+        paraElement.style.position = 'relative';
+        paraElement.insertBefore(indicator, paraElement.firstChild);
+      }
+    });
+  } catch (error) {
+    console.error('Fehler beim Markieren der Absätze:', error);
+  }
+}
+
+/**
+ * Springe zum Bookmark oder Zitat im MB
+ */
+async function jumpToBookmarkOrQuote(lectureId, paragraphId, hasBookmark, hasQuote) {
+  try {
+    // Öffne MB falls nicht offen
+    if (!membersPanelActive) {
+      if (typeof openMembersPanel === 'function') {
+        await openMembersPanel();
+      }
+    }
+    
+    // Entscheide welcher Tab: Bookmark hat Priorität
+    const targetTab = hasBookmark ? 'bookmarks' : 'quotes';
+    
+    // Wechsle zum entsprechenden Tab
+    if (typeof switchMembersTab === 'function') {
+      await switchMembersTab(targetTab);
+    }
+    
+    // Warte kurz, dann scrolle zum Item
+    setTimeout(async () => {
+      // Lade Bookmarks/Zitate erneut, um die IDs zu bekommen
+      let targetItemId = null;
+      
+      if (hasBookmark) {
+        const bookmarksResult = await getBookmarks();
+        if (bookmarksResult.success && bookmarksResult.data) {
+          const bookmark = bookmarksResult.data.find(b => 
+            b.ga_number === lectureId && b.paragraph_id === paragraphId
+          );
+          if (bookmark) targetItemId = bookmark.id;
+        }
+      }
+      
+      if (!targetItemId && hasQuote) {
+        const quotesResult = await getQuotes();
+        if (quotesResult.success && quotesResult.data) {
+          const quote = quotesResult.data.find(q => 
+            q.ga_reference === lectureId && q.paragraph_id === paragraphId
+          );
+          if (quote) targetItemId = quote.id;
+        }
+      }
+      
+      if (targetItemId) {
+        const targetItem = document.querySelector(`.member-item[data-id="${targetItemId}"]`);
+        if (targetItem) {
+          // Scrolle so, dass das Item ganz oben im sichtbaren Bereich erscheint
+          const membersContent = document.querySelector('.members-content');
+          if (membersContent) {
+            // Berechne Position relativ zum scrollbaren Container
+            // Verwende getBoundingClientRect() für absolute Positionen
+            const containerRect = membersContent.getBoundingClientRect();
+            const itemRect = targetItem.getBoundingClientRect();
+            
+            // Berechne die relative Position: Item-Position minus Container-Position plus aktueller Scroll
+            const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+            
+            // Scrolle so, dass das Item oben erscheint (mit etwas Abstand)
+            membersContent.scrollTo({
+              top: relativeTop - 20, // 20px Abstand oben
+              behavior: 'smooth'
+            });
+          } else {
+            // Fallback: scrollIntoView mit 'start'
+            targetItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+          // Highlighte kurz
+          targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+          setTimeout(() => {
+            targetItem.style.backgroundColor = '';
+          }, 2000);
+        }
+      }
+    }, 500);
+  } catch (error) {
+    console.error('Fehler beim Springen zum Bookmark/Zitat:', error);
+  }
+}
+
+/**
  * Login/Register Handlers
  */
 async function handleMembersLogin() {
@@ -1398,4 +1550,6 @@ window.handleKeywordFilter = handleKeywordFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
 window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;
+window.markParagraphsWithBookmarksAndQuotes = markParagraphsWithBookmarksAndQuotes;
+window.jumpToBookmarkOrQuote = jumpToBookmarkOrQuote;
 

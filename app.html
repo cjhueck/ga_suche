@@ -234,6 +234,11 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       box-shadow: 0 0 0 0.4rem rgba(70, 120, 134, 0.35);
     }
     
+    /* Paragraph mit Bookmark/Quote Indicator */
+    #viewer .paragraph {
+      position: relative;
+    }
+    
     /* Absatz-Auswahl für Keyword-Zuordnung (nur lokal, Strg+Klick) */
     .paragraph.selected-for-keyword {
       background: rgba(70, 120, 134, 0.15);
@@ -11131,6 +11136,11 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   // Activate TOC links after rendering
   activateTOCLinks();
   
+  // Markiere Absätze mit Bookmarks/Zitaten
+  if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+    setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+  }
+  
   // Scrolle zum markierten Absatz in der Summary oder nach oben
   if (lastHighlightedIndex) {
     setTimeout(() => {
@@ -13512,6 +13522,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
       html += `</div>`;
       viewer.innerHTML = html;
+      
+      // Markiere Absätze mit Bookmarks/Zitaten
+      if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+        setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+      }
       
       // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
       console.log('[IMAGES-DEBUG] lecture:', lecture);
