@@ -39,7 +39,7 @@ export async function signUp(email, password, displayName) {
 
     return {
       success: true,
-      message: 'Registrierung erfolgreich! Bitte prüfen Sie Ihre E-Mails zur Bestätigung.',
+      message: 'Registrierung erfolgreich! Bitte bestätigen Sie Ihre E-Mail.\n\nBitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.',
       data: data
     };
   } catch (error) {

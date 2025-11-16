@@ -267,7 +267,7 @@ async function handleRegister() {
     
     if (error) throw error;
     
-    messageDiv.innerHTML = '<span class="success">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.</span>';
+    messageDiv.innerHTML = '<span class="success">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</span>';
     
     // Nach 5 Sekunden Form ausblenden
     setTimeout(() => {
