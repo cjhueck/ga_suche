@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GA-Suche - E-Mail Bestätigung (Preview)</title>
+  <style>
+    /* Wrapper für die Vorschau */
+    .preview-wrapper {
+      background-color: #f0f0f0;
+      padding: 2rem;
+      min-height: 100vh;
+    }
+    
+    .preview-note {
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 1rem;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 0.9rem;
+    }
+    
+    /* E-Mail Styles */
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .email-body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background-color: #FAF8F3;
+      color: #333333;
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header {
+      background-color: white;
+      padding: 2rem 2rem 1.5rem 2rem;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .logo {
+      max-width: 240px;
+      height: auto;
+      display: block;
+    }
+    
+    .content {
+      padding: 2rem;
+    }
+    
+    .content h2 {
+      color: #467886;
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin-bottom: 1.5rem;
+      margin-top: 0;
+    }
+    
+    .content p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: #333;
+    }
+    
+    .button-wrapper {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .button {
+      display: inline-block;
+      background-color: #467886;
+      color: white !important;
+      padding: 0.9rem 2.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    
+    .button:hover {
+      background-color: #3a6270;
+    }
+    
+    .link-box {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+      word-break: break-all;
+      font-size: 0.85rem;
+      color: #467886;
+    }
+    
+    .footer {
+      background-color: #f8f8f8;
+      padding: 1.5rem 2rem;
+      border-top: 1px solid #ddd;
+      color: #666;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    
+    .footer p {
+      margin: 0.5rem 0;
+      font-size: 0.85rem;
+    }
+    
+    .divider {
+      height: 1px;
+      background-color: #ddd;
+      margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hinweis für die Vorschau -->
+  <div class="preview-wrapper">
+    <div class="preview-note">
+      <strong>📧 Vorschau:</strong> So wird die Bestätigungs-E-Mail für Supabase aussehen. 
+      Kopiere den HTML-Code unten ins Supabase Dashboard unter <strong>Authentication → Email Templates → Confirm signup</strong>.
+    </div>
+    
+    <!-- E-Mail Content -->
+    <div class="email-body">
+      <div class="container">
+        <!-- Header mit Logo -->
+        <div class="header">
+          <img src="https://rudolf-steiner-online.de/images/Logo.png" alt="Akanthos Akademie Logo" class="logo">
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+          <p>Vielen Dank für Ihre Registrierung im Mitgliederbereich der GA-Suche der Akanthos Akademie.</p>
+          
+          <p>Um Ihren Account zu aktivieren und Zugriff auf Ihre persönlichen Bookmarks, Zitate und Notizen zu erhalten, bestätigen Sie bitte Ihre E-Mail-Adresse:</p>
+          
+          <div class="button-wrapper">
+            <a href="{{ .ConfirmationURL }}" class="button">E-Mail-Adresse bestätigen</a>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <p style="color: #666; font-size: 0.9rem;">Falls der Button nicht funktioniert, kopieren Sie bitte diesen Link in Ihren Browser:</p>
+          
+          <div class="link-box">
+            {{ .ConfirmationURL }}
+          </div>
+          
+          <p style="color: #666; font-size: 0.9rem;">Dieser Link ist 24 Stunden gültig.</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+          <p style="font-size: 0.85rem; color: #999;">
+            Falls Sie sich nicht bei GA-Suche registriert haben, können Sie diese E-Mail ignorieren.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

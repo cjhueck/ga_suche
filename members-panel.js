@@ -1369,7 +1369,7 @@ async function handleMembersRegister() {
     
     if (error) throw error;
     
-    messageDiv.innerHTML = '<div class="success-msg">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.</div>';
+    messageDiv.innerHTML = '<div class="success-msg">✓ Registrierung erfolgreich!<br>Bitte bestätigen Sie Ihre E-Mail.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
     
   } catch (error) {
     messageDiv.innerHTML = `<div class="error-msg">✗ ${error.message}</div>`;

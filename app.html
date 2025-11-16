@@ -3891,19 +3891,17 @@ Chronologisch
 </div>
 <div class="radio-group">
 <div style="display:flex; gap:8px; align-items: flex-start; justify-content: space-between; width: 100%;">
-    <div style="display:flex; flex-direction: column; gap:8px;">
-      <div style="display:flex; gap:8px;">
-        <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 12px;">Suche starten</button>
-        <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 12px;">erweitert</button>
-      </div>
-      <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 12px; width: fit-content;">Häufigkeit</button>
+    <div style="display:flex; gap:8px;">
+      <button class="depth-btn primary" onclick="performKeywordSearch()" style="padding: 6px 8px;">Suche starten</button>
+      <button id="frequencyBtnSimple" class="depth-btn primary" onclick="performSimpleFrequencyAnalysis()" style="padding: 6px 8px;">Häufigkeit</button>
+      <button class="depth-btn" onclick="openAdvancedSearch()" style="padding: 6px 8px;">erweitert</button>
     </div>
-  <div style="display:flex; gap:8px;">
-    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 6px 12px;">
-      <span id="viewToggleText">nur Titel</span>
-    </button>
-    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 12px;">
+  <div style="display:flex; gap:8px; align-items: center;">
+    <button id="showTimelineBtn" class="depth-btn" onclick="showSearchResultsInTimeline()" style="padding: 6px 8px;">
       Timeline
+    </button>
+    <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 4px 6px; min-width: auto;" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
+      <span id="viewToggleText" style="font-size: 1.2em;">▼</span>
     </button>
   </div>
 </div>
@@ -9384,14 +9382,14 @@ function displayGAChronological(lectures) {
       const toggleText = document.getElementById('viewToggleText');
       
       if (currentView === 'text') {
-        // Wechsle zu Titelansicht
+        // Wechsle zu Titelansicht (nur Titel)
         snippets.forEach(snippet => snippet.style.display = 'none');
-        toggleText.textContent = 'Titel & Text';
+        toggleText.textContent = '▲';
         currentView = 'title';
       } else {
-        // Wechsle zu Textansicht
+        // Wechsle zu Textansicht (Titel & Text)
         snippets.forEach(snippet => snippet.style.display = 'block');
-        toggleText.textContent = 'nur Titel';
+        toggleText.textContent = '▼';
         currentView = 'text';
       }
     }
@@ -9439,7 +9437,7 @@ function displayGAChronological(lectures) {
       // Reset auf Textansicht
       currentView = 'text';
       const toggleText = document.getElementById('viewToggleText');
-      if (toggleText) toggleText.textContent = 'nur Titel';
+      if (toggleText) toggleText.textContent = '▼';
       
       // Timeline-Container mit CSS Grid
       const timelineContainer = document.createElement('div');
