@@ -11639,45 +11639,48 @@ function showSummaryView() {
   const headings = summaryObj.headings || [];
   const hasHeadings = headings.length > 0;
   
-  // Nur Zusammenfassung und Trennlinie anzeigen, wenn Überschriften vorhanden sind
-  if (hasHeadings) {
+  // Zusammenfassung IMMER anzeigen (auch wenn keine Überschriften vorhanden sind)
+  if (summaryObj.summary) {
     html += '<div style="margin-bottom: 1rem;">';
     html += '<p><strong>Zusammenfassung</strong></p>';
     html += `<p style="font-style: italic;">${summaryObj.summary}</p>`;
     html += '</div>';
+  }
+  
+  // Zeige lectureKeywords (online und lokal)
+  const lectureKeywords = summaryObj.lectureKeywords || [];
+  if (lectureKeywords.length > 0) {
+    html += '<div class="lecture-keywords-section" style="margin-bottom: 1rem;">';
+    html += '<p style="margin: 0;">';
     
-    // Zeige lectureKeywords (online und lokal)
-    const lectureKeywords = summaryObj.lectureKeywords || [];
-    if (lectureKeywords.length > 0) {
-      html += '<div class="lecture-keywords-section" style="margin-bottom: 1rem;">';
-      html += '<p style="margin: 0;">';
-      
-      // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
-      const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
-      
-      // Entferne Duplikate basierend auf term (case-insensitive)
-      const seenTerms = new Set();
-      const uniqueKeywords = lectureKeywords.filter(kw => {
-        const termLower = kw.term.toLowerCase();
-        if (seenTerms.has(termLower)) {
-          return false;
-        }
-        seenTerms.add(termLower);
-        return true;
-      });
-      
-      // Keywords als Links mit Mittelpunkten formatieren
-      html += uniqueKeywords.map(kw => {
-        const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
-        const escapedGANumber = gaNumber.replace(/'/g, "\\'");
-        const escapedLectureId = lecture.ID.replace(/'/g, "\\'");
-        return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
-      }).join(' &middot; ');
-      
-      html += '</p></div>';
-    }
+    // Extrahiere GA-Nummer aus lecture.ID (z.B. "GA051/01" -> "051")
+    const gaNumber = lecture.ID.split('/')[0].replace('GA', '');
     
-    // Add Table of Contents after keywords - use V2 data from summaryObj if available
+    // Entferne Duplikate basierend auf term (case-insensitive)
+    const seenTerms = new Set();
+    const uniqueKeywords = lectureKeywords.filter(kw => {
+      const termLower = kw.term.toLowerCase();
+      if (seenTerms.has(termLower)) {
+        return false;
+      }
+      seenTerms.add(termLower);
+      return true;
+    });
+    
+    // Keywords als Links mit Mittelpunkten formatieren
+    html += uniqueKeywords.map(kw => {
+      const escapedTerm = kw.term.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/'/g, "\\'");
+      const escapedGANumber = gaNumber.replace(/'/g, "\\'");
+      const escapedLectureId = lecture.ID.replace(/'/g, "\\'");
+      return `<a href="#" onclick="navigateToTimelineKeyword('${escapedTerm}', '${escapedGANumber}', '${escapedLectureId}'); return false;" class="h3-keyword-link">${escapedTerm}</a>`;
+    }).join(' &middot; ');
+    
+    html += '</p></div>';
+  }
+  
+  // Add Table of Contents after keywords - use V2 data from summaryObj if available
+  // Nur anzeigen wenn Headings vorhanden sind
+  if (hasHeadings) {
     const tocHtml = displayLectureTableOfContents(lecture, headings, summaryObj, isLocal);
     
     if (tocHtml) {
@@ -12152,6 +12155,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           };
           
           console.log('[SUMMARY-LOAD] Loaded summary version:', summaryData.version || 'v1');
+          console.log('[SUMMARY-LOAD] Has summary:', !!summaryData.summary);
+          console.log('[SUMMARY-LOAD] Has headings:', (summaryData.headings || []).length);
           if (summaryData.tableOfContents) {
             console.log('[SUMMARY-LOAD] Has tableOfContents:', summaryData.tableOfContents.length);
           }
