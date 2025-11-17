@@ -6783,6 +6783,25 @@ async function displayBook(book, highlightHeadingId = null) {
   
   if (!viewer || !documentTitle) return;
   
+  // Prüfe welcher Tab aktiv ist
+  const gaTab = document.getElementById('ga-tab');
+  const texteTab = document.getElementById('texte-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  const isInTexteTab = texteTab && texteTab.classList.contains('active');
+  
+  // Wenn im Texte-Tab: Lösche die Vortragsliste im linken Side Panel
+  if (isInTexteTab) {
+    const resultsContainer = document.getElementById('results');
+    if (resultsContainer) {
+      // Prüfe ob eine Vortragsliste angezeigt wird (enthält ga-lecture-list)
+      const lectureList = resultsContainer.querySelector('#ga-lecture-list');
+      if (lectureList) {
+        resultsContainer.innerHTML = '';
+        console.log('[BOOK] Vortragsliste im linken Side Panel gelöscht');
+      }
+    }
+  }
+  
   viewer.innerHTML = '';
   
   // Setze Titel
@@ -6834,12 +6853,6 @@ async function displayBook(book, highlightHeadingId = null) {
       content = marked(content);
     }
   }
-  
-  // Prüfe welcher Tab aktiv ist
-  const gaTab = document.getElementById('ga-tab');
-  const texteTab = document.getElementById('texte-tab');
-  const isInGATab = gaTab && gaTab.classList.contains('active');
-  const isInTexteTab = texteTab && texteTab.classList.contains('active');
   
   // Erstelle HTML mit Überschriften-Navigation
   let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
