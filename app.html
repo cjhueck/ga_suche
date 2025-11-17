@@ -3791,6 +3791,8 @@ body.dark-mode #popupCaption {
   margin-left: 0.3em;
 }
 </style>
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
 </head>
 <body>
 <div id="sidebar">
@@ -4792,6 +4794,12 @@ function normalizeGANumber(gaNumber) {
      * Diese Funktion stellt sicher, dass KEIN Gap zwischen Panel und Main-Viewer entsteht
      */
     let lastSyncedWidth = null;
+    
+    // Hilfsfunktion zum Zurücksetzen von lastSyncedWidth (z.B. beim Öffnen eines neuen Panels)
+    function resetPanelSync() {
+      lastSyncedWidth = null;
+    }
+    
     function syncMainContainerWithPanel() {
       const summaryPanel = document.getElementById('summary-panel');
       const mainContainer = document.getElementById('main-container');
@@ -4803,8 +4811,9 @@ function normalizeGANumber(gaNumber) {
         // Hole die AKTUELLE Panel-Breite direkt aus dem DOM
         const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || 280;
         
-        // Nur aktualisieren wenn sich die Breite geändert hat
-        if (currentPanelWidth !== lastSyncedWidth) {
+        // WICHTIG: Nur positionieren wenn Panel-Breite größer als 0 ist (verhindert falsche Positionierung beim ersten Öffnen)
+        // Nur aktualisieren wenn sich die Breite geändert hat UND Panel-Breite korrekt ist
+        if (currentPanelWidth > 0 && currentPanelWidth !== lastSyncedWidth) {
           // Setze Main-Container margin-right EXAKT auf Panel-Breite
           mainContainer.style.marginRight = currentPanelWidth + 'px';
           
@@ -6966,6 +6975,13 @@ async function displayBook(book, highlightHeadingId = null) {
       // Texte-Tab: Öffne Sidebar für TOC-Anzeige
       if (summaryPanel) {
         console.log('[BOOK] Öffne Summary-Panel für TOC (Texte-Tab)...');
+        
+        // WICHTIG: Setze lastSyncedWidth zurück, damit syncMainContainerWithPanel() neu synchronisiert
+        // (sonst könnte eine alte Breite verwendet werden)
+        if (typeof resetPanelSync === 'function') {
+          resetPanelSync();
+        }
+        
         summaryPanel.classList.add('visible');
         summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
         
@@ -6987,8 +7003,6 @@ async function displayBook(book, highlightHeadingId = null) {
         if (verticalResizeHandle) {
           verticalResizeHandle.classList.add('visible');
           verticalResizeHandle.style.display = 'block';
-          const offset = 0;
-          verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
         }
         
         // Passe Main-Container Margin an
@@ -6998,6 +7012,35 @@ async function displayBook(book, highlightHeadingId = null) {
         
         // Header-Position aktualisieren
         updateHeaderPosition();
+        
+        // Synchronisation direkt aufrufen, damit lastSyncedWidth zurückgesetzt wird
+        // (mit kurzer Verzögerung, damit Panel-Breite korrekt ist)
+        setTimeout(() => {
+          if (typeof syncMainContainerWithPanel === 'function') {
+            // Setze lastSyncedWidth zurück, indem wir die Funktion mit einer falschen Breite aufrufen
+            // oder direkt die Synchronisation triggern
+            syncMainContainerWithPanel();
+          }
+        }, 50);
+        
+        // Explizite Positionierung des Resize-Handles mit korrektem Offset nach kurzer Verzögerung
+        // (damit Panel vollständig gerendert ist und offsetWidth korrekt ist)
+        // Verwende requestAnimationFrame für zuverlässige Positionierung nach Rendering
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setTimeout(() => {
+              if (verticalResizeHandle && summaryPanel && summaryPanel.classList.contains('visible')) {
+                // Hole die tatsächliche Panel-Breite aus dem DOM (wichtig für korrekte Positionierung)
+                const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || panelWidth;
+                if (currentPanelWidth > 0) {
+                  const offset = 10; // Konsistent mit updateHeaderPosition() und syncMainContainerWithPanel()
+                  verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
+                  console.log('[BOOK] Resize-Handle explizit positioniert:', (currentPanelWidth - offset) + 'px (Panel-Breite:', currentPanelWidth + 'px)');
+                }
+              }
+            }, 30);
+          });
+        });
         
         // Baue TOC im Side Panel auf
         setTimeout(() => {
@@ -10943,7 +10986,7 @@ function displayGAChronological(lectures) {
             
             // Resize-Handle auch korrigieren
             if (verticalResizeHandle) {
-              const offset = 0;
+              const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
               verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
               console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (Book) auf:', (tocWidth - offset) + 'px');
             }
@@ -11044,7 +11087,7 @@ function displayGAChronological(lectures) {
           }
           if (verticalResizeHandle) {
             verticalResizeHandle.style.display = 'block';
-            const offset = 0;
+            const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
             verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
             console.log('[TOGGLE-H4] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px');
           }
