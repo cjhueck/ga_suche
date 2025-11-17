@@ -6906,7 +6906,7 @@ async function displayBook(book, highlightHeadingId = null) {
       if (verticalResizeHandle) {
         verticalResizeHandle.classList.add('visible');
         verticalResizeHandle.style.display = 'block';
-        const offset = 10;
+        const offset = 0;
         verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
       }
       
@@ -10824,7 +10824,7 @@ function displayGAChronological(lectures) {
             
             // Resize-Handle auch korrigieren
             if (verticalResizeHandle) {
-              const offset = 10;
+              const offset = 0;
               verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
               console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (Book) auf:', (tocWidth - offset) + 'px');
             }
@@ -10925,7 +10925,7 @@ function displayGAChronological(lectures) {
           }
           if (verticalResizeHandle) {
             verticalResizeHandle.style.display = 'block';
-            const offset = 10;
+            const offset = 0;
             verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
             console.log('[TOGGLE-H4] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px');
           }
