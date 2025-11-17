@@ -6826,13 +6826,50 @@ async function displayBook(book, highlightHeadingId = null) {
     }
   }
   
+  // Prüfe welcher Tab aktiv ist
+  const gaTab = document.getElementById('ga-tab');
+  const texteTab = document.getElementById('texte-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  const isInTexteTab = texteTab && texteTab.classList.contains('active');
+  
   // Erstelle HTML mit Überschriften-Navigation
   let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
   
-  // Inhaltsverzeichnis wird nur im rechten TOC-Panel angezeigt, nicht hier im Main Viewer
+  // Inhaltsverzeichnis im Main Viewer NUR im GA-Tab anzeigen (wie bei Vortragsbänden)
+  // Im GA-Tab: NUR TOC anzeigen, kein Text
+  // Im Texte-Tab wird das TOC im rechten Sidebar angezeigt
+  if (isInGATab && book.headings && book.headings.length > 0) {
+    html += '<h2 style="margin-bottom: 1rem; font-size: 1.2em; font-weight: bold;">Inhaltsverzeichnis</h2>';
+    html += '<div style="margin-bottom: 2rem;">';
+    
+    const bookGANumber = book.gaNumber || book.ID;
+    
+    book.headings.forEach(heading => {
+      const level = heading.level || 3;
+      const headingText = heading.text || heading.title || 'Überschrift';
+      const headingId = heading.id || '';
+      const indent = level === 4 ? 'padding-left: 1.5rem;' : '';
+      
+      html += `
+        <div style="margin-bottom: 0.5rem; ${indent}">
+          <a href="#" 
+             onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingId}'); return false;"
+             style="text-decoration: none; color: var(--link-color); font-size: 0.95em;"
+             onmouseover="this.style.textDecoration='underline'"
+             onmouseout="this.style.textDecoration='none'">
+            ${headingText}
+          </a>
+        </div>
+      `;
+    });
+    
+    html += '</div>';
+    // KEIN Content im GA-Tab, nur TOC
+  } else if (isInTexteTab) {
+    // Im Texte-Tab: Content anzeigen (TOC wird im Sidebar angezeigt)
+    html += '<div class="book-content">' + content + '</div>';
+  }
   
-  // Füge Content hinzu
-  html += '<div class="book-content">' + content + '</div>';
   html += '</div>';
   
   viewer.innerHTML = html;
@@ -6870,61 +6907,123 @@ async function displayBook(book, highlightHeadingId = null) {
       });
       
       console.log(`[BOOK] Überschriften-IDs gesetzt: ${idsSetCount} von ${book.headings.length}`);
+      
+      // Scrolle zu markierter Überschrift NACH dem Setzen der IDs
+      if (highlightHeadingId) {
+        // Scrolle direkt zur Überschrift (sie ist vorhanden, wie der Benutzer bestätigt hat)
+        setTimeout(() => {
+          const headingElement = document.getElementById(highlightHeadingId);
+          if (headingElement) {
+            // Verwende scrollIntoView für zuverlässiges Scrollen
+            headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+            
+            // Markiere kurz
+            headingElement.style.backgroundColor = 'var(--highlight-color)';
+            setTimeout(() => {
+              headingElement.style.backgroundColor = '';
+            }, 2000);
+            
+            console.log(`[BOOK] Zu Überschrift ${highlightHeadingId} gescrollt`);
+          }
+        }, 400);
+      }
     }
     
-    // Öffne das Summary-Panel für TOC-Anzeige (IMMER öffnen für Books)
+    // Panel-Verhalten je nach Tab:
+    // - GA-Tab: TOC im Main Viewer, Sidebar schließen
+    // - Texte-Tab: TOC im Sidebar, Sidebar öffnen
     const summaryPanel = document.getElementById('summary-panel');
     const summaryContent = document.getElementById('summary-content');
+    const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+    const mainContainer = document.getElementById('main-container');
     
-    // Prüfe ob Members Panel aktiv war und schließe es für Books
-    const wasMembersPanelActive = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
-    if (wasMembersPanelActive && typeof switchFromMembersPanelToTOC === 'function') {
-      switchFromMembersPanelToTOC();
+    // Prüfe nochmal welcher Tab aktiv ist (kann sich geändert haben)
+    const gaTabCheck = document.getElementById('ga-tab');
+    const texteTabCheck = document.getElementById('texte-tab');
+    const isInGATabNow = gaTabCheck && gaTabCheck.classList.contains('active');
+    const isInTexteTabNow = texteTabCheck && texteTabCheck.classList.contains('active');
+    
+    if (isInGATabNow) {
+      // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
+      if (summaryPanel) {
+        summaryPanel.classList.remove('visible');
+        if (verticalResizeHandle) {
+          verticalResizeHandle.classList.remove('visible');
+          verticalResizeHandle.style.display = 'none';
+        }
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '0px';
+        
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        
+        document.body.classList.add('summary-panel-collapsed');
+        console.log('[BOOK] Summary-Panel geschlossen (GA-Tab: TOC wird im Main Viewer angezeigt)');
+      }
+    } else if (isInTexteTabNow) {
+      // Texte-Tab: Öffne Sidebar für TOC-Anzeige
+      if (summaryPanel) {
+        console.log('[BOOK] Öffne Summary-Panel für TOC (Texte-Tab)...');
+        summaryPanel.classList.add('visible');
+        summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
+        
+        // Verwende gespeicherte Breite oder Standard (280px)
+        const panelWidth = savedSummaryPanelWidth || 280;
+        summaryPanel.style.width = panelWidth + 'px';
+        summaryPanel.style.minWidth = panelWidth + 'px';
+        summaryPanel.style.marginRight = '0px';
+        
+        // Stelle sicher, dass TOC-Container vorhanden ist
+        if (summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        
+        // Entferne collapsed State
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Zeige Resize-Handle
+        if (verticalResizeHandle) {
+          verticalResizeHandle.classList.add('visible');
+          verticalResizeHandle.style.display = 'block';
+          const offset = 0;
+          verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
+        }
+        
+        // Passe Main-Container Margin an
+        if (mainContainer) {
+          mainContainer.style.marginRight = panelWidth + 'px';
+        }
+        
+        // Header-Position aktualisieren
+        updateHeaderPosition();
+        
+        // Baue TOC im Side Panel auf
+        setTimeout(() => {
+          buildTableOfContents();
+        }, 50);
+        
+        // Scrolle zu Überschrift NACH dem Öffnen des Panels (falls highlightHeadingId gesetzt ist)
+        if (highlightHeadingId) {
+          setTimeout(() => {
+            const headingElement = document.getElementById(highlightHeadingId);
+            if (headingElement) {
+              // Verwende scrollIntoView für zuverlässiges Scrollen
+              headingElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+              
+              // Markiere kurz
+              headingElement.style.backgroundColor = 'var(--highlight-color)';
+              setTimeout(() => {
+                headingElement.style.backgroundColor = '';
+              }, 2000);
+              
+              console.log(`[BOOK] Zu Überschrift ${highlightHeadingId} gescrollt (nach Panel-Öffnung)`);
+            }
+          }, 500);
+        }
+      }
     }
-    
-    if (summaryPanel) {
-      console.log('[BOOK] Öffne Summary-Panel für TOC...');
-      summaryPanel.classList.add('visible');
-      summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
-      
-      // Verwende gespeicherte Breite oder Standard (280px)
-      const panelWidth = savedSummaryPanelWidth || 280;
-      summaryPanel.style.width = panelWidth + 'px';
-      summaryPanel.style.minWidth = panelWidth + 'px';
-      summaryPanel.style.marginRight = '0px';
-      
-      // Stelle sicher, dass TOC-Container vorhanden ist
-      if (summaryContent) {
-        summaryContent.innerHTML = '<div id="toc-list"></div>';
-      }
-      
-      // Entferne collapsed State
-      document.body.classList.remove('summary-panel-collapsed');
-      
-      // Zeige Resize-Handle
-      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-      if (verticalResizeHandle) {
-        verticalResizeHandle.classList.add('visible');
-        verticalResizeHandle.style.display = 'block';
-        const offset = 0;
-        verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
-      }
-      
-      // Passe Main-Container Margin an
-      const mainContainer = document.getElementById('main-container');
-      if (mainContainer) {
-        mainContainer.style.marginRight = panelWidth + 'px';
-      }
-      
-      // Header-Position aktualisieren
-      updateHeaderPosition();
-    }
-    
-    // Baue TOC im Side Panel auf (nachdem IDs gesetzt sind)
-    console.log('[BOOK] Baue TOC im Side Panel...');
-    setTimeout(() => {
-      buildTableOfContents();
-    }, 50);
   }, 300);
   
   // Aktiviere TOC-Links
@@ -7016,18 +7115,9 @@ async function displayBook(book, highlightHeadingId = null) {
   // TOC wird jetzt nach dem Setzen der IDs gebaut (siehe setTimeout oben)
   
   // Scrolle zu markierter Überschrift oder nach oben
-  if (highlightHeadingId) {
-    setTimeout(() => {
-      const headingElement = document.getElementById(highlightHeadingId);
-      if (headingElement) {
-        headingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        headingElement.style.backgroundColor = 'var(--highlight-color)';
-        setTimeout(() => {
-          headingElement.style.backgroundColor = '';
-        }, 2000);
-      }
-    }, 100);
-  } else {
+  // WICHTIG: Das Scrollen muss NACH dem Setzen der IDs passieren (innerhalb des setTimeout)
+  // Daher wird es im setTimeout-Block oben behandelt
+  if (!highlightHeadingId) {
     mainContainer.scrollTop = 0;
   }
   
@@ -8123,6 +8213,35 @@ function displayGAChronological(lectures) {
         await loadGAOverviewInSidePanelOnly(gaNumber);
         
         console.log(`[NAVIGATION] Vortrag ${lectureId} und GA-Übersicht ${gaNumber} geladen`);
+      }
+    }
+
+    // Navigiere zum Texte-Tab und zeige Book mit spezifischer Überschrift
+    async function navigateToBookHeadingInTexteTab(gaNumber, headingId) {
+      console.log(`[NAVIGATION] Navigiere zu Book ${gaNumber} mit Überschrift ${headingId} im Texte-Tab`);
+      
+      // Wechsle zum Texte-Tab
+      switchTab('texte');
+      
+      // Warte kurz, damit der Tab geladen ist
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      // Setze den GA-Filter im Texte-Tab OHNE Change Event zu triggern
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      if (texteGAFilter && gaNumber) {
+        texteGAFilter.value = gaNumber;
+        console.log(`[NAVIGATION] GA-Filter gesetzt auf: ${gaNumber}`);
+        
+        // Lade das Book im Hauptviewer mit der spezifischen Überschrift
+        console.log(`[NAVIGATION] Lade Book ${gaNumber} mit Überschrift ${headingId} im Hauptviewer`);
+        try {
+          const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const book = await response.json();
+          await displayBook(book, headingId);
+        } catch (error) {
+          console.error(`[NAVIGATION] Fehler beim Laden des Books:`, error);
+        }
       }
     }
 
@@ -10383,7 +10502,7 @@ function displayGAChronological(lectures) {
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) {
       viewerSummaryBtn.style.display = 'inline-block';
-      viewerSummaryBtn.innerHTML = '▼ Übersicht'; // Gleiches Styling wie für Vorträge
+      viewerSummaryBtn.innerHTML = '≡ Übersicht'; // Gleiches Styling wie für Vorträge
     }
   } else {
     // Vortrag geladen - zeige BEIDE Buttons in ALLEN Tabs
@@ -12135,6 +12254,42 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     }
     
     const data = await response.json();
+    
+    // Prüfe ob wir von einem Buch zu einem Vortrag wechseln (im GA-Tab)
+    const gaTab = document.getElementById('ga-tab');
+    const isInGATab = gaTab && gaTab.classList.contains('active');
+    const wasBook = currentLectureData && currentLectureData.isBook;
+    const isLecture = !data.lecture.isBook;
+    
+    // Flag: Verhindere automatisches Öffnen des Panels wenn von Buch zu Vortrag gewechselt wird
+    let shouldClosePanelFromBook = false;
+    
+    if (isInGATab && wasBook && isLecture) {
+      // Schließe TOC-Panel wenn von Buch zu Vortrag gewechselt wird
+      const summaryPanelToClose = document.getElementById('summary-panel');
+      const verticalResizeHandleToClose = document.getElementById('verticalResizeHandle');
+      const mainContainerForPanel = document.getElementById('main-container');
+      
+      if (summaryPanelToClose && summaryPanelToClose.classList.contains('visible')) {
+        summaryPanelToClose.classList.remove('visible');
+        if (verticalResizeHandleToClose) {
+          verticalResizeHandleToClose.classList.remove('visible');
+          verticalResizeHandleToClose.style.display = 'none';
+        }
+        summaryPanelToClose.style.width = '0';
+        summaryPanelToClose.style.minWidth = '0';
+        summaryPanelToClose.style.marginRight = '0px';
+        
+        if (mainContainerForPanel) {
+          mainContainerForPanel.style.marginRight = '0px';
+        }
+        
+        document.body.classList.add('summary-panel-collapsed');
+        shouldClosePanelFromBook = true; // Setze Flag um automatisches Öffnen zu verhindern
+        console.log('[SHOW-LECTURE] TOC-Panel geschlossen (Wechsel von Buch zu Vortrag im GA-Tab)');
+      }
+    }
+    
     currentLectureData = data.lecture;
     
     // NEU: Prüfe ob Zusammenfassung bereits existiert (ohne neue zu generieren)
@@ -12193,7 +12348,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords, isPhraseArray);
 
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
-          if (summaryPanel && !window.membersNavigating) {
+          // ABER: Nicht wenn wir von einem Buch zu einem Vortrag gewechselt sind
+          if (summaryPanel && !window.membersNavigating && !shouldClosePanelFromBook) {
             console.log('[SUMMARY-PANEL] Auto-open triggered (with summary)');
             
             // Prüfe ob Mitglieder-Panel aktiv ist
@@ -12320,9 +12476,16 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     displayLecture(data.lecture, targetIndex, displayKeywords);
     
     // Öffne Summary Panel automatisch nach dem Laden (immer)
+    // ABER: Nicht wenn wir von einem Buch zu einem Vortrag gewechselt sind
     setTimeout(() => {
       if (window.membersNavigating) {
         console.log('[SUMMARY-PANEL] Members Navigation aktiv - Panel-Manipulation übersprungen');
+        return;
+      }
+      
+      // Verhindere automatisches Öffnen wenn Panel wegen Buch->Vortrag-Wechsel geschlossen wurde
+      if (shouldClosePanelFromBook) {
+        console.log('[SUMMARY-PANEL] Panel bleibt geschlossen (Wechsel von Buch zu Vortrag)');
         return;
       }
       
