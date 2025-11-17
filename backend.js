@@ -4796,41 +4796,88 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     console.log(`[BOOK] Schrift gefunden: ${book.title}`);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
+    // WICHTIG: Nur für Books (GA001-GA046), niemals Vortrags-Einträge überschreiben!
     const bookId = book.ID || book.gaNumber;
+    
+    // Prüfe ob es wirklich ein Book ist (GA001-GA046)
+    const gaMatch = bookId.match(/^GA0?([0-4][0-6]|[0-4][0-9])$/);
+    if (!gaMatch) {
+      const gaNum = parseInt(bookId.replace('GA', ''));
+      if (gaNum < 1 || gaNum > 46) {
+        console.warn(`[BOOK] ⚠️  ${bookId} ist kein Book (GA001-GA046) - Überschriften werden NICHT gespeichert`);
+        // Gebe Book trotzdem zurück, aber ohne Überschriften zu speichern
+      }
+    }
+    
     if (book.headings && book.headings.length > 0) {
       try {
-        let summaryDB = {};
+        // Lade bestehende Datenbank - WICHTIG: Bei Fehler NICHT überschreiben!
+        let summaryDB = null;
+        let dbLoadError = null;
         try {
           const dbContent = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
           summaryDB = JSON.parse(dbContent);
+          
+          // Prüfe ob Datenbank gültig ist (nicht leer nach Parse)
+          if (!summaryDB || typeof summaryDB !== 'object') {
+            throw new Error('Datenbank ist kein gültiges Objekt');
+          }
+          
+          // Prüfe ob Vortrags-Einträge vorhanden sind (GA051+)
+          const hasLectures = Object.keys(summaryDB).some(id => {
+            const match = id.match(/^GA(\d+)/);
+            if (match) {
+              const num = parseInt(match[1]);
+              return num >= 51; // Vorträge beginnen ab GA051
+            }
+            return false;
+          });
+          
+          if (hasLectures) {
+            console.log(`[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt`);
+          }
         } catch (e) {
-          console.log('[BOOK] Summary-DB existiert noch nicht, erstelle neue');
+          dbLoadError = e;
+          console.error(`[BOOK] ❌ FEHLER beim Laden der summary-database.json: ${e.message}`);
+          console.error(`[BOOK] ⚠️  Überschriften werden NICHT gespeichert, um Vortrags-Einträge zu schützen!`);
+          // NICHT überschreiben - Book wird trotzdem zurückgegeben
         }
 
-        // Konvertiere Book-Headings zu summary-database Format
-        const headingsForDB = book.headings.map(h => ({
-          index: h.id || `heading-${h.line || 0}`,
-          text: h.text,
-          level: `h${h.level || 3}`
-        }));
+        // Nur speichern wenn Datenbank erfolgreich geladen wurde
+        if (summaryDB && !dbLoadError) {
+          // Konvertiere Book-Headings zu summary-database Format
+          const headingsForDB = book.headings.map(h => ({
+            index: h.id || `heading-${h.line || 0}`,
+            text: h.text,
+            level: `h${h.level || 3}`
+          }));
 
-        // Erstelle oder aktualisiere Eintrag für Book
-        if (!summaryDB[bookId]) {
-          summaryDB[bookId] = {};
+          // Erstelle oder aktualisiere NUR den Eintrag für dieses Book
+          // WICHTIG: Bestehende Vortrags-Einträge bleiben unverändert!
+          if (!summaryDB[bookId]) {
+            summaryDB[bookId] = {};
+          }
+          summaryDB[bookId].headings = headingsForDB;
+          summaryDB[bookId].tableOfContents = book.headings.map(h => ({
+            heading: h.text,
+            description: '', // Books haben keine Beschreibungen
+            index: h.id || `heading-${h.line || 0}`
+          }));
+          summaryDB[bookId].version = 'v2';
+
+          // Speichere zurück - Vortrags-Einträge bleiben erhalten
+          await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+          const totalEntries = Object.keys(summaryDB).length;
+          const lectureEntries = Object.keys(summaryDB).filter(id => {
+            const match = id.match(/^GA(\d+)/);
+            return match && parseInt(match[1]) >= 51;
+          }).length;
+          console.log(`[BOOK] ✓ Überschriften für ${bookId} gespeichert (${totalEntries} Einträge total, ${lectureEntries} Vorträge geschützt)`);
+        } else {
+          console.warn(`[BOOK] ⚠️  Überschriften für ${bookId} wurden NICHT gespeichert (Datenbank konnte nicht geladen werden)`);
         }
-        summaryDB[bookId].headings = headingsForDB;
-        summaryDB[bookId].tableOfContents = book.headings.map(h => ({
-          heading: h.text,
-          description: '', // Books haben keine Beschreibungen
-          index: h.id || `heading-${h.line || 0}`
-        }));
-        summaryDB[bookId].version = 'v2';
-
-        // Speichere zurück
-        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-        console.log(`[BOOK] Überschriften für ${bookId} in summary-database.json gespeichert`);
       } catch (dbError) {
-        console.error('[BOOK] Fehler beim Speichern der Überschriften:', dbError);
+        console.error('[BOOK] ❌ Fehler beim Speichern der Überschriften:', dbError);
         // Nicht kritisch - Book wird trotzdem zurückgegeben
       }
     }
