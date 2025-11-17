@@ -6843,6 +6843,13 @@ async function displayBook(book, highlightHeadingId = null) {
       texteServerInfo.textContent = '';
       console.log('[BOOK] Statistik im linken Side Panel gelöscht');
     }
+    
+    // Verstecke "Nur Titel" Button für Books
+    const texteViewToggle = document.getElementById('texteViewToggle');
+    if (texteViewToggle) {
+      texteViewToggle.style.display = 'none';
+      console.log('[BOOK] "Nur Titel" Button versteckt');
+    }
   }
   
   viewer.innerHTML = '';
