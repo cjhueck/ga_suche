@@ -6874,33 +6874,57 @@ async function displayBook(book, highlightHeadingId = null) {
     
     // Öffne das Summary-Panel für TOC-Anzeige (IMMER öffnen für Books)
     const summaryPanel = document.getElementById('summary-panel');
+    const summaryContent = document.getElementById('summary-content');
+    
+    // Prüfe ob Members Panel aktiv war und schließe es für Books
+    const wasMembersPanelActive = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+    if (wasMembersPanelActive && typeof switchFromMembersPanelToTOC === 'function') {
+      switchFromMembersPanelToTOC();
+    }
+    
     if (summaryPanel) {
       console.log('[BOOK] Öffne Summary-Panel für TOC...');
       summaryPanel.classList.add('visible');
       summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
-      summaryPanel.style.width = '280px';
-      summaryPanel.style.minWidth = '280px';
+      
+      // Verwende gespeicherte Breite oder Standard (280px)
+      const panelWidth = savedSummaryPanelWidth || 280;
+      summaryPanel.style.width = panelWidth + 'px';
+      summaryPanel.style.minWidth = panelWidth + 'px';
+      summaryPanel.style.marginRight = '0px';
+      
+      // Stelle sicher, dass TOC-Container vorhanden ist
+      if (summaryContent) {
+        summaryContent.innerHTML = '<div id="toc-list"></div>';
+      }
       
       // Entferne collapsed State
       document.body.classList.remove('summary-panel-collapsed');
       
-      // Passe Main-Container Margin an
-      const mainContainer = document.getElementById('main-container');
-      if (mainContainer) {
-        mainContainer.style.marginRight = '280px';
-      }
-      
       // Zeige Resize-Handle
       const verticalResizeHandle = document.getElementById('verticalResizeHandle');
       if (verticalResizeHandle) {
+        verticalResizeHandle.classList.add('visible');
         verticalResizeHandle.style.display = 'block';
-        verticalResizeHandle.style.right = '270px';
+        const offset = 10;
+        verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
       }
+      
+      // Passe Main-Container Margin an
+      const mainContainer = document.getElementById('main-container');
+      if (mainContainer) {
+        mainContainer.style.marginRight = panelWidth + 'px';
+      }
+      
+      // Header-Position aktualisieren
+      updateHeaderPosition();
     }
     
     // Baue TOC im Side Panel auf (nachdem IDs gesetzt sind)
     console.log('[BOOK] Baue TOC im Side Panel...');
-    buildTableOfContents();
+    setTimeout(() => {
+      buildTableOfContents();
+    }, 50);
   }, 300);
   
   // Aktiviere TOC-Links
@@ -7073,7 +7097,7 @@ function convertFootnotesToLinks() {
     // Erstelle Fußnoten-Sektion am Ende
     let footnotesSection = '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
     footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
-    footnotesSection += '<ol style="list-style: decimal; padding-left: 2rem;">';
+    footnotesSection += '<ol style="list-style: decimal; padding-left: 2rem; font-size: var(--text-size);">';
     
     // Sortiere nach ID
     const sortedFootnotes = Array.from(footnoteDefinitions.entries()).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
@@ -7096,8 +7120,8 @@ function convertFootnotesToLinks() {
       // Entferne überflüssige Leerzeichen
       cleanText = cleanText.replace(/\s+/g, ' ').trim();
       
-      footnotesSection += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem;">
-        ${cleanText} <a href="#fnref${fnId}" class="footnote-backlink" style="margin-left: 0.5rem; text-decoration: none; color: var(--accent-color);">↩</a>
+      footnotesSection += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem; font-size: var(--text-size);">
+        ${cleanText}<a href="#fnref${fnId}" class="footnote-backlink" style="text-decoration: none; color: var(--accent-color);">↩</a>
       </li>`;
     });
     
@@ -10731,50 +10755,16 @@ function displayGAChronological(lectures) {
 
 
     async function toggleViewerH4() {
+      const viewer = document.getElementById('viewer');
+  
+      if (!viewer) return;
+      
       // Prüfe ob es ein Book ist - Books haben TOC aber keine Summaries
-      if (currentLectureData && currentLectureData.isBook) {
-        console.log('[TOGGLE-H4] Book erkannt - Toggle TOC-Panel');
-        
-        // Toggle Summary-Panel für Books (nur TOC, keine Summary)
-        const summaryPanel = document.getElementById('summary-panel');
-        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-        const mainContainer = document.getElementById('main-container');
-        
-        if (summaryPanel) {
-          if (summaryPanel.classList.contains('visible')) {
-            // Schließe Panel
-            summaryPanel.classList.remove('visible');
-            if (mainContainer) {
-              mainContainer.style.marginRight = '0px';
-            }
-            if (verticalResizeHandle) {
-              verticalResizeHandle.style.display = 'none';
-            }
-            console.log('[TOGGLE-H4] TOC-Panel geschlossen');
-          } else {
-            // Öffne Panel
-            summaryPanel.classList.add('visible');
-            if (mainContainer) {
-              mainContainer.style.marginRight = '280px';
-            }
-            if (verticalResizeHandle) {
-              verticalResizeHandle.style.display = 'block';
-              verticalResizeHandle.style.right = '270px';
-            }
-            // Baue TOC neu auf
-            buildTableOfContents();
-            console.log('[TOGGLE-H4] TOC-Panel geöffnet');
-          }
-        }
-        
-        return;
-      }
-     const viewer = document.getElementById('viewer');
-  
-  if (!viewer) return;
-  
-  // Mitgliederbereich zum TOC wechseln wenn offen (Panel bleibt offen)
-  const wasMembersPanelActive = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+      const isBook = currentLectureData && currentLectureData.isBook;
+      
+      // Mitgliederbereich zum TOC wechseln wenn offen (Panel bleibt offen)
+      // GILT FÜR BEIDE: Books UND Vorträge
+      const wasMembersPanelActive = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
   if (wasMembersPanelActive) {
     if (typeof switchFromMembersPanelToTOC === 'function') {
       switchFromMembersPanelToTOC();
@@ -10811,43 +10801,144 @@ function displayGAChronological(lectures) {
       console.log('[TOGGLE-H4] updateHeaderPosition() nach MB→TOC aufgerufen');
     }, 20);
     
-    // Nach Wechsel vom MB zum TOC: 
-    // Wenn Original angezeigt wird, zur Übersicht wechseln
-    if (!showingSummaryInMain) {
-      if (currentLectureSummary) {
-        showSummaryView();
+      // Nach Wechsel vom MB zum TOC: 
+      // Für Books: TOC direkt bauen (keine Summary)
+      if (isBook) {
+        setTimeout(() => {
+          buildTableOfContents();
+          updateHeaderPosition();
+          
+          // WICHTIG: Main-Container NACHKORRIGIEREN
+          const mainContainer = document.getElementById('main-container');
+          const summaryPanel = document.getElementById('summary-panel');
+          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+          
+          if (summaryPanel && summaryPanel.classList.contains('visible')) {
+            const tocWidth = 280;
+            
+            // Main-Container ERZWINGEN
+            if (mainContainer) {
+              mainContainer.style.marginRight = tocWidth + 'px';
+              console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (Book) auf:', tocWidth + 'px');
+            }
+            
+            // Resize-Handle auch korrigieren
+            if (verticalResizeHandle) {
+              const offset = 10;
+              verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+              console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (Book) auf:', (tocWidth - offset) + 'px');
+            }
+          }
+        }, 100);
+        return; // Früher Return nach MB-Wechsel für Books
       }
-      return; // Früher Return nach MB-Wechsel
-    } else {
-      // Wenn bereits Übersicht angezeigt wird, nur TOC neu bauen
-      setTimeout(() => {
-        buildTableOfContents();
+      
+      // Für Vorträge: Wenn Original angezeigt wird, zur Übersicht wechseln
+      if (!showingSummaryInMain) {
+        if (currentLectureSummary) {
+          showSummaryView();
+        }
+        return; // Früher Return nach MB-Wechsel
+      } else {
+        // Wenn bereits Übersicht angezeigt wird, nur TOC neu bauen
+        setTimeout(() => {
+          buildTableOfContents();
+          updateHeaderPosition();
+          
+          // WICHTIG: Main-Container NACHKORRIGIEREN
+          const mainContainer = document.getElementById('main-container');
+          const summaryPanel = document.getElementById('summary-panel');
+          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+          
+          if (summaryPanel && summaryPanel.classList.contains('visible')) {
+            const tocWidth = 280;
+            
+            // Main-Container ERZWINGEN
+            if (mainContainer) {
+              mainContainer.style.marginRight = tocWidth + 'px';
+              console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (2) auf:', tocWidth + 'px');
+            }
+            
+            // Resize-Handle auch korrigieren
+            if (verticalResizeHandle) {
+              const offset = 10;
+              verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
+              console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
+            }
+          }
+        }, 100);
+        return; // Früher Return nach MB-Wechsel
+      }
+  }
+  
+  // Book-Behandlung: Toggle TOC-Panel (nur TOC, keine Summary)
+  if (isBook) {
+    console.log('[TOGGLE-H4] Book erkannt - Toggle TOC-Panel');
+    
+    const summaryPanel = document.getElementById('summary-panel');
+    const summaryContent = document.getElementById('summary-content');
+    const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+    const mainContainer = document.getElementById('main-container');
+    
+    if (summaryPanel) {
+      if (summaryPanel.classList.contains('visible')) {
+        // Schließe Panel
+        summaryPanel.classList.remove('visible');
+        verticalResizeHandle?.classList.remove('visible');
+        document.body.classList.add('summary-panel-collapsed');
+        summaryPanel.style.width = '0';
+        summaryPanel.style.minWidth = '0';
+        summaryPanel.style.marginRight = '';
+        
+        if (mainContainer) {
+          mainContainer.style.marginRight = '0px';
+        }
+        if (verticalResizeHandle) {
+          verticalResizeHandle.style.display = 'none';
+        }
+        console.log('[TOGGLE-H4] TOC-Panel geschlossen');
+      } else {
+        // Öffne Panel
+        summaryPanel.classList.add('visible');
+        verticalResizeHandle?.classList.add('visible');
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Verwende gespeicherte Breite oder Standard (280px)
+        const panelWidth = savedSummaryPanelWidth || 280;
+        summaryPanel.style.width = panelWidth + 'px';
+        summaryPanel.style.minWidth = panelWidth + 'px';
+        summaryPanel.style.marginRight = '0px';
+        
+        // Stelle sicher, dass TOC-Container vorhanden ist
+        if (summaryContent) {
+          summaryContent.innerHTML = '<div id="toc-list"></div>';
+        }
+        
+        // Layout anpassen
         updateHeaderPosition();
         
-        // WICHTIG: Main-Container NACHKORRIGIEREN
-        const mainContainer = document.getElementById('main-container');
-        const summaryPanel = document.getElementById('summary-panel');
-        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-        
-        if (summaryPanel && summaryPanel.classList.contains('visible')) {
-          const tocWidth = 280;
-          
-          // Main-Container ERZWINGEN
+        // Main-Container und Resize-Handle korrigieren
+        setTimeout(() => {
           if (mainContainer) {
-            mainContainer.style.marginRight = tocWidth + 'px';
-            console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (2) auf:', tocWidth + 'px');
+            mainContainer.style.marginRight = panelWidth + 'px';
+            console.log('[TOGGLE-H4] Main-Container angepasst auf:', panelWidth + 'px');
+          }
+          if (verticalResizeHandle) {
+            verticalResizeHandle.style.display = 'block';
+            const offset = 10;
+            verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
+            console.log('[TOGGLE-H4] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px');
           }
           
-          // Resize-Handle auch korrigieren
-          if (verticalResizeHandle) {
-            const offset = 10;
-            verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-            console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
-          }
-        }
-      }, 100);
-      return; // Früher Return nach MB-Wechsel
+          // Baue TOC neu auf
+          buildTableOfContents();
+        }, 50);
+        
+        console.log('[TOGGLE-H4] TOC-Panel geöffnet');
+      }
     }
+    
+    return;
   }
   
   // Fall 1: Original wird angezeigt → Übersicht anzeigen/generieren
