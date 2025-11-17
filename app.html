@@ -6168,6 +6168,17 @@ function normalizeGANumber(gaNumber) {
       } catch (e) { /* silent */ }
       if (!gaNumber) return;
       try {
+        // Prüfe ob es ein Book ist
+        if (isBookGANumber(gaNumber)) {
+          // Für Books: Lade direkt im Main Viewer
+          const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const book = await response.json();
+          await displayBook(book);
+          return;
+        }
+        
+        // Ansonsten: Lade GA-Übersicht (Vorträge)
         const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
@@ -6749,9 +6760,514 @@ async function loadSummaryDatabase() {
 }
 
 // Funktion: Zeige Vorträge eines GA-Bandes im Main Viewer
+// Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist (GA001-GA046)
+function isBookGANumber(gaNumber) {
+  const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+  return gaNum >= 1 && gaNum <= 46;
+}
+
+// Funktion: Rendert ein Book (Schrift)
+async function displayBook(book, highlightHeadingId = null) {
+  const viewer = document.getElementById('viewer');
+  const documentTitle = document.getElementById('document-title');
+  const mainContainer = document.getElementById('main');
+  
+  if (!viewer || !documentTitle) return;
+  
+  viewer.innerHTML = '';
+  
+  // Setze Titel
+  const displayTitle = book.title || book.fileName || book.ID;
+  documentTitle.innerHTML = `<span onclick="navigateToGAInTexteTab('${book.gaNumber || book.ID}')" style="cursor: pointer;">${book.gaNumber || book.ID} - ${displayTitle}</span>`;
+  
+  // Setze currentLectureData für Book
+  currentLectureData = {
+    ID: book.ID || book.gaNumber,
+    title: book.title,
+    fileName: book.fileName,
+    gaNumber: book.gaNumber || book.ID,
+    isBook: true
+  };
+  
+  // Konvertiere Markdown zu HTML
+  let content = book.content || '';
+  
+  // Entferne das Inhaltsverzeichnis aus dem Content (wird separat oben angezeigt)
+  // Suche nach "### INHALT" oder ähnlichen Mustern und entferne alles bis zur ersten echten Überschrift
+  // Das TOC enthält Links wie [[#zur-einfuhrung|ZUR EINFÜHRUNG]] und endet vor der ersten echten Überschrift
+  const tocPattern = /###\s*INHALT[\s\S]*?(?=\n###\s+[A-ZÄÖÜ]|\n####\s+[A-ZÄÖÜ]|$)/i;
+  content = content.replace(tocPattern, '');
+  
+  // Entferne auch einzelne TOC-Zeilen die noch übrig sind (z.B. "[[#zur-einfuhrung|ZUR EINFÜHRUNG]]")
+  content = content.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
+  
+  // WICHTIG: Indizes NICHT entfernen - sie werden für Verlinkung benötigt!
+  // Sie werden später nur visuell versteckt
+  
+  // Konfiguriere marked für Fußnoten und Überschriften-IDs
+  if (typeof marked !== 'undefined') {
+    // Setze Optionen für Fußnoten (GFM) und Überschriften-IDs
+    if (marked.setOptions) {
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: true,
+        headerPrefix: ''
+      });
+    }
+    
+    // Rendere Markdown
+    if (marked.parse) {
+      content = marked.parse(content);
+    } else if (marked.marked) {
+      content = marked.marked(content);
+    } else {
+      content = marked(content);
+    }
+  }
+  
+  // Erstelle HTML mit Überschriften-Navigation
+  let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+  
+  // Inhaltsverzeichnis wird nur im rechten TOC-Panel angezeigt, nicht hier im Main Viewer
+  
+  // Füge Content hinzu
+  html += '<div class="book-content">' + content + '</div>';
+  html += '</div>';
+  
+  viewer.innerHTML = html;
+  
+  // Setze IDs für Überschriften im gerenderten HTML
+  // WICHTIG: Dies muss NACH dem Rendering passieren, damit die Überschriften im DOM sind
+  setTimeout(() => {
+    if (book.headings && book.headings.length > 0) {
+      let idsSetCount = 0;
+      book.headings.forEach(heading => {
+        const headingElements = viewer.querySelectorAll(`h${heading.level || 3}`);
+        // Suche nach Überschrift mit dem Text (normalisiere für Vergleich)
+        const headingTextNormalized = heading.text.trim().toLowerCase();
+        
+        for (const el of headingElements) {
+          // Überspringe Überschriften, die bereits eine ID haben
+          if (el.id && el.id !== '') continue;
+          
+          const elText = el.textContent.trim();
+          const elTextNormalized = elText.toLowerCase();
+          
+          // Prüfe verschiedene Match-Strategien
+          if (elTextNormalized === headingTextNormalized || 
+              elTextNormalized.includes(headingTextNormalized) || 
+              headingTextNormalized.includes(elTextNormalized) ||
+              elText === heading.text) {
+            el.id = heading.id;
+            // Setze auch data-Attribut für zusätzliche Referenzierung
+            el.setAttribute('data-heading-id', heading.id);
+            idsSetCount++;
+            console.log(`[BOOK] ID gesetzt für: "${heading.text}" -> "${heading.id}"`);
+            break;
+          }
+        }
+      });
+      
+      console.log(`[BOOK] Überschriften-IDs gesetzt: ${idsSetCount} von ${book.headings.length}`);
+    }
+    
+    // Öffne das Summary-Panel für TOC-Anzeige (IMMER öffnen für Books)
+    const summaryPanel = document.getElementById('summary-panel');
+    if (summaryPanel) {
+      console.log('[BOOK] Öffne Summary-Panel für TOC...');
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.display = ''; // Entferne display:none falls gesetzt
+      summaryPanel.style.width = '280px';
+      summaryPanel.style.minWidth = '280px';
+      
+      // Entferne collapsed State
+      document.body.classList.remove('summary-panel-collapsed');
+      
+      // Passe Main-Container Margin an
+      const mainContainer = document.getElementById('main-container');
+      if (mainContainer) {
+        mainContainer.style.marginRight = '280px';
+      }
+      
+      // Zeige Resize-Handle
+      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+      if (verticalResizeHandle) {
+        verticalResizeHandle.style.display = 'block';
+        verticalResizeHandle.style.right = '270px';
+      }
+    }
+    
+    // Baue TOC im Side Panel auf (nachdem IDs gesetzt sind)
+    console.log('[BOOK] Baue TOC im Side Panel...');
+    buildTableOfContents();
+  }, 300);
+  
+  // Aktiviere TOC-Links
+  activateTOCLinks();
+  
+  // Aktiviere Fußnoten-Links (nach Rendering und ID-Setzung)
+  setTimeout(() => {
+    console.log('[BOOK] Aktiviere Fußnoten-Links...');
+    convertFootnotesToLinks();
+  }, 400);
+  
+  // Verstecke Absatz-Indizes visuell (aber behalte sie im DOM für Verlinkung)
+  // Füge CSS-Regel hinzu, um Indizes zu verstecken
+  setTimeout(() => {
+    // Erstelle Style-Element falls noch nicht vorhanden
+    let styleEl = document.getElementById('hide-indices-style');
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = 'hide-indices-style';
+      document.head.appendChild(styleEl);
+    }
+    
+    // Füge CSS-Regel hinzu: Verstecke Text der Indizes enthält
+    styleEl.textContent += `
+      .book-content * {
+        position: relative;
+      }
+      .book-content *::after {
+        content: '';
+      }
+    `;
+    
+    // Finde alle Textknoten die Indizes enthalten und wrappe sie
+    const walker = document.createTreeWalker(
+      viewer,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function(node) {
+          // Nur Textknoten die Indizes enthalten
+          if (node.textContent && node.textContent.match(/\s+\^[a-z0-9]+\b/)) {
+            return NodeFilter.FILTER_ACCEPT;
+          }
+          return NodeFilter.FILTER_REJECT;
+        }
+      },
+      false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      textNodes.push(node);
+    }
+    
+    // Verarbeite Textknoten rückwärts, um die Reihenfolge nicht zu stören
+    textNodes.reverse().forEach(textNode => {
+      const parent = textNode.parentNode;
+      if (!parent || parent.nodeType !== Node.ELEMENT_NODE) return;
+      
+      const indexMatch = textNode.textContent.match(/\s+(\^[a-z0-9]+)\b/);
+      if (indexMatch) {
+        const indexText = indexMatch[0]; // z.B. " ^abc123"
+        const indexId = indexMatch[1]; // z.B. "^abc123"
+        
+        // Teile den Textknoten auf: Text vor Index, Index, Text nach Index
+        const beforeIndex = textNode.textContent.substring(0, indexMatch.index);
+        const afterIndex = textNode.textContent.substring(indexMatch.index + indexText.length);
+        
+        // Erstelle versteckten Span für den Index (bleibt im DOM für Verlinkung)
+        const hiddenSpan = document.createElement('span');
+        hiddenSpan.style.display = 'none';
+        hiddenSpan.textContent = indexText;
+        hiddenSpan.setAttribute('data-index', indexId);
+        hiddenSpan.id = indexId.replace('^', '');
+        
+        // Ersetze den Textknoten
+        if (beforeIndex) {
+          parent.insertBefore(document.createTextNode(beforeIndex), textNode);
+        }
+        parent.insertBefore(hiddenSpan, textNode);
+        if (afterIndex) {
+          parent.insertBefore(document.createTextNode(afterIndex), textNode);
+        }
+        parent.removeChild(textNode);
+      }
+    });
+  }, 100);
+  
+  // TOC wird jetzt nach dem Setzen der IDs gebaut (siehe setTimeout oben)
+  
+  // Scrolle zu markierter Überschrift oder nach oben
+  if (highlightHeadingId) {
+    setTimeout(() => {
+      const headingElement = document.getElementById(highlightHeadingId);
+      if (headingElement) {
+        headingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        headingElement.style.backgroundColor = 'var(--highlight-color)';
+        setTimeout(() => {
+          headingElement.style.backgroundColor = '';
+        }, 2000);
+      }
+    }, 100);
+  } else {
+    mainContainer.scrollTop = 0;
+  }
+  
+  updateHeaderPosition();
+  updateButtonStates();
+}
+
+// Hilfsfunktion: Scrollt zu einer Überschrift
+function scrollToHeading(headingId) {
+  const headingElement = document.getElementById(headingId);
+  if (headingElement) {
+    headingElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Markiere kurz
+    const originalBg = headingElement.style.backgroundColor;
+    headingElement.style.backgroundColor = 'var(--highlight-color)';
+    setTimeout(() => {
+      headingElement.style.backgroundColor = originalBg;
+    }, 2000);
+  }
+}
+
+// Hilfsfunktion: Konvertiert Fußnoten zu klickbaren Links (für Books)
+function convertFootnotesToLinks() {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  console.log('[FOOTNOTES] Starte Konvertierung...');
+  
+  // Schritt 1: Finde alle Fußnoten-Definitionen (Format: [^1]: Text)
+  const footnoteDefinitions = new Map();
+  const htmlContent = viewer.innerHTML;
+  
+  // DEBUG: Prüfe ob Fußnoten im HTML vorhanden sind
+  const hasFootnotesInHTML = htmlContent.includes('[^1]:');
+  console.log(`[FOOTNOTES] HTML enthält [^1]: ? ${hasFootnotesInHTML}`);
+  if (!hasFootnotesInHTML) {
+    console.warn('[FOOTNOTES] WARNUNG: Keine Fußnoten-Definitionen im HTML gefunden!');
+    console.log('[FOOTNOTES] HTML-Länge:', htmlContent.length);
+    console.log('[FOOTNOTES] Letzte 500 Zeichen:', htmlContent.slice(-500));
+  }
+  
+  // Regex für Fußnoten-Definitionen: [^1]: Text
+  // Erweitert: Suche auch nach Definitionen die durch HTML-Tags getrennt sind
+  const defPattern = /\[\^(\d+)\]:\s*([^\[]+?)(?=\[\^|$)/gs;
+  let match;
+  
+  while ((match = defPattern.exec(htmlContent)) !== null) {
+    const fnId = match[1];
+    const fnText = match[2].trim();
+    // Entferne HTML-Tags aus dem Text
+    const cleanText = fnText.replace(/<[^>]+>/g, '').trim();
+    if (cleanText) {
+      footnoteDefinitions.set(fnId, cleanText);
+      console.log(`[FOOTNOTES] Definition gefunden: [^${fnId}] = ${cleanText.substring(0, 50)}...`);
+    }
+  }
+  
+  console.log(`[FOOTNOTES] ${footnoteDefinitions.size} Definitionen gefunden`);
+  
+  // Schritt 2: Ersetze Fußnoten-Definitionen durch formatierte HTML-Elemente
+  if (footnoteDefinitions.size > 0) {
+    let newHtml = htmlContent;
+    
+    // Entferne alte Definitionen
+    newHtml = newHtml.replace(/\[\^\d+\]:\s*.+?(?=<p>|\n\[\^|\n\n|$)/gs, '');
+    
+    // Erstelle Fußnoten-Sektion am Ende
+    let footnotesSection = '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
+    footnotesSection += '<h3 style="margin-top: 2rem;">Fußnoten</h3>';
+    footnotesSection += '<ol style="list-style: decimal; padding-left: 2rem;">';
+    
+    // Sortiere nach ID
+    const sortedFootnotes = Array.from(footnoteDefinitions.entries()).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+    
+    sortedFootnotes.forEach(([fnId, fnText]) => {
+      // Entferne führende Nummer und Doppelpunkt falls vorhanden (z.B. "2: Text" -> "Text")
+      let cleanText = fnText.trim();
+      const leadingNumberMatch = cleanText.match(/^\d+:\s*/);
+      if (leadingNumberMatch) {
+        cleanText = cleanText.substring(leadingNumberMatch[0].length);
+      }
+      
+      // Entferne Absatz-Indizes (Block-IDs) wie ^11z7a7, ^r6x4ru, etc.
+      // Format: ^ gefolgt von alphanumerischen Zeichen
+      cleanText = cleanText.replace(/\s*\^[a-zA-Z0-9]+\s*/g, ' ');
+      
+      // Entferne trailing ↩ oder ↩︎ falls vorhanden
+      cleanText = cleanText.replace(/\s*[↩↩︎]\s*$/, '');
+      
+      // Entferne überflüssige Leerzeichen
+      cleanText = cleanText.replace(/\s+/g, ' ').trim();
+      
+      footnotesSection += `<li id="fn${fnId}" value="${fnId}" style="margin-bottom: 0.5rem;">
+        ${cleanText} <a href="#fnref${fnId}" class="footnote-backlink" style="margin-left: 0.5rem; text-decoration: none; color: var(--accent-color);">↩</a>
+      </li>`;
+    });
+    
+    footnotesSection += '</ol>';
+    
+    newHtml += footnotesSection;
+    viewer.innerHTML = newHtml;
+  }
+  
+  // Schritt 3: Ersetze Fußnoten-Referenzen [^1] durch klickbare Links
+  const walker = document.createTreeWalker(
+    viewer,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  const textNodesToProcess = [];
+  let node;
+  
+  while (node = walker.nextNode()) {
+    if (node.textContent.match(/\[\^(\d+)\]/)) {
+      textNodesToProcess.push(node);
+    }
+  }
+  
+  console.log(`[FOOTNOTES] ${textNodesToProcess.length} Textknoten mit Referenzen gefunden`);
+  
+  // Verarbeite Textknoten rückwärts
+  textNodesToProcess.reverse().forEach(textNode => {
+    const parent = textNode.parentNode;
+    if (!parent) return;
+    
+    const text = textNode.textContent;
+    const refPattern = /\[\^(\d+)\]/g;
+    const parts = [];
+    let lastIndex = 0;
+    let refMatch;
+    
+    while ((refMatch = refPattern.exec(text)) !== null) {
+      // Text vor der Referenz
+      if (refMatch.index > lastIndex) {
+        parts.push({
+          type: 'text',
+          content: text.substring(lastIndex, refMatch.index)
+        });
+      }
+      
+      // Referenz
+      parts.push({
+        type: 'footnote',
+        id: refMatch[1],
+        fullMatch: refMatch[0]
+      });
+      
+      lastIndex = refMatch.index + refMatch[0].length;
+    }
+    
+    // Text nach der letzten Referenz
+    if (lastIndex < text.length) {
+      parts.push({
+        type: 'text',
+        content: text.substring(lastIndex)
+      });
+    }
+    
+    // Erstelle neue Knoten
+    const fragment = document.createDocumentFragment();
+    
+    parts.forEach(part => {
+      if (part.type === 'text') {
+        fragment.appendChild(document.createTextNode(part.content));
+      } else if (part.type === 'footnote') {
+        const link = document.createElement('sup');
+        const anchor = document.createElement('a');
+        anchor.href = `#fn${part.id}`;
+        anchor.id = `fnref${part.id}`;
+        anchor.textContent = part.id;
+        anchor.style.textDecoration = 'none';
+        anchor.style.color = 'var(--accent-color)';
+        anchor.style.fontWeight = 'bold';
+        
+        anchor.addEventListener('click', (e) => {
+          e.preventDefault();
+          const footnote = document.getElementById(`fn${part.id}`);
+          if (footnote) {
+            footnote.scrollIntoView({ behavior: 'auto', block: 'center' });
+            const originalBg = footnote.style.backgroundColor;
+            footnote.style.backgroundColor = 'var(--highlight-color)';
+            setTimeout(() => {
+              footnote.style.backgroundColor = originalBg;
+            }, 2000);
+          }
+        });
+        
+        link.appendChild(anchor);
+        fragment.appendChild(link);
+      }
+    });
+    
+    // Ersetze den Textknoten
+    parent.replaceChild(fragment, textNode);
+  });
+  
+  // Aktiviere Backlinks
+  const backlinks = viewer.querySelectorAll('.footnote-backlink');
+  backlinks.forEach(backlink => {
+    backlink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = backlink.getAttribute('href').substring(1);
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }
+    });
+  });
+  
+  console.log(`[FOOTNOTES] Konvertierung abgeschlossen. ${textNodesToProcess.length} Referenzen verarbeitet.`);
+}
+
+// Hilfsfunktion: Aktiviere Fußnoten-Links (für Lectures)
+function activateFootnoteLinks() {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  // Finde alle Fußnoten-Referenzen im Text (z.B. [^1], [^i])
+  const footnoteRefs = viewer.querySelectorAll('a[href^="#fn"], sup[id^="fnref"]');
+  footnoteRefs.forEach(ref => {
+    ref.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = ref.getAttribute('href')?.replace('#', '') || ref.getAttribute('id')?.replace('ref', '');
+      if (targetId) {
+        const footnote = document.getElementById(targetId);
+        if (footnote) {
+          footnote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Markiere kurz
+          const originalBg = footnote.style.backgroundColor;
+          footnote.style.backgroundColor = 'var(--highlight-color)';
+          setTimeout(() => {
+            footnote.style.backgroundColor = originalBg;
+          }, 2000);
+        }
+      }
+    });
+  });
+  
+  // Finde alle Fußnoten-Definitionen und füge Backlinks hinzu
+  const footnotes = viewer.querySelectorAll('li[id^="fn"], div[id^="fn"]');
+  footnotes.forEach(fn => {
+    const fnId = fn.getAttribute('id');
+    const backlinkId = fnId.replace('fn', 'fnref');
+    const backlink = document.getElementById(backlinkId);
+    if (backlink) {
+      const backlinkEl = document.createElement('a');
+      backlinkEl.href = `#${backlinkId}`;
+      backlinkEl.textContent = ' ↩';
+      backlinkEl.style.textDecoration = 'none';
+      backlinkEl.style.marginLeft = '0.5rem';
+      backlinkEl.addEventListener('click', (e) => {
+        e.preventDefault();
+        backlink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+      fn.appendChild(backlinkEl);
+    }
+  });
+}
+
 async function showGALectures(gaNumber, skipHistory = false) {
   try {
-    console.log('[GA-TAB] Lade Vorträge für', gaNumber);
+    console.log('[GA-TAB] Lade GA-Band:', gaNumber);
     
     // Browser History Eintrag hinzufügen
     if (!skipHistory) {
@@ -6780,9 +7296,31 @@ async function showGALectures(gaNumber, skipHistory = false) {
     }
     
     documentTitle.textContent = `${formatLectureId(gaNumber)} - ${gaInfo.title}`;
+    
+    // Prüfe ob es ein Book (Schrift) ist
+    if (isBookGANumber(gaNumber)) {
+      console.log('[GA-TAB] Erkenne als Book (Schrift)');
+      viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Schrift...</div>';
+      
+      // Lade Book-Daten
+      const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Schrift nicht gefunden.</div>';
+          return;
+        }
+        throw new Error(`HTTP ${response.status}`);
+      }
+      
+      const book = await response.json();
+      await displayBook(book);
+      return;
+    }
+    
+    // Ansonsten: Lade GA-Übersicht-Daten (Vorträge)
+    console.log('[GA-TAB] Erkenne als Lecture-Band');
     viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Vorträge...</div>';
     
-    // Lade GA-Übersicht-Daten
     const response = await fetch(`${API_BASE}/api/ga-overview/${gaNumber}`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
@@ -9808,15 +10346,28 @@ function displayGAChronological(lectures) {
   const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
   const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
   
+  // Prüfe ob es ein Book ist
+  const isBook = currentLectureData && currentLectureData.isBook;
+  
   // Original und Übersicht Buttons: In ALLEN Tabs anzeigen wenn Vortrag geladen ist
   if (!currentLectureData) {
     // Kein Vortrag geladen - verstecke Original und Übersicht Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+  } else if (isBook) {
+    // Book geladen - verstecke "Original", zeige "Übersicht" als TOC-Toggle
+    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
+    if (viewerSummaryBtn) {
+      viewerSummaryBtn.style.display = 'inline-block';
+      viewerSummaryBtn.innerHTML = '▼ Übersicht'; // Gleiches Styling wie für Vorträge
+    }
   } else {
     // Vortrag geladen - zeige BEIDE Buttons in ALLEN Tabs
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-block';
-    if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'inline-block';
+    if (viewerSummaryBtn) {
+      viewerSummaryBtn.style.display = 'inline-block';
+      viewerSummaryBtn.innerHTML = '≡ Übersicht'; // Standard-Text für Vorträge
+    }
   }
 
   // TOC-Toggle Button - nur lokal verfügbar und nur in Übersicht-Ansicht
@@ -10180,6 +10731,44 @@ function displayGAChronological(lectures) {
 
 
     async function toggleViewerH4() {
+      // Prüfe ob es ein Book ist - Books haben TOC aber keine Summaries
+      if (currentLectureData && currentLectureData.isBook) {
+        console.log('[TOGGLE-H4] Book erkannt - Toggle TOC-Panel');
+        
+        // Toggle Summary-Panel für Books (nur TOC, keine Summary)
+        const summaryPanel = document.getElementById('summary-panel');
+        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel) {
+          if (summaryPanel.classList.contains('visible')) {
+            // Schließe Panel
+            summaryPanel.classList.remove('visible');
+            if (mainContainer) {
+              mainContainer.style.marginRight = '0px';
+            }
+            if (verticalResizeHandle) {
+              verticalResizeHandle.style.display = 'none';
+            }
+            console.log('[TOGGLE-H4] TOC-Panel geschlossen');
+          } else {
+            // Öffne Panel
+            summaryPanel.classList.add('visible');
+            if (mainContainer) {
+              mainContainer.style.marginRight = '280px';
+            }
+            if (verticalResizeHandle) {
+              verticalResizeHandle.style.display = 'block';
+              verticalResizeHandle.style.right = '270px';
+            }
+            // Baue TOC neu auf
+            buildTableOfContents();
+            console.log('[TOGGLE-H4] TOC-Panel geöffnet');
+          }
+        }
+        
+        return;
+      }
      const viewer = document.getElementById('viewer');
   
   if (!viewer) return;
@@ -13267,9 +13856,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const tocList = document.getElementById('toc-list');
       const mainContainer = isTimelineActive ? document.getElementById('timelineViewerContent') : document.getElementById('main');
       
-      if (!viewer || !tocList) return;
+      if (!viewer || !tocList) {
+        console.log('[TOC] Viewer oder TOC-List nicht gefunden');
+        return;
+      }
       
       const headings = viewer.querySelectorAll('h3, h4');
+      console.log(`[TOC] Gefundene Überschriften im Viewer: ${headings.length}`);
       
       tocList.innerHTML = '';
       
@@ -13291,13 +13884,32 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocHeading.textContent = heading.textContent;
         tocHeading.style.cursor = 'pointer';
         
+        // Styling für klickbare Links
+        tocHeading.style.color = 'var(--accent-color)';
+        tocHeading.style.textDecoration = 'none';
+        tocHeading.style.display = 'block';
+        tocHeading.style.marginBottom = '0.3rem';
+        
+        // Kein Hover-Effekt für TOC-Links (unterstreichen entfernt)
+        
         tocHeading.addEventListener('click', (e) => {
           e.preventDefault();
+          
+          console.log(`[TOC-CLICK] Klick auf Überschrift: "${heading.textContent}", ID: "${heading.id}"`);
+          
+          // WICHTIG: Verwende die ID, um die Überschrift im Viewer zu finden
+          // (nicht die heading-Variable, die auf die TOC-Überschrift zeigt!)
+          const targetHeading = heading.id ? document.getElementById(heading.id) : heading;
+          
+          if (!targetHeading) {
+            console.warn(`[TOC-CLICK] Ziel-Überschrift nicht gefunden für ID: ${heading.id}`);
+            return;
+          }
           
           if (isTimelineActive) {
             // Für Timeline-Viewer: Scrolle nur innerhalb des Timeline-Containers
             const timelineContainer = document.getElementById('timelineViewerContent');
-            const headingRect = heading.getBoundingClientRect();
+            const headingRect = targetHeading.getBoundingClientRect();
             const containerRect = timelineContainer.getBoundingClientRect();
             
             // Berechne relative Position und scrolle den Container
@@ -13310,13 +13922,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             });
           } else {
             // Für Haupt-Viewer: Normales scrollIntoView
-            heading.scrollIntoView({ behavior: 'auto', block: 'start' });
+            targetHeading.scrollIntoView({ behavior: 'auto', block: 'start' });
+            console.log(`[TOC-CLICK] Scrolle zu Überschrift: "${targetHeading.textContent}"`);
           }
           
-          const originalBg = heading.style.backgroundColor;
-          heading.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+          const originalBg = targetHeading.style.backgroundColor;
+          targetHeading.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
           setTimeout(() => {
-            heading.style.backgroundColor = originalBg;
+            targetHeading.style.backgroundColor = originalBg;
           }, 1000);
         });
         

@@ -30,6 +30,7 @@ app.use((req, res, next) => {
 let chunks = []; // WIRD NICHT MEHR VERWENDET
 let paragraphsFromLectures = []; // NEU
 let fullLectures = {};
+let fullBooks = {}; // GA-Schriften (GA001-GA046)
 let synonyms = {};
 let summaryCache = {};
 let gaOverviewCache = {};
@@ -138,13 +139,26 @@ async function findDataFiles() {
   const lecturePattern = /^steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
   const lectureFiles = files.filter(f => lecturePattern.test(f));
   
+  // Suche nach steiner-books-XXX-YYY*.json oder steiner_books_XXX-YYY*.json
+  // Pattern: steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json
+  const bookPattern = /^steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json$/i;
+  const bookFiles = files.filter(f => {
+    const matches = bookPattern.test(f);
+    if (!matches && f.includes('steiner') && f.includes('books') && f.endsWith('.json')) {
+      console.log(`[DEBUG] Books-Datei nicht gematcht: ${f}`);
+    }
+    return matches;
+  });
+  
   console.log('\nGefundene Dateien:');
   console.log('  Search-Dateien:', searchFiles);
   console.log('  Lecture-Dateien:', lectureFiles);
+  console.log('  Books-Dateien:', bookFiles);
   
   return {
     searchFiles,
-    lectureFiles
+    lectureFiles,
+    bookFiles
   };
 }
 
@@ -312,6 +326,62 @@ async function loadFullLectures() {
   }
 }
 
+async function loadBooks() {
+  try {
+    const { bookFiles } = await findDataFiles();
+    
+    if (bookFiles.length === 0) {
+      console.warn('Keine steiner-books-XXX-YYY*.json Dateien gefunden');
+      return {};
+    }
+    
+    console.log(`\nLade Schriften aus ${bookFiles.length} Datei(en)...`);
+    
+    for (const fileName of bookFiles) {
+      const jsonPath = path.join(__dirname, fileName);
+      console.log(`  Lade: ${fileName}`);
+      
+      const data = await fs.readFile(jsonPath, 'utf8');
+      const parsed = JSON.parse(data);
+      
+      const books = parsed.books || [];
+      console.log(`    -> Gefunden: ${books.length} Schriften in Datei`);
+      
+      books.forEach(book => {
+        if (book.ID || book.gaNumber) {
+          const bookId = book.ID || book.gaNumber;
+          fullBooks[bookId] = book;
+          console.log(`      -> Hinzugefügt: ${bookId} (${book.title?.substring(0, 50)}...)`);
+        } else {
+          console.warn(`      -> Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
+        }
+      });
+      
+      console.log(`    -> ${books.length} Schriften verarbeitet`);
+    }
+    
+    if (Object.keys(fullBooks).length > 0) {
+      const sample = Object.values(fullBooks)[0];
+      console.log('\nSchriften-Struktur:', {
+        ID: sample?.ID,
+        gaNumber: sample?.gaNumber,
+        fileName: sample?.fileName,
+        title: sample?.title,
+        headings: sample?.headings?.length,
+        wordCount: sample?.wordCount
+      });
+    }
+    
+    console.log(`\nGesamt: ${Object.keys(fullBooks).length} Schriften geladen`);
+    return fullBooks;
+    
+  } catch (error) {
+    console.error('Fehler beim Laden der Schriften:', error.message);
+    console.warn('System läuft ohne Schriften');
+    return {};
+  }
+}
+
 async function loadSynonyms() {
   try {
     const synonymPath = path.join(__dirname, 'synonyms.json');
@@ -456,6 +526,7 @@ async function generateGAOverview(gaNumber) {
   // Case-insensitive Vergleich
   const gaNumberNormalized = gaNumber.toLowerCase();
   
+  // Suche nach Vorträgen (Books haben eigenen Endpoint /api/book/:gaNumber)
   const lectures = Object.values(fullLectures)
     .filter(lec => lec.gaNumber && lec.gaNumber.toLowerCase() === gaNumberNormalized)
     .sort((a, b) => {
@@ -4381,6 +4452,9 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
 // ============================================================================
 
 app.get('/debug/status', async (req, res) => {
+  // Debug: Zeige auch Books-Status
+  const { bookFiles } = await findDataFiles();
+  
   const summaryDB = await loadSummaryDatabase();
   
   res.json({
@@ -4388,6 +4462,10 @@ app.get('/debug/status', async (req, res) => {
     status: 'running',
     chunksLoaded: chunks.length,
     lecturesLoaded: Object.keys(fullLectures).length,
+    booksLoaded: Object.keys(fullBooks).length,
+    bookFilesFound: bookFiles.length,
+    bookFiles: bookFiles,
+    books: Object.keys(fullBooks),
     synonymGroups: Object.keys(synonyms).length,
     summariesInDB: Object.keys(summaryDB).length,
     queryLogSize: Object.keys(queryLog).length,
@@ -4405,7 +4483,7 @@ app.get('/api/ga-list', async (req, res) => {
   try {
     const gaMap = {};
     
-    // Sammle GA-Nummern und Titel
+    // Sammle GA-Nummern und Titel aus Vorträgen
     Object.values(fullLectures).forEach(lecture => {
       const gaNumber = lecture.ID?.split('/')[0];
       if (gaNumber && !gaMap[gaNumber]) {
@@ -4413,6 +4491,17 @@ app.get('/api/ga-list', async (req, res) => {
         gaMap[gaNumber] = {
           number: gaNumber,
           title: lecture.bandTitle || lecture.gaTitle || gaNumber
+        };
+      }
+    });
+    
+    // Sammle GA-Nummern und Titel aus Schriften (Books)
+    Object.values(fullBooks).forEach(book => {
+      const gaNumber = book.ID || book.gaNumber;
+      if (gaNumber && !gaMap[gaNumber]) {
+        gaMap[gaNumber] = {
+          number: gaNumber,
+          title: book.title || gaNumber
         };
       }
     });
@@ -4575,9 +4664,18 @@ app.get('/api/available-ga', async (req, res) => {
   try {
     const gaSet = new Set();
 
+    // Sammle GA-Nummern aus Vorträgen
     Object.values(fullLectures).forEach(lecture => {
       if (lecture.gaNumber && typeof lecture.gaNumber === 'string') {
         gaSet.add(lecture.gaNumber);
+      }
+    });
+
+    // Sammle GA-Nummern aus Schriften (Books)
+    Object.values(fullBooks).forEach(book => {
+      const gaNumber = book.ID || book.gaNumber;
+      if (gaNumber && typeof gaNumber === 'string') {
+        gaSet.add(gaNumber);
       }
     });
 
@@ -4609,6 +4707,102 @@ app.get('/api/available-years', async (req, res) => {
   } catch (error) {
     console.error("[ERROR] Fehler bei /api/available-years:", error);
     res.status(500).json({ error: "Interner Serverfehler" });
+  }
+});
+
+// API-Endpunkt: Buch (Schrift) abrufen
+// Reload-Endpoint für Books (zum Neuladen ohne Server-Neustart)
+app.post('/api/reload-books', async (req, res) => {
+  try {
+    console.log('[RELOAD] Lade Books neu...');
+    fullBooks = {}; // Leere den Cache
+    const reloaded = await loadBooks();
+    res.json({ 
+      success: true, 
+      booksLoaded: Object.keys(reloaded).length,
+      books: Object.keys(reloaded)
+    });
+  } catch (error) {
+    console.error('[RELOAD] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/book/:gaNumber', async (req, res) => {
+  try {
+    const gaNumberOriginal = req.params.gaNumber;
+    const gaNumberNormalized = gaNumberOriginal.toLowerCase();
+
+    console.log(`[BOOK] Anfrage für ${gaNumberOriginal}`);
+
+    // Suche nach Book
+    const book = Object.values(fullBooks).find(b => {
+      const bookGA = (b.ID || b.gaNumber || '').toLowerCase();
+      return bookGA === gaNumberNormalized;
+    });
+
+    if (!book) {
+      return res.status(404).json({ error: `Keine Schrift gefunden für ${gaNumberOriginal}` });
+    }
+
+    console.log(`[BOOK] Schrift gefunden: ${book.title}`);
+
+    // Speichere Überschriften in summary-database.json für TOC-Anzeige
+    const bookId = book.ID || book.gaNumber;
+    if (book.headings && book.headings.length > 0) {
+      try {
+        let summaryDB = {};
+        try {
+          const dbContent = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
+          summaryDB = JSON.parse(dbContent);
+        } catch (e) {
+          console.log('[BOOK] Summary-DB existiert noch nicht, erstelle neue');
+        }
+
+        // Konvertiere Book-Headings zu summary-database Format
+        const headingsForDB = book.headings.map(h => ({
+          index: h.id || `heading-${h.line || 0}`,
+          text: h.text,
+          level: `h${h.level || 3}`
+        }));
+
+        // Erstelle oder aktualisiere Eintrag für Book
+        if (!summaryDB[bookId]) {
+          summaryDB[bookId] = {};
+        }
+        summaryDB[bookId].headings = headingsForDB;
+        summaryDB[bookId].tableOfContents = book.headings.map(h => ({
+          heading: h.text,
+          description: '', // Books haben keine Beschreibungen
+          index: h.id || `heading-${h.line || 0}`
+        }));
+        summaryDB[bookId].version = 'v2';
+
+        // Speichere zurück
+        await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+        console.log(`[BOOK] Überschriften für ${bookId} in summary-database.json gespeichert`);
+      } catch (dbError) {
+        console.error('[BOOK] Fehler beim Speichern der Überschriften:', dbError);
+        // Nicht kritisch - Book wird trotzdem zurückgegeben
+      }
+    }
+
+    // Gebe vollständige Book-Daten zurück
+    res.json({
+      ID: book.ID || book.gaNumber,
+      gaNumber: book.gaNumber || book.ID,
+      title: book.title,
+      fileName: book.fileName,
+      yearRange: book.yearRange,
+      content: book.content,
+      headings: book.headings || [],
+      wordCount: book.wordCount,
+      charCount: book.charCount
+    });
+
+  } catch (error) {
+    console.error('[BOOK] Fehler:', error);
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -9022,7 +9216,7 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       console.log('[GA-VOLUMES] Keine Keywords-Database gefunden');
     }
     
-    // Sammle ALLE GA-Bände aus fullLectures UND summaryDB
+    // Sammle ALLE GA-Bände aus fullLectures, fullBooks UND summaryDB
     const allGABands = new Set();
     
     // GA-Bände aus fullLectures
@@ -9030,6 +9224,14 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       const gaMatch = lectureId.match(/^(GA\d{3}[a-z]?)\//i);
       if (gaMatch) {
         allGABands.add(gaMatch[1].toLowerCase());
+      }
+    });
+    
+    // GA-Bände aus fullBooks (Schriften)
+    Object.values(fullBooks).forEach(book => {
+      const gaNumber = book.ID || book.gaNumber;
+      if (gaNumber && typeof gaNumber === 'string') {
+        allGABands.add(gaNumber.toLowerCase());
       }
     });
     
@@ -13098,6 +13300,9 @@ console.log('[BACKUP] ✓ Backups erstellt\n');
 
 await loadSynonyms();
 await loadFullLectures();
+console.log('\n[STARTUP] Lade Schriften...');
+const loadedBooks = await loadBooks();
+console.log(`[STARTUP] Schriften geladen: ${Object.keys(loadedBooks).length} Bücher`);
 await loadSteinerImages();
 
 // Synchronisiere Keyword-Systeme beim Start
@@ -13129,6 +13334,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
     console.log('DATEN GELADEN:');
     console.log(`  ${paragraphsFromLectures.length} Absätze`);
     console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
+    console.log(`  ${Object.keys(fullBooks).length} Schriften`);
     console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
     console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
@@ -13148,6 +13354,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   GET  /api/lectures/list`);
       console.log(`   GET  /api/available-ga`);
       console.log(`   GET  /api/ga-overview/:gaNumber`);
+      console.log(`   GET  /api/book/:gaNumber`);
       console.log(`   GET  /ga-overview-map.json`);
       console.log(`   POST /api/admin/generate-synonyms`);
       console.log(`   GET  /api/admin/synonym-stats`);
