@@ -294,10 +294,26 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       color: var(--dark-link-color);
     }
     
-    body.dark-mode .sidebar-collapsed .resize-handle::before,
+    body.dark-mode .sidebar-collapsed .resize-handle::before {
+      background: var(--link-color); /* Blau ausgefüllt auch im Dark-Mode */
+      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Stärkerer Schatten im Dark-Mode */
+    }
+    
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
-      background: var(--dark-background-color);
-      color: transparent; /* Pfeil unsichtbar machen */
+      background: var(--link-color); /* Blau ausgefüllt auch im Dark-Mode */
+      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Stärkerer Schatten im Dark-Mode */
+    }
+    
+    body.dark-mode .summary-panel-collapsed .vertical-resize-handle:hover::before {
+      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover im Dark-Mode */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten beim Hover */
+    }
+    
+    body.dark-mode .sidebar-collapsed .resize-handle:hover::before {
+      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover im Dark-Mode */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten beim Hover */
     }
     
     /* Diese Dark Mode Styles sind jetzt in #sidebar-content zentralisiert */
@@ -1067,12 +1083,20 @@ body.dark-mode .ga-missing-text {
       color: var(--link-color);
     }
     
-    /* Symbol für geschlossene Sidebar */
+    /* Symbol für geschlossene Sidebar - kleines Handle mit ausgefüllter Fläche in Blau */
     .sidebar-collapsed .resize-handle::before {
-      content: '▶';
-      font-size: 36px; /* Pfeiljgröße bleibt gleich */
-      background: var(--background-color);
-      padding: 8px 0;
+      content: '⋮';
+      font-size: 16px; /* Kleineres Handle */
+      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
+      background: var(--link-color); /* Blau (#467886) ausgefüllt */
+      padding: 6px 8px;
+      border-radius: 6px; /* Abgerundete Ecken */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
+    }
+    
+    .sidebar-collapsed .resize-handle:hover::before {
+      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Stärkerer Schatten beim Hover */
     }
     
     /* Vertikaler Resize-Handle für rechtes Summary-Panel */
@@ -1256,6 +1280,8 @@ body.dark-mode .ga-missing-text {
     /* Handle auch im geschlossenen Zustand sichtbar machen */
     .summary-panel-collapsed .vertical-resize-handle {
       display: block;
+      right: -6px !important; /* Etwas weiter nach rechts (weniger als vorher) */
+      cursor: pointer; /* Zeige Pointer-Cursor für Klick-Funktionalität */
     }
     
     .vertical-resize-handle:hover {
@@ -1266,14 +1292,24 @@ body.dark-mode .ga-missing-text {
       color: var(--link-color);
     }
     
-    /* Symbol für geschlossenes Summary-Panel - unsichtbar */
+    /* Symbol für geschlossenes Summary-Panel - kleines Handle mit ausgefüllter Fläche in Blau */
     .summary-panel-collapsed .vertical-resize-handle::before {
-      content: '◀';
-      font-size: 36px; /* Pfeilgröße bleibt gleich */
-      background: var(--background-color);
-      padding: 8px 6px;
+      content: '⋮';
+      font-size: 16px; /* Kleineres Handle */
+      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
+      background: var(--link-color); /* Blau (#467886) ausgefüllt */
+      padding: 6px 8px;
+      border-radius: 6px; /* Abgerundete Ecken */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
       display: inline-block;
-      color: transparent; /* Pfeil unsichtbar machen */
+      cursor: pointer; /* Pointer-Cursor auch am Pseudo-Element */
+      left: 45% !important; /* Punkte etwas nach links verschieben (statt 50%) */
+      transform: translate(-50%, -50%); /* Zentrierung beibehalten */
+    }
+    
+    .summary-panel-collapsed .vertical-resize-handle:hover::before {
+      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Stärkerer Schatten beim Hover */
     }
     
     #summary-content {
@@ -11068,8 +11104,10 @@ function displayGAChronological(lectures) {
         if (mainContainer) {
           mainContainer.style.marginRight = '0px';
         }
+        // Handle NICHT verstecken - es soll im geschlossenen Zustand sichtbar bleiben
+        // (wird durch CSS .summary-panel-collapsed .vertical-resize-handle sichtbar gemacht)
         if (verticalResizeHandle) {
-          verticalResizeHandle.style.display = 'none';
+          verticalResizeHandle.style.right = '0px'; // Position am rechten Rand
         }
         console.log('[TOGGLE-H4] TOC-Panel geschlossen');
       } else {
@@ -11282,10 +11320,24 @@ try {
         panel.style.minWidth = '280px';
         panel.style.marginRight = '0px';
         
-        // Sofort Main-Container anpassen, bevor Summary geladen wird
+        // Sofort Main-Container anpassen, bevor Content geladen wird
         updateHeaderPosition();
         
-        await loadSummaryAutomatically();
+        // Prüfe ob es ein Book ist - dann TOC bauen, sonst Summary laden
+        const isBook = currentLectureData && currentLectureData.isBook;
+        if (isBook) {
+          // Book: Baue TOC im Side Panel auf
+          const summaryContent = document.getElementById('summary-content');
+          if (summaryContent) {
+            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          }
+          setTimeout(() => {
+            buildTableOfContents();
+          }, 50);
+        } else {
+          // Vortrag: Lade Summary
+          await loadSummaryAutomatically();
+        }
       }
       
       updateHeaderPosition(); // Header-Position nach Panel-Toggle anpassen
