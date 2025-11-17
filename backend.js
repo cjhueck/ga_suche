@@ -141,6 +141,7 @@ async function findDataFiles() {
   
   // Suche nach steiner-books-XXX-YYY*.json oder steiner_books_XXX-YYY*.json
   // Pattern: steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json
+  // WICHTIG: Muss auch steiner-books-001-003.json matchen (ohne part-Nummer)
   const bookPattern = /^steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json$/i;
   const bookFiles = files.filter(f => {
     const matches = bookPattern.test(f);
@@ -149,6 +150,14 @@ async function findDataFiles() {
     }
     return matches;
   });
+  
+  // DEBUG: Zeige alle gefundenen Books-Dateien
+  if (bookFiles.length > 0) {
+    console.log(`[DEBUG] Gefundene Books-Dateien: ${bookFiles.join(', ')}`);
+  } else {
+    console.warn('[DEBUG] KEINE Books-Dateien gefunden! Verfügbare Dateien mit "books":', 
+      files.filter(f => f.includes('books') && f.endsWith('.json')));
+  }
   
   console.log('\nGefundene Dateien:');
   console.log('  Search-Dateien:', searchFiles);
@@ -281,29 +290,44 @@ async function loadFullLectures() {
     const { lectureFiles } = await findDataFiles();
     
     if (lectureFiles.length === 0) {
-      console.warn('Keine steiner-full-lectures-XXX-YYY*.json Dateien gefunden');
+      console.error('❌ FEHLER: Keine steiner-full-lectures-XXX-YYY*.json Dateien gefunden!');
+      console.error('   Verfügbare Dateien:', (await fs.readdir(__dirname)).filter(f => f.includes('lectures') && f.endsWith('.json')));
       return {};
     }
     
-    console.log(`\nLade Vorträge aus ${lectureFiles.length} Datei(en)...`);
+    console.log(`\n📚 Lade Vorträge aus ${lectureFiles.length} Datei(en)...`);
     
+    let totalLectures = 0;
     for (const fileName of lectureFiles) {
       const jsonPath = path.join(__dirname, fileName);
       console.log(`  Lade: ${fileName}`);
       
-      const data = await fs.readFile(jsonPath, 'utf8');
-      const parsed = JSON.parse(data);
-      
-      const lectures = parsed.lectures || [];
-      
-      lectures.forEach(lecture => {
-        if (lecture.ID) {
-          fullLectures[lecture.ID] = lecture;
+      try {
+        const data = await fs.readFile(jsonPath, 'utf8');
+        const parsed = JSON.parse(data);
+        
+        const lectures = parsed.lectures || [];
+        
+        if (lectures.length === 0) {
+          console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Vorträge!`);
         }
-      });
-      
-      console.log(`    -> ${lectures.length} Vorträge geladen`);
+        
+        lectures.forEach(lecture => {
+          if (lecture.ID) {
+            fullLectures[lecture.ID] = lecture;
+            totalLectures++;
+          } else {
+            console.warn(`    ⚠️  Vortrag ohne ID übersprungen:`, Object.keys(lecture));
+          }
+        });
+        
+        console.log(`    ✓ ${lectures.length} Vorträge geladen`);
+      } catch (fileError) {
+        console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
+      }
     }
+    
+    console.log(`  📊 Gesamt: ${totalLectures} Vorträge erfolgreich geladen`);
     
     const sample = Object.values(fullLectures)[0];
     console.log('\nVortrags-Struktur:', {
@@ -331,34 +355,50 @@ async function loadBooks() {
     const { bookFiles } = await findDataFiles();
     
     if (bookFiles.length === 0) {
-      console.warn('Keine steiner-books-XXX-YYY*.json Dateien gefunden');
+      console.error('❌ FEHLER: Keine steiner-books-XXX-YYY*.json Dateien gefunden!');
+      const allFiles = await fs.readdir(__dirname);
+      const bookLikeFiles = allFiles.filter(f => f.includes('books') && f.endsWith('.json'));
+      console.error('   Verfügbare Dateien mit "books":', bookLikeFiles);
       return {};
     }
     
-    console.log(`\nLade Schriften aus ${bookFiles.length} Datei(en)...`);
+    console.log(`\n📖 Lade Schriften aus ${bookFiles.length} Datei(en)...`);
     
+    let totalBooks = 0;
     for (const fileName of bookFiles) {
       const jsonPath = path.join(__dirname, fileName);
       console.log(`  Lade: ${fileName}`);
       
-      const data = await fs.readFile(jsonPath, 'utf8');
-      const parsed = JSON.parse(data);
-      
-      const books = parsed.books || [];
-      console.log(`    -> Gefunden: ${books.length} Schriften in Datei`);
-      
-      books.forEach(book => {
-        if (book.ID || book.gaNumber) {
-          const bookId = book.ID || book.gaNumber;
-          fullBooks[bookId] = book;
-          console.log(`      -> Hinzugefügt: ${bookId} (${book.title?.substring(0, 50)}...)`);
-        } else {
-          console.warn(`      -> Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
+      try {
+        const data = await fs.readFile(jsonPath, 'utf8');
+        const parsed = JSON.parse(data);
+        
+        const books = parsed.books || [];
+        
+        if (books.length === 0) {
+          console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Schriften!`);
         }
-      });
-      
-      console.log(`    -> ${books.length} Schriften verarbeitet`);
+        
+        console.log(`    -> Gefunden: ${books.length} Schriften in Datei`);
+        
+        books.forEach(book => {
+          if (book.ID || book.gaNumber) {
+            const bookId = book.ID || book.gaNumber;
+            fullBooks[bookId] = book;
+            totalBooks++;
+            console.log(`      ✓ Hinzugefügt: ${bookId} (${book.title?.substring(0, 50)}...)`);
+          } else {
+            console.warn(`      ⚠️  Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
+          }
+        });
+        
+        console.log(`    ✓ ${books.length} Schriften verarbeitet`);
+      } catch (fileError) {
+        console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
+      }
     }
+    
+    console.log(`  📊 Gesamt: ${totalBooks} Schriften erfolgreich geladen`);
     
     if (Object.keys(fullBooks).length > 0) {
       const sample = Object.values(fullBooks)[0];
@@ -3178,6 +3218,14 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
     }
     
     console.log(`[CHECK-SUMMARY] ✗ Keine Zusammenfassung für ${lectureId}`);
+    
+    // DEBUG: Zeige verfügbare IDs für dieses GA
+    const availableIds = Object.keys(summaryDB).filter(id => id.startsWith(req.params.gaNumber));
+    if (availableIds.length > 0) {
+      console.log(`[CHECK-SUMMARY] Verfügbare IDs für ${req.params.gaNumber}:`, availableIds.slice(0, 10));
+    } else {
+      console.log(`[CHECK-SUMMARY] Keine IDs für ${req.params.gaNumber} gefunden`);
+    }
     
     res.json({
       exists: false,
@@ -6357,8 +6405,15 @@ let summaryDbLock = false;
 async function loadSummaryDatabase() {
   try {
     const data = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    const entryCount = Object.keys(parsed).length;
+    console.log(`[SUMMARY-DB] Geladen: ${entryCount} Einträge aus summary-database.json`);
+    if (entryCount === 0) {
+      console.warn('[SUMMARY-DB] ⚠️  WARNUNG: summary-database.json ist leer!');
+    }
+    return parsed;
   } catch (error) {
+    console.error('[SUMMARY-DB] ❌ Fehler beim Laden:', error.message);
     console.log('Zentrale Summary-DB nicht gefunden, erstelle neue...');
     return {};
   }
