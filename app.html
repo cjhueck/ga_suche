@@ -4780,22 +4780,35 @@ function normalizeGANumber(gaNumber) {
           }
           
           if (verticalResizeHandle) {
+            // WICHTIG: Überschreibe RH-Position nicht, wenn sie bereits von Book-Positionierung gesetzt wurde
+            if (verticalResizeHandle.dataset.bookPositioned === 'true') {
+              console.log('[UPDATE-HEADER] Überspringe RH-Positionierung (bereits von Book gesetzt)');
+              return; // Überspringe Positionierung
+            }
+            
             // Rechtes Handle: Position abhängig von Panel-Zustand
             if (isSummaryPanelVisible) {
               // Panel offen: Handle auf der Trennlinie positionieren
               const panelWidth = summaryPanel.offsetWidth || 280;
               
-              // Prüfe, ob erweiterte Suche aktiv ist
-              const advancedSearchTab = document.getElementById('advanced-search-tab');
-              const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
-              
-              // Im erweiterten Such-Tab: größerer Offset (20px)
-              // In anderen Tabs: normaler Offset (10px)
-              const offset = isAdvancedSearchActive ? 1 : 10;
-              verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
+              // WICHTIG: Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
+              // Dies verhindert falsche Positionierung beim ersten Öffnen
+              if (panelWidth > 200 && panelWidth < 600) {
+                // Prüfe, ob erweiterte Suche aktiv ist
+                const advancedSearchTab = document.getElementById('advanced-search-tab');
+                const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
+                
+                // Im erweiterten Such-Tab: größerer Offset (20px)
+                // In anderen Tabs: normaler Offset (10px)
+                const offset = isAdvancedSearchActive ? 1 : 10;
+                verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
+              } else {
+                // Panel-Breite noch nicht korrekt - überspringe Positionierung
+                console.log('[UPDATE-HEADER] Panel-Breite noch nicht korrekt:', panelWidth + 'px (übersprungen)');
+              }
             } else {
-              // Panel geschlossen: Handle am rechten Bildschirmrand (leicht nach links)
-              verticalResizeHandle.style.right = '0px';
+              // Panel geschlossen: Handle am rechten Bildschirmrand (konsistent mit CSS: right: -6px)
+              verticalResizeHandle.style.right = '-6px';
             }
           }
         }, 10);
@@ -4847,20 +4860,28 @@ function normalizeGANumber(gaNumber) {
         // Hole die AKTUELLE Panel-Breite direkt aus dem DOM
         const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || 280;
         
-        // WICHTIG: Nur positionieren wenn Panel-Breite größer als 0 ist (verhindert falsche Positionierung beim ersten Öffnen)
+        // WICHTIG: Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
+        // Dies verhindert falsche Positionierung beim ersten Öffnen, wenn offsetWidth noch nicht korrekt ist
         // Nur aktualisieren wenn sich die Breite geändert hat UND Panel-Breite korrekt ist
-        if (currentPanelWidth > 0 && currentPanelWidth !== lastSyncedWidth) {
+        if (currentPanelWidth > 200 && currentPanelWidth < 600 && currentPanelWidth !== lastSyncedWidth) {
           // Setze Main-Container margin-right EXAKT auf Panel-Breite
           mainContainer.style.marginRight = currentPanelWidth + 'px';
           
           // Positioniere Resize-Handle EXAKT an Panel-Grenze
+          // ABER: Überschreibe nicht, wenn Positionierung bereits von Book gesetzt wurde
           if (verticalResizeHandle) {
-            const offset = 10;
-            verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
+            if (verticalResizeHandle.dataset.bookPositioned === 'true') {
+              console.log('[SYNC] Überspringe RH-Positionierung (bereits von Book gesetzt)');
+            } else {
+              const offset = 10;
+              verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
+            }
           }
           
           lastSyncedWidth = currentPanelWidth;
           console.log('[SYNC] Panel-Breite:', currentPanelWidth + 'px → Main-Container angepasst');
+        } else if (currentPanelWidth !== lastSyncedWidth && (currentPanelWidth <= 200 || currentPanelWidth >= 600)) {
+          console.log('[SYNC] Panel-Breite noch nicht korrekt:', currentPanelWidth + 'px (übersprungen)');
         }
       } else {
         // Panel geschlossen - Main-Container auf volle Breite
@@ -4873,7 +4894,20 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Führe Synchronisation kontinuierlich aus, um Gap zu vermeiden (alle 100ms)
-    setInterval(syncMainContainerWithPanel, 100);
+    // ABER: Nur wenn Panel wirklich sichtbar ist und Breite korrekt ist
+    setInterval(() => {
+      const summaryPanel = document.getElementById('summary-panel');
+      if (summaryPanel && summaryPanel.classList.contains('visible')) {
+        const currentWidth = summaryPanel.offsetWidth || 0;
+        // Nur synchronisieren wenn Breite im erwarteten Bereich liegt
+        if (currentWidth > 200 && currentWidth < 600) {
+          syncMainContainerWithPanel();
+        }
+      } else {
+        // Panel nicht sichtbar - synchronisiere trotzdem (für geschlossenen Zustand)
+        syncMainContainerWithPanel();
+      }
+    }, 100);
     
     // Initiale Synchronisation beim Laden
     setTimeout(syncMainContainerWithPanel, 0);
@@ -7062,10 +7096,12 @@ async function displayBook(book, highlightHeadingId = null) {
         // Entferne collapsed State
         document.body.classList.remove('summary-panel-collapsed');
         
-        // Zeige Resize-Handle
+        // Zeige Resize-Handle (aber noch NICHT positionieren - das passiert später)
         if (verticalResizeHandle) {
           verticalResizeHandle.classList.add('visible');
           verticalResizeHandle.style.display = 'block';
+          // WICHTIG: Setze initiale Position auf -6px (geschlossen), wird später korrigiert
+          verticalResizeHandle.style.right = '-6px';
         }
         
         // Passe Main-Container Margin an
@@ -7073,42 +7109,53 @@ async function displayBook(book, highlightHeadingId = null) {
           mainContainer.style.marginRight = panelWidth + 'px';
         }
         
-        // Header-Position aktualisieren
+        // WICHTIG: Verwende EXAKT die gleiche Sequenz wie toggleViewerH4() für Books
+        // 1. Header-Position aktualisieren (wie Zeile 11254)
         updateHeaderPosition();
         
-        // Synchronisation direkt aufrufen, damit lastSyncedWidth zurückgesetzt wird
-        // (mit kurzer Verzögerung, damit Panel-Breite korrekt ist)
-        setTimeout(() => {
-          if (typeof syncMainContainerWithPanel === 'function') {
-            // Setze lastSyncedWidth zurück, indem wir die Funktion mit einer falschen Breite aufrufen
-            // oder direkt die Synchronisation triggern
-            syncMainContainerWithPanel();
-          }
-        }, 50);
-        
-        // Explizite Positionierung des Resize-Handles mit korrektem Offset nach kurzer Verzögerung
-        // (damit Panel vollständig gerendert ist und offsetWidth korrekt ist)
-        // Verwende requestAnimationFrame für zuverlässige Positionierung nach Rendering
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setTimeout(() => {
-              if (verticalResizeHandle && summaryPanel && summaryPanel.classList.contains('visible')) {
-                // Hole die tatsächliche Panel-Breite aus dem DOM (wichtig für korrekte Positionierung)
-                const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || panelWidth;
-                if (currentPanelWidth > 0) {
-                  const offset = 10; // Konsistent mit updateHeaderPosition() und syncMainContainerWithPanel()
-                  verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
-                  console.log('[BOOK] Resize-Handle explizit positioniert:', (currentPanelWidth - offset) + 'px (Panel-Breite:', currentPanelWidth + 'px)');
-                }
-              }
-            }, 30);
-          });
-        });
-        
-        // Baue TOC im Side Panel auf
+        // 2. Baue TOC auf (wie Zeile 11250) - muss IMMER aufgerufen werden
+        // Baue TOC sofort auf, damit es angezeigt wird
         setTimeout(() => {
           buildTableOfContents();
         }, 50);
+        
+        // 3. Positioniere Main-Container und RH nach Verzögerung
+        // WICHTIG: Verwende EXAKT die gleiche Logik wie toggleViewerH4() - verwende panelWidth statt offsetWidth!
+        setTimeout(() => {
+          // Verwende panelWidth (wie in toggleViewerH4 Zeile 11229), NICHT offsetWidth!
+          // offsetWidth kann beim ersten Öffnen noch falsch sein (z.B. 281px statt 280px)
+          if (mainContainer) {
+            mainContainer.style.marginRight = panelWidth + 'px';
+            console.log('[BOOK] Main-Container angepasst auf:', panelWidth + 'px');
+          }
+          if (verticalResizeHandle) {
+            verticalResizeHandle.style.display = 'block';
+            const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
+            verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
+            console.log('[BOOK] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px (panelWidth:', panelWidth + 'px)');
+            
+            // WICHTIG: Setze Flag, damit syncMainContainerWithPanel() die Positionierung nicht überschreibt
+            verticalResizeHandle.dataset.bookPositioned = 'true';
+            
+            // Stelle sicher, dass Positionierung nicht überschrieben wird
+            setTimeout(() => {
+              if (verticalResizeHandle) {
+                const currentRight = verticalResizeHandle.style.right;
+                const expectedRight = (panelWidth - offset) + 'px';
+                if (currentRight !== expectedRight) {
+                  console.log('[BOOK] Korrigiere RH-Position nach syncMainContainerWithPanel():', currentRight, '→', expectedRight);
+                  verticalResizeHandle.style.right = expectedRight;
+                }
+                // Entferne Flag nach kurzer Zeit
+                setTimeout(() => {
+                  if (verticalResizeHandle) {
+                    delete verticalResizeHandle.dataset.bookPositioned;
+                  }
+                }, 500);
+              }
+            }, 100);
+          }
+        }, 50); // Gleiche Verzögerung wie in toggleViewerH4()
         
         // Scrolle zu Überschrift NACH dem Öffnen des Panels (falls highlightHeadingId gesetzt ist)
         if (highlightHeadingId) {
@@ -7491,7 +7538,10 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     // Browser History Eintrag hinzufügen
     if (!skipHistory) {
-      const url = `${window.location.pathname}#ga?volume=${encodeURIComponent(gaNumber)}`;
+      // Entferne bestehende Query-Parameter aus dem Hash, um doppelte Parameter zu vermeiden
+      const currentHash = window.location.hash.substring(1) || 'ga';
+      const tabWithoutParams = currentHash.split('?')[0];
+      const url = `${window.location.pathname}#${tabWithoutParams}?volume=${encodeURIComponent(gaNumber)}`;
       history.pushState({ 
         tab: 'ga', 
         gaVolume: gaNumber 
@@ -11136,7 +11186,8 @@ function displayGAChronological(lectures) {
         // Handle NICHT verstecken - es soll im geschlossenen Zustand sichtbar bleiben
         // (wird durch CSS .summary-panel-collapsed .vertical-resize-handle sichtbar gemacht)
         if (verticalResizeHandle) {
-          verticalResizeHandle.style.right = '0px'; // Position am rechten Rand
+          // Position am rechten Rand (konsistent mit CSS: right: -6px)
+          verticalResizeHandle.style.right = '-6px';
         }
         console.log('[TOGGLE-H4] TOC-Panel geschlossen');
       } else {
@@ -11260,6 +11311,8 @@ try {
   const viewerH4 = viewer.querySelectorAll('h4');
   const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
   
+  console.log(`[TOGGLE-H4] Gefundene H4 im Viewer: ${viewerH4.length}, im TOC: ${tocH4.length}`);
+  
   // TOC-Container im Viewer finden
   const viewerTOC = viewer.querySelector('.lecture-toc-section');
   const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
@@ -11279,10 +11332,14 @@ try {
   tocH4.forEach(h4 => {
     if (viewerH4Collapsed) {
       h4.classList.add('hidden');
+      h4.style.display = 'none'; // Zusätzlich display:none setzen für Sicherheit
     } else {
       h4.classList.remove('hidden');
+      h4.style.display = 'block'; // Explizit anzeigen
     }
   });
+  
+  console.log(`[TOGGLE-H4] H4-Status: ${viewerH4Collapsed ? 'ausgeblendet' : 'sichtbar'}`);
   
   // Toggle TOC-Container im Viewer
   if (viewerTOC) {
@@ -12366,10 +12423,13 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   
   // Browser History Eintrag hinzufügen (außer bei popstate)
   if (!skipHistory) {
-    const currentTab = window.location.hash.substring(1) || 'ga';
-    const url = `${window.location.pathname}#${currentTab}?lecture=${lectureId}`;
+    const currentHash = window.location.hash.substring(1) || 'ga';
+    // Entferne bestehende Query-Parameter aus dem Hash, um doppelte Parameter zu vermeiden
+    const tabWithoutParams = currentHash.split('?')[0];
+    // Entferne auch bestehende lecture= Parameter falls vorhanden
+    const url = `${window.location.pathname}#${tabWithoutParams}?lecture=${encodeURIComponent(lectureId)}`;
     history.pushState({ 
-      tab: currentTab, 
+      tab: tabWithoutParams, 
       lecture: lectureId,
       targetIndex: targetIndex,
       keywords: keywords,
@@ -14285,6 +14345,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         tocHeading.style.textDecoration = 'none';
         tocHeading.style.display = 'block';
         tocHeading.style.marginBottom = '0.3rem';
+        
+        // Wenn H4 und viewerH4Collapsed aktiv ist, verstecke das Element beim Erstellen
+        if (heading.tagName.toLowerCase() === 'h4' && viewerH4Collapsed) {
+          tocHeading.classList.add('hidden');
+          tocHeading.style.display = 'none';
+        }
         
         // Kein Hover-Effekt für TOC-Links (unterstreichen entfernt)
         
