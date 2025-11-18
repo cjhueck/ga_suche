@@ -283,21 +283,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       background-color: transparent;
     }
     
-    body.dark-mode .resize-handle::before,
-    body.dark-mode .vertical-resize-handle::before {
-      background: var(--dark-background-color);
-      color: var(--dark-link-color);
+    body.dark-mode .resize-handle {
+      background-color: var(--dark-background-color);
+      border-color: var(--dark-border-color);
     }
     
-    body.dark-mode .resize-handle:hover::before,
-    body.dark-mode .vertical-resize-handle:hover::before {
-      color: var(--dark-link-color);
-    }
-    
-    body.dark-mode .sidebar-collapsed .resize-handle::before {
-      background: var(--link-color); /* Blau ausgefüllt auch im Dark-Mode */
-      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Stärkerer Schatten im Dark-Mode */
+    body.dark-mode .resize-handle:hover {
+      background-color: var(--dark-link-color);
+      border-color: var(--dark-link-color);
     }
     
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
@@ -307,11 +300,6 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle:hover::before {
-      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover im Dark-Mode */
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten beim Hover */
-    }
-    
-    body.dark-mode .sidebar-collapsed .resize-handle:hover::before {
       background: #3a5f6b; /* Etwas dunkleres Blau beim Hover im Dark-Mode */
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten beim Hover */
     }
@@ -424,11 +412,11 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
       max-width: none;
       height: 100vh;
       overflow: hidden;
-      border-right: 1px solid var(--border-color);
+      border-right: none; /* Keine Border, da die Trennlinie vom Handle-Wrapper kommt */
       padding: 0;
       box-sizing: border-box;
       position: relative;
-      transition: width 0.3s ease, min-width 0.3s ease;
+      transition: none; /* Keine Transition - sofortiges Schließen */
     }
     
     #sidebar-header {
@@ -1045,104 +1033,209 @@ body.dark-mode .ga-missing-text {
     }
 
     
-    .resize-handle {
-  width: 1px;
-  background-color: transparent;
-      cursor: col-resize;
+    /* Wrapper für den linken Resize-Handle - volle Höhe für Klickbarkeit */
+    .resize-handle-wrapper {
+      width: 8px;
       position: fixed;
-      left: 440px; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh; /* Feste Position bei 45% der Viewport-Höhe */
-      bottom: auto;
-      height: 100px; /* Feste Höhe für das Handle */
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      cursor: col-resize;
+      z-index: 1004; /* Über dem Header (z-index: 1003), damit Trennlinie über Header liegt */
+      display: grid;
+      place-items: start;
+      align-content: start;
+      pointer-events: auto;
+      margin-left: -4px; /* Hälfte der Breite, damit es genau auf der Grenzlinie liegt */
+      padding-top: 45vh; /* Position bei 45% der Viewport-Höhe */
+    }
+    
+    /* Grenzlinie für linkes Side Panel - volle Höhe, über Header */
+    .resize-handle-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 4px;
+      width: 0.5px;
+      background-color: var(--border-color);
+      transition: all 0.2s;
+      pointer-events: none;
+      z-index: 1004; /* Über dem Header (z-index: 1003) */
+    }
+    
+    .resize-handle-wrapper:hover .resize-handle-line {
+      background-color: var(--link-color);
+      width: 0.5px;
+      transition-delay: 75ms;
+    }
+    
+    /* Handle im collapsed-Zustand */
+    .sidebar-collapsed .resize-handle-wrapper {
+      margin-left: 0; /* Am linken Rand wenn Sidebar collapsed */
+    }
+    
+    /* Trennlinie im geschlossenen Zustand ausblenden - nur RH sichtbar */
+    .sidebar-collapsed .resize-handle-line {
+      display: none;
+    }
+    
+    .resize-handle {
+      width: 8px;
+      height: 24px;
+      background-color: var(--background-color);
+      border: none; /* Kein Rahmen - wie horizontales RH */
+      border-radius: 0; /* Keine Abrundung - wie horizontales RH */
+      cursor: col-resize;
+      position: relative;
       flex-shrink: 0;
       transition: background-color 0.2s;
-      z-index: 999; /* Über anderen Elementen */
+      box-shadow: none; /* Kein Schatten - wie horizontales RH */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1005; /* Über der Trennlinie (z-index: 1004) */
     }
     
+    /* Drei vertikale Punkte für linken RH */
     .resize-handle::before {
-      content: '⋮';
+      content: '';
       position: absolute;
-      top: 50%;
       left: 50%;
+      top: 50%;
       transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 0;
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    
-    .resize-handle:hover {
-      background-color: transparent;
+      width: 3px;
+      height: 3px;
+      background-color: #3a5f6d; /* Etwas dunkler als var(--link-color) */
+      border-radius: 50%;
+      box-shadow: 0 5.2px 0 #3a5f6d, 0 -5.2px 0 #3a5f6d;
+      opacity: 0.6;
+      transition: opacity 0.2s;
     }
     
     .resize-handle:hover::before {
-      color: var(--link-color);
+      opacity: 1;
     }
     
-    /* Symbol für geschlossene Sidebar - kleines Handle mit ausgefüllter Fläche in Blau */
-    .sidebar-collapsed .resize-handle::before {
-      content: '⋮';
-      font-size: 16px; /* Kleineres Handle */
-      color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
-      background: var(--link-color); /* Blau (#467886) ausgefüllt */
-      padding: 6px 8px;
-      border-radius: 6px; /* Abgerundete Ecken */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
+    .resize-handle:hover {
+      background-color: transparent; /* Wie horizontales RH */
     }
     
-    .sidebar-collapsed .resize-handle:hover::before {
-      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover */
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Stärkerer Schatten beim Hover */
+    /* Handle im collapsed-Zustand */
+    .sidebar-collapsed .resize-handle {
+      margin-left: 0; /* Am linken Rand wenn Sidebar collapsed */
+      background-color: var(--link-color); /* Blau ausgefüllt im geschlossenen Zustand */
+      border-top-right-radius: 12px; /* Abgerundete Ecken auf der Seite zum Fenster hin */
+      border-bottom-right-radius: 12px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    .sidebar-collapsed .resize-handle:hover {
+      background-color: var(--link-color);
     }
     
     /* Vertikaler Resize-Handle für rechtes Summary-Panel */
-    .vertical-resize-handle {
-      width: 20px; /* Breitere Klickfläche */
-      background-color: transparent;
-      cursor: col-resize;
+    /* Wrapper für den vertical-resize-handle - wie bei Claude */
+    .vertical-resize-handle-wrapper {
+      width: 8px;
       position: fixed;
-      right: auto; /* Wird dynamisch über JavaScript gesetzt */
-      top: 45vh;
-      bottom: auto;
-      height: 100px;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      cursor: col-resize;
+      z-index: 1002; /* Über dem Summary Panel (z-index: 999) und gleich wie linker Wrapper */
+      display: none;
+      pointer-events: auto;
+      margin-right: -2px; /* Etwas weiter ins Fenster hereinragen, damit RH sichtbar ist */
+    }
+    
+    .vertical-resize-handle-wrapper.visible {
+      display: grid;
+      place-items: center;
+      align-content: start; /* Start bei 45vh für gleiche Position wie linker RH */
+      padding-top: 45vh;
+    }
+    
+    /* Grenzlinie - volle Höhe, schmal wie Sidebar-Border (1px) */
+    .vertical-resize-handle-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 4px;
+      width: 0.5px;
+      background-color: var(--border-color);
+      transition: all 0.2s;
+      pointer-events: none;
+      z-index: 1002; /* Über dem Summary Panel (z-index: 999), Header verdeckt durch Hintergrundfarbe */
+    }
+    
+    .vertical-resize-handle-wrapper:hover .vertical-resize-handle-line {
+      background-color: var(--link-color);
+      width: 0.5px;
+      transition-delay: 75ms;
+    }
+    
+    /* Das eigentliche Handle - wie horizontales RH, identisch mit linkem RH */
+    .vertical-resize-handle {
+      width: 8px;
+      height: 24px;
+      min-height: 24px; /* Mindesthöhe sicherstellen */
+      max-height: 24px; /* Maximale Höhe sicherstellen */
+      background-color: var(--background-color);
+      border: none; /* Kein Rahmen - wie horizontales RH */
+      border-radius: 0; /* Keine Abrundung - wie horizontales RH */
+      cursor: col-resize;
+      position: relative;
       flex-shrink: 0;
       transition: background-color 0.2s;
-      z-index: 9999; /* Höherer z-index */
-      display: none; /* Standardmäßig versteckt */
-      pointer-events: auto; /* Explizit klickbar machen */
-    }
-    
-    .vertical-resize-handle.visible {
-      display: block;
-    }
-    
-    .vertical-resize-handle::before {
-      content: '⋮';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--link-color);
-      background: var(--background-color);
-      padding: 8px 4px; /* Mehr Padding für größere Klickfläche */
-      font-size: 25px;
-      line-height: 1;
-      font-weight: normal;
-      cursor: col-resize; /* Cursor auch am Pseudo-Element */
-      transition: color 0.2s;
+      box-shadow: none; /* Kein Schatten - wie horizontales RH */
       pointer-events: auto;
+      display: flex; /* Flex für Zentrierung der Punkte */
+      align-items: center;
+      justify-content: center;
+      visibility: visible; /* Sicherstellen, dass es sichtbar ist */
+      opacity: 1; /* Sicherstellen, dass es nicht transparent ist */
+      box-sizing: border-box;
+      z-index: 1003; /* Über der Trennlinie (z-index: 1002) */
+      margin-left: -2px; /* Etwas weiter ins Fenster hereinragen, damit es sichtbar ist */
     }
     
-    .vertical-resize-handle:hover {
-      background-color: transparent;
+    /* Drei vertikale Punkte für rechtes RH */
+    .vertical-resize-handle::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 3px;
+      height: 3px;
+      background-color: #3a5f6d; /* Etwas dunkler als var(--link-color) */
+      border-radius: 50%;
+      box-shadow: 0 5.2px 0 #3a5f6d, 0 -5.2px 0 #3a5f6d;
+      opacity: 0.6;
+      transition: opacity 0.2s;
     }
     
-    .vertical-resize-handle:hover::before {
-      color: var(--link-color);
+    .vertical-resize-handle-wrapper:hover .vertical-resize-handle::before {
+      opacity: 1;
+    }
+    
+    .vertical-resize-handle-wrapper:hover .vertical-resize-handle {
+      background-color: transparent; /* Wie horizontales RH */
+    }
+    
+    /* Blau ausgefüllt im geschlossenen Zustand (Panel nicht visible) */
+    .vertical-resize-handle-wrapper:not(.visible) .vertical-resize-handle,
+    body.summary-panel-collapsed .vertical-resize-handle-wrapper .vertical-resize-handle {
+      background-color: var(--link-color);
+      border-top-left-radius: 12px; /* Abgerundete Ecken auf der Seite zum Fenster hin */
+      border-bottom-left-radius: 12px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      width: 12px; /* Größer im geschlossenen Zustand */
+      height: 32px; /* Größer im geschlossenen Zustand */
+      min-height: 32px;
+      max-height: 32px;
     }
     
     #main-container {
@@ -1232,7 +1325,7 @@ body.dark-mode .ga-missing-text {
       min-width: 280px;
       max-width: none;
       background: var(--background-color);
-      border-left: 1px solid var(--border-color);
+      border-left: none; /* Keine Border, da die Trennlinie vom Handle-Wrapper kommt */
       border-top: none !important;
 
     }
@@ -2170,7 +2263,7 @@ body.dark-mode #thematicSearchInfo {
     #viewer-header {
       position: fixed;
       top: 0;
-      z-index: 1000;
+      z-index: 1003; /* Höher als Trennlinie (z-index: 1002), damit Header Trennlinie verdeckt */
       background-color: var(--background-color) !important;
       border-bottom: 1px solid var(--border-color);
       padding: 1rem;
@@ -4442,7 +4535,10 @@ Bestehende Schlagwörter überschreiben
 <div id="results"></div>
 </div>
 </div>
-<div class="resize-handle" id="resizeHandle"></div>
+<div class="resize-handle-wrapper" id="resizeHandleWrapper">
+  <div class="resize-handle-line"></div>
+  <div class="resize-handle" id="resizeHandle"></div>
+</div>
 <div id="main-container">
 <div id="main">
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
@@ -4478,7 +4574,10 @@ S&H&C&K
 </div>
 <div id="viewer"></div>
 </div>
-<div class="vertical-resize-handle" id="verticalResizeHandle"></div>
+<div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
+  <div class="vertical-resize-handle-line"></div>
+  <div class="vertical-resize-handle" id="verticalResizeHandle"></div>
+</div>
 <div id="summary-panel">
   <div class="summary-buttons">
   </div>
@@ -4699,6 +4798,76 @@ function normalizeGANumber(gaNumber) {
       console.log(locked ? 'UI locked (flag only) - Summary generation in progress' : 'UI unlocked - Summary generation finished');
     }
 
+    /**
+     * Zentrale Funktion: Aktualisiert den Resize-Handle basierend auf dem Panel-Status
+     * Regel: Im geschlossenen Zustand IMMER RH am rechten Rand sichtbar,
+     *        im geöffneten Zustand immer auf Trennlinie sichtbar
+     */
+    function updateResizeHandle() {
+      const summaryPanel = document.getElementById('summary-panel');
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+      
+      if (!verticalResizeHandleWrapper) return;
+      
+      const isPanelVisible = summaryPanel && summaryPanel.classList.contains('visible');
+      
+      // RH ist IMMER sichtbar (entweder rechts oder auf TL)
+      verticalResizeHandleWrapper.classList.add('visible');
+      verticalResizeHandleWrapper.style.display = 'grid';
+      
+      // Stelle sicher, dass das Handle-Element selbst sichtbar ist
+      if (verticalResizeHandle) {
+        verticalResizeHandle.style.display = 'block';
+        verticalResizeHandle.style.visibility = 'visible';
+        verticalResizeHandle.style.opacity = '1';
+        
+        // Größe basierend auf Panel-Status setzen
+        if (isPanelVisible) {
+          // Geöffnet: kleinere Größe
+          verticalResizeHandle.style.height = '24px';
+          verticalResizeHandle.style.minHeight = '24px';
+          verticalResizeHandle.style.maxHeight = '24px';
+          verticalResizeHandle.style.width = '8px';
+        } else {
+          // Geschlossen: größere Größe
+          verticalResizeHandle.style.height = '32px';
+          verticalResizeHandle.style.minHeight = '32px';
+          verticalResizeHandle.style.maxHeight = '32px';
+          verticalResizeHandle.style.width = '12px';
+        }
+      }
+      
+      if (isPanelVisible) {
+        // Panel geöffnet: RH auf Trennlinie positionieren
+        // Versuche verschiedene Methoden, um die Panel-Breite zu ermitteln
+        let panelWidth = summaryPanel.offsetWidth;
+        if (!panelWidth || panelWidth === 0) {
+          // Fallback: Versuche style.width zu parsen
+          const styleWidth = summaryPanel.style.width;
+          if (styleWidth) {
+            panelWidth = parseInt(styleWidth);
+          }
+        }
+        if (!panelWidth || panelWidth === 0) {
+          // Fallback: Verwende gespeicherte Breite
+          panelWidth = savedSummaryPanelWidth || 280;
+        }
+        
+        // Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
+        if (panelWidth > 200 && panelWidth < 600) {
+          verticalResizeHandleWrapper.style.right = panelWidth + 'px';
+        } else {
+          // Panel-Breite noch nicht korrekt - verwende gespeicherte Breite
+          const savedWidth = savedSummaryPanelWidth || 280;
+          verticalResizeHandleWrapper.style.right = savedWidth + 'px';
+        }
+      } else {
+        // Panel geschlossen: RH am rechten Bildschirmrand
+        verticalResizeHandleWrapper.style.right = '0px';
+      }
+    }
+
     // Header-Position dynamisch anpassen
     function updateHeaderPosition() {
       const header = document.getElementById('viewer-header');
@@ -4754,7 +4923,7 @@ function normalizeGANumber(gaNumber) {
         // Main-Container unter Header positionieren
         const mainContainer = document.getElementById('main-container');
         const resizeHandle = document.getElementById('resizeHandle');
-        const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
         
         setTimeout(() => {
           const headerHeight = header.offsetHeight;
@@ -4768,49 +4937,8 @@ function normalizeGANumber(gaNumber) {
             viewer.style.paddingTop = '0px';
           }
           
-          // Resize-Handles horizontal positionieren (Höhe über CSS: 45vh)
-          if (resizeHandle) {
-            // Linkes Handle: Position abhängig von Sidebar-Zustand
-            if (isSidebarCollapsed) {
-              resizeHandle.style.left = '0px';
-            } else {
-              const sidebarWidth = sidebar ? sidebar.offsetWidth : 440;
-              resizeHandle.style.left = sidebarWidth + 'px';
-            }
-          }
-          
-          if (verticalResizeHandle) {
-            // WICHTIG: Überschreibe RH-Position nicht, wenn sie bereits von Book-Positionierung gesetzt wurde
-            if (verticalResizeHandle.dataset.bookPositioned === 'true') {
-              console.log('[UPDATE-HEADER] Überspringe RH-Positionierung (bereits von Book gesetzt)');
-              return; // Überspringe Positionierung
-            }
-            
-            // Rechtes Handle: Position abhängig von Panel-Zustand
-            if (isSummaryPanelVisible) {
-              // Panel offen: Handle auf der Trennlinie positionieren
-              const panelWidth = summaryPanel.offsetWidth || 280;
-              
-              // WICHTIG: Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
-              // Dies verhindert falsche Positionierung beim ersten Öffnen
-              if (panelWidth > 200 && panelWidth < 600) {
-                // Prüfe, ob erweiterte Suche aktiv ist
-                const advancedSearchTab = document.getElementById('advanced-search-tab');
-                const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
-                
-                // Im erweiterten Such-Tab: größerer Offset (20px)
-                // In anderen Tabs: normaler Offset (10px)
-                const offset = isAdvancedSearchActive ? 1 : 10;
-                verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
-              } else {
-                // Panel-Breite noch nicht korrekt - überspringe Positionierung
-                console.log('[UPDATE-HEADER] Panel-Breite noch nicht korrekt:', panelWidth + 'px (übersprungen)');
-              }
-            } else {
-              // Panel geschlossen: Handle am rechten Bildschirmrand (konsistent mit CSS: right: -6px)
-              verticalResizeHandle.style.right = '-6px';
-            }
-          }
+          // Verwende zentrale Funktion für rechten RH-Status
+          updateResizeHandle();
         }, 10);
       }
     }
@@ -4852,7 +4980,7 @@ function normalizeGANumber(gaNumber) {
     function syncMainContainerWithPanel() {
       const summaryPanel = document.getElementById('summary-panel');
       const mainContainer = document.getElementById('main-container');
-      const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
       
       if (!summaryPanel || !mainContainer) return;
       
@@ -4869,12 +4997,14 @@ function normalizeGANumber(gaNumber) {
           
           // Positioniere Resize-Handle EXAKT an Panel-Grenze
           // ABER: Überschreibe nicht, wenn Positionierung bereits von Book gesetzt wurde
-          if (verticalResizeHandle) {
-            if (verticalResizeHandle.dataset.bookPositioned === 'true') {
+          if (verticalResizeHandleWrapper) {
+            const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+            if (verticalResizeHandle && verticalResizeHandle.dataset.bookPositioned === 'true') {
               console.log('[SYNC] Überspringe RH-Positionierung (bereits von Book gesetzt)');
             } else {
-              const offset = 10;
-              verticalResizeHandle.style.right = (currentPanelWidth - offset) + 'px';
+              // Positioniere Handle direkt am linken Rand des Panels
+              // Der margin-right: -4px im CSS sorgt dafür, dass es genau auf der Grenzlinie liegt
+              verticalResizeHandleWrapper.style.right = currentPanelWidth + 'px';
             }
           }
           
@@ -4987,15 +5117,25 @@ function normalizeGANumber(gaNumber) {
         sidebar.style.width = '';
         sidebar.style.minWidth = '';
         
+        // Aktualisiere Position des linken RH-Wrappers sofort
+        updateLeftResizeHandlePosition();
         updateHeaderPosition();
       } else {
-        // Sidebar schließen
+        // Sidebar schließen - ohne Transition
+        sidebar.style.transition = 'none'; // Transition deaktivieren
         sidebar.classList.add('collapsed');
         document.body.classList.add('sidebar-collapsed');
         sidebar.style.width = '0';
         sidebar.style.minWidth = '0';
         
+        // Position sofort aktualisieren (ohne Verzögerung)
+        updateLeftResizeHandlePosition();
         updateHeaderPosition();
+        
+        // Transition nach kurzer Verzögerung wieder aktivieren (für zukünftige Animationen)
+        setTimeout(() => {
+          sidebar.style.transition = '';
+        }, 10);
       }
     }
 
@@ -5113,11 +5253,11 @@ function normalizeGANumber(gaNumber) {
         currentActiveTab.style.display = 'none';
         currentActiveTab.classList.remove('active');
         
-        // Verstecke den verticalResizeHandle
-        const verticalHandle = document.getElementById('verticalResizeHandle');
-        if (verticalHandle) {
-          verticalHandle.style.display = 'none';
-          verticalHandle.classList.remove('visible');
+        // Verstecke den verticalResizeHandle-Wrapper
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.style.display = 'none';
+          verticalResizeHandleWrapper.classList.remove('visible');
         }
         
         // Schließe das rechte Panel
@@ -5482,6 +5622,11 @@ function normalizeGANumber(gaNumber) {
       
   initResizeHandle();
   initVerticalResizeHandle();
+  
+  // Initialisiere Position des linken RH-Wrappers
+  setTimeout(() => {
+    updateLeftResizeHandlePosition();
+  }, 100);
   checkServerConnection();
   loadSteinerImages(); // Lade Bilder-Datenbank
   initTheme();
@@ -6230,11 +6375,15 @@ function normalizeGANumber(gaNumber) {
       // Close summary panel when opening GA overview from the search window
       try {
         const summaryPanel = document.getElementById('summary-panel');
-        const resizeHandle = document.getElementById('verticalResizeHandle');
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
         const mainContainer = document.getElementById('main-container');
         if (summaryPanel && summaryPanel.classList.contains('visible')) {
           summaryPanel.classList.remove('visible');
-          if (resizeHandle) resizeHandle.classList.remove('visible');
+          if (verticalResizeHandleWrapper) {
+            verticalResizeHandleWrapper.classList.remove('visible');
+            verticalResizeHandleWrapper.style.display = 'none';
+            verticalResizeHandleWrapper.style.right = '0px';
+          }
           summaryPanel.style.width = '0';
           summaryPanel.style.minWidth = '0';
           summaryPanel.style.marginRight = '0px';
@@ -7040,7 +7189,7 @@ async function displayBook(book, highlightHeadingId = null) {
     // - Texte-Tab: TOC im Sidebar, Sidebar öffnen
     const summaryPanel = document.getElementById('summary-panel');
     const summaryContent = document.getElementById('summary-content');
-    const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
     const mainContainer = document.getElementById('main-container');
     
     // Prüfe nochmal welcher Tab aktiv ist (kann sich geändert haben)
@@ -7053,9 +7202,8 @@ async function displayBook(book, highlightHeadingId = null) {
       // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
       if (summaryPanel) {
         summaryPanel.classList.remove('visible');
-        if (verticalResizeHandle) {
-          verticalResizeHandle.classList.remove('visible');
-          verticalResizeHandle.style.display = 'none';
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.classList.remove('visible');
         }
         summaryPanel.style.width = '0';
         summaryPanel.style.minWidth = '0';
@@ -7096,18 +7244,13 @@ async function displayBook(book, highlightHeadingId = null) {
         // Entferne collapsed State
         document.body.classList.remove('summary-panel-collapsed');
         
-        // Zeige Resize-Handle (aber noch NICHT positionieren - das passiert später)
-        if (verticalResizeHandle) {
-          verticalResizeHandle.classList.add('visible');
-          verticalResizeHandle.style.display = 'block';
-          // WICHTIG: Setze initiale Position auf -6px (geschlossen), wird später korrigiert
-          verticalResizeHandle.style.right = '-6px';
-        }
-        
         // Passe Main-Container Margin an
         if (mainContainer) {
           mainContainer.style.marginRight = panelWidth + 'px';
         }
+        
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
         
         // WICHTIG: Verwende EXAKT die gleiche Sequenz wie toggleViewerH4() für Books
         // 1. Header-Position aktualisieren (wie Zeile 11254)
@@ -7128,23 +7271,26 @@ async function displayBook(book, highlightHeadingId = null) {
             mainContainer.style.marginRight = panelWidth + 'px';
             console.log('[BOOK] Main-Container angepasst auf:', panelWidth + 'px');
           }
-          if (verticalResizeHandle) {
-            verticalResizeHandle.style.display = 'block';
-            const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
-            verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
-            console.log('[BOOK] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px (panelWidth:', panelWidth + 'px)');
+          if (verticalResizeHandleWrapper) {
+            // Positioniere Handle direkt am linken Rand des Panels
+            // Der margin-right: -4px im CSS sorgt dafür, dass es genau auf der Grenzlinie liegt
+            verticalResizeHandleWrapper.style.right = panelWidth + 'px';
+            console.log('[BOOK] Resize-Handle positioniert bei:', panelWidth + 'px (panelWidth:', panelWidth + 'px)');
             
-            // WICHTIG: Setze Flag, damit syncMainContainerWithPanel() die Positionierung nicht überschreibt
-            verticalResizeHandle.dataset.bookPositioned = 'true';
+            // WICHTIG: Setze Flag am Handle-Element, damit syncMainContainerWithPanel() die Positionierung nicht überschreibt
+            const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+            if (verticalResizeHandle) {
+              verticalResizeHandle.dataset.bookPositioned = 'true';
+            }
             
             // Stelle sicher, dass Positionierung nicht überschrieben wird
             setTimeout(() => {
-              if (verticalResizeHandle) {
-                const currentRight = verticalResizeHandle.style.right;
-                const expectedRight = (panelWidth - offset) + 'px';
+              if (verticalResizeHandleWrapper) {
+                const currentRight = verticalResizeHandleWrapper.style.right;
+                const expectedRight = panelWidth + 'px';
                 if (currentRight !== expectedRight) {
                   console.log('[BOOK] Korrigiere RH-Position nach syncMainContainerWithPanel():', currentRight, '→', expectedRight);
-                  verticalResizeHandle.style.right = expectedRight;
+                  verticalResizeHandleWrapper.style.right = expectedRight;
                 }
                 // Entferne Flag nach kurzer Zeit
                 setTimeout(() => {
@@ -8999,13 +9145,12 @@ function displayGAChronological(lectures) {
           summaryPanel.style.visibility = 'visible';
         }
         
-        // Zeige den verticalResizeHandle
-        const verticalHandle = document.getElementById('verticalResizeHandle');
-        if (verticalHandle) {
-          console.log('[SNIPPET-CLICK] Zeige verticalResizeHandle');
-          verticalHandle.style.display = 'block';
-          verticalHandle.classList.add('visible');
-          console.log('[SNIPPET-CLICK] verticalResizeHandle right:', verticalHandle.style.right, 'display:', verticalHandle.style.display);
+        // Zeige den verticalResizeHandle-Wrapper
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          console.log('[SNIPPET-CLICK] Zeige verticalResizeHandleWrapper');
+          verticalResizeHandleWrapper.classList.add('visible');
+          verticalResizeHandleWrapper.style.display = 'grid';
           // Positioniere Handle korrekt
           setTimeout(() => updateHeaderPosition(), 50);
         }
@@ -11080,12 +11225,8 @@ function displayGAChronological(lectures) {
           console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT auf:', tocWidth + 'px');
         }
         
-        // Resize-Handle auch korrigieren
-        if (verticalResizeHandle) {
-          const offset = 10;
-          verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-          console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT auf:', (tocWidth - offset) + 'px');
-        }
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
       }
       
       console.log('[TOGGLE-H4] updateHeaderPosition() nach MB→TOC aufgerufen');
@@ -11101,7 +11242,7 @@ function displayGAChronological(lectures) {
           // WICHTIG: Main-Container NACHKORRIGIEREN
           const mainContainer = document.getElementById('main-container');
           const summaryPanel = document.getElementById('summary-panel');
-          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+          const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
           
           if (summaryPanel && summaryPanel.classList.contains('visible')) {
             const tocWidth = 280;
@@ -11112,12 +11253,8 @@ function displayGAChronological(lectures) {
               console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (Book) auf:', tocWidth + 'px');
             }
             
-            // Resize-Handle auch korrigieren
-            if (verticalResizeHandle) {
-              const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
-              verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-              console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (Book) auf:', (tocWidth - offset) + 'px');
-            }
+            // RH automatisch aktualisieren (wird auf TL positioniert)
+            updateResizeHandle();
           }
         }, 100);
         return; // Früher Return nach MB-Wechsel für Books
@@ -11138,7 +11275,7 @@ function displayGAChronological(lectures) {
           // WICHTIG: Main-Container NACHKORRIGIEREN
           const mainContainer = document.getElementById('main-container');
           const summaryPanel = document.getElementById('summary-panel');
-          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+          const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
           
           if (summaryPanel && summaryPanel.classList.contains('visible')) {
             const tocWidth = 280;
@@ -11149,12 +11286,8 @@ function displayGAChronological(lectures) {
               console.log('[TOGGLE-H4] Main-Container NACHKORRIGIERT (2) auf:', tocWidth + 'px');
             }
             
-            // Resize-Handle auch korrigieren
-            if (verticalResizeHandle) {
-              const offset = 10;
-              verticalResizeHandle.style.right = (tocWidth - offset) + 'px';
-              console.log('[TOGGLE-H4] Resize-Handle NACHKORRIGIERT (2) auf:', (tocWidth - offset) + 'px');
-            }
+            // RH automatisch aktualisieren (wird auf TL positioniert)
+            updateResizeHandle();
           }
         }, 100);
         return; // Früher Return nach MB-Wechsel
@@ -11167,34 +11300,31 @@ function displayGAChronological(lectures) {
     
     const summaryPanel = document.getElementById('summary-panel');
     const summaryContent = document.getElementById('summary-content');
-    const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
     const mainContainer = document.getElementById('main-container');
     
-    if (summaryPanel) {
+      if (summaryPanel) {
       if (summaryPanel.classList.contains('visible')) {
         // Schließe Panel
         summaryPanel.classList.remove('visible');
-        verticalResizeHandle?.classList.remove('visible');
-        document.body.classList.add('summary-panel-collapsed');
         summaryPanel.style.width = '0';
         summaryPanel.style.minWidth = '0';
         summaryPanel.style.marginRight = '';
+        summaryPanel.style.display = 'none';
         
         if (mainContainer) {
           mainContainer.style.marginRight = '0px';
         }
-        // Handle NICHT verstecken - es soll im geschlossenen Zustand sichtbar bleiben
-        // (wird durch CSS .summary-panel-collapsed .vertical-resize-handle sichtbar gemacht)
-        if (verticalResizeHandle) {
-          // Position am rechten Rand (konsistent mit CSS: right: -6px)
-          verticalResizeHandle.style.right = '-6px';
-        }
+        
+        // RH automatisch aktualisieren (wird am rechten Rand positioniert)
+        updateResizeHandle();
+        
+        document.body.classList.add('summary-panel-collapsed');
         console.log('[TOGGLE-H4] TOC-Panel geschlossen');
       } else {
         // Öffne Panel
         summaryPanel.classList.add('visible');
-        verticalResizeHandle?.classList.add('visible');
-        document.body.classList.remove('summary-panel-collapsed');
+        summaryPanel.style.display = 'block';
         
         // Verwende gespeicherte Breite oder Standard (280px)
         const panelWidth = savedSummaryPanelWidth || 280;
@@ -11207,21 +11337,27 @@ function displayGAChronological(lectures) {
           summaryContent.innerHTML = '<div id="toc-list"></div>';
         }
         
+        // Main-Container SOFORT anpassen
+        if (mainContainer) {
+          mainContainer.style.marginRight = panelWidth + 'px';
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
+        
         // Layout anpassen
         updateHeaderPosition();
         
-        // Main-Container und Resize-Handle korrigieren
+        // Main-Container und Resize-Handle nach Verzögerung nochmal korrigieren
         setTimeout(() => {
           if (mainContainer) {
             mainContainer.style.marginRight = panelWidth + 'px';
             console.log('[TOGGLE-H4] Main-Container angepasst auf:', panelWidth + 'px');
           }
-          if (verticalResizeHandle) {
-            verticalResizeHandle.style.display = 'block';
-            const offset = 10; // Konsistent mit syncMainContainerWithPanel() und updateHeaderPosition()
-            verticalResizeHandle.style.right = (panelWidth - offset) + 'px';
-            console.log('[TOGGLE-H4] Resize-Handle positioniert bei:', (panelWidth - offset) + 'px');
-          }
+          // RH automatisch aktualisieren (wird auf TL positioniert)
+          updateResizeHandle();
           
           // Baue TOC neu auf
           buildTableOfContents();
@@ -11378,12 +11514,11 @@ try {
 
     async function toggleSummaryPanel() {
       const panel = document.getElementById('summary-panel');
-      const resizeHandle = document.getElementById('verticalResizeHandle');
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
       const mainContainer = document.getElementById('main-container');
       
       if (panel.classList.contains('visible')) {
         panel.classList.remove('visible');
-        resizeHandle.classList.remove('visible');
         document.body.classList.add('summary-panel-collapsed');
         panel.style.width = '0';
         panel.style.minWidth = '0';
@@ -11393,6 +11528,9 @@ try {
         if (mainContainer) {
           mainContainer.style.marginRight = '0px';
         }
+        
+        // RH automatisch aktualisieren (wird am rechten Rand positioniert)
+        updateResizeHandle();
       } else {
         if (!currentLectureData) {
           alert('Bitte zuerst einen Vortrag laden');
@@ -11400,14 +11538,24 @@ try {
         }
         
         panel.classList.add('visible');
-        resizeHandle.classList.add('visible');
-        document.body.classList.remove('summary-panel-collapsed');
-        panel.style.width = '280px';
-        panel.style.minWidth = '280px';
+        const panelWidth = savedSummaryPanelWidth || 280;
+        panel.style.width = panelWidth + 'px';
+        panel.style.minWidth = panelWidth + 'px';
         panel.style.marginRight = '0px';
         
-        // Sofort Main-Container anpassen, bevor Content geladen wird
-        updateHeaderPosition();
+        if (mainContainer) {
+          mainContainer.style.marginRight = panelWidth + 'px';
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
+        
+        // Positionierung aktualisieren
+        setTimeout(() => {
+          updateHeaderPosition();
+        }, 50);
         
         // Prüfe ob es ein Book ist - dann TOC bauen, sonst Summary laden
         const isBook = currentLectureData && currentLectureData.isBook;
@@ -11627,12 +11775,11 @@ setTimeout(() => {
   }
   
   const panel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
   const mainContainer = document.getElementById('main-container');
   
   // Panel komplett schließen
   panel.classList.remove('visible');
-  resizeHandle.classList.remove('visible');
   panel.style.width = '0';
   panel.style.minWidth = '0';
   panel.style.marginRight = '0px';
@@ -11645,6 +11792,9 @@ setTimeout(() => {
   
   // Body-Klasse für collapsed State hinzufügen
   document.body.classList.add('summary-panel-collapsed');
+  
+  // RH automatisch aktualisieren (wird am rechten Rand positioniert)
+  updateResizeHandle();
   
   // TOC leeren beim Wechsel zur Original-Ansicht
   const tocList = document.getElementById('toc-list');
@@ -11702,7 +11852,8 @@ function showSummaryView() {
   
   // Öffne rechtes Side-Panel (TOC) automatisch beim Wechsel zur Übersicht
   const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+  const mainContainer = document.getElementById('main-container');
   
   if (summaryPanel) {
     // Panel öffnen (falls noch nicht offen)
@@ -11714,12 +11865,31 @@ function showSummaryView() {
       summaryPanel.style.width = panelWidth + 'px';
       summaryPanel.style.minWidth = panelWidth + 'px';
       summaryPanel.style.marginRight = '0px';
-      if (resizeHandle) {
-        resizeHandle.classList.add('visible');
+      
+      // Main-Container anpassen
+      if (mainContainer) {
+        mainContainer.style.marginRight = panelWidth + 'px';
       }
       
       // Layout anpassen: Viewer verkleinern statt überlagern
       document.body.classList.remove('summary-panel-collapsed');
+      
+      // Positionierung nach kurzer Verzögerung aktualisieren
+      setTimeout(() => {
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        // WICHTIG: Nach Verzögerung, damit Panel-Breite korrekt gemessen werden kann
+        updateResizeHandle();
+        updateHeaderPosition();
+      }, 50);
+    } else {
+      // Panel bereits offen - RH und Positionierung aktualisieren
+      const panelWidth = summaryPanel.offsetWidth || savedSummaryPanelWidth || 280;
+      if (mainContainer) {
+        mainContainer.style.marginRight = panelWidth + 'px';
+      }
+      // RH automatisch aktualisieren (wird auf TL positioniert)
+      updateResizeHandle();
+      updateHeaderPosition();
     }
     
     // Stelle sicher, dass display immer korrekt ist (auch wenn Panel bereits offen war)
@@ -11761,7 +11931,6 @@ function showSummaryView() {
     // WICHTIG: Main-Container und Resize-Handle nach updateHeaderPosition() korrigieren
     const mainContainerCheck = document.getElementById('main-container');
     const summaryPanelCheck = document.getElementById('summary-panel');
-    const verticalResizeHandleCheck = document.getElementById('verticalResizeHandle');
     
     if (summaryPanelCheck && summaryPanelCheck.classList.contains('visible')) {
       const currentWidth = parseInt(summaryPanelCheck.style.width) || 280;
@@ -11772,12 +11941,8 @@ function showSummaryView() {
         console.log('[SHOW-SUMMARY-VIEW] Main-Container korrigiert auf:', currentWidth + 'px');
       }
       
-      // Resize-Handle korrigieren
-      if (verticalResizeHandleCheck) {
-        const offset = 10;
-        verticalResizeHandleCheck.style.right = (currentWidth - offset) + 'px';
-        console.log('[SHOW-SUMMARY-VIEW] Resize-Handle korrigiert auf:', (currentWidth - offset) + 'px');
-      }
+      // RH automatisch aktualisieren (wird auf TL positioniert)
+      updateResizeHandle();
     }
     
     // Baue TOC für das rechte Side-Panel
@@ -12415,7 +12580,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
 
     async function showLecture(lectureId, targetIndex, keywords = [], isPhraseArray = [], skipHistory = false) {
   const summaryPanel = document.getElementById('summary-panel');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
+  const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
   const tocList = document.getElementById('toc-list');
   
   // Aktuellen Vortrag tracken
@@ -12464,14 +12629,15 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     if (isInGATab && wasBook && isLecture) {
       // Schließe TOC-Panel wenn von Buch zu Vortrag gewechselt wird
       const summaryPanelToClose = document.getElementById('summary-panel');
-      const verticalResizeHandleToClose = document.getElementById('verticalResizeHandle');
+      const verticalResizeHandleWrapperToClose = document.getElementById('verticalResizeHandleWrapper');
       const mainContainerForPanel = document.getElementById('main-container');
       
       if (summaryPanelToClose && summaryPanelToClose.classList.contains('visible')) {
         summaryPanelToClose.classList.remove('visible');
-        if (verticalResizeHandleToClose) {
-          verticalResizeHandleToClose.classList.remove('visible');
-          verticalResizeHandleToClose.style.display = 'none';
+        if (verticalResizeHandleWrapperToClose) {
+          verticalResizeHandleWrapperToClose.classList.remove('visible');
+          verticalResizeHandleWrapperToClose.style.display = 'none';
+          verticalResizeHandleWrapperToClose.style.right = '0px';
         }
         summaryPanelToClose.style.width = '0';
         summaryPanelToClose.style.minWidth = '0';
@@ -12608,17 +12774,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             summaryPanel.style.removeProperty('visibility');
             summaryPanel.style.display = 'block'; // Dann explizit setzen
             
-            if (resizeHandle) {
-              resizeHandle.classList.add('visible');
-              resizeHandle.style.removeProperty('display'); // Entferne !important
-              resizeHandle.style.display = 'block'; // Dann explizit setzen
-              resizeHandle.style.removeProperty('width');
-            }
-            
             document.body.classList.remove('summary-panel-collapsed');
+            
+            // RH automatisch aktualisieren (wird auf TL positioniert)
+            updateResizeHandle();
+            
             updateHeaderPosition();
           } else if (window.membersNavigating) {
             console.log('[SUMMARY-PANEL] Members Navigation aktiv - Panel-Manipulation übersprungen');
+          } else if (summaryPanel && summaryPanel.classList.contains('visible')) {
+            // Panel ist bereits geöffnet - RH trotzdem aktualisieren
+            updateResizeHandle();
           }
 
           // Buttons und TOC nach dem Anzeigen aktualisieren
@@ -12748,20 +12914,37 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         summaryPanel.style.removeProperty('visibility');
         summaryPanel.style.display = 'block'; // Dann explizit setzen
         
-        if (resizeHandle) {
-          resizeHandle.classList.add('visible');
-          resizeHandle.style.removeProperty('display'); // Entferne !important
-          resizeHandle.style.display = 'block'; // Dann explizit setzen
-          resizeHandle.style.removeProperty('width');
+        // Zeige Resize-Handle-Wrapper (auch wenn Panel bereits geöffnet war)
+        if (verticalResizeHandleWrapper) {
+          const panelWidth = summaryPanel.offsetWidth || savedSummaryPanelWidth || 280;
+          verticalResizeHandleWrapper.classList.add('visible');
+          verticalResizeHandleWrapper.style.display = 'grid';
+          verticalResizeHandleWrapper.style.right = panelWidth + 'px';
+          
+          // Stelle sicher, dass das Handle-Element selbst auch sichtbar ist
+          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
+          if (verticalResizeHandle) {
+            verticalResizeHandle.style.display = 'block';
+            verticalResizeHandle.style.visibility = 'visible';
+            verticalResizeHandle.style.opacity = '1';
+            // Größe wird von updateResizeHandle() gesetzt, hier nur Sichtbarkeit sicherstellen
+          }
         }
         
         document.body.classList.remove('summary-panel-collapsed');
+        
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
         
         // Header-Position aktualisieren
         updateHeaderPosition();
         
         // TOC generieren
         buildTableOfContents();
+      } else if (summaryPanel && summaryPanel.classList.contains('visible')) {
+        // Panel ist bereits geöffnet - RH trotzdem aktualisieren
+        updateResizeHandle();
+        updateHeaderPosition();
       } else {
         console.warn('[SUMMARY-PANEL] Panel nicht gefunden für auto-open');
       }
@@ -14664,22 +14847,74 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
     }
 
+    /**
+     * Aktualisiert die Position des linken Resize-Handle-Wrappers basierend auf der Sidebar-Breite
+     */
+    function updateLeftResizeHandlePosition() {
+      const resizeHandleWrapper = document.getElementById('resizeHandleWrapper');
+      const sidebar = document.getElementById('sidebar');
+      
+      if (!resizeHandleWrapper || !sidebar) return;
+      
+      // Positioniere Wrapper an der rechten Kante der Sidebar
+      const sidebarWidth = sidebar.offsetWidth || 0;
+      resizeHandleWrapper.style.left = sidebarWidth + 'px';
+    }
+
     function initResizeHandle() {
+      const resizeHandleWrapper = document.getElementById('resizeHandleWrapper');
       const resizeHandle = document.getElementById('resizeHandle');
       const sidebar = document.getElementById('sidebar');
+      
+      if (!resizeHandleWrapper || !resizeHandle) {
+        console.error('[RESIZE] resizeHandleWrapper oder resizeHandle nicht gefunden!');
+        return;
+      }
+      
+      // Initialisiere Position des Wrappers
+      updateLeftResizeHandlePosition();
+      
       let isResizing = false;
       let startX = 0;
       let hasMoved = false;
 
-      resizeHandle.addEventListener('mousedown', function(e) {
+      // Trennlinie beim Hover über Resize-Handle-Wrapper blau machen
+      // Die Trennlinie wird durch CSS :hover bereits blau gemacht, 
+      // hier nur für den Resize-Zustand
+      const resizeHandleLine = resizeHandleWrapper.querySelector('.resize-handle-line');
+
+      // Event auf Wrapper - macht die ganze Trennlinie klickbar
+      resizeHandleWrapper.addEventListener('mousedown', function(e) {
         startX = e.clientX;
         hasMoved = false;
         isResizing = true;
+        
+        // Trennlinie beim Verschieben blau halten (wird durch CSS :hover gehandhabt)
         
         // Toggle für flüssiges Resize optimieren
         const toggle = document.querySelector('.sidebar-toggle');
         if (toggle) {
           toggle.style.transition = 'background 0.2s, left 0.05s ease'; // Schnellere Transition beim Resize
+        }
+        
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        e.preventDefault();
+      });
+      
+      // Auch direkt auf dem Handle-Element für Kompatibilität
+      resizeHandle.addEventListener('mousedown', function(e) {
+        startX = e.clientX;
+        hasMoved = false;
+        isResizing = true;
+        
+        if (sidebar) {
+          sidebar.style.borderRightColor = 'var(--link-color)';
+        }
+        
+        const toggle = document.querySelector('.sidebar-toggle');
+        if (toggle) {
+          toggle.style.transition = 'background 0.2s, left 0.05s ease';
         }
         
         document.addEventListener('mousemove', handleMouseMove);
@@ -14702,6 +14937,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const pixelWidth = (newSidebarWidth / 100) * containerWidth;
           if (pixelWidth >= 250) {
             sidebar.style.width = newSidebarWidth + '%';
+            // Aktualisiere Position des linken RH-Wrappers
+            updateLeftResizeHandlePosition();
             updateHeaderPosition(); // Header beim Resize anpassen
           }
         }
@@ -14710,13 +14947,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       function handleMouseUp() {
         isResizing = false;
         
+        // Border-Farbe zurücksetzen, wenn nicht mehr gehovered
+        // Trennlinie wird durch CSS :hover automatisch zurückgesetzt
+        
         // Wenn keine Bewegung stattgefunden hat: Toggle-Funktion
         if (!hasMoved) {
           toggleSidebar();
-          // Header-Position nach Toggle-Aktion mehrfach aktualisieren
-          setTimeout(updateHeaderPosition, 100);
-          setTimeout(updateHeaderPosition, 200);
-          setTimeout(updateHeaderPosition, 350);
+          // Position sofort aktualisieren (ohne Verzögerung)
+          updateLeftResizeHandlePosition();
+          updateHeaderPosition();
         }
         
         // Toggle-Transition zurücksetzen
@@ -14727,17 +14966,21 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        
+        // Aktualisiere Position des linken RH-Wrappers sofort
+        updateLeftResizeHandlePosition();
         updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
 
     function initVerticalResizeHandle() {
+      const resizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
       const resizeHandle = document.getElementById('verticalResizeHandle');
       const mainPanel = document.getElementById('main');
       const summaryPanel = document.getElementById('summary-panel');
       
-      if (!resizeHandle) {
-        console.error('[RESIZE] verticalResizeHandle nicht gefunden!');
+      if (!resizeHandleWrapper || !resizeHandle) {
+        console.error('[RESIZE] verticalResizeHandleWrapper oder verticalResizeHandle nicht gefunden!');
         return;
       }
       
@@ -14747,7 +14990,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       let startX = 0;
       let hasMoved = false;
 
-      resizeHandle.addEventListener('mousedown', function(e) {
+      // Event auf Wrapper oder Handle - beide sollten funktionieren
+      resizeHandleWrapper.addEventListener('mousedown', function(e) {
         console.log('[RESIZE] Mousedown auf verticalResizeHandle');
         startX = e.clientX;
         hasMoved = false;
@@ -14789,6 +15033,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               mainContainer.style.marginRight = newPanelWidth + 'px';
             }
             
+            // RH automatisch aktualisieren (wird auf TL positioniert)
+            updateResizeHandle();
+            
             updateHeaderPosition(); // Header beim Resize anpassen
           }
         }
@@ -14800,8 +15047,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const advancedSearchTab = document.getElementById('advanced-search-tab');
           const isAdvancedSearchActive = advancedSearchTab && advancedSearchTab.classList.contains('active');
           
+          // Prüfe ob es ein Book ist
+          const isBook = currentLectureData && currentLectureData.isBook;
+          
           if (isAdvancedSearchActive) {
             toggleAdvancedSearchPanel();
+          } else if (isBook) {
+            // Für Books: toggleViewerH4() verwenden
+            toggleViewerH4();
           } else {
             toggleSummaryPanel();
           }
@@ -14810,6 +15063,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         isResizing = false;
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
+        
+        // RH automatisch aktualisieren (wird auf TL positioniert)
+        updateResizeHandle();
+        
         updateHeaderPosition(); // Header nach Resize finalisieren
       }
     }
