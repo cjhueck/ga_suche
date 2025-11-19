@@ -7960,7 +7960,7 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
   timelinePendingKeyword = keyword;
   switchTab('timeline');
   
-  // Warte, dann setze Keyword und rendere Timeline
+  // Warte, dann setze Keyword und führe GA-Suche durch
   setTimeout(async () => {
     if (timelinePendingKeyword) {
       const keywordToSet = timelinePendingKeyword;
@@ -7976,12 +7976,10 @@ async function navigateToTimelineKeyword(keyword, gaNumber, lectureId = null) {
         if (keywordDropdown) {
           console.log('[NAVIGATION] Setze Keyword:', keywordToSet);
           keywordDropdown.value = keywordToSet;
-          
-          // updateTimelineFilters() findet und setzt automatisch das Thema
-          if (typeof updateTimelineFilters === 'function') {
-            await updateTimelineFilters();
-          }
         }
+        
+        // NEU: Führe GA-Suche mit Keyword durch und zeige Ergebnisse in Timeline
+        await showKeywordSearchInTimeline(keywordToSet);
         
         showTimelineBackButton();
       }, 100);
@@ -7999,6 +7997,122 @@ function showTimelineBackButton() {
     } else {
       backButton.style.display = 'none';
     }
+  }
+}
+
+// NEU: Zeige Keyword-Suche in Timeline (kombiniert Keyword-DB + GA-Suche mit Relevanz hoch)
+async function showKeywordSearchInTimeline(keyword) {
+  console.log('[KEYWORD-SEARCH-TIMELINE] Starte für Keyword:', keyword);
+  
+  // Setze Flag, damit normale Timeline-Rendering übersprungen wird
+  showingSearchResultsTimeline = true;
+  
+  const resultsDiv = document.getElementById('results');
+  if (!resultsDiv) {
+    console.error('[KEYWORD-SEARCH-TIMELINE] results-Div nicht gefunden');
+    showingSearchResultsTimeline = false;
+    return;
+  }
+  
+  // Leere den Content-Bereich und erstelle neuen Container
+  resultsDiv.innerHTML = '';
+  const timelineContainer = document.createElement('div');
+  timelineContainer.id = 'timelineContainer';
+  resultsDiv.appendChild(timelineContainer);
+  
+  // Zeige Ladeanzeige
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Lade Keyword-Einträge und führe GA-Suche durch...</div>';
+  
+  try {
+    // SCHRITT 1: Lade vorhandene Keyword-Einträge aus keywords-database.json
+    console.log('[KEYWORD-SEARCH-TIMELINE] Lade Keyword-Datenbank...');
+    const keywordsDB = await loadKeywordsDatabase();
+    const summaryDBResponse = await fetch(`${API_BASE}/api/summary-database`);
+    const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
+    
+    // Lade Vortragsdaten für Überschriften
+    await loadFullLecturesForTimeline();
+    
+    // Sammle vorhandene Keyword-Einträge und konvertiere in das gleiche Format wie Suchergebnisse
+    const keywordResults = [];
+    Object.values(keywordsDB).forEach(lecture => {
+      if (lecture.keywords && Array.isArray(lecture.keywords)) {
+        lecture.keywords.forEach(kw => {
+          if (kw.term.toLowerCase() === keyword.toLowerCase()) {
+            // Finde beste Überschrift für diesen Absatz
+            const bestHeading = findBestHeadingForIndex(
+              kw.index,
+              summaryDB[lecture.lectureId]?.headings || [],
+              lecture.lectureId
+            );
+            
+            // Konvertiere in das gleiche Format wie Suchergebnisse
+            keywordResults.push({
+              ID: lecture.lectureId,
+              title: lecture.lectureId,
+              fileName: lecture.lectureId,
+              location: '',
+              date: lecture.date,
+              paragraphIndex: 0,
+              index: kw.index,
+              content: '',
+              hasWord1: true,
+              hasWord2: false,
+              source: 'keyword-db'
+            });
+          }
+        });
+      }
+    });
+    
+    console.log(`[KEYWORD-SEARCH-TIMELINE] ${keywordResults.length} Einträge aus Keyword-Datenbank gefunden`);
+    
+    // SCHRITT 2: Führe GA-Suche mit Relevanz-Filter "hoch" durch
+    console.log('[KEYWORD-SEARCH-TIMELINE] Führe GA-Suche durch (Relevanz: hoch)...');
+    const searchResponse = await fetch(`${API_BASE}/api/fulltext-search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        word1: keyword,
+        word2: '',
+        word1IsPhrase: false,
+        word2IsPhrase: false,
+        wordOperator: 'and',
+        proximity: null,
+        relevanceFilter: 'hoch',  // NUR Relevanz: hoch
+        yearFilter: '',
+        gaFilter: ''
+      })
+    });
+    
+    if (!searchResponse.ok) {
+      throw new Error(`GA-Suche fehlgeschlagen: ${searchResponse.status}`);
+    }
+    
+    const searchData = await searchResponse.json();
+    const searchResults = searchData.results || [];
+    console.log(`[KEYWORD-SEARCH-TIMELINE] ${searchResults.length} Suchergebnisse mit Relevanz: hoch gefunden`);
+    
+    // SCHRITT 3: Kombiniere beide Ergebnislisten
+    const allResults = [...keywordResults, ...searchResults];
+    console.log(`[KEYWORD-SEARCH-TIMELINE] Kombiniert: ${keywordResults.length} aus Keyword-DB + ${searchResults.length} aus GA-Suche = ${allResults.length} Ergebnisse`);
+    
+    // SCHRITT 4: Setze globale Variablen für showSearchResultsTimelineV2
+    // searchResults ist lokal, aber showSearchResultsTimelineV2 greift darauf zu
+    // Wir müssen es im globalen Scope setzen
+    window._tempSearchResults = allResults;
+    window._tempSearchKeywords = [keyword];
+    
+    // Rufe die bestehende Funktion auf - sie verwendet jetzt window._tempSearchResults
+    // Wir müssen showSearchResultsTimelineV2 leicht anpassen, um window._tempSearchResults zu verwenden
+    await showSearchResultsTimelineV2(allResults, [keyword]);
+    
+    console.log('[KEYWORD-SEARCH-TIMELINE] Timeline erfolgreich gerendert');
+    
+  } catch (error) {
+    console.error('[KEYWORD-SEARCH-TIMELINE] Fehler:', error);
+    timelineContainer.innerHTML = `<div style="text-align: center; padding: 2rem; color: #d9534f;">Fehler beim Laden: ${error.message}</div>`;
+    showingSearchResultsTimeline = false;
   }
 }
 
@@ -19039,6 +19153,14 @@ async function updateTimelineFilters(changedBy = 'keyword') {
   await updateTimelineStats();
   
   // Timeline neu rendern
+  // Prüfe: Wenn Keyword ausgewählt (mit oder ohne Thema), verwende IMMER GA-Suche
+  if (currentKeyword) {
+    console.log('[TIMELINE] Keyword ausgewählt, verwende GA-Suche + Keyword-DB');
+    showingSearchResultsTimeline = true;
+    await showKeywordSearchInTimeline(currentKeyword);
+    return;
+  }
+  
   const timelineContainer = document.getElementById('timelineContainer');
   if (timelineContainer) {
     timelineContainer.innerHTML = '';
@@ -19426,81 +19548,17 @@ async function renderTimelineContent() {
     }
     
     // FALL 2: Cluster + Keyword ausgewählt
-    else if (theme && keyword) {
-      // Zeige nur exakt dieses Keyword aus diesem Cluster (NUR neue unified Generierungen)
-      Object.values(keywordsDB).forEach(lecture => {
-        // Filtere: NUR Vorträge mit neuem unified generationMethod
-        const isNewGeneration = lecture.generationMethod && 
-          (lecture.generationMethod.includes('unified-batch') || 
-           lecture.generationMethod.includes('unified') ||
-           lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual') ||
-           lecture.generationMethod.includes('synced-from-summary-db'));
-        
-        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            const kwCluster = keywordToCluster[kw.term.toLowerCase()];
-            if (kwCluster === theme && kw.term.toLowerCase() === keyword.toLowerCase()) {
-              // Finde beste Überschrift für diesen Absatz
-              const bestHeading = findBestHeadingForIndex(
-                kw.index, 
-                summaryDB[lecture.lectureId]?.headings || [],
-                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
-              );
-              
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: {
-                  ...kw,
-                  heading: bestHeading || kw.heading || kw.term
-                }
-              });
-            }
-          });
-        }
-      });
-      console.log(`[TIMELINE] Fall 2: Cluster "${theme}" + Keyword "${keyword}" - ${keywordEntries.length} Keywords (nur unified)`);
-    }
-    
     // FALL 3: Nur Keyword ausgewählt (kein Cluster)
-    else if (!theme && keyword) {
-      // Zeige exakt dieses Keyword aus allen Clustern (NUR neue unified Generierungen)
-      Object.values(keywordsDB).forEach(lecture => {
-        // Filtere: NUR Vorträge mit neuem unified generationMethod
-        const isNewGeneration = lecture.generationMethod && 
-          (lecture.generationMethod.includes('unified-batch') || 
-           lecture.generationMethod.includes('unified') ||
-           lecture.generationMethod.includes('manual-add') ||
-           lecture.generationMethod.includes('manual') ||
-           lecture.generationMethod.includes('synced-from-summary-db'));
-        
-        if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
-            if (kw.term.toLowerCase() === keyword.toLowerCase()) {
-              // Finde beste Überschrift für diesen Absatz
-              const bestHeading = findBestHeadingForIndex(
-                kw.index, 
-                summaryDB[lecture.lectureId]?.headings || [],
-                lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
-              );
-              
-              keywordEntries.push({
-                lectureId: lecture.lectureId,
-                date: lecture.date,
-                year: lecture.year,
-                keyword: {
-                  ...kw,
-                  heading: bestHeading || kw.heading || kw.term
-                }
-              });
-            }
-          });
-        }
-      });
+    // BEIDE FÄLLE: Verwende IMMER GA-Suche mit Keyword-Datenbank-Kombination
+    if (keyword) {
+      console.log(`[TIMELINE] Keyword "${keyword}" ausgewählt ${theme ? `(mit Thema "${theme}")` : '(ohne Thema)'} - verwende GA-Suche + Keyword-DB`);
       
-      console.log(`[TIMELINE] Fall 3: Nur Keyword "${keyword}" - ${keywordEntries.length} Keywords (nur unified)`);
+      // Setze Flag, damit normale Timeline-Rendering übersprungen wird
+      showingSearchResultsTimeline = true;
+      
+      // Rufe die neue Funktion auf, die Keyword-DB + GA-Suche kombiniert
+      await showKeywordSearchInTimeline(keyword);
+      return; // Wichtig: Beende hier, da showKeywordSearchInTimeline das Rendering übernimmt
     }
     
     if (keywordEntries.length === 0) {
@@ -19676,7 +19734,8 @@ function showSearchResultsInTimeline() {
 }
 
 // Zeige Suchergebnisse im Timeline-Format (V2 - mit Links)
-async function showSearchResultsTimelineV2() {
+// Kann auch mit expliziten Ergebnissen aufgerufen werden
+async function showSearchResultsTimelineV2(customResults = null, customKeywords = null) {
   // Verhindere Doppelklicks/mehrfache Ausführung
   if (searchResultsTimelineRunning) {
     return;
@@ -19704,8 +19763,11 @@ async function showSearchResultsTimelineV2() {
   timelineContainer.id = 'timelineContainer';
   resultsDiv.appendChild(timelineContainer);
   
+  // Verwende customResults falls übergeben, sonst searchResults (lokal) oder window._tempSearchResults
+  const resultsToUse = customResults || searchResults || window._tempSearchResults || [];
+  
   // Prüfe ob Suchergebnisse vorhanden sind
-  if (!searchResults || searchResults.length === 0) {
+  if (!resultsToUse || resultsToUse.length === 0) {
     timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Keine Suchergebnisse vorhanden. Bitte führen Sie zuerst eine Suche durch.</div>';
     showingSearchResultsTimeline = false;
     searchResultsTimelineRunning = false;
@@ -19725,7 +19787,7 @@ async function showSearchResultsTimelineV2() {
     // Konvertiere Suchergebnisse in Timeline-Einträge
     let timelineEntries = [];
     
-    for (const result of searchResults) {
+    for (const result of resultsToUse) {
       // Extrahiere Jahr aus Datum (Format: "YYYY-MM-DD" oder aus fileName)
       let year = null;
       let dateString = result.date || '';
@@ -19809,15 +19871,15 @@ async function showSearchResultsTimelineV2() {
       let debugInfo = `<div style="text-align: left; padding: 1rem; background: #fff3cd; border-left: 4px solid #ffc107; font-size: 0.9em; margin-bottom: 1rem;">
         <strong>⚠️ Keine Suchergebnisse mit gültigen Datumswerten gefunden</strong><br><br>
         <strong>Debug-Informationen:</strong><br>
-        • Gesamt-Suchergebnisse: ${searchResults.length}<br>
+        • Gesamt-Suchergebnisse: ${resultsToUse.length}<br>
         • Timeline-Einträge erstellt: ${timelineEntries.length}<br>
         • Einträge mit gültigem Jahr: ${validEntries.length}<br>
         • Einträge ohne Jahr: ${entriesWithoutYear}<br>
       `;
       
       // Zeige Beispiel-Datum wenn vorhanden
-      if (searchResults.length > 0 && searchResults[0].date) {
-        debugInfo += `<br>• Beispiel-Datum: "${searchResults[0].date}"<br>`;
+      if (resultsToUse.length > 0 && resultsToUse[0].date) {
+        debugInfo += `<br>• Beispiel-Datum: "${resultsToUse[0].date}"<br>`;
       }
       
       debugInfo += `<br><em>Tipp: Bitte prüfen Sie die Browser-Konsole für weitere Details.</em></div>`;
@@ -19859,9 +19921,12 @@ async function showSearchResultsTimelineV2() {
     }
     
     // Hole aktuelle Suchbegriffe für die Keyword-Links
-    const currentWord1 = document.getElementById('word1')?.value.trim() || '';
-    const currentWord2 = document.getElementById('word2')?.value.trim() || '';
-    const searchKeywords = [currentWord1, currentWord2].filter(w => w);
+    // Verwende customKeywords falls übergeben, sonst window._tempSearchKeywords oder aus Formular
+    const searchKeywords = customKeywords || window._tempSearchKeywords || (() => {
+      const currentWord1 = document.getElementById('word1')?.value.trim() || '';
+      const currentWord2 = document.getElementById('word2')?.value.trim() || '';
+      return [currentWord1, currentWord2].filter(w => w);
+    })();
     
     // Erstelle Timeline HTML - EXAKT wie bei Schlagwort-Timeline! (OHNE Statuszeile)
     let html = `
