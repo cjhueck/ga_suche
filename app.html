@@ -7774,7 +7774,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     // Prüfe ob es ein Book (Schrift) ist
     if (isBookGANumber(gaNumber)) {
       console.log('[GA-TAB] Erkenne als Book (Schrift)');
-      viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Schrift...</div>';
+      viewer.innerHTML = '<div style="padding: 1rem; color: var(--text-color); font-style: italic; font-size: 0.9rem;">Lade Inhaltsverzeichnis...</div>';
       
       // Lade Book-Daten
       const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
