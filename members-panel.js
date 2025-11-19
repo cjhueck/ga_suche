@@ -240,11 +240,22 @@ function showMembersLoginPanel() {
     </div>
   `;
   
-  // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC) und RH
+  // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
+  // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+  if (typeof resetPanelSync === 'function') {
+    resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
+  }
+  
+  // Positioniere Panel unter dem Header (wie bei TOC) und synchronisiere Layout
   setTimeout(() => {
     if (typeof updateHeaderPosition === 'function') {
       updateHeaderPosition();
     }
+    // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst
+    if (typeof syncMainContainerWithPanel === 'function') {
+      syncMainContainerWithPanel();
+    }
+    // RH wird von updateResizeHandle() positioniert
     if (typeof updateResizeHandle === 'function') {
       updateResizeHandle();
     }
@@ -278,26 +289,24 @@ async function showMembersContent() {
   summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
-  // Main-Container anpassen für breiteres MB Panel
-  if (mainContainer) {
-    mainContainer.style.marginRight = mbWidth + 'px';
+  // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
+  // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+  if (typeof resetPanelSync === 'function') {
+    resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
   }
   
-  // Resize-Handle positionieren: Verwende zentrale Funktion wenn verfügbar, sonst manuell
-  if (typeof updateResizeHandle === 'function') {
-    // Verwende zentrale Funktion für korrekte Positionierung (wie in allen anderen Fällen)
-    setTimeout(() => {
-      updateResizeHandle();
-    }, 50);
-  } else {
-    // Fallback: Manuelle Positionierung (nur wenn updateResizeHandle nicht verfügbar)
-    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
-    if (verticalResizeHandleWrapper) {
-      verticalResizeHandleWrapper.style.right = mbWidth + 'px';
-      verticalResizeHandleWrapper.classList.add('visible');
-      verticalResizeHandleWrapper.style.display = 'grid';
+  // Warte kurz, damit die Panel-Breite korrekt gesetzt ist, bevor zentrale Funktionen aufgerufen werden
+  setTimeout(() => {
+    // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst (läuft alle 100ms)
+    // Aber rufe es einmal direkt auf für sofortige Anpassung
+    if (typeof syncMainContainerWithPanel === 'function') {
+      syncMainContainerWithPanel();
     }
-  }
+    // RH wird von updateResizeHandle() positioniert
+    if (typeof updateResizeHandle === 'function') {
+      updateResizeHandle();
+    }
+  }, 50);
   
   // Setze Klasse auf summary-panel und summary-content damit CSS-Regeln greifen (Fallback für :has())
   summaryPanel.classList.add('has-members-panel');
@@ -615,8 +624,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
-  const mainContainer = document.getElementById('main-container');
-  const resizeHandle = document.getElementById('verticalResizeHandle');
   
   if (!summaryPanel || !membersPanelActive) {
     console.error('[MB-NAVIGATION] Members Panel nicht aktiv');
@@ -686,15 +693,23 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     summaryPanel.style.display = 'block';
   }
   
-  if (mainContainer) {
-    mainContainer.style.marginRight = mbWidth + 'px';
+  // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
+  // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+  if (typeof resetPanelSync === 'function') {
+    resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
   }
   
-  if (resizeHandle) {
-    resizeHandle.classList.add('visible');
-    resizeHandle.style.display = 'block';
-    resizeHandle.style.right = (mbWidth - 10) + 'px';
-  }
+  // Warte kurz, damit die Panel-Breite korrekt gesetzt ist, bevor zentrale Funktionen aufgerufen werden
+  setTimeout(() => {
+    // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst
+    if (typeof syncMainContainerWithPanel === 'function') {
+      syncMainContainerWithPanel();
+    }
+    // RH wird von updateResizeHandle() positioniert
+    if (typeof updateResizeHandle === 'function') {
+      updateResizeHandle();
+    }
+  }, 50);
   
   // Lade GA-Übersicht im linken Panel (wie beim normalen Vortragswechsel)
   if (gaNumber && typeof loadGAOverviewInSidePanelOnly === 'function') {
@@ -709,9 +724,16 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
       window.buildTableOfContents = originalBuildTOC;
     }
     
-    // Finale Position
+    // Finale Position - verwende zentrale Funktionen
     if (typeof updateHeaderPosition === 'function') {
       updateHeaderPosition();
+    }
+    // Main-Container und RH werden automatisch synchronisiert
+    if (typeof syncMainContainerWithPanel === 'function') {
+      syncMainContainerWithPanel();
+    }
+    if (typeof updateResizeHandle === 'function') {
+      updateResizeHandle();
     }
     
     // Finale Scroll-Wiederherstellung
@@ -1502,24 +1524,23 @@ function switchFromMembersPanelToTOC() {
     summaryPanel.style.width = tocWidth + 'px';
     summaryPanel.style.minWidth = tocWidth + 'px';
     
-    // Main-Container SOFORT anpassen (nicht mit Timeout)
-    if (mainContainer) {
-      mainContainer.style.marginRight = tocWidth + 'px';
-      console.log('[MB→TOC] Main-Container margin-right angepasst auf:', tocWidth + 'px');
+    // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
+    // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+    if (typeof resetPanelSync === 'function') {
+      resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
     }
     
-    // Resize-Handle positionieren: Verwende zentrale Funktion wenn verfügbar, sonst manuell
-    if (typeof updateResizeHandle === 'function') {
-      setTimeout(() => {
-        updateResizeHandle();
-      }, 50);
-    } else {
-      // Fallback: Manuelle Positionierung
-      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
-      if (verticalResizeHandleWrapper) {
-        verticalResizeHandleWrapper.style.right = tocWidth + 'px';
+    // Resize-Handle positionieren: Verwende IMMER zentrale Funktion (wie in allen anderen Fällen)
+    setTimeout(() => {
+      // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst
+      if (typeof syncMainContainerWithPanel === 'function') {
+        syncMainContainerWithPanel();
       }
-    }
+      // RH wird von updateResizeHandle() positioniert
+      if (typeof updateResizeHandle === 'function') {
+        updateResizeHandle();
+      }
+    }, 50);
     
     console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
   }
