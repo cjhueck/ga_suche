@@ -309,8 +309,10 @@ class BooksExporter:
             # Format: "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)"
             title_match = re.search(r'GA\d{3}\s*-\s*(.+?)\s*\((.+?)\)', filename)
             if title_match:
-                title = title_match.group(1).strip()
+                title_text = title_match.group(1).strip()
                 year_range = title_match.group(2).strip()
+                # Füge Jahr zum Titel hinzu, falls vorhanden
+                title = f"{title_text} ({year_range})"
             else:
                 # Fallback: Nimm alles nach "GAXXX - "
                 title_match = re.search(r'GA\d{3}\s*-\s*(.+)', filename)
