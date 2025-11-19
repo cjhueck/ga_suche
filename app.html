@@ -2128,30 +2128,27 @@ body.dark-mode #thematicSearchInfo {
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: grid;
-      grid-template-columns: repeat(3, auto); /* 3 Spalten */
-      grid-template-rows: repeat(2, auto);    /* 2 Zeilen */
+      grid-template-columns: 1fr auto auto; /* 3 Spalten: links volle Breite, rechts 2x auto */
+      grid-template-rows: repeat(3, auto);    /* 3 Zeilen für lokale Ansicht */
       gap: 6px;
+      column-gap: 3px; /* Verringerter Abstand zwischen Spalten */
       margin-left: auto;
       flex-shrink: 0;
       align-items: flex-start; /* Alle Buttons oben ausrichten */
-      padding-right: 30px; /* Platz für MB-Button rechts */
-      position: relative; /* Für absolute Positionierung des MB-Buttons */
+      position: relative;
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* Mitglieder-Button: IMMER ganz oben rechts, FEST am Viewport */
+    /* Mitglieder-Button: Im Grid, Spalte 3, Zeile 1 */
     #membersPanelBtn {
-      position: fixed !important;
-      top: 1rem !important; /* Gleicher Abstand wie Header padding */
-      right: 1rem !important;
+      grid-column: 3;
+      grid-row: 1;
       padding: 4px 8px !important;
       margin: 0 !important;
-      width: auto !important;
+      width: 100% !important; /* Gleiche Breite wie H4 Toggle Button */
       min-width: 32px !important;
       height: auto !important; /* Höhe automatisch durch Padding/Inhalt wie Übersicht-Button */
       line-height: 1 !important;
-      grid-column: unset !important;
-      grid-row: unset !important;
       font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important;
       background: transparent !important;
@@ -2181,19 +2178,16 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* H4 Toggle Button - ganz rechts direkt unter dem Mitgliederbereich-Button */
+    /* H4 Toggle Button - Im Grid, Spalte 3, Zeile 2 (unter Mitgliederbereich-Button, in derselben Zeile wie Original) */
     #h4ToggleBtn {
-      position: fixed !important;
-      top: 3.5rem !important; /* Direkt unter dem membersPanelBtn (1rem + Button-Höhe + Abstand) */
-      right: 1rem !important; /* Gleiche Position wie membersPanelBtn */
+      grid-column: 3;
+      grid-row: 2;
       padding: 4px 8px !important; /* Gleiche Padding wie membersPanelBtn */
       margin: 0 !important;
-      width: auto !important;
-      min-width: 32px !important; /* Gleiche Breite wie membersPanelBtn */
+      width: 100% !important; /* Gleiche Breite wie membersPanelBtn */
+      min-width: 32px !important;
       height: auto !important;
       line-height: 1 !important;
-      grid-column: unset !important;
-      grid-row: unset !important;
       font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important; /* Gleiches Styling wie membersPanelBtn */
       background: transparent !important;
@@ -2204,7 +2198,6 @@ body.dark-mode #thematicSearchInfo {
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      z-index: 1001 !important; /* Über Header (z-index: 1000) */
       flex-shrink: 0 !important;
     }
     
@@ -2224,13 +2217,12 @@ body.dark-mode #thematicSearchInfo {
     }
     
     body.online-mode #h4ToggleBtn {
-      position: fixed !important;
-      top: 3.5rem !important;
-      right: 1rem !important;
+      grid-column: 2;
+      grid-row: 2;
     }
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
-    /* Spalte 1: Übersicht (Zeile 1), Original (Zeile 2) */
+    /* Spalte 1: Übersicht (Zeile 1), Original (Zeile 2), [leer] (Zeile 3) */
     #viewerSummaryBtn {
       grid-column: 1;
       grid-row: 1;
@@ -2243,7 +2235,7 @@ body.dark-mode #thematicSearchInfo {
       align-self: start;
     }
     
-    /* Spalte 2: TOC Toggle (Zeile 1), Structure (Zeile 2) */
+    /* Spalte 2: TOC Toggle (Zeile 1), Structure (Zeile 2), TOC-KW (Zeile 3) */
     #viewerTOCToggleBtn {
       grid-column: 2;
       grid-row: 1;
@@ -2256,32 +2248,32 @@ body.dark-mode #thematicSearchInfo {
       align-self: start;
     }
     
-    /* Spalte 3: TOC-KW (Zeile 1), Regenerate (Zeile 2) */
     #viewerTOCKWBtn {
-      grid-column: 3;
-      grid-row: 1;
+      grid-column: 2;
+      grid-row: 3;
       align-self: start;
     }
     
+    /* Spalte 3: Mitgliederbereich (Zeile 1), H4 Toggle (Zeile 2), Regenerate (Zeile 3) */
     #viewerRegenerateBtn {
       grid-column: 3;
-      grid-row: 2;
+      grid-row: 3;
       align-self: start;
+      width: 100% !important; /* Gleiche Breite wie andere Buttons in Spalte 3 */
     }
     
-    /* ONLINE Version: Nur Übersicht und Original im Grid (MB ist absolut positioniert) */
+    /* ONLINE Version: 2 Spalten Grid (Übersicht/Original links, MB/H4 rechts) */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: 1fr; /* 1 Spalte: volle Breite */
+      grid-template-columns: 1fr auto; /* 2 Spalten: links volle Breite, rechts auto für MB/H4 */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      padding-right: 40px; /* Platz für MB-Button rechts */
+      column-gap: 3px; /* Verringerter Abstand zwischen Spalten */
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* MB Button in Online-Version: Bleibt fixed am Viewport */
+    /* MB Button in Online-Version: Im Grid, Spalte 2, Zeile 1 */
     body.online-mode #membersPanelBtn {
-      position: fixed !important;
-      top: 1rem !important;
-      right: 1rem !important;
+      grid-column: 2;
+      grid-row: 1;
     }
     
     /* Übersicht Button: Zeile 1, Spalte 1 (links) */
@@ -2298,6 +2290,12 @@ body.dark-mode #thematicSearchInfo {
       grid-row: 2;
       width: 100%;
       align-self: start;
+    }
+    
+    /* H4 Toggle Button in Online-Version: Spalte 2, Zeile 2 (unter MB, in derselben Zeile wie Original) */
+    body.online-mode #h4ToggleBtn {
+      grid-column: 2;
+      grid-row: 2;
     }
     
     /* Ensure buttons always stay on the right */
@@ -10840,6 +10838,10 @@ function displayGAChronological(lectures) {
   const texteTab = document.getElementById('texte-tab');
   const isInTexteTab = texteTab && texteTab.classList.contains('active');
   
+  // Prüfe, ob wir im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
   // Hole alle anderen Button-Referenzen
   const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
   const viewerStructureBtn = document.getElementById('viewerStructureBtn');
@@ -10849,24 +10851,28 @@ function displayGAChronological(lectures) {
   // Prüfe ob es ein Book ist
   const isBook = currentLectureData && currentLectureData.isBook;
   
-  // H4 Toggle Button - NUR bei Vorträgen anzeigen (nicht bei Books)
+  // H4 Toggle Button - Bei Vorträgen in ALLEN Tabs anzeigen (nicht bei Books, nicht im GA-Tab)
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
-    if (currentLectureData && !isBook) {
-      // Vortrag geladen - zeige H4 Toggle Button
+    if (currentLectureData && !isBook && !isInGATab) {
+      // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
       h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
       // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
       h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book oder kein Vortrag - verstecke H4 Toggle Button
+      // Book, kein Vortrag oder im GA-Tab - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
   
-  // Original und Übersicht Buttons: In ALLEN Tabs anzeigen wenn Vortrag geladen ist
+  // Original und Übersicht Buttons: In ALLEN Tabs anzeigen wenn Vortrag geladen ist (außer GA-Tab)
   if (!currentLectureData) {
     // Kein Vortrag geladen - verstecke Original und Übersicht Buttons
+    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
+    if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+  } else if (isInGATab) {
+    // Im GA-Tab - verstecke beide Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
   } else if (isBook) {
@@ -10877,7 +10883,7 @@ function displayGAChronological(lectures) {
       viewerSummaryBtn.innerHTML = '≡ Übersicht'; // Gleiches Styling wie für Vorträge
     }
   } else {
-    // Vortrag geladen - zeige BEIDE Buttons in ALLEN Tabs
+    // Vortrag geladen - zeige BEIDE Buttons in ALLEN Tabs (außer GA-Tab)
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-block';
     if (viewerSummaryBtn) {
       viewerSummaryBtn.style.display = 'inline-block';
@@ -12054,13 +12060,16 @@ function showSummaryView() {
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
     const isBook = currentLectureData && currentLectureData.isBook;
-    if (currentLectureData && !isBook) {
-      // Vortrag geladen - zeige H4 Toggle Button
+    // Prüfe, ob wir im GA-Tab sind
+    const gaTab = document.getElementById('ga-tab');
+    const isInGATab = gaTab && gaTab.classList.contains('active');
+    if (currentLectureData && !isBook && !isInGATab) {
+      // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
       h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
       h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book oder kein Vortrag - verstecke H4 Toggle Button
+      // Book, kein Vortrag oder im GA-Tab - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
