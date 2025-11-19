@@ -2147,7 +2147,8 @@ body.dark-mode #thematicSearchInfo {
       margin: 0 !important;
       width: 100% !important; /* Gleiche Breite wie H4 Toggle Button */
       min-width: 32px !important;
-      height: auto !important; /* Höhe automatisch durch Padding/Inhalt wie Übersicht-Button */
+      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
+      height: auto !important;
       line-height: 1 !important;
       font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important;
@@ -2186,6 +2187,7 @@ body.dark-mode #thematicSearchInfo {
       margin: 0 !important;
       width: 100% !important; /* Gleiche Breite wie membersPanelBtn */
       min-width: 32px !important;
+      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
       height: auto !important;
       line-height: 1 !important;
       font-size: 0.85em !important;
@@ -2195,10 +2197,15 @@ body.dark-mode #thematicSearchInfo {
       cursor: pointer !important;
       border-radius: 4px !important;
       transition: background 0.2s, color 0.2s !important; /* Gleiche Transition wie membersPanelBtn */
-      display: inline-flex !important;
+      display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
       align-items: center !important;
       justify-content: center !important;
       flex-shrink: 0 !important;
+    }
+    
+    /* Nur wenn JavaScript den Button explizit anzeigen möchte */
+    #h4ToggleBtn[style*="inline-flex"] {
+      display: inline-flex !important;
     }
     
     #h4ToggleBtn:hover {
@@ -2227,12 +2234,18 @@ body.dark-mode #thematicSearchInfo {
       grid-column: 1;
       grid-row: 1;
       align-self: start;
+      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
+      height: auto !important;
+      box-sizing: border-box !important;
     }
     
     #viewerOriginalBtn {
       grid-column: 1;
       grid-row: 2;
       align-self: start;
+      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
+      height: auto !important;
+      box-sizing: border-box !important;
     }
     
     /* Spalte 2: TOC Toggle (Zeile 1), Structure (Zeile 2), TOC-KW (Zeile 3) */
@@ -5415,6 +5428,14 @@ function normalizeGANumber(gaNumber) {
       
       // Verstecke Viewer-Buttons beim Tab-Wechsel
       updateButtonStates();
+      
+      // Zusätzliche Sicherheitsprüfung: H4 Toggle Button im GA-Tab ausblenden
+      if (mode === 'ga') {
+        const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+        if (h4ToggleBtn) {
+          h4ToggleBtn.style.display = 'none';
+        }
+      }
       
       // WICHTIG: Bei Tab-Wechsel → MB schließen und TOC anzeigen (falls Panel offen)
       try {
@@ -10854,14 +10875,17 @@ function displayGAChronological(lectures) {
   // H4 Toggle Button - Bei Vorträgen in ALLEN Tabs anzeigen (nicht bei Books, nicht im GA-Tab)
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
-    if (currentLectureData && !isBook && !isInGATab) {
+    // WICHTIG: Im GA-Tab IMMER ausblenden, unabhängig von anderen Bedingungen
+    if (isInGATab) {
+      h4ToggleBtn.style.display = 'none';
+    } else if (currentLectureData && !isBook) {
       // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
       h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
       // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
       h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book, kein Vortrag oder im GA-Tab - verstecke H4 Toggle Button
+      // Book oder kein Vortrag - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
@@ -11645,8 +11669,15 @@ try {
       // Aktualisiere Button-Icon basierend auf Status (Pfeil nach oben/unten)
       const h4ToggleBtn = document.getElementById('h4ToggleBtn');
       if (h4ToggleBtn) {
-        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
-        h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+        // Prüfe, ob wir im GA-Tab sind - wenn ja, Button ausblenden
+        const gaTab = document.getElementById('ga-tab');
+        const isInGATab = gaTab && gaTab.classList.contains('active');
+        if (isInGATab) {
+          h4ToggleBtn.style.display = 'none';
+        } else {
+          h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
+          h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+        }
       }
     }
 
@@ -12063,13 +12094,16 @@ function showSummaryView() {
     // Prüfe, ob wir im GA-Tab sind
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
-    if (currentLectureData && !isBook && !isInGATab) {
+    // WICHTIG: Im GA-Tab IMMER ausblenden, unabhängig von anderen Bedingungen
+    if (isInGATab) {
+      h4ToggleBtn.style.display = 'none';
+    } else if (currentLectureData && !isBook) {
       // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
       h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
       h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book, kein Vortrag oder im GA-Tab - verstecke H4 Toggle Button
+      // Book oder kein Vortrag - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
