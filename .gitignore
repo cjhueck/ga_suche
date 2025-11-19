@@ -8,6 +8,10 @@ context-indices.json
 # Automatische Backups
 backups/
 
+# Markdown Backup-Dateien (sollten nicht erstellt werden)
+*.md.backup
+*.backup
+
 # Steiner GA Quelldaten (zu groß für Git)
 Steiner_GA/
 

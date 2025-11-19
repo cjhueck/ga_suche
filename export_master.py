@@ -250,10 +250,8 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         # Wende Änderungen an
         if changes and apply_changes:
-            # Backup
-            backup_path = filepath + '.backup'
-            with open(backup_path, 'w', encoding='utf-8') as f:
-                f.write(original_content)
+            # KEIN Backup mehr - Backups werden nicht mehr erstellt
+            # Backup-Erstellung entfernt, um .md.backup Dateien zu vermeiden
             
             # Speichere
             with open(filepath, 'w', encoding='utf-8') as f:
@@ -373,7 +371,6 @@ class ExportMaster:
             print(f"Gesamt-Korrekturen: {total_fixes}")
             
             if total_fixes > 0:
-                print(f"Backups erstellt: *.backup")
                 print("Änderungen wurden angewendet!")
             else:
                 print("Keine Korrekturen notwendig.")
