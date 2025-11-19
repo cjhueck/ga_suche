@@ -240,10 +240,13 @@ function showMembersLoginPanel() {
     </div>
   `;
   
-  // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC)
+  // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC) und RH
   setTimeout(() => {
     if (typeof updateHeaderPosition === 'function') {
       updateHeaderPosition();
+    }
+    if (typeof updateResizeHandle === 'function') {
+      updateResizeHandle();
     }
   }, 100);
 }
@@ -280,13 +283,20 @@ async function showMembersContent() {
     mainContainer.style.marginRight = mbWidth + 'px';
   }
   
-  // Resize-Handle EXAKT an Panel-Grenze positionieren
-  const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-  if (verticalResizeHandle) {
-    verticalResizeHandle.style.display = 'block'; // Auch Handle sichtbar machen
-    const offset = 10; // Standard-Offset für MB
-    verticalResizeHandle.style.right = (mbWidth - offset) + 'px';
-    console.log('[MB-OPEN] Resize-Handle positioniert bei:', (mbWidth - offset) + 'px');
+  // Resize-Handle positionieren: Verwende zentrale Funktion wenn verfügbar, sonst manuell
+  if (typeof updateResizeHandle === 'function') {
+    // Verwende zentrale Funktion für korrekte Positionierung (wie in allen anderen Fällen)
+    setTimeout(() => {
+      updateResizeHandle();
+    }, 50);
+  } else {
+    // Fallback: Manuelle Positionierung (nur wenn updateResizeHandle nicht verfügbar)
+    const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+    if (verticalResizeHandleWrapper) {
+      verticalResizeHandleWrapper.style.right = mbWidth + 'px';
+      verticalResizeHandleWrapper.classList.add('visible');
+      verticalResizeHandleWrapper.style.display = 'grid';
+    }
   }
   
   // Setze Klasse auf summary-panel und summary-content damit CSS-Regeln greifen (Fallback für :has())
@@ -332,8 +342,10 @@ async function showMembersContent() {
     </div>
   `;
   
-  // Aktuellen Tab laden
-  await loadMembersTab(currentMembersTab);
+  // Aktuellen Tab laden - kurze Verzögerung damit API-Module geladen sind
+  setTimeout(async () => {
+    await loadMembersTab(currentMembersTab);
+  }, 100);
   
   // Stelle sicher, dass Panel nach dem Laden sichtbar bleibt
   setTimeout(() => {
@@ -348,9 +360,13 @@ async function showMembersContent() {
       summaryContent.style.visibility = 'visible';
     }
     
-    // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC)
+    // WICHTIG: Positioniere Panel unter dem Header (wie bei TOC) und RH
     if (typeof updateHeaderPosition === 'function') {
       updateHeaderPosition();
+    }
+    // RH nochmal aktualisieren nach dem Laden des Contents
+    if (typeof updateResizeHandle === 'function') {
+      updateResizeHandle();
     }
     
     console.log('[MB-OPEN] Panel und Content-Sichtbarkeit nachkorrigiert');
@@ -384,24 +400,37 @@ async function switchMembersTab(tabName) {
  */
 async function loadMembersTab(tabName) {
   const content = document.getElementById('members-tab-content');
-  if (!content) return;
+  if (!content) {
+    console.error('[MB-TAB] members-tab-content Element nicht gefunden!');
+    return;
+  }
   
-  switch(tabName) {
-    case 'bookmarks':
-      await loadBookmarksTab(content);
-      break;
-    case 'quotes':
-      await loadQuotesTab(content);
-      break;
-    case 'notes':
-      loadNotesTab(content);
-      break;
-    case 'graph':
-      loadGraphTab(content);
-      break;
-    case 'chat':
-      await loadChatTab(content);
-      break;
+  console.log('[MB-TAB] Lade Tab:', tabName);
+  
+  try {
+    switch(tabName) {
+      case 'bookmarks':
+        await loadBookmarksTab(content);
+        break;
+      case 'quotes':
+        await loadQuotesTab(content);
+        break;
+      case 'notes':
+        loadNotesTab(content);
+        break;
+      case 'graph':
+        loadGraphTab(content);
+        break;
+      case 'chat':
+        await loadChatTab(content);
+        break;
+      default:
+        console.warn('[MB-TAB] Unbekannter Tab:', tabName);
+        content.innerHTML = '<div class="empty-state">Unbekannter Tab</div>';
+    }
+  } catch (error) {
+    console.error('[MB-TAB] Fehler beim Laden des Tabs:', tabName, error);
+    content.innerHTML = `<div class="empty-state">Fehler beim Laden: ${error.message}</div>`;
   }
 }
 
@@ -409,6 +438,12 @@ async function loadMembersTab(tabName) {
  * Bookmarks Tab
  */
 async function loadBookmarksTab(container) {
+  if (typeof getBookmarks !== 'function') {
+    console.error('[MB-BOOKMARKS] getBookmarks ist nicht verfügbar!');
+    container.innerHTML = '<div class="empty-state">API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+    return;
+  }
+  
   const result = await getBookmarks();
   
   if (!result.success || result.data.length === 0) {
@@ -489,6 +524,12 @@ async function loadBookmarksTab(container) {
  * Quotes Tab
  */
 async function loadQuotesTab(container) {
+  if (typeof getQuotes !== 'function') {
+    console.error('[MB-QUOTES] getQuotes ist nicht verfügbar!');
+    container.innerHTML = '<div class="empty-state">API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+    return;
+  }
+  
   const result = await getQuotes();
   
   if (!result.success || result.data.length === 0) {
@@ -1425,6 +1466,13 @@ function closeMembersPanel() {
     unsubscribeFromChat(window.chatChannel);
     window.chatChannel = null;
   }
+  
+  // RH positionieren: Verwende zentrale Funktion wenn verfügbar
+  if (typeof updateResizeHandle === 'function') {
+    setTimeout(() => {
+      updateResizeHandle();
+    }, 50);
+  }
 }
 
 /**
@@ -1460,12 +1508,17 @@ function switchFromMembersPanelToTOC() {
       console.log('[MB→TOC] Main-Container margin-right angepasst auf:', tocWidth + 'px');
     }
     
-    // Resize-Handle EXAKT an Panel-Grenze positionieren
-    const resizeHandle = document.getElementById('verticalResizeHandle');
-    if (resizeHandle) {
-      const offset = 10; // Standard-Offset für TOC
-      resizeHandle.style.right = (tocWidth - offset) + 'px';
-      console.log('[MB→TOC] Resize-Handle positioniert bei:', (tocWidth - offset) + 'px');
+    // Resize-Handle positionieren: Verwende zentrale Funktion wenn verfügbar, sonst manuell
+    if (typeof updateResizeHandle === 'function') {
+      setTimeout(() => {
+        updateResizeHandle();
+      }, 50);
+    } else {
+      // Fallback: Manuelle Positionierung
+      const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+      if (verticalResizeHandleWrapper) {
+        verticalResizeHandleWrapper.style.right = tocWidth + 'px';
+      }
     }
     
     console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
