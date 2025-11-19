@@ -294,14 +294,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle::before {
-      background: var(--link-color); /* Blau ausgefüllt auch im Dark-Mode */
+      background: transparent; /* Kein Hintergrund auch im Dark-Mode */
       color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Stärkerer Schatten im Dark-Mode */
+      box-shadow: none; /* Kein Schatten im Dark-Mode */
     }
     
     body.dark-mode .summary-panel-collapsed .vertical-resize-handle:hover::before {
-      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover im Dark-Mode */
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Stärkerer Schatten beim Hover */
+      background: transparent; /* Kein Hintergrund beim Hover im Dark-Mode */
+      box-shadow: none; /* Kein Schatten beim Hover */
     }
     
     /* Diese Dark Mode Styles sind jetzt in #sidebar-content zentralisiert */
@@ -1228,8 +1228,8 @@ body.dark-mode .ga-missing-text {
     .vertical-resize-handle-wrapper:not(.visible) .vertical-resize-handle,
     body.summary-panel-collapsed .vertical-resize-handle-wrapper .vertical-resize-handle {
       background-color: var(--link-color);
-      border-top-left-radius: 12px; /* Abgerundete Ecken auf der Seite zum Fenster hin */
-      border-bottom-left-radius: 12px;
+      border-top-left-radius: 10px; /* Abgerundete Ecken auf der Seite zum Fenster hin */
+      border-bottom-left-radius: 10px;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       width: 12px; /* Größer im geschlossenen Zustand */
@@ -1373,7 +1373,7 @@ body.dark-mode .ga-missing-text {
     /* Handle auch im geschlossenen Zustand sichtbar machen */
     .summary-panel-collapsed .vertical-resize-handle {
       display: block;
-      right: -6px !important; /* Etwas weiter nach rechts (weniger als vorher) */
+      right: 0px !important; /* Etwas weiter nach rechts (weniger als vorher) */
       cursor: pointer; /* Zeige Pointer-Cursor für Klick-Funktionalität */
     }
     
@@ -1387,13 +1387,12 @@ body.dark-mode .ga-missing-text {
     
     /* Symbol für geschlossenes Summary-Panel - kleines Handle mit ausgefüllter Fläche in Blau */
     .summary-panel-collapsed .vertical-resize-handle::before {
-      content: '⋮';
       font-size: 16px; /* Kleineres Handle */
       color: #ffffff; /* Weiße Punkte auf blauem Hintergrund */
-      background: var(--link-color); /* Blau (#467886) ausgefüllt */
-      padding: 6px 8px;
-      border-radius: 6px; /* Abgerundete Ecken */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
+      background: transparent; /* Kein Hintergrund - nur Hauptelement sichtbar */
+      padding: 0; /* Kein Padding - keine Überlagerung */
+      border-radius: 0; /* Keine abgerundeten Ecken */
+      box-shadow: none; /* Kein Schatten */
       display: inline-block;
       cursor: pointer; /* Pointer-Cursor auch am Pseudo-Element */
       left: 45% !important; /* Punkte etwas nach links verschieben (statt 50%) */
@@ -1401,8 +1400,8 @@ body.dark-mode .ga-missing-text {
     }
     
     .summary-panel-collapsed .vertical-resize-handle:hover::before {
-      background: #3a5f6b; /* Etwas dunkleres Blau beim Hover */
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Stärkerer Schatten beim Hover */
+      background: transparent; /* Kein Hintergrund beim Hover */
+      box-shadow: none; /* Kein Schatten beim Hover */
     }
     
     #summary-content {
@@ -2180,6 +2179,48 @@ body.dark-mode #thematicSearchInfo {
     body.dark-mode #membersPanelBtn:hover {
       background: var(--dark-accent-color) !important;
       color: white !important;
+    }
+    
+    /* H4 Toggle Button - in derselben Zeile wie Original Button (Zeile 2), Spalte 2 */
+    #h4ToggleBtn {
+      grid-column: 2;
+      grid-row: 2; /* Gleiche Zeile wie Original Button */
+      align-self: start;
+      padding: 4px 12px !important; /* Gleiche Höhe wie Original Button (4px 12px) */
+      margin: 0 !important;
+      width: auto !important;
+      min-width: 32px !important; /* Gleiche Breite wie membersPanelBtn (min-width: 32px) */
+      height: auto !important;
+      line-height: 1 !important;
+      font-size: 0.85em !important; /* Gleiche Schriftgröße wie Original Button */
+      border: 1px solid var(--link-color) !important; /* Gleiches Styling wie Original Button */
+      background: transparent !important;
+      color: var(--link-color) !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      transition: opacity 0.2s !important; /* Gleiche Transition wie Original Button */
+      display: inline-block !important; /* inline-block für Grid-Layout */
+      flex-shrink: 0 !important;
+    }
+    
+    #h4ToggleBtn:hover {
+      opacity: 0.7;
+    }
+    
+    body.dark-mode #h4ToggleBtn {
+      border-color: var(--dark-text-color) !important;
+      color: var(--dark-text-color) !important;
+    }
+    
+    body.dark-mode #h4ToggleBtn:hover {
+      opacity: 0.7;
+    }
+    
+    body.online-mode #h4ToggleBtn {
+      grid-column: 1;
+      grid-row: 3; /* Neue Zeile im online-mode */
+      width: 100%;
+      align-self: start;
     }
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
@@ -4551,6 +4592,10 @@ Bestehende Schlagwörter überschreiben
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
 </svg>
 </button>
+<!-- H4 Toggle Button (nur bei Vorträgen) -->
+<button id="h4ToggleBtn" onclick="toggleH4Display()" title="H3/H3+H4+KW+H4Headings umschalten" style="display: none;">
+▼
+</button>
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
 </button>
@@ -4841,27 +4886,34 @@ function normalizeGANumber(gaNumber) {
       if (isPanelVisible) {
         // Panel geöffnet: RH auf Trennlinie positionieren
         // Versuche verschiedene Methoden, um die Panel-Breite zu ermitteln
-        let panelWidth = summaryPanel.offsetWidth;
-        if (!panelWidth || panelWidth === 0) {
-          // Fallback: Versuche style.width zu parsen
-          const styleWidth = summaryPanel.style.width;
-          if (styleWidth) {
-            panelWidth = parseInt(styleWidth);
-          }
+        // WICHTIG: Prüfe style.width ZUERST, da es zuverlässiger ist wenn Panel gerade geöffnet wurde
+        let panelWidth = 0;
+        const styleWidth = summaryPanel.style.width;
+        if (styleWidth) {
+          panelWidth = parseInt(styleWidth);
         }
+        // Fallback: Versuche offsetWidth wenn style.width nicht verfügbar
         if (!panelWidth || panelWidth === 0) {
-          // Fallback: Verwende gespeicherte Breite
+          panelWidth = summaryPanel.offsetWidth;
+        }
+        // Fallback: Verwende gespeicherte Breite wenn beide fehlschlagen
+        if (!panelWidth || panelWidth === 0) {
           panelWidth = savedSummaryPanelWidth || 280;
         }
         
-        // Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
-        if (panelWidth > 200 && panelWidth < 600) {
-          verticalResizeHandleWrapper.style.right = panelWidth + 'px';
+        // Bestimme finale Breite: style.width hat Priorität (z.B. 400px für MB), sonst panelWidth wenn im Bereich
+        let finalWidth = 0;
+        if (styleWidth && parseInt(styleWidth) > 0) {
+          // style.width hat immer Priorität (z.B. 400px für Members Panel)
+          finalWidth = parseInt(styleWidth);
+        } else if (panelWidth > 200 && panelWidth < 600) {
+          // panelWidth ist im erwarteten Bereich
+          finalWidth = panelWidth;
         } else {
-          // Panel-Breite noch nicht korrekt - verwende gespeicherte Breite
-          const savedWidth = savedSummaryPanelWidth || 280;
-          verticalResizeHandleWrapper.style.right = savedWidth + 'px';
+          // Fallback: Verwende gespeicherte Breite
+          finalWidth = savedSummaryPanelWidth || 280;
         }
+        verticalResizeHandleWrapper.style.right = finalWidth + 'px';
       } else {
         // Panel geschlossen: RH am rechten Bildschirmrand
         verticalResizeHandleWrapper.style.right = '0px';
@@ -4986,32 +5038,42 @@ function normalizeGANumber(gaNumber) {
       
       if (summaryPanel.classList.contains('visible')) {
         // Hole die AKTUELLE Panel-Breite direkt aus dem DOM
-        const currentPanelWidth = summaryPanel.offsetWidth || parseInt(summaryPanel.style.width) || 280;
+        // WICHTIG: Prüfe style.width ZUERST, da es zuverlässiger ist wenn Panel gerade geöffnet wurde
+        let currentPanelWidth = 0;
+        const styleWidth = summaryPanel.style.width;
+        if (styleWidth) {
+          currentPanelWidth = parseInt(styleWidth);
+        }
+        // Fallback: Versuche offsetWidth wenn style.width nicht verfügbar
+        if (!currentPanelWidth || currentPanelWidth === 0) {
+          currentPanelWidth = summaryPanel.offsetWidth;
+        }
+        // Fallback: Verwende Standard-Breite wenn beide fehlschlagen
+        if (!currentPanelWidth || currentPanelWidth === 0) {
+          currentPanelWidth = 280;
+        }
         
-        // WICHTIG: Nur positionieren wenn Panel-Breite im erwarteten Bereich liegt (200-600px)
-        // Dies verhindert falsche Positionierung beim ersten Öffnen, wenn offsetWidth noch nicht korrekt ist
-        // Nur aktualisieren wenn sich die Breite geändert hat UND Panel-Breite korrekt ist
-        if (currentPanelWidth > 200 && currentPanelWidth < 600 && currentPanelWidth !== lastSyncedWidth) {
+        // WICHTIG: Verwende style.width wenn verfügbar (auch wenn außerhalb des Bereichs, z.B. 400px für MB)
+        // Oder wenn panelWidth im erwarteten Bereich liegt (200-600px)
+        // Nur aktualisieren wenn sich die Breite geändert hat
+        const finalWidth = (styleWidth && parseInt(styleWidth) > 0) ? parseInt(styleWidth) : currentPanelWidth;
+        const shouldSync = (finalWidth > 200 && finalWidth < 600) || (styleWidth && parseInt(styleWidth) > 0);
+        
+        if (shouldSync && finalWidth !== lastSyncedWidth) {
           // Setze Main-Container margin-right EXAKT auf Panel-Breite
-          mainContainer.style.marginRight = currentPanelWidth + 'px';
+          mainContainer.style.marginRight = finalWidth + 'px';
           
           // Positioniere Resize-Handle EXAKT an Panel-Grenze
-          // ABER: Überschreibe nicht, wenn Positionierung bereits von Book gesetzt wurde
           if (verticalResizeHandleWrapper) {
-            const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-            if (verticalResizeHandle && verticalResizeHandle.dataset.bookPositioned === 'true') {
-              console.log('[SYNC] Überspringe RH-Positionierung (bereits von Book gesetzt)');
-            } else {
-              // Positioniere Handle direkt am linken Rand des Panels
-              // Der margin-right: -4px im CSS sorgt dafür, dass es genau auf der Grenzlinie liegt
-              verticalResizeHandleWrapper.style.right = currentPanelWidth + 'px';
-            }
+            // Positioniere Handle direkt am linken Rand des Panels
+            // Der margin-right: -4px im CSS sorgt dafür, dass es genau auf der Grenzlinie liegt
+            verticalResizeHandleWrapper.style.right = finalWidth + 'px';
           }
           
-          lastSyncedWidth = currentPanelWidth;
-          console.log('[SYNC] Panel-Breite:', currentPanelWidth + 'px → Main-Container angepasst');
-        } else if (currentPanelWidth !== lastSyncedWidth && (currentPanelWidth <= 200 || currentPanelWidth >= 600)) {
-          console.log('[SYNC] Panel-Breite noch nicht korrekt:', currentPanelWidth + 'px (übersprungen)');
+          lastSyncedWidth = finalWidth;
+          console.log('[SYNC] Panel-Breite:', finalWidth + 'px → Main-Container angepasst');
+        } else if (finalWidth !== lastSyncedWidth && !shouldSync) {
+          console.log('[SYNC] Panel-Breite noch nicht korrekt:', finalWidth + 'px (übersprungen)');
         }
       } else {
         // Panel geschlossen - Main-Container auf volle Breite
@@ -6375,22 +6437,19 @@ function normalizeGANumber(gaNumber) {
       // Close summary panel when opening GA overview from the search window
       try {
         const summaryPanel = document.getElementById('summary-panel');
-        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
-        const mainContainer = document.getElementById('main-container');
         if (summaryPanel && summaryPanel.classList.contains('visible')) {
           summaryPanel.classList.remove('visible');
-          if (verticalResizeHandleWrapper) {
-            verticalResizeHandleWrapper.classList.remove('visible');
-            verticalResizeHandleWrapper.style.display = 'none';
-            verticalResizeHandleWrapper.style.right = '0px';
-          }
           summaryPanel.style.width = '0';
           summaryPanel.style.minWidth = '0';
           summaryPanel.style.marginRight = '0px';
           
-          // Main-Container bis zum rechten Rand ausdehnen
-          if (mainContainer) {
-            mainContainer.style.marginRight = '0px';
+          // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+          // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+          if (typeof syncMainContainerWithPanel === 'function') {
+            syncMainContainerWithPanel();
+          }
+          if (typeof updateResizeHandle === 'function') {
+            updateResizeHandle();
           }
         }
       } catch (e) { /* silent */ }
@@ -7263,43 +7322,17 @@ async function displayBook(book, highlightHeadingId = null) {
         }, 50);
         
         // 3. Positioniere Main-Container und RH nach Verzögerung
-        // WICHTIG: Verwende EXAKT die gleiche Logik wie toggleViewerH4() - verwende panelWidth statt offsetWidth!
+        // WICHTIG: Verwende zentrale Funktionen (keine manuelle Setzung - wie in allen anderen Fällen auch)
         setTimeout(() => {
-          // Verwende panelWidth (wie in toggleViewerH4 Zeile 11229), NICHT offsetWidth!
-          // offsetWidth kann beim ersten Öffnen noch falsch sein (z.B. 281px statt 280px)
-          if (mainContainer) {
-            mainContainer.style.marginRight = panelWidth + 'px';
-            console.log('[BOOK] Main-Container angepasst auf:', panelWidth + 'px');
+          // Main-Container und RH werden automatisch von zentralen Funktionen angepasst
+          if (typeof resetPanelSync === 'function') {
+            resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
           }
-          if (verticalResizeHandleWrapper) {
-            // Positioniere Handle direkt am linken Rand des Panels
-            // Der margin-right: -4px im CSS sorgt dafür, dass es genau auf der Grenzlinie liegt
-            verticalResizeHandleWrapper.style.right = panelWidth + 'px';
-            console.log('[BOOK] Resize-Handle positioniert bei:', panelWidth + 'px (panelWidth:', panelWidth + 'px)');
-            
-            // WICHTIG: Setze Flag am Handle-Element, damit syncMainContainerWithPanel() die Positionierung nicht überschreibt
-            const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-            if (verticalResizeHandle) {
-              verticalResizeHandle.dataset.bookPositioned = 'true';
-            }
-            
-            // Stelle sicher, dass Positionierung nicht überschrieben wird
-            setTimeout(() => {
-              if (verticalResizeHandleWrapper) {
-                const currentRight = verticalResizeHandleWrapper.style.right;
-                const expectedRight = panelWidth + 'px';
-                if (currentRight !== expectedRight) {
-                  console.log('[BOOK] Korrigiere RH-Position nach syncMainContainerWithPanel():', currentRight, '→', expectedRight);
-                  verticalResizeHandleWrapper.style.right = expectedRight;
-                }
-                // Entferne Flag nach kurzer Zeit
-                setTimeout(() => {
-                  if (verticalResizeHandle) {
-                    delete verticalResizeHandle.dataset.bookPositioned;
-                  }
-                }, 500);
-              }
-            }, 100);
+          if (typeof syncMainContainerWithPanel === 'function') {
+            syncMainContainerWithPanel();
+          }
+          if (typeof updateResizeHandle === 'function') {
+            updateResizeHandle();
           }
         }, 50); // Gleiche Verzögerung wie in toggleViewerH4()
         
@@ -8807,6 +8840,8 @@ function displayGAChronological(lectures) {
       if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
       if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
       if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
+      const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+      if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
       
       // Zeige den verticalResizeHandle
       const verticalHandle = document.getElementById('verticalResizeHandle');
@@ -10808,6 +10843,21 @@ function displayGAChronological(lectures) {
   // Prüfe ob es ein Book ist
   const isBook = currentLectureData && currentLectureData.isBook;
   
+  // H4 Toggle Button - NUR bei Vorträgen anzeigen (nicht bei Books)
+  const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+  if (h4ToggleBtn) {
+    if (currentLectureData && !isBook && showingSummaryInMain) {
+      // Vortrag geladen und Übersicht wird angezeigt - zeige H4 Toggle Button
+      h4ToggleBtn.style.display = 'inline-block'; // inline-block für Grid-Layout
+      // Setze initiales Icon basierend auf viewerH4Collapsed Status
+      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+      h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+    } else {
+      // Book oder keine Übersicht - verstecke H4 Toggle Button
+      h4ToggleBtn.style.display = 'none';
+    }
+  }
+  
   // Original und Übersicht Buttons: In ALLEN Tabs anzeigen wenn Vortrag geladen ist
   if (!currentLectureData) {
     // Kein Vortrag geladen - verstecke Original und Übersicht Buttons
@@ -11442,56 +11492,151 @@ try {
     }
   }
   
-  // Fall 2: Zusammenfassung wird angezeigt → Toggle H4, TOC und Schlagwörter
-  const tocList = document.getElementById('toc-list');
-  const viewerH4 = viewer.querySelectorAll('h4');
-  const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
-  
-  console.log(`[TOGGLE-H4] Gefundene H4 im Viewer: ${viewerH4.length}, im TOC: ${tocH4.length}`);
-  
-  // TOC-Container im Viewer finden
-  const viewerTOC = viewer.querySelector('.lecture-toc-section');
-  const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
-  
-  // Schlagwörter-Container im Viewer finden
-  const viewerKeywords = viewer.querySelector('.lecture-keywords-section');
-  
-  // Normaler Toggle der H4-Anzeige
-  viewerH4Collapsed = !viewerH4Collapsed;
-  
-  // Toggle H4 im Viewer
-  viewerH4.forEach(h4 => {
-    h4.style.display = viewerH4Collapsed ? 'none' : 'block';
-  });
-  
-  // Toggle H4 im rechten TOC-Panel
-  tocH4.forEach(h4 => {
-    if (viewerH4Collapsed) {
-      h4.classList.add('hidden');
-      h4.style.display = 'none'; // Zusätzlich display:none setzen für Sicherheit
+  // Fall 2: Zusammenfassung wird angezeigt → NUR rSP öffnen/schließen (bei Vorträgen)
+  // Für Vorträge: rSP öffnen/schließen
+  if (!isBook) {
+    const summaryPanel = document.getElementById('summary-panel');
+    if (!summaryPanel) return;
+    
+    if (summaryPanel.classList.contains('visible')) {
+      // rSP ist offen → schließe es
+      summaryPanel.classList.remove('visible');
+      summaryPanel.style.width = '0';
+      summaryPanel.style.minWidth = '0';
+      summaryPanel.style.marginRight = '';
+      summaryPanel.style.display = 'none';
+      document.body.classList.add('summary-panel-collapsed');
+      
+      // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+      // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+      if (typeof syncMainContainerWithPanel === 'function') {
+        syncMainContainerWithPanel();
+      }
+      if (typeof updateResizeHandle === 'function') {
+        updateResizeHandle();
+      }
+      
+      console.log('[TOGGLE-H4] rSP geschlossen');
+      return;
     } else {
-      h4.classList.remove('hidden');
-      h4.style.display = 'block'; // Explizit anzeigen
+      // rSP ist geschlossen → öffne es
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.display = 'block';
+      
+      // Verwende gespeicherte Breite oder Standard (280px)
+      const panelWidth = savedSummaryPanelWidth || 280;
+      summaryPanel.style.width = panelWidth + 'px';
+      summaryPanel.style.minWidth = panelWidth + 'px';
+      summaryPanel.style.marginRight = '0px';
+      
+      // Stelle sicher, dass TOC-Container vorhanden ist
+      const summaryContent = document.getElementById('summary-content');
+      if (summaryContent) {
+        summaryContent.innerHTML = '<div id="toc-list"></div>';
+      }
+      
+      document.body.classList.remove('summary-panel-collapsed');
+      
+      // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+      // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+      if (typeof resetPanelSync === 'function') {
+        resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
+      }
+      
+      // Warte kurz, damit die Panel-Breite korrekt gesetzt ist
+      setTimeout(() => {
+        if (typeof syncMainContainerWithPanel === 'function') {
+          syncMainContainerWithPanel();
+        }
+        if (typeof updateResizeHandle === 'function') {
+          updateResizeHandle();
+        }
+        // Layout anpassen
+        updateHeaderPosition();
+        // Baue TOC neu auf
+        buildTableOfContents();
+      }, 50);
+      
+      console.log('[TOGGLE-H4] rSP geöffnet');
+      return;
     }
-  });
-  
-  console.log(`[TOGGLE-H4] H4-Status: ${viewerH4Collapsed ? 'ausgeblendet' : 'sichtbar'}`);
-  
-  // Toggle TOC-Container im Viewer
-  if (viewerTOC) {
-    viewerTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
-  }
-  
-  // Toggle TOC-Container im rechten Panel
-  if (tocListTOC) {
-    tocListTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
-  }
-  
-  // Toggle Schlagwörter-Container im Viewer
-  if (viewerKeywords) {
-    viewerKeywords.style.display = viewerH4Collapsed ? 'none' : 'block';
   }
 }
+
+    // Funktion: Toggle H4, TOC und Schlagwörter (nur für Vorträge)
+    function toggleH4Display() {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      // Prüfe ob es ein Book ist - Books haben keine H4-Toggle-Funktion
+      const isBook = currentLectureData && currentLectureData.isBook;
+      if (isBook) {
+        console.log('[TOGGLE-H4-DISPLAY] H4-Toggle nicht verfügbar für Books');
+        return;
+      }
+      
+      // Prüfe ob Zusammenfassung angezeigt wird
+      if (!showingSummaryInMain) {
+        console.log('[TOGGLE-H4-DISPLAY] Zusammenfassung wird nicht angezeigt');
+        return;
+      }
+      
+      const tocList = document.getElementById('toc-list');
+      const viewerH4 = viewer.querySelectorAll('h4');
+      const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
+      
+      console.log(`[TOGGLE-H4-DISPLAY] Gefundene H4 im Viewer: ${viewerH4.length}, im TOC: ${tocH4.length}`);
+      
+      // TOC-Container im Viewer finden
+      const viewerTOC = viewer.querySelector('.lecture-toc-section');
+      const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
+      
+      // Schlagwörter-Container im Viewer finden
+      const viewerKeywords = viewer.querySelector('.lecture-keywords-section');
+      
+      // Normaler Toggle der H4-Anzeige
+      viewerH4Collapsed = !viewerH4Collapsed;
+      
+      // Toggle H4 im Viewer
+      viewerH4.forEach(h4 => {
+        h4.style.display = viewerH4Collapsed ? 'none' : 'block';
+      });
+      
+      // Toggle H4 im rechten TOC-Panel
+      tocH4.forEach(h4 => {
+        if (viewerH4Collapsed) {
+          h4.classList.add('hidden');
+          h4.style.display = 'none'; // Zusätzlich display:none setzen für Sicherheit
+        } else {
+          h4.classList.remove('hidden');
+          h4.style.display = 'block'; // Explizit anzeigen
+        }
+      });
+      
+      console.log(`[TOGGLE-H4-DISPLAY] H4-Status: ${viewerH4Collapsed ? 'ausgeblendet' : 'sichtbar'}`);
+      
+      // Toggle TOC-Container im Viewer
+      if (viewerTOC) {
+        viewerTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
+      }
+      
+      // Toggle TOC-Container im rechten Panel
+      if (tocListTOC) {
+        tocListTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
+      }
+      
+      // Toggle Schlagwörter-Container im Viewer
+      if (viewerKeywords) {
+        viewerKeywords.style.display = viewerH4Collapsed ? 'none' : 'block';
+      }
+      
+      // Aktualisiere Button-Icon basierend auf Status
+      const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+      if (h4ToggleBtn) {
+        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+        h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+      }
+    }
 
     // Toggle Table of Contents Inhalt
     function toggleTOCContent() {
@@ -11809,6 +11954,12 @@ setTimeout(() => {
   
   showingSummaryInMain = false;
   
+  // Verstecke H4 Toggle Button wenn Original angezeigt wird
+  const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+  if (h4ToggleBtn) {
+    h4ToggleBtn.style.display = 'none';
+  }
+  
   // Buttons zurücksetzen
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
@@ -11894,6 +12045,19 @@ function showSummaryView() {
     
     // Stelle sicher, dass display immer korrekt ist (auch wenn Panel bereits offen war)
     summaryPanel.style.display = 'block';
+  }
+  
+  // Aktualisiere H4 Toggle Button Sichtbarkeit
+  const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+  if (h4ToggleBtn) {
+    const isBook = currentLectureData && currentLectureData.isBook;
+    if (currentLectureData && !isBook && showingSummaryInMain) {
+      h4ToggleBtn.style.display = 'inline-block'; // inline-block für Grid-Layout
+      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+      h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+    } else {
+      h4ToggleBtn.style.display = 'none';
+    }
   }
   
   // Hole Keywords aus Suchfeldern wenn vorhanden
@@ -12629,25 +12793,23 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     if (isInGATab && wasBook && isLecture) {
       // Schließe TOC-Panel wenn von Buch zu Vortrag gewechselt wird
       const summaryPanelToClose = document.getElementById('summary-panel');
-      const verticalResizeHandleWrapperToClose = document.getElementById('verticalResizeHandleWrapper');
-      const mainContainerForPanel = document.getElementById('main-container');
       
       if (summaryPanelToClose && summaryPanelToClose.classList.contains('visible')) {
         summaryPanelToClose.classList.remove('visible');
-        if (verticalResizeHandleWrapperToClose) {
-          verticalResizeHandleWrapperToClose.classList.remove('visible');
-          verticalResizeHandleWrapperToClose.style.display = 'none';
-          verticalResizeHandleWrapperToClose.style.right = '0px';
-        }
         summaryPanelToClose.style.width = '0';
         summaryPanelToClose.style.minWidth = '0';
         summaryPanelToClose.style.marginRight = '0px';
+        document.body.classList.add('summary-panel-collapsed');
         
-        if (mainContainerForPanel) {
-          mainContainerForPanel.style.marginRight = '0px';
+        // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+        // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+        if (typeof syncMainContainerWithPanel === 'function') {
+          syncMainContainerWithPanel();
+        }
+        if (typeof updateResizeHandle === 'function') {
+          updateResizeHandle();
         }
         
-        document.body.classList.add('summary-panel-collapsed');
         shouldClosePanelFromBook = true; // Setze Flag um automatisches Öffnen zu verhindern
         console.log('[SHOW-LECTURE] TOC-Panel geschlossen (Wechsel von Buch zu Vortrag im GA-Tab)');
       }
@@ -12914,27 +13076,17 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         summaryPanel.style.removeProperty('visibility');
         summaryPanel.style.display = 'block'; // Dann explizit setzen
         
-        // Zeige Resize-Handle-Wrapper (auch wenn Panel bereits geöffnet war)
-        if (verticalResizeHandleWrapper) {
-          const panelWidth = summaryPanel.offsetWidth || savedSummaryPanelWidth || 280;
-          verticalResizeHandleWrapper.classList.add('visible');
-          verticalResizeHandleWrapper.style.display = 'grid';
-          verticalResizeHandleWrapper.style.right = panelWidth + 'px';
-          
-          // Stelle sicher, dass das Handle-Element selbst auch sichtbar ist
-          const verticalResizeHandle = document.getElementById('verticalResizeHandle');
-          if (verticalResizeHandle) {
-            verticalResizeHandle.style.display = 'block';
-            verticalResizeHandle.style.visibility = 'visible';
-            verticalResizeHandle.style.opacity = '1';
-            // Größe wird von updateResizeHandle() gesetzt, hier nur Sichtbarkeit sicherstellen
-          }
-        }
-        
         document.body.classList.remove('summary-panel-collapsed');
         
-        // RH automatisch aktualisieren (wird auf TL positioniert)
-        updateResizeHandle();
+        // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+        // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+        // RH wird von updateResizeHandle() automatisch positioniert und sichtbar gemacht
+        if (typeof syncMainContainerWithPanel === 'function') {
+          syncMainContainerWithPanel();
+        }
+        if (typeof updateResizeHandle === 'function') {
+          updateResizeHandle();
+        }
         
         // Header-Position aktualisieren
         updateHeaderPosition();
