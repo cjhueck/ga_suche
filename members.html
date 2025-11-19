@@ -665,9 +665,13 @@
 
     /* Auth View */
     #auth-view {
-      display: none;
+      display: block; /* Standardmäßig sichtbar, falls Module nicht geladen werden */
       max-width: 500px;
       margin: 4rem auto;
+    }
+
+    #auth-view.hidden {
+      display: none;
     }
 
     #auth-view.active {
@@ -777,7 +781,7 @@
 </head>
 <body>
   <!-- Auth View -->
-  <div id="auth-view">
+  <div id="auth-view" class="active">
     <div class="auth-card">
       <h2 id="auth-title">Mitglieder Login</h2>
       <p class="login-description">Nach Anmeldung können Sie Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
@@ -900,14 +904,57 @@
 
   <!-- Scripts -->
   <script type="module">
-    import { 
-      signUp, signIn, signOut, getCurrentUser, onAuthStateChange 
-    } from './members-auth.js';
+    // Prüfe ob wir über file:/// öffnen (Module funktionieren nicht mit file:///)
+    const isFileProtocol = window.location.protocol === 'file:';
+    if (isFileProtocol) {
+      console.error('[MEMBERS-HTML] WARNUNG: Datei wird über file:/// geöffnet. ES6-Module funktionieren nicht mit file:/// URLs.');
+      console.error('[MEMBERS-HTML] Bitte öffnen Sie die Seite über einen lokalen Server (z.B. http://localhost:3000/members.html)');
+      document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
+    }
     
-    import { 
-      getBookmarks, deleteBookmark, updateBookmark,
-      getQuotes, deleteQuote, updateQuote
-    } from './members-api.js';
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange;
+    let getBookmarks, deleteBookmark, updateBookmark, getQuotes, deleteQuote, updateQuote;
+    
+    try {
+      const authModule = await import('./members-auth.js');
+      signUp = authModule.signUp;
+      signIn = authModule.signIn;
+      signOut = authModule.signOut;
+      getCurrentUser = authModule.getCurrentUser;
+      onAuthStateChange = authModule.onAuthStateChange;
+      
+      const apiModule = await import('./members-api.js');
+      getBookmarks = apiModule.getBookmarks;
+      deleteBookmark = apiModule.deleteBookmark;
+      updateBookmark = apiModule.updateBookmark;
+      getQuotes = apiModule.getQuotes;
+      deleteQuote = apiModule.deleteQuote;
+      updateQuote = apiModule.updateQuote;
+      
+      // Mache Funktionen global verfügbar für Event-Listener
+      window.signUp = signUp;
+      window.signIn = signIn;
+      window.signOut = signOut;
+      window.getCurrentUser = getCurrentUser;
+      window.getBookmarks = getBookmarks;
+      window.deleteBookmark = deleteBookmark;
+      window.updateBookmark = updateBookmark;
+      window.getQuotes = getQuotes;
+      window.deleteQuote = deleteQuote;
+      window.updateQuote = updateQuote;
+      
+      console.log('[MEMBERS-HTML] ✓ Module erfolgreich geladen');
+    } catch (error) {
+      console.error('[MEMBERS-HTML] ✗ Fehler beim Laden der Module:', error);
+      const messageDiv = document.getElementById('auth-message');
+      if (messageDiv) {
+        let errorMsg = error.message || 'Unbekannter Fehler';
+        if (isFileProtocol) {
+          errorMsg = 'Module können nicht über file:/// geladen werden. Bitte verwenden Sie einen lokalen Server.';
+        }
+        messageDiv.innerHTML = '<div class="message error">⚠️ Fehler beim Laden der Module: ' + errorMsg + '<br><br>Bitte öffnen Sie die Seite über einen lokalen Server (z.B. http://localhost:8000/members.html)</div>';
+      }
+    }
 
     // ===== State =====
     let currentUser = null;
@@ -921,90 +968,190 @@
 
     // ===== Init =====
     async function init() {
-      setupAuthListeners();
-      setupToolbarListeners();
-      setupDragAndDrop();
-      
-      const user = await getCurrentUser();
-      if (user) {
-        await showApp(user);
-      } else {
+      try {
+        // WICHTIG: Event-Listener IMMER einrichten, auch wenn Module nicht geladen werden
+        setupAuthListeners();
+        
+        // Prüfe ob Module geladen wurden
+        const getCurrentUserFunc = window.getCurrentUser || getCurrentUser;
+        const signInFunc = window.signIn || signIn;
+        if (typeof getCurrentUserFunc !== 'function' || typeof signInFunc !== 'function') {
+          console.error('[MEMBERS-HTML] Module nicht geladen!');
+          showAuthMessage('Fehler: Module konnten nicht geladen werden. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+          return;
+        }
+        
+        setupToolbarListeners();
+        setupDragAndDrop();
+        
+        const user = await getCurrentUserFunc();
+        if (user) {
+          await showApp(user);
+        } else {
+          showAuth();
+        }
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler bei Init:', error);
+        // Zeige Auth-View als Fallback
         showAuth();
+        showAuthMessage('Fehler beim Initialisieren: ' + error.message, 'error');
       }
     }
 
     // ===== Auth Functions =====
     function showAuth() {
-      document.getElementById('auth-view').classList.add('active');
-      document.getElementById('app-view').classList.remove('active');
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
     }
 
     async function showApp(user) {
       currentUser = user;
-      document.getElementById('auth-view').classList.remove('active');
-      document.getElementById('app-view').classList.add('active');
-      document.getElementById('user-email').textContent = user.email;
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.remove('active');
+        authView.classList.add('hidden');
+      }
+      if (appView) {
+        appView.classList.add('active');
+      }
+      const userEmailEl = document.getElementById('user-email');
+      if (userEmailEl) {
+        userEmailEl.textContent = user.email;
+      }
       
       await loadItems();
     }
 
     function setupAuthListeners() {
-      document.getElementById('auth-switch-link').addEventListener('click', (e) => {
-        e.preventDefault();
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const title = document.getElementById('auth-title');
-        const switchText = document.getElementById('auth-switch-text');
-        const switchLink = document.getElementById('auth-switch-link');
-        
-        if (loginForm.style.display !== 'none') {
-          loginForm.style.display = 'none';
-          registerForm.style.display = 'block';
-          title.textContent = 'Registrierung';
-          switchText.textContent = 'Bereits registriert?';
-          switchLink.textContent = 'Jetzt anmelden';
-        } else {
-          loginForm.style.display = 'block';
-          registerForm.style.display = 'none';
-          title.textContent = 'Mitglieder Login';
-          switchText.textContent = 'Noch kein Account?';
-          switchLink.textContent = 'Jetzt registrieren';
-        }
-      });
+      // Auth-Switch-Link
+      const authSwitchLink = document.getElementById('auth-switch-link');
+      if (authSwitchLink) {
+        authSwitchLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && registerForm && title && switchText && switchLink) {
+            if (loginForm.style.display !== 'none') {
+              loginForm.style.display = 'none';
+              registerForm.style.display = 'block';
+              title.textContent = 'Registrierung';
+              switchText.textContent = 'Bereits registriert?';
+              switchLink.textContent = 'Jetzt anmelden';
+            } else {
+              loginForm.style.display = 'block';
+              registerForm.style.display = 'none';
+              title.textContent = 'Mitglieder Login';
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+          }
+        });
+      }
 
-      document.getElementById('login-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        
-        const result = await signIn(email, password);
-        
-        if (result.success) {
-          await showApp(result.user);
-        } else {
-          showAuthMessage(result.message, 'error');
-        }
-      });
+      // Login-Form
+      const loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const signInFunc = window.signIn || signIn;
+          if (typeof signInFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] signIn Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const email = document.getElementById('login-email')?.value;
+          const password = document.getElementById('login-password')?.value;
+          
+          if (!email || !password) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          try {
+            const result = await signInFunc(email, password);
+            
+            if (result.success) {
+              await showApp(result.user);
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Login-Fehler:', error);
+            showAuthMessage('Fehler beim Anmelden: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
 
-      document.getElementById('register-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        
-        const result = await signUp(email, password, name);
-        
-        if (result.success) {
-          showAuthMessage(result.message, 'success');
-        } else {
-          showAuthMessage(result.message, 'error');
-        }
-      });
+      // Register-Form
+      const registerForm = document.getElementById('register-form');
+      if (registerForm) {
+        registerForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const signUpFunc = window.signUp || signUp;
+          if (typeof signUpFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] signUp Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const name = document.getElementById('register-name')?.value;
+          const email = document.getElementById('register-email')?.value;
+          const password = document.getElementById('register-password')?.value;
+          
+          if (!name || !email || !password) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          try {
+            const result = await signUpFunc(email, password, name);
+            
+            if (result.success) {
+              showAuthMessage(result.message, 'success');
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Registrierungs-Fehler:', error);
+            showAuthMessage('Fehler bei der Registrierung: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
 
-      document.getElementById('logout-btn').addEventListener('click', async () => {
-        await signOut();
-        showAuth();
-      });
+      // Logout-Button
+      const logoutBtn = document.getElementById('logout-btn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          const signOutFunc = window.signOut || signOut;
+          if (typeof signOutFunc !== 'function') {
+            console.error('[MEMBERS-HTML] signOut Funktion nicht verfügbar!');
+            return;
+          }
+          try {
+            await signOutFunc();
+            showAuth();
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Logout-Fehler:', error);
+          }
+        });
+      }
     }
 
     function showAuthMessage(message, type) {
@@ -2275,7 +2422,50 @@
     window.deleteSelectedItems = deleteSelectedItems;
 
     // ===== Start =====
-    init();
+    // Fehlerbehandlung für Module-Loading
+    window.addEventListener('error', (e) => {
+      console.error('[MEMBERS-HTML] Fehler:', e);
+      // Zeige Auth-View als Fallback
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+    });
+    
+    // Initialisiere App mit Fehlerbehandlung
+    // WICHTIG: Zeige Auth-View sofort, falls Module-Loading fehlschlägt
+    try {
+      init().catch(err => {
+        console.error('[MEMBERS-HTML] Fehler bei Init:', err);
+        // Zeige Auth-View als Fallback
+        const authView = document.getElementById('auth-view');
+        const appView = document.getElementById('app-view');
+        if (authView) {
+          authView.classList.add('active');
+          authView.classList.remove('hidden');
+        }
+        if (appView) {
+          appView.classList.remove('active');
+        }
+      });
+    } catch (err) {
+      console.error('[MEMBERS-HTML] Fehler beim Starten:', err);
+      // Zeige Auth-View als Fallback
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+    }
   </script>
 </body>
 </html>

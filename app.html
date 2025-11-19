@@ -22918,6 +22918,9 @@ async function addKeywordToLecture() {
   window.subscribeToChatMessages = MembersAPI.subscribeToChatMessages;
   window.unsubscribeFromChat = MembersAPI.unsubscribeFromChat;
   
+  // Event auslösen, dass API-Funktionen geladen sind
+  window.dispatchEvent(new CustomEvent('members-api-loaded'));
+  
   console.log('✓ Members API functions loaded');
 </script>
 
