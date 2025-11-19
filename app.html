@@ -2181,46 +2181,52 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* H4 Toggle Button - in derselben Zeile wie Original Button (Zeile 2), Spalte 2 */
+    /* H4 Toggle Button - ganz rechts direkt unter dem Mitgliederbereich-Button */
     #h4ToggleBtn {
-      grid-column: 2;
-      grid-row: 2; /* Gleiche Zeile wie Original Button */
-      align-self: start;
-      padding: 4px 12px !important; /* Gleiche Höhe wie Original Button (4px 12px) */
+      position: fixed !important;
+      top: 3.5rem !important; /* Direkt unter dem membersPanelBtn (1rem + Button-Höhe + Abstand) */
+      right: 1rem !important; /* Gleiche Position wie membersPanelBtn */
+      padding: 4px 8px !important; /* Gleiche Padding wie membersPanelBtn */
       margin: 0 !important;
       width: auto !important;
-      min-width: 32px !important; /* Gleiche Breite wie membersPanelBtn (min-width: 32px) */
+      min-width: 32px !important; /* Gleiche Breite wie membersPanelBtn */
       height: auto !important;
       line-height: 1 !important;
-      font-size: 0.85em !important; /* Gleiche Schriftgröße wie Original Button */
-      border: 1px solid var(--link-color) !important; /* Gleiches Styling wie Original Button */
+      grid-column: unset !important;
+      grid-row: unset !important;
+      font-size: 0.85em !important;
+      border: 1px solid var(--accent-color) !important; /* Gleiches Styling wie membersPanelBtn */
       background: transparent !important;
-      color: var(--link-color) !important;
+      color: var(--accent-color) !important;
       cursor: pointer !important;
       border-radius: 4px !important;
-      transition: opacity 0.2s !important; /* Gleiche Transition wie Original Button */
-      display: inline-block !important; /* inline-block für Grid-Layout */
+      transition: background 0.2s, color 0.2s !important; /* Gleiche Transition wie membersPanelBtn */
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 1001 !important; /* Über Header (z-index: 1000) */
       flex-shrink: 0 !important;
     }
     
     #h4ToggleBtn:hover {
-      opacity: 0.7;
+      background: var(--accent-color) !important;
+      color: white !important;
     }
     
     body.dark-mode #h4ToggleBtn {
-      border-color: var(--dark-text-color) !important;
-      color: var(--dark-text-color) !important;
+      border-color: var(--dark-accent-color) !important;
+      color: var(--dark-accent-color) !important;
     }
     
     body.dark-mode #h4ToggleBtn:hover {
-      opacity: 0.7;
+      background: var(--dark-accent-color) !important;
+      color: white !important;
     }
     
     body.online-mode #h4ToggleBtn {
-      grid-column: 1;
-      grid-row: 3; /* Neue Zeile im online-mode */
-      width: 100%;
-      align-self: start;
+      position: fixed !important;
+      top: 3.5rem !important;
+      right: 1rem !important;
     }
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
@@ -10846,14 +10852,14 @@ function displayGAChronological(lectures) {
   // H4 Toggle Button - NUR bei Vorträgen anzeigen (nicht bei Books)
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
-    if (currentLectureData && !isBook && showingSummaryInMain) {
-      // Vortrag geladen und Übersicht wird angezeigt - zeige H4 Toggle Button
-      h4ToggleBtn.style.display = 'inline-block'; // inline-block für Grid-Layout
-      // Setze initiales Icon basierend auf viewerH4Collapsed Status
-      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+    if (currentLectureData && !isBook) {
+      // Vortrag geladen - zeige H4 Toggle Button
+      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
+      // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
+      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book oder keine Übersicht - verstecke H4 Toggle Button
+      // Book oder kein Vortrag - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
@@ -11630,10 +11636,10 @@ try {
         viewerKeywords.style.display = viewerH4Collapsed ? 'none' : 'block';
       }
       
-      // Aktualisiere Button-Icon basierend auf Status
+      // Aktualisiere Button-Icon basierend auf Status (Pfeil nach oben/unten)
       const h4ToggleBtn = document.getElementById('h4ToggleBtn');
       if (h4ToggleBtn) {
-        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
         h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
       }
     }
@@ -11954,13 +11960,7 @@ setTimeout(() => {
   
   showingSummaryInMain = false;
   
-  // Verstecke H4 Toggle Button wenn Original angezeigt wird
-  const h4ToggleBtn = document.getElementById('h4ToggleBtn');
-  if (h4ToggleBtn) {
-    h4ToggleBtn.style.display = 'none';
-  }
-  
-  // Buttons zurücksetzen
+  // Buttons zurücksetzen (inkl. H4 Toggle Button - wird durch updateViewerButtons() gesteuert)
   const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
   const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
   
@@ -11992,6 +11992,9 @@ setTimeout(() => {
     toggle.style.position = 'fixed';
     updateHeaderPosition(); // Header-Position nach Panel-Schließung anpassen
   }, 0);
+  
+  // Aktualisiere Button-Zustände (inkl. H4 Toggle Button)
+  updateViewerButtons();
 }
 function showSummaryView() {
   if (!currentLectureData || !currentLectureSummary) return;
@@ -12051,11 +12054,13 @@ function showSummaryView() {
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
     const isBook = currentLectureData && currentLectureData.isBook;
-    if (currentLectureData && !isBook && showingSummaryInMain) {
-      h4ToggleBtn.style.display = 'inline-block'; // inline-block für Grid-Layout
-      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▶' : '▼';
+    if (currentLectureData && !isBook) {
+      // Vortrag geladen - zeige H4 Toggle Button
+      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
+      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
+      // Book oder kein Vortrag - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
     }
   }
