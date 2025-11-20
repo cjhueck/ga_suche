@@ -3,6 +3,7 @@
 Master Export-Skript für Steiner GA-Schriften (GA001-GA046)
 ===========================================================
 Exportiert Schriften als zusammenhängende Texte mit:
+- Rechtschreibkorrekturen (wie bei Vorträgen)
 - Überschriften-Umwandlung: H1→H3, H2→H3, H3→H4
 - Inhaltsverzeichnis-Links zu Überschriften
 - Fußnoten-Links
@@ -26,6 +27,18 @@ class BooksExporter:
         self.project_root = os.path.dirname(os.path.abspath(__file__))
         self.steiner_ga_dir = os.path.join(self.project_root, "Steiner_GA")
         self.books = []
+        self.spelling_settings = self.load_spelling_settings()
+    
+    def load_spelling_settings(self):
+        """Lädt Rechtschreibkorrekturen aus ss-targeted-settings.json"""
+        settings_path = os.path.join(self.steiner_ga_dir, "ss-targeted-settings.json")
+        if os.path.exists(settings_path):
+            try:
+                with open(settings_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"Warnung: Konnte ss-targeted-settings.json nicht laden: {e}")
+        return None
         
     def find_book_file(self, ga_folder):
         """Findet die Haupt-Markdown-Datei eines GA-Bandes"""
@@ -275,6 +288,75 @@ class BooksExporter:
         
         return text
     
+    def fix_spelling(self, text):
+        """Korrigiert deutsche Rechtschreibung (wie in export_master.py und ss-targeted-settings.json)"""
+        # Basis-Rechtschreibkorrekturen aus export_master.py
+        spelling_replacements = [
+            ('Fleiss', 'Fleiß'),
+            ('fleiss', 'fleiß'),
+            ('vergeßlich', 'vergesslich'),
+            ('heiss', 'heiß'),
+            ('zurücckommen', 'zurückkommen'),
+            ('ackurat', 'akkurat'),
+            ('paßt', 'passt'),
+            ('römischkatholisch', 'römisch-katholisch'),
+            ('seelischgeistig', 'seelisch-geistig'),
+            ('DeutschÖsterreicher', 'Deutsch-Österreicher'),
+            # Mißverständnis Varianten
+            ('Mißverständnisse', 'Missverständnisse'),
+            ('mißverständnisse', 'missverständnisse'),
+            ('Mißverständnis', 'Missverständnis'),
+            ('mißverständnis', 'missverständnis'),
+            ('Mißverständnissen', 'Missverständnissen'),
+            ('mißverständnissen', 'missverständnissen'),
+            # angepaßt Varianten
+            ('angepaßt', 'angepasst'),
+            ('Angepaßt', 'Angepasst'),
+            ('angepaßte', 'angepasste'),
+            ('Angepaßte', 'Angepasste'),
+            ('angepaßten', 'angepassten'),
+            ('Angepaßten', 'Angepassten'),
+            ('angepaßter', 'angepasster'),
+            ('Angepaßter', 'Angepasster')
+        ]
+        
+        # Lade zusätzliche Korrekturen aus ss-targeted-settings.json
+        if self.spelling_settings:
+            # Parse exactReplacements
+            for replacement in self.spelling_settings.get('exactReplacements', []):
+                if '=>' in replacement:
+                    parts = replacement.split('=>', 1)
+                    old_text = parts[0].strip()
+                    new_text = parts[1].strip()
+                    if old_text and new_text:
+                        # Füge sowohl Original als auch Großschreibung-Variante hinzu
+                        spelling_replacements.append((old_text, new_text))
+                        if old_text[0].isupper():
+                            spelling_replacements.append((old_text.lower(), new_text.lower()))
+                        elif old_text[0].islower():
+                            spelling_replacements.append((old_text.capitalize(), new_text.capitalize()))
+        
+        # Wende exact replacements an
+        for old_spelling, new_spelling in spelling_replacements:
+            text = text.replace(old_spelling, new_spelling)
+        
+        # Wende regex replacements an (aus ss-targeted-settings.json)
+        if self.spelling_settings:
+            for replacement in self.spelling_settings.get('regexReplacements', []):
+                if '=>' in replacement:
+                    parts = replacement.split('=>', 1)
+                    pattern = parts[0].strip()
+                    replacement_text = parts[1].strip()
+                    if pattern and replacement_text:
+                        try:
+                            # Verwende re.sub mit Flags für case-insensitive und Unicode
+                            text = re.sub(pattern, replacement_text, text, flags=re.IGNORECASE | re.UNICODE)
+                        except re.error as e:
+                            # Ignoriere ungültige Regex-Patterns
+                            pass
+        
+        return text
+    
     def process_book(self, ga_folder):
         """Verarbeitet einen GA-Band"""
         ga_number = ga_folder.name.split('-')[0]  # z.B. "GA001"
@@ -292,19 +374,22 @@ class BooksExporter:
             with open(main_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
-            # 1. Konvertiere Überschriften
+            # 1. Rechtschreibkorrekturen
+            content = self.fix_spelling(content)
+            
+            # 2. Konvertiere Überschriften
             content = self.convert_headings(content)
             
-            # 2. Extrahiere Überschriften
+            # 3. Extrahiere Überschriften
             headings = self.extract_headings(content)
             
-            # 3. Korrigiere Links im Inhaltsverzeichnis
+            # 4. Korrigiere Links im Inhaltsverzeichnis
             content = self.fix_toc_links(content, headings)
             
-            # 4. Konvertiere Fußnoten zu Markdown-Format
+            # 5. Konvertiere Fußnoten zu Markdown-Format
             content = self.convert_footnotes(content)
             
-            # 4. Extrahiere Metadaten aus Dateinamen
+            # 6. Extrahiere Metadaten aus Dateinamen
             filename = main_file.stem
             # Format: "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)"
             title_match = re.search(r'GA\d{3}\s*-\s*(.+?)\s*\((.+?)\)', filename)
