@@ -3,6 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <title>Rudolf Steiner Gesamtausgabe - Willkommen</title>
+<!-- Inter Font von Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
     /* Zentrale Farbdefinitionen */
@@ -40,7 +44,10 @@
     
     html, body {
       height: 100%;
-      font-family: Georgia, 'Times New Roman', serif;
+      /* AKTUELL: Inter als Standard-Schriftart */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
+      /* ZURÜCK ZU GEORGIA: Kommentar oben entfernen und folgende Zeile aktivieren: */
+      /* font-family: Georgia, 'Times New Roman', serif; */
       background-color: var(--background-color);
       color: var(--text-color);
       transition: background-color 0.3s, color 0.3s;
