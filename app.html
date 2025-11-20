@@ -3908,6 +3908,13 @@ body.dark-mode .help-back-btn:hover {
   transition: filter 0.3s ease;
   /* Blend-Mode für PNG-Transparenz im Light Mode */
   mix-blend-mode: multiply;
+  /* Stelle sicher, dass das gesamte Bild klickbar ist */
+  pointer-events: auto;
+  cursor: pointer;
+  /* Stelle sicher, dass das Bild-Element selbst klickbar ist, nicht nur ein kleiner Bereich */
+  display: inline-block;
+  position: relative;
+  z-index: 1;
 }
 
 /* Bilder im Text - Dark Mode: Invertiere nur die Zeichnung, Hintergrund bleibt transparent */
@@ -6176,11 +6183,24 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
+    // Prüft sowohl das geklickte Element als auch dessen Eltern, um sicherzustellen,
+    // dass das gesamte Bild klickbar ist, nicht nur ein kleiner Bereich
     document.addEventListener('click', function(e) {
-      if (e.target.classList.contains('lecture-image')) {
-        openImagePopup(e.target.src, e.target.alt, e.target.getAttribute('data-format'));
+      // Suche nach dem Bild-Element im Click-Pfad (kann e.target oder ein Elternelement sein)
+      let imgElement = e.target;
+      
+      // Wenn das geklickte Element kein Bild ist, suche nach einem Bild-Element im Elternpfad
+      if (!imgElement.classList.contains('lecture-image')) {
+        imgElement = e.target.closest('.lecture-image');
       }
-    });
+      
+      // Wenn ein Bild gefunden wurde, öffne das Popup
+      if (imgElement && imgElement.classList.contains('lecture-image')) {
+        e.preventDefault();
+        e.stopPropagation(); // Verhindere, dass der Click an den Absatz weitergegeben wird
+        openImagePopup(imgElement.src, imgElement.alt, imgElement.getAttribute('data-format'));
+      }
+    }, true); // useCapture = true, damit der Handler vor anderen Handlern ausgeführt wird
 
     // ESC-Taste zum Schließen
     document.addEventListener('keydown', function(e) {
