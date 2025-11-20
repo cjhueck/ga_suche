@@ -12,7 +12,6 @@ Die hier verwendeten Texte wurden weitgehend aus der frei im Internet verfügbar
 
 
 
-
 (1) https://steiner.wiki/Die\_Rudolf\_Steiner\_Gesamtausgabe
 (2) http://bdn-steiner.ru/modules.php?name=Ga
 (3) https://rsarchive.org/Volumes.html

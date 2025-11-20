@@ -5399,17 +5399,49 @@ function normalizeGANumber(gaNumber) {
         // Verstecke den verticalResizeHandle beim Tab-Wechsel
         const verticalHandle = document.getElementById('verticalResizeHandle');
         if (verticalHandle) {
-          verticalHandle.style.display = 'none';
+          verticalHandle.style.setProperty('display', 'none', 'important');
+          verticalHandle.style.setProperty('visibility', 'hidden', 'important');
+          verticalHandle.style.setProperty('opacity', '0', 'important');
           verticalHandle.classList.remove('visible');
+          console.log('[TABS] Vertical-Resize-Handle geschlossen');
+        }
+        
+        // WICHTIG: Verstecke auch den verticalResizeHandleWrapper (Trennlinie) beim Tab-Wechsel
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.style.setProperty('display', 'none', 'important');
+          verticalResizeHandleWrapper.style.setProperty('visibility', 'hidden', 'important');
+          verticalResizeHandleWrapper.style.setProperty('opacity', '0', 'important');
+          verticalResizeHandleWrapper.classList.remove('visible');
+          console.log('[TABS] Vertical-Resize-Handle-Wrapper geschlossen');
+        }
+        
+        // Verstecke auch die Trennlinie selbst explizit
+        const verticalResizeHandleLine = document.querySelector('.vertical-resize-handle-line');
+        if (verticalResizeHandleLine) {
+          verticalResizeHandleLine.style.setProperty('display', 'none', 'important');
+          verticalResizeHandleLine.style.setProperty('visibility', 'hidden', 'important');
+          verticalResizeHandleLine.style.setProperty('opacity', '0', 'important');
+          console.log('[TABS] Vertical-Resize-Handle-Line versteckt');
+        }
+        
+        // Setze Main-Container zurück (wichtig für alle Tabs)
+        const mainContainer = document.getElementById('main-container');
+        if (mainContainer) {
+          mainContainer.style.setProperty('margin-right', '0px', 'important');
+          console.log('[TABS] Main-Container zurückgesetzt');
         }
       } else {
         console.log('[TABS] Summary-Panel bleibt offen (Members Panel aktiv oder Navigation läuft)');
         // Body-Klasse NICHT setzen wenn Panel offen bleibt
       }
       
-      // Body-Klasse für collapsed State hinzufügen (nur wenn Panel geschlossen wurde)
+      // Body-Klasse für collapsed State NICHT setzen beim Tab-Wechsel
+      // (sonst wird der Handle durch CSS wieder sichtbar gemacht)
+      // Stattdessen entfernen wir die Klasse, damit der Handle komplett versteckt bleibt
       if (!isMembersPanelOpen && !isMembersNavigating) {
-        document.body.classList.add('summary-panel-collapsed');
+        document.body.classList.remove('summary-panel-collapsed');
+        console.log('[TABS] summary-panel-collapsed Klasse entfernt beim Tab-Wechsel');
       }
       
       // TOC leeren
@@ -5752,6 +5784,57 @@ function normalizeGANumber(gaNumber) {
       } else if (activeTabMode === 'ga' && (!urlHash || urlHash === 'ga')) {
         // Nur GA-Liste laden wenn GA-Tab wirklich aktiv bleiben soll
         console.log('[INIT] GA-Tab ist initial aktiv, lade GA-Bände-Liste');
+        
+        // WICHTIG: Stelle sicher, dass rechtes Panel geschlossen ist beim initialen Laden
+        const summaryPanel = document.getElementById('summary-panel');
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel) {
+          summaryPanel.classList.remove('visible');
+          summaryPanel.style.setProperty('width', '0', 'important');
+          summaryPanel.style.setProperty('min-width', '0', 'important');
+          summaryPanel.style.setProperty('display', 'none', 'important');
+          summaryPanel.style.setProperty('opacity', '0', 'important');
+          summaryPanel.style.setProperty('visibility', 'hidden', 'important');
+          console.log('[INIT] Summary-Panel geschlossen beim initialen GA-Tab-Laden');
+        }
+        
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.style.setProperty('display', 'none', 'important');
+          verticalResizeHandleWrapper.style.setProperty('visibility', 'hidden', 'important');
+          verticalResizeHandleWrapper.style.setProperty('opacity', '0', 'important');
+          verticalResizeHandleWrapper.classList.remove('visible');
+          console.log('[INIT] Vertical-Resize-Handle-Wrapper geschlossen beim initialen GA-Tab-Laden');
+        }
+        
+        // Verstecke auch die Trennlinie selbst explizit beim initialen Laden
+        const verticalResizeHandleLine = document.querySelector('.vertical-resize-handle-line');
+        if (verticalResizeHandleLine) {
+          verticalResizeHandleLine.style.setProperty('display', 'none', 'important');
+          verticalResizeHandleLine.style.setProperty('visibility', 'hidden', 'important');
+          verticalResizeHandleLine.style.setProperty('opacity', '0', 'important');
+          console.log('[INIT] Vertical-Resize-Handle-Line versteckt beim initialen GA-Tab-Laden');
+        }
+        
+        // Verstecke auch den verticalHandle selbst beim initialen Laden
+        const verticalHandle = document.getElementById('verticalResizeHandle');
+        if (verticalHandle) {
+          verticalHandle.style.setProperty('display', 'none', 'important');
+          verticalHandle.style.setProperty('visibility', 'hidden', 'important');
+          verticalHandle.style.setProperty('opacity', '0', 'important');
+          verticalHandle.classList.remove('visible');
+          console.log('[INIT] Vertical-Resize-Handle geschlossen beim initialen GA-Tab-Laden');
+        }
+        
+        if (mainContainer) {
+          mainContainer.style.setProperty('margin-right', '0px', 'important');
+        }
+        
+        // Body-Klasse für collapsed State NICHT setzen beim initialen Laden
+        // (sonst wird der Handle durch CSS wieder sichtbar gemacht)
+        document.body.classList.remove('summary-panel-collapsed');
+        console.log('[INIT] summary-panel-collapsed Klasse entfernt beim initialen GA-Tab-Laden');
         
         // Setze Document Title
         const documentTitle = document.getElementById('document-title');
