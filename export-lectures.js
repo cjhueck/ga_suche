@@ -337,6 +337,15 @@ class SteinerLecturesExporter {
       if (!gaMatch) continue;
 
       const gaNumber = filename.match(/^GA\s*(\d{2,3}[a-z]?)/i)?.[1]?.toUpperCase();
+      
+      // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
+      if (gaNumber) {
+        const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
+        if (gaNum >= 1 && gaNum <= 50) {
+          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert)
+        }
+      }
+      
       if (selectedGAs.length > 0 && (!gaNumber || !selectedGAs.includes(`GA${gaNumber.toLowerCase()}`))) continue;
 
       const meta = this.extractMetadataFromFilename(filename);
