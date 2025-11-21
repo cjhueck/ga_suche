@@ -101,10 +101,12 @@
     .portrait {
       max-width: 100%;
       width: 300px;
+      min-width: 300px;
       height: auto;
       object-fit: contain;
       border-radius: 4px;
       margin-left: 0;
+      flex-shrink: 0;
     }
     
     .portrait-caption {
@@ -137,7 +139,7 @@
       flex-direction: column;
       justify-content: flex-start;
       padding-top: 10px;
-      margin-left: 30px;
+      margin-left: 40px;
     }
     
     .footer-links {
@@ -333,7 +335,7 @@
       }
       
       .portrait-container {
-        margin-top: 80px;
+        margin-top: 90px;
       }
       
       .portrait {
