@@ -4604,7 +4604,7 @@ Bestehende Schlagwörter überschreiben
   <div class="resize-handle" id="resizeHandle"></div>
 </div>
 <div id="main-container">
-<div id="main">
+<div id="main" style="position: relative;">
 <div id="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
@@ -4640,7 +4640,15 @@ S&H&C&K
 </button>
 </div>
 </div>
+<div id="main" style="position: relative;">
 <div id="viewer"></div>
+<!-- Info Button für bibliographische Angaben (oben rechts im Viewer) -->
+<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; position: absolute; top: 5px; right: -5px; z-index: 100; width: 40px; height: 40px; padding: 0; border: none; background: transparent; border-radius: 50%; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10" stroke="#467886" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#467886" text-anchor="middle">i</text>
+</svg>
+</button>
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -6087,6 +6095,130 @@ function normalizeGANumber(gaNumber) {
       };
     }
 
+    // GA-Bibliographie Popup Funktionen
+    let gaBibliographyData = null; // Cache für bibliographische Daten
+    
+    async function loadGABibliographyData() {
+      if (gaBibliographyData) return gaBibliographyData;
+      
+      try {
+        const response = await fetch('ga-bibliography.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        gaBibliographyData = await response.json();
+        return gaBibliographyData;
+      } catch (error) {
+        console.error('Fehler beim Laden der bibliographischen Daten:', error);
+        return null;
+      }
+    }
+    
+    async function showGABibliographyInfo() {
+      if (!currentGANumber) {
+        console.warn('Kein GA-Band ausgewählt');
+        return;
+      }
+      
+      // Lade bibliographische Daten
+      const bibliographyData = await loadGABibliographyData();
+      if (!bibliographyData) {
+        alert('Bibliographische Daten konnten nicht geladen werden.');
+        return;
+      }
+      
+      // Normalisiere GA-Nummer (z.B. "GA100" -> "GA100")
+      const normalizedGANumber = currentGANumber.toUpperCase().replace(/^GA?/, 'GA');
+      const gaInfo = bibliographyData[normalizedGANumber];
+      
+      if (!gaInfo) {
+        alert(`Keine bibliographischen Angaben für ${normalizedGANumber} gefunden.`);
+        return;
+      }
+      
+      // Zeige Popup
+      const popup = document.getElementById('gaBibliographyPopup');
+      const titleEl = document.getElementById('gaBibliographyTitle');
+      const contentEl = document.getElementById('gaBibliographyContent');
+      
+      if (!popup || !titleEl || !contentEl) return;
+      
+      // Setze Titel
+      titleEl.textContent = `${normalizedGANumber} - Bibliographische Angaben`;
+      
+      // Copyright-Hinweis
+      const copyrightText = 'Der Text wurde aus der frei im Internet verfügbaren Rudolf Steiner Gesamtausgabe entnommen. Anhänge und editorische Hinweise unterliegen dem Copyright und wurden deshalb nicht mit übernommen. Die Zusammenfassungen, Schlagwörter und Zwischenüberschriften wurden mit KI erstellt. Nähere Angaben siehe <a href="#" onclick="event.preventDefault(); closeGABibliographyPopup(); openHelpModalDirect(\'quick\'); return false;" style="color: var(--link-color, #467886); text-decoration: underline;">Impressum</a>.';
+      
+      // Erstelle HTML für bibliographische Angaben (kompakt)
+      let html = '<div style="font-size: 0.8em; line-height: 1.3;">';
+      
+      // Autor
+      if (gaInfo.author) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Autor:</strong> ${gaInfo.author}</div>`;
+      }
+      
+      // Titel
+      if (gaInfo.title) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Titel:</strong> ${gaInfo.title}</div>`;
+      }
+      
+      // Untertitel
+      if (gaInfo.subtitle) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Untertitel:</strong> ${gaInfo.subtitle}</div>`;
+      }
+      
+      // Titelzusätze (TitleSupplement)
+      if (gaInfo.titleSupplement) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Titelzusätze:</strong> ${gaInfo.titleSupplement}</div>`;
+      }
+      
+      // Herausgeber (Editor)
+      if (gaInfo.editor) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Herausgeber:</strong> ${gaInfo.editor}</div>`;
+      }
+      
+      // Jahr
+      if (gaInfo.year) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Jahr:</strong> ${gaInfo.year}</div>`;
+      }
+      
+      // Verlagsort
+      if (gaInfo.place) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Verlagsort:</strong> ${gaInfo.place}</div>`;
+      }
+      
+      // Auflage
+      if (gaInfo.edition) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Auflage:</strong> ${gaInfo.edition}</div>`;
+      }
+      
+      // Band Nummer
+      if (gaInfo.volume) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>Band Nummer:</strong> ${gaInfo.volume}</div>`;
+      }
+      
+      // ISBN
+      if (gaInfo.isbn) {
+        html += `<div style="margin-bottom: 0.2rem;"><strong>ISBN:</strong> ${gaInfo.isbn}</div>`;
+      }
+      
+      html += '</div>';
+      
+      // Copyright-Hinweis am Ende
+      html += `<div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.7em; color: #666; line-height: 1.2;">${copyrightText}</div>`;
+      
+      contentEl.innerHTML = html;
+      popup.style.display = 'flex';
+    }
+    
+    function closeGABibliographyPopup(event) {
+      // Wenn Event übergeben wurde und auf den Hintergrund geklickt wurde, schließe Popup
+      if (event && event.target.id === 'gaBibliographyPopup') {
+        document.getElementById('gaBibliographyPopup').style.display = 'none';
+      } else if (!event) {
+        // Direkter Aufruf ohne Event (z.B. vom X-Button)
+        document.getElementById('gaBibliographyPopup').style.display = 'none';
+      }
+    }
+    
     function closeImagePopup() {
       const popup = document.getElementById('imagePopup');
       popup.style.display = 'none';
@@ -7131,6 +7263,9 @@ async function displayBook(book, highlightHeadingId = null) {
   const displayTitle = book.title || book.fileName || book.ID;
   documentTitle.innerHTML = `<span onclick="navigateToGAInTexteTab('${book.gaNumber || book.ID}')" style="cursor: pointer;">${book.gaNumber || book.ID} - ${displayTitle}</span>`;
   
+  // Setze currentGANumber für Info-Button
+  currentGANumber = book.gaNumber || book.ID;
+  
   // Setze currentLectureData für Book
   currentLectureData = {
     ID: book.ID || book.gaNumber,
@@ -7139,6 +7274,9 @@ async function displayBook(book, highlightHeadingId = null) {
     gaNumber: book.gaNumber || book.ID,
     isBook: true
   };
+  
+  // Aktualisiere Button-Status (zeigt Info-Button an)
+  updateButtonStates();
   
   // Konvertiere Markdown zu HTML
   let content = book.content || '';
@@ -8206,6 +8344,9 @@ async function displayGAOverview(data) {
   titleElement.textContent = `${data.gaNumber} - ${data.gaTitle}`;
   
   viewer.innerHTML = '<p style="color: #666; font-style: italic;">Wählen Sie einen Vortrag aus der Liste links.</p>';
+  
+  // Setze currentGANumber für Info-Button
+  currentGANumber = data.gaNumber;
   
   // Setze currentLectureData zurück und verstecke Buttons
   currentLectureData = null;
@@ -10991,6 +11132,17 @@ function displayGAChronological(lectures) {
   
   // Prüfe ob es ein Book ist
   const isBook = currentLectureData && currentLectureData.isBook;
+  
+  // Info-Button für bibliographische Angaben - zeige wenn GA-Band angezeigt wird
+  const gaInfoBtn = document.getElementById('gaInfoBtn');
+  if (gaInfoBtn) {
+    // Zeige Button wenn currentGANumber gesetzt ist (GA-Band wird angezeigt)
+    if (currentGANumber) {
+      gaInfoBtn.style.display = 'flex';
+    } else {
+      gaInfoBtn.style.display = 'none';
+    }
+  }
   
   // H4 Toggle Button - Bei Vorträgen in ALLEN Tabs anzeigen (nicht bei Books, nicht im GA-Tab)
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
@@ -14989,6 +15141,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
       const gaNumber = extractGANumber(lecture);
       
+      // Setze currentGANumber für Info-Button
+      if (gaNumber) {
+        currentGANumber = gaNumber;
+      }
+      
       if (gaNumber) {
         titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
       } else {
@@ -18663,6 +18820,17 @@ function openHelpModal() {
   const modal = document.getElementById('helpModal');
   modal.classList.add('active');
   showHelpChoice();
+  
+  // Lucide Icons neu rendern
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+}
+
+function openHelpModalDirect(type) {
+  const modal = document.getElementById('helpModal');
+  modal.classList.add('active');
+  showHelpContent(type);
   
   // Lucide Icons neu rendern
   if (typeof lucide !== 'undefined') {
@@ -23123,6 +23291,29 @@ async function addKeywordToLecture() {
     </button>
     <img id="popupImage" src="" alt="" style="max-width: 100%; max-height: 90vh; object-fit: contain;" />
     <div id="popupCaption" style="color: white; margin-top: 1rem; font-size: 0.9em; text-align: center;"></div>
+  </div>
+</div>
+
+<!-- GA-Bibliographie Popup Modal -->
+<div id="gaBibliographyPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 12000; align-items: center; justify-content: center;" onclick="closeGABibliographyPopup(event)">
+  <div style="position: relative; background: var(--bg-color, white); border: 2px solid var(--accent-color, #467886); border-radius: 8px; padding: 2rem 2.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.2);" onclick="event.stopPropagation()">
+    <!-- X-Button oben rechts -->
+    <button onclick="closeGABibliographyPopup()" 
+            style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;"
+            onmouseover="this.style.color='var(--accent-color, #467886)'" 
+            onmouseout="this.style.color='#999'">
+      ×
+    </button>
+    
+    <!-- Überschrift -->
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <h2 id="gaBibliographyTitle" style="margin: 0; color: var(--accent-color, #2c5f6f); font-size: 1.1em;">Bibliographische Angaben</h2>
+    </div>
+    
+    <!-- Bibliographische Daten -->
+    <div id="gaBibliographyContent" style="line-height: 1.3; color: var(--text-color, #333);">
+      <!-- Wird dynamisch befüllt -->
+    </div>
   </div>
 </div>
 
