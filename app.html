@@ -1329,7 +1329,8 @@ body.dark-mode .ga-missing-text {
     #main {
       flex: 1;
       overflow-y: auto;
-      padding: 2rem 1rem 2rem 2rem;
+      /* ZENTRALES PADDING - wird NUR hier festgelegt */
+      padding: 0.5rem 0.8rem 2rem 0.8rem !important; /* top right bottom left */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -2199,9 +2200,25 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer {
       line-height: 1.4 !important;
-      padding-top: 80px; /* Wird dynamisch via JavaScript angepasst */
+      /* KEIN PADDING - wird von #main übernommen */
+      padding: 0.5rem !important;
       word-break: keep-all !important;
       overflow-wrap: break-word !important;
+    }
+    
+    /* Reduziertes Padding für alle Container im Viewer */
+    #viewer .answer-content,
+    #viewer .semantic-answer,
+    #viewer .keyword-answer,
+    #viewer .concept-content,
+    #viewer > div,
+    #viewer > p,
+    #viewer > h1,
+    #viewer > h2,
+    #viewer > h3,
+    #viewer > h4 {
+      padding-left: 0 !important;
+      margin-left: 0 !important;
     }
     
     /* Viewer Header Button Container */
@@ -5091,12 +5108,8 @@ function normalizeGANumber(gaNumber) {
           const headerHeight = header.offsetHeight;
           
           if (mainContainer) {
+            // margin-top: Header-Höhe (padding-top von #main kommt zusätzlich hinzu)
             mainContainer.style.marginTop = headerHeight + 'px';
-          }
-          
-          // Viewer-Padding entfernen da Main-Container bereits korrekt positioniert ist
-          if (viewer) {
-            viewer.style.paddingTop = '0px';
           }
           
           // Verwende zentrale Funktion für rechten RH-Status
@@ -6005,6 +6018,7 @@ function normalizeGANumber(gaNumber) {
     }
 
     let totalLecturesCount = 0;
+    let totalBooksCount = 0;
     
     async function checkServerConnection() {
       try {
@@ -6012,7 +6026,10 @@ function normalizeGANumber(gaNumber) {
         if (response.ok) {
           const data = await response.json();
           totalLecturesCount = data.lecturesLoaded;
-          const infoText = `${data.lecturesLoaded} Vorträge`;
+          totalBooksCount = data.booksLoaded || 0;
+          const infoText = totalBooksCount > 0 
+            ? `${totalBooksCount} Schriften · ${data.lecturesLoaded} Vorträge`
+            : `${data.lecturesLoaded} Vorträge`;
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
           document.getElementById('texteServerInfo').textContent = infoText;
@@ -6040,7 +6057,10 @@ function normalizeGANumber(gaNumber) {
         if (gaLectureCounts[selectedGA]) {
           serverInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
         } else {
-          serverInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
+          const defaultText = totalBooksCount > 0 
+            ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
+            : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
+          serverInfo.textContent = defaultText;
         }
       } else if (selectedGAs.length > 1) {
         // Mehrere GA-Bände ausgewählt: Zeige Summe
@@ -6053,7 +6073,10 @@ function normalizeGANumber(gaNumber) {
         serverInfo.textContent = `${totalSelected} Vorträge in ${selectedGAs.length} GA-Bänden`;
       } else {
         // Keine Auswahl: Zeige Gesamtanzahl (Default)
-        serverInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
+        const defaultText = totalBooksCount > 0 
+          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
+          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
+        serverInfo.textContent = defaultText;
       }
     }
     
@@ -6069,7 +6092,10 @@ function normalizeGANumber(gaNumber) {
       if (selectedGA && gaLectureCounts[selectedGA]) {
         thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
       } else {
-        thematicServerInfo.textContent = totalLecturesCount ? `${totalLecturesCount} Vorträge` : '';
+        const defaultText = totalBooksCount > 0 
+          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
+          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
+        thematicServerInfo.textContent = defaultText;
       }
     }
     
@@ -7123,9 +7149,14 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
     const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => {
+      const gaNum = parseInt(ga.number.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+      return gaNum >= 1 && gaNum <= 46;
+    }).length;
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${totalLectures} Vorträge`;
+      const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal';
     }
     return;
@@ -7166,11 +7197,16 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     // Berechne Gesamtanzahl der Vorträge
     const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => {
+      const gaNum = parseInt(ga.number.replace(/^GA/i, '').replace(/[a-z]/i, ''));
+      return gaNum >= 1 && gaNum <= 46;
+    }).length;
     
     // Aktualisiere Info
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${totalLectures} Vorträge`;
+      const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
     
@@ -8488,11 +8524,15 @@ async function displayGAOverview(data) {
       const isBook = isBookGANumber(gaNumber);
       
       if (isBook) {
-        // Book: Keine Statistik anzeigen
-        texteServerInfo.textContent = '';
+        // Book: Zeige nur Schrift-Info (keine Vorträge)
+        texteServerInfo.textContent = '1 Schrift';
       } else {
         // GA-Band mit Vorträgen: Statistik anzeigen
-        texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
+        // Hole Anzahl der Schriften aus der globalen Variable, falls verfügbar
+        const booksText = (typeof totalBooksCount !== 'undefined' && totalBooksCount > 0) 
+          ? `${totalBooksCount} Schriften · ` 
+          : '';
+        texteServerInfo.textContent = `${booksText}${data.lectureCount} Vorträge`;
       }
     }
     // Toggle Button im Texte-Tab anzeigen (nur für GA-Bände mit Vorträgen)
