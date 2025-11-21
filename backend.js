@@ -4700,6 +4700,320 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
   }
 });
 
+// ============================================================================
+// KONZEPT-ÜBERSICHT API (KI-BASIERT)
+// ============================================================================
+
+/**
+ * Wiederverwendbare Funktion: Generiert Themen_Übersicht für ein Konzept
+ * @param {string} concept - Das Konzept/Schlagwort
+ * @param {string} gaFilter - Optionaler GA-Filter
+ * @returns {Promise<Object>} Übersicht mit definitionText, functionText, interactionText, specialText, alternativeTerms
+ */
+async function generateConceptOverviewData(concept, gaFilter = '') {
+  console.log(`[CONCEPT-OVERVIEW] Generiere KI-basierte Übersicht für: "${concept}" (GA-Filter: ${gaFilter || 'alle'})`);
+  
+  // Prüfe ob paragraphsFromLectures verfügbar ist
+  if (!paragraphsFromLectures || paragraphsFromLectures.length === 0) {
+    console.error('[CONCEPT-OVERVIEW] Keine Paragraphen geladen');
+    throw new Error('Vortrags-Daten noch nicht geladen. Bitte warten Sie einen Moment.');
+  }
+  
+  // 1. Verwende die gleiche Suchmethode wie bei thematischer Suche
+  console.log('[CONCEPT-OVERVIEW] Führe thematische Keyword-Suche durch...');
+  let keywordResults = performThematicKeywordSearch(concept, paragraphsFromLectures, gaFilter);
+  
+  if (keywordResults.length === 0) {
+    return {
+      overview: {
+        alternativeTerms: [],
+        definitionText: 'Keine Informationen gefunden.',
+        functionText: 'Keine Informationen gefunden.',
+        interactionText: 'Keine Informationen gefunden.',
+        specialText: 'Keine Informationen gefunden.'
+      }
+    };
+  }
+  
+  // 2. Ranking und Begrenzung
+  let rankedResults = applySemanticRanking(keywordResults, concept);
+  console.log(`[CONCEPT-OVERVIEW] ${rankedResults.length} relevante Textpassagen gefunden (nach Ranking)`);
+  
+  // Verwende mehr Ergebnisse für umfassendere Analyse (bis zu 200)
+  let topResults = rankedResults.slice(0, 200); // Top 200 für Analyse
+  
+  console.log(`[CONCEPT-OVERVIEW] Verwende ${topResults.length} Textpassagen für Analyse`);
+  
+  // 3. Finde alternative Begriffe (ohne ähnliche Wortstämme)
+  const alternativeTerms = [];
+  const conceptLower = concept.toLowerCase();
+  
+  // Funktion zum Normalisieren eines Wortes (entfernt Pluralformen)
+  const normalizeWord = (word) => {
+    const lower = word.toLowerCase();
+    // Entferne häufige Pluralendungen: -e, -er, -en, -n, -s
+    return lower.replace(/(e|er|en|n|s)$/, '');
+  };
+  
+  // Funktion zum Prüfen, ob zwei Wörter ähnliche Wortstämme haben
+  const hasSimilarStem = (word1, word2) => {
+    const norm1 = normalizeWord(word1);
+    const norm2 = normalizeWord(word2);
+    
+    // Wenn normalisierte Formen gleich sind, haben sie den gleichen Stamm
+    if (norm1 === norm2) return true;
+    
+    // Prüfe, ob ein Wort eine Variante des anderen ist
+    const shorter = norm1.length < norm2.length ? norm1 : norm2;
+    const longer = norm1.length >= norm2.length ? norm1 : norm2;
+    
+    // Wenn das längere Wort mit dem kürzeren beginnt und nur 1-2 Zeichen Unterschied hat
+    if (longer.startsWith(shorter) && longer.length - shorter.length <= 2) {
+      return true;
+    }
+    
+    return false;
+  };
+  
+  // Sammle alle potentiellen alternativen Begriffe
+  const allWords = new Set();
+  const conceptPattern = new RegExp(`\\b([A-ZÄÖÜ][a-zäöüß]+(?:leib|körper|wesen|prinzip|kraft|glied))\\b`, 'gi');
+  
+  // Verwende mehr Ergebnisse für Suche nach alternativen Begriffen
+  for (const result of topResults.slice(0, 100)) {
+    const matches = result.content.match(conceptPattern);
+    if (matches) {
+      matches.forEach(match => {
+        const word = match.trim();
+        const wordLower = word.toLowerCase();
+        
+        // Überspringe das ursprüngliche Konzept selbst
+        if (wordLower === conceptLower) return;
+        
+        // Überspringe zu kurze oder zu lange Wörter
+        if (word.length <= 3 || word.length > 25) return;
+        
+        allWords.add(word);
+      });
+    }
+  }
+  
+  // Filtere ähnliche Wortstämme heraus
+  const uniqueTerms = [];
+  for (const word of allWords) {
+    let isDuplicate = false;
+    
+    // Prüfe gegen alle bereits hinzugefügten Begriffe
+    for (const existing of uniqueTerms) {
+      if (hasSimilarStem(word, existing)) {
+        // Behalte den kürzeren Begriff (wahrscheinlich die Grundform)
+        if (word.length < existing.length) {
+          const index = uniqueTerms.indexOf(existing);
+          uniqueTerms[index] = word;
+        }
+        isDuplicate = true;
+        break;
+      }
+    }
+    
+    // Prüfe auch gegen das ursprüngliche Konzept
+    if (!isDuplicate && hasSimilarStem(word, concept)) {
+      isDuplicate = true;
+    }
+    
+    // Füge hinzu, wenn nicht dupliziert
+    if (!isDuplicate && uniqueTerms.length < 10) {
+      uniqueTerms.push(word);
+    }
+  }
+  
+  // Sortiere und begrenze auf 5 beste Ergebnisse
+  const sortedAlternatives = uniqueTerms
+    .sort((a, b) => a.length - b.length) // Kürzere zuerst (wahrscheinlich Grundformen)
+    .slice(0, 5);
+  
+  alternativeTerms.push(...sortedAlternatives);
+  
+  // 4. Bereite Kontext für KI vor (mit Ranking-Scores)
+  // Verwende mehr Ergebnisse für umfassendere KI-Analyse (bis zu 100)
+  const resultsForAI = topResults.slice(0, 100); // Top 100 für KI-Analyse
+  console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI`);
+  
+  const contextText = resultsForAI
+    .map((result, index) => {
+      const refId = `${result.ID}:${result.index}`;
+      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+    })
+    .join('\n\n---\n\n');
+  
+  // 5. KI-Prompt für strukturierte Analyse (mit Stichworten statt Zitaten)
+  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Konzept: "${concept}"
+
+AUFGABE:
+Erstelle eine strukturierte Übersicht zum Konzept "${concept}" basierend auf den vorliegenden Textauszügen.
+Gliedere deine Analyse in GENAU diese 4 Kategorien:
+
+1. DEFINITION
+Was ist "${concept}"? Wie wird es definiert und beschrieben?
+- Verwende KURZE, PRÄGNANTE STICHWORTE und Begriffe
+- Gib IMMER Quellenangaben im Format (GA###/##:index) an
+- Beispiel: "zweites Wesensglied (GA013/01:42), Lebenskräfte (GA009/03:23), Bildekräfte (GA027/05:67)"
+- KEINE vollständigen Zitate, nur relevante Schlüsselbegriffe
+
+2. FUNKTION
+Welche Funktion oder Aufgabe hat "${concept}"?
+- STICHWORTE zu Wirkungen und Aufgaben
+- Quellenangaben im Format (GA###/##:index)
+- Beispiel für Singular (z.B. "Ätherleib"): "durchdringt physischen Leib (GA027/05:88), trägt Lebenskräfte (GA053/10:45), schafft Ätherleib (GA184/3)"
+- Beispiel für Plural (z.B. "Wesensglieder"): "durchdringen physischen Leib (GA027/05:88), tragen Lebenskräfte (GA053/10:45), schaffen Ätherleib (GA184/3)"
+- WICHTIG: Verb vor Objekt UND grammatikalische Kongruenz mit "${concept}"
+
+3. INTERAKTIONEN
+Wie steht "${concept}" in Beziehung zu anderen Konzepten?
+- STICHWORTE zu Wechselwirkungen
+- Quellenangaben im Format (GA###/##:index)
+- Beispiel für Singular (z.B. "Ätherleib"): "wechselwirkt mit Astralleib (GA088/12:34), verbindet mit Ich (GA013/01:56)"
+- Beispiel für Plural (z.B. "Wesensglieder"): "wechselwirken mit Astralleib (GA088/12:34), verbinden mit Ich (GA013/01:56)"
+- WICHTIG: Verb vor Objekt UND grammatikalische Kongruenz mit "${concept}"
+
+4. BESONDERHEITEN
+Welche besonderen Eigenschaften oder Merkmale hat "${concept}"?
+- STICHWORTE zu besonderen Merkmalen
+- Quellenangaben im Format (GA###/##:index)
+- Beispiel: "Gedächtnisträger (GA053/10:78), Erinnerungskräfte (GA013/01:90)"
+
+STILISTISCHE ANFORDERUNGEN:
+- NUR relevante STICHWORTE und Begriffe (KEINE vollständigen Sätze oder Zitate)
+- Jedes Stichwort mit Quellenangabe im Format (GA###/##:index)
+- Kompakt und übersichtlich
+- Durch Kommas getrennt
+- KEINE einleitenden Sätze
+- KEINE Formulierungen wie "Steiner beschreibt..."
+
+GRAMMATIKALISCHE KORREKTHEIT:
+- Stichworte MÜSSEN grammatikalisch korrekt formuliert sein
+- Bei Verben: Verb VOR dem Objekt, nicht danach
+- RICHTIG: "bauen Nervensystem auf", "durchströmen rhythmische Organisation", "ermöglichen Fühlen"
+- FALSCH: "Nervensystem aufbauen", "rhythmische Organisation durchströmen", "Fühlen ermöglichen"
+- Bei Substantiven/Nomen: normale Wortstellung beibehalten
+
+GRAMMATIKALISCHE KONGRUENZ MIT DEM SUCHWORT:
+- Die Verben MÜSSEN im Numerus und in der Person mit dem Suchwort "${concept}" übereinstimmen
+- Wenn das Suchwort im Singular steht (z.B. "Alter Saturn", "Ätherleib", "Astralleib"): Verben in 3. Person Singular
+  - RICHTIG: "bildet erste Anlage (GA110/9)", "schafft Wärmekörper (GA110/3)", "durchdringt physischen Leib (GA027/05)"
+  - FALSCH: "bilden erste Anlage", "schaffen Wärmekörper", "durchdringen physischen Leib"
+- Wenn das Suchwort im Plural steht (z.B. "Wesensglieder", "Lebenskräfte"): Verben in 3. Person Plural
+  - RICHTIG: "bilden erste Anlage", "schaffen Wärmekörper", "durchdringen physischen Leib"
+  - FALSCH: "bildet erste Anlage", "schafft Wärmekörper", "durchdringt physischen Leib"
+- Analysiere das Suchwort "${concept}" und passe die Verbformen entsprechend an
+- Beispiel für Singular: "Alter Saturn" → "bildet (GA110/9), schafft (GA110/3), ermöglicht (GA353/16)"
+- Beispiel für Plural: "Wesensglieder" → "bilden (GA110/9), schaffen (GA110/3), ermöglichen (GA353/16)"
+
+FORMATIERUNG:
+Verwende folgendes Format:
+
+## DEFINITION
+Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index), Stichwort3 (GA###/##:index)
+
+## FUNKTION
+Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+
+## INTERAKTIONEN
+Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+
+## BESONDERHEITEN
+Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+
+WICHTIG:
+- Nur STICHWORTE, keine vollständigen Zitate
+- Quellenangaben MÜSSEN im Format (GA###/##:index) sein
+- Maximum 8-10 Stichworte pro Kategorie
+- Nur verschiedene, nicht-redundante Aspekte
+- GRAMMATIKALISCHE KORREKTHEIT: Verb vor Objekt bei verbalen Formulierungen
+- GRAMMATIKALISCHE KONGRUENZ: Verben müssen im Numerus und in der Person mit "${concept}" übereinstimmen
+  - Singular (z.B. "Alter Saturn", "Ätherleib") → 3. Person Singular: "bildet", "schafft", "durchdringt"
+  - Plural (z.B. "Wesensglieder", "Lebenskräfte") → 3. Person Plural: "bilden", "schaffen", "durchdringen"
+
+TEXTSTELLEN:
+
+${contextText}
+
+Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
+
+  console.log('[CONCEPT-OVERVIEW] Sende Anfrage an KI...');
+  
+  let fullText;
+  try {
+    const response = await generateCompletionWithFallback(prompt, {
+      temperature: 0.3,
+      maxTokens: 4000
+    }, 'analysis');
+    
+    fullText = response.text || response.content;
+    console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten, Länge:', fullText.length);
+  } catch (error) {
+    console.error('[CONCEPT-OVERVIEW] KI-Anfrage fehlgeschlagen:', error.message);
+    // Fallback: Einfache Textextraktion
+    return {
+      overview: {
+        alternativeTerms: alternativeTerms,
+        definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
+        functionText: 'LLM-Provider erforderlich.',
+        interactionText: 'LLM-Provider erforderlich.',
+        specialText: 'LLM-Provider erforderlich.'
+      }
+    };
+  }
+  
+  // 6. Parse die KI-Antwort in Kategorien
+  const categories = {
+    definitionText: '',
+    functionText: '',
+    interactionText: '',
+    specialText: ''
+  };
+  
+  // Extrahiere Kategorien
+  const definitionMatch = fullText.match(/##\s*DEFINITION\s*([\s\S]*?)(?=##\s*FUNKTION|$)/i);
+  const functionMatch = fullText.match(/##\s*FUNKTION\s*([\s\S]*?)(?=##\s*INTERAKTIONEN|$)/i);
+  const interactionMatch = fullText.match(/##\s*INTERAKTIONEN\s*([\s\S]*?)(?=##\s*BESONDERHEITEN|$)/i);
+  const specialMatch = fullText.match(/##\s*BESONDERHEITEN\s*([\s\S]*?)$/i);
+  
+  if (definitionMatch) categories.definitionText = definitionMatch[1].trim();
+  if (functionMatch) categories.functionText = functionMatch[1].trim();
+  if (interactionMatch) categories.interactionText = interactionMatch[1].trim();
+  if (specialMatch) categories.specialText = specialMatch[1].trim();
+  
+  const result = {
+    overview: {
+      alternativeTerms: alternativeTerms,
+      ...categories
+    }
+  };
+  
+  console.log(`[CONCEPT-OVERVIEW] Erfolgreich strukturiert in 4 Kategorien`);
+  
+  return result;
+}
+
+app.post('/api/concept-overview', async (req, res) => {
+  try {
+    const { concept, gaFilter = '' } = req.body;
+    
+    if (!concept || !concept.trim()) {
+      return res.status(400).json({ error: 'Konzept ist erforderlich' });
+    }
+    
+    // Verwende die wiederverwendbare Funktion
+    const result = await generateConceptOverviewData(concept, gaFilter);
+    res.json(result);
+    
+  } catch (error) {
+    console.error('[CONCEPT-OVERVIEW] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/api/lectures/list', (req, res) => {
   res.json({
     count: Object.keys(fullLectures).length,
@@ -5804,14 +6118,47 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         };
       }
       
-      // Generiere KI-Analyse mit CONCEPT-spezifischem Prompt
-      const analysis = await generateConceptAnalysis(trimmedKeyword, keywordResults);
+      // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
+      // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
+      // 2. Themen_Übersicht-Prompt (Main Viewer)
+      console.log(`[KEYWORDS-BATCH-ADD] Starte beide KI-Analysen für "${trimmedKeyword}"...`);
       
-      // Erstelle neues Concept-Objekt mit vollständigem Text
+      const [analysisResult, overviewResult] = await Promise.allSettled([
+        generateConceptAnalysis(trimmedKeyword, keywordResults),
+        generateConceptOverviewData(trimmedKeyword, '')
+      ]);
+      
+      // Verarbeite Ergebnisse unabhängig voneinander
+      let analysis;
+      if (analysisResult.status === 'fulfilled') {
+        analysis = analysisResult.value;
+      } else {
+        console.error(`[KEYWORDS-BATCH-ADD] KI-Suchergebnis fehlgeschlagen für "${trimmedKeyword}":`, analysisResult.reason?.message || analysisResult.reason);
+        analysis = `Fehler bei der Generierung des KI-Suchergebnisses: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
+      }
+      
+      let overviewData;
+      if (overviewResult.status === 'fulfilled') {
+        overviewData = overviewResult.value;
+      } else {
+        console.error(`[KEYWORDS-BATCH-ADD] Themen_Übersicht fehlgeschlagen für "${trimmedKeyword}":`, overviewResult.reason?.message || overviewResult.reason);
+        overviewData = {
+          overview: {
+            alternativeTerms: [],
+            definitionText: 'Themen_Übersicht konnte nicht generiert werden.',
+            functionText: 'Themen_Übersicht konnte nicht generiert werden.',
+            interactionText: 'Themen_Übersicht konnte nicht generiert werden.',
+            specialText: 'Themen_Übersicht konnte nicht generiert werden.'
+          }
+        };
+      }
+      
+      // Erstelle neues Concept-Objekt mit vollständigem Text und Themen_Übersicht
       const newConcept = {
         keyword: trimmedKeyword,
         alphabetical: trimmedKeyword.charAt(0).toUpperCase(),
-        text: analysis, // ← VOLLSTÄNDIGER Text
+        text: analysis, // ← VOLLSTÄNDIGER Text für Content Fenster (KI-Suchergebnis)
+        overview: overviewData.overview, // ← Themen_Übersicht für Main Viewer
         sources: keywordResults.slice(0, 20).map(result => ({
           id: result.ID,
           index: result.index,
@@ -5821,6 +6168,7 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
         source: 'ki-generated-batch',
         promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
+        overviewVersion: 'overview-v1', // Markierung für Themen_Übersicht
         generatedAt: new Date().toISOString(),
         totalMatches: keywordResults.length,
         batchId: results.batchId,
@@ -5958,16 +6306,49 @@ app.post('/api/concepts-add', async (req, res) => {
       });
     }
     
-    // Generiere KI-Analyse mit CONCEPT-spezifischem Prompt
-    const analysis = await generateConceptAnalysis(cleanKeyword, keywordResults);
+    // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
+    // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
+    // 2. Themen_Übersicht-Prompt (Main Viewer)
+    console.log(`[KEYWORDS-ADD] Starte beide KI-Analysen parallel für "${cleanKeyword}"...`);
     
-    // Erstelle neues Schlagwort-Objekt mit vollständigem Text und Sources
+    const [analysisResult, overviewResult] = await Promise.allSettled([
+      generateConceptAnalysis(cleanKeyword, keywordResults),
+      generateConceptOverviewData(cleanKeyword, '')
+    ]);
+    
+    // Verarbeite Ergebnisse unabhängig voneinander
+    let analysis;
+    if (analysisResult.status === 'fulfilled') {
+      analysis = analysisResult.value;
+    } else {
+      console.error(`[KEYWORDS-ADD] KI-Suchergebnis fehlgeschlagen:`, analysisResult.reason?.message || analysisResult.reason);
+      analysis = `Fehler bei der Generierung des KI-Suchergebnisses: ${analysisResult.reason?.message || 'Unbekannter Fehler'}`;
+    }
+    
+    let overviewData;
+    if (overviewResult.status === 'fulfilled') {
+      overviewData = overviewResult.value;
+    } else {
+      console.error(`[KEYWORDS-ADD] Themen_Übersicht fehlgeschlagen:`, overviewResult.reason?.message || overviewResult.reason);
+      overviewData = {
+        overview: {
+          alternativeTerms: [],
+          definitionText: 'Themen_Übersicht konnte nicht generiert werden.',
+          functionText: 'Themen_Übersicht konnte nicht generiert werden.',
+          interactionText: 'Themen_Übersicht konnte nicht generiert werden.',
+          specialText: 'Themen_Übersicht konnte nicht generiert werden.'
+        }
+      };
+    }
+    
+    // Erstelle neues Schlagwort-Objekt mit vollständigem Text, Sources und Themen_Übersicht
     const conceptsFile = path.join(__dirname, 'concepts-database.json');
     
     const newConcept = {
       keyword: cleanKeyword,
       alphabetical: cleanKeyword.charAt(0).toUpperCase(),
-      text: analysis, // ← VOLLSTÄNDIGER Text, nicht nur **Keyword**
+      text: analysis, // ← VOLLSTÄNDIGER Text für Content Fenster (KI-Suchergebnis)
+      overview: overviewData.overview, // ← Themen_Übersicht für Main Viewer
       sources: keywordResults.slice(0, 20).map(result => ({
         id: result.ID,
         index: result.index,
@@ -5977,6 +6358,7 @@ app.post('/api/concepts-add', async (req, res) => {
       gaReferences: keywordResults.slice(0, 20).map(r => r.ID),
       source: 'ki-generated',
       promptVersion: 'concept-v1', // Markierung für neuen Concept-Prompt
+      overviewVersion: 'overview-v1', // Markierung für Themen_Übersicht
       generatedAt: new Date().toISOString(),
       totalMatches: keywordResults.length
     };
@@ -6010,6 +6392,7 @@ app.post('/api/concepts-add', async (req, res) => {
     
     console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" erfolgreich in concepts-database.json gespeichert`);
     console.log(`[KEYWORDS-ADD] Analyse-Länge: ${analysis.length} Zeichen`);
+    console.log(`[KEYWORDS-ADD] Themen_Übersicht generiert:`, overviewData.overview ? 'Ja' : 'Nein');
     console.log(`[KEYWORDS-ADD] Gefundene Ergebnisse: ${keywordResults.length}`);
     console.log(`[KEYWORDS-ADD] Sources: ${newConcept.sources.length}`);
     
@@ -6017,6 +6400,9 @@ app.post('/api/concepts-add', async (req, res) => {
       success: true, 
       message: 'Concept erfolgreich hinzugefügt und analysiert',
       keyword: newConcept,
+      // Beide Ergebnisse zurückgeben
+      analysis: analysis, // Für Content Fenster (KI-Suchergebnis)
+      overview: overviewData.overview, // Für Main Viewer (Themen_Übersicht)
       totalConcepts: allConcepts.length,
       analysisLength: analysis.length,
       resultCount: keywordResults.length
@@ -13449,6 +13835,7 @@ console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
       console.log(`   POST /api/hybrid-search`);
       console.log(`   POST /api/fulltext-search`);
       console.log(`   POST /api/thematic-hybrid-search`);
+      console.log(`   POST /api/concept-overview`);
       console.log(`   POST /api/summarize-lecture`);
       console.log(`   GET  /api/check-summary/:gaNumber/:lectureNum`);
       console.log(`   GET  /api/full-lecture/:lectureId`);
