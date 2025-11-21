@@ -2150,11 +2150,15 @@ body.dark-mode #thematicSearchInfo {
       box-sizing: border-box;
       height: 28px !important; /* Einheitliche Höhe für alle Buttons */
       min-height: 28px !important;
-      display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
       padding: 4px 8px !important; /* Einheitliches Padding */
       line-height: 1 !important;
+    }
+    
+    /* Mitglieder-Button ist immer sichtbar */
+    #membersPanelBtn {
+      display: inline-flex !important;
     }
     
     /* Mitglieder-Button - Hover und Dark-Mode Styles */
@@ -11092,70 +11096,69 @@ function displayGAChronological(lectures) {
   // Prüfe ob es ein Book ist
   const isBook = currentLectureData && currentLectureData.isBook;
   
-  // Mitglieder-Button: IMMER sichtbar in allen Tabs
+  // Mitglieder-Button: IMMER sichtbar in allen Tabs und allen Fenstern
   const membersPanelBtn = document.getElementById('membersPanelBtn');
   if (membersPanelBtn) {
     membersPanelBtn.style.display = 'inline-flex';
   }
   
-  // Info-Button für bibliographische Angaben - zeige nur wenn Vortrag oder Buch angezeigt wird
-  const gaInfoBtn = document.getElementById('gaInfoBtn');
-  if (gaInfoBtn) {
-    // Zeige Button wenn Vortrag/Buch geladen ist oder GA-Band angezeigt wird
-    if (currentLectureData || currentGANumber) {
-      gaInfoBtn.style.display = 'inline-block';
-    } else {
-      gaInfoBtn.style.display = 'none';
-    }
-  }
-  
-  // H4 Toggle Button - Bei Vorträgen anzeigen (nicht bei Books, nicht im GA-Tab)
-  const h4ToggleBtn = document.getElementById('h4ToggleBtn');
-  if (h4ToggleBtn) {
-    // WICHTIG: Im GA-Tab IMMER ausblenden, unabhängig von anderen Bedingungen
-    if (isInGATab) {
-      h4ToggleBtn.style.display = 'none';
-    } else if (currentLectureData && !isBook) {
-      // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
-      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für Grid
-      // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
-      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
-      h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
-    } else {
-      // Book oder kein Vortrag - verstecke H4 Toggle Button
-      h4ToggleBtn.style.display = 'none';
-    }
-  }
-  
-  // Original und Übersicht Buttons: Nur anzeigen wenn Vortrag oder Buch geladen ist (außer GA-Tab)
+  // Info, Übersicht, Original und H4-Toggle: NUR anzeigen wenn Vortrag oder Buch im Main Viewer geladen ist
   if (!currentLectureData) {
-    // Kein Vortrag/Buch geladen - verstecke Original und Übersicht Buttons
+    // Kein Vortrag/Buch geladen - verstecke alle diese Buttons
+    const gaInfoBtn = document.getElementById('gaInfoBtn');
+    if (gaInfoBtn) gaInfoBtn.style.display = 'none';
+    
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
-  } else if (isInGATab) {
-    // Im GA-Tab - verstecke beide Buttons
-    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
-    if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
-  } else if (isBook) {
-    // Book geladen - verstecke "Original", zeige "Übersicht" als TOC-Toggle
-    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
-    if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'inline-block';
-      viewerSummaryBtn.innerHTML = '≡ Übersicht'; // Gleiches Styling wie für Vorträge
-    }
+    
+    const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+    if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
   } else {
-    // Vortrag geladen - zeige BEIDE Buttons in ALLEN Tabs (außer GA-Tab)
-    if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-block';
-    if (viewerSummaryBtn) {
-      viewerSummaryBtn.style.display = 'inline-block';
-      viewerSummaryBtn.innerHTML = '≡ Übersicht'; // Standard-Text für Vorträge
+    // Vortrag oder Buch geladen - zeige Buttons entsprechend
+    
+    // Info-Button für bibliographische Angaben
+    const gaInfoBtn = document.getElementById('gaInfoBtn');
+    if (gaInfoBtn) {
+      gaInfoBtn.style.display = 'inline-flex';
+    }
+    
+    // H4 Toggle Button - nur bei Vorträgen (nicht bei Books)
+    const h4ToggleBtn = document.getElementById('h4ToggleBtn');
+    if (h4ToggleBtn) {
+      if (isBook) {
+        // Book geladen - verstecke H4 Toggle Button
+        h4ToggleBtn.style.display = 'none';
+      } else {
+        // Vortrag geladen - zeige H4 Toggle Button
+        h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für Grid
+        // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
+        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
+        h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+      }
+    }
+    
+    // Original und Übersicht Buttons
+    if (isBook) {
+      // Book geladen - verstecke "Original", zeige "Übersicht"
+      if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
+      if (viewerSummaryBtn) {
+        viewerSummaryBtn.style.display = 'inline-flex';
+        viewerSummaryBtn.innerHTML = '≡ Übersicht';
+      }
+    } else {
+      // Vortrag geladen - zeige BEIDE Buttons
+      if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-flex';
+      if (viewerSummaryBtn) {
+        viewerSummaryBtn.style.display = 'inline-flex';
+        viewerSummaryBtn.innerHTML = '≡ Übersicht';
+      }
     }
   }
 
   // TOC-Toggle Button - nur lokal verfügbar und nur in Übersicht-Ansicht
   if (viewerTOCToggleBtn) {
     if (currentLectureData && isLocal && showingSummaryInMain && isInTexteTab) {
-      viewerTOCToggleBtn.style.display = 'inline-block';
+      viewerTOCToggleBtn.style.display = 'inline-flex';
     } else {
       viewerTOCToggleBtn.style.display = 'none';
     }
@@ -12049,11 +12052,7 @@ try {
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
-  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  
-  if (viewerOriginalBtn) {
-    viewerOriginalBtn.style.display = 'inline-block';
-  }
+  updateButtonStates();
 }, 50);
       buildTableOfContents();
       
@@ -12124,11 +12123,7 @@ async function regenerateSummary() {
 
 // Buttons nach dem Anzeigen aktualisieren
 setTimeout(() => {
-  const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-  
-  if (viewerOriginalBtn) {
-    viewerOriginalBtn.style.display = 'inline-block';
-  }
+  updateButtonStates();
 }, 50);
     buildTableOfContents();
     
@@ -12308,24 +12303,23 @@ function showSummaryView() {
     summaryPanel.style.display = 'block';
   }
   
-  // Aktualisiere H4 Toggle Button Sichtbarkeit
+  // Aktualisiere H4 Toggle Button Sichtbarkeit - NUR wenn Vortrag oder Buch geladen ist
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
-    const isBook = currentLectureData && currentLectureData.isBook;
-    // Prüfe, ob wir im GA-Tab sind
-    const gaTab = document.getElementById('ga-tab');
-    const isInGATab = gaTab && gaTab.classList.contains('active');
-    // WICHTIG: Im GA-Tab IMMER ausblenden, unabhängig von anderen Bedingungen
-    if (isInGATab) {
+    if (!currentLectureData) {
+      // Kein Vortrag/Buch geladen - verstecke H4 Toggle Button
       h4ToggleBtn.style.display = 'none';
-    } else if (currentLectureData && !isBook) {
-      // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
-      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
-      h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
-      h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
     } else {
-      // Book oder kein Vortrag - verstecke H4 Toggle Button
-      h4ToggleBtn.style.display = 'none';
+      const isBook = currentLectureData.isBook;
+      if (isBook) {
+        // Book geladen - verstecke H4 Toggle Button
+        h4ToggleBtn.style.display = 'none';
+      } else {
+        // Vortrag geladen - zeige H4 Toggle Button
+        h4ToggleBtn.style.display = 'inline-flex';
+        h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
+        h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
+      }
     }
   }
   
@@ -12340,23 +12334,17 @@ function showSummaryView() {
   displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords);
   
   setTimeout(() => {
-    const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+    // Buttons nur anzeigen wenn Vortrag oder Buch geladen ist
     const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-    const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
-    
-    if (viewerOriginalBtn) {
-      viewerOriginalBtn.style.display = 'inline-block';
-    }
-    // Button zurücksetzen falls er im Lade-Zustand war
     if (viewerSummaryBtn) {
+      // Button zurücksetzen falls er im Lade-Zustand war
       viewerSummaryBtn.disabled = false;
       viewerSummaryBtn.innerHTML = '≡ Übersicht';
       viewerSummaryBtn.style.opacity = '1';
     }
-    // TOC-Toggle-Button anzeigen (nur lokal)
-    if (viewerTOCToggleBtn && isLocal) {
-      viewerTOCToggleBtn.style.display = 'inline-block';
-    }
+    
+    // Aktualisiere alle Button-Sichtbarkeiten zentral
+    updateButtonStates();
     
     // Layout-Update: Stellt sicher, dass der Viewer korrekt angepasst wird
     updateHeaderPosition();
@@ -13226,13 +13214,6 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
             if (window.membersNavigating) {
               console.log('[SUMMARY-PANEL] Members Navigation aktiv - buildTableOfContents übersprungen');
               return;
-            }
-            
-            const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
-            const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
-            
-            if (viewerOriginalBtn) {
-              viewerOriginalBtn.style.display = 'inline-block';
             }
             
             buildTableOfContents();
