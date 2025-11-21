@@ -3908,13 +3908,6 @@ body.dark-mode .help-back-btn:hover {
   transition: filter 0.3s ease;
   /* Blend-Mode für PNG-Transparenz im Light Mode */
   mix-blend-mode: multiply;
-  /* Stelle sicher, dass das gesamte Bild klickbar ist */
-  pointer-events: auto;
-  cursor: pointer;
-  /* Stelle sicher, dass das Bild-Element selbst klickbar ist, nicht nur ein kleiner Bereich */
-  display: inline-block;
-  position: relative;
-  z-index: 1;
 }
 
 /* Bilder im Text - Dark Mode: Invertiere nur die Zeichnung, Hintergrund bleibt transparent */
@@ -5406,49 +5399,17 @@ function normalizeGANumber(gaNumber) {
         // Verstecke den verticalResizeHandle beim Tab-Wechsel
         const verticalHandle = document.getElementById('verticalResizeHandle');
         if (verticalHandle) {
-          verticalHandle.style.setProperty('display', 'none', 'important');
-          verticalHandle.style.setProperty('visibility', 'hidden', 'important');
-          verticalHandle.style.setProperty('opacity', '0', 'important');
+          verticalHandle.style.display = 'none';
           verticalHandle.classList.remove('visible');
-          console.log('[TABS] Vertical-Resize-Handle geschlossen');
-        }
-        
-        // WICHTIG: Verstecke auch den verticalResizeHandleWrapper (Trennlinie) beim Tab-Wechsel
-        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
-        if (verticalResizeHandleWrapper) {
-          verticalResizeHandleWrapper.style.setProperty('display', 'none', 'important');
-          verticalResizeHandleWrapper.style.setProperty('visibility', 'hidden', 'important');
-          verticalResizeHandleWrapper.style.setProperty('opacity', '0', 'important');
-          verticalResizeHandleWrapper.classList.remove('visible');
-          console.log('[TABS] Vertical-Resize-Handle-Wrapper geschlossen');
-        }
-        
-        // Verstecke auch die Trennlinie selbst explizit
-        const verticalResizeHandleLine = document.querySelector('.vertical-resize-handle-line');
-        if (verticalResizeHandleLine) {
-          verticalResizeHandleLine.style.setProperty('display', 'none', 'important');
-          verticalResizeHandleLine.style.setProperty('visibility', 'hidden', 'important');
-          verticalResizeHandleLine.style.setProperty('opacity', '0', 'important');
-          console.log('[TABS] Vertical-Resize-Handle-Line versteckt');
-        }
-        
-        // Setze Main-Container zurück (wichtig für alle Tabs)
-        const mainContainer = document.getElementById('main-container');
-        if (mainContainer) {
-          mainContainer.style.setProperty('margin-right', '0px', 'important');
-          console.log('[TABS] Main-Container zurückgesetzt');
         }
       } else {
         console.log('[TABS] Summary-Panel bleibt offen (Members Panel aktiv oder Navigation läuft)');
         // Body-Klasse NICHT setzen wenn Panel offen bleibt
       }
       
-      // Body-Klasse für collapsed State NICHT setzen beim Tab-Wechsel
-      // (sonst wird der Handle durch CSS wieder sichtbar gemacht)
-      // Stattdessen entfernen wir die Klasse, damit der Handle komplett versteckt bleibt
+      // Body-Klasse für collapsed State hinzufügen (nur wenn Panel geschlossen wurde)
       if (!isMembersPanelOpen && !isMembersNavigating) {
-        document.body.classList.remove('summary-panel-collapsed');
-        console.log('[TABS] summary-panel-collapsed Klasse entfernt beim Tab-Wechsel');
+        document.body.classList.add('summary-panel-collapsed');
       }
       
       // TOC leeren
@@ -5792,57 +5753,6 @@ function normalizeGANumber(gaNumber) {
         // Nur GA-Liste laden wenn GA-Tab wirklich aktiv bleiben soll
         console.log('[INIT] GA-Tab ist initial aktiv, lade GA-Bände-Liste');
         
-        // WICHTIG: Stelle sicher, dass rechtes Panel geschlossen ist beim initialen Laden
-        const summaryPanel = document.getElementById('summary-panel');
-        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
-        const mainContainer = document.getElementById('main-container');
-        
-        if (summaryPanel) {
-          summaryPanel.classList.remove('visible');
-          summaryPanel.style.setProperty('width', '0', 'important');
-          summaryPanel.style.setProperty('min-width', '0', 'important');
-          summaryPanel.style.setProperty('display', 'none', 'important');
-          summaryPanel.style.setProperty('opacity', '0', 'important');
-          summaryPanel.style.setProperty('visibility', 'hidden', 'important');
-          console.log('[INIT] Summary-Panel geschlossen beim initialen GA-Tab-Laden');
-        }
-        
-        if (verticalResizeHandleWrapper) {
-          verticalResizeHandleWrapper.style.setProperty('display', 'none', 'important');
-          verticalResizeHandleWrapper.style.setProperty('visibility', 'hidden', 'important');
-          verticalResizeHandleWrapper.style.setProperty('opacity', '0', 'important');
-          verticalResizeHandleWrapper.classList.remove('visible');
-          console.log('[INIT] Vertical-Resize-Handle-Wrapper geschlossen beim initialen GA-Tab-Laden');
-        }
-        
-        // Verstecke auch die Trennlinie selbst explizit beim initialen Laden
-        const verticalResizeHandleLine = document.querySelector('.vertical-resize-handle-line');
-        if (verticalResizeHandleLine) {
-          verticalResizeHandleLine.style.setProperty('display', 'none', 'important');
-          verticalResizeHandleLine.style.setProperty('visibility', 'hidden', 'important');
-          verticalResizeHandleLine.style.setProperty('opacity', '0', 'important');
-          console.log('[INIT] Vertical-Resize-Handle-Line versteckt beim initialen GA-Tab-Laden');
-        }
-        
-        // Verstecke auch den verticalHandle selbst beim initialen Laden
-        const verticalHandle = document.getElementById('verticalResizeHandle');
-        if (verticalHandle) {
-          verticalHandle.style.setProperty('display', 'none', 'important');
-          verticalHandle.style.setProperty('visibility', 'hidden', 'important');
-          verticalHandle.style.setProperty('opacity', '0', 'important');
-          verticalHandle.classList.remove('visible');
-          console.log('[INIT] Vertical-Resize-Handle geschlossen beim initialen GA-Tab-Laden');
-        }
-        
-        if (mainContainer) {
-          mainContainer.style.setProperty('margin-right', '0px', 'important');
-        }
-        
-        // Body-Klasse für collapsed State NICHT setzen beim initialen Laden
-        // (sonst wird der Handle durch CSS wieder sichtbar gemacht)
-        document.body.classList.remove('summary-panel-collapsed');
-        console.log('[INIT] summary-panel-collapsed Klasse entfernt beim initialen GA-Tab-Laden');
-        
         // Setze Document Title
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
@@ -6183,24 +6093,11 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
-    // Prüft sowohl das geklickte Element als auch dessen Eltern, um sicherzustellen,
-    // dass das gesamte Bild klickbar ist, nicht nur ein kleiner Bereich
     document.addEventListener('click', function(e) {
-      // Suche nach dem Bild-Element im Click-Pfad (kann e.target oder ein Elternelement sein)
-      let imgElement = e.target;
-      
-      // Wenn das geklickte Element kein Bild ist, suche nach einem Bild-Element im Elternpfad
-      if (!imgElement.classList.contains('lecture-image')) {
-        imgElement = e.target.closest('.lecture-image');
+      if (e.target.classList.contains('lecture-image')) {
+        openImagePopup(e.target.src, e.target.alt, e.target.getAttribute('data-format'));
       }
-      
-      // Wenn ein Bild gefunden wurde, öffne das Popup
-      if (imgElement && imgElement.classList.contains('lecture-image')) {
-        e.preventDefault();
-        e.stopPropagation(); // Verhindere, dass der Click an den Absatz weitergegeben wird
-        openImagePopup(imgElement.src, imgElement.alt, imgElement.getAttribute('data-format'));
-      }
-    }, true); // useCapture = true, damit der Handler vor anderen Handlern ausgeführt wird
+    });
 
     // ESC-Taste zum Schließen
     document.addEventListener('keydown', function(e) {
