@@ -2135,10 +2135,9 @@ body.dark-mode #thematicSearchInfo {
     .viewer-buttons-container {
       display: grid;
       grid-template-columns: auto 1fr auto auto; /* 4 Spalten: Info-Button (auto), Übersicht/Original (1fr), rechts 2x auto */
-      grid-template-rows: repeat(3, auto);    /* 3 Zeilen für lokale Ansicht */
-      gap: 4px;
-      column-gap: 3px; /* Normaler Abstand zwischen Spalten */
-      row-gap: 4px; /* Verringerter vertikaler Abstand zwischen Zeilen */
+      grid-template-rows: repeat(3, auto);    /* 3 Zeilen: Zeile 1-2 wie Online-Version, Zeile 3 lokale Buttons */
+      column-gap: 1px; /* Abstand zwischen Spalten */
+      row-gap: 1px; /* Abstand zwischen Zeilen */
       margin-left: auto;
       flex-shrink: 0;
       align-items: flex-start; /* Alle Buttons oben ausrichten */
@@ -2186,10 +2185,8 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* H4 Toggle Button - Im Grid, Spalte 4, Zeile 2 (unter Mitgliederbereich-Button, in derselben Zeile wie Original) */
+    /* H4 Toggle Button - Styling (Grid-Position wird weiter unten definiert) */
     #h4ToggleBtn {
-      grid-column: 4;
-      grid-row: 2;
       padding: 4px 8px !important; /* Gleiche Padding wie membersPanelBtn */
       margin: 0 !important;
       width: 100% !important; /* Gleiche Breite wie membersPanelBtn */
@@ -2230,21 +2227,23 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    body.online-mode #h4ToggleBtn {
-      grid-column: 2;
-      grid-row: 2;
-    }
+    /* Entfernt - wird jetzt weiter unten definiert */
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
-    /* Info-Button: Direkt links neben Übersicht (Spalte 1, Zeile 1) */
+    /* LOKALE VERSION: Gleiche Anordnung wie Online-Version in Zeile 1-2 */
+    /* Zeile 1: Info | Übersicht | Mitgliederbereich */
+    /* Zeile 2: (frei) | Original | H4-Toggle */
+    /* Zeile 3: Lokale Funktionsbuttons */
+    
+    /* Info-Button: Spalte 1, Zeile 1 */
     #gaInfoBtn {
       grid-column: 1;
       grid-row: 1;
       align-self: center;
-      margin-right: -3px; /* Negativer Margin, um näher an Übersicht zu kommen */
+      margin-right: 0px;
     }
     
-    /* Spalte 2: Übersicht (Zeile 1), Original (Zeile 2), [leer] (Zeile 3) */
+    /* Übersicht Button: Spalte 2, Zeile 1 */
     #viewerSummaryBtn {
       grid-column: 2;
       grid-row: 1;
@@ -2252,9 +2251,15 @@ body.dark-mode #thematicSearchInfo {
       min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
       height: auto !important;
       box-sizing: border-box !important;
-      margin-left: 0px;
     }
     
+    /* Mitgliederbereich Button: Spalte 4, Zeile 1 (in lokaler Version Spalte 4) */
+    #membersPanelBtn {
+      grid-column: 4;
+      grid-row: 1;
+    }
+    
+    /* Original Button: Spalte 2, Zeile 2 */
     #viewerOriginalBtn {
       grid-column: 2;
       grid-row: 2;
@@ -2264,16 +2269,23 @@ body.dark-mode #thematicSearchInfo {
       box-sizing: border-box !important;
     }
     
-    /* Spalte 3: TOC Toggle (Zeile 1), Structure (Zeile 2), TOC-KW (Zeile 3) */
+    /* H4-Toggle Button: Spalte 4, Zeile 2 (in lokaler Version Spalte 4) */
+    #h4ToggleBtn {
+      grid-column: 4;
+      grid-row: 2;
+    }
+    
+    /* Lokale Funktionsbuttons: Zeile 3 */
+    /* Spalte 3: TOC Toggle, Structure, TOC-KW */
     #viewerTOCToggleBtn {
       grid-column: 3;
-      grid-row: 1;
+      grid-row: 3;
       align-self: start;
     }
     
     #viewerStructureBtn {
       grid-column: 3;
-      grid-row: 2;
+      grid-row: 3;
       align-self: start;
     }
     
@@ -2297,8 +2309,8 @@ body.dark-mode #thematicSearchInfo {
     body.online-mode .viewer-buttons-container {
       grid-template-columns: auto 1fr auto; /* 3 Spalten */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      column-gap: 3px; /* Normaler Abstand zwischen Spalten */
-      row-gap: 4px; /* Vertikaler Abstand zwischen Zeilen */
+      column-gap: 1px; /* Abstand zwischen Spalten */
+      row-gap: 1px; /* Abstand zwischen Zeilen */
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
@@ -2307,7 +2319,7 @@ body.dark-mode #thematicSearchInfo {
       grid-column: 1;
       grid-row: 1;
       align-self: center;
-      margin-right: -3px; /* Negativer Margin, um näher an Übersicht zu kommen */
+      margin-right: 0px; /* Kein negativer Margin mehr */
     }
     
     /* Übersicht Button: Spalte 2, Zeile 1 */
@@ -2335,12 +2347,6 @@ body.dark-mode #thematicSearchInfo {
     /* H4-Toggle Button in Online-Version: Spalte 3, Zeile 2 */
     body.online-mode #h4ToggleBtn {
       grid-column: 3;
-      grid-row: 2;
-    }
-    
-    /* H4 Toggle Button in Online-Version: Spalte 2, Zeile 2 (unter MB, in derselben Zeile wie Original) */
-    body.online-mode #h4ToggleBtn {
-      grid-column: 2;
       grid-row: 2;
     }
     
