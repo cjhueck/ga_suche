@@ -2291,12 +2291,14 @@ body.dark-mode #thematicSearchInfo {
       width: 100% !important; /* Gleiche Breite wie andere Buttons in Spalte 4 */
     }
     
-    /* ONLINE Version: 3 Spalten Grid (Info-Button, Übersicht/Original links, MB/H4 rechts) */
+    /* ONLINE Version: 3 Spalten Grid */
+    /* Obere Zeile: Info | Übersicht | Mitgliederbereich */
+    /* Untere Zeile: (frei) | Original | H4-Toggle */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: auto 1fr auto; /* 3 Spalten: Info-Button (auto), Übersicht/Original (1fr), rechts auto für MB/H4 */
+      grid-template-columns: auto 1fr auto; /* 3 Spalten */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
       column-gap: 3px; /* Normaler Abstand zwischen Spalten */
-      row-gap: 4px; /* Verringerter vertikaler Abstand zwischen Zeilen */
+      row-gap: 4px; /* Vertikaler Abstand zwischen Zeilen */
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
@@ -2308,13 +2310,7 @@ body.dark-mode #thematicSearchInfo {
       margin-right: -3px; /* Negativer Margin, um näher an Übersicht zu kommen */
     }
     
-    /* MB Button in Online-Version: Im Grid, Spalte 3, Zeile 1 */
-    body.online-mode #membersPanelBtn {
-      grid-column: 3;
-      grid-row: 1;
-    }
-    
-    /* Übersicht Button: Zeile 1, Spalte 2 (rechts neben Info-Button) */
+    /* Übersicht Button: Spalte 2, Zeile 1 */
     body.online-mode #viewerSummaryBtn {
       grid-column: 2;
       grid-row: 1;
@@ -2322,12 +2318,24 @@ body.dark-mode #thematicSearchInfo {
       align-self: start;
     }
     
-    /* Original Button: Zeile 2, Spalte 2 (UNTER Übersicht, GLEICHE Breite) */
+    /* Mitgliederbereich Button in Online-Version: Spalte 3, Zeile 1 */
+    body.online-mode #membersPanelBtn {
+      grid-column: 3;
+      grid-row: 1;
+    }
+    
+    /* Original Button: Spalte 2, Zeile 2 */
     body.online-mode #viewerOriginalBtn {
       grid-column: 2;
       grid-row: 2;
       width: 100%;
       align-self: start;
+    }
+    
+    /* H4-Toggle Button in Online-Version: Spalte 3, Zeile 2 */
+    body.online-mode #h4ToggleBtn {
+      grid-column: 3;
+      grid-row: 2;
     }
     
     /* H4 Toggle Button in Online-Version: Spalte 2, Zeile 2 (unter MB, in derselben Zeile wie Original) */
