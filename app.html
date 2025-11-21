@@ -192,6 +192,79 @@
       border: 1px solid var(--dark-border-color);
     }
     
+    /* Konzept-Übersicht: Spaltenüberschriften */
+    .concept-overview-header {
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .concept-overview-header {
+      color: var(--dark-text-color);
+    }
+    
+    /* Konzept-Übersicht: Grid-Zellen */
+    .concept-overview-cell {
+      border: 1px solid var(--border-color);
+    }
+    
+    body.dark-mode .concept-overview-cell {
+      border: 1px solid var(--dark-border-color);
+    }
+    
+    /* Konzept-Übersicht: Snippet Hover */
+    .concept-snippet:hover {
+      background: var(--hover-bg);
+    }
+    
+    body.dark-mode .concept-snippet:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Konzept-Übersicht: Snippet Title (identisch zur erweiterten Suche) */
+    .concept-snippet-title {
+      font-size: 0.75em;
+      font-weight: bold;
+      color: var(--heading-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    body.dark-mode .concept-snippet-title {
+      color: var(--dark-heading-color);
+    }
+    
+    /* Konzept-Übersicht: Content-Bereich */
+    .concept-content {
+      font-size: 0.6em;
+    }
+    
+    .concept-content p {
+      margin: 0.5rem 0;
+      line-height: 1.6;
+    }
+    
+    .concept-content p:first-child {
+      margin-top: 0;
+    }
+    
+    .concept-content p:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* GA-Links in Konzept-Übersicht */
+    .concept-content .ga-keyword-link {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+    
+    .concept-content .ga-keyword-link:hover {
+      opacity: 0.7;
+    }
+    
+    body.dark-mode .concept-content .ga-keyword-link {
+      color: var(--dark-link-color);
+    }
+    
     body.dark-mode .search-input:-webkit-autofill,
     body.dark-mode .search-input:-webkit-autofill:hover,
     body.dark-mode .search-input:-webkit-autofill:focus {
@@ -3993,10 +4066,11 @@ body.dark-mode #popupCaption {
 <button class="tab-button" onclick="switchTab('keyword')">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')">Themen</button>
+<button class="tab-button" onclick="switchTab('concept-overview')" id="concept-overview-tab-button" style="display: none;">Übersicht</button>
 <button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
+<button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button">Keywords</button>
 <button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button">Zitate</button>
-<button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
 </div>
 <div class="tab-content active" id="ga-tab">
 <div style="padding: 0.2rem;">
@@ -4304,13 +4378,46 @@ Chronologisch
 <select class="filter-dropdown" id="thematicGAFilter">
   <option value="">Alle GA-Bände</option>
 </select>
-<button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()" style="margin-left: auto;">
+<div style="display: flex; gap: 8px; margin-left: auto;">
+<button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
   Suche starten
 </button>
+<button class="depth-btn" id="thematicOverviewBtn" onclick="openConceptOverviewTab()" style="white-space: nowrap;">
+  Übersicht generieren
+</button>
+</div>
 </div>
 </div>
 <div id="thematicSearchInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
 <span id="thematicServerInfo"></span>
+</div>
+</div>
+
+<div class="tab-content" id="concept-overview-tab">
+<textarea class="thematic-input" id="conceptOverviewQuery" onkeydown="handleConceptOverviewKeydown(event)" placeholder="Tragen Sie hier ein Thema ein, zu dem Sie eine Übersicht erhalten möchten."></textarea>
+<div id="conceptOverviewExamplesContainer" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
+  <div style="margin-bottom: 0.25rem;">Beispiele</div>
+  <div style="max-height: 4.5rem; overflow-y: auto;">
+    <ul style="margin: 0; padding-left: 1.2em;">
+      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Ätherleib')">Ätherleib</li>
+      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Astralleib')">Astralleib</li>
+      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Karma')">Karma</li>
+      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Imagination')">Imagination</li>
+    </ul>
+  </div>
+</div>
+<div class="semantic-options">
+<div class="filter-row">
+<select class="filter-dropdown" id="conceptOverviewGAFilter">
+  <option value="">Alle GA-Bände</option>
+</select>
+<button class="depth-btn primary" id="conceptOverviewBtn" onclick="generateConceptOverview()" style="margin-left: auto;">
+  Übersicht generieren
+</button>
+</div>
+</div>
+<div id="conceptOverviewInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
+<span id="conceptOverviewStatus"></span>
 </div>
 </div>
 
@@ -6029,6 +6136,15 @@ function normalizeGANumber(gaNumber) {
             imgTag.setAttribute('data-format', 'webp');
           }
           
+          // Füge Click-Handler hinzu, um Bild zu vergrößern
+          imgTag.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const altText = imgTag.getAttribute('alt') || matchingImage.altText || '';
+            const dataFormat = imgTag.getAttribute('data-format');
+            openImagePopup(matchingImage.base64, altText, dataFormat);
+          });
+          
           console.log('[IMAGES] Bild ersetzt:', originalSrc);
         }
       });
@@ -6041,8 +6157,8 @@ function normalizeGANumber(gaNumber) {
       console.log('[RELEVANCE-FILTER] Filter aktualisiert');
     }
 
-    // Bild-Popup-Funktion
-    function openImagePopup(imageSrc, altText, dataFormat) {
+    // Bild-Popup-Funktion (global verfügbar)
+    window.openImagePopup = function(imageSrc, altText, dataFormat) {
       const popup = document.getElementById('imagePopup');
       const popupImg = document.getElementById('popupImage');
       const popupCaption = document.getElementById('popupCaption');
@@ -6191,15 +6307,30 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
-    function closeImagePopup() {
+    window.closeImagePopup = function() {
       const popup = document.getElementById('imagePopup');
-      popup.style.display = 'none';
-    }
+      if (popup) {
+        popup.style.display = 'none';
+      }
+    };
 
     // Event-Delegation für Bild-Klicks (funktioniert auch für dynamisch hinzugefügte Bilder)
+    // Unterstützt sowohl lecture-image als auch alle anderen Bilder im Text
     document.addEventListener('click', function(e) {
-      if (e.target.classList.contains('lecture-image')) {
-        openImagePopup(e.target.src, e.target.alt, e.target.getAttribute('data-format'));
+      if (e.target.tagName === 'IMG') {
+        // Überspringe wenn Bild bereits ein Link ist (z.B. in einem <a> Tag)
+        if (e.target.closest('a')) return;
+        
+        const imageSrc = e.target.src;
+        const altText = e.target.getAttribute('alt') || '';
+        const dataFormat = e.target.getAttribute('data-format');
+        
+        // Setze Cursor-Style wenn noch nicht gesetzt
+        if (!e.target.style.cursor) {
+          e.target.style.cursor = 'pointer';
+        }
+        
+        openImagePopup(imageSrc, altText, dataFormat);
       }
     });
 
@@ -6475,6 +6606,7 @@ function normalizeGANumber(gaNumber) {
         // Befülle normale Dropdowns in anderen Tabs
         const thematicGAFilter = document.getElementById('thematicGAFilter');
         const texteGAFilter = document.getElementById('texteGAFilter');
+        const conceptOverviewGAFilter = document.getElementById('conceptOverviewGAFilter');
         
         if (thematicGAFilter) {
           thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
@@ -6498,6 +6630,18 @@ function normalizeGANumber(gaNumber) {
             option.textContent = ga.title && ga.title !== ga.number ? `${ga.number} – ${ga.title}` : ga.number;
             option.className = 'available-ga';
             texteGAFilter.appendChild(option);
+          });
+        }
+        
+        // Befülle Concept Overview GA-Filter
+        if (conceptOverviewGAFilter) {
+          conceptOverviewGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+          gaList.forEach(ga => {
+            const option = document.createElement('option');
+            option.value = ga.number;
+            option.textContent = ga.number;
+            option.className = 'available-ga';
+            conceptOverviewGAFilter.appendChild(option);
           });
         }
         
@@ -9227,7 +9371,6 @@ function displayGAChronological(lectures) {
         button.disabled = true;
         button.classList.add('processing');
         button.textContent = 'Suche läuft...';
-        statusElement.textContent = 'Suche läuft...';
         
         // Sende Anfrage an Backend
         const response = await fetch(`${API_BASE}/api/advanced-search`, {
@@ -9378,16 +9521,25 @@ function displayGAChronological(lectures) {
       const lectureId = element.dataset.lectureId;
       const searchWord = element.dataset.searchWord;
       const isExactMatch = element.dataset.exactMatch === '1';
-      const paragraphIndex = element.dataset.paragraphIndex ? parseInt(element.dataset.paragraphIndex) : null;
+      
+      // Parse paragraphIndex - kann Integer oder String sein
+      let paragraphIndex = null;
+      if (element.dataset.paragraphIndex) {
+        const parsed = parseInt(element.dataset.paragraphIndex);
+        // Wenn erfolgreich geparst (nicht NaN), verwende als Integer
+        paragraphIndex = isNaN(parsed) ? element.dataset.paragraphIndex : parsed;
+      }
       
       // Rekonstruiere das Suchwort mit Anführungszeichen wenn nötig
       const searchTerm = isExactMatch ? `"${searchWord}"` : searchWord;
+      
+      console.log('[ADVANCED-SEARCH] Klick auf Snippet:', { lectureId, searchTerm, paragraphIndex, type: typeof paragraphIndex });
       
       showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex);
     }
     
     async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
-      console.log(`[ADVANCED-SEARCH] Zeige Vortrag ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex}`);
+      console.log(`[ADVANCED-SEARCH] Zeige Vortrag ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex} (Typ: ${typeof paragraphIndex})`);
       
       try {
         // Lade den vollständigen Vortrag mit Paragraphen
@@ -9465,11 +9617,57 @@ function displayGAChronological(lectures) {
           const displayTitle = lecture.fileName || lecture.title || lecture.ID;
           html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
           
+          // Finde den Index des Target-Paragraphs (falls paragraphIndex gesetzt ist)
+          // Unterstützt sowohl Integer (erweiterte Suche) als auch String (Konzept-Übersicht)
+          let targetParagraphIdx = null;
+          
+          // Prüfe ob paragraphIndex wirklich gesetzt ist (nicht null, undefined oder String 'null')
+          const paragraphIndexStr = paragraphIndex ? String(paragraphIndex) : '';
+          const hasValidIndex = paragraphIndex !== null && 
+                                 paragraphIndex !== undefined && 
+                                 paragraphIndexStr !== 'null' && 
+                                 paragraphIndexStr !== '';
+          
+          console.log(`[ADV-SEARCH] paragraphIndex erhalten:`, { paragraphIndex, type: typeof paragraphIndex, hasValidIndex });
+          
+          if (hasValidIndex) {
+            // Wenn paragraphIndex ein Integer ist (erweiterte Suche)
+            if (typeof paragraphIndex === 'number' && !isNaN(paragraphIndex) && paragraphIndex >= 0) {
+              targetParagraphIdx = paragraphIndex;
+              console.log(`[ADV-SEARCH] Verwende Integer-Index: ${targetParagraphIdx}`);
+            } else if (typeof paragraphIndex === 'string' && paragraphIndexStr.length > 0) {
+              // Wenn paragraphIndex ein String ist (Konzept-Übersicht)
+              const cleanParagraphIndex = paragraphIndexStr.replace(/^\^/, '');
+              console.log(`[ADV-SEARCH] Suche Paragraph mit String-Index: "${paragraphIndexStr}" (bereinigt: "${cleanParagraphIndex}")`);
+              
+              targetParagraphIdx = lecture.paragraphs.findIndex(p => {
+                if (!p.index) return false;
+                const pIndex = String(p.index).replace(/^\^/, '');
+                // Prüfe verschiedene Formate: mit/ohne ^, exakte Übereinstimmung
+                const matches = pIndex === cleanParagraphIndex || 
+                               String(p.index) === paragraphIndexStr || 
+                               String(p.index) === `^${cleanParagraphIndex}` ||
+                               pIndex === paragraphIndexStr.replace(/^\^/, '');
+                if (matches) {
+                  console.log(`[ADV-SEARCH] Paragraph gefunden: idx=${lecture.paragraphs.indexOf(p)}, p.index="${p.index}", pIndex="${pIndex}"`);
+                }
+                return matches;
+              });
+              
+              if (targetParagraphIdx === -1) {
+                console.warn(`[ADV-SEARCH] Paragraph mit Index "${paragraphIndexStr}" nicht gefunden. Verfügbare Indizes (erste 10):`, 
+                  lecture.paragraphs.slice(0, 10).map((p, i) => `[${i}] "${p.index}"`));
+              } else {
+                console.log(`[ADV-SEARCH] Paragraph gefunden bei Index: ${targetParagraphIdx}`);
+              }
+            }
+          }
+          
           // Rendere alle Paragraphen MIT Zwischenüberschriften
           lecture.paragraphs.forEach((para, idx) => {
             const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
             const paraIndexWithCaret = para.index || `^${paraIndex}`;
-            const isTargetPara = paragraphIndex !== null && idx === paragraphIndex;
+            const isTargetPara = targetParagraphIdx !== null && idx === targetParagraphIdx;
             
             // Finde passende Überschriften für diesen Paragraph
             const matchingHeadings = headings.filter(h => {
@@ -9540,9 +9738,9 @@ function displayGAChronological(lectures) {
           summaryContent.innerHTML = html;
           
           // Scrolle zum Ziel-Paragraph
-          if (paragraphIndex !== null) {
+          if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
             setTimeout(() => {
-              const targetElement = document.getElementById(`adv-para-${paragraphIndex}`);
+              const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
               }
@@ -11264,6 +11462,294 @@ function displayGAChronological(lectures) {
       const key = decodeURIComponent(encodedKey);
       const q = decodeURIComponent(encodedQuery);
       return openSavedThematicQuery(key, q);
+    }
+
+    // =====================================
+    // KONZEPT-ÜBERSICHT FUNKTIONEN
+    // =====================================
+    
+    function openConceptOverviewTab() {
+      // Zeige und wechsle zum Übersicht-Tab
+      const tabButton = document.getElementById('concept-overview-tab-button');
+      if (tabButton) {
+        tabButton.style.display = 'inline-block';
+      }
+      switchTab('concept-overview');
+      
+      // Fokussiere das Eingabefeld
+      setTimeout(() => {
+        const queryInput = document.getElementById('conceptOverviewQuery');
+        if (queryInput) {
+          queryInput.focus();
+        }
+      }, 100);
+    }
+    
+    function setConceptOverviewExample(example) {
+      const queryInput = document.getElementById('conceptOverviewQuery');
+      if (queryInput) {
+        queryInput.value = example;
+        queryInput.focus();
+      }
+    }
+    
+    function handleConceptOverviewKeydown(event) {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        generateConceptOverview();
+      }
+    }
+    
+    async function generateConceptOverview() {
+      const queryInput = document.getElementById('conceptOverviewQuery');
+      const query = queryInput ? queryInput.value.trim() : '';
+      
+      if (!query) {
+        alert('Bitte geben Sie ein Thema ein');
+        return;
+      }
+      
+      console.log('[CONCEPT-OVERVIEW] Generiere Übersicht für:', query);
+      
+      const button = document.getElementById('conceptOverviewBtn');
+      const statusElement = document.getElementById('conceptOverviewStatus');
+      
+      // Hole GA-Filter
+      const gaFilterElement = document.getElementById('conceptOverviewGAFilter');
+      const gaFilter = gaFilterElement ? gaFilterElement.value : '';
+      
+      try {
+        button.disabled = true;
+        button.classList.add('processing');
+        button.textContent = 'Wird generiert...';
+        
+        // Sende Anfrage an Backend
+        const response = await fetch(`${API_BASE}/api/concept-overview`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            concept: query,
+            gaFilter: gaFilter
+          })
+        });
+        
+        if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+        
+        const data = await response.json();
+        
+        console.log('[CONCEPT-OVERVIEW] Daten empfangen:', data);
+        statusElement.textContent = 'Übersicht generiert';
+        
+        // Rendere Ergebnisse als strukturierte Tabelle
+        renderConceptOverview(query, data);
+        
+        // Browser History Eintrag hinzufügen
+        const url = `${window.location.pathname}#concept-overview?q=${encodeURIComponent(query)}${gaFilter ? '&ga=' + encodeURIComponent(gaFilter) : ''}`;
+        history.pushState({ 
+          tab: 'concept-overview',
+          concept: query,
+          gaFilter: gaFilter
+        }, '', url);
+        console.log('[HISTORY] Konzept-Übersicht gespeichert');
+        
+      } catch (error) {
+        console.error('[CONCEPT-OVERVIEW] Fehler:', error);
+        statusElement.innerHTML = `<span style="color: red;">Fehler: ${error.message}</span>`;
+        document.getElementById('viewer').innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: red;">
+            <strong>Fehler bei der Analyse:</strong><br>${error.message}
+          </div>
+        `;
+      } finally {
+        button.disabled = false;
+        button.classList.remove('processing');
+        button.textContent = 'Übersicht generieren';
+      }
+    }
+    
+    function renderConceptOverview(concept, data) {
+      console.log('[CONCEPT-OVERVIEW] Rendere KI-basierte Übersicht');
+      
+      const viewer = document.getElementById('viewer');
+      
+      if (!data || !data.overview) {
+        viewer.innerHTML = '<div style="padding: 2rem; text-align: left; color: var(--secondary-text); font-style: italic; font-size: 0.9rem;">Keine Daten gefunden</div>';
+        return;
+      }
+      
+      const overview = data.overview;
+      
+      // Funktion um Markdown-Text zu rendern (mit GA-Links)
+      const renderCategoryContent = (text) => {
+        if (!text || text.trim() === '') {
+          return '<div style="color: var(--secondary-text); font-style: italic; font-size: 0.85em;">Keine Informationen gefunden</div>';
+        }
+        
+        // Konvertiere Markdown zu HTML
+        let html = marked.parse(text);
+        
+        return html;
+      };
+      
+      // Erstelle Grid-HTML mit 4 Spalten (Begriff/Thema als Überschrift über der Tabelle)
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
+      
+      // Begriff/Thema als Überschrift über der Tabelle
+      html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0; border-bottom: 2px solid var(--border-color);">${concept}</div>`;
+      
+      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
+      html += '<thead><tr>';
+      
+      // Spaltenüberschriften (nur noch 4 Spalten)
+      const columns = [
+        { key: 'definition', label: 'Definition', width: '25%' },
+        { key: 'function', label: 'Funktion', width: '25%' },
+        { key: 'interactions', label: 'Interaktionen', width: '25%' },
+        { key: 'special', label: 'Besonderheiten', width: '25%' }
+      ];
+      
+      columns.forEach(col => {
+        html += `<th class="concept-overview-header" style="padding: 0.75rem; background: var(--sidebar-bg); text-align: left; width: ${col.width}; border-bottom: 2px solid var(--border-color); position: sticky; top: 0; z-index: 10; font-size: 0.9em;"><strong>${col.label}</strong></th>`;
+      });
+      
+      html += '</tr></thead>';
+      html += '<tbody>';
+      
+      // Erstelle eine Zeile mit allen Spalten
+      html += '<tr>';
+      
+      // Spalte 1: Definitionen
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += renderCategoryContent(overview.definitionText || '');
+      html += '</td>';
+      
+      // Spalte 2: Funktionen
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += renderCategoryContent(overview.functionText || '');
+      html += '</td>';
+      
+      // Spalte 3: Interaktionen
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += renderCategoryContent(overview.interactionText || '');
+      html += '</td>';
+      
+      // Spalte 4: Besonderheiten
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += renderCategoryContent(overview.specialText || '');
+      html += '</td>';
+      
+      html += '</tr>';
+      html += '</tbody></table>';
+      html += '</div>';
+      
+      viewer.innerHTML = html;
+      
+      // Konvertiere GA-Referenzen in klickbare Links
+      setTimeout(() => {
+        convertGAReferencesToLinks(viewer);
+      }, 100);
+    }
+    
+    function convertGAReferencesToLinks(container) {
+      // Finde alle Textknoten und ersetze (GA###/##:index) durch klickbare Links
+      const walk = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      const nodesToReplace = [];
+      let node;
+      
+      while (node = walk.nextNode()) {
+        const text = node.nodeValue;
+        // Suche nach GA-Referenzen im Format (GA###/##:^index) oder (GA###/##)
+        // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
+        // Index kann mit ^ beginnen und alphanumerisch sein
+        if (/\(GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?\)/g.test(text)) {
+          nodesToReplace.push(node);
+        }
+      }
+      
+      nodesToReplace.forEach(textNode => {
+        const text = textNode.nodeValue;
+        const parent = textNode.parentNode;
+        
+        // Erstelle ein Dokumentfragment mit den ersetzten Links
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        
+        // Regex für GA-Referenzen mit optionalem Index (kann mit ^ beginnen)
+        // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
+        const regex = /\(GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?\)/g;
+        let match;
+        
+        while ((match = regex.exec(text)) !== null) {
+          
+          // Füge Text vor dem Match hinzu
+          if (match.index > lastIndex) {
+            fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+          }
+          
+          // Erstelle klickbaren Link - OHNE Padding (wie im Tab Themen)
+          // lectureId im Format GA275/2 oder GA157a/2 (nicht GA275/02)
+          const gaNumber = match[1]; // z.B. "157a" oder "275"
+          const lectureNum = match[2]; // z.B. "2" oder "5"
+          const lectureId = `GA${gaNumber}/${lectureNum}`;
+          
+          // Index: Stelle sicher, dass ^ vorhanden ist
+          const rawIndex = match[3] || '';
+          const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+          
+          // Für die Anzeige: Original-Nummern ohne Padding (wie im KI-Output)
+          const displayText = `GA${gaNumber}/${lectureNum}`;
+          
+          // Erstelle Link-Element direkt
+          const link = document.createElement('a');
+          link.href = '#';
+          link.className = 'ga-keyword-link';
+          link.textContent = displayText;
+          
+          // Verwende showLectureFromAdvancedSearch für rechtes Panel (wie bei erweiterter Suche)
+          // Parameter: (lectureId, searchTerm, paragraphIndex)
+          // Wichtig: paragraphIndex als String übergeben (z.B. '^l2phk7') für Konzept-Übersicht
+          if (paragraphIndex) {
+            // Escape Anführungszeichen im String
+            const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+            const escapedLectureId = lectureId.replace(/'/g, "\\'");
+            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+            console.log(`[GA-LINKS] Link erstellt: ${lectureId} mit Index: ${paragraphIndex}`);
+          } else {
+            const escapedLectureId = lectureId.replace(/'/g, "\\'");
+            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+          }
+          
+          // Füge die Klammer vor dem Link hinzu
+          fragment.appendChild(document.createTextNode('('));
+          fragment.appendChild(link);
+          // Schließe Klammer - Index wird NICHT angezeigt, aber im onclick gesetzt
+          fragment.appendChild(document.createTextNode(')'));
+          
+          lastIndex = regex.lastIndex;
+        }
+        
+        // Füge restlichen Text hinzu
+        if (lastIndex < text.length) {
+          fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+        }
+        
+        // Ersetze den Textknoten durch das Fragment
+        parent.replaceChild(fragment, textNode);
+      });
+    }
+    
+    function showLectureFromConceptOverview(element) {
+      const lectureId = element.dataset.lectureId;
+      const searchWord = element.dataset.searchWord;
+      const paragraphIndex = element.dataset.paragraphIndex ? parseInt(element.dataset.paragraphIndex) : null;
+      
+      showLectureFromAdvancedSearch(lectureId, searchWord, paragraphIndex);
     }
 
     // Lösche die thematische Suchanfrage dauerhaft (nur lokal)
@@ -16425,6 +16911,16 @@ function switchTabExtended(mode) {
     loadRecentThematicQueries();
   }
   
+  // Bei Wechsel zum Konzept-Übersicht-Tab: Fokussiere Eingabefeld
+  if (mode === 'concept-overview') {
+    setTimeout(() => {
+      const queryInput = document.getElementById('conceptOverviewQuery');
+      if (queryInput) {
+        queryInput.focus();
+      }
+    }, 100);
+  }
+  
   // Alle Tab-Buttons deaktivieren
   document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
   
@@ -16521,6 +17017,10 @@ function switchTabExtended(mode) {
       case 'thematic':
         defaultMessage = 'Bitte eine Themenanfrage stellen...';
         titleText = 'Themen';
+        break;
+      case 'concept-overview':
+        defaultMessage = 'Bitte ein Thema für die Übersicht eingeben...';
+        titleText = 'Konzept-Übersicht';
         break;
       case 'timeline':
         defaultMessage = 'Bitte ein Schlagwort auswählen…';
@@ -16812,35 +17312,55 @@ async function performKeywordThematicSearch(keyword) {
     const results = document.getElementById('results');
     const countContainer = document.getElementById('keyword-count');
     
-    // WICHTIG: Prüfe zuerst ob das Keyword bereits einen Text hat
+    // WICHTIG: Prüfe zuerst ob das Keyword bereits gespeicherte Ergebnisse hat
     const existingKeyword = keywordsData.find(kw => kw.keyword === keyword);
     
-    if (existingKeyword && existingKeyword.text) {
-      const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
-      const isOnlyKeyword = textWithoutFormatting === keyword;
+    // Prüfe ob gespeicherte Ergebnisse vorhanden sind
+    const hasText = existingKeyword && existingKeyword.text;
+    const hasOverview = existingKeyword && existingKeyword.overview;
+    
+    // Wenn mindestens ein gespeichertes Ergebnis vorhanden ist, zeige es an (keine API-Anfrage)
+    if (hasText || hasOverview) {
+      console.log('[KEYWORD-THEMATIC] Verwende gespeicherte Ergebnisse für:', keyword, {
+        hasText: hasText,
+        hasOverview: hasOverview
+      });
       
-      // Wenn Text mehr als nur das Keyword selbst ist, zeige ihn direkt an
-      if (!isOnlyKeyword && existingKeyword.text.length > 50) {
-        console.log('[KEYWORD-THEMATIC] Verwende vorhandenen Text für:', keyword);
+      // Zeige KI-Suchergebnis im Content Fenster, falls vorhanden
+      if (hasText) {
+        const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
+        const isOnlyKeyword = textWithoutFormatting === keyword;
         
-        // Bereite Daten vor
-        const data = {
-          query: keyword,
-          content: existingKeyword.text,
-          sources: existingKeyword.sources || [],
-          fromCache: false,
-          fromKeywordData: true
-        };
-        
-        // Zeige direkt an
-        displayKeywordThematicResults(keyword, data);
-        
-        if (countContainer) {
-          countContainer.textContent = '';
+        // Wenn Text mehr als nur das Keyword selbst ist, zeige ihn an
+        if (!isOnlyKeyword && existingKeyword.text.length > 50) {
+          const data = {
+            query: keyword,
+            content: existingKeyword.text,
+            sources: existingKeyword.sources || [],
+            fromCache: false,
+            fromKeywordData: true
+          };
+          
+          displayKeywordThematicResults(keyword, data);
+        } else {
+          console.log('[KEYWORD-THEMATIC] Text zu kurz oder nur Keyword, überspringe Anzeige');
         }
-        
-        return;
       }
+      
+      // Zeige Themen_Übersicht im Main Viewer, falls vorhanden
+      if (hasOverview) {
+        console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          renderConceptOverview(keyword, { overview: existingKeyword.overview });
+        }
+      }
+      
+      // Wenn gespeicherte Ergebnisse vorhanden sind, verwende nur diese (keine neue API-Anfrage)
+      if (countContainer) {
+        countContainer.textContent = '';
+      }
+      return; // WICHTIG: Keine API-Anfrage, wenn gespeicherte Ergebnisse vorhanden sind
     }
     
     console.log('[KEYWORD-THEMATIC] Kein lokaler Text, rufe API auf für:', keyword);
@@ -16909,6 +17429,99 @@ async function performKeywordThematicSearch(keyword) {
   }
 }
 
+// Funktion: Konvertiere GA-Referenzen in klickbare Links im DOM (für Keyword-Ergebnisse)
+function convertGAReferencesToLinksInKeywordResults(container) {
+  // Finde alle Textknoten und ersetze (GA###/##:index) durch klickbare Links
+  const walk = document.createTreeWalker(
+    container,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  const nodesToReplace = [];
+  let node;
+  
+  while (node = walk.nextNode()) {
+    const text = node.nodeValue;
+    // Suche nach GA-Referenzen im Format (GA###/##:^index) oder (GA###/##)
+    // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
+    // Index kann mit ^ beginnen und alphanumerisch sein
+    if (/\(GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?\)/g.test(text)) {
+      nodesToReplace.push(node);
+    }
+  }
+  
+  nodesToReplace.forEach(textNode => {
+    const text = textNode.nodeValue;
+    const parent = textNode.parentNode;
+    
+    // Überspringe wenn bereits ein Link ist
+    if (parent.tagName === 'A') return;
+    
+    // Erstelle ein Dokumentfragment mit den ersetzten Links
+    const fragment = document.createDocumentFragment();
+    let lastIndex = 0;
+    
+    // Regex für GA-Referenzen mit optionalem Index (kann mit ^ beginnen)
+    // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
+    const regex = /\(GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?\)/g;
+    let match;
+    
+    while ((match = regex.exec(text)) !== null) {
+      // Füge Text vor dem Match hinzu
+      if (match.index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+      }
+      
+      // Erstelle klickbaren Link - OHNE Padding
+      const gaNumber = match[1]; // z.B. "157a" oder "275"
+      const lectureNum = match[2]; // z.B. "2" oder "5"
+      const lectureId = `GA${gaNumber}/${lectureNum}`;
+      
+      // Index: Stelle sicher, dass ^ vorhanden ist
+      const rawIndex = match[3] || '';
+      const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+      
+      // Für die Anzeige: Original-Nummern ohne Padding
+      const displayText = `GA${gaNumber}/${lectureNum}`;
+      
+      // Erstelle Link-Element direkt
+      const link = document.createElement('a');
+      link.href = '#';
+      link.className = 'ga-keyword-link';
+      link.textContent = displayText;
+      
+      // Verwende showLectureFromAdvancedSearch für rechtes Panel
+      // Parameter: (lectureId, searchTerm, paragraphIndex)
+      if (paragraphIndex) {
+        const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+        const escapedLectureId = lectureId.replace(/'/g, "\\'");
+        link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+      } else {
+        const escapedLectureId = lectureId.replace(/'/g, "\\'");
+        link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+      }
+      
+      // Füge die Klammer vor dem Link hinzu
+      fragment.appendChild(document.createTextNode('('));
+      fragment.appendChild(link);
+      // Schließe Klammer - Index wird NICHT angezeigt, aber im onclick gesetzt
+      fragment.appendChild(document.createTextNode(')'));
+      
+      lastIndex = regex.lastIndex;
+    }
+    
+    // Füge restlichen Text hinzu
+    if (lastIndex < text.length) {
+      fragment.appendChild(document.createTextNode(text.substring(lastIndex)));
+    }
+    
+    // Ersetze den Textknoten durch das Fragment
+    parent.replaceChild(fragment, textNode);
+  });
+}
+
 function displayKeywordThematicResults(keyword, data) {
   const results = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
@@ -16942,32 +17555,35 @@ function displayKeywordThematicResults(keyword, data) {
     return processed;
   }
   
-  // Hilfsfunktion: Wandle GA-Referenzen in klickbare Links um (verkürzte Version)
+  // Hilfsfunktion: Wandle GA-Referenzen in klickbare Links um (für rechtes Side-Panel)
+  // HINWEIS: Links mit Klammern werden jetzt im DOM konvertiert (convertGAReferencesToLinksInKeywordResults)
+  // Diese Funktion wird nur noch für "Weitere Quellen" verwendet (ohne Klammern)
   function makeGAReferencesClickable(text) {
-    // Regex für GA-Referenzen: (GA###/Y:index) oder (GA###a/Y:index)
-    const gaRefRegex = /\(GA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\)/gi;
-    
-    let result = text.replace(gaRefRegex, (match, gaNum, lectureNum, index) => {
-      const lectureId = `GA${gaNum}/${lectureNum}`;
-      const cleanIndex = index.replace(/^\^/, '');
-      const displayId = formatLectureId(lectureId);
-      return ` (<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">${displayId}</a>)`;
-    });
-    
-    // Auch Obsidian-Format unterstützen: [[GA066 (1.) TITLE|GA066/1]]
-    result = result.replace(/\[\[([^\]]*\|)?GA(\d{3}[a-z]?)\/(\d+)\]\]/gi, (match, titlePart, gaNum, lectureNum) => {
-      const lectureId = `GA${gaNum}/${lectureNum}`;
-      const displayId = formatLectureId(lectureId);
-      return `<a href="#" onclick="showLecture('${lectureId}'); return false;" class="ga-keyword-link">${displayId}</a>`;
-    });
+    let result = text;
     
     // NEU: Wandle GA-Referenzen OHNE Klammern in Links um (für "Weitere Quellen:")
     // Format: GA###/Y:index oder GA###a/Y:index (ohne Klammern drumherum)
-    result = result.replace(/\bGA(\d{3}[a-z]?)\/(\d+):([a-z0-9^]+)\b/gi, (match, gaNum, lectureNum, index) => {
+    // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
+    result = result.replace(/\bGA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?\b/gi, (match, gaNum, lectureNum, index) => {
       const lectureId = `GA${gaNum}/${lectureNum}`;
-      const cleanIndex = index.replace(/^\^/, '');
-      const displayId = formatLectureId(lectureId);
-      return `<a href="#" onclick="showLecture('${lectureId}', '${cleanIndex}'); return false;" class="ga-keyword-link">${displayId}</a>`;
+      
+      // Index: Stelle sicher, dass ^ vorhanden ist (wie in Themen_Übersicht)
+      const rawIndex = index || '';
+      const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+      
+      // Für die Anzeige: Original-Nummern ohne Padding
+      const displayId = `GA${gaNum}/${lectureNum}`;
+      
+      // Escape für JavaScript-String
+      const escapedLectureId = lectureId.replace(/'/g, "\\'");
+      
+      // Verwende showLectureFromAdvancedSearch für rechtes Panel (wie bei Themen_Übersicht)
+      if (paragraphIndex) {
+        const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+        return `<a href="#" onclick="showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;" class="ga-keyword-link">${displayId}</a>`;
+      } else {
+        return `<a href="#" onclick="showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;" class="ga-keyword-link">${displayId}</a>`;
+      }
     });
     
     return result;
@@ -17008,6 +17624,37 @@ function displayKeywordThematicResults(keyword, data) {
   removeInlineStyles(results);
   // Normalisiere Unicode-Zeichen für einheitliche Darstellung
   normalizeUnicode(results);
+  
+  // Konvertiere GA-Links im DOM (nach dem Setzen des HTML)
+  // Verwende die gleiche Methode wie bei Themen_Übersicht für konsistente Verlinkung
+  try {
+    const answerContent = document.getElementById('keywordAnswerContent');
+    if (answerContent) {
+      convertGAReferencesToLinksInKeywordResults(answerContent);
+      
+      // Füge Click-Handler zu allen Bildern hinzu, um sie zu vergrößern
+      const images = answerContent.querySelectorAll('img');
+      images.forEach(img => {
+        // Überspringe wenn bereits ein Handler vorhanden ist
+        if (img.hasAttribute('data-image-popup-handler')) return;
+        
+        img.setAttribute('data-image-popup-handler', 'true');
+        img.style.cursor = 'pointer';
+        
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const imageSrc = img.src;
+          const altText = img.getAttribute('alt') || '';
+          const dataFormat = img.getAttribute('data-format');
+          openImagePopup(imageSrc, altText, dataFormat);
+        });
+      });
+    }
+  } catch (error) {
+    console.error('[KEYWORD-THEMATIC] Fehler beim Konvertieren der GA-Links:', error);
+  }
+  
   // Einheitliche Abstände um Klammern an GA-Quellenangaben (Keyword-Themen)
   try {
     const kc = document.getElementById('keywordAnswerContent');
@@ -17455,6 +18102,31 @@ async function addNewKeyword() {
       displayKeywords();
       
       console.log('[ADD-KEYWORD] Schlagwort erfolgreich hinzugefügt:', result);
+      
+      // Zeige beide Ergebnisse an:
+      // 1. KI-Suchergebnis im Content Fenster (results)
+      if (result.analysis) {
+        const results = document.getElementById('results');
+        if (results) {
+          // Bereite Daten vor wie bei performKeywordThematicSearch
+          const data = {
+            query: result.keyword.keyword,
+            content: result.analysis,
+            sources: result.keyword.sources || [],
+            fromCache: false,
+            fromKeywordData: true
+          };
+          displayKeywordThematicResults(result.keyword.keyword, data);
+        }
+      }
+      
+      // 2. Themen_Übersicht im Main Viewer
+      if (result.overview) {
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          renderConceptOverview(result.keyword.keyword, { overview: result.overview });
+        }
+      }
       
     } else {
       // Fehler
