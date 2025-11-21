@@ -2134,10 +2134,11 @@ body.dark-mode #thematicSearchInfo {
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: grid;
-      grid-template-columns: 1fr auto auto; /* 3 Spalten: links volle Breite, rechts 2x auto */
+      grid-template-columns: auto 1fr auto auto; /* 4 Spalten: Info-Button (auto), Übersicht/Original (1fr), rechts 2x auto */
       grid-template-rows: repeat(3, auto);    /* 3 Zeilen für lokale Ansicht */
-      gap: 6px;
-      column-gap: 3px; /* Verringerter Abstand zwischen Spalten */
+      gap: 4px;
+      column-gap: 3px; /* Normaler Abstand zwischen Spalten */
+      row-gap: 4px; /* Verringerter vertikaler Abstand zwischen Zeilen */
       margin-left: auto;
       flex-shrink: 0;
       align-items: flex-start; /* Alle Buttons oben ausrichten */
@@ -2145,9 +2146,9 @@ body.dark-mode #thematicSearchInfo {
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* Mitglieder-Button: Im Grid, Spalte 3, Zeile 1 */
+    /* Mitglieder-Button: Im Grid, Spalte 4, Zeile 1 */
     #membersPanelBtn {
-      grid-column: 3;
+      grid-column: 4;
       grid-row: 1;
       padding: 4px 8px !important;
       margin: 0 !important;
@@ -2185,9 +2186,9 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* H4 Toggle Button - Im Grid, Spalte 3, Zeile 2 (unter Mitgliederbereich-Button, in derselben Zeile wie Original) */
+    /* H4 Toggle Button - Im Grid, Spalte 4, Zeile 2 (unter Mitgliederbereich-Button, in derselben Zeile wie Original) */
     #h4ToggleBtn {
-      grid-column: 3;
+      grid-column: 4;
       grid-row: 2;
       padding: 4px 8px !important; /* Gleiche Padding wie membersPanelBtn */
       margin: 0 !important;
@@ -2235,18 +2236,27 @@ body.dark-mode #thematicSearchInfo {
     }
     
     /* Button-Reihenfolge: Grid füllt spaltenweise */
-    /* Spalte 1: Übersicht (Zeile 1), Original (Zeile 2), [leer] (Zeile 3) */
-    #viewerSummaryBtn {
+    /* Info-Button: Direkt links neben Übersicht (Spalte 1, Zeile 1) */
+    #gaInfoBtn {
       grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+      margin-right: -3px; /* Negativer Margin, um näher an Übersicht zu kommen */
+    }
+    
+    /* Spalte 2: Übersicht (Zeile 1), Original (Zeile 2), [leer] (Zeile 3) */
+    #viewerSummaryBtn {
+      grid-column: 2;
       grid-row: 1;
       align-self: start;
       min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
       height: auto !important;
       box-sizing: border-box !important;
+      margin-left: 0px;
     }
     
     #viewerOriginalBtn {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 2;
       align-self: start;
       min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
@@ -2254,58 +2264,67 @@ body.dark-mode #thematicSearchInfo {
       box-sizing: border-box !important;
     }
     
-    /* Spalte 2: TOC Toggle (Zeile 1), Structure (Zeile 2), TOC-KW (Zeile 3) */
+    /* Spalte 3: TOC Toggle (Zeile 1), Structure (Zeile 2), TOC-KW (Zeile 3) */
     #viewerTOCToggleBtn {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1;
       align-self: start;
     }
     
     #viewerStructureBtn {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 2;
       align-self: start;
     }
     
     #viewerTOCKWBtn {
-      grid-column: 2;
-      grid-row: 3;
-      align-self: start;
-    }
-    
-    /* Spalte 3: Mitgliederbereich (Zeile 1), H4 Toggle (Zeile 2), Regenerate (Zeile 3) */
-    #viewerRegenerateBtn {
       grid-column: 3;
       grid-row: 3;
       align-self: start;
-      width: 100% !important; /* Gleiche Breite wie andere Buttons in Spalte 3 */
     }
     
-    /* ONLINE Version: 2 Spalten Grid (Übersicht/Original links, MB/H4 rechts) */
+    /* Spalte 4: Mitgliederbereich (Zeile 1), H4 Toggle (Zeile 2), Regenerate (Zeile 3) */
+    #viewerRegenerateBtn {
+      grid-column: 4;
+      grid-row: 3;
+      align-self: start;
+      width: 100% !important; /* Gleiche Breite wie andere Buttons in Spalte 4 */
+    }
+    
+    /* ONLINE Version: 3 Spalten Grid (Info-Button, Übersicht/Original links, MB/H4 rechts) */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: 1fr auto; /* 2 Spalten: links volle Breite, rechts auto für MB/H4 */
+      grid-template-columns: auto 1fr auto; /* 3 Spalten: Info-Button (auto), Übersicht/Original (1fr), rechts auto für MB/H4 */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      column-gap: 3px; /* Verringerter Abstand zwischen Spalten */
+      column-gap: 3px; /* Normaler Abstand zwischen Spalten */
+      row-gap: 4px; /* Verringerter vertikaler Abstand zwischen Zeilen */
       min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* MB Button in Online-Version: Im Grid, Spalte 2, Zeile 1 */
+    /* Info-Button in Online-Version: Spalte 1, Zeile 1 */
+    body.online-mode #gaInfoBtn {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: center;
+      margin-right: -3px; /* Negativer Margin, um näher an Übersicht zu kommen */
+    }
+    
+    /* MB Button in Online-Version: Im Grid, Spalte 3, Zeile 1 */
     body.online-mode #membersPanelBtn {
-      grid-column: 2;
+      grid-column: 3;
       grid-row: 1;
     }
     
-    /* Übersicht Button: Zeile 1, Spalte 1 (links) */
+    /* Übersicht Button: Zeile 1, Spalte 2 (rechts neben Info-Button) */
     body.online-mode #viewerSummaryBtn {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 1;
       width: 100%;
       align-self: start;
     }
     
-    /* Original Button: Zeile 2, Spalte 1 (UNTER Übersicht, GLEICHE Breite) */
+    /* Original Button: Zeile 2, Spalte 2 (UNTER Übersicht, GLEICHE Breite) */
     body.online-mode #viewerOriginalBtn {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 2;
       width: 100%;
       align-self: start;
@@ -4623,10 +4642,10 @@ Bestehende Schlagwörter überschreiben
 Original
 </button>
 <!-- Info Button für bibliographische Angaben (nur bei GA-Bänden) - links neben Übersicht -->
-<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s; margin-right: 8px;">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px; border: none; background: transparent; color: var(--link-color); cursor: pointer; transition: opacity 0.2s; margin-right: 0px;">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
-<text x="12" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
 </svg>
 </button>
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
