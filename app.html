@@ -4622,6 +4622,13 @@ Bestehende Schlagwörter überschreiben
 <button id="viewerOriginalBtn" onclick="closeAndShowOriginal()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 Original
 </button>
+<!-- Info Button für bibliographische Angaben (nur bei GA-Bänden) - links neben Übersicht -->
+<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s; margin-right: 8px;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" fill="none"/>
+<text x="12" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="currentColor" text-anchor="middle">i</text>
+</svg>
+</button>
 <button id="viewerSummaryBtn" onclick="toggleViewerH4()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
 ≡ Übersicht
 </button>
@@ -4642,13 +4649,6 @@ S&H&C&K
 </div>
 <div id="main" style="position: relative;">
 <div id="viewer"></div>
-<!-- Info Button für bibliographische Angaben (oben rechts im Viewer) -->
-<button id="gaInfoBtn" onclick="showGABibliographyInfo()" title="Bibliographische Angaben anzeigen" style="display: none; position: absolute; top: 5px; right: -5px; z-index: 100; width: 40px; height: 40px; padding: 0; border: none; background: transparent; border-radius: 50%; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="10" stroke="#467886" stroke-width="1.5" fill="none"/>
-<text x="12" y="16" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#467886" text-anchor="middle">i</text>
-</svg>
-</button>
 </div>
 <div class="vertical-resize-handle-wrapper" id="verticalResizeHandleWrapper">
   <div class="vertical-resize-handle-line"></div>
@@ -11138,7 +11138,7 @@ function displayGAChronological(lectures) {
   if (gaInfoBtn) {
     // Zeige Button wenn currentGANumber gesetzt ist (GA-Band wird angezeigt)
     if (currentGANumber) {
-      gaInfoBtn.style.display = 'flex';
+      gaInfoBtn.style.display = 'inline-block';
     } else {
       gaInfoBtn.style.display = 'none';
     }
