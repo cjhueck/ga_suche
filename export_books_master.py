@@ -4,7 +4,7 @@ Master Export-Skript für Steiner GA-Schriften (GA001-GA046)
 ===========================================================
 Exportiert Schriften als zusammenhängende Texte mit:
 - Rechtschreibkorrekturen (wie bei Vorträgen)
-- Überschriften-Umwandlung: H1→H3, H2→H3, H3→H4
+- Überschriften-Umwandlung: H1→H3, H2→H4, H3→H4
 - Inhaltsverzeichnis-Links zu Überschriften
 - Fußnoten-Links
 - Ausgabe als steiner_books_001-046.json (evtl. gesplittet)
@@ -65,7 +65,7 @@ class BooksExporter:
         return None
     
     def convert_headings(self, text):
-        """Wandelt Überschriften um: H1→H3, H2→H3, H3→H4"""
+        """Wandelt Überschriften um: H1→H3, H2→H4, H3→H4"""
         lines = text.split('\n')
         result = []
         
@@ -73,9 +73,9 @@ class BooksExporter:
             # H1 (# Überschrift) → H3 (### Überschrift)
             if re.match(r'^#\s+[^#]', line):
                 line = re.sub(r'^#\s+', '### ', line)
-            # H2 (## Überschrift) → H3 (### Überschrift)
+            # H2 (## Überschrift) → H4 (#### Überschrift)
             elif re.match(r'^##\s+[^#]', line):
-                line = re.sub(r'^##\s+', '### ', line)
+                line = re.sub(r'^##\s+', '#### ', line)
             # H3 (### Überschrift) → H4 (#### Überschrift)
             elif re.match(r'^###\s+[^#]', line):
                 line = re.sub(r'^###\s+', '#### ', line)
