@@ -2134,48 +2134,30 @@ body.dark-mode #thematicSearchInfo {
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: grid;
-      grid-template-columns: auto 1fr auto auto; /* 4 Spalten: Info-Button (auto), Übersicht/Original (1fr), rechts 2x auto */
-      grid-template-rows: repeat(3, auto);    /* 3 Zeilen: Zeile 1-2 wie Online-Version, Zeile 3 lokale Buttons */
-      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten - konsistent in allen Tabs */
-      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen - konsistent in allen Tabs */
+      grid-template-columns: auto auto auto; /* 3 Spalten */
+      grid-template-rows: repeat(2, auto); /* 2 Zeilen */
+      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten */
+      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen */
       margin-left: auto;
       flex-shrink: 0;
-      align-items: flex-start; /* Alle Buttons oben ausrichten */
+      align-items: flex-start; /* Buttons oben ausrichten */
       position: relative;
-      min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
     }
     
-    /* Alle Buttons haben keine zusätzlichen Margins */
+    /* Alle Buttons haben keine zusätzlichen Margins und einheitliche Höhe */
     .viewer-buttons-container > button {
       margin: 0;
       box-sizing: border-box;
-    }
-    
-    /* Mitglieder-Button: Im Grid, Spalte 4, Zeile 1 */
-    #membersPanelBtn {
-      grid-column: 4;
-      grid-row: 1;
-      padding: 4px 8px !important;
-      margin: 0 !important;
-      width: 100% !important; /* Gleiche Breite wie H4 Toggle Button */
-      min-width: 32px !important;
-      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
-      height: auto !important;
-      line-height: 1 !important;
-      font-size: 0.85em !important;
-      border: 1px solid var(--accent-color) !important;
-      background: transparent !important;
-      color: var(--accent-color) !important;
-      cursor: pointer !important;
-      border-radius: 4px !important;
-      transition: background 0.2s, color 0.2s !important; /* Nur background/color animieren, nicht position */
+      height: 28px !important; /* Einheitliche Höhe für alle Buttons */
+      min-height: 28px !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      z-index: 1001 !important; /* Über Header (z-index: 1000) */
-      flex-shrink: 0 !important;
+      padding: 4px 8px !important; /* Einheitliches Padding */
+      line-height: 1 !important;
     }
     
+    /* Mitglieder-Button - Hover und Dark-Mode Styles */
     #membersPanelBtn:hover {
       background: var(--accent-color) !important;
       color: white !important;
@@ -2191,15 +2173,9 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* H4 Toggle Button - Styling (Grid-Position wird weiter unten definiert) */
+    /* H4 Toggle Button - Styling */
     #h4ToggleBtn {
-      padding: 4px 8px !important; /* Gleiche Padding wie membersPanelBtn */
-      margin: 0 !important;
-      width: 100% !important; /* Gleiche Breite wie membersPanelBtn */
       min-width: 32px !important;
-      min-height: 28px !important; /* Gleiche Höhe wie andere Buttons */
-      height: auto !important;
-      line-height: 1 !important;
       font-size: 0.85em !important;
       border: 1px solid var(--accent-color) !important; /* Gleiches Styling wie membersPanelBtn */
       background: transparent !important;
@@ -2208,8 +2184,6 @@ body.dark-mode #thematicSearchInfo {
       border-radius: 4px !important;
       transition: background 0.2s, color 0.2s !important; /* Gleiche Transition wie membersPanelBtn */
       display: none !important; /* Standardmäßig ausgeblendet, wird durch JavaScript gesteuert */
-      align-items: center !important;
-      justify-content: center !important;
       flex-shrink: 0 !important;
     }
     
@@ -2233,147 +2207,90 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
-    /* Entfernt - wird jetzt weiter unten definiert */
+    /* Grid-Positionierungen für Buttons */
+    /* Zeile 1: Info | Übersicht | Mitglieder */
+    /* Zeile 2: (leer) | Original | H4-toggle */
     
-    /* Button-Reihenfolge: Grid füllt spaltenweise */
-    /* LOKALE VERSION: Gleiche Anordnung wie Online-Version in Zeile 1-2 */
-    /* Zeile 1: Info | Übersicht | Mitgliederbereich */
-    /* Zeile 2: (frei) | Original | H4-Toggle */
-    /* Zeile 3: Lokale Funktionsbuttons */
-    
-    /* Info-Button: Spalte 1, Zeile 1 */
+    /* Info-Button: Zeile 1, Spalte 1 */
     #gaInfoBtn {
       grid-column: 1;
       grid-row: 1;
+      padding: 4px !important; /* Etwas weniger Padding für Icon-Button */
       align-self: center;
-      margin-right: 0px;
     }
     
-    /* Übersicht Button: Spalte 2, Zeile 1 */
+    /* Übersicht Button: Zeile 1, Spalte 2 */
     #viewerSummaryBtn {
       grid-column: 2;
       grid-row: 1;
+      font-size: 0.85em !important;
       align-self: start;
-      min-height: 28px !important;
-      height: auto !important;
-      box-sizing: border-box !important;
-      margin: 0 !important;
     }
     
-    /* Mitgliederbereich Button: Spalte 4, Zeile 1 (in lokaler Version Spalte 4) */
+    /* Mitglieder-Button: Zeile 1, Spalte 3 */
     #membersPanelBtn {
-      grid-column: 4;
+      grid-column: 3;
       grid-row: 1;
-      margin: 0 !important;
+      align-self: start;
+      min-width: 32px !important;
+      font-size: 0.85em !important;
+      border: 1px solid var(--accent-color) !important;
+      background: transparent !important;
+      color: var(--accent-color) !important;
+      cursor: pointer !important;
+      border-radius: 4px !important;
+      transition: background 0.2s, color 0.2s !important;
+      z-index: 1001 !important; /* Über Header (z-index: 1000) */
+      flex-shrink: 0 !important;
     }
     
-    /* Original Button: Spalte 2, Zeile 2 */
+    /* Original Button: Zeile 2, Spalte 2 */
     #viewerOriginalBtn {
       grid-column: 2;
       grid-row: 2;
+      font-size: 0.85em !important;
       align-self: start;
-      min-height: 28px !important;
-      height: auto !important;
-      box-sizing: border-box !important;
-      margin: 0 !important;
     }
     
-    /* H4-Toggle Button: Spalte 4, Zeile 2 (in lokaler Version Spalte 4) */
+    /* H4-Toggle Button: Zeile 2, Spalte 3 */
     #h4ToggleBtn {
-      grid-column: 4;
+      grid-column: 3;
       grid-row: 2;
-      margin: 0 !important;
+      align-self: start;
     }
     
-    /* Info-Button: Spalte 1, Zeile 1 */
-    #gaInfoBtn {
-      grid-column: 1;
-      grid-row: 1;
-      align-self: center;
-      margin: 0 !important;
-    }
-    
-    /* Lokale Funktionsbuttons: Zeile 3 */
-    /* Spalte 1: frei */
-    /* Spalte 2: frei */
-    /* Spalte 3: TOC Toggle */
+    /* Lokale Funktionsbuttons - zusätzliche Styles falls nötig */
     #viewerTOCToggleBtn {
-      grid-column: 3;
-      grid-row: 3;
-      align-self: start;
+      font-size: 0.85em !important;
     }
     
-    /* Spalte 3: Structure (neben TOC Toggle) - WARTE, das geht nicht, beide in Spalte 3 */
-    /* Lösung: Structure in Spalte 1, TOC-KW in Spalte 2, Regenerate in Spalte 4 */
-    #viewerStructureBtn {
-      grid-column: 1;
-      grid-row: 3;
-      align-self: start;
+    /* TOC-Toggle Button SVG - Umrissform */
+    #viewerTOCToggleBtn svg {
+      width: 12px;
+      height: 12px;
+      display: block;
     }
     
-    #viewerTOCKWBtn {
-      grid-column: 2;
-      grid-row: 3;
-      align-self: start;
+    #viewerTOCToggleBtn svg path {
+      stroke: currentColor;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linejoin: round;
     }
     
-    /* Spalte 4: Regenerate */
-    #viewerRegenerateBtn {
-      grid-column: 4;
-      grid-row: 3;
-      align-self: start;
-      width: 100% !important; /* Gleiche Breite wie andere Buttons in Spalte 4 */
-    }
-    
-    /* ONLINE Version: 3 Spalten Grid */
-    /* Obere Zeile: Info | Übersicht | Mitgliederbereich */
-    /* Untere Zeile: (frei) | Original | H4-Toggle */
+    /* ONLINE Version: Gleiche Grid-Anordnung wie lokale Version */
     body.online-mode .viewer-buttons-container {
-      grid-template-columns: auto 1fr auto; /* 3 Spalten */
+      display: grid;
+      grid-template-columns: auto auto auto; /* 3 Spalten */
       grid-template-rows: repeat(2, auto); /* 2 Zeilen */
-      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten - konsistent in allen Tabs */
-      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen - konsistent in allen Tabs */
-      min-height: auto; /* Höhe passt sich automatisch an Button-Höhen an */
+      column-gap: 2px; /* Horizontaler Abstand zwischen Spalten */
+      row-gap: 2px; /* Vertikaler Abstand zwischen Zeilen */
+      align-items: flex-start;
     }
     
-    /* Info-Button in Online-Version: Spalte 1, Zeile 1 */
-    body.online-mode #gaInfoBtn {
-      grid-column: 1;
-      grid-row: 1;
-      align-self: center;
-      margin: 0 !important;
-    }
-    
-    /* Übersicht Button: Spalte 2, Zeile 1 */
-    body.online-mode #viewerSummaryBtn {
-      grid-column: 2;
-      grid-row: 1;
-      width: 100%;
-      align-self: start;
-      margin: 0 !important;
-    }
-    
-    /* Mitgliederbereich Button in Online-Version: Spalte 3, Zeile 1 */
-    body.online-mode #membersPanelBtn {
-      grid-column: 3;
-      grid-row: 1;
-      margin: 0 !important;
-    }
-    
-    /* Original Button: Spalte 2, Zeile 2 */
-    body.online-mode #viewerOriginalBtn {
-      grid-column: 2;
-      grid-row: 2;
-      width: 100%;
-      align-self: start;
-      margin: 0 !important;
-    }
-    
-    /* H4-Toggle Button in Online-Version: Spalte 3, Zeile 2 */
-    body.online-mode #h4ToggleBtn {
-      grid-column: 3;
-      grid-row: 2;
-      margin: 0 !important;
+    /* TOC-Toggle Button in Online-Version ausblenden */
+    body.online-mode #viewerTOCToggleBtn {
+      display: none !important;
     }
     
     /* Ensure buttons always stay on the right */
@@ -4692,17 +4609,9 @@ Original
 ≡ Übersicht
 </button>
 <button id="viewerTOCToggleBtn" onclick="toggleTOCContent()" style="display: none; padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
-▼
-</button>
-<!-- NEUE 3-BUTTON ARCHITEKTUR für einzelnen Vortrag -->
-<button id="viewerStructureBtn" onclick="generateCurrentStructure()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; border: 1px solid var(--accent-color);">
-S&H&C
-</button>
-<button id="viewerTOCKWBtn" onclick="generateCurrentTOCKW()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; border: 1px solid var(--accent-color);">
-C&K
-</button>
-<button id="viewerRegenerateBtn" onclick="generateCurrentAll()" style="display: none; padding: 4px 10px; font-size: 0.8em; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; border: 1px solid #d9534f;">
-S&H&C&K
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+<path d="M6 2 L10 8 L2 8 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+</svg>
 </button>
 </div>
 </div>
@@ -9175,16 +9084,10 @@ function displayGAChronological(lectures) {
       const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
       const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
       const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
-      const viewerStructureBtn = document.getElementById('viewerStructureBtn');
-      const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
-      const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
       
       if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
       if (viewerTOCToggleBtn) viewerTOCToggleBtn.style.display = 'none';
-      if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
-      if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
-      if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
       const h4ToggleBtn = document.getElementById('h4ToggleBtn');
       if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
       
@@ -11185,25 +11088,28 @@ function displayGAChronological(lectures) {
   
   // Hole alle anderen Button-Referenzen
   const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
-  const viewerStructureBtn = document.getElementById('viewerStructureBtn');
-  const viewerTOCKWBtn = document.getElementById('viewerTOCKWBtn');
-  const viewerRegenerateBtn = document.getElementById('viewerRegenerateBtn');
   
   // Prüfe ob es ein Book ist
   const isBook = currentLectureData && currentLectureData.isBook;
   
-  // Info-Button für bibliographische Angaben - zeige wenn GA-Band angezeigt wird
+  // Mitglieder-Button: IMMER sichtbar in allen Tabs
+  const membersPanelBtn = document.getElementById('membersPanelBtn');
+  if (membersPanelBtn) {
+    membersPanelBtn.style.display = 'inline-flex';
+  }
+  
+  // Info-Button für bibliographische Angaben - zeige nur wenn Vortrag oder Buch angezeigt wird
   const gaInfoBtn = document.getElementById('gaInfoBtn');
   if (gaInfoBtn) {
-    // Zeige Button wenn currentGANumber gesetzt ist (GA-Band wird angezeigt)
-    if (currentGANumber) {
+    // Zeige Button wenn Vortrag/Buch geladen ist oder GA-Band angezeigt wird
+    if (currentLectureData || currentGANumber) {
       gaInfoBtn.style.display = 'inline-block';
     } else {
       gaInfoBtn.style.display = 'none';
     }
   }
   
-  // H4 Toggle Button - Bei Vorträgen in ALLEN Tabs anzeigen (nicht bei Books, nicht im GA-Tab)
+  // H4 Toggle Button - Bei Vorträgen anzeigen (nicht bei Books, nicht im GA-Tab)
   const h4ToggleBtn = document.getElementById('h4ToggleBtn');
   if (h4ToggleBtn) {
     // WICHTIG: Im GA-Tab IMMER ausblenden, unabhängig von anderen Bedingungen
@@ -11211,7 +11117,7 @@ function displayGAChronological(lectures) {
       h4ToggleBtn.style.display = 'none';
     } else if (currentLectureData && !isBook) {
       // Vortrag geladen und nicht im GA-Tab - zeige H4 Toggle Button
-      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für fixed Position
+      h4ToggleBtn.style.display = 'inline-flex'; // inline-flex für Grid
       // Setze initiales Icon basierend auf viewerH4Collapsed Status (Pfeil nach oben/unten)
       h4ToggleBtn.innerHTML = viewerH4Collapsed ? '▲' : '▼';
       h4ToggleBtn.title = viewerH4Collapsed ? 'H3+H4+KW+H4Headings anzeigen' : 'Nur H3 anzeigen';
@@ -11221,9 +11127,9 @@ function displayGAChronological(lectures) {
     }
   }
   
-  // Original und Übersicht Buttons: In ALLEN Tabs anzeigen wenn Vortrag geladen ist (außer GA-Tab)
+  // Original und Übersicht Buttons: Nur anzeigen wenn Vortrag oder Buch geladen ist (außer GA-Tab)
   if (!currentLectureData) {
-    // Kein Vortrag geladen - verstecke Original und Übersicht Buttons
+    // Kein Vortrag/Buch geladen - verstecke Original und Übersicht Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
   } else if (isInGATab) {
@@ -11255,16 +11161,6 @@ function displayGAChronological(lectures) {
     }
   }
   
-  // NEUE 3-BUTTON ARCHITEKTUR - nur lokal verfügbar und nur im Texte-Tab
-  if (currentLectureData && isLocal && isInTexteTab) {
-    if (viewerStructureBtn) viewerStructureBtn.style.display = 'inline-block';
-    if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'inline-block';
-    if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'inline-block';
-  } else {
-    if (viewerStructureBtn) viewerStructureBtn.style.display = 'none';
-    if (viewerTOCKWBtn) viewerTOCKWBtn.style.display = 'none';
-    if (viewerRegenerateBtn) viewerRegenerateBtn.style.display = 'none';
-  }
 }
 
 
@@ -11930,7 +11826,8 @@ try {
   }
 }
 
-    // Funktion: Toggle H4, TOC und Schlagwörter (nur für Vorträge)
+    // Funktion: Toggle H4 und Schlagwörter (nur für Vorträge)
+    // TOC wird NICHT durch diesen Button gesteuert - nur durch TOC-Toggle-Button
     function toggleH4Display() {
       const viewer = document.getElementById('viewer');
       if (!viewer) return;
@@ -11953,10 +11850,6 @@ try {
       const tocH4 = tocList ? tocList.querySelectorAll('h4') : [];
       
       console.log(`[TOGGLE-H4-DISPLAY] Gefundene H4 im Viewer: ${viewerH4.length}, im TOC: ${tocH4.length}`);
-      
-      // TOC-Container im Viewer finden
-      const viewerTOC = viewer.querySelector('.lecture-toc-section');
-      const tocListTOC = tocList ? tocList.querySelector('.lecture-toc-section') : null;
       
       // Schlagwörter-Container im Viewer finden
       const viewerKeywords = viewer.querySelector('.lecture-keywords-section');
@@ -11982,15 +11875,8 @@ try {
       
       console.log(`[TOGGLE-H4-DISPLAY] H4-Status: ${viewerH4Collapsed ? 'ausgeblendet' : 'sichtbar'}`);
       
-      // Toggle TOC-Container im Viewer
-      if (viewerTOC) {
-        viewerTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
-      }
-      
-      // Toggle TOC-Container im rechten Panel
-      if (tocListTOC) {
-        tocListTOC.style.display = viewerH4Collapsed ? 'none' : 'block';
-      }
+      // TOC wird NICHT durch H4-Toggle gesteuert - nur durch TOC-Toggle-Button
+      // TOC-Container bleiben unverändert
       
       // Toggle Schlagwörter-Container im Viewer
       if (viewerKeywords) {
@@ -12024,9 +11910,13 @@ try {
         const isHidden = tocSection.style.display === 'none';
         tocSection.style.display = isHidden ? 'block' : 'none';
         
-        // Ändere Button-Symbol im Header (nur Symbol, kein Text)
+        // Ändere Button-Symbol im Header (SVG-Pfeil als Umriss)
         if (tocButton) {
-          tocButton.textContent = isHidden ? '▲' : '▼';
+          const svg = tocButton.querySelector('svg path');
+          if (svg) {
+            // Pfeil nach unten (▼) oder nach oben (▲)
+            svg.setAttribute('d', isHidden ? 'M6 10 L2 4 L10 4 Z' : 'M6 2 L10 8 L2 8 Z');
+          }
         }
       }
     }
