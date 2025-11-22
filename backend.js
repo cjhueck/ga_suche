@@ -31,6 +31,90 @@ let chunks = []; // WIRD NICHT MEHR VERWENDET
 let paragraphsFromLectures = []; // NEU
 let fullLectures = {};
 let fullBooks = {}; // GA-Schriften (GA001-GA046)
+
+// Hilfsfunktion: Konvertiert Bücher in Paragraphs-Format (für Suche)
+function convertBookToParagraphs(book) {
+  if (!book || !book.content) return [];
+  
+  const paragraphs = [];
+  const content = book.content || '';
+  
+  // Teile Content in Zeilen auf
+  const lines = content.split('\n');
+  let currentParagraph = '';
+  let currentIndex = null;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    // Suche nach Index am Ende der Zeile (Format: ^abc123)
+    const indexMatch = line.match(/\s+(\^[a-z0-9]+)\s*$/);
+    
+    if (indexMatch) {
+      // Index gefunden - speichere aktuellen Paragraph
+      const index = indexMatch[1];
+      const lineWithoutIndex = line.replace(/\s+\^[a-z0-9]+\s*$/, '').trim();
+      
+      if (currentParagraph || lineWithoutIndex) {
+        paragraphs.push({
+          index: index,
+          content: (currentParagraph + (currentParagraph ? ' ' : '') + lineWithoutIndex).trim(),
+          text: (currentParagraph + (currentParagraph ? ' ' : '') + lineWithoutIndex).trim()
+        });
+      }
+      
+      currentParagraph = '';
+      currentIndex = index;
+    } else {
+      // Kein Index - füge zur aktuellen Paragraph hinzu
+      if (line.trim()) {
+        currentParagraph += (currentParagraph ? ' ' : '') + line.trim();
+      }
+    }
+  }
+  
+  // Füge letzten Paragraph hinzu, falls vorhanden
+  if (currentParagraph.trim()) {
+    paragraphs.push({
+      index: currentIndex || null,
+      content: currentParagraph.trim(),
+      text: currentParagraph.trim()
+    });
+  }
+  
+  // Wenn keine Indizes gefunden wurden, teile nach Absätzen (doppelte Zeilenumbrüche)
+  if (paragraphs.length === 0) {
+    const sections = content.split(/\n\n+/);
+    sections.forEach((section, idx) => {
+      if (section.trim()) {
+        paragraphs.push({
+          index: null,
+          content: section.trim(),
+          text: section.trim()
+        });
+      }
+    });
+  }
+  
+  return paragraphs;
+}
+
+// Hilfsfunktion: Erstellt Paragraph-Objekte aus Büchern für Suche
+function getBookParagraphsForSearch(book) {
+  const paragraphs = convertBookToParagraphs(book);
+  
+  return paragraphs.map((para, idx) => ({
+    ID: book.ID || book.gaNumber,
+    title: book.title || book.fileName || book.ID,
+    fileName: book.fileName || book.title || book.ID,
+    gaNumber: book.gaNumber || book.ID,
+    paragraphIndex: idx,
+    index: para.index,
+    content: para.content,
+    text: para.text || para.content,
+    isBook: true
+  }));
+}
 let synonyms = {};
 let summaryCache = {};
 let gaOverviewCache = {};
@@ -1378,12 +1462,37 @@ function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
     }
   });
   
+  // Durchsuche auch Bücher
+  Object.values(fullBooks).forEach(book => {
+    const bookParagraphs = getBookParagraphsForSearch(book);
+    const fullText = bookParagraphs.map(p => p.content || p.text || '').join(' ');
+    const words = fullText.split(/\s+/);
+    
+    // Zähle Vorkommen
+    const occurrences = fullText.toLowerCase().split(queryLower).length - 1;
+    
+    if (occurrences > 0) {
+      totalOccurrences += occurrences;
+      lecturesWithTerm++;
+      
+      // Extrahiere Kontextwörter um jeden Treffer
+      for (let i = 0; i < words.length; i++) {
+        if (words[i].toLowerCase().includes(queryLower)) {
+          const start = Math.max(0, i - contextWords);
+          const end = Math.min(words.length, i + contextWords + 1);
+          const context = words.slice(start, i).concat(words.slice(i + 1, end));
+          allContextWords.push(...context);
+        }
+      }
+    }
+  });
+  
   if (totalOccurrences === 0) {
     console.log(`[CONTEXT] Keine Vorkommen gefunden für "${query}"`);
     return null;
   }
   
-  console.log(`[CONTEXT] ${totalOccurrences} Vorkommen in ${lecturesWithTerm} Vorträgen`);
+  console.log(`[CONTEXT] ${totalOccurrences} Vorkommen in ${lecturesWithTerm} Vorträgen/Büchern`);
   
   // Filtere Substantive
   const substantives = allContextWords.filter(isSubstantive);
@@ -1913,7 +2022,87 @@ app.post('/api/fulltext-search', async (req, res) => {
       });
     });
     
-    console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
+    // Durchsuche auch Bücher
+    Object.values(fullBooks).forEach(book => {
+      // GA-Filter: Überspringe Bücher, die nicht zu den ausgewählten GA-Bänden gehören
+      if (gaFilter) {
+        const bookGA = book.ID || book.gaNumber || '';
+        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
+        
+        const matchesFilter = gaFilters.some(filter => 
+          bookGA === filter || 
+          bookGA === `GA${filter}` || 
+          bookGA.replace('GA', '').replace('ga', '') === filter
+        );
+        
+        if (!matchesFilter) {
+          return; // Überspringe dieses Buch
+        }
+      }
+      
+      // Konvertiere Buch in Paragraphs
+      const bookParagraphs = getBookParagraphsForSearch(book);
+      
+      bookParagraphs.forEach((para, paraIndex) => {
+        const content = (para.content || para.text || '');
+        
+        // Prüfe ob Paragraph die Suchwörter enthält
+        const hasWord1 = searchInText(content, word1, word1IsPhrase);
+        const hasWord2 = word2 && searchInText(content, word2, word2IsPhrase);
+        
+        const paragraphsToAdd = [];
+        
+        if (!word2) {
+          if (hasWord1) {
+            paragraphsToAdd.push(paraIndex);
+          }
+        } else {
+          // Zwei Wörter: Prüfe Operatoren und Proximity
+          if (wordOperator === 'and') {
+            if (hasWord1 && hasWord2) {
+              if (effectiveProximity === null) {
+                // Beliebiger Abstand im gesamten Buch
+                paragraphsToAdd.push(paraIndex);
+              } else {
+                // Proximity: Suche in benachbarten Absätzen
+                // Da Bücher keine klaren Absatz-Grenzen haben wie Vorträge,
+                // verwenden wir einen größeren Proximity-Bereich
+                paragraphsToAdd.push(paraIndex);
+              }
+            }
+          } else if (wordOperator === 'or') {
+            if (hasWord1 || hasWord2) {
+              paragraphsToAdd.push(paraIndex);
+            }
+          }
+        }
+        
+        paragraphsToAdd.forEach(idx => {
+          const key = `${book.ID || book.gaNumber}-${idx}`;
+          if (!addedParagraphs.has(key)) {
+            addedParagraphs.add(key);
+            const p = bookParagraphs[idx];
+            const pContent = (p.content || p.text || '');
+            
+            results.push({
+              ID: book.ID || book.gaNumber,
+              title: book.title,
+              fileName: book.fileName,
+              location: null, // Bücher haben keinen Ort
+              date: book.yearRange || null, // Bücher haben Jahr-Range statt Datum
+              paragraphIndex: idx,
+              index: p.index,
+              content: p.content || p.text,
+              hasWord1: searchInText(pContent, word1, word1IsPhrase),
+              hasWord2: word2 && searchInText(pContent, word2, word2IsPhrase),
+              isBook: true
+            });
+          }
+        });
+      });
+    });
+    
+    console.log(`Volltext-Suche: ${results.length} Absätze gefunden (Vorträge + Bücher)`);
     
     // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen (außer bei "ohne")
     let resultsWithRelevance;
@@ -2170,7 +2359,108 @@ app.post('/api/advanced-search', async (req, res) => {
       }
     });
     
-    console.log(`Erweiterte Suche: ${results.length} Treffer gefunden`);
+    // Durchsuche auch Bücher
+    Object.values(fullBooks).forEach(book => {
+      // GA-Filter: Überspringe Bücher, die nicht zu den ausgewählten GA-Bänden gehören
+      if (gaFilter) {
+        const bookGA = book.ID || book.gaNumber || '';
+        const gaFilters = gaFilter.split(',').map(f => f.trim()).filter(f => f);
+        
+        const matchesFilter = gaFilters.some(filter => 
+          bookGA === filter || 
+          bookGA === `GA${filter}` || 
+          bookGA.replace('GA', '').replace('ga', '') === filter
+        );
+        
+        if (!matchesFilter) {
+          return; // Überspringe dieses Buch
+        }
+      }
+      
+      // Konvertiere Buch in Paragraphs
+      const bookParagraphs = getBookParagraphsForSearch(book);
+      
+      // Für jedes Wort: Finde alle Absätze, die es enthalten
+      const wordMatches = {};
+      words.forEach(word => {
+        wordMatches[word] = [];
+      });
+      
+      bookParagraphs.forEach((para, paraIndex) => {
+        const content = (para.content || para.text || '');
+        
+        words.forEach(word => {
+          if (searchInText(content, word)) {
+            wordMatches[word].push({
+              paraIndex: paraIndex,
+              content: content
+            });
+          }
+        });
+      });
+      
+      // Wende Operatoren und Proximity an (gleiche Logik wie bei Vorträgen)
+      if (proximity) {
+        const proximityValue = parseInt(proximity);
+        
+        words.forEach(word => {
+          wordMatches[word].forEach(match => {
+            const paraIndex = match.paraIndex;
+            let matchesProximity = true;
+            
+            for (let i = 0; i < words.length; i++) {
+              const otherWord = words[i];
+              if (otherWord === word) continue;
+              
+              const operator = i > 0 ? operators[i - 1] : (operators[0] || 'and');
+              
+              const otherWordInRange = wordMatches[otherWord].some(otherMatch => {
+                return Math.abs(otherMatch.paraIndex - paraIndex) <= proximityValue;
+              });
+              
+              if (operator === 'and' && !otherWordInRange) {
+                matchesProximity = false;
+                break;
+              }
+            }
+            
+            if (matchesProximity || operators.includes('or')) {
+              const snippet = createContextSnippet(match.content, word, 200);
+              
+              results.push({
+                lectureId: book.ID || book.gaNumber,
+                lectureTitle: book.title || book.fileName || book.ID,
+                lectureDate: book.yearRange || null,
+                snippet: snippet,
+                matchedWord: word,
+                paragraphIndex: paraIndex,
+                index: bookParagraphs[paraIndex].index,
+                isBook: true
+              });
+            }
+          });
+        });
+      } else {
+        words.forEach(word => {
+          wordMatches[word].forEach(match => {
+            const snippet = createContextSnippet(match.content, word, 200);
+            
+            results.push({
+              lectureId: book.ID || book.gaNumber,
+              lectureTitle: book.title || book.fileName || book.ID,
+              lectureDate: book.yearRange || null,
+              snippet: snippet,
+              matchedWord: word,
+              paragraphIndex: match.paraIndex,
+              index: bookParagraphs[match.paraIndex].index,
+              isBook: true
+            });
+          });
+        });
+      }
+    });
+    
+    console.log(`Erweiterte Suche: ${results.length} Treffer gefunden (Vorträge + Bücher)`);
     
     res.json({
       results: results,
@@ -13807,11 +14097,34 @@ Object.values(fullLectures).forEach(lecture => {
       fileName: lecture.fileName,
       content: para.content || para.text || '',
       location: lecture.location,
-      date: lecture.date
+      date: lecture.date,
+      isBook: false
     });
   });
 });
-console.log(`  ✓ ${paragraphsFromLectures.length} Absätze konvertiert`);
+console.log(`  ✓ ${paragraphsFromLectures.length} Absätze aus Vorträgen konvertiert`);
+
+// Konvertiere auch Bücher zu Absatz-Format
+console.log('\nKonvertiere Bücher zu Absatz-Format...');
+let bookParagraphsCount = 0;
+Object.values(fullBooks).forEach(book => {
+  const bookParagraphs = getBookParagraphsForSearch(book);
+  bookParagraphs.forEach((para, idx) => {
+    paragraphsFromLectures.push({
+      ID: book.ID || book.gaNumber,
+      index: para.index || null,
+      title: book.title || book.fileName || book.ID,
+      fileName: book.fileName || book.title || book.ID,
+      content: para.content || para.text || '',
+      location: null, // Bücher haben keinen Ort
+      date: book.yearRange || null, // Bücher haben Jahr-Range statt Datum
+      isBook: true
+    });
+    bookParagraphsCount++;
+  });
+});
+console.log(`  ✓ ${bookParagraphsCount} Absätze aus Büchern konvertiert`);
+console.log(`  ✓ Gesamt: ${paragraphsFromLectures.length} Absätze (Vorträge + Bücher)`);
     await loadQueryLog();
     
     // Lade Themensuchen-Cache-DB

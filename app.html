@@ -204,6 +204,16 @@
     /* Konzept-Übersicht: Grid-Zellen */
     .concept-overview-cell {
       border: 1px solid var(--border-color);
+      padding: 0.5rem !important;
+    }
+    
+    /* Sicherstellen, dass Tabellenzellen das richtige Padding haben */
+    #viewer td.concept-overview-cell {
+      padding: 0.5rem !important;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      padding-top: 0.5rem !important;
+      padding-bottom: 0.5rem !important;
     }
     
     body.dark-mode .concept-overview-cell {
@@ -2210,7 +2220,7 @@ body.dark-mode #thematicSearchInfo {
     #viewer .answer-content,
     #viewer .semantic-answer,
     #viewer .keyword-answer,
-    #viewer .concept-content,
+    #viewer .concept-content:not(td),
     #viewer > div,
     #viewer > p,
     #viewer > h1,
@@ -3973,11 +3983,20 @@ body.dark-mode .help-back-btn:hover {
 
 /* Bilder im Text (lecture-image) - Light Mode */
 .lecture-image {
+  position: relative;
+  z-index: 10;
   /* Kein extra Hintergrund - transparent zeigt sandbraun */
   background: transparent;
   transition: filter 0.3s ease;
   /* Blend-Mode für PNG-Transparenz im Light Mode */
   mix-blend-mode: multiply;
+}
+
+/* Alle Bilder im Viewer sollen klickbar sein und über anderen Elementen liegen */
+#viewer img {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
 }
 
 /* Bilder im Text - Dark Mode: Invertiere nur die Zeichnung, Hintergrund bleibt transparent */
@@ -4398,9 +4417,6 @@ Chronologisch
 <div style="display: flex; gap: 8px; margin-left: auto;">
 <button class="depth-btn primary" id="thematicSearchBtn" onclick="performThematicSearch()">
   Suche starten
-</button>
-<button class="depth-btn" id="thematicOverviewBtn" onclick="openConceptOverviewTab()" style="white-space: nowrap;">
-  Übersicht generieren
 </button>
 </div>
 </div>
@@ -6347,6 +6363,9 @@ function normalizeGANumber(gaNumber) {
         // Überspringe wenn Bild bereits ein Link ist (z.B. in einem <a> Tag)
         if (e.target.closest('a')) return;
         
+        // Überspringe wenn Bild bereits einen spezifischen Handler hat
+        if (e.target.hasAttribute('data-image-popup-handler')) return;
+        
         const imageSrc = e.target.src;
         const altText = e.target.getAttribute('alt') || '';
         const dataFormat = e.target.getAttribute('data-format');
@@ -6356,9 +6375,12 @@ function normalizeGANumber(gaNumber) {
           e.target.style.cursor = 'pointer';
         }
         
+        // Markiere als behandelt, um doppelte Handler zu vermeiden
+        e.target.setAttribute('data-image-popup-handler', 'true');
+        
         openImagePopup(imageSrc, altText, dataFormat);
       }
-    });
+    }, true); // useCapture: true, damit der Handler früher ausgeführt wird
 
     // ESC-Taste zum Schließen
     document.addEventListener('keydown', function(e) {
@@ -7369,12 +7391,147 @@ function isBookGANumber(gaNumber) {
 }
 
 // Funktion: Rendert ein Book (Schrift)
-async function displayBook(book, highlightHeadingId = null) {
+async function displayBook(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
   const viewer = document.getElementById('viewer');
   const documentTitle = document.getElementById('document-title');
   const mainContainer = document.getElementById('main');
   
   if (!viewer || !documentTitle) return;
+  
+  // Hilfsfunktion zum Verarbeiten von Paragraph-Indizes
+  function processParagraphIndex(bookContentDiv, targetIndex) {
+    // Normalisiere targetIndex
+    const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
+    console.log(`[BOOK] Suche nach Absatz mit Index: ${targetParagraphIndex}`);
+    
+    // Finde alle Textknoten die Indizes enthalten
+    const walker = document.createTreeWalker(
+      bookContentDiv,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function(node) {
+          // Nur Textknoten die Indizes enthalten (z.B. " ^yz23gu")
+          if (node.textContent && node.textContent.match(/\s+\^[a-z0-9]+\b/)) {
+            return NodeFilter.FILTER_ACCEPT;
+          }
+          return NodeFilter.FILTER_REJECT;
+        }
+      },
+      false
+    );
+    
+    const textNodes = [];
+    let node;
+    while (node = walker.nextNode()) {
+      textNodes.push(node);
+    }
+    
+    console.log(`[BOOK] Gefundene Textknoten mit Indizes: ${textNodes.length}`);
+    
+    // Verarbeite Textknoten rückwärts, um die Reihenfolge nicht zu stören
+    textNodes.reverse().forEach(textNode => {
+      const parent = textNode.parentNode;
+      if (!parent || parent.nodeType !== Node.ELEMENT_NODE) return;
+      
+      const indexMatch = textNode.textContent.match(/\s+(\^[a-z0-9]+)\b/);
+      if (indexMatch) {
+        const indexText = indexMatch[0]; // z.B. " ^yz23gu"
+        const indexId = indexMatch[1]; // z.B. "^yz23gu"
+        const indexIdClean = indexId.replace(/^\^/, ''); // z.B. "yz23gu"
+        
+        // Teile den Textknoten auf: Text vor Index, Index, Text nach Index
+        const beforeIndex = textNode.textContent.substring(0, indexMatch.index);
+        const afterIndex = textNode.textContent.substring(indexMatch.index + indexText.length);
+        
+        // Erstelle versteckten Span für den Index (bleibt im DOM für Verlinkung)
+        const hiddenSpan = document.createElement('span');
+        hiddenSpan.style.display = 'none';
+        hiddenSpan.textContent = indexText;
+        hiddenSpan.setAttribute('data-index', indexId);
+        hiddenSpan.id = `para-${indexIdClean}`; // ID für Scroll-Funktionalität
+        
+        // Ersetze den Textknoten
+        if (beforeIndex) {
+          parent.insertBefore(document.createTextNode(beforeIndex), textNode);
+        }
+        parent.insertBefore(hiddenSpan, textNode);
+        if (afterIndex) {
+          parent.insertBefore(document.createTextNode(afterIndex), textNode);
+        }
+        parent.removeChild(textNode);
+      }
+    });
+    
+    // Scrolle zum Ziel-Absatz
+    const targetParaElement = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
+    if (targetParaElement) {
+      console.log(`[BOOK] Ziel-Absatz-Element gefunden: #para-${targetParagraphIndex}`);
+      // Finde das Parent-Element, das den Absatz enthält (Block-Element)
+      let paragraphElement = targetParaElement.parentElement;
+      
+      // Gehe zum nächsten Block-Element (p, div, etc.)
+      while (paragraphElement && paragraphElement !== bookContentDiv) {
+        const tagName = paragraphElement.tagName.toLowerCase();
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          // Markiere den Absatz
+          paragraphElement.classList.add('highlighted-paragraph');
+          
+          // Scrolle zum Absatz - positioniere ihn höher im Viewer (wie bei Vorträgen)
+          const mainContainer = document.getElementById('main');
+          if (mainContainer) {
+            const header = document.getElementById('viewer-header');
+            const headerHeight = header ? header.offsetHeight + 5 : 5;
+            
+            // Berechne Position: Absatz höher positionieren (wie bei Vorträgen)
+            // Verwende die gleiche Logik wie bei Vorträgen: relativeTop - headerHeight
+            const mainRect = mainContainer.getBoundingClientRect();
+            const paraRect = paragraphElement.getBoundingClientRect();
+            
+            // Berechne relative Position im Dokument
+            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
+            
+            // Positioniere Absatz direkt unter dem Header (wie bei Vorträgen)
+            mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+            
+            console.log(`[BOOK] Zu Absatz ${targetParagraphIndex} gescrollt - relativeTop: ${relativeTop}, headerHeight: ${headerHeight}, scrollTop: ${mainContainer.scrollTop}`);
+          } else {
+            // Fallback: Standard scrollIntoView
+            paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+            console.log(`[BOOK] Zu Absatz ${targetParagraphIndex} gescrollt (Fallback)`);
+          }
+          
+          return;
+        }
+        paragraphElement = paragraphElement.parentElement;
+      }
+      
+      // Fallback: Scrolle direkt zum versteckten Span (höher positioniert)
+      const mainContainer = document.getElementById('main');
+      if (mainContainer) {
+        const header = document.getElementById('viewer-header');
+        const headerHeight = header ? header.offsetHeight + 5 : 5;
+        
+        const mainRect = mainContainer.getBoundingClientRect();
+        const paraRect = targetParaElement.getBoundingClientRect();
+        
+        // Berechne relative Position im Dokument
+        const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop;
+        
+        // Positioniere Absatz direkt unter dem Header (wie bei Vorträgen)
+        mainContainer.scrollTop = Math.max(0, relativeTop - headerHeight);
+        
+        console.log(`[BOOK] Zu Absatz ${targetParagraphIndex} gescrollt (Fallback) - relativeTop: ${relativeTop}, headerHeight: ${headerHeight}, scrollTop: ${mainContainer.scrollTop}`);
+      } else {
+        targetParaElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+        console.log(`[BOOK] Zu Absatz ${targetParagraphIndex} gescrollt (Fallback)`);
+      }
+    } else {
+      console.log(`[BOOK] Absatz mit Index ${targetParagraphIndex} nicht gefunden`);
+      // Debug: Zeige alle vorhandenen para- IDs
+      const allParaIds = bookContentDiv.querySelectorAll('[id^="para-"]');
+      console.log(`[BOOK] Vorhandene para- IDs:`, Array.from(allParaIds).map(el => el.id));
+    }
+  }
   
   // Prüfe welcher Tab aktiv ist
   const gaTab = document.getElementById('ga-tab');
@@ -7467,8 +7624,29 @@ async function displayBook(book, highlightHeadingId = null) {
     }
   }
   
+  // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
+  if (keywords && keywords.length > 0) {
+    keywords.forEach((word, wordIndex) => {
+      if (word && word.trim()) {
+        const isPhrase = isPhraseArray[wordIndex] || false;
+        const cleanWord = word.trim();
+        const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
+          ? cleanWord.slice(1, -1) 
+          : cleanWord;
+        
+        const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const flags = isPhrase ? "g" : "gi";
+        const regex = new RegExp(`(${escapedWord})`, flags);
+        content = content.replace(regex, "<mark>$1</mark>");
+      }
+    });
+  }
+  
   // Erstelle HTML mit Überschriften-Navigation
   let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+  
+  // Debug: Logge Tab-Status und targetIndex
+  console.log(`[BOOK] displayBook - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
   
   // Inhaltsverzeichnis im Main Viewer NUR im GA-Tab anzeigen (wie bei Vortragsbänden)
   // Im GA-Tab: NUR TOC anzeigen, kein Text
@@ -7500,9 +7678,16 @@ async function displayBook(book, highlightHeadingId = null) {
     
     html += '</div>';
     // KEIN Content im GA-Tab, nur TOC
-  } else if (isInTexteTab) {
-    // Im Texte-Tab: Content anzeigen (TOC wird im Sidebar angezeigt)
+  }
+  
+  // Content anzeigen wenn:
+  // 1. NICHT im GA-Tab (im GA-Tab wird nur TOC angezeigt)
+  // 2. Im Texte-Tab wird TOC im Sidebar angezeigt, in anderen Tabs (z.B. Suche) wird Content im Main Viewer angezeigt
+  if (!isInGATab) {
+    console.log(`[BOOK] Zeige Content an - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
     html += '<div class="book-content">' + content + '</div>';
+  } else {
+    console.log(`[BOOK] KEIN Content angezeigt (GA-Tab) - isInGATab: ${isInGATab}`);
   }
   
   html += '</div>';
@@ -7564,6 +7749,30 @@ async function displayBook(book, highlightHeadingId = null) {
       }
     }
     
+    // Verarbeite Paragraph-Indizes und scrolle zum Ziel-Absatz (für Suche)
+    // WICHTIG: Direkt im gleichen setTimeout nach Überschriften, damit Content gerendert ist
+    // WICHTIG: Funktioniert in allen Tabs (Suche, Suche_erweitert, Texte), nicht nur im Texte-Tab
+    if (targetIndex) {
+      // Verwende längere Verzögerung, damit der Content vollständig gerendert ist
+      setTimeout(() => {
+        const bookContentDiv = viewer.querySelector('.book-content');
+        if (bookContentDiv) {
+          processParagraphIndex(bookContentDiv, targetIndex);
+        } else {
+          console.log(`[BOOK] .book-content nicht gefunden, versuche erneut...`);
+          // Versuche es nochmal nach längerer Verzögerung
+          setTimeout(() => {
+            const bookContentDivRetry = viewer.querySelector('.book-content');
+            if (bookContentDivRetry) {
+              processParagraphIndex(bookContentDivRetry, targetIndex);
+            } else {
+              console.log(`[BOOK] .book-content auch nach Retry nicht gefunden`);
+            }
+          }, 300);
+        }
+      }, 100); // Verzögerung, damit Content gerendert ist
+    }
+    
     // Panel-Verhalten je nach Tab:
     // - GA-Tab: TOC im Main Viewer, Sidebar schließen
     // - Texte-Tab: TOC im Sidebar, Sidebar öffnen
@@ -7575,8 +7784,10 @@ async function displayBook(book, highlightHeadingId = null) {
     // Prüfe nochmal welcher Tab aktiv ist (kann sich geändert haben)
     const gaTabCheck = document.getElementById('ga-tab');
     const texteTabCheck = document.getElementById('texte-tab');
+    const keywordTabCheck = document.getElementById('keyword-tab');
     const isInGATabNow = gaTabCheck && gaTabCheck.classList.contains('active');
     const isInTexteTabNow = texteTabCheck && texteTabCheck.classList.contains('active');
+    const isInKeywordTabNow = keywordTabCheck && keywordTabCheck.classList.contains('active');
     
     if (isInGATabNow) {
       // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
@@ -7596,10 +7807,12 @@ async function displayBook(book, highlightHeadingId = null) {
         document.body.classList.add('summary-panel-collapsed');
         console.log('[BOOK] Summary-Panel geschlossen (GA-Tab: TOC wird im Main Viewer angezeigt)');
       }
-    } else if (isInTexteTabNow) {
+    } else if (isInTexteTabNow || isInKeywordTabNow) {
+      // Texte-Tab ODER Suche-Tab: Öffne Sidebar für TOC-Anzeige
       // Texte-Tab: Öffne Sidebar für TOC-Anzeige
       if (summaryPanel) {
-        console.log('[BOOK] Öffne Summary-Panel für TOC (Texte-Tab)...');
+        const tabName = isInTexteTabNow ? 'Texte-Tab' : 'Suche-Tab';
+        console.log(`[BOOK] Öffne Summary-Panel für TOC (${tabName})...`);
         
         // WICHTIG: Setze lastSyncedWidth zurück, damit syncMainContainerWithPanel() neu synchronisiert
         // (sonst könnte eine alte Breite verwendet werden)
@@ -9534,11 +9747,13 @@ function displayGAChronological(lectures) {
             const searchWord = isExactMatch ? cleanWord : word;
             const exactFlag = isExactMatch ? '1' : '0';
             
+            // Für Bücher: Verwende result.index (String wie "^yz23gu") statt result.paragraphIndex (Integer)
+            const paragraphIndexValue = result.isBook && result.index ? result.index : result.paragraphIndex;
             html += `<td class="advanced-search-cell" style="padding: 0.5rem; vertical-align: top; cursor: pointer;" 
                       data-lecture-id="${result.lectureId}" 
                       data-search-word="${searchWord.replace(/"/g, '&quot;')}" 
                       data-exact-match="${exactFlag}"
-                      data-paragraph-index="${result.paragraphIndex}"
+                      data-paragraph-index="${paragraphIndexValue}"
                       onclick="showLectureFromAdvancedSearchData(this)">`;
             html += `<div class="advanced-search-result-title">${lectureInfo}</div>`;
             html += `<div class="advanced-search-snippet" style="font-size: 0.85em;">${highlightedSnippet}</div>`;
@@ -9563,11 +9778,22 @@ function displayGAChronological(lectures) {
       const isExactMatch = element.dataset.exactMatch === '1';
       
       // Parse paragraphIndex - kann Integer oder String sein
+      // Für Bücher sollte es der String-Index sein (z.B. "^yz23gu"), nicht der Integer paragraphIndex
       let paragraphIndex = null;
       if (element.dataset.paragraphIndex) {
-        const parsed = parseInt(element.dataset.paragraphIndex);
-        // Wenn erfolgreich geparst (nicht NaN), verwende als Integer
-        paragraphIndex = isNaN(parsed) ? element.dataset.paragraphIndex : parsed;
+        // Prüfe ob es ein String-Index ist (beginnt mit ^ oder enthält Buchstaben)
+        const indexValue = element.dataset.paragraphIndex;
+        if (indexValue.includes('^') || /[a-z]/.test(indexValue)) {
+          // Es ist ein String-Index (z.B. "^yz23gu" oder "yz23gu")
+          paragraphIndex = indexValue;
+        } else {
+          // Es ist ein Integer paragraphIndex - muss zu String-Index konvertiert werden
+          // Für Bücher: Verwende result.index statt result.paragraphIndex
+          // TODO: Backend sollte result.index statt result.paragraphIndex für Bücher senden
+          const parsed = parseInt(indexValue);
+          paragraphIndex = isNaN(parsed) ? indexValue : parsed;
+        }
+        console.log(`[ADVANCED-SEARCH] paragraphIndex geparst: ${paragraphIndex}, Typ: ${typeof paragraphIndex}`);
       }
       
       // Rekonstruiere das Suchwort mit Anführungszeichen wenn nötig
@@ -9579,7 +9805,20 @@ function displayGAChronological(lectures) {
     }
     
     async function showLectureFromAdvancedSearch(lectureId, searchTerm, paragraphIndex = null) {
-      console.log(`[ADVANCED-SEARCH] Zeige Vortrag ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex} (Typ: ${typeof paragraphIndex})`);
+      console.log(`[ADVANCED-SEARCH] Zeige Vortrag/Buch ${lectureId} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex} (Typ: ${typeof paragraphIndex})`);
+      
+      // Prüfe ob es ein Buch ist (GA001-GA046)
+      // Extrahiere GA-Nummer aus lectureId (z.B. "GA001/1" -> "GA001")
+      const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+      if (gaMatch) {
+        const gaNumber = gaMatch[1];
+        if (isBookGANumber(gaNumber)) {
+          console.log(`[ADVANCED-SEARCH] Erkenne als Buch: ${gaNumber}`);
+          // Für Bücher: Verwende showBookFromAdvancedSearch
+          await showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex);
+          return;
+        }
+      }
       
       try {
         // Lade den vollständigen Vortrag mit Paragraphen
@@ -9765,6 +10004,15 @@ function displayGAChronological(lectures) {
               content = content.replace(regex, '<mark>$1</mark>');
             }
             
+            // Wenn kein searchTerm, aber currentKeywordText vorhanden und Ziel-Absatz: Markiere Keyword-Text
+            if (!searchTerm && currentKeywordText && isTargetPara && currentKeywordText.trim()) {
+              const keywordToHighlight = currentKeywordText.trim();
+              const escapedKeyword = keywordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              // Case-insensitive Markierung (wie bei Suchbegriffen)
+              const regex = new RegExp(`(${escapedKeyword})`, 'gi');
+              content = content.replace(regex, '<mark>$1</mark>');
+            }
+            
             const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
             
             html += `
@@ -9777,12 +10025,12 @@ function displayGAChronological(lectures) {
           html += '</div>';
           summaryContent.innerHTML = html;
           
-          // Scrolle zum Ziel-Paragraph
+          // Scrolle zum Ziel-Paragraph (direkt, nicht smooth)
           if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
             setTimeout(() => {
               const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
               if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
               }
             }, 100);
           } else {
@@ -9790,7 +10038,7 @@ function displayGAChronological(lectures) {
             setTimeout(() => {
               const firstHighlight = summaryContent.querySelector('mark');
               if (firstHighlight) {
-                firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstHighlight.scrollIntoView({ behavior: 'auto', block: 'center' });
               }
             }, 100);
           }
@@ -9860,6 +10108,331 @@ function displayGAChronological(lectures) {
       } catch (error) {
         console.error('[ADVANCED-SEARCH] Fehler beim Laden des Vortrags:', error);
         alert('Fehler beim Laden des Vortrags: ' + error.message);
+      }
+    }
+    
+    // Funktion: Zeigt ein Buch im rechten Panel (für erweiterte Suche)
+    async function showBookFromAdvancedSearch(gaNumber, searchTerm, paragraphIndex = null) {
+      console.log(`[BOOK-ADV-SEARCH] Zeige Buch ${gaNumber} im rechten Panel für Suchwort "${searchTerm}", Absatz: ${paragraphIndex} (Typ: ${typeof paragraphIndex})`);
+      
+      try {
+        // Lade das Buch
+        const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+        if (!response.ok) throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+        
+        const book = await response.json();
+        console.log(`[BOOK-ADV-SEARCH] Buch geladen:`, {
+          title: book.title,
+          hasParagraphs: !!book.paragraphs,
+          paragraphsLength: book.paragraphs?.length,
+          hasContent: !!book.content,
+          contentLength: book.content?.length
+        });
+        
+        // Öffne das rechte Summary-Panel
+        const summaryPanel = document.getElementById('summary-panel');
+        const mainContainer = document.getElementById('main-container');
+        
+        if (summaryPanel) {
+          // Prüfe ob Panel bereits offen ist
+          const wasAlreadyVisible = summaryPanel.classList.contains('visible');
+          const currentPanelWidth = summaryPanel.offsetWidth || 0;
+          
+          summaryPanel.classList.add('visible');
+          
+          // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
+          if (!wasAlreadyVisible || currentPanelWidth === 0) {
+            // Verwende gespeicherte Breite oder Standard (450px für erweiterte Suche)
+            const panelWidth = savedSummaryPanelWidth || 450;
+            summaryPanel.style.width = panelWidth + 'px';
+            summaryPanel.style.minWidth = panelWidth + 'px';
+            
+            // Passe Main-Container an, damit Viewer sich verkleinert
+            if (mainContainer) {
+              mainContainer.style.marginRight = panelWidth + 'px';
+            }
+          }
+          
+          summaryPanel.style.display = 'block';
+          summaryPanel.style.opacity = '1';
+          summaryPanel.style.visibility = 'visible';
+        }
+        
+        // Zeige den verticalResizeHandle-Wrapper
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          console.log('[BOOK-SNIPPET-CLICK] Zeige verticalResizeHandleWrapper');
+          verticalResizeHandleWrapper.classList.add('visible');
+          verticalResizeHandleWrapper.style.display = 'grid';
+          setTimeout(() => updateHeaderPosition(), 50);
+        }
+        
+        document.body.classList.remove('summary-panel-collapsed');
+        
+        // Rendere das Buch im rechten Panel - wie bei Vorträgen mit einzelnen Paragraphen
+        const summaryContent = document.getElementById('summary-content');
+        if (summaryContent) {
+          // Extrahiere Paragraphen aus dem Buch (wie bei Vorträgen)
+          // Prüfe ob Buch bereits paragraphs Array hat, sonst extrahiere aus content
+          let bookParagraphs = [];
+          if (book.paragraphs && Array.isArray(book.paragraphs)) {
+            bookParagraphs = book.paragraphs;
+            console.log(`[BOOK-ADV-SEARCH] Verwende vorhandenes paragraphs Array: ${bookParagraphs.length} Paragraphen`);
+          } else if (book.content) {
+            // Extrahiere Paragraphen aus content (wie in convertBookToParagraphs)
+            const content = book.content || '';
+            const lines = content.split('\n');
+            let currentParagraph = '';
+            let currentIndex = null;
+            
+            for (let i = 0; i < lines.length; i++) {
+              const line = lines[i];
+              const indexMatch = line.match(/\s+(\^[a-z0-9]+)\s*$/);
+              
+              if (indexMatch) {
+                const index = indexMatch[1];
+                const lineWithoutIndex = line.replace(/\s+\^[a-z0-9]+\s*$/, '').trim();
+                
+                if (currentParagraph || lineWithoutIndex) {
+                  bookParagraphs.push({
+                    index: index,
+                    content: (currentParagraph + (currentParagraph ? ' ' : '') + lineWithoutIndex).trim(),
+                    text: (currentParagraph + (currentParagraph ? ' ' : '') + lineWithoutIndex).trim()
+                  });
+                }
+                
+                currentParagraph = '';
+                currentIndex = index;
+              } else {
+                if (line.trim()) {
+                  currentParagraph += (currentParagraph ? ' ' : '') + line.trim();
+                }
+              }
+            }
+            
+            if (currentParagraph.trim()) {
+              bookParagraphs.push({
+                index: currentIndex || null,
+                content: currentParagraph.trim(),
+                text: currentParagraph.trim()
+              });
+            }
+            
+            // Wenn keine Indizes gefunden wurden, teile nach Absätzen (doppelte Zeilenumbrüche)
+            if (bookParagraphs.length === 0) {
+              const sections = content.split(/\n\n+/);
+              sections.forEach((section, idx) => {
+                if (section.trim()) {
+                  bookParagraphs.push({
+                    index: null,
+                    content: section.trim(),
+                    text: section.trim()
+                  });
+                }
+              });
+            }
+            
+            console.log(`[BOOK-ADV-SEARCH] Paragraphen aus content extrahiert: ${bookParagraphs.length} Paragraphen`);
+          }
+          
+          if (bookParagraphs.length === 0) {
+            console.warn(`[BOOK-ADV-SEARCH] Keine Paragraphen gefunden für Buch ${gaNumber}`);
+            // Zeige zumindest eine Fehlermeldung
+            summaryContent.innerHTML = `<div style="padding: 1rem;"><p>Fehler: Keine Paragraphen gefunden für Buch ${gaNumber}</p></div>`;
+            return;
+          }
+          
+          // Lade headings aus summary-database.json (wie bei Vorträgen)
+          let headings = [];
+          try {
+            const summaryData = await loadSummaryFromDB(gaNumber);
+            if (summaryData && summaryData.headings) {
+              headings = summaryData.headings;
+              console.log('[BOOK-ADV-SEARCH] Headings aus summary-database geladen:', headings.length);
+            }
+          } catch (e) {
+            console.log('[BOOK-ADV-SEARCH] Keine Headings verfügbar:', e.message);
+            // Fallback: Verwende book.headings falls vorhanden
+            if (book.headings && Array.isArray(book.headings)) {
+              headings = book.headings;
+            }
+          }
+          
+          let html = '<div style="padding: 1rem;">';
+          
+          // Titel
+          const displayTitle = book.title || book.fileName || book.ID;
+          html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
+          
+          // Finde den Index des Target-Paragraphs (wie bei Vorträgen)
+          let targetParagraphIdx = null;
+          const paragraphIndexStr = paragraphIndex ? String(paragraphIndex) : '';
+          const hasValidIndex = paragraphIndex !== null && 
+                                 paragraphIndex !== undefined && 
+                                 paragraphIndexStr !== 'null' && 
+                                 paragraphIndexStr !== '';
+          
+          if (hasValidIndex) {
+            const cleanParagraphIndex = paragraphIndexStr.replace(/^\^/, '');
+            targetParagraphIdx = bookParagraphs.findIndex(p => {
+              if (!p.index) return false;
+              const pIndex = String(p.index).replace(/^\^/, '');
+              return pIndex === cleanParagraphIndex || 
+                     String(p.index) === paragraphIndexStr || 
+                     String(p.index) === `^${cleanParagraphIndex}` ||
+                     pIndex === paragraphIndexStr.replace(/^\^/, '');
+            });
+            
+            if (targetParagraphIdx === -1) {
+              console.warn(`[BOOK-ADV-SEARCH] Paragraph mit Index "${paragraphIndexStr}" nicht gefunden`);
+            } else {
+              console.log(`[BOOK-ADV-SEARCH] Paragraph gefunden bei Index: ${targetParagraphIdx}`);
+            }
+          }
+          
+          // Rendere alle Paragraphen MIT Zwischenüberschriften (wie bei Vorträgen)
+          bookParagraphs.forEach((para, idx) => {
+            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            const paraIndexWithCaret = para.index || `^${paraIndex}`;
+            const isTargetPara = targetParagraphIdx !== null && idx === targetParagraphIdx;
+            
+            // Finde passende Überschriften für diesen Paragraph
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = h.index || '';
+              const hIndexClean = hIndex.replace(/^\^/, '');
+              return hIndex === paraIndex || 
+                     hIndex === paraIndexWithCaret || 
+                     hIndexClean === paraIndex;
+            });
+            
+            // Sortiere Überschriften: H3 vor H4
+            const sortedHeadings = matchingHeadings.sort((a, b) => {
+              if (a.level === 'h3' && b.level === 'h4') return -1;
+              if (a.level === 'h4' && b.level === 'h3') return 1;
+              return 0;
+            });
+            
+            // Füge Überschriften VOR dem Paragraph ein
+            sortedHeadings.forEach((heading, hIdx) => {
+              const headingText = heading.text || heading.title || 'Überschrift';
+              const level = heading.level || 'h3';
+              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              
+              html += `<${headingTag} id="adv-heading-${idx}-${hIdx}">${headingText}</${headingTag}>`;
+            });
+            
+            let content = para.content || para.text || '';
+            
+            // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
+            if (typeof marked !== 'undefined' && marked.parse) {
+              content = marked.parse(content, { breaks: true, gfm: true });
+            } else if (typeof marked !== 'undefined' && marked.marked) {
+              content = marked.marked(content, { breaks: true, gfm: true });
+            } else if (typeof marked !== 'undefined') {
+              content = marked(content, { breaks: true, gfm: true });
+            }
+            
+            // Highlighte den Suchbegriff
+            if (searchTerm && searchTerm.trim()) {
+              const cleanTerm = searchTerm.trim();
+              const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
+              const termToHighlight = isExactMatch 
+                ? cleanTerm.slice(1, -1) 
+                : cleanTerm;
+              const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const flags = isExactMatch ? 'g' : 'gi';
+              const regex = new RegExp(`(${escapedTerm})`, flags);
+              content = content.replace(regex, '<mark>$1</mark>');
+            }
+            
+            // Wenn kein searchTerm, aber currentKeywordText vorhanden und Ziel-Absatz: Markiere Keyword-Text
+            if (!searchTerm && currentKeywordText && isTargetPara && currentKeywordText.trim()) {
+              const keywordToHighlight = currentKeywordText.trim();
+              const escapedKeyword = keywordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              // Case-insensitive Markierung (wie bei Suchbegriffen)
+              const regex = new RegExp(`(${escapedKeyword})`, 'gi');
+              content = content.replace(regex, '<mark>$1</mark>');
+            }
+            
+            const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+            
+            html += `
+              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" style="margin-bottom: 1rem;">
+                ${content}
+              </div>
+            `;
+          });
+          
+          html += '</div>';
+          summaryContent.innerHTML = html;
+          
+          // Scrolle zum Ziel-Paragraph (direkt, nicht smooth) - genau wie bei Vorträgen
+          if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
+            setTimeout(() => {
+              const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
+              if (targetElement) {
+                // Markiere Suchwort im Ziel-Absatz (wenn searchTerm vorhanden)
+                // Prüfe zuerst searchTerm, dann currentKeywordText als Fallback
+                let termToHighlight = null;
+                if (searchTerm && searchTerm.trim()) {
+                  const cleanTerm = searchTerm.trim();
+                  const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
+                  termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
+                } else if (currentKeywordText && currentKeywordText.trim()) {
+                  termToHighlight = currentKeywordText.trim();
+                }
+                
+                if (termToHighlight) {
+                  const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  const isExactMatch = searchTerm && searchTerm.startsWith('"') && searchTerm.endsWith('"');
+                  const flags = isExactMatch ? 'g' : 'gi';
+                  const regex = new RegExp(`(${escapedTerm})`, flags);
+                  targetElement.innerHTML = targetElement.innerHTML.replace(regex, '<mark>$1</mark>');
+                  console.log(`[BOOK-ADV-SEARCH] Suchwort markiert im Absatz: ${termToHighlight}`);
+                }
+                
+                // Scrolle zum Absatz - genau wie bei Vorträgen
+                targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+                console.log(`[BOOK-ADV-SEARCH] Zu Absatz gescrollt: ${targetParagraphIdx}`);
+              } else {
+                console.warn(`[BOOK-ADV-SEARCH] Paragraph-Element #adv-para-${targetParagraphIdx} nicht gefunden`);
+              }
+            }, 100);
+          } else {
+            // Scrolle zum ersten Highlight wenn kein spezifischer Paragraph angegeben
+            setTimeout(() => {
+              const firstHighlight = summaryContent.querySelector('mark');
+              if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: 'auto', block: 'center' });
+              }
+            }, 100);
+          }
+        }
+        
+        // Setze Titel im document-title
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          const displayTitle = book.title || book.fileName || book.ID;
+          const fullTitle = `${gaNumber} - ${displayTitle}`;
+          
+          documentTitle.textContent = fullTitle;
+          documentTitle.style.cursor = 'pointer';
+          documentTitle.style.color = 'var(--link-color)';
+          documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+          
+          documentTitle.onmouseenter = () => {
+            documentTitle.style.opacity = '0.7';
+          };
+          documentTitle.onmouseleave = () => {
+            documentTitle.style.opacity = '1';
+          };
+          
+          documentTitle.onclick = () => navigateToGAInTexteTab(gaNumber);
+        }
+        
+      } catch (error) {
+        console.error('[ADVANCED-SEARCH] Fehler beim Laden des Buchs:', error);
+        alert('Fehler beim Laden des Buchs: ' + error.message);
       }
     }
     
@@ -10177,8 +10750,9 @@ function displayGAChronological(lectures) {
         // Zähle Treffer
         results.forEach(result => {
           const lectureId = result.lectureId;
+          // Bücher haben kein '/' in der ID (z.B. "GA001"), Vorträge haben '/' (z.B. "GA001/1")
           const parts = lectureId.split('/');
-          const gaBand = parts[0];
+          const gaBand = parts[0]; // Bei Büchern ist das die komplette ID, bei Vorträgen nur der GA-Band
           
           if (!frequencies[gaBand]) {
             frequencies[gaBand] = { total: {}, lectures: {} };
@@ -10188,13 +10762,17 @@ function displayGAChronological(lectures) {
           }
           frequencies[gaBand].total[word]++;
           
-          if (!frequencies[gaBand].lectures[lectureId]) {
-            frequencies[gaBand].lectures[lectureId] = {};
+          // Für Bücher: Verwende die komplette ID als lectureId
+          // Für Vorträge: Verwende die komplette ID (z.B. "GA001/1")
+          const lectureKey = result.isBook ? lectureId : lectureId;
+          
+          if (!frequencies[gaBand].lectures[lectureKey]) {
+            frequencies[gaBand].lectures[lectureKey] = {};
           }
-          if (!frequencies[gaBand].lectures[lectureId][word]) {
-            frequencies[gaBand].lectures[lectureId][word] = 0;
+          if (!frequencies[gaBand].lectures[lectureKey][word]) {
+            frequencies[gaBand].lectures[lectureKey][word] = 0;
           }
-          frequencies[gaBand].lectures[lectureId][word]++;
+          frequencies[gaBand].lectures[lectureKey][word]++;
         });
         
         return { frequencies, proximityFrequencies };
@@ -10227,11 +10805,12 @@ function displayGAChronological(lectures) {
         const data = await response.json();
         const results = data.results || [];
         
-        // Zähle Treffer pro GA-Band und Vortrag
+        // Zähle Treffer pro GA-Band und Vortrag/Buch
         results.forEach(result => {
           const lectureId = result.lectureId;
+          // Bücher haben kein '/' in der ID (z.B. "GA001"), Vorträge haben '/' (z.B. "GA001/1")
           const parts = lectureId.split('/');
-          const gaBand = parts[0];
+          const gaBand = parts[0]; // Bei Büchern ist das die komplette ID, bei Vorträgen nur der GA-Band
           
           if (!frequencies[gaBand]) {
             frequencies[gaBand] = { total: {}, lectures: {} };
@@ -10241,13 +10820,17 @@ function displayGAChronological(lectures) {
           }
           frequencies[gaBand].total[word]++;
           
-          if (!frequencies[gaBand].lectures[lectureId]) {
-            frequencies[gaBand].lectures[lectureId] = {};
+          // Für Bücher: Verwende die komplette ID als lectureId
+          // Für Vorträge: Verwende die komplette ID (z.B. "GA001/1")
+          const lectureKey = result.isBook ? lectureId : lectureId;
+          
+          if (!frequencies[gaBand].lectures[lectureKey]) {
+            frequencies[gaBand].lectures[lectureKey] = {};
           }
-          if (!frequencies[gaBand].lectures[lectureId][word]) {
-            frequencies[gaBand].lectures[lectureId][word] = 0;
+          if (!frequencies[gaBand].lectures[lectureKey][word]) {
+            frequencies[gaBand].lectures[lectureKey][word] = 0;
           }
-          frequencies[gaBand].lectures[lectureId][word]++;
+          frequencies[gaBand].lectures[lectureKey][word]++;
         });
       }
       
@@ -11165,7 +11748,10 @@ function displayGAChronological(lectures) {
               snippetDiv.innerHTML = snippet;
               snippetDiv.style.cursor = 'pointer';
               snippetDiv.setAttribute('data-lecture-id', lectureId);
-              snippetDiv.setAttribute('data-chunk-index', chunk.index);
+              // Verwende chunk.index (Paragraph-Index-String wie ^yz23gu) oder Fallback zu paragraphIndex
+              const chunkIndex = chunk.index || chunk.paragraphIndex || null;
+              snippetDiv.setAttribute('data-chunk-index', chunkIndex);
+              console.log(`[SEARCH] Setze data-chunk-index für ${lectureId}: ${chunkIndex} (chunk.index: ${chunk.index}, chunk.paragraphIndex: ${chunk.paragraphIndex})`);
 
               // If the snippet contains inline GA reference anchors (.ga-reference),
               // bind click handlers to them so they open the viewer and scroll to
@@ -11508,23 +12094,6 @@ function displayGAChronological(lectures) {
     // KONZEPT-ÜBERSICHT FUNKTIONEN
     // =====================================
     
-    function openConceptOverviewTab() {
-      // Zeige und wechsle zum Übersicht-Tab
-      const tabButton = document.getElementById('concept-overview-tab-button');
-      if (tabButton) {
-        tabButton.style.display = 'inline-block';
-      }
-      switchTab('concept-overview');
-      
-      // Fokussiere das Eingabefeld
-      setTimeout(() => {
-        const queryInput = document.getElementById('conceptOverviewQuery');
-        if (queryInput) {
-          queryInput.focus();
-        }
-      }, 100);
-    }
-    
     function setConceptOverviewExample(example) {
       const queryInput = document.getElementById('conceptOverviewQuery');
       if (queryInput) {
@@ -11635,9 +12204,9 @@ function displayGAChronological(lectures) {
       let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
       
       // Begriff/Thema als Überschrift über der Tabelle
-      html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0; border-bottom: 2px solid var(--border-color);">${concept}</div>`;
+      html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border-color);">${concept}</div>`;
       
-      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed;">';
+      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid var(--border-color); border-spacing: 0;">';
       html += '<thead><tr>';
       
       // Spaltenüberschriften (nur noch 4 Spalten)
@@ -11648,8 +12217,10 @@ function displayGAChronological(lectures) {
         { key: 'special', label: 'Besonderheiten', width: '25%' }
       ];
       
-      columns.forEach(col => {
-        html += `<th class="concept-overview-header" style="padding: 0.75rem; background: var(--sidebar-bg); text-align: left; width: ${col.width}; border-bottom: 2px solid var(--border-color); position: sticky; top: 0; z-index: 10; font-size: 0.9em;"><strong>${col.label}</strong></th>`;
+      columns.forEach((col, index) => {
+        const isLast = index === columns.length - 1;
+        const borderRight = isLast ? 'none' : '1px solid var(--border-color)';
+        html += `<th class="concept-overview-header" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${col.width}; border-bottom: 1px solid var(--border-color); border-right: ${borderRight}; position: sticky; top: 0; z-index: 10; font-size: 0.85em;"><strong>${col.label}</strong></th>`;
       });
       
       html += '</tr></thead>';
@@ -11659,22 +12230,22 @@ function displayGAChronological(lectures) {
       html += '<tr>';
       
       // Spalte 1: Definitionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8em; line-height: 1.6;">';
       html += renderCategoryContent(overview.definitionText || '');
       html += '</td>';
       
       // Spalte 2: Funktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8em; line-height: 1.6;">';
       html += renderCategoryContent(overview.functionText || '');
       html += '</td>';
       
       // Spalte 3: Interaktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8em; line-height: 1.6;">';
       html += renderCategoryContent(overview.interactionText || '');
       html += '</td>';
       
-      // Spalte 4: Besonderheiten
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.75rem; vertical-align: top; border-bottom: 1px solid var(--border-color); font-size: 0.85em; line-height: 1.6;">';
+      // Spalte 4: Besonderheiten (letzte Spalte - kein border-right)
+      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; font-size: 0.8em; line-height: 1.6;">';
       html += renderCategoryContent(overview.specialText || '');
       html += '</td>';
       
@@ -13551,6 +14122,28 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   }
 
   try {
+    // Prüfe ob es ein Buch ist (GA001-GA046)
+    const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+    if (gaMatch) {
+      const gaNumber = gaMatch[1];
+      if (isBookGANumber(gaNumber)) {
+        console.log(`[SHOW-LECTURE] Erkenne als Buch: ${gaNumber}, targetIndex: ${targetIndex}, keywords:`, keywords);
+        // Lade das Buch
+        const bookResponse = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+        if (!bookResponse.ok) {
+          throw new Error(`Buch nicht gefunden: ${gaNumber}`);
+        }
+        const book = await bookResponse.json();
+        
+        // Zeige das Buch im Hauptviewer mit Keywords-Hervorhebung und targetIndex
+        console.log(`[SHOW-LECTURE] Rufe displayBook auf mit targetIndex: ${targetIndex}`);
+        await displayBook(book, null, keywords, isPhraseArray, targetIndex);
+        
+        return; // Beende Funktion hier für Bücher
+      }
+    }
+    
+    // Ansonsten: Lade Vortrag wie bisher
     const parts = lectureId.split('/');
     const url = parts.length === 2 
                 ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
@@ -17562,7 +18155,12 @@ function convertGAReferencesToLinksInKeywordResults(container) {
   });
 }
 
+// Globale Variable für aktuellen Keyword-Text (für Markierung in Treffer-Absätzen)
+let currentKeywordText = null;
+
 function displayKeywordThematicResults(keyword, data) {
+  // Speichere aktuellen Keyword-Text für Markierung
+  currentKeywordText = keyword;
   const results = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
   
