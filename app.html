@@ -2239,13 +2239,11 @@ body.dark-mode #thematicSearchInfo {
       color: inherit;
     }
     
-    /* Markierung im Side Panel (Tab Index) - dunkelblau wie im Tab Suche */
+    /* Markierung im Side Panel (Tab Index) - genau wie im Tab Suche */
     #summary-content mark,
     #summary-panel mark {
-      background: rgba(70, 120, 134, 0.3);
+      background: rgba(70, 120, 134, 0.2);
       color: inherit;
-      padding: 0.1em 0.2em;
-      border-radius: 2px;
     }
     
     body.dark-mode #summary-content mark,
@@ -10687,20 +10685,30 @@ function displayGAChronological(lectures) {
                     // Scrolle zum Absatz
                     paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
                     
-                    // Markiere auch das Suchwort im Absatz (falls vorhanden)
+                    // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
                     if (searchTerm && searchTerm.trim()) {
                       const cleanTerm = searchTerm.trim();
                       const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
                       const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
-                      const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                      const flags = isExactMatch ? 'g' : 'gi';
-                      const regex = new RegExp(`(${escapedTerm})`, flags);
                       
-                      // Markiere Suchwort im Absatz (ersetze bereits vorhandene <mark> Tags nicht)
-                      const originalHTML = paragraphElement.innerHTML;
-                      // Entferne bereits vorhandene <mark> Tags für Re-Markierung
-                      const textWithoutMarks = originalHTML.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
-                      paragraphElement.innerHTML = textWithoutMarks.replace(regex, '<mark>$1</mark>');
+                      // Prüfe ob das Suchwort im Absatz-Text vorkommt (case-insensitive)
+                      const paragraphText = paragraphElement.textContent || paragraphElement.innerText || '';
+                      const flags = isExactMatch ? 'g' : 'gi';
+                      const testRegex = new RegExp(termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+                      
+                      if (testRegex.test(paragraphText)) {
+                        // Suchwort kommt vor - markiere es
+                        const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        const regex = new RegExp(`(${escapedTerm})`, flags);
+                        
+                        // Markiere Suchwort im Absatz (ersetze bereits vorhandene <mark> Tags nicht)
+                        const originalHTML = paragraphElement.innerHTML;
+                        // Entferne bereits vorhandene <mark> Tags für Re-Markierung
+                        const textWithoutMarks = originalHTML.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
+                        paragraphElement.innerHTML = textWithoutMarks.replace(regex, '<mark>$1</mark>');
+                      } else {
+                        // Suchwort kommt nicht im Absatz vor - keine Markierung
+                      }
                     }
                     
                     console.log(`[BOOK-ADV-SEARCH] Zu Absatz gescrollt und markiert: ${targetPara.index}`);
@@ -10712,7 +10720,7 @@ function displayGAChronological(lectures) {
               // Fallback: Suche nach Element mit der alten ID (für Kompatibilität)
               const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
               if (targetElement) {
-                // Markiere Suchwort im Ziel-Absatz (wenn searchTerm vorhanden)
+                // Markiere Suchwort im Ziel-Absatz (wenn searchTerm vorhanden UND im Absatz vorkommend)
                 let termToHighlight = null;
                 if (searchTerm && searchTerm.trim()) {
                   const cleanTerm = searchTerm.trim();
@@ -10723,12 +10731,20 @@ function displayGAChronological(lectures) {
                 }
                 
                 if (termToHighlight) {
-                  const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                  // Prüfe ob das Suchwort im Absatz-Text vorkommt (case-insensitive)
+                  const paragraphText = targetElement.textContent || targetElement.innerText || '';
                   const isExactMatch = searchTerm && searchTerm.startsWith('"') && searchTerm.endsWith('"');
                   const flags = isExactMatch ? 'g' : 'gi';
-                  const regex = new RegExp(`(${escapedTerm})`, flags);
-                  targetElement.innerHTML = targetElement.innerHTML.replace(regex, '<mark>$1</mark>');
-                  console.log(`[BOOK-ADV-SEARCH] Suchwort markiert im Absatz: ${termToHighlight}`);
+                  const testRegex = new RegExp(termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+                  
+                  if (testRegex.test(paragraphText)) {
+                    // Suchwort kommt vor - markiere es
+                    const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const regex = new RegExp(`(${escapedTerm})`, flags);
+                    targetElement.innerHTML = targetElement.innerHTML.replace(regex, '<mark>$1</mark>');
+                  } else {
+                    // Suchwort kommt nicht im Absatz vor - keine Markierung
+                  }
                 }
                 
                 // Scrolle zum Absatz - genau wie bei Vorträgen
@@ -12644,14 +12660,16 @@ function displayGAChronological(lectures) {
       viewer.innerHTML = html;
       
       // Konvertiere GA-Referenzen in klickbare Links
+      // WICHTIG: Übergebe das Suchwort (concept), damit Buch-Links das Suchwort für die Markierung haben
       setTimeout(() => {
-        convertGAReferencesToLinks(viewer);
+        convertGAReferencesToLinks(viewer, concept);
       }, 100);
     }
     
-    function convertGAReferencesToLinks(container) {
+    function convertGAReferencesToLinks(container, searchTerm = null) {
       // Finde alle Textknoten und ersetze (GA###/##:index) durch klickbare Links
       // WICHTIG: Durchsuche auch Textknoten innerhalb von HTML-Elementen (z.B. <p>, <strong>)
+      // searchTerm: Optionales Suchwort für die Markierung in Buch-Links
       const walk = document.createTreeWalker(
         container,
         NodeFilter.SHOW_TEXT,
@@ -12661,9 +12679,12 @@ function displayGAChronological(lectures) {
       
       const nodesToReplace = [];
       let node;
+      let debugCount = 0;
       
         while (node = walk.nextNode()) {
         const text = node.nodeValue;
+        
+        
         // Suche nach GA-Referenzen im Format:
         // - (GA###/##:^index) oder (GA###/##) oder GA###/## (Vorträge mit Slash)
         // - (GA###:^index) oder GA###:^index (Bücher ohne Slash, nur mit Doppelpunkt)
@@ -12671,12 +12692,12 @@ function displayGAChronological(lectures) {
         // Index kann mit ^ beginnen und alphanumerisch sein
         // Bücher: GA###:^index oder GA### (ohne Index)
         // WICHTIG: Erkenne auch GA011:^on2ft6 und GA013:^qcdiyz ohne Klammern
-        if (/\(GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?\)/g.test(text) || 
-            /\bGA\d{1,3}[a-z]?\/\d+\b/g.test(text) ||
-            /\(GA\d{1,3}[a-z]?:\^?[a-zA-Z0-9]+\)/g.test(text) ||
+        // WICHTIG: Prüfe zuerst auf Bücher MIT Index, dann auf andere Formate
+        if (/\(GA\d{1,3}[a-z]?:\^?[a-zA-Z0-9]+\)/g.test(text) ||
             /\bGA\d{1,3}[a-z]?:\^?[a-zA-Z0-9]+/g.test(text) ||
-            /\(GA\d{1,3}[a-z]?\)/g.test(text) ||
-            /\bGA\d{1,3}[a-z]?(?![:\/])/g.test(text)) {
+            /\(GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?\)/g.test(text) || 
+            /\bGA\d{1,3}[a-z]?\/\d+\b/g.test(text) ||
+            false) { // Bücher ohne Index werden nicht mehr unterstützt, da alle Links Indizes haben
           nodesToReplace.push(node);
         }
       }
@@ -12689,200 +12710,192 @@ function displayGAChronological(lectures) {
         const fragment = document.createDocumentFragment();
         let lastIndex = 0;
         
-        // Regex für GA-Referenzen mit optionalem Index (kann mit ^ beginnen)
-        // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
-        // Unterstützt sowohl (GA###/##) als auch GA###/## (ohne Klammern)
-        // Unterstützt auch GA###:^index (Bücher ohne Vortragsnummer)
-        // WICHTIG: Erkennt GA-Links auch wenn sie direkt im Text stehen (ohne Klammern)
+        // WICHTIG: Finde ALLE Links zuerst (Vorträge UND Bücher), dann sortiere nach Position
+        // Dies verhindert, dass Links übersprungen werden, wenn sie in falscher Reihenfolge stehen
+        const allMatches = [];
         
-        // Zuerst verarbeite Vorträge mit Slash: GA###/##:^index oder GA###/##
+        // 1. Finde alle Vorträge mit Slash: GA###/##:^index oder GA###/##
         const regexVortrag = /(\()?GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?(\))?/g;
         let match;
-        
+        regexVortrag.lastIndex = 0;
         while ((match = regexVortrag.exec(text)) !== null) {
-          
-          // Prüfe ob Klammern vorhanden sind
-          const hasOpeningParen = match[1] === '(';
-          const hasClosingParen = match[5] === ')';
-          const matchStart = match.index;
-          
-          if (matchStart > lastIndex) {
-            fragment.appendChild(document.createTextNode(text.substring(lastIndex, matchStart)));
-          }
-          
-          // Füge öffnende Klammer hinzu, falls vorhanden
-          if (hasOpeningParen) {
-            fragment.appendChild(document.createTextNode('('));
-          }
-          
-          // Erstelle klickbaren Link - OHNE Padding (wie im Tab Themen)
-          // lectureId im Format GA275/2 oder GA157a/2 (nicht GA275/02)
-          const gaNumber = match[2]; // z.B. "157a" oder "275"
-          const lectureNum = match[3]; // z.B. "2" oder "5"
-          const lectureId = `GA${gaNumber}/${lectureNum}`;
-          
-          // Index: Stelle sicher, dass ^ vorhanden ist
-          const rawIndex = match[4] || '';
-          const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
-          
-          // Für die Anzeige: Original-Nummern ohne Padding (wie im KI-Output)
-          const displayText = `GA${gaNumber}/${lectureNum}`;
-          
-          // Erstelle Link-Element direkt
-          const link = document.createElement('a');
-          link.href = '#';
-          link.className = 'ga-keyword-link';
-          link.textContent = displayText;
-          
-          // Verwende showLectureFromAdvancedSearch für rechtes Panel (wie bei erweiterter Suche)
-          // Parameter: (lectureId, searchTerm, paragraphIndex)
-          // Wichtig: paragraphIndex als String übergeben (z.B. '^l2phk7') für Konzept-Übersicht
-          if (paragraphIndex) {
-            // Escape Anführungszeichen im String
-            const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
-            const escapedLectureId = lectureId.replace(/'/g, "\\'");
-            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
-            console.log(`[GA-LINKS] Link erstellt: ${lectureId} mit Index: ${paragraphIndex}`);
-          } else {
-            const escapedLectureId = lectureId.replace(/'/g, "\\'");
-            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
-          }
-          
-          // Füge den Link hinzu
-          fragment.appendChild(link);
-          
-          // Füge schließende Klammer hinzu, falls vorhanden
-          if (hasClosingParen) {
-            fragment.appendChild(document.createTextNode(')'));
-          }
-          
-          // Aktualisiere lastIndex nach dem Match
-          lastIndex = matchStart + match[0].length;
+          allMatches.push({
+            type: 'vortrag',
+            match: match,
+            index: match.index,
+            length: match[0].length
+          });
         }
         
-        // Dann verarbeite Bücher ohne Slash: GA###:^index oder GA### (ohne Index)
-        // WICHTIG: Prüfe zuerst auf Bücher MIT Index, dann auf Bücher OHNE Index
-        // Dies verhindert, dass GA013 in GA013:^qcdiyz doppelt erkannt wird
-        
-        // 1. Bücher MIT Index: GA###:^index
-        // Pattern erkennt GA011:^on2ft6, GA013:^qcdiyz auch ohne Klammern
-        // Unterstützt auch GA-Referenzen am Ende von Sätzen (mit Komma, Punkt, Leerzeichen)
+        // 2. Finde alle Bücher MIT Index: GA###:^index (mit und ohne Klammern)
         const regexBuchMitIndex = /(\()?GA(\d{1,3}[a-z]?):(\^?[a-zA-Z0-9]+)(\))?/g;
-        regexBuchMitIndex.lastIndex = lastIndex; // Starte nach dem letzten Match
-        
-        while ((match = regexBuchMitIndex.exec(text)) !== null) {
-          
-          // Prüfe ob Klammern vorhanden sind
-          const hasOpeningParen = match[1] === '(';
-          const hasClosingParen = match[4] === ')';
-          const matchStart = match.index;
-          
-          if (matchStart > lastIndex) {
-            fragment.appendChild(document.createTextNode(text.substring(lastIndex, matchStart)));
-          }
-          
-          // Füge öffnende Klammer hinzu, falls vorhanden
-          if (hasOpeningParen) {
-            fragment.appendChild(document.createTextNode('('));
-          }
-          
-          // Erstelle klickbaren Link für Buch (ohne Vortragsnummer)
-          const gaNumber = match[2]; // z.B. "013" oder "011"
-          const lectureId = `GA${gaNumber}`; // Bücher haben keine Vortragsnummer
-          
-          // Index: Stelle sicher, dass ^ vorhanden ist
-          const rawIndex = match[3] || '';
-          const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
-          
-          // Für die Anzeige: Nur GA-Nummer
-          const displayText = `GA${gaNumber}`;
-          
-          // Erstelle Link-Element direkt
-          const link = document.createElement('a');
-          link.href = '#';
-          link.className = 'ga-keyword-link';
-          link.textContent = displayText;
-          
-          // Verwende showLectureFromAdvancedSearch für rechtes Panel
-          if (paragraphIndex) {
-            // Escape Anführungszeichen im String
-            const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
-            const escapedLectureId = lectureId.replace(/'/g, "\\'");
-            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
-            console.log(`[GA-LINKS] Buch-Link erstellt: ${lectureId} mit Index: ${paragraphIndex}`);
-          } else {
-            const escapedLectureId = lectureId.replace(/'/g, "\\'");
-            link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
-          }
-          
-          // Füge den Link hinzu
-          fragment.appendChild(link);
-          
-          // Füge schließende Klammer hinzu, falls vorhanden
-          if (hasClosingParen) {
-            fragment.appendChild(document.createTextNode(')'));
-          }
-          
-          // Aktualisiere lastIndex nach dem Match
-          lastIndex = matchStart + match[0].length;
+        regexBuchMitIndex.lastIndex = 0;
+        let buchMitIndexMatch;
+        while ((buchMitIndexMatch = regexBuchMitIndex.exec(text)) !== null) {
+          allMatches.push({
+            type: 'buch',
+            match: buchMitIndexMatch,
+            index: buchMitIndexMatch.index,
+            length: buchMitIndexMatch[0].length
+          });
         }
         
-        // 2. Bücher OHNE Index: GA### (nur wenn nicht bereits als Teil eines größeren Patterns erkannt)
-        // Prüfe, ob nach GA### kein Doppelpunkt folgt (dann ist es ein Buch ohne Index)
-        const regexBuchOhneIndex = /(\()?GA(\d{1,3}[a-z]?)(?![:\/])(\))?/g;
-        regexBuchOhneIndex.lastIndex = lastIndex; // Starte nach dem letzten Match
-        
-        while ((match = regexBuchOhneIndex.exec(text)) !== null) {
+        // 3. Finde alle Bücher OHNE Index im Text (aber mit Index im HTML): (GA###) oder GA### (ohne Doppelpunkt)
+        // WICHTIG: Prüfe sowohl mit als auch ohne Klammern
+        const regexBuchOhneIndexMitKlammern = /\(GA(\d{1,3}[a-z]?)\)/g;
+        regexBuchOhneIndexMitKlammern.lastIndex = 0;
+        let buchOhneIndexMatchMitKlammern;
+        while ((buchOhneIndexMatchMitKlammern = regexBuchOhneIndexMitKlammern.exec(text)) !== null) {
+          // Prüfe ob dieser Match bereits erfasst wurde (z.B. Teil von GA007:^vjynjd)
+          const matchStart = buchOhneIndexMatchMitKlammern.index;
+          const alreadyFound = allMatches.some(m => {
+            return (matchStart >= m.index && matchStart < m.index + m.length) ||
+                   (m.index >= matchStart && m.index < matchStart + buchOhneIndexMatchMitKlammern[0].length);
+          });
           
-          // Prüfe ob Klammern vorhanden sind
-          const hasOpeningParen = match[1] === '(';
-          const hasClosingParen = match[3] === ')';
-          const matchStart = match.index;
-          
-          // Prüfe ob dieser Match bereits von einem vorherigen Pattern erfasst wurde
-          // (z.B. wenn GA013 Teil von GA013:^qcdiyz war)
-          if (matchStart < lastIndex) {
-            continue; // Überspringe, wurde bereits verarbeitet
+          if (!alreadyFound) {
+            // Erstelle ein Match-Objekt im gleichen Format
+            const fakeMatch = [
+              buchOhneIndexMatchMitKlammern[0],
+              '(', // öffnende Klammer
+              buchOhneIndexMatchMitKlammern[1], // GA-Nummer
+              null, // kein Index im Text
+              ')'  // schließende Klammer
+            ];
+            fakeMatch.index = buchOhneIndexMatchMitKlammern.index;
+            allMatches.push({
+              type: 'buch-ohne-index',
+              match: fakeMatch,
+              index: buchOhneIndexMatchMitKlammern.index,
+              length: buchOhneIndexMatchMitKlammern[0].length
+            });
           }
-          
-          if (matchStart > lastIndex) {
-            fragment.appendChild(document.createTextNode(text.substring(lastIndex, matchStart)));
-          }
-          
-          // Füge öffnende Klammer hinzu, falls vorhanden
-          if (hasOpeningParen) {
-            fragment.appendChild(document.createTextNode('('));
-          }
-          
-          // Erstelle klickbaren Link für Buch (ohne Vortragsnummer und ohne Index)
-          const gaNumber = match[2]; // z.B. "013" oder "011"
-          const lectureId = `GA${gaNumber}`; // Bücher haben keine Vortragsnummer
-          
-          // Für die Anzeige: Nur GA-Nummer
-          const displayText = `GA${gaNumber}`;
-          
-          // Erstelle Link-Element direkt
-          const link = document.createElement('a');
-          link.href = '#';
-          link.className = 'ga-keyword-link';
-          link.textContent = displayText;
-          
-          // Verwende showLectureFromAdvancedSearch für rechtes Panel (ohne Index)
-          const escapedLectureId = lectureId.replace(/'/g, "\\'");
-          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
-          console.log(`[GA-LINKS] Buch-Link erstellt (ohne Index): ${lectureId}`);
-          
-          // Füge den Link hinzu
-          fragment.appendChild(link);
-          
-          // Füge schließende Klammer hinzu, falls vorhanden
-          if (hasClosingParen) {
-            fragment.appendChild(document.createTextNode(')'));
-          }
-          
-          // Aktualisiere lastIndex nach dem Match
-          lastIndex = matchStart + match[0].length;
         }
+        
+        // Auch ohne Klammern prüfen
+        const regexBuchOhneIndexOhneKlammern = /\bGA(\d{1,3}[a-z]?)(?![:\/])\b/g;
+        regexBuchOhneIndexOhneKlammern.lastIndex = 0;
+        let buchOhneIndexMatchOhneKlammern;
+        while ((buchOhneIndexMatchOhneKlammern = regexBuchOhneIndexOhneKlammern.exec(text)) !== null) {
+          // Prüfe ob dieser Match bereits erfasst wurde
+          const matchStart = buchOhneIndexMatchOhneKlammern.index;
+          const alreadyFound = allMatches.some(m => {
+            return (matchStart >= m.index && matchStart < m.index + m.length) ||
+                   (m.index >= matchStart && m.index < matchStart + buchOhneIndexMatchOhneKlammern[0].length);
+          });
+          
+          if (!alreadyFound) {
+            // Erstelle ein Match-Objekt im gleichen Format
+            const fakeMatch = [
+              buchOhneIndexMatchOhneKlammern[0],
+              null, // keine öffnende Klammer
+              buchOhneIndexMatchOhneKlammern[1], // GA-Nummer
+              null, // kein Index im Text
+              null  // keine schließende Klammer
+            ];
+            fakeMatch.index = buchOhneIndexMatchOhneKlammern.index;
+            allMatches.push({
+              type: 'buch-ohne-index',
+              match: fakeMatch,
+              index: buchOhneIndexMatchOhneKlammern.index,
+              length: buchOhneIndexMatchOhneKlammern[0].length
+            });
+          }
+        }
+        
+        // 4. Sortiere alle Matches nach Position
+        allMatches.sort((a, b) => a.index - b.index);
+        
+        // 5. Verarbeite alle Matches in der richtigen Reihenfolge
+        allMatches.forEach(({ type, match, index, length }) => {
+          if (index > lastIndex) {
+            fragment.appendChild(document.createTextNode(text.substring(lastIndex, index)));
+          }
+          
+          if (type === 'vortrag') {
+            // Verarbeite Vortrag
+            const hasOpeningParen = match[1] === '(';
+            const hasClosingParen = match[5] === ')';
+            
+            if (hasOpeningParen) {
+              fragment.appendChild(document.createTextNode('('));
+            }
+            
+            const gaNumber = match[2];
+            const lectureNum = match[3];
+            const lectureId = `GA${gaNumber}/${lectureNum}`;
+            const rawIndex = match[4] || '';
+            const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+            const displayText = `GA${gaNumber}/${lectureNum}`;
+            
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'ga-keyword-link';
+            link.textContent = displayText;
+            
+            if (paragraphIndex) {
+              const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+              const escapedLectureId = lectureId.replace(/'/g, "\\'");
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+              console.log(`[GA-LINKS] Vortrags-Link erstellt: ${lectureId} mit Index: ${paragraphIndex}`);
+            } else {
+              const escapedLectureId = lectureId.replace(/'/g, "\\'");
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+            }
+            
+            fragment.appendChild(link);
+            
+            if (hasClosingParen) {
+              fragment.appendChild(document.createTextNode(')'));
+            }
+          } else if (type === 'buch' || type === 'buch-ohne-index') {
+            // Verarbeite Buch: (GA001:t9x7t2) -> (<a>GA001</a>)
+            const hasOpeningParen = match[1] === '(';
+            const hasClosingParen = match[4] === ')';
+            
+            // Füge öffnende Klammer hinzu
+            if (hasOpeningParen) {
+              fragment.appendChild(document.createTextNode('('));
+            }
+            
+            const gaNumber = match[2];
+            const lectureId = `GA${gaNumber}`;
+            const rawIndex = match[3] || '';
+            // Stelle sicher, dass Index mit ^ beginnt
+            const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+            const displayText = `GA${gaNumber}`;
+            
+            // Erstelle Link-Element
+            const link = document.createElement('a');
+            link.href = '#';
+            link.className = 'ga-keyword-link';
+            link.textContent = displayText;
+            
+            if (paragraphIndex) {
+              // Format: showLectureFromAdvancedSearch('GA001', 'Suchwort', '^t9x7t2')
+              // Übergebe searchTerm für die Markierung im Absatz
+              const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+              const escapedLectureId = lectureId.replace(/'/g, "\\'");
+              const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'") : '';
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', '${escapedIndex}'); return false;`);
+            } else {
+              const escapedLectureId = lectureId.replace(/'/g, "\\'");
+              const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'") : '';
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', null); return false;`);
+            }
+            
+            fragment.appendChild(link);
+            
+            // Füge schließende Klammer hinzu
+            if (hasClosingParen) {
+              fragment.appendChild(document.createTextNode(')'));
+            }
+          }
+          
+          lastIndex = index + length;
+        });
+        
+        // Alle Links wurden bereits oben in der allMatches-Schleife verarbeitet
         
         // Füge restlichen Text hinzu
         if (lastIndex < text.length) {
@@ -18635,10 +18648,13 @@ function convertGAReferencesToLinksInKeywordResults(container) {
   
   while (node = walk.nextNode()) {
     const text = node.nodeValue;
-    // Suche nach GA-Referenzen im Format (GA###/##:^index), (GA###/##) oder GA###/## (ohne Klammern)
+    // Suche nach GA-Referenzen:
+    // - Vorträge: (GA###/##:^index), (GA###/##) oder GA###/## (ohne Klammern)
+    // - Bücher: (GA###:^index) oder GA###:^index (ohne Klammern)
     // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
     // Index kann mit ^ beginnen und alphanumerisch sein
-    if (/GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?/g.test(text)) {
+    if (/GA\d{1,3}[a-z]?\/\d+(?::\^?[a-zA-Z0-9]+)?/g.test(text) ||
+        /GA\d{1,3}[a-z]?:\^?[a-zA-Z0-9]+/g.test(text)) {
       nodesToReplace.push(node);
     }
   }
@@ -18654,62 +18670,117 @@ function convertGAReferencesToLinksInKeywordResults(container) {
     const fragment = document.createDocumentFragment();
     let lastIndex = 0;
     
-    // Regex für GA-Referenzen im Format (GA###/##) mit optionalen Klammern
-    // Unterstützt auch GA157a/2 (mit Buchstaben nach der Nummer)
-    // Format: (GA###/##:^index) oder (GA###/##)
-    const regex = /(\()?GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?(\))?/g;
-    let match;
+    // WICHTIG: Finde ALLE Links zuerst (Vorträge UND Bücher), dann sortiere nach Position
+    const allMatches = [];
     
-    while ((match = regex.exec(text)) !== null) {
-      // Prüfe ob Klammern vorhanden sind
-      const hasOpeningParen = match[1] === '(';
-      const hasClosingParen = match[5] === ')';
-      const matchStart = match.index;
-      
-      if (matchStart > lastIndex) {
-        fragment.appendChild(document.createTextNode(text.substring(lastIndex, matchStart)));
-      }
-      
-      // Füge öffnende Klammer hinzu (immer, da wir alle GA-Links in Klammern anzeigen wollen)
-      fragment.appendChild(document.createTextNode('('));
-      
-      // Erstelle klickbaren Link - OHNE Padding
-      const gaNumber = match[2]; // z.B. "157a" oder "275"
-      const lectureNum = match[3]; // z.B. "2" oder "5"
-      const lectureId = `GA${gaNumber}/${lectureNum}`;
-      
-      // Index: Stelle sicher, dass ^ vorhanden ist
-      const rawIndex = match[4] || '';
-      const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
-      
-      // Für die Anzeige: Original-Nummern ohne Padding
-      const displayText = `GA${gaNumber}/${lectureNum}`;
-      
-      // Erstelle Link-Element direkt
-      const link = document.createElement('a');
-      link.href = '#';
-      link.className = 'ga-keyword-link';
-      link.textContent = displayText;
-      
-      // Verwende showLectureFromAdvancedSearch für rechtes Panel
-      // Parameter: (lectureId, searchTerm, paragraphIndex)
-      if (paragraphIndex) {
-        const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
-        const escapedLectureId = lectureId.replace(/'/g, "\\'");
-        link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
-      } else {
-        const escapedLectureId = lectureId.replace(/'/g, "\\'");
-        link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
-      }
-      
-      // Füge den Link hinzu
-      fragment.appendChild(link);
-      
-      // Füge schließende Klammer hinzu (immer)
-      fragment.appendChild(document.createTextNode(')'));
-      
-      lastIndex = matchStart + match[0].length;
+    // 1. Finde alle Vorträge mit Slash: GA###/##:^index oder GA###/##
+    const regexVortrag = /(\()?GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?(\))?/g;
+    let match;
+    regexVortrag.lastIndex = 0;
+    while ((match = regexVortrag.exec(text)) !== null) {
+      allMatches.push({
+        type: 'vortrag',
+        match: match,
+        index: match.index,
+        length: match[0].length
+      });
     }
+    
+    // 2. Finde alle Bücher MIT Index: GA###:^index (mit und ohne Klammern)
+    const regexBuchMitIndex = /(\()?GA(\d{1,3}[a-z]?):(\^?[a-zA-Z0-9]+)(\))?/g;
+    regexBuchMitIndex.lastIndex = 0;
+    let buchMitIndexMatch;
+    while ((buchMitIndexMatch = regexBuchMitIndex.exec(text)) !== null) {
+      allMatches.push({
+        type: 'buch',
+        match: buchMitIndexMatch,
+        index: buchMitIndexMatch.index,
+        length: buchMitIndexMatch[0].length
+      });
+    }
+    
+    // 3. Sortiere alle Matches nach Position
+    allMatches.sort((a, b) => a.index - b.index);
+    
+    // 4. Verarbeite alle Matches in der richtigen Reihenfolge
+    allMatches.forEach(({ type, match, index, length }) => {
+      if (index > lastIndex) {
+        fragment.appendChild(document.createTextNode(text.substring(lastIndex, index)));
+      }
+      
+      if (type === 'vortrag') {
+        // Verarbeite Vortrag
+        const hasOpeningParen = match[1] === '(';
+        const hasClosingParen = match[5] === ')';
+        
+        if (hasOpeningParen) {
+          fragment.appendChild(document.createTextNode('('));
+        }
+        
+        const gaNumber = match[2];
+        const lectureNum = match[3];
+        const lectureId = `GA${gaNumber}/${lectureNum}`;
+        const rawIndex = match[4] || '';
+        const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+        const displayText = `GA${gaNumber}/${lectureNum}`;
+        
+        const link = document.createElement('a');
+        link.href = '#';
+        link.className = 'ga-keyword-link';
+        link.textContent = displayText;
+        
+        if (paragraphIndex) {
+          const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+          const escapedLectureId = lectureId.replace(/'/g, "\\'");
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+        } else {
+          const escapedLectureId = lectureId.replace(/'/g, "\\'");
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+        }
+        
+        fragment.appendChild(link);
+        
+        if (hasClosingParen) {
+          fragment.appendChild(document.createTextNode(')'));
+        }
+      } else if (type === 'buch') {
+        // Verarbeite Buch: (GA013:^b0i0j3) -> (<a>GA013</a>)
+        const hasOpeningParen = match[1] === '(';
+        const hasClosingParen = match[4] === ')';
+        
+        if (hasOpeningParen) {
+          fragment.appendChild(document.createTextNode('('));
+        }
+        
+        const gaNumber = match[2];
+        const lectureId = `GA${gaNumber}`;
+        const rawIndex = match[3] || '';
+        const paragraphIndex = rawIndex ? (rawIndex.startsWith('^') ? rawIndex : `^${rawIndex}`) : null;
+        const displayText = `GA${gaNumber}`;
+        
+        const link = document.createElement('a');
+        link.href = '#';
+        link.className = 'ga-keyword-link';
+        link.textContent = displayText;
+        
+        if (paragraphIndex) {
+          const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
+          const escapedLectureId = lectureId.replace(/'/g, "\\'");
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+        } else {
+          const escapedLectureId = lectureId.replace(/'/g, "\\'");
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+        }
+        
+        fragment.appendChild(link);
+        
+        if (hasClosingParen) {
+          fragment.appendChild(document.createTextNode(')'));
+        }
+      }
+      
+      lastIndex = index + length;
+    });
     
     // Füge restlichen Text hinzu
     if (lastIndex < text.length) {
