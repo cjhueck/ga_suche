@@ -359,6 +359,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-clamp: 2; /* Standard-Eigenschaft für moderne Browser */
 }
 
 .member-item-quote {
@@ -372,6 +373,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-clamp: 2; /* Standard-Eigenschaft für moderne Browser */
 }
 
 .member-item-note {
