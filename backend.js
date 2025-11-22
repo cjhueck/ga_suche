@@ -5125,19 +5125,36 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   alternativeTerms.push(...sortedAlternatives);
   
   // 4. Bereite Kontext für KI vor (mit Ranking-Scores)
-  // Verwende mehr Ergebnisse für umfassendere KI-Analyse (bis zu 100)
-  const resultsForAI = topResults.slice(0, 100); // Top 100 für KI-Analyse
+  // Adaptive Anzahl basierend auf Gesamttreffern: Bei sehr vielen Treffern weniger Textpassagen verwenden
+  // um Token-Limits nicht zu überschreiten
+  let maxResultsForAI = 100; // Standard: 100 Textpassagen
+  if (rankedResults.length > 50000) {
+    // Bei sehr vielen Treffern (>50k) reduziere auf 30 Textpassagen
+    maxResultsForAI = 30;
+    console.log(`[CONCEPT-OVERVIEW] ⚠️ Viele Treffer (${rankedResults.length}) → reduziere auf ${maxResultsForAI} Textpassagen für Token-Limit`);
+  } else if (rankedResults.length > 10000) {
+    // Bei vielen Treffern (>10k) reduziere auf 50 Textpassagen
+    maxResultsForAI = 50;
+    console.log(`[CONCEPT-OVERVIEW] ⚠️ Viele Treffer (${rankedResults.length}) → reduziere auf ${maxResultsForAI} Textpassagen für Token-Limit`);
+  }
+  
+  const resultsForAI = topResults.slice(0, maxResultsForAI);
   console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI`);
   
-  const contextText = resultsForAI
-    .map((result, index) => {
-      const refId = `${result.ID}:${result.index}`;
-      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
-    })
-    .join('\n\n---\n\n');
+  // Hilfsfunktion zum Erstellen des Kontexttextes
+  const createContextText = (results) => {
+    return results
+      .map((result, index) => {
+        const refId = `${result.ID}:${result.index}`;
+        return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      })
+      .join('\n\n---\n\n');
+  };
   
-  // 5. KI-Prompt für strukturierte Analyse (mit Stichworten statt Zitaten)
-  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Konzept: "${concept}"
+  const contextText = createContextText(resultsForAI);
+  
+  // 5. KI-Prompt-Template für strukturierte Analyse (mit Stichworten statt Zitaten)
+  const createPrompt = (context) => `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Konzept: "${concept}"
 
 AUFGABE:
 Erstelle eine strukturierte Übersicht zum Konzept "${concept}" basierend auf den vorliegenden Textauszügen.
@@ -5217,6 +5234,9 @@ Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
 WICHTIG:
 - Nur STICHWORTE, keine vollständigen Zitate
 - Quellenangaben MÜSSEN im Format (GA###/##:index) sein
+- Verwende NUR Referenzen zu Absätzen, die in den bereitgestellten Textstellen enthalten sind
+- Die Referenzen [GA###:index] in den Textstellen zeigen dir, welche Absätze verfügbar sind
+- Verwende NUR diese Referenzen - erfinde keine neuen Referenzen
 - Maximum 8-10 Stichworte pro Kategorie
 - Nur verschiedene, nicht-redundante Aspekte
 - GRAMMATIKALISCHE KORREKTHEIT: Verb vor Objekt bei verbalen Formulierungen
@@ -5226,10 +5246,12 @@ WICHTIG:
 
 TEXTSTELLEN:
 
-${contextText}
+${context}
 
 Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
 
+  const prompt = createPrompt(contextText);
+  
   console.log('[CONCEPT-OVERVIEW] Sende Anfrage an KI...');
   
   let fullText;
@@ -5243,16 +5265,51 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
     console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten, Länge:', fullText.length);
   } catch (error) {
     console.error('[CONCEPT-OVERVIEW] KI-Anfrage fehlgeschlagen:', error.message);
-    // Fallback: Einfache Textextraktion
-    return {
-      overview: {
-        alternativeTerms: alternativeTerms,
-        definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
-        functionText: 'LLM-Provider erforderlich.',
-        interactionText: 'LLM-Provider erforderlich.',
-        specialText: 'LLM-Provider erforderlich.'
+    
+    // Wenn Token-Limit-Fehler: Versuche mit weniger Textpassagen erneut
+    if ((error.message.includes('too long') || error.message.includes('maximum') || error.message.includes('context_length')) && resultsForAI.length > 20) {
+      console.log(`[CONCEPT-OVERVIEW] ⚠️ Token-Limit überschritten mit ${resultsForAI.length} Textpassagen, versuche mit reduzierter Anzahl...`);
+      
+      // Reduziere auf die Hälfte (mindestens 20)
+      const reducedCount = Math.max(20, Math.floor(resultsForAI.length / 2));
+      const reducedResults = topResults.slice(0, reducedCount);
+      const reducedContextText = createContextText(reducedResults);
+      const reducedPrompt = createPrompt(reducedContextText);
+      
+      try {
+        console.log(`[CONCEPT-OVERVIEW] Wiederhole mit ${reducedCount} Textpassagen...`);
+        const retryResponse = await generateCompletionWithFallback(reducedPrompt, {
+          temperature: 0.3,
+          maxTokens: 4000
+        }, 'analysis');
+        
+        fullText = retryResponse.text || retryResponse.content;
+        console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten (nach Reduzierung), Länge:', fullText.length);
+      } catch (retryError) {
+        console.error('[CONCEPT-OVERVIEW] Wiederholung fehlgeschlagen:', retryError.message);
+        // Fallback: Einfache Textextraktion
+        return {
+          overview: {
+            alternativeTerms: alternativeTerms,
+            definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Token-Limit überschritten auch nach Reduzierung.\n\nFehler: ${retryError.message}`,
+            functionText: 'Token-Limit überschritten.',
+            interactionText: 'Token-Limit überschritten.',
+            specialText: 'Token-Limit überschritten.'
+          }
+        };
       }
-    };
+    } else {
+      // Fallback: Einfache Textextraktion
+      return {
+        overview: {
+          alternativeTerms: alternativeTerms,
+          definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
+          functionText: 'LLM-Provider erforderlich.',
+          interactionText: 'LLM-Provider erforderlich.',
+          specialText: 'LLM-Provider erforderlich.'
+        }
+      };
+    }
   }
   
   // 6. Parse die KI-Antwort in Kategorien
