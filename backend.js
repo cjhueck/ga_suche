@@ -5449,12 +5449,74 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 
         // Nur speichern wenn Datenbank erfolgreich geladen wurde
         if (summaryDB && !dbLoadError) {
+          // WICHTIG: Extrahiere Paragraphs aus dem Book-Content, um die richtigen Indizes zu finden
+          const bookParagraphs = convertBookToParagraphs(book);
+          
           // Konvertiere Book-Headings zu summary-database Format
-          const headingsForDB = book.headings.map(h => ({
-            index: h.id || `heading-${h.line || 0}`,
-            text: h.text,
-            level: `h${h.level || 3}`
-          }));
+          // Jede Überschrift wird mit dem Index des ersten Paragraphs verknüpft, der nach ihr kommt
+          const headingsForDB = book.headings.map(h => {
+            const headingText = (h.text || '').trim();
+            let paragraphIndex = null;
+            
+            // Suche den ersten Paragraph, der nach dieser Überschrift kommt
+            // Die Überschrift sollte im Content vor diesem Paragraph stehen
+            if (headingText && book.content) {
+              const contentLower = book.content.toLowerCase();
+              const headingTextLower = headingText.toLowerCase();
+              
+              // Finde die Position der Überschrift im Content
+              // Suche nach verschiedenen Varianten: "### Überschrift", "## Überschrift", "# Überschrift", oder einfach "Überschrift"
+              const headingPatterns = [
+                new RegExp(`###+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
+                new RegExp(`##+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
+                new RegExp(`#+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
+                new RegExp(`^\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'gmi')
+              ];
+              
+              let headingPosition = -1;
+              for (const pattern of headingPatterns) {
+                const match = contentLower.match(pattern);
+                if (match && match.index !== undefined) {
+                  headingPosition = match.index;
+                  break;
+                }
+              }
+              
+              // Wenn Überschrift gefunden, suche den ersten Paragraph danach
+              if (headingPosition >= 0) {
+                // Finde den ersten Paragraph, der nach dieser Position beginnt
+                for (const para of bookParagraphs) {
+                  if (para.index) {
+                    // Finde die Position dieses Paragraph-Index im Content
+                    const indexPattern = new RegExp(`\\s+${para.index.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'gm');
+                    const paraMatch = book.content.match(indexPattern);
+                    if (paraMatch && paraMatch.index !== undefined && paraMatch.index > headingPosition) {
+                      paragraphIndex = para.index;
+                      break;
+                    }
+                  }
+                }
+              }
+              
+              // Fallback: Wenn keine Position gefunden, suche nach Paragraph, der mit der Überschrift beginnt
+              if (!paragraphIndex) {
+                for (const para of bookParagraphs) {
+                  const paraContentLower = (para.content || para.text || '').toLowerCase().trim();
+                  if (paraContentLower.startsWith(headingTextLower)) {
+                    paragraphIndex = para.index;
+                    break;
+                  }
+                }
+              }
+            }
+            
+            // Verwende den gefundenen Paragraph-Index, oder Fallback auf h.id
+            return {
+              index: paragraphIndex || h.id || `heading-${h.line || 0}`,
+              text: headingText,
+              level: `h${h.level || 3}`
+            };
+          });
 
           // Erstelle oder aktualisiere NUR den Eintrag für dieses Book
           // WICHTIG: Bestehende Vortrags-Einträge bleiben unverändert!
@@ -5462,10 +5524,11 @@ app.get('/api/book/:gaNumber', async (req, res) => {
             summaryDB[bookId] = {};
           }
           summaryDB[bookId].headings = headingsForDB;
-          summaryDB[bookId].tableOfContents = book.headings.map(h => ({
+          // tableOfContents verwendet die gleichen Indizes wie headings
+          summaryDB[bookId].tableOfContents = headingsForDB.map(h => ({
             heading: h.text,
             description: '', // Books haben keine Beschreibungen
-            index: h.id || `heading-${h.line || 0}`
+            index: h.index
           }));
           summaryDB[bookId].version = 'v2';
 
