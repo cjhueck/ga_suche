@@ -228,6 +228,19 @@
     "volume": "018",
     "subtitle": "In ihrer Geschichte als Umriss dargestellt"
   },
+  "GA019": {
+    "gaNumber": "GA019",
+    "title": "Gedanken während der Zeit des Krieges (1915) und weitere Texte zum Weltgeschehen (1917-1921)",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2023",
+    "place": "Basel",
+    "isbn": "9783727401909",
+    "pages": "<c>271</c>\r\n<in>true</in>\r\n<os>271</os>\r\n<ps>271</ps>",
+    "edition": "1. Auflage",
+    "volume": "019",
+    "editor": "Andrea Leubin"
+  },
   "GA020": {
     "gaNumber": "GA020",
     "title": "Vom Menschenrätsel",
@@ -433,6 +446,32 @@
     "volume": "036",
     "subtitle": "Gesammelte Aufsätze 1921-1925 aus der Wochenschrift \"Das Goetheanum\""
   },
+  "GA037": {
+    "gaNumber": "GA037",
+    "title": "Schriften zur Geschichte der anthroposophischen Bewegung und Gesellschaft 1902-1925",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2019",
+    "place": "Basel",
+    "isbn": "3727403705",
+    "pages": "<c>825</c>\r\n<in>true</in>\r\n<os>825</os>\r\n<ps>825</ps>",
+    "edition": "1. Auflage",
+    "volume": "037",
+    "titleSupplement": "Mit Nachträgen zum gesamten Aufsatzwerk Rudolf Steiners (GA 29-36)",
+    "editor": "Monika Philippi"
+  },
+  "GA038": {
+    "gaNumber": "GA038",
+    "title": "Briefe",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1985",
+    "place": "Dornach",
+    "isbn": "9783727403804",
+    "edition": "3., veränderte und erw. Aufl.",
+    "volume": "038",
+    "subtitle": "Band I 1881-1899"
+  },
   "GA039": {
     "gaNumber": "GA039",
     "title": "Briefe",
@@ -467,6 +506,33 @@
     "edition": "1. Aufl.",
     "volume": "040a"
   },
+  "GA041a": {
+    "gaNumber": "GA041a",
+    "title": "Übersetzungen und freie Übertragungen aus dem Alten und Neuen Testament",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727404108",
+    "pages": "<c>293</c>\r\n<in>true</in>\r\n<os>293</os>\r\n<ps>293</ps>",
+    "edition": "1. Auflage",
+    "volume": "041a",
+    "titleSupplement": "Aufzeichnungen aus Notizbüchern, auf Notizzetteln, in Büchern und Briefen, Passagen aus Vortragsmitschriften, ca. 1903-1923",
+    "editor": "David Marc Hoffmann, Anne-Kathrin Weise"
+  },
+  "GA041b": {
+    "gaNumber": "GA041b",
+    "title": "Übersetzungen und freie Übertragungen verschiedener Werke",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727404153",
+    "pages": "<c>563</c>\r\n<in>true</in>\r\n<os>563</os>\r\n<ps>563</ps>",
+    "edition": "1. Auflage",
+    "volume": "041b",
+    "editor": "Monika Philippi"
+  },
   "GA044": {
     "gaNumber": "GA044",
     "title": "Entwürfe, Fragmente und Paralipomena zu den vier Mysteriendramen",
@@ -489,6 +555,19 @@
     "edition": "4. Aufl.",
     "volume": "045",
     "subtitle": "Ein Fragment aus dem Jahre 1910"
+  },
+  "GA046": {
+    "gaNumber": "GA046",
+    "title": "Nachgelassene Abhandlungen und Fragmente 1879-1924",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727404603",
+    "pages": "<c>1030</c>\r\n<in>true</in>\r\n<os>1030</os>\r\n<ps>1030</ps>",
+    "edition": "1. Auflage",
+    "volume": "046",
+    "editor": "Renatus Ziegler, David Marc Hoffmann, Monika Philippi"
   },
   "GA051": {
     "gaNumber": "GA051",
@@ -628,15 +707,25 @@
   },
   "GA062": {
     "gaNumber": "GA062",
-    "title": "Geisteswissenschaft als Lebensgut",
+    "title": "Ergebnisse der Geistesforschung",
     "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
-    "year": "1986",
+    "year": "1988",
     "place": "Dornach",
-    "isbn": "3727406305",
+    "isbn": "3727406208",
     "edition": "2. Aufl.",
-    "volume": "063",
-    "titleSupplement": "Zwölf öffentliche Vorträge gehalten zwischen dem 30. Oktober 1913 und 23. April 1914 im Architektenhaus zu Berlin"
+    "volume": "062",
+    "titleSupplement": "Vierzehn öffentliche Vorträge, gehalten zwischen dem 31. Oktober 1912 und dem 10. April 1913 im Architektenhaus zu Berlin"
+  },
+  "GA063": {
+    "gaNumber": "GA063",
+    "title": "Beiträge zur Rudolf Steiner Gesamtausgabe",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1978",
+    "place": "Dornach",
+    "pages": "<c>37</c>\r\n<in>true</in>\r\n<os>37</os>\r\n<ps>37</ps>",
+    "subtitle": "Heft Nr. 63 Zum Atomismus",
+    "editor": "Rudolf-Steiner-Nachlassverwaltung"
   },
   "GA064": {
     "gaNumber": "GA064",
@@ -661,6 +750,18 @@
     "titleSupplement": "Fünfzehn öffentliche Vorträge gehalten zwischen dem 2. Dezember 1915 und dem 15. April 1916 im Architektenhaus zu Berlin",
     "originalPublication": "1916"
   },
+  "GA066": {
+    "gaNumber": "GA066",
+    "title": "Geist und Stoff, Leben und Tod",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "1988",
+    "place": "Dornach",
+    "isbn": "3-7274-0660-7",
+    "edition": "2. Aufl.",
+    "volume": "066",
+    "titleSupplement": "Sieben öffentliche Vorträge, gehalten zwischen dem 15. Februar und dem 31. März 1917 im Architektenhaus zu Berlin"
+  },
   "GA067": {
     "gaNumber": "GA067",
     "title": "Das Ewige in der Menschenseele. Unsterblichkeit und Freiheit",
@@ -673,6 +774,61 @@
     "volume": "067",
     "titleSupplement": "Zehn öffentliche Vorträge, gehalten in Berlin zwischen dem 24. Januar und 20. April 1918",
     "originalPublication": "1918"
+  },
+  "GA068a": {
+    "gaNumber": "GA068a",
+    "title": "Über das Wesen des Christentums",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727406805",
+    "pages": "<c>699</c>\r\n<in>true</in>\r\n<os>699</os>\r\n<ps>699</ps>",
+    "edition": "1. Auflage",
+    "volume": "068a",
+    "titleSupplement": "Dreiundfünzig öffentliche Vorträge und drei Mitgliedervorträge in verschiedenen Städten 1903-1910, gehalten in Basel, Bern, Berlin, Bielefeld, Bonn, Bremen, Dresden, Düsseldorf, Elberfeld, Frankfurt, Hamburg, Heidelberg, Kassel, Köln, Kristiania, Leipzig, Mainz, München, Regensburg, Stuttgart, Weimar",
+    "editor": "Andrea Leubin"
+  },
+  "GA068b": {
+    "gaNumber": "GA068b",
+    "title": "Der Kreislauf des Menschen innerhalb der Sinnes-, Seelen- und Geisteswelt",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2021",
+    "place": "Basel",
+    "isbn": "9783727406812",
+    "pages": "<c>921</c>\r\n<in>true</in>\r\n<os>921</os>\r\n<ps>921</ps>",
+    "edition": "1. Auflage",
+    "volume": "068b",
+    "titleSupplement": "Achtundfünfzig öffentliche Vorträge und ein Mitgliedervortrag in verschiedenen Städten 1904-1910, gehalten in Basel, Berlin, Bonn, Breslau, Budapest, Düsseldorf, Elberfeld, Hamburg, Hannover, Kassel, Köln, Kristiania, Leipzig, München, Nürnberg, Pforzheim, Stockholm, Stuttgart, Weimar, Wien, Zürich : nach stenografischen Aufzeichnungen, Zuhörernotizen und Zeitungsreferaten",
+    "editor": "Andrea Leubin"
+  },
+  "GA068c": {
+    "gaNumber": "GA068c",
+    "title": "Goethe und die Gegenwart",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2017",
+    "place": "Basel",
+    "isbn": "3727406828",
+    "pages": "<c>616</c>\r\n<in>true</in>\r\n<os>616</os>\r\n<ps>616</ps>",
+    "volume": "068c",
+    "subtitle": "Fünfunddreißig Vorträge in verschiedenen Städten 1889-1912, gehalten in Amsterdam, Basel, Berlin, Bonn, Düsseldorf, Frankfurt, Hamburg, Hannover, Heidelberg, Hermannstadt, Leipzig, München, Kassel, Weimar, Wien, Stuttgart, Heidelberg, Winterthur zwischen 22. November 1889 und 13. Januar 912 : nach Zeitungsreferaten, stenografischen Aufzeichnungen und Notizen von Zuhörern",
+    "editor": "Monika Philippi"
+  },
+  "GA068d": {
+    "gaNumber": "GA068d",
+    "title": "Das Wesen des Menschen im Lichte der Geisteswissenschaft",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2022",
+    "place": "Basel",
+    "isbn": "9783727406836",
+    "pages": "<c>643</c>\r\n<in>true</in>\r\n<os>643</os>\r\n<ps>643</ps>",
+    "edition": "1. Auflage",
+    "volume": "068d",
+    "subtitle": "Dreiunddreißig öffentliche Vorträge und ein Mitgliedervortrag in verschiedenen Städten 1905-1909, gehalten in Berlin, Bonn, Düsseldorf, Eisenach, Hamburg, Hannover, Karlsruhe, Leipzig, Mannheim, München, Nürnberg, Prag, Stuttgart, Weimar, Wiesbaden : nach stenografischen Aufzeichnungen, Zuhörernotizen und Zeitungsreferaten",
+    "editor": "Andrea Leubin"
   },
   "GA069a": {
     "gaNumber": "GA069a",
@@ -689,6 +845,18 @@
   },
   "GA069b": {
     "gaNumber": "GA069b",
+    "title": "Erkenntnis und Unsterblichkeit",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2013",
+    "place": "Dornach",
+    "isbn": "3727406925",
+    "edition": "1. Aufl.",
+    "volume": "069b",
+    "titleSupplement": "Zehn öffentliche Vorträge, gehalten in Düsseldorf, Hamburg, Bremen, Nürnberg, München, Elberfeld und Basel zwischen 19. Februar 1910 und 23. Februar 1911 ; nach stenographischen und freien Nachschriften"
+  },
+  "GA069c": {
+    "gaNumber": "GA069c",
     "title": "Neues Christus-Erleben",
     "author": "Rudolf Steiner",
     "publisher": "Rudolf Steiner Verlag",
@@ -698,6 +866,76 @@
     "edition": "1. Aufl.",
     "volume": "069c",
     "titleSupplement": "Dreizehn öffentliche Vorträge und zwei Fragenbeantwortung, gehalten in Kristiania (Oslo), Stuttgart, Köln, Hamburg, Bremen, Pforzheim, Dresden, Straßburg, Karlsruhe, Nürnberg, München und Mannheim zwischen 13. Juni 1910 und 8. Februar 1914"
+  },
+  "GA069d": {
+    "gaNumber": "GA069d",
+    "title": "Tod und Unsterblichkeit im Lichte der Geisteswissenschaft",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2017",
+    "place": "Basel",
+    "isbn": "9783727406942",
+    "pages": "<c>546</c>\r\n<in>true</in>\r\n<os>546</os>\r\n<ps>546</ps>",
+    "edition": "1. Auflage",
+    "volume": "069d",
+    "titleSupplement": "Zwanzig öffentliche Vorträge und fünf Fragenbeantwortungen, gehalten in Hamburg, Hannover, München, Kassel, Wien, Stuttgart, Heidelberg, Augsburg, Kristiania zwischen 28. November 1910 und 8. Mai 1914 : nach stenografischen Nachschriften und Notizen von Zuhörern",
+    "editor": "Andrea Leubin"
+  },
+  "GA069e": {
+    "gaNumber": "GA069e",
+    "title": "Geisteswissenschaft und die geistigen Ziele unserer Zeit",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2017",
+    "place": "Basel",
+    "isbn": "9783727406959",
+    "pages": "<c>627</c>\r\n<in>true</in>\r\n<os>627</os>\r\n<ps>627</ps>",
+    "edition": "1. Auflage",
+    "volume": "069e",
+    "titleSupplement": "Zwanzig öffentliche Vorträge und fünf Fragenbeantwortungen, gehalten in München, Köln, Stuttgart, Basel, Leipzig, Straßburg, Nürnberg zwischen 9. Dezember 1910 und 13. März 1914 : Notizen von fünf Vorträgen und einer Fragenbeantwortung in Köln, München, Stuttgart zwischen 30. Januar 1911 und 4. März 1914 : nach stenografischen Nachschriften und Notizen von Zuhörern",
+    "editor": "Andrea Leubin"
+  },
+  "GA070a": {
+    "gaNumber": "GA070a",
+    "title": "Menschenseele, Schicksal und Tod",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2022",
+    "place": "Basel",
+    "isbn": "9783727407000",
+    "pages": "<c>1042</c>\r\n<in>true</in>\r\n<os>1042</os>\r\n<ps>1042</ps>",
+    "edition": "1. Auflage",
+    "volume": "070a",
+    "titleSupplement": "Zwanzig öffentliche Vorträge während des Weltkriegs 1914/15 in verschiedenen Städten : nach zum Teil lückenhaften stenografischen Mitschriften",
+    "editor": "Anne-Kathrin Weise"
+  },
+  "GA070b": {
+    "gaNumber": "GA070b",
+    "title": "Wege zur Erkenntnis der ewigen Kräfte der Menschenseele",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2023",
+    "place": "Basel",
+    "isbn": "9783727407055",
+    "pages": "<c>1021</c>\r\n<in>true</in>\r\n<os>1021</os>\r\n<ps>1021</ps>",
+    "edition": "1. Auflage",
+    "volume": "070b",
+    "subtitle": "Siebzehn Vorträge während des Ersten Weltkriegs 1915/1916 in verschiedenen Städten : nach zum Teil lückenhaften stenografischen Mitschriften",
+    "editor": "Hans-Christian Zehnter, David Marc Hoffmann"
+  },
+  "GA071b": {
+    "gaNumber": "GA071b",
+    "title": "Der Mensch als Geist- und Seelenwesen",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2022",
+    "place": "Basel",
+    "isbn": "9783727407154",
+    "pages": "<c>653</c>\r\n<in>true</in>\r\n<os>653</os>\r\n<ps>653</ps>",
+    "edition": "1. Auflage",
+    "volume": "071b",
+    "subtitle": "Siebzehn öffentliche Vorträge in verschiedenen Städten 1918 : gehalten in Basel, Berlin, Hamburg, Leipzig, München, Nürnberg, Prag, Stuttgart, Wien : nach zum Teil lückenhaften stenografischen Aufzeichnungen und Zuhörernotizen",
+    "editor": "Andrea Leubin"
   },
   "GA072": {
     "gaNumber": "GA072",
@@ -746,6 +984,19 @@
     "edition": "4. Aufl.",
     "volume": "074",
     "titleSupplement": "Drei Vorträge gehalten in Dornach vom 22. bis 24. Mai 1920"
+  },
+  "GA075": {
+    "gaNumber": "GA075",
+    "title": "Das Verhältnis der Anthroposophie zur Naturwissenschaft, Grundlagen und Methoden",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2010",
+    "place": "Dornach",
+    "isbn": "9783727407505",
+    "pages": "<c>377</c>\r\n<in>true</in>\r\n<os>377</os>\r\n<ps>377</ps>",
+    "edition": "1. Aufl.",
+    "volume": "075",
+    "titleSupplement": "Fünf öffentliche Vorträge und ein Disputationsabend gehalten in verschiedenen Städten in der Schweiz und in Deutschland zwischen dem 17. Juni 1920 und dem 11. Mai 1922"
   },
   "GA076": {
     "gaNumber": "GA076",
@@ -810,6 +1061,48 @@
     "volume": "079",
     "titleSupplement": "Acht öffentliche Vorträge gehalten vom 25. November bis 2. Dezember 1921 in Kristiania (Oslo)"
   },
+  "GA080a": {
+    "gaNumber": "GA080a",
+    "title": "Das Wesen der Anthroposophie",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2019",
+    "place": "Basel",
+    "isbn": "3727408006",
+    "pages": "<c>625</c>\r\n<in>true</in>\r\n<os>625</os>\r\n<ps>625</ps>",
+    "edition": "1. Auflage",
+    "volume": "080a",
+    "subtitle": "Dreizehn von der Konzertagentur Wolff & Sachs organisierte öffentliche Vorträge, gehalten in Berlin, München, Stuttgart, Frankfurt am Main, Mannheim, Köln, Elberfeld, und Breslau zwischen dem 19. November 1921 und dem 18. Mai 1922 : nach stenografischen Mitschnitten",
+    "editor": "Anne-Kathrin Weise"
+  },
+  "GA080b": {
+    "gaNumber": "GA080b",
+    "title": "Das Innere der Natur und das Wesen der Menschenseele",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727408052",
+    "pages": "<c>631</c>\r\n<in>true</in>\r\n<os>631</os>\r\n<ps>631</ps>",
+    "edition": "1. Auflage",
+    "volume": "080b",
+    "subtitle": "Dreizehn öffentliche Vorträge, gehalten in Bern, Solothurn, Basel, Stuttgart, Berlin, Kristiania/Oslo zwischen 13. Dezember 1920 und 15. Mai 1923, darunter vier öffentliche Vorträge gehalten während des Hochschulkurses 1922 in Berlin : nach stenografischen Nachschriften",
+    "editor": "Anne-Kathrin Weise"
+  },
+  "GA080c": {
+    "gaNumber": "GA080c",
+    "title": "Die anthroposophische Geisteswissenschaft und die großen Zivilisationsfragen der Gegenwart",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727408083",
+    "pages": "<c>499</c>\r\n<in>true</in>\r\n<os>499</os>\r\n<ps>499</ps>",
+    "edition": "1. Auflage",
+    "volume": "080c",
+    "subtitle": "Neun öffentliche Vorträge in den Niederlanden, gehalten in Amsterdam, Hilversum, Utrecht, Delft und Rotterdam zwischen 19. Februar 1921 und 6. November 1922, darunter vier Fragenbeantwortungen und eine Diskussion : nach stenografischen Nachschriften",
+    "editor": "Anne-Kathrin Weise"
+  },
   "GA081": {
     "gaNumber": "GA081",
     "title": "Erneuerungs-Impulse für Kultur und Wissenschaft",
@@ -861,6 +1154,19 @@
     "volume": "084",
     "titleSupplement": "11 öffentl. Vorträge Basel, 9.; Dornach, 14., 15., 20.-22.; Prag, 27. u. 30 April 1923; Wien, 26. u. 29. September 1923; Paris, 26. Mai 1924"
   },
+  "GA087": {
+    "gaNumber": "GA087",
+    "title": "Antike Mysterien und Christentum",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2019",
+    "place": "Basel",
+    "isbn": "9783727408700",
+    "pages": "<c>460</c>\r\n<in>true</in>\r\n<os>460</os>\r\n<ps>460</ps>",
+    "edition": "1. Auflage",
+    "volume": "087",
+    "titleSupplement": "Vierundzwanzig Vorträge über das Christentum als mystische Tatsache, gehalten in Berlin vom 19. Oktober 1901 bis 26. April 1902 nach zum Teil bruchstückhaften stenografischen Mitschriften von Franz Seiler"
+  },
   "GA088": {
     "gaNumber": "GA088",
     "title": "Über die astrale Welt und das Devachan",
@@ -886,6 +1192,58 @@
     "subtitle": "Grundprinzipien der geisteswissenschaftlichen Kosmologie",
     "titleSupplement": "Niederschriften und Vorträge aus den Jahren 1903 - 1906",
     "originalPublication": "1903-1906"
+  },
+  "GA090a": {
+    "gaNumber": "GA090a",
+    "title": "Selbsterkenntnis und Gotteserkenntnis",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727409004",
+    "pages": "<c>575</c>\r\n<in>true</in>\r\n<os>575</os>\r\n<ps>575</ps>",
+    "edition": "1. Auflage",
+    "volume": "090a"
+  },
+  "GA090b": {
+    "gaNumber": "GA090b",
+    "title": "Selbsterkenntnis und Gotteserkenntnis",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727409059",
+    "pages": "<c>437</c>\r\n<in>true</in>\r\n<os>437</os>\r\n<ps>437</ps>",
+    "edition": "1. Auflage",
+    "volume": "090b"
+  },
+  "GA090c": {
+    "gaNumber": "GA090c",
+    "title": "Theosophie und Okkultismus",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2021",
+    "place": "Basel",
+    "isbn": "9783727409073",
+    "pages": "<c>141</c>\r\n<in>true</in>\r\n<os>141</os>\r\n<ps>141</ps>",
+    "edition": "1. Auflage",
+    "volume": "090c",
+    "subtitle": "Fünfzehn \"Lehrstunden\", vornehmlich im Kreis bei Clara Motzkus, Berlin, vermutlich aus dem Jahr 1903 : nach bruchstückhaften Notizen und Mitschriften",
+    "editor": "Renatus Ziegler, Hans-Christian Zehnter"
+  },
+  "GA091": {
+    "gaNumber": "GA091",
+    "title": "Kosmologie und menschliche Evolution - Farbenlehre",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727409103",
+    "pages": "<c>378</c>\r\n<in>true</in>\r\n<os>378</os>\r\n<ps>378</ps>",
+    "edition": "1. Auflage",
+    "volume": "091",
+    "titleSupplement": "Private Lehrstunden für Marie und Olga von Sivers und Mathilde Scholl aus den Jahren 1903 bis 1906 : fragmentarische Aufzeichnungen und Mitschriften von Olga und Marie von Sivers sowie Ausarbeitungen von Mitschriften von Mathilde Scholl",
+    "editor": "Hans-Christian Zehnter"
   },
   "GA092": {
     "gaNumber": "GA092",
@@ -1155,6 +1513,20 @@
     "edition": "7. Aufl.",
     "volume": "110",
     "titleSupplement": "Tierkreis, Planeten, Kosmos ; zehn Vorträge, gehalten in Düsseldorf vom 12. bis 18. April 1909 und zwei Fragenbeantwortungen vom 21. und 22. April 1909"
+  },
+  "GA111": {
+    "gaNumber": "GA111",
+    "title": "Einführung in die Grundlagen der Theosophie",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2018",
+    "place": "Basel",
+    "isbn": "9783727411106",
+    "pages": "<c>260</c>\r\n<in>true</in>\r\n<os>260</os>\r\n<ps>260</ps>",
+    "edition": "1. Auflage",
+    "volume": "111",
+    "titleSupplement": "Drei Vortragsreihen in Hannover, Rom und in niederländischen Städten, 1907 bis 1909 - Mitgliedervorträge, Vorträge vor geschlossenem Kreis und öffentliche Vorträge nach fragmentarischen Aufzeichnungen und Mitschriften",
+    "editor": "Hans-Christian Zehnter"
   },
   "GA112": {
     "gaNumber": "GA112",
@@ -2839,6 +3211,20 @@
     "volume": "245",
     "subtitle": "Aus den Inhalten der \"Esoterischen Schule\""
   },
+  "GA250": {
+    "gaNumber": "GA250",
+    "title": "Zur Geschichte der Deutschen Sektion der Theosophischen Gesellschaft 1902-1913",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727425004",
+    "pages": "<c>883</c>\r\n<in>true</in>\r\n<os>883</os>\r\n<ps>883</ps>",
+    "edition": "1. Auflage",
+    "volume": "250",
+    "titleSupplement": "Vorträge, Ansprachen, Berichte und Protokolle",
+    "editor": "Hans-Christian Zehnter"
+  },
   "GA251": {
     "gaNumber": "GA251",
     "title": "Zur Geschichte der Anthroposophischen Gesellschaft 1913-1922",
@@ -2851,6 +3237,19 @@
     "volume": "251",
     "subtitle": "Vorträge, Ansprachen, Berichte und Protokolle : mit einem Verzeichnis von in der Gesamtausgabe wiedergegebenen Dokumenten zur Gesellschaftsgeschichte 1902-1925",
     "editor": "Hans-Christian Zehnter"
+  },
+  "GA252": {
+    "gaNumber": "GA252",
+    "title": "Zur Geschichte des Johannesbau-Vereins und des Goetheanum-Vereins",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2019",
+    "place": "Basel",
+    "pages": "<c>365</c>\r\n<in>true</in>\r\n<os>365</os>\r\n<ps>365</ps>",
+    "edition": "1. Auflage",
+    "volume": "252",
+    "subtitle": "Vorträge, Ansprachen, Wortmeldungen und Dokumente, Oktober 1911 bis Juni 1924",
+    "editor": "Roland Halfen"
   },
   "GA253": {
     "gaNumber": "GA253",
@@ -3991,6 +4390,19 @@
     "volume": "332a",
     "titleSupplement": "Sechs Vorträge mit Fragenbeantwortungen gehalten in Zürich vom 24. bis 30. Oktober 1919"
   },
+  "GA332b": {
+    "gaNumber": "GA332b",
+    "title": "Zu sozialen und wirtschaftlichen Fragen der Gegenwart",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2020",
+    "place": "Basel",
+    "isbn": "9783727433276",
+    "pages": "<c>540</c>\r\n<in>true</in>\r\n<os>540</os>\r\n<ps>540</ps>",
+    "edition": "1. Auflage",
+    "volume": "332b",
+    "titleSupplement": "Ansprachen, Vorträge, Wortmeldungen und Dokumente 1919-1924"
+  },
   "GA333": {
     "gaNumber": "GA333",
     "title": "Gedankenfreiheit und soziale Kräfte",
@@ -4029,6 +4441,20 @@
     "edition": "1. Aufl.",
     "volume": "335",
     "titleSupplement": "Zehn öffentliche Vorträge, gehalten in Stuttgart zwischen 2. März und 10. November 1920"
+  },
+  "GA336": {
+    "gaNumber": "GA336",
+    "title": "Die großen Fragen der Zeit und die anthroposophische Geist-Erkenntnis",
+    "author": "Rudolf Steiner",
+    "publisher": "Rudolf Steiner Verlag",
+    "year": "2019",
+    "place": "Basel",
+    "isbn": "3727433604",
+    "pages": "<c>597</c>\r\n<in>true</in>\r\n<os>597</os>\r\n<ps>597</ps>",
+    "edition": "1. Auflage",
+    "volume": "336",
+    "titleSupplement": "19 öffentliche Vorträge, zwei Autoreferate sowie Diskussionen und Fragenbeantwortungen gehalten in Bern, Basel, Winterthur, Dornach, Münchenstein, Tübingen, Mannheim, Dresden, Freiburg, Stuttgart, St. Gallen zwischen 6. Februar 1919 und 27. Juni 1921 : nach stenografischen Nachschriften und Zuhörernotizen",
+    "editor": "Andrea Leubin"
   },
   "GA337a": {
     "gaNumber": "GA337a",

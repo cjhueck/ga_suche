@@ -29,6 +29,18 @@ def extract_ga_number(title: str) -> Optional[str]:
             letter_part = ga_num[len(num_part):].lower()
             normalized = f"GA{num_part.zfill(3)}{letter_part}"
             return normalized
+    
+    # Falls kein "GA" gefunden, suche nach reinen Zahlen+Buchstaben-Kombinationen
+    # (z.B. "070a" im Volume-Feld)
+    match = re.search(r'^(\d{1,3}[a-z]?)$', str(title).strip(), re.IGNORECASE)
+    if match:
+        ga_num = match.group(1)
+        if ga_num[0].isdigit():
+            num_part = ga_num.rstrip('abcdefghijklmnopqrstuvwxyz')
+            letter_part = ga_num[len(num_part):].lower()
+            normalized = f"GA{num_part.zfill(3)}{letter_part}"
+            return normalized
+    
     return None
 
 def get_citavi_tables(conn: sqlite3.Connection) -> List[str]:
@@ -134,16 +146,26 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
                         break
             
             # Falls noch keine GA-Nummer gefunden, durchsuche alle Felder
+            # Prüfe besonders das Volume-Feld, da dort manchmal nur "070a" ohne "GA" steht
             if not ga_number:
-                for col in columns:
-                    if entry.get(col) and isinstance(entry[col], str):
-                        field_value = str(entry[col])
-                        if 'GA' in field_value.upper():
-                            extracted_ga = extract_ga_number(field_value)
-                            if extracted_ga:
-                                ga_number = extracted_ga
-                                title_value = field_value if not title_value else title_value
-                                break
+                # Prüfe zuerst Volume-Feld separat (oft steht dort nur "070a" ohne "GA")
+                if 'Volume' in entry and entry['Volume']:
+                    volume_value = str(entry['Volume']).strip()
+                    extracted_ga = extract_ga_number(volume_value)
+                    if extracted_ga:
+                        ga_number = extracted_ga
+                
+                # Falls immer noch nicht gefunden, durchsuche alle Felder nach "GA"
+                if not ga_number:
+                    for col in columns:
+                        if entry.get(col) and isinstance(entry[col], str):
+                            field_value = str(entry[col])
+                            if 'GA' in field_value.upper():
+                                extracted_ga = extract_ga_number(field_value)
+                                if extracted_ga:
+                                    ga_number = extracted_ga
+                                    title_value = field_value if not title_value else title_value
+                                    break
             
             if not ga_number:
                 continue
@@ -297,7 +319,7 @@ def extract_bibliographic_data(citavi_path: str) -> Dict[str, Dict]:
     return bibliographic_data
 
 def main():
-    citavi_path = r"C:\Users\chuec\OneDrive\Dokumente\Citavi 7\Projects\Rudolf Steiner Gesamtausgabe (Kopie)\Rudolf Steiner Gesamtausgabe (Kopie).ctv6"
+    citavi_path = r"C:\Users\chuec\OneDrive\Dokumente\Citavi 7\Projects\Rudolf Steiner Gesamtausgabe\Rudolf Steiner Gesamtausgabe.ctv6"
     output_path = "ga-bibliography.json"
     
     if not Path(citavi_path).exists():
