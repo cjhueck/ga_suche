@@ -5629,6 +5629,11 @@ function normalizeGANumber(gaNumber) {
         if (viewerSummaryBtn) {
           viewerSummaryBtn.style.display = 'none';
         }
+        // Sicherstellen, dass Übersicht-Button auch beim Wechsel zum GA-Tab ausgeblendet wird
+        const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
+        if (viewerOriginalBtn) {
+          viewerOriginalBtn.style.display = 'none';
+        }
       }
       
       // Zusätzliche Sicherheitsprüfung: Info-Button im Index-Tab ausblenden

@@ -5125,36 +5125,19 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   alternativeTerms.push(...sortedAlternatives);
   
   // 4. Bereite Kontext für KI vor (mit Ranking-Scores)
-  // Adaptive Anzahl basierend auf Gesamttreffern: Bei sehr vielen Treffern weniger Textpassagen verwenden
-  // um Token-Limits nicht zu überschreiten
-  let maxResultsForAI = 100; // Standard: 100 Textpassagen
-  if (rankedResults.length > 50000) {
-    // Bei sehr vielen Treffern (>50k) reduziere auf 30 Textpassagen
-    maxResultsForAI = 30;
-    console.log(`[CONCEPT-OVERVIEW] ⚠️ Viele Treffer (${rankedResults.length}) → reduziere auf ${maxResultsForAI} Textpassagen für Token-Limit`);
-  } else if (rankedResults.length > 10000) {
-    // Bei vielen Treffern (>10k) reduziere auf 50 Textpassagen
-    maxResultsForAI = 50;
-    console.log(`[CONCEPT-OVERVIEW] ⚠️ Viele Treffer (${rankedResults.length}) → reduziere auf ${maxResultsForAI} Textpassagen für Token-Limit`);
-  }
-  
-  const resultsForAI = topResults.slice(0, maxResultsForAI);
+  // Verwende mehr Ergebnisse für umfassendere KI-Analyse (bis zu 100)
+  const resultsForAI = topResults.slice(0, 100); // Top 100 für KI-Analyse
   console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI`);
   
-  // Hilfsfunktion zum Erstellen des Kontexttextes
-  const createContextText = (results) => {
-    return results
-      .map((result, index) => {
-        const refId = `${result.ID}:${result.index}`;
-        return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
-      })
-      .join('\n\n---\n\n');
-  };
+  const contextText = resultsForAI
+    .map((result, index) => {
+      const refId = `${result.ID}:${result.index}`;
+      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+    })
+    .join('\n\n---\n\n');
   
-  const contextText = createContextText(resultsForAI);
-  
-  // 5. KI-Prompt-Template für strukturierte Analyse (mit Stichworten statt Zitaten)
-  const createPrompt = (context) => `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Konzept: "${concept}"
+  // 5. KI-Prompt für strukturierte Analyse (mit Stichworten statt Zitaten)
+  const prompt = `Analysiere die folgenden Textstellen aus Rudolf Steiners Werk zum Konzept: "${concept}"
 
 AUFGABE:
 Erstelle eine strukturierte Übersicht zum Konzept "${concept}" basierend auf den vorliegenden Textauszügen.
@@ -5234,9 +5217,6 @@ Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
 WICHTIG:
 - Nur STICHWORTE, keine vollständigen Zitate
 - Quellenangaben MÜSSEN im Format (GA###/##:index) sein
-- Verwende NUR Referenzen zu Absätzen, die in den bereitgestellten Textstellen enthalten sind
-- Die Referenzen [GA###:index] in den Textstellen zeigen dir, welche Absätze verfügbar sind
-- Verwende NUR diese Referenzen - erfinde keine neuen Referenzen
 - Maximum 8-10 Stichworte pro Kategorie
 - Nur verschiedene, nicht-redundante Aspekte
 - GRAMMATIKALISCHE KORREKTHEIT: Verb vor Objekt bei verbalen Formulierungen
@@ -5246,12 +5226,10 @@ WICHTIG:
 
 TEXTSTELLEN:
 
-${context}
+${contextText}
 
 Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
 
-  const prompt = createPrompt(contextText);
-  
   console.log('[CONCEPT-OVERVIEW] Sende Anfrage an KI...');
   
   let fullText;
@@ -5265,51 +5243,16 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
     console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten, Länge:', fullText.length);
   } catch (error) {
     console.error('[CONCEPT-OVERVIEW] KI-Anfrage fehlgeschlagen:', error.message);
-    
-    // Wenn Token-Limit-Fehler: Versuche mit weniger Textpassagen erneut
-    if ((error.message.includes('too long') || error.message.includes('maximum') || error.message.includes('context_length')) && resultsForAI.length > 20) {
-      console.log(`[CONCEPT-OVERVIEW] ⚠️ Token-Limit überschritten mit ${resultsForAI.length} Textpassagen, versuche mit reduzierter Anzahl...`);
-      
-      // Reduziere auf die Hälfte (mindestens 20)
-      const reducedCount = Math.max(20, Math.floor(resultsForAI.length / 2));
-      const reducedResults = topResults.slice(0, reducedCount);
-      const reducedContextText = createContextText(reducedResults);
-      const reducedPrompt = createPrompt(reducedContextText);
-      
-      try {
-        console.log(`[CONCEPT-OVERVIEW] Wiederhole mit ${reducedCount} Textpassagen...`);
-        const retryResponse = await generateCompletionWithFallback(reducedPrompt, {
-          temperature: 0.3,
-          maxTokens: 4000
-        }, 'analysis');
-        
-        fullText = retryResponse.text || retryResponse.content;
-        console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten (nach Reduzierung), Länge:', fullText.length);
-      } catch (retryError) {
-        console.error('[CONCEPT-OVERVIEW] Wiederholung fehlgeschlagen:', retryError.message);
-        // Fallback: Einfache Textextraktion
-        return {
-          overview: {
-            alternativeTerms: alternativeTerms,
-            definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Token-Limit überschritten auch nach Reduzierung.\n\nFehler: ${retryError.message}`,
-            functionText: 'Token-Limit überschritten.',
-            interactionText: 'Token-Limit überschritten.',
-            specialText: 'Token-Limit überschritten.'
-          }
-        };
+    // Fallback: Einfache Textextraktion
+    return {
+      overview: {
+        alternativeTerms: alternativeTerms,
+        definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
+        functionText: 'LLM-Provider erforderlich.',
+        interactionText: 'LLM-Provider erforderlich.',
+        specialText: 'LLM-Provider erforderlich.'
       }
-    } else {
-      // Fallback: Einfache Textextraktion
-      return {
-        overview: {
-          alternativeTerms: alternativeTerms,
-          definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
-          functionText: 'LLM-Provider erforderlich.',
-          interactionText: 'LLM-Provider erforderlich.',
-          specialText: 'LLM-Provider erforderlich.'
-        }
-      };
-    }
+    };
   }
   
   // 6. Parse die KI-Antwort in Kategorien
@@ -5506,74 +5449,12 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 
         // Nur speichern wenn Datenbank erfolgreich geladen wurde
         if (summaryDB && !dbLoadError) {
-          // WICHTIG: Extrahiere Paragraphs aus dem Book-Content, um die richtigen Indizes zu finden
-          const bookParagraphs = convertBookToParagraphs(book);
-          
           // Konvertiere Book-Headings zu summary-database Format
-          // Jede Überschrift wird mit dem Index des ersten Paragraphs verknüpft, der nach ihr kommt
-          const headingsForDB = book.headings.map(h => {
-            const headingText = (h.text || '').trim();
-            let paragraphIndex = null;
-            
-            // Suche den ersten Paragraph, der nach dieser Überschrift kommt
-            // Die Überschrift sollte im Content vor diesem Paragraph stehen
-            if (headingText && book.content) {
-              const contentLower = book.content.toLowerCase();
-              const headingTextLower = headingText.toLowerCase();
-              
-              // Finde die Position der Überschrift im Content
-              // Suche nach verschiedenen Varianten: "### Überschrift", "## Überschrift", "# Überschrift", oder einfach "Überschrift"
-              const headingPatterns = [
-                new RegExp(`###+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
-                new RegExp(`##+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
-                new RegExp(`#+\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'gmi'),
-                new RegExp(`^\\s*${headingText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'gmi')
-              ];
-              
-              let headingPosition = -1;
-              for (const pattern of headingPatterns) {
-                const match = contentLower.match(pattern);
-                if (match && match.index !== undefined) {
-                  headingPosition = match.index;
-                  break;
-                }
-              }
-              
-              // Wenn Überschrift gefunden, suche den ersten Paragraph danach
-              if (headingPosition >= 0) {
-                // Finde den ersten Paragraph, der nach dieser Position beginnt
-                for (const para of bookParagraphs) {
-                  if (para.index) {
-                    // Finde die Position dieses Paragraph-Index im Content
-                    const indexPattern = new RegExp(`\\s+${para.index.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*$`, 'gm');
-                    const paraMatch = book.content.match(indexPattern);
-                    if (paraMatch && paraMatch.index !== undefined && paraMatch.index > headingPosition) {
-                      paragraphIndex = para.index;
-                      break;
-                    }
-                  }
-                }
-              }
-              
-              // Fallback: Wenn keine Position gefunden, suche nach Paragraph, der mit der Überschrift beginnt
-              if (!paragraphIndex) {
-                for (const para of bookParagraphs) {
-                  const paraContentLower = (para.content || para.text || '').toLowerCase().trim();
-                  if (paraContentLower.startsWith(headingTextLower)) {
-                    paragraphIndex = para.index;
-                    break;
-                  }
-                }
-              }
-            }
-            
-            // Verwende den gefundenen Paragraph-Index, oder Fallback auf h.id
-            return {
-              index: paragraphIndex || h.id || `heading-${h.line || 0}`,
-              text: headingText,
-              level: `h${h.level || 3}`
-            };
-          });
+          const headingsForDB = book.headings.map(h => ({
+            index: h.id || `heading-${h.line || 0}`,
+            text: h.text,
+            level: `h${h.level || 3}`
+          }));
 
           // Erstelle oder aktualisiere NUR den Eintrag für dieses Book
           // WICHTIG: Bestehende Vortrags-Einträge bleiben unverändert!
@@ -5581,11 +5462,10 @@ app.get('/api/book/:gaNumber', async (req, res) => {
             summaryDB[bookId] = {};
           }
           summaryDB[bookId].headings = headingsForDB;
-          // tableOfContents verwendet die gleichen Indizes wie headings
-          summaryDB[bookId].tableOfContents = headingsForDB.map(h => ({
+          summaryDB[bookId].tableOfContents = book.headings.map(h => ({
             heading: h.text,
             description: '', // Books haben keine Beschreibungen
-            index: h.index
+            index: h.id || `heading-${h.line || 0}`
           }));
           summaryDB[bookId].version = 'v2';
 
