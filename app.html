@@ -5560,7 +5560,14 @@ function normalizeGANumber(gaNumber) {
           resizeHandle.style.setProperty('display', 'none', 'important');
         }
         
-        // Verstecke den verticalResizeHandle beim Tab-Wechsel
+        // Verstecke den verticalResizeHandle-Wrapper beim Tab-Wechsel (inklusive Trennlinie)
+        const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+        if (verticalResizeHandleWrapper) {
+          verticalResizeHandleWrapper.style.display = 'none';
+          verticalResizeHandleWrapper.classList.remove('visible');
+        }
+        
+        // Verstecke auch das Handle-Element selbst
         const verticalHandle = document.getElementById('verticalResizeHandle');
         if (verticalHandle) {
           verticalHandle.style.display = 'none';
@@ -18048,6 +18055,14 @@ function switchTabExtended(mode) {
   const mainContainer = document.getElementById('main-container');
   if (mainContainer) {
     mainContainer.style.marginRight = '0px';
+  }
+  
+  // Verstecke den verticalResizeHandle-Wrapper (inklusive Trennlinie)
+  const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
+  if (verticalResizeHandleWrapper) {
+    verticalResizeHandleWrapper.style.display = 'none';
+    verticalResizeHandleWrapper.classList.remove('visible');
+    console.log('[TABS] verticalResizeHandleWrapper versteckt');
   }
   
   if (summaryResizeHandle) {
