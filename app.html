@@ -5601,14 +5601,35 @@ function normalizeGANumber(gaNumber) {
       currentLectureSummary = null;
       showingSummaryInMain = false;
       
-      // Verstecke Viewer-Buttons beim Tab-Wechsel
+      // Setze currentGANumber zurück beim Tab-Wechsel
+      // ABER: NICHT beim Wechsel zum Suche-Tab oder Texte-Tab, 
+      // da dort Vorträge angezeigt werden können und currentGANumber beibehalten werden soll
+      // Im Themen-Tab und Timeline-Tab wird currentGANumber zurückgesetzt, damit der Button erst angezeigt wird, wenn ein Vortrag geladen ist
+      // In anderen Tabs wird currentGANumber zurückgesetzt, damit der Info-Button nicht angezeigt wird
+      if (mode !== 'keyword' && mode !== 'texte') {
+        currentGANumber = null;
+      }
+      
+      // Verstecke Viewer-Buttons beim Tab-Wechsel (inkl. Info-Button)
       updateButtonStates();
       
-      // Zusätzliche Sicherheitsprüfung: H4 Toggle Button im GA-Tab ausblenden
+      // Zusätzliche Sicherheitsprüfung: H4 Toggle Button und Übersicht-Button im GA-Tab ausblenden
       if (mode === 'ga') {
         const h4ToggleBtn = document.getElementById('h4ToggleBtn');
         if (h4ToggleBtn) {
           h4ToggleBtn.style.display = 'none';
+        }
+        const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
+        if (viewerSummaryBtn) {
+          viewerSummaryBtn.style.display = 'none';
+        }
+      }
+      
+      // Zusätzliche Sicherheitsprüfung: Info-Button im Index-Tab ausblenden
+      if (mode === 'schlagworte') {
+        const gaInfoBtn = document.getElementById('gaInfoBtn');
+        if (gaInfoBtn) {
+          gaInfoBtn.style.display = 'none';
         }
       }
       
@@ -5693,10 +5714,6 @@ function normalizeGANumber(gaNumber) {
         }, 100);
       }
       
-      // Setze currentGANumber zurück, wenn GA-Tab verlassen wird
-      if (mode !== 'ga' && typeof currentGANumber !== 'undefined') {
-        currentGANumber = null;
-      }
       
       // Leere Results-Bereich bei Tabs, die keine eigene Logik dafür haben
       // (außer GA-Tab, der seine eigene Liste lädt, und keyword-Tab, der schon oben behandelt wurde)
@@ -5727,6 +5744,17 @@ function normalizeGANumber(gaNumber) {
         const resultsDiv = document.getElementById('results');
         if (resultsDiv) {
           resultsDiv.innerHTML = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Lade GA-Bände...</div>';
+        }
+        
+        // Setze currentGANumber zurück, wenn noch kein GA-Band ausgewählt ist
+        // (wird später gesetzt, wenn ein GA-Band ausgewählt wird)
+        // Prüfe ob im URL ein GA-Band-Parameter vorhanden ist
+        const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+        const volumeParam = urlParams.get('volume');
+        if (!volumeParam) {
+          // Kein GA-Band in URL -> zurücksetzen
+          currentGANumber = null;
+          updateButtonStates(); // Aktualisiere Button-Status
         }
         
         // Lade GA-Bände mit kurzem Delay für DOM-Stabilität
@@ -11951,6 +11979,17 @@ function displayGAChronological(lectures) {
       let resultText = ` • ${totalResults} Treffer in ${totalLecturesCount} Vorträgen`;
       document.getElementById('resultInfo').textContent = resultText;
       
+      // Setze currentGANumber basierend auf dem ersten Ergebnis für Info-Button
+      // Extrahiere GA-Nummer aus dem ersten Ergebnis
+      if (results.length > 0 && results[0].ID) {
+        const firstLectureId = results[0].ID;
+        const gaMatch = firstLectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+        if (gaMatch) {
+          currentGANumber = gaMatch[1];
+          updateButtonStates(); // Aktualisiere Button-Status
+        }
+      }
+      
       // Timeline-Darstellung mit CSS Grid: Jahr links, Treffer rechts
       let currentYear = null;
       let isFirstOfYear = false;
@@ -12282,13 +12321,93 @@ function displayGAChronological(lectures) {
     membersPanelBtn.style.display = 'inline-flex';
   }
   
-  // Info-Button: Zeige wenn GA-Band geladen ist (currentGANumber gesetzt)
-  // Dies gilt sowohl wenn ein einzelner Vortrag/Buch geladen ist als auch wenn nur die GA-Band-Übersicht angezeigt wird
+  // Info-Button: Zeige nur wenn ein Vortrag/Text aus einem GA-Band angeklickt und angezeigt wird
+  // NICHT anzeigen im Index-Tab (schlagworte)
+  // Im Themen-Tab und Timeline-Tab: Button anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
+  // Im Texte-Tab: Button anzeigen wenn ein GA-Band im Titel angezeigt wird (currentGANumber gesetzt)
+  // In allen anderen Tabs: Button nur anzeigen wenn ein Vortrag/Buch geladen ist (currentLectureData gesetzt)
   const gaInfoBtn = document.getElementById('gaInfoBtn');
   if (gaInfoBtn) {
-    if (currentGANumber) {
-      gaInfoBtn.style.display = 'inline-flex';
+    // Prüfe ob wir im Index-Tab sind
+    const schlagworteTab = document.getElementById('schlagworte-tab');
+    const isInIndexTab = schlagworteTab && schlagworteTab.classList.contains('active');
+    
+    // Prüfe ob wir im Themen-Tab sind
+    const thematicTab = document.getElementById('thematic-tab');
+    const isInThematicTab = thematicTab && thematicTab.classList.contains('active');
+    
+    // Prüfe ob wir im Timeline-Tab sind
+    const timelineTab = document.getElementById('timeline-tab');
+    const isInTimelineTab = timelineTab && timelineTab.classList.contains('active');
+    
+    // Prüfe ob wir im Texte-Tab sind
+    const texteTab = document.getElementById('texte-tab');
+    const isInTexteTab = texteTab && texteTab.classList.contains('active');
+    
+    if (isInIndexTab) {
+      // Im Index-Tab: Button immer verstecken
+      gaInfoBtn.style.display = 'none';
+    } else if (isInThematicTab || isInTimelineTab) {
+      // Im Themen-Tab oder Timeline-Tab: Button NUR anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
+      // Beim Öffnen des Tabs wird der Button NICHT angezeigt, erst wenn ein Vortrag geladen ist
+      if (currentLectureData) {
+        // Extrahiere GA-Nummer aus currentLectureData
+        const lectureId = currentLectureData.ID || currentLectureData.lectureId;
+        if (lectureId) {
+          const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+          if (gaMatch) {
+            // Setze currentGANumber für zukünftige Verwendung
+            currentGANumber = gaMatch[1];
+            gaInfoBtn.style.display = 'inline-flex';
+          } else {
+            gaInfoBtn.style.display = 'none';
+          }
+        } else {
+          gaInfoBtn.style.display = 'none';
+        }
+      } else {
+        // Kein Vortrag geladen - Button verstecken
+        gaInfoBtn.style.display = 'none';
+      }
+    } else if (isInTexteTab) {
+      // Im Texte-Tab: Button anzeigen wenn ein GA-Band im Titel angezeigt wird (currentGANumber gesetzt)
+      if (currentGANumber) {
+        gaInfoBtn.style.display = 'inline-flex';
+      } else {
+        // Prüfe ob im Titel ein GA-Band angezeigt wird
+        const titleElement = document.getElementById('document-title');
+        if (titleElement) {
+          const titleText = titleElement.textContent || '';
+          const gaMatch = titleText.match(/^(GA\d{1,3}[a-z]?)/i);
+          if (gaMatch) {
+            // Setze currentGANumber basierend auf Titel
+            currentGANumber = gaMatch[1];
+            gaInfoBtn.style.display = 'inline-flex';
+          } else {
+            gaInfoBtn.style.display = 'none';
+          }
+        } else {
+          gaInfoBtn.style.display = 'none';
+        }
+      }
+    } else if (currentLectureData) {
+      // In allen anderen Tabs: Button nur anzeigen wenn ein Vortrag/Buch geladen ist
+      // Extrahiere GA-Nummer aus currentLectureData
+      const lectureId = currentLectureData.ID || currentLectureData.lectureId;
+      if (lectureId) {
+        const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+        if (gaMatch) {
+          // Setze currentGANumber für zukünftige Verwendung
+          currentGANumber = gaMatch[1];
+          gaInfoBtn.style.display = 'inline-flex';
+        } else {
+          gaInfoBtn.style.display = 'none';
+        }
+      } else {
+        gaInfoBtn.style.display = 'none';
+      }
     } else {
+      // Kein Vortrag/Buch geladen - Button verstecken
       gaInfoBtn.style.display = 'none';
     }
   }
@@ -12321,18 +12440,28 @@ function displayGAChronological(lectures) {
     
     // Original und Übersicht Buttons
     if (isBook) {
-      // Book geladen - verstecke "Original", zeige "Übersicht"
+      // Book geladen - verstecke "Original", zeige "Übersicht" (außer im GA-Tab)
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
       if (viewerSummaryBtn) {
-        viewerSummaryBtn.style.display = 'inline-flex';
-        viewerSummaryBtn.innerHTML = '≡ Übersicht';
+        // Im GA-Tab den Übersicht-Button NICHT anzeigen
+        if (isInGATab) {
+          viewerSummaryBtn.style.display = 'none';
+        } else {
+          viewerSummaryBtn.style.display = 'inline-flex';
+          viewerSummaryBtn.innerHTML = '≡ Übersicht';
+        }
       }
     } else {
-      // Vortrag geladen - zeige BEIDE Buttons
+      // Vortrag geladen - zeige BEIDE Buttons (außer Übersicht-Button im GA-Tab)
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'inline-flex';
       if (viewerSummaryBtn) {
-        viewerSummaryBtn.style.display = 'inline-flex';
-        viewerSummaryBtn.innerHTML = '≡ Übersicht';
+        // Im GA-Tab den Übersicht-Button NICHT anzeigen
+        if (isInGATab) {
+          viewerSummaryBtn.style.display = 'none';
+        } else {
+          viewerSummaryBtn.style.display = 'inline-flex';
+          viewerSummaryBtn.innerHTML = '≡ Übersicht';
+        }
       }
     }
   }
@@ -14159,6 +14288,11 @@ function showSummaryView() {
   let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
   const gaNumber = extractGANumber(lecture);
   
+  // Setze currentGANumber für Info-Button
+  if (gaNumber) {
+    currentGANumber = gaNumber;
+  }
+  
   if (gaNumber) {
     titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
   } else {
@@ -14557,6 +14691,22 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log('Anzahl .ga-reference Links:', answerDiv.querySelectorAll('.ga-reference').length);
       
       document.getElementById('status').textContent = `Antwort aus ${sortedSources.length} Quellen`;
+      
+      // Setze currentGANumber für Info-Button
+      // Wenn appliedGA gesetzt ist, verwende das, sonst extrahiere aus Quellen
+      if (appliedGA) {
+        currentGANumber = appliedGA;
+      } else if (sortedSources.length > 0) {
+        // Extrahiere GA-Nummer aus der ersten Quelle
+        const firstSource = sortedSources[0];
+        if (firstSource.ID) {
+          const gaMatch = firstSource.ID.match(/^(GA\d{1,3}[a-z]?)/i);
+          if (gaMatch) {
+            currentGANumber = gaMatch[1];
+          }
+        }
+      }
+      updateButtonStates(); // Aktualisiere Button-Status
       
       // Scroll sidebar to top to show results from the beginning
       document.getElementById('sidebar-content').scrollTop = 0;
@@ -21996,6 +22146,16 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     // Berechne Anzahl einzigartiger Vorträge
     const uniqueLectures = new Set(validEntries.map(e => e.lectureId));
     const lectureCount = uniqueLectures.size;
+    
+    // Setze currentGANumber für Info-Button basierend auf dem ersten Ergebnis
+    if (validEntries.length > 0 && validEntries[0].lectureId) {
+      const firstLectureId = validEntries[0].lectureId;
+      const gaMatch = firstLectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+      if (gaMatch) {
+        currentGANumber = gaMatch[1];
+        updateButtonStates(); // Aktualisiere Button-Status
+      }
+    }
     
     // Aktualisiere Statusanzeige im Admin-Bereich
     const statsDisplay = document.getElementById('timelineStatsDisplay');
