@@ -2526,6 +2526,12 @@ body.dark-mode #thematicSearchInfo {
       color: #6BA3B8 !important;
     }
     
+    /* Dark Mode: Anmerkungen mit Bullet Points behalten kleinere Schriftgröße */
+    body.dark-mode #viewer ul,
+    body.dark-mode #viewer ul li {
+      font-size: 0.85em !important;
+    }
+    
     /* Dark Mode für GA-Übersicht Summary-Texte */
     body.dark-mode .ga-summary-text p {
       color: var(--dark-text-color) !important;
@@ -2544,6 +2550,39 @@ body.dark-mode #thematicSearchInfo {
     #viewer > p:first-of-type {
       font-style: italic;
       margin-bottom: 1rem;
+    }
+    
+    /* Anmerkungen: Bullet Points durch Sternchen ersetzen und kleinere Schriftgröße */
+    #viewer ul {
+      font-size: 0.85em !important;
+      list-style-type: none !important;
+      padding-left: 1.5em !important;
+    }
+    
+    #viewer ul li {
+      font-size: inherit !important;
+      position: relative;
+      padding-left: 0;
+    }
+    
+    /* Fallback: Wenn JavaScript noch nicht gelaufen ist, zeige ein Sternchen mit ::before */
+    #viewer ul li::before {
+      content: "*";
+      position: absolute;
+      left: -0.5em;
+      font-weight: normal;
+    }
+    
+    /* Sternchen-Marker (wird von JavaScript gesetzt) */
+    #viewer ul li .asterisk-marker {
+      position: absolute;
+      left: -0.5em;
+      font-weight: normal;
+    }
+    
+    /* Wenn ein asterisk-marker vorhanden ist, verstecke das ::before */
+    #viewer ul li:has(.asterisk-marker)::before {
+      display: none;
     }
   
     body.dark-mode ul.results-list > li > a {
@@ -5692,6 +5731,15 @@ function normalizeGANumber(gaNumber) {
         }, 50);
       }
       
+      // Beim Wechsel ZUM Texte-Tab: Aktualisiere Statistik wenn kein GA-Band ausgewählt
+      if (mode === 'texte') {
+        setTimeout(() => {
+          if (typeof updateTexteServerInfo === 'function') {
+            updateTexteServerInfo();
+          }
+        }, 50);
+      }
+      
       // Header-Position aktualisieren
       if (typeof updateHeaderPosition === 'function') {
         setTimeout(() => updateHeaderPosition(), 50);
@@ -6148,6 +6196,25 @@ function normalizeGANumber(gaNumber) {
         document.getElementById('thematicServerInfo').innerHTML = errorText;
         document.getElementById('texteServerInfo').innerHTML = errorText;
       }
+    }
+    
+    // Update texteServerInfo: Zeige Gesamtstatistik wenn kein GA-Band ausgewählt
+    function updateTexteServerInfo() {
+      const texteServerInfo = document.getElementById('texteServerInfo');
+      if (!texteServerInfo) return;
+      
+      // Prüfe ob ein GA-Band ausgewählt ist
+      const texteGAFilter = document.getElementById('texteGAFilter');
+      const selectedGA = texteGAFilter ? texteGAFilter.value : '';
+      
+      if (!selectedGA) {
+        // Kein GA-Band ausgewählt: Zeige Gesamtstatistik
+        const defaultText = (typeof totalBooksCount !== 'undefined' && totalBooksCount > 0) 
+          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
+          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
+        texteServerInfo.textContent = defaultText;
+      }
+      // Wenn ein GA-Band ausgewählt ist, wird die Statistik von openGAOverview() gesetzt
     }
     
     // Update serverInfo basierend auf GA-Filter Auswahl
@@ -6846,6 +6913,9 @@ function normalizeGANumber(gaNumber) {
             selectedLectureIds.clear();
             updateSelectionInfo();
             openGAOverview(selectedGA);
+          } else {
+            // Filter zurückgesetzt: Zeige Gesamtstatistik
+            updateTexteServerInfo();
           }
           // Aktualisiere Button-Status (für Keywords-Regeneration)
           updateButtonStates();
@@ -7786,6 +7856,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   html += '</div>';
   
   viewer.innerHTML = html;
+  
+  // Anmerkungen mit mehreren Sternchen behandeln
+  setTimeout(() => replaceBulletPointsWithAsterisks(), 100);
   
   // Setze IDs für Überschriften im gerenderten HTML
   // WICHTIG: Dies muss NACH dem Rendering passieren, damit die Überschriften im DOM sind
@@ -8833,15 +8906,11 @@ async function displayGAOverview(data) {
       const isBook = isBookGANumber(gaNumber);
       
       if (isBook) {
-        // Book: Zeige nur Schrift-Info (keine Vorträge)
-        texteServerInfo.textContent = '1 Schrift';
+        // Book: Keine Statistik anzeigen
+        texteServerInfo.textContent = '';
       } else {
-        // GA-Band mit Vorträgen: Statistik anzeigen
-        // Hole Anzahl der Schriften aus der globalen Variable, falls verfügbar
-        const booksText = (typeof totalBooksCount !== 'undefined' && totalBooksCount > 0) 
-          ? `${totalBooksCount} Schriften · ` 
-          : '';
-        texteServerInfo.textContent = `${booksText}${data.lectureCount} Vorträge`;
+        // GA-Band mit Vorträgen: Nur Anzahl der Vorträge im aktuellen Band anzeigen
+        texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
       }
     }
     // Toggle Button im Texte-Tab anzeigen (nur für GA-Bände mit Vorträgen)
@@ -14531,9 +14600,75 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   }
   
   updateHeaderPosition(); // Header-Position und Viewer-Padding anpassen
+  
+  // Anmerkungen mit mehreren Sternchen behandeln
+  replaceBulletPointsWithAsterisks();
 }
 
-
+// Funktion: Ersetzt Bullet Points durch Sternchen basierend auf der Anzahl der Sternchen im vorherigen Absatz
+function replaceBulletPointsWithAsterisks() {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  // Finde alle Listen im Viewer
+  const lists = viewer.querySelectorAll('ul');
+  
+  lists.forEach(ul => {
+    // Finde den vorherigen Absatz oder Paragraph
+    let previousElement = ul.previousElementSibling;
+    
+    // Suche nach dem vorherigen Text-Element (p, .paragraph, div)
+    while (previousElement && !previousElement.textContent.trim()) {
+      previousElement = previousElement.previousElementSibling;
+    }
+    
+    if (previousElement) {
+      const text = previousElement.textContent || '';
+      // Prüfe, ob der Text mit einem oder mehreren Sternchen endet
+      const asteriskMatch = text.match(/\*+$/);
+      
+      if (asteriskMatch) {
+        const asteriskCount = asteriskMatch[0].length;
+        const asterisks = '*'.repeat(asteriskCount);
+        
+        // Ersetze die Bullet Points durch die entsprechende Anzahl Sternchen
+        const listItems = ul.querySelectorAll('li');
+        listItems.forEach(li => {
+          // Prüfe, ob bereits ein Sternchen-Span vorhanden ist
+          let asteriskSpan = li.querySelector('.asterisk-marker');
+          if (!asteriskSpan) {
+            // Erstelle ein Span-Element für die Sternchen
+            asteriskSpan = document.createElement('span');
+            asteriskSpan.className = 'asterisk-marker';
+            // Füge es am Anfang des li-Elements ein
+            if (li.firstChild) {
+              li.insertBefore(asteriskSpan, li.firstChild);
+            } else {
+              li.appendChild(asteriskSpan);
+            }
+          }
+          asteriskSpan.textContent = asterisks;
+        });
+      } else {
+        // Standard: Ein Sternchen, wenn kein Sternchen im vorherigen Absatz
+        const listItems = ul.querySelectorAll('li');
+        listItems.forEach(li => {
+          let asteriskSpan = li.querySelector('.asterisk-marker');
+          if (!asteriskSpan) {
+            asteriskSpan = document.createElement('span');
+            asteriskSpan.className = 'asterisk-marker';
+            if (li.firstChild) {
+              li.insertBefore(asteriskSpan, li.firstChild);
+            } else {
+              li.appendChild(asteriskSpan);
+            }
+          }
+          asteriskSpan.textContent = '*';
+        });
+      }
+    }
+  });
+}
 
     // Entfernt nur inline style-Attribute aus Backend-HTML, behält CSS-Klassen bei
     function removeInlineStyles(element) {
@@ -17030,6 +17165,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       }
       html += `</div>`;
       viewer.innerHTML = html;
+      
+      // Anmerkungen mit mehreren Sternchen behandeln
+      setTimeout(() => replaceBulletPointsWithAsterisks(), 100);
       
       // Markiere Absätze mit Bookmarks/Zitaten
       if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
