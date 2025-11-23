@@ -203,7 +203,6 @@
     
     /* Konzept-Übersicht: Grid-Zellen */
     .concept-overview-cell {
-      border: 1px solid var(--border-color);
       padding: 0.5rem !important;
     }
     
@@ -214,10 +213,6 @@
       padding-right: 0.5rem !important;
       padding-top: 0.5rem !important;
       padding-bottom: 0.5rem !important;
-    }
-    
-    body.dark-mode .concept-overview-cell {
-      border: 1px solid var(--dark-border-color);
     }
     
     /* Konzept-Übersicht: Snippet Hover */
@@ -12870,57 +12865,30 @@ function displayGAChronological(lectures) {
         return html;
       };
       
-      // Erstelle Grid-HTML mit 4 Spalten (Begriff/Thema als Überschrift über der Tabelle)
-      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
+      // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem;">';
       
-      // Begriff/Thema als Überschrift über der Tabelle (ohne Linie darunter)
+      // Begriff/Thema als Überschrift über den Feldern
       html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0;">${concept}</div>`;
       
-      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid var(--border-color); border-spacing: 0;">';
-      html += '<thead><tr>';
-      
-      // Spaltenüberschriften (nur noch 4 Spalten)
-      const columns = [
-        { key: 'definition', label: 'Definition', width: '25%' },
-        { key: 'function', label: 'Funktion', width: '25%' },
-        { key: 'interactions', label: 'Interaktionen / Bedeutung', width: '25%' },
-        { key: 'special', label: 'Besonderheiten', width: '25%' }
+      // Felder untereinander
+      const fields = [
+        { key: 'definition', label: 'Wer oder was', content: overview.definitionText || '' },
+        { key: 'function', label: 'Wirkung', content: overview.functionText || '' },
+        { key: 'interactions', label: 'Wechselwirkung & Bedeutung', content: overview.interactionText || '' },
+        { key: 'special', label: 'Besonderheiten', content: overview.specialText || '' }
       ];
       
-      columns.forEach((col, index) => {
-        const isLast = index === columns.length - 1;
-        const borderRight = isLast ? 'none' : '1px solid var(--border-color)';
-        html += `<th class="concept-overview-header" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${col.width}; border-bottom: 1px solid var(--border-color); border-right: ${borderRight}; position: sticky; top: 0; z-index: 10; font-size: 0.85em;"><strong>${col.label}</strong></th>`;
+      fields.forEach((field, index) => {
+        const isLast = index === fields.length - 1;
+        html += `<div style="margin-bottom: ${isLast ? '0' : '0.3rem'}; padding-bottom: ${isLast ? '0' : '0.3rem'};">`;
+        html += `<div class="concept-overview-header" style="padding: 0.2rem 0; background: var(--sidebar-bg); text-align: left; font-size: 0.85em; margin-bottom: 0;"><strong>${field.label}</strong></div>`;
+        html += `<div class="concept-overview-cell concept-content" style="padding: 0; font-size: 0.8rem !important; line-height: 1.6;">`;
+        html += renderCategoryContent(field.content);
+        html += '</div>';
+        html += '</div>';
       });
       
-      html += '</tr></thead>';
-      html += '<tbody>';
-      
-      // Erstelle eine Zeile mit allen Spalten
-      html += '<tr>';
-      
-      // Spalte 1: Definitionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.definitionText || '');
-      html += '</td>';
-      
-      // Spalte 2: Funktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.functionText || '');
-      html += '</td>';
-      
-      // Spalte 3: Interaktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.interactionText || '');
-      html += '</td>';
-      
-      // Spalte 4: Besonderheiten (letzte Spalte - kein border-right)
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.specialText || '');
-      html += '</td>';
-      
-      html += '</tr>';
-      html += '</tbody></table>';
       html += '</div>';
       
       viewer.innerHTML = html;
