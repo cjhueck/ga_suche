@@ -760,9 +760,9 @@ def korrigiere_rechtschreibung(text):
         'weiss': 'weiß',
         # Zusammengesetzte Wörter mit Bindestrich
         'ChristusWesenheit': 'Christus-Wesenheit',
-        'JohannesEvangelium': 'Johannes-Evangelium',
+        'Johannes-Evangelium': 'Johannes-Evangelium',
         'SeelischGeistiges': 'Seelisch-Geistiges',
-        'GeistigSeelisches': 'Geistig-Seelisches',
+        'Geistig-Seelisches': 'Geistig-Seelisches',
         'geistigseelisch': 'geistig-seelisch',
         'seelischgeistig': 'seelisch-geistig',
         'westund mitteleuropäisch': 'west- und mitteleuropäisch',

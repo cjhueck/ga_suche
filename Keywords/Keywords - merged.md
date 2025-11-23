@@ -896,7 +896,7 @@
 - Kritische Haltung des 19. Jahrhunderts gegenüber der Heiligen Schrift ([[GA068a (25.) BIBEL UND WEISHEIT, Stuttgart, 17. Januar 1907|GA068a/25]])
 - Wissenschaftliche Methode zur Analyse biblischer Texte, die deren historische Entstehung und Quellen untersucht ([[GA068a (31.) BIBEL UND WEISHEIT I, München, 23. Mai 1907|GA068a/31]])
 - Historisch-kritische Methoden der Bibelforschung, die zur Zerklüftung der ursprünglichen Einheit führen ([[GA068a (33.) BIBEL UND WEISHEIT I, Leipzig, 8. Juni 1907|GA068a/33]])
-- Moderne Tendenz zur oberflächlichen Analyse statt geistiger Vertiefung in die Heilige Schrift ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Moderne Tendenz zur oberflächlichen Analyse statt geistiger Vertiefung in die Heilige Schrift ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Wissenschaftliche Untersuchung der Bibel seit dem 18. Jahrhundert, die ihre Entstehung wie andere Bücher erforscht ([[GA068a (42.) BIBEL UND WEISHEIT, Bielefeld, 3. November 1908|GA068a/42]])
 - Historische Zergliederung der Bibel durch wissenschaftliche Forschung ([[GA068a (43.) BIBEL UND WEISHEIT, Hamburg, 5. Dezember 1908|GA068a/43]])
 ## [[Bibelverständnis]]
@@ -946,7 +946,7 @@
 - Das Bewusstsein, das durch das Blut als Träger des Ich und Vermittler zwischen Innen- und Außenwelt entsteht ([[GA055 (2.) BLUT IST EIN GANZ BESONDERER SAFT, Berlin, 25. Oktober 1906|GA055/2]])
 - Träger des Familiengedächtnisses und der vererbten Weisheit in früheren Zeiten ([[GA068a (23.) DIE KINDER DES LUZIFER, Leipzig, 14. Dezember 1906|GA068a/23]])
 - Grundlage des erweiterten Gedächtnisses und hellseherischer Fähigkeiten ([[GA068a (34.) BIBEL UND WEISHEIT II, Leipzig 9. Juni 1907|GA068a/34]])
-- Frühere Grundlage der Liebe durch gemeinsames Gruppenbewusstsein ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Frühere Grundlage der Liebe durch gemeinsames Gruppenbewusstsein ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Verwandtschaftliche Verbindungen als Grundlage früher Gemeinschaftsformen ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
 - Physischer Ausdruck des Ich, besonderer Saft mit geistiger Bedeutung ([[GA068a (47.) DIE ZEHN GEBOTE, Kassel, 26. Februar 1909|GA068a/47]])
 - Träger des Ich-Bewusstseins und Zugang zur menschlichen Individualität ([[GA068b (42.) BLUT IST EIN GANZ BESONDRER SAFT, Köln, 30. November 1906|GA068b/42]])
@@ -992,7 +992,7 @@
 - Erster Grundsatz der Theosophischen Gesellschaft ohne Unterschied von Geschlecht, Farbe und Bekenntnis ([[GA053 (14.) DIE ZUKUNFT DES MENSCHEN, Berlin, 30. März 1905|GA053/14]])
 - Universelle Bruderschaft ohne Rücksicht auf äußere Unterschiede ([[GA054 (2.) UNSERE WELTLAGE. KRIEG, FRIEDEN UND DIE WISSENSCHAFT DES GEISTES, Berlin, 12. Oktober 1905|GA054/2]])
 - Erster Grundsatz der Theosophischen Gesellschaft und Frucht wahrer geistiger Erkenntnis ([[GA054 (8.) BRUDERSCHAFT UND DASEINSKAMPF, Berlin, 23. November 1905|GA054/8]])
-- Vision der Menschheitsentwicklung zur universalen Bruderschaft im Geist ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Vision der Menschheitsentwicklung zur universalen Bruderschaft im Geist ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Die geistige Gemeinschaft, die anstelle der Blutsbande durch das Mysterium von Golgatha möglich wurde ([[GA068a (40.) DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS, Kassel, 21. Februar 1908|GA068a/40]])
 - Universelle geistige Liebe, die alle Menschen umfassen soll ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
 - Geistige Verbundenheit aller Menschen als Grundlage des Zusammenlebens ([[GA068d (3.) BRUDERSCHAFT UND DASEINSKAMPF, Düsseldorf, 4. Dezember 1905|GA068d/3]])
@@ -1145,7 +1145,7 @@
 - Das Mysterium von Golgatha als übersinnliches Ereignis, das durch Geisteswissenschaft neu verstanden wird ([[GA080b (1.) DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION, Bern, 13. Dezember 1920|GA080b/1]])
 ## [[Christus-Erlebnis]]
 - Mystische Erfahrung der Christus-Wesenheit in der eigenen Seele ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
-- Inneres Durchleben des gesamten Christusereignisses durch den Eingeweihten ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Inneres Durchleben des gesamten Christusereignisses durch den Eingeweihten ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Das verwandelnde geistige Prinzip Christi im menschlichen Denken und Erkennen ([[GA074 (3.) DIE BEDEUTUNG DES THOMISMUS IN DER GEGENWART, Dornach, Pfingstsonntag, 24. Mai 1920|GA074/3]])
 - Innere Entwicklungsstufe, die über das Vater-Erlebnis hinausführt zum lebendigen Christus ([[GA081 (6.) SECHSTER VORTRAG ANTHROPOSOPHIE UND THEOLOGIE, Berlin, 10. März 1922|GA081/6]])
 ## [[Christus-Impuls]]
@@ -1578,7 +1578,7 @@
 - Erweckung höherer Erkenntnisfähigkeiten durch geistige Schulung ([[GA068a (43.) BIBEL UND WEISHEIT, Hamburg, 5. Dezember 1908|GA068a/43]])
 - Erweckung geistiger Erkenntnisfähigkeiten zur Christus-Erfahrung ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
 - Moses als großer Eingeweihter empfing die Jahve-Inspiration ([[GA068a (47.) DIE ZEHN GEBOTE, Kassel, 26. Februar 1909|GA068a/47]])
-- Erweckung geistiger Organe zur Wahrnehmung der höheren Welten ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Erweckung geistiger Organe zur Wahrnehmung der höheren Welten ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Verschiedene Grade geistiger Erkenntnis bei den vier Evangelisten ([[GA068a (51.) ÜBER DIE EVANGELIEN, Mitgliedervortrag, Bern, 17. November 1909|GA068a/51]])
 - Geistige Schulung, die zur Zeit des Neuen Testaments immer dunkler wurde ([[GA068a (56.) THEOSOPHIE UND BIBEL, Mitgliedervortrag, Hamburg, 29. November 1910|GA068a/56]])
 - Methodische Entwicklung hellsichtiger Fähigkeiten durch Konzentration und Meditation ([[GA068b (9.) DER KREISLAUF DES MENSCHEN INNERHALB DER SINNES-, SEELEN UND GEISTESWELT. DAS LEBEN NACH DEM TODE, EINE TATSACHE DER WIRKLICHKEIT, Hamburg, 14. März 1909|GA068b/9]])
@@ -2031,7 +2031,7 @@
 - Heilige Schriften mit vier verschiedenen Verständnisebenen ([[GA068a (27.) ESOTERISCHES CHRISTENTUM, Bonn, 6. März 1907|GA068a/27]])
 - Verkündigung des Himmelreichs nach der Zeit der Propheten ([[GA068a (29.) DAS GLEICHNIS VOM UNGERECHTEN HAUSHALTER - EVANGELIUM LUCAE XVI, 1-18, München, 9. April 1907|GA068a/29]])
 - Historische Erfüllung alter Einweihungsbücher in der Christusgestalt ([[GA068a (34.) BIBEL UND WEISHEIT II, Leipzig 9. Juni 1907|GA068a/34]])
-- Vier Urkunden über das Ereignis von Palästina mit unterschiedlichen Erkenntnisgraden ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Vier Urkunden über das Ereignis von Palästina mit unterschiedlichen Erkenntnisgraden ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Christliche Urkunden, die durch Theosophie wieder lebendig gemacht werden ([[GA068a (56.) THEOSOPHIE UND BIBEL, Mitgliedervortrag, Hamburg, 29. November 1910|GA068a/56]])
 - Die Evangelien als spirituelle Entwicklungswege statt äußere Biografien ([[GA069c (9.) VON JESUS ZU CHRISTUS, Karlsruhe, 4. Oktober 1911|GA069c/9]])
 ## [[Evangelienforschung]]
@@ -2532,7 +2532,7 @@
 - Erkenntnis der geistigen Welt durch Entwicklung verborgener Seelenkräfte außerhalb des physischen Leibes ([[GA067 (7.) DIE OFFENBARUNGEN DES UNBEWUSSTEN VOM GEISTESWISSENSCHAFTLICHEN GESICHTSPUNKT, Berlin, 21. März 1918|GA067/7]])
 - Methodische Erforschung übersinnlicher Tatsachen ([[GA068a (36.) DIE INITIATION, Köln, 18. Dezember 1907|GA068a/36]])
 - Erkenntnis der übersinnlichen Glieder der menschlichen Wesenheit ([[GA068a (47.) DIE ZEHN GEBOTE, Kassel, 26. Februar 1909|GA068a/47]])
-- Voraussetzungslose Erforschung der geistigen Wahrheit hinter religiösen Urkunden ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Voraussetzungslose Erforschung der geistigen Wahrheit hinter religiösen Urkunden ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Wissenschaftliche Erforschung der übersinnlichen Welt ([[GA068c (35.) VON PARACELSUS ZU GOETHE, öffentlicher Vortrag Winterthur, 13. Januar 1912|GA068c/35]])
 - Methode übersinnlicher Forschung durch entwickelte Seelenkräfte ([[GA069c (1.) DER CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Kristiania (Oslo), 13. Juni 1910|GA069c/1]])
 - Erkenntnis der geistigen Tatsachen als höchster Bibelstandpunkt ([[GA069c (6.) CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Pforzheim, 8. März 1914|GA069c/6]])
@@ -2641,7 +2641,7 @@
 ## [[Geistige Kunst]]
 - Kunstrichtung, die das Erlebbare ins Übersinnliche hinaufträgt ([[GA077b (9.) EURYTHMIE IN DER DRAMATISCHEN BÜHNENKUNST, Dornach, 26. August 1921|GA077b/9]])
 ## [[Geistige Liebe]]
-- Christliche Erweiterung der Liebe auf die ganze Menschheit ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Christliche Erweiterung der Liebe auf die ganze Menschheit ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 ## [[Geistige Mächte]]
 - Schöpferische Kräfte aus der vorirdischen Zeit, die in Goethes Dichtung wirksam werden ([[GA068c (28.) ÜBER «PANDORA», nicht öffentlicher Vortrag Berlin, 25. Oktober 1909|GA068c/28]])
 ## [[Geistige Mission]]
@@ -3605,7 +3605,7 @@
 - Das höchste Wesensglied des Menschen, das im zeitlichen statt räumlichen Erleben seine wahre Natur offenbart ([[GA067 (9.) DER ÜBERSINNLICHE MENSCH, Zweiter Vortrag, Berlin, 18. April 1918|GA067/9]])
 - Unaussprechlicher Name Gottes in der Menschenseele ([[GA068a (27.) ESOTERISCHES CHRISTENTUM, Bonn, 6. März 1907|GA068a/27]])
 - Viertes Glied als unaussprechlicher Name Gottes im Menschen ([[GA068a (28.) THEOSOPHIE, BUDDHISMUS UND CHRISTENTUM, Düsseldorf, 7. März 1907|GA068a/28]])
-- Göttlicher Funke im Menschen, jüngstes Kind des göttlichen Geistes ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Göttlicher Funke im Menschen, jüngstes Kind des göttlichen Geistes ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Eigentlicher Mittelpunkt und göttlicher Funken im Menschen als unaussprechlicher Gottesname ([[GA068b (34.) ERDENANFANG UND ERDENENDE, Elberfeld, 16. Dezember 1907|GA068b/34]])
 - Das ewige Wesensglied des Menschen, das sich selbst seinen Namen gibt ([[GA068b (44.) BLUT IST EIN GANZ BESONDRER SAFT, Nürnberg, 22. Januar 1907|GA068b/44]])
 - Viertes Glied der Menschenwesenheit, das den Menschen von allen anderen irdischen Lebewesen unterscheidet ([[GA068b (45.) DIE RÄTSELFRAGEN DES DASEINS, Basel, 5. Februar 1907|GA068b/45]])
@@ -3662,7 +3662,7 @@
 - Fortschreitende Entwicklung des menschlichen Selbstbewusstseins in der Kunstgeschichte ([[GA059 (9.) XVIII. DIE MISSION DER KUNST, Berlin, 12. Mai 1910|GA059/9]])
 - Förderung der individuellen Seelenkern-Einheit, charakteristisch für die deutsche Volksseele ([[GA064 (4.) DIE SEELEN DER VÖLKER, Berlin, 27. November 1914|GA064/4]])
 - Das geistige Ich als von außen kommende Wesenheit, die den Leib durchdringt ([[GA067 (4.) GEIST, SEELE UND LEIB DES MENSCHEN, Berlin, 28. Februar 1918|GA067/4]])
-- Übergang vom Gruppenbewusstsein zur individuellen Gottverbindung ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Übergang vom Gruppenbewusstsein zur individuellen Gottverbindung ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Entwicklung der Selbstständigkeit als Voraussetzung für freie Liebe und das Böse ([[GA068a (39.) DER URSPRUNG DES BÖSEN, Kassel, 20. Februar 1908|GA068a/39]])
 - Die Entwicklung vom egoistischen Einzel-Ich zum selbstlosen Ich durch geistige Auffassung ([[GA068a (40.) DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS, Kassel, 21. Februar 1908|GA068a/40]])
 - Entstehung des individuellen Selbstbewusstseins in der Geschichte ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
@@ -4277,10 +4277,10 @@
 - Esoterischer Einweihungstext, der durch meditative Praxis geistige Erfahrungen ermöglicht ([[GA068a (22.) ESOTERISCHES CHRISTENTUM, Düsseldorf, 27. November 1906|GA068a/22]])
 - Evangelium mit besonderen esoterischen Merkmalen ([[GA068a (24.) BIBEL UND WEISHEIT, Fragenbeantwortung, Kassel, 14. Januar 1907|GA068a/24]])
 - Tiefstes spirituelles Dokument, das besondere Erkenntnisorgane für sein Verständnis erfordert ([[GA068a (33.) BIBEL UND WEISHEIT I, Leipzig, 8. Juni 1907|GA068a/33]])
-- Tiefstes Buch der Menschheit als spirituelle Urkunde der Ichentwicklung ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Tiefstes Buch der Menschheit als spirituelle Urkunde der Ichentwicklung ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Das vierte Evangelium als dramatische Schilderung der Sendung des Geistes der Wahrheit ([[GA068a (40.) DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS, Kassel, 21. Februar 1908|GA068a/40]])
 - Evangelium des tieferen Eingeweihten Johannes mit scheinbar mehr Widersprüchen ([[GA068a (42.) BIBEL UND WEISHEIT, Bielefeld, 3. November 1908|GA068a/42]])
-- Tiefste Schrift des Christentums von einem großen Eingeweihten verfasst ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Tiefste Schrift des Christentums von einem großen Eingeweihten verfasst ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 ## [[Johannes-Taufe]]
 - Symbolisches Ereignis für das Herabsteigen der kosmischen Christus-Wesenheit in Jesus von Nazareth ([[GA069c (4.) CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Hamburg, 16. November 1912|GA069c/4]])
 ## [[Judenverfolgung]]
@@ -4810,7 +4810,7 @@
 - Spezifisch menschliche Fähigkeit zur Wahrnehmung der Innerlichkeit des Lautes ([[GA060 (4.) MENSCHENGEIST UND TIERGEIST, Berlin, 17. November 1910|GA060/4]])
 ## [[Lazarus-Wunder]]
 - Darstellung der ersten christlichen Einweihung als Erweckung höherer Bewusstseinsfähigkeiten ([[GA057 (5.) BIBEL UND WEISHEIT II, Berlin, 14. November 1908|GA057/5]])
-- Erste Einweihung durch Christus, Erweckung zur geistigen Erkenntnis ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Erste Einweihung durch Christus, Erweckung zur geistigen Erkenntnis ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 ## [[Leben & Form]]
 - Höhere astrale Prinzipien, die sich in den physischen Geschlechtern als männliches und weibliches Element abbilden ([[GA056 (4.) MANN UND WEIB IM LICHTE DER GEISTESWISSENSCHAFT, München, 18. März 1908|GA056/4]])
 - Grundlegender kosmischer Gegensatz zwischen strömendem Leben und kristallisierender Form ([[GA068d (25.) MANN, WEIB UND KIND VOM STANDPUNKTE DER GEHEIMWISSENSCHAFT, Prag, 18. November 1908|GA068d/25]])
@@ -5075,9 +5075,9 @@
 ## [[Logos]]
 - fleischgewordene göttliche Wesenskern in der christlichen Lehre ([[GA054 (7.) DER WEISHEITSKERN IN DEN RELIGIONEN, Berlin, 16. November 1905|GA054/7]])
 - Göttliches Wort, das als schöpferisches Prinzip die Welt hervorbringt ([[GA068a (13.) DER WEISHEITSKERN IN DEN RELIGIONEN, Düsseldorf, 3. Dezember 1905|GA068a/13]])
-- Das Wort als geistiger Ursprung vor der sinnlichen Weltschöpfung ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Das Wort als geistiger Ursprung vor der sinnlichen Weltschöpfung ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Das göttliche Schöpfungswort als allem Dasein zugrunde liegender Geist ([[GA068a (45.) DER WEISHEITSKERN IN DEN RELIGIONEN, Basel, 3. Februar 1909|GA068a/45]])
-- Göttliches Schöpfungswort als allem Dasein zugrunde liegender Geist ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Göttliches Schöpfungswort als allem Dasein zugrunde liegender Geist ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Inkarnation des zweiten Logos als Christus in der Reihe der großen Eingeweihten ([[GA068b (38.) DIE IDEALE DER MENSCHHEIT UND DIE IDEALE DER EINGEWEIHTEN, Stuttgart, 16. Januar 1906|GA068b/38]])
 - Griechischer Begriff für das Wort Gottes, nicht verschwommen ([[GA069c (6.) CHRISTUS IM ZWANZIGSTEN JAHRHUNDERT, Pforzheim, 8. März 1914|GA069c/6]])
 - Schwer übersetzbare Bezeichnung für das schöpferische Weltprinzip, das Wort, Gedanke und Wirklichkeit vereint ([[GA081 (3.) DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922|GA081/3]])
@@ -5241,7 +5241,7 @@
 - Geisteshaltung, die nur das Physische als real anerkennt ([[GA068a (25.) BIBEL UND WEISHEIT, Stuttgart, 17. Januar 1907|GA068a/25]])
 - Geistige Haltung, die nur das Handgreifliche anerkennt und den dahinterliegenden Sinn übersieht ([[GA068a (33.) BIBEL UND WEISHEIT I, Leipzig, 8. Juni 1907|GA068a/33]])
 - Geistige Haltung als eigentliche Ursache seelischer Erkrankungen der Moderne ([[GA068a (37.) DIE GEFAHREN DER EINWEIHUNG, Köln, 19. Dezember 1907|GA068a/37]])
-- Kritische Wissenschaft, die das Johannesevangelium als unhistorisch abtut ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Kritische Wissenschaft, die das Johannes-Evangelium als unhistorisch abtut ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Weltanschauung, die nur Materie und deren Bewegung als Realität anerkennt ([[GA068b (18.) HAECKELS WELTRÄTSEL UND DIE THEOSOPHIE, Leipzig, 21. März 1906|GA068b/18]])
 - Weltanschauung, die nur stoffliche Vorgänge als real anerkennt und den Geist leugnet ([[GA068b (33.) DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Nürnberg, 1. Dezember 1907|GA068b/33]])
 - Weltanschauung, die alle Erscheinungen auf bewegte Materie zurückführt ([[GA068b (35.) DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Leipzig, 17. Februar 1908|GA068b/35]])
@@ -5629,7 +5629,7 @@
 - Systematische Gliederung des Menschen in Körper, Seele und Geist mit jeweils drei Untergliedern ([[GA053 (2.) DIE MENSCHLICHE WESENHEIT, Berlin, 13. Oktober 1904|GA053/2]])
 - Physischer Leib, Ätherleib, astralischer Leib und Ich als Grundlage für das Verständnis des Egoismus ([[GA058 (7.) VII. DAS WESEN DES EGOISMUS, Berlin, 25. November 1909|GA058/7]])
 - Physischer Leib, Ätherleib, Astralleib und die höheren Glieder ([[GA068a (17.) DIE WEISHEITSLEHREN DES CHRISTENTUMS, Leipzig, 21. Februar 1906|GA068a/17]])
-- Vierfache Gliederung in physischen Leib, Ätherleib, Astralleib und Ich ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Vierfache Gliederung in physischen Leib, Ätherleib, Astralleib und Ich ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Vierfache Gliederung in physischen Leib, Ätherleib, Astralleib und Ich ([[GA068a (39.) DER URSPRUNG DES BÖSEN, Kassel, 20. Februar 1908|GA068a/39]])
 - Physischer Körper, Ätherleib, Astralleib und Ich als Bestandteile des Menschen ([[GA068d (25.) MANN, WEIB UND KIND VOM STANDPUNKTE DER GEHEIMWISSENSCHAFT, Prag, 18. November 1908|GA068d/25]])
 ## [[Menschwerdung]]
@@ -5881,10 +5881,10 @@
 - Verborgene Weisheitsstätten der Menschheit, die als geheime Quellen aller kulturellen und geistigen Entwicklung dienen ([[GA068a (22.) ESOTERISCHES CHRISTENTUM, Düsseldorf, 27. November 1906|GA068a/22]])
 - Geheimes Wissen der Tempelschulen ([[GA068a (27.) ESOTERISCHES CHRISTENTUM, Bonn, 6. März 1907|GA068a/27]])
 - Antike Schulen als Verbindung von Kirche, Schule und Kunstanstalt ([[GA068a (34.) BIBEL UND WEISHEIT II, Leipzig 9. Juni 1907|GA068a/34]])
-- Antike Einweihungsschulen zur Vorbereitung auf das Christusereignis ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Antike Einweihungsschulen zur Vorbereitung auf das Christusereignis ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 - Orte der alten Einweihung, wo wenige für sich erleben konnten, was durch Golgatha für alle möglich wurde ([[GA068a (40.) DER GEIST DER WAHRHEIT VOM CHRISTLICHEN STANDPUNKTE AUS, Kassel, 21. Februar 1908|GA068a/40]])
 - Einweihungsstätten zur Entwicklung geistiger Erkenntnisfähigkeiten ([[GA068a (45.) DER WEISHEITSKERN IN DEN RELIGIONEN, Basel, 3. Februar 1909|GA068a/45]])
-- Geheime Einweihungsstätten der alten Zeit mit strengem Schweigen ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Geheime Einweihungsstätten der alten Zeit mit strengem Schweigen ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Einweihungsstätten für die Entwicklung höherer Erkenntnisfähigkeiten ([[GA068a (53.) DIE DREI VORCHRISTLICHEN UND DIE DREI NACHCHRISTLICHEN JAHRTAUSENDE, Mitgliedervortrag, Köln, 23. Februar 1910|GA068a/53]])
 - Antike Geheimschulen als Vereinigung von Kunst, Religion und Wissenschaft ([[GA068b (19.) DEUTSCHE THEOSOPHEN DES NEUNZEHNTEN JAHRHUNDERTS, Leipzig, 11. April 1906|GA068b/19]])
 - Verborgene Geheimnisse der Eingeweihten als geistige Kräfte für die Menschheitsentwicklung ([[GA068b (38.) DIE IDEALE DER MENSCHHEIT UND DIE IDEALE DER EINGEWEIHTEN, Stuttgart, 16. Januar 1906|GA068b/38]])
@@ -6477,7 +6477,7 @@
 - Apostel als Beispiel der neuen Einweihung außerhalb der Tempel ([[GA068a (27.) ESOTERISCHES CHRISTENTUM, Bonn, 6. März 1907|GA068a/27]])
 - Apostel, der den Sieg des Geistes über das Leben verkündete ([[GA068a (42.) BIBEL UND WEISHEIT, Bielefeld, 3. November 1908|GA068a/42]])
 - Apostel als Vorbild für die übersinnliche Christus-Erkenntnis ([[GA068a (46.) DIE BEDEUTUNG DES CHRISTENTUMS FÜR DIE ZUKUNFT, Basel, 4. Februar 1909|GA068a/46]])
-- Vorbild für die übersinnliche Christus-Erkenntnis durch das Damaskuserlebnis ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Vorbild für die übersinnliche Christus-Erkenntnis durch das Damaskuserlebnis ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 - Begründer des Christentums durch übersinnliche Christus-Erfahrung am Damaskus, Vorbild für moderne geistige Christus-Erkenntnis ([[GA069c (8.) DER WESENSKERN DES CHRISTENTUMS, Straßburg, 18. Februar 1911|GA069c/8]])
 - "Nicht ich, sondern der Christus in mir" als Ausdruck des neuen Bewusstseins ([[GA069c (11.) VON JESUS ZU CHRISTUS, Hamburg, 15. November 1913|GA069c/11]])
 ## [[Paulus Erlebnis]]
@@ -7790,7 +7790,7 @@
 ## [[Sieben freie Künste]]
 - Mittelalterliche Übungspraxis zur Loslösung der Gedanken von Sinneswahrnehmungen ([[GA082 (2.) ZWEITER VORTRAG DIE STELLUNG DER ANTHROPOSOPHIE IN DEN WISSENSCHAFTEN, Den Haag, 8. April 1922|GA082/2]])
 ## [[Sieben Stufen]]
-- Christliche Einweihungsmethode von der Fußwaschung bis zur Himmelfahrt ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNESEVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
+- Christliche Einweihungsmethode von der Fußwaschung bis zur Himmelfahrt ([[GA068a (48.) DIE OKKULTE BEDEUTUNG DES JOHANNES-EVANGELIUMS, Elberfeld, 28. Februar 1909|GA068a/48]])
 ## [[Sieben Stufen der Einweihung]]
 - Fußwaschung, Geißelung, Dornenkrönung, Kreuztragung, mystischer Tod, Begräbnis, Auferstehung ([[GA068a (17.) DIE WEISHEITSLEHREN DES CHRISTENTUMS, Leipzig, 21. Februar 1906|GA068a/17]])
 ## [[Siebengliedrige Menschennatur]]
@@ -8199,7 +8199,7 @@
 - Methode, äußere Ereignisse als Symptome für dahinterliegende geistige Entwicklungsströme zu betrachten ([[GA067 (6.) DAS GESCHICHTLICHE LEBEN DER MENSCHHEIT UND SEINE RÄTSEL IM LICHTE DER GEISTESFORSCHUNG, Berlin, 14. März 1918|GA067/6]])
 - Geschichtliche Betrachtung der äußeren Ereignisse als Symptome für dahinterliegende übersinnliche Prozesse ([[GA073 (8.) DIE GESCHICHTE DER NEUZEIT IM LICHTE GEISTESWISSENSCHAFTLICHER FORSCHUNG, Zürich, 17. Oktober 1918|GA073/8]])
 ## [[Synoptische Evangelien]]
-- Historische Darstellung des äußeren Lebens Jesu im Gegensatz zur geistigen Perspektive ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Historische Darstellung des äußeren Lebens Jesu im Gegensatz zur geistigen Perspektive ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 ## [[Synthese]]
 - Mission der Theosophie zur Wiedervereinigung von Wissenschaft, Religion, Philosophie und Kunst ([[GA052 (17.) IST DIE THEOSOPHIE UNWISSENSCHAFTLICH, Berlin, 6. Oktober 1904|GA052/17]])
 ## [[Synthetische Geometrie]]
@@ -8334,7 +8334,7 @@
 - Geistige Strömung mit heilsamen und gefährlichen Aspekten je nach Reife der Teilnehmer ([[GA056 (6.) DIE SOGENANNTEN GEFAHREN DER EINWEIHUNG, Berlin, 12. Dezember 1907|GA056/6]])
 - Entstehung aus den Bedürfnissen der fortschreitenden Menschheit nach neuen spirituellen Erkenntnisformen ([[GA068a (38.) RELIGION, WISSENSCHAFT UND THEOSOPHIE, Mainz, 31. Januar 1908|GA068a/38]])
 ## [[Theosophische Exegese]]
-- Geistige Forschungsmethode zur Wiedereroberung des Bibelverständnisses ([[GA068a (35.) DAS JOHANNESEVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
+- Geistige Forschungsmethode zur Wiedereroberung des Bibelverständnisses ([[GA068a (35.) DAS JOHANNES-EVANGELIUM UND DIE ZUKUNFT DES CHRISTENTUMS, Düsseldorf 14. Dezember 1907|GA068a/35]])
 ## [[Theosophische Gesellschaft]]
 - Bewegung zur Begründung allgemeiner Menschenbruderschaft ([[GA068d (3.) BRUDERSCHAFT UND DASEINSKAMPF, Düsseldorf, 4. Dezember 1905|GA068d/3]])
 ## [[Theosophische Heilung]]

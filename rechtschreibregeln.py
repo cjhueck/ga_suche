@@ -111,6 +111,11 @@ def korrigiere_rechtschreibung(text):
         'schoß': 'schoss',
         'Entschluß': 'Entschluss',
         'entschluß': 'entschluss',
+        'häßlich': 'hässlich',
+        'veranlaßt': 'veranlasst',
+        'unermeßlich': 'unermesslich',
+        'verläßt': 'verlässst',
+        'verläßlich': 'verlässlich',
         
         # Konjunktiv: müßte, etc.
         'müßte': 'müsste',
@@ -128,9 +133,9 @@ def korrigiere_rechtschreibung(text):
         
         # Zusammengesetzte Wörter mit Bindestrich
         'ChristusWesenheit': 'Christus-Wesenheit',
-        'JohannesEvangelium': 'Johannes-Evangelium',
+        'Johannes-Evangelium': 'Johannes-Evangelium',
         'SeelischGeistiges': 'Seelisch-Geistiges',
-        'GeistigSeelisches': 'Geistig-Seelisches',
+        'Geistig-Seelisches': 'Geistig-Seelisches',
         'geistigseelisch': 'geistig-seelisch',
         'seelischgeistig': 'seelisch-geistig',
         'westund mitteleuropäisch': 'west- und mitteleuropäisch',
@@ -252,9 +257,9 @@ def get_replacements_dict():
         'heisst': 'heißt',
         'weiss': 'weiß',
         'ChristusWesenheit': 'Christus-Wesenheit',
-        'JohannesEvangelium': 'Johannes-Evangelium',
+        'Johannes-Evangelium': 'Johannes-Evangelium',
         'SeelischGeistiges': 'Seelisch-Geistiges',
-        'GeistigSeelisches': 'Geistig-Seelisches',
+        'Geistig-Seelisches': 'Geistig-Seelisches',
         'geistigseelisch': 'geistig-seelisch',
         'seelischgeistig': 'seelisch-geistig',
         'westund mitteleuropäisch': 'west- und mitteleuropäisch',
@@ -283,7 +288,7 @@ if __name__ == '__main__':
         "Haß Fluß Schloß",
         "mußte wußte gewußt",
         "heisst weiss läßt",
-        "ChristusWesenheit JohannesEvangelium",
+        "ChristusWesenheit Johannes-Evangelium",
         "Prozeß Entschluß",
     ]
     
