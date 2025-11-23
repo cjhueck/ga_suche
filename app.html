@@ -714,7 +714,7 @@ body.dark-mode .ga-missing-text {
     .timeline-visualization {
       display: grid;
       grid-template-columns: 80px 1fr;
-      gap: 1.5rem;
+      gap: 0.5rem;
       padding: 0 0.5rem 0.5rem 0.5rem;
       font-size: 0.9rem;
     }
@@ -748,7 +748,7 @@ body.dark-mode .ga-missing-text {
     
     .timeline-keywords-column {
       text-align: left;
-      padding-left: 0;
+      padding-left: 0.3rem;
       max-width: 900px;
     }
     
@@ -3373,6 +3373,40 @@ body.dark-mode .timeline-viewer-content {
   line-height: 1.4;
 }
 
+.timeline-headings-list {
+  margin: 0.4rem 0 0 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.timeline-heading-link {
+  color: var(--link-color);
+  text-decoration: none;
+  display: block;
+  margin: 0.4rem 0 0 0;
+  padding: 0;
+  transition: color 0.2s ease;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.timeline-heading-link:first-child {
+  margin-top: 0;
+}
+
+.timeline-heading-link:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+.timeline-heading-link mark {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-weight: inherit;
+  font-style: italic;
+}
+
 .timeline-focus {
   font-size: 0.85rem;
   color: var(--text-color);
@@ -3409,6 +3443,23 @@ body.dark-mode .timeline-focus {
 
 body.dark-mode .timeline-quotes {
   color: var(--dark-secondary-text);
+}
+
+body.dark-mode .timeline-headings-list {
+  color: var(--dark-text-color);
+}
+
+body.dark-mode .timeline-heading-link {
+  color: var(--dark-link-color);
+}
+
+body.dark-mode .timeline-heading-link:hover {
+  color: var(--dark-accent-color);
+}
+
+body.dark-mode .timeline-heading-link mark {
+  background-color: #5BA3F5;
+  color: inherit;
 }
 
 /* Timeline Viewer h3 and h4 - Match Main Viewer Exactly */
@@ -20053,9 +20104,14 @@ async function showTimeline(keyword, clickedButton) {
     return;
   }
   const timelinePanel = document.querySelector('.timeline-panel');
-  const content = document.getElementById('timelineContent');
+  const content = document.getElementById('timelineContentArea');
   const documentTitle = document.getElementById('timelineDocumentTitle');
   const viewerContent = document.getElementById('timelineViewerContent');
+  
+  if (!content) {
+    console.error('[TIMELINE] timelineContentArea Element nicht gefunden!');
+    return;
+  }
   
   // Main Viewer leeren wenn Timeline geöffnet wird
   const viewer = document.getElementById('viewer');
@@ -20217,48 +20273,111 @@ async function showTimeline(keyword, clickedButton) {
         return (a.date || '').localeCompare(b.date || '');
       });
       
-      // Generiere Timeline HTML (vereinfacht)
+      // Gruppiere Einträge nach Vortrag (lectureId)
+      const groupedByLecture = {};
+      timelineEntries.forEach(entry => {
+        if (!groupedByLecture[entry.lectureId]) {
+          groupedByLecture[entry.lectureId] = {
+            lectureId: entry.lectureId,
+            date: entry.date,
+            year: entry.year,
+            title: entry.title,
+            entries: []
+          };
+        }
+        groupedByLecture[entry.lectureId].entries.push(entry);
+      });
+      
+      // Konvertiere zu Array und sortiere nach Datum
+      const groupedLectures = Object.values(groupedByLecture).sort((a, b) => {
+        if (a.year !== b.year) return a.year - b.year;
+        return (a.date || '').localeCompare(b.date || '');
+      });
+      
+      // Berechne Anzahl einzigartiger Vorträge
+      const uniqueLecturesCount = groupedLectures.length;
+      
+      // Generiere Timeline HTML
+      console.log('[TIMELINE] Generiere HTML für', uniqueLecturesCount, 'Vorträge');
       let html = `
         <div class="timeline-analysis">
           <div class="timeline-stats">
-            <span>Gefunden in ${timelineEntries.length} Vorträgen</span>
+            <span>Gefunden in ${uniqueLecturesCount} Vorträgen</span>
           </div>
         </div>
       `;
       
+      // Hilfsfunktion: Markiere Schlagwort im Text
+      function highlightKeyword(text, keyword) {
+        if (!text || !keyword) return text;
+        const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedKeyword})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+      }
+      
+      console.log('[TIMELINE] Gruppierte Vorträge:', groupedLectures.length);
+      
+      // Hilfsfunktion: HTML-Escape
+      function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+      
       let lastYear = null;
-      timelineEntries.forEach(entry => {
-        const showYear = lastYear !== entry.year;
-        lastYear = entry.year;
+      groupedLectures.forEach(lectureGroup => {
+        const showYear = lastYear !== lectureGroup.year;
+        lastYear = lectureGroup.year;
         
-        // Entferne ^ vom Index falls vorhanden
-        let cleanIndex = entry.keyword.index || '';
-        if (cleanIndex.startsWith('^')) {
-          cleanIndex = cleanIndex.substring(1);
-        }
+        // Entferne ^ vom Index falls vorhanden und erstelle Links für Überschriften
+        const headingLinks = lectureGroup.entries.map(entry => {
+          let cleanIndex = entry.keyword.index || '';
+          if (cleanIndex.startsWith('^')) {
+            cleanIndex = cleanIndex.substring(1);
+          }
+          
+          // HTML-Escape der Überschrift (ohne Markierung)
+          const headingText = entry.heading || '';
+          const escapedHeadingText = String(headingText)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+          
+          // Erstelle Link zur Überschrift ohne eckige Klammern und ohne Markierung
+          const escapedKeyword = keyword.replace(/'/g, "\\'");
+          const escapedLectureId = entry.lectureId.replace(/'/g, "\\'");
+          const linkHtml = `<a href="#" onclick="showLectureInTimeline('${escapedLectureId}', '${cleanIndex}', '${escapedKeyword}'); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
+          
+          return linkHtml;
+        });
         
         html += `
           <div class="timeline-item enhanced">
-            ${showYear ? `<div class="timeline-year">${entry.year}</div>` : '<div class="timeline-year-spacer"></div>'}
-            <div class="timeline-content enhanced" onclick="showLectureInTimeline('${entry.lectureId}', '${cleanIndex}', '${entry.keyword.term.replace(/'/g, "\\'")}')">
-              <div class="timeline-lecture-number">
-                ${formatDateToDDMMYYYY(entry.date)}
+            ${showYear ? `<div class="timeline-year">${lectureGroup.year}</div>` : '<div class="timeline-year-spacer"></div>'}
+            <div class="timeline-content enhanced">
+              <div class="timeline-lecture-number" style="margin-bottom: 0.3rem;">
+                ${formatDateToDDMMYYYY(lectureGroup.date)}${formatLectureId(lectureGroup.lectureId)}
               </div>
-              <div class="timeline-lecture-title">${entry.title} (${entry.lectureId})</div>
-              <div class="timeline-quotes">
-                ${entry.heading}
+              <div class="timeline-headings-list">
+                ${headingLinks.join('')}
               </div>
             </div>
           </div>
         `;
       });
       
+      console.log('[TIMELINE] HTML generiert, Länge:', html.length);
+      console.log('[TIMELINE] Setze content.innerHTML');
       content.innerHTML = html;
+      console.log('[TIMELINE] content.innerHTML gesetzt');
       
       // Timeline-Panel-Titel erweitern
       const timelinePanelTitle = document.getElementById('timelinePanelTitle');
       if (timelinePanelTitle) {
-        timelinePanelTitle.textContent = `${keyword} (${timelineEntries.length} Vorträge)`;
+        timelinePanelTitle.textContent = `${keyword} (${uniqueLecturesCount} Vorträge)`;
       }
       
     } catch (timelineError) {
@@ -22110,13 +22229,9 @@ let searchResultsTimelineRunning = false; // Verhindert Doppelklicks
 
 // Funktion für den Timeline-Button im Suche-Tab
 function showSearchResultsInTimeline() {
-  // Wechsel zum Timeline-Tab
-  switchTab('timeline');
-  
-  // Warte kurz bis Tab gewechselt ist, dann zeige Timeline
-  setTimeout(() => {
-    showSearchResultsTimelineV2();
-  }, 100);
+  // Zeige Timeline direkt im Suche-Tab (nicht zum Timeline-Tab wechseln)
+  // Die Ergebnisse werden im #results Element angezeigt
+  showSearchResultsTimelineV2();
 }
 
 // Zeige Suchergebnisse im Timeline-Format (V2 - mit Links)
@@ -22343,27 +22458,59 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
         <div class="timeline-keywords-column">
     `;
     
-    // Render Einträge nach Jahr
+    // Gruppiere Einträge nach Vortrag (lectureId) innerhalb jedes Jahres
     sortedYears.forEach(year => {
       const entries = entriesByYear[year];
       
+      // Gruppiere nach Vortrag
+      const groupedByLecture = {};
       entries.forEach(entry => {
-        const formattedDate = formatDate(entry.date);
-        
-        // GA-Keyword-Link erstellen
-        let gaLink = '';
-        if (entry.index) {
-          const keywordsArray = searchKeywords.map(k => `'${k}'`).join(',');
-          gaLink = `<a href="#" onclick="showLecture('${entry.lectureId}', '${entry.index}', [${keywordsArray}]); return false;" class="ga-keyword-link">${entry.lectureId}</a>`;
-        } else {
-          gaLink = entry.lectureId;
+        if (!groupedByLecture[entry.lectureId]) {
+          groupedByLecture[entry.lectureId] = {
+            lectureId: entry.lectureId,
+            date: entry.date,
+            year: entry.year,
+            entries: []
+          };
         }
+        groupedByLecture[entry.lectureId].entries.push(entry);
+      });
+      
+      // Render gruppierte Vorträge
+      Object.values(groupedByLecture).forEach(lectureGroup => {
+        const formattedDate = formatDate(lectureGroup.date);
         
-        // EXAKT gleiche Struktur wie Schlagwort-Timeline (Zeile 12876-12880)
+        // Erstelle Links für Überschriften (ohne Markierung)
+        const headingLinks = lectureGroup.entries.map(entry => {
+          let cleanIndex = entry.index || '';
+          if (cleanIndex && cleanIndex.startsWith('^')) {
+            cleanIndex = cleanIndex.substring(1);
+          }
+          
+          // HTML-Escape der Überschrift (ohne Markierung)
+          const headingText = entry.heading || '';
+          const escapedHeadingText = String(headingText)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+          
+          // Erstelle Link zur Überschrift ohne Markierung
+          const keywordsArray = searchKeywords.map(k => `'${k.replace(/'/g, "\\'")}'`).join(',');
+          const escapedLectureId = entry.lectureId.replace(/'/g, "\\'");
+          const linkHtml = `<a href="#" onclick="showLecture('${escapedLectureId}', '${cleanIndex}', [${keywordsArray}]); return false;" class="timeline-heading-link">${escapedHeadingText}</a>`;
+          
+          return linkHtml;
+        });
+        
+        // Render Vortrag mit einmaligem Datum/GA-Nummer und mehreren Überschriften
         html += `
           <div class="timeline-entry" data-year="${year}">
-            <div><span class="timeline-entry-date">${formattedDate}</span>${gaLink}</div>
-            <div class="timeline-entry-keywords">${entry.heading}</div>
+            <div style="margin-bottom: 0.3rem;"><span class="timeline-entry-date">${formattedDate}</span>${formatLectureId(lectureGroup.lectureId)}</div>
+              <div class="timeline-headings-list">
+                ${headingLinks.join('')}
+              </div>
           </div>
         `;
       });
