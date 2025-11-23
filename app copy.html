@@ -2553,6 +2553,7 @@ body.dark-mode #thematicSearchInfo {
     }
     
     /* Anmerkungen: Bullet Points durch Sternchen ersetzen und kleinere Schriftgröße */
+    /* Gilt für alle Listen mit einem, zwei, drei oder mehr Sternchen */
     #viewer ul {
       font-size: 0.85em !important;
       list-style-type: none !important;
@@ -2573,16 +2574,33 @@ body.dark-mode #thematicSearchInfo {
       font-weight: normal;
     }
     
-    /* Sternchen-Marker (wird von JavaScript gesetzt) */
+    /* Sternchen-Marker (wird von JavaScript gesetzt) - für ein, zwei, drei oder mehr Sternchen */
     #viewer ul li .asterisk-marker {
       position: absolute;
       left: -0.5em;
       font-weight: normal;
+      white-space: nowrap; /* Verhindert Zeilenumbruch bei mehreren Sternchen */
     }
     
     /* Wenn ein asterisk-marker vorhanden ist, verstecke das ::before */
     #viewer ul li:has(.asterisk-marker)::before {
       display: none;
+    }
+    
+    /* Anmerkungen als Absätze: Formatierung für Absätze die mit **, ***, etc. beginnen */
+    /* Gleiche Formatierung wie für Listen mit Sternchen: kleiner und eingerückt */
+    #viewer p.asterisk-note,
+    #viewer .paragraph.asterisk-note {
+      font-size: 0.85em !important;
+      padding-left: 1.5em !important;
+      margin: var(--paragraph-margin) 0 !important;
+    }
+    
+    /* Dark Mode für Anmerkungen als Absätze */
+    body.dark-mode #viewer p.asterisk-note,
+    body.dark-mode #viewer .paragraph.asterisk-note {
+      font-size: 0.85em !important;
+      color: #b8b8b8 !important;
     }
   
     body.dark-mode ul.results-list > li > a {
@@ -7909,7 +7927,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   viewer.innerHTML = html;
   
   // Anmerkungen mit mehreren Sternchen behandeln
-  setTimeout(() => replaceBulletPointsWithAsterisks(), 100);
+  setTimeout(() => {
+    replaceBulletPointsWithAsterisks();
+    formatAsteriskParagraphs();
+  }, 100);
   
   // Setze IDs für Überschriften im gerenderten HTML
   // WICHTIG: Dies muss NACH dem Rendering passieren, damit die Überschriften im DOM sind
@@ -14654,6 +14675,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   
   // Anmerkungen mit mehreren Sternchen behandeln
   replaceBulletPointsWithAsterisks();
+  formatAsteriskParagraphs();
 }
 
 // Funktion: Ersetzt Bullet Points durch Sternchen basierend auf der Anzahl der Sternchen im vorherigen Absatz
@@ -14717,6 +14739,34 @@ function replaceBulletPointsWithAsterisks() {
           asteriskSpan.textContent = '*';
         });
       }
+    }
+  });
+}
+
+// Funktion: Formatiert Absätze, die mit einem, zwei, drei oder mehr Sternchen beginnen
+function formatAsteriskParagraphs() {
+  const viewer = document.getElementById('viewer');
+  if (!viewer) return;
+  
+  // Finde alle Absätze (p) und Paragraphs (.paragraph) im Viewer
+  const paragraphs = viewer.querySelectorAll('p, .paragraph');
+  
+  paragraphs.forEach(para => {
+    // Prüfe sowohl den Textinhalt als auch den HTML-Inhalt
+    const text = para.textContent || para.innerText || '';
+    const html = para.innerHTML || '';
+    const trimmedText = text.trim();
+    const trimmedHtml = html.trim();
+    
+    // Prüfe, ob der Absatz mit einem oder mehreren Sternchen beginnt (*, **, ***, etc.)
+    // Muster: Beginnt mit *, **, ***, ****, etc. (mindestens 1 Sternchen)
+    // Prüfe sowohl im Text als auch im HTML (falls Markdown bereits gerendert wurde)
+    const asteriskMatchText = trimmedText.match(/^(\*+)/);
+    const asteriskMatchHtml = trimmedHtml.match(/^(\*+)/);
+    
+    if (asteriskMatchText || asteriskMatchHtml) {
+      // Füge Klasse hinzu für Formatierung
+      para.classList.add('asterisk-note');
     }
   });
 }
@@ -17218,7 +17268,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       viewer.innerHTML = html;
       
       // Anmerkungen mit mehreren Sternchen behandeln
-      setTimeout(() => replaceBulletPointsWithAsterisks(), 100);
+      setTimeout(() => {
+        replaceBulletPointsWithAsterisks();
+        formatAsteriskParagraphs();
+      }, 100);
       
       // Markiere Absätze mit Bookmarks/Zitaten
       if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
