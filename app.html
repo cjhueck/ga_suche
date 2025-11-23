@@ -6324,12 +6324,26 @@ function normalizeGANumber(gaNumber) {
     
     // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
     function replaceImageSrcWithBase64(htmlContent, lectureId) {
-      if (!htmlContent || !steinerImages[lectureId]) {
+      if (!htmlContent) {
+        return htmlContent;
+      }
+      
+      // Wenn keine Bilder in der Datenbank sind, gebe Warnung aus aber fahre fort
+      if (!steinerImages[lectureId]) {
+        console.warn('[IMAGES] ⚠ Keine Bilder-Datenbank für lectureId:', lectureId);
+        // Prüfe trotzdem ob Bilder vorhanden sind
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        const imgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
+        if (imgTags.length > 0) {
+          console.warn('[IMAGES] ⚠', imgTags.length, 'Bilder gefunden, aber nicht in Datenbank für', lectureId);
+        }
         return htmlContent;
       }
       
       const images = steinerImages[lectureId];
       if (!images || images.length === 0) {
+        console.warn('[IMAGES] ⚠ Leeres Bilder-Array für lectureId:', lectureId);
         return htmlContent;
       }
       
@@ -6350,7 +6364,24 @@ function normalizeGANumber(gaNumber) {
         console.log('[IMAGES] Decoded:', decodedSrc);
         
         // Finde das passende Bild in unserer Datenbank
-        const matchingImage = images.find(img => img.path === decodedSrc || img.path === originalSrc);
+        // Zuerst exaktes Match versuchen
+        let matchingImage = images.find(img => img.path === decodedSrc || img.path === originalSrc);
+        
+        // Falls kein exaktes Match gefunden, suche nach Varianten mit unterschiedlichen Dateiendungen
+        if (!matchingImage) {
+          // Entferne Dateiendung vom gesuchten Pfad
+          const srcWithoutExt = decodedSrc.replace(/\.(jpe?g|png|webp)$/i, '');
+          
+          // Suche nach Bildern mit gleichem Basisnamen aber unterschiedlicher Endung
+          matchingImage = images.find(img => {
+            const imgPathWithoutExt = img.path.replace(/\.(jpe?g|png|webp)$/i, '');
+            return imgPathWithoutExt === srcWithoutExt;
+          });
+          
+          if (matchingImage) {
+            console.log('[IMAGES] ✓ Bild gefunden durch Endungs-Variante:', decodedSrc, '→', matchingImage.path);
+          }
+        }
         
         if (matchingImage) {
           // Ersetze src durch Base64-Daten
@@ -6395,6 +6426,8 @@ function normalizeGANumber(gaNumber) {
           });
           
           console.log('[IMAGES] Bild ersetzt:', originalSrc);
+        } else {
+          console.warn('[IMAGES] ⚠ Bild nicht gefunden in Datenbank:', decodedSrc);
         }
       });
       
@@ -14588,9 +14621,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   viewer.innerHTML = html;
   
   // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
-  if (lecture && lecture.ID && steinerImages[lecture.ID]) {
-    console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-    
+  if (lecture && lecture.ID) {
     // Debug: Prüfe ob img-Tags vorhanden sind
     const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
     console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
@@ -14598,7 +14629,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
     });
     
-    viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    if (steinerImages[lecture.ID]) {
+      console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    } else {
+      console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
+      // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
+      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    }
   }
   
   // Activate TOC links after rendering
@@ -17201,9 +17239,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       console.log('[IMAGES-DEBUG] steinerImages hat lecture.ID?', !!steinerImages[lecture?.ID]);
       console.log('[IMAGES-DEBUG] Verfügbare IDs in steinerImages:', Object.keys(steinerImages).slice(0, 10));
       
-      if (lecture && lecture.ID && steinerImages[lecture.ID]) {
-        console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-        
+      if (lecture && lecture.ID) {
         // Debug: Prüfe ob img-Tags vorhanden sind
         const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
         console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
@@ -17211,7 +17247,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
         });
         
-        viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        if (steinerImages[lecture.ID]) {
+          console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        } else {
+          console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
+          // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
+          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        }
       }
       
       // Activate TOC links
@@ -17612,7 +17655,12 @@ setTimeout(() => {
 <script>
 // Aktiviere Tab basierend auf URL-Hash beim Laden
 window.addEventListener('DOMContentLoaded', function() {
-  const hash = window.location.hash.substring(1); // Entferne das #
+  let hash = window.location.hash.substring(1); // Entferne das #
+  
+  // Entferne Query-Parameter aus dem Hash (z.B. "schlagworte?letter=M" -> "schlagworte")
+  if (hash && hash.includes('?')) {
+    hash = hash.split('?')[0];
+  }
   
   if (hash) {
     console.log('[HASH-NAV] Hash erkannt:', hash);
@@ -17633,8 +17681,9 @@ window.addEventListener('DOMContentLoaded', function() {
       // Warte kurz, bis alle Initialisierungen abgeschlossen sind
       setTimeout(() => {
         console.log('[HASH-NAV] Wechsle zu Tab:', tabName);
-        // Setze initialen History State ohne neuen Eintrag
-        history.replaceState({ tab: tabName }, '', `${window.location.pathname}#${tabName}`);
+        // Setze initialen History State ohne neuen Eintrag - bereinige URL auf Basis-URL
+        const baseUrl = window.location.origin + window.location.pathname;
+        history.replaceState({ tab: tabName }, '', `${baseUrl}#${tabName}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
       }, 100);
     }
@@ -17648,7 +17697,9 @@ window.addEventListener('DOMContentLoaded', function() {
         const initialTab = match[1];
         setTimeout(() => {
           console.log('[HASH-NAV] Setze initialen State:', initialTab);
-          history.replaceState({ tab: initialTab }, '', `${window.location.pathname}#${initialTab}`);
+          // Bereinige URL auf Basis-URL
+          const baseUrl = window.location.origin + window.location.pathname;
+          history.replaceState({ tab: initialTab }, '', `${baseUrl}#${initialTab}`);
         }, 100);
       }
     }
@@ -18049,7 +18100,9 @@ function selectAlphabet(letter, buttonElement, skipHistory = false) {
   
   // Browser History Eintrag hinzufügen
   if (!skipHistory) {
-    const url = `${window.location.pathname}#schlagworte?letter=${encodeURIComponent(letter)}`;
+    // Bereinige URL: Nur Hash für aktuellen Tab, keine Query-Parameter
+    const baseUrl = window.location.origin + window.location.pathname;
+    const url = `${baseUrl}#schlagworte`;
     history.pushState({ 
       tab: 'schlagworte', 
       letter: letter 

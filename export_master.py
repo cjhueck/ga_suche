@@ -231,7 +231,60 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         if num_spaces_wrapped > 0:
             changes.append(f"  - Bildpfade mit <> versehen: {num_spaces_wrapped}× (Leerzeichen im Pfad)")
         
-        # Fix 10: Deutsche Rechtschreibkorrekturen
+        # Fix 10: JPEG zu PNG Konvertierung in Bildreferenzen
+        # ![alt](assets/img-0.jpeg) → ![alt](assets/img-0.png)
+        # ![alt](<'assets/img-0.jpeg'>) → ![alt](<'assets/img-0.png'>)
+        # ![alt]('assets/img-0.jpeg') → ![alt]('assets/img-0.png')
+        original_before_jpeg_fix = content
+        
+        # Pattern für Markdown-Bilder mit .jpeg oder .jpg Endung
+        # Erfasst alle Varianten: mit/ohne < >, mit/ohne Anführungszeichen
+        jpeg_pattern = r'!\[([^\]]*)\]\(([^)]*\.jpe?g)([^)]*)\)'
+        
+        def convert_jpeg_to_png(match):
+            alt_text = match.group(1)
+            path_before_ext = match.group(2)  # Alles vor .jpeg/.jpg
+            path_after_ext = match.group(3)   # Alles nach .jpeg/.jpg (kann ' oder > enthalten)
+            
+            # Konvertiere auch Alt-Text von .jpeg/.jpg zu .png
+            alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+            
+            # Entferne .jpeg oder .jpg und füge .png hinzu
+            # path_before_ext endet mit .jpeg oder .jpg, also entfernen wir das
+            path_without_ext = re.sub(r'\.jpe?g$', '', path_before_ext, flags=re.IGNORECASE)
+            png_path_full = path_without_ext + '.png' + path_after_ext
+            
+            return f'![{alt_text_converted}]({png_path_full})'
+        
+        content = re.sub(jpeg_pattern, convert_jpeg_to_png, content)
+        
+        # Zusätzlicher Fix: Konvertiere Alt-Texte mit .jpeg/.jpg auch wenn Pfad bereits .png ist
+        # ![img-3.jpeg](<'assets/...img-3.png'>) → ![img-3.png](<'assets/...img-3.png'>)
+        alt_jpeg_pattern = r'!\[([^\]]*\.jpe?g)\](\([^)]*\.png[^)]*\))'
+        
+        def convert_alt_jpeg_to_png(match):
+            alt_text = match.group(1)
+            path_part = match.group(2)
+            alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+            return f'![{alt_text_converted}]{path_part}'
+        
+        content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_png, content)
+        
+        # Zähle wie viele JPEG-Referenzen konvertiert wurden
+        num_jpegs_before = len(re.findall(jpeg_pattern, original_before_jpeg_fix))
+        num_jpegs_after = len(re.findall(jpeg_pattern, content))
+        num_jpegs_converted = num_jpegs_before - num_jpegs_after
+        
+        # Zähle auch Alt-Text-Konvertierungen
+        num_alt_jpegs_before = len(re.findall(alt_jpeg_pattern, original_before_jpeg_fix))
+        num_alt_jpegs_after = len(re.findall(alt_jpeg_pattern, content))
+        num_alt_jpegs_converted = num_alt_jpegs_before - num_alt_jpegs_after
+        
+        total_converted = num_jpegs_converted + num_alt_jpegs_converted
+        if total_converted > 0:
+            changes.append(f"  - JPEG zu PNG konvertiert: {total_converted}× (.jpeg/.jpg → .png)")
+        
+        # Fix 11: Deutsche Rechtschreibkorrekturen
         original_before_spelling_fix = content
         
         # Verwende zuerst die umfassende Rechtschreibkorrektur aus rechtschreibregeln.py
