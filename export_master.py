@@ -39,6 +39,14 @@ import json
 from datetime import datetime
 from pathlib import Path
 
+# Importiere Rechtschreibkorrekturen
+try:
+    from rechtschreibregeln import korrigiere_rechtschreibung
+except ImportError:
+    print("Warnung: rechtschreibregeln.py nicht gefunden")
+    def korrigiere_rechtschreibung(text):
+        return text
+
 
 # ============================================================================
 # BILDPFAD-KORREKTUR FUNKTIONEN (Integriert)
@@ -225,6 +233,11 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         # Fix 10: Deutsche Rechtschreibkorrekturen
         original_before_spelling_fix = content
+        
+        # Verwende zuerst die umfassende Rechtschreibkorrektur aus rechtschreibregeln.py
+        content = korrigiere_rechtschreibung(content)
+        
+        # Zusätzliche spezifische Korrekturen
         spelling_replacements = [
             ('Fleiss', 'Fleiß'),
             ('fleiss', 'fleiß'),

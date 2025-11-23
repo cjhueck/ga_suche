@@ -1,0 +1,38 @@
+KORRIGIERTE DATEIEN
+================================================================================
+
+GA001-Goethes Naturwissenschaftliche Schriften\GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897).md
+GA003-Wahrheit und Wissenschaft\GA003 - Wahrheit und Wissenschaft (1892).md
+GA004-Die Philosophie der Freiheit\GA004 - Die Philosophie der Freiheit (1894).md
+GA005-Friedrich Nietzsche\GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895).md
+GA006-Goethes Weltanschauung\GA006 - Goethes Weltanschauung (1897).md
+GA007-Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung\GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901).md
+GA008-Das Christentum als mystische Tatsache und die Mysterien des Altertums\GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902).md
+GA010-Wie erlangt man Erkenntnisse der höheren Welten\GA010 - Wie erlangt man Erkenntnisse der höheren Welten (1904-1905).md
+GA011-Aus der Akasha-Chronik\GA011 - Aus der Akasha-Chronik (1904).md
+GA012-Die Stufen der höheren Erkenntnis\GA012 - Die Stufen der höheren Erkenntnis (1905-1908).md
+GA013-Die Geheimwissenschaft im Umriß\GA013 - Die Geheimwissenschaft im Umriss (1910).md
+GA014-Vier Mysteriendramen\GA014 - Vier Mysteriendramen (1910-1913).md
+GA018-Die Rätsel der Philosophie in ihrer Geschichte als Umriß dargestellt\GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914).md
+GA019-Gedanken während der Zeit des Krieges\GA019 - Gedanken während der Zeit des Krieges (1915) und weitere Texte zum Weltkriegsgeschehen (1917-1921).md
+GA020-Vom Menschenrätsel\GA020 - Vom Menschenrätsel (1916).md
+GA021-Von Seelenrätseln\GA021 - Von Seelenrätseln (1917).md
+GA024-Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage\GA024-Aufsätze über die Dreigliederung des sozialen Organismus und zur Zeitlage.md
+GA027-Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen\GA027-Grundlegendes für eine Erweiterung der Heilkunst nach geisteswissenschaftlichen Erkenntnissen.md
+GA028-Mein Lebensgang\GA028-Mein Lebensgang.md
+GA029-Gesammelte Aufsätze zur Dramaturgie 1889 bis 1900\GA029-Gesammelte Aufsätze zur Dramaturgie 1889 bis 1900.md
+GA030-Methodische Grundlagen der Anthroposophie Gesammelte Aufsätze zur Philosophie\GA030-Methodische Grundlagen der Anthroposophie Gesammelte Aufsätze zur Philosophie.md
+GA031-Gesammelte Aufsätze zur Kultur- und Zeitgeschichte 1887 bis 1901\GA031-Gesammelte Aufsätze zur Kultur- und Zeitgeschichte 1887 bis 1901.md
+GA032-Gesammelte Aufsätze zur Literatur 1884 bis 1902\GA032-Gesammelte Aufsätze zur Literatur 1884 bis 1902.md
+GA033-Biographien und biographische Skizzen 1894 bis 1905\GA033-Biographien und biographische Skizzen 1894 bis 1905.md
+GA034-Lucifer-Gnosis 1903 bis 1908\GA034-Lucifer-Gnosis 1903 bis 1908.md
+GA035-Philosophie und Anthroposophie 1904 bis 1923\GA035-Philosophie und Anthroposophie 1904 bis 1923.md
+GA036-Der Goetheanumgedanke inmitten der Kulturkrisis der Gegenwart\GA036-Der Goetheanumgedanke inmitten der Kulturkrisis der Gegenwart.md
+GA037-Schriften zur Geschichte der anthroposophischen Bewegung und Gesellschaft 1902-1925\GA037-Schriften zur Geschichte der anthroposophischen Bewegung und Gesellschaft 1902-1925.md
+GA038-Briefe I\GA038-Briefe I.md
+GA039-Briefe II\GA039-Briefe II.md
+GA040-Wahrspruchworte\GA040-Wahrspruchworte.md
+GA040a-Wahrspruchworte\GA040a-Wahrspruchworte.md
+GA041b-Übersetzungen und  freie Übertragungen verschiedener Werke\GA041b-Übersetzungen und  freie Übertragungen verschiedener Werke.md
+Übersichten Vorträge GA051 bis GA072.md
+Übersichten Vorträge GA073 bis GA084.md

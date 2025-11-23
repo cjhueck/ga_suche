@@ -21,6 +21,14 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+# Importiere Rechtschreibkorrekturen
+try:
+    from rechtschreibregeln import korrigiere_rechtschreibung
+except ImportError:
+    print("Warnung: rechtschreibregeln.py nicht gefunden")
+    def korrigiere_rechtschreibung(text):
+        return text
+
 
 class BooksExporter:
     def __init__(self):
@@ -290,7 +298,10 @@ class BooksExporter:
     
     def fix_spelling(self, text):
         """Korrigiert deutsche Rechtschreibung (wie in export_master.py und ss-targeted-settings.json)"""
-        # Basis-Rechtschreibkorrekturen aus export_master.py
+        # Verwende zuerst die umfassende Rechtschreibkorrektur aus rechtschreibregeln.py
+        text = korrigiere_rechtschreibung(text)
+        
+        # Zusätzliche spezifische Korrekturen
         spelling_replacements = [
             ('Fleiss', 'Fleiß'),
             ('fleiss', 'fleiß'),

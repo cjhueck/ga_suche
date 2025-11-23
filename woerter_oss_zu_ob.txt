@@ -1,0 +1,96 @@
+LISTE VON WÖRTERN MIT FÄLSCHLICHEM "oß"/"Oß" DIE STATTDESSEN "ob"/"Ob" ENTHALTEN SOLLTEN
+================================================================================
+
+WAHRSCHEINLICHE FEHLER (sollten korrigiert werden):
+
+1. oßen → oben
+2. Oktoßer → Oktober
+3. beoßachten → beobachten
+4. Beoßachtung → Beobachtung
+5. beoßachtet → beobachtet
+6. Beoßachtungen → Beobachtungen
+7. Beoßachter → Beobachter
+8. Selbstbeoßachtung → Selbstbeobachtung
+9. oßerfläche → Oberfläche
+10. oßerflächlich → oberflächlich
+11. oßwohl → obwohl
+12. oßgleich → obgleich
+13. oßjektiv → objektiv
+14. oßjektive → objektive
+15. oßjektiven → objektiven
+16. oßjektiver → objektiver
+17. oßjektivität → Objektivität
+18. oßjekt → Objekt
+19. Proßlem → Problem
+20. Proßleme → Probleme
+21. Proßlematik → Problematik
+22. Proßlematisierung → Problematisierung
+23. Grundproßlem → Grundproblem
+24. Entwicklungsproßlem → Entwicklungsproblem
+25. Daseinsproßlem → Daseinsproblem
+26. Schlafproßlem → Schlafproblem
+27. Glücksproßlematik → Glücksproblematik
+28. Jakoß → Jakob
+29. JAKoß → JAKob
+30. woßei → wobei
+31. soßald → sobald
+32. Soßald → Sobald
+33. oßeren → oberen
+34. oßere → obere
+35. erhoßen → erhoben
+36. erhoßene → erhobene
+37. eroßert → erobert
+38. eroßern → erobern
+39. Eroßerung → Eroberung
+40. Eroßerungen → Eroberungen
+41. Wiedereroßerung → Wiedereroberung
+42. hervorgehoßen → hervorgehoben
+43. herausgehoßen → herausgehoben
+44. Roßert → Robert (Name)
+45. oßsidian → obsidian (Programmname)
+46. oßsidianSteiner → obsidianSteiner
+47. oßerland → Oberland (möglicherweise Ortsname)
+48. Goßineaus → Gobineaus (Name)
+
+EINZELNE FÄLLE (müssen im Kontext geprüft werden):
+- oß (könnte "ob" sein, muss aber im Kontext geprüft werden)
+- eoß4ue, moß3zf, oßc09y, poßikn (könnten OCR-Fehler sein)
+
+HÄUFIGKEITEN (aus der Analyse):
+- 'oß': 23.126 Vorkommen (muss im Kontext geprüft werden)
+- 'oßen': 8.984 Vorkommen → sollte "oben" sein
+- 'Oktoßer': 6.502 Vorkommen → sollte "Oktober" sein
+- 'beoßachten': 5.624 Vorkommen → sollte "beobachten" sein
+- 'Beoßachtung': 5.231 Vorkommen → sollte "Beobachtung" sein
+- 'oßerfläche': 3.094 Vorkommen → sollte "Oberfläche" sein
+- 'oßwohl': 3.008 Vorkommen → sollte "obwohl" sein
+- 'beoßachtet': 2.955 Vorkommen → sollte "beobachtet" sein
+- 'Proßlem': 2.822 Vorkommen → sollte "Problem" sein
+- 'oßjektiv': 2.694 Vorkommen → sollte "objektiv" sein
+- 'oßjektive': 2.213 Vorkommen → sollte "objektive" sein
+- 'Jakoß': 2.131 Vorkommen → sollte "Jakob" sein
+- 'woßei': 1.952 Vorkommen → sollte "wobei" sein
+- 'soßald': 1.456 Vorkommen → sollte "sobald" sein
+- 'Roßert': 1.328 Vorkommen → sollte "Robert" sein
+- 'Beoßachtungen': 1.309 Vorkommen → sollte "Beobachtungen" sein
+- 'erhoßen': 1.231 Vorkommen → sollte "erhoben" sein
+- 'oßjekt': 1.152 Vorkommen → sollte "Objekt" sein
+- 'oßjektivität': 1.115 Vorkommen → sollte "Objektivität" sein
+- 'Proßleme': 1.070 Vorkommen → sollte "Probleme" sein
+- 'eroßert': 905 Vorkommen → sollte "erobert" sein
+- 'hervorgehoßen': 896 Vorkommen → sollte "hervorgehoben" sein
+- 'herausgehoßen': 730 Vorkommen → sollte "herausgehoben" sein
+- 'oßerflächlich': 721 Vorkommen → sollte "oberflächlich" sein
+- 'oßere': 712 Vorkommen → sollte "obere" sein
+- 'Beoßachter': 608 Vorkommen → sollte "Beobachter" sein
+- 'Selbstbeoßachtung': 586 Vorkommen → sollte "Selbstbeobachtung" sein
+- 'oßgleich': 562 Vorkommen → sollte "obgleich" sein
+
+HINWEIS: Die meisten anderen Vorkommen von "oß" sind korrekte deutsche Wörter wie:
+- bloß, bloßen, bloße, bloßer, bloßes
+- groß, großen, große, großer, großes, größte
+- stoßen, Schoße, Anstoß
+- Großbritannien
+
+Diese sollten NICHT geändert werden!
+
