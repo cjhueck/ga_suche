@@ -14562,24 +14562,76 @@ function showSummaryView() {
     
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
+      try {
       content = marked.parse(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
-      // Debug: Zeige ob Bilder enthalten sind
+        
+        // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
+        // Konvertiere ![alt](path) zu <img src="path" alt="alt">
       if (content.includes('![')) {
         console.warn('[MARKDOWN] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
         console.log('[MARKDOWN] Content NACH marked.parse():', content.substring(0, 300));
-      }
+          
+          // Konvertiere Bild-Syntax manuell
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            // Entferne eventuelle HTML-Entities und Leerzeichen
+            alt = alt.trim();
+            src = src.trim();
+            // Entferne < > und Anführungszeichen falls vorhanden
+            src = src.replace(/^<['"]?|['"]?>$/g, '');
+            console.log('[MARKDOWN] Manuelle Bild-Konvertierung:', alt, '->', src);
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+          
+          console.log('[MARKDOWN] ✓ Bilder manuell konvertiert');
+        }
+        
       if (content.includes('<img')) {
         console.log('[MARKDOWN] ✓ <img> Tag gefunden im konvertierten Content');
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked.parse():', e);
       }
     } else if (typeof marked !== 'undefined' && marked.marked) {
+      try {
       content = marked.marked(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+        // Auch hier manuelle Bild-Konvertierung falls nötig
+        if (content.includes('![')) {
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            alt = alt.trim();
+            src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked.marked():', e);
+      }
     } else if (typeof marked !== 'undefined') {
+      try {
       content = marked(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked()');
+        // Auch hier manuelle Bild-Konvertierung falls nötig
+        if (content.includes('![')) {
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            alt = alt.trim();
+            src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked():', e);
+      }
     } else {
       console.error('[MARKDOWN] marked ist nicht verfügbar!');
+      // Fallback: Manuelle Bild-Konvertierung
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
     }
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
@@ -17176,12 +17228,34 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
+            // Manuelle Bild-Konvertierung falls nötig
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else if (typeof marked !== 'undefined' && marked.marked) {
             content = marked.marked(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else if (typeof marked !== 'undefined') {
             content = marked(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked()');
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else {
             console.error('[MARKDOWN] marked ist nicht verfügbar!');
           }
