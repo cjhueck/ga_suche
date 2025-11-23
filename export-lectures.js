@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const sharp = require('sharp');
 
 class SteinerLecturesExporter {
   constructor(sourceDir, outputDir) {
@@ -187,8 +188,15 @@ class SteinerLecturesExporter {
     // 0. Entferne < und > aus URLs (Markdown-Format für URLs mit Leerzeichen)
     cleaned = cleaned.replace(/^<(.+)>$/, '$1');
     
+    // 0.5. Entferne Anführungszeichen am Anfang und Ende
+    cleaned = cleaned.replace(/^['"](.+)['"]$/, '$1');
+    
     // 1. Entferne URL-Encoding (%20 -> Leerzeichen, etc.)
-    cleaned = decodeURIComponent(cleaned);
+    try {
+      cleaned = decodeURIComponent(cleaned);
+    } catch (e) {
+      // Falls Decodierung fehlschlägt, verwende Original
+    }
     
     // 2. Entferne GA-Ordnernamen aus dem Pfad
     // Pattern: GA###-Langer Ordnername/assets/file -> assets/file
@@ -197,7 +205,10 @@ class SteinerLecturesExporter {
     // 3. Entferne GA###-Name_img-X.jpeg -> assets/img-X.jpeg
     cleaned = cleaned.replace(/^GA\d+[a-z]?[- ][^_]+_/, 'assets/');
     
-    // 4. Wenn kein assets/ am Anfang, füge es hinzu (für Dateien wie "img-0.jpeg")
+    // 4. Entferne doppeltes "assets/" am Anfang
+    cleaned = cleaned.replace(/^assets\/['"]?assets\//, 'assets/');
+    
+    // 5. Wenn kein assets/ am Anfang, füge es hinzu (für Dateien wie "img-0.jpeg")
     if (!cleaned.startsWith('assets/') && !cleaned.startsWith('../')) {
       cleaned = `assets/${cleaned}`;
     }
@@ -571,29 +582,84 @@ class SteinerLecturesExporter {
             continue;
           }
           
-          // Lese Bilddatei und konvertiere zu Base64
-          const imageBuffer = fs.readFileSync(fullImagePath);
-          const base64 = imageBuffer.toString('base64');
-          
-          // Bestimme MIME-Type aus Dateiendung
+          // Bestimme Dateiendung und prüfe ob Konvertierung nötig ist
           const ext = path.extname(fullImagePath).toLowerCase();
-          const mimeTypes = {
-            '.jpg': 'image/jpeg',
-            '.jpeg': 'image/jpeg',
-            '.png': 'image/png',
-            '.gif': 'image/gif',
-            '.webp': 'image/webp'
-          };
-          const mimeType = mimeTypes[ext] || 'image/jpeg';
+          const isJpeg = ext === '.jpg' || ext === '.jpeg';
           
-          imagesWithData[lectureId].push({
-            index: img.index,
-            altText: img.altText,
-            path: img.path,
-            markdownRef: img.markdownRef,
-            base64: `data:${mimeType};base64,${base64}`,
-            size: imageBuffer.length
-          });
+          let imageBuffer;
+          let mimeType = 'image/png'; // Standard: PNG nach Konvertierung
+          let convertedPath = img.path; // Pfad für gespeichertes Bild
+          
+          try {
+            if (isJpeg) {
+              // Konvertiere JPEG zu PNG
+              console.log(`   🔄 Konvertiere JPEG zu PNG: ${decodedPath}`);
+              imageBuffer = await sharp(fullImagePath)
+                .png()
+                .toBuffer();
+              
+              // Aktualisiere Pfad: .jpeg/.jpg → .png
+              convertedPath = img.path.replace(/\.jpe?g$/i, '.png');
+            } else {
+              // Andere Formate (PNG, GIF, WEBP) direkt lesen
+              imageBuffer = fs.readFileSync(fullImagePath);
+              
+              // Bestimme MIME-Type für nicht-JPEG Dateien
+              const mimeTypes = {
+                '.png': 'image/png',
+                '.gif': 'image/gif',
+                '.webp': 'image/webp'
+              };
+              mimeType = mimeTypes[ext] || 'image/png';
+            }
+            
+            // Konvertiere zu Base64
+            const base64 = imageBuffer.toString('base64');
+            
+            // Aktualisiere auch Markdown-Referenz wenn JPEG konvertiert wurde
+            let convertedMarkdownRef = img.markdownRef;
+            if (isJpeg && img.markdownRef) {
+              convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g$/i, '.png');
+            }
+            
+            imagesWithData[lectureId].push({
+              index: img.index,
+              altText: img.altText,
+              path: convertedPath, // Verwende konvertierten Pfad (.png statt .jpeg)
+              markdownRef: convertedMarkdownRef, // Aktualisierte Markdown-Referenz
+              base64: `data:${mimeType};base64,${base64}`,
+              size: imageBuffer.length
+            });
+            
+          } catch (conversionError) {
+            console.warn(`   ⚠ ${lectureId}: Fehler bei Konvertierung von ${img.path}: ${conversionError.message}`);
+            // Fallback: Versuche Original zu lesen
+            try {
+              imageBuffer = fs.readFileSync(fullImagePath);
+              const base64 = imageBuffer.toString('base64');
+              const mimeTypes = {
+                '.jpg': 'image/jpeg',
+                '.jpeg': 'image/jpeg',
+                '.png': 'image/png',
+                '.gif': 'image/gif',
+                '.webp': 'image/webp'
+              };
+              mimeType = mimeTypes[ext] || 'image/jpeg';
+              
+              imagesWithData[lectureId].push({
+                index: img.index,
+                altText: img.altText,
+                path: img.path,
+                markdownRef: img.markdownRef,
+                base64: `data:${mimeType};base64,${base64}`,
+                size: imageBuffer.length
+              });
+            } catch (fallbackError) {
+              console.warn(`   ⚠ ${lectureId}: Fallback fehlgeschlagen für ${img.path}: ${fallbackError.message}`);
+              failedImages++;
+              continue;
+            }
+          }
           
           processedImages++;
           
