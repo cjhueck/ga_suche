@@ -29,6 +29,110 @@ except ImportError:
     def korrigiere_rechtschreibung(text):
         return text
 
+# Importiere PIL für Bildkonvertierung
+try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("Warnung: PIL/Pillow nicht verfügbar. JPEG-zu-PNG Konvertierung wird übersprungen.")
+
+
+def convert_jpeg_to_png_files(md_file_path):
+    """
+    Konvertiert alle JPEG-Bilder in PNG im assets-Ordner des GA-Bandes.
+    Sucht alle .jpeg/.jpg Dateien im assets-Ordner und konvertiert sie zu .png.
+    
+    Args:
+        md_file_path: Pfad zur Markdown-Datei
+        
+    Returns:
+        Anzahl der konvertierten Dateien
+    """
+    if not PIL_AVAILABLE:
+        return 0
+    
+    try:
+        md_dir = os.path.dirname(md_file_path)
+        
+        # Finde assets-Ordner relativ zur Markdown-Datei
+        assets_dir = os.path.join(md_dir, 'assets')
+        
+        if not os.path.exists(assets_dir):
+            return 0
+        
+        converted_count = 0
+        
+        # Finde alle JPEG-Dateien im assets-Ordner
+        for filename in os.listdir(assets_dir):
+            if filename.lower().endswith('.jpeg') or filename.lower().endswith('.jpg'):
+                jpeg_path = os.path.join(assets_dir, filename)
+                
+                # Erstelle PNG-Pfad
+                png_filename = re.sub(r'\.jpe?g$', '.png', filename, flags=re.IGNORECASE)
+                png_path = os.path.join(assets_dir, png_filename)
+                
+                # Überspringe wenn PNG bereits existiert
+                if os.path.exists(png_path):
+                    continue
+                
+                try:
+                    # Konvertiere JPEG zu PNG
+                    img = Image.open(jpeg_path)
+                    img.save(png_path, 'PNG')
+                    converted_count += 1
+                except Exception as e:
+                    print(f"    ⚠ Konvertierung fehlgeschlagen: {jpeg_path} → {e}")
+        
+        return converted_count
+        
+    except Exception as e:
+        print(f"    ⚠ Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
+        return 0
+
+
+def fix_image_placeholders_in_content(content):
+    """
+    Konvertiert JPEG-Platzhalter zu PNG in Markdown-Text.
+    
+    Args:
+        content: Markdown-Text
+        
+    Returns:
+        Korrigierter Text
+    """
+    # Pattern 1: Pfad mit .jpeg/.jpg → .png
+    jpeg_pattern = r'!\[([^\]]*)\]\(([^)]*\.jpe?g)([^)]*)\)'
+    
+    def convert_jpeg_to_png(match):
+        alt_text = match.group(1)
+        path_before_ext = match.group(2)
+        path_after_ext = match.group(3)
+        
+        # Konvertiere auch Alt-Text von .jpeg/.jpg zu .png
+        alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+        
+        # Entferne .jpeg oder .jpg und füge .png hinzu
+        path_without_ext = re.sub(r'\.jpe?g$', '', path_before_ext, flags=re.IGNORECASE)
+        png_path_full = path_without_ext + '.png' + path_after_ext
+        
+        return f'![{alt_text_converted}]({png_path_full})'
+    
+    content = re.sub(jpeg_pattern, convert_jpeg_to_png, content)
+    
+    # Pattern 2: Alt-Text mit .jpeg/.jpg, aber Pfad bereits .png
+    alt_jpeg_pattern = r'!\[([^\]]*\.jpe?g)\](\([^)]*\.png[^)]*\))'
+    
+    def convert_alt_jpeg_to_png(match):
+        alt_text = match.group(1)
+        path_part = match.group(2)
+        alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+        return f'![{alt_text_converted}]{path_part}'
+    
+    content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_png, content)
+    
+    return content
+
 
 class BooksExporter:
     def __init__(self):
@@ -385,8 +489,14 @@ class BooksExporter:
             with open(main_file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
+            # 0. Konvertiere JPEG-Bilder zu PNG
+            converted_images = convert_jpeg_to_png_files(main_file)
+            
             # 1. Rechtschreibkorrekturen
             content = self.fix_spelling(content)
+            
+            # 1.5. Konvertiere JPEG-Platzhalter zu PNG
+            content = fix_image_placeholders_in_content(content)
             
             # 2. Konvertiere Überschriften
             content = self.convert_headings(content)
