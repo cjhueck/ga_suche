@@ -2643,6 +2643,25 @@ body.dark-mode #thematicSearchInfo {
       display: none;
     }
     
+    /* Nummerierte Listen: Nummern sollen gleiche Schriftgröße wie Text haben */
+    #viewer ol {
+      font-size: var(--text-size);
+    }
+    
+    #viewer ol li {
+      font-size: inherit;
+    }
+    
+    #viewer ol li::marker {
+      font-size: 1em !important;
+    }
+    
+    /* Dark Mode für nummerierte Listen */
+    body.dark-mode #viewer ol,
+    body.dark-mode #viewer ol li {
+      color: var(--dark-text-color);
+    }
+    
     /* Anmerkungen als Absätze: Formatierung für Absätze die mit **, ***, etc. beginnen */
     /* Gleiche Formatierung wie für Listen mit Sternchen: kleiner und eingerückt */
     #viewer p.asterisk-note,
