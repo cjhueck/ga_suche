@@ -47,10 +47,71 @@ except ImportError:
     def korrigiere_rechtschreibung(text):
         return text
 
+# Importiere PIL für Bildkonvertierung
+try:
+    from PIL import Image
+    PIL_AVAILABLE = True
+except ImportError:
+    PIL_AVAILABLE = False
+    print("Warnung: PIL/Pillow nicht verfügbar. JPEG-zu-PNG Konvertierung wird übersprungen.")
+
 
 # ============================================================================
 # BILDPFAD-KORREKTUR FUNKTIONEN (Integriert)
 # ============================================================================
+
+def convert_jpeg_to_png_files(md_file_path):
+    """
+    Konvertiert alle JPEG-Bilder in PNG im assets-Ordner des GA-Bandes.
+    Sucht alle .jpeg/.jpg Dateien im assets-Ordner und konvertiert sie zu .png.
+    
+    Args:
+        md_file_path: Pfad zur Markdown-Datei
+        
+    Returns:
+        Anzahl der konvertierten Dateien
+    """
+    if not PIL_AVAILABLE:
+        return 0
+    
+    try:
+        md_dir = os.path.dirname(md_file_path)
+        
+        # Finde assets-Ordner relativ zur Markdown-Datei
+        assets_dir = os.path.join(md_dir, 'assets')
+        
+        if not os.path.exists(assets_dir):
+            return 0
+        
+        converted_count = 0
+        
+        # Finde alle JPEG-Dateien im assets-Ordner
+        for filename in os.listdir(assets_dir):
+            if filename.lower().endswith('.jpeg') or filename.lower().endswith('.jpg'):
+                jpeg_path = os.path.join(assets_dir, filename)
+                
+                # Erstelle PNG-Pfad
+                png_filename = re.sub(r'\.jpe?g$', '.png', filename, flags=re.IGNORECASE)
+                png_path = os.path.join(assets_dir, png_filename)
+                
+                # Überspringe wenn PNG bereits existiert
+                if os.path.exists(png_path):
+                    continue
+                
+                try:
+                    # Konvertiere JPEG zu PNG
+                    img = Image.open(jpeg_path)
+                    img.save(png_path, 'PNG')
+                    converted_count += 1
+                except Exception as e:
+                    print(f"    ⚠ Konvertierung fehlgeschlagen: {jpeg_path} → {e}")
+        
+        return converted_count
+        
+    except Exception as e:
+        print(f"    ⚠ Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
+        return 0
+
 
 def fix_image_refs_in_file(filepath, apply_changes=False):
     """Korrigiert Bildreferenzen in einer Markdown-Datei"""
@@ -421,14 +482,25 @@ class ExportMaster:
                 
                 for md_file in md_files:
                     md_path = os.path.join(folder_path, md_file)
+                    
+                    # Konvertiere JPEG-Bilder zu PNG
+                    converted_images = convert_jpeg_to_png_files(md_path)
+                    
+                    # Korrigiere Bildreferenzen in Markdown
                     num_fixes, changes = fix_image_refs_in_file(md_path, apply_changes=True)
                     
-                    if num_fixes > 0:
+                    if num_fixes > 0 or converted_images > 0:
                         if not folder_had_changes:
                             print(f"\n{folder_name}:")
                             folder_had_changes = True
                         
-                        print(f"  {md_file}: {num_fixes} Korrektur(en)")
+                        msg_parts = []
+                        if converted_images > 0:
+                            msg_parts.append(f"{converted_images} Bild(er) konvertiert")
+                        if num_fixes > 0:
+                            msg_parts.append(f"{num_fixes} Korrektur(en)")
+                        
+                        print(f"  {md_file}: {', '.join(msg_parts)}")
                         total_fixes += num_fixes
                         total_files += 1
             

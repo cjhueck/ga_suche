@@ -14,6 +14,96 @@ const PORT = 3003;
 app.use(cors());
 app.use(express.json());
 
+// API: Bilder aus GA-Ordnern servieren (für Bücher) - MUSS VOR express.static kommen!
+app.get('/assets/*', async (req, res) => {
+  try {
+    // Extrahiere den Pfad nach /assets/
+    const imagePath = req.path.replace('/assets/', ''); // z.B. "GA046-Nachgelassene Abhandlungen...img-0.png"
+    console.log('[IMAGES-ASSETS] Anfrage für Bild:', imagePath);
+    console.log('[IMAGES-ASSETS] Vollständiger Request-Pfad:', req.path);
+    
+    // Decode URL-encoded Zeichen
+    const decodedPath = decodeURIComponent(imagePath);
+    console.log('[IMAGES-ASSETS] Decodierter Pfad:', decodedPath);
+    
+    // Finde den GA-Ordner basierend auf dem Bildpfad
+    const gaMatch = decodedPath.match(/^(GA\d{3}[a-z]?)/i);
+    if (!gaMatch) {
+      console.log('[IMAGES-ASSETS] GA-Nummer nicht gefunden in:', decodedPath);
+      return res.status(404).json({ error: 'GA-Nummer nicht gefunden' });
+    }
+    
+    const gaNumber = gaMatch[1];
+    console.log('[IMAGES-ASSETS] Gefundene GA-Nummer:', gaNumber);
+    
+    const steinerGADir = path.join(__dirname, 'Steiner_GA');
+    console.log('[IMAGES-ASSETS] Suche in:', steinerGADir);
+    
+    // Suche nach dem GA-Ordner
+    const files = await fs.readdir(steinerGADir);
+    const gaFolder = files.find(f => {
+      const stat = fsSync.statSync(path.join(steinerGADir, f));
+      return stat.isDirectory() && f.startsWith(gaNumber);
+    });
+    
+    if (!gaFolder) {
+      console.log('[IMAGES-ASSETS] GA-Ordner nicht gefunden. Verfügbare Ordner:', files.filter(f => f.startsWith(gaNumber)));
+      return res.status(404).json({ error: `GA-Ordner nicht gefunden: ${gaNumber}` });
+    }
+    
+    console.log('[IMAGES-ASSETS] Gefundener GA-Ordner:', gaFolder);
+    
+    // Konstruiere den vollständigen Pfad zum Bild
+    let fullImagePath = path.join(steinerGADir, gaFolder, 'assets', decodedPath);
+    console.log('[IMAGES-ASSETS] Vollständiger Pfad:', fullImagePath);
+    
+    // Prüfe ob Datei existiert
+    if (!fsSync.existsSync(fullImagePath)) {
+      console.log('[IMAGES-ASSETS] Bild nicht gefunden. Versuche Varianten...');
+      
+      // Falls .png nicht gefunden, versuche .jpeg oder .jpg
+      if (decodedPath.endsWith('.png')) {
+        const jpegPath = decodedPath.replace(/\.png$/i, '.jpeg');
+        const jpgPath = decodedPath.replace(/\.png$/i, '.jpg');
+        
+        const jpegFullPath = path.join(steinerGADir, gaFolder, 'assets', jpegPath);
+        const jpgFullPath = path.join(steinerGADir, gaFolder, 'assets', jpgPath);
+        
+        if (fsSync.existsSync(jpegFullPath)) {
+          console.log('[IMAGES-ASSETS] ✓ JPEG-Variante gefunden:', jpegPath);
+          fullImagePath = jpegFullPath;
+        } else if (fsSync.existsSync(jpgFullPath)) {
+          console.log('[IMAGES-ASSETS] ✓ JPG-Variante gefunden:', jpgPath);
+          fullImagePath = jpgFullPath;
+        } else {
+          console.log('[IMAGES-ASSETS] Bild nicht gefunden. Prüfe assets-Ordner...');
+          const assetsDir = path.join(steinerGADir, gaFolder, 'assets');
+          if (fsSync.existsSync(assetsDir)) {
+            const assetsFiles = fsSync.readdirSync(assetsDir);
+            console.log('[IMAGES-ASSETS] Verfügbare Dateien im assets-Ordner:', assetsFiles.slice(0, 10));
+          }
+          return res.status(404).json({ error: 'Bild nicht gefunden' });
+        }
+      } else {
+        console.log('[IMAGES-ASSETS] Bild nicht gefunden. Prüfe assets-Ordner...');
+        const assetsDir = path.join(steinerGADir, gaFolder, 'assets');
+        if (fsSync.existsSync(assetsDir)) {
+          const assetsFiles = fsSync.readdirSync(assetsDir);
+          console.log('[IMAGES-ASSETS] Verfügbare Dateien im assets-Ordner:', assetsFiles.slice(0, 10));
+        }
+        return res.status(404).json({ error: 'Bild nicht gefunden' });
+      }
+    }
+    
+    console.log('[IMAGES-ASSETS] ✓ Bild gefunden, serviere:', fullImagePath);
+    // Serviere das Bild
+    res.sendFile(fullImagePath);
+  } catch (error) {
+    console.error('[IMAGES-ASSETS] Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
 
