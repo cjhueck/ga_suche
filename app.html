@@ -2949,9 +2949,14 @@ body.dark-mode .ga-keyword-link {
   text-decoration: none;
 }
 
-/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt */
+/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt - NUR in lokaler Version */
 .keyword-entry h4 a.new-prompt-concept {
   font-style: italic;
+}
+
+/* In Online-Version: Kursivschrift entfernen (nur normale Schlagwörter werden angezeigt) */
+body:not(.local-mode) .keyword-entry h4 a.new-prompt-concept {
+  font-style: normal;
 }
 
 body.dark-mode .keyword-entry h4 a {
@@ -4989,6 +4994,7 @@ Original
       document.body.classList.add('local-mode');
     } else {
       document.body.classList.add('online-mode');
+      document.body.classList.remove('local-mode');
     }
     
     const API_BASE = isLocal
