@@ -526,7 +526,9 @@ class BooksExporter:
             print(f"[!] Datei zu groß ({size_mb:.2f} MB), splitte in mehrere Dateien...\n")
             
             books = data['books']
-            chunk_size = len(books) // ((size_mb // 10) + 1)
+            chunk_size = int(len(books) // ((size_mb // 10) + 1))
+            if chunk_size < 1:
+                chunk_size = 1
             
             part_num = 1
             for i in range(0, len(books), chunk_size):

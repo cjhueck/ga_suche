@@ -160,11 +160,32 @@ def korrigiere_rechtschreibung(text):
         'paßt': 'passt',
         'römischkatholisch': 'römisch-katholisch',
         'DeutschÖsterreicher': 'Deutsch-Österreicher',
+        
+        # Kongreß → Kongress
+        'Kongreß': 'Kongress',
+        'kongreß': 'kongress',
     }
     
     # Wende alle Ersetzungen an
     for old, new in replacements.items():
         text = text.replace(old, new)
+    
+    # Regel: Zusammengesetzte Substantive mit großgeschriebenem zweiten Teil
+    # müssen durch einen Bindestrich getrennt werden (z.B. GöttlichGeistiges => Göttlich-Geistiges)
+    def add_hyphen_to_compound_nouns(match):
+        """Fügt einen Bindestrich zwischen zwei Substantiven ein, wenn das zweite großgeschrieben ist."""
+        word = match.group(0)
+        # Finde die Stelle, wo ein Kleinbuchstabe auf einen Großbuchstaben folgt
+        # Muster: [a-zäöüß][A-ZÄÖÜ] - funktioniert auch wenn das Wort mit Großbuchstabe beginnt
+        pattern = r'([a-zäöüß])([A-ZÄÖÜ])'
+        corrected = re.sub(pattern, r'\1-\2', word)
+        return corrected
+    
+    # Finde Wörter, die aus zwei Teilen bestehen, wobei der zweite Teil mit Großbuchstabe beginnt
+    # Muster: Mindestens ein Kleinbuchstabe (kann nach einem Großbuchstaben kommen), gefolgt von einem Großbuchstaben
+    # Erfasst sowohl "göttlichGeistiges" als auch "GöttlichGeistiges"
+    compound_pattern = r'\b[A-ZÄÖÜ]?[a-zäöüß]+[A-ZÄÖÜ][a-zäöüßA-ZÄÖÜ]*\b'
+    text = re.sub(compound_pattern, add_hyphen_to_compound_nouns, text)
     
     return text
 
@@ -278,6 +299,10 @@ def get_replacements_dict():
         'paßt': 'passt',
         'römischkatholisch': 'römisch-katholisch',
         'DeutschÖsterreicher': 'Deutsch-Österreicher',
+        
+        # Kongreß → Kongress
+        'Kongreß': 'Kongress',
+        'kongreß': 'kongress',
     }
 
 
@@ -290,6 +315,8 @@ if __name__ == '__main__':
         "heisst weiss läßt",
         "ChristusWesenheit Johannes-Evangelium",
         "Prozeß Entschluß",
+        "Kongreß und Kongresse",
+        "GöttlichGeistiges und SeelischGeistiges",
     ]
     
     print("Test der Rechtschreibkorrekturen:")
