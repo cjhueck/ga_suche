@@ -18389,9 +18389,15 @@ function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
   
+  // Prüfe ob lokale Version
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.protocol === 'file:';
+  
   console.log('[DISPLAY] ========== displayKeywords aufgerufen ==========');
   console.log('[DISPLAY] keywordsData.length:', keywordsData.length);
   console.log('[DISPLAY] selectedLetter:', selectedLetter);
+  console.log('[DISPLAY] isLocal:', isLocal);
   
   // WICHTIG: Prüfe auf Duplikate in keywordsData
   const keywordNames = keywordsData.map(kw => kw.keyword);
@@ -18413,6 +18419,13 @@ function displayKeywords(selectedLetter = 'Alle') {
     : keywordsData.filter(k => (k.alphabetical || k.keyword.charAt(0).toUpperCase()) === selectedLetter);
   
   console.log('[DISPLAY] Nach Buchstaben-Filter:', filteredKeywords.length);
+  
+  // In Online-Version: Nur Schlagwörter mit vollständiger Darstellung (overview) anzeigen
+  if (!isLocal) {
+    const beforeFilter = filteredKeywords.length;
+    filteredKeywords = filteredKeywords.filter(k => k.overview);
+    console.log('[DISPLAY] Online-Version: Filtere Schlagwörter ohne vollständige Darstellung. Vorher:', beforeFilter, 'Nachher:', filteredKeywords.length);
+  }
   
   // Weitere Filterung nach Suchtext
   const searchText = document.getElementById('keywordSearch') ? document.getElementById('keywordSearch').value.toLowerCase() : '';
