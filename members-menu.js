@@ -714,10 +714,10 @@ function addMenuStyles() {
     }
     
     #login-modal #login-message .success {
-      background: #e8f5e9;
-      color: #2e7d32;
+      background: #467886;
+      color: white;
       padding: 0.75rem;
-      border: 1px solid #a5d6a7;
+      border: 1px solid #467886;
     }
     
     /* Dark Mode für Login Modal */
@@ -786,7 +786,7 @@ function addMenuStyles() {
     }
     
     .member-notification.success {
-      background: #4CAF50;
+      background: #467886;
       color: white;
     }
     
