@@ -10166,7 +10166,7 @@ function displayGAChronological(lectures) {
       words.forEach(word => {
         const displayWord = word.startsWith('"') && word.endsWith('"') ? word.slice(1, -1) : word;
         const hitCount = wordSnippets[word].length;
-        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${100/words.length}%;"><strong>${displayWord}</strong> <span style="font-weight: normal; font-size: 0.85em; color: var(--secondary-text);">(${hitCount} Treffer)</span></th>`;
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${100/words.length}%;"><strong>${displayWord}</strong> <span style="font-weight: normal; font-size: 0.85em; color: var(--secondary-text);">(${hitCount})</span></th>`;
       });
       
       html += '</tr></thead>';
@@ -11778,10 +11778,10 @@ function displayGAChronological(lectures) {
         
         // If proximity data is available, show ONLY the proximity hits
         if (hasProximityData && proximityHits > 0) {
-          html += `<span class="column-stats">(${proximityHits} Treffer)</span>`;
+          html += `<span class="column-stats">(${proximityHits})</span>`;
         } else {
           // Otherwise, show all hits
-          html += `<span class="column-stats">(${totalHits} Treffer)</span>`;
+          html += `<span class="column-stats">(${totalHits})</span>`;
         }
         
         html += `</div>
