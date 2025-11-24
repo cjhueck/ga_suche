@@ -2512,7 +2512,7 @@ body.dark-mode #thematicSearchInfo {
       z-index: 1003; /* Höher als Trennlinie (z-index: 1002), damit Header Trennlinie verdeckt */
       background-color: var(--background-color) !important;
       border-bottom: 1px solid var(--border-color);
-      padding: 1rem;
+      padding: 1rem; 
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -8033,7 +8033,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   }
   
   // Erstelle HTML mit Überschriften-Navigation
-  let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+  let html = '<div style="padding: 1rem 2rem 2rem 0;">';
   
   // Debug: Logge Tab-Status und targetIndex
   console.log(`[BOOK] displayBook - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
