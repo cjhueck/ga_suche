@@ -13478,12 +13478,18 @@ LEXIKON-EINTRAG (beginne DIREKT mit Inhalt, OHNE Überschrift):`;
       return generateFallbackConceptAnalysis(query, results, 'token-limit');
     }
     
-    return generateFallbackConceptAnalysis(query, results);
+    // Prüfe ob es ein API-Limit-Fehler war
+    if (error.message.includes('usage limits') || error.message.includes('Nutzungslimit')) {
+      console.error(`[CONCEPT-ANALYSIS] ⚠️ API-Nutzungslimit erreicht`);
+      return generateFallbackConceptAnalysis(query, results, 'api-limit', error.message);
+    }
+    
+    return generateFallbackConceptAnalysis(query, results, 'api-error', error.message);
   }
 }
 
 // Fallback-Analyse für Concepts
-function generateFallbackConceptAnalysis(query, results, reason = 'no-api-key') {
+function generateFallbackConceptAnalysis(query, results, reason = 'no-api-key', errorMessage = '') {
   if (reason === 'token-limit') {
     return `⚠️ Der Begriff "${query}" kommt zu häufig vor (${results.length} Textstellen).
 
@@ -13491,6 +13497,35 @@ Eine automatische Analyse würde das Token-Limit überschreiten. Bitte verwenden
 
 **Verfügbare Quellen (erste 20):**
 ${results.slice(0, 20).map(r => `${r.ID}:${r.index}`).join(', ')}`;
+  }
+  
+  if (reason === 'api-limit') {
+    const limitInfo = errorMessage.includes('regain access') 
+      ? errorMessage.match(/regain access on ([^.]+)/)?.[1] || ''
+      : '';
+    return `⚠️ API-Nutzungslimit erreicht
+
+Der Begriff "${query}" konnte nicht automatisch analysiert werden, da das API-Nutzungslimit erreicht wurde.
+
+${limitInfo ? `**Zugriff wird wiederhergestellt:** ${limitInfo} UTC` : ''}
+
+Gefundene Textstellen: ${results.length}
+
+**Verfügbare Quellen:**
+${results.slice(0, 10).map(r => `${r.ID}:${r.index}`).join(', ')}`;
+  }
+  
+  if (reason === 'api-error' && errorMessage) {
+    return `⚠️ API-Fehler bei der Analyse
+
+Der Begriff "${query}" konnte nicht automatisch analysiert werden.
+
+**Fehler:** ${errorMessage}
+
+Gefundene Textstellen: ${results.length}
+
+**Verfügbare Quellen:**
+${results.slice(0, 10).map(r => `${r.ID}:${r.index}`).join(', ')}`;
   }
   
   return `Automatische Analyse nicht verfügbar (kein API-Schlüssel konfiguriert). 

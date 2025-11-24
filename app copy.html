@@ -203,7 +203,6 @@
     
     /* Konzept-Übersicht: Grid-Zellen */
     .concept-overview-cell {
-      border: 1px solid var(--border-color);
       padding: 0.5rem !important;
     }
     
@@ -214,10 +213,6 @@
       padding-right: 0.5rem !important;
       padding-top: 0.5rem !important;
       padding-bottom: 0.5rem !important;
-    }
-    
-    body.dark-mode .concept-overview-cell {
-      border: 1px solid var(--dark-border-color);
     }
     
     /* Konzept-Übersicht: Snippet Hover */
@@ -2494,7 +2489,7 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer h3 {
       font-size: 0.9rem !important;
-      margin: 0.7rem 0 0.5rem 0 !important;
+      margin: 1.2rem 0 0.5rem 0 !important; /* Zusätzlicher halber Zeilenabstand vor H3 */
       font-weight: 700 !important;
       color: var(--link-color) !important;
       display: block;
@@ -5574,9 +5569,11 @@ function normalizeGANumber(gaNumber) {
       
       // Füge Browser History Eintrag hinzu (außer bei popstate)
       if (!skipHistory) {
-        const url = `${window.location.pathname}#${mode}`;
+        // Bereinige URL: Nur Hash für aktuellen Tab, keine Query-Parameter von vorherigen Tabs
+        const baseUrl = window.location.origin + window.location.pathname;
+        const url = `${baseUrl}#${mode}`;
         history.pushState({ tab: mode }, '', url);
-        console.log('[HISTORY] Neuer Eintrag:', mode);
+        console.log('[HISTORY] Neuer Eintrag:', mode, 'URL:', url);
       }
       
       // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
@@ -6345,12 +6342,26 @@ function normalizeGANumber(gaNumber) {
     
     // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
     function replaceImageSrcWithBase64(htmlContent, lectureId) {
-      if (!htmlContent || !steinerImages[lectureId]) {
+      if (!htmlContent) {
+        return htmlContent;
+      }
+      
+      // Wenn keine Bilder in der Datenbank sind, gebe Warnung aus aber fahre fort
+      if (!steinerImages[lectureId]) {
+        console.warn('[IMAGES] ⚠ Keine Bilder-Datenbank für lectureId:', lectureId);
+        // Prüfe trotzdem ob Bilder vorhanden sind
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        const imgTags = tempDiv.querySelectorAll('img[src^="assets/"]');
+        if (imgTags.length > 0) {
+          console.warn('[IMAGES] ⚠', imgTags.length, 'Bilder gefunden, aber nicht in Datenbank für', lectureId);
+        }
         return htmlContent;
       }
       
       const images = steinerImages[lectureId];
       if (!images || images.length === 0) {
+        console.warn('[IMAGES] ⚠ Leeres Bilder-Array für lectureId:', lectureId);
         return htmlContent;
       }
       
@@ -6370,8 +6381,52 @@ function normalizeGANumber(gaNumber) {
         console.log('[IMAGES] Suche Bild:', originalSrc);
         console.log('[IMAGES] Decoded:', decodedSrc);
         
+        // Normalisiere Pfad (entferne < > und Anführungszeichen)
+        const normalizedSrc = decodedSrc.replace(/^<['"]?|['"]?>$/g, '').trim();
+        
         // Finde das passende Bild in unserer Datenbank
-        const matchingImage = images.find(img => img.path === decodedSrc || img.path === originalSrc);
+        // Zuerst exaktes Match versuchen (path und markdownRef)
+        let matchingImage = images.find(img => {
+          const imgPath = img.path || '';
+          const imgMarkdownRef = img.markdownRef || '';
+          
+          // Normalisiere auch die Bildpfade
+          const normalizedImgPath = imgPath.replace(/^<['"]?|['"]?>$/g, '').trim();
+          const normalizedImgMarkdownRef = imgMarkdownRef.replace(/^<['"]?|['"]?>$/g, '').trim();
+          
+          return imgPath === decodedSrc || 
+                 imgPath === originalSrc ||
+                 imgPath === normalizedSrc ||
+                 imgMarkdownRef === decodedSrc ||
+                 imgMarkdownRef === originalSrc ||
+                 imgMarkdownRef === normalizedSrc ||
+                 normalizedImgPath === normalizedSrc ||
+                 normalizedImgMarkdownRef === normalizedSrc;
+        });
+        
+        // Falls kein exaktes Match gefunden, suche nach Varianten mit unterschiedlichen Dateiendungen
+        if (!matchingImage) {
+          // Entferne Dateiendung vom gesuchten Pfad
+          const srcWithoutExt = normalizedSrc.replace(/\.(jpe?g|png|webp)$/i, '');
+          
+          // Suche nach Bildern mit gleichem Basisnamen aber unterschiedlicher Endung
+          matchingImage = images.find(img => {
+            const imgPath = img.path || '';
+            const imgMarkdownRef = img.markdownRef || '';
+            
+            const normalizedImgPath = imgPath.replace(/^<['"]?|['"]?>$/g, '').trim();
+            const normalizedImgMarkdownRef = imgMarkdownRef.replace(/^<['"]?|['"]?>$/g, '').trim();
+            
+            const imgPathWithoutExt = normalizedImgPath.replace(/\.(jpe?g|png|webp)$/i, '');
+            const imgMarkdownRefWithoutExt = normalizedImgMarkdownRef.replace(/\.(jpe?g|png|webp)$/i, '');
+            
+            return imgPathWithoutExt === srcWithoutExt || imgMarkdownRefWithoutExt === srcWithoutExt;
+          });
+          
+          if (matchingImage) {
+            console.log('[IMAGES] ✓ Bild gefunden durch Endungs-Variante:', decodedSrc, '→', matchingImage.path || matchingImage.markdownRef);
+          }
+        }
         
         if (matchingImage) {
           // Ersetze src durch Base64-Daten
@@ -6416,6 +6471,8 @@ function normalizeGANumber(gaNumber) {
           });
           
           console.log('[IMAGES] Bild ersetzt:', originalSrc);
+        } else {
+          console.warn('[IMAGES] ⚠ Bild nicht gefunden in Datenbank:', decodedSrc);
         }
       });
       
@@ -7925,6 +7982,84 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   html += '</div>';
   
   viewer.innerHTML = html;
+  
+  // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering (für Bücher)
+  if (book && book.ID) {
+    // Debug: Prüfe ob img-Tags vorhanden sind
+    const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
+    console.log('[IMAGES-BOOK] Gefundene img-Tags im Viewer:', imgTags.length);
+    imgTags.forEach((img, idx) => {
+      console.log(`[IMAGES-BOOK] Bild ${idx}:`, img.getAttribute('src'));
+    });
+    
+    // Versuche Bilder zu ersetzen - Bücher verwenden GA-Nummer als ID
+    const bookId = book.gaNumber || book.ID;
+    
+    // Suche nach Bildern für diese GA-Nummer (könnte direkt unter GA046 oder als GA046/0, GA046/1, etc. gespeichert sein)
+    let imagesForBook = steinerImages[bookId];
+    
+    // Falls nicht gefunden, suche nach Varianten (z.B. GA046/0, GA046/1, etc.)
+    if (!imagesForBook) {
+      const matchingKeys = Object.keys(steinerImages).filter(key => key.startsWith(bookId + '/'));
+      if (matchingKeys.length > 0) {
+        // Sammle alle Bilder von allen Varianten
+        imagesForBook = [];
+        matchingKeys.forEach(key => {
+          if (steinerImages[key] && Array.isArray(steinerImages[key])) {
+            imagesForBook = imagesForBook.concat(steinerImages[key]);
+          }
+        });
+        console.log(`[IMAGES-BOOK] Gefunden ${imagesForBook.length} Bilder aus ${matchingKeys.length} Varianten`);
+      }
+    }
+    
+    if (imagesForBook && imagesForBook.length > 0) {
+      console.log('[IMAGES-BOOK] Ersetze Bilder für', bookId, `(${imagesForBook.length} Bilder)`);
+      // Temporär die Bilder für diese ID setzen
+      const originalImages = steinerImages[bookId];
+      steinerImages[bookId] = imagesForBook;
+      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, bookId);
+      // Stelle Original wieder her
+      if (originalImages) {
+        steinerImages[bookId] = originalImages;
+      } else {
+        delete steinerImages[bookId];
+      }
+    } else {
+      console.warn('[IMAGES-BOOK] ⚠ Keine Bilder in Datenbank für', bookId);
+      
+      // Fallback: Lade Bilder direkt vom Server (für Bücher, die keine Bilder in der Datenbank haben)
+      const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
+      if (imgTags.length > 0) {
+        console.log(`[IMAGES-BOOK] Versuche ${imgTags.length} Bilder direkt vom Server zu laden für`, bookId);
+        
+        imgTags.forEach(imgTag => {
+          const originalSrc = imgTag.getAttribute('src');
+          const decodedSrc = decodeURIComponent(originalSrc);
+          
+          // Der Pfad sollte bereits korrekt sein: assets/GA046-...img-0.png
+          // Der Server-Endpoint /assets/* wird diese Anfrage verarbeiten
+          // Setze nur die Styles
+          imgTag.style.maxWidth = '35%';
+          imgTag.style.height = 'auto';
+          imgTag.style.float = 'right';
+          imgTag.style.margin = '0 0 1rem 1rem';
+          imgTag.className = 'lecture-image';
+          imgTag.style.cursor = 'pointer';
+          
+          // Füge Click-Handler hinzu für Popup
+          imgTag.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const altText = imgTag.getAttribute('alt') || '';
+            openImagePopup(decodedSrc, altText);
+          });
+          
+          console.log(`[IMAGES-BOOK] Bild-Pfad beibehalten: ${decodedSrc}`);
+        });
+      }
+    }
+  }
   
   // Anmerkungen mit mehreren Sternchen behandeln
   setTimeout(() => {
@@ -12889,57 +13024,30 @@ function displayGAChronological(lectures) {
         return html;
       };
       
-      // Erstelle Grid-HTML mit 4 Spalten (Begriff/Thema als Überschrift über der Tabelle)
-      let html = '<div style="padding: 0rem 1rem 1rem 0rem; overflow-x: auto;">';
+      // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
+      let html = '<div style="padding: 0rem 1rem 1rem 0rem;">';
       
-      // Begriff/Thema als Überschrift über der Tabelle (ohne Linie darunter)
+      // Begriff/Thema als Überschrift über den Feldern
       html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0;">${concept}</div>`;
       
-      html += '<table style="width: 100%; border-collapse: collapse; table-layout: fixed; border: 1px solid var(--border-color); border-spacing: 0;">';
-      html += '<thead><tr>';
-      
-      // Spaltenüberschriften (nur noch 4 Spalten)
-      const columns = [
-        { key: 'definition', label: 'Definition', width: '25%' },
-        { key: 'function', label: 'Funktion', width: '25%' },
-        { key: 'interactions', label: 'Interaktionen / Bedeutung', width: '25%' },
-        { key: 'special', label: 'Besonderheiten', width: '25%' }
+      // Felder untereinander
+      const fields = [
+        { key: 'definition', label: 'Wer oder was', content: overview.definitionText || '' },
+        { key: 'function', label: 'Wirkung', content: overview.functionText || '' },
+        { key: 'interactions', label: 'Wechselwirkung & Bedeutung', content: overview.interactionText || '' },
+        { key: 'special', label: 'Besonderheiten', content: overview.specialText || '' }
       ];
       
-      columns.forEach((col, index) => {
-        const isLast = index === columns.length - 1;
-        const borderRight = isLast ? 'none' : '1px solid var(--border-color)';
-        html += `<th class="concept-overview-header" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${col.width}; border-bottom: 1px solid var(--border-color); border-right: ${borderRight}; position: sticky; top: 0; z-index: 10; font-size: 0.85em;"><strong>${col.label}</strong></th>`;
+      fields.forEach((field, index) => {
+        const isLast = index === fields.length - 1;
+        html += `<div style="margin-bottom: ${isLast ? '0' : '0.3rem'}; padding-bottom: ${isLast ? '0' : '0.3rem'};">`;
+        html += `<div class="concept-overview-header" style="padding: 0.2rem 0; background: var(--sidebar-bg); text-align: left; font-size: 0.85em; margin-bottom: 0;"><strong>${field.label}</strong></div>`;
+        html += `<div class="concept-overview-cell concept-content" style="padding: 0; font-size: 0.8rem !important; line-height: 1.6;">`;
+        html += renderCategoryContent(field.content);
+        html += '</div>';
+        html += '</div>';
       });
       
-      html += '</tr></thead>';
-      html += '<tbody>';
-      
-      // Erstelle eine Zeile mit allen Spalten
-      html += '<tr>';
-      
-      // Spalte 1: Definitionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.definitionText || '');
-      html += '</td>';
-      
-      // Spalte 2: Funktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.functionText || '');
-      html += '</td>';
-      
-      // Spalte 3: Interaktionen
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; border-right: 1px solid var(--border-color); font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.interactionText || '');
-      html += '</td>';
-      
-      // Spalte 4: Besonderheiten (letzte Spalte - kein border-right)
-      html += '<td class="concept-overview-cell concept-content" style="padding: 0.5rem; vertical-align: top; font-size: 0.8rem !important; line-height: 1.6;">';
-      html += renderCategoryContent(overview.specialText || '');
-      html += '</td>';
-      
-      html += '</tr>';
-      html += '</tbody></table>';
       html += '</div>';
       
       viewer.innerHTML = html;
@@ -14580,24 +14688,76 @@ function showSummaryView() {
     
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
+      try {
       content = marked.parse(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
-      // Debug: Zeige ob Bilder enthalten sind
+        
+        // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
+        // Konvertiere ![alt](path) zu <img src="path" alt="alt">
       if (content.includes('![')) {
         console.warn('[MARKDOWN] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
         console.log('[MARKDOWN] Content NACH marked.parse():', content.substring(0, 300));
-      }
+          
+          // Konvertiere Bild-Syntax manuell
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            // Entferne eventuelle HTML-Entities und Leerzeichen
+            alt = alt.trim();
+            src = src.trim();
+            // Entferne < > und Anführungszeichen falls vorhanden
+            src = src.replace(/^<['"]?|['"]?>$/g, '');
+            console.log('[MARKDOWN] Manuelle Bild-Konvertierung:', alt, '->', src);
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+          
+          console.log('[MARKDOWN] ✓ Bilder manuell konvertiert');
+        }
+        
       if (content.includes('<img')) {
         console.log('[MARKDOWN] ✓ <img> Tag gefunden im konvertierten Content');
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked.parse():', e);
       }
     } else if (typeof marked !== 'undefined' && marked.marked) {
+      try {
       content = marked.marked(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+        // Auch hier manuelle Bild-Konvertierung falls nötig
+        if (content.includes('![')) {
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            alt = alt.trim();
+            src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked.marked():', e);
+      }
     } else if (typeof marked !== 'undefined') {
+      try {
       content = marked(content, { breaks: true, gfm: true });
       console.log('[MARKDOWN] Content konvertiert mit marked()');
+        // Auch hier manuelle Bild-Konvertierung falls nötig
+        if (content.includes('![')) {
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            alt = alt.trim();
+            src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+        }
+      } catch (e) {
+        console.error('[MARKDOWN] Fehler bei marked():', e);
+      }
     } else {
       console.error('[MARKDOWN] marked ist nicht verfügbar!');
+      // Fallback: Manuelle Bild-Konvertierung
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
     }
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
@@ -14639,9 +14799,7 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
   viewer.innerHTML = html;
   
   // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
-  if (lecture && lecture.ID && steinerImages[lecture.ID]) {
-    console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-    
+  if (lecture && lecture.ID) {
     // Debug: Prüfe ob img-Tags vorhanden sind
     const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
     console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
@@ -14649,7 +14807,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
     });
     
-    viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    if (steinerImages[lecture.ID]) {
+      console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    } else {
+      console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
+      // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
+      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+    }
   }
   
   // Activate TOC links after rendering
@@ -17218,12 +17383,34 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
+            // Manuelle Bild-Konvertierung falls nötig
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else if (typeof marked !== 'undefined' && marked.marked) {
             content = marked.marked(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked.marked()');
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else if (typeof marked !== 'undefined') {
             content = marked(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked()');
+            if (content.includes('![')) {
+              content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+                alt = alt.trim();
+                src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+              });
+            }
           } else {
             console.error('[MARKDOWN] marked ist nicht verfügbar!');
           }
@@ -17284,9 +17471,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       console.log('[IMAGES-DEBUG] steinerImages hat lecture.ID?', !!steinerImages[lecture?.ID]);
       console.log('[IMAGES-DEBUG] Verfügbare IDs in steinerImages:', Object.keys(steinerImages).slice(0, 10));
       
-      if (lecture && lecture.ID && steinerImages[lecture.ID]) {
-        console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-        
+      if (lecture && lecture.ID) {
         // Debug: Prüfe ob img-Tags vorhanden sind
         const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
         console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
@@ -17294,7 +17479,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
         });
         
-        viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        if (steinerImages[lecture.ID]) {
+          console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
+          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        } else {
+          console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
+          // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
+          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
+        }
       }
       
       // Activate TOC links
@@ -17695,7 +17887,12 @@ setTimeout(() => {
 <script>
 // Aktiviere Tab basierend auf URL-Hash beim Laden
 window.addEventListener('DOMContentLoaded', function() {
-  const hash = window.location.hash.substring(1); // Entferne das #
+  let hash = window.location.hash.substring(1); // Entferne das #
+  
+  // Entferne Query-Parameter aus dem Hash (z.B. "schlagworte?letter=M" -> "schlagworte")
+  if (hash && hash.includes('?')) {
+    hash = hash.split('?')[0];
+  }
   
   if (hash) {
     console.log('[HASH-NAV] Hash erkannt:', hash);
@@ -17716,8 +17913,9 @@ window.addEventListener('DOMContentLoaded', function() {
       // Warte kurz, bis alle Initialisierungen abgeschlossen sind
       setTimeout(() => {
         console.log('[HASH-NAV] Wechsle zu Tab:', tabName);
-        // Setze initialen History State ohne neuen Eintrag
-        history.replaceState({ tab: tabName }, '', `${window.location.pathname}#${tabName}`);
+        // Setze initialen History State ohne neuen Eintrag - bereinige URL auf Basis-URL
+        const baseUrl = window.location.origin + window.location.pathname;
+        history.replaceState({ tab: tabName }, '', `${baseUrl}#${tabName}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
       }, 100);
     }
@@ -17731,7 +17929,9 @@ window.addEventListener('DOMContentLoaded', function() {
         const initialTab = match[1];
         setTimeout(() => {
           console.log('[HASH-NAV] Setze initialen State:', initialTab);
-          history.replaceState({ tab: initialTab }, '', `${window.location.pathname}#${initialTab}`);
+          // Bereinige URL auf Basis-URL
+          const baseUrl = window.location.origin + window.location.pathname;
+          history.replaceState({ tab: initialTab }, '', `${baseUrl}#${initialTab}`);
         }, 100);
       }
     }
@@ -18132,7 +18332,9 @@ function selectAlphabet(letter, buttonElement, skipHistory = false) {
   
   // Browser History Eintrag hinzufügen
   if (!skipHistory) {
-    const url = `${window.location.pathname}#schlagworte?letter=${encodeURIComponent(letter)}`;
+    // Bereinige URL: Nur Hash für aktuellen Tab, keine Query-Parameter
+    const baseUrl = window.location.origin + window.location.pathname;
+    const url = `${baseUrl}#schlagworte`;
     history.pushState({ 
       tab: 'schlagworte', 
       letter: letter 
@@ -22282,13 +22484,9 @@ let searchResultsTimelineRunning = false; // Verhindert Doppelklicks
 
 // Funktion für den Timeline-Button im Suche-Tab
 function showSearchResultsInTimeline() {
-  // Wechsel zum Timeline-Tab
-  switchTab('timeline');
-  
-  // Warte kurz bis Tab gewechselt ist, dann zeige Timeline
-  setTimeout(() => {
-    showSearchResultsTimelineV2();
-  }, 100);
+  // Zeige Timeline direkt im Suche-Tab (nicht zum Timeline-Tab wechseln)
+  // Die Ergebnisse werden im #results Element angezeigt
+  showSearchResultsTimelineV2();
 }
 
 // Zeige Suchergebnisse im Timeline-Format (V2 - mit Links)

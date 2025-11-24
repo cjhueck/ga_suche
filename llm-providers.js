@@ -136,6 +136,12 @@ class ClaudeProvider extends LLMProvider {
 
     if (!response.ok) {
       const errorText = await response.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch (e) {
+        errorData = { error: { message: errorText } };
+      }
       
       // Spezielle Fehlerbehandlung
       if (response.status === 429) {
@@ -144,6 +150,10 @@ class ClaudeProvider extends LLMProvider {
         throw new Error(`[Claude] Budget aufgebraucht. Details: ${errorText}`);
       } else if (response.status === 401) {
         throw new Error(`[Claude] API-Key ungültig. Details: ${errorText}`);
+      } else if (response.status === 400 && errorData?.error?.message?.includes('usage limits')) {
+        // API-Nutzungslimit erreicht (Status 400 mit spezieller Meldung)
+        const limitMessage = errorData.error.message;
+        throw new Error(`[Claude] API-Nutzungslimit erreicht: ${limitMessage}`);
       }
       
       throw new Error(`[Claude] API Fehler ${response.status}: ${errorText}`);
