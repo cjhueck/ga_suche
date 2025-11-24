@@ -19257,10 +19257,11 @@ async function performKeywordThematicSearch(keyword) {
         isLocal: isLocal
       });
       
+      const viewer = document.getElementById('viewer');
+      
       // Zeige Themen_Übersicht im Main Viewer zuerst, falls vorhanden
       if (hasOverview) {
         console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
-        const viewer = document.getElementById('viewer');
         if (viewer) {
           renderConceptOverview(keyword, { overview: existingKeyword.overview });
         }
@@ -19280,19 +19281,26 @@ async function performKeywordThematicSearch(keyword) {
             if (countContainer) {
               countContainer.textContent = '';
             }
-            return; // Keine Anzeige in Online-Version
+            // Keine Anzeige in Online-Version, aber nicht return hier, damit die Funktion normal endet
+          } else {
+            // Lokale Version ODER vollständige Darstellung vorhanden: Anzeigen
+            console.log('[KEYWORD-THEMATIC] Zeige Text-Ergebnis (lokal oder mit Overview):', keyword, 'isLocal:', isLocal, 'hasOverview:', hasOverview);
+            
+            // Wenn kein Overview vorhanden ist, leere den Viewer zuerst (für lokale Version)
+            if (!hasOverview && viewer) {
+              viewer.innerHTML = '';
+            }
+            
+            const data = {
+              query: keyword,
+              content: existingKeyword.text,
+              sources: existingKeyword.sources || [],
+              fromCache: false,
+              fromKeywordData: true
+            };
+            
+            displayKeywordThematicResults(keyword, data);
           }
-          
-          // Lokale Version oder vollständige Darstellung vorhanden: Anzeigen
-          const data = {
-            query: keyword,
-            content: existingKeyword.text,
-            sources: existingKeyword.sources || [],
-            fromCache: false,
-            fromKeywordData: true
-          };
-          
-          displayKeywordThematicResults(keyword, data);
         } else {
           console.log('[KEYWORD-THEMATIC] Text zu kurz oder nur Keyword, überspringe Anzeige');
         }
