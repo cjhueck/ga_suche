@@ -193,12 +193,73 @@
     }
     
     /* Konzept-Übersicht: Spaltenüberschriften */
+    /* Concept Overview Container */
+    .concept-overview-container {
+      padding: 0rem 1rem 1rem 0rem;
+    }
+    
+    /* Concept Haupttitel - fett und blau */
+    .concept-main-title {
+      font-weight: 700;
+      font-size: 1.2em;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0;
+      color: var(--link-color);
+    }
+    
+    /* Concept Feld-Wrapper */
+    .concept-field-wrapper {
+      margin-bottom: 0.3rem;
+      padding-bottom: 0.3rem;
+    }
+    
+    .concept-field-wrapper.concept-field-last {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    /* Concept Feld-Überschriften - wie H4 formatiert */
+    .concept-field-header {
+      font-size: 0.9rem !important;
+      margin: 0.4rem 0 0.25rem 0 !important;
+      font-weight: normal !important;
+      color: var(--link-color) !important;
+      display: block;
+      line-height: 1.3 !important;
+      text-align: left !important;
+      padding: 0;
+      background: transparent;
+    }
+    
+    body.dark-mode .concept-field-header {
+      color: #6BA3B8 !important;
+    }
+    
     .concept-overview-header {
       color: var(--text-color);
     }
     
     body.dark-mode .concept-overview-header {
       color: var(--dark-text-color);
+    }
+    
+    /* Concept Content ohne Padding */
+    .concept-overview-container .concept-overview-cell.concept-content {
+      padding: 0 !important;
+      font-size: 0.8rem !important;
+      line-height: 1.6;
+    }
+    
+    /* Trennlinie zwischen Übersicht und Ergebnissen */
+    .concept-results-separator {
+      margin: 0.4rem 0 1rem 0;
+      border-top: 1px solid var(--border-color);
+      width: 100%;
+    }
+    
+    /* Abstand für Ergebnisse nach Trennlinie */
+    .concept-results-content {
+      margin-top: 0;
     }
     
     /* Konzept-Übersicht: Grid-Zellen */
@@ -2489,7 +2550,7 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer h3 {
       font-size: 0.9rem !important;
-      margin: 1.2rem 0 0.5rem 0 !important; /* Zusätzlicher halber Zeilenabstand vor H3 */
+      margin: 0.6rem 0 0.25rem 0 !important; /* Verringerte Abstände */
       font-weight: 700 !important;
       color: var(--link-color) !important;
       display: block;
@@ -2499,7 +2560,7 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer h4 {
       font-size: 0.9rem !important;
-      margin: 0.7rem 0 0.5rem 0 !important;
+      margin: 0.4rem 0 0.25rem 0 !important; /* Verringerte Abstände */
       font-weight: normal !important;
       color: var(--link-color) !important;
       display: block;
@@ -2782,8 +2843,8 @@ body.dark-mode .loading-tooltip::before {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--border-color);
   flex-wrap: nowrap;
 }
@@ -2808,24 +2869,24 @@ body.dark-mode .loading-tooltip::before {
 .semantic-answer h1 {
   font-size: 1.2rem;         /* Überschriften-Größe */
   line-height: 1.4;
-  margin: 1.5rem 0 1rem 0;
+  margin: 0.75rem 0 0.5rem 0;  /* Verringerte Abstände */
 }
 
 .semantic-answer h2 {
   font-size: 1rem;         /* Unterüberschriften-Größe */
   line-height: 1.1;
-  margin: 1.2rem 0 0.8rem 0;
+  margin: 0.6rem 0 0.4rem 0;  /* Verringerte Abstände */
 }
 
 .semantic-answer h3 {
   font-size: 1rem;         /* Kleinere Überschriften */
   line-height: 1.1;
-  margin: 1rem 0 0.6rem 0;
+  margin: 0.5rem 0 0.3rem 0;  /* Verringerte Abstände */
   font-weight: bold;
 }
 
 .semantic-answer p {
-  margin-bottom: 0.9rem;      /* Abstand zwischen Absätzen */
+  margin-bottom: 0.5rem;      /* Verringerter Abstand zwischen Absätzen */
 }
 
 .semantic-answer ul, .semantic-answer ol {
@@ -4750,13 +4811,7 @@ Bestehende Schlagwörter überschreiben
 
 <!-- Keyword-Konsolidierung wurde in Timeline-Tab verschoben -->
 
-<div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
-<!-- Alphabet-Buttons werden dynamisch generiert -->
-</div>
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordSearchKeypress(event)">
-<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
-</div>
+<!-- Alphabet-Navigation und Suchfeld wurden in das Anzeigefenster verschoben -->
 <!-- removed keyword-count status line -->
 </div>
 
@@ -6007,7 +6062,7 @@ function normalizeGANumber(gaNumber) {
           const letter = params.get('letter');
           if (letter && hash === 'schlagworte') {
             setTimeout(() => {
-              const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn')).find(btn => btn.textContent === decodeURIComponent(letter));
+              const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn, #alphabet-nav-dynamic .depth-btn')).find(btn => btn.textContent === decodeURIComponent(letter));
               if (button) {
                 selectAlphabet(decodeURIComponent(letter), button, true);
               }
@@ -13025,10 +13080,10 @@ function displayGAChronological(lectures) {
       };
       
       // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
-      let html = '<div style="padding: 0rem 1rem 1rem 0rem;">';
+      let html = '<div class="concept-overview-container">';
       
-      // Begriff/Thema als Überschrift über den Feldern
-      html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0;">${concept}</div>`;
+      // Begriff/Thema als Überschrift über den Feldern - fett und blau
+      html += `<div class="concept-main-title">${concept}</div>`;
       
       // Felder untereinander
       const fields = [
@@ -13040,9 +13095,9 @@ function displayGAChronological(lectures) {
       
       fields.forEach((field, index) => {
         const isLast = index === fields.length - 1;
-        html += `<div style="margin-bottom: ${isLast ? '0' : '0.3rem'}; padding-bottom: ${isLast ? '0' : '0.3rem'};">`;
-        html += `<div class="concept-overview-header" style="padding: 0.2rem 0; background: var(--sidebar-bg); text-align: left; font-size: 0.85em; margin-bottom: 0;"><strong>${field.label}</strong></div>`;
-        html += `<div class="concept-overview-cell concept-content" style="padding: 0; font-size: 0.8rem !important; line-height: 1.6;">`;
+        html += `<div class="concept-field-wrapper ${isLast ? 'concept-field-last' : ''}">`;
+        html += `<div class="concept-overview-header concept-field-header"><strong>${field.label}</strong></div>`;
+        html += `<div class="concept-overview-cell concept-content">`;
         html += renderCategoryContent(field.content);
         html += '</div>';
         html += '</div>';
@@ -18296,31 +18351,18 @@ function extractGAReferences(text) {
 }
 
 function createAlphabetNavigation() {
+  // Diese Funktion wird nicht mehr verwendet, da die Navigation jetzt im Anzeigefenster ist
+  // Verwende stattdessen createAlphabetNavigationInContainer()
   const navContainer = document.getElementById('alphabet-nav');
-  
-  // Alle verfügbaren Buchstaben aus den Daten ermitteln
-  const availableLetters = [...new Set(keywordsData.map(k => k.alphabetical || k.keyword.charAt(0).toUpperCase()))].sort();
-  
-  // "Alle" Button
-  const allBtn = document.createElement('button');
-  allBtn.className = 'depth-btn active';
-  allBtn.textContent = 'Alle';
-  allBtn.onclick = () => selectAlphabet('Alle', allBtn);
-  navContainer.appendChild(allBtn);
-  
-  // Alphabet-Buttons für verfügbare Buchstaben
-  availableLetters.forEach(letter => {
-    const btn = document.createElement('button');
-    btn.className = 'depth-btn';
-    btn.textContent = letter;
-    btn.onclick = () => selectAlphabet(letter, btn);
-    navContainer.appendChild(btn);
-  });
+  if (navContainer) {
+    // Falls das alte Element noch existiert, leere es
+    navContainer.innerHTML = '';
+  }
 }
 
 function selectAlphabet(letter, buttonElement, skipHistory = false) {
-  // Alle Buttons deaktivieren
-  document.querySelectorAll('#alphabet-nav .depth-btn').forEach(btn => {
+  // Alle Buttons deaktivieren (sowohl im alten als auch im neuen Container)
+  document.querySelectorAll('#alphabet-nav .depth-btn, #alphabet-nav-dynamic .depth-btn').forEach(btn => {
     btn.classList.remove('active');
   });
   
@@ -18373,7 +18415,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   console.log('[DISPLAY] Nach Buchstaben-Filter:', filteredKeywords.length);
   
   // Weitere Filterung nach Suchtext
-  const searchText = document.getElementById('keywordSearch').value.toLowerCase();
+  const searchText = document.getElementById('keywordSearch') ? document.getElementById('keywordSearch').value.toLowerCase() : '';
   if (searchText) {
     filteredKeywords = filteredKeywords.filter(k => 
       k.keyword.toLowerCase().includes(searchText)
@@ -18384,8 +18426,26 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   if (countContainer) countContainer.textContent = '';
   
+  // Erstelle HTML mit Alphabet-Navigation und Suchfeld oben
+  let html = '<div class="keyword-navigation-section">';
+  
+  // Alphabet-Navigation
+  html += '<div id="alphabet-nav-dynamic" class="alphabet-nav-container"></div>';
+  
+  // Suchfeld
+  html += '<div class="keyword-search-container">';
+  html += '<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)">';
+  html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
+  html += '</div>';
+  
+  html += '</div>';
+  
   if (filteredKeywords.length === 0) {
-    resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
+    html += '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
+    resultsContainer.innerHTML = html;
+    
+    // Erstelle Alphabet-Navigation nach dem Setzen des HTML
+    createAlphabetNavigationInContainer();
     return;
   }
   
@@ -18394,7 +18454,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   console.log('[DISPLAY] Erste 5 nach Sortierung:', filteredKeywords.slice(0, 5).map(k => k.keyword));
   
-  let html = '<div class="keywords-container">';
+  html += '<div class="keywords-container">';
   
   filteredKeywords.forEach((keywordData, idx) => {
     // Prüfe ob es mit dem neuen Concept-Prompt generiert wurde
@@ -18429,6 +18489,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   resultsContainer.innerHTML = html;
   console.log('[DISPLAY] resultsContainer nach innerHTML:', resultsContainer.children.length, 'Kinder');
   
+  // Erstelle Alphabet-Navigation im dynamischen Container
+  createAlphabetNavigationInContainer();
+  
   // Zähle tatsächliche keyword-entry Elemente im DOM
   const entryElements = resultsContainer.querySelectorAll('.keyword-entry');
   console.log('[DISPLAY] Tatsächliche .keyword-entry Elemente im DOM:', entryElements.length);
@@ -18457,6 +18520,42 @@ function displayKeywords(selectedLetter = 'Alle') {
   document.getElementById('sidebar-content').scrollTop = 0;
   
   console.log('[DISPLAY] ========== ENDE ==========');
+}
+
+function createAlphabetNavigationInContainer() {
+  const navContainer = document.getElementById('alphabet-nav-dynamic');
+  if (!navContainer) return;
+  
+  // Leere den Container
+  navContainer.innerHTML = '';
+  
+  // Alle verfügbaren Buchstaben aus den Daten ermitteln
+  const availableLetters = [...new Set(keywordsData.map(k => k.alphabetical || k.keyword.charAt(0).toUpperCase()))].sort();
+  
+  // "Alle" Button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'depth-btn active';
+  allBtn.textContent = 'Alle';
+  allBtn.onclick = () => selectAlphabet('Alle', allBtn);
+  navContainer.appendChild(allBtn);
+  
+  // Alphabet-Buttons für verfügbare Buchstaben
+  availableLetters.forEach(letter => {
+    const btn = document.createElement('button');
+    btn.className = 'depth-btn';
+    btn.textContent = letter;
+    btn.onclick = () => selectAlphabet(letter, btn);
+    navContainer.appendChild(btn);
+  });
+  
+  // Setze aktiven Button
+  const activeButton = Array.from(navContainer.querySelectorAll('.depth-btn')).find(btn => 
+    btn.textContent === currentAlphabet
+  );
+  if (activeButton) {
+    navContainer.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+    activeButton.classList.add('active');
+  }
 }
 
 function processKeywordText(text, gaReferences = []) {
@@ -18532,17 +18631,8 @@ async function openFromKeyword(gaId) {
 }
 
 function setupKeywordSearch() {
-  const searchInput = document.getElementById('keywordSearch');
-  
-  searchInput.addEventListener('input', () => {
-    displayKeywords(currentAlphabet);
-  });
-  
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      displayKeywords(currentAlphabet);
-    }
-  });
+  // Diese Funktion wird nicht mehr benötigt, da das Suchfeld jetzt inline im HTML ist
+  // Das oninput-Event ist bereits im HTML definiert
 }
 
 function clearKeywordSearch() {
@@ -19022,7 +19112,29 @@ body.dark-mode .ga-keyword-link:hover {
   to { transform: rotate(360deg); }
 }
 
-#alphabet-nav .depth-btn {
+/* Keyword Navigation Section */
+.keyword-navigation-section {
+  margin-bottom: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.alphabet-nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.keyword-search-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#alphabet-nav .depth-btn,
+#alphabet-nav-dynamic .depth-btn {
   font-size: 0.85em;
   padding: 4px 8px;
   margin: 2px;
@@ -19139,7 +19251,16 @@ async function performKeywordThematicSearch(keyword) {
         hasOverview: hasOverview
       });
       
-      // Zeige KI-Suchergebnis im Content Fenster, falls vorhanden
+      // Zeige Themen_Übersicht im Main Viewer zuerst, falls vorhanden
+      if (hasOverview) {
+        console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          renderConceptOverview(keyword, { overview: existingKeyword.overview });
+        }
+      }
+      
+      // Zeige KI-Suchergebnis im Main Viewer, falls vorhanden
       if (hasText) {
         const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
         const isOnlyKeyword = textWithoutFormatting === keyword;
@@ -19160,15 +19281,6 @@ async function performKeywordThematicSearch(keyword) {
         }
       }
       
-      // Zeige Themen_Übersicht im Main Viewer, falls vorhanden
-      if (hasOverview) {
-        console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
-        const viewer = document.getElementById('viewer');
-        if (viewer) {
-          renderConceptOverview(keyword, { overview: existingKeyword.overview });
-        }
-      }
-      
       // Wenn gespeicherte Ergebnisse vorhanden sind, verwende nur diese (keine neue API-Anfrage)
       if (countContainer) {
         countContainer.textContent = '';
@@ -19179,8 +19291,9 @@ async function performKeywordThematicSearch(keyword) {
     console.log('[KEYWORD-THEMATIC] Kein lokaler Text, rufe API auf für:', keyword);
     
     // Zeige Loading-Status
-    if (results) {
-      results.innerHTML = `
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
           <div style="font-style: italic; font-size: 1.2em;">Suche...</div>
         </div>
@@ -19227,9 +19340,9 @@ async function performKeywordThematicSearch(keyword) {
   } catch (error) {
     console.error('[KEYWORD-THEMATIC] Fehler:', error);
     
-    const results = document.getElementById('results');
-    if (results) {
-      results.innerHTML = `
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #c53030;">
           <div style="font-size: 1.2em; margin-bottom: 1rem;">❌ Fehler bei der Analyse</div>
           <div style="font-style: italic;">${error.message}</div>
@@ -19407,10 +19520,10 @@ let currentKeywordText = null;
 function displayKeywordThematicResults(keyword, data) {
   // Speichere aktuellen Keyword-Text für Markierung
   currentKeywordText = keyword;
-  const results = document.getElementById('results');
+  const viewer = document.getElementById('viewer');
   const countContainer = document.getElementById('keyword-count');
   
-  if (!results) return;
+  if (!viewer) return;
   
   // Hilfsfunktion: Wandle Markdown zu HTML um
   function markdownToHtml(text) {
@@ -19496,21 +19609,36 @@ function displayKeywordThematicResults(keyword, data) {
   }
   
   // Kombiniere alles (nur Hauptinhalt) im gleichen Layout wie Themensuche
-  results.innerHTML = `
-    <div class="semantic-answer">
-      <div class="answer-header">
-        <h2 class="answer-title">${keyword}</h2>
+  // Prüfe ob bereits eine Übersicht im Viewer angezeigt wird
+  const existingContent = viewer.innerHTML;
+  const hasOverview = existingContent.includes('concept-overview-header');
+  
+  // Wenn bereits eine Übersicht vorhanden ist, füge die Ergebnisse unterhalb hinzu (ohne zweite Überschrift, mit Trennlinie)
+  if (hasOverview) {
+    const resultsHtml = `
+      <div class="concept-results-separator"></div>
+      <div class="semantic-answer concept-results-content">
+        <div class="answer-content" id="keywordAnswerContent">
+          ${contentHtml}
+        </div>
       </div>
-      <div class="answer-content" id="keywordAnswerContent">
-        ${contentHtml}
+    `;
+    viewer.innerHTML += resultsHtml;
+  } else {
+    // Wenn keine Übersicht vorhanden ist, ersetze den gesamten Viewer-Inhalt (ohne Überschrift, da das Keyword bereits in der Übersicht steht)
+    viewer.innerHTML = `
+      <div class="semantic-answer">
+        <div class="answer-content" id="keywordAnswerContent">
+          ${contentHtml}
+        </div>
       </div>
-    </div>
-  `;
+    `;
+  }
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
-  removeInlineStyles(results);
+  removeInlineStyles(viewer);
   // Normalisiere Unicode-Zeichen für einheitliche Darstellung
-  normalizeUnicode(results);
+  normalizeUnicode(viewer);
   
   // Konvertiere GA-Links im DOM (nach dem Setzen des HTML)
   // Verwende die gleiche Methode wie bei Themen_Übersicht für konsistente Verlinkung
