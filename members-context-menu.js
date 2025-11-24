@@ -587,7 +587,7 @@ function addContextMenuStyles() {
     }
     
     .context-notification-success {
-      background: #4CAF50;
+      background: #467886;
       color: white;
     }
     

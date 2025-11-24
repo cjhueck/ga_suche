@@ -257,10 +257,10 @@
       width: 100%;
     }
     
-    /* Abstand für Ergebnisse nach Trennlinie */
-    .concept-results-content {
-      margin-top: 0;
-    }
+/* Abstand für Ergebnisse nach Trennlinie */
+.concept-results-content {
+  margin-top: 0;
+}
     
     /* Konzept-Übersicht: Grid-Zellen */
     .concept-overview-cell {
@@ -2550,7 +2550,7 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer h3 {
       font-size: 0.9rem !important;
-      margin: 0.6rem 0 0.25rem 0 !important; /* Verringerte Abstände */
+      margin: 1.2rem 0 0.25rem 0 !important; /* Größerer Abstand vor H3 */
       font-weight: 700 !important;
       color: var(--link-color) !important;
       display: block;
@@ -2881,7 +2881,7 @@ body.dark-mode .loading-tooltip::before {
 .semantic-answer h3 {
   font-size: 1rem;         /* Kleinere Überschriften */
   line-height: 1.1;
-  margin: 0.5rem 0 0.3rem 0;  /* Verringerte Abstände */
+  margin: 1.2rem 0 0.3rem 0;  /* Größerer Abstand vor H3 */
   font-weight: bold;
 }
 
@@ -5782,6 +5782,13 @@ function normalizeGANumber(gaNumber) {
         gaInfoBtn.style.display = 'none';
       }
       
+      // WICHTIG: Im Index-Tab Button IMMER verstecken - VOR updateButtonStates()
+      if (mode === 'schlagworte') {
+        if (gaInfoBtn) {
+          gaInfoBtn.style.display = 'none';
+        }
+      }
+      
       // Verstecke Viewer-Buttons beim Tab-Wechsel (inkl. Info-Button)
       updateButtonStates();
       
@@ -5802,11 +5809,12 @@ function normalizeGANumber(gaNumber) {
         }
       }
       
-      // Zusätzliche Sicherheitsprüfung: Info-Button im Index-Tab ausblenden
+      // ABSCHLIESSENDE Sicherheitsprüfung: Info-Button im Index-Tab IMMER ausblenden
+      // (nach updateButtonStates(), falls dieser den Button wieder angezeigt hat)
       if (mode === 'schlagworte') {
-        const gaInfoBtn = document.getElementById('gaInfoBtn');
-        if (gaInfoBtn) {
-          gaInfoBtn.style.display = 'none';
+        const gaInfoBtnAfterUpdate = document.getElementById('gaInfoBtn');
+        if (gaInfoBtnAfterUpdate) {
+          gaInfoBtnAfterUpdate.style.display = 'none';
         }
       }
       
@@ -5889,6 +5897,19 @@ function normalizeGANumber(gaNumber) {
         targetTab.classList.add('active');
         // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
         targetTab.style.display = '';
+      }
+      
+      // FINALE Prüfung: Info-Button im Index-Tab IMMER verstecken
+      // (nach Tab-Aktivierung, falls updateButtonStates() oder andere Funktionen den Button angezeigt haben)
+      if (mode === 'schlagworte') {
+        setTimeout(() => {
+          const gaInfoBtnFinal = document.getElementById('gaInfoBtn');
+          if (gaInfoBtnFinal) {
+            gaInfoBtnFinal.style.display = 'none';
+          }
+          // Rufe updateButtonStates() nochmal auf, um sicherzustellen, dass alle Buttons korrekt sind
+          updateButtonStates();
+        }, 10);
       }
       
       // Lade Zitate wenn zum Zitate-Tab gewechselt wird
@@ -12699,9 +12720,10 @@ function displayGAChronological(lectures) {
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
     
-    // Im Index-Tab: Button immer verstecken (bereits oben gesetzt)
+    // Im Index-Tab: Button IMMER verstecken - keine weiteren Prüfungen nötig
     if (isInIndexTab) {
-      // Button bleibt versteckt
+      gaInfoBtn.style.display = 'none';
+      // Keine weiteren Prüfungen - Button bleibt versteckt
     }
     // Im GA-Tab: Button nur anzeigen wenn ein GA-Band im Viewer angezeigt wird (nicht nur Standard-Nachricht)
     else if (isInGATab) {
@@ -12761,6 +12783,12 @@ function displayGAChronological(lectures) {
           gaInfoBtn.style.display = 'inline-flex';
         }
       }
+    }
+    
+    // ABSCHLIESSENDE SICHERHEITSPRÜFUNG: Im Index-Tab Button IMMER verstecken
+    // (falls er durch eine der obigen Bedingungen angezeigt wurde)
+    if (isInIndexTab) {
+      gaInfoBtn.style.display = 'none';
     }
   }
   
@@ -19642,9 +19670,30 @@ function displayKeywordThematicResults(keyword, data) {
     // Hinweis: Klammern-Entfernung ist nicht mehr nötig, da der neue Prompt 
     // "Weitere Quellen" bereits ohne Klammern generiert und die Links korrekt erstellt werden
     
+    // Ersetze englische Anführungszeichen durch deutsche Anführungszeichen
+    // "text" -> „text"
+    // WICHTIG: Nur in Text-Inhalten, nicht in HTML-Attributen
+    let contentWithGermanQuotes = contentWithLinks
+      // Ersetze öffnende Anführungszeichen: " nach Leerzeichen, Zeilenumbruch oder am Anfang
+      // Aber nicht wenn es Teil eines HTML-Attributs ist (nicht nach = oder <)
+      .replace(/(?<!<[^>]*)(?<!=[^>]*)(^|[\s\n>])"/g, '$1„')
+      // Ersetze schließende Anführungszeichen: " vor Leerzeichen, Satzzeichen oder am Ende
+      // Aber nicht wenn es Teil eines HTML-Attributs ist (nicht vor = oder >)
+      .replace(/"([\s\n.,;:!?)]|$)(?![^<]*=)(?![^<]*>)/g, '"$1');
+    
+    // Alternative einfachere Methode: Ersetze nur in Text-Inhalten (nicht in Tags)
+    // Teile HTML in Tags und Text auf
+    contentWithGermanQuotes = contentWithGermanQuotes.replace(/>([^<]+)</g, (match, text) => {
+      // Ersetze Anführungszeichen nur im Text-Inhalt
+      const replacedText = text
+        .replace(/(^|[\s\n])"/g, '$1„')
+        .replace(/"([\s\n.,;:!?)]|$)/g, '"$1');
+      return '>' + replacedText + '<';
+    });
+    
     // Wrappe in <p> nur wenn noch keine Paragraphen vorhanden sind
-    const hasParagraphs = contentWithLinks.includes('</p>');
-    const wrappedContent = hasParagraphs ? contentWithLinks : `<p>${contentWithLinks}</p>`;
+    const hasParagraphs = contentWithGermanQuotes.includes('</p>');
+    const wrappedContent = hasParagraphs ? contentWithGermanQuotes : `<p>${contentWithGermanQuotes}</p>`;
     contentHtml = `
       <div class="keyword-answer">
         ${wrappedContent}
