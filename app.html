@@ -19233,6 +19233,11 @@ async function performKeywordThematicSearch(keyword) {
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
   
+  // Prüfe ob lokale Version
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.protocol === 'file:';
+  
   try {
     const results = document.getElementById('results');
     const countContainer = document.getElementById('keyword-count');
@@ -19248,7 +19253,8 @@ async function performKeywordThematicSearch(keyword) {
     if (hasText || hasOverview) {
       console.log('[KEYWORD-THEMATIC] Verwende gespeicherte Ergebnisse für:', keyword, {
         hasText: hasText,
-        hasOverview: hasOverview
+        hasOverview: hasOverview,
+        isLocal: isLocal
       });
       
       // Zeige Themen_Übersicht im Main Viewer zuerst, falls vorhanden
@@ -19261,12 +19267,23 @@ async function performKeywordThematicSearch(keyword) {
       }
       
       // Zeige KI-Suchergebnis im Main Viewer, falls vorhanden
+      // WICHTIG: Nur wenn vollständige Darstellung vorhanden ODER wenn lokale Version
       if (hasText) {
         const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
         const isOnlyKeyword = textWithoutFormatting === keyword;
         
-        // Wenn Text mehr als nur das Keyword selbst ist, zeige ihn an
+        // Wenn Text mehr als nur das Keyword selbst ist
         if (!isOnlyKeyword && existingKeyword.text.length > 50) {
+          // In Online-Version: Nur anzeigen wenn vollständige Darstellung vorhanden
+          if (!isLocal && !hasOverview) {
+            console.log('[KEYWORD-THEMATIC] Online-Version: Überspringe Anzeige für Schlagwort ohne vollständige Darstellung');
+            if (countContainer) {
+              countContainer.textContent = '';
+            }
+            return; // Keine Anzeige in Online-Version
+          }
+          
+          // Lokale Version oder vollständige Darstellung vorhanden: Anzeigen
           const data = {
             query: keyword,
             content: existingKeyword.text,
