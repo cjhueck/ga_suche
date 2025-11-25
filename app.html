@@ -3898,6 +3898,15 @@ body.dark-mode h3:not(#summary-content a),
 body.dark-mode h4:not(#summary-content a) {
   color: var(--dark-heading-color) !important;
 }
+
+/* AUSNAHME: Help Modal Buttons beim Hover */
+.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode .help-choice-btn:hover h3 {
+  color: white !important;
+}
 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4,
 #sidebar-content h1, #sidebar-content h2, #sidebar-content h3, #sidebar-content h4,
 #results h1, #results h2, #results h3, #results h4,
@@ -3913,6 +3922,31 @@ body.dark-mode #sidebar h1 a, body.dark-mode #sidebar h2 a, body.dark-mode #side
 body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body.dark-mode #sidebar-content h3 a, body.dark-mode #sidebar-content h4 a,
 body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
 body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
+
+/* Help Modal Button Hover - muss NACH globalen h3-Regeln stehen */
+#helpModal button.help-choice-btn:hover h3,
+.help-modal button.help-choice-btn:hover h3,
+button.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode #helpModal button.help-choice-btn:hover h3,
+body.dark-mode .help-modal button.help-choice-btn:hover h3,
+body.dark-mode button.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+#helpModal button.help-choice-btn:hover p,
+.help-modal button.help-choice-btn:hover p,
+button.help-choice-btn:hover p {
+  color: white !important;
+}
+
+body.dark-mode #helpModal button.help-choice-btn:hover p,
+body.dark-mode .help-modal button.help-choice-btn:hover p,
+body.dark-mode button.help-choice-btn:hover p {
+  color: white !important;
+}
 
 /* Chronological lecture links */
 .chronological-lecture-link {
@@ -4097,14 +4131,16 @@ body.dark-mode .help-choice-btn:hover {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
   color: var(--link-color);
+  transition: color 0.2s ease;
 }
 
 body.dark-mode .help-choice-btn h3 {
   color: #6BA3B8;
 }
 
+/* Hover: h3 erbt Farbe vom Button */
 .help-choice-btn:hover h3 {
-  color: white;
+  color: inherit;
 }
 
 .help-choice-btn p {
@@ -4113,8 +4149,9 @@ body.dark-mode .help-choice-btn h3 {
   color: var(--text-color);
 }
 
+/* Hover: p erbt Farbe vom Button */
 .help-choice-btn:hover p {
-  color: white;
+  color: inherit;
 }
 
 .help-content-display {
@@ -4305,6 +4342,17 @@ body.dark-mode #popupCaption {
   font-weight: bold;
   font-size: 1.2em;
   margin-left: 0.3em;
+}
+
+/* FINAL OVERRIDE: Help Modal Buttons - MUSS am Ende stehen! */
+.help-modal .help-choice-btn:hover h3,
+#helpModal .help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode .help-modal .help-choice-btn:hover h3,
+body.dark-mode #helpModal .help-choice-btn:hover h3 {
+  color: white !important;
 }
 </style>
 <!-- Cloudflare Web Analytics -->
