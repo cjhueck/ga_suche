@@ -2333,6 +2333,51 @@ body.dark-mode #thematicSearchInfo {
       margin-left: 0 !important;
     }
     
+    /* GA040 und GA261: Trennlinien als Sternchen im linken Drittel zentriert */
+    /* Für Bücher */
+    #viewer .book-content[data-ga-number="GA040"] hr,
+    #viewer .book-content[data-ga-number="GA261"] hr {
+      border: none;
+      border-top: none;
+      height: auto;
+      margin: 1em 0;
+      margin-left: 0;
+      width: 33%;
+      max-width: 33%;
+      text-align: center;
+      background: none;
+    }
+    
+    #viewer .book-content[data-ga-number="GA040"] hr::before,
+    #viewer .book-content[data-ga-number="GA261"] hr::before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1;
+    }
+    
+    /* Für Vorträge (GA261) */
+    #viewer[data-ga-number="GA261"] hr {
+      border: none;
+      border-top: none;
+      height: auto;
+      margin: 1em 0;
+      margin-left: 0;
+      width: 33%;
+      max-width: 33%;
+      text-align: center;
+      background: none;
+    }
+    
+    #viewer[data-ga-number="GA261"] hr::before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1;
+    }
+    
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: grid;
@@ -8123,7 +8168,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // 2. Im Texte-Tab wird TOC im Sidebar angezeigt, in anderen Tabs (z.B. Suche) wird Content im Main Viewer angezeigt
   if (!isInGATab) {
     console.log(`[BOOK] Zeige Content an - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
-    html += '<div class="book-content">' + content + '</div>';
+    const gaNumber = book.gaNumber || book.ID || '';
+    html += `<div class="book-content" data-ga-number="${gaNumber}">` + content + '</div>';
   } else {
     console.log(`[BOOK] KEIN Content angezeigt (GA-Tab) - isInGATab: ${isInGATab}`);
   }
@@ -14723,6 +14769,13 @@ function showSummaryView() {
   let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
   const gaNumber = extractGANumber(lecture);
   
+  // Setze data-Attribut für CSS-Styling
+  if (gaNumber) {
+    viewer.setAttribute('data-ga-number', gaNumber);
+  } else {
+    viewer.removeAttribute('data-ga-number');
+  }
+  
   // Setze currentGANumber für Info-Button
   if (gaNumber) {
     currentGANumber = gaNumber;
@@ -17478,6 +17531,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
       const gaNumber = extractGANumber(lecture);
+      
+      // Setze data-Attribut für CSS-Styling
+      if (gaNumber) {
+        viewer.setAttribute('data-ga-number', gaNumber);
+      } else {
+        viewer.removeAttribute('data-ga-number');
+      }
       
       // Setze currentGANumber für Info-Button
       if (gaNumber) {
