@@ -5359,10 +5359,29 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
   const interactionMatch = fullText.match(/##\s*INTERAKTIONEN\s*([\s\S]*?)(?=##\s*BESONDERHEITEN|$)/i);
   const specialMatch = fullText.match(/##\s*BESONDERHEITEN\s*([\s\S]*?)$/i);
   
-  if (definitionMatch) categories.definitionText = definitionMatch[1].trim();
-  if (functionMatch) categories.functionText = functionMatch[1].trim();
-  if (interactionMatch) categories.interactionText = interactionMatch[1].trim();
-  if (specialMatch) categories.specialText = specialMatch[1].trim();
+  // Hilfsfunktion: Formatiere Text - Großbuchstabe am Anfang, Punkt am Ende
+  const formatCategoryText = (text) => {
+    if (!text || text.trim() === '') return text;
+    
+    let formatted = text.trim();
+    
+    // Erster Buchstabe groß
+    if (formatted.length > 0) {
+      formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+    }
+    
+    // Punkt am Ende hinzufügen (falls noch keiner vorhanden)
+    if (formatted.length > 0 && !formatted.endsWith('.') && !formatted.endsWith('!') && !formatted.endsWith('?')) {
+      formatted = formatted + '.';
+    }
+    
+    return formatted;
+  };
+  
+  if (definitionMatch) categories.definitionText = formatCategoryText(definitionMatch[1].trim());
+  if (functionMatch) categories.functionText = formatCategoryText(functionMatch[1].trim());
+  if (interactionMatch) categories.interactionText = formatCategoryText(interactionMatch[1].trim());
+  if (specialMatch) categories.specialText = formatCategoryText(specialMatch[1].trim());
   
   const result = {
     overview: {

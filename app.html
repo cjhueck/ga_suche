@@ -246,13 +246,13 @@
     /* Concept Content ohne Padding */
     .concept-overview-container .concept-overview-cell.concept-content {
       padding: 0 !important;
-      font-size: 0.8rem !important;
+      font-size: var(--text-size) !important;
       line-height: 1.6;
     }
     
     /* Trennlinie zwischen Übersicht und Ergebnissen */
     .concept-results-separator {
-      margin: 0.4rem 0 1rem 0;
+      margin: 0.2rem 0 1rem 0;
       border-top: 1px solid var(--border-color);
       width: 100%;
     }
@@ -309,7 +309,7 @@
     
     /* Spezifische Schriftgröße für Tabellenzellen im Index-Tab */
     #viewer td.concept-overview-cell.concept-content {
-      font-size: 0.85rem !important;
+      font-size: var(--text-size) !important;
     }
     
     /* WICHTIG: Alle inneren Elemente in Tabellenzellen müssen die Schriftgröße erben */
@@ -13086,6 +13086,21 @@ function displayGAChronological(lectures) {
         
         console.log('[RENDER-CATEGORY] Funktion aufgerufen, Text-Länge:', text.length);
         console.log('[RENDER-CATEGORY] Erste 200 Zeichen:', text.substring(0, 200));
+        
+        // FORMATIERUNG: Großbuchstabe am Anfang, Punkt am Ende
+        let formattedText = text.trim();
+        
+        // Erster Buchstabe groß
+        if (formattedText.length > 0) {
+          formattedText = formattedText.charAt(0).toUpperCase() + formattedText.slice(1);
+        }
+        
+        // Punkt am Ende hinzufügen (falls noch keiner vorhanden)
+        if (formattedText.length > 0 && !formattedText.endsWith('.') && !formattedText.endsWith('!') && !formattedText.endsWith('?')) {
+          formattedText = formattedText + '.';
+        }
+        
+        text = formattedText;
         
         // WICHTIG: Entferne Markdown-Links VOR dem marked.parse(), da marked.parse() sie sonst in HTML konvertiert
         // Entferne Markdown-Links im Format [[...|GA###/##]] und ersetze durch einfachen GA-Link
