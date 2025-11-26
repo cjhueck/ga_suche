@@ -1225,6 +1225,11 @@ async function deleteSelectedItems() {
   }
 }
 
+// Cache für die letzten markierten Lecture-IDs, um Icons nach DOM-Änderungen wiederherzustellen
+let lastMarkedLectureId = null;
+let lastBookmarksData = null;
+let lastQuotesData = null;
+
 /**
  * Markiere Absätze im Viewer, die bereits Bookmarks oder Zitate haben
  */
@@ -1245,6 +1250,11 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
       return; // Fehler beim Laden
     }
     
+    // Cache für spätere Wiederherstellung
+    lastMarkedLectureId = lectureId;
+    lastBookmarksData = bookmarksResult;
+    lastQuotesData = quotesResult;
+    
     // Sammle alle paragraph_ids für diesen Vortrag
     const paragraphIds = new Set();
     
@@ -1262,38 +1272,80 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     
     // Markiere alle Absätze im Viewer
     paragraphIds.forEach(paraId => {
-      const paraElement = document.getElementById(`para-${paraId}`);
-      if (paraElement && !paraElement.querySelector('.bookmark-quote-indicator')) {
-        // Prüfe ob Bookmark oder Zitat (oder beides)
-        const hasBookmark = bookmarksResult.success && bookmarksResult.data.some(b => 
-          b.ga_number === lectureId && b.paragraph_id === paraId
-        );
-        const hasQuote = quotesResult.success && quotesResult.data.some(q => 
-          q.ga_reference === lectureId && q.paragraph_id === paraId
-        );
-        
-        // Erstelle Markierung
-        const indicator = document.createElement('span');
-        indicator.className = 'bookmark-quote-indicator';
-        indicator.title = `${hasBookmark ? 'Bookmark' : ''}${hasBookmark && hasQuote ? ' & ' : ''}${hasQuote ? 'Zitat' : ''} vorhanden - Klick zum Öffnen`;
-        indicator.innerHTML = `
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-          </svg>
-        `;
-        indicator.onclick = (e) => {
-          e.stopPropagation();
-          jumpToBookmarkOrQuote(lectureId, paraId, hasBookmark, hasQuote);
-        };
-        
-        // Füge am Anfang des Absatzes hinzu
-        paraElement.style.position = 'relative';
-        paraElement.insertBefore(indicator, paraElement.firstChild);
-      }
+      addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesResult);
     });
   } catch (error) {
     console.error('Fehler beim Markieren der Absätze:', error);
   }
+}
+
+/**
+ * Fügt ein Bookmark/Quote-Icon zu einem Absatz hinzu
+ */
+function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesResult) {
+  const paraElement = document.getElementById(`para-${paraId}`);
+  if (!paraElement) return;
+  
+  // Prüfe ob Icon bereits vorhanden ist (auch nach DOM-Manipulationen)
+  const existingIndicator = paraElement.querySelector('.bookmark-quote-indicator');
+  if (existingIndicator) return; // Bereits vorhanden
+  
+  // Prüfe ob Bookmark oder Zitat (oder beides)
+  const hasBookmark = bookmarksResult.success && bookmarksResult.data.some(b => 
+    b.ga_number === lectureId && b.paragraph_id === paraId
+  );
+  const hasQuote = quotesResult.success && quotesResult.data.some(q => 
+    q.ga_reference === lectureId && q.paragraph_id === paraId
+  );
+  
+  // Erstelle Markierung
+  const indicator = document.createElement('span');
+  indicator.className = 'bookmark-quote-indicator';
+  indicator.setAttribute('data-para-id', paraId); // Für Wiederherstellung
+  indicator.title = `${hasBookmark ? 'Bookmark' : ''}${hasBookmark && hasQuote ? ' & ' : ''}${hasQuote ? 'Zitat' : ''} vorhanden - Klick zum Öffnen`;
+  indicator.innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+    </svg>
+  `;
+  indicator.onclick = (e) => {
+    e.stopPropagation();
+    jumpToBookmarkOrQuote(lectureId, paraId, hasBookmark, hasQuote);
+  };
+  
+  // Füge am Anfang des Absatzes hinzu
+  paraElement.style.position = 'relative';
+  paraElement.insertBefore(indicator, paraElement.firstChild);
+}
+
+/**
+ * Stellt Icons wieder her, die durch DOM-Manipulationen verloren gegangen sind
+ */
+function restoreBookmarkQuoteIndicators() {
+  if (!lastMarkedLectureId || !lastBookmarksData || !lastQuotesData) return;
+  
+  // Sammle alle paragraph_ids für diesen Vortrag
+  const paragraphIds = new Set();
+  
+  if (lastBookmarksData.success && lastBookmarksData.data) {
+    lastBookmarksData.data
+      .filter(b => b.ga_number === lastMarkedLectureId && b.paragraph_id)
+      .forEach(b => paragraphIds.add(b.paragraph_id));
+  }
+  
+  if (lastQuotesData.success && lastQuotesData.data) {
+    lastQuotesData.data
+      .filter(q => q.ga_reference === lastMarkedLectureId && q.paragraph_id)
+      .forEach(q => paragraphIds.add(q.paragraph_id));
+  }
+  
+  // Stelle Icons wieder her
+  paragraphIds.forEach(paraId => {
+    const paraElement = document.getElementById(`para-${paraId}`);
+    if (paraElement && !paraElement.querySelector('.bookmark-quote-indicator')) {
+      addBookmarkQuoteIndicator(paraId, lastMarkedLectureId, lastBookmarksData, lastQuotesData);
+    }
+  });
 }
 
 /**
