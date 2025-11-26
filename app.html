@@ -10,9 +10,11 @@
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- Mitglieder Panel Styles -->
 <link rel="stylesheet" href="members-panel.css">
+<!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003; connect-src 'self' http://localhost:3003 https://*.supabase.co; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <style>
     /* Zentrale Farbdefinitionen */
     :root {
@@ -2707,10 +2709,44 @@ body.dark-mode #thematicSearchInfo {
       margin-top: 0 !important;
     }
     
-    #viewer .paragraph:has(p.poem),
-    #viewer .paragraph:has(p.short-lines),
+    /* Gedichte: Entferne alle Margins und Padding (höchste Spezifität) */
     #viewer .paragraph.has-poem {
+      margin-top: 0 !important;
       margin-bottom: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
+    }
+    
+    /* WICHTIG: Auch die <p> Tags innerhalb von .paragraph.has-poem müssen formatiert werden */
+    /* Gedicht-Blöcke: Wie in Büchern - ein Block mit <br> Tags */
+    #viewer .paragraph.poem-block {
+      margin: var(--paragraph-margin) 0 !important; /* Normaler Abstand vor/nach dem Block */
+      padding: 0 !important;
+      line-height: 1.5 !important;
+    }
+    
+    #viewer .paragraph.poem-block p {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text */
+      display: inline; /* Zeilen sollen direkt hintereinander sein */
+    }
+    
+    /* Dark Mode für Gedicht-Blöcke */
+    body.dark-mode #viewer .paragraph.poem-block p {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.5 !important;
+      color: #b8b8b8 !important;
+    }
+    
+    #viewer .paragraph:has(p.poem),
+    #viewer .paragraph:has(p.short-lines) {
+      margin: 0 !important; /* Entferne alle Margins (wie bei p.poem in Büchern) */
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
     }
     
     #viewer h3 {
@@ -2741,6 +2777,7 @@ body.dark-mode #thematicSearchInfo {
     body.dark-mode #viewer .paragraph {
       color: #b8b8b8 !important;
     }
+    
     
     body.dark-mode #viewer h3,
     body.dark-mode #viewer h4 {
@@ -5731,15 +5768,19 @@ function normalizeGANumber(gaNumber) {
       const word2List = document.getElementById('word2-history');
       
       if (word1List) {
-        word1List.innerHTML = searchHistory.word1.map(item => 
-          `<option value="${item}">`
-        ).join('');
+        // SICHERHEIT: Sanitize Search History (entfernt gefährliche Zeichen)
+        word1List.innerHTML = searchHistory.word1.map(item => {
+          const sanitized = String(item).replace(/[<>]/g, '');
+          return `<option value="${sanitized}">`;
+        }).join('');
       }
       
       if (word2List) {
-        word2List.innerHTML = searchHistory.word2.map(item => 
-          `<option value="${item}">`
-        ).join('');
+        // SICHERHEIT: Sanitize Search History
+        word2List.innerHTML = searchHistory.word2.map(item => {
+          const sanitized = String(item).replace(/[<>]/g, '');
+          return `<option value="${sanitized}">`;
+        }).join('');
       }
     }
 
@@ -18154,31 +18195,50 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       html += `</div>`;
       viewer.innerHTML = html;
       
-      // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
-      setTimeout(() => {
-        detectAndFormatPoems(viewer);
-      }, 0);
-      
-      // Anmerkungen mit mehreren Sternchen behandeln
-      setTimeout(() => {
-        replaceBulletPointsWithAsterisks();
-        formatAsteriskParagraphs();
-      }, 100);
-      
-      // Markiere Absätze mit Bookmarks/Zitaten
-      if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
-        setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
-      }
-      
-      // Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
+      // Ersetze img src-Attribute durch Base64-Daten ZUERST (bevor Gedichte formatiert werden)
       if (lecture && lecture.ID) {
-        
         // Lade und ersetze Bilder asynchron
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
           viewer.innerHTML = updatedHTML;
+          
+          // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren, damit die Änderungen nicht überschrieben werden!
+          setTimeout(() => {
+            detectAndFormatPoems(viewer);
+          }, 0);
+          
+          // Anmerkungen mit mehreren Sternchen behandeln
+          setTimeout(() => {
+            replaceBulletPointsWithAsterisks();
+            formatAsteriskParagraphs();
+          }, 100);
+          
+          // Markiere Absätze mit Bookmarks/Zitaten
+          if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+            setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+          }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+          // Auch bei Fehler Gedichte formatieren
+          setTimeout(() => {
+            detectAndFormatPoems(viewer);
+          }, 0);
         });
+      } else {
+        // Keine Bilder: Gedichte direkt formatieren
+        setTimeout(() => {
+          detectAndFormatPoems(viewer);
+        }, 0);
+        
+        // Anmerkungen mit mehreren Sternchen behandeln
+        setTimeout(() => {
+          replaceBulletPointsWithAsterisks();
+          formatAsteriskParagraphs();
+        }, 100);
+        
+        // Markiere Absätze mit Bookmarks/Zitaten
+        if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+          setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+        }
       }
       
       // Activate TOC links
@@ -20200,15 +20260,40 @@ function detectAndFormatPoems(container) {
   const paragraphDivs = Array.from(container.querySelectorAll('.paragraph'));
   paragraphDivs.forEach(div => {
     // Prüfe ob die Div direkt Text enthält (nicht nur in <p> Tags)
+    // WICHTIG: Berücksichtige auch HTML mit <br> Tags (nach Markdown-Konvertierung)
+    let textContent = '';
+    
+    // Methode 1: Direkter Text-Node
     const directText = Array.from(div.childNodes)
       .filter(node => node.nodeType === Node.TEXT_NODE)
       .map(node => node.textContent.trim())
       .filter(text => text.length > 0)
       .join('\n');
     
-    if (directText) {
+    // Methode 2: HTML-Inhalt mit <br> Tags (nach marked() Konvertierung)
+    if (!directText || directText.length < 10) {
+      // Erstelle temporäres Element um HTML zu parsen
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = div.innerHTML;
+      
+      // Entferne versteckte Spans (mit display:none oder data-index Attribut)
+      const hiddenSpans = tempDiv.querySelectorAll('[style*="display:none"], [data-index]');
+      hiddenSpans.forEach(span => span.remove());
+      
+      // Ersetze <br> durch Zeilenumbrüche für die Analyse
+      const htmlWithBreaks = tempDiv.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+      const tempDiv2 = document.createElement('div');
+      tempDiv2.innerHTML = htmlWithBreaks;
+      
+      // Extrahiere Text-Inhalt (ohne HTML-Tags)
+      textContent = tempDiv2.textContent || tempDiv2.innerText || '';
+    } else {
+      textContent = directText;
+    }
+    
+    if (textContent) {
       // Teile Text in Zeilen auf
-      const lines = directText.split('\n').map(line => {
+      const lines = textContent.split('\n').map(line => {
         // Entferne Obsidian-Index am Ende der Zeile
         return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
       }).filter(line => line.length > 0);
@@ -20234,6 +20319,70 @@ function detectAndFormatPoems(container) {
       }
     }
   });
+  
+  // ZUSÄTZLICH: Prüfe aufeinanderfolgende .paragraph Divs (für Vorträge, wo jeder Paragraph eine Zeile ist)
+  // WICHTIG: Markiere alle aufeinanderfolgenden kurzen Paragraphen als Gedicht
+  let i = 0;
+  while (i < paragraphDivs.length) {
+    const div = paragraphDivs[i];
+    
+    // Überspringe bereits markierte Gedichte
+    if (div.classList.contains('has-poem')) {
+      i++;
+      continue;
+    }
+    
+    // Extrahiere Text-Inhalt
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = div.innerHTML;
+    const hiddenSpans = tempDiv.querySelectorAll('[style*="display:none"], [data-index]');
+    hiddenSpans.forEach(span => span.remove());
+    const textContent = tempDiv.textContent || tempDiv.innerText || '';
+    const cleanText = textContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
+    
+    // Wenn dieser Paragraph kurz ist (< 75 Zeichen), prüfe die nächsten
+    if (cleanText.length > 0 && cleanText.length < 75) {
+      const poemStartIndex = i;
+      let consecutiveShortParagraphs = 1;
+      let nextIndex = i + 1;
+      
+      // Sammle alle aufeinanderfolgenden kurzen Paragraphen
+      const poemParagraphs = [div];
+      
+      // Prüfe die nächsten Paragraphs
+      while (nextIndex < paragraphDivs.length) {
+        const nextDiv = paragraphDivs[nextIndex];
+        const nextTempDiv = document.createElement('div');
+        nextTempDiv.innerHTML = nextDiv.innerHTML;
+        const nextHiddenSpans = nextTempDiv.querySelectorAll('[style*="display:none"], [data-index]');
+        nextHiddenSpans.forEach(span => span.remove());
+        const nextTextContent = nextTempDiv.textContent || nextTempDiv.innerText || '';
+        const nextCleanText = nextTextContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
+        
+        if (nextCleanText.length > 0 && nextCleanText.length < 75) {
+          consecutiveShortParagraphs++;
+          poemParagraphs.push(nextDiv);
+          nextIndex++;
+        } else {
+          break;
+        }
+      }
+      
+      // Wenn mindestens 2 aufeinanderfolgende kurze Paragraphen gefunden wurden, markiere alle
+      if (consecutiveShortParagraphs >= 2) {
+        poemParagraphs.forEach(poemDiv => {
+          poemDiv.classList.add('has-poem');
+        });
+        
+        // Überspringe alle markierten Paragraphen
+        i = nextIndex;
+      } else {
+        i++;
+      }
+    } else {
+      i++;
+    }
+  }
   
   // Prüfe jeden Paragraph einzeln UND aufeinanderfolgende Paragraphs
   paragraphs.forEach((p, index) => {
@@ -20355,11 +20504,86 @@ function detectAndFormatPoems(container) {
     }
   });
   
-  // Debug: Zeige gefundene Gedichte in der Konsole
-  const foundPoems = container.querySelectorAll('p.poem');
-  if (foundPoems.length > 0) {
-    console.log(`[POEM-DETECTION] ${foundPoems.length} Gedicht-Absätze gefunden`);
+  // Fasse aufeinanderfolgende .paragraph.has-poem Divs zu einem Block zusammen
+  // (wie in Büchern, wo ein <p class="poem"> mit <br> Tags verwendet wird)
+  const foundPoemParagraphs = Array.from(container.querySelectorAll('.paragraph.has-poem'));
+  if (foundPoemParagraphs.length > 0) {
+    let i = 0;
+    while (i < foundPoemParagraphs.length) {
+      const firstPoemDiv = foundPoemParagraphs[i];
+      if (!firstPoemDiv.classList.contains('has-poem')) {
+        i++;
+        continue;
+      }
+      
+      // Sammle alle aufeinanderfolgenden .paragraph.has-poem Divs
+      const poemBlock = [firstPoemDiv];
+      let nextIndex = i + 1;
+      
+      while (nextIndex < foundPoemParagraphs.length) {
+        const nextDiv = foundPoemParagraphs[nextIndex];
+        // Prüfe ob nextDiv direkt nach dem letzten Element im Block kommt
+        const lastInBlock = poemBlock[poemBlock.length - 1];
+        // Prüfe ob nextDiv direkt nach lastInBlock kommt (aufeinanderfolgend im DOM)
+        if (nextDiv.previousElementSibling === lastInBlock) {
+          poemBlock.push(nextDiv);
+          nextIndex++;
+        } else {
+          // Nicht aufeinanderfolgend - Block ist vollständig
+          break;
+        }
+      }
+      
+      // Wenn mehr als 1 Paragraph im Block, fasse sie zusammen
+      if (poemBlock.length > 1) {
+        // Erstelle einen neuen Container für den Gedicht-Block
+        const poemContainer = document.createElement('div');
+        poemContainer.className = 'paragraph has-poem poem-block';
+        poemContainer.style.margin = '0';
+        poemContainer.style.padding = '0';
+        poemContainer.style.lineHeight = '1.5';
+        
+        // Verschiebe alle <p> Tags aus den einzelnen Paragraphen in den Container
+        poemBlock.forEach((poemDiv, idx) => {
+          const pTags = Array.from(poemDiv.querySelectorAll('p'));
+          pTags.forEach((pTag, pIdx) => {
+            // Entferne Margins vom <p> Tag
+            pTag.style.margin = '0';
+            pTag.style.padding = '0';
+            pTag.style.lineHeight = '1.5';
+            
+            // Füge <br> zwischen Zeilen hinzu (außer bei der ersten)
+            if (idx > 0 || pIdx > 0) {
+              poemContainer.appendChild(document.createElement('br'));
+            }
+            
+            // Verschiebe den <p> Tag in den Container
+            poemContainer.appendChild(pTag.cloneNode(true));
+          });
+          
+          // Ersetze den ursprünglichen Paragraph durch den Container (nur beim ersten)
+          if (idx === 0) {
+            // Bewahre alle Attribute des ersten Paragraphs
+            poemContainer.id = poemDiv.id;
+            poemContainer.setAttribute('data-index', poemDiv.getAttribute('data-index') || '');
+            if (poemDiv.onclick) {
+              poemContainer.onclick = poemDiv.onclick;
+            }
+            poemDiv.replaceWith(poemContainer);
+          } else {
+            // Entferne die anderen Paragraphen
+            poemDiv.remove();
+          }
+        });
+        
+        // Überspringe alle verarbeiteten Paragraphen
+        i = nextIndex;
+      } else {
+        i++;
+      }
+    }
   }
+  
 }
 
 // Globale Variable für aktuellen Keyword-Text (für Markierung in Treffer-Absätzen)

@@ -12,90 +12,7 @@ const PORT = 3003;
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
-app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
-
-// SICHERHEIT: Einfaches Rate Limiting (sehr großzügig, um nichts kaputt zu machen)
-const rateLimitMap = new Map();
-const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 Minuten
-const RATE_LIMIT_MAX = 500; // Max 500 Requests pro IP pro 15 Minuten (sehr großzügig)
-
-app.use((req, res, next) => {
-  const ip = req.ip || req.connection.remoteAddress || 'unknown';
-  const now = Date.now();
-  
-  if (!rateLimitMap.has(ip)) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
-    return next();
-  }
-  
-  const limit = rateLimitMap.get(ip);
-  
-  // Reset wenn Zeitfenster abgelaufen
-  if (now > limit.resetTime) {
-    limit.count = 1;
-    limit.resetTime = now + RATE_LIMIT_WINDOW;
-    return next();
-  }
-  
-  // Prüfe Limit
-  if (limit.count >= RATE_LIMIT_MAX) {
-    console.warn(`[RATE-LIMIT] Limit erreicht für IP: ${ip}`);
-    return res.status(429).json({ error: 'Too many requests, please try again later' });
-  }
-  
-  limit.count++;
-  next();
-  
-  // Cleanup alte Einträge (alle 5 Minuten)
-  if (Math.random() < 0.01) { // 1% Chance bei jedem Request
-    for (const [key, value] of rateLimitMap.entries()) {
-      if (now > value.resetTime) {
-        rateLimitMap.delete(key);
-      }
-    }
-  }
-});
-
-// ============================================================================
-// SICHERHEIT: Input-Validierung Helper-Funktionen
-// ============================================================================
-
-/**
- * Validiert Lecture-ID Format (z.B. "GA001/1" oder "GA001")
- * @param {string} lectureId - Die zu validierende Lecture-ID
- * @returns {boolean} - true wenn gültig
- */
-function validateLectureId(lectureId) {
-  if (!lectureId || typeof lectureId !== 'string') return false;
-  // Erlaubt: GA001-GA999, optional /1-999
-  return /^GA\d{3}(\/\d{1,3})?$/.test(lectureId);
-}
-
-/**
- * Validiert GA-Nummer Format (z.B. "GA001" oder "001")
- * @param {string} gaNumber - Die zu validierende GA-Nummer
- * @returns {boolean} - true wenn gültig
- */
-function validateGANumber(gaNumber) {
-  if (!gaNumber || typeof gaNumber !== 'string') return false;
-  // Erlaubt: GA001-GA999 oder 001-999
-  const normalized = gaNumber.toUpperCase().replace(/^GA/, '');
-  return /^\d{3}$/.test(normalized);
-}
-
-/**
- * Sanitisiert String-Input (entfernt gefährliche Zeichen)
- * @param {string} input - Der zu sanitierende Input
- * @param {number} maxLength - Maximale Länge (optional)
- * @returns {string} - Sanitierter String
- */
-function sanitizeString(input, maxLength = 1000) {
-  if (typeof input !== 'string') return '';
-  return input
-    .replace(/[<>]/g, '') // Entferne < und >
-    .substring(0, maxLength)
-    .trim();
-}
+app.use(express.json());
 
 // API: Bilder aus GA-Ordnern servieren (für Bücher) - MUSS VOR express.static kommen!
 app.get('/assets/*', async (req, res) => {
@@ -394,36 +311,7 @@ async function findDataFiles() {
   
   // Suche nach steiner-full-lectures-XXX-YYY*.json
   const lecturePattern = /^steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
-  const allLectureFiles = files.filter(f => lecturePattern.test(f));
-  
-  // Filtere alte, spezifische Dateien heraus, die bereits in großen part-Dateien enthalten sind
-  // Beispiel: steiner-full-lectures-130-159*.json und steiner-full-lectures-261-261.json
-  // sind bereits in steiner-full-lectures-051-354-part*.json enthalten
-  const hasLargeRange = allLectureFiles.some(f => f.includes('051-354'));
-  
-  const lectureFiles = allLectureFiles.filter(file => {
-    if (!hasLargeRange) return true; // Wenn keine große Range existiert, lade alle
-    
-    // Überspringe spezifische Dateien, die in der großen Range enthalten sind
-    const match = file.match(/steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?)/i);
-    if (!match) return true;
-    
-    const start = parseInt(match[1]);
-    const end = parseInt(match[2]);
-    
-    // Wenn die große Range (051-354) existiert, überspringe kleinere Überschneidungen
-    if (start >= 51 && end <= 354 && file.includes('051-354')) {
-      return true; // Das ist die große Datei selbst
-    }
-    
-    if (start >= 51 && end <= 354 && !file.includes('051-354')) {
-      // Kleine Datei innerhalb der großen Range - überspringen
-      console.log(`  ⚠️  Überspringe ${file} (bereits in steiner-full-lectures-051-354-part*.json enthalten)`);
-      return false;
-    }
-    
-    return true; // Alle anderen Dateien behalten
-  });
+  const lectureFiles = files.filter(f => lecturePattern.test(f));
   
   // Suche nach steiner-books-XXX-YYY*.json oder steiner_books_XXX-YYY*.json
   // Pattern: steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json
@@ -3701,16 +3589,7 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
 
 app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
-    // SICHERHEIT: Validiere Inputs
-    if (!validateGANumber(req.params.gaNumber)) {
-      return res.status(400).json({ error: 'Invalid GA number format' });
-    }
-    const lectureNum = sanitizeString(req.params.lectureNum, 10);
-    if (!/^\d{1,3}$/.test(lectureNum)) {
-      return res.status(400).json({ error: 'Invalid lecture number format' });
-    }
-    
-    const lectureId = `${req.params.gaNumber}/${lectureNum}`;
+    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
     console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
     
@@ -5626,13 +5505,6 @@ app.post('/api/reload-books', async (req, res) => {
 app.get('/api/book/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
-    
-    // SICHERHEIT: Validiere GA-Nummer Format
-    if (!validateGANumber(gaNumberOriginal)) {
-      console.warn(`[BOOK] Ungültige GA-Nummer: ${gaNumberOriginal}`);
-      return res.status(400).json({ error: 'Invalid GA number format' });
-    }
-    
     const gaNumberNormalized = gaNumberOriginal.toLowerCase();
 
     console.log(`[BOOK] Anfrage für ${gaNumberOriginal}`);
@@ -11796,11 +11668,6 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
     const lectureId = req.params.lectureId;
     
     if (lectureId) {
-      // SICHERHEIT: Validiere Lecture-ID Format
-      if (!validateLectureId(lectureId)) {
-        console.warn(`[IMAGES-API] Ungültige Lecture-ID: ${lectureId}`);
-        return res.status(400).json({ error: 'Invalid lecture ID format' });
-      }
       // Prüfe zuerst ob bereits im Memory-Cache
       if (steinerImages[lectureId]) {
         const images = steinerImages[lectureId];
