@@ -193,6 +193,48 @@
     }
     
     /* Konzept-Übersicht: Spaltenüberschriften */
+    /* Concept Overview Container */
+    .concept-overview-container {
+      padding: 0rem 1rem 1rem 0rem;
+    }
+    
+    /* Concept Haupttitel - fett und blau */
+    .concept-main-title {
+      font-weight: 700;
+      font-size: 1.2em;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0;
+      color: var(--link-color);
+    }
+    
+    /* Concept Feld-Wrapper */
+    .concept-field-wrapper {
+      margin-bottom: 0.3rem;
+      padding-bottom: 0.3rem;
+    }
+    
+    .concept-field-wrapper.concept-field-last {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    /* Concept Feld-Überschriften - wie H4 formatiert */
+    .concept-field-header {
+      font-size: 0.9rem !important;
+      margin: 0.4rem 0 0.25rem 0 !important;
+      font-weight: normal !important;
+      color: var(--link-color) !important;
+      display: block;
+      line-height: 1.3 !important;
+      text-align: left !important;
+      padding: 0;
+      background: transparent;
+    }
+    
+    body.dark-mode .concept-field-header {
+      color: #6BA3B8 !important;
+    }
+    
     .concept-overview-header {
       color: var(--text-color);
     }
@@ -200,6 +242,25 @@
     body.dark-mode .concept-overview-header {
       color: var(--dark-text-color);
     }
+    
+    /* Concept Content ohne Padding */
+    .concept-overview-container .concept-overview-cell.concept-content {
+      padding: 0 !important;
+      font-size: var(--text-size) !important;
+      line-height: 1.6;
+    }
+    
+    /* Trennlinie zwischen Übersicht und Ergebnissen */
+    .concept-results-separator {
+      margin: 0.2rem 0 1rem 0;
+      border-top: 1px solid var(--border-color);
+      width: 100%;
+    }
+    
+/* Abstand für Ergebnisse nach Trennlinie */
+.concept-results-content {
+  margin-top: 0;
+}
     
     /* Konzept-Übersicht: Grid-Zellen */
     .concept-overview-cell {
@@ -248,7 +309,7 @@
     
     /* Spezifische Schriftgröße für Tabellenzellen im Index-Tab */
     #viewer td.concept-overview-cell.concept-content {
-      font-size: 0.85rem !important;
+      font-size: var(--text-size) !important;
     }
     
     /* WICHTIG: Alle inneren Elemente in Tabellenzellen müssen die Schriftgröße erben */
@@ -272,6 +333,40 @@
     
     .concept-content p:last-child {
       margin-bottom: 0;
+    }
+    
+    /* Gedichte und kurze Zeilen: Keine Absatz-Abstände zwischen Zeilen */
+    .concept-content p.poem,
+    .concept-content p.short-lines {
+      margin: 0 !important;
+      line-height: var(--line-height);
+    }
+    
+    .concept-content p.poem + p.poem,
+    .concept-content p.poem ~ p.poem,
+    .concept-content p.short-lines + p.short-lines,
+    .concept-content p.short-lines ~ p.short-lines {
+      margin-top: 0 !important;
+    }
+    
+    /* Gedichte in Büchern (.book-content) - normale Zeilenhöhe */
+    .book-content p.poem,
+    .book-content p.short-lines,
+    #viewer .book-content p.poem,
+    #viewer .book-content p.short-lines {
+      margin: 0 !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text */
+    }
+    
+    .book-content p.poem + p.poem,
+    .book-content p.poem ~ p.poem,
+    .book-content p.short-lines + p.short-lines,
+    .book-content p.short-lines ~ p.short-lines,
+    #viewer .book-content p.poem + p.poem,
+    #viewer .book-content p.poem ~ p.poem,
+    #viewer .book-content p.short-lines + p.short-lines,
+    #viewer .book-content p.short-lines ~ p.short-lines {
+      margin-top: 0 !important;
     }
     
     /* GA-Links in Konzept-Übersicht */
@@ -1025,11 +1120,63 @@ body.dark-mode .ga-missing-text {
       color: var(--text-color);
     }
     
+    /* Gedichte und kurze Zeilen: Keine Absatz-Abstände zwischen Zeilen */
+    #summary-content p.poem,
+    #summary-content p.short-lines {
+      margin: 0 !important;
+      line-height: var(--line-height);
+    }
+    
+    #summary-content p.poem + p.poem,
+    #summary-content p.short-lines + p.short-lines {
+      margin-top: 0 !important;
+    }
+    
+    /* Auch für aufeinanderfolgende Gedichte ohne direkten Nachbar */
+    #summary-content p.poem ~ p.poem {
+      margin-top: 0 !important;
+    }
+    
     #summary-content .paragraph {
       margin: var(--paragraph-margin) 0;
       font-size: var(--text-size);
       line-height: var(--line-height);
       color: var(--text-color);
+    }
+    
+    /* Gedichte auch innerhalb von .paragraph */
+    #summary-content .paragraph p.poem,
+    #summary-content .paragraph p.short-lines {
+      margin: 0 !important;
+      line-height: var(--line-height) !important;
+    }
+    
+    #summary-content .paragraph p.poem + p.poem,
+    #summary-content .paragraph p.poem ~ p.poem,
+    #summary-content .paragraph p.short-lines + p.short-lines,
+    #summary-content .paragraph p.short-lines ~ p.short-lines {
+      margin-top: 0 !important;
+    }
+    
+    /* Entferne margin-bottom von .paragraph Divs, die Gedichte enthalten */
+    #summary-content .paragraph:has(p.poem),
+    #summary-content .paragraph:has(p.short-lines),
+    #summary-content .paragraph.has-poem {
+      margin-bottom: 0 !important;
+    }
+    
+    /* Überschreibe auch Inline-Styles für .paragraph Divs mit Gedichten */
+    #summary-content .paragraph.has-poem[style*="margin-bottom"] {
+      margin-bottom: 0 !important;
+    }
+    
+    /* Gedichte innerhalb von .paragraph Divs - auch wenn direkt Text enthalten */
+    #summary-content .paragraph.has-poem p {
+      margin: 0 !important;
+    }
+    
+    #summary-content .paragraph.has-poem p + p {
+      margin-top: 0 !important;
     }
     
     /* Dark Mode für Summary-Panel-Überschriften - DIREKT */
@@ -2272,6 +2419,51 @@ body.dark-mode #thematicSearchInfo {
       margin-left: 0 !important;
     }
     
+    /* GA040 und GA261: Trennlinien als Sternchen im linken Drittel zentriert */
+    /* Für Bücher */
+    #viewer .book-content[data-ga-number="GA040"] hr,
+    #viewer .book-content[data-ga-number="GA261"] hr {
+      border: none;
+      border-top: none;
+      height: auto;
+      margin: 1em 0;
+      margin-left: 0;
+      width: 33%;
+      max-width: 33%;
+      text-align: center;
+      background: none;
+    }
+    
+    #viewer .book-content[data-ga-number="GA040"] hr::before,
+    #viewer .book-content[data-ga-number="GA261"] hr::before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1;
+    }
+    
+    /* Für Vorträge (GA261) */
+    #viewer[data-ga-number="GA261"] hr {
+      border: none;
+      border-top: none;
+      height: auto;
+      margin: 1em 0;
+      margin-left: 0;
+      width: 33%;
+      max-width: 33%;
+      text-align: center;
+      background: none;
+    }
+    
+    #viewer[data-ga-number="GA261"] hr::before {
+      content: '* * *';
+      display: block;
+      text-align: center;
+      font-size: 1em;
+      line-height: 1;
+    }
+    
     /* Viewer Header Button Container */
     .viewer-buttons-container {
       display: grid;
@@ -2451,7 +2643,7 @@ body.dark-mode #thematicSearchInfo {
       z-index: 1003; /* Höher als Trennlinie (z-index: 1002), damit Header Trennlinie verdeckt */
       background-color: var(--background-color) !important;
       border-bottom: 1px solid var(--border-color);
-      padding: 1rem;
+      padding: 1rem; 
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -2480,6 +2672,20 @@ body.dark-mode #thematicSearchInfo {
       color: var(--text-color);
     }
     
+    /* Gedichte im Viewer - normale Zeilenhöhe wie normaler Text */
+    #viewer p.poem,
+    #viewer p.short-lines {
+      margin: 0 !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text */
+    }
+    
+    #viewer p.poem + p.poem,
+    #viewer p.poem ~ p.poem,
+    #viewer p.short-lines + p.short-lines,
+    #viewer p.short-lines ~ p.short-lines {
+      margin-top: 0 !important;
+    }
+    
     #viewer .paragraph {
       margin: var(--paragraph-margin) 0;
       line-height: 1.5 !important;
@@ -2487,9 +2693,29 @@ body.dark-mode #thematicSearchInfo {
       color: var(--text-color);
     }
     
+    /* Gedichte innerhalb von .paragraph im Viewer - normale Zeilenhöhe */
+    #viewer .paragraph p.poem,
+    #viewer .paragraph p.short-lines {
+      margin: 0 !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text */
+    }
+    
+    #viewer .paragraph p.poem + p.poem,
+    #viewer .paragraph p.poem ~ p.poem,
+    #viewer .paragraph p.short-lines + p.short-lines,
+    #viewer .paragraph p.short-lines ~ p.short-lines {
+      margin-top: 0 !important;
+    }
+    
+    #viewer .paragraph:has(p.poem),
+    #viewer .paragraph:has(p.short-lines),
+    #viewer .paragraph.has-poem {
+      margin-bottom: 0 !important;
+    }
+    
     #viewer h3 {
       font-size: 0.9rem !important;
-      margin: 1.2rem 0 0.5rem 0 !important; /* Zusätzlicher halber Zeilenabstand vor H3 */
+      margin: 1.2rem 0 0.25rem 0 !important; /* Größerer Abstand vor H3 */
       font-weight: 700 !important;
       color: var(--link-color) !important;
       display: block;
@@ -2499,7 +2725,7 @@ body.dark-mode #thematicSearchInfo {
     
     #viewer h4 {
       font-size: 0.9rem !important;
-      margin: 0.7rem 0 0.5rem 0 !important;
+      margin: 0.4rem 0 0.25rem 0 !important; /* Verringerte Abstände */
       font-weight: normal !important;
       color: var(--link-color) !important;
       display: block;
@@ -2580,6 +2806,25 @@ body.dark-mode #thematicSearchInfo {
     /* Wenn ein asterisk-marker vorhanden ist, verstecke das ::before */
     #viewer ul li:has(.asterisk-marker)::before {
       display: none;
+    }
+    
+    /* Nummerierte Listen: Nummern sollen gleiche Schriftgröße wie Text haben */
+    #viewer ol {
+      font-size: var(--text-size);
+    }
+    
+    #viewer ol li {
+      font-size: inherit;
+    }
+    
+    #viewer ol li::marker {
+      font-size: 1em !important;
+    }
+    
+    /* Dark Mode für nummerierte Listen */
+    body.dark-mode #viewer ol,
+    body.dark-mode #viewer ol li {
+      color: var(--dark-text-color);
     }
     
     /* Anmerkungen als Absätze: Formatierung für Absätze die mit **, ***, etc. beginnen */
@@ -2782,8 +3027,8 @@ body.dark-mode .loading-tooltip::before {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
   border-bottom: 1px solid var(--border-color);
   flex-wrap: nowrap;
 }
@@ -2808,24 +3053,24 @@ body.dark-mode .loading-tooltip::before {
 .semantic-answer h1 {
   font-size: 1.2rem;         /* Überschriften-Größe */
   line-height: 1.4;
-  margin: 1.5rem 0 1rem 0;
+  margin: 0.75rem 0 0.5rem 0;  /* Verringerte Abstände */
 }
 
 .semantic-answer h2 {
   font-size: 1rem;         /* Unterüberschriften-Größe */
   line-height: 1.1;
-  margin: 1.2rem 0 0.8rem 0;
+  margin: 0.6rem 0 0.4rem 0;  /* Verringerte Abstände */
 }
 
 .semantic-answer h3 {
   font-size: 1rem;         /* Kleinere Überschriften */
   line-height: 1.1;
-  margin: 1rem 0 0.6rem 0;
+  margin: 1.2rem 0 0.3rem 0;  /* Größerer Abstand vor H3 */
   font-weight: bold;
 }
 
 .semantic-answer p {
-  margin-bottom: 0.9rem;      /* Abstand zwischen Absätzen */
+  margin-bottom: 0.5rem;      /* Verringerter Abstand zwischen Absätzen */
 }
 
 .semantic-answer ul, .semantic-answer ol {
@@ -2888,9 +3133,14 @@ body.dark-mode .ga-keyword-link {
   text-decoration: none;
 }
 
-/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt */
+/* Neu generierte Concepts (mit neuem Prompt) werden kursiv angezeigt - NUR in lokaler Version */
 .keyword-entry h4 a.new-prompt-concept {
   font-style: italic;
+}
+
+/* In Online-Version: Kursivschrift entfernen (nur normale Schlagwörter werden angezeigt) */
+body:not(.local-mode) .keyword-entry h4 a.new-prompt-concept {
+  font-style: normal;
 }
 
 body.dark-mode .keyword-entry h4 a {
@@ -3813,6 +4063,15 @@ body.dark-mode h3:not(#summary-content a),
 body.dark-mode h4:not(#summary-content a) {
   color: var(--dark-heading-color) !important;
 }
+
+/* AUSNAHME: Help Modal Buttons beim Hover */
+.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode .help-choice-btn:hover h3 {
+  color: white !important;
+}
 #sidebar h1, #sidebar h2, #sidebar h3, #sidebar h4,
 #sidebar-content h1, #sidebar-content h2, #sidebar-content h3, #sidebar-content h4,
 #results h1, #results h2, #results h3, #results h4,
@@ -3828,6 +4087,31 @@ body.dark-mode #sidebar h1 a, body.dark-mode #sidebar h2 a, body.dark-mode #side
 body.dark-mode #sidebar-content h1 a, body.dark-mode #sidebar-content h2 a, body.dark-mode #sidebar-content h3 a, body.dark-mode #sidebar-content h4 a,
 body.dark-mode #results h1 a, body.dark-mode #results h2 a, body.dark-mode #results h3 a, body.dark-mode #results h4 a,
 body.dark-mode .answer-content h1 a, body.dark-mode .answer-content h2 a, body.dark-mode .answer-content h3 a, body.dark-mode .answer-content h4 a { color: var(--dark-heading-color) !important; }
+
+/* Help Modal Button Hover - muss NACH globalen h3-Regeln stehen */
+#helpModal button.help-choice-btn:hover h3,
+.help-modal button.help-choice-btn:hover h3,
+button.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode #helpModal button.help-choice-btn:hover h3,
+body.dark-mode .help-modal button.help-choice-btn:hover h3,
+body.dark-mode button.help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+#helpModal button.help-choice-btn:hover p,
+.help-modal button.help-choice-btn:hover p,
+button.help-choice-btn:hover p {
+  color: white !important;
+}
+
+body.dark-mode #helpModal button.help-choice-btn:hover p,
+body.dark-mode .help-modal button.help-choice-btn:hover p,
+body.dark-mode button.help-choice-btn:hover p {
+  color: white !important;
+}
 
 /* Chronological lecture links */
 .chronological-lecture-link {
@@ -4012,14 +4296,16 @@ body.dark-mode .help-choice-btn:hover {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
   color: var(--link-color);
+  transition: color 0.2s ease;
 }
 
 body.dark-mode .help-choice-btn h3 {
   color: #6BA3B8;
 }
 
+/* Hover: h3 erbt Farbe vom Button */
 .help-choice-btn:hover h3 {
-  color: white;
+  color: inherit;
 }
 
 .help-choice-btn p {
@@ -4028,8 +4314,9 @@ body.dark-mode .help-choice-btn h3 {
   color: var(--text-color);
 }
 
+/* Hover: p erbt Farbe vom Button */
 .help-choice-btn:hover p {
-  color: white;
+  color: inherit;
 }
 
 .help-content-display {
@@ -4220,6 +4507,17 @@ body.dark-mode #popupCaption {
   font-weight: bold;
   font-size: 1.2em;
   margin-left: 0.3em;
+}
+
+/* FINAL OVERRIDE: Help Modal Buttons - MUSS am Ende stehen! */
+.help-modal .help-choice-btn:hover h3,
+#helpModal .help-choice-btn:hover h3 {
+  color: white !important;
+}
+
+body.dark-mode .help-modal .help-choice-btn:hover h3,
+body.dark-mode #helpModal .help-choice-btn:hover h3 {
+  color: white !important;
 }
 </style>
 <!-- Cloudflare Web Analytics -->
@@ -4750,13 +5048,7 @@ Bestehende Schlagwörter überschreiben
 
 <!-- Keyword-Konsolidierung wurde in Timeline-Tab verschoben -->
 
-<div id="alphabet-nav" style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border-color);">
-<!-- Alphabet-Buttons werden dynamisch generiert -->
-</div>
-<div style="display: flex; gap: 8px; align-items: center; margin-bottom: 0.5rem;">
-<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordSearchKeypress(event)">
-<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>
-</div>
+<!-- Alphabet-Navigation und Suchfeld wurden in das Anzeigefenster verschoben -->
 <!-- removed keyword-count status line -->
 </div>
 
@@ -4934,6 +5226,7 @@ Original
       document.body.classList.add('local-mode');
     } else {
       document.body.classList.add('online-mode');
+      document.body.classList.remove('local-mode');
     }
     
     const API_BASE = isLocal
@@ -5721,6 +6014,13 @@ function normalizeGANumber(gaNumber) {
         gaInfoBtn.style.display = 'none';
       }
       
+      // WICHTIG: Im Index-Tab Button IMMER verstecken - VOR updateButtonStates()
+      if (mode === 'schlagworte') {
+        if (gaInfoBtn) {
+          gaInfoBtn.style.display = 'none';
+        }
+      }
+      
       // Verstecke Viewer-Buttons beim Tab-Wechsel (inkl. Info-Button)
       updateButtonStates();
       
@@ -5741,11 +6041,12 @@ function normalizeGANumber(gaNumber) {
         }
       }
       
-      // Zusätzliche Sicherheitsprüfung: Info-Button im Index-Tab ausblenden
+      // ABSCHLIESSENDE Sicherheitsprüfung: Info-Button im Index-Tab IMMER ausblenden
+      // (nach updateButtonStates(), falls dieser den Button wieder angezeigt hat)
       if (mode === 'schlagworte') {
-        const gaInfoBtn = document.getElementById('gaInfoBtn');
-        if (gaInfoBtn) {
-          gaInfoBtn.style.display = 'none';
+        const gaInfoBtnAfterUpdate = document.getElementById('gaInfoBtn');
+        if (gaInfoBtnAfterUpdate) {
+          gaInfoBtnAfterUpdate.style.display = 'none';
         }
       }
       
@@ -5828,6 +6129,19 @@ function normalizeGANumber(gaNumber) {
         targetTab.classList.add('active');
         // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
         targetTab.style.display = '';
+      }
+      
+      // FINALE Prüfung: Info-Button im Index-Tab IMMER verstecken
+      // (nach Tab-Aktivierung, falls updateButtonStates() oder andere Funktionen den Button angezeigt haben)
+      if (mode === 'schlagworte') {
+        setTimeout(() => {
+          const gaInfoBtnFinal = document.getElementById('gaInfoBtn');
+          if (gaInfoBtnFinal) {
+            gaInfoBtnFinal.style.display = 'none';
+          }
+          // Rufe updateButtonStates() nochmal auf, um sicherzustellen, dass alle Buttons korrekt sind
+          updateButtonStates();
+        }, 10);
       }
       
       // Lade Zitate wenn zum Zitate-Tab gewechselt wird
@@ -6007,7 +6321,7 @@ function normalizeGANumber(gaNumber) {
           const letter = params.get('letter');
           if (letter && hash === 'schlagworte') {
             setTimeout(() => {
-              const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn')).find(btn => btn.textContent === decodeURIComponent(letter));
+              const button = Array.from(document.querySelectorAll('#alphabet-nav .depth-btn, #alphabet-nav-dynamic .depth-btn')).find(btn => btn.textContent === decodeURIComponent(letter));
               if (button) {
                 selectAlphabet(decodeURIComponent(letter), button, true);
               }
@@ -6206,7 +6520,8 @@ function normalizeGANumber(gaNumber) {
 
     async function loadSteinerImages() {
       try {
-        console.log('[IMAGES] Lade steiner-images.json...');
+        console.log('[IMAGES] Lade Liste der verfügbaren Vorträge...');
+        // Lade nur die Liste der verfügbaren Vortrags-IDs (ohne Bilder)
         const response = await fetch(`${API_BASE}/api/steiner-images`);
         
         if (!response.ok) {
@@ -6214,28 +6529,48 @@ function normalizeGANumber(gaNumber) {
           return;
         }
         
-        const imagesData = await response.json();
+        const data = await response.json();
         
-        // Konvertiere Array-Format in Objekt-Format gruppiert nach lectureId
-        if (Array.isArray(imagesData)) {
-          console.log('[IMAGES] Konvertiere Array-Format zu Objekt-Format');
-          steinerImages = {};
-          imagesData.forEach(img => {
-            if (!steinerImages[img.lectureId]) {
-              steinerImages[img.lectureId] = [];
-            }
-            steinerImages[img.lectureId].push(img);
-          });
-          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${imagesData.length} Bilder geladen`);
+        // Initialisiere leeres Objekt - Bilder werden bei Bedarf geladen
+        steinerImages = {};
+        
+        if (data.lectureIds && Array.isArray(data.lectureIds)) {
+          console.log(`[IMAGES] ✓ ${data.lectureIds.length} Vorträge verfügbar (Bilder werden bei Bedarf geladen)`);
         } else {
-          // Falls bereits als Objekt strukturiert
-          steinerImages = imagesData;
-          const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
-          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder geladen`);
+          console.log('[IMAGES] ✓ Bilder-Datenbank verfügbar (Bilder werden bei Bedarf geladen)');
         }
         
       } catch (error) {
         console.error('[IMAGES] Fehler beim Laden:', error);
+      }
+    }
+    
+    // Lade Bilder für einen bestimmten Vortrag bei Bedarf
+    async function loadSteinerImagesForLecture(lectureId) {
+      try {
+        // Prüfe ob bereits geladen
+        if (steinerImages[lectureId]) {
+          return steinerImages[lectureId];
+        }
+        
+        console.log(`[IMAGES] Lade Bilder für ${lectureId}...`);
+        const response = await fetch(`${API_BASE}/api/steiner-images/${encodeURIComponent(lectureId)}`);
+        
+        if (!response.ok) {
+          console.warn(`[IMAGES] Keine Bilder für ${lectureId} verfügbar`);
+          steinerImages[lectureId] = [];
+          return [];
+        }
+        
+        const images = await response.json();
+        steinerImages[lectureId] = Array.isArray(images) ? images : [];
+        console.log(`[IMAGES] ✓ ${steinerImages[lectureId].length} Bilder für ${lectureId} geladen`);
+        
+        return steinerImages[lectureId];
+      } catch (error) {
+        console.error(`[IMAGES] Fehler beim Laden für ${lectureId}:`, error);
+        steinerImages[lectureId] = [];
+        return [];
       }
     }
 
@@ -6341,9 +6676,14 @@ function normalizeGANumber(gaNumber) {
     }
     
     // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
-    function replaceImageSrcWithBase64(htmlContent, lectureId) {
+    async function replaceImageSrcWithBase64(htmlContent, lectureId) {
       if (!htmlContent) {
         return htmlContent;
+      }
+      
+      // Lade Bilder für diesen Vortrag bei Bedarf
+      if (!steinerImages[lectureId]) {
+        await loadSteinerImagesForLecture(lectureId);
       }
       
       // Wenn keine Bilder in der Datenbank sind, gebe Warnung aus aber fahre fort
@@ -7906,15 +8246,118 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     // Rendere Markdown
     if (marked.parse) {
       content = marked.parse(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked.parse()');
+      
+      // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
+      // Konvertiere ![alt](path) zu <img src="path" alt="alt">
+      if (content.includes('![')) {
+        console.warn('[MARKDOWN-BOOK] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          // Entferne eventuelle HTML-Entities und Leerzeichen
+          alt = alt.trim();
+          src = src.trim();
+          // Entferne < > und Anführungszeichen falls vorhanden
+          src = src.replace(/^<['"]?|['"]?>$/g, '');
+          console.log('[MARKDOWN-BOOK] Manuelle Bild-Konvertierung:', alt, '->', src);
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+        console.log('[MARKDOWN-BOOK] ✓ Bilder manuell konvertiert');
+      }
     } else if (marked.marked) {
       content = marked.marked(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked.marked()');
+      // Manuelle Bild-Konvertierung falls nötig
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
     } else {
       content = marked(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked()');
+      // Manuelle Bild-Konvertierung falls nötig
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
+    }
+  } else {
+    console.error('[MARKDOWN-BOOK] marked ist nicht verfügbar!');
+    // Fallback: Manuelle Bild-Konvertierung
+    if (content.includes('![')) {
+      content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+        alt = alt.trim();
+        src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+        return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+      });
     }
   }
   
   // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
+  // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
   if (keywords && keywords.length > 0) {
+    // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+    function highlightInHTML(htmlContent, searchWord, isPhrase) {
+      // Erstelle temporäres DOM-Element für sicheres Highlighting
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      
+      // Verwende TreeWalker um nur Textknoten zu markieren
+      const walker = document.createTreeWalker(
+        tempDiv,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function(node) {
+            // Überspringe Textknoten die bereits in <mark> Tags sind
+            let parent = node.parentNode;
+            while (parent && parent !== tempDiv) {
+              if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                return NodeFilter.FILTER_REJECT;
+              }
+              parent = parent.parentNode;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        },
+        false
+      );
+      
+      const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const flags = isPhrase ? "g" : "gi";
+      const regex = new RegExp(`(${escapedWord})`, flags);
+      
+      const textNodesToMark = [];
+      let textNode;
+      while (textNode = walker.nextNode()) {
+        if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+          textNodesToMark.push(textNode);
+        }
+      }
+      
+      // Markiere Suchwort in Textknoten
+      textNodesToMark.forEach(textNode => {
+        const text = textNode.textContent;
+        const highlightedText = text.replace(regex, '<mark>$1</mark>');
+        const tempSpan = document.createElement('span');
+        tempSpan.innerHTML = highlightedText;
+        
+        const parent = textNode.parentNode;
+        if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+          while (tempSpan.firstChild) {
+            parent.insertBefore(tempSpan.firstChild, textNode);
+          }
+          parent.removeChild(textNode);
+        }
+      });
+      
+      return tempDiv.innerHTML;
+    }
+    
     keywords.forEach((word, wordIndex) => {
       if (word && word.trim()) {
         const isPhrase = isPhraseArray[wordIndex] || false;
@@ -7923,16 +8366,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           ? cleanWord.slice(1, -1) 
           : cleanWord;
         
-        const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const flags = isPhrase ? "g" : "gi";
-        const regex = new RegExp(`(${escapedWord})`, flags);
-        content = content.replace(regex, "<mark>$1</mark>");
+        // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+        content = highlightInHTML(content, wordToHighlight, isPhrase);
       }
     });
   }
   
   // Erstelle HTML mit Überschriften-Navigation
-  let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+  let html = '<div style="padding: 0 2rem 2rem 0;">';
   
   // Debug: Logge Tab-Status und targetIndex
   console.log(`[BOOK] displayBook - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
@@ -7974,7 +8415,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // 2. Im Texte-Tab wird TOC im Sidebar angezeigt, in anderen Tabs (z.B. Suche) wird Content im Main Viewer angezeigt
   if (!isInGATab) {
     console.log(`[BOOK] Zeige Content an - isInGATab: ${isInGATab}, isInTexteTab: ${isInTexteTab}, targetIndex: ${targetIndex}`);
-    html += '<div class="book-content">' + content + '</div>';
+    const gaNumber = book.gaNumber || book.ID || '';
+    html += `<div class="book-content" data-ga-number="${gaNumber}">` + content + '</div>';
   } else {
     console.log(`[BOOK] KEIN Content angezeigt (GA-Tab) - isInGATab: ${isInGATab}`);
   }
@@ -7982,6 +8424,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   html += '</div>';
   
   viewer.innerHTML = html;
+  
+  // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
+  setTimeout(() => {
+    detectAndFormatPoems(viewer);
+  }, 0);
   
   // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering (für Bücher)
   if (book && book.ID) {
@@ -8018,7 +8465,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Temporär die Bilder für diese ID setzen
       const originalImages = steinerImages[bookId];
       steinerImages[bookId] = imagesForBook;
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, bookId);
+      replaceImageSrcWithBase64(viewer.innerHTML, bookId).then(updatedHTML => {
+        viewer.innerHTML = updatedHTML;
+      }).catch(error => {
+        console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+      });
       // Stelle Original wieder her
       if (originalImages) {
         steinerImages[bookId] = originalImages;
@@ -10084,7 +10535,7 @@ function displayGAChronological(lectures) {
       words.forEach(word => {
         const displayWord = word.startsWith('"') && word.endsWith('"') ? word.slice(1, -1) : word;
         const hitCount = wordSnippets[word].length;
-        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${100/words.length}%;"><strong>${displayWord}</strong> <span style="font-weight: normal; font-size: 0.85em; color: var(--secondary-text);">(${hitCount} Treffer)</span></th>`;
+        html += `<th class="advanced-search-header advanced-search-cell" style="padding: 0.5rem; background: var(--sidebar-bg); text-align: left; width: ${100/words.length}%;"><strong>${displayWord}</strong> <span style="font-weight: normal; font-size: 0.85em; color: var(--secondary-text);">(${hitCount})</span></th>`;
       });
       
       html += '</tr></thead>';
@@ -10458,6 +10909,11 @@ function displayGAChronological(lectures) {
           
           html += '</div>';
           summaryContent.innerHTML = html;
+          
+          // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
+          setTimeout(() => {
+            detectAndFormatPoems(summaryContent);
+          }, 0);
           
           // Scrolle zum Ziel-Paragraph (direkt, nicht smooth)
           if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
@@ -10980,6 +11436,11 @@ function displayGAChronological(lectures) {
           html += '</div>';
           summaryContent.innerHTML = html;
           
+          // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
+          setTimeout(() => {
+            detectAndFormatPoems(summaryContent);
+          }, 0);
+          
           // Scrolle zum Ziel-Paragraph nach dem Rendering (wie im Tab "Texte")
           if (hasValidIndex && targetParagraphIdx !== null && targetParagraphIdx >= 0) {
             setTimeout(() => {
@@ -11016,11 +11477,54 @@ function displayGAChronological(lectures) {
                         const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         const regex = new RegExp(`(${escapedTerm})`, flags);
                         
-                        // Markiere Suchwort im Absatz (ersetze bereits vorhandene <mark> Tags nicht)
-                        const originalHTML = paragraphElement.innerHTML;
-                        // Entferne bereits vorhandene <mark> Tags für Re-Markierung
-                        const textWithoutMarks = originalHTML.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
-                        paragraphElement.innerHTML = textWithoutMarks.replace(regex, '<mark>$1</mark>');
+                        // Markiere Suchwort im Absatz - NUR in Textknoten, nicht in HTML-Attributen!
+                        // Verwende TreeWalker um nur Textknoten zu markieren (verhindert Beschädigung von img-Tags)
+                        const walker = document.createTreeWalker(
+                          paragraphElement,
+                          NodeFilter.SHOW_TEXT,
+                          {
+                            acceptNode: function(node) {
+                              // Überspringe Textknoten die bereits in <mark> Tags sind
+                              let parent = node.parentNode;
+                              while (parent && parent !== paragraphElement) {
+                                if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                                  return NodeFilter.FILTER_REJECT;
+                                }
+                                // Überspringe Textknoten innerhalb von img-Tags (Attributen)
+                                if (parent.tagName && parent.tagName.toLowerCase() === 'img') {
+                                  return NodeFilter.FILTER_REJECT;
+                                }
+                                parent = parent.parentNode;
+                              }
+                              return NodeFilter.FILTER_ACCEPT;
+                            }
+                          },
+                          false
+                        );
+                        
+                        const textNodesToMark = [];
+                        let textNode;
+                        while (textNode = walker.nextNode()) {
+                          if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                            textNodesToMark.push(textNode);
+                          }
+                        }
+                        
+                        // Markiere Suchwort in Textknoten
+                        textNodesToMark.forEach(textNode => {
+                          const text = textNode.textContent;
+                          const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                          const tempSpan = document.createElement('span');
+                          tempSpan.innerHTML = highlightedText;
+                          
+                          const parent = textNode.parentNode;
+                          if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                            while (tempSpan.firstChild) {
+                              parent.insertBefore(tempSpan.firstChild, textNode);
+                            }
+                            parent.removeChild(textNode);
+                          }
+                        });
                       } else {
                         // Suchwort kommt nicht im Absatz vor - keine Markierung
                       }
@@ -11053,10 +11557,57 @@ function displayGAChronological(lectures) {
                   const testRegex = new RegExp(termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
                   
                   if (testRegex.test(paragraphText)) {
-                    // Suchwort kommt vor - markiere es
+                    // Suchwort kommt vor - markiere es NUR in Textknoten, nicht in HTML-Attributen!
+                    // Verwende TreeWalker um nur Textknoten zu markieren (verhindert Beschädigung von img-Tags)
                     const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                     const regex = new RegExp(`(${escapedTerm})`, flags);
-                    targetElement.innerHTML = targetElement.innerHTML.replace(regex, '<mark>$1</mark>');
+                    
+                    const walker = document.createTreeWalker(
+                      targetElement,
+                      NodeFilter.SHOW_TEXT,
+                      {
+                        acceptNode: function(node) {
+                          // Überspringe Textknoten die bereits in <mark> Tags sind
+                          let parent = node.parentNode;
+                          while (parent && parent !== targetElement) {
+                            if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                              return NodeFilter.FILTER_REJECT;
+                            }
+                            // Überspringe Textknoten innerhalb von img-Tags (Attributen)
+                            if (parent.tagName && parent.tagName.toLowerCase() === 'img') {
+                              return NodeFilter.FILTER_REJECT;
+                            }
+                            parent = parent.parentNode;
+                          }
+                          return NodeFilter.FILTER_ACCEPT;
+                        }
+                      },
+                      false
+                    );
+                    
+                    const textNodesToMark = [];
+                    let textNode;
+                    while (textNode = walker.nextNode()) {
+                      if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                        textNodesToMark.push(textNode);
+                      }
+                    }
+                    
+                    // Markiere Suchwort in Textknoten
+                    textNodesToMark.forEach(textNode => {
+                      const text = textNode.textContent;
+                      const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                      const tempSpan = document.createElement('span');
+                      tempSpan.innerHTML = highlightedText;
+                      
+                      const parent = textNode.parentNode;
+                      if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                        while (tempSpan.firstChild) {
+                          parent.insertBefore(tempSpan.firstChild, textNode);
+                        }
+                        parent.removeChild(textNode);
+                      }
+                    });
                   } else {
                     // Suchwort kommt nicht im Absatz vor - keine Markierung
                   }
@@ -11696,10 +12247,10 @@ function displayGAChronological(lectures) {
         
         // If proximity data is available, show ONLY the proximity hits
         if (hasProximityData && proximityHits > 0) {
-          html += `<span class="column-stats">(${proximityHits} Treffer)</span>`;
+          html += `<span class="column-stats">(${proximityHits})</span>`;
         } else {
           // Otherwise, show all hits
-          html += `<span class="column-stats">(${totalHits} Treffer)</span>`;
+          html += `<span class="column-stats">(${totalHits})</span>`;
         }
         
         html += `</div>
@@ -12638,9 +13189,10 @@ function displayGAChronological(lectures) {
     const gaTab = document.getElementById('ga-tab');
     const isInGATab = gaTab && gaTab.classList.contains('active');
     
-    // Im Index-Tab: Button immer verstecken (bereits oben gesetzt)
+    // Im Index-Tab: Button IMMER verstecken - keine weiteren Prüfungen nötig
     if (isInIndexTab) {
-      // Button bleibt versteckt
+      gaInfoBtn.style.display = 'none';
+      // Keine weiteren Prüfungen - Button bleibt versteckt
     }
     // Im GA-Tab: Button nur anzeigen wenn ein GA-Band im Viewer angezeigt wird (nicht nur Standard-Nachricht)
     else if (isInGATab) {
@@ -12700,6 +13252,12 @@ function displayGAChronological(lectures) {
           gaInfoBtn.style.display = 'inline-flex';
         }
       }
+    }
+    
+    // ABSCHLIESSENDE SICHERHEITSPRÜFUNG: Im Index-Tab Button IMMER verstecken
+    // (falls er durch eine der obigen Bedingungen angezeigt wurde)
+    if (isInIndexTab) {
+      gaInfoBtn.style.display = 'none';
     }
   }
   
@@ -12979,6 +13537,21 @@ function displayGAChronological(lectures) {
         console.log('[RENDER-CATEGORY] Funktion aufgerufen, Text-Länge:', text.length);
         console.log('[RENDER-CATEGORY] Erste 200 Zeichen:', text.substring(0, 200));
         
+        // FORMATIERUNG: Großbuchstabe am Anfang, Punkt am Ende
+        let formattedText = text.trim();
+        
+        // Erster Buchstabe groß
+        if (formattedText.length > 0) {
+          formattedText = formattedText.charAt(0).toUpperCase() + formattedText.slice(1);
+        }
+        
+        // Punkt am Ende hinzufügen (falls noch keiner vorhanden)
+        if (formattedText.length > 0 && !formattedText.endsWith('.') && !formattedText.endsWith('!') && !formattedText.endsWith('?')) {
+          formattedText = formattedText + '.';
+        }
+        
+        text = formattedText;
+        
         // WICHTIG: Entferne Markdown-Links VOR dem marked.parse(), da marked.parse() sie sonst in HTML konvertiert
         // Entferne Markdown-Links im Format [[...|GA###/##]] und ersetze durch einfachen GA-Link
         // Beispiel: [[GA066 (1.) GEIST UND STOFF, LEBEN UND TOD, Berlin, 15. Februar 1917|GA066/1]] -> GA066/1
@@ -13025,10 +13598,10 @@ function displayGAChronological(lectures) {
       };
       
       // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
-      let html = '<div style="padding: 0rem 1rem 1rem 0rem;">';
+      let html = '<div class="concept-overview-container">';
       
-      // Begriff/Thema als Überschrift über den Feldern
-      html += `<div style="font-weight: 600; font-size: 1.2em; margin-bottom: 1rem; padding: 0.5rem 0;">${concept}</div>`;
+      // Begriff/Thema als Überschrift über den Feldern - fett und blau
+      html += `<div class="concept-main-title">${concept}</div>`;
       
       // Felder untereinander
       const fields = [
@@ -13040,9 +13613,9 @@ function displayGAChronological(lectures) {
       
       fields.forEach((field, index) => {
         const isLast = index === fields.length - 1;
-        html += `<div style="margin-bottom: ${isLast ? '0' : '0.3rem'}; padding-bottom: ${isLast ? '0' : '0.3rem'};">`;
-        html += `<div class="concept-overview-header" style="padding: 0.2rem 0; background: var(--sidebar-bg); text-align: left; font-size: 0.85em; margin-bottom: 0;"><strong>${field.label}</strong></div>`;
-        html += `<div class="concept-overview-cell concept-content" style="padding: 0; font-size: 0.8rem !important; line-height: 1.6;">`;
+        html += `<div class="concept-field-wrapper ${isLast ? 'concept-field-last' : ''}">`;
+        html += `<div class="concept-overview-header concept-field-header"><strong>${field.label}</strong></div>`;
+        html += `<div class="concept-overview-cell concept-content">`;
         html += renderCategoryContent(field.content);
         html += '</div>';
         html += '</div>';
@@ -14552,6 +15125,13 @@ function showSummaryView() {
   let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
   const gaNumber = extractGANumber(lecture);
   
+  // Setze data-Attribut für CSS-Styling
+  if (gaNumber) {
+    viewer.setAttribute('data-ga-number', gaNumber);
+  } else {
+    viewer.removeAttribute('data-ga-number');
+  }
+  
   // Setze currentGANumber für Info-Button
   if (gaNumber) {
     currentGANumber = gaNumber;
@@ -14680,11 +15260,6 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
-    // DEBUG: Zeige Content VOR der Konvertierung
-    if (content.includes('![') || content.includes('img-')) {
-      console.log('[MARKDOWN-DEBUG] Content VOR marked.parse():', content.substring(0, 300));
-      console.log('[MARKDOWN-DEBUG] Enthält HTML-Entities?', content.includes('&lt;') || content.includes('&gt;') || content.includes('&quot;'));
-    }
     
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
@@ -14764,8 +15339,72 @@ function showSummaryView() {
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
     
     // Keyword-Highlighting NUR wenn NICHT von thematischer Suche
+    // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
     if (keywords && keywords.length > 0 && !isFromThematicSearch) {
       console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
+      
+      // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+      function highlightInHTML(htmlContent, searchWord, isPhrase) {
+        // Erstelle temporäres DOM-Element für sicheres Highlighting
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        
+        // Verwende TreeWalker um nur Textknoten zu markieren
+        const walker = document.createTreeWalker(
+          tempDiv,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              // Überspringe Textknoten die bereits in <mark> Tags sind
+              let parent = node.parentNode;
+              while (parent && parent !== tempDiv) {
+                if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                // Überspringe Textknoten innerhalb von HTML-Tags (Attributen)
+                if (parent.tagName && ['img', 'a', 'span', 'div', 'p'].includes(parent.tagName.toLowerCase())) {
+                  // Prüfe ob Textknoten innerhalb eines Attributs ist (sollte nicht passieren, aber sicherheitshalber)
+                  return NodeFilter.FILTER_ACCEPT; // Textknoten innerhalb von Tags sind OK
+                }
+                parent = parent.parentNode;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          },
+          false
+        );
+        
+        const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const flags = isPhrase ? "g" : "gi";
+        const regex = new RegExp(`(${escapedWord})`, flags);
+        
+        const textNodesToMark = [];
+        let textNode;
+        while (textNode = walker.nextNode()) {
+          if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+            textNodesToMark.push(textNode);
+          }
+        }
+        
+        // Markiere Suchwort in Textknoten
+        textNodesToMark.forEach(textNode => {
+          const text = textNode.textContent;
+          const highlightedText = text.replace(regex, '<mark>$1</mark>');
+          const tempSpan = document.createElement('span');
+          tempSpan.innerHTML = highlightedText;
+          
+          const parent = textNode.parentNode;
+          if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+            while (tempSpan.firstChild) {
+              parent.insertBefore(tempSpan.firstChild, textNode);
+            }
+            parent.removeChild(textNode);
+          }
+        });
+        
+        return tempDiv.innerHTML;
+      }
+      
       keywords.forEach((word, wordIndex) => {
         if (word && word.trim()) {
           // Prüfe ob es sich um eine Phrasensuche handelt (mit Anführungszeichen)
@@ -14776,11 +15415,8 @@ function showSummaryView() {
             ? cleanWord.slice(1, -1) 
             : cleanWord;
           
-          const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          // Bei Phrasensuche: case-sensitive, sonst case-insensitive
-          const flags = isPhrase ? "g" : "gi";
-          const regex = new RegExp(`(${escapedWord})`, flags);
-          content = content.replace(regex, "<mark>$1</mark>");
+          // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+          content = highlightInHTML(content, wordToHighlight, isPhrase);
         }
       });
     }
@@ -14807,14 +15443,12 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
     });
     
-    if (steinerImages[lecture.ID]) {
-      console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-    } else {
-      console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
-      // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-    }
+        // Lade und ersetze Bilder asynchron
+        replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
+          viewer.innerHTML = updatedHTML;
+        }).catch(error => {
+          console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+        });
   }
   
   // Activate TOC links after rendering
@@ -17308,6 +17942,13 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       const displayTitle = lecture.fileName || lecture.title || lecture.ID;
       const gaNumber = extractGANumber(lecture);
       
+      // Setze data-Attribut für CSS-Styling
+      if (gaNumber) {
+        viewer.setAttribute('data-ga-number', gaNumber);
+      } else {
+        viewer.removeAttribute('data-ga-number');
+      }
+      
       // Setze currentGANumber für Info-Button
       if (gaNumber) {
         currentGANumber = gaNumber;
@@ -17382,12 +18023,14 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
-            console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
-            // Manuelle Bild-Konvertierung falls nötig
+            
+            // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
             if (content.includes('![')) {
+              console.warn('[MARKDOWN] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
                 src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                console.log('[MARKDOWN] Manuelle Bild-Konvertierung:', alt, '->', src);
                 return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
               });
             }
@@ -17420,11 +18063,68 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // Markiere Keywords immer, wenn sie explizit übergeben wurden
           // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+          // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
           if (keywords && keywords.length > 0) {
+            // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+            function highlightInHTML(htmlContent, searchWord) {
+              // Erstelle temporäres DOM-Element für sicheres Highlighting
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = htmlContent;
+              
+              // Verwende TreeWalker um nur Textknoten zu markieren
+              const walker = document.createTreeWalker(
+                tempDiv,
+                NodeFilter.SHOW_TEXT,
+                {
+                  acceptNode: function(node) {
+                    // Überspringe Textknoten die bereits in <mark> Tags sind
+                    let parent = node.parentNode;
+                    while (parent && parent !== tempDiv) {
+                      if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                        return NodeFilter.FILTER_REJECT;
+                      }
+                      parent = parent.parentNode;
+                    }
+                    return NodeFilter.FILTER_ACCEPT;
+                  }
+                },
+                false
+              );
+              
+              const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(`(${escapedWord})`, "gi");
+              
+              const textNodesToMark = [];
+              let textNode;
+              while (textNode = walker.nextNode()) {
+                if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                  textNodesToMark.push(textNode);
+                }
+              }
+              
+              // Markiere Suchwort in Textknoten
+              textNodesToMark.forEach(textNode => {
+                const text = textNode.textContent;
+                const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                const tempSpan = document.createElement('span');
+                tempSpan.innerHTML = highlightedText;
+                
+                const parent = textNode.parentNode;
+                if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                  while (tempSpan.firstChild) {
+                    parent.insertBefore(tempSpan.firstChild, textNode);
+                  }
+                  parent.removeChild(textNode);
+                }
+              });
+              
+              return tempDiv.innerHTML;
+            }
+            
             keywords.forEach(word => {
               if (word && word.trim()) {
-                const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-                content = content.replace(regex, "<mark>$1</mark>");
+                // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+                content = highlightInHTML(content, word.trim());
               }
             });
           }
@@ -17454,6 +18154,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       html += `</div>`;
       viewer.innerHTML = html;
       
+      // Erkenne und formatiere Gedichte/kurze Zeilen (nach DOM-Rendering)
+      setTimeout(() => {
+        detectAndFormatPoems(viewer);
+      }, 0);
+      
       // Anmerkungen mit mehreren Sternchen behandeln
       setTimeout(() => {
         replaceBulletPointsWithAsterisks();
@@ -17465,28 +18170,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
       }
       
-      // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
-      console.log('[IMAGES-DEBUG] lecture:', lecture);
-      console.log('[IMAGES-DEBUG] lecture.ID:', lecture?.ID);
-      console.log('[IMAGES-DEBUG] steinerImages hat lecture.ID?', !!steinerImages[lecture?.ID]);
-      console.log('[IMAGES-DEBUG] Verfügbare IDs in steinerImages:', Object.keys(steinerImages).slice(0, 10));
-      
+      // Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
       if (lecture && lecture.ID) {
-        // Debug: Prüfe ob img-Tags vorhanden sind
-        const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
-        console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
-        imgTags.forEach((img, idx) => {
-          console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
-        });
         
-        if (steinerImages[lecture.ID]) {
-          console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-        } else {
-          console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
-          // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
-          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-        }
+        // Lade und ersetze Bilder asynchron
+        replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
+          viewer.innerHTML = updatedHTML;
+        }).catch(error => {
+          console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+        });
       }
       
       // Activate TOC links
@@ -18296,31 +18988,18 @@ function extractGAReferences(text) {
 }
 
 function createAlphabetNavigation() {
+  // Diese Funktion wird nicht mehr verwendet, da die Navigation jetzt im Anzeigefenster ist
+  // Verwende stattdessen createAlphabetNavigationInContainer()
   const navContainer = document.getElementById('alphabet-nav');
-  
-  // Alle verfügbaren Buchstaben aus den Daten ermitteln
-  const availableLetters = [...new Set(keywordsData.map(k => k.alphabetical || k.keyword.charAt(0).toUpperCase()))].sort();
-  
-  // "Alle" Button
-  const allBtn = document.createElement('button');
-  allBtn.className = 'depth-btn active';
-  allBtn.textContent = 'Alle';
-  allBtn.onclick = () => selectAlphabet('Alle', allBtn);
-  navContainer.appendChild(allBtn);
-  
-  // Alphabet-Buttons für verfügbare Buchstaben
-  availableLetters.forEach(letter => {
-    const btn = document.createElement('button');
-    btn.className = 'depth-btn';
-    btn.textContent = letter;
-    btn.onclick = () => selectAlphabet(letter, btn);
-    navContainer.appendChild(btn);
-  });
+  if (navContainer) {
+    // Falls das alte Element noch existiert, leere es
+    navContainer.innerHTML = '';
+  }
 }
 
 function selectAlphabet(letter, buttonElement, skipHistory = false) {
-  // Alle Buttons deaktivieren
-  document.querySelectorAll('#alphabet-nav .depth-btn').forEach(btn => {
+  // Alle Buttons deaktivieren (sowohl im alten als auch im neuen Container)
+  document.querySelectorAll('#alphabet-nav .depth-btn, #alphabet-nav-dynamic .depth-btn').forEach(btn => {
     btn.classList.remove('active');
   });
   
@@ -18347,9 +19026,15 @@ function displayKeywords(selectedLetter = 'Alle') {
   const resultsContainer = document.getElementById('results');
   const countContainer = document.getElementById('keyword-count');
   
+  // Prüfe ob lokale Version
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.protocol === 'file:';
+  
   console.log('[DISPLAY] ========== displayKeywords aufgerufen ==========');
   console.log('[DISPLAY] keywordsData.length:', keywordsData.length);
   console.log('[DISPLAY] selectedLetter:', selectedLetter);
+  console.log('[DISPLAY] isLocal:', isLocal);
   
   // WICHTIG: Prüfe auf Duplikate in keywordsData
   const keywordNames = keywordsData.map(kw => kw.keyword);
@@ -18372,8 +19057,15 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   console.log('[DISPLAY] Nach Buchstaben-Filter:', filteredKeywords.length);
   
+  // In Online-Version: Nur Schlagwörter mit vollständiger Darstellung (overview) anzeigen
+  if (!isLocal) {
+    const beforeFilter = filteredKeywords.length;
+    filteredKeywords = filteredKeywords.filter(k => k.overview);
+    console.log('[DISPLAY] Online-Version: Filtere Schlagwörter ohne vollständige Darstellung. Vorher:', beforeFilter, 'Nachher:', filteredKeywords.length);
+  }
+  
   // Weitere Filterung nach Suchtext
-  const searchText = document.getElementById('keywordSearch').value.toLowerCase();
+  const searchText = document.getElementById('keywordSearch') ? document.getElementById('keywordSearch').value.toLowerCase() : '';
   if (searchText) {
     filteredKeywords = filteredKeywords.filter(k => 
       k.keyword.toLowerCase().includes(searchText)
@@ -18384,8 +19076,26 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   if (countContainer) countContainer.textContent = '';
   
+  // Erstelle HTML mit Alphabet-Navigation und Suchfeld oben
+  let html = '<div class="keyword-navigation-section">';
+  
+  // Alphabet-Navigation
+  html += '<div id="alphabet-nav-dynamic" class="alphabet-nav-container"></div>';
+  
+  // Suchfeld
+  html += '<div class="keyword-search-container">';
+  html += '<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)">';
+  html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
+  html += '</div>';
+  
+  html += '</div>';
+  
   if (filteredKeywords.length === 0) {
-    resultsContainer.innerHTML = '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
+    html += '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
+    resultsContainer.innerHTML = html;
+    
+    // Erstelle Alphabet-Navigation nach dem Setzen des HTML
+    createAlphabetNavigationInContainer();
     return;
   }
   
@@ -18394,7 +19104,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   console.log('[DISPLAY] Erste 5 nach Sortierung:', filteredKeywords.slice(0, 5).map(k => k.keyword));
   
-  let html = '<div class="keywords-container">';
+  html += '<div class="keywords-container">';
   
   filteredKeywords.forEach((keywordData, idx) => {
     // Prüfe ob es mit dem neuen Concept-Prompt generiert wurde
@@ -18429,6 +19139,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   resultsContainer.innerHTML = html;
   console.log('[DISPLAY] resultsContainer nach innerHTML:', resultsContainer.children.length, 'Kinder');
   
+  // Erstelle Alphabet-Navigation im dynamischen Container
+  createAlphabetNavigationInContainer();
+  
   // Zähle tatsächliche keyword-entry Elemente im DOM
   const entryElements = resultsContainer.querySelectorAll('.keyword-entry');
   console.log('[DISPLAY] Tatsächliche .keyword-entry Elemente im DOM:', entryElements.length);
@@ -18457,6 +19170,42 @@ function displayKeywords(selectedLetter = 'Alle') {
   document.getElementById('sidebar-content').scrollTop = 0;
   
   console.log('[DISPLAY] ========== ENDE ==========');
+}
+
+function createAlphabetNavigationInContainer() {
+  const navContainer = document.getElementById('alphabet-nav-dynamic');
+  if (!navContainer) return;
+  
+  // Leere den Container
+  navContainer.innerHTML = '';
+  
+  // Alle verfügbaren Buchstaben aus den Daten ermitteln
+  const availableLetters = [...new Set(keywordsData.map(k => k.alphabetical || k.keyword.charAt(0).toUpperCase()))].sort();
+  
+  // "Alle" Button
+  const allBtn = document.createElement('button');
+  allBtn.className = 'depth-btn active';
+  allBtn.textContent = 'Alle';
+  allBtn.onclick = () => selectAlphabet('Alle', allBtn);
+  navContainer.appendChild(allBtn);
+  
+  // Alphabet-Buttons für verfügbare Buchstaben
+  availableLetters.forEach(letter => {
+    const btn = document.createElement('button');
+    btn.className = 'depth-btn';
+    btn.textContent = letter;
+    btn.onclick = () => selectAlphabet(letter, btn);
+    navContainer.appendChild(btn);
+  });
+  
+  // Setze aktiven Button
+  const activeButton = Array.from(navContainer.querySelectorAll('.depth-btn')).find(btn => 
+    btn.textContent === currentAlphabet
+  );
+  if (activeButton) {
+    navContainer.querySelectorAll('.depth-btn').forEach(btn => btn.classList.remove('active'));
+    activeButton.classList.add('active');
+  }
 }
 
 function processKeywordText(text, gaReferences = []) {
@@ -18532,17 +19281,8 @@ async function openFromKeyword(gaId) {
 }
 
 function setupKeywordSearch() {
-  const searchInput = document.getElementById('keywordSearch');
-  
-  searchInput.addEventListener('input', () => {
-    displayKeywords(currentAlphabet);
-  });
-  
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      displayKeywords(currentAlphabet);
-    }
-  });
+  // Diese Funktion wird nicht mehr benötigt, da das Suchfeld jetzt inline im HTML ist
+  // Das oninput-Event ist bereits im HTML definiert
 }
 
 function clearKeywordSearch() {
@@ -19022,7 +19762,29 @@ body.dark-mode .ga-keyword-link:hover {
   to { transform: rotate(360deg); }
 }
 
-#alphabet-nav .depth-btn {
+/* Keyword Navigation Section */
+.keyword-navigation-section {
+  margin-bottom: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.alphabet-nav-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.keyword-search-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#alphabet-nav .depth-btn,
+#alphabet-nav-dynamic .depth-btn {
   font-size: 0.85em;
   padding: 4px 8px;
   margin: 2px;
@@ -19121,6 +19883,11 @@ async function performKeywordThematicSearch(keyword) {
   // Timeline schließen falls geöffnet
   hideTimelineIfOpen();
   
+  // Prüfe ob lokale Version
+  const isLocal = window.location.hostname === 'localhost' || 
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.protocol === 'file:';
+  
   try {
     const results = document.getElementById('results');
     const countContainer = document.getElementById('keyword-count');
@@ -19136,36 +19903,56 @@ async function performKeywordThematicSearch(keyword) {
     if (hasText || hasOverview) {
       console.log('[KEYWORD-THEMATIC] Verwende gespeicherte Ergebnisse für:', keyword, {
         hasText: hasText,
-        hasOverview: hasOverview
+        hasOverview: hasOverview,
+        isLocal: isLocal
       });
       
-      // Zeige KI-Suchergebnis im Content Fenster, falls vorhanden
+      const viewer = document.getElementById('viewer');
+      
+      // Zeige Themen_Übersicht im Main Viewer zuerst, falls vorhanden
+      if (hasOverview) {
+        console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
+        if (viewer) {
+          renderConceptOverview(keyword, { overview: existingKeyword.overview });
+        }
+      }
+      
+      // Zeige KI-Suchergebnis im Main Viewer, falls vorhanden
+      // WICHTIG: Nur wenn vollständige Darstellung vorhanden ODER wenn lokale Version
       if (hasText) {
         const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
         const isOnlyKeyword = textWithoutFormatting === keyword;
         
-        // Wenn Text mehr als nur das Keyword selbst ist, zeige ihn an
+        // Wenn Text mehr als nur das Keyword selbst ist
         if (!isOnlyKeyword && existingKeyword.text.length > 50) {
-          const data = {
-            query: keyword,
-            content: existingKeyword.text,
-            sources: existingKeyword.sources || [],
-            fromCache: false,
-            fromKeywordData: true
-          };
-          
-          displayKeywordThematicResults(keyword, data);
+          // In Online-Version: Nur anzeigen wenn vollständige Darstellung vorhanden
+          if (!isLocal && !hasOverview) {
+            console.log('[KEYWORD-THEMATIC] Online-Version: Überspringe Anzeige für Schlagwort ohne vollständige Darstellung');
+            if (countContainer) {
+              countContainer.textContent = '';
+            }
+            // Keine Anzeige in Online-Version, aber nicht return hier, damit die Funktion normal endet
+          } else {
+            // Lokale Version ODER vollständige Darstellung vorhanden: Anzeigen
+            console.log('[KEYWORD-THEMATIC] Zeige Text-Ergebnis (lokal oder mit Overview):', keyword, 'isLocal:', isLocal, 'hasOverview:', hasOverview);
+            
+            // Wenn kein Overview vorhanden ist, leere den Viewer zuerst (für lokale Version)
+            if (!hasOverview && viewer) {
+              viewer.innerHTML = '';
+            }
+            
+            const data = {
+              query: keyword,
+              content: existingKeyword.text,
+              sources: existingKeyword.sources || [],
+              fromCache: false,
+              fromKeywordData: true
+            };
+            
+            displayKeywordThematicResults(keyword, data);
+          }
         } else {
           console.log('[KEYWORD-THEMATIC] Text zu kurz oder nur Keyword, überspringe Anzeige');
-        }
-      }
-      
-      // Zeige Themen_Übersicht im Main Viewer, falls vorhanden
-      if (hasOverview) {
-        console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
-        const viewer = document.getElementById('viewer');
-        if (viewer) {
-          renderConceptOverview(keyword, { overview: existingKeyword.overview });
         }
       }
       
@@ -19179,8 +19966,9 @@ async function performKeywordThematicSearch(keyword) {
     console.log('[KEYWORD-THEMATIC] Kein lokaler Text, rufe API auf für:', keyword);
     
     // Zeige Loading-Status
-    if (results) {
-      results.innerHTML = `
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #666;">
           <div style="font-style: italic; font-size: 1.2em;">Suche...</div>
         </div>
@@ -19227,9 +20015,9 @@ async function performKeywordThematicSearch(keyword) {
   } catch (error) {
     console.error('[KEYWORD-THEMATIC] Fehler:', error);
     
-    const results = document.getElementById('results');
-    if (results) {
-      results.innerHTML = `
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.innerHTML = `
         <div style="text-align: center; padding: 2rem; color: #c53030;">
           <div style="font-size: 1.2em; margin-bottom: 1rem;">❌ Fehler bei der Analyse</div>
           <div style="font-style: italic;">${error.message}</div>
@@ -19401,16 +20189,189 @@ function convertGAReferencesToLinksInKeywordResults(container) {
   });
 }
 
+// Hilfsfunktion: Erkennt Gedichte und kurze Zeilen (< 75 Zeichen) und markiert sie
+function detectAndFormatPoems(container) {
+  if (!container) return;
+  
+  // Finde alle <p> Elemente im Container (auch innerhalb von .paragraph)
+  const paragraphs = Array.from(container.querySelectorAll('p'));
+  
+  // ZUSÄTZLICH: Prüfe auch .paragraph Divs, die direkt Text enthalten (ohne <p> Tags)
+  const paragraphDivs = Array.from(container.querySelectorAll('.paragraph'));
+  paragraphDivs.forEach(div => {
+    // Prüfe ob die Div direkt Text enthält (nicht nur in <p> Tags)
+    const directText = Array.from(div.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .filter(text => text.length > 0)
+      .join('\n');
+    
+    if (directText) {
+      // Teile Text in Zeilen auf
+      const lines = directText.split('\n').map(line => {
+        // Entferne Obsidian-Index am Ende der Zeile
+        return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
+      }).filter(line => line.length > 0);
+      
+      // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 75 Zeichen haben
+      let consecutiveShortLines = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const lineLength = lines[i].length;
+        if (lineLength > 0 && lineLength < 75) {
+          consecutiveShortLines++;
+          if (consecutiveShortLines >= 2) {
+            // Markiere die Div als Gedicht
+            div.classList.add('has-poem');
+            const currentStyle = div.getAttribute('style') || '';
+            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
+            div.setAttribute('style', newStyle);
+            div.style.marginBottom = '0';
+            break;
+          }
+        } else {
+          consecutiveShortLines = 0;
+        }
+      }
+    }
+  });
+  
+  // Prüfe jeden Paragraph einzeln UND aufeinanderfolgende Paragraphs
+  paragraphs.forEach((p, index) => {
+    // Überspringe bereits markierte Gedichte
+    if (p.classList.contains('poem')) return;
+    // Extrahiere Text-Inhalt (ohne HTML-Tags)
+    const textContent = p.textContent || p.innerText || '';
+    
+    // Teile Text in Zeilen auf (berücksichtigt <br> und Zeilenumbrüche)
+    // Erstelle temporäres Element, um HTML zu parsen
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = p.innerHTML;
+    
+    // Ersetze <br> durch Zeilenumbrüche für die Analyse
+    const textWithBreaks = tempDiv.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+    const lines = textWithBreaks.split('\n').map(line => {
+      // Entferne HTML-Tags für die Zeichenzählung
+      const temp = document.createElement('div');
+      temp.innerHTML = line;
+      
+      // Entferne versteckte Spans (mit display:none oder data-index Attribut)
+      const hiddenSpans = temp.querySelectorAll('[style*="display:none"], [data-index]');
+      hiddenSpans.forEach(span => span.remove());
+      
+      let text = temp.textContent || temp.innerText || '';
+      // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+      text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
+      return text;
+    }).filter(line => line.trim().length > 0);
+    
+    // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 75 Zeichen haben
+    let consecutiveShortLines = 0;
+    for (let i = 0; i < lines.length; i++) {
+      const lineLength = lines[i].trim().length;
+      if (lineLength > 0 && lineLength < 75) {
+        consecutiveShortLines++;
+        if (consecutiveShortLines >= 2) {
+          // Markiere als Gedicht/kurze Zeilen
+          p.classList.add('poem');
+          
+          // Entferne margin-bottom von parent .paragraph Div (überschreibt Inline-Styles)
+          const parentParagraph = p.closest('.paragraph');
+          if (parentParagraph) {
+            parentParagraph.classList.add('has-poem');
+            // Entferne margin-bottom aus dem style-Attribut
+            const currentStyle = parentParagraph.getAttribute('style') || '';
+            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
+            parentParagraph.setAttribute('style', newStyle);
+            parentParagraph.style.marginBottom = '0';
+          }
+          
+          break;
+        }
+      } else {
+        // Reset wenn Zeile zu lang ist
+        consecutiveShortLines = 0;
+      }
+    }
+    
+    // ZUSÄTZLICH: Prüfe aufeinanderfolgende <p> Elemente mit kurzen Zeilen
+    // Wenn dieser Paragraph eine kurze Zeile hat (< 75 Zeichen), prüfe die nächsten
+    if (lines.length > 0 && lines[0].trim().length > 0 && lines[0].trim().length < 75) {
+      let consecutiveShortParagraphs = 1;
+      let nextIndex = index + 1;
+      
+      // Prüfe die nächsten Paragraphs
+      while (nextIndex < paragraphs.length && consecutiveShortParagraphs < 2) {
+        const nextP = paragraphs[nextIndex];
+        const nextTextContent = nextP.textContent || nextP.innerText || '';
+        const nextTempDiv = document.createElement('div');
+        nextTempDiv.innerHTML = nextP.innerHTML;
+        const nextTextWithBreaks = nextTempDiv.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+        const nextLines = nextTextWithBreaks.split('\n').map(line => {
+          const temp = document.createElement('div');
+          temp.innerHTML = line;
+          
+          // Entferne versteckte Spans (mit display:none oder data-index Attribut)
+          const hiddenSpans = temp.querySelectorAll('[style*="display:none"], [data-index]');
+          hiddenSpans.forEach(span => span.remove());
+          
+          let text = temp.textContent || temp.innerText || '';
+          // Entferne Obsidian-Index am Ende der Zeile (Format: ^xyz123 oder Leerzeichen + ^xyz123)
+          text = text.replace(/\s+\^[a-z0-9]+\s*$/i, '');
+          return text;
+        }).filter(line => line.trim().length > 0);
+        
+        if (nextLines.length > 0 && nextLines[0].trim().length > 0 && nextLines[0].trim().length < 75) {
+          consecutiveShortParagraphs++;
+        if (consecutiveShortParagraphs >= 2) {
+          // Markiere beide als Gedicht
+          p.classList.add('poem');
+          nextP.classList.add('poem');
+          
+          // Entferne margin-bottom von parent .paragraph Divs (überschreibt Inline-Styles)
+          const parentParagraph = p.closest('.paragraph');
+          if (parentParagraph) {
+            parentParagraph.classList.add('has-poem');
+            const currentStyle = parentParagraph.getAttribute('style') || '';
+            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
+            parentParagraph.setAttribute('style', newStyle);
+            parentParagraph.style.marginBottom = '0';
+          }
+          const nextParentParagraph = nextP.closest('.paragraph');
+          if (nextParentParagraph) {
+            nextParentParagraph.classList.add('has-poem');
+            const nextCurrentStyle = nextParentParagraph.getAttribute('style') || '';
+            const nextNewStyle = nextCurrentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
+            nextParentParagraph.setAttribute('style', nextNewStyle);
+            nextParentParagraph.style.marginBottom = '0';
+          }
+          
+          break;
+        }
+        } else {
+          break;
+        }
+        nextIndex++;
+      }
+    }
+  });
+  
+  // Debug: Zeige gefundene Gedichte in der Konsole
+  const foundPoems = container.querySelectorAll('p.poem');
+  if (foundPoems.length > 0) {
+    console.log(`[POEM-DETECTION] ${foundPoems.length} Gedicht-Absätze gefunden`);
+  }
+}
+
 // Globale Variable für aktuellen Keyword-Text (für Markierung in Treffer-Absätzen)
 let currentKeywordText = null;
 
 function displayKeywordThematicResults(keyword, data) {
   // Speichere aktuellen Keyword-Text für Markierung
   currentKeywordText = keyword;
-  const results = document.getElementById('results');
+  const viewer = document.getElementById('viewer');
   const countContainer = document.getElementById('keyword-count');
   
-  if (!results) return;
+  if (!viewer) return;
   
   // Hilfsfunktion: Wandle Markdown zu HTML um
   function markdownToHtml(text) {
@@ -19485,9 +20446,30 @@ function displayKeywordThematicResults(keyword, data) {
     // Hinweis: Klammern-Entfernung ist nicht mehr nötig, da der neue Prompt 
     // "Weitere Quellen" bereits ohne Klammern generiert und die Links korrekt erstellt werden
     
+    // Ersetze englische Anführungszeichen durch deutsche Anführungszeichen
+    // "text" -> „text"
+    // WICHTIG: Nur in Text-Inhalten, nicht in HTML-Attributen
+    let contentWithGermanQuotes = contentWithLinks
+      // Ersetze öffnende Anführungszeichen: " nach Leerzeichen, Zeilenumbruch oder am Anfang
+      // Aber nicht wenn es Teil eines HTML-Attributs ist (nicht nach = oder <)
+      .replace(/(?<!<[^>]*)(?<!=[^>]*)(^|[\s\n>])"/g, '$1„')
+      // Ersetze schließende Anführungszeichen: " vor Leerzeichen, Satzzeichen oder am Ende
+      // Aber nicht wenn es Teil eines HTML-Attributs ist (nicht vor = oder >)
+      .replace(/"([\s\n.,;:!?)]|$)(?![^<]*=)(?![^<]*>)/g, '"$1');
+    
+    // Alternative einfachere Methode: Ersetze nur in Text-Inhalten (nicht in Tags)
+    // Teile HTML in Tags und Text auf
+    contentWithGermanQuotes = contentWithGermanQuotes.replace(/>([^<]+)</g, (match, text) => {
+      // Ersetze Anführungszeichen nur im Text-Inhalt
+      const replacedText = text
+        .replace(/(^|[\s\n])"/g, '$1„')
+        .replace(/"([\s\n.,;:!?)]|$)/g, '"$1');
+      return '>' + replacedText + '<';
+    });
+    
     // Wrappe in <p> nur wenn noch keine Paragraphen vorhanden sind
-    const hasParagraphs = contentWithLinks.includes('</p>');
-    const wrappedContent = hasParagraphs ? contentWithLinks : `<p>${contentWithLinks}</p>`;
+    const hasParagraphs = contentWithGermanQuotes.includes('</p>');
+    const wrappedContent = hasParagraphs ? contentWithGermanQuotes : `<p>${contentWithGermanQuotes}</p>`;
     contentHtml = `
       <div class="keyword-answer">
         ${wrappedContent}
@@ -19496,21 +20478,46 @@ function displayKeywordThematicResults(keyword, data) {
   }
   
   // Kombiniere alles (nur Hauptinhalt) im gleichen Layout wie Themensuche
-  results.innerHTML = `
-    <div class="semantic-answer">
-      <div class="answer-header">
-        <h2 class="answer-title">${keyword}</h2>
+  // Prüfe ob bereits eine Übersicht im Viewer angezeigt wird
+  const existingContent = viewer.innerHTML;
+  const hasOverview = existingContent.includes('concept-overview-header');
+  
+  // Wenn bereits eine Übersicht vorhanden ist, füge die Ergebnisse unterhalb hinzu (ohne zweite Überschrift, mit Trennlinie)
+  if (hasOverview) {
+    const resultsHtml = `
+      <div class="concept-results-separator"></div>
+      <div class="semantic-answer concept-results-content">
+        <div class="answer-content" id="keywordAnswerContent">
+          ${contentHtml}
+        </div>
       </div>
-      <div class="answer-content" id="keywordAnswerContent">
-        ${contentHtml}
+    `;
+    viewer.innerHTML += resultsHtml;
+  } else {
+    // Wenn keine Übersicht vorhanden ist, ersetze den gesamten Viewer-Inhalt (ohne Überschrift, da das Keyword bereits in der Übersicht steht)
+    viewer.innerHTML = `
+      <div class="semantic-answer">
+        <div class="answer-content" id="keywordAnswerContent">
+          ${contentHtml}
+        </div>
       </div>
-    </div>
-  `;
+    `;
+  }
 
   // Sicherheitshalber Inline-Styles entfernen (falls Backend-Markdown doch Styles liefert)
-  removeInlineStyles(results);
+  removeInlineStyles(viewer);
   // Normalisiere Unicode-Zeichen für einheitliche Darstellung
-  normalizeUnicode(results);
+  normalizeUnicode(viewer);
+  
+  // Erkenne und formatiere Gedichte/kurze Zeilen in concept-content (nach DOM-Rendering)
+  setTimeout(() => {
+    const conceptContent = viewer.querySelector('.concept-content');
+    if (conceptContent) {
+      detectAndFormatPoems(conceptContent);
+    }
+    // Prüfe auch alle anderen Bereiche im viewer
+    detectAndFormatPoems(viewer);
+  }, 0);
   
   // Konvertiere GA-Links im DOM (nach dem Setzen des HTML)
   // Verwende die gleiche Methode wie bei Themen_Übersicht für konsistente Verlinkung
