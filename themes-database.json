@@ -2879,30 +2879,6 @@
       "Fette"
     ]
   },
-  "Menschenkunde & Wesesglieder": {
-    "description": "Die Wesensglieder des Menschen",
-    "keywords": [
-      "Physischer Leib",
-      "Ätherleib",
-      "Astralleib",
-      "Ich",
-      "Geistselbst (Manas)",
-      "Lebensgeist (Buddhi, Budhi)",
-      "Geistesmensch (Atma)",
-      "Bildekräfteleib",
-      "Buddhi",
-      "Atma",
-      "Manas",
-      "Dreigliederung",
-      "Anthropologie",
-      "Physiognomie",
-      "Ursprung des Menschen",
-      "Allgemeine Menschenkunde",
-      "Zwölf Sinne",
-      "Wesensglieder",
-      "Menschenerkenntnis"
-    ]
-  },
   "Darwinismus & Evolutionslehre": {
     "description": "Darwinismus und Evolutionstheorie",
     "keywords": [
@@ -3823,6 +3799,30 @@
       "Seelenschulung",
       "Nebenübungen",
       "Tagesrückschau"
+    ]
+  },
+  "Menschenkunde & Wesensglieder": {
+    "description": "Die Wesensglieder des Menschen",
+    "keywords": [
+      "Physischer Leib",
+      "Ätherleib",
+      "Astralleib",
+      "Ich",
+      "Geistselbst (Manas)",
+      "Lebensgeist (Buddhi, Budhi)",
+      "Geistesmensch (Atma)",
+      "Bildekräfteleib",
+      "Buddhi",
+      "Atma",
+      "Manas",
+      "Dreigliederung",
+      "Anthropologie",
+      "Physiognomie",
+      "Ursprung des Menschen",
+      "Allgemeine Menschenkunde",
+      "Zwölf Sinne",
+      "Wesensglieder",
+      "Menschenerkenntnis"
     ]
   }
 }
