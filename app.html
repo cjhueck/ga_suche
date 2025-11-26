@@ -15260,11 +15260,6 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
-    // DEBUG: Zeige Content VOR der Konvertierung
-    if (content.includes('![') || content.includes('img-')) {
-      console.log('[MARKDOWN-DEBUG] Content VOR marked.parse():', content.substring(0, 300));
-      console.log('[MARKDOWN-DEBUG] Enthält HTML-Entities?', content.includes('&lt;') || content.includes('&gt;') || content.includes('&quot;'));
-    }
     
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
@@ -18025,20 +18020,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           let content = para.content || para.text || '';
           
-          // DEBUG: Zeige Content VOR der Konvertierung wenn Bilder vorhanden
-          if (content.includes('![') || content.includes('img-')) {
-            console.log('[MARKDOWN-DEBUG] Content VOR marked.parse():', content.substring(0, 200));
-          }
-          
           // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
-            console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
-            
-            // DEBUG: Zeige Content NACH der Konvertierung wenn Bilder vorhanden
-            if (content.includes('<img') || content.includes('![')) {
-              console.log('[MARKDOWN-DEBUG] Content NACH marked.parse():', content.substring(0, 200));
-            }
             
             // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
             if (content.includes('![')) {
@@ -18186,19 +18170,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
       }
       
-      // NEUE STRATEGIE: Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
-      console.log('[IMAGES-DEBUG] lecture:', lecture);
-      console.log('[IMAGES-DEBUG] lecture.ID:', lecture?.ID);
-      console.log('[IMAGES-DEBUG] steinerImages hat lecture.ID?', !!steinerImages[lecture?.ID]);
-      console.log('[IMAGES-DEBUG] Verfügbare IDs in steinerImages:', Object.keys(steinerImages).slice(0, 10));
-      
+      // Ersetze img src-Attribute durch Base64-Daten NACH dem Rendering
       if (lecture && lecture.ID) {
-        // Debug: Prüfe ob img-Tags vorhanden sind
-        const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
-        console.log('[IMAGES] Gefundene img-Tags im Viewer:', imgTags.length);
-        imgTags.forEach((img, idx) => {
-          console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
-        });
         
         // Lade und ersetze Bilder asynchron
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
