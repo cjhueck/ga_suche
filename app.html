@@ -15515,18 +15515,50 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         // Lade und ersetze Bilder asynchron
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
           viewer.innerHTML = updatedHTML;
+          
+          // WICHTIG: Icons NACH dem Bild-Ersetzen setzen, damit sie nicht überschrieben werden
+          if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+            setTimeout(() => {
+              markParagraphsWithBookmarksAndQuotes(lecture.ID);
+              // Stelle Icons nach weiteren DOM-Änderungen wieder her
+              setTimeout(() => {
+                if (typeof restoreBookmarkQuoteIndicators === 'function') {
+                  restoreBookmarkQuoteIndicators();
+                }
+              }, 500);
+            }, 100);
+          }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+          // Auch bei Fehler Icons setzen
+          if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+            setTimeout(() => {
+              markParagraphsWithBookmarksAndQuotes(lecture.ID);
+              setTimeout(() => {
+                if (typeof restoreBookmarkQuoteIndicators === 'function') {
+                  restoreBookmarkQuoteIndicators();
+                }
+              }, 500);
+            }, 100);
+          }
         });
+  } else {
+    // Keine Bilder zu ersetzen - Icons direkt setzen
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+      setTimeout(() => {
+        markParagraphsWithBookmarksAndQuotes(lecture.ID);
+        // Stelle Icons nach weiteren DOM-Änderungen wieder her
+        setTimeout(() => {
+          if (typeof restoreBookmarkQuoteIndicators === 'function') {
+            restoreBookmarkQuoteIndicators();
+          }
+        }, 500);
+      }, 200);
+    }
   }
   
   // Activate TOC links after rendering
   activateTOCLinks();
-  
-  // Markiere Absätze mit Bookmarks/Zitaten
-  if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
-    setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
-  }
   
   // Scrolle zum markierten Absatz in der Summary oder nach oben
   if (lastHighlightedIndex) {
@@ -18246,9 +18278,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             formatAsteriskParagraphs();
           }, 100);
           
-          // Markiere Absätze mit Bookmarks/Zitaten
+          // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
-            setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+            setTimeout(() => {
+              markParagraphsWithBookmarksAndQuotes(lecture.ID);
+              // Stelle Icons nach weiteren DOM-Änderungen wieder her
+              setTimeout(() => {
+                if (typeof restoreBookmarkQuoteIndicators === 'function') {
+                  restoreBookmarkQuoteIndicators();
+                }
+              }, 500);
+            }, 200);
           }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
@@ -18269,9 +18309,17 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           formatAsteriskParagraphs();
         }, 100);
         
-        // Markiere Absätze mit Bookmarks/Zitaten
+        // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
         if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
-          setTimeout(() => markParagraphsWithBookmarksAndQuotes(lecture.ID), 200);
+          setTimeout(() => {
+            markParagraphsWithBookmarksAndQuotes(lecture.ID);
+            // Stelle Icons nach weiteren DOM-Änderungen wieder her
+            setTimeout(() => {
+              if (typeof restoreBookmarkQuoteIndicators === 'function') {
+                restoreBookmarkQuoteIndicators();
+              }
+            }, 500);
+          }, 200);
         }
       }
       
