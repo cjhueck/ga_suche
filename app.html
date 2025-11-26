@@ -5316,6 +5316,8 @@ Original
               return {
                 summary: entry.summary,
                 headings: entry.headings || [],
+                tableOfContents: entry.tableOfContents || [],
+                lectureKeywords: entry.lectureKeywords || [],
                 timestamp: entry.timestamp || new Date().toISOString()
               };
             }
@@ -5333,6 +5335,8 @@ Original
                 return {
                   summary: summaryData.summary,
                   headings: summaryData.headings || [],
+                  tableOfContents: summaryData.tableOfContents || [],
+                  lectureKeywords: summaryData.lectureKeywords || [],
                   timestamp: new Date().toISOString()
                 };
               }
@@ -16019,6 +16023,12 @@ function formatAsteriskParagraphs() {
         
         // Wenn Zusammenfassung existiert (fromCache: true oder neue Daten)
         if (summaryData.exists && summaryData.summary) {
+          // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
+          currentLectureData.summary = summaryData.summary;
+          currentLectureData.headings = summaryData.headings || [];
+          currentLectureData.tableOfContents = summaryData.tableOfContents || [];
+          currentLectureData.lectureKeywords = summaryData.lectureKeywords || [];
+          
           currentLectureSummary = {
             summary: summaryData.summary,
             headings: summaryData.headings || [],
