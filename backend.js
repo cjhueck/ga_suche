@@ -488,6 +488,12 @@ async function loadFullLectures() {
         
         lectures.forEach(lecture => {
           if (lecture.ID) {
+            // Prüfe auf Duplikate
+            if (fullLectures[lecture.ID]) {
+              console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
+              console.warn(`        Alte Datei: ${fullLectures[lecture.ID].fileName || 'unbekannt'}`);
+              console.warn(`        Neue Datei: ${lecture.fileName || 'unbekannt'}`);
+            }
             fullLectures[lecture.ID] = lecture;
             totalLectures++;
           } else {
@@ -501,7 +507,14 @@ async function loadFullLectures() {
       }
     }
     
-    console.log(`  📊 Gesamt: ${totalLectures} Vorträge erfolgreich geladen`);
+    const uniqueLecturesCount = Object.keys(fullLectures).length;
+    const duplicateCount = totalLectures - uniqueLecturesCount;
+    
+    console.log(`  📊 Gesamt: ${totalLectures} Vorträge verarbeitet`);
+    if (duplicateCount > 0) {
+      console.warn(`  ⚠️  ${duplicateCount} Duplikate gefunden (überschrieben)`);
+    }
+    console.log(`  ✓ ${uniqueLecturesCount} eindeutige Vorträge geladen`);
     
     const sample = Object.values(fullLectures)[0];
     console.log('\nVortrags-Struktur:', {
@@ -514,7 +527,7 @@ async function loadFullLectures() {
       hasIndices: sample?.paragraphs?.some(p => p.index)
     });
     
-    console.log(`\nGesamt: ${Object.keys(fullLectures).length} Vorträge geladen`);
+    console.log(`\nGesamt: ${uniqueLecturesCount} eindeutige Vorträge geladen`);
     return fullLectures;
     
   } catch (error) {
