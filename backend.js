@@ -17,7 +17,9 @@ app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
 // Trust Proxy für Render (wichtig für korrekte IP-Erkennung)
 app.set('trust proxy', 1);
 
-// SICHERHEIT: Einfaches Rate Limiting (sehr großzügig, um nichts kaputt zu machen)
+// SICHERHEIT: Einfaches Rate Limiting (TEMPORÄR DEAKTIVIERT ZUM TESTEN)
+// TODO: Wieder aktivieren nach erfolgreichem Test
+/*
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 Minuten
 const RATE_LIMIT_MAX = 500; // Max 500 Requests pro IP pro 15 Minuten (sehr großzügig)
@@ -63,6 +65,7 @@ app.use((req, res, next) => {
     }
   }
 });
+*/
 
 // ============================================================================
 // SICHERHEIT: Input-Validierung Helper-Funktionen
@@ -5051,6 +5054,10 @@ app.get('/debug/status', async (req, res) => {
 // API-Endpunkt: GA-Liste für Dropdowns
 app.get('/api/ga-list', async (req, res) => {
   try {
+    console.log('[API/GA-LIST] Request erhalten');
+    console.log('[API/GA-LIST] fullLectures:', Object.keys(fullLectures).length, 'Vorträge');
+    console.log('[API/GA-LIST] fullBooks:', Object.keys(fullBooks).length, 'Bücher');
+    
     const gaMap = {};
     
     // Sammle GA-Nummern und Titel aus Vorträgen
@@ -5083,10 +5090,12 @@ app.get('/api/ga-list', async (req, res) => {
       return numA - numB;
     });
     
+    console.log('[API/GA-LIST] Sende', gaList.length, 'GA-Bände');
     res.json(gaList);
   } catch (error) {
-    console.error('Fehler beim Laden der GA-Liste:', error);
-    res.status(500).json({ error: 'Fehler beim Laden der GA-Liste' });
+    console.error('[API/GA-LIST] Fehler beim Laden der GA-Liste:', error);
+    console.error('[API/GA-LIST] Stack:', error.stack);
+    res.status(500).json({ error: 'Fehler beim Laden der GA-Liste', details: error.message });
   }
 });
 
@@ -10236,6 +10245,10 @@ ANTWORTE im folgenden JSON-Format:
 // Endpoint: Liste verfügbare GA-Bände
 app.get('/api/keywords/available-ga-volumes', async (req, res) => {
   try {
+    console.log('[API/AVAILABLE-GA-VOLUMES] Request erhalten');
+    console.log('[API/AVAILABLE-GA-VOLUMES] fullLectures:', Object.keys(fullLectures).length, 'Vorträge');
+    console.log('[API/AVAILABLE-GA-VOLUMES] fullBooks:', Object.keys(fullBooks).length, 'Bücher');
+    
     // Lade Summary-Database
     let summaryDB = {};
     try {
@@ -10342,10 +10355,12 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
       };
     });
     
+    console.log('[API/AVAILABLE-GA-VOLUMES] Sende', volumes.length, 'Volumes');
     res.json({ volumes });
   } catch (error) {
-    console.error('[GA-VOLUMES] Fehler:', error);
-    res.status(500).json({ error: error.message });
+    console.error('[API/AVAILABLE-GA-VOLUMES] Fehler:', error);
+    console.error('[API/AVAILABLE-GA-VOLUMES] Stack:', error.stack);
+    res.status(500).json({ error: error.message, details: error.stack });
   }
 });
 
