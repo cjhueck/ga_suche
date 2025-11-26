@@ -7324,7 +7324,8 @@ async function createFullBackup() {
     createImagesBackup(),
     createCodeBackup(),
     createHtmlBackup('index.html'),
-    createHtmlBackup('keyword-manager.html')
+    createHtmlBackup('keyword-manager.html'),
+    createHtmlBackup('app.html')
   ]);
   
   const successful = results.filter(r => r !== null).length;
@@ -14306,10 +14307,11 @@ app.post('/api/backups/create', async (req, res) => {
         backupFile = await createCodeBackup();
         break;
       case 'html':
-        // Erstelle Backups für beide HTML-Dateien
+        // Erstelle Backups für alle HTML-Dateien
         const indexBackup = await createHtmlBackup('index.html');
         const managerBackup = await createHtmlBackup('keyword-manager.html');
-        const htmlBackups = [indexBackup, managerBackup].filter(b => b !== null);
+        const appBackup = await createHtmlBackup('app.html');
+        const htmlBackups = [indexBackup, managerBackup, appBackup].filter(b => b !== null);
         return res.json({
           success: true,
           backups: htmlBackups.map(b => path.basename(b)),
