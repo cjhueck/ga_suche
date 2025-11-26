@@ -7858,17 +7858,41 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
   
   try {
     console.log('[GA-TAB] Lade GA-Bände...', retryAttempt > 0 ? `(Versuch ${retryAttempt + 1})` : '');
+    console.log('[GA-TAB] API_BASE:', API_BASE);
     
     // Lade GA-Liste mit Titeln
-    const gaListResponse = await fetch(`${API_BASE}/api/ga-list`);
-    if (!gaListResponse.ok) throw new Error('GA-Liste konnte nicht geladen werden');
-    const gaList = await gaListResponse.json();
+    let gaListResponse;
+    try {
+      gaListResponse = await fetch(`${API_BASE}/api/ga-list`);
+    } catch (fetchError) {
+      console.error('[GA-TAB] Fetch-Fehler bei /api/ga-list:', fetchError);
+      throw new Error(`Verbindungsfehler: ${fetchError.message}. Server erreichbar? (${API_BASE})`);
+    }
     
+    if (!gaListResponse.ok) {
+      const errorText = await gaListResponse.text().catch(() => 'Unbekannter Fehler');
+      console.error('[GA-TAB] HTTP-Fehler bei /api/ga-list:', gaListResponse.status, errorText);
+      throw new Error(`HTTP ${gaListResponse.status}: ${errorText.substring(0, 100)}`);
+    }
+    
+    const gaList = await gaListResponse.json();
     console.log('[GA-TAB] GA-Liste erhalten:', gaList.length, 'Bände');
     
     // Lade Vortrags-Count
-    const volumesResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
-    if (!volumesResponse.ok) throw new Error('GA-Volumes-Daten konnten nicht geladen werden');
+    let volumesResponse;
+    try {
+      volumesResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
+    } catch (fetchError) {
+      console.error('[GA-TAB] Fetch-Fehler bei /api/keywords/available-ga-volumes:', fetchError);
+      throw new Error(`Verbindungsfehler: ${fetchError.message}. Server erreichbar? (${API_BASE})`);
+    }
+    
+    if (!volumesResponse.ok) {
+      const errorText = await volumesResponse.text().catch(() => 'Unbekannter Fehler');
+      console.error('[GA-TAB] HTTP-Fehler bei /api/keywords/available-ga-volumes:', volumesResponse.status, errorText);
+      throw new Error(`HTTP ${volumesResponse.status}: ${errorText.substring(0, 100)}`);
+    }
+    
     const volumesData = await volumesResponse.json();
     
     console.log('[GA-TAB] Volumes-Daten erhalten');

@@ -8,11 +8,14 @@ const path = require('path');
 const { getProviderForTask, getSpecificProvider, generateCompletionWithFallback, showRateLimitStatus, isProviderRateLimited } = require('./llm-providers'); // LLM Provider Abstraction
 
 const app = express();
-const PORT = 3003;
+const PORT = process.env.PORT || 3003; // Render setzt PORT-Umgebungsvariable
 
 // Middleware - WICHTIG: Reihenfolge beachten!
 app.use(cors());
 app.use(express.json({ limit: '10mb' })); // Limit für JSON-Body
+
+// Trust Proxy für Render (wichtig für korrekte IP-Erkennung)
+app.set('trust proxy', 1);
 
 // SICHERHEIT: Einfaches Rate Limiting (sehr großzügig, um nichts kaputt zu machen)
 const rateLimitMap = new Map();
@@ -20,7 +23,12 @@ const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 Minuten
 const RATE_LIMIT_MAX = 500; // Max 500 Requests pro IP pro 15 Minuten (sehr großzügig)
 
 app.use((req, res, next) => {
-  const ip = req.ip || req.connection.remoteAddress || 'unknown';
+  // IP-Erkennung: Unterstützt Proxy-Header (wichtig für Render)
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() 
+    || req.headers['x-real-ip'] 
+    || req.ip 
+    || req.connection.remoteAddress 
+    || 'unknown';
   const now = Date.now();
   
   if (!rateLimitMap.has(ip)) {
