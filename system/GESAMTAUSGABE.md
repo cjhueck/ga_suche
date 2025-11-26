@@ -37,9 +37,6 @@ Bei den gedruckten Vorträgen Rudolf Steiners handelt es sich um Nachschriften o
 
 **Besonderheiten dieser Datenbank**
 
-Diese Suchplattform umfasst derzeit:
-- **1901 Vorträge** aus den **GA-Bänden 51-111**, **210-223**, und **293-311**
-- Sukzessiver Ausbau auf bis zur Vollständigkeit
 - Volltext-Durchsuchbarkeit aller Inhalte
 - Thematische und kontextuelle Suchfunktionen
 - Stichwortverzeichnis

@@ -11661,10 +11661,87 @@ app.post('/api/generate-keywords', async (req, res) => {
   }
 });
 
-// API: Bilder-Datenbank abrufen
-app.get('/api/steiner-images', async (req, res) => {
+// API: Bilder-Datenbank abrufen (nur für einen bestimmten Vortrag)
+// Lädt die Bilder aus den Part-Dateien bei Bedarf, ohne alle beim Start zu laden
+app.get('/api/steiner-images/:lectureId?', async (req, res) => {
   try {
-    res.json(steinerImages);
+    const lectureId = req.params.lectureId;
+    
+    if (lectureId) {
+      // Prüfe zuerst ob bereits im Memory-Cache
+      if (steinerImages[lectureId]) {
+        const images = steinerImages[lectureId];
+        console.log(`[IMAGES-API] Sende ${images.length} Bilder für ${lectureId} (aus Cache)`);
+        return res.json(images);
+      }
+      
+      // Suche in Part-Dateien nach diesem Vortrag
+      const files = await fs.readdir(__dirname);
+      const partFiles = files
+        .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
+        .sort();
+      
+      for (const partFile of partFiles) {
+        const partPath = path.join(__dirname, partFile);
+        const data = await fs.readFile(partPath, 'utf8');
+        const partData = JSON.parse(data);
+        
+        // Prüfe ob Array oder Objekt
+        if (Array.isArray(partData)) {
+          // Suche nach Bildern für diesen Vortrag
+          const imagesForLecture = partData.filter(img => img.lectureId === lectureId);
+          if (imagesForLecture.length > 0) {
+            // Cache für zukünftige Anfragen
+            steinerImages[lectureId] = imagesForLecture;
+            console.log(`[IMAGES-API] Sende ${imagesForLecture.length} Bilder für ${lectureId} (aus ${partFile})`);
+            return res.json(imagesForLecture);
+          }
+        } else {
+          // Objekt-Format (legacy)
+          if (partData[lectureId]) {
+            const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
+            // Cache für zukünftige Anfragen
+            steinerImages[lectureId] = images;
+            console.log(`[IMAGES-API] Sende ${images.length} Bilder für ${lectureId} (aus ${partFile})`);
+            return res.json(images);
+          }
+        }
+      }
+      
+      // Keine Bilder gefunden
+      console.log(`[IMAGES-API] Keine Bilder für ${lectureId} gefunden`);
+      steinerImages[lectureId] = []; // Cache leeres Array
+      res.json([]);
+    } else {
+      // Liste aller verfügbaren Vortrags-IDs (ohne Bilder zu laden)
+      // Lese nur die ersten Zeilen jeder Part-Datei um lectureIds zu extrahieren
+      const files = await fs.readdir(__dirname);
+      const partFiles = files
+        .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
+        .sort();
+      
+      const lectureIdsSet = new Set();
+      
+      for (const partFile of partFiles) {
+        const partPath = path.join(__dirname, partFile);
+        const data = await fs.readFile(partPath, 'utf8');
+        const partData = JSON.parse(data);
+        
+        if (Array.isArray(partData)) {
+          partData.forEach(img => {
+            if (img.lectureId) {
+              lectureIdsSet.add(img.lectureId);
+            }
+          });
+        } else {
+          Object.keys(partData).forEach(id => lectureIdsSet.add(id));
+        }
+      }
+      
+      const lectureIds = Array.from(lectureIdsSet);
+      console.log(`[IMAGES-API] Sende Liste von ${lectureIds.length} Vorträgen (ohne Bilder)`);
+      res.json({ lectureIds: lectureIds, count: lectureIds.length });
+    }
   } catch (error) {
     console.error('[IMAGES-API] Fehler beim Laden:', error);
     res.status(500).json({ error: error.message });
@@ -14238,7 +14315,10 @@ await loadFullLectures();
 console.log('\n[STARTUP] Lade Schriften...');
 const loadedBooks = await loadBooks();
 console.log(`[STARTUP] Schriften geladen: ${Object.keys(loadedBooks).length} Bücher`);
-await loadSteinerImages();
+// Lade Bilder-Datenbank NICHT beim Start (zu groß)
+// Bilder werden bei Bedarf aus Part-Dateien geladen
+// await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
+console.log('[STARTUP] Bilder-Datenbank wird bei Bedarf geladen (Lazy Loading)');
 
 // Synchronisiere Keyword-Systeme beim Start
 await synchronizeKeywordSystems();

@@ -6520,7 +6520,8 @@ function normalizeGANumber(gaNumber) {
 
     async function loadSteinerImages() {
       try {
-        console.log('[IMAGES] Lade steiner-images.json...');
+        console.log('[IMAGES] Lade Liste der verfügbaren Vorträge...');
+        // Lade nur die Liste der verfügbaren Vortrags-IDs (ohne Bilder)
         const response = await fetch(`${API_BASE}/api/steiner-images`);
         
         if (!response.ok) {
@@ -6528,28 +6529,48 @@ function normalizeGANumber(gaNumber) {
           return;
         }
         
-        const imagesData = await response.json();
+        const data = await response.json();
         
-        // Konvertiere Array-Format in Objekt-Format gruppiert nach lectureId
-        if (Array.isArray(imagesData)) {
-          console.log('[IMAGES] Konvertiere Array-Format zu Objekt-Format');
-          steinerImages = {};
-          imagesData.forEach(img => {
-            if (!steinerImages[img.lectureId]) {
-              steinerImages[img.lectureId] = [];
-            }
-            steinerImages[img.lectureId].push(img);
-          });
-          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${imagesData.length} Bilder geladen`);
+        // Initialisiere leeres Objekt - Bilder werden bei Bedarf geladen
+        steinerImages = {};
+        
+        if (data.lectureIds && Array.isArray(data.lectureIds)) {
+          console.log(`[IMAGES] ✓ ${data.lectureIds.length} Vorträge verfügbar (Bilder werden bei Bedarf geladen)`);
         } else {
-          // Falls bereits als Objekt strukturiert
-          steinerImages = imagesData;
-          const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
-          console.log(`[IMAGES] ✓ ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder geladen`);
+          console.log('[IMAGES] ✓ Bilder-Datenbank verfügbar (Bilder werden bei Bedarf geladen)');
         }
         
       } catch (error) {
         console.error('[IMAGES] Fehler beim Laden:', error);
+      }
+    }
+    
+    // Lade Bilder für einen bestimmten Vortrag bei Bedarf
+    async function loadSteinerImagesForLecture(lectureId) {
+      try {
+        // Prüfe ob bereits geladen
+        if (steinerImages[lectureId]) {
+          return steinerImages[lectureId];
+        }
+        
+        console.log(`[IMAGES] Lade Bilder für ${lectureId}...`);
+        const response = await fetch(`${API_BASE}/api/steiner-images/${encodeURIComponent(lectureId)}`);
+        
+        if (!response.ok) {
+          console.warn(`[IMAGES] Keine Bilder für ${lectureId} verfügbar`);
+          steinerImages[lectureId] = [];
+          return [];
+        }
+        
+        const images = await response.json();
+        steinerImages[lectureId] = Array.isArray(images) ? images : [];
+        console.log(`[IMAGES] ✓ ${steinerImages[lectureId].length} Bilder für ${lectureId} geladen`);
+        
+        return steinerImages[lectureId];
+      } catch (error) {
+        console.error(`[IMAGES] Fehler beim Laden für ${lectureId}:`, error);
+        steinerImages[lectureId] = [];
+        return [];
       }
     }
 
@@ -6655,9 +6676,14 @@ function normalizeGANumber(gaNumber) {
     }
     
     // NEUE STRATEGIE: Ersetze img src-Attribute NACH dem Markdown-Rendering
-    function replaceImageSrcWithBase64(htmlContent, lectureId) {
+    async function replaceImageSrcWithBase64(htmlContent, lectureId) {
       if (!htmlContent) {
         return htmlContent;
+      }
+      
+      // Lade Bilder für diesen Vortrag bei Bedarf
+      if (!steinerImages[lectureId]) {
+        await loadSteinerImagesForLecture(lectureId);
       }
       
       // Wenn keine Bilder in der Datenbank sind, gebe Warnung aus aber fahre fort
@@ -8220,15 +8246,118 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     // Rendere Markdown
     if (marked.parse) {
       content = marked.parse(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked.parse()');
+      
+      // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
+      // Konvertiere ![alt](path) zu <img src="path" alt="alt">
+      if (content.includes('![')) {
+        console.warn('[MARKDOWN-BOOK] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          // Entferne eventuelle HTML-Entities und Leerzeichen
+          alt = alt.trim();
+          src = src.trim();
+          // Entferne < > und Anführungszeichen falls vorhanden
+          src = src.replace(/^<['"]?|['"]?>$/g, '');
+          console.log('[MARKDOWN-BOOK] Manuelle Bild-Konvertierung:', alt, '->', src);
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+        console.log('[MARKDOWN-BOOK] ✓ Bilder manuell konvertiert');
+      }
     } else if (marked.marked) {
       content = marked.marked(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked.marked()');
+      // Manuelle Bild-Konvertierung falls nötig
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
     } else {
       content = marked(content);
+      console.log('[MARKDOWN-BOOK] Content konvertiert mit marked()');
+      // Manuelle Bild-Konvertierung falls nötig
+      if (content.includes('![')) {
+        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+          alt = alt.trim();
+          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+        });
+      }
+    }
+  } else {
+    console.error('[MARKDOWN-BOOK] marked ist nicht verfügbar!');
+    // Fallback: Manuelle Bild-Konvertierung
+    if (content.includes('![')) {
+      content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+        alt = alt.trim();
+        src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+        return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+      });
     }
   }
   
   // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
+  // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
   if (keywords && keywords.length > 0) {
+    // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+    function highlightInHTML(htmlContent, searchWord, isPhrase) {
+      // Erstelle temporäres DOM-Element für sicheres Highlighting
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      
+      // Verwende TreeWalker um nur Textknoten zu markieren
+      const walker = document.createTreeWalker(
+        tempDiv,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function(node) {
+            // Überspringe Textknoten die bereits in <mark> Tags sind
+            let parent = node.parentNode;
+            while (parent && parent !== tempDiv) {
+              if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                return NodeFilter.FILTER_REJECT;
+              }
+              parent = parent.parentNode;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        },
+        false
+      );
+      
+      const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const flags = isPhrase ? "g" : "gi";
+      const regex = new RegExp(`(${escapedWord})`, flags);
+      
+      const textNodesToMark = [];
+      let textNode;
+      while (textNode = walker.nextNode()) {
+        if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+          textNodesToMark.push(textNode);
+        }
+      }
+      
+      // Markiere Suchwort in Textknoten
+      textNodesToMark.forEach(textNode => {
+        const text = textNode.textContent;
+        const highlightedText = text.replace(regex, '<mark>$1</mark>');
+        const tempSpan = document.createElement('span');
+        tempSpan.innerHTML = highlightedText;
+        
+        const parent = textNode.parentNode;
+        if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+          while (tempSpan.firstChild) {
+            parent.insertBefore(tempSpan.firstChild, textNode);
+          }
+          parent.removeChild(textNode);
+        }
+      });
+      
+      return tempDiv.innerHTML;
+    }
+    
     keywords.forEach((word, wordIndex) => {
       if (word && word.trim()) {
         const isPhrase = isPhraseArray[wordIndex] || false;
@@ -8237,10 +8366,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           ? cleanWord.slice(1, -1) 
           : cleanWord;
         
-        const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const flags = isPhrase ? "g" : "gi";
-        const regex = new RegExp(`(${escapedWord})`, flags);
-        content = content.replace(regex, "<mark>$1</mark>");
+        // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+        content = highlightInHTML(content, wordToHighlight, isPhrase);
       }
     });
   }
@@ -8338,7 +8465,11 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Temporär die Bilder für diese ID setzen
       const originalImages = steinerImages[bookId];
       steinerImages[bookId] = imagesForBook;
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, bookId);
+      replaceImageSrcWithBase64(viewer.innerHTML, bookId).then(updatedHTML => {
+        viewer.innerHTML = updatedHTML;
+      }).catch(error => {
+        console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+      });
       // Stelle Original wieder her
       if (originalImages) {
         steinerImages[bookId] = originalImages;
@@ -11346,11 +11477,54 @@ function displayGAChronological(lectures) {
                         const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         const regex = new RegExp(`(${escapedTerm})`, flags);
                         
-                        // Markiere Suchwort im Absatz (ersetze bereits vorhandene <mark> Tags nicht)
-                        const originalHTML = paragraphElement.innerHTML;
-                        // Entferne bereits vorhandene <mark> Tags für Re-Markierung
-                        const textWithoutMarks = originalHTML.replace(/<mark[^>]*>(.*?)<\/mark>/gi, '$1');
-                        paragraphElement.innerHTML = textWithoutMarks.replace(regex, '<mark>$1</mark>');
+                        // Markiere Suchwort im Absatz - NUR in Textknoten, nicht in HTML-Attributen!
+                        // Verwende TreeWalker um nur Textknoten zu markieren (verhindert Beschädigung von img-Tags)
+                        const walker = document.createTreeWalker(
+                          paragraphElement,
+                          NodeFilter.SHOW_TEXT,
+                          {
+                            acceptNode: function(node) {
+                              // Überspringe Textknoten die bereits in <mark> Tags sind
+                              let parent = node.parentNode;
+                              while (parent && parent !== paragraphElement) {
+                                if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                                  return NodeFilter.FILTER_REJECT;
+                                }
+                                // Überspringe Textknoten innerhalb von img-Tags (Attributen)
+                                if (parent.tagName && parent.tagName.toLowerCase() === 'img') {
+                                  return NodeFilter.FILTER_REJECT;
+                                }
+                                parent = parent.parentNode;
+                              }
+                              return NodeFilter.FILTER_ACCEPT;
+                            }
+                          },
+                          false
+                        );
+                        
+                        const textNodesToMark = [];
+                        let textNode;
+                        while (textNode = walker.nextNode()) {
+                          if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                            textNodesToMark.push(textNode);
+                          }
+                        }
+                        
+                        // Markiere Suchwort in Textknoten
+                        textNodesToMark.forEach(textNode => {
+                          const text = textNode.textContent;
+                          const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                          const tempSpan = document.createElement('span');
+                          tempSpan.innerHTML = highlightedText;
+                          
+                          const parent = textNode.parentNode;
+                          if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                            while (tempSpan.firstChild) {
+                              parent.insertBefore(tempSpan.firstChild, textNode);
+                            }
+                            parent.removeChild(textNode);
+                          }
+                        });
                       } else {
                         // Suchwort kommt nicht im Absatz vor - keine Markierung
                       }
@@ -11383,10 +11557,57 @@ function displayGAChronological(lectures) {
                   const testRegex = new RegExp(termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
                   
                   if (testRegex.test(paragraphText)) {
-                    // Suchwort kommt vor - markiere es
+                    // Suchwort kommt vor - markiere es NUR in Textknoten, nicht in HTML-Attributen!
+                    // Verwende TreeWalker um nur Textknoten zu markieren (verhindert Beschädigung von img-Tags)
                     const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                     const regex = new RegExp(`(${escapedTerm})`, flags);
-                    targetElement.innerHTML = targetElement.innerHTML.replace(regex, '<mark>$1</mark>');
+                    
+                    const walker = document.createTreeWalker(
+                      targetElement,
+                      NodeFilter.SHOW_TEXT,
+                      {
+                        acceptNode: function(node) {
+                          // Überspringe Textknoten die bereits in <mark> Tags sind
+                          let parent = node.parentNode;
+                          while (parent && parent !== targetElement) {
+                            if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                              return NodeFilter.FILTER_REJECT;
+                            }
+                            // Überspringe Textknoten innerhalb von img-Tags (Attributen)
+                            if (parent.tagName && parent.tagName.toLowerCase() === 'img') {
+                              return NodeFilter.FILTER_REJECT;
+                            }
+                            parent = parent.parentNode;
+                          }
+                          return NodeFilter.FILTER_ACCEPT;
+                        }
+                      },
+                      false
+                    );
+                    
+                    const textNodesToMark = [];
+                    let textNode;
+                    while (textNode = walker.nextNode()) {
+                      if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                        textNodesToMark.push(textNode);
+                      }
+                    }
+                    
+                    // Markiere Suchwort in Textknoten
+                    textNodesToMark.forEach(textNode => {
+                      const text = textNode.textContent;
+                      const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                      const tempSpan = document.createElement('span');
+                      tempSpan.innerHTML = highlightedText;
+                      
+                      const parent = textNode.parentNode;
+                      if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                        while (tempSpan.firstChild) {
+                          parent.insertBefore(tempSpan.firstChild, textNode);
+                        }
+                        parent.removeChild(textNode);
+                      }
+                    });
                   } else {
                     // Suchwort kommt nicht im Absatz vor - keine Markierung
                   }
@@ -15123,8 +15344,72 @@ function showSummaryView() {
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
     
     // Keyword-Highlighting NUR wenn NICHT von thematischer Suche
+    // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
     if (keywords && keywords.length > 0 && !isFromThematicSearch) {
       console.log('[DISPLAY-SUMMARY] Highlighting in paragraph:', keywords);
+      
+      // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+      function highlightInHTML(htmlContent, searchWord, isPhrase) {
+        // Erstelle temporäres DOM-Element für sicheres Highlighting
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        
+        // Verwende TreeWalker um nur Textknoten zu markieren
+        const walker = document.createTreeWalker(
+          tempDiv,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              // Überspringe Textknoten die bereits in <mark> Tags sind
+              let parent = node.parentNode;
+              while (parent && parent !== tempDiv) {
+                if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                // Überspringe Textknoten innerhalb von HTML-Tags (Attributen)
+                if (parent.tagName && ['img', 'a', 'span', 'div', 'p'].includes(parent.tagName.toLowerCase())) {
+                  // Prüfe ob Textknoten innerhalb eines Attributs ist (sollte nicht passieren, aber sicherheitshalber)
+                  return NodeFilter.FILTER_ACCEPT; // Textknoten innerhalb von Tags sind OK
+                }
+                parent = parent.parentNode;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          },
+          false
+        );
+        
+        const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const flags = isPhrase ? "g" : "gi";
+        const regex = new RegExp(`(${escapedWord})`, flags);
+        
+        const textNodesToMark = [];
+        let textNode;
+        while (textNode = walker.nextNode()) {
+          if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+            textNodesToMark.push(textNode);
+          }
+        }
+        
+        // Markiere Suchwort in Textknoten
+        textNodesToMark.forEach(textNode => {
+          const text = textNode.textContent;
+          const highlightedText = text.replace(regex, '<mark>$1</mark>');
+          const tempSpan = document.createElement('span');
+          tempSpan.innerHTML = highlightedText;
+          
+          const parent = textNode.parentNode;
+          if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+            while (tempSpan.firstChild) {
+              parent.insertBefore(tempSpan.firstChild, textNode);
+            }
+            parent.removeChild(textNode);
+          }
+        });
+        
+        return tempDiv.innerHTML;
+      }
+      
       keywords.forEach((word, wordIndex) => {
         if (word && word.trim()) {
           // Prüfe ob es sich um eine Phrasensuche handelt (mit Anführungszeichen)
@@ -15135,11 +15420,8 @@ function showSummaryView() {
             ? cleanWord.slice(1, -1) 
             : cleanWord;
           
-          const escapedWord = wordToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          // Bei Phrasensuche: case-sensitive, sonst case-insensitive
-          const flags = isPhrase ? "g" : "gi";
-          const regex = new RegExp(`(${escapedWord})`, flags);
-          content = content.replace(regex, "<mark>$1</mark>");
+          // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+          content = highlightInHTML(content, wordToHighlight, isPhrase);
         }
       });
     }
@@ -15166,14 +15448,12 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
       console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
     });
     
-    if (steinerImages[lecture.ID]) {
-      console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-    } else {
-      console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
-      // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
-      viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-    }
+        // Lade und ersetze Bilder asynchron
+        replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
+          viewer.innerHTML = updatedHTML;
+        }).catch(error => {
+          console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+        });
   }
   
   // Activate TOC links after rendering
@@ -17745,15 +18025,28 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           let content = para.content || para.text || '';
           
+          // DEBUG: Zeige Content VOR der Konvertierung wenn Bilder vorhanden
+          if (content.includes('![') || content.includes('img-')) {
+            console.log('[MARKDOWN-DEBUG] Content VOR marked.parse():', content.substring(0, 200));
+          }
+          
           // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
             console.log('[MARKDOWN] Content konvertiert mit marked.parse()');
-            // Manuelle Bild-Konvertierung falls nötig
+            
+            // DEBUG: Zeige Content NACH der Konvertierung wenn Bilder vorhanden
+            if (content.includes('<img') || content.includes('![')) {
+              console.log('[MARKDOWN-DEBUG] Content NACH marked.parse():', content.substring(0, 200));
+            }
+            
+            // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
             if (content.includes('![')) {
+              console.warn('[MARKDOWN] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
                 src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+                console.log('[MARKDOWN] Manuelle Bild-Konvertierung:', alt, '->', src);
                 return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
               });
             }
@@ -17786,11 +18079,68 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // Markiere Keywords immer, wenn sie explizit übergeben wurden
           // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+          // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
           if (keywords && keywords.length > 0) {
+            // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+            function highlightInHTML(htmlContent, searchWord) {
+              // Erstelle temporäres DOM-Element für sicheres Highlighting
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = htmlContent;
+              
+              // Verwende TreeWalker um nur Textknoten zu markieren
+              const walker = document.createTreeWalker(
+                tempDiv,
+                NodeFilter.SHOW_TEXT,
+                {
+                  acceptNode: function(node) {
+                    // Überspringe Textknoten die bereits in <mark> Tags sind
+                    let parent = node.parentNode;
+                    while (parent && parent !== tempDiv) {
+                      if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                        return NodeFilter.FILTER_REJECT;
+                      }
+                      parent = parent.parentNode;
+                    }
+                    return NodeFilter.FILTER_ACCEPT;
+                  }
+                },
+                false
+              );
+              
+              const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              const regex = new RegExp(`(${escapedWord})`, "gi");
+              
+              const textNodesToMark = [];
+              let textNode;
+              while (textNode = walker.nextNode()) {
+                if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+                  textNodesToMark.push(textNode);
+                }
+              }
+              
+              // Markiere Suchwort in Textknoten
+              textNodesToMark.forEach(textNode => {
+                const text = textNode.textContent;
+                const highlightedText = text.replace(regex, '<mark>$1</mark>');
+                const tempSpan = document.createElement('span');
+                tempSpan.innerHTML = highlightedText;
+                
+                const parent = textNode.parentNode;
+                if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+                  while (tempSpan.firstChild) {
+                    parent.insertBefore(tempSpan.firstChild, textNode);
+                  }
+                  parent.removeChild(textNode);
+                }
+              });
+              
+              return tempDiv.innerHTML;
+            }
+            
             keywords.forEach(word => {
               if (word && word.trim()) {
-                const regex = new RegExp(`(${word.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, "gi");
-                content = content.replace(regex, "<mark>$1</mark>");
+                // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+                content = highlightInHTML(content, word.trim());
               }
             });
           }
@@ -17850,14 +18200,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           console.log(`[IMAGES] Bild ${idx}:`, img.getAttribute('src'));
         });
         
-        if (steinerImages[lecture.ID]) {
-          console.log('[IMAGES] Ersetze Bilder für', lecture.ID);
-          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-        } else {
-          console.warn('[IMAGES] ⚠ Keine Bilder in Datenbank für', lecture.ID);
-          // Versuche trotzdem Bilder zu ersetzen (falls die Funktion auch ohne Datenbank funktioniert)
-          viewer.innerHTML = replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID);
-        }
+        // Lade und ersetze Bilder asynchron
+        replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
+          viewer.innerHTML = updatedHTML;
+        }).catch(error => {
+          console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+        });
       }
       
       // Activate TOC links
