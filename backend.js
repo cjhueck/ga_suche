@@ -70,43 +70,29 @@ app.use((req, res, next) => {
 // ============================================================================
 // SICHERHEIT: Input-Validierung Helper-Funktionen
 // ============================================================================
+// DEAKTIVIERT - verursachte Probleme mit Timeline-Suche und anderen Features
+// TODO: Später wieder aktivieren mit weniger strikten Validierungen
 
-/**
- * Validiert Lecture-ID Format (z.B. "GA001/1" oder "GA001")
- * @param {string} lectureId - Die zu validierende Lecture-ID
- * @returns {boolean} - true wenn gültig
- */
+/*
 function validateLectureId(lectureId) {
   if (!lectureId || typeof lectureId !== 'string') return false;
-  // Erlaubt: GA001-GA999, optional /1-999
   return /^GA\d{3}(\/\d{1,3})?$/.test(lectureId);
 }
 
-/**
- * Validiert GA-Nummer Format (z.B. "GA001" oder "001")
- * @param {string} gaNumber - Die zu validierende GA-Nummer
- * @returns {boolean} - true wenn gültig
- */
 function validateGANumber(gaNumber) {
   if (!gaNumber || typeof gaNumber !== 'string') return false;
-  // Erlaubt: GA001-GA999 oder 001-999
   const normalized = gaNumber.toUpperCase().replace(/^GA/, '');
   return /^\d{3}$/.test(normalized);
 }
 
-/**
- * Sanitisiert String-Input (entfernt gefährliche Zeichen)
- * @param {string} input - Der zu sanitierende Input
- * @param {number} maxLength - Maximale Länge (optional)
- * @returns {string} - Sanitierter String
- */
 function sanitizeString(input, maxLength = 1000) {
   if (typeof input !== 'string') return '';
   return input
-    .replace(/[<>]/g, '') // Entferne < und >
+    .replace(/[<>]/g, '')
     .substring(0, maxLength)
     .trim();
 }
+*/
 
 // API: Bilder aus GA-Ordnern servieren (für Bücher) - MUSS VOR express.static kommen!
 app.get('/assets/*', async (req, res) => {
@@ -3712,16 +3698,8 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
 
 app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
-    // SICHERHEIT: Validiere Inputs
-    if (!validateGANumber(req.params.gaNumber)) {
-      return res.status(400).json({ error: 'Invalid GA number format' });
-    }
-    const lectureNum = sanitizeString(req.params.lectureNum, 10);
-    if (!/^\d{1,3}$/.test(lectureNum)) {
-      return res.status(400).json({ error: 'Invalid lecture number format' });
-    }
-    
-    const lectureId = `${req.params.gaNumber}/${lectureNum}`;
+    // VALIDIERUNG ENTFERNT - verursachte Probleme
+    const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
     console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
     
@@ -5644,12 +5622,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
     
-    // SICHERHEIT: Validiere GA-Nummer Format
-    if (!validateGANumber(gaNumberOriginal)) {
-      console.warn(`[BOOK] Ungültige GA-Nummer: ${gaNumberOriginal}`);
-      return res.status(400).json({ error: 'Invalid GA number format' });
-    }
-    
+    // VALIDIERUNG ENTFERNT - verursachte Probleme
     const gaNumberNormalized = gaNumberOriginal.toLowerCase();
 
     console.log(`[BOOK] Anfrage für ${gaNumberOriginal}`);
@@ -11819,11 +11792,7 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
     const lectureId = req.params.lectureId;
     
     if (lectureId) {
-      // SICHERHEIT: Validiere Lecture-ID Format
-      if (!validateLectureId(lectureId)) {
-        console.warn(`[IMAGES-API] Ungültige Lecture-ID: ${lectureId}`);
-        return res.status(400).json({ error: 'Invalid lecture ID format' });
-      }
+      // VALIDIERUNG ENTFERNT - verursachte Probleme
       // Prüfe zuerst ob bereits im Memory-Cache
       if (steinerImages[lectureId]) {
         const images = steinerImages[lectureId];
