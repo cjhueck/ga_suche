@@ -400,7 +400,7 @@ async function findDataFiles() {
   // Beispiel: steiner-full-lectures-130-159*.json und steiner-full-lectures-261-261.json
   // sind bereits in steiner-full-lectures-051-354-part*.json enthalten
   const hasLargeRange = allLectureFiles.some(f => f.includes('051-354'));
-  
+   
   const lectureFiles = allLectureFiles.filter(file => {
     if (!hasLargeRange) return true; // Wenn keine große Range existiert, lade alle
     
