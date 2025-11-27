@@ -4680,7 +4680,7 @@ Chronologisch
       Timeline
     </button>
     <button id="viewToggle" class="depth-btn" onclick="toggleResultView()" style="padding: 4px 6px; min-width: auto;" title="Zwischen 'nur Titel' und 'Titel & Text' wechseln">
-      <span id="viewToggleText" style="font-size: 1.2em;">▼</span>
+      <span id="viewToggleText" style="font-size: 1.2em; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;">▼</span>
     </button>
   </div>
 </div>
@@ -12791,11 +12791,15 @@ function displayGAChronological(lectures) {
         // Wechsle zu Titelansicht (nur Titel)
         snippets.forEach(snippet => snippet.style.display = 'none');
         toggleText.textContent = '▲';
+        toggleText.style.webkitTextStroke = '1px currentColor';
+        toggleText.style.webkitTextFillColor = 'transparent';
         currentView = 'title';
       } else {
         // Wechsle zu Textansicht (Titel & Text)
         snippets.forEach(snippet => snippet.style.display = 'block');
         toggleText.textContent = '▼';
+        toggleText.style.webkitTextStroke = '1px currentColor';
+        toggleText.style.webkitTextFillColor = 'transparent';
         currentView = 'text';
       }
     }
@@ -12843,7 +12847,11 @@ function displayGAChronological(lectures) {
       // Reset auf Textansicht
       currentView = 'text';
       const toggleText = document.getElementById('viewToggleText');
-      if (toggleText) toggleText.textContent = '▼';
+      if (toggleText) {
+        toggleText.textContent = '▼';
+        toggleText.style.webkitTextStroke = '1px currentColor';
+        toggleText.style.webkitTextFillColor = 'transparent';
+      }
       
       // Timeline-Container mit CSS Grid
       const timelineContainer = document.createElement('div');
