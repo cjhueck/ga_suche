@@ -371,6 +371,12 @@
       margin-top: 0 !important;
     }
     
+    /* Bücher im Blocksatz - aber nicht Gedichte */
+    .book-content p:not(.poem):not(.short-lines),
+    #viewer .book-content p:not(.poem):not(.short-lines) {
+      text-align: justify;
+    }
+    
     /* GA-Links in Konzept-Übersicht */
     .concept-content .ga-keyword-link {
       color: var(--link-color);
@@ -755,7 +761,7 @@ body.dark-mode .ga-missing-text {
     }
     
     #sidebar-content .snippet {
-      font-size: var(--text-size);
+      font-size: 0.85rem;
       line-height: var(--line-height);
       color: var(--secondary-text);
       font-weight: normal;
@@ -1120,6 +1126,7 @@ body.dark-mode .ga-missing-text {
       font-size: var(--text-size);
       line-height: var(--line-height);
       color: var(--text-color);
+      text-align: justify;
     }
     
     /* Gedichte und kurze Zeilen: Keine Absatz-Abstände zwischen Zeilen */
@@ -1127,6 +1134,7 @@ body.dark-mode .ga-missing-text {
     #summary-content p.short-lines {
       margin: 0 !important;
       line-height: var(--line-height);
+      text-align: left;
     }
     
     #summary-content p.poem + p.poem,
@@ -2672,13 +2680,15 @@ body.dark-mode #thematicSearchInfo {
       line-height: 1.5 !important;
       font-size: var(--text-size);
       color: var(--text-color);
+      text-align: justify;
     }
     
-    /* Gedichte im Viewer - normale Zeilenhöhe wie normaler Text */
+    /* Gedichte im Viewer - normale Zeilenhöhe wie normaler Text, linksbündig */
     #viewer p.poem,
     #viewer p.short-lines {
       margin: 0 !important;
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text */
+      text-align: left;
     }
     
     #viewer p.poem + p.poem,
@@ -9057,7 +9067,7 @@ function convertFootnotesToLinks() {
           e.preventDefault();
           const footnote = document.getElementById(`fn${part.id}`);
           if (footnote) {
-            footnote.scrollIntoView({ behavior: 'auto', block: 'center' });
+            footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
             const originalBg = footnote.style.backgroundColor;
             footnote.style.backgroundColor = 'var(--highlight-color)';
             setTimeout(() => {
@@ -9083,7 +9093,7 @@ function convertFootnotesToLinks() {
       const targetId = backlink.getAttribute('href').substring(1);
       const target = document.getElementById(targetId);
       if (target) {
-        target.scrollIntoView({ behavior: 'auto', block: 'center' });
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
     });
   });
@@ -9105,7 +9115,7 @@ function activateFootnoteLinks() {
       if (targetId) {
         const footnote = document.getElementById(targetId);
         if (footnote) {
-          footnote.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          footnote.scrollIntoView({ behavior: 'smooth', block: 'start' });
           // Markiere kurz
           const originalBg = footnote.style.backgroundColor;
           footnote.style.backgroundColor = 'var(--highlight-color)';
@@ -9131,7 +9141,7 @@ function activateFootnoteLinks() {
       backlinkEl.style.marginLeft = '0.5rem';
       backlinkEl.addEventListener('click', (e) => {
         e.preventDefault();
-        backlink.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        backlink.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
       fn.appendChild(backlinkEl);
     }
@@ -9426,7 +9436,7 @@ async function showKeywordSearchInTimeline(keyword) {
   resultsDiv.appendChild(timelineContainer);
   
   // Zeige Ladeanzeige
-  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Lade Keyword-Einträge und führe GA-Suche durch...</div>';
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Führe GA-Suche durch...</div>';
   
   try {
     // SCHRITT 1: Lade vorhandene Keyword-Einträge aus keywords-database.json
@@ -9714,7 +9724,7 @@ async function displayGAOverview(data) {
         
         ${lecture.shortSummary ? `
           <div class="ga-summary-text" style="margin-top: 0.5rem; display: ${gaOverviewShowSummaries ? 'block' : 'none'};">
-            <p style="margin: 0; line-height: var(--line-height); font-size: var(--text-size); color: #666; font-style: italic;">
+            <p style="margin: 0; line-height: var(--line-height); font-size: 0.85rem; color: #666; font-style: italic;">
               ${lecture.shortSummary}
             </p>
           </div>
@@ -13016,8 +13026,14 @@ function displayGAChronological(lectures) {
             }
             
             if (foundPosition !== -1 && content) {
-              const start = Math.max(0, foundPosition - 200);
-              const end = Math.min(content.length, foundPosition + foundWord.length + 200);
+              // Berechne Start und Ende so, dass der Treffer in der Mitte ist (insgesamt 200 Zeichen)
+              const maxLength = 200;
+              const wordLength = foundWord.length;
+              const contextBefore = Math.floor((maxLength - wordLength) / 2);
+              const contextAfter = maxLength - wordLength - contextBefore;
+              
+              const start = Math.max(0, foundPosition - contextBefore);
+              const end = Math.min(content.length, foundPosition + wordLength + contextAfter);
               
               snippet = (start > 0 ? '...' : '') + 
                         content.substring(start, end) + 
