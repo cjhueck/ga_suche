@@ -13034,17 +13034,59 @@ function displayGAChronological(lectures) {
             }
             
             if (foundPosition !== -1 && content) {
-              // Berechne Start und Ende so, dass der Treffer in der Mitte ist (insgesamt 200 Zeichen)
-              const maxLength = 200;
-              const wordLength = foundWord.length;
-              const contextBefore = Math.floor((maxLength - wordLength) / 2);
-              const contextAfter = maxLength - wordLength - contextBefore;
+              // Berechne Start und Ende basierend auf Anzahl der Wörter: 12 Wörter davor, 12 danach
+              const wordsBefore = 12;
+              const wordsAfter = 12;
               
-              const start = Math.max(0, foundPosition - contextBefore);
-              const end = Math.min(content.length, foundPosition + wordLength + contextAfter);
+              // Finde Start-Position: Gehe rückwärts und zähle Wörter
+              let start = foundPosition;
+              let wordCount = 0;
+              
+              // Gehe rückwärts vom Treffer und zähle Wörter
+              while (start > 0 && wordCount < wordsBefore) {
+                // Finde vorheriges Leerzeichen oder Wortgrenze
+                const prevSpace = content.lastIndexOf(' ', start - 1);
+                if (prevSpace === -1) {
+                  start = 0;
+                  break;
+                }
+                // Prüfe ob es wirklich ein Wort ist (nicht nur Leerzeichen/Punktuation)
+                const wordStart = prevSpace + 1;
+                const wordEnd = start;
+                const potentialWord = content.substring(wordStart, wordEnd).trim();
+                if (potentialWord.length > 0 && /[\wäöüÄÖÜß]/.test(potentialWord)) {
+                  wordCount++;
+                }
+                start = prevSpace;
+              }
+              
+              // Finde End-Position: Gehe vorwärts vom Ende des Treffers und zähle Wörter
+              let end = foundPosition + foundWord.length;
+              wordCount = 0;
+              
+              while (end < content.length && wordCount < wordsAfter) {
+                // Finde nächstes Leerzeichen oder Wortgrenze
+                const nextSpace = content.indexOf(' ', end);
+                if (nextSpace === -1) {
+                  end = content.length;
+                  break;
+                }
+                // Prüfe ob es wirklich ein Wort ist
+                const wordStart = end;
+                const wordEnd = nextSpace;
+                const potentialWord = content.substring(wordStart, wordEnd).trim();
+                if (potentialWord.length > 0 && /[\wäöüÄÖÜß]/.test(potentialWord)) {
+                  wordCount++;
+                }
+                end = nextSpace + 1;
+              }
+              
+              // Stelle sicher, dass wir nicht über die Grenzen hinausgehen
+              start = Math.max(0, start);
+              end = Math.min(content.length, end);
               
               snippet = (start > 0 ? '...' : '') + 
-                        content.substring(start, end) + 
+                        content.substring(start, end).trim() + 
                         (end < content.length ? '...' : '');
               
               // Hilfsfunktion für Highlighting mit oder ohne Wortgrenzen
