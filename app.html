@@ -8181,9 +8181,6 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       while (paragraphElement && paragraphElement !== bookContentDiv) {
         const tagName = paragraphElement.tagName.toLowerCase();
         if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-          // Markiere den Absatz
-          paragraphElement.classList.add('highlighted-paragraph');
-          
           // Scrolle zum Absatz - positioniere ihn höher im Viewer (wie bei Vorträgen)
           const mainContainer = document.getElementById('main');
           if (mainContainer) {
@@ -8206,6 +8203,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             // Fallback: Standard scrollIntoView
             paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
             console.log(`[BOOK] Zu Absatz ${targetParagraphIndex} gescrollt (Fallback)`);
+          }
+          
+          // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
+          if (typeof addHighlightingWithAutoRemove === 'function') {
+            addHighlightingWithAutoRemove(paragraphElement);
+          } else {
+            paragraphElement.classList.add('highlighted-paragraph');
           }
           
           return;
@@ -11000,6 +11004,11 @@ function displayGAChronological(lectures) {
               const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
+                
+                // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
+                if (typeof addHighlightingWithAutoRemove === 'function') {
+                  addHighlightingWithAutoRemove(targetElement);
+                }
               }
             }, 100);
           } else {
@@ -11494,20 +11503,8 @@ function displayGAChronological(lectures) {
             }
           }
           
-          // Wenn ein Ziel-Paragraph angegeben ist, markiere ihn
-          if (hasValidIndex && targetParagraphIdx !== null && targetParagraphIdx >= 0) {
-            // Finde alle Elemente mit Paragraph-Indizes
-            const allElements = tempDiv.querySelectorAll('[data-index], [id^="para-"]');
-            allElements.forEach(el => {
-              const indexAttr = el.getAttribute('data-index') || el.id.replace('para-', '');
-              if (indexAttr && bookParagraphs[targetParagraphIdx]) {
-                const paraIndex = bookParagraphs[targetParagraphIdx].index?.replace(/^\^/, '') || '';
-                if (indexAttr.replace(/^\^/, '') === paraIndex) {
-                  el.closest('p, div, h1, h2, h3, h4, h5, h6, li, blockquote')?.classList.add('highlighted-paragraph');
-                }
-              }
-            });
-          }
+          // Wenn ein Ziel-Paragraph angegeben ist, markiere ihn später nach DOM-Rendering
+          // (Die Markierung wird im setTimeout-Block unten hinzugefügt)
           
           // Füge den gerenderten Content hinzu
           html += '<div class="book-content">' + tempDiv.innerHTML + '</div>';
@@ -11534,11 +11531,15 @@ function displayGAChronological(lectures) {
                   if (!paragraphElement) paragraphElement = paraElement.parentElement;
                   
                   if (paragraphElement) {
-                    // Markiere den Absatz (blau unterlegen)
-                    paragraphElement.classList.add('highlighted-paragraph');
-                    
                     // Scrolle zum Absatz
                     paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    
+                    // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
+                    if (typeof addHighlightingWithAutoRemove === 'function') {
+                      addHighlightingWithAutoRemove(paragraphElement);
+                    } else {
+                      paragraphElement.classList.add('highlighted-paragraph');
+                    }
                     
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
                     if (searchTerm && searchTerm.trim()) {
@@ -15184,14 +15185,16 @@ function showSummaryView() {
 
     function removeAllHighlighting() {
       // Starte Fade-Out für alle highlighted-paragraph Klassen
+      // WICHTIG: Entfernt nur die Absatz-Hintergrund-Markierung, nicht die <mark> Tags (Suchwort-Markierung)
       const highlightedElements = document.querySelectorAll('.highlighted-paragraph');
       highlightedElements.forEach(element => {
-        // Starte Fade-Out nur durch Änderung der Opacity (keine Größenänderung)
+        // Starte Fade-Out nur durch Änderung der Hintergrundfarbe (keine Größenänderung)
         element.style.transition = 'background-color 1s ease-out, box-shadow 1s ease-out';
         element.style.backgroundColor = 'transparent';
         element.style.boxShadow = '0 0 0 0.4rem transparent';
         
         // Entferne die Klasse nach der Transition
+        // WICHTIG: Die <mark> Tags bleiben erhalten, da sie nicht die Klasse 'highlighted-paragraph' haben
         setTimeout(() => {
           element.classList.remove('highlighted-paragraph');
           element.style.transition = '';
@@ -15594,6 +15597,16 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
               }, 500);
             }, 100);
           }
+          
+          // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
+          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+            setTimeout(() => {
+              const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
+              if (targetParaElement) {
+                addHighlightingWithAutoRemove(targetParaElement);
+              }
+            }, 300);
+          }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
           // Auch bei Fehler Icons setzen
@@ -15606,6 +15619,16 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
                 }
               }, 500);
             }, 100);
+          }
+          
+          // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
+          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+            setTimeout(() => {
+              const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
+              if (targetParaElement) {
+                addHighlightingWithAutoRemove(targetParaElement);
+              }
+            }, 300);
           }
         });
   } else {
@@ -15620,6 +15643,16 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           }
         }, 500);
       }, 200);
+    }
+    
+    // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
+    if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+      setTimeout(() => {
+        const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
+        if (targetParaElement) {
+          addHighlightingWithAutoRemove(targetParaElement);
+        }
+      }, 300);
     }
   }
   
@@ -18356,6 +18389,16 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
               }, 500);
             }, 200);
           }
+          
+          // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden
+          if (cleanIndex && typeof addHighlightingWithAutoRemove === 'function') {
+            setTimeout(() => {
+              const targetParaElement = document.getElementById(`para-${cleanIndex}`);
+              if (targetParaElement) {
+                addHighlightingWithAutoRemove(targetParaElement);
+              }
+            }, 300);
+          }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
           // Auch bei Fehler Gedichte formatieren
@@ -18404,6 +18447,11 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const relativeTop = targetRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
           mainContainer.scrollTop = Math.max(0, relativeTop);
           lastHighlightedIndex = cleanIndex;
+          
+          // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
+          if (typeof addHighlightingWithAutoRemove === 'function') {
+            addHighlightingWithAutoRemove(targetElement);
+          }
         } else {
           mainContainer.scrollTop = 0;
         }
@@ -27369,6 +27417,7 @@ async function addKeywordToLecture() {
   
   // API-Funktionen global verfügbar machen
   window.getBookmarks = MembersAPI.getBookmarks;
+  window.createBookmark = MembersAPI.createBookmark;
   window.getQuotes = MembersAPI.getQuotes;
   window.getNotes = MembersAPI.getNotes;
   window.createNote = MembersAPI.createNote;
