@@ -317,7 +317,10 @@ async function showMembersContent() {
     <div class="members-panel">
       <div class="members-header-container">
         <div class="members-header">
-          <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+          <div style="flex: 1;">
+            <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Bookmarks und Zitate per Rechtsklick speichern</div>
+          </div>
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
         
