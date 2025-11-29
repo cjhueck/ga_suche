@@ -385,18 +385,31 @@ async function showMembersContent() {
 /**
  * Tab wechseln
  */
-async function switchMembersTab(tabName) {
+async function switchMembersTab(tabName, preserveKeyword = false) {
   currentMembersTab = tabName;
   
   // Tab-Buttons aktualisieren
   document.querySelectorAll('.members-tab').forEach(tab => {
     tab.classList.remove('active');
   });
-  event.target.classList.add('active');
   
-  // Keyword-Filter zurücksetzen
+  // Aktiviere den richtigen Tab-Button
+  const tabButtons = document.querySelectorAll('.members-tab');
+  tabButtons.forEach(btn => {
+    const onclickAttr = btn.getAttribute('onclick');
+    if (onclickAttr && onclickAttr.includes(`'${tabName}'`)) {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Wenn event vorhanden ist (bei manuellem Klick), nutze es
+  if (typeof event !== 'undefined' && event && event.target) {
+    event.target.classList.add('active');
+  }
+  
+  // Keyword-Filter zurücksetzen (außer wenn preserveKeyword true ist)
   const keywordSelect = document.getElementById('keyword-filter-select');
-  if (keywordSelect) {
+  if (keywordSelect && !preserveKeyword) {
     keywordSelect.value = '';
   }
   
@@ -455,9 +468,11 @@ async function loadBookmarksTab(container) {
   
   const result = await getBookmarks();
   
+  // Lade alle Keywords aus Bookmarks und Quotes
+  await updateKeywordFilterDropdownWithAllKeywords();
+  
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Bookmarks</div>';
-    updateKeywordFilterDropdown([]);
     return;
   }
   
@@ -467,17 +482,6 @@ async function loadBookmarksTab(container) {
     const dateB = new Date(b.created_at);
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
-  
-  // Sammle alle Keywords
-  const allKeywords = new Set();
-  sortedData.forEach(bookmark => {
-    if (bookmark.tags && Array.isArray(bookmark.tags)) {
-      bookmark.tags.forEach(tag => allKeywords.add(tag));
-    }
-  });
-  
-  const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
-  updateKeywordFilterDropdown(sortedKeywords);
   
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
@@ -541,9 +545,11 @@ async function loadQuotesTab(container) {
   
   const result = await getQuotes();
   
+  // Lade alle Keywords aus Bookmarks und Quotes
+  await updateKeywordFilterDropdownWithAllKeywords();
+  
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
-    updateKeywordFilterDropdown([]);
     return;
   }
   
@@ -553,17 +559,6 @@ async function loadQuotesTab(container) {
     const dateB = new Date(b.created_at);
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
-  
-  // Sammle alle Keywords
-  const allKeywords = new Set();
-  sortedData.forEach(quote => {
-    if (quote.tags && Array.isArray(quote.tags)) {
-      quote.tags.forEach(tag => allKeywords.add(tag));
-    }
-  });
-  
-  const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
-  updateKeywordFilterDropdown(sortedKeywords);
   
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
@@ -758,7 +753,7 @@ Verwende:
 - [[Wiki Links]] für Verknüpfungen
 - #Tags für Kategorien
 - GA123/4 für GA-Referenzen"></textarea>
-      <button class="primary-btn" onclick="saveMemberNote()">💾 Notiz speichern</button>
+      <button class="primary-btn" onclick="saveMemberNote()">Notiz speichern</button>
       <div id="notes-list"></div>
     </div>
   `;
@@ -1608,6 +1603,49 @@ function isMembersPanelActive() {
 }
 
 /**
+ * Lädt alle Keywords aus Bookmarks und Quotes und aktualisiert das Dropdown
+ */
+async function updateKeywordFilterDropdownWithAllKeywords() {
+  if (typeof getBookmarks !== 'function' || typeof getQuotes !== 'function') {
+    console.warn('[MB-KEYWORDS] API-Funktionen nicht verfügbar');
+    return;
+  }
+  
+  try {
+    // Lade beide Datenquellen parallel
+    const [bookmarksResult, quotesResult] = await Promise.all([
+      getBookmarks(),
+      getQuotes()
+    ]);
+    
+    // Sammle alle Keywords aus beiden Quellen
+    const allKeywords = new Set();
+    
+    if (bookmarksResult.success && bookmarksResult.data) {
+      bookmarksResult.data.forEach(bookmark => {
+        if (bookmark.tags && Array.isArray(bookmark.tags)) {
+          bookmark.tags.forEach(tag => allKeywords.add(tag));
+        }
+      });
+    }
+    
+    if (quotesResult.success && quotesResult.data) {
+      quotesResult.data.forEach(quote => {
+        if (quote.tags && Array.isArray(quote.tags)) {
+          quote.tags.forEach(tag => allKeywords.add(tag));
+        }
+      });
+    }
+    
+    // Sortiere und aktualisiere Dropdown
+    const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
+    updateKeywordFilterDropdown(sortedKeywords);
+  } catch (error) {
+    console.error('[MB-KEYWORDS] Fehler beim Laden der Keywords:', error);
+  }
+}
+
+/**
  * Aktualisiert das Keyword-Filter Dropdown mit neuen Keywords
  */
 function updateKeywordFilterDropdown(keywords) {
@@ -1632,12 +1670,83 @@ function updateKeywordFilterDropdown(keywords) {
 }
 
 /**
- * Handler für Keyword-Filter - leitet an den richtigen Tab weiter
+ * Prüft, in welchem Tab ein Keyword vorhanden ist
  */
-function handleKeywordFilter(keyword) {
-  if (currentMembersTab === 'bookmarks') {
-    filterItemsByKeyword(keyword);
-  } else if (currentMembersTab === 'quotes') {
+async function findTabForKeyword(keyword) {
+  if (!keyword) return null;
+  
+  if (typeof getBookmarks !== 'function' || typeof getQuotes !== 'function') {
+    return null;
+  }
+  
+  try {
+    const [bookmarksResult, quotesResult] = await Promise.all([
+      getBookmarks(),
+      getQuotes()
+    ]);
+    
+    // Prüfe Bookmarks
+    let hasInBookmarks = false;
+    if (bookmarksResult.success && bookmarksResult.data) {
+      hasInBookmarks = bookmarksResult.data.some(bookmark => 
+        bookmark.tags && Array.isArray(bookmark.tags) && bookmark.tags.includes(keyword)
+      );
+    }
+    
+    // Prüfe Quotes
+    let hasInQuotes = false;
+    if (quotesResult.success && quotesResult.data) {
+      hasInQuotes = quotesResult.data.some(quote => 
+        quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
+      );
+    }
+    
+    // Wenn in beiden vorhanden, bleibe im aktuellen Tab
+    if (hasInBookmarks && hasInQuotes) {
+      return currentMembersTab;
+    }
+    
+    // Wenn nur in einem vorhanden, wechsle zu diesem Tab
+    if (hasInBookmarks) return 'bookmarks';
+    if (hasInQuotes) return 'quotes';
+    
+    return null;
+  } catch (error) {
+    console.error('[MB-KEYWORDS] Fehler beim Prüfen des Keywords:', error);
+    return null;
+  }
+}
+
+/**
+ * Handler für Keyword-Filter - wechselt zum richtigen Tab wenn nötig
+ */
+async function handleKeywordFilter(keyword) {
+  if (!keyword) {
+    // Kein Keyword ausgewählt - zeige alle Items im aktuellen Tab
+    filterItemsByKeyword('');
+    return;
+  }
+  
+  // Prüfe, in welchem Tab das Keyword vorhanden ist
+  const targetTab = await findTabForKeyword(keyword);
+  
+  if (targetTab && targetTab !== currentMembersTab) {
+    // Wechsle zum Tab, in dem das Keyword vorhanden ist
+    // preserveKeyword=true, damit das Dropdown nicht zurückgesetzt wird
+    await switchMembersTab(targetTab, true);
+    
+    // Stelle sicher, dass das Keyword im Dropdown ausgewählt bleibt
+    const keywordSelect = document.getElementById('keyword-filter-select');
+    if (keywordSelect) {
+      keywordSelect.value = keyword;
+    }
+    
+    // Warte kurz, damit der Tab geladen ist, dann filtere
+    setTimeout(() => {
+      filterItemsByKeyword(keyword);
+    }, 150);
+  } else {
+    // Keyword ist im aktuellen Tab vorhanden (oder in beiden) - filtere einfach
     filterItemsByKeyword(keyword);
   }
 }

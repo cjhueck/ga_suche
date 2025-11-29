@@ -536,7 +536,8 @@
       "Ritschl",
       "Rittelmeyer",
       "Briefwechsel",
-      "Oxford"
+      "Oxford",
+      "H. P. Blavatsky"
     ]
   },
   "Seelenleben": {
@@ -724,7 +725,8 @@
       "Technisches Leben",
       "Kulturrat",
       "Kulturpolitik",
-      "Kulturentwicklung"
+      "Kulturentwicklung",
+      "Scholastik"
     ]
   },
   "Christentum": {
@@ -1112,7 +1114,8 @@
       "Ignorabimus",
       "Urteilsbildung",
       "Analogie",
-      "Glaube und Wissen"
+      "Glaube und Wissen",
+      "Erkenntnistheorie"
     ]
   },
   "Naturwissenschaft": {
@@ -2026,7 +2029,9 @@
     "description": "Das Goetheanum in Dornach",
     "keywords": [
       "Goetheanum",
-      "Dornach"
+      "Dornach",
+      "Brand",
+      "Brandstiftung"
     ]
   },
   "Märchen & Mythen": {
@@ -2993,7 +2998,8 @@
       "Positivismus",
       "Fatalismus",
       "Humanismus",
-      "Intellektualismus"
+      "Intellektualismus",
+      "Platonismus"
     ]
   },
   "Hierarchien": {
@@ -3454,26 +3460,6 @@
       "Hingabe"
     ]
   },
-  "Organische Entwicklung": {
-    "description": "Organische Prinzipien in Natur und Architektur",
-    "keywords": [
-      "Organbildung",
-      "Organe",
-      "Organisch",
-      "Organische Architektur",
-      "Organische Formen",
-      "Organische Kosmologie",
-      "Organische Wirkung",
-      "Organismus",
-      "Organsysteme",
-      "Form und Leben",
-      "Leben",
-      "Zerstörungsprozesse",
-      "Lebewesen",
-      "Plastische Kräfte",
-      "Samenbildung"
-    ]
-  },
   "Planetarische Entwicklung": {
     "description": "Planetarische Entwicklungsstufen und kosmische Zyklen",
     "keywords": [
@@ -3652,7 +3638,8 @@
       "Selbstvervollkommnung",
       "Selbstbeherrschung",
       "Selbständigkeit",
-      "Übungen"
+      "Übungen",
+      "Persönlichkeitsentwicklung"
     ]
   },
   "Wahrheit & Erkenntnis": {
@@ -3823,6 +3810,32 @@
       "Zwölf Sinne",
       "Wesensglieder",
       "Menschenerkenntnis"
+    ]
+  },
+  "Anthroposophische Gesellschaft": {
+    "description": "Manuell erstellter Cluster: Anthroposophische Gesellschaft",
+    "keywords": [
+      "Statuten"
+    ]
+  },
+  "Organismus & organische Entwicklung": {
+    "description": "Organische Prinzipien in Natur und Architektur",
+    "keywords": [
+      "Organbildung",
+      "Organe",
+      "Organisch",
+      "Organische Architektur",
+      "Organische Formen",
+      "Organische Kosmologie",
+      "Organische Wirkung",
+      "Organismus",
+      "Organsysteme",
+      "Form und Leben",
+      "Leben",
+      "Zerstörungsprozesse",
+      "Lebewesen",
+      "Plastische Kräfte",
+      "Samenbildung"
     ]
   }
 }
