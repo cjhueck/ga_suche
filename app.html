@@ -54,6 +54,7 @@
       /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif; */
       height: 100vh;
       display: flex;
+      cursor: default;
       transition: background-color 0.3s, color 0.3s;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -15568,7 +15569,7 @@ function showSummaryView() {
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
-    const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+    const cursorStyle = ''; // Kein Pointer-Cursor mehr fÃ¼r AbsÃ¤tze
 
 html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
@@ -18347,7 +18348,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                                  (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
           
           const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-          const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+          const cursorStyle = ''; // Kein Pointer-Cursor mehr fÃ¼r AbsÃ¤tze
           
           html += `
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
