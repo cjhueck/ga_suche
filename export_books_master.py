@@ -337,18 +337,57 @@ class BooksExporter:
         # Wenn bereits Markdown-Fußnoten vorhanden, nur bereinigen
         if has_markdown_footnotes:
             # Entferne Backlinks (↩) aus Fußnoten-Definitionen, falls vorhanden
+            # Unterstützt mehrzeilige Fußnoten
             result_lines = []
-            for line in lines:
+            i = 0
+            while i < len(lines):
+                line = lines[i]
                 # Prüfe auf Fußnoten-Definitionen [^n]: Text
                 match = re.match(r'^(\[\^\d+\]:\s*)(.+)$', line)
                 if match:
                     prefix = match.group(1)
-                    fn_text = match.group(2).strip()
+                    fn_text = match.group(2)
+                    i += 1
+                    
+                    # Sammle alle nachfolgenden Zeilen, die Teil dieser Fußnote sind
+                    # Eine Fußnote endet, wenn:
+                    # 1. Eine neue Fußnote beginnt ([^n]:)
+                    # 2. Eine Überschrift beginnt (#)
+                    # 3. Normaler Text ohne Einrückung beginnt (aber das ist schwer zu erkennen)
+                    # Strategie: Sammle Zeilen bis zur nächsten Fußnote, aber stoppe auch bei Überschriften
+                    while i < len(lines):
+                        next_line = lines[i]
+                        # Prüfe ob nächste Zeile eine neue Fußnote ist
+                        if re.match(r'^\[\^\d+\]:', next_line):
+                            break
+                        # Prüfe ob nächste Zeile eine Überschrift ist (Fußnoten stehen normalerweise vor dem normalen Text)
+                        if re.match(r'^#+\s+', next_line):
+                            break
+                        # Prüfe ob nächste Zeile leer ist
+                        if next_line.strip() == '':
+                            # Prüfe ob nach der leeren Zeile eine neue Fußnote oder Überschrift kommt
+                            if i + 1 < len(lines):
+                                next_next = lines[i + 1]
+                                if re.match(r'^\[\^\d+\]:', next_next) or re.match(r'^#+\s+', next_next):
+                                    break
+                            # Sonst ist es Teil der Fußnote (leere Zeile innerhalb)
+                            fn_text += '\n' + next_line
+                            i += 1
+                            continue
+                        # Alle anderen Zeilen sind Teil der Fußnote
+                        fn_text += '\n' + next_line
+                        i += 1
+                    
+                    # Bereinige den Fußnoten-Text
+                    fn_text = fn_text.strip()
                     # Entferne trailing Backlinks
                     fn_text = re.sub(r'\s*[↩↩︎]\s*$', '', fn_text)
+                    # Entferne mehrfache Leerzeilen am Ende
+                    fn_text = re.sub(r'\n\n+$', '\n', fn_text)
                     result_lines.append(prefix + fn_text)
                 else:
                     result_lines.append(line)
+                    i += 1
             return '\n'.join(result_lines)
         
         # Schritt 2: Fallback: Konvertiere alte römische Ziffern-Format falls vorhanden

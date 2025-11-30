@@ -1832,10 +1832,18 @@ function closeMembersPanel() {
   }
   
   // TOC neu laden falls Funktion vorhanden
+  // WICHTIG: Warte bis DOM aktualisiert ist, bevor TOC gebaut wird
   if (typeof buildTableOfContents === 'function') {
     setTimeout(() => {
       buildTableOfContents();
-    }, 100);
+      // Stelle sicher, dass Scroll-Events wieder funktionieren
+      const mainContainer = document.getElementById('main');
+      if (mainContainer && typeof updateActiveTocItem === 'function') {
+        mainContainer.removeEventListener('scroll', updateActiveTocItem);
+        mainContainer.addEventListener('scroll', updateActiveTocItem);
+        updateActiveTocItem();
+      }
+    }, 150);
   }
 }
 
@@ -1892,17 +1900,24 @@ function switchFromMembersPanelToTOC() {
         updateResizeHandle();
       }
     }, 50);
-    
-    console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
   }
   
   // TOC neu laden falls Funktion vorhanden
+  // WICHTIG: Warte bis DOM aktualisiert ist, bevor TOC gebaut wird
   if (typeof buildTableOfContents === 'function') {
     setTimeout(() => {
       buildTableOfContents();
-    }, 100);
+      // Stelle sicher, dass Scroll-Events wieder funktionieren
+      const mainContainer = document.getElementById('main');
+      if (mainContainer && typeof updateActiveTocItem === 'function') {
+        mainContainer.removeEventListener('scroll', updateActiveTocItem);
+        mainContainer.addEventListener('scroll', updateActiveTocItem);
+        updateActiveTocItem();
+      }
+    }, 150);
   }
   
+  console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
   console.log('[MB→TOC] Wechsel vom Mitgliederbereich zum TOC - Layout-Update wird vom Aufrufer abgeschlossen');
 }
 
