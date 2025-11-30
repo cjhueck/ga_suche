@@ -355,6 +355,18 @@ async function showMembersContent() {
     </div>
   `;
   
+  // Lade Bookmarks und Quotes im Hintergrund für schnellen Icon-Zugriff
+  if (typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
+    Promise.all([getBookmarks(), getQuotes()]).then(([bookmarksResult, quotesResult]) => {
+      cachedBookmarksData = bookmarksResult;
+      cachedQuotesData = quotesResult;
+      bookmarksQuotesCacheTimestamp = Date.now();
+      console.log('[MB-CACHE] Bookmarks/Quotes-Daten für Icons gecacht');
+    }).catch(err => {
+      console.warn('[MB-CACHE] Fehler beim Cachen der Daten:', err);
+    });
+  }
+  
   // Aktuellen Tab laden - kurze Verzögerung damit API-Module geladen sind
   setTimeout(async () => {
     await loadMembersTab(currentMembersTab);
@@ -574,6 +586,20 @@ function formatLectureDate(dateStr) {
 }
 
 /**
+ * Prüft, ob eine GA-Nummer ein Buch ist (GA001-GA046)
+ */
+function isBookGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  
+  // Normalisiere GA-Nummer (entferne "GA" und konvertiere zu Zahl)
+  const normalized = gaNumber.replace(/^GA/i, '').trim();
+  const gaNum = parseInt(normalized);
+  
+  // Bücher sind GA001-GA046
+  return !isNaN(gaNum) && gaNum >= 1 && gaNum <= 46;
+}
+
+/**
  * Bookmarks Tab
  */
 async function loadBookmarksTab(container) {
@@ -616,16 +642,20 @@ async function loadBookmarksTab(container) {
   
   const html = multiDeleteHtml + sortedData.map((bookmark, index) => {
     const lectureDate = lectureDates[index];
-    const dateDisplay = lectureDate ? ` <span style="font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    
+    // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
+    const isBook = isBookGANumber(bookmark.ga_number);
+    const shouldShowLink = bookmark.paragraph_id || isBook;
     
     return `
     <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${bookmark.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
-          ${bookmark.paragraph_id 
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>${dateDisplay}`
-            : `<strong>${bookmark.ga_number}</strong>${dateDisplay}`
+          ${shouldShowLink
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', ${bookmark.paragraph_id ? `'${bookmark.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a>${dateDisplay}</strong>`
+            : `<strong>${bookmark.ga_number}${dateDisplay}</strong>`
           }
           <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
         </div>
@@ -704,16 +734,20 @@ async function loadQuotesTab(container) {
   
   const html = multiDeleteHtml + sortedData.map((quote, index) => {
     const lectureDate = lectureDates[index];
-    const dateDisplay = lectureDate ? ` <span style="font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    
+    // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
+    const isBook = isBookGANumber(quote.ga_reference);
+    const shouldShowLink = quote.paragraph_id || isBook;
     
     return `
     <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${quote.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
-          ${quote.paragraph_id 
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>${dateDisplay}`
-            : `<strong>${quote.ga_reference}</strong>${dateDisplay}`
+          ${shouldShowLink
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay}</strong>`
+            : `<strong>${quote.ga_reference}${dateDisplay}</strong>`
           }
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
@@ -749,12 +783,12 @@ async function loadQuotesTab(container) {
 }
 
 /**
- * Navigiere zu Vortrag aus Members Panel (behält Panel offen)
- * @param {string} lectureId - Die Vortrags-ID (z.B. "GA121/6")
+ * Navigiere zu Vortrag oder Buch aus Members Panel (behält Panel offen)
+ * @param {string} lectureId - Die Vortrags-ID (z.B. "GA121/6") oder Buch-ID (z.B. "GA011")
  * @param {string} targetIndex - Optional: Der Index des Absatzes zum Scrollen
  */
 async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) {
-  console.log('[MB-NAVIGATION] Navigiere zu Vortrag:', lectureId, 'mit targetIndex:', targetIndex);
+  console.log('[MB-NAVIGATION] Navigiere zu:', lectureId, 'mit targetIndex:', targetIndex);
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
@@ -776,6 +810,9 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
   // Extrahiere GA-Nummer
   const gaNumber = lectureId.split('/')[0];
   
+  // Prüfe ob es ein Buch ist
+  const isBook = isBookGANumber(gaNumber);
+  
   // Blockiere buildTableOfContents
   const originalBuildTOC = window.buildTableOfContents;
   window.buildTableOfContents = function() {
@@ -786,6 +823,17 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     return originalBuildTOC ? originalBuildTOC.apply(this, arguments) : null;
   };
   
+  // Stelle Panel-Eigenschaften sicher BEVOR wir navigieren (damit es offen bleibt)
+  if (summaryPanel) {
+    summaryPanel.style.width = mbWidth + 'px';
+    summaryPanel.style.minWidth = mbWidth + 'px';
+    summaryPanel.classList.add('visible');
+    summaryPanel.style.display = 'block';
+    summaryPanel.style.opacity = '1';
+    summaryPanel.style.visibility = 'visible';
+    document.body.classList.remove('summary-panel-collapsed');
+  }
+  
   // Prüfe ob wir bereits im Texte-Tab sind
   const texteTab = document.getElementById('texte-tab');
   const isInTexteTab = texteTab && texteTab.classList.contains('active');
@@ -795,6 +843,17 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     // Temporär Flag setzen damit switchTab das Panel nicht schließt
     switchTab('texte');
     await new Promise(resolve => setTimeout(resolve, 200));
+    
+    // Stelle sicher, dass Panel nach Tab-Wechsel noch offen ist
+    if (summaryPanel) {
+      summaryPanel.style.width = mbWidth + 'px';
+      summaryPanel.style.minWidth = mbWidth + 'px';
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.display = 'block';
+      summaryPanel.style.opacity = '1';
+      summaryPanel.style.visibility = 'visible';
+      document.body.classList.remove('summary-panel-collapsed');
+    }
   }
   
   // Setze den GA-Filter (nur wenn GA-Band wechselt)
@@ -807,24 +866,84 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     }
   }
   
-  // Lade Vortrag - EINFACH wie showLectureFromOverview()
-  if (typeof showLecture === 'function') {
-    await showLecture(lectureId, targetIndex, []);
+  // Lade Buch oder Vortrag
+  if (isBook) {
+    // Für Bücher: Lade über API und zeige mit displayBook
+    console.log('[MB-NAVIGATION] Lade Buch:', gaNumber, 'mit targetIndex:', targetIndex);
+    try {
+      const API_BASE = window.API_BASE || '';
+      const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
+      if (response.ok) {
+        const book = await response.json();
+        if (typeof displayBook === 'function') {
+          // Für Bücher: targetIndex kann ein Paragraph-Index sein (z.B. "para-123" oder "^yz23gu")
+          // Normalisiere targetIndex falls nötig
+          let bookTargetIndex = targetIndex;
+          if (targetIndex && typeof targetIndex === 'string') {
+            if (targetIndex.startsWith('para-')) {
+              // Extrahiere den Index aus "para-123" -> "123"
+              bookTargetIndex = targetIndex.replace('para-', '');
+            } else if (targetIndex.startsWith('^')) {
+              // Behalte den Index mit ^ wenn vorhanden
+              bookTargetIndex = targetIndex;
+            }
+            // Wenn targetIndex "null" als String ist, setze auf null
+            if (targetIndex === 'null' || targetIndex === null) {
+              bookTargetIndex = null;
+            }
+          }
+          
+          console.log('[MB-NAVIGATION] Rufe displayBook auf mit targetIndex:', bookTargetIndex);
+          await displayBook(book, null, [], [], bookTargetIndex);
+          
+          // Warte kurz, damit displayBook fertig ist, bevor wir den Content wiederherstellen
+          await new Promise(resolve => setTimeout(resolve, 200));
+        } else {
+          console.error('[MB-NAVIGATION] displayBook Funktion nicht verfügbar');
+        }
+      } else {
+        console.error(`[MB-NAVIGATION] Buch nicht gefunden: ${gaNumber}`);
+      }
+    } catch (error) {
+      console.error('[MB-NAVIGATION] Fehler beim Laden des Buchs:', error);
+    }
+  } else {
+    // Für Vorträge: Verwende showLecture
+    if (typeof showLecture === 'function') {
+      await showLecture(lectureId, targetIndex, []);
+    }
   }
   
-  // SOFORT DANACH: Stelle Members Content wieder her (showLecture hat es überschrieben!)
-  if (savedContentNode && summaryContent) {
-    const newNode = savedContentNode.cloneNode(true);
-    summaryContent.parentNode.replaceChild(newNode, summaryContent);
-    console.log('[MB-NAVIGATION] Members Content wiederhergestellt');
+  // SOFORT DANACH: Stelle Members Content wieder her (showLecture/displayBook hat es überschrieben!)
+  // Warte kurz, damit displayBook/showLecture fertig ist
+  await new Promise(resolve => setTimeout(resolve, 150));
+  
+  if (savedContentNode) {
+    // Prüfe ob summaryContent noch existiert (könnte durch displayBook/showLecture ersetzt worden sein)
+    const currentSummaryContent = document.getElementById('summary-content');
+    if (currentSummaryContent) {
+      const newNode = savedContentNode.cloneNode(true);
+      currentSummaryContent.parentNode.replaceChild(newNode, currentSummaryContent);
+      console.log('[MB-NAVIGATION] Members Content wiederhergestellt');
+    }
   }
   
-  // Stelle Panel-Eigenschaften sicher
-  if (summaryPanel) {
-    summaryPanel.style.width = mbWidth + 'px';
-    summaryPanel.style.minWidth = mbWidth + 'px';
-    summaryPanel.classList.add('visible');
-    summaryPanel.style.display = 'block';
+  // Stelle Panel-Eigenschaften sicher (nochmal, falls sie überschrieben wurden)
+  const currentSummaryPanel = document.getElementById('summary-panel');
+  if (currentSummaryPanel) {
+    currentSummaryPanel.style.width = mbWidth + 'px';
+    currentSummaryPanel.style.minWidth = mbWidth + 'px';
+    currentSummaryPanel.classList.add('visible');
+    currentSummaryPanel.style.display = 'block';
+    currentSummaryPanel.style.opacity = '1';
+    currentSummaryPanel.style.visibility = 'visible';
+    document.body.classList.remove('summary-panel-collapsed');
+    
+    // Stelle auch sicher, dass summary-content die richtige Klasse hat
+    const currentSummaryContent = document.getElementById('summary-content');
+    if (currentSummaryContent) {
+      currentSummaryContent.classList.add('has-members-panel');
+    }
   }
   
   // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
@@ -845,8 +964,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     }
   }, 50);
   
-  // Lade GA-Übersicht im linken Panel (wie beim normalen Vortragswechsel)
-  if (gaNumber && typeof loadGAOverviewInSidePanelOnly === 'function') {
+  // Lade GA-Übersicht im linken Panel (nur für Vorträge, nicht für Bücher)
+  if (!isBook && gaNumber && typeof loadGAOverviewInSidePanelOnly === 'function') {
     await loadGAOverviewInSidePanelOnly(gaNumber);
   }
   
@@ -1364,6 +1483,12 @@ let lastMarkedLectureId = null;
 let lastBookmarksData = null;
 let lastQuotesData = null;
 
+// Globaler Cache für alle Bookmarks und Quotes (wird beim Öffnen des Mitgliederbereichs geladen)
+let cachedBookmarksData = null;
+let cachedQuotesData = null;
+let bookmarksQuotesCacheTimestamp = null;
+const BOOKMARKS_QUOTES_CACHE_TTL = 30000; // 30 Sekunden Cache-Gültigkeit
+
 /**
  * Markiere Absätze im Viewer, die bereits Bookmarks oder Zitate haben
  */
@@ -1374,11 +1499,33 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
       return; // Nicht angemeldet - keine Markierungen
     }
     
-    // Lade alle Bookmarks und Zitate für diesen Vortrag
-    const [bookmarksResult, quotesResult] = await Promise.all([
-      getBookmarks(),
-      getQuotes()
-    ]);
+    // Prüfe Cache zuerst (wenn vorhanden und noch gültig)
+    let bookmarksResult, quotesResult;
+    const now = Date.now();
+    const cacheValid = cachedBookmarksData && cachedQuotesData && 
+                       bookmarksQuotesCacheTimestamp && 
+                       (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+    
+    if (cacheValid) {
+      // Verwende gecachte Daten (synchron, sehr schnell!)
+      console.log('[MB-ICONS] Verwende gecachte Bookmarks/Quotes-Daten');
+      bookmarksResult = cachedBookmarksData;
+      quotesResult = cachedQuotesData;
+    } else {
+      // Lade alle Bookmarks und Zitate (nur wenn Cache nicht verfügbar)
+      console.log('[MB-ICONS] Lade Bookmarks/Quotes-Daten...');
+      const results = await Promise.all([
+        getBookmarks(),
+        getQuotes()
+      ]);
+      bookmarksResult = results[0];
+      quotesResult = results[1];
+      
+      // Aktualisiere Cache
+      cachedBookmarksData = bookmarksResult;
+      cachedQuotesData = quotesResult;
+      bookmarksQuotesCacheTimestamp = now;
+    }
     
     if (!bookmarksResult.success && !quotesResult.success) {
       return; // Fehler beim Laden
