@@ -1793,6 +1793,10 @@ function showMembersRegister() {
 function closeMembersPanel() {
   membersPanelActive = false;
   
+  // WICHTIG: Stoppe Scroll-Position-Schutz und setze Navigation-Flag zurück
+  stopScrollPositionProtection();
+  window.membersNavigating = false;
+  
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
   const resizeHandle = document.getElementById('verticalResizeHandle');
@@ -1807,9 +1811,7 @@ function closeMembersPanel() {
     summaryPanel.style.minWidth = '0';
     
     // Zurück zur Standard-TOC-Ansicht
-    if (summaryPanel) {
-      summaryPanel.classList.remove('has-members-panel');
-    }
+    summaryPanel.classList.remove('has-members-panel');
     if (summaryContent) {
       summaryContent.classList.remove('has-members-panel');
       summaryContent.innerHTML = '<div id="toc-list"></div>';
@@ -1828,6 +1830,13 @@ function closeMembersPanel() {
       updateResizeHandle();
     }, 50);
   }
+  
+  // TOC neu laden falls Funktion vorhanden
+  if (typeof buildTableOfContents === 'function') {
+    setTimeout(() => {
+      buildTableOfContents();
+    }, 100);
+  }
 }
 
 /**
@@ -1836,11 +1845,20 @@ function closeMembersPanel() {
 function switchFromMembersPanelToTOC() {
   membersPanelActive = false;
   
+  // WICHTIG: Stoppe Scroll-Position-Schutz und setze Navigation-Flag zurück
+  stopScrollPositionProtection();
+  window.membersNavigating = false;
+  
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
   const mainContainer = document.getElementById('main-container');
   
+  // Entferne Members-Panel-Klassen
+  if (summaryPanel) {
+    summaryPanel.classList.remove('has-members-panel');
+  }
   if (summaryContent) {
+    summaryContent.classList.remove('has-members-panel');
     // Setze Inhalt auf TOC zurück, aber lasse Panel offen
     summaryContent.innerHTML = '<div id="toc-list"></div>';
   }
@@ -1876,6 +1894,13 @@ function switchFromMembersPanelToTOC() {
     }, 50);
     
     console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
+  }
+  
+  // TOC neu laden falls Funktion vorhanden
+  if (typeof buildTableOfContents === 'function') {
+    setTimeout(() => {
+      buildTableOfContents();
+    }, 100);
   }
   
   console.log('[MB→TOC] Wechsel vom Mitgliederbereich zum TOC - Layout-Update wird vom Aufrufer abgeschlossen');
