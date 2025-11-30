@@ -14,6 +14,7 @@ let savedPanelTop = null; // Speichere die top-Position des Panels
 let membersScrollObserver = null; // MutationObserver für Scroll-Position
 let sortOrder = 'desc'; // 'asc' oder 'desc' - Standard: neueste zuerst
 let multiDeleteMode = false; // Multi-Delete-Modus aktiviert?
+let membersLectureDatesCache = {}; // Cache für Vortrags-Daten
 
 /**
  * Speichert die aktuelle Scroll-Position ALLER scrollenden Elemente UND die Panel-Position
@@ -460,6 +461,119 @@ async function loadMembersTab(tabName) {
 }
 
 /**
+ * Lädt alle Vortragsdaten einmalig (wird gecacht)
+ */
+async function loadAllLectureDates() {
+  // Wenn bereits geladen, nicht nochmal laden
+  if (membersLectureDatesCache._loaded) {
+    return membersLectureDatesCache;
+  }
+  
+  try {
+    // Versuche zuerst aus window.fullLecturesData zu holen (falls bereits geladen)
+    if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
+      console.log('[MB-DATE] Verwende bereits geladene Vortragsdaten');
+      Object.keys(window.fullLecturesData).forEach(id => {
+        const lecture = window.fullLecturesData[id];
+        if (lecture.date) {
+          const formattedDate = formatLectureDate(lecture.date);
+          // Speichere mit verschiedenen Schreibweisen für schnellen Zugriff
+          membersLectureDatesCache[id] = formattedDate; // Original (z.B. "ga107/2")
+          membersLectureDatesCache[id.toUpperCase()] = formattedDate; // Großbuchstaben (z.B. "GA107/2")
+          // Speichere auch mit gemischter Schreibweise (GA107/2)
+          const mixedCase = id.charAt(0).toUpperCase() + id.slice(1);
+          membersLectureDatesCache[mixedCase] = formattedDate;
+        }
+      });
+      membersLectureDatesCache._loaded = true;
+      return membersLectureDatesCache;
+    }
+    
+    // Lade über API (nur einmal)
+    if (typeof fetch !== 'undefined') {
+      console.log('[MB-DATE] Lade Vortragsdaten über API...');
+      const response = await fetch('/api/full-lectures');
+      if (response.ok) {
+        const lectures = await response.json();
+        // Speichere alle Daten im Cache
+        Object.keys(lectures).forEach(id => {
+          const lecture = lectures[id];
+          if (lecture.date) {
+            const formattedDate = formatLectureDate(lecture.date);
+            // Speichere mit verschiedenen Schreibweisen für schnellen Zugriff
+            membersLectureDatesCache[id] = formattedDate; // Original (z.B. "ga107/2")
+            membersLectureDatesCache[id.toUpperCase()] = formattedDate; // Großbuchstaben (z.B. "GA107/2")
+            // Speichere auch mit gemischter Schreibweise (GA107/2)
+            const mixedCase = id.charAt(0).toUpperCase() + id.slice(1);
+            membersLectureDatesCache[mixedCase] = formattedDate;
+          }
+        });
+        
+        // Speichere auch in window.fullLecturesData für zukünftige Verwendung
+        if (typeof window !== 'undefined') {
+          window.fullLecturesData = lectures;
+        }
+        
+        membersLectureDatesCache._loaded = true;
+        console.log(`[MB-DATE] ${Object.keys(lectures).length} Vortragsdaten geladen`);
+        return membersLectureDatesCache;
+      }
+    }
+  } catch (error) {
+    console.warn('[MB-DATE] Fehler beim Laden der Vortragsdaten:', error);
+  }
+  
+  membersLectureDatesCache._loaded = true;
+  return membersLectureDatesCache;
+}
+
+/**
+ * Holt das Datum eines Vortrags basierend auf der GA-Nummer (aus Cache)
+ */
+function getLectureDate(gaReference) {
+  if (!gaReference) return '';
+  
+  // Normalisiere GA-Nummer (z.B. "GA107/2" -> "ga107/2")
+  const normalizedId = gaReference.toLowerCase();
+  
+  // Prüfe Cache mit verschiedenen Varianten
+  if (membersLectureDatesCache[normalizedId]) {
+    return membersLectureDatesCache[normalizedId];
+  }
+  
+  // Prüfe auch mit Großbuchstaben
+  if (membersLectureDatesCache[gaReference]) {
+    return membersLectureDatesCache[gaReference];
+  }
+  
+  // Prüfe auch mit gemischter Schreibweise (GA107/2)
+  const mixedCase = gaReference.charAt(0).toUpperCase() + gaReference.slice(1).toLowerCase();
+  if (membersLectureDatesCache[mixedCase]) {
+    return membersLectureDatesCache[mixedCase];
+  }
+  
+  return '';
+}
+
+/**
+ * Formatiert ein Datum im deutschen Format (z.B. "21. Oktober 1908")
+ */
+function formatLectureDate(dateStr) {
+  if (!dateStr) return '';
+  
+  try {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('de-DE', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  } catch (error) {
+    return dateStr;
+  }
+}
+
+/**
  * Bookmarks Tab
  */
 async function loadBookmarksTab(container) {
@@ -486,6 +600,12 @@ async function loadBookmarksTab(container) {
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
   
+  // Lade alle Vortragsdaten einmalig (wird gecacht)
+  await loadAllLectureDates();
+  
+  // Hole Datum für jedes Bookmark aus dem Cache (synchron, sehr schnell)
+  const lectureDates = sortedData.map(bookmark => getLectureDate(bookmark.ga_number));
+  
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
@@ -494,14 +614,18 @@ async function loadBookmarksTab(container) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map(bookmark => `
+  const html = multiDeleteHtml + sortedData.map((bookmark, index) => {
+    const lectureDate = lectureDates[index];
+    const dateDisplay = lectureDate ? ` <span style="font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    
+    return `
     <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${bookmark.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
           ${bookmark.paragraph_id 
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>`
-            : `<strong>${bookmark.ga_number}</strong>`
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', '${bookmark.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a></strong>${dateDisplay}`
+            : `<strong>${bookmark.ga_number}</strong>${dateDisplay}`
           }
           <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
         </div>
@@ -528,7 +652,8 @@ async function loadBookmarksTab(container) {
         </div>
       </div>
     </div>
-  `).join('');
+    `;
+  }).join('');
   
   container.innerHTML = html;
   
@@ -563,6 +688,12 @@ async function loadQuotesTab(container) {
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
   
+  // Lade alle Vortragsdaten einmalig (wird gecacht)
+  await loadAllLectureDates();
+  
+  // Hole Datum für jedes Quote aus dem Cache (synchron, sehr schnell)
+  const lectureDates = sortedData.map(quote => getLectureDate(quote.ga_reference));
+  
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
@@ -571,14 +702,18 @@ async function loadQuotesTab(container) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map(quote => `
+  const html = multiDeleteHtml + sortedData.map((quote, index) => {
+    const lectureDate = lectureDates[index];
+    const dateDisplay = lectureDate ? ` <span style="font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    
+    return `
     <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${quote.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
           ${quote.paragraph_id 
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>`
-            : `<strong>${quote.ga_reference}</strong>`
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', '${quote.paragraph_id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a></strong>${dateDisplay}`
+            : `<strong>${quote.ga_reference}</strong>${dateDisplay}`
           }
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
@@ -604,7 +739,8 @@ async function loadQuotesTab(container) {
         </div>
       </div>
     </div>
-  `).join('');
+    `;
+  }).join('');
   
   container.innerHTML = html;
   
