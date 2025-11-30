@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
@@ -54,7 +54,6 @@
       /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif; */
       height: 100vh;
       display: flex;
-      cursor: default;
       transition: background-color 0.3s, color 0.3s;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -446,27 +445,6 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #viewer .paragraph {
       position: relative;
     }
-
-    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
-    #viewer p,
-    #viewer .paragraph,
-    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
-    #viewer span:not([onclick]):not(button),
-    #main p,
-    #main .paragraph,
-    #main div:not([onclick]):not(button):not(.no-text-cursor),
-    #main span:not([onclick]):not(button) {
-      cursor: text;
-    }
-    
-    /* Links und Buttons behalten pointer */
-    #viewer a,
-    #viewer button,
-    #main a,
-    #main button {
-      cursor: pointer;
-    }
-
     
     /* Absatz-Auswahl für Keyword-Zuordnung (nur lokal, Strg+Klick) */
     .paragraph.selected-for-keyword {
@@ -2726,27 +2704,6 @@ body.dark-mode #thematicSearchInfo {
       font-size: var(--text-size);
       color: var(--text-color);
     }
-
-    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
-    #viewer p,
-    #viewer .paragraph,
-    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
-    #viewer span:not([onclick]):not(button),
-    #main p,
-    #main .paragraph,
-    #main div:not([onclick]):not(button):not(.no-text-cursor),
-    #main span:not([onclick]):not(button) {
-      cursor: text;
-    }
-    
-    /* Links und Buttons behalten pointer */
-    #viewer a,
-    #viewer button,
-    #main a,
-    #main button {
-      cursor: pointer;
-    }
-
     
     /* Gedichte innerhalb von .paragraph im Viewer - normale Zeilenhöhe */
     #viewer .paragraph p.poem,
@@ -2830,27 +2787,6 @@ body.dark-mode #thematicSearchInfo {
     body.dark-mode #viewer .paragraph {
       color: #b8b8b8 !important;
     }
-
-    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
-    #viewer p,
-    #viewer .paragraph,
-    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
-    #viewer span:not([onclick]):not(button),
-    #main p,
-    #main .paragraph,
-    #main div:not([onclick]):not(button):not(.no-text-cursor),
-    #main span:not([onclick]):not(button) {
-      cursor: text;
-    }
-    
-    /* Links und Buttons behalten pointer */
-    #viewer a,
-    #viewer button,
-    #main a,
-    #main button {
-      cursor: pointer;
-    }
-
     
     
     body.dark-mode #viewer h3,
@@ -5015,7 +4951,7 @@ Chronologisch
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
 <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
-<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem;">
 <div>
 <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
 <option value="">Bitte Thema wählen...</option>
@@ -5025,9 +4961,6 @@ Chronologisch
 <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
 <option value="">Alle Schlagwörter</option>
 </select>
-</div>
-<div>
-<input type="text" id="timelineKeywordSearch" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" placeholder="Suche" onkeypress="if(event.key==='Enter') handleTimelineKeywordSearch()" />
 </div>
 </div>
 <!-- Statistik-Anzeige -->
@@ -9561,7 +9494,7 @@ async function showKeywordSearchInTimeline(keyword) {
       body: JSON.stringify({
         word1: keyword,
         word2: '',
-        word1IsPhrase: true,  // Exakte Suche mit Wortgrenzen (nur "Materie", nicht "materielle")
+        word1IsPhrase: false,
         word2IsPhrase: false,
         wordOperator: 'and',
         proximity: null,
@@ -15632,7 +15565,7 @@ function showSummaryView() {
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
-    const cursorStyle = ''; // Kein Pointer-Cursor mehr fÃ¼r AbsÃ¤tze
+    const cursorStyle = isLocal ? 'cursor: pointer;' : '';
 
 html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
@@ -18411,7 +18344,7 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                                  (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
           
           const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
-          const cursorStyle = ''; // Kein Pointer-Cursor mehr fÃ¼r AbsÃ¤tze
+          const cursorStyle = isLocal ? 'cursor: pointer;' : '';
           
           html += `
             <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
@@ -23420,49 +23353,6 @@ async function updateTimelineFilters(changedBy = 'keyword') {
     timelineContainer.innerHTML = '';
   }
   await renderTimelineContent();
-}
-
-
-// Handler fÃ¼r Keyword-Suche im Timeline-Tab
-async function handleTimelineKeywordSearch() {
-  const searchInput = document.getElementById('timelineKeywordSearch');
-  if (!searchInput) return;
-  
-  const searchTerm = searchInput.value.trim();
-  if (!searchTerm) return;
-  
-  console.log('[TIMELINE-SEARCH] Suche nach:', searchTerm);
-  
-  // Hole alle verfÃ¼gbaren Keywords aus dem Dropdown
-  const keywordSelect = document.getElementById('timelineKeywordFilterAdmin');
-  if (!keywordSelect) return;
-  
-  // Sammle alle Optionen aus dem Dropdown (case-insensitive Vergleich)
-  const availableKeywords = [];
-  for (let i = 0; i < keywordSelect.options.length; i++) {
-    const option = keywordSelect.options[i];
-    if (option.value) {
-      availableKeywords.push(option.value);
-    }
-  }
-  
-  // PrÃ¼fe ob das Suchwort in der Liste vorhanden ist (case-insensitive)
-  const foundKeyword = availableKeywords.find(kw => 
-    kw.toLowerCase() === searchTerm.toLowerCase()
-  );
-  
-  if (foundKeyword) {
-    // Keyword gefunden: Setze Dropdown und rufe updateTimelineFilters auf
-    console.log('[TIMELINE-SEARCH] Keyword gefunden in Liste:', foundKeyword);
-    keywordSelect.value = foundKeyword;
-    searchInput.value = '';
-    await updateTimelineFilters('keyword');
-  } else {
-    // Keyword nicht gefunden: FÃ¼hre GA-Suche durch
-    console.log('[TIMELINE-SEARCH] Keyword nicht in Liste, fÃ¼hre GA-Suche durch');
-    searchInput.value = '';
-    await showKeywordSearchInTimeline(searchTerm);
-  }
 }
 
 // Hilfsfunktion: Lade Keywords für ein bestimmtes Thema
