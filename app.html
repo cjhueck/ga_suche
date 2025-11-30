@@ -8109,11 +8109,12 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   if (!viewer || !documentTitle) return;
   
-  // Hilfsfunktion zum Verarbeiten von Paragraph-Indizes
-  function processParagraphIndex(bookContentDiv, targetIndex) {
-    // Normalisiere targetIndex
-    const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
-    console.log(`[BOOK] Suche nach Absatz mit Index: ${targetParagraphIndex}`);
+  // Hilfsfunktion zum Verarbeiten ALLER Paragraph-Indizes (für Bookmark-Icons)
+  function processAllParagraphIndices(bookContentDiv) {
+    // Prüfe ob bereits verarbeitet wurde (verhindere doppelte Verarbeitung)
+    if (bookContentDiv.dataset.indicesProcessed === 'true') {
+      return;
+    }
     
     // Finde alle Textknoten die Indizes enthalten
     const walker = document.createTreeWalker(
@@ -8137,18 +8138,25 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       textNodes.push(node);
     }
     
-    console.log(`[BOOK] Gefundene Textknoten mit Indizes: ${textNodes.length}`);
+    console.log(`[BOOK] Verarbeite ${textNodes.length} Textknoten mit Indizes für Bookmark-Icons`);
     
     // Verarbeite Textknoten rückwärts, um die Reihenfolge nicht zu stören
     textNodes.reverse().forEach(textNode => {
       const parent = textNode.parentNode;
       if (!parent || parent.nodeType !== Node.ELEMENT_NODE) return;
       
+      // Prüfe ob bereits ein para- Element für diesen Index existiert
       const indexMatch = textNode.textContent.match(/\s+(\^[a-z0-9]+)\b/);
       if (indexMatch) {
-        const indexText = indexMatch[0]; // z.B. " ^yz23gu"
         const indexId = indexMatch[1]; // z.B. "^yz23gu"
         const indexIdClean = indexId.replace(/^\^/, ''); // z.B. "yz23gu"
+        
+        // Prüfe ob bereits ein Element mit dieser ID existiert
+        if (bookContentDiv.querySelector(`#para-${indexIdClean}`)) {
+          return; // Bereits vorhanden, überspringe
+        }
+        
+        const indexText = indexMatch[0]; // z.B. " ^yz23gu"
         
         // Teile den Textknoten auf: Text vor Index, Index, Text nach Index
         const beforeIndex = textNode.textContent.substring(0, indexMatch.index);
@@ -8172,6 +8180,19 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         parent.removeChild(textNode);
       }
     });
+    
+    // Markiere als verarbeitet
+    bookContentDiv.dataset.indicesProcessed = 'true';
+  }
+  
+  // Hilfsfunktion zum Verarbeiten von Paragraph-Indizes (mit Scroll zum Ziel)
+  function processParagraphIndex(bookContentDiv, targetIndex) {
+    // Normalisiere targetIndex
+    const targetParagraphIndex = String(targetIndex).replace(/^\^/, '');
+    console.log(`[BOOK] Suche nach Absatz mit Index: ${targetParagraphIndex}`);
+    
+    // Stelle sicher, dass alle Indizes verarbeitet wurden
+    processAllParagraphIndices(bookContentDiv);
     
     // Scrolle zum Ziel-Absatz
     const targetParaElement = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
@@ -8809,6 +8830,26 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   setTimeout(() => {
     console.log('[BOOK] Aktiviere Fußnoten-Links...');
     convertFootnotesToLinks();
+    
+    // Stelle sicher, dass alle para- IDs erstellt wurden (für Bookmark-Icons)
+    const bookContentDiv = viewer.querySelector('.book-content');
+    if (bookContentDiv && typeof processAllParagraphIndices === 'function') {
+      processAllParagraphIndices(bookContentDiv);
+    }
+    
+    // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+      setTimeout(() => {
+        const bookId = book.gaNumber || book.ID;
+        markParagraphsWithBookmarksAndQuotes(bookId);
+        // Stelle Icons nach weiteren DOM-Änderungen wieder her
+        setTimeout(() => {
+          if (typeof restoreBookmarkQuoteIndicators === 'function') {
+            restoreBookmarkQuoteIndicators();
+          }
+        }, 500);
+      }, 300);
+    }
   }, 400);
   
   // Verstecke Absatz-Indizes visuell (aber behalte sie im DOM für Verlinkung)

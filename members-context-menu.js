@@ -174,6 +174,7 @@ async function contextMenuAction(action) {
   
   switch(action) {
     case 'bookmark':
+      console.log('[CONTEXTMENU-DEBUG] Rufe saveContextBookmark auf mit paragraphIndex:', paragraphIndex);
       await saveContextBookmark(selectedTextForContext, lectureId, lectureTitle, paragraphIndex);
       break;
     case 'quote':
@@ -339,6 +340,7 @@ function openContextNote(text, lectureId, lectureTitle) {
 
 /**
  * Absatz-Index aus Selection ermitteln (Format wie Timeline: "1a", "42", "intro")
+ * Für Bücher: Extrahiert auch Indizes direkt aus dem Text (Format: " ^yz23gu")
  */
 function findParagraphId(range) {
   if (!range) return null;
@@ -346,7 +348,7 @@ function findParagraphId(range) {
   try {
     let node = range.startContainer;
     
-    // Gehe Parent-Nodes hoch bis Paragraph gefunden
+    // SCHRITT 1: Suche nach para- IDs im DOM (für Vorträge)
     while (node && node !== document.body) {
       if (node.nodeType === 1) { // Element node
         // Prüfe ob ID vorhanden (Format: "para-1a", "para-42")
@@ -356,6 +358,75 @@ function findParagraphId(range) {
         }
       }
       node = node.parentNode;
+    }
+    
+    // SCHRITT 2: Falls keine para- ID gefunden, suche nach Indizes im Text (für Bücher)
+    // Starte wieder vom Selection-Container
+    node = range.startContainer;
+    let parentLevel = 0;
+    const maxParentLevels = 10; // Begrenze auf 10 Parent-Levels
+    
+    // Gehe durch alle Parent-Elemente und suche nach Text mit Indizes
+    while (node && node !== document.body && parentLevel < maxParentLevels) {
+      let textToSearch = '';
+      let searchOffset = 0;
+      
+      // Sammle Text aus dem Element
+      if (node.nodeType === 1) { // Element node
+        // Hole Text-Content des Elements
+        textToSearch = node.textContent || '';
+      } else if (node.nodeType === 3) { // Text node
+        // Für Text-Knoten: Hole Text vom Parent-Element
+        if (node.parentNode && node.parentNode.nodeType === 1) {
+          textToSearch = node.parentNode.textContent || '';
+          // Berechne Offset: Wo im Parent-Text befindet sich unser Text-Knoten?
+          let offset = 0;
+          let sibling = node.previousSibling;
+          while (sibling) {
+            offset += (sibling.textContent || '').length;
+            sibling = sibling.previousSibling;
+          }
+          searchOffset = offset;
+        } else {
+          textToSearch = node.textContent || '';
+        }
+      }
+      
+      // Suche nach Index im Format " ^yz23gu" (Leerzeichen + ^ + alphanumerisch)
+      if (textToSearch) {
+        // Suche alle Indizes im Text
+        const indexMatches = [];
+        let match;
+        const indexRegex = /\s+(\^[a-z0-9]+)\b/g;
+        
+        while ((match = indexRegex.exec(textToSearch)) !== null) {
+          indexMatches.push({
+            index: match.index,
+            id: match[1],
+            cleanId: match[1].replace(/^\^/, '')
+          });
+        }
+        
+        if (indexMatches.length > 0) {
+          // Wenn mehrere Indizes gefunden, wähle den, der am nächsten zur Selection ist
+          let bestMatch = indexMatches[0];
+          if (indexMatches.length > 1 && searchOffset > 0) {
+            // Finde den Index, der am nächsten zur Selection-Position ist
+            bestMatch = indexMatches.reduce((closest, current) => {
+              const currentDist = Math.abs(current.index - searchOffset);
+              const closestDist = Math.abs(closest.index - searchOffset);
+              return currentDist < closestDist ? current : closest;
+            });
+          }
+          
+          console.log('[CONTEXTMENU] Index aus Text extrahiert:', bestMatch.cleanId);
+          return bestMatch.cleanId;
+        }
+      }
+      
+      // Gehe zum nächsten Parent
+      node = node.parentNode;
+      parentLevel++;
     }
   } catch (err) {
     console.log('[CONTEXTMENU] Paragraph-Index nicht gefunden:', err);

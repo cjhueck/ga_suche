@@ -611,6 +611,7 @@ async function loadBookmarksTab(container) {
   
   const result = await getBookmarks();
   
+  
   // Lade alle Keywords aus Bookmarks und Quotes
   await updateKeywordFilterDropdownWithAllKeywords();
   
@@ -1568,7 +1569,25 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   if (!paraElement) return;
   
   // Prüfe ob Icon bereits vorhanden ist (auch nach DOM-Manipulationen)
-  const existingIndicator = paraElement.querySelector('.bookmark-quote-indicator');
+  // Suche im paraElement selbst und in Parent-Elementen
+  let targetElement = paraElement;
+  let existingIndicator = paraElement.querySelector('.bookmark-quote-indicator');
+  
+  // Bei Büchern: para- IDs sind in versteckten Spans, finde das Parent-Element
+  if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+    // Suche nach dem nächsten Block-Element (p, div, etc.)
+    let parent = paraElement.parentElement;
+    while (parent && parent !== document.body) {
+      const tagName = parent.tagName.toLowerCase();
+      if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+        targetElement = parent;
+        existingIndicator = parent.querySelector('.bookmark-quote-indicator');
+        break;
+      }
+      parent = parent.parentElement;
+    }
+  }
+  
   if (existingIndicator) return; // Bereits vorhanden
   
   // Prüfe ob Bookmark oder Zitat (oder beides)
@@ -1595,8 +1614,8 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   };
   
   // Füge am Anfang des Absatzes hinzu
-  paraElement.style.position = 'relative';
-  paraElement.insertBefore(indicator, paraElement.firstChild);
+  targetElement.style.position = 'relative';
+  targetElement.insertBefore(indicator, targetElement.firstChild);
 }
 
 /**
