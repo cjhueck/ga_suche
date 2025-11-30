@@ -4951,7 +4951,7 @@ Chronologisch
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
 <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem;">
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
 <div>
 <select id="timelineThemeFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('theme');">
 <option value="">Bitte Thema wählen...</option>
@@ -4961,6 +4961,9 @@ Chronologisch
 <select id="timelineKeywordFilterAdmin" class="filter-dropdown" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onchange="updateTimelineFilters('keyword');">
 <option value="">Alle Schlagwörter</option>
 </select>
+</div>
+<div>
+<input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeypress="handleTimelineKeywordSearch(event);">
 </div>
 </div>
 <!-- Statistik-Anzeige -->
@@ -9494,7 +9497,7 @@ async function showKeywordSearchInTimeline(keyword) {
       body: JSON.stringify({
         word1: keyword,
         word2: '',
-        word1IsPhrase: false,
+        word1IsPhrase: true,  // Exakte Suche: nur vollständige Wörter (z.B. "Materie" nicht "materielle")
         word2IsPhrase: false,
         wordOperator: 'and',
         proximity: null,
@@ -23309,6 +23312,60 @@ async function updateTimelineStats() {
   } catch (error) {
     console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
     statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
+  }
+}
+
+// Handle keyword search in timeline search field
+async function handleTimelineKeywordSearch(event) {
+  // Nur bei Enter-Taste ausführen
+  if (event.key !== 'Enter') {
+    return;
+  }
+  
+  event.preventDefault();
+  
+  const searchInput = document.getElementById('timelineKeywordSearch');
+  const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+  
+  if (!searchInput || !keywordDropdown) {
+    console.error('[TIMELINE-SEARCH] Input oder Dropdown nicht gefunden');
+    return;
+  }
+  
+  const searchTerm = searchInput.value.trim();
+  
+  if (!searchTerm) {
+    return; // Leeres Suchfeld ignorieren
+  }
+  
+  console.log('[TIMELINE-SEARCH] Suche nach:', searchTerm);
+  
+  // Prüfe, ob das Suchwort in der Dropdown-Liste vorhanden ist (case-insensitive)
+  let foundOption = null;
+  const options = keywordDropdown.options;
+  
+  for (let i = 0; i < options.length; i++) {
+    const optionText = options[i].text.toLowerCase();
+    const optionValue = options[i].value.toLowerCase();
+    
+    if (optionText === searchTerm.toLowerCase() || optionValue === searchTerm.toLowerCase()) {
+      foundOption = options[i];
+      break;
+    }
+  }
+  
+  // Leere das Suchfeld
+  searchInput.value = '';
+  
+  if (foundOption) {
+    // Schlagwort in der Liste gefunden: Dropdown setzen und normale Funktion aufrufen
+    console.log('[TIMELINE-SEARCH] Schlagwort gefunden in Liste:', foundOption.value);
+    keywordDropdown.value = foundOption.value;
+    await updateTimelineFilters('keyword');
+  } else {
+    // Schlagwort nicht in der Liste: GA-Suche durchführen
+    console.log('[TIMELINE-SEARCH] Schlagwort nicht in Liste, führe GA-Suche durch');
+    await showKeywordSearchInTimeline(searchTerm);
   }
 }
 
