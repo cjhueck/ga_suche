@@ -446,6 +446,27 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     #viewer .paragraph {
       position: relative;
     }
+
+    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
+    #viewer p,
+    #viewer .paragraph,
+    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
+    #viewer span:not([onclick]):not(button),
+    #main p,
+    #main .paragraph,
+    #main div:not([onclick]):not(button):not(.no-text-cursor),
+    #main span:not([onclick]):not(button) {
+      cursor: text;
+    }
+    
+    /* Links und Buttons behalten pointer */
+    #viewer a,
+    #viewer button,
+    #main a,
+    #main button {
+      cursor: pointer;
+    }
+
     
     /* Absatz-Auswahl für Keyword-Zuordnung (nur lokal, Strg+Klick) */
     .paragraph.selected-for-keyword {
@@ -2705,6 +2726,27 @@ body.dark-mode #thematicSearchInfo {
       font-size: var(--text-size);
       color: var(--text-color);
     }
+
+    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
+    #viewer p,
+    #viewer .paragraph,
+    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
+    #viewer span:not([onclick]):not(button),
+    #main p,
+    #main .paragraph,
+    #main div:not([onclick]):not(button):not(.no-text-cursor),
+    #main span:not([onclick]):not(button) {
+      cursor: text;
+    }
+    
+    /* Links und Buttons behalten pointer */
+    #viewer a,
+    #viewer button,
+    #main a,
+    #main button {
+      cursor: pointer;
+    }
+
     
     /* Gedichte innerhalb von .paragraph im Viewer - normale Zeilenhöhe */
     #viewer .paragraph p.poem,
@@ -2788,6 +2830,27 @@ body.dark-mode #thematicSearchInfo {
     body.dark-mode #viewer .paragraph {
       color: #b8b8b8 !important;
     }
+
+    /* Text-Cursor fÃ¼r Text-Elemente beim Markieren */
+    #viewer p,
+    #viewer .paragraph,
+    #viewer div:not([onclick]):not(button):not(.no-text-cursor),
+    #viewer span:not([onclick]):not(button),
+    #main p,
+    #main .paragraph,
+    #main div:not([onclick]):not(button):not(.no-text-cursor),
+    #main span:not([onclick]):not(button) {
+      cursor: text;
+    }
+    
+    /* Links und Buttons behalten pointer */
+    #viewer a,
+    #viewer button,
+    #main a,
+    #main button {
+      cursor: pointer;
+    }
+
     
     
     body.dark-mode #viewer h3,
