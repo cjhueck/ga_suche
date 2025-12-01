@@ -835,6 +835,298 @@
         min-width: 120px;
       }
     }
+    
+    /* Einführungs-Modal Styles */
+    .einfuehrung-modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.2s ease;
+    }
+    
+    .einfuehrung-modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .einfuehrung-modal-content {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      border-radius: 0;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 95%;
+      max-width: 1200px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+      position: relative;
+    }
+    
+    body.dark-mode .einfuehrung-modal-content {
+      background-color: var(--dark-background-color);
+      color: var(--dark-text-color);
+      border-color: var(--dark-border-color);
+    }
+    
+    .einfuehrung-modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    body.dark-mode .einfuehrung-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    .einfuehrung-modal-header h2 {
+      margin: 0;
+      color: var(--heading-color) !important;
+      font-size: 1.5rem;
+    }
+    
+    body.dark-mode .einfuehrung-modal-header h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .einfuehrung-modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+      line-height: 1;
+    }
+    
+    .einfuehrung-modal-close:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-mode .einfuehrung-modal-close {
+      color: var(--dark-text-color);
+    }
+    
+    body.dark-mode .einfuehrung-modal-close:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .einfuehrung-modal-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+    
+    .einfuehrung-content {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    .einfuehrung-toc {
+      width: 250px;
+      padding: 1.5rem;
+      border-left: 1px solid var(--border-color);
+      overflow-y: auto;
+      background-color: rgba(0, 0, 0, 0.02);
+      flex-shrink: 0;
+    }
+    
+    body.dark-mode .einfuehrung-toc {
+      border-left-color: var(--dark-border-color);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+    
+    .einfuehrung-toc h3 {
+      margin: 0 0 1rem 0;
+      font-size: 0.9rem;
+      color: var(--heading-color);
+      font-weight: 600;
+    }
+    
+    body.dark-mode .einfuehrung-toc h3 {
+      color: var(--dark-heading-color);
+    }
+    
+    .einfuehrung-toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .einfuehrung-toc li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .einfuehrung-toc a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: block;
+      padding: 0.25rem 0;
+      transition: color 0.2s ease;
+    }
+    
+    .einfuehrung-toc a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .einfuehrung-toc a {
+      color: var(--dark-link-color);
+    }
+    
+    .einfuehrung-content h2 {
+      color: var(--heading-color) !important;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: var(--heading-size);
+      line-height: var(--line-height);
+      scroll-margin-top: 1rem;
+    }
+    
+    body.dark-mode .einfuehrung-content h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    .einfuehrung-content h2:first-child {
+      margin-top: 0;
+    }
+    
+    .einfuehrung-content p {
+      margin: var(--paragraph-margin) 0;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .einfuehrung-content p {
+      color: var(--dark-text-color);
+    }
+    
+    .einfuehrung-content a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .einfuehrung-content a:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .einfuehrung-content a {
+      color: var(--dark-link-color);
+    }
+    
+    .einfuehrung-content strong {
+      font-weight: bold;
+      color: var(--text-color);
+    }
+    
+    body.dark-mode .einfuehrung-content strong {
+      color: var(--dark-text-color);
+    }
+    
+    /* Scrollbar Styles für Einführungs-Modal - schmal und hell wie in app.html */
+    .einfuehrung-content::-webkit-scrollbar,
+    .einfuehrung-toc::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    .einfuehrung-content::-webkit-scrollbar-track,
+    .einfuehrung-toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .einfuehrung-content::-webkit-scrollbar-thumb,
+    .einfuehrung-toc::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    
+    .einfuehrung-content:hover::-webkit-scrollbar-thumb,
+    .einfuehrung-toc:hover::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    
+    .einfuehrung-content:hover::-webkit-scrollbar-thumb:hover,
+    .einfuehrung-toc:hover::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+    
+    .einfuehrung-content,
+    .einfuehrung-toc {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    .einfuehrung-content:hover,
+    .einfuehrung-toc:hover {
+      scrollbar-color: #c0c0c0 transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content::-webkit-scrollbar-track,
+    body.dark-mode .einfuehrung-toc::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content::-webkit-scrollbar-thumb,
+    body.dark-mode .einfuehrung-toc::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover::-webkit-scrollbar-thumb,
+    body.dark-mode .einfuehrung-toc:hover::-webkit-scrollbar-thumb {
+      background: #555;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover::-webkit-scrollbar-thumb:hover,
+    body.dark-mode .einfuehrung-toc:hover::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+    
+    body.dark-mode .einfuehrung-content,
+    body.dark-mode .einfuehrung-toc {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    body.dark-mode .einfuehrung-content:hover,
+    body.dark-mode .einfuehrung-toc:hover {
+      scrollbar-color: #555 transparent;
+    }
+    
+    @media (max-width: 900px) {
+      .einfuehrung-modal-body {
+        flex-direction: column;
+      }
+      
+      .einfuehrung-toc {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        max-height: 200px;
+      }
+      
+      body.dark-mode .einfuehrung-toc {
+        border-top-color: var(--dark-border-color);
+      }
+    }
 </style>
 </head>
 <body>
@@ -859,12 +1151,14 @@
         <p class="subtitle">Volltext-Suche und semantische Analyse</p>
         
         <ul class="nav-links">
+          <li><a href="#" onclick="event.preventDefault(); openEinfuehrungModal();">Einführung</a> <span class="description">- Informationen zur GA-Suche und den Textgrundlagen</span></li>
           <li><a href="app.html#ga">Gesamtausgabe</a> <span class="description">- Vorträge mit Kurzusammenfassungen und chronologischer Liste</span></li>
           <li><a href="app.html#keyword">Volltext- und Stichwortsuche</a> <span class="description">– mit Relevanzbewertung</span></li>
           <li><a href="app.html#texte">Texte anzeigen lassen</a> <span class="description">– Texte mit Zusammenfassungen, Gliederungen und Schlagworten</span></li>
           <li><a href="app.html#thematic">Thematische Suche</a> <span class="description">– KI-gestützte semantische Analyse</span></li>
           <li><a href="app.html#timeline">Timeline</a> <span class="description">- Zeitverlauf von Suchergebnissen und Schlagworten</span></li>
           <li><a href="app.html#schlagworte">Index</a> <span class="description">– wichtige Schlagworte mit Verlinkung</span></li>
+          <li><a href="members.html" target="_blank" rel="noopener noreferrer">Mitgliederbereich</a> <span class="description">- persönliche Bookmarks setzen und Zitate speichern</span></li>
         </ul>
         
         <h3>Sammlungen zu einzelnen Themen</h3>
@@ -877,9 +1171,26 @@
       </div>
       
       <div class="footer-links">
-        <a href="members.html">Mitglieder</a>
+        <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglieder</a>
         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
         <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Einführungs-Modal -->
+  <div id="einfuehrungModal" class="einfuehrung-modal">
+    <div class="einfuehrung-modal-content">
+      <div class="einfuehrung-modal-header">
+        <h2>Einführung</h2>
+        <button class="einfuehrung-modal-close" onclick="closeEinfuehrungModal()">&times;</button>
+      </div>
+      <div class="einfuehrung-modal-body">
+        <div class="einfuehrung-content" id="einfuehrungContent"></div>
+        <div class="einfuehrung-toc" id="einfuehrungToc">
+          <h3>Inhalt</h3>
+          <ul id="einfuehrungTocList"></ul>
+        </div>
       </div>
     </div>
   </div>
@@ -1033,10 +1344,170 @@
     // Close modal with ESC key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
-        const modal = document.getElementById('helpModal');
-        if (modal && modal.classList.contains('active')) {
+        const helpModal = document.getElementById('helpModal');
+        const einfuehrungModal = document.getElementById('einfuehrungModal');
+        if (helpModal && helpModal.classList.contains('active')) {
           closeHelpModal();
         }
+        if (einfuehrungModal && einfuehrungModal.classList.contains('active')) {
+          closeEinfuehrungModal();
+        }
+      }
+    });
+    
+    // Einführungs-Modal Functions
+    async function openEinfuehrungModal() {
+      const modal = document.getElementById('einfuehrungModal');
+      const contentDiv = document.getElementById('einfuehrungContent');
+      const tocList = document.getElementById('einfuehrungTocList');
+      
+      if (!modal || !contentDiv || !tocList) {
+        console.error('Modal-Elemente nicht gefunden');
+        alert('Fehler: Modal-Elemente nicht gefunden');
+        return;
+      }
+      
+      modal.classList.add('active');
+      console.log('Modal aktiviert');
+      
+      // Lade-Indikator
+      contentDiv.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Einführung...</p>';
+      tocList.innerHTML = '';
+      
+      try {
+        // Lade Markdown-Datei vom Backend-Server
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        const url = `${API_BASE}/system/Einfuehrung.md`;
+        console.log('Lade Einführung von:', url);
+        console.log('isLocal:', isLocal, 'API_BASE:', API_BASE);
+        
+        const response = await fetch(url);
+        console.log('Response Status:', response.status, response.statusText);
+        console.log('Response Headers:', response.headers);
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Response Error Text:', errorText);
+          throw new Error(`Fehler beim Laden: ${response.status} ${response.statusText}`);
+        }
+        const markdown = await response.text();
+        console.log('Markdown geladen, Länge:', markdown.length);
+        console.log('Markdown Preview:', markdown.substring(0, 200));
+        
+        // Prüfe ob die Datei leer ist
+        if (!markdown || markdown.trim().length === 0) {
+          throw new Error('Die Markdown-Datei ist leer. Bitte stellen Sie sicher, dass die Datei system/Einfuehrung.md auf dem Server vorhanden und nicht leer ist.');
+        }
+        
+        // Konvertiere Markdown zu HTML mit marked.js
+        if (typeof marked !== 'undefined') {
+          console.log('marked.js verfügbar');
+          marked.setOptions({
+            breaks: true,
+            gfm: true
+          });
+          let html = marked.parse(markdown);
+          console.log('HTML generiert, Länge:', html.length);
+          
+          // Setze HTML-Inhalt ZUERST (damit Inhalt immer angezeigt wird)
+          contentDiv.innerHTML = html;
+          console.log('HTML in contentDiv gesetzt');
+          
+          // Extrahiere Überschriften aus dem DOM (sicherer als String-Manipulation)
+          const headings = [];
+          let headingIndex = 0;
+          
+          // Suche nach <p><strong>...</strong></p> Elementen die als Überschriften verwendet werden
+          const paragraphs = contentDiv.querySelectorAll('p');
+          console.log('Gefundene Absätze:', paragraphs.length);
+          
+          paragraphs.forEach(p => {
+            const strong = p.querySelector('strong');
+            // Prüfe ob der Absatz nur ein <strong> Element enthält (kein anderer Text)
+            if (strong && p.textContent.trim() === strong.textContent.trim()) {
+              const headingText = strong.textContent.trim();
+              // Prüfe ob es wirklich eine Überschrift ist (nicht zu lang)
+              if (headingText.length > 0 && headingText.length < 100) {
+                headingIndex++;
+                const headingId = `einfuehrung-heading-${headingIndex}`;
+                
+                // Ersetze <p><strong>...</strong></p> durch <h2 id="...">...</h2>
+                const h2 = document.createElement('h2');
+                h2.id = headingId;
+                h2.textContent = headingText;
+                p.parentNode.replaceChild(h2, p);
+                
+                headings.push({ text: headingText, id: headingId });
+                console.log('Überschrift gefunden:', headingText);
+              }
+            }
+          });
+          
+          console.log('Gefundene Überschriften:', headings.length);
+          
+          // Erstelle Inhaltsverzeichnis
+          tocList.innerHTML = '';
+          if (headings.length > 0) {
+            headings.forEach(heading => {
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = `#${heading.id}`;
+              a.textContent = heading.text;
+              a.onclick = function(e) {
+                e.preventDefault();
+                const targetElement = document.getElementById(heading.id);
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              };
+              li.appendChild(a);
+              tocList.appendChild(li);
+            });
+          } else {
+            tocList.innerHTML = '<li style="color: var(--secondary-text); font-size: 0.85em;">Keine Überschriften gefunden</li>';
+          }
+        } else {
+          console.warn('marked.js nicht verfügbar, zeige Markdown als Text');
+          // Fallback: Zeige Markdown als Text
+          contentDiv.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
+        }
+        
+      } catch (error) {
+        console.error('Fehler beim Laden der Einführung:', error);
+        const errorUrl = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        contentDiv.innerHTML = `
+          <div style="text-align: center; padding: 2rem; color: #999;">
+            <p><strong>Fehler beim Laden der Einführung</strong></p>
+            <p style="font-size: 0.9em; margin-top: 1rem;">
+              ${error.message}<br>
+              Bitte stellen Sie sicher, dass die Markdown-Datei verfügbar ist.
+            </p>
+            <p style="font-size: 0.8em; margin-top: 0.5rem; color: #666;">
+              URL: ${errorUrl}/system/Einfuehrung.md<br>
+              Fehler: ${error.toString()}
+            </p>
+          </div>
+        `;
+        tocList.innerHTML = '';
+      }
+      
+      // Scroll to top
+      contentDiv.scrollTop = 0;
+    }
+    
+    function closeEinfuehrungModal() {
+      const modal = document.getElementById('einfuehrungModal');
+      modal.classList.remove('active');
+    }
+    
+    // Close modal when clicking outside
+    document.addEventListener('click', function(event) {
+      const einfuehrungModal = document.getElementById('einfuehrungModal');
+      if (event.target === einfuehrungModal) {
+        closeEinfuehrungModal();
       }
     });
   </script>

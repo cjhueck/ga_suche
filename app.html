@@ -22737,8 +22737,30 @@ document.addEventListener('DOMContentLoaded', function() {
   const viewer = document.getElementById('viewer');
   
   if (viewer) {
-    viewer.addEventListener('contextmenu', function(e) {
+    // Gemeinsame Funktion für Schreibfehler-Markierung
+    function handleTypoMarking(e) {
       // Hole markierten Text
+      const selection = window.getSelection();
+      const selectedText = selection.toString().trim();
+      
+      if (!selectedText || selectedText.length === 0) {
+        return;
+      }
+      
+      // Hole aktuellen Vortragstitel
+      const documentTitle = document.getElementById('document-title');
+      const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
+      
+      // Zeige Bestätigungsdialog
+      const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
+      
+      if (confirmed) {
+        saveMarkedWord(selectedText, gaTitle);
+      }
+    }
+    
+    // Rechtsklick-Handler: Nur bei Strg+Shift+Rechtsklick
+    viewer.addEventListener('contextmenu', function(e) {
       const selection = window.getSelection();
       const selectedText = selection.toString().trim();
       
@@ -22746,16 +22768,30 @@ document.addEventListener('DOMContentLoaded', function() {
       // Normaler Rechtsklick wird vom Members Context Menu behandelt
       if (selectedText && selectedText.length > 0 && e.ctrlKey && e.shiftKey) {
         e.preventDefault(); // Verhindere Standard-Kontextmenü
+        handleTypoMarking(e);
+      }
+    });
+    
+    // Klick-Handler: Bei Strg+Klick (linke Maustaste)
+    viewer.addEventListener('click', function(e) {
+      // Nur wenn Strg-Taste gedrückt ist
+      if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
+        // Prüfe ob geklicktes Element ein Link ist - dann nicht blockieren
+        const target = e.target;
+        const isLink = target.tagName === 'A' || target.closest('a');
         
-        // Hole aktuellen Vortragstitel
-        const documentTitle = document.getElementById('document-title');
-        const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
+        if (isLink) {
+          return; // Link normal funktionieren lassen
+        }
         
-        // Zeige Bestätigungsdialog
-        const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
+        const selection = window.getSelection();
+        const selectedText = selection.toString().trim();
         
-        if (confirmed) {
-          saveMarkedWord(selectedText, gaTitle);
+        // Nur wenn Text markiert ist
+        if (selectedText && selectedText.length > 0) {
+          e.preventDefault();
+          e.stopPropagation();
+          handleTypoMarking(e);
         }
       }
     });
