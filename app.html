@@ -2121,6 +2121,19 @@ body.dark-mode .loading-message {
       line-height: var(--line-height);
     }
     
+    /* Schriftgrad im Ergebnisfenster des Themen-Tabs - überschreibt alle anderen Regeln */
+    .semantic-answer .answer-content,
+    .semantic-answer .answer-content p,
+    .semantic-answer .answer-content li,
+    .semantic-answer .answer-content ul,
+    .semantic-answer .answer-content ol,
+    .semantic-answer .answer-content div,
+    .semantic-answer .answer-content span,
+    body.dark-mode .semantic-answer .answer-content,
+    body.dark-mode .semantic-answer .answer-content p {
+      font-size: 0.85rem !important;
+    }
+    
     body.dark-mode .answer-content strong {
       color: var(--dark-text-color);
     }
@@ -3128,6 +3141,26 @@ body.dark-mode .loading-tooltip::before {
 .semantic-answer li {
   margin-bottom: 0.5rem;
   line-height: 1.6;
+}
+
+/* Schriftgrad im Ergebnisfenster des Themen-Tabs */
+.semantic-answer .answer-content {
+  font-size: 0.85rem !important;
+}
+
+.semantic-answer .answer-content p,
+.semantic-answer .answer-content li,
+.semantic-answer .answer-content ul,
+.semantic-answer .answer-content ol,
+.semantic-answer .answer-content div,
+.semantic-answer .answer-content span {
+  font-size: 0.85rem !important;
+}
+
+/* Dark-Mode Schriftgrad im Ergebnisfenster des Themen-Tabs */
+body.dark-mode .semantic-answer .answer-content,
+body.dark-mode .semantic-answer .answer-content p {
+  font-size: 0.85rem !important;
 }
 
 /* Keyword-Link Styles - keine Hintergrundfarbe */
