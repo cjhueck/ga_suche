@@ -18815,6 +18815,13 @@ const isLocalhost = hostname === 'localhost' ||
                     hostname === '127.0.0.1' || 
                     window.location.protocol === 'file:';
 
+// Statistik-Anzeige im Tab Themen immer ausblenden (sowohl lokal als auch online)
+const thematicSearchInfo = document.getElementById("thematicSearchInfo");
+if (thematicSearchInfo) {
+  thematicSearchInfo.style.display = 'none';
+  console.log('[INIT] Statistik-Anzeige im Tab Themen versteckt');
+}
+
 if (!isLocalhost) {
   // Keywords-Tab verstecken
   const keywordsTabButton = document.getElementById("keywords-tab-button");
@@ -18836,12 +18843,6 @@ if (!isLocalhost) {
     texteAdminButtons.style.display = 'none';
   }
 } else {
-  // Statistik-Anzeige im Admin-Bereich (localhost) des Tab Themen ausblenden
-  const thematicSearchInfo = document.getElementById("thematicSearchInfo");
-  if (thematicSearchInfo) {
-    thematicSearchInfo.style.display = 'none';
-    console.log('[INIT] Statistik-Anzeige im Tab Themen versteckt (Lokale Umgebung)');
-  }
   console.log('[INIT] Keywords-Tab sichtbar (Lokale Umgebung)');
   console.log('[INIT] Zitate-Tab sichtbar (Lokale Umgebung)');
   
