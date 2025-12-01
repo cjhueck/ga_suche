@@ -13324,7 +13324,19 @@ function displayGAChronological(lectures) {
           })
         });
         
-        if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+        if (!response.ok) {
+          // Versuche Fehlermeldung aus der API-Antwort zu extrahieren
+          let errorMessage = 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen';
+          try {
+            const errorData = await response.json();
+            if (errorData.error) {
+              errorMessage = errorData.error;
+            }
+          } catch (_) {
+            // Wenn JSON-Parsing fehlschlägt, verwende Standard-Nachricht
+          }
+          throw new Error(errorMessage);
+        }
         
         const answer = await response.json();
         let sources = answer.sources || [];
@@ -13340,9 +13352,11 @@ function displayGAChronological(lectures) {
         
       } catch (error) {
         console.error('Thematic Search Error:', error);
+        const errorMessage = error.message || 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen';
+        
         document.getElementById('results').innerHTML = `
           <div class="error-message">
-            <strong>Fehler bei der Themen-Suche:</strong><br>${error.message}
+            <strong>${errorMessage}</strong>
           </div>
         `;
       } finally {
@@ -18555,7 +18569,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
     }
 
     function handleThematicKeydown(event) {
-      if (event.key === 'Enter') {
+      if (event.key === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
         performThematicSearch();
       }
     }

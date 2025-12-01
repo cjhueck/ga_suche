@@ -2692,14 +2692,14 @@ app.post('/api/advanced-search', async (req, res) => {
 async function generateAnalysis(query, results, depth = 'allgemein') {
   console.log('generateAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
-  // Hole passenden LLM-Provider (mit Fallback-Chain)
+  // Hole passenden LLM-Provider (kein Fallback mehr)
   let provider;
   try {
     provider = getProviderForTask('analysis');
     console.log(`[ANALYSIS] ✓ Provider ausgewählt: ${provider.name}`);
   } catch (error) {
-    console.log('[ANALYSIS] ❌ Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
-    return generateFallbackAnalysis(query, results);
+    console.log('[ANALYSIS] ❌ Kein LLM-Provider verfügbar:', error.message);
+    throw new Error('KI-Suche nicht verfügbar');
   }
   
   const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
@@ -2855,7 +2855,7 @@ ANALYSE:`;
     console.error('LLM-Analyse Fehler:', error);
     console.error('Error Details:', error.message);
     console.error('Stack:', error.stack);
-    return generateFallbackAnalysis(query, results);
+    throw error;
   }
 }
 
@@ -5205,7 +5205,11 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     return res.json(searchResult);
   } catch (error) {
     console.error('Hybrid-thematic-Search Fehler:', error);
-    res.status(500).json({ error: error.message });
+    // Spezielle Fehlermeldung für KI-Suche
+    res.status(500).json({ 
+      error: 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen',
+      originalError: error.message 
+    });
   }
 });
 
