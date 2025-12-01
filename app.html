@@ -15057,9 +15057,10 @@ setTimeout(() => {
   }
   
   const visibleIndex = getCurrentVisibleParagraphIndex();
-  if (visibleIndex) {
-    lastHighlightedIndex = visibleIndex;
-  }
+  // Im Original-Modus keinen Index setzen, damit kein Absatz markiert wird
+  // if (visibleIndex) {
+  //   lastHighlightedIndex = visibleIndex;
+  // }
   
   showingSummaryInMain = false;
   
@@ -15086,9 +15087,9 @@ setTimeout(() => {
     hasThematicKeywords = true;
   }
   
-  // Enable highlighting if we have keywords from keyword search or thematic search
-  const shouldHighlight = keywords.length > 0;
-  displayLecture(currentLectureData, lastHighlightedIndex, keywords, shouldHighlight);
+  // Im Original-Modus kein Highlighting
+  const shouldHighlight = false;
+  displayLecture(currentLectureData, null, keywords, shouldHighlight);
   
   setTimeout(() => {
     toggle.style.right = '0px';
@@ -18280,45 +18281,48 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
           const paraIndexWithCaret = para.index || `^${paraIndex}`;
           
-          // Find and render matching headings BEFORE this paragraph
-          const matchingHeadings = headings.filter(h => {
-            const hIndex = h.index || '';
-            const hIndexClean = hIndex.replace(/^\^/, '');
-            return hIndex === paraIndex || 
-                   hIndex === paraIndexWithCaret || 
-                   hIndexClean === paraIndex;
-          });
-          
-          // Sort headings: h3 before h4
-          const sortedHeadings = matchingHeadings.sort((a, b) => {
-            if (a.level === 'h3' && b.level === 'h4') return -1;
-            if (a.level === 'h4' && b.level === 'h3') return 1;
-            return 0;
-          });
-          
-          // Render headings
-          sortedHeadings.forEach((heading, hIdx) => {
-            const headingText = heading.text || heading.title || 'Überschrift';
-            const level = heading.level || 'h3';
-            const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
-            const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
-            const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
+          // Im Original-Modus keine Überschriften anzeigen
+          if (showingSummaryInMain) {
+            // Find and render matching headings BEFORE this paragraph
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = h.index || '';
+              const hIndexClean = hIndex.replace(/^\^/, '');
+              return hIndex === paraIndex || 
+                     hIndex === paraIndexWithCaret || 
+                     hIndexClean === paraIndex;
+            });
             
-            // HTML-Escaping für headingText um sicherzustellen, dass nur Text gerendert wird
-            // und der nachfolgende Paragraph nicht im Überschriften-Format erscheint
-            const escapedHeadingText = String(headingText)
-              .replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
+            // Sort headings: h3 before h4
+            const sortedHeadings = matchingHeadings.sort((a, b) => {
+              if (a.level === 'h3' && b.level === 'h4') return -1;
+              if (a.level === 'h4' && b.level === 'h3') return 1;
+              return 0;
+            });
             
-            html += `
-              <${headingTag} id="para-${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''}">
-                ${escapedHeadingText}
-              </${headingTag}>
-            `;
-          });
+            // Render headings
+            sortedHeadings.forEach((heading, hIdx) => {
+              const headingText = heading.text || heading.title || 'Überschrift';
+              const level = heading.level || 'h3';
+              const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+              const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
+              const isTargetHeading = cleanIndex && headingIndex === cleanIndex;
+              
+              // HTML-Escaping für headingText um sicherzustellen, dass nur Text gerendert wird
+              // und der nachfolgende Paragraph nicht im Überschriften-Format erscheint
+              const escapedHeadingText = String(headingText)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+              
+              html += `
+                <${headingTag} id="para-${headingIndex}" class="${isTargetHeading ? 'highlighted-paragraph' : ''}">
+                  ${escapedHeadingText}
+                </${headingTag}>
+              `;
+            });
+          }
           
           // Now render the paragraph
           const isTargetPara = cleanIndex && paraIndex === cleanIndex;
@@ -18366,10 +18370,10 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Prüfe ZUERST ob wir von thematischer Suche kommen
           const isFromThematicSearch = currentThematicQuery && keywords.length > 0;
           
-          // Markiere Keywords immer, wenn sie explizit übergeben wurden
-          // (z.B. von Stichwortsuche-Timeline mit zwei Suchwörtern)
+          // Im Original-Modus keine Keywords markieren
+          // Markiere Keywords nur wenn wir NICHT im Original-Modus sind
           // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
-          if (keywords && keywords.length > 0) {
+          if (keywords && keywords.length > 0 && showingSummaryInMain) {
             // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
             function highlightInHTML(htmlContent, searchWord) {
               // Erstelle temporäres DOM-Element für sicheres Highlighting
@@ -18489,8 +18493,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             }, 200);
           }
           
-          // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden
-          if (cleanIndex && typeof addHighlightingWithAutoRemove === 'function') {
+          // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (nur im Summary-Modus)
+          if (cleanIndex && showingSummaryInMain && typeof addHighlightingWithAutoRemove === 'function') {
             setTimeout(() => {
               const targetParaElement = document.getElementById(`para-${cleanIndex}`);
               if (targetParaElement) {
