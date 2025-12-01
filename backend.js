@@ -5207,7 +5207,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     console.error('Hybrid-thematic-Search Fehler:', error);
     // Spezielle Fehlermeldung für KI-Suche
     res.status(500).json({ 
-      error: 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen',
+      error: 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen',
       originalError: error.message 
     });
   }

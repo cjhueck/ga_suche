@@ -4937,7 +4937,7 @@ Chronologisch
 </div>
 </div>
 <div class="tab-content" id="thematic-tab">
-<textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet."></textarea>
+<textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Suchworte bitte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet."></textarea>
 <div id="thematicRecentContainer" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; display: none;">
   <div style="margin-bottom: 0.25rem;">Beispiele</div>
   <div id="thematicRecentScroll" style="max-height: 4.5rem; overflow-y: auto;">
@@ -13326,7 +13326,7 @@ function displayGAChronological(lectures) {
         
         if (!response.ok) {
           // Versuche Fehlermeldung aus der API-Antwort zu extrahieren
-          let errorMessage = 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen';
+          let errorMessage = 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
           try {
             const errorData = await response.json();
             if (errorData.error) {
@@ -13352,11 +13352,11 @@ function displayGAChronological(lectures) {
         
       } catch (error) {
         console.error('Thematic Search Error:', error);
-        const errorMessage = error.message || 'Suche fehlgeschlagen - bitte in Kürze noch einmal versuchen';
+        const errorMessage = error.message || 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen';
         
         document.getElementById('results').innerHTML = `
           <div class="error-message">
-            <strong>${errorMessage}</strong>
+            ${errorMessage}
           </div>
         `;
       } finally {
