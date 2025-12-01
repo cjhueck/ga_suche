@@ -1924,10 +1924,15 @@ body.dark-mode .loading-message {
       border: 1px solid var(--link-color);
       background: var(--background-color);
       font-size: 15px;
-      min-height: 95px;
+      min-height: 58px;
       resize: vertical;
       border-radius: 4px;
-      line-height: 20px; 
+      line-height: 16px; 
+    }
+    
+    .thematic-input::placeholder {
+      font-size: 12px;
+      line-height: 14px;
     }
     
     .semantic-options {
@@ -1941,7 +1946,7 @@ body.dark-mode .loading-message {
     }
     
     .depth-btn {
-  padding: 8px 16px;
+  padding: 4px 16px;
   font-size: 1em;
       border: 1px solid var(--link-color);
       background: var(--background-color);
@@ -1950,6 +1955,9 @@ body.dark-mode .loading-message {
       border-radius: 4px;
       font-size: 0.9em;
       transition: all 0.2s;
+      height: auto;
+      min-height: 2em;
+      box-sizing: border-box;
     }
     
     .depth-btn.active {
@@ -2181,7 +2189,7 @@ body.dark-mode .loading-message {
       flex: 1;
       height: auto;
       min-height: 2.2em;
-      padding: 8px;
+      padding: 6px 8px;
       margin: 2px 0;
       font-size: 0.9em;
       box-sizing: border-box;
@@ -4930,7 +4938,7 @@ Chronologisch
 </div>
 <div class="tab-content" id="thematic-tab">
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Stichworte bitte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet."></textarea>
-<div id="thematicRecentContainer" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; display: none;">
+<div id="thematicRecentContainer" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; display: none;">
   <div style="margin-bottom: 0.25rem;">Beispiele</div>
   <div id="thematicRecentScroll" style="max-height: 4.5rem; overflow-y: auto;">
     <ul id="thematicRecentList" style="margin: 0; padding-left: 1.2em;"></ul>
@@ -4955,7 +4963,7 @@ Chronologisch
 
 <div class="tab-content" id="concept-overview-tab">
 <textarea class="thematic-input" id="conceptOverviewQuery" onkeydown="handleConceptOverviewKeydown(event)" placeholder="Tragen Sie hier ein Thema ein, zu dem Sie eine Übersicht erhalten möchten."></textarea>
-<div id="conceptOverviewExamplesContainer" style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">
+<div id="conceptOverviewExamplesContainer" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
   <div style="margin-bottom: 0.25rem;">Beispiele</div>
   <div style="max-height: 4.5rem; overflow-y: auto;">
     <ul style="margin: 0; padding-left: 1.2em;">
@@ -18811,9 +18819,14 @@ if (!isLocalhost) {
   const texteAdminButtons = document.getElementById("texte-admin-buttons");
   if (texteAdminButtons) {
     texteAdminButtons.style.display = 'none';
-    console.log('[INIT] Texte-Admin-Buttons versteckt (Online-Deployment)');
   }
 } else {
+  // Statistik-Anzeige im Admin-Bereich (localhost) des Tab Themen ausblenden
+  const thematicSearchInfo = document.getElementById("thematicSearchInfo");
+  if (thematicSearchInfo) {
+    thematicSearchInfo.style.display = 'none';
+    console.log('[INIT] Statistik-Anzeige im Tab Themen versteckt (Lokale Umgebung)');
+  }
   console.log('[INIT] Keywords-Tab sichtbar (Lokale Umgebung)');
   console.log('[INIT] Zitate-Tab sichtbar (Lokale Umgebung)');
   
