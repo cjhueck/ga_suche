@@ -609,10 +609,24 @@ async function loadBookmarksTab(container) {
     return;
   }
   
-  const result = await getBookmarks();
+  // Verwende Cache wenn verfügbar, sonst lade neu
+  let result;
+  const now = Date.now();
+  const cacheValid = cachedBookmarksData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
+  if (cacheValid) {
+    console.log('[MB-BOOKMARKS] Verwende gecachte Bookmarks-Daten');
+    result = cachedBookmarksData;
+  } else {
+    result = await getBookmarks();
+    // Aktualisiere Cache
+    cachedBookmarksData = result;
+    bookmarksQuotesCacheTimestamp = now;
+  }
   
-  // Lade alle Keywords aus Bookmarks und Quotes
+  // Lade alle Keywords aus Bookmarks und Quotes (verwendet Cache)
   await updateKeywordFilterDropdownWithAllKeywords();
   
   if (!result.success || result.data.length === 0) {
@@ -702,9 +716,24 @@ async function loadQuotesTab(container) {
     return;
   }
   
-  const result = await getQuotes();
+  // Verwende Cache wenn verfügbar, sonst lade neu
+  let result;
+  const now = Date.now();
+  const cacheValid = cachedQuotesData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
-  // Lade alle Keywords aus Bookmarks und Quotes
+  if (cacheValid) {
+    console.log('[MB-QUOTES] Verwende gecachte Quotes-Daten');
+    result = cachedQuotesData;
+  } else {
+    result = await getQuotes();
+    // Aktualisiere Cache
+    cachedQuotesData = result;
+    bookmarksQuotesCacheTimestamp = now;
+  }
+  
+  // Lade alle Keywords aus Bookmarks und Quotes (verwendet Cache)
   await updateKeywordFilterDropdownWithAllKeywords();
   
   if (!result.success || result.data.length === 0) {
@@ -1957,11 +1986,28 @@ async function updateKeywordFilterDropdownWithAllKeywords() {
   }
   
   try {
-    // Lade beide Datenquellen parallel
-    const [bookmarksResult, quotesResult] = await Promise.all([
-      getBookmarks(),
-      getQuotes()
-    ]);
+    // Verwende Cache wenn verfügbar, sonst lade neu
+    let bookmarksResult, quotesResult;
+    const now = Date.now();
+    const cacheValid = cachedBookmarksData && cachedQuotesData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+    
+    if (cacheValid) {
+      console.log('[MB-KEYWORDS] Verwende gecachte Bookmarks/Quotes-Daten für Keywords');
+      bookmarksResult = cachedBookmarksData;
+      quotesResult = cachedQuotesData;
+    } else {
+      // Lade beide Datenquellen parallel
+      [bookmarksResult, quotesResult] = await Promise.all([
+        getBookmarks(),
+        getQuotes()
+      ]);
+      // Aktualisiere Cache
+      cachedBookmarksData = bookmarksResult;
+      cachedQuotesData = quotesResult;
+      bookmarksQuotesCacheTimestamp = now;
+    }
     
     // Sammle alle Keywords aus beiden Quellen
     const allKeywords = new Set();
