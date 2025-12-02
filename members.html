@@ -865,8 +865,13 @@
 
     .account-modal-actions {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .account-modal-actions .account-modal-btn {
+      flex: 1;
     }
 
     .account-modal-btn {
@@ -931,6 +936,109 @@
       background-color: var(--accent-color);
       color: white;
     }
+
+    /* Privacy Modal */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .privacy-modal.active {
+      display: flex;
+    }
+
+    .privacy-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .privacy-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .privacy-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .privacy-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .privacy-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    .privacy-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .privacy-modal-body h4 {
+      color: var(--heading-color);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .privacy-modal-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .privacy-modal-body p {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body li {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -970,6 +1078,13 @@
         <div class="form-group">
           <label for="register-password">Passwort (mind. 6 Zeichen)</label>
           <input type="password" id="register-password" minlength="6" required>
+        </div>
+        
+        <div class="form-group" style="margin-top: 1rem;">
+          <label style="font-weight: normal; font-size: 0.85rem; line-height: 1.5;">
+            <input type="checkbox" id="privacy-checkbox" required style="margin-right: 0.5rem;">
+            Mit der Registrierung stimme ich der <a href="#" id="privacy-link" style="color: var(--link-color); text-decoration: underline;">Datenschutzerklärung</a> zu.
+          </label>
         </div>
         
         <button type="submit">Registrieren</button>
@@ -1077,11 +1192,63 @@
           </div>
         </div>
         
-        <button class="account-modal-btn change-email" id="change-email-btn">E-Mail-Adresse ändern</button>
+        <div class="account-modal-actions">
+          <button class="account-modal-btn change-email" id="change-email-btn">E-Mail-Adresse ändern</button>
+          <button class="account-modal-btn delete-account" id="delete-account-btn">Account löschen</button>
+        </div>
       </div>
-      
-      <div class="account-modal-actions">
-        <button class="account-modal-btn delete-account" id="delete-account-btn">Account löschen</button>
+    </div>
+  </div>
+
+  <!-- Privacy Modal -->
+  <div id="privacy-modal" class="privacy-modal">
+    <div class="privacy-modal-content">
+      <div class="privacy-modal-header">
+        <h3>Datenschutzerklärung</h3>
+        <button class="privacy-modal-close" id="privacy-modal-close">&times;</button>
+      </div>
+      <div class="privacy-modal-body" id="privacy-modal-body">
+        <h4>1. Datenerhebung und -speicherung</h4>
+        <p>Bei der Registrierung im Mitgliederbereich werden folgende Daten erfasst und gespeichert:</p>
+        <ul>
+          <li>E-Mail-Adresse (für die Authentifizierung)</li>
+          <li>Passwort (verschlüsselt gespeichert)</li>
+          <li>Anzeigename (optional)</li>
+          <li>Von Ihnen erstellte Bookmarks, Zitate und Notizen</li>
+        </ul>
+
+        <h4>2. Zweck der Datenerhebung</h4>
+        <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
+        <ul>
+          <li>Speicherung Ihrer persönlichen Bookmarks und Zitate</li>
+          <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
+          <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
+        </ul>
+
+        <h4>3. Datenverarbeitung</h4>
+        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+
+        <h4>4. Ihre Rechte</h4>
+        <p>Sie haben jederzeit das Recht:</p>
+        <ul>
+          <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+          <li>Ihre Daten zu korrigieren oder zu löschen</li>
+          <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
+          <li>Der Datenverarbeitung zu widersprechen</li>
+        </ul>
+
+        <h4>5. Cookies und Tracking</h4>
+        <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+
+        <h4>6. Kontakt</h4>
+        <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
+
+        <h4>7. Änderungen der Datenschutzerklärung</h4>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
+          Stand: Januar 2025
+        </p>
       </div>
     </div>
   </div>
@@ -1302,9 +1469,15 @@
           const name = document.getElementById('register-name')?.value;
           const email = document.getElementById('register-email')?.value;
           const password = document.getElementById('register-password')?.value;
+          const privacyCheckbox = document.getElementById('privacy-checkbox');
           
           if (!name || !email || !password) {
             showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          if (!privacyCheckbox || !privacyCheckbox.checked) {
+            showAuthMessage('Bitte stimmen Sie der Datenschutzerklärung zu', 'error');
             return;
           }
           
@@ -1343,6 +1516,54 @@
 
       // Account-Button
       setupAccountModal();
+      
+      // Privacy-Modal
+      setupPrivacyModal();
+    }
+
+    // ===== Privacy Modal Functions =====
+    function setupPrivacyModal() {
+      const privacyLink = document.getElementById('privacy-link');
+      const privacyModal = document.getElementById('privacy-modal');
+      const privacyModalClose = document.getElementById('privacy-modal-close');
+
+      // Öffne Modal beim Klick auf den Link
+      if (privacyLink) {
+        privacyLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (privacyModal) {
+            privacyModal.classList.add('active');
+          }
+        });
+      }
+
+      // Schließe Modal
+      if (privacyModalClose) {
+        privacyModalClose.addEventListener('click', () => {
+          if (privacyModal) {
+            privacyModal.classList.remove('active');
+          }
+        });
+      }
+
+      // Schließe Modal bei Klick außerhalb
+      if (privacyModal) {
+        privacyModal.addEventListener('click', (e) => {
+          if (e.target === privacyModal) {
+            privacyModal.classList.remove('active');
+          }
+        });
+      }
+
+      // Prüfe ob #datenschutz im Hash vorhanden ist
+      if (window.location.hash === '#datenschutz') {
+        // Warte kurz, damit die Seite geladen ist
+        setTimeout(() => {
+          if (privacyModal) {
+            privacyModal.classList.add('active');
+          }
+        }, 300);
+      }
     }
 
     // ===== Account Modal Functions =====
