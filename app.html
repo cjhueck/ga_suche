@@ -10419,7 +10419,7 @@ function displayGAChronological(lectures) {
       // Kompensiere nur das Padding von #main (0.5rem top, 0.8rem left/right)
       const stickyNav = document.createElement('div');
       stickyNav.id = 'chronological-year-nav';
-      stickyNav.style.cssText = 'position: -webkit-sticky; position: sticky; top: 0; z-index: 1004 !important; background: var(--background-color) !important; padding: 0.8rem 0.8rem 0.8rem 1.5rem; margin: -0.5rem -0.8rem 1rem -0.8rem; width: calc(100% + 1.6rem); box-sizing: border-box; border-bottom: 3px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1);';
+      stickyNav.style.cssText = 'position: -webkit-sticky; position: sticky; top: 0; z-index: 1004 !important; background: var(--background-color) !important; padding: 1.2rem 0.8rem 0.8rem 1.5rem; margin: -0.5rem -0.8rem 1rem -0.8rem; width: calc(100% + 1.6rem); box-sizing: border-box;';
       
       const buttonsContainer = document.createElement('div');
       buttonsContainer.style.cssText = 'display: flex; flex-wrap: wrap; column-gap: 0.05rem; row-gap: 0.3rem; align-items: center;';
@@ -10532,10 +10532,10 @@ function scrollToChronologicalYear(year) {
       // Berechne die Scroll-Position: Element-Position minus Container-Position plus aktueller Scroll
       const relativeTop = elementRect.top - containerRect.top + mainContainer.scrollTop;
       
-      // Berücksichtige die Höhe des sticky Headers (ca. 60px)
-      const headerOffset = 60;
+      // Berücksichtige die Höhe des sticky Headers plus zusätzlichen Abstand
+      const headerOffset = 110;
       
-      // Scrolle so, dass das Element unter dem Header erscheint
+      // Scrolle so, dass das Element mit Abstand unter dem Header erscheint (direkt springen, kein smooth)
       mainContainer.scrollTo({
         top: relativeTop - headerOffset,
         behavior: 'auto'
