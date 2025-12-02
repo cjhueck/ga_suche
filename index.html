@@ -1111,6 +1111,145 @@
       scrollbar-color: #555 transparent;
     }
     
+    /* Privacy Modal Styles (wie in members.html) */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .privacy-modal.active {
+      display: flex;
+    }
+
+    .privacy-modal-content {
+      background: var(--background-color);
+      color: var(--text-color);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 85vh;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      animation: slideIn 0.3s ease;
+    }
+
+    body.dark-mode .privacy-modal-content {
+      background: var(--dark-background-color);
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    body.dark-mode .privacy-modal-header {
+      border-bottom-color: var(--dark-border-color);
+    }
+
+    .privacy-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    body.dark-mode .privacy-modal-header h3 {
+      color: var(--dark-heading-color);
+    }
+
+    .privacy-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    body.dark-mode .privacy-modal-close {
+      color: var(--dark-secondary-text);
+    }
+
+    .privacy-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    body.dark-mode .privacy-modal-close:hover {
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-body {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+
+    .privacy-modal-body h4 {
+      color: var(--heading-color);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    body.dark-mode .privacy-modal-body h4 {
+      color: var(--dark-heading-color);
+    }
+
+    .privacy-modal-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .privacy-modal-body p {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    body.dark-mode .privacy-modal-body p {
+      color: var(--dark-text-color);
+    }
+
+    .privacy-modal-body ul {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .privacy-modal-body li {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    body.dark-mode .privacy-modal-body li {
+      color: var(--dark-text-color);
+    }
+    
     @media (max-width: 900px) {
       .einfuehrung-modal-body {
         flex-direction: column;
@@ -1174,7 +1313,7 @@
         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
         <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglieder</a>
         <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
-        <a href="members.html#datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+        <a href="#" onclick="event.preventDefault(); openDatenschutzModal();">Datenschutz</a>
       </div>
     </div>
   </div>
@@ -1196,6 +1335,59 @@
     </div>
   </div>
   
+  <!-- Datenschutz Modal -->
+  <div id="datenschutzModal" class="privacy-modal">
+    <div class="privacy-modal-content">
+      <div class="privacy-modal-header">
+        <h3>Datenschutzerklärung</h3>
+        <button class="privacy-modal-close" onclick="closeDatenschutzModal()">&times;</button>
+      </div>
+      <div class="privacy-modal-body">
+        <h4>1. Datenerhebung und -speicherung</h4>
+        <p>Bei der Registrierung im Mitgliederbereich werden folgende Daten erfasst und gespeichert:</p>
+        <ul>
+          <li>E-Mail-Adresse (für die Authentifizierung)</li>
+          <li>Passwort (verschlüsselt gespeichert)</li>
+          <li>Anzeigename (optional)</li>
+          <li>Von Ihnen erstellte Bookmarks, Zitate und Notizen</li>
+        </ul>
+
+        <h4>2. Zweck der Datenerhebung</h4>
+        <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
+        <ul>
+          <li>Speicherung Ihrer persönlichen Bookmarks und Zitate</li>
+          <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
+          <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
+        </ul>
+
+        <h4>3. Datenverarbeitung</h4>
+        <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+
+        <h4>4. Ihre Rechte</h4>
+        <p>Sie haben jederzeit das Recht:</p>
+        <ul>
+          <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+          <li>Ihre Daten zu korrigieren oder zu löschen</li>
+          <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
+          <li>Der Datenverarbeitung zu widersprechen</li>
+        </ul>
+
+        <h4>5. Cookies und Tracking</h4>
+        <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+
+        <h4>6. Kontakt</h4>
+        <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
+
+        <h4>7. Änderungen der Datenschutzerklärung</h4>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--secondary-text);">
+          Stand: Januar 2025
+        </p>
+      </div>
+    </div>
+  </div>
+
   <!-- Help Modal -->
   <div id="helpModal" class="help-modal">
     <div class="help-modal-content">
@@ -1342,16 +1534,35 @@
       }
     });
     
+    // Datenschutz Modal Functions
+    function openDatenschutzModal() {
+      const modal = document.getElementById('datenschutzModal');
+      if (modal) {
+        modal.classList.add('active');
+      }
+    }
+    
+    function closeDatenschutzModal() {
+      const modal = document.getElementById('datenschutzModal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+    
     // Close modal with ESC key
     document.addEventListener('keydown', function(event) {
       if (event.key === 'Escape') {
         const helpModal = document.getElementById('helpModal');
         const einfuehrungModal = document.getElementById('einfuehrungModal');
+        const datenschutzModal = document.getElementById('datenschutzModal');
         if (helpModal && helpModal.classList.contains('active')) {
           closeHelpModal();
         }
         if (einfuehrungModal && einfuehrungModal.classList.contains('active')) {
           closeEinfuehrungModal();
+        }
+        if (datenschutzModal && datenschutzModal.classList.contains('active')) {
+          closeDatenschutzModal();
         }
       }
     });
@@ -1506,9 +1717,17 @@
     
     // Close modal when clicking outside
     document.addEventListener('click', function(event) {
+      const helpModal = document.getElementById('helpModal');
       const einfuehrungModal = document.getElementById('einfuehrungModal');
+      const datenschutzModal = document.getElementById('datenschutzModal');
+      if (event.target === helpModal) {
+        closeHelpModal();
+      }
       if (event.target === einfuehrungModal) {
         closeEinfuehrungModal();
+      }
+      if (event.target === datenschutzModal) {
+        closeDatenschutzModal();
       }
     });
   </script>
