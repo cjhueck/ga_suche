@@ -7172,7 +7172,10 @@ function normalizeGANumber(gaNumber) {
       const urlHash = window.location.hash.substring(1);
       
       if (activeTabMode === 'thematic' && !urlHash) {
-        loadRecentThematicQueries();
+        // Warte kurz, damit der Tab-Inhalt zuerst sichtbar wird
+        setTimeout(() => {
+          loadRecentThematicQueries();
+        }, 50);
       } else if (activeTabMode === 'ga' && (!urlHash || urlHash === 'ga')) {
         // Nur GA-Liste laden wenn GA-Tab wirklich aktiv bleiben soll
         console.log('[INIT] GA-Tab ist initial aktiv, lade GA-Bände-Liste');
@@ -14972,12 +14975,26 @@ function scrollToChronologicalYear(year) {
 
     async function loadRecentThematicQueries() {
       try {
+        // Prüfe, ob der Themen-Tab aktiv ist
+        const thematicTab = document.getElementById('thematic-tab');
+        if (!thematicTab || !thematicTab.classList.contains('active')) {
+          console.log('[THEMATIC] Themen-Tab ist nicht aktiv, überspringe Laden der Beispiele');
+          return;
+        }
+        
         const container = document.getElementById('thematicRecentContainer');
         const list = document.getElementById('thematicRecentList');
-        if (!container || !list) return;
+        if (!container || !list) {
+          console.warn('[THEMATIC] Container oder Liste nicht gefunden');
+          return;
+        }
 
         const resp = await fetch(`${API_BASE}/thematic-search-database.json`, { cache: 'no-store' });
-        if (!resp.ok) { container.style.display = 'none'; return; }
+        if (!resp.ok) { 
+          console.log('[THEMATIC] Keine Datenbank gefunden oder Fehler:', resp.status);
+          container.style.display = 'none'; 
+          return; 
+        }
         const db = await resp.json();
 
         // Einträge in Array wandeln: { key, query, timestamp }
@@ -15020,8 +15037,9 @@ function scrollToChronologicalYear(year) {
           return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label}</a></li>`;
         }).join('');
         container.style.display = 'block';
+        console.log('[THEMATIC] Beispiele geladen:', recentItems.length);
       } catch (err) {
-        console.warn('Konnte thematische Verlaufsliste nicht laden:', err);
+        console.warn('[THEMATIC] Konnte thematische Verlaufsliste nicht laden:', err);
         const container = document.getElementById('thematicRecentContainer');
         if (container) container.style.display = 'none';
       }
@@ -21410,7 +21428,10 @@ function switchTabExtended(mode) {
 
   // Bei Wechsel zum Themen-Tab: letzte gespeicherte Anfragen laden
   if (mode === 'thematic') {
-    loadRecentThematicQueries();
+    // Warte kurz, damit der Tab-Inhalt zuerst sichtbar wird
+    setTimeout(() => {
+      loadRecentThematicQueries();
+    }, 50);
   }
   
   // Bei Wechsel zum Konzept-Übersicht-Tab: Fokussiere Eingabefeld
