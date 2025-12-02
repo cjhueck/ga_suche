@@ -6341,14 +6341,35 @@ function normalizeGANumber(gaNumber) {
         }
       });
       
-      // Entferne Jahres-Buttons beim Tab-Wechsel (außer wenn wir zum GA-Tab mit chronologischer Ansicht wechseln)
-      const chronologicalNav = document.getElementById('chronological-year-nav');
-      if (chronologicalNav) {
-        chronologicalNav.remove();
+      // Entferne Jahres-Buttons beim Tab-Wechsel IMMER (unabhängig vom Ziel-Tab)
+      // Verwende globale Funktion für maximale Robustheit
+      function forceRemoveYearButtons() {
+        // Verwende globale Funktion falls verfügbar, sonst lokale Implementierung
+        if (typeof removeChronologicalYearButtons === 'function') {
+          return removeChronologicalYearButtons();
+        }
+        
+        // Fallback: Lokale Implementierung
+        let removed = false;
+        const chronologicalNav = document.getElementById('chronological-year-nav');
+        if (chronologicalNav) {
+          chronologicalNav.remove();
+          removed = true;
+        }
+        return removed;
       }
-      const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
-      if (oldButtonsContainer) {
-        oldButtonsContainer.remove();
+      
+      // Entferne SOFORT beim Tab-Wechsel
+      const removedImmediately = forceRemoveYearButtons();
+      if (!removedImmediately) {
+        console.warn('[TABS] WARNUNG: Jahres-Buttons konnten nicht sofort entfernt werden!');
+      }
+      
+      // Aktiviere Schutz-Observer (falls Funktion verfügbar)
+      if (typeof startYearButtonsProtection === 'function') {
+        setTimeout(() => {
+          startYearButtonsProtection();
+        }, 50);
       }
       
       // Aktiviere den Ziel-Tab und setze inline-style zurück
@@ -6358,6 +6379,29 @@ function normalizeGANumber(gaNumber) {
         // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
         targetTab.style.display = '';
       }
+      
+      // Sicherheitsprüfung: Entferne Jahres-Buttons NACH Tab-Wechsel nochmal (falls sie noch vorhanden sind)
+      // Entferne IMMER, außer wenn wir zum GA-Tab wechseln UND die chronologische Ansicht aktiv ist
+      setTimeout(() => {
+        const isChronologicalViewActive = mode === 'ga' && currentGAView === 'chronological';
+        if (!isChronologicalViewActive) {
+          forceRemoveYearButtons();
+          console.log('[TABS] Jahres-Buttons nach Tab-Wechsel entfernt (Tab:', mode, ', View:', currentGAView, ')');
+        } else {
+          console.log('[TABS] Jahres-Buttons behalten (Tab:', mode, ', View:', currentGAView, ')');
+        }
+      }, 100);
+      
+      // Zusätzliche mehrfache Prüfungen mit längeren Timeouts für maximale Robustheit
+      [200, 500, 1000].forEach(delay => {
+        setTimeout(() => {
+          const isChronologicalViewActive = mode === 'ga' && currentGAView === 'chronological';
+          if (!isChronologicalViewActive) {
+            forceRemoveYearButtons();
+            console.log('[TABS] Jahres-Buttons nach', delay, 'ms entfernt (Tab:', mode, ', View:', currentGAView, ')');
+          }
+        }, delay);
+      });
       
       // FINALE Prüfung: Info-Button im Index-Tab IMMER verstecken
       // (nach Tab-Aktivierung, falls updateButtonStates() oder andere Funktionen den Button angezeigt haben)
@@ -6395,6 +6439,40 @@ function normalizeGANumber(gaNumber) {
       
       // Lade GA-Bände wenn zum GA-Tab gewechselt wird
       if (mode === 'ga') {
+        // WICHTIG: Entferne Jahres-Buttons IMMER beim Wechsel zum GA-Tab
+        // Sie werden nur dann wieder angezeigt, wenn chronologische Ansicht explizit aufgerufen wird
+        if (currentGAView !== 'chronological') {
+          // Verwende globale Funktion falls verfügbar
+          if (typeof removeChronologicalYearButtons === 'function') {
+            removeChronologicalYearButtons();
+            console.log('[TABS] Jahres-Buttons beim Wechsel zum GA-Tab entfernt über globale Funktion (View:', currentGAView, ')');
+          } else {
+            const chronologicalNav = document.getElementById('chronological-year-nav');
+            if (chronologicalNav) {
+              chronologicalNav.remove();
+              console.log('[TABS] Jahres-Buttons beim Wechsel zum GA-Tab entfernt (View:', currentGAView, ')');
+            }
+          }
+        } else {
+          console.log('[TABS] Jahres-Buttons beim Wechsel zum GA-Tab behalten (chronologische Ansicht aktiv)');
+        }
+        
+        // Zusätzliche verzögerte Prüfung für maximale Robustheit
+        setTimeout(() => {
+          if (currentGAView !== 'chronological') {
+            if (typeof removeChronologicalYearButtons === 'function') {
+              removeChronologicalYearButtons();
+              console.log('[TABS] Jahres-Buttons verzögert entfernt beim GA-Tab über globale Funktion (View:', currentGAView, ')');
+            } else {
+              const chronologicalNav2 = document.getElementById('chronological-year-nav');
+              if (chronologicalNav2) {
+                chronologicalNav2.remove();
+                console.log('[TABS] Jahres-Buttons verzögert entfernt beim GA-Tab (View:', currentGAView, ')');
+              }
+            }
+          }
+        }, 150);
+        
         // Setze Document Title
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
@@ -8274,9 +8352,14 @@ function isBookGANumber(gaNumber) {
 // Funktion: Rendert ein Book (Schrift)
 async function displayBook(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
   // Entferne chronologische Jahres-Buttons, falls vorhanden
-  const chronologicalNav = document.getElementById('chronological-year-nav');
-  if (chronologicalNav) {
-    chronologicalNav.remove();
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+    console.log('[DISPLAY-BOOK] Jahres-Buttons entfernt über globale Funktion');
+  } else {
+    const chronologicalNav = document.getElementById('chronological-year-nav');
+    if (chronologicalNav) {
+      chronologicalNav.remove();
+    }
   }
   
   // Entferne alte Jahres-Buttons aus anderen Ansichten
@@ -9380,10 +9463,18 @@ function activateFootnoteLinks() {
 
 async function showGALectures(gaNumber, skipHistory = false) {
   try {
+    // Setze Ansicht auf 'volumes', da wir einen einzelnen GA-Band anzeigen
+    currentGAView = 'volumes';
+    
     // Entferne chronologische Jahres-Buttons, falls vorhanden
-    const chronologicalNav = document.getElementById('chronological-year-nav');
-    if (chronologicalNav) {
-      chronologicalNav.remove();
+    if (typeof removeChronologicalYearButtons === 'function') {
+      removeChronologicalYearButtons();
+      console.log('[SHOW-GA-LECTURES] Jahres-Buttons entfernt über globale Funktion');
+    } else {
+      const chronologicalNav = document.getElementById('chronological-year-nav');
+      if (chronologicalNav) {
+        chronologicalNav.remove();
+      }
     }
     
     console.log('[GA-TAB] Lade GA-Band:', gaNumber);
@@ -10064,14 +10155,132 @@ function toggleGASummaries() {
 
 let currentGAView = 'volumes'; // 'volumes' oder 'chronological'
 
+// Globale Funktion zum Entfernen der Jahres-Buttons (kann von überall aufgerufen werden)
+function removeChronologicalYearButtons() {
+  let removed = false;
+  
+  // Suche überall im Dokument
+  const chronologicalNav = document.getElementById('chronological-year-nav');
+  if (chronologicalNav) {
+    chronologicalNav.remove();
+    removed = true;
+    console.log('[YEAR-BUTTONS] Entfernt über getElementById');
+  }
+  
+  // Suche über querySelector
+  const navByQuery = document.querySelector('#chronological-year-nav');
+  if (navByQuery && navByQuery !== chronologicalNav) {
+    navByQuery.remove();
+    removed = true;
+    console.log('[YEAR-BUTTONS] Entfernt über querySelector');
+  }
+  
+  // Suche in allen Containern
+  const allContainers = document.querySelectorAll('#main, #viewer, body');
+  allContainers.forEach(container => {
+    const navInContainer = container.querySelector('#chronological-year-nav');
+    if (navInContainer) {
+      navInContainer.remove();
+      removed = true;
+      console.log('[YEAR-BUTTONS] Entfernt aus Container:', container.id || container.tagName);
+    }
+  });
+  
+  // Verstecke über CSS als Fallback
+  const navForHide = document.getElementById('chronological-year-nav');
+  if (navForHide) {
+    navForHide.style.display = 'none';
+    navForHide.style.visibility = 'hidden';
+    navForHide.style.opacity = '0';
+    navForHide.style.height = '0';
+    navForHide.style.overflow = 'hidden';
+    navForHide.style.position = 'absolute';
+    navForHide.style.left = '-9999px';
+    removed = true;
+    console.log('[YEAR-BUTTONS] Versteckt über CSS');
+  }
+  
+  // Entferne auch alte Container
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) {
+    oldButtonsContainer.remove();
+    removed = true;
+  }
+  
+  return removed;
+}
+
+// MutationObserver: Verhindere, dass Jahres-Buttons wieder erscheinen wenn nicht im GA-Tab mit chronologischer Ansicht
+let yearButtonsObserver = null;
+
+function startYearButtonsProtection() {
+  // Stoppe vorherigen Observer falls vorhanden
+  if (yearButtonsObserver) {
+    yearButtonsObserver.disconnect();
+    yearButtonsObserver = null;
+  }
+  
+  const mainContainer = document.getElementById('main');
+  if (!mainContainer) return;
+  
+  yearButtonsObserver = new MutationObserver((mutations) => {
+    // Prüfe ob wir wirklich im GA-Tab mit chronologischer Ansicht sind
+    const gaTab = document.getElementById('ga-tab');
+    const isInGATab = gaTab && gaTab.classList.contains('active');
+    const isChronologicalView = currentGAView === 'chronological';
+    
+    // Wenn nicht im GA-Tab ODER nicht in chronologischer Ansicht, entferne Buttons
+    if (!isInGATab || !isChronologicalView) {
+      const nav = document.getElementById('chronological-year-nav');
+      if (nav) {
+        nav.remove();
+        console.log('[YEAR-BUTTONS-OBSERVER] Jahres-Buttons entfernt - nicht im richtigen Tab/Ansicht');
+      }
+    }
+  });
+  
+  // Beobachte Änderungen im main-Container
+  yearButtonsObserver.observe(mainContainer, {
+    childList: true,
+    subtree: true
+  });
+  
+  console.log('[YEAR-BUTTONS-OBSERVER] Schutz aktiviert');
+}
+
+function stopYearButtonsProtection() {
+  if (yearButtonsObserver) {
+    yearButtonsObserver.disconnect();
+    yearButtonsObserver = null;
+    console.log('[YEAR-BUTTONS-OBSERVER] Schutz deaktiviert');
+  }
+}
+
+// Starte Schutz beim Laden
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    startYearButtonsProtection();
+  });
+  // Starte auch sofort falls DOM bereits geladen ist
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(() => startYearButtonsProtection(), 100);
+  }
+}
+
 // Zeige GA-Bände Ansicht (Standard)
 function showGAVolumesView() {
   currentGAView = 'volumes';
   
-  // Entferne Jahres-Buttons aus chronologischer Ansicht
-  const chronologicalNav = document.getElementById('chronological-year-nav');
-  if (chronologicalNav) {
-    chronologicalNav.remove();
+  // Entferne Jahres-Buttons aus chronologischer Ansicht - MEHRFACH für maximale Robustheit
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+    console.log('[GA-VOLUMES] Jahres-Buttons entfernt über globale Funktion beim Wechsel zu Volumes-Ansicht');
+  } else {
+    const chronologicalNav = document.getElementById('chronological-year-nav');
+    if (chronologicalNav) {
+      chronologicalNav.remove();
+      console.log('[GA-VOLUMES] Jahres-Buttons entfernt beim Wechsel zu Volumes-Ansicht');
+    }
   }
   
   // Entferne alte Jahres-Buttons aus anderen Ansichten
@@ -10079,6 +10288,20 @@ function showGAVolumesView() {
   if (oldButtonsContainer) {
     oldButtonsContainer.remove();
   }
+  
+  // Zusätzliche Prüfung nach kurzer Verzögerung
+  setTimeout(() => {
+    if (typeof removeChronologicalYearButtons === 'function') {
+      removeChronologicalYearButtons();
+      console.log('[GA-VOLUMES] Jahres-Buttons entfernt (verzögerte Prüfung über globale Funktion)');
+    } else {
+      const chronologicalNav2 = document.getElementById('chronological-year-nav');
+      if (chronologicalNav2) {
+        chronologicalNav2.remove();
+        console.log('[GA-VOLUMES] Jahres-Buttons entfernt (verzögerte Prüfung)');
+      }
+    }
+  }, 50);
   
   // Zeige GA-Bände Liste
   const viewer = document.getElementById('viewer');
@@ -10095,6 +10318,17 @@ function showGAVolumesView() {
 // Zeige chronologische Ansicht
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
+  
+  // WICHTIG: Prüfe ob wir im GA-Tab sind - wenn nicht, wechsle zuerst zum GA-Tab
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  if (!isInGATab) {
+    console.log('[GA-CHRONOLOGICAL] Nicht im GA-Tab - wechsle zuerst zum GA-Tab');
+    switchTab('ga');
+    // Warte kurz, dann rufe diese Funktion nochmal auf
+    setTimeout(() => showGAChronologicalView(skipHistory), 100);
+    return;
+  }
   
   // Entferne alte Jahres-Buttons aus anderen Ansichten
   const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
@@ -10126,6 +10360,8 @@ async function showGAChronologicalView(skipHistory = false) {
     
     const titleElement = document.getElementById('document-title');
     titleElement.textContent = 'Vorträge chronologisch';
+    
+    console.log('[GA-CHRONOLOGICAL] Lade chronologische Ansicht (currentGAView:', currentGAView, ')');
     
     const response = await fetch(`${API_BASE}/api/lectures/chronological`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -10404,8 +10640,37 @@ function displayGAChronological(lectures) {
   const gaTab = document.getElementById('ga-tab');
   const isInGATab = gaTab && gaTab.classList.contains('active');
   
-  // Füge sticky Header NUR ein, wenn wir im GA-Tab sind
-  if (isInGATab) {
+  // Prüfe ob die chronologische Ansicht aktiv ist
+  const isChronologicalView = currentGAView === 'chronological';
+  
+  console.log('[CHRONOLOGICAL] displayGAChronological aufgerufen - isInGATab:', isInGATab, ', isChronologicalView:', isChronologicalView);
+  
+  // WICHTIG: Entferne Jahres-Buttons IMMER zuerst, bevor wir prüfen ob sie erstellt werden sollen
+  // Dies verhindert, dass sie in anderen Tabs sichtbar bleiben
+  const gaTabCheck = document.getElementById('ga-tab');
+  const isInGATabCheck = gaTabCheck && gaTabCheck.classList.contains('active');
+  const isChronologicalViewCheck = currentGAView === 'chronological';
+  
+  // Nur behalten wenn wir wirklich im GA-Tab mit chronologischer Ansicht sind
+  if (!isInGATabCheck || !isChronologicalViewCheck) {
+    // Verwende globale Funktion falls verfügbar
+    if (typeof removeChronologicalYearButtons === 'function') {
+      removeChronologicalYearButtons();
+      console.log('[CHRONOLOGICAL] Jahres-Buttons entfernt über globale Funktion - nicht im richtigen Tab/Ansicht');
+    } else {
+      const chronologicalNavBeforeCheck = document.getElementById('chronological-year-nav');
+      if (chronologicalNavBeforeCheck) {
+        chronologicalNavBeforeCheck.remove();
+        console.log('[CHRONOLOGICAL] Jahres-Buttons entfernt - nicht im richtigen Tab/Ansicht');
+      }
+    }
+  } else {
+    console.log('[CHRONOLOGICAL] Jahres-Buttons behalten - im richtigen Tab/Ansicht');
+  }
+  
+  // Füge sticky Header NUR ein, wenn wir im GA-Tab sind UND die chronologische Ansicht aktiv ist
+  if (isInGATab && isChronologicalView) {
+    console.log('[CHRONOLOGICAL] Erstelle Jahres-Buttons - Bedingungen erfüllt');
     // Füge sticky Header direkt in #main ein (vor #viewer), damit es richtig funktioniert
     const mainContainer = document.getElementById('main');
     if (mainContainer && viewer) {
@@ -10419,7 +10684,7 @@ function displayGAChronological(lectures) {
       // Kompensiere nur das Padding von #main (0.5rem top, 0.8rem left/right)
       const stickyNav = document.createElement('div');
       stickyNav.id = 'chronological-year-nav';
-      stickyNav.style.cssText = 'position: -webkit-sticky; position: sticky; top: 0; z-index: 1004 !important; background: var(--background-color) !important; padding: 1.2rem 0.8rem 0.8rem 1.5rem; margin: -0.5rem -0.8rem 1rem -0.8rem; width: calc(100% + 1.6rem); box-sizing: border-box;';
+      stickyNav.style.cssText = 'position: -webkit-sticky; position: sticky; top: 0; z-index: 1004 !important; background: var(--background-color) !important; padding: 1.2rem 0.8rem 0.8rem 1.5rem; margin: -1.5rem -0.8rem 1rem -0.8rem; width: calc(100% + 1.6rem); box-sizing: border-box;';
       
       const buttonsContainer = document.createElement('div');
       buttonsContainer.style.cssText = 'display: flex; flex-wrap: wrap; column-gap: 0.05rem; row-gap: 0.3rem; align-items: center;';
@@ -10434,11 +10699,15 @@ function displayGAChronological(lectures) {
         mainContainer.insertBefore(stickyNav, viewer);
       }
     }
+    console.log('[CHRONOLOGICAL] Jahres-Buttons erfolgreich erstellt und eingefügt');
   } else {
-    // Wenn nicht im GA-Tab, entferne Jahres-Buttons falls vorhanden
+    // Wenn nicht im GA-Tab ODER nicht in chronologischer Ansicht, entferne Jahres-Buttons falls vorhanden
     const existingNav = document.getElementById('chronological-year-nav');
     if (existingNav) {
       existingNav.remove();
+      console.log('[CHRONOLOGICAL] Jahres-Buttons entfernt - Bedingungen nicht erfüllt (isInGATab:', isInGATab, ', isChronologicalView:', isChronologicalView, ')');
+    } else {
+      console.log('[CHRONOLOGICAL] Keine Jahres-Buttons vorhanden zum Entfernen - Bedingungen nicht erfüllt');
     }
   }
   
@@ -16676,6 +16945,19 @@ function formatAsteriskParagraphs() {
   const summaryPanel = document.getElementById('summary-panel');
   const verticalResizeHandleWrapper = document.getElementById('verticalResizeHandleWrapper');
   const tocList = document.getElementById('toc-list');
+  
+  // WICHTIG: Entferne Jahres-Buttons beim Anzeigen eines einzelnen Vortrags
+  // da wir dann nicht mehr in der chronologischen Übersicht sind
+  if (typeof removeChronologicalYearButtons === 'function') {
+    removeChronologicalYearButtons();
+    console.log('[SHOW-LECTURE] Jahres-Buttons entfernt über globale Funktion beim Anzeigen eines einzelnen Vortrags');
+  } else {
+    const chronologicalNav = document.getElementById('chronological-year-nav');
+    if (chronologicalNav) {
+      chronologicalNav.remove();
+      console.log('[SHOW-LECTURE] Jahres-Buttons entfernt beim Anzeigen eines einzelnen Vortrags');
+    }
+  }
   
   // Aktuellen Vortrag tracken
   window.currentOpenLectureId = lectureId;
