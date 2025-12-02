@@ -401,6 +401,27 @@ async function showMembersContent() {
   summaryPanel.style.marginRight = '0px';
   summaryPanel.style.display = 'block'; // Explizit sichtbar machen
   summaryPanel.style.opacity = '1';
+  
+  // Lade Bookmarks und Quotes vorab im Hintergrund für schnellere Tab-Wechsel
+  const now = Date.now();
+  const cacheValid = cachedBookmarksData && cachedQuotesData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+  
+  if (!cacheValid && typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
+    console.log('[MB-PANEL] Lade Bookmarks und Quotes vorab...');
+    Promise.all([
+      getBookmarks(),
+      getQuotes()
+    ]).then(([bookmarksResult, quotesResult]) => {
+      cachedBookmarksData = bookmarksResult;
+      cachedQuotesData = quotesResult;
+      bookmarksQuotesCacheTimestamp = Date.now();
+      console.log('[MB-PANEL] Bookmarks und Quotes vorab geladen');
+    }).catch(err => {
+      console.warn('[MB-PANEL] Fehler beim Vorab-Laden:', err);
+    });
+  }
   summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
@@ -740,8 +761,11 @@ async function loadBookmarksTab(container) {
     bookmarksQuotesCacheTimestamp = now;
   }
   
-  // Lade alle Keywords aus Bookmarks und Quotes (verwendet Cache)
-  await updateKeywordFilterDropdownWithAllKeywords();
+  // Lade Keywords und Vortragsdaten parallel für bessere Performance
+  const [_, __] = await Promise.all([
+    updateKeywordFilterDropdownWithAllKeywords(),
+    loadAllLectureDates()
+  ]);
   
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Bookmarks</div>';
@@ -754,9 +778,6 @@ async function loadBookmarksTab(container) {
     const dateB = new Date(b.created_at);
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
-  
-  // Lade alle Vortragsdaten einmalig (wird gecacht)
-  await loadAllLectureDates();
   
   // Hole Datum für jedes Bookmark aus dem Cache (synchron, sehr schnell)
   const lectureDates = sortedData.map(bookmark => getLectureDate(bookmark.ga_number));
@@ -847,8 +868,11 @@ async function loadQuotesTab(container) {
     bookmarksQuotesCacheTimestamp = now;
   }
   
-  // Lade alle Keywords aus Bookmarks und Quotes (verwendet Cache)
-  await updateKeywordFilterDropdownWithAllKeywords();
+  // Lade Keywords und Vortragsdaten parallel für bessere Performance
+  const [_, __] = await Promise.all([
+    updateKeywordFilterDropdownWithAllKeywords(),
+    loadAllLectureDates()
+  ]);
   
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
@@ -861,9 +885,6 @@ async function loadQuotesTab(container) {
     const dateB = new Date(b.created_at);
     return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
   });
-  
-  // Lade alle Vortragsdaten einmalig (wird gecacht)
-  await loadAllLectureDates();
   
   // Hole Datum für jedes Quote aus dem Cache (synchron, sehr schnell)
   const lectureDates = sortedData.map(quote => getLectureDate(quote.ga_reference));
@@ -1631,7 +1652,7 @@ let lastQuotesData = null;
 let cachedBookmarksData = null;
 let cachedQuotesData = null;
 let bookmarksQuotesCacheTimestamp = null;
-const BOOKMARKS_QUOTES_CACHE_TTL = 30000; // 30 Sekunden Cache-Gültigkeit
+const BOOKMARKS_QUOTES_CACHE_TTL = 300000; // 5 Minuten Cache-Gültigkeit (erhöht für bessere Performance)
 
 /**
  * Markiere Absätze im Viewer, die bereits Bookmarks oder Zitate haben
