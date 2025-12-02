@@ -777,6 +777,160 @@
     #app-view.active {
       display: flex;
     }
+
+    /* Account Modal */
+    .account-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .account-modal.active {
+      display: flex;
+    }
+
+    .account-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .account-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .account-modal-header h3 {
+      color: var(--heading-color);
+      font-size: 1.3rem;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .account-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--secondary-text);
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .account-modal-close:hover {
+      color: var(--text-color);
+    }
+
+    .account-info-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .account-info-label {
+      color: var(--heading-color);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .account-info-value {
+      color: var(--text-color);
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background: var(--background-color);
+      border-radius: 4px;
+    }
+
+    .account-info-value.hidden {
+      display: none;
+    }
+
+    .account-modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .account-modal-btn {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .account-modal-btn.change-email {
+      background-color: var(--accent-color);
+      color: white;
+    }
+
+    .account-modal-btn.change-email:hover {
+      background-color: #3a6270;
+    }
+
+    .account-modal-btn.delete-account {
+      background-color: var(--error-color);
+      color: white;
+    }
+
+    .account-modal-btn.delete-account:hover {
+      background-color: #d32f2f;
+    }
+
+    .change-email-form {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .change-email-form.active {
+      display: block;
+    }
+
+    .change-email-form input {
+      margin-bottom: 0.75rem;
+    }
+
+    .change-email-form-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .change-email-form-actions button {
+      flex: 1;
+    }
+
+    .change-email-form-actions .cancel-btn {
+      background-color: transparent;
+      color: var(--accent-color);
+      border: 1px solid var(--accent-color);
+    }
+
+    .change-email-form-actions .cancel-btn:hover {
+      background-color: var(--accent-color);
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -836,11 +990,11 @@
   <div id="app-view">
     <header>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="app.html" class="toolbar-tab ga-suche-btn" style="text-decoration: none;">GA-Suche</a>
+        <a href="app.html" class="toolbar-tab ga-suche-btn" style="text-decoration: none;">Zur GA-Suche</a>
         <h1>GA-Suche Mitgliederbereich</h1>
       </div>
       <div class="user-info">
-        <span class="user-email" id="user-email"></span>
+        <button class="secondary" id="account-btn">Mein Account</button>
         <button class="secondary" id="logout-btn">Abmelden</button>
       </div>
     </header>
@@ -902,6 +1056,36 @@
     </div>
   </div>
 
+  <!-- Account Modal -->
+  <div id="account-modal" class="account-modal">
+    <div class="account-modal-content">
+      <div class="account-modal-header">
+        <h3>Mein Account</h3>
+        <button class="account-modal-close" id="account-modal-close">&times;</button>
+      </div>
+      
+      <div class="account-info-section">
+        <label class="account-info-label">E-Mail-Adresse</label>
+        <div class="account-info-value" id="account-email-display"></div>
+        
+        <div class="change-email-form" id="change-email-form">
+          <label for="new-email-input">Neue E-Mail-Adresse</label>
+          <input type="email" id="new-email-input" placeholder="neue@email.de" required>
+          <div class="change-email-form-actions">
+            <button class="account-modal-btn change-email" id="save-email-btn">Speichern</button>
+            <button class="account-modal-btn cancel-btn" id="cancel-email-btn">Abbrechen</button>
+          </div>
+        </div>
+        
+        <button class="account-modal-btn change-email" id="change-email-btn">E-Mail-Adresse ändern</button>
+      </div>
+      
+      <div class="account-modal-actions">
+        <button class="account-modal-btn delete-account" id="delete-account-btn">Account löschen</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script type="module">
     // Prüfe ob wir über file:/// öffnen (Module funktionieren nicht mit file:///)
@@ -912,7 +1096,7 @@
       document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
     }
     
-    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange;
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount;
     let getBookmarks, deleteBookmark, updateBookmark, getQuotes, deleteQuote, updateQuote;
     
     try {
@@ -922,6 +1106,8 @@
       signOut = authModule.signOut;
       getCurrentUser = authModule.getCurrentUser;
       onAuthStateChange = authModule.onAuthStateChange;
+      updateUserEmail = authModule.updateUserEmail;
+      deleteUserAccount = authModule.deleteUserAccount;
       
       const apiModule = await import('./members-api.js');
       getBookmarks = apiModule.getBookmarks;
@@ -936,6 +1122,8 @@
       window.signIn = signIn;
       window.signOut = signOut;
       window.getCurrentUser = getCurrentUser;
+      window.updateUserEmail = updateUserEmail;
+      window.deleteUserAccount = deleteUserAccount;
       window.getBookmarks = getBookmarks;
       window.deleteBookmark = deleteBookmark;
       window.updateBookmark = updateBookmark;
@@ -1149,6 +1337,209 @@
             showAuth();
           } catch (error) {
             console.error('[MEMBERS-HTML] Logout-Fehler:', error);
+          }
+        });
+      }
+
+      // Account-Button
+      setupAccountModal();
+    }
+
+    // ===== Account Modal Functions =====
+    function setupAccountModal() {
+      const accountBtn = document.getElementById('account-btn');
+      const accountModal = document.getElementById('account-modal');
+      const accountModalClose = document.getElementById('account-modal-close');
+      const changeEmailBtn = document.getElementById('change-email-btn');
+      const cancelEmailBtn = document.getElementById('cancel-email-btn');
+      const saveEmailBtn = document.getElementById('save-email-btn');
+      const deleteAccountBtn = document.getElementById('delete-account-btn');
+      const changeEmailForm = document.getElementById('change-email-form');
+      const newEmailInput = document.getElementById('new-email-input');
+      const accountEmailDisplay = document.getElementById('account-email-display');
+
+      // Öffne Modal
+      if (accountBtn) {
+        accountBtn.addEventListener('click', () => {
+          if (currentUser && accountEmailDisplay) {
+            accountEmailDisplay.textContent = currentUser.email || '';
+            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
+            accountEmailDisplay.classList.remove('hidden');
+          }
+          if (accountModal) {
+            accountModal.classList.add('active');
+            changeEmailForm.classList.remove('active');
+            newEmailInput.value = '';
+            // Stelle sicher, dass der Button zum Ändern sichtbar ist
+            if (changeEmailBtn) {
+              changeEmailBtn.style.display = 'block';
+            }
+          }
+        });
+      }
+
+      // Schließe Modal
+      if (accountModalClose) {
+        accountModalClose.addEventListener('click', () => {
+          if (accountModal) {
+            accountModal.classList.remove('active');
+            changeEmailForm.classList.remove('active');
+            newEmailInput.value = '';
+            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
+            if (accountEmailDisplay) {
+              accountEmailDisplay.classList.remove('hidden');
+            }
+            // Stelle sicher, dass der Button zum Ändern sichtbar ist
+            if (changeEmailBtn) {
+              changeEmailBtn.style.display = 'block';
+            }
+          }
+        });
+      }
+
+      // Schließe Modal bei Klick außerhalb
+      if (accountModal) {
+        accountModal.addEventListener('click', (e) => {
+          if (e.target === accountModal) {
+            accountModal.classList.remove('active');
+            changeEmailForm.classList.remove('active');
+            newEmailInput.value = '';
+            // Stelle sicher, dass die E-Mail-Anzeige sichtbar ist
+            if (accountEmailDisplay) {
+              accountEmailDisplay.classList.remove('hidden');
+            }
+            // Stelle sicher, dass der Button zum Ändern sichtbar ist
+            if (changeEmailBtn) {
+              changeEmailBtn.style.display = 'block';
+            }
+          }
+        });
+      }
+
+      // Zeige Email-Ändern-Formular
+      if (changeEmailBtn) {
+        changeEmailBtn.addEventListener('click', () => {
+          if (changeEmailForm) {
+            changeEmailForm.classList.add('active');
+            // Verstecke die E-Mail-Anzeige
+            if (accountEmailDisplay) {
+              accountEmailDisplay.classList.add('hidden');
+            }
+            // Verstecke den Button zum Ändern der E-Mail
+            if (changeEmailBtn) {
+              changeEmailBtn.style.display = 'none';
+            }
+            newEmailInput.focus();
+          }
+        });
+      }
+
+      // Abbrechen Email-Ändern
+      if (cancelEmailBtn) {
+        cancelEmailBtn.addEventListener('click', () => {
+          if (changeEmailForm) {
+            changeEmailForm.classList.remove('active');
+            newEmailInput.value = '';
+            // Zeige die E-Mail-Anzeige wieder
+            if (accountEmailDisplay) {
+              accountEmailDisplay.classList.remove('hidden');
+            }
+            // Zeige den Button zum Ändern der E-Mail wieder
+            if (changeEmailBtn) {
+              changeEmailBtn.style.display = 'block';
+            }
+          }
+        });
+      }
+
+      // Speichere neue Email
+      if (saveEmailBtn) {
+        saveEmailBtn.addEventListener('click', async () => {
+          const newEmail = newEmailInput?.value?.trim();
+          if (!newEmail) {
+            alert('Bitte geben Sie eine E-Mail-Adresse ein.');
+            return;
+          }
+
+          if (newEmail === currentUser?.email) {
+            alert('Das ist bereits Ihre aktuelle E-Mail-Adresse.');
+            return;
+          }
+
+          try {
+            const updateEmailFunc = window.updateUserEmail || updateUserEmail;
+            if (typeof updateEmailFunc !== 'function') {
+              alert('Fehler: Funktion zum Ändern der E-Mail nicht verfügbar.');
+              return;
+            }
+
+            const result = await updateEmailFunc(newEmail);
+            if (result.success) {
+              alert('E-Mail-Adresse wurde erfolgreich geändert. Bitte bestätigen Sie die neue E-Mail-Adresse in Ihrer E-Mail.');
+              // Aktualisiere Anzeige
+              if (currentUser) {
+                currentUser.email = newEmail;
+              }
+              if (accountEmailDisplay) {
+                accountEmailDisplay.textContent = newEmail;
+                // Zeige die E-Mail-Anzeige wieder
+                accountEmailDisplay.classList.remove('hidden');
+              }
+              const userEmailEl = document.getElementById('user-email');
+              if (userEmailEl) {
+                userEmailEl.textContent = newEmail;
+              }
+              changeEmailForm.classList.remove('active');
+              newEmailInput.value = '';
+              // Zeige den Button zum Ändern wieder
+              if (changeEmailBtn) {
+                changeEmailBtn.style.display = 'block';
+              }
+            } else {
+              alert('Fehler beim Ändern der E-Mail: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Ändern der E-Mail:', error);
+            alert('Fehler beim Ändern der E-Mail: ' + (error.message || 'Unbekannter Fehler'));
+          }
+        });
+      }
+
+      // Account löschen
+      if (deleteAccountBtn) {
+        deleteAccountBtn.addEventListener('click', async () => {
+          const confirmText = 'ACCOUNT LÖSCHEN';
+          const userInput = prompt(`WARNUNG: Diese Aktion kann nicht rückgängig gemacht werden!\n\nAlle Ihre Bookmarks, Zitate und Notizen werden unwiderruflich gelöscht.\n\nGeben Sie "${confirmText}" ein, um zu bestätigen:`);
+          
+          if (userInput !== confirmText) {
+            if (userInput !== null) {
+              alert('Bestätigung fehlgeschlagen. Der Account wurde nicht gelöscht.');
+            }
+            return;
+          }
+
+          // Zweite Bestätigung
+          if (!confirm('Sind Sie wirklich sicher? Diese Aktion kann NICHT rückgängig gemacht werden!')) {
+            return;
+          }
+
+          try {
+            const deleteAccountFunc = window.deleteUserAccount || deleteUserAccount;
+            if (typeof deleteAccountFunc !== 'function') {
+              alert('Fehler: Funktion zum Löschen des Accounts nicht verfügbar.');
+              return;
+            }
+
+            const result = await deleteAccountFunc();
+            if (result.success) {
+              alert('Ihr Account wurde erfolgreich gelöscht.');
+              showAuth();
+            } else {
+              alert('Fehler beim Löschen des Accounts: ' + (result.message || 'Unbekannter Fehler'));
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Fehler beim Löschen des Accounts:', error);
+            alert('Fehler beim Löschen des Accounts: ' + (error.message || 'Unbekannter Fehler'));
           }
         });
       }
