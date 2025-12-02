@@ -125,7 +125,7 @@ class ClaudeProvider extends LLMProvider {
       },
       body: JSON.stringify({
         model: options.model || 'claude-sonnet-4-20250514',
-        max_tokens: options.maxTokens || 4096,
+        max_tokens: options.maxTokens || 16384,  // Erhöht von 4096 auf 16384
         temperature: options.temperature || 0.7,
         messages: [{
           role: 'user',
@@ -202,7 +202,7 @@ class GeminiProvider extends LLMProvider {
         }],
         generationConfig: {
           temperature: options.temperature || 0.7,
-          maxOutputTokens: options.maxTokens || 8192, // Default erhöht für große Antworten
+          maxOutputTokens: options.maxTokens || 16384, // Erhöht von 8192 auf 16384
           topP: options.topP || 0.95
         }
       })
@@ -286,7 +286,7 @@ class OpenAIProvider extends LLMProvider {
           role: 'user',
           content: prompt
         }],
-        max_tokens: options.maxTokens || 4096,
+        max_tokens: options.maxTokens || 16384,  // Erhöht von 4096 auf 16384
         temperature: options.temperature || 0.7
       })
     });
@@ -414,22 +414,25 @@ function getAllAvailableProviders(task) {
     }
   });
   
-  // Erstelle Provider-Instanzen für verfügbare (filtere Rate-Limited)
+  // Erstelle Provider-Instanzen für verfügbare
+  // WICHTIG: Rate-Limited Provider werden NICHT mehr automatisch gefiltert,
+  // damit sie trotzdem versucht werden können (falls Rate-Limit abgelaufen ist)
   for (const name of providerPriority) {
-    // Überspringe Rate-Limited Provider
-    if (isProviderRateLimited(name)) {
-      const entry = rateLimitedProviders.get(name.toLowerCase());
-      const remaining = Math.ceil((entry.until - Date.now()) / 60000);
-      console.log(`[LLM-PROVIDER] ⏭️ ${name} übersprungen (Rate-Limited, noch ${remaining} Min)`);
-      continue;
-    }
-    
     try {
       const provider = createProvider(name);
       if (provider.isAvailable()) {
+        // Prüfe Rate-Limit, aber füge trotzdem hinzu (mit Warnung)
+        if (isProviderRateLimited(name)) {
+          const entry = rateLimitedProviders.get(name.toLowerCase());
+          const remaining = Math.ceil((entry.until - Date.now()) / 60000);
+          console.log(`[LLM-PROVIDER] ⚠️ ${name} ist Rate-Limited (noch ${remaining} Min), wird trotzdem versucht`);
+        }
         providers.push(provider);
+      } else {
+        console.log(`[LLM-PROVIDER] ⏭️ ${name} übersprungen (nicht verfügbar - kein API-Key)`);
       }
     } catch (error) {
+      console.log(`[LLM-PROVIDER] ⏭️ ${name} übersprungen (Fehler: ${error.message})`);
       // Provider nicht verfügbar - überspringen
     }
   }
