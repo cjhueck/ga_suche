@@ -201,12 +201,14 @@
     }
     
     /* Concept Haupttitel - fett und blau */
-    .concept-main-title {
-      font-weight: 700;
-      font-size: 1.2em;
-      margin-bottom: 1rem;
-      padding: 0.5rem 0;
-      color: var(--link-color);
+    /* Schlagwort-Titel oben im Ergebnisfenster - größer und fett */
+    #viewer .concept-overview-container .concept-main-title,
+    #viewer .concept-main-title {
+      font-weight: 700 !important;
+      font-size: 1.5em !important;
+      margin-bottom: 1rem !important;
+      padding: 0.5rem 0 !important;
+      color: var(--link-color) !important;
     }
     
     /* Concept Feld-Wrapper */
@@ -218,6 +220,45 @@
     .concept-field-wrapper.concept-field-last {
       margin-bottom: 0;
       padding-bottom: 0;
+    }
+    
+    /* Trennlinie zwischen Methode 1 und Methode 2 */
+    .concept-method-divider {
+      width: 100%;
+      height: 1px;
+      background-color: var(--border-color, #e0e0e0);
+      margin: 0.5rem 0;
+    }
+    
+    /* Container für ausführliche Antwort (Methode 2) */
+    .concept-detailed-analysis {
+      padding: 0.5rem 0;
+      font-size: var(--text-size, 0.9rem);
+      line-height: 1.6;
+      color: var(--text-color, #333);
+    }
+    
+    .concept-detailed-analysis p {
+      margin-bottom: 1em;
+    }
+    
+    /* Zwischenüberschriften in Methode 2 müssen fett sein - höhere Spezifität als #viewer h4 */
+    #viewer .concept-detailed-analysis h3 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 700 !important;
+      color: var(--text-color, #333);
+    }
+    
+    #viewer .concept-detailed-analysis h4 {
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+      font-weight: 700 !important;
+      color: var(--text-color, #333);
+    }
+    
+    .concept-detailed-analysis strong {
+      font-weight: 600;
     }
     
     /* Concept Feld-Überschriften - wie H4 formatiert */
@@ -317,6 +358,18 @@
     /* WICHTIG: Alle inneren Elemente in Tabellenzellen müssen die Schriftgröße erben */
     #viewer td.concept-overview-cell.concept-content * {
       font-size: inherit !important;
+    }
+    
+    /* Alle Texte im Viewer auf 0.9rem setzen, wenn Index-Tab aktiv ist */
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer,
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer * {
+      font-size: 0.9rem !important;
+    }
+    
+    /* Fallback für Browser ohne :has() Support */
+    .tab-schlagworte-active #viewer,
+    .tab-schlagworte-active #viewer * {
+      font-size: 0.9rem !important;
     }
     
     /* Überschriften bleiben bei ursprünglicher Größe */
@@ -2934,6 +2987,65 @@ body.dark-mode #thematicSearchInfo {
       border-color: var(--dark-link-color) !important;
     }
 
+    /* Jahres-Buttons Container (sticky) */
+    .ga-year-buttons-container {
+      position: sticky;
+      top: 0;
+      background: var(--bg-color);
+      padding: 0.75rem 2rem 0.75rem 0;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--border-color);
+      z-index: 100;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 900px;
+    }
+    
+    body.dark-mode .ga-year-buttons-container {
+      background: var(--dark-bg-color);
+      border-bottom-color: var(--dark-border-color);
+    }
+    
+    /* Jahres-Button */
+    .ga-year-button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--link-color);
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .ga-year-button:hover {
+      background: var(--link-color);
+      color: white;
+      border-color: var(--link-color);
+    }
+    
+    body.dark-mode .ga-year-button {
+      color: var(--dark-link-color);
+      background: var(--dark-input-bg);
+      border-color: var(--dark-border-color);
+    }
+    
+    body.dark-mode .ga-year-button:hover {
+      background: var(--dark-link-color);
+      color: white;
+      border-color: var(--dark-link-color);
+    }
+    
+    /* Jahr-Anchor (unsichtbar, für Scroll-Ziel) */
+    .ga-year-anchor {
+      position: relative;
+      top: -80px; /* Offset für sticky Buttons */
+      visibility: hidden;
+      height: 0;
+    }
+    
     .ga-overview-lecture {
       margin-bottom: 1rem;
       padding-bottom: 0.75rem;
@@ -6214,6 +6326,13 @@ function normalizeGANumber(gaNumber) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
+      // Setze Body-Klasse für Index-Tab (für CSS-Fallback)
+      if (mode === 'schlagworte') {
+        document.body.classList.add('tab-schlagworte-active');
+      } else {
+        document.body.classList.remove('tab-schlagworte-active');
+      }
+      
       document.querySelectorAll('.tab-content').forEach(content => {
         content.classList.remove('active');
         // Verstecke das advanced-search-tab explizit beim Tab-Wechsel
@@ -9310,9 +9429,32 @@ async function showGALectures(gaNumber, skipHistory = false) {
       return numA - numB;
     });
     
-    // Erstelle HTML für Vorträge
-    let html = '<div style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+    // Extrahiere Jahre aus den Vorträgen
+    const yearsSet = new Set();
+    lectures.forEach(lecture => {
+      if (lecture.date) {
+        // Extrahiere Jahr aus Datum (Format kann variieren: "1910", "15. Februar 1910", etc.)
+        const yearMatch = lecture.date.match(/\b(19\d{2}|20\d{2})\b/);
+        if (yearMatch) {
+          yearsSet.add(parseInt(yearMatch[1]));
+        }
+      }
+    });
     
+    // Sortiere Jahre aufsteigend
+    const years = Array.from(yearsSet).sort((a, b) => a - b);
+    
+    // Erstelle HTML für Jahres-Buttons (sticky)
+    let html = '<div class="ga-year-buttons-container">';
+    years.forEach(year => {
+      html += `<button class="ga-year-button" onclick="scrollToYear('year-${year}')">${year}</button>`;
+    });
+    html += '</div>';
+    
+    // Erstelle HTML für Vorträge
+    html += '<div class="ga-lectures-container" style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+    
+    let currentYear = null;
     lectures.forEach(lecture => {
       const lectureId = lecture.ID;
       // Verwende shortSummary von der lecture (kommt vom Backend) oder lade aus summaryDB
@@ -9322,6 +9464,21 @@ async function showGALectures(gaNumber, skipHistory = false) {
       const lectureTitle = lecture.title || '';
       const location = lecture.location || '';
       const date = lecture.date || '';
+      
+      // Extrahiere Jahr aus Datum
+      let lectureYear = null;
+      if (date) {
+        const yearMatch = date.match(/\b(19\d{2}|20\d{2})\b/);
+        if (yearMatch) {
+          lectureYear = parseInt(yearMatch[1]);
+        }
+      }
+      
+      // Füge Jahr-Anchor hinzu, wenn sich das Jahr ändert
+      if (lectureYear && lectureYear !== currentYear) {
+        currentYear = lectureYear;
+        html += `<div id="year-${lectureYear}" class="ga-year-anchor"></div>`;
+      }
       
       html += `
         <div style="margin-bottom: 1rem;">
@@ -9359,6 +9516,23 @@ async function showGALectures(gaNumber, skipHistory = false) {
     
     html += '</div>';
     viewer.innerHTML = html;
+    
+    // Funktion zum Scrollen zu einem Jahr
+    window.scrollToYear = function(yearId) {
+      const element = document.getElementById(yearId);
+      if (element) {
+        const container = document.querySelector('.ga-lectures-container');
+        const buttonsContainer = document.querySelector('.ga-year-buttons-container');
+        const buttonsHeight = buttonsContainer ? buttonsContainer.offsetHeight : 0;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - buttonsHeight - 20; // 20px Abstand
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    };
     
     // Aktualisiere Button-Status, damit Info-Icon angezeigt wird
     updateButtonStates();
@@ -13836,7 +14010,7 @@ function displayGAChronological(lectures) {
       let html = '<div class="concept-overview-container">';
       
       // Begriff/Thema als Überschrift über den Feldern - fett und blau
-      html += `<div class="concept-main-title">${concept}</div>`;
+      html += `<div class="concept-main-title" style="font-size: 1.5em !important; font-weight: 700 !important;">${concept}</div>`;
       
       // Felder untereinander
       const fields = [
@@ -13857,6 +14031,63 @@ function displayGAChronological(lectures) {
       });
       
       html += '</div>';
+      
+      // Methode 2: Ausführliche Antwort (concept.text), falls vorhanden
+      console.log('[CONCEPT-OVERVIEW] Prüfe Methode 2 (text):');
+      console.log('[CONCEPT-OVERVIEW] data.text vorhanden?:', !!data.text);
+      console.log('[CONCEPT-OVERVIEW] data.text Wert:', data.text);
+      console.log('[CONCEPT-OVERVIEW] data.text Länge:', data.text ? data.text.length : 0);
+      console.log('[CONCEPT-OVERVIEW] data.text.trim():', data.text ? data.text.trim() : null);
+      console.log('[CONCEPT-OVERVIEW] concept:', concept);
+      console.log('[CONCEPT-OVERVIEW] concept Länge:', concept ? concept.length : 0);
+      console.log('[CONCEPT-OVERVIEW] data.text.trim() !== concept?:', data.text ? data.text.trim() !== concept : false);
+      
+      // Prüfe ob text vorhanden ist und nicht nur das Keyword selbst (mit etwas Toleranz)
+      const textTrimmed = data.text ? data.text.trim() : '';
+      const hasValidText = textTrimmed && 
+                          textTrimmed !== concept && 
+                          textTrimmed.length > concept.length + 10; // Mindestens 10 Zeichen mehr als das Keyword
+      
+      console.log('[CONCEPT-OVERVIEW] hasValidText?:', hasValidText);
+      
+      if (hasValidText) {
+        console.log('[CONCEPT-OVERVIEW] ✓ Zeige Methode 2 (ausführliche Antwort)');
+        // Trennlinie zwischen beiden Methoden
+        html += '<div class="concept-method-divider"></div>';
+        
+        // Container für ausführliche Antwort
+        html += '<div class="concept-detailed-analysis">';
+        
+        // Funktion um längeren Markdown-Text zu rendern (für Methode 2)
+        const renderDetailedText = (text) => {
+          if (!text || text.trim() === '') {
+            return '';
+          }
+          
+          // Entferne Markdown-Links im Format [[...|GA###/##]]
+          text = text.replace(/\[\[[^\]]*\|(GA\d+[a-z]?\/\d+)\]\]/g, '$1');
+          
+          // Konvertiere Markdown zu HTML
+          let html = marked.parse(text);
+          
+          // Entferne HTML-Links, die von marked.parse() erstellt wurden
+          html = html.replace(/<a[^>]*>([^<]*\|)?(GA\d+[a-z]?\/\d+)<\/a>/gi, '$2');
+          
+          return html;
+        };
+        
+        html += renderDetailedText(data.text);
+        html += '</div>';
+      } else {
+        console.log('[CONCEPT-OVERVIEW] ✗ Methode 2 wird nicht angezeigt');
+        if (!data.text) {
+          console.log('[CONCEPT-OVERVIEW] Grund: data.text ist nicht vorhanden');
+        } else if (!data.text.trim()) {
+          console.log('[CONCEPT-OVERVIEW] Grund: data.text ist leer');
+        } else if (data.text.trim() === concept) {
+          console.log('[CONCEPT-OVERVIEW] Grund: data.text ist gleich concept');
+        }
+      }
       
       viewer.innerHTML = html;
       
@@ -13915,20 +14146,8 @@ function displayGAChronological(lectures) {
         // Dies verhindert, dass Links übersprungen werden, wenn sie in falscher Reihenfolge stehen
         const allMatches = [];
         
-        // 1. Finde alle Vorträge mit Slash: GA###/##:^index oder GA###/##
-        const regexVortrag = /(\()?GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?(\))?/g;
-        let match;
-        regexVortrag.lastIndex = 0;
-        while ((match = regexVortrag.exec(text)) !== null) {
-          allMatches.push({
-            type: 'vortrag',
-            match: match,
-            index: match.index,
-            length: match[0].length
-          });
-        }
-        
-        // 2. Finde alle Bücher MIT Index: GA###:^index (mit und ohne Klammern)
+        // 1. Finde alle Bücher MIT Index ZUERST: GA###:^index (mit und ohne Klammern)
+        // WICHTIG: Bücher müssen VOR Vorträgen erkannt werden, um falsche Matches zu vermeiden
         const regexBuchMitIndex = /(\()?GA(\d{1,3}[a-z]?):(\^?[a-zA-Z0-9]+)(\))?/g;
         regexBuchMitIndex.lastIndex = 0;
         let buchMitIndexMatch;
@@ -13939,6 +14158,68 @@ function displayGAChronological(lectures) {
             index: buchMitIndexMatch.index,
             length: buchMitIndexMatch[0].length
           });
+        }
+        
+        // 2. Finde alle falsch formatierten Bücher: GA###/^index oder GA###/index (mit Slash statt Doppelpunkt)
+        // Diese sollten eigentlich GA###:^index sein, werden aber manchmal falsch formatiert
+        // Erkenne sowohl mit als auch ohne ^ am Anfang des Index
+        const regexBuchFalschFormatiert = /(\()?GA(\d{1,3}[a-z]?)\/(\^?[a-zA-Z0-9]+)(\))?/g;
+        regexBuchFalschFormatiert.lastIndex = 0;
+        let buchFalschMatch;
+        while ((buchFalschMatch = regexBuchFalschFormatiert.exec(text)) !== null) {
+          // Prüfe ob dieser Match bereits als Buch erkannt wurde
+          const matchStart = buchFalschMatch.index;
+          const alreadyFound = allMatches.some(m => {
+            return (matchStart >= m.index && matchStart < m.index + m.length) ||
+                   (m.index >= matchStart && m.index < matchStart + buchFalschMatch[0].length);
+          });
+          
+          // Prüfe ob es wirklich ein Buch ist (keine Ziffern nach dem Slash = kein Vortrag)
+          const indexPart = buchFalschMatch[3];
+          const isBook = !/^\d+/.test(indexPart); // Wenn Index nicht mit Ziffern beginnt, ist es ein Buch
+          
+          if (!alreadyFound && isBook) {
+            // Stelle sicher, dass Index mit ^ beginnt
+            const normalizedIndex = indexPart.startsWith('^') ? indexPart : `^${indexPart}`;
+            
+            // Konvertiere zu Buch-Format: GA###/^index -> GA###:^index
+            const fakeMatch = [
+              buchFalschMatch[0],
+              buchFalschMatch[1] || null, // öffnende Klammer
+              buchFalschMatch[2], // GA-Nummer
+              normalizedIndex, // Index mit ^
+              buchFalschMatch[4] || null  // schließende Klammer
+            ];
+            fakeMatch.index = buchFalschMatch.index;
+            allMatches.push({
+              type: 'buch',
+              match: fakeMatch,
+              index: buchFalschMatch.index,
+              length: buchFalschMatch[0].length
+            });
+          }
+        }
+        
+        // 3. Finde alle Vorträge mit Slash: GA###/##:^index oder GA###/##
+        const regexVortrag = /(\()?GA(\d{1,3}[a-z]?)\/(\d+)(?::(\^?[a-zA-Z0-9]+))?(\))?/g;
+        let match;
+        regexVortrag.lastIndex = 0;
+        while ((match = regexVortrag.exec(text)) !== null) {
+          // Prüfe ob dieser Match bereits als falsch formatiertes Buch erkannt wurde
+          const matchStart = match.index;
+          const alreadyFound = allMatches.some(m => {
+            return (matchStart >= m.index && matchStart < m.index + m.length) ||
+                   (m.index >= matchStart && m.index < matchStart + match[0].length);
+          });
+          
+          if (!alreadyFound) {
+            allMatches.push({
+              type: 'vortrag',
+              match: match,
+              index: match.index,
+              length: match[0].length
+            });
+          }
         }
         
         // 3. Finde alle Bücher OHNE Index im Text (aber mit Index im HTML): (GA###) oder GA### (ohne Doppelpunkt)
@@ -19431,7 +19712,12 @@ function displayKeywords(selectedLetter = 'Alle') {
   }
   
   // Weitere Filterung nach Suchtext
-  const searchText = document.getElementById('keywordSearch') ? document.getElementById('keywordSearch').value.toLowerCase() : '';
+  // WICHTIG: Speichere den Wert und die Cursor-Position vor dem Neurendern
+  const keywordSearchInput = document.getElementById('keywordSearch');
+  const searchText = keywordSearchInput ? keywordSearchInput.value.toLowerCase() : '';
+  const savedSearchValue = keywordSearchInput ? keywordSearchInput.value : '';
+  const savedCursorPosition = keywordSearchInput ? keywordSearchInput.selectionStart : 0;
+  
   if (searchText) {
     filteredKeywords = filteredKeywords.filter(k => 
       k.keyword.toLowerCase().includes(searchText)
@@ -19448,9 +19734,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   // Alphabet-Navigation
   html += '<div id="alphabet-nav-dynamic" class="alphabet-nav-container"></div>';
   
-  // Suchfeld
+  // Suchfeld - mit gespeichertem Wert
   html += '<div class="keyword-search-container">';
-  html += '<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)">';
+  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)">`;
   html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
   html += '</div>';
   
@@ -19459,6 +19745,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   if (filteredKeywords.length === 0) {
     html += '<p class="no-results-message">Keine Schlagwörter gefunden.</p>';
     resultsContainer.innerHTML = html;
+    
+    // Stelle Cursor-Position im Suchfeld wieder her
+    restoreKeywordSearchCursor(savedSearchValue, savedCursorPosition);
     
     // Erstelle Alphabet-Navigation nach dem Setzen des HTML
     createAlphabetNavigationInContainer();
@@ -19504,6 +19793,9 @@ function displayKeywords(selectedLetter = 'Alle') {
   console.log('[DISPLAY] resultsContainer vor innerHTML:', resultsContainer.children.length, 'Kinder');
   resultsContainer.innerHTML = html;
   console.log('[DISPLAY] resultsContainer nach innerHTML:', resultsContainer.children.length, 'Kinder');
+  
+  // Stelle Cursor-Position im Suchfeld wieder her
+  restoreKeywordSearchCursor(savedSearchValue, savedCursorPosition);
   
   // Erstelle Alphabet-Navigation im dynamischen Container
   createAlphabetNavigationInContainer();
@@ -19649,6 +19941,23 @@ async function openFromKeyword(gaId) {
 function setupKeywordSearch() {
   // Diese Funktion wird nicht mehr benötigt, da das Suchfeld jetzt inline im HTML ist
   // Das oninput-Event ist bereits im HTML definiert
+}
+
+function restoreKeywordSearchCursor(savedValue, savedPosition) {
+  const keywordSearchInput = document.getElementById('keywordSearch');
+  if (keywordSearchInput && savedValue !== undefined) {
+    // Setze den Wert
+    keywordSearchInput.value = savedValue;
+    
+    // Stelle Cursor-Position wieder her
+    if (savedPosition !== undefined && savedPosition !== null) {
+      // Verwende setTimeout, um sicherzustellen, dass das DOM aktualisiert ist
+      setTimeout(() => {
+        keywordSearchInput.setSelectionRange(savedPosition, savedPosition);
+        keywordSearchInput.focus();
+      }, 0);
+    }
+  }
 }
 
 function clearKeywordSearch() {
@@ -20278,32 +20587,37 @@ async function performKeywordThematicSearch(keyword) {
       // Zeige Themen_Übersicht im Main Viewer zuerst, falls vorhanden
       if (hasOverview) {
         console.log('[KEYWORD-THEMATIC] Zeige gespeicherte Themen_Übersicht für:', keyword);
+        console.log('[KEYWORD-THEMATIC] existingKeyword.text vorhanden?:', !!existingKeyword.text);
+        console.log('[KEYWORD-THEMATIC] existingKeyword.text Länge:', existingKeyword.text ? existingKeyword.text.length : 0);
+        console.log('[KEYWORD-THEMATIC] existingKeyword.text Wert:', existingKeyword.text);
         if (viewer) {
-          renderConceptOverview(keyword, { overview: existingKeyword.overview });
+          // renderConceptOverview zeigt bereits beide Methoden an (overview + text)
+          renderConceptOverview(keyword, { 
+            overview: existingKeyword.overview,
+            text: existingKeyword.text || null
+          });
         }
-      }
-      
-      // Zeige KI-Suchergebnis im Main Viewer, falls vorhanden
-      // WICHTIG: Nur wenn vollständige Darstellung vorhanden ODER wenn lokale Version
-      if (hasText) {
+        // WICHTIG: Wenn hasOverview vorhanden ist, wird text bereits in renderConceptOverview angezeigt
+        // Daher wird displayKeywordThematicResults NICHT mehr aufgerufen, um Doppelung zu vermeiden
+      } else if (hasText) {
+        // Nur wenn KEIN Overview vorhanden ist, zeige Text separat an
         const textWithoutFormatting = existingKeyword.text.replace(/\*\*/g, '').trim();
         const isOnlyKeyword = textWithoutFormatting === keyword;
         
         // Wenn Text mehr als nur das Keyword selbst ist
         if (!isOnlyKeyword && existingKeyword.text.length > 50) {
           // In Online-Version: Nur anzeigen wenn vollständige Darstellung vorhanden
-          if (!isLocal && !hasOverview) {
+          if (!isLocal) {
             console.log('[KEYWORD-THEMATIC] Online-Version: Überspringe Anzeige für Schlagwort ohne vollständige Darstellung');
             if (countContainer) {
               countContainer.textContent = '';
             }
             // Keine Anzeige in Online-Version, aber nicht return hier, damit die Funktion normal endet
           } else {
-            // Lokale Version ODER vollständige Darstellung vorhanden: Anzeigen
-            console.log('[KEYWORD-THEMATIC] Zeige Text-Ergebnis (lokal oder mit Overview):', keyword, 'isLocal:', isLocal, 'hasOverview:', hasOverview);
+            // Lokale Version: Anzeigen
+            console.log('[KEYWORD-THEMATIC] Zeige Text-Ergebnis (lokal, ohne Overview):', keyword);
             
-            // Wenn kein Overview vorhanden ist, leere den Viewer zuerst (für lokale Version)
-            if (!hasOverview && viewer) {
+            if (viewer) {
               viewer.innerHTML = '';
             }
             
@@ -21577,7 +21891,10 @@ async function addNewKeyword() {
       if (result.overview) {
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          renderConceptOverview(result.keyword.keyword, { overview: result.overview });
+          renderConceptOverview(result.keyword.keyword, { 
+            overview: result.overview,
+            text: result.analysis || null
+          });
         }
       }
       

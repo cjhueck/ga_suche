@@ -5252,10 +5252,10 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   let rankedResults = applySemanticRanking(keywordResults, concept);
   console.log(`[CONCEPT-OVERVIEW] ${rankedResults.length} relevante Textpassagen gefunden (nach Ranking)`);
   
-  // Verwende mehr Ergebnisse für umfassendere Analyse (bis zu 200)
-  let topResults = rankedResults.slice(0, 200); // Top 200 für Analyse
+  // Verwende mehr Ergebnisse für umfassendere Analyse (bis zu 200 für alternative Begriffe)
+  let topResults = rankedResults.slice(0, 200); // Top 200 für alternative Begriffe
   
-  console.log(`[CONCEPT-OVERVIEW] Verwende ${topResults.length} Textpassagen für Analyse`);
+  console.log(`[CONCEPT-OVERVIEW] Verwende ${topResults.length} Textpassagen für alternative Begriffe`);
   
   // 3. Finde alternative Begriffe (ohne ähnliche Wortstämme)
   const alternativeTerms = [];
@@ -5349,13 +5349,37 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   
   // 4. Bereite Kontext für KI vor (mit Ranking-Scores)
   // Verwende mehr Ergebnisse für umfassendere KI-Analyse (bis zu 100)
-  const resultsForAI = topResults.slice(0, 100); // Top 100 für KI-Analyse
-  console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI`);
+  // Mit optimierter Kürzung sollte das Token-Limit eingehalten werden
+  const MAX_RESULTS_FOR_AI = 100; // Wiederhergestellt auf 100
+  const resultsForAI = topResults.slice(0, MAX_RESULTS_FOR_AI);
+  console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI (von ${topResults.length} verfügbaren)`);
+  
+  // Hilfsfunktion: Kürze Textpassage auf maximal 400 Zeichen (optimiert für mehr Passagen)
+  const truncateContent = (content, maxLength = 400) => {
+    if (!content || content.length <= maxLength) {
+      return content;
+    }
+    // Versuche bei Satzende zu kürzen
+    const truncated = content.substring(0, maxLength);
+    const lastPeriod = truncated.lastIndexOf('.');
+    const lastExclamation = truncated.lastIndexOf('!');
+    const lastQuestion = truncated.lastIndexOf('?');
+    const lastSentenceEnd = Math.max(lastPeriod, lastExclamation, lastQuestion);
+    
+    if (lastSentenceEnd > maxLength * 0.7) {
+      // Wenn Satzende gefunden wurde (nicht zu weit am Anfang), kürze dort
+      return truncated.substring(0, lastSentenceEnd + 1) + '...';
+    }
+    // Sonst kürze einfach und füge ... hinzu
+    return truncated + '...';
+  };
   
   const contextText = resultsForAI
     .map((result, index) => {
       const refId = `${result.ID}:${result.index}`;
-      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      // Kürze jede Textpassage auf maximal 500 Zeichen
+      const truncatedContent = truncateContent(result.content, 500);
+      return `[${refId}] ${result.fileName || result.title}\n${truncatedContent}`;
     })
     .join('\n\n---\n\n');
   
@@ -5369,14 +5393,19 @@ Gliedere deine Analyse in GENAU diese 4 Kategorien:
 1. DEFINITION
 Was ist "${concept}"? Wie wird es definiert und beschrieben?
 - Verwende KURZE, PRÄGNANTE STICHWORTE und Begriffe
-- Gib IMMER Quellenangaben im Format (GA###/##:index) an
-- Beispiel: "zweites Wesensglied (GA013/01:42), Lebenskräfte (GA009/03:23), Bildekräfte (GA027/05:67)"
+- Gib IMMER Quellenangaben im korrekten Format an:
+  * Für VORTRÄGE: (GA###/##:index) - z.B. (GA013/01:42), (GA009/03:23), (GA027/05:67)
+  * Für BÜCHER: (GA###:^index) - z.B. (GA013:^xba9rk), (GA007:^iyj24c), (GA035:^l7py6i)
+  * WICHTIG: Bücher haben KEINEN Slash nach der GA-Nummer, nur einen Doppelpunkt!
+- Beispiel: "zweites Wesensglied (GA013/01:42), Lebenskräfte (GA009/03:23), Erlebnis der Seele (GA013:^xba9rk)"
 - KEINE vollständigen Zitate, nur relevante Schlüsselbegriffe
 
 2. FUNKTION
 Welche Funktion oder Aufgabe hat "${concept}"?
 - STICHWORTE zu Wirkungen und Aufgaben
-- Quellenangaben im Format (GA###/##:index)
+- Quellenangaben im korrekten Format:
+  * Vorträge: (GA###/##:index) - z.B. (GA027/05:88), (GA053/10:45)
+  * Bücher: (GA###:^index) - z.B. (GA013:^xba9rk), (GA007:^iyj24c)
 - Beispiel für Singular (z.B. "Ätherleib"): "durchdringt physischen Leib (GA027/05:88), trägt Lebenskräfte (GA053/10:45), schafft Ätherleib (GA184/3)"
 - Beispiel für Plural (z.B. "Wesensglieder"): "durchdringen physischen Leib (GA027/05:88), tragen Lebenskräfte (GA053/10:45), schaffen Ätherleib (GA184/3)"
 - WICHTIG: Verb vor Objekt UND grammatikalische Kongruenz mit "${concept}"
@@ -5384,7 +5413,9 @@ Welche Funktion oder Aufgabe hat "${concept}"?
 3. INTERAKTIONEN
 Wie steht "${concept}" in Beziehung zu anderen Konzepten?
 - STICHWORTE zu Wechselwirkungen
-- Quellenangaben im Format (GA###/##:index)
+- Quellenangaben im korrekten Format:
+  * Vorträge: (GA###/##:index) - z.B. (GA088/12:34), (GA013/01:56)
+  * Bücher: (GA###:^index) - z.B. (GA013:^xba9rk), (GA035:^l7py6i)
 - Beispiel für Singular (z.B. "Ätherleib"): "wechselwirkt mit Astralleib (GA088/12:34), verbindet mit Ich (GA013/01:56)"
 - Beispiel für Plural (z.B. "Wesensglieder"): "wechselwirken mit Astralleib (GA088/12:34), verbinden mit Ich (GA013/01:56)"
 - WICHTIG: Verb vor Objekt UND grammatikalische Kongruenz mit "${concept}"
@@ -5392,12 +5423,16 @@ Wie steht "${concept}" in Beziehung zu anderen Konzepten?
 4. BESONDERHEITEN
 Welche besonderen Eigenschaften oder Merkmale hat "${concept}"?
 - STICHWORTE zu besonderen Merkmalen
-- Quellenangaben im Format (GA###/##:index)
-- Beispiel: "Gedächtnisträger (GA053/10:78), Erinnerungskräfte (GA013/01:90)"
+- Quellenangaben im korrekten Format:
+  * Vorträge: (GA###/##:index) - z.B. (GA053/10:78), (GA013/01:90)
+  * Bücher: (GA###:^index) - z.B. (GA013:^xba9rk), (GA007:^iyj24c)
+- Beispiel: "Gedächtnisträger (GA053/10:78), Erinnerungskräfte (GA013/01:90), Loslösung von physischer Bindung (GA013:^xba9rk)"
 
 STILISTISCHE ANFORDERUNGEN:
 - NUR relevante STICHWORTE und Begriffe (KEINE vollständigen Sätze oder Zitate)
-- Jedes Stichwort mit Quellenangabe im Format (GA###/##:index)
+- Jedes Stichwort mit Quellenangabe im korrekten Format:
+  * Vorträge: (GA###/##:index)
+  * Bücher: (GA###:^index)
 - Kompakt und übersichtlich
 - Durch Kommas getrennt
 - KEINE einleitenden Sätze
@@ -5426,20 +5461,22 @@ FORMATIERUNG:
 Verwende folgendes Format:
 
 ## DEFINITION
-Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index), Stichwort3 (GA###/##:index)
+Stichwort1 (GA###/##:index oder GA###:^index), Stichwort2 (GA###/##:index oder GA###:^index), Stichwort3 (GA###/##:index oder GA###:^index)
 
 ## FUNKTION
-Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+Stichwort1 (GA###/##:index oder GA###:^index), Stichwort2 (GA###/##:index oder GA###:^index)
 
 ## INTERAKTIONEN
-Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+Stichwort1 (GA###/##:index oder GA###:^index), Stichwort2 (GA###/##:index oder GA###:^index)
 
 ## BESONDERHEITEN
-Stichwort1 (GA###/##:index), Stichwort2 (GA###/##:index)
+Stichwort1 (GA###/##:index oder GA###:^index), Stichwort2 (GA###/##:index oder GA###:^index)
 
 WICHTIG:
 - Nur STICHWORTE, keine vollständigen Zitate
-- Quellenangaben MÜSSEN im Format (GA###/##:index) sein
+- Quellenangaben MÜSSEN im korrekten Format sein:
+  * Vorträge: (GA###/##:index) - z.B. (GA013/01:42)
+  * Bücher: (GA###:^index) - z.B. (GA013:^xba9rk)
 - Maximum 8-10 Stichworte pro Kategorie
 - Nur verschiedene, nicht-redundante Aspekte
 - GRAMMATIKALISCHE KORREKTHEIT: Verb vor Objekt bei verbalen Formulierungen
@@ -5459,18 +5496,84 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
   try {
     const response = await generateCompletionWithFallback(prompt, {
       temperature: 0.3,
-      maxTokens: 4000
+      maxTokens: 16000  // Erhöht von 4000 auf 16000 für längere Antworten
     }, 'analysis');
     
     fullText = response.text || response.content;
     console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten, Länge:', fullText.length);
   } catch (error) {
     console.error('[CONCEPT-OVERVIEW] KI-Anfrage fehlgeschlagen:', error.message);
+    
+    // Prüfe welche Provider verfügbar sind
+    const { getAllAvailableProviders } = require('./llm-providers');
+    const availableProviders = getAllAvailableProviders('analysis');
+    const providerStatus = [];
+    
+    // Prüfe Claude explizit
+    const { createProvider } = require('./llm-providers');
+    try {
+      const claudeProvider = createProvider('claude');
+      if (claudeProvider.isAvailable()) {
+        providerStatus.push('Claude: ✅ API-Key vorhanden');
+      } else {
+        providerStatus.push('Claude: ❌ Kein API-Key (CLAUDE_API_KEY fehlt)');
+      }
+    } catch (e) {
+      providerStatus.push(`Claude: ❌ ${e.message}`);
+    }
+    
+    // Prüfe OpenAI
+    try {
+      const openaiProvider = createProvider('openai');
+      if (openaiProvider.isAvailable()) {
+        providerStatus.push('OpenAI: ✅ API-Key vorhanden');
+      } else {
+        providerStatus.push('OpenAI: ❌ Kein API-Key (OPENAI_API_KEY fehlt)');
+      }
+    } catch (e) {
+      providerStatus.push(`OpenAI: ❌ ${e.message}`);
+    }
+    
+    // Prüfe Gemini
+    try {
+      const geminiProvider = createProvider('gemini');
+      if (geminiProvider.isAvailable()) {
+        providerStatus.push('Gemini: ✅ API-Key vorhanden');
+      } else {
+        providerStatus.push('Gemini: ❌ Kein API-Key (GEMINI_API_KEY fehlt)');
+      }
+    } catch (e) {
+      providerStatus.push(`Gemini: ❌ ${e.message}`);
+    }
+    
+    // Prüfe Rate-Limits
+    const { isProviderRateLimited } = require('./llm-providers');
+    const rateLimitedInfo = [];
+    if (isProviderRateLimited('claude')) {
+      rateLimitedInfo.push('Claude ist aktuell Rate-Limited');
+    }
+    if (isProviderRateLimited('openai')) {
+      rateLimitedInfo.push('OpenAI ist aktuell Rate-Limited');
+    }
+    if (isProviderRateLimited('gemini')) {
+      rateLimitedInfo.push('Gemini ist aktuell Rate-Limited');
+    }
+    
+    // Erstelle detaillierte Fehlermeldung
+    let errorDetails = `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden.\n\n`;
+    errorDetails += `Provider-Status:\n${providerStatus.join('\n')}\n\n`;
+    
+    if (rateLimitedInfo.length > 0) {
+      errorDetails += `Rate-Limits:\n${rateLimitedInfo.join('\n')}\n\n`;
+    }
+    
+    errorDetails += `Fehler beim letzten Versuch:\n${error.message}`;
+    
     // Fallback: Einfache Textextraktion
     return {
       overview: {
         alternativeTerms: alternativeTerms,
-        definitionText: `Zu "${concept}" wurden ${topResults.length} Textpassagen gefunden. Bitte aktivieren Sie einen LLM-Provider (Claude/OpenAI/Gemini) für eine detaillierte Analyse.\n\nFehler: ${error.message}`,
+        definitionText: errorDetails,
         functionText: 'LLM-Provider erforderlich.',
         interactionText: 'LLM-Provider erforderlich.',
         specialText: 'LLM-Provider erforderlich.'
@@ -13506,7 +13609,14 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     return generateFallbackKeywordAnalysis(query, results);
   }
   
-  const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
+  // Verwende alle übergebenen Ergebnisse, aber begrenze auf maximal 100 für Token-Limit
+  // Mit optimierter Kürzung sollte das Token-Limit eingehalten werden
+  const MAX_RESULTS_FOR_ANALYSIS = 100;
+  const topResults = results.slice(0, Math.min(results.length, MAX_RESULTS_FOR_ANALYSIS));
+  
+  if (results.length > MAX_RESULTS_FOR_ANALYSIS) {
+    console.log(`[KEYWORD-ANALYSIS] Begrenze von ${results.length} auf ${MAX_RESULTS_FOR_ANALYSIS} Textpassagen (für Token-Limit)`);
+  }
 
   console.log('=== DEBUG topResults ===');
   console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
@@ -13515,10 +13625,32 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     fileName: r.fileName 
   })), null, 2));
   
+  // Hilfsfunktion: Kürze Textpassage auf maximal 400 Zeichen (optimiert für mehr Passagen)
+  const truncateContent = (content, maxLength = 400) => {
+    if (!content || content.length <= maxLength) {
+      return content;
+    }
+    // Versuche bei Satzende zu kürzen
+    const truncated = content.substring(0, maxLength);
+    const lastPeriod = truncated.lastIndexOf('.');
+    const lastExclamation = truncated.lastIndexOf('!');
+    const lastQuestion = truncated.lastIndexOf('?');
+    const lastSentenceEnd = Math.max(lastPeriod, lastExclamation, lastQuestion);
+    
+    if (lastSentenceEnd > maxLength * 0.7) {
+      // Wenn Satzende gefunden wurde (nicht zu weit am Anfang), kürze dort
+      return truncated.substring(0, lastSentenceEnd + 1) + '...';
+    }
+    // Sonst kürze einfach und füge ... hinzu
+    return truncated + '...';
+  };
+  
   const contextText = topResults
     .map((result, index) => {
       const refId = `${result.ID}:${result.index}`;
-      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      // Kürze jede Textpassage auf maximal 500 Zeichen
+      const truncatedContent = truncateContent(result.content, 500);
+      return `[${refId}] ${result.fileName || result.title}\n${truncatedContent}`;
     })
     .join('\n\n---\n\n');
     
@@ -13527,9 +13659,9 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
   console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
   
   const maxTokens = {
-    'allgemein': 4000,    // Erhöht von 2000 auf 4000
-    'genau': 6000,        // Erhöht von 3500 auf 6000  
-    'ausführlich': 8000   // Erhöht von 6000 auf 8000
+    'allgemein': 8000,    // Erhöht von 4000 auf 8000
+    'genau': 12000,       // Erhöht von 6000 auf 12000  
+    'ausführlich': 16000  // Erhöht von 8000 auf 16000
   };
 
   // Erzwinge immer die ausführliche Tiefe unabhängig vom übergebenen depth
@@ -13540,7 +13672,9 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
 ANALYSE-TIEFE: ${effectiveDepth}
 
 QUELLENANGABEN:
-- Format: (GA###/Y:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- Format für VORTRÄGE: (GA###/Y:index) - z.B. (GA052/7:n5x6ru) oder (GA068a/7:p5fg67)
+- Format für BÜCHER: (GA###:^index) - z.B. (GA013:^xba9rk) oder (GA007:^iyj24c)
+- WICHTIG: Bücher haben KEINEN Slash nach der GA-Nummer, nur einen Doppelpunkt!
 - Verfügbare Referenzen: ${availableRefs}
 - KEINE Leerzeichen um Klammern!
 
@@ -13559,9 +13693,9 @@ PERSPEKTIVEN für "${query}":
 
 FORMATIERUNG:
 - Markdown: **Fette wichtige Begriffe**
-- Zitate: "Text" (GA###/Y:index) oder (GA###a/Y: index)
+- Zitate: "Text" (GA###/Y:index) für Vorträge oder "Text" (GA###:^index) für Bücher
 - Überschriften: ## Überschrift
-- Nutze alle ${topResults.length} verfügbaren Textstellen ausführlich
+- Nutze die ${topResults.length} verfügbaren Textstellen ausführlich (von insgesamt ${results.length} gefundenen)
 
 TEXTPASSAGEN:
 ${contextText}
@@ -13603,13 +13737,13 @@ async function generateConceptAnalysis(query, results) {
     return generateFallbackConceptAnalysis(query, results);
   }
   
-  // WICHTIG: Begrenze auf maximal 40 Textstellen um Token-Limit nicht zu überschreiten
-  // Claude hat ein Maximum von 200k Tokens (~150k Wörter)
-  const MAX_RESULTS = 40;
-  const topResults = results.slice(0, MAX_RESULTS);
+  // WICHTIG: Begrenze auf maximal 100 Textstellen um Token-Limit nicht zu überschreiten
+  // Mit optimierter Kürzung sollte das Token-Limit eingehalten werden
+  const MAX_RESULTS = 100; // Erhöht von 30 auf 100
+  const topResults = results.slice(0, Math.min(results.length, MAX_RESULTS));
   
   if (results.length > MAX_RESULTS) {
-    console.log(`[CONCEPT-ANALYSIS] ⚠️ Begrenze von ${results.length} auf ${MAX_RESULTS} Textstellen (Token-Limit)`);
+    console.log(`[CONCEPT-ANALYSIS] Begrenze von ${results.length} auf ${MAX_RESULTS} Textstellen (für Token-Limit)`);
   }
 
   console.log('=== DEBUG topResults (Concept) ===');
@@ -13619,10 +13753,32 @@ async function generateConceptAnalysis(query, results) {
     fileName: r.fileName 
   })), null, 2));
   
+  // Hilfsfunktion: Kürze Textpassage auf maximal 400 Zeichen (optimiert für mehr Passagen)
+  const truncateContent = (content, maxLength = 400) => {
+    if (!content || content.length <= maxLength) {
+      return content;
+    }
+    // Versuche bei Satzende zu kürzen
+    const truncated = content.substring(0, maxLength);
+    const lastPeriod = truncated.lastIndexOf('.');
+    const lastExclamation = truncated.lastIndexOf('!');
+    const lastQuestion = truncated.lastIndexOf('?');
+    const lastSentenceEnd = Math.max(lastPeriod, lastExclamation, lastQuestion);
+    
+    if (lastSentenceEnd > maxLength * 0.7) {
+      // Wenn Satzende gefunden wurde (nicht zu weit am Anfang), kürze dort
+      return truncated.substring(0, lastSentenceEnd + 1) + '...';
+    }
+    // Sonst kürze einfach und füge ... hinzu
+    return truncated + '...';
+  };
+  
   const contextText = topResults
     .map((result, index) => {
       const refId = `${result.ID}:${result.index}`;
-      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+      // Kürze jede Textpassage auf maximal 500 Zeichen
+      const truncatedContent = truncateContent(result.content, 500);
+      return `[${refId}] ${result.fileName || result.title}\n${truncatedContent}`;
     })
     .join('\n\n---\n\n');
     
