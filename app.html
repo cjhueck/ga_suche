@@ -1860,9 +1860,21 @@ body.dark-mode .ga-missing-text {
     #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
     #document-title { margin-top: 0; margin-bottom: 0; margin-left: 1rem !important; }
     #document-title a { color: var(--link-color); text-decoration: none; }
-    #document-title a:hover { text-decoration: underline; }
+    #document-title a:hover { text-decoration: none; }
+    #document-title span[onclick] { 
+      color: var(--link-color); 
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    #document-title span[onclick]:hover { 
+      text-decoration: none;
+      opacity: 0.8;
+    }
     
     body.dark-mode #document-title a {
+      color: var(--dark-link-color) !important;
+    }
+    body.dark-mode #document-title span[onclick] {
       color: var(--dark-link-color) !important;
     }
 
@@ -9122,10 +9134,27 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   
   // Setze Titel
   const displayTitle = book.title || book.fileName || book.ID;
-  documentTitle.innerHTML = `<span onclick="navigateToGAInTexteTab('${book.gaNumber || book.ID}')" style="cursor: pointer;">${book.gaNumber || book.ID} - ${displayTitle}</span>`;
+  const gaNumber = book.gaNumber || book.ID;
+  const titleText = `${gaNumber} - ${displayTitle}`;
+  documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
+  const titleSpan = documentTitle.querySelector('span');
+  if (titleSpan) {
+    titleSpan.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof navigateToGAInTexteTab === 'function') {
+        navigateToGAInTexteTab(gaNumber);
+      } else if (typeof window.navigateToGAInTexteTab === 'function') {
+        window.navigateToGAInTexteTab(gaNumber);
+      } else {
+        console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
+      }
+    });
+    documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+  }
   
   // Setze currentGANumber für Info-Button
-  currentGANumber = book.gaNumber || book.ID;
+  currentGANumber = gaNumber;
   
   // Setze currentLectureData für Book
   currentLectureData = {
@@ -9783,15 +9812,6 @@ function convertFootnotesToLinks() {
   const footnoteDefinitions = new Map();
   const htmlContent = viewer.innerHTML;
   
-  // DEBUG: Prüfe ob Fußnoten im HTML vorhanden sind
-  const hasFootnotesInHTML = htmlContent.includes('[^1]:');
-  console.log(`[FOOTNOTES] HTML enthält [^1]: ? ${hasFootnotesInHTML}`);
-  if (!hasFootnotesInHTML) {
-    console.warn('[FOOTNOTES] WARNUNG: Keine Fußnoten-Definitionen im HTML gefunden!');
-    console.log('[FOOTNOTES] HTML-Länge:', htmlContent.length);
-    console.log('[FOOTNOTES] Letzte 500 Zeichen:', htmlContent.slice(-500));
-  }
-  
   // Regex für Fußnoten-Definitionen: [^1]: Text
   // Erweitert: Suche auch nach Definitionen die durch HTML-Tags getrennt sind
   const defPattern = /\[\^(\d+)\]:\s*([^\[]+?)(?=\[\^|$)/gs;
@@ -9808,7 +9828,17 @@ function convertFootnotesToLinks() {
     }
   }
   
-  console.log(`[FOOTNOTES] ${footnoteDefinitions.size} Definitionen gefunden`);
+  // Prüfe ob Fußnoten-Referenzen vorhanden sind
+  const hasFootnotesRefs = /\[\^\d+\]/.test(htmlContent);
+  
+  // Warnung nur ausgeben, wenn Referenzen gefunden wurden, aber keine Definitionen
+  if (hasFootnotesRefs && footnoteDefinitions.size === 0) {
+    console.warn('[FOOTNOTES] WARNUNG: Fußnoten-Referenzen gefunden, aber keine Definitionen!');
+    console.log('[FOOTNOTES] HTML-Länge:', htmlContent.length);
+    console.log('[FOOTNOTES] Letzte 500 Zeichen:', htmlContent.slice(-500));
+  } else if (footnoteDefinitions.size > 0) {
+    console.log(`[FOOTNOTES] ${footnoteDefinitions.size} Definitionen gefunden`);
+  }
   
   // Schritt 2: Ersetze Fußnoten-Definitionen durch formatierte HTML-Elemente
   if (footnoteDefinitions.size > 0) {
@@ -10059,7 +10089,41 @@ async function showGALectures(gaNumber, skipHistory = false) {
       return;
     }
     
-    documentTitle.textContent = `${formatLectureId(gaNumber)} - ${gaInfo.title}`;
+    // Setze Titel mit Link zum Texte-Tab
+    const titleText = `${formatLectureId(gaNumber)} - ${gaInfo.title}`;
+    documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
+    const titleSpan = documentTitle.querySelector('span');
+    if (titleSpan) {
+      if (isBookGANumber(gaNumber)) {
+        // Für Bücher: Link zu navigateToGAInTexteTab
+        titleSpan.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof navigateToGAInTexteTab === 'function') {
+            navigateToGAInTexteTab(gaNumber);
+          } else if (typeof window.navigateToGAInTexteTab === 'function') {
+            window.navigateToGAInTexteTab(gaNumber);
+          } else {
+            console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
+          }
+        });
+        documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+      } else {
+        // Für Vortrags-Übersichten: Link zu navigateToGAInTexteTab (öffnet GA-Übersicht im Texte-Tab)
+        titleSpan.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof navigateToGAInTexteTab === 'function') {
+            navigateToGAInTexteTab(gaNumber);
+          } else if (typeof window.navigateToGAInTexteTab === 'function') {
+            window.navigateToGAInTexteTab(gaNumber);
+          } else {
+            console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
+          }
+        });
+        documentTitle.title = 'Klicken um zur GA-Übersicht im Texte-Tab zu navigieren';
+      }
+    }
     
     // Prüfe ob es ein Book (Schrift) ist
     if (isBookGANumber(gaNumber)) {
@@ -11574,54 +11638,82 @@ function scrollToChronologicalYear(year) {
 
     // Navigiere zum Texte-Tab und zeige den spezifischen Vortrag
     async function navigateToLectureInTexteTab(lectureId) {
-      console.log(`[NAVIGATION] Navigiere zu Vortrag ${lectureId} im Texte-Tab`);
-      
-      // Entferne Jahres-Buttons explizit beim Wechsel zum Texte-Tab
-      const chronologicalNav = document.getElementById('chronological-year-nav');
-      if (chronologicalNav) {
-        chronologicalNav.remove();
-      }
-      const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
-      if (oldButtonsContainer) {
-        oldButtonsContainer.remove();
-      }
-      
-      // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
-      const gaNumber = lectureId.split('/')[0];
-      
-      // Wechsle zum Texte-Tab
-      switchTab('texte');
-      
-      // Warte kurz, damit der Tab geladen ist
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
-      // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
-      const chronologicalNavAfterSwitch = document.getElementById('chronological-year-nav');
-      if (chronologicalNavAfterSwitch) {
-        chronologicalNavAfterSwitch.remove();
-      }
-      const oldButtonsContainerAfterSwitch = document.querySelector('.ga-year-buttons-container');
-      if (oldButtonsContainerAfterSwitch) {
-        oldButtonsContainerAfterSwitch.remove();
-      }
-      
-      // Setze den GA-Filter im Texte-Tab OHNE Change Event zu triggern
-      const texteGAFilter = document.getElementById('texteGAFilter');
-      if (texteGAFilter && gaNumber) {
-        texteGAFilter.value = gaNumber;
-        console.log(`[NAVIGATION] GA-Filter gesetzt auf: ${gaNumber}`);
+      try {
+        console.log(`[NAVIGATION] Navigiere zu Vortrag ${lectureId} im Texte-Tab`);
         
-        // Lade zuerst den spezifischen Vortrag im Hauptviewer
-        console.log(`[NAVIGATION] Lade Vortrag ${lectureId} im Hauptviewer`);
-        await showLecture(lectureId, null, []);
+        if (!lectureId) {
+          console.error('[NAVIGATION] Keine Lecture-ID angegeben');
+          return;
+        }
         
-        // Dann lade die GA-Übersicht im linken Panel (ohne den Viewer zu überschreiben)
-        console.log(`[NAVIGATION] Lade GA-Übersicht ${gaNumber} im linken Panel`);
-        await loadGAOverviewInSidePanelOnly(gaNumber);
+        // Entferne Jahres-Buttons explizit beim Wechsel zum Texte-Tab
+        const chronologicalNav = document.getElementById('chronological-year-nav');
+        if (chronologicalNav) {
+          chronologicalNav.remove();
+        }
+        const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+        if (oldButtonsContainer) {
+          oldButtonsContainer.remove();
+        }
         
-        console.log(`[NAVIGATION] Vortrag ${lectureId} und GA-Übersicht ${gaNumber} geladen`);
+        // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
+        const gaNumber = lectureId.split('/')[0];
+        
+        // Wechsle zum Texte-Tab
+        if (typeof switchTab === 'function') {
+          switchTab('texte');
+        } else {
+          console.error('[NAVIGATION] switchTab Funktion nicht verfügbar');
+          return;
+        }
+        
+        // Warte kurz, damit der Tab geladen ist
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
+        const chronologicalNavAfterSwitch = document.getElementById('chronological-year-nav');
+        if (chronologicalNavAfterSwitch) {
+          chronologicalNavAfterSwitch.remove();
+        }
+        const oldButtonsContainerAfterSwitch = document.querySelector('.ga-year-buttons-container');
+        if (oldButtonsContainerAfterSwitch) {
+          oldButtonsContainerAfterSwitch.remove();
+        }
+        
+        // Setze den GA-Filter im Texte-Tab OHNE Change Event zu triggern
+        const texteGAFilter = document.getElementById('texteGAFilter');
+        if (texteGAFilter && gaNumber) {
+          texteGAFilter.value = gaNumber;
+          console.log(`[NAVIGATION] GA-Filter gesetzt auf: ${gaNumber}`);
+          
+          // Lade zuerst den spezifischen Vortrag im Hauptviewer
+          console.log(`[NAVIGATION] Lade Vortrag ${lectureId} im Hauptviewer`);
+          if (typeof showLecture === 'function') {
+            await showLecture(lectureId, null, []);
+          } else {
+            console.error('[NAVIGATION] showLecture Funktion nicht verfügbar');
+            return;
+          }
+          
+          // Dann lade die GA-Übersicht im linken Panel (ohne den Viewer zu überschreiben)
+          console.log(`[NAVIGATION] Lade GA-Übersicht ${gaNumber} im linken Panel`);
+          if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+            await loadGAOverviewInSidePanelOnly(gaNumber);
+          } else {
+            console.warn('[NAVIGATION] loadGAOverviewInSidePanelOnly Funktion nicht verfügbar');
+          }
+          
+          console.log(`[NAVIGATION] Vortrag ${lectureId} und GA-Übersicht ${gaNumber} geladen`);
+        } else {
+          console.warn('[NAVIGATION] texteGAFilter nicht gefunden');
+        }
+      } catch (error) {
+        console.error('[NAVIGATION] Fehler beim Navigieren zu Vortrag:', error);
       }
     }
+    
+    // Stelle Funktionen im globalen Scope verfügbar für onclick-Attribute
+    window.navigateToLectureInTexteTab = navigateToLectureInTexteTab;
 
     // Navigiere zum Texte-Tab und zeige Book mit spezifischer Überschrift
     async function navigateToBookHeadingInTexteTab(gaNumber, headingId) {
@@ -11673,25 +11765,75 @@ function scrollToChronologicalYear(year) {
 
     // Navigiere zum Texte-Tab und öffne GA-Band-Übersicht
     async function navigateToGAInTexteTab(gaNumber) {
-      console.log(`[NAVIGATION] Navigiere zu GA-Band ${gaNumber} im Texte-Tab`);
-      
-      // Wechsle zum Texte-Tab
-      switchTab('texte');
-      
-      // Warte kurz, damit der Tab geladen ist
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
-      // Setze den GA-Filter im Texte-Tab
-      const texteGAFilter = document.getElementById('texteGAFilter');
-      if (texteGAFilter && gaNumber) {
-        texteGAFilter.value = gaNumber;
-        // Trigger Change Event um die GA-Übersicht zu laden
-        const changeEvent = new Event('change', { bubbles: true });
-        texteGAFilter.dispatchEvent(changeEvent);
+      try {
+        console.log(`[NAVIGATION] Navigiere zu GA-Band ${gaNumber} im Texte-Tab`);
         
-        console.log(`[NAVIGATION] GA-Band ${gaNumber} Übersicht geladen`);
+        if (!gaNumber) {
+          console.error('[NAVIGATION] Keine GA-Nummer angegeben');
+          return;
+        }
+        
+        // Wechsle zum Texte-Tab
+        if (typeof switchTab === 'function') {
+          switchTab('texte');
+        } else {
+          console.error('[NAVIGATION] switchTab Funktion nicht verfügbar');
+          return;
+        }
+        
+        // Warte länger, damit der Tab vollständig geladen ist und Event-Listener registriert sind
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Setze den GA-Filter im Texte-Tab
+        const texteGAFilter = document.getElementById('texteGAFilter');
+        if (!texteGAFilter) {
+          console.warn('[NAVIGATION] texteGAFilter nicht gefunden, warte länger...');
+          // Warte nochmal länger und versuche es erneut
+          await new Promise(resolve => setTimeout(resolve, 200));
+          const texteGAFilterRetry = document.getElementById('texteGAFilter');
+          if (!texteGAFilterRetry) {
+            console.error('[NAVIGATION] texteGAFilter auch nach Wartezeit nicht gefunden');
+            return;
+          }
+        }
+        
+        if (texteGAFilter && gaNumber) {
+          texteGAFilter.value = gaNumber;
+          
+          // Rufe openGAOverview direkt auf, anstatt nur das Change-Event zu triggern
+          // Das ist zuverlässiger, da der Event-Listener möglicherweise noch nicht registriert ist
+          // Prüfe sowohl lokalen Scope als auch window-Objekt
+          const openGAOverviewFunc = typeof openGAOverview === 'function' ? openGAOverview : 
+                                     (typeof window.openGAOverview === 'function' ? window.openGAOverview : null);
+          
+          if (openGAOverviewFunc) {
+            console.log(`[NAVIGATION] Rufe openGAOverview direkt auf für ${gaNumber}`);
+            try {
+              await openGAOverviewFunc(gaNumber);
+              console.log(`[NAVIGATION] GA-Band ${gaNumber} Übersicht geladen`);
+            } catch (error) {
+              console.error('[NAVIGATION] Fehler beim Aufruf von openGAOverview:', error);
+              // Fallback: Trigger Change Event
+              console.log(`[NAVIGATION] Fallback: Verwende Change-Event`);
+              const changeEvent = new Event('change', { bubbles: true });
+              texteGAFilter.dispatchEvent(changeEvent);
+            }
+          } else {
+            // Fallback: Trigger Change Event
+            console.log(`[NAVIGATION] openGAOverview nicht verfügbar, verwende Change-Event`);
+            const changeEvent = new Event('change', { bubbles: true });
+            texteGAFilter.dispatchEvent(changeEvent);
+          }
+        } else {
+          console.warn('[NAVIGATION] texteGAFilter oder gaNumber nicht verfügbar');
+        }
+      } catch (error) {
+        console.error('[NAVIGATION] Fehler beim Navigieren zu GA-Band:', error);
       }
     }
+    
+    // Stelle Funktionen im globalen Scope verfügbar für onclick-Attribute
+    window.navigateToGAInTexteTab = navigateToGAInTexteTab;
 
     function parseSearchTerm(input) {
       if (!input) return { term: '', isPhrase: false };
@@ -19806,8 +19948,57 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         currentGANumber = gaNumber;
       }
       
-      if (gaNumber) {
-        titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
+      // Setze Titel mit Link zum Texte-Tab
+      const lectureId = lecture.ID || lecture.id || null;
+      titleElement.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${displayTitle}</span>`;
+      const titleSpan = titleElement.querySelector('span');
+      if (titleSpan) {
+        if (gaNumber && isBookGANumber(gaNumber)) {
+          // Für Bücher: Link zu navigateToGAInTexteTab
+          titleSpan.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof navigateToGAInTexteTab === 'function') {
+              navigateToGAInTexteTab(gaNumber);
+            } else if (typeof window.navigateToGAInTexteTab === 'function') {
+              window.navigateToGAInTexteTab(gaNumber);
+            } else {
+              console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
+            }
+          });
+          titleElement.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
+        } else if (lectureId) {
+          // Für Vorträge: Link zu navigateToLectureInTexteTab
+          titleSpan.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof navigateToLectureInTexteTab === 'function') {
+              navigateToLectureInTexteTab(lectureId);
+            } else if (typeof window.navigateToLectureInTexteTab === 'function') {
+              window.navigateToLectureInTexteTab(lectureId);
+            } else {
+              console.error('[NAVIGATION] navigateToLectureInTexteTab Funktion nicht verfügbar');
+            }
+          });
+          titleElement.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+        } else if (gaNumber) {
+          // Fallback: Nur GA-Nummer verfügbar
+          titleSpan.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof navigateToGAInTexteTab === 'function') {
+              navigateToGAInTexteTab(gaNumber);
+            } else if (typeof window.navigateToGAInTexteTab === 'function') {
+              window.navigateToGAInTexteTab(gaNumber);
+            } else {
+              console.error('[NAVIGATION] navigateToGAInTexteTab Funktion nicht verfügbar');
+            }
+          });
+          titleElement.title = 'Klicken um zur GA-Übersicht im Texte-Tab zu navigieren';
+        } else {
+          // Kein Link möglich - nur Text
+          titleElement.textContent = displayTitle;
+        }
       } else {
         titleElement.textContent = displayTitle;
       }
