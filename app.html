@@ -8084,6 +8084,9 @@ function normalizeGANumber(gaNumber) {
           thematicGAFilter.addEventListener('change', updateThematicServerInfo);
         }
         if (texteGAFilter) {
+          // Speichere den aktuellen Wert, falls vorhanden
+          const currentValue = texteGAFilter.value;
+          
           texteGAFilter.innerHTML = '<option value="">GA-Band auswählen...</option>';
           gaList.forEach(ga => {
             const option = document.createElement('option');
@@ -8093,6 +8096,45 @@ function normalizeGANumber(gaNumber) {
             option.className = 'available-ga';
             texteGAFilter.appendChild(option);
           });
+          
+          // Stelle den vorherigen Wert wieder her, falls vorhanden
+          if (currentValue) {
+            texteGAFilter.value = currentValue;
+          }
+          
+          // Event-Listener für Texte GA-Filter hinzufügen
+          // Entferne zuerst alle bestehenden Listener durch Klonen des Elements
+          const newTexteGAFilter = texteGAFilter.cloneNode(true);
+          newTexteGAFilter.value = texteGAFilter.value; // Wert beibehalten
+          texteGAFilter.parentNode.replaceChild(newTexteGAFilter, texteGAFilter);
+          
+          // Füge Event-Listener hinzu
+          newTexteGAFilter.addEventListener('change', (e) => {
+            const selectedGA = e.target.value;
+            if (selectedGA) {
+              // Setze Auswahl zurück beim Wechsel des GA-Bands
+              if (typeof selectedLectureIds !== 'undefined') {
+                selectedLectureIds.clear();
+              }
+              if (typeof updateSelectionInfo === 'function') {
+                updateSelectionInfo();
+              }
+              if (typeof openGAOverview === 'function') {
+                openGAOverview(selectedGA);
+              }
+            } else {
+              // Filter zurückgesetzt: Zeige Gesamtstatistik
+              if (typeof updateTexteServerInfo === 'function') {
+                updateTexteServerInfo();
+              }
+            }
+            // Aktualisiere Button-Status (für Keywords-Regeneration)
+            if (typeof updateButtonStates === 'function') {
+              updateButtonStates();
+            }
+          });
+          
+          console.log('[GA-FILTER] Texte GA-Filter befüllt und Event-Listener hinzugefügt');
         }
         
         // Befülle Concept Overview GA-Filter
@@ -21491,6 +21533,18 @@ function switchTabExtended(mode) {
     // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
     if (targetContent.id !== 'advanced-search-tab') {
       targetContent.style.display = '';
+    }
+    
+    // Wenn zu einem Tab mit GA-Dropdown gewechselt wird, befülle die Dropdowns neu
+    if ((mode === 'texte' || mode === 'thematic' || mode === 'concept-overview') && typeof populateGADropdowns === 'function') {
+      console.log('[TABS] Befülle GA-Dropdowns für Tab:', mode);
+      populateGADropdowns().then(() => {
+        // Nach dem Befüllen der Dropdowns Event-Listener wieder hinzufügen
+        if (mode === 'texte' && typeof initGAFilter === 'function') {
+          console.log('[TABS] Initialisiere GA-Filter Event-Listener für Texte-Tab');
+          initGAFilter();
+        }
+      });
     }
   } else {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
