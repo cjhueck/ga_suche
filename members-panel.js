@@ -231,6 +231,13 @@ function showMembersLoginPanel() {
             <input type="password" id="members-reg-password" onkeypress="if(event.key==='Enter') handleMembersRegister()" />
           </div>
           
+          <div class="form-group" style="margin-top: 1rem;">
+            <label style="font-weight: normal; font-size: 0.85rem; line-height: 1.5; display: block;">
+              <input type="checkbox" id="members-privacy-checkbox" style="margin-bottom: 0.5rem; display: block;" />
+              <span style="display: block;">Mit der Registrierung stimme ich der <a href="#" id="members-privacy-link" onclick="showMembersPrivacyModal(); return false;" style="color: var(--link-color); text-decoration: underline;">Datenschutzerklärung</a> zu.</span>
+            </label>
+          </div>
+          
           <button onclick="handleMembersRegister()" class="primary-btn">Registrieren</button>
           
           <p class="auth-switch">
@@ -239,6 +246,113 @@ function showMembersLoginPanel() {
         </div>
       </div>
     </div>
+    
+    <style>
+      /* Privacy Modal Styles */
+      .members-privacy-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10001 !important;
+        align-items: center;
+        justify-content: center;
+        opacity: 1 !important;
+      }
+
+      .members-privacy-modal.active {
+        display: flex !important;
+      }
+
+      .members-privacy-modal-content {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        padding: 2rem;
+        border-radius: 8px;
+        max-width: 700px;
+        width: 90%;
+        max-height: 85vh;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        color: #333333;
+        opacity: 1 !important;
+        z-index: 10002 !important;
+        position: relative;
+      }
+
+      .members-privacy-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        flex-shrink: 0;
+      }
+
+      .members-privacy-modal-header h3 {
+        color: #333333;
+        font-size: 1.3rem;
+        font-weight: normal;
+        margin: 0;
+      }
+
+      .members-privacy-modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #666666;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+      }
+
+      .members-privacy-modal-close:hover {
+        color: #333333;
+      }
+
+      .members-privacy-modal-body {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+      }
+
+      .members-privacy-modal-body h4 {
+        color: #333333;
+        font-size: 1.1rem;
+        font-weight: normal;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .members-privacy-modal-body h4:first-child {
+        margin-top: 0;
+      }
+
+      .members-privacy-modal-body p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .members-privacy-modal-body ul {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+      }
+
+      .members-privacy-modal-body li {
+        margin-bottom: 0.5rem;
+        line-height: 1.6;
+      }
+    </style>
   `;
   
   // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
@@ -1794,6 +1908,7 @@ async function handleMembersLogin() {
 async function handleMembersRegister() {
   const email = document.getElementById('members-reg-email').value;
   const password = document.getElementById('members-reg-password').value;
+  const privacyCheckbox = document.getElementById('members-privacy-checkbox');
   const messageDiv = document.getElementById('login-message');
   
   if (!email || !password) {
@@ -1803,6 +1918,11 @@ async function handleMembersRegister() {
   
   if (password.length < 6) {
     messageDiv.innerHTML = '<div class="error-msg">Passwort muss mindestens 6 Zeichen haben</div>';
+    return;
+  }
+  
+  if (!privacyCheckbox || !privacyCheckbox.checked) {
+    messageDiv.innerHTML = '<div class="error-msg">Bitte stimmen Sie der Datenschutzerklärung zu</div>';
     return;
   }
   
@@ -1833,6 +1953,231 @@ function showMembersRegister() {
   document.getElementById('register-form-content').style.display = 'block';
   document.querySelector('.members-header h2').textContent = 'Registrierung';
   document.getElementById('login-message').innerHTML = '';
+  // Setze Privacy-Checkbox zurück
+  const privacyCheckbox = document.getElementById('members-privacy-checkbox');
+  if (privacyCheckbox) {
+    privacyCheckbox.checked = false;
+  }
+}
+
+/**
+ * Erstellt das Privacy-Modal im body (falls noch nicht vorhanden)
+ */
+function ensurePrivacyModalExists() {
+  let modal = document.getElementById('members-privacy-modal');
+  if (!modal) {
+    // Stelle sicher, dass CSS-Stile vorhanden sind
+    if (!document.getElementById('members-privacy-modal-styles')) {
+      const style = document.createElement('style');
+      style.id = 'members-privacy-modal-styles';
+      style.textContent = `
+        /* Privacy Modal Styles */
+        .members-privacy-modal {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 10001 !important;
+          align-items: center;
+          justify-content: center;
+          opacity: 1 !important;
+        }
+
+        .members-privacy-modal.active {
+          display: flex !important;
+        }
+
+        .members-privacy-modal-content {
+          background: #ffffff !important;
+          background-color: #ffffff !important;
+          padding: 2rem;
+          border-radius: 8px;
+          max-width: 700px;
+          width: 90%;
+          max-height: 85vh;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+          display: flex;
+          flex-direction: column;
+          color: #333333;
+          opacity: 1 !important;
+          z-index: 10002 !important;
+          position: relative;
+        }
+
+        .members-privacy-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid #e0e0e0;
+          flex-shrink: 0;
+        }
+
+        .members-privacy-modal-header h3 {
+          color: #333333;
+          font-size: 1.3rem;
+          font-weight: normal;
+          margin: 0;
+        }
+
+        .members-privacy-modal-close {
+          background: none;
+          border: none;
+          font-size: 1.5rem;
+          color: #666666;
+          cursor: pointer;
+          padding: 0;
+          width: 30px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: color 0.2s;
+        }
+
+        .members-privacy-modal-close:hover {
+          color: #333333;
+        }
+
+        .members-privacy-modal-body {
+          flex: 1;
+          overflow-y: auto;
+          padding-right: 0.5rem;
+        }
+
+        .members-privacy-modal-body h4 {
+          color: #333333;
+          font-size: 1.1rem;
+          font-weight: normal;
+          margin-top: 1.5rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .members-privacy-modal-body h4:first-child {
+          margin-top: 0;
+        }
+
+        .members-privacy-modal-body p {
+          margin-bottom: 1rem;
+          line-height: 1.6;
+        }
+
+        .members-privacy-modal-body ul {
+          margin-bottom: 1rem;
+          padding-left: 1.5rem;
+        }
+
+        .members-privacy-modal-body li {
+          margin-bottom: 0.5rem;
+          line-height: 1.6;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // Erstelle Modal direkt im body
+    modal = document.createElement('div');
+    modal.id = 'members-privacy-modal';
+    modal.className = 'members-privacy-modal';
+    modal.innerHTML = `
+      <div class="members-privacy-modal-content">
+        <div class="members-privacy-modal-header">
+          <h3>Datenschutzerklärung</h3>
+          <button class="members-privacy-modal-close" onclick="closeMembersPrivacyModal()">&times;</button>
+        </div>
+        <div class="members-privacy-modal-body">
+          <h4>1. Datenerhebung und -speicherung</h4>
+          <p>Bei der Registrierung im Mitgliederbereich werden folgende Daten erfasst und gespeichert:</p>
+          <ul>
+            <li>E-Mail-Adresse (für die Authentifizierung)</li>
+            <li>Passwort (verschlüsselt gespeichert)</li>
+            <li>Anzeigename (optional)</li>
+            <li>Von Ihnen erstellte Bookmarks, Zitate und Notizen</li>
+          </ul>
+
+          <h4>2. Zweck der Datenerhebung</h4>
+          <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
+          <ul>
+            <li>Speicherung Ihrer persönlichen Bookmarks und Zitate</li>
+            <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
+            <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
+          </ul>
+
+          <h4>3. Datenverarbeitung</h4>
+          <p>Ihre Daten werden auf Servern von Supabase (supabase.com) gespeichert und verarbeitet. Die Datenübertragung erfolgt verschlüsselt über HTTPS.</p>
+
+          <h4>4. Ihre Rechte</h4>
+          <p>Sie haben jederzeit das Recht:</p>
+          <ul>
+            <li>Auskunft über Ihre gespeicherten Daten zu erhalten</li>
+            <li>Ihre Daten zu korrigieren oder zu löschen</li>
+            <li>Ihren Account komplett zu löschen (über "Mein Account" → "Account löschen")</li>
+            <li>Der Datenverarbeitung zu widersprechen</li>
+          </ul>
+
+          <h4>5. Cookies und Tracking</h4>
+          <p>Diese Website verwendet keine Tracking-Cookies oder Analyse-Tools. Es werden lediglich technisch notwendige Cookies für die Authentifizierung verwendet.</p>
+
+          <h4>6. Kontakt</h4>
+          <p>Bei Fragen zum Datenschutz können Sie uns über die Kontaktmöglichkeiten im Impressum erreichen.</p>
+
+          <h4>7. Änderungen der Datenschutzerklärung</h4>
+          <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen. Über wesentliche Änderungen werden Sie per E-Mail informiert.</p>
+
+          <p style="margin-top: 2rem; font-size: 0.85rem; color: #666666;">
+            Stand: Januar 2025
+          </p>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Event-Listener hinzufügen
+    const privacyModalClose = modal.querySelector('.members-privacy-modal-close');
+    if (privacyModalClose) {
+      privacyModalClose.addEventListener('click', closeMembersPrivacyModal);
+    }
+    
+    // Schließe Modal bei Klick außerhalb
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeMembersPrivacyModal();
+      }
+    });
+    
+    // ESC-Taste zum Schließen
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeMembersPrivacyModal();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+  }
+  return modal;
+}
+
+/**
+ * Zeigt das Privacy-Modal an
+ */
+function showMembersPrivacyModal() {
+  const modal = ensurePrivacyModalExists();
+  if (modal) {
+    modal.classList.add('active');
+  }
+}
+
+/**
+ * Schließt das Privacy-Modal
+ */
+function closeMembersPrivacyModal() {
+  const modal = document.getElementById('members-privacy-modal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
 }
 
 /**
@@ -2175,6 +2520,8 @@ window.handleMembersLogin = handleMembersLogin;
 window.handleMembersRegister = handleMembersRegister;
 window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
+window.showMembersPrivacyModal = showMembersPrivacyModal;
+window.closeMembersPrivacyModal = closeMembersPrivacyModal;
 window.editMemberBookmark = editMemberBookmark;
 window.editMemberQuote = editMemberQuote;
 window.deleteMemberBookmark = deleteMemberBookmark;
