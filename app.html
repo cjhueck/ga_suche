@@ -20409,6 +20409,17 @@ setTimeout(() => {
 <!-- Hash-basierte Tab-Navigation für Landing Page -->
 <script>
 // Aktiviere Tab basierend auf URL-Hash beim Laden
+// Initialisiere Tab-Strukturen beim Laden der Seite
+window.addEventListener('DOMContentLoaded', function() {
+  // Speichere ursprüngliche HTML-Strukturen aller Tabs
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    if (tab.id && !tabOriginalContent[tab.id]) {
+      tabOriginalContent[tab.id] = tab.innerHTML;
+      console.log('[TABS] Ursprüngliche Struktur gespeichert für:', tab.id);
+    }
+  });
+});
+
 window.addEventListener('DOMContentLoaded', function() {
   let hash = window.location.hash.substring(1); // Entferne das #
   
@@ -21149,9 +21160,25 @@ function clearKeywordSearch() {
   displayKeywords(currentAlphabet);
 }
 
+// Speichere ursprüngliche HTML-Strukturen der Tabs
+const tabOriginalContent = {};
+
 // Erweitere die bestehende switchTab Funktion
 function switchTabExtended(mode) {
   console.log('[TABS] Wechsel zu Tab:', mode);
+  
+  // Speichere ursprüngliche HTML-Struktur des aktuellen Tabs, falls noch nicht gespeichert
+  const prevActive = document.querySelector('.tab-content.active');
+  if (prevActive && !tabOriginalContent[prevActive.id]) {
+    tabOriginalContent[prevActive.id] = prevActive.innerHTML;
+  }
+  
+  // Speichere ursprüngliche HTML-Struktur des Ziel-Tabs, falls noch nicht gespeichert
+  const targetId = `${mode}-tab`;
+  const targetContent = document.getElementById(targetId);
+  if (targetContent && !tabOriginalContent[targetId]) {
+    tabOriginalContent[targetId] = targetContent.innerHTML;
+  }
   
   // Setze gespeicherte Summary-Panel-Breite zurück beim Tab-Wechsel
   savedSummaryPanelWidth = null;
@@ -21344,31 +21371,89 @@ function switchTabExtended(mode) {
     console.warn('[TABS] Button nicht gefunden für:', mode);
   }
   
-  // Finde aktuell aktiven Tab-Inhalt und lösche dessen dynamischen Inhalt,
-  // bevor wir den neuen Tab aktivieren. So bleiben keine Reste zurück.
-  const prevActive = document.querySelector('.tab-content.active');
-  const targetId = `${mode}-tab`;
+  // Setze den vorherigen Tab auf seine ursprüngliche Struktur zurück
   if (prevActive && prevActive.id !== targetId) {
     try {
-      // Statt den gesamten Tab zu löschen (was die Header/Controls entfernt),
-      // nur die eigentlichen Ergebnis-/Dynamik-Container leeren.
-      // 1) Zentrale Ergebnis-Container (gemeinsam genutzter Bereich)
+      // WICHTIG: Wenn wir vom GA-Tab wegwechseln, entferne alle chronologischen Container
+      if (prevActive.id === 'ga-tab') {
+        console.log('[TABS] Verlasse GA-Tab - entferne chronologische Container');
+        
+        // Stelle das Scroll-Verhalten von #main wieder her
+        const mainElement = document.getElementById('main');
+        if (mainElement) {
+          mainElement.style.overflow = '';
+          mainElement.style.height = '';
+        }
+        
+        // Prüfe ob wrapper existiert (der den viewer ersetzt hat)
+        const wrapper = document.getElementById('chronological-year-nav-wrapper');
+        if (wrapper && wrapper.parentNode) {
+          console.log('[TABS] Viewer wurde durch Wrapper ersetzt - stelle viewer wieder her');
+          
+          // Erstelle neuen viewer-Element
+          const viewerNew = document.createElement('div');
+          viewerNew.id = 'viewer';
+          viewerNew.className = 'viewer';
+          
+          // Ersetze wrapper durch viewer
+          wrapper.parentNode.replaceChild(viewerNew, wrapper);
+          console.log('[TABS] Viewer wiederhergestellt, wrapper entfernt');
+        } else {
+          // Wrapper existiert nicht, aber prüfe auf einzelne Container
+          const yearNav = document.getElementById('chronological-year-nav');
+          if (yearNav) {
+            console.log('[TABS] Entferne chronological-year-nav beim Tab-Wechsel');
+            yearNav.remove();
+          }
+          
+          const viewerContent = document.getElementById('chronological-viewer-content');
+          if (viewerContent) {
+            console.log('[TABS] Entferne chronological-viewer-content beim Tab-Wechsel');
+            viewerContent.remove();
+          }
+          
+          // Stelle sicher, dass viewer existiert
+          let viewerCheck = document.getElementById('viewer');
+          if (!viewerCheck && mainElement) {
+            // Viewer existiert nicht - erstelle ihn neu
+            viewerCheck = document.createElement('div');
+            viewerCheck.id = 'viewer';
+            viewerCheck.className = 'viewer';
+            mainElement.appendChild(viewerCheck);
+            console.log('[TABS] Viewer neu erstellt beim Tab-Wechsel');
+          }
+        }
+        
+        // Setze currentGAView zurück
+        if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+          currentGAView = 'volumes';
+          console.log('[TABS] currentGAView auf volumes zurückgesetzt');
+        }
+        
+        // Setze chronologischen Button zurück
+        const chronBtn = document.getElementById('ga-chronological-view-btn');
+        if (chronBtn) {
+          chronBtn.style.background = '';
+          chronBtn.style.color = '';
+        }
+      }
+      
+      // Stelle die ursprüngliche HTML-Struktur wieder her, falls gespeichert
+      if (tabOriginalContent[prevActive.id]) {
+        prevActive.innerHTML = tabOriginalContent[prevActive.id];
+        console.log('[TABS] Vorheriger Tab auf ursprüngliche Struktur zurückgesetzt:', prevActive.id);
+      } else {
+        // Falls keine ursprüngliche Struktur gespeichert ist, leere den Tab komplett
+        prevActive.innerHTML = '';
+        console.log('[TABS] Gesamter Inhalt des vorherigen Tabs geleert:', prevActive.id);
+      }
+      
+      // Zusätzlich: Zentrale Ergebnis-Container (gemeinsam genutzter Bereich)
       const resultsEl = document.getElementById('results');
       if (resultsEl) {
         resultsEl.innerHTML = '';
         console.log('[TABS] Ergebnisse im #results-Bereich geleert');
       }
-
-      // 2) Spezifische dynamische Bereiche innerhalb des Tabs (falls vorhanden)
-      // Entwickler können künftig Elemente mit diesen Klassen ausstatten,
-      // um gezielt geleert zu werden beim Tab-Wechsel.
-      const dynamicSelectors = ['.clear-on-switch', '.tab-dynamic'];
-      dynamicSelectors.forEach(sel => {
-        const elems = prevActive.querySelectorAll(sel);
-        elems.forEach(el => {
-          el.innerHTML = '';
-        });
-      });
 
       // Main Viewer leeren
       const viewer = document.getElementById('viewer');
@@ -21382,7 +21467,6 @@ function switchTabExtended(mode) {
       // Setze ggf. die Scroll-Position der Sidebar zurück
       const sidebarContent = document.getElementById('sidebar-content');
       if (sidebarContent) sidebarContent.scrollTop = 0;
-      console.log('[TABS] Vorheriger Tab-dynamik geleert:', prevActive.id);
     } catch (err) {
       console.warn('[TABS] Fehler beim Leeren des vorherigen Tab-Inhalts:', err);
     }
@@ -21397,9 +21481,12 @@ function switchTabExtended(mode) {
     }
   });
 
-  // Gewünschten Tab-Inhalt anzeigen
-  const targetContent = document.getElementById(targetId);
+  // Gewünschten Tab-Inhalt anzeigen und auf ursprüngliche Struktur zurücksetzen
   if (targetContent) {
+    // Stelle die ursprüngliche HTML-Struktur wieder her, falls gespeichert
+    if (tabOriginalContent[targetId]) {
+      targetContent.innerHTML = tabOriginalContent[targetId];
+    }
     targetContent.classList.add('active');
     // WICHTIG: Entferne inline-style, damit CSS-Klasse wirken kann
     if (targetContent.id !== 'advanced-search-tab') {
