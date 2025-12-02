@@ -6077,6 +6077,63 @@ function normalizeGANumber(gaNumber) {
     function switchTab(mode, skipHistory = false) {
       console.log('[TABS] Wechsel zu Tab:', mode);
       
+      // WICHTIG: Beim Tab-Wechsel SOFORT alle Anzeigen im Main Viewer löschen
+      // Entferne ALLE Container der chronologischen Ansicht
+      const wrapper = document.getElementById('chronological-year-nav-wrapper');
+      if (wrapper) {
+        console.log('[TABS] Entferne chronological-year-nav-wrapper beim Tab-Wechsel');
+        wrapper.remove();
+      }
+      
+      const yearNav = document.getElementById('chronological-year-nav');
+      if (yearNav) {
+        console.log('[TABS] Entferne chronological-year-nav beim Tab-Wechsel');
+        yearNav.remove();
+      }
+      
+      const viewerContent = document.getElementById('chronological-viewer-content');
+      if (viewerContent) {
+        console.log('[TABS] Entferne chronological-viewer-content beim Tab-Wechsel');
+        viewerContent.remove();
+      }
+      
+      // Stelle das Scroll-Verhalten von #main wieder her
+      const mainElement = document.getElementById('main');
+      if (mainElement) {
+        mainElement.style.overflow = '';
+        mainElement.style.height = '';
+      }
+      
+      // Stelle sicher, dass viewer existiert
+      let viewer = document.getElementById('viewer');
+      if (!viewer && mainElement) {
+        // Viewer existiert nicht mehr (wurde durch wrapper ersetzt) - erstelle ihn neu
+        viewer = document.createElement('div');
+        viewer.id = 'viewer';
+        viewer.className = 'viewer';
+        mainElement.appendChild(viewer);
+        console.log('[TABS] Viewer neu erstellt beim Tab-Wechsel');
+      }
+      
+      // Lösche ALLE Inhalte im Viewer beim Tab-Wechsel
+      if (viewer) {
+        viewer.innerHTML = '';
+        console.log('[TABS] Viewer-Inhalt gelöscht beim Tab-Wechsel');
+      }
+      
+      // Setze currentGAView zurück
+      if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+        currentGAView = 'volumes';
+        console.log('[TABS] currentGAView auf volumes zurückgesetzt');
+      }
+      
+      // Setze chronologischen Button zurück
+      const chronBtn = document.getElementById('ga-chronological-view-btn');
+      if (chronBtn) {
+        chronBtn.style.background = '';
+        chronBtn.style.color = '';
+      }
+      
       // Füge Browser History Eintrag hinzu (außer bei popstate)
       if (!skipHistory) {
         // Bereinige URL: Nur Hash für aktuellen Tab, keine Query-Parameter von vorherigen Tabs
@@ -6103,6 +6160,98 @@ function normalizeGANumber(gaNumber) {
       }
       
       const currentActiveTab = document.querySelector('.tab-content.active');
+      
+      // WICHTIG: Wenn wir zu einem anderen Tab wechseln (nicht GA-Tab), entferne chronologische Container SOFORT
+      // Prüfe zuerst, ob der viewer durch den wrapper ersetzt wurde
+      const wrapperCheck2 = document.getElementById('chronological-year-nav-wrapper');
+      let viewerRestored = false;
+      
+      if (wrapperCheck2 && mode !== 'ga') {
+        console.log('[TABS] Viewer wurde durch Wrapper ersetzt - stelle viewer wieder her');
+        // Stelle den ursprünglichen viewer wieder her
+        const viewerContentPanel2 = document.getElementById('chronological-viewer-content');
+        if (wrapperCheck2.parentNode) {
+          const viewerNew = document.createElement('div');
+          viewerNew.id = 'viewer';
+          viewerNew.className = 'viewer';
+          wrapperCheck2.parentNode.replaceChild(viewerNew, wrapperCheck2);
+          viewerRestored = true;
+          console.log('[TABS] Viewer wiederhergestellt');
+        } else {
+          wrapperCheck2.remove();
+        }
+      }
+      
+      // Prüfe jetzt auf chronologische Ansicht (nachdem viewer möglicherweise wiederhergestellt wurde)
+      const viewerCheck3 = document.getElementById('viewer');
+      const hasChronologicalContent = viewerCheck3 && (
+        viewerCheck3.innerHTML.includes('chronologisch') || 
+        viewerCheck3.querySelector('.chronological-lecture-link') !== null ||
+        viewerCheck3.querySelector('#chronological-year-nav') !== null
+      );
+      
+      // Prüfe auch, ob Container noch im DOM sind (falls viewer nicht wiederhergestellt wurde)
+      const chronologicalNav = document.getElementById('chronological-year-nav');
+      const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+      const hasChronologicalContainers = chronologicalNav !== null || chronologicalViewerContent !== null;
+      
+      if (mode !== 'ga' && (
+        (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
+        hasChronologicalContent ||
+        hasChronologicalContainers ||
+        viewerRestored
+      )) {
+        console.log('[TABS] Wechsel zu anderem Tab - lösche chronologische Ansicht (mode:', mode, ', currentGAView:', currentGAView, ', hasContent:', hasChronologicalContent, ', hasContainers:', hasChronologicalContainers, ')');
+        
+        // Setze currentGAView zurück
+        currentGAView = 'volumes';
+        
+        // Setze chronologischen Button zurück
+        const chronBtn = document.getElementById('ga-chronological-view-btn');
+        if (chronBtn) {
+          chronBtn.style.background = '';
+          chronBtn.style.color = '';
+        }
+        
+        // Entferne Jahres-Buttons (falls noch vorhanden) - mehrfach für maximale Robustheit
+        if (typeof removeChronologicalYearButtons === 'function') {
+          removeChronologicalYearButtons();
+        }
+        
+        // Entferne alle Container der chronologischen Ansicht
+        if (chronologicalNav) {
+          chronologicalNav.remove();
+          console.log('[TABS] chronological-year-nav entfernt');
+        }
+        if (chronologicalViewerContent) {
+          chronologicalViewerContent.remove();
+          console.log('[TABS] chronological-viewer-content entfernt');
+        }
+        const wrapperCheck = document.getElementById('chronological-year-nav-wrapper');
+        if (wrapperCheck) {
+          wrapperCheck.remove();
+          console.log('[TABS] chronological-year-nav-wrapper entfernt');
+        }
+        
+        // Stelle das Scroll-Verhalten von #main wieder her
+        const mainElement = document.getElementById('main');
+        if (mainElement) {
+          mainElement.style.overflow = '';
+          mainElement.style.height = '';
+        }
+        
+        // Lösche Viewer-Inhalt explizit für chronologische Ansicht
+        const viewerFinal = document.getElementById('viewer');
+        if (viewerFinal) {
+          viewerFinal.innerHTML = '';
+        }
+        
+        // Setze Titel zurück
+        const titleElement = document.getElementById('document-title');
+        if (titleElement && titleElement.textContent.includes('chronologisch')) {
+          titleElement.textContent = '';
+        }
+      }
       
       // Prüfe, ob wir vom erweiterten Such-Tab wegwechseln
       if (currentActiveTab && currentActiveTab.id === 'advanced-search-tab') {
@@ -6204,10 +6353,47 @@ function normalizeGANumber(gaNumber) {
       
       // Document Title wird später basierend auf dem mode gesetzt (siehe switch-Logik unten)
       
-      // Viewer leeren
-      const viewer = document.getElementById('viewer');
-      if (viewer) {
-        viewer.innerHTML = '';
+      // Viewer leeren (verwende bereits existierende viewer Variable von oben)
+      
+      // ZUSÄTZLICH: Wenn chronologische Ansicht aktiv ist und wir zu einem anderen Tab wechseln, setze sie zurück
+      // Prüfe sowohl currentGAView als auch ob chronologische Elemente im Viewer vorhanden sind
+      const viewerHasChronologicalContent = viewer && (
+        viewer.innerHTML.includes('chronologisch') || 
+        viewer.querySelector('.chronological-lecture-link') !== null ||
+        viewer.querySelector('#chronological-year-nav') !== null
+      );
+      
+      if (mode !== 'ga' && (
+        (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') ||
+        viewerHasChronologicalContent
+      )) {
+        console.log('[TABS] Setze chronologische Ansicht zurück (beim Viewer leeren)');
+        currentGAView = 'volumes';
+        
+        // Setze chronologischen Button zurück
+        const chronBtn = document.getElementById('ga-chronological-view-btn');
+        if (chronBtn) {
+          chronBtn.style.background = '';
+          chronBtn.style.color = '';
+        }
+        
+        // Entferne Jahres-Buttons
+        if (typeof removeChronologicalYearButtons === 'function') {
+          removeChronologicalYearButtons();
+        }
+        const chronologicalNav = document.getElementById('chronological-year-nav');
+        if (chronologicalNav) {
+          chronologicalNav.remove();
+        }
+        const chronologicalNavWrapper = document.getElementById('chronological-year-nav-wrapper');
+        if (chronologicalNavWrapper) {
+          chronologicalNavWrapper.remove();
+        }
+        
+        // Stelle sicher, dass Viewer wirklich leer ist
+        if (viewer) {
+          viewer.innerHTML = '';
+        }
       }
       
       // currentOpenLectureId und currentLectureData zurücksetzen
@@ -6386,12 +6572,161 @@ function normalizeGANumber(gaNumber) {
         targetTab.style.display = '';
       }
       
+      // WICHTIG: Wenn wir zu einem anderen Tab wechseln (nicht GA-Tab), entferne chronologische Ansicht SOFORT
+      if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+        console.log('[TABS] Entferne chronologische Ansicht beim Wechsel zu Tab:', mode);
+        currentGAView = 'volumes';
+        
+        // Setze chronologischen Button zurück
+        const chronBtn = document.getElementById('ga-chronological-view-btn');
+        if (chronBtn) {
+          chronBtn.style.background = '';
+          chronBtn.style.color = '';
+        }
+        
+        // WICHTIG: Entferne beide Container der chronologischen Ansicht aus dem Main Viewer
+        // 1. Entferne den Wrapper-Container (enthält beide Panels)
+        const wrapper = document.getElementById('chronological-year-nav-wrapper');
+        if (wrapper) {
+          console.log('[TABS] Entferne chronological-year-nav-wrapper Container');
+          // Stelle den ursprünglichen viewer wieder her, falls er ersetzt wurde
+          const viewerContentPanel = document.getElementById('chronological-viewer-content');
+          if (viewerContentPanel && wrapper.parentNode) {
+            // Erstelle neuen viewer-Element
+            const viewer = document.createElement('div');
+            viewer.id = 'viewer';
+            viewer.className = 'viewer';
+            // Ersetze den Wrapper durch den viewer
+            wrapper.parentNode.replaceChild(viewer, wrapper);
+            console.log('[TABS] Viewer wiederhergestellt nach Entfernen des Wrappers');
+          } else {
+            wrapper.remove();
+          }
+        }
+        
+        // 2. Entferne den Jahres-Buttons-Container (falls noch vorhanden)
+        const yearNav = document.getElementById('chronological-year-nav');
+        if (yearNav) {
+          console.log('[TABS] Entferne chronological-year-nav Container');
+          yearNav.remove();
+        }
+        
+        // 3. Entferne den Viewer-Content-Container (falls noch vorhanden)
+        const viewerContent = document.getElementById('chronological-viewer-content');
+        if (viewerContent) {
+          console.log('[TABS] Entferne chronological-viewer-content Container');
+          viewerContent.remove();
+        }
+        
+        // 4. Stelle das Scroll-Verhalten von #main wieder her
+        const mainElement = document.getElementById('main');
+        if (mainElement) {
+          mainElement.style.overflow = '';
+          mainElement.style.height = '';
+        }
+        
+        // Lösche Viewer-Inhalt (chronologische Ansicht)
+        const viewer = document.getElementById('viewer');
+        if (viewer) {
+          viewer.innerHTML = '';
+        }
+        
+        // Setze Document-Title zurück
+        const documentTitle = document.getElementById('document-title');
+        if (documentTitle) {
+          // Setze je nach Tab einen passenden Titel
+          if (mode === 'texte') {
+            documentTitle.textContent = 'Texte';
+          } else if (mode === 'schlagworte') {
+            documentTitle.textContent = 'Schlagworte';
+          } else if (mode === 'keyword') {
+            documentTitle.textContent = 'Suche';
+          } else if (mode === 'timeline') {
+            documentTitle.textContent = 'Timeline';
+          } else if (mode === 'zitate') {
+            documentTitle.textContent = 'Zitate';
+          } else if (mode === 'erweitert') {
+            documentTitle.textContent = 'Erweiterte Suche';
+          } else {
+            documentTitle.textContent = '';
+          }
+        }
+      }
+      
       // Sicherheitsprüfung: Entferne Jahres-Buttons NACH Tab-Wechsel nochmal (falls sie noch vorhanden sind)
       // Entferne IMMER, außer wenn wir zum GA-Tab wechseln UND die chronologische Ansicht aktiv ist
       setTimeout(() => {
         const isChronologicalViewActive = mode === 'ga' && currentGAView === 'chronological';
         if (!isChronologicalViewActive) {
           forceRemoveYearButtons();
+          
+          // WICHTIG: Wenn wir zu einem anderen Tab wechseln und currentGAView noch auf 'chronological' steht, setze es zurück
+          if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+            console.log('[TABS] Setze currentGAView zurück (verzögerte Prüfung nach 100ms)');
+            currentGAView = 'volumes';
+            
+            // Setze chronologischen Button zurück
+            const chronBtn = document.getElementById('ga-chronological-view-btn');
+            if (chronBtn) {
+              chronBtn.style.background = '';
+              chronBtn.style.color = '';
+            }
+            
+            // Entferne Jahres-Buttons nochmal
+            forceRemoveYearButtons();
+            
+            // Entferne beide Container der chronologischen Ansicht
+            const wrapper = document.getElementById('chronological-year-nav-wrapper');
+            if (wrapper) {
+              const viewerContentPanel = document.getElementById('chronological-viewer-content');
+              if (viewerContentPanel && wrapper.parentNode) {
+                const viewer = document.createElement('div');
+                viewer.id = 'viewer';
+                viewer.className = 'viewer';
+                wrapper.parentNode.replaceChild(viewer, wrapper);
+              } else {
+                wrapper.remove();
+              }
+            }
+            const yearNav = document.getElementById('chronological-year-nav');
+            if (yearNav) yearNav.remove();
+            const viewerContent = document.getElementById('chronological-viewer-content');
+            if (viewerContent) viewerContent.remove();
+            
+            // Stelle das Scroll-Verhalten von #main wieder her
+            const mainElement = document.getElementById('main');
+            if (mainElement) {
+              mainElement.style.overflow = '';
+              mainElement.style.height = '';
+            }
+            
+            // Lösche Viewer-Inhalt falls noch chronologische Ansicht sichtbar
+            const viewer = document.getElementById('viewer');
+            if (viewer) {
+              viewer.innerHTML = '';
+            }
+            
+            // Setze Document-Title zurück
+            const documentTitle = document.getElementById('document-title');
+            if (documentTitle) {
+              if (mode === 'texte') {
+                documentTitle.textContent = 'Texte';
+              } else if (mode === 'schlagworte') {
+                documentTitle.textContent = 'Schlagworte';
+              } else if (mode === 'keyword') {
+                documentTitle.textContent = 'Suche';
+              } else if (mode === 'timeline') {
+                documentTitle.textContent = 'Timeline';
+              } else if (mode === 'zitate') {
+                documentTitle.textContent = 'Zitate';
+              } else if (mode === 'erweitert') {
+                documentTitle.textContent = 'Erweiterte Suche';
+              } else {
+                documentTitle.textContent = '';
+              }
+            }
+          }
+          
           console.log('[TABS] Jahres-Buttons nach Tab-Wechsel entfernt (Tab:', mode, ', View:', currentGAView, ')');
         } else {
           console.log('[TABS] Jahres-Buttons behalten (Tab:', mode, ', View:', currentGAView, ')');
@@ -6404,6 +6739,74 @@ function normalizeGANumber(gaNumber) {
           const isChronologicalViewActive = mode === 'ga' && currentGAView === 'chronological';
           if (!isChronologicalViewActive) {
             forceRemoveYearButtons();
+            
+            // WICHTIG: Wenn wir zu einem anderen Tab wechseln und currentGAView noch auf 'chronological' steht, setze es zurück
+            if (mode !== 'ga' && typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+              console.log('[TABS] Setze currentGAView zurück (verzögerte Prüfung nach', delay, 'ms)');
+              currentGAView = 'volumes';
+              
+              // Setze chronologischen Button zurück
+              const chronBtn = document.getElementById('ga-chronological-view-btn');
+              if (chronBtn) {
+                chronBtn.style.background = '';
+                chronBtn.style.color = '';
+              }
+              
+              // Entferne Jahres-Buttons nochmal
+              forceRemoveYearButtons();
+              
+              // Entferne beide Container der chronologischen Ansicht
+              const wrapper = document.getElementById('chronological-year-nav-wrapper');
+              if (wrapper) {
+                const viewerContentPanel = document.getElementById('chronological-viewer-content');
+                if (viewerContentPanel && wrapper.parentNode) {
+                  const viewer = document.createElement('div');
+                  viewer.id = 'viewer';
+                  viewer.className = 'viewer';
+                  wrapper.parentNode.replaceChild(viewer, wrapper);
+                } else {
+                  wrapper.remove();
+                }
+              }
+              const yearNav = document.getElementById('chronological-year-nav');
+              if (yearNav) yearNav.remove();
+              const viewerContent = document.getElementById('chronological-viewer-content');
+              if (viewerContent) viewerContent.remove();
+              
+              // Stelle das Scroll-Verhalten von #main wieder her
+              const mainElement = document.getElementById('main');
+              if (mainElement) {
+                mainElement.style.overflow = '';
+                mainElement.style.height = '';
+              }
+              
+              // Lösche Viewer-Inhalt falls noch chronologische Ansicht sichtbar
+              const viewer = document.getElementById('viewer');
+              if (viewer) {
+                viewer.innerHTML = '';
+              }
+              
+              // Setze Document-Title zurück
+              const documentTitle = document.getElementById('document-title');
+              if (documentTitle) {
+                if (mode === 'texte') {
+                  documentTitle.textContent = 'Texte';
+                } else if (mode === 'schlagworte') {
+                  documentTitle.textContent = 'Schlagworte';
+                } else if (mode === 'keyword') {
+                  documentTitle.textContent = 'Suche';
+                } else if (mode === 'timeline') {
+                  documentTitle.textContent = 'Timeline';
+                } else if (mode === 'zitate') {
+                  documentTitle.textContent = 'Zitate';
+                } else if (mode === 'erweitert') {
+                  documentTitle.textContent = 'Erweiterte Suche';
+                } else {
+                  documentTitle.textContent = '';
+                }
+              }
+            }
+            
             console.log('[TABS] Jahres-Buttons nach', delay, 'ms entfernt (Tab:', mode, ', View:', currentGAView, ')');
           }
         }, delay);
@@ -6420,6 +6823,79 @@ function normalizeGANumber(gaNumber) {
           // Rufe updateButtonStates() nochmal auf, um sicherzustellen, dass alle Buttons korrekt sind
           updateButtonStates();
         }, 10);
+      }
+      
+      // WICHTIG: Beim Wechsel zum Suche-Tab (keyword) entferne chronologische Container SOFORT
+      if (mode === 'keyword') {
+        console.log('[TABS] Wechsel zum Suche-Tab - entferne chronologische Container');
+        
+        // Entferne beide Container der chronologischen Ansicht aus dem Main Viewer
+        const wrapper = document.getElementById('chronological-year-nav-wrapper');
+        if (wrapper) {
+          console.log('[TABS] Entferne chronological-year-nav-wrapper Container beim Wechsel zu Suche');
+          // Stelle den ursprünglichen viewer wieder her, falls er ersetzt wurde
+          const viewerContentPanel = document.getElementById('chronological-viewer-content');
+          if (viewerContentPanel && wrapper.parentNode) {
+            // Erstelle neuen viewer-Element
+            const viewer = document.createElement('div');
+            viewer.id = 'viewer';
+            viewer.className = 'viewer';
+            // Ersetze den Wrapper durch den viewer
+            wrapper.parentNode.replaceChild(viewer, wrapper);
+            console.log('[TABS] Viewer wiederhergestellt nach Entfernen des Wrappers beim Wechsel zu Suche');
+          } else {
+            wrapper.remove();
+          }
+        }
+        
+        // Entferne den Jahres-Buttons-Container (falls noch vorhanden)
+        const yearNav = document.getElementById('chronological-year-nav');
+        if (yearNav) {
+          console.log('[TABS] Entferne chronological-year-nav Container beim Wechsel zu Suche');
+          yearNav.remove();
+        }
+        
+        // Entferne den Viewer-Content-Container (falls noch vorhanden)
+        const viewerContent = document.getElementById('chronological-viewer-content');
+        if (viewerContent) {
+          console.log('[TABS] Entferne chronological-viewer-content Container beim Wechsel zu Suche');
+          viewerContent.remove();
+        }
+        
+        // Stelle das Scroll-Verhalten von #main wieder her
+        const mainElement = document.getElementById('main');
+        if (mainElement) {
+          mainElement.style.overflow = '';
+          mainElement.style.height = '';
+        }
+        
+        // Stelle sicher, dass viewer existiert und leer ist
+        let viewerFinal = document.getElementById('viewer');
+        if (!viewerFinal) {
+          // Viewer existiert nicht - erstelle ihn
+          if (mainElement) {
+            viewerFinal = document.createElement('div');
+            viewerFinal.id = 'viewer';
+            viewerFinal.className = 'viewer';
+            mainElement.appendChild(viewerFinal);
+            console.log('[TABS] Viewer erstellt beim Wechsel zu Suche');
+          }
+        }
+        if (viewerFinal) {
+          viewerFinal.innerHTML = '';
+        }
+        
+        // Setze currentGAView zurück falls es noch auf 'chronological' steht
+        if (typeof currentGAView !== 'undefined' && currentGAView === 'chronological') {
+          currentGAView = 'volumes';
+        }
+        
+        // Setze chronologischen Button zurück
+        const chronBtn = document.getElementById('ga-chronological-view-btn');
+        if (chronBtn) {
+          chronBtn.style.background = '';
+          chronBtn.style.color = '';
+        }
       }
       
       // Lade Zitate wenn zum Zitate-Tab gewechselt wird
