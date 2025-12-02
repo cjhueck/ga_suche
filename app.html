@@ -7989,6 +7989,20 @@ function normalizeGANumber(gaNumber) {
     let advancedGAFilterDropdown = null;
     
     function initCustomDropdowns() {
+      // Entferne alte Event-Listener, falls vorhanden (durch Klonen der Container)
+      const yearContainer = document.getElementById('yearFilterContainer');
+      const gaContainer = document.getElementById('gaFilterContainer');
+      
+      if (yearContainer) {
+        const newYearContainer = yearContainer.cloneNode(true);
+        yearContainer.parentNode.replaceChild(newYearContainer, yearContainer);
+      }
+      
+      if (gaContainer) {
+        const newGAContainer = gaContainer.cloneNode(true);
+        gaContainer.parentNode.replaceChild(newGAContainer, gaContainer);
+      }
+      
       yearFilterDropdown = new MultiSelectDropdown(
         'yearFilterContainer',
         'yearFilterButton',
@@ -8011,8 +8025,15 @@ function normalizeGANumber(gaNumber) {
       );
       
       // Event-Listener für Änderungen
-      document.getElementById('yearFilterContainer').addEventListener('multiselect-change', updateServerInfo);
-      document.getElementById('gaFilterContainer').addEventListener('multiselect-change', updateServerInfo);
+      const yearFilterContainerEl = document.getElementById('yearFilterContainer');
+      const gaFilterContainerEl = document.getElementById('gaFilterContainer');
+      
+      if (yearFilterContainerEl) {
+        yearFilterContainerEl.addEventListener('multiselect-change', updateServerInfo);
+      }
+      if (gaFilterContainerEl) {
+        gaFilterContainerEl.addEventListener('multiselect-change', updateServerInfo);
+      }
       
       console.log('[CUSTOM-DROPDOWNS] Initialisiert');
     }
@@ -21545,6 +21566,16 @@ function switchTabExtended(mode) {
           initGAFilter();
         }
       });
+    }
+    
+    // Wenn zum Suche-Tab gewechselt wird, initialisiere Custom Dropdowns neu
+    if (mode === 'keyword' && typeof initCustomDropdowns === 'function') {
+      console.log('[TABS] Initialisiere Custom Dropdowns für Suche-Tab');
+      initCustomDropdowns();
+      // Befülle die Dropdowns nach der Initialisierung
+      if (typeof populateGADropdowns === 'function') {
+        populateGADropdowns();
+      }
     }
   } else {
     console.warn('[TABS] Tab-Content nicht gefunden für:', mode);
