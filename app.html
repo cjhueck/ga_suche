@@ -6341,6 +6341,16 @@ function normalizeGANumber(gaNumber) {
         }
       });
       
+      // Entferne Jahres-Buttons beim Tab-Wechsel (außer wenn wir zum GA-Tab mit chronologischer Ansicht wechseln)
+      const chronologicalNav = document.getElementById('chronological-year-nav');
+      if (chronologicalNav) {
+        chronologicalNav.remove();
+      }
+      const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+      if (oldButtonsContainer) {
+        oldButtonsContainer.remove();
+      }
+      
       // Aktiviere den Ziel-Tab und setze inline-style zurück
       const targetTab = document.getElementById(`${mode}-tab`);
       if (targetTab) {
@@ -6394,7 +6404,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
         }
         
         // Setze Loading-Nachricht im Results-Bereich
@@ -6616,7 +6626,7 @@ function normalizeGANumber(gaNumber) {
         // Setze Viewer-Nachricht
         const viewer = document.getElementById('viewer');
         if (viewer) {
-          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+          viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
         }
         
         // Setze Ladeanzeiger im Results-Bereich
@@ -8263,6 +8273,18 @@ function isBookGANumber(gaNumber) {
 
 // Funktion: Rendert ein Book (Schrift)
 async function displayBook(book, highlightHeadingId = null, keywords = [], isPhraseArray = [], targetIndex = null) {
+  // Entferne chronologische Jahres-Buttons, falls vorhanden
+  const chronologicalNav = document.getElementById('chronological-year-nav');
+  if (chronologicalNav) {
+    chronologicalNav.remove();
+  }
+  
+  // Entferne alte Jahres-Buttons aus anderen Ansichten
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) {
+    oldButtonsContainer.remove();
+  }
+  
   const viewer = document.getElementById('viewer');
   const documentTitle = document.getElementById('document-title');
   const mainContainer = document.getElementById('main');
@@ -9358,6 +9380,12 @@ function activateFootnoteLinks() {
 
 async function showGALectures(gaNumber, skipHistory = false) {
   try {
+    // Entferne chronologische Jahres-Buttons, falls vorhanden
+    const chronologicalNav = document.getElementById('chronological-year-nav');
+    if (chronologicalNav) {
+      chronologicalNav.remove();
+    }
+    
     console.log('[GA-TAB] Lade GA-Band:', gaNumber);
     
     // Browser History Eintrag hinzufügen
@@ -10040,6 +10068,18 @@ let currentGAView = 'volumes'; // 'volumes' oder 'chronological'
 function showGAVolumesView() {
   currentGAView = 'volumes';
   
+  // Entferne Jahres-Buttons aus chronologischer Ansicht
+  const chronologicalNav = document.getElementById('chronological-year-nav');
+  if (chronologicalNav) {
+    chronologicalNav.remove();
+  }
+  
+  // Entferne alte Jahres-Buttons aus anderen Ansichten
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) {
+    oldButtonsContainer.remove();
+  }
+  
   // Zeige GA-Bände Liste
   const viewer = document.getElementById('viewer');
   viewer.innerHTML = '<p style="color: #666; font-style: italic;">Bitte wählen Sie einen GA-Band aus dem Menü "Texte".</p>';
@@ -10055,6 +10095,12 @@ function showGAVolumesView() {
 // Zeige chronologische Ansicht
 async function showGAChronologicalView(skipHistory = false) {
   currentGAView = 'chronological';
+  
+  // Entferne alte Jahres-Buttons aus anderen Ansichten
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) {
+    oldButtonsContainer.remove();
+  }
   
   // Browser History Eintrag hinzufügen
   if (!skipHistory) {
@@ -10103,6 +10149,12 @@ function displayGAChronological(lectures) {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
   
+  // Entferne alle alten Jahres-Buttons aus anderen Ansichten
+  const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+  if (oldButtonsContainer) {
+    oldButtonsContainer.remove();
+  }
+  
   if (!lectures || lectures.length === 0) {
     viewer.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
     titleElement.textContent = 'Vorträge chronologisch';
@@ -10132,7 +10184,18 @@ function displayGAChronological(lectures) {
     }
   });
   
-  // Erstelle Grid HTML (ohne h2-Überschrift und ohne extra Padding - nutzt Main-Container Padding)
+  // Sortiere Jahre aufsteigend
+  const years = Object.keys(lecturesByYear).sort((a, b) => parseInt(a) - parseInt(b));
+  
+  // Erstelle sticky Jahres-Header
+  const yearButtonsHtml = years.map(year => 
+    `<button class="year-nav-btn" onclick="scrollToChronologicalYear('${year}')" data-year="${year}" style="padding: 0.4rem 0.8rem; margin: 0 0.2rem; border: 1px solid var(--accent-color); background: var(--background-color); color: var(--text-color); cursor: pointer; border-radius: 4px; font-size: 0.85em; transition: all 0.2s;">${year}</button>`
+  ).join('');
+  
+  // Speichere die Jahre für späteren Zugriff
+  window.chronologicalYears = years;
+  
+  // Erstelle Grid HTML (sticky Header wird separat eingefügt)
   let html = `
     <div>
       <table style="width: 100%; border-collapse: collapse; margin-top: 0;">
@@ -10146,9 +10209,6 @@ function displayGAChronological(lectures) {
         </thead>
         <tbody>
   `;
-  
-  // Sortiere Jahre aufsteigend
-  const years = Object.keys(lecturesByYear).sort((a, b) => parseInt(a) - parseInt(b));
   
   // Hilfsfunktion: Extrahiere nur den Ortsnamen mit intelligenter Erkennung
   const cleanLocation = (loc, fullTitle = '') => {
@@ -10315,7 +10375,7 @@ function displayGAChronological(lectures) {
       const borderStyle = (isLastLectureOfYear && !isLastYear) ? '2px solid var(--border-color)' : 'none';
       
       html += `
-        <tr style="border-bottom: ${borderStyle};">
+        <tr id="year-${year}" style="border-bottom: ${borderStyle}; scroll-margin-top: 80px;" ${idx === 0 ? `data-year-start="${year}"` : ''}>
           <td style="padding: 0.3rem; vertical-align: top; font-weight: ${idx === 0 ? 'bold' : 'normal'}; font-size: 0.85em;">${yearCell}</td>
           <td style="padding: 0.3rem; padding-right: 0.9rem; vertical-align: top; text-align: right; font-size: 0.85em;">${date}</td>
           <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${location}</td>
@@ -10337,7 +10397,170 @@ function displayGAChronological(lectures) {
     </div>
   `;
   
+  // Füge HTML in viewer ein
   viewer.innerHTML = html;
+  
+  // Prüfe ob wir wirklich im GA-Tab sind (nicht im Texte-Tab oder anderen Tabs)
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  // Füge sticky Header NUR ein, wenn wir im GA-Tab sind
+  if (isInGATab) {
+    // Füge sticky Header direkt in #main ein (vor #viewer), damit es richtig funktioniert
+    const mainContainer = document.getElementById('main');
+    if (mainContainer && viewer) {
+      // Entferne vorhandenes sticky Element falls vorhanden
+      const existingNav = document.getElementById('chronological-year-nav');
+      if (existingNav) {
+        existingNav.remove();
+      }
+      
+      // Erstelle sticky Element direkt in #main
+      // Kompensiere nur das Padding von #main (0.5rem top, 0.8rem left/right)
+      const stickyNav = document.createElement('div');
+      stickyNav.id = 'chronological-year-nav';
+      stickyNav.style.cssText = 'position: -webkit-sticky; position: sticky; top: 0; z-index: 1004 !important; background: var(--background-color) !important; padding: 0.8rem 0.8rem 0.8rem 1.5rem; margin: -0.5rem -0.8rem 1rem -0.8rem; width: calc(100% + 1.6rem); box-sizing: border-box; border-bottom: 3px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.1);';
+      
+      const buttonsContainer = document.createElement('div');
+      buttonsContainer.style.cssText = 'display: flex; flex-wrap: wrap; column-gap: 0.05rem; row-gap: 0.3rem; align-items: center;';
+      buttonsContainer.innerHTML = yearButtonsHtml;
+      stickyNav.appendChild(buttonsContainer);
+      
+      // Füge nach viewer-header ein, aber vor viewer
+      const viewerHeader = document.getElementById('viewer-header');
+      if (viewerHeader && viewerHeader.nextSibling) {
+        mainContainer.insertBefore(stickyNav, viewerHeader.nextSibling);
+      } else {
+        mainContainer.insertBefore(stickyNav, viewer);
+      }
+    }
+  } else {
+    // Wenn nicht im GA-Tab, entferne Jahres-Buttons falls vorhanden
+    const existingNav = document.getElementById('chronological-year-nav');
+    if (existingNav) {
+      existingNav.remove();
+    }
+  }
+  
+  // Event-Listener für Hover-Effekt auf Jahres-Buttons
+  document.querySelectorAll('.year-nav-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+      // Nur Hover-Effekt, wenn Button nicht aktiv ist
+      if (!this.classList.contains('active-year-btn')) {
+        this.style.background = 'var(--accent-color)';
+        this.style.color = 'white';
+        this.style.borderColor = 'var(--accent-color)';
+      }
+    });
+    btn.addEventListener('mouseleave', function() {
+      // Nur zurücksetzen, wenn Button nicht aktiv ist
+      if (!this.classList.contains('active-year-btn')) {
+        if (document.body.classList.contains('dark-mode')) {
+          this.style.background = 'var(--dark-background-color)';
+          this.style.color = 'var(--dark-text-color)';
+        } else {
+          this.style.background = 'var(--background-color)';
+          this.style.color = 'var(--text-color)';
+        }
+        this.style.borderColor = 'var(--accent-color)';
+      }
+    });
+  });
+  
+  // Aktualisiere Hintergrund des sticky-Elements im Dark Mode und stelle sicher, dass es sticky bleibt
+  const navElement = document.getElementById('chronological-year-nav');
+  if (navElement) {
+    const updateNavBackground = () => {
+      if (document.body.classList.contains('dark-mode')) {
+        navElement.style.background = 'var(--dark-background-color)';
+        navElement.style.borderBottomColor = 'var(--dark-border-color)';
+      } else {
+        navElement.style.background = 'var(--background-color)';
+        navElement.style.borderBottomColor = 'var(--border-color)';
+      }
+    };
+    
+    // Initiales Update
+    updateNavBackground();
+    
+    // Beobachte Änderungen am body-Element für Dark Mode Wechsel
+    const observer = new MutationObserver(updateNavBackground);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    
+  }
+}
+
+// Scrollt zu einem bestimmten Jahr in der chronologischen Ansicht
+function scrollToChronologicalYear(year) {
+  // Entferne aktive Markierung von allen Buttons
+  document.querySelectorAll('.year-nav-btn').forEach(btn => {
+    btn.classList.remove('active-year-btn');
+    if (document.body.classList.contains('dark-mode')) {
+      btn.style.background = 'var(--dark-background-color)';
+      btn.style.color = 'var(--dark-text-color)';
+    } else {
+      btn.style.background = 'var(--background-color)';
+      btn.style.color = 'var(--text-color)';
+    }
+    btn.style.borderColor = 'var(--accent-color)';
+    btn.style.fontWeight = 'normal';
+  });
+  
+  // Markiere den angeklickten Button als aktiv
+  const clickedButton = document.querySelector(`.year-nav-btn[data-year="${year}"]`);
+  if (clickedButton) {
+    clickedButton.classList.add('active-year-btn');
+    clickedButton.style.background = 'var(--accent-color)';
+    clickedButton.style.color = 'white';
+    clickedButton.style.borderColor = 'var(--accent-color)';
+    clickedButton.style.fontWeight = 'bold';
+  }
+  
+  const yearElement = document.getElementById(`year-${year}`);
+  if (yearElement) {
+    // Finde die erste Zeile dieses Jahres
+    const yearStartElement = document.querySelector(`tr[data-year-start="${year}"]`);
+    const targetElement = yearStartElement || yearElement;
+    
+    // Hole den scrollbaren Container (#main)
+    const mainContainer = document.getElementById('main');
+    if (mainContainer) {
+      // Berechne die Position relativ zum scrollbaren Container
+      const containerRect = mainContainer.getBoundingClientRect();
+      const elementRect = targetElement.getBoundingClientRect();
+      
+      // Berechne die Scroll-Position: Element-Position minus Container-Position plus aktueller Scroll
+      const relativeTop = elementRect.top - containerRect.top + mainContainer.scrollTop;
+      
+      // Berücksichtige die Höhe des sticky Headers (ca. 60px)
+      const headerOffset = 60;
+      
+      // Scrolle so, dass das Element unter dem Header erscheint
+      mainContainer.scrollTo({
+        top: relativeTop - headerOffset,
+        behavior: 'auto'
+      });
+    } else {
+      // Fallback: Standard scrollIntoView
+      targetElement.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+    
+    // Highlighte den Button kurz
+    const btn = document.querySelector(`.year-nav-btn[data-year="${year}"]`);
+    if (btn) {
+      const originalBg = btn.style.background;
+      const originalColor = btn.style.color;
+      const originalBorder = btn.style.borderColor;
+      btn.style.background = 'var(--accent-color)';
+      btn.style.color = 'white';
+      btn.style.borderColor = 'var(--accent-color)';
+      setTimeout(() => {
+        btn.style.background = originalBg;
+        btn.style.color = originalColor;
+        btn.style.borderColor = 'var(--accent-color)';
+      }, 1000);
+    }
+  }
 }
 
 // Summary-Manager Interface
@@ -10359,6 +10582,16 @@ function displayGAChronological(lectures) {
     async function navigateToLectureInTexteTab(lectureId) {
       console.log(`[NAVIGATION] Navigiere zu Vortrag ${lectureId} im Texte-Tab`);
       
+      // Entferne Jahres-Buttons explizit beim Wechsel zum Texte-Tab
+      const chronologicalNav = document.getElementById('chronological-year-nav');
+      if (chronologicalNav) {
+        chronologicalNav.remove();
+      }
+      const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
+      if (oldButtonsContainer) {
+        oldButtonsContainer.remove();
+      }
+      
       // Extrahiere GA-Nummer aus lectureId (z.B. "GA121/6" -> "GA121")
       const gaNumber = lectureId.split('/')[0];
       
@@ -10367,6 +10600,16 @@ function displayGAChronological(lectures) {
       
       // Warte kurz, damit der Tab geladen ist
       await new Promise(resolve => setTimeout(resolve, 200));
+      
+      // Sicherheitsprüfung: Entferne Jahres-Buttons nochmal nach Tab-Wechsel (falls sie noch vorhanden sind)
+      const chronologicalNavAfterSwitch = document.getElementById('chronological-year-nav');
+      if (chronologicalNavAfterSwitch) {
+        chronologicalNavAfterSwitch.remove();
+      }
+      const oldButtonsContainerAfterSwitch = document.querySelector('.ga-year-buttons-container');
+      if (oldButtonsContainerAfterSwitch) {
+        oldButtonsContainerAfterSwitch.remove();
+      }
       
       // Setze den GA-Filter im Texte-Tab OHNE Change Event zu triggern
       const texteGAFilter = document.getElementById('texteGAFilter');
@@ -20375,7 +20618,7 @@ function switchTabExtended(mode) {
     // Setze Viewer-Nachricht
     const viewer = document.getElementById('viewer');
     if (viewer) {
-      viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus, um die Vorträge anzuzeigen.</div>';
+      viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
     }
     
     setTimeout(() => {
