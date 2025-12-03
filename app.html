@@ -5482,6 +5482,7 @@ Original
     let isKeywordSearchRunning = false;
     let savedSummaryPanelWidth = null; // Speichert die manuell angepasste Breite des Summary-Panels
     let fullLecturesData = {}; // Speichert vollständige Vortragsdaten mit Absatz-Reihenfolge
+    let fullBooksData = {}; // Speichert vollständige Bücher-Daten mit Absatz-Reihenfolge
 
     // === ZENTRALE SUMMARY-DATENBANK ===
     // Einfaches System: Alle Summaries in einer JSON-Datei
@@ -10169,30 +10170,8 @@ async function showGALectures(gaNumber, skipHistory = false) {
       return numA - numB;
     });
     
-    // Extrahiere Jahre aus den Vorträgen
-    const yearsSet = new Set();
-    lectures.forEach(lecture => {
-      if (lecture.date) {
-        // Extrahiere Jahr aus Datum (Format kann variieren: "1910", "15. Februar 1910", etc.)
-        const yearMatch = lecture.date.match(/\b(19\d{2}|20\d{2})\b/);
-        if (yearMatch) {
-          yearsSet.add(parseInt(yearMatch[1]));
-        }
-      }
-    });
-    
-    // Sortiere Jahre aufsteigend
-    const years = Array.from(yearsSet).sort((a, b) => a - b);
-    
-    // Erstelle HTML für Jahres-Buttons (sticky)
-    let html = '<div class="ga-year-buttons-container">';
-    years.forEach(year => {
-      html += `<button class="ga-year-button" onclick="scrollToYear('year-${year}')">${year}</button>`;
-    });
-    html += '</div>';
-    
-    // Erstelle HTML für Vorträge
-    html += '<div class="ga-lectures-container" style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
+    // Erstelle HTML für Vorträge (KEINE Jahres-Buttons für Vortrags-Bände)
+    let html = '<div class="ga-lectures-container" style="padding: 1rem 2rem 2rem 0; max-width: 900px;">';
     
     let currentYear = null;
     lectures.forEach(lecture => {
@@ -10257,22 +10236,7 @@ async function showGALectures(gaNumber, skipHistory = false) {
     html += '</div>';
     viewer.innerHTML = html;
     
-    // Funktion zum Scrollen zu einem Jahr
-    window.scrollToYear = function(yearId) {
-      const element = document.getElementById(yearId);
-      if (element) {
-        const container = document.querySelector('.ga-lectures-container');
-        const buttonsContainer = document.querySelector('.ga-year-buttons-container');
-        const buttonsHeight = buttonsContainer ? buttonsContainer.offsetHeight : 0;
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - buttonsHeight - 20; // 20px Abstand
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    };
+    // Keine scrollToYear Funktion mehr nötig, da keine Jahres-Buttons für Vortrags-Bände angezeigt werden
     
     // Aktualisiere Button-Status, damit Info-Icon angezeigt wird
     updateButtonStates();
@@ -10453,12 +10417,12 @@ async function showKeywordSearchInTimeline(keyword) {
     
     // Sammle vorhandene Keyword-Einträge und konvertiere in das gleiche Format wie Suchergebnisse
     const keywordResults = [];
-    Object.values(keywordsDB).forEach(lecture => {
+    for (const lecture of Object.values(keywordsDB)) {
       if (lecture.keywords && Array.isArray(lecture.keywords)) {
-        lecture.keywords.forEach(kw => {
+        for (const kw of lecture.keywords) {
           if (kw.term.toLowerCase() === keyword.toLowerCase()) {
             // Finde beste Überschrift für diesen Absatz
-            const bestHeading = findBestHeadingForIndex(
+            const bestHeading = await findBestHeadingForIndex(
               kw.index,
               summaryDB[lecture.lectureId]?.headings || [],
               lecture.lectureId
@@ -10479,9 +10443,9 @@ async function showKeywordSearchInTimeline(keyword) {
               source: 'keyword-db'
             });
           }
-        });
+        }
       }
-    });
+    }
     
     console.log(`[KEYWORD-SEARCH-TIMELINE] ${keywordResults.length} Einträge aus Keyword-Datenbank gefunden`);
     
@@ -11980,7 +11944,9 @@ function scrollToChronologicalYear(year) {
         
         console.log(`Volltext-Suche: ${results.length} Absätze gefunden`);
         
-        // GA-Filter wird bereits im Backend angewendet - keine zusätzliche Frontend-Filterung nötig
+        // GA-Filter und Relevanz-Filter werden bereits im Backend angewendet - keine zusätzliche Frontend-Filterung nötig
+        // Die Ergebnisse in 'results' sind bereits nach Relevanz gefiltert (falls Relevanz-Filter aktiv war)
+        // Diese gefilterten Ergebnisse werden in searchResults gespeichert und von der Timeline verwendet
         
         searchResults = results;
         let displayQuery;
@@ -23740,9 +23706,141 @@ function getParagraphOrderForLecture(lectureId) {
   return order;
 }
 
+// Hilfsfunktion: Lade ein Buch von der API (mit Caching)
+async function loadBookForTimeline(bookId) {
+  // Prüfe ob bereits geladen
+  if (fullBooksData[bookId]) {
+    return fullBooksData[bookId];
+  }
+  
+  console.log(`[BOOK] Lade Buch-Daten für ${bookId}...`);
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/book/${bookId}`);
+    if (!response.ok) {
+      console.warn(`[BOOK] Buch ${bookId} nicht gefunden`);
+      return null;
+    }
+    
+    const book = await response.json();
+    
+    // Speichere im Cache
+    fullBooksData[bookId] = book;
+    
+    console.log(`[BOOK] Buch ${bookId} geladen: ${book.paragraphs?.length || 0} Absätze`);
+    return book;
+    
+  } catch (error) {
+    console.error(`[BOOK] Fehler beim Laden von ${bookId}:`, error);
+    return null;
+  }
+}
+
+// Hilfsfunktion: Ermittelt die Reihenfolge der Absatz-Indices für ein Buch
+// Gibt ein Array von Indices in der Reihenfolge zurück, wie sie im Text erscheinen
+function getParagraphOrderForBook(bookId) {
+  const book = fullBooksData[bookId];
+  if (!book || !book.paragraphs || !Array.isArray(book.paragraphs)) {
+    return [];
+  }
+  
+  // Extrahiere alle Indices in der Reihenfolge wie sie im paragraphs-Array erscheinen
+  const order = book.paragraphs
+    .map(p => (p.index || '').replace(/^\^/, '')) // Entferne ^ prefix
+    .filter(idx => idx); // Nur nicht-leere Indices
+  
+  return order;
+}
+
+// Hilfsfunktion: Normalisiere Überschriften-Text (entferne eckige Klammern für Vergleich)
+// Beispiel: "86 [Anthroposophie als Geisteswissenschaft]" -> "86 Anthroposophie als Geisteswissenschaft"
+// Die eckigen Klammern werden nur für den Vergleich entfernt, nicht aus der Anzeige
+function normalizeHeadingText(heading) {
+  if (!heading) return heading;
+  // Entferne eckige Klammern und ihren Inhalt, aber behalte den Text davor und danach
+  // Ersetze "[...]" durch ein Leerzeichen, falls Text davor oder danach vorhanden ist
+  return heading.replace(/\s*\[[^\]]*\]\s*/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+// Fallback-Funktion für Bücher: Finde Überschrift basierend auf String-Vergleich
+// Diese Funktion wird verwendet, wenn die Absatzreihenfolge-Methode nicht funktioniert
+function findBestHeadingForBookFallback(paragraphIndex, headings) {
+  if (!paragraphIndex || !headings || headings.length === 0) {
+    return null;
+  }
+  
+  const cleanIndex = paragraphIndex.replace(/^\^/, '');
+  
+  // Versuche zuerst exakte Übereinstimmung
+  const exactMatch = headings.find(h => {
+    const hIndex = (h.id || h.index || '').replace(/^\^/, '');
+    return hIndex === cleanIndex;
+  });
+  
+  if (exactMatch) {
+    return exactMatch.text;
+  }
+  
+  // Versuche numerischen Vergleich (falls Index eine Zahl ist)
+  const indexNum = parseInt(cleanIndex);
+  if (!isNaN(indexNum)) {
+    // Suche nach Überschriften mit numerischem Index, der kleiner oder gleich ist
+    const numericHeadings = headings
+      .map(h => {
+        const hIndex = (h.id || h.index || '').replace(/^\^/, '');
+        const hNum = parseInt(hIndex);
+        return {
+          ...h,
+          numericIndex: !isNaN(hNum) ? hNum : -1,
+          cleanIndex: hIndex
+        };
+      })
+      .filter(h => h.numericIndex >= 0 && h.numericIndex <= indexNum)
+      .sort((a, b) => b.numericIndex - a.numericIndex); // Sortiere absteigend
+    
+    if (numericHeadings.length > 0) {
+      // Bevorzuge höhere Überschriften (h2, h3) über niedrigere (h4)
+      const bestHeading = numericHeadings.find(h => h.level === 'h2') ||
+                          numericHeadings.find(h => h.level === 'h3') ||
+                          numericHeadings.find(h => h.level === 'h4') ||
+                          numericHeadings[0];
+      
+      return bestHeading.text;
+    }
+  }
+  
+  // Versuche String-Vergleich (falls Index einen Teilstring enthält)
+  const indexLower = cleanIndex.toLowerCase();
+  const stringMatches = headings
+    .map(h => {
+      const hIndex = (h.id || h.index || '').replace(/^\^/, '').toLowerCase();
+      // Prüfe ob der Index einen Teilstring des Überschriften-Index enthält oder umgekehrt
+      const contains = hIndex.includes(indexLower) || indexLower.includes(hIndex);
+      return {
+        ...h,
+        cleanIndex: hIndex,
+        match: contains
+      };
+    })
+    .filter(h => h.match);
+  
+  if (stringMatches.length > 0) {
+    // Bevorzuge höhere Überschriften (h2, h3) über niedrigere (h4)
+    const bestHeading = stringMatches.find(h => h.level === 'h2') ||
+                        stringMatches.find(h => h.level === 'h3') ||
+                        stringMatches.find(h => h.level === 'h4') ||
+                        stringMatches[0];
+    
+    return bestHeading.text;
+  }
+  
+  return null;
+}
+
 // Hilfsfunktion: Finde die beste Überschrift für einen Absatz-Index
-// Verwendet die tatsächliche Absatzreihenfolge aus steiner-full-lectures-...json
-function findBestHeadingForIndex(paragraphIndex, headings, lectureId = null) {
+// Verwendet die tatsächliche Absatzreihenfolge aus steiner-full-lectures-...json oder Büchern
+// Unterstützt sowohl Vorträge als auch Bücher
+async function findBestHeadingForIndex(paragraphIndex, headings, lectureId = null) {
   if (!paragraphIndex || !headings || headings.length === 0) {
     return null;
   }
@@ -23772,13 +23870,27 @@ function findBestHeadingForIndex(paragraphIndex, headings, lectureId = null) {
     return h3Match.text;
   }
   
-  // NEUE METHODE: Verwende tatsächliche Absatzreihenfolge aus steiner-full-lectures
-  if (lectureId && fullLecturesData[lectureId]) {
-    // Hole die Absatzreihenfolge für diesen Vortrag
-    const paragraphOrder = getParagraphOrderForLecture(lectureId);
+  // NEUE METHODE: Verwende tatsächliche Absatzreihenfolge aus steiner-full-lectures oder Büchern
+  if (lectureId) {
+    // Prüfe ob es ein Buch oder ein Vortrag ist
+    const isBook = isBookGANumber(lectureId);
+    let paragraphOrder = [];
+    
+    if (isBook) {
+      // Für Bücher: Lade Buch-Daten falls noch nicht geladen
+      if (!fullBooksData[lectureId]) {
+        await loadBookForTimeline(lectureId);
+      }
+      paragraphOrder = getParagraphOrderForBook(lectureId);
+    } else {
+      // Für Vorträge: Verwende vorhandene Daten
+      if (fullLecturesData[lectureId]) {
+        paragraphOrder = getParagraphOrderForLecture(lectureId);
+      }
+    }
     
     if (paragraphOrder.length === 0) {
-      console.warn(`[HEADING] Keine Absatzreihenfolge für ${lectureId}`);
+      console.warn(`[HEADING] Keine Absatzreihenfolge für ${lectureId} (${isBook ? 'Buch' : 'Vortrag'})`);
       return null;
     }
     
@@ -23797,36 +23909,54 @@ function findBestHeadingForIndex(paragraphIndex, headings, lectureId = null) {
     });
     
     // Erweitere Überschriften mit Position-Information
+    // WICHTIG: Für Bücher sind die Überschriften-Indizes auf den ersten Paragraph NACH der Überschrift gesetzt
+    // Das bedeutet: Überschrift mit Index X ist VOR dem Paragraph mit Index X
+    // Wir suchen also nach Überschriften, deren Index-Position <= targetPosition ist
+    // Beim Vergleich ignorieren wir eckige Klammern in den Überschriften-Texten
     const headingsWithPosition = headings
       .map(h => {
         const hIndex = (h.id || h.index || '').replace(/^\^/, '');
         const position = indexToPosition.get(hIndex);
+        // Normalisiere Überschriften-Text (entferne eckige Klammern für Vergleich)
+        const normalizedText = normalizeHeadingText(h.text || '');
         return {
           ...h,
           cleanIndex: hIndex,
-          position: position !== undefined ? position : -1
+          position: position !== undefined ? position : -1,
+          normalizedText: normalizedText
         };
       })
       .filter(h => h.position >= 0) // Nur Überschriften mit gültiger Position
-      .filter(h => h.position < targetPosition); // Nur Überschriften VOR dem target
+      .filter(h => h.position <= targetPosition); // Überschriften VOR oder AM target (da Index auf ersten Paragraph NACH Überschrift zeigt)
     
     if (headingsWithPosition.length === 0) {
-      console.log(`[HEADING] Keine Überschrift vor Position ${targetPosition} für ${cleanIndex}`);
+      console.log(`[HEADING] Keine Überschrift vor/bei Position ${targetPosition} für ${cleanIndex}`);
       return null;
     }
     
-    // Sortiere nach Position (aufsteigend)
-    headingsWithPosition.sort((a, b) => a.position - b.position);
+    // Sortiere nach Position (absteigend), um die nächsthöhere Überschrift zu finden
+    headingsWithPosition.sort((a, b) => b.position - a.position);
     
-    // Nimm die letzte (= nächstgelegene vor dem target)
-    // Bevorzuge H4 wenn mehrere Überschriften an gleicher Position
-    const lastPosition = headingsWithPosition[headingsWithPosition.length - 1].position;
-    const candidatesAtLastPosition = headingsWithPosition.filter(h => h.position === lastPosition);
+    // Nimm die erste (= nächstgelegene vor dem target, da absteigend sortiert)
+    // Für Bücher: Bevorzuge höhere Überschriften (h3, h4) über niedrigere
+    // Für Vorträge: Bevorzuge H4 über H3 (spezifischer)
+    const bestPosition = headingsWithPosition[0].position;
+    const candidatesAtBestPosition = headingsWithPosition.filter(h => h.position === bestPosition);
     
-    // Bevorzuge H4 über H3 (spezifischer)
-    const bestHeading = candidatesAtLastPosition.find(h => h.level === 'h4') || candidatesAtLastPosition[0];
+    let bestHeading;
+    if (isBook) {
+      // Für Bücher: Bevorzuge H3 oder H4 (nächsthöhere Überschrift)
+      // Suche nach h3, dann h4, dann h2
+      bestHeading = candidatesAtBestPosition.find(h => h.level === 'h3') ||
+                    candidatesAtBestPosition.find(h => h.level === 'h4') ||
+                    candidatesAtBestPosition.find(h => h.level === 'h2') ||
+                    candidatesAtBestPosition[0];
+    } else {
+      // Für Vorträge: Bevorzuge H4 über H3 (spezifischer)
+      bestHeading = candidatesAtBestPosition.find(h => h.level === 'h4') || candidatesAtBestPosition[0];
+    }
     
-    console.log(`[HEADING] Gefunden für ${cleanIndex} (Position ${targetPosition}): [${bestHeading.level}] ${bestHeading.text} (Position ${bestHeading.position})`);
+    console.log(`[HEADING] Gefunden für ${cleanIndex} (Position ${targetPosition}, ${isBook ? 'Buch' : 'Vortrag'}): [${bestHeading.level}] ${bestHeading.text} (Position ${bestHeading.position})`);
     return bestHeading.text;
   }
   
@@ -24006,7 +24136,7 @@ async function showTimeline(keyword, clickedButton) {
       // Sammle alle Vorträge mit diesem Keyword
       const timelineEntries = [];
       
-      Object.values(keywordsDB).forEach(lecture => {
+      for (const lecture of Object.values(keywordsDB)) {
         // Filtere nur neue unified/manual Keywords
         const isNewGeneration = lecture.generationMethod && 
           (lecture.generationMethod.includes('unified-batch') || 
@@ -24016,10 +24146,10 @@ async function showTimeline(keyword, clickedButton) {
            lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
+          for (const kw of lecture.keywords) {
             if (kw.term.toLowerCase() === keyword.toLowerCase()) {
               // Finde die beste Überschrift für diesen Absatz-Index
-              const bestHeading = findBestHeadingForIndex(
+              const bestHeading = await findBestHeadingForIndex(
                 kw.index, 
                 summaryDB[lecture.lectureId]?.headings || [],
                 lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
@@ -24034,9 +24164,9 @@ async function showTimeline(keyword, clickedButton) {
                 heading: bestHeading || kw.heading || kw.term
               });
             }
-          });
+          }
         }
-      });
+      }
       
       console.log('[TIMELINE] Gefunden:', timelineEntries.length, 'Einträge');
       
@@ -25951,7 +26081,7 @@ async function renderTimelineContent() {
     // FALL 1: Nur Thema (Cluster) ausgewählt
     if (theme && !keyword) {
       // Zeige alle Keywords die zu diesem Cluster gehören (NUR neue unified Generierungen)
-      Object.values(keywordsDB).forEach(lecture => {
+      for (const lecture of Object.values(keywordsDB)) {
         // Filtere: NUR Vorträge mit neuem unified generationMethod
         const isNewGeneration = lecture.generationMethod && 
           (lecture.generationMethod.includes('unified-batch') || 
@@ -25961,11 +26091,11 @@ async function renderTimelineContent() {
            lecture.generationMethod.includes('synced-from-summary-db'));
         
         if (isNewGeneration && lecture.keywords && Array.isArray(lecture.keywords)) {
-          lecture.keywords.forEach(kw => {
+          for (const kw of lecture.keywords) {
             const kwCluster = keywordToCluster[kw.term.toLowerCase()];
             if (kwCluster === theme) {
               // Finde beste Überschrift für diesen Absatz
-              const bestHeading = findBestHeadingForIndex(
+              const bestHeading = await findBestHeadingForIndex(
                 kw.index, 
                 summaryDB[lecture.lectureId]?.headings || [],
                 lecture.lectureId  // NEU: lectureId übergeben für korrekte Positionsermittlung
@@ -25981,9 +26111,9 @@ async function renderTimelineContent() {
                 }
               });
             }
-          });
+          }
         }
-      });
+      }
       
       // Dedupliziere: Pro Vortrag sollte dieselbe Überschrift nur einmal erscheinen
       // (verschiedene Keywords können auf denselben Absatz zeigen)
@@ -26211,8 +26341,16 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
   timelineContainer.id = 'timelineContainer';
   resultsDiv.appendChild(timelineContainer);
   
+  // Zeige "Timeline wird generiert..." Nachricht
+  timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text); font-style: italic;">Timeline wird generiert...</div>';
+  
   // Verwende customResults falls übergeben, sonst searchResults (lokal) oder window._tempSearchResults
+  // WICHTIG: searchResults enthält bereits die relevanz-gefilterten Treffer vom Backend
+  // (Das Backend filtert nach Relevanz, bevor die Ergebnisse zurückgegeben werden)
   const resultsToUse = customResults || searchResults || window._tempSearchResults || [];
+  
+  // Log für Debugging: Zeige Anzahl der verwendeten Ergebnisse
+  console.log(`[TIMELINE-V2] Verwende ${resultsToUse.length} Ergebnisse für Timeline (bereits relevanz-gefiltert vom Backend)`);
   
   // Prüfe ob Suchergebnisse vorhanden sind
   if (!resultsToUse || resultsToUse.length === 0) {
@@ -26232,6 +26370,19 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     const summaryDBResponse = await fetch(`${API_BASE}/summary-database.json`);
     const summaryDB = summaryDBResponse.ok ? await summaryDBResponse.json() : {};
     
+    // Sammle alle eindeutigen Buch-IDs aus den Ergebnissen
+    const bookIds = new Set();
+    resultsToUse.forEach(result => {
+      if (result.isBook && result.ID) {
+        bookIds.add(result.ID);
+      }
+    });
+    
+    // Lade Bücher-Daten für alle gefundenen Bücher
+    if (bookIds.size > 0) {
+      await Promise.all(Array.from(bookIds).map(bookId => loadBookForTimeline(bookId)));
+    }
+    
     // Konvertiere Suchergebnisse in Timeline-Einträge
     let timelineEntries = [];
     
@@ -26239,6 +26390,16 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
       // Extrahiere Jahr aus Datum (Format: "YYYY-MM-DD" oder aus fileName)
       let year = null;
       let dateString = result.date || '';
+      
+      // Für Bücher: Verwende yearRange falls vorhanden
+      if (result.isBook && result.yearRange) {
+        // Extrahiere Jahr aus yearRange (z.B. "1912-1913" -> nimm erstes Jahr)
+        const yearMatch = result.yearRange.match(/^(\d{4})/);
+        if (yearMatch) {
+          year = parseInt(yearMatch[1]);
+          dateString = result.yearRange;
+        }
+      }
       
       // Falls kein date-Feld, versuche aus fileName zu extrahieren
       if (!dateString && result.fileName) {
@@ -26253,7 +26414,13 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
         }
       }
       
-      // Hole die Überschriften für diesen Vortrag
+      // Für Bücher ohne Jahr: Verwende Jahr aus GA-Nummer falls möglich
+      if (!year && result.isBook && result.ID) {
+        // Versuche Jahr aus GA-Nummer zu extrahieren (falls vorhanden)
+        // Dies ist ein Fallback, da Bücher normalerweise ein Jahr haben sollten
+      }
+      
+      // Hole die Überschriften für diesen Vortrag oder Buch
       const lectureHeadings = summaryDB[result.ID]?.headings || [];
       
       // Hole GA-Nummer und Titel
@@ -26262,11 +26429,11 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
       
       // Suchergebnisse haben index direkt im result-Objekt
       if (result.index) {
-        // Finde beste Überschrift für diesen Index
-        const bestHeading = findBestHeadingForIndex(
+        // Finde beste Überschrift für diesen Index (funktioniert für Vorträge und Bücher)
+        const bestHeading = await findBestHeadingForIndex(
           result.index, 
           lectureHeadings, 
-          result.ID  // NEU: lectureId übergeben für korrekte Positionsermittlung
+          result.ID  // lectureId oder bookId übergeben für korrekte Positionsermittlung
         );
         
         timelineEntries.push({
@@ -26277,7 +26444,8 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           title: title,
           index: result.index,  // Direkt aus result, nicht aus snippet
           content: result.content || '',
-          heading: bestHeading || title
+          heading: bestHeading || title,
+          isBook: result.isBook || false
         });
       } else {
         // Fallback: Wenn kein Index vorhanden
@@ -26289,7 +26457,8 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
           title: title,
           index: null,
           content: '',
-          heading: title
+          heading: title,
+          isBook: result.isBook || false
         });
       }
     }
@@ -28683,6 +28852,14 @@ async function saveNewQuote() {
     // Aktualisiere Liste
     await loadQuotesForTab();
     
+    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('quotes');
+    }
+    if (typeof updateMembersPanelIfOpen === 'function') {
+      await updateMembersPanelIfOpen('quotes');
+    }
+    
     setTimeout(() => statusDiv.style.display = 'none', 2000);
     
   } catch (error) {
@@ -28786,6 +28963,14 @@ async function deleteQuote(quoteId, skipConfirm = false) {
     if (!response.ok) throw new Error('Server-Fehler');
     
     await loadQuotesForTab();
+    
+    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('quotes');
+    }
+    if (typeof updateMembersPanelIfOpen === 'function') {
+      await updateMembersPanelIfOpen('quotes');
+    }
     
   } catch (error) {
     console.error('[QUOTES] Fehler beim Löschen:', error);
@@ -29044,6 +29229,14 @@ async function confirmSaveQuote() {
     
     // Aktualisiere Zitate-Liste im Tab
     await loadQuotesForTab();
+    
+    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('quotes');
+    }
+    if (typeof updateMembersPanelIfOpen === 'function') {
+      await updateMembersPanelIfOpen('quotes');
+    }
     
     // Schließe Dialog nach kurzer Verzögerung
     setTimeout(() => {
@@ -29682,14 +29875,80 @@ async function addKeywordToLecture() {
   
   // API-Funktionen global verfügbar machen
   window.getBookmarks = MembersAPI.getBookmarks;
-  window.createBookmark = MembersAPI.createBookmark;
+  // Wrapper-Funktion für createBookmark, die den MB aktualisieren
+  window.createBookmark = async function(...args) {
+    const result = await MembersAPI.createBookmark(...args);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('bookmarks');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('bookmarks');
+      }
+    }
+    return result;
+  };
   window.getQuotes = MembersAPI.getQuotes;
   window.getNotes = MembersAPI.getNotes;
   window.createNote = MembersAPI.createNote;
-  window.updateBookmark = MembersAPI.updateBookmark;
-  window.updateQuote = MembersAPI.updateQuote;
-  window.deleteBookmark = MembersAPI.deleteBookmark;
-  window.deleteQuote = MembersAPI.deleteQuote;
+  // Wrapper-Funktionen für updateBookmark und updateQuote, die den MB aktualisieren
+  window.updateBookmark = async function(...args) {
+    const result = await MembersAPI.updateBookmark(...args);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('bookmarks');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('bookmarks');
+      }
+    }
+    return result;
+  };
+  
+  window.updateQuote = async function(...args) {
+    const result = await MembersAPI.updateQuote(...args);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('quotes');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('quotes');
+      }
+    }
+    return result;
+  };
+  // Wrapper-Funktionen für deleteBookmark und deleteQuote, die den MB aktualisieren
+  window.deleteBookmark = async function(bookmarkId) {
+    const result = await MembersAPI.deleteBookmark(bookmarkId);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('bookmarks');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('bookmarks');
+      }
+    }
+    return result;
+  };
+  
+  window.deleteQuote = async function(quoteId) {
+    const result = await MembersAPI.deleteQuote(quoteId);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('quotes');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('quotes');
+      }
+    }
+    return result;
+  };
+  
   window.deleteNote = MembersAPI.deleteNote;
   window.generateGraphData = MembersAPI.generateGraphData;
   window.getChatMessages = MembersAPI.getChatMessages;

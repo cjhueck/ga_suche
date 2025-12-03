@@ -703,6 +703,61 @@ function getLectureDate(gaReference) {
 }
 
 /**
+ * Holt das Vortragsdatum als Date-Objekt für Sortierung
+ * Gibt null zurück, wenn kein Datum gefunden wird
+ * Unterstützt sowohl Vorträge (date) als auch Bücher (yearRange)
+ */
+function getLectureDateForSorting(gaReference) {
+  if (!gaReference) return null;
+  
+  // Prüfe ob es ein Buch ist
+  const isBook = isBookGANumber(gaReference);
+  
+  // Für Bücher: Versuche aus window.fullBooksData zu holen
+  if (isBook && typeof window !== 'undefined' && window.fullBooksData) {
+    const normalizedId = gaReference.toLowerCase();
+    const book = window.fullBooksData[normalizedId] || 
+                 window.fullBooksData[gaReference] ||
+                 window.fullBooksData[gaReference.toUpperCase()];
+    
+    if (book && book.yearRange) {
+      // Bücher haben yearRange im Format "1912-1913" oder "1912"
+      const yearMatch = book.yearRange.match(/^(\d{4})/);
+      if (yearMatch) {
+        return new Date(parseInt(yearMatch[1]), 0, 1); // 1. Januar des ersten Jahres
+      }
+    }
+  }
+  
+  // Für Vorträge: Versuche aus window.fullLecturesData zu holen (enthält Original-Datum)
+  if (typeof window !== 'undefined' && window.fullLecturesData) {
+    // Prüfe verschiedene Schreibweisen
+    const normalizedId = gaReference.toLowerCase();
+    const lecture = window.fullLecturesData[normalizedId] || 
+                    window.fullLecturesData[gaReference] ||
+                    window.fullLecturesData[gaReference.toUpperCase()];
+    
+    if (lecture && lecture.date) {
+      // Versuche das Datum zu parsen
+      const dateStr = lecture.date;
+      // Unterstütze verschiedene Formate: "1908-10-21", "21. Oktober 1908", etc.
+      const dateMatch = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/); // ISO-Format
+      if (dateMatch) {
+        return new Date(parseInt(dateMatch[1]), parseInt(dateMatch[2]) - 1, parseInt(dateMatch[3]));
+      }
+      
+      // Versuche Jahr zu extrahieren (für Fallback-Sortierung)
+      const yearMatch = dateStr.match(/\b(19\d{2}|20\d{2})\b/);
+      if (yearMatch) {
+        return new Date(parseInt(yearMatch[1]), 0, 1); // 1. Januar des Jahres
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
  * Formatiert ein Datum im deutschen Format (z.B. "21. Oktober 1908")
  */
 function formatLectureDate(dateStr) {
@@ -772,11 +827,28 @@ async function loadBookmarksTab(container) {
     return;
   }
   
-  // Sortiere nach Datum
+  // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
   const sortedData = [...result.data].sort((a, b) => {
-    const dateA = new Date(a.created_at);
-    const dateB = new Date(b.created_at);
-    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    const dateA = getLectureDateForSorting(a.ga_number);
+    const dateB = getLectureDateForSorting(b.ga_number);
+    
+    // Wenn beide Daten vorhanden sind, sortiere nach Vortragsdatum
+    if (dateA && dateB) {
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    }
+    
+    // Wenn nur eines vorhanden ist, kommt es zuerst (oder zuletzt je nach Sortierreihenfolge)
+    if (dateA && !dateB) {
+      return sortOrder === 'asc' ? -1 : 1;
+    }
+    if (!dateA && dateB) {
+      return sortOrder === 'asc' ? 1 : -1;
+    }
+    
+    // Wenn beide fehlen, sortiere nach Erstellungsdatum als Fallback
+    const createdA = new Date(a.created_at);
+    const createdB = new Date(b.created_at);
+    return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
   // Hole Datum für jedes Bookmark aus dem Cache (synchron, sehr schnell)
@@ -879,11 +951,28 @@ async function loadQuotesTab(container) {
     return;
   }
   
-  // Sortiere nach Datum
+  // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
   const sortedData = [...result.data].sort((a, b) => {
-    const dateA = new Date(a.created_at);
-    const dateB = new Date(b.created_at);
-    return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    const dateA = getLectureDateForSorting(a.ga_reference);
+    const dateB = getLectureDateForSorting(b.ga_reference);
+    
+    // Wenn beide Daten vorhanden sind, sortiere nach Vortragsdatum
+    if (dateA && dateB) {
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    }
+    
+    // Wenn nur eines vorhanden ist, kommt es zuerst (oder zuletzt je nach Sortierreihenfolge)
+    if (dateA && !dateB) {
+      return sortOrder === 'asc' ? -1 : 1;
+    }
+    if (!dateA && dateB) {
+      return sortOrder === 'asc' ? 1 : -1;
+    }
+    
+    // Wenn beide fehlen, sortiere nach Erstellungsdatum als Fallback
+    const createdA = new Date(a.created_at);
+    const createdB = new Date(b.created_at);
+    return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
   // Hole Datum für jedes Quote aus dem Cache (synchron, sehr schnell)
@@ -1222,6 +1311,11 @@ async function saveMemberNote() {
   if (result.success) {
     document.getElementById('members-note-content').value = '';
     await loadSavedNotes();
+    // Aktualisiere MB falls offen und Notizen-Tab aktiv
+    if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'notes') {
+      // Notizen-Tab wird bereits durch loadSavedNotes() aktualisiert
+      // Kein Cache für Notizen, daher keine Invalidierung nötig
+    }
     alert('✓ Notiz gespeichert!');
   } else {
     alert('✗ Fehler beim Speichern');
@@ -1395,6 +1489,8 @@ async function editMemberBookmark(id) {
     });
     
     if (updateResult.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      invalidateMembersCache('bookmarks');
       await loadMembersTab('bookmarks');
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
@@ -1445,6 +1541,8 @@ async function editMemberQuote(id) {
     });
     
     if (updateResult.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      invalidateMembersCache('quotes');
       await loadMembersTab('quotes');
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
@@ -1541,6 +1639,8 @@ async function deleteMemberBookmark(id) {
   
   const result = await deleteBookmark(id);
   if (result.success) {
+    // Invalidiere Cache, damit Daten neu geladen werden
+    invalidateMembersCache('bookmarks');
     await loadMembersTab('bookmarks');
   }
 }
@@ -1550,6 +1650,8 @@ async function deleteMemberQuote(id) {
   
   const result = await deleteQuote(id);
   if (result.success) {
+    // Invalidiere Cache, damit Daten neu geladen werden
+    invalidateMembersCache('quotes');
     await loadMembersTab('quotes');
   }
 }
@@ -1560,6 +1662,11 @@ async function deleteMemberNote(id) {
   const result = await deleteNote(id);
   if (result.success) {
     await loadSavedNotes();
+    // Aktualisiere MB falls offen und Notizen-Tab aktiv
+    if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'notes') {
+      // Notizen-Tab wird bereits durch loadSavedNotes() aktualisiert
+      // Kein Cache für Notizen, daher keine Invalidierung nötig
+    }
   }
 }
 
@@ -1636,6 +1743,8 @@ async function deleteSelectedItems() {
     
     // Multi-Delete-Modus beenden und Tab neu laden
     multiDeleteMode = false;
+    // Invalidiere Cache, damit Daten neu geladen werden
+    invalidateMembersCache(currentMembersTab);
     await loadMembersTab(currentMembersTab);
   } catch (error) {
     console.error('Fehler beim Löschen:', error);
@@ -2561,4 +2670,48 @@ window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;
 window.markParagraphsWithBookmarksAndQuotes = markParagraphsWithBookmarksAndQuotes;
 window.jumpToBookmarkOrQuote = jumpToBookmarkOrQuote;
+window.loadMembersTab = loadMembersTab;
+
+/**
+ * Invalidiert den Cache für Bookmarks und/oder Zitate
+ * @param {string} type - 'bookmarks', 'quotes' oder 'all' (Standard: 'all')
+ */
+function invalidateMembersCache(type = 'all') {
+  if (type === 'bookmarks' || type === 'all') {
+    cachedBookmarksData = null;
+  }
+  if (type === 'quotes' || type === 'all') {
+    cachedQuotesData = null;
+  }
+  // Setze Timestamp auf 0, damit Cache als ungültig gilt
+  bookmarksQuotesCacheTimestamp = 0;
+}
+
+/**
+ * Aktualisiert den Mitgliederbereich, falls er offen ist
+ * @param {string} tabName - 'bookmarks' oder 'quotes' (optional, verwendet aktuellen Tab wenn nicht angegeben)
+ */
+async function updateMembersPanelIfOpen(tabName = null) {
+  // Prüfe ob Mitgliederbereich aktiv ist
+  if (typeof membersPanelActive === 'undefined' || !membersPanelActive) {
+    return;
+  }
+  
+  // Verwende angegebenen Tab oder aktuellen Tab
+  const tabToUpdate = tabName || currentMembersTab;
+  
+  // Aktualisiere nur Bookmarks- oder Quotes-Tab
+  if (tabToUpdate === 'bookmarks' || tabToUpdate === 'quotes') {
+    try {
+      // Invalidiere Cache für den entsprechenden Tab, damit Daten neu geladen werden
+      invalidateMembersCache(tabToUpdate);
+      await loadMembersTab(tabToUpdate);
+    } catch (error) {
+      console.error('[MB-UPDATE] Fehler beim Aktualisieren:', error);
+    }
+  }
+}
+
+window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
+window.invalidateMembersCache = invalidateMembersCache;
 
