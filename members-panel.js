@@ -402,26 +402,6 @@ async function showMembersContent() {
   summaryPanel.style.display = 'block'; // Explizit sichtbar machen
   summaryPanel.style.opacity = '1';
   
-  // Lade Bookmarks und Quotes vorab im Hintergrund für schnellere Tab-Wechsel
-  const now = Date.now();
-  const cacheValid = cachedBookmarksData && cachedQuotesData && 
-                     bookmarksQuotesCacheTimestamp && 
-                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
-  
-  if (!cacheValid && typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
-    console.log('[MB-PANEL] Lade Bookmarks und Quotes vorab...');
-    Promise.all([
-      getBookmarks(),
-      getQuotes()
-    ]).then(([bookmarksResult, quotesResult]) => {
-      cachedBookmarksData = bookmarksResult;
-      cachedQuotesData = quotesResult;
-      bookmarksQuotesCacheTimestamp = Date.now();
-      console.log('[MB-PANEL] Bookmarks und Quotes vorab geladen');
-    }).catch(err => {
-      console.warn('[MB-PANEL] Fehler beim Vorab-Laden:', err);
-    });
-  }
   summaryPanel.style.visibility = 'visible';
   document.body.classList.remove('summary-panel-collapsed');
   
@@ -490,13 +470,19 @@ async function showMembersContent() {
     </div>
   `;
   
-  // Lade Bookmarks und Quotes im Hintergrund für schnellen Icon-Zugriff
-  if (typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
+  // Lade Bookmarks und Quotes im Hintergrund für schnellen Tab-Wechsel (nur wenn Cache nicht vorhanden)
+  const now = Date.now();
+  const cacheValid = cachedBookmarksData && cachedQuotesData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+  
+  if (!cacheValid && typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
+    // Lade im Hintergrund, blockiert nicht das Rendering
     Promise.all([getBookmarks(), getQuotes()]).then(([bookmarksResult, quotesResult]) => {
       cachedBookmarksData = bookmarksResult;
       cachedQuotesData = quotesResult;
       bookmarksQuotesCacheTimestamp = Date.now();
-      console.log('[MB-CACHE] Bookmarks/Quotes-Daten für Icons gecacht');
+      console.log('[MB-CACHE] Bookmarks/Quotes-Daten für schnellen Tab-Wechsel gecacht');
     }).catch(err => {
       console.warn('[MB-CACHE] Fehler beim Cachen der Daten:', err);
     });
@@ -608,7 +594,103 @@ async function loadMembersTab(tabName) {
 }
 
 /**
- * Lädt alle Vortragsdaten einmalig (wird gecacht)
+ * Lädt Vortragsdaten für spezifische GA-Nummern (lazy loading)
+ * @param {string[]} gaNumbers - Array von GA-Nummern, für die Daten benötigt werden
+ */
+async function loadLectureDatesForGANumbers(gaNumbers) {
+  if (!gaNumbers || gaNumbers.length === 0) {
+    return;
+  }
+  
+  // Prüfe welche GA-Nummern noch nicht im Cache sind
+  const missingGANumbers = gaNumbers.filter(gaNum => {
+    const normalized = gaNum.toLowerCase();
+    return !membersLectureDatesCache[normalized] && 
+           !membersLectureDatesCache[gaNum] && 
+           !membersLectureDatesCache[gaNum.toUpperCase()];
+  });
+  
+  if (missingGANumbers.length === 0) {
+    return; // Alle bereits im Cache
+  }
+  
+  try {
+    // Versuche zuerst aus window.fullLecturesData zu holen (falls bereits geladen)
+    if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
+      let loadedCount = 0;
+      missingGANumbers.forEach(gaNum => {
+        const normalized = gaNum.toLowerCase();
+        const lecture = window.fullLecturesData[normalized] || 
+                       window.fullLecturesData[gaNum] ||
+                       window.fullLecturesData[gaNum.toUpperCase()];
+        
+        if (lecture && lecture.date) {
+          const formattedDate = formatLectureDate(lecture.date);
+          membersLectureDatesCache[normalized] = formattedDate;
+          membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
+          const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
+          membersLectureDatesCache[mixedCase] = formattedDate;
+          loadedCount++;
+        }
+      });
+      
+      if (loadedCount > 0) {
+        console.log(`[MB-DATE] ${loadedCount} Vortragsdaten aus window.fullLecturesData geladen`);
+      }
+      return;
+    }
+    
+    // Wenn nicht alle gefunden, lade über API (nur für fehlende)
+    // ABER: Wenn zu viele fehlen, lade alle auf einmal (effizienter)
+    if (missingGANumbers.length > 50) {
+      // Zu viele einzelne Anfragen - lade alle auf einmal
+      await loadAllLectureDates();
+    } else {
+      // Lade nur die fehlenden über API
+      // Da die API keine Batch-Anfrage unterstützt, verwenden wir einen optimierten Ansatz:
+      // Versuche zuerst alle zu laden, wenn das fehlschlägt, lade einzeln
+      try {
+        const response = await fetch('/api/full-lectures');
+        if (response.ok) {
+          const lectures = await response.json();
+          let loadedCount = 0;
+          
+          missingGANumbers.forEach(gaNum => {
+            const normalized = gaNum.toLowerCase();
+            const lecture = lectures[normalized] || 
+                           lectures[gaNum] ||
+                           lectures[gaNum.toUpperCase()];
+            
+            if (lecture && lecture.date) {
+              const formattedDate = formatLectureDate(lecture.date);
+              membersLectureDatesCache[normalized] = formattedDate;
+              membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
+              const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
+              membersLectureDatesCache[mixedCase] = formattedDate;
+              loadedCount++;
+            }
+          });
+          
+          // Speichere auch in window.fullLecturesData für zukünftige Verwendung
+          if (typeof window !== 'undefined') {
+            window.fullLecturesData = lectures;
+          }
+          
+          if (loadedCount > 0) {
+            console.log(`[MB-DATE] ${loadedCount} Vortragsdaten geladen`);
+          }
+        }
+      } catch (error) {
+        console.warn('[MB-DATE] Fehler beim Laden der Vortragsdaten:', error);
+      }
+    }
+  } catch (error) {
+    console.warn('[MB-DATE] Fehler beim Laden der Vortragsdaten:', error);
+  }
+}
+
+/**
+ * Lädt alle Vortragsdaten einmalig (wird gecacht) - nur wenn wirklich alle benötigt werden
  */
 async function loadAllLectureDates() {
   // Wenn bereits geladen, nicht nochmal laden
@@ -638,7 +720,7 @@ async function loadAllLectureDates() {
     
     // Lade über API (nur einmal)
     if (typeof fetch !== 'undefined') {
-      console.log('[MB-DATE] Lade Vortragsdaten über API...');
+      console.log('[MB-DATE] Lade alle Vortragsdaten über API...');
       const response = await fetch('/api/full-lectures');
       if (response.ok) {
         const lectures = await response.json();
@@ -799,6 +881,9 @@ async function loadBookmarksTab(container) {
     return;
   }
   
+  // Zeige Ladeanzeige während Daten geladen werden
+  container.innerHTML = '<div class="empty-state"><em>Lade Bookmarks...</em></div>';
+  
   // Verwende Cache wenn verfügbar, sonst lade neu
   let result;
   const now = Date.now();
@@ -816,18 +901,24 @@ async function loadBookmarksTab(container) {
     bookmarksQuotesCacheTimestamp = now;
   }
   
-  // Lade Keywords und Vortragsdaten parallel für bessere Performance
-  const [_, __] = await Promise.all([
-    updateKeywordFilterDropdownWithAllKeywords(),
-    loadAllLectureDates()
-  ]);
-  
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Bookmarks</div>';
+    // Lade Keywords trotzdem im Hintergrund
+    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
     return;
   }
   
+  // Sammle alle eindeutigen GA-Nummern für lazy loading
+  const uniqueGANumbers = [...new Set(result.data.map(b => b.ga_number).filter(Boolean))];
+  
+  // Starte paralleles Laden von Keywords und Vortragsdaten (nicht-blockierend)
+  const loadPromises = [
+    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err)),
+    loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err))
+  ];
+  
   // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
+  // Verwende Fallback-Sortierung wenn Daten noch nicht geladen sind
   const sortedData = [...result.data].sort((a, b) => {
     const dateA = getLectureDateForSorting(a.ga_number);
     const dateB = getLectureDateForSorting(b.ga_number);
@@ -851,9 +942,20 @@ async function loadBookmarksTab(container) {
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Hole Datum für jedes Bookmark aus dem Cache (synchron, sehr schnell)
-  const lectureDates = sortedData.map(bookmark => getLectureDate(bookmark.ga_number));
+  // Rendere sofort mit verfügbaren Daten (auch wenn Vortragsdaten noch nicht geladen sind)
+  renderBookmarksList(container, sortedData);
   
+  // Warte auf Vortragsdaten und aktualisiere dann die Datumsanzeigen
+  Promise.all(loadPromises).then(() => {
+    // Aktualisiere nur die Datumsanzeigen, nicht die ganze Liste
+    updateBookmarkDates(container, sortedData);
+  });
+}
+
+/**
+ * Rendert die Bookmarks-Liste
+ */
+function renderBookmarksList(container, sortedData) {
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
@@ -862,8 +964,9 @@ async function loadBookmarksTab(container) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map((bookmark, index) => {
-    const lectureDate = lectureDates[index];
+  const html = multiDeleteHtml + sortedData.map((bookmark) => {
+    // Hole Datum aus Cache (kann leer sein wenn noch nicht geladen)
+    const lectureDate = getLectureDate(bookmark.ga_number);
     const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
     // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
@@ -871,7 +974,7 @@ async function loadBookmarksTab(container) {
     const shouldShowLink = bookmark.paragraph_id || isBook;
     
     return `
-    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}">
+    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}" data-ga-number="${bookmark.ga_number}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${bookmark.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
@@ -914,6 +1017,42 @@ async function loadBookmarksTab(container) {
 }
 
 /**
+ * Aktualisiert die Datumsanzeigen in der Bookmarks-Liste nach dem Laden der Vortragsdaten
+ */
+function updateBookmarkDates(container, sortedData) {
+  sortedData.forEach((bookmark) => {
+    const item = container.querySelector(`.member-item[data-id="${bookmark.id}"]`);
+    if (!item) return;
+    
+    const lectureDate = getLectureDate(bookmark.ga_number);
+    if (!lectureDate) return; // Kein Datum verfügbar
+    
+    const header = item.querySelector('.member-item-header');
+    if (!header) return;
+    
+    // Prüfe ob Datum bereits angezeigt wird
+    const existingDateSpan = header.querySelector('span[data-lecture-date]');
+    if (existingDateSpan) {
+      // Aktualisiere vorhandenes Datum
+      existingDateSpan.textContent = `, ${lectureDate}`;
+    } else {
+      // Füge Datum hinzu
+      const dateSpan = document.createElement('span');
+      dateSpan.setAttribute('data-lecture-date', 'true');
+      dateSpan.style.fontSize = '0.85rem';
+      dateSpan.style.fontWeight = 'normal';
+      dateSpan.style.color = 'var(--text-color)';
+      dateSpan.textContent = `, ${lectureDate}`;
+      
+      const strongTag = header.querySelector('strong');
+      if (strongTag) {
+        strongTag.appendChild(dateSpan);
+      }
+    }
+  });
+}
+
+/**
  * Quotes Tab
  */
 async function loadQuotesTab(container) {
@@ -922,6 +1061,9 @@ async function loadQuotesTab(container) {
     container.innerHTML = '<div class="empty-state">API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
     return;
   }
+  
+  // Zeige Ladeanzeige während Daten geladen werden
+  container.innerHTML = '<div class="empty-state"><em>Lade Zitate...</em></div>';
   
   // Verwende Cache wenn verfügbar, sonst lade neu
   let result;
@@ -940,18 +1082,24 @@ async function loadQuotesTab(container) {
     bookmarksQuotesCacheTimestamp = now;
   }
   
-  // Lade Keywords und Vortragsdaten parallel für bessere Performance
-  const [_, __] = await Promise.all([
-    updateKeywordFilterDropdownWithAllKeywords(),
-    loadAllLectureDates()
-  ]);
-  
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
+    // Lade Keywords trotzdem im Hintergrund
+    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
     return;
   }
   
+  // Sammle alle eindeutigen GA-Nummern für lazy loading
+  const uniqueGANumbers = [...new Set(result.data.map(q => q.ga_reference).filter(Boolean))];
+  
+  // Starte paralleles Laden von Keywords und Vortragsdaten (nicht-blockierend)
+  const loadPromises = [
+    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err)),
+    loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err))
+  ];
+  
   // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
+  // Verwende Fallback-Sortierung wenn Daten noch nicht geladen sind
   const sortedData = [...result.data].sort((a, b) => {
     const dateA = getLectureDateForSorting(a.ga_reference);
     const dateB = getLectureDateForSorting(b.ga_reference);
@@ -975,9 +1123,20 @@ async function loadQuotesTab(container) {
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Hole Datum für jedes Quote aus dem Cache (synchron, sehr schnell)
-  const lectureDates = sortedData.map(quote => getLectureDate(quote.ga_reference));
+  // Rendere sofort mit verfügbaren Daten (auch wenn Vortragsdaten noch nicht geladen sind)
+  renderQuotesList(container, sortedData);
   
+  // Warte auf Vortragsdaten und aktualisiere dann die Datumsanzeigen
+  Promise.all(loadPromises).then(() => {
+    // Aktualisiere nur die Datumsanzeigen, nicht die ganze Liste
+    updateQuoteDates(container, sortedData);
+  });
+}
+
+/**
+ * Rendert die Quotes-Liste
+ */
+function renderQuotesList(container, sortedData) {
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
@@ -986,8 +1145,9 @@ async function loadQuotesTab(container) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map((quote, index) => {
-    const lectureDate = lectureDates[index];
+  const html = multiDeleteHtml + sortedData.map((quote) => {
+    // Hole Datum aus Cache (kann leer sein wenn noch nicht geladen)
+    const lectureDate = getLectureDate(quote.ga_reference);
     const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
     // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
@@ -995,7 +1155,7 @@ async function loadQuotesTab(container) {
     const shouldShowLink = quote.paragraph_id || isBook;
     
     return `
-    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}">
+    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-ga-reference="${quote.ga_reference}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${quote.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
@@ -1034,6 +1194,42 @@ async function loadQuotesTab(container) {
   
   // Scroll-Position wiederherstellen nach Rendering
   setTimeout(() => restoreMembersScrollPosition(), 50);
+}
+
+/**
+ * Aktualisiert die Datumsanzeigen in der Quotes-Liste nach dem Laden der Vortragsdaten
+ */
+function updateQuoteDates(container, sortedData) {
+  sortedData.forEach((quote) => {
+    const item = container.querySelector(`.member-item[data-id="${quote.id}"]`);
+    if (!item) return;
+    
+    const lectureDate = getLectureDate(quote.ga_reference);
+    if (!lectureDate) return; // Kein Datum verfügbar
+    
+    const header = item.querySelector('.member-item-header');
+    if (!header) return;
+    
+    // Prüfe ob Datum bereits angezeigt wird
+    const existingDateSpan = header.querySelector('span[data-lecture-date]');
+    if (existingDateSpan) {
+      // Aktualisiere vorhandenes Datum
+      existingDateSpan.textContent = `, ${lectureDate}`;
+    } else {
+      // Füge Datum hinzu
+      const dateSpan = document.createElement('span');
+      dateSpan.setAttribute('data-lecture-date', 'true');
+      dateSpan.style.fontSize = '0.85rem';
+      dateSpan.style.fontWeight = 'normal';
+      dateSpan.style.color = 'var(--text-color)';
+      dateSpan.textContent = `, ${lectureDate}`;
+      
+      const strongTag = header.querySelector('strong');
+      if (strongTag) {
+        strongTag.appendChild(dateSpan);
+      }
+    }
+  });
 }
 
 /**
