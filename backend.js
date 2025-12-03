@@ -1369,77 +1369,300 @@ function applySemanticRanking(keywordResults, query) {
   }).sort((a, b) => b.finalScore - a.finalScore);
 }
 
+// ============================================================================
+// RELEVANZ-SCORING: Basierend auf Häufigkeit in 2 Absätzen vor/nach Treffer
+// ============================================================================
+
 // Hilfsfunktion: Relevanz-Scoring für Stichwortsuche-Ergebnisse hinzufügen
 function addRelevanceScoringToResults(results, query) {
-  console.log(`[RELEVANCE-SCORING] Füge Relevanz-Scores für ${results.length} Ergebnisse hinzu`);
+  const totalResults = results.length;
+  const CONTEXT_PARAGRAPHS = 2; // Anzahl Absätze vor und nach jedem Treffer
+  
+  if (totalResults === 0) {
+    return results;
+  }
   
   // Zerlege Query in einzelne Wörter (für Zwei-Wort-Suchen)
   const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
   const isTwoWordQuery = queryWords.length === 2;
   
-  if (isTwoWordQuery) {
-    console.log(`[RELEVANCE-SCORING] Zwei-Wort-Suche erkannt: "${queryWords[0]}" + "${queryWords[1]}"`);
+  // Hilfsfunktion: Hole Kontext-Absätze für einen einzelnen Treffer (2 vor + Treffer + 2 nach)
+  function getContextForSingleHit(lectureId, hitParagraphIndex, isBookFlag) {
+    let paragraphs;
+    
+    if (isBookFlag) {
+      const book = fullBooks[lectureId];
+      if (!book) return null;
+      paragraphs = convertBookToParagraphs(book);
+    } else {
+      const lecture = fullLectures[lectureId];
+      if (!lecture || !lecture.paragraphs) return null;
+      paragraphs = lecture.paragraphs;
+    }
+    
+    if (!paragraphs || paragraphs.length === 0) return null;
+    
+    // Stelle sicher, dass hitParagraphIndex innerhalb des gültigen Bereichs liegt
+    if (hitParagraphIndex < 0 || hitParagraphIndex >= paragraphs.length) {
+      console.log(`[RELEVANCE-CONTEXT-ERROR] ${lectureId}: hitParagraphIndex ${hitParagraphIndex} außerhalb des Bereichs [0, ${paragraphs.length - 1}]`);
+      return null;
+    }
+    
+    const startIndex = Math.max(0, hitParagraphIndex - CONTEXT_PARAGRAPHS);
+    const endIndex = Math.min(paragraphs.length - 1, hitParagraphIndex + CONTEXT_PARAGRAPHS);
+    
+    const contextParagraphs = [];
+    for (let i = startIndex; i <= endIndex; i++) {
+      if (paragraphs[i]) {
+        const content = paragraphs[i].content || paragraphs[i].text || '';
+        if (content.trim().length > 0) {
+          contextParagraphs.push({
+            paragraphIndex: i,
+            content: content
+          });
+        }
+      }
+    }
+    
+    return contextParagraphs.length > 0 ? contextParagraphs : null;
   }
   
-  // Gruppiere Ergebnisse nach Vortrag
-  const lectureGroups = {};
-  results.forEach(result => {
-    const lectureId = result.ID;
-    if (!lectureGroups[lectureId]) {
-      lectureGroups[lectureId] = [];
+  // Hilfsfunktion: Zähle Vorkommen eines Wortes im Text (ganze Wörter)
+  // WICHTIG: Normalisiere Text und Wort zu lowercase für korrekten Vergleich mit Umlauten
+  function countWholeWordOccurrences(text, word) {
+    // Normalisiere Text und Wort zu lowercase für korrekten Vergleich
+    const textLower = text.toLowerCase();
+    const wordLower = word.toLowerCase();
+    
+    // Escaped Word für Regex (nach Normalisierung)
+    const escapedWord = wordLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    
+    // Verwende eine robuste Word-Boundary-Erkennung, die auch mit Umlauten funktioniert
+    // Suche nach dem Wort, umgeben von Nicht-Wort-Zeichen (inkl. Umlaute) oder String-Grenzen
+    // Erweitere Zeichenklasse um deutsche Umlaute und andere Unicode-Zeichen
+    const wordBoundaryBefore = '(^|[^a-zäöüßA-ZÄÖÜ0-9_])';
+    const wordBoundaryAfter = '([^a-zäöüßA-ZÄÖÜ0-9_]|$)';
+    const regex = new RegExp(`${wordBoundaryBefore}${escapedWord}${wordBoundaryAfter}`, 'gi');
+    
+    const matches = textLower.match(regex);
+    return matches ? matches.length : 0;
+  }
+  
+  // Berechne Relevanz-Score für einen Treffer basierend auf Häufigkeit im Kontext
+  function calculateRelevanceScoreForHit(contextParagraphs, query, isTwoWord) {
+    if (!contextParagraphs || contextParagraphs.length === 0) return 0;
+    
+    // Kombiniere alle Kontext-Absätze zu einem Text
+    const contextText = contextParagraphs.map(p => p.content || '').join(' ');
+    const queryLower = query.toLowerCase();
+    
+    if (isTwoWord) {
+      const word1 = queryWords[0];
+      const word2 = queryWords[1];
+      
+      // Zähle Vorkommen jedes Wortes (ganze Wörter)
+      const word1Matches = countWholeWordOccurrences(contextText, word1);
+      const word2Matches = countWholeWordOccurrences(contextText, word2);
+      const phrasePattern = `${word1} ${word2}`;
+      const phraseMatches = countWholeWordOccurrences(contextText, phrasePattern);
+      
+      // Score basierend auf Häufigkeit im Kontext (5 Absätze)
+      // Für Zwei-Wort-Suchen: Ähnlich differenziert wie Einzelwort-Suchen
+      // Berücksichtige Gesamtzahl der Vorkommen beider Wörter und Phrasen
+      const totalMatches = word1Matches + word2Matches;
+      
+      // Basis-Score basierend auf Gesamtzahl der Vorkommen (ähnlich wie Einzelwort)
+      let baseScore;
+      if (totalMatches === 0) {
+        baseScore = 0;
+      } else if (totalMatches === 1) {
+        // Nur 1 Vorkommen insgesamt (eines der beiden Wörter)
+        baseScore = 0.2;
+      } else if (totalMatches === 2) {
+        // 2 Vorkommen insgesamt
+        baseScore = 0.35;
+      } else if (totalMatches === 3) {
+        // 3 Vorkommen insgesamt
+        baseScore = 0.5;
+      } else if (totalMatches === 4) {
+        // 4 Vorkommen insgesamt
+        baseScore = 0.6;
+      } else if (totalMatches === 5) {
+        // 5 Vorkommen insgesamt
+        baseScore = 0.65;
+      } else {
+        // 6+ Vorkommen: Linear skalieren bis 0.8
+        const normalizedMatches = Math.min(totalMatches / 10, 1); // Normalisiere auf max 10 Treffer
+        baseScore = 0.65 + (normalizedMatches * 0.15); // Zwischen 0.65 und 0.8
+      }
+      
+      // Phrase-Bonus: Wenn beide Wörter als Phrase vorkommen, erhöhe den Score
+      let phraseBonus = 0;
+      if (phraseMatches > 0) {
+        // Bonus für Phrasen: Je mehr Phrasen, desto höher der Bonus
+        if (phraseMatches === 1) {
+          phraseBonus = 0.1; // +0.1 für 1 Phrase
+        } else if (phraseMatches === 2) {
+          phraseBonus = 0.15; // +0.15 für 2 Phrasen
+        } else {
+          phraseBonus = 0.15 + (Math.min(phraseMatches / 5, 1) * 0.05); // +0.15 bis +0.2 für 3+ Phrasen
+        }
+      }
+      
+      // Bonus wenn beide Wörter vorkommen (auch wenn nicht als Phrase)
+      let bothWordsBonus = 0;
+      if (word1Matches > 0 && word2Matches > 0) {
+        bothWordsBonus = 0.05; // +0.05 wenn beide Wörter vorkommen
+      }
+      
+      const score = Math.min(baseScore + phraseBonus + bothWordsBonus, 0.8); // Max 0.8 (wie Einzelwort)
+      return score;
+    } else {
+      // Für Einzelwort-Suchen: Zähle Vorkommen im Kontext (ganze Wörter)
+      const matches = countWholeWordOccurrences(contextText, queryLower);
+      
+      // Score basierend auf Häufigkeit im Kontext (5 Absätze)
+      // Verbesserte Differenzierung für bessere Verteilung:
+      // - 1 Vorkommen: Basis-Score (0.3)
+      // - 2 Vorkommen: Erhöhter Score (0.5)
+      // - 3 Vorkommen: Hoher Score (0.6)
+      // - 4+ Vorkommen: Sehr hoher Score (0.7-0.8)
+      let score;
+      if (matches === 0) {
+        score = 0;
+      } else if (matches === 1) {
+        score = 0.3; // Erhöht von 0.2 auf 0.3
+      } else if (matches === 2) {
+        score = 0.5; // Erhöht von 0.35 auf 0.5
+      } else if (matches === 3) {
+        score = 0.6; // Erhöht von 0.45 auf 0.6
+      } else {
+        // Für 4+ Vorkommen: Linear skalieren bis 0.8
+        const normalizedMatches = Math.min(matches / 10, 1); // Normalisiere auf max 10 Treffer
+        score = 0.6 + (normalizedMatches * 0.2); // Zwischen 0.6 und 0.8
+      }
+      
+      return Math.min(score, 0.8); // Max 0.8 (erhöht von 0.6)
     }
-    lectureGroups[lectureId].push(result);
+  }
+  
+  // Berechne Relevanz-Score für jeden Treffer
+  const resultScores = results.map((result, index) => {
+    const lectureId = result.ID;
+    const hitParagraphIndex = result.paragraphIndex || 0;
+    const isBookFlag = result.isBook || false;
+    
+    // Prüfe, ob der Treffer-Absatz selbst das Wort enthält
+    const hitContent = result.content || '';
+    const hitContainsQuery = hitContent.toLowerCase().includes(query.toLowerCase());
+    
+    // Hole Kontext für diesen Treffer (2 Absätze vor + Treffer + 2 Absätze nach)
+    const contextParagraphs = getContextForSingleHit(lectureId, hitParagraphIndex, isBookFlag);
+    
+    // Berechne Score basierend auf Kontext
+    const score = contextParagraphs 
+      ? calculateRelevanceScoreForHit(contextParagraphs, query, isTwoWordQuery)
+      : 0.05; // Niedriger Fallback-Score wenn Kontext nicht verfügbar
+    
+    // Debug für erste 10 Treffer
+    if (index < 10) {
+      const contextText = contextParagraphs ? contextParagraphs.map(p => p.content || '').join(' ') : '';
+      const matches = !isTwoWordQuery ? countWholeWordOccurrences(contextText, query.toLowerCase()) : 0;
+      const contextPreview = contextText.substring(0, 200).replace(/\s+/g, ' ');
+      const queryLower = query.toLowerCase();
+      const contextLower = contextText.toLowerCase();
+      const containsQuery = contextLower.includes(queryLower);
+      const hitPreview = hitContent.substring(0, 100).replace(/\s+/g, ' ');
+      console.log(`[RELEVANCE-DEBUG] ${lectureId} Absatz ${hitParagraphIndex}: Score=${score.toFixed(3)}, Vorkommen=${matches}, Kontext-Absätze=${contextParagraphs?.length || 0}, HitEnthältQuery=${hitContainsQuery}, KontextEnthältQuery=${containsQuery}, Query="${queryLower}"`);
+      console.log(`[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "${hitPreview}..."`);
+      console.log(`[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "${contextPreview}..."`);
+    }
+    
+    return {
+      result: result,
+      score: score
+    };
   });
   
-  // Berechne Relevanz-Score für jeden Vortrag
-  const resultsWithRelevance = results.map(result => {
-    const lectureId = result.ID;
-    const lectureResults = lectureGroups[lectureId];
-    
-    let relevanceScore;
-    
-    if (isTwoWordQuery) {
-      // Spezielle Behandlung für Zwei-Wort-Suchen
-      relevanceScore = calculateTwoWordRelevanceScore(lectureResults, queryWords[0], queryWords[1]);
-    } else {
-      // Einzelwort-Suche
-      relevanceScore = calculateRelevanceScoreForLecture(lectureResults, query);
-    }
-    
-    // Debug-Ausgabe für die ersten 5 Vorträge
-    if (Object.keys(lectureGroups).indexOf(lectureId) < 5) {
-      console.log(`[RELEVANCE-DEBUG] ${lectureId}: Score=${relevanceScore.toFixed(3)}, Chunks=${lectureResults.length}`);
-    }
-    
-    // Bestimme Relevanz-Kategorie (stark erhöhte Schwellwerte für bessere Differenzierung)
+  // KONTINUIERLICHE ANPASSUNG: Schwellwerte relativ zur Gesamthäufigkeit des Suchworts
+  // WICHTIG: Bei seltenen Wörtern sind niedrigere Schwellwerte angemessen
+  //          Bei häufigen Wörtern müssen höhere Schwellwerte verwendet werden
+  //          Keine prozentuale Verteilung - alle Treffer mit entsprechender Häufigkeit werden kategorisiert
+  //          KONTINUIERLICHE Funktion (nicht stufenweise)
+  
+  // Basis-Schwellwerte basierend auf Score-Werten (die Häufigkeit widerspiegeln):
+  // - Score 0.3 = 1 Vorkommen
+  // - Score 0.5 = 2 Vorkommen
+  // - Score 0.6 = 3 Vorkommen
+  // - Score 0.7+ = 4+ Vorkommen
+  
+  // Kontinuierliche Funktion für Schwellwerte basierend auf Gesamtzahl der Treffer
+  // Verwendet logarithmische Skalierung für natürliche Anpassung über den gesamten Bereich
+  
+  // Parameter für kontinuierliche Funktion:
+  // - Bei 1 Treffer: thresholdHigh = 0.3 (1 Vorkommen = hoch)
+  // - Bei 10000 Treffern: thresholdHigh = 0.65 (3-4+ Vorkommen = hoch, nicht zu streng)
+  // - Logarithmische Skalierung für natürliche Kurve
+  
+  const logResults = Math.log10(Math.max(totalResults, 1)); // log10(1) = 0, log10(10000) ≈ 4
+  const maxLogResults = Math.log10(10000); // Referenzpunkt für maximale Häufigkeit
+  
+  // Normalisiere auf 0-1 Skala basierend auf logarithmischer Häufigkeit
+  // Bei sehr wenigen Treffern (log10(1-100) = 0-2): niedrige Schwellwerte
+  // Bei vielen Treffern (log10(5000-10000) = 3.7-4): moderate Schwellwerte (nicht zu streng)
+  const normalizedFrequency = Math.min(logResults / maxLogResults, 1); // 0 bis 1
+  
+  // Kontinuierliche Berechnung der Schwellwerte
+  // thresholdHigh: von 0.3 (selten) bis 0.6 (häufig) - reduziert, damit 3 Vorkommen (Score 0.6) noch "hoch" sind
+  // Bei sehr vielen Treffern: 3+ Vorkommen (Score 0.6) sollten noch als "hoch" gelten
+  let thresholdHigh = 0.3 + (normalizedFrequency * 0.3); // 0.3 bis 0.6
+  
+  // thresholdMedium: von 0.2 (selten) bis 0.4 (häufig) - reduziert
+  let thresholdMedium = 0.2 + (normalizedFrequency * 0.2); // 0.2 bis 0.4
+  
+  // Stelle sicher, dass Schwellwerte in sinnvollem Bereich bleiben
+  thresholdHigh = Math.max(0.3, Math.min(0.6, thresholdHigh));
+  thresholdMedium = Math.max(0.2, Math.min(0.4, thresholdMedium));
+  
+  // Stelle sicher, dass Medium unter High liegt (mindestens 0.1 Abstand)
+  if (thresholdMedium >= thresholdHigh) {
+    thresholdMedium = Math.max(0.2, thresholdHigh - 0.1);
+  }
+  
+  // Kategorisiere ALLE Ergebnisse basierend auf Häufigkeit (Score)
+  // KEINE prozentuale Verteilung - jeder Treffer wird nach seiner tatsächlichen Häufigkeit bewertet
+  const resultsWithRelevance = resultScores.map(({ result, score }) => {
     let relevanceCategory = 'niedrig';
-    if (relevanceScore >= 0.50) {
-      relevanceCategory = 'hoch';      // Score ≥ 0.50 (verdoppelt)
-    } else if (relevanceScore >= 0.20) {
-      relevanceCategory = 'mittel';    // Score ≥ 0.20 und < 0.50 (verdoppelt)
+    if (score >= thresholdHigh) {
+      relevanceCategory = 'hoch';
+    } else if (score >= thresholdMedium) {
+      relevanceCategory = 'mittel';
     }
-    // else bleibt 'niedrig' (Score < 0.20)
     
     return {
       ...result,
-      relevanceScore: relevanceScore,
+      relevanceScore: score,
       relevanceCategory: relevanceCategory
     };
   });
   
-  console.log(`[RELEVANCE-SCORING] Relevanz-Kategorien: ${Object.values(resultsWithRelevance).reduce((acc, r) => {
+  // Debug-Ausgabe
+  const categoryCounts = resultsWithRelevance.reduce((acc, r) => {
     acc[r.relevanceCategory] = (acc[r.relevanceCategory] || 0) + 1;
     return acc;
-  }, {})}`);
+  }, {});
+  
+  console.log(`[RELEVANCE-SCORING] ${totalResults} Treffer: hoch=${categoryCounts['hoch'] || 0}, mittel=${categoryCounts['mittel'] || 0}, niedrig=${categoryCounts['niedrig'] || 0}`);
+  console.log(`[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥${thresholdHigh.toFixed(3)} (${thresholdHigh <= 0.3 ? '1+' : thresholdHigh <= 0.5 ? '2+' : '3+'} Vorkommen), mittel≥${thresholdMedium.toFixed(3)} (${thresholdMedium <= 0.3 ? '1+' : '2+'} Vorkommen)`);
   
   return resultsWithRelevance;
 }
 
 // ============================================================================
-// ZWEI-WORT-RELEVANZ-BERECHNUNG
+// ZWEI-WORT-RELEVANZ-BERECHNUNG (ENTFERNT - wird später neu implementiert)
 // ============================================================================
 
-function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
+function calculateTwoWordRelevanceScore(lectureResults, word1, word2, useSimplifiedContext = false) {
   if (!lectureResults || lectureResults.length === 0) return 0;
   
   const word1Lower = word1.toLowerCase();
@@ -1597,9 +1820,9 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
   const contextIndex1 = loadContextIndex(word1Lower);
   const contextIndex2 = loadContextIndex(word2Lower);
   
-  // 5. Berechne Kontext-Relevanz für beide Wörter (Durchschnitt)
-  const contextRelevance1 = calculateContextRelevance(fullText, word1Lower, contextIndex1);
-  const contextRelevance2 = calculateContextRelevance(fullText, word2Lower, contextIndex2);
+  // 5. Berechne Kontext-Relevanz für beide Wörter (Durchschnitt) (OPTIMIERUNG #4: vereinfacht)
+  const contextRelevance1 = calculateContextRelevance(fullText, word1Lower, contextIndex1, useSimplifiedContext);
+  const contextRelevance2 = calculateContextRelevance(fullText, word2Lower, contextIndex2, useSimplifiedContext);
   const avgContextRelevance = (contextRelevance1 + contextRelevance2) / 2;
   
   console.log(`[2-WORD-CONTEXT] "${word1}": ${contextRelevance1.toFixed(2)}, "${word2}": ${contextRelevance2.toFixed(2)}, Avg: ${avgContextRelevance.toFixed(2)}`);
@@ -1874,16 +2097,20 @@ function loadContextIndex(query) {
 }
 
 // Berechne Kontext-Relevanz: Wie viele typische Kontextwörter kommen im Vortrag vor?
-function calculateContextRelevance(fullText, query, contextIndex) {
+// OPTIMIERUNG #4: Vereinfachte Kontext-Relevanz mit weniger Kontextwörtern
+function calculateContextRelevance(fullText, query, contextIndex, useSimplified = false) {
   if (!contextIndex || !contextIndex.context_terms) {
     return 1.0; // Neutral, wenn kein Kontext-Index vorhanden
   }
   
   const fullTextLower = fullText.toLowerCase();
   const contextTerms = contextIndex.context_terms;
+  
+  // OPTIMIERUNG #4: Reduziere Anzahl der Kontextwörter (von 50 auf 10-15)
+  const maxTerms = useSimplified ? 10 : 20; // Bei vereinfachter Berechnung nur Top 10
   const topTerms = Object.entries(contextTerms)
     .sort((a, b) => b[1] - a[1])
-    .slice(0, 50); // Nutze Top 50 Kontextwörter
+    .slice(0, maxTerms);
   
   let matchedTerms = 0;
   let weightedMatches = 0;
@@ -1901,20 +2128,27 @@ function calculateContextRelevance(fullText, query, contextIndex) {
     
     if (count > 0) {
       matchedTerms++;
-      // Gewichte nach Häufigkeit im Kontext-Index
-      weightedMatches += Math.min(count, 5) * Math.log(frequency + 1);
+      // Gewichte nach Häufigkeit im Kontext-Index (vereinfacht bei vielen Treffern)
+      if (useSimplified) {
+        weightedMatches += Math.min(count, 3); // Max 3 statt 5
+      } else {
+        weightedMatches += Math.min(count, 5) * Math.log(frequency + 1);
+      }
     }
   }
   
   // Normalisiere: Je mehr typische Kontextwörter vorkommen, desto höher die Relevanz
-  const matchRatio = matchedTerms / Math.min(topTerms.length, 20); // Normiere auf Top 20
-  const contextRelevance = 1.0 + (matchRatio * 2.0); // Faktor 1.0 - 3.0
+  const matchRatio = matchedTerms / Math.min(topTerms.length, maxTerms);
+  // OPTIMIERUNG #4: Reduzierter Faktor bei vereinfachter Berechnung
+  const contextRelevance = useSimplified 
+    ? 1.0 + (matchRatio * 1.0)  // Faktor 1.0 - 2.0 (reduziert)
+    : 1.0 + (matchRatio * 2.0); // Faktor 1.0 - 3.0 (normal)
   
-  return Math.min(contextRelevance, 3.0);
+  return Math.min(contextRelevance, useSimplified ? 2.0 : 3.0);
 }
 
 // Hilfsfunktion: Relevanz-Score für einen Vortrag berechnen (1000-Wörter-Fenster + Kontext Version)
-function calculateRelevanceScoreForLecture(lectureResults, query) {
+function calculateRelevanceScoreForLecture(lectureResults, query, useSimplifiedContext = false) {
   if (!lectureResults || lectureResults.length === 0) return 0;
   
   const queryLower = query.toLowerCase();
@@ -2016,9 +2250,9 @@ function calculateRelevanceScoreForLecture(lectureResults, query) {
     }
   }
   
-  // 3. Kontext-Relevanz berechnen
+  // 3. Kontext-Relevanz berechnen (OPTIMIERUNG #4: vereinfacht bei vielen Treffern)
   const contextIndex = loadContextIndex(query);
-  const contextRelevance = calculateContextRelevance(fullText, query, contextIndex);
+  const contextRelevance = calculateContextRelevance(fullText, query, contextIndex, useSimplifiedContext);
   
   // 4. Normalisierung mit Gesamtvorkommen
   const totalOccurrenceFactor = Math.sqrt(totalOccurrences);
@@ -2046,7 +2280,7 @@ async function performHybridSearch(query, limit = 20) {
       };
     }
     
-    // NEU: Relevanz-Scoring für jeden Vortrag hinzufügen
+    // Relevanz-Scoring für jeden Vortrag hinzufügen
     const resultsWithRelevance = addRelevanceScoringToResults(keywordResults, query);
     
     const rankedResults = applySemanticRanking(resultsWithRelevance, query);
@@ -2316,16 +2550,9 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     console.log(`Volltext-Suche: ${results.length} Absätze gefunden (Vorträge + Bücher)`);
     
-    // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen (außer bei "ohne")
-    let resultsWithRelevance;
-    if (relevanceFilter === 'ohne') {
-      // Schnelle Suche ohne Relevanzberechnung
-      console.log('[RELEVANZ] Überspringe Relevanzberechnung (Filter: ohne)');
-      resultsWithRelevance = results;
-    } else {
+    // Relevanz-Scoring für Volltext-Suche hinzufügen
     const searchQuery = word2 ? `${word1} ${word2}` : word1;
-      resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
-    }
+    const resultsWithRelevance = addRelevanceScoringToResults(results, searchQuery);
     
     // Backend-Filterung nach Relevanz
     let filteredResults = resultsWithRelevance;
@@ -2350,7 +2577,7 @@ app.post('/api/fulltext-search', async (req, res) => {
       },
       results: filteredResults,
       resultCount: filteredResults.length,
-      unfilteredCount: resultsWithRelevance.length
+      unfilteredCount: results.length
     });
     
   } catch (error) {
@@ -14664,6 +14891,17 @@ console.log(`  ✓ Gesamt: ${paragraphsFromLectures.length} Absätze (Vorträge 
     console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
     console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
     console.log('========================================');
+    
+    // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
+    
+    // Umleite Konsolenausgabe auch in Datei für Debugging
+    const originalLog = console.log;
+    const fs = require('fs');
+    const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      logStream.write(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
+    };
     
     app.listen(PORT, () => {
       console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
