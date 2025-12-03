@@ -2497,7 +2497,13 @@ body.dark-mode #thematicSearchInfo {
       /* KEIN PADDING - wird von #main übernommen */
       padding: 0.5rem !important;
       word-break: keep-all !important;
+      cursor: text !important; /* Textauswahlwerkzeug beim Hover über Text */
       overflow-wrap: break-word !important;
+    }
+    
+    /* Links im Viewer behalten Pointer-Cursor */
+    #viewer a {
+      cursor: pointer !important;
     }
     
     /* Reduziertes Padding für alle Container im Viewer */
@@ -14598,10 +14604,14 @@ function scrollToChronologicalYear(year) {
         const titleLink = document.createElement('a');
         titleLink.href = "#";
         
-        // Relevanz-Kategorie als farbigen Punkt anzeigen
+        // Relevanz-Kategorie als farbigen Punkt anzeigen - NUR wenn NICHT "ohne" (Default) ausgewählt ist
         let relevanceDot = '';
+        const relevanceFilterElement = document.getElementById('relevanceFilter');
+        const relevanceFilter = relevanceFilterElement ? relevanceFilterElement.value : 'ohne';
         const firstChunk = lecture.chunks[0];
-        if (firstChunk && firstChunk.relevanceCategory) {
+        // Zeige Farbmarkierung nur wenn NICHT "ohne" (Default) ausgewählt ist
+        // Bei "alle", "hoch", "mittel", "niedrig" werden Farbmarkierungen angezeigt
+        if (firstChunk && firstChunk.relevanceCategory && relevanceFilter !== 'ohne') {
           const relevanceColors = {
             'hoch': '#28a745',      // Grün
             'mittel': '#fd7e14',    // Orange  
