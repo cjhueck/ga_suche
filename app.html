@@ -1864,11 +1864,10 @@ body.dark-mode .ga-missing-text {
     #document-title span[onclick] { 
       color: var(--link-color); 
       text-decoration: none;
-      transition: opacity 0.2s;
     }
     #document-title span[onclick]:hover { 
       text-decoration: none;
-      opacity: 0.8;
+      /* Opacity nicht ändern - Link soll bei Hover nicht verblassen */
     }
     
     body.dark-mode #document-title a {
@@ -12716,13 +12715,7 @@ function scrollToChronologicalYear(year) {
           documentTitle.style.color = 'var(--link-color)';
           documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
           
-          // Hover-Effekt
-          documentTitle.onmouseenter = () => {
-            documentTitle.style.opacity = '0.7';
-          };
-          documentTitle.onmouseleave = () => {
-            documentTitle.style.opacity = '1';
-          };
+          // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
           
           // Füge onclick-Handler hinzu
           documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
@@ -13367,12 +13360,7 @@ function scrollToChronologicalYear(year) {
           documentTitle.style.color = 'var(--link-color)';
           documentTitle.title = 'Klicken um zum Buch im Texte-Tab zu navigieren';
           
-          documentTitle.onmouseenter = () => {
-            documentTitle.style.opacity = '0.7';
-          };
-          documentTitle.onmouseleave = () => {
-            documentTitle.style.opacity = '1';
-          };
+          // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
           
           documentTitle.onclick = () => navigateToGAInTexteTab(gaNumber);
         }
@@ -17107,13 +17095,7 @@ function showSummaryView() {
     titleElement.style.color = 'var(--link-color)';
     titleElement.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
     
-    // Hover-Effekt
-    titleElement.onmouseenter = () => {
-      titleElement.style.opacity = '0.7';
-    };
-    titleElement.onmouseleave = () => {
-      titleElement.style.opacity = '1';
-    };
+    // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
     
     // Füge onclick-Handler hinzu
     titleElement.onclick = () => navigateToLectureInTexteTab(lectureId);
@@ -24647,13 +24629,7 @@ async function showLectureInTimeline(lectureId, targetIndex = null, keyword = nu
         documentTitle.style.color = 'var(--link-color)';
         documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
         
-        // Hover-Effekt
-        documentTitle.onmouseenter = () => {
-          documentTitle.style.opacity = '0.7';
-        };
-        documentTitle.onmouseleave = () => {
-          documentTitle.style.opacity = '1';
-        };
+        // Kein Hover-Effekt mehr - Link soll bei Hover nicht verblassen
         
         // Füge onclick-Handler hinzu
         documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
@@ -25731,17 +25707,24 @@ async function updateTimelineFilters(changedBy = 'keyword') {
     await setThemeForKeyword(currentKeyword);
   }
   
-  // Statistik aktualisieren
-  await updateTimelineStats();
-  
   // Timeline neu rendern
   // Prüfe: Wenn Keyword ausgewählt (mit oder ohne Thema), verwende IMMER GA-Suche
   if (currentKeyword) {
     console.log('[TIMELINE] Keyword ausgewählt, verwende GA-Suche + Keyword-DB');
     showingSearchResultsTimeline = true;
+    
+    // Statistik-Anzeige leeren, bevor Timeline generiert wird
+    const statsDisplay = document.getElementById('timelineStatsDisplay');
+    if (statsDisplay) {
+      statsDisplay.innerHTML = '';
+    }
+    
     await showKeywordSearchInTimeline(currentKeyword);
     return;
   }
+  
+  // Statistik aktualisieren (nur wenn kein Keyword ausgewählt)
+  await updateTimelineStats();
   
   const timelineContainer = document.getElementById('timelineContainer');
   if (timelineContainer) {
@@ -26331,6 +26314,12 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     showingSearchResultsTimeline = false;
     searchResultsTimelineRunning = false;
     return;
+  }
+  
+  // Statistik-Anzeige leeren, bevor Timeline generiert wird
+  const statsDisplay = document.getElementById('timelineStatsDisplay');
+  if (statsDisplay) {
+    statsDisplay.innerHTML = '';
   }
   
   // Leere den Content-Bereich und erstelle neuen Container

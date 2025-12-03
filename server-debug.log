@@ -12432,3 +12432,717 @@ GET /api/list-files
 GET /api/concepts-list
 [KEYWORDS-API] Lade alle Schlagwörter...
 [KEYWORDS-API] 1943 Schlagwörter aus concepts-database.json geladen
+GET /api/book/GA001
+[BOOK] Anfrage für GA001
+[BOOK] Schrift gefunden: Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA001 gespeichert (4490 Einträge total, 4457 Vorträge geschützt)
+GET /api/lectures/chronological
+[CHRONOLOGICAL] Anfrage für chronologische Übersicht
+[CHRONOLOGICAL] 4189 Vorträge mit Datum gefunden
+GET /api/book/GA018
+[BOOK] Anfrage für GA018
+[BOOK] Schrift gefunden: Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA018 gespeichert (4490 Einträge total, 4457 Vorträge geschützt)
+GET /api/book/GA037
+[BOOK] Anfrage für GA037
+[BOOK] Schrift gefunden: Schriften zur Geschichte der anthroposophischen Bewegung und Gesellschaft (1902-1925)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA037 gespeichert (4490 Einträge total, 4457 Vorträge geschützt)
+GET /api/ga-overview/GA078
+[GA-OVERVIEW] Anfrage für GA078
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA078: 8 Vorträge
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/full-lecture/GA078/1
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/check-summary/GA078/1
+[CHECK-SUMMARY] Prüfe zentrale DB für GA078/1
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA078/1 (Version: v2-unified)
+GET /api/steiner-images/GA078%2F1
+GET /api/ga-overview/GA078
+[GA-OVERVIEW] Anfrage für GA078
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA078: 8 Vorträge
+[IMAGES-API] Keine Bilder für GA078/1 gefunden
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /favicon.ico
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+POST /api/fulltext-search
+Volltext-Suche: Goetheanismus [Relevanz-Filter: ohne]
+Volltext-Suche: 243 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA061/16 Absatz 27: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Dürfen wir - wir wollen uns nicht auf logische Deduktionen oder auf ein dialektisches Spiel einlasse..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Dies zu beweisen war Goethes Absicht, und ihm war das Ergebnis, zu dem er gekommen war, eben ein Beweis für die Wirksamkeit des Geistes. Daher war es ihm auch ein Beweis für die Wirksamkeit des Geiste..."
+[RELEVANCE-DEBUG] GA062/8 Absatz 5: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Durch die Verwandtschaft mit diesem Kreise - wie gesagt, Herman Grimms Frau, Gisela Grimm, war eine ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Auf eine ganz besondere Art hängt Herman Grimm mit alledem zusammen, was an den Namen Goethe angeknüpft werden kann, durch seine Vermählung mit der Tochter derjenigen Persönlichkeit, welche dem Goethe..."
+[RELEVANCE-DEBUG] GA064/1 Absatz 95: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "«Keine Zeitalter, keine Völker - als gäbe es inmitten der Ewigkeit nur das Ende des neunzehnten Jahr..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wir sehen die Blöße; wir sehen den Intellektuellen, der an Goethe nicht herankam, der sich fragt: «Wie sprach Goethe gegenüber der Französischen Revolution?» und sich zur Antwort gibt: «Aus einem hell..."
+[RELEVANCE-DEBUG] GA065/2 Absatz 92: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das ist es ja gerade, dass wir sehen das Volk Mitteleuropas eingekreist, bedrängt, um sein Dasein kä..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wenn man die Geisteswissenschaft bis in solche Punkte hinein verfolgt, so treten für den, der Übung hat im Denken, ich meine innere Übung hat in dem, welche Wege das Denken nehmen muss, um an Realität..."
+[RELEVANCE-DEBUG] GA072/1 Absatz 58: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Ich möchte diese Weltanschauung, welche auf die Art wissenschaftlich entsteht, wie ich es angedeutet..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Denn indem das Seelisch-Geistige gewissermaßen den Leib in die Welt hineinstellt, an ihm sich spiegelt, erlebt es sein eigenes Leben im Bereich des Übersinnlichen. Dadurch aber, dass die Ihnen vorhin ..."
+[RELEVANCE-DEBUG] GA072/2 Absatz 105: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nicht durch Einzelheiten wollte ich das Verhältnis der Anthroposophie zu den religiösen Bekenntnisse..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Ich müsste noch viel sprechen, wollte ich alles, was sich an Missverständnis und Missverständnis immer mehr und mehr aus oberflächlichkeit, aus bösem Willen manchmal, manchmal auch aus gutem Willen an..."
+[RELEVANCE-DEBUG] GA072/2 Absatz 106: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Es führt alles, was man auf dem Boden der Anthroposophie finden kann, eigentlich immer dahin, sich s..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wird Anthroposophie von den Religionen bekämpft, dann muss sie sich wehren. Verfolgen Sie, wo Anthroposophie polemisch wird, Sie werden immer sehen: in der Abwehr. Aggressiv, angreifend wird Anthropos..."
+[RELEVANCE-DEBUG] GA072/3 Absatz 141: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Man beruft sich heute gerne auf Goethe. Ich habe in dem letzten Vortrage hier gesagt, dass, wenn es ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Gerade dadurch, dass Geisteswissenschaft mit der Naturwissenschaft im Einklange arbeiten wird, wird sich ein Großes ergeben können für den Fortschritt der Menschheit. Man wird sich allmählich abgewöhn..."
+[RELEVANCE-DEBUG] GA072/3 Absatz 159: Score=0.300, Vorkommen=1, Kontext-Absätze=4, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das sind doch die Worte, die uns auf den wahren Goetheanismus hinweisen, der da besteht in der Anerk..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Dich prüfe du nur allermeist, ob du selbst Kern oder Schale seist! Das sind doch die Worte, die uns auf den wahren Goetheanismus hinweisen, der da besteht in der Anerkenntnis der Möglichkeit, mit dem ..."
+[RELEVANCE-DEBUG] GA072/4 Absatz 104: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Man kann sagen: Die großen Menschen der Vergangenheit haben in einzelnen Lichtblitzen schon gesehen,..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die höchste der sozial-sittlichen Ideen ist diese Freiheits-Idee. Kein Gemeinwesen wird die Freiheits-Idee in sich verwirklichen können, das nicht von übersinnlichen Ideen ausgeht. Denn gedeihen kann ..."
+[RELEVANCE-SCORING] 243 Treffer: hoch=132, mittel=0, niedrig=111
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.479 (2+ Vorkommen), mittel≥0.319 (2+ Vorkommen)
+  [Single] "goetheanismus"
+
+Extrahierte 1 Suchbegriffe aus "Goetheanismus":
+goetheanismus
+GET /api/full-lecture/GA061/16
+GET /api/check-summary/GA061/16
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/16
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/16 (Version: v2-unified)
+GET /api/steiner-images/GA061%2F16
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+[IMAGES-API] Keine Bilder für GA061/16 gefunden
+GET /api/list-files
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/themes-database
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/summary-database
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+POST /api/fulltext-search
+Volltext-Suche: Adam [Relevanz-Filter: hoch]
+Volltext-Suche: 509 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA053/20 Absatz 65: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Der Osterglaube aber ist die Überzeugung von dem Siege des Gekreuzigten über den Tod, von der Kraft ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "So können wir nicht über Dichtung und Wahrheit in der Religion sprechen. Die heutige Zeit hat keine richtigen Begriffe mehr von der Dichtung. Sie weiß nicht, wie die Dichtung aus dem Wahrheitsquell se..."
+[RELEVANCE-DEBUG] GA054/11 Absatz 7: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Es ist in der Tat wahr, dass durch die Erscheinung des Christus Jesus auf der Erde die Menschheitsen..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Als ich vor einiger Zeit in einer Stadt Süddeutschlands über die Weisheitslehren des Christentums, also über unser heutiges Thema sprach, da waren auch verschiedene protestantische Pastoren und kathol..."
+[RELEVANCE-DEBUG] GA054/13 Absatz 54: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das ist auch in wunderbarer Weise in der biblischen Mythe dargestellt. Da sind Adam und Eva hervorge..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "So sehen wir, dass alles dasjenige, was als Selbstlosigkeit und Opferwilligkeit im Menschen lebt, göttliches Prinzip im Menschen ist, und dass neben diesem göttlichen Prinzip eine andere Triebkraft in..."
+[RELEVANCE-DEBUG] GA054/22 Absatz 9: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "So sagte er einmal, dass er wisse, dass «der Sophist ihn tadeln» werde, wenn er vom Anfang der Welt ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Es ist dabei wichtig, ein wenig in die Empfindungen hineinzuleuchten, die in dieser Persönlichkeit waren. Er fühlte sich, wenn er zur Feder griff, um das niederzuschreiben, was ihm geoffenbart wurde, ..."
+[RELEVANCE-DEBUG] GA054/22 Absatz 40: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Die Imagination nennt Jakob Böhme die große Jungfrau der Natur, die Jungfrau Weisheit. Nun geht er z..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die kann so gesteigert werden, dass der Mensch schöpferisch wirkt und Einfluss gewinnt auf das, was in den Dingen als Tinctura lebt. Hier beginnt für Jakob Böhme die Alchemie, die auf die Materie, die..."
+[RELEVANCE-DEBUG] GA056/5 Absatz 89: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "«Erkenne dich selbst!» ist ein altes Wort. Aber man muss es so fassen, wie der alte Adam erkannt hat..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Einstmals gab es ein sinnliches Organ, ein gleichgülti- ges Organ in seinem sinnlichen Leibe, das vom Licht umflutet war. Das Licht machte es zum Auge, so dass der Mensch durch das Auge die Farben und..."
+[RELEVANCE-DEBUG] GA057/4 Absatz 53: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wer hier den Urtext studiert, der kommt auf das Folgende: Der vierte Vers des zweiten Kapitels bezie..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "So erwirbt man sich durch die Geistesforschung das Bewusstsein, dass die Bibel eine Urkunde ist, in der nichts, aber auch gar nichts bloß zufällig steht. Mag sich ein moderner Schriftsteller sagen: Wa..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 34: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wir kommen nun zu der Frage: Warum ist in den ersten Kapiteln der Bibel von Individualitäten die Red..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Dieses musste abnehmen, musste zurücktreten, damit auf seine Kosten unser heutiger Verstand zu seiner Entwickelung kommen konnte. So ist überhaupt der Gang der Entwickelung, dass eine Kraft in den Hin..."
+[RELEVANCE-DEBUG] GA057/13 Absatz 33: Score=0.000, Vorkommen=0, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wenn wir den ersten Monolog des Faust betrachten, sehen wir im vollsten Sinne des Wortes, was wir im..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nach allem, was wir wissen, war die Faust-Gestalt eine solche, die tief empfand das Unzulängliche des damaligen Studiums über die geistige Welt. Theologie hatte auch Faust studiert, sich abgewendet da..."
+[RELEVANCE-DEBUG] GA057/16 Absatz 41: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="adam"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das Bewusstsein, dass der Erkenntnisprozess eine Art Befruchtungsprozess ist, war in älteren Zeiten ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Diejenigen, welche etwas von der sogenannten alten Zahlenlehre verstanden, haben immer gesagt, und das entspricht einer tiefen Wahrheit, die heilige Dreizahl stelle dar das Göttlich-Männliche im Welta..."
+[RELEVANCE-SCORING] 509 Treffer: hoch=127, mittel=79, niedrig=303
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.503 (3+ Vorkommen), mittel≥0.335 (2+ Vorkommen)
+[BACKEND-FILTER] 509 -> 127 Ergebnisse nach Filter "hoch"
+  [Single] "adam"
+
+Extrahierte 1 Suchbegriffe aus "Adam":
+adam
+GET /api/book/GA029
+[BOOK] Anfrage für GA029
+[BOOK] Schrift gefunden: Gesammelte Aufsätze zur Dramaturgie (1889-1900)
+GET /api/book/GA007
+[BOOK] Anfrage für GA007
+[BOOK] Schrift gefunden: Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA007 gespeichert (4490 Einträge total, 4457 Vorträge geschützt)
+[BOOK] ✓ Überschriften für GA029 gespeichert (4491 Einträge total, 4457 Vorträge geschützt)
+GET /api/book/GA029
+[BOOK] Anfrage für GA029
+[BOOK] Schrift gefunden: Gesammelte Aufsätze zur Dramaturgie (1889-1900)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA029 gespeichert (4491 Einträge total, 4457 Vorträge geschützt)
+GET /api/quotes
+GET /api/full-lecture/GA090a/18
+GET /api/check-summary/GA090a/18
+[CHECK-SUMMARY] Prüfe zentrale DB für GA090a/18
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA090a/18 (Version: v2-unified)
+GET /api/steiner-images/GA090a%2F18
+[IMAGES-API] Keine Bilder für GA090a/18 gefunden
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/steiner-images
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /favicon.ico
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+POST /api/fulltext-search
+Volltext-Suche: Goetheanismus [Relevanz-Filter: ohne]
+Volltext-Suche: 243 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA061/16 Absatz 27: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Dürfen wir - wir wollen uns nicht auf logische Deduktionen oder auf ein dialektisches Spiel einlasse..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Dies zu beweisen war Goethes Absicht, und ihm war das Ergebnis, zu dem er gekommen war, eben ein Beweis für die Wirksamkeit des Geistes. Daher war es ihm auch ein Beweis für die Wirksamkeit des Geiste..."
+[RELEVANCE-DEBUG] GA062/8 Absatz 5: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Durch die Verwandtschaft mit diesem Kreise - wie gesagt, Herman Grimms Frau, Gisela Grimm, war eine ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Auf eine ganz besondere Art hängt Herman Grimm mit alledem zusammen, was an den Namen Goethe angeknüpft werden kann, durch seine Vermählung mit der Tochter derjenigen Persönlichkeit, welche dem Goethe..."
+[RELEVANCE-DEBUG] GA064/1 Absatz 95: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "«Keine Zeitalter, keine Völker - als gäbe es inmitten der Ewigkeit nur das Ende des neunzehnten Jahr..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wir sehen die Blöße; wir sehen den Intellektuellen, der an Goethe nicht herankam, der sich fragt: «Wie sprach Goethe gegenüber der Französischen Revolution?» und sich zur Antwort gibt: «Aus einem hell..."
+[RELEVANCE-DEBUG] GA065/2 Absatz 92: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das ist es ja gerade, dass wir sehen das Volk Mitteleuropas eingekreist, bedrängt, um sein Dasein kä..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wenn man die Geisteswissenschaft bis in solche Punkte hinein verfolgt, so treten für den, der Übung hat im Denken, ich meine innere Übung hat in dem, welche Wege das Denken nehmen muss, um an Realität..."
+[RELEVANCE-DEBUG] GA072/1 Absatz 58: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Ich möchte diese Weltanschauung, welche auf die Art wissenschaftlich entsteht, wie ich es angedeutet..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Denn indem das Seelisch-Geistige gewissermaßen den Leib in die Welt hineinstellt, an ihm sich spiegelt, erlebt es sein eigenes Leben im Bereich des Übersinnlichen. Dadurch aber, dass die Ihnen vorhin ..."
+[RELEVANCE-DEBUG] GA072/2 Absatz 105: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nicht durch Einzelheiten wollte ich das Verhältnis der Anthroposophie zu den religiösen Bekenntnisse..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Ich müsste noch viel sprechen, wollte ich alles, was sich an Missverständnis und Missverständnis immer mehr und mehr aus oberflächlichkeit, aus bösem Willen manchmal, manchmal auch aus gutem Willen an..."
+[RELEVANCE-DEBUG] GA072/2 Absatz 106: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Es führt alles, was man auf dem Boden der Anthroposophie finden kann, eigentlich immer dahin, sich s..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wird Anthroposophie von den Religionen bekämpft, dann muss sie sich wehren. Verfolgen Sie, wo Anthroposophie polemisch wird, Sie werden immer sehen: in der Abwehr. Aggressiv, angreifend wird Anthropos..."
+[RELEVANCE-DEBUG] GA072/3 Absatz 141: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Man beruft sich heute gerne auf Goethe. Ich habe in dem letzten Vortrage hier gesagt, dass, wenn es ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Gerade dadurch, dass Geisteswissenschaft mit der Naturwissenschaft im Einklange arbeiten wird, wird sich ein Großes ergeben können für den Fortschritt der Menschheit. Man wird sich allmählich abgewöhn..."
+[RELEVANCE-DEBUG] GA072/3 Absatz 159: Score=0.300, Vorkommen=1, Kontext-Absätze=4, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das sind doch die Worte, die uns auf den wahren Goetheanismus hinweisen, der da besteht in der Anerk..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Dich prüfe du nur allermeist, ob du selbst Kern oder Schale seist! Das sind doch die Worte, die uns auf den wahren Goetheanismus hinweisen, der da besteht in der Anerkenntnis der Möglichkeit, mit dem ..."
+[RELEVANCE-DEBUG] GA072/4 Absatz 104: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="goetheanismus"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Man kann sagen: Die großen Menschen der Vergangenheit haben in einzelnen Lichtblitzen schon gesehen,..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die höchste der sozial-sittlichen Ideen ist diese Freiheits-Idee. Kein Gemeinwesen wird die Freiheits-Idee in sich verwirklichen können, das nicht von übersinnlichen Ideen ausgeht. Denn gedeihen kann ..."
+[RELEVANCE-SCORING] 243 Treffer: hoch=132, mittel=0, niedrig=111
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.479 (2+ Vorkommen), mittel≥0.319 (2+ Vorkommen)
+  [Single] "goetheanismus"
+
+Extrahierte 1 Suchbegriffe aus "Goetheanismus":
+goetheanismus
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/full-lecture/GA272/7
+GET /api/check-summary/GA272/7
+[CHECK-SUMMARY] Prüfe zentrale DB für GA272/7
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA272/7 (Version: v2-unified)
+GET /api/steiner-images/GA272%2F7
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/full-lecture/GA272/7
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/check-summary/GA272/7
+[CHECK-SUMMARY] Prüfe zentrale DB für GA272/7
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA272/7 (Version: v2-unified)
+GET /api/ga-overview/GA272
+[GA-OVERVIEW] Anfrage für GA272
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA272: 16 Vorträge
+[IMAGES-API] Keine Bilder für GA272/7 gefunden
+GET /api/steiner-images/GA272%2F7
+[IMAGES-API] Sende 0 Bilder für GA272/7 (aus Cache)
+GET /api/list-files
+GET /api/concepts-list
+[KEYWORDS-API] Lade alle Schlagwörter...
+[KEYWORDS-API] 1943 Schlagwörter aus concepts-database.json geladen
+GET /api/full-lecture/GA347/5
+[IMAGES-ASSETS] Anfrage für Bild: GA347-Die%20Erkenntnis%20des%20Menschenwesens%20nach%20Leib%20Seele%20und%20Geist.%20%C3%9Cber%20fr%C3%BChere%20Erdzust%C3%A4nde_img-10.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/GA347-Die%20Erkenntnis%20des%20Menschenwesens%20nach%20Leib%20Seele%20und%20Geist.%20%C3%9Cber%20fr%C3%BChere%20Erdzust%C3%A4nde_img-10.png
+[IMAGES-ASSETS] Decodierter Pfad: GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-10.png
+[IMAGES-ASSETS] Gefundene GA-Nummer: GA347
+[IMAGES-ASSETS] Suche in: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA
+[IMAGES-ASSETS] Anfrage für Bild: GA347-Die%20Erkenntnis%20des%20Menschenwesens%20nach%20Leib%20Seele%20und%20Geist.%20%C3%9Cber%20fr%C3%BChere%20Erdzust%C3%A4nde_img-11.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/GA347-Die%20Erkenntnis%20des%20Menschenwesens%20nach%20Leib%20Seele%20und%20Geist.%20%C3%9Cber%20fr%C3%BChere%20Erdzust%C3%A4nde_img-11.png
+[IMAGES-ASSETS] Decodierter Pfad: GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-11.png
+[IMAGES-ASSETS] Gefundene GA-Nummer: GA347
+[IMAGES-ASSETS] Suche in: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA
+[IMAGES-ASSETS] Gefundener GA-Ordner: GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände
+[IMAGES-ASSETS] Vollständiger Pfad: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände\assets\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-10.png
+[IMAGES-ASSETS] ✓ Bild gefunden, serviere: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände\assets\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-10.png
+[IMAGES-ASSETS] Gefundener GA-Ordner: GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände
+[IMAGES-ASSETS] Vollständiger Pfad: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände\assets\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-11.png
+[IMAGES-ASSETS] ✓ Bild gefunden, serviere: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände\assets\GA347-Die Erkenntnis des Menschenwesens nach Leib Seele und Geist. Über frühere Erdzustände_img-11.png
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/full-lecture/GA347/5
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/check-summary/GA347/5
+[CHECK-SUMMARY] Prüfe zentrale DB für GA347/5
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA347/5 (Version: v2-unified)
+GET /api/steiner-images/GA347%2F5
+GET /api/ga-overview/GA347
+[GA-OVERVIEW] Anfrage für GA347
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA347: 10 Vorträge
+[IMAGES-API] Sende 2 Bilder für GA347/5 (aus steiner-images-part53.json)
+GET /api/list-files
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/themes-database
+GET /api/quotes
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/summary-database
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+POST /api/fulltext-search
+Volltext-Suche: Abraham [Relevanz-Filter: hoch]
+Volltext-Suche: 308 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA055/13 Absatz 82: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Was da in den ältesten Zeiten nur als Funke lebte, in höchster Glorie lebte es in Jesus von Nazareth..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Gehen wir auf die Bedeutung des Jehovah-Namens zurück, dann finden wir, dass Jehovah soviel heißt wie «Wehen», dass die Luft dahinweht. Es ist im Worte Jahve nichts anderes ausgedrückt als der wehende..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 21: Score=0.000, Vorkommen=0, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das übersinnliche Erlebnis, durch das Moses seine Sendung bekommen hat, ist uns deutlich geschildert..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Und wenn man darauf eingeht, was gerade des Paulus Predigt bewirkt hat, wie gerade er diejenige Gestalt des Christentums verbreitet hat, die durch die Welt gegangen ist, dann kann man nimmermehr sagen..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 22: Score=0.000, Vorkommen=0, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Die wichtigsten Züge seien nur angeführt. Moses sieht sich gegenüber dem Gotte Abrahams, Isaaks und ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Aber in ganz ähnlicher Weise finden wir auch, wenn wir nur ernst und wirklich die Dinge betrachten, dass das Alte Testament' wenigstens seine wichtigste Urkunde, die Schriften des Moses, auf etwas Ähn..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 23: Score=0.000, Vorkommen=0, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "In dem «Ich bin der Ich-bin» musste sich in ganz bestimmter Art das Wesen des Gottes ausdrücken, der..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das übersinnliche Erlebnis, durch das Moses seine Sendung bekommen hat, ist uns deutlich geschildert in der Erscheinung des brennenden Dornbusches. Da sehen wir, wie Moses, der Leiter und Lenker des V..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 36: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Der Gott war kein anderer als der, welcher sich in alten Zeiten als ein Ich von Generation zu Genera..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wir kommen nun zu der Frage: Warum ist in den ersten Kapiteln der Bibel von Individualitäten die Rede, die wie Adam, Noah Jahrhunderte alt werden? Weil es für die Menschen, die hier gemeint sind, kein..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 38: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wie handelten die mit Abraham, Isaak und Jakob in der Bibel bezeichneten Wesen? Sie handelten so, wi..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Der Gott war kein anderer als der, welcher sich in alten Zeiten als ein Ich von Generation zu Generation hindurch gelebt hat. Man bezeichnete als Ich, in der Ausdrucksweise der damaligen Zeit, was sic..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 39: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Da musste der Gott Abrahams, Isaaks und Jakobs, der in seiner geistigen Naturgestalt Moses das Geset..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Diese Zeiten brauchten keine äußeren Gebote, keine äußeren Gesetze. Denn mit dem lebendigen Gedächtnis, mit dessen ganz anderer Art als das Gedächtnis heute ist, lebte sich fort dasjenige, was man zu ..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 42: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Aber es gab auch solche, die den «Ich bin der Ich-bin» erkannten, aber sie mussten dazu alle die Pro..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Daher ist diese Zeit eine Zeit der Verheißung, die das neue Evangelium darstellt, der Beginn der «Zeit der Erfüllung». Es kündigt sich also dem Moses der Gott an, der den Ausdruck fand «Ich bin der Ic..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 47: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Jetzt aber kam die Zeit, in der die Menschheit durch die Hinneigung der Gefühle und Empfindungen und..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Durch das Ereignis von Golgatha stieg dieselbe Wesenheit, die sich angekündigt hatte bei Moses in dem brennenden Dornbusch mit den Worten «Ich bin der Ich-bin», herab in die Menschen. Das ist ganz im ..."
+[RELEVANCE-DEBUG] GA057/5 Absatz 48: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abraham"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "War es in den alten Zeiten so, dass der Mensch hinaufschaute zu dem Gott, dass er schaute und sich s..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das ist das Historisch-äußerlich-Wirkliche, das sich in den Mysterien soundso oft an den Eingeweihten vollzogen hat. So war der Verlauf der Einweihung, die in den alten Zeiten in dem tiefen Dunkel der..."
+[RELEVANCE-SCORING] 308 Treffer: hoch=206, mittel=0, niedrig=102
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.487 (2+ Vorkommen), mittel≥0.324 (2+ Vorkommen)
+[BACKEND-FILTER] 308 -> 206 Ergebnisse nach Filter "hoch"
+  [Single] "abraham"
+
+Extrahierte 1 Suchbegriffe aus "Abraham":
+abraham
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /favicon.ico
+GET /api/list-files
+GET /api/themes-database
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/themes-database
+GET /api/themes-database
+GET /api/keywords-database
+GET /api/summary-database
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+POST /api/fulltext-search
+Volltext-Suche: Abendmahl [Relevanz-Filter: hoch]
+Volltext-Suche: 163 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA051/8 Absatz 63: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Es gab in den ältesten Zeiten bis zu dem 12. Jahrhundert nichts, was erhabener, feierlicher war für ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nicht Mächtige, nicht Bischöfe und reiche Äbte, sondern einfache Mönche waren es, die die Wissenschaft fortpflanzten, arme Mönche, die in der Vergangenheit lebten und die den Druck der Mächtigen oft z..."
+[RELEVANCE-DEBUG] GA051/8 Absatz 65: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Er hatte zu kämpfen gegen eine feindliche Richtung in der Kirche. Er verteidigte die alte Lehre, das..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Es gab in den ältesten Zeiten bis zu dem 12. Jahrhundert nichts, was erhabener, feierlicher war für den Christen als das Abendmahl. Es sollte ein dankbares Erinnerungsopfer sein, ein Symbol für die Ve..."
+[RELEVANCE-DEBUG] GA051/8 Absatz 66: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Unter dem Einfluss der vor sich gehenden Vermaterialisierung entstand das Abendmahlsdogma, doch erst..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Im 9. Jahrhundert lebte im Lande der Franken, am Hofe Karls des Kahlen, ein sehr bedeutender, christlicher Mönch aus Irland, Scotus Erigena, in dessen Buche «Von der Einteilung der Natur» wir eine Fül..."
+[RELEVANCE-DEBUG] GA052/4 Absatz 31: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Hören wir ein anderes. Auch das Abendmahl ist nichts anderes als eine Einweihung, eine Einweihung in..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Diese drei jünger hatten eine noch höhere Erkenntnis als die anderen durch ihren Meister zu gewinnen. Sie hatten vor allen Dingen hier auf dem Berge die Überzeugung zu gewinnen, dass der Christus wirk..."
+[RELEVANCE-DEBUG] GA052/4 Absatz 32: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Um uns einen Weg zu bahnen, dieses Ereignis zu verstehen, lassen Sie uns einmal auf eine andere, wen..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die Wiederverkörperung wurde zu allen Zeiten gelehrt innerhalb der Mysterientempel. Und keine andere als diese okkulte theosophische Lehre hat der Christus seinen vertrauten Jüngern mitgeteilt. Sie so..."
+[RELEVANCE-DEBUG] GA052/4 Absatz 35: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Deshalb ist das letzte Opfer, das unblutige Opfer, zugleich auch der Beweis von der Unmöglichkeit de..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das zeigt uns, dass der Christus die Seinen hinaufhebt zu einem ganz neuen Begriff von Schuld und Sühne, zu einem Begriff, der nichts zu tun haben wollte mit dem, was in der physi- schen Welt vor sich..."
+[RELEVANCE-DEBUG] GA052/4 Absatz 36: Score=0.600, Vorkommen=3, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Aber nicht in Worten ausgesprochen liegt im christlichen Bekenntnis dieses, dass das Abendmahl das S..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Damit sollte auf dem Schauplatz der Geschichte vor aller Welt bezeugt werden, dass Schuld und Sühne nicht in der Tatsächlichkeit ihre Verkörperung hat, nicht in der physischen Tatsächlichkeit existier..."
+[RELEVANCE-DEBUG] GA054/18 Absatz 19: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das war das eine: Artus. Das andere ist: die Burg des Heiligen Gral. Nur andeutungsweise können wir ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nach einem natürlichen Gesetz finden wir zwölf verschiedene Kräfte des Geistes. Ich habe von Goethe gesagt, dass er selbst von solch einer geheimen Bruderschaft redet, die er als Rosenkreuzer ansprich..."
+[RELEVANCE-DEBUG] GA057/2 Absatz 27: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Um da einmal einen Blick in Goethes Seele zu tun, wollen wir uns an ein Buch anlehnen, an Bossis Buc..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das Bild lebt nicht nur bei dem, der es geschaffen hat, sondern auch in denen, die es genießen wollen; es lebt in ihnen die Sehnsucht, die Gestalt des Jesus in der unmittelbaren Gegenwart zu sehen, wi..."
+[RELEVANCE-DEBUG] GA057/2 Absatz 29: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="abendmahl"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Und um gar keinen Zweifel daran zu lassen, was er eigentlich meinte, sagte er noch: «Es muss zur Spe..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Um da einmal einen Blick in Goethes Seele zu tun, wollen wir uns an ein Buch anlehnen, an Bossis Buch über Leonardo da Vincis Abendmahl. Goethe schrieb eine Rezension über dieses Buch. Darin stehen be..."
+[RELEVANCE-SCORING] 163 Treffer: hoch=56, mittel=0, niedrig=107
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.466 (2+ Vorkommen), mittel≥0.311 (2+ Vorkommen)
+[BACKEND-FILTER] 163 -> 56 Ergebnisse nach Filter "hoch"
+  [Single] "abendmahl"
+
+Extrahierte 1 Suchbegriffe aus "Abendmahl":
+abendmahl
+GET /api/full-lecture/GA156/10
+GET /api/check-summary/GA156/10
+[CHECK-SUMMARY] Prüfe zentrale DB für GA156/10
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA156/10 (Version: v2-unified)
+GET /api/steiner-images/GA156%2F10
+GET /api/full-lecture/GA343/18
+GET /api/check-summary/GA343/18
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/18
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/18 (Version: v2-unified)
+GET /api/steiner-images/GA343%2F18
+[IMAGES-API] Keine Bilder für GA156/10 gefunden
+[IMAGES-API] Keine Bilder für GA343/18 gefunden
+GET /api/full-lecture/GA343/24
+GET /api/check-summary/GA343/24
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/24
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/24 (Version: v2-unified)
+GET /api/steiner-images/GA343%2F24
+[IMAGES-API] Keine Bilder für GA343/24 gefunden
+GET /api/full-lecture/GA343/14
+GET /api/check-summary/GA343/14
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/14
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/14 (Version: v2-unified)
+GET /api/steiner-images/GA343%2F14
+GET /api/full-lecture/GA204/15
+GET /api/check-summary/GA204/15
+[CHECK-SUMMARY] Prüfe zentrale DB für GA204/15
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA204/15 (Version: v2-unified)
+GET /api/steiner-images/GA204%2F15
+GET /api/full-lecture/GA343/12
+GET /api/check-summary/GA343/12
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/12
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/12 (Version: v2-unified)
+GET /api/steiner-images/GA343%2F12
+[IMAGES-API] Keine Bilder für GA343/14 gefunden
+GET /api/full-lecture/GA204/15
+GET /api/check-summary/GA204/15
+[CHECK-SUMMARY] Prüfe zentrale DB für GA204/15
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA204/15 (Version: v2-unified)
+[IMAGES-API] Keine Bilder für GA204/15 gefunden
+GET /api/steiner-images/GA204%2F15
+[IMAGES-API] Sende 0 Bilder für GA204/15 (aus Cache)
+[IMAGES-API] Keine Bilder für GA343/12 gefunden
+GET /api/steiner-images/GA343%2F12
+[IMAGES-API] Sende 0 Bilder für GA343/12 (aus Cache)
+GET /api/full-lecture/GA343/24
+GET /api/check-summary/GA343/24
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/24
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/24 (Version: v2-unified)
+GET /api/full-lecture/GA343/18
+GET /api/check-summary/GA343/18
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/18
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/18 (Version: v2-unified)
+GET /api/quotes
+GET /api/full-lecture/GA306/5
+GET /api/check-summary/GA306/5
+[CHECK-SUMMARY] Prüfe zentrale DB für GA306/5
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA306/5 (Version: v2-unified)
+GET /api/steiner-images/GA306%2F5
+[IMAGES-ASSETS] Anfrage für Bild: img-6.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/img-6.png
+[IMAGES-ASSETS] Decodierter Pfad: img-6.png
+[IMAGES-ASSETS] GA-Nummer nicht gefunden in: img-6.png
+[IMAGES-ASSETS] Anfrage für Bild: img-7.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/img-7.png
+[IMAGES-ASSETS] Decodierter Pfad: img-7.png
+[IMAGES-ASSETS] GA-Nummer nicht gefunden in: img-7.png
+[IMAGES-API] Sende 2 Bilder für GA306/5 (aus steiner-images-part43.json)
+GET /api/full-lecture/GA156/10
+GET /api/check-summary/GA156/10
+[CHECK-SUMMARY] Prüfe zentrale DB für GA156/10
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA156/10 (Version: v2-unified)
+GET /api/full-lecture/GA185/9
+GET /api/check-summary/GA185/9
+[CHECK-SUMMARY] Prüfe zentrale DB für GA185/9
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA185/9 (Version: v2-unified)
+GET /api/steiner-images/GA185%2F9
+GET /api/full-lecture/GA200/6
+GET /api/check-summary/GA200/6
+[CHECK-SUMMARY] Prüfe zentrale DB für GA200/6
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA200/6 (Version: v2-unified)
+GET /api/steiner-images/GA200%2F6
+[IMAGES-API] Keine Bilder für GA185/9 gefunden
+GET /api/full-lecture/GA200/6
+GET /api/check-summary/GA200/6
+[CHECK-SUMMARY] Prüfe zentrale DB für GA200/6
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA200/6 (Version: v2-unified)
+[IMAGES-API] Keine Bilder für GA200/6 gefunden
+GET /api/steiner-images/GA200%2F6
+[IMAGES-API] Sende 0 Bilder für GA200/6 (aus Cache)
+GET /api/steiner-images/GA200%2F6
+[IMAGES-API] Sende 0 Bilder für GA200/6 (aus Cache)
+GET /api/full-lecture/GA204/15
+GET /api/check-summary/GA204/15
+[CHECK-SUMMARY] Prüfe zentrale DB für GA204/15
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA204/15 (Version: v2-unified)
+GET /api/full-lecture/GA343/12
+GET /api/check-summary/GA343/12
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/12
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/12 (Version: v2-unified)
+GET /api/full-lecture/GA343/14
+GET /api/check-summary/GA343/14
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/14
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/14 (Version: v2-unified)
+GET /api/full-lecture/GA343/18
+GET /api/check-summary/GA343/18
+[CHECK-SUMMARY] Prüfe zentrale DB für GA343/18
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA343/18 (Version: v2-unified)
+GET /api/full-lecture/GA353/7
+GET /api/check-summary/GA353/7
+[CHECK-SUMMARY] Prüfe zentrale DB für GA353/7
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA353/7 (Version: v2-unified)
+GET /api/steiner-images/GA353%2F7
+[IMAGES-ASSETS] Anfrage für Bild: GA353-Die%20Geschichte%20der%20Menschheit%20und%20die%20Weltanschauungen%20der%20Kulturv%C3%B6lker_img-1.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/GA353-Die%20Geschichte%20der%20Menschheit%20und%20die%20Weltanschauungen%20der%20Kulturv%C3%B6lker_img-1.png
+[IMAGES-ASSETS] Decodierter Pfad: GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker_img-1.png
+[IMAGES-ASSETS] Gefundene GA-Nummer: GA353
+[IMAGES-ASSETS] Suche in: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA
+[IMAGES-ASSETS] Gefundener GA-Ordner: GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker
+[IMAGES-ASSETS] Vollständiger Pfad: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker\assets\GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker_img-1.png
+[IMAGES-ASSETS] ✓ Bild gefunden, serviere: C:\Users\chuec\OneDrive\GitHub\ga_suche\Steiner_GA\GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker\assets\GA353-Die Geschichte der Menschheit und die Weltanschauungen der Kulturvölker_img-1.png
+GET /api/full-lecture/GA238/7
+GET /api/check-summary/GA238/7
+[CHECK-SUMMARY] Prüfe zentrale DB für GA238/7
+[IMAGES-API] Sende 1 Bilder für GA353/7 (aus steiner-images-part57.json)
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA238/7 (Version: v2-unified)
+GET /api/steiner-images/GA238%2F7
+GET /api/full-lecture/GA318/8
+GET /api/check-summary/GA318/8
+[CHECK-SUMMARY] Prüfe zentrale DB für GA318/8
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA318/8 (Version: v2-unified)
+GET /api/steiner-images/GA318%2F8
+[IMAGES-API] Keine Bilder für GA238/7 gefunden
+GET /api/full-lecture/GA318/8
+GET /api/check-summary/GA318/8
+[CHECK-SUMMARY] Prüfe zentrale DB für GA318/8
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA318/8 (Version: v2-unified)
+[IMAGES-API] Keine Bilder für GA318/8 gefunden
+GET /api/steiner-images/GA318%2F8
+[IMAGES-API] Sende 0 Bilder für GA318/8 (aus Cache)
+GET /api/steiner-images/GA318%2F8
+[IMAGES-API] Sende 0 Bilder für GA318/8 (aus Cache)
+GET /api/full-lecture/GA318/8
+GET /api/check-summary/GA318/8
+[CHECK-SUMMARY] Prüfe zentrale DB für GA318/8
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA318/8 (Version: v2-unified)
+GET /api/full-lecture/GA318/8
+GET /api/check-summary/GA318/8
+[CHECK-SUMMARY] Prüfe zentrale DB für GA318/8
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA318/8 (Version: v2-unified)
+GET /api/full-lecture/GA318/8
+GET /api/check-summary/GA318/8
+[CHECK-SUMMARY] Prüfe zentrale DB für GA318/8
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA318/8 (Version: v2-unified)
