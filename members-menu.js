@@ -333,6 +333,14 @@ async function quickSaveQuote() {
     
     showNotification('✓ Zitat gespeichert!', 'success');
     highlightLastSelection('#ffffcc');
+    
+    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('quotes');
+    }
+    if (typeof updateMembersPanelIfOpen === 'function') {
+      await updateMembersPanelIfOpen('quotes');
+    }
   } catch (error) {
     console.error('Fehler:', error);
     showNotification('✗ Fehler beim Speichern', 'error');
@@ -370,6 +378,14 @@ async function quickSaveBookmark() {
     
     showNotification('✓ Bookmark gespeichert!', 'success');
     highlightLastSelection('#ccffcc');
+    
+    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('bookmarks');
+    }
+    if (typeof updateMembersPanelIfOpen === 'function') {
+      await updateMembersPanelIfOpen('bookmarks');
+    }
   } catch (error) {
     console.error('Fehler:', error);
     showNotification('✗ Fehler beim Speichern', 'error');
