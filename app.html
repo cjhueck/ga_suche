@@ -17035,8 +17035,8 @@ function showSummaryView() {
   const titleElement = document.getElementById('document-title');
   
   // Setze den Vortragstitel als klickbaren Link zum Texte-Tab
-  let displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
   const gaNumber = extractGANumber(lecture);
+  const lectureId = lecture.ID || lecture.id || null;
   
   // Setze data-Attribut für CSS-Styling
   if (gaNumber) {
@@ -17050,9 +17050,65 @@ function showSummaryView() {
     currentGANumber = gaNumber;
   }
   
-  if (gaNumber) {
-    titleElement.innerHTML = `<span onclick="navigateToGAInTexteTab('${gaNumber}')" style="cursor: pointer;">${displayTitle}</span>`;
+  // Setze Titel-Text und mache ihn klickbar (wie im Index-Tab)
+  if (lectureId && titleElement) {
+    // Baue den Titel-String zusammen (genau wie im Index-Tab)
+    let titleParts = [];
+    
+    // GA-Nummer
+    const gaNum = lectureId || lecture.ID || '';
+    if (gaNum) {
+      titleParts.push(gaNum);
+    }
+    
+    // Titel
+    const title = lecture.title || '';
+    if (title) {
+      titleParts.push(title);
+    }
+    
+    // Ort und Datum
+    let locationDateParts = [];
+    if (lecture.location) {
+      locationDateParts.push(lecture.location);
+    }
+    if (lecture.date) {
+      locationDateParts.push(formatDate(lecture.date));
+    }
+    
+    // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+    let fullTitle = '';
+    if (titleParts.length > 0) {
+      fullTitle = titleParts.join(' - ');
+    }
+    if (locationDateParts.length > 0) {
+      fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+    }
+    
+    // Fallback wenn nichts gefunden wurde
+    if (!fullTitle) {
+      fullTitle = lecture.fileName || lectureId;
+    }
+    
+    // Setze Titel-Text und mache ihn klickbar
+    titleElement.textContent = fullTitle;
+    titleElement.style.cursor = 'pointer';
+    titleElement.style.color = 'var(--link-color)';
+    titleElement.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+    
+    // Hover-Effekt
+    titleElement.onmouseenter = () => {
+      titleElement.style.opacity = '0.7';
+    };
+    titleElement.onmouseleave = () => {
+      titleElement.style.opacity = '1';
+    };
+    
+    // Füge onclick-Handler hinzu
+    titleElement.onclick = () => navigateToLectureInTexteTab(lectureId);
   } else {
+    // Fallback
+    const displayTitle = lecture.fileName || lecture.title || formatLectureId(lecture.ID);
     titleElement.textContent = displayTitle;
   }
   
@@ -24344,13 +24400,92 @@ async function showLectureInTimeline(lectureId, targetIndex = null, keyword = nu
   try {
     await showLecture(lectureId, targetIndex, keywords);
     
+    // Lade Lecture-Daten für Titel-Setzung (wie im Index-Tab)
+    let lecture = null;
+    if (currentLectureData) {
+      lecture = currentLectureData;
+    } else {
+      // Fallback: Lade Lecture-Daten direkt
+      try {
+        const parts = lectureId.split('/');
+        const url = parts.length === 2 
+                    ? `${API_BASE}/api/full-lecture/${encodeURIComponent(parts[0])}/${encodeURIComponent(parts[1])}`
+                    : `${API_BASE}/api/full-lecture/${encodeURIComponent(lectureId)}`;
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          lecture = data.lecture;
+        }
+      } catch (e) {
+        console.warn('[TIMELINE] Konnte Lecture-Daten nicht laden:', e);
+      }
+    }
+    
     // Kopiere den Inhalt vom Haupt-Viewer in den Timeline-Viewer
     const mainViewer = document.getElementById('viewer');
     const mainTitle = document.getElementById('document-title');
     
     if (mainViewer && mainTitle) {
-      // Kopiere Titel
-      documentTitle.innerHTML = mainTitle.innerHTML;
+      // Setze Titel genau wie im Index-Tab
+      if (lecture && documentTitle) {
+        // Baue den Titel-String zusammen
+        let titleParts = [];
+        
+        // GA-Nummer
+        const gaNumber = lectureId || lecture.ID || '';
+        if (gaNumber) {
+          titleParts.push(gaNumber);
+        }
+        
+        // Titel
+        const title = lecture.title || '';
+        if (title) {
+          titleParts.push(title);
+        }
+        
+        // Ort und Datum
+        let locationDateParts = [];
+        if (lecture.location) {
+          locationDateParts.push(lecture.location);
+        }
+        if (lecture.date) {
+          locationDateParts.push(formatDate(lecture.date));
+        }
+        
+        // Kombiniere alles: "GA100/8 - TITEL, Ort, Datum"
+        let fullTitle = '';
+        if (titleParts.length > 0) {
+          fullTitle = titleParts.join(' - ');
+        }
+        if (locationDateParts.length > 0) {
+          fullTitle += (fullTitle ? ', ' : '') + locationDateParts.join(', ');
+        }
+        
+        // Fallback wenn nichts gefunden wurde
+        if (!fullTitle) {
+          fullTitle = lecture.fileName || lectureId;
+        }
+        
+        // Setze Titel-Text und mache ihn klickbar (wie im Index-Tab)
+        documentTitle.textContent = fullTitle;
+        documentTitle.style.cursor = 'pointer';
+        documentTitle.style.color = 'var(--link-color)';
+        documentTitle.title = 'Klicken um zum Vortrag im Texte-Tab zu navigieren';
+        
+        // Hover-Effekt
+        documentTitle.onmouseenter = () => {
+          documentTitle.style.opacity = '0.7';
+        };
+        documentTitle.onmouseleave = () => {
+          documentTitle.style.opacity = '1';
+        };
+        
+        // Füge onclick-Handler hinzu
+        documentTitle.onclick = () => navigateToLectureInTexteTab(lectureId);
+      } else {
+        // Fallback: Kopiere Titel vom Haupt-Viewer
+        documentTitle.innerHTML = mainTitle.innerHTML;
+      }
       
       // Kopiere Inhalt
       viewerContent.innerHTML = mainViewer.innerHTML;
