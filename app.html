@@ -5142,7 +5142,7 @@ Chronologisch
 <!-- Statistik-Anzeige -->
 <div style="display: flex; justify-content: space-between; align-items: center;">
 <div id="timelineStatsDisplay" style="font-size: 0.85em; color: var(--secondary-text);">
-Lade Statistiken...
+<em>Lade Statistiken...</em>
 </div>
 <button id="timelineBackButton" class="depth-btn" onclick="navigateBackToTexteGA()" style="display: none; font-size: 0.85em; padding: 6px 12px;">
 ← Zurück zum Text
@@ -26007,7 +26007,7 @@ async function renderTimeline() {
     const container = document.getElementById('timelineContainer');
     if (container && !showingSearchResultsTimeline) {
       // Nur Platzhalter anzeigen, wenn NICHT Suchergebnisse angezeigt werden
-      container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+      container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);"><em>Bitte Thema oder Schlagwort wählen oder Suchwort eingeben</em></div>';
     }
     return;
   }
@@ -26030,7 +26030,7 @@ async function renderTimelineContent() {
   const keyword = document.getElementById('timelineKeywordFilterAdmin')?.value || '';
   
   if (!theme && !keyword) {
-    timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);">Bitte wählen Sie ein Thema oder Schlagwort aus.</div>';
+    timelineContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--secondary-text);"><em>Bitte Thema oder Schlagwort wählen oder Suchwort eingeben</em></div>';
     return;
   }
   
