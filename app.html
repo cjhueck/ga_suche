@@ -10486,20 +10486,44 @@ async function showKeywordSearchInTimeline(keyword) {
     console.log(`[KEYWORD-SEARCH-TIMELINE] ${keywordResults.length} Einträge aus Keyword-Datenbank gefunden`);
     
     // SCHRITT 2: Führe GA-Suche mit Relevanz-Filter "hoch" durch
+    // Verwende die gleiche Logik wie die normale Suche (performKeywordSearch)
     console.log('[KEYWORD-SEARCH-TIMELINE] Führe GA-Suche durch (Relevanz: hoch)...');
+    
+    // Parse Suchbegriff auf Phrasen (wie in performKeywordSearch)
+    const keywordParsed = parseSearchTerm(keyword);
+    const word1 = keywordParsed.term || keyword;
+    const word2 = null; // Timeline-Suche verwendet nur ein Wort
+    const word1IsPhrase = keywordParsed.isPhrase;
+    const word2IsPhrase = false;
+    
+    // Hole Filter-Werte (wie in performKeywordSearch)
+    const gaFilterValues = getGAFilterValue();
+    const yearFilterValues = getYearFilterValue();
+    const gaFilter = gaFilterValues.length > 0 ? gaFilterValues.join(',') : '';
+    const yearFilter = yearFilterValues.length > 0 ? yearFilterValues.join(',') : '';
+    
+    // Hole UND/ODER Operator (wie in performKeywordSearch)
+    const wordOperatorElement = document.querySelector('input[name="wordOperator"]:checked');
+    const wordOperator = wordOperatorElement ? wordOperatorElement.value : 'and';
+    
+    // Proximity: Leer = kein Limit (wie in performKeywordSearch)
+    const proximityFilterElement = document.getElementById('proximityFilter');
+    const proximityFilter = proximityFilterElement ? proximityFilterElement.value : '';
+    const proximity = proximityFilter || null;
+    
     const searchResponse = await fetch(`${API_BASE}/api/fulltext-search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        word1: keyword,
-        word2: '',
-        word1IsPhrase: true,  // Exakte Suche: nur vollständige Wörter (z.B. "Materie" nicht "materielle")
-        word2IsPhrase: false,
-        wordOperator: 'and',
-        proximity: null,
-        relevanceFilter: 'hoch',  // NUR Relevanz: hoch
-        yearFilter: '',
-        gaFilter: ''
+        word1: word1,
+        word2: word2 || '',
+        word1IsPhrase: word1IsPhrase,
+        word2IsPhrase: word2IsPhrase,
+        wordOperator: wordOperator,
+        proximity: proximity,
+        relevanceFilter: 'hoch',  // IMMER Relevanz: hoch (wie gewünscht)
+        yearFilter: yearFilter,
+        gaFilter: gaFilter
       })
     });
     
@@ -11096,13 +11120,13 @@ function displayGAChronological(lectures) {
   // Erstelle Grid HTML (sticky Header wird separat eingefügt)
   let html = `
     <div>
-      <table style="width: 100%; border-collapse: collapse; margin-top: 0;">
+      <table style="width: 100%; border-collapse: collapse; margin-top: 0; table-layout: fixed;">
         <thead>
           <tr style="background: var(--sidebar-bg); border-bottom: 2px solid var(--border-color);">
-            <th style="padding: 0.4rem; text-align: left; width: 3%; font-size: 0.9em;">Jahr</th>
+            <th style="padding: 0.4rem; text-align: left; width: 3%; font-size: 0.9em; white-space: nowrap;">Jahr</th>
             <th style="padding: 0.4rem; padding-right: 1rem; text-align: right; width: 17%; font-size: 0.9em;">Datum</th>
-            <th style="padding: 0.4rem; text-align: left; width: 10%; font-size: 0.9em;">Ort</th>
-            <th style="padding: 0.4rem; text-align: left; width: 70%; font-size: 0.9em;">Vortrag</th>
+            <th style="padding: 0.4rem; padding-right: 0.5rem; text-align: left; width: 8%; font-size: 0.9em;">Ort</th>
+            <th style="padding: 0.4rem; padding-left: 0.5rem; text-align: left; width: 72%; font-size: 0.9em;">Vortrag</th>
           </tr>
         </thead>
         <tbody>
@@ -11256,13 +11280,24 @@ function displayGAChronological(lectures) {
     return normalizeCity(cleaned);
   };
   
+  // Funktion: Füge Bindestriche für Zeilenumbruch bei bestimmten Ortsnamen hinzu
+  const addHyphenation = (city) => {
+    if (!city) return city;
+    // Spezielle Ortsnamen mit Bindestrichen für Zeilenumbruch
+    const hyphenationMap = {
+      'Hermannstadt': 'Hermann-stadt',
+      'Schlachtensee': 'Schlachten-see'
+    };
+    return hyphenationMap[city] || city;
+  };
+  
   years.forEach((year, yearIndex) => {
     const yearLectures = lecturesByYear[year];
     
     yearLectures.forEach((lecture, idx) => {
       const date = lecture.date ? formatDate(lecture.date) : '-';
       const title = lecture.fileName || `${formatLectureId(lecture.ID)} - ${lecture.title}`;
-      const location = cleanLocation(lecture.location, title);
+      const location = addHyphenation(cleanLocation(lecture.location, title));
       
       // Erste Zeile eines Jahres zeigt das Jahr, danach leer
       const yearCell = idx === 0 ? year : '';
@@ -11274,10 +11309,10 @@ function displayGAChronological(lectures) {
       
       html += `
         <tr id="year-${year}" style="border-bottom: ${borderStyle}; scroll-margin-top: 80px;" ${idx === 0 ? `data-year-start="${year}"` : ''}>
-          <td style="padding: 0.3rem; vertical-align: top; font-weight: ${idx === 0 ? 'bold' : 'normal'}; font-size: 0.85em;">${yearCell}</td>
+          <td style="padding: 0.3rem; vertical-align: top; font-weight: ${idx === 0 ? 'bold' : 'normal'}; font-size: 0.85em; white-space: nowrap;">${yearCell}</td>
           <td style="padding: 0.3rem; padding-right: 0.9rem; vertical-align: top; text-align: right; font-size: 0.85em;">${date}</td>
-          <td style="padding: 0.3rem; vertical-align: top; font-size: 0.85em;">${location}</td>
-          <td style="padding: 0.3rem; font-size: 0.85em;">
+          <td style="padding: 0.3rem; padding-right: 0.1rem; vertical-align: top; font-size: 0.85em; overflow-wrap: break-word; word-break: break-word;">${location}</td>
+          <td style="padding: 0.3rem; padding-left: 0.1rem; font-size: 0.85em;">
             <a href="#" onclick="navigateToLectureInTexteTab('${lecture.ID}'); return false;" 
                class="chronological-lecture-link"
                style="text-decoration: none;">
