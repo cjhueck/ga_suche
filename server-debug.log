@@ -6910,3 +6910,122 @@ POST /api/backups/create
 [BACKUP] 1 alte summary-database-Backups gelöscht
 [BACKUP] ✓ 7 von 9 Backups erstellt
 GET /api/backups/list/full
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+POST /api/fulltext-search
+Volltext-Suche: Ätherleib [Relevanz-Filter: hoch]
+Volltext-Suche: 6451 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA053/2 Absatz 34: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Und dasjenige, was im Tierkörper ebenso hinausragt über das bloße Wachsen und Fortpflanzen, dasjenig..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die Ausführung dieser Anleitung muss natürlich mit der allergrößten Vorsicht geschehen, denn es sind allerlei Illusionen auf diesem Gebiete möglich. Allein, wer wirklich weiß, mit welcher Vorsicht, mi..."
+[RELEVANCE-DEBUG] GA053/2 Absatz 44: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Damit haben wir die drei Glieder des menschlichen physischen Körpers und die drei Glieder der mensch..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wer durch die Anschauung Kenntnis davon haben will, muss lernen, sie zu sehen. Die Aura ist dreigliedrig. Die drei Glieder stecken ineinander wie drei ovale Nebelgebilde, die die menschliche Gestalt u..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 51: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Im Sinne dieser Geisteswissenschaft sprechen wir deshalb von einem zweiten Glied der menschlichen We..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Alle Rederei von der Grenze der menschlichen Erkenntnis ist Unsinn. Man sollte reden und fragen: Kann sich der Mensch nicht zu einer höheren Erkenntnisstufe erheben? Ist das nicht vielleicht wirklich,..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 61: Score=0.680, Vorkommen=4, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun gibt es Dinge, die tiefer in die menschliche Natur hineingehen, wo das Ich weiter hineinarbeitet..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Machen Sie sich den Unterschied zwischen den Menschen von diesem Standpunkte aus klar. Vergleichen Sie einen Wilden mit einem europäischen Durchschnittsmenschen, mit einem edlen Idealisten, etwa Schil..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 62: Score=0.720, Vorkommen=6, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Ebenso wenn das Ich aufgeht in Betrachtung eines Kunstwerkes und eine Ahnung erhält, dass hinter dem..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Noch mehr hat ihn umgestaltet eine solche Persönlichkeit wie Schiller, noch mehr eine solche Persönlichkeit, die in gar keiner Beziehung zu den Leidenschaften steht wie Franz von Assisi, die ganz und ..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 63: Score=0.760, Vorkommen=8, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun ist auch der Ätherleib der Träger von alledem, was mehr oder weniger bleibend ist in der menschl..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nun gibt es Dinge, die tiefer in die menschliche Natur hineingehen, wo das Ich weiter hineinarbeitet als bloß in den Astralleib. Solange Sie mit bloßen moralischen oder Rechtsgrundsätzen, mit logische..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 64: Score=0.740, Vorkommen=7, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Aber nun denken Sie nach, wie wenig sich bei den meisten Menschen das ändert, was man Gewohnheiten, ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Ebenso wenn das Ich aufgeht in Betrachtung eines Kunstwerkes und eine Ahnung erhält, dass hinter dem sinnlichen Dasein ein Ewiges, Verborgenes verkörpert sein kann, dann wirkt die künstlerische Vorste..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 65: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun gibt es eine noch höhere Entwickelung, die der Chela durchmacht. Die beruht darauf, dass man ein..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nun ist auch der Ätherleib der Träger von alledem, was mehr oder weniger bleibend ist in der menschlichen Natur. Man hat sich klarzumachen, was für ein Unterschied ist zwischen Entwickelung des Ätherl..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 68: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "So haben wir sieben Glieder der menschlichen Wesenheit, ebenso wie der Regenbogen sieben Farben und ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das Schwierigste für den Menschen ist, dass er bis in seinen physischen Leib hineinarbeiten lernt. Auch darüber, wie das Blut sich bewegt, kann man Herr werden; man kann Einfluss bekommen auf die Nerv..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 69: Score=0.740, Vorkommen=7, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun müssen wir in bezug auf unsere heutige Frage dieses Wesen, diese Natur des Menschen näher anscha..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wenn der Mensch in seinen physischen Leib hineinarbeiten kann und damit in Verbindung mit dem Kosmos treten lernt, dann entwickelt er sein Atman. Dies ist das höchste Glied der menschlichen Wesenheit,..."
+[RELEVANCE-SCORING] 6451 Treffer: hoch=3497, mittel=1079, niedrig=1875
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.586 (3+ Vorkommen), mittel≥0.390 (2+ Vorkommen)
+[BACKEND-FILTER] 6451 -> 3497 Ergebnisse nach Filter "hoch"
+  [Single] "ätherleib"
+
+Extrahierte 1 Suchbegriffe aus "Ätherleib":
+ätherleib
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/quotes
+GET /api/book/GA009
+[BOOK] Anfrage für GA009
+[BOOK] Schrift gefunden: Theosophie (1904)
+[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt
+[BOOK] ✓ Überschriften für GA009 gespeichert (4490 Einträge total, 4457 Vorträge geschützt)
+GET /api/full-lecture/GA090a/26
+GET /api/check-summary/GA090a/26
+[CHECK-SUMMARY] Prüfe zentrale DB für GA090a/26
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA090a/26 (Version: v2-unified)
+GET /api/steiner-images/GA090a%2F26
+[IMAGES-API] Sende 1 Bilder für GA090a/26 (aus steiner-images-part02.json)
+[IMAGES-ASSETS] Anfrage für Bild: img-16.png
+[IMAGES-ASSETS] Vollständiger Request-Pfad: /assets/img-16.png
+[IMAGES-ASSETS] Decodierter Pfad: img-16.png
+[IMAGES-ASSETS] GA-Nummer nicht gefunden in: img-16.png
+GET /api/full-lecture/GA090b/10
+GET /api/check-summary/GA090b/10
+[CHECK-SUMMARY] Prüfe zentrale DB für GA090b/10
+[SUMMARY-DB] Geladen: 4490 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA090b/10 (Version: v2-unified)
+GET /api/steiner-images/GA090b%2F10
+[IMAGES-API] Keine Bilder für GA090b/10 gefunden
+POST /api/fulltext-search
+Volltext-Suche: Ätherleib [Relevanz-Filter: niedrig]
+Volltext-Suche: 6451 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA053/2 Absatz 34: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Und dasjenige, was im Tierkörper ebenso hinausragt über das bloße Wachsen und Fortpflanzen, dasjenig..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Die Ausführung dieser Anleitung muss natürlich mit der allergrößten Vorsicht geschehen, denn es sind allerlei Illusionen auf diesem Gebiete möglich. Allein, wer wirklich weiß, mit welcher Vorsicht, mi..."
+[RELEVANCE-DEBUG] GA053/2 Absatz 44: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Damit haben wir die drei Glieder des menschlichen physischen Körpers und die drei Glieder der mensch..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wer durch die Anschauung Kenntnis davon haben will, muss lernen, sie zu sehen. Die Aura ist dreigliedrig. Die drei Glieder stecken ineinander wie drei ovale Nebelgebilde, die die menschliche Gestalt u..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 51: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Im Sinne dieser Geisteswissenschaft sprechen wir deshalb von einem zweiten Glied der menschlichen We..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Alle Rederei von der Grenze der menschlichen Erkenntnis ist Unsinn. Man sollte reden und fragen: Kann sich der Mensch nicht zu einer höheren Erkenntnisstufe erheben? Ist das nicht vielleicht wirklich,..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 61: Score=0.680, Vorkommen=4, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun gibt es Dinge, die tiefer in die menschliche Natur hineingehen, wo das Ich weiter hineinarbeitet..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Machen Sie sich den Unterschied zwischen den Menschen von diesem Standpunkte aus klar. Vergleichen Sie einen Wilden mit einem europäischen Durchschnittsmenschen, mit einem edlen Idealisten, etwa Schil..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 62: Score=0.720, Vorkommen=6, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Ebenso wenn das Ich aufgeht in Betrachtung eines Kunstwerkes und eine Ahnung erhält, dass hinter dem..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Noch mehr hat ihn umgestaltet eine solche Persönlichkeit wie Schiller, noch mehr eine solche Persönlichkeit, die in gar keiner Beziehung zu den Leidenschaften steht wie Franz von Assisi, die ganz und ..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 63: Score=0.760, Vorkommen=8, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun ist auch der Ätherleib der Träger von alledem, was mehr oder weniger bleibend ist in der menschl..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nun gibt es Dinge, die tiefer in die menschliche Natur hineingehen, wo das Ich weiter hineinarbeitet als bloß in den Astralleib. Solange Sie mit bloßen moralischen oder Rechtsgrundsätzen, mit logische..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 64: Score=0.740, Vorkommen=7, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Aber nun denken Sie nach, wie wenig sich bei den meisten Menschen das ändert, was man Gewohnheiten, ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Ebenso wenn das Ich aufgeht in Betrachtung eines Kunstwerkes und eine Ahnung erhält, dass hinter dem sinnlichen Dasein ein Ewiges, Verborgenes verkörpert sein kann, dann wirkt die künstlerische Vorste..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 65: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun gibt es eine noch höhere Entwickelung, die der Chela durchmacht. Die beruht darauf, dass man ein..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nun ist auch der Ätherleib der Träger von alledem, was mehr oder weniger bleibend ist in der menschlichen Natur. Man hat sich klarzumachen, was für ein Unterschied ist zwischen Entwickelung des Ätherl..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 68: Score=0.700, Vorkommen=5, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "So haben wir sieben Glieder der menschlichen Wesenheit, ebenso wie der Regenbogen sieben Farben und ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das Schwierigste für den Menschen ist, dass er bis in seinen physischen Leib hineinarbeiten lernt. Auch darüber, wie das Blut sich bewegt, kann man Herr werden; man kann Einfluss bekommen auf die Nerv..."
+[RELEVANCE-DEBUG] GA054/5 Absatz 69: Score=0.740, Vorkommen=7, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="ätherleib"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Nun müssen wir in bezug auf unsere heutige Frage dieses Wesen, diese Natur des Menschen näher anscha..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wenn der Mensch in seinen physischen Leib hineinarbeiten kann und damit in Verbindung mit dem Kosmos treten lernt, dann entwickelt er sein Atman. Dies ist das höchste Glied der menschlichen Wesenheit,..."
+[RELEVANCE-SCORING] 6451 Treffer: hoch=3497, mittel=1079, niedrig=1875
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.586 (3+ Vorkommen), mittel≥0.390 (2+ Vorkommen)
+[BACKEND-FILTER] 6451 -> 1875 Ergebnisse nach Filter "niedrig"
+  [Single] "ätherleib"
+
+Extrahierte 1 Suchbegriffe aus "Ätherleib":
+ätherleib
