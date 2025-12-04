@@ -13,6 +13,3 @@ DIese Änderung (neuer Header im Side Panel) soll NUR im Tab Index und in demjen
 Ist das verständlich?
 
 
-
-
-Er unterscheidet, '/br'Wählet und richtet;'/br'Er kann dem Augenblick '/br'Dauer verleihen.53
