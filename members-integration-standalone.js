@@ -3,9 +3,13 @@
 // Funktioniert OHNE ES6 Modules - für file:// URLs
 // ============================================
 
-// Globale Variable für Supabase Client
-let supabaseClient = null;
-let currentUser = null;
+// Globale Variable für Supabase Client (nur deklarieren wenn noch nicht vorhanden)
+if (typeof supabaseClient === 'undefined') {
+  var supabaseClient = null;
+}
+if (typeof currentUser === 'undefined') {
+  var currentUser = null;
+}
 
 // Supabase initialisieren
 async function initSupabase() {

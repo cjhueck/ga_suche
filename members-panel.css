@@ -164,6 +164,21 @@
   background-size: 0.8em;
 }
 
+/* GA-Filter-Dropdown schmaler machen und ohne Dropdown-Pfeil */
+#ga-filter-select {
+  min-width: 40px !important;
+  padding: 0.4rem 0.3rem 0.4rem 0.3rem !important;
+  width: auto !important;
+  background-image: none !important;
+}
+
+/* Zitate-Button schmaler machen */
+.members-tab-quotes {
+  flex: 0 0 auto !important;
+  min-width: 50px !important;
+  padding: 0.4rem 0.2rem !important;
+}
+
 .keyword-select-btn:hover:not(:disabled) {
   background-color: var(--accent-color);
   color: white;
@@ -733,5 +748,14 @@ body.dark-mode .chat-input button:hover {
 
 body.dark-mode .member-item-highlighted::before {
   background-color: rgba(107, 179, 237, 0.2);
+}
+
+/* Unterstrichener Text zeigt Klick-Hand beim Hover */
+[style*="text-decoration: underline"],
+[style*="text-decoration:underline"],
+.member-highlight,
+span[data-highlight="true"],
+.member-item-text[style*="text-decoration"] {
+  cursor: pointer !important;
 }
 
