@@ -14141,7 +14141,31 @@ app.get('/api/backups/list/:type', async (req, res) => {
 
 async function startServer() {
   try {
+    console.log('\n' + '='.repeat(70));
+    console.log('  STEINER GA-SUCHE SERVER - START');
+    console.log('='.repeat(70));
     
+    // Umleite Konsolenausgabe auch in Datei für Debugging (VOR dem Laden)
+    const fs = require('fs');
+    const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
+    const originalLog = console.log;
+    const originalWarn = console.warn;
+    const originalError = console.error;
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      logStream.write(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
+    };
+    console.warn = function(...args) {
+      originalWarn.apply(console, args);
+      logStream.write('WARN: ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
+    };
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      logStream.write('ERROR: ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
+    };
+    
+    console.log('\n[1/8] Erstelle Backups...');
 // Erstelle automatisches Backup beim Start
 await createCodeBackup();
 await createHtmlBackup('index.html');
@@ -14150,18 +14174,31 @@ await createHtmlBackup('keyword-manager.html');
 await createKeywordsBackup();
 await createSummaryBackup();
 await createImagesBackup();
+    console.log('  ✓ Backups erstellt');
 
+    console.log('\n[2/8] Lade Synonyme...');
 await loadSynonyms();
+    console.log(`  ✓ Synonyme geladen: ${Object.keys(synonyms).length} Gruppen`);
+
+    console.log('\n[3/8] Lade Vorträge...');
 await loadFullLectures();
+    console.log(`  ✓ Vorträge geladen: ${Object.keys(fullLectures).length} Vorträge`);
+
+    console.log('\n[4/8] Lade Bücher...');
 const loadedBooks = await loadBooks();
+    console.log(`  ✓ Bücher geladen: ${Object.keys(fullBooks).length} Bücher`);
 // Lade Bilder-Datenbank NICHT beim Start (zu groß)
 // Bilder werden bei Bedarf aus Part-Dateien geladen
 // await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
 
+    console.log('\n[5/8] Synchronisiere Keyword-Systeme...');
 // Synchronisiere Keyword-Systeme beim Start
 await synchronizeKeywordSystems();
+    console.log('  ✓ Keyword-Systeme synchronisiert');
 
+    console.log('\n[6/8] Konvertiere zu Absatz-Format...');
 // Konvertiere Lectures zu Absatz-Format
+let lectureParagraphsCount = 0;
 Object.values(fullLectures).forEach(lecture => {
   lecture.paragraphs?.forEach((para, idx) => {
     paragraphsFromLectures.push({
@@ -14174,6 +14211,7 @@ Object.values(fullLectures).forEach(lecture => {
       date: lecture.date,
       isBook: false
     });
+    lectureParagraphsCount++;
   });
 });
 
@@ -14195,24 +14233,30 @@ Object.values(fullBooks).forEach(book => {
     bookParagraphsCount++;
   });
 });
+    console.log(`  ✓ Absätze erstellt: ${lectureParagraphsCount} Vortrags-Absätze, ${bookParagraphsCount} Buch-Absätze`);
+
+    console.log('\n[7/8] Lade Query-Log und Cache...');
     await loadQueryLog();
     
     // Lade Themensuchen-Cache-DB
     const thematicDB = await loadThematicSearchDatabase();
+    console.log(`  ✓ Query-Log geladen, Themensuchen-Cache: ${Object.keys(thematicDB || {}).length} Einträge`);
     
     
     // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
     
-    // Umleite Konsolenausgabe auch in Datei für Debugging
-    const fs = require('fs');
-    const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
-    const originalLog = console.log;
-    console.log = function(...args) {
-      originalLog.apply(console, args);
-      logStream.write(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
-    };
-    
+    console.log('\n[8/8] Starte Server...');
     app.listen(PORT, () => {
+      console.log('\n' + '='.repeat(70));
+      console.log(`  ✓ SERVER GESTARTET`);
+      console.log(`  URL: http://localhost:${PORT}`);
+      console.log('='.repeat(70));
+      console.log(`\n  DATEN GELADEN:`);
+      console.log(`    • ${Object.keys(fullLectures).length} Vorträge`);
+      console.log(`    • ${Object.keys(fullBooks).length} Bücher`);
+      console.log(`    • ${paragraphsFromLectures.length} Absätze (für Suche)`);
+      console.log(`    • ${Object.keys(synonyms).length} Synonym-Gruppen`);
+      console.log(`\n  Server bereit für Anfragen!\n`);
     });
     
   } catch (error) {
