@@ -6355,6 +6355,11 @@ function normalizeGANumber(gaNumber) {
       const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
       const isMembersNavigating = window.membersNavigating === true;
       
+      // Schließe Mitglieder-Panel beim Wechsel zu einem anderen Tab (Suche, GA, Themen, Timeline, Index)
+      if (isMembersPanelOpen && typeof closeMembersPanel === 'function') {
+        closeMembersPanel();
+      }
+      
       if (!isMembersPanelOpen && !isMembersNavigating) {
         const summaryPanel = document.getElementById('summary-panel');
         const resizeHandle = document.querySelector('.resize-handle');
@@ -26027,6 +26032,12 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
 // Update switchTab function to load stats when timeline tab is opened
 const originalSwitchTab = window.switchTab;
 window.switchTab = function(tabName) {
+  // Schließe Mitglieder-Panel beim Wechsel zu einem anderen Tab (Suche, GA, Themen, Timeline, Index)
+  const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+  if (isMembersPanelOpen && typeof closeMembersPanel === 'function') {
+    closeMembersPanel();
+  }
+  
   // Call original function
   if (originalSwitchTab) {
     originalSwitchTab(tabName);
