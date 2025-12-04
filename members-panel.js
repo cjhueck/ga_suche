@@ -374,6 +374,7 @@ function showMembersLoginPanel() {
 
 /**
  * Mitglieder-Content im Summary Panel anzeigen
+ * Öffnet das Member Panel unabhängig vom vorherigen Zustand
  */
 async function showMembersContent() {
   const summaryPanel = document.getElementById('summary-panel');
@@ -383,6 +384,30 @@ async function showMembersContent() {
   
   if (!summaryPanel || !summaryContent) return;
   
+  // WICHTIG: Setze Flags ZUERST zurück, damit alles sauber ist
+  membersPanelActive = false; // Zuerst zurücksetzen
+  window.membersNavigating = false;
+  stopScrollPositionProtection();
+  
+  // Stelle innerHTML Setter wieder her, falls überschrieben
+  if (summaryContent) {
+    try {
+      const currentDescriptor = Object.getOwnPropertyDescriptor(summaryContent, 'innerHTML');
+      if (currentDescriptor && currentDescriptor.configurable) {
+        delete summaryContent.innerHTML;
+      }
+    } catch (e) {
+      // Ignoriere Fehler
+    }
+  }
+  
+  // Stoppe Panel-Visibility Observer falls aktiv
+  if (window.panelVisibilityObserver) {
+    window.panelVisibilityObserver.disconnect();
+    window.panelVisibilityObserver = null;
+  }
+  
+  // JETZT: Setze Member Panel aktiv
   membersPanelActive = true;
   
   // Panel öffnen
@@ -406,6 +431,11 @@ async function showMembersContent() {
     resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
   }
   
+  // Main-Container SOFORT anpassen (auch wenn Panel bereits geöffnet war)
+  if (mainContainer) {
+    mainContainer.style.marginRight = mbWidth + 'px';
+  }
+  
   // Warte kurz, damit die Panel-Breite korrekt gesetzt ist, bevor zentrale Funktionen aufgerufen werden
   setTimeout(() => {
     // Main-Container wird automatisch von syncMainContainerWithPanel() angepasst (läuft alle 100ms)
@@ -423,8 +453,27 @@ async function showMembersContent() {
   summaryPanel.classList.add('has-members-panel');
   summaryContent.classList.add('has-members-panel');
   
-  // Content HTML
-  summaryContent.innerHTML = `
+  // WICHTIG: Stelle innerHTML Setter wieder her, falls er überschrieben wurde
+  // (damit innerHTML wieder normal funktioniert)
+  if (summaryContent) {
+    try {
+      const proto = Object.getPrototypeOf(summaryContent);
+      const currentDescriptor = Object.getOwnPropertyDescriptor(summaryContent, 'innerHTML');
+      
+      // Wenn innerHTML direkt auf summaryContent definiert ist (überschrieben), entferne es
+      if (currentDescriptor && currentDescriptor.configurable) {
+        delete summaryContent.innerHTML;
+      }
+    } catch (e) {
+      // Ignoriere Fehler beim Zurücksetzen
+      console.warn('[MB-CONTENT] Fehler beim Zurücksetzen des innerHTML Setters:', e);
+    }
+  }
+  
+  // Content HTML - verwende innerHTML (sollte jetzt funktionieren, da Setter zurückgesetzt wurde)
+  // Fallback: Falls innerHTML blockiert wird, verwende direkte DOM-Manipulation
+  try {
+    summaryContent.innerHTML = `
     <div class="members-panel">
       <div class="members-header-container">
         <div class="members-header">
@@ -474,6 +523,66 @@ async function showMembersContent() {
       </div>
     </div>
   `;
+  } catch (e) {
+    // Fallback: Falls innerHTML blockiert wird, verwende direkte DOM-Manipulation
+    console.warn('[MB-CONTENT] innerHTML blockiert, verwende direkte DOM-Manipulation:', e);
+    summaryContent.textContent = ''; // Leere zuerst
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = `
+      <div class="members-panel">
+        <div class="members-header-container">
+          <div class="members-header">
+            <div style="flex: 1;">
+              <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+              <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Unterstreichungen und Zitate per Rechtsklick speichern</div>
+            </div>
+            <button class="close-btn" onclick="closeMembersPanel()">×</button>
+          </div>
+          
+          <div class="members-tabs">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
+            <div style="display: flex; gap: 0.25rem; flex: 1;">
+              <button class="members-tab ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
+              <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
+              <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
+                <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
+                  <option value="">GA</option>
+                </select>
+              </div>
+              <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
+            </div>
+            <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
+              <div class="keyword-filter-tab" style="flex: 1;">
+                <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
+                  <option value="">Schlagwörter</option>
+                </select>
+              </div>
+              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+              <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18M7 12h10M11 18h6"></path>
+                </svg>
+              </button>
+              <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+        
+        <div class="members-content" id="members-tab-content">
+          <!-- Content wird dynamisch geladen -->
+        </div>
+      </div>
+    `;
+    // Verschiebe alle Kinder von tempDiv zu summaryContent
+    while (tempDiv.firstChild) {
+      summaryContent.appendChild(tempDiv.firstChild);
+    }
+  }
   
   // OPTIMIERUNG: Lade window.fullLecturesData sofort, wenn es noch nicht existiert
   // Dies beschleunigt das spätere Laden der Vortragsdaten erheblich
@@ -933,16 +1042,6 @@ async function loadHighlightsTab(container) {
   // Sammle alle eindeutigen GA-Nummern für lazy loading
   const uniqueGANumbers = [...new Set(result.data.map(h => h.ga_number).filter(Boolean))];
   
-  // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
-  // Dies macht die Datumsanzeige sofort verfügbar
-  // OPTIMIERUNG: Rendere SOFORT ohne auf Vortragsdaten zu warten
-  // Sortiere zunächst nach Erstellungsdatum (schneller, blockiert nicht)
-  const sortedData = [...result.data].sort((a, b) => {
-    const createdA = new Date(a.created_at);
-    const createdB = new Date(b.created_at);
-    return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
-  });
-  
   // OPTIMIERUNG: Lade Vortragsdaten SOFORT wenn window.fullLecturesData bereits existiert
   // (dann sind sie sofort verfügbar, kein Warten nötig)
   if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
@@ -964,46 +1063,39 @@ async function loadHighlightsTab(container) {
     });
   }
   
-  // Rendere sofort mit verfügbaren Daten
+  // Lade Vortragsdaten VOR dem Rendering - damit sie sofort verfügbar sind
+  // Dies macht die Datumsanzeige sofort verfügbar
+  await loadLectureDatesForGANumbers(uniqueGANumbers);
+  
+  // Sortiere nach Vortragsdatum (jetzt verfügbar) oder Erstellungsdatum als Fallback
+  const sortedData = [...result.data].sort((a, b) => {
+    const dateA = getLectureDateForSorting(a.ga_number);
+    const dateB = getLectureDateForSorting(b.ga_number);
+    
+    if (dateA && dateB) {
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    }
+    
+    if (dateA && !dateB) {
+      return sortOrder === 'asc' ? -1 : 1;
+    }
+    if (!dateA && dateB) {
+      return sortOrder === 'asc' ? 1 : -1;
+    }
+    
+    const createdA = new Date(a.created_at);
+    const createdB = new Date(b.created_at);
+    return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
+  });
+  
+  // Rendere mit vollständig geladenen Daten (inkl. Vortragsdaten)
   renderHighlightsList(container, sortedData);
   
   // Aktualisiere GA-Filter-Dropdown
   updateGAFilterDropdown(uniqueGANumbers);
   
-  // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
+  // Aktualisiere Datumsanzeigen (sollten jetzt alle verfügbar sein)
   updateHighlightDates(container, sortedData);
-  
-  // Lade fehlende Vortragsdaten im HINTERGRUND (nicht-blockierend)
-  loadLectureDatesForGANumbers(uniqueGANumbers).then(() => {
-    // Nach dem Laden: Sortiere nach Vortragsdatum und aktualisiere Anzeige
-    const sortedByDate = [...result.data].sort((a, b) => {
-      const dateA = getLectureDateForSorting(a.ga_number);
-      const dateB = getLectureDateForSorting(b.ga_number);
-      
-      if (dateA && dateB) {
-        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-      }
-      
-      if (dateA && !dateB) {
-        return sortOrder === 'asc' ? -1 : 1;
-      }
-      if (!dateA && dateB) {
-        return sortOrder === 'asc' ? 1 : -1;
-      }
-      
-      const createdA = new Date(a.created_at);
-      const createdB = new Date(b.created_at);
-      return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
-    });
-    
-    // Aktualisiere nur wenn sich die Sortierung geändert hat
-    if (JSON.stringify(sortedData.map(d => d.id)) !== JSON.stringify(sortedByDate.map(d => d.id))) {
-      renderHighlightsList(container, sortedByDate);
-    }
-    
-    // Aktualisiere Datumsanzeigen
-    updateHighlightDates(container, sortedByDate);
-  }).catch(err => console.warn('[MB-DATE] Fehler:', err));
   
   // Lade Keywords parallel (nicht-blockierend für Rendering)
   updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
@@ -1060,7 +1152,10 @@ function renderHighlightsList(container, sortedData) {
             <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
           </div>
           ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
-          <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>
+          ${shouldShowLink && highlight.text_start_offset !== null && highlight.text_start_offset !== undefined && highlight.text_end_offset !== null && highlight.text_end_offset !== undefined
+            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset}, ${highlight.text_end_offset}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal; color: var(--text-color); cursor: pointer;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</a></div>`
+            : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
+          }
           ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
           ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
           <div class="member-item-actions">
@@ -1301,57 +1396,39 @@ async function loadQuotesTab(container) {
     });
   }
   
-  // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
+  // Lade Vortragsdaten VOR dem Rendering - damit sie sofort verfügbar sind
   // Dies macht die Datumsanzeige sofort verfügbar
-  // OPTIMIERUNG: Rendere SOFORT ohne auf Vortragsdaten zu warten
-  // Sortiere zunächst nach Erstellungsdatum (schneller, blockiert nicht)
+  await loadLectureDatesForGANumbers(uniqueGANumbers);
+  
+  // Sortiere nach Vortragsdatum (jetzt verfügbar) oder Erstellungsdatum als Fallback
   const sortedData = [...result.data].sort((a, b) => {
+    const dateA = getLectureDateForSorting(a.ga_reference);
+    const dateB = getLectureDateForSorting(b.ga_reference);
+    
+    if (dateA && dateB) {
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    }
+    
+    if (dateA && !dateB) {
+      return sortOrder === 'asc' ? -1 : 1;
+    }
+    if (!dateA && dateB) {
+      return sortOrder === 'asc' ? 1 : -1;
+    }
+    
     const createdA = new Date(a.created_at);
     const createdB = new Date(b.created_at);
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Rendere sofort mit verfügbaren Daten
+  // Rendere mit vollständig geladenen Daten (inkl. Vortragsdaten)
   renderQuotesList(container, sortedData);
   
   // Aktualisiere GA-Filter-Dropdown
   updateGAFilterDropdown(uniqueGANumbers);
 
-  // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
+  // Aktualisiere Datumsanzeigen (sollten jetzt alle verfügbar sein)
   updateQuoteDates(container, sortedData);
-
-  // Lade fehlende Vortragsdaten im HINTERGRUND (nicht-blockierend)
-  // Dies aktualisiert die Datumsanzeigen nach dem Laden
-  loadLectureDatesForGANumbers(uniqueGANumbers).then(() => {
-    // Nach dem Laden: Sortiere nach Vortragsdatum und aktualisiere Anzeige
-    const sortedByDate = [...result.data].sort((a, b) => {
-      const dateA = getLectureDateForSorting(a.ga_reference);
-      const dateB = getLectureDateForSorting(b.ga_reference);
-      
-      if (dateA && dateB) {
-        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-      }
-      
-      if (dateA && !dateB) {
-        return sortOrder === 'asc' ? -1 : 1;
-      }
-      if (!dateA && dateB) {
-        return sortOrder === 'asc' ? 1 : -1;
-      }
-      
-      const createdA = new Date(a.created_at);
-      const createdB = new Date(b.created_at);
-      return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
-    });
-    
-    // Aktualisiere nur wenn sich die Sortierung geändert hat
-    if (JSON.stringify(sortedData.map(d => d.id)) !== JSON.stringify(sortedByDate.map(d => d.id))) {
-      renderQuotesList(container, sortedByDate);
-    }
-    
-    // Aktualisiere Datumsanzeigen
-    updateQuoteDates(container, sortedByDate);
-  }).catch(err => console.warn('[MB-DATE] Fehler:', err));
 
   // Lade Keywords parallel (nicht-blockierend für Rendering)
   updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
@@ -1512,9 +1589,53 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   
   // Klone den GESAMTEN Members-Content
   const savedContentNode = summaryContent ? summaryContent.cloneNode(true) : null;
+  const savedContentHTML = summaryContent ? summaryContent.innerHTML : null;
+  const savedContentClassName = summaryContent ? summaryContent.className : '';
   
   // Setze Flag
   window.membersNavigating = true;
+  
+  // SCHUTZ: Überschreibe innerHTML Setter, um zu verhindern, dass der Content überschrieben wird
+  let originalInnerHTMLDescriptor = null;
+  let originalInnerHTMLGetter = null;
+  let originalInnerHTMLSetter = null;
+  
+  if (summaryContent) {
+    // Speichere die originalen Getter/Setter
+    const proto = Object.getPrototypeOf(summaryContent);
+    originalInnerHTMLDescriptor = Object.getOwnPropertyDescriptor(proto, 'innerHTML');
+    
+    if (originalInnerHTMLDescriptor) {
+      originalInnerHTMLGetter = originalInnerHTMLDescriptor.get;
+      originalInnerHTMLSetter = originalInnerHTMLDescriptor.set;
+    }
+    
+    // Überschreibe innerHTML Setter für summary-content
+    Object.defineProperty(summaryContent, 'innerHTML', {
+      get: function() {
+        // Verwende originalen Getter
+        if (originalInnerHTMLGetter) {
+          return originalInnerHTMLGetter.call(this);
+        }
+        return '';
+      },
+      set: function(value) {
+        // Ignoriere alle Versuche, den Content zu ändern, wenn Members Panel aktiv ist
+        if (membersPanelActive && window.membersNavigating) {
+          // Tue nichts - behalte den ursprünglichen Content
+          return;
+        }
+        // Falls Members Panel nicht aktiv ist, erlaube normale Änderungen
+        if (originalInnerHTMLSetter) {
+          originalInnerHTMLSetter.call(this, value);
+        }
+      },
+      configurable: true
+    });
+  }
+  
+  // Stoppe Scroll-Position-Schutz während Navigation, um Springen zu vermeiden
+  stopScrollPositionProtection();
   
   // Extrahiere GA-Nummer
   const gaNumber = lectureId.split('/')[0];
@@ -1540,6 +1661,32 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     summaryPanel.style.opacity = '1';
     summaryPanel.style.visibility = 'visible';
     document.body.classList.remove('summary-panel-collapsed');
+    
+    // Erstelle Observer für Panel-Sichtbarkeit, um Aufblitzen zu verhindern
+    const panelVisibilityObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes') {
+          // Stelle sicher, dass Panel sichtbar bleibt
+          if (summaryPanel.style.display === 'none' || summaryPanel.style.opacity === '0' || summaryPanel.style.visibility === 'hidden') {
+            summaryPanel.style.display = 'block';
+            summaryPanel.style.opacity = '1';
+            summaryPanel.style.visibility = 'visible';
+          }
+          // Stelle sicher, dass Klasse erhalten bleibt
+          if (!summaryPanel.classList.contains('visible')) {
+            summaryPanel.classList.add('visible');
+          }
+        }
+      });
+    });
+    
+    panelVisibilityObserver.observe(summaryPanel, {
+      attributes: true,
+      attributeFilter: ['style', 'class']
+    });
+    
+    // Speichere Observer für Cleanup
+    window.panelVisibilityObserver = panelVisibilityObserver;
   }
   
   // Prüfe ob wir bereits im Texte-Tab sind
@@ -1629,6 +1776,50 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     };
   }
   
+  // Wenn wir eine Textposition haben, verwende MutationObserver um die Markierung sofort zu entfernen
+  let highlightObserver = null;
+  if (hasTextPosition && targetIndex) {
+    const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+    const targetParaId = `para-${cleanIndex}`;
+    
+    // Erstelle MutationObserver, der die Klasse sofort entfernt, wenn sie hinzugefügt wird
+    highlightObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const element = mutation.target;
+          if (element.id === targetParaId && element.classList.contains('highlighted-paragraph')) {
+            // Entferne die Klasse sofort, bevor sie gerendert wird
+            element.classList.remove('highlighted-paragraph');
+          }
+        }
+        // Überwache auch das Hinzufügen neuer Elemente
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.id === targetParaId && node.classList.contains('highlighted-paragraph')) {
+              node.classList.remove('highlighted-paragraph');
+            }
+            // Prüfe auch Kindelemente
+            const targetElement = node.querySelector ? node.querySelector(`#${targetParaId}`) : null;
+            if (targetElement && targetElement.classList.contains('highlighted-paragraph')) {
+              targetElement.classList.remove('highlighted-paragraph');
+            }
+          }
+        });
+      });
+    });
+    
+    // Starte Beobachtung des Viewers
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      highlightObserver.observe(viewer, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class']
+      });
+    }
+  }
+  
   // Lade Buch oder Vortrag
   if (isBook) {
     // Für Bücher: Lade über API und zeige mit displayBook
@@ -1659,6 +1850,15 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Warte kurz, damit displayBook fertig ist, bevor wir den Content wiederherstellen
           await new Promise(resolve => setTimeout(resolve, 200));
+          
+          // Stelle sicher, dass die Markierung entfernt ist (falls MutationObserver sie verpasst hat)
+          if (hasTextPosition && bookTargetIndex) {
+            const cleanIndex = bookTargetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+            const paraElement = document.getElementById(`para-${cleanIndex}`);
+            if (paraElement) {
+              paraElement.classList.remove('highlighted-paragraph');
+            }
+          }
         } else {
           console.error('[MB-NAVIGATION] displayBook Funktion nicht verfügbar');
         }
@@ -1670,8 +1870,9 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     }
   } else {
     // Für Vorträge: Verwende showLecture
+    // Wenn wir eine Textposition haben (vom Textsnippet-Link), verhindere die Absatz-Markierung
     if (typeof showLecture === 'function') {
-      await showLecture(lectureId, targetIndex, []);
+      await showLecture(lectureId, targetIndex, [], !hasTextPosition);
     }
   }
   
@@ -1730,20 +1931,11 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     }, 50);
   }
   
-  // SOFORT DANACH: Stelle Members Content wieder her (showLecture/displayBook hat es überschrieben!)
   // Warte kurz, damit displayBook/showLecture fertig ist
+  // Der MutationObserver stellt den Content automatisch wieder her, wenn er überschrieben wird
   await new Promise(resolve => setTimeout(resolve, 150));
   
-  if (savedContentNode) {
-    // Prüfe ob summaryContent noch existiert (könnte durch displayBook/showLecture ersetzt worden sein)
-    const currentSummaryContent = document.getElementById('summary-content');
-    if (currentSummaryContent) {
-      const newNode = savedContentNode.cloneNode(true);
-      currentSummaryContent.parentNode.replaceChild(newNode, currentSummaryContent);
-    }
-  }
-  
-  // Stelle Panel-Eigenschaften sicher (nochmal, falls sie überschrieben wurden)
+  // Stelle sicher, dass Panel-Eigenschaften erhalten bleiben
   const currentSummaryPanel = document.getElementById('summary-panel');
   if (currentSummaryPanel) {
     currentSummaryPanel.style.width = mbWidth + 'px';
@@ -1753,12 +1945,33 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     currentSummaryPanel.style.opacity = '1';
     currentSummaryPanel.style.visibility = 'visible';
     document.body.classList.remove('summary-panel-collapsed');
-    
-    // Stelle auch sicher, dass summary-content die richtige Klasse hat
-    const currentSummaryContent = document.getElementById('summary-content');
-    if (currentSummaryContent) {
-      currentSummaryContent.classList.add('has-members-panel');
-    }
+  }
+  
+  // Stelle sicher, dass Content sichtbar bleibt
+  const currentSummaryContent = document.getElementById('summary-content');
+  if (currentSummaryContent) {
+    currentSummaryContent.style.display = 'block';
+    currentSummaryContent.style.opacity = '1';
+    currentSummaryContent.style.visibility = 'visible';
+    currentSummaryContent.classList.add('has-members-panel');
+  }
+  
+  // Stelle Scroll-Position einmalig wieder her (nach kurzer Verzögerung, damit DOM bereit ist)
+  setTimeout(() => {
+    restoreMembersScrollPosition();
+    // Starte Scroll-Position-Schutz wieder (für zukünftige Änderungen)
+    startScrollPositionProtection();
+  }, 50);
+  
+  // Stelle Panel-Eigenschaften sicher (nochmal, falls sie überschrieben wurden)
+  if (currentSummaryPanel) {
+    currentSummaryPanel.style.width = mbWidth + 'px';
+    currentSummaryPanel.style.minWidth = mbWidth + 'px';
+    currentSummaryPanel.classList.add('visible');
+    currentSummaryPanel.style.display = 'block';
+    currentSummaryPanel.style.opacity = '1';
+    currentSummaryPanel.style.visibility = 'visible';
+    document.body.classList.remove('summary-panel-collapsed');
   }
   
   // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
@@ -1796,6 +2009,28 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   setTimeout(() => {
     window.membersNavigating = false;
     
+    // Stoppe MutationObserver
+    if (highlightObserver) {
+      highlightObserver.disconnect();
+      highlightObserver = null;
+    }
+    
+    // Stelle innerHTML Setter wieder her
+    if (summaryContent && originalInnerHTMLDescriptor) {
+      try {
+        Object.defineProperty(summaryContent, 'innerHTML', originalInnerHTMLDescriptor);
+      } catch (e) {
+        // Falls das nicht funktioniert, entferne die Property und lasse den Standard-Setter wiederherstellen
+        delete summaryContent.innerHTML;
+      }
+    }
+    
+    // Stoppe Panel-Visibility Observer
+    if (window.panelVisibilityObserver) {
+      window.panelVisibilityObserver.disconnect();
+      window.panelVisibilityObserver = null;
+    }
+    
     if (originalBuildTOC) {
       window.buildTableOfContents = originalBuildTOC;
     }
@@ -1812,10 +2047,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       updateResizeHandle();
     }
     
-    // Finale Scroll-Wiederherstellung
-    setTimeout(() => {
-      restoreMembersScrollPosition();
-    }, 50);
+    // Scroll-Position wird bereits nach Content-Wiederherstellung wiederhergestellt
+    // Keine doppelte Wiederherstellung hier, um Springen zu vermeiden
   }, 200);
 }
 
@@ -1836,6 +2069,9 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     console.warn('[MB-SCROLL] Absatz nicht gefunden:', cleanIndex);
     return;
   }
+  
+  // Entferne die Absatz-Markierung (für Bücher, da diese noch markiert werden können)
+  paraElement.classList.remove('highlighted-paragraph');
   
   // Erstelle temporäres Range-Element, um die Position zu finden
   const textContent = paraElement.textContent || paraElement.innerText || '';
@@ -3221,15 +3457,41 @@ function closeMembersPanel() {
  * Wechselt vom Mitgliederbereich zum TOC (Panel bleibt offen)
  */
 function switchFromMembersPanelToTOC() {
-  membersPanelActive = false;
-  
-  // WICHTIG: Stoppe Scroll-Position-Schutz und setze Navigation-Flag zurück
-  stopScrollPositionProtection();
-  window.membersNavigating = false;
-  
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
+  const resizeHandle = document.getElementById('verticalResizeHandle');
   const mainContainer = document.getElementById('main-container');
+  
+  // WICHTIG: Setze Flags ZUERST zurück, damit innerHTML Setter nicht blockiert
+  membersPanelActive = false;
+  window.membersNavigating = false;
+  
+  // WICHTIG: Stoppe Scroll-Position-Schutz
+  stopScrollPositionProtection();
+  
+  // WICHTIG: Stelle innerHTML Setter wieder her, falls er überschrieben wurde
+  if (summaryContent) {
+    try {
+      // Prüfe ob innerHTML überschrieben wurde
+      const proto = Object.getPrototypeOf(summaryContent);
+      const currentDescriptor = Object.getOwnPropertyDescriptor(summaryContent, 'innerHTML');
+      const protoDescriptor = Object.getOwnPropertyDescriptor(proto, 'innerHTML');
+      
+      // Wenn innerHTML direkt auf summaryContent definiert ist (überschrieben), entferne es
+      if (currentDescriptor && currentDescriptor.configurable) {
+        delete summaryContent.innerHTML;
+      }
+    } catch (e) {
+      // Ignoriere Fehler beim Zurücksetzen
+      console.warn('[MB-TOC] Fehler beim Zurücksetzen des innerHTML Setters:', e);
+    }
+  }
+  
+  // Stoppe Panel-Visibility Observer falls aktiv
+  if (window.panelVisibilityObserver) {
+    window.panelVisibilityObserver.disconnect();
+    window.panelVisibilityObserver = null;
+  }
   
   // Entferne Members-Panel-Klassen
   if (summaryPanel) {
@@ -3237,8 +3499,6 @@ function switchFromMembersPanelToTOC() {
   }
   if (summaryContent) {
     summaryContent.classList.remove('has-members-panel');
-    // Setze Inhalt auf TOC zurück, aber lasse Panel offen
-    summaryContent.innerHTML = '<div id="toc-list"></div>';
   }
   
   // Chat-Channel beenden falls aktiv
@@ -3247,16 +3507,46 @@ function switchFromMembersPanelToTOC() {
     window.chatChannel = null;
   }
   
-  // Panel bleibt sichtbar - nur Breite auf TOC-Standard anpassen
-  if (summaryPanel && summaryPanel.classList.contains('visible')) {
+  // WICHTIG: Stelle sicher, dass das Panel geöffnet ist (auch wenn es vorher geschlossen war)
+  if (summaryPanel) {
     const tocWidth = 280; // Standard-Breite für TOC (statt 400px vom MB)
+    
+    // Panel explizit öffnen falls nicht bereits sichtbar
+    if (!summaryPanel.classList.contains('visible')) {
+      summaryPanel.classList.add('visible');
+      if (resizeHandle) {
+        resizeHandle.classList.add('visible');
+      }
+      summaryPanel.style.display = 'block';
+      summaryPanel.style.opacity = '1';
+      summaryPanel.style.visibility = 'visible';
+      document.body.classList.remove('summary-panel-collapsed');
+    }
+    
+    // Breite auf TOC-Standard anpassen
     summaryPanel.style.width = tocWidth + 'px';
     summaryPanel.style.minWidth = tocWidth + 'px';
+    summaryPanel.style.marginRight = '0px';
+    
+    // WICHTIG: Setze Inhalt auf TOC zurück NACH dem Setzen der Flags
+    // (damit innerHTML Setter nicht blockiert)
+    if (summaryContent) {
+      // Verwende direkte DOM-Manipulation um sicherzustellen, dass es funktioniert
+      summaryContent.textContent = ''; // Leere zuerst
+      const tocDiv = document.createElement('div');
+      tocDiv.id = 'toc-list';
+      summaryContent.appendChild(tocDiv);
+    }
     
     // WICHTIG: Verwende zentrale Synchronisationsfunktion für Main-Container und RH
     // (keine manuelle Setzung - wie in allen anderen Fällen auch)
     if (typeof resetPanelSync === 'function') {
       resetPanelSync(); // Setze Sync zurück, damit neue Breite erkannt wird
+    }
+    
+    // Main-Container SOFORT anpassen
+    if (mainContainer) {
+      mainContainer.style.marginRight = tocWidth + 'px';
     }
     
     // Resize-Handle positionieren: Verwende IMMER zentrale Funktion (wie in allen anderen Fällen)
@@ -3632,7 +3922,10 @@ async function showKeywordFilteredItems(keyword) {
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
-              <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>
+              ${shouldShowLink && highlight.text_start_offset !== null && highlight.text_start_offset !== undefined && highlight.text_end_offset !== null && highlight.text_end_offset !== undefined
+                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset}, ${highlight.text_end_offset}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal; color: var(--text-color); cursor: pointer;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</a></div>`
+                : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
+              }
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
               <div class="member-item-actions">
