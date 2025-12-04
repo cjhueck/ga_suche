@@ -20,8 +20,6 @@ function initMembersContextMenu() {
   
   // Klick außerhalb schließt Menü
   document.addEventListener('click', hideContextMenu);
-  
-  console.log('✓ Members Context Menu aktiviert');
 }
 
 /**
@@ -182,8 +180,6 @@ async function contextMenuAction(action, extraData = null) {
   const gaNumber = lectureId ? lectureId.split('/')[0] : 'Unbekannt';
   const lectureTitle = currentContext?.lectureTitle || '';
   
-  console.log('[CONTEXTMENU] Context:', { lectureId, gaNumber, paragraphIndex });
-  
   switch(action) {
     case 'quote':
       await saveContextQuote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter);
@@ -236,7 +232,6 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       throw new Error(error.message || 'Datenbankfehler');
     }
     
-    console.log('✓ Bookmark gespeichert:', data);
     showContextNotification('✓ Bookmark gespeichert!', 'success');
     highlightContextSelection('#ccffcc');
     
@@ -293,7 +288,6 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error(error.message || 'Datenbankfehler');
     }
     
-    console.log('✓ Zitat gespeichert:', data);
     showContextNotification('✓ Zitat gespeichert!', 'success');
     highlightContextSelection('#ffffcc');
     
@@ -378,7 +372,6 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         throw new Error(error.message || 'Datenbankfehler');
       }
       
-      console.log('✓ Unterstreichung gespeichert:', data);
       showContextNotification('✓ Unterstreichung gespeichert!', 'success');
       
       // Unterstreichung visuell anzeigen
@@ -424,7 +417,6 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       throw new Error(error.message || 'Datenbankfehler');
     }
     
-    console.log('✓ Unterstreichung gespeichert:', data);
     showContextNotification('✓ Unterstreichung gespeichert!', 'success');
     
     // Unterstreichung visuell anzeigen
@@ -474,7 +466,7 @@ function applyHighlightToSelection(range, color = 'blue') {
     const selection = window.getSelection();
     selection.removeAllRanges();
   } catch (e) {
-    console.log('Unterstreichung nicht möglich:', e);
+    // Unterstreichung nicht möglich
   }
 }
 
@@ -514,18 +506,6 @@ function showHighlightColorMenu() {
     submenu.style.left = 'calc(100% + 4px)';
     submenu.style.top = '0';
     submenu.style.zIndex = '10003';
-    
-    console.log('[HIGHLIGHT-MENU] Untermenü angezeigt', {
-      display: submenu.style.display,
-      visibility: submenu.style.visibility,
-      opacity: submenu.style.opacity,
-      position: submenu.style.position,
-      left: submenu.style.left,
-      top: submenu.style.top,
-      zIndex: submenu.style.zIndex,
-      computedDisplay: window.getComputedStyle(submenu).display,
-      computedVisibility: window.getComputedStyle(submenu).visibility
-    });
   } else {
     console.warn('[HIGHLIGHT-MENU] Untermenü nicht gefunden!');
   }
@@ -675,7 +655,6 @@ function findParagraphId(range) {
             });
           }
           
-          console.log('[CONTEXTMENU] Index aus Text extrahiert:', bestMatch.cleanId);
           return bestMatch.cleanId;
         }
       }
@@ -685,7 +664,7 @@ function findParagraphId(range) {
       parentLevel++;
     }
   } catch (err) {
-    console.log('[CONTEXTMENU] Paragraph-Index nicht gefunden:', err);
+    // Paragraph-Index nicht gefunden
   }
   
   return null;
@@ -759,7 +738,7 @@ function highlightContextSelection(color) {
       }, 2000);
     }, 500);
   } catch (e) {
-    console.log('Highlight nicht möglich');
+    // Highlight nicht möglich
   }
 }
 
@@ -1233,7 +1212,4 @@ if (document.readyState === 'loading') {
 } else {
   setTimeout(initMembersContextMenu, 500);
 }
-
-// Debug: Zeige Status
-console.log('[Members Context Menu] Script geladen, warte auf Init...');
 

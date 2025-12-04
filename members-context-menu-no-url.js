@@ -32,7 +32,6 @@ async function saveContextBookmark(text, gaNumber, lectureTitle, lectureUrl, par
       throw new Error(error.message || 'Datenbankfehler');
     }
     
-    console.log('✓ Bookmark gespeichert (ohne URL):', data);
     showContextNotification('✓ Bookmark gespeichert!', 'success');
     highlightContextSelection('#ccffcc');
     
@@ -78,7 +77,6 @@ async function saveContextQuote(text, gaNumber, lectureTitle, lectureUrl, contex
       throw new Error(error.message || 'Datenbankfehler');
     }
     
-    console.log('✓ Zitat gespeichert (ohne URL):', data);
     showContextNotification('✓ Zitat gespeichert!', 'success');
     highlightContextSelection('#ffffcc');
     

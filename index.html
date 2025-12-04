@@ -1580,7 +1580,6 @@
       }
       
       modal.classList.add('active');
-      console.log('Modal aktiviert');
       
       // Lade-Indikator
       contentDiv.innerHTML = '<p style="text-align: center; padding: 2rem;">Lade Einführung...</p>';
@@ -1593,12 +1592,8 @@
                         window.location.protocol === 'file:';
         const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
         const url = `${API_BASE}/system/Einfuehrung.md`;
-        console.log('Lade Einführung von:', url);
-        console.log('isLocal:', isLocal, 'API_BASE:', API_BASE);
         
         const response = await fetch(url);
-        console.log('Response Status:', response.status, response.statusText);
-        console.log('Response Headers:', response.headers);
         
         if (!response.ok) {
           const errorText = await response.text();
@@ -1606,8 +1601,6 @@
           throw new Error(`Fehler beim Laden: ${response.status} ${response.statusText}`);
         }
         const markdown = await response.text();
-        console.log('Markdown geladen, Länge:', markdown.length);
-        console.log('Markdown Preview:', markdown.substring(0, 200));
         
         // Prüfe ob die Datei leer ist
         if (!markdown || markdown.trim().length === 0) {
@@ -1616,17 +1609,14 @@
         
         // Konvertiere Markdown zu HTML mit marked.js
         if (typeof marked !== 'undefined') {
-          console.log('marked.js verfügbar');
           marked.setOptions({
             breaks: true,
             gfm: true
           });
           let html = marked.parse(markdown);
-          console.log('HTML generiert, Länge:', html.length);
           
           // Setze HTML-Inhalt ZUERST (damit Inhalt immer angezeigt wird)
           contentDiv.innerHTML = html;
-          console.log('HTML in contentDiv gesetzt');
           
           // Extrahiere Überschriften aus dem DOM (sicherer als String-Manipulation)
           const headings = [];
@@ -1634,7 +1624,6 @@
           
           // Suche nach <p><strong>...</strong></p> Elementen die als Überschriften verwendet werden
           const paragraphs = contentDiv.querySelectorAll('p');
-          console.log('Gefundene Absätze:', paragraphs.length);
           
           paragraphs.forEach(p => {
             const strong = p.querySelector('strong');
@@ -1653,12 +1642,10 @@
                 p.parentNode.replaceChild(h2, p);
                 
                 headings.push({ text: headingText, id: headingId });
-                console.log('Überschrift gefunden:', headingText);
               }
             }
           });
           
-          console.log('Gefundene Überschriften:', headings.length);
           
           // Erstelle Inhaltsverzeichnis
           tocList.innerHTML = '';

@@ -19,25 +19,19 @@ app.get('/assets/*', async (req, res) => {
   try {
     // Extrahiere den Pfad nach /assets/
     const imagePath = req.path.replace('/assets/', ''); // z.B. "GA046-Nachgelassene Abhandlungen...img-0.png"
-    console.log('[IMAGES-ASSETS] Anfrage für Bild:', imagePath);
-    console.log('[IMAGES-ASSETS] Vollständiger Request-Pfad:', req.path);
     
     // Decode URL-encoded Zeichen
     const decodedPath = decodeURIComponent(imagePath);
-    console.log('[IMAGES-ASSETS] Decodierter Pfad:', decodedPath);
     
     // Finde den GA-Ordner basierend auf dem Bildpfad
     const gaMatch = decodedPath.match(/^(GA\d{3}[a-z]?)/i);
     if (!gaMatch) {
-      console.log('[IMAGES-ASSETS] GA-Nummer nicht gefunden in:', decodedPath);
       return res.status(404).json({ error: 'GA-Nummer nicht gefunden' });
     }
     
     const gaNumber = gaMatch[1];
-    console.log('[IMAGES-ASSETS] Gefundene GA-Nummer:', gaNumber);
     
     const steinerGADir = path.join(__dirname, 'Steiner_GA');
-    console.log('[IMAGES-ASSETS] Suche in:', steinerGADir);
     
     // Suche nach dem GA-Ordner
     const files = await fs.readdir(steinerGADir);
@@ -47,19 +41,15 @@ app.get('/assets/*', async (req, res) => {
     });
     
     if (!gaFolder) {
-      console.log('[IMAGES-ASSETS] GA-Ordner nicht gefunden. Verfügbare Ordner:', files.filter(f => f.startsWith(gaNumber)));
       return res.status(404).json({ error: `GA-Ordner nicht gefunden: ${gaNumber}` });
     }
     
-    console.log('[IMAGES-ASSETS] Gefundener GA-Ordner:', gaFolder);
     
     // Konstruiere den vollständigen Pfad zum Bild
     let fullImagePath = path.join(steinerGADir, gaFolder, 'assets', decodedPath);
-    console.log('[IMAGES-ASSETS] Vollständiger Pfad:', fullImagePath);
     
     // Prüfe ob Datei existiert
     if (!fsSync.existsSync(fullImagePath)) {
-      console.log('[IMAGES-ASSETS] Bild nicht gefunden. Versuche Varianten...');
       
       // Falls .png nicht gefunden, versuche .jpeg oder .jpg
       if (decodedPath.endsWith('.png')) {
@@ -70,32 +60,25 @@ app.get('/assets/*', async (req, res) => {
         const jpgFullPath = path.join(steinerGADir, gaFolder, 'assets', jpgPath);
         
         if (fsSync.existsSync(jpegFullPath)) {
-          console.log('[IMAGES-ASSETS] ✓ JPEG-Variante gefunden:', jpegPath);
           fullImagePath = jpegFullPath;
         } else if (fsSync.existsSync(jpgFullPath)) {
-          console.log('[IMAGES-ASSETS] ✓ JPG-Variante gefunden:', jpgPath);
           fullImagePath = jpgFullPath;
         } else {
-          console.log('[IMAGES-ASSETS] Bild nicht gefunden. Prüfe assets-Ordner...');
           const assetsDir = path.join(steinerGADir, gaFolder, 'assets');
           if (fsSync.existsSync(assetsDir)) {
             const assetsFiles = fsSync.readdirSync(assetsDir);
-            console.log('[IMAGES-ASSETS] Verfügbare Dateien im assets-Ordner:', assetsFiles.slice(0, 10));
           }
           return res.status(404).json({ error: 'Bild nicht gefunden' });
         }
       } else {
-        console.log('[IMAGES-ASSETS] Bild nicht gefunden. Prüfe assets-Ordner...');
         const assetsDir = path.join(steinerGADir, gaFolder, 'assets');
         if (fsSync.existsSync(assetsDir)) {
           const assetsFiles = fsSync.readdirSync(assetsDir);
-          console.log('[IMAGES-ASSETS] Verfügbare Dateien im assets-Ordner:', assetsFiles.slice(0, 10));
         }
         return res.status(404).json({ error: 'Bild nicht gefunden' });
       }
     }
     
-    console.log('[IMAGES-ASSETS] ✓ Bild gefunden, serviere:', fullImagePath);
     // Serviere das Bild
     res.sendFile(fullImagePath);
   } catch (error) {
@@ -112,7 +95,6 @@ app.use(express.static(__dirname));
 
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path}`);
   next();
 });
 
@@ -320,23 +302,17 @@ async function findDataFiles() {
   const bookFiles = files.filter(f => {
     const matches = bookPattern.test(f);
     if (!matches && f.includes('steiner') && f.includes('books') && f.endsWith('.json')) {
-      console.log(`[DEBUG] Books-Datei nicht gematcht: ${f}`);
     }
     return matches;
   });
   
   // DEBUG: Zeige alle gefundenen Books-Dateien
   if (bookFiles.length > 0) {
-    console.log(`[DEBUG] Gefundene Books-Dateien: ${bookFiles.join(', ')}`);
   } else {
     console.warn('[DEBUG] KEINE Books-Dateien gefunden! Verfügbare Dateien mit "books":', 
       files.filter(f => f.includes('books') && f.endsWith('.json')));
   }
   
-  console.log('\nGefundene Dateien:');
-  console.log('  Search-Dateien:', searchFiles);
-  console.log('  Lecture-Dateien:', lectureFiles);
-  console.log('  Books-Dateien:', bookFiles);
   
   return {
     searchFiles,
@@ -357,11 +333,9 @@ async function loadChunks() {
       throw new Error('Keine steiner-search-XXX-YYY*.json Dateien gefunden');
     }
     
-    console.log(`\nLade Chunks aus ${searchFiles.length} Datei(en)...`);
     
     for (const fileName of searchFiles) {
       const jsonPath = path.join(__dirname, fileName);
-      console.log(`  Lade: ${fileName}`);
       
       const data = await fs.readFile(jsonPath, 'utf8');
       const parsed = JSON.parse(data);
@@ -369,18 +343,15 @@ async function loadChunks() {
       const fileChunks = parsed.chunks || [];
       chunks = chunks.concat(fileChunks);
       
-      console.log(`    -> ${fileChunks.length} Chunks geladen`);
     }
     
     const sample = chunks[0];
-    console.log('\nChunk-Struktur:', {
       ID: sample?.ID,
       index: sample?.index,
       fileName: sample?.fileName,
       content: sample?.content ? `${sample.content.substring(0, 50)}...` : 'fehlt'
     });
     
-    console.log(`\nGesamt: ${chunks.length} Chunks geladen`);
     return chunks;
     
   } catch (error) {
@@ -398,12 +369,10 @@ async function loadSteinerImages() {
     
     // Versuche zuerst Einzeldatei zu laden
     if (fsSync.existsSync(singleFilePath)) {
-      console.log('Lade steiner-images.json...');
       const data = await fs.readFile(singleFilePath, 'utf8');
       steinerImages = JSON.parse(data);
       
       const totalImages = Object.values(steinerImages).reduce((sum, imgs) => sum + imgs.length, 0);
-      console.log(`✓ steiner-images.json geladen: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder`);
       
       return steinerImages;
     }
@@ -415,12 +384,10 @@ async function loadSteinerImages() {
       .sort();
     
     if (partFiles.length === 0) {
-      console.log('Keine steiner-images*.json Dateien gefunden - keine Bilder verfügbar');
       return {};
     }
     
     // Lade alle Part-Dateien
-    console.log(`Lade steiner-images aus ${partFiles.length} Chunks...`);
     
     steinerImages = {};
     let totalImages = 0;
@@ -440,17 +407,14 @@ async function loadSteinerImages() {
           steinerImages[img.lectureId].push(img);
           totalImages++;
         });
-        console.log(`  ✓ ${partFile}: ${partData.length} Bilder (Array-Format)`);
       } else {
         // Objekt-Format (legacy)
         Object.assign(steinerImages, partData);
         const partImages = Object.values(partData).reduce((sum, imgs) => sum + imgs.length, 0);
         totalImages += partImages;
-        console.log(`  ✓ ${partFile}: ${Object.keys(partData).length} Vorträge, ${partImages} Bilder (Objekt-Format)`);
       }
     }
     
-    console.log(`✓ Gesamt: ${Object.keys(steinerImages).length} Vorträge, ${totalImages} Bilder aus ${partFiles.length} Chunks`);
     
     return steinerImages;
   } catch (error) {
@@ -469,12 +433,10 @@ async function loadFullLectures() {
       return {};
     }
     
-    console.log(`\n📚 Lade Vorträge aus ${lectureFiles.length} Datei(en)...`);
     
     let totalLectures = 0;
     for (const fileName of lectureFiles) {
       const jsonPath = path.join(__dirname, fileName);
-      console.log(`  Lade: ${fileName}`);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
@@ -501,7 +463,6 @@ async function loadFullLectures() {
           }
         });
         
-        console.log(`    ✓ ${lectures.length} Vorträge geladen`);
       } catch (fileError) {
         console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
       }
@@ -510,14 +471,11 @@ async function loadFullLectures() {
     const uniqueLecturesCount = Object.keys(fullLectures).length;
     const duplicateCount = totalLectures - uniqueLecturesCount;
     
-    console.log(`  📊 Gesamt: ${totalLectures} Vorträge verarbeitet`);
     if (duplicateCount > 0) {
       console.warn(`  ⚠️  ${duplicateCount} Duplikate gefunden (überschrieben)`);
     }
-    console.log(`  ✓ ${uniqueLecturesCount} eindeutige Vorträge geladen`);
     
     const sample = Object.values(fullLectures)[0];
-    console.log('\nVortrags-Struktur:', {
       ID: sample?.ID,
       fileName: sample?.fileName,
       title: sample?.title,
@@ -527,7 +485,6 @@ async function loadFullLectures() {
       hasIndices: sample?.paragraphs?.some(p => p.index)
     });
     
-    console.log(`\nGesamt: ${uniqueLecturesCount} eindeutige Vorträge geladen`);
     return fullLectures;
     
   } catch (error) {
@@ -549,12 +506,10 @@ async function loadBooks() {
       return {};
     }
     
-    console.log(`\n📖 Lade Schriften aus ${bookFiles.length} Datei(en)...`);
     
     let totalBooks = 0;
     for (const fileName of bookFiles) {
       const jsonPath = path.join(__dirname, fileName);
-      console.log(`  Lade: ${fileName}`);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
@@ -566,30 +521,25 @@ async function loadBooks() {
           console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Schriften!`);
         }
         
-        console.log(`    -> Gefunden: ${books.length} Schriften in Datei`);
         
         books.forEach(book => {
           if (book.ID || book.gaNumber) {
             const bookId = book.ID || book.gaNumber;
             fullBooks[bookId] = book;
             totalBooks++;
-            console.log(`      ✓ Hinzugefügt: ${bookId} (${book.title?.substring(0, 50)}...)`);
           } else {
             console.warn(`      ⚠️  Übersprungen: Keine ID oder gaNumber gefunden`, Object.keys(book));
           }
         });
         
-        console.log(`    ✓ ${books.length} Schriften verarbeitet`);
       } catch (fileError) {
         console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
       }
     }
     
-    console.log(`  📊 Gesamt: ${totalBooks} Schriften erfolgreich geladen`);
     
     if (Object.keys(fullBooks).length > 0) {
       const sample = Object.values(fullBooks)[0];
-      console.log('\nSchriften-Struktur:', {
         ID: sample?.ID,
         gaNumber: sample?.gaNumber,
         fileName: sample?.fileName,
@@ -599,7 +549,6 @@ async function loadBooks() {
       });
     }
     
-    console.log(`\nGesamt: ${Object.keys(fullBooks).length} Schriften geladen`);
     return fullBooks;
     
   } catch (error) {
@@ -616,11 +565,9 @@ async function loadSynonyms() {
     try {
       const data = await fs.readFile(synonymPath, 'utf8');
       synonyms = JSON.parse(data);
-      console.log(`Synonyme geladen: ${Object.keys(synonyms).length} Begriffe`);
     } catch {
       synonyms = defaultSynonyms;
       await fs.writeFile(synonymPath, JSON.stringify(synonyms, null, 2), 'utf8');
-      console.log(`Standard-Synonyme erstellt`);
     }
     
     return synonyms;
@@ -636,7 +583,6 @@ async function saveSynonyms() {
   try {
     const synonymPath = path.join(__dirname, 'synonyms.json');
     await fs.writeFile(synonymPath, JSON.stringify(synonyms, null, 2), 'utf8');
-    console.log('✓ Synonyme gespeichert');
     return true;
   } catch (error) {
     console.error('✗ Fehler beim Speichern der Synonyme:', error.message);
@@ -649,10 +595,8 @@ async function loadQueryLog() {
     const logPath = path.join(__dirname, 'query-log.json');
     const data = await fs.readFile(logPath, 'utf8');
     queryLog = JSON.parse(data);
-    console.log(`Query-Log geladen: ${Object.keys(queryLog).length} Begriffe`);
   } catch {
     queryLog = {};
-    console.log('Kein Query-Log gefunden - neuer Log erstellt');
   }
   return queryLog;
 }
@@ -677,12 +621,9 @@ async function invalidateGAOverviewCache(lectureId) {
     const actualKey = findGAOverviewKey(rawGA);
 
     if (gaOverviewCache[actualKey]) {
-      console.log(`[CACHE] Invalidiere GA-Overview-Cache für ${actualKey}`);
       delete gaOverviewCache[actualKey];
       await saveGAOverviewCache();
-      console.log(`[CACHE] ✓ GA-Overview-Cache für ${actualKey} gelöscht`);
     } else {
-      console.log(`[CACHE] Kein Cache-Eintrag für ${rawGA} gefunden (Key-Scan ergab: ${actualKey})`);
     }
 
     return true;
@@ -703,10 +644,8 @@ async function loadGAOverviewCache() {
     try {
       const data = await fs.readFile(cachePath, 'utf8');
       gaOverviewCache = JSON.parse(data);
-      console.log(`GA-Übersichten geladen: ${Object.keys(gaOverviewCache).length} GA-Bände`);
     } catch {
       gaOverviewCache = {};
-      console.log('Keine gespeicherten GA-Übersichten gefunden - leerer Cache erstellt');
     }
     
     return gaOverviewCache;
@@ -723,7 +662,6 @@ async function saveGAOverviewCache() {
     const cachePath = path.join(__dirname, 'ga-overview-cache.json');
     const jsonString = JSON.stringify(gaOverviewCache, null, 2);
     await fs.writeFile(cachePath, jsonString, 'utf8');
-    console.log('✓ GA-Overview-Cache gespeichert');
     return true;
   } catch (error) {
     console.error('✗ Fehler beim Speichern des GA-Overview-Cache:', error.message);
@@ -850,7 +788,6 @@ function generateSynonymsFromQueries(minCoOccurrence = 3) {
     }
   });
   
-  console.log(`\n[SYNONYME] Aus Query-Log generiert: ${Object.keys(newSynonyms).length} Begriffe`);
   
   return newSynonyms;
 }
@@ -858,7 +795,6 @@ function generateSynonymsFromQueries(minCoOccurrence = 3) {
 async function generateSynonymsWithClaude(term) {
   const claudeApiKey = process.env.CLAUDE_API_KEY;
   if (!claudeApiKey) {
-    console.log(`[CLAUDE] Kein API-Key für "${term}"`);
     return [term];
   }
   
@@ -909,7 +845,6 @@ Begriffe für "${term}":`;
       .map(s => s.trim().toLowerCase())
       .filter(s => s.length > 0);
     
-    console.log(`[CLAUDE] Synonyme für "${term}": ${synonymList.length} Begriffe`);
     
     return synonymList;
   } catch (error) {
@@ -919,7 +854,6 @@ Begriffe für "${term}":`;
 }
 
 async function enrichSynonymsWithClaude(topN = 30) {
-  console.log(`\n[CLAUDE] Starte Anreicherung für Top ${topN} Begriffe...`);
   
   const topTerms = Object.keys(queryLog)
     .filter(term => term.length > 3)
@@ -930,11 +864,9 @@ async function enrichSynonymsWithClaude(topN = 30) {
   
   for (const term of topTerms) {
     if (synonyms[term] && synonyms[term].length > 2) {
-      console.log(`[CLAUDE] Überspringe "${term}" (bereits ${synonyms[term].length} Synonyme)`);
       continue;
     }
     
-    console.log(`[CLAUDE] Generiere Synonyme für: "${term}" (${queryLog[term].count}x gesucht)`);
     const generatedSynonyms = await generateSynonymsWithClaude(term);
     
     if (generatedSynonyms.length > 1) {
@@ -946,7 +878,6 @@ async function enrichSynonymsWithClaude(topN = 30) {
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
   
-  console.log(`[CLAUDE] ✓ ${enrichedCount} Begriffe angereichert\n`);
   return enrichedCount;
 }
 
@@ -975,7 +906,6 @@ function performKeywordSearch(query, paragraphsFromLectures) {
   const expandedTerms = expandQueryWithSynonyms(query);
   const results = [];
   
-  console.log(`Suche nach: ${expandedTerms.slice(0, 5).join(' | ')}${expandedTerms.length > 5 ? '...' : ''}`);
   
   paragraphsFromLectures.forEach(paragraph => {
     const content = (paragraph.content || '').toLowerCase();
@@ -1027,7 +957,6 @@ function performKeywordSearch(query, paragraphsFromLectures) {
   
   results.sort((a, b) => b.keywordScore - a.keywordScore);
   
-  console.log(`Keyword-Suche: ${results.length} Treffer`);
   
   return results;
 }
@@ -1049,7 +978,6 @@ function extractKeyTerms(query) {
       const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
       if (cleaned.length > 3) {
         terms.push(cleaned);
-        console.log(`  [Quote] "${cleaned}"`);
       }
     });
   }
@@ -1077,7 +1005,6 @@ function extractKeyTerms(query) {
       if (stopWordCount <= 1) {
         const phrase = `${w1} ${w2} ${w3}`;
         terms.push(phrase);
-        console.log(`  [3-Word] "${phrase}"`);
       }
     }
   }
@@ -1093,7 +1020,6 @@ function extractKeyTerms(query) {
       if (!stopWords.includes(w1) || !stopWords.includes(w2)) {
         const phrase = `${w1} ${w2}`;
         terms.push(phrase);
-        console.log(`  [2-Word] "${phrase}"`);
       }
     }
   }
@@ -1102,15 +1028,12 @@ function extractKeyTerms(query) {
   words.forEach(word => {
     if (word.length > 3 && !stopWords.includes(word)) {
       terms.push(word);
-      console.log(`  [Single] "${word}"`);
     }
   });
   
   // 6. Entferne exakte Duplikate
   const uniqueTerms = [...new Set(terms)];
   
-  console.log(`\nExtrahierte ${uniqueTerms.length} Suchbegriffe aus "${query}":`);
-  console.log(uniqueTerms.slice(0, 10).join(', ') + (uniqueTerms.length > 10 ? '...' : ''));
   
   return uniqueTerms;
 }
@@ -1124,23 +1047,19 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
     filteredParagraphs = paragraphsFromLectures.filter(paragraph => 
       paragraph.ID && paragraph.ID.startsWith(gaFilter)
     );
-    console.log(`[GA-FILTER] Suche auf GA-Band ${gaFilter} beschränkt: ${filteredParagraphs.length} von ${paragraphsFromLectures.length} Paragraphen`);
   }
   
   if (terms.length === 0) {
-    console.log('Keine Schlüsselbegriffe gefunden, verwende gesamte Query');
     return performKeywordSearch(query, filteredParagraphs);
   }
   
   // NEUE STRATEGIE: Suche zuerst nach Phrasen in Anführungszeichen
   const quotedPhrases = query.match(/"([^"]+)"|'([^']+)'/g);
   if (quotedPhrases && quotedPhrases.length > 0) {
-    console.log('[DIREKTE PHRASENSUCHE] Verwende nur Phrasen in Anführungszeichen');
     
     const phraseResults = [];
     quotedPhrases.forEach(phrase => {
       const cleaned = phrase.replace(/['"]/g, '').trim().toLowerCase();
-      console.log(`Suche direkt nach: "${cleaned}"`);
       const results = performKeywordSearch(cleaned, filteredParagraphs);
       phraseResults.push(...results);
     });
@@ -1159,13 +1078,11 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
       const finalResults = Array.from(uniqueResults.values())
         .sort((a, b) => b.keywordScore - a.keywordScore);
       
-      console.log(`Phrasensuche: ${finalResults.length} direkte Treffer gefunden`);
       return finalResults;
     }
   }
   
   // Fallback: Normale thematische Suche mit allen Begriffen
-  console.log('[NORMALE THEMATISCHE SUCHE] Keine Phrasen in Anführungszeichen oder keine Treffer');
   
   const allResults = new Map();
   
@@ -1176,12 +1093,10 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
     if (wordCount === 1) {
       const veryCommonWords = ['bedeutung', 'welche', 'haben'];
       if (veryCommonWords.includes(term)) {
-        console.log(`Überspringe zu generischen Begriff: "${term}"`);
         return;
       }
     }
     
-    console.log(`Suche nach Begriff: "${term}"`);
     const termResults = performKeywordSearch(term, filteredParagraphs);
     
     const phraseBoost = wordCount >= 2 ? 10 : 1;
@@ -1207,7 +1122,6 @@ function performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter = 
   const results = Array.from(allResults.values())
     .sort((a, b) => b.keywordScore - a.keywordScore);
   
-  console.log(`Thematische Suche: ${results.length} Treffer für ${terms.length} Begriffe`);
   
   return results;
 }
@@ -1262,14 +1176,12 @@ function applySemanticRanking(keywordResults, query) {
 
 // Hilfsfunktion: Relevanz-Scoring für Stichwortsuche-Ergebnisse hinzufügen
 function addRelevanceScoringToResults(results, query) {
-  console.log(`[RELEVANCE-SCORING] Füge Relevanz-Scores für ${results.length} Ergebnisse hinzu`);
   
   // Zerlege Query in einzelne Wörter (für Zwei-Wort-Suchen)
   const queryWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
   const isTwoWordQuery = queryWords.length === 2;
   
   if (isTwoWordQuery) {
-    console.log(`[RELEVANCE-SCORING] Zwei-Wort-Suche erkannt: "${queryWords[0]}" + "${queryWords[1]}"`);
   }
   
   // Gruppiere Ergebnisse nach Vortrag
@@ -1299,7 +1211,6 @@ function addRelevanceScoringToResults(results, query) {
     
     // Debug-Ausgabe für die ersten 5 Vorträge
     if (Object.keys(lectureGroups).indexOf(lectureId) < 5) {
-      console.log(`[RELEVANCE-DEBUG] ${lectureId}: Score=${relevanceScore.toFixed(3)}, Chunks=${lectureResults.length}`);
     }
     
     // Bestimme Relevanz-Kategorie (stark erhöhte Schwellwerte für bessere Differenzierung)
@@ -1318,7 +1229,6 @@ function addRelevanceScoringToResults(results, query) {
     };
   });
   
-  console.log(`[RELEVANCE-SCORING] Relevanz-Kategorien: ${Object.values(resultsWithRelevance).reduce((acc, r) => {
     acc[r.relevanceCategory] = (acc[r.relevanceCategory] || 0) + 1;
     return acc;
   }, {})}`);
@@ -1403,7 +1313,6 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
   
   if (word1Count === 0 || word2Count === 0) return 0;
   
-  console.log(`[2-WORD] "${word1}" (${word1Count}×) + "${word2}" (${word2Count}×), Phrase: ${phraseCount}×`);
   
   // 2. Berechne Nähe-Bonus: Wie oft stehen die Wörter nah beieinander?
   let proximityPairs = 0;
@@ -1418,7 +1327,6 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
     });
   });
   
-  console.log(`[2-WORD] Nähe-Paare (≤50 Zeichen): ${proximityPairs}`);
   
   // 3. Sliding Window über 1000 Wörter
   const WINDOW_SIZE = 1000;
@@ -1493,7 +1401,6 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
   const contextRelevance2 = calculateContextRelevance(fullText, word2Lower, contextIndex2);
   const avgContextRelevance = (contextRelevance1 + contextRelevance2) / 2;
   
-  console.log(`[2-WORD-CONTEXT] "${word1}": ${contextRelevance1.toFixed(2)}, "${word2}": ${contextRelevance2.toFixed(2)}, Avg: ${avgContextRelevance.toFixed(2)}`);
   
   // 6. Finaler Score
   const totalOccurrenceFactor = Math.sqrt(word1Count + word2Count);
@@ -1507,7 +1414,6 @@ function calculateTwoWordRelevanceScore(lectureResults, word1, word2) {
                      phraseFactor * 
                      5; // Skalierung
   
-  console.log(`[2-WORD-FINAL] BestWindow=${bestWindowScore.toFixed(4)}, TotalOcc=${totalOccurrenceFactor.toFixed(2)}, Proximity=${proximityFactor.toFixed(2)}, Phrase=${phraseFactor.toFixed(2)}, Context=${avgContextRelevance.toFixed(2)}, Score=${Math.min(finalScore, 1).toFixed(3)}`);
   
   return Math.min(finalScore, 1);
 }
@@ -1533,7 +1439,6 @@ function isSubstantive(word) {
 
 // Generiere Kontext-Index on-the-fly
 function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
-  console.log(`[CONTEXT] Generiere Kontext-Index für "${query}" (±${contextWords} Wörter)...`);
   
   const queryLower = query.toLowerCase();
   const allContextWords = [];
@@ -1591,11 +1496,9 @@ function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
   });
   
   if (totalOccurrences === 0) {
-    console.log(`[CONTEXT] Keine Vorkommen gefunden für "${query}"`);
     return null;
   }
   
-  console.log(`[CONTEXT] ${totalOccurrences} Vorkommen in ${lecturesWithTerm} Vorträgen/Büchern`);
   
   // Filtere Substantive
   const substantives = allContextWords.filter(isSubstantive);
@@ -1637,7 +1540,6 @@ function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
       try {
         allIndices = JSON.parse(fs.readFileSync(indicesFile, 'utf-8'));
       } catch (e) {
-        console.log(`[CONTEXT] Fehler beim Laden bestehender Indizes: ${e.message}`);
       }
     }
     
@@ -1661,7 +1563,6 @@ function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
         validIndices[key] = indexData;
       } else {
         removedCount++;
-        console.log(`[CONTEXT-CLEANUP] Entferne veralteten Index: "${key}" (${ageInDays.toFixed(0)} Tage alt)`);
       }
     });
     
@@ -1677,20 +1578,16 @@ function generateContextIndex(query, contextWords = 100, minOccurrences = 3) {
       
       const limitRemovedCount = Object.keys(validIndices).length - MAX_INDICES;
       allIndices = Object.fromEntries(sortedByDate);
-      console.log(`[CONTEXT-CLEANUP] ${limitRemovedCount} älteste Indices entfernt (Limit: ${MAX_INDICES})`);
     } else {
       allIndices = validIndices;
     }
     
     if (removedCount > 0) {
-      console.log(`[CONTEXT-CLEANUP] Gesamt ${removedCount} veraltete Indices entfernt`);
     }
     
     // Speichere zurück
     fs.writeFileSync(indicesFile, JSON.stringify(allIndices, null, 2), 'utf-8');
-    console.log(`[CONTEXT] Index gespeichert in context-indices.json: ${Object.keys(filtered).length} Begriffe (${Object.keys(allIndices).length} Indices gesamt)`);
   } catch (error) {
-    console.log(`[CONTEXT] Fehler beim Speichern: ${error.message}`);
   }
   
   return result;
@@ -1724,17 +1621,14 @@ function loadContextIndex(query) {
         
         // Wenn Datenbank um >5% gewachsen ist, regeneriere Index
         if (growthPercent > 5) {
-          console.log(`[CONTEXT] Index veraltet (${indexedLectureCount} -> ${currentLectureCount} Vorträge, +${growthPercent.toFixed(1)}%), regeneriere...`);
           // Springe zur Regenerierung (weiter unten im Code)
         } else {
           contextIndexCache[queryLower] = data;
-          console.log(`[CONTEXT] Kontext-Index geladen: ${Object.keys(data.context_terms).length} Begriffe (${indexedLectureCount} Vorträge)`);
           return data;
         }
       }
     }
   } catch (error) {
-    console.log(`[CONTEXT] Fehler beim Laden: ${error.message}`);
   }
   
   // Falls nicht vorhanden: Prüfe ob genug Vorkommen für Index-Generierung
@@ -1746,11 +1640,9 @@ function loadContextIndex(query) {
     totalOccurrences += (fullText.toLowerCase().match(new RegExp(queryLower, 'g')) || []).length;
   });
   
-  console.log(`[CONTEXT] "${query}" hat ${totalOccurrences} Vorkommen gesamt`);
   
   // Nur für häufigere Begriffe (≥5 Vorkommen) Index generieren
   if (totalOccurrences >= 5) {
-    console.log(`[CONTEXT] Generiere Index (≥5 Vorkommen)...`);
     const newIndex = generateContextIndex(query);
     
     if (newIndex) {
@@ -1759,7 +1651,6 @@ function loadContextIndex(query) {
     
     return newIndex;
   } else {
-    console.log(`[CONTEXT] Zu wenige Vorkommen (<5), kein Index generiert`);
     return null;
   }
 }
@@ -1919,7 +1810,6 @@ function calculateRelevanceScoreForLecture(lectureResults, query) {
   
   // Debug-Ausgabe
   if (totalOccurrences > 0) {
-    console.log(`[RELEVANCE-CONTEXT] Query="${query}", TotalOcc=${totalOccurrences}, BestWindow=${bestWindowScore.toFixed(6)}, Context=${contextRelevance.toFixed(2)}, FinalScore=${Math.min(finalScore, 1).toFixed(3)}`);
   }
   
   return Math.min(finalScore, 1);
@@ -1943,7 +1833,6 @@ async function performHybridSearch(query, limit = 20) {
     const rankedResults = applySemanticRanking(resultsWithRelevance, query);
     const topResults = rankedResults.slice(0, limit);
     
-    console.log(`Hybrid: ${keywordResults.length} Keywords -> ${topResults.length} Final`);
     
     return {
       results: topResults,
@@ -1977,7 +1866,6 @@ app.post('/api/fulltext-search', async (req, res) => {
     
     const operatorText = word2 ? ` ${wordOperator.toUpperCase()} ` : '';
     const proximityInfo = effectiveProximity ? ` (Proximity: max. ${effectiveProximity} Absätze)` : word2 ? ' (beliebiger Abstand)' : '';
-    console.log(`Volltext-Suche: ${word1IsPhrase ? '"' : ''}${word1}${word1IsPhrase ? '"' : ''}${word2 ? `${operatorText}${word2IsPhrase ? '"' : ''}${word2}${word2IsPhrase ? '"' : ''}` : ''}${proximityInfo} [Relevanz-Filter: ${relevanceFilter}]${yearFilter ? ` [Jahr-Filter: ${yearFilter}]` : ''}${gaFilter ? ` [GA-Filter: ${gaFilter}]` : ''}`);
     
     // Hilfsfunktion für exakte Phrasensuche oder flexible Wortsuche
     const searchInText = (text, searchTerm, isPhrase) => {
@@ -2205,13 +2093,11 @@ app.post('/api/fulltext-search', async (req, res) => {
       });
     });
     
-    console.log(`Volltext-Suche: ${results.length} Absätze gefunden (Vorträge + Bücher)`);
     
     // NEU: Relevanz-Scoring für Volltext-Suche hinzufügen (außer bei "ohne")
     let resultsWithRelevance;
     if (relevanceFilter === 'ohne') {
       // Schnelle Suche ohne Relevanzberechnung
-      console.log('[RELEVANZ] Überspringe Relevanzberechnung (Filter: ohne)');
       resultsWithRelevance = results;
     } else {
     const searchQuery = word2 ? `${word1} ${word2}` : word1;
@@ -2222,7 +2108,6 @@ app.post('/api/fulltext-search', async (req, res) => {
     let filteredResults = resultsWithRelevance;
     if (relevanceFilter && relevanceFilter !== 'alle' && relevanceFilter !== 'ohne') {
       filteredResults = resultsWithRelevance.filter(r => r.relevanceCategory === relevanceFilter);
-      console.log(`[BACKEND-FILTER] ${resultsWithRelevance.length} -> ${filteredResults.length} Ergebnisse nach Filter "${relevanceFilter}"`);
     }
     
     // Query-Tracking
@@ -2262,7 +2147,6 @@ app.post('/api/advanced-search', async (req, res) => {
       return res.status(400).json({ error: 'Mindestens ein Suchwort erforderlich' });
     }
     
-    console.log(`Erweiterte Suche: ${words.length} Wörter (${words.join(', ')}) mit Operatoren: ${operators.join(', ')} | Proximity: ${proximity || 'gesamter Text'}${gaFilter ? ` | GA-Filter: ${gaFilter}` : ''}`);
     
     const results = [];
     
@@ -2563,7 +2447,6 @@ app.post('/api/advanced-search', async (req, res) => {
       }
     });
     
-    console.log(`Erweiterte Suche: ${results.length} Treffer gefunden (Vorträge + Bücher)`);
     
     res.json({
       results: results,
@@ -2581,22 +2464,17 @@ app.post('/api/advanced-search', async (req, res) => {
 // ============================================================================
 
 async function generateAnalysis(query, results, depth = 'allgemein') {
-  console.log('generateAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
   // Hole passenden LLM-Provider (mit Fallback-Chain)
   let provider;
   try {
     provider = getProviderForTask('analysis');
-    console.log(`[ANALYSIS] ✓ Provider ausgewählt: ${provider.name}`);
   } catch (error) {
-    console.log('[ANALYSIS] ❌ Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackAnalysis(query, results);
   }
   
   const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
 
-  console.log('=== DEBUG topResults ===');
-  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
     ID: r.ID, 
     index: r.index,
     fileName: r.fileName 
@@ -2611,7 +2489,6 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
     
   const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
   
-  console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
   
   const maxTokens = {
     'allgemein': 4000,    // Erhöht von 2000 auf 4000
@@ -2725,7 +2602,6 @@ ${contextText}
 ANALYSE:`;
 
   try {
-    console.log(`[ANALYSIS] Rufe ${provider.name} API auf...`);
     
     // Verwende Provider-Abstraction
     let analysisText = await provider.generateCompletion(prompt, {
@@ -2733,12 +2609,9 @@ ANALYSE:`;
       temperature: 0.7
     });
     
-    console.log(`[ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
     
     analysisText = addClickableReferences(analysisText, topResults);
     
-    console.log('Gesendeter Text enthält <a> Tags:', analysisText.includes('<a'));
-    console.log('Beispiel (erste 300 Zeichen):', analysisText.substring(0, 300));
     
     return analysisText;
 
@@ -2751,8 +2624,6 @@ ANALYSE:`;
 }
 
 function addClickableReferences(text, results) {
-  console.log('addClickableReferences gestartet');
-  console.log('Erste 3 Results:', results.slice(0, 3).map(r => ({ ID: r.ID, index: r.index })));
   
   // Bereich der "Weitere relevante Quellen"-Sektion ermitteln, um dort Klammern zu vermeiden
   const sourcesHeading = '## Weitere relevante Quellen';
@@ -2786,8 +2657,6 @@ function addClickableReferences(text, results) {
     }
   });
   
-  console.log(`Mapping erstellt für ${Object.keys(refToDataMapping).length} Referenzen`);
-  console.log(`Beispiel-Keys:`, Object.keys(refToDataMapping).slice(0, 6));
   
   const gaPattern = /\s*\(?(GA\d{3}[a-z]?\/\d+:\^?[a-z0-9]+)\)?\s*/gi;
   
@@ -2805,9 +2674,7 @@ function addClickableReferences(text, results) {
     });
   }
   
-  console.log(`${matches.length} GA-Referenzen gefunden`);
   if (matches.length > 0) {
-    console.log(`Erste 3 gefundene Refs:`, matches.slice(0, 3).map(m => m.fullRef));
   }
   
   matches.sort((a, b) => b.position - a.position);
@@ -2850,8 +2717,6 @@ function addClickableReferences(text, results) {
   
   // Anweisung zurückgenommen: keine nachträgliche Verlinkung von GA###/Y ohne Index
   
-  console.log(`${linksCreated} von ${matches.length} Links erfolgreich erstellt`);
-  console.log('Gesendeter Text enthält <a> Tags:', linkedText.includes('<a'));
   
   return linkedText;
 }
@@ -2884,7 +2749,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
       return res.status(400).json({ error: 'Lecture ID erforderlich' });
     }
     
-    console.log(`\n→ Zusammenfassung für ${lectureId} angefordert (forceRegenerate: ${forceRegenerate}, provider: ${preferredProvider || 'auto'})...`);
     
     const lecture = fullLectures[lectureId];
     
@@ -2904,7 +2768,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
       if (existingSummary.version === 'v2' && 
           existingSummary.tableOfContents && existingSummary.tableOfContents.length > 0 &&
           existingSummary.lectureKeywords && existingSummary.lectureKeywords.length > 0) {
-        console.log(`  ✓ V2-Summary vollständig vorhanden für ${lectureId}`);
         return res.json({
           lectureId: lectureId,
           summary: existingSummary.summary,
@@ -2917,16 +2780,12 @@ app.post('/api/summarize-lecture', async (req, res) => {
         });
       } else {
         // V1 vorhanden oder V2 unvollständig → Ergänze zu V2
-        console.log(`  → V1 oder unvollständiges V2 vorhanden, ergänze fehlende Daten...`);
       }
     } else if (!forceRegenerate && !existingSummary) {
-      console.log(`  → Keine Summary vorhanden, generiere V2...`);
     } else if (forceRegenerate && existingSummary && existingSummary.summary) {
       // WICHTIG: Bei forceRegenerate mit existierender Summary
       // → Nur TOC und Keywords neu generieren, Summary behalten!
-      console.log(`  → Force-Regenerate mit existierender Summary: Behalte Summary, generiere TOC + Keywords neu...`);
     } else {
-      console.log(`  → Force-Regenerate ohne Summary, erstelle alles neu...`);
     }
     
     // Entscheide ob Summary neu generiert werden muss
@@ -2935,7 +2794,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
     if (forceRegenerate && existingSummary && existingSummary.summary && existingSummary.headings) {
       // FALL: Summary + Headings existieren bereits
       // → Behalte beide, generiere nur neue Keywords
-      console.log(`  ℹ Behalte existierende Summary + Headings, generiere nur Keywords neu`);
       
       summaryData = {
         summary: existingSummary.summary,
@@ -2959,7 +2817,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
         lectureKeywords: summaryData.lectureKeywords || [],
         version: summaryData.version || 'v2'
       });
-      console.log(`  ✓ Summary V2 für ${lectureId} sicher in DB gespeichert`);
     } catch (dbError) {
       console.error(`[SPEICHERUNG] ✗ Fehler beim Speichern von ${lectureId}:`, dbError.message);
       // Werfe Fehler nicht weiter, Response sollte trotzdem gesendet werden
@@ -2973,7 +2830,6 @@ app.post('/api/summarize-lecture', async (req, res) => {
       // Bei forceRegenerate: TOC IMMER neu generieren (auch wenn vorhanden)
       if (forceRegenerate || !tableOfContents || tableOfContents.length === 0) {
         try {
-          console.log(`  → Generiere Inhaltsverzeichnis neu...`);
           
           // Hole Provider
           let tocProvider;
@@ -3045,7 +2901,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
               const cleanedResponse = tocResponse.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
               tableOfContents = JSON.parse(cleanedResponse);
               
-              console.log(`  ✓ Inhaltsverzeichnis generiert: ${tableOfContents.length} Einträge`);
             }
           }
         } catch (tocError) {
@@ -3056,7 +2911,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
       
       // Generiere Keywords V3 (bei forceRegenerate: IMMER neu, auch wenn vorhanden)
       try {
-        console.log(`  → Generiere Keywords mit V3 neu (force)...`);
         
         // Lade Template
         const template = await loadThemesKeywordsTemplate();
@@ -3127,7 +2981,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
           });
           
           const newKws = generatedKeywords.filter(k => k.matchType === 'new');
-          console.log(`  ✓ Keywords V3 generiert: ${generatedKeywords.length} total (${newKws.length} neu, ${generatedKeywords.length - newKws.length} existierend)`);
           
           // WICHTIG: Aktualisiere auch Summary-DB mit neuen Keywords (für Side Panel)
           try {
@@ -3138,7 +2991,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
               lectureKeywords: generatedKeywords,  // ← Neue Keywords auch hier!
               version: summaryData.version || 'v2'
             });
-            console.log(`  ✓ Keywords auch in Summary-DB aktualisiert (für Side Panel)`);
           } catch (updateError) {
             console.warn(`[KEYWORDS-V3] Warnung: Summary-DB konnte nicht aktualisiert werden:`, updateError.message);
           }
@@ -3149,7 +3001,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
       }
     }
     
-    console.log(`  ✓ Zusammenfassung ${summaryData.version || 'v2'} erstellt und in zentrale DB gespeichert`);
     
     res.json({
       lectureId: lectureId,
@@ -3192,7 +3043,6 @@ app.post('/api/batch-generate-structure', async (req, res) => {
       return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
     }
     
-    console.log(`\n[BATCH-STRUCTURE] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Skip: ${skipExisting}, Parallel: ${parallelChunkSize})`);
     
     // Lade Vokabular
     const vocabularyTerms = await loadSeedVocabulary();
@@ -3217,11 +3067,9 @@ app.post('/api/batch-generate-structure', async (req, res) => {
                            existingData.tableOfContents && existingData.tableOfContents.length > 0;
         
         if (skipExisting && hasStructure) {
-          console.log(`[BATCH-STRUCTURE] ${index + 1}/${total} ${lectureId}: Bereits vorhanden, überspringe`);
           return { success: true, skipped: true, lectureId };
         }
         
-        console.log(`[BATCH-STRUCTURE] ${index + 1}/${total} ${lectureId}: Generiere Structure...`);
         
         // Generiere S+H+TOC
         const generatedData = await generateUnifiedLectureData(lectureId, 'structure', {
@@ -3239,7 +3087,6 @@ app.post('/api/batch-generate-structure', async (req, res) => {
           generated: generatedData.generated
         });
         
-        console.log(`[BATCH-STRUCTURE] ✓ ${lectureId} gespeichert`);
         return { success: true, skipped: false, lectureId };
         
       } catch (error) {
@@ -3254,7 +3101,6 @@ app.post('/api/batch-generate-structure', async (req, res) => {
       const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
       const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
       
-      console.log(`\n[BATCH-STRUCTURE] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
       
       // Verarbeite Chunk parallel
       const chunkResults = await Promise.allSettled(
@@ -3284,10 +3130,8 @@ app.post('/api/batch-generate-structure', async (req, res) => {
         }
       });
       
-      console.log(`[BATCH-STRUCTURE] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} fehlgeschlagen)`);
     }
     
-    console.log(`\n[BATCH-STRUCTURE] Abgeschlossen: ${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} Fehler`);
     
     res.json({
       success: true,
@@ -3318,7 +3162,6 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
       return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
     }
     
-    console.log(`\n[BATCH-KEYWORDS] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Skip: ${skipExisting}, Parallel: ${parallelChunkSize})`);
     
     // Lade Vokabular und Template
     const vocabularyTerms = await loadSeedVocabulary();
@@ -3344,7 +3187,6 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
         // Prüfe ob MINDESTENS Summary + Headings vorhanden (TOC wird neu generiert wenn nötig)
         const existingData = summaryDB[lectureId];
         if (!existingData || !existingData.summary || !existingData.headings || existingData.headings.length === 0) {
-          console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Keine Summary/Headings vorhanden, überspringe`);
           return { success: true, skipped: true, reason: 'no-structure', lectureId };
         }
         
@@ -3353,11 +3195,9 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
         const hasKeywordsInSummaryDB = existingData.lectureKeywords && existingData.lectureKeywords.length > 0;
         
         if (skipExisting && hasKeywordsInSummaryDB) {
-          console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Bereits Keywords in Summary-DB, überspringe`);
           return { success: true, skipped: true, reason: 'already-exists', lectureId };
         }
         
-        console.log(`[BATCH-KEYWORDS] ${index + 1}/${total} ${lectureId}: Generiere TOC + Keywords (S+H vorhanden${existingData.tableOfContents ? ', TOC wird überschrieben' : ', TOC neu'})...`);
         
         // Generiere TOC + Keywords
         const generatedData = await generateUnifiedLectureData(lectureId, 'keywords', {
@@ -3398,7 +3238,6 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
           generationMethod: 'unified-batch-keywords'
         });
         
-        console.log(`[BATCH-KEYWORDS] ✓ ${lectureId}: ${keywords.length} Keywords gespeichert (beide DBs)`);
         return { success: true, skipped: false, lectureId, keywordsCount: keywords.length };
         
       } catch (error) {
@@ -3413,7 +3252,6 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
       const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
       const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
       
-      console.log(`\n[BATCH-KEYWORDS] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
       
       // Verarbeite Chunk parallel
       const chunkResults = await Promise.allSettled(
@@ -3443,10 +3281,8 @@ app.post('/api/batch-generate-keywords', async (req, res) => {
         }
       });
       
-      console.log(`[BATCH-KEYWORDS] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} fehlgeschlagen)`);
     }
     
-    console.log(`\n[BATCH-KEYWORDS] Abgeschlossen: ${results.processed} verarbeitet, ${results.skipped} übersprungen, ${results.failed} Fehler`);
     
     res.json({
       success: true,
@@ -3475,7 +3311,6 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
       return res.status(400).json({ error: 'Lecture IDs erforderlich (Array)' });
     }
     
-    console.log(`\n[BATCH-REGENERATE] Start für ${lectureIds.length} Vorträge (Provider: ${preferredProvider || 'auto'}, Parallel: ${parallelChunkSize})`);
     
     // Lade Vokabular und Template
     const vocabularyTerms = await loadSeedVocabulary();
@@ -3494,7 +3329,6 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
     // Hilfsfunktion: Verarbeite einen einzelnen Vortrag
     const processLecture = async (lectureId, index, total) => {
       try {
-        console.log(`[BATCH-REGENERATE] ${index + 1}/${total} ${lectureId}: Regeneriere alles (S+H+TOC+KW)...`);
         
         // Generiere ALLES in einem Call
         const generatedData = await generateUnifiedLectureData(lectureId, 'full', {
@@ -3533,7 +3367,6 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
           generationMethod: 'unified-batch-full'
         });
         
-        console.log(`[BATCH-REGENERATE] ✓ ${lectureId}: Komplett neu generiert (beide DBs)`);
         return { success: true, lectureId };
         
       } catch (error) {
@@ -3548,7 +3381,6 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
       const chunkNumber = Math.floor(i / parallelChunkSize) + 1;
       const totalChunks = Math.ceil(lectureIds.length / parallelChunkSize);
       
-      console.log(`\n[BATCH-REGENERATE] Chunk ${chunkNumber}/${totalChunks}: Verarbeite ${chunk.length} Vorträge parallel...`);
       
       // Verarbeite Chunk parallel
       const chunkResults = await Promise.allSettled(
@@ -3571,10 +3403,8 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
         }
       });
       
-      console.log(`[BATCH-REGENERATE] Chunk ${chunkNumber}/${totalChunks} abgeschlossen (${results.processed} erfolgreich, ${results.failed} fehlgeschlagen)`);
     }
     
-    console.log(`\n[BATCH-REGENERATE] Abgeschlossen: ${results.processed} verarbeitet, ${results.failed} Fehler`);
     
     res.json({
       success: true,
@@ -3591,13 +3421,11 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
-    console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
     
     const summaryDB = await loadSummaryDatabase();
     if (summaryDB[lectureId]) {
       const dbData = summaryDB[lectureId];
       
-      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId} (Version: ${dbData.version || 'v1'})`);
       
       return res.json({
         exists: true,
@@ -3610,14 +3438,11 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
       });
     }
     
-    console.log(`[CHECK-SUMMARY] ✗ Keine Zusammenfassung für ${lectureId}`);
     
     // DEBUG: Zeige verfügbare IDs für dieses GA
     const availableIds = Object.keys(summaryDB).filter(id => id.startsWith(req.params.gaNumber));
     if (availableIds.length > 0) {
-      console.log(`[CHECK-SUMMARY] Verfügbare IDs für ${req.params.gaNumber}:`, availableIds.slice(0, 10));
     } else {
-      console.log(`[CHECK-SUMMARY] Keine IDs für ${req.params.gaNumber} gefunden`);
     }
     
     res.json({
@@ -3651,7 +3476,6 @@ async function loadSeedVocabulary() {
       }
     });
     
-    console.log(`[VOCAB] Seed-Vokabular geladen: ${vocabulary.length} Keywords`);
     return vocabulary;
   } catch (error) {
     console.warn('[VOCAB] Fehler beim Laden des Seed-Vokabulars:', error.message);
@@ -3666,7 +3490,6 @@ function sampleParagraphsForLongLectures(paragraphs, maxParagraphs = 60) {
     return paragraphs; // Kurzer Vortrag: alle nehmen
   }
   
-  console.log(`[SAMPLING] Vortrag zu lang (${paragraphs.length} Absätze), reduziere auf ~${maxParagraphs}`);
   
   // Strategie: Gleichmäßig verteilt über den Text
   const sampledIndices = [];
@@ -3683,7 +3506,6 @@ function sampleParagraphsForLongLectures(paragraphs, maxParagraphs = 60) {
   }
   
   const sampled = sampledIndices.map(i => paragraphs[i]);
-  console.log(`[SAMPLING] Reduziert auf ${sampled.length} Absätze`);
   
   return sampled;
 }
@@ -3757,7 +3579,6 @@ async function generateFullSummaryV2(lecture, vocabulary, preferredProvider = nu
   
   // Bei langen Vorträgen: Intelligentes Sampling
   if (estimatedTokens > 180000) {
-    console.log(`[SUMMARY-V2] Langer Vortrag (${estimatedTokens} tokens), nutze Sampling`);
     paragraphsToAnalyze = sampleParagraphsForLongLectures(paragraphsToAnalyze, 80);
   }
   
@@ -3920,7 +3741,6 @@ ${fullText}
 AUSGABE (nur JSON, keine Erklärungen):`;
 
   try {
-    console.log(`[SUMMARY-V2] Rufe ${provider.name} für vollständige Generierung auf...`);
     
     let responseText = await provider.generateCompletion(prompt, {
       maxTokens: 6000,
@@ -3938,11 +3758,6 @@ AUSGABE (nur JSON, keine Erklärungen):`;
       });
     }
     
-    console.log('[SUMMARY-V2] ✓ Vollständige Generierung erfolgreich');
-    console.log(`  Summary: ${data.summary?.length} Zeichen`);
-    console.log(`  H3: ${data.headings?.filter(h => h.level === 'h3').length || 0}`);
-    console.log(`  TOC: ${data.tableOfContents?.length || 0} Einträge`);
-    console.log(`  Keywords: ${data.lectureKeywords?.length || 0}`);
     
     return {
       summary: data.summary,
@@ -3967,7 +3782,6 @@ async function enhanceSummaryV2(lecture, existingSummary, vocabulary, preferredP
   const h3Headings = (existingSummary.headings || []).filter(h => h.level === 'h3');
   
   if (h3Headings.length === 0) {
-    console.log('[ENHANCE-V2] Keine H3-Überschriften vorhanden, überspringe Enhancement');
     return existingSummary;
   }
   
@@ -3976,7 +3790,6 @@ async function enhanceSummaryV2(lecture, existingSummary, vocabulary, preferredP
   const estimatedTokens = JSON.stringify(paragraphsToAnalyze).length / 4;
   
   if (estimatedTokens > 180000) {
-    console.log(`[ENHANCE-V2] Langer Vortrag, nutze Sampling`);
     paragraphsToAnalyze = sampleParagraphsForLongLectures(paragraphsToAnalyze, 80);
   }
   
@@ -4079,7 +3892,6 @@ ${fullText}
 AUSGABE (nur JSON):`;
 
   try {
-    console.log(`[ENHANCE-V2] Rufe ${provider.name} für Enhancement auf...`);
     
     let responseText = await provider.generateCompletion(prompt, {
       maxTokens: 4000,
@@ -4096,9 +3908,6 @@ AUSGABE (nur JSON):`;
       });
     }
     
-    console.log('[ENHANCE-V2] ✓ Enhancement erfolgreich');
-    console.log(`  TOC: ${data.tableOfContents?.length || 0} Einträge`);
-    console.log(`  Keywords: ${data.lectureKeywords?.length || 0}`);
     
     // Kombiniere mit bestehender Summary
     return {
@@ -4128,14 +3937,11 @@ async function generateLectureSummary(lecture, existingSummary = null, mode = 'a
     if (existingSummary && existingSummary.summary) {
       // Hat bereits Summary → Prüfe Version
       if (existingSummary.version === 'v2') {
-        console.log('[SUMMARY] V2 bereits vorhanden, überspringe');
         return existingSummary;
       } else {
-        console.log('[SUMMARY] V1 vorhanden → Ergänze zu V2');
         mode = 'enhance';
       }
     } else {
-      console.log('[SUMMARY] Keine Summary → Vollständige V2 Generierung');
       mode = 'full';
     }
   }
@@ -4163,7 +3969,6 @@ async function generateLectureSummaryV1(lecture) {
   try {
     provider = getProviderForTask('summary');
   } catch (error) {
-    console.log('[SUMMARY] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackSummary(lecture);
   }
   
@@ -4177,13 +3982,11 @@ async function generateLectureSummaryV1(lecture) {
     .join('\n\n');
   
   const estimatedTokens = fullText.length / 4;
-  console.log(`Vortrag: ${lecture.ID}, Paragraphen: ${lecture.paragraphs.length}, Geschätzte Tokens: ${Math.round(estimatedTokens)}`);
   
   let textToSummarize = fullText;
   let headingsDisabled = false;
   
   if (estimatedTokens > 180000) {
-    console.log('Vortrag zu lang (>180k tokens) - Überschriften deaktiviert, nur Zusammenfassung');
     headingsDisabled = true;
     const halfChunkSize = 360000;
     textToSummarize = fullText.substring(0, halfChunkSize) + 
@@ -4252,7 +4055,6 @@ ${textToSummarize}
 AUSGABE (JSON):`;
 
   try {
-    console.log(`[SUMMARY] Rufe ${provider.name} API für Zusammenfassung auf...`);
     
     // Verwende Provider-Abstraction
     let summaryText = await provider.generateCompletion(prompt, {
@@ -4260,9 +4062,6 @@ AUSGABE (JSON):`;
       temperature: 0.7
     });
     
-    console.log(`\n=== ${provider.name.toUpperCase()} RESPONSE DEBUG ===`);
-    console.log('Rohe Antwort (erste 500 Zeichen):', summaryText.substring(0, 500));
-    console.log('Antwort Länge:', summaryText.length);
     
     try {
       summaryText = summaryText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
@@ -4273,26 +4072,16 @@ AUSGABE (JSON):`;
         throw new Error('Ungültiges JSON-Format von Claude');
       }
       
-      console.log('✓ JSON erfolgreich geparst');
-      console.log('Summary Länge:', summaryData.summary?.length);
-      console.log('Anzahl Headings TOTAL:', summaryData.headings?.length);
       
       const h3Count = summaryData.headings?.filter(h => h.level === 'h3').length || 0;
       const h4Count = summaryData.headings?.filter(h => h.level === 'h4').length || 0;
       const otherCount = summaryData.headings?.filter(h => h.level !== 'h3' && h.level !== 'h4').length || 0;
       
-      console.log('Headings nach Level:');
-      console.log(`  H3: ${h3Count}`);
-      console.log(`  H4: ${h4Count}`);
-      console.log(`  Andere: ${otherCount}`);
-      console.log('Erste 5 Headings:', JSON.stringify(summaryData.headings?.slice(0, 5), null, 2));
-      console.log('============================\n');
       
       return summaryData;
       
     } catch (parseError) {
       console.error('JSON Parse Fehler:', parseError);
-      console.log('Rohe Antwort:', summaryText.substring(0, 500));
       
       return {
         summary: summaryText,
@@ -4328,7 +4117,6 @@ function formatLectureTextForPrompt(lecture, maxParagraphs = 80) {
   // Sampling für sehr lange Vorträge
   const estimatedTokens = JSON.stringify(paragraphs).length / 4;
   if (estimatedTokens > 180000 && paragraphs.length > maxParagraphs) {
-    console.log(`[UNIFIED] Vortrag lang (${estimatedTokens} tokens), nutze Sampling`);
     paragraphs = sampleParagraphsForLongLectures(paragraphs, maxParagraphs);
   }
   
@@ -4751,7 +4539,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
     frequencyMap = {}
   } = options;
   
-  console.log(`\n[UNIFIED] ${lectureId} - Modus: ${mode}, Regenerate: ${forceRegenerate}`);
   
   // 1. Lade Vortrag
   const lecture = fullLectures[lectureId];
@@ -4786,7 +4573,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
     // ========== MODE: Nur S+H+TOC ==========
     prompt = UNIFIED_PROMPTS.STRUCTURE(lectureId, lectureText, vocabularyTerms);
     
-    console.log(`[UNIFIED] Rufe ${llmProvider.name} für Structure auf...`);
     const responseText = await llmProvider.generateCompletion(prompt, {
       maxTokens: 4000,
       temperature: 0.7
@@ -4800,7 +4586,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
       throw new Error('Ungültiges JSON-Format von LLM (Structure Mode)');
     }
     
-    console.log(`[UNIFIED] ✓ Structure generiert: Summary (${result.summary.length} chars), Headings (${result.headings.length}), TOC (${result.tableOfContents.length})`);
     
     return {
       summary: result.summary,
@@ -4830,7 +4615,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
       frequencyMap
     );
     
-    console.log(`[UNIFIED] Rufe ${llmProvider.name} für TOC + Keywords auf...`);
     const responseText = await llmProvider.generateCompletion(prompt, {
       maxTokens: 4000,
       temperature: 0.4
@@ -4844,7 +4628,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
       throw new Error('Ungültiges JSON-Format von LLM (Keywords Mode - erwartet tableOfContents + keywords)');
     }
     
-    console.log(`[UNIFIED] ✓ TOC + Keywords generiert: ${result.tableOfContents.length} TOC-Einträge, ${result.keywords.length} Keywords`);
     
     return {
       tableOfContents: result.tableOfContents,
@@ -4857,7 +4640,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
     
     prompt = UNIFIED_PROMPTS.FULL(lectureId, lectureText, vocabularyTerms, frequencyMap);
     
-    console.log(`[UNIFIED] Rufe ${llmProvider.name} für Full Mode auf...`);
     const responseText = await llmProvider.generateCompletion(prompt, {
       maxTokens: 6000,
       temperature: 0.7
@@ -4872,7 +4654,6 @@ async function generateUnifiedLectureData(lectureId, mode, options = {}) {
       throw new Error('Ungültiges JSON-Format von LLM (Full Mode)');
     }
     
-    console.log(`[UNIFIED] ✓ Full generiert: Summary (${result.summary.length} chars), Headings (${result.headings.length}), TOC (${result.tableOfContents.length}), Keywords (${result.keywords.length})`);
     
     return {
       summary: result.summary,
@@ -4999,7 +4780,6 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Themensuchen werden nur bei lokalem Server gespeichert
     const shouldCache = isLocalRequest && !skipCache;
     
-    console.log(`[THEMATIC-SEARCH] Request von: ${req.hostname || req.ip}, Cache: ${shouldCache ? 'JA' : 'NEIN'}`);
     
     // Konsolidierte Hybrid-Cache-Logik
     const cacheKey = generateThematicCacheKey(query, effectiveDepth, limit, gaFilter);
@@ -5007,7 +4787,6 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     // Hybrid-Cache-Logik zuerst prüfen
     const hybridHit = findHybridCacheHit(query, effectiveDepth, limit, gaFilter, thematicDB);
     if (hybridHit && hybridHit.key && thematicDB[hybridHit.key]) {
-      console.log(`[THEMATIC-CACHE] Hybrid-Cache-Hit für: "${query}" (ausführlich, ${limit}) | Score: ${hybridHit.score}`);
       const cachedResult = thematicDB[hybridHit.key];
       return res.json({
         ...cachedResult,
@@ -5019,7 +4798,6 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     }
 
     // Kein Cache-Hit: Neue Suche
-    console.log(`[THEMATIC-SEARCH] Neue Suche für: "${query}" (ausführlich, ${limit})`);
     let keywordResults = performThematicKeywordSearch(query, paragraphsFromLectures, gaFilter);
 
     if (keywordResults.length === 0) {
@@ -5038,9 +4816,7 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
           timestamp: new Date().toISOString()
         };
         await saveThematicSearchDatabase(thematicDB);
-        console.log('[THEMATIC-CACHE] Leeres Ergebnis gecacht (localhost)');
       } else {
-        console.log('[THEMATIC-CACHE] Leeres Ergebnis NICHT gecacht (online)');
       }
       return res.json(emptyResult);
     }
@@ -5078,12 +4854,10 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
 
       // Speichere Cache-DB (non-blocking)
       saveThematicSearchDatabase(thematicDB).then(() => {
-        console.log(`[THEMATIC-CACHE] Ergebnis gecacht für: "${query}" (ausführlich, ${limit}) [LOCALHOST]`);
       }).catch(err => {
         console.warn('[THEMATIC-CACHE] Fehler beim Cachen:', err.message);
       });
     } else {
-      console.log(`[THEMATIC-CACHE] Ergebnis NICHT gecacht (online): "${query}"`);
     }
 
     return res.json(searchResult);
@@ -5104,7 +4878,6 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
  * @returns {Promise<Object>} Übersicht mit definitionText, functionText, interactionText, specialText, alternativeTerms
  */
 async function generateConceptOverviewData(concept, gaFilter = '') {
-  console.log(`[CONCEPT-OVERVIEW] Generiere KI-basierte Übersicht für: "${concept}" (GA-Filter: ${gaFilter || 'alle'})`);
   
   // Prüfe ob paragraphsFromLectures verfügbar ist
   if (!paragraphsFromLectures || paragraphsFromLectures.length === 0) {
@@ -5113,7 +4886,6 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   }
   
   // 1. Verwende die gleiche Suchmethode wie bei thematischer Suche
-  console.log('[CONCEPT-OVERVIEW] Führe thematische Keyword-Suche durch...');
   let keywordResults = performThematicKeywordSearch(concept, paragraphsFromLectures, gaFilter);
   
   if (keywordResults.length === 0) {
@@ -5130,12 +4902,10 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   
   // 2. Ranking und Begrenzung
   let rankedResults = applySemanticRanking(keywordResults, concept);
-  console.log(`[CONCEPT-OVERVIEW] ${rankedResults.length} relevante Textpassagen gefunden (nach Ranking)`);
   
   // Verwende mehr Ergebnisse für umfassendere Analyse (bis zu 200)
   let topResults = rankedResults.slice(0, 200); // Top 200 für Analyse
   
-  console.log(`[CONCEPT-OVERVIEW] Verwende ${topResults.length} Textpassagen für Analyse`);
   
   // 3. Finde alternative Begriffe (ohne ähnliche Wortstämme)
   const alternativeTerms = [];
@@ -5230,7 +5000,6 @@ async function generateConceptOverviewData(concept, gaFilter = '') {
   // 4. Bereite Kontext für KI vor (mit Ranking-Scores)
   // Verwende mehr Ergebnisse für umfassendere KI-Analyse (bis zu 100)
   const resultsForAI = topResults.slice(0, 100); // Top 100 für KI-Analyse
-  console.log(`[CONCEPT-OVERVIEW] Sende ${resultsForAI.length} Textpassagen an KI`);
   
   const contextText = resultsForAI
     .map((result, index) => {
@@ -5333,7 +5102,6 @@ ${contextText}
 
 Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
 
-  console.log('[CONCEPT-OVERVIEW] Sende Anfrage an KI...');
   
   let fullText;
   try {
@@ -5343,7 +5111,6 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
     }, 'analysis');
     
     fullText = response.text || response.content;
-    console.log('[CONCEPT-OVERVIEW] KI-Antwort erhalten, Länge:', fullText.length);
   } catch (error) {
     console.error('[CONCEPT-OVERVIEW] KI-Anfrage fehlgeschlagen:', error.message);
     // Fallback: Einfache Textextraktion
@@ -5403,7 +5170,6 @@ Erstelle jetzt die strukturierte Übersicht mit Stichworten:`;
     }
   };
   
-  console.log(`[CONCEPT-OVERVIEW] Erfolgreich strukturiert in 4 Kategorien`);
   
   return result;
 }
@@ -5454,7 +5220,6 @@ app.get('/api/available-ga', async (req, res) => {
     });
 
     const result = Array.from(gaSet).sort();
-    console.log("[INFO] Verfügbare GA-Bände:", result);
     res.json({ availableGA: result });
   } catch (error) {
     console.error("[ERROR] Fehler bei /api/available-ga:", error);
@@ -5476,7 +5241,6 @@ app.get('/api/available-years', async (req, res) => {
     });
 
     const result = Array.from(yearSet).sort();
-    console.log("[INFO] Verfügbare Jahre:", result.length, "Jahre von", result[0], "bis", result[result.length - 1]);
     res.json({ years: result });
   } catch (error) {
     console.error("[ERROR] Fehler bei /api/available-years:", error);
@@ -5488,7 +5252,6 @@ app.get('/api/available-years', async (req, res) => {
 // Reload-Endpoint für Books (zum Neuladen ohne Server-Neustart)
 app.post('/api/reload-books', async (req, res) => {
   try {
-    console.log('[RELOAD] Lade Books neu...');
     fullBooks = {}; // Leere den Cache
     const reloaded = await loadBooks();
     res.json({ 
@@ -5507,7 +5270,6 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     const gaNumberOriginal = req.params.gaNumber;
     const gaNumberNormalized = gaNumberOriginal.toLowerCase();
 
-    console.log(`[BOOK] Anfrage für ${gaNumberOriginal}`);
 
     // Suche nach Book
     const book = Object.values(fullBooks).find(b => {
@@ -5519,7 +5281,6 @@ app.get('/api/book/:gaNumber', async (req, res) => {
       return res.status(404).json({ error: `Keine Schrift gefunden für ${gaNumberOriginal}` });
     }
 
-    console.log(`[BOOK] Schrift gefunden: ${book.title}`);
 
     // Speichere Überschriften in summary-database.json für TOC-Anzeige
     // WICHTIG: Nur für Books (GA001-GA046), niemals Vortrags-Einträge überschreiben!
@@ -5560,7 +5321,6 @@ app.get('/api/book/:gaNumber', async (req, res) => {
           });
           
           if (hasLectures) {
-            console.log(`[BOOK] ✓ Vortrags-Einträge gefunden - werden geschützt`);
           }
         } catch (e) {
           dbLoadError = e;
@@ -5598,7 +5358,6 @@ app.get('/api/book/:gaNumber', async (req, res) => {
             const match = id.match(/^GA(\d+)/);
             return match && parseInt(match[1]) >= 51;
           }).length;
-          console.log(`[BOOK] ✓ Überschriften für ${bookId} gespeichert (${totalEntries} Einträge total, ${lectureEntries} Vorträge geschützt)`);
         } else {
           console.warn(`[BOOK] ⚠️  Überschriften für ${bookId} wurden NICHT gespeichert (Datenbank konnte nicht geladen werden)`);
         }
@@ -5631,7 +5390,6 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
   try {
     const gaNumberOriginal = req.params.gaNumber;
 
-    console.log(`[GA-OVERVIEW] Anfrage für ${gaNumberOriginal}`);
 
     // Generiere Übersicht direkt aus zentraler Datenbank (kein Cache)
     const overview = await generateGAOverview(gaNumberOriginal);
@@ -5640,7 +5398,6 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
       return res.status(404).json({ error: `Keine Vorträge gefunden für ${gaNumberOriginal}` });
     }
 
-    console.log(`[GA-OVERVIEW] Übersicht generiert für ${gaNumberOriginal}: ${overview.lectureCount} Vorträge`);
     res.json(overview);
 
   } catch (error) {
@@ -5652,7 +5409,6 @@ app.get('/api/ga-overview/:gaNumber', async (req, res) => {
 // API: Alle Vorträge chronologisch sortiert
 app.get('/api/lectures/chronological', async (req, res) => {
   try {
-    console.log('[CHRONOLOGICAL] Anfrage für chronologische Übersicht');
     
     // Sammle alle Vorträge mit Datum
     const lecturesWithDate = [];
@@ -5675,7 +5431,6 @@ app.get('/api/lectures/chronological', async (req, res) => {
       return new Date(a.date) - new Date(b.date);
     });
     
-    console.log(`[CHRONOLOGICAL] ${lecturesWithDate.length} Vorträge mit Datum gefunden`);
     
     res.json({
       success: true,
@@ -5693,16 +5448,13 @@ app.get('/ga-overview-map.json', async (req, res) => {
   try {
     const mapPath = path.join(__dirname, 'ga-overview-map.json');
     
-    console.log('[GA-OVERVIEW-MAP] Anfrage erhalten');
     
     try {
       await fs.access(mapPath);
       const data = await fs.readFile(mapPath, 'utf8');
       res.setHeader('Content-Type', 'application/json');
       res.send(data);
-      console.log('[GA-OVERVIEW-MAP] Datei erfolgreich gesendet');
     } catch (fileErr) {
-      console.log('[GA-OVERVIEW-MAP] Datei nicht gefunden, generiere Fallback');
       
       const gaSet = new Set();
       Object.values(fullLectures).forEach(lecture => {
@@ -5732,13 +5484,9 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
   try {
     const { minCoOccurrence = 3, enrichWithClaude = true, topN = 30 } = req.body;
     
-    console.log('\n========================================');
-    console.log('SYNONYM-GENERIERUNG GESTARTET');
-    console.log('========================================');
     
     const startCount = Object.keys(synonyms).length;
     
-    console.log('\n[SCHRITT 1] Generiere aus Query-Log...');
     const querySynonyms = generateSynonymsFromQueries(minCoOccurrence);
     
     Object.keys(querySynonyms).forEach(term => {
@@ -5755,21 +5503,12 @@ app.post('/api/admin/generate-synonyms', async (req, res) => {
     
     let enrichedCount = 0;
     if (enrichWithClaude && process.env.CLAUDE_API_KEY) {
-      console.log('\n[SCHRITT 2] Anreicherung mit Claude API...');
       enrichedCount = await enrichSynonymsWithClaude(topN);
     } else {
-      console.log('\n[SCHRITT 2] Claude-Anreicherung übersprungen');
     }
     
     const endCount = Object.keys(synonyms).length;
     
-    console.log('\n========================================');
-    console.log('SYNONYM-GENERIERUNG ABGESCHLOSSEN');
-    console.log(`Vorher: ${startCount} Begriffe`);
-    console.log(`Nachher: ${endCount} Begriffe`);
-    console.log(`Neu: ${endCount - startCount} Begriffe`);
-    console.log(`Claude-Anreicherung: ${enrichedCount} Begriffe`);
-    console.log('========================================\n');
     
     lastSynonymUpdate = new Date().toISOString();
     
@@ -5805,12 +5544,10 @@ app.post('/api/synonyms/add', async (req, res) => {
     const baseNormalized = baseKeyword.toLowerCase().trim();
     const synonymNormalized = synonym.toLowerCase().trim();
     
-    console.log(`[SYNONYM-ADD] Füge hinzu: "${synonymNormalized}" → "${baseNormalized}"`);
     
     // Initialisiere Array falls noch nicht vorhanden
     if (!synonyms[baseNormalized]) {
       synonyms[baseNormalized] = [baseNormalized];
-      console.log(`[SYNONYM-ADD] Neue Synonym-Gruppe erstellt für: ${baseNormalized}`);
     }
     
     // Prüfe ob Synonym bereits existiert
@@ -5828,8 +5565,6 @@ app.post('/api/synonyms/add', async (req, res) => {
     // Speichere
     await saveSynonyms();
     
-    console.log(`[SYNONYM-ADD] ✓ "${synonymNormalized}" zu "${baseNormalized}" hinzugefügt`);
-    console.log(`[SYNONYM-ADD] Gruppe hat jetzt ${synonyms[baseNormalized].length} Einträge`);
     
     res.json({
       success: true,
@@ -5870,7 +5605,6 @@ app.get('/api/synonyms/:keyword', (req, res) => {
 // API-Endpunkt: Liste aller verfügbaren Schlagwort-Dateien
 app.get('/api/concepts-files', async (req, res) => {
   try {
-    console.log('[KEYWORDS-API] Lade verfügbare Schlagwort-Dateien...');
     
     const keywordsPath = path.join(__dirname, 'keywords');
     
@@ -5878,7 +5612,6 @@ app.get('/api/concepts-files', async (req, res) => {
     try {
       await fs.access(keywordsPath);
     } catch (error) {
-      console.log('[KEYWORDS-API] keywords/ Ordner nicht gefunden');
       return res.json({ files: [] });
     }
     
@@ -5886,7 +5619,6 @@ app.get('/api/concepts-files', async (req, res) => {
     const files = await fs.readdir(keywordsPath);
     const jsonFiles = files.filter(file => file.endsWith('.json'));
     
-    console.log(`[KEYWORDS-API] ${jsonFiles.length} JSON-Dateien gefunden:`, jsonFiles);
     
     res.json({ 
       files: jsonFiles,
@@ -5905,7 +5637,6 @@ app.get('/api/concepts-files', async (req, res) => {
 // API-Endpunkt: Vollständige Schlagwort-Liste laden
 app.get('/api/concepts-list', async (req, res) => {
   try {
-    console.log('[KEYWORDS-API] Lade alle Schlagwörter...');
     
     const keywordsPath = path.join(__dirname, 'keywords');
     let allKeywords = [];
@@ -5917,7 +5648,6 @@ app.get('/api/concepts-list', async (req, res) => {
       const data = JSON.parse(fileContent);
       if (Array.isArray(data)) {
         allKeywords = allKeywords.concat(data);
-        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus concepts-database.json geladen`);
       }
     } catch (error) {
       console.warn('[KEYWORDS-API] Keine zentrale concepts-database.json gefunden:', error.message);
@@ -5937,7 +5667,6 @@ app.get('/api/concepts-list', async (req, res) => {
             console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
           }
         }
-        console.log(`[KEYWORDS-API] ${allKeywords.length} Schlagwörter aus keywords/-Ordner geladen`);
       } catch (error) {
         console.warn('[KEYWORDS-API] keywords/ Ordner nicht gefunden:', error.message);
       }
@@ -5967,7 +5696,6 @@ app.post('/api/keywords-generate', async (req, res) => {
       });
     }
     
-    console.log('[KEYWORDS-GENERATE] Generiere Keywords für:', lectureId);
     
     // Lade Vortrag
     const lecture = fullLectures[lectureId];
@@ -6030,7 +5758,6 @@ ${lectureText}
 
 SCHLAGWÖRTER:`;
 
-    console.log('[KEYWORDS-GENERATE] Rufe Claude API auf...');
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -6056,7 +5783,6 @@ SCHLAGWÖRTER:`;
     const result = await response.json();
     const generatedText = result.content[0].text.trim();
     
-    console.log('[KEYWORDS-GENERATE] Claude Antwort erhalten, Länge:', generatedText.length);
     
     // Parse JSON-Antwort
     let generatedKeywords;
@@ -6066,7 +5792,6 @@ SCHLAGWÖRTER:`;
       generatedKeywords = JSON.parse(cleanText);
     } catch (parseError) {
       console.error('[KEYWORDS-GENERATE] JSON Parse Fehler:', parseError);
-      console.log('[KEYWORDS-GENERATE] Rohe Antwort:', generatedText.substring(0, 500));
       
       // Fallback: Versuche Keywords aus Text zu extrahieren
       generatedKeywords = {
@@ -6091,7 +5816,6 @@ SCHLAGWÖRTER:`;
         sourceLecture: lectureId
       })) || [];
     
-    console.log(`[KEYWORDS-GENERATE] ${validKeywords.length} Keywords generiert für ${lectureId}`);
     
     res.json({ 
       success: true,
@@ -6116,10 +5840,8 @@ SCHLAGWÖRTER:`;
 
 app.get('/api/full-lectures', async (req, res) => {
   try {
-    console.log('[FULL-LECTURES] API-Aufruf');
     
     if (Object.keys(fullLectures).length === 0) {
-      console.log('[FULL-LECTURES] Lade Vorträge...');
       await loadFullLectures();
     }
     
@@ -6141,7 +5863,6 @@ app.get('/api/full-lectures', async (req, res) => {
       }
     });
     
-    console.log(`[FULL-LECTURES] Sende ${Object.keys(simplifiedLectures).length} Vorträge`);
     res.json(simplifiedLectures);
     
   } catch (error) {
@@ -6195,7 +5916,6 @@ app.get('/api/lecture/:lectureId', async (req, res) => {
   try {
     const { lectureId } = req.params;
     
-    console.log(`[LECTURE] Lade Vortrag: ${lectureId}`);
     
     if (Object.keys(fullLectures).length === 0) {
       await loadFullLectures();
@@ -6251,7 +5971,6 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
                            req.ip === '::1' ||
                            req.ip === '127.0.0.1';
     
-    console.log(`[KEYWORD-THEMATIC] Suche für: "${query}" (ausführlich, ${limit}), Cache: ${isLocalRequest ? 'JA' : 'NEIN'}`);
     
     // Cache-System für Keyword-Thematische Suche
     const cacheKey = `keyword_${query.toLowerCase().trim()}_${effectiveDepth}_${limit}`;
@@ -6259,7 +5978,6 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
     
     // Prüfe Cache (nur wenn useCache true ist)
     if (useCache && keywordThematicDB[cacheKey]) {
-      console.log(`[KEYWORD-THEMATIC-CACHE] Cache-Hit für: "${query}"`);
       return res.json({
         ...keywordThematicDB[cacheKey],
         fromCache: true,
@@ -6287,9 +6005,7 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
           timestamp: new Date().toISOString()
         };
         await saveKeywordThematicDatabase(keywordThematicDB);
-        console.log('[KEYWORD-THEMATIC-CACHE] Leeres Ergebnis gecacht (localhost)');
       } else {
-        console.log('[KEYWORD-THEMATIC-CACHE] Leeres Ergebnis NICHT gecacht (online)');
       }
       return res.json(emptyResult);
     }
@@ -6326,12 +6042,10 @@ app.post('/api/keyword-thematic-search', async (req, res) => {
       
       // Speichere Cache-DB (non-blocking)
       saveKeywordThematicDatabase(keywordThematicDB).then(() => {
-        console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis gecacht für: "${query}" [LOCALHOST]`);
       }).catch(err => {
         console.warn('[KEYWORD-THEMATIC-CACHE] Fehler beim Cachen:', err.message);
       });
     } else {
-      console.log(`[KEYWORD-THEMATIC-CACHE] Ergebnis NICHT gecacht (online): "${query}"`);
     }
     
     return res.json({
@@ -6358,7 +6072,6 @@ app.post('/api/concepts-save', async (req, res) => {
       });
     }
     
-    console.log('[KEYWORDS-SAVE] Speichere Keyword:', keyword);
     
     // Lade aktuelle Keywords
     const keywordsPath = path.join(__dirname, 'keywords');
@@ -6372,10 +6085,8 @@ app.post('/api/concepts-save', async (req, res) => {
       const data = JSON.parse(fileContent);
       if (Array.isArray(data)) {
         allKeywords = data;
-        console.log(`[KEYWORDS-SAVE] ${allKeywords.length} Keywords aus keywords.json geladen`);
       }
     } catch (error) {
-      console.log('[KEYWORDS-SAVE] Keine keywords.json gefunden, erstelle neue');
     }
     
     // Prüfe ob Keyword bereits existiert
@@ -6393,11 +6104,9 @@ app.post('/api/concepts-save', async (req, res) => {
     if (existingIndex >= 0) {
       // Update existing keyword
       allKeywords[existingIndex] = { ...allKeywords[existingIndex], ...newKeyword };
-      console.log(`[KEYWORDS-SAVE] Keyword "${keyword}" aktualisiert`);
     } else {
       // Add new keyword
       allKeywords.push(newKeyword);
-      console.log(`[KEYWORDS-SAVE] Neues Keyword "${keyword}" hinzugefügt`);
     }
     
     // Speichere zurück in keywords.json
@@ -6432,7 +6141,6 @@ async function loadKeywordThematicDatabase() {
     const data = await fs.readFile(CONCEPTS_THEMATIC_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('Keyword-Thematische-Suche-Cache-DB nicht gefunden, erstelle neue');
     return {};
   }
 }
@@ -6441,7 +6149,6 @@ async function loadKeywordThematicDatabase() {
 async function saveKeywordThematicDatabase(keywordThematicDB) {
   try {
     await fs.writeFile(CONCEPTS_THEMATIC_DB_FILE, JSON.stringify(keywordThematicDB, null, 2), 'utf8');
-    console.log('Keyword-Thematische-Suche-Cache-DB gespeichert');
     return true;
   } catch (error) {
     console.error('Fehler beim Speichern der Keyword-Thematische-Suche-Cache-DB:', error);
@@ -6465,7 +6172,6 @@ app.post('/api/concepts-batch-add', async (req, res) => {
     // Maximale Concurrency: 10 (um API Rate Limits zu vermeiden)
     const effectiveConcurrency = Math.min(concurrency, 10);
     
-    console.log(`[KEYWORDS-BATCH-ADD] Starte parallele Batch-Verarbeitung für ${keywords.length} Schlagwörter (Concurrency: ${effectiveConcurrency})`);
     
     const results = {
       batchId: batchId || `batch_${Date.now()}`,
@@ -6485,7 +6191,6 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       const fileContent = await fs.readFile(conceptsFile, 'utf8');
       allConcepts = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[KEYWORDS-BATCH-ADD] concepts-database.json nicht gefunden, erstelle neue');
     }
     
     // Definiere Verarbeitungsfunktion für ein Schlagwort
@@ -6501,7 +6206,6 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         };
       }
       
-      console.log(`[KEYWORDS-BATCH-ADD] Verarbeite ${i + 1}/${keywords.length}: "${trimmedKeyword}"`);
       
       // Prüfe auf Duplikate
       const existingConceptIndex = allConcepts.findIndex(k => 
@@ -6533,7 +6237,6 @@ app.post('/api/concepts-batch-add', async (req, res) => {
       // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
       // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
       // 2. Themen_Übersicht-Prompt (Main Viewer)
-      console.log(`[KEYWORDS-BATCH-ADD] Starte beide KI-Analysen für "${trimmedKeyword}"...`);
       
       const [analysisResult, overviewResult] = await Promise.allSettled([
         generateConceptAnalysis(trimmedKeyword, keywordResults),
@@ -6587,7 +6290,6 @@ app.post('/api/concepts-batch-add', async (req, res) => {
         batchIndex: i
       };
       
-      console.log(`[KEYWORDS-BATCH-ADD] ✓ "${trimmedKeyword}" erfolgreich verarbeitet`);
       
       return {
         status: 'successful',
@@ -6647,12 +6349,10 @@ app.post('/api/concepts-batch-add', async (req, res) => {
     
     // Speichere aktualisierte concepts-database.json
     await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
-    console.log('[KEYWORDS-BATCH-ADD] concepts-database.json aktualisiert');
     
     results.endTime = new Date().toISOString();
     results.duration = new Date(results.endTime) - new Date(results.startTime);
     
-    console.log(`[KEYWORDS-BATCH-ADD] Batch abgeschlossen: ${results.successful.length} erfolgreich, ${results.failed.length} fehlgeschlagen, ${results.skipped.length} übersprungen`);
     
     res.json({
       success: true,
@@ -6681,7 +6381,6 @@ app.post('/api/concepts-add', async (req, res) => {
     }
     
     const cleanKeyword = keyword.trim();
-    console.log(`[KEYWORDS-ADD] ${overwrite ? 'Überschreibe' : 'Füge neues'} Schlagwort hinzu: "${cleanKeyword}"`);
     
     // Prüfe ob Schlagwort bereits existiert
     const keywordsFile = path.join(__dirname, 'keywords.json');
@@ -6691,7 +6390,6 @@ app.post('/api/concepts-add', async (req, res) => {
       const fileContent = await fs.readFile(keywordsFile, 'utf8');
       allKeywords = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[KEYWORDS-ADD] keywords.json nicht gefunden, erstelle neue');
     }
     
     // Prüfe auf Duplikate
@@ -6707,7 +6405,6 @@ app.post('/api/concepts-add', async (req, res) => {
     }
     
     // Führe Keyword-Thematische Suche durch, um das Schlagwort zu analysieren
-    console.log(`[KEYWORDS-ADD] Führe KI-Analyse für "${cleanKeyword}" durch...`);
     
     let keywordResults = performThematicKeywordSearch(cleanKeyword, paragraphsFromLectures);
     
@@ -6721,7 +6418,6 @@ app.post('/api/concepts-add', async (req, res) => {
     // Führe BEIDE KI-Prompts parallel aus (unabhängig voneinander):
     // 1. Bestehender Prompt für KI-Suchergebnis (Content Fenster)
     // 2. Themen_Übersicht-Prompt (Main Viewer)
-    console.log(`[KEYWORDS-ADD] Starte beide KI-Analysen parallel für "${cleanKeyword}"...`);
     
     const [analysisResult, overviewResult] = await Promise.allSettled([
       generateConceptAnalysis(cleanKeyword, keywordResults),
@@ -6781,7 +6477,6 @@ app.post('/api/concepts-add', async (req, res) => {
       const conceptsContent = await fs.readFile(conceptsFile, 'utf8');
       allConcepts = JSON.parse(conceptsContent);
     } catch (error) {
-      console.log('[KEYWORDS-ADD] concepts-database.json nicht gefunden, erstelle neue');
     }
     
     // Prüfe auf Duplikate in concepts-database.json
@@ -6792,21 +6487,14 @@ app.post('/api/concepts-add', async (req, res) => {
     if (existingConceptIndex !== -1 && overwrite) {
       // Überschreibe bestehendes Concept
       allConcepts[existingConceptIndex] = newConcept;
-      console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" überschrieben`);
     } else if (existingConceptIndex === -1) {
       // Füge zur Liste hinzu
       allConcepts.push(newConcept);
-      console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" neu hinzugefügt`);
     }
     
     // Speichere direkt in concepts-database.json
     await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
     
-    console.log(`[KEYWORDS-ADD] Concept "${cleanKeyword}" erfolgreich in concepts-database.json gespeichert`);
-    console.log(`[KEYWORDS-ADD] Analyse-Länge: ${analysis.length} Zeichen`);
-    console.log(`[KEYWORDS-ADD] Themen_Übersicht generiert:`, overviewData.overview ? 'Ja' : 'Nein');
-    console.log(`[KEYWORDS-ADD] Gefundene Ergebnisse: ${keywordResults.length}`);
-    console.log(`[KEYWORDS-ADD] Sources: ${newConcept.sources.length}`);
     
     res.json({ 
       success: true, 
@@ -6866,9 +6554,6 @@ app.get('/api/admin/synonym-stats', (req, res) => {
 // Route aus Verschachtelung herausgelöst
 app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
   try {
-    console.log('\n========================================');
-    console.log('LÖSCHE UNVOLLSTÄNDIGE ZUSAMMENFASSUNGEN');
-    console.log('========================================');
 
     let deletedCount = 0;
     const toDelete = [];
@@ -6882,17 +6567,13 @@ app.post('/api/admin/clear-incomplete-summaries', async (req, res) => {
       // Lösche wenn keine Headings oder keine H3
       if (headings.length === 0 || h3Count === 0) {
         toDelete.push(lectureId);
-        console.log(`  Markiere ${lectureId} (${headings.length} headings, ${h3Count} H3)`);
       }
     });
 
     // Lösche aus zentraler DB mit robustem Locking
     deletedCount = await deleteSummariesFromDatabase(toDelete);
 
-    console.log(`✓ ${deletedCount} unvollständige Summaries aus zentraler DB gelöscht`);
 
-    console.log(`✓ ${deletedCount} unvollständige Zusammenfassungen gelöscht`);
-    console.log('========================================\n');
 
     res.json({
       success: true,
@@ -6918,7 +6599,6 @@ app.post('/api/concepts-delete', async (req, res) => {
     }
 
     const cleanKeyword = keyword.trim();
-    console.log(`[CONCEPTS-DELETE] Lösche Concept: "${cleanKeyword}"`);
 
     // Entferne aus concepts-database.json
     const conceptsFile = path.join(__dirname, 'concepts-database.json');
@@ -6927,7 +6607,6 @@ app.post('/api/concepts-delete', async (req, res) => {
       const fileContent = await fs.readFile(conceptsFile, 'utf8');
       allConcepts = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[CONCEPTS-DELETE] concepts-database.json nicht gefunden, nichts zu entfernen');
     }
 
     const beforeCount = allConcepts.length;
@@ -6941,7 +6620,6 @@ app.post('/api/concepts-delete', async (req, res) => {
 
     if (beforeCount !== allConcepts.length) {
       await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
-      console.log(`[CONCEPTS-DELETE] Aus concepts-database.json entfernt: ${removedCount}`);
       
       // Wenn es ein Obsidian-Concept war, zur Blacklist hinzufügen
       if (conceptToDelete && conceptToDelete.source === 'obsidian-az') {
@@ -6952,17 +6630,14 @@ app.post('/api/concepts-delete', async (req, res) => {
           const blacklistContent = await fs.readFile(blacklistFile, 'utf8');
           blacklist = JSON.parse(blacklistContent);
         } catch (error) {
-          console.log('[CONCEPTS-DELETE] Erstelle neue Blacklist');
         }
         
         if (!blacklist.includes(cleanKeyword)) {
           blacklist.push(cleanKeyword);
           await fs.writeFile(blacklistFile, JSON.stringify(blacklist, null, 2), 'utf8');
-          console.log(`[CONCEPTS-DELETE] "${cleanKeyword}" zur Blacklist hinzugefügt (Obsidian-Concept)`);
         }
       }
     } else {
-      console.log('[CONCEPTS-DELETE] Kein Eintrag in concepts-database.json gefunden');
     }
 
     return res.json({
@@ -7047,7 +6722,6 @@ async function createBackup(sourceFile, backupDir, prefix, maxBackups = 10) {
         return null;
       }
     } catch (error) {
-      console.log(`[BACKUP] ${path.basename(sourceFile)} nicht gefunden - kein Backup erstellt`);
       return null;
     }
     
@@ -7058,7 +6732,6 @@ async function createBackup(sourceFile, backupDir, prefix, maxBackups = 10) {
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
     
-    console.log(`[BACKUP] ✓ ${prefix}: ${path.basename(backupFile)}`);
     
     // Bereinige alte Backups
     await cleanOldBackupsGeneric(backupDir, prefix, maxBackups);
@@ -7091,7 +6764,6 @@ async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
     }
     
     if (toDelete.length > 0) {
-      console.log(`[BACKUP] ${toDelete.length} alte ${prefix}-Backups gelöscht`);
     }
   } catch (error) {
     console.error(`[BACKUP] Fehler beim Bereinigen von ${prefix}:`, error);
@@ -7134,7 +6806,6 @@ async function createCodeBackup() {
         return null;
       }
     } catch (error) {
-      console.log('[BACKUP] backend.js nicht gefunden');
       return null;
     }
     
@@ -7145,7 +6816,6 @@ async function createCodeBackup() {
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
     
-    console.log(`[BACKUP] ✓ Code: ${path.basename(backupFile)}`);
     
     // Bereinige alte Backups
     await cleanOldBackupsGeneric(CODE_BACKUP_DIR, 'backend', 20);
@@ -7171,7 +6841,6 @@ async function createHtmlBackup(htmlFile = 'index.html') {
         return null;
       }
     } catch (error) {
-      console.log(`[BACKUP] ${htmlFile} nicht gefunden`);
       return null;
     }
     
@@ -7183,7 +6852,6 @@ async function createHtmlBackup(htmlFile = 'index.html') {
     const data = await fs.readFile(sourceFile, 'utf8');
     await fs.writeFile(backupFile, data, 'utf8');
     
-    console.log(`[BACKUP] ✓ HTML: ${path.basename(backupFile)}`);
     
     // Bereinige alte Backups (nur für diesen Dateityp)
     await cleanOldBackupsGeneric(HTML_BACKUP_DIR, prefix, 10);
@@ -7197,7 +6865,6 @@ async function createHtmlBackup(htmlFile = 'index.html') {
 
 // Umfassendes Backup aller wichtigen Dateien
 async function createFullBackup() {
-  console.log('[BACKUP] Erstelle umfassendes Backup...');
   const results = await Promise.all([
     createKeywordsBackup(),
     createSummaryBackup(),
@@ -7210,7 +6877,6 @@ async function createFullBackup() {
   ]);
   
   const successful = results.filter(r => r !== null).length;
-  console.log(`[BACKUP] ✓ ${successful} von ${results.length} Backups erstellt`);
   
   return successful;
 }
@@ -7229,7 +6895,6 @@ async function saveClustersFile(clustersData) {
   }
   
   fsSync.writeFileSync(clustersPath, JSON.stringify(clustersData, null, 2));
-  console.log('[CLUSTERS] ✓ Cluster-Datei gespeichert');
   return true;
 }
 
@@ -7252,14 +6917,12 @@ async function loadSummaryDatabase() {
     const data = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
     const parsed = JSON.parse(data);
     const entryCount = Object.keys(parsed).length;
-    console.log(`[SUMMARY-DB] Geladen: ${entryCount} Einträge aus summary-database.json`);
     if (entryCount === 0) {
       console.warn('[SUMMARY-DB] ⚠️  WARNUNG: summary-database.json ist leer!');
     }
     return parsed;
   } catch (error) {
     console.error('[SUMMARY-DB] ❌ Fehler beim Laden:', error.message);
-    console.log('Zentrale Summary-DB nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -7268,7 +6931,6 @@ async function loadSummaryDatabase() {
 async function saveSummaryDatabase(summaryDB) {
   try {
     await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-    console.log('Zentrale Summary-DB gespeichert');
     return true;
   } catch (error) {
     console.error('Fehler beim Speichern der Summary-DB:', error);
@@ -7286,7 +6948,6 @@ async function loadSummaryKeywordsDatabase() {
     const data = await fs.readFile(SUMMARY_KEYWORDS_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('Summary-Keywords-DB nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -7295,7 +6956,6 @@ async function loadSummaryKeywordsDatabase() {
 async function saveSummaryKeywordsDatabase(keywordsDB) {
   try {
     await fs.writeFile(SUMMARY_KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
-    console.log('Summary-Keywords-DB gespeichert');
     return true;
   } catch (error) {
     console.error('Fehler beim Speichern der Summary-Keywords-DB:', error);
@@ -7310,7 +6970,6 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
   return new Promise((resolve, reject) => {
     summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
       try {
-        console.log(`[LOCK] Sperre DB für ${lectureId}...`);
         
         // Erstelle Backup vor dem Speichern
         await createSummaryBackup();
@@ -7331,7 +6990,6 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
-        console.log(`[LOCK] ✓ Summary für ${lectureId} gespeichert (${Object.keys(summaryDB).length} Einträge total)`);
         
         resolve(true);
         
@@ -7351,7 +7009,6 @@ async function deleteSummariesFromDatabase(lectureIds) {
   return new Promise((resolve, reject) => {
     summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
       try {
-        console.log(`[LOCK] Sperre DB für Bulk-Delete (${lectureIds.length} Einträge)...`);
         
         // Lade immer die aktuellste Version der Datenbank
         const summaryDB = await loadSummaryDatabase();
@@ -7368,7 +7025,6 @@ async function deleteSummariesFromDatabase(lectureIds) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
-        console.log(`[LOCK] ✓ ${deletedCount} Summaries gelöscht (${Object.keys(summaryDB).length} Einträge verbleiben)`);
         
         resolve(deletedCount);
         
@@ -7388,7 +7044,6 @@ async function saveCompleteSummaryDatabase(summaryDB) {
   return new Promise((resolve, reject) => {
     summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
       try {
-        console.log(`[SUMMARY-LOCK] Sperre DB für komplettes Speichern...`);
         
         // Erstelle Backup vor dem Speichern
         await createSummaryBackup();
@@ -7403,7 +7058,6 @@ async function saveCompleteSummaryDatabase(summaryDB) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
-        console.log(`[SUMMARY-LOCK] ✓ Komplette Summary-DB gespeichert (${Object.keys(summaryDB).length} Einträge)`);
         
         resolve(true);
         
@@ -7428,7 +7082,6 @@ app.post('/api/keywords-delete', async (req, res) => {
       return res.status(400).json({ error: 'keyword ist erforderlich' });
     }
     
-    console.log(`[DELETE-KW] Lösche Keyword "${keyword}" aus allen Vorträgen...`);
     
     // 1. Aktualisiere Keywords-Database
     const keywordsDB = await loadKeywordsDatabase();
@@ -7449,7 +7102,6 @@ app.post('/api/keywords-delete', async (req, res) => {
     }
     
     await saveCompleteKeywordsDatabase(keywordsDB);
-    console.log(`[DELETE-KW] ✓ Keywords-Database: ${totalDeleted} Vorkommen aus ${deletedFromLectures} Vorträgen gelöscht`);
     
     // 2. Aktualisiere Summary-Database
     const summaryDB = await loadSummaryDatabase();
@@ -7468,7 +7120,6 @@ app.post('/api/keywords-delete', async (req, res) => {
     }
     
     await saveCompleteSummaryDatabase(summaryDB);
-    console.log(`[DELETE-KW] ✓ Summary-Database: Aus ${deletedFromSummary} Vorträgen gelöscht`);
     
     // 3. Aktualisiere Clusters (entferne Keyword aus allen Clustern)
     try {
@@ -7489,7 +7140,6 @@ app.post('/api/keywords-delete', async (req, res) => {
       
       if (removedFromClusters > 0) {
         await saveClustersFile({ ...clustersData, clusters });
-        console.log(`[DELETE-KW] ✓ Aus ${removedFromClusters} Clustern entfernt`);
       }
     } catch (error) {
       console.warn(`[DELETE-KW] Warnung: Clusters konnten nicht aktualisiert werden:`, error.message);
@@ -7517,7 +7167,6 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
       return res.status(400).json({ error: 'lectureId und keyword.term sind erforderlich' });
     }
     
-    console.log(`[ADD-KW] Füge "${keyword.term}" zu ${lectureId} hinzu (Index: ${keyword.index})`);
     
     // 1. Aktualisiere Summary-Database
     const summaryDB = await loadSummaryDatabase();
@@ -7538,12 +7187,10 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
       if (matchingHeading) {
         keyword.heading = matchingHeading.text;
         keyword.level = matchingHeading.level || 'h3';
-        console.log(`[ADD-KW] Echte Überschrift gefunden: "${matchingHeading.text}"`);
       } else {
         console.warn(`[ADD-KW] Keine passende Überschrift für Index ${keyword.index} gefunden`);
       }
     } else if (keyword.customDescription) {
-      console.log(`[ADD-KW] Benutzerdefinierte Beschreibung verwendet: "${keyword.heading}"`);
     }
     
     // ✅ Markiere manuell hinzugefügtes Keyword
@@ -7557,7 +7204,6 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
     summaryDB[lectureId].lectureKeywords.push(manualKeyword);
     
     await saveCompleteSummaryDatabase(summaryDB);
-    console.log(`[ADD-KW] ✓ Summary-Database aktualisiert (manuallyEdited=true)`);
     
     // 2. Aktualisiere Keywords-Database
     const keywordsDB = await loadKeywordsDatabase();
@@ -7582,7 +7228,6 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
         const month = monthNames[locationMatch[2].toLowerCase()];
         const year = locationMatch[3];
         date = `${year}-${month}-${day}`;
-        console.log(`[ADD-KW] Datum aus location/fileName extrahiert: ${date}`);
       }
     }
     
@@ -7610,18 +7255,15 @@ app.post('/api/add-keyword-to-lecture', async (req, res) => {
       // Aktualisiere Datum/Jahr falls leer (wichtig für alte Einträge ohne Datum)
       if (!keywordsDB[lectureId].date && date) {
         keywordsDB[lectureId].date = date;
-        console.log(`[ADD-KW] Datum aktualisiert: ${date}`);
       }
       if (!keywordsDB[lectureId].year && year) {
         keywordsDB[lectureId].year = year;
-        console.log(`[ADD-KW] Jahr aktualisiert: ${year}`);
       }
       
       keywordsDB[lectureId].generationMethod = keywordsDB[lectureId].generationMethod || 'manual-add';
     }
     
     await saveCompleteKeywordsDatabase(keywordsDB);
-    console.log(`[ADD-KW] ✓ Keywords-Database aktualisiert (manuallyEdited=true)`);
     
     res.json({ 
       success: true, 
@@ -7644,7 +7286,6 @@ app.post('/api/get-paragraph-keywords', async (req, res) => {
       return res.status(400).json({ error: 'lectureId und paragraphIndex sind erforderlich' });
     }
     
-    console.log(`[GET-PARA-KW] Lade Keywords für ${lectureId}, Absatz ${paragraphIndex}`);
     
     // Lade Keywords aus beiden Datenbanken
     const keywordsDB = await loadKeywordsDatabase();
@@ -7669,7 +7310,6 @@ app.post('/api/get-paragraph-keywords', async (req, res) => {
       });
     }
     
-    console.log(`[GET-PARA-KW] Gefunden: ${keywords.length} Keywords`);
     
     res.json({ 
       success: true, 
@@ -7691,7 +7331,6 @@ app.post('/api/remove-keyword-from-paragraph', async (req, res) => {
       return res.status(400).json({ error: 'lectureId, paragraphIndex und keywordTerm sind erforderlich' });
     }
     
-    console.log(`[REMOVE-PARA-KW] Entferne "${keywordTerm}" von ${lectureId}, Absatz ${paragraphIndex}`);
     
     let removedCount = 0;
     
@@ -7707,7 +7346,6 @@ app.post('/api/remove-keyword-from-paragraph', async (req, res) => {
       removedCount += (beforeCount - afterCount);
       
       await saveCompleteKeywordsDatabase(keywordsDB);
-      console.log(`[REMOVE-PARA-KW] ✓ Keywords-Database: ${beforeCount - afterCount} entfernt`);
     }
     
     // 2. Aktualisiere Summary-Database
@@ -7722,7 +7360,6 @@ app.post('/api/remove-keyword-from-paragraph', async (req, res) => {
       removedCount += (beforeCount - afterCount);
       
       await saveSummaryDatabase(summaryDB);
-      console.log(`[REMOVE-PARA-KW] ✓ Summary-Database: ${beforeCount - afterCount} entfernt`);
     }
     
     if (removedCount === 0) {
@@ -7750,7 +7387,6 @@ app.post('/api/update-lecture-keyword', async (req, res) => {
       return res.status(400).json({ error: 'Lecture ID, oldKeyword und newKeyword erforderlich' });
     }
     
-    console.log(`[UPDATE-KW] Aktualisiere "${oldKeyword.term}" zu "${newKeyword.term}" in ${lectureId}`);
     
     // 1. Aktualisiere Keywords-Database
     const keywordsDB = await loadKeywordsDatabase();
@@ -7768,7 +7404,6 @@ app.post('/api/update-lecture-keyword', async (req, res) => {
           lastEditedAt: new Date().toISOString()
         };
         await saveCompleteKeywordsDatabase(keywordsDB);
-        console.log(`[UPDATE-KW] ✓ Keywords-Database aktualisiert (manuallyEdited=true)`);
       }
     }
     
@@ -7788,7 +7423,6 @@ app.post('/api/update-lecture-keyword', async (req, res) => {
           lastEditedAt: new Date().toISOString()
         };
         await saveCompleteSummaryDatabase(summaryDB);
-        console.log(`[UPDATE-KW] ✓ Summary-Database aktualisiert (manuallyEdited=true)`);
       }
     }
     
@@ -7900,9 +7534,6 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       preferredProvider = null
     } = req.body;
     
-    console.log(`\n[SHORT-SUMMARY-BATCH] Starte Batch-Generierung...`);
-    console.log(`[SHORT-SUMMARY-BATCH] Force Regenerate: ${forceRegenerate}`);
-    console.log(`[SHORT-SUMMARY-BATCH] Preferred Provider: ${preferredProvider || 'auto'}`);
     
     // Lade Summary-Datenbank
     const summaryDB = await loadSummaryDatabase();
@@ -7924,7 +7555,6 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       return !entry.shortSummary;
     });
     
-    console.log(`[SHORT-SUMMARY-BATCH] ${toProcess.length} von ${lectureIdsToProcess.length} Vorträgen benötigen shortSummary`);
     
     if (toProcess.length === 0) {
       return res.json({
@@ -7948,7 +7578,6 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       const batchEnd = Math.min(batchStart + BATCH_SIZE, toProcess.length);
       const batch = toProcess.slice(batchStart, batchEnd);
       
-      console.log(`[SHORT-SUMMARY-BATCH] Batch ${Math.floor(batchStart / BATCH_SIZE) + 1}/${Math.ceil(toProcess.length / BATCH_SIZE)}: Verarbeite ${batch.length} Vorträge parallel...`);
       
       // Verarbeite alle Vorträge in diesem Batch parallel
       const batchPromises = batch.map(async (lectureId, idx) => {
@@ -7956,12 +7585,10 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
         const overallIdx = batchStart + idx + 1;
         
         try {
-          console.log(`[SHORT-SUMMARY-BATCH] ${overallIdx}/${toProcess.length} ${lectureId}: Generiere shortSummary...`);
           
           // Generiere Kurzzusammenfassung mit bevorzugtem Provider
           const shortSummary = await generateShortSummary(entry.summary, lectureId, preferredProvider);
           
-          console.log(`[SHORT-SUMMARY-BATCH] ✓ ${lectureId}: Kurzzusammenfassung generiert (${shortSummary.length} Zeichen)`);
           
           return {
             success: true,
@@ -8003,13 +7630,9 @@ app.post('/api/batch-generate-short-summaries', async (req, res) => {
       // Speichere Batch in Datenbank
       if (savedInThisBatch > 0) {
         await saveCompleteSummaryDatabase(updatedSummaryDB);
-        console.log(`[SHORT-SUMMARY-BATCH] ✓ Batch gespeichert: ${savedInThisBatch} Kurzzusammenfassungen`);
       }
     }
     
-    console.log(`\n[SHORT-SUMMARY-BATCH] Batch abgeschlossen:`);
-    console.log(`[SHORT-SUMMARY-BATCH] ✓ Erfolgreich: ${results.processed}`);
-    console.log(`[SHORT-SUMMARY-BATCH] ✗ Fehlgeschlagen: ${results.failed}`);
     
     res.json({
       success: true,
@@ -8036,7 +7659,6 @@ async function generateKeywordsFromHeadings(lectureId, headings) {
     const h3Headings = headings.filter(h => h.level === 'h3');
     
     if (h3Headings.length === 0) {
-      console.log(`[SUMMARY-KEYWORDS] ${lectureId}: Keine H3-Überschriften vorhanden`);
       return [];
     }
     
@@ -8082,7 +7704,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
       console.warn(`[SUMMARY-KEYWORDS] ${lectureId}: ${keywords.length} Keywords für ${h3Headings.length} H3-Überschriften (erwartet gleiche Anzahl)`);
     }
     
-    console.log(`[SUMMARY-KEYWORDS] ${lectureId}: ${keywords.length} Keywords aus ${h3Headings.length} H3-Überschriften generiert`);
     return keywords;
     
   } catch (error) {
@@ -8096,7 +7717,6 @@ app.post('/api/generate-summary-keywords-batch', async (req, res) => {
   try {
     const { startIndex = 0, batchSize = 10 } = req.body;
     
-    console.log(`[SUMMARY-KEYWORDS-BATCH] Starte Generierung ab Index ${startIndex}, Batch-Größe: ${batchSize}`);
     
     // Lade Datenbanken
     const summaryDB = await loadSummaryDatabase();
@@ -8123,14 +7743,12 @@ app.post('/api/generate-summary-keywords-batch', async (req, res) => {
     for (const lectureId of batchLectureIds) {
       // Skip wenn bereits Keywords vorhanden
       if (summaryKeywordsDB[lectureId] && summaryKeywordsDB[lectureId].keywords) {
-        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Bereits vorhanden, überspringe`);
         processedCount++;
         continue;
       }
       
       const lectureData = summaryDB[lectureId];
       if (!lectureData || !lectureData.summary) {
-        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Keine Summary vorhanden, überspringe`);
         errorCount++;
         continue;
       }
@@ -8146,7 +7764,6 @@ app.post('/api/generate-summary-keywords-batch', async (req, res) => {
         };
         
         processedCount++;
-        console.log(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: ✓ Keywords generiert`);
         
       } catch (error) {
         console.error(`[SUMMARY-KEYWORDS-BATCH] ${lectureId}: Fehler -`, error.message);
@@ -8160,7 +7777,6 @@ app.post('/api/generate-summary-keywords-batch', async (req, res) => {
     const nextIndex = startIndex + batchSize;
     const isCompleted = nextIndex >= totalLectures;
     
-    console.log(`[SUMMARY-KEYWORDS-BATCH] Batch abgeschlossen: ${processedCount} erfolgreich, ${errorCount} Fehler`);
     
     res.json({
       success: true,
@@ -8198,7 +7814,6 @@ app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
       return res.status(400).json({ error: 'lectureIds Array ist erforderlich' });
     }
     
-    console.log(`[SUMMARY-KEYWORDS-LECTURES] Generiere Keywords für ${lectureIds.length} Vorträge`);
     
     // Lade Datenbanken
     const summaryDB = await loadSummaryDatabase();
@@ -8210,14 +7825,12 @@ app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
     for (const lectureId of lectureIds) {
       // Skip wenn bereits Keywords vorhanden
       if (summaryKeywordsDB[lectureId] && summaryKeywordsDB[lectureId].keywords) {
-        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Bereits vorhanden, überspringe`);
         processedCount++;
         continue;
       }
       
       const lectureData = summaryDB[lectureId];
       if (!lectureData || !lectureData.summary) {
-        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Keine Summary vorhanden, überspringe`);
         errorCount++;
         continue;
       }
@@ -8233,7 +7846,6 @@ app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
         };
         
         processedCount++;
-        console.log(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: ✓ Keywords generiert`);
         
       } catch (error) {
         console.error(`[SUMMARY-KEYWORDS-LECTURES] ${lectureId}: Fehler -`, error.message);
@@ -8244,7 +7856,6 @@ app.post('/api/generate-summary-keywords-for-lectures', async (req, res) => {
     // Speichere aktualisierte Datenbank
     await saveSummaryKeywordsDatabase(summaryKeywordsDB);
     
-    console.log(`[SUMMARY-KEYWORDS-LECTURES] Batch abgeschlossen: ${processedCount} erfolgreich, ${errorCount} Fehler`);
     
     res.json({
       success: true,
@@ -8272,7 +7883,6 @@ async function loadKeywordsDatabase() {
     const data = await fs.readFile(KEYWORDS_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('[KEYWORDS-DB] Datenbank nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -8282,7 +7892,6 @@ async function saveCompleteKeywordsDatabase(keywordsDB) {
   return new Promise((resolve, reject) => {
     keywordsDbWriteQueue = keywordsDbWriteQueue.then(async () => {
       try {
-        console.log(`[KEYWORDS-LOCK] Sperre DB für komplettes Speichern...`);
         
         // WICHTIG: Erstelle Backup BEVOR wir speichern
         await createKeywordsBackup();
@@ -8297,7 +7906,6 @@ async function saveCompleteKeywordsDatabase(keywordsDB) {
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
         
-        console.log(`[KEYWORDS-LOCK] ✓ Komplette Keywords-DB gespeichert (${Object.keys(keywordsDB).length} Einträge)`);
         
         resolve(true);
         
@@ -8314,7 +7922,6 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
   return new Promise((resolve, reject) => {
     keywordsDbWriteQueue = keywordsDbWriteQueue.then(async () => {
       try {
-        console.log(`[KEYWORDS-LOCK] Sperre DB für ${lectureId}...`);
         
         // WICHTIG: Erstelle Backup BEVOR wir speichern
         await createKeywordsBackup();
@@ -8330,11 +7937,9 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
         let mergedKeywords = keywordsData.keywords || [];
         
         if (existingEntry && existingEntry.keywords && Array.isArray(existingEntry.keywords)) {
-          console.log(`[KEYWORDS-MERGE] Merge für ${lectureId}: ${existingEntry.keywords.length} bestehende + ${keywordsData.keywords?.length || 0} neue Keywords`);
           
           // 1. Behalte alle manuell bearbeiteten Keywords
           const manualKeywords = existingEntry.keywords.filter(kw => kw.manuallyEdited === true);
-          console.log(`[KEYWORDS-MERGE] Erhalte ${manualKeywords.length} manuell bearbeitete Keywords`);
           
           // 2. Erstelle Set der bestehenden Keyword-Signaturen (term + index)
           const existingSignatures = new Set(
@@ -8347,14 +7952,11 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
             return !existingSignatures.has(signature);
           });
           
-          console.log(`[KEYWORDS-MERGE] Füge ${newKeywords.length} neue Keywords hinzu`);
           
           // 4. Merge: Manuelle zuerst, dann neue
           mergedKeywords = [...manualKeywords, ...newKeywords];
           
-          console.log(`[KEYWORDS-MERGE] ✓ Merge abgeschlossen: ${mergedKeywords.length} Keywords total`);
         } else {
-          console.log(`[KEYWORDS-MERGE] Keine bestehenden Keywords für ${lectureId} - füge ${mergedKeywords.length} neue hinzu`);
         }
         
         // Speichere gemergten Eintrag
@@ -8375,7 +7977,6 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
         // Speichere Datenbank
         await fs.writeFile(KEYWORDS_DB_FILE, JSON.stringify(keywordsDB, null, 2), 'utf8');
         
-        console.log(`[KEYWORDS-LOCK] ✓ Keywords für ${lectureId} gespeichert (${Object.keys(keywordsDB).length} Einträge total)`);
         
         resolve(true);
         
@@ -8393,7 +7994,6 @@ async function saveKeywordsToDatabase(lectureId, keywordsData) {
 // Funktion: Keywords aus Überschriften generieren (HAUPTEINSTIEG)
 // Verwendet IMMER Claude KI für beste Qualität
 async function generateKeywordsFromHeadings(lecture, headings) {
-  console.log('[KEYWORDS-GEN] Verwende KI-basierte Extraktion mit Claude');
   return await generateKeywordsWithAI(lecture, headings);
 }
 
@@ -8509,7 +8109,6 @@ function normalizeKeywords(keywords) {
   });
   
   const result = Array.from(normalized.values());
-  console.log(`[NORMALIZE] ${keywords.length} Keywords → ${result.length} normalisiert`);
   
   return result.map(term => {
     // Bewahre ursprüngliche Struktur falls vorhanden
@@ -8525,7 +8124,6 @@ async function generateKeywordsWithAI(lecture, headings) {
   const claudeApiKey = process.env.CLAUDE_API_KEY;
   
   if (!claudeApiKey) {
-    console.log('[KEYWORDS-GEN] Kein Claude API Key - verwende Regel-basiert');
     return extractKeywordsFromHeadings(headings);
   }
   
@@ -8570,7 +8168,6 @@ ANTWORT-FORMAT (JSON):
 Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
 
   try {
-    console.log('[KEYWORDS-GEN] Rufe Claude API auf...');
     
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -8601,7 +8198,6 @@ Wichtig: Ein Eintrag pro Überschrift! Antworte NUR mit dem JSON-Array, ohne zus
     
     let keywords = JSON.parse(responseText);
     
-    console.log('[KEYWORDS-GEN] ✓ Keywords mit KI extrahiert:', keywords.length, 'aus', headings.length, 'Überschriften');
     
     // Füge level-Feld hinzu basierend auf Original-Überschriften
     keywords = keywords.map(kw => {
@@ -8635,7 +8231,6 @@ function loadSeedKeywords() {
     const matches = [...content.matchAll(regex)];
     const seedKeywords = matches.map(m => m[1].trim());
     
-    console.log(`[SEED] Geladen: ${seedKeywords.length} Seed-Keywords aus Keywords - merged.md`);
     return seedKeywords;
   } catch (error) {
     console.error('[SEED] Fehler beim Laden der Seed-Keywords:', error.message);
@@ -8650,7 +8245,6 @@ async function extractKeyTermsFromSummary(summary, existingVocabulary) {
   try {
     provider = getProviderForTask('keywords');
   } catch (error) {
-    console.log('[SUMMARY-TERMS] Kein LLM-Provider verfügbar - Fallback auf Regel-basiert:', error.message);
     // Einfache Regel: Häufigste Substantive mit Großbuchstaben
     const words = summary.split(/\s+/);
     const capitalWords = words.filter(w => w.length > 3 && /^[A-ZÄÖÜ]/.test(w));
@@ -8694,7 +8288,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
     const terms = JSON.parse(responseText);
-    console.log(`[SUMMARY-TERMS] ${provider.name} extrahiert: ${terms.join(', ')}`);
     return terms;
     
   } catch (error) {
@@ -8710,7 +8303,6 @@ async function generateKeywordsIterativeWithSummary(lectureId, summary, headings
   try {
     provider = getProviderForTask('keywords');
   } catch (error) {
-    console.log('[KEYWORDS-ITER] Kein LLM-Provider verfügbar - verwende Regel-basiert:', error.message);
     return extractKeywordsFromHeadings(headings);
   }
   
@@ -8802,7 +8394,6 @@ AUSGABE (JSON):
 Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
 
   try {
-    console.log(`[KEYWORDS-ITER] ${lectureId}: Rufe ${provider.name} API auf...`);
     
     // Verwende Provider-Abstraction
     let responseText = await provider.generateCompletion(prompt, {
@@ -8823,8 +8414,6 @@ Antworte NUR mit dem JSON-Array, ohne zusätzlichen Text.`;
       };
     });
     
-    console.log(`[KEYWORDS-ITER] ${lectureId}: ✓ ${keywords.length} Keywords generiert`);
-    console.log(`[KEYWORDS-ITER]   Existing: ${keywords.filter(k => k.matchType !== 'new').length}, New: ${keywords.filter(k => k.matchType === 'new').length}`);
     
     return keywords;
 
@@ -8860,7 +8449,6 @@ async function loadThemesKeywordsTemplate() {
   try {
     const data = await fs.readFile(THEMES_KEYWORDS_TEMPLATE_FILE, 'utf8');
     const template = JSON.parse(data);
-    console.log(`[TEMPLATE] Geladen: ${Object.keys(template.themes).length} Themen, Confidence: ${template.metadata.confidenceThreshold}`);
     return template;
   } catch (error) {
     console.error('[TEMPLATE] Fehler beim Laden:', error.message);
@@ -8893,7 +8481,6 @@ function extractVocabularyFromTemplate(template) {
     }
   }
   
-  console.log(`[TEMPLATE] Vokabular extrahiert: ${vocabulary.size} Keywords, ${Object.keys(synonymMap).length} Synonym-Gruppen`);
   
   return {
     vocabulary: Array.from(vocabulary),
@@ -8950,7 +8537,6 @@ async function generateKeywordsFromHeadingsWithTemplate(lectureId, headings, tem
       if (!provider.isAvailable()) {
         throw new Error(`${preferredProvider} nicht verfügbar (kein API-Key)`);
       }
-      console.log(`[KEYWORDS-NEW] ${lectureId}: Verwende explizit gewählten Provider: ${provider.name}`);
     } catch (error) {
       console.error(`[KEYWORDS-NEW] ${lectureId}: Gewählter Provider ${preferredProvider} nicht verfügbar:`, error.message);
       return extractKeywordsFromHeadings(headings);
@@ -8961,12 +8547,10 @@ async function generateKeywordsFromHeadingsWithTemplate(lectureId, headings, tem
     const availableProviders = getAllAvailableProviders('keywords');
     
     if (availableProviders.length === 0) {
-      console.log('[KEYWORDS-NEW] Kein LLM-Provider verfügbar - verwende Regel-basiert');
       return extractKeywordsFromHeadings(headings);
     }
     
     provider = availableProviders[0];
-    console.log(`[KEYWORDS-NEW] ${lectureId}: Auto-Auswahl: ${provider.name}`);
   }
   
   // Extrahiere Template-Vokabular
@@ -9197,7 +8781,6 @@ JSON (NUR Array, kein Markdown, kein Text):
 [{"term":"Schlagwort","index":"^abc","heading":"...","level":"h3","matchType":"exact","confidence":0.95}]`;
 
   try {
-    console.log(`[KEYWORDS-NEW] ${lectureId}: Starte Generierung mit ${provider.name}...`);
     
     // Verwende DIREKT den ausgewählten Provider (kein Fallback)
     let responseText = await provider.generateCompletion(prompt, {
@@ -9207,7 +8790,6 @@ JSON (NUR Array, kein Markdown, kein Text):
     
     const usedProvider = provider.name;
     
-    console.log(`[KEYWORDS-NEW] ${lectureId}: ✓ Antwort von ${usedProvider} erhalten`);
     
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
@@ -9266,21 +8848,18 @@ JSON (NUR Array, kein Markdown, kein Text):
         // Strategie A: Letztes Wort (oft das Hauptsubstantiv)
         const lastWord = words[words.length - 1];
         if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
-          console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${lastWord}" (letztes Wort)`);
           term = lastWord;
         }
         // Strategie B: Letzte 2 Worte
         else if (words.length >= 2) {
           const lastTwo = words.slice(-2).join(' ');
           if (fullVocabulary.some(v => v.toLowerCase() === lastTwo.toLowerCase())) {
-            console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${lastTwo}" (letzte 2 Worte)`);
             term = lastTwo;
           }
           // Strategie C: Erste 2 Worte
           else {
             const firstTwo = words.slice(0, 2).join(' ');
             if (fullVocabulary.some(v => v.toLowerCase() === firstTwo.toLowerCase())) {
-              console.log(`[KEYWORDS-SMART-CLEAN] ${lectureId}: "${term}" → "${firstTwo}" (erste 2 Worte)`);
               term = firstTwo;
             }
           }
@@ -9289,7 +8868,6 @@ JSON (NUR Array, kein Markdown, kein Text):
       
       // Log wenn bereinigt
       if (term !== originalTerm) {
-        console.log(`[KEYWORDS-CLEAN] ${lectureId}: "${originalTerm}" → "${term}"`);
         cleanedKeywords.push({ old: originalTerm, new: term });
       }
       
@@ -9304,7 +8882,6 @@ JSON (NUR Array, kein Markdown, kein Text):
         // Strategie 1: Letztes Wort im Vokabular?
         const lastWord = words[words.length - 1];
         if (fullVocabulary.some(v => v.toLowerCase() === lastWord.toLowerCase())) {
-          console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${lastWord}"`);
           term = lastWord;
           found = true;
         }
@@ -9312,7 +8889,6 @@ JSON (NUR Array, kein Markdown, kein Text):
         else if (words.length >= 2) {
           const lastTwo = words.slice(-2).join(' ');
           if (fullVocabulary.some(v => v.toLowerCase() === lastTwo.toLowerCase())) {
-            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${lastTwo}"`);
             term = lastTwo;
             found = true;
           }
@@ -9321,7 +8897,6 @@ JSON (NUR Array, kein Markdown, kein Text):
         if (!found && words.length >= 2) {
           const firstTwo = words.slice(0, 2).join(' ');
           if (fullVocabulary.some(v => v.toLowerCase() === firstTwo.toLowerCase())) {
-            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${firstTwo}"`);
             term = firstTwo;
             found = true;
           }
@@ -9330,19 +8905,16 @@ JSON (NUR Array, kein Markdown, kein Text):
         if (!found) {
           const capitalWords = words.filter(w => /^[A-ZÄÖÜ]/.test(w));
           if (capitalWords.length === 1) {
-            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${capitalWords[0]}" (Hauptsubstantiv)`);
             term = capitalWords[0];
             found = true;
           } else if (capitalWords.length >= 2) {
             const twoCapitals = capitalWords.slice(0, 2).join(' ');
-            console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Gekürzt "${term}" → "${twoCapitals}" (2 Substantive)`);
             term = twoCapitals;
             found = true;
           }
         }
         // Strategie 5: Verwerfen wenn nichts funktioniert
         if (!found) {
-          console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Verworfen (zu lang, nicht im Vokabular): "${term}"`);
           rejectedKeywords.push(originalTerm);
           return; // Nicht hinzufügen
         }
@@ -9375,16 +8947,13 @@ JSON (NUR Array, kein Markdown, kein Text):
         });
       } else {
         // Nicht im Vokabular und nicht legitim neu → verwerfen
-        console.log(`[KEYWORDS-VALIDATE] ${lectureId}: Verworfen (nicht im Vokabular): "${term}" (matchType: ${kw.matchType}, confidence: ${kw.confidence})`);
         rejectedKeywords.push(originalTerm);
       }
     });
     
     if (rejectedKeywords.length > 0) {
-      console.log(`[KEYWORDS-VALIDATE] ${lectureId}: ${rejectedKeywords.length} Keywords verworfen`);
     }
     if (cleanedKeywords.length > 0) {
-      console.log(`[KEYWORDS-CLEAN] ${lectureId}: ${cleanedKeywords.length} Keywords bereinigt`);
     }
     
     // Füge Themen-Zuordnung hinzu basierend auf themeMapping
@@ -9401,14 +8970,11 @@ JSON (NUR Array, kein Markdown, kein Text):
     const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
     const synKws = finalKeywords.filter(k => k.matchType === 'synonym');
     
-    console.log(`[KEYWORDS-NEW] ${lectureId}: ✓ ${finalKeywords.length} Keywords generiert (${rejectedKeywords.length} verworfen)`);
-    console.log(`[KEYWORDS-NEW]   Provider: ${usedProvider}, Exact: ${exactKws.length}, Synonym: ${synKws.length}, New: ${newKws.length}`);
     
     return finalKeywords;
 
   } catch (error) {
     console.error(`[KEYWORDS-NEW] ${lectureId}: Alle Provider fehlgeschlagen:`, error.message);
-    console.log(`[KEYWORDS-NEW] ${lectureId}: Fallback auf regel-basierte Extraktion`);
     return extractKeywordsFromHeadings(headings);
   }
 }
@@ -9457,11 +9023,9 @@ ANTWORT (nur Themenname oder "NONE"):`;
     
     // Validiere dass Thema existiert
     if (themeName === 'NONE' || !themesList[themeName]) {
-      console.log(`[THEME-ASSIGN] "${keyword}" → kein passendes Thema gefunden`);
       return null;
     }
     
-    console.log(`[THEME-ASSIGN] "${keyword}" → "${themeName}"`);
     return themeName;
     
   } catch (error) {
@@ -9581,7 +9145,6 @@ JSON-AUSGABE (NUR Array, kein Text):
 WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
 
   try {
-    console.log(`[KEYWORDS-FLEX] ${lectureId}: Rufe ${provider.name} auf (Budget: ${maxNewKeywords} neue KW)...`);
     
     let responseText = await provider.generateCompletion(prompt, {
       maxTokens: 4000,
@@ -9595,7 +9158,6 @@ WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
       throw new Error('LLM gab kein Array zurück');
     }
     
-    console.log(`[KEYWORDS-FLEX] ${lectureId}: ${keywords.length} Keywords erhalten`);
     
     // VALIDIERUNG & BUDGET-ENFORCEMENT
     const validatedKeywords = [];
@@ -9619,7 +9181,6 @@ WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
           term = words.slice(-2).join(' ');
         }
         
-        console.log(`[KEYWORDS-FLEX] ${lectureId}: Gekürzt "${kw.term}" → "${term}"`);
       }
       
       // Prüfe ob neu
@@ -9630,7 +9191,6 @@ WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
       // Budget-Check
       if (isNew) {
         if (newKeywordsCount >= maxNewKeywords) {
-          console.log(`[KEYWORDS-FLEX] ${lectureId}: Budget erschöpft, verwerfe neues KW "${term}"`);
           rejectedKeywords.push({ term, reason: 'Budget erschöpft' });
           continue;
         }
@@ -9662,7 +9222,6 @@ WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
       }
     }
     
-    console.log(`[KEYWORDS-FLEX] ${lectureId}: Validiert: ${uniqueKeywords.length} unique KW (${newKeywordsCount} neu, ${rejectedKeywords.length} verworfen)`);
     
     // THEMEN-ZUORDNUNG für neue Keywords
     const themesList = template.themes;
@@ -9687,15 +9246,11 @@ WICHTIG: Antworte NUR mit dem JSON-Array. Keine Erklärungen!`;
     const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
     const withTheme = finalKeywords.filter(k => k.theme !== null);
     
-    console.log(`[KEYWORDS-FLEX] ${lectureId}: ✓ FINAL: ${finalKeywords.length} Keywords`);
-    console.log(`[KEYWORDS-FLEX]   Existierend: ${finalKeywords.length - newKws.length}, Neu: ${newKws.length}`);
-    console.log(`[KEYWORDS-FLEX]   Mit Thema: ${withTheme.length}, Ohne Thema: ${finalKeywords.length - withTheme.length}`);
     
     return finalKeywords;
     
   } catch (error) {
     console.error(`[KEYWORDS-FLEX] ${lectureId}: Fehler:`, error.message);
-    console.log(`[KEYWORDS-FLEX] ${lectureId}: Fallback auf existierende Methode`);
     return extractKeywordsFromHeadings(headings);
   }
 }
@@ -9712,7 +9267,6 @@ async function generateKeywordsFromHeadingsWithTemplateOptimized(lectureId, head
     const availableProviders = getAllAvailableProviders('keywords');
     
     if (availableProviders.length === 0) {
-      console.log('[KEYWORDS-OPT] Kein Provider verfügbar - verwende Regel-basiert');
       return extractKeywordsFromHeadings(headings);
     }
     
@@ -9904,7 +9458,6 @@ JSON (NUR Array, kein Markdown, kein Text):
     const newKws = finalKeywords.filter(k => k.matchType === 'new');
     const exactKws = finalKeywords.filter(k => k.matchType === 'exact');
     
-    console.log(`[KEYWORDS-OPT] ${lectureId}: ✓ ${finalKeywords.length} Keywords (${rejectedKeywords.length} verworfen, ${cleanedKeywords.length} bereinigt)`);
     
     return finalKeywords;
     
@@ -9918,7 +9471,6 @@ JSON (NUR Array, kein Markdown, kein Text):
  * Synonym-Konsolidierung: Findet und merged ähnliche Keywords
  */
 async function consolidateSynonymsInKeywords(keywordsDB, synonymMap) {
-  console.log('[SYNONYM-CONSOLIDATION] Starte Konsolidierung...');
   
   let consolidatedCount = 0;
   
@@ -9936,7 +9488,6 @@ async function consolidateSynonymsInKeywords(keywordsDB, synonymMap) {
           kw.term = canonical.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
           
           if (originalTerm !== kw.term) {
-            console.log(`[SYNONYM-CONSOLIDATION] ${lectureId}: "${originalTerm}" → "${kw.term}"`);
             consolidatedCount++;
           }
         }
@@ -9944,7 +9495,6 @@ async function consolidateSynonymsInKeywords(keywordsDB, synonymMap) {
     });
   }
   
-  console.log(`[SYNONYM-CONSOLIDATION] ✓ ${consolidatedCount} Keywords konsolidiert`);
   
   return consolidatedCount;
 }
@@ -9954,7 +9504,6 @@ async function consolidateSynonymsInKeywords(keywordsDB, synonymMap) {
  * Frontend erwartet diese Struktur für Timeline-Tab
  */
 async function updateThemesDatabaseFromTemplate(template) {
-  console.log('[THEMES-UPDATE] Aktualisiere themes-database.json aus Template...');
   
   try {
     // Konvertiere Template-Struktur in themes-database Format
@@ -9970,7 +9519,6 @@ async function updateThemesDatabaseFromTemplate(template) {
     // Speichere in themes-database.json
     await saveThemesDatabase(themesDB);
     
-    console.log(`[THEMES-UPDATE] ✓ themes-database.json aktualisiert: ${Object.keys(themesDB).length} Themen`);
     
     return themesDB;
   } catch (error) {
@@ -10022,7 +9570,6 @@ function groupLecturesByGA(summaryDB) {
 
 // Funktion: Erweitere bestehende Cluster mit neuen Keywords
 async function expandClustersWithNewKeywords(newKeywords, existingClusters) {
-  console.log(`[CLUSTERS] Erweitere Cluster mit ${newKeywords.length} neuen Keywords...`);
   
   const prompt = `Du bist ein Experte für thematische Klassifikation von philosophischen und anthroposophischen Begriffen.
 
@@ -10087,7 +9634,6 @@ ANTWORTE im folgenden JSON-Format:
     }
 
     const result = JSON.parse(jsonMatch[0]);
-    console.log(`[CLUSTERS] Expansion: ${Object.keys(result.assignments || {}).length} bestehende erweitert, ${Object.keys(result.newClusters || {}).length} neue erstellt`);
     
     return result;
     
@@ -10105,7 +9651,6 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
     try {
       summaryDB = JSON.parse(fsSync.readFileSync(SUMMARY_DB_FILE, 'utf8'));
     } catch (error) {
-      console.log('[GA-VOLUMES] Keine Summary-Database gefunden');
     }
     
     // Lade Keywords-Database
@@ -10113,7 +9658,6 @@ app.get('/api/keywords/available-ga-volumes', async (req, res) => {
     try {
       keywordsDB = JSON.parse(fsSync.readFileSync(KEYWORDS_DB_FILE, 'utf8'));
     } catch (error) {
-      console.log('[GA-VOLUMES] Keine Keywords-Database gefunden');
     }
     
     // Sammle ALLE GA-Bände aus fullLectures, fullBooks UND summaryDB
@@ -10218,11 +9762,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
   const { gaVolume, useExistingVocab, updateClusters, parallelBatchSize, forceReprocess } = req.body;
   const PARALLEL_BATCH_SIZE = parallelBatchSize || 10; // Default: 10 parallel
   
-  console.log(`\n[GA-BATCH] Starte Regenerierung für ${gaVolume}...`);
-  console.log(`[GA-BATCH] Verwende bestehendes Vokabular: ${useExistingVocab ? 'Ja' : 'Nein (nur Seeds)'}`);
-  console.log(`[GA-BATCH] Cluster iterativ erweitern: ${updateClusters ? 'Ja' : 'Nein'}`);
-  console.log(`[GA-BATCH] Parallele Verarbeitung: ${PARALLEL_BATCH_SIZE} Vorträge pro Batch`);
-  console.log(`[GA-BATCH] Bereits verarbeitete neu verarbeiten: ${forceReprocess ? 'Ja' : 'Nein'}`);
   
   try {
     // 1. Lade Seed-Keywords
@@ -10233,7 +9772,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
     
     // 2. Lade Full Lectures für Datum/Jahr
     if (Object.keys(fullLectures).length === 0) {
-      console.log('[GA-BATCH] Lade Full Lectures für Metadaten...');
       await loadFullLectures();
     }
     
@@ -10258,9 +9796,7 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
           });
         }
         
-        console.log(`[GA-BATCH] Geladen: ${masterVocabulary.size} Keywords aus bestehender Datenbank`);
       } catch (error) {
-        console.log(`[GA-BATCH] Keine bestehende Datenbank gefunden, starte mit Seeds`);
       }
     }
     
@@ -10272,8 +9808,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
       throw new Error(`Keine Vorträge für ${gaVolume} gefunden`);
     }
     
-    console.log(`[GA-BATCH] ${gaVolume}: ${lectures.length} Vorträge`);
-    console.log(`[GA-BATCH] Start-Vokabular: ${masterVocabulary.size} Keywords`);
     
     // 5. Sortiere Vorträge innerhalb des GA-Bands
     const sortedLectures = lectures.sort();
@@ -10301,7 +9835,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
       const batchEnd = Math.min(batchStart + PARALLEL_BATCH_SIZE, sortedLectures.length);
       const batch = sortedLectures.slice(batchStart, batchEnd);
       
-      console.log(`\n[GA-BATCH] Batch ${Math.floor(batchStart/PARALLEL_BATCH_SIZE)+1}: Verarbeite ${batch.length} Vorträge parallel...`);
       
       // Erstelle Array von Promises für parallele Verarbeitung
       const batchPromises = batch.map(async (lectureId, batchIndex) => {
@@ -10309,18 +9842,15 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
         const data = summaryDB[lectureId];
         
         if (!data.headings || data.headings.length === 0) {
-          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Überspringe (keine Überschriften)`);
           return { lectureId, skipped: true };
         }
         
         // Überspringe bereits verarbeitete Vorträge (nur wenn useExistingVocab aktiv)
         if (useExistingVocab && existingKeywordsDB[lectureId]) {
-          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Überspringe (bereits verarbeitet)`);
           return { lectureId, skipped: true, reason: 'already_processed' };
         }
         
         try {
-          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: Starte...`);
           
           // Snapshot des aktuellen Vokabulars für diese Verarbeitung
           const vocabSnapshot = Array.from(masterVocabulary);
@@ -10346,7 +9876,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
           const gaMatch = lectureId.match(/^GA(\d+)/);
           const gaVol = gaMatch ? `GA${gaMatch[1]}` : null;
           
-          console.log(`[GA-BATCH] ${globalIndex+1}/${sortedLectures.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu, ${reusedKws.length} wiederverwendet)`);
           
           return {
             lectureId,
@@ -10413,7 +9942,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
         });
       }
       
-      console.log(`[GA-BATCH] Batch abgeschlossen. Vokabular: ${masterVocabulary.size} Keywords\n`);
       
       // Kleine Pause zwischen Batches (Rate Limit Protection)
       if (batchEnd < sortedLectures.length) {
@@ -10423,29 +9951,18 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
     
     // 7. Finale Statistiken
     const startVocabSize = useExistingVocab ? Object.keys(existingKeywordsDB).length * 10 : seedKeywords.length; // Schätzung
-    console.log(`\n[GA-BATCH] === ${gaVolume} FERTIG ===`);
-    console.log(`[GA-BATCH] Verarbeitet: ${stats.processed}/${sortedLectures.length}`);
     if (stats.skipped > 0) {
-      console.log(`[GA-BATCH] Übersprungen: ${stats.skipped} (bereits verarbeitet)`);
     }
-    console.log(`[GA-BATCH] Fehler: ${stats.errors}`);
-    console.log(`[GA-BATCH] Total Keywords generiert: ${stats.totalKeywords}`);
-    console.log(`[GA-BATCH] Neue Keywords: ${stats.newKeywords}`);
-    console.log(`[GA-BATCH] Wiederverwendet: ${stats.reusedKeywords}`);
-    console.log(`[GA-BATCH] Wiederverwendungsrate: ${(stats.reusedKeywords / stats.totalKeywords * 100).toFixed(1)}%`);
-    console.log(`[GA-BATCH] End-Vokabular: ${masterVocabulary.size} Keywords`);
     
     // 8. Merge mit bestehender Datenbank (falls useExistingVocab)
     let finalDB = newKeywordsDB;
     if (useExistingVocab) {
       finalDB = { ...existingKeywordsDB, ...newKeywordsDB };
-      console.log(`[GA-BATCH] Gemerged mit bestehender Datenbank: ${Object.keys(finalDB).length} total Vorträge`);
     }
     
     // 9. Speichere Ergebnis
     const resultPath = path.join(__dirname, `keywords-database-${gaVolume}.json`);
     fsSync.writeFileSync(resultPath, JSON.stringify(finalDB, null, 2));
-    console.log(`[GA-BATCH] Gespeichert: ${resultPath}`);
     
     // 10. Optional: Aktualisiere Haupt-Datenbank
     if (useExistingVocab) {
@@ -10457,14 +9974,12 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
         console.error('[GA-BATCH] ✗ WARNUNG: finalDB ist leer - Haupt-Datenbank wird NICHT überschrieben!');
       } else {
         fsSync.writeFileSync(KEYWORDS_DB_FILE, JSON.stringify(finalDB, null, 2));
-        console.log(`[GA-BATCH] Haupt-Datenbank aktualisiert: keywords-database.json`);
       }
     }
     
     // 11. Optional: Erweitere Cluster mit neuen Keywords
     let clusterUpdateInfo = null;
     if (updateClusters && stats.newKeywords > 0) {
-      console.log(`\n[GA-BATCH] Erweitere Cluster mit ${stats.newKeywords} neuen Keywords...`);
       
       try {
         // Sammle alle neuen Keywords
@@ -10519,9 +10034,7 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
               totalClusters: Object.keys(existingClusters).length
             };
             
-            console.log(`[GA-BATCH] ✓ Cluster erweitert: ${clusterUpdateInfo.clustersExtended} bestehende, ${clusterUpdateInfo.newClustersCreated} neue`);
           } else {
-            console.log(`[GA-BATCH] Keine Cluster gefunden - bitte erst initial generieren`);
             clusterUpdateInfo = { error: 'Keine Cluster gefunden' };
           }
         }
@@ -10560,7 +10073,6 @@ app.post('/api/keywords/regenerate-ga-volume', async (req, res) => {
 
 // Generiere übergeordnete Themenbereiche aus Seed-Keywords
 app.post('/api/themes/generate-clusters-from-seeds', async (req, res) => {
-  console.log('\n[THEMES] Generiere thematische Cluster aus Seed-Keywords...');
   
   try {
     const claudeApiKey = process.env.CLAUDE_API_KEY;
@@ -10574,7 +10086,6 @@ app.post('/api/themes/generate-clusters-from-seeds', async (req, res) => {
       throw new Error('Keine Seed-Keywords gefunden');
     }
     
-    console.log(`[THEMES] Analysiere ${seedKeywords.length} Seed-Keywords...`);
     
     // 2. Erstelle Prompt für Claude
     const prompt = `Analysiere diese Liste von Schlüsselbegriffen aus Rudolf Steiners Gesamtausgabe und erstelle daraus übergeordnete THEMENBEREICHE.
@@ -10616,7 +10127,6 @@ WICHTIG:
 
 Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 
-    console.log('[THEMES] Rufe Claude API auf...');
     
     // 3. Claude API Call
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -10658,10 +10168,7 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     
     const coverage = (uniqueKeywords.size / seedKeywords.length * 100).toFixed(1);
     
-    console.log(`[THEMES] ✓ ${clusterNames.length} Themenbereiche generiert`);
-    console.log(`[THEMES] Abdeckung: ${uniqueKeywords.size}/${seedKeywords.length} (${coverage}%)`);
     clusterNames.forEach(name => {
-      console.log(`[THEMES]   - ${name}: ${clusters[name].keywords.length} Keywords`);
     });
     
     // 5. Speichere Ergebnis
@@ -10673,7 +10180,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       clusters: clusters
     });
     
-    console.log(`[THEMES] Gespeichert: ${clustersPath}`);
     
     res.json({
       success: true,
@@ -10724,7 +10230,6 @@ app.get('/api/themes/clusters', async (req, res) => {
 app.post('/api/themes/add-cluster', async (req, res) => {
   const { name, description, keywords } = req.body;
   
-  console.log(`[THEMES] Füge manuellen Themenbereich hinzu: ${name}`);
   
   try {
     // Validierung
@@ -10752,7 +10257,6 @@ app.post('/api/themes/add-cluster', async (req, res) => {
     // Speichere in themes-database.json
     await saveThemesDatabase(themesDB);
     
-    console.log(`[THEMES] ✓ Themenbereich "${name}" hinzugefügt mit ${validKeywords.length} Keywords`);
     
     res.json({
       success: true,
@@ -10769,7 +10273,6 @@ app.post('/api/themes/add-cluster', async (req, res) => {
 
 // Endpoint: Cluster reorganisieren (Keywords neu zuordnen)
 app.post('/api/themes/reorganize-clusters', async (req, res) => {
-  console.log('[THEMES] Starte Reorganisation...');
   
   try {
     // GEÄNDERT: Verwende themes-database.json statt thematic-clusters.json
@@ -10798,9 +10301,7 @@ app.post('/api/themes/reorganize-clusters', async (req, res) => {
         }
       });
       
-      console.log(`[CLUSTERS] Gefunden: ${allKeywords.size} einzigartige Keywords aus keywords-database.json`);
     } catch (error) {
-      console.log('[CLUSTERS] Keine keywords-database.json gefunden, verwende nur Cluster-Keywords');
       // Fallback: Sammle Keywords aus Clustern
       Object.values(clusters).forEach(cluster => {
         if (cluster.keywords && Array.isArray(cluster.keywords)) {
@@ -10810,7 +10311,6 @@ app.post('/api/themes/reorganize-clusters', async (req, res) => {
     }
     
     const keywordsList = Array.from(allKeywords);
-    console.log(`[CLUSTERS] Reorganisiere ${keywordsList.length} Keywords über ${Object.keys(clusters).length} Cluster...`);
     
     // Erstelle Prompt für Claude
     const prompt = `Du bist ein Experte für thematische Klassifikation von philosophischen und anthroposophischen Begriffen.
@@ -10905,10 +10405,6 @@ ANTWORTE im folgenden JSON-Format:
     // GEÄNDERT: Speichere direkt in themes-database.json (ohne Metadaten-Wrapper)
     await saveThemesDatabase(finalClusters);
     
-    console.log(`[THEMES] ✓ Reorganisation abgeschlossen`);
-    console.log(`[CLUSTERS] Keywords verschoben: ${result.moved || 0}`);
-    console.log(`[CLUSTERS] Neue Cluster: ${Object.keys(result.newClusters || {}).length}`);
-    console.log(`[CLUSTERS] Total Cluster: ${Object.keys(finalClusters).length}`);
     
     res.json({
       success: true,
@@ -10928,7 +10424,6 @@ ANTWORTE im folgenden JSON-Format:
 app.post('/api/keywords/move-to-cluster', async (req, res) => {
   const { keyword, targetCluster } = req.body;
   
-  console.log(`[KEYWORDS] Move: "${keyword}" -> Cluster "${targetCluster}"`);
   
   try {
     if (!keyword || !keyword.trim()) {
@@ -10960,12 +10455,10 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
         foundInCluster = clusterName;
         clusterData.keywords.splice(index, 1);
         removed = true;
-        console.log(`[KEYWORDS] Keyword aus Cluster "${clusterName}" entfernt`);
       }
     }
     
     if (!removed) {
-      console.log(`[KEYWORDS] Keyword nicht gefunden, füge als neu hinzu`);
     }
     
     // Füge Keyword zum Ziel-Cluster hinzu (wenn nicht schon vorhanden)
@@ -10976,14 +10469,11 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
     const keywordsArray = themes[targetCluster].keywords;
     if (!keywordsArray.some(kw => kw.toLowerCase() === normalizedKeyword)) {
       keywordsArray.push(keyword.trim());
-      console.log(`[KEYWORDS] Keyword zu Cluster "${targetCluster}" hinzugefügt`);
     } else {
-      console.log(`[KEYWORDS] Keyword bereits in Ziel-Cluster vorhanden`);
     }
     
     // Speichere aktualisierte themes-database.json
     await fs.writeFile(themesPath, JSON.stringify(themes, null, 2), 'utf8');
-    console.log(`[KEYWORDS] themes-database.json gespeichert`);
     
     res.json({
       success: true,
@@ -11004,7 +10494,6 @@ app.post('/api/keywords/move-to-cluster', async (req, res) => {
 app.post('/api/keywords/rename', async (req, res) => {
   const { oldKeyword, newKeyword } = req.body;
   
-  console.log(`[KEYWORDS] Rename/Merge: "${oldKeyword}" -> "${newKeyword || 'DELETE'}"`);
   
   try {
     if (!oldKeyword || !oldKeyword.trim()) {
@@ -11047,7 +10536,6 @@ app.post('/api/keywords/rename', async (req, res) => {
               // Duplikat: Vortrag hat bereits das neue Keyword
               // -> altes Keyword einfach entfernen (nicht umbenennen)
               duplicatesRemoved++;
-              console.log(`[KEYWORDS] Duplikat entfernt in ${lectureId}: "${oldKeyword}" (existiert bereits als "${newKeyword}")`);
             } else {
               // Kein Duplikat: Umbenennen
               updatedKeywords.push({
@@ -11073,7 +10561,6 @@ app.post('/api/keywords/rename', async (req, res) => {
     await saveCompleteKeywordsDatabase(keywordsDB);
     
     // SYNC: Aktualisiere auch Summary-Database (für Vorträge im Texte-Tab)
-    console.log('[KEYWORDS] Synchronisiere Summary-Database...');
     const summaryDB = await loadSummaryDatabase();
     let summaryAffected = 0;
     let summaryChecked = 0;
@@ -11119,16 +10606,12 @@ app.post('/api/keywords/rename', async (req, res) => {
       }
     }
     
-    console.log(`[KEYWORDS] Summary-DB: ${summaryChecked} Vorträge mit Keywords geprüft, ${summaryAffected} Änderungen gefunden`);
     
     if (summaryAffected > 0) {
       await saveCompleteSummaryDatabase(summaryDB); // Speichere komplette DB mit Locking
-      console.log(`[KEYWORDS] ✓ Summary-Database synchronisiert: ${summaryAffected} Vorträge aktualisiert`);
     } else {
-      console.log(`[KEYWORDS] ℹ Summary-Database: Keine Änderungen nötig`);
     }
     
-    console.log(`[KEYWORDS] ✓ GESAMT: Keywords-DB ${affectedLectures} Vorträge | Summary-DB ${summaryAffected} Vorträge | ${totalReplacements} Ersetzungen, ${duplicatesRemoved} Duplikate entfernt`);
     
     res.json({
       success: true,
@@ -11149,7 +10632,6 @@ app.post('/api/keywords/rename', async (req, res) => {
 app.post('/api/themes/rename-cluster', async (req, res) => {
   const { oldName, newName } = req.body;
   
-  console.log(`[CLUSTERS] Rename: "${oldName}" -> "${newName}"`);
   
   try {
     if (!oldName || !newName) {
@@ -11182,7 +10664,6 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
     // Speichern
     await saveThemesDatabase(themesDB);
     
-    console.log(`[THEMES] ✓ Themenbereich umbenannt`);
     
     res.json({
       success: true,
@@ -11199,7 +10680,6 @@ app.post('/api/themes/rename-cluster', async (req, res) => {
 app.post('/api/themes/merge-clusters', async (req, res) => {
   const { sourceCluster, targetCluster } = req.body;
   
-  console.log(`[CLUSTERS] Merge: "${sourceCluster}" -> "${targetCluster}"`);
   
   try {
     if (!sourceCluster || !targetCluster) {
@@ -11240,7 +10720,6 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
     // Speichern
     await saveThemesDatabase(themesDB);
     
-    console.log(`[THEMES] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
     
     res.json({
       success: true,
@@ -11258,7 +10737,6 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
 
 // HAUPTFUNKTION: Extrahiere Keywords aus Überschriften (regel-basiert, ohne KI)
 function extractKeywordsFromHeadings(headings) {
-  console.log('[KEYWORDS-GEN] Verwende regel-basierte Extraktion');
   
   return headings.map(h => ({
     term: extractKeywordFromHeading(h.text),
@@ -11343,7 +10821,6 @@ app.post('/api/generate-keywords', async (req, res) => {
   try {
     const { lectureId, batch, batchByVolumes, volumes = [], startIndex = 0, batchSize = 50, gaFilter = [] } = req.body;
     
-    console.log(`[KEYWORDS-API] Generierungsanfrage: ${batchByVolumes ? `GA-Bände: ${volumes.join(', ')}` : batch ? `Batch (Start: ${startIndex}, Size: ${batchSize})` : lectureId}`);
     
     // Lade Summary-Database für Zugriff auf Überschriften
     const summaryDB = await loadSummaryDatabase();
@@ -11361,7 +10838,6 @@ app.post('/api/generate-keywords', async (req, res) => {
         return res.status(400).json({ error: 'volumes Array erforderlich (z.B. ["GA110", "GA066"])' });
       }
       
-      console.log(`[GA-BATCH] Starte GA-Band-basierte Verarbeitung: ${volumes.length} Bände`);
       
       const volumeResults = [];
       let totalProcessed = 0;
@@ -11370,9 +10846,6 @@ app.post('/api/generate-keywords', async (req, res) => {
       
       // Verarbeite jeden GA-Band sequenziell
       for (const volume of volumes) {
-        console.log(`\n[GA-BATCH] ========================================`);
-        console.log(`[GA-BATCH] Starte Verarbeitung: ${volume}`);
-        console.log(`[GA-BATCH] ========================================\n`);
         
         // Filtere Vorträge für diesen GA-Band
         const volumeLectures = Object.keys(summaryDB).filter(lid => 
@@ -11380,7 +10853,6 @@ app.post('/api/generate-keywords', async (req, res) => {
         );
         
         if (volumeLectures.length === 0) {
-          console.log(`[GA-BATCH] ⚠ Keine Vorträge gefunden für ${volume}`);
           volumeResults.push({
             volume: volume,
             processed: 0,
@@ -11392,7 +10864,6 @@ app.post('/api/generate-keywords', async (req, res) => {
           continue;
         }
         
-        console.log(`[GA-BATCH] ${volume}: ${volumeLectures.length} Vorträge gefunden`);
         
         let volumeProcessed = 0;
         let volumeSkipped = 0;
@@ -11402,13 +10873,11 @@ app.post('/api/generate-keywords', async (req, res) => {
         const processLecture = async (lid, index) => {
           // Überspringe, wenn bereits Keywords existieren
           if (keywordsDB[lid]) {
-            console.log(`[GA-BATCH] ${volume}: Überspringe ${lid} (bereits vorhanden)`);
             return { status: 'skipped', lectureId: lid, reason: 'bereits vorhanden' };
           }
           
           const summaryData = summaryDB[lid];
           if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
-            console.log(`[GA-BATCH] ${volume}: Überspringe ${lid} (keine Überschriften)`);
             return { status: 'skipped', lectureId: lid, reason: 'keine Überschriften' };
           }
           
@@ -11433,7 +10902,6 @@ app.post('/api/generate-keywords', async (req, res) => {
             gaVolume: volume
           });
           
-          console.log(`[GA-BATCH] ${volume}: ✓ ${lid}: ${keywords.length} Keywords generiert`);
           
           return { 
             status: 'processed', 
@@ -11444,7 +10912,6 @@ app.post('/api/generate-keywords', async (req, res) => {
         };
         
         // Verarbeite alle Vorträge dieses Bandes parallel (max 10 gleichzeitig)
-        console.log(`[GA-BATCH] ${volume}: Starte parallele Verarbeitung (Concurrency: 10)`);
         const startTime = Date.now();
         
         const batchResults = await processBatchWithConcurrency(
@@ -11474,9 +10941,6 @@ app.post('/api/generate-keywords', async (req, res) => {
         
         const duration = Math.round((Date.now() - startTime) / 1000);
         
-        console.log(`\n[GA-BATCH] ${volume}: ABGESCHLOSSEN`);
-        console.log(`[GA-BATCH] ${volume}: ✓ ${volumeProcessed} verarbeitet, ⊘ ${volumeSkipped} übersprungen, ✗ ${volumeErrors} Fehler`);
-        console.log(`[GA-BATCH] ${volume}: Dauer: ${duration}s\n`);
         
         volumeResults.push({
           volume: volume,
@@ -11493,10 +10957,6 @@ app.post('/api/generate-keywords', async (req, res) => {
         totalErrors += volumeErrors;
       }
       
-      console.log(`\n[GA-BATCH] ========================================`);
-      console.log(`[GA-BATCH] ALLE BÄNDE ABGESCHLOSSEN`);
-      console.log(`[GA-BATCH] Total: ${totalProcessed} verarbeitet, ${totalSkipped} übersprungen, ${totalErrors} Fehler`);
-      console.log(`[GA-BATCH] ========================================\n`);
       
       return res.json({
         success: true,
@@ -11514,30 +10974,25 @@ app.post('/api/generate-keywords', async (req, res) => {
       
       // Filter nach GA-Bänden wenn angegeben
       if (gaFilter && gaFilter.length > 0) {
-        console.log(`[KEYWORDS-BATCH] Filter nach GAs: ${gaFilter.join(', ')}`);
         allLectureIds = allLectureIds.filter(lid => {
           const gaNumber = lid.split('/')[0]; // z.B. "GA110"
           return gaFilter.includes(gaNumber);
         });
-        console.log(`[KEYWORDS-BATCH] Nach GA-Filter: ${allLectureIds.length} Vorträge`);
       }
       
       const total = allLectureIds.length;
       const toProcess = allLectureIds.slice(startIndex, startIndex + batchSize);
       
-      console.log(`[KEYWORDS-BATCH] Parallele Verarbeitung von ${toProcess.length}/${total} Vorträgen (${startIndex}-${startIndex + toProcess.length}, Concurrency: 10)`);
       
       // Definiere Verarbeitungsfunktion für einen Vortrag
       const processLecture = async (lid, index) => {
         // Überspringe, wenn bereits Keywords existieren
         if (keywordsDB[lid]) {
-          console.log(`[KEYWORDS-BATCH] Überspringe ${lid} (bereits vorhanden)`);
           return { status: 'skipped', lectureId: lid, reason: 'bereits vorhanden' };
         }
         
         const summaryData = summaryDB[lid];
         if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
-          console.log(`[KEYWORDS-BATCH] Überspringe ${lid} (keine Überschriften)`);
           return { status: 'skipped', lectureId: lid, reason: 'keine Überschriften' };
         }
         
@@ -11561,7 +11016,6 @@ app.post('/api/generate-keywords', async (req, res) => {
           source: 'headings'
         });
         
-        console.log(`[KEYWORDS-BATCH] ✓ ${lid}: ${keywords.length} Keywords generiert`);
         
         return { 
           status: 'processed', 
@@ -11671,7 +11125,6 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
       // Prüfe zuerst ob bereits im Memory-Cache
       if (steinerImages[lectureId]) {
         const images = steinerImages[lectureId];
-        console.log(`[IMAGES-API] Sende ${images.length} Bilder für ${lectureId} (aus Cache)`);
         return res.json(images);
       }
       
@@ -11693,7 +11146,6 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
           if (imagesForLecture.length > 0) {
             // Cache für zukünftige Anfragen
             steinerImages[lectureId] = imagesForLecture;
-            console.log(`[IMAGES-API] Sende ${imagesForLecture.length} Bilder für ${lectureId} (aus ${partFile})`);
             return res.json(imagesForLecture);
           }
         } else {
@@ -11702,14 +11154,12 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
             const images = Array.isArray(partData[lectureId]) ? partData[lectureId] : [partData[lectureId]];
             // Cache für zukünftige Anfragen
             steinerImages[lectureId] = images;
-            console.log(`[IMAGES-API] Sende ${images.length} Bilder für ${lectureId} (aus ${partFile})`);
             return res.json(images);
           }
         }
       }
       
       // Keine Bilder gefunden
-      console.log(`[IMAGES-API] Keine Bilder für ${lectureId} gefunden`);
       steinerImages[lectureId] = []; // Cache leeres Array
       res.json([]);
     } else {
@@ -11739,7 +11189,6 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
       }
       
       const lectureIds = Array.from(lectureIdsSet);
-      console.log(`[IMAGES-API] Sende Liste von ${lectureIds.length} Vorträgen (ohne Bilder)`);
       res.json({ lectureIds: lectureIds, count: lectureIds.length });
     }
   } catch (error) {
@@ -11802,8 +11251,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       preferredProvider = null
     } = req.body;
     
-    console.log('\n=== KEYWORD GENERATION V3 (FLEXIBLE + BUDGET) ===');
-    console.log(`Budget: Max. ${maxNewKeywordsPerLecture} neue KW pro Vortrag`);
     
     // Lade Template
     const template = await loadThemesKeywordsTemplate();
@@ -11823,7 +11270,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       } else {
         provider = getProviderForTask('keywords');
       }
-      console.log(`[KEYWORDS-V3] Provider: ${provider.name}`);
     } catch (error) {
       return res.status(500).json({ 
         error: 'Kein LLM-Provider verfügbar',
@@ -11847,7 +11293,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       return res.status(400).json({ error: 'Keine Lecture IDs angegeben' });
     }
     
-    console.log(`[KEYWORDS-V3] Zu verarbeiten: ${lectureIdsToProcess.length} Vorträge`);
     
     // Lade existierende Keywords für iteratives Vokabular
     const existingKeywordsDB = await loadKeywordsDatabase();
@@ -11869,7 +11314,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
           });
         }
       });
-      console.log(`[KEYWORDS-V3] Start-Vokabular: ${existingVocabulary.length} Keywords`);
     }
     
     // Verarbeite Vorträge iterativ
@@ -11885,7 +11329,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       
       // Prüfe ob bereits verarbeitet
       if (!forceReprocess && existingKeywordsDB[lectureId] && existingKeywordsDB[lectureId].keywords) {
-        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Bereits verarbeitet, überspringe`);
         skipped++;
         continue;
       }
@@ -11893,13 +11336,11 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       // Prüfe ob Summary vorhanden
       const summaryData = summaryDB[lectureId];
       if (!summaryData || !summaryData.headings) {
-        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Keine Summary vorhanden, überspringe`);
         skipped++;
         continue;
       }
       
       try {
-        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Starte flexible Generierung...`);
         
         // FLEXIBLE GENERIERUNG mit Budget
         const keywords = await generateKeywordsFlexibleWithBudget(
@@ -11944,7 +11385,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
         totalKeywords += keywords.length;
         totalNewKeywords += newKws.length;
         
-        console.log(`[KEYWORDS-V3] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu, ${keywords.length - newKws.length} existierend)`);
         
         results.push({
           lectureId,
@@ -11974,13 +11414,6 @@ app.post('/api/generate-keywords-v3', async (req, res) => {
       }
     }
     
-    console.log('\n=== KEYWORD GENERATION V3 ABGESCHLOSSEN ===');
-    console.log(`Verarbeitet: ${processed}`);
-    console.log(`Übersprungen: ${skipped}`);
-    console.log(`Fehler: ${errors}`);
-    console.log(`Total Keywords: ${totalKeywords}`);
-    console.log(`Davon neu: ${totalNewKeywords} (${((totalNewKeywords / totalKeywords) * 100).toFixed(1)}%)`);
-    console.log(`End-Vokabular: ${existingVocabulary.length} Keywords`);
     
     res.json({
       success: true,
@@ -12028,8 +11461,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
       preferredProvider = null  // NEU: Expliziter Provider vom Frontend
     } = req.body;
     
-    console.log('[KEYWORDS-V2] Neue Template-basierte Generierung gestartet');
-    console.log(`[KEYWORDS-V2] Params: ${lectureIds.length} Lectures, ${gaVolumes.length} GA-Bände, existingVocab=${useExistingVocab}, forceReprocess=${forceReprocess}, provider=${preferredProvider || 'auto'}`);
     
     // 1. Lade Template
     const template = await loadThemesKeywordsTemplate();
@@ -12039,7 +11470,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
     if (preferredProvider) {
       // Temporär für diese Anfrage den Provider setzen
       process.env.LLM_PROVIDER_KEYWORDS = preferredProvider;
-      console.log(`[KEYWORDS-V2] Verwende explizit ausgewählten Provider: ${preferredProvider}`);
     }
     
     // 2. Lade bestehende Datenbanken
@@ -12058,7 +11488,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
           frequencyMap[kw.term] = (frequencyMap[kw.term] || 0) + 1;
         });
       }
-      console.log(`[KEYWORDS-V2] Existierendes Vokabular: ${existingVocabulary.length} Keywords`);
     }
     
     // 4. Bestimme zu verarbeitende Vorträge
@@ -12080,7 +11509,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
       });
     }
     
-    console.log(`[KEYWORDS-V2] Zu verarbeiten: ${lectureIdsToProcess.length} Vorträge`);
     
     // 5. Provider-Setup (EINMAL für alle Vorträge)
     let provider = null;
@@ -12091,7 +11519,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
         if (!provider.isAvailable()) {
           throw new Error(`${preferredProvider} nicht verfügbar`);
         }
-        console.log(`[KEYWORDS-V2] Provider gewählt: ${provider.name} (wird für ALLE Vorträge verwendet)`);
       } catch (error) {
         console.error(`[KEYWORDS-V2] Gewählter Provider nicht verfügbar:`, error.message);
         return res.status(400).json({ error: `Provider ${preferredProvider} nicht verfügbar: ${error.message}` });
@@ -12109,25 +11536,21 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
       
       // Überspringe bereits verarbeitete (außer bei forceReprocess)
       if (keywordsDB[lectureId] && !forceReprocess) {
-        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Überspringe (bereits vorhanden)`);
         skipped++;
         continue;
       }
       
       // Bei forceReprocess: Log dass wir überschreiben
       if (keywordsDB[lectureId] && forceReprocess) {
-        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ♻️ NEU verarbeiten (überschreibt alte)`);
       }
       
       const summaryData = summaryDB[lectureId];
       if (!summaryData || !summaryData.headings || summaryData.headings.length === 0) {
-        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Überspringe (keine Überschriften)`);
         skipped++;
         continue;
       }
       
       try {
-        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: Starte...`);
         
         // Generiere Keywords - mit VORBEREITETEM Provider
         const keywords = await generateKeywordsFromHeadingsWithTemplateOptimized(
@@ -12181,7 +11604,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
         });
         
         const newKws = keywords.filter(k => k.matchType === 'new');
-        console.log(`[KEYWORDS-V2] ${i+1}/${lectureIdsToProcess.length} ${lectureId}: ✓ ${keywords.length} KWs (${newKws.length} neu)`);
         
         results.push({
           lectureId,
@@ -12211,7 +11633,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
     // 7. Optional: Synonym-Konsolidierung
     let consolidatedCount = 0;
     if (consolidateSynonyms && processed > 0) {
-      console.log('[KEYWORDS-V2] Starte Synonym-Konsolidierung...');
       keywordsDB = await loadKeywordsDatabase();
       consolidatedCount = await consolidateSynonymsInKeywords(keywordsDB, synonymMap);
       
@@ -12224,7 +11645,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
     if (processed > 0) {
       try {
         await updateThemesDatabaseFromTemplate(template);
-        console.log('[KEYWORDS-V2] ✓ themes-database.json aktualisiert');
       } catch (error) {
         console.error('[KEYWORDS-V2] Fehler beim Aktualisieren der themes-database:', error);
       }
@@ -12240,7 +11660,6 @@ app.post('/api/generate-keywords-v2', async (req, res) => {
       synonymsConsolidated: consolidatedCount
     };
     
-    console.log('[KEYWORDS-V2] ✓ Abgeschlossen:', finalStats);
     
     res.json({
       success: true,
@@ -12294,7 +11713,6 @@ async function loadThemesDatabase() {
     const data = await fs.readFile(THEMES_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('[THEMES-DB] Datenbank nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -12303,7 +11721,6 @@ async function loadThemesDatabase() {
 async function saveThemesDatabase(themesDB) {
   try {
     await fs.writeFile(THEMES_DB_FILE, JSON.stringify(themesDB, null, 2), 'utf8');
-    console.log('[THEMES-DB] Datenbank gespeichert');
     return true;
   } catch (error) {
     console.error('[THEMES-DB] Fehler beim Speichern:', error);
@@ -12323,7 +11740,6 @@ async function generateThemesFromKeywords(targetThemeCount = 30) {
       const openaiProvider = new OpenAIProvider();
       if (openaiProvider.isAvailable()) {
         provider = openaiProvider;
-        console.log('[THEMES-GEN] Verwende OpenAI (beste Wahl für strukturiertes JSON)');
       }
     } catch (e) {
       // OpenAI nicht verfügbar, verwende configurierten Provider
@@ -12333,7 +11749,6 @@ async function generateThemesFromKeywords(targetThemeCount = 30) {
       provider = getProviderForTask('themes');
     }
   } catch (error) {
-    console.log('[THEMES-GEN] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackThemes();
   }
   
@@ -12360,7 +11775,6 @@ async function generateThemesFromKeywords(targetThemeCount = 30) {
     .map(([term, freq]) => `${term} (${freq}x)`)
     .join(', ');
   
-  console.log(`[THEMES-GEN] Analysiere ${Object.keys(keywordFrequency).length} unique Keywords aus ${Object.keys(keywordsDB).length} Vorträgen (Top 1000 für Themen-Generierung)`);
   
   const prompt = `Analysiere die folgenden Schlagwörter aus Rudolf Steiners Vortragswerk und erstelle genau ${targetThemeCount} übergeordnete Themenbereiche.
 
@@ -12411,7 +11825,6 @@ Die Keywords werden später automatisch zugeordnet.
 Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 
   try {
-    console.log(`[THEMES-GEN] Rufe ${provider.name} API auf...`);
     
     // Verwende Provider-Abstraction
     // Phase 1: Nur Themen-Namen (klein, passt in alle Provider)
@@ -12421,13 +11834,10 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       // Kein model-Parameter - jeder Provider nutzt sein Default-Modell
     });
     
-    console.log(`[THEMES-GEN] Rohe Antwort Länge: ${responseText.length} Zeichen`);
     
     // DEBUG: Speichere rohe Antwort für Analyse
     const fs = require('fs');
     fs.writeFileSync('debug-gemini-response.txt', responseText);
-    console.log(`[THEMES-GEN] DEBUG: Rohe Antwort gespeichert in debug-gemini-response.txt`);
-    console.log(`[THEMES-GEN] Letzte 200 Zeichen: ${responseText.substring(responseText.length - 200)}`);
     
     // Entferne Markdown Code-Blöcke falls vorhanden
     responseText = responseText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
@@ -12437,19 +11847,13 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     try {
       themes = JSON.parse(responseText);
     } catch (parseError) {
-      console.log(`[THEMES-GEN] JSON Parse Fehler: ${parseError.message}`);
-      console.log(`[THEMES-GEN] Erste 500 Zeichen: ${responseText.substring(0, 500)}`);
-      console.log(`[THEMES-GEN] Letzte 500 Zeichen: ${responseText.substring(responseText.length - 500)}`);
-      console.log(`[THEMES-GEN] Versuche JSON zu reparieren...`);
       
       // Strategie 1: Finde das JSON-Objekt im Text
       const jsonMatch = responseText.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         try {
           themes = JSON.parse(jsonMatch[0]);
-          console.log(`[THEMES-GEN] ✓ JSON repariert via Regex-Extraktion`);
         } catch (e2) {
-          console.log(`[THEMES-GEN] Regex-Extraktion fehlgeschlagen`);
           throw parseError; // Original Error werfen
         }
       } else {
@@ -12457,18 +11861,14 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       }
     }
     
-    console.log(`[THEMES-GEN] ✓ ${provider.name}: Themen erfolgreich generiert:`, Object.keys(themes).length);
-    console.log(`[THEMES-GEN] Zweiphasiger Ansatz: Phase 1 (Namen) abgeschlossen`);
     
     // Initialisiere leere Keywords-Arrays (werden in Phase 2 per Batch gefüllt)
     for (const [themeName, themeData] of Object.entries(themes)) {
       // Phase 1 sollte KEINE Keywords zurückgeben, aber falls doch...
       if (!themeData.keywords || !Array.isArray(themeData.keywords)) {
         themeData.keywords = [];
-        console.log(`[THEMES-GEN] ${themeName}: Keywords-Array initialisiert (leer)`);
       } else if (themeData.keywords.length > 0) {
         // Falls doch Keywords da sind, normalisiere sie
-        console.log(`[THEMES-GEN] ${themeName}: ${themeData.keywords.length} Keywords vorhanden (unexpected)`);
         const keywordObjects = themeData.keywords.map(kw => 
           typeof kw === 'string' ? { term: kw } : kw
         );
@@ -12477,7 +11877,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       }
     }
     
-    console.log(`[THEMES-GEN] Phase 2: Batch-Zuordnung bereit (${Object.keys(themes).length} Themen)`);
     
     return themes;
 
@@ -12489,7 +11888,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 
 // Fallback: Einfache Themengruppierung (ohne KI)
 function generateFallbackThemes() {
-  console.log('[THEMES-GEN] Verwende Fallback-Methode');
   
   return {
     "Erkenntnistheorie": {
@@ -12519,7 +11917,6 @@ async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
   const BATCH_SIZE = 200; // Reduziert von 500 - passt besser in Gemini's 4k Token-Limit
   
   const themeNames = Object.keys(themesDB);
-  console.log(`[BATCH-ASSIGN] Verfügbare Themen: ${themeNames.length}`);
   
   // Sammle ALLE unique Keywords
   const allKeywords = new Set();
@@ -12536,7 +11933,6 @@ async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
   });
   
   const allKeywordsArray = Array.from(allKeywords);
-  console.log(`[BATCH-ASSIGN] Total unique Keywords: ${allKeywordsArray.length}`);
   
   // Filtere bereits zugeordnete Keywords
   const alreadyAssignedSet = new Set();
@@ -12553,11 +11949,8 @@ async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
     !alreadyAssignedSet.has(kw.toLowerCase().trim())
   );
   
-  console.log(`[BATCH-ASSIGN] Bereits zugeordnet: ${alreadyAssignedSet.size}`);
-  console.log(`[BATCH-ASSIGN] Noch zuzuordnen: ${unassignedKeywords.length}`);
   
   if (unassignedKeywords.length === 0) {
-    console.log('[BATCH-ASSIGN] Alle Keywords bereits zugeordnet');
     return { assigned: 0, total: allKeywordsArray.length };
   }
   
@@ -12576,7 +11969,6 @@ async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
     batches.push(unassignedKeywords.slice(i, i + BATCH_SIZE));
   }
   
-  console.log(`[BATCH-ASSIGN] Verarbeite ${batches.length} Batches mit ${provider.name}`);
   
   // Sammle Zuordnungen
   const assignments = {};
@@ -12586,7 +11978,6 @@ async function assignAllKeywordsToThemes(themesDB, keywordsDB) {
     const batch = batches[batchIdx];
     const batchNum = batchIdx + 1;
     
-    console.log(`\n[BATCH-ASSIGN] Batch ${batchNum}/${batches.length}: ${batch.length} Keywords`);
     
     // Keywords mit Häufigkeit
     const keywordsWithFreq = batch.map(kw => {
@@ -12631,7 +12022,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
       Object.assign(assignments, batchAssignments);
       
       const progress = ((batchNum / batches.length) * 100).toFixed(1);
-      console.log(`[BATCH-ASSIGN] Batch ${batchNum}: ✓ ${Object.keys(batchAssignments).length} Keywords | Progress: ${progress}%`);
       
       // Pause zwischen Batches
       if (batchNum < batches.length) {
@@ -12644,7 +12034,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
     }
   }
   
-  console.log(`\n[BATCH-ASSIGN] ✓ Verarbeitung abgeschlossen: ${Object.keys(assignments).length} neue Zuordnungen`);
   
   // Merge mit bestehenden Themen
   const updatedThemesDB = { ...themesDB };
@@ -12666,7 +12055,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
   
   // Speichere erweiterte Themes-Database
   await saveThemesDatabase(updatedThemesDB);
-  console.log('[BATCH-ASSIGN] ✓ Erweiterte themes-database.json gespeichert');
   
   return {
     assigned: Object.keys(assignments).length,
@@ -12679,7 +12067,6 @@ Antworte NUR mit dem JSON-Objekt, ohne zusätzlichen Text.`;
 // API: Batch-Zuordnung aller Keywords zu Themen
 app.post('/api/themes/assign-all-keywords', async (req, res) => {
   try {
-    console.log('\n[BATCH-ASSIGN-API] Starte Batch-Zuordnung...');
     
     // Lade Themen und Keywords
     const themesDB = await loadThemesDatabase();
@@ -12715,7 +12102,6 @@ app.post('/api/generate-themes', async (req, res) => {
   try {
     const { targetThemeCount = 30 } = req.body;
     
-    console.log(`[THEMES-API] Generiere ${targetThemeCount} Themen...`);
     
     // Generiere Themen
     const themes = await generateThemesFromKeywords(targetThemeCount);
@@ -12761,7 +12147,6 @@ app.post('/api/generate-themes', async (req, res) => {
       }
     }
     
-    console.log(`[THEMES-API] ✓ ${Object.keys(themes).length} Themen generiert, ${assignedCount} Vorträgen zugeordnet`);
     
     res.json({
       success: true,
@@ -12785,7 +12170,6 @@ app.post('/api/themes/delete-cluster', async (req, res) => {
       return res.status(400).json({ error: 'clusterName ist erforderlich' });
     }
     
-    console.log(`[DELETE-CLUSTER] Lösche Cluster "${clusterName}"...`);
     
     // Lade themes-database
     const themesDB = await loadThemesDatabase();
@@ -12802,7 +12186,6 @@ app.post('/api/themes/delete-cluster', async (req, res) => {
     // Speichere
     await saveThemesDatabase(themesDB);
     
-    console.log(`[DELETE-CLUSTER] ✓ Cluster "${clusterName}" gelöscht (${keywordCount} Keywords waren zugeordnet)`);
     
     res.json({ 
       success: true, 
@@ -12829,7 +12212,6 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
       return res.status(400).json({ error: 'Quell- und Ziel-Cluster müssen unterschiedlich sein' });
     }
     
-    console.log(`[MERGE-CLUSTER] Führe "${sourceCluster}" in "${targetCluster}" zusammen...`);
     
     // Lade themes-database
     const themesDB = await loadThemesDatabase();
@@ -12863,8 +12245,6 @@ app.post('/api/themes/merge-clusters', async (req, res) => {
     // Speichere
     await saveThemesDatabase(themesDB);
     
-    console.log(`[MERGE-CLUSTER] ✓ ${sourceKeywords.length} Keywords von "${sourceCluster}" nach "${targetCluster}" verschoben`);
-    console.log(`[MERGE-CLUSTER] ✓ "${targetCluster}" hat jetzt ${mergedKeywords.length} Keywords`);
     
     res.json({ 
       success: true, 
@@ -12895,14 +12275,12 @@ app.get('/api/themes-database', async (req, res) => {
       const data = JSON.parse(fsSync.readFileSync(clustersPath, 'utf8'));
       // Extrahiere nur die Cluster selbst (nicht die Metadaten)
       const clusters = data.clusters || data;
-      console.log('[THEMES-API] Liefere thematic-clusters.json');
       res.json(clusters);
       return;
     }
     
     // Fallback: alte themes-database.json
     const themesDB = await loadThemesDatabase();
-    console.log('[THEMES-API] Liefere themes-database.json (Fallback)');
     res.json(themesDB);
   } catch (error) {
     console.error('[THEMES-API] Fehler beim Laden:', error);
@@ -12927,7 +12305,6 @@ async function generateConsolidationPreview(factor) {
   });
   
   const uniqueBefore = Object.keys(keywordFrequency).length;
-  console.log(`[CONSOLIDATION] ${uniqueBefore} unique Keywords vor Konsolidierung`);
   
   // Erstelle Konsolidierungs-Mapping
   const consolidationMap = await buildConsolidationMap(Object.keys(keywordFrequency), factor);
@@ -12969,7 +12346,6 @@ async function buildConsolidationMap(keywords, factor) {
   // Sortiere Keywords nach Länge (kürzere zuerst = Ziel-Keywords)
   const sortedKeywords = [...keywords].sort((a, b) => a.length - b.length);
   
-  console.log(`[CONSOLIDATION] Verarbeite ${sortedKeywords.length} Keywords mit Faktor ${factor}...`);
   const startTime = Date.now();
   
   // OPTIMIERT: Verwende nur Substring-Matching für Geschwindigkeit
@@ -13021,12 +12397,10 @@ async function buildConsolidationMap(keywords, factor) {
     if ((i + 1) % 2000 === 0) {
       const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
       const percent = ((i + 1) / sortedKeywords.length * 100).toFixed(1);
-      console.log(`[CONSOLIDATION] ${i + 1}/${sortedKeywords.length} (${percent}%) - ${elapsed}s`);
     }
   }
   
   const totalTime = ((Date.now() - startTime) / 1000).toFixed(1);
-  console.log(`[CONSOLIDATION] Fertig in ${totalTime}s. ${Object.keys(targetMap).length} Ziel-Keywords`);
   
   return consolidationMap;
 }
@@ -13073,7 +12447,6 @@ async function executeConsolidation(factor) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const backupFile = `keywords-database-backup-${timestamp}.json`;
   await fs.writeFile(backupFile, JSON.stringify(keywordsDB, null, 2));
-  console.log(`[CONSOLIDATION] Backup erstellt: ${backupFile}`);
   
   // Sammle alle Keywords
   const allKeywords = new Set();
@@ -13105,7 +12478,6 @@ async function executeConsolidation(factor) {
   // Speichere konsolidierte Datenbank als SEPARATE Datei
   const consolidatedFile = `keywords-database-consolidated-${timestamp}.json`;
   await fs.writeFile(consolidatedFile, JSON.stringify(keywordsDB, null, 2));
-  console.log(`[CONSOLIDATION] ${consolidatedCount} Keywords konsolidiert → ${consolidatedFile}`);
   
   return {
     backupFile,
@@ -13123,7 +12495,6 @@ async function activateConsolidatedDatabase(consolidatedFile) {
   const currentDB = await fs.readFile(KEYWORDS_DB_FILE, 'utf-8');
   const preConsolidationFile = 'keywords-database-pre-consolidation.json';
   await fs.writeFile(preConsolidationFile, currentDB);
-  console.log(`[CONSOLIDATION] Aktuelle DB gesichert: ${preConsolidationFile}`);
   
   // Aktiviere konsolidierte Datenbank
   const consolidatedDB = await fs.readFile(consolidatedFile, 'utf-8');
@@ -13135,7 +12506,6 @@ async function activateConsolidatedDatabase(consolidatedFile) {
   }
   
   await fs.writeFile(KEYWORDS_DB_FILE, consolidatedDB);
-  console.log(`[CONSOLIDATION] Konsolidierte DB aktiviert: ${consolidatedFile} → ${KEYWORDS_DB_FILE}`);
   
   return {
     preConsolidationFile,
@@ -13146,7 +12516,6 @@ async function activateConsolidatedDatabase(consolidatedFile) {
 app.post('/api/consolidate-keywords-preview', async (req, res) => {
   try {
     const { factor } = req.body;
-    console.log(`[CONSOLIDATION] Preview mit Faktor ${factor}`);
     
     const preview = await generateConsolidationPreview(factor);
     res.json(preview);
@@ -13159,7 +12528,6 @@ app.post('/api/consolidate-keywords-preview', async (req, res) => {
 app.post('/api/consolidate-keywords-execute', async (req, res) => {
   try {
     const { factor } = req.body;
-    console.log(`[CONSOLIDATION] Execute mit Faktor ${factor}`);
     
     const result = await executeConsolidation(factor);
     res.json(result);
@@ -13172,7 +12540,6 @@ app.post('/api/consolidate-keywords-execute', async (req, res) => {
 app.post('/api/consolidate-keywords-activate', async (req, res) => {
   try {
     const { consolidatedFile } = req.body;
-    console.log(`[CONSOLIDATION] Aktiviere ${consolidatedFile}`);
     
     const result = await activateConsolidatedDatabase(consolidatedFile);
     res.json(result);
@@ -13187,7 +12554,6 @@ app.get('/api/timeline-data', async (req, res) => {
   try {
     const { theme, keyword, yearFrom, yearTo } = req.query;
     
-    console.log(`[TIMELINE-DATA] Filter: theme=${theme}, keyword=${keyword}, years=${yearFrom}-${yearTo}`);
     
     const keywordsDB = await loadKeywordsDatabase();
     let filteredLectures = Object.values(keywordsDB);
@@ -13235,7 +12601,6 @@ app.get('/api/timeline-data', async (req, res) => {
       .map(y => parseInt(y))
       .sort((a, b) => a - b);
     
-    console.log(`[TIMELINE-DATA] Gefunden: ${filteredLectures.length} Vorträge über ${sortedYears.length} Jahre`);
     
     res.json({
       lectures: filteredLectures,
@@ -13260,7 +12625,6 @@ async function loadThematicSearchDatabase() {
     const data = await fs.readFile(THEMATIC_SEARCH_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('Themensuchen-Cache-DB nicht gefunden, erstelle neue...');
     return {};
   }
 }
@@ -13269,7 +12633,6 @@ async function loadThematicSearchDatabase() {
 async function saveThematicSearchDatabase(thematicDB) {
   try {
     await fs.writeFile(THEMATIC_SEARCH_DB_FILE, JSON.stringify(thematicDB, null, 2), 'utf8');
-    console.log('Themensuchen-Cache-DB gespeichert');
     return true;
   } catch (error) {
     console.error('Fehler beim Speichern der Themensuchen-Cache-DB:', error);
@@ -13290,7 +12653,6 @@ function generateThematicCacheKey(query, depth, limit, gaFilter = '') {
 // Synchronisiere concepts.json mit concepts-thematic-search.json
 async function synchronizeKeywordSystems() {
   try {
-    console.log('[SYNC] Starte Synchronisation der Concept-Systeme...');
     
     const keywordsFile = path.join(__dirname, 'concepts.json');
     const keywordThematicDB = await loadKeywordThematicDatabase();
@@ -13300,7 +12662,6 @@ async function synchronizeKeywordSystems() {
       const fileContent = await fs.readFile(keywordsFile, 'utf8');
       allKeywords = JSON.parse(fileContent);
     } catch (error) {
-      console.log('[SYNC] keywords.json nicht gefunden, erstelle neue');
       return;
     }
     
@@ -13312,7 +12673,6 @@ async function synchronizeKeywordSystems() {
       
       // Wenn Keyword in keywords.json existiert, aber nicht im Cache
       if (!keywordThematicDB[cacheKey] && keyword.hasDetailedAnalysis) {
-        console.log(`[SYNC] Keyword "${keyword.keyword}" fehlt im Cache - generiere Analyse...`);
         
         try {
           // Generiere Analyse für fehlendes Keyword
@@ -13348,9 +12708,7 @@ async function synchronizeKeywordSystems() {
     
     if (syncCount > 0) {
       await saveKeywordThematicDatabase(keywordThematicDB);
-      console.log(`[SYNC] ${syncCount} Keywords synchronisiert`);
     } else {
-      console.log('[SYNC] Alle Keywords bereits synchronisiert');
     }
     
   } catch (error) {
@@ -13365,21 +12723,17 @@ async function synchronizeKeywordSystems() {
 // Hinweis: Für Concept-Einträge (Tab Index) wird generateConceptAnalysis verwendet!
 
 async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
-  console.log('generateKeywordAnalysis aufgerufen für:', query, '| Depth:', depth, '| Results:', results.length);
   
   // Hole passenden LLM-Provider (mit Fallback-Chain)
   let provider;
   try {
     provider = getProviderForTask('analysis');
   } catch (error) {
-    console.log('[KEYWORD-ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackKeywordAnalysis(query, results);
   }
   
   const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
 
-  console.log('=== DEBUG topResults ===');
-  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
     ID: r.ID, 
     index: r.index,
     fileName: r.fileName 
@@ -13394,7 +12748,6 @@ async function generateKeywordAnalysis(query, results, depth = 'allgemein') {
     
   const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
   
-  console.log(`Claude bekommt Referenzen im Format GA###/##:index`);
   
   const maxTokens = {
     'allgemein': 4000,    // Erhöht von 2000 auf 4000
@@ -13439,7 +12792,6 @@ ${contextText}
 ANALYSE:`;
 
   try {
-    console.log(`[KEYWORD-ANALYSIS] Rufe ${provider.name} API auf...`);
     
     // Verwende Provider-Abstraction
     const analysisText = await provider.generateCompletion(prompt, {
@@ -13447,7 +12799,6 @@ ANALYSE:`;
       temperature: 0.7
     });
     
-    console.log(`[KEYWORD-ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
     
     return analysisText.trim();
     
@@ -13462,14 +12813,12 @@ ANALYSE:`;
 // ============================================================================
 
 async function generateConceptAnalysis(query, results) {
-  console.log('generateConceptAnalysis aufgerufen für:', query, '| Results:', results.length);
   
   // Hole passenden LLM-Provider (mit Fallback-Chain)
   let provider;
   try {
     provider = getProviderForTask('analysis');
   } catch (error) {
-    console.log('[CONCEPT-ANALYSIS] Kein LLM-Provider verfügbar - verwende Fallback:', error.message);
     return generateFallbackConceptAnalysis(query, results);
   }
   
@@ -13479,11 +12828,8 @@ async function generateConceptAnalysis(query, results) {
   const topResults = results.slice(0, MAX_RESULTS);
   
   if (results.length > MAX_RESULTS) {
-    console.log(`[CONCEPT-ANALYSIS] ⚠️ Begrenze von ${results.length} auf ${MAX_RESULTS} Textstellen (Token-Limit)`);
   }
 
-  console.log('=== DEBUG topResults (Concept) ===');
-  console.log('Erste 3 topResults:', JSON.stringify(topResults.slice(0, 3).map(r => ({ 
     ID: r.ID, 
     index: r.index,
     fileName: r.fileName 
@@ -13498,7 +12844,6 @@ async function generateConceptAnalysis(query, results) {
     
   const availableRefs = topResults.map(r => `${r.ID}:${r.index}`).join(', ');
   
-  console.log(`Concept-Generierung: ${topResults.length} Textstellen für "${query}" (von ${results.length} gefunden)`);
 
   const prompt = `Erstelle einen prägnanten Lexikon-Eintrag zum Begriff: "${query}"
 
@@ -13567,14 +12912,12 @@ ${contextText}
 LEXIKON-EINTRAG (beginne DIREKT mit Inhalt, OHNE Überschrift):`;
 
   try {
-    console.log(`[CONCEPT-ANALYSIS] Rufe ${provider.name} API auf...`);
     
     const analysisText = await provider.generateCompletion(prompt, {
       maxTokens: 8000,
       temperature: 0.7
     });
     
-    console.log(`[CONCEPT-ANALYSIS] ${provider.name} Antwort erhalten, Länge:`, analysisText.length);
     
     return analysisText.trim();
     
@@ -13683,14 +13026,12 @@ app.post('/api/delete-thematic-search', async (req, res) => {
       return res.status(400).json({ error: 'Cache-Key erforderlich' });
     }
     
-    console.log(`[DELETE-THEMATIC] Lösche Themensuche mit Key: ${cacheKey}`);
     
     // Lade Datenbank
     const thematicDB = await loadThematicSearchDatabase();
     
     // Prüfe ob Key existiert
     if (!thematicDB[cacheKey]) {
-      console.log(`[DELETE-THEMATIC] Key nicht gefunden: ${cacheKey}`);
       return res.status(404).json({ error: 'Themensuche nicht gefunden' });
     }
     
@@ -13700,7 +13041,6 @@ app.post('/api/delete-thematic-search', async (req, res) => {
     // Speichere aktualisierte Datenbank
     await saveThematicSearchDatabase(thematicDB);
     
-    console.log(`[DELETE-THEMATIC] ✓ Themensuche gelöscht: ${cacheKey}`);
     
     res.json({
       success: true,
@@ -13724,7 +13064,6 @@ async function loadQuotesDatabase() {
     const data = await fs.readFile(QUOTES_DB_FILE, 'utf8');
     return JSON.parse(data);
   } catch (error) {
-    console.log('[QUOTES] Zitate-DB nicht gefunden, erstelle neue...');
     return { quotes: [] };
   }
 }
@@ -13733,7 +13072,6 @@ async function loadQuotesDatabase() {
 async function saveQuotesDatabase(quotesDB) {
   try {
     await fs.writeFile(QUOTES_DB_FILE, JSON.stringify(quotesDB, null, 2), 'utf8');
-    console.log('[QUOTES] Zitate-DB gespeichert');
     return true;
   } catch (error) {
     console.error('[QUOTES] Fehler beim Speichern:', error);
@@ -13778,7 +13116,6 @@ app.post('/api/quotes/add', async (req, res) => {
     
     await saveQuotesDatabase(quotesDB);
     
-    console.log(`[QUOTES] ✓ Zitat hinzugefügt: ${lectureId}:${paragraphIndex}`);
     
     res.json({
       success: true,
@@ -13813,7 +13150,6 @@ app.post('/api/quotes/delete', async (req, res) => {
     
     await saveQuotesDatabase(quotesDB);
     
-    console.log(`[QUOTES] ✓ Zitat gelöscht: ${quoteId}`);
     
     res.json({
       success: true,
@@ -13855,7 +13191,6 @@ app.post('/api/thematic-search/delete', async (req, res) => {
     // Speichere aktualisierte Datenbank
     await saveThematicSearchDatabase(thematicDB);
     
-    console.log(`[THEMATIC-DELETE] ✓ Suchanfrage gelöscht: "${deletedQuery}" (Key: ${cacheKey})`);
     
     res.json({
       success: true,
@@ -13892,7 +13227,6 @@ app.post('/api/quotes/toggle-active', async (req, res) => {
     
     await saveQuotesDatabase(quotesDB);
     
-    console.log(`[QUOTES] ✓ Zitat ${isActive ? 'aktiviert' : 'deaktiviert'}: ${quoteId}`);
     
     res.json({
       success: true,
@@ -13954,7 +13288,6 @@ app.post('/api/save-marked-word', async (req, res) => {
       return res.status(400).json({ error: 'Wort und GA-Titel erforderlich' });
     }
     
-    console.log(`[MARKED-WORD] Speichere: "${word}" aus "${gaTitle}"`);
     
     const markedWordsFile = path.join(__dirname, 'marked-words.json');
     
@@ -13965,7 +13298,6 @@ app.post('/api/save-marked-word', async (req, res) => {
       markedWords = JSON.parse(fileContent);
     } catch (error) {
       // Datei existiert noch nicht
-      console.log('[MARKED-WORD] Erstelle neue Datei');
     }
     
     // Füge neuen Eintrag hinzu
@@ -13978,7 +13310,6 @@ app.post('/api/save-marked-word', async (req, res) => {
     // Speichere aktualisierte Datei
     await fs.writeFile(markedWordsFile, JSON.stringify(markedWords, null, 2), 'utf8');
     
-    console.log(`[MARKED-WORD] Erfolgreich gespeichert. Insgesamt: ${markedWords.length} Einträge`);
     
     res.json({ 
       success: true, 
@@ -14124,7 +13455,6 @@ app.post('/api/backups/restore', async (req, res) => {
     }
     
     // Erstelle Backup der aktuellen Datei vor der Wiederherstellung
-    console.log('[BACKUP-API] Erstelle Sicherung der aktuellen Datei...');
     await backupFunc();
     
     // Lade Backup
@@ -14141,7 +13471,6 @@ app.post('/api/backups/restore', async (req, res) => {
     // Stelle Backup wieder her
     await fs.writeFile(targetFile, backupData, 'utf8');
     
-    console.log(`[BACKUP-API] ✓ Backup wiederhergestellt: ${backupName} → ${path.basename(targetFile)}`);
     
     res.json({
       success: true,
@@ -14295,12 +13624,8 @@ app.get('/api/backups/list/:type', async (req, res) => {
 
 async function startServer() {
   try {
-    console.log('\n========================================');
-    console.log('Initialisiere Server...');
-    console.log('========================================');
     
 // Erstelle automatisches Backup beim Start
-console.log('\n[BACKUP] Erstelle automatische Backups...');
 await createCodeBackup();
 await createHtmlBackup('index.html');
 await createHtmlBackup('keyword-manager.html');
@@ -14308,23 +13633,18 @@ await createHtmlBackup('keyword-manager.html');
 await createKeywordsBackup();
 await createSummaryBackup();
 await createImagesBackup();
-console.log('[BACKUP] ✓ Backups erstellt\n');
 
 await loadSynonyms();
 await loadFullLectures();
-console.log('\n[STARTUP] Lade Schriften...');
 const loadedBooks = await loadBooks();
-console.log(`[STARTUP] Schriften geladen: ${Object.keys(loadedBooks).length} Bücher`);
 // Lade Bilder-Datenbank NICHT beim Start (zu groß)
 // Bilder werden bei Bedarf aus Part-Dateien geladen
 // await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
-console.log('[STARTUP] Bilder-Datenbank wird bei Bedarf geladen (Lazy Loading)');
 
 // Synchronisiere Keyword-Systeme beim Start
 await synchronizeKeywordSystems();
 
 // Konvertiere Lectures zu Absatz-Format
-console.log('\nKonvertiere Lectures zu Absatz-Format...');
 Object.values(fullLectures).forEach(lecture => {
   lecture.paragraphs?.forEach((para, idx) => {
     paragraphsFromLectures.push({
@@ -14339,10 +13659,8 @@ Object.values(fullLectures).forEach(lecture => {
     });
   });
 });
-console.log(`  ✓ ${paragraphsFromLectures.length} Absätze aus Vorträgen konvertiert`);
 
 // Konvertiere auch Bücher zu Absatz-Format
-console.log('\nKonvertiere Bücher zu Absatz-Format...');
 let bookParagraphsCount = 0;
 Object.values(fullBooks).forEach(book => {
   const bookParagraphs = getBookParagraphsForSearch(book);
@@ -14360,64 +13678,13 @@ Object.values(fullBooks).forEach(book => {
     bookParagraphsCount++;
   });
 });
-console.log(`  ✓ ${bookParagraphsCount} Absätze aus Büchern konvertiert`);
-console.log(`  ✓ Gesamt: ${paragraphsFromLectures.length} Absätze (Vorträge + Bücher)`);
     await loadQueryLog();
     
     // Lade Themensuchen-Cache-DB
     const thematicDB = await loadThematicSearchDatabase();
-    console.log(`Themensuchen-Cache geladen: ${Object.keys(thematicDB).length} Einträge`);
     
-    console.log('\n========================================');
-    console.log('DATEN GELADEN:');
-    console.log(`  ${paragraphsFromLectures.length} Absätze`);
-    console.log(`  ${Object.keys(fullLectures).length} Vorträge`);
-    console.log(`  ${Object.keys(fullBooks).length} Schriften`);
-    console.log(`  ${Object.keys(synonyms).length} Synonym-Gruppen`);
-    console.log(`  ${Object.keys(queryLog).length} Query-Log Einträge`);
-    console.log(`  ${Object.keys(thematicDB).length} Themensuchen im Cache`);
-    console.log('========================================');
     
     app.listen(PORT, () => {
-      console.log(`\n✓ Server läuft auf http://localhost:${PORT}`);
-      console.log(`\nVerfügbare Endpoints:`);
-      console.log(`   GET  /debug/status`);
-      console.log(`   POST /api/hybrid-search`);
-      console.log(`   POST /api/fulltext-search`);
-      console.log(`   POST /api/thematic-hybrid-search`);
-      console.log(`   POST /api/concept-overview`);
-      console.log(`   POST /api/summarize-lecture`);
-      console.log(`   GET  /api/check-summary/:gaNumber/:lectureNum`);
-      console.log(`   GET  /api/full-lecture/:lectureId`);
-      console.log(`   GET  /api/full-lecture/:gaNumber/:lectureNum`);
-      console.log(`   GET  /api/lectures/list`);
-      console.log(`   GET  /api/available-ga`);
-      console.log(`   GET  /api/ga-overview/:gaNumber`);
-      console.log(`   GET  /api/book/:gaNumber`);
-      console.log(`   GET  /ga-overview-map.json`);
-      console.log(`   POST /api/admin/generate-synonyms`);
-      console.log(`   GET  /api/admin/synonym-stats`);
-      console.log(`   POST /api/save-summary`);
-      console.log(`   POST /api/keywords-generate`);
-      console.log(`   POST /api/keyword-thematic-search`);
-      console.log(`   POST /api/concepts-save`);
-      console.log(`   POST /api/concepts-add`);
-      console.log(`   POST /api/concepts-delete`);
-      console.log(`   GET  /api/concepts-files`);
-      console.log(`   GET  /api/concepts-list`);
-      console.log(`   POST /api/save-marked-word`);
-      console.log(`   GET  /summary-database.json`);
-      console.log(`   POST /api/generate-summary-keywords-batch`);
-      console.log(`   POST /api/generate-summary-keywords-for-lectures`);
-      console.log(`   GET  /summary-keywords-database.json`);
-      console.log(`   GET  /thematic-search-database.json`);
-      console.log(`   POST /api/generate-keywords`);
-      console.log(`   GET  /api/keywords-database`);
-      console.log(`   GET  /api/keywords-stats`);
-      console.log(`   POST /api/generate-themes`);
-      console.log(`   GET  /api/themes-database`);
-      console.log(`   GET  /api/timeline-data`);
-      console.log(`\n✓ System bereit!\n`);
     });
     
   } catch (error) {

@@ -865,7 +865,6 @@
 
                 allKeywords.sort((a, b) => a.name.localeCompare(b.name));
                 
-                console.log(`[KEYWORDS] ${allKeywords.length} einzigartige Keywords aus ${Object.keys(keywordsDB).length} Vorträgen geladen`);
                 
                 renderKeywords(allKeywords);
                 updateStats();
@@ -893,7 +892,6 @@
                     }
                 });
                 
-                console.log(`[CLUSTERS] ${Object.keys(allClusters).length} Cluster geladen, ${Object.keys(keywordToClusterMap).length} Keyword-Zuordnungen`);
                 
                 renderClusters();
                 updateClusterSelect();
@@ -1466,7 +1464,6 @@
                     
                     if (response.ok) {
                         successCount++;
-                        console.log(`[ASSIGN] ✓ "${keyword}" -> "${targetCluster}"`);
                     } else {
                         errorCount++;
                         const errorData = await response.json();

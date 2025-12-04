@@ -29,7 +29,6 @@ function markProviderRateLimited(providerName, cooldownMinutes = 5) {
   });
   
   const untilDate = new Date(until).toLocaleTimeString('de-DE');
-  console.log(`[RATE-LIMIT] ${providerName} gesperrt bis ${untilDate} (${cooldownMinutes} Min)`);
 }
 
 /**
@@ -46,7 +45,6 @@ function isProviderRateLimited(providerName) {
   if (Date.now() > entry.until) {
     // Cooldown vorbei - entferne aus Liste
     rateLimitedProviders.delete(providerName.toLowerCase());
-    console.log(`[RATE-LIMIT] ${providerName} wieder verfügbar (Cooldown abgelaufen)`);
     return false;
   }
   
@@ -62,10 +60,8 @@ function showRateLimitStatus() {
     return;
   }
   
-  console.log('[RATE-LIMIT] 🔴 Gesperrte Provider:');
   rateLimitedProviders.forEach((entry, name) => {
     const remaining = Math.ceil((entry.until - Date.now()) / 60000);
-    console.log(`  - ${name.toUpperCase()}: noch ${remaining} Min`);
   });
 }
 
@@ -187,7 +183,6 @@ class GeminiProvider extends LLMProvider {
     const model = options.model || 'gemini-2.0-flash-exp';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${this.apiKey}`;
     
-    console.log(`[Gemini] Anfrage: maxOutputTokens=${options.maxTokens || 8192}, temperature=${options.temperature || 0.7}`);
 
     const response = await fetch(url, {
       method: 'POST',
@@ -233,7 +228,6 @@ class GeminiProvider extends LLMProvider {
     const candidate = result.candidates[0];
     
     // DEBUG: Zeige finishReason
-    console.log(`[Gemini] finishReason: ${candidate.finishReason}`);
     
     // Sicherheitsfilter prüfen
     if (candidate.finishReason === 'SAFETY') {
@@ -358,7 +352,6 @@ function getProviderForTask(task) {
     try {
       const provider = createProvider(specificProvider);
       if (provider.isAvailable()) {
-        console.log(`[LLM-PROVIDER] Task '${task}': Verwende ${provider.name}`);
         return provider;
       }
     } catch (error) {
@@ -373,7 +366,6 @@ function getProviderForTask(task) {
     try {
       const provider = createProvider(providerName);
       if (provider.isAvailable()) {
-        console.log(`[LLM-PROVIDER] Task '${task}': Fallback auf ${provider.name} (default)`);
         return provider;
       }
     } catch (error) {
@@ -425,14 +417,11 @@ function getAllAvailableProviders(task) {
         if (isProviderRateLimited(name)) {
           const entry = rateLimitedProviders.get(name.toLowerCase());
           const remaining = Math.ceil((entry.until - Date.now()) / 60000);
-          console.log(`[LLM-PROVIDER] ⚠️ ${name} ist Rate-Limited (noch ${remaining} Min), wird trotzdem versucht`);
         }
         providers.push(provider);
       } else {
-        console.log(`[LLM-PROVIDER] ⏭️ ${name} übersprungen (nicht verfügbar - kein API-Key)`);
       }
     } catch (error) {
-      console.log(`[LLM-PROVIDER] ⏭️ ${name} übersprungen (Fehler: ${error.message})`);
       // Provider nicht verfügbar - überspringen
     }
   }
@@ -455,7 +444,6 @@ async function generateCompletionWithFallback(prompt, options = {}, task = 'keyw
     throw new Error('[LLM-FALLBACK] Keine verfügbaren Provider gefunden');
   }
   
-  console.log(`[LLM-FALLBACK] Verfügbare Provider für '${task}': ${providers.map(p => p.name).join(', ')}`);
   
   let lastError = null;
   
@@ -463,11 +451,9 @@ async function generateCompletionWithFallback(prompt, options = {}, task = 'keyw
     const provider = providers[i];
     
     try {
-      console.log(`[LLM-FALLBACK] Versuch ${i + 1}/${providers.length}: ${provider.name}`);
       
       const text = await provider.generateCompletion(prompt, options);
       
-      console.log(`[LLM-FALLBACK] ✓ Erfolg mit ${provider.name}`);
       
       return {
         text: text,
@@ -492,7 +478,6 @@ async function generateCompletionWithFallback(prompt, options = {}, task = 'keyw
       
       // Wenn nicht der letzte Provider, versuche den nächsten
       if (i < providers.length - 1) {
-        console.log(`[LLM-FALLBACK] ⏭️ Wechsel zu Provider ${i + 2}/${providers.length}...`);
         // Keine Pause nötig - Provider ist schon gefiltert
       }
     }
@@ -527,7 +512,6 @@ function getSpecificProvider(providerName) {
     throw new Error(`Provider ${name} ist nicht verfügbar (kein API-Key)`);
   }
   
-  console.log(`[PROVIDER] Nutze explizit ausgewählten Provider: ${provider.name}`);
   return provider;
 }
 

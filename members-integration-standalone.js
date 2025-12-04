@@ -243,7 +243,6 @@ function highlightSelection(color) {
     }, 2000);
   } catch (e) {
     // Falls Selektion komplex ist, einfach ignorieren
-    console.log('Highlight nicht möglich');
   }
 }
 
@@ -490,14 +489,12 @@ function addStyles() {
 // Automatisch initialisieren wenn Seite geladen ist
 // (kann auch manuell aufgerufen werden)
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('✓ Members Integration geladen');
   
   // Optional: Automatisch starten wenn GA-Nummer im URL ist
   const urlParams = new URLSearchParams(window.location.search);
   const gaFromUrl = urlParams.get('ga');
   
   if (gaFromUrl) {
-    console.log('GA aus URL:', gaFromUrl);
     // Auto-init hier wenn gewünscht
   }
 });
@@ -512,7 +509,6 @@ window.initMembersIntegration = async function(gaNumber, lectureTitle) {
   await createMemberToolbar(gaNumber, lectureTitle);
   initSelectionPopup(gaNumber, lectureTitle);
   addParagraphBookmarkIcons(gaNumber, lectureTitle);
-  console.log('✓ Members Integration aktiviert für:', gaNumber);
 };
 
 window.handlePopupClick = handlePopupClick;

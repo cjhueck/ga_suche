@@ -22,7 +22,6 @@ async function initMemberMenu(gaNumber, lectureTitle) {
   // User-Status aktualisieren
   await updateMemberMenuState();
   
-  console.log('✓ Member Menu aktiviert');
 }
 
 /**
@@ -439,7 +438,6 @@ function highlightLastSelection(color) {
       span.style.backgroundColor = 'transparent';
     }, 2000);
   } catch (e) {
-    console.log('Highlight nicht möglich');
   }
 }
 
