@@ -20523,3 +20523,14 @@ GET /api/keywords/available-ga-volumes
 [API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
 GET /favicon.ico
 GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/quotes
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
