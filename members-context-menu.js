@@ -415,14 +415,90 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       paragraphNode = paragraphNode.parentNode;
     }
     
-    // Suche nach dem Absatz-Element (p, div, etc.)
-    while (paragraphNode && !paragraphNode.textContent.includes(text)) {
-      paragraphNode = paragraphNode.parentNode;
+    console.log('[HIGHLIGHT-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
+    
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    let foundParaId = false;
+    let tempNode = paragraphNode;
+    while (tempNode && tempNode !== document.body) {
+      if (tempNode.nodeType === 1) { // Element node
+        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+        if (tempNode.id && tempNode.id.startsWith('para-')) {
+          console.log('[HIGHLIGHT-SAVE] para- ID gefunden:', tempNode.id);
+          paragraphNode = tempNode;
+          foundParaId = true;
+          break;
+        }
+        // Prüfe ob data-index vorhanden (für Bücher)
+        if (tempNode.dataset && tempNode.dataset.index) {
+          console.log('[HIGHLIGHT-SAVE] data-index gefunden:', tempNode.dataset.index);
+          // Finde das Parent-Element, das den Text enthält
+          let parent = tempNode.parentElement;
+          while (parent && parent !== document.body) {
+            const tagName = parent.tagName.toLowerCase();
+            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+              console.log('[HIGHLIGHT-SAVE] Parent-Element mit Text gefunden:', tagName);
+              paragraphNode = parent;
+              foundParaId = true;
+              break;
+            }
+            parent = parent.parentElement;
+          }
+          if (foundParaId) break;
+        }
+      }
+      tempNode = tempNode.parentNode;
     }
     
-    if (!paragraphNode) {
+    // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
+    if (!foundParaId) {
+      console.log('[HIGHLIGHT-SAVE] Keine para- ID gefunden, suche nach Block-Element');
+      tempNode = paragraphNode;
+      while (tempNode && tempNode !== document.body) {
+        const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          // Prüfe ob dieser Absatz den markierten Text enthält
+          const nodeText = tempNode.textContent || '';
+          console.log('[HIGHLIGHT-SAVE] Block-Element gefunden:', tagName, 'Text-Länge:', nodeText.length, 'Enthält Text?', nodeText.includes(text));
+          if (nodeText && nodeText.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+        }
+        tempNode = tempNode.parentNode;
+      }
+    }
+    
+    // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
+    if (!foundParaId && paragraphNode) {
+      console.log('[HIGHLIGHT-SAVE] Fallback: Verwende aktuelles Element');
+      // Prüfe ob das Element selbst Text enthält
+      const nodeText = paragraphNode.textContent || '';
+      if (!nodeText || !nodeText.includes(text)) {
+        // Suche nach einem Parent, der den Text enthält
+        tempNode = paragraphNode.parentNode;
+        while (tempNode && tempNode !== document.body) {
+          const nodeText2 = tempNode.textContent || '';
+          if (nodeText2 && nodeText2.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            console.log('[HIGHLIGHT-SAVE] Fallback: Parent mit Text gefunden:', tempNode.tagName);
+            break;
+          }
+          tempNode = tempNode.parentNode;
+        }
+      } else {
+        foundParaId = true;
+      }
+    }
+    
+    if (!paragraphNode || paragraphNode === document.body || !foundParaId) {
+      console.error('[HIGHLIGHT-SAVE] Absatz nicht gefunden. paragraphNode:', paragraphNode, 'foundParaId:', foundParaId);
       throw new Error('Absatz nicht gefunden');
     }
+    
+    console.log('[HIGHLIGHT-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
     
     // Hole den vollständigen Text des Absatzes
     // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)

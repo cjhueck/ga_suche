@@ -5704,6 +5704,17 @@ Original
     // Initiale CSS-Klassen setzen
     document.body.classList.add('summary-panel-collapsed'); // Summary-Panel ist standardmäßig geschlossen
 
+// Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+// Diese Funktion sollte VOR marked.parse() aufgerufen werden
+function preprocessObsidianLineBreaks(markdown) {
+  if (!markdown || typeof markdown !== 'string') {
+    return markdown;
+  }
+  // Ersetze '/br' durch Zeilenumbrüche (zwei Leerzeichen + Newline für marked.js breaks: true)
+  // oder einfachen Newline, je nachdem was besser funktioniert
+  return markdown.replace(/'\/br'/g, '\n');
+}
+
 function normalizeGANumber(gaNumber) {
     const match = gaNumber.match(/^GA?(\d+)([a-zA-Z]?)$/i);
     if (!match) return gaNumber;
@@ -9115,6 +9126,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // WICHTIG: Indizes NICHT entfernen - sie werden für Verlinkung benötigt!
   // Sie werden später nur visuell versteckt
   
+  // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+  content = preprocessObsidianLineBreaks(content);
+  
   // Konfiguriere marked für Fußnoten und Überschriften-IDs
   if (typeof marked !== 'undefined') {
     // Setze Optionen für Fußnoten (GFM) und Überschriften-IDs
@@ -9353,6 +9367,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
           setTimeout(() => {
             markParagraphsWithBookmarksAndQuotes(bookId);
+            // Stelle sicher, dass alle Unterstreichungen Event-Listener haben
+            if (typeof attachClickListenersToHighlights === 'function') {
+              attachClickListenersToHighlights(bookId);
+            }
           }, 100);
         }
       }).catch(error => {
@@ -9632,13 +9650,32 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         if (bookContentDivCheck && typeof processAllParagraphIndices === 'function') {
           processAllParagraphIndices(bookContentDivCheck);
         }
-        markParagraphsWithBookmarksAndQuotes(bookId);
+        markParagraphsWithBookmarksAndQuotes(bookId).then(() => {
+          // Stelle sicher, dass alle Unterstreichungen Event-Listener haben
+          setTimeout(() => {
+            if (typeof attachClickListenersToHighlights === 'function') {
+              attachClickListenersToHighlights(bookId);
+            }
+          }, 100);
+        });
         // Stelle Icons nach weiteren DOM-Änderungen wieder her
         setTimeout(() => {
           if (typeof restoreBookmarkQuoteIndicators === 'function') {
             restoreBookmarkQuoteIndicators();
           }
+          // Stelle sicher, dass Event-Listener auch nach restoreBookmarkQuoteIndicators vorhanden sind
+          setTimeout(() => {
+            if (typeof attachClickListenersToHighlights === 'function') {
+              attachClickListenersToHighlights(bookId);
+            }
+          }, 100);
         }, 500);
+        // Zusätzlicher Aufruf nach längerer Verzögerung
+        setTimeout(() => {
+          if (typeof attachClickListenersToHighlights === 'function') {
+            attachClickListenersToHighlights(bookId);
+          }
+        }, 1500);
       }, 300);
     }
   }, 400);
@@ -12435,6 +12472,9 @@ function scrollToChronologicalYear(year) {
             
             let content = para.content || para.text || '';
             
+            // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+            content = preprocessObsidianLineBreaks(content);
+            
             // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
             if (typeof marked !== 'undefined' && marked.parse) {
               content = marked.parse(content, { breaks: true, gfm: true });
@@ -12819,6 +12859,9 @@ function scrollToChronologicalYear(year) {
           const tocPattern = /###\s*INHALT[\s\S]*?(?=\n###\s+[A-ZÄÖÜ]|\n####\s+[A-ZÄÖÜ]|$)/i;
           fullContent = fullContent.replace(tocPattern, '');
           fullContent = fullContent.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
+          
+          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+          fullContent = preprocessObsidianLineBreaks(fullContent);
           
           // Konvertiere Markdown zu HTML (wie im Tab "Texte")
           if (typeof marked !== 'undefined') {
@@ -15253,8 +15296,11 @@ function scrollToChronologicalYear(year) {
         } else {
           }
         
+        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        const processedText = preprocessObsidianLineBreaks(text);
+        
         // Konvertiere Markdown zu HTML
-        let html = marked.parse(text);
+        let html = marked.parse(processedText);
         
         // ZUSÄTZLICH: Entferne auch HTML-Links, die von marked.parse() erstellt wurden
         // Falls marked.parse() die Links bereits in <a> Tags konvertiert hat (z.B. <a href="...">GA066/1</a>)
@@ -15319,8 +15365,11 @@ function scrollToChronologicalYear(year) {
           // Entferne Markdown-Links im Format [[...|GA###/##]]
           text = text.replace(/\[\[[^\]]*\|(GA\d+[a-z]?\/\d+)\]\]/g, '$1');
           
+          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+          const processedText = preprocessObsidianLineBreaks(text);
+          
           // Konvertiere Markdown zu HTML
-          let html = marked.parse(text);
+          let html = marked.parse(processedText);
           
           // Entferne HTML-Links, die von marked.parse() erstellt wurden
           html = html.replace(/<a[^>]*>([^<]*\|)?(GA\d+[a-z]?\/\d+)<\/a>/gi, '$2');
@@ -17036,6 +17085,8 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsidianLineBreaks(content);
     
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
@@ -17510,7 +17561,9 @@ function formatAsteriskParagraphs() {
       `;
       
       const answerDiv = document.getElementById('answerContent');
-      answerDiv.innerHTML = marked.parse(content);
+      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+      const processedContent = preprocessObsidianLineBreaks(content);
+      answerDiv.innerHTML = marked.parse(processedContent);
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
       removeInlineStyles(answerDiv);
@@ -19859,6 +19912,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           const isTargetPara = cleanIndex && paraIndex === cleanIndex;
           
           let content = para.content || para.text || '';
+          
+          // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+          content = preprocessObsidianLineBreaks(content);
           
           // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
           if (typeof marked !== 'undefined' && marked.parse) {
@@ -24730,6 +24786,9 @@ async function showHelpContent(type) {
     }
     const markdown = await response.text();
     
+    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+    const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+    
     // Konvertiere Markdown zu HTML mit marked.js
     if (typeof marked !== 'undefined') {
       // Konfiguriere marked für besseres Rendering
@@ -24737,7 +24796,7 @@ async function showHelpContent(type) {
         breaks: true,
         gfm: true
       });
-      contentText.innerHTML = marked.parse(markdown);
+      contentText.innerHTML = marked.parse(processedMarkdown);
     } else {
       // Fallback: Zeige Markdown als Text
       contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;

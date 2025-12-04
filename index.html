@@ -1496,6 +1496,17 @@
         }
         const markdown = await response.text();
         
+        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsidianLineBreaks(markdown) {
+          if (!markdown || typeof markdown !== 'string') {
+            return markdown;
+          }
+          return markdown.replace(/'\/br'/g, '\n');
+        }
+        
+        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        
         // Konvertiere Markdown zu HTML mit marked.js
         if (typeof marked !== 'undefined') {
           // Konfiguriere marked für besseres Rendering
@@ -1503,7 +1514,7 @@
             breaks: true,
             gfm: true
           });
-          contentText.innerHTML = marked.parse(markdown);
+          contentText.innerHTML = marked.parse(processedMarkdown);
         } else {
           // Fallback: Zeige Markdown als Text
           contentText.innerHTML = `<pre style="white-space: pre-wrap;">${markdown}</pre>`;
@@ -1607,13 +1618,24 @@
           throw new Error('Die Markdown-Datei ist leer. Bitte stellen Sie sicher, dass die Datei system/Einfuehrung.md auf dem Server vorhanden und nicht leer ist.');
         }
         
+        // Hilfsfunktion: Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        function preprocessObsidianLineBreaks(markdown) {
+          if (!markdown || typeof markdown !== 'string') {
+            return markdown;
+          }
+          return markdown.replace(/'\/br'/g, '\n');
+        }
+        
+        // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+        const processedMarkdown = preprocessObsidianLineBreaks(markdown);
+        
         // Konvertiere Markdown zu HTML mit marked.js
         if (typeof marked !== 'undefined') {
           marked.setOptions({
             breaks: true,
             gfm: true
           });
-          let html = marked.parse(markdown);
+          let html = marked.parse(processedMarkdown);
           
           // Setze HTML-Inhalt ZUERST (damit Inhalt immer angezeigt wird)
           contentDiv.innerHTML = html;

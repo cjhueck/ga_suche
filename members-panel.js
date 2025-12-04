@@ -145,6 +145,11 @@ function openMembersWindow() {
 async function openMembersPanel() {
   await initSupabase();
   
+  // Stelle sicher, dass Event-Delegation für Highlights aktiviert ist
+  if (typeof attachHighlightDelegationListener === 'function') {
+    attachHighlightDelegationListener();
+  }
+  
   if (!currentUser) {
     // Zeige Login-Form im Panel
     showMembersLoginPanel();
@@ -1632,16 +1637,27 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Auch über markParagraphsWithBookmarksAndQuotes (stellt sicher, dass alle Unterstreichungen angewendet werden)
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
-            requestAnimationFrame(() => {
-              markParagraphsWithBookmarksAndQuotes(gaNumber);
+            requestAnimationFrame(async () => {
+              await markParagraphsWithBookmarksAndQuotes(gaNumber);
+              // Stelle sicher, dass alle Unterstreichungen Event-Listener haben
+              setTimeout(() => attachClickListenersToHighlights(gaNumber), 50);
             });
             // Auch mit Verzögerung, falls DOM noch nicht vollständig bereit ist
-            setTimeout(() => {
-              markParagraphsWithBookmarksAndQuotes(gaNumber);
+            setTimeout(async () => {
+              await markParagraphsWithBookmarksAndQuotes(gaNumber);
+              setTimeout(() => attachClickListenersToHighlights(gaNumber), 50);
             }, 300);
-            setTimeout(() => {
-              markParagraphsWithBookmarksAndQuotes(gaNumber);
+            setTimeout(async () => {
+              await markParagraphsWithBookmarksAndQuotes(gaNumber);
+              setTimeout(() => attachClickListenersToHighlights(gaNumber), 50);
             }, 600);
+            // Zusätzlicher Aufruf nach längerer Verzögerung
+            setTimeout(() => attachClickListenersToHighlights(gaNumber), 1000);
+          } else {
+            // Falls markParagraphsWithBookmarksAndQuotes nicht verfügbar ist, füge Event-Listener trotzdem hinzu
+            setTimeout(() => {
+              attachClickListenersToHighlights(gaNumber);
+            }, 500);
           }
           
           // Für Bücher: Markiere den Absatz wenn shouldHighlightParagraph true ist (Zitate)
@@ -1786,21 +1802,42 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
         paraElement = document.getElementById(cleanIndex);
       }
       
+      // WICHTIG: Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+      let elementToCheck = paraElement;
+      if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+        // Für Bücher: Suche nach dem Parent-Element, das den Text enthält
+        let parent = paraElement.parentElement;
+        while (parent && parent !== document.body) {
+          const tagName = parent.tagName.toLowerCase();
+          if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+            elementToCheck = parent;
+            break;
+          }
+          parent = parent.parentElement;
+        }
+      }
+      
       const mainContainer = document.getElementById('main');
       
       // Prüfe ob Element vorhanden ist UND ob der Text bereits geladen ist
       // Für neue Einträge: Warte bis der Text wirklich vorhanden ist
-      if (paraElement && paraElement.textContent && paraElement.textContent.length > 0 && mainContainer) {
+      // WICHTIG: Verwende elementToCheck statt paraElement für Text-Länge-Prüfung
+      if (elementToCheck && elementToCheck.textContent && elementToCheck.textContent.length > 0 && mainContainer) {
         // Prüfe ob die Offsets innerhalb des Textes liegen
-        const paraText = paraElement.textContent || paraElement.innerText || '';
+        // WICHTIG: Verwende elementToCheck.textContent, nicht paraElement.textContent
+        const paraText = elementToCheck.textContent || elementToCheck.innerText || '';
+        console.log('[MB-SCROLL] tryScroll: Text-Länge:', paraText.length, 'Offset:', textStartOffset, 'Element:', elementToCheck.tagName);
+        
         // Wenn Offset 0 ist, scrolle direkt zum Absatz (da Offset 0 am Anfang des Textes ist)
         if (textStartOffset === 0) {
           // Scrolle direkt zum Absatz
-          const paraRect = paraElement.getBoundingClientRect();
+          // Verwende elementToCheck für Scroll-Position, aber paraElement für Position falls es sichtbar ist
+          const scrollElement = (elementToCheck !== paraElement && paraElement) ? paraElement : elementToCheck;
+          const paraRect = scrollElement.getBoundingClientRect();
           const mainRect = mainContainer.getBoundingClientRect();
           const header = document.getElementById('viewer-header');
           const headerHeight = header ? header.offsetHeight + 5 : 5;
-          const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+          const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
           
@@ -1832,10 +1869,15 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           scrollExecuted = true;
         } else {
           // Offsets außerhalb des Textes - versuche es trotzdem mit dem Absatz
-          console.warn('[MB-SCROLL] Offsets außerhalb des Textes:', textStartOffset, 'vs', paraText.length);
+          console.warn('[MB-SCROLL] Offsets außerhalb des Textes:', textStartOffset, 'vs', paraText.length, 'Element:', elementToCheck.tagName);
           if (attempts < maxAttempts) {
             // Versuche es nochmal, vielleicht wird der Text noch geladen
             setTimeout(() => requestAnimationFrame(tryScroll), 100);
+          } else {
+            // Nach maxAttempts Versuchen immer noch nicht erfolgreich - verwende scrollToTextPositionInParagraph direkt
+            console.log('[MB-SCROLL] Max Versuche erreicht, verwende scrollToTextPositionInParagraph direkt');
+            scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset, shouldHighlightParagraph);
+            scrollExecuted = true;
           }
         }
       } else if (attempts < maxAttempts) {
@@ -1852,7 +1894,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const mainRect = mainContainer.getBoundingClientRect();
           const header = document.getElementById('viewer-header');
           const headerHeight = header ? header.offsetHeight + 5 : 5;
-          const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+          const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
         }
@@ -1891,7 +1933,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const mainRect = mainContainer.getBoundingClientRect();
           const header = document.getElementById('viewer-header');
           const headerHeight = header ? header.offsetHeight + 5 : 5;
-          const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+          const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
           
@@ -2097,7 +2139,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
  * Scrollt zur Textposition innerhalb eines Absatzes
  * @param {boolean} shouldHighlight - Ob der Absatz markiert werden soll (nur für Zitate)
  */
-function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null, shouldHighlight = false) {
+function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null, shouldHighlight = false, highlightId = null) {
   if (!paragraphId || textStartOffset === null || textStartOffset === undefined) {
     console.warn('[MB-SCROLL] Ungültige Parameter:', { paragraphId, textStartOffset, textEndOffset });
     return;
@@ -2107,6 +2149,28 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
   if (!mainContainer) {
     console.warn('[MB-SCROLL] Main Container nicht gefunden');
     return;
+  }
+  
+  // WICHTIG: Versuche zuerst, das Highlight-Element direkt zu finden (falls es bereits im DOM ist)
+  // Das ist genauer als die Berechnung aus dem Offset
+  if (highlightId) {
+    const highlightElement = document.querySelector(`[data-highlight-id="${highlightId}"]`);
+    if (highlightElement) {
+      console.log('[MB-SCROLL] Highlight-Element direkt gefunden, scrolle dazu');
+      const highlightRect = highlightElement.getBoundingClientRect();
+      const mainRect = mainContainer.getBoundingClientRect();
+      const header = document.getElementById('viewer-header');
+      const headerHeight = header ? header.offsetHeight + 5 : 5;
+      const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
+      
+      const currentScrollTop = mainContainer.scrollTop;
+      const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
+      const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
+      
+      mainContainer.scrollTop = Math.max(0, targetScrollTop);
+      console.log('[MB-SCROLL] Direkt zu Highlight-Element gescrollt, scrollTop:', mainContainer.scrollTop);
+      return;
+    }
   }
   
   // Bereinige paragraphId (entferne 'para-' Präfix falls vorhanden)
@@ -2142,7 +2206,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     console.warn('[MB-SCROLL] Absatz nicht gefunden:', cleanIndex, '- versuche erneut nach kurzer Zeit');
     // Versuche erneut nach kurzer Zeit (falls DOM noch nicht bereit ist)
     setTimeout(() => {
-      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight);
+      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId);
     }, 200);
     return;
   }
@@ -2186,7 +2250,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const elementRect = elementToScroll.getBoundingClientRect();
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
-    const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+    const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
     
@@ -2201,7 +2265,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const elementRect = elementToScroll.getBoundingClientRect();
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
-    const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+    const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
     return;
@@ -2211,9 +2275,61 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
   if (textContent.length === 0) {
     console.warn('[MB-SCROLL] Text noch nicht geladen, versuche später erneut');
     setTimeout(() => {
-      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight);
+      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId);
     }, 100);
     return;
+  }
+  
+  // WICHTIG: Versuche zuerst, ein Highlight-Element im Absatz zu finden (falls vorhanden)
+  // Das ist genauer als die Berechnung aus dem Offset
+  // Suche sowohl mit highlightId als auch ohne (falls highlightId nicht übergeben wurde)
+  const highlightElements = elementToScroll.querySelectorAll('[data-highlight-id]');
+  console.log('[MB-SCROLL] Gefundene Highlight-Elemente im Absatz:', highlightElements.length, 'highlightId:', highlightId);
+  
+  for (const highlightEl of highlightElements) {
+    // Wenn highlightId übergeben wurde, prüfe ob es passt
+    if (highlightId && highlightEl.getAttribute('data-highlight-id') === String(highlightId)) {
+      console.log('[MB-SCROLL] Highlight-Element mit passender ID gefunden, scrolle dazu');
+      const highlightRect = highlightEl.getBoundingClientRect();
+      const mainRect = mainContainer.getBoundingClientRect();
+      const header = document.getElementById('viewer-header');
+      const headerHeight = header ? header.offsetHeight + 5 : 5;
+      const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
+      
+      const currentScrollTop = mainContainer.scrollTop;
+      const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
+      const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
+      
+      mainContainer.scrollTop = Math.max(0, targetScrollTop);
+      console.log('[MB-SCROLL] Zu Highlight-Element gescrollt (mit ID), scrollTop:', mainContainer.scrollTop);
+      return;
+    }
+    
+    // Wenn kein highlightId übergeben wurde, prüfe ob das Highlight-Element in der Nähe des Offsets liegt
+    if (!highlightId) {
+      const highlightText = highlightEl.textContent || '';
+      const highlightParent = highlightEl.closest('p, div, h1, h2, h3, h4, h5, h6, li, blockquote') || elementToScroll;
+      const parentText = highlightParent.textContent || '';
+      const highlightStartInParent = parentText.indexOf(highlightText);
+      
+      // Wenn das Highlight in der Nähe des Offsets liegt (Toleranz: ±50 Zeichen)
+      if (Math.abs(highlightStartInParent - textStartOffset) < 50) {
+        console.log('[MB-SCROLL] Passendes Highlight-Element gefunden (nach Offset), scrolle dazu');
+        const highlightRect = highlightEl.getBoundingClientRect();
+        const mainRect = mainContainer.getBoundingClientRect();
+        const header = document.getElementById('viewer-header');
+        const headerHeight = header ? header.offsetHeight + 5 : 5;
+        const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
+        
+        const currentScrollTop = mainContainer.scrollTop;
+        const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
+        const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
+        
+        mainContainer.scrollTop = Math.max(0, targetScrollTop);
+        console.log('[MB-SCROLL] Zu Highlight-Element gescrollt (nach Offset), scrollTop:', mainContainer.scrollTop);
+        return;
+      }
+    }
   }
   
   // Erstelle einen temporären Range, um die Position zu berechnen
@@ -2248,7 +2364,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const paraRect = paraElement.getBoundingClientRect();
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
-    const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+    const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
     
@@ -2274,7 +2390,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     // Zusätzlich: Minus 250px Offset, damit der Text weiter oben erscheint
     const currentScrollTop = mainContainer.scrollTop;
     const rangeTopRelativeToViewport = rangeRect.top - mainRect.top;
-    const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+    const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const targetScrollTop = currentScrollTop + rangeTopRelativeToViewport - headerHeight - extraOffset;
     
     console.log('[MB-SCROLL] Scroll-Berechnung:', {
@@ -2298,7 +2414,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const paraRect = paraElement.getBoundingClientRect();
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
-    const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+    const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
   }
@@ -2910,6 +3026,132 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
 }
 
 /**
+ * Fügt Click-Event-Listener zu allen Unterstreichungen hinzu, die noch keinen haben
+ */
+// Event-Delegation für Highlights (funktioniert auch wenn Elemente später hinzugefügt werden)
+let highlightDelegationListenerAttached = false;
+function attachHighlightDelegationListener() {
+  if (highlightDelegationListenerAttached) {
+    return; // Bereits angehängt
+  }
+  
+  const viewer = document.getElementById('viewer');
+  if (!viewer) {
+    return;
+  }
+  
+  viewer.addEventListener('click', function(e) {
+    // Prüfe ob Klick auf ein Highlight-Element
+    const highlightElement = e.target.closest('[data-highlight-id]');
+    if (highlightElement && highlightElement.hasAttribute('data-highlight-id')) {
+      const highlightId = highlightElement.getAttribute('data-highlight-id');
+      const gaNumber = highlightElement.getAttribute('data-ga-number');
+      const paragraphId = highlightElement.getAttribute('data-paragraph-id');
+      
+      // Wenn Attribute fehlen, versuche sie aus cachedHighlightsData zu holen
+      if (!gaNumber || !paragraphId) {
+        if (cachedHighlightsData && cachedHighlightsData.success && cachedHighlightsData.data) {
+          const highlight = cachedHighlightsData.data.find(h => h.id === highlightId);
+          if (highlight) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('[HIGHLIGHT-DELEGATION] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
+            jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+            return;
+          }
+        }
+      } else {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('[HIGHLIGHT-DELEGATION] Klick auf Unterstreichung:', highlightId, gaNumber, paragraphId);
+        jumpToHighlight(gaNumber, paragraphId, highlightId);
+        return;
+      }
+    }
+  }, true); // useCapture = true für frühe Erfassung
+  
+  highlightDelegationListenerAttached = true;
+  console.log('[ATTACH-LISTENERS] Event-Delegation-Listener angehängt');
+}
+
+function attachClickListenersToHighlights(gaNumber) {
+  console.log('[ATTACH-LISTENERS] Starte für GA:', gaNumber);
+  
+  // Stelle sicher, dass Event-Delegation aktiviert ist
+  attachHighlightDelegationListener();
+  
+  if (!cachedHighlightsData || !cachedHighlightsData.success || !cachedHighlightsData.data) {
+    console.log('[ATTACH-LISTENERS] Keine Highlight-Daten verfügbar');
+    return;
+  }
+  
+  const highlights = cachedHighlightsData.data.filter(h => h.ga_number === gaNumber);
+  console.log('[ATTACH-LISTENERS] Gefundene Highlights:', highlights.length);
+  
+  highlights.forEach(highlight => {
+    const highlightElement = document.querySelector(`[data-highlight-id="${highlight.id}"]`);
+    console.log('[ATTACH-LISTENERS] Prüfe Highlight', highlight.id, 'Element gefunden:', !!highlightElement, 'Listener vorhanden:', highlightElement?.hasAttribute('data-listener-attached'));
+    
+    if (highlightElement) {
+      // Setze zusätzliche Attribute für Event-Delegation
+      highlightElement.setAttribute('data-ga-number', highlight.ga_number);
+      highlightElement.setAttribute('data-paragraph-id', highlight.paragraph_id);
+      
+      // Entferne alte Event-Listener falls vorhanden (durch Klonen des Elements)
+      if (highlightElement.hasAttribute('data-listener-attached')) {
+        // Erstelle neues Element ohne Event-Listener
+        const newSpan = document.createElement('span');
+        newSpan.className = highlightElement.className;
+        newSpan.innerHTML = highlightElement.innerHTML;
+        Array.from(highlightElement.attributes).forEach(attr => {
+          if (attr.name !== 'data-listener-attached') {
+            newSpan.setAttribute(attr.name, attr.value);
+          }
+        });
+        // Kopiere Styles
+        newSpan.style.cssText = highlightElement.style.cssText;
+        highlightElement.parentNode.replaceChild(newSpan, highlightElement);
+        // Verwende das neue Element
+        const updatedElement = document.querySelector(`[data-highlight-id="${highlight.id}"]`);
+        if (updatedElement) {
+          updatedElement.addEventListener('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log('[HIGHLIGHT] Klick auf Unterstreichung (attachClickListenersToHighlights):', highlight.id, highlight.ga_number, highlight.paragraph_id);
+            jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+          });
+          updatedElement.setAttribute('data-listener-attached', 'true');
+          updatedElement.setAttribute('data-ga-number', highlight.ga_number);
+          updatedElement.setAttribute('data-paragraph-id', highlight.paragraph_id);
+          updatedElement.style.setProperty('cursor', 'pointer', 'important');
+          updatedElement.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+          console.log('[ATTACH-LISTENERS] Event-Listener für Highlight', highlight.id, 'hinzugefügt (ersetzt)');
+        }
+      } else {
+        highlightElement.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log('[HIGHLIGHT] Klick auf Unterstreichung (attachClickListenersToHighlights):', highlight.id, highlight.ga_number, highlight.paragraph_id);
+          jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+        });
+        highlightElement.setAttribute('data-listener-attached', 'true');
+        highlightElement.setAttribute('data-ga-number', highlight.ga_number);
+        highlightElement.setAttribute('data-paragraph-id', highlight.paragraph_id);
+        highlightElement.style.setProperty('cursor', 'pointer', 'important');
+        if (!highlightElement.getAttribute('title')) {
+          highlightElement.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+        }
+        console.log('[ATTACH-LISTENERS] Event-Listener für Highlight', highlight.id, 'hinzugefügt');
+      }
+    } else {
+      console.warn('[ATTACH-LISTENERS] Highlight-Element nicht gefunden für Highlight', highlight.id);
+    }
+  });
+  
+  console.log('[ATTACH-LISTENERS] Abgeschlossen für GA:', gaNumber);
+}
+
+/**
  * Hilfsfunktion: Wendet Unterstreichung auf ein Buch-Element an
  */
 function applyHighlightToBookElement(targetElement, highlight) {
@@ -2922,16 +3164,34 @@ function applyHighlightToBookElement(targetElement, highlight) {
   });
   
   // Prüfe ob bereits unterstrichen
-  if (targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`)) {
-    console.log('[HIGHLIGHT-BOOK] Bereits vorhanden, überspringe');
+  const existingHighlight = targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`);
+  if (existingHighlight) {
+    console.log('[HIGHLIGHT-BOOK] Bereits vorhanden, prüfe Event-Listener');
+    // Stelle sicher, dass Event-Listener vorhanden ist
+    if (!existingHighlight.hasAttribute('data-listener-attached')) {
+      existingHighlight.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('[HIGHLIGHT-BOOK] Klick auf Unterstreichung (nachträglich):', highlight.id, highlight.ga_number, highlight.paragraph_id);
+        jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+      });
+      existingHighlight.setAttribute('data-listener-attached', 'true');
+      console.log('[HIGHLIGHT-BOOK] Event-Listener nachträglich hinzugefügt');
+    }
     return; // Bereits vorhanden
   }
   
   // Hole den Text des Elements
-  const elementText = targetElement.textContent || targetElement.innerText;
-  console.log('[HIGHLIGHT-BOOK] Element-Text:', elementText.substring(0, 200));
+  const elementText = targetElement.textContent || targetElement.innerText || '';
+  console.log('[HIGHLIGHT-BOOK] Element-Text:', elementText ? elementText.substring(0, 200) : '(leer)');
   console.log('[HIGHLIGHT-BOOK] Gespeicherter Text:', highlight.paragraph_text?.substring(0, 200));
   console.log('[HIGHLIGHT-BOOK] Offsets:', highlight.text_start_offset, highlight.text_end_offset);
+  
+  // Prüfe ob elementText leer ist
+  if (!elementText || elementText.length === 0) {
+    console.warn('[HIGHLIGHT-BOOK] Element-Text ist leer, kann Unterstreichung nicht anwenden');
+    return;
+  }
   
   // Versuche mit den Offsets
   if (highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
@@ -2993,13 +3253,21 @@ function applyHighlightToBookElement(targetElement, highlight) {
           span.style.setProperty('text-decoration-color', highlightColor, 'important');
           span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
           span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+          span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
           span.setAttribute('data-highlight-id', highlight.id);
           span.setAttribute('data-highlight', 'true');
           span.setAttribute('data-highlight-color', highlight.color || 'blue');
-          span.onclick = (e) => {
+          span.setAttribute('data-ga-number', highlight.ga_number);
+          span.setAttribute('data-paragraph-id', highlight.paragraph_id);
+          span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
+          span.setAttribute('data-listener-attached', 'true'); // Markiere dass Event-Listener gesetzt wurde
+          // Verwende addEventListener statt onclick für bessere Kompatibilität
+          span.addEventListener('click', function(e) {
             e.stopPropagation();
+            e.preventDefault();
+            console.log('[HIGHLIGHT-BOOK] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
             jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-          };
+          });
           
           const contents = range.extractContents();
           span.appendChild(contents);
@@ -3020,7 +3288,13 @@ function applyHighlightToBookElement(targetElement, highlight) {
       highlight.text_end_offset || highlight.paragraph_text.length
     );
     
-    if (elementText.includes(textToHighlight)) {
+    // Prüfe ob textToHighlight gültig ist
+    if (!textToHighlight || textToHighlight.length === 0) {
+      console.warn('[HIGHLIGHT-BOOK] textToHighlight ist leer, kann Unterstreichung nicht anwenden');
+      return;
+    }
+    
+    if (elementText && elementText.includes(textToHighlight)) {
       const range = document.createRange();
       const walker = document.createTreeWalker(
         targetElement,
@@ -3046,13 +3320,18 @@ function applyHighlightToBookElement(targetElement, highlight) {
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
             span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+            span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
             span.setAttribute('data-highlight-id', highlight.id);
             span.setAttribute('data-highlight', 'true');
             span.setAttribute('data-highlight-color', highlight.color || 'blue');
-            span.onclick = (e) => {
+            span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
+            // Verwende addEventListener statt onclick für bessere Kompatibilität
+            span.addEventListener('click', function(e) {
               e.stopPropagation();
+              e.preventDefault();
+              console.log('[HIGHLIGHT-BOOK] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
               jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-            };
+            });
             
             const contents = range.extractContents();
             span.appendChild(contents);
@@ -3118,7 +3397,7 @@ function applyStoredHighlight(highlight) {
         // Für Bücher: Suche nach p, div, etc. die Text enthalten
         if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
           // Prüfe ob dieses Element den gespeicherten Text enthält (für Bücher wichtig)
-          if (highlight.paragraph_text && parent.textContent.includes(highlight.paragraph_text.substring(0, 50))) {
+          if (highlight.paragraph_text && parent.textContent && parent.textContent.includes(highlight.paragraph_text.substring(0, 50))) {
             foundTextElement = parent;
             break;
           } else if (hasText && !foundTextElement) {
@@ -3153,7 +3432,19 @@ function applyStoredHighlight(highlight) {
     let targetElement = paraElement;
     
     // Prüfe ob bereits unterstrichen
-    if (targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`)) {
+    const existingHighlight = targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`);
+    if (existingHighlight) {
+      // Stelle sicher, dass Event-Listener vorhanden ist
+      if (!existingHighlight.hasAttribute('data-listener-attached')) {
+        existingHighlight.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          console.log('[HIGHLIGHT] Klick auf Unterstreichung (nachträglich):', highlight.id, highlight.ga_number, highlight.paragraph_id);
+          jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+        });
+        existingHighlight.setAttribute('data-listener-attached', 'true');
+        console.log('[HIGHLIGHT] Event-Listener nachträglich hinzugefügt');
+      }
       return; // Bereits vorhanden
     }
     
@@ -3161,7 +3452,7 @@ function applyStoredHighlight(highlight) {
     const elementText = targetElement.textContent || targetElement.innerText;
     
     // Prüfe ob der gespeicherte Text noch vorhanden ist
-    if (!highlight.paragraph_text || !elementText.includes(highlight.paragraph_text)) {
+    if (!highlight.paragraph_text || !elementText || !elementText.includes(highlight.paragraph_text)) {
       // Versuche mit den Offsets
       if (highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
         const startOffset = highlight.text_start_offset;
@@ -3213,13 +3504,18 @@ function applyStoredHighlight(highlight) {
               span.style.setProperty('text-decoration-color', highlightColor, 'important');
               span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
               span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+              span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
               span.setAttribute('data-highlight-id', highlight.id);
               span.setAttribute('data-highlight', 'true');
               span.setAttribute('data-highlight-color', highlight.color || 'blue');
-              span.onclick = (e) => {
+              span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
+              // Verwende addEventListener statt onclick für bessere Kompatibilität
+              span.addEventListener('click', function(e) {
                 e.stopPropagation();
+                e.preventDefault();
+                console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
                 jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-              };
+              });
               
               const contents = range.extractContents();
               span.appendChild(contents);
@@ -3238,7 +3534,13 @@ function applyStoredHighlight(highlight) {
       highlight.text_end_offset || highlight.paragraph_text.length
     );
     
-    if (elementText.includes(textToHighlight)) {
+    // Prüfe ob textToHighlight gültig ist
+    if (!textToHighlight || textToHighlight.length === 0) {
+      console.warn('[HIGHLIGHT] textToHighlight ist leer, kann Unterstreichung nicht anwenden');
+      return;
+    }
+    
+    if (elementText && elementText.includes(textToHighlight)) {
       // Erstelle Range für die Unterstreichung
       const range = document.createRange();
       const walker = document.createTreeWalker(
@@ -3266,13 +3568,18 @@ function applyStoredHighlight(highlight) {
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
             span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+            span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
             span.setAttribute('data-highlight-id', highlight.id);
             span.setAttribute('data-highlight', 'true');
             span.setAttribute('data-highlight-color', highlight.color || 'blue');
-            span.onclick = (e) => {
+            span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
+            // Verwende addEventListener statt onclick für bessere Kompatibilität
+            span.addEventListener('click', function(e) {
               e.stopPropagation();
+              e.preventDefault();
+              console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
               jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-            };
+            });
             
             const contents = range.extractContents();
             span.appendChild(contents);
@@ -3370,11 +3677,17 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
     
     if (isTextAlreadyLoaded) {
       // Text ist bereits geladen - scrolle zum unterstrichenen Text
-      // Versuche zuerst, das unterstrichene Element direkt zu finden
-      setTimeout(() => {
+      // WICHTIG: Versuche mehrfach, das Highlight-Element zu finden (mit Verzögerungen)
+      // Die Highlights könnten noch nicht im DOM sein
+      let attempts = 0;
+      const maxAttempts = 10;
+      
+      const tryScrollToHighlight = () => {
+        attempts++;
         const highlightElement = document.querySelector(`[data-highlight-id="${highlightId}"]`);
+        
         if (highlightElement) {
-          console.log('[JUMP-TO-HIGHLIGHT] Unterstrichenes Element gefunden, scrolle direkt dazu');
+          console.log('[JUMP-TO-HIGHLIGHT] Unterstrichenes Element gefunden (Versuch', attempts, '), scrolle direkt dazu');
           const mainContainer = document.getElementById('main');
           if (mainContainer) {
             const header = document.getElementById('viewer-header');
@@ -3386,61 +3699,35 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
             // Zusätzlich: Minus 250px Offset, damit der Text weiter oben erscheint
             const currentScrollTop = mainContainer.scrollTop;
             const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
-            const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+            const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
             const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
             
             mainContainer.scrollTop = Math.max(0, targetScrollTop);
             console.log('[JUMP-TO-HIGHLIGHT] Gescrollt zu unterstrichenem Element, scrollTop:', mainContainer.scrollTop);
-            
-            // WICHTIG: Nur eine Verifizierung nach kurzer Zeit (kein requestAnimationFrame, um Springen zu vermeiden)
-            setTimeout(() => {
-              const verifyHighlight = document.querySelector(`[data-highlight-id="${highlightId}"]`);
-              if (verifyHighlight && mainContainer) {
-                const verifyMainRect = mainContainer.getBoundingClientRect();
-                const verifyHighlightRect = verifyHighlight.getBoundingClientRect();
-                const verifyHeader = document.getElementById('viewer-header');
-                const verifyHeaderHeight = verifyHeader ? verifyHeader.offsetHeight + 5 : 5;
-                
-                const currentHighlightTop = verifyHighlightRect.top - verifyMainRect.top;
-                const expectedTop = verifyHeaderHeight;
-                
-                console.log('[JUMP-TO-HIGHLIGHT] Verifizierung:', {
-                  currentHighlightTop,
-                  expectedTop,
-                  difference: currentHighlightTop - expectedTop
-                });
-                
-                // Nur korrigieren wenn die Position deutlich falsch ist (Toleranz erhöht)
-                if (Math.abs(currentHighlightTop - expectedTop) > 10) {
-                  const correctedScrollTop = mainContainer.scrollTop + currentHighlightTop - expectedTop;
-                  mainContainer.scrollTop = Math.max(0, correctedScrollTop);
-                  console.log('[JUMP-TO-HIGHLIGHT] Position korrigiert, neuer scrollTop:', mainContainer.scrollTop);
-                } else {
-                  console.log('[JUMP-TO-HIGHLIGHT] Position ist korrekt, keine Korrektur nötig');
-                }
-              }
-            }, 150); // Kurze Verzögerung für stabilere Positionierung
-            return;
+            return true; // Erfolg
           }
-        }
-        
-        // Fallback: Verwende Offsets
-        if (highlightData && highlightData.text_start_offset !== null && highlightData.text_start_offset !== undefined) {
-          console.log('[JUMP-TO-HIGHLIGHT] Unterstrichenes Element nicht gefunden, verwende Offsets');
-          if (typeof scrollToTextPositionInParagraph === 'function') {
-            scrollToTextPositionInParagraph(
-              paragraphId, 
-              highlightData.text_start_offset, 
-              highlightData.text_end_offset, 
-              false // Keine Absatz-Markierung für Unterstreichungen
-            );
-          } else {
-            console.error('[JUMP-TO-HIGHLIGHT] scrollToTextPositionInParagraph Funktion nicht verfügbar');
-          }
+        } else if (attempts < maxAttempts) {
+          // Element noch nicht gefunden, versuche es erneut
+          setTimeout(tryScrollToHighlight, 100);
+          return false; // Noch nicht erfolgreich
         } else {
-          console.log('[JUMP-TO-HIGHLIGHT] Keine Offsets verfügbar, scrolle zum Absatz');
-          // Fallback: Scrolle zum Absatz
-          setTimeout(() => {
+          // Nach maxAttempts Versuchen nicht gefunden - verwende Offsets
+          console.log('[JUMP-TO-HIGHLIGHT] Unterstrichenes Element nach', maxAttempts, 'Versuchen nicht gefunden, verwende Offsets');
+          if (highlightData && highlightData.text_start_offset !== null && highlightData.text_start_offset !== undefined) {
+            if (typeof scrollToTextPositionInParagraph === 'function') {
+              scrollToTextPositionInParagraph(
+                paragraphId, 
+                highlightData.text_start_offset, 
+                highlightData.text_end_offset, 
+                false, // Keine Absatz-Markierung für Unterstreichungen
+                highlightId // Übergib highlightId für direkten Zugriff auf Highlight-Element
+              );
+            } else {
+              console.error('[JUMP-TO-HIGHLIGHT] scrollToTextPositionInParagraph Funktion nicht verfügbar');
+            }
+          } else {
+            console.log('[JUMP-TO-HIGHLIGHT] Keine Offsets verfügbar, scrolle zum Absatz');
+            // Fallback: Scrolle zum Absatz
             const cleanIndex = String(paragraphId || '').replace(/^para-/, '').replace(/^\^/, '');
             const paraElement = document.getElementById(`para-${cleanIndex}`);
             console.log('[JUMP-TO-HIGHLIGHT] Suche nach paraElement:', `para-${cleanIndex}`, 'gefunden:', !!paraElement);
@@ -3449,7 +3736,7 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
               if (mainContainer) {
                 const header = document.getElementById('viewer-header');
                 const headerHeight = header ? header.offsetHeight + 5 : 5;
-                const extraOffset = 250; // Zusätzlicher Offset, damit Text weiter oben erscheint
+                const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
                 const mainRect = mainContainer.getBoundingClientRect();
                 const paraRect = paraElement.getBoundingClientRect();
                 const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
@@ -3459,9 +3746,13 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
             } else {
               console.warn('[JUMP-TO-HIGHLIGHT] paraElement nicht gefunden');
             }
-          }, 200);
+          }
+          return false; // Nicht erfolgreich
         }
-      }, 200);
+      };
+      
+      // Starte den ersten Versuch sofort, dann mit Verzögerungen
+      setTimeout(tryScrollToHighlight, 100);
       return;
     }
     
