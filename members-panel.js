@@ -1054,7 +1054,7 @@ function renderHighlightsList(container, sortedData) {
         <div style="flex: 1;">
           <div class="member-item-header">
             ${shouldShowLink
-              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
             }
             <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
@@ -1498,7 +1498,7 @@ function updateQuoteDates(container, sortedData) {
  * @param {string} lectureId - Die Vortrags-ID (z.B. "GA121/6") oder Buch-ID (z.B. "GA011")
  * @param {string} targetIndex - Optional: Der Index des Absatzes zum Scrollen
  */
-async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) {
+async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, textStartOffset = null, textEndOffset = null) {
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
@@ -1617,6 +1617,18 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     }
   }
   
+  // Wenn wir eine Textposition haben, verhindere das automatische Scrollen von showLecture/displayBook
+  // indem wir scrollToIndexInViewer temporär überschreiben
+  const originalScrollToIndexInViewer = window.scrollToIndexInViewer;
+  const hasTextPosition = targetIndex && textStartOffset !== null && textStartOffset !== undefined;
+  
+  if (hasTextPosition && typeof window.scrollToIndexInViewer === 'function') {
+    // Überschreibe temporär, damit showLecture/displayBook nicht zum Absatz scrollen
+    window.scrollToIndexInViewer = function() {
+      // Tue nichts - wir scrollen später zur Textposition
+    };
+  }
+  
   // Lade Buch oder Vortrag
   if (isBook) {
     // Für Bücher: Lade über API und zeige mit displayBook
@@ -1661,6 +1673,61 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     if (typeof showLecture === 'function') {
       await showLecture(lectureId, targetIndex, []);
     }
+  }
+  
+  // Stelle scrollToIndexInViewer wieder her
+  if (hasTextPosition && originalScrollToIndexInViewer) {
+    window.scrollToIndexInViewer = originalScrollToIndexInViewer;
+  }
+  
+  // SOFORT nach dem Laden: Scroll zur Textposition (falls Offsets vorhanden)
+  // Mache dies VOR anderen Operationen, damit keine Sprünge sichtbar sind
+  if (targetIndex && textStartOffset !== null && textStartOffset !== undefined) {
+    // Versuche mehrmals zu scrollen, falls das Element noch nicht bereit ist
+    let attempts = 0;
+    const maxAttempts = 20;
+    let scrollExecuted = false;
+    
+    const tryScroll = () => {
+      attempts++;
+      const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+      const paraElement = document.getElementById(`para-${cleanIndex}`);
+      const mainContainer = document.getElementById('main');
+      
+      if (paraElement && paraElement.textContent && mainContainer) {
+        // Element ist bereit, scrolle zur Textposition
+        if (!scrollExecuted) {
+          scrollExecuted = true;
+          scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+          
+          // Verifiziere nach kurzer Zeit, ob das Scrollen erfolgreich war
+          setTimeout(() => {
+            const verifyPara = document.getElementById(`para-${cleanIndex}`);
+            const verifyMain = document.getElementById('main');
+            if (verifyPara && verifyMain) {
+              // Prüfe ob die Position korrekt ist, sonst versuche es nochmal
+              const paraRect = verifyPara.getBoundingClientRect();
+              const mainRect = verifyMain.getBoundingClientRect();
+              const header = document.getElementById('viewer-header');
+              const headerHeight = header ? header.offsetHeight + 5 : 5;
+              
+              // Wenn der Absatz nicht oben sichtbar ist, scrolle nochmal
+              if (paraRect.top - mainRect.top > headerHeight + 50) {
+                scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+              }
+            }
+          }, 100);
+        }
+      } else if (attempts < maxAttempts) {
+        // Element noch nicht bereit, versuche es erneut
+        requestAnimationFrame(tryScroll);
+      }
+    };
+    
+    // Starte den ersten Versuch nach kurzer Verzögerung, damit der DOM bereit ist
+    setTimeout(() => {
+      requestAnimationFrame(tryScroll);
+    }, 50);
   }
   
   // SOFORT DANACH: Stelle Members Content wieder her (showLecture/displayBook hat es überschrieben!)
@@ -1710,6 +1777,14 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     if (typeof updateResizeHandle === 'function') {
       updateResizeHandle();
     }
+    
+    // Stelle sicher, dass das Scrollen zur Textposition nicht überschrieben wurde
+    // (Panel-Operationen könnten das Scrollen beeinflusst haben)
+    if (targetIndex && textStartOffset !== null && textStartOffset !== undefined) {
+      setTimeout(() => {
+        scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+      }, 100);
+    }
   }, 50);
   
   // Lade GA-Übersicht im linken Panel (nur für Vorträge, nicht für Bücher)
@@ -1742,6 +1817,135 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
       restoreMembersScrollPosition();
     }, 50);
   }, 200);
+}
+
+/**
+ * Scrollt zur Textposition innerhalb eines Absatzes
+ */
+function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null) {
+  if (!paragraphId || textStartOffset === null || textStartOffset === undefined) return;
+  
+  const mainContainer = document.getElementById('main');
+  if (!mainContainer) return;
+  
+  // Bereinige paragraphId (entferne 'para-' Präfix falls vorhanden)
+  const cleanIndex = paragraphId.toString().replace(/^para-/, '').replace(/^\^/, '');
+  const paraElement = document.getElementById(`para-${cleanIndex}`);
+  
+  if (!paraElement) {
+    console.warn('[MB-SCROLL] Absatz nicht gefunden:', cleanIndex);
+    return;
+  }
+  
+  // Erstelle temporäres Range-Element, um die Position zu finden
+  const textContent = paraElement.textContent || paraElement.innerText || '';
+  
+  if (textStartOffset >= textContent.length) {
+    // Falls Offset außerhalb des Textes liegt, scrolle einfach zum Absatz
+    const mainRect = mainContainer.getBoundingClientRect();
+    const paraRect = paraElement.getBoundingClientRect();
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+    mainContainer.scrollTop = Math.max(0, relativeTop);
+    return;
+  }
+  
+  // Erstelle einen temporären Range, um die Position zu berechnen
+  const range = document.createRange();
+  const walker = document.createTreeWalker(
+    paraElement,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  let currentOffset = 0;
+  let targetNode = null;
+  let targetOffset = 0;
+  
+  let node;
+  while (node = walker.nextNode()) {
+    const nodeLength = node.textContent.length;
+    if (currentOffset + nodeLength >= textStartOffset) {
+      targetNode = node;
+      targetOffset = textStartOffset - currentOffset;
+      break;
+    }
+    currentOffset += nodeLength;
+  }
+  
+  if (!targetNode) {
+    // Fallback: Scrolle zum Absatz
+    const mainRect = mainContainer.getBoundingClientRect();
+    const paraRect = paraElement.getBoundingClientRect();
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+    mainContainer.scrollTop = Math.max(0, relativeTop);
+    return;
+  }
+  
+  // Setze Range auf die Zielposition
+  try {
+    range.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+    range.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+    
+    // Berechne die Position relativ zum Main Container
+    const rangeRect = range.getBoundingClientRect();
+    const mainRect = mainContainer.getBoundingClientRect();
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    
+    // Berechne die Scroll-Position, damit die Textstelle oben im Viewer erscheint
+    // Die Range-Position relativ zum Viewport: rangeRect.top - mainRect.top
+    // Plus die aktuelle Scroll-Position: mainContainer.scrollTop
+    // Minus die Header-Höhe, damit die Textstelle direkt unter dem Header erscheint
+    const currentScrollTop = mainContainer.scrollTop;
+    const rangeTopRelativeToViewport = rangeRect.top - mainRect.top;
+    const targetScrollTop = currentScrollTop + rangeTopRelativeToViewport - headerHeight;
+    
+    // Scroll sofort zur Position
+    mainContainer.scrollTop = Math.max(0, targetScrollTop);
+    
+    // Stelle sicher, dass das Scrollen wirklich passiert ist (manchmal braucht es einen zweiten Versuch)
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Verifiziere die Position und korrigiere falls nötig
+        const verifyRange = document.createRange();
+        try {
+          verifyRange.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+          verifyRange.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+          
+          const verifyRangeRect = verifyRange.getBoundingClientRect();
+          const verifyMainRect = mainContainer.getBoundingClientRect();
+          const verifyHeader = document.getElementById('viewer-header');
+          const verifyHeaderHeight = verifyHeader ? verifyHeader.offsetHeight + 5 : 5;
+          
+          // Prüfe ob die Textstelle oben ist (mit Toleranz von 10px)
+          const currentRangeTop = verifyRangeRect.top - verifyMainRect.top;
+          const expectedTop = verifyHeaderHeight;
+          
+          if (Math.abs(currentRangeTop - expectedTop) > 10) {
+            // Position ist nicht korrekt, korrigiere sie
+            const correctedScrollTop = mainContainer.scrollTop + currentRangeTop - expectedTop;
+            mainContainer.scrollTop = Math.max(0, correctedScrollTop);
+          }
+        } catch (e) {
+          // Ignoriere Fehler bei der Verifizierung
+        }
+      });
+    });
+  } catch (error) {
+    console.warn('[MB-SCROLL] Fehler beim Scrollen zur Textposition:', error);
+    // Fallback: Scrolle zum Absatz
+    const mainRect = mainContainer.getBoundingClientRect();
+    const paraRect = paraElement.getBoundingClientRect();
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+    mainContainer.scrollTop = Math.max(0, relativeTop);
+  }
 }
 
 /**
@@ -3422,7 +3626,7 @@ async function showKeywordFilteredItems(keyword) {
             <div style="flex: 1;">
               <div class="member-item-header">
                 ${shouldShowLink
-                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                 }
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
