@@ -15,6 +15,7 @@ let membersScrollObserver = null; // MutationObserver für Scroll-Position
 let sortOrder = 'desc'; // 'asc' oder 'desc' - Standard: neueste zuerst
 let multiDeleteMode = false; // Multi-Delete-Modus aktiviert?
 let membersLectureDatesCache = {}; // Cache für Vortrags-Daten
+let selectedGAFilter = ''; // Aktuell ausgewähltes GA-Band für Filterung
 
 /**
  * Speichert die aktuelle Scroll-Position ALLER scrollenden Elemente UND die Panel-Position
@@ -438,7 +439,12 @@ async function showMembersContent() {
         <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
           <div style="display: flex; gap: 0.25rem; flex: 1;">
             <button class="members-tab ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
-            <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
+            <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
+            <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
+              <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
+                <option value="">GA</option>
+              </select>
+            </div>
             <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
           </div>
           <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
@@ -502,6 +508,9 @@ async function showMembersContent() {
         ];
         
         if (allGANumbers.length > 0) {
+          // Aktualisiere GA-Filter-Dropdown mit allen verfügbaren GA-Nummern
+          updateGAFilterDropdown(allGANumbers);
+          
           // Lade Vortragsdaten im Hintergrund (nicht-blockierend)
           loadLectureDatesForGANumbers(allGANumbers).catch(err => 
             console.warn('[MB-CACHE] Fehler beim Vorladen der Vortragsdaten:', err)
@@ -958,6 +967,9 @@ async function loadHighlightsTab(container) {
   // Rendere sofort mit verfügbaren Daten
   renderHighlightsList(container, sortedData);
   
+  // Aktualisiere GA-Filter-Dropdown
+  updateGAFilterDropdown(uniqueGANumbers);
+  
   // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
   updateHighlightDates(container, sortedData);
   
@@ -1002,6 +1014,15 @@ async function loadHighlightsTab(container) {
  * Rendert die Highlights-Liste
  */
 function renderHighlightsList(container, sortedData) {
+  // Filtere nach GA-Nummer wenn Filter aktiv ist
+  let filteredData = sortedData;
+  if (selectedGAFilter) {
+    filteredData = sortedData.filter(highlight => {
+      const gaNumber = highlight.ga_number || '';
+      return gaNumber.toLowerCase().startsWith(selectedGAFilter.toLowerCase());
+    });
+  }
+  
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
       <span style="font-size: 0.85rem; color: var(--text-color);">Auswahl-Modus aktiv</span>
@@ -1009,7 +1030,12 @@ function renderHighlightsList(container, sortedData) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map((highlight) => {
+  if (filteredData.length === 0 && sortedData.length > 0) {
+    container.innerHTML = '<div class="empty-state">Keine Einträge für das ausgewählte GA-Band gefunden</div>';
+    return;
+  }
+  
+  const html = multiDeleteHtml + filteredData.map((highlight) => {
     const lectureDate = getLectureDate(highlight.ga_number);
     const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
@@ -1121,6 +1147,76 @@ function updateHighlightDates(container, sortedData) {
 }
 
 /**
+ * Entfernt eine visuelle Unterstreichung aus dem Text
+ */
+function removeHighlightFromText(highlightId) {
+  try {
+    // Konvertiere ID zu String für Vergleich (kann als Zahl oder String übergeben werden)
+    const idString = String(highlightId);
+    
+    // Suche im gesamten Dokument nach Highlight-Elementen
+    // Prüfe sowohl data-highlight-id als auch andere mögliche Attribute
+    const allHighlightElements = document.querySelectorAll('[data-highlight-id], .member-highlight, span[data-highlight="true"]');
+    
+    const highlightElements = Array.from(allHighlightElements).filter(element => {
+      // Prüfe data-highlight-id Attribut
+      const elementId = element.getAttribute('data-highlight-id');
+      if (elementId) {
+        return String(elementId) === idString;
+      }
+      // Falls kein data-highlight-id vorhanden, prüfe ob es ein Highlight-Element ist
+      // und ob es die Klasse member-highlight hat
+      return element.classList.contains('member-highlight') || element.getAttribute('data-highlight') === 'true';
+    });
+    
+    // Wenn keine Elemente mit exakter ID gefunden, suche nach allen Highlights
+    // und entferne die, die zur gelöschten ID passen könnten
+    if (highlightElements.length === 0) {
+      // Debug: Zeige alle vorhandenen Highlight-IDs
+      const allIds = Array.from(document.querySelectorAll('[data-highlight-id]')).map(el => el.getAttribute('data-highlight-id'));
+      console.log(`[REMOVE-HIGHLIGHT] Suche nach Highlight-ID: ${idString}`);
+      console.log(`[REMOVE-HIGHLIGHT] Vorhandene Highlight-IDs im DOM:`, allIds);
+      
+      // Versuche auch mit querySelector direkt
+      const directMatch = document.querySelector(`[data-highlight-id="${idString}"]`);
+      if (directMatch) {
+        highlightElements.push(directMatch);
+      }
+    }
+    
+    console.log(`[REMOVE-HIGHLIGHT] Gefunden: ${highlightElements.length} Element(e)`);
+    
+    highlightElements.forEach(element => {
+      // Entferne das span-Element, aber behalte den Inhalt
+      const parent = element.parentNode;
+      if (parent) {
+        // Verschiebe alle Kindknoten aus dem span heraus
+        // Erstelle einen DocumentFragment, um alle Knoten zu sammeln
+        const fragment = document.createDocumentFragment();
+        while (element.firstChild) {
+          fragment.appendChild(element.firstChild);
+        }
+        // Füge den Fragment-Inhalt vor dem span ein
+        parent.insertBefore(fragment, element);
+        // Entferne das leere span-Element
+        parent.removeChild(element);
+        
+        // Normalisiere den Text, um leere Textknoten zu entfernen
+        parent.normalize();
+        
+        console.log(`[REMOVE-HIGHLIGHT] Highlight-Element entfernt`);
+      }
+    });
+    
+    if (highlightElements.length === 0) {
+      console.warn(`[REMOVE-HIGHLIGHT] Kein Highlight-Element mit ID ${idString} gefunden`);
+    }
+  } catch (error) {
+    console.error('Fehler beim Entfernen der Unterstreichung aus dem Text:', error);
+  }
+}
+
+/**
  * Löscht eine Unterstreichung
  */
 async function deleteMemberHighlight(id) {
@@ -1132,7 +1228,13 @@ async function deleteMemberHighlight(id) {
   }
   
   const result = await deleteHighlight(id);
-  if (result.success) {
+  if (result && result.success) {
+    // Entferne die visuelle Unterstreichung sofort aus dem Text
+    // Versuche mehrmals, falls das Element noch nicht im DOM ist
+    removeHighlightFromText(id);
+    setTimeout(() => removeHighlightFromText(id), 100);
+    setTimeout(() => removeHighlightFromText(id), 500);
+    
     // Invalidiere Cache, damit Daten neu geladen werden
     cachedHighlightsData = null;
     await loadMembersTab('highlights');
@@ -1211,6 +1313,9 @@ async function loadQuotesTab(container) {
   
   // Rendere sofort mit verfügbaren Daten
   renderQuotesList(container, sortedData);
+  
+  // Aktualisiere GA-Filter-Dropdown
+  updateGAFilterDropdown(uniqueGANumbers);
 
   // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
   updateQuoteDates(container, sortedData);
@@ -1257,6 +1362,15 @@ async function loadQuotesTab(container) {
  * Rendert die Quotes-Liste
  */
 function renderQuotesList(container, sortedData) {
+  // Filtere nach GA-Nummer wenn Filter aktiv ist
+  let filteredData = sortedData;
+  if (selectedGAFilter) {
+    filteredData = sortedData.filter(quote => {
+      const gaNumber = quote.ga_reference || quote.ga_number || '';
+      return gaNumber.toLowerCase().startsWith(selectedGAFilter.toLowerCase());
+    });
+  }
+  
   // Multi-Delete-Button hinzufügen wenn Modus aktiv
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
@@ -1265,7 +1379,12 @@ function renderQuotesList(container, sortedData) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map((quote) => {
+  if (filteredData.length === 0 && sortedData.length > 0) {
+    container.innerHTML = '<div class="empty-state">Keine Einträge für das ausgewählte GA-Band gefunden</div>';
+    return;
+  }
+  
+  const html = multiDeleteHtml + filteredData.map((quote) => {
     // Hole Datum aus Cache (kann leer sein wenn noch nicht geladen)
     const lectureDate = getLectureDate(quote.ga_reference);
     const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
@@ -2029,7 +2148,11 @@ async function deleteSelectedItems() {
       }
     } else if (currentMembersTab === 'highlights') {
       for (const id of ids) {
-        await deleteHighlight(id);
+        const result = await deleteHighlight(id);
+        if (result && result.success) {
+          // Entferne die visuelle Unterstreichung sofort aus dem Text
+          removeHighlightFromText(id);
+        }
       }
     }
     
@@ -2261,9 +2384,10 @@ function applyStoredHighlight(highlight) {
               const highlightColor = getHighlightColor(highlight.color || 'blue');
               const span = document.createElement('span');
               span.className = 'member-highlight';
-              span.style.textDecoration = 'underline';
-              span.style.textDecorationColor = highlightColor;
-              span.style.textDecorationThickness = '1.5px';
+              span.style.setProperty('text-decoration', 'underline', 'important');
+              span.style.setProperty('text-decoration-color', highlightColor, 'important');
+              span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+              span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
               span.setAttribute('data-highlight-id', highlight.id);
               span.setAttribute('data-highlight', 'true');
               span.setAttribute('data-highlight-color', highlight.color || 'blue');
@@ -2313,9 +2437,10 @@ function applyStoredHighlight(highlight) {
             const highlightColor = getHighlightColor(highlight.color || 'blue');
             const span = document.createElement('span');
             span.className = 'member-highlight';
-            span.style.textDecoration = 'underline';
-            span.style.textDecorationColor = highlightColor;
-            span.style.textDecorationThickness = '1.5px';
+            span.style.setProperty('text-decoration', 'underline', 'important');
+            span.style.setProperty('text-decoration-color', highlightColor, 'important');
+            span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
             span.setAttribute('data-highlight-id', highlight.id);
             span.setAttribute('data-highlight', 'true');
             span.setAttribute('data-highlight-color', highlight.color || 'blue');
@@ -3080,6 +3205,66 @@ async function handleKeywordFilter(keyword) {
 }
 
 /**
+ * Behandelt die Auswahl eines GA-Bandes im Filter-Dropdown
+ */
+async function handleGAFilter(gaNumber) {
+  selectedGAFilter = gaNumber || '';
+  
+  // Setze den Dropdown-Wert
+  const gaFilterSelect = document.getElementById('ga-filter-select');
+  if (gaFilterSelect) {
+    gaFilterSelect.value = selectedGAFilter;
+  }
+  
+  // Lade den aktuellen Tab neu, um die Filterung anzuwenden
+  if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights') {
+    await loadMembersTab(currentMembersTab);
+  }
+}
+
+/**
+ * Aktualisiert das GA-Filter-Dropdown mit allen verfügbaren GA-Nummern
+ */
+function updateGAFilterDropdown(gaNumbers) {
+  const gaFilterSelect = document.getElementById('ga-filter-select');
+  if (!gaFilterSelect) return;
+  
+  // Sammle alle eindeutigen GA-Nummern (nur Basis-Nummern wie GA001, GA002, etc.)
+  const uniqueGABases = new Set();
+  gaNumbers.forEach(gaNum => {
+    if (gaNum) {
+      // Extrahiere Basis-GA-Nummer (z.B. GA001 aus GA001/01)
+      const baseMatch = gaNum.match(/^(GA\d{3})/i);
+      if (baseMatch) {
+        uniqueGABases.add(baseMatch[1].toUpperCase());
+      }
+    }
+  });
+  
+  // Sortiere GA-Nummern numerisch
+  const sortedGABases = Array.from(uniqueGABases).sort((a, b) => {
+    const numA = parseInt(a.replace('GA', ''));
+    const numB = parseInt(b.replace('GA', ''));
+    return numA - numB;
+  });
+  
+  // Speichere aktuellen Wert
+  const currentValue = gaFilterSelect.value;
+  
+  // Leere Dropdown und füge Optionen hinzu
+  gaFilterSelect.innerHTML = '<option value="">GA</option>';
+  sortedGABases.forEach(gaBase => {
+    const option = document.createElement('option');
+    option.value = gaBase;
+    option.textContent = gaBase;
+    gaFilterSelect.appendChild(option);
+  });
+  
+  // Stelle vorherigen Wert wieder her
+  gaFilterSelect.value = currentValue;
+}
+
+/**
  * Zeigt Items aus beiden Tabs (Quotes und Highlights) mit dem ausgewählten Keyword
  */
 async function showKeywordFilteredItems(keyword) {
@@ -3285,6 +3470,7 @@ window.deleteSelectedItems = deleteSelectedItems;
 window.saveMemberNote = saveMemberNote;
 window.sendMemberChatMessage = sendMemberChatMessage;
 window.handleKeywordFilter = handleKeywordFilter;
+window.handleGAFilter = handleGAFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
 window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;

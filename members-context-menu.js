@@ -420,7 +420,7 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     showContextNotification('✓ Unterstreichung gespeichert!', 'success');
     
     // Unterstreichung visuell anzeigen
-    applyHighlightToSelection(selectionRangeForContext);
+    applyHighlightToSelection(selectionRangeForContext, color);
     
     // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
@@ -452,9 +452,10 @@ function applyHighlightToSelection(range, color = 'blue') {
     const highlightColor = getHighlightColor(color);
     const span = document.createElement('span');
     span.className = 'member-highlight';
-    span.style.textDecoration = 'underline';
-    span.style.textDecorationColor = highlightColor;
-    span.style.textDecorationThickness = '1.5px';
+    span.style.setProperty('text-decoration', 'underline', 'important');
+    span.style.setProperty('text-decoration-color', highlightColor, 'important');
+    span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+    span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
     span.setAttribute('data-highlight', 'true');
     span.setAttribute('data-highlight-color', color);
     
@@ -462,10 +463,20 @@ function applyHighlightToSelection(range, color = 'blue') {
     span.appendChild(contents);
     range.insertNode(span);
     
+    // Stelle sicher, dass Links innerhalb des Highlights die Highlight-Farbe verwenden
+    const linksInSpan = span.querySelectorAll('a');
+    linksInSpan.forEach(link => {
+      link.style.setProperty('text-decoration', 'underline', 'important');
+      link.style.setProperty('text-decoration-color', highlightColor, 'important');
+      link.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+      link.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+    });
+    
     // Selection aufheben
     const selection = window.getSelection();
     selection.removeAllRanges();
   } catch (e) {
+    console.error('Fehler beim Anwenden der Unterstreichung:', e);
     // Unterstreichung nicht möglich
   }
 }

@@ -11,3 +11,6 @@ Der neue Header soll den Vortragstext überdecken, der Text darunter soll scroll
 DIese Änderung (neuer Header im Side Panel) soll NUR im Tab Index und in demjenigen Side Panel, das bei der erweiterten Suche angezeigt wird, durchgeführt werden, NICHT in den Side Panels, die in den Tabs Suche, Themen, Texte und Timeline angezeigt werden. 
 
 Ist das verständlich?
+
+
+wenn auf einen vortrags-link (z.B. GA291/12) geklickt wird, wird im @app.html immer der treffer-absatz mit transparentem blau gehighlighted. Das soll so bleiben AUSSER bei Klick auf einen Vortrags-Link für eine Unterstreichung im Members-panel. Also VORSICHT: Änderung spezifisch NUR für Vortrags-Links von Unterstreichungen, NICHT für Links von Zitaten oder für anderen Votrags-Links im @app.html 

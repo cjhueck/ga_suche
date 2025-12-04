@@ -7276,6 +7276,47 @@ async function createHtmlBackup(htmlFile = 'index.html') {
   }
 }
 
+// Backup für members.html
+async function createMembersHtmlBackup() {
+  return await createHtmlBackup('members.html');
+}
+
+// Backup für members-panel.js
+async function createMembersPanelBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceFile = path.join(__dirname, 'members-panel.js');
+    
+    // Prüfe ob Datei existiert
+    try {
+      const stats = await fs.stat(sourceFile);
+      if (stats.size === 0) {
+        console.warn(`[BACKUP] members-panel.js ist leer - kein Backup erstellt`);
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+    
+    // Erstelle Backup mit Timestamp
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupFile = path.join(HTML_BACKUP_DIR, `members-panel-${timestamp}.js`);
+    
+    const data = await fs.readFile(sourceFile, 'utf8');
+    await fs.writeFile(backupFile, data, 'utf8');
+    
+    
+    // Bereinige alte Backups
+    await cleanOldBackupsGeneric(HTML_BACKUP_DIR, 'members-panel', 10);
+    
+    return backupFile;
+  } catch (error) {
+    console.error(`[BACKUP] Fehler beim Members-Panel-Backup:`, error);
+    return null;
+  }
+}
+
 // Umfassendes Backup aller wichtigen Dateien
 async function createFullBackup() {
   const results = await Promise.all([
@@ -7287,7 +7328,9 @@ async function createFullBackup() {
     createCodeBackup(),
     createHtmlBackup('index.html'),
     createHtmlBackup('keyword-manager.html'),
-    createHtmlBackup('app.html')
+    createHtmlBackup('app.html'),
+    createMembersHtmlBackup(),
+    createMembersPanelBackup()
   ]);
   
   const successful = results.filter(r => r !== null).length;
@@ -13899,6 +13942,18 @@ app.post('/api/backups/restore', async (req, res) => {
       backupDir = HTML_BACKUP_DIR;
       targetFile = path.join(__dirname, 'keyword-manager.html');
       backupFunc = () => createHtmlBackup('keyword-manager.html');
+    } else if (backupName.startsWith('app-')) {
+      backupDir = HTML_BACKUP_DIR;
+      targetFile = path.join(__dirname, 'app.html');
+      backupFunc = () => createHtmlBackup('app.html');
+    } else if (backupName.startsWith('members-') && backupName.endsWith('.html')) {
+      backupDir = HTML_BACKUP_DIR;
+      targetFile = path.join(__dirname, 'members.html');
+      backupFunc = createMembersHtmlBackup;
+    } else if (backupName.startsWith('members-panel-')) {
+      backupDir = HTML_BACKUP_DIR;
+      targetFile = path.join(__dirname, 'members-panel.js');
+      backupFunc = createMembersPanelBackup;
     } else {
       return res.status(400).json({ error: 'Unbekannter Backup-Typ' });
     }
@@ -13973,7 +14028,9 @@ app.post('/api/backups/create', async (req, res) => {
         const indexBackup = await createHtmlBackup('index.html');
         const managerBackup = await createHtmlBackup('keyword-manager.html');
         const appBackup = await createHtmlBackup('app.html');
-        const htmlBackups = [indexBackup, managerBackup, appBackup].filter(b => b !== null);
+        const membersHtmlBackup = await createMembersHtmlBackup();
+        const membersPanelBackup = await createMembersPanelBackup();
+        const htmlBackups = [indexBackup, managerBackup, appBackup, membersHtmlBackup, membersPanelBackup].filter(b => b !== null);
         return res.json({
           success: true,
           backups: htmlBackups.map(b => path.basename(b)),
