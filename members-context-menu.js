@@ -248,6 +248,78 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
 }
 
 /**
+ * Ermittelt das Datum des aktuellen Vortrags
+ * Gibt das Datum im Format YYYY-MM-DD zurück oder null wenn nicht verfügbar
+ */
+function getCurrentLectureDate(lectureId) {
+  if (!lectureId) {
+    console.warn('[LECTURE-DATE] Keine lectureId übergeben');
+    return null;
+  }
+  
+  // Versuche aus currentLectureData zu holen (nur wenn ID übereinstimmt)
+  if (typeof currentLectureData !== 'undefined' && currentLectureData) {
+    // Prüfe ob die ID übereinstimmt
+    const currentId = currentLectureData.ID || currentLectureData.id || '';
+    if (currentId && currentId === lectureId) {
+      let date = currentLectureData.date || currentLectureData.dateString || '';
+      
+      if (date) {
+        // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
+        if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          console.log('[LECTURE-DATE] Datum gefunden (ISO):', date);
+          return date;
+        }
+        
+        // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
+        const dateMatch = date.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+        if (dateMatch) {
+          const day = dateMatch[1].padStart(2, '0');
+          const monthNames = {
+            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+          };
+          const month = monthNames[dateMatch[2].toLowerCase()];
+          const year = dateMatch[3];
+          if (month) {
+            const isoDate = `${year}-${month}-${day}`;
+            console.log('[LECTURE-DATE] Datum konvertiert:', date, '->', isoDate);
+            return isoDate;
+          }
+        }
+      }
+      
+      // Fallback: Versuche aus fileName oder location zu extrahieren
+      if (!date && (currentLectureData.fileName || currentLectureData.location)) {
+        const locationMatch = (currentLectureData.location || currentLectureData.fileName || '').match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+        if (locationMatch) {
+          const day = locationMatch[1].padStart(2, '0');
+          const monthNames = {
+            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+          };
+          const month = monthNames[locationMatch[2].toLowerCase()];
+          const year = locationMatch[3];
+          if (month) {
+            const isoDate = `${year}-${month}-${day}`;
+            console.log('[LECTURE-DATE] Datum aus location/fileName extrahiert:', isoDate);
+            return isoDate;
+          }
+        }
+      }
+    } else {
+      console.warn('[LECTURE-DATE] currentLectureData.ID stimmt nicht überein:', currentId, 'vs', lectureId);
+    }
+  } else {
+    console.warn('[LECTURE-DATE] currentLectureData nicht verfügbar für lectureId:', lectureId);
+  }
+  
+  return null;
+}
+
+/**
  * Zitat aus Context-Menü speichern
  */
 async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter) {
@@ -265,6 +337,10 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     
     const { keywords, note } = result;
     
+    // Ermittle das Datum des Vortrags
+    const lectureDate = getCurrentLectureDate(lectureId);
+    console.log('[QUOTE-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate);
+    
     const insertData = {
       user_id: currentUser.id,
       quote_text: text,
@@ -277,6 +353,14 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       tags: keywords,
       is_public: false
     };
+    
+    // Füge lecture_date hinzu, falls verfügbar
+    if (lectureDate) {
+      insertData.lecture_date = lectureDate;
+      console.log('[QUOTE-SAVE] Füge lecture_date hinzu:', lectureDate);
+    } else {
+      console.warn('[QUOTE-SAVE] Kein lecture_date verfügbar für:', lectureId);
+    }
     
     const { data, error } = await supabaseClient
       .from('quotes')
@@ -291,9 +375,17 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     showContextNotification('✓ Zitat gespeichert!', 'success');
     highlightContextSelection('#ffffcc');
     
-    // MB aktualisieren falls offen
-    if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'quotes') {
-      if (typeof loadMembersTab === 'function') {
+    // MB aktualisieren falls offen (invalidiert Cache und lädt Quotes-Tab neu)
+    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      // Invalidiere Cache für Quotes
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('quotes');
+      }
+      // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('quotes', true);
+      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
+        // Fallback: Nur aktualisieren wenn Quotes-Tab aktiv ist
         await loadMembersTab('quotes');
       }
     }
@@ -333,11 +425,75 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     }
     
     // Hole den vollständigen Text des Absatzes
-    const paragraphText = paragraphNode.textContent || paragraphNode.innerText;
+    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
+    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    
+    console.log('[HIGHLIGHT-SAVE] Paragraph Text Länge:', paragraphText.length);
+    console.log('[HIGHLIGHT-SAVE] Selected Text:', text.substring(0, 50) + '...');
+    console.log('[HIGHLIGHT-SAVE] Paragraph Index:', paragraphIndex);
     
     // Finde die Position des markierten Textes im Absatz
-    const textStartOffset = paragraphText.indexOf(text);
-    const textEndOffset = textStartOffset + text.length;
+    // Verwende die Range-Informationen für präzisere Berechnung
+    let textStartOffset = -1;
+    let textEndOffset = -1;
+    
+    // Versuche zuerst mit der Range die exakte Position zu finden
+    try {
+      const range = selectionRangeForContext.cloneRange();
+      const paraRange = document.createRange();
+      paraRange.selectNodeContents(paragraphNode);
+      
+      // Berechne Offset relativ zum Absatz
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      
+      // Erstelle einen TreeWalker um die Position zu berechnen
+      const walker = document.createTreeWalker(
+        paragraphNode,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let currentOffset = 0;
+      let node;
+      let foundStart = false;
+      
+      while (node = walker.nextNode()) {
+        if (node === startContainer || node.parentNode === startContainer) {
+          if (node === startContainer) {
+            textStartOffset = currentOffset + startOffset;
+            foundStart = true;
+          } else if (node.parentNode === startContainer) {
+            // Text-Node ist Kind des Start-Containers
+            let siblingOffset = 0;
+            let sibling = node.previousSibling;
+            while (sibling) {
+              siblingOffset += (sibling.textContent || '').length;
+              sibling = sibling.previousSibling;
+            }
+            textStartOffset = currentOffset + siblingOffset + startOffset;
+            foundStart = true;
+          }
+          break;
+        }
+        currentOffset += node.textContent.length;
+      }
+      
+      if (foundStart) {
+        textEndOffset = textStartOffset + text.length;
+        console.log('[HIGHLIGHT-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+      } else {
+        // Fallback: Verwende indexOf
+        textStartOffset = paragraphText.indexOf(text);
+        textEndOffset = textStartOffset + text.length;
+        console.log('[HIGHLIGHT-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+      }
+    } catch (e) {
+      console.warn('[HIGHLIGHT-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
+      textStartOffset = paragraphText.indexOf(text);
+      textEndOffset = textStartOffset + text.length;
+    }
     
     if (textStartOffset === -1) {
       // Fallback: Versuche mit normalisiertem Text
@@ -350,6 +506,10 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       }
       
       // Verwende die normalisierte Position als Näherung
+      // Ermittle das Datum des Vortrags
+      const lectureDate = getCurrentLectureDate(lectureId);
+      console.log('[HIGHLIGHT-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate, '(normalisiert)');
+      
       const insertData = {
         user_id: currentUser.id,
         ga_number: lectureId,
@@ -361,6 +521,14 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         text_end_offset: normalizedStart + normalizedText.length,
         color: color
       };
+      
+      // Füge lecture_date hinzu, falls verfügbar
+      if (lectureDate) {
+        insertData.lecture_date = lectureDate;
+        console.log('[HIGHLIGHT-SAVE] Füge lecture_date hinzu:', lectureDate);
+      } else {
+        console.warn('[HIGHLIGHT-SAVE] Kein lecture_date verfügbar für:', lectureId);
+      }
       
       const { data, error } = await supabaseClient
         .from('highlights')
@@ -395,6 +563,10 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       return;
     }
     
+    // Ermittle das Datum des Vortrags
+    const lectureDate = getCurrentLectureDate(lectureId);
+    console.log('[HIGHLIGHT-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate);
+    
     const insertData = {
       user_id: currentUser.id,
       ga_number: lectureId,
@@ -406,6 +578,14 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       text_end_offset: textEndOffset,
       color: color
     };
+    
+    // Füge lecture_date hinzu, falls verfügbar
+    if (lectureDate) {
+      insertData.lecture_date = lectureDate;
+      console.log('[HIGHLIGHT-SAVE] Füge lecture_date hinzu:', lectureDate);
+    } else {
+      console.warn('[HIGHLIGHT-SAVE] Kein lecture_date verfügbar für:', lectureId);
+    }
     
     const { data, error } = await supabaseClient
       .from('highlights')

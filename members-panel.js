@@ -803,13 +803,31 @@ function formatLectureDate(dateStr) {
   if (!dateStr) return '';
   
   try {
+    // Unterstütze ISO-Format (YYYY-MM-DD)
+    if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = dateStr.split('-');
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      return date.toLocaleDateString('de-DE', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    // Versuche direkt zu parsen
     const date = new Date(dateStr);
-    return date.toLocaleDateString('de-DE', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    if (!isNaN(date.getTime())) {
+      return date.toLocaleDateString('de-DE', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+    
+    // Falls Parsing fehlschlägt, gib Original zurück
+    return dateStr;
   } catch (error) {
+    console.warn('[FORMAT-DATE] Fehler beim Formatieren:', dateStr, error);
     return dateStr;
   }
 }
@@ -1589,7 +1607,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   if (targetIndex && textStartOffset !== null && textStartOffset !== undefined) {
     // Versuche mehrmals zu scrollen, falls das Element noch nicht bereit ist
     let attempts = 0;
-    const maxAttempts = 20;
+    const maxAttempts = 50; // Erhöht für neue Einträge, die möglicherweise länger brauchen
     let scrollExecuted = false;
     
     const tryScroll = () => {
@@ -1598,10 +1616,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       const paraElement = document.getElementById(`para-${cleanIndex}`);
       const mainContainer = document.getElementById('main');
       
-      if (paraElement && paraElement.textContent && mainContainer) {
-        // Element ist bereit, scrolle zur Textposition
-        if (!scrollExecuted) {
-          scrollExecuted = true;
+      // Prüfe ob Element vorhanden ist UND ob der Text bereits geladen ist
+      // Für neue Einträge: Warte bis der Text wirklich vorhanden ist
+      if (paraElement && paraElement.textContent && paraElement.textContent.length > 0 && mainContainer) {
+        // Prüfe ob die Offsets innerhalb des Textes liegen
+        const paraText = paraElement.textContent || paraElement.innerText || '';
+        if (textStartOffset <= paraText.length) {
+          // Element ist bereit, scrolle zur Textposition
           scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
           
           // Verifiziere nach kurzer Zeit, ob das Scrollen erfolgreich war
@@ -1609,29 +1630,98 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
             const verifyPara = document.getElementById(`para-${cleanIndex}`);
             const verifyMain = document.getElementById('main');
             if (verifyPara && verifyMain) {
-              // Prüfe ob die Position korrekt ist, sonst versuche es nochmal
-              const paraRect = verifyPara.getBoundingClientRect();
-              const mainRect = verifyMain.getBoundingClientRect();
-              const header = document.getElementById('viewer-header');
-              const headerHeight = header ? header.offsetHeight + 5 : 5;
+              // Prüfe ob die Textposition oben im Viewer ist
+              const range = document.createRange();
+              const walker = document.createTreeWalker(
+                verifyPara,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+              );
               
-              // Wenn der Absatz nicht oben sichtbar ist, scrolle nochmal
-              if (paraRect.top - mainRect.top > headerHeight + 50) {
-                scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+              let currentOffset = 0;
+              let targetNode = null;
+              let targetOffset = 0;
+              let node;
+              while (node = walker.nextNode()) {
+                const nodeLength = node.textContent.length;
+                if (currentOffset + nodeLength >= textStartOffset) {
+                  targetNode = node;
+                  targetOffset = textStartOffset - currentOffset;
+                  break;
+                }
+                currentOffset += nodeLength;
+              }
+              
+              if (targetNode) {
+                try {
+                  range.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+                  range.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+                  const rangeRect = range.getBoundingClientRect();
+                  const mainRect = verifyMain.getBoundingClientRect();
+                  const header = document.getElementById('viewer-header');
+                  const headerHeight = header ? header.offsetHeight + 5 : 5;
+                  
+                  // Prüfe ob die Textposition oben ist (mit Toleranz von 20px)
+                  const currentRangeTop = rangeRect.top - mainRect.top;
+                  const expectedTop = headerHeight;
+                  
+                  if (Math.abs(currentRangeTop - expectedTop) > 20) {
+                    // Position ist nicht korrekt, korrigiere sie
+                    const correctedScrollTop = verifyMain.scrollTop + currentRangeTop - expectedTop;
+                    verifyMain.scrollTop = Math.max(0, correctedScrollTop);
+                  }
+                } catch (e) {
+                  console.warn('[MB-SCROLL] Fehler bei Verifizierung:', e);
+                }
+              } else {
+                // Fallback: Scrolle zum Absatz, wenn Text-Node nicht gefunden
+                console.warn('[MB-SCROLL] Text-Node nicht gefunden, scrolle zum Absatz');
+                const paraRect = verifyPara.getBoundingClientRect();
+                const mainRect = verifyMain.getBoundingClientRect();
+                const header = document.getElementById('viewer-header');
+                const headerHeight = header ? header.offsetHeight + 5 : 5;
+                const relativeTop = paraRect.top - mainRect.top + verifyMain.scrollTop - headerHeight;
+                verifyMain.scrollTop = Math.max(0, relativeTop);
               }
             }
-          }, 100);
+          }, 200); // Erhöht von 150 auf 200ms für mehr Zeit
+          
+          // Markiere als ausgeführt
+          scrollExecuted = true;
+        } else {
+          // Offsets außerhalb des Textes - versuche es trotzdem mit dem Absatz
+          console.warn('[MB-SCROLL] Offsets außerhalb des Textes:', textStartOffset, 'vs', paraText.length);
+          if (attempts < maxAttempts) {
+            // Versuche es nochmal, vielleicht wird der Text noch geladen
+            setTimeout(() => requestAnimationFrame(tryScroll), 100);
+          }
         }
       } else if (attempts < maxAttempts) {
         // Element noch nicht bereit, versuche es erneut
-        requestAnimationFrame(tryScroll);
+        setTimeout(() => requestAnimationFrame(tryScroll), 50);
+      } else {
+        // Max Versuche erreicht - Fallback: Scrolle zum Absatz
+        console.warn('[MB-SCROLL] Max Versuche erreicht, scrolle zum Absatz');
+        const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+        const paraElement = document.getElementById(`para-${cleanIndex}`);
+        const mainContainer = document.getElementById('main');
+        if (paraElement && mainContainer) {
+          const paraRect = paraElement.getBoundingClientRect();
+          const mainRect = mainContainer.getBoundingClientRect();
+          const header = document.getElementById('viewer-header');
+          const headerHeight = header ? header.offsetHeight + 5 : 5;
+          const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+          mainContainer.scrollTop = Math.max(0, relativeTop);
+        }
       }
     };
     
     // Starte den ersten Versuch nach kurzer Verzögerung, damit der DOM bereit ist
+    // Für neue Einträge: Warte etwas länger, damit der Text vollständig geladen ist
     setTimeout(() => {
       requestAnimationFrame(tryScroll);
-    }, 50);
+    }, 200); // Erhöht von 100 auf 200ms für neue Einträge
   }
   
   // Warte kurz, damit displayBook/showLecture fertig ist
@@ -1696,10 +1786,35 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     
     // Stelle sicher, dass das Scrollen zur Textposition nicht überschrieben wurde
     // (Panel-Operationen könnten das Scrollen beeinflusst haben)
+    // Für neue Einträge: Warte länger, damit der Text vollständig geladen ist
     if (targetIndex && textStartOffset !== null && textStartOffset !== undefined) {
       setTimeout(() => {
-        scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
-      }, 100);
+        const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+        const paraElement = document.getElementById(`para-${cleanIndex}`);
+        const mainContainer = document.getElementById('main');
+        
+        // Prüfe ob Element und Text vorhanden sind
+        if (paraElement && paraElement.textContent && paraElement.textContent.length > 0 && mainContainer) {
+          const paraText = paraElement.textContent || paraElement.innerText || '';
+          if (textStartOffset <= paraText.length) {
+            scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+            
+            // Verifiziere und korrigiere die Position nochmal nach kurzer Zeit
+            setTimeout(() => {
+              scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset);
+            }, 300); // Erhöht von 200 auf 300ms für neue Einträge
+          } else {
+            // Fallback: Scrolle zum Absatz
+            console.warn('[MB-SCROLL] Offsets außerhalb des Textes beim finalen Scrollen');
+            const paraRect = paraElement.getBoundingClientRect();
+            const mainRect = mainContainer.getBoundingClientRect();
+            const header = document.getElementById('viewer-header');
+            const headerHeight = header ? header.offsetHeight + 5 : 5;
+            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+            mainContainer.scrollTop = Math.max(0, relativeTop);
+          }
+        }
+      }, 300); // Erhöht von 150 auf 300ms für neue Einträge
     }
   }, 50);
   
@@ -1767,10 +1882,16 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
  * Scrollt zur Textposition innerhalb eines Absatzes
  */
 function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null) {
-  if (!paragraphId || textStartOffset === null || textStartOffset === undefined) return;
+  if (!paragraphId || textStartOffset === null || textStartOffset === undefined) {
+    console.warn('[MB-SCROLL] Ungültige Parameter:', { paragraphId, textStartOffset, textEndOffset });
+    return;
+  }
   
   const mainContainer = document.getElementById('main');
-  if (!mainContainer) return;
+  if (!mainContainer) {
+    console.warn('[MB-SCROLL] Main Container nicht gefunden');
+    return;
+  }
   
   // Bereinige paragraphId (entferne 'para-' Präfix falls vorhanden)
   const cleanIndex = paragraphId.toString().replace(/^para-/, '').replace(/^\^/, '');
@@ -1785,16 +1906,29 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
   paraElement.classList.remove('highlighted-paragraph');
   
   // Erstelle temporäres Range-Element, um die Position zu finden
+  // Verwende textContent für konsistente Berechnung
   const textContent = paraElement.textContent || paraElement.innerText || '';
+  
+  console.log('[MB-SCROLL] Paragraph:', cleanIndex, 'Text Länge:', textContent.length, 'Offset:', textStartOffset);
   
   if (textStartOffset >= textContent.length) {
     // Falls Offset außerhalb des Textes liegt, scrolle einfach zum Absatz
+    console.warn('[MB-SCROLL] Offset außerhalb des Textes, scrolle zum Absatz');
     const mainRect = mainContainer.getBoundingClientRect();
     const paraRect = paraElement.getBoundingClientRect();
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
     mainContainer.scrollTop = Math.max(0, relativeTop);
+    return;
+  }
+  
+  // Für neue Einträge: Stelle sicher, dass der Text wirklich geladen ist
+  if (textContent.length === 0) {
+    console.warn('[MB-SCROLL] Text noch nicht geladen, versuche später erneut');
+    setTimeout(() => {
+      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset);
+    }, 100);
     return;
   }
   
@@ -1852,8 +1986,33 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const rangeTopRelativeToViewport = rangeRect.top - mainRect.top;
     const targetScrollTop = currentScrollTop + rangeTopRelativeToViewport - headerHeight;
     
-    // Scroll sofort zur Position
+    // Scroll sofort zur Position (ohne Animation für sofortiges Scrollen)
     mainContainer.scrollTop = Math.max(0, targetScrollTop);
+    
+    // Stelle sicher, dass das Scrollen wirklich passiert ist
+    // Manchmal braucht es einen zweiten Versuch, besonders wenn der DOM noch nicht vollständig geladen ist
+    requestAnimationFrame(() => {
+      const verifyRange = document.createRange();
+      try {
+        verifyRange.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+        verifyRange.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+        const verifyRangeRect = verifyRange.getBoundingClientRect();
+        const verifyMainRect = mainContainer.getBoundingClientRect();
+        const verifyHeader = document.getElementById('viewer-header');
+        const verifyHeaderHeight = verifyHeader ? verifyHeader.offsetHeight + 5 : 5;
+        
+        const currentRangeTop = verifyRangeRect.top - verifyMainRect.top;
+        const expectedTop = verifyHeaderHeight;
+        
+        // Wenn die Position nicht korrekt ist, korrigiere sie sofort
+        if (Math.abs(currentRangeTop - expectedTop) > 5) {
+          const correctedScrollTop = mainContainer.scrollTop + currentRangeTop - expectedTop;
+          mainContainer.scrollTop = Math.max(0, correctedScrollTop);
+        }
+      } catch (e) {
+        // Ignoriere Fehler
+      }
+    });
     
     // Stelle sicher, dass das Scrollen wirklich passiert ist (manchmal braucht es einen zweiten Versuch)
     requestAnimationFrame(() => {
@@ -2283,9 +2442,9 @@ async function deleteMemberNote(id) {
  */
 function toggleSortOrder() {
   sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
-  // Aktuellen Tab neu laden
-  if (currentMembersTab === 'quotes') {
-    loadMembersTab('quotes');
+  // Aktuellen Tab neu laden (funktioniert für alle Tabs: quotes, highlights, bookmarks, etc.)
+  if (currentMembersTab) {
+    loadMembersTab(currentMembersTab);
   }
 }
 
@@ -3783,4 +3942,5 @@ async function updateMembersPanelIfOpen(tabName = null, forceUpdate = false) {
 
 window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
 window.invalidateMembersCache = invalidateMembersCache;
+
 

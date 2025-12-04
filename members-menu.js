@@ -297,6 +297,62 @@ function trackSelection() {
 }
 
 /**
+ * Ermittelt das Datum des aktuellen Vortrags
+ * Gibt das Datum im Format YYYY-MM-DD zurück oder null wenn nicht verfügbar
+ */
+function getCurrentLectureDate(lectureId) {
+  if (!lectureId) return null;
+  
+  // Versuche aus currentLectureData zu holen
+  if (typeof currentLectureData !== 'undefined' && currentLectureData) {
+    let date = currentLectureData.date || currentLectureData.dateString || '';
+    
+    if (date) {
+      // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
+      if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return date;
+      }
+      
+      // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
+      const dateMatch = date.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+      if (dateMatch) {
+        const day = dateMatch[1].padStart(2, '0');
+        const monthNames = {
+          'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+          'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+        };
+        const month = monthNames[dateMatch[2].toLowerCase()];
+        const year = dateMatch[3];
+        if (month) {
+          return `${year}-${month}-${day}`;
+        }
+      }
+    }
+    
+    // Fallback: Versuche aus fileName oder location zu extrahieren
+    if (!date && (currentLectureData.fileName || currentLectureData.location)) {
+      const locationMatch = (currentLectureData.location || currentLectureData.fileName || '').match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+      if (locationMatch) {
+        const day = locationMatch[1].padStart(2, '0');
+        const monthNames = {
+          'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+          'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+        };
+        const month = monthNames[locationMatch[2].toLowerCase()];
+        const year = locationMatch[3];
+        if (month) {
+          return `${year}-${month}-${day}`;
+        }
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
  * Quick-Save Funktionen
  */
 async function quickSaveQuote() {
@@ -313,20 +369,30 @@ async function quickSaveQuote() {
   }
   
   try {
+    const lectureId = currentContext.gaNumber || 'Unbekannt';
+    const lectureDate = getCurrentLectureDate(lectureId);
+    
+    const insertData = {
+      user_id: currentUser.id,
+      quote_text: lastSelection,
+      ga_reference: lectureId,
+      lecture_title: currentContext.lectureTitle || '',
+      lecture_url: window.location.href,
+      context_before: lastSelectionContext?.before || '',
+      context_after: lastSelectionContext?.after || '',
+      personal_note: '',
+      tags: [],
+      is_public: false
+    };
+    
+    // Füge lecture_date hinzu, falls verfügbar
+    if (lectureDate) {
+      insertData.lecture_date = lectureDate;
+    }
+    
     const { error } = await supabaseClient
       .from('quotes')
-      .insert({
-        user_id: currentUser.id,
-        quote_text: lastSelection,
-        ga_reference: currentContext.gaNumber || 'Unbekannt',
-        lecture_title: currentContext.lectureTitle || '',
-        lecture_url: window.location.href,
-        context_before: lastSelectionContext?.before || '',
-        context_after: lastSelectionContext?.after || '',
-        personal_note: '',
-        tags: [],
-        is_public: false
-      });
+      .insert(insertData);
     
     if (error) throw error;
     
