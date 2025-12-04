@@ -5032,10 +5032,13 @@ Chronologisch
 
 <div class="tab-content" id="texte-tab">
 <div style="padding: 0;">
-<div class="filter-row">
-<select class="filter-dropdown" id="texteGAFilter" style="width: 100%;">
+<div class="filter-row" style="display: flex; align-items: center; gap: 8px;">
+<select class="filter-dropdown" id="texteGAFilter" style="flex: 1;">
 <option value="">GA-Band auswählen...</option>
 </select>
+<button id="texteSummaryToggle" class="depth-btn" onclick="toggleGASummaries()" style="display: none; font-size: 0.85em; padding: 4px 12px; min-width: auto; flex-shrink: 0; background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color);">
+  <span id="texteSummaryToggleText">Kurzzusammenfassung</span>
+</button>
 </div>
 <div id="texte-admin-buttons" style="display:none; gap:8px; align-items:center; margin-top: 0.5rem; flex-wrap: wrap;">
   <!-- NEUE 3-BUTTON ARCHITEKTUR - UNIFIED GENERATION (nur lokal) -->
@@ -9134,6 +9137,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       texteViewToggle.style.display = 'none';
       console.log('[BOOK] "Nur Titel" Button versteckt');
     }
+    
+    // Verstecke Toggle Button im Admin-Bereich für Books
+    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
+    if (texteSummaryToggle) {
+      texteSummaryToggle.style.display = 'none';
+      console.log('[BOOK] Toggle Button im Admin-Bereich versteckt');
+    }
   }
   
   viewer.innerHTML = '';
@@ -10651,6 +10661,24 @@ async function displayGAOverview(data) {
         texteViewToggle.style.display = 'inline-block';
       }
     }
+    
+    // Toggle Button im Admin-Bereich anzeigen (nur für GA-Bände mit Vorträgen)
+    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
+    const texteAdminButtons = document.getElementById('texte-admin-buttons');
+    if (texteSummaryToggle && texteAdminButtons && texteAdminButtons.style.display !== 'none') {
+      const gaNumber = data.gaNumber || '';
+      const isBook = isBookGANumber(gaNumber);
+      if (isBook) {
+        texteSummaryToggle.style.display = 'none'; // Verstecke Toggle-Button für Books
+      } else {
+        texteSummaryToggle.style.display = 'inline-block';
+        // Initialisiere Button-Text
+        const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
+        if (texteSummaryToggleText) {
+          texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
+        }
+      }
+    }
   }
   
   let html = `
@@ -10750,10 +10778,16 @@ function toggleGASummaries() {
     button.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
   }
   
-  // Update Toggle Button im Texte-Tab
+  // Update Toggle Button im Texte-Tab (alter Button)
   const texteViewToggleText = document.getElementById('texteViewToggleText');
   if (texteViewToggleText) {
     texteViewToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
+  }
+  
+  // Update Toggle Button im Admin-Bereich (neuer Button)
+  const texteSummaryToggleText = document.getElementById('texteSummaryToggleText');
+  if (texteSummaryToggleText) {
+    texteSummaryToggleText.textContent = gaOverviewShowSummaries ? 'nur Titel' : 'Kurzzusammenfassung';
   }
 }
 
@@ -21931,6 +21965,13 @@ function switchTabExtended(mode) {
     if (texteViewToggle) {
       texteViewToggle.style.display = 'none';
     }
+    
+    // Toggle Button im Admin-Bereich verstecken
+    const texteSummaryToggle = document.getElementById('texteSummaryToggle');
+    if (texteSummaryToggle) {
+      texteSummaryToggle.style.display = 'none';
+    }
+    
     if (texteServerInfo) {
       texteServerInfo.textContent = '';
     }
