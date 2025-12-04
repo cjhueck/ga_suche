@@ -1773,44 +1773,46 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     }
   }
   
-  // Wenn wir eine Textposition haben, verhindere das automatische Scrollen von showLecture/displayBook
-  // indem wir scrollToIndexInViewer temporär überschreiben
+  // WICHTIG: Verhindere IMMER die Absatz-Markierung bei Navigation vom Member Panel
+  // (egal ob mit oder ohne Textposition)
   const originalScrollToIndexInViewer = window.scrollToIndexInViewer;
   const hasTextPosition = targetIndex && textStartOffset !== null && textStartOffset !== undefined;
   
-  if (hasTextPosition && typeof window.scrollToIndexInViewer === 'function') {
-    // Überschreibe temporär, damit showLecture/displayBook nicht zum Absatz scrollen
+  // Überschreibe scrollToIndexInViewer IMMER, um Markierung zu verhindern
+  if (typeof window.scrollToIndexInViewer === 'function') {
     window.scrollToIndexInViewer = function() {
-      // Tue nichts - wir scrollen später zur Textposition
+      // Tue nichts - verhindere Markierung
     };
   }
   
-  // Wenn wir eine Textposition haben, verwende MutationObserver um die Markierung sofort zu entfernen
+  // Verwende MutationObserver um die Markierung sofort zu entfernen (für alle Fälle)
+  // WICHTIG: Entferne ALLE highlighted-paragraph Klassen, nicht nur die des Ziel-Absatzes
   let highlightObserver = null;
-  if (hasTextPosition && targetIndex) {
-    const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-    const targetParaId = `para-${cleanIndex}`;
-    
-    // Erstelle MutationObserver, der die Klasse sofort entfernt, wenn sie hinzugefügt wird
+  const viewer = document.getElementById('viewer');
+  if (viewer) {
+    // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen sofort entfernt
     highlightObserver = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
           const element = mutation.target;
-          if (element.id === targetParaId && element.classList.contains('highlighted-paragraph')) {
-            // Entferne die Klasse sofort, bevor sie gerendert wird
+          if (element.classList && element.classList.contains('highlighted-paragraph')) {
+            // Entferne die Klasse sofort
             element.classList.remove('highlighted-paragraph');
           }
         }
         // Überwache auch das Hinzufügen neuer Elemente
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.id === targetParaId && node.classList.contains('highlighted-paragraph')) {
+            // Prüfe das Element selbst
+            if (node.classList && node.classList.contains('highlighted-paragraph')) {
               node.classList.remove('highlighted-paragraph');
             }
-            // Prüfe auch Kindelemente
-            const targetElement = node.querySelector ? node.querySelector(`#${targetParaId}`) : null;
-            if (targetElement && targetElement.classList.contains('highlighted-paragraph')) {
-              targetElement.classList.remove('highlighted-paragraph');
+            // Prüfe auch alle Kindelemente mit highlighted-paragraph Klasse
+            if (node.querySelectorAll) {
+              const highlightedElements = node.querySelectorAll('.highlighted-paragraph');
+              highlightedElements.forEach(el => {
+                el.classList.remove('highlighted-paragraph');
+              });
             }
           }
         });
@@ -1818,15 +1820,12 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     });
     
     // Starte Beobachtung des Viewers
-    const viewer = document.getElementById('viewer');
-    if (viewer) {
-      highlightObserver.observe(viewer, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['class']
-      });
-    }
+    highlightObserver.observe(viewer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
   }
   
   // Lade Buch oder Vortrag
@@ -1861,7 +1860,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           await new Promise(resolve => setTimeout(resolve, 200));
           
           // Stelle sicher, dass die Markierung entfernt ist (falls MutationObserver sie verpasst hat)
-          if (hasTextPosition && bookTargetIndex) {
+          if (bookTargetIndex) {
             const cleanIndex = bookTargetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
             const paraElement = document.getElementById(`para-${cleanIndex}`);
             if (paraElement) {
@@ -1879,15 +1878,52 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     }
   } else {
     // Für Vorträge: Verwende showLecture
-    // Wenn wir eine Textposition haben (vom Textsnippet-Link), verhindere die Absatz-Markierung
+    // WICHTIG: Verhindere IMMER die Absatz-Markierung bei Navigation vom Member Panel
+    
+    // WICHTIG: Speichere Unterstreichungen vor dem Neuladen, damit wir sie sofort wieder anwenden können
+    const highlightsToRestore = [];
+    if (cachedHighlightsData && cachedHighlightsData.success && cachedHighlightsData.data) {
+      const lectureHighlights = cachedHighlightsData.data.filter(h => 
+        h.ga_number === lectureId && h.paragraph_id
+      );
+      highlightsToRestore.push(...lectureHighlights);
+    }
+    
     if (typeof showLecture === 'function') {
-      await showLecture(lectureId, targetIndex, [], !hasTextPosition);
+      await showLecture(lectureId, targetIndex, [], false); // false = keine Markierung
+      
+      // WICHTIG: Wende Unterstreichungen SOFORT wieder an, damit sie nicht abblitzen
+      // Verwende mehrere Versuche, um sicherzustellen, dass sie angewendet werden
+      const restoreHighlights = () => {
+        if (highlightsToRestore.length > 0 && typeof applyStoredHighlight === 'function') {
+          highlightsToRestore.forEach(highlight => {
+            applyStoredHighlight(highlight);
+          });
+        }
+      };
+      
+      // Sofort anwenden (mehrmals versuchen, falls DOM noch nicht bereit)
+      restoreHighlights();
+      requestAnimationFrame(() => {
+        restoreHighlights();
+        setTimeout(restoreHighlights, 10);
+        setTimeout(restoreHighlights, 50);
+      });
+      
+      // Auch über markParagraphsWithBookmarksAndQuotes (falls es noch nicht aufgerufen wurde)
+      if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+        requestAnimationFrame(() => {
+          markParagraphsWithBookmarksAndQuotes(lectureId);
+        });
+      }
     }
   }
   
-  // Stelle scrollToIndexInViewer wieder her
-  if (hasTextPosition && originalScrollToIndexInViewer) {
-    window.scrollToIndexInViewer = originalScrollToIndexInViewer;
+  // Stelle scrollToIndexInViewer wieder her (nach kurzer Verzögerung)
+  if (originalScrollToIndexInViewer) {
+    setTimeout(() => {
+      window.scrollToIndexInViewer = originalScrollToIndexInViewer;
+    }, 500);
   }
   
   // SOFORT nach dem Laden: Scroll zur Textposition (falls Offsets vorhanden)
@@ -2018,11 +2054,19 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   setTimeout(() => {
     window.membersNavigating = false;
     
-    // Stoppe MutationObserver
-    if (highlightObserver) {
-      highlightObserver.disconnect();
-      highlightObserver = null;
-    }
+    // Entferne alle verbleibenden Markierungen manuell
+    const allHighlighted = document.querySelectorAll('.highlighted-paragraph');
+    allHighlighted.forEach(el => {
+      el.classList.remove('highlighted-paragraph');
+    });
+    
+    // Stoppe MutationObserver (nach längerer Verzögerung, damit alle Markierungen entfernt werden)
+    setTimeout(() => {
+      if (highlightObserver) {
+        highlightObserver.disconnect();
+        highlightObserver = null;
+      }
+    }, 1000); // Länger aktiv lassen, um späte Markierungen zu entfernen
     
     // Stelle innerHTML Setter wieder her
     if (summaryContent && originalInnerHTMLDescriptor) {
@@ -3014,9 +3058,22 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
       }
     }, 300);
     
-    // Navigiere zum Vortrag
+    // WICHTIG: Prüfe ob der Text bereits geladen ist
+    const isTextAlreadyLoaded = typeof currentLectureData !== 'undefined' && 
+                                 currentLectureData && 
+                                 currentLectureData.ID === lectureId;
+    
+    if (isTextAlreadyLoaded) {
+      // Text ist bereits geladen - KEIN Scrollen im Main Viewer, nur Member Panel öffnen
+      // Fertig - kein Neuladen und kein Scrollen nötig!
+      return;
+    }
+    
+    // Text ist nicht geladen - lade ihn neu (aber OHNE Scrollen)
     if (typeof navigateToLectureFromMembersPanel === 'function') {
-      navigateToLectureFromMembersPanel(lectureId, paragraphId);
+      // Navigiere zum Vortrag, aber OHNE zum Text zu scrollen
+      // Übergebe null für targetIndex und textStartOffset/textEndOffset, damit nicht gescrollt wird
+      await navigateToLectureFromMembersPanel(lectureId, null, null, null); // null = kein Scrollen
     }
   } catch (error) {
     console.error('Fehler beim Springen zur Unterstreichung:', error);
