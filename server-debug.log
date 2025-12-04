@@ -21142,3 +21142,4 @@ ERROR: [SUMMARY-DB] ❌ Fehler beim Laden: Unterminated string in JSON at positi
 
   Server bereit für Anfragen!
 
+ERROR: [BOOK] ❌ Fehler beim Speichern der Überschriften: {"errno":-4082,"code":"EBUSY","syscall":"open","path":"C:\\Users\\chuec\\OneDrive\\GitHub\\ga_suche\\summary-database.json"}
