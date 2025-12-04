@@ -4,7 +4,7 @@
 // ============================================
 
 let membersPanelActive = false;
-let currentMembersTab = 'bookmarks';
+let currentMembersTab = 'highlights';
 let savedScrollPositions = {
   summaryPanel: 0,
   summaryContent: 0,
@@ -199,7 +199,7 @@ function showMembersLoginPanel() {
       </div>
       
       <div class="members-login-form">
-        <p class="login-description">Nach Anmeldung können Sie Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
+        <p class="login-description">Nach Anmeldung können Sie Zitate abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
         <div id="login-message"></div>
         
         <div id="login-form-content">
@@ -435,32 +435,37 @@ async function showMembersContent() {
         <div class="members-header">
           <div style="flex: 1;">
             <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
-            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Bookmarks und Zitate per Rechtsklick speichern</div>
+            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Unterstreichungen und Zitate per Rechtsklick speichern</div>
           </div>
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
         
         <div class="members-tabs">
-        <button class="members-tab ${currentMembersTab === 'bookmarks' ? 'active' : ''}" onclick="switchMembersTab('bookmarks')">Bookmarks</button>
-        <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
-        <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
-        <button class="members-tab ${currentMembersTab === 'graph' ? 'active' : ''}" onclick="switchMembersTab('graph')">Graph</button>
-        <div class="keyword-filter-tab">
-          <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
-            <option value="">Schlagwörter</option>
-          </select>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
+          <div style="display: flex; gap: 0.25rem; flex: 1;">
+            <button class="members-tab ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
+            <button class="members-tab ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
+            <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
+          </div>
+          <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
+            <div class="keyword-filter-tab" style="flex: 1;">
+              <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
+                <option value="">Schlagwörter</option>
+              </select>
+            </div>
+            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+            <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18M7 12h10M11 18h6"></path>
+              </svg>
+            </button>
+            <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
         </div>
-        <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
-        <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18M7 12h10M11 18h6"></path>
-          </svg>
-        </button>
-        <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-          </svg>
-        </button>
         </div>
       </div>
       
@@ -470,19 +475,34 @@ async function showMembersContent() {
     </div>
   `;
   
-  // Lade Bookmarks und Quotes im Hintergrund für schnellen Tab-Wechsel (nur wenn Cache nicht vorhanden)
+  // Lade Quotes und Highlights im Hintergrund für schnellen Tab-Wechsel (nur wenn Cache nicht vorhanden)
   const now = Date.now();
-  const cacheValid = cachedBookmarksData && cachedQuotesData && 
+  const cacheValid = cachedQuotesData && cachedHighlightsData && 
                      bookmarksQuotesCacheTimestamp && 
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
-  if (!cacheValid && typeof getBookmarks === 'function' && typeof getQuotes === 'function') {
+  if (!cacheValid && typeof getQuotes === 'function' && typeof getHighlights === 'function') {
     // Lade im Hintergrund, blockiert nicht das Rendering
-    Promise.all([getBookmarks(), getQuotes()]).then(([bookmarksResult, quotesResult]) => {
-      cachedBookmarksData = bookmarksResult;
+    Promise.all([getQuotes(), getHighlights()]).then(async ([quotesResult, highlightsResult]) => {
       cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
       bookmarksQuotesCacheTimestamp = Date.now();
-      console.log('[MB-CACHE] Bookmarks/Quotes-Daten für schnellen Tab-Wechsel gecacht');
+      console.log('[MB-CACHE] Quotes/Highlights-Daten für schnellen Tab-Wechsel gecacht');
+      
+      // Lade Vortragsdaten im Hintergrund für alle GA-Nummern aus Quotes und Highlights
+      const allGANumbers = [
+        ...new Set([
+          ...(quotesResult.success ? quotesResult.data.map(q => q.ga_reference).filter(Boolean) : []),
+          ...(highlightsResult.success ? highlightsResult.data.map(h => h.ga_number).filter(Boolean) : [])
+        ])
+      ];
+      
+      if (allGANumbers.length > 0) {
+        // Lade Vortragsdaten im Hintergrund (nicht-blockierend)
+        loadLectureDatesForGANumbers(allGANumbers).catch(err => 
+          console.warn('[MB-CACHE] Fehler beim Vorladen der Vortragsdaten:', err)
+        );
+      }
     }).catch(err => {
       console.warn('[MB-CACHE] Fehler beim Cachen der Daten:', err);
     });
@@ -491,6 +511,8 @@ async function showMembersContent() {
   // Aktuellen Tab laden - kurze Verzögerung damit API-Module geladen sind
   setTimeout(async () => {
     await loadMembersTab(currentMembersTab);
+    // Lade Keywords nach dem Laden des Tabs
+    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
   }, 100);
   
   // Stelle sicher, dass Panel nach dem Laden sichtbar bleibt
@@ -568,17 +590,14 @@ async function loadMembersTab(tabName) {
   
   try {
     switch(tabName) {
-      case 'bookmarks':
-        await loadBookmarksTab(content);
-        break;
       case 'quotes':
         await loadQuotesTab(content);
         break;
+      case 'highlights':
+        await loadHighlightsTab(content);
+        break;
       case 'notes':
         loadNotesTab(content);
-        break;
-      case 'graph':
-        loadGraphTab(content);
         break;
       case 'chat':
         await loadChatTab(content);
@@ -872,63 +891,73 @@ function isBookGANumber(gaNumber) {
 }
 
 /**
- * Bookmarks Tab
+ * Gibt die Hex-Farbe basierend auf dem Farbnamen zurück
  */
-async function loadBookmarksTab(container) {
-  if (typeof getBookmarks !== 'function') {
-    console.error('[MB-BOOKMARKS] getBookmarks ist nicht verfügbar!');
+function getHighlightColor(colorName) {
+  const colors = {
+    'blue': '#467886',
+    'red': '#c62828',
+    'yellow': '#ffc107'
+  };
+  return colors[colorName] || colors['blue'];
+}
+
+/**
+ * Highlights Tab (Unterstreichungen)
+ */
+async function loadHighlightsTab(container) {
+  if (typeof getHighlights !== 'function') {
+    console.error('[MB-HIGHLIGHTS] getHighlights ist nicht verfügbar!');
     container.innerHTML = '<div class="empty-state">API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
     return;
   }
   
   // Zeige Ladeanzeige während Daten geladen werden
-  container.innerHTML = '<div class="empty-state"><em>Lade Bookmarks...</em></div>';
+  container.innerHTML = '<div class="empty-state"><em>Laden...</em></div>';
   
   // Verwende Cache wenn verfügbar, sonst lade neu
   let result;
   const now = Date.now();
-  const cacheValid = cachedBookmarksData && 
+  const cacheValid = cachedHighlightsData && 
                      bookmarksQuotesCacheTimestamp && 
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
   if (cacheValid) {
-    console.log('[MB-BOOKMARKS] Verwende gecachte Bookmarks-Daten');
-    result = cachedBookmarksData;
+    console.log('[MB-HIGHLIGHTS] Verwende gecachte Highlights-Daten');
+    result = cachedHighlightsData;
   } else {
-    result = await getBookmarks();
+    result = await getHighlights();
     // Aktualisiere Cache
-    cachedBookmarksData = result;
+    cachedHighlightsData = result;
     bookmarksQuotesCacheTimestamp = now;
   }
   
   if (!result.success || result.data.length === 0) {
-    container.innerHTML = '<div class="empty-state">Noch keine Bookmarks</div>';
+    container.innerHTML = '<div class="empty-state">Noch keine Unterstreichungen</div>';
     // Lade Keywords trotzdem im Hintergrund
     updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
     return;
   }
   
   // Sammle alle eindeutigen GA-Nummern für lazy loading
-  const uniqueGANumbers = [...new Set(result.data.map(b => b.ga_number).filter(Boolean))];
+  const uniqueGANumbers = [...new Set(result.data.map(h => h.ga_number).filter(Boolean))];
   
-  // Starte paralleles Laden von Keywords und Vortragsdaten (nicht-blockierend)
-  const loadPromises = [
-    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err)),
-    loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err))
-  ];
+  // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
+  // Dies macht die Datumsanzeige sofort verfügbar
+  await loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err));
+  
+  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
   
   // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
-  // Verwende Fallback-Sortierung wenn Daten noch nicht geladen sind
   const sortedData = [...result.data].sort((a, b) => {
     const dateA = getLectureDateForSorting(a.ga_number);
     const dateB = getLectureDateForSorting(b.ga_number);
     
-    // Wenn beide Daten vorhanden sind, sortiere nach Vortragsdatum
     if (dateA && dateB) {
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     }
     
-    // Wenn nur eines vorhanden ist, kommt es zuerst (oder zuletzt je nach Sortierreihenfolge)
     if (dateA && !dateB) {
       return sortOrder === 'asc' ? -1 : 1;
     }
@@ -936,27 +965,22 @@ async function loadBookmarksTab(container) {
       return sortOrder === 'asc' ? 1 : -1;
     }
     
-    // Wenn beide fehlen, sortiere nach Erstellungsdatum als Fallback
     const createdA = new Date(a.created_at);
     const createdB = new Date(b.created_at);
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Rendere sofort mit verfügbaren Daten (auch wenn Vortragsdaten noch nicht geladen sind)
-  renderBookmarksList(container, sortedData);
+  // Rendere mit verfügbaren Daten (Daten sollten jetzt im Cache sein)
+  renderHighlightsList(container, sortedData);
   
-  // Warte auf Vortragsdaten und aktualisiere dann die Datumsanzeigen
-  Promise.all(loadPromises).then(() => {
-    // Aktualisiere nur die Datumsanzeigen, nicht die ganze Liste
-    updateBookmarkDates(container, sortedData);
-  });
+  // Aktualisiere Datumsanzeigen (sollte jetzt sofort funktionieren, da Daten im Cache sind)
+  updateHighlightDates(container, sortedData);
 }
 
 /**
- * Rendert die Bookmarks-Liste
+ * Rendert die Highlights-Liste
  */
-function renderBookmarksList(container, sortedData) {
-  // Multi-Delete-Button hinzufügen wenn Modus aktiv
+function renderHighlightsList(container, sortedData) {
   const multiDeleteHtml = multiDeleteMode ? `
     <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
       <span style="font-size: 0.85rem; color: var(--text-color);">Auswahl-Modus aktiv</span>
@@ -964,67 +988,68 @@ function renderBookmarksList(container, sortedData) {
     </div>
   ` : '';
   
-  const html = multiDeleteHtml + sortedData.map((bookmark) => {
-    // Hole Datum aus Cache (kann leer sein wenn noch nicht geladen)
-    const lectureDate = getLectureDate(bookmark.ga_number);
-    const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+  const html = multiDeleteHtml + sortedData.map((highlight) => {
+    const lectureDate = getLectureDate(highlight.ga_number);
+    const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
-    // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
-    const isBook = isBookGANumber(bookmark.ga_number);
-    const shouldShowLink = bookmark.paragraph_id || isBook;
+    const isBook = isBookGANumber(highlight.ga_number);
+    const shouldShowLink = highlight.paragraph_id || isBook;
+    
+    const highlightedText = highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null
+      ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+      : highlight.paragraph_text || '';
+    
+    const highlightColor = getHighlightColor(highlight.color || 'blue');
     
     return `
-    <div class="member-item" data-keywords="${bookmark.tags ? bookmark.tags.join(',') : ''}" data-id="${bookmark.id}" data-ga-number="${bookmark.ga_number}">
-      ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${bookmark.id}" onchange="updateMultiDeleteButton()">` : ''}
-      <div style="flex: 1;">
-        <div class="member-item-header">
-          ${shouldShowLink
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${bookmark.ga_number}', ${bookmark.paragraph_id ? `'${bookmark.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${bookmark.ga_number}</a>${dateDisplay}</strong>`
-            : `<strong>${bookmark.ga_number}${dateDisplay}</strong>`
-          }
-          <span class="member-item-date">${new Date(bookmark.created_at).toLocaleDateString('de-DE')}</span>
-        </div>
-        ${bookmark.lecture_title ? `<div class="member-item-subtitle">${bookmark.lecture_title}</div>` : ''}
-        <div class="member-item-text">${bookmark.paragraph_text.substring(0, 150)}${bookmark.paragraph_text.length > 150 ? '...' : ''}</div>
-        ${bookmark.note ? `<div class="member-item-note">${bookmark.note}</div>` : ''}
-        ${bookmark.tags && bookmark.tags.length > 0 ? `<div class="member-item-tags">${bookmark.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-        <div class="member-item-actions">
-          <button class="edit-btn" onclick="editMemberBookmark('${bookmark.id}')" title="Bearbeiten">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-            </svg>
-          </button>
-          <button class="delete-btn" onclick="deleteMemberBookmark('${bookmark.id}')" title="Löschen">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 6h18"></path>
-              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-              <line x1="10" y1="11" x2="10" y2="17"></line>
-              <line x1="14" y1="11" x2="14" y2="17"></line>
-            </svg>
-          </button>
+      <div class="member-item" data-keywords="${highlight.tags ? highlight.tags.join(',') : ''}" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
+        ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${highlight.id}" onchange="updateMultiDeleteButton()">` : ''}
+        <div style="flex: 1;">
+          <div class="member-item-header">
+            ${shouldShowLink
+              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+            }
+            <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
+          </div>
+          ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
+          <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>
+          ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
+          ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+          <div class="member-item-actions">
+            <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <button class="delete-btn" onclick="deleteMemberHighlight('${highlight.id}')" title="Löschen">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     `;
   }).join('');
   
   container.innerHTML = html;
-  
-  // Scroll-Position wiederherstellen nach Rendering
-  setTimeout(() => restoreMembersScrollPosition(), 50);
 }
 
 /**
- * Aktualisiert die Datumsanzeigen in der Bookmarks-Liste nach dem Laden der Vortragsdaten
+ * Aktualisiert die Datumsanzeigen für Highlights
  */
-function updateBookmarkDates(container, sortedData) {
-  sortedData.forEach((bookmark) => {
-    const item = container.querySelector(`.member-item[data-id="${bookmark.id}"]`);
+function updateHighlightDates(container, sortedData) {
+  sortedData.forEach((highlight) => {
+    const item = container.querySelector(`[data-id="${highlight.id}"]`);
     if (!item) return;
     
-    const lectureDate = getLectureDate(bookmark.ga_number);
+    const lectureDate = getLectureDate(highlight.ga_number);
     if (!lectureDate) return; // Kein Datum verfügbar
     
     const header = item.querySelector('.member-item-header');
@@ -1033,8 +1058,8 @@ function updateBookmarkDates(container, sortedData) {
     // Prüfe ob Datum bereits angezeigt wird
     const existingDateSpan = header.querySelector('span[data-lecture-date]');
     if (existingDateSpan) {
-      // Aktualisiere vorhandenes Datum
-      existingDateSpan.textContent = `, ${lectureDate}`;
+      // Aktualisiere vorhandenes Datum (nur den Text, Komma ist bereits im HTML)
+      existingDateSpan.textContent = lectureDate;
     } else {
       // Füge Datum hinzu
       const dateSpan = document.createElement('span');
@@ -1042,14 +1067,45 @@ function updateBookmarkDates(container, sortedData) {
       dateSpan.style.fontSize = '0.85rem';
       dateSpan.style.fontWeight = 'normal';
       dateSpan.style.color = 'var(--text-color)';
-      dateSpan.textContent = `, ${lectureDate}`;
+      dateSpan.textContent = lectureDate;
       
       const strongTag = header.querySelector('strong');
       if (strongTag) {
-        strongTag.appendChild(dateSpan);
+        // Prüfe ob es einen Link gibt
+        const link = strongTag.querySelector('a');
+        if (link) {
+          // Füge Komma und Datum nach dem Link hinzu
+          const textNode = document.createTextNode(', ');
+          strongTag.insertBefore(textNode, link.nextSibling);
+          strongTag.insertBefore(dateSpan, link.nextSibling);
+        } else {
+          // Füge Komma und Datum zum Strong-Tag hinzu
+          const textNode = document.createTextNode(', ');
+          strongTag.appendChild(textNode);
+          strongTag.appendChild(dateSpan);
+        }
       }
     }
   });
+}
+
+/**
+ * Löscht eine Unterstreichung
+ */
+async function deleteMemberHighlight(id) {
+  if (!confirm('Unterstreichung wirklich löschen?')) return;
+  
+  if (typeof deleteHighlight !== 'function') {
+    console.error('[MB-HIGHLIGHTS] deleteHighlight ist nicht verfügbar!');
+    return;
+  }
+  
+  const result = await deleteHighlight(id);
+  if (result.success) {
+    // Invalidiere Cache, damit Daten neu geladen werden
+    cachedHighlightsData = null;
+    await loadMembersTab('highlights');
+  }
 }
 
 /**
@@ -1092,14 +1148,15 @@ async function loadQuotesTab(container) {
   // Sammle alle eindeutigen GA-Nummern für lazy loading
   const uniqueGANumbers = [...new Set(result.data.map(q => q.ga_reference).filter(Boolean))];
   
-  // Starte paralleles Laden von Keywords und Vortragsdaten (nicht-blockierend)
-  const loadPromises = [
-    updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err)),
-    loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err))
-  ];
+  // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
+  // Dies macht die Datumsanzeige sofort verfügbar
+  await loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err));
+  
+  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
   
   // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
-  // Verwende Fallback-Sortierung wenn Daten noch nicht geladen sind
+  // Daten sollten jetzt im Cache sein
   const sortedData = [...result.data].sort((a, b) => {
     const dateA = getLectureDateForSorting(a.ga_reference);
     const dateB = getLectureDateForSorting(b.ga_reference);
@@ -1123,14 +1180,11 @@ async function loadQuotesTab(container) {
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Rendere sofort mit verfügbaren Daten (auch wenn Vortragsdaten noch nicht geladen sind)
+  // Rendere mit verfügbaren Daten (Daten sollten jetzt im Cache sein)
   renderQuotesList(container, sortedData);
   
-  // Warte auf Vortragsdaten und aktualisiere dann die Datumsanzeigen
-  Promise.all(loadPromises).then(() => {
-    // Aktualisiere nur die Datumsanzeigen, nicht die ganze Liste
-    updateQuoteDates(container, sortedData);
-  });
+  // Aktualisiere Datumsanzeigen (sollte jetzt sofort funktionieren, da Daten im Cache sind)
+  updateQuoteDates(container, sortedData);
 }
 
 /**
@@ -1148,7 +1202,7 @@ function renderQuotesList(container, sortedData) {
   const html = multiDeleteHtml + sortedData.map((quote) => {
     // Hole Datum aus Cache (kann leer sein wenn noch nicht geladen)
     const lectureDate = getLectureDate(quote.ga_reference);
-    const dateDisplay = lectureDate ? `, <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+    const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
     // Prüfe ob es ein Buch ist oder ob paragraph_id vorhanden ist
     const isBook = isBookGANumber(quote.ga_reference);
@@ -1160,8 +1214,8 @@ function renderQuotesList(container, sortedData) {
       <div style="flex: 1;">
         <div class="member-item-header">
           ${shouldShowLink
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay}</strong>`
-            : `<strong>${quote.ga_reference}${dateDisplay}</strong>`
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+            : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
           }
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
@@ -1213,8 +1267,8 @@ function updateQuoteDates(container, sortedData) {
     // Prüfe ob Datum bereits angezeigt wird
     const existingDateSpan = header.querySelector('span[data-lecture-date]');
     if (existingDateSpan) {
-      // Aktualisiere vorhandenes Datum
-      existingDateSpan.textContent = `, ${lectureDate}`;
+      // Aktualisiere vorhandenes Datum (nur den Text, Komma ist bereits im HTML)
+      existingDateSpan.textContent = lectureDate;
     } else {
       // Füge Datum hinzu
       const dateSpan = document.createElement('span');
@@ -1222,10 +1276,13 @@ function updateQuoteDates(container, sortedData) {
       dateSpan.style.fontSize = '0.85rem';
       dateSpan.style.fontWeight = 'normal';
       dateSpan.style.color = 'var(--text-color)';
-      dateSpan.textContent = `, ${lectureDate}`;
+      dateSpan.textContent = lectureDate;
       
       const strongTag = header.querySelector('strong');
       if (strongTag) {
+        // Füge Komma vor dem span hinzu
+        const textNode = document.createTextNode(', ');
+        strongTag.appendChild(textNode);
         strongTag.appendChild(dateSpan);
       }
     }
@@ -1519,46 +1576,6 @@ async function saveMemberNote() {
 }
 
 /**
- * Graph Tab
- */
-function loadGraphTab(container) {
-  updateKeywordFilterDropdown([]); // Keine Keywords für Graph
-  
-  container.innerHTML = `
-    <div class="graph-placeholder">
-      <div class="empty-state">
-        Graph-Visualisierung<br>
-        <small style="opacity: 0.7;">Zeigt Verbindungen zwischen<br>Notizen, Tags und GA-Referenzen</small>
-      </div>
-      <button class="primary-btn" onclick="generateMemberGraph()">Graph generieren</button>
-    </div>
-    <div id="graph-container"></div>
-  `;
-}
-
-async function generateMemberGraph() {
-  const result = await generateGraphData();
-  
-  if (!result.success) {
-    alert('Fehler beim Generieren des Graphs');
-    return;
-  }
-  
-  const container = document.getElementById('graph-container');
-  container.innerHTML = `
-    <div class="graph-stats">
-      <div>${result.data.nodes.filter(n => n.type === 'note').length} Notizen</div>
-      <div>${result.data.links.length} Verbindungen</div>
-    </div>
-    <div class="graph-nodes">
-      ${result.data.nodes.filter(n => n.type === 'note').map(node => `
-        <div class="graph-node">${node.label}</div>
-      `).join('')}
-    </div>
-  `;
-}
-
-/**
  * Chat Tab
  */
 async function loadChatTab(container) {
@@ -1645,58 +1662,6 @@ async function sendMemberChatMessage() {
 /**
  * Edit Handlers
  */
-async function editMemberBookmark(id) {
-  try {
-    // Hole Bookmark-Daten
-    const result = await getBookmarks();
-    if (!result.success) {
-      alert('Fehler beim Laden des Bookmarks');
-      return;
-    }
-    
-    const bookmark = result.data.find(b => b.id === id);
-    if (!bookmark) {
-      alert('Bookmark nicht gefunden');
-      return;
-    }
-    
-    // Zeige Bearbeitungs-Dialog
-    const editResult = await showEditDialog('Bookmark', {
-      text: bookmark.paragraph_text,
-      keywords: bookmark.tags ? bookmark.tags.join(', ') : '',
-      note: bookmark.note || ''
-    });
-    
-    if (editResult === null) {
-      // Benutzer hat abgebrochen
-      return;
-    }
-    
-    const { keywords, note } = editResult;
-    const tags = keywords
-      .split(',')
-      .map(kw => kw.trim())
-      .filter(kw => kw.length > 0);
-    
-    // Update in Supabase
-    const updateResult = await updateBookmark(id, {
-      tags: tags,
-      note: note || ''
-    });
-    
-    if (updateResult.success) {
-      // Invalidiere Cache, damit Daten neu geladen werden
-      invalidateMembersCache('bookmarks');
-      await loadMembersTab('bookmarks');
-    } else {
-      alert('Fehler beim Speichern: ' + updateResult.error);
-    }
-  } catch (error) {
-    console.error('Fehler beim Bearbeiten:', error);
-    alert('Fehler beim Bearbeiten des Bookmarks');
-  }
-}
-
 async function editMemberQuote(id) {
   try {
     // Hole Zitat-Daten
@@ -1740,12 +1705,79 @@ async function editMemberQuote(id) {
       // Invalidiere Cache, damit Daten neu geladen werden
       invalidateMembersCache('quotes');
       await loadMembersTab('quotes');
+      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      await updateKeywordFilterDropdownWithAllKeywords();
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
     }
   } catch (error) {
     console.error('Fehler beim Bearbeiten:', error);
     alert('Fehler beim Bearbeiten des Zitats');
+  }
+}
+
+async function editMemberHighlight(id) {
+  try {
+    // Hole Highlight-Daten
+    const result = await getHighlights();
+    if (!result.success) {
+      alert('Fehler beim Laden der Unterstreichung');
+      return;
+    }
+    
+    const highlight = result.data.find(h => h.id === id);
+    if (!highlight) {
+      alert('Unterstreichung nicht gefunden');
+      return;
+    }
+    
+    // Extrahiere den unterstrichenen Text
+    const highlightedText = highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null
+      ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+      : highlight.paragraph_text || '';
+    
+    // Zeige Bearbeitungs-Dialog
+    const editResult = await showEditDialog('Unterstreichung', {
+      text: highlightedText,
+      keywords: highlight.tags ? highlight.tags.join(', ') : '',
+      note: highlight.personal_note || ''
+    });
+    
+    if (editResult === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
+    const { keywords, note } = editResult;
+    const tags = keywords
+      .split(',')
+      .map(kw => kw.trim())
+      .filter(kw => kw.length > 0);
+    
+    // Update in Supabase
+    if (typeof updateHighlight !== 'function') {
+      alert('Fehler: updateHighlight Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-HIGHLIGHTS] updateHighlight nicht verfügbar');
+      return;
+    }
+    
+    const updateResult = await updateHighlight(id, {
+      tags: tags,
+      personal_note: note || ''
+    });
+    
+    if (updateResult.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      invalidateMembersCache('highlights');
+      await loadMembersTab('highlights');
+      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      await updateKeywordFilterDropdownWithAllKeywords();
+    } else {
+      alert('Fehler beim Speichern: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Bearbeiten:', error);
+    alert('Fehler beim Bearbeiten der Unterstreichung');
   }
 }
 
@@ -1830,17 +1862,6 @@ function showEditDialog(type, data) {
 /**
  * Delete Handlers
  */
-async function deleteMemberBookmark(id) {
-  if (!confirm('Bookmark wirklich löschen?')) return;
-  
-  const result = await deleteBookmark(id);
-  if (result.success) {
-    // Invalidiere Cache, damit Daten neu geladen werden
-    invalidateMembersCache('bookmarks');
-    await loadMembersTab('bookmarks');
-  }
-}
-
 async function deleteMemberQuote(id) {
   if (!confirm('Zitat wirklich löschen?')) return;
   
@@ -1872,9 +1893,7 @@ async function deleteMemberNote(id) {
 function toggleSortOrder() {
   sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
   // Aktuellen Tab neu laden
-  if (currentMembersTab === 'bookmarks') {
-    loadMembersTab('bookmarks');
-  } else if (currentMembersTab === 'quotes') {
+  if (currentMembersTab === 'quotes') {
     loadMembersTab('quotes');
   }
 }
@@ -1885,9 +1904,7 @@ function toggleSortOrder() {
 function toggleMultiDeleteMode() {
   multiDeleteMode = !multiDeleteMode;
   // Aktuellen Tab neu laden
-  if (currentMembersTab === 'bookmarks') {
-    loadMembersTab('bookmarks');
-  } else if (currentMembersTab === 'quotes') {
+  if (currentMembersTab === 'quotes') {
     loadMembersTab('quotes');
   }
   
@@ -1920,20 +1937,22 @@ async function deleteSelectedItems() {
   const checkboxes = document.querySelectorAll('.member-item-checkbox:checked');
   if (checkboxes.length === 0) return;
   
-  if (!confirm(`Wirklich ${checkboxes.length} ${currentMembersTab === 'bookmarks' ? 'Bookmark(s)' : 'Zitat(e)'} löschen?`)) {
+  const itemName = currentMembersTab === 'quotes' ? 'Zitat(e)' : 
+                   currentMembersTab === 'highlights' ? 'Unterstreichung(en)' : 'Item(s)';
+  if (!confirm(`Wirklich ${checkboxes.length} ${itemName} löschen?`)) {
     return;
   }
   
   const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
   
   try {
-    if (currentMembersTab === 'bookmarks') {
-      for (const id of ids) {
-        await deleteBookmark(id);
-      }
-    } else if (currentMembersTab === 'quotes') {
+    if (currentMembersTab === 'quotes') {
       for (const id of ids) {
         await deleteQuote(id);
+      }
+    } else if (currentMembersTab === 'highlights') {
+      for (const id of ids) {
+        await deleteHighlight(id);
       }
     }
     
@@ -1950,17 +1969,16 @@ async function deleteSelectedItems() {
 
 // Cache für die letzten markierten Lecture-IDs, um Icons nach DOM-Änderungen wiederherzustellen
 let lastMarkedLectureId = null;
-let lastBookmarksData = null;
 let lastQuotesData = null;
 
-// Globaler Cache für alle Bookmarks und Quotes (wird beim Öffnen des Mitgliederbereichs geladen)
-let cachedBookmarksData = null;
+// Globaler Cache für Quotes und Highlights (wird beim Öffnen des Mitgliederbereichs geladen)
 let cachedQuotesData = null;
+let cachedHighlightsData = null;
 let bookmarksQuotesCacheTimestamp = null;
 const BOOKMARKS_QUOTES_CACHE_TTL = 300000; // 5 Minuten Cache-Gültigkeit (erhöht für bessere Performance)
 
 /**
- * Markiere Absätze im Viewer, die bereits Bookmarks oder Zitate haben
+ * Markiere Absätze im Viewer, die bereits Zitate oder Unterstreichungen haben
  */
 async function markParagraphsWithBookmarksAndQuotes(lectureId) {
   try {
@@ -1970,50 +1988,43 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     }
     
     // Prüfe Cache zuerst (wenn vorhanden und noch gültig)
-    let bookmarksResult, quotesResult;
+    let quotesResult, highlightsResult;
     const now = Date.now();
-    const cacheValid = cachedBookmarksData && cachedQuotesData && 
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
                        bookmarksQuotesCacheTimestamp && 
                        (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
     if (cacheValid) {
       // Verwende gecachte Daten (synchron, sehr schnell!)
-      console.log('[MB-ICONS] Verwende gecachte Bookmarks/Quotes-Daten');
-      bookmarksResult = cachedBookmarksData;
+      console.log('[MB-ICONS] Verwende gecachte Quotes/Highlights-Daten');
       quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
     } else {
-      // Lade alle Bookmarks und Zitate (nur wenn Cache nicht verfügbar)
-      console.log('[MB-ICONS] Lade Bookmarks/Quotes-Daten...');
+      // Lade alle Zitate und Unterstreichungen (nur wenn Cache nicht verfügbar)
+      console.log('[MB-ICONS] Lade Quotes/Highlights-Daten...');
       const results = await Promise.all([
-        getBookmarks(),
-        getQuotes()
+        getQuotes(),
+        getHighlights ? getHighlights() : Promise.resolve({ success: false, data: [] })
       ]);
-      bookmarksResult = results[0];
-      quotesResult = results[1];
+      quotesResult = results[0];
+      highlightsResult = results[1];
       
       // Aktualisiere Cache
-      cachedBookmarksData = bookmarksResult;
       cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
       bookmarksQuotesCacheTimestamp = now;
     }
     
-    if (!bookmarksResult.success && !quotesResult.success) {
+    if (!quotesResult.success && !highlightsResult.success) {
       return; // Fehler beim Laden
     }
     
     // Cache für spätere Wiederherstellung
     lastMarkedLectureId = lectureId;
-    lastBookmarksData = bookmarksResult;
     lastQuotesData = quotesResult;
     
     // Sammle alle paragraph_ids für diesen Vortrag
     const paragraphIds = new Set();
-    
-    if (bookmarksResult.success && bookmarksResult.data) {
-      bookmarksResult.data
-        .filter(b => b.ga_number === lectureId && b.paragraph_id)
-        .forEach(b => paragraphIds.add(b.paragraph_id));
-    }
     
     if (quotesResult.success && quotesResult.data) {
       quotesResult.data
@@ -2021,17 +2032,27 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
         .forEach(q => paragraphIds.add(q.paragraph_id));
     }
     
-    // Markiere alle Absätze im Viewer
+    // Markiere alle Absätze im Viewer mit Icons
     paragraphIds.forEach(paraId => {
-      addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesResult);
+      addBookmarkQuoteIndicator(paraId, lectureId, null, quotesResult);
     });
+    
+    // Wende Unterstreichungen an
+    if (highlightsResult.success && highlightsResult.data) {
+      const lectureHighlights = highlightsResult.data.filter(h => 
+        h.ga_number === lectureId && h.paragraph_id
+      );
+      lectureHighlights.forEach(highlight => {
+        applyStoredHighlight(highlight);
+      });
+    }
   } catch (error) {
     console.error('Fehler beim Markieren der Absätze:', error);
   }
 }
 
 /**
- * Fügt ein Bookmark/Quote-Icon zu einem Absatz hinzu
+ * Fügt ein Quote-Icon zu einem Absatz hinzu
  */
 function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesResult) {
   const paraElement = document.getElementById(`para-${paraId}`);
@@ -2059,19 +2080,18 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   
   if (existingIndicator) return; // Bereits vorhanden
   
-  // Prüfe ob Bookmark oder Zitat (oder beides)
-  const hasBookmark = bookmarksResult.success && bookmarksResult.data.some(b => 
-    b.ga_number === lectureId && b.paragraph_id === paraId
-  );
-  const hasQuote = quotesResult.success && quotesResult.data.some(q => 
+  // Prüfe ob Zitat vorhanden
+  const hasQuote = quotesResult && quotesResult.success && quotesResult.data.some(q => 
     q.ga_reference === lectureId && q.paragraph_id === paraId
   );
+  
+  if (!hasQuote) return; // Kein Zitat vorhanden
   
   // Erstelle Markierung
   const indicator = document.createElement('span');
   indicator.className = 'bookmark-quote-indicator';
   indicator.setAttribute('data-para-id', paraId); // Für Wiederherstellung
-  indicator.title = `${hasBookmark ? 'Bookmark' : ''}${hasBookmark && hasQuote ? ' & ' : ''}${hasQuote ? 'Zitat' : ''} vorhanden - Klick zum Öffnen`;
+  indicator.title = 'Zitat vorhanden - Klick zum Öffnen';
   indicator.innerHTML = `
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -2079,7 +2099,7 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   `;
   indicator.onclick = (e) => {
     e.stopPropagation();
-    jumpToBookmarkOrQuote(lectureId, paraId, hasBookmark, hasQuote);
+    jumpToBookmarkOrQuote(lectureId, paraId, false, hasQuote);
   };
   
   // Füge am Anfang des Absatzes hinzu
@@ -2088,19 +2108,176 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
 }
 
 /**
+ * Wendet eine gespeicherte Unterstreichung auf den Text an
+ */
+function applyStoredHighlight(highlight) {
+  try {
+    const paraElement = document.getElementById(`para-${highlight.paragraph_id}`);
+    if (!paraElement) return;
+    
+    // Finde das tatsächliche Absatz-Element (kann ein Parent sein)
+    let targetElement = paraElement;
+    if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+      let parent = paraElement.parentElement;
+      while (parent && parent !== document.body) {
+        const tagName = parent.tagName.toLowerCase();
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          targetElement = parent;
+          break;
+        }
+        parent = parent.parentElement;
+      }
+    }
+    
+    // Prüfe ob bereits unterstrichen
+    if (targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`)) {
+      return; // Bereits vorhanden
+    }
+    
+    // Hole den Text des Elements
+    const elementText = targetElement.textContent || targetElement.innerText;
+    
+    // Prüfe ob der gespeicherte Text noch vorhanden ist
+    if (!highlight.paragraph_text || !elementText.includes(highlight.paragraph_text)) {
+      // Versuche mit den Offsets
+      if (highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
+        const startOffset = highlight.text_start_offset;
+        const endOffset = highlight.text_end_offset;
+        
+        if (startOffset >= 0 && endOffset <= elementText.length && startOffset < endOffset) {
+          // Erstelle Range für die Unterstreichung
+          const range = document.createRange();
+          const walker = document.createTreeWalker(
+            targetElement,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+          );
+          
+          let currentOffset = 0;
+          let startNode = null;
+          let startOffsetInNode = 0;
+          let endNode = null;
+          let endOffsetInNode = 0;
+          
+          let node;
+          while (node = walker.nextNode()) {
+            const nodeLength = node.textContent.length;
+            
+            if (!startNode && currentOffset + nodeLength > startOffset) {
+              startNode = node;
+              startOffsetInNode = startOffset - currentOffset;
+            }
+            
+            if (currentOffset + nodeLength >= endOffset) {
+              endNode = node;
+              endOffsetInNode = endOffset - currentOffset;
+              break;
+            }
+            
+            currentOffset += nodeLength;
+          }
+          
+          if (startNode && endNode) {
+            try {
+              range.setStart(startNode, startOffsetInNode);
+              range.setEnd(endNode, endOffsetInNode);
+              
+              const highlightColor = getHighlightColor(highlight.color || 'blue');
+              const span = document.createElement('span');
+              span.className = 'member-highlight';
+              span.style.textDecoration = 'underline';
+              span.style.textDecorationColor = highlightColor;
+              span.style.textDecorationThickness = '1.5px';
+              span.setAttribute('data-highlight-id', highlight.id);
+              span.setAttribute('data-highlight', 'true');
+              span.setAttribute('data-highlight-color', highlight.color || 'blue');
+              span.onclick = (e) => {
+                e.stopPropagation();
+                jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+              };
+              
+              const contents = range.extractContents();
+              span.appendChild(contents);
+              range.insertNode(span);
+            } catch (e) {
+              console.log('Fehler beim Anwenden der Unterstreichung:', e);
+            }
+          }
+        }
+      }
+      return;
+    }
+    
+    // Versuche den Text zu finden und zu unterstreichen
+    const textToHighlight = highlight.paragraph_text.substring(
+      highlight.text_start_offset || 0,
+      highlight.text_end_offset || highlight.paragraph_text.length
+    );
+    
+    if (elementText.includes(textToHighlight)) {
+      // Erstelle Range für die Unterstreichung
+      const range = document.createRange();
+      const walker = document.createTreeWalker(
+        targetElement,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let node;
+      let found = false;
+      while (node = walker.nextNode()) {
+        const nodeText = node.textContent;
+        const index = nodeText.indexOf(textToHighlight);
+        
+        if (index !== -1) {
+          try {
+            range.setStart(node, index);
+            range.setEnd(node, index + textToHighlight.length);
+            
+            const highlightColor = getHighlightColor(highlight.color || 'blue');
+            const span = document.createElement('span');
+            span.className = 'member-highlight';
+            span.style.textDecoration = 'underline';
+            span.style.textDecorationColor = highlightColor;
+            span.style.textDecorationThickness = '1.5px';
+            span.setAttribute('data-highlight-id', highlight.id);
+            span.setAttribute('data-highlight', 'true');
+            span.setAttribute('data-highlight-color', highlight.color || 'blue');
+            span.onclick = (e) => {
+              e.stopPropagation();
+              jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+            };
+            
+            const contents = range.extractContents();
+            span.appendChild(contents);
+            range.insertNode(span);
+            found = true;
+            break;
+          } catch (e) {
+            console.log('Fehler beim Anwenden der Unterstreichung:', e);
+          }
+        }
+      }
+      
+      if (!found) {
+        console.log('Text für Unterstreichung nicht gefunden:', textToHighlight);
+      }
+    }
+  } catch (error) {
+    console.error('Fehler beim Anwenden der Unterstreichung:', error);
+  }
+}
+
+/**
  * Stellt Icons wieder her, die durch DOM-Manipulationen verloren gegangen sind
  */
 function restoreBookmarkQuoteIndicators() {
-  if (!lastMarkedLectureId || !lastBookmarksData || !lastQuotesData) return;
+  if (!lastMarkedLectureId || !lastQuotesData) return;
   
   // Sammle alle paragraph_ids für diesen Vortrag
   const paragraphIds = new Set();
-  
-  if (lastBookmarksData.success && lastBookmarksData.data) {
-    lastBookmarksData.data
-      .filter(b => b.ga_number === lastMarkedLectureId && b.paragraph_id)
-      .forEach(b => paragraphIds.add(b.paragraph_id));
-  }
   
   if (lastQuotesData.success && lastQuotesData.data) {
     lastQuotesData.data
@@ -2112,9 +2289,48 @@ function restoreBookmarkQuoteIndicators() {
   paragraphIds.forEach(paraId => {
     const paraElement = document.getElementById(`para-${paraId}`);
     if (paraElement && !paraElement.querySelector('.bookmark-quote-indicator')) {
-      addBookmarkQuoteIndicator(paraId, lastMarkedLectureId, lastBookmarksData, lastQuotesData);
+      addBookmarkQuoteIndicator(paraId, lastMarkedLectureId, null, lastQuotesData);
     }
   });
+}
+
+/**
+ * Springe zu einer Unterstreichung
+ */
+async function jumpToHighlight(lectureId, paragraphId, highlightId) {
+  try {
+    // Öffne MB falls nicht offen
+    if (!membersPanelActive) {
+      if (typeof openMembersPanel === 'function') {
+        await openMembersPanel();
+      }
+    }
+    
+    // Wechsle zum Highlights-Tab
+    if (typeof switchMembersTab === 'function') {
+      await switchMembersTab('highlights');
+    }
+    
+    // Warte kurz, dann scrolle zum Item
+    setTimeout(async () => {
+      const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
+      if (targetItem) {
+        targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Visuelles Highlight
+        targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+        setTimeout(() => {
+          targetItem.style.backgroundColor = '';
+        }, 2000);
+      }
+    }, 300);
+    
+    // Navigiere zum Vortrag
+    if (typeof navigateToLectureFromMembersPanel === 'function') {
+      navigateToLectureFromMembersPanel(lectureId, paragraphId);
+    }
+  } catch (error) {
+    console.error('Fehler beim Springen zur Unterstreichung:', error);
+  }
 }
 
 /**
@@ -2129,8 +2345,8 @@ async function jumpToBookmarkOrQuote(lectureId, paragraphId, hasBookmark, hasQuo
       }
     }
     
-    // Entscheide welcher Tab: Bookmark hat Priorität
-    const targetTab = hasBookmark ? 'bookmarks' : 'quotes';
+    // Wechsle zum Quotes-Tab
+    const targetTab = 'quotes';
     
     // Wechsle zum entsprechenden Tab
     if (typeof switchMembersTab === 'function') {
@@ -2139,20 +2355,10 @@ async function jumpToBookmarkOrQuote(lectureId, paragraphId, hasBookmark, hasQuo
     
     // Warte kurz, dann scrolle zum Item
     setTimeout(async () => {
-      // Lade Bookmarks/Zitate erneut, um die IDs zu bekommen
+      // Lade Zitate erneut, um die IDs zu bekommen
       let targetItemId = null;
       
-      if (hasBookmark) {
-        const bookmarksResult = await getBookmarks();
-        if (bookmarksResult.success && bookmarksResult.data) {
-          const bookmark = bookmarksResult.data.find(b => 
-            b.ga_number === lectureId && b.paragraph_id === paragraphId
-          );
-          if (bookmark) targetItemId = bookmark.id;
-        }
-      }
-      
-      if (!targetItemId && hasQuote) {
+      if (hasQuote) {
         const quotesResult = await getQuotes();
         if (quotesResult.success && quotesResult.data) {
           const quote = quotesResult.data.find(q => 
@@ -2648,53 +2854,54 @@ function isMembersPanelActive() {
 }
 
 /**
- * Lädt alle Keywords aus Bookmarks und Quotes und aktualisiert das Dropdown
+ * Lädt alle Keywords aus Quotes und Highlights und aktualisiert das Dropdown
  */
 async function updateKeywordFilterDropdownWithAllKeywords() {
-  if (typeof getBookmarks !== 'function' || typeof getQuotes !== 'function') {
+  if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function') {
     console.warn('[MB-KEYWORDS] API-Funktionen nicht verfügbar');
     return;
   }
   
   try {
     // Verwende Cache wenn verfügbar, sonst lade neu
-    let bookmarksResult, quotesResult;
     const now = Date.now();
-    const cacheValid = cachedBookmarksData && cachedQuotesData && 
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
                      bookmarksQuotesCacheTimestamp && 
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
+    let quotesResult, highlightsResult;
+    
     if (cacheValid) {
-      console.log('[MB-KEYWORDS] Verwende gecachte Bookmarks/Quotes-Daten für Keywords');
-      bookmarksResult = cachedBookmarksData;
+      console.log('[MB-KEYWORDS] Verwende gecachte Quotes/Highlights-Daten für Keywords');
       quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
     } else {
-      // Lade beide Datenquellen parallel
-      [bookmarksResult, quotesResult] = await Promise.all([
-        getBookmarks(),
-        getQuotes()
+      // Lade Quotes- und Highlights-Daten
+      [quotesResult, highlightsResult] = await Promise.all([
+        getQuotes(),
+        getHighlights()
       ]);
       // Aktualisiere Cache
-      cachedBookmarksData = bookmarksResult;
       cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
       bookmarksQuotesCacheTimestamp = now;
     }
     
-    // Sammle alle Keywords aus beiden Quellen
+    // Sammle alle Keywords aus Quotes und Highlights
     const allKeywords = new Set();
-    
-    if (bookmarksResult.success && bookmarksResult.data) {
-      bookmarksResult.data.forEach(bookmark => {
-        if (bookmark.tags && Array.isArray(bookmark.tags)) {
-          bookmark.tags.forEach(tag => allKeywords.add(tag));
-        }
-      });
-    }
     
     if (quotesResult.success && quotesResult.data) {
       quotesResult.data.forEach(quote => {
         if (quote.tags && Array.isArray(quote.tags)) {
           quote.tags.forEach(tag => allKeywords.add(tag));
+        }
+      });
+    }
+    
+    if (highlightsResult.success && highlightsResult.data) {
+      highlightsResult.data.forEach(highlight => {
+        if (highlight.tags && Array.isArray(highlight.tags)) {
+          highlight.tags.forEach(tag => allKeywords.add(tag));
         }
       });
     }
@@ -2737,22 +2944,27 @@ function updateKeywordFilterDropdown(keywords) {
 async function findTabForKeyword(keyword) {
   if (!keyword) return null;
   
-  if (typeof getBookmarks !== 'function' || typeof getQuotes !== 'function') {
+  if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function') {
     return null;
   }
   
   try {
-    const [bookmarksResult, quotesResult] = await Promise.all([
-      getBookmarks(),
-      getQuotes()
-    ]);
+    // Verwende Cache wenn verfügbar
+    const now = Date.now();
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
-    // Prüfe Bookmarks
-    let hasInBookmarks = false;
-    if (bookmarksResult.success && bookmarksResult.data) {
-      hasInBookmarks = bookmarksResult.data.some(bookmark => 
-        bookmark.tags && Array.isArray(bookmark.tags) && bookmark.tags.includes(keyword)
-      );
+    let quotesResult, highlightsResult;
+    
+    if (cacheValid) {
+      quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
+    } else {
+      [quotesResult, highlightsResult] = await Promise.all([
+        getQuotes(),
+        getHighlights()
+      ]);
     }
     
     // Prüfe Quotes
@@ -2763,14 +2975,19 @@ async function findTabForKeyword(keyword) {
       );
     }
     
-    // Wenn in beiden vorhanden, bleibe im aktuellen Tab
-    if (hasInBookmarks && hasInQuotes) {
-      return currentMembersTab;
+    // Prüfe Highlights
+    let hasInHighlights = false;
+    if (highlightsResult.success && highlightsResult.data) {
+      hasInHighlights = highlightsResult.data.some(highlight => 
+        highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
+      );
     }
     
-    // Wenn nur in einem vorhanden, wechsle zu diesem Tab
-    if (hasInBookmarks) return 'bookmarks';
+    // Wenn in Quotes vorhanden, wechsle zu Quotes-Tab (Priorität)
     if (hasInQuotes) return 'quotes';
+    
+    // Wenn nur in Highlights vorhanden, wechsle zu Highlights-Tab
+    if (hasInHighlights) return 'highlights';
     
     return null;
   } catch (error) {
@@ -2780,36 +2997,176 @@ async function findTabForKeyword(keyword) {
 }
 
 /**
- * Handler für Keyword-Filter - wechselt zum richtigen Tab wenn nötig
+ * Handler für Keyword-Filter - zeigt Items aus beiden Tabs (Quotes und Highlights)
  */
 async function handleKeywordFilter(keyword) {
   if (!keyword) {
-    // Kein Keyword ausgewählt - zeige alle Items im aktuellen Tab
-    filterItemsByKeyword('');
+    // Kein Keyword ausgewählt - lade den normalen Tab-Inhalt wieder
+    await loadMembersTab(currentMembersTab);
     return;
   }
   
-  // Prüfe, in welchem Tab das Keyword vorhanden ist
-  const targetTab = await findTabForKeyword(keyword);
+  // Lade und zeige Items aus beiden Tabs (Quotes und Highlights) mit diesem Keyword
+  await showKeywordFilteredItems(keyword);
+}
+
+/**
+ * Zeigt Items aus beiden Tabs (Quotes und Highlights) mit dem ausgewählten Keyword
+ */
+async function showKeywordFilteredItems(keyword) {
+  const container = document.getElementById('members-tab-content');
+  if (!container) return;
   
-  if (targetTab && targetTab !== currentMembersTab) {
-    // Wechsle zum Tab, in dem das Keyword vorhanden ist
-    // preserveKeyword=true, damit das Dropdown nicht zurückgesetzt wird
-    await switchMembersTab(targetTab, true);
+  // Zeige Ladeanzeige
+  container.innerHTML = '<div class="empty-state"><em>Lade gefilterte Items...</em></div>';
+  
+  try {
+    // Lade Quotes und Highlights parallel
+    const now = Date.now();
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
-    // Stelle sicher, dass das Keyword im Dropdown ausgewählt bleibt
-    const keywordSelect = document.getElementById('keyword-filter-select');
-    if (keywordSelect) {
-      keywordSelect.value = keyword;
+    let quotesResult, highlightsResult;
+    
+    if (cacheValid) {
+      quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
+    } else {
+      [quotesResult, highlightsResult] = await Promise.all([
+        getQuotes(),
+        getHighlights()
+      ]);
+      cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
+      bookmarksQuotesCacheTimestamp = now;
     }
     
-    // Warte kurz, damit der Tab geladen ist, dann filtere
-    setTimeout(() => {
-      filterItemsByKeyword(keyword);
-    }, 150);
-  } else {
-    // Keyword ist im aktuellen Tab vorhanden (oder in beiden) - filtere einfach
-    filterItemsByKeyword(keyword);
+    // Filtere Items mit dem Keyword
+    const filteredQuotes = quotesResult.success && quotesResult.data
+      ? quotesResult.data.filter(quote => 
+          quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
+        )
+      : [];
+    
+    const filteredHighlights = highlightsResult.success && highlightsResult.data
+      ? highlightsResult.data.filter(highlight => 
+          highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
+        )
+      : [];
+    
+    if (filteredQuotes.length === 0 && filteredHighlights.length === 0) {
+      container.innerHTML = `<div class="empty-state">Keine Items mit Schlagwort "${keyword}" gefunden</div>`;
+      return;
+    }
+    
+    // Rendere Quotes und Highlights kombiniert
+    let combinedHtml = '';
+    
+    // Rendere Quotes
+    if (filteredQuotes.length > 0) {
+      const quotesHtml = filteredQuotes.map(quote => {
+        const lectureDate = getLectureDate(quote.ga_reference);
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+        const isBook = isBookGANumber(quote.ga_reference);
+        const shouldShowLink = quote.paragraph_id || isBook;
+        
+        return `
+          <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                ${shouldShowLink
+                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                }
+                <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+              ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
+              <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+              ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
+              ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+              <div class="member-item-actions">
+                <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')" title="Löschen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      combinedHtml += quotesHtml;
+    }
+    
+    // Rendere Highlights
+    if (filteredHighlights.length > 0) {
+      const highlightsHtml = filteredHighlights.map(highlight => {
+        const lectureDate = getLectureDate(highlight.ga_number);
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+        const isBook = isBookGANumber(highlight.ga_number);
+        const shouldShowLink = highlight.paragraph_id || isBook;
+        
+        const highlightedText = highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null
+          ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+          : highlight.paragraph_text || '';
+        
+        const highlightColor = getHighlightColor(highlight.color || 'blue');
+        
+        return `
+          <div class="member-item" data-keywords="${highlight.tags ? highlight.tags.join(',') : ''}" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                ${shouldShowLink
+                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                }
+                <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+              ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
+              <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>
+              ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
+              ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+              <div class="member-item-actions">
+                <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <button class="delete-btn" onclick="deleteMemberHighlight('${highlight.id}')" title="Löschen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      combinedHtml += highlightsHtml;
+    }
+    
+    container.innerHTML = combinedHtml;
+    
+    // Lade Vortragsdaten für Datumsanzeige
+    const allGANumbers = [...new Set([
+      ...filteredQuotes.map(q => q.ga_reference).filter(Boolean),
+      ...filteredHighlights.map(h => h.ga_number).filter(Boolean)
+    ])];
+    await loadLectureDatesForGANumbers(allGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err));
+    updateQuoteDates(container, filteredQuotes);
+    updateHighlightDates(container, filteredHighlights);
+    
+  } catch (error) {
+    console.error('[MB-KEYWORDS] Fehler beim Laden gefilterter Items:', error);
+    container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
   }
 }
 
@@ -2848,9 +3205,8 @@ window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
 window.showMembersPrivacyModal = showMembersPrivacyModal;
 window.closeMembersPrivacyModal = closeMembersPrivacyModal;
-window.editMemberBookmark = editMemberBookmark;
 window.editMemberQuote = editMemberQuote;
-window.deleteMemberBookmark = deleteMemberBookmark;
+window.editMemberHighlight = editMemberHighlight;
 window.deleteMemberQuote = deleteMemberQuote;
 window.deleteMemberNote = deleteMemberNote;
 window.toggleSortOrder = toggleSortOrder;
@@ -2858,7 +3214,6 @@ window.toggleMultiDeleteMode = toggleMultiDeleteMode;
 window.updateMultiDeleteButton = updateMultiDeleteButton;
 window.deleteSelectedItems = deleteSelectedItems;
 window.saveMemberNote = saveMemberNote;
-window.generateMemberGraph = generateMemberGraph;
 window.sendMemberChatMessage = sendMemberChatMessage;
 window.handleKeywordFilter = handleKeywordFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
@@ -2866,18 +3221,19 @@ window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;
 window.markParagraphsWithBookmarksAndQuotes = markParagraphsWithBookmarksAndQuotes;
 window.jumpToBookmarkOrQuote = jumpToBookmarkOrQuote;
+window.jumpToHighlight = jumpToHighlight;
 window.loadMembersTab = loadMembersTab;
 
 /**
- * Invalidiert den Cache für Bookmarks und/oder Zitate
- * @param {string} type - 'bookmarks', 'quotes' oder 'all' (Standard: 'all')
+ * Invalidiert den Cache für Zitate und/oder Unterstreichungen
+ * @param {string} type - 'quotes', 'highlights' oder 'all' (Standard: 'all')
  */
 function invalidateMembersCache(type = 'all') {
-  if (type === 'bookmarks' || type === 'all') {
-    cachedBookmarksData = null;
-  }
   if (type === 'quotes' || type === 'all') {
     cachedQuotesData = null;
+  }
+  if (type === 'highlights' || type === 'all') {
+    cachedHighlightsData = null;
   }
   // Setze Timestamp auf 0, damit Cache als ungültig gilt
   bookmarksQuotesCacheTimestamp = 0;
@@ -2885,9 +3241,10 @@ function invalidateMembersCache(type = 'all') {
 
 /**
  * Aktualisiert den Mitgliederbereich, falls er offen ist
- * @param {string} tabName - 'bookmarks' oder 'quotes' (optional, verwendet aktuellen Tab wenn nicht angegeben)
+ * @param {string} tabName - 'quotes' oder 'highlights' (optional, verwendet aktuellen Tab wenn nicht angegeben)
+ * @param {boolean} forceUpdate - Wenn true, aktualisiert auch wenn Tab nicht aktiv ist (nur Cache invalidation, Tab wird nicht geladen)
  */
-async function updateMembersPanelIfOpen(tabName = null) {
+async function updateMembersPanelIfOpen(tabName = null, forceUpdate = false) {
   // Prüfe ob Mitgliederbereich aktiv ist
   if (typeof membersPanelActive === 'undefined' || !membersPanelActive) {
     return;
@@ -2896,12 +3253,17 @@ async function updateMembersPanelIfOpen(tabName = null) {
   // Verwende angegebenen Tab oder aktuellen Tab
   const tabToUpdate = tabName || currentMembersTab;
   
-  // Aktualisiere nur Bookmarks- oder Quotes-Tab
-  if (tabToUpdate === 'bookmarks' || tabToUpdate === 'quotes') {
+  // Aktualisiere nur Quotes- oder Highlights-Tab
+  if (tabToUpdate === 'quotes' || tabToUpdate === 'highlights') {
     try {
       // Invalidiere Cache für den entsprechenden Tab, damit Daten neu geladen werden
       invalidateMembersCache(tabToUpdate);
-      await loadMembersTab(tabToUpdate);
+      
+      // Wenn der Tab aktiv ist, lade ihn neu (bei forceUpdate wird nur Cache invalidiert)
+      if (tabToUpdate === currentMembersTab) {
+        await loadMembersTab(tabToUpdate);
+      }
+      // Bei forceUpdate wird nur Cache invalidiert, Tab wird nicht geladen (verhindert Tab-Wechsel)
     } catch (error) {
       console.error('[MB-UPDATE] Fehler beim Aktualisieren:', error);
     }

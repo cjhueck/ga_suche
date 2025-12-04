@@ -457,6 +457,7 @@
       margin: 0.4rem 0 0.2rem 0;
       display: -webkit-box;
       -webkit-line-clamp: 2;
+      line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -466,6 +467,7 @@
     .item-text.expanded {
       display: block;
       -webkit-line-clamp: none;
+      line-clamp: none;
       overflow: visible;
     }
 
@@ -1046,7 +1048,7 @@
   <div id="auth-view" class="active">
     <div class="auth-card">
       <h2 id="auth-title">Mitglieder Login</h2>
-      <p class="login-description">Nach Anmeldung können Sie Zitate und Bookmarks abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
+      <p class="login-description">Nach Anmeldung können Sie Zitate abspeichern, mit Schlagworten versehen, ordnen und kommentieren sowie sich mit anderen Mitgliedern per Chat austauschen.</p>
       
       <div id="auth-message"></div>
 
@@ -1117,8 +1119,8 @@
     <!-- Toolbar -->
     <div class="toolbar">
       <div class="toolbar-tabs">
-        <button class="toolbar-tab active" data-tab="bookmarks">Bookmarks</button>
         <button class="toolbar-tab" data-tab="quotes">Zitate</button>
+        <button class="toolbar-tab" data-tab="highlights">Unterstreichungen</button>
         <div style="position: relative;">
           <button class="toolbar-btn" id="sort-btn" title="Sortieren" onclick="toggleSortMenu(event)">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1163,7 +1165,7 @@
         </div>
         <div class="notes-content">
           <div class="notes-empty" id="notes-empty">
-            Wählen Sie ein Bookmark oder Zitat aus, um Notizen zu bearbeiten
+            Wählen Sie ein Zitat aus, um Notizen zu bearbeiten
           </div>
           <textarea id="notes-textarea" class="notes-textarea" style="display: none;" placeholder="Notizen eingeben..."></textarea>
         </div>
@@ -1214,13 +1216,13 @@
           <li>E-Mail-Adresse (für die Authentifizierung)</li>
           <li>Passwort (verschlüsselt gespeichert)</li>
           <li>Anzeigename (optional)</li>
-          <li>Von Ihnen erstellte Bookmarks, Zitate und Notizen</li>
+          <li>Von Ihnen erstellte Zitate und Notizen</li>
         </ul>
 
         <h4>2. Zweck der Datenerhebung</h4>
         <p>Die erhobenen Daten dienen ausschließlich dazu, Ihnen die Funktionen des Mitgliederbereichs zur Verfügung zu stellen:</p>
         <ul>
-          <li>Speicherung Ihrer persönlichen Bookmarks und Zitate</li>
+          <li>Speicherung Ihrer persönlichen Zitate</li>
           <li>Verwaltung Ihrer Notizen und Schlagwörter</li>
           <li>Kommunikation mit anderen Mitgliedern (falls Chat-Funktion genutzt wird)</li>
         </ul>
@@ -1264,7 +1266,8 @@
     }
     
     let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount;
-    let getBookmarks, deleteBookmark, updateBookmark, getQuotes, deleteQuote, updateQuote;
+    let getQuotes, deleteQuote, updateQuote;
+    let getHighlights, deleteHighlight, updateHighlight;
     
     try {
       const authModule = await import('./members-auth.js');
@@ -1277,12 +1280,12 @@
       deleteUserAccount = authModule.deleteUserAccount;
       
       const apiModule = await import('./members-api.js');
-      getBookmarks = apiModule.getBookmarks;
-      deleteBookmark = apiModule.deleteBookmark;
-      updateBookmark = apiModule.updateBookmark;
       getQuotes = apiModule.getQuotes;
       deleteQuote = apiModule.deleteQuote;
       updateQuote = apiModule.updateQuote;
+      getHighlights = apiModule.getHighlights;
+      deleteHighlight = apiModule.deleteHighlight;
+      updateHighlight = apiModule.updateHighlight;
       
       // Mache Funktionen global verfügbar für Event-Listener
       window.signUp = signUp;
@@ -1291,12 +1294,12 @@
       window.getCurrentUser = getCurrentUser;
       window.updateUserEmail = updateUserEmail;
       window.deleteUserAccount = deleteUserAccount;
-      window.getBookmarks = getBookmarks;
-      window.deleteBookmark = deleteBookmark;
-      window.updateBookmark = updateBookmark;
       window.getQuotes = getQuotes;
       window.deleteQuote = deleteQuote;
       window.updateQuote = updateQuote;
+      window.getHighlights = getHighlights;
+      window.deleteHighlight = deleteHighlight;
+      window.updateHighlight = updateHighlight;
       
       console.log('[MEMBERS-HTML] ✓ Module erfolgreich geladen');
     } catch (error) {
@@ -1313,7 +1316,7 @@
 
     // ===== State =====
     let currentUser = null;
-    let currentTab = 'bookmarks';
+    let currentTab = 'quotes';
     let currentItems = [];
     let selectedItemId = null;
     let sortOrder = 'desc';
@@ -1730,7 +1733,7 @@
       if (deleteAccountBtn) {
         deleteAccountBtn.addEventListener('click', async () => {
           const confirmText = 'ACCOUNT LÖSCHEN';
-          const userInput = prompt(`WARNUNG: Diese Aktion kann nicht rückgängig gemacht werden!\n\nAlle Ihre Bookmarks, Zitate und Notizen werden unwiderruflich gelöscht.\n\nGeben Sie "${confirmText}" ein, um zu bestätigen:`);
+          const userInput = prompt(`WARNUNG: Diese Aktion kann nicht rückgängig gemacht werden!\n\nAlle Ihre Zitate und Notizen werden unwiderruflich gelöscht.\n\nGeben Sie "${confirmText}" ein, um zu bestätigen:`);
           
           if (userInput !== confirmText) {
             if (userInput !== null) {
@@ -1777,7 +1780,7 @@
       document.querySelectorAll('.toolbar-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           const tabName = tab.dataset.tab;
-          if (tabName === 'bookmarks' || tabName === 'quotes') {
+          if (tabName === 'quotes' || tabName === 'highlights') {
             switchTab(tabName);
           } else if (tabName === 'chat') {
             window.location.href = 'members.html#chat';
@@ -1841,24 +1844,70 @@
     // ===== Load Items =====
     async function loadItems() {
       const container = document.getElementById('items-list');
-      container.innerHTML = '<div class="empty-state">Lade Daten...</div>';
-      
-      let result;
-      if (currentTab === 'bookmarks') {
-        result = await getBookmarks();
-      } else {
-        result = await getQuotes();
-      }
-      
-      if (!result.success || result.data.length === 0) {
-        container.innerHTML = '<div class="empty-state">Noch keine Einträge vorhanden</div>';
-        currentItems = [];
+      if (!container) {
+        console.error('[MEMBERS-HTML] items-list Container nicht gefunden!');
         return;
       }
+      container.innerHTML = '<div class="empty-state">Lade Daten...</div>';
       
-      // Ensure marker_color is preserved from database
-      // Create a deep copy to preserve all properties including marker_color
-      const itemsWithMarkers = result.data.map(item => {
+      try {
+        let result;
+        
+        if (currentTab === 'highlights') {
+          // Lade Highlights
+          if (typeof getHighlights !== 'function') {
+            console.error('[MEMBERS-HTML] getHighlights Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getHighlights();
+        } else {
+          // Lade Quotes (Standard)
+          if (typeof getQuotes !== 'function') {
+            console.error('[MEMBERS-HTML] getQuotes Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getQuotes();
+        }
+        
+        if (!result) {
+          container.innerHTML = '<div class="empty-state">Fehler: Keine Antwort vom Server</div>';
+          currentItems = [];
+          return;
+        }
+        
+        if (!result.success) {
+          container.innerHTML = `<div class="empty-state">Fehler beim Laden: ${result.error || result.message || 'Unbekannter Fehler'}</div>`;
+          currentItems = [];
+          return;
+        }
+        
+        if (!result.data || result.data.length === 0) {
+          container.innerHTML = '<div class="empty-state">Noch keine Einträge vorhanden</div>';
+          currentItems = [];
+          return;
+        }
+      
+      // Process items based on type
+      let itemsWithMarkers;
+      if (currentTab === 'highlights') {
+        // Process highlights
+        itemsWithMarkers = result.data.map(item => ({
+          ...item,
+          item_type: 'highlight',
+          ga_reference: item.ga_number,
+          quote_text: item.paragraph_text ? item.paragraph_text.substring(
+            item.text_start_offset || 0,
+            item.text_end_offset || item.paragraph_text.length
+          ) : '',
+          tags: item.tags || [],
+          color: item.color || 'blue' // Preserve highlight color from database
+        }));
+      } else {
+        // Process quotes - Ensure marker_color is preserved from database
+        // Create a deep copy to preserve all properties including marker_color
+        itemsWithMarkers = result.data.map(item => {
         // Preserve marker_color explicitly - check all possible formats
         // First check if marker_color exists in the item
         let markerColor = null;
@@ -1869,15 +1918,17 @@
           }
         }
         
-        // Return complete item with all properties preserved, ensuring marker_color is explicitly set
-        const preservedItem = {
-          ...item,
-          marker_color: markerColor,
-          tags: item.tags || []
-        };
-        
-        return preservedItem;
-      });
+          // Return complete item with all properties preserved, ensuring marker_color is explicitly set
+          const preservedItem = {
+            ...item,
+            marker_color: markerColor,
+            tags: item.tags || [],
+            item_type: 'quote'
+          };
+          
+          return preservedItem;
+        });
+      }
       
       // Apply sorting based on current sort mode
       if (currentSortMode === 'saved') {
@@ -1957,6 +2008,14 @@
       
       renderItems();
       updateKeywordFilter();
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Items:', error);
+        const container = document.getElementById('items-list');
+        if (container) {
+          container.innerHTML = `<div class="empty-state">Fehler beim Laden: ${error.message || 'Unbekannter Fehler'}</div>`;
+        }
+        currentItems = [];
+      }
     }
     
     // Get saved order from localStorage
@@ -1997,6 +2056,16 @@
       }
     }
 
+    // Helper function to get highlight color hex value
+    function getHighlightColor(colorName) {
+      const colors = {
+        'blue': '#467886',
+        'red': '#c62828',
+        'yellow': '#ffc107'
+      };
+      return colors[colorName] || colors['blue'];
+    }
+
     function renderItems() {
       const container = document.getElementById('items-list');
       
@@ -2006,10 +2075,16 @@
       }
       
       container.innerHTML = currentItems.map((item, index) => {
-        const isBookmark = currentTab === 'bookmarks';
-        const gaNumber = isBookmark ? item.ga_number : item.ga_reference;
-        const text = isBookmark ? item.paragraph_text : item.quote_text;
+        const gaNumber = item.ga_reference || item.ga_number;
+        const text = item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(
+          item.text_start_offset || 0,
+          item.text_end_offset || item.paragraph_text.length
+        ) : '');
         const tags = item.tags || [];
+        const isHighlight = currentTab === 'highlights' || item.item_type === 'highlight';
+        
+        // Get highlight color for highlights
+        const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
         // Ensure marker_color is preserved - explicitly check and validate
         let markerColor = '';
@@ -2029,14 +2104,14 @@
           <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
                data-id="${item.id}" 
                data-index="${index}"
-               draggable="${!multiDeleteMode}">
+               draggable="${!multiDeleteMode && !isHighlight}">
             <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
               ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
               <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
                 ${gaNumber}
               </a>
               <div class="item-header-right">
-                <div style="position: relative;">
+                ${!isHighlight ? `<div style="position: relative;">
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
                   ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
                     <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
@@ -2044,11 +2119,11 @@
                     <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
                     <div class="item-marker-option green" onclick="updateMarkerColor('${item.id}', 'green')" title="Grün"></div>
                   </div>` : ''}
-                </div>
+                </div>` : ''}
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text">${isBookmark ? text : `"${text}"`}</div>
+            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
             <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
             <div class="item-tags-row">
               ${tags.length > 0 ? `
@@ -2058,7 +2133,7 @@
               ` : '<div></div>'}
               ${!multiDeleteMode ? `
                 <div class="item-actions">
-                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}', ${isBookmark})" title="Löschen">
+                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       <rect x="4" y="6" width="16" height="14" rx="1"/>
                       <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
@@ -2067,7 +2142,7 @@
                       <line x1="14" y1="10" x2="14" y2="16"/>
                     </svg>
                   </button>
-                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', ${isBookmark}, '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>
+                  ${!isHighlight ? `<button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>` : ''}
                 </div>
               ` : ''}
             </div>
@@ -2140,8 +2215,7 @@
       
       // Get current item info for filename
       const item = currentItems.find(i => i.id === selectedItemId);
-      const isBookmark = currentTab === 'bookmarks';
-      const gaNumber = item ? (isBookmark ? item.ga_number : item.ga_reference) : 'Notizen';
+      const gaNumber = item ? item.ga_reference : 'Notizen';
       const date = new Date().toLocaleDateString('de-DE').replace(/\./g, '-');
       const filename = `Notizen_${gaNumber}_${date}.doc`;
       
@@ -2209,14 +2283,9 @@
       
       if (!item) return;
       
-      const isBookmark = currentTab === 'bookmarks';
-      const updates = isBookmark ? { note } : { personal_note: note };
+      const updates = { personal_note: note };
       
-      if (isBookmark) {
-        await updateBookmark(itemId, updates);
-      } else {
-        await updateQuote(itemId, updates);
-      }
+      await updateQuote(itemId, updates);
       
       // Update local data
       item.note = note;
@@ -2260,16 +2329,11 @@
         validColor = color;
       }
       
-      const isBookmark = currentTab === 'bookmarks';
       const updates = { marker_color: validColor };
       
       try {
         let result;
-        if (isBookmark) {
-          result = await updateBookmark(itemId, updates);
-        } else {
-          result = await updateQuote(itemId, updates);
-        }
+        result = await updateQuote(itemId, updates);
         
         if (!result.success) {
           console.error('Fehler beim Aktualisieren der Marker-Farbe:', result.error);
@@ -2308,7 +2372,7 @@
       ? 'http://localhost:3003'
       : 'https://ga-suche.onrender.com';
     
-    async function toggleExpandParagraph(event, itemId, isBookmark, gaReference, paragraphId) {
+    async function toggleExpandParagraph(event, itemId, gaReference, paragraphId) {
       event.stopPropagation();
       
       const fullParagraphDiv = document.getElementById(`full-paragraph-${itemId}`);
@@ -2338,39 +2402,7 @@
         
         let fullText = '';
         
-        if (isBookmark && paragraphId) {
-          // Für Bookmarks: Lade den vollständigen Absatz über paragraph_id
-          // GA-Referenz extrahieren (z.B. "GA110/5" aus gaReference)
-          const parts = gaReference.split('/');
-          if (parts.length === 2) {
-            const gaNumber = parts[0];
-            const lectureNum = parts[1];
-            
-            // Lade vollständigen Vortrag
-            const response = await fetch(`${API_BASE}/api/full-lecture/${encodeURIComponent(gaNumber)}/${encodeURIComponent(lectureNum)}`);
-            if (!response.ok) throw new Error('Vortrag nicht gefunden');
-            
-            const data = await response.json();
-            const lecture = data.lecture;
-            
-            if (lecture && lecture.paragraphs) {
-              // Finde den Absatz mit der entsprechenden paragraph_id
-              const paragraph = lecture.paragraphs.find(p => 
-                p.id === paragraphId || p.index === parseInt(paragraphId) || p.paragraph_id === paragraphId
-              );
-              
-              if (paragraph && paragraph.content) {
-                fullText = paragraph.content;
-              } else {
-                // Fallback: Suche nach Index
-                const paragraphIndex = parseInt(paragraphId);
-                if (!isNaN(paragraphIndex) && lecture.paragraphs[paragraphIndex]) {
-                  fullText = lecture.paragraphs[paragraphIndex].content || '';
-                }
-              }
-            }
-          }
-        } else if (!isBookmark && gaReference) {
+        if (gaReference) {
           // Für Quotes: Lade den vollständigen Absatz über ga_reference
           const parts = gaReference.split('/');
           if (parts.length === 2) {
@@ -2850,44 +2882,136 @@
     window.navigateToLecture = navigateToLecture;
 
     // ===== Keyword Filter =====
-    function updateKeywordFilter() {
+    // Lädt alle Keywords aus Quotes und Highlights (unabhängig vom aktuellen Tab)
+    async function updateKeywordFilter() {
       const select = document.getElementById('keyword-filter');
-      const allKeywords = new Set();
+      if (!select) return;
       
-      currentItems.forEach(item => {
-        if (item.tags) {
-          item.tags.forEach(tag => allKeywords.add(tag));
+      // Prüfe ob API-Funktionen verfügbar sind
+      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function') {
+        console.warn('[MEMBERS-HTML] API-Funktionen für Keywords nicht verfügbar');
+        return;
+      }
+      
+      try {
+        // Lade Quotes und Highlights parallel
+        const [quotesResult, highlightsResult] = await Promise.all([
+          getQuotes(),
+          getHighlights()
+        ]);
+        
+        // Sammle alle Keywords aus beiden Quellen
+        const allKeywords = new Set();
+        
+        if (quotesResult.success && quotesResult.data) {
+          quotesResult.data.forEach(quote => {
+            if (quote.tags && Array.isArray(quote.tags)) {
+              quote.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
         }
-      });
-      
-      const sortedKeywords = Array.from(allKeywords).sort();
-      
-      select.innerHTML = '<option value="">Schlagwörter</option>' +
-        sortedKeywords.map(kw => `<option value="${kw}">${kw}</option>`).join('');
-      
-      select.addEventListener('change', (e) => {
-        const keyword = e.target.value;
-        filterByKeyword(keyword);
-      });
+        
+        if (highlightsResult.success && highlightsResult.data) {
+          highlightsResult.data.forEach(highlight => {
+            if (highlight.tags && Array.isArray(highlight.tags)) {
+              highlight.tags.forEach(tag => allKeywords.add(tag));
+            }
+          });
+        }
+        
+        // Sortiere Keywords
+        const sortedKeywords = Array.from(allKeywords).sort((a, b) => a.localeCompare(b, 'de'));
+        
+        // Aktualisiere Dropdown
+        select.innerHTML = '<option value="">Schlagwörter</option>' +
+          sortedKeywords.map(kw => `<option value="${kw}">${kw}</option>`).join('');
+        
+        // Event-Listener nur einmal hinzufügen (nicht bei jedem Update)
+        // Entferne alte Listener falls vorhanden
+        const newSelect = select.cloneNode(true);
+        select.parentNode.replaceChild(newSelect, select);
+        
+        newSelect.addEventListener('change', (e) => {
+          const keyword = e.target.value;
+          filterByKeyword(keyword);
+        });
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Keywords:', error);
+      }
     }
 
-    function filterByKeyword(keyword) {
+    async function filterByKeyword(keyword) {
       if (!keyword) {
         renderItems();
         return;
       }
       
-      const filtered = currentItems.filter(item => 
-        item.tags && item.tags.includes(keyword)
-      );
-      
       const container = document.getElementById('items-list');
-      container.innerHTML = filtered.map((item, index) => {
+      container.innerHTML = '<div class="empty-state">Lade gefilterte Items...</div>';
+      
+      try {
+        // Lade Quotes und Highlights parallel
+        const [quotesResult, highlightsResult] = await Promise.all([
+          getQuotes(),
+          getHighlights()
+        ]);
+        
+        // Filtere Items mit dem Keyword
+        const filteredQuotes = quotesResult.success && quotesResult.data
+          ? quotesResult.data.filter(quote => 
+              quote.tags && Array.isArray(quote.tags) && quote.tags.includes(keyword)
+            )
+          : [];
+        
+        const filteredHighlights = highlightsResult.success && highlightsResult.data
+          ? highlightsResult.data.filter(highlight => 
+              highlight.tags && Array.isArray(highlight.tags) && highlight.tags.includes(keyword)
+            )
+          : [];
+        
+        // Kombiniere beide Typen
+        const allFilteredItems = [
+          ...filteredQuotes.map(q => ({
+            ...q,
+            item_type: 'quote',
+            ga_reference: q.ga_reference || q.ga_number,
+            quote_text: q.quote_text || '',
+            tags: q.tags || []
+          })),
+          ...filteredHighlights.map(h => ({
+            ...h,
+            item_type: 'highlight',
+            ga_reference: h.ga_number,
+            quote_text: h.paragraph_text ? h.paragraph_text.substring(
+              h.text_start_offset || 0,
+              h.text_end_offset || h.paragraph_text.length
+            ) : '',
+            tags: h.tags || [],
+            color: h.color || 'blue'
+          }))
+        ];
+        
+        if (allFilteredItems.length === 0) {
+          container.innerHTML = `<div class="empty-state">Keine Items mit Schlagwort "${keyword}" gefunden</div>`;
+          return;
+        }
+        
+        // Temporär currentItems für Rendering setzen
+        const originalItems = currentItems;
+        currentItems = allFilteredItems;
+        
+        container.innerHTML = allFilteredItems.map((item, index) => {
         // Same rendering as renderItems but with filtered data
-        const isBookmark = currentTab === 'bookmarks';
-        const gaNumber = isBookmark ? item.ga_number : item.ga_reference;
-        const text = isBookmark ? item.paragraph_text : item.quote_text;
+        const gaNumber = item.ga_reference || item.ga_number;
+        const text = item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(
+          item.text_start_offset || 0,
+          item.text_end_offset || item.paragraph_text.length
+        ) : '');
         const tags = item.tags || [];
+        const isHighlight = currentTab === 'highlights' || item.item_type === 'highlight';
+        
+        // Get highlight color for highlights
+        const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
         // Ensure marker_color is preserved
         const markerColor = item.marker_color && item.marker_color.trim() 
@@ -2903,7 +3027,7 @@
                 ${gaNumber}
               </a>
               <div class="item-header-right">
-                <div style="position: relative;">
+                ${!isHighlight ? `<div style="position: relative;">
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
                   ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
                     <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
@@ -2911,11 +3035,11 @@
                     <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
                     <div class="item-marker-option green" onclick="updateMarkerColor('${item.id}', 'green')" title="Grün"></div>
                   </div>` : ''}
-                </div>
+                </div>` : ''}
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text">${isBookmark ? text : `"${text}"`}</div>
+            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
             <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
             <div class="item-tags-row">
               ${tags.length > 0 ? `
@@ -2925,7 +3049,7 @@
               ` : '<div></div>'}
               ${!multiDeleteMode ? `
                 <div class="item-actions">
-                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}', ${isBookmark})" title="Löschen">
+                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                       <rect x="4" y="6" width="16" height="14" rx="1"/>
                       <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
@@ -2934,15 +3058,25 @@
                       <line x1="14" y1="10" x2="14" y2="16"/>
                     </svg>
                   </button>
-                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', ${isBookmark}, '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>
+                  ${!isHighlight ? `<button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>` : ''}
                 </div>
               ` : ''}
             </div>
           </div>
         `;
-      }).join('');
-      
-      // Event-Delegation funktioniert auch für gefilterte Items (keine zusätzlichen Listener nötig)
+        }).join('');
+        
+        // Stelle originalItems wieder her
+        currentItems = originalItems;
+        
+        // Event-Delegation für GA-Links
+        container.removeEventListener('click', handleGALinkClick);
+        container.addEventListener('click', handleGALinkClick);
+        
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Filtern nach Keyword:', error);
+        container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
+      }
     }
 
     // ===== Multi-Delete =====
@@ -2969,17 +3103,24 @@
     }
     window.updateDeleteButton = updateDeleteButton;
     
-    async function deleteSingleItem(event, itemId, isBookmark) {
+    async function deleteSingleItem(event, itemId) {
       event.stopPropagation();
       
-      const itemType = isBookmark ? 'Bookmark' : 'Zitat';
-      if (!confirm(`Wirklich dieses ${itemType} löschen?`)) {
+      const item = currentItems.find(i => i.id === itemId);
+      const isHighlight = currentTab === 'highlights' || (item && item.item_type === 'highlight');
+      const itemType = isHighlight ? 'Unterstreichung' : 'Zitat';
+      
+      if (!confirm(`Wirklich diese ${itemType} löschen?`)) {
         return;
       }
       
       try {
-        if (isBookmark) {
-          await deleteBookmark(itemId);
+        if (isHighlight) {
+          if (typeof deleteHighlight !== 'function') {
+            alert('Fehler: deleteHighlight Funktion nicht verfügbar.');
+            return;
+          }
+          await deleteHighlight(itemId);
         } else {
           await deleteQuote(itemId);
         }
@@ -3006,15 +3147,20 @@
       const checkboxes = document.querySelectorAll('.item-checkbox:checked');
       if (checkboxes.length === 0) return;
       
-      if (!confirm(`Wirklich ${checkboxes.length} ${currentTab === 'bookmarks' ? 'Bookmark(s)' : 'Zitat(e)'} löschen?`)) {
+      const isHighlight = currentTab === 'highlights';
+      const itemType = isHighlight ? 'Unterstreichung(en)' : 'Zitat(e)';
+      
+      if (!confirm(`Wirklich ${checkboxes.length} ${itemType} löschen?`)) {
         return;
       }
       
       const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
       
       for (const id of ids) {
-        if (currentTab === 'bookmarks') {
-          await deleteBookmark(id);
+        if (isHighlight) {
+          if (typeof deleteHighlight === 'function') {
+            await deleteHighlight(id);
+          }
         } else {
           await deleteQuote(id);
         }

@@ -34,8 +34,20 @@ function createContextMenu() {
   contextMenu.id = 'members-context-menu';
   contextMenu.className = 'members-context-menu';
   contextMenu.innerHTML = `
-    <div class="context-menu-item" onclick="contextMenuAction('bookmark')">
-      <span class="context-menu-text">Bookmark setzen</span>
+    <div class="context-menu-item highlight-menu-item" onmouseenter="showHighlightColorMenu()" onmouseleave="hideHighlightColorMenu()">
+      <span class="context-menu-text">Unterstreichen</span>
+      <span class="context-menu-arrow">▶</span>
+      <div id="highlight-color-menu" class="context-submenu highlight-submenu-hidden" onmouseenter="showHighlightColorMenu()" onmouseleave="hideHighlightColorMenu()">
+        <div class="context-menu-item" onclick="contextMenuAction('highlight', 'blue')" style="border-left: 3px solid #467886;">
+          <span class="context-menu-text">Blau</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('highlight', 'red')" style="border-left: 3px solid #c62828;">
+          <span class="context-menu-text">Rot</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('highlight', 'yellow')" style="border-left: 3px solid #ffc107;">
+          <span class="context-menu-text">Gelb</span>
+        </div>
+      </div>
     </div>
     <div class="context-menu-item" onclick="contextMenuAction('quote')">
       <span class="context-menu-text">Zitat speichern</span>
@@ -121,7 +133,7 @@ function hideContextMenu() {
 /**
  * Context-Menü Aktion
  */
-async function contextMenuAction(action) {
+async function contextMenuAction(action, extraData = null) {
   hideContextMenu();
   
   if (!selectedTextForContext) {
@@ -173,12 +185,12 @@ async function contextMenuAction(action) {
   console.log('[CONTEXTMENU] Context:', { lectureId, gaNumber, paragraphIndex });
   
   switch(action) {
-    case 'bookmark':
-      console.log('[CONTEXTMENU-DEBUG] Rufe saveContextBookmark auf mit paragraphIndex:', paragraphIndex);
-      await saveContextBookmark(selectedTextForContext, lectureId, lectureTitle, paragraphIndex);
-      break;
     case 'quote':
       await saveContextQuote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter);
+      break;
+    case 'highlight':
+      const color = extraData || 'blue'; // Standard: blau
+      await saveContextHighlight(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, color);
       break;
     case 'note':
       openContextNote(selectedTextForContext, lectureId, lectureTitle);
@@ -295,6 +307,250 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     console.error('[QUOTE-SAVE] Fehler:', error);
     console.error('[QUOTE-SAVE] Daten:', { lectureId, paragraphIndex, text_length: text?.length });
     showContextNotification(`✗ Zitat Fehler: ${error.message}`, 'error');
+  }
+}
+
+/**
+ * Unterstreichung aus Context-Menü speichern
+ */
+async function saveContextHighlight(text, lectureId, lectureTitle, paragraphIndex, color = 'blue') {
+  try {
+    if (typeof supabaseClient === 'undefined' || !supabaseClient) {
+      throw new Error('Supabase Client nicht initialisiert');
+    }
+    
+    if (!selectionRangeForContext) {
+      throw new Error('Keine Textauswahl vorhanden');
+    }
+    
+    // Finde den Absatz-Container, der den markierten Text enthält
+    let paragraphNode = selectionRangeForContext.commonAncestorContainer;
+    while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
+      paragraphNode = paragraphNode.parentNode;
+    }
+    
+    // Suche nach dem Absatz-Element (p, div, etc.)
+    while (paragraphNode && !paragraphNode.textContent.includes(text)) {
+      paragraphNode = paragraphNode.parentNode;
+    }
+    
+    if (!paragraphNode) {
+      throw new Error('Absatz nicht gefunden');
+    }
+    
+    // Hole den vollständigen Text des Absatzes
+    const paragraphText = paragraphNode.textContent || paragraphNode.innerText;
+    
+    // Finde die Position des markierten Textes im Absatz
+    const textStartOffset = paragraphText.indexOf(text);
+    const textEndOffset = textStartOffset + text.length;
+    
+    if (textStartOffset === -1) {
+      // Fallback: Versuche mit normalisiertem Text
+      const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
+      const normalizedText = text.replace(/\s+/g, ' ').trim();
+      const normalizedStart = normalizedParagraph.indexOf(normalizedText);
+      
+      if (normalizedStart === -1) {
+        throw new Error('Textposition im Absatz nicht gefunden');
+      }
+      
+      // Verwende die normalisierte Position als Näherung
+      const insertData = {
+        user_id: currentUser.id,
+        ga_number: lectureId,
+        lecture_title: lectureTitle,
+        lecture_url: window.location.href,
+        paragraph_id: paragraphIndex,
+        paragraph_text: paragraphText,
+        text_start_offset: normalizedStart,
+        text_end_offset: normalizedStart + normalizedText.length,
+        color: color
+      };
+      
+      const { data, error } = await supabaseClient
+        .from('highlights')
+        .insert(insertData)
+        .select();
+      
+      if (error) {
+        console.error('Supabase Fehler:', error);
+        throw new Error(error.message || 'Datenbankfehler');
+      }
+      
+      console.log('✓ Unterstreichung gespeichert:', data);
+      showContextNotification('✓ Unterstreichung gespeichert!', 'success');
+      
+      // Unterstreichung visuell anzeigen
+      applyHighlightToSelection(selectionRangeForContext, color);
+      
+      // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
+      if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+        // Invalidiere Cache für Highlights
+        if (typeof invalidateMembersCache === 'function') {
+          invalidateMembersCache('highlights');
+        }
+        // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
+        if (typeof updateMembersPanelIfOpen === 'function') {
+          await updateMembersPanelIfOpen('highlights', true);
+        } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+          // Fallback: Nur aktualisieren wenn Highlights-Tab aktiv ist
+          await loadMembersTab('highlights');
+        }
+      }
+      
+      return;
+    }
+    
+    const insertData = {
+      user_id: currentUser.id,
+      ga_number: lectureId,
+      lecture_title: lectureTitle,
+      lecture_url: window.location.href,
+      paragraph_id: paragraphIndex,
+      paragraph_text: paragraphText,
+      text_start_offset: textStartOffset,
+      text_end_offset: textEndOffset,
+      color: color
+    };
+    
+    const { data, error } = await supabaseClient
+      .from('highlights')
+      .insert(insertData)
+      .select();
+    
+    if (error) {
+      console.error('Supabase Fehler:', error);
+      throw new Error(error.message || 'Datenbankfehler');
+    }
+    
+    console.log('✓ Unterstreichung gespeichert:', data);
+    showContextNotification('✓ Unterstreichung gespeichert!', 'success');
+    
+    // Unterstreichung visuell anzeigen
+    applyHighlightToSelection(selectionRangeForContext);
+    
+    // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
+    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      // Invalidiere Cache für Highlights
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('highlights');
+      }
+      // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('highlights', true);
+      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+        // Fallback: Nur aktualisieren wenn Highlights-Tab aktiv ist
+        await loadMembersTab('highlights');
+      }
+    }
+  } catch (error) {
+    console.error('Fehler beim Speichern der Unterstreichung:', error);
+    showContextNotification(`✗ Fehler: ${error.message}`, 'error');
+  }
+}
+
+/**
+ * Unterstreichung visuell auf die Selection anwenden
+ */
+function applyHighlightToSelection(range, color = 'blue') {
+  if (!range) return;
+  
+  try {
+    const highlightColor = getHighlightColor(color);
+    const span = document.createElement('span');
+    span.className = 'member-highlight';
+    span.style.textDecoration = 'underline';
+    span.style.textDecorationColor = highlightColor;
+    span.style.textDecorationThickness = '1.5px';
+    span.setAttribute('data-highlight', 'true');
+    span.setAttribute('data-highlight-color', color);
+    
+    const contents = range.extractContents();
+    span.appendChild(contents);
+    range.insertNode(span);
+    
+    // Selection aufheben
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+  } catch (e) {
+    console.log('Unterstreichung nicht möglich:', e);
+  }
+}
+
+/**
+ * Gibt die Hex-Farbe basierend auf dem Farbnamen zurück
+ */
+function getHighlightColor(colorName) {
+  const colors = {
+    'blue': '#467886',
+    'red': '#c62828',
+    'yellow': '#ffc107'
+  };
+  return colors[colorName] || colors['blue'];
+}
+
+// Timer für das Verstecken des Untermenüs
+let highlightMenuHideTimer = null;
+
+/**
+ * Zeigt das Farbauswahl-Untermenü für Unterstreichungen
+ */
+function showHighlightColorMenu() {
+  // Lösche Timer falls vorhanden
+  if (highlightMenuHideTimer) {
+    clearTimeout(highlightMenuHideTimer);
+    highlightMenuHideTimer = null;
+  }
+  
+  const submenu = document.getElementById('highlight-color-menu');
+  if (submenu) {
+    // Entferne alle versteckenden Klassen und Styles
+    submenu.classList.remove('highlight-submenu-hidden');
+    submenu.style.display = 'block';
+    submenu.style.visibility = 'visible';
+    submenu.style.opacity = '1';
+    submenu.style.position = 'absolute';
+    submenu.style.left = 'calc(100% + 4px)';
+    submenu.style.top = '0';
+    submenu.style.zIndex = '10003';
+    
+    console.log('[HIGHLIGHT-MENU] Untermenü angezeigt', {
+      display: submenu.style.display,
+      visibility: submenu.style.visibility,
+      opacity: submenu.style.opacity,
+      position: submenu.style.position,
+      left: submenu.style.left,
+      top: submenu.style.top,
+      zIndex: submenu.style.zIndex,
+      computedDisplay: window.getComputedStyle(submenu).display,
+      computedVisibility: window.getComputedStyle(submenu).visibility
+    });
+  } else {
+    console.warn('[HIGHLIGHT-MENU] Untermenü nicht gefunden!');
+  }
+}
+
+/**
+ * Versteckt das Farbauswahl-Untermenü für Unterstreichungen
+ */
+function hideHighlightColorMenu() {
+  // Lösche vorherigen Timer falls vorhanden
+  if (highlightMenuHideTimer) {
+    clearTimeout(highlightMenuHideTimer);
+  }
+  
+  const submenu = document.getElementById('highlight-color-menu');
+  if (submenu) {
+    // Kurze Verzögerung, damit Maus zum Untermenü bewegt werden kann
+    highlightMenuHideTimer = setTimeout(() => {
+      const submenuCheck = document.getElementById('highlight-color-menu');
+      if (submenuCheck) {
+        submenuCheck.classList.add('highlight-submenu-hidden');
+        submenuCheck.style.display = 'none';
+      }
+      highlightMenuHideTimer = null;
+    }, 200);
   }
 }
 
@@ -622,7 +878,7 @@ function addContextMenuStyles() {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       z-index: 10001;
       min-width: 180px;
-      overflow: hidden;
+      overflow: visible;
     }
     
     .context-menu-item {
@@ -642,6 +898,60 @@ function addContextMenuStyles() {
     
     .context-menu-text {
       flex: 1;
+    }
+    
+    .context-menu-arrow {
+      margin-left: 0.5rem;
+      font-size: 0.7rem;
+      color: var(--secondary-text);
+    }
+    
+    .highlight-menu-item {
+      position: relative;
+    }
+    
+    .context-submenu {
+      position: absolute;
+      left: calc(100% + 4px);
+      top: 0;
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      min-width: 120px;
+      z-index: 10003;
+      overflow: visible;
+      pointer-events: auto;
+    }
+    
+    .highlight-submenu-hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    
+    /* Stelle sicher, dass das Untermenü sichtbar bleibt wenn Maus über Parent oder Untermenü ist */
+    .highlight-menu-item:hover .context-submenu,
+    .highlight-menu-item:hover .highlight-submenu-hidden {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    /* Auch wenn direkt über dem Untermenü gehovert wird */
+    .context-submenu:hover {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    .context-submenu .context-menu-item {
+      padding: 8px 12px;
+    }
+    
+    .context-submenu .context-menu-item:hover {
+      background: var(--accent-color);
+      color: white;
     }
     
     .context-notification {
@@ -911,6 +1221,9 @@ function addContextMenuStyles() {
 // Global verfügbar machen
 window.initMembersContextMenu = initMembersContextMenu;
 window.contextMenuAction = contextMenuAction;
+window.showHighlightColorMenu = showHighlightColorMenu;
+window.hideHighlightColorMenu = hideHighlightColorMenu;
+window.getHighlightColor = getHighlightColor;
 
 // Auto-Init wenn DOM geladen - mit Verzögerung
 if (document.readyState === 'loading') {

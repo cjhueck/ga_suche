@@ -29920,6 +29920,7 @@ async function addKeywordToLecture() {
     return result;
   };
   window.getQuotes = MembersAPI.getQuotes;
+  window.getHighlights = MembersAPI.getHighlights;
   window.getNotes = MembersAPI.getNotes;
   window.createNote = MembersAPI.createNote;
   // Wrapper-Funktionen für updateBookmark und updateQuote, die den MB aktualisieren
@@ -29950,6 +29951,20 @@ async function addKeywordToLecture() {
     }
     return result;
   };
+  
+  window.updateHighlight = async function(...args) {
+    const result = await MembersAPI.updateHighlight(...args);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('highlights');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('highlights');
+      }
+    }
+    return result;
+  };
   // Wrapper-Funktionen für deleteBookmark und deleteQuote, die den MB aktualisieren
   window.deleteBookmark = async function(bookmarkId) {
     const result = await MembersAPI.deleteBookmark(bookmarkId);
@@ -29974,6 +29989,20 @@ async function addKeywordToLecture() {
       }
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('quotes');
+      }
+    }
+    return result;
+  };
+  
+  window.deleteHighlight = async function(highlightId) {
+    const result = await MembersAPI.deleteHighlight(highlightId);
+    if (result.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('highlights');
+      }
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('highlights');
       }
     }
     return result;

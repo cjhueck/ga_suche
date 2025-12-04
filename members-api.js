@@ -784,6 +784,115 @@ export function unsubscribeFromChat(channel) {
 }
 
 
+// ============================================
+// HIGHLIGHTS (Unterstreichungen)
+// ============================================
+
+/**
+ * Unterstreichung erstellen
+ */
+export async function createHighlight(gaNumber, lectureTitle, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureUrl = '', color = 'blue') {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    const { data, error } = await supabase
+      .from('highlights')
+      .insert({
+        user_id: user.id,
+        ga_number: gaNumber,
+        lecture_title: lectureTitle,
+        lecture_url: lectureUrl,
+        paragraph_id: paragraphId,
+        paragraph_text: paragraphText,
+        text_start_offset: textStartOffset,
+        text_end_offset: textEndOffset,
+        color: color
+      })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Erstellen der Unterstreichung:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Alle Unterstreichungen des Users abrufen
+ */
+export async function getHighlights(gaNumber = null) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) throw new Error('Nicht angemeldet');
+
+    let query = supabase
+      .from('highlights')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false });
+
+    if (gaNumber) {
+      query = query.eq('ga_number', gaNumber);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Unterstreichungen:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Unterstreichung löschen
+ */
+export async function deleteHighlight(highlightId) {
+  try {
+    const { error } = await supabase
+      .from('highlights')
+      .delete()
+      .eq('id', highlightId);
+
+    if (error) throw error;
+
+    return { success: true };
+  } catch (error) {
+    console.error('Fehler beim Löschen der Unterstreichung:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
+/**
+ * Unterstreichung aktualisieren
+ */
+export async function updateHighlight(highlightId, updates) {
+  try {
+    const { data, error } = await supabase
+      .from('highlights')
+      .update(updates)
+      .eq('id', highlightId)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der Unterstreichung:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+
 // Helper: User-Profil abrufen (aus members-auth.js importiert, aber hier nochmal für einfache Nutzung)
 async function getUserProfile(userId) {
   const { data } = await supabase
