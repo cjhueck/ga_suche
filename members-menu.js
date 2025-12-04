@@ -373,16 +373,16 @@ async function quickSaveQuote() {
     const lectureDate = getCurrentLectureDate(lectureId);
     
     const insertData = {
-      user_id: currentUser.id,
-      quote_text: lastSelection,
+        user_id: currentUser.id,
+        quote_text: lastSelection,
       ga_reference: lectureId,
-      lecture_title: currentContext.lectureTitle || '',
-      lecture_url: window.location.href,
-      context_before: lastSelectionContext?.before || '',
-      context_after: lastSelectionContext?.after || '',
-      personal_note: '',
-      tags: [],
-      is_public: false
+        lecture_title: currentContext.lectureTitle || '',
+        lecture_url: window.location.href,
+        context_before: lastSelectionContext?.before || '',
+        context_after: lastSelectionContext?.after || '',
+        personal_note: '',
+        tags: [],
+        is_public: false
     };
     
     // Füge lecture_date hinzu, falls verfügbar

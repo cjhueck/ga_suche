@@ -202,16 +202,16 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
     const lectureDate = getLectureDateFromId(gaReference);
 
     const insertData = {
-      user_id: user.id,
-      quote_text: quoteText,
-      ga_reference: gaReference,
-      lecture_title: lectureTitle,
-      lecture_url: lectureUrl,
-      context_before: contextBefore,
-      context_after: contextAfter,
-      personal_note: personalNote,
-      tags: tags,
-      is_public: isPublic
+        user_id: user.id,
+        quote_text: quoteText,
+        ga_reference: gaReference,
+        lecture_title: lectureTitle,
+        lecture_url: lectureUrl,
+        context_before: contextBefore,
+        context_after: contextAfter,
+        personal_note: personalNote,
+        tags: tags,
+        is_public: isPublic
     };
     
     // Füge lecture_date hinzu, falls verfügbar
@@ -866,15 +866,15 @@ export async function createHighlight(gaNumber, lectureTitle, paragraphId, parag
     const lectureDate = getLectureDateFromId(gaNumber);
 
     const insertData = {
-      user_id: user.id,
-      ga_number: gaNumber,
-      lecture_title: lectureTitle,
-      lecture_url: lectureUrl,
-      paragraph_id: paragraphId,
-      paragraph_text: paragraphText,
-      text_start_offset: textStartOffset,
-      text_end_offset: textEndOffset,
-      color: color
+        user_id: user.id,
+        ga_number: gaNumber,
+        lecture_title: lectureTitle,
+        lecture_url: lectureUrl,
+        paragraph_id: paragraphId,
+        paragraph_text: paragraphText,
+        text_start_offset: textStartOffset,
+        text_end_offset: textEndOffset,
+        color: color
     };
     
     // Füge lecture_date hinzu, falls verfügbar

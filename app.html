@@ -9472,8 +9472,12 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     const isInTexteTabNow = texteTabCheck && texteTabCheck.classList.contains('active');
     const isInKeywordTabNow = keywordTabCheck && keywordTabCheck.classList.contains('active');
     
-    if (isInGATabNow) {
+    // WICHTIG: Prüfe ob Navigation aus Members Panel kommt
+    const isMembersNavigating = window.membersNavigating === true;
+    
+    if (isInGATabNow && !isMembersNavigating) {
       // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
+      // ABER NICHT wenn Navigation aus Members Panel kommt
       if (summaryPanel) {
         summaryPanel.classList.remove('visible');
         if (verticalResizeHandleWrapper) {

@@ -209,16 +209,16 @@ async function saveAsQuote(text, contextBefore, contextAfter) {
     const lectureDate = getCurrentLectureDate(lectureId);
     
     const insertData = {
-      user_id: currentUser.id,
-      quote_text: text,
+        user_id: currentUser.id,
+        quote_text: text,
       ga_reference: lectureId,
-      lecture_title: currentContext.lectureTitle,
-      lecture_url: window.location.href,
-      context_before: contextBefore,
-      context_after: contextAfter,
-      personal_note: '',
-      tags: [],
-      is_public: false
+        lecture_title: currentContext.lectureTitle,
+        lecture_url: window.location.href,
+        context_before: contextBefore,
+        context_after: contextAfter,
+        personal_note: '',
+        tags: [],
+        is_public: false
     };
     
     // Füge lecture_date hinzu, falls verfügbar
