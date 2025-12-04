@@ -13556,3 +13556,251 @@ GET /api/keywords/available-ga-volumes
 [API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
 GET /api/available-years
 [INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+
+✓ Server läuft auf http://localhost:3003
+
+Verfügbare Endpoints:
+   GET  /debug/status
+   POST /api/hybrid-search
+   POST /api/fulltext-search
+   POST /api/thematic-hybrid-search
+   POST /api/concept-overview
+   POST /api/summarize-lecture
+   GET  /api/check-summary/:gaNumber/:lectureNum
+   GET  /api/full-lecture/:lectureId
+   GET  /api/full-lecture/:gaNumber/:lectureNum
+   GET  /api/lectures/list
+   GET  /api/available-ga
+   GET  /api/ga-overview/:gaNumber
+   GET  /api/book/:gaNumber
+   GET  /ga-overview-map.json
+   POST /api/admin/generate-synonyms
+   GET  /api/admin/synonym-stats
+   POST /api/save-summary
+   POST /api/keywords-generate
+   POST /api/keyword-thematic-search
+   POST /api/concepts-save
+   POST /api/concepts-add
+   POST /api/concepts-delete
+   GET  /api/concepts-files
+   GET  /api/concepts-list
+   POST /api/save-marked-word
+   GET  /summary-database.json
+   POST /api/generate-summary-keywords-batch
+   POST /api/generate-summary-keywords-for-lectures
+   GET  /summary-keywords-database.json
+   GET  /thematic-search-database.json
+   POST /api/generate-keywords
+   GET  /api/keywords-database
+   GET  /api/keywords-stats
+   POST /api/generate-themes
+   GET  /api/themes-database
+   GET  /api/timeline-data
+
+✓ System bereit!
+
+GET /favicon.ico
+GET /path
+GET /$%7Bsrc%7D
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/ga-overview/GA105
+[GA-OVERVIEW] Anfrage für GA105
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA105: 11 Vorträge
+GET /api/ga-overview/GA105
+[GA-OVERVIEW] Anfrage für GA105
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA105: 11 Vorträge
+GET /api/full-lecture/GA105/1
+GET /api/check-summary/GA105/1
+[CHECK-SUMMARY] Prüfe zentrale DB für GA105/1
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA105/1 (Version: v2-unified)
+GET /api/steiner-images/GA105%2F1
+[IMAGES-API] Keine Bilder für GA105/1 gefunden
+GET /api/quotes
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+POST /api/fulltext-search
+Volltext-Suche: Lebenstableau [Relevanz-Filter: ohne]
+Volltext-Suche: 106 Absätze gefunden (Vorträge + Bücher)
+[RELEVANCE-DEBUG] GA063/10 Absatz 11: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "In dieser Welt ist in Form von Gedanken alles, was wir im letzten Lebenslaufe zwischen Geburt und To..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nachdem also der Mensch durch die Pforte des Todes geschritten ist, macht er ein Erlebnis durch in bezug auf das, was wir sein Denken, seine Gedanken nennen. Das Gedankenleben haben wir ja so im Leben..."
+[RELEVANCE-DEBUG] GA068d/10 Absatz 46: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das ganze bisherige letzte Leben tritt dann wie ein großes Tableau, wie ein Wandelpanorama vor die S..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Solange dieser Astralleib noch nicht ganz aus dem Äther- und physischen Leibe heraus ist, ist die Zeit, wo aus der unbewussten nächtlichen Finsternis die Träume auftauchen. Solange der Astralleib noch..."
+[RELEVANCE-DEBUG] GA072/5 Absatz 26: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wenn nun der Geistesforscher Ihnen dasjenige schildert, was mit dem Tode eintritt, so schildert er d..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Damit habe ich Sie hingewiesen darauf, dass durch eine ganz bestimmte innere Erfahrung, durch etwas, was man sorgfältig vorbereiten, wozu man sich sorgfältig innerlich erziehen muss, das eigentlich Se..."
+[RELEVANCE-DEBUG] GA079/1 Absatz 26: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das begründet sogar eine gewisse, ich möchte sagen, schmerzliche Erfahrung zunächst bei dem anthropo..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Zunächst hat man ja noch nichts Äußerliches vor sich. Man hat nur die alten Kräfte verstärkt, intensiver gemacht. Aber man merkt sehr bald, dass in dem Bewusstsein des Menschen jetzt etwas Wesentliche..."
+[RELEVANCE-DEBUG] GA079/1 Absatz 36: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Dieses ist eine sehr wichtige Etappe auf dem Wege zur Wirklichkeit der höheren Welten. Denn wenn wir..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Wiederum habe ich im einzelnen in den genannten Büchern viele Übungen geschildert, durch die wir diese Kraft verstärken, welche die Vorstellung unterdrückt. Dann kommen wir dahin, wenn wir lange Zeit ..."
+[RELEVANCE-DEBUG] GA079/2 Absatz 69: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Wenn man das erkennt, was ich vorhin das Lebenstableau der Rückschau genannt habe, das ein Bildekräf..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Das bloße Denken auszubilden, führt eigentlich nur zu einer Bilderwelt. Will man in dieser Bilderwelt die Wirklichkeit wahrnehmen, dann muss man in der Weise, wie ich es angedeutet habe, auch das, was..."
+[RELEVANCE-DEBUG] GA079/4 Absatz 45: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Und da entdeckt man dann etwas, was ja gewiss für das gewöhnliche Bewusstsein, das gewöhnliche Erken..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Man muss noch andere Übungen machen: Man muss versuchen, wenn ich es so ausdrücken darf, rückwärts zu denken. Das heißt, man kann ja, wenn der Tag vorübergegangen ist, sich - nicht in Gedanken, auch n..."
+[RELEVANCE-DEBUG] GA079/4 Absatz 46: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Man schaut jetzt, wie der Mensch nach seinem Lebenstableau, nun rückwärtslaufend in seinem Erleben, ..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Indem man solche Übungen macht, reißt man das Denken los von dem äußeren Zeitverlaufe. Die Gewohnheit, die man sich tief eingewurzelt hat, mit dem Denken, mit dem Empfinden, mit dem Fühlen dem äußeren..."
+[RELEVANCE-DEBUG] GA080a/1 Absatz 52: Score=0.500, Vorkommen=2, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Aber es kann diese Imagination so weit fortschreiten, dass man dieses eigene Innere wirklich nur vor..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Nun hat man, wenn man zu dieser imaginativen Welt gekommen ist, aber ein volles Bewusstsein davon, dass man einmal eine Welt von Imaginationen hat. Die Art, wie man diese Imaginationen erlebt, ist ein..."
+[RELEVANCE-DEBUG] GA080a/1 Absatz 55: Score=0.300, Vorkommen=1, Kontext-Absätze=5, HitEnthältQuery=true, KontextEnthältQuery=true, Query="lebenstableau"
+[RELEVANCE-DEBUG-CONTEXT] Hit-Preview: "Das Erblicken dieses Lebenstableaus gibt durchaus innerlich das Erlebnis, das ich ein bedrückendes n..."
+[RELEVANCE-DEBUG-CONTEXT] Kontext-Preview: "Sonst ist ja die Erinnerung so, dass aus dem Strom der Erlebnisse das eine oder andere herauftaucht. Jetzt aber hat man, nicht als Erinnerung, sondern als Bild, und zwar als inneres durchkraftetes Bil..."
+[RELEVANCE-SCORING] 106 Treffer: hoch=59, mittel=0, niedrig=47
+[RELEVANCE-THRESHOLDS] Schwellwerte relativ zur Gesamthäufigkeit: hoch≥0.452 (2+ Vorkommen), mittel≥0.301 (2+ Vorkommen)
+  [Single] "lebenstableau"
+
+Extrahierte 1 Suchbegriffe aus "Lebenstableau":
+lebenstableau
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /path
+GET /$%7Bsrc%7D
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /debug/status
+GET /api/steiner-images
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /favicon.ico
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/ga-overview/GA153
+[GA-OVERVIEW] Anfrage für GA153
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[GA-OVERVIEW] Übersicht generiert für GA153: 6 Vorträge
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
