@@ -9338,6 +9338,23 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       steinerImages[bookId] = imagesForBook;
       replaceImageSrcWithBase64(viewer.innerHTML, bookId).then(updatedHTML => {
         viewer.innerHTML = updatedHTML;
+        
+        // WICHTIG: Stelle sicher, dass Paragraph-Indizes wieder verarbeitet wurden
+        // (werden durch innerHTML-Überschreibung entfernt)
+        const bookContentDivAfterImageReplace = viewer.querySelector('.book-content');
+        if (bookContentDivAfterImageReplace && typeof processAllParagraphIndices === 'function') {
+          // Setze Flag zurück, damit Indizes neu verarbeitet werden
+          bookContentDivAfterImageReplace.dataset.indicesProcessed = 'false';
+          processAllParagraphIndices(bookContentDivAfterImageReplace);
+        }
+        
+        // WICHTIG: Wende Unterstreichungen NACH dem Ersetzen der Bilder wieder an
+        // (werden durch innerHTML-Überschreibung entfernt)
+        if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+          setTimeout(() => {
+            markParagraphsWithBookmarksAndQuotes(bookId);
+          }, 100);
+        }
       }).catch(error => {
         console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
       });
@@ -9477,8 +9494,14 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     
     // WICHTIG: Prüfe ob Navigation aus Members Panel kommt
     const isMembersNavigating = window.membersNavigating === true;
+    const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
     
-    if (isInGATabNow && !isMembersNavigating) {
+    // WICHTIG: Wenn Members Panel aktiv ist, Panel NIEMALS schließen/öffnen
+    // (verhindert Schließen/Öffnen bei Büchern, wie bei Vortragsbänden auch)
+    if (isMembersPanelOpen || isMembersNavigating) {
+      // Members Panel ist aktiv - Panel offen halten und Members-Content beibehalten
+      // Nichts tun - Panel bleibt wie es ist
+    } else if (isInGATabNow) {
       // GA-Tab: Schließe Sidebar (TOC wird im Main Viewer angezeigt)
       // ABER NICHT wenn Navigation aus Members Panel kommt
       if (summaryPanel) {
@@ -9496,8 +9519,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         
         document.body.classList.add('summary-panel-collapsed');
       }
-    } else if (isInTexteTabNow || isInKeywordTabNow) {
+    } else if ((isInTexteTabNow || isInKeywordTabNow) && !isMembersPanelOpen && !isMembersNavigating) {
       // Texte-Tab ODER Suche-Tab: Öffne Sidebar für TOC-Anzeige
+      // ABER NICHT wenn Members Panel aktiv ist
       // Texte-Tab: Öffne Sidebar für TOC-Anzeige
       if (summaryPanel) {
         const tabName = isInTexteTabNow ? 'Texte-Tab' : 'Suche-Tab';
@@ -9592,10 +9616,22 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       processAllParagraphIndices(bookContentDiv);
     }
     
+    // WICHTIG: Stelle sicher, dass alle Paragraph-Indizes verarbeitet wurden BEVOR Unterstreichungen angewendet werden
+    // (sonst werden die para- IDs nicht gefunden)
+    const bookContentDivForIndices = viewer.querySelector('.book-content');
+    if (bookContentDivForIndices && typeof processAllParagraphIndices === 'function') {
+      processAllParagraphIndices(bookContentDivForIndices);
+    }
+    
     // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
     if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
       setTimeout(() => {
         const bookId = book.gaNumber || book.ID;
+        // Stelle sicher, dass Paragraph-Indizes verarbeitet wurden
+        const bookContentDivCheck = viewer.querySelector('.book-content');
+        if (bookContentDivCheck && typeof processAllParagraphIndices === 'function') {
+          processAllParagraphIndices(bookContentDivCheck);
+        }
         markParagraphsWithBookmarksAndQuotes(bookId);
         // Stelle Icons nach weiteren DOM-Änderungen wieder her
         setTimeout(() => {
@@ -17686,6 +17722,44 @@ function formatAsteriskParagraphs() {
         
         // Zeige das Buch im Hauptviewer mit Keywords-Hervorhebung und targetIndex
         await displayBook(book, null, keywords, isPhraseArray, targetIndex);
+        
+        // WICHTIG: Wenn Navigation aus Members Panel kommt, Panel offen halten
+        // (wie bei Vortragsbänden auch - verhindere Schließen/Öffnen)
+        if (window.membersNavigating) {
+          // Panel sollte bereits offen sein - stelle sicher dass es offen bleibt
+          // displayBook manipuliert das Panel nicht, aber andere Code-Pfade könnten es tun
+          // Daher explizit sicherstellen dass Panel offen bleibt
+          const summaryPanel = document.getElementById('summary-panel');
+          const summaryContent = document.getElementById('summary-content');
+          if (summaryPanel && summaryContent) {
+            // Prüfe ob Members Panel aktiv ist
+            const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+            if (isMembersPanelOpen) {
+              // Stelle sicher, dass Panel offen ist und Members-Content angezeigt wird
+              // (verhindere dass es durch andere Code-Pfade geschlossen wird)
+              summaryPanel.classList.add('visible');
+              summaryPanel.classList.add('has-members-panel');
+              summaryContent.classList.add('has-members-panel');
+              summaryPanel.style.display = 'block';
+              summaryPanel.style.opacity = '1';
+              summaryPanel.style.visibility = 'visible';
+              document.body.classList.remove('summary-panel-collapsed');
+              
+              // Stelle sicher, dass Members-Content noch vorhanden ist
+              const hasMembersContent = summaryContent.querySelector('#members-tab-content') || 
+                                        summaryContent.querySelector('.members-login-form') ||
+                                        summaryContent.querySelector('.member-item');
+              
+              if (!hasMembersContent) {
+                // Content wurde durch TOC ersetzt - lade Members-Content neu
+                console.warn('[SHOW-LECTURE-BOOK] Members-Content wurde durch TOC ersetzt, lade neu');
+                if (typeof loadMembersTab === 'function') {
+                  loadMembersTab(typeof currentMembersTab !== 'undefined' ? currentMembersTab : 'highlights');
+                }
+              }
+            }
+          }
+        }
         
         return; // Beende Funktion hier für Bücher
       }
