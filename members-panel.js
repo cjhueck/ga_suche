@@ -33,7 +33,6 @@ function saveMembersScrollPosition() {
   // ENTFERNT: top-Position wird NICHT mehr gespeichert - updateHeaderPosition() soll sie frei setzen können
   savedPanelTop = null;
   
-  console.log('[MB-SCROLL] Alle Positionen gespeichert:', savedScrollPositions, 'Panel top:', savedPanelTop);
 }
 
 /**
@@ -58,7 +57,6 @@ function restoreMembersScrollPosition() {
     membersTabContent.scrollTop = savedScrollPositions.membersTabContent;
   }
   
-  console.log('[MB-SCROLL] Alle Positionen + Panel top wiederhergestellt:', savedScrollPositions, savedPanelTop);
 }
 
 /**
@@ -71,7 +69,6 @@ function startScrollPositionProtection() {
   const summaryContent = document.getElementById('summary-content');
   if (!summaryContent) return;
   
-  console.log('[MB-SCROLL] Starte Scroll-Position Schutz für ALLE Ebenen');
   
   // MutationObserver um DOM-Änderungen zu erkennen
   membersScrollObserver = new MutationObserver((mutations) => {
@@ -108,7 +105,6 @@ function startScrollPositionProtection() {
     }
     
     if (restored) {
-      console.log('[MB-SCROLL] Auto-Wiederherstellung bei DOM-Änderung (multi-level + top)');
     }
   });
   
@@ -129,7 +125,6 @@ function stopScrollPositionProtection() {
     membersScrollObserver = null;
   }
   
-  console.log('[MB-SCROLL] Scroll-Position Schutz gestoppt');
 }
 
 /**
@@ -138,7 +133,6 @@ function stopScrollPositionProtection() {
 function openMembersWindow() {
   const membersWindow = window.open('members.html', '_blank');
   if (membersWindow) {
-    console.log('[MEMBERS-WINDOW] Neues Fenster geöffnet, window.opener sollte gesetzt sein');
   } else {
     console.error('[MEMBERS-WINDOW] Popup-Blocker verhindert das Öffnen des Fensters');
     alert('Bitte erlauben Sie Popups für diese Seite, um den Mitgliederbereich zu öffnen.');
@@ -475,6 +469,15 @@ async function showMembersContent() {
     </div>
   `;
   
+  // OPTIMIERUNG: Lade window.fullLecturesData sofort, wenn es noch nicht existiert
+  // Dies beschleunigt das spätere Laden der Vortragsdaten erheblich
+  if (typeof window !== 'undefined' && (!window.fullLecturesData || Object.keys(window.fullLecturesData).length === 0)) {
+    // Lade alle Vortragsdaten im Hintergrund (nicht-blockierend)
+    loadAllLectureDates().catch(err => 
+      console.warn('[MB-CACHE] Fehler beim Vorladen der Vortragsdaten:', err)
+    );
+  }
+  
   // Lade Quotes und Highlights im Hintergrund für schnellen Tab-Wechsel (nur wenn Cache nicht vorhanden)
   const now = Date.now();
   const cacheValid = cachedQuotesData && cachedHighlightsData && 
@@ -487,21 +490,23 @@ async function showMembersContent() {
       cachedQuotesData = quotesResult;
       cachedHighlightsData = highlightsResult;
       bookmarksQuotesCacheTimestamp = Date.now();
-      console.log('[MB-CACHE] Quotes/Highlights-Daten für schnellen Tab-Wechsel gecacht');
       
       // Lade Vortragsdaten im Hintergrund für alle GA-Nummern aus Quotes und Highlights
-      const allGANumbers = [
-        ...new Set([
-          ...(quotesResult.success ? quotesResult.data.map(q => q.ga_reference).filter(Boolean) : []),
-          ...(highlightsResult.success ? highlightsResult.data.map(h => h.ga_number).filter(Boolean) : [])
-        ])
-      ];
-      
-      if (allGANumbers.length > 0) {
-        // Lade Vortragsdaten im Hintergrund (nicht-blockierend)
-        loadLectureDatesForGANumbers(allGANumbers).catch(err => 
-          console.warn('[MB-CACHE] Fehler beim Vorladen der Vortragsdaten:', err)
-        );
+      // (nur wenn window.fullLecturesData noch nicht geladen wurde)
+      if (typeof window !== 'undefined' && (!window.fullLecturesData || Object.keys(window.fullLecturesData).length === 0)) {
+        const allGANumbers = [
+          ...new Set([
+            ...(quotesResult.success ? quotesResult.data.map(q => q.ga_reference).filter(Boolean) : []),
+            ...(highlightsResult.success ? highlightsResult.data.map(h => h.ga_number).filter(Boolean) : [])
+          ])
+        ];
+        
+        if (allGANumbers.length > 0) {
+          // Lade Vortragsdaten im Hintergrund (nicht-blockierend)
+          loadLectureDatesForGANumbers(allGANumbers).catch(err => 
+            console.warn('[MB-CACHE] Fehler beim Vorladen der Vortragsdaten:', err)
+          );
+        }
       }
     }).catch(err => {
       console.warn('[MB-CACHE] Fehler beim Cachen der Daten:', err);
@@ -537,7 +542,6 @@ async function showMembersContent() {
       updateResizeHandle();
     }
     
-    console.log('[MB-OPEN] Panel und Content-Sichtbarkeit nachkorrigiert');
   }, 100);
 }
 
@@ -586,7 +590,6 @@ async function loadMembersTab(tabName) {
     return;
   }
   
-  console.log('[MB-TAB] Lade Tab:', tabName);
   
   try {
     switch(tabName) {
@@ -654,54 +657,37 @@ async function loadLectureDatesForGANumbers(gaNumbers) {
       });
       
       if (loadedCount > 0) {
-        console.log(`[MB-DATE] ${loadedCount} Vortragsdaten aus window.fullLecturesData geladen`);
       }
       return;
     }
     
-    // Wenn nicht alle gefunden, lade über API (nur für fehlende)
-    // ABER: Wenn zu viele fehlen, lade alle auf einmal (effizienter)
-    if (missingGANumbers.length > 50) {
-      // Zu viele einzelne Anfragen - lade alle auf einmal
+    // Wenn window.fullLecturesData noch nicht existiert, lade alle auf einmal (effizienter)
+    // Oder wenn zu viele fehlen (>10), lade alle auf einmal
+    const shouldLoadAll = typeof window === 'undefined' || !window.fullLecturesData || Object.keys(window.fullLecturesData).length === 0 || missingGANumbers.length > 10;
+    
+    if (shouldLoadAll) {
+      // Lade alle Vortragsdaten auf einmal (effizienter als einzelne Anfragen)
       await loadAllLectureDates();
     } else {
-      // Lade nur die fehlenden über API
-      // Da die API keine Batch-Anfrage unterstützt, verwenden wir einen optimierten Ansatz:
-      // Versuche zuerst alle zu laden, wenn das fehlschlägt, lade einzeln
-      try {
-        const response = await fetch('/api/full-lectures');
-        if (response.ok) {
-          const lectures = await response.json();
-          let loadedCount = 0;
-          
-          missingGANumbers.forEach(gaNum => {
-            const normalized = gaNum.toLowerCase();
-            const lecture = lectures[normalized] || 
-                           lectures[gaNum] ||
-                           lectures[gaNum.toUpperCase()];
-            
-            if (lecture && lecture.date) {
-              const formattedDate = formatLectureDate(lecture.date);
-              membersLectureDatesCache[normalized] = formattedDate;
-              membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
-              const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
-              membersLectureDatesCache[mixedCase] = formattedDate;
-              loadedCount++;
-            }
-          });
-          
-          // Speichere auch in window.fullLecturesData für zukünftige Verwendung
-          if (typeof window !== 'undefined') {
-            window.fullLecturesData = lectures;
-          }
-          
-          if (loadedCount > 0) {
-            console.log(`[MB-DATE] ${loadedCount} Vortragsdaten geladen`);
-          }
+      // window.fullLecturesData existiert bereits - verwende es direkt
+      // (Dies sollte eigentlich nicht passieren, da wir oben bereits geprüft haben,
+      // aber als Fallback für den Fall, dass window.fullLecturesData zwischenzeitlich geladen wurde)
+      let loadedCount = 0;
+      missingGANumbers.forEach(gaNum => {
+        const normalized = gaNum.toLowerCase();
+        const lecture = window.fullLecturesData[normalized] || 
+                       window.fullLecturesData[gaNum] ||
+                       window.fullLecturesData[gaNum.toUpperCase()];
+        
+        if (lecture && lecture.date) {
+          const formattedDate = formatLectureDate(lecture.date);
+          membersLectureDatesCache[normalized] = formattedDate;
+          membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
+          const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
+          membersLectureDatesCache[mixedCase] = formattedDate;
+          loadedCount++;
         }
-      } catch (error) {
-        console.warn('[MB-DATE] Fehler beim Laden der Vortragsdaten:', error);
-      }
+      });
     }
   } catch (error) {
     console.warn('[MB-DATE] Fehler beim Laden der Vortragsdaten:', error);
@@ -720,7 +706,6 @@ async function loadAllLectureDates() {
   try {
     // Versuche zuerst aus window.fullLecturesData zu holen (falls bereits geladen)
     if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
-      console.log('[MB-DATE] Verwende bereits geladene Vortragsdaten');
       Object.keys(window.fullLecturesData).forEach(id => {
         const lecture = window.fullLecturesData[id];
         if (lecture.date) {
@@ -739,7 +724,6 @@ async function loadAllLectureDates() {
     
     // Lade über API (nur einmal)
     if (typeof fetch !== 'undefined') {
-      console.log('[MB-DATE] Lade alle Vortragsdaten über API...');
       const response = await fetch('/api/full-lectures');
       if (response.ok) {
         const lectures = await response.json();
@@ -763,7 +747,6 @@ async function loadAllLectureDates() {
         }
         
         membersLectureDatesCache._loaded = true;
-        console.log(`[MB-DATE] ${Object.keys(lectures).length} Vortragsdaten geladen`);
         return membersLectureDatesCache;
       }
     }
@@ -923,7 +906,6 @@ async function loadHighlightsTab(container) {
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
   if (cacheValid) {
-    console.log('[MB-HIGHLIGHTS] Verwende gecachte Highlights-Daten');
     result = cachedHighlightsData;
   } else {
     result = await getHighlights();
@@ -944,37 +926,76 @@ async function loadHighlightsTab(container) {
   
   // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
   // Dies macht die Datumsanzeige sofort verfügbar
-  await loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err));
-  
-  // Lade Keywords parallel (nicht-blockierend für Rendering)
-  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
-  
-  // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
+  // OPTIMIERUNG: Rendere SOFORT ohne auf Vortragsdaten zu warten
+  // Sortiere zunächst nach Erstellungsdatum (schneller, blockiert nicht)
   const sortedData = [...result.data].sort((a, b) => {
-    const dateA = getLectureDateForSorting(a.ga_number);
-    const dateB = getLectureDateForSorting(b.ga_number);
-    
-    if (dateA && dateB) {
-      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-    }
-    
-    if (dateA && !dateB) {
-      return sortOrder === 'asc' ? -1 : 1;
-    }
-    if (!dateA && dateB) {
-      return sortOrder === 'asc' ? 1 : -1;
-    }
-    
     const createdA = new Date(a.created_at);
     const createdB = new Date(b.created_at);
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Rendere mit verfügbaren Daten (Daten sollten jetzt im Cache sein)
+  // OPTIMIERUNG: Lade Vortragsdaten SOFORT wenn window.fullLecturesData bereits existiert
+  // (dann sind sie sofort verfügbar, kein Warten nötig)
+  if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
+    // Daten sind bereits geladen - fülle Cache sofort
+    uniqueGANumbers.forEach(gaNum => {
+      const normalized = gaNum.toLowerCase();
+      if (!membersLectureDatesCache[normalized] && !membersLectureDatesCache[gaNum] && !membersLectureDatesCache[gaNum.toUpperCase()]) {
+        const lecture = window.fullLecturesData[normalized] || 
+                       window.fullLecturesData[gaNum] ||
+                       window.fullLecturesData[gaNum.toUpperCase()];
+        if (lecture && lecture.date) {
+          const formattedDate = formatLectureDate(lecture.date);
+          membersLectureDatesCache[normalized] = formattedDate;
+          membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
+          const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
+          membersLectureDatesCache[mixedCase] = formattedDate;
+        }
+      }
+    });
+  }
+  
+  // Rendere sofort mit verfügbaren Daten
   renderHighlightsList(container, sortedData);
   
-  // Aktualisiere Datumsanzeigen (sollte jetzt sofort funktionieren, da Daten im Cache sind)
+  // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
   updateHighlightDates(container, sortedData);
+  
+  // Lade fehlende Vortragsdaten im HINTERGRUND (nicht-blockierend)
+  loadLectureDatesForGANumbers(uniqueGANumbers).then(() => {
+    // Nach dem Laden: Sortiere nach Vortragsdatum und aktualisiere Anzeige
+    const sortedByDate = [...result.data].sort((a, b) => {
+      const dateA = getLectureDateForSorting(a.ga_number);
+      const dateB = getLectureDateForSorting(b.ga_number);
+      
+      if (dateA && dateB) {
+        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+      }
+      
+      if (dateA && !dateB) {
+        return sortOrder === 'asc' ? -1 : 1;
+      }
+      if (!dateA && dateB) {
+        return sortOrder === 'asc' ? 1 : -1;
+      }
+      
+      const createdA = new Date(a.created_at);
+      const createdB = new Date(b.created_at);
+      return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
+    });
+    
+    // Aktualisiere nur wenn sich die Sortierung geändert hat
+    if (JSON.stringify(sortedData.map(d => d.id)) !== JSON.stringify(sortedByDate.map(d => d.id))) {
+      renderHighlightsList(container, sortedByDate);
+    }
+    
+    // Aktualisiere Datumsanzeigen
+    updateHighlightDates(container, sortedByDate);
+  }).catch(err => console.warn('[MB-DATE] Fehler:', err));
+  
+  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+  
 }
 
 /**
@@ -1075,9 +1096,19 @@ function updateHighlightDates(container, sortedData) {
         const link = strongTag.querySelector('a');
         if (link) {
           // Füge Komma und Datum nach dem Link hinzu
+          // WICHTIG: Reihenfolge beachten - zuerst Komma, dann Datum
           const textNode = document.createTextNode(', ');
-          strongTag.insertBefore(textNode, link.nextSibling);
-          strongTag.insertBefore(dateSpan, link.nextSibling);
+          // Verwende insertAfter-Logik: füge nach dem Link ein
+          if (link.nextSibling) {
+            // Füge zuerst das Datum ein (wird vor nextSibling eingefügt)
+            strongTag.insertBefore(dateSpan, link.nextSibling);
+            // Dann füge das Komma ein (wird vor dateSpan eingefügt)
+            strongTag.insertBefore(textNode, dateSpan);
+          } else {
+            // Link ist das letzte Element, füge am Ende hinzu
+            strongTag.appendChild(textNode);
+            strongTag.appendChild(dateSpan);
+          }
         } else {
           // Füge Komma und Datum zum Strong-Tag hinzu
           const textNode = document.createTextNode(', ');
@@ -1129,7 +1160,6 @@ async function loadQuotesTab(container) {
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
   
   if (cacheValid) {
-    console.log('[MB-QUOTES] Verwende gecachte Quotes-Daten');
     result = cachedQuotesData;
   } else {
     result = await getQuotes();
@@ -1148,43 +1178,79 @@ async function loadQuotesTab(container) {
   // Sammle alle eindeutigen GA-Nummern für lazy loading
   const uniqueGANumbers = [...new Set(result.data.map(q => q.ga_reference).filter(Boolean))];
   
+  // OPTIMIERUNG: Lade Vortragsdaten SOFORT wenn window.fullLecturesData bereits existiert
+  // (dann sind sie sofort verfügbar, kein Warten nötig)
+  if (typeof window !== 'undefined' && window.fullLecturesData && Object.keys(window.fullLecturesData).length > 0) {
+    // Daten sind bereits geladen - fülle Cache sofort
+    uniqueGANumbers.forEach(gaNum => {
+      const normalized = gaNum.toLowerCase();
+      if (!membersLectureDatesCache[normalized] && !membersLectureDatesCache[gaNum] && !membersLectureDatesCache[gaNum.toUpperCase()]) {
+        const lecture = window.fullLecturesData[normalized] || 
+                       window.fullLecturesData[gaNum] ||
+                       window.fullLecturesData[gaNum.toUpperCase()];
+        if (lecture && lecture.date) {
+          const formattedDate = formatLectureDate(lecture.date);
+          membersLectureDatesCache[normalized] = formattedDate;
+          membersLectureDatesCache[gaNum.toUpperCase()] = formattedDate;
+          const mixedCase = gaNum.charAt(0).toUpperCase() + gaNum.slice(1).toLowerCase();
+          membersLectureDatesCache[mixedCase] = formattedDate;
+        }
+      }
+    });
+  }
+  
   // Lade Vortragsdaten VOR dem Rendering (wenn möglich aus Cache oder window.fullLecturesData)
   // Dies macht die Datumsanzeige sofort verfügbar
-  await loadLectureDatesForGANumbers(uniqueGANumbers).catch(err => console.warn('[MB-DATE] Fehler:', err));
-  
-  // Lade Keywords parallel (nicht-blockierend für Rendering)
-  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
-  
-  // Sortiere nach Vortragsdatum (nicht nach Erstellungsdatum)
-  // Daten sollten jetzt im Cache sein
+  // OPTIMIERUNG: Rendere SOFORT ohne auf Vortragsdaten zu warten
+  // Sortiere zunächst nach Erstellungsdatum (schneller, blockiert nicht)
   const sortedData = [...result.data].sort((a, b) => {
-    const dateA = getLectureDateForSorting(a.ga_reference);
-    const dateB = getLectureDateForSorting(b.ga_reference);
-    
-    // Wenn beide Daten vorhanden sind, sortiere nach Vortragsdatum
-    if (dateA && dateB) {
-      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-    }
-    
-    // Wenn nur eines vorhanden ist, kommt es zuerst (oder zuletzt je nach Sortierreihenfolge)
-    if (dateA && !dateB) {
-      return sortOrder === 'asc' ? -1 : 1;
-    }
-    if (!dateA && dateB) {
-      return sortOrder === 'asc' ? 1 : -1;
-    }
-    
-    // Wenn beide fehlen, sortiere nach Erstellungsdatum als Fallback
     const createdA = new Date(a.created_at);
     const createdB = new Date(b.created_at);
     return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
   });
   
-  // Rendere mit verfügbaren Daten (Daten sollten jetzt im Cache sein)
+  // Rendere sofort mit verfügbaren Daten
   renderQuotesList(container, sortedData);
-  
-  // Aktualisiere Datumsanzeigen (sollte jetzt sofort funktionieren, da Daten im Cache sind)
+
+  // Aktualisiere Datumsanzeigen mit bereits gecachten Daten (falls vorhanden)
   updateQuoteDates(container, sortedData);
+
+  // Lade fehlende Vortragsdaten im HINTERGRUND (nicht-blockierend)
+  // Dies aktualisiert die Datumsanzeigen nach dem Laden
+  loadLectureDatesForGANumbers(uniqueGANumbers).then(() => {
+    // Nach dem Laden: Sortiere nach Vortragsdatum und aktualisiere Anzeige
+    const sortedByDate = [...result.data].sort((a, b) => {
+      const dateA = getLectureDateForSorting(a.ga_reference);
+      const dateB = getLectureDateForSorting(b.ga_reference);
+      
+      if (dateA && dateB) {
+        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+      }
+      
+      if (dateA && !dateB) {
+        return sortOrder === 'asc' ? -1 : 1;
+      }
+      if (!dateA && dateB) {
+        return sortOrder === 'asc' ? 1 : -1;
+      }
+      
+      const createdA = new Date(a.created_at);
+      const createdB = new Date(b.created_at);
+      return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
+    });
+    
+    // Aktualisiere nur wenn sich die Sortierung geändert hat
+    if (JSON.stringify(sortedData.map(d => d.id)) !== JSON.stringify(sortedByDate.map(d => d.id))) {
+      renderQuotesList(container, sortedByDate);
+    }
+    
+    // Aktualisiere Datumsanzeigen
+    updateQuoteDates(container, sortedByDate);
+  }).catch(err => console.warn('[MB-DATE] Fehler:', err));
+
+  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+  
 }
 
 /**
@@ -1280,10 +1346,29 @@ function updateQuoteDates(container, sortedData) {
       
       const strongTag = header.querySelector('strong');
       if (strongTag) {
-        // Füge Komma vor dem span hinzu
-        const textNode = document.createTextNode(', ');
-        strongTag.appendChild(textNode);
-        strongTag.appendChild(dateSpan);
+        // Prüfe ob es einen Link gibt
+        const link = strongTag.querySelector('a');
+        if (link) {
+          // Füge Komma und Datum nach dem Link hinzu
+          // WICHTIG: Reihenfolge beachten - zuerst Komma, dann Datum
+          const textNode = document.createTextNode(', ');
+          // Verwende insertAfter-Logik: füge nach dem Link ein
+          if (link.nextSibling) {
+            // Füge zuerst das Datum ein (wird vor nextSibling eingefügt)
+            strongTag.insertBefore(dateSpan, link.nextSibling);
+            // Dann füge das Komma ein (wird vor dateSpan eingefügt)
+            strongTag.insertBefore(textNode, dateSpan);
+          } else {
+            // Link ist das letzte Element, füge am Ende hinzu
+            strongTag.appendChild(textNode);
+            strongTag.appendChild(dateSpan);
+          }
+        } else {
+          // Füge Komma und Datum zum Strong-Tag hinzu
+          const textNode = document.createTextNode(', ');
+          strongTag.appendChild(textNode);
+          strongTag.appendChild(dateSpan);
+        }
       }
     }
   });
@@ -1295,7 +1380,6 @@ function updateQuoteDates(container, sortedData) {
  * @param {string} targetIndex - Optional: Der Index des Absatzes zum Scrollen
  */
 async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) {
-  console.log('[MB-NAVIGATION] Navigiere zu:', lectureId, 'mit targetIndex:', targetIndex);
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
@@ -1309,7 +1393,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
   
   // Klone den GESAMTEN Members-Content
   const savedContentNode = summaryContent ? summaryContent.cloneNode(true) : null;
-  console.log('[MB-NAVIGATION] Members Content geklont');
   
   // Setze Flag
   window.membersNavigating = true;
@@ -1324,7 +1407,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
   const originalBuildTOC = window.buildTableOfContents;
   window.buildTableOfContents = function() {
     if (window.membersNavigating) {
-      console.log('[MB-NAVIGATION] buildTableOfContents blockiert');
       return;
     }
     return originalBuildTOC ? originalBuildTOC.apply(this, arguments) : null;
@@ -1369,14 +1451,12 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     const currentGA = texteGAFilter.value;
     if (currentGA !== gaNumber) {
       texteGAFilter.value = gaNumber;
-      console.log(`[MB-NAVIGATION] GA-Filter geändert von ${currentGA} zu ${gaNumber}`);
     }
   }
   
   // Lade Buch oder Vortrag
   if (isBook) {
     // Für Bücher: Lade über API und zeige mit displayBook
-    console.log('[MB-NAVIGATION] Lade Buch:', gaNumber, 'mit targetIndex:', targetIndex);
     try {
       const API_BASE = window.API_BASE || '';
       const response = await fetch(`${API_BASE}/api/book/${gaNumber}`);
@@ -1400,7 +1480,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
             }
           }
           
-          console.log('[MB-NAVIGATION] Rufe displayBook auf mit targetIndex:', bookTargetIndex);
           await displayBook(book, null, [], [], bookTargetIndex);
           
           // Warte kurz, damit displayBook fertig ist, bevor wir den Content wiederherstellen
@@ -1431,7 +1510,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     if (currentSummaryContent) {
       const newNode = savedContentNode.cloneNode(true);
       currentSummaryContent.parentNode.replaceChild(newNode, currentSummaryContent);
-      console.log('[MB-NAVIGATION] Members Content wiederhergestellt');
     }
   }
   
@@ -1499,7 +1577,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null) 
     // Finale Scroll-Wiederherstellung
     setTimeout(() => {
       restoreMembersScrollPosition();
-      console.log('[MB-NAVIGATION] Abgeschlossen');
     }, 50);
   }, 200);
 }
@@ -1996,12 +2073,10 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     
     if (cacheValid) {
       // Verwende gecachte Daten (synchron, sehr schnell!)
-      console.log('[MB-ICONS] Verwende gecachte Quotes/Highlights-Daten');
       quotesResult = cachedQuotesData;
       highlightsResult = cachedHighlightsData;
     } else {
       // Lade alle Zitate und Unterstreichungen (nur wenn Cache nicht verfügbar)
-      console.log('[MB-ICONS] Lade Quotes/Highlights-Daten...');
       const results = await Promise.all([
         getQuotes(),
         getHighlights ? getHighlights() : Promise.resolve({ success: false, data: [] })
@@ -2201,7 +2276,6 @@ function applyStoredHighlight(highlight) {
               span.appendChild(contents);
               range.insertNode(span);
             } catch (e) {
-              console.log('Fehler beim Anwenden der Unterstreichung:', e);
             }
           }
         }
@@ -2256,13 +2330,11 @@ function applyStoredHighlight(highlight) {
             found = true;
             break;
           } catch (e) {
-            console.log('Fehler beim Anwenden der Unterstreichung:', e);
           }
         }
       }
       
       if (!found) {
-        console.log('Text für Unterstreichung nicht gefunden:', textToHighlight);
       }
     }
   } catch (error) {
@@ -2842,8 +2914,6 @@ function switchFromMembersPanelToTOC() {
     }, 150);
   }
   
-  console.log('[MB→TOC] Panel-Breite, Main-Container und Resize-Handle wurden angepasst');
-  console.log('[MB→TOC] Wechsel vom Mitgliederbereich zum TOC - Layout-Update wird vom Aufrufer abgeschlossen');
 }
 
 /**
@@ -2872,7 +2942,6 @@ async function updateKeywordFilterDropdownWithAllKeywords() {
     let quotesResult, highlightsResult;
     
     if (cacheValid) {
-      console.log('[MB-KEYWORDS] Verwende gecachte Quotes/Highlights-Daten für Keywords');
       quotesResult = cachedQuotesData;
       highlightsResult = cachedHighlightsData;
     } else {

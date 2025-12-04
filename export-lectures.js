@@ -76,7 +76,6 @@ class SteinerLecturesExporter {
         if (month) {
           date = `${year}-${month}-${day}`;
           datePartIndex = i;
-          console.log(`[EXPORT] Datum gefunden in Teil ${i}: "${part}" → ${date}`);
           break;
         }
       }
@@ -331,13 +330,10 @@ class SteinerLecturesExporter {
   async export(selectedGAs = [], options = {}) {
     const { syncMetadata = true } = options;
     
-    console.log('🔍 Searching for lecture files...');
     const allFiles = this.findMarkdownFiles(this.sourceDir);
     const lectures = [];
     const allImages = {}; // Sammelt alle Bildverweise: { lectureId: [ {index, altText, path, ...} ] }
 
-    console.log(`📚 Found ${allFiles.length} markdown files`);
-    console.log('📖 Processing lectures...\n');
 
     let processed = 0;
     for (const filePath of allFiles) {
@@ -430,22 +426,18 @@ class SteinerLecturesExporter {
         // Speichere Bilder für diesen Vortrag
         if (lectureImages.length > 0) {
           allImages[meta.ID] = lectureImages;
-          console.log(`   📷 ${meta.ID}: ${lectureImages.length} Bild(er) gefunden`);
         }
 
         processed++;
         if (processed % 50 === 0) {
-          console.log(`   Processed ${processed} lectures...`);
         }
       }
     }
 
     if (lectures.length === 0) {
-      console.log('❌ No matching lectures found.');
       return;
     }
 
-    console.log(`\n✅ Processed ${lectures.length} lectures`);
 
     // Sort lectures by GA number and lecture number
     lectures.sort((a, b) => {
@@ -464,13 +456,11 @@ class SteinerLecturesExporter {
     const rangeStart = exportedGAs[0].replace(/^GA/, '').padStart(3, '0');
     const rangeEnd = exportedGAs[exportedGAs.length - 1].replace(/^GA/, '').padStart(3, '0');
 
-    console.log(`📊 Range: GA${rangeStart} - GA${rangeEnd}`);
 
     // Split into chunks of max 10 MB
     const maxSize = 10 * 1024 * 1024; // 10 MB
     const chunks = this.splitLecturesIntoChunks(lectures, maxSize);
 
-    console.log(`💾 Creating ${chunks.length} file(s)...\n`);
 
     const exportedFiles = [];
 
@@ -491,27 +481,19 @@ class SteinerLecturesExporter {
       fs.writeFileSync(filePath, jsonStr, 'utf8');
 
       const sizeMB = (Buffer.byteLength(jsonStr, 'utf8') / (1024 * 1024)).toFixed(2);
-      console.log(`   ✓ ${fileName} (${sizeMB} MB, ${chunk.length} lectures)`);
       
       exportedFiles.push(fileName);
     }
 
-    console.log(`\n🎉 Export complete!`);
-    console.log(`   ${lectures.length} lectures exported to ${chunks.length} file(s)`);
-    console.log(`   Files: ${exportedFiles.join(', ')}`);
     
     // Exportiere Bilder in separate JSON-Datei
     if (Object.keys(allImages).length > 0) {
-      console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-      console.log(`📷 Verarbeite ${Object.keys(allImages).length} Vorträge mit Bildern...\n`);
       
       await this.exportImages(allImages);
     }
     
     // Automatische Synchronisation der Metadaten (optional)
     if (syncMetadata) {
-      console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-      console.log('🔄 Starte automatische Metadaten-Synchronisation...\n');
       
       try {
         await this.syncMetadataToExistingDatabases();
@@ -520,8 +502,6 @@ class SteinerLecturesExporter {
         console.warn('   Sie können manuell synchronisieren mit: node sync-metadata-from-fulllectures.js');
       }
     } else {
-      console.log('\n⚠️  Metadaten-Synchronisation übersprungen (--no-sync Option)');
-      console.log('   Führen Sie später aus: node sync-metadata-from-fulllectures.js');
     }
   }
   
@@ -593,7 +573,6 @@ class SteinerLecturesExporter {
           try {
             if (isJpeg) {
               // Konvertiere JPEG zu PNG
-              console.log(`   🔄 Konvertiere JPEG zu PNG: ${decodedPath}`);
               imageBuffer = await sharp(fullImagePath)
                 .png()
                 .toBuffer();
@@ -673,13 +652,8 @@ class SteinerLecturesExporter {
     // HINWEIS: steiner-images.json wird nicht mehr erstellt - nur part-Dateien
     // Die Bilder werden direkt in gesplitteten part-Dateien gespeichert
     
-    console.log(`\n✅ Bilder-Export abgeschlossen:`);
-    console.log(`   📷 ${processedImages} Bilder erfolgreich exportiert`);
-    console.log(`   ⚠  ${failedImages} Bilder nicht gefunden`);
     
     // Splitte Bilder in chunks und speichere als part-Dateien
-    console.log(`\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-    console.log(`📦 Erstelle gesplittete Bilder-Dateien...`);
     
     // Konvertiere imagesWithData zu Array
     const imagesList = [];
@@ -721,7 +695,6 @@ class SteinerLecturesExporter {
       chunks.push(currentChunk);
     }
     
-    console.log(`\n   Erstelle ${chunks.length} part-Dateien...\n`);
     
     // Speichere chunks
     for (let i = 0; i < chunks.length; i++) {
@@ -734,10 +707,8 @@ class SteinerLecturesExporter {
       const sizeBytes = fs.statSync(filepath).size;
       const sizeMB = (sizeBytes / (1024 * 1024)).toFixed(2);
       
-      console.log(`   [${String(i + 1).padStart(2, ' ')}] ${filename}: ${chunk.length} Bilder (${sizeMB} MB)`);
     }
     
-    console.log(`\n   💾 ${chunks.length} part-Dateien erstellt (steiner-images-part01.json - part${String(chunks.length).padStart(2, '0')}.json)`);
   }
   
   // Finde GA-Verzeichnis für einen GA-Band
@@ -770,7 +741,6 @@ class SteinerLecturesExporter {
     
     // Prüfe ob Datenbanken existieren
     if (!fs.existsSync(keywordsDBPath)) {
-      console.log('[SYNC] keywords-database.json nicht gefunden - überspringe Sync');
       return;
     }
     
@@ -780,7 +750,6 @@ class SteinerLecturesExporter {
       f.startsWith('steiner-full-lectures-') && f.endsWith('.json')
     );
     
-    console.log(`[SYNC] Lade ${files.length} fullLectures-Dateien...`);
     
     for (const file of files) {
       try {
@@ -800,11 +769,9 @@ class SteinerLecturesExporter {
       }
     }
     
-    console.log(`[SYNC] Total: ${Object.keys(fullLectures).length} Vorträge geladen\n`);
     
     // Lade keywords-database
     const keywordsDB = JSON.parse(fs.readFileSync(keywordsDBPath, 'utf8'));
-    console.log(`[SYNC] keywords-database.json: ${Object.keys(keywordsDB).length} Einträge`);
     
     let kwUpdated = 0;
     let kwNoChange = 0;
@@ -849,15 +816,12 @@ class SteinerLecturesExporter {
       }
     }
     
-    console.log(`[SYNC] Aktualisiert: ${kwUpdated}, Unverändert: ${kwNoChange}`);
     
     // Speichere nur wenn Änderungen vorgenommen wurden
     if (kwUpdated > 0) {
       fs.writeFileSync(keywordsDBPath, JSON.stringify(keywordsDB, null, 2), 'utf8');
-      console.log(`[SYNC] ✓ keywords-database.json gespeichert`);
     }
     
-    console.log('\n✅ Metadaten-Synchronisation abgeschlossen!');
   }
   
   // Hilfsfunktion: Extrahiere Datum aus String
@@ -900,20 +864,15 @@ if (require.main === module) {
   let selectedGAs = [];
   if (gaArgs.length > 0) {
     selectedGAs = exporter.parseGAInput(gaArgs.join(','));
-    console.log(`🎯 Exporting selected GAs: ${selectedGAs.join(', ')}`);
   } else {
-    console.log('🎯 Exporting ALL lectures');
   }
   
   if (noSync) {
-    console.log('⚠️  Metadaten-Sync deaktiviert (--no-sync)\n');
   } else {
-    console.log('✅ Metadaten-Sync aktiviert (Standard)\n');
   }
 
   exporter.export(selectedGAs, { syncMetadata: !noSync })
     .then(() => {
-      console.log('\n✨ Done!');
       process.exit(0);
     })
     .catch(err => {

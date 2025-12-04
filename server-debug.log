@@ -20534,3 +20534,388 @@ GET /api/available-years
 GET /api/quotes
 [SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
 [IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/quotes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/quotes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /path
+GET /$%7Bsrc%7D
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/quotes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /favicon.ico
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/steiner-images
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /favicon.ico
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/quotes
+GET /api/quotes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /debug/status
+GET /api/steiner-images
+[DEBUG] Gefundene Books-Dateien: steiner-books-001-020-part01.json, steiner-books-021-046-part02.json
+
+Gefundene Dateien:
+  Search-Dateien: []
+  Lecture-Dateien: ["steiner-full-lectures-051-354-part01.json","steiner-full-lectures-051-354-part02.json","steiner-full-lectures-051-354-part03.json","steiner-full-lectures-051-354-part04.json","steiner-full-lectures-051-354-part05.json","steiner-full-lectures-051-354-part06.json","steiner-full-lectures-051-354-part07.json","steiner-full-lectures-051-354-part08.json","steiner-full-lectures-051-354-part09.json","steiner-full-lectures-051-354-part10.json","steiner-full-lectures-051-354-part11.json","steiner-full-lectures-051-354-part12.json","steiner-full-lectures-051-354-part13.json","steiner-full-lectures-051-354-part14.json","steiner-full-lectures-051-354-part15.json","steiner-full-lectures-051-354-part16.json","steiner-full-lectures-051-354-part17.json"]
+  Books-Dateien: ["steiner-books-001-020-part01.json","steiner-books-021-046-part02.json"]
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/list-files
+[SUMMARY-DB] Geladen: 4491 Einträge aus summary-database.json
+GET /api/ga-list
+[API/GA-LIST] Request erhalten
+[API/GA-LIST] fullLectures: 4487 Vorträge
+[API/GA-LIST] fullBooks: 40 Bücher
+[API/GA-LIST] Sende 355 GA-Bände
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /api/keywords/available-ga-volumes
+[API/AVAILABLE-GA-VOLUMES] Request erhalten
+[API/AVAILABLE-GA-VOLUMES] fullLectures: 4487 Vorträge
+[API/AVAILABLE-GA-VOLUMES] fullBooks: 40 Bücher
+[API/AVAILABLE-GA-VOLUMES] Sende 355 Volumes
+GET /favicon.ico
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/available-years
+[INFO] Verfügbare Jahre: 26 Jahre von 1888 bis 1924
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+GET /api/full-lectures
+[FULL-LECTURES] API-Aufruf
+[FULL-LECTURES] Sende 4487 Vorträge
+[IMAGES-API] Sende Liste von 1057 Vorträgen (ohne Bilder)
+GET /api/quotes
+GET /api/quotes

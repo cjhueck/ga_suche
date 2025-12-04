@@ -16,7 +16,6 @@ const BOOKS_TO_UPDATE = [
 async function updateBookHeadings(gaNumber) {
   return new Promise((resolve, reject) => {
     const url = `${API_BASE}/api/book/${gaNumber}`;
-    console.log(`[UPDATE] Lade ${gaNumber}...`);
     
     http.get(url, (res) => {
       let data = '';
@@ -29,7 +28,6 @@ async function updateBookHeadings(gaNumber) {
         if (res.statusCode === 200) {
           try {
             const book = JSON.parse(data);
-            console.log(`[UPDATE] ✓ ${gaNumber}: ${book.headings?.length || 0} Überschriften aktualisiert`);
             resolve({ success: true, gaNumber, headingsCount: book.headings?.length || 0 });
           } catch (e) {
             console.error(`[UPDATE] ✗ ${gaNumber}: JSON Parse Fehler:`, e.message);
@@ -48,10 +46,6 @@ async function updateBookHeadings(gaNumber) {
 }
 
 async function updateAllBooks() {
-  console.log('========================================');
-  console.log('Aktualisiere Überschriften für Bücher GA001-GA013');
-  console.log(`API Base: ${API_BASE}`);
-  console.log('========================================\n');
   
   const results = [];
   
@@ -69,28 +63,18 @@ async function updateAllBooks() {
     }
   }
   
-  console.log('\n========================================');
-  console.log('Zusammenfassung:');
-  console.log('========================================');
   
   const successful = results.filter(r => r.success);
   const failed = results.filter(r => !r.success);
   
-  console.log(`✓ Erfolgreich: ${successful.length}`);
   successful.forEach(r => {
-    console.log(`  - ${r.gaNumber}: ${r.headingsCount} Überschriften`);
   });
   
   if (failed.length > 0) {
-    console.log(`\n✗ Fehlgeschlagen: ${failed.length}`);
     failed.forEach(r => {
-      console.log(`  - ${r.gaNumber}: ${r.error}`);
     });
   }
   
-  console.log('\n========================================');
-  console.log('Fertig!');
-  console.log('========================================');
 }
 
 // Führe Update aus

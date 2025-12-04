@@ -118,14 +118,12 @@ class ConceptsExporter {
 
   // Export single letter or all
   async export(selectedLetters = []) {
-    console.log('🔍 Searching for Schlagwörter A-Z files...\n');
     
     const keywords = [];
     const lettersToExport = selectedLetters.length > 0 
       ? selectedLetters.map(l => l.toUpperCase()) 
       : this.alphabet;
 
-    console.log(`📚 Exporting letters: ${lettersToExport.join(', ')}\n`);
 
     for (const letter of lettersToExport) {
       const filePath = path.join(this.sourceDir, 'Schlagwörter A-Z', `${letter}.md`);
@@ -135,7 +133,6 @@ class ConceptsExporter {
         continue;
       }
 
-      console.log(`📖 Processing ${letter}.md...`);
       
       const content = fs.readFileSync(filePath, 'utf8');
       const entries = this.splitIntoEntries(content);
@@ -149,15 +146,12 @@ class ConceptsExporter {
         }
       }
       
-      console.log(`   ✓ Extracted ${count} keywords from ${letter}.md`);
     }
 
     if (keywords.length === 0) {
-      console.log('\n❌ No keywords found.');
       return;
     }
 
-    console.log(`\n✅ Total keywords extracted: ${keywords.length}`);
 
     // Sort alphabetically
     keywords.sort((a, b) => a.keyword.localeCompare(b.keyword));
@@ -185,10 +179,6 @@ class ConceptsExporter {
     fs.writeFileSync(filePath, jsonStr, 'utf8');
 
     const sizeMB = (Buffer.byteLength(jsonStr, 'utf8') / (1024 * 1024)).toFixed(2);
-    console.log(`\n💾 Exported to: ${fileName}`);
-    console.log(`   Size: ${sizeMB} MB`);
-    console.log(`   Keywords: ${keywords.length}`);
-    console.log(`   GA References: ${keywords.reduce((sum, kw) => sum + kw.gaReferences.length, 0)}`);
 
     // Print statistics
     const letterStats = {};
@@ -196,13 +186,9 @@ class ConceptsExporter {
       letterStats[kw.alphabetical] = (letterStats[kw.alphabetical] || 0) + 1;
     });
 
-    console.log('\n📊 Keywords per letter:');
     Object.keys(letterStats).sort().forEach(letter => {
-      console.log(`   ${letter}: ${letterStats[letter]}`);
     });
 
-    console.log(`\n🎉 Export complete!`);
-    console.log(`\n💡 To undo integration: Delete ${fileName} and restart the application.`);
   }
 }
 
@@ -247,17 +233,13 @@ if (require.main === module) {
     if (selectedLetters.length > 0) {
       // Remove duplicates and sort
       selectedLetters = [...new Set(selectedLetters)].sort();
-      console.log(`🎯 Exporting selected letters: ${selectedLetters.join(', ')}\n`);
     } else {
-      console.log('🎯 Exporting ALL letters (A-Z)\n');
     }
   } else {
-    console.log('🎯 Exporting ALL letters (A-Z)\n');
   }
 
   exporter.export(selectedLetters)
     .then(() => {
-      console.log('\n✨ Done!');
       process.exit(0);
     })
     .catch(err => {

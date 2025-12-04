@@ -1300,8 +1300,6 @@
       window.getHighlights = getHighlights;
       window.deleteHighlight = deleteHighlight;
       window.updateHighlight = updateHighlight;
-      
-      console.log('[MEMBERS-HTML] ✓ Module erfolgreich geladen');
     } catch (error) {
       console.error('[MEMBERS-HTML] ✗ Fehler beim Laden der Module:', error);
       const messageDiv = document.getElementById('auth-message');
@@ -1999,13 +1997,6 @@
         };
       });
       
-      // Debug: Log marker colors after sorting
-      currentItems.forEach(item => {
-        if (item.marker_color) {
-          console.log('[AFTER SORT] Item', item.id, 'marker_color:', item.marker_color);
-        }
-      });
-      
       renderItems();
       updateKeywordFilter();
       } catch (error) {
@@ -2093,11 +2084,6 @@
           if (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green') {
             markerColor = colorStr;
           }
-        }
-        
-        // Debug: Log marker color during render
-        if (markerColor) {
-          console.log('[RENDER] Item', item.id, 'marker_color:', markerColor, 'item.marker_color:', item.marker_color);
         }
         
         return `
@@ -2612,14 +2598,8 @@
       e.preventDefault();
       e.stopPropagation();
       
-      console.log('[MEMBERS-CLICK] ========== LINK GEKLICKT ==========');
       const gaNumber = link.dataset.ga;
       const paragraphId = link.dataset.paragraphId || '';
-      console.log('[MEMBERS-CLICK] GA-Nummer:', gaNumber);
-      console.log('[MEMBERS-CLICK] Absatz-ID:', paragraphId);
-      console.log('[MEMBERS-CLICK] window.opener:', !!window.opener);
-      console.log('[MEMBERS-CLICK] saveMembersScrollPosition verfügbar:', typeof window.saveMembersScrollPosition);
-      console.log('[MEMBERS-CLICK] navigateToLectureFromMembersPanel verfügbar:', typeof window.navigateToLectureFromMembersPanel);
       
       if (!gaNumber) {
         console.error('[MEMBERS-CLICK] Keine GA-Nummer gefunden!');
@@ -2629,13 +2609,11 @@
       // WICHTIG: Fokussiere das opener-Fenster SOFORT beim Click (funktioniert besser bei direkter User-Interaktion)
       if (window.opener && !window.opener.closed) {
         try {
-          console.log('[MEMBERS-CLICK] Versuche opener-Fenster zu fokussieren...');
           window.opener.focus();
           // Versuche auch über window-Objekt
           if (window.opener.window) {
             window.opener.window.focus();
           }
-          console.log('[MEMBERS-CLICK] Opener-Fenster fokussiert');
         } catch (err) {
           console.warn('[MEMBERS-CLICK] Konnte opener-Fenster nicht fokussieren:', err);
         }
@@ -2652,8 +2630,6 @@
       }
       
       if (typeof window.navigateToLectureFromMembersPanel === 'function') {
-        console.log('[MEMBERS-CLICK] Rufe navigateToLectureFromMembersPanel auf...');
-        
         // Rufe Navigation auf
         window.navigateToLectureFromMembersPanel(gaNumber, paragraphId);
         
@@ -2661,7 +2637,6 @@
         setTimeout(() => {
           try {
             if (window.opener && !window.opener.closed) {
-              console.log('[MEMBERS-CLICK] Fokussiere opener-Fenster und schließe members.html...');
               window.opener.focus();
               // Schließe dieses Fenster
               window.close();
@@ -2699,13 +2674,6 @@
     window.saveMembersScrollPosition = saveMembersScrollPosition;
 
     function navigateToLectureFromMembersPanel(gaNumber, paragraphId) {
-      console.log('[MEMBERS-NAV] ========== START ==========');
-      console.log('[MEMBERS-NAV] Funktion aufgerufen!');
-      console.log('[MEMBERS-NAV] GA-Nummer:', gaNumber);
-      console.log('[MEMBERS-NAV] Absatz-ID:', paragraphId);
-      console.log('[MEMBERS-NAV] window.opener vorhanden:', !!window.opener);
-      console.log('[MEMBERS-NAV] window.opener geschlossen:', window.opener ? window.opener.closed : 'N/A');
-      
       // Sicherstellen, dass die Funktion wirklich aufgerufen wird
       if (!gaNumber) {
         console.error('[MEMBERS-NAV] FEHLER: Keine GA-Nummer übergeben!');
@@ -2714,17 +2682,11 @@
       
       // Prüfe ob wir in einem neuen Fenster sind (von app.html geöffnet)
       if (window.opener && !window.opener.closed) {
-        console.log('[MEMBERS-NAV] Öffne im opener-Fenster');
         // Springe zurück zum ursprünglichen Fenster
         const openerWindow = window.opener;
         
         // Fokussiere das ursprüngliche Fenster - mehrfach versuchen
         try {
-          // Prüfe ob Fenster minimiert ist
-          if (openerWindow.document && openerWindow.document.hidden !== undefined) {
-            console.log('[MEMBERS-NAV] Fenster versteckt:', openerWindow.document.hidden);
-          }
-          
           // Versuche verschiedene Methoden zum Fokussieren
           openerWindow.focus();
           
@@ -2750,33 +2712,24 @@
               console.warn('[MEMBERS-NAV] Fokus-Retry fehlgeschlagen:', e);
             }
           }, 100);
-          
-          console.log('[MEMBERS-NAV] Opener-Fenster fokussiert');
         } catch (err) {
           console.warn('[MEMBERS-NAV] Konnte Fenster nicht fokussieren:', err);
         }
         
         // Prüfe ob showLecture verfügbar ist
         const hasShowLecture = typeof openerWindow.showLecture === 'function';
-        console.log('[MEMBERS-NAV] showLecture verfügbar:', hasShowLecture);
         
         // Navigiere im ursprünglichen Fenster zum Vortrag
         if (hasShowLecture) {
           // Verwende showLecture Funktion direkt - das ist der beste Weg
           // showLecture scrollt automatisch zum Absatz, wenn targetIndex übergeben wird
-          console.log('[MEMBERS-NAV] Rufe showLecture im opener-Fenster auf');
-          console.log('[MEMBERS-NAV] Parameter:', gaNumber, paragraphId || null);
-          
           try {
             // Rufe showLecture auf (ist async)
             const result = openerWindow.showLecture(gaNumber, paragraphId || null, []);
-            console.log('[MEMBERS-NAV] showLecture aufgerufen, Ergebnis:', result);
             
             // Wenn es ein Promise ist, warte darauf und scrolle dann zum Absatz
             if (result && typeof result.then === 'function') {
               result.then(() => {
-                console.log('[MEMBERS-NAV] showLecture abgeschlossen');
-                
                 // Nach dem Laden explizit zum Absatz scrollen
                 if (paragraphId) {
                   // Fokussiere das Fenster nochmal nach dem Laden
@@ -2787,21 +2740,14 @@
                   }
                   
                   setTimeout(() => {
-                    console.log('[MEMBERS-NAV] Scrolle zum Absatz:', paragraphId);
-                    console.log('[MEMBERS-NAV] scrollToIndexInViewer verfügbar:', typeof openerWindow.scrollToIndexInViewer);
-                    
                     // Versuche scrollToIndexInViewer zu verwenden
                     if (typeof openerWindow.scrollToIndexInViewer === 'function') {
-                      console.log('[MEMBERS-NAV] Verwende scrollToIndexInViewer');
                       openerWindow.scrollToIndexInViewer(paragraphId);
                     } else {
-                      console.log('[MEMBERS-NAV] scrollToIndexInViewer nicht verfügbar, verwende Fallback');
                       // Fallback: Direktes Scrollen zum Element
                       const cleanIndex = paragraphId.replace(/^\^/, '');
-                      console.log('[MEMBERS-NAV] Suche Element: para-' + cleanIndex);
                       const paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
                       if (paraElement) {
-                        console.log('[MEMBERS-NAV] Element gefunden, scrolle...');
                         const mainContainer = openerWindow.document.getElementById('main');
                         if (mainContainer) {
                           const header = openerWindow.document.getElementById('viewer-header');
@@ -2810,9 +2756,7 @@
                           const paraRect = paraElement.getBoundingClientRect();
                           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
                           mainContainer.scrollTop = Math.max(0, relativeTop);
-                          console.log('[MEMBERS-NAV] Gescrollt zu Position:', relativeTop);
                         } else {
-                          console.log('[MEMBERS-NAV] main-Container nicht gefunden, verwende scrollIntoView');
                           paraElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         }
                       } else {
@@ -2821,7 +2765,6 @@
                         setTimeout(() => {
                           const retryElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
                           if (retryElement) {
-                            console.log('[MEMBERS-NAV] Element bei Retry gefunden');
                             retryElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                           } else {
                             console.error('[MEMBERS-NAV] Element auch bei Retry nicht gefunden');
@@ -2846,7 +2789,6 @@
             console.error('[MEMBERS-NAV] Fehler beim Aufruf von showLecture:', err);
             console.error('[MEMBERS-NAV] Stack:', err.stack);
             // Fallback: URL-basierte Navigation
-            console.log('[MEMBERS-NAV] Fallback zu URL-Navigation');
             if (paragraphId) {
               openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
             } else {
@@ -2855,7 +2797,6 @@
           }
         } else {
           // Fallback: URL-basierte Navigation
-          console.log('[MEMBERS-NAV] showLecture nicht verfügbar, verwende URL-basierte Navigation');
           if (paragraphId) {
             openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
           } else {
@@ -2864,14 +2805,12 @@
         }
       } else {
         // Normale Navigation (falls direkt geöffnet)
-        console.log('[MEMBERS-NAV] Normale Navigation (kein opener oder opener geschlossen)');
         if (paragraphId) {
           window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
         } else {
           window.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}`;
         }
       }
-      console.log('[MEMBERS-NAV] ========== ENDE ==========');
     }
     window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
 

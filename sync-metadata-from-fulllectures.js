@@ -10,12 +10,8 @@ const fsSync = require('fs');
 const path = require('path');
 
 async function syncMetadata() {
-  console.log('╔════════════════════════════════════════════════════════════════╗');
-  console.log('║  Synchronisiere Metadaten aus fullLectures                    ║');
-  console.log('╚════════════════════════════════════════════════════════════════╝\n');
   
   // 1. Lade fullLectures
-  console.log('[SYNC] Lade fullLectures...');
   const fullLectures = {};
   const files = [
     'steiner-full-lectures-051-311-part01.json',
@@ -40,25 +36,20 @@ async function syncMetadata() {
             fullLectures[lecture.ID] = lecture;
           }
         });
-        console.log(`  ✓ ${file}: ${data.lectures.length} Vorträge`);
       }
     } catch (error) {
       console.warn(`  ⚠ ${file}: ${error.message}`);
     }
   }
   
-  console.log(`[SYNC] Total fullLectures geladen: ${Object.keys(fullLectures).length}\n`);
   
   // 2. Lade Datenbanken
-  console.log('[SYNC] Lade Datenbanken...');
   const keywordsDBPath = path.join(__dirname, 'keywords-database.json');
   const summaryDBPath = path.join(__dirname, 'summary-database.json');
   
   const keywordsDB = JSON.parse(await fs.readFile(keywordsDBPath, 'utf8'));
   const summaryDB = JSON.parse(await fs.readFile(summaryDBPath, 'utf8'));
   
-  console.log(`  ✓ keywords-database.json: ${Object.keys(keywordsDB).length} Einträge`);
-  console.log(`  ✓ summary-database.json: ${Object.keys(summaryDB).length} Einträge\n`);
   
   // 3. Hilfsfunktion: Extrahiere Datum aus location/fileName
   function extractDateFromString(str) {
@@ -83,7 +74,6 @@ async function syncMetadata() {
   }
   
   // 4. Synchronisiere keywords-database.json
-  console.log('[SYNC] Synchronisiere keywords-database.json...\n');
   let kwUpdated = 0;
   let kwNoFullLecture = 0;
   
@@ -101,7 +91,6 @@ async function syncMetadata() {
     if (!date && (fullLecture.location || fullLecture.fileName)) {
       date = extractDateFromString(fullLecture.location || fullLecture.fileName);
       if (date) {
-        console.log(`  [KW] ${lectureId}: Datum aus location/fileName extrahiert: ${date}`);
       }
     }
     
@@ -128,15 +117,12 @@ async function syncMetadata() {
     }
     
     if (updated) {
-      console.log(`  ✓ ${lectureId}: date=${date}, year=${year}, location=${location || '(null)'}`);
       kwUpdated++;
     }
   }
   
-  console.log(`\n[SYNC] keywords-database.json: ${kwUpdated} Einträge aktualisiert, ${kwNoFullLecture} nicht in fullLectures gefunden\n`);
   
   // 5. Synchronisiere summary-database.json (hat keine date/year Felder, daher nur zur Info)
-  console.log('[SYNC] Prüfe summary-database.json...');
   let summaryNoFullLecture = 0;
   
   for (const [lectureId] of Object.entries(summaryDB)) {
@@ -145,24 +131,13 @@ async function syncMetadata() {
     }
   }
   
-  console.log(`[SYNC] summary-database.json: ${summaryNoFullLecture} Einträge nicht in fullLectures gefunden`);
-  console.log('[SYNC] (summary-database.json speichert date/year nicht, daher keine Änderungen)\n');
   
   // 6. Speichere aktualisierte Datenbanken
   if (kwUpdated > 0) {
-    console.log('[SYNC] Speichere keywords-database.json...');
     await fs.writeFile(keywordsDBPath, JSON.stringify(keywordsDB, null, 2), 'utf8');
-    console.log('[SYNC] ✓ Gespeichert!\n');
   }
   
   // 7. Zusammenfassung
-  console.log('╔════════════════════════════════════════════════════════════════╗');
-  console.log('║  Zusammenfassung                                               ║');
-  console.log('╚════════════════════════════════════════════════════════════════╝');
-  console.log(`  fullLectures: ${Object.keys(fullLectures).length} Vorträge`);
-  console.log(`  keywords-database: ${kwUpdated} aktualisiert`);
-  console.log(`  Nicht gefunden: ${kwNoFullLecture} in keywords-DB, ${summaryNoFullLecture} in summary-DB`);
-  console.log('\n✅ Synchronisation abgeschlossen!');
 }
 
 // Hauptausführung
