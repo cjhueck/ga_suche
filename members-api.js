@@ -135,6 +135,62 @@ export async function updateBookmark(bookmarkId, updates) {
 // ============================================
 
 /**
+ * Ermittelt das Datum eines Vortrags aus der lectureId
+ * Diese Funktion kann optional verwendet werden, wenn currentLectureData verfügbar ist
+ */
+function getLectureDateFromId(lectureId) {
+  if (!lectureId) return null;
+  
+  // Versuche aus currentLectureData zu holen (falls verfügbar)
+  if (typeof currentLectureData !== 'undefined' && currentLectureData && currentLectureData.ID === lectureId) {
+    let date = currentLectureData.date || currentLectureData.dateString || '';
+    
+    if (date) {
+      // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
+      if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return date;
+      }
+      
+      // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
+      const dateMatch = date.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+      if (dateMatch) {
+        const day = dateMatch[1].padStart(2, '0');
+        const monthNames = {
+          'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+          'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+        };
+        const month = monthNames[dateMatch[2].toLowerCase()];
+        const year = dateMatch[3];
+        if (month) {
+          return `${year}-${month}-${day}`;
+        }
+      }
+    }
+    
+    // Fallback: Versuche aus fileName oder location zu extrahieren
+    if (!date && (currentLectureData.fileName || currentLectureData.location)) {
+      const locationMatch = (currentLectureData.location || currentLectureData.fileName || '').match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+      if (locationMatch) {
+        const day = locationMatch[1].padStart(2, '0');
+        const monthNames = {
+          'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+          'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+          'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+        };
+        const month = monthNames[locationMatch[2].toLowerCase()];
+        const year = locationMatch[3];
+        if (month) {
+          return `${year}-${month}-${day}`;
+        }
+      }
+    }
+  }
+  
+  return null;
+}
+
+/**
  * Zitat erstellen
  */
 export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false, lectureUrl = '') {
@@ -142,20 +198,30 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
 
+    // Ermittle das Datum des Vortrags
+    const lectureDate = getLectureDateFromId(gaReference);
+
+    const insertData = {
+      user_id: user.id,
+      quote_text: quoteText,
+      ga_reference: gaReference,
+      lecture_title: lectureTitle,
+      lecture_url: lectureUrl,
+      context_before: contextBefore,
+      context_after: contextAfter,
+      personal_note: personalNote,
+      tags: tags,
+      is_public: isPublic
+    };
+    
+    // Füge lecture_date hinzu, falls verfügbar
+    if (lectureDate) {
+      insertData.lecture_date = lectureDate;
+    }
+
     const { data, error } = await supabase
       .from('quotes')
-      .insert({
-        user_id: user.id,
-        quote_text: quoteText,
-        ga_reference: gaReference,
-        lecture_title: lectureTitle,
-        lecture_url: lectureUrl,
-        context_before: contextBefore,
-        context_after: contextAfter,
-        personal_note: personalNote,
-        tags: tags,
-        is_public: isPublic
-      })
+      .insert(insertData)
       .select()
       .single();
 
@@ -796,19 +862,29 @@ export async function createHighlight(gaNumber, lectureTitle, paragraphId, parag
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
 
+    // Ermittle das Datum des Vortrags
+    const lectureDate = getLectureDateFromId(gaNumber);
+
+    const insertData = {
+      user_id: user.id,
+      ga_number: gaNumber,
+      lecture_title: lectureTitle,
+      lecture_url: lectureUrl,
+      paragraph_id: paragraphId,
+      paragraph_text: paragraphText,
+      text_start_offset: textStartOffset,
+      text_end_offset: textEndOffset,
+      color: color
+    };
+    
+    // Füge lecture_date hinzu, falls verfügbar
+    if (lectureDate) {
+      insertData.lecture_date = lectureDate;
+    }
+
     const { data, error } = await supabase
       .from('highlights')
-      .insert({
-        user_id: user.id,
-        ga_number: gaNumber,
-        lecture_title: lectureTitle,
-        lecture_url: lectureUrl,
-        paragraph_id: paragraphId,
-        paragraph_text: paragraphText,
-        text_start_offset: textStartOffset,
-        text_end_offset: textEndOffset,
-        color: color
-      })
+      .insert(insertData)
       .select()
       .single();
 
