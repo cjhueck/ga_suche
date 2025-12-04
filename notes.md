@@ -13,4 +13,6 @@ DIese Änderung (neuer Header im Side Panel) soll NUR im Tab Index und in demjen
 Ist das verständlich?
 
 
-wenn auf einen vortrags-link (z.B. GA291/12) geklickt wird, wird im @app.html immer der treffer-absatz mit transparentem blau gehighlighted. Das soll so bleiben AUSSER bei Klick auf einen Vortrags-Link für eine Unterstreichung im Members-panel. Also VORSICHT: Änderung spezifisch NUR für Vortrags-Links von Unterstreichungen, NICHT für Links von Zitaten oder für anderen Votrags-Links im @app.html 
+
+
+Er unterscheidet, '/br'Wählet und richtet;'/br'Er kann dem Augenblick '/br'Dauer verleihen.53
