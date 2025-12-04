@@ -694,6 +694,15 @@ async function switchMembersTab(tabName, preserveKeyword = false) {
     keywordSelect.value = '';
   }
   
+  // GA-Filter zurücksetzen beim Wechsel zwischen Unterstreichungen und Zitate
+  if (tabName === 'highlights' || tabName === 'quotes') {
+    const gaFilterSelect = document.getElementById('ga-filter-select');
+    if (gaFilterSelect) {
+      gaFilterSelect.value = '';
+    }
+    selectedGAFilter = ''; // Setze auch die Variable zurück
+  }
+  
   // Content laden
   await loadMembersTab(tabName);
 }
@@ -2583,9 +2592,9 @@ function toggleSortOrder() {
  */
 function toggleMultiDeleteMode() {
   multiDeleteMode = !multiDeleteMode;
-  // Aktuellen Tab neu laden
-  if (currentMembersTab === 'quotes') {
-    loadMembersTab('quotes');
+  // Aktuellen Tab neu laden (funktioniert für beide: quotes und highlights)
+  if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights') {
+    loadMembersTab(currentMembersTab);
   }
   
   // Update Button-Status
