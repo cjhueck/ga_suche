@@ -1389,7 +1389,36 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId) {
               setTimeout(() => {
                 const targetItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
                 if (targetItem) {
-                  targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  // Scrolle nur den Content-Bereich, nicht das gesamte Panel
+                  const membersContent = document.querySelector('.members-content');
+                  if (membersContent) {
+                    const containerRect = membersContent.getBoundingClientRect();
+                    const itemRect = targetItem.getBoundingClientRect();
+                    const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+                    const containerHeight = membersContent.clientHeight;
+                    const itemHeight = itemRect.height;
+                    const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                    
+                    membersContent.scrollTo({
+                      top: Math.max(0, targetScrollTop),
+                      behavior: 'smooth'
+                    });
+                  } else {
+                    const membersTabContent = document.getElementById('members-tab-content');
+                    if (membersTabContent) {
+                      const containerRect = membersTabContent.getBoundingClientRect();
+                      const itemRect = targetItem.getBoundingClientRect();
+                      const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
+                      const containerHeight = membersTabContent.clientHeight;
+                      const itemHeight = itemRect.height;
+                      const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                      
+                      membersTabContent.scrollTo({
+                        top: Math.max(0, targetScrollTop),
+                        behavior: 'smooth'
+                      });
+                    }
+                  }
                   // Visuelles Highlight
                   targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
                   setTimeout(() => {
