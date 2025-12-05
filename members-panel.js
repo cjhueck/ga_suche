@@ -3574,12 +3574,12 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
       });
     }
     
-    // Füge Bookmark-Icons zu allen bestehenden Zitaten hinzu
-    setTimeout(() => {
-      if (typeof addBookmarkIconsToExistingQuotes === 'function') {
-        addBookmarkIconsToExistingQuotes();
-      }
-    }, 100);
+    // KEIN Bookmark-Icon mehr in den Highlight-Spans - nur noch das Icon am Absatzanfang (bookmark-quote-indicator)
+    // setTimeout(() => {
+    //   if (typeof addBookmarkIconsToExistingQuotes === 'function') {
+    //     addBookmarkIconsToExistingQuotes();
+    //   }
+    // }, 100);
   } catch (error) {
     console.error('Fehler beim Markieren der Absätze:', error);
   }
@@ -4469,42 +4469,7 @@ function applyQuoteHighlightToElement(targetElement, quote) {
           const contents = range.extractContents();
           span.appendChild(contents);
           
-          // Füge Bookmark-Icon hinzu mit Farbe
-          const quoteColor = quote.marker_color || 'blue';
-          const quoteColorHex = getHighlightColor(quoteColor);
-          const bookmarkIcon = document.createElement('span');
-          bookmarkIcon.className = 'quote-bookmark-icon';
-          bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
-          bookmarkIcon.style.setProperty('margin-left', '4px', 'important');
-          bookmarkIcon.style.setProperty('vertical-align', 'middle', 'important');
-          bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
-          bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
-          bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
-          bookmarkIcon.style.setProperty('color', quoteColorHex, 'important');
-          bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
-          bookmarkIcon.setAttribute('data-quote-id', quote.id);
-          bookmarkIcon.innerHTML = `
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-            </svg>
-          `;
-          
-          // Click-Handler für Icon
-          bookmarkIcon.onclick = (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            jumpToQuoteById(quote.id);
-          };
-          
-          // Hover-Effekt
-          bookmarkIcon.addEventListener('mouseenter', () => {
-            bookmarkIcon.style.opacity = '1';
-          });
-          bookmarkIcon.addEventListener('mouseleave', () => {
-            bookmarkIcon.style.opacity = '0.6';
-          });
-          
-          span.appendChild(bookmarkIcon);
+          // KEIN Bookmark-Icon mehr hier - nur noch das Icon am Absatzanfang (bookmark-quote-indicator)
           range.insertNode(span);
           console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung erfolgreich angewendet (dauerhaft, analog zu Unterstreichungen)');
           
@@ -4523,67 +4488,17 @@ function applyQuoteHighlightToElement(targetElement, quote) {
 
 /**
  * Fügt Bookmark-Icons zu allen bestehenden Zitaten im DOM hinzu (falls noch nicht vorhanden)
+ * DEAKTIVIERT: Icons werden nur noch am Absatzanfang (bookmark-quote-indicator) angezeigt
  */
 function addBookmarkIconsToExistingQuotes() {
-  const quoteHighlights = document.querySelectorAll('[data-quote="true"][data-quote-id]');
-  quoteHighlights.forEach(quoteSpan => {
-    // Prüfe ob bereits ein Icon vorhanden ist
-    if (quoteSpan.querySelector('.quote-bookmark-icon')) {
-      return; // Bereits vorhanden
-    }
-    
-    const quoteId = quoteSpan.getAttribute('data-quote-id');
-    if (!quoteId) return;
-    
-    // Hole Quote-Farbe aus Cache oder verwende Standard
-    let quoteColor = 'blue';
-    let quoteColorHex = getHighlightColor(quoteColor);
-    if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
-      const quote = cachedQuotesData.data.find(q => q.id === quoteId);
-      if (quote && quote.marker_color) {
-        quoteColor = quote.marker_color;
-        quoteColorHex = getHighlightColor(quoteColor);
-      }
-    }
-    
-    // Erstelle Bookmark-Icon mit Farbe
-    const bookmarkIcon = document.createElement('span');
-    bookmarkIcon.className = 'quote-bookmark-icon';
-    bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
-    bookmarkIcon.style.setProperty('margin-left', '4px', 'important');
-    bookmarkIcon.style.setProperty('vertical-align', 'middle', 'important');
-    bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
-    bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
-    bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
-    bookmarkIcon.style.setProperty('color', quoteColorHex, 'important');
-    bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
-    bookmarkIcon.setAttribute('data-quote-id', quoteId);
-    bookmarkIcon.innerHTML = `
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
-        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-      </svg>
-    `;
-    
-    // Click-Handler für Icon
-    bookmarkIcon.onclick = (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      if (typeof jumpToQuoteById === 'function') {
-        jumpToQuoteById(quoteId);
-      }
-    };
-    
-    // Hover-Effekt
-    bookmarkIcon.addEventListener('mouseenter', () => {
-      bookmarkIcon.style.opacity = '1';
-    });
-    bookmarkIcon.addEventListener('mouseleave', () => {
-      bookmarkIcon.style.opacity = '0.6';
-    });
-    
-    // Füge Icon hinzu
-    quoteSpan.appendChild(bookmarkIcon);
-  });
+  // Funktion deaktiviert - Icons werden nur noch am Absatzanfang angezeigt
+  return;
+  
+  // Alte Implementierung (auskommentiert):
+  // const quoteHighlights = document.querySelectorAll('[data-quote="true"][data-quote-id]');
+  // quoteHighlights.forEach(quoteSpan => {
+  //   // ... Icon-Erstellung entfernt
+  // });
 }
 
 /**
