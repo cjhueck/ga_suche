@@ -782,3 +782,35 @@ span[data-highlight="true"],
   cursor: pointer !important;
 }
 
+/* Kontextmenü für Highlight-Farbänderung im Member Panel */
+.members-highlight-context-menu {
+  position: fixed;
+  display: none;
+  background: var(--background-color, #FAF8F3);
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10001;
+  min-width: 120px;
+  overflow: visible;
+}
+
+.highlight-context-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-size: 0.9rem;
+  color: var(--text-color, #333333);
+}
+
+.highlight-context-menu-item:hover {
+  background: var(--accent-color, #467886);
+  color: white;
+}
+
+.highlight-context-menu-text {
+  flex: 1;
+}
+

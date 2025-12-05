@@ -1014,6 +1014,127 @@ function renderHighlightsList(container, sortedData) {
   }).join('');
   
   container.innerHTML = html;
+  
+  // Füge Event-Listener für Rechtsklick-Kontextmenü hinzu
+  attachHighlightContextMenuListeners(container);
+}
+
+/**
+ * Fügt Event-Listener für Rechtsklick-Kontextmenü auf Highlight-Items hinzu
+ */
+function attachHighlightContextMenuListeners(container) {
+  const highlightItems = container.querySelectorAll('.member-item[data-type="highlight"]');
+  
+  highlightItems.forEach(item => {
+    item.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const highlightId = item.getAttribute('data-id');
+      if (!highlightId) return;
+      
+      showHighlightColorContextMenu(e.clientX, e.clientY, highlightId);
+    });
+  });
+}
+
+/**
+ * Zeigt das Kontextmenü zum Ändern der Highlight-Farbe
+ */
+function showHighlightColorContextMenu(x, y, highlightId) {
+  // Entferne vorheriges Menü falls vorhanden
+  const existingMenu = document.getElementById('members-highlight-context-menu');
+  if (existingMenu) {
+    existingMenu.remove();
+  }
+  
+  // Erstelle neues Menü
+  const menu = document.createElement('div');
+  menu.id = 'members-highlight-context-menu';
+  menu.className = 'members-highlight-context-menu';
+  menu.innerHTML = `
+    <div class="highlight-context-menu-item" onclick="changeHighlightColor('${highlightId}', 'blue')" style="border-left: 3px solid #467886;">
+      <span class="highlight-context-menu-text">Blau</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeHighlightColor('${highlightId}', 'red')" style="border-left: 3px solid #c62828;">
+      <span class="highlight-context-menu-text">Rot</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeHighlightColor('${highlightId}', 'yellow')" style="border-left: 3px solid #ffc107;">
+      <span class="highlight-context-menu-text">Gelb</span>
+    </div>
+  `;
+  
+  document.body.appendChild(menu);
+  
+  // Positioniere Menü
+  menu.style.display = 'block';
+  menu.style.left = x + 'px';
+  menu.style.top = y + 'px';
+  
+  // Viewport-Grenzen prüfen
+  const menuRect = menu.getBoundingClientRect();
+  
+  // Rechts aus dem Viewport?
+  if (menuRect.right > window.innerWidth) {
+    menu.style.left = (window.innerWidth - menuRect.width - 10) + 'px';
+  }
+  
+  // Unten aus dem Viewport?
+  if (menuRect.bottom > window.innerHeight) {
+    menu.style.top = (window.innerHeight - menuRect.height - 10) + 'px';
+  }
+  
+  // Klick außerhalb schließt Menü
+  const closeMenu = (e) => {
+    if (!menu.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+      document.removeEventListener('contextmenu', closeMenu);
+    }
+  };
+  
+  // Warte kurz bevor Event-Listener hinzugefügt wird, damit onclick funktioniert
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('contextmenu', closeMenu);
+  }, 100);
+}
+
+/**
+ * Ändert die Farbe einer Unterstreichung
+ */
+async function changeHighlightColor(highlightId, color) {
+  // Entferne Kontextmenü
+  const menu = document.getElementById('members-highlight-context-menu');
+  if (menu) {
+    menu.remove();
+  }
+  
+  try {
+    if (typeof updateHighlight !== 'function') {
+      alert('Fehler: updateHighlight Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-HIGHLIGHTS] updateHighlight nicht verfügbar');
+      return;
+    }
+    
+    const updateResult = await updateHighlight(highlightId, {
+      color: color
+    });
+    
+    if (updateResult.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      invalidateMembersCache('highlights');
+      await loadMembersTab('highlights');
+      
+      // Zeige Erfolgsmeldung (optional - kann später durch Toast-Notification ersetzt werden)
+      console.log('✓ Farbe geändert');
+    } else {
+      alert('Fehler beim Ändern der Farbe: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Ändern der Farbe:', error);
+    alert('Fehler beim Ändern der Farbe');
+  }
 }
 
 
@@ -5647,6 +5768,7 @@ window.jumpToQuoteById = jumpToQuoteById;
 window.jumpToHighlight = jumpToHighlight;
 window.addBookmarkIconsToExistingQuotes = addBookmarkIconsToExistingQuotes;
 window.loadMembersTab = loadMembersTab;
+window.changeHighlightColor = changeHighlightColor;
 
 /**
  * Invalidiert den Cache für Zitate und/oder Unterstreichungen
