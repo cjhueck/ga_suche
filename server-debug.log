@@ -22395,3 +22395,31 @@ ERROR: [BACKUP] Fehler beim Bereinigen von members: {"errno":-4058,"code":"ENOEN
 [BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
 [BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
 [BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA011: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[BOOK] GA011: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
