@@ -231,6 +231,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0.75rem;
+  padding-bottom: 2rem;
   min-height: 0;
 }
 
