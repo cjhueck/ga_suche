@@ -193,7 +193,7 @@ function getLectureDateFromId(lectureId) {
 /**
  * Zitat erstellen
  */
-export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false, lectureUrl = '') {
+export async function createQuote(quoteText, gaReference, lectureTitle, contextBefore = '', contextAfter = '', personalNote = '', tags = [], isPublic = false, lectureUrl = '', markerColor = null) {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
@@ -213,6 +213,11 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
         tags: tags,
         is_public: isPublic
     };
+    
+    // Füge marker_color hinzu, falls angegeben
+    if (markerColor && (markerColor === 'blue' || markerColor === 'red' || markerColor === 'yellow')) {
+      insertData.marker_color = markerColor;
+    }
     
     // Füge lecture_date hinzu, falls verfügbar
     if (lectureDate) {

@@ -370,9 +370,21 @@
   margin-bottom: 0.4rem;
 }
 
+.member-item-header > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .member-item-header strong {
   color: var(--accent-color);
   font-size: 0.85rem;
+}
+
+.quote-bookmark-icon-header {
+  display: inline-block;
+  flex-shrink: 0;
+  line-height: 1;
 }
 
 .member-item-date {
@@ -412,6 +424,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-clamp: 2; /* Standard-Eigenschaft für moderne Browser */
+}
+
+.member-item-quote a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.member-item-quote a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+
+.quote-bookmark-icon-header {
+  transition: opacity 0.2s;
+}
+
+a:hover .quote-bookmark-icon-header {
+  opacity: 0.7;
 }
 
 .member-item-note {

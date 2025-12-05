@@ -47,8 +47,20 @@ function createContextMenu() {
         </div>
       </div>
     </div>
-    <div class="context-menu-item" onclick="contextMenuAction('quote')">
+    <div class="context-menu-item quote-menu-item" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
       <span class="context-menu-text">Zitat speichern</span>
+      <span class="context-menu-arrow">▶</span>
+      <div id="quote-color-menu" class="context-submenu quote-submenu-hidden" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'blue')" style="border-left: 3px solid #467886;">
+          <span class="context-menu-text">Blau</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'red')" style="border-left: 3px solid #c62828;">
+          <span class="context-menu-text">Rot</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'yellow')" style="border-left: 3px solid #ffc107;">
+          <span class="context-menu-text">Gelb</span>
+        </div>
+      </div>
     </div>
     <div class="context-menu-item" onclick="contextMenuAction('note')">
       <span class="context-menu-text">Notiz erstellen</span>
@@ -182,7 +194,8 @@ async function contextMenuAction(action, extraData = null) {
   
   switch(action) {
     case 'quote':
-      await saveContextQuote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter);
+      const quoteColor = extraData || 'blue'; // Standard: blau
+      await saveContextQuote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter, quoteColor);
       break;
     case 'highlight':
       const color = extraData || 'blue'; // Standard: blau
@@ -322,7 +335,7 @@ function getCurrentLectureDate(lectureId) {
 /**
  * Zitat aus Context-Menü speichern
  */
-async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter) {
+async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, contextBefore, contextAfter, color = 'blue') {
   try {
     if (typeof supabaseClient === 'undefined' || !supabaseClient) {
       throw new Error('Supabase Client nicht initialisiert');
@@ -533,7 +546,8 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       paragraph_id: paragraphIndex,
       personal_note: note || '',
       tags: keywords,
-      is_public: false
+      is_public: false,
+      marker_color: color
     };
     
     // WICHTIG: Verwende die neuen Spalten für exakte Textmarkierung
@@ -1029,8 +1043,9 @@ function getHighlightColor(colorName) {
   return colors[colorName] || colors['blue'];
 }
 
-// Timer für das Verstecken des Untermenüs
+// Timer für das Verstecken der Untermenüs
 let highlightMenuHideTimer = null;
+let quoteMenuHideTimer = null;
 
 /**
  * Zeigt das Farbauswahl-Untermenü für Unterstreichungen
@@ -1077,6 +1092,55 @@ function hideHighlightColorMenu() {
         submenuCheck.style.display = 'none';
       }
       highlightMenuHideTimer = null;
+    }, 200);
+  }
+}
+
+/**
+ * Zeigt das Farbauswahl-Untermenü für Zitate
+ */
+function showQuoteColorMenu() {
+  // Lösche Timer falls vorhanden
+  if (quoteMenuHideTimer) {
+    clearTimeout(quoteMenuHideTimer);
+    quoteMenuHideTimer = null;
+  }
+  
+  const submenu = document.getElementById('quote-color-menu');
+  if (submenu) {
+    // Entferne alle versteckenden Klassen und Styles
+    submenu.classList.remove('quote-submenu-hidden');
+    submenu.style.display = 'block';
+    submenu.style.visibility = 'visible';
+    submenu.style.opacity = '1';
+    submenu.style.position = 'absolute';
+    submenu.style.left = 'calc(100% + 4px)';
+    submenu.style.top = '0';
+    submenu.style.zIndex = '10003';
+  } else {
+    console.warn('[QUOTE-MENU] Untermenü nicht gefunden!');
+  }
+}
+
+/**
+ * Versteckt das Farbauswahl-Untermenü für Zitate
+ */
+function hideQuoteColorMenu() {
+  // Lösche vorherigen Timer falls vorhanden
+  if (quoteMenuHideTimer) {
+    clearTimeout(quoteMenuHideTimer);
+  }
+  
+  const submenu = document.getElementById('quote-color-menu');
+  if (submenu) {
+    // Kurze Verzögerung, damit Maus zum Untermenü bewegt werden kann
+    quoteMenuHideTimer = setTimeout(() => {
+      const submenuCheck = document.getElementById('quote-color-menu');
+      if (submenuCheck) {
+        submenuCheck.classList.add('quote-submenu-hidden');
+        submenuCheck.style.display = 'none';
+      }
+      quoteMenuHideTimer = null;
     }, 200);
   }
 }
@@ -1532,6 +1596,24 @@ function addContextMenuStyles() {
       opacity: 1 !important;
     }
     
+    .quote-menu-item {
+      position: relative;
+    }
+    
+    .quote-submenu-hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    
+    /* Stelle sicher, dass das Quote-Untermenü sichtbar bleibt wenn Maus über Parent oder Untermenü ist */
+    .quote-menu-item:hover .context-submenu,
+    .quote-menu-item:hover .quote-submenu-hidden {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
     /* Auch wenn direkt über dem Untermenü gehovert wird */
     .context-submenu:hover {
       display: block !important;
@@ -1817,6 +1899,8 @@ window.initMembersContextMenu = initMembersContextMenu;
 window.contextMenuAction = contextMenuAction;
 window.showHighlightColorMenu = showHighlightColorMenu;
 window.hideHighlightColorMenu = hideHighlightColorMenu;
+window.showQuoteColorMenu = showQuoteColorMenu;
+window.hideQuoteColorMenu = hideQuoteColorMenu;
 window.getHighlightColor = getHighlightColor;
 
 // Auto-Init wenn DOM geladen - mit Verzögerung
