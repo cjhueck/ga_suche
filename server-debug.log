@@ -22850,3 +22850,10 @@ ERROR: [BACKUP] Fehler beim Bereinigen von members: {"errno":-4058,"code":"ENOEN
 [SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
 [CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA250/1 (Version: v2-unified)
 [SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+ERROR: [BACKUP] Fehler beim Bereinigen von members-panel: {"errno":-4058,"code":"ENOENT","syscall":"unlink","path":"C:\\Users\\chuec\\OneDrive\\GitHub\\ga_suche\\backups\\html\\members-panel-2025-12-04T11-20-28-499Z.js"}

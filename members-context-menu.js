@@ -610,7 +610,14 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     
     showContextNotification('✓ Zitat gespeichert!', 'success');
-    highlightContextSelection('#ffffcc');
+    
+    // Zitat visuell markieren und klickbar machen
+    if (data && data.length > 0) {
+      const savedQuote = data[0];
+      applyQuoteToSelection(selectionRangeForContext, savedQuote.id, lectureId, paragraphIndex);
+    } else {
+      highlightContextSelection('#ffffcc');
+    }
     
     // MB aktualisieren falls offen (invalidiert Cache und lädt Quotes-Tab neu)
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
@@ -855,8 +862,13 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       
       showContextNotification('✓ Unterstreichung gespeichert!', 'success');
       
-      // Unterstreichung visuell anzeigen
-      applyHighlightToSelection(selectionRangeForContext, color);
+      // Unterstreichung visuell anzeigen und klickbar machen
+      if (data && data.length > 0) {
+        const savedHighlight = data[0];
+        applyHighlightToSelection(selectionRangeForContext, color, savedHighlight.id, lectureId, paragraphIndex);
+      } else {
+        applyHighlightToSelection(selectionRangeForContext, color);
+      }
       
       // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
       if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
@@ -912,8 +924,13 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     
     showContextNotification('✓ Unterstreichung gespeichert!', 'success');
     
-    // Unterstreichung visuell anzeigen
-    applyHighlightToSelection(selectionRangeForContext, color);
+    // Unterstreichung visuell anzeigen und klickbar machen
+    if (data && data.length > 0) {
+      const savedHighlight = data[0];
+      applyHighlightToSelection(selectionRangeForContext, color, savedHighlight.id, lectureId, paragraphIndex);
+    } else {
+      applyHighlightToSelection(selectionRangeForContext, color);
+    }
     
     // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
@@ -937,8 +954,13 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
 
 /**
  * Unterstreichung visuell auf die Selection anwenden
+ * @param {Range} range - Die Textauswahl
+ * @param {string} color - Die Farbe der Unterstreichung
+ * @param {string} highlightId - Optional: Die ID des gespeicherten Highlights (für Klick-Funktionalität)
+ * @param {string} gaNumber - Optional: Die GA-Nummer (für Klick-Funktionalität)
+ * @param {string} paragraphId - Optional: Die Paragraph-ID (für Klick-Funktionalität)
  */
-function applyHighlightToSelection(range, color = 'blue') {
+function applyHighlightToSelection(range, color = 'blue', highlightId = null, gaNumber = null, paragraphId = null) {
   if (!range) return;
   
   try {
@@ -951,6 +973,27 @@ function applyHighlightToSelection(range, color = 'blue') {
     span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
     span.setAttribute('data-highlight', 'true');
     span.setAttribute('data-highlight-color', color);
+    
+    // Füge Klick-Funktionalität hinzu, wenn Highlight-ID vorhanden ist
+    if (highlightId && gaNumber && paragraphId) {
+      span.setAttribute('data-highlight-id', highlightId);
+      span.setAttribute('data-ga-number', gaNumber);
+      span.setAttribute('data-paragraph-id', paragraphId);
+      span.style.setProperty('cursor', 'pointer', 'important');
+      span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+      
+      // Event-Listener für Klick hinzufügen
+      span.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('[HIGHLIGHT-CLICK] Klick auf Unterstreichung:', highlightId, gaNumber, paragraphId);
+        if (typeof jumpToHighlight === 'function') {
+          jumpToHighlight(gaNumber, paragraphId, highlightId);
+        } else {
+          console.warn('[HIGHLIGHT-CLICK] jumpToHighlight Funktion nicht verfügbar');
+        }
+      });
+    }
     
     const contents = range.extractContents();
     span.appendChild(contents);
@@ -1243,6 +1286,74 @@ function highlightContextSelection(color) {
     }, 500);
   } catch (e) {
     // Highlight nicht möglich
+  }
+}
+
+/**
+ * Zitat visuell auf die Selection anwenden und klickbar machen
+ * @param {Range} range - Die Textauswahl
+ * @param {string} quoteId - Die ID des gespeicherten Zitats
+ * @param {string} gaNumber - Die GA-Nummer
+ * @param {string} paragraphId - Die Paragraph-ID
+ */
+function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId) {
+  if (!range) return;
+  
+  try {
+    const span = document.createElement('span');
+    span.className = 'member-quote-highlight';
+    span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
+    span.style.setProperty('padding', '2px 0', 'important');
+    span.style.setProperty('border-radius', '2px', 'important');
+    span.style.setProperty('cursor', 'pointer', 'important');
+    span.setAttribute('data-quote-id', quoteId);
+    span.setAttribute('data-quote', 'true');
+    span.setAttribute('data-ga-reference', gaNumber);
+    span.setAttribute('data-paragraph-id', paragraphId);
+    span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+    
+    // Event-Listener für Klick hinzufügen
+    span.addEventListener('click', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log('[QUOTE-CLICK] Klick auf Zitat:', quoteId, gaNumber, paragraphId);
+      // Öffne Members Panel und springe zum Zitat
+      if (typeof openMembersPanel === 'function') {
+        openMembersPanel().then(() => {
+          if (typeof switchMembersTab === 'function') {
+            switchMembersTab('quotes').then(() => {
+              setTimeout(() => {
+                const targetItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
+                if (targetItem) {
+                  targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  // Visuelles Highlight
+                  targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+                  setTimeout(() => {
+                    targetItem.style.backgroundColor = '';
+                  }, 2000);
+                }
+              }, 300);
+            });
+          }
+        });
+      } else {
+        console.warn('[QUOTE-CLICK] openMembersPanel Funktion nicht verfügbar');
+      }
+    });
+    
+    const contents = range.extractContents();
+    span.appendChild(contents);
+    range.insertNode(span);
+    
+    // Selection aufheben
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    
+    console.log('[QUOTE-SELECTION] Zitat-Markierung erfolgreich angewendet und klickbar gemacht');
+  } catch (e) {
+    console.error('[QUOTE-SELECTION] Fehler beim Anwenden der Zitat-Markierung:', e);
+    // Fallback: Normale Highlight-Funktion verwenden
+    highlightContextSelection('#ffffcc');
   }
 }
 

@@ -14224,26 +14224,6 @@ async function startServer() {
     console.log('  STEINER GA-SUCHE SERVER - START');
     console.log('='.repeat(70));
     
-    // Umleite Konsolenausgabe auch in Datei für Debugging (VOR dem Laden)
-    const fs = require('fs');
-    const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
-    const originalLog = console.log;
-    const originalWarn = console.warn;
-    const originalError = console.error;
-    
-    console.log = function(...args) {
-      originalLog.apply(console, args);
-      logStream.write(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
-    };
-    console.warn = function(...args) {
-      originalWarn.apply(console, args);
-      logStream.write('WARN: ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
-    };
-    console.error = function(...args) {
-      originalError.apply(console, args);
-      logStream.write('ERROR: ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ') + '\n');
-    };
-    
     console.log('\n[1/8] Erstelle Backups...');
 // Erstelle automatisches Backup beim Start
 await createCodeBackup();
