@@ -148,7 +148,7 @@
       font-size: 0.95rem;
       margin-top: 2rem;
       align-self: flex-end;
-      padding-right: 3rem;
+      padding-right: 1rem;
       padding-bottom: 1.0rem;
     }
     
@@ -163,6 +163,23 @@
     }
     
     body.dark-mode .footer-links a {
+      color: var(--dark-link-color);
+    }
+    
+    /* Spendenbutton in Footer-Links */
+    .donate-button {
+      color: var(--link-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    
+    .donate-button:hover {
+      text-decoration: underline;
+    }
+    
+    body.dark-mode .donate-button {
       color: var(--dark-link-color);
     }
     
@@ -1314,6 +1331,7 @@
         <a href="members.html" target="_blank" rel="noopener noreferrer">Mitglieder</a>
         <a href="#" onclick="event.preventDefault(); openHelpModalDirect('quick');">Impressum</a>
         <a href="#" onclick="event.preventDefault(); openDatenschutzModal();">Datenschutz</a>
+        <a href="https://www.paypal.com/donate/?hosted_button_id=RGV24V5BDB84G" target="_blank" rel="noopener noreferrer" class="donate-button">Spenden</a>
       </div>
     </div>
   </div>
