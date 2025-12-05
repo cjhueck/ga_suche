@@ -1269,7 +1269,7 @@ function renderQuotesList(container, sortedData) {
  * @param {number} textEndOffset - Optional: End-Offset für Textposition
  * @param {boolean} shouldHighlightParagraph - Optional: Ob der Absatz markiert werden soll (nur für Zitate)
  */
-async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, textStartOffset = null, textEndOffset = null, shouldHighlightParagraph = false) {
+async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, textStartOffset = null, textEndOffset = null, shouldHighlightParagraph = false, searchTerm = null) {
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
@@ -1280,6 +1280,16 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   }
   
   const mbWidth = 400;
+  
+  // Hole Suchbegriff aus Suchfeldern, falls nicht übergeben
+  if (!searchTerm || !searchTerm.trim()) {
+    // Versuche Suchbegriff aus Suchfeldern zu holen (wie in Suche/erweitert)
+    const word1Input = document.getElementById('word1');
+    if (word1Input && word1Input.value.trim()) {
+      searchTerm = word1Input.value.trim();
+      // Die Markierung erfolgt nur mit dem ersten Suchwort
+    }
+  }
   
   // Klone den GESAMTEN Members-Content
   const savedContentNode = summaryContent ? summaryContent.cloneNode(true) : null;
@@ -1313,13 +1323,31 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                                   currentContent.includes('members-login-form') ||
                                   currentContent.includes('member-item');
         
+        // Prüfe ob Text im Side Panel angezeigt wird (wie bei showLectureFromAdvancedSearch)
+        // Erkenne Text-Anzeige im Side Panel: enthält adv-para- oder paragraph mit ID
+        const hasSidePanelText = currentContent.includes('adv-para-') || 
+                                  currentContent.includes('id="adv-para-') ||
+                                  (currentContent.includes('<div class="paragraph') && currentContent.includes('id="adv-'));
+        
+        // Wenn Text im Side Panel angezeigt wird, NICHT wiederherstellen
+        if (hasSidePanelText) {
+          console.log('[MB-NAVIGATION] Text wird im Side Panel angezeigt, stelle Members-Content NICHT wieder her');
+          return;
+        }
+        
         // Wenn Members-Content fehlt, stelle ihn wieder her
         if (!hasMembersContent && savedContentForRestore) {
           console.log('[MB-NAVIGATION] Content wurde überschrieben, stelle wieder her');
           // Verwende requestAnimationFrame, um Blockierungen zu vermeiden
           requestAnimationFrame(() => {
             if (membersPanelActive && summaryContent) {
-              summaryContent.innerHTML = savedContentForRestore;
+              // Prüfe nochmal ob Text im Side Panel angezeigt wird
+              const currentContentCheck = summaryContent.innerHTML;
+              const hasSidePanelTextCheck = currentContentCheck.includes('adv-para-') || 
+                                            currentContentCheck.includes('id="adv-para-');
+              if (!hasSidePanelTextCheck) {
+                summaryContent.innerHTML = savedContentForRestore;
+              }
             }
           });
         }
@@ -1749,17 +1777,75 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       highlightsToRestore.push(...lectureHighlights);
     }
     
-    if (typeof showLecture === 'function') {
-      // WICHTIG: KEINE innerHTML-Blockierung mehr - rufe showLecture direkt auf
-      // Der MutationObserver stellt den Content automatisch wieder her, falls nötig
-      console.log('[MB-NAVIGATION] Rufe showLecture auf für:', lectureId, 'targetIndex:', targetIndex);
-      
-      // WICHTIG: Behalte membersNavigating=true, damit showLecture weiß, dass Navigation aus MB kommt
-      // und das MB nicht schließt und TOC nicht öffnet
+    // WICHTIG: Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
+    if (typeof showLectureFromAdvancedSearch === 'function') {
+      console.log('[MB-NAVIGATION] Rufe showLectureFromAdvancedSearch auf für:', lectureId, 'targetIndex:', targetIndex, 'searchTerm:', searchTerm);
       
       try {
-        // Rufe showLecture auf - membersNavigating bleibt true, damit Panel offen bleibt
-        const showLectureResult = await showLecture(lectureId, targetIndex, [], false); // false = keine Markierung
+        // Rufe showLectureFromAdvancedSearch auf - zeigt Text im Side Panel an
+        // Konvertiere targetIndex zu paragraphIndex Format (String mit ^ oder ohne)
+        let paragraphIndex = targetIndex;
+        if (paragraphIndex) {
+          // Stelle sicher, dass es ein String ist
+          paragraphIndex = String(paragraphIndex).replace(/^para-/, '');
+        }
+        
+        await showLectureFromAdvancedSearch(lectureId, searchTerm || '', paragraphIndex);
+        console.log('[MB-NAVIGATION] showLectureFromAdvancedSearch abgeschlossen');
+        
+        // Die Markierung erfolgt bereits in showLectureFromAdvancedSearch (Zeile 13389-13466 in app.html)
+        // Zusätzlich: Markiere den Absatz visuell nach dem Scrollen
+        if (paragraphIndex) {
+          setTimeout(() => {
+            const cleanIndex = String(paragraphIndex).replace(/^\^/, '');
+            // Suche nach dem Element im Side Panel (adv-para-${idx})
+            const summaryContent = document.getElementById('summary-content');
+            if (summaryContent) {
+              // Finde den Paragraph-Index basierend auf dem targetIndex
+              // showLectureFromAdvancedSearch verwendet adv-para-${idx} als ID
+              const allParas = summaryContent.querySelectorAll('[id^="adv-para-"]');
+              let targetElement = null;
+              
+              // Versuche das Element direkt zu finden
+              for (let i = 0; i < allParas.length; i++) {
+                const para = allParas[i];
+                const paraId = para.id.replace('adv-para-', '');
+                // Prüfe ob der Paragraph-Index passt
+                if (paraId === String(i)) {
+                  // Lade den Vortrag nochmal, um den richtigen Index zu finden
+                  // Oder verwende einen anderen Ansatz
+                }
+              }
+              
+              // Fallback: Suche nach dem ersten Element mit dem Suchwort markiert
+              if (!targetElement) {
+                const firstMark = summaryContent.querySelector('mark');
+                if (firstMark) {
+                  targetElement = firstMark.closest('[id^="adv-para-"]');
+                }
+              }
+              
+              if (targetElement && typeof addHighlightingWithAutoRemove === 'function') {
+                addHighlightingWithAutoRemove(targetElement);
+              }
+            }
+          }, 200);
+        }
+      } catch (error) {
+        console.error('[MB-NAVIGATION] Fehler in showLectureFromAdvancedSearch:', error);
+        // Fallback: Verwende showLecture
+        if (typeof showLecture === 'function') {
+          const keywords = searchTerm && searchTerm.trim() ? [searchTerm.trim()] : [];
+          await showLecture(lectureId, targetIndex, keywords, false);
+        }
+      }
+    } else if (typeof showLecture === 'function') {
+      // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
+      console.log('[MB-NAVIGATION] showLectureFromAdvancedSearch nicht verfügbar, verwende showLecture');
+      
+      try {
+        const keywords = searchTerm && searchTerm.trim() ? [searchTerm.trim()] : [];
+        const showLectureResult = await showLecture(lectureId, targetIndex, keywords, false);
         console.log('[MB-NAVIGATION] showLecture abgeschlossen, Ergebnis:', showLectureResult);
         
         // Für Vorträge: Markiere Zitat-Text wenn Offsets vorhanden sind (exakte Textmarkierung)
@@ -1933,6 +2019,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
           
+          // Markiere Suchwort im Absatz (falls vorhanden)
+          if (searchTerm && searchTerm.trim()) {
+            setTimeout(() => {
+              markSearchTermInParagraph(elementToCheck, searchTerm);
+            }, 100);
+          }
+          
           // Verifiziere die Position nach kurzer Zeit
           setTimeout(() => {
             const verifyPara = document.getElementById(`para-${cleanIndex}`);
@@ -1955,7 +2048,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
         } else if (textStartOffset > 0 && textStartOffset <= paraText.length) {
           // Element ist bereit, scrolle zur Textposition
           // WICHTIG: scrollToTextPositionInParagraph hat bereits eine Verifizierung - keine doppelte Verifizierung mehr
-          scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset, shouldHighlightParagraph);
+          scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset, shouldHighlightParagraph, null, searchTerm);
           
           // Markiere als ausgeführt
           scrollExecuted = true;
@@ -1968,7 +2061,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           } else {
             // Nach maxAttempts Versuchen immer noch nicht erfolgreich - verwende scrollToTextPositionInParagraph direkt
             console.log('[MB-SCROLL] Max Versuche erreicht, verwende scrollToTextPositionInParagraph direkt');
-            scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset, shouldHighlightParagraph);
+            scrollToTextPositionInParagraph(targetIndex, textStartOffset, textEndOffset, shouldHighlightParagraph, null, searchTerm);
             scrollExecuted = true;
           }
         }
@@ -1989,6 +2082,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
+          
+          // Markiere Suchwort im Absatz (falls vorhanden)
+          if (searchTerm && searchTerm.trim()) {
+            setTimeout(() => {
+              markSearchTermInParagraph(paraElement, searchTerm);
+            }, 100);
+          }
         }
       }
     };
@@ -2028,6 +2128,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
+          
+          // Markiere Suchwort im Absatz (falls vorhanden)
+          if (searchTerm && searchTerm.trim()) {
+            setTimeout(() => {
+              markSearchTermInParagraph(paraElement, searchTerm);
+            }, 100);
+          }
           
           // KEINE zusätzliche Verifizierung mehr - verursacht Springen
         } else if (attempts < maxAttempts) {
@@ -2229,7 +2336,92 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
  * Scrollt zur Textposition innerhalb eines Absatzes
  * @param {boolean} shouldHighlight - Ob der Absatz markiert werden soll (nur für Zitate)
  */
-function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null, shouldHighlight = false, highlightId = null) {
+/**
+ * Markiert ein Suchwort in einem Absatz-Element (analog zu Suche/erweitert)
+ * @param {HTMLElement} targetElement - Das Absatz-Element
+ * @param {string} searchTerm - Das zu markierende Suchwort
+ */
+function markSearchTermInParagraph(targetElement, searchTerm) {
+  // Stelle sicher, dass die Funktion global verfügbar ist
+  if (typeof window !== 'undefined') {
+    window.markSearchTermInParagraph = markSearchTermInParagraph;
+  }
+  if (!targetElement || !searchTerm || !searchTerm.trim()) {
+    return;
+  }
+  
+  const cleanTerm = searchTerm.trim();
+  const isExactMatch = cleanTerm.startsWith('"') && cleanTerm.endsWith('"');
+  const termToHighlight = isExactMatch ? cleanTerm.slice(1, -1) : cleanTerm;
+  
+  if (!termToHighlight) {
+    return;
+  }
+  
+  // Prüfe ob das Suchwort im Absatz-Text vorkommt (case-insensitive)
+  const paragraphText = targetElement.textContent || targetElement.innerText || '';
+  const flags = isExactMatch ? 'g' : 'gi';
+  const testRegex = new RegExp(termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+  
+  if (!testRegex.test(paragraphText)) {
+    // Suchwort kommt nicht im Absatz vor - keine Markierung
+    return;
+  }
+  
+  // Suchwort kommt vor - markiere es NUR in Textknoten, nicht in HTML-Attributen!
+  // Verwende TreeWalker um nur Textknoten zu markieren (verhindert Beschädigung von img-Tags)
+  const escapedTerm = termToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(`(${escapedTerm})`, flags);
+  
+  const walker = document.createTreeWalker(
+    targetElement,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode: function(node) {
+        // Überspringe Textknoten die bereits in <mark> Tags sind
+        let parent = node.parentNode;
+        while (parent && parent !== targetElement) {
+          if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+            return NodeFilter.FILTER_REJECT;
+          }
+          // Überspringe Textknoten innerhalb von img-Tags (Attributen)
+          if (parent.tagName && parent.tagName.toLowerCase() === 'img') {
+            return NodeFilter.FILTER_REJECT;
+          }
+          parent = parent.parentNode;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    },
+    false
+  );
+  
+  const textNodesToMark = [];
+  let textNode;
+  while (textNode = walker.nextNode()) {
+    if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+      textNodesToMark.push(textNode);
+    }
+  }
+  
+  // Markiere Suchwort in Textknoten
+  textNodesToMark.forEach(textNode => {
+    const text = textNode.textContent;
+    const highlightedText = text.replace(regex, '<mark>$1</mark>');
+    const tempSpan = document.createElement('span');
+    tempSpan.innerHTML = highlightedText;
+    
+    const parent = textNode.parentNode;
+    if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+      while (tempSpan.firstChild) {
+        parent.insertBefore(tempSpan.firstChild, textNode);
+      }
+      parent.removeChild(textNode);
+    }
+  });
+}
+
+function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset = null, shouldHighlight = false, highlightId = null, searchTerm = null) {
   if (!paragraphId || textStartOffset === null || textStartOffset === undefined) {
     console.warn('[MB-SCROLL] Ungültige Parameter:', { paragraphId, textStartOffset, textEndOffset });
     return;
@@ -2296,7 +2488,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     console.warn('[MB-SCROLL] Absatz nicht gefunden:', cleanIndex, '- versuche erneut nach kurzer Zeit');
     // Versuche erneut nach kurzer Zeit (falls DOM noch nicht bereit ist)
     setTimeout(() => {
-      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId);
+      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId, searchTerm);
     }, 200);
     return;
   }
@@ -2358,6 +2550,13 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
     
+    // Markiere Suchwort im Absatz (falls vorhanden)
+    if (searchTerm && searchTerm.trim()) {
+      setTimeout(() => {
+        markSearchTermInParagraph(elementToScroll, searchTerm);
+      }, 100);
+    }
+    
     // KEINE Verifizierung mehr - verursacht Springen
     return;
   }
@@ -2372,6 +2571,14 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
+    
+    // Markiere Suchwort im Absatz (falls vorhanden)
+    if (searchTerm && searchTerm.trim()) {
+      setTimeout(() => {
+        markSearchTermInParagraph(elementToScroll, searchTerm);
+      }, 100);
+    }
+    
     return;
   }
   
@@ -2379,7 +2586,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
   if (textContent.length === 0) {
     console.warn('[MB-SCROLL] Text noch nicht geladen, versuche später erneut');
     setTimeout(() => {
-      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId);
+      scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOffset, shouldHighlight, highlightId, searchTerm);
     }, 100);
     return;
   }
@@ -2391,23 +2598,31 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
   console.log('[MB-SCROLL] Gefundene Highlight-Elemente im Absatz:', highlightElements.length, 'highlightId:', highlightId);
   
   for (const highlightEl of highlightElements) {
-    // Wenn highlightId übergeben wurde, prüfe ob es passt
-    if (highlightId && highlightEl.getAttribute('data-highlight-id') === String(highlightId)) {
-      console.log('[MB-SCROLL] Highlight-Element mit passender ID gefunden, scrolle dazu');
-      const highlightRect = highlightEl.getBoundingClientRect();
-      const mainRect = mainContainer.getBoundingClientRect();
-      const header = document.getElementById('viewer-header');
-      const headerHeight = header ? header.offsetHeight + 5 : 5;
-      const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
-      
-      const currentScrollTop = mainContainer.scrollTop;
-      const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
-      const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
-      
-      mainContainer.scrollTop = Math.max(0, targetScrollTop);
-      console.log('[MB-SCROLL] Zu Highlight-Element gescrollt (mit ID), scrollTop:', mainContainer.scrollTop);
-      return;
-    }
+      // Wenn highlightId übergeben wurde, prüfe ob es passt
+      if (highlightId && highlightEl.getAttribute('data-highlight-id') === String(highlightId)) {
+        console.log('[MB-SCROLL] Highlight-Element mit passender ID gefunden, scrolle dazu');
+        const highlightRect = highlightEl.getBoundingClientRect();
+        const mainRect = mainContainer.getBoundingClientRect();
+        const header = document.getElementById('viewer-header');
+        const headerHeight = header ? header.offsetHeight + 5 : 5;
+        const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
+        
+        const currentScrollTop = mainContainer.scrollTop;
+        const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
+        const targetScrollTop = currentScrollTop + highlightTopRelativeToViewport - headerHeight - extraOffset;
+        
+        mainContainer.scrollTop = Math.max(0, targetScrollTop);
+        console.log('[MB-SCROLL] Zu Highlight-Element gescrollt (mit ID), scrollTop:', mainContainer.scrollTop);
+        
+        // Markiere Suchwort im Absatz (falls vorhanden)
+        if (searchTerm && searchTerm.trim()) {
+          setTimeout(() => {
+            markSearchTermInParagraph(elementToScroll, searchTerm);
+          }, 100);
+        }
+        
+        return;
+      }
     
     // Wenn kein highlightId übergeben wurde, prüfe ob das Highlight-Element in der Nähe des Offsets liegt
     if (!highlightId) {
@@ -2431,6 +2646,14 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
         
         mainContainer.scrollTop = Math.max(0, targetScrollTop);
         console.log('[MB-SCROLL] Zu Highlight-Element gescrollt (nach Offset), scrollTop:', mainContainer.scrollTop);
+        
+        // Markiere Suchwort im Absatz (falls vorhanden)
+        if (searchTerm && searchTerm.trim()) {
+          setTimeout(() => {
+            markSearchTermInParagraph(elementToScroll, searchTerm);
+          }, 100);
+        }
+        
         return;
       }
     }
@@ -2472,6 +2695,13 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
     
+    // Markiere Suchwort im Absatz (falls vorhanden)
+    if (searchTerm && searchTerm.trim()) {
+      setTimeout(() => {
+        markSearchTermInParagraph(elementToScroll, searchTerm);
+      }, 100);
+    }
+    
     // KEINE Verifizierung mehr - verursacht Springen
     return;
   }
@@ -2509,6 +2739,13 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     // Scroll sofort zur Position (ohne Animation für sofortiges Scrollen)
     mainContainer.scrollTop = Math.max(0, targetScrollTop);
     
+    // Markiere Suchwort im Absatz (falls vorhanden)
+    if (searchTerm && searchTerm.trim()) {
+      setTimeout(() => {
+        markSearchTermInParagraph(elementToScroll, searchTerm);
+      }, 100);
+    }
+    
     // WICHTIG: KEINE Verifizierung mehr - verursacht das Springen!
     // Die Position ist bereits korrekt gesetzt, eine Verifizierung würde sie nur überschreiben.
   } catch (error) {
@@ -2521,6 +2758,13 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     const extraOffset = -20; // Zusätzlicher Offset, damit Text weiter oben erscheint
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - extraOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
+    
+    // Markiere Suchwort im Absatz (falls vorhanden)
+    if (searchTerm && searchTerm.trim()) {
+      setTimeout(() => {
+        markSearchTermInParagraph(elementToScroll, searchTerm);
+      }, 100);
+    }
   }
 }
 
