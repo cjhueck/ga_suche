@@ -1121,18 +1121,11 @@
       <div class="toolbar-tabs">
         <button class="toolbar-tab" data-tab="quotes">Zitate</button>
         <button class="toolbar-tab" data-tab="highlights">Unterstreichungen</button>
-        <div style="position: relative;">
-          <button class="toolbar-btn" id="sort-btn" title="Sortieren" onclick="toggleSortMenu(event)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 6h18M7 12h10M11 18h6"></path>
-            </svg>
-          </button>
-          <div id="sort-menu" class="sort-menu" style="display: none;">
-            <div class="sort-option" onclick="applySort('date')">nach Datum</div>
-            <div class="sort-option" onclick="applySort('color')">nach Farbe</div>
-            <div class="sort-option" onclick="applySort('saved')">wie vorher</div>
-          </div>
-        </div>
+        <button class="toolbar-btn" id="sort-btn" title="Nach Vortragsdatum sortieren" onclick="toggleSortOrder()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M7 12h10M11 18h6"></path>
+          </svg>
+        </button>
         <button class="toolbar-btn" id="delete-btn" title="Mehrere löschen">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
@@ -1318,8 +1311,7 @@
     let currentTab = 'quotes';
     let currentItems = [];
     let selectedItemId = null;
-    let sortOrder = 'desc';
-    let currentSortMode = null; // 'date', 'color', 'saved', or null
+    let sortOrder = 'desc'; // 'asc' oder 'desc' für Vortragsdatum
     let multiDeleteMode = false;
     let draggedElement = null;
 
@@ -1822,8 +1814,6 @@
     function switchTab(tabName) {
       currentTab = tabName;
       selectedItemId = null;
-      currentSortMode = null; // Reset sort mode when switching tabs
-      
       // Exit delete mode when switching tabs
       if (multiDeleteMode) {
         multiDeleteMode = false;
@@ -1929,55 +1919,24 @@
         });
       }
       
-      // Apply sorting based on current sort mode
-      if (currentSortMode === 'saved') {
-        // Restore saved order
-        const savedOrder = getSavedOrder();
-        if (savedOrder && savedOrder.length > 0) {
-          const itemsMap = new Map(itemsWithMarkers.map(item => [item.id, item]));
-          const orderedItems = [];
-          const unorderedItems = [];
-          
-          savedOrder.forEach(id => {
-            const item = itemsMap.get(id);
-            if (item) {
-              orderedItems.push(item);
-              itemsMap.delete(id);
-            }
-          });
-          
-          itemsMap.forEach(item => unorderedItems.push(item));
-          currentItems = [...orderedItems, ...unorderedItems];
-        } else {
-          // No saved order, sort by date
-          currentItems = itemsWithMarkers.sort((a, b) => {
-            const dateA = new Date(a.created_at);
-            const dateB = new Date(b.created_at);
-            return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-          });
+      // Sortiere nach Vortragsdatum
+      currentItems = itemsWithMarkers.sort((a, b) => {
+        const dateA = getLectureDateForSorting(a);
+        const dateB = getLectureDateForSorting(b);
+        
+        // Items ohne Datum ans Ende sortieren
+        if (!dateA && !dateB) {
+          // Beide ohne Datum: nach created_at sortieren
+          const createdA = new Date(a.created_at);
+          const createdB = new Date(b.created_at);
+          return sortOrder === 'asc' ? createdA - createdB : createdB - createdA;
         }
-      } else if (currentSortMode === 'color') {
-        // Sort by color: red, yellow, green, then no color
-        const colorOrder = { 'red': 1, 'yellow': 2, 'green': 3, '': 4, null: 4 };
-        currentItems = itemsWithMarkers.sort((a, b) => {
-          const colorA = colorOrder[a.marker_color] || 4;
-          const colorB = colorOrder[b.marker_color] || 4;
-          if (colorA !== colorB) {
-            return colorA - colorB;
-          }
-          // If same color, sort by date
-          const dateA = new Date(a.created_at);
-          const dateB = new Date(b.created_at);
-          return dateB - dateA;
-        });
-      } else {
-        // Sort by date (default)
-        currentItems = itemsWithMarkers.sort((a, b) => {
-          const dateA = new Date(a.created_at);
-          const dateB = new Date(b.created_at);
-          return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
-        });
-      }
+        if (!dateA) return 1; // A ohne Datum nach hinten
+        if (!dateB) return -1; // B ohne Datum nach hinten
+        
+        // Beide mit Datum: nach Vortragsdatum sortieren
+        return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+      });
       
       // Ensure marker_color is preserved after sorting - create new objects to ensure all properties are preserved
       currentItems = currentItems.map(item => {
@@ -2058,6 +2017,75 @@
       return colors[colorName] || colors['blue'];
     }
 
+    // Helper function to get lecture date
+    function getLectureDate(item) {
+      if (!item) return '';
+      
+      // Prüfe ob das Item ein lecture_date Feld hat (kommt direkt aus Supabase)
+      if (item.lecture_date) {
+        return formatLectureDate(item.lecture_date);
+      }
+      
+      return '';
+    }
+
+    // Helper function to format lecture date
+    function formatLectureDate(dateStr) {
+      if (!dateStr) return '';
+      
+      try {
+        // Unterstütze ISO-Format (YYYY-MM-DD)
+        if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          const [year, month, day] = dateStr.split('-');
+          const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+          return date.toLocaleDateString('de-DE', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        }
+        
+        // Falls bereits formatiert, direkt zurückgeben
+        return dateStr;
+      } catch (e) {
+        console.error('Fehler beim Formatieren des Datums:', e);
+        return '';
+      }
+    }
+
+    // Helper function to get lecture date for sorting
+    function getLectureDateForSorting(item) {
+      if (!item) return null;
+      
+      // Prüfe ob das Item ein lecture_date Feld hat (kommt direkt aus Supabase)
+      if (item.lecture_date) {
+        try {
+          const dateStr = item.lecture_date;
+          // Unterstütze ISO-Format (YYYY-MM-DD)
+          const dateMatch = dateStr.match(/(\d{4})-(\d{2})-(\d{2})/);
+          if (dateMatch) {
+            return new Date(parseInt(dateMatch[1]), parseInt(dateMatch[2]) - 1, parseInt(dateMatch[3]));
+          }
+          
+          // Versuche Jahr zu extrahieren (für Fallback-Sortierung)
+          const yearMatch = dateStr.match(/\b(19\d{2}|20\d{2})\b/);
+          if (yearMatch) {
+            return new Date(parseInt(yearMatch[1]), 0, 1); // 1. Januar des Jahres
+          }
+          
+          // Versuche direkt zu parsen
+          const parsedDate = new Date(dateStr);
+          if (!isNaN(parsedDate.getTime())) {
+            return parsedDate;
+          }
+        } catch (error) {
+          console.warn('[SORT-DATE] Fehler beim Parsen des Datums:', error);
+        }
+      }
+      
+      return null; // Kein Datum verfügbar
+    }
+
     function renderItems() {
       const container = document.getElementById('items-list');
       
@@ -2078,14 +2106,31 @@
         // Get highlight color for highlights
         const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
-        // Ensure marker_color is preserved - explicitly check and validate
+        // Für Highlights: marker_color für Marker-Dot (red, yellow, green)
         let markerColor = '';
-        if (item.marker_color !== undefined && item.marker_color !== null) {
+        if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
           const colorStr = String(item.marker_color).trim();
           if (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green') {
             markerColor = colorStr;
           }
         }
+        
+        // Für Zitate: marker_color für Bookmark-Icon (blue, red, yellow)
+        let quoteMarkerColor = '';
+        if (!isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
+            quoteMarkerColor = colorStr;
+          } else {
+            quoteMarkerColor = 'blue'; // Standard für Zitate
+          }
+        } else if (!isHighlight) {
+          quoteMarkerColor = 'blue'; // Standard für Zitate ohne marker_color
+        }
+        
+        // Hole Vortragsdatum
+        const lectureDate = getLectureDate(item);
+        const dateDisplay = lectureDate ? `, <span style="font-size: 1rem; font-weight: normal; color: var(--secondary-text);">${lectureDate}</span>` : '';
         
         return `
           <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
@@ -2094,9 +2139,18 @@
                draggable="${!multiDeleteMode && !isHighlight}">
             <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
               ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
-              <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
-                ${gaNumber}
-              </a>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                ${!isHighlight && quoteMarkerColor ? `
+                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </span>
+                ` : ''}
+                <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" data-text-start-offset="${item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : ''}" data-text-end-offset="${item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : ''}" data-is-highlight="${isHighlight ? 'true' : 'false'}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
+                  ${gaNumber}${dateDisplay}
+                </a>
+              </div>
               <div class="item-header-right">
                 ${!isHighlight ? `<div style="position: relative;">
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
@@ -2439,38 +2493,12 @@
     window.toggleExpandParagraph = toggleExpandParagraph;
     
     // ===== Sort Functions =====
-    function toggleSortMenu(event) {
-      event.stopPropagation();
-      const menu = document.getElementById('sort-menu');
-      if (menu) {
-        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-      }
+    function toggleSortOrder() {
+      sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+      // Reload items with new sort order
+      loadItems();
     }
-    
-    // Close sort menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('#sort-btn') && !e.target.closest('.sort-menu')) {
-        const menu = document.getElementById('sort-menu');
-        if (menu) {
-          menu.style.display = 'none';
-        }
-      }
-    });
-    
-    async function applySort(mode) {
-      currentSortMode = mode;
-      
-      // Close menu
-      const menu = document.getElementById('sort-menu');
-      if (menu) {
-        menu.style.display = 'none';
-      }
-      
-      // Reload items with new sort
-      await loadItems();
-    }
-    window.applySort = applySort;
-    window.toggleSortMenu = toggleSortMenu;
+    window.toggleSortOrder = toggleSortOrder;
 
     // ===== Drag and Drop =====
     function setupDragAndDrop() {
@@ -2553,8 +2581,6 @@
       saveOrder(newOrder);
       
       // Set sort mode to 'saved' when manually reordering
-      currentSortMode = 'saved';
-      
       // Update visual order without reloading
       renderItems();
     }
@@ -2601,6 +2627,9 @@
       
       const gaNumber = link.dataset.ga;
       const paragraphId = link.dataset.paragraphId || '';
+      const textStartOffset = link.dataset.textStartOffset !== '' ? parseInt(link.dataset.textStartOffset) : null;
+      const textEndOffset = link.dataset.textEndOffset !== '' ? parseInt(link.dataset.textEndOffset) : null;
+      const isHighlight = link.dataset.isHighlight === 'true';
       
       if (!gaNumber) {
         console.error('[MEMBERS-CLICK] Keine GA-Nummer gefunden!');
@@ -2631,8 +2660,15 @@
       }
       
       if (typeof window.navigateToLectureFromMembersPanel === 'function') {
-        // Rufe Navigation auf
-        window.navigateToLectureFromMembersPanel(gaNumber, paragraphId);
+        // Rufe Navigation auf mit allen Parametern (wie im Members Panel)
+        // shouldHighlightParagraph: true für Zitate, false für Highlights
+        window.navigateToLectureFromMembersPanel(
+          gaNumber, 
+          paragraphId || null, 
+          textStartOffset, 
+          textEndOffset, 
+          !isHighlight // true für Zitate, false für Highlights
+        );
         
         // Nach kurzer Verzögerung: Fokussiere opener-Fenster und schließe dieses Fenster
         setTimeout(() => {
@@ -2674,7 +2710,7 @@
     }
     window.saveMembersScrollPosition = saveMembersScrollPosition;
 
-    function navigateToLectureFromMembersPanel(gaNumber, paragraphId) {
+    function navigateToLectureFromMembersPanel(gaNumber, paragraphId = null, textStartOffset = null, textEndOffset = null, shouldHighlightParagraph = false) {
       // Sicherstellen, dass die Funktion wirklich aufgerufen wird
       if (!gaNumber) {
         console.error('[MEMBERS-NAV] FEHLER: Keine GA-Nummer übergeben!');
@@ -2686,26 +2722,32 @@
         // Springe zurück zum ursprünglichen Fenster
         const openerWindow = window.opener;
         
+        // Prüfe ob navigateToLectureFromMembersPanel im opener-Fenster verfügbar ist
+        // (das ist die Funktion aus members-panel.js, die die richtige Markierung macht)
+        if (typeof openerWindow.navigateToLectureFromMembersPanel === 'function') {
+          // Verwende die Funktion aus dem opener-Fenster - die macht die richtige Markierung
+          openerWindow.navigateToLectureFromMembersPanel(
+            gaNumber, 
+            paragraphId, 
+            textStartOffset, 
+            textEndOffset, 
+            shouldHighlightParagraph
+          );
+          return;
+        }
+        
+        // Fallback: Verwende showLecture direkt
         // Fokussiere das ursprüngliche Fenster - mehrfach versuchen
         try {
-          // Versuche verschiedene Methoden zum Fokussieren
           openerWindow.focus();
-          
-          // Versuche auch über postMessage zu kommunizieren (falls das Fenster es unterstützt)
           if (openerWindow.postMessage) {
             openerWindow.postMessage({ type: 'focus', source: 'members-panel' }, '*');
           }
-          
-          // Versuche auch window.focus() falls verfügbar
           if (openerWindow.window && openerWindow.window.focus) {
             openerWindow.window.focus();
           }
-          
-          // Versuche auch blur() auf dem aktuellen Fenster
           window.blur();
           openerWindow.focus();
-          
-          // Warte kurz und fokussiere nochmal
           setTimeout(() => {
             try {
               openerWindow.focus();
@@ -2722,74 +2764,87 @@
         
         // Navigiere im ursprünglichen Fenster zum Vortrag
         if (hasShowLecture) {
-          // Verwende showLecture Funktion direkt - das ist der beste Weg
-          // showLecture scrollt automatisch zum Absatz, wenn targetIndex übergeben wird
           try {
-            // Rufe showLecture auf (ist async)
             const result = openerWindow.showLecture(gaNumber, paragraphId || null, []);
             
-            // Wenn es ein Promise ist, warte darauf und scrolle dann zum Absatz
             if (result && typeof result.then === 'function') {
               result.then(() => {
-                // Nach dem Laden explizit zum Absatz scrollen
-                if (paragraphId) {
-                  // Fokussiere das Fenster nochmal nach dem Laden
-                  try {
-                    openerWindow.focus();
-                  } catch (e) {
-                    console.warn('[MEMBERS-NAV] Konnte Fenster nach Laden nicht fokussieren:', e);
-                  }
-                  
+                // Für Zitate: Markiere nur den Text (nicht den ganzen Absatz)
+                if (paragraphId && shouldHighlightParagraph && textStartOffset !== null && textEndOffset !== null) {
                   setTimeout(() => {
-                    // Versuche scrollToIndexInViewer zu verwenden
-                    if (typeof openerWindow.scrollToIndexInViewer === 'function') {
-                      openerWindow.scrollToIndexInViewer(paragraphId);
-                    } else {
-                      // Fallback: Direktes Scrollen zum Element
-                      const cleanIndex = paragraphId.replace(/^\^/, '');
-                      const paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
-                      if (paraElement) {
-                        const mainContainer = openerWindow.document.getElementById('main');
-                        if (mainContainer) {
-                          const header = openerWindow.document.getElementById('viewer-header');
-                          const headerHeight = header ? header.offsetHeight + 5 : 5;
-                          const mainRect = mainContainer.getBoundingClientRect();
-                          const paraRect = paraElement.getBoundingClientRect();
-                          const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
-                          mainContainer.scrollTop = Math.max(0, relativeTop);
-                        } else {
-                          paraElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    const cleanIndex = paragraphId.toString().replace(/^para-/, '').replace(/^\^/, '');
+                    let paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                    
+                    // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+                    if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+                      let parent = paraElement.parentElement;
+                      while (parent && parent !== openerWindow.document.body) {
+                        const tagName = parent.tagName.toLowerCase();
+                        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                          paraElement = parent;
+                          break;
                         }
-                      } else {
-                        console.warn('[MEMBERS-NAV] Absatz-Element nicht gefunden: para-' + cleanIndex);
-                        // Versuche nochmal nach kurzer Verzögerung
-                        setTimeout(() => {
-                          const retryElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
-                          if (retryElement) {
-                            retryElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                          } else {
-                            console.error('[MEMBERS-NAV] Element auch bei Retry nicht gefunden');
-                          }
-                        }, 500);
+                        parent = parent.parentElement;
                       }
                     }
-                  }, 1000); // Mehr Zeit für das Laden geben
+                    
+                    if (paraElement && typeof openerWindow.applyQuoteHighlightToElement === 'function') {
+                      // Finde das Zitat basierend auf paragraph_id und offsets
+                      // Versuche aus cachedQuotesData zu holen
+                      if (openerWindow.cachedQuotesData && openerWindow.cachedQuotesData.success && openerWindow.cachedQuotesData.data) {
+                        const quote = openerWindow.cachedQuotesData.data.find(q => 
+                          q.ga_reference === gaNumber && 
+                          q.paragraph_id === paragraphId &&
+                          q.text_start_offset === textStartOffset &&
+                          q.text_end_offset === textEndOffset
+                        );
+                        
+                        if (quote) {
+                          openerWindow.applyQuoteHighlightToElement(paraElement, quote);
+                        }
+                      }
+                    }
+                  }, 200);
+                }
+                
+                // Scrolle zum Absatz
+                if (paragraphId) {
+                  setTimeout(() => {
+                    try {
+                      openerWindow.focus();
+                    } catch (e) {
+                      console.warn('[MEMBERS-NAV] Konnte Fenster nach Laden nicht fokussieren:', e);
+                    }
+                    
+                    setTimeout(() => {
+                      if (typeof openerWindow.scrollToIndexInViewer === 'function') {
+                        openerWindow.scrollToIndexInViewer(paragraphId);
+                      } else {
+                        const cleanIndex = paragraphId.replace(/^\^/, '');
+                        const paraElement = openerWindow.document.getElementById(`para-${cleanIndex}`);
+                        if (paraElement) {
+                          const mainContainer = openerWindow.document.getElementById('main');
+                          if (mainContainer) {
+                            const header = openerWindow.document.getElementById('viewer-header');
+                            const headerHeight = header ? header.offsetHeight + 5 : 5;
+                            const mainRect = mainContainer.getBoundingClientRect();
+                            const paraRect = paraElement.getBoundingClientRect();
+                            const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
+                            mainContainer.scrollTop = Math.max(0, relativeTop);
+                          } else {
+                            paraElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          }
+                        }
+                      }
+                    }, 100);
+                  }, 1000);
                 }
               }).catch(err => {
                 console.error('[MEMBERS-NAV] Fehler in showLecture Promise:', err);
               });
-            } else if (paragraphId) {
-              // Falls showLecture kein Promise zurückgibt, warte trotzdem und scrolle
-              setTimeout(() => {
-                if (typeof openerWindow.scrollToIndexInViewer === 'function') {
-                  openerWindow.scrollToIndexInViewer(paragraphId);
-                }
-              }, 1500);
             }
           } catch (err) {
             console.error('[MEMBERS-NAV] Fehler beim Aufruf von showLecture:', err);
-            console.error('[MEMBERS-NAV] Stack:', err.stack);
-            // Fallback: URL-basierte Navigation
             if (paragraphId) {
               openerWindow.location.href = `app.html?ga=${encodeURIComponent(gaNumber)}&index=${encodeURIComponent(paragraphId)}`;
             } else {
@@ -2953,19 +3008,49 @@
         // Get highlight color for highlights
         const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
-        // Ensure marker_color is preserved
-        const markerColor = item.marker_color && item.marker_color.trim() 
-          ? item.marker_color.trim() 
-          : '';
+        // Für Highlights: marker_color für Marker-Dot (red, yellow, green)
+        let markerColor = '';
+        if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green') {
+            markerColor = colorStr;
+          }
+        }
+        
+        // Für Zitate: marker_color für Bookmark-Icon (blue, red, yellow)
+        let quoteMarkerColor = '';
+        if (!isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
+          const colorStr = String(item.marker_color).trim();
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
+            quoteMarkerColor = colorStr;
+          } else {
+            quoteMarkerColor = 'blue'; // Standard für Zitate
+          }
+        } else if (!isHighlight) {
+          quoteMarkerColor = 'blue'; // Standard für Zitate ohne marker_color
+        }
+        
+        // Hole Vortragsdatum
+        const lectureDate = getLectureDate(item);
+        const dateDisplay = lectureDate ? `, <span style="font-size: 1rem; font-weight: normal; color: var(--secondary-text);">${lectureDate}</span>` : '';
         
         return `
           <div class="item-card ${selectedItemId === item.id ? 'selected' : ''}" 
                data-id="${item.id}" 
                data-index="${index}">
             <div class="item-header">
-              <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
-                ${gaNumber}
-              </a>
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                ${!isHighlight && quoteMarkerColor ? `
+                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </span>
+                ` : ''}
+                <a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${item.paragraph_id || ''}" data-text-start-offset="${item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : ''}" data-text-end-offset="${item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : ''}" data-is-highlight="${isHighlight ? 'true' : 'false'}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">
+                  ${gaNumber}${dateDisplay}
+                </a>
+              </div>
               <div class="item-header-right">
                 ${!isHighlight ? `<div style="position: relative;">
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
