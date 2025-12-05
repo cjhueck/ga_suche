@@ -200,17 +200,18 @@ class BooksExporter:
             # (nur für Bücher, nicht für Vorträge!)
             merged_db = existing_db.copy()
             
-            # Füge nur Bücher-Einträge hinzu/aktualisiere sie (GA001-GA046)
+            # Füge nur Bücher-Einträge hinzu/aktualisiere sie (GA001-GA046, inkl. Varianten mit Suffix)
             books_added = 0
             for book_id, book_data in self.summary_db.items():
-                # Prüfe ob es ein Buch ist (GA001-GA046)
-                # Bücher haben IDs wie "GA001", "GA002", etc. (kein "/" wie bei Vorträgen)
+                # Prüfe ob es ein Buch ist (GA001-GA046, inkl. GA040a, GA041a, etc.)
+                # Bücher haben IDs wie "GA001", "GA002", "GA040a", etc. (kein "/" wie bei Vorträgen)
+                # Pattern: GA gefolgt von 3 Ziffern, optional gefolgt von einem Buchstaben
                 is_book = isinstance(book_id, str) and (
-                    book_id.startswith('GA0') and len(book_id) <= 5 and '/' not in book_id
+                    re.match(r'^GA\d{3}[a-z]?$', book_id) is not None and '/' not in book_id
                 )
                 
                 if is_book:
-                    # Bücher-ID: Überschreibe oder füge hinzu
+                    # Bücher-ID: Überschreibe oder füge hinzu (überschreibt bestehende Einträge!)
                     merged_db[book_id] = book_data
                     books_added += 1
                 else:
@@ -277,26 +278,33 @@ class BooksExporter:
         
     def find_book_file(self, ga_folder):
         """Findet die Haupt-Markdown-Datei eines GA-Bandes"""
-        # Suche nach Dateien im Format: "GAXXX - Titel (Jahr).md"
+        # Suche nach Dateien im Format: "GAXXX - Titel (Jahr).md" oder "GAXXXa - Titel (Jahr).md"
+        # Oder auch ohne Jahr: "GAXXX - Titel.md" oder "GAXXXa - Titel.md"
         md_files = list(ga_folder.glob("GA*.md"))
         
         # Filtere Backup-Dateien und Vortragsdateien aus
-        main_files = []
+        main_files_with_year = []
+        main_files_without_year = []
         for md_file in md_files:
             name = md_file.name
             # Überspringe Backup-Dateien
             if name.endswith('.backup'):
                 continue
             # Überspringe Vortragsdateien (Format: "GAXXX (N.) Titel, Ort, Datum.md")
-            if re.match(r'GA\d{3}\s*\([0-9]+\.\)', name):
+            if re.match(r'GA\d{2,3}[a-z]?\s*\([0-9]+\.\)', name):
                 continue
-            # Hauptdatei sollte Format haben: "GAXXX - Titel (Jahr).md"
-            if re.match(r'GA\d{3}\s*-\s*.+\(.+\)\.md', name):
-                main_files.append(md_file)
+            # Hauptdatei mit Jahr: "GAXXX - Titel (Jahr).md" oder "GAXXXa - Titel (Jahr).md"
+            if re.match(r'GA\d{2,3}[a-z]?\s*-\s*.+\(.+\)\.md', name):
+                main_files_with_year.append(md_file)
+            # Hauptdatei ohne Jahr: "GAXXX - Titel.md" oder "GAXXXa - Titel.md"
+            elif re.match(r'GA\d{2,3}[a-z]?\s*-\s*.+\.md', name):
+                main_files_without_year.append(md_file)
         
-        if main_files:
-            # Wenn mehrere gefunden, nimm die erste (sollte nur eine sein)
-            return main_files[0]
+        # Bevorzuge Dateien mit Jahr, falls vorhanden
+        if main_files_with_year:
+            return main_files_with_year[0]
+        elif main_files_without_year:
+            return main_files_without_year[0]
         return None
     
     def convert_headings(self, text):
@@ -885,6 +893,13 @@ class BooksExporter:
             # 6. Extrahiere Absätze (ohne Überschriften) - wie bei Vorträgen
             paragraphs = self.extract_paragraphs(content)
             
+            # Prüfe ob Absätze Indizes haben
+            has_paragraph_indices = len(paragraphs) > 0 and all(p.get('index', '').startswith('^') for p in paragraphs)
+            
+            if not has_paragraph_indices:
+                print(f"[ÜBERSPRUNGEN] Keine Absatz-Indizes gefunden ({len(paragraphs)} Absätze ohne Indizes)")
+                return None
+            
             # 7. Verknüpfe Überschriften mit Absatz-Indizes
             linked_headings = self.link_headings_to_paragraphs(headings, paragraphs, content)
             
@@ -895,6 +910,9 @@ class BooksExporter:
                 # Prüfe ob Index ein Absatz-Index ist (beginnt mit ^)
                 if first_linked.get('index') and not first_linked.get('index').startswith('^'):
                     print(f"    [WARN] Überschrift hat keinen Absatz-Index! Index={first_linked.get('index')}")
+                    # Wenn keine Absatz-Indizes vorhanden, überspringe Export
+                    print(f"[ÜBERSPRUNGEN] Überschriften haben keine Absatz-Indizes")
+                    return None
             
             # 8. Speichere Überschriften in summary-database.json
             self.save_headings_to_summary_db(ga_number, linked_headings)
@@ -924,20 +942,28 @@ class BooksExporter:
             # 10. Extrahiere Metadaten aus Dateinamen
             filename = main_file.stem
             # Format: "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)"
-            title_match = re.search(r'GA\d{3}\s*-\s*(.+?)\s*\((.+?)\)', filename)
+            # Oder: "GA040a - Wahrspruchworte" (ohne Jahr)
+            # WICHTIG: GA-Nummer mit optionalem Suffix unterstützen
+            title_match = re.search(r'GA\d{2,3}[a-z]?\s*-\s*(.+?)\s*\((.+?)\)', filename)
             if title_match:
                 title_text = title_match.group(1).strip()
                 year_range = title_match.group(2).strip()
                 # Füge Jahr zum Titel hinzu, falls vorhanden
                 title = f"{title_text} ({year_range})"
             else:
-                # Fallback: Nimm alles nach "GAXXX - "
-                title_match = re.search(r'GA\d{3}\s*-\s*(.+)', filename)
+                # Fallback: Nimm alles nach "GAXXX - " oder "GAXXXa - "
+                title_match = re.search(r'GA\d{2,3}[a-z]?\s*-\s*(.+)', filename)
                 if title_match:
                     title = title_match.group(1).strip()
                     year_range = ""
                 else:
-                    title = filename
+                    # Wenn kein " - " gefunden, entferne GA-Nummer vom Anfang
+                    title_match = re.match(r'GA\d{2,3}[a-z]?\s*-\s*(.+)', filename)
+                    if title_match:
+                        title = title_match.group(1).strip()
+                    else:
+                        # Letzter Fallback: Entferne GA-Nummer vom Anfang
+                        title = re.sub(r'^GA\d{2,3}[a-z]?\s*-\s*', '', filename).strip()
                     year_range = ""
             
             # Erstelle Book-Objekt
@@ -973,14 +999,16 @@ class BooksExporter:
         if ga_numbers:
             target_gas = ga_numbers
         else:
-            # GA001 bis GA046
+            # GA001 bis GA046, inklusive Varianten mit Suffix (z.B. GA040a, GA041a)
             target_gas = [f"GA{i:03d}" for i in range(1, 47)]
+            # Füge bekannte Varianten mit Suffix hinzu
+            target_gas.extend(['GA040a', 'GA041a'])
         
         print(f"Suche nach {len(target_gas)} GA-Bänden...\n")
         
         # Durchsuche Steiner_GA Ordner
         ga_folders = []
-        skip_books = ['GA014']  # Bücher die übersprungen werden sollen
+        skip_books = []  # Liste leer - Bücher ohne Absatz-Indizes werden automatisch übersprungen
         
         for folder_name in sorted(os.listdir(self.steiner_ga_dir)):
             folder_path = Path(self.steiner_ga_dir) / folder_name
@@ -988,16 +1016,21 @@ class BooksExporter:
             if not folder_path.is_dir() or not folder_name.startswith('GA'):
                 continue
             
-            # Prüfe ob GA-Nummer in target_gas
-            ga_match = re.match(r'GA(\d{3})[a-z]?', folder_name)
+            # Extrahiere vollständige GA-Nummer (mit optionalem Suffix)
+            ga_match = re.match(r'GA(\d{3})([a-z])?', folder_name)
             if ga_match:
-                ga_num = f"GA{ga_match.group(1)}"
-                if ga_num in target_gas:
-                    # Überspringe Bücher in skip_books Liste
-                    if ga_num in skip_books:
-                        print(f"  {ga_num}... [ÜBERSPRUNGEN]")
+                ga_base = f"GA{ga_match.group(1)}"
+                ga_suffix = ga_match.group(2) or ''
+                ga_full = ga_base + ga_suffix
+                
+                # Prüfe ob vollständige GA-Nummer ODER Basis-GA-Nummer in target_gas
+                if ga_full in target_gas or ga_base in target_gas:
+                    # Überspringe Bücher in skip_books Liste (nur Basis-Nummer prüfen)
+                    if ga_base in skip_books:
+                        print(f"  {ga_full}... [ÜBERSPRUNGEN]")
                         continue
-                    ga_folders.append((ga_num, folder_path))
+                    # Speichere vollständige GA-Nummer (mit Suffix)
+                    ga_folders.append((ga_full, folder_path))
         
         if not ga_folders:
             print("[X] Keine GA-Ordner gefunden!")
@@ -1156,10 +1189,26 @@ def parse_arguments():
                 print(__doc__)
                 sys.exit(0)
         else:
-            # GA-Nummer (mit oder ohne GA-Präfix)
-            ga_num = arg.upper()
-            if not ga_num.startswith('GA'):
-                ga_num = f"GA{ga_num.zfill(3)}"
+            # GA-Nummer (mit oder ohne GA-Präfix, Suffixe bleiben klein)
+            arg_upper = arg.upper()
+            if not arg_upper.startswith('GA'):
+                # Extrahiere Suffix falls vorhanden (z.B. "40a" -> "a")
+                suffix_match = re.search(r'(\d+)([a-z])?', arg, re.IGNORECASE)
+                if suffix_match:
+                    num_part = suffix_match.group(1)
+                    suffix_part = suffix_match.group(2) or ''
+                    ga_num = f"GA{num_part.zfill(3)}{suffix_part.lower()}"
+                else:
+                    ga_num = f"GA{arg.zfill(3)}"
+            else:
+                # GA-Präfix vorhanden, behalte Suffix in Original-Größe
+                ga_match = re.match(r'GA(\d+)([a-z])?', arg, re.IGNORECASE)
+                if ga_match:
+                    num_part = ga_match.group(1)
+                    suffix_part = ga_match.group(2) or ''
+                    ga_num = f"GA{num_part.zfill(3)}{suffix_part.lower()}"
+                else:
+                    ga_num = arg_upper
             ga_numbers.append(ga_num)
     
     return ga_numbers if ga_numbers else None

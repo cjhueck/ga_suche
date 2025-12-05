@@ -531,14 +531,18 @@ class ExportMaster:
         """Schritt 2a: Bücher (GA001-GA050) exportieren"""
         # Prüfe ob Bücher exportiert werden sollen
         if ga_numbers:
-            # Prüfe ob GA001-GA050 dabei sind
+            # Prüfe ob GA001-GA050 dabei sind (inklusive Varianten mit Suffix wie GA040a, GA041a)
             book_gas = []
             for ga in ga_numbers:
-                ga_match = re.match(r'GA(\d{2,3})', ga.upper())
+                # Unterstütze auch Suffixe wie "a", "b" etc.
+                ga_match = re.match(r'GA(\d{2,3})([a-z])?', ga.upper())
                 if ga_match:
                     ga_num = int(ga_match.group(1))
                     if 1 <= ga_num <= 50:
-                        book_gas.append(ga)
+                        # Behalte Suffix falls vorhanden
+                        ga_suffix = ga_match.group(2) or ''
+                        ga_full = f"GA{ga_num:03d}{ga_suffix.lower()}"
+                        book_gas.append(ga_full)
             
             if not book_gas:
                 print("\nSCHRITT 2a ÜBERSPRUNGEN")
