@@ -5565,11 +5565,47 @@ Original
       try {
         if (isLocal) {
           // Lokal: Lade aus statischer Datei
-          const response = await fetch(`${API_BASE}/summary-database.json`);
-          if (!response.ok) return null;
+          // Cache-Busting: Füge Timestamp hinzu, damit immer die neueste Version geladen wird
+          const cacheBuster = `?t=${Date.now()}`;
           
-          const summaryDB = await response.json();
-          return summaryDB[lectureId] || null;
+          // Retry-Mechanismus für große Dateien (max. 3 Versuche)
+          let retries = 3;
+          while (retries > 0) {
+            try {
+              const response = await fetch(`${API_BASE}/summary-database.json${cacheBuster}`, { 
+                cache: 'no-store'
+              });
+              
+              if (!response.ok) {
+                console.warn(`[LOAD-SUMMARY] Response nicht OK: ${response.status}, verbleibende Versuche: ${retries - 1}`);
+                if (retries === 1) return null;
+                retries--;
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Warte 1s vor Retry
+                continue;
+              }
+              
+              // Versuche JSON zu parsen
+              const summaryDB = await response.json();
+              const entry = summaryDB[lectureId] || null;
+              
+              // Debug-Ausgabe
+              if (entry && entry.headings && entry.headings.length > 0) {
+                console.log(`[LOAD-SUMMARY] ${lectureId}: ${entry.headings.length} Überschriften geladen, erste Index: ${entry.headings[0].index}`);
+              }
+              
+              return entry;
+            } catch (e) {
+              console.warn(`[LOAD-SUMMARY] Fehler beim Laden: ${e.message}, verbleibende Versuche: ${retries - 1}`);
+              if (retries === 1) {
+                console.error('[LOAD-SUMMARY] Alle Versuche fehlgeschlagen');
+                return null;
+              }
+              retries--;
+              await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+          }
+          
+          return null;
         } else {
           // ONLINE: Preferiere statische summary-database.json aus dem GitHub-Repo.
           // Falls diese nicht verfügbar ist, fällt das System auf die frühere
@@ -5688,12 +5724,15 @@ Original
   let externalSummaryDBCache = null;
 
   async function loadExternalSummaryDB() {
-    if (externalSummaryDBCache) return externalSummaryDBCache;
+    // KEIN Cache mehr - immer neu laden für lokale Entwicklung
+    if (isLocal) {
+      return null; // Lokal: Verwende Backend, nicht GitHub
+    }
     try {
-      const resp = await fetch(GITHUB_RAW_SUMMARY_URL);
+      const cacheBuster = `?t=${Date.now()}`;
+      const resp = await fetch(`${GITHUB_RAW_SUMMARY_URL}${cacheBuster}`);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const db = await resp.json();
-      externalSummaryDBCache = db;
       return db;
     } catch (err) {
       console.warn('[SUMMARIES] Laden externer summary-database.json fehlgeschlagen:', err.message);
@@ -9111,65 +9150,307 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // Aktualisiere Button-Status (zeigt Info-Button an)
   updateButtonStates();
   
-  // Konvertiere Markdown zu HTML
-  let content = book.content || '';
+  // NEU: Lade Überschriften aus summary-database.json (wie bei Vorträgen)
+  const bookId = book.ID || book.gaNumber;
+  let headings = [];
+  let paragraphs = book.paragraphs || [];
   
-  // Entferne das Inhaltsverzeichnis aus dem Content (wird separat oben angezeigt)
-  // Suche nach "### INHALT" oder ähnlichen Mustern und entferne alles bis zur ersten echten Überschrift
-  // Das TOC enthält Links wie [[#zur-einfuhrung|ZUR EINFÜHRUNG]] und endet vor der ersten echten Überschrift
-  const tocPattern = /###\s*INHALT[\s\S]*?(?=\n###\s+[A-ZÄÖÜ]|\n####\s+[A-ZÄÖÜ]|$)/i;
-  content = content.replace(tocPattern, '');
-  
-  // Entferne auch einzelne TOC-Zeilen die noch übrig sind (z.B. "[[#zur-einfuhrung|ZUR EINFÜHRUNG]]")
-  content = content.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
-  
-  // WICHTIG: Indizes NICHT entfernen - sie werden für Verlinkung benötigt!
-  // Sie werden später nur visuell versteckt
-  
-  // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-  content = preprocessObsidianLineBreaks(content);
-  
-  // Konfiguriere marked für Fußnoten und Überschriften-IDs
-  if (typeof marked !== 'undefined') {
-    // Setze Optionen für Fußnoten (GFM) und Überschriften-IDs
-    if (marked.setOptions) {
-      marked.setOptions({
-        breaks: true,
-        gfm: true,
-        headerIds: true,
-        headerPrefix: ''
-      });
-    }
-    
-    // Rendere Markdown
-    if (marked.parse) {
-      content = marked.parse(content);
-      
-      // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
-      // Konvertiere ![alt](path) zu <img src="path" alt="alt">
-      if (content.includes('![')) {
-        console.warn('[MARKDOWN-BOOK] WARNING: Markdown-Syntax noch vorhanden nach marked.parse()!');
-        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
-          // Entferne eventuelle HTML-Entities und Leerzeichen
-          alt = alt.trim();
-          src = src.trim();
-          // Entferne < > und Anführungszeichen falls vorhanden
-          src = src.replace(/^<['"]?|['"]?>$/g, '');
-          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
-        });
-        }
-    } else if (marked.marked) {
-      content = marked.marked(content);
-      // Manuelle Bild-Konvertierung falls nötig
-      if (content.includes('![')) {
-        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
-          alt = alt.trim();
-          src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
-          return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
-        });
+  try {
+    const summaryData = await loadSummaryFromDB(bookId);
+    if (summaryData && summaryData.headings) {
+      headings = summaryData.headings;
+      console.log(`[BOOK] ${bookId}: ${headings.length} Überschriften geladen`);
+      if (headings.length > 0) {
+        console.log(`[BOOK] ${bookId}: Erste Überschrift Index: ${headings[0].index}, Text: ${headings[0].text.substring(0, 40)}`);
       }
     } else {
-      content = marked(content);
+      console.warn(`[BOOK] ${bookId}: Keine Überschriften in summary-database.json gefunden`);
+    }
+  } catch (e) {
+    console.warn('[BOOK] Konnte Überschriften nicht laden:', e);
+  }
+  
+  // Fallback: Wenn keine paragraphs vorhanden, extrahiere sie aus content
+  if (paragraphs.length === 0 && book.content) {
+    // Extrahiere Absätze aus Content (ohne Überschriften)
+    const contentLines = book.content.split('\n');
+    let currentParagraph = '';
+    let currentIndex = null;
+    
+    for (const line of contentLines) {
+      // Überspringe Überschriften
+      if (/^#{3,4}\s+/.test(line)) {
+        if (currentParagraph.trim() && currentIndex) {
+          paragraphs.push({
+            index: currentIndex,
+            content: currentParagraph.trim()
+          });
+          currentParagraph = '';
+        }
+        continue;
+      }
+      
+      // Überspringe leere Zeilen
+      if (!line.trim()) {
+        if (currentParagraph.trim() && currentIndex) {
+          paragraphs.push({
+            index: currentIndex,
+            content: currentParagraph.trim()
+          });
+          currentParagraph = '';
+        }
+        continue;
+      }
+      
+      // Suche nach Index am Ende der Zeile
+      const indexMatch = line.match(/\s+(\^[a-z0-9]+)\s*$/);
+      if (indexMatch) {
+        const index = indexMatch[1];
+        const lineWithoutIndex = line.replace(/\s+\^[a-z0-9]+\s*$/, '').trim();
+        
+        if (currentParagraph.trim() && currentIndex) {
+          paragraphs.push({
+            index: currentIndex,
+            content: currentParagraph.trim()
+          });
+        }
+        
+        if (lineWithoutIndex) {
+          currentParagraph = lineWithoutIndex;
+        } else {
+          currentParagraph = '';
+        }
+        currentIndex = index;
+      } else {
+        if (currentParagraph) {
+          currentParagraph += ' ' + line.trim();
+        } else {
+          currentParagraph = line.trim();
+        }
+      }
+    }
+    
+    // Speichere letzten Absatz
+    if (currentParagraph.trim() && currentIndex) {
+      paragraphs.push({
+        index: currentIndex,
+        content: currentParagraph.trim()
+      });
+    }
+  }
+  
+  // Erstelle HTML aus Absätzen und Überschriften (wie bei Vorträgen)
+  let htmlContent = '';
+  
+  if (paragraphs.length > 0) {
+    // Rendere Absätze mit Überschriften davor
+    // Überschriften sind jetzt korrekt mit Absatz-Indizes verknüpft (durch verbesserte link_headings_to_paragraphs Funktion)
+    paragraphs.forEach((para, idx) => {
+      const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+      const paraIndexWithCaret = para.index || `^${paraIndex}`;
+      
+      // Finde passende Überschriften für diesen Absatz
+      // Überschriften haben jetzt den Absatz-Index als index-Wert (z.B. "^abc123")
+      const matchingHeadings = headings.filter(h => {
+        const hIndex = h.index || '';
+        const hIndexClean = hIndex.replace(/^\^/, '');
+        const matches = hIndex === paraIndex || 
+               hIndex === paraIndexWithCaret || 
+               hIndexClean === paraIndex;
+        // Debug: Log für erste paar Absätze
+        if (idx < 3 && matches) {
+          console.log(`[BOOK] Absatz ${idx} (${paraIndex}): Überschrift gefunden: ${h.text.substring(0, 40)} (Index: ${hIndex})`);
+        }
+        return matches;
+      });
+      
+      // Debug: Log wenn keine Überschrift gefunden wurde für erste Absätze
+      if (idx < 3 && matchingHeadings.length === 0 && headings.length > 0) {
+        console.log(`[BOOK] Absatz ${idx} (${paraIndex}): KEINE Überschrift gefunden. Verfügbare Überschriften-Indizes:`, headings.slice(0, 5).map(h => h.index));
+      }
+      
+      // Sortiere Überschriften: h3 vor h4
+      const sortedHeadings = matchingHeadings.sort((a, b) => {
+        if (a.level === 'h3' && b.level === 'h4') return -1;
+        if (a.level === 'h4' && b.level === 'h3') return 1;
+        return 0;
+      });
+      
+      // Rendere Überschriften
+      sortedHeadings.forEach((heading, hIdx) => {
+        const headingText = heading.text || heading.title || 'Überschrift';
+        const level = heading.level || 'h3';
+        const headingTag = (level === 'h3' || level === 3) ? 'h3' : 'h4';
+        const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : `heading_${idx}_${hIdx}`;
+        
+        // Erstelle ID für Überschrift: Verwende heading.id falls vorhanden, sonst heading.index oder para-{index}
+        // Bei Büchern ist heading.index oft ein String wie "zur-einfuhrung" (aus summary-database.json)
+        // Bei Vorträgen ist heading.index ein Paragraph-Index wie "^abc123"
+        const headingId = heading.id || (heading.index && !heading.index.startsWith('^') ? heading.index : `para-${headingIndex}`);
+        
+        // HTML-Escaping für headingText
+        const escapedHeadingText = String(headingText)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+        
+        htmlContent += `
+          <${headingTag} id="${headingId}">
+            ${escapedHeadingText}
+          </${headingTag}>
+        `;
+      });
+      
+      // Rendere Absatz
+      const isTargetPara = targetIndex && paraIndex === String(targetIndex).replace(/^\^/, '');
+      let content = para.content || para.text || '';
+      
+      // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+      content = preprocessObsidianLineBreaks(content);
+      
+      // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
+      if (typeof marked !== 'undefined') {
+        if (marked.parse) {
+          content = marked.parse(content, { breaks: true, gfm: true });
+        } else if (marked.marked) {
+          content = marked.marked(content, { breaks: true, gfm: true });
+        } else {
+          content = marked(content, { breaks: true, gfm: true });
+        }
+        
+        // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
+        if (content.includes('![')) {
+          content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+            alt = alt.trim();
+            src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+            return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
+          });
+        }
+      }
+      
+      // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
+      // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
+      if (keywords && keywords.length > 0) {
+        // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
+        function highlightInHTML(htmlContent, searchWord, isPhrase) {
+          // Erstelle temporäres DOM-Element für sicheres Highlighting
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = htmlContent;
+          
+          // Verwende TreeWalker um nur Textknoten zu markieren
+          const walker = document.createTreeWalker(
+            tempDiv,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: function(node) {
+                // Überspringe Textknoten die bereits in <mark> Tags sind
+                let parent = node.parentNode;
+                while (parent && parent !== tempDiv) {
+                  if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
+                    return NodeFilter.FILTER_REJECT;
+                  }
+                  parent = parent.parentNode;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+              }
+            },
+            false
+          );
+          
+          const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const flags = isPhrase ? "g" : "gi";
+          const regex = new RegExp(`(${escapedWord})`, flags);
+          
+          const textNodesToMark = [];
+          let textNode;
+          while (textNode = walker.nextNode()) {
+            if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
+              textNodesToMark.push(textNode);
+            }
+          }
+          
+          // Markiere Suchwort in Textknoten
+          textNodesToMark.forEach(textNode => {
+            const text = textNode.textContent;
+            const highlightedText = text.replace(regex, '<mark>$1</mark>');
+            const tempSpan = document.createElement('span');
+            tempSpan.innerHTML = highlightedText;
+            
+            const parent = textNode.parentNode;
+            if (parent && parent.nodeType === Node.ELEMENT_NODE) {
+              while (tempSpan.firstChild) {
+                parent.insertBefore(tempSpan.firstChild, textNode);
+              }
+              parent.removeChild(textNode);
+            }
+          });
+          
+          return tempDiv.innerHTML;
+        }
+        
+        keywords.forEach((word, wordIndex) => {
+          if (word && word.trim()) {
+            const isPhrase = isPhraseArray[wordIndex] || false;
+            const cleanWord = word.trim();
+            const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
+              ? cleanWord.slice(1, -1) 
+              : cleanWord;
+            
+            // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
+            content = highlightInHTML(content, wordToHighlight, isPhrase);
+          }
+        });
+      }
+      
+      // Verwende gleiche HTML-Struktur wie bei Vorträgen
+      const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
+      const cursorStyle = isLocal ? 'cursor: pointer;' : '';
+      const applyHighlight = isTargetPara;
+      
+      htmlContent += `
+        <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
+             id="para-${paraIndex}"
+             data-index="${paraIndexWithCaret}"
+             ${clickHandler}
+             style="${cursorStyle}">
+          ${content}
+        </div>
+      `;
+    });
+  } else {
+    // Fallback: Alte Methode (Content direkt rendern)
+    let content = book.content || '';
+    
+    // Entferne das Inhaltsverzeichnis aus dem Content
+    const tocPattern = /###\s*INHALT[\s\S]*?(?=\n###\s+[A-ZÄÖÜ]|\n####\s+[A-ZÄÖÜ]|$)/i;
+    content = content.replace(tocPattern, '');
+    content = content.replace(/\[\[#[^\]]+\|[^\]]+\]\]\s*\n/g, '');
+    
+    // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
+    content = preprocessObsidianLineBreaks(content);
+    
+    // Konfiguriere marked für Fußnoten und Überschriften-IDs
+    if (typeof marked !== 'undefined') {
+      if (marked.setOptions) {
+        marked.setOptions({
+          breaks: true,
+          gfm: true,
+          headerIds: true,
+          headerPrefix: ''
+        });
+      }
+      
+      // Rendere Markdown
+      if (marked.parse) {
+        content = marked.parse(content);
+      } else if (marked.marked) {
+        content = marked.marked(content);
+      } else {
+        content = marked(content);
+      }
+      
       // Manuelle Bild-Konvertierung falls nötig
       if (content.includes('![')) {
         content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
@@ -9179,115 +9460,35 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         });
       }
     }
-  } else {
-    console.error('[MARKDOWN-BOOK] marked ist nicht verfügbar!');
-    // Fallback: Manuelle Bild-Konvertierung
-    if (content.includes('![')) {
-      content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
-        alt = alt.trim();
-        src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
-        return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
-      });
-    }
+    
+    htmlContent = content;
   }
   
-  // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
-  // WICHTIG: Highlighting muss HTML-Tags schützen, um img-Tags nicht zu beschädigen!
-  if (keywords && keywords.length > 0) {
-    // Hilfsfunktion: Markiere Text, aber schütze HTML-Tags
-    function highlightInHTML(htmlContent, searchWord, isPhrase) {
-      // Erstelle temporäres DOM-Element für sicheres Highlighting
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = htmlContent;
-      
-      // Verwende TreeWalker um nur Textknoten zu markieren
-      const walker = document.createTreeWalker(
-        tempDiv,
-        NodeFilter.SHOW_TEXT,
-        {
-          acceptNode: function(node) {
-            // Überspringe Textknoten die bereits in <mark> Tags sind
-            let parent = node.parentNode;
-            while (parent && parent !== tempDiv) {
-              if (parent.tagName && parent.tagName.toLowerCase() === 'mark') {
-                return NodeFilter.FILTER_REJECT;
-              }
-              parent = parent.parentNode;
-            }
-            return NodeFilter.FILTER_ACCEPT;
-          }
-        },
-        false
-      );
-      
-      const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const flags = isPhrase ? "g" : "gi";
-      const regex = new RegExp(`(${escapedWord})`, flags);
-      
-      const textNodesToMark = [];
-      let textNode;
-      while (textNode = walker.nextNode()) {
-        if (textNode.textContent.trim() && regex.test(textNode.textContent)) {
-          textNodesToMark.push(textNode);
-        }
-      }
-      
-      // Markiere Suchwort in Textknoten
-      textNodesToMark.forEach(textNode => {
-        const text = textNode.textContent;
-        const highlightedText = text.replace(regex, '<mark>$1</mark>');
-        const tempSpan = document.createElement('span');
-        tempSpan.innerHTML = highlightedText;
-        
-        const parent = textNode.parentNode;
-        if (parent && parent.nodeType === Node.ELEMENT_NODE) {
-          while (tempSpan.firstChild) {
-            parent.insertBefore(tempSpan.firstChild, textNode);
-          }
-          parent.removeChild(textNode);
-        }
-      });
-      
-      return tempDiv.innerHTML;
-    }
-    
-    keywords.forEach((word, wordIndex) => {
-      if (word && word.trim()) {
-        const isPhrase = isPhraseArray[wordIndex] || false;
-        const cleanWord = word.trim();
-        const wordToHighlight = cleanWord.startsWith('"') && cleanWord.endsWith('"') 
-          ? cleanWord.slice(1, -1) 
-          : cleanWord;
-        
-        // Verwende sichere Highlighting-Funktion die HTML-Tags schützt
-        content = highlightInHTML(content, wordToHighlight, isPhrase);
-      }
-    });
-  }
+  // Highlighting wird jetzt pro Absatz angewendet (wie bei Vorträgen)
+  // Das globale Highlighting wurde entfernt, da es jetzt in der forEach-Schleife pro Absatz gemacht wird
   
   // Erstelle HTML mit Überschriften-Navigation
   let html = '<div style="padding: 0 2rem 2rem 0;">';
   
-  // Debug: Logge Tab-Status und targetIndex
   // Inhaltsverzeichnis im Main Viewer NUR im GA-Tab anzeigen (wie bei Vortragsbänden)
   // Im GA-Tab: NUR TOC anzeigen, kein Text
   // Im Texte-Tab wird das TOC im rechten Sidebar angezeigt
-  if (isInGATab && book.headings && book.headings.length > 0) {
+  if (isInGATab && headings.length > 0) {
     html += '<h2 style="margin-bottom: 1rem; font-size: 1.2em; font-weight: bold;">Inhaltsverzeichnis</h2>';
     html += '<div style="margin-bottom: 2rem;">';
     
     const bookGANumber = book.gaNumber || book.ID;
     
-    book.headings.forEach(heading => {
-      const level = heading.level || 3;
+    headings.forEach(heading => {
+      const level = heading.level || 'h3';
       const headingText = heading.text || heading.title || 'Überschrift';
-      const headingId = heading.id || '';
-      const indent = level === 4 ? 'padding-left: 1.5rem;' : '';
+      const headingIndex = heading.index ? heading.index.replace(/^\^/, '') : '';
+      const indent = level === 'h4' || level === 4 ? 'padding-left: 1.5rem;' : '';
       
       html += `
         <div style="margin-bottom: 0.5rem; ${indent}">
           <a href="#" 
-             onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingId}'); return false;"
+             onclick="event.preventDefault(); navigateToBookHeadingInTexteTab('${bookGANumber}', '${headingIndex}'); return false;"
              style="text-decoration: none; color: var(--link-color); font-size: 0.95em;"
              onmouseover="this.style.textDecoration='underline'"
              onmouseout="this.style.textDecoration='none'">
@@ -9306,7 +9507,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   // 2. Im Texte-Tab wird TOC im Sidebar angezeigt, in anderen Tabs (z.B. Suche) wird Content im Main Viewer angezeigt
   if (!isInGATab) {
     const gaNumber = book.gaNumber || book.ID || '';
-    html += `<div class="book-content" data-ga-number="${gaNumber}">` + content + '</div>';
+    html += `<div class="book-content" data-ga-number="${gaNumber}">` + htmlContent + '</div>';
   } else {
   }
   
@@ -16138,8 +16339,17 @@ try {
         
         currentLectureSummary = {
           summary: data.summary,
-          headings: data.headings || []
+          headings: data.headings || [],
+          tableOfContents: data.tableOfContents || [],
+          lectureKeywords: data.lectureKeywords || [],
+          version: data.version || 'v2'
         };
+        
+        // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
+        currentLectureData.summary = data.summary;
+        currentLectureData.headings = data.headings || [];
+        currentLectureData.tableOfContents = data.tableOfContents || [];
+        currentLectureData.lectureKeywords = data.lectureKeywords || [];
         
         // Summary wurde bereits vom Backend in zentrale DB gespeichert
         // Zeige Zusammenfassung
@@ -16414,8 +16624,17 @@ try {
           
           currentLectureSummary = {
             summary: data.summary,
-            headings: data.headings || []
+            headings: data.headings || [],
+            tableOfContents: data.tableOfContents || [],
+            lectureKeywords: data.lectureKeywords || [],
+            version: data.version || 'v2'
           };
+          
+          // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
+          currentLectureData.summary = data.summary;
+          currentLectureData.headings = data.headings || [];
+          currentLectureData.tableOfContents = data.tableOfContents || [];
+          currentLectureData.lectureKeywords = data.lectureKeywords || [];
           
           // KEIN automatisches Speichern von bereits existierenden Summaries
           // (Werden bereits in der zentralen DB gespeichert)
@@ -16498,8 +16717,17 @@ async function regenerateSummary() {
     
     currentLectureSummary = {
       summary: data.summary,
-      headings: data.headings || []
+      headings: data.headings || [],
+      tableOfContents: data.tableOfContents || [],
+      lectureKeywords: data.lectureKeywords || [],
+      version: data.version || 'v2'
     };
+    
+    // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
+    currentLectureData.summary = data.summary;
+    currentLectureData.headings = data.headings || [];
+    currentLectureData.tableOfContents = data.tableOfContents || [];
+    currentLectureData.lectureKeywords = data.lectureKeywords || [];
     
     // Beim Generieren einer neuen Summary immer nach oben scrollen
     lastHighlightedIndex = null;
@@ -16898,6 +17126,13 @@ function showSummaryView() {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
   
+  // Prüfe ob summaryObj vorhanden ist
+  if (!summaryObj) {
+    console.error('[DISPLAY-SUMMARY] summaryObj ist null oder undefined!');
+    viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Keine Zusammenfassungsdaten verfügbar.</div>';
+    return;
+  }
+  
   // Setze den Vortragstitel als klickbaren Link zum Texte-Tab
   const gaNumber = extractGANumber(lecture);
   const lectureId = lecture.ID || lecture.id || null;
@@ -16987,15 +17222,23 @@ function showSummaryView() {
   
   let html = '';
   
+  // Debug: Logge Datenstruktur
+  console.log('[DISPLAY-SUMMARY] summaryObj:', summaryObj);
+  console.log('[DISPLAY-SUMMARY] summary:', summaryObj?.summary);
+  console.log('[DISPLAY-SUMMARY] headings:', summaryObj?.headings);
+  console.log('[DISPLAY-SUMMARY] lectureKeywords:', summaryObj?.lectureKeywords);
+  
   const headings = summaryObj.headings || [];
   const hasHeadings = headings.length > 0;
   
   // Zusammenfassung IMMER anzeigen (auch wenn keine Überschriften vorhanden sind)
-  if (summaryObj.summary) {
+  if (summaryObj && summaryObj.summary) {
     html += '<div style="margin-bottom: 1rem;">';
     html += '<p><strong>Zusammenfassung</strong></p>';
     html += `<p style="font-style: italic;">${summaryObj.summary}</p>`;
     html += '</div>';
+  } else {
+    console.warn('[DISPLAY-SUMMARY] Keine Zusammenfassung vorhanden!');
   }
   
   // Zeige lectureKeywords (online und lokal)
@@ -17874,6 +18117,12 @@ function formatAsteriskParagraphs() {
       if (summaryResponse.ok) {
         const summaryData = await summaryResponse.json();
         
+        console.log('[LOAD-LECTURE] Summary-Daten vom Server:', summaryData);
+        console.log('[LOAD-LECTURE] exists:', summaryData.exists);
+        console.log('[LOAD-LECTURE] summary vorhanden:', !!summaryData.summary);
+        console.log('[LOAD-LECTURE] headings:', summaryData.headings?.length || 0);
+        console.log('[LOAD-LECTURE] lectureKeywords:', summaryData.lectureKeywords?.length || 0);
+        
         // Wenn Zusammenfassung existiert (fromCache: true oder neue Daten)
         if (summaryData.exists && summaryData.summary) {
           // Weise Summary-Daten auch an currentLectureData zu (für TOC und Keywords)
@@ -17919,6 +18168,8 @@ function formatAsteriskParagraphs() {
             lastHighlightedIndex = null;
           }
           
+          console.log('[LOAD-LECTURE] Zeige Zusammenfassung mit displaySummaryWithHeadings');
+          console.log('[LOAD-LECTURE] currentLectureSummary:', currentLectureSummary);
           displaySummaryWithHeadings(currentLectureData, currentLectureSummary, displayKeywords, isPhraseArray);
 
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
@@ -18016,6 +18267,7 @@ function formatAsteriskParagraphs() {
         }
       }
     } catch (summaryError) {
+      console.error('[LOAD-LECTURE] Fehler beim Laden der Zusammenfassung:', summaryError);
       }
     
     // Fallback: Zeige Original wenn keine Zusammenfassung vorhanden
@@ -18310,8 +18562,20 @@ async function generateCurrentStructure() {
       if (summaryResp.ok) {
         const summaryData = await summaryResp.json();
         
-        // Aktualisiere lokale Daten
-        currentLectureSummary = summaryData;
+        // Aktualisiere lokale Daten - normalisiere Struktur falls nötig
+        currentLectureSummary = {
+          summary: summaryData.summary,
+          headings: summaryData.headings || [],
+          tableOfContents: summaryData.tableOfContents || [],
+          lectureKeywords: summaryData.lectureKeywords || [],
+          version: summaryData.version || 'v2'
+        };
+        
+        // Weise Summary-Daten auch an currentLectureData zu
+        currentLectureData.summary = summaryData.summary;
+        currentLectureData.headings = summaryData.headings || [];
+        currentLectureData.tableOfContents = summaryData.tableOfContents || [];
+        currentLectureData.lectureKeywords = summaryData.lectureKeywords || [];
         
         // Zeige aktualisierte Ansicht im Viewer
         displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
@@ -18378,8 +18642,20 @@ async function generateCurrentTOCKW() {
       if (summaryResp.ok) {
         const summaryData = await summaryResp.json();
         
-        // Aktualisiere lokale Daten
-        currentLectureSummary = summaryData;
+        // Aktualisiere lokale Daten - normalisiere Struktur falls nötig
+        currentLectureSummary = {
+          summary: summaryData.summary,
+          headings: summaryData.headings || [],
+          tableOfContents: summaryData.tableOfContents || [],
+          lectureKeywords: summaryData.lectureKeywords || [],
+          version: summaryData.version || 'v2'
+        };
+        
+        // Weise Summary-Daten auch an currentLectureData zu
+        currentLectureData.summary = summaryData.summary;
+        currentLectureData.headings = summaryData.headings || [];
+        currentLectureData.tableOfContents = summaryData.tableOfContents || [];
+        currentLectureData.lectureKeywords = summaryData.lectureKeywords || [];
         
         // Zeige aktualisierte Ansicht im Viewer
         displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
@@ -18449,8 +18725,20 @@ async function generateCurrentAll() {
       if (summaryResp.ok) {
         const summaryData = await summaryResp.json();
         
-        // Aktualisiere lokale Daten
-        currentLectureSummary = summaryData;
+        // Aktualisiere lokale Daten - normalisiere Struktur falls nötig
+        currentLectureSummary = {
+          summary: summaryData.summary,
+          headings: summaryData.headings || [],
+          tableOfContents: summaryData.tableOfContents || [],
+          lectureKeywords: summaryData.lectureKeywords || [],
+          version: summaryData.version || 'v2'
+        };
+        
+        // Weise Summary-Daten auch an currentLectureData zu
+        currentLectureData.summary = summaryData.summary;
+        currentLectureData.headings = summaryData.headings || [];
+        currentLectureData.tableOfContents = summaryData.tableOfContents || [];
+        currentLectureData.lectureKeywords = summaryData.lectureKeywords || [];
         
         // Zeige aktualisierte Ansicht im Viewer
         displaySummaryWithHeadings(currentLectureData, currentLectureSummary);
@@ -29272,13 +29560,8 @@ async function addKeywordToLecture() {
 <!-- Mitglieder Panel Integration -->
 <!-- ============================================ -->
 
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<!-- Members Integration - Supabase Setup -->
-<script src="members-integration-standalone.js"></script>
-
 <!-- Members API Bridge (ES6 Module → Global) -->
+<!-- HINWEIS: members-integration-standalone.js wird bereits oben geladen (Zeile 29448) -->
 <script type="module">
   import * as MembersAPI from './members-api.js';
   

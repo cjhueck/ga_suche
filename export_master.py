@@ -7,7 +7,10 @@ Fuehrt den kompletten Export-Workflow automatisch aus:
    - Korrigiert fehlerhafte Markdown/Wiki-Links
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
-2. Lectures aus Obsidian exportieren (inkl. Bilder)
+2a. Bücher exportieren (GA001-GA050)
+   - Exportiert Bücher als JSON mit Absätzen und Überschriften
+   - Überschriften werden in summary-database.json gespeichert
+2b. Lectures aus Obsidian exportieren (inkl. Bilder, GA051+)
    - Exportiert Vortraege als JSON (gesplittete part-Dateien)
    - Bilder werden direkt als gesplittete part-Dateien exportiert
    - Jede Datei < 10 MB (GitHub-kompatibel)
@@ -410,8 +413,10 @@ class ExportMaster:
     
     def print_step(self, step_num, total_steps, title):
         """Druckt Schritt-Header"""
+        # Unterstützt auch Unter-Schritte (z.B. "2a", "2b")
+        step_display = str(step_num) if isinstance(step_num, int) else step_num
         print(f"\n{'#' * 70}")
-        print(f"  SCHRITT {step_num}/{total_steps}: {title}")
+        print(f"  SCHRITT {step_display}/{total_steps}: {title}")
         print(f"{'#' * 70}\n")
     
     def run_command(self, command, step_name, shell=False):
@@ -522,9 +527,75 @@ class ExportMaster:
             self.steps_failed.append("Bildpfad-Korrektur")
             return False
     
+    def step2_export_books(self, ga_numbers=None):
+        """Schritt 2a: Bücher (GA001-GA050) exportieren"""
+        # Prüfe ob Bücher exportiert werden sollen
+        if ga_numbers:
+            # Prüfe ob GA001-GA050 dabei sind
+            book_gas = []
+            for ga in ga_numbers:
+                ga_match = re.match(r'GA(\d{2,3})', ga.upper())
+                if ga_match:
+                    ga_num = int(ga_match.group(1))
+                    if 1 <= ga_num <= 50:
+                        book_gas.append(ga)
+            
+            if not book_gas:
+                print("\nSCHRITT 2a ÜBERSPRUNGEN")
+                print("   Keine Bücher (GA001-GA050) zum Exportieren")
+                return True
+        else:
+            # Alle Bücher exportieren
+            book_gas = None
+        
+        self.print_step(2, 4, "Bücher exportieren (GA001-GA050)")
+        
+        # Importiere BooksExporter aus export_books_master.py
+        try:
+            # Dynamischer Import um Zirkelimporte zu vermeiden
+            import importlib.util
+            books_exporter_path = os.path.join(self.project_root, 'export_books_master.py')
+            spec = importlib.util.spec_from_file_location("export_books_master", books_exporter_path)
+            books_module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(books_module)
+            
+            exporter = books_module.BooksExporter()
+            success = exporter.export_books(book_gas)
+            
+            if success:
+                self.steps_completed.append("Bücher-Export")
+            else:
+                self.steps_failed.append("Bücher-Export")
+            
+            return success
+            
+        except Exception as e:
+            print(f"\nFEHLER beim Bücher-Export: {e}")
+            self.steps_failed.append("Bücher-Export")
+            return False
+    
     def step2_export_lectures(self, ga_bands=None):
-        """Schritt 2: Lectures aus Obsidian exportieren (mit Bildern)"""
-        self.print_step(2, 3, "Lectures und Bilder exportieren (gesplittet)")
+        """Schritt 2b: Lectures (GA051+) aus Obsidian exportieren (mit Bildern)"""
+        # Prüfe ob Vorträge exportiert werden sollen
+        if ga_bands:
+            # Prüfe ob GA051+ dabei sind
+            lecture_gas = []
+            for ga in ga_bands:
+                ga_match = re.match(r'GA(\d{2,3})', ga.upper())
+                if ga_match:
+                    ga_num = int(ga_match.group(1))
+                    if ga_num >= 51:
+                        lecture_gas.append(ga)
+            
+            if not lecture_gas:
+                print("\nSCHRITT 2b ÜBERSPRUNGEN")
+                print("   Keine Vorträge (GA051+) zum Exportieren")
+                return True
+            
+            ga_bands = lecture_gas
+        # else: Alle Vorträge exportieren
+        
+        self.print_step(2, 4, "Lectures und Bilder exportieren (gesplittet)")
         
         if ga_bands:
             command = ["node", "export-lectures.js"] + ga_bands
@@ -617,7 +688,7 @@ class ExportMaster:
             print("   Server-Neustart mit --restart-server")
             return True
         
-        self.print_step(3, 3, "Server neu starten")
+        self.print_step(3, 4, "Server neu starten")
         
         print("Stoppe laufenden Server (falls aktiv)...")
         
@@ -724,7 +795,12 @@ class ExportMaster:
                 print("\nExport abgebrochen.")
                 return False
         
-        # Schritt 2: Lectures und Bilder exportieren (bereits gesplittet)
+        # Schritt 2a: Bücher exportieren (GA001-GA050)
+        if not self.step2_export_books(ga_bands):
+            print("\nWarnung: Bücher-Export fehlgeschlagen!")
+            print("   Export wird fortgesetzt...")
+        
+        # Schritt 2b: Lectures und Bilder exportieren (bereits gesplittet)
         if not self.step2_export_lectures(ga_bands):
             print("\nKRITISCHER FEHLER: Lecture-Export fehlgeschlagen!")
             print("   Export wird abgebrochen.")
@@ -736,7 +812,7 @@ class ExportMaster:
             print("\nWarnung: Bilder-Split fehlgeschlagen")
             print("   Export wird fortgesetzt...")
         
-        # Schritt 4: Server neu starten (optional)
+        # Schritt 3: Server neu starten (optional)
         self.step4_restart_server(restart=restart_server)
         
         # Finale Zusammenfassung

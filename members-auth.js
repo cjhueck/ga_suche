@@ -2,7 +2,9 @@
 // GA-Suche Mitgliederbereich - Authentifizierung
 // ============================================
 
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+// Verwende die bereits geladene Supabase-Bibliothek aus app.html
+// (wird als UMD-Modul geladen, nicht als ESM)
+// Die globale Variable 'supabase' sollte bereits verfügbar sein
 
 // ============================================
 // Supabase Client Setup
@@ -11,8 +13,19 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const SUPABASE_URL = 'https://qygirjbfvzyhpgwhllzs.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5Z2lyamJmdnp5aHBnd2hsbHpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI4NjM4NjgsImV4cCI6MjA3ODQzOTg2OH0.8ePpjxvukwtxZMZ8GwDMKRmxhB1gFE41bv44PFvgVnA';
 
-// Supabase Client initialisieren
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+// Supabase Client initialisieren - verwende globale supabase Variable
+// Prüfe ob supabase verfügbar ist (kann window.supabase oder global supabase sein)
+const getSupabaseClient = () => {
+  if (typeof window !== 'undefined' && window.supabase && window.supabase.createClient) {
+    return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } else if (typeof supabase !== 'undefined' && supabase.createClient) {
+    return supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } else {
+    throw new Error('Supabase-Bibliothek nicht gefunden! Bitte stellen Sie sicher, dass das Supabase-Script vor diesem Modul geladen wird.');
+  }
+};
+
+export const supabase = getSupabaseClient();
 
 
 // ============================================
