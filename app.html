@@ -9136,7 +9136,15 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   viewer.innerHTML = '';
   
   // Setze Titel
-  const displayTitle = book.title || book.fileName || book.ID;
+  // Entferne GA-Nummer aus fileName falls title nicht vorhanden
+  let displayTitle = book.title;
+  if (!displayTitle && book.fileName) {
+    // Entferne GA-Nummer mit optionalem Suffix vom Anfang (z.B. "GA040a - " oder "GA040 - ")
+    displayTitle = book.fileName.replace(/^GA\d{2,3}[a-z]?\s*-\s*/i, '').trim();
+  }
+  if (!displayTitle) {
+    displayTitle = book.ID;
+  }
   const gaNumber = book.gaNumber || book.ID;
   const titleText = `${gaNumber} - ${displayTitle}`;
   documentTitle.innerHTML = `<span style="cursor: pointer; color: var(--link-color);">${titleText}</span>`;
@@ -13042,7 +13050,14 @@ function scrollToChronologicalYear(year) {
           let html = '<div style="padding: 1rem;">';
           
           // Titel
-          const displayTitle = book.title || book.fileName || book.ID;
+          // Entferne GA-Nummer aus fileName falls title nicht vorhanden
+          let displayTitle = book.title;
+          if (!displayTitle && book.fileName) {
+            displayTitle = book.fileName.replace(/^GA\d{2,3}[a-z]?\s*-\s*/i, '').trim();
+          }
+          if (!displayTitle) {
+            displayTitle = book.ID;
+          }
           html += `<h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">${displayTitle}</h3>`;
           
           // Finde den Index des Target-Paragraphs (wie bei Vorträgen)
@@ -13496,7 +13511,14 @@ function scrollToChronologicalYear(year) {
         // Setze Titel im document-title
         const documentTitle = document.getElementById('document-title');
         if (documentTitle) {
-          const displayTitle = book.title || book.fileName || book.ID;
+          // Entferne GA-Nummer aus fileName falls title nicht vorhanden
+          let displayTitle = book.title;
+          if (!displayTitle && book.fileName) {
+            displayTitle = book.fileName.replace(/^GA\d{2,3}[a-z]?\s*-\s*/i, '').trim();
+          }
+          if (!displayTitle) {
+            displayTitle = book.ID;
+          }
           const fullTitle = `${gaNumber} - ${displayTitle}`;
           
           documentTitle.textContent = fullTitle;

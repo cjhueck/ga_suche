@@ -404,9 +404,10 @@ async function findDataFiles() {
   });
   
   // Suche nach steiner-books-XXX-YYY*.json oder steiner_books_XXX-YYY*.json
-  // Pattern: steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json
+  // Pattern: steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json
   // WICHTIG: Muss auch steiner-books-001-003.json matchen (ohne part-Nummer)
-  const bookPattern = /^steiner[-_]books[-_](\d{3})[-_](\d{3}).*\.json$/i;
+  // UND auch steiner-books-040a-040a.json (mit Suffix)
+  const bookPattern = /^steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json$/i;
   const bookFiles = files.filter(f => {
     const matches = bookPattern.test(f);
     if (!matches && f.includes('steiner') && f.includes('books') && f.endsWith('.json')) {
