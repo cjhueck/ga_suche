@@ -167,16 +167,26 @@
     }
     
     /* Spendenbutton in Footer-Links */
-    .donate-button {
+    .footer-links .donate-button {
       color: var(--link-color);
-      text-decoration: none;
+      text-decoration: none !important;
+      border-bottom: 2px solid var(--link-color);
       transition: all 0.3s ease;
       font-weight: bold;
       margin-left: 1rem;
     }
     
-    .donate-button:hover {
-      text-decoration: underline;
+    .footer-links .donate-button:hover {
+      text-decoration: none !important;
+      border-bottom: 2px solid var(--link-color);
+    }
+    
+    body.dark-mode .footer-links .donate-button {
+      border-bottom-color: var(--dark-link-color);
+    }
+    
+    body.dark-mode .footer-links .donate-button:hover {
+      border-bottom-color: var(--dark-link-color);
     }
     
     body.dark-mode .donate-button {
