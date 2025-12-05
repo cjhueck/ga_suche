@@ -1617,10 +1617,33 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           }
           
           // Wende Unterstreichungen an (mehrfach versuchen, falls DOM noch nicht bereit)
+          // WICHTIG: Sortiere nach text_start_offset, damit Highlights in der richtigen Reihenfolge angewendet werden
           const restoreHighlights = () => {
             if (highlightsToRestore.length > 0 && typeof applyStoredHighlight === 'function') {
+              // Gruppiere nach paragraph_id und sortiere innerhalb jeder Gruppe nach text_start_offset
+              const highlightsByParagraph = {};
               highlightsToRestore.forEach(highlight => {
-                applyStoredHighlight(highlight);
+                const paraId = highlight.paragraph_id || '';
+                if (!highlightsByParagraph[paraId]) {
+                  highlightsByParagraph[paraId] = [];
+                }
+                highlightsByParagraph[paraId].push(highlight);
+              });
+              
+              // Sortiere jede Gruppe nach text_start_offset (von Anfang nach Ende)
+              Object.keys(highlightsByParagraph).forEach(paraId => {
+                highlightsByParagraph[paraId].sort((a, b) => {
+                  const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
+                  const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
+                  return offsetA - offsetB;
+                });
+              });
+              
+              // Wende Highlights in sortierter Reihenfolge an
+              Object.values(highlightsByParagraph).forEach(highlightGroup => {
+                highlightGroup.forEach(highlight => {
+                  applyStoredHighlight(highlight);
+                });
               });
             }
           };
@@ -1739,10 +1762,33 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       
       // WICHTIG: Wende Unterstreichungen SOFORT wieder an, damit sie nicht abblitzen
       // Verwende mehrere Versuche, um sicherzustellen, dass sie angewendet werden
+      // WICHTIG: Sortiere nach text_start_offset, damit Highlights in der richtigen Reihenfolge angewendet werden
       const restoreHighlights = () => {
         if (highlightsToRestore.length > 0 && typeof applyStoredHighlight === 'function') {
+          // Gruppiere nach paragraph_id und sortiere innerhalb jeder Gruppe nach text_start_offset
+          const highlightsByParagraph = {};
           highlightsToRestore.forEach(highlight => {
-            applyStoredHighlight(highlight);
+            const paraId = highlight.paragraph_id || '';
+            if (!highlightsByParagraph[paraId]) {
+              highlightsByParagraph[paraId] = [];
+            }
+            highlightsByParagraph[paraId].push(highlight);
+          });
+          
+          // Sortiere jede Gruppe nach text_start_offset (von Anfang nach Ende)
+          Object.keys(highlightsByParagraph).forEach(paraId => {
+            highlightsByParagraph[paraId].sort((a, b) => {
+              const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
+              const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
+              return offsetA - offsetB;
+            });
+          });
+          
+          // Wende Highlights in sortierter Reihenfolge an
+          Object.values(highlightsByParagraph).forEach(highlightGroup => {
+            highlightGroup.forEach(highlight => {
+              applyStoredHighlight(highlight);
+            });
           });
         }
       };
@@ -2956,12 +3002,37 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     });
     
     // Wende Unterstreichungen an
+    // WICHTIG: Sortiere nach text_start_offset, damit Highlights in der richtigen Reihenfolge angewendet werden
+    // Dies verhindert Verschiebungen, wenn mehrere Highlights im selben Absatz vorhanden sind
     if (highlightsResult.success && highlightsResult.data) {
       const lectureHighlights = highlightsResult.data.filter(h => 
         h.ga_number === lectureId && h.paragraph_id
       );
+      
+      // Gruppiere nach paragraph_id und sortiere innerhalb jeder Gruppe nach text_start_offset
+      const highlightsByParagraph = {};
       lectureHighlights.forEach(highlight => {
-        applyStoredHighlight(highlight);
+        const paraId = highlight.paragraph_id || '';
+        if (!highlightsByParagraph[paraId]) {
+          highlightsByParagraph[paraId] = [];
+        }
+        highlightsByParagraph[paraId].push(highlight);
+      });
+      
+      // Sortiere jede Gruppe nach text_start_offset (von Anfang nach Ende)
+      Object.keys(highlightsByParagraph).forEach(paraId => {
+        highlightsByParagraph[paraId].sort((a, b) => {
+          const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
+          const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
+          return offsetA - offsetB;
+        });
+      });
+      
+      // Wende Highlights in sortierter Reihenfolge an
+      Object.values(highlightsByParagraph).forEach(highlightGroup => {
+        highlightGroup.forEach(highlight => {
+          applyStoredHighlight(highlight);
+        });
       });
     }
   } catch (error) {
@@ -3152,6 +3223,253 @@ function attachClickListenersToHighlights(gaNumber) {
 }
 
 /**
+ * Hilfsfunktion: Extrahiert Text-Inhalt ohne vorhandene Highlight-Spans
+ * Dies ist wichtig, um Offsets korrekt zu berechnen, wenn bereits Highlights vorhanden sind
+ */
+function getTextContentWithoutHighlights(element) {
+  if (!element) return '';
+  
+  // Klone das Element, um es zu modifizieren
+  const clone = element.cloneNode(true);
+  
+  // Entferne alle Highlight-Spans aus dem Klon
+  const highlightSpans = clone.querySelectorAll('[data-highlight-id]');
+  highlightSpans.forEach(span => {
+    const parent = span.parentNode;
+    if (parent) {
+      // Ersetze den Span durch seinen Text-Inhalt
+      while (span.firstChild) {
+        parent.insertBefore(span.firstChild, span);
+      }
+      parent.removeChild(span);
+    }
+  });
+  
+  return clone.textContent || '';
+}
+
+/**
+ * Hilfsfunktion: Wendet Unterstreichung auf ein Element an (vereinheitlicht für Bücher und Vorträge)
+ */
+function applyHighlightToElement(targetElement, highlight) {
+  if (!targetElement) {
+    console.warn('[HIGHLIGHT] targetElement ist null');
+    return;
+  }
+  
+  console.log('[HIGHLIGHT] applyHighlightToElement aufgerufen:', {
+    highlightId: highlight.id,
+    paragraphId: highlight.paragraph_id,
+    gaNumber: highlight.ga_number,
+    targetElement: targetElement.tagName,
+    targetElementText: targetElement.textContent?.substring(0, 100)
+  });
+  
+  // Prüfe ob bereits unterstrichen
+  const existingHighlight = targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`);
+  if (existingHighlight) {
+    console.log('[HIGHLIGHT] Bereits vorhanden, prüfe Event-Listener');
+    // Stelle sicher, dass Event-Listener vorhanden ist
+    if (!existingHighlight.hasAttribute('data-listener-attached')) {
+      existingHighlight.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('[HIGHLIGHT] Klick auf Unterstreichung (nachträglich):', highlight.id, highlight.ga_number, highlight.paragraph_id);
+        jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+      });
+      existingHighlight.setAttribute('data-listener-attached', 'true');
+      console.log('[HIGHLIGHT] Event-Listener nachträglich hinzugefügt');
+    }
+    return; // Bereits vorhanden
+  }
+  
+  // Hole den Text OHNE vorhandene Highlights (für die Suche)
+  const elementTextWithoutHighlights = getTextContentWithoutHighlights(targetElement);
+  
+  console.log('[HIGHLIGHT] Element-Text (ohne Highlights):', elementTextWithoutHighlights ? elementTextWithoutHighlights.substring(0, 200) : '(leer)');
+  console.log('[HIGHLIGHT] Gespeicherter Text:', highlight.paragraph_text?.substring(0, 200));
+  console.log('[HIGHLIGHT] Offsets:', highlight.text_start_offset, highlight.text_end_offset);
+  
+  // Prüfe ob elementText leer ist
+  if (!elementTextWithoutHighlights || elementTextWithoutHighlights.length === 0) {
+    console.warn('[HIGHLIGHT] Element-Text ist leer, kann Unterstreichung nicht anwenden');
+    return;
+  }
+  
+  // Verwende den gespeicherten Text, um die Position zu finden
+  // Das ist viel einfacher und robuster als die Offset-Berechnung
+  if (highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
+    const textToHighlight = highlight.paragraph_text.substring(
+      highlight.text_start_offset,
+      highlight.text_end_offset
+    );
+    
+    // Prüfe ob textToHighlight gültig ist
+    if (!textToHighlight || textToHighlight.length === 0) {
+      console.warn('[HIGHLIGHT] textToHighlight ist leer, kann Unterstreichung nicht anwenden');
+      return;
+    }
+    
+    // Verwende Text ohne Highlights für die Suche
+    if (elementTextWithoutHighlights && elementTextWithoutHighlights.includes(textToHighlight)) {
+      // Erstelle Range für die Unterstreichung (mehrzeilig unterstützt)
+      // Prüfe ob bereits andere Highlights vorhanden sind
+      const existingOtherHighlights = targetElement.querySelectorAll(`[data-highlight-id]:not([data-highlight-id="${highlight.id}"])`);
+      const hasOtherHighlights = existingOtherHighlights.length > 0;
+      
+      const range = document.createRange();
+      const walker = document.createTreeWalker(
+        targetElement,
+        NodeFilter.SHOW_TEXT,
+        hasOtherHighlights ? {
+          acceptNode: function(node) {
+            // Überspringe Text-Knoten, die innerhalb von anderen Highlight-Spans sind
+            let parent = node.parentNode;
+            while (parent && parent !== targetElement) {
+              if (parent.hasAttribute && parent.hasAttribute('data-highlight-id')) {
+                const highlightId = parent.getAttribute('data-highlight-id');
+                if (highlightId !== highlight.id) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+              }
+              parent = parent.parentNode;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        } : null, // Kein Filter wenn keine anderen Highlights vorhanden sind
+        false
+      );
+      
+      // Suche nach dem Text über mehrere Knoten hinweg
+      // Sammle alle Text-Knoten und ihren akkumulierten Offset
+      const textNodes = [];
+      let accumulatedOffset = 0;
+      let node;
+      
+      while (node = walker.nextNode()) {
+        const nodeText = node.textContent;
+        textNodes.push({
+          node: node,
+          startOffset: accumulatedOffset,
+          endOffset: accumulatedOffset + nodeText.length,
+          text: nodeText
+        });
+        accumulatedOffset += nodeText.length;
+      }
+      
+      // Finde die Position des Textes im akkumulierten Text
+      const fullText = textNodes.map(n => n.text).join('');
+      const textIndex = fullText.indexOf(textToHighlight);
+      
+      if (textIndex !== -1) {
+        const textEndIndex = textIndex + textToHighlight.length;
+        
+        // Finde Start- und End-Knoten basierend auf den Offsets
+        let startNode = null;
+        let startOffsetInNode = 0;
+        let endNode = null;
+        let endOffsetInNode = 0;
+        
+        for (const textNodeInfo of textNodes) {
+          // Prüfe ob Start in diesem Knoten liegt
+          if (!startNode && textIndex >= textNodeInfo.startOffset && textIndex < textNodeInfo.endOffset) {
+            startNode = textNodeInfo.node;
+            startOffsetInNode = textIndex - textNodeInfo.startOffset;
+          }
+          
+          // Prüfe ob Ende in diesem Knoten liegt
+          if (textEndIndex > textNodeInfo.startOffset && textEndIndex <= textNodeInfo.endOffset) {
+            endNode = textNodeInfo.node;
+            endOffsetInNode = textEndIndex - textNodeInfo.startOffset;
+            break;
+          }
+        }
+        
+        // Fallback: Wenn nicht gefunden, versuche einfache Suche innerhalb eines Knotens
+        if (!startNode || !endNode) {
+          // Erstelle neuen Walker für Fallback
+          const existingOtherHighlightsFallback = targetElement.querySelectorAll(`[data-highlight-id]:not([data-highlight-id="${highlight.id}"])`);
+          const hasOtherHighlightsFallback = existingOtherHighlightsFallback.length > 0;
+          
+          const fallbackWalker = document.createTreeWalker(
+            targetElement,
+            NodeFilter.SHOW_TEXT,
+            hasOtherHighlightsFallback ? {
+              acceptNode: function(node) {
+                let parent = node.parentNode;
+                while (parent && parent !== targetElement) {
+                  if (parent.hasAttribute && parent.hasAttribute('data-highlight-id')) {
+                    const highlightId = parent.getAttribute('data-highlight-id');
+                    if (highlightId !== highlight.id) {
+                      return NodeFilter.FILTER_REJECT;
+                    }
+                  }
+                  parent = parent.parentNode;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+              }
+            } : null, // Kein Filter wenn keine anderen Highlights vorhanden sind
+            false
+          );
+          
+          while (node = fallbackWalker.nextNode()) {
+            const nodeText = node.textContent;
+            const index = nodeText.indexOf(textToHighlight);
+            
+            if (index !== -1) {
+              startNode = node;
+              startOffsetInNode = index;
+              endNode = node;
+              endOffsetInNode = index + textToHighlight.length;
+              break;
+            }
+          }
+        }
+        
+        if (startNode && endNode) {
+          try {
+            range.setStart(startNode, startOffsetInNode);
+            range.setEnd(endNode, endOffsetInNode);
+            
+            const highlightColor = getHighlightColor(highlight.color || 'blue');
+            const span = document.createElement('span');
+            span.className = 'member-highlight';
+            span.style.setProperty('text-decoration', 'underline', 'important');
+            span.style.setProperty('text-decoration-color', highlightColor, 'important');
+            span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+            span.style.setProperty('cursor', 'pointer', 'important');
+            span.setAttribute('data-highlight-id', highlight.id);
+            span.setAttribute('data-highlight', 'true');
+            span.setAttribute('data-highlight-color', highlight.color || 'blue');
+            span.setAttribute('data-ga-number', highlight.ga_number);
+            span.setAttribute('data-paragraph-id', highlight.paragraph_id);
+            span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+            span.setAttribute('data-listener-attached', 'true');
+            
+            span.addEventListener('click', function(e) {
+              e.stopPropagation();
+              e.preventDefault();
+              console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
+              jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+            });
+            
+            const contents = range.extractContents();
+            span.appendChild(contents);
+            range.insertNode(span);
+            console.log('[HIGHLIGHT] Unterstreichung erfolgreich angewendet (mit Text-Suche)');
+            return;
+          } catch (e) {
+            console.error('[HIGHLIGHT] Fehler beim Anwenden der Unterstreichung (mit Text-Suche):', e);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * @deprecated Verwende stattdessen applyHighlightToElement
  * Hilfsfunktion: Wendet Unterstreichung auf ein Buch-Element an
  */
 function applyHighlightToBookElement(targetElement, highlight) {
@@ -3349,58 +3667,52 @@ function applyHighlightToBookElement(targetElement, highlight) {
 
 /**
  * Wendet eine gespeicherte Unterstreichung auf den Text an
+ * Vereinheitlicht für Bücher und Vorträge - verwendet dieselbe Logik
  */
 function applyStoredHighlight(highlight) {
   try {
     // Normalisiere paragraph_id: Entferne ^ am Anfang falls vorhanden (für Bücher)
     const normalizedParaId = String(highlight.paragraph_id || '').replace(/^\^/, '');
-    const paraElement = document.getElementById(`para-${normalizedParaId}`);
+    let paraElement = document.getElementById(`para-${normalizedParaId}`);
+    
+    // Falls nicht gefunden, versuche mit Original-ID
     if (!paraElement) {
-      // Debug: Versuche auch mit Original-ID falls normalisiert nicht funktioniert
-      const originalParaElement = document.getElementById(`para-${highlight.paragraph_id}`);
-      if (!originalParaElement) {
-        // Für Bücher: paragraph_id könnte auch ohne para- Präfix sein
-        const bookParaElement = document.querySelector(`[data-index="${highlight.paragraph_id}"], [data-index="^${normalizedParaId}"]`);
-        if (!bookParaElement) {
-          return; // Paragraph nicht gefunden
-        }
-        // Verwende das gefundene Element
-        const bookTargetElement = bookParaElement.closest('p, div, h1, h2, h3, h4, h5, h6, li, blockquote');
-        if (bookTargetElement) {
-          // Wende Unterstreichung auf das Buch-Element an
-          applyHighlightToBookElement(bookTargetElement, highlight);
-        }
-        return;
+      paraElement = document.getElementById(`para-${highlight.paragraph_id}`);
+    }
+    
+    // Falls immer noch nicht gefunden, versuche für Bücher mit data-index
+    if (!paraElement) {
+      const bookParaElement = document.querySelector(`[data-index="${highlight.paragraph_id}"], [data-index="^${normalizedParaId}"]`);
+      if (bookParaElement) {
+        paraElement = bookParaElement;
       }
-      // Verwende originalParaElement falls gefunden
-      const targetElement = originalParaElement.closest('p, div, h1, h2, h3, h4, h5, h6, li, blockquote');
-      if (targetElement) {
-        applyHighlightToBookElement(targetElement, highlight);
-      }
+    }
+    
+    if (!paraElement) {
+      console.warn('[HIGHLIGHT] Paragraph nicht gefunden:', highlight.paragraph_id);
       return;
     }
     
-    // Finde das tatsächliche Absatz-Element (kann ein Parent sein)
-    // WICHTIG: Für Bücher ist paraElement ein verstecktes <span> Element
-    // In diesem Fall müssen wir das richtige Text-Element finden
+    // Finde das tatsächliche Text-Element
+    // Für Bücher kann paraElement ein verstecktes <span> Element sein
+    // Für Vorträge ist es normalerweise das Element selbst
+    let targetElement = paraElement;
+    
+    // Wenn paraElement versteckt ist oder ein span, suche nach dem Parent-Element mit Text
     if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
-      // Für Bücher: Das versteckte span-Element ist nur ein Marker
-      // Suche nach dem tatsächlichen Text-Element, das den Absatz enthält
       let parent = paraElement.parentElement;
       let foundTextElement = null;
       
       // Gehe durch alle Parent-Elemente und suche nach einem Element mit Text
       while (parent && parent !== document.body) {
         const tagName = parent.tagName.toLowerCase();
-        const hasText = parent.textContent && parent.textContent.trim().length > 0;
         
-        // Für Bücher: Suche nach p, div, etc. die Text enthalten
         if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-          // Prüfe ob dieses Element den gespeicherten Text enthält (für Bücher wichtig)
+          // Prüfe ob dieses Element den gespeicherten Text enthält
           if (highlight.paragraph_text && parent.textContent && parent.textContent.includes(highlight.paragraph_text.substring(0, 50))) {
             foundTextElement = parent;
             break;
-          } else if (hasText && !foundTextElement) {
+          } else if (parent.textContent && parent.textContent.trim().length > 0 && !foundTextElement) {
             // Fallback: Nimm das erste Element mit Text
             foundTextElement = parent;
           }
@@ -3409,191 +3721,23 @@ function applyStoredHighlight(highlight) {
       }
       
       if (foundTextElement) {
-        // Verwende die spezielle Buch-Funktion für versteckte span-Elemente
-        applyHighlightToBookElement(foundTextElement, highlight);
-        return;
+        targetElement = foundTextElement;
       } else {
         // Fallback: Versuche das nächste Parent-Element zu finden
         parent = paraElement.parentElement;
         while (parent && parent !== document.body) {
           const tagName = parent.tagName.toLowerCase();
           if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-            applyHighlightToBookElement(parent, highlight);
-            return;
+            targetElement = parent;
+            break;
           }
           parent = parent.parentElement;
         }
-        // Wenn nichts gefunden wurde, abbrechen
-        return;
       }
     }
     
-    // Für normale Vorträge: Verwende das Element direkt
-    let targetElement = paraElement;
-    
-    // Prüfe ob bereits unterstrichen
-    const existingHighlight = targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`);
-    if (existingHighlight) {
-      // Stelle sicher, dass Event-Listener vorhanden ist
-      if (!existingHighlight.hasAttribute('data-listener-attached')) {
-        existingHighlight.addEventListener('click', function(e) {
-          e.stopPropagation();
-          e.preventDefault();
-          console.log('[HIGHLIGHT] Klick auf Unterstreichung (nachträglich):', highlight.id, highlight.ga_number, highlight.paragraph_id);
-          jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-        });
-        existingHighlight.setAttribute('data-listener-attached', 'true');
-        console.log('[HIGHLIGHT] Event-Listener nachträglich hinzugefügt');
-      }
-      return; // Bereits vorhanden
-    }
-    
-    // Hole den Text des Elements
-    const elementText = targetElement.textContent || targetElement.innerText;
-    
-    // Prüfe ob der gespeicherte Text noch vorhanden ist
-    if (!highlight.paragraph_text || !elementText || !elementText.includes(highlight.paragraph_text)) {
-      // Versuche mit den Offsets
-      if (highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
-        const startOffset = highlight.text_start_offset;
-        const endOffset = highlight.text_end_offset;
-        
-        if (startOffset >= 0 && endOffset <= elementText.length && startOffset < endOffset) {
-          // Erstelle Range für die Unterstreichung
-          const range = document.createRange();
-          const walker = document.createTreeWalker(
-            targetElement,
-            NodeFilter.SHOW_TEXT,
-            null,
-            false
-          );
-          
-          let currentOffset = 0;
-          let startNode = null;
-          let startOffsetInNode = 0;
-          let endNode = null;
-          let endOffsetInNode = 0;
-          
-          let node;
-          while (node = walker.nextNode()) {
-            const nodeLength = node.textContent.length;
-            
-            if (!startNode && currentOffset + nodeLength > startOffset) {
-              startNode = node;
-              startOffsetInNode = startOffset - currentOffset;
-            }
-            
-            if (currentOffset + nodeLength >= endOffset) {
-              endNode = node;
-              endOffsetInNode = endOffset - currentOffset;
-              break;
-            }
-            
-            currentOffset += nodeLength;
-          }
-          
-          if (startNode && endNode) {
-            try {
-              range.setStart(startNode, startOffsetInNode);
-              range.setEnd(endNode, endOffsetInNode);
-              
-              const highlightColor = getHighlightColor(highlight.color || 'blue');
-              const span = document.createElement('span');
-              span.className = 'member-highlight';
-              span.style.setProperty('text-decoration', 'underline', 'important');
-              span.style.setProperty('text-decoration-color', highlightColor, 'important');
-              span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-              span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-              span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
-              span.setAttribute('data-highlight-id', highlight.id);
-              span.setAttribute('data-highlight', 'true');
-              span.setAttribute('data-highlight-color', highlight.color || 'blue');
-              span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
-              // Verwende addEventListener statt onclick für bessere Kompatibilität
-              span.addEventListener('click', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
-                jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-              });
-              
-              const contents = range.extractContents();
-              span.appendChild(contents);
-              range.insertNode(span);
-            } catch (e) {
-            }
-          }
-        }
-      }
-      return;
-    }
-    
-    // Versuche den Text zu finden und zu unterstreichen
-    const textToHighlight = highlight.paragraph_text.substring(
-      highlight.text_start_offset || 0,
-      highlight.text_end_offset || highlight.paragraph_text.length
-    );
-    
-    // Prüfe ob textToHighlight gültig ist
-    if (!textToHighlight || textToHighlight.length === 0) {
-      console.warn('[HIGHLIGHT] textToHighlight ist leer, kann Unterstreichung nicht anwenden');
-      return;
-    }
-    
-    if (elementText && elementText.includes(textToHighlight)) {
-      // Erstelle Range für die Unterstreichung
-      const range = document.createRange();
-      const walker = document.createTreeWalker(
-        targetElement,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
-      
-      let node;
-      let found = false;
-      while (node = walker.nextNode()) {
-        const nodeText = node.textContent;
-        const index = nodeText.indexOf(textToHighlight);
-        
-        if (index !== -1) {
-          try {
-            range.setStart(node, index);
-            range.setEnd(node, index + textToHighlight.length);
-            
-            const highlightColor = getHighlightColor(highlight.color || 'blue');
-            const span = document.createElement('span');
-            span.className = 'member-highlight';
-            span.style.setProperty('text-decoration', 'underline', 'important');
-            span.style.setProperty('text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-            span.style.setProperty('cursor', 'pointer', 'important'); // Zeige Pointer-Cursor für Klick-Funktionalität
-            span.setAttribute('data-highlight-id', highlight.id);
-            span.setAttribute('data-highlight', 'true');
-            span.setAttribute('data-highlight-color', highlight.color || 'blue');
-            span.setAttribute('title', 'Klicken zum Öffnen im Member Panel'); // Tooltip hinzufügen
-            // Verwende addEventListener statt onclick für bessere Kompatibilität
-            span.addEventListener('click', function(e) {
-              e.stopPropagation();
-              e.preventDefault();
-              console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
-              jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-            });
-            
-            const contents = range.extractContents();
-            span.appendChild(contents);
-            range.insertNode(span);
-            found = true;
-            break;
-          } catch (e) {
-          }
-        }
-      }
-      
-      if (!found) {
-      }
-    }
+    // Verwende die vereinheitlichte Funktion für Bücher und Vorträge
+    applyHighlightToElement(targetElement, highlight);
   } catch (error) {
     console.error('Fehler beim Anwenden der Unterstreichung:', error);
   }

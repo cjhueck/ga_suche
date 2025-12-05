@@ -3723,11 +3723,15 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
     // VALIDIERUNG ENTFERNT - verursachte Probleme
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
     
+    console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
     
     const summaryDB = await loadSummaryDatabase();
+    
+    // Prüfe exakte Übereinstimmung
     if (summaryDB[lectureId]) {
       const dbData = summaryDB[lectureId];
       
+      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId} (Version: ${dbData.version || 'v1'})`);
       
       return res.json({
         exists: true,
@@ -3740,13 +3744,46 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
       });
     }
     
-    
     // DEBUG: Zeige verfügbare IDs für dieses GA
     const availableIds = Object.keys(summaryDB).filter(id => id.startsWith(req.params.gaNumber));
     if (availableIds.length > 0) {
+      console.log(`[CHECK-SUMMARY] Verfügbare IDs für ${req.params.gaNumber}:`, availableIds.slice(0, 10));
+      console.log(`[CHECK-SUMMARY] Gesuchte ID: ${lectureId}`);
+      console.log(`[CHECK-SUMMARY] Exakte Übereinstimmung: ${availableIds.includes(lectureId)}`);
+      
+      // Versuche alternative Formatierungen (z.B. GA052/1 vs GA052/01)
+      const lectureNum = parseInt(req.params.lectureNum);
+      const alternativeId1 = `${req.params.gaNumber}/${lectureNum}`; // ohne führende Null
+      const alternativeId2 = `${req.params.gaNumber}/${lectureNum.toString().padStart(2, '0')}`; // mit führender Null
+      
+      let foundData = null;
+      let foundId = null;
+      
+      if (summaryDB[alternativeId1] && alternativeId1 !== lectureId) {
+        foundData = summaryDB[alternativeId1];
+        foundId = alternativeId1;
+      } else if (summaryDB[alternativeId2] && alternativeId2 !== lectureId) {
+        foundData = summaryDB[alternativeId2];
+        foundId = alternativeId2;
+      }
+      
+      if (foundData) {
+        console.log(`[CHECK-SUMMARY] ✓ Alternative ID gefunden: ${foundId} statt ${lectureId}`);
+        return res.json({
+          exists: true,
+          lectureId: foundId,
+          summary: foundData.summary,
+          headings: foundData.headings || [],
+          tableOfContents: foundData.tableOfContents || [],
+          lectureKeywords: foundData.lectureKeywords || [],
+          version: foundData.version || 'v1'
+        });
+      }
     } else {
+      console.log(`[CHECK-SUMMARY] Keine IDs für ${req.params.gaNumber} gefunden`);
     }
     
+    console.log(`[CHECK-SUMMARY] ✗ Keine Zusammenfassung für ${lectureId}`);
     res.json({
       exists: false,
       lectureId: lectureId,
@@ -5743,29 +5780,42 @@ app.get('/api/book/:gaNumber', async (req, res) => {
         }
 
         // Nur speichern wenn Datenbank erfolgreich geladen wurde
+        // WICHTIG: Überschreibe NICHT, wenn bereits Überschriften vorhanden sind (wurden vom Export-Skript gesetzt)
         if (summaryDB && !dbLoadError) {
-          // Konvertiere Book-Headings zu summary-database Format
-          const headingsForDB = book.headings.map(h => ({
-            index: h.id || `heading-${h.line || 0}`,
-            text: h.text,
-            level: `h${h.level || 3}`
-          }));
+          const existingEntry = summaryDB[bookId];
+          const hasExistingHeadings = existingEntry && existingEntry.headings && existingEntry.headings.length > 0;
+          
+          // Prüfe ob bestehende Überschriften Absatz-Indizes haben (beginnen mit ^)
+          const hasParagraphIndices = hasExistingHeadings && 
+            existingEntry.headings.some(h => h.index && h.index.startsWith('^'));
+          
+          if (!hasExistingHeadings || !hasParagraphIndices) {
+            // Nur speichern wenn keine Überschriften vorhanden oder keine Absatz-Indizes
+            // Konvertiere Book-Headings zu summary-database Format
+            const headingsForDB = book.headings.map(h => ({
+              index: h.id || `heading-${h.line || 0}`,
+              text: h.text,
+              level: `h${h.level || 3}`
+            }));
 
-          // Erstelle oder aktualisiere NUR den Eintrag für dieses Book
-          // WICHTIG: Bestehende Vortrags-Einträge bleiben unverändert!
-          if (!summaryDB[bookId]) {
-            summaryDB[bookId] = {};
+            // Erstelle oder aktualisiere NUR den Eintrag für dieses Book
+            // WICHTIG: Bestehende Vortrags-Einträge bleiben unverändert!
+            if (!summaryDB[bookId]) {
+              summaryDB[bookId] = {};
+            }
+            summaryDB[bookId].headings = headingsForDB;
+            summaryDB[bookId].tableOfContents = book.headings.map(h => ({
+              heading: h.text,
+              description: '', // Books haben keine Beschreibungen
+              index: h.id || `heading-${h.line || 0}`
+            }));
+            summaryDB[bookId].version = 'v2';
+
+            // Speichere zurück - Vortrags-Einträge bleiben erhalten
+            await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+          } else {
+            console.log(`[BOOK] ${bookId}: Überschreibe NICHT - bereits Absatz-Indizes vorhanden`);
           }
-          summaryDB[bookId].headings = headingsForDB;
-          summaryDB[bookId].tableOfContents = book.headings.map(h => ({
-            heading: h.text,
-            description: '', // Books haben keine Beschreibungen
-            index: h.id || `heading-${h.line || 0}`
-          }));
-          summaryDB[bookId].version = 'v2';
-
-          // Speichere zurück - Vortrags-Einträge bleiben erhalten
-          await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
           const totalEntries = Object.keys(summaryDB).length;
           const lectureEntries = Object.keys(summaryDB).filter(id => {
             const match = id.match(/^GA(\d+)/);
@@ -7369,14 +7419,23 @@ let summaryDbWriteQueue = Promise.resolve();
 let summaryDbLock = false;
 
 // Lade zentrale Summary-Datenbank
+// KEIN Cache für summary-database.json - wird bei jedem Request neu geladen
 async function loadSummaryDatabase() {
   try {
+    // Lade Datei IMMER neu (kein Cache)
     const data = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
     const parsed = JSON.parse(data);
     const entryCount = Object.keys(parsed).length;
     if (entryCount === 0) {
       console.warn('[SUMMARY-DB] ⚠️  WARNUNG: summary-database.json ist leer!');
     }
+    
+    // Debug: Prüfe GA001 Überschriften
+    if (parsed['GA001'] && parsed['GA001'].headings && parsed['GA001'].headings.length > 0) {
+      const firstHeading = parsed['GA001'].headings[0];
+      console.log(`[SUMMARY-DB] GA001 erste Überschrift Index: ${firstHeading.index}, Text: ${firstHeading.text.substring(0, 40)}`);
+    }
+    
     return parsed;
   } catch (error) {
     console.error('[SUMMARY-DB] ❌ Fehler beim Laden:', error.message);
@@ -7923,8 +7982,28 @@ app.post('/api/save-summary', async (req, res) => {
 // Statische Datei: summary-database.json bereitstellen
 app.get('/summary-database.json', async (req, res) => {
   try {
+    // Cache-Control Header: Kein Caching, damit immer die neueste Version geladen wird
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
+    // WICHTIG: Deaktiviere Kompression für große Dateien, um Content-Length-Probleme zu vermeiden
+    res.setHeader('Content-Encoding', 'identity');
+    
+    console.log(`[SUMMARY-DB-ENDPOINT] Request empfangen`);
     const summaryDB = await loadSummaryDatabase();
-    res.json(summaryDB);
+    
+    // Debug: Prüfe was zurückgegeben wird
+    if (summaryDB['GA001'] && summaryDB['GA001'].headings && summaryDB['GA001'].headings.length > 0) {
+      const firstHeading = summaryDB['GA001'].headings[0];
+      console.log(`[SUMMARY-DB-ENDPOINT] GA001 erste Überschrift Index: ${firstHeading.index}`);
+    }
+    
+    // Stringify und senden - setze Content-Length explizit
+    const jsonString = JSON.stringify(summaryDB);
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Content-Length', Buffer.byteLength(jsonString, 'utf8'));
+    res.send(jsonString);
   } catch (error) {
     console.error('Fehler beim Laden der Summary-DB:', error);
     res.status(500).json({ error: error.message });

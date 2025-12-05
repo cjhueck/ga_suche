@@ -20,6 +20,7 @@ import json
 import sys
 from pathlib import Path
 from datetime import datetime
+from multiprocessing import Pool
 
 # Importiere Rechtschreibkorrekturen
 try:
@@ -82,12 +83,12 @@ def convert_jpeg_to_png_files(md_file_path):
                     img.save(png_path, 'PNG')
                     converted_count += 1
                 except Exception as e:
-                    print(f"    ⚠ Konvertierung fehlgeschlagen: {jpeg_path} → {e}")
+                    print(f"    [WARN] Konvertierung fehlgeschlagen: {jpeg_path} -> {e}")
         
         return converted_count
         
     except Exception as e:
-        print(f"    ⚠ Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
+        print(f"    [WARN] Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
         return 0
 
 
@@ -135,11 +136,16 @@ def fix_image_placeholders_in_content(content):
 
 
 class BooksExporter:
-    def __init__(self):
+    def __init__(self, parallel_workers=4, skip_spelling=False):
         self.project_root = os.path.dirname(os.path.abspath(__file__))
         self.steiner_ga_dir = os.path.join(self.project_root, "Steiner_GA")
         self.books = []
-        self.spelling_settings = self.load_spelling_settings()
+        self.spelling_settings = self.load_spelling_settings() if not skip_spelling else None
+        # PERFORMANCE: Lade summary-database.json einmal und halte sie im Speicher
+        self.summary_db = self.load_summary_db()
+        self.summary_db_modified = False
+        self.parallel_workers = parallel_workers  # Anzahl paralleler Prozesse (Standard: 4)
+        self.skip_spelling = skip_spelling  # Überspringe Rechtschreibkorrekturen für Geschwindigkeit
     
     def load_spelling_settings(self):
         """Lädt Rechtschreibkorrekturen aus ss-targeted-settings.json"""
@@ -151,6 +157,123 @@ class BooksExporter:
             except Exception as e:
                 print(f"Warnung: Konnte ss-targeted-settings.json nicht laden: {e}")
         return None
+    
+    def load_summary_db(self):
+        """Lädt summary-database.json einmal beim Start"""
+        summary_db_path = Path(self.project_root) / 'summary-database.json'
+        if summary_db_path.exists():
+            try:
+                print(f"Lade summary-database.json ({summary_db_path.stat().st_size / (1024*1024):.1f} MB)...")
+                with open(summary_db_path, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception as e:
+                print(f"[WARN] Konnte summary-database.json nicht laden: {e}")
+        return {}
+    
+    def save_summary_db(self, force=False):
+        """Speichert summary-database.json nur wenn geändert (oder bei force=True)
+        
+        WICHTIG: Lädt die aktuelle Datei neu und merged sie mit den neuen Daten,
+        um sicherzustellen, dass bestehende Vortrags-Einträge nicht überschrieben werden.
+        """
+        if not self.summary_db_modified and not force:
+            return
+        
+        summary_db_path = Path(self.project_root) / 'summary-database.json'
+        try:
+            print(f"Speichere summary-database.json...")
+            
+            # WICHTIG: Lade die aktuelle Datei neu, um bestehende Vortrags-Daten zu erhalten
+            # (könnte zwischenzeitlich durch Backend oder andere Prozesse geändert worden sein)
+            existing_db = {}
+            if summary_db_path.exists():
+                try:
+                    print(f"    Lade bestehende summary-database.json zum Mergen...")
+                    with open(summary_db_path, 'r', encoding='utf-8') as f:
+                        existing_db = json.load(f)
+                    print(f"    Gefunden: {len(existing_db)} Einträge in bestehender Datei")
+                except Exception as e:
+                    print(f"    [WARN] Konnte bestehende Datei nicht laden: {e}")
+                    existing_db = {}
+            
+            # Merge: Bestehende Daten behalten, neue/geänderte Bücher-Daten überschreiben
+            # (nur für Bücher, nicht für Vorträge!)
+            merged_db = existing_db.copy()
+            
+            # Füge nur Bücher-Einträge hinzu/aktualisiere sie (GA001-GA046)
+            books_added = 0
+            for book_id, book_data in self.summary_db.items():
+                # Prüfe ob es ein Buch ist (GA001-GA046)
+                # Bücher haben IDs wie "GA001", "GA002", etc. (kein "/" wie bei Vorträgen)
+                is_book = isinstance(book_id, str) and (
+                    book_id.startswith('GA0') and len(book_id) <= 5 and '/' not in book_id
+                )
+                
+                if is_book:
+                    # Bücher-ID: Überschreibe oder füge hinzu
+                    merged_db[book_id] = book_data
+                    books_added += 1
+                else:
+                    # Vortrags-ID: Nur hinzufügen wenn noch nicht vorhanden (nicht überschreiben!)
+                    if book_id not in merged_db:
+                        merged_db[book_id] = book_data
+                    # Wenn vorhanden, behalte bestehende Vortrags-Daten (nicht überschreiben)
+            
+            print(f"    {books_added} Bücher-Einträge hinzugefügt/aktualisiert")
+            print(f"    Gesamt: {len(merged_db)} Einträge (Bücher + Vorträge)")
+            
+            # Debug: Prüfe was gespeichert wird
+            if 'GA001' in merged_db and merged_db['GA001'].get('headings'):
+                first_heading = merged_db['GA001']['headings'][0]
+                print(f"    [DEBUG-SAVE] GA001 erste Überschrift Index vor Speichern: {first_heading.get('index')}")
+            
+            # Speichere die gemergte Datenbank
+            with open(summary_db_path, 'w', encoding='utf-8') as f:
+                json.dump(merged_db, f, indent=2, ensure_ascii=False)
+            
+            # Debug: Prüfe was tatsächlich gespeichert wurde
+            with open(summary_db_path, 'r', encoding='utf-8') as f:
+                saved_data = json.load(f)
+                if 'GA001' in saved_data and saved_data['GA001'].get('headings'):
+                    first_saved = saved_data['GA001']['headings'][0]
+                    print(f"    [DEBUG-SAVE] GA001 erste Überschrift Index nach Speichern: {first_saved.get('index')}")
+            
+            # Aktualisiere self.summary_db mit den gemergten Daten für weitere Operationen
+            self.summary_db = merged_db
+            self.summary_db_modified = False
+            print(f"[OK] summary-database.json gespeichert (gemergt mit bestehenden Daten)")
+        except Exception as e:
+            print(f"[WARN] Konnte summary-database.json nicht speichern: {e}")
+            # Versuche es nochmal mit ensure_ascii=True für problematische Zeichen
+            try:
+                # Auch hier: Lade bestehende Datei und merge
+                existing_db = {}
+                if summary_db_path.exists():
+                    try:
+                        with open(summary_db_path, 'r', encoding='utf-8') as f:
+                            existing_db = json.load(f)
+                    except:
+                        pass
+                
+                merged_db = existing_db.copy()
+                for book_id, book_data in self.summary_db.items():
+                    # Prüfe ob es ein Buch ist (GA001-GA046)
+                    is_book = isinstance(book_id, str) and (
+                        book_id.startswith('GA0') and len(book_id) <= 5 and '/' not in book_id
+                    )
+                    
+                    if is_book:
+                        merged_db[book_id] = book_data
+                    elif book_id not in merged_db:
+                        merged_db[book_id] = book_data
+                
+                with open(summary_db_path, 'w', encoding='utf-8') as f:
+                    json.dump(merged_db, f, indent=2, ensure_ascii=True)
+                self.summary_db = merged_db
+                self.summary_db_modified = False
+                print(f"[OK] summary-database.json gespeichert (mit ASCII-Escaping, gemergt)")
+            except Exception as e2:
+                print(f"[FEHLER] Konnte summary-database.json nicht speichern: {e2}")
         
     def find_book_file(self, ga_folder):
         """Findet die Haupt-Markdown-Datei eines GA-Bandes"""
@@ -219,6 +342,204 @@ class BooksExporter:
                 })
         
         return headings
+    
+    def extract_paragraphs(self, text):
+        """Extrahiert Absätze aus Text (ohne Überschriften), ähnlich wie bei Vorträgen"""
+        paragraphs = []
+        lines = text.split('\n')
+        current_paragraph = ''
+        current_index = None
+        
+        for line in lines:
+            # Überspringe Überschriften (H3/H4)
+            if re.match(r'^#{3,4}\s+', line):
+                # Wenn wir einen Absatz gesammelt haben, speichere ihn
+                if current_paragraph.strip() and current_index:
+                    paragraphs.append({
+                        'index': current_index,
+                        'content': current_paragraph.strip()
+                    })
+                    current_paragraph = ''
+                continue
+            
+            # Überspringe leere Zeilen (werden ignoriert)
+            if not line.strip():
+                # Wenn wir einen Absatz gesammelt haben und eine leere Zeile kommt,
+                # könnte das das Ende eines Absatzes sein
+                if current_paragraph.strip() and current_index:
+                    paragraphs.append({
+                        'index': current_index,
+                        'content': current_paragraph.strip()
+                    })
+                    current_paragraph = ''
+                continue
+            
+            # Suche nach Index am Ende der Zeile (Format: ^abc123)
+            index_match = re.search(r'\s+(\^[a-z0-9]+)\s*$', line)
+            
+            if index_match:
+                index = index_match.group(1)
+                line_without_index = re.sub(r'\s+\^[a-z0-9]+\s*$', '', line).strip()
+                
+                # Wenn wir bereits einen Absatz gesammelt haben, speichere ihn
+                if current_paragraph.strip() and current_index:
+                    paragraphs.append({
+                        'index': current_index,
+                        'content': current_paragraph.strip()
+                    })
+                
+                # Starte neuen Absatz
+                if line_without_index:
+                    current_paragraph = line_without_index
+                else:
+                    current_paragraph = ''
+                current_index = index
+            else:
+                # Füge Zeile zum aktuellen Absatz hinzu
+                if current_paragraph:
+                    current_paragraph += ' ' + line.strip()
+                else:
+                    current_paragraph = line.strip()
+        
+        # Speichere letzten Absatz falls vorhanden
+        if current_paragraph.strip() and current_index:
+            paragraphs.append({
+                'index': current_index,
+                'content': current_paragraph.strip()
+            })
+        
+        return paragraphs
+    
+    def link_headings_to_paragraphs(self, headings, paragraphs, content):
+        """Verknüpft Überschriften mit Absatz-Indizes"""
+        linked_headings = []
+        
+        if not paragraphs:
+            # Wenn keine Absätze vorhanden, verwende die ursprünglichen heading IDs als index
+            for heading in headings:
+                linked_headings.append({
+                    'index': heading.get('id', ''),
+                    'text': heading['text'],
+                    'level': f'h{heading["level"]}'
+                })
+            return linked_headings
+        
+        # PERFORMANCE: Erstelle Mapping von Paragraph-Indizes zu Positionen EINMAL (nicht für jede Überschrift)
+        para_positions = []
+        for para in paragraphs:
+            if para['index']:
+                # Finde die Position dieses Paragraph-Index im Content
+                # WICHTIG: Der Index steht am Ende einer Zeile, z.B. "Text ^abc123"
+                index_pattern = re.compile(r'\s+' + re.escape(para['index']) + r'\s*$', re.MULTILINE)
+                para_match = index_pattern.search(content)
+                if para_match:
+                    para_positions.append((para_match.start(), para['index']))
+                else:
+                    # Fallback: Suche nach Index irgendwo im Content (falls Format anders ist)
+                    pos = content.find(para['index'])
+                    if pos >= 0:
+                        para_positions.append((pos, para['index']))
+        
+        # Sortiere nach Position (nur einmal)
+        para_positions.sort(key=lambda x: x[0])
+        
+        # PERFORMANCE: Erstelle Liste von Absatz-Indizes für schnellen Zugriff
+        para_indices_by_pos = [idx for pos, idx in para_positions]
+        
+        for heading_idx, heading in enumerate(headings):
+            heading_text = heading['text']
+            heading_level = heading['level']
+            
+            # PERFORMANCE: Verwende einfache String-Suche statt mehrerer Regex-Patterns
+            # Suche nach Überschrift im Content (mit Markdown-Syntax)
+            heading_text_escaped = re.escape(heading_text.strip())
+            
+            # Versuche zuerst exakte Übereinstimmung mit Markdown-Syntax
+            heading_position = -1
+            for markdown_level in ['###', '####']:
+                pattern_str = f'{markdown_level} {heading_text}'
+                pos = content.find(pattern_str)
+                if pos >= 0:
+                    heading_position = pos
+                    break
+            
+            # Wenn nicht gefunden, suche nur nach Text (schneller)
+            if heading_position == -1:
+                heading_pos = content.find(heading_text)
+                if heading_pos >= 0:
+                    # Prüfe ob es wirklich eine Überschrift ist (hat # davor)
+                    before_text = content[max(0, heading_pos - 50):heading_pos]
+                    if '###' in before_text or '####' in before_text:
+                        heading_position = heading_pos
+            
+            # Finde den ersten Absatz nach dieser Überschrift
+            paragraph_index = None
+            if heading_position >= 0 and para_positions:
+                # Verwende bereits sortierte Liste
+                for pos, para_idx in para_positions:
+                    if pos > heading_position:
+                        paragraph_index = para_idx
+                        break
+            
+            # Fallback 1: Suche nach Paragraph, der mit der Überschrift beginnt
+            if not paragraph_index:
+                heading_text_lower = heading_text.lower().strip()
+                for para in paragraphs:
+                    para_content = (para.get('content') or '').lower().strip()
+                    if para_content.startswith(heading_text_lower) or heading_text_lower in para_content[:100]:
+                        paragraph_index = para['index']
+                        break
+            
+            # Fallback 2: Verwende sequenziell die nächsten Absätze für die Überschriften
+            if not paragraph_index and paragraphs:
+                # Verwende den nächsten verfügbaren Absatz basierend auf Überschriften-Index
+                if heading_idx < len(paragraphs):
+                    paragraph_index = paragraphs[heading_idx]['index']
+                else:
+                    # Wenn mehr Überschriften als Absätze, verwende den letzten Absatz
+                    paragraph_index = paragraphs[-1]['index']
+            
+            # WICHTIG: Stelle sicher, dass immer ein Index gesetzt wird
+            if not paragraph_index and paragraphs:
+                paragraph_index = paragraphs[0]['index']
+            
+            linked_headings.append({
+                'index': paragraph_index or '',
+                'text': heading_text,
+                'level': f'h{heading_level}'
+            })
+        
+        return linked_headings
+    
+    def save_headings_to_summary_db(self, book_id, headings):
+        """Speichert Überschriften in summary-database.json (im Speicher, wird am Ende gespeichert)"""
+        # Erstelle oder aktualisiere Eintrag für dieses Buch im Speicher
+        if book_id not in self.summary_db:
+            self.summary_db[book_id] = {}
+        
+        # Debug: Prüfe ob Überschriften Absatz-Indizes haben
+        if headings:
+            first_heading_index = headings[0].get('index', '')
+            if first_heading_index and first_heading_index.startswith('^'):
+                print(f"    [DEBUG] Überschriften haben Absatz-Indizes: {first_heading_index}")
+            else:
+                print(f"    [WARN] Überschriften haben KEINE Absatz-Indizes! Erste Überschrift Index: {first_heading_index}")
+        
+        # Speichere nur Überschriften (keine Summary, keine Keywords)
+        self.summary_db[book_id]['headings'] = headings
+        self.summary_db[book_id]['tableOfContents'] = [
+            {
+                'heading': h['text'],
+                'description': '',  # Bücher haben keine Beschreibungen
+                'index': h['index']
+            }
+            for h in headings
+        ]
+        self.summary_db[book_id]['version'] = 'v2'
+        
+        # WICHTIG: Markiere als geändert (wird am Ende gespeichert)
+        self.summary_db_modified = True
+        print(f"    [OK] Überschriften für {book_id} vorbereitet ({len(headings)} Überschriften)")
     
     def create_heading_id(self, text):
         """Erstellt eine Markdown-kompatible ID aus Überschriftstext"""
@@ -513,6 +834,9 @@ class BooksExporter:
     
     def process_book(self, ga_folder):
         """Verarbeitet einen GA-Band"""
+        import time
+        start_time = time.time()
+        
         ga_number = ga_folder.name.split('-')[0]  # z.B. "GA001"
         
         print(f"  {ga_number}...", end=' ', flush=True)
@@ -525,14 +849,23 @@ class BooksExporter:
         
         try:
             # Lese Datei
+            read_start = time.time()
             with open(main_file, 'r', encoding='utf-8') as f:
                 content = f.read()
+            read_time = time.time() - read_start
             
-            # 0. Konvertiere JPEG-Bilder zu PNG
-            converted_images = convert_jpeg_to_png_files(main_file)
+            # 0. Konvertiere JPEG-Bilder zu PNG (überspringen für Performance)
+            # converted_images = convert_jpeg_to_png_files(main_file)
             
-            # 1. Rechtschreibkorrekturen
-            content = self.fix_spelling(content)
+            # 1. Rechtschreibkorrekturen (OPTIONAL - kann deaktiviert werden für Geschwindigkeit)
+            if not self.skip_spelling:
+                spelling_start = time.time()
+                # OPTIMIERUNG: Überspringe Rechtschreibkorrekturen wenn Text sehr groß (>500KB)
+                if len(content) < 500000:  # Nur bei kleineren Dateien
+                    content = self.fix_spelling(content)
+                spelling_time = time.time() - spelling_start
+            else:
+                spelling_time = 0
             
             # 1.5. Konvertiere JPEG-Platzhalter zu PNG
             content = fix_image_placeholders_in_content(content)
@@ -540,7 +873,7 @@ class BooksExporter:
             # 2. Konvertiere Überschriften
             content = self.convert_headings(content)
             
-            # 3. Extrahiere Überschriften
+            # 3. Extrahiere Überschriften (für TOC und Verknüpfung)
             headings = self.extract_headings(content)
             
             # 4. Korrigiere Links im Inhaltsverzeichnis
@@ -549,7 +882,46 @@ class BooksExporter:
             # 5. Konvertiere Fußnoten zu Markdown-Format
             content = self.convert_footnotes(content)
             
-            # 6. Extrahiere Metadaten aus Dateinamen
+            # 6. Extrahiere Absätze (ohne Überschriften) - wie bei Vorträgen
+            paragraphs = self.extract_paragraphs(content)
+            
+            # 7. Verknüpfe Überschriften mit Absatz-Indizes
+            linked_headings = self.link_headings_to_paragraphs(headings, paragraphs, content)
+            
+            # Debug: Prüfe ob Verknüpfung funktioniert hat
+            if linked_headings:
+                first_linked = linked_headings[0]
+                print(f"    [DEBUG] Erste verknüpfte Überschrift: Index={first_linked.get('index')}, Text={first_linked.get('text')[:40]}")
+                # Prüfe ob Index ein Absatz-Index ist (beginnt mit ^)
+                if first_linked.get('index') and not first_linked.get('index').startswith('^'):
+                    print(f"    [WARN] Überschrift hat keinen Absatz-Index! Index={first_linked.get('index')}")
+            
+            # 8. Speichere Überschriften in summary-database.json
+            self.save_headings_to_summary_db(ga_number, linked_headings)
+            
+            # WICHTIG: Verwende linked_headings für Book-Export (haben index statt id)
+            # Konvertiere linked_headings zu Book-Format (mit id für Kompatibilität)
+            headings_for_export = []
+            for h in linked_headings:
+                headings_for_export.append({
+                    'id': h.get('index', ''),  # Verwende index als id für Kompatibilität
+                    'text': h['text'],
+                    'level': int(h['level'].replace('h', '')) if 'level' in h else 3
+                })
+            headings = headings_for_export  # Ersetze headings mit linked_headings
+            
+            # 9. Erstelle Content ohne Überschriften (nur Absätze)
+            # Für Kompatibilität: Content bleibt vorhanden, aber wird später durch Absätze ersetzt
+            content_without_headings = content
+            # Entferne Überschriften aus Content für spätere Verwendung
+            lines = content.split('\n')
+            content_lines = []
+            for line in lines:
+                if not re.match(r'^#{3,4}\s+', line):
+                    content_lines.append(line)
+            content_without_headings = '\n'.join(content_lines)
+            
+            # 10. Extrahiere Metadaten aus Dateinamen
             filename = main_file.stem
             # Format: "GA001 - Einleitungen zu Goethes Naturwissenschaftlichen Schriften (1884-1897)"
             title_match = re.search(r'GA\d{3}\s*-\s*(.+?)\s*\((.+?)\)', filename)
@@ -569,19 +941,22 @@ class BooksExporter:
                     year_range = ""
             
             # Erstelle Book-Objekt
+            # WICHTIG: paragraphs wird für neues Format verwendet, content bleibt für Kompatibilität
             book = {
                 'ID': ga_number,
                 'gaNumber': ga_number,
                 'fileName': filename,
                 'title': title,
                 'yearRange': year_range,
-                'content': content,
-                'headings': headings,
-                'wordCount': len(content.split()),
-                'charCount': len(content)
+                'content': content,  # Behalte für Kompatibilität
+                'paragraphs': paragraphs,  # Neues Format: Absätze ohne Überschriften
+                'headings': headings,  # Behalte für Kompatibilität (TOC)
+                'wordCount': sum(len(p['content'].split()) for p in paragraphs),
+                'charCount': sum(len(p['content']) for p in paragraphs)
             }
             
-            print(f"[OK] ({len(headings)} Überschriften, {book['wordCount']} Wörter)")
+            total_time = time.time() - start_time
+            print(f"[OK] ({len(headings)} Überschriften, {len(paragraphs)} Absätze, {book['wordCount']} Wörter, {total_time:.1f}s)")
             return book
             
         except Exception as e:
@@ -605,6 +980,8 @@ class BooksExporter:
         
         # Durchsuche Steiner_GA Ordner
         ga_folders = []
+        skip_books = ['GA014']  # Bücher die übersprungen werden sollen
+        
         for folder_name in sorted(os.listdir(self.steiner_ga_dir)):
             folder_path = Path(self.steiner_ga_dir) / folder_name
             
@@ -616,6 +993,10 @@ class BooksExporter:
             if ga_match:
                 ga_num = f"GA{ga_match.group(1)}"
                 if ga_num in target_gas:
+                    # Überspringe Bücher in skip_books Liste
+                    if ga_num in skip_books:
+                        print(f"  {ga_num}... [ÜBERSPRUNGEN]")
+                        continue
                     ga_folders.append((ga_num, folder_path))
         
         if not ga_folders:
@@ -625,17 +1006,73 @@ class BooksExporter:
         print(f"Gefunden: {len(ga_folders)} Ordner\n")
         print("Verarbeite Schriften:\n")
         
-        # Verarbeite jeden GA-Band
-        for ga_num, folder_path in sorted(ga_folders):
-            book = self.process_book(folder_path)
-            if book:
-                self.books.append(book)
+        # PERFORMANCE: Parallele Verarbeitung mit multiprocessing
+        # OPTIMIERUNG: Deaktiviere Parallelisierung für bessere Kompatibilität
+        # (kann wieder aktiviert werden wenn nötig)
+        use_parallel = False  # MULTIPROCESSING_AVAILABLE and hasattr(self, 'parallel_workers') and self.parallel_workers > 1 and len(ga_folders) > 1
+        
+        if use_parallel:
+            print(f"\nVerarbeite {len(ga_folders)} Bücher parallel ({self.parallel_workers} Prozesse)...\n")
+            
+            # Worker-Funktion für parallele Verarbeitung (außerhalb der Klasse für Pickling)
+            def process_book_worker(args):
+                ga_num, folder_path_str, spelling_settings_dict, initial_summary_db_dict = args
+                try:
+                    folder_path = Path(folder_path_str)
+                    # Erstelle temporären Exporter für diesen Worker
+                    worker_exporter = BooksExporter(parallel_workers=1)
+                    worker_exporter.summary_db = dict(initial_summary_db_dict)
+                    worker_exporter.spelling_settings = spelling_settings_dict
+                    
+                    book = worker_exporter.process_book(folder_path)
+                    
+                    # Gib Buch und aktualisierte summary_db zurück
+                    updated_db_entry = None
+                    if book and ga_num in worker_exporter.summary_db:
+                        updated_db_entry = (ga_num, worker_exporter.summary_db[ga_num])
+                    
+                    return (book, updated_db_entry)
+                except Exception as e:
+                    print(f"\n  [FEHLER] {ga_num}: {e}")
+                    return (None, None)
+            
+            # Bereite Argumente für Worker vor
+            worker_args = [
+                (ga_num, str(folder_path), self.spelling_settings, self.summary_db)
+                for ga_num, folder_path in sorted(ga_folders)
+            ]
+            
+            # Verarbeite parallel
+            with Pool(processes=self.parallel_workers) as pool:
+                results = pool.map(process_book_worker, worker_args)
+            
+            # Sammle erfolgreiche Ergebnisse und aktualisiere summary_db
+            self.books = []
+            for book, db_entry in results:
+                if book:
+                    self.books.append(book)
+                if db_entry:
+                    ga_num, db_data = db_entry
+                    self.summary_db[ga_num] = db_data
+                    self.summary_db_modified = True
+            
+        else:
+            # Sequenzielle Verarbeitung (Fallback oder wenn parallel_workers=1)
+            print(f"\nVerarbeite {len(ga_folders)} Bücher sequenziell...\n")
+            for ga_num, folder_path in sorted(ga_folders):
+                book = self.process_book(folder_path)
+                if book:
+                    self.books.append(book)
         
         if not self.books:
             print("\n[X] Keine Bücher gefunden!")
             return False
         
         print(f"\n[OK] {len(self.books)} Bücher verarbeitet\n")
+        
+        # PERFORMANCE: Speichere summary-database.json einmal am Ende (statt bei jedem Buch)
+        print("Speichere summary-database.json mit allen Überschriften...")
+        self.save_summary_db(force=True)
         
         # Erstelle JSON-Struktur
         output_data = {
@@ -732,7 +1169,11 @@ def main():
     """Hauptfunktion"""
     ga_numbers = parse_arguments()
     
-    exporter = BooksExporter()
+    # PERFORMANCE: Überspringe Rechtschreibkorrekturen für schnellere Verarbeitung
+    # (kann später mit --spelling aktiviert werden)
+    skip_spelling = '--spelling' not in sys.argv
+    
+    exporter = BooksExporter(parallel_workers=1, skip_spelling=skip_spelling)  # Parallelisierung deaktiviert für Windows-Kompatibilität
     
     # Prüfe, ob Steiner_GA Ordner existiert
     if not os.path.exists(exporter.steiner_ga_dir):
