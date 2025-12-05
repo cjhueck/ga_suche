@@ -104,8 +104,12 @@ CREATE TABLE IF NOT EXISTS public.quotes (
   ga_reference VARCHAR(50) NOT NULL,
   lecture_title TEXT,
   lecture_url TEXT,
+  paragraph_id VARCHAR(100),
+  paragraph_text TEXT,
   context_before TEXT,
   context_after TEXT,
+  text_start_offset INTEGER,  -- Position im Absatz wo das Zitat beginnt
+  text_end_offset INTEGER,     -- Position im Absatz wo das Zitat endet
   personal_note TEXT,
   tags TEXT[] DEFAULT '{}',
   is_public BOOLEAN DEFAULT false,

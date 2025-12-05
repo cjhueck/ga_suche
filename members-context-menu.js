@@ -328,6 +328,190 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error('Supabase Client nicht initialisiert');
     }
     
+    if (!selectionRangeForContext) {
+      throw new Error('Keine Textauswahl vorhanden');
+    }
+    
+    // Finde den Absatz-Container, der den markierten Text enthält
+    let paragraphNode = selectionRangeForContext.commonAncestorContainer;
+    while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
+      paragraphNode = paragraphNode.parentNode;
+    }
+    
+    console.log('[QUOTE-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
+    
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    let foundParaId = false;
+    let tempNode = paragraphNode;
+    while (tempNode && tempNode !== document.body) {
+      if (tempNode.nodeType === 1) { // Element node
+        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+        if (tempNode.id && tempNode.id.startsWith('para-')) {
+          console.log('[QUOTE-SAVE] para- ID gefunden:', tempNode.id);
+          paragraphNode = tempNode;
+          foundParaId = true;
+          break;
+        }
+        // Prüfe ob data-index vorhanden (für Bücher)
+        if (tempNode.dataset && tempNode.dataset.index) {
+          console.log('[QUOTE-SAVE] data-index gefunden:', tempNode.dataset.index);
+          // Finde das Parent-Element, das den Text enthält
+          let parent = tempNode.parentElement;
+          while (parent && parent !== document.body) {
+            const tagName = parent.tagName.toLowerCase();
+            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+              console.log('[QUOTE-SAVE] Parent-Element mit Text gefunden:', tagName);
+              paragraphNode = parent;
+              foundParaId = true;
+              break;
+            }
+            parent = parent.parentElement;
+          }
+          if (foundParaId) break;
+        }
+      }
+      tempNode = tempNode.parentNode;
+    }
+    
+    // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
+    if (!foundParaId) {
+      console.log('[QUOTE-SAVE] Keine para- ID gefunden, suche nach Block-Element');
+      tempNode = paragraphNode;
+      while (tempNode && tempNode !== document.body) {
+        const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          // Prüfe ob dieser Absatz den markierten Text enthält
+          const nodeText = tempNode.textContent || '';
+          console.log('[QUOTE-SAVE] Block-Element gefunden:', tagName, 'Text-Länge:', nodeText.length, 'Enthält Text?', nodeText.includes(text));
+          if (nodeText && nodeText.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+        }
+        tempNode = tempNode.parentNode;
+      }
+    }
+    
+    // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
+    if (!foundParaId && paragraphNode) {
+      console.log('[QUOTE-SAVE] Fallback: Verwende aktuelles Element');
+      // Prüfe ob das Element selbst Text enthält
+      const nodeText = paragraphNode.textContent || '';
+      if (!nodeText || !nodeText.includes(text)) {
+        // Suche nach einem Parent, der den Text enthält
+        tempNode = paragraphNode.parentNode;
+        while (tempNode && tempNode !== document.body) {
+          const nodeText2 = tempNode.textContent || '';
+          if (nodeText2 && nodeText2.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            console.log('[QUOTE-SAVE] Fallback: Parent mit Text gefunden:', tempNode.tagName);
+            break;
+          }
+          tempNode = tempNode.parentNode;
+        }
+      } else {
+        foundParaId = true;
+      }
+    }
+    
+    if (!paragraphNode || paragraphNode === document.body || !foundParaId) {
+      console.error('[QUOTE-SAVE] Absatz nicht gefunden. paragraphNode:', paragraphNode, 'foundParaId:', foundParaId);
+      throw new Error('Absatz nicht gefunden');
+    }
+    
+    console.log('[QUOTE-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
+    
+    // Hole den vollständigen Text des Absatzes
+    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
+    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    
+    console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText.length);
+    console.log('[QUOTE-SAVE] Selected Text:', text.substring(0, 50) + '...');
+    console.log('[QUOTE-SAVE] Paragraph Index:', paragraphIndex);
+    
+    // Finde die Position des markierten Textes im Absatz
+    // Verwende die Range-Informationen für präzisere Berechnung
+    let textStartOffset = -1;
+    let textEndOffset = -1;
+    
+    // Versuche zuerst mit der Range die exakte Position zu finden
+    try {
+      const range = selectionRangeForContext.cloneRange();
+      const paraRange = document.createRange();
+      paraRange.selectNodeContents(paragraphNode);
+      
+      // Berechne Offset relativ zum Absatz
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      
+      // Erstelle einen TreeWalker um die Position zu berechnen
+      const walker = document.createTreeWalker(
+        paragraphNode,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let currentOffset = 0;
+      let node;
+      let foundStart = false;
+      
+      while (node = walker.nextNode()) {
+        if (node === startContainer || node.parentNode === startContainer) {
+          if (node === startContainer) {
+            textStartOffset = currentOffset + startOffset;
+            foundStart = true;
+          } else if (node.parentNode === startContainer) {
+            // Text-Node ist Kind des Start-Containers
+            let siblingOffset = 0;
+            let sibling = node.previousSibling;
+            while (sibling) {
+              siblingOffset += (sibling.textContent || '').length;
+              sibling = sibling.previousSibling;
+            }
+            textStartOffset = currentOffset + siblingOffset + startOffset;
+            foundStart = true;
+          }
+          break;
+        }
+        currentOffset += node.textContent.length;
+      }
+      
+      if (foundStart) {
+        textEndOffset = textStartOffset + text.length;
+        console.log('[QUOTE-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+      } else {
+        // Fallback: Verwende indexOf
+        textStartOffset = paragraphText.indexOf(text);
+        textEndOffset = textStartOffset + text.length;
+        console.log('[QUOTE-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+      }
+    } catch (e) {
+      console.warn('[QUOTE-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
+      textStartOffset = paragraphText.indexOf(text);
+      textEndOffset = textStartOffset + text.length;
+    }
+    
+    if (textStartOffset === -1) {
+      // Fallback: Versuche mit normalisiertem Text
+      const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
+      const normalizedText = text.replace(/\s+/g, ' ').trim();
+      const normalizedStart = normalizedParagraph.indexOf(normalizedText);
+      
+      if (normalizedStart === -1) {
+        console.warn('[QUOTE-SAVE] Textposition im Absatz nicht gefunden, speichere ohne Offsets');
+        textStartOffset = null;
+        textEndOffset = null;
+      } else {
+        // Verwende die normalisierte Position als Näherung
+        textStartOffset = normalizedStart;
+        textEndOffset = normalizedStart + normalizedText.length;
+        console.log('[QUOTE-SAVE] Offsets mit normalisiertem Text berechnet:', textStartOffset, textEndOffset);
+      }
+    }
+    
     // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
     const result = await showKeywordDialog('Zitat', text);
     if (result === null) {
@@ -347,12 +531,25 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       ga_reference: lectureId,
       lecture_title: lectureTitle,
       paragraph_id: paragraphIndex,
-      context_before: contextBefore,
-      context_after: contextAfter,
       personal_note: note || '',
       tags: keywords,
       is_public: false
     };
+    
+    // WICHTIG: Verwende die neuen Spalten für exakte Textmarkierung
+    // paragraph_text, text_start_offset, text_end_offset sind die primären Spalten
+    if (paragraphText) {
+      insertData.paragraph_text = paragraphText;
+    }
+    if (textStartOffset !== -1 && textStartOffset !== null) {
+      insertData.text_start_offset = textStartOffset;
+    }
+    if (textEndOffset !== -1 && textEndOffset !== null) {
+      insertData.text_end_offset = textEndOffset;
+    }
+    
+    // context_before und context_after werden nicht mehr benötigt (deprecated)
+    // Sie werden nur noch für Rückwärtskompatibilität gespeichert, falls die Spalten noch existieren
     
     // Füge lecture_date hinzu, falls verfügbar
     if (lectureDate) {
@@ -369,6 +566,46 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     
     if (error) {
       console.error('Supabase Fehler:', error);
+      
+      // Prüfe ob Fehler wegen fehlender Spalten ist
+      if (error.message && (error.message.includes('paragraph_text') || 
+          error.message.includes('text_start_offset') ||
+          error.message.includes('text_end_offset'))) {
+        console.warn('[QUOTE-SAVE] Neue Spalten fehlen in der Datenbank. Versuche ohne diese Spalten zu speichern...');
+        
+        // Entferne die neuen Spalten und versuche es erneut
+        const fallbackData = { ...insertData };
+        delete fallbackData.paragraph_text;
+        delete fallbackData.text_start_offset;
+        delete fallbackData.text_end_offset;
+        
+        const { data: retryData, error: retryError } = await supabaseClient
+          .from('quotes')
+          .insert(fallbackData)
+          .select();
+        
+        if (retryError) {
+          throw new Error(retryError.message || 'Datenbankfehler');
+        }
+        
+        // Warnung anzeigen, dass Migration benötigt wird
+        console.warn('[QUOTE-SAVE] Zitat ohne Offsets gespeichert. Bitte führen Sie das Migrationsskript supabase-add-quote-offsets.sql aus.');
+        showContextNotification('✓ Zitat gespeichert (ohne exakte Position). Bitte Migration ausführen für exakte Textmarkierung!', 'warning');
+        
+        // MB aktualisieren falls offen
+        if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+          if (typeof invalidateMembersCache === 'function') {
+            invalidateMembersCache('quotes');
+          }
+          if (typeof updateMembersPanelIfOpen === 'function') {
+            await updateMembersPanelIfOpen('quotes', true);
+          } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
+            await loadMembersTab('quotes');
+          }
+        }
+        return;
+      }
+      
       throw new Error(error.message || 'Datenbankfehler');
     }
     

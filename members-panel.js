@@ -1224,7 +1224,7 @@ function renderQuotesList(container, sortedData) {
       <div style="flex: 1;">
         <div class="member-item-header">
           ${shouldShowLink
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, null, null, true); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
             : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
           }
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
@@ -1493,8 +1493,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     };
   }
   
-  // Verwende MutationObserver um die Markierung zu verhindern NUR wenn shouldHighlightParagraph false ist
-  // WICHTIG: Wenn shouldHighlightParagraph true ist (Zitate), soll der Absatz markiert werden!
+  // Verwende MutationObserver um die Markierung zu verhindern
+  // WICHTIG: Absätze sollen NIE markiert werden - nur der exakte Zitat-Text wird markiert
   // Stoppe vorherigen Observer falls vorhanden (verhindert mehrere Observer)
   if (window.membersHighlightObserver) {
     window.membersHighlightObserver.disconnect();
@@ -1504,8 +1504,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   let highlightObserver = null;
   const viewer = document.getElementById('viewer');
   
-  // Nur wenn shouldHighlightParagraph false ist (Unterstreichungen), verhindere Markierungen
-  if (viewer && !shouldHighlightParagraph) {
+  // Verhindere Absatz-Markierungen IMMER (auch für Zitate - nur exakter Text wird markiert)
+  if (viewer) {
     // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen sofort entfernt
     // WICHTIG: Verwende requestAnimationFrame, um Performance-Probleme zu vermeiden
     let pendingMutations = [];
@@ -1683,16 +1683,40 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
             }, 500);
           }
           
-          // Für Bücher: Markiere den Absatz wenn shouldHighlightParagraph true ist (Zitate)
-          if (bookTargetIndex && shouldHighlightParagraph) {
+          // Für Bücher: Markiere Zitat-Text wenn Offsets vorhanden sind (exakte Textmarkierung)
+          if (bookTargetIndex && shouldHighlightParagraph && textStartOffset !== null && textEndOffset !== null) {
             const cleanIndex = bookTargetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-            const paraElement = document.getElementById(`para-${cleanIndex}`);
+            let paraElement = document.getElementById(`para-${cleanIndex}`);
+            
+            // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+            if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+              let parent = paraElement.parentElement;
+              while (parent && parent !== document.body) {
+                const tagName = parent.tagName.toLowerCase();
+                if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                  paraElement = parent;
+                  break;
+                }
+                parent = parent.parentElement;
+              }
+            }
+            
             if (paraElement) {
-              // Markiere sofort
-              if (typeof addHighlightingWithAutoRemove === 'function') {
-                addHighlightingWithAutoRemove(paraElement);
-              } else {
-                paraElement.classList.add('highlighted-paragraph');
+              // Hole Quote-Daten aus Cache oder lade sie
+              if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
+                // Finde das Zitat basierend auf paragraph_id und offsets
+                const quote = cachedQuotesData.data.find(q => 
+                  q.ga_reference === lectureId && 
+                  q.paragraph_id === bookTargetIndex &&
+                  q.text_start_offset === textStartOffset &&
+                  q.text_end_offset === textEndOffset
+                );
+                
+                if (quote && typeof applyQuoteHighlightToElement === 'function') {
+                  setTimeout(() => {
+                    applyQuoteHighlightToElement(paraElement, quote);
+                  }, 200);
+                }
               }
             }
           } else if (bookTargetIndex && !shouldHighlightParagraph) {
@@ -1738,21 +1762,43 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
         const showLectureResult = await showLecture(lectureId, targetIndex, [], false); // false = keine Markierung
         console.log('[MB-NAVIGATION] showLecture abgeschlossen, Ergebnis:', showLectureResult);
         
-        // Für Vorträge: Markiere den Absatz sofort wenn shouldHighlightParagraph true ist (Zitate)
-        if (targetIndex && shouldHighlightParagraph) {
+        // Für Vorträge: Markiere Zitat-Text wenn Offsets vorhanden sind (exakte Textmarkierung)
+        if (targetIndex && shouldHighlightParagraph && textStartOffset !== null && textEndOffset !== null) {
           // Warte kurz, damit der DOM bereit ist
           setTimeout(() => {
             const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-            const paraElement = document.getElementById(`para-${cleanIndex}`);
-            if (paraElement) {
-              // Markiere sofort
-              if (typeof addHighlightingWithAutoRemove === 'function') {
-                addHighlightingWithAutoRemove(paraElement);
-              } else {
-                paraElement.classList.add('highlighted-paragraph');
+            let paraElement = document.getElementById(`para-${cleanIndex}`);
+            
+            // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+            if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+              let parent = paraElement.parentElement;
+              while (parent && parent !== document.body) {
+                const tagName = parent.tagName.toLowerCase();
+                if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                  paraElement = parent;
+                  break;
+                }
+                parent = parent.parentElement;
               }
             }
-          }, 100);
+            
+            if (paraElement) {
+              // Hole Quote-Daten aus Cache oder lade sie
+              if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
+                // Finde das Zitat basierend auf paragraph_id und offsets
+                const quote = cachedQuotesData.data.find(q => 
+                  q.ga_reference === lectureId && 
+                  q.paragraph_id === targetIndex &&
+                  q.text_start_offset === textStartOffset &&
+                  q.text_end_offset === textEndOffset
+                );
+                
+                if (quote && typeof applyQuoteHighlightToElement === 'function') {
+                  applyQuoteHighlightToElement(paraElement, quote);
+                }
+              }
+            }
+          }, 200);
         }
       } catch (error) {
         console.error('[MB-NAVIGATION] Fehler in showLecture:', error);
@@ -2086,13 +2132,11 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     // Stelle sicher, dass membersNavigating false ist (falls es noch nicht zurückgesetzt wurde)
     window.membersNavigating = false;
     
-    // Entferne Markierungen NUR wenn shouldHighlightParagraph false ist (Unterstreichungen)
-    if (!shouldHighlightParagraph) {
-      const allHighlighted = document.querySelectorAll('.highlighted-paragraph');
-      allHighlighted.forEach(el => {
-        el.classList.remove('highlighted-paragraph');
-      });
-    }
+    // Entferne Absatz-Markierungen IMMER (auch für Zitate - nur exakter Text wird markiert)
+    const allHighlighted = document.querySelectorAll('.highlighted-paragraph');
+    allHighlighted.forEach(el => {
+      el.classList.remove('highlighted-paragraph');
+    });
     
     // Stoppe MutationObserver
     setTimeout(() => {
@@ -2272,14 +2316,28 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     }
   }
   
-  // WICHTIG: Markiere den Absatz nur wenn shouldHighlight true ist (nur für Zitate)
+  // WICHTIG: Markiere nur den exakten Zitat-Text (nicht den ganzen Absatz)
+  // Analog zu Unterstreichungen: dauerhaft, aber nur beim Klick angezeigt
   if (shouldHighlight) {
-    // Verwende die zentrale Highlighting-Funktion für automatisches Entfernen nach 5 Sekunden
-    if (typeof addHighlightingWithAutoRemove === 'function') {
-      addHighlightingWithAutoRemove(elementToScroll);
-    } else {
-      elementToScroll.classList.add('highlighted-paragraph');
+    if (textStartOffset !== null && textEndOffset !== null) {
+      // Exakte Textmarkierung für Zitate mit Offsets
+      // Hole Quote-Daten aus Cache
+      if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
+        // Finde das Zitat basierend auf paragraph_id und offsets
+        const quote = cachedQuotesData.data.find(q => 
+          q.paragraph_id === paragraphId &&
+          q.text_start_offset === textStartOffset &&
+          q.text_end_offset === textEndOffset
+        );
+        
+        if (quote && typeof applyQuoteHighlightToElement === 'function') {
+          setTimeout(() => {
+            applyQuoteHighlightToElement(elementToScroll, quote);
+          }, 100);
+        }
+      }
     }
+    // KEIN Fallback mehr - Absatz wird nicht mehr gehighlighted
   }
   
   // Erstelle temporäres Range-Element, um die Position zu finden
@@ -3069,12 +3127,20 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   
   if (existingIndicator) return; // Bereits vorhanden
   
-  // Prüfe ob Zitat vorhanden
-  const hasQuote = quotesResult && quotesResult.success && quotesResult.data.some(q => 
-    q.ga_reference === lectureId && q.paragraph_id === paraId
-  );
+  // Prüfe ob Zitat vorhanden und hole das erste Zitat (mit kleinstem text_start_offset)
+  const quotes = quotesResult && quotesResult.success ? quotesResult.data.filter(q => 
+    q.ga_reference === lectureId && q.paragraph_id === paraId && q.text_start_offset !== null
+  ) : [];
   
-  if (!hasQuote) return; // Kein Zitat vorhanden
+  if (quotes.length === 0) return; // Kein Zitat vorhanden
+  
+  // Sortiere nach text_start_offset und nimm das erste (früheste) Zitat
+  const sortedQuotes = quotes.sort((a, b) => {
+    const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
+    const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
+    return offsetA - offsetB;
+  });
+  const firstQuote = sortedQuotes[0];
   
   // Erstelle Markierung
   const indicator = document.createElement('span');
@@ -3088,11 +3154,110 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   `;
   indicator.onclick = (e) => {
     e.stopPropagation();
-    jumpToBookmarkOrQuote(lectureId, paraId, false, hasQuote);
+    jumpToBookmarkOrQuote(lectureId, paraId, false, true);
   };
   
-  // Füge am Anfang des Absatzes hinzu
+  // Stelle sicher, dass targetElement relativ positioniert ist
   targetElement.style.position = 'relative';
+  
+  // Berechne die Position basierend auf text_start_offset
+  // Verwende einen Range, um die Position des Textes zu finden
+  if (firstQuote.text_start_offset !== null && firstQuote.text_start_offset !== undefined) {
+    try {
+      // Hole den Text ohne Highlights/Quotes für die Berechnung
+      const elementTextWithoutHighlights = getTextContentWithoutHighlights(targetElement);
+      
+      if (elementTextWithoutHighlights && elementTextWithoutHighlights.length > firstQuote.text_start_offset) {
+        // Erstelle einen Range, um die Position zu finden
+        const range = document.createRange();
+        const walker = document.createTreeWalker(
+          targetElement,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let currentOffset = 0;
+        let targetNode = null;
+        let targetOffset = 0;
+        let node;
+        
+        // Finde den Text-Knoten, der den text_start_offset enthält
+        while (node = walker.nextNode()) {
+          const nodeLength = node.textContent.length;
+          if (currentOffset + nodeLength > firstQuote.text_start_offset) {
+            targetNode = node;
+            targetOffset = firstQuote.text_start_offset - currentOffset;
+            break;
+          }
+          currentOffset += nodeLength;
+        }
+        
+        if (targetNode) {
+          try {
+            // Setze Range auf die Position des Zitat-Beginns
+            range.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            range.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            
+            // Erstelle einen unsichtbaren Marker-Span an dieser Position für die Positionierung
+            const marker = document.createElement('span');
+            marker.style.display = 'inline';
+            marker.style.width = '0';
+            marker.style.height = '0';
+            marker.style.visibility = 'hidden';
+            marker.style.pointerEvents = 'none';
+            marker.setAttribute('data-quote-marker', 'true');
+            
+            // Füge Marker ein
+            range.insertNode(marker);
+            
+            // Warte kurz, damit der DOM aktualisiert ist, dann positioniere das Icon
+            requestAnimationFrame(() => {
+              try {
+                // Hole Positionen
+                const markerRect = marker.getBoundingClientRect();
+                const targetRect = targetElement.getBoundingClientRect();
+                const relativeTop = markerRect.top - targetRect.top;
+                
+                // Setze Position des Icons absolut
+                indicator.style.position = 'absolute';
+                indicator.style.left = '-20px';
+                indicator.style.top = relativeTop + 'px';
+                indicator.style.marginTop = '0'; // Keine zusätzliche Anpassung
+                
+                // Füge Icon zum targetElement hinzu
+                targetElement.appendChild(indicator);
+                
+                // Entferne Marker nach kurzer Zeit
+                setTimeout(() => {
+                  if (marker.parentNode) {
+                    marker.parentNode.removeChild(marker);
+                  }
+                }, 100);
+                
+                console.log('[QUOTE-INDICATOR] Icon auf Höhe des Zitat-Beginns positioniert:', firstQuote.text_start_offset, 'top:', relativeTop);
+              } catch (e) {
+                console.warn('[QUOTE-INDICATOR] Fehler bei Icon-Positionierung:', e);
+                // Fallback: Entferne Marker und füge Icon normal hinzu
+                if (marker.parentNode) {
+                  marker.parentNode.removeChild(marker);
+                }
+                targetElement.insertBefore(indicator, targetElement.firstChild);
+              }
+            });
+            
+            return;
+          } catch (e) {
+            console.warn('[QUOTE-INDICATOR] Fehler bei Range-Positionierung, verwende Fallback:', e);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[QUOTE-INDICATOR] Fehler bei Positionierung, verwende Fallback:', e);
+    }
+  }
+  
+  // Fallback: Füge am Anfang des Absatzes hinzu (wenn keine Offsets vorhanden)
   targetElement.insertBefore(indicator, targetElement.firstChild);
 }
 
@@ -3465,6 +3630,249 @@ function applyHighlightToElement(targetElement, highlight) {
         }
       }
     }
+  }
+}
+
+/**
+ * Entfernt alle Zitat-Markierungen (beim Klick auf ein neues Zitat)
+ * Analog zu Unterstreichungen: nur eine Markierung gleichzeitig sichtbar
+ */
+function removeAllQuoteHighlights() {
+  const allQuoteHighlights = document.querySelectorAll('[data-quote="true"]');
+  allQuoteHighlights.forEach(span => {
+    if (span.parentNode) {
+      const parent = span.parentNode;
+      while (span.firstChild) {
+        parent.insertBefore(span.firstChild, span);
+      }
+      parent.removeChild(span);
+    }
+  });
+  console.log('[QUOTE-HIGHLIGHT] Alle Zitat-Markierungen entfernt');
+}
+
+/**
+ * Wendet Zitat-Hervorhebung auf ein Element an (blassblauer Hintergrund)
+ * WICHTIG: Diese Markierung ist TEMPORÄR und wird nur beim Klick angezeigt
+ */
+function applyQuoteHighlightToElement(targetElement, quote) {
+  if (!targetElement) {
+    console.warn('[QUOTE-HIGHLIGHT] targetElement ist null');
+    return;
+  }
+  
+  // Entferne alle vorherigen Zitat-Markierungen (analog zu Unterstreichungen: nur eine gleichzeitig)
+  removeAllQuoteHighlights();
+  
+  console.log('[QUOTE-HIGHLIGHT] applyQuoteHighlightToElement aufgerufen:', {
+    quoteId: quote.id,
+    paragraphId: quote.paragraph_id,
+    gaReference: quote.ga_reference,
+    targetElement: targetElement.tagName,
+    targetElementText: targetElement.textContent?.substring(0, 100)
+  });
+  
+  // Prüfe ob bereits hervorgehoben (sollte nicht passieren, da wir alle entfernt haben)
+  const existingQuoteHighlight = targetElement.querySelector(`[data-quote-id="${quote.id}"][data-quote="true"]`);
+  if (existingQuoteHighlight) {
+    console.log('[QUOTE-HIGHLIGHT] Bereits vorhanden');
+    return; // Bereits vorhanden
+  }
+  
+  // Hole den Text OHNE vorhandene Highlights/Quotes (für die Suche)
+  const elementTextWithoutHighlights = getTextContentWithoutHighlights(targetElement);
+  
+  console.log('[QUOTE-HIGHLIGHT] Element-Text (ohne Highlights):', elementTextWithoutHighlights ? elementTextWithoutHighlights.substring(0, 200) : '(leer)');
+  console.log('[QUOTE-HIGHLIGHT] Gespeicherter Text:', quote.paragraph_text?.substring(0, 200));
+  console.log('[QUOTE-HIGHLIGHT] Offsets:', quote.text_start_offset, quote.text_end_offset);
+  
+  // Prüfe ob elementText leer ist
+  if (!elementTextWithoutHighlights || elementTextWithoutHighlights.length === 0) {
+    console.warn('[QUOTE-HIGHLIGHT] Element-Text ist leer, kann Hervorhebung nicht anwenden');
+    return;
+  }
+  
+  // WICHTIG: Verwende den exakten quote_text, der im MB gespeichert ist
+  // Das ist der Text, den der Benutzer ursprünglich markiert hat
+  let textToHighlight = quote.quote_text;
+  
+  // Fallback 1: Falls quote_text nicht verfügbar ist, verwende paragraph_text mit Offsets
+  if (!textToHighlight && quote.paragraph_text && quote.text_start_offset !== null && quote.text_end_offset !== null) {
+    textToHighlight = quote.paragraph_text.substring(
+      quote.text_start_offset,
+      quote.text_end_offset
+    );
+  }
+  
+  // Kein Fallback mehr mit context_before - verwende nur quote_text für die Suche
+  // Die exakten Offsets sollten vorhanden sein (nach Migration)
+  
+  // Prüfe ob textToHighlight gültig ist
+  if (!textToHighlight || textToHighlight.length === 0) {
+    console.warn('[QUOTE-HIGHLIGHT] textToHighlight ist leer, kann Hervorhebung nicht anwenden');
+    return;
+  }
+  
+  console.log('[QUOTE-HIGHLIGHT] Suche nach exaktem quote_text:', textToHighlight.substring(0, 100));
+  console.log('[QUOTE-HIGHLIGHT] Element-Text Länge:', elementTextWithoutHighlights.length);
+  
+  // Verwende Text ohne Highlights für die Suche
+  // Versuche zuerst exakte Übereinstimmung mit dem gespeicherten quote_text
+  if (elementTextWithoutHighlights && elementTextWithoutHighlights.includes(textToHighlight)) {
+    // Erstelle Range für die Hervorhebung (mehrzeilig unterstützt)
+    // Prüfe ob bereits andere Highlights/Quotes vorhanden sind
+    const existingOtherHighlights = targetElement.querySelectorAll(`[data-highlight-id], [data-quote-id]:not([data-quote-id="${quote.id}"])`);
+    const hasOtherHighlights = existingOtherHighlights.length > 0;
+    
+    const range = document.createRange();
+    const walker = document.createTreeWalker(
+        targetElement,
+        NodeFilter.SHOW_TEXT,
+        hasOtherHighlights ? {
+          acceptNode: function(node) {
+            // Überspringe Text-Knoten, die innerhalb von anderen Highlight/Quote-Spans sind
+            let parent = node.parentNode;
+            while (parent && parent !== targetElement) {
+              if (parent.hasAttribute && (parent.hasAttribute('data-highlight-id') || parent.hasAttribute('data-quote-id'))) {
+                const quoteId = parent.getAttribute('data-quote-id');
+                if (quoteId && quoteId !== quote.id) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                const highlightId = parent.getAttribute('data-highlight-id');
+                if (highlightId) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+              }
+              parent = parent.parentNode;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        } : null, // Kein Filter wenn keine anderen Highlights vorhanden sind
+        false
+    );
+    
+    // Suche nach dem Text über mehrere Knoten hinweg
+    // Sammle alle Text-Knoten und ihren akkumulierten Offset
+    const textNodes = [];
+    let accumulatedOffset = 0;
+    let node;
+    
+    while (node = walker.nextNode()) {
+      const nodeText = node.textContent;
+      textNodes.push({
+        node: node,
+        startOffset: accumulatedOffset,
+        endOffset: accumulatedOffset + nodeText.length,
+        text: nodeText
+      });
+      accumulatedOffset += nodeText.length;
+    }
+    
+    // Finde die Position des Textes im akkumulierten Text
+    const fullText = textNodes.map(n => n.text).join('');
+    const textIndex = fullText.indexOf(textToHighlight);
+    
+    if (textIndex !== -1) {
+      const textEndIndex = textIndex + textToHighlight.length;
+      
+      // Finde Start- und End-Knoten basierend auf den Offsets
+      let startNode = null;
+      let startOffsetInNode = 0;
+      let endNode = null;
+      let endOffsetInNode = 0;
+      
+      for (const textNodeInfo of textNodes) {
+        // Prüfe ob Start in diesem Knoten liegt
+        if (!startNode && textIndex >= textNodeInfo.startOffset && textIndex < textNodeInfo.endOffset) {
+          startNode = textNodeInfo.node;
+          startOffsetInNode = textIndex - textNodeInfo.startOffset;
+        }
+        
+        // Prüfe ob Ende in diesem Knoten liegt
+        if (textEndIndex > textNodeInfo.startOffset && textEndIndex <= textNodeInfo.endOffset) {
+          endNode = textNodeInfo.node;
+          endOffsetInNode = textEndIndex - textNodeInfo.startOffset;
+          break;
+        }
+      }
+      
+      // Fallback: Wenn nicht gefunden, versuche einfache Suche innerhalb eines Knotens
+      if (!startNode || !endNode) {
+        // Erstelle neuen Walker für Fallback
+        const existingOtherHighlightsFallback = targetElement.querySelectorAll(`[data-highlight-id], [data-quote-id]:not([data-quote-id="${quote.id}"])`);
+        const hasOtherHighlightsFallback = existingOtherHighlightsFallback.length > 0;
+        
+        const fallbackWalker = document.createTreeWalker(
+          targetElement,
+          NodeFilter.SHOW_TEXT,
+          hasOtherHighlightsFallback ? {
+            acceptNode: function(node) {
+              let parent = node.parentNode;
+              while (parent && parent !== targetElement) {
+                if (parent.hasAttribute && (parent.hasAttribute('data-highlight-id') || parent.hasAttribute('data-quote-id'))) {
+                  const quoteId = parent.getAttribute('data-quote-id');
+                  if (quoteId && quoteId !== quote.id) {
+                    return NodeFilter.FILTER_REJECT;
+                  }
+                  const highlightId = parent.getAttribute('data-highlight-id');
+                  if (highlightId) {
+                    return NodeFilter.FILTER_REJECT;
+                  }
+                }
+                parent = parent.parentNode;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          } : null, // Kein Filter wenn keine anderen Highlights vorhanden sind
+          false
+        );
+        
+        while (node = fallbackWalker.nextNode()) {
+          const nodeText = node.textContent;
+          const index = nodeText.indexOf(textToHighlight);
+          
+          if (index !== -1) {
+            startNode = node;
+            startOffsetInNode = index;
+            endNode = node;
+            endOffsetInNode = index + textToHighlight.length;
+            break;
+          }
+        }
+      }
+      
+      if (startNode && endNode) {
+        try {
+          range.setStart(startNode, startOffsetInNode);
+          range.setEnd(endNode, endOffsetInNode);
+          
+          // Blassblauer Hintergrund (analog zu Unterstreichungen, aber als Hintergrund statt Unterstreichung)
+          // WICHTIG: Diese Markierung bleibt dauerhaft (wie Unterstreichungen), wird aber nur beim Klick angezeigt
+          const span = document.createElement('span');
+          span.className = 'member-quote-highlight';
+          span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
+          span.style.setProperty('padding', '2px 0', 'important');
+          span.style.setProperty('border-radius', '2px', 'important');
+          span.setAttribute('data-quote-id', quote.id);
+          span.setAttribute('data-quote', 'true');
+          span.setAttribute('data-ga-reference', quote.ga_reference);
+          span.setAttribute('data-paragraph-id', quote.paragraph_id);
+          
+          const contents = range.extractContents();
+          span.appendChild(contents);
+          range.insertNode(span);
+          console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung erfolgreich angewendet (dauerhaft, analog zu Unterstreichungen)');
+          
+          return;
+        } catch (e) {
+          console.error('[QUOTE-HIGHLIGHT] Fehler beim Anwenden der Hervorhebung:', e);
+        }
+      }
+    } else {
+      console.warn('[QUOTE-HIGHLIGHT] quote_text nicht im Element-Text gefunden');
+    }
+  } else {
+    console.warn('[QUOTE-HIGHLIGHT] quote_text nicht im Element-Text enthalten');
   }
 }
 
@@ -4780,7 +5188,7 @@ async function showKeywordFilteredItems(keyword) {
             <div style="flex: 1;">
               <div class="member-item-header">
                 ${shouldShowLink
-                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                 }
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
