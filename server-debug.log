@@ -22423,3 +22423,430 @@ ERROR: [BACKUP] Fehler beim Bereinigen von members: {"errno":-4058,"code":"ENOEN
 [CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
 [SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
 [SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/16
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/16 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/16
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/16 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+
+[1/8] Erstelle Backups...
+  ✓ Backups erstellt
+
+[2/8] Lade Synonyme...
+  ✓ Synonyme geladen: 11 Gruppen
+
+[3/8] Lade Vorträge...
+  ✓ Vorträge geladen: 4499 Vorträge
+
+[4/8] Lade Bücher...
+  ✓ Bücher geladen: 39 Bücher
+
+[5/8] Synchronisiere Keyword-Systeme...
+  ✓ Keyword-Systeme synchronisiert
+
+[6/8] Konvertiere zu Absatz-Format...
+  ✓ Absätze erstellt: 206654 Vortrags-Absätze, 20012 Buch-Absätze
+
+[7/8] Lade Query-Log und Cache...
+  ✓ Query-Log geladen, Themensuchen-Cache: 7 Einträge
+
+[8/8] Starte Server...
+
+======================================================================
+  ✓ SERVER GESTARTET
+  URL: http://localhost:3003
+======================================================================
+
+  DATEN GELADEN:
+    • 4499 Vorträge
+    • 39 Bücher
+    • 226666 Absätze (für Suche)
+    • 11 Synonym-Gruppen
+
+  Server bereit für Anfragen!
+
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA114/1
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA114/1 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA087/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA087/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA094/24
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA094/24 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA100/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA100/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA100/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA100/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[BOOK] GA046: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA201/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA201/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA201/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA201/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA100/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA100/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA068d/10
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA068d/10 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA107/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA107/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA107/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA107/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA107/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA107/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA101/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA101/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA291/12
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA291/12 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA101/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA101/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[BOOK] GA001: Überschreibe NICHT - bereits Absatz-Indizes vorhanden
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA201/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA201/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA201/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA201/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA100/8
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA100/8 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/16
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/16 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/16
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/16 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA061/2
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA061/2 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA170/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA170/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA197/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA197/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA250/1
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA250/1 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA250/1
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA250/1 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA187/4
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA187/4 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA187/4
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA187/4 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA170/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA170/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA170/3
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA170/3 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA170/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA170/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA170/6
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA170/6 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] Prüfe zentrale DB für GA250/1
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG
+[CHECK-SUMMARY] ✓ Zusammenfassung existiert für GA250/1 (Version: v2-unified)
+[SUMMARY-DB] GA001 erste Überschrift Index: ^ozdplu, Text: ZUR EINFÜHRUNG

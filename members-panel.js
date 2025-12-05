@@ -1630,24 +1630,9 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                 highlightsByParagraph[paraId].push(highlight);
               });
               
-              // Sortiere jede Gruppe: zuerst nach Länge (kürzere zuerst), dann nach text_start_offset
-              // Kürzere Highlights werden zuerst angewendet und erhalten einen höheren Z-Index
+              // Sortiere jede Gruppe nach text_start_offset (von Anfang nach Ende)
               Object.keys(highlightsByParagraph).forEach(paraId => {
                 highlightsByParagraph[paraId].sort((a, b) => {
-                  // Berechne Länge der Highlights
-                  const lengthA = (a.text_end_offset !== null && a.text_end_offset !== undefined && a.text_start_offset !== null && a.text_start_offset !== undefined) 
-                    ? a.text_end_offset - a.text_start_offset 
-                    : (a.paragraph_text ? a.paragraph_text.length : 0);
-                  const lengthB = (b.text_end_offset !== null && b.text_end_offset !== undefined && b.text_start_offset !== null && b.text_start_offset !== undefined) 
-                    ? b.text_end_offset - b.text_start_offset 
-                    : (b.paragraph_text ? b.paragraph_text.length : 0);
-                  
-                  // Sortiere zuerst nach Länge (kürzere zuerst)
-                  if (lengthA !== lengthB) {
-                    return lengthA - lengthB;
-                  }
-                  
-                  // Bei gleicher Länge: sortiere nach text_start_offset
                   const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
                   const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
                   return offsetA - offsetB;
@@ -3092,24 +3077,9 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
         highlightsByParagraph[paraId].push(highlight);
       });
       
-      // Sortiere jede Gruppe: zuerst nach Länge (kürzere zuerst), dann nach text_start_offset
-      // Kürzere Highlights werden zuerst angewendet und erhalten einen höheren Z-Index
+      // Sortiere jede Gruppe nach text_start_offset (von Anfang nach Ende)
       Object.keys(highlightsByParagraph).forEach(paraId => {
         highlightsByParagraph[paraId].sort((a, b) => {
-          // Berechne Länge der Highlights
-          const lengthA = (a.text_end_offset !== null && a.text_end_offset !== undefined && a.text_start_offset !== null && a.text_start_offset !== undefined) 
-            ? a.text_end_offset - a.text_start_offset 
-            : (a.paragraph_text ? a.paragraph_text.length : 0);
-          const lengthB = (b.text_end_offset !== null && b.text_end_offset !== undefined && b.text_start_offset !== null && b.text_start_offset !== undefined) 
-            ? b.text_end_offset - b.text_start_offset 
-            : (b.paragraph_text ? b.paragraph_text.length : 0);
-          
-          // Sortiere zuerst nach Länge (kürzere zuerst)
-          if (lengthA !== lengthB) {
-            return lengthA - lengthB;
-          }
-          
-          // Bei gleicher Länge: sortiere nach text_start_offset
           const offsetA = a.text_start_offset !== null && a.text_start_offset !== undefined ? a.text_start_offset : 0;
           const offsetB = b.text_start_offset !== null && b.text_start_offset !== undefined ? b.text_start_offset : 0;
           return offsetA - offsetB;
@@ -3627,22 +3597,8 @@ function applyHighlightToElement(targetElement, highlight) {
             range.setEnd(endNode, endOffsetInNode);
             
             const highlightColor = getHighlightColor(highlight.color || 'blue');
-            
-            // Berechne Länge der Unterstreichung für Z-Index
-            const highlightLength = (highlight.text_end_offset !== null && highlight.text_end_offset !== undefined && 
-                                     highlight.text_start_offset !== null && highlight.text_start_offset !== undefined) 
-              ? highlight.text_end_offset - highlight.text_start_offset 
-              : (highlight.paragraph_text ? highlight.paragraph_text.length : 1000);
-            
-            // Kürzere Highlights erhalten höheren Z-Index (werden oben angezeigt)
-            // Verwende eine umgekehrte Skala: kürzere = höherer Z-Index
-            // Basis-Z-Index: 1000, abzüglich der Länge (max 1000 Zeichen)
-            const zIndex = Math.max(1, 1000 - Math.min(highlightLength, 1000));
-            
             const span = document.createElement('span');
             span.className = 'member-highlight';
-            span.style.setProperty('position', 'relative', 'important');
-            span.style.setProperty('z-index', zIndex.toString(), 'important');
             span.style.setProperty('text-decoration', 'underline', 'important');
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
@@ -4017,20 +3973,8 @@ function applyHighlightToBookElement(targetElement, highlight) {
           range.setEnd(endNode, endOffsetInNode);
           
           const highlightColor = getHighlightColor(highlight.color || 'blue');
-          
-          // Berechne Länge der Unterstreichung für Z-Index
-          const highlightLength = (highlight.text_end_offset !== null && highlight.text_end_offset !== undefined && 
-                                   highlight.text_start_offset !== null && highlight.text_start_offset !== undefined) 
-            ? highlight.text_end_offset - highlight.text_start_offset 
-            : (highlight.paragraph_text ? highlight.paragraph_text.length : 1000);
-          
-          // Kürzere Highlights erhalten höheren Z-Index (werden oben angezeigt)
-          const zIndex = Math.max(1, 1000 - Math.min(highlightLength, 1000));
-          
           const span = document.createElement('span');
           span.className = 'member-highlight';
-          span.style.setProperty('position', 'relative', 'important');
-          span.style.setProperty('z-index', zIndex.toString(), 'important');
           span.style.setProperty('text-decoration', 'underline', 'important');
           span.style.setProperty('text-decoration-color', highlightColor, 'important');
           span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
@@ -4096,17 +4040,8 @@ function applyHighlightToBookElement(targetElement, highlight) {
             range.setEnd(node, index + textToHighlight.length);
             
             const highlightColor = getHighlightColor(highlight.color || 'blue');
-            
-            // Berechne Länge der Unterstreichung für Z-Index
-            const highlightLength = textToHighlight.length;
-            
-            // Kürzere Highlights erhalten höheren Z-Index (werden oben angezeigt)
-            const zIndex = Math.max(1, 1000 - Math.min(highlightLength, 1000));
-            
             const span = document.createElement('span');
             span.className = 'member-highlight';
-            span.style.setProperty('position', 'relative', 'important');
-            span.style.setProperty('z-index', zIndex.toString(), 'important');
             span.style.setProperty('text-decoration', 'underline', 'important');
             span.style.setProperty('text-decoration-color', highlightColor, 'important');
             span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
