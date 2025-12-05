@@ -1694,6 +1694,20 @@ body.dark-mode .ga-missing-text {
       color: var(--dark-heading-color);
     }
     
+    /* Erweiterte Suche: Klickbare Links in Ergebnissen */
+    #viewer .advanced-search-cell a,
+    #viewer .advanced-search-snippet a,
+    #viewer .advanced-search-result-title a {
+      cursor: pointer;
+    }
+    
+    /* Erweiterte Suche: Klickbare Suchergebnisse - Mauszeiger als Klickhand */
+    #viewer .advanced-search-cell,
+    #viewer .advanced-search-result-title,
+    #viewer .advanced-search-snippet {
+      cursor: pointer;
+    }
+    
     .vertical-resize-handle.visible {
       display: block;
     }
@@ -12792,6 +12806,12 @@ function scrollToChronologicalYear(year) {
                 if (typeof addHighlightingWithAutoRemove === 'function') {
                   addHighlightingWithAutoRemove(targetElement);
                 }
+                
+                // Markiere Suchwort im Ziel-Absatz (wenn searchTerm vorhanden UND im Absatz vorkommend)
+                // Dies erfolgt bereits beim Rendern (Zeile 12697-12763), aber hier nochmal für Sicherheit
+                if (searchTerm && searchTerm.trim() && typeof markSearchTermInParagraph === 'function') {
+                  markSearchTermInParagraph(targetElement, searchTerm);
+                }
               }
             }, 100);
           } else {
@@ -14918,12 +14938,17 @@ function scrollToChronologicalYear(year) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
+                    // Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
                     const currentWord1 = document.getElementById('word1').value.trim();
-                    const currentWord2 = document.getElementById('word2').value.trim();
-                    const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
-
-                    await showLecture(lectureIdAttr, targetIndexAttr, keywords);
+                    const searchTerm = currentWord1 || '';
+                    
+                    if (typeof showLectureFromAdvancedSearch === 'function') {
+                      await showLectureFromAdvancedSearch(lectureIdAttr, searchTerm, targetIndexAttr);
+                    } else if (typeof showLecture === 'function') {
+                      // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
+                      const keywords = [currentWord1].filter(w => w && w.trim());
+                      await showLecture(lectureIdAttr, targetIndexAttr, keywords);
+                    }
                   });
                 });
               };
@@ -14942,17 +14967,21 @@ function scrollToChronologicalYear(year) {
   e.preventDefault();
   e.stopPropagation();
   const currentWord1 = document.getElementById('word1').value.trim();
-  const currentWord2 = document.getElementById('word2').value.trim();
-  const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+  const searchTerm = currentWord1 || '';
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
-  // Parse die Suchworte um herauszufinden ob sie Phrasen sind
-  const word1Parsed = parseSearchTerm(currentWord1);
-  const word2Parsed = parseSearchTerm(currentWord2);
-  
-  // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
-  await showLecture(lecId, chunkIdx, keywords, [word1Parsed.isPhrase, word2Parsed.isPhrase]);
+  // Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
+  if (typeof showLectureFromAdvancedSearch === 'function') {
+    await showLectureFromAdvancedSearch(lecId, searchTerm, chunkIdx);
+  } else if (typeof showLecture === 'function') {
+    // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
+    const currentWord2 = document.getElementById('word2').value.trim();
+    const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
+    const word1Parsed = parseSearchTerm(currentWord1);
+    const word2Parsed = parseSearchTerm(currentWord2);
+    await showLecture(lecId, chunkIdx, keywords, [word1Parsed.isPhrase, word2Parsed.isPhrase]);
+  }
 });
               lectureItem.appendChild(snippetDiv);
             }
@@ -15813,13 +15842,22 @@ function scrollToChronologicalYear(year) {
             link.className = 'ga-keyword-link';
             link.textContent = displayText;
             
+            // Hole Suchwort: Verwende Parameter searchTerm, falls vorhanden, sonst keywordSearch Feld (Tab Index)
+            let finalSearchTerm = searchTerm || '';
+            if (!finalSearchTerm) {
+              const keywordSearchInput = document.getElementById('keywordSearch');
+              finalSearchTerm = keywordSearchInput && keywordSearchInput.value.trim() ? keywordSearchInput.value.trim() : '';
+            }
+            
             if (paragraphIndex) {
               const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
               const escapedLectureId = lectureId.replace(/'/g, "\\'");
-              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+              const escapedSearchTerm = finalSearchTerm ? finalSearchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', '${escapedIndex}'); return false;`);
               } else {
               const escapedLectureId = lectureId.replace(/'/g, "\\'");
-              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+              const escapedSearchTerm = finalSearchTerm ? finalSearchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+              link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', null); return false;`);
             }
             
             fragment.appendChild(link);
@@ -15850,16 +15888,23 @@ function scrollToChronologicalYear(year) {
             link.className = 'ga-keyword-link';
             link.textContent = displayText;
             
+            // Hole Suchwort: Verwende Parameter searchTerm, falls vorhanden, sonst keywordSearch Feld (Tab Index)
+            let finalSearchTerm = searchTerm || '';
+            if (!finalSearchTerm) {
+              const keywordSearchInput = document.getElementById('keywordSearch');
+              finalSearchTerm = keywordSearchInput && keywordSearchInput.value.trim() ? keywordSearchInput.value.trim() : '';
+            }
+            
             if (paragraphIndex) {
               // Format: showLectureFromAdvancedSearch('GA001', 'Suchwort', '^t9x7t2')
               // Übergebe searchTerm für die Markierung im Absatz
               const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
               const escapedLectureId = lectureId.replace(/'/g, "\\'");
-              const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'") : '';
+              const escapedSearchTerm = finalSearchTerm ? finalSearchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
               link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', '${escapedIndex}'); return false;`);
             } else {
               const escapedLectureId = lectureId.replace(/'/g, "\\'");
-              const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'") : '';
+              const escapedSearchTerm = finalSearchTerm ? finalSearchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
               link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', null); return false;`);
             }
             
@@ -17119,6 +17164,16 @@ function showSummaryView() {
         
         // Verwende zentrale Highlighting-Funktion mit Auto-Remove
         addHighlightingWithAutoRemove(paraElement);
+        
+        // Markiere Suchwort im Absatz (falls vorhanden und Funktion verfügbar)
+        // Prüfe ob searchTerm aus Suchfeldern verfügbar ist
+        const word1Input = document.getElementById('word1');
+        if (word1Input && word1Input.value.trim() && typeof markSearchTermInParagraph === 'function') {
+          const searchTerm = word1Input.value.trim();
+          setTimeout(() => {
+            markSearchTermInParagraph(paraElement, searchTerm);
+          }, 100);
+        }
       }
     }
 
@@ -22274,6 +22329,10 @@ async function performKeywordThematicSearch(keyword) {
 
 // Funktion: Konvertiere GA-Referenzen in klickbare Links im DOM (für Keyword-Ergebnisse)
 function convertGAReferencesToLinksInKeywordResults(container) {
+  // Hole Suchwort aus keywordSearch Feld (Tab Index)
+  const keywordSearchInput = document.getElementById('keywordSearch');
+  const searchTerm = keywordSearchInput && keywordSearchInput.value.trim() ? keywordSearchInput.value.trim() : '';
+  
   // Finde alle Textknoten und ersetze (GA###/##:index) durch klickbare Links
   const walk = document.createTreeWalker(
     container,
@@ -22371,10 +22430,12 @@ function convertGAReferencesToLinksInKeywordResults(container) {
         if (paragraphIndex) {
           const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
           const escapedLectureId = lectureId.replace(/'/g, "\\'");
-          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+          const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', '${escapedIndex}'); return false;`);
         } else {
           const escapedLectureId = lectureId.replace(/'/g, "\\'");
-          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+          const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', null); return false;`);
         }
         
         fragment.appendChild(link);
@@ -22405,10 +22466,12 @@ function convertGAReferencesToLinksInKeywordResults(container) {
         if (paragraphIndex) {
           const escapedIndex = paragraphIndex.replace(/'/g, "\\'");
           const escapedLectureId = lectureId.replace(/'/g, "\\'");
-          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', '${escapedIndex}'); return false;`);
+          const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', '${escapedIndex}'); return false;`);
         } else {
           const escapedLectureId = lectureId.replace(/'/g, "\\'");
-          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '', null); return false;`);
+          const escapedSearchTerm = searchTerm ? searchTerm.replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+          link.setAttribute('onclick', `showLectureFromAdvancedSearch('${escapedLectureId}', '${escapedSearchTerm}', null); return false;`);
         }
         
         fragment.appendChild(link);
