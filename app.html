@@ -14938,15 +14938,12 @@ function scrollToChronologicalYear(year) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    // Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
+                    // Normale Suche: Verwende showLecture für Main Viewer (NICHT Side Panel)
+                    // Nur erweiterte Suche verwendet showLectureFromAdvancedSearch für Side Panel
                     const currentWord1 = document.getElementById('word1').value.trim();
-                    const searchTerm = currentWord1 || '';
+                    const keywords = [currentWord1].filter(w => w && w.trim());
                     
-                    if (typeof showLectureFromAdvancedSearch === 'function') {
-                      await showLectureFromAdvancedSearch(lectureIdAttr, searchTerm, targetIndexAttr);
-                    } else if (typeof showLecture === 'function') {
-                      // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
-                      const keywords = [currentWord1].filter(w => w && w.trim());
+                    if (typeof showLecture === 'function') {
                       await showLecture(lectureIdAttr, targetIndexAttr, keywords);
                     }
                   });
@@ -14967,16 +14964,13 @@ function scrollToChronologicalYear(year) {
   e.preventDefault();
   e.stopPropagation();
   const currentWord1 = document.getElementById('word1').value.trim();
-  const searchTerm = currentWord1 || '';
+  const currentWord2 = document.getElementById('word2').value.trim();
   const lecId = e.currentTarget.getAttribute('data-lecture-id');
   const chunkIdx = e.currentTarget.getAttribute('data-chunk-index');
   
-  // Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
-  if (typeof showLectureFromAdvancedSearch === 'function') {
-    await showLectureFromAdvancedSearch(lecId, searchTerm, chunkIdx);
-  } else if (typeof showLecture === 'function') {
-    // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
-    const currentWord2 = document.getElementById('word2').value.trim();
+  // Normale Suche: Verwende showLecture für Main Viewer (NICHT Side Panel)
+  // Nur erweiterte Suche verwendet showLectureFromAdvancedSearch für Side Panel
+  if (typeof showLecture === 'function') {
     const keywords = [currentWord1, currentWord2].filter(w => w && w.trim());
     const word1Parsed = parseSearchTerm(currentWord1);
     const word2Parsed = parseSearchTerm(currentWord2);
