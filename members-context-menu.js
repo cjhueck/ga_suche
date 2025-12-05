@@ -840,6 +840,15 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       }
       
       // Verwende die normalisierte Position als Näherung
+      // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+      const result = await showKeywordDialog('Unterstreichung', text);
+      if (result === null) {
+        // Benutzer hat abgebrochen
+        return;
+      }
+      
+      const { keywords, note } = result;
+      
       // Ermittle das Datum des Vortrags
       const lectureDate = getCurrentLectureDate(lectureId);
       console.log('[HIGHLIGHT-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate, '(normalisiert)');
@@ -853,7 +862,9 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         paragraph_text: paragraphText,
         text_start_offset: normalizedStart,
         text_end_offset: normalizedStart + normalizedText.length,
-        color: color
+        color: color,
+        personal_note: note || '',
+        tags: keywords
       };
       
       // Füge lecture_date hinzu, falls verfügbar
@@ -902,6 +913,15 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       return;
     }
     
+    // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+    const result = await showKeywordDialog('Unterstreichung', text);
+    if (result === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
+    const { keywords, note } = result;
+    
     // Ermittle das Datum des Vortrags
     const lectureDate = getCurrentLectureDate(lectureId);
     console.log('[HIGHLIGHT-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate);
@@ -915,7 +935,9 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       paragraph_text: paragraphText,
       text_start_offset: textStartOffset,
       text_end_offset: textEndOffset,
-      color: color
+      color: color,
+      personal_note: note || '',
+      tags: keywords
     };
     
     // Füge lecture_date hinzu, falls verfügbar
@@ -1001,10 +1023,73 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
         e.stopPropagation();
         e.preventDefault();
         console.log('[HIGHLIGHT-CLICK] Klick auf Unterstreichung:', highlightId, gaNumber, paragraphId);
-        if (typeof jumpToHighlight === 'function') {
-          jumpToHighlight(gaNumber, paragraphId, highlightId);
+        // Öffne Members Panel und springe zum Highlight
+        if (typeof openMembersPanel === 'function') {
+          openMembersPanel().then(() => {
+            if (typeof switchMembersTab === 'function') {
+              switchMembersTab('highlights').then(() => {
+                setTimeout(() => {
+                  const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
+                  if (targetItem) {
+                    // Scrolle nur den Content-Bereich, nicht das gesamte Panel
+                    const membersContent = document.querySelector('.members-content');
+                    if (membersContent) {
+                      const containerRect = membersContent.getBoundingClientRect();
+                      const itemRect = targetItem.getBoundingClientRect();
+                      const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+                      const containerHeight = membersContent.clientHeight;
+                      const itemHeight = itemRect.height;
+                      const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                      
+                      membersContent.scrollTo({
+                        top: Math.max(0, targetScrollTop),
+                        behavior: 'smooth'
+                      });
+                    } else {
+                      const membersTabContent = document.getElementById('members-tab-content');
+                      if (membersTabContent) {
+                        const containerRect = membersTabContent.getBoundingClientRect();
+                        const itemRect = targetItem.getBoundingClientRect();
+                        const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
+                        const containerHeight = membersTabContent.clientHeight;
+                        const itemHeight = itemRect.height;
+                        const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                        
+                        membersTabContent.scrollTo({
+                          top: Math.max(0, targetScrollTop),
+                          behavior: 'smooth'
+                        });
+                      }
+                    }
+                    // Visuelles Highlight
+                    targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+                    setTimeout(() => {
+                      targetItem.style.backgroundColor = '';
+                    }, 2000);
+                  } else {
+                    // Fallback: Verwende jumpToHighlight falls verfügbar
+                    if (typeof jumpToHighlight === 'function') {
+                      jumpToHighlight(gaNumber, paragraphId, highlightId);
+                    } else {
+                      console.warn('[HIGHLIGHT-CLICK] jumpToHighlight Funktion nicht verfügbar');
+                    }
+                  }
+                }, 300);
+              });
+            } else {
+              // Fallback: Verwende jumpToHighlight falls verfügbar
+              if (typeof jumpToHighlight === 'function') {
+                jumpToHighlight(gaNumber, paragraphId, highlightId);
+              }
+            }
+          });
         } else {
-          console.warn('[HIGHLIGHT-CLICK] jumpToHighlight Funktion nicht verfügbar');
+          // Fallback: Verwende jumpToHighlight falls verfügbar
+          if (typeof jumpToHighlight === 'function') {
+            jumpToHighlight(gaNumber, paragraphId, highlightId);
+          } else {
+            console.warn('[HIGHLIGHT-CLICK] openMembersPanel und jumpToHighlight Funktionen nicht verfügbar');
+          }
         }
       });
     }
