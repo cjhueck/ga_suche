@@ -342,8 +342,8 @@
 /* Member Items */
 .member-item {
   background: transparent;
-  padding: 0.5rem 0 0.75rem 0;
-  margin-bottom: 0.75rem;
+  padding: 0.4rem 0 0.5rem 0;
+  margin-bottom: 0.5rem;
   position: relative;
   border-bottom: 1px solid var(--border-color);
   display: flex;
@@ -367,7 +367,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .member-item-header > div:first-child {
@@ -395,7 +395,7 @@
 .member-item-subtitle {
   font-size: 0.8rem;
   color: var(--secondary-text);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
 }
 
 .member-item-text {
@@ -403,7 +403,7 @@
   font-style: italic;
   color: var(--text-color);
   line-height: 1.4;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -417,7 +417,7 @@
   font-style: italic;
   color: var(--text-color);
   line-height: 1.4;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -449,6 +449,13 @@ a:hover .quote-bookmark-icon-header {
   font-size: 0.75rem;
   color: var(--secondary-text);
   margin-top: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-clamp: 2; /* Standard-Eigenschaft für moderne Browser */
+  line-height: 1.4;
 }
 
 .member-item-tags {
