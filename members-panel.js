@@ -1124,7 +1124,21 @@ async function changeHighlightColor(highlightId, color) {
     if (updateResult.success) {
       // Invalidiere Cache, damit Daten neu geladen werden
       invalidateMembersCache('highlights');
-      await loadMembersTab('highlights');
+      
+      // Aktualisiere Highlight im Viewer (falls vorhanden)
+      const highlightElement = document.querySelector(`[data-highlight-id="${highlightId}"]`);
+      if (highlightElement) {
+        // Aktualisiere Farbe im DOM
+        const highlightColor = getHighlightColor(color);
+        highlightElement.style.setProperty('text-decoration-color', highlightColor, 'important');
+        highlightElement.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+        highlightElement.setAttribute('data-highlight-color', color);
+      }
+      
+      // Aktualisiere Member Panel falls offen
+      if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'highlights') {
+        await loadMembersTab('highlights');
+      }
       
       // Zeige Erfolgsmeldung (optional - kann später durch Toast-Notification ersetzt werden)
       console.log('✓ Farbe geändert');
@@ -3597,6 +3611,39 @@ function attachHighlightDelegationListener() {
       }
     }
   }, true); // useCapture = true für frühe Erfassung
+  
+  // Event-Listener für Rechtsklick auf Highlights im Viewer
+  viewer.addEventListener('contextmenu', function(e) {
+    // Prüfe ob Rechtsklick auf ein Highlight-Element
+    const highlightElement = e.target.closest('[data-highlight-id]');
+    if (highlightElement && highlightElement.hasAttribute('data-highlight-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const highlightId = highlightElement.getAttribute('data-highlight-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showHighlightColorContextMenu(e.clientX, e.clientY, highlightId);
+    }
+  }, true); // useCapture = true für frühe Erfassung
+  
+  // Event-Listener für Rechtsklick auf Highlights im main-Container (falls vorhanden)
+  const mainContainer = document.getElementById('main');
+  if (mainContainer) {
+    mainContainer.addEventListener('contextmenu', function(e) {
+      // Prüfe ob Rechtsklick auf ein Highlight-Element
+      const highlightElement = e.target.closest('[data-highlight-id]');
+      if (highlightElement && highlightElement.hasAttribute('data-highlight-id')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const highlightId = highlightElement.getAttribute('data-highlight-id');
+        
+        // Zeige Kontextmenü zum Farbwechsel
+        showHighlightColorContextMenu(e.clientX, e.clientY, highlightId);
+      }
+    }, true); // useCapture = true für frühe Erfassung
+  }
   
   highlightDelegationListenerAttached = true;
   console.log('[ATTACH-LISTENERS] Event-Delegation-Listener angehängt');
