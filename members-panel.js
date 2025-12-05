@@ -3645,7 +3645,14 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   `;
   indicator.onclick = (e) => {
     e.stopPropagation();
-    jumpToBookmarkOrQuote(lectureId, paraId, false, true);
+    e.preventDefault();
+    // Verwende direkt die quoteId für robuste Navigation
+    if (typeof jumpToQuoteById === 'function') {
+      jumpToQuoteById(firstQuote.id);
+    } else {
+      // Fallback: Verwende die alte Methode
+      jumpToBookmarkOrQuote(lectureId, paraId, false, true);
+    }
   };
   
   // Stelle sicher, dass targetElement relativ positioniert ist
@@ -3795,6 +3802,36 @@ function attachHighlightDelegationListener() {
         return;
       }
     }
+    
+    // Prüfe ob Klick auf ein Quote-Element oder Quote-Icon
+    const quoteElement = e.target.closest('[data-quote-id]');
+    if (quoteElement && quoteElement.hasAttribute('data-quote-id')) {
+      e.stopPropagation();
+      e.preventDefault();
+      const quoteId = quoteElement.getAttribute('data-quote-id');
+      console.log('[QUOTE-DELEGATION] Klick auf Zitat:', quoteId);
+      if (typeof jumpToQuoteById === 'function') {
+        jumpToQuoteById(quoteId);
+      } else {
+        console.warn('[QUOTE-DELEGATION] jumpToQuoteById Funktion nicht verfügbar');
+      }
+      return;
+    }
+    
+    // Prüfe ob Klick auf Bookmark-Icon im Absatz
+    const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
+    if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
+      e.stopPropagation();
+      e.preventDefault();
+      const quoteId = bookmarkIndicator.getAttribute('data-quote-id');
+      console.log('[QUOTE-DELEGATION] Klick auf Bookmark-Icon:', quoteId);
+      if (typeof jumpToQuoteById === 'function') {
+        jumpToQuoteById(quoteId);
+      } else {
+        console.warn('[QUOTE-DELEGATION] jumpToQuoteById Funktion nicht verfügbar');
+      }
+      return;
+    }
   }, true); // useCapture = true für frühe Erfassung
   
   // Event-Listener für Rechtsklick auf Highlights und Zitate im Viewer
@@ -3839,9 +3876,41 @@ function attachHighlightDelegationListener() {
     }
   }, true); // useCapture = true für frühe Erfassung
   
-  // Event-Listener für Rechtsklick auf Highlights im main-Container (falls vorhanden)
+  // Event-Listener für Linksklick auf Zitate im main-Container (falls vorhanden)
   const mainContainer = document.getElementById('main');
   if (mainContainer) {
+    mainContainer.addEventListener('click', function(e) {
+      // Prüfe ob Klick auf ein Quote-Element oder Quote-Icon
+      const quoteElement = e.target.closest('[data-quote-id]');
+      if (quoteElement && quoteElement.hasAttribute('data-quote-id')) {
+        e.stopPropagation();
+        e.preventDefault();
+        const quoteId = quoteElement.getAttribute('data-quote-id');
+        console.log('[QUOTE-DELEGATION-MAIN] Klick auf Zitat:', quoteId);
+        if (typeof jumpToQuoteById === 'function') {
+          jumpToQuoteById(quoteId);
+        } else {
+          console.warn('[QUOTE-DELEGATION-MAIN] jumpToQuoteById Funktion nicht verfügbar');
+        }
+        return;
+      }
+      
+      // Prüfe ob Klick auf Bookmark-Icon im Absatz
+      const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
+      if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
+        e.stopPropagation();
+        e.preventDefault();
+        const quoteId = bookmarkIndicator.getAttribute('data-quote-id');
+        console.log('[QUOTE-DELEGATION-MAIN] Klick auf Bookmark-Icon:', quoteId);
+        if (typeof jumpToQuoteById === 'function') {
+          jumpToQuoteById(quoteId);
+        } else {
+          console.warn('[QUOTE-DELEGATION-MAIN] jumpToQuoteById Funktion nicht verfügbar');
+        }
+        return;
+      }
+    }, true); // useCapture = true für frühe Erfassung
+    
     mainContainer.addEventListener('contextmenu', function(e) {
       // Prüfe ob Rechtsklick auf ein Highlight-Element
       const highlightElement = e.target.closest('[data-highlight-id]');
