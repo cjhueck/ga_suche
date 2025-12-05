@@ -1064,6 +1064,23 @@
         </div>
         
         <button type="submit">Anmelden</button>
+        
+        <p style="text-align: center; margin-top: 0.75rem; margin-bottom: 0;">
+          <a href="#" id="password-reset-link" style="font-size: 0.85rem; color: var(--link-color); text-decoration: none;">Passwort vergessen?</a>
+        </p>
+      </form>
+
+      <form id="password-reset-form" style="display: none;">
+        <div class="form-group">
+          <label for="reset-email">E-Mail</label>
+          <input type="email" id="reset-email" required placeholder="Ihre E-Mail-Adresse">
+        </div>
+        
+        <button type="submit">Passwort-Reset-Link senden</button>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          <a href="#" id="back-to-login-link" style="color: var(--link-color); text-decoration: none;">Zurück zum Login</a>
+        </p>
       </form>
 
       <form id="register-form" style="display: none;">
@@ -1259,7 +1276,7 @@
       document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
     }
     
-    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount;
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
     
@@ -1270,6 +1287,7 @@
       signOut = authModule.signOut;
       getCurrentUser = authModule.getCurrentUser;
       onAuthStateChange = authModule.onAuthStateChange;
+      resetPassword = authModule.resetPassword;
       updateUserEmail = authModule.updateUserEmail;
       deleteUserAccount = authModule.deleteUserAccount;
       
@@ -1287,6 +1305,7 @@
       window.signOut = signOut;
       window.getCurrentUser = getCurrentUser;
       window.updateUserEmail = updateUserEmail;
+      window.resetPassword = resetPassword;
       window.deleteUserAccount = deleteUserAccount;
       window.getQuotes = getQuotes;
       window.deleteQuote = deleteQuote;
@@ -1387,6 +1406,7 @@
           e.preventDefault();
           const loginForm = document.getElementById('login-form');
           const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
           const title = document.getElementById('auth-title');
           const switchText = document.getElementById('auth-switch-text');
           const switchLink = document.getElementById('auth-switch-link');
@@ -1395,16 +1415,121 @@
             if (loginForm.style.display !== 'none') {
               loginForm.style.display = 'none';
               registerForm.style.display = 'block';
+              if (passwordResetForm) passwordResetForm.style.display = 'none';
               title.textContent = 'Registrierung';
               switchText.textContent = 'Bereits registriert?';
               switchLink.textContent = 'Jetzt anmelden';
             } else {
               loginForm.style.display = 'block';
               registerForm.style.display = 'none';
+              if (passwordResetForm) passwordResetForm.style.display = 'none';
               title.textContent = 'Mitglieder Login';
               switchText.textContent = 'Noch kein Account?';
               switchLink.textContent = 'Jetzt registrieren';
             }
+          }
+        });
+      }
+      
+      // Passwort vergessen Link
+      const passwordResetLink = document.getElementById('password-reset-link');
+      if (passwordResetLink) {
+        passwordResetLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const title = document.getElementById('auth-title');
+          
+          if (loginForm && passwordResetForm && title) {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'block';
+            title.textContent = 'Passwort zurücksetzen';
+            showAuthMessage('', ''); // Leere Nachrichten
+            
+            // Übernehme E-Mail-Adresse aus Login-Formular, falls vorhanden
+            const loginEmailInput = document.getElementById('login-email');
+            const resetEmailInput = document.getElementById('reset-email');
+            if (resetEmailInput && loginEmailInput && loginEmailInput.value) {
+              resetEmailInput.value = loginEmailInput.value;
+            }
+          }
+        });
+      }
+      
+      // Zurück zum Login Link
+      const backToLoginLink = document.getElementById('back-to-login-link');
+      if (backToLoginLink) {
+        backToLoginLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && passwordResetForm && title) {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'none';
+            title.textContent = 'Mitglieder Login';
+            if (switchText && switchLink) {
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+            showAuthMessage('', ''); // Leere Nachrichten
+          }
+        });
+      }
+      
+      // Passwort-Reset-Form
+      const passwordResetForm = document.getElementById('password-reset-form');
+      if (passwordResetForm) {
+        passwordResetForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const resetPasswordFunc = window.resetPassword || resetPassword;
+          if (typeof resetPasswordFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] resetPassword Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const email = document.getElementById('reset-email')?.value;
+          
+          if (!email) {
+            showAuthMessage('Bitte geben Sie Ihre E-Mail-Adresse ein', 'error');
+            return;
+          }
+          
+          // Validiere E-Mail-Format
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            showAuthMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein', 'error');
+            return;
+          }
+          
+          try {
+            const result = await resetPasswordFunc(email);
+            
+            if (result.success) {
+              // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
+              // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
+              showAuthMessage('Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an Ihre E-Mail-Adresse gesendet. Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.', 'success');
+              // Setze E-Mail-Feld zurück
+              const resetEmailInput = document.getElementById('reset-email');
+              if (resetEmailInput) {
+                resetEmailInput.value = '';
+              }
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Passwort-Reset-Fehler:', error);
+            showAuthMessage('Fehler beim Senden des Passwort-Reset-Links: ' + (error.message || 'Unbekannter Fehler'), 'error');
           }
         });
       }

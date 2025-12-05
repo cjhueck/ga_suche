@@ -140,6 +140,35 @@ function openMembersWindow() {
 }
 
 /**
+ * Aktualisiert den visuellen Status des Mitglieder-Buttons
+ */
+function updateMembersButtonStatus() {
+  const membersBtn = document.getElementById('membersPanelBtn');
+  if (membersBtn) {
+    if (membersPanelActive) {
+      membersBtn.classList.add('active');
+      membersBtn.setAttribute('title', 'Mitgliederbereich schließen');
+    } else {
+      membersBtn.classList.remove('active');
+      membersBtn.setAttribute('title', 'Mitgliederbereich öffnen');
+    }
+  }
+}
+
+/**
+ * Toggle-Funktion für Mitglieder-Panel: öffnet oder schließt das Panel
+ */
+async function toggleMembersPanel() {
+  if (membersPanelActive) {
+    // Panel ist aktiv → schließen
+    closeMembersPanel();
+  } else {
+    // Panel ist nicht aktiv → öffnen
+    await openMembersPanel();
+  }
+}
+
+/**
  * Öffnet den Mitgliederbereich im Summary Panel
  */
 async function openMembersPanel() {
@@ -158,6 +187,11 @@ async function openMembersPanel() {
   
   // Zeige Mitglieder-Content
   showMembersContent();
+  
+  // Aktualisiere Button-Status nach dem Öffnen
+  setTimeout(() => {
+    updateMembersButtonStatus();
+  }, 100);
 }
 
 /**
@@ -214,8 +248,25 @@ function showMembersLoginPanel() {
           
           <button onclick="handleMembersLogin()" class="primary-btn">Anmelden</button>
           
+          <p class="auth-switch" style="margin-top: 0.5rem;">
+            <a href="#" onclick="showPasswordReset(); return false;" style="font-size: 0.85rem;">Passwort vergessen?</a>
+          </p>
+          
           <p class="auth-switch">
             <a href="#" onclick="showMembersRegister(); return false;">Noch kein Account? Registrieren</a>
+          </p>
+        </div>
+        
+        <div id="password-reset-form-content" style="display:none;">
+          <div class="form-group">
+            <label for="members-reset-email">E-Mail</label>
+            <input type="email" id="members-reset-email" placeholder="Ihre E-Mail-Adresse" />
+          </div>
+          
+          <button onclick="handlePasswordReset()" class="primary-btn">Passwort-Reset-Link senden</button>
+          
+          <p class="auth-switch">
+            <a href="#" onclick="showMembersLogin(); return false;">Zurück zum Login</a>
           </p>
         </div>
         
@@ -388,9 +439,24 @@ async function showMembersContent() {
   
   if (!summaryPanel || !summaryContent) return;
   
+  // WICHTIG: Wenn Navigation läuft, NICHT den Observer stoppen oder Panel neu öffnen
+  // Das würde das Springen verursachen
+  if (window.membersNavigating) {
+    console.log('[MB-CONTENT] Navigation läuft - überspringe showMembersContent');
+    return;
+  }
+  
   // WICHTIG: Setze Flags ZUERST zurück, damit alles sauber ist
-  membersPanelActive = false; // Zuerst zurücksetzen
-  window.membersNavigating = false;
+  // ABER: Setze membersPanelActive NICHT auf false, wenn es bereits true ist (verhindert Flackern)
+  // Nur zurücksetzen, wenn es wirklich nicht aktiv ist
+  const wasAlreadyActive = membersPanelActive;
+  if (!wasAlreadyActive) {
+    membersPanelActive = false; // Nur zurücksetzen, wenn nicht bereits aktiv
+  }
+  // membersNavigating nur zurücksetzen, wenn nicht bereits aktiv (während Navigation)
+  if (!window.membersNavigating) {
+    window.membersNavigating = false;
+  }
   stopScrollPositionProtection();
   
   // Stelle innerHTML Setter wieder her, falls überschrieben
@@ -405,16 +471,27 @@ async function showMembersContent() {
     }
   }
   
-  // Stoppe Panel-Visibility Observer falls aktiv
-  if (window.panelVisibilityObserver) {
+  // WICHTIG: Stoppe Panel-Visibility Observer NUR wenn KEINE Navigation läuft
+  // Während Navigation muss der Observer aktiv bleiben, um das Panel zu schützen
+  if (window.panelVisibilityObserver && !window.membersNavigating) {
     window.panelVisibilityObserver.disconnect();
     window.panelVisibilityObserver = null;
   }
   
+  // WICHTIG: Stoppe Width-Check Interval NUR wenn KEINE Navigation läuft
+  if (window.panelWidthCheckInterval && !window.membersNavigating) {
+    clearInterval(window.panelWidthCheckInterval);
+    window.panelWidthCheckInterval = null;
+  }
+  
   // JETZT: Setze Member Panel aktiv
+  // WICHTIG: Setze immer auf true, auch wenn es bereits true war (verhindert Flackern)
   membersPanelActive = true;
   
-  // Panel öffnen
+  // Aktualisiere Button-Status
+  updateMembersButtonStatus();
+  
+  // Panel öffnen - stelle sicher, dass es sichtbar bleibt
   summaryPanel.classList.add('visible');
   if (resizeHandle) {
     resizeHandle.classList.add('visible');
@@ -1578,6 +1655,59 @@ function renderQuotesList(container, sortedData) {
 
 
 /**
+ * Robuste Hilfsfunktion: Findet ein Paragraph-Element mit verschiedenen Strategien
+ * @param {string} targetIndex - Der Index des Absatzes
+ * @returns {Object} {paraElement, elementToCheck} - Das gefundene Element und das Element zum Prüfen
+ */
+function findParagraphElementRobust(targetIndex) {
+  if (!targetIndex || targetIndex === 'null') {
+    return { paraElement: null, elementToCheck: null };
+  }
+  
+  const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
+  let paraElement = null;
+  
+  // Strategie 1: Direkte Suche mit para- Präfix
+  paraElement = document.getElementById(`para-${cleanIndex}`);
+  
+  // Strategie 2: Suche ohne para- Präfix (falls cleanIndex bereits para- enthält)
+  if (!paraElement && !cleanIndex.startsWith('para-')) {
+    paraElement = document.getElementById(`para-${cleanIndex}`);
+  }
+  
+  // Strategie 3: Direkte Suche mit der ID
+  if (!paraElement) {
+    paraElement = document.getElementById(cleanIndex);
+  }
+  
+  // Strategie 4: Suche mit querySelector (für komplexere Selektoren)
+  if (!paraElement) {
+    paraElement = document.querySelector(`[id*="${cleanIndex}"]`);
+  }
+  
+  // Strategie 5: Suche nach data-paragraph-id Attribut
+  if (!paraElement) {
+    paraElement = document.querySelector(`[data-paragraph-id="${cleanIndex}"]`);
+  }
+  
+  // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+  let elementToCheck = paraElement;
+  if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
+    let parent = paraElement.parentElement;
+    while (parent && parent !== document.body) {
+      const tagName = parent.tagName.toLowerCase();
+      if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+        elementToCheck = parent;
+        break;
+      }
+      parent = parent.parentElement;
+    }
+  }
+  
+  return { paraElement, elementToCheck };
+}
+
+/**
  * Navigiere zu Vortrag oder Buch aus Members Panel (behält Panel offen)
  * @param {string} lectureId - Die Vortrags-ID (z.B. "GA121/6") oder Buch-ID (z.B. "GA011")
  * @param {string} targetIndex - Optional: Der Index des Absatzes zum Scrollen
@@ -1596,6 +1726,27 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   }
   
   const mbWidth = 400;
+  
+  // WICHTIG: Stelle Panel-Breite SOFORT sicher, BEVOR irgendetwas anderes passiert
+  // Das verhindert, dass das Panel während der Navigation springt
+  // Verwende sowohl synchron als auch asynchron für maximale Sicherheit
+  summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+  summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+  summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+  summaryPanel.style.transition = 'none';
+  summaryPanel.classList.add('visible');
+  summaryPanel.style.setProperty('display', 'block', 'important');
+  summaryPanel.style.setProperty('opacity', '1', 'important');
+  summaryPanel.style.setProperty('visibility', 'visible', 'important');
+  document.body.classList.remove('summary-panel-collapsed');
+  
+  // Zusätzlich mit requestAnimationFrame für sofortige visuelle Aktualisierung
+  requestAnimationFrame(() => {
+    summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+    summaryPanel.style.transition = 'none';
+  });
   
   // Hole Suchbegriff aus Suchfeldern, falls nicht übergeben
   if (!searchTerm || !searchTerm.trim()) {
@@ -1625,11 +1776,64 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   let contentRestoreObserver = null;
   let originalInnerHTMLDescriptor = null;
   
-  // Speichere originalen Content
+  // Speichere originalen Content - WICHTIG: Speichere auch wenn leer (für späteres Neuladen)
   const savedContentForRestore = summaryContent ? summaryContent.innerHTML : null;
   
+  // WICHTIG: Stelle Panel-Breite SOFORT sicher, BEVOR wir Content laden
+  // Das verhindert, dass das Panel während des Ladens springt
+  if (summaryPanel) {
+    summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+    summaryPanel.style.transition = 'none';
+    summaryPanel.classList.add('visible');
+    summaryPanel.style.setProperty('display', 'block', 'important');
+    summaryPanel.style.setProperty('opacity', '1', 'important');
+    summaryPanel.style.setProperty('visibility', 'visible', 'important');
+    document.body.classList.remove('summary-panel-collapsed');
+  }
+  
+  // WICHTIG: Wenn Content leer ist beim ersten Öffnen, lade ihn vor der Navigation
+  if (summaryContent && (!savedContentForRestore || savedContentForRestore.trim().length === 0 || 
+      (!savedContentForRestore.includes('members-tab-content') && 
+       !savedContentForRestore.includes('members-login-form') && 
+       !savedContentForRestore.includes('member-item')))) {
+    console.log('[MB-NAVIGATION] Content ist leer oder nicht Members-Content, lade vor Navigation');
+    
+    // Stelle sicher, dass Panel-Breite während des Ladens geschützt bleibt
+    if (summaryPanel) {
+      summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+      summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+      summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+      summaryPanel.style.transition = 'none';
+    }
+    
+    if (typeof loadMembersTab === 'function') {
+      await loadMembersTab(currentMembersTab || 'highlights');
+      // Warte kurz, damit Content geladen wird
+      await new Promise(resolve => setTimeout(resolve, 200));
+      // Speichere Content erneut nach dem Laden
+      const refreshedContent = summaryContent ? summaryContent.innerHTML : null;
+      if (refreshedContent && refreshedContent.trim().length > 0) {
+        // Verwende den neuen Content als gespeicherten Content
+        window.savedMembersContentForRestore = refreshedContent;
+      }
+      
+      // Stelle sicher, dass Panel-Breite nach dem Laden noch geschützt ist
+      if (summaryPanel) {
+        summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+        summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+        summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+        summaryPanel.style.transition = 'none';
+      }
+    }
+  }
+  
+  // Verwende gespeicherten Content aus window, falls vorhanden (wurde oben gesetzt)
+  const contentToRestore = window.savedMembersContentForRestore || savedContentForRestore;
+  
   // Erstelle MutationObserver, der den Members-Content wiederherstellt, falls er überschrieben wird
-  if (summaryContent && savedContentForRestore) {
+  if (summaryContent && contentToRestore) {
     contentRestoreObserver = new MutationObserver((mutations) => {
       // Prüfe ob der Content geändert wurde und ob Members Panel noch aktiv ist
       if (membersPanelActive && window.membersNavigating) {
@@ -1640,14 +1844,21 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                                   currentContent.includes('member-item');
         
         // Wenn Members-Content fehlt, stelle ihn wieder her
-        if (!hasMembersContent && savedContentForRestore) {
+        const contentToUse = window.savedMembersContentForRestore || savedContentForRestore;
+        if (!hasMembersContent && contentToUse && contentToUse.trim().length > 0) {
           console.log('[MB-NAVIGATION] Content wurde überschrieben, stelle wieder her');
           // Verwende requestAnimationFrame, um Blockierungen zu vermeiden
           requestAnimationFrame(() => {
             if (membersPanelActive && summaryContent) {
-              summaryContent.innerHTML = savedContentForRestore;
+              summaryContent.innerHTML = contentToUse;
             }
           });
+        } else if (!hasMembersContent && membersPanelActive) {
+          // Content ist leer - lade neu
+          console.log('[MB-NAVIGATION] Content ist leer, lade neu');
+          if (typeof loadMembersTab === 'function') {
+            loadMembersTab(currentMembersTab || 'highlights');
+          }
         }
       }
     });
@@ -1691,40 +1902,100 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   };
   
   // Stelle Panel-Eigenschaften sicher BEVOR wir navigieren (damit es offen bleibt)
+  // WICHTIG: Dies muss VOR dem Content-Laden passieren, um Springen zu verhindern
   if (summaryPanel) {
-    summaryPanel.style.width = mbWidth + 'px';
-    summaryPanel.style.minWidth = mbWidth + 'px';
+    // WICHTIG: Deaktiviere CSS-Transitions während Navigation (verhindert Springen)
+    const originalTransition = summaryPanel.style.transition;
+    summaryPanel.style.transition = 'none';
+    
+    // Setze Breite mit !important-Level (setProperty mit important)
+    // WICHTIG: Verwende requestAnimationFrame für sofortige Ausführung
+    requestAnimationFrame(() => {
+      summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+      summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+      summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+      summaryPanel.classList.add('visible');
+      summaryPanel.style.setProperty('display', 'block', 'important');
+      summaryPanel.style.setProperty('opacity', '1', 'important');
+      summaryPanel.style.setProperty('visibility', 'visible', 'important');
+      document.body.classList.remove('summary-panel-collapsed');
+    });
+    
+    // Setze auch synchron, damit es sofort wirksam ist
+    summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+    summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
     summaryPanel.classList.add('visible');
-    summaryPanel.style.display = 'block';
-    summaryPanel.style.opacity = '1';
-    summaryPanel.style.visibility = 'visible';
+    summaryPanel.style.setProperty('display', 'block', 'important');
+    summaryPanel.style.setProperty('opacity', '1', 'important');
+    summaryPanel.style.setProperty('visibility', 'visible', 'important');
     document.body.classList.remove('summary-panel-collapsed');
     
-    // Erstelle Observer für Panel-Sichtbarkeit, um Aufblitzen zu verhindern
-    const panelVisibilityObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes') {
-          // Stelle sicher, dass Panel sichtbar bleibt
-          if (summaryPanel.style.display === 'none' || summaryPanel.style.opacity === '0' || summaryPanel.style.visibility === 'hidden') {
-            summaryPanel.style.display = 'block';
-            summaryPanel.style.opacity = '1';
-            summaryPanel.style.visibility = 'visible';
-          }
-          // Stelle sicher, dass Klasse erhalten bleibt
+    // Erstelle einen aggressiven Observer, der kontinuierlich die Breite überwacht
+    const panelVisibilityObserver = new MutationObserver(() => {
+      // Prüfe und stelle Breite SOFORT wieder her, wenn sie geändert wurde
+      if (membersPanelActive && window.membersNavigating) {
+        const currentWidth = summaryPanel.style.width || window.getComputedStyle(summaryPanel).width;
+        const widthValue = parseInt(currentWidth);
+        
+        // Wenn Breite nicht 400px ist, stelle sie sofort wieder her
+        if (widthValue !== mbWidth) {
+          summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+          summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+          summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+          summaryPanel.style.transition = 'none'; // Transition bleibt deaktiviert
+          
+          // Stelle auch andere Eigenschaften sicher
           if (!summaryPanel.classList.contains('visible')) {
             summaryPanel.classList.add('visible');
           }
+          if (summaryPanel.style.display === 'none') {
+            summaryPanel.style.setProperty('display', 'block', 'important');
+          }
+          if (summaryPanel.style.opacity === '0') {
+            summaryPanel.style.setProperty('opacity', '1', 'important');
+          }
+          if (summaryPanel.style.visibility === 'hidden') {
+            summaryPanel.style.setProperty('visibility', 'visible', 'important');
+          }
         }
-      });
+      }
     });
     
+    // Beobachte sowohl Attribute- als auch ChildList-Änderungen
     panelVisibilityObserver.observe(summaryPanel, {
       attributes: true,
-      attributeFilter: ['style', 'class']
+      attributeFilter: ['style', 'class'],
+      childList: false,
+      subtree: false
     });
     
-    // Speichere Observer für Cleanup
+    // Zusätzlich: Kontinuierliche Überwachung mit setInterval während Navigation
+    const widthCheckInterval = setInterval(() => {
+      if (membersPanelActive && window.membersNavigating) {
+        const currentWidth = summaryPanel.style.width || window.getComputedStyle(summaryPanel).width;
+        const widthValue = parseInt(currentWidth);
+        
+        if (widthValue !== mbWidth) {
+          summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
+          summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
+          summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
+          summaryPanel.style.transition = 'none';
+        }
+      } else {
+        // Navigation beendet - stelle Transition wieder her und stoppe Interval
+        if (originalTransition) {
+          summaryPanel.style.transition = originalTransition;
+        } else {
+          summaryPanel.style.removeProperty('transition');
+        }
+        clearInterval(widthCheckInterval);
+      }
+    }, 50); // Prüfe alle 50ms
+    
+    // Speichere Observer und Interval für Cleanup
     window.panelVisibilityObserver = panelVisibilityObserver;
+    window.panelWidthCheckInterval = widthCheckInterval;
   }
   
   // Prüfe ob wir bereits im Texte-Tab sind
@@ -1898,6 +2169,11 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       if (response.ok) {
         const book = await response.json();
         if (typeof displayBook === 'function') {
+          // WICHTIG: Stelle sicher, dass membersPanelActive während displayBook TRUE bleibt
+          // (verhindert, dass das Panel während displayBook geschlossen wird)
+          const panelWasActiveBeforeBook = membersPanelActive;
+          membersPanelActive = true;
+          
           // Für Bücher: targetIndex kann ein Paragraph-Index sein (z.B. "para-123" oder "^yz23gu")
           // Normalisiere targetIndex falls nötig
           let bookTargetIndex = targetIndex;
@@ -1924,9 +2200,51 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           try {
             await displayBook(book, null, [], [], bookTargetIndex);
             console.log('[MB-NAVIGATION] displayBook abgeschlossen');
+            
+            // Stelle sicher, dass Panel nach displayBook noch aktiv ist
+            if (panelWasActiveBeforeBook || window.membersNavigating) {
+              membersPanelActive = true;
+            }
+            
+            // WICHTIG: Stelle Panel-Breite SOFORT nach displayBook wieder her (verhindert Springen)
+            requestAnimationFrame(() => {
+              const panelAfterDisplayBook = document.getElementById('summary-panel');
+              if (panelAfterDisplayBook && membersPanelActive && window.membersNavigating) {
+                const currentWidth = panelAfterDisplayBook.style.width;
+                if (!currentWidth || currentWidth === '0' || currentWidth === '0px' || parseInt(currentWidth) === 0) {
+                  panelAfterDisplayBook.style.width = mbWidth + 'px';
+                  panelAfterDisplayBook.style.minWidth = mbWidth + 'px';
+                  panelAfterDisplayBook.classList.add('visible');
+                  panelAfterDisplayBook.style.display = 'block';
+                  panelAfterDisplayBook.style.opacity = '1';
+                  panelAfterDisplayBook.style.visibility = 'visible';
+                  document.body.classList.remove('summary-panel-collapsed');
+                  console.log('[MB-NAVIGATION] Panel-Breite nach displayBook wiederhergestellt');
+                }
+              }
+            });
           } catch (error) {
             console.error('[MB-NAVIGATION] Fehler in displayBook:', error);
             // NICHT weiterwerfen
+            
+            // Stelle sicher, dass Panel auch nach Fehler noch aktiv ist
+            if (panelWasActiveBeforeBook || window.membersNavigating) {
+              membersPanelActive = true;
+            }
+            
+            // Stelle Panel-Breite auch nach Fehler wieder her
+            requestAnimationFrame(() => {
+              const panelAfterError = document.getElementById('summary-panel');
+              if (panelAfterError && membersPanelActive && window.membersNavigating) {
+                panelAfterError.style.width = mbWidth + 'px';
+                panelAfterError.style.minWidth = mbWidth + 'px';
+                panelAfterError.classList.add('visible');
+                panelAfterError.style.display = 'block';
+                panelAfterError.style.opacity = '1';
+                panelAfterError.style.visibility = 'visible';
+                document.body.classList.remove('summary-panel-collapsed');
+              }
+            });
           }
           
           // Warte kurz, damit displayBook fertig ist, bevor wir den Content wiederherstellen
@@ -2047,8 +2365,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
             }
           } else if (bookTargetIndex && !shouldHighlightParagraph) {
             // Entferne Markierung für Unterstreichungen
-            const cleanIndex = bookTargetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-            const paraElement = document.getElementById(`para-${cleanIndex}`);
+            const { paraElement } = findParagraphElementRobust(bookTargetIndex);
             if (paraElement) {
               paraElement.classList.remove('highlighted-paragraph');
             }
@@ -2084,31 +2401,53 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       // und das MB nicht schließt und TOC nicht öffnet
       
       try {
+        // WICHTIG: Stelle sicher, dass membersPanelActive während showLecture TRUE bleibt
+        // (verhindert, dass das Panel während showLecture geschlossen wird)
+        const panelWasActive = membersPanelActive;
+        membersPanelActive = true;
+        
         // Rufe showLecture auf - membersNavigating bleibt true, damit Panel offen bleibt
         const showLectureResult = await showLecture(lectureId, targetIndex, [], false); // false = keine Markierung
         console.log('[MB-NAVIGATION] showLecture abgeschlossen, Ergebnis:', showLectureResult);
         
+        // Stelle sicher, dass Panel nach showLecture noch aktiv ist
+        if (panelWasActive || window.membersNavigating) {
+          membersPanelActive = true;
+        }
+        
+        // WICHTIG: Stelle Panel-Breite SOFORT nach showLecture wieder her (verhindert Springen)
+        // Verwende requestAnimationFrame für sofortige Ausführung
+        requestAnimationFrame(() => {
+          const panelAfterShowLecture = document.getElementById('summary-panel');
+          if (panelAfterShowLecture && membersPanelActive && window.membersNavigating) {
+            const currentWidth = panelAfterShowLecture.style.width;
+            if (!currentWidth || currentWidth === '0' || currentWidth === '0px' || parseInt(currentWidth) === 0) {
+              panelAfterShowLecture.style.width = mbWidth + 'px';
+              panelAfterShowLecture.style.minWidth = mbWidth + 'px';
+              panelAfterShowLecture.classList.add('visible');
+              panelAfterShowLecture.style.display = 'block';
+              panelAfterShowLecture.style.opacity = '1';
+              panelAfterShowLecture.style.visibility = 'visible';
+              document.body.classList.remove('summary-panel-collapsed');
+              console.log('[MB-NAVIGATION] Panel-Breite nach showLecture wiederhergestellt');
+            }
+          }
+        });
+        
         // Für Vorträge: Markiere Zitat-Text wenn Offsets vorhanden sind (exakte Textmarkierung)
         if (targetIndex && shouldHighlightParagraph && textStartOffset !== null && textEndOffset !== null) {
-          // Warte kurz, damit der DOM bereit ist
-          setTimeout(() => {
-            const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-            let paraElement = document.getElementById(`para-${cleanIndex}`);
+          // Warte kurz, damit der DOM bereit ist - mehrere Versuche für robustere Navigation
+          let highlightAttempts = 0;
+          const maxHighlightAttempts = 20;
+          
+          const tryApplyQuoteHighlight = () => {
+            highlightAttempts++;
             
-            // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
-            if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
-              let parent = paraElement.parentElement;
-              while (parent && parent !== document.body) {
-                const tagName = parent.tagName.toLowerCase();
-                if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-                  paraElement = parent;
-                  break;
-                }
-                parent = parent.parentElement;
-              }
-            }
+            // Verwende robuste Element-Suche
+            const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex);
+            const elementToUse = elementToCheck || paraElement;
             
-            if (paraElement) {
+            if (elementToUse && elementToUse.textContent && elementToUse.textContent.length > 0) {
               // Hole Quote-Daten aus Cache oder lade sie
               if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
                 // Finde das Zitat basierend auf paragraph_id und offsets
@@ -2120,11 +2459,24 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                 );
                 
                 if (quote && typeof applyQuoteHighlightToElement === 'function') {
-                  applyQuoteHighlightToElement(paraElement, quote);
+                  applyQuoteHighlightToElement(elementToUse, quote);
+                  return; // Erfolgreich angewendet
+                } else if (highlightAttempts < maxHighlightAttempts) {
+                  // Noch kein Zitat gefunden, versuche es erneut
+                  setTimeout(() => tryApplyQuoteHighlight(), 100 + (highlightAttempts * 10));
                 }
+              } else if (highlightAttempts < maxHighlightAttempts) {
+                // Quote-Daten noch nicht geladen, versuche es erneut
+                setTimeout(() => tryApplyQuoteHighlight(), 100 + (highlightAttempts * 10));
               }
+            } else if (highlightAttempts < maxHighlightAttempts) {
+              // Element noch nicht bereit, versuche es erneut
+              setTimeout(() => tryApplyQuoteHighlight(), 100 + (highlightAttempts * 10));
             }
-          }, 200);
+          };
+          
+          // Starte den ersten Versuch
+          setTimeout(() => tryApplyQuoteHighlight(), 300);
         }
       } catch (error) {
         console.error('[MB-NAVIGATION] Fehler in showLecture:', error);
@@ -2202,38 +2554,14 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     if (textStartOffset !== null && textStartOffset !== undefined) {
     // Versuche mehrmals zu scrollen, falls das Element noch nicht bereit ist
     let attempts = 0;
-    const maxAttempts = 50; // Erhöht für neue Einträge, die möglicherweise länger brauchen
+    const maxAttempts = 80; // Erhöht für robustere Navigation
     let scrollExecuted = false;
     
     const tryScroll = () => {
       attempts++;
-      const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-      let paraElement = document.getElementById(`para-${cleanIndex}`);
       
-      // Falls nicht gefunden, versuche auch ohne 'para-' Präfix
-      if (!paraElement && !cleanIndex.startsWith('para-')) {
-        paraElement = document.getElementById(`para-${cleanIndex}`);
-      }
-      
-      // Falls immer noch nicht gefunden, versuche direkt mit der ID
-      if (!paraElement) {
-        paraElement = document.getElementById(cleanIndex);
-      }
-      
-      // WICHTIG: Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
-      let elementToCheck = paraElement;
-      if (paraElement && (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span')) {
-        // Für Bücher: Suche nach dem Parent-Element, das den Text enthält
-        let parent = paraElement.parentElement;
-        while (parent && parent !== document.body) {
-          const tagName = parent.tagName.toLowerCase();
-          if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-            elementToCheck = parent;
-            break;
-          }
-          parent = parent.parentElement;
-        }
-      }
+      // Verwende robuste Element-Suche
+      const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex);
       
       const mainContainer = document.getElementById('main');
       
@@ -2268,7 +2596,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Verifiziere die Position nach kurzer Zeit
           setTimeout(() => {
-            const verifyPara = document.getElementById(`para-${cleanIndex}`);
+            const { paraElement: verifyPara } = findParagraphElementRobust(targetIndex);
             const verifyMain = document.getElementById('main');
             if (verifyPara && verifyMain) {
               const verifyParaRect = verifyPara.getBoundingClientRect();
@@ -2297,7 +2625,9 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           console.warn('[MB-SCROLL] Offsets außerhalb des Textes:', textStartOffset, 'vs', paraText.length, 'Element:', elementToCheck.tagName);
           if (attempts < maxAttempts) {
             // Versuche es nochmal, vielleicht wird der Text noch geladen
-            setTimeout(() => requestAnimationFrame(tryScroll), 100);
+            // Erhöhe Delay bei späteren Versuchen für robustere Navigation
+            const delay = Math.min(100 + (attempts * 10), 300);
+            setTimeout(() => requestAnimationFrame(tryScroll), delay);
           } else {
             // Nach maxAttempts Versuchen immer noch nicht erfolgreich - verwende scrollToTextPositionInParagraph direkt
             console.log('[MB-SCROLL] Max Versuche erreicht, verwende scrollToTextPositionInParagraph direkt');
@@ -2307,12 +2637,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
         }
       } else if (attempts < maxAttempts) {
         // Element noch nicht bereit, versuche es erneut
-        setTimeout(() => requestAnimationFrame(tryScroll), 50);
+        // Erhöhe Delay bei späteren Versuchen für robustere Navigation
+        const delay = Math.min(50 + (attempts * 5), 200);
+        setTimeout(() => requestAnimationFrame(tryScroll), delay);
       } else {
         // Max Versuche erreicht - Fallback: Scrolle zum Absatz
         console.warn('[MB-SCROLL] Max Versuche erreicht, scrolle zum Absatz');
-        const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-        const paraElement = document.getElementById(`para-${cleanIndex}`);
+        const { paraElement } = findParagraphElementRobust(targetIndex);
         const mainContainer = document.getElementById('main');
         if (paraElement && mainContainer) {
           const paraRect = paraElement.getBoundingClientRect();
@@ -2337,27 +2668,17 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     // Für neue Einträge: Warte etwas länger, damit der Text vollständig geladen ist
     setTimeout(() => {
       requestAnimationFrame(tryScroll);
-    }, 200); // Erhöht von 100 auf 200ms für neue Einträge
+    }, 300); // Erhöht für robustere Navigation
     } else {
       // Keine Offsets vorhanden - scrolle zum Absatz (für ältere Einträge ohne Offsets)
       let attempts = 0;
-      const maxAttempts = 30;
+      const maxAttempts = 50; // Erhöht für robustere Navigation
       
       const tryScrollToParagraph = () => {
         attempts++;
-        const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
-        let paraElement = document.getElementById(`para-${cleanIndex}`);
         
-        // Falls nicht gefunden, versuche auch ohne 'para-' Präfix
-        if (!paraElement && !cleanIndex.startsWith('para-')) {
-          paraElement = document.getElementById(`para-${cleanIndex}`);
-        }
-        
-        // Falls immer noch nicht gefunden, versuche direkt mit der ID
-        if (!paraElement) {
-          paraElement = document.getElementById(cleanIndex);
-        }
-        
+        // Verwende robuste Element-Suche
+        const { paraElement } = findParagraphElementRobust(targetIndex);
         const mainContainer = document.getElementById('main');
         
         if (paraElement && mainContainer) {
@@ -2378,19 +2699,27 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // KEINE zusätzliche Verifizierung mehr - verursacht Springen
         } else if (attempts < maxAttempts) {
-          setTimeout(() => requestAnimationFrame(tryScrollToParagraph), 50);
+          // Erhöhe Delay bei späteren Versuchen für robustere Navigation
+          const delay = Math.min(50 + (attempts * 5), 200);
+          setTimeout(() => requestAnimationFrame(tryScrollToParagraph), delay);
         }
       };
       
       setTimeout(() => {
         requestAnimationFrame(tryScrollToParagraph);
-      }, 200);
+      }, 300); // Erhöht für robustere Navigation
     }
   }
   
   // Warte kurz, damit displayBook/showLecture fertig ist
   // Der MutationObserver stellt den Content automatisch wieder her, wenn er überschrieben wird
   await new Promise(resolve => setTimeout(resolve, 150));
+  
+  // WICHTIG: Stelle sicher, dass membersPanelActive während der Navigation TRUE bleibt
+  // (verhindert, dass das Panel geschlossen wird)
+  if (window.membersNavigating) {
+    membersPanelActive = true;
+  }
   
   // Stelle sicher, dass Panel-Eigenschaften erhalten bleiben
   const currentSummaryPanel = document.getElementById('summary-panel');
@@ -2419,10 +2748,32 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                               currentSummaryContent.querySelector('.member-item');
     
     if (!hasMembersContent && membersPanelActive) {
-      // Content wurde überschrieben - lade Members-Content neu
-      console.warn('[MB-NAVIGATION] Members-Content wurde überschrieben, lade neu');
-      if (typeof loadMembersTab === 'function') {
-        loadMembersTab(currentMembersTab || 'highlights');
+      // Content wurde überschrieben - versuche zuerst gespeicherten Content wiederherzustellen
+      const contentToRestoreHere = window.savedMembersContentForRestore || savedContentForRestore;
+      if (contentToRestoreHere && contentToRestoreHere.trim().length > 0) {
+        console.log('[MB-NAVIGATION] Stelle gespeicherten Content wieder her');
+        currentSummaryContent.innerHTML = contentToRestoreHere;
+        
+        // Prüfe nach kurzer Verzögerung erneut
+        setTimeout(() => {
+          const hasContentAfterRestore = currentSummaryContent.querySelector('#members-tab-content') || 
+                                        currentSummaryContent.querySelector('.members-login-form') ||
+                                        currentSummaryContent.querySelector('.member-item');
+          
+          if (!hasContentAfterRestore && membersPanelActive) {
+            // Content konnte nicht wiederhergestellt werden - lade neu
+            console.warn('[MB-NAVIGATION] Content konnte nicht wiederhergestellt werden, lade neu');
+            if (typeof loadMembersTab === 'function') {
+              loadMembersTab(currentMembersTab || 'highlights');
+            }
+          }
+        }, 100);
+      } else {
+        // Kein gespeicherter Content vorhanden - lade neu
+        console.warn('[MB-NAVIGATION] Kein gespeicherter Content vorhanden, lade neu');
+        if (typeof loadMembersTab === 'function') {
+          loadMembersTab(currentMembersTab || 'highlights');
+        }
       }
     }
   }
@@ -2476,8 +2827,26 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   // WICHTIG: membersNavigating wurde bereits nach showLecture/displayBook zurückgesetzt
   // Hier nur noch finale Aufräumarbeiten
   setTimeout(() => {
+    // WICHTIG: Stelle sicher, dass Panel noch offen ist, BEVOR wir membersNavigating zurücksetzen
+    // (verhindert, dass andere Code-Pfade das Panel schließen)
+    if (membersPanelActive) {
+      const finalSummaryPanel = document.getElementById('summary-panel');
+      if (finalSummaryPanel) {
+        finalSummaryPanel.style.width = mbWidth + 'px';
+        finalSummaryPanel.style.minWidth = mbWidth + 'px';
+        finalSummaryPanel.classList.add('visible');
+        finalSummaryPanel.style.display = 'block';
+        finalSummaryPanel.style.opacity = '1';
+        finalSummaryPanel.style.visibility = 'visible';
+        document.body.classList.remove('summary-panel-collapsed');
+      }
+    }
+    
     // Stelle sicher, dass membersNavigating false ist (falls es noch nicht zurückgesetzt wurde)
-    window.membersNavigating = false;
+    // ABER: Nur wenn Panel noch aktiv ist (sonst könnte es geschlossen werden)
+    if (membersPanelActive) {
+      window.membersNavigating = false;
+    }
     
     // Entferne Absatz-Markierungen IMMER (auch für Zitate - nur exakter Text wird markiert)
     const allHighlighted = document.querySelectorAll('.highlighted-paragraph');
@@ -2507,6 +2876,19 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     if (window.panelVisibilityObserver) {
       window.panelVisibilityObserver.disconnect();
       window.panelVisibilityObserver = null;
+    }
+    
+    // Stoppe Width-Check Interval
+    if (window.panelWidthCheckInterval) {
+      clearInterval(window.panelWidthCheckInterval);
+      window.panelWidthCheckInterval = null;
+    }
+    
+    // Stelle CSS-Transition wieder her (nur wenn Panel noch aktiv ist)
+    const finalSummaryPanelForTransition = document.getElementById('summary-panel');
+    if (finalSummaryPanelForTransition && membersPanelActive) {
+      // Transition bleibt deaktiviert, solange Panel aktiv ist
+      // Wird erst wiederhergestellt, wenn Panel geschlossen wird
     }
     
     // Stelle buildTableOfContents wieder her - aber nur wenn Members Panel nicht mehr aktiv ist
@@ -2546,10 +2928,32 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                                   finalSummaryContent.querySelector('.member-item');
         
         if (!hasMembersContent) {
-          // Content wurde durch TOC ersetzt - lade Members-Content neu
-          console.warn('[MB-NAVIGATION] Members-Content wurde durch TOC ersetzt, lade neu');
-          if (typeof loadMembersTab === 'function') {
-            loadMembersTab(currentMembersTab || 'highlights');
+          // Content wurde durch TOC ersetzt - versuche zuerst gespeicherten Content wiederherzustellen
+          const contentToRestoreFinal = window.savedMembersContentForRestore || savedContentForRestore;
+          if (contentToRestoreFinal && contentToRestoreFinal.trim().length > 0) {
+            console.log('[MB-NAVIGATION] Stelle gespeicherten Content wieder her (finale Prüfung)');
+            finalSummaryContent.innerHTML = contentToRestoreFinal;
+            
+            // Prüfe nach kurzer Verzögerung erneut
+            setTimeout(() => {
+              const hasContentAfterFinalRestore = finalSummaryContent.querySelector('#members-tab-content') || 
+                                                  finalSummaryContent.querySelector('.members-login-form') ||
+                                                  finalSummaryContent.querySelector('.member-item');
+              
+              if (!hasContentAfterFinalRestore && membersPanelActive) {
+                // Content konnte nicht wiederhergestellt werden - lade neu
+                console.warn('[MB-NAVIGATION] Content konnte nicht wiederhergestellt werden (finale Prüfung), lade neu');
+                if (typeof loadMembersTab === 'function') {
+                  loadMembersTab(currentMembersTab || 'highlights');
+                }
+              }
+            }, 100);
+          } else {
+            // Kein gespeicherter Content vorhanden - lade neu
+            console.warn('[MB-NAVIGATION] Members-Content wurde durch TOC ersetzt, lade neu');
+            if (typeof loadMembersTab === 'function') {
+              loadMembersTab(currentMembersTab || 'highlights');
+            }
           }
         }
       }
@@ -3765,14 +4169,23 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
 // Event-Delegation für Highlights (funktioniert auch wenn Elemente später hinzugefügt werden)
 let highlightDelegationListenerAttached = false;
 function attachHighlightDelegationListener() {
+  // Prüfe ob bereits angehängt - aber erlaube erneutes Anhängen für Robustheit
   if (highlightDelegationListenerAttached) {
-    return; // Bereits angehängt
+    // Prüfe ob Listener noch aktiv ist
+    const viewer = document.getElementById('viewer');
+    if (viewer && viewer.hasAttribute('data-highlight-listener-attached')) {
+      return; // Bereits angehängt und aktiv
+    }
   }
   
   const viewer = document.getElementById('viewer');
   if (!viewer) {
+    console.warn('[HIGHLIGHT-DELEGATION] Viewer nicht gefunden');
     return;
   }
+  
+  // Markiere als angehängt
+  viewer.setAttribute('data-highlight-listener-attached', 'true');
   
   viewer.addEventListener('click', function(e) {
     // Prüfe ob Klick auf ein Highlight-Element
@@ -4886,8 +5299,12 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
       await switchMembersTab('highlights');
     }
     
-    // Warte kurz, dann scrolle zum Item
-    setTimeout(async () => {
+    // Warte kurz, dann scrolle zum Item - mehrere Versuche für robustere Navigation
+    let scrollAttempts = 0;
+    const maxScrollAttempts = 10;
+    
+    const tryScrollToHighlight = async () => {
+      scrollAttempts++;
       const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
       if (targetItem) {
         // Scrolle nur den Content-Bereich, nicht das gesamte Panel
@@ -4931,8 +5348,17 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
         setTimeout(() => {
           targetItem.style.backgroundColor = '';
         }, 2000);
+        return; // Erfolgreich gescrollt
+      } else if (scrollAttempts < maxScrollAttempts) {
+        // Item noch nicht gefunden, versuche es erneut
+        setTimeout(() => tryScrollToHighlight(), 200 + (scrollAttempts * 50));
+      } else {
+        console.warn('[JUMP-TO-HIGHLIGHT] Highlight mit ID', highlightId, 'nicht gefunden nach', maxScrollAttempts, 'Versuchen');
       }
-    }, 300);
+    };
+    
+    // Starte den ersten Versuch
+    setTimeout(() => tryScrollToHighlight(), 300);
     
     // Lade Highlight-Daten, um Offsets zu bekommen
     let highlightData = null;
@@ -5083,8 +5509,12 @@ async function jumpToQuoteById(quoteId) {
       await switchMembersTab(targetTab);
     }
     
-    // Warte kurz, dann scrolle zum Item
-    setTimeout(() => {
+    // Warte kurz, dann scrolle zum Item - mehrere Versuche für robustere Navigation
+    let scrollAttempts = 0;
+    const maxScrollAttempts = 10;
+    
+    const tryScrollToQuote = () => {
+      scrollAttempts++;
       const targetItem = document.querySelector(`.member-item[data-id="${quoteId}"]`);
       if (targetItem) {
         // Scrolle nur den Content-Bereich, nicht das gesamte Panel
@@ -5121,10 +5551,17 @@ async function jumpToQuoteById(quoteId) {
         setTimeout(() => {
           targetItem.classList.remove('member-item-highlighted');
         }, 2000);
+        return; // Erfolgreich gescrollt
+      } else if (scrollAttempts < maxScrollAttempts) {
+        // Item noch nicht gefunden, versuche es erneut
+        setTimeout(() => tryScrollToQuote(), 200 + (scrollAttempts * 50));
       } else {
-        console.warn('[QUOTE-JUMP] Zitat mit ID', quoteId, 'nicht gefunden');
+        console.warn('[QUOTE-JUMP] Zitat mit ID', quoteId, 'nicht gefunden nach', maxScrollAttempts, 'Versuchen');
       }
-    }, 500);
+    };
+    
+    // Starte den ersten Versuch
+    setTimeout(() => tryScrollToQuote(), 500);
   } catch (error) {
     console.error('[QUOTE-JUMP] Fehler beim Springen zum Zitat:', error);
   }
@@ -5273,6 +5710,7 @@ async function handleMembersRegister() {
 function showMembersLogin() {
   document.getElementById('login-form-content').style.display = 'block';
   document.getElementById('register-form-content').style.display = 'none';
+  document.getElementById('password-reset-form-content').style.display = 'none';
   document.querySelector('.members-header h2').textContent = 'Mitglieder Login';
   document.getElementById('login-message').innerHTML = '';
 }
@@ -5280,12 +5718,68 @@ function showMembersLogin() {
 function showMembersRegister() {
   document.getElementById('login-form-content').style.display = 'none';
   document.getElementById('register-form-content').style.display = 'block';
+  document.getElementById('password-reset-form-content').style.display = 'none';
   document.querySelector('.members-header h2').textContent = 'Registrierung';
   document.getElementById('login-message').innerHTML = '';
   // Setze Privacy-Checkbox zurück
   const privacyCheckbox = document.getElementById('members-privacy-checkbox');
   if (privacyCheckbox) {
     privacyCheckbox.checked = false;
+  }
+}
+
+function showPasswordReset() {
+  document.getElementById('login-form-content').style.display = 'none';
+  document.getElementById('register-form-content').style.display = 'none';
+  document.getElementById('password-reset-form-content').style.display = 'block';
+  document.querySelector('.members-header h2').textContent = 'Passwort zurücksetzen';
+  document.getElementById('login-message').innerHTML = '';
+  
+  // Übernehme E-Mail-Adresse aus Login-Formular, falls vorhanden
+  const loginEmailInput = document.getElementById('members-email');
+  const resetEmailInput = document.getElementById('members-reset-email');
+  if (resetEmailInput && loginEmailInput && loginEmailInput.value) {
+    resetEmailInput.value = loginEmailInput.value;
+  } else if (resetEmailInput) {
+    resetEmailInput.value = '';
+  }
+}
+
+async function handlePasswordReset() {
+  const email = document.getElementById('members-reset-email').value;
+  const messageDiv = document.getElementById('login-message');
+  
+  if (!email) {
+    messageDiv.innerHTML = '<div class="error-msg">Bitte geben Sie Ihre E-Mail-Adresse ein</div>';
+    return;
+  }
+  
+  // Validiere E-Mail-Format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    messageDiv.innerHTML = '<div class="error-msg">Bitte geben Sie eine gültige E-Mail-Adresse ein</div>';
+    return;
+  }
+  
+  try {
+    // Prüfe zuerst, ob die E-Mail registriert ist
+    // Supabase sendet auch bei nicht registrierten E-Mails eine Bestätigung (aus Sicherheitsgründen)
+    // aber wir können trotzdem versuchen zu prüfen
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/members.html`
+    });
+    
+    if (error) throw error;
+    
+    // Erfolgsmeldung - auch wenn E-Mail nicht registriert ist, zeigen wir die gleiche Meldung
+    // (aus Sicherheitsgründen sollte man nicht verraten, welche E-Mails registriert sind)
+    messageDiv.innerHTML = '<div class="success-msg">✓ Falls diese E-Mail-Adresse registriert ist, wurde ein Passwort-Reset-Link an Ihre E-Mail-Adresse gesendet.<br><br>Bitte schauen Sie auch in Ihren Spam-Ordner, falls Sie keine E-Mail erhalten.</div>';
+    
+    // Setze E-Mail-Feld zurück
+    document.getElementById('members-reset-email').value = '';
+    
+  } catch (error) {
+    messageDiv.innerHTML = `<div class="error-msg">✗ ${error.message}</div>`;
   }
 }
 
@@ -5515,15 +6009,33 @@ function closeMembersPrivacyModal() {
 function closeMembersPanel() {
   membersPanelActive = false;
   
+  // Aktualisiere Button-Status
+  updateMembersButtonStatus();
+  
   // WICHTIG: Stoppe Scroll-Position-Schutz und setze Navigation-Flag zurück
   stopScrollPositionProtection();
   window.membersNavigating = false;
+  
+  // Stoppe Panel-Visibility Observer falls aktiv
+  if (window.panelVisibilityObserver) {
+    window.panelVisibilityObserver.disconnect();
+    window.panelVisibilityObserver = null;
+  }
+  
+  // Stoppe Width-Check Interval falls aktiv
+  if (window.panelWidthCheckInterval) {
+    clearInterval(window.panelWidthCheckInterval);
+    window.panelWidthCheckInterval = null;
+  }
   
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
   const resizeHandle = document.getElementById('verticalResizeHandle');
   
   if (summaryPanel) {
+    // Stelle CSS-Transition wieder her
+    summaryPanel.style.removeProperty('transition');
+    
     summaryPanel.classList.remove('visible');
     if (resizeHandle) {
       resizeHandle.classList.remove('visible');
@@ -6099,13 +6611,29 @@ function filterItemsByKeyword(keyword) {
 window.openMembersPanel = openMembersPanel;
 window.openMembersWindow = openMembersWindow;
 window.closeMembersPanel = closeMembersPanel;
+window.toggleMembersPanel = toggleMembersPanel;
+window.updateMembersButtonStatus = updateMembersButtonStatus;
 window.switchFromMembersPanelToTOC = switchFromMembersPanelToTOC;
 window.isMembersPanelActive = isMembersPanelActive;
+
+// Initialisiere Button-Status beim Laden
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      updateMembersButtonStatus();
+    });
+  } else {
+    // DOM bereits geladen
+    updateMembersButtonStatus();
+  }
+}
 window.switchMembersTab = switchMembersTab;
 window.handleMembersLogin = handleMembersLogin;
 window.handleMembersRegister = handleMembersRegister;
 window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
+window.showPasswordReset = showPasswordReset;
+window.handlePasswordReset = handlePasswordReset;
 window.showMembersPrivacyModal = showMembersPrivacyModal;
 window.closeMembersPrivacyModal = closeMembersPrivacyModal;
 window.editMemberQuote = editMemberQuote;

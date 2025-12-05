@@ -2695,6 +2695,17 @@ body.dark-mode #thematicSearchInfo {
       color: white !important;
     }
     
+    /* Mitglieder-Button - Aktiver Status (Panel offen) */
+    #membersPanelBtn.active {
+      background: var(--accent-color) !important;
+      color: white !important;
+    }
+    
+    #membersPanelBtn.active:hover {
+      background: #3a6270 !important;
+      color: white !important;
+    }
+    
     body.dark-mode #membersPanelBtn {
       border-color: var(--dark-accent-color) !important;
       color: var(--dark-accent-color) !important;
@@ -2702,6 +2713,16 @@ body.dark-mode #thematicSearchInfo {
     
     body.dark-mode #membersPanelBtn:hover {
       background: var(--dark-accent-color) !important;
+      color: white !important;
+    }
+    
+    body.dark-mode #membersPanelBtn.active {
+      background: var(--dark-accent-color) !important;
+      color: white !important;
+    }
+    
+    body.dark-mode #membersPanelBtn.active:hover {
+      background: #5a8fa0 !important;
       color: white !important;
     }
     
@@ -5490,7 +5511,7 @@ Bestehende Schlagwörter überschreiben
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <!-- Mitglieder Button -->
-<button id="membersPanelBtn" onclick="openMembersPanel()" title="Mitgliederbereich öffnen">
+<button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 <circle cx="12" cy="8" r="4"/>
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
@@ -6430,7 +6451,8 @@ function normalizeGANumber(gaNumber) {
       const isMembersNavigating = window.membersNavigating === true;
       
       // Schließe Mitglieder-Panel beim Wechsel zu einem anderen Tab (Suche, GA, Themen, Timeline, Index)
-      if (isMembersPanelOpen && typeof closeMembersPanel === 'function') {
+      // ABER: NICHT während Navigation aus dem Member Panel (verhindert Springen)
+      if (isMembersPanelOpen && !isMembersNavigating && typeof closeMembersPanel === 'function') {
         closeMembersPanel();
       }
       
@@ -18131,25 +18153,37 @@ function formatAsteriskParagraphs() {
     
     if (isInGATab && wasBook && isLecture) {
       // Schließe TOC-Panel wenn von Buch zu Vortrag gewechselt wird
+      // ABER: NICHT wenn Members Panel aktiv ist oder Navigation läuft
       const summaryPanelToClose = document.getElementById('summary-panel');
+      const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
+      const isMembersNavigating = window.membersNavigating === true;
       
       if (summaryPanelToClose && summaryPanelToClose.classList.contains('visible')) {
-        summaryPanelToClose.classList.remove('visible');
-        summaryPanelToClose.style.width = '0';
-        summaryPanelToClose.style.minWidth = '0';
-        summaryPanelToClose.style.marginRight = '0px';
-        document.body.classList.add('summary-panel-collapsed');
-        
-        // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
-        // (keine manuelle Setzung - wie in allen anderen Fällen auch)
-        if (typeof syncMainContainerWithPanel === 'function') {
-          syncMainContainerWithPanel();
+        // Nur schließen, wenn Members Panel NICHT aktiv ist
+        if (!isMembersPanelOpen && !isMembersNavigating) {
+          summaryPanelToClose.classList.remove('visible');
+          summaryPanelToClose.style.width = '0';
+          summaryPanelToClose.style.minWidth = '0';
+          summaryPanelToClose.style.marginRight = '0px';
+          document.body.classList.add('summary-panel-collapsed');
+          
+          // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
+          // (keine manuelle Setzung - wie in allen anderen Fällen auch)
+          if (typeof syncMainContainerWithPanel === 'function') {
+            syncMainContainerWithPanel();
+          }
+          if (typeof updateResizeHandle === 'function') {
+            updateResizeHandle();
+          }
+          
+          shouldClosePanelFromBook = true; // Setze Flag um automatisches Öffnen zu verhindern
+        } else {
+          // Members Panel ist aktiv - stelle sicher, dass es offen bleibt
+          summaryPanelToClose.style.width = '400px';
+          summaryPanelToClose.style.minWidth = '400px';
+          summaryPanelToClose.classList.add('visible');
+          document.body.classList.remove('summary-panel-collapsed');
         }
-        if (typeof updateResizeHandle === 'function') {
-          updateResizeHandle();
-        }
-        
-        shouldClosePanelFromBook = true; // Setze Flag um automatisches Öffnen zu verhindern
       }
     }
     
@@ -18226,7 +18260,10 @@ function formatAsteriskParagraphs() {
             
             // WICHTIG: Bei normalem Vortragswechsel (nicht aus MB) → immer TOC anzeigen
             try {
-              if (isMembersPanelOpen) {
+              // WICHTIG: Prüfe auch hier membersNavigating, um Springen zu verhindern
+              const isCurrentlyNavigating = window.membersNavigating === true;
+              
+              if (isMembersPanelOpen && !isCurrentlyNavigating) {
                 // MB ist aktiv, aber Vortrag kommt NICHT aus MB-Navigation → MB schließen und TOC anzeigen
                 if (typeof switchFromMembersPanelToTOC === 'function') {
                   switchFromMembersPanelToTOC();
@@ -18240,6 +18277,9 @@ function formatAsteriskParagraphs() {
                     summaryContent.innerHTML = '<div id="toc-list"></div>';
                   }
                 }
+              } else if (isMembersPanelOpen && isCurrentlyNavigating) {
+                // MB ist aktiv UND Navigation läuft → Panel offen lassen, Content NICHT überschreiben
+                console.log('[SHOW-LECTURE] Members Panel Navigation aktiv - Panel bleibt offen');
               } else {
                 // MB nicht aktiv → TOC anzeigen
                 const summaryContent = document.getElementById('summary-content');
@@ -18263,14 +18303,20 @@ function formatAsteriskParagraphs() {
             summaryPanel.classList.add('visible');
             
             // Nur Breite setzen, wenn Panel geschlossen war oder keine Breite hat
-            // ABER: Wenn Members Panel aktiv ist, behalte die aktuelle Breite (400px)
-            if ((!wasAlreadyVisible || currentPanelWidth === 0) && !isMembersPanelOpen) {
+            // ABER: Wenn Members Panel aktiv ist ODER Navigation läuft, behalte die aktuelle Breite (400px)
+            const isCurrentlyNavigating = window.membersNavigating === true;
+            if ((!wasAlreadyVisible || currentPanelWidth === 0) && !isMembersPanelOpen && !isCurrentlyNavigating) {
               // Verwende gespeicherte Breite oder Standard (280px für normale Tabs)
               const panelWidth = savedSummaryPanelWidth || 280;
               summaryPanel.style.width = panelWidth + 'px';
               summaryPanel.style.minWidth = panelWidth + 'px';
             }
-            // Wenn Panel bereits offen war ODER Members Panel aktiv ist, behalte die aktuelle Breite
+            // Wenn Panel bereits offen war ODER Members Panel aktiv ist ODER Navigation läuft, behalte die aktuelle Breite
+            if (isMembersPanelOpen || isCurrentlyNavigating) {
+              // Stelle sicher, dass Members Panel Breite erhalten bleibt
+              summaryPanel.style.width = '400px';
+              summaryPanel.style.minWidth = '400px';
+            }
             
             summaryPanel.style.marginRight = '0px';
             // Entferne !important Properties von switchTab
