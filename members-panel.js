@@ -1323,31 +1323,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                                   currentContent.includes('members-login-form') ||
                                   currentContent.includes('member-item');
         
-        // Prüfe ob Text im Side Panel angezeigt wird (wie bei showLectureFromAdvancedSearch)
-        // Erkenne Text-Anzeige im Side Panel: enthält adv-para- oder paragraph mit ID
-        const hasSidePanelText = currentContent.includes('adv-para-') || 
-                                  currentContent.includes('id="adv-para-') ||
-                                  (currentContent.includes('<div class="paragraph') && currentContent.includes('id="adv-'));
-        
-        // Wenn Text im Side Panel angezeigt wird, NICHT wiederherstellen
-        if (hasSidePanelText) {
-          console.log('[MB-NAVIGATION] Text wird im Side Panel angezeigt, stelle Members-Content NICHT wieder her');
-          return;
-        }
-        
         // Wenn Members-Content fehlt, stelle ihn wieder her
         if (!hasMembersContent && savedContentForRestore) {
           console.log('[MB-NAVIGATION] Content wurde überschrieben, stelle wieder her');
           // Verwende requestAnimationFrame, um Blockierungen zu vermeiden
           requestAnimationFrame(() => {
             if (membersPanelActive && summaryContent) {
-              // Prüfe nochmal ob Text im Side Panel angezeigt wird
-              const currentContentCheck = summaryContent.innerHTML;
-              const hasSidePanelTextCheck = currentContentCheck.includes('adv-para-') || 
-                                            currentContentCheck.includes('id="adv-para-');
-              if (!hasSidePanelTextCheck) {
-                summaryContent.innerHTML = savedContentForRestore;
-              }
+              summaryContent.innerHTML = savedContentForRestore;
             }
           });
         }
@@ -1777,75 +1759,17 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       highlightsToRestore.push(...lectureHighlights);
     }
     
-    // WICHTIG: Verwende showLectureFromAdvancedSearch, um Text im Side Panel anzuzeigen (wie bei Suche/erweitert)
-    if (typeof showLectureFromAdvancedSearch === 'function') {
-      console.log('[MB-NAVIGATION] Rufe showLectureFromAdvancedSearch auf für:', lectureId, 'targetIndex:', targetIndex, 'searchTerm:', searchTerm);
+    if (typeof showLecture === 'function') {
+      // WICHTIG: KEINE innerHTML-Blockierung mehr - rufe showLecture direkt auf
+      // Der MutationObserver stellt den Content automatisch wieder her, falls nötig
+      console.log('[MB-NAVIGATION] Rufe showLecture auf für:', lectureId, 'targetIndex:', targetIndex);
+      
+      // WICHTIG: Behalte membersNavigating=true, damit showLecture weiß, dass Navigation aus MB kommt
+      // und das MB nicht schließt und TOC nicht öffnet
       
       try {
-        // Rufe showLectureFromAdvancedSearch auf - zeigt Text im Side Panel an
-        // Konvertiere targetIndex zu paragraphIndex Format (String mit ^ oder ohne)
-        let paragraphIndex = targetIndex;
-        if (paragraphIndex) {
-          // Stelle sicher, dass es ein String ist
-          paragraphIndex = String(paragraphIndex).replace(/^para-/, '');
-        }
-        
-        await showLectureFromAdvancedSearch(lectureId, searchTerm || '', paragraphIndex);
-        console.log('[MB-NAVIGATION] showLectureFromAdvancedSearch abgeschlossen');
-        
-        // Die Markierung erfolgt bereits in showLectureFromAdvancedSearch (Zeile 13389-13466 in app.html)
-        // Zusätzlich: Markiere den Absatz visuell nach dem Scrollen
-        if (paragraphIndex) {
-          setTimeout(() => {
-            const cleanIndex = String(paragraphIndex).replace(/^\^/, '');
-            // Suche nach dem Element im Side Panel (adv-para-${idx})
-            const summaryContent = document.getElementById('summary-content');
-            if (summaryContent) {
-              // Finde den Paragraph-Index basierend auf dem targetIndex
-              // showLectureFromAdvancedSearch verwendet adv-para-${idx} als ID
-              const allParas = summaryContent.querySelectorAll('[id^="adv-para-"]');
-              let targetElement = null;
-              
-              // Versuche das Element direkt zu finden
-              for (let i = 0; i < allParas.length; i++) {
-                const para = allParas[i];
-                const paraId = para.id.replace('adv-para-', '');
-                // Prüfe ob der Paragraph-Index passt
-                if (paraId === String(i)) {
-                  // Lade den Vortrag nochmal, um den richtigen Index zu finden
-                  // Oder verwende einen anderen Ansatz
-                }
-              }
-              
-              // Fallback: Suche nach dem ersten Element mit dem Suchwort markiert
-              if (!targetElement) {
-                const firstMark = summaryContent.querySelector('mark');
-                if (firstMark) {
-                  targetElement = firstMark.closest('[id^="adv-para-"]');
-                }
-              }
-              
-              if (targetElement && typeof addHighlightingWithAutoRemove === 'function') {
-                addHighlightingWithAutoRemove(targetElement);
-              }
-            }
-          }, 200);
-        }
-      } catch (error) {
-        console.error('[MB-NAVIGATION] Fehler in showLectureFromAdvancedSearch:', error);
-        // Fallback: Verwende showLecture
-        if (typeof showLecture === 'function') {
-          const keywords = searchTerm && searchTerm.trim() ? [searchTerm.trim()] : [];
-          await showLecture(lectureId, targetIndex, keywords, false);
-        }
-      }
-    } else if (typeof showLecture === 'function') {
-      // Fallback: Verwende showLecture wenn showLectureFromAdvancedSearch nicht verfügbar ist
-      console.log('[MB-NAVIGATION] showLectureFromAdvancedSearch nicht verfügbar, verwende showLecture');
-      
-      try {
-        const keywords = searchTerm && searchTerm.trim() ? [searchTerm.trim()] : [];
-        const showLectureResult = await showLecture(lectureId, targetIndex, keywords, false);
+        // Rufe showLecture auf - membersNavigating bleibt true, damit Panel offen bleibt
+        const showLectureResult = await showLecture(lectureId, targetIndex, [], false); // false = keine Markierung
         console.log('[MB-NAVIGATION] showLecture abgeschlossen, Ergebnis:', showLectureResult);
         
         // Für Vorträge: Markiere Zitat-Text wenn Offsets vorhanden sind (exakte Textmarkierung)
@@ -2342,10 +2266,6 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
  * @param {string} searchTerm - Das zu markierende Suchwort
  */
 function markSearchTermInParagraph(targetElement, searchTerm) {
-  // Stelle sicher, dass die Funktion global verfügbar ist
-  if (typeof window !== 'undefined') {
-    window.markSearchTermInParagraph = markSearchTermInParagraph;
-  }
   if (!targetElement || !searchTerm || !searchTerm.trim()) {
     return;
   }
@@ -3337,6 +3257,13 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
         });
       });
     }
+    
+    // Füge Bookmark-Icons zu allen bestehenden Zitaten hinzu
+    setTimeout(() => {
+      if (typeof addBookmarkIconsToExistingQuotes === 'function') {
+        addBookmarkIconsToExistingQuotes();
+      }
+    }, 100);
   } catch (error) {
     console.error('Fehler beim Markieren der Absätze:', error);
   }
@@ -4097,6 +4024,7 @@ function applyQuoteHighlightToElement(targetElement, quote) {
           span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
           span.style.setProperty('padding', '2px 0', 'important');
           span.style.setProperty('border-radius', '2px', 'important');
+          span.style.setProperty('position', 'relative', 'important');
           span.setAttribute('data-quote-id', quote.id);
           span.setAttribute('data-quote', 'true');
           span.setAttribute('data-ga-reference', quote.ga_reference);
@@ -4104,6 +4032,39 @@ function applyQuoteHighlightToElement(targetElement, quote) {
           
           const contents = range.extractContents();
           span.appendChild(contents);
+          
+          // Füge Bookmark-Icon hinzu
+          const bookmarkIcon = document.createElement('span');
+          bookmarkIcon.className = 'quote-bookmark-icon';
+          bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
+          bookmarkIcon.style.setProperty('margin-left', '4px', 'important');
+          bookmarkIcon.style.setProperty('vertical-align', 'middle', 'important');
+          bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
+          bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
+          bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
+          bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
+          bookmarkIcon.innerHTML = `
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          `;
+          
+          // Click-Handler für Icon
+          bookmarkIcon.onclick = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            jumpToQuoteById(quote.id);
+          };
+          
+          // Hover-Effekt
+          bookmarkIcon.addEventListener('mouseenter', () => {
+            bookmarkIcon.style.opacity = '1';
+          });
+          bookmarkIcon.addEventListener('mouseleave', () => {
+            bookmarkIcon.style.opacity = '0.6';
+          });
+          
+          span.appendChild(bookmarkIcon);
           range.insertNode(span);
           console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung erfolgreich angewendet (dauerhaft, analog zu Unterstreichungen)');
           
@@ -4118,6 +4079,58 @@ function applyQuoteHighlightToElement(targetElement, quote) {
   } else {
     console.warn('[QUOTE-HIGHLIGHT] quote_text nicht im Element-Text enthalten');
   }
+}
+
+/**
+ * Fügt Bookmark-Icons zu allen bestehenden Zitaten im DOM hinzu (falls noch nicht vorhanden)
+ */
+function addBookmarkIconsToExistingQuotes() {
+  const quoteHighlights = document.querySelectorAll('[data-quote="true"][data-quote-id]');
+  quoteHighlights.forEach(quoteSpan => {
+    // Prüfe ob bereits ein Icon vorhanden ist
+    if (quoteSpan.querySelector('.quote-bookmark-icon')) {
+      return; // Bereits vorhanden
+    }
+    
+    const quoteId = quoteSpan.getAttribute('data-quote-id');
+    if (!quoteId) return;
+    
+    // Erstelle Bookmark-Icon
+    const bookmarkIcon = document.createElement('span');
+    bookmarkIcon.className = 'quote-bookmark-icon';
+    bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
+    bookmarkIcon.style.setProperty('margin-left', '4px', 'important');
+    bookmarkIcon.style.setProperty('vertical-align', 'middle', 'important');
+    bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
+    bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
+    bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
+    bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
+    bookmarkIcon.innerHTML = `
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+    `;
+    
+    // Click-Handler für Icon
+    bookmarkIcon.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof jumpToQuoteById === 'function') {
+        jumpToQuoteById(quoteId);
+      }
+    };
+    
+    // Hover-Effekt
+    bookmarkIcon.addEventListener('mouseenter', () => {
+      bookmarkIcon.style.opacity = '1';
+    });
+    bookmarkIcon.addEventListener('mouseleave', () => {
+      bookmarkIcon.style.opacity = '0.6';
+    });
+    
+    // Füge Icon hinzu
+    quoteSpan.appendChild(bookmarkIcon);
+  });
 }
 
 /**
@@ -4575,6 +4588,63 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
     }
   } catch (error) {
     console.error('Fehler beim Springen zur Unterstreichung:', error);
+  }
+}
+
+/**
+ * Springe direkt zu einem Zitat im Members Panel anhand der quoteId
+ */
+async function jumpToQuoteById(quoteId) {
+  try {
+    // Öffne MB falls nicht offen
+    if (!membersPanelActive) {
+      if (typeof openMembersPanel === 'function') {
+        await openMembersPanel();
+      }
+    }
+    
+    // Wechsle zum Quotes-Tab
+    const targetTab = 'quotes';
+    
+    // Wechsle zum entsprechenden Tab
+    if (typeof switchMembersTab === 'function') {
+      await switchMembersTab(targetTab);
+    }
+    
+    // Warte kurz, dann scrolle zum Item
+    setTimeout(() => {
+      const targetItem = document.querySelector(`.member-item[data-id="${quoteId}"]`);
+      if (targetItem) {
+        // Scrolle so, dass das Item ganz oben im sichtbaren Bereich erscheint
+        const membersContent = document.querySelector('.members-content');
+        if (membersContent) {
+          // Berechne Position relativ zum scrollbaren Container
+          const containerRect = membersContent.getBoundingClientRect();
+          const itemRect = targetItem.getBoundingClientRect();
+          
+          // Berechne die relative Position: Item-Position minus Container-Position plus aktueller Scroll
+          const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+          
+          // Scrolle so, dass das Item oben erscheint (mit etwas Abstand)
+          membersContent.scrollTo({
+            top: relativeTop - 20, // 20px Abstand oben
+            behavior: 'smooth'
+          });
+        } else {
+          // Fallback: scrollIntoView mit 'start'
+          targetItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Highlighte kurz
+        targetItem.classList.add('member-item-highlighted');
+        setTimeout(() => {
+          targetItem.classList.remove('member-item-highlighted');
+        }, 2000);
+      } else {
+        console.warn('[QUOTE-JUMP] Zitat mit ID', quoteId, 'nicht gefunden');
+      }
+    }, 500);
+  } catch (error) {
+    console.error('[QUOTE-JUMP] Fehler beim Springen zum Zitat:', error);
   }
 }
 
@@ -5573,7 +5643,9 @@ window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;
 window.markParagraphsWithBookmarksAndQuotes = markParagraphsWithBookmarksAndQuotes;
 window.jumpToBookmarkOrQuote = jumpToBookmarkOrQuote;
+window.jumpToQuoteById = jumpToQuoteById;
 window.jumpToHighlight = jumpToHighlight;
+window.addBookmarkIconsToExistingQuotes = addBookmarkIconsToExistingQuotes;
 window.loadMembersTab = loadMembersTab;
 
 /**

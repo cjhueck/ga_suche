@@ -31,6 +31,29 @@
   fill: none;
 }
 
+/* Bookmark-Icon in Zitat-Markierungen */
+.quote-bookmark-icon {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: middle;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  color: #467886;
+}
+
+.quote-bookmark-icon:hover {
+  opacity: 1;
+}
+
+.quote-bookmark-icon svg {
+  display: block;
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+}
+
 .members-panel {
   display: flex;
   flex-direction: column;
