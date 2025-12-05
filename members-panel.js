@@ -1153,6 +1153,161 @@ async function changeHighlightColor(highlightId, color) {
 
 
 /**
+ * Fügt Event-Listener für Rechtsklick-Kontextmenü auf Quote-Items hinzu
+ */
+function attachQuoteContextMenuListeners(container) {
+  const quoteItems = container.querySelectorAll('.member-item[data-type="quote"]');
+  
+  quoteItems.forEach(item => {
+    item.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const quoteId = item.getAttribute('data-id');
+      if (!quoteId) return;
+      
+      showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+    });
+  });
+}
+
+/**
+ * Zeigt das Kontextmenü zum Ändern der Quote-Farbe
+ */
+function showQuoteColorContextMenu(x, y, quoteId) {
+  // Entferne vorheriges Menü falls vorhanden
+  const existingMenu = document.getElementById('members-quote-context-menu');
+  if (existingMenu) {
+    existingMenu.remove();
+  }
+  
+  // Erstelle neues Menü
+  const menu = document.createElement('div');
+  menu.id = 'members-quote-context-menu';
+  menu.className = 'members-highlight-context-menu';
+  menu.innerHTML = `
+    <div class="highlight-context-menu-item" onclick="changeQuoteColor('${quoteId}', 'blue')" style="border-left: 3px solid #467886;">
+      <span class="highlight-context-menu-text">Blau</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeQuoteColor('${quoteId}', 'red')" style="border-left: 3px solid #c62828;">
+      <span class="highlight-context-menu-text">Rot</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeQuoteColor('${quoteId}', 'yellow')" style="border-left: 3px solid #ffc107;">
+      <span class="highlight-context-menu-text">Gelb</span>
+    </div>
+  `;
+  
+  document.body.appendChild(menu);
+  
+  // Positioniere Menü
+  menu.style.display = 'block';
+  menu.style.left = x + 'px';
+  menu.style.top = y + 'px';
+  
+  // Viewport-Grenzen prüfen
+  const menuRect = menu.getBoundingClientRect();
+  
+  // Rechts aus dem Viewport?
+  if (menuRect.right > window.innerWidth) {
+    menu.style.left = (window.innerWidth - menuRect.width - 10) + 'px';
+  }
+  
+  // Unten aus dem Viewport?
+  if (menuRect.bottom > window.innerHeight) {
+    menu.style.top = (window.innerHeight - menuRect.height - 10) + 'px';
+  }
+  
+  // Klick außerhalb schließt Menü
+  const closeMenu = (e) => {
+    if (!menu.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+      document.removeEventListener('contextmenu', closeMenu);
+    }
+  };
+  
+  // Warte kurz bevor Event-Listener hinzugefügt wird, damit onclick funktioniert
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('contextmenu', closeMenu);
+  }, 100);
+}
+
+/**
+ * Ändert die Farbe eines Zitats
+ */
+async function changeQuoteColor(quoteId, color) {
+  // Entferne Kontextmenü
+  const menu = document.getElementById('members-quote-context-menu');
+  if (menu) {
+    menu.remove();
+  }
+  
+  try {
+    if (typeof updateQuote !== 'function') {
+      alert('Fehler: updateQuote Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-QUOTES] updateQuote nicht verfügbar');
+      return;
+    }
+    
+    const updateResult = await updateQuote(quoteId, {
+      marker_color: color
+    });
+    
+    if (updateResult.success) {
+      // Aktualisiere Icon im Member Panel
+      const quoteItem = document.querySelector(`.member-item[data-id="${quoteId}"][data-type="quote"]`);
+      if (quoteItem) {
+        const iconElement = quoteItem.querySelector('.quote-bookmark-icon-header');
+        if (iconElement) {
+          const quoteColorHex = getHighlightColor(color);
+          iconElement.style.color = quoteColorHex;
+        }
+      }
+      
+      // Aktualisiere Bookmark-Icons im Viewer
+      const quoteSpans = document.querySelectorAll(`[data-quote-id="${quoteId}"]`);
+      quoteSpans.forEach(span => {
+        const bookmarkIcon = span.querySelector('.quote-bookmark-icon');
+        if (bookmarkIcon) {
+          const quoteColorHex = getHighlightColor(color);
+          bookmarkIcon.style.color = quoteColorHex;
+        }
+      });
+      
+      // Aktualisiere Bookmark-Icons in Absätzen
+      const quote = updateResult.data;
+      if (quote && quote.paragraph_id) {
+        const paraElement = document.getElementById(`para-${quote.paragraph_id}`);
+        if (paraElement) {
+          const indicator = paraElement.querySelector('.bookmark-quote-indicator');
+          if (indicator) {
+            const quoteColorHex = getHighlightColor(color);
+            indicator.style.color = quoteColorHex;
+          }
+        }
+      }
+      
+      // Invalidiere Cache
+      invalidateMembersCache('quotes');
+      
+      // Aktualisiere Member Panel falls offen
+      if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'quotes') {
+        await loadMembersTab('quotes');
+      }
+      
+      // Zeige Erfolgsmeldung
+      console.log('✓ Farbe geändert');
+    } else {
+      alert('Fehler beim Ändern der Farbe: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Ändern der Farbe:', error);
+    alert('Fehler beim Ändern der Farbe');
+  }
+}
+
+/**
  * Entfernt eine visuelle Unterstreichung aus dem Text
  */
 function removeHighlightFromText(highlightId) {
@@ -1353,18 +1508,41 @@ function renderQuotesList(container, sortedData) {
     const isBook = isBookGANumber(quote.ga_reference);
     const shouldShowLink = quote.paragraph_id || isBook;
     
+    // Hole Farbe für Bookmark-Icon
+    const quoteColor = quote.marker_color || 'blue';
+    const quoteColorHex = getHighlightColor(quoteColor);
+    
     return `
-    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-ga-reference="${quote.ga_reference}">
+    <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
       ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${quote.id}" onchange="updateMultiDeleteButton()">` : ''}
       <div style="flex: 1;">
         <div class="member-item-header">
-          ${shouldShowLink
-            ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-            : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-          }
+          <div style="display: flex; align-items: center; gap: 0.25rem;">
+            ${shouldShowLink
+              ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </span>
+              </a>`
+              : `<span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                </span>`
+            }
+            ${shouldShowLink
+              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+            }
+          </div>
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
-        <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+        ${shouldShowLink
+          ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${quote.ga_reference}', ${quote.paragraph_id ? `'${quote.paragraph_id}'` : 'null'}, ${quote.text_start_offset !== null && quote.text_start_offset !== undefined ? quote.text_start_offset : 'null'}, ${quote.text_end_offset !== null && quote.text_end_offset !== undefined ? quote.text_end_offset : 'null'}, true); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
+          : `<div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
+        }
         ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
         ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
         <div class="member-item-actions">
@@ -1390,6 +1568,9 @@ function renderQuotesList(container, sortedData) {
   }).join('');
   
   container.innerHTML = html;
+  
+  // Füge Event-Listener für Rechtsklick-Kontextmenü hinzu
+  attachQuoteContextMenuListeners(container);
   
   // Scroll-Position wiederherstellen nach Rendering
   setTimeout(() => restoreMembersScrollPosition(), 50);
@@ -3448,10 +3629,14 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   });
   const firstQuote = sortedQuotes[0];
   
-  // Erstelle Markierung
+  // Erstelle Markierung mit Farbe
+  const quoteColor = firstQuote.marker_color || 'blue';
+  const quoteColorHex = getHighlightColor(quoteColor);
   const indicator = document.createElement('span');
   indicator.className = 'bookmark-quote-indicator';
   indicator.setAttribute('data-para-id', paraId); // Für Wiederherstellung
+  indicator.setAttribute('data-quote-id', firstQuote.id); // Für Farbänderung
+  indicator.style.color = quoteColorHex;
   indicator.title = 'Zitat vorhanden - Klick zum Öffnen';
   indicator.innerHTML = `
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3612,7 +3797,7 @@ function attachHighlightDelegationListener() {
     }
   }, true); // useCapture = true für frühe Erfassung
   
-  // Event-Listener für Rechtsklick auf Highlights im Viewer
+  // Event-Listener für Rechtsklick auf Highlights und Zitate im Viewer
   viewer.addEventListener('contextmenu', function(e) {
     // Prüfe ob Rechtsklick auf ein Highlight-Element
     const highlightElement = e.target.closest('[data-highlight-id]');
@@ -3624,6 +3809,33 @@ function attachHighlightDelegationListener() {
       
       // Zeige Kontextmenü zum Farbwechsel
       showHighlightColorContextMenu(e.clientX, e.clientY, highlightId);
+      return;
+    }
+    
+    // Prüfe ob Rechtsklick auf ein Quote-Element oder Quote-Icon
+    const quoteElement = e.target.closest('[data-quote-id]');
+    if (quoteElement && quoteElement.hasAttribute('data-quote-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const quoteId = quoteElement.getAttribute('data-quote-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+      return;
+    }
+    
+    // Prüfe ob Rechtsklick auf Bookmark-Icon im Absatz
+    const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
+    if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const quoteId = bookmarkIndicator.getAttribute('data-quote-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+      return;
     }
   }, true); // useCapture = true für frühe Erfassung
   
@@ -3641,9 +3853,65 @@ function attachHighlightDelegationListener() {
         
         // Zeige Kontextmenü zum Farbwechsel
         showHighlightColorContextMenu(e.clientX, e.clientY, highlightId);
+        return;
+      }
+      
+      // Prüfe ob Rechtsklick auf ein Quote-Element oder Quote-Icon
+      const quoteElement = e.target.closest('[data-quote-id]');
+      if (quoteElement && quoteElement.hasAttribute('data-quote-id')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const quoteId = quoteElement.getAttribute('data-quote-id');
+        
+        // Zeige Kontextmenü zum Farbwechsel
+        showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+        return;
+      }
+      
+      // Prüfe ob Rechtsklick auf Bookmark-Icon im Absatz
+      const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
+      if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const quoteId = bookmarkIndicator.getAttribute('data-quote-id');
+        
+        // Zeige Kontextmenü zum Farbwechsel
+        showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+        return;
       }
     }, true); // useCapture = true für frühe Erfassung
   }
+  
+  // Event-Listener für Rechtsklick auf Zitate im Viewer
+  viewer.addEventListener('contextmenu', function(e) {
+    // Prüfe ob Rechtsklick auf ein Quote-Element oder Quote-Icon
+    const quoteElement = e.target.closest('[data-quote-id]');
+    if (quoteElement && quoteElement.hasAttribute('data-quote-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const quoteId = quoteElement.getAttribute('data-quote-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+      return;
+    }
+    
+    // Prüfe ob Rechtsklick auf Bookmark-Icon im Absatz
+    const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
+    if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const quoteId = bookmarkIndicator.getAttribute('data-quote-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+      return;
+    }
+  }, true); // useCapture = true für frühe Erfassung
   
   highlightDelegationListenerAttached = true;
   console.log('[ATTACH-LISTENERS] Event-Delegation-Listener angehängt');
@@ -4201,7 +4469,9 @@ function applyQuoteHighlightToElement(targetElement, quote) {
           const contents = range.extractContents();
           span.appendChild(contents);
           
-          // Füge Bookmark-Icon hinzu
+          // Füge Bookmark-Icon hinzu mit Farbe
+          const quoteColor = quote.marker_color || 'blue';
+          const quoteColorHex = getHighlightColor(quoteColor);
           const bookmarkIcon = document.createElement('span');
           bookmarkIcon.className = 'quote-bookmark-icon';
           bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
@@ -4210,7 +4480,9 @@ function applyQuoteHighlightToElement(targetElement, quote) {
           bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
           bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
           bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
+          bookmarkIcon.style.setProperty('color', quoteColorHex, 'important');
           bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
+          bookmarkIcon.setAttribute('data-quote-id', quote.id);
           bookmarkIcon.innerHTML = `
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -4263,7 +4535,18 @@ function addBookmarkIconsToExistingQuotes() {
     const quoteId = quoteSpan.getAttribute('data-quote-id');
     if (!quoteId) return;
     
-    // Erstelle Bookmark-Icon
+    // Hole Quote-Farbe aus Cache oder verwende Standard
+    let quoteColor = 'blue';
+    let quoteColorHex = getHighlightColor(quoteColor);
+    if (cachedQuotesData && cachedQuotesData.success && cachedQuotesData.data) {
+      const quote = cachedQuotesData.data.find(q => q.id === quoteId);
+      if (quote && quote.marker_color) {
+        quoteColor = quote.marker_color;
+        quoteColorHex = getHighlightColor(quoteColor);
+      }
+    }
+    
+    // Erstelle Bookmark-Icon mit Farbe
     const bookmarkIcon = document.createElement('span');
     bookmarkIcon.className = 'quote-bookmark-icon';
     bookmarkIcon.style.setProperty('display', 'inline-block', 'important');
@@ -4272,7 +4555,9 @@ function addBookmarkIconsToExistingQuotes() {
     bookmarkIcon.style.setProperty('cursor', 'pointer', 'important');
     bookmarkIcon.style.setProperty('opacity', '0.6', 'important');
     bookmarkIcon.style.setProperty('transition', 'opacity 0.2s', 'important');
+    bookmarkIcon.style.setProperty('color', quoteColorHex, 'important');
     bookmarkIcon.setAttribute('title', 'Zum Zitat im Members Panel springen');
+    bookmarkIcon.setAttribute('data-quote-id', quoteId);
     bookmarkIcon.innerHTML = `
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -5816,6 +6101,7 @@ window.jumpToHighlight = jumpToHighlight;
 window.addBookmarkIconsToExistingQuotes = addBookmarkIconsToExistingQuotes;
 window.loadMembersTab = loadMembersTab;
 window.changeHighlightColor = changeHighlightColor;
+window.changeQuoteColor = changeQuoteColor;
 
 /**
  * Invalidiert den Cache für Zitate und/oder Unterstreichungen
