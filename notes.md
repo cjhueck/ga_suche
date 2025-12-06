@@ -12,4 +12,3 @@ DIese Änderung (neuer Header im Side Panel) soll NUR im Tab Index und in demjen
 
 Ist das verständlich?
 
-
