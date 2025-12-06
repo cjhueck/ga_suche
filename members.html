@@ -400,9 +400,9 @@
       border-color: #ffc107;
     }
     
-    .item-marker-dot.green {
-      background-color: #4caf50;
-      border-color: #4caf50;
+    .item-marker-dot.blue {
+      background-color: #467886;
+      border-color: #467886;
     }
     
     .item-marker-menu {
@@ -441,9 +441,9 @@
       border-color: #ffc107;
     }
     
-    .item-marker-option.green {
-      background-color: #4caf50;
-      border-color: #4caf50;
+    .item-marker-option.blue {
+      background-color: #467886;
+      border-color: #467886;
     }
     
     .item-marker-option.none {
@@ -2027,7 +2027,7 @@
         let markerColor = null;
         if (item.marker_color !== undefined && item.marker_color !== null) {
           const colorStr = String(item.marker_color).trim();
-          if (colorStr && (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green')) {
+          if (colorStr && (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow')) {
             markerColor = colorStr;
           }
         }
@@ -2071,7 +2071,7 @@
           : null;
         
         // Validate marker_color
-        const validMarkerColor = (preservedMarkerColor === 'red' || preservedMarkerColor === 'yellow' || preservedMarkerColor === 'green')
+        const validMarkerColor = (preservedMarkerColor === 'blue' || preservedMarkerColor === 'red' || preservedMarkerColor === 'yellow')
           ? preservedMarkerColor 
           : null;
         
@@ -2231,11 +2231,11 @@
         // Get highlight color for highlights
         const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
-        // Für Highlights: marker_color für Marker-Dot (red, yellow, green)
+        // Für Highlights: marker_color für Marker-Dot (blue, red, yellow)
         let markerColor = '';
         if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
           const colorStr = String(item.marker_color).trim();
-          if (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green') {
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
             markerColor = colorStr;
           }
         }
@@ -2281,9 +2281,9 @@
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
                   ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
                     <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
+                    <div class="item-marker-option blue" onclick="updateMarkerColor('${item.id}', 'blue')" title="Blau"></div>
                     <div class="item-marker-option red" onclick="updateMarkerColor('${item.id}', 'red')" title="Rot"></div>
                     <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
-                    <div class="item-marker-option green" onclick="updateMarkerColor('${item.id}', 'green')" title="Grün"></div>
                   </div>` : ''}
                 </div>` : ''}
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
@@ -2489,9 +2489,9 @@
       const item = currentItems.find(i => i.id === itemId);
       if (!item) return;
       
-      // Validate color - only allow 'red', 'yellow', 'green', or null
+      // Validate color - only allow 'blue', 'red', 'yellow', or null
       let validColor = null;
-      if (color && (color === 'red' || color === 'yellow' || color === 'green')) {
+      if (color && (color === 'blue' || color === 'red' || color === 'yellow')) {
         validColor = color;
       }
       
@@ -3133,11 +3133,11 @@
         // Get highlight color for highlights
         const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
         
-        // Für Highlights: marker_color für Marker-Dot (red, yellow, green)
+        // Für Highlights: marker_color für Marker-Dot (blue, red, yellow)
         let markerColor = '';
         if (isHighlight && item.marker_color !== undefined && item.marker_color !== null) {
           const colorStr = String(item.marker_color).trim();
-          if (colorStr === 'red' || colorStr === 'yellow' || colorStr === 'green') {
+          if (colorStr === 'blue' || colorStr === 'red' || colorStr === 'yellow') {
             markerColor = colorStr;
           }
         }
@@ -3181,9 +3181,9 @@
                   <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
                   ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
                     <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
+                    <div class="item-marker-option blue" onclick="updateMarkerColor('${item.id}', 'blue')" title="Blau"></div>
                     <div class="item-marker-option red" onclick="updateMarkerColor('${item.id}', 'red')" title="Rot"></div>
                     <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
-                    <div class="item-marker-option green" onclick="updateMarkerColor('${item.id}', 'green')" title="Grün"></div>
                   </div>` : ''}
                 </div>` : ''}
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>

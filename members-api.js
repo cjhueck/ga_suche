@@ -96,12 +96,12 @@ export async function deleteBookmark(bookmarkId) {
  */
 export async function updateBookmark(bookmarkId, updates) {
   try {
-    // Ensure marker_color is valid or null
+    // Ensure marker_color is valid or null (blue/red/yellow erlaubt)
     if (updates.marker_color !== undefined) {
       if (updates.marker_color !== null && 
+          updates.marker_color !== 'blue' && 
           updates.marker_color !== 'red' && 
-          updates.marker_color !== 'yellow' && 
-          updates.marker_color !== 'green') {
+          updates.marker_color !== 'yellow') {
         updates.marker_color = null;
       }
     }
@@ -214,7 +214,7 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
         is_public: isPublic
     };
     
-    // Füge marker_color hinzu, falls angegeben
+    // Füge marker_color hinzu, falls angegeben (blue/red/yellow erlaubt)
     if (markerColor && (markerColor === 'blue' || markerColor === 'red' || markerColor === 'yellow')) {
       insertData.marker_color = markerColor;
     }
@@ -324,12 +324,12 @@ export async function deleteQuote(quoteId) {
  */
 export async function updateQuote(quoteId, updates) {
   try {
-    // Ensure marker_color is valid or null
+    // Ensure marker_color is valid or null (blue/red/yellow erlaubt)
     if (updates.marker_color !== undefined) {
       if (updates.marker_color !== null && 
+          updates.marker_color !== 'blue' && 
           updates.marker_color !== 'red' && 
-          updates.marker_color !== 'yellow' && 
-          updates.marker_color !== 'green') {
+          updates.marker_color !== 'yellow') {
         updates.marker_color = null;
       }
     }

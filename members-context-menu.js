@@ -546,9 +546,13 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       paragraph_id: paragraphIndex,
       personal_note: note || '',
       tags: keywords,
-      is_public: false,
-      marker_color: color
+      is_public: false
     };
+    
+    // marker_color speichern (blue/red/yellow erlaubt)
+    if (color && (color === 'blue' || color === 'red' || color === 'yellow')) {
+      insertData.marker_color = color;
+    }
     
     // WICHTIG: Verwende die neuen Spalten für exakte Textmarkierung
     // paragraph_text, text_start_offset, text_end_offset sind die primären Spalten

@@ -801,7 +801,7 @@ body.dark-mode .chat-input button:hover {
   left: -0.5rem;
   right: -0.5rem;
   bottom: -0.25rem;
-  background-color: rgba(70, 120, 134, 0.2);
+  background-color: rgba(70, 120, 134, 0.1);
   border-radius: 6px;
   z-index: -1;
   pointer-events: none;

@@ -2151,6 +2151,13 @@ body.dark-mode .loading-message {
       border-radius: 4px;
     }
     
+    /* WICHTIG: Bei Navigation aus Members Panel KEIN Absatz-Highlighting anzeigen */
+    /* Nur das exakte Zitat wird markiert, nicht der ganze Absatz */
+    body.members-navigating .highlighted-paragraph {
+      background: transparent !important;
+      box-shadow: none !important;
+    }
+    
     .semantic-answer {
              background: transparent !important; /* keine Box */
              padding: 0 !important;              /* Abstand entfernen */
@@ -6781,8 +6788,10 @@ function normalizeGANumber(gaNumber) {
         }
         
         // Setze Document-Title zurück
+        // ABER: NICHT wenn Members Navigation aktiv ist (Header bleibt dann leer/unverändert)
         const documentTitle = document.getElementById('document-title');
-        if (documentTitle) {
+        const isMembersNav = window.membersNavigating === true;
+        if (documentTitle && !isMembersNav) {
           // Setze je nach Tab einen passenden Titel
           if (mode === 'texte') {
             documentTitle.textContent = 'Texte';
@@ -6855,8 +6864,10 @@ function normalizeGANumber(gaNumber) {
             }
             
             // Setze Document-Title zurück
+            // ABER: NICHT wenn Members Navigation aktiv ist
             const documentTitle = document.getElementById('document-title');
-            if (documentTitle) {
+            const isMembersNav = window.membersNavigating === true;
+            if (documentTitle && !isMembersNav) {
               if (mode === 'texte') {
                 documentTitle.textContent = 'Texte';
               } else if (mode === 'schlagworte') {
@@ -6932,8 +6943,10 @@ function normalizeGANumber(gaNumber) {
               }
               
               // Setze Document-Title zurück
+              // ABER: NICHT wenn Members Navigation aktiv ist
               const documentTitle = document.getElementById('document-title');
-              if (documentTitle) {
+              const isMembersNav = window.membersNavigating === true;
+              if (documentTitle && !isMembersNav) {
                 if (mode === 'texte') {
                   documentTitle.textContent = 'Texte';
                 } else if (mode === 'schlagworte') {
@@ -9051,6 +9064,13 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     // Stelle sicher, dass alle Indizes verarbeitet wurden
     processAllParagraphIndices(bookContentDiv);
     
+    // WICHTIG: Wenn Members Navigation aktiv ist, überspringe das Scrollen hier
+    // Das Scrollen wird von navigateToLectureFromMembersPanel übernommen
+    if (window.membersNavigating === true) {
+      console.log('[DISPLAY-BOOK] Überspringe Scrollen - Members Navigation aktiv');
+      return;
+    }
+    
     // Scrolle zum Ziel-Absatz
     const targetParaElement = bookContentDiv.querySelector(`#para-${targetParagraphIndex}`);
     if (targetParaElement) {
@@ -9458,7 +9478,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       // Verwende gleiche HTML-Struktur wie bei Vorträgen
       const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
       const cursorStyle = isLocal ? 'cursor: pointer;' : '';
-      const applyHighlight = isTargetPara;
+      // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
+      const applyHighlight = isTargetPara && !window.membersNavigating;
       
       htmlContent += `
         <div class="paragraph ${applyHighlight ? 'highlighted-paragraph' : ''}" 
@@ -12815,7 +12836,8 @@ function scrollToChronologicalYear(year) {
               content = content.replace(regex, '<mark>$1</mark>');
             }
             
-            const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+            // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
+            const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
             
             html += `
               <div class="paragraph ${highlightClass}" id="adv-para-${idx}" style="margin-bottom: 1rem;">
@@ -12840,7 +12862,8 @@ function scrollToChronologicalYear(year) {
                 targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
                 
                 // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
-                if (typeof addHighlightingWithAutoRemove === 'function') {
+                // ABER: Nicht bei Navigation aus Members Panel
+                if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
                   addHighlightingWithAutoRemove(targetElement);
                 }
               }
@@ -13356,10 +13379,13 @@ function scrollToChronologicalYear(year) {
                     paragraphElement.scrollIntoView({ behavior: 'auto', block: 'start' });
                     
                     // Markiere den Absatz (blau unterlegen) mit automatischer Entfernung nach 5 Sekunden
-                    if (typeof addHighlightingWithAutoRemove === 'function') {
-                      addHighlightingWithAutoRemove(paragraphElement);
-                    } else {
-                      paragraphElement.classList.add('highlighted-paragraph');
+                    // ABER: Nicht bei Navigation aus Members Panel
+                    if (window.membersNavigating !== true) {
+                      if (typeof addHighlightingWithAutoRemove === 'function') {
+                        addHighlightingWithAutoRemove(paragraphElement);
+                      } else {
+                        paragraphElement.classList.add('highlighted-paragraph');
+                      }
                     }
                     
                     // Markiere auch das Suchwort im Absatz (falls vorhanden UND im Absatz vorkommend)
@@ -17184,7 +17210,14 @@ function showSummaryView() {
         
         mainContainer.scrollTop = Math.max(0, relativeTop);
         
-        // Verwende zentrale Highlighting-Funktion mit Auto-Remove
+        // WICHTIG: Bei Navigation aus Members Panel KEIN Absatz-Highlighting anwenden
+        // Das Zitat-Highlighting wird separat in navigateToQuoteById gehandhabt
+        if (window.membersNavigating === true) {
+          console.log('[SCROLL-TO-INDEX] Members Navigation aktiv - überspringe Absatz-Highlighting');
+          return;
+        }
+        
+        // Verwende zentrale Highlighting-Funktion mit Auto-Remove (nur bei Suche/Index/etc.)
         addHighlightingWithAutoRemove(paraElement);
       }
     }
@@ -17551,7 +17584,8 @@ function showSummaryView() {
     
     const isTargetPara = lastHighlightedIndex && paraIndex === lastHighlightedIndex;
     // Highlighting aktiviert
-    const highlightClass = isTargetPara ? 'highlighted-paragraph' : '';
+    // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
+    const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
     
     const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
     const contextMenuHandler = isLocal ? `oncontextmenu="handleParagraphRightClick('${paraIndexWithCaret}', this, event); return false;"` : '';
@@ -17587,7 +17621,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           }
           
           // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
-          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+          // ABER: Nicht bei Navigation aus Members Panel
+          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
             setTimeout(() => {
               const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
               if (targetParaElement) {
@@ -17610,7 +17645,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           }
           
           // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
-          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+          // ABER: Nicht bei Navigation aus Members Panel
+          if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
             setTimeout(() => {
               const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
               if (targetParaElement) {
@@ -17634,7 +17670,8 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
     }
     
     // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (für Index-Tab)
-    if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function') {
+    // ABER: Nicht bei Navigation aus Members Panel
+    if (lastHighlightedIndex && typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
       setTimeout(() => {
         const targetParaElement = document.getElementById(`para-${lastHighlightedIndex}`);
         if (targetParaElement) {
@@ -20406,7 +20443,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
                                keywords[0] && keywords[1] &&
                                contentLower.includes(keywords[0].toLowerCase()) && 
                                contentLower.includes(keywords[1].toLowerCase());
-          const applyHighlight = shouldHighlight && isTargetPara && 
+          // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
+          const applyHighlight = shouldHighlight && isTargetPara && !window.membersNavigating && 
                                  (isFromThematicSearch || keywords.length === 1 || hasBothWords); // Highlighting aktiviert
           
           const clickHandler = isLocal ? `onclick="selectParagraphForKeyword('${paraIndexWithCaret}', this, event)"` : '';
@@ -20457,7 +20495,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           }
           
           // Markiere den Ziel-Absatz mit automatischer Entfernung nach 5 Sekunden (nur im Summary-Modus)
-          if (cleanIndex && showingSummaryInMain && typeof addHighlightingWithAutoRemove === 'function') {
+          // ABER: Nicht bei Navigation aus Members Panel
+          if (cleanIndex && showingSummaryInMain && typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
             setTimeout(() => {
               const targetParaElement = document.getElementById(`para-${cleanIndex}`);
               if (targetParaElement) {
@@ -20515,7 +20554,8 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           lastHighlightedIndex = cleanIndex;
           
           // Markiere den Absatz mit automatischer Entfernung nach 5 Sekunden
-          if (typeof addHighlightingWithAutoRemove === 'function') {
+          // ABER: Nicht bei Navigation aus Members Panel
+          if (typeof addHighlightingWithAutoRemove === 'function' && window.membersNavigating !== true) {
             addHighlightingWithAutoRemove(targetElement);
           }
         } else {
