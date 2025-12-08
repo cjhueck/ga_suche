@@ -632,7 +632,8 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     // Zitat visuell markieren und klickbar machen
     if (data && data.length > 0) {
       const savedQuote = data[0];
-      applyQuoteToSelection(selectionRangeForContext, savedQuote.id, lectureId, paragraphIndex);
+      const markerColor = savedQuote.marker_color || null;
+      applyQuoteToSelection(selectionRangeForContext, savedQuote.id, lectureId, paragraphIndex, markerColor);
     } else {
       highlightContextSelection('#ffffcc');
     }
@@ -1448,22 +1449,111 @@ function highlightContextSelection(color) {
  * @param {string} quoteId - Die ID des gespeicherten Zitats
  * @param {string} gaNumber - Die GA-Nummer
  * @param {string} paragraphId - Die Paragraph-ID
+ * @param {string} markerColor - Die Farbe des Zitats (optional)
  */
-function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId) {
+function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColor = null) {
   if (!range) return;
   
   try {
+    // Finde das Absatz-Element (Container für die Linie)
+    let paragraphElement = null;
+    let node = range.startContainer;
+    while (node && node !== document.body) {
+      if (node.nodeType === 1) { // Element node
+        // Prüfe ob para- ID vorhanden
+        if (node.id && node.id.startsWith('para-')) {
+          paragraphElement = node;
+          // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
+          if (node.style.display === 'none' || node.tagName.toLowerCase() === 'span') {
+            let parent = node.parentElement;
+            while (parent && parent !== document.body) {
+              const tagName = parent.tagName.toLowerCase();
+              if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                paragraphElement = parent;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+          }
+          break;
+        }
+        // Fallback: Suche nach Block-Element
+        const tagName = node.tagName.toLowerCase();
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          paragraphElement = node;
+        }
+      }
+      node = node.parentNode;
+    }
+    
+    // Hole Quote-Farbe aus dem DOM falls verfügbar, sonst Standard
+    let quoteColor = markerColor || 'blue';
+    if (!markerColor) {
+      // Versuche Quote-Farbe aus dem Member Panel zu holen
+      const quoteItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
+      if (quoteItem) {
+        const iconElement = quoteItem.querySelector('.quote-bookmark-icon-header');
+        if (iconElement && iconElement.style.color) {
+          // Konvertiere Hex-Farbe zurück zu Farbname (vereinfacht)
+          const hexColor = iconElement.style.color.toLowerCase();
+          if (hexColor === '#467886' || hexColor === 'rgb(70, 120, 134)') quoteColor = 'blue';
+          else if (hexColor === '#c62828' || hexColor === 'rgb(198, 40, 40)') quoteColor = 'red';
+          else if (hexColor === '#ffc107' || hexColor === 'rgb(255, 193, 7)') quoteColor = 'yellow';
+        }
+      }
+    }
+    
+    // Wrappe Text mit span (ohne border-right)
     const span = document.createElement('span');
     span.className = 'member-quote-highlight';
-    span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
-    span.style.setProperty('padding', '2px 0', 'important');
-    span.style.setProperty('border-radius', '2px', 'important');
     span.style.setProperty('cursor', 'pointer', 'important');
     span.setAttribute('data-quote-id', quoteId);
     span.setAttribute('data-quote', 'true');
     span.setAttribute('data-ga-reference', gaNumber);
     span.setAttribute('data-paragraph-id', paragraphId);
+    span.setAttribute('data-quote-color', quoteColor);
     span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+    
+    // Erstelle senkrechte Linie rechts neben dem Absatz (falls Absatz gefunden)
+    if (paragraphElement) {
+      if (typeof createQuoteVerticalLine === 'function') {
+        const quoteObj = { id: quoteId, marker_color: quoteColor };
+        createQuoteVerticalLine(paragraphElement, range, quoteObj);
+      } else {
+        // Fallback: Erstelle Linie direkt hier (falls Funktion nicht verfügbar)
+        try {
+          const computedStyle = window.getComputedStyle(paragraphElement);
+          if (computedStyle.position === 'static') {
+            paragraphElement.style.position = 'relative';
+          }
+          
+          const rangeRect = range.getBoundingClientRect();
+          const containerRect = paragraphElement.getBoundingClientRect();
+          const topOffset = rangeRect.top - containerRect.top;
+          const bottomOffset = rangeRect.bottom - containerRect.top;
+          const lineHeight = bottomOffset - topOffset;
+          const quoteColorHex = typeof getHighlightColor === 'function' ? getHighlightColor(quoteColor) : '#467886';
+          
+          const lineElement = document.createElement('div');
+          lineElement.className = 'member-quote-vertical-line';
+          lineElement.setAttribute('data-quote-id', quoteId);
+          lineElement.setAttribute('data-quote', 'true');
+          lineElement.setAttribute('data-quote-color', quoteColor);
+          lineElement.style.position = 'absolute';
+          lineElement.style.left = '-5px';
+          lineElement.style.top = `${topOffset}px`;
+          lineElement.style.width = '1.5px';
+          lineElement.style.height = `${Math.max(lineHeight, 1)}px`;
+          lineElement.style.backgroundColor = quoteColorHex;
+          lineElement.style.pointerEvents = 'none';
+          lineElement.style.zIndex = '10';
+          
+          paragraphElement.appendChild(lineElement);
+        } catch (e) {
+          console.warn('[QUOTE-SELECTION] Konnte Linie nicht erstellen:', e);
+        }
+      }
+    }
     
     // Event-Listener für Klick hinzufügen
     span.addEventListener('click', function(e) {
