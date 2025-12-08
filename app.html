@@ -2667,10 +2667,11 @@ body.dark-mode #thematicSearchInfo {
       margin-right: 0 !important;
     }
     
-    /* GA040 und GA261: Trennlinien als Sternchen im linken Drittel zentriert */
+    /* GA040, GA261 und GA267: Trennlinien als Sternchen im linken Drittel zentriert */
     /* Für Bücher */
     #viewer .book-content[data-ga-number="GA040"] hr,
-    #viewer .book-content[data-ga-number="GA261"] hr {
+    #viewer .book-content[data-ga-number="GA261"] hr,
+    #viewer .book-content[data-ga-number="GA267"] hr {
       border: none;
       border-top: none;
       height: auto;
@@ -2683,7 +2684,8 @@ body.dark-mode #thematicSearchInfo {
     }
     
     #viewer .book-content[data-ga-number="GA040"] hr::before,
-    #viewer .book-content[data-ga-number="GA261"] hr::before {
+    #viewer .book-content[data-ga-number="GA261"] hr::before,
+    #viewer .book-content[data-ga-number="GA267"] hr::before {
       content: '* * *';
       display: block;
       text-align: center;
@@ -2691,25 +2693,29 @@ body.dark-mode #thematicSearchInfo {
       line-height: 1;
     }
     
-    /* Für Vorträge (GA261) */
-    #viewer[data-ga-number="GA261"] hr {
-      border: none;
-      border-top: none;
-      height: auto;
-      margin: 1em 0;
-      margin-left: 0;
-      width: 33%;
-      max-width: 33%;
-      text-align: center;
-      background: none;
+    /* Für Vortragsbände (GA040, GA261 und GA267) */
+    #viewer[data-ga-number="GA040"] hr,
+    #viewer[data-ga-number="GA261"] hr,
+    #viewer[data-ga-number="GA267"] hr {
+      border: none !important;
+      border-top: none !important;
+      height: auto !important;
+      margin: 1em 0 !important;
+      margin-left: 0 !important;
+      width: 33% !important;
+      max-width: 33% !important;
+      text-align: center !important;
+      background: none !important;
     }
     
-    #viewer[data-ga-number="GA261"] hr::before {
-      content: '* * *';
-      display: block;
-      text-align: center;
-      font-size: 1em;
-      line-height: 1;
+    #viewer[data-ga-number="GA040"] hr::before,
+    #viewer[data-ga-number="GA261"] hr::before,
+    #viewer[data-ga-number="GA267"] hr::before {
+      content: '* * *' !important;
+      display: block !important;
+      text-align: center !important;
+      font-size: 1em !important;
+      line-height: 1 !important;
     }
     
     /* Viewer Header Button Container */
@@ -2987,6 +2993,13 @@ body.dark-mode #thematicSearchInfo {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
+      text-align: left !important; /* Gedichte linksbündig (wie in Büchern) */
+    }
+    
+    /* Gedichte: Formatierung für direkt enthaltenen Text innerhalb von .paragraph.has-poem (ohne <p> Tags) */
+    #viewer .paragraph.has-poem:not(:has(p)) {
+      text-align: left !important;
+      line-height: 1.5 !important;
     }
     
     /* WICHTIG: Auch die <p> Tags innerhalb von .paragraph.has-poem müssen formatiert werden */
@@ -3016,6 +3029,7 @@ body.dark-mode #thematicSearchInfo {
     #viewer .paragraph:has(p.short-lines) {
       margin: 0 !important; /* Entferne alle Margins (wie bei p.poem in Büchern) */
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
+      text-align: left !important; /* Gedichte linksbündig (wie in Büchern) */
     }
     
     #viewer h3 {
@@ -5334,32 +5348,11 @@ Chronologisch
 <div style="padding: 0.5rem 0 2rem 0;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
   <h3 style="margin: 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
-  <button id="toggleQuotePopupBtn" onclick="toggleQuotePopup()" style="display: none; padding: 6px 12px; font-size: 0.85em; border: 1px solid var(--accent-color); background: transparent; color: var(--accent-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; white-space: nowrap;">
-    <span id="toggleQuotePopupText">Auto-Popup: An</span>
-  </button>
-</div>
-<!-- Neues Zitat erstellen -->
-<div style="margin-bottom: 1.5rem; padding: 1rem; background: #f0f8ff; border: 1px solid #b8dce8; border-radius: 4px;">
-  <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Neues Zitat erstellen</h4>
-  
-  <div style="margin-bottom: 0.8rem;">
-    <textarea id="newQuoteText" 
-              placeholder="Kopieren Sie hier ein Zitat ein oder schreiben Sie es... (Strg+Enter zum Speichern)" 
-              style="width: 100%; min-height: 150px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; font-family: inherit; resize: vertical; line-height: 1.5;"
-              onkeydown="handleQuoteTextKeydown(event)"></textarea>
-  </div>
-  
-  <button onclick="saveNewQuote()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; background: #5cb85c; color: white; width: 100%;">
-    Zitat speichern
-  </button>
-  
-  <div id="newQuoteStatus" style="display: none; margin-top: 0.8rem; padding: 0.8rem; border-radius: 4px;"></div>
 </div>
 
 <!-- Gespeicherte Zitate -->
 <div style="margin-bottom: 2rem;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-    <h4 style="margin: 0; color: var(--heading-color);">Gespeicherte Zitate</h4>
     <span id="quotesCount" style="font-size: 0.85em; color: #666; background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">0</span>
   </div>
   <div id="quotesList" style="display: flex; flex-direction: column; gap: 1rem;">
@@ -18511,6 +18504,27 @@ function formatAsteriskParagraphs() {
     
     currentLectureData = data.lecture;
     
+    // NEU: Lade GA-Übersicht im linken Side Panel, wenn ein Vortrag im Texte-Tab angezeigt wird
+    const texteTab = document.getElementById('texte-tab');
+    const isInTexteTab = texteTab && texteTab.classList.contains('active');
+    
+    if (isInTexteTab && isLecture) {
+      // Extrahiere GA-Nummer aus lectureId (z.B. "GA052/15" -> "GA052")
+      const gaMatch = lectureId.match(/^(GA\d{1,3}[a-z]?)/i);
+      if (gaMatch) {
+        const gaNumber = gaMatch[1];
+        // Prüfe ob es kein Buch ist (GA001-GA046 sind Bücher)
+        if (!isBookGANumber(gaNumber)) {
+          // Lade GA-Übersicht im linken Side Panel
+          if (typeof loadGAOverviewInSidePanelOnly === 'function') {
+            loadGAOverviewInSidePanelOnly(gaNumber).catch(error => {
+              console.warn('[SHOW-LECTURE] Fehler beim Laden der GA-Übersicht im Side Panel:', error);
+            });
+          }
+        }
+      }
+    }
+    
     // NEU: Prüfe ob Zusammenfassung bereits existiert (ohne neue zu generieren)
     try {
       const parts = lectureId.split('/');
@@ -21151,23 +21165,8 @@ if (!isLocalhost) {
     texteAdminButtons.style.display = 'flex';
   }
   
-  // Toggle-Button für Auto-Popup anzeigen
-  const toggleQuotePopupBtn = document.getElementById("toggleQuotePopupBtn");
-  if (toggleQuotePopupBtn) {
-    toggleQuotePopupBtn.style.display = 'block';
-    updateQuotePopupButtonText();
-  }
-  
 }
 
-// Auto-Popup nach 1 Minute (nur wenn aktiviert)
-setTimeout(() => {
-  const isEnabled = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
-  if (isEnabled) {
-    openQuotesPopup();
-  } else {
-    }
-}, 60000); // 60 Sekunden
   
   const gaFilter = document.getElementById("gaFilter");
   const thematicGAFilter = document.getElementById("thematicGAFilter");
@@ -24007,12 +24006,6 @@ function handleKeywordSearchKeypress(event) {
 }
 
 // Ctrl+Enter für Zitate-Textfeld
-function handleQuoteTextKeydown(event) {
-  if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) {
-    event.preventDefault();
-    saveNewQuote();
-  }
-}
 
 // Lade vollständige Vortragsdaten für Timeline (aus steiner-full-lectures-...json)
 async function loadFullLecturesForTimeline() {
@@ -29032,76 +29025,6 @@ function getLectureDateForQuote(lectureData) {
   return null;
 }
 
-async function saveNewQuote() {
-  const quoteText = document.getElementById('newQuoteText').value.trim();
-  const statusDiv = document.getElementById('newQuoteStatus');
-  
-  if (!quoteText) {
-    statusDiv.style.display = 'block';
-    statusDiv.style.background = '#f8d7da';
-    statusDiv.style.color = '#721c24';
-    statusDiv.textContent = 'Bitte geben Sie einen Text ein';
-    setTimeout(() => statusDiv.style.display = 'none', 3000);
-    return;
-  }
-  
-  statusDiv.style.display = 'block';
-  statusDiv.style.background = '#d1ecf1';
-  statusDiv.style.color = '#0c5460';
-  statusDiv.textContent = 'Speichere Zitat...';
-  
-  try {
-    // Extrahiere Datum des Vortrags, falls vorhanden
-    const lectureDate = currentLectureData ? getLectureDateForQuote(currentLectureData) : null;
-    
-    const quoteData = {
-      text: quoteText,
-      lectureId: currentLectureData?.ID || 'manual',
-      paragraphIndex: 'manual'
-    };
-    
-    // Füge Datum nur hinzu, wenn es vorhanden ist
-    if (lectureDate) {
-      quoteData.date = lectureDate;
-    }
-    
-    const response = await fetch(`${API_BASE}/api/quotes/add`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(quoteData)
-    });
-    
-    if (!response.ok) {
-      throw new Error('Server-Fehler');
-    }
-    
-    statusDiv.style.background = '#d4edda';
-    statusDiv.style.color = '#155724';
-    statusDiv.textContent = '✓ Zitat gespeichert';
-    
-    // Leere Textfeld
-    document.getElementById('newQuoteText').value = '';
-    
-    // Aktualisiere Liste
-    await loadQuotesForTab();
-    
-    // MB aktualisieren falls offen (unabhängig vom aktiven Tab)
-    if (typeof invalidateMembersCache === 'function') {
-      invalidateMembersCache('quotes');
-    }
-    if (typeof updateMembersPanelIfOpen === 'function') {
-      await updateMembersPanelIfOpen('quotes');
-    }
-    
-    setTimeout(() => statusDiv.style.display = 'none', 2000);
-    
-  } catch (error) {
-    console.error('[QUOTE] Fehler:', error);
-    statusDiv.style.background = '#f8d7da';
-    statusDiv.style.color = '#721c24';
-    statusDiv.textContent = `Fehler: ${error.message}`;
-  }
-}
 
 // Lade alle Zitate für den Verwaltungs-Tab
 async function loadQuotesForTab() {
@@ -29429,36 +29352,6 @@ async function openQuotesPopup() {
   }
 }
 
-// Toggle Auto-Popup an/aus (nur lokal)
-function toggleQuotePopup() {
-  const currentState = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
-  const newState = !currentState;
-  
-  localStorage.setItem('quotePopupEnabled', newState ? 'true' : 'false');
-  updateQuotePopupButtonText();
-  
-  }
-
-// Aktualisiere Button-Text
-function updateQuotePopupButtonText() {
-  const isEnabled = localStorage.getItem('quotePopupEnabled') !== 'false'; // Standard: An
-  const textElement = document.getElementById('toggleQuotePopupText');
-  const btnElement = document.getElementById('toggleQuotePopupBtn');
-  
-  if (textElement) {
-    textElement.textContent = isEnabled ? 'Auto-Popup: An' : 'Auto-Popup: Aus';
-  }
-  
-  if (btnElement) {
-    if (isEnabled) {
-      btnElement.style.color = '#5cb85c';
-      btnElement.style.borderColor = '#5cb85c';
-    } else {
-      btnElement.style.color = '#d9534f';
-      btnElement.style.borderColor = '#d9534f';
-    }
-  }
-}
 
 // Schließe Zitate-Popup
 function closeQuotesPopup() {
@@ -30227,7 +30120,7 @@ async function addKeywordToLecture() {
   <div style="margin-bottom: 1rem;">
     <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
       <input type="checkbox" id="saveQuoteActive" checked style="margin: 0;">
-      <span style="font-size: 0.9em; color: var(--text-color);">Als aktives Zitat markieren (erscheint im Auto-Popup)</span>
+      <span style="font-size: 0.9em; color: var(--text-color);">Als aktives Zitat markieren</span>
     </label>
   </div>
   
