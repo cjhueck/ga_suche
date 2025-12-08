@@ -5844,6 +5844,53 @@ function preprocessObsidianLineBreaks(markdown) {
   return markdown.replace(/'\/br'/g, '\n');
 }
 
+// Hilfsfunktion: Schützt Text in <> vor HTML-Interpretation
+// Ersetzt <Text> durch Platzhalter, die nach marked.parse() wieder zurück ersetzt werden
+function protectAngleBrackets(text) {
+  if (!text || typeof text !== 'string') {
+    return text;
+  }
+  
+  // Pattern: <Text> wo Text keine Leerzeichen enthält und nicht wie ein HTML-Tag aussieht
+  // Überspringe bereits geschützte Platzhalter und bekannte HTML-Tags
+  const htmlTags = ['br', 'img', 'p', 'div', 'span', 'a', 'strong', 'em', 'b', 'i', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'th', 'thead', 'tbody', 'tfoot', 'hr', 'blockquote', 'pre', 'code'];
+  const pattern = /<([a-zA-Z0-9_\-\.]+)>/g;
+  
+  let placeholderIndex = 0;
+  const placeholders = [];
+  
+  return text.replace(pattern, (match, content) => {
+    // Überspringe wenn es wie ein HTML-Tag aussieht
+    if (htmlTags.includes(content.toLowerCase())) {
+      return match; // Behalte HTML-Tags wie sie sind
+    }
+    
+    // Überspringe wenn es bereits ein Platzhalter ist
+    if (match.includes('__ANGLE_BRACKET_')) {
+      return match;
+    }
+    
+    // Erstelle eindeutigen Platzhalter
+    const placeholder = `__ANGLE_BRACKET_START_${placeholderIndex}__${content}__ANGLE_BRACKET_END_${placeholderIndex}__`;
+    placeholders.push({ placeholder, original: match });
+    placeholderIndex++;
+    return placeholder;
+  });
+}
+
+// Hilfsfunktion: Ersetzt Platzhalter zurück zu <>
+function restoreAngleBrackets(html) {
+  if (!html || typeof html !== 'string') {
+    return html;
+  }
+  
+  // Ersetze alle Platzhalter zurück
+  const pattern = /__ANGLE_BRACKET_START_(\d+)__(.+?)__ANGLE_BRACKET_END_\1__/g;
+  return html.replace(pattern, (match, index, content) => {
+    return `<${content}>`;
+  });
+}
+
 function normalizeGANumber(gaNumber) {
     const match = gaNumber.match(/^GA?(\d+)([a-zA-Z]?)$/i);
     if (!match) return gaNumber;
@@ -10179,45 +10226,81 @@ function scrollToHeading(headingId) {
   }
 }
 
-// Hilfsfunktion: Konvertiert Fußnoten zu klickbaren Links (für Books)
+// Hilfsfunktion: Konvertiert Fußnoten zu klickbaren Links (für Books und Lectures)
 function convertFootnotesToLinks() {
   const viewer = document.getElementById('viewer');
-  if (!viewer) return;
+  if (!viewer) {
+    console.warn('[FOOTNOTES] Viewer nicht gefunden');
+    return;
+  }
+  
+  console.log('[FOOTNOTES] Starte Konvertierung...');
   
   // Schritt 1: Finde alle Fußnoten-Definitionen (Format: [^1]: Text)
   const footnoteDefinitions = new Map();
   const htmlContent = viewer.innerHTML;
   
-  // Regex für Fußnoten-Definitionen: [^1]: Text
-  // Erweitert: Suche auch nach Definitionen die durch HTML-Tags getrennt sind
-  const defPattern = /\[\^(\d+)\]:\s*([^\[]+?)(?=\[\^|$)/gs;
+  console.log('[FOOTNOTES] HTML-Content-Länge:', htmlContent.length);
+  
+  // Verbesserte Regex für Fußnoten-Definitionen: [^1]: Text
+  // Unterstützt auch Definitionen in HTML-Paragraphen: <p>[^5]: Text</p>
+  // Suche nach [^n]: gefolgt von Text bis zum nächsten [^ oder </p> oder </div> oder Zeilenende
+  const defPattern = /\[\^(\d+)\]:\s*((?:[^<]|<(?!\/?(?:p|div|br)[\s>]))+?)(?=\[\^|<\/p>|<\/div>|$)/gs;
   let match;
   
   while ((match = defPattern.exec(htmlContent)) !== null) {
     const fnId = match[1];
-    const fnText = match[2].trim();
-    // Entferne HTML-Tags aus dem Text
-    const cleanText = fnText.replace(/<[^>]+>/g, '').trim();
+    let fnText = match[2].trim();
+    // Entferne HTML-Tags aus dem Text, aber behalte den Textinhalt
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = fnText;
+    const cleanText = tempDiv.textContent || tempDiv.innerText || fnText.replace(/<[^>]+>/g, '').trim();
     if (cleanText) {
       footnoteDefinitions.set(fnId, cleanText);
     }
   }
   
+  // Alternative: Suche auch direkt im DOM nach Paragraphen mit Fußnoten-Definitionen
+  const paragraphs = viewer.querySelectorAll('p, div');
+  paragraphs.forEach(p => {
+    const text = p.textContent || p.innerText || '';
+    const defMatch = text.match(/^\[\^(\d+)\]:\s*(.+)$/);
+    if (defMatch) {
+      const fnId = defMatch[1];
+      const fnText = defMatch[2].trim();
+      if (fnText && !footnoteDefinitions.has(fnId)) {
+        footnoteDefinitions.set(fnId, fnText);
+      }
+    }
+  });
+  
   // Prüfe ob Fußnoten-Referenzen vorhanden sind
   const hasFootnotesRefs = /\[\^\d+\]/.test(htmlContent);
+  
+  // Debug-Ausgabe
+  console.log('[FOOTNOTES] Fußnoten-Referenzen gefunden:', hasFootnotesRefs);
+  console.log('[FOOTNOTES] Fußnoten-Definitionen gefunden:', footnoteDefinitions.size);
+  if (footnoteDefinitions.size > 0) {
+    console.log('[FOOTNOTES] Gefundene Fußnoten-IDs:', Array.from(footnoteDefinitions.keys()));
+  }
   
   // Warnung nur ausgeben, wenn Referenzen gefunden wurden, aber keine Definitionen
   if (hasFootnotesRefs && footnoteDefinitions.size === 0) {
     console.warn('[FOOTNOTES] WARNUNG: Fußnoten-Referenzen gefunden, aber keine Definitionen!');
-  } else if (footnoteDefinitions.size > 0) {
-    }
+    // Zeige Beispiel-HTML für Debugging
+    const sampleHtml = htmlContent.substring(0, 2000);
+    console.log('[FOOTNOTES] Beispiel-HTML:', sampleHtml);
+  }
   
   // Schritt 2: Ersetze Fußnoten-Definitionen durch formatierte HTML-Elemente
   if (footnoteDefinitions.size > 0) {
     let newHtml = htmlContent;
     
-    // Entferne alte Definitionen
-    newHtml = newHtml.replace(/\[\^\d+\]:\s*.+?(?=<p>|\n\[\^|\n\n|$)/gs, '');
+    // Entferne alte Definitionen (auch in HTML-Paragraphen)
+    // Entferne komplette Paragraphen die nur eine Fußnoten-Definition enthalten
+    newHtml = newHtml.replace(/<p[^>]*>\[\^(\d+)\]:\s*[^<]*(?:<[^>]+>[^<]*)*<\/p>/gi, '');
+    // Entferne auch Definitionen ohne <p> Tags
+    newHtml = newHtml.replace(/\[\^\d+\]:\s*[^\[]+?(?=\[\^|<\/p>|<\/div>|$)/gs, '');
     
     // Erstelle Fußnoten-Sektion am Ende
     let footnotesSection = '<hr style="margin-top: 3rem; border: 1px solid var(--border-color);">';
@@ -10257,6 +10340,13 @@ function convertFootnotesToLinks() {
   }
   
   // Schritt 3: Ersetze Fußnoten-Referenzen [^1] durch klickbare Links
+  // WICHTIG: Führe die Konvertierung NUR aus, wenn Fußnoten-Definitionen gefunden wurden
+  // oder wenn Referenzen vorhanden sind (für den Fall, dass Definitionen später hinzugefügt werden)
+  if (footnoteDefinitions.size === 0 && !hasFootnotesRefs) {
+    return; // Keine Fußnoten vorhanden
+  }
+  
+  // Methode 1: TreeWalker für Textknoten (funktioniert am besten)
   const walker = document.createTreeWalker(
     viewer,
     NodeFilter.SHOW_TEXT,
@@ -10268,12 +10358,12 @@ function convertFootnotesToLinks() {
   let node;
   
   while (node = walker.nextNode()) {
-    if (node.textContent.match(/\[\^(\d+)\]/)) {
+    if (node.textContent && node.textContent.match(/\[\^(\d+)\]/)) {
       textNodesToProcess.push(node);
     }
   }
   
-  // Verarbeite Textknoten rückwärts
+  // Verarbeite Textknoten rückwärts (um DOM-Manipulationen nicht zu stören)
   textNodesToProcess.reverse().forEach(textNode => {
     const parent = textNode.parentNode;
     if (!parent) return;
@@ -10348,6 +10438,54 @@ function convertFootnotesToLinks() {
     // Ersetze den Textknoten
     parent.replaceChild(fragment, textNode);
   });
+  
+  // Methode 2: Fallback - Suche auch direkt im HTML-String nach Referenzen
+  // (falls TreeWalker sie nicht gefunden hat, z.B. wenn sie in bestimmten HTML-Tags sind)
+  if (textNodesToProcess.length === 0 && hasFootnotesRefs) {
+    let currentHtml = viewer.innerHTML;
+    const refPattern = /\[\^(\d+)\]/g;
+    let refMatch;
+    let hasChanges = false;
+    
+    while ((refMatch = refPattern.exec(currentHtml)) !== null) {
+      const fnId = refMatch[1];
+      // Prüfe ob diese Fußnote bereits konvertiert wurde (nicht in einem <a> Tag)
+      const beforeMatch = currentHtml.substring(Math.max(0, refMatch.index - 50), refMatch.index);
+      const afterMatch = currentHtml.substring(refMatch.index + refMatch[0].length, Math.min(currentHtml.length, refMatch.index + refMatch[0].length + 50));
+      
+      // Überspringe wenn bereits in einem Link oder sup Tag
+      if (!beforeMatch.includes('<a') && !beforeMatch.includes('<sup') && 
+          !afterMatch.includes('</a>') && !afterMatch.includes('</sup>')) {
+        const replacement = `<sup><a href="#fn${fnId}" id="fnref${fnId}" style="text-decoration: none; color: var(--accent-color); font-weight: bold;">${fnId}</a></sup>`;
+        currentHtml = currentHtml.substring(0, refMatch.index) + replacement + currentHtml.substring(refMatch.index + refMatch[0].length);
+        hasChanges = true;
+        // Setze Pattern-Index zurück, da wir den String geändert haben
+        refPattern.lastIndex = refMatch.index + replacement.length;
+      }
+    }
+    
+    if (hasChanges) {
+      viewer.innerHTML = currentHtml;
+      
+      // Füge Event-Listener zu den neu erstellten Links hinzu
+      const footnoteLinks = viewer.querySelectorAll('a[id^="fnref"]');
+      footnoteLinks.forEach(link => {
+        const fnId = link.id.replace('fnref', '');
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const footnote = document.getElementById(`fn${fnId}`);
+          if (footnote) {
+            footnote.scrollIntoView({ behavior: 'auto', block: 'start' });
+            const originalBg = footnote.style.backgroundColor;
+            footnote.style.backgroundColor = 'var(--highlight-color)';
+            setTimeout(() => {
+              footnote.style.backgroundColor = originalBg;
+            }, 2000);
+          }
+        });
+      });
+    }
+  }
   
   // Aktiviere Backlinks
   const backlinks = viewer.querySelectorAll('.footnote-backlink');
@@ -17553,10 +17691,16 @@ function showSummaryView() {
     // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsidianLineBreaks(content);
     
+    // Schütze Text in <> vor HTML-Interpretation
+    content = protectAngleBrackets(content);
+    
     // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
     if (typeof marked !== 'undefined' && marked.parse) {
       try {
       content = marked.parse(content, { breaks: true, gfm: true });
+      
+      // Stelle Text in <> wieder her
+      content = restoreAngleBrackets(content);
         
         // MANUELLE KONVERTIERUNG: Falls marked.parse() Bilder nicht konvertiert hat
         // Konvertiere ![alt](path) zu <img src="path" alt="alt">
@@ -17583,6 +17727,9 @@ function showSummaryView() {
     } else if (typeof marked !== 'undefined' && marked.marked) {
       try {
       content = marked.marked(content, { breaks: true, gfm: true });
+      
+      // Stelle Text in <> wieder her
+      content = restoreAngleBrackets(content);
         // Auch hier manuelle Bild-Konvertierung falls nötig
         if (content.includes('![')) {
           content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
@@ -17597,6 +17744,12 @@ function showSummaryView() {
     } else if (typeof marked !== 'undefined') {
       try {
       content = marked(content, { breaks: true, gfm: true });
+      
+      // Stelle Text in <> wieder her
+      content = restoreAngleBrackets(content);
+      
+      // Stelle Text in <> wieder her
+      content = restoreAngleBrackets(content);
         // Auch hier manuelle Bild-Konvertierung falls nötig
         if (content.includes('![')) {
           content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
@@ -17730,6 +17883,11 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           viewer.innerHTML = updatedHTML;
           
           // WICHTIG: Icons NACH dem Bild-Ersetzen setzen, damit sie nicht überschrieben werden
+          // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
+          setTimeout(() => {
+            convertFootnotesToLinks();
+          }, 200);
+          
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
             setTimeout(() => {
               markParagraphsWithBookmarksAndQuotes(lecture.ID);
@@ -17779,6 +17937,11 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         });
   } else {
     // Keine Bilder zu ersetzen - Icons direkt setzen
+    // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
+    setTimeout(() => {
+      convertFootnotesToLinks();
+    }, 200);
+    
     if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
       setTimeout(() => {
         markParagraphsWithBookmarksAndQuotes(lecture.ID);
@@ -20454,9 +20617,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
           content = preprocessObsidianLineBreaks(content);
           
+          // Schütze Text in <> vor HTML-Interpretation
+          content = protectAngleBrackets(content);
+          
           // Konvertiere Markdown zu HTML (wichtig für Bilder!) - VOR dem Highlighting!
           if (typeof marked !== 'undefined' && marked.parse) {
             content = marked.parse(content, { breaks: true, gfm: true });
+            
+            // Stelle Text in <> wieder her
+            content = restoreAngleBrackets(content);
             
             // Manuelle Bild-Konvertierung falls marked.parse() Bilder nicht konvertiert hat
             if (content.includes('![')) {
@@ -20469,6 +20638,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             }
           } else if (typeof marked !== 'undefined' && marked.marked) {
             content = marked.marked(content, { breaks: true, gfm: true });
+            
+            // Stelle Text in <> wieder her
+            content = restoreAngleBrackets(content);
             if (content.includes('![')) {
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
@@ -20478,6 +20650,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
             }
           } else if (typeof marked !== 'undefined') {
             content = marked(content, { breaks: true, gfm: true });
+            
+            // Stelle Text in <> wieder her
+            content = restoreAngleBrackets(content);
             if (content.includes('![')) {
               content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
                 alt = alt.trim();
@@ -20595,13 +20770,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren, damit die Änderungen nicht überschrieben werden!
           setTimeout(() => {
             detectAndFormatPoems(viewer);
-          }, 0);
-          
-          // Anmerkungen mit mehreren Sternchen behandeln
-          setTimeout(() => {
+            
+            // Anmerkungen mit mehreren Sternchen behandeln
             replaceBulletPointsWithAsterisks();
             formatAsteriskParagraphs();
-          }, 100);
+            
+            // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
+            // WICHTIG: Nach Bild-Ersetzen, Gedicht-Formatierung und anderen Manipulationen
+            convertFootnotesToLinks();
+          }, 200);
           
           // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
@@ -20637,13 +20814,15 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         // Keine Bilder: Gedichte direkt formatieren
         setTimeout(() => {
           detectAndFormatPoems(viewer);
-        }, 0);
-        
-        // Anmerkungen mit mehreren Sternchen behandeln
-        setTimeout(() => {
+          
+          // Anmerkungen mit mehreren Sternchen behandeln
           replaceBulletPointsWithAsterisks();
           formatAsteriskParagraphs();
-        }, 100);
+          
+          // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
+          // WICHTIG: Nach Gedicht-Formatierung und anderen Manipulationen
+          convertFootnotesToLinks();
+        }, 200);
         
         // Markiere Absätze mit Bookmarks/Zitaten NACH allen DOM-Manipulationen
         if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
