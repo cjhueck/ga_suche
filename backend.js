@@ -13822,6 +13822,39 @@ app.post('/api/quotes/toggle-active', async (req, res) => {
   }
 });
 
+// API: Zitat aktualisieren
+app.post('/api/quotes/update', async (req, res) => {
+  try {
+    const { quoteId, text } = req.body;
+    
+    if (!quoteId || !text) {
+      return res.status(400).json({ error: 'Quote ID und Text erforderlich' });
+    }
+    
+    const quotesDB = await loadQuotesDatabase();
+    
+    const quote = quotesDB.quotes.find(q => q.id === quoteId);
+    if (!quote) {
+      return res.status(404).json({ error: 'Zitat nicht gefunden' });
+    }
+    
+    // Aktualisiere den Text
+    quote.text = text.trim();
+    
+    await saveQuotesDatabase(quotesDB);
+    
+    res.json({
+      success: true,
+      quote: quote,
+      message: 'Zitat aktualisiert'
+    });
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Aktualisieren:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // ============================================================================
 // SERVER START
 // ============================================================================
