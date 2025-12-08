@@ -1831,6 +1831,58 @@ async function navigateToQuoteById(quoteId) {
   // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
   document.body.classList.add('members-navigating');
   
+  // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen SOFORT SYNCHRON entfernt
+  const viewer = document.getElementById('viewer') || document.getElementById('main');
+  if (viewer) {
+    const highlightObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const element = mutation.target;
+          if (element.classList && element.classList.contains('highlighted-paragraph')) {
+            element.classList.remove('highlighted-paragraph');
+            element.style.removeProperty('background');
+            element.style.removeProperty('box-shadow');
+          }
+        }
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Element node
+              if (node.classList && node.classList.contains('highlighted-paragraph')) {
+                node.classList.remove('highlighted-paragraph');
+                node.style.removeProperty('background');
+                node.style.removeProperty('box-shadow');
+              }
+              const highlightedElements = node.querySelectorAll('.highlighted-paragraph');
+              highlightedElements.forEach((el) => {
+                el.classList.remove('highlighted-paragraph');
+                el.style.removeProperty('background');
+                el.style.removeProperty('box-shadow');
+              });
+            }
+          });
+        }
+      });
+    });
+    
+    highlightObserver.observe(viewer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    // Speichere Observer für späteres Cleanup
+    window.membersQuoteHighlightObserver = highlightObserver;
+    
+    // ZUSÄTZLICH: Entferne sofort alle bestehenden highlighted-paragraph Klassen
+    const existingHighlighted = viewer.querySelectorAll('.highlighted-paragraph');
+    existingHighlighted.forEach(el => {
+      el.classList.remove('highlighted-paragraph');
+      el.style.removeProperty('background');
+      el.style.removeProperty('box-shadow');
+    });
+  }
+  
   const summaryPanel = document.getElementById('summary-panel');
   if (summaryPanel) {
     summaryPanel.style.setProperty('width', '400px', 'important');
@@ -1973,6 +2025,11 @@ async function navigateToQuoteById(quoteId) {
       setTimeout(() => {
         window.membersNavigating = false;
         document.body.classList.remove('members-navigating');
+        // Entferne MutationObserver
+        if (window.membersQuoteHighlightObserver) {
+          window.membersQuoteHighlightObserver.disconnect();
+          window.membersQuoteHighlightObserver = null;
+        }
       }, 500);
       return;
     }
@@ -1983,6 +2040,11 @@ async function navigateToQuoteById(quoteId) {
       console.warn('[QUOTE-NAV] Konnte Zitat nach', maxAttempts, 'Versuchen nicht finden');
       window.membersNavigating = false;
       document.body.classList.remove('members-navigating');
+      // Entferne MutationObserver
+      if (window.membersQuoteHighlightObserver) {
+        window.membersQuoteHighlightObserver.disconnect();
+        window.membersQuoteHighlightObserver = null;
+      }
     }
   };
   
