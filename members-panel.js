@@ -1343,14 +1343,24 @@ async function changeQuoteColor(quoteId, color) {
         }
       }
       
-      // Aktualisiere Bookmark-Icons im Viewer
-      const quoteSpans = document.querySelectorAll(`[data-quote-id="${quoteId}"]`);
+      // Aktualisiere Quote-Markierungen im Viewer (senkrechte Linie)
+      const quoteColorHex = getHighlightColor(color);
+      const quoteSpans = document.querySelectorAll(`[data-quote-id="${quoteId}"][data-quote="true"]`);
       quoteSpans.forEach(span => {
+        span.setAttribute('data-quote-color', color);
+        
+        // Aktualisiere Bookmark-Icons falls vorhanden
         const bookmarkIcon = span.querySelector('.quote-bookmark-icon');
         if (bookmarkIcon) {
-          const quoteColorHex = getHighlightColor(color);
           bookmarkIcon.style.color = quoteColorHex;
         }
+      });
+      
+      // Aktualisiere senkrechte Linien rechts neben Absätzen
+      const verticalLines = document.querySelectorAll(`.member-quote-vertical-line[data-quote-id="${quoteId}"]`);
+      verticalLines.forEach(line => {
+        line.style.backgroundColor = quoteColorHex;
+        line.setAttribute('data-quote-color', color);
       });
       
       // Aktualisiere Bookmark-Icons in Absätzen
@@ -4904,6 +4914,14 @@ function removeAllQuoteHighlights() {
     }
   });
   
+  // Entferne senkrechte Linien rechts neben Absätzen
+  const verticalLines = document.querySelectorAll('.member-quote-vertical-line');
+  verticalLines.forEach(line => {
+    if (line.parentNode) {
+      line.parentNode.removeChild(line);
+    }
+  });
+  
   // Entferne Hintergrundfarbe von Unterstreichungen, die als Overlay markiert sind
   const overlayHighlights = document.querySelectorAll('[data-quote-overlay]');
   overlayHighlights.forEach(highlight => {
@@ -4915,7 +4933,80 @@ function removeAllQuoteHighlights() {
 }
 
 /**
- * Wendet Zitat-Hervorhebung auf ein Element an (blassblauer Hintergrund)
+ * Erstellt eine senkrechte Linie rechts neben dem Absatz für ein Zitat
+ * @param {HTMLElement} targetElement - Der Absatz-Container
+ * @param {Range} range - Die Range des Zitats
+ * @param {Object} quote - Das Quote-Objekt
+ */
+function createQuoteVerticalLine(targetElement, range, quote) {
+  if (!targetElement || !range) return null;
+  
+  try {
+    // Stelle sicher, dass targetElement relativ positioniert ist
+    const computedStyle = window.getComputedStyle(targetElement);
+    if (computedStyle.position === 'static') {
+      targetElement.style.position = 'relative';
+    }
+    
+    // Berechne Position des Zitats relativ zum Container
+    const rangeRect = range.getBoundingClientRect();
+    const containerRect = targetElement.getBoundingClientRect();
+    
+    // Berechne relative Position innerhalb des Containers (ohne Scroll-Offset)
+    const topOffset = rangeRect.top - containerRect.top;
+    const bottomOffset = rangeRect.bottom - containerRect.top;
+    const lineHeight = bottomOffset - topOffset;
+    
+    // Hole Quote-Farbe
+    const quoteColor = quote.marker_color || 'blue';
+    const quoteColorHex = getHighlightColor(quoteColor);
+    
+    // Prüfe ob bereits eine Linie für dieses Zitat existiert
+    const existingLine = targetElement.querySelector(`.member-quote-vertical-line[data-quote-id="${quote.id}"]`);
+    if (existingLine) {
+      // Aktualisiere bestehende Linie
+      existingLine.style.top = `${topOffset}px`;
+      existingLine.style.height = `${Math.max(lineHeight, 1)}px`;
+      existingLine.style.backgroundColor = quoteColorHex;
+      existingLine.style.left = '-5px';
+      existingLine.style.width = '1.5px';
+      existingLine.setAttribute('data-quote-color', quoteColor);
+      return existingLine;
+    }
+    
+    // Erstelle Linien-Element
+    const lineElement = document.createElement('div');
+    lineElement.className = 'member-quote-vertical-line';
+    lineElement.setAttribute('data-quote-id', quote.id);
+    lineElement.setAttribute('data-quote', 'true');
+    lineElement.setAttribute('data-quote-color', quoteColor);
+    lineElement.style.position = 'absolute';
+    lineElement.style.left = '-5px';
+    lineElement.style.top = `${topOffset}px`;
+    lineElement.style.width = '1.5px';
+    lineElement.style.height = `${Math.max(lineHeight, 1)}px`;
+    lineElement.style.backgroundColor = quoteColorHex;
+    lineElement.style.pointerEvents = 'none';
+    lineElement.style.zIndex = '10';
+    
+    // Füge Linie zum Container hinzu
+    targetElement.appendChild(lineElement);
+    
+    console.log('[QUOTE-LINE] Senkrechte Linie erstellt:', {
+      top: topOffset,
+      height: lineHeight,
+      color: quoteColorHex
+    });
+    
+    return lineElement;
+  } catch (e) {
+    console.error('[QUOTE-LINE] Fehler beim Erstellen der Linie:', e);
+    return null;
+  }
+}
+
+/**
+ * Wendet Zitat-Hervorhebung auf ein Element an (senkrechte Linie rechts neben Absatz)
  * WICHTIG: Diese Markierung ist TEMPORÄR und wird nur beim Klick angezeigt
  */
 function applyQuoteHighlightToElement(targetElement, quote) {
@@ -5145,10 +5236,10 @@ function applyQuoteHighlightToElement(targetElement, quote) {
               }
               
               if (highlightParent) {
-                // Füge Hintergrundfarbe zur Unterstreichung hinzu
-                highlightParent.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
+                // Markiere Unterstreichung als Quote-Overlay
                 highlightParent.setAttribute('data-quote-overlay', quote.id);
-                console.log('[QUOTE-HIGHLIGHT] Hintergrundfarbe zu Unterstreichung hinzugefügt');
+                highlightParent.setAttribute('data-quote-color', quote.marker_color || 'blue');
+                console.log('[QUOTE-HIGHLIGHT] Quote-Overlay zu Unterstreichung hinzugefügt');
               } else {
                 // Knoten ist NICHT in einer Unterstreichung -> muss gewrappt werden
                 nodesToWrap.push(nodeInfo);
@@ -5171,15 +5262,12 @@ function applyQuoteHighlightToElement(targetElement, quote) {
                 
                 const span = document.createElement('span');
                 span.className = 'member-quote-highlight';
-                span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
-                span.style.setProperty('padding', '2px 0', 'important');
-                span.style.setProperty('border-radius', '2px', 'important');
-                span.style.setProperty('position', 'relative', 'important');
                 span.setAttribute('data-quote-id', quote.id);
                 span.setAttribute('data-quote', 'true');
                 span.setAttribute('data-quote-part', 'true');
                 span.setAttribute('data-ga-reference', quote.ga_reference);
                 span.setAttribute('data-paragraph-id', quote.paragraph_id);
+                span.setAttribute('data-quote-color', quote.marker_color || 'blue');
                 
                 nodeRange.surroundContents(span);
                 console.log('[QUOTE-HIGHLIGHT] Nicht-unterstrichenen Teil gewrappt');
@@ -5188,41 +5276,35 @@ function applyQuoteHighlightToElement(targetElement, quote) {
               }
             }
             
-            // Markiere das Zitat als angewendet (für die Stabilität)
-            // Erstelle einen unsichtbaren Marker am Anfang
-            const marker = document.createElement('span');
-            marker.setAttribute('data-quote-id', quote.id);
-            marker.setAttribute('data-quote', 'true');
-            marker.setAttribute('data-quote-overlay-marker', 'true');
-            marker.setAttribute('data-ga-reference', quote.ga_reference);
-            marker.setAttribute('data-paragraph-id', quote.paragraph_id);
-            marker.style.display = 'none';
-            if (startNode.parentNode) {
-              startNode.parentNode.insertBefore(marker, startNode);
-            }
+            // Erstelle senkrechte Linie rechts neben dem Absatz für das gesamte Zitat
+            // Verwende die ursprüngliche Range für die Linienposition
+            const originalRange = document.createRange();
+            originalRange.setStart(startNode, startOffsetInNode);
+            originalRange.setEnd(endNode, endOffsetInNode);
+            createQuoteVerticalLine(targetElement, originalRange, quote);
             
             console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung mit gemischter Markierung erfolgreich angewendet');
             return;
           }
           
           // Normaler Fall: Keine Unterstreichungen im Range
+          // Wrappe Text mit span (ohne border-right)
           const span = document.createElement('span');
           span.className = 'member-quote-highlight';
-          span.style.setProperty('background-color', 'rgba(70, 120, 134, 0.1)', 'important');
-          span.style.setProperty('padding', '2px 0', 'important');
-          span.style.setProperty('border-radius', '2px', 'important');
-          span.style.setProperty('position', 'relative', 'important');
           span.setAttribute('data-quote-id', quote.id);
           span.setAttribute('data-quote', 'true');
           span.setAttribute('data-ga-reference', quote.ga_reference);
           span.setAttribute('data-paragraph-id', quote.paragraph_id);
+          span.setAttribute('data-quote-color', quote.marker_color || 'blue');
           
           const contents = range.extractContents();
           span.appendChild(contents);
-          
-          // KEIN Bookmark-Icon mehr hier - nur noch das Icon am Absatzanfang (bookmark-quote-indicator)
           range.insertNode(span);
-          console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung erfolgreich angewendet (dauerhaft, analog zu Unterstreichungen)');
+          
+          // Erstelle senkrechte Linie rechts neben dem Absatz
+          createQuoteVerticalLine(targetElement, range, quote);
+          
+          console.log('[QUOTE-HIGHLIGHT] Zitat-Hervorhebung erfolgreich angewendet (mit senkrechter Linie)');
           
           return;
         } catch (e) {

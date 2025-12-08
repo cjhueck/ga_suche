@@ -853,3 +853,19 @@ span[data-highlight="true"],
   flex: 1;
 }
 
+/* Zitat-Hervorhebung: Text-Wrapper (ohne visuelle Markierung im Text) */
+.member-quote-highlight {
+  display: inline;
+  cursor: pointer;
+}
+
+/* Senkrechte Linie links neben dem Absatz */
+.member-quote-vertical-line {
+  position: absolute;
+  left: -5px;
+  width: 1.5px;
+  background-color: #467886;
+  pointer-events: none;
+  z-index: 10;
+}
+
