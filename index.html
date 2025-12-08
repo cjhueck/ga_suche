@@ -131,6 +131,51 @@
       position: relative;
     }
     
+    /* Zitat der Woche Button - oben rechts */
+    .quote-of-week-btn {
+      position: absolute;
+      top: 2.5rem;
+      right: 4rem;
+      padding: 8px 12px;
+      font-size: 0.85em;
+      border: 1.5px solid var(--accent-color, #467886);
+      background: transparent;
+      color: var(--accent-color, #467886);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-weight: 500;
+      opacity: 1;
+      box-shadow: 0 2px 4px rgba(70, 120, 134, 0.1);
+      max-width: 140px;
+      width: auto;
+      z-index: 100;
+    }
+    
+    .quote-of-week-btn:hover {
+      background: var(--accent-color, #467886);
+      border-color: var(--accent-color, #467886);
+      color: white;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+    
+    body.dark-mode .quote-of-week-btn {
+      border-color: var(--dark-accent-color, #6BA3B8);
+      background: transparent;
+      color: var(--dark-accent-color, #6BA3B8);
+      box-shadow: 0 2px 4px rgba(107, 163, 184, 0.2);
+    }
+    
+    body.dark-mode .quote-of-week-btn:hover {
+      background: var(--dark-accent-color, #6BA3B8);
+      border-color: var(--dark-accent-color, #6BA3B8);
+      color: white;
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+    
     .content {
       max-width: 900px;
       width: 100%;
@@ -797,6 +842,83 @@
       border-top-color: var(--dark-border-color);
     }
     
+    /* Zitate-Popup Styles */
+    body.dark-mode #quotesPopupInner {
+      background: var(--dark-background-color) !important;
+      border-color: #6BA3B8 !important;
+    }
+    
+    body.dark-mode #quotesPopupHeader {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-color: var(--dark-border-color) !important;
+    }
+    
+    body.dark-mode #quotesPopup h2 {
+      color: var(--dark-heading-color) !important;
+    }
+    
+    body.dark-mode #quotesPopupContent {
+      color: var(--dark-text-color) !important;
+    }
+    
+    /* Scrollbars - minimiert und nur bei Hover sichtbar */
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    
+    *:hover::-webkit-scrollbar-thumb {
+      background: #c0c0c0;
+    }
+    
+    *:hover::-webkit-scrollbar-thumb:hover {
+      background: #a0a0a0;
+    }
+    
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    *:hover {
+      scrollbar-color: #c0c0c0 transparent;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    body.dark-mode ::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    
+    body.dark-mode *:hover::-webkit-scrollbar-thumb {
+      background: #555;
+    }
+    
+    body.dark-mode *:hover::-webkit-scrollbar-thumb:hover {
+      background: #666;
+    }
+    
+    body.dark-mode * {
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    body.dark-mode *:hover {
+      scrollbar-color: #555 transparent;
+    }
+    
     .help-content-display img {
       max-width: 100%;
       height: auto;
@@ -1312,6 +1434,7 @@
     </div>
     
     <div class="right-panel">
+      <button id="quote-of-week-btn" class="quote-of-week-btn" onclick="openQuotesPopup()" title="Zitat der Woche anzeigen">Zitat der Woche</button>
       <div class="content">
         <h1>Rudolf Steiner Gesamtausgabe</h1>
         <p class="subtitle">Volltext-Suche und semantische Analyse</p>
@@ -1767,6 +1890,252 @@
         closeDatenschutzModal();
       }
     });
+    
+    // Zitat der Woche Button - öffne Popup direkt in index.html
+    // Zeigt IMMER das Zitat an, das im Tab Zitate als "Popup An" markiert ist
+    async function openQuotesPopup() {
+      try {
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        
+        // Lade immer frisch von der API
+        const response = await fetch(`${API_BASE}/api/quotes`);
+        if (!response.ok) return;
+        
+        const quotesDB = await response.json();
+        const activeQuotes = (quotesDB.quotes || []).filter(q => q.isActive);
+        
+        // Nur öffnen, wenn aktive Zitate existieren
+        if (activeQuotes.length === 0) {
+          return;
+        }
+        
+        // Zeige das erste aktive Zitat (das mit "Popup An")
+        const quoteToShow = activeQuotes[0];
+        
+        if (quoteToShow && quoteToShow.id) {
+          showSingleQuotePopup(quoteToShow.id);
+        }
+      } catch (error) {
+        console.error('[QUOTES-POPUP] Fehler:', error);
+      }
+    }
+    
+    // Polling-Variablen (nicht mehr benötigt, aber für Kompatibilität)
+    let lastActiveQuoteId = null;
+    function startQuotePolling() {}
+    function stopQuotePolling() {}
+    
+    // Zeige einzelnes Zitat im Popup
+    async function showSingleQuotePopup(quoteId) {
+      try {
+        const isLocal = window.location.hostname === 'localhost' ||
+                        window.location.hostname === '127.0.0.1' ||
+                        window.location.protocol === 'file:';
+        const API_BASE = isLocal ? 'http://localhost:3003' : 'https://ga-suche.onrender.com';
+        
+        const response = await fetch(`${API_BASE}/api/quotes`);
+        if (!response.ok) return;
+        
+        const quotesDB = await response.json();
+        const quote = (quotesDB.quotes || []).find(q => q.id === quoteId);
+        
+        if (!quote) {
+          alert('Zitat nicht gefunden');
+          return;
+        }
+        
+        // Subtitle im Header leeren
+        const subtitleElement = document.getElementById('quotesPopupSubtitle');
+        if (subtitleElement) {
+          subtitleElement.innerHTML = '';
+        }
+        
+        const container = document.getElementById('quotesPopupContent');
+        if (container) {
+          let quoteText = quote.text || '';
+          
+          // Entferne Quellenangabe am Ende des Textes
+          quoteText = quoteText.replace(/\s*\(\d{2}\.\d{2}\.\d{4},\s*GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+          quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
+          quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+          
+          // Text mit Absätzen formatieren (wie im Main Viewer)
+          const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
+          const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
+          
+          // GA-Nummer und Datum für Quellenangabe unter dem Zitat
+          let sourceParts = [];
+          if (quote.lectureId && quote.lectureId !== 'manual') {
+            const displayId = formatLectureId(quote.lectureId);
+            const paragraphIndex = quote.paragraphIndex || '';
+            const targetUrl = `app.html#texte&lecture=${quote.lectureId}${paragraphIndex ? '&p=' + paragraphIndex : ''}`;
+            sourceParts.push(`<a href="${targetUrl}" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
+          }
+          if (quote.date) {
+            try {
+              const dateObj = new Date(quote.date);
+              const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+              sourceParts.push(`<span style="font-weight: bold;">${dateStr}</span>`);
+            } catch (e) {}
+          }
+          const sourceHtml = sourceParts.length > 0 ? `<div style="text-align: right; margin-top: 1rem; font-size: 0.9rem; font-style: normal;">${sourceParts.join(', ')}</div>` : '';
+          
+          container.innerHTML = `
+            <div style="font-style: italic; line-height: 1.4; font-size: 1.0rem;">${formattedHtml}</div>
+            ${sourceHtml}
+          `;
+        }
+        
+        // Position zurücksetzen
+        if (typeof resetQuotesPopupPosition === 'function') {
+          resetQuotesPopupPosition();
+        }
+        
+        document.getElementById('quotesPopupOverlay').style.display = 'block';
+        document.getElementById('quotesPopup').style.display = 'flex';
+        // Starte Polling nach dem Öffnen
+        lastActiveQuoteId = quoteId;
+        startQuotePolling();
+      } catch (error) {
+        console.error('[QUOTES-POPUP] Fehler beim Anzeigen:', error);
+      }
+    }
+    
+    // Schließe Zitate-Popup
+    function closeQuotesPopup() {
+      document.getElementById('quotesPopupOverlay').style.display = 'none';
+      document.getElementById('quotesPopup').style.display = 'none';
+      stopQuotePolling();
+      lastActiveQuoteId = null;
+    }
+    
+    // Formatiere GA-Lecture-ID für Anzeige
+    function formatLectureId(lectureId) {
+      if (!lectureId) return lectureId;
+      
+      // Regex: Finde Buchstaben-Suffix
+      const slashMatch = lectureId.match(/^(GA\d{3})([A-Za-z])(\/\d+.*)$/i);
+      if (slashMatch) {
+        return `${slashMatch[1]}${slashMatch[2]}${slashMatch[3]}`;
+      }
+      
+      // Format ohne Slash: GA123A
+      const noSlashMatch = lectureId.match(/^(GA\d{3})([A-Za-z])$/i);
+      if (noSlashMatch) {
+        return `${noSlashMatch[1]}${noSlashMatch[2]}`;
+      }
+      
+      // Fallback: Original zurückgeben
+      return lectureId;
+    }
+    
+  </script>
+  
+  <!-- Zitate-Popup Overlay -->
+  <div id="quotesPopupOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 11999;" onclick="closeQuotesPopup()"></div>
+  
+  <!-- Zitate-Popup -->
+  <div id="quotesPopup" style="display: none; position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 12000;">
+    <div id="quotesPopupInner" style="position: relative; background: var(--background-color, #f8f5f0); border: 2px solid #467886; border-radius: 8px; min-width: 450px; min-height: 200px; width: 600px; max-height: 600px; display: flex; flex-direction: column;">
+      <!-- Drag-Handle (Titelleiste) -->
+      <div id="quotesPopupHeader" style="cursor: move; padding: 0.8rem 2.5rem 0.8rem 1.5rem; border-bottom: 1px solid var(--border-color, #ddd); background: rgba(0, 0, 0, 0.05); border-radius: 6px 6px 0 0; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+          <h2 style="margin: 0; color: var(--heading-color, #2c5f6f); font-size: 1.1em; line-height: 1.4;">Zitat der Woche</h2>
+          <!-- GA-Nummer und Datum -->
+          <div id="quotesPopupSubtitle" style="font-size: 0.9em; color: var(--secondary-text, #666); line-height: 1.4;">
+            <!-- Wird dynamisch befüllt -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- X-Button oben rechts -->
+      <button onclick="closeQuotesPopup()" 
+              style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s; z-index: 10;"
+              onmouseover="this.style.color='#467886'" 
+              onmouseout="this.style.color='#999'">
+        ×
+      </button>
+      
+      <!-- Zitat-Inhalt (scrollbar) -->
+      <div id="quotesPopupContent" style="padding: 1.5rem 2rem; overflow-y: auto; overflow-x: hidden; flex: 1; text-align: justify; line-height: 1.6; color: var(--text-color, #333); font-family: 'Georgia', 'Times New Roman', serif; font-size: 1.05em;">
+        <!-- Wird dynamisch befüllt -->
+      </div>
+      
+    </div>
+  </div>
+  
+  <script>
+  // Zitate-Popup verschiebbar machen (nur Drag, kein Resize)
+  (function() {
+    let isDragging = false;
+    let currentX, currentY, initialX, initialY;
+    let xOffset = 0, yOffset = 0;
+    
+    const popup = document.getElementById('quotesPopup');
+    const popupInner = document.getElementById('quotesPopupInner');
+    const header = document.getElementById('quotesPopupHeader');
+    
+    if (!popup || !popupInner || !header) return;
+    
+    // Drag-Funktionalität
+    header.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    function dragStart(e) {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+      
+      // Hole aktuelle Position des Popups
+      const rect = popup.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      // Berechne Offset vom Mausklick zum Popup-Zentrum
+      initialX = e.clientX - centerX;
+      initialY = e.clientY - centerY;
+      
+      isDragging = true;
+      popup.style.cursor = 'move';
+    }
+    
+    function handleMouseMove(e) {
+      if (isDragging) {
+        e.preventDefault();
+        
+        // Berechne neue Position basierend auf Mausposition minus initialem Offset
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+        
+        // Setze Position relativ zum Popup-Zentrum
+        popup.style.left = currentX + 'px';
+        popup.style.top = currentY + 'px';
+        popup.style.transform = 'translate(-50%, -50%)';
+      }
+    }
+    
+    function handleMouseUp() {
+      if (isDragging) {
+        // Speichere die aktuelle Position für den nächsten Drag
+        const rect = popup.getBoundingClientRect();
+        xOffset = rect.left + rect.width / 2 - window.innerWidth / 2;
+        yOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      }
+      isDragging = false;
+      popup.style.cursor = '';
+    }
+    
+    // Reset position when popup is opened
+    window.resetQuotesPopupPosition = function() {
+      xOffset = 0;
+      yOffset = 0;
+      popup.style.left = '54%';
+      popup.style.top = '47%';
+      popup.style.transform = 'translate(-50%, -50%)';
+    };
+  })();
   </script>
 
 </body>

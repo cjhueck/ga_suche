@@ -3265,14 +3265,26 @@
       }
       
       try {
+        let result;
         if (isHighlight) {
           if (typeof deleteHighlight !== 'function') {
             alert('Fehler: deleteHighlight Funktion nicht verfügbar.');
             return;
           }
-          await deleteHighlight(itemId);
+          result = await deleteHighlight(itemId);
         } else {
-          await deleteQuote(itemId);
+          if (typeof deleteQuote !== 'function') {
+            alert('Fehler: deleteQuote Funktion nicht verfügbar.');
+            return;
+          }
+          result = await deleteQuote(itemId);
+        }
+        
+        // Prüfe, ob das Löschen erfolgreich war
+        if (result && !result.success) {
+          console.error('Fehler beim Löschen:', result.error);
+          alert(`Fehler beim Löschen: ${result.error || 'Unbekannter Fehler'}`);
+          return;
         }
         
         // Remove from currentItems
@@ -3305,15 +3317,36 @@
       }
       
       const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+      let failedCount = 0;
       
       for (const id of ids) {
+        let result;
         if (isHighlight) {
           if (typeof deleteHighlight === 'function') {
-            await deleteHighlight(id);
+            result = await deleteHighlight(id);
+          } else {
+            console.error('deleteHighlight Funktion nicht verfügbar');
+            failedCount++;
+            continue;
           }
         } else {
-          await deleteQuote(id);
+          if (typeof deleteQuote === 'function') {
+            result = await deleteQuote(id);
+          } else {
+            console.error('deleteQuote Funktion nicht verfügbar');
+            failedCount++;
+            continue;
+          }
         }
+        
+        if (result && !result.success) {
+          console.error('Fehler beim Löschen von ID:', id, result.error);
+          failedCount++;
+        }
+      }
+      
+      if (failedCount > 0) {
+        alert(`${failedCount} von ${ids.length} Einträgen konnten nicht gelöscht werden.`);
       }
       
       // Exit delete mode after deletion

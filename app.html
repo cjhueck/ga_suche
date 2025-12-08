@@ -520,9 +520,14 @@ body:not(.dark-mode) .search-input:-webkit-autofill:focus {
     }
     
     /* Zitate-Popup Dark Mode */
-    body.dark-mode #quotesPopup > div {
-      background: var(--dark-sidebar-bg) !important;
+    body.dark-mode #quotesPopupInner {
+      background: var(--dark-background-color) !important;
       border-color: #6BA3B8 !important;
+    }
+    
+    body.dark-mode #quotesPopupHeader {
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-color: var(--dark-border-color) !important;
     }
     
     body.dark-mode #quotesPopup h2 {
@@ -726,6 +731,47 @@ body.dark-mode .site-logo:hover {
 
 body.dark-mode .site-sign {
   filter: invert(1) brightness(0.72);
+}
+
+/* Zitat der Woche Button - markanter (invertiert) */
+.quote-of-week-btn {
+  padding: 8px 12px;
+  font-size: 0.85em;
+  border: 1.5px solid var(--accent-color, #467886);
+  background: transparent;
+  color: var(--accent-color, #467886);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-weight: 500;
+  opacity: 1;
+  box-shadow: 0 2px 4px rgba(70, 120, 134, 0.1);
+  max-width: 140px;
+  width: auto;
+}
+
+.quote-of-week-btn:hover {
+  background: var(--accent-color, #467886);
+  border-color: var(--accent-color, #467886);
+  color: white;
+  box-shadow: 0 3px 6px rgba(70, 120, 134, 0.3);
+  transform: translateY(-1px);
+}
+
+body.dark-mode .quote-of-week-btn {
+  border-color: var(--dark-accent-color, #6BA3B8);
+  background: transparent;
+  color: var(--dark-accent-color, #6BA3B8);
+  box-shadow: 0 2px 4px rgba(107, 163, 184, 0.2);
+}
+
+body.dark-mode .quote-of-week-btn:hover {
+  background: var(--dark-accent-color, #6BA3B8);
+  border-color: var(--dark-accent-color, #6BA3B8);
+  color: white;
+  box-shadow: 0 3px 6px rgba(107, 163, 184, 0.4);
+  transform: translateY(-1px);
 }
 
 /* GA-Volume-Links Styling */
@@ -4868,21 +4914,25 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 <body>
 <div id="sidebar">
 <div id="sidebar-header">
-<div style="display: flex; justify-content: space-between; align-items: center;">
+<div style="display: flex; justify-content: space-between; align-items: flex-start;">
 <div class="site-header-flex">
 <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
 <h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
-<i data-lucide="database"></i>
-</button>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
 <i id="theme-icon" data-lucide="moon"></i>
+</button>
+<div style="display: flex; gap: 0.3rem; align-items: center;">
+<button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
+<i data-lucide="database"></i>
 </button>
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
 <i data-lucide="info"></i>
 </button>
+</div>
+</div>
 </div>
 </div>
 <div class="tab-container">
@@ -5288,20 +5338,11 @@ Chronologisch
     <span id="toggleQuotePopupText">Auto-Popup: An</span>
   </button>
 </div>
-
-<!-- Info: Zitat aus Vortrag speichern (nur lokal) -->
-<div id="quoteFromTextInfo" style="display: none; margin-bottom: 1rem; padding: 0.8rem; background: #e8f4f8; border-left: 4px solid #467886; font-size: 0.85em; color: var(--text-color);">
-  <strong>💡 Tipp:</strong> Sie können Zitate direkt aus einem Vortrag speichern: <strong>Alt+Klick</strong> auf einen Absatz öffnet den Speichern-Dialog mit automatischer Quellenverknüpfung.
-</div>
-
 <!-- Neues Zitat erstellen -->
 <div style="margin-bottom: 1.5rem; padding: 1rem; background: #f0f8ff; border: 1px solid #b8dce8; border-radius: 4px;">
   <h4 style="margin: 0 0 0.5rem 0; color: var(--heading-color);">Neues Zitat erstellen</h4>
   
   <div style="margin-bottom: 0.8rem;">
-    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color);">
-      Zitat-Text:
-    </label>
     <textarea id="newQuoteText" 
               placeholder="Kopieren Sie hier ein Zitat ein oder schreiben Sie es... (Strg+Enter zum Speichern)" 
               style="width: 100%; min-height: 150px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; font-family: inherit; resize: vertical; line-height: 1.5;"
@@ -7239,6 +7280,39 @@ function normalizeGANumber(gaNumber) {
             }, 300);
           }
           
+          // Zitate Popup öffnen Parameter
+          const openPopup = params.get('openPopup');
+          if (openPopup === 'true' && hash === 'zitate') {
+            // Warte bis der Tab vollständig geladen ist und dann öffne das Popup
+            setTimeout(() => {
+              // Stelle sicher, dass loadQuotesForTab ausgeführt wurde
+              if (typeof loadQuotesForTab === 'function') {
+                loadQuotesForTab().then(() => {
+                  // Warte noch etwas, damit die Zitate geladen sind
+                  setTimeout(() => {
+                    if (typeof openQuotesPopup === 'function') {
+                      openQuotesPopup();
+                    }
+                  }, 300);
+                }).catch(() => {
+                  // Fallback: Versuche trotzdem das Popup zu öffnen
+                  setTimeout(() => {
+                    if (typeof openQuotesPopup === 'function') {
+                      openQuotesPopup();
+                    }
+                  }, 500);
+                });
+              } else {
+                // Fallback falls loadQuotesForTab nicht verfügbar ist
+                setTimeout(() => {
+                  if (typeof openQuotesPopup === 'function') {
+                    openQuotesPopup();
+                  }
+                }, 1000);
+              }
+            }, 600);
+          }
+          
           // Schlagworte Letter Parameter
           const letter = params.get('letter');
           if (letter && hash === 'schlagworte') {
@@ -7270,6 +7344,54 @@ function normalizeGANumber(gaNumber) {
     });
 
     document.addEventListener('DOMContentLoaded', function() {
+      // Prüfe beim ersten Laden auf URL-Parameter (falls direkt mit Hash geladen)
+      const url = window.location.hash;
+      if (url) {
+        const hashParts = url.split('?');
+        const hash = hashParts[0].substring(1);
+        
+        if (hash) {
+          switchTab(hash, true);
+        }
+        
+        // Prüfe auf Parameter in URL
+        if (hashParts[1]) {
+          const params = new URLSearchParams(hashParts[1]);
+          
+          // Zitate Popup öffnen Parameter
+          const openPopup = params.get('openPopup');
+          if (openPopup === 'true' && hash === 'zitate') {
+            // Warte bis der Tab vollständig geladen ist und dann öffne das Popup
+            setTimeout(() => {
+              // Stelle sicher, dass loadQuotesForTab ausgeführt wurde
+              if (typeof loadQuotesForTab === 'function') {
+                loadQuotesForTab().then(() => {
+                  // Warte noch etwas, damit die Zitate geladen sind
+                  setTimeout(() => {
+                    if (typeof openQuotesPopup === 'function') {
+                      openQuotesPopup();
+                    }
+                  }, 300);
+                }).catch(() => {
+                  // Fallback: Versuche trotzdem das Popup zu öffnen
+                  setTimeout(() => {
+                    if (typeof openQuotesPopup === 'function') {
+                      openQuotesPopup();
+                    }
+                  }, 500);
+                });
+              } else {
+                // Fallback falls loadQuotesForTab nicht verfügbar ist
+                setTimeout(() => {
+                  if (typeof openQuotesPopup === 'function') {
+                    openQuotesPopup();
+                  }
+                }, 1000);
+              }
+            }, 600);
+          }
+        }
+      }
       
   initResizeHandle();
   initVerticalResizeHandle();
@@ -20857,11 +20979,6 @@ if (!isLocalhost) {
     updateQuotePopupButtonText();
   }
   
-  // Info-Text für Alt+Klick Zitat-Funktion anzeigen
-  const quoteFromTextInfo = document.getElementById("quoteFromTextInfo");
-  if (quoteFromTextInfo) {
-    quoteFromTextInfo.style.display = 'block';
-  }
 }
 
 // Auto-Popup nach 1 Minute (nur wenn aktiviert)
@@ -20876,13 +20993,16 @@ setTimeout(() => {
   const gaFilter = document.getElementById("gaFilter");
   const thematicGAFilter = document.getElementById("thematicGAFilter");
 
-  if (!gaFilter || !thematicGAFilter) {
-    console.error("[FEHLER] Dropdown-Elemente nicht gefunden!");
-    return;
+  // Prüfe ob Elemente existieren (können fehlen, wenn Custom Dropdowns verwendet werden)
+  if (gaFilter) {
+    gaFilter.innerHTML = '<option value="">GA-Bände</option>';
   }
-
-  gaFilter.innerHTML = '<option value="">GA-Bände</option>';
-  thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+  
+  if (thematicGAFilter) {
+    thematicGAFilter.innerHTML = '<option value="">Alle GA-Bände</option>';
+  }
+  
+  // Kein Fehler mehr, da Custom Dropdowns verwendet werden können
 
   try {
     const response = await fetch(`${API_BASE}/api/available-ga`);
@@ -20945,7 +21065,20 @@ window.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('DOMContentLoaded', function() {
   let hash = window.location.hash.substring(1); // Entferne das #
   
-  // Entferne Query-Parameter aus dem Hash (z.B. "schlagworte?letter=M" -> "schlagworte")
+  // Parse Query-Parameter aus dem Hash (z.B. "texte&lecture=GA052/15&p=42")
+  let queryParams = {};
+  if (hash && hash.includes('&')) {
+    const parts = hash.split('&');
+    hash = parts[0];
+    parts.slice(1).forEach(part => {
+      const [key, value] = part.split('=');
+      if (key && value) {
+        queryParams[key] = decodeURIComponent(value);
+      }
+    });
+  }
+  
+  // Entferne auch alte ?-Parameter aus dem Hash (z.B. "schlagworte?letter=M" -> "schlagworte")
   if (hash && hash.includes('?')) {
     hash = hash.split('?')[0];
   }
@@ -20970,6 +21103,14 @@ window.addEventListener('DOMContentLoaded', function() {
         const baseUrl = window.location.origin + window.location.pathname;
         history.replaceState({ tab: tabName }, '', `${baseUrl}#${tabName}`);
         switchTab(tabName, true); // skipHistory = true beim ersten Laden
+        
+        // Wenn lecture-Parameter vorhanden, öffne den Vortrag/das Buch
+        if (queryParams.lecture) {
+          setTimeout(() => {
+            const paragraphIndex = queryParams.p || '';
+            showLecture(queryParams.lecture, paragraphIndex);
+          }, 200);
+        }
       }, 100);
     }
   } else {
@@ -28192,10 +28333,17 @@ let selectedParagraphIndex = null;
 function selectParagraphForKeyword(paragraphIndex, element, event) {
   if (!isLocal) return;
   
-  // Alt+Klick: Als Zitat speichern
+  // Alt+Klick: Als Zitat speichern (ohne Selektion - ganzer Absatz)
   if (event && event.altKey) {
     event.preventDefault();
-    openSaveQuoteDialog(paragraphIndex, element);
+    // Prüfe ob Text markiert ist
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+    if (!selectedText || selectedText.length === 0) {
+      // Kein Text markiert - öffne Dialog mit ganzem Absatz
+      openSaveQuoteDialog(paragraphIndex, element);
+    }
+    // Mit Selektion wird der Dialog über den mouseup-Handler geöffnet
     return;
   }
   
@@ -28748,16 +28896,21 @@ async function loadQuotesForTab() {
           <div style="font-size: 0.75em; color: #999; margin-bottom: 0.5rem;">
             Hinzugefügt: ${new Date(quote.addedAt).toLocaleDateString('de-DE')}
           </div>
-          <div style="display: flex; gap: 6px;">
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button onclick="showSingleQuotePopup('${quote.id}')" 
+                    class="depth-btn" 
+                    style="padding: 4px 10px; font-size: 0.8em; background: #5bc0de; color: white;">
+              Popup anzeigen
+            </button>
             <button onclick="editQuote('${quote.id}')" 
                     class="depth-btn" 
                     style="padding: 4px 10px; font-size: 0.8em; background: #467886; color: white;">
               Bearbeiten
             </button>
-            <button onclick="toggleQuoteActive('${quote.id}', ${!quote.isActive})" 
+            <button onclick="toggleQuoteActive('${quote.id}', ${quote.isActive})" 
                     class="depth-btn" 
-                    style="padding: 4px 10px; font-size: 0.8em; background: ${quote.isActive ? '#f0ad4e' : '#5cb85c'}; color: white;">
-              ${quote.isActive ? 'Popup: Aus' : 'Popup: An'}
+                    style="padding: 4px 10px; font-size: 0.8em; background: ${quote.isActive ? '#5cb85c' : '#f0ad4e'}; color: white;">
+              ${quote.isActive ? 'Popup: An' : 'Popup: Aus'}
             </button>
             <button onclick="deleteQuote('${quote.id}')" 
                     class="depth-btn" 
@@ -28771,21 +28924,61 @@ async function loadQuotesForTab() {
     
     listDiv.innerHTML = html;
     
+    // Speichere die erste aktive Quote-ID in localStorage für index.html
+    const activeQuotes = quotes.filter(q => q.isActive);
+    if (activeQuotes.length > 0) {
+      const currentActiveId = localStorage.getItem('activeQuoteId');
+      // Nur aktualisieren, wenn keine gespeicherte ID existiert oder die gespeicherte nicht mehr aktiv ist
+      if (!currentActiveId || !activeQuotes.find(q => q.id === currentActiveId)) {
+        localStorage.setItem('activeQuoteId', activeQuotes[0].id);
+      }
+    } else {
+      // Keine aktiven Zitate mehr
+      localStorage.removeItem('activeQuoteId');
+    }
+    
   } catch (error) {
     console.error('[QUOTES] Fehler beim Laden:', error);
   }
 }
 
 // Toggle Zitat aktiv/inaktiv
-async function toggleQuoteActive(quoteId, isActive) {
+async function toggleQuoteActive(quoteId, currentIsActive) {
+  // Umkehren: wenn aktuell aktiv, dann deaktivieren und umgekehrt
+  const newIsActive = !currentIsActive;
+  
   try {
     const response = await fetch(`${API_BASE}/api/quotes/toggle-active`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ quoteId, isActive })
+      body: JSON.stringify({ quoteId, isActive: newIsActive })
     });
     
     if (!response.ok) throw new Error('Server-Fehler');
+    
+    // Speichere aktive Quote-ID in localStorage für index.html
+    if (newIsActive) {
+      localStorage.setItem('activeQuoteId', quoteId);
+      // Trigger storage event für andere Tabs/Fenster
+      window.dispatchEvent(new Event('storage'));
+    } else {
+      // Wenn dieses Zitat deaktiviert wird, prüfe ob es das aktive war
+      const currentActiveId = localStorage.getItem('activeQuoteId');
+      if (currentActiveId === quoteId) {
+        // Lade alle Zitate und finde das nächste aktive
+        const quotesResponse = await fetch(`${API_BASE}/api/quotes`);
+        if (quotesResponse.ok) {
+          const quotesDB = await quotesResponse.json();
+          const activeQuotes = (quotesDB.quotes || []).filter(q => q.isActive);
+          if (activeQuotes.length > 0) {
+            localStorage.setItem('activeQuoteId', activeQuotes[0].id);
+          } else {
+            localStorage.removeItem('activeQuoteId');
+          }
+          window.dispatchEvent(new Event('storage'));
+        }
+      }
+    }
     
     await loadQuotesForTab();
     
@@ -28824,7 +29017,9 @@ async function deleteQuote(quoteId, skipConfirm = false) {
   }
 }
 
-// Bearbeite Zitat
+// Bearbeite Zitat - öffnet Modal zum Bearbeiten
+let editingQuoteId = null;
+
 async function editQuote(quoteId) {
   try {
     const response = await fetch(`${API_BASE}/api/quotes`);
@@ -28838,21 +29033,135 @@ async function editQuote(quoteId) {
       return;
     }
     
-    // Fülle Textfeld mit dem Zitat
-    document.getElementById('newQuoteText').value = quote.text;
+    // Speichere ID für später
+    editingQuoteId = quoteId;
     
-    // Scrolle zum Eingabefeld
-    document.getElementById('newQuoteText').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    document.getElementById('newQuoteText').focus();
+    // Fülle Modal-Felder
+    document.getElementById('editQuoteLectureId').textContent = quote.lectureId || '-';
+    document.getElementById('editQuoteText').value = quote.text;
     
-    // Lösche das alte Zitat nach Bestätigung
-    if (confirm('Zitat bearbeiten?\n\nDas ursprüngliche Zitat wird gelöscht und Sie können es bearbeitet neu speichern.')) {
-      await deleteQuote(quoteId, true);
-    }
+    // Zeige Modal
+    document.getElementById('editQuoteModal').style.display = 'block';
+    document.getElementById('editQuoteOverlay').style.display = 'block';
+    
+    // Fokus auf Textarea
+    setTimeout(() => {
+      document.getElementById('editQuoteText').focus();
+    }, 100);
     
   } catch (error) {
     console.error('[QUOTES] Fehler beim Bearbeiten:', error);
     alert('Fehler: ' + error.message);
+  }
+}
+
+// Schließe Edit-Quote-Dialog
+function closeEditQuoteDialog() {
+  document.getElementById('editQuoteModal').style.display = 'none';
+  document.getElementById('editQuoteOverlay').style.display = 'none';
+  editingQuoteId = null;
+}
+
+// Speichere Änderungen am Zitat
+async function saveEditedQuote() {
+  if (!editingQuoteId) {
+    console.warn('[EDIT-QUOTE] Keine Zitat-ID vorhanden');
+    return;
+  }
+  
+  const quoteText = document.getElementById('editQuoteText').value.trim();
+  
+  if (!quoteText) {
+    alert('Bitte geben Sie einen Text ein.');
+    return;
+  }
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/quotes/update`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quoteId: editingQuoteId, text: quoteText })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Server-Fehler');
+    }
+    
+    // Schließe Modal und lade Zitate neu
+    closeEditQuoteDialog();
+    await loadQuotesForTab();
+    
+  } catch (error) {
+    console.error('[EDIT-QUOTE] Fehler beim Speichern:', error);
+    alert('Fehler: ' + error.message);
+  }
+}
+
+// Zeige einzelnes Zitat im Popup
+async function showSingleQuotePopup(quoteId) {
+  try {
+    const response = await fetch(`${API_BASE}/api/quotes`);
+    if (!response.ok) return;
+    
+    const quotesDB = await response.json();
+    const quote = (quotesDB.quotes || []).find(q => q.id === quoteId);
+    
+    if (!quote) {
+      alert('Zitat nicht gefunden');
+      return;
+    }
+    
+    // Subtitle im Header leeren
+    const subtitleElement = document.getElementById('quotesPopupSubtitle');
+    if (subtitleElement) {
+      subtitleElement.innerHTML = '';
+    }
+    
+    const container = document.getElementById('quotesPopupContent');
+    if (container) {
+      // NUR lokales Feld verwenden: text
+      let quoteText = quote.text || '';
+      
+      // Entferne Quellenangabe am Ende des Textes (z.B. "(08.03.1904, GA052/15)" oder "(GA267, 1905)")
+      quoteText = quoteText.replace(/\s*\(\d{2}\.\d{2}\.\d{4},\s*GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+      quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
+      quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+      
+      // Text mit Absätzen formatieren (wie im Main Viewer)
+      const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
+      const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
+      
+      // GA-Nummer und Datum für Quellenangabe unter dem Zitat
+      let sourceParts = [];
+      if (quote.lectureId && quote.lectureId !== 'manual') {
+        const displayId = formatLectureId(quote.lectureId);
+        const paragraphIndex = quote.paragraphIndex || '';
+        sourceParts.push(`<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${quote.lectureId}', '${paragraphIndex}'), 100); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
+      }
+      if (quote.date) {
+        try {
+          const dateObj = new Date(quote.date);
+          const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+          sourceParts.push(`<span style="font-weight: bold;">${dateStr}</span>`);
+        } catch (e) {}
+      }
+      const sourceHtml = sourceParts.length > 0 ? `<div style="text-align: right; margin-top: 1rem; font-size: 0.9rem; font-style: normal;">${sourceParts.join(', ')}</div>` : '';
+      
+      container.innerHTML = `
+        <div style="font-style: italic; line-height: 1.4; font-size: 1.0rem;">${formattedHtml}</div>
+        ${sourceHtml}
+      `;
+    }
+    
+    // Position zurücksetzen
+    if (typeof resetQuotesPopupPosition === 'function') {
+      resetQuotesPopupPosition();
+    }
+    
+    document.getElementById('quotesPopup').style.display = 'flex';
+  } catch (error) {
+    console.error('[QUOTES-POPUP] Fehler beim Anzeigen:', error);
   }
 }
 
@@ -28871,8 +29180,11 @@ async function openQuotesPopup() {
       return;
     }
     
-    document.getElementById('quotesPopup').style.display = 'flex';
-    loadQuotesIntoPopup();
+    // Öffne das erste aktive Zitat mit showSingleQuotePopup
+    const firstActiveQuote = activeQuotes[0];
+    if (firstActiveQuote && firstActiveQuote.id) {
+      showSingleQuotePopup(firstActiveQuote.id);
+    }
   } catch (error) {
     console.error('[QUOTES-POPUP] Fehler beim Prüfen:', error);
   }
@@ -28934,32 +29246,46 @@ async function loadQuotesIntoPopup() {
     // Zeige zufälliges Zitat
     const randomQuote = activeQuotes[Math.floor(Math.random() * activeQuotes.length)];
     
-    // Formatiere Datum falls vorhanden
-    let dateStr = '';
-    if (randomQuote.date) {
-      try {
-        dateStr = new Date(randomQuote.date).toLocaleDateString('de-DE');
-      } catch (e) {
-        dateStr = '';
+    // GA-Nummer und Datum im Subtitle (NUR lokale Zitate!)
+    const subtitleElement = document.getElementById('quotesPopupSubtitle');
+    if (subtitleElement) {
+      let htmlParts = [];
+      
+      // GA-Nummer als fetter, klickbarer Link
+      if (randomQuote.lectureId && randomQuote.lectureId !== 'manual') {
+        const displayId = formatLectureId(randomQuote.lectureId);
+        const paragraphIndex = randomQuote.paragraphIndex || '';
+        htmlParts.push(`<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${randomQuote.lectureId}', '${paragraphIndex}'), 100); closeQuotesPopup(); return false;" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
       }
+      
+      // Datum im Format "8. März 1904" (nicht klickbar, fett)
+      if (randomQuote.date) {
+        try {
+          const dateObj = new Date(randomQuote.date);
+          const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+          htmlParts.push(`<span style="font-weight: bold;">${dateStr}</span>`);
+        } catch (e) {
+          // Ignoriere Fehler beim Datum
+        }
+      }
+      
+      subtitleElement.innerHTML = htmlParts.join(', ');
     }
     
-    // Erstelle Quellenlink wenn lectureId vorhanden und nicht 'manual'
-    let sourceLink = '';
-    if (randomQuote.lectureId && randomQuote.lectureId !== 'manual') {
-      const displayId = formatLectureId(randomQuote.lectureId);
-      sourceLink = `<a href="#" onclick="switchTab('texte'); setTimeout(() => showLecture('${randomQuote.lectureId}', '${randomQuote.paragraphIndex}'), 100); closeQuotesPopup(); return false;" 
-                       class="h3-keyword-link" style="font-weight: normal;">
-                      ${displayId}
-                    </a>`;
-    }
+    // NUR lokales Feld verwenden: text
+    let quoteText = randomQuote.text || '';
+    
+    // Entferne Quellenangabe am Ende des Textes (z.B. "(08.03.1904, GA052/15)" oder "(GA267, 1905)")
+    quoteText = quoteText.replace(/\s*\(\d{2}\.\d{2}\.\d{4},\s*GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+    quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
+    quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
+    
+    // Text mit mehr Abstand zwischen Absätzen
+    const formattedText = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0).join('\n\n');
     
     container.innerHTML = `
-      <div style="font-style: italic; font-size: 1.1em; line-height: 1.6; margin-bottom: 1rem; text-align: justify;">
-        „${randomQuote.text}"
-      </div>
-      <div style="text-align: right; font-size: 0.9em; color: #666;">
-        ${dateStr ? `(${dateStr}${sourceLink ? ', ' : ''})` : ''}${sourceLink}
+      <div style="font-style: italic; white-space: pre-wrap; line-height: 1.6;">
+        ${formattedText}
       </div>
     `;
     
@@ -28974,30 +29300,41 @@ async function loadQuotesIntoPopup() {
 
 let saveQuoteData = null;
 
-// Öffne Dialog zum Speichern eines Zitats aus einem Absatz
+// Öffne Dialog zum Speichern eines Zitats aus einem Absatz oder markiertem Text
 function openSaveQuoteDialog(paragraphIndex, element) {
   if (!isLocal || !currentLectureData) {
     console.warn('[SAVE-QUOTE] Nur lokal verfügbar oder kein Vortrag geladen');
     return;
   }
   
-  // Extrahiere Absatztext (entferne HTML-Tags)
-  const tempDiv = document.createElement('div');
-  tempDiv.innerHTML = element.innerHTML;
-  const paragraphText = tempDiv.textContent.trim();
+  // Prüfe zuerst, ob Text markiert ist
+  const selection = window.getSelection();
+  const selectedText = selection.toString().trim();
+  
+  let quoteText = '';
+  
+  if (selectedText && selectedText.length > 0) {
+    // Verwende den markierten Text (kann auch über mehrere Absätze gehen)
+    quoteText = selectedText;
+  } else {
+    // Fallback: Extrahiere gesamten Absatztext (entferne HTML-Tags)
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = element.innerHTML;
+    quoteText = tempDiv.textContent.trim();
+  }
   
   // Speichere Daten für später
   saveQuoteData = {
     lectureId: currentLectureData.ID,
     paragraphIndex: paragraphIndex,
     date: currentLectureData.date || '',
-    text: paragraphText
+    text: quoteText
   };
   
   // Fülle Modal-Felder
   document.getElementById('saveQuoteLectureId').textContent = saveQuoteData.lectureId;
   document.getElementById('saveQuoteParagraphIndex').textContent = paragraphIndex;
-  document.getElementById('saveQuoteText').value = paragraphText;
+  document.getElementById('saveQuoteText').value = quoteText;
   document.getElementById('saveQuoteActive').checked = true;
   
   // Zeige Modal
@@ -29010,6 +29347,76 @@ function openSaveQuoteDialog(paragraphIndex, element) {
   }, 100);
   
   }
+
+// Globaler Event-Listener für Alt+Mouseup mit markiertem Text
+document.addEventListener('mouseup', function(event) {
+  if (!isLocal || !currentLectureData) return;
+  
+  // Nur bei Alt-Taste
+  if (!event.altKey) return;
+  
+  // Prüfe ob Text markiert ist
+  const selection = window.getSelection();
+  const selectedText = selection.toString().trim();
+  
+  if (selectedText && selectedText.length > 0) {
+    event.preventDefault();
+    
+    // Finde den Absatz, in dem die Selektion startet
+    let paragraphIndex = '';
+    let anchorNode = selection.anchorNode;
+    
+    // Suche nach dem übergeordneten .paragraph Element
+    while (anchorNode && anchorNode !== document) {
+      if (anchorNode.classList && anchorNode.classList.contains('paragraph')) {
+        // Extrahiere paragraphIndex aus data-Attribut oder onclick
+        const onclick = anchorNode.getAttribute('onclick');
+        if (onclick) {
+          const match = onclick.match(/selectParagraphForKeyword\('([^']+)'/);
+          if (match) {
+            paragraphIndex = match[1];
+          }
+        }
+        break;
+      }
+      anchorNode = anchorNode.parentNode;
+    }
+    
+    // Öffne Dialog mit markiertem Text
+    openSaveQuoteDialogWithSelection(selectedText, paragraphIndex);
+  }
+});
+
+// Öffne Dialog mit vorausgewähltem Text
+function openSaveQuoteDialogWithSelection(selectedText, paragraphIndex) {
+  if (!isLocal || !currentLectureData) {
+    console.warn('[SAVE-QUOTE] Nur lokal verfügbar oder kein Vortrag geladen');
+    return;
+  }
+  
+  // Speichere Daten für später
+  saveQuoteData = {
+    lectureId: currentLectureData.ID,
+    paragraphIndex: paragraphIndex,
+    date: currentLectureData.date || '',
+    text: selectedText
+  };
+  
+  // Fülle Modal-Felder
+  document.getElementById('saveQuoteLectureId').textContent = saveQuoteData.lectureId;
+  document.getElementById('saveQuoteParagraphIndex').textContent = paragraphIndex || '-';
+  document.getElementById('saveQuoteText').value = selectedText;
+  document.getElementById('saveQuoteActive').checked = true;
+  
+  // Zeige Modal
+  document.getElementById('saveQuoteModal').style.display = 'block';
+  document.getElementById('saveQuoteOverlay').style.display = 'block';
+  
+  // Fokus auf Textarea
+  setTimeout(() => {
+    document.getElementById('saveQuoteText').focus();
+  }, 100);
+}
 
 // Schließe Save-Quote-Dialog
 function closeSaveQuoteDialog() {
@@ -29590,36 +29997,138 @@ async function addKeywordToLecture() {
 <!-- Overlay für Save Quote Modal -->
 <div id="saveQuoteOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeSaveQuoteDialog()"></div>
 
+<!-- Edit Quote Modal -->
+<div id="editQuoteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--background-color); border: 2px solid #467886; border-radius: 8px; padding: 1.5rem; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; z-index: 10001; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <h3 style="margin: 0 0 1rem 0; color: var(--heading-color);">Zitat bearbeiten</h3>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
+      Quelle:
+    </label>
+    <span id="editQuoteLectureId" style="font-size: 0.9em; color: var(--text-color);">-</span>
+  </div>
+  
+  <div style="margin-bottom: 1rem;">
+    <label style="display: block; margin-bottom: 0.3rem; font-size: 0.85em; color: var(--text-color); font-weight: 600;">
+      Zitat-Text:
+    </label>
+    <textarea id="editQuoteText" 
+              style="width: 100%; min-height: 200px; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em; font-family: inherit; resize: vertical; line-height: 1.5; background: var(--input-bg); color: var(--text-color);"></textarea>
+  </div>
+  
+  <div style="display: flex; gap: 8px;">
+    <button onclick="closeEditQuoteDialog()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; flex: 1; background: transparent; color: var(--text-color); border: 1px solid var(--border-color);">
+      Abbrechen
+    </button>
+    <button onclick="saveEditedQuote()" class="depth-btn" style="padding: 8px 16px; font-size: 0.9em; flex: 1; background: #5cb85c; color: white;">
+      Speichern
+    </button>
+  </div>
+</div>
+
+<!-- Overlay für Edit Quote Modal -->
+<div id="editQuoteOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 10000;" onclick="closeEditQuoteDialog()"></div>
+
 <!-- Zitate-Popup Modal -->
-<div id="quotesPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 12000; align-items: center; justify-content: center;">
-  <div style="position: relative; background: white; border: 2px solid #467886; border-radius: 8px; padding: 2rem 2.5rem; max-width: 500px; width: 90%; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+<div id="quotesPopup" style="display: none; position: fixed; top: 45%; left: 50%; transform: translate(-50%, -50%); z-index: 12000;">
+  <div id="quotesPopupInner" style="position: relative; background: var(--background-color, #f8f5f0); border: 2px solid #467886; border-radius: 8px; min-width: 450px; min-height: 200px; width: 600px; max-height: 600px; display: flex; flex-direction: column;">
+    <!-- Drag-Handle (Titelleiste) -->
+    <div id="quotesPopupHeader" style="cursor: move; padding: 0.8rem 2.5rem 0.8rem 1.5rem; border-bottom: 1px solid var(--border-color, #ddd); background: rgba(0, 0, 0, 0.05); border-radius: 6px 6px 0 0; flex-shrink: 0;">
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <h2 style="margin: 0; color: var(--heading-color, #2c5f6f); font-size: 1.1em; line-height: 1.4;">Zitat der Woche</h2>
+        <!-- GA-Nummer und Datum -->
+        <div id="quotesPopupSubtitle" style="font-size: 0.9em; color: var(--secondary-text, #666); line-height: 1.4;">
+          <!-- Wird dynamisch befüllt -->
+        </div>
+      </div>
+    </div>
+    
     <!-- X-Button oben rechts -->
     <button onclick="closeQuotesPopup()" 
-            style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s;"
+            style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; color: #999; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: color 0.2s; z-index: 10;"
             onmouseover="this.style.color='#467886'" 
             onmouseout="this.style.color='#999'">
       ×
     </button>
     
-    <!-- Überschrift -->
-    <div style="text-align: center; margin-bottom: 1.5rem;">
-      <h2 style="margin: 0; color: #2c5f6f; font-size: 1.2em;">Die schöpferische Tätigkeit als Unvergängliches</h2>
-    </div>
-    
-    <!-- Bild von Rudolf Steiner -->
-    <div style="float: right; margin: 0 0 1rem 1.5rem;">
-      <img src="images/steiner-logo.jpg" alt="Rudolf Steiner" style="width: 120px; height: auto; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-    </div>
-    
-    <!-- Zitat-Inhalt -->
-    <div id="quotesPopupContent" style="text-align: justify; line-height: 1.7; color: #333;">
+    <!-- Zitat-Inhalt (scrollbar) -->
+    <div id="quotesPopupContent" style="padding: 1.5rem 2rem; overflow-y: auto; overflow-x: hidden; flex: 1; text-align: justify; line-height: 1.6; color: var(--text-color, #333); font-family: 'Georgia', 'Times New Roman', serif; font-size: 1.05em;">
       <!-- Wird dynamisch befüllt -->
     </div>
     
-    <!-- Clearfix für Float -->
-    <div style="clear: both;"></div>
   </div>
 </div>
+
+<script>
+// Zitate-Popup verschiebbar machen (nur Drag, kein Resize)
+(function() {
+  let isDragging = false;
+  let currentX, currentY, initialX, initialY;
+  let xOffset = 0, yOffset = 0;
+  
+  const popup = document.getElementById('quotesPopup');
+  const popupInner = document.getElementById('quotesPopupInner');
+  const header = document.getElementById('quotesPopupHeader');
+  
+  if (!popup || !popupInner || !header) return;
+  
+  // Drag-Funktionalität
+  header.addEventListener('mousedown', dragStart);
+  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('mouseup', handleMouseUp);
+  
+  function dragStart(e) {
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
+    
+    // Hole aktuelle Position des Popups
+    const rect = popup.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Berechne Offset vom Mausklick zum Popup-Zentrum
+    initialX = e.clientX - centerX;
+    initialY = e.clientY - centerY;
+    
+    isDragging = true;
+    popup.style.cursor = 'move';
+  }
+  
+  function handleMouseMove(e) {
+    if (isDragging) {
+      e.preventDefault();
+      
+      // Berechne neue Position basierend auf Mausposition minus initialem Offset
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+      
+      // Setze Position relativ zum Popup-Zentrum
+      popup.style.left = currentX + 'px';
+      popup.style.top = currentY + 'px';
+      popup.style.transform = 'translate(-50%, -50%)';
+    }
+  }
+  
+  function handleMouseUp() {
+    if (isDragging) {
+      // Speichere die aktuelle Position für den nächsten Drag
+      const rect = popup.getBoundingClientRect();
+      xOffset = rect.left + rect.width / 2 - window.innerWidth / 2;
+      yOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+    }
+    isDragging = false;
+    popup.style.cursor = '';
+  }
+  
+  // Reset position when popup is opened
+  window.resetQuotesPopupPosition = function() {
+    xOffset = 0;
+    yOffset = 0;
+    popup.style.left = '50%';
+    popup.style.top = '45%';
+    popup.style.transform = 'translate(-50%, -50%)';
+  };
+})();
+</script>
 
 <!-- Image Popup Modal -->
 <div id="imagePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 11000; justify-content: center; align-items: center;">
@@ -29773,9 +30282,38 @@ async function addKeywordToLecture() {
     return result;
   };
   
-  window.deleteQuote = async function(quoteId) {
-    const result = await MembersAPI.deleteQuote(quoteId);
+  window.deleteQuote = async function(quoteId, skipConfirm = false) {
+    if (!skipConfirm && !confirm('Zitat wirklich löschen?')) return { success: false, cancelled: true };
+    
+    // Prüfe, ob die ID eine UUID ist (Supabase) oder eine Timestamp-ID (lokale JSON-Datei)
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(quoteId);
+    
+    let result;
+    if (isUUID) {
+      // Neue Zitate (Supabase)
+      result = await MembersAPI.deleteQuote(quoteId);
+    } else {
+      // Alte Zitate (lokale JSON-Datei via Backend)
+      try {
+        const response = await fetch(`${API_BASE}/api/quotes/delete`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quoteId })
+        });
+        
+        if (!response.ok) throw new Error('Server-Fehler');
+        result = { success: true };
+      } catch (error) {
+        console.error('[QUOTES] Fehler beim Löschen (Backend):', error);
+        result = { success: false, error: error.message };
+      }
+    }
+    
     if (result.success) {
+      // Aktualisiere die Zitate-Anzeige im Tab
+      if (typeof loadQuotesForTab === 'function') {
+        await loadQuotesForTab();
+      }
       // Invalidiere Cache, damit Daten neu geladen werden
       if (typeof invalidateMembersCache === 'function') {
         invalidateMembersCache('quotes');
@@ -29783,6 +30321,9 @@ async function addKeywordToLecture() {
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('quotes');
       }
+    } else {
+      console.error('[QUOTES] Fehler beim Löschen:', result.error);
+      alert('Fehler beim Löschen: ' + (result.error || 'Unbekannter Fehler'));
     }
     return result;
   };
