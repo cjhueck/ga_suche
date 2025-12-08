@@ -13689,10 +13689,14 @@ app.post('/api/quotes/add', async (req, res) => {
       text: text,
       lectureId: lectureId,
       paragraphIndex: paragraphIndex,
-      date: date || new Date().toISOString(),
       addedAt: new Date().toISOString(),
       isActive: false // Standardmäßig nicht im Popup aktiv
     };
+    
+    // Füge Datum nur hinzu, wenn es vorhanden ist (nicht das aktuelle Datum als Fallback)
+    if (date) {
+      newQuote.date = date;
+    }
     
     quotesDB.quotes.push(newQuote);
     

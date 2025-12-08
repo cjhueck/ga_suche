@@ -28981,6 +28981,57 @@ async function addKeywordFromManagement() {
 // ============================================================================
 
 // Speichere neues Zitat aus dem Tab
+// Hilfsfunktion: Extrahiert das Datum des Vortrags im ISO-Format (YYYY-MM-DD) oder null
+function getLectureDateForQuote(lectureData) {
+  if (!lectureData) return null;
+  
+  let date = lectureData.date || lectureData.dateString || '';
+  
+  if (!date) return null;
+  
+  // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
+  if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+    return date;
+  }
+  
+  // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
+  const dateMatch = date.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+  if (dateMatch) {
+    const day = dateMatch[1].padStart(2, '0');
+    const monthNames = {
+      'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+      'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+      'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+    };
+    const month = monthNames[dateMatch[2].toLowerCase()];
+    const year = dateMatch[3];
+    if (month) {
+      return `${year}-${month}-${day}`;
+    }
+  }
+  
+  // Fallback: Versuche aus location oder fileName zu extrahieren
+  const locationDate = lectureData.location || lectureData.fileName || '';
+  if (locationDate) {
+    const locationMatch = locationDate.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+    if (locationMatch) {
+      const day = locationMatch[1].padStart(2, '0');
+      const monthNames = {
+        'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+        'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+        'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+      };
+      const month = monthNames[locationMatch[2].toLowerCase()];
+      const year = locationMatch[3];
+      if (month) {
+        return `${year}-${month}-${day}`;
+      }
+    }
+  }
+  
+  return null;
+}
+
 async function saveNewQuote() {
   const quoteText = document.getElementById('newQuoteText').value.trim();
   const statusDiv = document.getElementById('newQuoteStatus');
@@ -29000,15 +29051,24 @@ async function saveNewQuote() {
   statusDiv.textContent = 'Speichere Zitat...';
   
   try {
+    // Extrahiere Datum des Vortrags, falls vorhanden
+    const lectureDate = currentLectureData ? getLectureDateForQuote(currentLectureData) : null;
+    
+    const quoteData = {
+      text: quoteText,
+      lectureId: currentLectureData?.ID || 'manual',
+      paragraphIndex: 'manual'
+    };
+    
+    // Füge Datum nur hinzu, wenn es vorhanden ist
+    if (lectureDate) {
+      quoteData.date = lectureDate;
+    }
+    
     const response = await fetch(`${API_BASE}/api/quotes/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        text: quoteText,
-        lectureId: currentLectureData?.ID || 'manual',
-        paragraphIndex: 'manual',
-        date: new Date().toISOString()
-      })
+      body: JSON.stringify(quoteData)
     });
     
     if (!response.ok) {
@@ -29502,11 +29562,14 @@ function openSaveQuoteDialog(paragraphIndex, element) {
     quoteText = tempDiv.textContent.trim();
   }
   
+  // Extrahiere Datum des Vortrags, falls vorhanden
+  const lectureDate = getLectureDateForQuote(currentLectureData);
+  
   // Speichere Daten für später
   saveQuoteData = {
     lectureId: currentLectureData.ID,
     paragraphIndex: paragraphIndex,
-    date: currentLectureData.date || '',
+    date: lectureDate || null, // null statt leerem String wenn kein Datum vorhanden
     text: quoteText
   };
   
@@ -29573,11 +29636,14 @@ function openSaveQuoteDialogWithSelection(selectedText, paragraphIndex) {
     return;
   }
   
+  // Extrahiere Datum des Vortrags, falls vorhanden
+  const lectureDate = getLectureDateForQuote(currentLectureData);
+  
   // Speichere Daten für später
   saveQuoteData = {
     lectureId: currentLectureData.ID,
     paragraphIndex: paragraphIndex,
-    date: currentLectureData.date || '',
+    date: lectureDate || null, // null statt leerem String wenn kein Datum vorhanden
     text: selectedText
   };
   
@@ -29638,9 +29704,13 @@ async function confirmSaveQuote() {
       text: quoteText,
       lectureId: saveQuoteData.lectureId,
       paragraphIndex: saveQuoteData.paragraphIndex,
-      date: saveQuoteData.date,
       isActive: isActive
     };
+    
+    // Füge Datum nur hinzu, wenn es vorhanden ist
+    if (saveQuoteData.date) {
+      quoteData.date = saveQuoteData.date;
+    }
     
     const response = await fetch(`${API_BASE}/api/quotes/add`, {
       method: 'POST',
