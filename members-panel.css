@@ -471,7 +471,7 @@ a:hover .quote-bookmark-icon-header {
   color: var(--link-color);
   border: none;
   border-radius: 3px;
-  margin-right: 0.15rem;
+  margin-right: 0.05rem;
   font-size: 0.7rem;
 }
 
