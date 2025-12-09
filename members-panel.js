@@ -563,8 +563,8 @@ async function showMembersContent() {
       <div class="members-header-container">
         <div class="members-header">
           <div style="flex: 1;">
-            <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
-            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Unterstreichungen und Zitate per Rechtsklick speichern</div>
+            <h2 style="font-size: 1.4rem;"><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+            <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Textstellen per Rechtsklick speichern</div>
           </div>
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
@@ -572,8 +572,8 @@ async function showMembersContent() {
         <div class="members-tabs">
         <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
           <div style="display: flex; gap: 0.25rem; flex: 1;">
+            <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Anstreichungen</button>
             <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
-            <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
             <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
               <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                 <option value="">GA</option>
@@ -581,12 +581,12 @@ async function showMembersContent() {
             </div>
           </div>
           <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
-            <div class="keyword-filter-tab" style="flex: 1;">
+            <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
+            <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
               <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                 <option value="">Schlagwörter</option>
               </select>
             </div>
-            <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
             <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn" style="display: none;">
               Chat
               <span class="chat-badge" id="members-chat-badge" style="display: none;">0</span>
@@ -627,8 +627,8 @@ async function showMembersContent() {
         <div class="members-header-container">
           <div class="members-header">
             <div style="flex: 1;">
-              <h2><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
-              <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Unterstreichungen und Zitate per Rechtsklick speichern</div>
+              <h2 style="font-size: 1.4rem;"><a href="#" onclick="openMembersWindow(); return false;" style="color: inherit; text-decoration: none; cursor: pointer;">Mitgliederbereich</a></h2>
+              <div style="font-size: 0.75rem; color: var(--text-color); opacity: 0.7; margin-top: 0.25rem;">Textstellen per Rechtsklick speichern</div>
             </div>
             <button class="close-btn" onclick="closeMembersPanel()">×</button>
           </div>
@@ -636,8 +636,8 @@ async function showMembersContent() {
           <div class="members-tabs">
           <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
             <div style="display: flex; gap: 0.25rem; flex: 1;">
+              <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Anstreichungen</button>
               <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
-              <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
               <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
                 <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                   <option value="">GA</option>
@@ -645,12 +645,12 @@ async function showMembersContent() {
               </div>
             </div>
             <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
-              <div class="keyword-filter-tab" style="flex: 1;">
+              <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
+              <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
                 <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                   <option value="">Schlagwörter</option>
                 </select>
               </div>
-              <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
               <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2" style="display: none;">
                 Chat
                 <span class="chat-badge" id="members-chat-badge-2" style="display: none;">0</span>
@@ -958,17 +958,15 @@ function getHighlightColor(colorName) {
 }
 
 /**
- * Gibt die Hex-Farbe für eine Notiz-Farbe zurück
+ * Gibt die Hex-Farbe für eine Notiz-Farbe zurück (gleiche Farben wie Zitate/Unterstreichungen)
  */
 function getNoteColor(colorName) {
   const colors = {
-    'green': '#4CAF50',
     'blue': '#467886',
     'red': '#c62828',
-    'yellow': '#ffc107',
-    'purple': '#7B1FA2'
+    'yellow': '#ffc107'
   };
-  return colors[colorName] || colors['green'];
+  return colors[colorName] || colors['blue'];
 }
 
 /**
@@ -1426,6 +1424,133 @@ async function changeQuoteColor(quoteId, color) {
 }
 
 /**
+ * Zeigt das Kontextmenü zum Ändern der Notiz-Farbe
+ */
+function showNoteColorContextMenu(x, y, noteId) {
+  // Entferne vorheriges Menü falls vorhanden
+  const existingMenu = document.getElementById('members-note-context-menu');
+  if (existingMenu) {
+    existingMenu.remove();
+  }
+  
+  // Erstelle neues Menü
+  const menu = document.createElement('div');
+  menu.id = 'members-note-context-menu';
+  menu.className = 'members-highlight-context-menu';
+  menu.innerHTML = `
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'blue')" style="border-left: 3px solid #467886;">
+      <span class="highlight-context-menu-text">Blau</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'red')" style="border-left: 3px solid #c62828;">
+      <span class="highlight-context-menu-text">Rot</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'yellow')" style="border-left: 3px solid #ffc107;">
+      <span class="highlight-context-menu-text">Gelb</span>
+    </div>
+  `;
+  
+  document.body.appendChild(menu);
+  
+  // Positioniere Menü
+  menu.style.display = 'block';
+  menu.style.left = x + 'px';
+  menu.style.top = y + 'px';
+  
+  // Viewport-Grenzen prüfen
+  const menuRect = menu.getBoundingClientRect();
+  
+  // Rechts aus dem Viewport?
+  if (menuRect.right > window.innerWidth) {
+    menu.style.left = (window.innerWidth - menuRect.width - 10) + 'px';
+  }
+  
+  // Unten aus dem Viewport?
+  if (menuRect.bottom > window.innerHeight) {
+    menu.style.top = (window.innerHeight - menuRect.height - 10) + 'px';
+  }
+  
+  // Klick außerhalb schließt Menü
+  const closeMenu = (e) => {
+    if (!menu.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+      document.removeEventListener('contextmenu', closeMenu);
+    }
+  };
+  
+  // Warte kurz bevor Event-Listener hinzugefügt wird, damit onclick funktioniert
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('contextmenu', closeMenu);
+  }, 100);
+}
+
+/**
+ * Ändert die Farbe einer Notiz
+ */
+async function changeNoteColor(noteId, color) {
+  // Entferne Kontextmenü
+  const menu = document.getElementById('members-note-context-menu');
+  if (menu) {
+    menu.remove();
+  }
+  
+  try {
+    if (typeof updateNote !== 'function') {
+      alert('Fehler: updateNote Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-NOTES] updateNote nicht verfügbar');
+      return;
+    }
+    
+    // Hole aktuelle Notiz-Daten
+    const notesResult = await getNotes();
+    if (!notesResult.success) {
+      alert('Fehler beim Laden der Notiz');
+      return;
+    }
+    
+    const note = notesResult.data.find(n => n.id === noteId);
+    if (!note) {
+      alert('Notiz nicht gefunden');
+      return;
+    }
+    
+    // Aktualisiere nur die Farbe
+    const updateResult = await updateNote(noteId, note.title, note.content, note.is_public, note.tags, color);
+    
+    if (updateResult.success) {
+      // Aktualisiere Icon im Member Panel
+      const noteItem = document.querySelector(`.member-item[data-id="${noteId}"][data-type="note"]`);
+      if (noteItem) {
+        const iconElement = noteItem.querySelector('.note-bookmark-icon-header');
+        if (iconElement) {
+          const noteColorHex = getNoteColor(color);
+          iconElement.style.color = noteColorHex;
+        }
+      }
+      
+      // Aktualisiere Bookmark-Icon im Viewer
+      const noteColorHex = getNoteColor(color);
+      const bookmarkIndicator = document.querySelector(`.bookmark-note-indicator[data-note-id="${noteId}"]`);
+      if (bookmarkIndicator) {
+        bookmarkIndicator.style.color = noteColorHex;
+      }
+      
+      // Invalidiere Cache
+      invalidateMembersCache('notes');
+      
+      // Zeige Erfolgsmeldung
+      console.log('✓ Notiz-Farbe geändert');
+    } else {
+      alert('Fehler beim Ändern der Farbe: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Ändern der Notiz-Farbe:', error);
+    alert('Fehler beim Ändern der Farbe');
+  }
+}
+
+/**
  * Entfernt ein visuelles Zitat aus dem Text
  */
 function removeQuoteFromText(quoteId) {
@@ -1736,13 +1861,13 @@ function renderQuotesList(container, sortedData) {
               ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                 <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    <rect x="4" y="4" width="16" height="16"></rect>
                   </svg>
                 </span>
               </a>`
               : `<span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    <rect x="4" y="4" width="16" height="16"></rect>
                   </svg>
                 </span>`
             }
@@ -2139,15 +2264,22 @@ async function navigateToNoteFromMembersPanel(noteId, gaReference, paragraphId =
       return;
     }
     
-    // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:"
-    let searchText = note.content;
-    searchText = searchText.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
-    searchText = searchText.replace(/^["']\s*/, '').trim();
-    searchText = searchText.replace(/^\s+/, '');
+    // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" und Tags am Ende
+    let fullNoteText = note.content;
+    console.log('[MB-NOTE-NAV] Original Content:', fullNoteText.substring(0, 100));
     
-    // Nimm die ersten 50-100 Zeichen für die Suche (ausreichend für eindeutige Identifikation)
-    const searchLength = Math.min(100, searchText.length);
-    const searchTerm = searchText.substring(0, searchLength).trim();
+    fullNoteText = fullNoteText.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+    fullNoteText = fullNoteText.replace(/^["„"']\s*/g, '').trim(); // Entferne verschiedene Anführungszeichen am Anfang
+    fullNoteText = fullNoteText.replace(/["„"']\s*$/g, '').trim(); // Entferne verschiedene Anführungszeichen am Ende
+    fullNoteText = fullNoteText.replace(/\n\n\[\[GA\d+\]\]/g, ''); // Entferne GA-Referenzen am Ende
+    fullNoteText = fullNoteText.replace(/\n\n#\w+(\s+#\w+)*/g, ''); // Entferne Tags am Ende
+    fullNoteText = fullNoteText.replace(/^\s+/, '').trim();
+    
+    console.log('[MB-NOTE-NAV] Bereinigter Text:', fullNoteText.substring(0, 100));
+    
+    // Kurzer Suchtext für die Suche (erste 100 Zeichen)
+    const searchLength = Math.min(100, fullNoteText.length);
+    const searchTerm = fullNoteText.substring(0, searchLength).trim();
     
     if (!searchTerm || searchTerm.length < 10) {
       console.warn('[MB-NOTE-NAV] Suchtext zu kurz:', searchTerm);
@@ -2158,16 +2290,22 @@ async function navigateToNoteFromMembersPanel(noteId, gaReference, paragraphId =
       return;
     }
     
-    // Navigiere zum Vortrag und suche nach dem Text
+    // Navigiere zum Vortrag (ohne searchTerm, da wir Offset-Markierung verwenden)
     if (typeof navigateToLectureFromMembersPanel === 'function') {
       // Wenn paragraphId vorhanden ist, verwende normale Navigation
       if (paragraphId) {
-        await navigateToLectureFromMembersPanel(gaReference, paragraphId, null, null, false, searchTerm);
+        // Kein searchTerm übergeben - nur die Offset-Markierung verwenden
+        await navigateToLectureFromMembersPanel(gaReference, paragraphId, null, null, false, null);
+        // Markiere den gesamten Notiztext im Paragraph nach dem Laden
+        // Verwende die gespeicherten Offsets
+        const startOffset = note.text_start_offset;
+        const endOffset = note.text_end_offset;
+        setTimeout(() => markNoteTextByOffset(paragraphId, startOffset, endOffset, fullNoteText), 800);
       } else {
-        // Kein paragraphId: Suche im gesamten Vortrag nach dem Text
-        await navigateToLectureFromMembersPanel(gaReference, null, null, null, false, searchTerm);
+        // Kein paragraphId: Verwende Textsuche
+        await navigateToLectureFromMembersPanel(gaReference, null, null, null, false, null);
         // Nach dem Laden des Vortrags: Suche nach dem Text und scrolle dorthin
-        await findAndScrollToTextInLecture(searchTerm);
+        await findAndScrollToTextInLecture(searchTerm, fullNoteText);
       }
     } else {
       console.error('[MB-NOTE-NAV] navigateToLectureFromMembersPanel nicht verfügbar');
@@ -2186,13 +2324,16 @@ window.navigateToNoteFromMembersPanel = navigateToNoteFromMembersPanel;
 
 /**
  * Sucht nach Text im geladenen Vortrag und scrollt zur gefundenen Stelle
+ * @param searchText - Kurzer Text für die Suche (erste 100 Zeichen)
+ * @param fullText - Vollständiger Text zum Markieren (optional)
  */
-async function findAndScrollToTextInLecture(searchText) {
+async function findAndScrollToTextInLecture(searchText, fullText = null) {
   if (!searchText || !searchText.trim()) {
     return;
   }
   
   const cleanSearchText = searchText.trim();
+  const textToHighlight = fullText ? fullText.trim() : cleanSearchText;
   console.log('[NOTE-TEXT-SEARCH] Suche nach Text:', cleanSearchText.substring(0, 50) + '...');
   
   // Warte bis der Vortrag geladen ist
@@ -2229,24 +2370,24 @@ async function findAndScrollToTextInLecture(searchText) {
     }
     
     // Suche nach dem Text im gesamten Container
-    const fullText = searchContainer.textContent || '';
-    const textIndex = fullText.indexOf(cleanSearchText);
+    const containerText = searchContainer.textContent || '';
+    const textIndex = containerText.indexOf(cleanSearchText);
     
     if (textIndex === -1) {
       // Versuche mit kürzerem Text (erste 50 Zeichen)
       const shortText = cleanSearchText.substring(0, Math.min(50, cleanSearchText.length));
-      const shortIndex = fullText.indexOf(shortText);
+      const shortIndex = containerText.indexOf(shortText);
       
       if (shortIndex === -1) {
         console.warn('[NOTE-TEXT-SEARCH] Text nicht gefunden');
         return;
       }
       
-      // Text gefunden, scrolle zur Stelle
-      scrollToTextPosition(searchContainer, shortIndex, cleanSearchText);
+      // Text gefunden, scrolle zur Stelle und highlighte vollständigen Text
+      scrollToTextPosition(searchContainer, shortIndex, textToHighlight);
     } else {
-      // Text gefunden, scrolle zur Stelle
-      scrollToTextPosition(searchContainer, textIndex, cleanSearchText);
+      // Text gefunden, scrolle zur Stelle und highlighte vollständigen Text
+      scrollToTextPosition(searchContainer, textIndex, textToHighlight);
     }
   };
   
@@ -2329,12 +2470,212 @@ function scrollToTextPosition(container, textIndex, searchText) {
   mainContainer.scrollTop = Math.max(0, relativeTop);
   
   console.log('[NOTE-TEXT-SEARCH] Zu Textstelle gescrollt');
+}
+
+/**
+ * Markiert den Notiztext anhand von Start- und End-Offset im Paragraph
+ */
+function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText) {
+  console.log('[NOTE-MARK] Markiere Notiz ab Paragraph:', paragraphId);
+  console.log('[NOTE-MARK] Offsets:', startOffset, '-', endOffset);
+  console.log('[NOTE-MARK] noteText:', noteText?.substring(0, 100));
   
-  // Markiere den Text
-  if (searchText && typeof markSearchTermInParagraph === 'function') {
-    setTimeout(() => {
-      markSearchTermInParagraph(element, searchText);
-    }, 100);
+  if (!paragraphId) {
+    console.warn('[NOTE-MARK] Fehlende paragraphId');
+    return;
+  }
+  
+  // Finde den Start-Paragraph
+  const paraElement = document.getElementById(`para-${paragraphId}`);
+  if (!paraElement) {
+    console.warn('[NOTE-MARK] Paragraph nicht gefunden:', paragraphId);
+    return;
+  }
+  
+  // Finde den Content-Container
+  let contentContainer = document.getElementById('lecture-content') || 
+                         document.getElementById('text-content') ||
+                         document.querySelector('.lecture-content') ||
+                         document.querySelector('.text-content');
+  
+  if (!contentContainer) {
+    contentContainer = paraElement.closest('.lecture-content, .text-content, article, main') || paraElement.parentElement;
+  }
+  
+  // Entferne vorherige Notiz-Markierungen
+  const existingMarks = document.querySelectorAll('mark.note-highlight');
+  existingMarks.forEach(mark => {
+    const parent = mark.parentNode;
+    while (mark.firstChild) {
+      parent.insertBefore(mark.firstChild, mark);
+    }
+    parent.removeChild(mark);
+  });
+  if (contentContainer) contentContainer.normalize();
+  
+  // Suche den noteText direkt im DOM
+  try {
+    // Sammle alle Absätze ab dem Start-Paragraph
+    const allParagraphs = contentContainer.querySelectorAll('[id^="para-"]');
+    let startCollecting = false;
+    const relevantParagraphs = [];
+    
+    for (const para of allParagraphs) {
+      if (para.id === `para-${paragraphId}`) {
+        startCollecting = true;
+      }
+      if (startCollecting) {
+        relevantParagraphs.push(para);
+        // Sammle max 10 Absätze
+        if (relevantParagraphs.length >= 10) break;
+      }
+    }
+    
+    // Sammle alle Textknoten aus den relevanten Absätzen
+    const textNodes = [];
+    let charCount = 0;
+    for (const para of relevantParagraphs) {
+      const walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      while (node = walker.nextNode()) {
+        if (node.textContent.length > 0) {
+          textNodes.push({
+            node: node,
+            start: charCount,
+            end: charCount + node.textContent.length
+          });
+          charCount += node.textContent.length;
+        }
+      }
+    }
+    
+    // Baue den kombinierten Text
+    const combinedText = textNodes.map(n => n.node.textContent).join('');
+    console.log('[NOTE-MARK] Kombinierter Text Länge:', combinedText.length);
+    console.log('[NOTE-MARK] Kombinierter Text Anfang:', combinedText.substring(0, 100));
+    
+    let foundStart = -1;
+    let foundEnd = -1;
+    
+    // METHODE 1: Verwende gespeicherte Offsets wenn vorhanden
+    if (startOffset !== null && startOffset !== undefined && endOffset !== null && endOffset !== undefined) {
+      foundStart = startOffset;
+      foundEnd = endOffset;
+      console.log('[NOTE-MARK] Verwende gespeicherte Offsets:', foundStart, '-', foundEnd);
+    }
+    
+    // METHODE 2: Suche den noteText im kombinierten Text
+    if (noteText && noteText.length > 0) {
+      // Bereite den Suchtext vor
+      let searchText = noteText.trim();
+      
+      // Exakte Suche
+      let textFoundStart = combinedText.indexOf(searchText);
+      
+      if (textFoundStart === -1) {
+        // Versuche normalisierte Suche (mehrfache Leerzeichen zu einem)
+        const normalizedSearch = searchText.replace(/\s+/g, ' ').trim();
+        const normalizedCombined = combinedText.replace(/\s+/g, ' ');
+        const normalizedFoundStart = normalizedCombined.indexOf(normalizedSearch);
+        
+        if (normalizedFoundStart !== -1) {
+          // Mappe normalisierte Position zurück auf Original
+          let origPos = 0;
+          let normPos = 0;
+          for (let i = 0; i < combinedText.length; i++) {
+            if (normPos >= normalizedFoundStart) {
+              textFoundStart = i;
+              break;
+            }
+            if (/\s/.test(combinedText[i])) {
+              // Nur zählen wenn vorheriges Zeichen kein Whitespace war
+              if (i === 0 || !/\s/.test(combinedText[i-1])) {
+                normPos++;
+              }
+            } else {
+              normPos++;
+            }
+          }
+          console.log('[NOTE-MARK] Normalisierte Suche erfolgreich');
+        }
+      }
+      
+      // Wenn Textsuche erfolgreich, verwende diese Positionen
+      if (textFoundStart !== -1) {
+        foundStart = textFoundStart;
+        // End-Position: Suche im Original-Text
+        foundEnd = textFoundStart + searchText.length;
+        
+        // Korrigiere End-Position für normalisierte Texte
+        if (foundEnd > combinedText.length) {
+          foundEnd = combinedText.length;
+        }
+        
+        console.log('[NOTE-MARK] Textsuche erfolgreich:', foundStart, '-', foundEnd);
+      }
+    }
+    
+    if (foundStart === -1 || foundEnd === -1) {
+      console.warn('[NOTE-MARK] Keine gültige Position gefunden');
+      return;
+    }
+    
+    // Stelle sicher, dass End nicht kleiner als Start ist
+    if (foundEnd <= foundStart) {
+      foundEnd = foundStart + (noteText?.length || 100);
+    }
+    console.log('[NOTE-MARK] Finale Position:', foundStart, '-', foundEnd);
+    
+    // Finde und markiere alle betroffenen Textknoten
+    const nodesToMark = [];
+    
+    for (const nodeInfo of textNodes) {
+      // Prüfe Überlappung mit dem zu markierenden Bereich
+      if (nodeInfo.end > foundStart && nodeInfo.start < foundEnd) {
+        const markStart = Math.max(0, foundStart - nodeInfo.start);
+        const markEnd = Math.min(nodeInfo.node.textContent.length, foundEnd - nodeInfo.start);
+        
+        nodesToMark.push({ 
+          node: nodeInfo.node, 
+          start: markStart, 
+          end: markEnd 
+        });
+      }
+      
+      if (nodeInfo.end >= foundEnd) break;
+    }
+    
+    console.log('[NOTE-MARK] Knoten zu markieren:', nodesToMark.length);
+    
+    // Markiere rückwärts (um Offsets nicht zu verschieben)
+    for (let i = nodesToMark.length - 1; i >= 0; i--) {
+      const info = nodesToMark[i];
+      try {
+        const range = document.createRange();
+        range.setStart(info.node, info.start);
+        range.setEnd(info.node, info.end);
+        
+        const mark = document.createElement('mark');
+        mark.className = 'note-highlight';
+        
+        try {
+          range.surroundContents(mark);
+        } catch (e) {
+          const fragment = range.extractContents();
+          mark.appendChild(fragment);
+          range.insertNode(mark);
+        }
+      } catch (e) {
+        console.warn('[NOTE-MARK] Fehler:', e);
+      }
+    }
+    
+    if (nodesToMark.length > 0) {
+      console.log('[NOTE-MARK] ✓ Erfolgreich markiert');
+    }
+    
+  } catch (error) {
+    console.error('[NOTE-MARK] Fehler:', error);
   }
 }
 
@@ -3988,6 +4329,10 @@ async function loadSavedNotes() {
     const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
     const dateDisplay = lectureDate ? `, ${lectureDate}` : '';
     
+    // Hole Farbe der Notiz
+    const noteColor = note.marker_color || 'blue';
+    const noteColorHex = getNoteColor(noteColor);
+    
     // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
     let cleanedContent = note.content;
     // Entferne "Aus [[GA...]]:" oder "Aus [[GA...]] - Titel:" am Anfang (mit optionalen Leerzeichen)
@@ -4007,10 +4352,24 @@ async function loadSavedNotes() {
     const canNavigate = gaReference !== null;
     
     return `
-      <div class="member-item" data-id="${note.id}" data-type="note">
+      <div class="member-item" data-id="${note.id}" data-type="note" oncontextmenu="event.preventDefault(); showNoteColorContextMenu(event.clientX, event.clientY, '${note.id}'); return false;">
         <div style="flex: 1;">
           <div class="member-item-header">
             <div style="display: flex; align-items: center; gap: 0.25rem;">
+              ${canNavigate
+                ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                      </svg>
+                    </span>
+                  </a>`
+                : `<span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </span>`
+              }
               ${canNavigate
                 ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}${dateDisplay}</a></strong>`
                 : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
@@ -4069,7 +4428,8 @@ async function saveMemberNote() {
     .split(',')
     .map(kw => kw.trim())
     .filter(kw => kw.length > 0);
-  const markerColor = color || 'green';
+  // Verwende Farbe aus Kontextdaten (vom Context-Menü) falls vorhanden, sonst aus Dialog
+  const markerColor = (window.noteContextData && window.noteContextData.color) || color || 'blue';
   
   // Entferne Präfix "Aus [[GA001]]:" falls vorhanden (soll nicht gespeichert werden)
   let contentWithTags = finalContent;
@@ -4136,6 +4496,9 @@ async function saveMemberNote() {
  */
 function showNoteKeywordsDialog(content) {
   return new Promise((resolve) => {
+    // Hole vorausgewählte Farbe aus Kontextdaten (vom Context-Menü)
+    const preselectedColor = (window.noteContextData && window.noteContextData.color) || 'blue';
+    
     // Erstelle Dialog
     const dialog = document.createElement('div');
     dialog.className = 'keyword-dialog-overlay';
@@ -4144,6 +4507,11 @@ function showNoteKeywordsDialog(content) {
     let previewContent = content;
     previewContent = previewContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
     previewContent = previewContent.replace(/^["']\s*/, '').trim();
+    
+    // Bestimme welcher Button vorausgewählt ist
+    const isBlueSelected = preselectedColor === 'blue';
+    const isRedSelected = preselectedColor === 'red';
+    const isYellowSelected = preselectedColor === 'yellow';
     
     dialog.innerHTML = `
       <div class="keyword-dialog">
@@ -4157,11 +4525,9 @@ function showNoteKeywordsDialog(content) {
           <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
           <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
           <div class="note-color-selection" style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-            <button type="button" class="note-color-btn selected" data-color="green" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid #4CAF50; background-color: #4CAF50; cursor: pointer;" title="Grün"></button>
-            <button type="button" class="note-color-btn" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #467886; cursor: pointer;" title="Blau"></button>
-            <button type="button" class="note-color-btn" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #c62828; cursor: pointer;" title="Rot"></button>
-            <button type="button" class="note-color-btn" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
-            <button type="button" class="note-color-btn" data-color="purple" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #7B1FA2; cursor: pointer;" title="Lila"></button>
+            <button type="button" class="note-color-btn ${isBlueSelected ? 'selected' : ''}" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isBlueSelected ? '#467886' : 'transparent'}; background-color: #467886; cursor: pointer;" title="Blau"></button>
+            <button type="button" class="note-color-btn ${isRedSelected ? 'selected' : ''}" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isRedSelected ? '#c62828' : 'transparent'}; background-color: #c62828; cursor: pointer;" title="Rot"></button>
+            <button type="button" class="note-color-btn ${isYellowSelected ? 'selected' : ''}" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isYellowSelected ? '#ffc107' : 'transparent'}; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
           </div>
         </div>
         <div class="keyword-dialog-footer">
@@ -4174,7 +4540,7 @@ function showNoteKeywordsDialog(content) {
     document.body.appendChild(dialog);
     
     // Farbauswahl-Logik
-    let selectedColor = 'green';
+    let selectedColor = preselectedColor;
     const colorBtns = dialog.querySelectorAll('.note-color-btn');
     colorBtns.forEach(btn => {
       btn.addEventListener('click', () => {
@@ -4932,6 +5298,23 @@ async function deleteMemberNote(id) {
   
   const result = await deleteNote(id);
   if (result.success) {
+    // Entferne Bookmark-Icon im Main Viewer
+    const bookmarkIndicator = document.querySelector(`.bookmark-note-indicator[data-note-id="${id}"]`);
+    if (bookmarkIndicator) {
+      bookmarkIndicator.remove();
+      console.log('[MB-NOTES] Bookmark-Icon aus Main Viewer entfernt');
+    }
+    
+    // Entferne eventuelle Notiz-Markierungen im Text (Inhalt erhalten)
+    const noteHighlights = document.querySelectorAll('mark.note-highlight');
+    noteHighlights.forEach(mark => {
+      const parent = mark.parentNode;
+      while (mark.firstChild) {
+        parent.insertBefore(mark.firstChild, mark);
+      }
+      mark.remove();
+    });
+    
     await loadSavedNotes();
     // Aktualisiere MB falls offen und Notizen-Tab aktiv
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'notes') {
@@ -5105,25 +5488,42 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     
     // Sammle alle paragraph_ids für Notizen
     const noteParagraphIds = new Set();
+    const notesForLecture = [];
+    
     if (notesResult.success && notesResult.data) {
-      notesResult.data
-        .filter(n => {
-          // Prüfe ob Notiz zu diesem Vortrag gehört
-          if (!n.ga_references || !Array.isArray(n.ga_references)) return false;
-          return n.ga_references.some(ga => {
-            // Prüfe auf exakte Übereinstimmung oder Basis-GA
-            if (ga === lectureId) return true;
-            const baseMatch = ga.match(/^(GA\d{3})/i);
-            const lectureBase = lectureId.match(/^(GA\d{3})/i);
-            return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
-          });
-        })
-        .filter(n => n.paragraph_id)
-        .forEach(n => noteParagraphIds.add(n.paragraph_id));
+      console.log('[MB-NOTES] Alle Notizen:', notesResult.data.length, 'Lecture-ID:', lectureId);
+      
+      notesResult.data.forEach(n => {
+        // Prüfe ob Notiz zu diesem Vortrag gehört
+        if (!n.ga_references || !Array.isArray(n.ga_references)) {
+          console.log('[MB-NOTES] Notiz ohne ga_references:', n.id);
+          return;
+        }
+        
+        const matchesGA = n.ga_references.some(ga => {
+          // Prüfe auf exakte Übereinstimmung
+          if (ga === lectureId) return true;
+          // Prüfe auf Basis-GA Übereinstimmung (GA001 vs GA001/5)
+          const baseMatch = ga.match(/^(GA\d{3})/i);
+          const lectureBase = lectureId.match(/^(GA\d{3})/i);
+          return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
+        });
+        
+        if (matchesGA) {
+          console.log('[MB-NOTES] Notiz passt zu Lecture:', n.id, 'GA:', n.ga_references, 'ParagraphId:', n.paragraph_id);
+          notesForLecture.push(n);
+          if (n.paragraph_id) {
+            noteParagraphIds.add(n.paragraph_id);
+          }
+        }
+      });
+      
+      console.log('[MB-NOTES] Notizen für diesen Vortrag:', notesForLecture.length, 'Mit paragraph_id:', noteParagraphIds.size);
     }
     
     // Markiere alle Absätze mit Notiz-Icons
     noteParagraphIds.forEach(paraId => {
+      console.log('[MB-NOTES] Füge Icon hinzu für:', paraId);
       addBookmarkNoteIndicator(paraId, lectureId, notesResult);
     });
     
@@ -5187,8 +5587,13 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
 
 /**
  * Fügt ein Quote-Icon zu einem Absatz hinzu
+ * DEAKTIVIERT: Zitate werden nur noch durch senkrechte Linie markiert, nicht mehr durch Icons
  */
 function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesResult) {
+  // DEAKTIVIERT: Keine Icons mehr für Zitate im Main Viewer
+  // Zitate werden nur noch durch die senkrechte Linie markiert
+  return;
+  
   const paraElement = document.getElementById(`para-${paraId}`);
   if (!paraElement) return;
   
@@ -5240,7 +5645,7 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   indicator.title = 'Zitat vorhanden - Klick zum Öffnen';
   indicator.innerHTML = `
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      <rect x="4" y="4" width="16" height="16"></rect>
     </svg>
   `;
   indicator.onclick = (e) => {
@@ -5363,8 +5768,15 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
  * Fügt ein Notiz-Icon zu einem Absatz hinzu
  */
 function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
+  console.log('[MB-NOTES-ICON] Versuche Icon hinzuzufügen für paraId:', paraId);
+  
   const paraElement = document.getElementById(`para-${paraId}`);
-  if (!paraElement) return;
+  if (!paraElement) {
+    console.log('[MB-NOTES-ICON] Element para-' + paraId + ' nicht gefunden');
+    return;
+  }
+  
+  console.log('[MB-NOTES-ICON] Element gefunden:', paraElement.tagName, paraElement.id);
   
   // Prüfe ob Icon bereits vorhanden ist
   let targetElement = paraElement;
@@ -5372,19 +5784,24 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
   
   // Bei Büchern: para- IDs sind in versteckten Spans, finde das Parent-Element
   if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+    console.log('[MB-NOTES-ICON] Suche nach Parent-Element für verstecktes span');
     let parent = paraElement.parentElement;
     while (parent && parent !== document.body) {
       const tagName = parent.tagName.toLowerCase();
       if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
         targetElement = parent;
         existingIndicator = parent.querySelector('.bookmark-note-indicator');
+        console.log('[MB-NOTES-ICON] Parent gefunden:', tagName);
         break;
       }
       parent = parent.parentElement;
     }
   }
   
-  if (existingIndicator) return; // Bereits vorhanden
+  if (existingIndicator) {
+    console.log('[MB-NOTES-ICON] Icon bereits vorhanden');
+    return;
+  }
   
   // Prüfe ob Notiz vorhanden
   const notes = notesResult && notesResult.success ? notesResult.data.filter(n => {
@@ -5398,30 +5815,29 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
     return matchesGA && n.paragraph_id === paraId;
   }) : [];
   
-  if (notes.length === 0) return; // Keine Notiz vorhanden
+  console.log('[MB-NOTES-ICON] Passende Notizen:', notes.length);
+  
+  if (notes.length === 0) {
+    console.log('[MB-NOTES-ICON] Keine passende Notiz gefunden');
+    return;
+  }
   
   const firstNote = notes[0];
+  console.log('[MB-NOTES-ICON] Erstelle Icon für Notiz:', firstNote.id, 'Farbe:', firstNote.marker_color);
   
   // Erstelle Markierung - Notiz-Icon mit der Farbe der Notiz
-  const noteColor = firstNote.marker_color || 'green';
+  const noteColor = firstNote.marker_color || 'blue';
   const noteColorHex = getNoteColor(noteColor);
   const indicator = document.createElement('span');
   indicator.className = 'bookmark-note-indicator';
   indicator.setAttribute('data-para-id', paraId);
   indicator.setAttribute('data-note-id', firstNote.id);
   indicator.style.color = noteColorHex;
-  indicator.style.marginRight = '4px';
   indicator.style.cursor = 'pointer';
-  indicator.style.display = 'inline-block';
-  indicator.style.verticalAlign = 'middle';
   indicator.title = 'Notiz vorhanden - Klick zum Öffnen';
   indicator.innerHTML = `
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-      <polyline points="14 2 14 8 20 8"></polyline>
-      <line x1="16" y1="13" x2="8" y2="13"></line>
-      <line x1="16" y1="17" x2="8" y2="17"></line>
-      <polyline points="10 9 9 9 8 9"></polyline>
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
     </svg>
   `;
   indicator.onclick = (e) => {
@@ -5435,15 +5851,113 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
   // Stelle sicher, dass targetElement relativ positioniert ist
   targetElement.style.position = 'relative';
   
-  // Füge am Anfang des Absatzes hinzu (nach eventuellem Quote-Icon)
-  const quoteIndicator = targetElement.querySelector('.bookmark-quote-indicator');
-  if (quoteIndicator && quoteIndicator.nextSibling) {
-    targetElement.insertBefore(indicator, quoteIndicator.nextSibling);
-  } else if (quoteIndicator) {
-    targetElement.appendChild(indicator);
-  } else {
-    targetElement.insertBefore(indicator, targetElement.firstChild);
+  // Positioniere das Icon absolut links neben dem Absatz (wie bei Zitaten)
+  const textStartOffset = firstNote.text_start_offset;
+  
+  if (textStartOffset !== null && textStartOffset !== undefined) {
+    try {
+      // Hole den Text ohne Highlights für die Berechnung
+      const elementTextWithoutHighlights = typeof getTextContentWithoutHighlights === 'function' 
+        ? getTextContentWithoutHighlights(targetElement) 
+        : targetElement.textContent;
+      
+      if (elementTextWithoutHighlights && elementTextWithoutHighlights.length > textStartOffset) {
+        // Erstelle einen Range, um die Position zu finden
+        const range = document.createRange();
+        const walker = document.createTreeWalker(
+          targetElement,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let currentOffset = 0;
+        let targetNode = null;
+        let targetOffset = 0;
+        let node;
+        
+        // Finde den Text-Knoten, der den text_start_offset enthält
+        while (node = walker.nextNode()) {
+          const nodeLength = node.textContent.length;
+          if (currentOffset + nodeLength > textStartOffset) {
+            targetNode = node;
+            targetOffset = textStartOffset - currentOffset;
+            break;
+          }
+          currentOffset += nodeLength;
+        }
+        
+        if (targetNode) {
+          try {
+            // Setze Range auf die Position des Notiz-Beginns
+            range.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            range.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            
+            // Erstelle einen unsichtbaren Marker-Span an dieser Position
+            const marker = document.createElement('span');
+            marker.style.display = 'inline';
+            marker.style.width = '0';
+            marker.style.height = '0';
+            marker.style.visibility = 'hidden';
+            marker.style.pointerEvents = 'none';
+            marker.setAttribute('data-note-marker', 'true');
+            
+            // Füge Marker ein
+            range.insertNode(marker);
+            
+            // Warte kurz, damit der DOM aktualisiert ist
+            requestAnimationFrame(() => {
+              try {
+                // Hole Positionen
+                const markerRect = marker.getBoundingClientRect();
+                const targetRect = targetElement.getBoundingClientRect();
+                const relativeTop = markerRect.top - targetRect.top;
+                
+                // Setze Position des Icons absolut links neben dem Absatz
+                indicator.style.position = 'absolute';
+                indicator.style.left = '-20px';
+                indicator.style.top = relativeTop + 'px';
+                
+                // Füge Icon zum targetElement hinzu
+                targetElement.appendChild(indicator);
+                
+                // Entferne Marker
+                setTimeout(() => {
+                  if (marker.parentNode) {
+                    marker.parentNode.removeChild(marker);
+                  }
+                }, 100);
+                
+                console.log('[NOTE-INDICATOR] Icon auf Höhe des Notiz-Beginns positioniert:', textStartOffset, 'top:', relativeTop);
+              } catch (e) {
+                console.warn('[NOTE-INDICATOR] Fehler bei Icon-Positionierung:', e);
+                if (marker.parentNode) {
+                  marker.parentNode.removeChild(marker);
+                }
+                // Fallback: Position oben links
+                indicator.style.position = 'absolute';
+                indicator.style.left = '-20px';
+                indicator.style.top = '0px';
+                targetElement.appendChild(indicator);
+              }
+            });
+            
+            return;
+          } catch (e) {
+            console.warn('[NOTE-INDICATOR] Fehler bei Range-Positionierung:', e);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[NOTE-INDICATOR] Fehler bei Text-Offset-Berechnung:', e);
+    }
   }
+  
+  // Fallback: Position oben links neben dem Absatz
+  indicator.style.position = 'absolute';
+  indicator.style.left = '-20px';
+  indicator.style.top = '0px';
+  targetElement.appendChild(indicator);
 }
 
 /**
@@ -5463,7 +5977,7 @@ async function jumpToNoteById(noteId) {
       await switchMembersTab('notes');
     }
     
-    // Warte kurz, dann scrolle zum Item
+    // Warte kurz, dann scrolle zum Item - mehrere Versuche für robustere Navigation
     let scrollAttempts = 0;
     const maxScrollAttempts = 10;
     
@@ -5471,27 +5985,51 @@ async function jumpToNoteById(noteId) {
       scrollAttempts++;
       const targetItem = document.querySelector(`.member-item[data-id="${noteId}"]`);
       if (targetItem) {
+        // Scrolle nur den Content-Bereich, nicht das gesamte Panel
         const membersContent = document.querySelector('.members-content');
         if (membersContent) {
+          // Berechne Position relativ zum scrollbaren Container
           const containerRect = membersContent.getBoundingClientRect();
           const itemRect = targetItem.getBoundingClientRect();
+          
+          // Berechne die relative Position: Item-Position minus Container-Position plus aktueller Scroll
           const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+          
+          // Scrolle so, dass das Item oben erscheint (mit etwas Abstand)
           membersContent.scrollTo({
-            top: relativeTop - 50,
+            top: Math.max(0, relativeTop - 20), // 20px Abstand oben
             behavior: 'smooth'
           });
+        } else {
+          // Fallback: Nur Content scrollen, nicht das gesamte Panel
+          const membersTabContent = document.getElementById('members-tab-content');
+          if (membersTabContent) {
+            const containerRect = membersTabContent.getBoundingClientRect();
+            const itemRect = targetItem.getBoundingClientRect();
+            const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
+            
+            membersTabContent.scrollTo({
+              top: Math.max(0, relativeTop - 20),
+              behavior: 'smooth'
+            });
+          }
         }
-        // Highlight kurz
-        targetItem.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+        // Highlighte kurz (gleiche CSS-Klasse wie bei Zitaten)
+        targetItem.classList.add('member-item-highlighted');
         setTimeout(() => {
-          targetItem.style.backgroundColor = '';
+          targetItem.classList.remove('member-item-highlighted');
         }, 2000);
+        return; // Erfolgreich gescrollt
       } else if (scrollAttempts < maxScrollAttempts) {
-        setTimeout(tryScrollToNote, 200);
+        // Item noch nicht gefunden, versuche es erneut
+        setTimeout(() => tryScrollToNote(), 200 + (scrollAttempts * 50));
+      } else {
+        console.warn('[NOTE-JUMP] Notiz mit ID', noteId, 'nicht gefunden nach', maxScrollAttempts, 'Versuchen');
       }
     };
     
-    setTimeout(tryScrollToNote, 300);
+    // Starte den ersten Versuch
+    setTimeout(() => tryScrollToNote(), 500);
   } catch (error) {
     console.error('[MB-NOTE-JUMP] Fehler:', error);
   }
@@ -8419,6 +8957,9 @@ if (typeof document !== 'undefined') {
   }
 }
 window.switchMembersTab = switchMembersTab;
+window.loadSavedNotes = loadSavedNotes;
+window.addBookmarkNoteIndicator = addBookmarkNoteIndicator;
+window.getNoteColor = getNoteColor;
 window.handleMembersLogin = handleMembersLogin;
 window.handleMembersRegister = handleMembersRegister;
 window.showMembersLogin = showMembersLogin;
@@ -8457,6 +8998,8 @@ window.addBookmarkIconsToExistingQuotes = addBookmarkIconsToExistingQuotes;
 window.loadMembersTab = loadMembersTab;
 window.changeHighlightColor = changeHighlightColor;
 window.changeQuoteColor = changeQuoteColor;
+window.showNoteColorContextMenu = showNoteColorContextMenu;
+window.changeNoteColor = changeNoteColor;
 
 /**
  * Invalidiert den Cache für Zitate und/oder Unterstreichungen
