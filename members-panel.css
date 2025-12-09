@@ -998,7 +998,7 @@ span[data-highlight="true"],
 /* Senkrechte Linie links neben dem Absatz */
 .member-quote-vertical-line {
   position: absolute;
-  left: -5px;
+  right: -5px;
   width: 1.5px;
   background-color: #467886;
   cursor: pointer;

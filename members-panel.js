@@ -6677,7 +6677,8 @@ function createQuoteVerticalLine(targetElement, range, quote) {
       existingLine.style.top = `${topOffset}px`;
       existingLine.style.height = `${Math.max(lineHeight, 1)}px`;
       existingLine.style.backgroundColor = quoteColorHex;
-      existingLine.style.left = '-5px';
+      existingLine.style.right = '-5px';
+      existingLine.style.left = 'auto';
       existingLine.style.width = '1.5px';
       existingLine.setAttribute('data-quote-color', quoteColor);
       return existingLine;
@@ -6690,7 +6691,7 @@ function createQuoteVerticalLine(targetElement, range, quote) {
     lineElement.setAttribute('data-quote', 'true');
     lineElement.setAttribute('data-quote-color', quoteColor);
     lineElement.style.position = 'absolute';
-    lineElement.style.left = '-5px';
+    lineElement.style.right = '-5px';
     lineElement.style.top = `${topOffset}px`;
     lineElement.style.width = '1.5px';
     lineElement.style.height = `${Math.max(lineHeight, 1)}px`;
