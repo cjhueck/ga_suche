@@ -572,14 +572,13 @@ async function showMembersContent() {
         <div class="members-tabs">
         <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
           <div style="display: flex; gap: 0.25rem; flex: 1;">
-            <button class="members-tab ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
+            <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
             <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
             <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
               <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                 <option value="">GA</option>
               </select>
             </div>
-            <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
           </div>
           <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
             <div class="keyword-filter-tab" style="flex: 1;">
@@ -587,7 +586,8 @@ async function showMembersContent() {
                 <option value="">Schlagwörter</option>
               </select>
             </div>
-            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn">
+            <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
+            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn" style="display: none;">
               Chat
               <span class="chat-badge" id="members-chat-badge" style="display: none;">0</span>
             </button>
@@ -636,14 +636,13 @@ async function showMembersContent() {
           <div class="members-tabs">
           <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
             <div style="display: flex; gap: 0.25rem; flex: 1;">
-              <button class="members-tab ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
+              <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
               <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Zitate</button>
               <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
                 <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                   <option value="">GA</option>
                 </select>
               </div>
-              <button class="members-tab ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
             </div>
             <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
               <div class="keyword-filter-tab" style="flex: 1;">
@@ -651,7 +650,8 @@ async function showMembersContent() {
                   <option value="">Schlagwörter</option>
                 </select>
               </div>
-              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2">
+              <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')">Notizen</button>
+              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2" style="display: none;">
                 Chat
                 <span class="chat-badge" id="members-chat-badge-2" style="display: none;">0</span>
               </button>
@@ -774,8 +774,8 @@ async function switchMembersTab(tabName, preserveKeyword = false) {
     keywordSelect.value = '';
   }
   
-  // GA-Filter zurücksetzen beim Wechsel zwischen Unterstreichungen und Zitate
-  if (tabName === 'highlights' || tabName === 'quotes') {
+  // GA-Filter zurücksetzen beim Wechsel zwischen Unterstreichungen, Zitate und Notizen
+  if (tabName === 'highlights' || tabName === 'quotes' || tabName === 'notes') {
     const gaFilterSelect = document.getElementById('ga-filter-select');
     if (gaFilterSelect) {
       gaFilterSelect.value = '';
@@ -958,6 +958,20 @@ function getHighlightColor(colorName) {
 }
 
 /**
+ * Gibt die Hex-Farbe für eine Notiz-Farbe zurück
+ */
+function getNoteColor(colorName) {
+  const colors = {
+    'green': '#4CAF50',
+    'blue': '#467886',
+    'red': '#c62828',
+    'yellow': '#ffc107',
+    'purple': '#7B1FA2'
+  };
+  return colors[colorName] || colors['green'];
+}
+
+/**
  * Highlights Tab (Unterstreichungen)
  */
 async function loadHighlightsTab(container) {
@@ -1084,7 +1098,7 @@ function renderHighlightsList(container, sortedData) {
             : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
           }
           ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
-          ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+          ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
           <div class="member-item-actions">
             <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1433,6 +1447,28 @@ function removeQuoteFromText(quoteId) {
     console.log(`[REMOVE-QUOTE] Gefunden: ${quoteElements.length} Element(e)`);
     
     quoteElements.forEach(element => {
+      // Prüfe ob es eine senkrechte Linie ist
+      if (element.classList.contains('member-quote-vertical-line')) {
+        element.parentNode?.removeChild(element);
+        console.log(`[REMOVE-QUOTE] Senkrechte Linie entfernt`);
+        return;
+      }
+      
+      // Prüfe ob es ein klickbarer Text-Link ist
+      if (element.classList.contains('quote-text-link')) {
+        // Ersetze Span durch seinen Inhalt
+        const parent = element.parentNode;
+        if (parent) {
+          while (element.firstChild) {
+            parent.insertBefore(element.firstChild, element);
+          }
+          parent.removeChild(element);
+          parent.normalize();
+        }
+        console.log(`[REMOVE-QUOTE] Text-Link entfernt`);
+        return;
+      }
+      
       // Prüfe ob es ein Overlay-Marker ist (unsichtbar)
       if (element.getAttribute('data-quote-overlay-marker') === 'true') {
         // Einfach entfernen
@@ -1722,7 +1758,7 @@ function renderQuotesList(container, sortedData) {
           : `<div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
         }
         ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
-        ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+        ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
         <div class="member-item-actions">
           <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2070,6 +2106,237 @@ async function navigateToQuoteById(quoteId) {
 
 // Expose für onclick
 window.navigateToQuoteById = navigateToQuoteById;
+
+/**
+ * Navigiere zu Notiz aus Members Panel
+ * Ruft navigateToLectureFromMembersPanel auf, falls GA-Referenz vorhanden ist
+ */
+async function navigateToNoteFromMembersPanel(noteId, gaReference, paragraphId = null, textStartOffset = null, textEndOffset = null) {
+  if (!gaReference) {
+    console.warn('[MB-NOTE-NAV] Keine GA-Referenz für Notiz:', noteId);
+    return;
+  }
+  
+  // Hole Notiz-Daten für Textsuche
+  try {
+    const result = await getNotes();
+    if (!result.success) {
+      console.error('[MB-NOTE-NAV] Fehler beim Laden der Notiz');
+      // Fallback: Verwende normale Navigation
+      if (typeof navigateToLectureFromMembersPanel === 'function') {
+        await navigateToLectureFromMembersPanel(gaReference, paragraphId, textStartOffset, textEndOffset, false);
+      }
+      return;
+    }
+    
+    const note = result.data.find(n => n.id === noteId);
+    if (!note || !note.content) {
+      console.warn('[MB-NOTE-NAV] Notiz nicht gefunden oder kein Content');
+      // Fallback: Verwende normale Navigation
+      if (typeof navigateToLectureFromMembersPanel === 'function') {
+        await navigateToLectureFromMembersPanel(gaReference, paragraphId, textStartOffset, textEndOffset, false);
+      }
+      return;
+    }
+    
+    // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:"
+    let searchText = note.content;
+    searchText = searchText.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+    searchText = searchText.replace(/^["']\s*/, '').trim();
+    searchText = searchText.replace(/^\s+/, '');
+    
+    // Nimm die ersten 50-100 Zeichen für die Suche (ausreichend für eindeutige Identifikation)
+    const searchLength = Math.min(100, searchText.length);
+    const searchTerm = searchText.substring(0, searchLength).trim();
+    
+    if (!searchTerm || searchTerm.length < 10) {
+      console.warn('[MB-NOTE-NAV] Suchtext zu kurz:', searchTerm);
+      // Fallback: Verwende normale Navigation
+      if (typeof navigateToLectureFromMembersPanel === 'function') {
+        await navigateToLectureFromMembersPanel(gaReference, paragraphId, textStartOffset, textEndOffset, false);
+      }
+      return;
+    }
+    
+    // Navigiere zum Vortrag und suche nach dem Text
+    if (typeof navigateToLectureFromMembersPanel === 'function') {
+      // Wenn paragraphId vorhanden ist, verwende normale Navigation
+      if (paragraphId) {
+        await navigateToLectureFromMembersPanel(gaReference, paragraphId, null, null, false, searchTerm);
+      } else {
+        // Kein paragraphId: Suche im gesamten Vortrag nach dem Text
+        await navigateToLectureFromMembersPanel(gaReference, null, null, null, false, searchTerm);
+        // Nach dem Laden des Vortrags: Suche nach dem Text und scrolle dorthin
+        await findAndScrollToTextInLecture(searchTerm);
+      }
+    } else {
+      console.error('[MB-NOTE-NAV] navigateToLectureFromMembersPanel nicht verfügbar');
+    }
+  } catch (error) {
+    console.error('[MB-NOTE-NAV] Fehler bei Navigation:', error);
+    // Fallback: Verwende normale Navigation
+    if (typeof navigateToLectureFromMembersPanel === 'function') {
+      await navigateToLectureFromMembersPanel(gaReference, paragraphId, textStartOffset, textEndOffset, false);
+    }
+  }
+}
+
+// Expose für onclick
+window.navigateToNoteFromMembersPanel = navigateToNoteFromMembersPanel;
+
+/**
+ * Sucht nach Text im geladenen Vortrag und scrollt zur gefundenen Stelle
+ */
+async function findAndScrollToTextInLecture(searchText) {
+  if (!searchText || !searchText.trim()) {
+    return;
+  }
+  
+  const cleanSearchText = searchText.trim();
+  console.log('[NOTE-TEXT-SEARCH] Suche nach Text:', cleanSearchText.substring(0, 50) + '...');
+  
+  // Warte bis der Vortrag geladen ist
+  let attempts = 0;
+  const maxAttempts = 50;
+  
+  const tryFindText = () => {
+    attempts++;
+    
+    const mainContainer = document.getElementById('main');
+    if (!mainContainer) {
+      if (attempts < maxAttempts) {
+        setTimeout(() => requestAnimationFrame(tryFindText), 100);
+      }
+      return;
+    }
+    
+    // Suche im Textbereich (book-content oder lecture-content)
+    let searchContainer = mainContainer.querySelector('.book-content') || 
+                          mainContainer.querySelector('#book-content') ||
+                          mainContainer.querySelector('.lecture-content') ||
+                          mainContainer.querySelector('#lecture-content');
+    
+    if (!searchContainer) {
+      searchContainer = mainContainer;
+    }
+    
+    // Prüfe ob Text geladen ist
+    if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
+      if (attempts < maxAttempts) {
+        setTimeout(() => requestAnimationFrame(tryFindText), 100);
+      }
+      return;
+    }
+    
+    // Suche nach dem Text im gesamten Container
+    const fullText = searchContainer.textContent || '';
+    const textIndex = fullText.indexOf(cleanSearchText);
+    
+    if (textIndex === -1) {
+      // Versuche mit kürzerem Text (erste 50 Zeichen)
+      const shortText = cleanSearchText.substring(0, Math.min(50, cleanSearchText.length));
+      const shortIndex = fullText.indexOf(shortText);
+      
+      if (shortIndex === -1) {
+        console.warn('[NOTE-TEXT-SEARCH] Text nicht gefunden');
+        return;
+      }
+      
+      // Text gefunden, scrolle zur Stelle
+      scrollToTextPosition(searchContainer, shortIndex, cleanSearchText);
+    } else {
+      // Text gefunden, scrolle zur Stelle
+      scrollToTextPosition(searchContainer, textIndex, cleanSearchText);
+    }
+  };
+  
+  // Starte Suche nach kurzer Verzögerung
+  setTimeout(() => {
+    requestAnimationFrame(tryFindText);
+  }, 500);
+}
+
+/**
+ * Scrollt zur Textposition im Container
+ */
+function scrollToTextPosition(container, textIndex, searchText) {
+  const mainContainer = document.getElementById('main');
+  if (!mainContainer || !container) {
+    return;
+  }
+  
+  // Erstelle einen Range, um die Position zu finden
+  const range = document.createRange();
+  let textNode = null;
+  let charCount = 0;
+  
+  // Durchlaufe alle Textknoten im Container
+  const walker = document.createTreeWalker(
+    container,
+    NodeFilter.SHOW_TEXT,
+    null,
+    false
+  );
+  
+  let node;
+  while (node = walker.nextNode()) {
+    const nodeLength = node.textContent.length;
+    if (charCount + nodeLength >= textIndex) {
+      textNode = node;
+      break;
+    }
+    charCount += nodeLength;
+  }
+  
+  if (!textNode) {
+    console.warn('[NOTE-TEXT-SEARCH] Textknoten nicht gefunden');
+    return;
+  }
+  
+  // Setze Range auf die gefundene Position
+  const offsetInNode = textIndex - charCount;
+  range.setStart(textNode, Math.min(offsetInNode, textNode.textContent.length));
+  range.setEnd(textNode, Math.min(offsetInNode, textNode.textContent.length));
+  
+  // Finde das umschließende Element (Paragraph oder ähnliches)
+  let element = range.commonAncestorContainer;
+  if (element.nodeType === Node.TEXT_NODE) {
+    element = element.parentElement;
+  }
+  
+  // Suche nach einem Block-Element (p, div, etc.)
+  while (element && element !== container) {
+    if (element.tagName === 'P' || element.tagName === 'DIV' || element.classList.contains('paragraph')) {
+      break;
+    }
+    element = element.parentElement;
+  }
+  
+  if (!element || element === container) {
+    element = textNode.parentElement;
+  }
+  
+  // Scrolle zum Element
+  const elementRect = element.getBoundingClientRect();
+  const mainRect = mainContainer.getBoundingClientRect();
+  const header = document.getElementById('viewer-header');
+  const headerHeight = header ? header.offsetHeight + 5 : 5;
+  
+  const viewportHeight = mainRect.height - headerHeight;
+  const upperQuarterOffset = Math.round(viewportHeight * 0.02);
+  
+  const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
+  mainContainer.scrollTop = Math.max(0, relativeTop);
+  
+  console.log('[NOTE-TEXT-SEARCH] Zu Textstelle gescrollt');
+  
+  // Markiere den Text
+  if (searchText && typeof markSearchTermInParagraph === 'function') {
+    setTimeout(() => {
+      markSearchTermInParagraph(element, searchText);
+    }, 100);
+  }
+}
 
 /**
  * Navigiere zu Vortrag oder Buch aus Members Panel (behält Panel offen)
@@ -3650,17 +3917,26 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
 /**
  * Notes Tab
  */
-function loadNotesTab(container) {
-  updateKeywordFilterDropdown([]); // Keine Keywords für Notes
+async function loadNotesTab(container) {
+  // Lade alle Keywords aus Notes, Quotes und Highlights für das Dropdown
+  updateKeywordFilterDropdownWithAllKeywords();
+  
+  // Lade Notizen für GA-Dropdown
+  const notesResult = await getNotes();
+  if (notesResult.success && notesResult.data) {
+    // Sammle alle GA-Nummern aus Notizen
+    const gaNumbers = [];
+    notesResult.data.forEach(note => {
+      if (note.ga_references && Array.isArray(note.ga_references)) {
+        note.ga_references.forEach(ga => gaNumbers.push(ga));
+      }
+    });
+    updateGAFilterDropdown(gaNumbers);
+  }
   
   container.innerHTML = `
     <div class="notes-editor">
-      <textarea id="members-note-content" placeholder="Schreibe deine Notiz hier...
-
-Verwende:
-- [[Wiki Links]] für Verknüpfungen
-- #Tags für Kategorien
-- GA123/4 für GA-Referenzen"></textarea>
+      <textarea id="members-note-content" placeholder="Schreiben Sie Ihre Notiz hier..."></textarea>
       <button class="primary-btn" onclick="saveMemberNote()">Notiz speichern</button>
       <div id="notes-list"></div>
     </div>
@@ -3673,22 +3949,101 @@ async function loadSavedNotes() {
   const result = await getNotes();
   const list = document.getElementById('notes-list');
   
+  // Falls das notes-list Element nicht existiert (z.B. bei gefilterter Ansicht), nichts tun
+  if (!list) {
+    console.log('[MB-NOTES] notes-list Element nicht gefunden, überspringe loadSavedNotes');
+    return;
+  }
+  
   if (!result.success || result.data.length === 0) {
     list.innerHTML = '<div class="empty-state" style="margin-top: 1rem;">Noch keine Notizen</div>';
     return;
   }
   
-  const html = result.data.map(note => `
-    <div class="member-item">
-      <div class="member-item-header">
-        <strong>${note.title || 'Unbenannte Notiz'}</strong>
-        <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
+  // Filtere nach GA-Nummer falls Filter aktiv
+  let filteredNotes = result.data;
+  if (selectedGAFilter) {
+    filteredNotes = result.data.filter(note => {
+      if (!note.ga_references || !Array.isArray(note.ga_references)) return false;
+      return note.ga_references.some(ga => {
+        const baseMatch = ga.match(/^(GA\d{3})/i);
+        return baseMatch && baseMatch[1].toUpperCase() === selectedGAFilter.toUpperCase();
+      });
+    });
+  }
+  
+  if (filteredNotes.length === 0) {
+    list.innerHTML = `<div class="empty-state" style="margin-top: 1rem;">Keine Notizen${selectedGAFilter ? ` für ${selectedGAFilter}` : ''}</div>`;
+    return;
+  }
+  
+  const html = filteredNotes.map(note => {
+    // Extrahiere erste GA-Referenz falls vorhanden
+    const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
+    const paragraphId = note.paragraph_id || null;
+    const textStartOffset = note.text_start_offset !== null && note.text_start_offset !== undefined ? note.text_start_offset : null;
+    const textEndOffset = note.text_end_offset !== null && note.text_end_offset !== undefined ? note.text_end_offset : null;
+    
+    // Hole Vortragsdatum falls vorhanden
+    const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
+    const dateDisplay = lectureDate ? `, ${lectureDate}` : '';
+    
+    // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
+    let cleanedContent = note.content;
+    // Entferne "Aus [[GA...]]:" oder "Aus [[GA...]] - Titel:" am Anfang (mit optionalen Leerzeichen)
+    cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+    // Entferne auch Varianten wie "Aus [[GA...]] - " oder "Aus [[GA...]]: "
+    cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+    // Entferne führende Anführungszeichen und Leerzeichen
+    cleanedContent = cleanedContent.replace(/^["']\s*/, '').trim();
+    // Entferne auch mehrfache Leerzeichen am Anfang
+    cleanedContent = cleanedContent.replace(/^\s+/, '');
+    
+    // Text auf zwei Zeilen begrenzen (ca. 150 Zeichen)
+    const contentPreview = cleanedContent.substring(0, 150);
+    const hasMore = cleanedContent.length > 150;
+    
+    // Prüfe ob Navigation möglich ist (mindestens GA-Referenz vorhanden)
+    const canNavigate = gaReference !== null;
+    
+    return `
+      <div class="member-item" data-id="${note.id}" data-type="note">
+        <div style="flex: 1;">
+          <div class="member-item-header">
+            <div style="display: flex; align-items: center; gap: 0.25rem;">
+              ${canNavigate
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}${dateDisplay}</a></strong>`
+                : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
+              }
+            </div>
+            <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
+          </div>
+          ${canNavigate
+            ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+            : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+          }
+          ${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? `<div class="member-item-tags">${note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+        </div>
+        <div class="member-item-actions">
+          <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+          <button class="delete-btn" onclick="deleteMemberNote('${note.id}')" title="Löschen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="member-item-text">${note.content.substring(0, 100)}${note.content.length > 100 ? '...' : ''}</div>
-      ${note.tags.length > 0 ? `<div class="member-item-tags">${note.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
-      <button class="delete-btn" onclick="deleteMemberNote('${note.id}')">🗑️</button>
-    </div>
-  `).join('');
+    `;
+  }).join('');
   
   list.innerHTML = html;
 }
@@ -3701,10 +4056,68 @@ async function saveMemberNote() {
     return;
   }
   
-  const title = content.split('\n')[0].substring(0, 50);
-  const result = await createNote(title, content, false);
+  // Öffne Dialog für Keywords
+  const dialogResult = await showNoteKeywordsDialog(content);
+  
+  if (dialogResult === null) {
+    // Benutzer hat abgebrochen
+    return;
+  }
+  
+  const { keywords, content: finalContent, color } = dialogResult;
+  const tags = keywords
+    .split(',')
+    .map(kw => kw.trim())
+    .filter(kw => kw.length > 0);
+  const markerColor = color || 'green';
+  
+  // Entferne Präfix "Aus [[GA001]]:" falls vorhanden (soll nicht gespeichert werden)
+  let contentWithTags = finalContent;
+  contentWithTags = contentWithTags.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
+  
+  // Füge Tags als #tags am Ende des Contents hinzu, damit sie automatisch extrahiert werden
+  if (tags.length > 0) {
+    // Prüfe ob Tags bereits im Content vorhanden sind
+    const existingTags = contentWithTags.match(/#(\w+)/g) || [];
+    const existingTagNames = existingTags.map(t => t.substring(1).toLowerCase());
+    
+    // Füge nur neue Tags hinzu, die noch nicht vorhanden sind
+    const newTags = tags.filter(tag => !existingTagNames.includes(tag.toLowerCase()));
+    if (newTags.length > 0) {
+      const tagsString = newTags.map(tag => `#${tag}`).join(' ');
+      contentWithTags = contentWithTags.trim() + '\n\n' + tagsString;
+    }
+  }
+  
+  const title = contentWithTags.split('\n')[0].substring(0, 50);
+  
+  // Prüfe ob Kontext-Daten vorhanden sind (von Textauswahl)
+  let paragraphId = null;
+  let paragraphText = null;
+  let textStartOffset = null;
+  let textEndOffset = null;
+  let lectureDate = null;
+  
+  if (window.noteContextData) {
+    paragraphId = window.noteContextData.paragraphId;
+    paragraphText = window.noteContextData.paragraphText;
+    textStartOffset = window.noteContextData.textStartOffset;
+    textEndOffset = window.noteContextData.textEndOffset;
+    
+    // Hole Vortragsdatum falls verfügbar
+    if (window.noteContextData.lectureId && typeof getCurrentLectureDate === 'function') {
+      lectureDate = getCurrentLectureDate(window.noteContextData.lectureId);
+    }
+    
+    // Lösche Kontext-Daten nach Verwendung
+    delete window.noteContextData;
+  }
+  
+  // Erstelle Notiz - Tags werden automatisch aus dem Content extrahiert
+  const result = await createNote(title, contentWithTags, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, markerColor);
   
   if (result.success) {
+    
     document.getElementById('members-note-content').value = '';
     await loadSavedNotes();
     // Aktualisiere MB falls offen und Notizen-Tab aktiv
@@ -3716,6 +4129,103 @@ async function saveMemberNote() {
   } else {
     alert('✗ Fehler beim Speichern');
   }
+}
+
+/**
+ * Zeigt Dialog für Keywords beim Erstellen einer neuen Notiz
+ */
+function showNoteKeywordsDialog(content) {
+  return new Promise((resolve) => {
+    // Erstelle Dialog
+    const dialog = document.createElement('div');
+    dialog.className = 'keyword-dialog-overlay';
+    
+    // Bereinige Content für Vorschau (entferne GA-Link-Präfix)
+    let previewContent = content;
+    previewContent = previewContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+    previewContent = previewContent.replace(/^["']\s*/, '').trim();
+    
+    dialog.innerHTML = `
+      <div class="keyword-dialog">
+        <div class="keyword-dialog-header">
+          <h3>Notiz speichern</h3>
+        </div>
+        <div class="keyword-dialog-body">
+          <div class="keyword-preview">"${previewContent.substring(0, 100)}${previewContent.length > 100 ? '...' : ''}"</div>
+          <label for="note-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <input type="text" id="note-keyword-input" value="" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
+          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
+          <div class="note-color-selection" style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+            <button type="button" class="note-color-btn selected" data-color="green" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid #4CAF50; background-color: #4CAF50; cursor: pointer;" title="Grün"></button>
+            <button type="button" class="note-color-btn" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #467886; cursor: pointer;" title="Blau"></button>
+            <button type="button" class="note-color-btn" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #c62828; cursor: pointer;" title="Rot"></button>
+            <button type="button" class="note-color-btn" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
+            <button type="button" class="note-color-btn" data-color="purple" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid transparent; background-color: #7B1FA2; cursor: pointer;" title="Lila"></button>
+          </div>
+        </div>
+        <div class="keyword-dialog-footer">
+          <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
+          <button class="keyword-dialog-btn keyword-dialog-save">Speichern</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Farbauswahl-Logik
+    let selectedColor = 'green';
+    const colorBtns = dialog.querySelectorAll('.note-color-btn');
+    colorBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        colorBtns.forEach(b => {
+          b.style.border = '2px solid transparent';
+          b.classList.remove('selected');
+        });
+        btn.style.border = `2px solid ${btn.style.backgroundColor}`;
+        btn.classList.add('selected');
+        selectedColor = btn.getAttribute('data-color');
+      });
+    });
+    
+    // Focus auf Input
+    const input = dialog.querySelector('#note-keyword-input');
+    setTimeout(() => input.focus(), 100);
+    
+    // Event Handler
+    const handleSave = () => {
+      const keywords = input.value.trim();
+      dialog.remove();
+      resolve({
+        keywords: keywords,
+        content: content,
+        color: selectedColor
+      });
+    };
+    
+    const handleCancel = () => {
+      dialog.remove();
+      resolve(null);
+    };
+    
+    dialog.querySelector('.keyword-dialog-save').addEventListener('click', handleSave);
+    dialog.querySelector('.keyword-dialog-cancel').addEventListener('click', handleCancel);
+    
+    // Enter-Taste zum Speichern
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        handleSave();
+      }
+    });
+    
+    // ESC zum Abbrechen
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        handleCancel();
+      }
+    });
+  });
 }
 
 /**
@@ -4157,6 +4667,77 @@ async function editMemberHighlight(id) {
 }
 
 /**
+ * Spezieller Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
+ */
+function showNoteEditDialog(content, keywords = '') {
+  return new Promise((resolve) => {
+    // Erstelle Dialog
+    const dialog = document.createElement('div');
+    dialog.className = 'keyword-dialog-overlay';
+    dialog.innerHTML = `
+      <div class="keyword-dialog" style="max-width: 600px;">
+        <div class="keyword-dialog-header">
+          <h3>Notiz bearbeiten</h3>
+        </div>
+        <div class="keyword-dialog-body">
+          <label for="note-content-input" style="display: block; margin-bottom: 0.5rem;">Inhalt:</label>
+          <textarea id="note-content-input" rows="8" placeholder="Notiz-Text..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;">${(content || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+          <label for="note-keyword-input" style="display: block; margin-top: 1rem; margin-bottom: 0.5rem;">Keywords (optional, durch Komma getrennt):</label>
+          <input type="text" id="note-keyword-input" value="${(keywords || '').replace(/"/g, '&quot;')}" placeholder="z.B. Karma, Reinkarnation, Ätherleib" style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box;" />
+          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+        </div>
+        <div class="keyword-dialog-footer">
+          <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
+          <button class="keyword-dialog-btn keyword-dialog-save">Speichern</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Focus auf Textarea
+    const contentInput = dialog.querySelector('#note-content-input');
+    const keywordInput = dialog.querySelector('#note-keyword-input');
+    setTimeout(() => contentInput.focus(), 100);
+    
+    // Event Handlers
+    const saveBtn = dialog.querySelector('.keyword-dialog-save');
+    const cancelBtn = dialog.querySelector('.keyword-dialog-cancel');
+    
+    const handleSave = () => {
+      const text = contentInput.value.trim();
+      const keywords = keywordInput.value.trim();
+      dialog.remove();
+      resolve({ keywords, text });
+    };
+    
+    const handleCancel = () => {
+      dialog.remove();
+      resolve(null);
+    };
+    
+    saveBtn.addEventListener('click', handleSave);
+    cancelBtn.addEventListener('click', handleCancel);
+    
+    // ESC zum Abbrechen
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        handleCancel();
+      }
+    });
+    
+    // ESC-Taste zum Abbrechen
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+        document.removeEventListener('keydown', handleEsc);
+      }
+    };
+    document.addEventListener('keydown', handleEsc);
+  });
+}
+
+/**
  * Bearbeitungs-Dialog anzeigen
  */
 function showEditDialog(type, data) {
@@ -4199,7 +4780,7 @@ function showEditDialog(type, data) {
       const keywords = input.value.trim();
       const note = noteInput.value.trim();
       dialog.remove();
-      resolve({ keywords, note });
+      resolve({ keywords, note, text: data.text }); // Füge text hinzu für Notizen
     };
     
     const handleCancel = () => {
@@ -4232,6 +4813,98 @@ function showEditDialog(type, data) {
       }
     });
   });
+}
+
+/**
+ * Edit Handlers
+ */
+async function editMemberNote(id) {
+  try {
+    // Hole Notiz-Daten
+    const result = await getNotes();
+    if (!result.success) {
+      alert('Fehler beim Laden der Notiz');
+      return;
+    }
+    
+    const note = result.data.find(n => n.id === id);
+    if (!note) {
+      alert('Notiz nicht gefunden');
+      return;
+    }
+    
+    // GA-Referenz für Navigation (wird nicht mehr im Content gespeichert)
+    const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
+    
+    // Bereinige Content für Anzeige (entferne Präfix falls vorhanden)
+    let displayContent = note.content || '';
+    displayContent = displayContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
+    
+    // Zeige speziellen Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
+    const editResult = await showNoteEditDialog(displayContent, note.tags ? note.tags.join(', ') : '');
+    
+    if (editResult === null) {
+      // Benutzer hat abgebrochen
+      return;
+    }
+    
+    const { keywords, text } = editResult;
+    const tags = keywords
+      .split(',')
+      .map(kw => kw.trim())
+      .filter(kw => kw.length > 0);
+    
+    // Stelle sicher, dass Text vorhanden ist
+    if (!text && text !== '') {
+      console.error('[MB-NOTES] editResult.text ist undefined');
+      alert('Fehler: Kein Text im Bearbeitungsdialog erhalten');
+      return;
+    }
+    
+    // Entferne Präfix "Aus [[GA001]]:" falls vorhanden (soll nicht gespeichert werden)
+    let updatedContent = text || '';
+    updatedContent = updatedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
+    
+    // Update in Supabase
+    if (typeof updateNote !== 'function') {
+      alert('Fehler: updateNote Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-NOTES] updateNote nicht verfügbar');
+      return;
+    }
+    
+    // Füge Tags als #tags hinzu, falls sie nicht bereits im Content vorhanden sind
+    if (tags.length > 0) {
+      const existingTags = updatedContent.match(/#(\w+)/g) || [];
+      const existingTagNames = existingTags.map(t => t.substring(1).toLowerCase());
+      const newTags = tags.filter(tag => !existingTagNames.includes(tag.toLowerCase()));
+      if (newTags.length > 0) {
+        const tagsString = newTags.map(tag => `#${tag}`).join(' ');
+        updatedContent = updatedContent.trim() + '\n\n' + tagsString;
+      }
+    }
+    
+    const title = updatedContent.split('\n')[0].substring(0, 50);
+    
+    // Tags aus dem keywords-Feld verwenden (manuell eingegeben)
+    const updateResult = await updateNote(id, title, updatedContent, note.is_public || false, tags);
+    
+    if (updateResult.success) {
+      // Invalidiere Cache, damit Daten neu geladen werden
+      invalidateMembersCache('notes');
+      await loadSavedNotes();
+      // Aktualisiere auch members.html falls geöffnet
+      if (typeof loadItems === 'function' && typeof currentTab !== 'undefined' && currentTab === 'notes') {
+        await loadItems();
+      }
+      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      await updateKeywordFilterDropdownWithAllKeywords();
+    } else {
+      alert('Fehler beim Speichern: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Bearbeiten der Notiz:', error);
+    alert('Fehler beim Bearbeiten: ' + error.message);
+  }
 }
 
 /**
@@ -4398,6 +5071,16 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
       bookmarksQuotesCacheTimestamp = now;
     }
     
+    // Lade auch Notizen für Icons
+    let notesResult = { success: false, data: [] };
+    if (typeof getNotes === 'function') {
+      try {
+        notesResult = await getNotes();
+      } catch (e) {
+        console.warn('[MB-MARKS] Fehler beim Laden der Notizen:', e);
+      }
+    }
+    
     if (!quotesResult.success && !highlightsResult.success) {
       return; // Fehler beim Laden
     }
@@ -4406,7 +5089,7 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
     lastMarkedLectureId = lectureId;
     lastQuotesData = quotesResult;
     
-    // Sammle alle paragraph_ids für diesen Vortrag
+    // Sammle alle paragraph_ids für diesen Vortrag (Zitate)
     const paragraphIds = new Set();
     
     if (quotesResult.success && quotesResult.data) {
@@ -4415,10 +5098,46 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
         .forEach(q => paragraphIds.add(q.paragraph_id));
     }
     
-    // Markiere alle Absätze im Viewer mit Icons
+    // Markiere alle Absätze im Viewer mit Quote-Icons
     paragraphIds.forEach(paraId => {
       addBookmarkQuoteIndicator(paraId, lectureId, null, quotesResult);
     });
+    
+    // Sammle alle paragraph_ids für Notizen
+    const noteParagraphIds = new Set();
+    if (notesResult.success && notesResult.data) {
+      notesResult.data
+        .filter(n => {
+          // Prüfe ob Notiz zu diesem Vortrag gehört
+          if (!n.ga_references || !Array.isArray(n.ga_references)) return false;
+          return n.ga_references.some(ga => {
+            // Prüfe auf exakte Übereinstimmung oder Basis-GA
+            if (ga === lectureId) return true;
+            const baseMatch = ga.match(/^(GA\d{3})/i);
+            const lectureBase = lectureId.match(/^(GA\d{3})/i);
+            return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
+          });
+        })
+        .filter(n => n.paragraph_id)
+        .forEach(n => noteParagraphIds.add(n.paragraph_id));
+    }
+    
+    // Markiere alle Absätze mit Notiz-Icons
+    noteParagraphIds.forEach(paraId => {
+      addBookmarkNoteIndicator(paraId, lectureId, notesResult);
+    });
+    
+    // Wende Zitat-Linien an (senkrechte Linie am linken Rand)
+    if (quotesResult.success && quotesResult.data) {
+      const lectureQuotes = quotesResult.data.filter(q => 
+        q.ga_reference === lectureId && q.paragraph_id && q.text_start_offset !== null
+      );
+      
+      // Wende jedes Zitat an
+      lectureQuotes.forEach(quote => {
+        applyStoredQuoteLine(quote);
+      });
+    }
     
     // Wende Unterstreichungen an
     // WICHTIG: Sortiere nach text_start_offset, damit Highlights in der richtigen Reihenfolge angewendet werden
@@ -4639,6 +5358,147 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
   // Fallback: Füge am Anfang des Absatzes hinzu (wenn keine Offsets vorhanden)
   targetElement.insertBefore(indicator, targetElement.firstChild);
 }
+
+/**
+ * Fügt ein Notiz-Icon zu einem Absatz hinzu
+ */
+function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
+  const paraElement = document.getElementById(`para-${paraId}`);
+  if (!paraElement) return;
+  
+  // Prüfe ob Icon bereits vorhanden ist
+  let targetElement = paraElement;
+  let existingIndicator = paraElement.querySelector('.bookmark-note-indicator');
+  
+  // Bei Büchern: para- IDs sind in versteckten Spans, finde das Parent-Element
+  if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+    let parent = paraElement.parentElement;
+    while (parent && parent !== document.body) {
+      const tagName = parent.tagName.toLowerCase();
+      if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+        targetElement = parent;
+        existingIndicator = parent.querySelector('.bookmark-note-indicator');
+        break;
+      }
+      parent = parent.parentElement;
+    }
+  }
+  
+  if (existingIndicator) return; // Bereits vorhanden
+  
+  // Prüfe ob Notiz vorhanden
+  const notes = notesResult && notesResult.success ? notesResult.data.filter(n => {
+    if (!n.ga_references || !Array.isArray(n.ga_references)) return false;
+    const matchesGA = n.ga_references.some(ga => {
+      if (ga === lectureId) return true;
+      const baseMatch = ga.match(/^(GA\d{3})/i);
+      const lectureBase = lectureId.match(/^(GA\d{3})/i);
+      return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
+    });
+    return matchesGA && n.paragraph_id === paraId;
+  }) : [];
+  
+  if (notes.length === 0) return; // Keine Notiz vorhanden
+  
+  const firstNote = notes[0];
+  
+  // Erstelle Markierung - Notiz-Icon mit der Farbe der Notiz
+  const noteColor = firstNote.marker_color || 'green';
+  const noteColorHex = getNoteColor(noteColor);
+  const indicator = document.createElement('span');
+  indicator.className = 'bookmark-note-indicator';
+  indicator.setAttribute('data-para-id', paraId);
+  indicator.setAttribute('data-note-id', firstNote.id);
+  indicator.style.color = noteColorHex;
+  indicator.style.marginRight = '4px';
+  indicator.style.cursor = 'pointer';
+  indicator.style.display = 'inline-block';
+  indicator.style.verticalAlign = 'middle';
+  indicator.title = 'Notiz vorhanden - Klick zum Öffnen';
+  indicator.innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+  `;
+  indicator.onclick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (typeof jumpToNoteById === 'function') {
+      jumpToNoteById(firstNote.id);
+    }
+  };
+  
+  // Stelle sicher, dass targetElement relativ positioniert ist
+  targetElement.style.position = 'relative';
+  
+  // Füge am Anfang des Absatzes hinzu (nach eventuellem Quote-Icon)
+  const quoteIndicator = targetElement.querySelector('.bookmark-quote-indicator');
+  if (quoteIndicator && quoteIndicator.nextSibling) {
+    targetElement.insertBefore(indicator, quoteIndicator.nextSibling);
+  } else if (quoteIndicator) {
+    targetElement.appendChild(indicator);
+  } else {
+    targetElement.insertBefore(indicator, targetElement.firstChild);
+  }
+}
+
+/**
+ * Springt zum Notizen-Tab und scrollt zur Notiz mit der gegebenen ID
+ */
+async function jumpToNoteById(noteId) {
+  try {
+    // Öffne MB falls nicht offen
+    if (!membersPanelActive) {
+      if (typeof openMembersPanel === 'function') {
+        await openMembersPanel();
+      }
+    }
+    
+    // Wechsle zum Notes-Tab
+    if (typeof switchMembersTab === 'function') {
+      await switchMembersTab('notes');
+    }
+    
+    // Warte kurz, dann scrolle zum Item
+    let scrollAttempts = 0;
+    const maxScrollAttempts = 10;
+    
+    const tryScrollToNote = () => {
+      scrollAttempts++;
+      const targetItem = document.querySelector(`.member-item[data-id="${noteId}"]`);
+      if (targetItem) {
+        const membersContent = document.querySelector('.members-content');
+        if (membersContent) {
+          const containerRect = membersContent.getBoundingClientRect();
+          const itemRect = targetItem.getBoundingClientRect();
+          const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+          membersContent.scrollTo({
+            top: relativeTop - 50,
+            behavior: 'smooth'
+          });
+        }
+        // Highlight kurz
+        targetItem.style.backgroundColor = 'rgba(76, 175, 80, 0.2)';
+        setTimeout(() => {
+          targetItem.style.backgroundColor = '';
+        }, 2000);
+      } else if (scrollAttempts < maxScrollAttempts) {
+        setTimeout(tryScrollToNote, 200);
+      }
+    };
+    
+    setTimeout(tryScrollToNote, 300);
+  } catch (error) {
+    console.error('[MB-NOTE-JUMP] Fehler:', error);
+  }
+}
+
+// Global verfügbar machen
+window.jumpToNoteById = jumpToNoteById;
 
 /**
  * Fügt Click-Event-Listener zu allen Unterstreichungen hinzu, die noch keinen haben
@@ -5224,13 +6084,14 @@ function removeAllQuoteHighlights() {
     }
   });
   
-  // Entferne senkrechte Linien rechts neben Absätzen
-  const verticalLines = document.querySelectorAll('.member-quote-vertical-line');
-  verticalLines.forEach(line => {
-    if (line.parentNode) {
-      line.parentNode.removeChild(line);
-    }
-  });
+  // NICHT mehr entfernen: Senkrechte Linien sollen dauerhaft angezeigt werden
+  // Die Linien werden beim Laden des Vortrags erstellt und bleiben sichtbar
+  // const verticalLines = document.querySelectorAll('.member-quote-vertical-line');
+  // verticalLines.forEach(line => {
+  //   if (line.parentNode) {
+  //     line.parentNode.removeChild(line);
+  //   }
+  // });
   
   // Entferne Hintergrundfarbe von Unterstreichungen, die als Overlay markiert sind
   const overlayHighlights = document.querySelectorAll('[data-quote-overlay]');
@@ -5296,8 +6157,18 @@ function createQuoteVerticalLine(targetElement, range, quote) {
     lineElement.style.width = '1.5px';
     lineElement.style.height = `${Math.max(lineHeight, 1)}px`;
     lineElement.style.backgroundColor = quoteColorHex;
-    lineElement.style.pointerEvents = 'none';
+    lineElement.style.cursor = 'pointer';
     lineElement.style.zIndex = '10';
+    lineElement.title = 'Klick zum Zitat im Members Panel';
+    
+    // Klick-Handler: Öffne Members Panel und scrolle zum Zitat
+    lineElement.onclick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (typeof jumpToQuoteById === 'function') {
+        jumpToQuoteById(quote.id);
+      }
+    };
     
     // Füge Linie zum Container hinzu
     targetElement.appendChild(lineElement);
@@ -5312,6 +6183,158 @@ function createQuoteVerticalLine(targetElement, range, quote) {
   } catch (e) {
     console.error('[QUOTE-LINE] Fehler beim Erstellen der Linie:', e);
     return null;
+  }
+}
+
+/**
+ * Wendet eine gespeicherte Zitat-Linie beim Laden des Vortrags an
+ * @param {Object} quote - Das Quote-Objekt aus der Datenbank
+ */
+function applyStoredQuoteLine(quote) {
+  try {
+    if (!quote.paragraph_id || quote.text_start_offset === null || quote.text_start_offset === undefined) {
+      return; // Nicht genug Daten für Linien-Positionierung
+    }
+    
+    // Normalisiere paragraph_id: Entferne ^ am Anfang falls vorhanden (für Bücher)
+    const normalizedParaId = String(quote.paragraph_id || '').replace(/^\^/, '');
+    let paraElement = document.getElementById(`para-${normalizedParaId}`);
+    
+    // Falls nicht gefunden, versuche mit Original-ID
+    if (!paraElement) {
+      paraElement = document.getElementById(`para-${quote.paragraph_id}`);
+    }
+    
+    // Falls immer noch nicht gefunden, versuche für Bücher mit data-index
+    if (!paraElement) {
+      const bookParaElement = document.querySelector(`[data-index="${quote.paragraph_id}"], [data-index="^${normalizedParaId}"]`);
+      if (bookParaElement) {
+        paraElement = bookParaElement;
+      }
+    }
+    
+    if (!paraElement) {
+      return; // Paragraph nicht gefunden
+    }
+    
+    // Finde das tatsächliche Text-Element
+    let targetElement = paraElement;
+    
+    // Wenn paraElement versteckt ist oder ein span, suche nach dem Parent-Element mit Text
+    if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+      let parent = paraElement.parentElement;
+      while (parent && parent !== document.body) {
+        const tagName = parent.tagName.toLowerCase();
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          targetElement = parent;
+          break;
+        }
+        parent = parent.parentElement;
+      }
+    }
+    
+    // Stelle sicher, dass targetElement relativ positioniert ist
+    const computedStyle = window.getComputedStyle(targetElement);
+    if (computedStyle.position === 'static') {
+      targetElement.style.position = 'relative';
+    }
+    
+    // Prüfe ob bereits eine Linie für dieses Zitat existiert
+    const existingLine = targetElement.querySelector(`.member-quote-vertical-line[data-quote-id="${quote.id}"]`);
+    if (existingLine) {
+      return; // Bereits vorhanden
+    }
+    
+    // Berechne Position basierend auf text_start_offset und text_end_offset
+    const textStartOffset = quote.text_start_offset;
+    const textEndOffset = quote.text_end_offset || (textStartOffset + (quote.quote_text ? quote.quote_text.length : 50));
+    
+    // Erstelle Range für die Position
+    const walker = document.createTreeWalker(
+      targetElement,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    let currentOffset = 0;
+    let startNode = null;
+    let startOffset = 0;
+    let endNode = null;
+    let endOffset = 0;
+    let node;
+    
+    while (node = walker.nextNode()) {
+      const nodeLength = node.textContent.length;
+      
+      // Finde Start-Knoten
+      if (!startNode && currentOffset + nodeLength > textStartOffset) {
+        startNode = node;
+        startOffset = textStartOffset - currentOffset;
+      }
+      
+      // Finde End-Knoten
+      if (currentOffset + nodeLength >= textEndOffset) {
+        endNode = node;
+        endOffset = Math.min(textEndOffset - currentOffset, nodeLength);
+        break;
+      }
+      
+      currentOffset += nodeLength;
+    }
+    
+    if (!startNode) {
+      return; // Start-Position nicht gefunden
+    }
+    
+    // Falls kein End-Knoten gefunden wurde, verwende den Start-Knoten
+    if (!endNode) {
+      endNode = startNode;
+      endOffset = startNode.textContent.length;
+    }
+    
+    try {
+      // Erstelle Range
+      const range = document.createRange();
+      range.setStart(startNode, Math.min(startOffset, startNode.textContent.length));
+      range.setEnd(endNode, Math.min(endOffset, endNode.textContent.length));
+      
+      // Erstelle die senkrechte Linie
+      createQuoteVerticalLine(targetElement, range, quote);
+      
+      // Prüfe ob bereits ein klickbarer Span für dieses Zitat existiert
+      const existingSpan = targetElement.querySelector(`.quote-text-link[data-quote-id="${quote.id}"]`);
+      if (!existingSpan) {
+        // Umschließe den Zitattext mit einem klickbaren Span
+        try {
+          const quoteSpan = document.createElement('span');
+          quoteSpan.className = 'quote-text-link';
+          quoteSpan.setAttribute('data-quote-id', quote.id);
+          quoteSpan.style.cursor = 'pointer';
+          quoteSpan.title = 'Klick zum Zitat im Members Panel';
+          
+          // Klick-Handler
+          quoteSpan.onclick = (e) => {
+            e.stopPropagation();
+            if (typeof jumpToQuoteById === 'function') {
+              jumpToQuoteById(quote.id);
+            }
+          };
+          
+          // Umschließe den Range-Inhalt mit dem Span
+          range.surroundContents(quoteSpan);
+        } catch (spanError) {
+          // Falls surroundContents fehlschlägt (z.B. bei übergreifenden Elementen),
+          // ignoriere still - die senkrechte Linie ist weiterhin klickbar
+          console.warn('[STORED-QUOTE-LINE] Text-Link konnte nicht erstellt werden:', spanError.message);
+        }
+      }
+    } catch (e) {
+      console.warn('[STORED-QUOTE-LINE] Fehler beim Erstellen der Range:', e);
+    }
+    
+  } catch (e) {
+    console.error('[STORED-QUOTE-LINE] Fehler:', e);
   }
 }
 
@@ -6900,7 +7923,7 @@ async function updateKeywordFilterDropdownWithAllKeywords() {
                      bookmarksQuotesCacheTimestamp && 
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
-    let quotesResult, highlightsResult;
+    let quotesResult, highlightsResult, notesResult;
     
     if (cacheValid) {
       quotesResult = cachedQuotesData;
@@ -6917,7 +7940,17 @@ async function updateKeywordFilterDropdownWithAllKeywords() {
       bookmarksQuotesCacheTimestamp = now;
     }
     
-    // Sammle alle Keywords aus Quotes und Highlights
+    // Lade auch Notes-Daten (wenn verfügbar)
+    if (typeof getNotes === 'function') {
+      try {
+        notesResult = await getNotes();
+      } catch (error) {
+        console.warn('[MB-KEYWORDS] Fehler beim Laden der Notes:', error);
+        notesResult = { success: false, data: [] };
+      }
+    }
+    
+    // Sammle alle Keywords aus Quotes, Highlights und Notes
     const allKeywords = new Set();
     
     if (quotesResult.success && quotesResult.data) {
@@ -6932,6 +7965,14 @@ async function updateKeywordFilterDropdownWithAllKeywords() {
       highlightsResult.data.forEach(highlight => {
         if (highlight.tags && Array.isArray(highlight.tags)) {
           highlight.tags.forEach(tag => allKeywords.add(tag));
+        }
+      });
+    }
+    
+    if (notesResult && notesResult.success && notesResult.data) {
+      notesResult.data.forEach(note => {
+        if (note.tags && Array.isArray(note.tags)) {
+          note.tags.forEach(tag => allKeywords.add(tag));
         }
       });
     }
@@ -7053,7 +8094,7 @@ async function handleGAFilter(gaNumber) {
   }
   
   // Lade den aktuellen Tab neu, um die Filterung anzuwenden
-  if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights') {
+  if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights' || currentMembersTab === 'notes') {
     await loadMembersTab(currentMembersTab);
   }
 }
@@ -7111,13 +8152,13 @@ async function showKeywordFilteredItems(keyword) {
   container.innerHTML = '<div class="empty-state"><em>Lade gefilterte Items...</em></div>';
   
   try {
-    // Lade Quotes und Highlights parallel
+    // Lade Quotes, Highlights und Notes parallel
     const now = Date.now();
     const cacheValid = cachedQuotesData && cachedHighlightsData && 
                      bookmarksQuotesCacheTimestamp && 
                      (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
     
-    let quotesResult, highlightsResult;
+    let quotesResult, highlightsResult, notesResult;
     
     if (cacheValid) {
       quotesResult = cachedQuotesData;
@@ -7130,6 +8171,16 @@ async function showKeywordFilteredItems(keyword) {
       cachedQuotesData = quotesResult;
       cachedHighlightsData = highlightsResult;
       bookmarksQuotesCacheTimestamp = now;
+    }
+    
+    // Lade auch Notes (wenn verfügbar)
+    if (typeof getNotes === 'function') {
+      try {
+        notesResult = await getNotes();
+      } catch (error) {
+        console.warn('[MB-KEYWORDS] Fehler beim Laden der Notes:', error);
+        notesResult = { success: false, data: [] };
+      }
     }
     
     // Filtere Items mit dem Keyword
@@ -7145,7 +8196,13 @@ async function showKeywordFilteredItems(keyword) {
         )
       : [];
     
-    if (filteredQuotes.length === 0 && filteredHighlights.length === 0) {
+    const filteredNotes = notesResult && notesResult.success && notesResult.data
+      ? notesResult.data.filter(note => 
+          note.tags && Array.isArray(note.tags) && note.tags.includes(keyword)
+        )
+      : [];
+    
+    if (filteredQuotes.length === 0 && filteredHighlights.length === 0 && filteredNotes.length === 0) {
       container.innerHTML = `<div class="empty-state">Keine Items mit Schlagwort "${keyword}" gefunden</div>`;
       return;
     }
@@ -7174,7 +8231,7 @@ async function showKeywordFilteredItems(keyword) {
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
               <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
-              ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+              ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
               <div class="member-item-actions">
                 <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -7226,7 +8283,7 @@ async function showKeywordFilteredItems(keyword) {
                 : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
               }
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
-              ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag">#${tag}</span>`).join(' ')}</div>` : ''}
+              ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
               <div class="member-item-actions">
                 <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -7245,6 +8302,70 @@ async function showKeywordFilteredItems(keyword) {
         `;
       }).join('');
       combinedHtml += highlightsHtml;
+    }
+    
+    // Rendere Notes
+    if (filteredNotes.length > 0) {
+      const notesHtml = filteredNotes.map(note => {
+        const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
+        const paragraphId = note.paragraph_id || null;
+        const textStartOffset = note.text_start_offset !== null ? note.text_start_offset : null;
+        const textEndOffset = note.text_end_offset !== null ? note.text_end_offset : null;
+        const dateDisplay = new Date(note.created_at).toLocaleDateString('de-DE');
+        
+        // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
+        let cleanedContent = note.content;
+        // Entferne "Aus [[GA...]]:" oder "Aus [[GA...]] - Titel:" am Anfang (mit optionalen Leerzeichen)
+        cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+        // Entferne auch Varianten wie "Aus [[GA...]] - " oder "Aus [[GA...]]: "
+        cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+        // Entferne führende Anführungszeichen und Leerzeichen
+        cleanedContent = cleanedContent.replace(/^["']\s*/, '').trim();
+        // Entferne auch mehrfache Leerzeichen am Anfang
+        cleanedContent = cleanedContent.replace(/^\s+/, '');
+        
+        // Text auf zwei Zeilen begrenzen (ca. 150 Zeichen)
+        const contentPreview = cleanedContent.substring(0, 150);
+        const hasMore = cleanedContent.length > 150;
+        
+        // Prüfe ob Navigation möglich ist (mindestens GA-Referenz vorhanden)
+        const canNavigate = gaReference !== null;
+        
+        return `
+          <div class="member-item">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  ${canNavigate
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}${dateDisplay ? ', ' + dateDisplay : ''}</a></strong>`
+                    : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  }
+                </div>
+                <span class="member-item-date">${dateDisplay}</span>
+              </div>
+              ${canNavigate
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+              }
+              ${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? `<div class="member-item-tags">${note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+            </div>
+            <div class="member-item-actions">
+              <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+              </button>
+              <button class="delete-btn" onclick="deleteMemberNote('${note.id}')" title="Löschen">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      combinedHtml += notesHtml;
     }
     
     container.innerHTML = combinedHtml;
@@ -7310,6 +8431,7 @@ window.showMembersPrivacyModal = showMembersPrivacyModal;
 window.closeMembersPrivacyModal = closeMembersPrivacyModal;
 window.editMemberQuote = editMemberQuote;
 window.editMemberHighlight = editMemberHighlight;
+window.editMemberNote = editMemberNote;
 window.deleteMemberQuote = deleteMemberQuote;
 window.deleteMemberNote = deleteMemberNote;
 window.toggleSortOrder = toggleSortOrder;

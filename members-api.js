@@ -417,19 +417,19 @@ export function extractGAReferences(text) {
 /**
  * Notiz erstellen mit automatischer Link-Extraktion
  */
-export async function createNote(title, content, isPublic = false) {
+export async function createNote(title, content, isPublic = false, paragraphId = null, paragraphText = null, textStartOffset = null, textEndOffset = null, lectureDate = null, manualTags = null, markerColor = null) {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
 
     // Automatisch Links und Tags extrahieren
     const wikiLinks = extractWikiLinks(content);
-    const tags = extractTags(content);
+    // Wenn manuelle Tags übergeben wurden, diese verwenden, sonst aus Content extrahieren
+    const tags = manualTags !== null ? manualTags : extractTags(content);
     const gaReferences = extractGAReferences(content);
 
-    const { data, error } = await supabase
-      .from('notes')
-      .insert({
+    // Basis-Daten, die immer vorhanden sind
+    const baseInsertData = {
         user_id: user.id,
         title: title,
         content: content,
@@ -437,16 +437,40 @@ export async function createNote(title, content, isPublic = false) {
         wiki_links: wikiLinks,
         tags: tags,
         is_public: isPublic
-      })
+    };
+    
+    // Erweiterte Daten mit Kontext-Informationen
+    const extendedInsertData = { ...baseInsertData };
+    if (paragraphId !== null) extendedInsertData.paragraph_id = paragraphId;
+    if (paragraphText !== null) extendedInsertData.paragraph_text = paragraphText;
+    if (textStartOffset !== null) extendedInsertData.text_start_offset = textStartOffset;
+    if (textEndOffset !== null) extendedInsertData.text_end_offset = textEndOffset;
+    if (lectureDate !== null) extendedInsertData.lecture_date = lectureDate;
+    if (markerColor !== null) extendedInsertData.marker_color = markerColor;
+
+    // Versuche zuerst mit erweiterten Daten zu speichern
+    let result = await supabase
+      .from('notes')
+      .insert(extendedInsertData)
       .select()
       .single();
 
-    if (error) throw error;
+    // Falls Fehler (z.B. Spalten nicht vorhanden), versuche nur mit Basis-Daten
+    if (result.error) {
+      console.warn('Fehler mit erweiterten Daten, versuche nur Basis-Daten:', result.error.message);
+      result = await supabase
+        .from('notes')
+        .insert(baseInsertData)
+        .select()
+        .single();
+    }
+
+    if (result.error) throw result.error;
 
     // Backlinks erstellen
-    await updateBacklinks(data.id, 'note', [...wikiLinks, ...gaReferences]);
+    await updateBacklinks(result.data.id, 'note', [...wikiLinks, ...gaReferences]);
 
-    return { success: true, data };
+    return { success: true, data: result.data };
   } catch (error) {
     console.error('Fehler beim Erstellen der Notiz:', error);
     return { success: false, error: error.message };
@@ -457,11 +481,12 @@ export async function createNote(title, content, isPublic = false) {
 /**
  * Notiz aktualisieren
  */
-export async function updateNote(noteId, title, content, isPublic = false) {
+export async function updateNote(noteId, title, content, isPublic = false, manualTags = null) {
   try {
     // Links und Tags neu extrahieren
     const wikiLinks = extractWikiLinks(content);
-    const tags = extractTags(content);
+    // Wenn manuelle Tags übergeben wurden, diese verwenden, sonst aus Content extrahieren
+    const tags = manualTags !== null ? manualTags : extractTags(content);
     const gaReferences = extractGAReferences(content);
 
     const { data, error } = await supabase

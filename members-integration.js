@@ -173,7 +173,7 @@ async function saveAsBookmark(text) {
 function openNoteEditor(prefilledText) {
   // Öffne members.html mit vorgefülltem Text
   const noteData = encodeURIComponent(JSON.stringify({
-    content: `Aus [[${currentContext.gaNumber}]]:\n\n"${prefilledText}"\n\n`,
+    content: `"${prefilledText}"\n\n`,
     title: `Notiz zu ${currentContext.gaNumber}`
   }));
   
