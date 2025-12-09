@@ -2970,6 +2970,28 @@ body.dark-mode #thematicSearchInfo {
       color: var(--text-color);
     }
     
+    /* WICHTIG: Überschreibe margin für Gedicht-Paragraphen (muss nach der allgemeinen .paragraph Regel kommen) */
+    /* Diese Regeln müssen sehr spezifisch sein, um alle anderen Regeln zu überschreiben */
+    #viewer .paragraph.has-poem,
+    #viewer div.paragraph.has-poem {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      margin: 0 !important;
+    }
+    
+    #viewer .paragraph.has-poem + .paragraph.has-poem,
+    #viewer div.paragraph.has-poem + div.paragraph.has-poem {
+      margin-top: 0 !important;
+    }
+    
+    /* Überschreibe auch alle inline styles mit höchster Spezifität */
+    #viewer .paragraph.has-poem[style],
+    #viewer div.paragraph.has-poem[style] {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      margin: 0 !important;
+    }
+    
     /* Gedichte innerhalb von .paragraph im Viewer - normale Zeilenhöhe */
     #viewer .paragraph p.poem,
     #viewer .paragraph p.short-lines {
@@ -2994,6 +3016,16 @@ body.dark-mode #thematicSearchInfo {
       padding-bottom: 0 !important;
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
       text-align: left !important; /* Gedichte linksbündig (wie in Büchern) */
+    }
+    
+    /* WICHTIG: Entferne Abstand zwischen aufeinanderfolgenden Gedicht-Paragraphen */
+    #viewer .paragraph.has-poem + .paragraph.has-poem {
+      margin-top: 0 !important;
+    }
+    
+    /* Auch für nicht-direkt aufeinanderfolgende Gedicht-Paragraphen */
+    #viewer .paragraph.has-poem ~ .paragraph.has-poem {
+      margin-top: 0 !important;
     }
     
     /* Gedichte: Formatierung für direkt enthaltenen Text innerhalb von .paragraph.has-poem (ohne <p> Tags) */
@@ -3030,6 +3062,22 @@ body.dark-mode #thematicSearchInfo {
       margin: 0 !important; /* Entferne alle Margins (wie bei p.poem in Büchern) */
       line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie normaler Text (wie in Büchern) */
       text-align: left !important; /* Gedichte linksbündig (wie in Büchern) */
+    }
+    
+    /* Entferne Abstand zwischen aufeinanderfolgenden Paragraphen mit Gedichten */
+    #viewer .paragraph:has(p.poem) + .paragraph:has(p.poem),
+    #viewer .paragraph:has(p.short-lines) + .paragraph:has(p.short-lines) {
+      margin-top: 0 !important;
+    }
+    
+    /* Auch für .paragraph.has-poem mit <p> Tags darin */
+    #viewer .paragraph.has-poem p {
+      margin: 0 !important;
+      line-height: 1.5 !important;
+    }
+    
+    #viewer .paragraph.has-poem p + p {
+      margin-top: 0 !important;
     }
     
     #viewer h3 {
@@ -5835,6 +5883,24 @@ function preprocessObsidianLineBreaks(markdown) {
   // Ersetze '/br' durch Zeilenumbrüche (zwei Leerzeichen + Newline für marked.js breaks: true)
   // oder einfachen Newline, je nachdem was besser funktioniert
   return markdown.replace(/'\/br'/g, '\n');
+}
+
+// Formatiert Paragraph-Content für die HTML-Darstellung:
+// 1. Normalisiert * * * zu * * * (mit einem Leerzeichen zwischen den Sternen)
+// 2. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
+function formatParagraphContentForDisplay(content) {
+  if (!content || typeof content !== 'string') {
+    return content;
+  }
+  
+  // 1. Normalisiere * * * zu * * * (mit genau einem Leerzeichen zwischen den Sternen)
+  // Pattern: * * * mit variablen Leerzeichen → * * * (normalisiert)
+  // WICHTIG: Markdown interpretiert `* * *` normalerweise als Text, nicht als durchgezogene Linie
+  // Eine durchgezogene Linie wäre `---` oder `***` (ohne Leerzeichen)
+  // Wir normalisieren es zu * * * (mit genau einem Leerzeichen), damit es konsistent dargestellt wird
+  content = content.replace(/\*\s+\*\s+\*/g, '* * *');
+  
+  return content;
 }
 
 // Hilfsfunktion: Schützt Text in <> vor HTML-Interpretation
@@ -9540,6 +9606,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       const isTargetPara = targetIndex && paraIndex === String(targetIndex).replace(/^\^/, '');
       let content = para.content || para.text || '';
       
+      // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
+      content = formatParagraphContentForDisplay(content);
+      
       // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
       content = preprocessObsidianLineBreaks(content);
       
@@ -12997,6 +13066,9 @@ function scrollToChronologicalYear(year) {
             });
             
             let content = para.content || para.text || '';
+            
+            // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
+            content = formatParagraphContentForDisplay(content);
             
             // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
             content = preprocessObsidianLineBreaks(content);
@@ -17681,6 +17753,9 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
+    content = formatParagraphContentForDisplay(content);
+    
     // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsidianLineBreaks(content);
     
@@ -17875,6 +17950,13 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
         replaceImageSrcWithBase64(viewer.innerHTML, lecture.ID).then(updatedHTML => {
           viewer.innerHTML = updatedHTML;
           
+          // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren
+          setTimeout(() => {
+            console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung für displaySummaryWithHeadings...');
+            detectAndFormatPoems(viewer);
+            console.log('[GEDICHT-ERKENNUNG] Gedicht-Erkennung abgeschlossen');
+          }, 100);
+          
           // WICHTIG: Icons NACH dem Bild-Ersetzen setzen, damit sie nicht überschrieben werden
           // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
           setTimeout(() => {
@@ -17905,6 +17987,12 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           }
         }).catch(error => {
           console.error('[IMAGES] Fehler beim Ersetzen der Bilder:', error);
+          // Auch bei Fehler Gedichte formatieren
+          setTimeout(() => {
+            console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung (Fehler-Fallback)...');
+            detectAndFormatPoems(viewer);
+          }, 100);
+          
           // Auch bei Fehler Icons setzen
           if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
             setTimeout(() => {
@@ -17929,7 +18017,14 @@ html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-in
           }
         });
   } else {
-    // Keine Bilder zu ersetzen - Icons direkt setzen
+    // Keine Bilder zu ersetzen - Gedichte direkt formatieren
+    setTimeout(() => {
+      console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung (ohne Bilder) für displaySummaryWithHeadings...');
+      detectAndFormatPoems(viewer);
+      console.log('[GEDICHT-ERKENNUNG] Gedicht-Erkennung abgeschlossen');
+    }, 100);
+    
+    // Icons direkt setzen
     // Konvertiere Fußnoten zu klickbaren Links (wie bei Büchern)
     setTimeout(() => {
       convertFootnotesToLinks();
@@ -20628,6 +20723,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           let content = para.content || para.text || '';
           
+          // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
+          content = formatParagraphContentForDisplay(content);
+          
           // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
           content = preprocessObsidianLineBreaks(content);
           
@@ -20783,7 +20881,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // WICHTIG: Gedichte NACH dem Bild-Ersetzen formatieren, damit die Änderungen nicht überschrieben werden!
           setTimeout(() => {
+            console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung für Vortrag...');
             detectAndFormatPoems(viewer);
+            console.log('[GEDICHT-ERKENNUNG] Gedicht-Erkennung abgeschlossen');
             
             // Anmerkungen mit mehreren Sternchen behandeln
             replaceBulletPointsWithAsterisks();
@@ -20827,7 +20927,9 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
       } else {
         // Keine Bilder: Gedichte direkt formatieren
         setTimeout(() => {
+          console.log('[GEDICHT-ERKENNUNG] Starte Gedicht-Erkennung für Vortrag (ohne Bilder)...');
           detectAndFormatPoems(viewer);
+          console.log('[GEDICHT-ERKENNUNG] Gedicht-Erkennung abgeschlossen');
           
           // Anmerkungen mit mehreren Sternchen behandeln
           replaceBulletPointsWithAsterisks();
@@ -22883,13 +22985,21 @@ function convertGAReferencesToLinksInKeywordResults(container) {
 
 // Hilfsfunktion: Erkennt Gedichte und kurze Zeilen (< 75 Zeichen) und markiert sie
 function detectAndFormatPoems(container) {
-  if (!container) return;
+  console.log('[GEDICHT-ERKENNUNG] Funktion aufgerufen, Container:', container);
+  if (!container) {
+    console.log('[GEDICHT-ERKENNUNG] Container ist null/undefined, breche ab');
+    return;
+  }
   
   // Finde alle <p> Elemente im Container (auch innerhalb von .paragraph)
   const paragraphs = Array.from(container.querySelectorAll('p'));
   
   // ZUSÄTZLICH: Prüfe auch .paragraph Divs, die direkt Text enthalten (ohne <p> Tags)
   const paragraphDivs = Array.from(container.querySelectorAll('.paragraph'));
+  
+  // Debug: Zähle gefundene Paragraphen
+  console.log('[GEDICHT-ERKENNUNG] Gefundene .paragraph Divs:', paragraphDivs.length);
+  console.log('[GEDICHT-ERKENNUNG] Gefundene <p> Elemente:', paragraphs.length);
   paragraphDivs.forEach(div => {
     // Prüfe ob die Div direkt Text enthält (nicht nur in <p> Tags)
     // WICHTIG: Berücksichtige auch HTML mit <br> Tags (nach Markdown-Konvertierung)
@@ -22930,18 +23040,25 @@ function detectAndFormatPoems(container) {
         return line.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
       }).filter(line => line.length > 0);
       
-      // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 75 Zeichen haben
+      // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 90 Zeichen haben
       let consecutiveShortLines = 0;
       for (let i = 0; i < lines.length; i++) {
         const lineLength = lines[i].length;
-        if (lineLength > 0 && lineLength < 75) {
+        if (lineLength > 0 && lineLength < 90) {
           consecutiveShortLines++;
           if (consecutiveShortLines >= 2) {
             // Markiere die Div als Gedicht
             div.classList.add('has-poem');
+            // WICHTIG: Entferne alle margin-Styles aus dem inline style-Attribut
             const currentStyle = div.getAttribute('style') || '';
-            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
+            const newStyle = currentStyle
+              .replace(/margin[^:]*:\s*[^;]+;?\s*/gi, '')
+              .replace(/margin-top[^:]*:\s*[^;]+;?\s*/gi, '')
+              .replace(/margin-bottom[^:]*:\s*[^;]+;?\s*/gi, '')
+              .trim();
             div.setAttribute('style', newStyle);
+            // Setze explizit margin-top und margin-bottom auf 0
+            div.style.marginTop = '0';
             div.style.marginBottom = '0';
             break;
           }
@@ -22967,13 +23084,28 @@ function detectAndFormatPoems(container) {
     // Extrahiere Text-Inhalt
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = div.innerHTML;
+    
+    // Entferne versteckte Spans (mit display:none oder data-index Attribut)
     const hiddenSpans = tempDiv.querySelectorAll('[style*="display:none"], [data-index]');
     hiddenSpans.forEach(span => span.remove());
-    const textContent = tempDiv.textContent || tempDiv.innerText || '';
+    
+    // Entferne auch versteckte Spans mit data-index Attribut (für Obsidian-Indizes)
+    const indexSpans = tempDiv.querySelectorAll('[data-index]');
+    indexSpans.forEach(span => {
+      const style = span.getAttribute('style') || '';
+      if (style.includes('display:none') || style.includes('display: none')) {
+        span.remove();
+      }
+    });
+    
+    // Extrahiere Text-Inhalt (ohne HTML-Tags)
+    let textContent = tempDiv.textContent || tempDiv.innerText || '';
+    
+    // Entferne Obsidian-Index am Ende (Format: ^abc123)
     const cleanText = textContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
     
-    // Wenn dieser Paragraph kurz ist (< 75 Zeichen), prüfe die nächsten
-    if (cleanText.length > 0 && cleanText.length < 75) {
+    // Wenn dieser Paragraph kurz ist (< 90 Zeichen), prüfe die nächsten
+    if (cleanText.length > 0 && cleanText.length < 90) {
       const poemStartIndex = i;
       let consecutiveShortParagraphs = 1;
       let nextIndex = i + 1;
@@ -22981,9 +23113,31 @@ function detectAndFormatPoems(container) {
       // Sammle alle aufeinanderfolgenden kurzen Paragraphen
       const poemParagraphs = [div];
       
-      // Prüfe die nächsten Paragraphs
+      // Prüfe die nächsten Paragraphs - NUR wenn sie direkt aufeinander folgen (keine anderen Elemente dazwischen)
       while (nextIndex < paragraphDivs.length) {
         const nextDiv = paragraphDivs[nextIndex];
+        
+        // WICHTIG: Prüfe ob zwischen diesem und dem nächsten Paragraph ein Absatzabstand ist
+        // Wenn zwischen den Paragraphen andere Elemente sind (z.B. Überschriften), ist es kein Gedicht
+        let hasGap = false;
+        let currentElement = div.nextElementSibling;
+        while (currentElement && currentElement !== nextDiv) {
+          // Wenn zwischen den Paragraphen ein Element ist, das nicht versteckt ist, gibt es einen Abstand
+          const computedStyle = window.getComputedStyle(currentElement);
+          if (computedStyle.display !== 'none' && 
+              computedStyle.visibility !== 'hidden' &&
+              currentElement.textContent.trim().length > 0) {
+            hasGap = true;
+            break;
+          }
+          currentElement = currentElement.nextElementSibling;
+        }
+        
+        // Wenn ein Abstand gefunden wurde, stoppe die Suche
+        if (hasGap) {
+          break;
+        }
+        
         const nextTempDiv = document.createElement('div');
         nextTempDiv.innerHTML = nextDiv.innerHTML;
         const nextHiddenSpans = nextTempDiv.querySelectorAll('[style*="display:none"], [data-index]');
@@ -22991,7 +23145,7 @@ function detectAndFormatPoems(container) {
         const nextTextContent = nextTempDiv.textContent || nextTempDiv.innerText || '';
         const nextCleanText = nextTextContent.replace(/\s+\^[a-z0-9]+\s*$/i, '').trim();
         
-        if (nextCleanText.length > 0 && nextCleanText.length < 75) {
+        if (nextCleanText.length > 0 && nextCleanText.length < 90) {
           consecutiveShortParagraphs++;
           poemParagraphs.push(nextDiv);
           nextIndex++;
@@ -23002,8 +23156,21 @@ function detectAndFormatPoems(container) {
       
       // Wenn mindestens 2 aufeinanderfolgende kurze Paragraphen gefunden wurden, markiere alle
       if (consecutiveShortParagraphs >= 2) {
-        poemParagraphs.forEach(poemDiv => {
+        console.log(`[GEDICHT-ERKENNUNG] Gefunden: ${consecutiveShortParagraphs} aufeinanderfolgende kurze Paragraphen (Gedicht)`);
+        poemParagraphs.forEach((poemDiv, idx) => {
           poemDiv.classList.add('has-poem');
+          // WICHTIG: Entferne alle margin-Styles aus dem inline style-Attribut
+          const currentStyle = poemDiv.getAttribute('style') || '';
+          const newStyle = currentStyle
+            .replace(/margin[^:]*:\s*[^;]+;?\s*/gi, '')
+            .replace(/margin-top[^:]*:\s*[^;]+;?\s*/gi, '')
+            .replace(/margin-bottom[^:]*:\s*[^;]+;?\s*/gi, '')
+            .trim();
+          poemDiv.setAttribute('style', newStyle);
+          // Setze explizit margin-top und margin-bottom auf 0
+          poemDiv.style.marginTop = '0';
+          poemDiv.style.marginBottom = '0';
+          console.log(`[GEDICHT-ERKENNUNG] Paragraph ${idx + 1} markiert als Gedicht, Text-Länge: ${cleanText.length}`);
         });
         
         // Überspringe alle markierten Paragraphen
@@ -23045,11 +23212,11 @@ function detectAndFormatPoems(container) {
       return text;
     }).filter(line => line.trim().length > 0);
     
-    // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 75 Zeichen haben
+    // Prüfe, ob mindestens zwei aufeinanderfolgende Zeilen weniger als 90 Zeichen haben
     let consecutiveShortLines = 0;
     for (let i = 0; i < lines.length; i++) {
       const lineLength = lines[i].trim().length;
-      if (lineLength > 0 && lineLength < 75) {
+      if (lineLength > 0 && lineLength < 90) {
         consecutiveShortLines++;
         if (consecutiveShortLines >= 2) {
           // Markiere als Gedicht/kurze Zeilen
@@ -23075,14 +23242,37 @@ function detectAndFormatPoems(container) {
     }
     
     // ZUSÄTZLICH: Prüfe aufeinanderfolgende <p> Elemente mit kurzen Zeilen
-    // Wenn dieser Paragraph eine kurze Zeile hat (< 75 Zeichen), prüfe die nächsten
-    if (lines.length > 0 && lines[0].trim().length > 0 && lines[0].trim().length < 75) {
+    // Wenn dieser Paragraph eine kurze Zeile hat (< 90 Zeichen), prüfe die nächsten
+    // WICHTIG: Nur wenn zwischen den Paragraphen kein Absatzabstand ist (direkt aufeinander folgen)
+    if (lines.length > 0 && lines[0].trim().length > 0 && lines[0].trim().length < 90) {
       let consecutiveShortParagraphs = 1;
       let nextIndex = index + 1;
       
-      // Prüfe die nächsten Paragraphs
+      // Prüfe die nächsten Paragraphs - NUR wenn sie direkt aufeinander folgen (keine anderen Elemente dazwischen)
       while (nextIndex < paragraphs.length && consecutiveShortParagraphs < 2) {
         const nextP = paragraphs[nextIndex];
+        
+        // WICHTIG: Prüfe ob zwischen diesem und dem nächsten Paragraph ein Absatzabstand ist
+        // Wenn zwischen den Paragraphen andere Elemente sind (z.B. Überschriften), ist es kein Gedicht
+        let hasGap = false;
+        let currentElement = p.nextElementSibling;
+        while (currentElement && currentElement !== nextP) {
+          // Wenn zwischen den Paragraphen ein Element ist, das nicht versteckt ist, gibt es einen Abstand
+          const computedStyle = window.getComputedStyle(currentElement);
+          if (computedStyle.display !== 'none' && 
+              computedStyle.visibility !== 'hidden' &&
+              currentElement.textContent.trim().length > 0) {
+            hasGap = true;
+            break;
+          }
+          currentElement = currentElement.nextElementSibling;
+        }
+        
+        // Wenn ein Abstand gefunden wurde, stoppe die Suche
+        if (hasGap) {
+          break;
+        }
+        
         const nextTextContent = nextP.textContent || nextP.innerText || '';
         const nextTempDiv = document.createElement('div');
         nextTempDiv.innerHTML = nextP.innerHTML;
@@ -23101,7 +23291,7 @@ function detectAndFormatPoems(container) {
           return text;
         }).filter(line => line.trim().length > 0);
         
-        if (nextLines.length > 0 && nextLines[0].trim().length > 0 && nextLines[0].trim().length < 75) {
+        if (nextLines.length > 0 && nextLines[0].trim().length > 0 && nextLines[0].trim().length < 90) {
           consecutiveShortParagraphs++;
         if (consecutiveShortParagraphs >= 2) {
           // Markiere beide als Gedicht

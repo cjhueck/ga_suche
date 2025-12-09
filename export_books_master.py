@@ -840,6 +840,59 @@ class BooksExporter:
         
         return text
     
+    def format_paragraph_content(self, content):
+        """
+        Formatiert Paragraph-Content:
+        1. Gedichte: Reduziert doppelte Leerzeilen zwischen Zeilen auf einfache
+        2. Durchgezogene Linien: Konvertiert * * * zu * * *
+        """
+        if not content:
+            return content
+        
+        # 1. Durchgezogene Linien: Konvertiere * * * zu * * * (beide sind identisch, aber sicherstellen)
+        # Pattern: * * * oder * * * mit variablen Leerzeichen
+        content = re.sub(r'\*\s+\*\s+\*', '* * *', content)
+        
+        # 2. Gedichte: Reduziere doppelte Leerzeilen zwischen Zeilen auf einfache
+        # Erkenne Gedichte: Mehrere kurze Zeilen (< 90 Zeichen) hintereinander
+        lines = content.split('\n')
+        result_lines = []
+        
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+            line_length = len(line.strip())
+            
+            # Prüfe ob aktuelle Zeile kurz ist (potentielles Gedicht)
+            if line_length > 0 and line_length < 90:
+                # Prüfe ob nächste Zeile auch kurz ist (Gedicht erkannt)
+                if i + 1 < len(lines):
+                    next_line = lines[i + 1]
+                    next_line_length = len(next_line.strip())
+                    
+                    # Wenn nächste Zeile leer ist, prüfe die übernächste
+                    if next_line_length == 0 and i + 2 < len(lines):
+                        next_next_line = lines[i + 2]
+                        next_next_length = len(next_next_line.strip())
+                        
+                        # Wenn übernächste Zeile auch kurz ist, überspringe die leere Zeile
+                        if next_next_length > 0 and next_next_length < 90:
+                            result_lines.append(line)
+                            i += 1  # Überspringe leere Zeile
+                            continue
+                    
+                    # Wenn nächste Zeile auch kurz ist, füge keine Leerzeile ein
+                    if next_line_length > 0 and next_line_length < 90:
+                        result_lines.append(line)
+                        i += 1
+                        continue
+            
+            # Normale Zeile: Füge hinzu
+            result_lines.append(line)
+            i += 1
+        
+        return '\n'.join(result_lines)
+    
     def process_book(self, ga_folder):
         """Verarbeitet einen GA-Band"""
         import time
@@ -892,6 +945,11 @@ class BooksExporter:
             
             # 6. Extrahiere Absätze (ohne Überschriften) - wie bei Vorträgen
             paragraphs = self.extract_paragraphs(content)
+            
+            # 6.5. Formatiere Paragraph-Content (Gedichte und durchgezogene Linien)
+            for para in paragraphs:
+                if para.get('content'):
+                    para['content'] = self.format_paragraph_content(para['content'])
             
             # Prüfe ob Absätze Indizes haben
             has_paragraph_indices = len(paragraphs) > 0 and all(p.get('index', '').startswith('^') for p in paragraphs)
