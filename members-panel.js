@@ -188,6 +188,9 @@ async function openMembersPanel() {
   // Zeige Mitglieder-Content
   showMembersContent();
   
+  // Initialisiere Chat-Realtime-Listener für Badge-Updates (auch wenn Chat-Tab nicht aktiv ist)
+  initializeChatRealtimeListener();
+  
   // Aktualisiere Button-Status nach dem Öffnen
   setTimeout(() => {
     updateMembersButtonStatus();
@@ -584,7 +587,10 @@ async function showMembersContent() {
                 <option value="">Schlagwörter</option>
               </select>
             </div>
-            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn">
+              Chat
+              <span class="chat-badge" id="members-chat-badge" style="display: none;">0</span>
+            </button>
             <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 6h18M7 12h10M11 18h6"></path>
@@ -605,6 +611,12 @@ async function showMembersContent() {
       </div>
     </div>
   `;
+  
+  // Initialisiere Chat-Badge nach dem Rendern
+  setTimeout(() => {
+    updateChatBadge();
+  }, 100);
+  
   } catch (e) {
     // Fallback: Falls innerHTML blockiert wird, verwende direkte DOM-Manipulation
     console.warn('[MB-CONTENT] innerHTML blockiert, verwende direkte DOM-Manipulation:', e);
@@ -639,7 +651,10 @@ async function showMembersContent() {
                   <option value="">Schlagwörter</option>
                 </select>
               </div>
-              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')">Chat</button>
+              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2">
+                Chat
+                <span class="chat-badge" id="members-chat-badge-2" style="display: none;">0</span>
+              </button>
               <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 6h18M7 12h10M11 18h6"></path>
@@ -796,6 +811,7 @@ async function loadMembersTab(tabName) {
         break;
       case 'chat':
         await loadChatTab(content);
+        // markChatAsRead() und updateChatBadge() werden bereits in loadChatTab() aufgerufen
         break;
       default:
         console.warn('[MB-TAB] Unbekannter Tab:', tabName);
@@ -3703,6 +3719,47 @@ async function saveMemberNote() {
 }
 
 /**
+ * Initialisiert den Chat-Realtime-Listener für Badge-Updates
+ * Wird aufgerufen, wenn das members-panel geöffnet wird oder beim Laden der Seite
+ */
+function initializeChatRealtimeListener() {
+  // Prüfe currentUser aus verschiedenen Quellen
+  const user = currentUser || window.currentUser;
+  if (!user) return;
+  
+  // Entferne alten Listener falls vorhanden
+  if (window.chatChannel) {
+    unsubscribeFromChat(window.chatChannel);
+    window.chatChannel = null;
+  }
+  
+  // Initialisiere neuen Realtime-Listener
+  window.chatChannel = subscribeToChatMessages('general', (message) => {
+    // Prüfe currentUser aus verschiedenen Quellen
+    const userForCheck = currentUser || window.currentUser;
+    // Prüfe ob es eine eigene Nachricht ist
+    const isOwnMessage = userForCheck && message.user_id === userForCheck.id;
+    
+    // Wenn Chat-Tab aktiv ist, zeige Nachricht sofort an
+    const isChatTabActive = (typeof currentMembersTab !== 'undefined' && currentMembersTab === 'chat') || 
+                            (document.getElementById('chat-messages') !== null);
+    
+    if (isChatTabActive) {
+      appendChatMessage(message);
+    }
+    
+    // Wenn es keine eigene Nachricht ist, aktualisiere Badge IMMER (auch wenn Panel geschlossen ist)
+    if (!isOwnMessage) {
+      // Aktualisiere Badge mit aktueller Anzahl (nicht nur erhöhen)
+      // Das Badge wird auch in app.html aktualisiert, wenn das Panel geschlossen ist
+      if (typeof updateChatBadge === 'function') {
+        updateChatBadge();
+      }
+    }
+  });
+}
+
+/**
  * Chat Tab
  */
 async function loadChatTab(container) {
@@ -3711,64 +3768,220 @@ async function loadChatTab(container) {
   container.innerHTML = `
     <div class="chat-panel">
       <div id="chat-messages" class="chat-messages"></div>
-      <div class="chat-input">
-        <textarea id="chat-message-input" placeholder="Nachricht schreiben..." onkeypress="if(event.key==='Enter' && !event.shiftKey){sendMemberChatMessage(); return false;}"></textarea>
-        <button onclick="sendMemberChatMessage()">📤</button>
+      <div class="chat-input-container">
+        <input type="text" id="chat-address-input" class="chat-address-field" placeholder="Adresse" />
+        <div class="chat-input-row">
+          <textarea id="chat-message-input" class="chat-message-field" placeholder="Nachricht schreiben..." onkeypress="if(event.key==='Enter' && !event.shiftKey){sendMemberChatMessage(); return false;}"></textarea>
+        </div>
+        <div class="chat-send-container">
+          <button class="chat-send-btn" onclick="sendMemberChatMessage()">Senden</button>
+        </div>
       </div>
     </div>
   `;
   
   await loadChatMessages();
   
-  // Realtime Listener
-  window.chatChannel = subscribeToChatMessages('general', (message) => {
-    appendChatMessage(message);
-  });
+  // Markiere Chat als gelesen
+  markChatAsRead();
+  
+  // Aktualisiere Badge (sollte jetzt 0 sein)
+  updateChatBadge();
+  
+  // Stelle sicher, dass Realtime-Listener aktiv ist (wird normalerweise bereits in initializeChatRealtimeListener erstellt)
+  if (!window.chatChannel) {
+    initializeChatRealtimeListener();
+  }
 }
 
 async function loadChatMessages() {
   const result = await getChatMessages('general', 50);
   const container = document.getElementById('chat-messages');
   
+  // Set zurücksetzen beim Laden
+  window.displayedChatMessageIds = new Set();
+  
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Nachrichten</div>';
     return;
   }
   
-  container.innerHTML = result.data.map(msg => `
-    <div class="chat-message">
+  // Prüfe currentUser aus verschiedenen Quellen
+  const user = currentUser || window.currentUser;
+  const isOwnMessage = (msg) => user && msg.user_id === user.id;
+  
+  container.innerHTML = result.data.map(msg => {
+    // Markiere Nachricht als angezeigt
+    if (msg.id) {
+      window.displayedChatMessageIds.add(msg.id);
+    }
+    
+    const own = isOwnMessage(msg);
+    return `
+    <div class="chat-message ${own ? 'chat-message-own' : 'chat-message-received'}" ${msg.id ? `data-message-id="${msg.id}"` : ''}>
       <div class="chat-message-header">
         <strong>${msg.user_name}</strong>
         <span>${new Date(msg.created_at).toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</span>
       </div>
       <div class="chat-message-text">${msg.message}</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   
   // Scroll to bottom
   container.scrollTop = container.scrollHeight;
 }
 
+// Set zum Verfolgen bereits angezeigter Nachrichten-IDs
+window.displayedChatMessageIds = window.displayedChatMessageIds || new Set();
+
 function appendChatMessage(message) {
   const container = document.getElementById('chat-messages');
   if (!container) return;
+  
+  // Prüfe ob Nachricht bereits angezeigt wurde (verhindert Duplikate)
+  if (message.id && window.displayedChatMessageIds.has(message.id)) {
+    return;
+  }
+  
+  // Markiere Nachricht als angezeigt
+  if (message.id) {
+    window.displayedChatMessageIds.add(message.id);
+  }
   
   const isEmpty = container.querySelector('.empty-state');
   if (isEmpty) {
     container.innerHTML = '';
   }
   
-  container.innerHTML += `
-    <div class="chat-message">
-      <div class="chat-message-header">
-        <strong>${message.user_name}</strong>
-        <span>${new Date(message.created_at).toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</span>
-      </div>
-      <div class="chat-message-text">${message.message}</div>
+  // Prüfe currentUser aus verschiedenen Quellen
+  const user = currentUser || window.currentUser;
+  const isOwn = user && message.user_id === user.id;
+  const messageDiv = document.createElement('div');
+  messageDiv.className = `chat-message ${isOwn ? 'chat-message-own' : 'chat-message-received'}`;
+  if (message.id) {
+    messageDiv.setAttribute('data-message-id', message.id);
+  }
+  messageDiv.innerHTML = `
+    <div class="chat-message-header">
+      <strong>${message.user_name}</strong>
+      <span>${new Date(message.created_at).toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit'})}</span>
     </div>
+    <div class="chat-message-text">${message.message}</div>
   `;
   
+  container.appendChild(messageDiv);
   container.scrollTop = container.scrollHeight;
+}
+
+/**
+ * Markiert Chat als gelesen (speichert aktuellen Zeitstempel)
+ */
+function markChatAsRead() {
+  if (typeof Storage !== 'undefined') {
+    localStorage.setItem('chatLastRead', new Date().toISOString());
+  }
+}
+
+/**
+ * Zählt ungelesene Nachrichten seit dem letzten Besuch
+ */
+async function getUnreadChatCount() {
+  // Prüfe currentUser aus verschiedenen Quellen
+  const user = currentUser || window.currentUser;
+  if (!user) return 0;
+  
+  const lastRead = localStorage.getItem('chatLastRead');
+  if (!lastRead) {
+    // Wenn noch nie gelesen, markiere alle aktuellen Nachrichten als gelesen
+    markChatAsRead();
+    return 0;
+  }
+  
+  const result = await getChatMessages('general', 100);
+  if (!result.success || !result.data || result.data.length === 0) {
+    return 0;
+  }
+  
+  const lastReadDate = new Date(lastRead);
+  const unreadCount = result.data.filter(msg => {
+    const msgDate = new Date(msg.created_at);
+    return msgDate > lastReadDate && msg.user_id !== user.id;
+  }).length;
+  
+  return unreadCount;
+}
+
+/**
+ * Aktualisiert das Chat-Badge mit der Anzahl ungelesener Nachrichten
+ */
+async function updateChatBadge() {
+  // Prüfe currentUser aus verschiedenen Quellen
+  const user = currentUser || window.currentUser;
+  if (!user) {
+    // Wenn kein Benutzer eingeloggt ist, verstecke alle Badges
+    const badges = [
+      document.getElementById('members-chat-badge'),
+      document.getElementById('members-chat-badge-2'),
+      document.getElementById('members-html-chat-badge'),
+      document.getElementById('app-header-chat-badge')
+    ];
+    badges.forEach(badge => {
+      if (badge) {
+        badge.textContent = '';
+        badge.style.display = 'none';
+      }
+    });
+    return;
+  }
+  
+  const count = await getUnreadChatCount();
+  const badges = [
+    document.getElementById('members-chat-badge'),
+    document.getElementById('members-chat-badge-2'),
+    document.getElementById('members-html-chat-badge'),
+    document.getElementById('app-header-chat-badge')
+  ];
+  
+  badges.forEach(badge => {
+    if (badge) {
+      if (count > 0) {
+        badge.textContent = count > 99 ? '99+' : count.toString();
+        badge.style.display = 'inline-block';
+      } else {
+        // Badge ausblenden wenn count 0 oder kleiner ist - KEINE Anzeige bei 0!
+        badge.textContent = '';
+        badge.style.display = 'none';
+      }
+    }
+  });
+}
+
+/**
+ * Erhöht das Chat-Badge um 1
+ */
+function incrementChatBadge() {
+  const badges = [
+    document.getElementById('members-chat-badge'),
+    document.getElementById('members-chat-badge-2'),
+    document.getElementById('members-html-chat-badge'),
+    document.getElementById('app-header-chat-badge')
+  ];
+  
+  badges.forEach(badge => {
+    if (badge) {
+      const currentCount = parseInt(badge.textContent) || 0;
+      const newCount = currentCount + 1;
+      // Badge nur anzeigen wenn newCount > 0 - KEINE Anzeige bei 0!
+      if (newCount > 0) {
+        badge.textContent = newCount > 99 ? '99+' : newCount.toString();
+        badge.style.display = 'inline-block';
+      } else {
+        badge.textContent = '';
+        badge.style.display = 'none';
+      }
+    }
+  });
 }
 
 async function sendMemberChatMessage() {
@@ -3777,12 +3990,47 @@ async function sendMemberChatMessage() {
   
   if (!message) return;
   
+  // Optimistisches UI Update: Zeige Nachricht sofort an
+  const tempMessage = {
+    id: 'temp-' + Date.now(),
+    user_id: currentUser?.id,
+    user_name: currentUser?.email || 'Ich',
+    message: message,
+    created_at: new Date().toISOString(),
+    room: 'general'
+  };
+  
+  // Zeige Nachricht sofort an
+  appendChatMessage(tempMessage);
+  
+  // Leere Eingabefeld sofort
+  input.value = '';
+  
+  // Sende Nachricht an Server
   const result = await sendChatMessage(message, 'general');
   
-  if (result.success) {
-    input.value = '';
+  if (result.success && result.data) {
+    // Entferne temporäre Nachricht und ersetze durch echte
+    const container = document.getElementById('chat-messages');
+    const tempElement = container.querySelector(`[data-message-id="${tempMessage.id}"]`);
+    if (tempElement) {
+      tempElement.remove();
+      window.displayedChatMessageIds.delete(tempMessage.id);
+    }
+    
+    // Füge echte Nachricht hinzu (wird normalerweise auch über Realtime-Listener kommen, aber sicherheitshalber)
+    appendChatMessage(result.data);
   } else {
+    // Bei Fehler: Entferne temporäre Nachricht
+    const container = document.getElementById('chat-messages');
+    const tempElement = container.querySelector(`[data-message-id="${tempMessage.id}"]`);
+    if (tempElement) {
+      tempElement.remove();
+      window.displayedChatMessageIds.delete(tempMessage.id);
+    }
     alert('Fehler beim Senden');
+    // Setze Text zurück
+    input.value = message;
   }
 }
 
@@ -6078,7 +6326,15 @@ async function handleMembersLogin() {
     if (error) throw error;
     
     currentUser = data.user;
+    window.currentUser = data.user; // Setze auch global
     messageDiv.innerHTML = '<div class="success-msg">✓ Erfolgreich angemeldet!</div>';
+    
+    // Initialisiere Chat-Realtime-Listener sofort nach Login
+    initializeChatRealtimeListener();
+    // Aktualisiere Badge sofort
+    setTimeout(() => {
+      updateChatBadge();
+    }, 100);
     
     setTimeout(() => {
       showMembersContent();
@@ -6471,11 +6727,8 @@ function closeMembersPanel() {
     }
   }
   
-  // Chat-Channel beenden
-  if (window.chatChannel) {
-    unsubscribeFromChat(window.chatChannel);
-    window.chatChannel = null;
-  }
+  // Chat-Channel NICHT beenden - bleibt aktiv für Badge-Updates auch wenn Panel geschlossen ist
+  // Der Listener wird nur beim Abmelden oder Seitenwechsel entfernt
   
   // RH positionieren: Verwende zentrale Funktion wenn verfügbar
   if (typeof updateResizeHandle === 'function') {
@@ -6549,11 +6802,8 @@ function switchFromMembersPanelToTOC() {
     summaryContent.classList.remove('has-members-panel');
   }
   
-  // Chat-Channel beenden falls aktiv
-  if (window.chatChannel) {
-    unsubscribeFromChat(window.chatChannel);
-    window.chatChannel = null;
-  }
+  // Chat-Channel NICHT beenden - bleibt aktiv für Badge-Updates auch wenn Panel geschlossen ist
+  // Der Listener wird nur beim Abmelden oder Seitenwechsel entfernt
   
   // WICHTIG: Stelle sicher, dass das Panel geöffnet ist (auch wenn es vorher geschlossen war)
   if (summaryPanel) {
@@ -7054,6 +7304,8 @@ window.showMembersLogin = showMembersLogin;
 window.showMembersRegister = showMembersRegister;
 window.showPasswordReset = showPasswordReset;
 window.handlePasswordReset = handlePasswordReset;
+window.updateChatBadge = updateChatBadge;
+window.initializeChatRealtimeListener = initializeChatRealtimeListener;
 window.showMembersPrivacyModal = showMembersPrivacyModal;
 window.closeMembersPrivacyModal = closeMembersPrivacyModal;
 window.editMemberQuote = editMemberQuote;
@@ -7069,6 +7321,10 @@ window.sendMemberChatMessage = sendMemberChatMessage;
 window.handleKeywordFilter = handleKeywordFilter;
 window.handleGAFilter = handleGAFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
+window.updateChatBadge = updateChatBadge;
+window.markChatAsRead = markChatAsRead;
+window.getUnreadChatCount = getUnreadChatCount;
+window.initializeChatRealtimeListener = initializeChatRealtimeListener;
 window.saveMembersScrollPosition = saveMembersScrollPosition;
 window.restoreMembersScrollPosition = restoreMembersScrollPosition;
 window.markParagraphsWithBookmarksAndQuotes = markParagraphsWithBookmarksAndQuotes;

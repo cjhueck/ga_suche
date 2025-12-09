@@ -5600,11 +5600,12 @@ Bestehende Schlagwörter überschreiben
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
 <div class="viewer-buttons-container">
 <!-- Mitglieder Button -->
-<button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen">
+<button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 <circle cx="12" cy="8" r="4"/>
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
 </svg>
+<span class="chat-badge" id="app-header-chat-badge" style="display: none;">0</span>
 </button>
 <!-- H4 Toggle Button (nur bei Vorträgen) -->
 <button id="h4ToggleBtn" onclick="toggleH4Display()" title="H3/H3+H4+KW+H4Headings umschalten" style="display: none;">
@@ -15499,6 +15500,30 @@ function scrollToChronologicalYear(year) {
   const membersPanelBtn = document.getElementById('membersPanelBtn');
   if (membersPanelBtn) {
     membersPanelBtn.style.display = 'inline-flex';
+  }
+  
+  // Initialisiere Chat-Badge wenn Benutzer eingeloggt ist
+  if (typeof initSupabase === 'function' && typeof getCurrentUser === 'function') {
+    initSupabase().then(() => {
+      getCurrentUser().then(user => {
+        if (user) {
+          // Initialisiere Chat-Realtime-Listener für Badge-Updates
+          if (typeof initializeChatRealtimeListener === 'function') {
+            initializeChatRealtimeListener();
+          }
+          // Aktualisiere Badge
+          if (typeof updateChatBadge === 'function') {
+            setTimeout(() => {
+              updateChatBadge();
+            }, 500);
+          }
+        }
+      }).catch(() => {
+        // Benutzer nicht eingeloggt, kein Badge nötig
+      });
+    }).catch(() => {
+      // Supabase nicht initialisiert, kein Badge nötig
+    });
   }
   
   // Info-Button: Zeige nur wenn ein Vortrag/Text aus einem GA-Band angeklickt und angezeigt wird
@@ -30691,6 +30716,60 @@ async function addKeywordToLecture() {
 
 <!-- Members Context Menu (Rechtsklick) -->
 <script src="members-context-menu.js"></script>
+
+<!-- Initialisiere Chat-Badge beim Laden der Seite -->
+<script>
+  // Initialisiere Chat-Badge sofort beim Laden, wenn Benutzer eingeloggt ist
+  function initializeChatBadgeOnLoad() {
+    // Warte bis members-panel.js und members-api.js geladen sind
+    if (typeof initSupabase === 'function' && typeof getCurrentUser === 'function') {
+      initSupabase().then(() => {
+        return getCurrentUser();
+      }).then(user => {
+        if (user) {
+          // Setze currentUser global für members-panel.js
+          if (typeof window !== 'undefined') {
+            window.currentUser = user;
+            // Setze auch in members-panel.js falls vorhanden
+            if (typeof window.setCurrentUser === 'function') {
+              window.setCurrentUser(user);
+            }
+          }
+          
+          // Initialisiere Chat-Realtime-Listener für Badge-Updates
+          if (typeof initializeChatRealtimeListener === 'function') {
+            initializeChatRealtimeListener();
+          }
+          
+          // Aktualisiere Badge sofort - auch wenn Panel geschlossen ist
+          if (typeof updateChatBadge === 'function') {
+            // Verwende setTimeout um sicherzustellen, dass currentUser gesetzt ist
+            setTimeout(() => {
+              updateChatBadge();
+            }, 200);
+          }
+        }
+      }).catch(() => {
+        // Benutzer nicht eingeloggt, kein Badge nötig
+      });
+    } else {
+      // Scripts noch nicht geladen, versuche es später nochmal
+      setTimeout(initializeChatBadgeOnLoad, 500);
+    }
+  }
+  
+  // Initialisiere beim DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeChatBadgeOnLoad);
+  } else {
+    // DOM bereits geladen
+    initializeChatBadgeOnLoad();
+  }
+  
+  // Initialisiere auch nach kurzer Verzögerung (falls Scripts noch nicht geladen sind)
+  setTimeout(initializeChatBadgeOnLoad, 1000);
+  setTimeout(initializeChatBadgeOnLoad, 2000);
+</script>
 
 <!-- Debug & Test Functions -->
 
