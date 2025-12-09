@@ -612,6 +612,8 @@ a:hover .quote-bookmark-icon-header {
   overflow-y: auto;
   padding: 0.5rem;
   max-height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
 }
 
 .chat-message {
@@ -620,6 +622,19 @@ a:hover .quote-bookmark-icon-header {
   background: var(--background-color);
   border: 1px solid var(--border-color);
   border-radius: 4px;
+  max-width: 70%;
+  min-width: 200px;
+  word-wrap: break-word;
+}
+
+.chat-message-own {
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.chat-message-received {
+  align-self: flex-end;
+  margin-left: auto;
 }
 
 .chat-message-header {
@@ -644,18 +659,38 @@ a:hover .quote-bookmark-icon-header {
   line-height: 1.4;
 }
 
-.chat-input {
-  display: flex;
-  gap: 0.5rem;
+.chat-input-container {
   padding: 0.75rem;
   background: var(--background-color);
-  border-top: 1px solid var(--border-color);
   position: sticky;
   bottom: 0;
 }
 
-.chat-input textarea {
-  flex: 1;
+.chat-address-field {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: Georgia, serif;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
+.chat-address-field:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.chat-input-row {
+  display: flex;
+  width: 100%;
+  margin-top: 0;
+}
+
+.chat-message-field {
+  width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--border-color);
   background: var(--background-color);
@@ -664,24 +699,33 @@ a:hover .quote-bookmark-icon-header {
   font-size: 0.85rem;
   resize: none;
   height: 60px;
+  box-sizing: border-box;
+  border-top: none;
 }
 
-.chat-input textarea:focus {
+.chat-message-field:focus {
   outline: none;
   border-color: var(--accent-color);
 }
 
-.chat-input button {
+.chat-send-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.chat-send-btn {
   padding: 0.5rem 1rem;
   background: var(--accent-color);
   color: white;
   border: none;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: 0.85rem;
   transition: background 0.2s;
+  font-family: inherit;
 }
 
-.chat-input button:hover {
+.chat-send-btn:hover {
   background: #3a6270;
 }
 
@@ -692,8 +736,9 @@ body.dark-mode .members-content,
 body.dark-mode .form-group input,
 body.dark-mode .form-group textarea,
 body.dark-mode .chat-message,
-body.dark-mode .chat-input,
-body.dark-mode .chat-input textarea {
+body.dark-mode .chat-input-container,
+body.dark-mode .chat-input-container input,
+body.dark-mode .chat-input-container textarea {
   background-color: var(--dark-background-color);
   border-color: var(--dark-border-color);
   color: var(--dark-text-color);
@@ -781,12 +826,74 @@ body.dark-mode .auth-switch a {
   color: var(--dark-accent-color);
 }
 
-body.dark-mode .chat-input button {
+body.dark-mode .chat-send-btn {
   background: var(--dark-accent-color);
 }
 
-body.dark-mode .chat-input button:hover {
+body.dark-mode .chat-send-btn:hover {
   background: #5a8fa0;
+}
+
+/* Chat Badge */
+.chat-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #c62828;
+  color: white;
+  border-radius: 50%;
+  padding: 0 !important;
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 18px;
+  min-height: 18px;
+  width: 18px;
+  height: 18px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 18px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  margin: 0 !important;
+  border: none !important;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+/* Badge nur anzeigen wenn es Inhalt hat und explizit angezeigt werden soll */
+.chat-badge[style*="display: inline-block"],
+.chat-badge[style*="display:inline-block"] {
+  display: inline-flex !important;
+}
+
+/* Badge mit mehr als einer Ziffer - etwas breiter, aber immer noch rund */
+.chat-badge:not(:empty) {
+  min-width: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 0 !important;
+  line-height: 20px !important;
+  border-radius: 50%;
+}
+
+/* Badge NICHT anzeigen wenn leer oder wenn display: none gesetzt ist */
+.chat-badge:empty {
+  display: none !important;
+}
+
+.members-tab {
+  position: relative;
+}
+
+.toolbar-btn {
+  position: relative;
+}
+
+body.dark-mode .chat-badge {
+  background: #c62828;
+  color: white;
 }
 
 /* Highlight für Einträge im Mitgliederbereich beim Klick auf Absatz-Icon */

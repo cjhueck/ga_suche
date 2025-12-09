@@ -1155,7 +1155,10 @@
       
       <div class="toolbar-spacer"></div>
       
-      <button class="toolbar-btn" data-tab="chat">Chat</button>
+      <button class="toolbar-btn" data-tab="chat" id="members-html-chat-btn" style="position: relative;">
+        Chat
+        <span class="chat-badge" id="members-html-chat-badge" style="display: none;">0</span>
+      </button>
     </div>
 
     <!-- Main Content: Two Columns -->
@@ -1383,6 +1386,14 @@
       currentUser = user;
       const authView = document.getElementById('auth-view');
       const appView = document.getElementById('app-view');
+      
+      // Initialisiere Chat-Badge nach dem Laden
+      setTimeout(() => {
+        if (typeof updateChatBadge === 'function') {
+          updateChatBadge();
+        }
+      }, 500);
+      
       if (authView) {
         authView.classList.remove('active');
         authView.classList.add('hidden');
@@ -1899,6 +1910,13 @@
           if (tabName === 'quotes' || tabName === 'highlights') {
             switchTab(tabName);
           } else if (tabName === 'chat') {
+            // Markiere Chat als gelesen beim Öffnen
+            if (typeof markChatAsRead === 'function') {
+              markChatAsRead();
+            }
+            if (typeof updateChatBadge === 'function') {
+              updateChatBadge();
+            }
             window.location.href = 'members.html#chat';
           }
         });
