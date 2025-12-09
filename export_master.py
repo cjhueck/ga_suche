@@ -4,6 +4,8 @@ Master Export-Skript fuer Steiner GA-Suche
 ==========================================
 Fuehrt den kompletten Export-Workflow automatisch aus:
 1. Bildpfade in Obsidian korrigieren (optional)
+   - Extrahiert Bilder aus PDF-Dateien (falls vorhanden) und speichert sie als PNG
+   - Konvertiert JPEG-Bilder zu PNG im assets-Ordner
    - Korrigiert fehlerhafte Markdown/Wiki-Links
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
@@ -58,10 +60,110 @@ except ImportError:
     PIL_AVAILABLE = False
     print("Warnung: PIL/Pillow nicht verfügbar. JPEG-zu-PNG Konvertierung wird übersprungen.")
 
+# Importiere PyMuPDF für PDF-Bild-Extraktion
+try:
+    import fitz  # PyMuPDF
+    import io
+    FITZ_AVAILABLE = True
+except ImportError:
+    FITZ_AVAILABLE = False
+    print("Warnung: PyMuPDF (fitz) nicht verfügbar. PDF-Bild-Extraktion wird übersprungen.")
+
 
 # ============================================================================
 # BILDPFAD-KORREKTUR FUNKTIONEN (Integriert)
 # ============================================================================
+
+def extract_images_from_pdf(ga_folder_path):
+    """
+    Extrahiert Bilder aus PDF-Datei (falls vorhanden) und speichert sie als PNG im assets-Ordner.
+    
+    Args:
+        ga_folder_path: Pfad zum GA-Ordner (z.B. "Steiner_GA/GA267-Seelenübungen I")
+        
+    Returns:
+        Anzahl der extrahierten Bilder
+    """
+    if not FITZ_AVAILABLE or not PIL_AVAILABLE:
+        return 0
+    
+    try:
+        ga_folder = Path(ga_folder_path)
+        ga_name = ga_folder.name
+        
+        # Prüfe ob assets-Ordner bereits Bilder enthält
+        assets_dir = ga_folder / "assets"
+        if assets_dir.exists():
+            existing_images = list(assets_dir.glob("*.png")) + list(assets_dir.glob("*.jpg")) + list(assets_dir.glob("*.jpeg"))
+            if len(existing_images) > 0:
+                # Bilder bereits vorhanden, überspringe Extraktion
+                return 0
+        
+        # Suche nach PDF-Datei im GA-Ordner
+        pdf_files = list(ga_folder.glob("*.pdf"))
+        if not pdf_files:
+            return 0
+        
+        # Verwende die erste gefundene PDF-Datei
+        pdf_path = pdf_files[0]
+        
+        # Erstelle assets-Ordner falls nicht vorhanden
+        assets_dir.mkdir(exist_ok=True)
+        
+        print(f"    📄 PDF gefunden: {pdf_path.name}")
+        
+        doc = fitz.open(str(pdf_path))
+        image_count = 0
+        image_index = 0
+        
+        for pnum in range(len(doc)):
+            page = doc[pnum]
+            image_list = page.get_images()
+            
+            for img_idx, img in enumerate(image_list):
+                try:
+                    xref = img[0]
+                    base_image = doc.extract_image(xref)
+                    image_bytes = base_image["image"]
+                    
+                    # Erstelle Dateiname im Format: GA267-Seelenübungen I_img-0.png
+                    image_filename = f"{ga_name}_img-{image_index}.png"
+                    image_path = assets_dir / image_filename
+                    
+                    # Konvertiere zu PNG mit PIL
+                    img_pil = Image.open(io.BytesIO(image_bytes))
+                    
+                    # Konvertiere zu RGB falls notwendig
+                    if img_pil.mode in ('RGBA', 'LA', 'P'):
+                        # Behalte Transparenz bei
+                        img_pil.save(image_path, 'PNG', optimize=True)
+                    else:
+                        # Konvertiere zu RGB für maximale Kompatibilität
+                        rgb_img = Image.new('RGB', img_pil.size, (255, 255, 255))
+                        if img_pil.mode == 'RGBA':
+                            rgb_img.paste(img_pil, mask=img_pil.split()[3])  # Alpha-Kanal als Maske
+                        else:
+                            rgb_img.paste(img_pil)
+                        rgb_img.save(image_path, 'PNG', optimize=True)
+                    
+                    image_count += 1
+                    image_index += 1
+                    
+                except Exception as e:
+                    print(f"    ⚠ Fehler bei Bild {pnum+1}/{img_idx+1}: {str(e)}")
+                    continue
+        
+        doc.close()
+        
+        if image_count > 0:
+            print(f"    ✅ {image_count} Bilder aus PDF extrahiert")
+        
+        return image_count
+        
+    except Exception as e:
+        print(f"    ⚠ Fehler bei PDF-Extraktion in {ga_folder_path}: {e}")
+        return 0
+
 
 def convert_jpeg_to_png_files(md_file_path):
     """
@@ -476,14 +578,22 @@ class ExportMaster:
                 if not os.path.isdir(folder_path) or not folder_name.startswith('GA'):
                     continue
                 
+                folder_had_changes = False
+                
+                # Schritt 1: Extrahiere Bilder aus PDF (falls vorhanden)
+                extracted_images = extract_images_from_pdf(folder_path)
+                if extracted_images > 0:
+                    if not folder_had_changes:
+                        print(f"\n{folder_name}:")
+                        folder_had_changes = True
+                    print(f"  PDF-Extraktion: {extracted_images} Bild(er) extrahiert")
+                
                 # Finde Markdown-Dateien
                 md_files = [f for f in os.listdir(folder_path) 
                            if f.endswith('.md') and '(' in f and ')' in f]
                 
                 if not md_files:
                     continue
-                
-                folder_had_changes = False
                 
                 for md_file in md_files:
                     md_path = os.path.join(folder_path, md_file)

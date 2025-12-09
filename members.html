@@ -555,8 +555,8 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+      gap: 0.15rem;
+      margin-top: 0.25rem;
     }
 
     .item-tags-row {
@@ -565,7 +565,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       gap: 0.5rem;
-      margin-top: 0.25rem;
+      margin-top: 0.15rem;
     }
 
     .item-actions {
@@ -578,8 +578,8 @@
     .item-tag {
       background: transparent;
       color: var(--link-color);
-      border: 1px solid var(--link-color);
-      padding: 0.25rem 0.5rem;
+      border: none;
+      padding: 0.25rem 0.25rem;
       font-size: 0.75rem;
       border-radius: 3px;
     }
@@ -2290,7 +2290,6 @@
               </div>
             </div>
             <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
-            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
             <div class="item-tags-row">
               ${tags.length > 0 ? `
                 <div class="item-tags">
@@ -2308,10 +2307,11 @@
                       <line x1="14" y1="10" x2="14" y2="16"/>
                     </svg>
                   </button>
-                  ${!isHighlight ? `<button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>` : ''}
+                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}', ${isHighlight ? 'true' : 'false'})" title="Vollständigen Absatz anzeigen"></button>
                 </div>
               ` : ''}
             </div>
+            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
           </div>
         `;
       }).join('');
@@ -2538,7 +2538,7 @@
       ? 'http://localhost:3003'
       : 'https://ga-suche.onrender.com';
     
-    async function toggleExpandParagraph(event, itemId, gaReference, paragraphId) {
+    async function toggleExpandParagraph(event, itemId, gaReference, paragraphId, isHighlight = false) {
       event.stopPropagation();
       
       const fullParagraphDiv = document.getElementById(`full-paragraph-${itemId}`);
@@ -2568,8 +2568,16 @@
         
         let fullText = '';
         
-        if (gaReference) {
-          // Für Quotes: Lade den vollständigen Absatz über ga_reference
+        // Für Highlights: Versuche zuerst paragraph_text zu verwenden
+        if (isHighlight) {
+          const item = currentItems.find(i => i.id === itemId);
+          if (item && item.paragraph_text) {
+            fullText = item.paragraph_text;
+          }
+        }
+        
+        // Falls kein paragraph_text vorhanden oder für Quotes: Lade über API
+        if (!fullText && gaReference) {
           const parts = gaReference.split('/');
           if (parts.length === 2) {
             const gaNumber = parts[0];
@@ -2583,20 +2591,43 @@
             const lecture = data.lecture;
             
             if (lecture && lecture.paragraphs) {
-              // Finde den Absatz, der das Zitat enthält
               const item = currentItems.find(i => i.id === itemId);
-              const quoteText = item ? item.quote_text : '';
               
-              // Suche nach dem Absatz, der den Zitat-Text enthält
-              const matchingParagraph = lecture.paragraphs.find(p => 
-                p.content && p.content.includes(quoteText.substring(0, 50))
-              );
-              
-              if (matchingParagraph && matchingParagraph.content) {
-                fullText = matchingParagraph.content;
-              } else if (lecture.paragraphs.length > 0) {
-                // Fallback: Erster Absatz
-                fullText = lecture.paragraphs[0].content || '';
+              if (isHighlight) {
+                // Für Highlights: Suche nach Absatz mit paragraph_id oder nach Text
+                const searchText = item ? (item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(item.text_start_offset || 0, item.text_end_offset || item.paragraph_text.length) : '')) : '';
+                
+                let matchingParagraph = null;
+                if (paragraphId) {
+                  matchingParagraph = lecture.paragraphs.find(p => p.id === paragraphId);
+                }
+                
+                if (!matchingParagraph && searchText) {
+                  matchingParagraph = lecture.paragraphs.find(p => 
+                    p.content && p.content.includes(searchText.substring(0, 50))
+                  );
+                }
+                
+                if (matchingParagraph && matchingParagraph.content) {
+                  fullText = matchingParagraph.content;
+                } else if (lecture.paragraphs.length > 0) {
+                  // Fallback: Erster Absatz
+                  fullText = lecture.paragraphs[0].content || '';
+                }
+              } else {
+                // Für Quotes: Suche nach dem Absatz, der das Zitat enthält
+                const quoteText = item ? item.quote_text : '';
+                
+                const matchingParagraph = lecture.paragraphs.find(p => 
+                  p.content && p.content.includes(quoteText.substring(0, 50))
+                );
+                
+                if (matchingParagraph && matchingParagraph.content) {
+                  fullText = matchingParagraph.content;
+                } else if (lecture.paragraphs.length > 0) {
+                  // Fallback: Erster Absatz
+                  fullText = lecture.paragraphs[0].content || '';
+                }
               }
             }
           }
@@ -3190,7 +3221,6 @@
               </div>
             </div>
             <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
-            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
             <div class="item-tags-row">
               ${tags.length > 0 ? `
                 <div class="item-tags">
@@ -3208,10 +3238,11 @@
                       <line x1="14" y1="10" x2="14" y2="16"/>
                     </svg>
                   </button>
-                  ${!isHighlight ? `<button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}')" title="Vollständigen Absatz anzeigen"></button>` : ''}
+                  <button class="item-expand-btn" onclick="toggleExpandParagraph(event, '${item.id}', '${gaNumber}', '${item.paragraph_id || ''}', ${isHighlight ? 'true' : 'false'})" title="Vollständigen Absatz anzeigen"></button>
                 </div>
               ` : ''}
             </div>
+            <div id="full-paragraph-${item.id}" class="item-full-paragraph"></div>
           </div>
         `;
         }).join('');
