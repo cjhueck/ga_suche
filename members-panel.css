@@ -460,18 +460,18 @@ a:hover .quote-bookmark-icon-header {
 }
 
 .member-item-tags {
-  margin-top: 0.4rem;
+  margin-top: 0.25rem;
   font-size: 0.75rem;
 }
 
 .tag {
   display: inline-block;
-  padding: 0.2rem 0.4rem;
+  padding: 0.25rem 0.25rem;
   background: transparent;
   color: var(--link-color);
-  border: 1px solid var(--link-color);
+  border: none;
   border-radius: 3px;
-  margin-right: 0.25rem;
+  margin-right: 0.15rem;
   font-size: 0.7rem;
 }
 
