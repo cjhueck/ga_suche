@@ -583,6 +583,10 @@
       font-size: 0.75rem;
       border-radius: 3px;
     }
+    
+    .clickable-tag {
+      cursor: pointer;
+    }
 
     /* Right Column: Notes */
     .notes-column {
@@ -1138,6 +1142,7 @@
       <div class="toolbar-tabs">
         <button class="toolbar-tab" data-tab="quotes">Zitate</button>
         <button class="toolbar-tab" data-tab="highlights">Unterstreichungen</button>
+        <button class="toolbar-tab" data-tab="notes">Notizen</button>
         <button class="toolbar-btn" id="sort-btn" title="Nach Vortragsdatum sortieren" onclick="toggleSortOrder()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 6h18M7 12h10M11 18h6"></path>
@@ -1155,7 +1160,7 @@
       
       <div class="toolbar-spacer"></div>
       
-      <button class="toolbar-btn" data-tab="chat" id="members-html-chat-btn" style="position: relative;">
+      <button class="toolbar-btn" data-tab="chat" id="members-html-chat-btn" style="position: relative; display: none;">
         Chat
         <span class="chat-badge" id="members-html-chat-badge" style="display: none;">0</span>
       </button>
@@ -1282,6 +1287,7 @@
     let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
+    let getNotes, deleteNote, createNote;
     
     try {
       const authModule = await import('./members-auth.js');
@@ -1298,6 +1304,10 @@
       getQuotes = apiModule.getQuotes;
       deleteQuote = apiModule.deleteQuote;
       updateQuote = apiModule.updateQuote;
+      getNotes = apiModule.getNotes;
+      deleteNote = apiModule.deleteNote;
+      createNote = apiModule.createNote;
+      updateNote = apiModule.updateNote;
       getHighlights = apiModule.getHighlights;
       deleteHighlight = apiModule.deleteHighlight;
       updateHighlight = apiModule.updateHighlight;
@@ -1316,6 +1326,10 @@
       window.getHighlights = getHighlights;
       window.deleteHighlight = deleteHighlight;
       window.updateHighlight = updateHighlight;
+      window.getNotes = getNotes;
+      window.deleteNote = deleteNote;
+      window.createNote = createNote;
+      window.updateNote = updateNote;
     } catch (error) {
       console.error('[MEMBERS-HTML] ✗ Fehler beim Laden der Module:', error);
       const messageDiv = document.getElementById('auth-message');
@@ -1907,7 +1921,7 @@
       document.querySelectorAll('.toolbar-tab').forEach(tab => {
         tab.addEventListener('click', () => {
           const tabName = tab.dataset.tab;
-          if (tabName === 'quotes' || tabName === 'highlights') {
+          if (tabName === 'quotes' || tabName === 'highlights' || tabName === 'notes') {
             switchTab(tabName);
           } else if (tabName === 'chat') {
             // Markiere Chat als gelesen beim Öffnen
@@ -1993,6 +2007,14 @@
             return;
           }
           result = await getHighlights();
+        } else if (currentTab === 'notes') {
+          // Lade Notizen
+          if (typeof getNotes !== 'function') {
+            console.error('[MEMBERS-HTML] getNotes Funktion nicht verfügbar!');
+            container.innerHTML = '<div class="empty-state">Fehler: API-Funktionen nicht geladen. Bitte Seite neu laden.</div>';
+            return;
+          }
+          result = await getNotes();
         } else {
           // Lade Quotes (Standard)
           if (typeof getQuotes !== 'function') {
@@ -2035,6 +2057,15 @@
           ) : '',
           tags: item.tags || [],
           color: item.color || 'blue' // Preserve highlight color from database
+        }));
+      } else if (currentTab === 'notes') {
+        // Process notes
+        itemsWithMarkers = result.data.map(item => ({
+          ...item,
+          item_type: 'note',
+          quote_text: item.content || '',
+          tags: item.tags || [],
+          title: item.title || 'Unbenannte Notiz'
         }));
       } else {
         // Process quotes - Ensure marker_color is preserved from database
@@ -2238,6 +2269,85 @@
       }
       
       container.innerHTML = currentItems.map((item, index) => {
+        // Prüfe ob es eine Notiz ist
+        const isNote = currentTab === 'notes' || item.item_type === 'note';
+        
+        // Für Notizen: anderes Rendering
+        if (isNote) {
+          const gaReference = item.ga_references && item.ga_references.length > 0 ? item.ga_references[0] : null;
+          const paragraphId = item.paragraph_id || null;
+          const textStartOffset = item.text_start_offset !== null && item.text_start_offset !== undefined ? item.text_start_offset : null;
+          const textEndOffset = item.text_end_offset !== null && item.text_end_offset !== undefined ? item.text_end_offset : null;
+          const canNavigate = gaReference !== null;
+          
+          // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
+          let cleanedContent = item.content || item.quote_text || '';
+          // Entferne "Aus [[GA...]]:" oder "Aus [[GA...]] - Titel:" am Anfang (mit optionalen Leerzeichen)
+          cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+          // Entferne auch Varianten wie "Aus [[GA...]] - " oder "Aus [[GA...]]: "
+          cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+          // Entferne führende Anführungszeichen und Leerzeichen
+          cleanedContent = cleanedContent.replace(/^["']\s*/, '').trim();
+          // Entferne auch mehrfache Leerzeichen am Anfang
+          cleanedContent = cleanedContent.replace(/^\s+/, '');
+          
+          const contentPreview = cleanedContent.substring(0, 150);
+          const hasMore = cleanedContent.length > 150;
+          
+          // Format lecture date if available
+          let dateDisplay = '';
+          if (item.lecture_date) {
+            const lectureDate = new Date(item.lecture_date);
+            dateDisplay = `, ${lectureDate.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}`;
+          }
+          
+          const tags = item.tags || [];
+          
+          return `
+            <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
+                 data-id="${item.id}" 
+                 data-index="${index}">
+              <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
+                ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  ${canNavigate
+                    ? `<strong><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--link-color); text-decoration: none; cursor: pointer;">${gaReference}${dateDisplay}</a></strong>`
+                    : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
+                  }
+                </div>
+                <div class="item-header-right">
+                  <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
+                </div>
+              </div>
+              ${canNavigate
+                ? `<div class="item-text"><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                : `<div class="item-text">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+              }
+              <div class="item-tags-row">
+                ${tags.length > 0 ? `
+                  <div class="item-tags">
+                    ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
+                  </div>
+                ` : '<div></div>'}
+                ${!multiDeleteMode ? `
+                  <div class="item-actions">
+                    <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="6" width="16" height="14" rx="1"/>
+                        <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
+                        <line x1="4" y1="6" x2="20" y2="6"/>
+                        <line x1="10" y1="10" x2="10" y2="16"/>
+                        <line x1="14" y1="10" x2="14" y2="16"/>
+                      </svg>
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }
+        
+        // Für Zitate und Highlights: normales Rendering
         const gaNumber = item.ga_reference || item.ga_number;
         const text = item.quote_text || (item.paragraph_text ? item.paragraph_text.substring(
           item.text_start_offset || 0,
@@ -2311,7 +2421,7 @@
             <div class="item-tags-row">
               ${tags.length > 0 ? `
                 <div class="item-tags">
-                  ${tags.map(tag => `<span class="item-tag">#${tag}</span>`).join('')}
+                  ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
                 </div>
               ` : '<div></div>'}
               ${!multiDeleteMode ? `
@@ -3242,7 +3352,7 @@
             <div class="item-tags-row">
               ${tags.length > 0 ? `
                 <div class="item-tags">
-                  ${tags.map(tag => `<span class="item-tag">#${tag}</span>`).join('')}
+                  ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
                 </div>
               ` : '<div></div>'}
               ${!multiDeleteMode ? `
@@ -3306,8 +3416,9 @@
       event.stopPropagation();
       
       const item = currentItems.find(i => i.id === itemId);
+      const isNote = currentTab === 'notes' || (item && item.item_type === 'note');
       const isHighlight = currentTab === 'highlights' || (item && item.item_type === 'highlight');
-      const itemType = isHighlight ? 'Unterstreichung' : 'Zitat';
+      const itemType = isNote ? 'Notiz' : (isHighlight ? 'Unterstreichung' : 'Zitat');
       
       if (!confirm(`Wirklich diese ${itemType} löschen?`)) {
         return;
@@ -3315,7 +3426,13 @@
       
       try {
         let result;
-        if (isHighlight) {
+        if (isNote) {
+          if (typeof deleteNote !== 'function') {
+            alert('Fehler: deleteNote Funktion nicht verfügbar.');
+            return;
+          }
+          result = await deleteNote(itemId);
+        } else if (isHighlight) {
           if (typeof deleteHighlight !== 'function') {
             alert('Fehler: deleteHighlight Funktion nicht verfügbar.');
             return;
@@ -3358,8 +3475,9 @@
       const checkboxes = document.querySelectorAll('.item-checkbox:checked');
       if (checkboxes.length === 0) return;
       
+      const isNote = currentTab === 'notes';
       const isHighlight = currentTab === 'highlights';
-      const itemType = isHighlight ? 'Unterstreichung(en)' : 'Zitat(e)';
+      const itemType = isNote ? 'Notiz(en)' : (isHighlight ? 'Unterstreichung(en)' : 'Zitat(e)');
       
       if (!confirm(`Wirklich ${checkboxes.length} ${itemType} löschen?`)) {
         return;
@@ -3370,7 +3488,15 @@
       
       for (const id of ids) {
         let result;
-        if (isHighlight) {
+        if (isNote) {
+          if (typeof deleteNote === 'function') {
+            result = await deleteNote(id);
+          } else {
+            console.error('deleteNote Funktion nicht verfügbar');
+            failedCount++;
+            continue;
+          }
+        } else if (isHighlight) {
           if (typeof deleteHighlight === 'function') {
             result = await deleteHighlight(id);
           } else {

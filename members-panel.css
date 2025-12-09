@@ -121,6 +121,7 @@
   min-width: 70px;
   padding: 0.4rem 0.3rem;
   font-size: 0.75rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
   background: transparent;
   border: 1px solid var(--accent-color);
   color: var(--text-color);
@@ -175,7 +176,7 @@
   cursor: pointer;
   transition: all 0.2s;
   border-radius: 4px;
-  font-family: Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
   text-align: left;
   text-align-last: center;
   appearance: none;
@@ -197,9 +198,21 @@
 
 /* Zitate-Button schmaler machen */
 .members-tab-quotes {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  padding: 0.4rem 0.3rem !important;
+  width: 0 !important;
+}
+
+.members-tab-highlights {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: 0 !important;
+}
+
+.members-tab-notes {
   flex: 0 0 auto !important;
-  min-width: 50px !important;
-  padding: 0.4rem 0.2rem !important;
+  min-width: 70px !important;
 }
 
 .keyword-select-btn:hover:not(:disabled) {
@@ -285,9 +298,14 @@
   color: white;
   border: none;
   cursor: pointer;
-  font-family: Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
   font-size: 0.9rem;
   transition: background 0.2s;
+}
+
+.notes-editor .primary-btn {
+  padding: 0.4rem 0.3rem;
+  font-size: 0.75rem;
 }
 
 .primary-btn:hover {
@@ -431,6 +449,7 @@
   color: var(--text-color);
   text-decoration: none;
   transition: opacity 0.2s;
+  font-style: italic;
 }
 
 .member-item-quote a:hover {
@@ -473,6 +492,10 @@ a:hover .quote-bookmark-icon-header {
   border-radius: 3px;
   margin-right: 0.05rem;
   font-size: 0.7rem;
+}
+
+.clickable-tag {
+  cursor: pointer;
 }
 
 .member-item-link {
@@ -555,7 +578,8 @@ a:hover .quote-bookmark-icon-header {
 
 .notes-editor textarea {
   width: 100%;
-  min-height: 150px;
+  min-height: 100px;
+  height: 100px;
   padding: 0.5rem;
   border: 1px solid var(--border-color);
   background: var(--background-color);
@@ -569,6 +593,11 @@ a:hover .quote-bookmark-icon-header {
 .notes-editor textarea:focus {
   outline: none;
   border-color: var(--accent-color);
+}
+
+.notes-editor .primary-btn {
+  padding: 0.4rem 0.3rem;
+  font-size: 0.75rem;
 }
 
 /* Graph */
@@ -622,8 +651,8 @@ a:hover .quote-bookmark-icon-header {
   background: var(--background-color);
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  max-width: 70%;
-  min-width: 200px;
+  max-width: 75%;
+  min-width: 250px;
   word-wrap: break-word;
 }
 
@@ -722,7 +751,7 @@ a:hover .quote-bookmark-icon-header {
   cursor: pointer;
   font-size: 0.85rem;
   transition: background 0.2s;
-  font-family: inherit;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
 }
 
 .chat-send-btn:hover {
@@ -834,7 +863,7 @@ body.dark-mode .chat-send-btn:hover {
   background: #5a8fa0;
 }
 
-/* Chat Badge */
+/* Chat Badge - AUSGEBLENDET */
 .chat-badge {
   position: absolute;
   top: -4px;
@@ -849,7 +878,7 @@ body.dark-mode .chat-send-btn:hover {
   min-height: 18px;
   width: 18px;
   height: 18px;
-  display: none;
+  display: none !important;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -972,7 +1001,34 @@ span[data-highlight="true"],
   left: -5px;
   width: 1.5px;
   background-color: #467886;
-  pointer-events: none;
+  cursor: pointer;
   z-index: 10;
+}
+
+/* Klickbarer Zitat-Text */
+.quote-text-link {
+  cursor: pointer;
+}
+
+/* Notiz-Indikator (grünes Dokument-Icon) */
+.bookmark-note-indicator {
+  display: inline-block;
+  margin-right: 4px;
+  vertical-align: middle;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.bookmark-note-indicator:hover {
+  opacity: 1;
+}
+
+.bookmark-note-indicator svg {
+  display: block;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
 }
 

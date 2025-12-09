@@ -202,7 +202,7 @@ async function contextMenuAction(action, extraData = null) {
       await saveContextHighlight(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, color);
       break;
     case 'note':
-      openContextNote(selectedTextForContext, lectureId, lectureTitle);
+      openContextNote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex);
       break;
   }
 }
@@ -1238,10 +1238,42 @@ function hideQuoteColorMenu() {
 /**
  * Notiz aus Context-Menü öffnen
  */
-function openContextNote(text, lectureId, lectureTitle) {
+function openContextNote(text, lectureId, lectureTitle, paragraphId = null) {
   // Öffne MB mit Notizen-Tab
   if (typeof openMembersPanel === 'function') {
     openMembersPanel();
+    
+    // Speichere Kontextdaten global, damit saveMemberNote darauf zugreifen kann
+    window.noteContextData = {
+      paragraphId: paragraphId,
+      lectureId: lectureId,
+      lectureTitle: lectureTitle,
+      selectedText: text,
+      // Berechne Text-Offsets falls möglich
+      textStartOffset: null,
+      textEndOffset: null,
+      paragraphText: null
+    };
+    
+    // Versuche, Text-Offsets und Paragraph-Text zu ermitteln
+    if (paragraphId && selectionRangeForContext) {
+      try {
+        const paragraphElement = document.getElementById('para-' + paragraphId);
+        if (paragraphElement) {
+          window.noteContextData.paragraphText = paragraphElement.textContent;
+          
+          // Finde den Offset des markierten Texts innerhalb des Paragraphs
+          const paragraphText = paragraphElement.textContent;
+          const textIndex = paragraphText.indexOf(text);
+          if (textIndex !== -1) {
+            window.noteContextData.textStartOffset = textIndex;
+            window.noteContextData.textEndOffset = textIndex + text.length;
+          }
+        }
+      } catch (err) {
+        console.warn('[MB-CONTEXT] Fehler beim Ermitteln der Text-Offsets:', err);
+      }
+    }
     
     // Warte kurz, dann wechsle zu Notizen-Tab und fülle Text ein
     setTimeout(() => {
@@ -1260,11 +1292,13 @@ function openContextNote(text, lectureId, lectureTitle) {
         // Content laden
         loadMembersTab('notes');
         
-        // Text ins Textfeld einfügen
+        // Text ins Textfeld einfügen (mit GA-Referenz für die Extraktion)
         setTimeout(() => {
           const noteContent = document.getElementById('members-note-content');
           if (noteContent) {
-            noteContent.value = `Aus [[${lectureId}]]${lectureTitle ? ` - ${lectureTitle}` : ''}:\n\n"${text}"\n\n`;
+            // Füge GA-Referenz als [[GA...]] ein, damit sie extrahiert wird
+            const gaRef = lectureId ? `[[${lectureId.split('/')[0]}]]` : '';
+            noteContent.value = `"${text}"\n\n${gaRef}`;
             noteContent.focus();
           }
         }, 300);
