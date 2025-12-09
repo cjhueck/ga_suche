@@ -345,121 +345,185 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error('Keine Textauswahl vorhanden');
     }
     
-    // Finde alle betroffenen Absätze (unterstützt jetzt mehrere Absätze)
-    let affectedParagraphs;
-    try {
-      affectedParagraphs = findAffectedParagraphs(selectionRangeForContext);
-    } catch (e) {
-      console.warn('[QUOTE-SAVE] Fehler bei findAffectedParagraphs, verwende Fallback:', e);
-      affectedParagraphs = [];
+    // Finde den Absatz-Container, der den markierten Text enthält
+    let paragraphNode = selectionRangeForContext.commonAncestorContainer;
+    while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
+      paragraphNode = paragraphNode.parentNode;
     }
     
-    // Fallback: Wenn keine Absätze gefunden, verwende einfache Methode
-    let paragraphText, textStartOffset, textEndOffset;
+    console.log('[QUOTE-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
     
-    if (affectedParagraphs.length === 0) {
-      console.log('[QUOTE-SAVE] Keine Absätze gefunden, verwende Fallback-Methode');
-      // Fallback: Finde einfach den ersten Absatz-Container
-      let paragraphNode = selectionRangeForContext.commonAncestorContainer;
-      while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
-        paragraphNode = paragraphNode.parentNode;
-      }
-      
-      // Suche nach Absatz-Element
-      let tempNode = paragraphNode;
-      while (tempNode && tempNode !== document.body) {
-        if (tempNode.nodeType === 1) {
-          if (tempNode.id && tempNode.id.startsWith('para-')) {
-            paragraphNode = tempNode;
-            break;
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    let foundParaId = false;
+    let tempNode = paragraphNode;
+    while (tempNode && tempNode !== document.body) {
+      if (tempNode.nodeType === 1) { // Element node
+        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+        if (tempNode.id && tempNode.id.startsWith('para-')) {
+          console.log('[QUOTE-SAVE] para- ID gefunden:', tempNode.id);
+          paragraphNode = tempNode;
+          foundParaId = true;
+          break;
+        }
+        // Prüfe ob data-index vorhanden (für Bücher)
+        if (tempNode.dataset && tempNode.dataset.index) {
+          console.log('[QUOTE-SAVE] data-index gefunden:', tempNode.dataset.index);
+          // Finde das Parent-Element, das den Text enthält
+          let parent = tempNode.parentElement;
+          while (parent && parent !== document.body) {
+            const tagName = parent.tagName.toLowerCase();
+            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+              console.log('[QUOTE-SAVE] Parent-Element mit Text gefunden:', tagName);
+              paragraphNode = parent;
+              foundParaId = true;
+              break;
+            }
+            parent = parent.parentElement;
           }
-          const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
-          if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          if (foundParaId) break;
+        }
+      }
+      tempNode = tempNode.parentNode;
+    }
+    
+    // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
+    if (!foundParaId) {
+      console.log('[QUOTE-SAVE] Keine para- ID gefunden, suche nach Block-Element');
+      tempNode = paragraphNode;
+      while (tempNode && tempNode !== document.body) {
+        const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          // Prüfe ob dieser Absatz den markierten Text enthält
+          const nodeText = tempNode.textContent || '';
+          console.log('[QUOTE-SAVE] Block-Element gefunden:', tagName, 'Text-Länge:', nodeText.length, 'Enthält Text?', nodeText.includes(text));
+          if (nodeText && nodeText.includes(text)) {
             paragraphNode = tempNode;
+            foundParaId = true;
             break;
           }
         }
         tempNode = tempNode.parentNode;
       }
-      
-      if (!paragraphNode || paragraphNode === document.body) {
-        throw new Error('Absatz nicht gefunden');
-      }
-      
-      paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
-      const selectedText = selectionRangeForContext.toString();
-      textStartOffset = paragraphText.indexOf(selectedText);
-      textEndOffset = textStartOffset !== -1 ? textStartOffset + selectedText.length : paragraphText.length;
-      
-      if (textStartOffset === -1) {
-        // Versuche mit normalisiertem Text
-        const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
-        const normalizedText = selectedText.replace(/\s+/g, ' ').trim();
-        const normalizedStart = normalizedParagraph.indexOf(normalizedText);
-        if (normalizedStart !== -1) {
-          textStartOffset = normalizedStart;
-          textEndOffset = normalizedStart + normalizedText.length;
-        } else {
-          textStartOffset = null;
-          textEndOffset = null;
-        }
-      }
-    } else {
-      console.log('[QUOTE-SAVE] Betroffene Absätze:', affectedParagraphs.length);
-      
-      // Verwende den ersten Absatz als Referenz (für paragraph_id)
-      const firstParagraph = affectedParagraphs[0].element;
-      
-      // Füge alle Absatz-Texte zusammen (mit Leerzeichen zwischen Absätzen)
-      const combinedParagraphText = affectedParagraphs.map(p => p.text).join(' ');
-      
-      // Berechne Offsets relativ zum kombinierten Text
-      // Der Start-Offset ist relativ zum ersten Absatz
-      textStartOffset = affectedParagraphs[0].startOffset;
-      
-      // Der End-Offset muss über alle Absätze berechnet werden
-      textEndOffset = 0;
-      for (let i = 0; i < affectedParagraphs.length; i++) {
-        if (i === affectedParagraphs.length - 1) {
-          // Letzter Absatz: End-Offset ist relativ zu diesem Absatz
-          textEndOffset += affectedParagraphs[i].endOffset;
-          if (i > 0) {
-            // Füge Leerzeichen zwischen Absätzen hinzu
-            textEndOffset += (i * 1); // 1 Leerzeichen pro Absatz davor
+    }
+    
+    // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
+    if (!foundParaId && paragraphNode) {
+      console.log('[QUOTE-SAVE] Fallback: Verwende aktuelles Element');
+      // Prüfe ob das Element selbst Text enthält
+      const nodeText = paragraphNode.textContent || '';
+      if (!nodeText || !nodeText.includes(text)) {
+        // Suche nach einem Parent, der den Text enthält
+        tempNode = paragraphNode.parentNode;
+        while (tempNode && tempNode !== document.body) {
+          const nodeText2 = tempNode.textContent || '';
+          if (nodeText2 && nodeText2.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            console.log('[QUOTE-SAVE] Fallback: Parent mit Text gefunden:', tempNode.tagName);
+            break;
           }
-        } else {
-          // Mittlere Absätze: Ganzer Absatz
-          textEndOffset += affectedParagraphs[i].text.length;
-          textEndOffset += 1; // Leerzeichen nach diesem Absatz
+          tempNode = tempNode.parentNode;
         }
-      }
-      
-      // Für die Datenbank speichern wir den kombinierten Text und die Offsets
-      paragraphText = combinedParagraphText;
-      
-      // Prüfe ob Offsets gültig sind
-      if (textStartOffset < 0 || textEndOffset < 0 || textStartOffset >= textEndOffset) {
-        // Fallback: Versuche mit normalisiertem Text
-        const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
-        const normalizedText = text.replace(/\s+/g, ' ').trim();
-        const normalizedStart = normalizedParagraph.indexOf(normalizedText);
-        
-        if (normalizedStart !== -1) {
-          textStartOffset = normalizedStart;
-          textEndOffset = normalizedStart + normalizedText.length;
-          console.log('[QUOTE-SAVE] Offsets mit normalisiertem Text berechnet:', textStartOffset, textEndOffset);
-        } else {
-          console.warn('[QUOTE-SAVE] Textposition in den Absätzen nicht gefunden, speichere ohne Offsets');
-          textStartOffset = null;
-          textEndOffset = null;
-        }
+      } else {
+        foundParaId = true;
       }
     }
     
-    console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText ? paragraphText.length : 0);
+    if (!paragraphNode || paragraphNode === document.body || !foundParaId) {
+      console.error('[QUOTE-SAVE] Absatz nicht gefunden. paragraphNode:', paragraphNode, 'foundParaId:', foundParaId);
+      throw new Error('Absatz nicht gefunden');
+    }
+    
+    console.log('[QUOTE-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
+    
+    // Hole den vollständigen Text des Absatzes
+    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
+    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    
+    console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText.length);
     console.log('[QUOTE-SAVE] Selected Text:', text.substring(0, 50) + '...');
     console.log('[QUOTE-SAVE] Paragraph Index:', paragraphIndex);
-    console.log('[QUOTE-SAVE] Offsets:', textStartOffset, textEndOffset);
+    
+    // Finde die Position des markierten Textes im Absatz
+    // Verwende die Range-Informationen für präzisere Berechnung
+    let textStartOffset = -1;
+    let textEndOffset = -1;
+    
+    // Versuche zuerst mit der Range die exakte Position zu finden
+    try {
+      const range = selectionRangeForContext.cloneRange();
+      const paraRange = document.createRange();
+      paraRange.selectNodeContents(paragraphNode);
+      
+      // Berechne Offset relativ zum Absatz
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      
+      // Erstelle einen TreeWalker um die Position zu berechnen
+      const walker = document.createTreeWalker(
+        paragraphNode,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let currentOffset = 0;
+      let node;
+      let foundStart = false;
+      
+      while (node = walker.nextNode()) {
+        if (node === startContainer || node.parentNode === startContainer) {
+          if (node === startContainer) {
+            textStartOffset = currentOffset + startOffset;
+            foundStart = true;
+          } else if (node.parentNode === startContainer) {
+            // Text-Node ist Kind des Start-Containers
+            let siblingOffset = 0;
+            let sibling = node.previousSibling;
+            while (sibling) {
+              siblingOffset += (sibling.textContent || '').length;
+              sibling = sibling.previousSibling;
+            }
+            textStartOffset = currentOffset + siblingOffset + startOffset;
+            foundStart = true;
+          }
+          break;
+        }
+        currentOffset += node.textContent.length;
+      }
+      
+      if (foundStart) {
+        textEndOffset = textStartOffset + text.length;
+        console.log('[QUOTE-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+      } else {
+        // Fallback: Verwende indexOf
+        textStartOffset = paragraphText.indexOf(text);
+        textEndOffset = textStartOffset + text.length;
+        console.log('[QUOTE-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+      }
+    } catch (e) {
+      console.warn('[QUOTE-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
+      textStartOffset = paragraphText.indexOf(text);
+      textEndOffset = textStartOffset + text.length;
+    }
+    
+    if (textStartOffset === -1) {
+      // Fallback: Versuche mit normalisiertem Text
+      const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
+      const normalizedText = text.replace(/\s+/g, ' ').trim();
+      const normalizedStart = normalizedParagraph.indexOf(normalizedText);
+      
+      if (normalizedStart === -1) {
+        console.warn('[QUOTE-SAVE] Textposition im Absatz nicht gefunden, speichere ohne Offsets');
+        textStartOffset = null;
+        textEndOffset = null;
+      } else {
+        // Verwende die normalisierte Position als Näherung
+        textStartOffset = normalizedStart;
+        textEndOffset = normalizedStart + normalizedText.length;
+        console.log('[QUOTE-SAVE] Offsets mit normalisiertem Text berechnet:', textStartOffset, textEndOffset);
+      }
+    }
     
     // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
     const result = await showKeywordDialog('Zitat', text);
@@ -608,121 +672,251 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       throw new Error('Keine Textauswahl vorhanden');
     }
     
-    // Finde alle betroffenen Absätze (unterstützt jetzt mehrere Absätze)
-    let affectedParagraphs;
-    try {
-      affectedParagraphs = findAffectedParagraphs(selectionRangeForContext);
-    } catch (e) {
-      console.warn('[HIGHLIGHT-SAVE] Fehler bei findAffectedParagraphs, verwende Fallback:', e);
-      affectedParagraphs = [];
+    // Finde den Absatz-Container, der den markierten Text enthält
+    let paragraphNode = selectionRangeForContext.commonAncestorContainer;
+    while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
+      paragraphNode = paragraphNode.parentNode;
     }
     
-    // Fallback: Wenn keine Absätze gefunden, verwende einfache Methode
-    let paragraphText, textStartOffset, textEndOffset;
+    console.log('[HIGHLIGHT-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
     
-    if (affectedParagraphs.length === 0) {
-      console.log('[HIGHLIGHT-SAVE] Keine Absätze gefunden, verwende Fallback-Methode');
-      // Fallback: Finde einfach den ersten Absatz-Container
-      let paragraphNode = selectionRangeForContext.commonAncestorContainer;
-      while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
-        paragraphNode = paragraphNode.parentNode;
-      }
-      
-      // Suche nach Absatz-Element
-      let tempNode = paragraphNode;
-      while (tempNode && tempNode !== document.body) {
-        if (tempNode.nodeType === 1) {
-          if (tempNode.id && tempNode.id.startsWith('para-')) {
-            paragraphNode = tempNode;
-            break;
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    let foundParaId = false;
+    let tempNode = paragraphNode;
+    while (tempNode && tempNode !== document.body) {
+      if (tempNode.nodeType === 1) { // Element node
+        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+        if (tempNode.id && tempNode.id.startsWith('para-')) {
+          console.log('[HIGHLIGHT-SAVE] para- ID gefunden:', tempNode.id);
+          paragraphNode = tempNode;
+          foundParaId = true;
+          break;
+        }
+        // Prüfe ob data-index vorhanden (für Bücher)
+        if (tempNode.dataset && tempNode.dataset.index) {
+          console.log('[HIGHLIGHT-SAVE] data-index gefunden:', tempNode.dataset.index);
+          // Finde das Parent-Element, das den Text enthält
+          let parent = tempNode.parentElement;
+          while (parent && parent !== document.body) {
+            const tagName = parent.tagName.toLowerCase();
+            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+              console.log('[HIGHLIGHT-SAVE] Parent-Element mit Text gefunden:', tagName);
+              paragraphNode = parent;
+              foundParaId = true;
+              break;
+            }
+            parent = parent.parentElement;
           }
-          const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
-          if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          if (foundParaId) break;
+        }
+      }
+      tempNode = tempNode.parentNode;
+    }
+    
+    // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
+    if (!foundParaId) {
+      console.log('[HIGHLIGHT-SAVE] Keine para- ID gefunden, suche nach Block-Element');
+      tempNode = paragraphNode;
+      while (tempNode && tempNode !== document.body) {
+        const tagName = tempNode.tagName ? tempNode.tagName.toLowerCase() : '';
+        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+          // Prüfe ob dieser Absatz den markierten Text enthält
+          const nodeText = tempNode.textContent || '';
+          console.log('[HIGHLIGHT-SAVE] Block-Element gefunden:', tagName, 'Text-Länge:', nodeText.length, 'Enthält Text?', nodeText.includes(text));
+          if (nodeText && nodeText.includes(text)) {
             paragraphNode = tempNode;
+            foundParaId = true;
             break;
           }
         }
         tempNode = tempNode.parentNode;
       }
-      
-      if (!paragraphNode || paragraphNode === document.body) {
-        throw new Error('Absatz nicht gefunden');
-      }
-      
-      paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
-      const selectedText = selectionRangeForContext.toString();
-      textStartOffset = paragraphText.indexOf(selectedText);
-      textEndOffset = textStartOffset !== -1 ? textStartOffset + selectedText.length : paragraphText.length;
-      
-      if (textStartOffset === -1) {
-        // Versuche mit normalisiertem Text
-        const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
-        const normalizedText = selectedText.replace(/\s+/g, ' ').trim();
-        const normalizedStart = normalizedParagraph.indexOf(normalizedText);
-        if (normalizedStart !== -1) {
-          textStartOffset = normalizedStart;
-          textEndOffset = normalizedStart + normalizedText.length;
-        } else {
-          textStartOffset = 0;
-          textEndOffset = paragraphText.length;
-        }
-      }
-    } else {
-      console.log('[HIGHLIGHT-SAVE] Betroffene Absätze:', affectedParagraphs.length);
-      
-      // Verwende den ersten Absatz als Referenz (für paragraph_id)
-      const firstParagraph = affectedParagraphs[0].element;
-      
-      // Füge alle Absatz-Texte zusammen (mit Leerzeichen zwischen Absätzen)
-      const combinedParagraphText = affectedParagraphs.map(p => p.text).join(' ');
-      
-      // Berechne Offsets relativ zum kombinierten Text
-      // Der Start-Offset ist relativ zum ersten Absatz
-      textStartOffset = affectedParagraphs[0].startOffset;
-      
-      // Der End-Offset muss über alle Absätze berechnet werden
-      textEndOffset = 0;
-      for (let i = 0; i < affectedParagraphs.length; i++) {
-        if (i === affectedParagraphs.length - 1) {
-          // Letzter Absatz: End-Offset ist relativ zu diesem Absatz
-          textEndOffset += affectedParagraphs[i].endOffset;
-          if (i > 0) {
-            // Füge Leerzeichen zwischen Absätzen hinzu
-            textEndOffset += (i * 1); // 1 Leerzeichen pro Absatz davor
+    }
+    
+    // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
+    if (!foundParaId && paragraphNode) {
+      console.log('[HIGHLIGHT-SAVE] Fallback: Verwende aktuelles Element');
+      // Prüfe ob das Element selbst Text enthält
+      const nodeText = paragraphNode.textContent || '';
+      if (!nodeText || !nodeText.includes(text)) {
+        // Suche nach einem Parent, der den Text enthält
+        tempNode = paragraphNode.parentNode;
+        while (tempNode && tempNode !== document.body) {
+          const nodeText2 = tempNode.textContent || '';
+          if (nodeText2 && nodeText2.includes(text)) {
+            paragraphNode = tempNode;
+            foundParaId = true;
+            console.log('[HIGHLIGHT-SAVE] Fallback: Parent mit Text gefunden:', tempNode.tagName);
+            break;
           }
-        } else {
-          // Mittlere Absätze: Ganzer Absatz
-          textEndOffset += affectedParagraphs[i].text.length;
-          textEndOffset += 1; // Leerzeichen nach diesem Absatz
+          tempNode = tempNode.parentNode;
         }
-      }
-      
-      // Für die Datenbank speichern wir den kombinierten Text und die Offsets
-      paragraphText = combinedParagraphText;
-      
-      // Prüfe ob Offsets gültig sind
-      if (textStartOffset < 0 || textEndOffset < 0 || textStartOffset >= textEndOffset) {
-        // Fallback: Versuche mit normalisiertem Text
-        const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
-        const normalizedText = text.replace(/\s+/g, ' ').trim();
-        const normalizedStart = normalizedParagraph.indexOf(normalizedText);
-        
-        if (normalizedStart !== -1) {
-          textStartOffset = normalizedStart;
-          textEndOffset = normalizedStart + normalizedText.length;
-          console.log('[HIGHLIGHT-SAVE] Offsets mit normalisiertem Text berechnet:', textStartOffset, textEndOffset);
-        } else {
-          // Letzter Fallback: Verwende geschätzte Werte
-          textStartOffset = 0;
-          textEndOffset = paragraphText.length;
-        }
+      } else {
+        foundParaId = true;
       }
     }
+    
+    if (!paragraphNode || paragraphNode === document.body || !foundParaId) {
+      console.error('[HIGHLIGHT-SAVE] Absatz nicht gefunden. paragraphNode:', paragraphNode, 'foundParaId:', foundParaId);
+      throw new Error('Absatz nicht gefunden');
+    }
+    
+    console.log('[HIGHLIGHT-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
+    
+    // Hole den vollständigen Text des Absatzes
+    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
+    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
     
     console.log('[HIGHLIGHT-SAVE] Paragraph Text Länge:', paragraphText.length);
     console.log('[HIGHLIGHT-SAVE] Selected Text:', text.substring(0, 50) + '...');
     console.log('[HIGHLIGHT-SAVE] Paragraph Index:', paragraphIndex);
-    console.log('[HIGHLIGHT-SAVE] Offsets:', textStartOffset, textEndOffset);
+    
+    // Finde die Position des markierten Textes im Absatz
+    // Verwende die Range-Informationen für präzisere Berechnung
+    let textStartOffset = -1;
+    let textEndOffset = -1;
+    
+    // Versuche zuerst mit der Range die exakte Position zu finden
+    try {
+      const range = selectionRangeForContext.cloneRange();
+      const paraRange = document.createRange();
+      paraRange.selectNodeContents(paragraphNode);
+      
+      // Berechne Offset relativ zum Absatz
+      const startContainer = range.startContainer;
+      const startOffset = range.startOffset;
+      
+      // Erstelle einen TreeWalker um die Position zu berechnen
+      const walker = document.createTreeWalker(
+        paragraphNode,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      let currentOffset = 0;
+      let node;
+      let foundStart = false;
+      
+      while (node = walker.nextNode()) {
+        if (node === startContainer || node.parentNode === startContainer) {
+          if (node === startContainer) {
+            textStartOffset = currentOffset + startOffset;
+            foundStart = true;
+          } else if (node.parentNode === startContainer) {
+            // Text-Node ist Kind des Start-Containers
+            let siblingOffset = 0;
+            let sibling = node.previousSibling;
+            while (sibling) {
+              siblingOffset += (sibling.textContent || '').length;
+              sibling = sibling.previousSibling;
+            }
+            textStartOffset = currentOffset + siblingOffset + startOffset;
+            foundStart = true;
+          }
+          break;
+        }
+        currentOffset += node.textContent.length;
+      }
+      
+      if (foundStart) {
+        textEndOffset = textStartOffset + text.length;
+        console.log('[HIGHLIGHT-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+      } else {
+        // Fallback: Verwende indexOf
+        textStartOffset = paragraphText.indexOf(text);
+        textEndOffset = textStartOffset + text.length;
+        console.log('[HIGHLIGHT-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+      }
+    } catch (e) {
+      console.warn('[HIGHLIGHT-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
+      textStartOffset = paragraphText.indexOf(text);
+      textEndOffset = textStartOffset + text.length;
+    }
+    
+    if (textStartOffset === -1) {
+      // Fallback: Versuche mit normalisiertem Text
+      const normalizedParagraph = paragraphText.replace(/\s+/g, ' ').trim();
+      const normalizedText = text.replace(/\s+/g, ' ').trim();
+      const normalizedStart = normalizedParagraph.indexOf(normalizedText);
+      
+      if (normalizedStart === -1) {
+        throw new Error('Textposition im Absatz nicht gefunden');
+      }
+      
+      // Verwende die normalisierte Position als Näherung
+      // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
+      const result = await showKeywordDialog('Unterstreichung', text);
+      if (result === null) {
+        // Benutzer hat abgebrochen
+        return;
+      }
+      
+      const { keywords, note } = result;
+      
+      // Ermittle das Datum des Vortrags
+      const lectureDate = getCurrentLectureDate(lectureId);
+      console.log('[HIGHLIGHT-SAVE] LectureId:', lectureId, 'LectureDate:', lectureDate, '(normalisiert)');
+      
+      const insertData = {
+        user_id: currentUser.id,
+        ga_number: lectureId,
+        lecture_title: lectureTitle,
+        lecture_url: window.location.href,
+        paragraph_id: paragraphIndex,
+        paragraph_text: paragraphText,
+        text_start_offset: normalizedStart,
+        text_end_offset: normalizedStart + normalizedText.length,
+        color: color,
+        personal_note: note || '',
+        tags: keywords
+      };
+      
+      // Füge lecture_date hinzu, falls verfügbar
+      if (lectureDate) {
+        insertData.lecture_date = lectureDate;
+        console.log('[HIGHLIGHT-SAVE] Füge lecture_date hinzu:', lectureDate);
+      } else {
+        console.warn('[HIGHLIGHT-SAVE] Kein lecture_date verfügbar für:', lectureId);
+      }
+      
+      const { data, error } = await supabaseClient
+        .from('highlights')
+        .insert(insertData)
+        .select();
+      
+      if (error) {
+        console.error('Supabase Fehler:', error);
+        throw new Error(error.message || 'Datenbankfehler');
+      }
+      
+      showContextNotification('✓ Unterstreichung gespeichert!', 'success');
+      
+      // Unterstreichung visuell anzeigen und klickbar machen
+      if (data && data.length > 0) {
+        const savedHighlight = data[0];
+        applyHighlightToSelection(selectionRangeForContext, color, savedHighlight.id, lectureId, paragraphIndex);
+      } else {
+        applyHighlightToSelection(selectionRangeForContext, color);
+      }
+      
+      // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
+      if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+        // Invalidiere Cache für Highlights
+        if (typeof invalidateMembersCache === 'function') {
+          invalidateMembersCache('highlights');
+        }
+        // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
+        if (typeof updateMembersPanelIfOpen === 'function') {
+          await updateMembersPanelIfOpen('highlights', true);
+        } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+          // Fallback: Nur aktualisieren wenn Highlights-Tab aktiv ist
+          await loadMembersTab('highlights');
+        }
+      }
+      
+      return;
+    }
     
     // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
     const result = await showKeywordDialog('Unterstreichung', text);
@@ -800,368 +994,7 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
 }
 
 /**
- * Findet alle Absätze, die von einer Range betroffen sind
- * @param {Range} range - Die Textauswahl
- * @returns {Array} Array von Absatz-Objekten mit {element, text, startOffset, endOffset}
- */
-function findAffectedParagraphs(range) {
-  const paragraphs = [];
-  const startContainer = range.startContainer;
-  const endContainer = range.endContainer;
-  
-  // Hilfsfunktion: Finde das Absatz-Element für einen Knoten
-  function findParagraphElement(node) {
-    let current = node.nodeType === Node.TEXT_NODE ? node.parentNode : node;
-    while (current && current !== document.body) {
-      if (current.nodeType === Node.ELEMENT_NODE) {
-        // Prüfe ob para- ID vorhanden
-        if (current.id && current.id.startsWith('para-')) {
-          return current;
-        }
-        // Prüfe ob Block-Element
-        const tagName = current.tagName ? current.tagName.toLowerCase() : '';
-        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-          return current;
-        }
-      }
-      current = current.parentNode;
-    }
-    return null;
-  }
-  
-  // Finde Start- und End-Absatz
-  const startPara = findParagraphElement(startContainer);
-  const endPara = findParagraphElement(endContainer);
-  
-  if (!startPara || !endPara) {
-    // Fallback: Verwende commonAncestorContainer
-    let commonAncestor = range.commonAncestorContainer;
-    while (commonAncestor && commonAncestor.nodeType !== Node.ELEMENT_NODE) {
-      commonAncestor = commonAncestor.parentNode;
-    }
-    if (commonAncestor) {
-      const para = findParagraphElement(commonAncestor);
-      if (para) {
-        return [{ element: para, text: para.textContent || '', startOffset: 0, endOffset: (para.textContent || '').length }];
-      }
-    }
-    return [];
-  }
-  
-  // Wenn Start- und End-Absatz gleich sind
-  if (startPara === endPara) {
-    const paraText = startPara.textContent || '';
-    // Berechne Offsets relativ zum Absatz
-    const walker = document.createTreeWalker(
-      startPara,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    let currentOffset = 0;
-    let startOffset = -1;
-    let endOffset = -1;
-    let node;
-    
-    while (node = walker.nextNode()) {
-      const nodeLength = node.textContent.length;
-      
-      if (node === startContainer || (node.parentNode === startContainer && startContainer.nodeType !== Node.TEXT_NODE)) {
-        if (node === startContainer) {
-          startOffset = currentOffset + range.startOffset;
-        } else {
-          // Berechne Offset innerhalb des Containers
-          let siblingOffset = 0;
-          let sibling = node.previousSibling;
-          while (sibling) {
-            siblingOffset += (sibling.textContent || '').length;
-            sibling = sibling.previousSibling;
-          }
-          startOffset = currentOffset + siblingOffset + range.startOffset;
-        }
-      }
-      
-      if (node === endContainer || (node.parentNode === endContainer && endContainer.nodeType !== Node.TEXT_NODE)) {
-        if (node === endContainer) {
-          endOffset = currentOffset + range.endOffset;
-        } else {
-          let siblingOffset = 0;
-          let sibling = node.previousSibling;
-          while (sibling) {
-            siblingOffset += (sibling.textContent || '').length;
-            sibling = sibling.previousSibling;
-          }
-          endOffset = currentOffset + siblingOffset + range.endOffset;
-        }
-        break;
-      }
-      
-      currentOffset += nodeLength;
-    }
-    
-    if (startOffset === -1) {
-      // Fallback: Verwende indexOf
-      const selectedText = range.toString();
-      startOffset = paraText.indexOf(selectedText);
-      endOffset = startOffset !== -1 ? startOffset + selectedText.length : paraText.length;
-    }
-    
-    return [{ element: startPara, text: paraText, startOffset: Math.max(0, startOffset), endOffset: Math.min(paraText.length, endOffset) }];
-  }
-  
-  // Mehrere Absätze betroffen
-  // Sammle alle Absätze zwischen Start und End
-  const allParagraphs = [];
-  let current = startPara;
-  
-  // Finde gemeinsamen Container
-  let commonContainer = startPara.parentNode;
-  while (commonContainer && !commonContainer.contains(endPara)) {
-    commonContainer = commonContainer.parentNode;
-  }
-  
-  if (!commonContainer) {
-    commonContainer = document.body;
-  }
-  
-  // Sammle alle Absätze im gemeinsamen Container
-  const walker = document.createTreeWalker(
-    commonContainer,
-    NodeFilter.SHOW_ELEMENT,
-    {
-      acceptNode: function(node) {
-        const tagName = node.tagName ? node.tagName.toLowerCase() : '';
-        if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName) ||
-            (node.id && node.id.startsWith('para-'))) {
-          return NodeFilter.FILTER_ACCEPT;
-        }
-        return NodeFilter.FILTER_SKIP;
-      }
-    },
-    false
-  );
-  
-  let node;
-  let foundStart = false;
-  while (node = walker.nextNode()) {
-    if (node === startPara) {
-      foundStart = true;
-    }
-    if (foundStart) {
-      allParagraphs.push(node);
-      if (node === endPara) {
-        break;
-      }
-    }
-  }
-  
-  // Fallback: Wenn keine Absätze gefunden wurden, verwende Start- und End-Absatz
-  if (allParagraphs.length === 0) {
-    // Verwende Start- und End-Absatz direkt
-    const startParaText = startPara.textContent || '';
-    const endParaText = endPara.textContent || '';
-    
-    // Berechne Offsets für Start-Absatz
-    const startWalker = document.createTreeWalker(
-      startPara,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    let currentOffset = 0;
-    let startOffset = 0;
-    let node;
-    
-    while (node = startWalker.nextNode()) {
-      if (node === startContainer || (node.parentNode === startContainer && startContainer.nodeType !== Node.TEXT_NODE)) {
-        if (node === startContainer) {
-          startOffset = currentOffset + range.startOffset;
-        } else {
-          let siblingOffset = 0;
-          let sibling = node.previousSibling;
-          while (sibling) {
-            siblingOffset += (sibling.textContent || '').length;
-            sibling = sibling.previousSibling;
-          }
-          startOffset = currentOffset + siblingOffset + range.startOffset;
-        }
-        break;
-      }
-      currentOffset += node.textContent.length;
-    }
-    
-    // Berechne Offsets für End-Absatz
-    const endWalker = document.createTreeWalker(
-      endPara,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    currentOffset = 0;
-    let endOffset = endParaText.length;
-    node = null;
-    
-    while (node = endWalker.nextNode()) {
-      if (node === endContainer || (node.parentNode === endContainer && endContainer.nodeType !== Node.TEXT_NODE)) {
-        if (node === endContainer) {
-          endOffset = currentOffset + range.endOffset;
-        } else {
-          let siblingOffset = 0;
-          let sibling = node.previousSibling;
-          while (sibling) {
-            siblingOffset += (sibling.textContent || '').length;
-            sibling = sibling.previousSibling;
-          }
-          endOffset = currentOffset + siblingOffset + range.endOffset;
-        }
-        break;
-      }
-      currentOffset += node.textContent.length;
-    }
-    
-    if (startPara === endPara) {
-      return [{ element: startPara, text: startParaText, startOffset: Math.max(0, startOffset), endOffset: Math.min(startParaText.length, endOffset) }];
-    } else {
-      return [
-        { element: startPara, text: startParaText, startOffset: Math.max(0, startOffset), endOffset: startParaText.length },
-        { element: endPara, text: endParaText, startOffset: 0, endOffset: Math.min(endParaText.length, endOffset) }
-      ];
-    }
-  }
-  
-  // Berechne Offsets für jeden Absatz
-  const result = [];
-  let accumulatedOffset = 0;
-  
-  for (let i = 0; i < allParagraphs.length; i++) {
-    const para = allParagraphs[i];
-    const paraText = para.textContent || '';
-    
-    if (i === 0) {
-      // Erster Absatz: Berechne Start-Offset
-      const walker = document.createTreeWalker(
-        para,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
-      
-      let currentOffset = 0;
-      let startOffset = 0;
-      let node;
-      
-      while (node = walker.nextNode()) {
-        if (node === startContainer || (node.parentNode === startContainer && startContainer.nodeType !== Node.TEXT_NODE)) {
-          if (node === startContainer) {
-            startOffset = currentOffset + range.startOffset;
-          } else {
-            let siblingOffset = 0;
-            let sibling = node.previousSibling;
-            while (sibling) {
-              siblingOffset += (sibling.textContent || '').length;
-              sibling = sibling.previousSibling;
-            }
-            startOffset = currentOffset + siblingOffset + range.startOffset;
-          }
-          break;
-        }
-        currentOffset += node.textContent.length;
-      }
-      
-      if (allParagraphs.length === 1) {
-        // Nur ein Absatz, aber mehrere Knoten - berechne auch End-Offset
-        const walker2 = document.createTreeWalker(
-          para,
-          NodeFilter.SHOW_TEXT,
-          null,
-          false
-        );
-        
-        let currentOffset2 = 0;
-        let endOffset = paraText.length;
-        let node2;
-        
-        while (node2 = walker2.nextNode()) {
-          if (node2 === endContainer || (node2.parentNode === endContainer && endContainer.nodeType !== Node.TEXT_NODE)) {
-            if (node2 === endContainer) {
-              endOffset = currentOffset2 + range.endOffset;
-            } else {
-              let siblingOffset = 0;
-              let sibling = node2.previousSibling;
-              while (sibling) {
-                siblingOffset += (sibling.textContent || '').length;
-                sibling = sibling.previousSibling;
-              }
-              endOffset = currentOffset2 + siblingOffset + range.endOffset;
-            }
-            break;
-          }
-          currentOffset2 += node2.textContent.length;
-        }
-        
-        result.push({ element: para, text: paraText, startOffset: Math.max(0, startOffset), endOffset: Math.min(paraText.length, endOffset) });
-      } else {
-        // Mehrere Absätze: Erster Absatz geht bis zum Ende
-        result.push({ element: para, text: paraText, startOffset: Math.max(0, startOffset), endOffset: paraText.length });
-        accumulatedOffset += paraText.length;
-      }
-    } else if (i === allParagraphs.length - 1) {
-      // Letzter Absatz: Berechne End-Offset
-      const walker = document.createTreeWalker(
-        para,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
-      
-      let currentOffset = 0;
-      let endOffset = paraText.length;
-      let node;
-      
-      while (node = walker.nextNode()) {
-        if (node === endContainer || (node.parentNode === endContainer && endContainer.nodeType !== Node.TEXT_NODE)) {
-          if (node === endContainer) {
-            endOffset = currentOffset + range.endOffset;
-          } else {
-            let siblingOffset = 0;
-            let sibling = node.previousSibling;
-            while (sibling) {
-              siblingOffset += (sibling.textContent || '').length;
-              sibling = sibling.previousSibling;
-            }
-            endOffset = currentOffset + siblingOffset + range.endOffset;
-          }
-          break;
-        }
-        currentOffset += node.textContent.length;
-      }
-      
-      result.push({ element: para, text: paraText, startOffset: 0, endOffset: Math.min(paraText.length, endOffset) });
-    } else {
-      // Mittlere Absätze: Ganzer Absatz betroffen
-      result.push({ element: para, text: paraText, startOffset: 0, endOffset: paraText.length });
-      accumulatedOffset += paraText.length;
-    }
-  }
-  
-  // Sicherstellen, dass mindestens ein Ergebnis zurückgegeben wird
-  if (result.length === 0) {
-    // Letzter Fallback: Verwende Start-Absatz mit geschätzten Offsets
-    const selectedText = range.toString();
-    const startParaText = startPara.textContent || '';
-    const startOffset = startParaText.indexOf(selectedText);
-    const endOffset = startOffset !== -1 ? startOffset + selectedText.length : startParaText.length;
-    return [{ element: startPara, text: startParaText, startOffset: Math.max(0, startOffset), endOffset: Math.min(startParaText.length, endOffset) }];
-  }
-  
-  return result;
-}
-
-/**
- * Unterstreichung visuell auf die Selection anwenden (unterstützt mehrere Absätze)
+ * Unterstreichung visuell auf die Selection anwenden
  * @param {Range} range - Die Textauswahl
  * @param {string} color - Die Farbe der Unterstreichung
  * @param {string} highlightId - Optional: Die ID des gespeicherten Highlights (für Klick-Funktionalität)
@@ -1173,152 +1006,6 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
   
   try {
     const highlightColor = getHighlightColor(color);
-    
-    // Prüfe ob Range über mehrere Absätze geht
-    const affectedParagraphs = findAffectedParagraphs(range);
-    
-    if (affectedParagraphs.length > 1) {
-      // Mehrere Absätze: Wende Highlight auf jeden Absatz einzeln an
-      console.log('[HIGHLIGHT-SELECTION] Mehrere Absätze betroffen:', affectedParagraphs.length);
-      
-      affectedParagraphs.forEach((paraInfo, index) => {
-        try {
-          const paraRange = document.createRange();
-          const walker = document.createTreeWalker(
-            paraInfo.element,
-            NodeFilter.SHOW_TEXT,
-            null,
-            false
-          );
-          
-          let currentOffset = 0;
-          let startNode = null;
-          let startOffsetInNode = 0;
-          let endNode = null;
-          let endOffsetInNode = 0;
-          let node;
-          
-          while (node = walker.nextNode()) {
-            const nodeLength = node.textContent.length;
-            
-            if (!startNode && currentOffset + nodeLength > paraInfo.startOffset) {
-              startNode = node;
-              startOffsetInNode = paraInfo.startOffset - currentOffset;
-            }
-            
-            if (currentOffset + nodeLength >= paraInfo.endOffset) {
-              endNode = node;
-              endOffsetInNode = paraInfo.endOffset - currentOffset;
-              break;
-            }
-            
-            currentOffset += nodeLength;
-          }
-          
-          if (startNode && endNode) {
-            paraRange.setStart(startNode, startOffsetInNode);
-            paraRange.setEnd(endNode, endOffsetInNode);
-            
-            const span = document.createElement('span');
-            span.className = 'member-highlight';
-            span.style.setProperty('text-decoration', 'underline', 'important');
-            span.style.setProperty('text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-            span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-            span.setAttribute('data-highlight', 'true');
-            span.setAttribute('data-highlight-color', color);
-            span.setAttribute('data-highlight-part', index === 0 ? 'start' : (index === affectedParagraphs.length - 1 ? 'end' : 'middle'));
-            
-            if (highlightId && gaNumber && paragraphId) {
-              span.setAttribute('data-highlight-id', highlightId);
-              span.setAttribute('data-ga-number', gaNumber);
-              span.setAttribute('data-paragraph-id', paragraphId);
-              span.style.setProperty('cursor', 'pointer', 'important');
-              span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
-              
-              // Event-Listener nur beim ersten Span hinzufügen
-              if (index === 0) {
-                span.addEventListener('click', function(e) {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  console.log('[HIGHLIGHT-CLICK] Klick auf Unterstreichung:', highlightId, gaNumber, paragraphId);
-                  if (typeof openMembersPanel === 'function') {
-                    openMembersPanel().then(() => {
-                      if (typeof switchMembersTab === 'function') {
-                        switchMembersTab('highlights').then(() => {
-                          setTimeout(() => {
-                            const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
-                            if (targetItem) {
-                              const membersContent = document.querySelector('.members-content');
-                              if (membersContent) {
-                                const containerRect = membersContent.getBoundingClientRect();
-                                const itemRect = targetItem.getBoundingClientRect();
-                                const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
-                                const containerHeight = membersContent.clientHeight;
-                                const itemHeight = itemRect.height;
-                                const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                                
-                                membersContent.scrollTo({
-                                  top: Math.max(0, targetScrollTop),
-                                  behavior: 'smooth'
-                                });
-                              }
-                              targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
-                              setTimeout(() => {
-                                targetItem.style.backgroundColor = '';
-                              }, 2000);
-                            } else if (typeof jumpToHighlight === 'function') {
-                              jumpToHighlight(gaNumber, paragraphId, highlightId);
-                            }
-                          }, 300);
-                        });
-                      } else if (typeof jumpToHighlight === 'function') {
-                        jumpToHighlight(gaNumber, paragraphId, highlightId);
-                      }
-                    });
-                  } else if (typeof jumpToHighlight === 'function') {
-                    jumpToHighlight(gaNumber, paragraphId, highlightId);
-                  }
-                });
-              } else {
-                // Andere Spans: Füge auch Event-Listener hinzu für Konsistenz
-                span.addEventListener('click', function(e) {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  // Finde den ersten Span mit Event-Listener und triggere dessen Klick
-                  const firstSpan = document.querySelector(`[data-highlight-id="${highlightId}"][data-highlight-part="start"]`);
-                  if (firstSpan) {
-                    firstSpan.click();
-                  }
-                });
-              }
-            }
-            
-            const contents = paraRange.extractContents();
-            span.appendChild(contents);
-            paraRange.insertNode(span);
-            
-            // Stelle sicher, dass Links innerhalb des Highlights die Highlight-Farbe verwenden
-            const linksInSpan = span.querySelectorAll('a');
-            linksInSpan.forEach(link => {
-              link.style.setProperty('text-decoration', 'underline', 'important');
-              link.style.setProperty('text-decoration-color', highlightColor, 'important');
-              link.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-              link.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-            });
-          }
-        } catch (e) {
-          console.warn('[HIGHLIGHT-SELECTION] Fehler beim Anwenden auf Absatz', index, ':', e);
-        }
-      });
-      
-      // Selection aufheben
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      return;
-    }
-    
-    // Einzelner Absatz: Normale Verarbeitung
     const span = document.createElement('span');
     span.className = 'member-highlight';
     span.style.setProperty('text-decoration', 'underline', 'important');
@@ -1757,7 +1444,7 @@ function highlightContextSelection(color) {
 }
 
 /**
- * Zitat visuell auf die Selection anwenden und klickbar machen (unterstützt mehrere Absätze)
+ * Zitat visuell auf die Selection anwenden und klickbar machen
  * @param {Range} range - Die Textauswahl
  * @param {string} quoteId - Die ID des gespeicherten Zitats
  * @param {string} gaNumber - Die GA-Nummer
@@ -1768,156 +1455,6 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColo
   if (!range) return;
   
   try {
-    // Hole Quote-Farbe aus dem DOM falls verfügbar, sonst Standard
-    let quoteColor = markerColor || 'blue';
-    if (!markerColor) {
-      // Versuche Quote-Farbe aus dem Member Panel zu holen
-      const quoteItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
-      if (quoteItem) {
-        const iconElement = quoteItem.querySelector('.quote-bookmark-icon-header');
-        if (iconElement && iconElement.style.color) {
-          // Konvertiere Hex-Farbe zurück zu Farbname (vereinfacht)
-          const hexColor = iconElement.style.color.toLowerCase();
-          if (hexColor === '#467886' || hexColor === 'rgb(70, 120, 134)') quoteColor = 'blue';
-          else if (hexColor === '#c62828' || hexColor === 'rgb(198, 40, 40)') quoteColor = 'red';
-          else if (hexColor === '#ffc107' || hexColor === 'rgb(255, 193, 7)') quoteColor = 'yellow';
-        }
-      }
-    }
-    
-    // Prüfe ob Range über mehrere Absätze geht
-    const affectedParagraphs = findAffectedParagraphs(range);
-    
-    if (affectedParagraphs.length > 1) {
-      // Mehrere Absätze: Wende Quote-Markierung auf jeden Absatz einzeln an
-      console.log('[QUOTE-SELECTION] Mehrere Absätze betroffen:', affectedParagraphs.length);
-      
-      const quoteObj = { id: quoteId, marker_color: quoteColor };
-      
-      affectedParagraphs.forEach((paraInfo, index) => {
-        try {
-          const paraRange = document.createRange();
-          const walker = document.createTreeWalker(
-            paraInfo.element,
-            NodeFilter.SHOW_TEXT,
-            null,
-            false
-          );
-          
-          let currentOffset = 0;
-          let startNode = null;
-          let startOffsetInNode = 0;
-          let endNode = null;
-          let endOffsetInNode = 0;
-          let node;
-          
-          while (node = walker.nextNode()) {
-            const nodeLength = node.textContent.length;
-            
-            if (!startNode && currentOffset + nodeLength > paraInfo.startOffset) {
-              startNode = node;
-              startOffsetInNode = paraInfo.startOffset - currentOffset;
-            }
-            
-            if (currentOffset + nodeLength >= paraInfo.endOffset) {
-              endNode = node;
-              endOffsetInNode = paraInfo.endOffset - currentOffset;
-              break;
-            }
-            
-            currentOffset += nodeLength;
-          }
-          
-          if (startNode && endNode) {
-            paraRange.setStart(startNode, startOffsetInNode);
-            paraRange.setEnd(endNode, endOffsetInNode);
-            
-            const span = document.createElement('span');
-            span.className = 'member-quote-highlight';
-            span.style.setProperty('cursor', 'pointer', 'important');
-            span.setAttribute('data-quote-id', quoteId);
-            span.setAttribute('data-quote', 'true');
-            span.setAttribute('data-quote-part', index === 0 ? 'start' : (index === affectedParagraphs.length - 1 ? 'end' : 'middle'));
-            span.setAttribute('data-ga-reference', gaNumber);
-            span.setAttribute('data-paragraph-id', paragraphId);
-            span.setAttribute('data-quote-color', quoteColor);
-            span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
-            
-            // Event-Listener nur beim ersten Span hinzufügen
-            if (index === 0) {
-              span.addEventListener('click', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                console.log('[QUOTE-CLICK] Klick auf Zitat:', quoteId, gaNumber, paragraphId);
-                if (typeof openMembersPanel === 'function') {
-                  openMembersPanel().then(() => {
-                    if (typeof switchMembersTab === 'function') {
-                      switchMembersTab('quotes').then(() => {
-                        setTimeout(() => {
-                          const targetItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
-                          if (targetItem) {
-                            const membersContent = document.querySelector('.members-content');
-                            if (membersContent) {
-                              const containerRect = membersContent.getBoundingClientRect();
-                              const itemRect = targetItem.getBoundingClientRect();
-                              const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
-                              const containerHeight = membersContent.clientHeight;
-                              const itemHeight = itemRect.height;
-                              const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                              
-                              membersContent.scrollTo({
-                                top: Math.max(0, targetScrollTop),
-                                behavior: 'smooth'
-                              });
-                            }
-                            targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
-                            setTimeout(() => {
-                              targetItem.style.backgroundColor = '';
-                            }, 2000);
-                          }
-                        }, 300);
-                      });
-                    }
-                  });
-                }
-              });
-            } else {
-              // Andere Spans: Füge auch Event-Listener hinzu für Konsistenz
-              span.addEventListener('click', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                // Finde den ersten Span mit Event-Listener und triggere dessen Klick
-                const firstSpan = document.querySelector(`[data-quote-id="${quoteId}"][data-quote-part="start"]`);
-                if (firstSpan) {
-                  firstSpan.click();
-                }
-              });
-            }
-            
-            const contents = paraRange.extractContents();
-            span.appendChild(contents);
-            paraRange.insertNode(span);
-            
-            // Erstelle senkrechte Linie nur beim ersten Absatz (für das gesamte Zitat)
-            if (index === 0 && typeof createQuoteVerticalLine === 'function') {
-              // Verwende die ursprüngliche Range für die Linienposition
-              createQuoteVerticalLine(paraInfo.element, range, quoteObj);
-            }
-          }
-        } catch (e) {
-          console.warn('[QUOTE-SELECTION] Fehler beim Anwenden auf Absatz', index, ':', e);
-        }
-      });
-      
-      // Selection aufheben
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      
-      console.log('[QUOTE-SELECTION] Zitat-Markierung über mehrere Absätze erfolgreich angewendet');
-      return;
-    }
-    
-    // Einzelner Absatz: Normale Verarbeitung
     // Finde das Absatz-Element (Container für die Linie)
     let paragraphElement = null;
     let node = range.startContainer;
@@ -1947,6 +1484,23 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColo
         }
       }
       node = node.parentNode;
+    }
+    
+    // Hole Quote-Farbe aus dem DOM falls verfügbar, sonst Standard
+    let quoteColor = markerColor || 'blue';
+    if (!markerColor) {
+      // Versuche Quote-Farbe aus dem Member Panel zu holen
+      const quoteItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
+      if (quoteItem) {
+        const iconElement = quoteItem.querySelector('.quote-bookmark-icon-header');
+        if (iconElement && iconElement.style.color) {
+          // Konvertiere Hex-Farbe zurück zu Farbname (vereinfacht)
+          const hexColor = iconElement.style.color.toLowerCase();
+          if (hexColor === '#467886' || hexColor === 'rgb(70, 120, 134)') quoteColor = 'blue';
+          else if (hexColor === '#c62828' || hexColor === 'rgb(198, 40, 40)') quoteColor = 'red';
+          else if (hexColor === '#ffc107' || hexColor === 'rgb(255, 193, 7)') quoteColor = 'yellow';
+        }
+      }
     }
     
     // Wrappe Text mit span (ohne border-right)
@@ -2565,5 +2119,4 @@ if (document.readyState === 'loading') {
 } else {
   setTimeout(initMembersContextMenu, 500);
 }
-
 

@@ -4734,160 +4734,6 @@ function getTextContentWithoutHighlights(element) {
 /**
  * Hilfsfunktion: Wendet Unterstreichung auf ein Element an (vereinheitlicht für Bücher und Vorträge)
  */
-/**
- * Findet benachbarte Absätze für die Suche über mehrere Absätze hinweg
- * @param {HTMLElement} startElement - Das Start-Element
- * @param {number} maxParagraphs - Maximale Anzahl von Absätzen zu durchsuchen
- * @returns {Array} Array von Absatz-Elementen
- */
-function findAdjacentParagraphs(startElement, maxParagraphs = 5) {
-  const paragraphs = [startElement];
-  
-  // Suche nachfolgende Absätze
-  let current = startElement.nextElementSibling;
-  let count = 1;
-  while (current && count < maxParagraphs) {
-    const tagName = current.tagName ? current.tagName.toLowerCase() : '';
-    if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName) ||
-        (current.id && current.id.startsWith('para-'))) {
-      paragraphs.push(current);
-      count++;
-    }
-    current = current.nextElementSibling;
-  }
-  
-  return paragraphs;
-}
-
-/**
- * Wendet ein Highlight auf einen einzelnen Absatz an
- * @param {HTMLElement} paraElement - Das Absatz-Element
- * @param {Object} highlight - Das Highlight-Objekt
- * @param {number} localStart - Start-Offset relativ zum Absatz
- * @param {number} localEnd - End-Offset relativ zum Absatz
- * @param {boolean} isFirst - Ob dies der erste Absatz ist (für Event-Listener)
- */
-function applyHighlightToSingleParagraph(paraElement, highlight, localStart, localEnd, isFirst) {
-  try {
-    const elementTextWithoutHighlights = getTextContentWithoutHighlights(paraElement);
-    if (!elementTextWithoutHighlights || elementTextWithoutHighlights.length === 0) {
-      return;
-    }
-    
-    const textToHighlight = elementTextWithoutHighlights.substring(localStart, localEnd);
-    if (!textToHighlight || textToHighlight.length === 0) {
-      return;
-    }
-    
-    // Erstelle Range für die Unterstreichung
-    const range = document.createRange();
-    const walker = document.createTreeWalker(
-      paraElement,
-      NodeFilter.SHOW_TEXT,
-      null,
-      false
-    );
-    
-    const textNodes = [];
-    let accumulatedOffset = 0;
-    let node;
-    
-    while (node = walker.nextNode()) {
-      const nodeText = node.textContent;
-      textNodes.push({
-        node: node,
-        startOffset: accumulatedOffset,
-        endOffset: accumulatedOffset + nodeText.length,
-        text: nodeText
-      });
-      accumulatedOffset += nodeText.length;
-    }
-    
-    const fullText = textNodes.map(n => n.text).join('');
-    const textIndex = fullText.indexOf(textToHighlight);
-    
-    if (textIndex !== -1) {
-      const textEndIndex = textIndex + textToHighlight.length;
-      
-      let startNode = null;
-      let startOffsetInNode = 0;
-      let endNode = null;
-      let endOffsetInNode = 0;
-      
-      for (const textNodeInfo of textNodes) {
-        if (!startNode && textIndex >= textNodeInfo.startOffset && textIndex < textNodeInfo.endOffset) {
-          startNode = textNodeInfo.node;
-          startOffsetInNode = textIndex - textNodeInfo.startOffset;
-        }
-        
-        if (textEndIndex > textNodeInfo.startOffset && textEndIndex <= textNodeInfo.endOffset) {
-          endNode = textNodeInfo.node;
-          endOffsetInNode = textEndIndex - textNodeInfo.startOffset;
-          break;
-        }
-      }
-      
-      if (startNode && endNode) {
-        range.setStart(startNode, startOffsetInNode);
-        range.setEnd(endNode, endOffsetInNode);
-        
-        const highlightColor = getHighlightColor(highlight.color || 'blue');
-        const span = document.createElement('span');
-        span.className = 'member-highlight';
-        span.style.setProperty('text-decoration', 'underline', 'important');
-        span.style.setProperty('text-decoration-color', highlightColor, 'important');
-        span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-        span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-        span.style.setProperty('cursor', 'pointer', 'important');
-        span.setAttribute('data-highlight-id', highlight.id);
-        span.setAttribute('data-highlight', 'true');
-        span.setAttribute('data-highlight-color', highlight.color || 'blue');
-        span.setAttribute('data-ga-number', highlight.ga_number);
-        span.setAttribute('data-paragraph-id', highlight.paragraph_id);
-        span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
-        span.setAttribute('data-listener-attached', 'true');
-        span.setAttribute('data-highlight-part', isFirst ? 'start' : 'middle');
-        
-        // Event-Listener nur beim ersten Span hinzufügen
-        if (isFirst) {
-          span.addEventListener('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
-            jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
-          });
-        } else {
-          // Andere Spans: Füge auch Event-Listener hinzu für Konsistenz
-          span.addEventListener('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-            // Finde den ersten Span mit Event-Listener und triggere dessen Klick
-            const firstSpan = document.querySelector(`[data-highlight-id="${highlight.id}"][data-highlight-part="start"]`);
-            if (firstSpan) {
-              firstSpan.click();
-            }
-          });
-        }
-        
-        const contents = range.extractContents();
-        span.appendChild(contents);
-        range.insertNode(span);
-        
-        // Stelle sicher, dass Links innerhalb des Highlights die Highlight-Farbe verwenden
-        const linksInSpan = span.querySelectorAll('a');
-        linksInSpan.forEach(link => {
-          link.style.setProperty('text-decoration', 'underline', 'important');
-          link.style.setProperty('text-decoration-color', highlightColor, 'important');
-          link.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
-          link.style.setProperty('text-decoration-thickness', '1.5px', 'important');
-        });
-      }
-    }
-  } catch (e) {
-    console.warn('[HIGHLIGHT] Fehler beim Anwenden auf Absatz:', e);
-  }
-}
-
 function applyHighlightToElement(targetElement, highlight) {
   if (!targetElement) {
     console.warn('[HIGHLIGHT] targetElement ist null');
@@ -4902,8 +4748,8 @@ function applyHighlightToElement(targetElement, highlight) {
     targetElementText: targetElement.textContent?.substring(0, 100)
   });
   
-  // Prüfe ob bereits unterstrichen (auch in benachbarten Absätzen)
-  const existingHighlight = document.querySelector(`[data-highlight-id="${highlight.id}"]`);
+  // Prüfe ob bereits unterstrichen
+  const existingHighlight = targetElement.querySelector(`[data-highlight-id="${highlight.id}"]`);
   if (existingHighlight) {
     console.log('[HIGHLIGHT] Bereits vorhanden, prüfe Event-Listener');
     // Stelle sicher, dass Event-Listener vorhanden ist
@@ -4920,6 +4766,19 @@ function applyHighlightToElement(targetElement, highlight) {
     return; // Bereits vorhanden
   }
   
+  // Hole den Text OHNE vorhandene Highlights (für die Suche)
+  const elementTextWithoutHighlights = getTextContentWithoutHighlights(targetElement);
+  
+  console.log('[HIGHLIGHT] Element-Text (ohne Highlights):', elementTextWithoutHighlights ? elementTextWithoutHighlights.substring(0, 200) : '(leer)');
+  console.log('[HIGHLIGHT] Gespeicherter Text:', highlight.paragraph_text?.substring(0, 200));
+  console.log('[HIGHLIGHT] Offsets:', highlight.text_start_offset, highlight.text_end_offset);
+  
+  // Prüfe ob elementText leer ist
+  if (!elementTextWithoutHighlights || elementTextWithoutHighlights.length === 0) {
+    console.warn('[HIGHLIGHT] Element-Text ist leer, kann Unterstreichung nicht anwenden');
+    return;
+  }
+  
   // Verwende den gespeicherten Text, um die Position zu finden
   // Das ist viel einfacher und robuster als die Offset-Berechnung
   if (highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null) {
@@ -4927,78 +4786,6 @@ function applyHighlightToElement(targetElement, highlight) {
       highlight.text_start_offset,
       highlight.text_end_offset
     );
-    
-    // Prüfe ob der Text mehrere Absätze umfasst (erkennbar durch Leerzeichen zwischen Absätzen)
-    // Wenn paragraph_text Leerzeichen zwischen Absätzen enthält, suche über mehrere Absätze
-    const combinedText = highlight.paragraph_text;
-    const hasMultipleParagraphs = combinedText.includes('  ') || combinedText.split(' ').length > 50;
-    
-    if (hasMultipleParagraphs) {
-      // Suche über mehrere Absätze hinweg
-      console.log('[HIGHLIGHT] Text umfasst mehrere Absätze, suche über benachbarte Absätze');
-      const adjacentParagraphs = findAdjacentParagraphs(targetElement, 10);
-      
-      // Kombiniere Text aller Absätze (mit Leerzeichen)
-      const combinedElementText = adjacentParagraphs.map(p => {
-        return getTextContentWithoutHighlights(p) || '';
-      }).join(' ');
-      
-      if (combinedElementText && combinedElementText.includes(textToHighlight)) {
-        // Text gefunden über mehrere Absätze - wende Highlight auf jeden betroffenen Absatz an
-        let currentOffset = 0;
-        let foundStart = false;
-        let foundEnd = false;
-        
-        for (let i = 0; i < adjacentParagraphs.length && !foundEnd; i++) {
-          const para = adjacentParagraphs[i];
-          const paraText = getTextContentWithoutHighlights(para) || '';
-          const paraStart = currentOffset;
-          const paraEnd = currentOffset + paraText.length;
-          
-          // Prüfe ob Highlight in diesem Absatz beginnt oder endet
-          const highlightStart = highlight.text_start_offset;
-          const highlightEnd = highlight.text_end_offset;
-          
-          if (!foundStart && highlightStart >= paraStart && highlightStart < paraEnd) {
-            // Highlight beginnt in diesem Absatz
-            foundStart = true;
-            const localStart = highlightStart - paraStart;
-            const localEnd = Math.min(paraText.length, highlightEnd - paraStart);
-            
-            // Wende Highlight auf diesen Absatz an
-            applyHighlightToSingleParagraph(para, highlight, localStart, localEnd, i === 0);
-          } else if (foundStart && !foundEnd && highlightEnd > paraStart && highlightEnd <= paraEnd) {
-            // Highlight endet in diesem Absatz
-            foundEnd = true;
-            const localStart = 0;
-            const localEnd = highlightEnd - paraStart;
-            
-            // Wende Highlight auf diesen Absatz an
-            applyHighlightToSingleParagraph(para, highlight, localStart, localEnd, false);
-          } else if (foundStart && !foundEnd) {
-            // Ganzer Absatz ist Teil des Highlights
-            applyHighlightToSingleParagraph(para, highlight, 0, paraText.length, false);
-          }
-          
-          currentOffset += paraText.length + 1; // +1 für Leerzeichen
-        }
-        
-        return; // Erfolgreich angewendet
-      }
-    }
-    
-    // Normale Suche innerhalb eines einzelnen Elements
-    const elementTextWithoutHighlights = getTextContentWithoutHighlights(targetElement);
-    
-    console.log('[HIGHLIGHT] Element-Text (ohne Highlights):', elementTextWithoutHighlights ? elementTextWithoutHighlights.substring(0, 200) : '(leer)');
-    console.log('[HIGHLIGHT] Gespeicherter Text:', highlight.paragraph_text?.substring(0, 200));
-    console.log('[HIGHLIGHT] Offsets:', highlight.text_start_offset, highlight.text_end_offset);
-    
-    // Prüfe ob elementText leer ist
-    if (!elementTextWithoutHighlights || elementTextWithoutHighlights.length === 0) {
-      console.warn('[HIGHLIGHT] Element-Text ist leer, kann Unterstreichung nicht anwenden');
-      return;
-    }
     
     // Prüfe ob textToHighlight gültig ist
     if (!textToHighlight || textToHighlight.length === 0) {
