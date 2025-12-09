@@ -3987,6 +3987,11 @@ AUFGABE:
      * H4: "Der Übergang zur nachatlantischen Zeit"
      * H4: "Das moderne Ich-Bewusstsein"
    
+   🚨 KRITISCH: KEINE ÜBERSCHRIFTEN IN GEDICHTE!
+   - Ein Gedicht besteht aus mindestens zwei aufeinanderfolgenden Zeilen, die durch Absatzmarken getrennt sind und weniger als 90 Zeichen pro Zeile haben
+   - In solchen Bereichen DARFST DU ABSOLUT KEINE Überschriften (H3 oder H4) einfügen!
+   - Prüfe VOR jeder Überschrift, ob der Bereich ein Gedicht ist!
+   
    🎯 STRUKTUR-REGEL:
    - Erstelle 5-8 H3-Hauptthemen gleichmäßig über den Vortrag verteilt
    - JEDES H3 MUSS 2-4 H4-Unterthemen haben
@@ -4528,6 +4533,11 @@ H4 = UNTERTHEMA (Aspekte innerhalb eines H3-Hauptthemas)
 - H4 folgen direkt nach dem zugehörigen H3 (nicht isoliert)
 - Verwende die Index-Markierungen [Index: ^abc123] aus dem Text
 - Überschriften sollen das kommende Thema ankündigen
+
+🚨 KRITISCH: KEINE ÜBERSCHRIFTEN IN GEDICHTE!
+- Ein Gedicht besteht aus mindestens zwei aufeinanderfolgenden Zeilen, die durch Absatzmarken getrennt sind und weniger als 90 Zeichen pro Zeile haben
+- In solchen Bereichen DARFST DU ABSOLUT KEINE Überschriften (H3 oder H4) einfügen!
+- Prüfe VOR jeder Überschrift, ob der Bereich ein Gedicht ist!
 
 REGELN FÜR TABLE OF CONTENTS:
 ⚠️ ABSOLUT VERBOTEN - KEINE META-SPRACHE:

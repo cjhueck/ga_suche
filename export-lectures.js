@@ -179,6 +179,63 @@ class SteinerLecturesExporter {
     });
   }
   
+  // Formatiert Paragraph-Content:
+  // 1. Gedichte: Reduziert doppelte Leerzeilen zwischen Zeilen auf einfache
+  // 2. Durchgezogene Linien: Konvertiert * * * zu * * *
+  formatParagraphContent(content) {
+    if (!content) return content;
+    
+    // 1. Durchgezogene Linien: Konvertiere * * * zu * * * (beide sind identisch, aber sicherstellen)
+    // Pattern: * * * oder * * * mit variablen Leerzeichen
+    content = content.replace(/\*\s+\*\s+\*/g, '* * *');
+    
+    // 2. Gedichte: Reduziere doppelte Leerzeilen zwischen Zeilen auf einfache
+    // Erkenne Gedichte: Mehrere kurze Zeilen (< 90 Zeichen) hintereinander
+    const lines = content.split('\n');
+    const resultLines = [];
+    
+    let i = 0;
+    while (i < lines.length) {
+      const line = lines[i];
+      const lineLength = line.trim().length;
+      
+      // Prüfe ob aktuelle Zeile kurz ist (potentielles Gedicht)
+      if (lineLength > 0 && lineLength < 90) {
+        // Prüfe ob nächste Zeile auch kurz ist (Gedicht erkannt)
+        if (i + 1 < lines.length) {
+          const nextLine = lines[i + 1];
+          const nextLineLength = nextLine.trim().length;
+          
+          // Wenn nächste Zeile leer ist, prüfe die übernächste
+          if (nextLineLength === 0 && i + 2 < lines.length) {
+            const nextNextLine = lines[i + 2];
+            const nextNextLength = nextNextLine.trim().length;
+            
+            // Wenn übernächste Zeile auch kurz ist, überspringe die leere Zeile
+            if (nextNextLength > 0 && nextNextLength < 90) {
+              resultLines.push(line);
+              i += 1; // Überspringe leere Zeile
+              continue;
+            }
+          }
+          
+          // Wenn nächste Zeile auch kurz ist, füge keine Leerzeile ein
+          if (nextLineLength > 0 && nextLineLength < 90) {
+            resultLines.push(line);
+            i += 1;
+            continue;
+          }
+        }
+      }
+      
+      // Normale Zeile: Füge hinzu
+      resultLines.push(line);
+      i += 1;
+    }
+    
+    return resultLines.join('\n');
+  }
+  
   // Extract image references from text
   // Hilfsfunktion: Bereinigt Bildpfade automatisch
   cleanImagePath(imagePath) {
@@ -398,7 +455,10 @@ class SteinerLecturesExporter {
             }
             
             // Konvertiere Wiki-Links zu Markdown-Format
-            const convertedText = this.convertWikiLinksToMarkdown(text);
+            let convertedText = this.convertWikiLinksToMarkdown(text);
+            
+            // Formatiere Paragraph-Content (Gedichte und durchgezogene Linien)
+            convertedText = this.formatParagraphContent(convertedText);
             
             paragraphs.push({
               index: `^${blockId}`,
