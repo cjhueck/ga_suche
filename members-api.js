@@ -428,42 +428,28 @@ export async function createNote(title, content, isPublic = false, paragraphId =
     const tags = manualTags !== null ? manualTags : extractTags(content);
     const gaReferences = extractGAReferences(content);
 
-    // Basis-Daten, die immer vorhanden sind
-    const baseInsertData = {
+    // Alle Daten für die Notiz
+    const insertData = {
         user_id: user.id,
         title: title,
         content: content,
         ga_references: gaReferences,
         wiki_links: wikiLinks,
         tags: tags,
-        is_public: isPublic
+        is_public: isPublic,
+        paragraph_id: paragraphId,
+        paragraph_text: paragraphText,
+        text_start_offset: textStartOffset,
+        text_end_offset: textEndOffset,
+        lecture_date: lectureDate,
+        marker_color: markerColor || 'blue'
     };
-    
-    // Erweiterte Daten mit Kontext-Informationen
-    const extendedInsertData = { ...baseInsertData };
-    if (paragraphId !== null) extendedInsertData.paragraph_id = paragraphId;
-    if (paragraphText !== null) extendedInsertData.paragraph_text = paragraphText;
-    if (textStartOffset !== null) extendedInsertData.text_start_offset = textStartOffset;
-    if (textEndOffset !== null) extendedInsertData.text_end_offset = textEndOffset;
-    if (lectureDate !== null) extendedInsertData.lecture_date = lectureDate;
-    if (markerColor !== null) extendedInsertData.marker_color = markerColor;
 
-    // Versuche zuerst mit erweiterten Daten zu speichern
-    let result = await supabase
+    const result = await supabase
       .from('notes')
-      .insert(extendedInsertData)
+      .insert(insertData)
       .select()
       .single();
-
-    // Falls Fehler (z.B. Spalten nicht vorhanden), versuche nur mit Basis-Daten
-    if (result.error) {
-      console.warn('Fehler mit erweiterten Daten, versuche nur Basis-Daten:', result.error.message);
-      result = await supabase
-        .from('notes')
-        .insert(baseInsertData)
-        .select()
-        .single();
-    }
 
     if (result.error) throw result.error;
 
@@ -481,7 +467,7 @@ export async function createNote(title, content, isPublic = false, paragraphId =
 /**
  * Notiz aktualisieren
  */
-export async function updateNote(noteId, title, content, isPublic = false, manualTags = null) {
+export async function updateNote(noteId, title, content, isPublic = false, manualTags = null, markerColor = null) {
   try {
     // Links und Tags neu extrahieren
     const wikiLinks = extractWikiLinks(content);
@@ -489,16 +475,24 @@ export async function updateNote(noteId, title, content, isPublic = false, manua
     const tags = manualTags !== null ? manualTags : extractTags(content);
     const gaReferences = extractGAReferences(content);
 
+    // Update-Objekt erstellen
+    const updateData = {
+      title: title,
+      content: content,
+      ga_references: gaReferences,
+      wiki_links: wikiLinks,
+      tags: tags,
+      is_public: isPublic
+    };
+    
+    // Farbe nur hinzufügen wenn angegeben
+    if (markerColor !== null) {
+      updateData.marker_color = markerColor;
+    }
+
     const { data, error } = await supabase
       .from('notes')
-      .update({
-        title: title,
-        content: content,
-        ga_references: gaReferences,
-        wiki_links: wikiLinks,
-        tags: tags,
-        is_public: isPublic
-      })
+      .update(updateData)
       .eq('id', noteId)
       .select()
       .single();

@@ -32,6 +32,21 @@ function createContextMenu() {
   contextMenu.id = 'members-context-menu';
   contextMenu.className = 'members-context-menu';
   contextMenu.innerHTML = `
+    <div class="context-menu-item quote-menu-item" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
+      <span class="context-menu-text">Anstreichen</span>
+      <span class="context-menu-arrow">▶</span>
+      <div id="quote-color-menu" class="context-submenu quote-submenu-hidden" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'blue')" style="border-left: 3px solid #467886;">
+          <span class="context-menu-text">Blau</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'red')" style="border-left: 3px solid #c62828;">
+          <span class="context-menu-text">Rot</span>
+        </div>
+        <div class="context-menu-item" onclick="contextMenuAction('quote', 'yellow')" style="border-left: 3px solid #ffc107;">
+          <span class="context-menu-text">Gelb</span>
+        </div>
+      </div>
+    </div>
     <div class="context-menu-item highlight-menu-item" onmouseenter="showHighlightColorMenu()" onmouseleave="hideHighlightColorMenu()">
       <span class="context-menu-text">Unterstreichen</span>
       <span class="context-menu-arrow">▶</span>
@@ -47,23 +62,20 @@ function createContextMenu() {
         </div>
       </div>
     </div>
-    <div class="context-menu-item quote-menu-item" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
-      <span class="context-menu-text">Zitat speichern</span>
+    <div class="context-menu-item note-menu-item" onmouseenter="showNoteColorMenu()" onmouseleave="hideNoteColorMenu()">
+      <span class="context-menu-text">Notiz erstellen</span>
       <span class="context-menu-arrow">▶</span>
-      <div id="quote-color-menu" class="context-submenu quote-submenu-hidden" onmouseenter="showQuoteColorMenu()" onmouseleave="hideQuoteColorMenu()">
-        <div class="context-menu-item" onclick="contextMenuAction('quote', 'blue')" style="border-left: 3px solid #467886;">
+      <div id="note-color-menu" class="context-submenu note-submenu-hidden" onmouseenter="showNoteColorMenu()" onmouseleave="hideNoteColorMenu()">
+        <div class="context-menu-item" onclick="contextMenuAction('note', 'blue')" style="border-left: 3px solid #467886;">
           <span class="context-menu-text">Blau</span>
         </div>
-        <div class="context-menu-item" onclick="contextMenuAction('quote', 'red')" style="border-left: 3px solid #c62828;">
+        <div class="context-menu-item" onclick="contextMenuAction('note', 'red')" style="border-left: 3px solid #c62828;">
           <span class="context-menu-text">Rot</span>
         </div>
-        <div class="context-menu-item" onclick="contextMenuAction('quote', 'yellow')" style="border-left: 3px solid #ffc107;">
+        <div class="context-menu-item" onclick="contextMenuAction('note', 'yellow')" style="border-left: 3px solid #ffc107;">
           <span class="context-menu-text">Gelb</span>
         </div>
       </div>
-    </div>
-    <div class="context-menu-item" onclick="contextMenuAction('note')">
-      <span class="context-menu-text">Notiz erstellen</span>
     </div>
   `;
   
@@ -202,7 +214,8 @@ async function contextMenuAction(action, extraData = null) {
       await saveContextHighlight(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, color);
       break;
     case 'note':
-      openContextNote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex);
+      const noteColor = extraData || 'blue'; // Standard: blau
+      openContextNote(selectedTextForContext, lectureId, lectureTitle, paragraphIndex, noteColor);
       break;
   }
 }
@@ -1235,78 +1248,529 @@ function hideQuoteColorMenu() {
   }
 }
 
+// Timer für Notiz-Untermenü
+let noteMenuHideTimer = null;
+
 /**
- * Notiz aus Context-Menü öffnen
+ * Zeigt das Notiz-Farben-Untermenü
  */
-function openContextNote(text, lectureId, lectureTitle, paragraphId = null) {
-  // Öffne MB mit Notizen-Tab
+function showNoteColorMenu() {
+  // Lösche Timer falls vorhanden
+  if (noteMenuHideTimer) {
+    clearTimeout(noteMenuHideTimer);
+    noteMenuHideTimer = null;
+  }
+  
+  const submenu = document.getElementById('note-color-menu');
+  if (submenu) {
+    submenu.classList.remove('note-submenu-hidden');
+    submenu.style.display = 'block';
+    submenu.style.visibility = 'visible';
+    submenu.style.opacity = '1';
+    submenu.style.position = 'absolute';
+    submenu.style.left = 'calc(100% + 4px)';
+    submenu.style.top = '0';
+  }
+}
+
+/**
+ * Versteckt das Notiz-Farben-Untermenü
+ */
+function hideNoteColorMenu() {
+  // Lösche vorherigen Timer falls vorhanden
+  if (noteMenuHideTimer) {
+    clearTimeout(noteMenuHideTimer);
+  }
+  
+  const submenu = document.getElementById('note-color-menu');
+  if (submenu) {
+    noteMenuHideTimer = setTimeout(() => {
+      const submenuCheck = document.getElementById('note-color-menu');
+      if (submenuCheck) {
+        submenuCheck.classList.add('note-submenu-hidden');
+        submenuCheck.style.display = 'none';
+      }
+      noteMenuHideTimer = null;
+    }, 200);
+  }
+}
+
+/**
+ * Notiz aus Context-Menü direkt speichern
+ */
+async function openContextNote(text, lectureId, lectureTitle, paragraphId = null, color = 'blue') {
+  console.log('[MB-NOTE-SAVE] openContextNote aufgerufen:', {
+    text: text.substring(0, 50) + '...',
+    lectureId,
+    lectureTitle,
+    paragraphId,
+    color
+  });
+  
+  // Prüfe ob createNote verfügbar ist
+  if (typeof createNote !== 'function') {
+    alert('Fehler: Notiz-Funktion nicht verfügbar. Bitte Seite neu laden.');
+    return;
+  }
+  
+  // Berechne Text-Offsets falls möglich (auch über mehrere Absätze)
+  let textStartOffset = null;
+  let textEndOffset = null;
+  let paragraphText = null;
+  
+  if (paragraphId && selectionRangeForContext) {
+    try {
+      const paragraphElement = document.getElementById('para-' + paragraphId);
+      if (paragraphElement) {
+        // Prüfe ob die Selektion über mehrere Absätze geht
+        const range = selectionRangeForContext;
+        const startContainer = range.startContainer;
+        const endContainer = range.endContainer;
+        
+        // Finde Start- und End-Paragraph
+        const startPara = startContainer.nodeType === Node.TEXT_NODE 
+          ? startContainer.parentElement.closest('[id^="para-"]')
+          : startContainer.closest('[id^="para-"]');
+        const endPara = endContainer.nodeType === Node.TEXT_NODE 
+          ? endContainer.parentElement.closest('[id^="para-"]')
+          : endContainer.closest('[id^="para-"]');
+        
+        const isMultiParagraph = startPara && endPara && startPara !== endPara;
+        
+        if (isMultiParagraph) {
+          console.log('[MB-CONTEXT] Multi-Paragraph Selektion erkannt');
+          
+          // Sammle Text aller betroffenen Absätze (vom Start-Paragraph aus)
+          const contentContainer = paragraphElement.closest('.lecture-content, .text-content, article, main') 
+            || paragraphElement.parentElement;
+          const allParagraphs = contentContainer.querySelectorAll('[id^="para-"]');
+          
+          let collecting = false;
+          let combinedText = '';
+          let foundEnd = false;
+          let parasInSelection = [];
+          
+          for (const para of allParagraphs) {
+            if (para === startPara) {
+              collecting = true;
+            }
+            
+            if (collecting) {
+              parasInSelection.push(para);
+              combinedText += para.textContent;
+              
+              if (para === endPara) {
+                foundEnd = true;
+                break;
+              }
+            }
+          }
+          
+          if (foundEnd) {
+            paragraphText = combinedText;
+            
+            // Berechne Start-Offset im Start-Paragraph
+            const startWalker = document.createTreeWalker(startPara, NodeFilter.SHOW_TEXT, null, false);
+            let startCharCount = 0;
+            let startNode;
+            
+            while (startNode = startWalker.nextNode()) {
+              if (startNode === startContainer || startNode.contains(startContainer) || startContainer.contains(startNode)) {
+                textStartOffset = startCharCount + range.startOffset;
+                break;
+              }
+              startCharCount += startNode.textContent.length;
+            }
+            
+            // Berechne End-Offset durch Durchlaufen aller Absätze
+            if (textStartOffset !== null) {
+              let totalCharCount = 0;
+              let foundEndOffset = false;
+              
+              // Sammle alle Textknoten aller Absätze in Reihenfolge
+              for (const para of parasInSelection) {
+                const endWalker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+                let endNode;
+                
+                while (endNode = endWalker.nextNode()) {
+                  // Prüfe ob dies der End-Container ist (verschiedene Möglichkeiten)
+                  const isEndNode = endNode === endContainer || 
+                                    endNode === range.endContainer ||
+                                    (endContainer.nodeType !== Node.TEXT_NODE && endContainer.contains(endNode));
+                  
+                  if (isEndNode) {
+                    // Berechne den Offset innerhalb dieses Knotens
+                    let offsetInNode = range.endOffset;
+                    // Wenn endContainer ein Element ist, ist endOffset die Kind-Position
+                    if (range.endContainer.nodeType !== Node.TEXT_NODE) {
+                      offsetInNode = endNode.textContent.length;
+                    }
+                    textEndOffset = totalCharCount + offsetInNode;
+                    foundEndOffset = true;
+                    console.log('[MB-CONTEXT] End-Knoten gefunden, totalCharCount:', totalCharCount, 'offsetInNode:', offsetInNode);
+                    break;
+                  }
+                  // Addiere Länge dieses Knotens
+                  totalCharCount += endNode.textContent.length;
+                }
+                
+                if (foundEndOffset) break;
+              }
+              
+              // Fallback: Berechne Länge aus dem Range direkt
+              if (!foundEndOffset || textEndOffset === null) {
+                // Verwende Range.toString().length für exakte Länge
+                const rangeText = range.toString();
+                textEndOffset = textStartOffset + rangeText.length;
+                console.log('[MB-CONTEXT] Fallback: Range.toString().length =', rangeText.length);
+              }
+              
+              console.log('[MB-CONTEXT] Multi-Para Offsets (final):', textStartOffset, '-', textEndOffset);
+            }
+          }
+        } else {
+          // Einzelner Paragraph
+          paragraphText = paragraphElement.textContent;
+          
+          // Finde den Offset des markierten Texts innerhalb des Paragraphs
+          const textIndex = paragraphText.indexOf(text);
+          if (textIndex !== -1) {
+            textStartOffset = textIndex;
+            textEndOffset = textIndex + text.length;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('[MB-CONTEXT] Fehler beim Ermitteln der Text-Offsets:', err);
+    }
+  }
+  
+  // Zeige Modal für Keywords
+  const dialogResult = await showContextNoteDialog(text, color);
+  
+  if (dialogResult === null) {
+    // Benutzer hat abgebrochen
+    return;
+  }
+  
+  const { keywords, selectedColor } = dialogResult;
+  const tags = keywords
+    .split(',')
+    .map(kw => kw.trim())
+    .filter(kw => kw.length > 0);
+  
+  // Erstelle Content mit GA-Referenz für die Extraktion
+  const gaRef = lectureId ? `[[${lectureId.split('/')[0]}]]` : '';
+  let content = `"${text}"\n\n${gaRef}`;
+  
+  // Füge Tags hinzu
+  if (tags.length > 0) {
+    const tagsString = tags.map(tag => `#${tag}`).join(' ');
+    content = content + '\n\n' + tagsString;
+  }
+  
+  const title = text.substring(0, 50);
+  
+  // Hole Vortragsdatum falls verfügbar
+  let lectureDate = null;
+  if (lectureId && typeof getCurrentLectureDate === 'function') {
+    lectureDate = getCurrentLectureDate(lectureId);
+  }
+  
+  // Speichere Notiz
+  console.log('[MB-NOTE-SAVE] Speichere Notiz mit:', { paragraphId, textStartOffset, textEndOffset, selectedColor });
+  const result = await createNote(title, content, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, selectedColor);
+  
+  console.log('[MB-NOTE-SAVE] Ergebnis:', result);
+  
+  if (result.success) {
+    showContextNotification('✓ Notiz gespeichert!', 'success');
+    
+    // Füge Bookmark-Icon im Main Viewer hinzu
+    console.log('[MB-NOTE-SAVE] Prüfe Icon-Hinzufügung:', { paragraphId, hasData: !!result.data });
+    if (paragraphId && result.data) {
+      addNoteBookmarkToViewer(paragraphId, result.data, selectedColor);
+    } else {
+      console.log('[MB-NOTE-SAVE] Kein Icon hinzugefügt - paragraphId:', paragraphId, 'result.data:', result.data);
+    }
+    
+    // Öffne Members Panel und zeige Notizen-Tab
   if (typeof openMembersPanel === 'function') {
     openMembersPanel();
     
-    // Speichere Kontextdaten global, damit saveMemberNote darauf zugreifen kann
-    window.noteContextData = {
-      paragraphId: paragraphId,
-      lectureId: lectureId,
-      lectureTitle: lectureTitle,
-      selectedText: text,
-      // Berechne Text-Offsets falls möglich
-      textStartOffset: null,
-      textEndOffset: null,
-      paragraphText: null
-    };
-    
-    // Versuche, Text-Offsets und Paragraph-Text zu ermitteln
-    if (paragraphId && selectionRangeForContext) {
-      try {
-        const paragraphElement = document.getElementById('para-' + paragraphId);
-        if (paragraphElement) {
-          window.noteContextData.paragraphText = paragraphElement.textContent;
-          
-          // Finde den Offset des markierten Texts innerhalb des Paragraphs
-          const paragraphText = paragraphElement.textContent;
-          const textIndex = paragraphText.indexOf(text);
-          if (textIndex !== -1) {
-            window.noteContextData.textStartOffset = textIndex;
-            window.noteContextData.textEndOffset = textIndex + text.length;
-          }
-        }
-      } catch (err) {
-        console.warn('[MB-CONTEXT] Fehler beim Ermitteln der Text-Offsets:', err);
-      }
-    }
-    
-    // Warte kurz, dann wechsle zu Notizen-Tab und fülle Text ein
+      // Wechsle zum Notizen-Tab und lade neu
     setTimeout(() => {
       if (typeof switchMembersTab === 'function') {
-        currentMembersTab = 'notes';
-        
-        // Tabs aktualisieren
-        document.querySelectorAll('.members-tab').forEach(tab => {
-          tab.classList.remove('active');
-        });
-        const notesTab = Array.from(document.querySelectorAll('.members-tab')).find(t => 
-          t.textContent.includes('Notizen')
+          switchMembersTab('notes');
+        }
+        // Lade Notizen neu
+        if (typeof loadSavedNotes === 'function') {
+          loadSavedNotes();
+        }
+      }, 200);
+    }
+  } else {
+    showContextNotification('✗ Fehler beim Speichern: ' + result.error, 'error');
+  }
+}
+
+/**
+ * Fügt ein Bookmark-Icon für eine Notiz im Main Viewer hinzu
+ */
+function addNoteBookmarkToViewer(paragraphId, noteData, color) {
+  console.log('[MB-NOTE-VIEWER] addNoteBookmarkToViewer aufgerufen:', paragraphId, noteData, color);
+  
+  const paraElement = document.getElementById(`para-${paragraphId}`);
+  if (!paraElement) {
+    console.log('[MB-NOTE-VIEWER] Element para-' + paragraphId + ' nicht gefunden');
+    return;
+  }
+  
+  console.log('[MB-NOTE-VIEWER] Element gefunden:', paraElement.tagName);
+  
+  // Prüfe ob Icon bereits vorhanden ist
+  let targetElement = paraElement;
+  let existingIndicator = paraElement.querySelector('.bookmark-note-indicator');
+  
+  // Bei Büchern: para- IDs sind in versteckten Spans, finde das Parent-Element
+  if (paraElement.style.display === 'none' || paraElement.tagName.toLowerCase() === 'span') {
+    let parent = paraElement.parentElement;
+    while (parent && parent !== document.body) {
+      const tagName = parent.tagName.toLowerCase();
+      if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+        targetElement = parent;
+        existingIndicator = parent.querySelector('.bookmark-note-indicator');
+        break;
+      }
+      parent = parent.parentElement;
+    }
+  }
+  
+  if (existingIndicator) return; // Bereits vorhanden
+  
+  // Hole Farbe und Text-Offset
+  const noteColorHex = typeof getNoteColor === 'function' ? getNoteColor(color) : '#467886';
+  const noteId = noteData.id || noteData[0]?.id;
+  const textStartOffset = noteData.text_start_offset;
+  
+  // Erstelle Bookmark-Icon
+  const indicator = document.createElement('span');
+  indicator.className = 'bookmark-note-indicator';
+  indicator.setAttribute('data-para-id', paragraphId);
+  indicator.setAttribute('data-note-id', noteId);
+  indicator.style.color = noteColorHex;
+  indicator.style.cursor = 'pointer';
+  indicator.title = 'Notiz vorhanden - Klick zum Öffnen';
+  indicator.innerHTML = `
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+    </svg>
+  `;
+  indicator.onclick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (typeof jumpToNoteById === 'function') {
+      jumpToNoteById(noteId);
+    }
+  };
+  
+  // Stelle sicher, dass targetElement relativ positioniert ist
+  targetElement.style.position = 'relative';
+  
+  // Positioniere das Icon absolut links neben dem Absatz (wie bei Zitaten)
+  if (textStartOffset !== null && textStartOffset !== undefined) {
+    try {
+      const elementText = targetElement.textContent;
+      
+      if (elementText && elementText.length > textStartOffset) {
+        // Erstelle einen Range, um die Position zu finden
+        const range = document.createRange();
+        const walker = document.createTreeWalker(
+          targetElement,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
         );
-        if (notesTab) notesTab.classList.add('active');
         
-        // Content laden
-        loadMembersTab('notes');
+        let currentOffset = 0;
+        let targetNode = null;
+        let targetOffset = 0;
+        let node;
         
-        // Text ins Textfeld einfügen (mit GA-Referenz für die Extraktion)
-        setTimeout(() => {
-          const noteContent = document.getElementById('members-note-content');
-          if (noteContent) {
-            // Füge GA-Referenz als [[GA...]] ein, damit sie extrahiert wird
-            const gaRef = lectureId ? `[[${lectureId.split('/')[0]}]]` : '';
-            noteContent.value = `"${text}"\n\n${gaRef}`;
-            noteContent.focus();
+        // Finde den Text-Knoten, der den text_start_offset enthält
+        while (node = walker.nextNode()) {
+          const nodeLength = node.textContent.length;
+          if (currentOffset + nodeLength > textStartOffset) {
+            targetNode = node;
+            targetOffset = textStartOffset - currentOffset;
+            break;
           }
-        }, 300);
+          currentOffset += nodeLength;
+        }
+        
+        if (targetNode) {
+          try {
+            range.setStart(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            range.setEnd(targetNode, Math.min(targetOffset, targetNode.textContent.length));
+            
+            // Erstelle einen unsichtbaren Marker-Span
+            const marker = document.createElement('span');
+            marker.style.display = 'inline';
+            marker.style.width = '0';
+            marker.style.height = '0';
+            marker.style.visibility = 'hidden';
+            marker.style.pointerEvents = 'none';
+            marker.setAttribute('data-note-marker', 'true');
+            
+            range.insertNode(marker);
+            
+            requestAnimationFrame(() => {
+              try {
+                const markerRect = marker.getBoundingClientRect();
+                const targetRect = targetElement.getBoundingClientRect();
+                const relativeTop = markerRect.top - targetRect.top;
+                
+                indicator.style.position = 'absolute';
+                indicator.style.left = '-20px';
+                indicator.style.top = relativeTop + 'px';
+                
+                targetElement.appendChild(indicator);
+                
+                setTimeout(() => {
+                  if (marker.parentNode) {
+                    marker.parentNode.removeChild(marker);
       }
     }, 100);
-  } else {
-    alert('Mitglieder-Panel nicht verfügbar');
+                
+                console.log('[NOTE-VIEWER] Icon positioniert:', textStartOffset, 'top:', relativeTop);
+              } catch (e) {
+                if (marker.parentNode) {
+                  marker.parentNode.removeChild(marker);
+                }
+                indicator.style.position = 'absolute';
+                indicator.style.left = '-20px';
+                indicator.style.top = '0px';
+                targetElement.appendChild(indicator);
+              }
+            });
+            
+            return;
+          } catch (e) {
+            console.warn('[NOTE-VIEWER] Fehler bei Range-Positionierung:', e);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[NOTE-VIEWER] Fehler bei Text-Offset-Berechnung:', e);
+    }
   }
+  
+  // Fallback: Position oben links neben dem Absatz
+  indicator.style.position = 'absolute';
+  indicator.style.left = '-20px';
+  indicator.style.top = '0px';
+  targetElement.appendChild(indicator);
+}
+
+/**
+ * Dialog für Notiz-Keywords aus Context-Menü
+ */
+function showContextNoteDialog(text, preselectedColor = 'blue') {
+  return new Promise((resolve) => {
+    const dialog = document.createElement('div');
+    dialog.className = 'keyword-dialog-overlay';
+    dialog.style.zIndex = '10010';
+    
+    // Bestimme welcher Button vorausgewählt ist
+    const isBlueSelected = preselectedColor === 'blue';
+    const isRedSelected = preselectedColor === 'red';
+    const isYellowSelected = preselectedColor === 'yellow';
+    
+    dialog.innerHTML = `
+      <div class="keyword-dialog" style="max-width: 500px;">
+        <div class="keyword-dialog-header">
+          <h3>Notiz speichern</h3>
+        </div>
+        <div class="keyword-dialog-body">
+          <div class="keyword-preview" style="max-height: 100px; overflow: hidden;">"${text.substring(0, 200)}${text.length > 200 ? '...' : ''}"</div>
+          <label for="context-note-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <input type="text" id="context-note-keyword-input" value="" placeholder="z.B. Karma, Reinkarnation, Ätherleib" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; margin-top: 0.25rem;" />
+          <div class="keyword-hint" style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Keywords helfen beim späteren Filtern</div>
+          <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+            <button type="button" class="note-color-btn ${isBlueSelected ? 'selected' : ''}" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isBlueSelected ? '#467886' : 'transparent'}; background-color: #467886; cursor: pointer;" title="Blau"></button>
+            <button type="button" class="note-color-btn ${isRedSelected ? 'selected' : ''}" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isRedSelected ? '#c62828' : 'transparent'}; background-color: #c62828; cursor: pointer;" title="Rot"></button>
+            <button type="button" class="note-color-btn ${isYellowSelected ? 'selected' : ''}" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isYellowSelected ? '#ffc107' : 'transparent'}; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
+          </div>
+        </div>
+        <div class="keyword-dialog-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+          <button class="keyword-dialog-btn keyword-dialog-cancel" style="padding: 0.5rem 1rem; cursor: pointer;">Abbrechen</button>
+          <button class="keyword-dialog-btn keyword-dialog-save" style="padding: 0.5rem 1rem; background: var(--accent-color); color: white; border: none; border-radius: 4px; cursor: pointer;">Speichern</button>
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(dialog);
+    
+    // Farbauswahl-Logik
+    let selectedColor = preselectedColor;
+    const colorBtns = dialog.querySelectorAll('.note-color-btn');
+    colorBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        colorBtns.forEach(b => {
+          b.style.border = '2px solid transparent';
+          b.classList.remove('selected');
+        });
+        btn.style.border = `2px solid ${btn.style.backgroundColor}`;
+        btn.classList.add('selected');
+        selectedColor = btn.getAttribute('data-color');
+      });
+    });
+    
+    // Focus auf Input
+    const input = dialog.querySelector('#context-note-keyword-input');
+    setTimeout(() => input.focus(), 100);
+    
+    // Event Handler
+    const handleSave = () => {
+      const keywords = input.value.trim();
+      dialog.remove();
+      resolve({
+        keywords: keywords,
+        selectedColor: selectedColor
+      });
+    };
+    
+    const handleCancel = () => {
+      dialog.remove();
+      resolve(null);
+    };
+    
+    dialog.querySelector('.keyword-dialog-save').addEventListener('click', handleSave);
+    dialog.querySelector('.keyword-dialog-cancel').addEventListener('click', handleCancel);
+    
+    // Enter zum Speichern
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSave();
+      }
+    });
+    
+    // ESC zum Abbrechen
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    });
+    
+    // Klick außerhalb zum Abbrechen
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        handleCancel();
+      }
+    });
+  });
 }
 
 /**
@@ -1848,9 +2312,23 @@ function addContextMenuStyles() {
       opacity: 0 !important;
     }
     
+    .note-submenu-hidden {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+    
     /* Stelle sicher, dass das Quote-Untermenü sichtbar bleibt wenn Maus über Parent oder Untermenü ist */
     .quote-menu-item:hover .context-submenu,
     .quote-menu-item:hover .quote-submenu-hidden {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    
+    /* Stelle sicher, dass das Note-Untermenü sichtbar bleibt wenn Maus über Parent oder Untermenü ist */
+    .note-menu-item:hover .context-submenu,
+    .note-menu-item:hover .note-submenu-hidden {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
