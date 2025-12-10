@@ -236,7 +236,7 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       return;
     }
     
-    const { keywords, note } = result;
+    const { keywords, groups, note } = result;
     
     const insertData = {
       user_id: currentUser.id,
@@ -245,7 +245,8 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
       paragraph_id: paragraphIndex,
       paragraph_text: text,
       note: note || '',
-      tags: keywords
+      tags: keywords,
+      groups: groups || []
     };
     
     const { data, error } = await supabaseClient
@@ -545,7 +546,7 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       return;
     }
     
-    const { keywords, note } = result;
+    const { keywords, groups, note } = result;
     
     // Ermittle das Datum des Vortrags
     const lectureDate = getCurrentLectureDate(lectureId);
@@ -559,6 +560,7 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       paragraph_id: paragraphIndex,
       personal_note: note || '',
       tags: keywords,
+      groups: groups || [],
       is_public: false
     };
     
@@ -865,7 +867,7 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         return;
       }
       
-      const { keywords, note } = result;
+      const { keywords, groups, note } = result;
       
       // Ermittle das Datum des Vortrags
       const lectureDate = getCurrentLectureDate(lectureId);
@@ -882,7 +884,8 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         text_end_offset: normalizedStart + normalizedText.length,
         color: color,
         personal_note: note || '',
-        tags: keywords
+        tags: keywords,
+        groups: groups || []
       };
       
       // Füge lecture_date hinzu, falls verfügbar
@@ -938,7 +941,7 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       return;
     }
     
-    const { keywords, note } = result;
+    const { keywords, groups, note } = result;
     
     // Ermittle das Datum des Vortrags
     const lectureDate = getCurrentLectureDate(lectureId);
@@ -955,7 +958,8 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       text_end_offset: textEndOffset,
       color: color,
       personal_note: note || '',
-      tags: keywords
+      tags: keywords,
+      groups: groups || []
     };
     
     // Füge lecture_date hinzu, falls verfügbar
@@ -1631,7 +1635,7 @@ function addNoteBookmarkToViewer(paragraphId, noteData, color) {
                 const relativeTop = markerRect.top - targetRect.top;
                 
                 indicator.style.position = 'absolute';
-                indicator.style.left = '-20px';
+                indicator.style.right = '-22px';
                 indicator.style.top = relativeTop + 'px';
                 
                 targetElement.appendChild(indicator);
@@ -1648,7 +1652,7 @@ function addNoteBookmarkToViewer(paragraphId, noteData, color) {
                   marker.parentNode.removeChild(marker);
                 }
                 indicator.style.position = 'absolute';
-                indicator.style.left = '-20px';
+                indicator.style.right = '-22px';
                 indicator.style.top = '0px';
                 targetElement.appendChild(indicator);
               }
@@ -1665,9 +1669,9 @@ function addNoteBookmarkToViewer(paragraphId, noteData, color) {
     }
   }
   
-  // Fallback: Position oben links neben dem Absatz
+  // Fallback: Position oben rechts neben dem Absatz
   indicator.style.position = 'absolute';
-  indicator.style.left = '-20px';
+  indicator.style.right = '-22px';
   indicator.style.top = '0px';
   targetElement.appendChild(indicator);
 }
@@ -2128,7 +2132,7 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColo
 }
 
 /**
- * Keyword-Eingabe-Dialog anzeigen (mit Notizen-Feld)
+ * Keyword-Eingabe-Dialog anzeigen (mit Gruppen- und Notizen-Feld)
  */
 function showKeywordDialog(type, text) {
   return new Promise((resolve) => {
@@ -2142,9 +2146,12 @@ function showKeywordDialog(type, text) {
         </div>
         <div class="keyword-dialog-body">
           <div class="keyword-preview">"${text.substring(0, 100)}${text.length > 100 ? '...' : ''}"</div>
-          <label for="keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <label for="group-input">Gruppen (optional, durch Komma getrennt):</label>
+          <input type="text" id="group-input" placeholder="z.B. Christologie, Kosmologie, Anthropologie" style="text-transform: uppercase;" />
+          <div class="keyword-hint">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
+          <label for="keyword-input" style="margin-top: 0.75rem; display: block;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="keyword-input" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
-          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern und Wiederfinden</div>
           <label for="note-input" style="margin-top: 1rem; display: block;">Notiz (optional):</label>
           <textarea id="note-input" rows="4" placeholder="Persönliche Notiz zu diesem ${type.toLowerCase()}..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;"></textarea>
         </div>
@@ -2157,9 +2164,10 @@ function showKeywordDialog(type, text) {
     
     document.body.appendChild(dialog);
     
-    // Focus auf Input
+    // Focus auf Gruppen-Input
+    const groupInput = dialog.querySelector('#group-input');
     const input = dialog.querySelector('#keyword-input');
-    setTimeout(() => input.focus(), 100);
+    setTimeout(() => groupInput.focus(), 100);
     
     // Event Handlers
     const saveBtn = dialog.querySelector('.keyword-dialog-save');
@@ -2167,13 +2175,17 @@ function showKeywordDialog(type, text) {
     const noteInput = dialog.querySelector('#note-input');
     
     const handleSave = () => {
+      const groups = groupInput.value
+        .split(',')
+        .map(g => g.trim().toUpperCase())
+        .filter(g => g.length > 0);
       const keywords = input.value
         .split(',')
         .map(kw => kw.trim())
         .filter(kw => kw.length > 0);
       const note = noteInput.value.trim();
       dialog.remove();
-      resolve({ keywords, note });
+      resolve({ keywords, groups, note });
     };
     
     const handleCancel = () => {

@@ -417,7 +417,7 @@ export function extractGAReferences(text) {
 /**
  * Notiz erstellen mit automatischer Link-Extraktion
  */
-export async function createNote(title, content, isPublic = false, paragraphId = null, paragraphText = null, textStartOffset = null, textEndOffset = null, lectureDate = null, manualTags = null, markerColor = null) {
+export async function createNote(title, content, isPublic = false, paragraphId = null, paragraphText = null, textStartOffset = null, textEndOffset = null, lectureDate = null, manualTags = null, markerColor = null, manualGroups = null) {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
@@ -436,6 +436,7 @@ export async function createNote(title, content, isPublic = false, paragraphId =
         ga_references: gaReferences,
         wiki_links: wikiLinks,
         tags: tags,
+        groups: manualGroups || [],
         is_public: isPublic,
         paragraph_id: paragraphId,
         paragraph_text: paragraphText,
@@ -467,7 +468,7 @@ export async function createNote(title, content, isPublic = false, paragraphId =
 /**
  * Notiz aktualisieren
  */
-export async function updateNote(noteId, title, content, isPublic = false, manualTags = null, markerColor = null) {
+export async function updateNote(noteId, title, content, isPublic = false, manualTags = null, markerColor = null, manualGroups = null) {
   try {
     // Links und Tags neu extrahieren
     const wikiLinks = extractWikiLinks(content);
@@ -484,6 +485,11 @@ export async function updateNote(noteId, title, content, isPublic = false, manua
       tags: tags,
       is_public: isPublic
     };
+    
+    // Gruppen nur hinzufügen wenn angegeben
+    if (manualGroups !== null) {
+      updateData.groups = manualGroups;
+    }
     
     // Farbe nur hinzufügen wenn angegeben
     if (markerColor !== null) {

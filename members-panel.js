@@ -582,6 +582,11 @@ async function showMembersContent() {
           </div>
           <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
             <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
+            <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;">
+              <select id="group-filter-select" onchange="handleGroupFilter(this.value)" class="keyword-select-btn">
+                <option value="">Gruppen</option>
+              </select>
+            </div>
             <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
               <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                 <option value="">Schlagwörter</option>
@@ -646,6 +651,11 @@ async function showMembersContent() {
             </div>
             <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
               <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
+              <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;">
+                <select id="group-filter-select" onchange="handleGroupFilter(this.value)" class="keyword-select-btn">
+                  <option value="">Gruppen</option>
+                </select>
+              </div>
               <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
                 <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                   <option value="">Schlagwörter</option>
@@ -716,6 +726,7 @@ async function showMembersContent() {
     await loadMembersTab(currentMembersTab);
     // Lade Keywords nach dem Laden des Tabs
     updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+    updateGroupFilterDropdownWithAllGroups().catch(err => console.warn('[MB-GROUPS] Fehler:', err));
   }, 100);
   
   // Stelle sicher, dass Panel nach dem Laden sichtbar bleibt
@@ -1000,8 +1011,9 @@ async function loadHighlightsTab(container) {
   
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Unterstreichungen</div>';
-    // Lade Keywords trotzdem im Hintergrund
+    // Lade Keywords und Gruppen trotzdem im Hintergrund
     updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+    updateGroupFilterDropdownWithAllGroups().catch(err => console.warn('[MB-GROUPS] Fehler:', err));
     return;
   }
   
@@ -1035,8 +1047,9 @@ async function loadHighlightsTab(container) {
   // Aktualisiere GA-Filter-Dropdown
   updateGAFilterDropdown(uniqueGANumbers);
   
-  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  // Lade Keywords und Gruppen parallel (nicht-blockierend für Rendering)
   updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+  updateGroupFilterDropdownWithAllGroups().catch(err => console.warn('[MB-GROUPS] Fehler:', err));
   
 }
 
@@ -1092,11 +1105,11 @@ function renderHighlightsList(container, sortedData) {
           </div>
           ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
           ${shouldShowLink
-            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal; color: var(--text-color); cursor: pointer;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</a></div>`
-            : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
+            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+            : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
           }
           ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
-          ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+          ${(highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
           <div class="member-item-actions">
             <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1772,8 +1785,9 @@ async function loadQuotesTab(container) {
   
   if (!result.success || result.data.length === 0) {
     container.innerHTML = '<div class="empty-state">Noch keine Zitate</div>';
-    // Lade Keywords trotzdem im Hintergrund
+    // Lade Keywords und Gruppen trotzdem im Hintergrund
     updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+    updateGroupFilterDropdownWithAllGroups().catch(err => console.warn('[MB-GROUPS] Fehler:', err));
     return;
   }
   
@@ -1807,8 +1821,9 @@ async function loadQuotesTab(container) {
   // Aktualisiere GA-Filter-Dropdown
   updateGAFilterDropdown(uniqueGANumbers);
 
-  // Lade Keywords parallel (nicht-blockierend für Rendering)
+  // Lade Keywords und Gruppen parallel (nicht-blockierend für Rendering)
   updateKeywordFilterDropdownWithAllKeywords().catch(err => console.warn('[MB-KEYWORDS] Fehler:', err));
+  updateGroupFilterDropdownWithAllGroups().catch(err => console.warn('[MB-GROUPS] Fehler:', err));
   
 }
 
@@ -1879,11 +1894,11 @@ function renderQuotesList(container, sortedData) {
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
         ${shouldShowLink
-          ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
-          : `<div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
+          ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
+          : `<div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
         }
         ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
-        ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+        ${(quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
         <div class="member-item-actions">
           <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2300,7 +2315,8 @@ async function navigateToNoteFromMembersPanel(noteId, gaReference, paragraphId =
         // Verwende die gespeicherten Offsets
         const startOffset = note.text_start_offset;
         const endOffset = note.text_end_offset;
-        setTimeout(() => markNoteTextByOffset(paragraphId, startOffset, endOffset, fullNoteText), 800);
+        const noteId = note.id;
+        setTimeout(() => markNoteTextByOffset(paragraphId, startOffset, endOffset, fullNoteText, noteId), 800);
       } else {
         // Kein paragraphId: Verwende Textsuche
         await navigateToLectureFromMembersPanel(gaReference, null, null, null, false, null);
@@ -2474,9 +2490,10 @@ function scrollToTextPosition(container, textIndex, searchText) {
 
 /**
  * Markiert den Notiztext anhand von Start- und End-Offset im Paragraph
+ * @param {string} noteId - Die ID der Notiz (optional, für Klick-Verlinkung)
  */
-function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText) {
-  console.log('[NOTE-MARK] Markiere Notiz ab Paragraph:', paragraphId);
+function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText, noteId = null) {
+  console.log('[NOTE-MARK] Markiere Notiz ab Paragraph:', paragraphId, 'noteId:', noteId);
   console.log('[NOTE-MARK] Offsets:', startOffset, '-', endOffset);
   console.log('[NOTE-MARK] noteText:', noteText?.substring(0, 100));
   
@@ -2658,6 +2675,20 @@ function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText) {
         const mark = document.createElement('mark');
         mark.className = 'note-highlight';
         
+        // Mache die Markierung klickbar wenn noteId vorhanden
+        if (noteId) {
+          mark.setAttribute('data-note-id', noteId);
+          mark.style.cursor = 'pointer';
+          mark.title = 'Klick zur Notiz im Members Panel';
+          mark.onclick = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (typeof jumpToNoteById === 'function') {
+              jumpToNoteById(noteId);
+            }
+          };
+        }
+        
         try {
           range.surroundContents(mark);
         } catch (e) {
@@ -2671,7 +2702,7 @@ function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText) {
     }
     
     if (nodesToMark.length > 0) {
-      console.log('[NOTE-MARK] ✓ Erfolgreich markiert');
+      console.log('[NOTE-MARK] ✓ Erfolgreich markiert mit Klick-Verlinkung');
     }
     
   } catch (error) {
@@ -4259,8 +4290,9 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
  * Notes Tab
  */
 async function loadNotesTab(container) {
-  // Lade alle Keywords aus Notes, Quotes und Highlights für das Dropdown
+  // Lade alle Keywords und Gruppen aus Notes, Quotes und Highlights für das Dropdown
   updateKeywordFilterDropdownWithAllKeywords();
+  updateGroupFilterDropdownWithAllGroups();
   
   // Lade Notizen für GA-Dropdown
   const notesResult = await getNotes();
@@ -4277,7 +4309,7 @@ async function loadNotesTab(container) {
   
   container.innerHTML = `
     <div class="notes-editor">
-      <textarea id="members-note-content" placeholder="Schreiben Sie Ihre Notiz hier..."></textarea>
+      <textarea id="members-note-content" placeholder="Markieren Sie einen Textabschnitt und speichern ihn als Notiz, oder schreiben Sie hier:"></textarea>
       <button class="primary-btn" onclick="saveMemberNote()">Notiz speichern</button>
       <div id="notes-list"></div>
     </div>
@@ -4318,6 +4350,14 @@ async function loadSavedNotes() {
     return;
   }
   
+  // Multi-Delete-Button hinzufügen wenn Modus aktiv
+  const multiDeleteHtml = multiDeleteMode ? `
+    <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--background-color); border: 1px solid var(--border-color); border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 0.85rem; color: var(--text-color);">Auswahl-Modus aktiv</span>
+      <button id="multi-delete-btn" onclick="deleteSelectedItems()" disabled style="padding: 0.4rem 0.8rem; font-size: 0.8rem; background: #c62828; color: white; border: none; border-radius: 4px; cursor: pointer;">Ausgewählte löschen</button>
+    </div>
+  ` : '';
+
   const html = filteredNotes.map(note => {
     // Extrahiere erste GA-Referenz falls vorhanden
     const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
@@ -4353,6 +4393,7 @@ async function loadSavedNotes() {
     
     return `
       <div class="member-item" data-id="${note.id}" data-type="note" oncontextmenu="event.preventDefault(); showNoteColorContextMenu(event.clientX, event.clientY, '${note.id}'); return false;">
+        ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${note.id}" onchange="updateMultiDeleteButton()">` : ''}
         <div style="flex: 1;">
           <div class="member-item-header">
             <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -4378,10 +4419,10 @@ async function loadSavedNotes() {
             <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
           </div>
           ${canNavigate
-            ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
-            : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+            ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+            : `<div class="member-item-quote">„${contentPreview}${hasMore ? '...' : ''}"</div>`
           }
-          ${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? `<div class="member-item-tags">${note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+          ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
         </div>
         <div class="member-item-actions">
           <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
@@ -4404,7 +4445,7 @@ async function loadSavedNotes() {
     `;
   }).join('');
   
-  list.innerHTML = html;
+  list.innerHTML = multiDeleteHtml + html;
 }
 
 async function saveMemberNote() {
@@ -4423,7 +4464,11 @@ async function saveMemberNote() {
     return;
   }
   
-  const { keywords, content: finalContent, color } = dialogResult;
+  const { groups, keywords, content: finalContent, color } = dialogResult;
+  const groupsArray = groups
+    .split(',')
+    .map(g => g.trim().toUpperCase())
+    .filter(g => g.length > 0);
   const tags = keywords
     .split(',')
     .map(kw => kw.trim())
@@ -4473,8 +4518,8 @@ async function saveMemberNote() {
     delete window.noteContextData;
   }
   
-  // Erstelle Notiz - Tags werden automatisch aus dem Content extrahiert
-  const result = await createNote(title, contentWithTags, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, markerColor);
+  // Erstelle Notiz - Tags und Gruppen werden übergeben
+  const result = await createNote(title, contentWithTags, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, markerColor, groupsArray.length > 0 ? groupsArray : null);
   
   if (result.success) {
     
@@ -4520,9 +4565,12 @@ function showNoteKeywordsDialog(content) {
         </div>
         <div class="keyword-dialog-body">
           <div class="keyword-preview">"${previewContent.substring(0, 100)}${previewContent.length > 100 ? '...' : ''}"</div>
-          <label for="note-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <label for="note-group-input">Gruppen (optional, durch Komma getrennt):</label>
+          <input type="text" id="note-group-input" value="" placeholder="z.B. Christologie, Kosmologie, Anthropologie" style="text-transform: uppercase;" />
+          <div class="keyword-hint">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
+          <label for="note-keyword-input" style="margin-top: 0.75rem; display: block;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="note-keyword-input" value="" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
-          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern und Wiederfinden</div>
           <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
           <div class="note-color-selection" style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
             <button type="button" class="note-color-btn ${isBlueSelected ? 'selected' : ''}" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isBlueSelected ? '#467886' : 'transparent'}; background-color: #467886; cursor: pointer;" title="Blau"></button>
@@ -4554,15 +4602,18 @@ function showNoteKeywordsDialog(content) {
       });
     });
     
-    // Focus auf Input
+    // Focus auf Gruppen-Input
+    const groupInput = dialog.querySelector('#note-group-input');
     const input = dialog.querySelector('#note-keyword-input');
-    setTimeout(() => input.focus(), 100);
+    setTimeout(() => groupInput.focus(), 100);
     
     // Event Handler
     const handleSave = () => {
+      const groups = groupInput.value.trim();
       const keywords = input.value.trim();
       dialog.remove();
       resolve({
+        groups: groups,
         keywords: keywords,
         content: content,
         color: selectedColor
@@ -4931,6 +4982,7 @@ async function editMemberQuote(id) {
     // Zeige Bearbeitungs-Dialog
     const editResult = await showEditDialog('Zitat', {
       text: quote.quote_text,
+      groups: quote.groups ? quote.groups.join(', ') : '',
       keywords: quote.tags ? quote.tags.join(', ') : '',
       note: quote.personal_note || ''
     });
@@ -4940,7 +4992,11 @@ async function editMemberQuote(id) {
       return;
     }
     
-    const { keywords, note } = editResult;
+    const { groups, keywords, note } = editResult;
+    const groupsArray = groups
+      .split(',')
+      .map(g => g.trim().toUpperCase())
+      .filter(g => g.length > 0);
     const tags = keywords
       .split(',')
       .map(kw => kw.trim())
@@ -4948,6 +5004,7 @@ async function editMemberQuote(id) {
     
     // Update in Supabase
     const updateResult = await updateQuote(id, {
+      groups: groupsArray,
       tags: tags,
       personal_note: note || ''
     });
@@ -4956,8 +5013,9 @@ async function editMemberQuote(id) {
       // Invalidiere Cache, damit Daten neu geladen werden
       invalidateMembersCache('quotes');
       await loadMembersTab('quotes');
-      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      // Aktualisiere Schlagwort- und Gruppen-Dropdown
       await updateKeywordFilterDropdownWithAllKeywords();
+      await updateGroupFilterDropdownWithAllGroups();
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
     }
@@ -4990,6 +5048,7 @@ async function editMemberHighlight(id) {
     // Zeige Bearbeitungs-Dialog
     const editResult = await showEditDialog('Unterstreichung', {
       text: highlightedText,
+      groups: highlight.groups ? highlight.groups.join(', ') : '',
       keywords: highlight.tags ? highlight.tags.join(', ') : '',
       note: highlight.personal_note || ''
     });
@@ -4999,7 +5058,11 @@ async function editMemberHighlight(id) {
       return;
     }
     
-    const { keywords, note } = editResult;
+    const { groups, keywords, note } = editResult;
+    const groupsArray = groups
+      .split(',')
+      .map(g => g.trim().toUpperCase())
+      .filter(g => g.length > 0);
     const tags = keywords
       .split(',')
       .map(kw => kw.trim())
@@ -5013,6 +5076,7 @@ async function editMemberHighlight(id) {
     }
     
     const updateResult = await updateHighlight(id, {
+      groups: groupsArray,
       tags: tags,
       personal_note: note || ''
     });
@@ -5021,8 +5085,9 @@ async function editMemberHighlight(id) {
       // Invalidiere Cache, damit Daten neu geladen werden
       invalidateMembersCache('highlights');
       await loadMembersTab('highlights');
-      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      // Aktualisiere Schlagwort- und Gruppen-Dropdown
       await updateKeywordFilterDropdownWithAllKeywords();
+      await updateGroupFilterDropdownWithAllGroups();
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
     }
@@ -5035,7 +5100,7 @@ async function editMemberHighlight(id) {
 /**
  * Spezieller Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
  */
-function showNoteEditDialog(content, keywords = '') {
+function showNoteEditDialog(content, keywords = '', groups = '') {
   return new Promise((resolve) => {
     // Erstelle Dialog
     const dialog = document.createElement('div');
@@ -5048,9 +5113,12 @@ function showNoteEditDialog(content, keywords = '') {
         <div class="keyword-dialog-body">
           <label for="note-content-input" style="display: block; margin-bottom: 0.5rem;">Inhalt:</label>
           <textarea id="note-content-input" rows="8" placeholder="Notiz-Text..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;">${(content || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
-          <label for="note-keyword-input" style="display: block; margin-top: 1rem; margin-bottom: 0.5rem;">Keywords (optional, durch Komma getrennt):</label>
+          <label for="note-group-input" style="display: block; margin-top: 1rem; margin-bottom: 0.5rem;">Gruppen (optional, durch Komma getrennt):</label>
+          <input type="text" id="note-group-input" value="${(groups || '').replace(/"/g, '&quot;')}" placeholder="z.B. Christologie, Kosmologie, Anthropologie" style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; text-transform: uppercase;" />
+          <div class="keyword-hint">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
+          <label for="note-keyword-input" style="display: block; margin-top: 0.75rem; margin-bottom: 0.5rem;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="note-keyword-input" value="${(keywords || '').replace(/"/g, '&quot;')}" placeholder="z.B. Karma, Reinkarnation, Ätherleib" style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: inherit; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box;" />
-          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern und Wiederfinden</div>
         </div>
         <div class="keyword-dialog-footer">
           <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
@@ -5063,6 +5131,7 @@ function showNoteEditDialog(content, keywords = '') {
     
     // Focus auf Textarea
     const contentInput = dialog.querySelector('#note-content-input');
+    const groupInput = dialog.querySelector('#note-group-input');
     const keywordInput = dialog.querySelector('#note-keyword-input');
     setTimeout(() => contentInput.focus(), 100);
     
@@ -5072,9 +5141,10 @@ function showNoteEditDialog(content, keywords = '') {
     
     const handleSave = () => {
       const text = contentInput.value.trim();
+      const groups = groupInput.value.trim();
       const keywords = keywordInput.value.trim();
       dialog.remove();
-      resolve({ keywords, text });
+      resolve({ groups, keywords, text });
     };
     
     const handleCancel = () => {
@@ -5118,9 +5188,12 @@ function showEditDialog(type, data) {
         </div>
         <div class="keyword-dialog-body">
           <div class="keyword-preview">"${data.text.substring(0, 100)}${data.text.length > 100 ? '...' : ''}"</div>
-          <label for="edit-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <label for="edit-group-input">Gruppen (optional, durch Komma getrennt):</label>
+          <input type="text" id="edit-group-input" value="${(data.groups || '').replace(/"/g, '&quot;')}" placeholder="z.B. Christologie, Kosmologie, Anthropologie" style="text-transform: uppercase;" />
+          <div class="keyword-hint">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
+          <label for="edit-keyword-input" style="margin-top: 0.75rem; display: block;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="edit-keyword-input" value="${(data.keywords || '').replace(/"/g, '&quot;')}" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
-          <div class="keyword-hint">Keywords helfen beim späteren Filtern und Wiederfinden</div>
+          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern und Wiederfinden</div>
           <label for="edit-note-input" style="margin-top: 1rem; display: block;">Notiz (optional):</label>
           <textarea id="edit-note-input" rows="4" placeholder="Persönliche Notiz zu diesem ${type.toLowerCase()}..." style="width: 100%; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 4px; font-family: Georgia, serif; font-size: 0.9rem; background: var(--background-color); color: var(--text-color); box-sizing: border-box; resize: vertical;">${(data.note || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
         </div>
@@ -5133,9 +5206,10 @@ function showEditDialog(type, data) {
     
     document.body.appendChild(dialog);
     
-    // Focus auf Input
+    // Focus auf Gruppen-Input
+    const groupInput = dialog.querySelector('#edit-group-input');
     const input = dialog.querySelector('#edit-keyword-input');
-    setTimeout(() => input.focus(), 100);
+    setTimeout(() => groupInput.focus(), 100);
     
     // Event Handlers
     const saveBtn = dialog.querySelector('.keyword-dialog-save');
@@ -5143,10 +5217,11 @@ function showEditDialog(type, data) {
     const noteInput = dialog.querySelector('#edit-note-input');
     
     const handleSave = () => {
+      const groups = groupInput.value.trim();
       const keywords = input.value.trim();
       const note = noteInput.value.trim();
       dialog.remove();
-      resolve({ keywords, note, text: data.text }); // Füge text hinzu für Notizen
+      resolve({ groups, keywords, note, text: data.text }); // Füge text hinzu für Notizen
     };
     
     const handleCancel = () => {
@@ -5207,14 +5282,18 @@ async function editMemberNote(id) {
     displayContent = displayContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').trim();
     
     // Zeige speziellen Bearbeitungs-Dialog für Notizen (mit Textfeld für Content)
-    const editResult = await showNoteEditDialog(displayContent, note.tags ? note.tags.join(', ') : '');
+    const editResult = await showNoteEditDialog(displayContent, note.tags ? note.tags.join(', ') : '', note.groups ? note.groups.join(', ') : '');
     
     if (editResult === null) {
       // Benutzer hat abgebrochen
       return;
     }
     
-    const { keywords, text } = editResult;
+    const { groups, keywords, text } = editResult;
+    const groupsArray = groups
+      .split(',')
+      .map(g => g.trim().toUpperCase())
+      .filter(g => g.length > 0);
     const tags = keywords
       .split(',')
       .map(kw => kw.trim())
@@ -5251,8 +5330,8 @@ async function editMemberNote(id) {
     
     const title = updatedContent.split('\n')[0].substring(0, 50);
     
-    // Tags aus dem keywords-Feld verwenden (manuell eingegeben)
-    const updateResult = await updateNote(id, title, updatedContent, note.is_public || false, tags);
+    // Tags und Gruppen aus dem Bearbeitungsdialog verwenden (manuell eingegeben)
+    const updateResult = await updateNote(id, title, updatedContent, note.is_public || false, tags, null, groupsArray);
     
     if (updateResult.success) {
       // Invalidiere Cache, damit Daten neu geladen werden
@@ -5262,8 +5341,9 @@ async function editMemberNote(id) {
       if (typeof loadItems === 'function' && typeof currentTab !== 'undefined' && currentTab === 'notes') {
         await loadItems();
       }
-      // Aktualisiere Schlagwort-Dropdown mit neuen Keywords
+      // Aktualisiere Schlagwort- und Gruppen-Dropdown
       await updateKeywordFilterDropdownWithAllKeywords();
+      await updateGroupFilterDropdownWithAllGroups();
     } else {
       alert('Fehler beim Speichern: ' + updateResult.error);
     }
@@ -5277,7 +5357,7 @@ async function editMemberNote(id) {
  * Delete Handlers
  */
 async function deleteMemberQuote(id) {
-  if (!confirm('Zitat wirklich löschen?')) return;
+  if (!confirm('Anstreichung wirklich löschen?')) return;
   
   const result = await deleteQuote(id);
   if (result.success) {
@@ -5340,9 +5420,11 @@ function toggleSortOrder() {
  */
 function toggleMultiDeleteMode() {
   multiDeleteMode = !multiDeleteMode;
-  // Aktuellen Tab neu laden (funktioniert für beide: quotes und highlights)
+  // Aktuellen Tab neu laden (funktioniert für quotes, highlights und notes)
   if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights') {
     loadMembersTab(currentMembersTab);
+  } else if (currentMembersTab === 'notes') {
+    loadSavedNotes();
   }
   
   // Update Button-Status
@@ -5374,8 +5456,9 @@ async function deleteSelectedItems() {
   const checkboxes = document.querySelectorAll('.member-item-checkbox:checked');
   if (checkboxes.length === 0) return;
   
-  const itemName = currentMembersTab === 'quotes' ? 'Zitat(e)' : 
-                   currentMembersTab === 'highlights' ? 'Unterstreichung(en)' : 'Item(s)';
+  const itemName = currentMembersTab === 'quotes' ? 'Anstreichung(en)' : 
+                   currentMembersTab === 'highlights' ? 'Unterstreichung(en)' : 
+                   currentMembersTab === 'notes' ? 'Notiz(en)' : 'Item(s)';
   if (!confirm(`Wirklich ${checkboxes.length} ${itemName} löschen?`)) {
     return;
   }
@@ -5395,13 +5478,37 @@ async function deleteSelectedItems() {
           removeHighlightFromText(id);
         }
       }
+    } else if (currentMembersTab === 'notes') {
+      for (const id of ids) {
+        const result = await deleteNote(id);
+        if (result && result.success) {
+          // Entferne Bookmark-Icon im Main Viewer
+          const bookmarkIndicator = document.querySelector(`.bookmark-note-indicator[data-note-id="${id}"]`);
+          if (bookmarkIndicator) {
+            bookmarkIndicator.remove();
+          }
+          // Entferne Notiz-Markierungen im Text
+          const noteHighlights = document.querySelectorAll('mark.note-highlight');
+          noteHighlights.forEach(mark => {
+            const parent = mark.parentNode;
+            while (mark.firstChild) {
+              parent.insertBefore(mark.firstChild, mark);
+            }
+            mark.remove();
+          });
+        }
+      }
     }
     
     // Multi-Delete-Modus beenden und Tab neu laden
     multiDeleteMode = false;
     // Invalidiere Cache, damit Daten neu geladen werden
     invalidateMembersCache(currentMembersTab);
-    await loadMembersTab(currentMembersTab);
+    if (currentMembersTab === 'notes') {
+      await loadSavedNotes();
+    } else {
+      await loadMembersTab(currentMembersTab);
+    }
   } catch (error) {
     console.error('Fehler beim Löschen:', error);
     alert('Fehler beim Löschen einiger Items');
@@ -5913,9 +6020,9 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
                 const targetRect = targetElement.getBoundingClientRect();
                 const relativeTop = markerRect.top - targetRect.top;
                 
-                // Setze Position des Icons absolut links neben dem Absatz
+                // Setze Position des Icons absolut rechts neben dem Absatz
                 indicator.style.position = 'absolute';
-                indicator.style.left = '-20px';
+                indicator.style.right = '-22px';
                 indicator.style.top = relativeTop + 'px';
                 
                 // Füge Icon zum targetElement hinzu
@@ -5934,9 +6041,9 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
                 if (marker.parentNode) {
                   marker.parentNode.removeChild(marker);
                 }
-                // Fallback: Position oben links
+                // Fallback: Position oben rechts
                 indicator.style.position = 'absolute';
-                indicator.style.left = '-20px';
+                indicator.style.right = '-22px';
                 indicator.style.top = '0px';
                 targetElement.appendChild(indicator);
               }
@@ -5953,9 +6060,9 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
     }
   }
   
-  // Fallback: Position oben links neben dem Absatz
+  // Fallback: Position oben rechts neben dem Absatz
   indicator.style.position = 'absolute';
-  indicator.style.left = '-20px';
+  indicator.style.right = '-22px';
   indicator.style.top = '0px';
   targetElement.appendChild(indicator);
 }
@@ -8549,6 +8656,319 @@ function updateKeywordFilterDropdown(keywords) {
 }
 
 /**
+ * Aktualisiert das Gruppen-Filter Dropdown mit Gruppen
+ */
+function updateGroupFilterDropdown(groups) {
+  const select = document.getElementById('group-filter-select');
+  if (!select) return;
+  
+  // Reset
+  select.innerHTML = '<option value="">Gruppen</option>';
+  
+  // Füge Gruppen hinzu
+  if (groups && groups.length > 0) {
+    groups.forEach(group => {
+      const option = document.createElement('option');
+      option.value = group;
+      option.textContent = group.toUpperCase();
+      select.appendChild(option);
+    });
+    select.disabled = false;
+  } else {
+    select.disabled = true;
+  }
+}
+
+/**
+ * Handler für Gruppen-Filter Auswahl
+ */
+async function handleGroupFilter(group) {
+  // Setze Schlagwörter-Dropdown zurück
+  const keywordSelect = document.getElementById('keyword-filter-select');
+  if (keywordSelect) {
+    keywordSelect.value = '';
+  }
+  
+  if (!group) {
+    // Reset - zeige aktuellen Tab
+    const currentTab = typeof currentMembersTab !== 'undefined' ? currentMembersTab : 'quotes';
+    switchMembersTab(currentTab);
+    return;
+  }
+  
+  // Zeige gefilterte Items nach Gruppe
+  await showGroupFilteredItems(group);
+}
+
+/**
+ * Zeigt Items aus allen Tabs mit der ausgewählten Gruppe
+ */
+async function showGroupFilteredItems(group) {
+  const container = document.getElementById('members-tab-content');
+  if (!container) return;
+  
+  // Zeige Ladeanzeige
+  container.innerHTML = '<div class="empty-state"><em>Lade gefilterte Items...</em></div>';
+  
+  try {
+    // Lade Quotes, Highlights und Notes parallel
+    const now = Date.now();
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+    
+    let quotesResult, highlightsResult, notesResult;
+    
+    if (cacheValid) {
+      quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
+    } else {
+      [quotesResult, highlightsResult] = await Promise.all([
+        getQuotes(),
+        getHighlights()
+      ]);
+      cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
+      bookmarksQuotesCacheTimestamp = now;
+    }
+    
+    // Lade auch Notes (wenn verfügbar)
+    if (typeof getNotes === 'function') {
+      try {
+        notesResult = await getNotes();
+      } catch (error) {
+        console.warn('[MB-GROUPS] Fehler beim Laden der Notes:', error);
+        notesResult = { success: false, data: [] };
+      }
+    }
+    
+    // Filtere Items mit der Gruppe
+    const filteredQuotes = quotesResult.success && quotesResult.data
+      ? quotesResult.data.filter(quote => 
+          quote.groups && Array.isArray(quote.groups) && quote.groups.includes(group)
+        )
+      : [];
+    
+    const filteredHighlights = highlightsResult.success && highlightsResult.data
+      ? highlightsResult.data.filter(highlight => 
+          highlight.groups && Array.isArray(highlight.groups) && highlight.groups.includes(group)
+        )
+      : [];
+    
+    const filteredNotes = notesResult && notesResult.success && notesResult.data
+      ? notesResult.data.filter(note => 
+          note.groups && Array.isArray(note.groups) && note.groups.includes(group)
+        )
+      : [];
+    
+    if (filteredQuotes.length === 0 && filteredHighlights.length === 0 && filteredNotes.length === 0) {
+      container.innerHTML = `<div class="empty-state"><em>Keine Items mit Gruppe "${group.toUpperCase()}" gefunden</em></div>`;
+      return;
+    }
+    
+    // Rendere alle gefilterten Items
+    let combinedHtml = '';
+    
+    // Sortiere alle Items nach Datum
+    const allItems = [
+      ...filteredQuotes.map(q => ({ ...q, _type: 'quote', _date: new Date(q.created_at) })),
+      ...filteredHighlights.map(h => ({ ...h, _type: 'highlight', _date: new Date(h.created_at) })),
+      ...filteredNotes.map(n => ({ ...n, _type: 'note', _date: new Date(n.created_at) }))
+    ].sort((a, b) => b._date - a._date);
+    
+    // Rendere Items
+    allItems.forEach(item => {
+      if (item._type === 'quote') {
+        const quote = item;
+        const lectureDate = getLectureDate(quote);
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+        combinedHtml += `
+          <div class="member-item" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+              ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
+              <div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+              ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
+              ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+              <div class="member-item-actions">
+                <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <button class="delete-btn" onclick="deleteMemberQuote('${quote.id}')" title="Löschen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (item._type === 'highlight') {
+        const highlight = item;
+        const lectureDate = getLectureDate(highlight);
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+        const highlightedText = highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null
+          ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+          : highlight.paragraph_text || '';
+        const highlightColor = getHighlightColor(highlight.color || 'blue');
+        combinedHtml += `
+          <div class="member-item" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+              ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
+              <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>
+              ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
+              ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+              <div class="member-item-actions">
+                <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <button class="delete-btn" onclick="deleteMemberHighlight('${highlight.id}')" title="Löschen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (item._type === 'note') {
+        const note = item;
+        const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
+        let cleanedContent = note.content;
+        cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim();
+        const contentPreview = cleanedContent.substring(0, 150);
+        const hasMore = cleanedContent.length > 150;
+        combinedHtml += `
+          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
+            <div style="flex: 1;">
+              <div class="member-item-header">
+                <strong>${gaReference || 'Notiz'}</strong>
+                <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+              <div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>
+              ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+              <div class="member-item-actions">
+                <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
+                <button class="delete-btn" onclick="deleteMemberNote('${note.id}')" title="Löschen">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    });
+    
+    container.innerHTML = combinedHtml;
+    
+  } catch (error) {
+    console.error('[MB-GROUPS] Fehler beim Filtern:', error);
+    container.innerHTML = '<div class="empty-state"><em>Fehler beim Laden der Items</em></div>';
+  }
+}
+
+/**
+ * Lädt alle Gruppen aus Quotes, Highlights und Notes und aktualisiert das Dropdown
+ */
+async function updateGroupFilterDropdownWithAllGroups() {
+  if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function') {
+    console.warn('[MB-GROUPS] API-Funktionen nicht verfügbar');
+    return;
+  }
+  
+  try {
+    // Verwende Cache wenn verfügbar, sonst lade neu
+    const now = Date.now();
+    const cacheValid = cachedQuotesData && cachedHighlightsData && 
+                     bookmarksQuotesCacheTimestamp && 
+                     (now - bookmarksQuotesCacheTimestamp) < BOOKMARKS_QUOTES_CACHE_TTL;
+    
+    let quotesResult, highlightsResult, notesResult;
+    
+    if (cacheValid) {
+      quotesResult = cachedQuotesData;
+      highlightsResult = cachedHighlightsData;
+    } else {
+      // Lade Quotes- und Highlights-Daten
+      [quotesResult, highlightsResult] = await Promise.all([
+        getQuotes(),
+        getHighlights()
+      ]);
+      // Aktualisiere Cache
+      cachedQuotesData = quotesResult;
+      cachedHighlightsData = highlightsResult;
+      bookmarksQuotesCacheTimestamp = now;
+    }
+    
+    // Lade auch Notes-Daten (wenn verfügbar)
+    if (typeof getNotes === 'function') {
+      try {
+        notesResult = await getNotes();
+      } catch (error) {
+        console.warn('[MB-GROUPS] Fehler beim Laden der Notes:', error);
+        notesResult = { success: false, data: [] };
+      }
+    }
+    
+    // Sammle alle Gruppen aus Quotes, Highlights und Notes
+    const allGroups = new Set();
+    
+    if (quotesResult.success && quotesResult.data) {
+      quotesResult.data.forEach(quote => {
+        if (quote.groups && Array.isArray(quote.groups)) {
+          quote.groups.forEach(group => allGroups.add(group));
+        }
+      });
+    }
+    
+    if (highlightsResult.success && highlightsResult.data) {
+      highlightsResult.data.forEach(highlight => {
+        if (highlight.groups && Array.isArray(highlight.groups)) {
+          highlight.groups.forEach(group => allGroups.add(group));
+        }
+      });
+    }
+    
+    if (notesResult && notesResult.success && notesResult.data) {
+      notesResult.data.forEach(note => {
+        if (note.groups && Array.isArray(note.groups)) {
+          note.groups.forEach(group => allGroups.add(group));
+        }
+      });
+    }
+    
+    // Sortiere Gruppen alphabetisch
+    const sortedGroups = Array.from(allGroups).sort((a, b) => a.localeCompare(b, 'de'));
+    
+    // Aktualisiere das Dropdown
+    updateGroupFilterDropdown(sortedGroups);
+    
+  } catch (error) {
+    console.error('[MB-GROUPS] Fehler beim Laden der Gruppen:', error);
+  }
+}
+
+/**
  * Prüft, in welchem Tab ein Keyword vorhanden ist
  */
 async function findTabForKeyword(keyword) {
@@ -8610,6 +9030,12 @@ async function findTabForKeyword(keyword) {
  * Handler für Keyword-Filter - zeigt Items aus beiden Tabs (Quotes und Highlights)
  */
 async function handleKeywordFilter(keyword) {
+  // Setze Gruppen-Dropdown zurück
+  const groupSelect = document.getElementById('group-filter-select');
+  if (groupSelect) {
+    groupSelect.value = '';
+  }
+  
   if (!keyword) {
     // Kein Keyword ausgewählt - lade den normalen Tab-Inhalt wieder
     await loadMembersTab(currentMembersTab);
@@ -8768,9 +9194,9 @@ async function showKeywordFilteredItems(keyword) {
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
-              <div class="member-item-quote">"${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+              <div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
-              ${quote.tags && quote.tags.length > 0 ? `<div class="member-item-tags">${quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+              ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
                 <button class="edit-btn" onclick="editMemberQuote('${quote.id}')" title="Bearbeiten">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -8818,11 +9244,11 @@ async function showKeywordFilteredItems(keyword) {
               </div>
               ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
               ${shouldShowLink
-                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal; color: var(--text-color); cursor: pointer;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</a></div>`
-                : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: normal;">${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}</div>`
+                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+                : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
               }
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
-              ${highlight.tags && highlight.tags.length > 0 ? `<div class="member-item-tags">${highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+              ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
                 <button class="edit-btn" onclick="editMemberHighlight('${highlight.id}')" title="Bearbeiten">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -8886,7 +9312,7 @@ async function showKeywordFilteredItems(keyword) {
                 ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
                 : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
               }
-              ${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? `<div class="member-item-tags">${note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join(' ')}</div>` : ''}
+              ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             </div>
             <div class="member-item-actions">
               <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
@@ -8983,6 +9409,7 @@ window.deleteSelectedItems = deleteSelectedItems;
 window.saveMemberNote = saveMemberNote;
 window.sendMemberChatMessage = sendMemberChatMessage;
 window.handleKeywordFilter = handleKeywordFilter;
+window.handleGroupFilter = handleGroupFilter;
 window.handleGAFilter = handleGAFilter;
 window.navigateToLectureFromMembersPanel = navigateToLectureFromMembersPanel;
 window.updateChatBadge = updateChatBadge;
