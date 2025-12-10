@@ -108,7 +108,15 @@ function handleContextMenu(e) {
   
   console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel });
   
-  if (selectedText.length < 3 || (!isInViewer && !isInMain && !isInSummaryContent)) {
+  // DEAKTIVIERT: Kein Context-Menü im Side Panel (nur im Main Viewer)
+  // Markierungen/Notizen im Side Panel sind nicht sinnvoll, da die Texte dort nur temporär angezeigt werden
+  if (isInSummaryContent) {
+    console.log('[CONTEXT-MENU] Side Panel - Context-Menü deaktiviert');
+    hideContextMenu();
+    return;
+  }
+  
+  if (selectedText.length < 3 || (!isInViewer && !isInMain)) {
     hideContextMenu();
     return;
   }
@@ -218,14 +226,27 @@ async function contextMenuAction(action, extraData = null) {
   
   // Hole vollständige Lecture-ID (GA058/01) statt nur GA-Nummer
   // NEU: Bei Side Panel (erweiterte Suche/Index) aus window.currentSidePanelLectureId holen
+  // ODER: Aus data-lecture-id Attribut im DOM (falls globale Variable nicht gesetzt)
   console.log('[CONTEXT-MENU] contextMenuAction - selectionInSidePanel:', selectionInSidePanel);
   console.log('[CONTEXT-MENU] contextMenuAction - window.currentSidePanelLectureId:', window.currentSidePanelLectureId);
   
   let lectureId;
-  if (selectionInSidePanel && typeof window.currentSidePanelLectureId !== 'undefined' && window.currentSidePanelLectureId) {
-    lectureId = window.currentSidePanelLectureId;
-    console.log('[CONTEXT-MENU] Lecture-ID aus Side Panel:', lectureId);
-  } else {
+  if (selectionInSidePanel) {
+    // 1. Zuerst aus globaler Variable versuchen
+    if (typeof window.currentSidePanelLectureId !== 'undefined' && window.currentSidePanelLectureId) {
+      lectureId = window.currentSidePanelLectureId;
+      console.log('[CONTEXT-MENU] Lecture-ID aus Side Panel (global):', lectureId);
+    }
+    
+    // 2. Falls nicht vorhanden: Aus DOM-Attribut data-lecture-id auslesen
+    if (!lectureId && selectionRangeForContext) {
+      lectureId = findLectureIdFromDOM(selectionRangeForContext);
+      console.log('[CONTEXT-MENU] Lecture-ID aus DOM-Attribut:', lectureId);
+    }
+  }
+  
+  // 3. Fallback: Aus Main Viewer oder URL
+  if (!lectureId) {
     lectureId = (typeof currentLectureData !== 'undefined' && currentLectureData?.ID) 
       ? currentLectureData.ID 
       : extractGAFromURL();
