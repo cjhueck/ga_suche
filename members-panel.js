@@ -7641,13 +7641,9 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
           // Berechne die relative Position: Item-Position minus Container-Position plus aktueller Scroll
           const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
           
-          // Scrolle so, dass das Item in der Mitte des sichtbaren Bereichs erscheint (mit etwas Abstand)
-          const containerHeight = membersContent.clientHeight;
-          const itemHeight = itemRect.height;
-          const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-          
+          // Scrolle so, dass das Item oben erscheint (mit etwas Abstand)
           membersContent.scrollTo({
-            top: Math.max(0, targetScrollTop),
+            top: Math.max(0, relativeTop - 20), // 20px Abstand oben
             behavior: 'smooth'
           });
         } else {
@@ -7657,20 +7653,17 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
             const containerRect = membersTabContent.getBoundingClientRect();
             const itemRect = targetItem.getBoundingClientRect();
             const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
-            const containerHeight = membersTabContent.clientHeight;
-            const itemHeight = itemRect.height;
-            const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
             
             membersTabContent.scrollTo({
-              top: Math.max(0, targetScrollTop),
+              top: Math.max(0, relativeTop - 20),
               behavior: 'smooth'
             });
           }
         }
         // Visuelles Highlight
-        targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+        targetItem.classList.add('member-item-highlighted');
         setTimeout(() => {
-          targetItem.style.backgroundColor = '';
+          targetItem.classList.remove('member-item-highlighted');
         }, 2000);
         return; // Erfolgreich gescrollt
       } else if (scrollAttempts < maxScrollAttempts) {
