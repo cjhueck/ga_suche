@@ -6,6 +6,31 @@ import { supabase, getCurrentUser } from './members-auth.js';
 
 
 // ============================================
+// SYNC NOTIFICATION - Synchronisiert members.html und members-panel
+// ============================================
+
+/**
+ * Benachrichtigt andere Tabs/Fenster über Datenänderungen
+ * @param {string} type - 'quotes', 'highlights', 'notes' oder 'all'
+ * @param {string} action - 'create', 'update', 'delete'
+ */
+function notifyDataChange(type, action = 'update') {
+  try {
+    const timestamp = Date.now();
+    // Setze localStorage-Wert, um storage-Event in anderen Tabs auszulösen
+    localStorage.setItem('members-data-sync', JSON.stringify({ type, action, timestamp }));
+    // Lösche den Wert wieder (für den nächsten Event)
+    setTimeout(() => localStorage.removeItem('members-data-sync'), 100);
+  } catch (error) {
+    console.warn('[API-SYNC] Fehler bei Sync-Benachrichtigung:', error);
+  }
+}
+
+// Exportiere die Funktion für externe Nutzung
+export { notifyDataChange };
+
+
+// ============================================
 // BOOKMARKS
 // ============================================
 
@@ -232,6 +257,7 @@ export async function createQuote(quoteText, gaReference, lectureTitle, contextB
 
     if (error) throw error;
 
+    notifyDataChange('quotes', 'create');
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Erstellen des Zitats:', error);
@@ -311,6 +337,7 @@ export async function deleteQuote(quoteId) {
 
     if (error) throw error;
 
+    notifyDataChange('quotes', 'delete');
     return { success: true };
   } catch (error) {
     console.error('Fehler beim Löschen des Zitats:', error);
@@ -350,6 +377,7 @@ export async function updateQuote(quoteId, updates) {
       throw error;
     }
 
+    notifyDataChange('quotes', 'update');
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Aktualisieren des Zitats:', error);
@@ -457,6 +485,7 @@ export async function createNote(title, content, isPublic = false, paragraphId =
     // Backlinks erstellen
     await updateBacklinks(result.data.id, 'note', [...wikiLinks, ...gaReferences]);
 
+    notifyDataChange('notes', 'create');
     return { success: true, data: result.data };
   } catch (error) {
     console.error('Fehler beim Erstellen der Notiz:', error);
@@ -509,6 +538,7 @@ export async function updateNote(noteId, title, content, isPublic = false, manua
     await deleteBacklinks(noteId);
     await updateBacklinks(noteId, 'note', [...wikiLinks, ...gaReferences]);
 
+    notifyDataChange('notes', 'update');
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Aktualisieren der Notiz:', error);
@@ -587,6 +617,7 @@ export async function deleteNote(noteId) {
 
     if (error) throw error;
 
+    notifyDataChange('notes', 'delete');
     return { success: true };
   } catch (error) {
     console.error('Fehler beim Löschen der Notiz:', error);
@@ -920,6 +951,7 @@ export async function createHighlight(gaNumber, lectureTitle, paragraphId, parag
 
     if (error) throw error;
 
+    notifyDataChange('highlights', 'create');
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Erstellen der Unterstreichung:', error);
@@ -969,6 +1001,7 @@ export async function deleteHighlight(highlightId) {
 
     if (error) throw error;
 
+    notifyDataChange('highlights', 'delete');
     return { success: true };
   } catch (error) {
     console.error('Fehler beim Löschen der Unterstreichung:', error);
@@ -991,6 +1024,7 @@ export async function updateHighlight(highlightId, updates) {
 
     if (error) throw error;
 
+    notifyDataChange('highlights', 'update');
     return { success: true, data };
   } catch (error) {
     console.error('Fehler beim Aktualisieren der Unterstreichung:', error);
