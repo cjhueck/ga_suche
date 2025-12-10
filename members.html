@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GA-Suche Mitgliederbereich</title>
+  <!-- Inter Font von Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="members-panel.css">
   <style>
     /* ===== Design im Stil der GA-Suche ===== */
@@ -27,7 +31,7 @@
     }
 
     body {
-      font-family: Georgia, 'Times New Roman', serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Ubuntu, sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
       line-height: 1.6;
@@ -1153,6 +1157,9 @@
             <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
           </svg>
         </button>
+        <select id="group-filter" class="toolbar-select">
+          <option value="">Gruppen</option>
+        </select>
         <select id="keyword-filter" class="toolbar-select">
           <option value="">Schlagwörter</option>
         </select>
@@ -1287,7 +1294,7 @@
     let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
-    let getNotes, deleteNote, createNote;
+    let getNotes, deleteNote, createNote, updateNote;
     
     try {
       const authModule = await import('./members-auth.js');
@@ -1351,6 +1358,28 @@
     let multiDeleteMode = false;
     let draggedElement = null;
 
+    // ===== Sync Listener - Synchronisiert mit members-panel =====
+    function setupSyncListener() {
+      window.addEventListener('storage', async (e) => {
+        if (e.key === 'members-data-sync' && e.newValue) {
+          try {
+            const syncData = JSON.parse(e.newValue);
+            console.log('[MEMBERS-HTML] Sync-Event empfangen:', syncData);
+            
+            // Prüfe ob wir eingeloggt sind
+            if (!currentUser) return;
+            
+            // Aktualisiere die Daten
+            await loadItems();
+            await updateKeywordFilter();
+            await updateGroupFilter();
+          } catch (error) {
+            console.warn('[MEMBERS-HTML] Fehler bei Sync:', error);
+          }
+        }
+      });
+    }
+
     // ===== Init =====
     async function init() {
       try {
@@ -1368,6 +1397,7 @@
         
         setupToolbarListeners();
         setupDragAndDrop();
+        setupSyncListener();
         
         const user = await getCurrentUserFunc();
         if (user) {
@@ -2133,6 +2163,7 @@
       
       renderItems();
       updateKeywordFilter();
+      updateGroupFilter();
       } catch (error) {
         console.error('[MEMBERS-HTML] Fehler beim Laden der Items:', error);
         const container = document.getElementById('items-list');
@@ -2302,6 +2333,7 @@
           }
           
           const tags = item.tags || [];
+          const groups = item.groups || [];
           
           return `
             <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
@@ -2320,15 +2352,11 @@
                 </div>
               </div>
               ${canNavigate
-                ? `<div class="item-text"><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
-                : `<div class="item-text">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+                ? `<div class="item-text"><a href="#" class="item-ga" data-ga="${gaReference}" data-paragraph-id="${paragraphId || ''}" data-text-start-offset="${textStartOffset !== null ? textStartOffset : ''}" data-text-end-offset="${textEndOffset !== null ? textEndOffset : ''}" data-is-highlight="false" style="color: var(--text-color); text-decoration: none; cursor: pointer; font-weight: normal;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                : `<div class="item-text">„${contentPreview}${hasMore ? '...' : ''}"</div>`
               }
+              ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="item-tags-row">
-                ${tags.length > 0 ? `
-                  <div class="item-tags">
-                    ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
-                  </div>
-                ` : '<div></div>'}
                 ${!multiDeleteMode ? `
                   <div class="item-actions">
                     <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
@@ -2417,13 +2445,9 @@
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
+            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}"`}</div>
+            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
-              ${tags.length > 0 ? `
-                <div class="item-tags">
-                  ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
-                </div>
-              ` : '<div></div>'}
               ${!multiDeleteMode ? `
                 <div class="item-actions">
                   <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
@@ -3212,6 +3236,9 @@
         
         newSelect.addEventListener('change', (e) => {
           const keyword = e.target.value;
+          // Setze Gruppen-Filter zurück
+          const groupSelect = document.getElementById('group-filter');
+          if (groupSelect) groupSelect.value = '';
           filterByKeyword(keyword);
         });
       } catch (error) {
@@ -3220,8 +3247,20 @@
     }
 
     async function filterByKeyword(keyword) {
+      // Setze Gruppen-Dropdown zurück
+      const groupSelect = document.getElementById('group-filter');
+      if (groupSelect) {
+        groupSelect.value = '';
+      }
+      
+      // Setze Schlagwörter-Dropdown auf den ausgewählten Wert
+      const keywordSelect = document.getElementById('keyword-filter');
+      if (keywordSelect && keyword) {
+        keywordSelect.value = keyword;
+      }
+      
       if (!keyword) {
-        renderItems();
+        loadItems();
         return;
       }
       
@@ -3348,13 +3387,9 @@
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `"${text}"`}</div>
+            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}"`}</div>
+            ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
-              ${tags.length > 0 ? `
-                <div class="item-tags">
-                  ${tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">#${tag}</span>`).join('')}
-                </div>
-              ` : '<div></div>'}
               ${!multiDeleteMode ? `
                 <div class="item-actions">
                   <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
@@ -3387,6 +3422,238 @@
         container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
       }
     }
+
+    // ===== Group Filter =====
+    // Lädt alle Gruppen aus Quotes, Highlights und Notes
+    async function updateGroupFilter() {
+      const select = document.getElementById('group-filter');
+      if (!select) return;
+      
+      // Prüfe ob API-Funktionen verfügbar sind
+      if (typeof getQuotes !== 'function' || typeof getHighlights !== 'function' || typeof getNotes !== 'function') {
+        console.warn('[MEMBERS-HTML] API-Funktionen für Gruppen nicht verfügbar');
+        return;
+      }
+      
+      try {
+        // Lade alle drei Quellen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+        
+        // Sammle alle Gruppen aus allen Quellen
+        const allGroups = new Set();
+        
+        if (quotesResult.success && quotesResult.data) {
+          quotesResult.data.forEach(quote => {
+            if (quote.groups && Array.isArray(quote.groups)) {
+              quote.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        if (highlightsResult.success && highlightsResult.data) {
+          highlightsResult.data.forEach(highlight => {
+            if (highlight.groups && Array.isArray(highlight.groups)) {
+              highlight.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        if (notesResult.success && notesResult.data) {
+          notesResult.data.forEach(note => {
+            if (note.groups && Array.isArray(note.groups)) {
+              note.groups.forEach(group => allGroups.add(group));
+            }
+          });
+        }
+        
+        // Sortiere Gruppen
+        const sortedGroups = Array.from(allGroups).sort((a, b) => a.localeCompare(b, 'de'));
+        
+        // Aktualisiere Dropdown
+        select.innerHTML = '<option value="">Gruppen</option>' +
+          sortedGroups.map(g => `<option value="${g}">${g.toUpperCase()}</option>`).join('');
+        
+        // Event-Listener nur einmal hinzufügen (nicht bei jedem Update)
+        // Entferne alte Listener falls vorhanden
+        const newSelect = select.cloneNode(true);
+        select.parentNode.replaceChild(newSelect, select);
+        
+        newSelect.addEventListener('change', (e) => {
+          const group = e.target.value;
+          // Setze Keyword-Filter zurück
+          const keywordSelect = document.getElementById('keyword-filter');
+          if (keywordSelect) keywordSelect.value = '';
+          filterByGroup(group);
+        });
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Laden der Gruppen:', error);
+      }
+    }
+
+    async function filterByGroup(group) {
+      // Setze Schlagwörter-Dropdown zurück
+      const keywordSelect = document.getElementById('keyword-filter');
+      if (keywordSelect) {
+        keywordSelect.value = '';
+      }
+      
+      // Setze Gruppen-Dropdown auf den ausgewählten Wert
+      const groupSelect = document.getElementById('group-filter');
+      if (groupSelect && group) {
+        groupSelect.value = group;
+      }
+      
+      if (!group) {
+        loadItems();
+        return;
+      }
+      
+      const container = document.getElementById('items-list');
+      container.innerHTML = '<div class="empty-state">Lade gefilterte Items...</div>';
+      
+      try {
+        // Lade alle drei Quellen parallel
+        const [quotesResult, highlightsResult, notesResult] = await Promise.all([
+          getQuotes(),
+          getHighlights(),
+          getNotes()
+        ]);
+        
+        // Filtere Items mit der Gruppe aus allen Quellen
+        const filteredQuotes = quotesResult.success && quotesResult.data
+          ? quotesResult.data.filter(quote => 
+              quote.groups && Array.isArray(quote.groups) && quote.groups.includes(group)
+            )
+          : [];
+        
+        const filteredHighlights = highlightsResult.success && highlightsResult.data
+          ? highlightsResult.data.filter(highlight => 
+              highlight.groups && Array.isArray(highlight.groups) && highlight.groups.includes(group)
+            )
+          : [];
+        
+        const filteredNotes = notesResult.success && notesResult.data
+          ? notesResult.data.filter(note => 
+              note.groups && Array.isArray(note.groups) && note.groups.includes(group)
+            )
+          : [];
+        
+        // Kombiniere alle gefilterten Items
+        const allFilteredItems = [
+          ...filteredQuotes.map(q => ({
+            ...q,
+            item_type: 'quote',
+            ga_reference: q.ga_reference || q.ga_number,
+            quote_text: q.quote_text || '',
+            tags: q.tags || [],
+            groups: q.groups || []
+          })),
+          ...filteredHighlights.map(h => ({
+            ...h,
+            item_type: 'highlight',
+            ga_reference: h.ga_number,
+            quote_text: h.paragraph_text ? h.paragraph_text.substring(
+              h.text_start_offset || 0,
+              h.text_end_offset || h.paragraph_text.length
+            ) : '',
+            tags: h.tags || [],
+            groups: h.groups || [],
+            color: h.color || 'blue'
+          })),
+          ...filteredNotes.map(note => ({
+            ...note,
+            item_type: 'note',
+            ga_reference: note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null,
+            quote_text: note.content || '',
+            tags: note.tags || [],
+            groups: note.groups || []
+          }))
+        ];
+        
+        // Sortiere nach Erstellungsdatum (neueste zuerst)
+        allFilteredItems.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        if (allFilteredItems.length === 0) {
+          container.innerHTML = `<div class="empty-state">Keine Einträge mit Gruppe "${group.toUpperCase()}" gefunden</div>`;
+          return;
+        }
+        
+        // Speichere originalItems vor dem Überschreiben
+        const originalItems = [...currentItems];
+        currentItems = allFilteredItems;
+        
+        // Render gefilterte Items
+        container.innerHTML = allFilteredItems.map((item, index) => {
+          const gaNumber = item.ga_reference || item.ga_number;
+          const isNote = item.item_type === 'note';
+          const isHighlight = item.item_type === 'highlight';
+          const text = isNote 
+            ? (item.content || '').replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim().substring(0, 150)
+            : (item.quote_text || '').substring(0, 150);
+          const hasMore = (isNote ? (item.content || '').length : (item.quote_text || '').length) > 150;
+          const tags = item.tags || [];
+          const groups = item.groups || [];
+          const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
+          const paragraphId = item.paragraph_id || '';
+          const textStartOffset = item.text_start_offset !== null ? item.text_start_offset : '';
+          const textEndOffset = item.text_end_offset !== null ? item.text_end_offset : '';
+          
+          return `
+          <div class="item-card ${selectedItemId === item.id ? 'selected' : ''} ${multiDeleteMode ? 'multi-delete' : ''}" 
+               data-id="${item.id}" 
+               data-index="${index}">
+            <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
+              ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
+              <div style="display: flex; align-items: center; gap: 0.25rem;">
+                ${gaNumber
+                  ? `<strong><a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${paragraphId}" data-text-start-offset="${textStartOffset}" data-text-end-offset="${textEndOffset}" data-is-highlight="${isHighlight}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">${gaNumber}</a></strong>`
+                  : `<strong>${isNote ? 'Notiz' : 'Eintrag'}</strong>`
+                }
+              </div>
+              <div class="item-header-right">
+                <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
+              </div>
+            </div>
+            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}${hasMore ? '...' : ''}"`}</div>
+            ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(g => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
+            <div class="item-tags-row">
+              ${!multiDeleteMode ? `
+                <div class="item-actions">
+                  <button class="item-delete-btn" onclick="deleteSingleItem(event, '${item.id}')" title="Löschen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="4" y="6" width="16" height="14" rx="1"/>
+                      <path d="M7 6V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1"/>
+                      <line x1="4" y1="6" x2="20" y2="6"/>
+                      <line x1="10" y1="10" x2="10" y2="16"/>
+                      <line x1="14" y1="10" x2="14" y2="16"/>
+                    </svg>
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        }).join('');
+        
+        // Stelle originalItems wieder her
+        currentItems = originalItems;
+        
+        // Event-Delegation für GA-Links
+        container.removeEventListener('click', handleGALinkClick);
+        container.addEventListener('click', handleGALinkClick);
+        
+      } catch (error) {
+        console.error('[MEMBERS-HTML] Fehler beim Filtern nach Gruppe:', error);
+        container.innerHTML = '<div class="empty-state">Fehler beim Laden der gefilterten Items</div>';
+      }
+    }
+    
+    window.filterByGroup = filterByGroup;
+    window.filterByKeyword = filterByKeyword;
 
     // ===== Multi-Delete =====
     function updateDeleteButton() {

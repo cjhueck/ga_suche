@@ -6257,7 +6257,7 @@ function attachHighlightDelegationListener() {
       return;
     }
     
-    // Prüfe ob Rechtsklick auf Bookmark-Icon im Absatz
+    // Prüfe ob Rechtsklick auf Bookmark-Icon im Absatz (Zitate)
     const bookmarkIndicator = e.target.closest('.bookmark-quote-indicator');
     if (bookmarkIndicator && bookmarkIndicator.hasAttribute('data-quote-id')) {
       e.preventDefault();
@@ -6267,6 +6267,19 @@ function attachHighlightDelegationListener() {
       
       // Zeige Kontextmenü zum Farbwechsel
       showQuoteColorContextMenu(e.clientX, e.clientY, quoteId);
+      return;
+    }
+    
+    // Prüfe ob Rechtsklick auf Notiz-Bookmark-Icon im Absatz
+    const noteBookmarkIndicator = e.target.closest('.bookmark-note-indicator');
+    if (noteBookmarkIndicator && noteBookmarkIndicator.hasAttribute('data-note-id')) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const noteId = noteBookmarkIndicator.getAttribute('data-note-id');
+      
+      // Zeige Kontextmenü zum Farbwechsel
+      showNoteColorContextMenu(e.clientX, e.clientY, noteId);
       return;
     }
   }, true); // useCapture = true für frühe Erfassung
@@ -8689,6 +8702,12 @@ async function handleGroupFilter(group) {
     keywordSelect.value = '';
   }
   
+  // Setze Gruppen-Dropdown auf den ausgewählten Wert
+  const groupSelect = document.getElementById('group-filter-select');
+  if (groupSelect && group) {
+    groupSelect.value = group;
+  }
+  
   if (!group) {
     // Reset - zeige aktuellen Tab
     const currentTab = typeof currentMembersTab !== 'undefined' ? currentMembersTab : 'quotes';
@@ -8790,7 +8809,7 @@ async function showGroupFilteredItems(group) {
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
-              <div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+              <div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
               ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -8825,7 +8844,7 @@ async function showGroupFilteredItems(group) {
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
-              <div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>
+              <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -8847,6 +8866,10 @@ async function showGroupFilteredItems(group) {
       } else if (item._type === 'note') {
         const note = item;
         const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
+        const paragraphId = note.paragraph_id || null;
+        const textStartOffset = note.text_start_offset !== null ? note.text_start_offset : null;
+        const textEndOffset = note.text_end_offset !== null ? note.text_end_offset : null;
+        const canNavigate = gaReference !== null;
         let cleanedContent = note.content;
         cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim();
         const contentPreview = cleanedContent.substring(0, 150);
@@ -8855,10 +8878,16 @@ async function showGroupFilteredItems(group) {
           <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                <strong>${gaReference || 'Notiz'}</strong>
+                ${canNavigate
+                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a></strong>`
+                  : `<strong>${gaReference || 'Notiz'}</strong>`
+                }
                 <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              <div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>
+              ${canNavigate
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+              }
               ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
                 <button class="edit-btn" onclick="editMemberNote('${note.id}')" title="Bearbeiten">
@@ -9036,6 +9065,12 @@ async function handleKeywordFilter(keyword) {
     groupSelect.value = '';
   }
   
+  // Setze Schlagwörter-Dropdown auf den ausgewählten Wert
+  const keywordSelect = document.getElementById('keyword-filter-select');
+  if (keywordSelect && keyword) {
+    keywordSelect.value = keyword;
+  }
+  
   if (!keyword) {
     // Kein Keyword ausgewählt - lade den normalen Tab-Inhalt wieder
     await loadMembersTab(currentMembersTab);
@@ -9194,7 +9229,10 @@ async function showKeywordFilteredItems(keyword) {
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
-              <div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>
+              ${shouldShowLink
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
+                : `<div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
+              }
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
               ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -9478,4 +9516,35 @@ async function updateMembersPanelIfOpen(tabName = null, forceUpdate = false) {
 window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
 window.invalidateMembersCache = invalidateMembersCache;
 
+// ===== Sync Listener - Synchronisiert mit members.html =====
+// Hört auf localStorage-Events von anderen Tabs/Fenstern
+window.addEventListener('storage', async (e) => {
+  if (e.key === 'members-data-sync' && e.newValue) {
+    try {
+      const syncData = JSON.parse(e.newValue);
+      console.log('[MB-SYNC] Sync-Event empfangen:', syncData);
+      
+      // Prüfe ob Members Panel aktiv ist
+      if (typeof membersPanelActive === 'undefined' || !membersPanelActive) {
+        // Panel nicht aktiv - nur Cache invalidieren für späteren Refresh
+        invalidateMembersCache(syncData.type === 'all' ? 'all' : syncData.type);
+        return;
+      }
+      
+      // Invalidiere Cache
+      invalidateMembersCache(syncData.type === 'all' ? 'all' : syncData.type);
+      
+      // Lade aktuellen Tab neu
+      if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights' || currentMembersTab === 'notes') {
+        await loadMembersTab(currentMembersTab);
+      }
+      
+      // Aktualisiere Filter-Dropdowns
+      await updateKeywordFilterDropdownWithAllKeywords();
+      await updateGroupFilterDropdownWithAllGroups();
+    } catch (error) {
+      console.warn('[MB-SYNC] Fehler bei Sync:', error);
+    }
+  }
+});
 
