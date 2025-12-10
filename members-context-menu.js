@@ -6,6 +6,7 @@
 let contextMenu = null;
 let selectedTextForContext = '';
 let selectionRangeForContext = null;
+let selectionInSidePanel = false; // Flag: Auswahl ist im Side Panel (erweiterte Suche/Index)
 
 /**
  * Initialisiert das Rechtsklick-Kontextmenü
@@ -93,13 +94,21 @@ function handleContextMenu(e) {
   // Nur anzeigen wenn Text markiert ist UND im Viewer oder Main
   const viewer = document.getElementById('viewer');
   const main = document.getElementById('main');
+  const summaryContent = document.getElementById('summary-content');
   const target = e.target;
   
   // Prüfe ob Klick im relevanten Bereich
+  // WICHTIG: summary-content ZUERST prüfen, da es innerhalb von main liegen kann
+  const isInSummaryContent = summaryContent && (summaryContent.contains(target) || summaryContent === target);
   const isInViewer = viewer && (viewer.contains(target) || viewer === target);
   const isInMain = main && (main.contains(target) || main === target);
   
-  if (selectedText.length < 3 || (!isInViewer && !isInMain)) {
+  // Setze Flag ob Auswahl im Side Panel ist (summary-content hat Priorität)
+  selectionInSidePanel = isInSummaryContent;
+  
+  console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel });
+  
+  if (selectedText.length < 3 || (!isInViewer && !isInMain && !isInSummaryContent)) {
     hideContextMenu();
     return;
   }
@@ -195,14 +204,39 @@ async function contextMenuAction(action, extraData = null) {
   const contextAfter = getContextAfter(selectedTextForContext, 100);
   
   // Absatz-Index ermitteln (Format: "1a", "42", etc.)
-  const paragraphIndex = findParagraphId(selectionRangeForContext);
+  // Bei Side Panel: ZUERST aus data-paragraph-id Attribut lesen (nicht aus dem Text!)
+  let paragraphIndex;
+  if (selectionInSidePanel) {
+    // Im Side Panel: Verwende die DOM-Attribute, nicht die Text-Indizes
+    paragraphIndex = findParagraphIdFromSidePanel(selectionRangeForContext);
+    console.log('[CONTEXT-MENU] Side Panel - Paragraph-Index aus DOM:', paragraphIndex);
+  }
+  // Fallback: Verwende die Text-basierte Suche (für Main Viewer und wenn Side Panel nichts findet)
+  if (!paragraphIndex) {
+    paragraphIndex = findParagraphId(selectionRangeForContext);
+  }
   
   // Hole vollständige Lecture-ID (GA058/01) statt nur GA-Nummer
-  const lectureId = (typeof currentLectureData !== 'undefined' && currentLectureData?.ID) 
-    ? currentLectureData.ID 
-    : extractGAFromURL();
+  // NEU: Bei Side Panel (erweiterte Suche/Index) aus window.currentSidePanelLectureId holen
+  console.log('[CONTEXT-MENU] contextMenuAction - selectionInSidePanel:', selectionInSidePanel);
+  console.log('[CONTEXT-MENU] contextMenuAction - window.currentSidePanelLectureId:', window.currentSidePanelLectureId);
+  
+  let lectureId;
+  if (selectionInSidePanel && typeof window.currentSidePanelLectureId !== 'undefined' && window.currentSidePanelLectureId) {
+    lectureId = window.currentSidePanelLectureId;
+    console.log('[CONTEXT-MENU] Lecture-ID aus Side Panel:', lectureId);
+  } else {
+    lectureId = (typeof currentLectureData !== 'undefined' && currentLectureData?.ID) 
+      ? currentLectureData.ID 
+      : extractGAFromURL();
+    console.log('[CONTEXT-MENU] Lecture-ID aus Main Viewer/URL:', lectureId);
+  }
   const gaNumber = lectureId ? lectureId.split('/')[0] : 'Unbekannt';
-  const lectureTitle = currentContext?.lectureTitle || '';
+  const lectureTitle = selectionInSidePanel 
+    ? (typeof window.currentSidePanelLectureTitle !== 'undefined' ? window.currentSidePanelLectureTitle : '')
+    : (currentContext?.lectureTitle || '');
+  
+  console.log('[CONTEXT-MENU] Final lectureId:', lectureId, 'gaNumber:', gaNumber);
   
   switch(action) {
     case 'quote':
@@ -1467,8 +1501,8 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
     .map(g => g.trim().toUpperCase())
     .filter(g => g.length > 0);
   
-  // Erstelle Content mit GA-Referenz für die Extraktion
-  const gaRef = lectureId ? `[[${lectureId.split('/')[0]}]]` : '';
+  // Erstelle Content mit GA-Referenz für die Extraktion (vollständige Vortragsnummer inkl. /Vortrag)
+  const gaRef = lectureId ? `[[${lectureId}]]` : '';
   let content = `"${text}"\n\n${gaRef}`;
   
   // Füge Tags hinzu
@@ -1726,7 +1760,7 @@ function showContextNoteDialog(text, preselectedColor = 'blue') {
       resolve({
         groups: groups,
         keywords: keywords,
-        selectedColor: 'blue' // Standardfarbe für Notizen
+        selectedColor: preselectedColor // Verwende die vom Context-Menü übergebene Farbe
       });
     };
     
@@ -1855,6 +1889,107 @@ function findParagraphId(range) {
     }
   } catch (err) {
     // Paragraph-Index nicht gefunden
+  }
+  
+  return null;
+}
+
+/**
+ * Absatz-Index aus Side Panel ermitteln (für erweiterte Suche und Index)
+ * Sucht nach data-paragraph-id Attribut im DOM
+ */
+function findParagraphIdFromSidePanel(range) {
+  if (!range) return null;
+  
+  try {
+    let node = range.startContainer;
+    
+    // Gehe durch alle Parent-Elemente und suche nach data-paragraph-id Attribut
+    while (node && node !== document.body) {
+      if (node.nodeType === 1) { // Element node
+        // Prüfe ob data-paragraph-id Attribut vorhanden ist
+        if (node.hasAttribute && node.hasAttribute('data-paragraph-id')) {
+          const paragraphId = node.getAttribute('data-paragraph-id');
+          if (paragraphId) {
+            console.log('[CONTEXT-MENU] Paragraph-ID aus Side Panel gefunden:', paragraphId);
+            return paragraphId;
+          }
+        }
+        // Prüfe auch ID im Format "adv-para-X" (für erweiterte Suche)
+        if (node.id && node.id.startsWith('adv-para-')) {
+          // Extrahiere Index (entferne "adv-para-" Präfix)
+          const idx = node.id.substring(9); // "adv-para-0" -> "0"
+          console.log('[CONTEXT-MENU] Paragraph-Index aus Side Panel ID:', idx);
+          return idx;
+        }
+        
+        // NEU: Für Bücher - suche nach verstecktem Span mit data-paragraph-id im aktuellen Element
+        // (Die versteckten Spans haben display:none und sind daher keine Parent-Elemente)
+        const hiddenSpan = node.querySelector('[data-paragraph-id]');
+        if (hiddenSpan) {
+          const paragraphId = hiddenSpan.getAttribute('data-paragraph-id');
+          if (paragraphId) {
+            console.log('[CONTEXT-MENU] Paragraph-ID aus verstecktem Span gefunden:', paragraphId);
+            return paragraphId;
+          }
+        }
+        
+        // NEU: Suche auch nach ID im Format "para-X" (für Bücher)
+        if (node.id && node.id.startsWith('para-')) {
+          const idx = node.id.substring(5); // "para-xyz123" -> "xyz123"
+          console.log('[CONTEXT-MENU] Paragraph-Index aus para-ID gefunden:', idx);
+          return idx;
+        }
+      }
+      node = node.parentNode;
+    }
+    
+    // Fallback: Suche nach dem nächsten versteckten Span mit data-index im summary-content
+    // (für Bücher, wenn der Text zwischen zwei Indizes liegt)
+    const summaryContent = document.getElementById('summary-content');
+    if (summaryContent && range.startContainer) {
+      // Finde alle versteckten Spans mit data-index
+      const allIndexSpans = summaryContent.querySelectorAll('[data-index]');
+      if (allIndexSpans.length > 0) {
+        // Finde den nächsten Span vor der Selektion
+        let closestSpan = null;
+        let closestDistance = Infinity;
+        
+        const rangeRect = range.getBoundingClientRect();
+        const rangeTop = rangeRect.top;
+        
+        allIndexSpans.forEach(span => {
+          // Finde das Parent-Element, das sichtbar ist
+          let visibleParent = span.parentElement;
+          while (visibleParent && window.getComputedStyle(visibleParent).display === 'none') {
+            visibleParent = visibleParent.parentElement;
+          }
+          
+          if (visibleParent) {
+            const rect = visibleParent.getBoundingClientRect();
+            // Wähle den Span, der am nächsten oberhalb der Selektion ist
+            if (rect.top <= rangeTop) {
+              const distance = rangeTop - rect.top;
+              if (distance < closestDistance) {
+                closestDistance = distance;
+                closestSpan = span;
+              }
+            }
+          }
+        });
+        
+        if (closestSpan) {
+          const paragraphId = closestSpan.getAttribute('data-paragraph-id') || 
+                             closestSpan.getAttribute('data-index')?.replace(/^\^/, '');
+          if (paragraphId) {
+            console.log('[CONTEXT-MENU] Paragraph-ID aus nächstem Index-Span gefunden:', paragraphId);
+            return paragraphId;
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[CONTEXT-MENU] Fehler beim Ermitteln der Paragraph-ID aus Side Panel:', err);
   }
   
   return null;

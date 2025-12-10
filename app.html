@@ -5671,6 +5671,10 @@ Original
     let currentSources = [];
     let searchResults = [];
     let currentLectureData = null;
+    // Globale Variablen für Side Panel (erweiterte Suche und Index)
+    // Müssen auf window gesetzt werden, damit sie von members-context-menu.js aus zugänglich sind
+    window.currentSidePanelLectureId = null;
+    window.currentSidePanelLectureTitle = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
@@ -12926,6 +12930,10 @@ function scrollToChronologicalYear(year) {
         const data = await response.json();
         const lecture = data.lecture;
         
+        // Setze globale Variablen für Side Panel (für Context-Menü Markierungen)
+        window.currentSidePanelLectureId = lectureId;
+        window.currentSidePanelLectureTitle = lecture.title || lecture.fileName || lectureId;
+        
         // Öffne das rechte Summary-Panel
         const summaryPanel = document.getElementById('summary-panel');
         const mainContainer = document.getElementById('main-container');
@@ -13165,8 +13173,12 @@ function scrollToChronologicalYear(year) {
             // WICHTIG: Bei Members-Navigation KEIN Absatz-Highlighting - nur der exakte Zitat-Text wird markiert
             const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
             
+            // NEU: Füge data-* Attribute für Context-Menü Markierungen hinzu
             html += `
-              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" style="margin-bottom: 1rem;">
+              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" 
+                   data-lecture-id="${lectureId}" 
+                   data-paragraph-id="${paraIndex}"
+                   style="margin-bottom: 1rem;">
                 ${content}
               </div>
             `;
@@ -13179,6 +13191,13 @@ function scrollToChronologicalYear(year) {
           setTimeout(() => {
             detectAndFormatPoems(summaryContent);
           }, 0);
+          
+          // NEU: Wende gespeicherte Markierungen (Unterstreichungen, Anstreichungen) im Side Panel an
+          if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+            setTimeout(() => {
+              markParagraphsWithBookmarksAndQuotes(lectureId);
+            }, 200);
+          }
           
           // Scrolle zum Ziel-Paragraph (direkt, nicht smooth)
           if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
@@ -13275,6 +13294,10 @@ function scrollToChronologicalYear(year) {
         if (!response.ok) throw new Error(`Buch nicht gefunden: ${gaNumber}`);
         
         const book = await response.json();
+        
+        // Setze globale Variablen für Side Panel (für Context-Menü Markierungen)
+        window.currentSidePanelLectureId = gaNumber;
+        window.currentSidePanelLectureTitle = book.title || book.fileName || gaNumber;
         // Öffne das rechte Summary-Panel
         const summaryPanel = document.getElementById('summary-panel');
         const mainContainer = document.getElementById('main-container');
@@ -13553,6 +13576,7 @@ function scrollToChronologicalYear(year) {
               hiddenSpan.style.display = 'none';
               hiddenSpan.textContent = indexText;
               hiddenSpan.setAttribute('data-index', indexId);
+              hiddenSpan.setAttribute('data-paragraph-id', indexIdClean); // NEU: für Context-Menü Markierungen
               hiddenSpan.id = `para-${indexIdClean}`; // ID für Scroll-Funktionalität
               
               // Ersetze den Textknoten
@@ -13676,8 +13700,8 @@ function scrollToChronologicalYear(year) {
           // Wenn ein Ziel-Paragraph angegeben ist, markiere ihn später nach DOM-Rendering
           // (Die Markierung wird im setTimeout-Block unten hinzugefügt)
           
-          // Füge den gerenderten Content hinzu
-          html += '<div class="book-content">' + tempDiv.innerHTML + '</div>';
+          // Füge den gerenderten Content hinzu (mit data-lecture-id für Context-Menü)
+          html += `<div class="book-content" data-lecture-id="${gaNumber}">` + tempDiv.innerHTML + '</div>';
           
           html += '</div>';
           summaryContent.innerHTML = html;
@@ -13686,6 +13710,13 @@ function scrollToChronologicalYear(year) {
           setTimeout(() => {
             detectAndFormatPoems(summaryContent);
           }, 0);
+          
+          // NEU: Wende gespeicherte Markierungen (Unterstreichungen, Anstreichungen) im Side Panel an
+          if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+            setTimeout(() => {
+              markParagraphsWithBookmarksAndQuotes(gaNumber);
+            }, 200);
+          }
           
           // Scrolle zum Ziel-Paragraph nach dem Rendering (wie im Tab "Texte")
           if (hasValidIndex && targetParagraphIdx !== null && targetParagraphIdx >= 0) {
