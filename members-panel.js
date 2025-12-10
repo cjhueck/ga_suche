@@ -6832,24 +6832,39 @@ function createQuoteVerticalLine(targetElement, range, quote) {
  */
 function applyStoredQuoteLine(quote) {
   try {
-    if (!quote.paragraph_id || quote.text_start_offset === null || quote.text_start_offset === undefined) {
+    if (quote.text_start_offset === null || quote.text_start_offset === undefined) {
       return; // Nicht genug Daten für Linien-Positionierung
     }
     
-    // Normalisiere paragraph_id: Entferne ^ am Anfang falls vorhanden (für Bücher)
-    const normalizedParaId = String(quote.paragraph_id || '').replace(/^\^/, '');
-    let paraElement = document.getElementById(`para-${normalizedParaId}`);
+    let paraElement = null;
     
-    // Falls nicht gefunden, versuche mit Original-ID
-    if (!paraElement) {
-      paraElement = document.getElementById(`para-${quote.paragraph_id}`);
+    // PRIMÄRER ANSATZ: Suche anhand des gespeicherten Textes (robust gegen Index-Änderungen)
+    if (quote.quote_text) {
+      const searchText = quote.quote_text.substring(0, 100); // Erste 100 Zeichen
+      const allParagraphs = document.querySelectorAll('.paragraph, [id^="para-"], p');
+      
+      for (const para of allParagraphs) {
+        const paraText = para.textContent || '';
+        if (paraText.includes(searchText)) {
+          paraElement = para;
+          console.log('[QUOTE-LINE] Paragraph anhand Text gefunden:', para.id || para.className || 'keine ID');
+          break;
+        }
+      }
     }
     
-    // Falls immer noch nicht gefunden, versuche für Bücher mit data-index
-    if (!paraElement) {
-      const bookParaElement = document.querySelector(`[data-index="${quote.paragraph_id}"], [data-index="^${normalizedParaId}"]`);
-      if (bookParaElement) {
-        paraElement = bookParaElement;
+    // FALLBACK: Suche nach paragraph_id (falls Text-Suche fehlschlägt)
+    if (!paraElement && quote.paragraph_id) {
+      const normalizedParaId = String(quote.paragraph_id).replace(/^\^/, '');
+      
+      // Versuche verschiedene ID-Formate
+      paraElement = document.getElementById(`para-${normalizedParaId}`) ||
+                   document.getElementById(`para-${quote.paragraph_id}`) ||
+                   document.querySelector(`[data-index="${quote.paragraph_id}"], [data-index="^${normalizedParaId}"]`) ||
+                   document.querySelector(`[data-paragraph-id="${normalizedParaId}"], [data-paragraph-id="${quote.paragraph_id}"]`);
+      
+      if (paraElement) {
+        console.log('[QUOTE-LINE] Paragraph anhand ID gefunden:', paraElement.id || 'via data-attribute');
       }
     }
     
@@ -7510,25 +7525,40 @@ function applyHighlightToBookElement(targetElement, highlight) {
  */
 function applyStoredHighlight(highlight) {
   try {
-    // Normalisiere paragraph_id: Entferne ^ am Anfang falls vorhanden (für Bücher)
-    const normalizedParaId = String(highlight.paragraph_id || '').replace(/^\^/, '');
-    let paraElement = document.getElementById(`para-${normalizedParaId}`);
+    let paraElement = null;
     
-    // Falls nicht gefunden, versuche mit Original-ID
-    if (!paraElement) {
-      paraElement = document.getElementById(`para-${highlight.paragraph_id}`);
+    // PRIMÄRER ANSATZ: Suche anhand des gespeicherten Textes (robust gegen Index-Änderungen)
+    if (highlight.paragraph_text) {
+      const searchText = highlight.paragraph_text.substring(0, 100); // Erste 100 Zeichen
+      const allParagraphs = document.querySelectorAll('.paragraph, [id^="para-"], p');
+      
+      for (const para of allParagraphs) {
+        const paraText = para.textContent || '';
+        if (paraText.includes(searchText)) {
+          paraElement = para;
+          console.log('[HIGHLIGHT] Paragraph anhand Text gefunden:', para.id || para.className || 'keine ID');
+          break;
+        }
+      }
     }
     
-    // Falls immer noch nicht gefunden, versuche für Bücher mit data-index
-    if (!paraElement) {
-      const bookParaElement = document.querySelector(`[data-index="${highlight.paragraph_id}"], [data-index="^${normalizedParaId}"]`);
-      if (bookParaElement) {
-        paraElement = bookParaElement;
+    // FALLBACK 1: Suche nach paragraph_id (falls Text-Suche fehlschlägt)
+    if (!paraElement && highlight.paragraph_id) {
+      const normalizedParaId = String(highlight.paragraph_id).replace(/^\^/, '');
+      
+      // Versuche verschiedene ID-Formate
+      paraElement = document.getElementById(`para-${normalizedParaId}`) ||
+                   document.getElementById(`para-${highlight.paragraph_id}`) ||
+                   document.querySelector(`[data-index="${highlight.paragraph_id}"], [data-index="^${normalizedParaId}"]`) ||
+                   document.querySelector(`[data-paragraph-id="${normalizedParaId}"], [data-paragraph-id="${highlight.paragraph_id}"]`);
+      
+      if (paraElement) {
+        console.log('[HIGHLIGHT] Paragraph anhand ID gefunden:', paraElement.id || 'via data-attribute');
       }
     }
     
     if (!paraElement) {
-      console.warn('[HIGHLIGHT] Paragraph nicht gefunden:', highlight.paragraph_id);
+      console.warn('[HIGHLIGHT] Paragraph nicht gefunden. Text:', highlight.paragraph_text?.substring(0, 50), 'ID:', highlight.paragraph_id);
       return;
     }
     
