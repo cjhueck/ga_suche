@@ -28752,58 +28752,56 @@ async function restoreBackup(backupName) {
 </div>
 
 <!-- Marked Words Modal (Fehlerhafte Wörter) -->
-<div id="markedWordsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 10000; padding: 20px; overflow: auto; backdrop-filter: blur(2px);">
-  <div style="max-width: 900px; margin: 30px auto; background: var(--background-color); border-radius: 12px; padding: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid var(--border-color);">
+<div id="markedWordsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; padding: 20px; overflow: auto;">
+  <div style="max-width: 800px; margin: 20px auto; background: var(--background-color); border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
     <!-- Header -->
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: linear-gradient(135deg, #c9433d 0%, #a33530 100%); border-radius: 12px 12px 0 0;">
-      <h2 style="color: white; font-size: 1.15rem; margin: 0; display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 1.3em;">⚠️</span> Fehlerhafte Textstellen
-      </h2>
-      <button onclick="closeMarkedWordsModal()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">✕ Schließen</button>
-    </div>
-    
-    <!-- Info Bar -->
-    <div style="padding: 12px 20px; background: var(--background-color); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-      <span id="markedWordsCount" style="font-size: 0.85em; color: var(--text-color); opacity: 0.7;">Lade...</span>
-      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-        <button onclick="exportMarkedWords()" title="Als JSON exportieren" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📥 Export</button>
-        <button onclick="document.getElementById('markedWordsImportInput').click()" title="JSON importieren" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📤 Import</button>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-bottom: 2px solid var(--border-color);">
+      <h2 style="color: var(--heading-color); font-size: 1rem; margin: 0;">⚠️ Fehlerhafte Textstellen</h2>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <span id="markedWordsCount" style="font-size: 0.8em; color: var(--text-color); opacity: 0.6;"></span>
+        <button onclick="exportMarkedWords()" title="Export" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">📥</button>
+        <button onclick="document.getElementById('markedWordsImportInput').click()" title="Import" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">📤</button>
         <input type="file" id="markedWordsImportInput" accept=".json" style="display: none;" onchange="importMarkedWords(event)">
-        <button onclick="loadMarkedWords()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">🔄</button>
+        <button onclick="loadMarkedWords()" title="Aktualisieren" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">🔄</button>
+        <button onclick="closeMarkedWordsModal()" class="depth-btn" style="padding: 3px 10px; font-size: 0.8rem;">✕</button>
       </div>
     </div>
     
     <!-- Content -->
-    <div id="markedWordsListContainer" style="max-height: 50vh; overflow-y: auto; padding: 16px 20px;">
-      <div style="padding: 40px; text-align: center; color: var(--text-color); opacity: 0.6;">
-        <div style="font-size: 2em; margin-bottom: 10px;">📋</div>
-        Lade fehlerhafte Textstellen...
-      </div>
+    <div id="markedWordsListContainer" style="max-height: 40vh; overflow-y: auto; padding: 10px 15px;">
+      <div style="padding: 30px; text-align: center; color: var(--text-color); opacity: 0.5; font-size: 0.9em;">Lade...</div>
     </div>
     
-    <!-- Korrektur-Panel (wird bei Auswahl angezeigt) -->
-    <div id="correctionPanel" style="display: none; padding: 16px 20px; border-top: 2px solid var(--border-color); background: var(--background-color);">
-      <h4 style="margin: 0 0 12px 0; color: var(--heading-color); font-size: 0.95em;">✏️ Korrektur durchführen</h4>
-      
-      <div style="margin-bottom: 12px;">
-        <label style="font-size: 0.8em; color: var(--text-color); opacity: 0.7; display: block; margin-bottom: 4px;">Fehlerhafter Text:</label>
-        <input type="text" id="correctionWrongText" readonly style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
+    <!-- Korrektur-Panel -->
+    <div id="correctionPanel" style="display: none; padding: 12px 15px; border-top: 2px solid var(--border-color); background: rgba(0,0,0,0.02);">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+        <div>
+          <label style="font-size: 0.75em; color: var(--text-color); opacity: 0.6; display: block; margin-bottom: 3px;">Fehlerhafter Text:</label>
+          <input type="text" id="correctionWrongText" style="width: 100%; padding: 6px 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
+        </div>
+        <div>
+          <label style="font-size: 0.75em; color: var(--text-color); opacity: 0.6; display: block; margin-bottom: 3px;">Korrigiert:</label>
+          <input type="text" id="correctionCorrectText" placeholder="Korrekte Schreibweise..." style="width: 100%; padding: 6px 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
+        </div>
       </div>
       
-      <div style="margin-bottom: 12px;">
-        <label style="font-size: 0.8em; color: var(--text-color); opacity: 0.7; display: block; margin-bottom: 4px;">Korrigierte Schreibweise:</label>
-        <input type="text" id="correctionCorrectText" placeholder="Korrekte Schreibweise eingeben..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
-      </div>
+      <div id="correctionPreview" style="margin-bottom: 10px; padding: 8px; background: rgba(0,0,0,0.03); border-radius: 4px; font-size: 0.8em; display: none;"></div>
       
-      <div id="correctionPreview" style="margin-bottom: 12px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 4px; font-size: 0.8em; display: none;">
-        <!-- Preview wird hier eingefügt -->
-      </div>
-      
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button onclick="previewCorrection()" style="padding: 8px 14px; background: #467886; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">🔍 Vorschau</button>
-        <button onclick="applyCorrection('single')" style="padding: 8px 14px; background: #5cb85c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">✓ Nur in dieser GA korrigieren</button>
-        <button onclick="applyCorrection('all')" style="padding: 8px 14px; background: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">✓ Überall korrigieren</button>
-        <button onclick="closeCorrectionPanel()" style="padding: 8px 14px; background: transparent; color: var(--text-color); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.85em;">Abbrechen</button>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; gap: 12px; font-size: 0.8em;">
+          <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-color);">
+            <input type="checkbox" id="correctionCaseSensitive" checked style="cursor: pointer;"> Case-sensitive
+          </label>
+          <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; color: var(--text-color);" title="Auch in steiner-full-lectures-*.json korrigieren">
+            <input type="checkbox" id="correctionIncludeHtml" checked style="cursor: pointer;"> +JSON
+          </label>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <button onclick="previewCorrection()" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em;">🔍 Vorschau</button>
+          <button onclick="applyCorrection('single')" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em; background: #5cb85c; color: white;">✓ Diese GA</button>
+          <button onclick="applyCorrection('all')" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em; background: #d9534f; color: white;">✓ Überall</button>
+          <button onclick="closeCorrectionPanel()" class="depth-btn" style="padding: 5px 10px; font-size: 0.8em;">✕</button>
+        </div>
       </div>
       
       <input type="hidden" id="correctionGaTitle">
@@ -28904,13 +28902,13 @@ async function importMarkedWords(event) {
   event.target.value = '';
 }
 
-async function loadMarkedWords() {
+async function loadMarkedWords(syncOnline = true) {
   const container = document.getElementById('markedWordsListContainer');
   const countEl = document.getElementById('markedWordsCount');
   
   try {
-    // Wenn lokal: Automatisch Online-Daten holen und mergen
-    if (isLocal) {
+    // Wenn lokal UND syncOnline: Automatisch Online-Daten holen und mergen
+    if (isLocal && syncOnline) {
       countEl.textContent = '🔄 Synchronisiere mit Online...';
       try {
         const onlineResponse = await fetch('https://ga-suche.onrender.com/api/marked-words');
@@ -29030,17 +29028,45 @@ async function loadMarkedWords() {
 }
 
 async function deleteMarkedWord(index) {
+  console.log('[MARKED-WORDS] Lösche Index:', index);
   if (!confirm('Diesen Eintrag wirklich löschen?')) return;
   
   try {
+    // Erst lokal löschen
     const response = await fetch(`${API_BASE}/api/marked-words/${index}`, {
       method: 'DELETE'
     });
     
-    if (!response.ok) throw new Error('Fehler beim Löschen');
+    if (!response.ok) {
+      throw new Error('Fehler beim Löschen: ' + response.status);
+    }
     
-    // Neu laden
-    loadMarkedWords();
+    const result = await response.json();
+    console.log('[MARKED-WORDS] Lokal gelöscht:', result);
+    
+    // Auch online löschen (wenn wir lokal sind und der Eintrag existiert)
+    if (isLocal && result.deleted) {
+      try {
+        const onlineResponse = await fetch('https://ga-suche.onrender.com/api/marked-words/delete-by-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            word: result.deleted.word,
+            gaTitle: result.deleted.gaTitle,
+            timestamp: result.deleted.timestamp
+          })
+        });
+        if (onlineResponse.ok) {
+          const onlineResult = await onlineResponse.json();
+          console.log('[MARKED-WORDS] Auch online gelöscht:', onlineResult);
+        }
+      } catch (onlineError) {
+        console.log('[MARKED-WORDS] Online-Löschung nicht möglich:', onlineError.message);
+      }
+    }
+    
+    // Neu laden OHNE Online-Sync
+    loadMarkedWords(false);
   } catch (error) {
     console.error('[MARKED-WORDS] Löschfehler:', error);
     alert('Fehler beim Löschen: ' + error.message);
@@ -29098,7 +29124,9 @@ async function navigateAndSearchMarkedWord(lectureId, searchSnippet) {
 // ============================================================================
 
 function openCorrectionPanel(wrongText, gaTitle, markedWordIndex) {
-  document.getElementById('correctionWrongText').value = wrongText;
+  const wrongTextInput = document.getElementById('correctionWrongText');
+  wrongTextInput.value = wrongText;
+  wrongTextInput.defaultValue = wrongText; // Speichere Original für Online-Löschung
   document.getElementById('correctionCorrectText').value = '';
   document.getElementById('correctionGaTitle').value = gaTitle;
   document.getElementById('correctionMarkedWordIndex').value = markedWordIndex;
@@ -29120,7 +29148,14 @@ function closeCorrectionPanel() {
 async function previewCorrection() {
   const wrongText = document.getElementById('correctionWrongText').value;
   const gaTitle = document.getElementById('correctionGaTitle').value;
+  const caseSensitive = document.getElementById('correctionCaseSensitive').checked;
   const previewEl = document.getElementById('correctionPreview');
+  
+  if (!wrongText.trim()) {
+    previewEl.innerHTML = '<span style="color: #d9534f;">Bitte fehlerhaften Text eingeben.</span>';
+    previewEl.style.display = 'block';
+    return;
+  }
   
   previewEl.innerHTML = '<span style="color: var(--text-color); opacity: 0.7;">🔍 Suche...</span>';
   previewEl.style.display = 'block';
@@ -29129,7 +29164,7 @@ async function previewCorrection() {
     const response = await fetch(`${API_BASE}/api/marked-words/preview-correction`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ wrongText, gaTitle })
+      body: JSON.stringify({ wrongText, gaTitle, caseSensitive })
     });
     
     if (!response.ok) throw new Error('Fehler bei der Vorschau');
@@ -29171,13 +29206,21 @@ async function previewCorrection() {
 }
 
 async function applyCorrection(mode) {
-  const wrongText = document.getElementById('correctionWrongText').value;
+  const wrongText = document.getElementById('correctionWrongText').value.trim();
   const correctText = document.getElementById('correctionCorrectText').value.trim();
   const gaTitle = document.getElementById('correctionGaTitle').value;
   const markedWordIndex = parseInt(document.getElementById('correctionMarkedWordIndex').value);
+  const includeHtml = document.getElementById('correctionIncludeHtml').checked;
+  const caseSensitive = document.getElementById('correctionCaseSensitive').checked;
+  
+  if (!wrongText) {
+    alert('Bitte fehlerhaften Text eingeben.');
+    document.getElementById('correctionWrongText').focus();
+    return;
+  }
   
   if (!correctText) {
-    alert('Bitte gib die korrigierte Schreibweise ein.');
+    alert('Bitte korrigierte Schreibweise eingeben.');
     document.getElementById('correctionCorrectText').focus();
     return;
   }
@@ -29188,7 +29231,9 @@ async function applyCorrection(mode) {
   }
   
   const modeText = mode === 'single' ? 'nur in dieser GA' : 'in ALLEN MD-Dateien';
-  if (!confirm(`Korrektur durchführen?\n\n"${wrongText}"\n→ "${correctText}"\n\nModus: ${modeText}`)) {
+  const opts = [caseSensitive ? 'case-sensitive' : 'case-insensitive'];
+  if (includeHtml) opts.push('+JSON');
+  if (!confirm(`Korrektur durchführen?\n\n"${wrongText}" → "${correctText}"\n\nModus: ${modeText}\nOptionen: ${opts.join(', ')}`)) {
     return;
   }
   
@@ -29201,7 +29246,9 @@ async function applyCorrection(mode) {
         correctText,
         mode,
         gaTitle,
-        markedWordIndex
+        markedWordIndex,
+        includeHtml,
+        caseSensitive
       })
     });
     
@@ -29209,11 +29256,28 @@ async function applyCorrection(mode) {
     
     const result = await response.json();
     
+    // Wenn Korrekturen durchgeführt wurden, auch online den Eintrag löschen
+    if (isLocal && result.totalCorrections > 0) {
+      try {
+        // Hole das originale Wort (vor manueller Änderung im Eingabefeld)
+        const originalWord = document.getElementById('correctionWrongText').defaultValue || wrongText;
+        
+        await fetch('https://ga-suche.onrender.com/api/marked-words/delete-by-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ word: originalWord, gaTitle })
+        });
+        console.log('[CORRECTION] Eintrag auch online gelöscht');
+      } catch (onlineError) {
+        console.log('[CORRECTION] Online-Löschung nicht möglich:', onlineError.message);
+      }
+    }
+    
     alert(result.message);
     
-    // Panel schließen und Liste neu laden
+    // Panel schließen und Liste neu laden (ohne Online-Sync)
     closeCorrectionPanel();
-    loadMarkedWords();
+    loadMarkedWords(false);
     
   } catch (error) {
     console.error('[CORRECTION] Fehler:', error);
