@@ -1358,28 +1358,6 @@
     let multiDeleteMode = false;
     let draggedElement = null;
 
-    // ===== Sync Listener - Synchronisiert mit members-panel =====
-    function setupSyncListener() {
-      window.addEventListener('storage', async (e) => {
-        if (e.key === 'members-data-sync' && e.newValue) {
-          try {
-            const syncData = JSON.parse(e.newValue);
-            console.log('[MEMBERS-HTML] Sync-Event empfangen:', syncData);
-            
-            // Prüfe ob wir eingeloggt sind
-            if (!currentUser) return;
-            
-            // Aktualisiere die Daten
-            await loadItems();
-            await updateKeywordFilter();
-            await updateGroupFilter();
-          } catch (error) {
-            console.warn('[MEMBERS-HTML] Fehler bei Sync:', error);
-          }
-        }
-      });
-    }
-
     // ===== Init =====
     async function init() {
       try {
@@ -1397,7 +1375,6 @@
         
         setupToolbarListeners();
         setupDragAndDrop();
-        setupSyncListener();
         
         const user = await getCurrentUserFunc();
         if (user) {
