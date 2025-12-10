@@ -4987,6 +4987,9 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 <i id="theme-icon" data-lucide="moon"></i>
 </button>
 <div style="display: flex; gap: 0.3rem; align-items: center;">
+<button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
+<i data-lucide="alert-triangle"></i>
+</button>
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
 <i data-lucide="database"></i>
 </button>
@@ -28577,11 +28580,15 @@ function isLocalhost() {
          window.location.hostname === '';
 }
 
-// Zeige Backup-Button nur bei localhost
+// Zeige lokale Buttons nur bei localhost
 if (isLocalhost()) {
   const backupBtn = document.getElementById('backup-button');
   if (backupBtn) {
     backupBtn.style.display = 'block';
+  }
+  const markedWordsBtn = document.getElementById('marked-words-button');
+  if (markedWordsBtn) {
+    markedWordsBtn.style.display = 'block';
   }
 }
 
@@ -28743,6 +28750,494 @@ async function restoreBackup(backupName) {
     </div>
   </div>
 </div>
+
+<!-- Marked Words Modal (Fehlerhafte Wörter) -->
+<div id="markedWordsModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 10000; padding: 20px; overflow: auto; backdrop-filter: blur(2px);">
+  <div style="max-width: 900px; margin: 30px auto; background: var(--background-color); border-radius: 12px; padding: 0; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid var(--border-color);">
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: linear-gradient(135deg, #c9433d 0%, #a33530 100%); border-radius: 12px 12px 0 0;">
+      <h2 style="color: white; font-size: 1.15rem; margin: 0; display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 1.3em;">⚠️</span> Fehlerhafte Textstellen
+      </h2>
+      <button onclick="closeMarkedWordsModal()" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">✕ Schließen</button>
+    </div>
+    
+    <!-- Info Bar -->
+    <div style="padding: 12px 20px; background: var(--background-color); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+      <span id="markedWordsCount" style="font-size: 0.85em; color: var(--text-color); opacity: 0.7;">Lade...</span>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+        <button onclick="exportMarkedWords()" title="Als JSON exportieren" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📥 Export</button>
+        <button onclick="document.getElementById('markedWordsImportInput').click()" title="JSON importieren" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">📤 Import</button>
+        <input type="file" id="markedWordsImportInput" accept=".json" style="display: none;" onchange="importMarkedWords(event)">
+        <button onclick="loadMarkedWords()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">🔄</button>
+      </div>
+    </div>
+    
+    <!-- Content -->
+    <div id="markedWordsListContainer" style="max-height: 50vh; overflow-y: auto; padding: 16px 20px;">
+      <div style="padding: 40px; text-align: center; color: var(--text-color); opacity: 0.6;">
+        <div style="font-size: 2em; margin-bottom: 10px;">📋</div>
+        Lade fehlerhafte Textstellen...
+      </div>
+    </div>
+    
+    <!-- Korrektur-Panel (wird bei Auswahl angezeigt) -->
+    <div id="correctionPanel" style="display: none; padding: 16px 20px; border-top: 2px solid var(--border-color); background: var(--background-color);">
+      <h4 style="margin: 0 0 12px 0; color: var(--heading-color); font-size: 0.95em;">✏️ Korrektur durchführen</h4>
+      
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 0.8em; color: var(--text-color); opacity: 0.7; display: block; margin-bottom: 4px;">Fehlerhafter Text:</label>
+        <input type="text" id="correctionWrongText" readonly style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
+      </div>
+      
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 0.8em; color: var(--text-color); opacity: 0.7; display: block; margin-bottom: 4px;">Korrigierte Schreibweise:</label>
+        <input type="text" id="correctionCorrectText" placeholder="Korrekte Schreibweise eingeben..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.85em; background: var(--background-color); color: var(--text-color); box-sizing: border-box;">
+      </div>
+      
+      <div id="correctionPreview" style="margin-bottom: 12px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 4px; font-size: 0.8em; display: none;">
+        <!-- Preview wird hier eingefügt -->
+      </div>
+      
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button onclick="previewCorrection()" style="padding: 8px 14px; background: #467886; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">🔍 Vorschau</button>
+        <button onclick="applyCorrection('single')" style="padding: 8px 14px; background: #5cb85c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">✓ Nur in dieser GA korrigieren</button>
+        <button onclick="applyCorrection('all')" style="padding: 8px 14px; background: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85em;">✓ Überall korrigieren</button>
+        <button onclick="closeCorrectionPanel()" style="padding: 8px 14px; background: transparent; color: var(--text-color); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; font-size: 0.85em;">Abbrechen</button>
+      </div>
+      
+      <input type="hidden" id="correctionGaTitle">
+      <input type="hidden" id="correctionMarkedWordIndex">
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================================
+// MARKED WORDS MODAL (Fehlerhafte Wörter anzeigen)
+// ============================================================================
+
+function openMarkedWordsModal() {
+  document.getElementById('markedWordsModal').style.display = 'block';
+  loadMarkedWords();
+}
+
+function closeMarkedWordsModal() {
+  document.getElementById('markedWordsModal').style.display = 'none';
+}
+
+// Export marked words as JSON file
+async function exportMarkedWords() {
+  try {
+    const response = await fetch(`${API_BASE}/api/marked-words`);
+    if (!response.ok) throw new Error('Fehler beim Laden');
+    
+    const markedWords = await response.json();
+    
+    if (markedWords.length === 0) {
+      alert('Keine Einträge zum Exportieren vorhanden.');
+      return;
+    }
+    
+    // Create download
+    const blob = new Blob([JSON.stringify(markedWords, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `marked-words-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+  } catch (error) {
+    console.error('[MARKED-WORDS] Export-Fehler:', error);
+    alert('Fehler beim Exportieren: ' + error.message);
+  }
+}
+
+// Import marked words from JSON file
+async function importMarkedWords(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  
+  try {
+    const text = await file.text();
+    const words = JSON.parse(text);
+    
+    if (!Array.isArray(words)) {
+      throw new Error('Ungültiges Format - Array erwartet');
+    }
+    
+    // Ask user for merge mode
+    const mode = confirm(
+      `${words.length} Einträge gefunden.\n\n` +
+      `OK = Mit vorhandenen zusammenführen (Duplikate werden übersprungen)\n` +
+      `Abbrechen = Vorhandene ersetzen`
+    ) ? 'merge' : 'replace';
+    
+    if (mode === 'replace' && !confirm('Wirklich alle vorhandenen Einträge ersetzen?')) {
+      event.target.value = '';
+      return;
+    }
+    
+    const response = await fetch(`${API_BASE}/api/marked-words/import`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ words, mode })
+    });
+    
+    if (!response.ok) throw new Error('Server-Fehler');
+    
+    const result = await response.json();
+    alert(result.message);
+    
+    // Reload list
+    loadMarkedWords();
+    
+  } catch (error) {
+    console.error('[MARKED-WORDS] Import-Fehler:', error);
+    alert('Fehler beim Importieren: ' + error.message);
+  }
+  
+  // Reset file input
+  event.target.value = '';
+}
+
+async function loadMarkedWords() {
+  const container = document.getElementById('markedWordsListContainer');
+  const countEl = document.getElementById('markedWordsCount');
+  
+  try {
+    // Wenn lokal: Automatisch Online-Daten holen und mergen
+    if (isLocal) {
+      countEl.textContent = '🔄 Synchronisiere mit Online...';
+      try {
+        const onlineResponse = await fetch('https://ga-suche.onrender.com/api/marked-words');
+        if (onlineResponse.ok) {
+          const onlineWords = await onlineResponse.json();
+          if (onlineWords.length > 0) {
+            // Merge mit lokalen Daten
+            const importResponse = await fetch(`${API_BASE}/api/marked-words/import`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ words: onlineWords, mode: 'merge' })
+            });
+            if (importResponse.ok) {
+              const result = await importResponse.json();
+              if (result.imported > 0) {
+                console.log(`[MARKED-WORDS] ${result.imported} neue Online-Einträge importiert`);
+              }
+            }
+          }
+        }
+      } catch (onlineError) {
+        console.log('[MARKED-WORDS] Online-Sync nicht möglich:', onlineError.message);
+      }
+    }
+    
+    const response = await fetch(`${API_BASE}/api/marked-words`);
+    if (!response.ok) throw new Error('Fehler beim Laden');
+    
+    const markedWords = await response.json();
+    
+    if (markedWords.length === 0) {
+      countEl.textContent = 'Keine Einträge';
+      container.innerHTML = `
+        <div style="padding: 60px 40px; text-align: center; color: var(--text-color);">
+          <div style="font-size: 3em; margin-bottom: 15px; opacity: 0.3;">✓</div>
+          <p style="font-size: 1.1em; margin: 0; opacity: 0.7;">Keine fehlerhaften Textstellen gespeichert.</p>
+          <p style="font-size: 0.85em; margin-top: 8px; opacity: 0.5;">Strg+Klick auf markierten Text, um Fehler zu melden.</p>
+        </div>
+      `;
+      return;
+    }
+    
+    countEl.textContent = `${markedWords.length} Eintrag${markedWords.length !== 1 ? 'e' : ''}`;
+    
+    // Gruppiere nach GA-Titel
+    const grouped = {};
+    markedWords.forEach((entry, index) => {
+      const key = entry.gaTitle || 'Unbekannt';
+      if (!grouped[key]) {
+        grouped[key] = [];
+      }
+      grouped[key].push({ ...entry, originalIndex: index });
+    });
+    
+    let html = '';
+    
+    Object.keys(grouped).sort().forEach(gaTitle => {
+      const entries = grouped[gaTitle];
+      
+      // Parse GA-Nummer und Lecture-ID aus dem Titel
+      const gaMatch = gaTitle.match(/GA(\d+)\/(\d+)/);
+      const gaNumber = gaMatch ? gaMatch[1] : null;
+      const lectureNum = gaMatch ? gaMatch[2] : null;
+      const lectureId = gaMatch ? `GA${gaNumber}/${lectureNum}` : null;
+      
+      html += `
+        <div style="margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden;">
+          <div style="padding: 10px 14px; background: var(--background-color); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-weight: 600; font-size: 0.9em; color: var(--heading-color);">
+              ${lectureId ? `<a href="#" onclick="navigateToMarkedWordLecture('${lectureId}'); return false;" style="color: var(--link-color); text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${gaTitle}</a>` : gaTitle}
+            </span>
+            <span style="font-size: 0.75em; color: var(--text-color); opacity: 0.5; background: var(--border-color); padding: 2px 8px; border-radius: 10px;">${entries.length}×</span>
+          </div>
+          <div style="padding: 0;">
+      `;
+      
+      entries.forEach((entry, idx) => {
+        const preview = entry.word.length > 200 ? entry.word.substring(0, 200) + '...' : entry.word;
+        const date = entry.timestamp ? new Date(entry.timestamp).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '';
+        const escapedWord = entry.word.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+        const escapedGaTitle = gaTitle.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+        
+        html += `
+          <div style="padding: 12px 14px; border-bottom: 1px solid var(--border-color); ${idx === entries.length - 1 ? 'border-bottom: none;' : ''}">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+              <div style="flex: 1; min-width: 0;">
+                <p style="margin: 0; font-size: 0.85em; line-height: 1.5; color: var(--text-color); word-break: break-word;">"${preview}"</p>
+                <div style="margin-top: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                  <span style="font-size: 0.7em; color: var(--text-color); opacity: 0.5;">📅 ${date}</span>
+                  <button onclick="openCorrectionPanel('${escapedWord}', '${escapedGaTitle}', ${entry.originalIndex})" style="font-size: 0.7em; padding: 2px 8px; background: #5cb85c; color: white; border: none; border-radius: 3px; cursor: pointer;">✏️ Korrigieren</button>
+                </div>
+              </div>
+              <button onclick="deleteMarkedWord(${entry.originalIndex})" title="Eintrag löschen" style="background: transparent; border: 1px solid #c9433d; color: #c9433d; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.75em; flex-shrink: 0; transition: all 0.2s;" onmouseover="this.style.background='#c9433d'; this.style.color='white'" onmouseout="this.style.background='transparent'; this.style.color='#c9433d'">🗑️</button>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += `
+          </div>
+        </div>
+      `;
+    });
+    
+    container.innerHTML = html;
+    
+  } catch (error) {
+    console.error('[MARKED-WORDS] Fehler:', error);
+    countEl.textContent = 'Fehler';
+    container.innerHTML = `
+      <div style="padding: 40px; text-align: center; color: #c9433d;">
+        <div style="font-size: 2em; margin-bottom: 10px;">❌</div>
+        <p>Fehler beim Laden: ${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+async function deleteMarkedWord(index) {
+  if (!confirm('Diesen Eintrag wirklich löschen?')) return;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/marked-words/${index}`, {
+      method: 'DELETE'
+    });
+    
+    if (!response.ok) throw new Error('Fehler beim Löschen');
+    
+    // Neu laden
+    loadMarkedWords();
+  } catch (error) {
+    console.error('[MARKED-WORDS] Löschfehler:', error);
+    alert('Fehler beim Löschen: ' + error.message);
+  }
+}
+
+async function navigateToMarkedWordLecture(lectureId) {
+  closeMarkedWordsModal();
+  
+  // Prüfe ob es ein Buch oder Vortrag ist
+  const gaNumber = lectureId.split('/')[0].replace('GA', '');
+  
+  if (typeof isBookGANumber === 'function' && isBookGANumber(gaNumber)) {
+    if (typeof navigateToGAInTexteTab === 'function') {
+      await navigateToGAInTexteTab(gaNumber);
+    }
+  } else {
+    if (typeof navigateToLectureInTexteTab === 'function') {
+      await navigateToLectureInTexteTab(lectureId);
+    }
+  }
+}
+
+async function navigateAndSearchMarkedWord(lectureId, searchSnippet) {
+  closeMarkedWordsModal();
+  
+  // Navigiere zum Vortrag
+  const gaNumber = lectureId.split('/')[0].replace('GA', '');
+  
+  if (typeof isBookGANumber === 'function' && isBookGANumber(gaNumber)) {
+    if (typeof navigateToGAInTexteTab === 'function') {
+      await navigateToGAInTexteTab(gaNumber);
+    }
+  } else {
+    if (typeof navigateToLectureInTexteTab === 'function') {
+      await navigateToLectureInTexteTab(lectureId);
+    }
+  }
+  
+  // Warte kurz und suche dann nach dem Text-Snippet im Viewer
+  setTimeout(() => {
+    const viewer = document.getElementById('viewer');
+    if (viewer && searchSnippet) {
+      // Versuche den Text im Viewer zu finden und zu highlighten
+      const searchText = searchSnippet.substring(0, 30);
+      if (window.find && window.find(searchText)) {
+        // Text gefunden - Browser hat ihn markiert und gescrollt
+      }
+    }
+  }, 1000);
+}
+
+// ============================================================================
+// KORREKTUR-FUNKTIONEN
+// ============================================================================
+
+function openCorrectionPanel(wrongText, gaTitle, markedWordIndex) {
+  document.getElementById('correctionWrongText').value = wrongText;
+  document.getElementById('correctionCorrectText').value = '';
+  document.getElementById('correctionGaTitle').value = gaTitle;
+  document.getElementById('correctionMarkedWordIndex').value = markedWordIndex;
+  document.getElementById('correctionPreview').style.display = 'none';
+  document.getElementById('correctionPanel').style.display = 'block';
+  
+  // Scroll zum Panel
+  document.getElementById('correctionPanel').scrollIntoView({ behavior: 'smooth' });
+  
+  // Fokus auf Korrektur-Eingabe
+  setTimeout(() => document.getElementById('correctionCorrectText').focus(), 100);
+}
+
+function closeCorrectionPanel() {
+  document.getElementById('correctionPanel').style.display = 'none';
+  document.getElementById('correctionPreview').style.display = 'none';
+}
+
+async function previewCorrection() {
+  const wrongText = document.getElementById('correctionWrongText').value;
+  const gaTitle = document.getElementById('correctionGaTitle').value;
+  const previewEl = document.getElementById('correctionPreview');
+  
+  previewEl.innerHTML = '<span style="color: var(--text-color); opacity: 0.7;">🔍 Suche...</span>';
+  previewEl.style.display = 'block';
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/marked-words/preview-correction`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ wrongText, gaTitle })
+    });
+    
+    if (!response.ok) throw new Error('Fehler bei der Vorschau');
+    
+    const result = await response.json();
+    
+    if (result.totalOccurrences === 0) {
+      previewEl.innerHTML = `
+        <div style="color: #5cb85c;">
+          <strong>✓ Kein Vorkommen gefunden</strong><br>
+          <span style="font-size: 0.9em; opacity: 0.8;">Der Text wurde möglicherweise bereits korrigiert.</span>
+        </div>
+      `;
+    } else {
+      let html = `
+        <div style="color: var(--text-color);">
+          <strong>📊 Gefunden: ${result.totalOccurrences} Vorkommen in ${result.fileCount} Datei${result.fileCount !== 1 ? 'en' : ''}</strong>
+        </div>
+        <div style="margin-top: 8px; max-height: 150px; overflow-y: auto;">
+      `;
+      
+      result.files.forEach(file => {
+        html += `
+          <div style="margin-top: 6px; padding: 6px; background: rgba(0,0,0,0.03); border-radius: 3px;">
+            <div style="font-size: 0.85em; color: var(--link-color); word-break: break-all;">${file.file}</div>
+            <div style="font-size: 0.8em; opacity: 0.7;">${file.occurrences}× gefunden</div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      previewEl.innerHTML = html;
+    }
+    
+  } catch (error) {
+    console.error('[CORRECTION] Preview-Fehler:', error);
+    previewEl.innerHTML = `<span style="color: #c9433d;">❌ Fehler: ${error.message}</span>`;
+  }
+}
+
+async function applyCorrection(mode) {
+  const wrongText = document.getElementById('correctionWrongText').value;
+  const correctText = document.getElementById('correctionCorrectText').value.trim();
+  const gaTitle = document.getElementById('correctionGaTitle').value;
+  const markedWordIndex = parseInt(document.getElementById('correctionMarkedWordIndex').value);
+  
+  if (!correctText) {
+    alert('Bitte gib die korrigierte Schreibweise ein.');
+    document.getElementById('correctionCorrectText').focus();
+    return;
+  }
+  
+  if (wrongText === correctText) {
+    alert('Fehlerhafter und korrigierter Text sind identisch.');
+    return;
+  }
+  
+  const modeText = mode === 'single' ? 'nur in dieser GA' : 'in ALLEN MD-Dateien';
+  if (!confirm(`Korrektur durchführen?\n\n"${wrongText}"\n→ "${correctText}"\n\nModus: ${modeText}`)) {
+    return;
+  }
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/marked-words/apply-correction`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        wrongText,
+        correctText,
+        mode,
+        gaTitle,
+        markedWordIndex
+      })
+    });
+    
+    if (!response.ok) throw new Error('Fehler bei der Korrektur');
+    
+    const result = await response.json();
+    
+    alert(result.message);
+    
+    // Panel schließen und Liste neu laden
+    closeCorrectionPanel();
+    loadMarkedWords();
+    
+  } catch (error) {
+    console.error('[CORRECTION] Fehler:', error);
+    alert('Fehler bei der Korrektur: ' + error.message);
+  }
+}
+
+// ESC zum Schließen
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const modal = document.getElementById('markedWordsModal');
+    if (modal && modal.style.display !== 'none') {
+      closeMarkedWordsModal();
+    }
+  }
+});
+
+// Klick außerhalb zum Schließen
+document.getElementById('markedWordsModal')?.addEventListener('click', function(event) {
+  if (event.target === this) {
+    closeMarkedWordsModal();
+  }
+});
+</script>
 
 <script>
 // ============================================================================
