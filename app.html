@@ -28759,10 +28759,7 @@ async function restoreBackup(backupName) {
       <h2 style="color: var(--heading-color); font-size: 1rem; margin: 0;">⚠️ Fehlerhafte Textstellen</h2>
       <div style="display: flex; gap: 6px; align-items: center;">
         <span id="markedWordsCount" style="font-size: 0.8em; color: var(--text-color); opacity: 0.6;"></span>
-        <button onclick="exportMarkedWords()" title="Export" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">📥</button>
-        <button onclick="document.getElementById('markedWordsImportInput').click()" title="Import" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">📤</button>
-        <input type="file" id="markedWordsImportInput" accept=".json" style="display: none;" onchange="importMarkedWords(event)">
-        <button onclick="loadMarkedWords()" title="Aktualisieren" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">🔄</button>
+        <button onclick="loadMarkedWords()" title="Aktualisieren & mit Online synchronisieren" class="depth-btn" style="padding: 3px 8px; font-size: 0.75rem;">🔄</button>
         <button onclick="closeMarkedWordsModal()" class="depth-btn" style="padding: 3px 10px; font-size: 0.8rem;">✕</button>
       </div>
     </div>
@@ -28824,90 +28821,14 @@ function closeMarkedWordsModal() {
   document.getElementById('markedWordsModal').style.display = 'none';
 }
 
-// Export marked words as JSON file
-async function exportMarkedWords() {
-  try {
-    const response = await fetch(`${API_BASE}/api/marked-words`);
-    if (!response.ok) throw new Error('Fehler beim Laden');
-    
-    const markedWords = await response.json();
-    
-    if (markedWords.length === 0) {
-      alert('Keine Einträge zum Exportieren vorhanden.');
-      return;
-    }
-    
-    // Create download
-    const blob = new Blob([JSON.stringify(markedWords, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `marked-words-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-  } catch (error) {
-    console.error('[MARKED-WORDS] Export-Fehler:', error);
-    alert('Fehler beim Exportieren: ' + error.message);
-  }
-}
-
-// Import marked words from JSON file
-async function importMarkedWords(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-  
-  try {
-    const text = await file.text();
-    const words = JSON.parse(text);
-    
-    if (!Array.isArray(words)) {
-      throw new Error('Ungültiges Format - Array erwartet');
-    }
-    
-    // Ask user for merge mode
-    const mode = confirm(
-      `${words.length} Einträge gefunden.\n\n` +
-      `OK = Mit vorhandenen zusammenführen (Duplikate werden übersprungen)\n` +
-      `Abbrechen = Vorhandene ersetzen`
-    ) ? 'merge' : 'replace';
-    
-    if (mode === 'replace' && !confirm('Wirklich alle vorhandenen Einträge ersetzen?')) {
-      event.target.value = '';
-      return;
-    }
-    
-    const response = await fetch(`${API_BASE}/api/marked-words/import`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ words, mode })
-    });
-    
-    if (!response.ok) throw new Error('Server-Fehler');
-    
-    const result = await response.json();
-    alert(result.message);
-    
-    // Reload list
-    loadMarkedWords();
-    
-  } catch (error) {
-    console.error('[MARKED-WORDS] Import-Fehler:', error);
-    alert('Fehler beim Importieren: ' + error.message);
-  }
-  
-  // Reset file input
-  event.target.value = '';
-}
-
 async function loadMarkedWords(syncOnline = true) {
   const container = document.getElementById('markedWordsListContainer');
   const countEl = document.getElementById('markedWordsCount');
   
   try {
+    // HINWEIS: Online-Sync ist deaktiviert bis der Server mit delete-by-content deployed ist
     // Wenn lokal UND syncOnline: Automatisch Online-Daten holen und mergen
+    /*
     if (isLocal && syncOnline) {
       countEl.textContent = '🔄 Synchronisiere mit Online...';
       try {
@@ -28933,6 +28854,7 @@ async function loadMarkedWords(syncOnline = true) {
         console.log('[MARKED-WORDS] Online-Sync nicht möglich:', onlineError.message);
       }
     }
+    */
     
     const response = await fetch(`${API_BASE}/api/marked-words`);
     if (!response.ok) throw new Error('Fehler beim Laden');
