@@ -29049,7 +29049,11 @@ function openCorrectionPanel(wrongText, gaTitle, markedWordIndex) {
   const wrongTextInput = document.getElementById('correctionWrongText');
   wrongTextInput.value = wrongText;
   wrongTextInput.defaultValue = wrongText; // Speichere Original für Online-Löschung
-  document.getElementById('correctionCorrectText').value = '';
+  
+  // Zeige fehlerhaftes Wort auch im Korrektur-Feld für schnellere Bearbeitung
+  const correctTextInput = document.getElementById('correctionCorrectText');
+  correctTextInput.value = wrongText;
+  
   document.getElementById('correctionGaTitle').value = gaTitle;
   document.getElementById('correctionMarkedWordIndex').value = markedWordIndex;
   document.getElementById('correctionPreview').style.display = 'none';
@@ -29058,8 +29062,11 @@ function openCorrectionPanel(wrongText, gaTitle, markedWordIndex) {
   // Scroll zum Panel
   document.getElementById('correctionPanel').scrollIntoView({ behavior: 'smooth' });
   
-  // Fokus auf Korrektur-Eingabe
-  setTimeout(() => document.getElementById('correctionCorrectText').focus(), 100);
+  // Fokus auf Korrektur-Eingabe und Text auswählen
+  setTimeout(() => {
+    correctTextInput.focus();
+    correctTextInput.select(); // Alles auswählen für schnelles Überschreiben
+  }, 100);
 }
 
 function closeCorrectionPanel() {

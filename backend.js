@@ -14261,11 +14261,15 @@ app.post('/api/marked-words/apply-correction', async (req, res) => {
     
     await correctInDirectory(searchPath);
     
-    // JSON-Lecture-Dateien korrigieren wenn gewünscht (steiner-full-lectures-*.json)
+    // JSON-Dateien korrigieren wenn gewünscht (Vorträge UND Bücher)
     if (includeHtml) { // Parameter heißt noch includeHtml, bedeutet jetzt aber +JSON
       try {
         const rootFiles = await fs.readdir(__dirname);
-        const jsonFiles = rootFiles.filter(f => f.startsWith('steiner-full-lectures') && f.endsWith('.json'));
+        // Vorträge UND Bücher
+        const jsonFiles = rootFiles.filter(f => 
+          (f.startsWith('steiner-full-lectures') || f.startsWith('steiner-books')) && 
+          f.endsWith('.json')
+        );
         
         for (const jsonFile of jsonFiles) {
           const jsonPath = path.join(__dirname, jsonFile);
