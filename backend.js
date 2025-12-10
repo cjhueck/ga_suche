@@ -2960,7 +2960,8 @@ function addClickableReferences(text, results) {
   });
   
   
-  const gaPattern = /\s*\(?(GA\d{3}[a-z]?\/\d+:\^?[a-z0-9]+)\)?\s*/gi;
+  // Pattern erkennt sowohl Vorträge (GA###/Y:index) als auch Bücher (GA###:^index)
+  const gaPattern = /\s*\(?(GA\d{3}[a-z]?(\/\d+)?:\^?[a-z0-9]+)\)?\s*/gi;
   
   let linkedText = text;
   const matches = [];
