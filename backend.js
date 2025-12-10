@@ -13907,9 +13907,135 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
 });
 
 // ============================================================================
-// API: MARKIERTE WÖRTER SPEICHERN
+// API: MARKIERTE WÖRTER (FEHLERHAFTE TEXTSTELLEN)
 // ============================================================================
 
+// GET: Alle markierten Wörter laden (JSON)
+app.get('/api/marked-words', async (req, res) => {
+  try {
+    const markedWordsFile = path.join(__dirname, 'marked-words.json');
+    
+    let markedWords = [];
+    try {
+      const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+      markedWords = JSON.parse(fileContent);
+    } catch (error) {
+      // Datei existiert noch nicht - leeres Array zurückgeben
+    }
+    
+    res.json(markedWords);
+  } catch (error) {
+    console.error('[MARKED-WORDS] Fehler beim Laden:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET: Marked-words als Datei herunterladen (für Online-Export)
+app.get('/api/marked-words/download', async (req, res) => {
+  try {
+    const markedWordsFile = path.join(__dirname, 'marked-words.json');
+    
+    let markedWords = [];
+    try {
+      const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+      markedWords = JSON.parse(fileContent);
+    } catch (error) {
+      // Datei existiert noch nicht
+    }
+    
+    const filename = `marked-words-${new Date().toISOString().split('T')[0]}.json`;
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(markedWords, null, 2));
+  } catch (error) {
+    console.error('[MARKED-WORDS] Download-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST: Markierte Wörter importieren (merge mit existierenden)
+app.post('/api/marked-words/import', async (req, res) => {
+  try {
+    const { words, mode } = req.body; // mode: 'merge' oder 'replace'
+    
+    if (!Array.isArray(words)) {
+      return res.status(400).json({ error: 'Ungültiges Format - Array erwartet' });
+    }
+    
+    const markedWordsFile = path.join(__dirname, 'marked-words.json');
+    
+    let existingWords = [];
+    if (mode !== 'replace') {
+      try {
+        const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+        existingWords = JSON.parse(fileContent);
+      } catch (error) {
+        // Datei existiert noch nicht
+      }
+    }
+    
+    // Merge: Füge nur neue Einträge hinzu (basierend auf word + gaTitle + timestamp)
+    let added = 0;
+    const existingKeys = new Set(existingWords.map(w => `${w.word}|${w.gaTitle}|${w.timestamp}`));
+    
+    for (const word of words) {
+      const key = `${word.word}|${word.gaTitle}|${word.timestamp}`;
+      if (!existingKeys.has(key)) {
+        existingWords.push(word);
+        existingKeys.add(key);
+        added++;
+      }
+    }
+    
+    await fs.writeFile(markedWordsFile, JSON.stringify(existingWords, null, 2), 'utf8');
+    
+    res.json({ 
+      success: true, 
+      imported: added,
+      total: existingWords.length,
+      message: mode === 'replace' 
+        ? `${words.length} Einträge importiert (ersetzt)` 
+        : `${added} neue Einträge hinzugefügt (${existingWords.length} gesamt)`
+    });
+  } catch (error) {
+    console.error('[MARKED-WORDS] Import-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// DELETE: Einzelnes markiertes Wort löschen
+app.delete('/api/marked-words/:index', async (req, res) => {
+  try {
+    const index = parseInt(req.params.index);
+    const markedWordsFile = path.join(__dirname, 'marked-words.json');
+    
+    let markedWords = [];
+    try {
+      const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+      markedWords = JSON.parse(fileContent);
+    } catch (error) {
+      return res.status(404).json({ error: 'Keine markierten Wörter gefunden' });
+    }
+    
+    if (index < 0 || index >= markedWords.length) {
+      return res.status(400).json({ error: 'Ungültiger Index' });
+    }
+    
+    const deleted = markedWords.splice(index, 1)[0];
+    await fs.writeFile(markedWordsFile, JSON.stringify(markedWords, null, 2), 'utf8');
+    
+    res.json({ 
+      success: true, 
+      deleted: deleted,
+      remaining: markedWords.length 
+    });
+  } catch (error) {
+    console.error('[MARKED-WORDS] Fehler beim Löschen:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST: Neues markiertes Wort speichern
 app.post('/api/save-marked-word', async (req, res) => {
   try {
     const { word, gaTitle, timestamp } = req.body;
@@ -13949,6 +14075,181 @@ app.post('/api/save-marked-word', async (req, res) => {
     
   } catch (error) {
     console.error('[MARKED-WORD] Fehler beim Speichern:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// ============================================================================
+// API: FEHLERKORREKTUR IN MD-DATEIEN
+// ============================================================================
+
+// Hilfsfunktion zum Escapen von Regex-Sonderzeichen
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// POST: Vorschau der Korrektur (zeigt wo der Fehler überall vorkommt)
+app.post('/api/marked-words/preview-correction', async (req, res) => {
+  try {
+    const { wrongText, gaTitle } = req.body;
+    
+    if (!wrongText) {
+      return res.status(400).json({ error: 'Fehlerhafter Text erforderlich' });
+    }
+    
+    const steinerGAPath = path.join(__dirname, 'Steiner_GA');
+    const results = [];
+    
+    // Parse GA-Nummer aus dem Titel (z.B. "GA117/3 - ...")
+    let targetFolder = null;
+    if (gaTitle) {
+      const gaMatch = gaTitle.match(/GA(\d+)/);
+      if (gaMatch) {
+        const gaNumber = gaMatch[1];
+        // Finde den passenden Ordner
+        const folders = await fs.readdir(steinerGAPath);
+        targetFolder = folders.find(f => f.startsWith(`GA${gaNumber}-`) || f.startsWith(`GA${gaNumber} `));
+      }
+    }
+    
+    // Suche in allen MD-Dateien (oder nur im Zielordner)
+    const searchPath = targetFolder ? path.join(steinerGAPath, targetFolder) : steinerGAPath;
+    
+    async function searchInDirectory(dirPath) {
+      const entries = await fs.readdir(dirPath, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dirPath, entry.name);
+        
+        if (entry.isDirectory()) {
+          await searchInDirectory(fullPath);
+        } else if (entry.name.endsWith('.md')) {
+          try {
+            const content = await fs.readFile(fullPath, 'utf8');
+            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), 'g')) || []).length;
+            
+            if (occurrences > 0) {
+              results.push({
+                file: fullPath.replace(steinerGAPath + path.sep, ''),
+                occurrences
+              });
+            }
+          } catch (err) {
+            console.error(`[CORRECTION] Fehler beim Lesen von ${fullPath}:`, err.message);
+          }
+        }
+      }
+    }
+    
+    await searchInDirectory(searchPath);
+    
+    // Zähle Gesamtvorkommen
+    const totalOccurrences = results.reduce((sum, r) => sum + r.occurrences, 0);
+    
+    res.json({
+      wrongText,
+      totalOccurrences,
+      fileCount: results.length,
+      files: results
+    });
+    
+  } catch (error) {
+    console.error('[CORRECTION] Preview-Fehler:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// POST: Korrektur durchführen
+app.post('/api/marked-words/apply-correction', async (req, res) => {
+  try {
+    const { wrongText, correctText, mode, gaTitle, markedWordIndex } = req.body;
+    // mode: 'single' (nur in der spezifischen GA) oder 'all' (überall)
+    
+    if (!wrongText || !correctText) {
+      return res.status(400).json({ error: 'Fehlerhafter und korrigierter Text erforderlich' });
+    }
+    
+    if (wrongText === correctText) {
+      return res.status(400).json({ error: 'Fehlerhafter und korrigierter Text sind identisch' });
+    }
+    
+    const steinerGAPath = path.join(__dirname, 'Steiner_GA');
+    const correctedFiles = [];
+    let totalCorrections = 0;
+    
+    // Parse GA-Nummer für single-mode
+    let targetFolder = null;
+    if (mode === 'single' && gaTitle) {
+      const gaMatch = gaTitle.match(/GA(\d+)/);
+      if (gaMatch) {
+        const gaNumber = gaMatch[1];
+        const folders = await fs.readdir(steinerGAPath);
+        targetFolder = folders.find(f => f.startsWith(`GA${gaNumber}-`) || f.startsWith(`GA${gaNumber} `));
+      }
+    }
+    
+    const searchPath = targetFolder ? path.join(steinerGAPath, targetFolder) : steinerGAPath;
+    
+    async function correctInDirectory(dirPath) {
+      const entries = await fs.readdir(dirPath, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = path.join(dirPath, entry.name);
+        
+        if (entry.isDirectory()) {
+          await correctInDirectory(fullPath);
+        } else if (entry.name.endsWith('.md')) {
+          try {
+            const content = await fs.readFile(fullPath, 'utf8');
+            const occurrences = (content.match(new RegExp(escapeRegExp(wrongText), 'g')) || []).length;
+            
+            if (occurrences > 0) {
+              const newContent = content.split(wrongText).join(correctText);
+              await fs.writeFile(fullPath, newContent, 'utf8');
+              
+              correctedFiles.push({
+                file: fullPath.replace(steinerGAPath + path.sep, ''),
+                corrections: occurrences
+              });
+              totalCorrections += occurrences;
+            }
+          } catch (err) {
+            console.error(`[CORRECTION] Fehler bei ${fullPath}:`, err.message);
+          }
+        }
+      }
+    }
+    
+    await correctInDirectory(searchPath);
+    
+    // Optional: Lösche den Eintrag aus marked-words.json wenn markedWordIndex angegeben
+    if (typeof markedWordIndex === 'number' && markedWordIndex >= 0) {
+      const markedWordsFile = path.join(__dirname, 'marked-words.json');
+      try {
+        const fileContent = await fs.readFile(markedWordsFile, 'utf8');
+        let markedWords = JSON.parse(fileContent);
+        if (markedWordIndex < markedWords.length) {
+          markedWords.splice(markedWordIndex, 1);
+          await fs.writeFile(markedWordsFile, JSON.stringify(markedWords, null, 2), 'utf8');
+        }
+      } catch (err) {
+        console.error('[CORRECTION] Fehler beim Löschen aus marked-words:', err.message);
+      }
+    }
+    
+    res.json({
+      success: true,
+      wrongText,
+      correctText,
+      mode,
+      totalCorrections,
+      fileCount: correctedFiles.length,
+      files: correctedFiles,
+      message: `${totalCorrections} Korrektur${totalCorrections !== 1 ? 'en' : ''} in ${correctedFiles.length} Datei${correctedFiles.length !== 1 ? 'en' : ''} durchgeführt`
+    });
+    
+  } catch (error) {
+    console.error('[CORRECTION] Fehler:', error);
     res.status(500).json({ error: error.message });
   }
 });
