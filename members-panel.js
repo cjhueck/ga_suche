@@ -9516,35 +9516,3 @@ async function updateMembersPanelIfOpen(tabName = null, forceUpdate = false) {
 window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
 window.invalidateMembersCache = invalidateMembersCache;
 
-// ===== Sync Listener - Synchronisiert mit members.html =====
-// Hört auf localStorage-Events von anderen Tabs/Fenstern
-window.addEventListener('storage', async (e) => {
-  if (e.key === 'members-data-sync' && e.newValue) {
-    try {
-      const syncData = JSON.parse(e.newValue);
-      console.log('[MB-SYNC] Sync-Event empfangen:', syncData);
-      
-      // Prüfe ob Members Panel aktiv ist
-      if (typeof membersPanelActive === 'undefined' || !membersPanelActive) {
-        // Panel nicht aktiv - nur Cache invalidieren für späteren Refresh
-        invalidateMembersCache(syncData.type === 'all' ? 'all' : syncData.type);
-        return;
-      }
-      
-      // Invalidiere Cache
-      invalidateMembersCache(syncData.type === 'all' ? 'all' : syncData.type);
-      
-      // Lade aktuellen Tab neu
-      if (currentMembersTab === 'quotes' || currentMembersTab === 'highlights' || currentMembersTab === 'notes') {
-        await loadMembersTab(currentMembersTab);
-      }
-      
-      // Aktualisiere Filter-Dropdowns
-      await updateKeywordFilterDropdownWithAllKeywords();
-      await updateGroupFilterDropdownWithAllGroups();
-    } catch (error) {
-      console.warn('[MB-SYNC] Fehler bei Sync:', error);
-    }
-  }
-});
-

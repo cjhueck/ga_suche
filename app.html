@@ -17463,6 +17463,12 @@ function showSummaryView() {
     }
 
     function addHighlightingWithAutoRemove(element) {
+      // WICHTIG: Bei Navigation aus Members Panel KEIN Absatz-Highlighting anwenden
+      if (window.membersNavigating === true) {
+        console.log('[HIGHLIGHT] Members Navigation aktiv - überspringe Absatz-Highlighting');
+        return;
+      }
+      
       // Entferne vorherige Markierung und Timer (ohne Fade-Out)
       clearPreviousHighlighting();
       
