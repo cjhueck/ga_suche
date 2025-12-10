@@ -4538,12 +4538,10 @@ async function saveMemberNote() {
 
 /**
  * Zeigt Dialog für Keywords beim Erstellen einer neuen Notiz
+ * Strukturiert wie das Modal für Unterstreichungen/Anstreichungen (ohne Farbauswahl)
  */
 function showNoteKeywordsDialog(content) {
   return new Promise((resolve) => {
-    // Hole vorausgewählte Farbe aus Kontextdaten (vom Context-Menü)
-    const preselectedColor = (window.noteContextData && window.noteContextData.color) || 'blue';
-    
     // Erstelle Dialog
     const dialog = document.createElement('div');
     dialog.className = 'keyword-dialog-overlay';
@@ -4552,11 +4550,6 @@ function showNoteKeywordsDialog(content) {
     let previewContent = content;
     previewContent = previewContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
     previewContent = previewContent.replace(/^["']\s*/, '').trim();
-    
-    // Bestimme welcher Button vorausgewählt ist
-    const isBlueSelected = preselectedColor === 'blue';
-    const isRedSelected = preselectedColor === 'red';
-    const isYellowSelected = preselectedColor === 'yellow';
     
     dialog.innerHTML = `
       <div class="keyword-dialog">
@@ -4570,13 +4563,7 @@ function showNoteKeywordsDialog(content) {
           <div class="keyword-hint">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
           <label for="note-keyword-input" style="margin-top: 0.75rem; display: block;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="note-keyword-input" value="" placeholder="z.B. Karma, Reinkarnation, Ätherleib" />
-          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern und Wiederfinden</div>
-          <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
-          <div class="note-color-selection" style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-            <button type="button" class="note-color-btn ${isBlueSelected ? 'selected' : ''}" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isBlueSelected ? '#467886' : 'transparent'}; background-color: #467886; cursor: pointer;" title="Blau"></button>
-            <button type="button" class="note-color-btn ${isRedSelected ? 'selected' : ''}" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isRedSelected ? '#c62828' : 'transparent'}; background-color: #c62828; cursor: pointer;" title="Rot"></button>
-            <button type="button" class="note-color-btn ${isYellowSelected ? 'selected' : ''}" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isYellowSelected ? '#ffc107' : 'transparent'}; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
-          </div>
+          <div class="keyword-hint">Schlagwörter helfen beim späteren Filtern</div>
         </div>
         <div class="keyword-dialog-footer">
           <button class="keyword-dialog-btn keyword-dialog-cancel">Abbrechen</button>
@@ -4586,21 +4573,6 @@ function showNoteKeywordsDialog(content) {
     `;
     
     document.body.appendChild(dialog);
-    
-    // Farbauswahl-Logik
-    let selectedColor = preselectedColor;
-    const colorBtns = dialog.querySelectorAll('.note-color-btn');
-    colorBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        colorBtns.forEach(b => {
-          b.style.border = '2px solid transparent';
-          b.classList.remove('selected');
-        });
-        btn.style.border = `2px solid ${btn.style.backgroundColor}`;
-        btn.classList.add('selected');
-        selectedColor = btn.getAttribute('data-color');
-      });
-    });
     
     // Focus auf Gruppen-Input
     const groupInput = dialog.querySelector('#note-group-input');
@@ -4616,7 +4588,7 @@ function showNoteKeywordsDialog(content) {
         groups: groups,
         keywords: keywords,
         content: content,
-        color: selectedColor
+        color: 'blue' // Standardfarbe für Notizen
       });
     };
     
@@ -4628,15 +4600,24 @@ function showNoteKeywordsDialog(content) {
     dialog.querySelector('.keyword-dialog-save').addEventListener('click', handleSave);
     dialog.querySelector('.keyword-dialog-cancel').addEventListener('click', handleCancel);
     
-    // Enter-Taste zum Speichern
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+    // Enter-Taste zum Speichern (in jedem Input-Feld)
+    const handleEnterKey = (e) => {
+      if (e.key === 'Enter') {
         e.preventDefault();
         handleSave();
       }
-    });
+    };
+    groupInput.addEventListener('keydown', handleEnterKey);
+    input.addEventListener('keydown', handleEnterKey);
     
     // ESC zum Abbrechen
+    dialog.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        handleCancel();
+      }
+    });
+    
+    // Click auf Overlay schließt Dialog
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) {
         handleCancel();

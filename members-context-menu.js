@@ -1457,11 +1457,15 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
     return;
   }
   
-  const { keywords, selectedColor } = dialogResult;
+  const { groups, keywords, selectedColor } = dialogResult;
   const tags = keywords
     .split(',')
     .map(kw => kw.trim())
     .filter(kw => kw.length > 0);
+  const groupsArray = groups
+    .split(',')
+    .map(g => g.trim().toUpperCase())
+    .filter(g => g.length > 0);
   
   // Erstelle Content mit GA-Referenz für die Extraktion
   const gaRef = lectureId ? `[[${lectureId.split('/')[0]}]]` : '';
@@ -1481,9 +1485,9 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
     lectureDate = getCurrentLectureDate(lectureId);
   }
   
-  // Speichere Notiz
-  console.log('[MB-NOTE-SAVE] Speichere Notiz mit:', { paragraphId, textStartOffset, textEndOffset, selectedColor });
-  const result = await createNote(title, content, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, selectedColor);
+  // Speichere Notiz mit Gruppen
+  console.log('[MB-NOTE-SAVE] Speichere Notiz mit:', { paragraphId, textStartOffset, textEndOffset, selectedColor, groupsArray });
+  const result = await createNote(title, content, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, selectedColor, groupsArray.length > 0 ? groupsArray : null);
   
   console.log('[MB-NOTE-SAVE] Ergebnis:', result);
   
@@ -1678,17 +1682,13 @@ function addNoteBookmarkToViewer(paragraphId, noteData, color) {
 
 /**
  * Dialog für Notiz-Keywords aus Context-Menü
+ * Strukturiert wie das Modal für Unterstreichungen/Anstreichungen (ohne Farbauswahl)
  */
 function showContextNoteDialog(text, preselectedColor = 'blue') {
   return new Promise((resolve) => {
     const dialog = document.createElement('div');
     dialog.className = 'keyword-dialog-overlay';
     dialog.style.zIndex = '10010';
-    
-    // Bestimme welcher Button vorausgewählt ist
-    const isBlueSelected = preselectedColor === 'blue';
-    const isRedSelected = preselectedColor === 'red';
-    const isYellowSelected = preselectedColor === 'yellow';
     
     dialog.innerHTML = `
       <div class="keyword-dialog" style="max-width: 500px;">
@@ -1697,15 +1697,12 @@ function showContextNoteDialog(text, preselectedColor = 'blue') {
         </div>
         <div class="keyword-dialog-body">
           <div class="keyword-preview" style="max-height: 100px; overflow: hidden;">"${text.substring(0, 200)}${text.length > 200 ? '...' : ''}"</div>
-          <label for="context-note-keyword-input">Keywords (optional, durch Komma getrennt):</label>
+          <label for="context-note-group-input">Gruppen (optional, durch Komma getrennt):</label>
+          <input type="text" id="context-note-group-input" value="" placeholder="z.B. Christologie, Kosmologie, Anthropologie" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; margin-top: 0.25rem; text-transform: uppercase;" />
+          <div class="keyword-hint" style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Gruppen werden in GROSSBUCHSTABEN angezeigt und kategorisieren thematisch</div>
+          <label for="context-note-keyword-input" style="margin-top: 0.75rem; display: block;">Schlagwörter (optional, durch Komma getrennt):</label>
           <input type="text" id="context-note-keyword-input" value="" placeholder="z.B. Karma, Reinkarnation, Ätherleib" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 4px; margin-top: 0.25rem;" />
-          <div class="keyword-hint" style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Keywords helfen beim späteren Filtern</div>
-          <label style="margin-top: 0.75rem; display: block;">Farbe:</label>
-          <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
-            <button type="button" class="note-color-btn ${isBlueSelected ? 'selected' : ''}" data-color="blue" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isBlueSelected ? '#467886' : 'transparent'}; background-color: #467886; cursor: pointer;" title="Blau"></button>
-            <button type="button" class="note-color-btn ${isRedSelected ? 'selected' : ''}" data-color="red" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isRedSelected ? '#c62828' : 'transparent'}; background-color: #c62828; cursor: pointer;" title="Rot"></button>
-            <button type="button" class="note-color-btn ${isYellowSelected ? 'selected' : ''}" data-color="yellow" style="width: 28px; height: 28px; border-radius: 50%; border: 2px solid ${isYellowSelected ? '#ffc107' : 'transparent'}; background-color: #ffc107; cursor: pointer;" title="Gelb"></button>
-          </div>
+          <div class="keyword-hint" style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Schlagwörter helfen beim späteren Filtern</div>
         </div>
         <div class="keyword-dialog-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
           <button class="keyword-dialog-btn keyword-dialog-cancel" style="padding: 0.5rem 1rem; cursor: pointer;">Abbrechen</button>
@@ -1716,32 +1713,20 @@ function showContextNoteDialog(text, preselectedColor = 'blue') {
     
     document.body.appendChild(dialog);
     
-    // Farbauswahl-Logik
-    let selectedColor = preselectedColor;
-    const colorBtns = dialog.querySelectorAll('.note-color-btn');
-    colorBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        colorBtns.forEach(b => {
-          b.style.border = '2px solid transparent';
-          b.classList.remove('selected');
-        });
-        btn.style.border = `2px solid ${btn.style.backgroundColor}`;
-        btn.classList.add('selected');
-        selectedColor = btn.getAttribute('data-color');
-      });
-    });
-    
-    // Focus auf Input
-    const input = dialog.querySelector('#context-note-keyword-input');
-    setTimeout(() => input.focus(), 100);
+    // Focus auf Gruppen-Input
+    const groupInput = dialog.querySelector('#context-note-group-input');
+    const keywordInput = dialog.querySelector('#context-note-keyword-input');
+    setTimeout(() => groupInput.focus(), 100);
     
     // Event Handler
     const handleSave = () => {
-      const keywords = input.value.trim();
+      const groups = groupInput.value.trim();
+      const keywords = keywordInput.value.trim();
       dialog.remove();
       resolve({
+        groups: groups,
         keywords: keywords,
-        selectedColor: selectedColor
+        selectedColor: 'blue' // Standardfarbe für Notizen
       });
     };
     
@@ -1753,13 +1738,15 @@ function showContextNoteDialog(text, preselectedColor = 'blue') {
     dialog.querySelector('.keyword-dialog-save').addEventListener('click', handleSave);
     dialog.querySelector('.keyword-dialog-cancel').addEventListener('click', handleCancel);
     
-    // Enter zum Speichern
-    input.addEventListener('keydown', (e) => {
+    // Enter zum Speichern (in beiden Input-Feldern)
+    const handleEnterKey = (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         handleSave();
       }
-    });
+    };
+    groupInput.addEventListener('keydown', handleEnterKey);
+    keywordInput.addEventListener('keydown', handleEnterKey);
     
     // ESC zum Abbrechen
     dialog.addEventListener('keydown', (e) => {
