@@ -31,7 +31,7 @@ Ein Urteil über den Inhalt eines solchen Privatdruckes wird ja allerdings nur d
 
 Um sich in den Vorträgen Steiners leicht orientieren zu können, erhielt jeder Vortrag eine Zusammenfassung und wurde durch Zwischenüberschriften gegliedert. Zusammenfassungen und Zwischenüberschriften wurden mit Hilfe von KI generiert und anschließend überprüft.  
 
-Einige Bände der Gesamtausgabe wurden hier nicht aufgenommen. Dazu gehören u.a. GA270a, b, c mit den Texten der sogenannten „Klassenstunden“. Andere fehlende Bände werden noch ergänzt. 
+Einige Bände der Gesamtausgabe wurden hier nicht aufgenommen. Dazu gehören u.a. GA270a, b, c mit den Texten der sogenannten „Klassenstunden“. Weggelassen wurden auch die ausführlichen Dokumentationen der Generalversammlungen der Theosophischen Gesellschaft (GA250), der Versammlungen und Vorarbeiten zur Gründung der Anthroposophischen Gesellschaft (GA251), des Johannesbau-Vereins und des Goetheanums (GA252), der Allgemeinen Anthroposophischen Gesellschaft (GA259), sowie des esoterischen Jugendkreises (GA266c). Andere fehlende Bände werden noch ergänzt.
 
 Für detaillierte Beschreibung der verschiedenen Suchfunktionen siehe         <a href="#" onclick="event.preventDefault(); openHelpModal();">Anleitung</a>
 
