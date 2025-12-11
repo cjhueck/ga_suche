@@ -5035,10 +5035,16 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 <div class="tab-content active" id="ga-tab">
 <div style="padding: 0.2rem;">
 <!-- View Toggle Buttons -->
-<div id="ga-view-toggle" style="display: flex; gap: 8px; margin-bottom: 0.5rem;">
-<button id="ga-chronological-view-btn" class="depth-btn" onclick="showGAChronologicalView()" style="padding: 8px; font-size: 0.85em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color);">
+<div id="ga-view-toggle" style="display: flex; gap: 8px; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
+<button id="ga-chronological-view-btn" class="depth-btn" onclick="toggleChronologicalView()" style="padding: 8px; font-size: 0.85em; background: var(--accent-color); color: white; border: 1px solid var(--accent-color); flex-shrink: 0;">
 Chronologisch
 </button>
+<select id="ga-year-filter-dropdown" class="filter-dropdown" onchange="handleYearFilterChange(this.value)" style="display: none; padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; width: 90px; flex-shrink: 0;">
+<option value="">Jahr</option>
+</select>
+<select id="ga-band-filter-dropdown" class="filter-dropdown" onchange="handleGABandFilterChange(this.value)" style="padding: 8px; font-size: 0.85em; border: 1.5px solid var(--accent-color); border-radius: 4px; background: var(--background-color); color: var(--text-color); cursor: pointer; flex: 1; min-width: 0; max-width: 100%;">
+<option value="">Alle GA-Bände</option>
+</select>
 </div>
 <div id="ga-volumes-info" style="font-size: 0.9em; color: var(--text-color);">
 <span id="ga-volumes-count">--</span>
@@ -9127,6 +9133,9 @@ let summaryDatabaseCache = null;
 let currentGANumber = null; // Speichert aktuell angezeigten GA-Band
 let gaVolumesLoading = false; // Verhindert doppeltes Laden
 let gaVolumesRetryCount = 0; // Zählt Retry-Versuche
+let selectedGABandFilter = null; // Filter für GA-Band-Auswahl im GA-Tab
+let selectedYearFilter = null; // Filter für Jahr-Auswahl im GA-Tab
+let allChronologicalLectures = null; // Speichert alle geladenen chronologischen Vorträge
 
 // Funktion: Lade GA-Bände im Sidebar
 async function loadGAVolumesInSidebar(retryAttempt = 0) {
@@ -9146,6 +9155,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
       console.warn('[GA-TAB] Results-DIV noch nicht bereit, warte...');
       await new Promise(resolve => setTimeout(resolve, 100));
     }
+    
+    // Befülle Dropdown mit GA-Bänden
+    populateGABandFilterDropdown();
     
     displayGAVolumesInSidebar();
     
@@ -9211,6 +9223,9 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
         lectureCount: volumeInfo ? volumeInfo.lectureCount : 0
       };
     });
+    
+    // Befülle Dropdown mit GA-Bänden
+    populateGABandFilterDropdown();
     
     // Zeige GA-Bände im Sidebar (im #results Bereich)
     displayGAVolumesInSidebar();
@@ -9282,31 +9297,350 @@ function displayGAVolumesInSidebar() {
     return;
   }
   
+  // Filtere nach ausgewähltem GA-Band falls Filter aktiv
+  let filteredData = gaVolumesData;
+  if (selectedGABandFilter) {
+    filteredData = gaVolumesData.filter(ga => {
+      return ga.number.toLowerCase() === selectedGABandFilter.toLowerCase();
+    });
+  }
+  
   let html = '';
   
-  gaVolumesData.forEach(ga => {
-    html += `
-      <div style="margin-bottom: 0.4rem;">
-        <a href="#" 
-           class="ga-volume-link"
-           onclick="showGALectures('${ga.number}'); return false;"
-           style="
-             font-weight: bold; 
-             text-decoration: none;
-             font-size: 0.9rem;
-             display: block;
-             padding: 0.1rem 0;
-           "
-           onmouseover="this.style.textDecoration='underline'"
-           onmouseout="this.style.textDecoration='none'">
-          ${formatLectureId(ga.number)} - ${ga.title}
-        </a>
-      </div>
-    `;
-  });
+  if (filteredData.length === 0 && gaVolumesData.length > 0) {
+    html = '<div style="padding: 1rem; color: var(--secondary-text); font-style: italic;">Keine GA-Bände für die Auswahl gefunden</div>';
+  } else {
+    filteredData.forEach(ga => {
+      html += `
+        <div style="margin-bottom: 0.4rem;">
+          <a href="#" 
+             class="ga-volume-link"
+             onclick="showGALectures('${ga.number}'); return false;"
+             style="
+               font-weight: bold; 
+               text-decoration: none;
+               font-size: 0.9rem;
+               display: block;
+               padding: 0.1rem 0;
+             "
+             onmouseover="this.style.textDecoration='underline'"
+             onmouseout="this.style.textDecoration='none'">
+            ${formatLectureId(ga.number)} - ${ga.title}
+          </a>
+        </div>
+      `;
+    });
+  }
   
   resultsDiv.innerHTML = html;
   }
+
+// Funktion: Befülle GA-Band-Filter-Dropdown
+function populateGABandFilterDropdown() {
+  const dropdown = document.getElementById('ga-band-filter-dropdown');
+  if (!dropdown) {
+    console.warn('[GA-TAB] Dropdown nicht gefunden');
+    return;
+  }
+  
+  // Speichere aktuellen Wert
+  const currentValue = dropdown.value;
+  
+  // Leere Dropdown (außer "Alle GA-Bände" Option)
+  dropdown.innerHTML = '<option value="">Alle GA-Bände</option>';
+  
+  // Sortiere GA-Bände nach Nummer
+  const sortedGAs = [...gaVolumesData].sort((a, b) => {
+    const numA = parseInt(a.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
+    const numB = parseInt(b.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
+    if (numA !== numB) return numA - numB;
+    // Bei gleicher Nummer: alphabetisch nach Suffix
+    return a.number.localeCompare(b.number);
+  });
+  
+  // Füge GA-Bände hinzu
+  sortedGAs.forEach(ga => {
+    const option = document.createElement('option');
+    option.value = ga.number;
+    option.textContent = `${ga.number} - ${ga.title}`;
+    dropdown.appendChild(option);
+  });
+  
+  // Stelle vorherigen Wert wieder her falls vorhanden
+  if (currentValue) {
+    dropdown.value = currentValue;
+  }
+}
+
+// Funktion: Toggle zwischen "Chronologisch" (alle Bände) und gefilterter Ansicht
+function toggleChronologicalView() {
+  const gaBandDropdown = document.getElementById('ga-band-filter-dropdown');
+  const yearDropdown = document.getElementById('ga-year-filter-dropdown');
+  const btn = document.getElementById('ga-chronological-view-btn');
+  
+  // Prüfe ob irgendein Filter aktiv ist
+  if (selectedGABandFilter || selectedYearFilter) {
+    // Filter sind aktiv -> Zurücksetzen auf "Alle Bände"
+    console.log('[GA-TOGGLE] Setze alle Filter zurück');
+    
+    // GA-Band Dropdown auf Default zurücksetzen
+    if (gaBandDropdown) {
+      gaBandDropdown.value = '';
+    }
+    selectedGABandFilter = null;
+    
+    // Jahr Dropdown auf Default zurücksetzen
+    if (yearDropdown) {
+      yearDropdown.value = '';
+    }
+    selectedYearFilter = null;
+    
+    // Button-Text zurücksetzen
+    if (btn) {
+      btn.textContent = 'Chronologisch';
+    }
+    
+    // Alle Bände im Sidebar anzeigen
+    displayGAVolumesInSidebar();
+    
+    // Alle Vorträge chronologisch anzeigen (ohne Filter)
+    if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+      displayGAChronological(allChronologicalLectures);
+    } else {
+      showGAChronologicalView(true);
+    }
+  } else {
+    // Keine Filter aktiv -> Chronologische Ansicht anzeigen
+    console.log('[GA-TOGGLE] Zeige chronologische Ansicht');
+    showGAChronologicalView();
+  }
+}
+
+// Funktion: Aktualisiere Button-Text basierend auf Dropdown-Auswahl
+function updateChronologicalButtonText() {
+  const btn = document.getElementById('ga-chronological-view-btn');
+  if (btn) {
+    btn.textContent = (selectedGABandFilter || selectedYearFilter) ? 'Alle Bände' : 'Chronologisch';
+  }
+}
+
+// Funktion: Befülle Jahr-Filter-Dropdown mit verfügbaren Jahren
+function populateYearFilterDropdown() {
+  const dropdown = document.getElementById('ga-year-filter-dropdown');
+  if (!dropdown) return;
+  
+  // Speichere aktuellen Wert
+  const currentValue = dropdown.value;
+  
+  // Leere das Dropdown und füge Default-Option hinzu
+  dropdown.innerHTML = '<option value="">Jahr</option>';
+  
+  // Wenn chronologische Vorträge geladen sind, extrahiere die Jahre
+  if (allChronologicalLectures && allChronologicalLectures.length > 0) {
+    const years = new Set();
+    allChronologicalLectures.forEach(lecture => {
+      if (lecture.date) {
+        const year = new Date(lecture.date).getFullYear();
+        if (!isNaN(year)) {
+          years.add(year);
+        }
+      }
+    });
+    
+    // Sortiere Jahre aufsteigend
+    const sortedYears = Array.from(years).sort((a, b) => a - b);
+    
+    // Füge Jahre zum Dropdown hinzu
+    sortedYears.forEach(year => {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      dropdown.appendChild(option);
+    });
+    
+    // Stelle vorherigen Wert wieder her falls vorhanden
+    if (currentValue && sortedYears.includes(parseInt(currentValue))) {
+      dropdown.value = currentValue;
+    }
+  }
+}
+
+// Funktion: Behandle Änderung im Jahr-Filter-Dropdown
+function handleYearFilterChange(value) {
+  selectedYearFilter = value ? parseInt(value) : null;
+  console.log('[YEAR-FILTER] Jahr geändert zu:', selectedYearFilter);
+  
+  // Aktualisiere Button-Text
+  updateChronologicalButtonText();
+  
+  // Prüfe ob wir im GA-Tab sind und die chronologische Ansicht aktiv ist
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab) {
+    console.log('[YEAR-FILTER] Nicht im GA-Tab, keine Aktualisierung');
+    return;
+  }
+  
+  // Prüfe ob chronologische Ansicht aktiv ist
+  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+  const hasChronologicalWrapper = chronologicalViewerContent !== null;
+  const isChronologicalViewActive = (currentGAView === 'chronological') || hasChronologicalWrapper;
+  
+  if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
+    console.log('[YEAR-FILTER] Filtere Vorträge nach Jahr');
+    
+    // WICHTIG: Setze currentGAView explizit
+    currentGAView = 'chronological';
+    
+    // Filtere die Vorträge
+    let filteredLectures = allChronologicalLectures;
+    
+    // Filter nach Jahr
+    if (selectedYearFilter) {
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.date) return false;
+        const year = new Date(lecture.date).getFullYear();
+        return year === selectedYearFilter;
+      });
+      console.log('[YEAR-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
+    }
+    
+    // Filter nach GA-Band (falls auch ausgewählt)
+    if (selectedGABandFilter) {
+      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.gaNumber) return false;
+        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
+        return normalizedLectureGA === normalizedFilter;
+      });
+      console.log('[YEAR-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge');
+    }
+    
+    // Zeige gefilterte Vorträge an
+    displayGAChronological(filteredLectures);
+  } else if (isChronologicalViewActive) {
+    // Lade Ansicht neu
+    showGAChronologicalView(true);
+  }
+}
+
+// Funktion: Behandle Änderung im GA-Band-Filter-Dropdown
+function handleGABandFilterChange(value) {
+  selectedGABandFilter = value || null;
+  console.log('[GA-FILTER] ===== FUNKTION WIRD AUFGERUFEN =====');
+  console.log('[GA-FILTER] Dropdown geändert zu:', selectedGABandFilter);
+  
+  // Aktualisiere Button-Text
+  updateChronologicalButtonText();
+  
+  // Aktualisiere GA-Liste im Sidebar
+  displayGAVolumesInSidebar();
+  
+  // Prüfe ob wir im GA-Tab sind
+  const gaTab = document.getElementById('ga-tab');
+  const isInGATab = gaTab && gaTab.classList.contains('active');
+  
+  if (!isInGATab) {
+    console.log('[GA-FILTER] Nicht im GA-Tab, keine Aktualisierung');
+    return;
+  }
+  
+  // Prüfe ob chronologische Ansicht aktiv ist - einfache und direkte Prüfung
+  const titleElement = document.getElementById('document-title');
+  const viewer = document.getElementById('viewer');
+  const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+  // Verwende entweder viewer oder chronological-viewer-content für die Prüfung
+  const targetElement = chronologicalViewerContent || viewer;
+  
+  const hasChronologicalTitle = titleElement && titleElement.textContent.includes('Vorträge chronologisch');
+  const hasChronologicalLinks = targetElement && targetElement.querySelector('.chronological-lecture-link') !== null;
+  const hasChronologicalTable = targetElement && targetElement.querySelector('table thead th') && 
+                                 targetElement.querySelector('table thead th').textContent.includes('Jahr');
+  // Wenn chronological-viewer-content existiert, ist die chronologische Ansicht definitiv aktiv
+  const hasChronologicalWrapper = chronologicalViewerContent !== null;
+  
+  const isChronologicalViewActive = (currentGAView === 'chronological') || 
+                                     hasChronologicalTitle || 
+                                     hasChronologicalTable ||
+                                     hasChronologicalLinks ||
+                                     hasChronologicalWrapper;
+  
+  console.log('[GA-FILTER] Prüfung:', {
+    isInGATab: isInGATab,
+    currentGAView: currentGAView,
+    hasChronologicalTitle: hasChronologicalTitle,
+    hasChronologicalTable: hasChronologicalTable,
+    hasChronologicalLinks: hasChronologicalLinks,
+    hasChronologicalWrapper: hasChronologicalWrapper,
+    isChronologicalViewActive: isChronologicalViewActive,
+    allChronologicalLectures: allChronologicalLectures ? allChronologicalLectures.length : 0
+  });
+  
+  // Wenn chronologische Ansicht aktiv ist UND wir bereits Vorträge geladen haben,
+  // filtere sie direkt ohne neu zu laden
+  if (isChronologicalViewActive && allChronologicalLectures && allChronologicalLectures.length > 0) {
+    console.log('[GA-FILTER] Filtere bereits geladene Vorträge direkt');
+    
+    // WICHTIG: Setze currentGAView explizit auf 'chronological', damit Jahr-Buttons nicht entfernt werden
+    currentGAView = 'chronological';
+    
+    // Filtere die bereits geladenen Vorträge
+    let filteredLectures = allChronologicalLectures;
+    
+    // Filter nach GA-Band
+    if (selectedGABandFilter) {
+      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.gaNumber) return false;
+        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
+        return normalizedLectureGA === normalizedFilter;
+      });
+      console.log('[GA-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge für', normalizedFilter);
+    }
+    
+    // Filter nach Jahr (falls auch ausgewählt)
+    if (selectedYearFilter) {
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.date) return false;
+        const year = new Date(lecture.date).getFullYear();
+        return year === selectedYearFilter;
+      });
+      console.log('[GA-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
+    }
+    
+    // WICHTIG: Entferne das alte Layout komplett, damit es neu erstellt wird
+    const existingWrapper = document.getElementById('chronological-year-nav-wrapper');
+    if (existingWrapper && existingWrapper.parentNode) {
+      const newViewer = document.createElement('div');
+      newViewer.id = 'viewer';
+      newViewer.className = 'viewer';
+      existingWrapper.parentNode.replaceChild(newViewer, existingWrapper);
+      const mainEl = document.getElementById('main');
+      if (mainEl) {
+        mainEl.style.overflow = '';
+        mainEl.style.height = '';
+      }
+    }
+    
+    // Zeige gefilterte Vorträge an - Layout wird komplett neu erstellt
+    displayGAChronological(filteredLectures);
+  } 
+  // Wenn chronologische Ansicht aktiv ist aber keine Vorträge geladen sind,
+  // oder wenn wir im GA-Tab sind und ein Filter gesetzt wird,
+  // lade die Ansicht neu
+  else if (isChronologicalViewActive || (isInGATab && selectedGABandFilter)) {
+    console.log('[GA-FILTER] Aktualisiere chronologische Ansicht mit Filter:', selectedGABandFilter);
+    // Setze currentGAView explizit, falls es nicht gesetzt ist
+    if (!currentGAView || currentGAView !== 'chronological') {
+      currentGAView = 'chronological';
+    }
+    // Rufe showGAChronologicalView auf, um die Ansicht neu zu laden und zu filtern
+    showGAChronologicalView(true); // skipHistory = true, um History-Eintrag zu vermeiden
+  } else {
+    console.log('[GA-FILTER] Chronologische Ansicht nicht aktiv, keine Aktualisierung');
+  }
+}
 
 // Funktion: Zeige GA-Bände im Tab-Content (Fallback)
 function displayGAVolumesInTabContent() {
@@ -11729,34 +12063,97 @@ async function showGAChronologicalView(skipHistory = false) {
   
   // Lade alle Vorträge chronologisch
   try {
+    // Prüfe ob chronologische Ansicht bereits existiert (Wrapper ersetzt viewer)
     const viewer = document.getElementById('viewer');
-    viewer.innerHTML = '<p style="color: #666; font-style: italic;">Lade chronologische Übersicht...</p>';
+    const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+    const targetElement = chronologicalViewerContent || viewer;
+    
+    if (targetElement) {
+      targetElement.innerHTML = '<p style="color: #666; font-style: italic;">Lade chronologische Übersicht...</p>';
+    }
     
     const titleElement = document.getElementById('document-title');
-    titleElement.textContent = 'Vorträge chronologisch';
+    let titleText = 'Vorträge chronologisch';
+    if (selectedGABandFilter) {
+      titleText = `Vorträge chronologisch - ${selectedGABandFilter}`;
+    }
+    titleElement.textContent = titleText;
     
     
     const response = await fetch(`${API_BASE}/api/lectures/chronological`);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     
     const data = await response.json();
-    displayGAChronological(data.lectures);
+    
+    // Speichere alle Vorträge für spätere Filterung
+    allChronologicalLectures = data.lectures;
+    
+    // Befülle das Jahr-Filter-Dropdown
+    populateYearFilterDropdown();
+    
+    // Filtere nach ausgewähltem GA-Band und/oder Jahr
+    let filteredLectures = data.lectures;
+    
+    // Filter nach GA-Band
+    if (selectedGABandFilter) {
+      const normalizedFilter = normalizeGANumber(selectedGABandFilter);
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.gaNumber) return false;
+        const normalizedLectureGA = normalizeGANumber(lecture.gaNumber);
+        return normalizedLectureGA === normalizedFilter;
+      });
+      console.log('[GA-FILTER] Nach GA-Band gefiltert:', filteredLectures.length, 'Vorträge für', normalizedFilter);
+    }
+    
+    // Filter nach Jahr
+    if (selectedYearFilter) {
+      filteredLectures = filteredLectures.filter(lecture => {
+        if (!lecture.date) return false;
+        const year = new Date(lecture.date).getFullYear();
+        return year === selectedYearFilter;
+      });
+      console.log('[GA-FILTER] Nach Jahr gefiltert:', filteredLectures.length, 'Vorträge für Jahr', selectedYearFilter);
+    }
+    
+    displayGAChronological(filteredLectures);
     
   } catch (error) {
     console.error('Fehler beim Laden der chronologischen Ansicht:', error);
     const viewer = document.getElementById('viewer');
-    viewer.innerHTML = `
-      <div class="error-message">
-        <strong>Fehler beim Laden der chronologischen Ansicht:</strong><br>${error.message}
-      </div>
-    `;
+    const chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+    const errorTarget = chronologicalViewerContent || viewer;
+    if (errorTarget) {
+      errorTarget.innerHTML = `
+        <div class="error-message">
+          <strong>Fehler beim Laden der chronologischen Ansicht:</strong><br>${error.message}
+        </div>
+      `;
+    }
   }
 }
 
 // Zeige chronologisches Grid
 function displayGAChronological(lectures) {
-  const viewer = document.getElementById('viewer');
+  // Prüfe ob chronologische Ansicht bereits existiert (Wrapper ersetzt viewer)
+  let viewer = document.getElementById('viewer');
+  let chronologicalViewerContent = document.getElementById('chronological-viewer-content');
+  
+  // Wenn chronological-viewer-content existiert, verwende dieses statt viewer
+  // Das passiert, wenn die chronologische Ansicht bereits angezeigt wurde und das viewer-Element ersetzt wurde
+  let targetElement = chronologicalViewerContent || viewer;
+  
   const titleElement = document.getElementById('document-title');
+  
+  // Sicherheitsprüfung: Prüfe ob target element existiert
+  if (!targetElement) {
+    console.error('[GA-FILTER] Weder Viewer noch chronological-viewer-content Element gefunden!');
+    return;
+  }
+  
+  if (!titleElement) {
+    console.error('[GA-FILTER] Title-Element nicht gefunden!');
+    return;
+  }
   
   // Entferne alle alten Jahres-Buttons aus anderen Ansichten
   const oldButtonsContainer = document.querySelector('.ga-year-buttons-container');
@@ -11765,13 +12162,17 @@ function displayGAChronological(lectures) {
   }
   
   if (!lectures || lectures.length === 0) {
-    viewer.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
+    targetElement.innerHTML = '<p style="color: #666; font-style: italic;">Keine Vorträge gefunden.</p>';
     titleElement.textContent = 'Vorträge chronologisch';
     return;
   }
   
-  // Setze Titel im Header
-  titleElement.textContent = `Vorträge chronologisch (${lectures.length} Vorträge)`;
+  // Setze Titel im Header (mit Filter-Info falls aktiv)
+  let titleText = `Vorträge chronologisch (${lectures.length} Vorträge)`;
+  if (selectedGABandFilter) {
+    titleText = `Vorträge chronologisch - ${selectedGABandFilter} (${lectures.length} Vorträge)`;
+  }
+  titleElement.textContent = titleText;
   
   // Sortiere Vorträge chronologisch (sollten schon sortiert sein vom Server)
   const sortedLectures = lectures.sort((a, b) => {
@@ -12017,9 +12418,6 @@ function displayGAChronological(lectures) {
     </div>
   `;
   
-  // Füge HTML in viewer ein
-  viewer.innerHTML = html;
-  
   // Prüfe ob wir wirklich im GA-Tab sind (nicht im Texte-Tab oder anderen Tabs)
   const gaTab = document.getElementById('ga-tab');
   const isInGATab = gaTab && gaTab.classList.contains('active');
@@ -12047,9 +12445,62 @@ function displayGAChronological(lectures) {
   } else {
     }
   
+  // Wenn chronological-viewer-content bereits existiert (Layout wurde bereits erstellt),
+  // müssen wir das Layout komplett neu aufbauen, damit die Jahr-Buttons korrekt angezeigt werden
+  if (chronologicalViewerContent) {
+    console.log('[GA-FILTER] Layout existiert bereits - baue komplett neu auf');
+    
+    // Entferne das alte Layout
+    const wrapper = document.getElementById('chronological-year-nav-wrapper');
+    if (wrapper && wrapper.parentNode) {
+      // Erstelle einen neuen viewer
+      const newViewer = document.createElement('div');
+      newViewer.id = 'viewer';
+      newViewer.className = 'viewer';
+      newViewer.innerHTML = html;
+      
+      // Ersetze den Wrapper durch den neuen Viewer
+      wrapper.parentNode.replaceChild(newViewer, wrapper);
+      
+      // Stelle das Scroll-Verhalten von #main wieder her
+      const mainElement = document.getElementById('main');
+      if (mainElement) {
+        mainElement.style.overflow = '';
+        mainElement.style.height = '';
+      }
+      
+      // Aktualisiere die Referenzen für den nachfolgenden Code
+      viewer = newViewer;
+      targetElement = newViewer;
+      chronologicalViewerContent = null; // Erzwinge Neuaufbau des Layouts
+      
+      console.log('[GA-FILTER] Layout entfernt, viewer wiederhergestellt');
+    } else {
+      // Fallback: Aktualisiere nur den Inhalt
+      chronologicalViewerContent.innerHTML = html;
+      
+      // Versuche auch die Buttons zu aktualisieren
+      const yearNavPanel = document.getElementById('chronological-year-nav');
+      let buttonsContainer = document.getElementById('chronological-year-buttons-container');
+      
+      if (!buttonsContainer && yearNavPanel) {
+        buttonsContainer = yearNavPanel.querySelector('div');
+      }
+      
+      if (buttonsContainer) {
+        console.log('[GA-FILTER] Aktualisiere Jahr-Buttons im Fallback, Jahre:', years.join(', '));
+        buttonsContainer.innerHTML = yearButtonsHtml;
+      }
+    }
+  } else {
+    // Füge HTML in viewer ein (viewer existiert, da chronological-viewer-content nicht existiert)
+    targetElement.innerHTML = html;
+  }
+  
   // WICHTIG: Erstelle zweigeteiltes Layout NUR wenn wir im GA-Tab sind UND die chronologische Ansicht aktiv ist
+  // UND wenn das Layout noch nicht existiert (viewer existiert noch)
   // Doppelte Prüfung für maximale Sicherheit
-  if (isInGATab && isChronologicalView && isInGATabCheck && isChronologicalViewCheck) {
+  if (isInGATab && isChronologicalView && isInGATabCheck && isChronologicalViewCheck && !chronologicalViewerContent) {
     // Erstelle ein zweigeteiltes Layout: oberer Bereich für Jahres-Buttons, unterer für Inhalt
     const mainContainer = document.getElementById('main');
     if (mainContainer && viewer) {
@@ -12070,10 +12521,10 @@ function displayGAChronological(lectures) {
       let yearButtonsPanel = document.getElementById('chronological-year-nav');
       
       if (!wrapper) {
-        // Berechne die verfügbare Höhe (Viewport-Höhe minus Header)
-        const viewerHeader = document.getElementById('viewer-header');
-        const headerHeight = viewerHeader ? viewerHeader.offsetHeight : 80;
-        const availableHeight = window.innerHeight - headerHeight;
+        // Berechne die Höhe bis zum unteren Bildschirmrand
+        const mainEl = document.getElementById('main');
+        const mainRect = mainEl ? mainEl.getBoundingClientRect() : null;
+        const availableHeight = mainRect ? (window.innerHeight - mainRect.top - 20) : (window.innerHeight - 220);
         
         // Erstelle Wrapper für zweigeteiltes Layout
         wrapper = document.createElement('div');
@@ -12109,15 +12560,16 @@ function displayGAChronological(lectures) {
         buttonsContainer.innerHTML = yearButtonsHtml;
         yearButtonsPanel.appendChild(buttonsContainer);
         
-        // Erstelle unteren Bereich für Viewer-Inhalt (SCROLLBAR)
+        // Erstelle unteren Bereich für Viewer-Inhalt (scrollbar)
         const viewerContentPanel = document.createElement('div');
         viewerContentPanel.id = 'chronological-viewer-content';
         viewerContentPanel.style.cssText = `
           flex: 1;
           overflow-y: auto;
           overflow-x: hidden;
-          min-height: 0;
           width: 100%;
+          box-sizing: border-box;
+          padding-bottom: 3rem;
         `;
         
         // Verschiebe den viewer-Inhalt in den neuen Container
@@ -12135,11 +12587,9 @@ function displayGAChronological(lectures) {
         // Setze den viewer als ID auf den neuen Content-Panel für Kompatibilität
         viewerContentPanel.setAttribute('data-viewer-content', 'true');
         
-        // WICHTIG: Deaktiviere das Scrollen von #main, damit nur der Content-Panel scrollt
-        const mainElement = document.getElementById('main');
-        if (mainElement) {
-          mainElement.style.overflow = 'hidden';
-          mainElement.style.height = '100%';
+        // Deaktiviere das Scrollen von #main
+        if (mainEl) {
+          mainEl.style.overflow = 'hidden';
         }
         
         } else {
@@ -12280,8 +12730,8 @@ function scrollToChronologicalYear(year) {
       // Berechne die Scroll-Position relativ zum Content-Panel
       const relativeTop = elementRect.top - containerRect.top + viewerContentPanel.scrollTop;
       
-      // Abstand nach oben: 5px
-      const headerOffset = 5;
+      // Abstand nach oben: 50px (mehr Platz für bessere Sichtbarkeit)
+      const headerOffset = 50;
       
       // Scrolle nur im Content-Panel (direkt springen, kein smooth)
       viewerContentPanel.scrollTo({
@@ -21666,8 +22116,8 @@ if (!isLocalhost) {
       opt1.classList.add("available-ga");
 
       const opt2 = opt1.cloneNode(true);
-      gaFilter.appendChild(opt1);
-      thematicGAFilter.appendChild(opt2);
+      if (gaFilter) gaFilter.appendChild(opt1);
+      if (thematicGAFilter) thematicGAFilter.appendChild(opt2);
     });
   } catch (err) {
     console.error("[FEHLER] GA-Liste konnte nicht geladen werden:", err);
