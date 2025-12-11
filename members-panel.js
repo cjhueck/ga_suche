@@ -783,6 +783,14 @@ async function switchMembersTab(tabName, preserveKeyword = false) {
   const keywordSelect = document.getElementById('keyword-filter-select');
   if (keywordSelect && !preserveKeyword) {
     keywordSelect.value = '';
+    keywordSelect.classList.remove('filter-active');
+  }
+  
+  // Gruppen-Filter zurücksetzen
+  const groupSelect = document.getElementById('group-filter-select');
+  if (groupSelect && !preserveKeyword) {
+    groupSelect.value = '';
+    groupSelect.classList.remove('filter-active');
   }
   
   // GA-Filter zurücksetzen beim Wechsel zwischen Unterstreichungen, Zitate und Notizen
@@ -1097,16 +1105,25 @@ function renderHighlightsList(container, sortedData) {
         ${multiDeleteMode ? `<input type="checkbox" class="member-item-checkbox" data-id="${highlight.id}" onchange="updateMultiDeleteButton()">` : ''}
         <div style="flex: 1;">
           <div class="member-item-header">
-            ${shouldShowLink
-              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-              : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-            }
+            <div style="display: flex; align-items: center; gap: 0.25rem;">
+              <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="20" x2="20" y2="20"></line>
+                  </svg>
+                </span>
+              </a>
+              ${shouldShowLink
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              }
+            </div>
             <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
           </div>
           ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
           ${shouldShowLink
-            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
-            : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
+            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+            : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
           }
           ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
           ${(highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -4339,7 +4356,8 @@ async function loadSavedNotes() {
     filteredNotes = result.data.filter(note => {
       if (!note.ga_references || !Array.isArray(note.ga_references)) return false;
       return note.ga_references.some(ga => {
-        const baseMatch = ga.match(/^(GA\d{3})/i);
+        // Unterstützt auch GA-Nummern mit Buchstaben-Suffix wie GA266a
+        const baseMatch = ga.match(/^(GA\d{3}[a-z]?)/i);
         return baseMatch && baseMatch[1].toUpperCase() === selectedGAFilter.toUpperCase();
       });
     });
@@ -4365,9 +4383,9 @@ async function loadSavedNotes() {
     const textStartOffset = note.text_start_offset !== null && note.text_start_offset !== undefined ? note.text_start_offset : null;
     const textEndOffset = note.text_end_offset !== null && note.text_end_offset !== undefined ? note.text_end_offset : null;
     
-    // Hole Vortragsdatum falls vorhanden
+    // Hole Vortragsdatum falls vorhanden - formatiert wie bei Highlights
     const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
-    const dateDisplay = lectureDate ? `, ${lectureDate}` : '';
+    const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
     
     // Hole Farbe der Notiz
     const noteColor = note.marker_color || 'blue';
@@ -4412,8 +4430,8 @@ async function loadSavedNotes() {
                   </span>`
               }
               ${canNavigate
-                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}${dateDisplay}</a></strong>`
-                : `<strong>${gaReference || 'Notiz'}${dateDisplay}</strong>`
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               }
             </div>
             <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
@@ -5136,6 +5154,16 @@ function showNoteEditDialog(content, keywords = '', groups = '') {
     saveBtn.addEventListener('click', handleSave);
     cancelBtn.addEventListener('click', handleCancel);
     
+    // Enter zum Speichern (für Gruppen- und Schlagwörter-Input, nicht für Textarea)
+    const handleEnterKey = (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleSave();
+      }
+    };
+    groupInput.addEventListener('keydown', handleEnterKey);
+    keywordInput.addEventListener('keydown', handleEnterKey);
+    
     // ESC zum Abbrechen
     dialog.addEventListener('click', (e) => {
       if (e.target === dialog) {
@@ -5213,13 +5241,15 @@ function showEditDialog(type, data) {
     saveBtn.addEventListener('click', handleSave);
     cancelBtn.addEventListener('click', handleCancel);
     
-    // Enter zum Speichern (nur wenn nicht in Textarea)
-    input.addEventListener('keypress', (e) => {
+    // Enter zum Speichern (für Gruppen- und Schlagwörter-Input, nicht für Textarea)
+    const handleEnterKey = (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         handleSave();
       }
-    });
+    };
+    groupInput.addEventListener('keydown', handleEnterKey);
+    input.addEventListener('keydown', handleEnterKey);
     
     // ESC zum Abbrechen
     dialog.addEventListener('keydown', (e) => {
@@ -5591,9 +5621,9 @@ async function markParagraphsWithBookmarksAndQuotes(lectureId) {
         const matchesGA = n.ga_references.some(ga => {
           // Prüfe auf exakte Übereinstimmung
           if (ga === lectureId) return true;
-          // Prüfe auf Basis-GA Übereinstimmung (GA001 vs GA001/5)
-          const baseMatch = ga.match(/^(GA\d{3})/i);
-          const lectureBase = lectureId.match(/^(GA\d{3})/i);
+          // Prüfe auf Basis-GA Übereinstimmung (GA001 vs GA001/5 oder GA266a vs GA266a/9)
+          const baseMatch = ga.match(/^(GA\d{3}[a-z]?)/i);
+          const lectureBase = lectureId.match(/^(GA\d{3}[a-z]?)/i);
           return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
         });
         
@@ -5896,8 +5926,9 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
     if (!n.ga_references || !Array.isArray(n.ga_references)) return false;
     const matchesGA = n.ga_references.some(ga => {
       if (ga === lectureId) return true;
-      const baseMatch = ga.match(/^(GA\d{3})/i);
-      const lectureBase = lectureId.match(/^(GA\d{3})/i);
+      // Unterstützt auch GA-Nummern mit Buchstaben-Suffix wie GA266a
+      const baseMatch = ga.match(/^(GA\d{3}[a-z]?)/i);
+      const lectureBase = lectureId.match(/^(GA\d{3}[a-z]?)/i);
       return baseMatch && lectureBase && baseMatch[1].toUpperCase() === lectureBase[1].toUpperCase();
     });
     return matchesGA && n.paragraph_id === paraId;
@@ -8704,12 +8735,18 @@ async function handleGroupFilter(group) {
   const keywordSelect = document.getElementById('keyword-filter-select');
   if (keywordSelect) {
     keywordSelect.value = '';
+    keywordSelect.classList.remove('filter-active');
   }
   
   // Setze Gruppen-Dropdown auf den ausgewählten Wert
   const groupSelect = document.getElementById('group-filter-select');
-  if (groupSelect && group) {
-    groupSelect.value = group;
+  if (groupSelect) {
+    if (group) {
+      groupSelect.value = group;
+      groupSelect.classList.add('filter-active');
+    } else {
+      groupSelect.classList.remove('filter-active');
+    }
   }
   
   if (!group) {
@@ -8805,11 +8842,22 @@ async function showGroupFilteredItems(group) {
         const quote = item;
         const lectureDate = getLectureDate(quote);
         const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
+        const quoteColor = quote.marker_color || 'blue';
+        const quoteColorHex = getHighlightColor(quoteColor);
         combinedHtml += `
           <div class="member-item" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="4" width="16" height="16"></rect>
+                      </svg>
+                    </span>
+                  </a>
+                  <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
@@ -8844,11 +8892,20 @@ async function showGroupFilteredItems(group) {
           <div class="member-item" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="20" x2="20" y2="20"></line>
+                      </svg>
+                    </span>
+                  </a>
+                  <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
-              <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
+              <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -8874,23 +8931,43 @@ async function showGroupFilteredItems(group) {
         const textStartOffset = note.text_start_offset !== null ? note.text_start_offset : null;
         const textEndOffset = note.text_end_offset !== null ? note.text_end_offset : null;
         const canNavigate = gaReference !== null;
+        const noteColor = note.marker_color || 'blue';
+        const noteColorHex = getNoteColor(noteColor);
         let cleanedContent = note.content;
         cleanedContent = cleanedContent.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim();
         const contentPreview = cleanedContent.substring(0, 150);
         const hasMore = cleanedContent.length > 150;
+        const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
         combinedHtml += `
           <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                ${canNavigate
-                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a></strong>`
-                  : `<strong>${gaReference || 'Notiz'}</strong>`
-                }
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  ${canNavigate
+                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                        <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                          </svg>
+                        </span>
+                      </a>`
+                    : `<span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                      </span>`
+                  }
+                  ${canNavigate
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  }
+                </div>
                 <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${canNavigate
-                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
-                : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                : `<div class="member-item-quote">„${contentPreview}${hasMore ? '...' : ''}"</div>`
               }
               ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -9067,12 +9144,18 @@ async function handleKeywordFilter(keyword) {
   const groupSelect = document.getElementById('group-filter-select');
   if (groupSelect) {
     groupSelect.value = '';
+    groupSelect.classList.remove('filter-active');
   }
   
   // Setze Schlagwörter-Dropdown auf den ausgewählten Wert
   const keywordSelect = document.getElementById('keyword-filter-select');
-  if (keywordSelect && keyword) {
-    keywordSelect.value = keyword;
+  if (keywordSelect) {
+    if (keyword) {
+      keywordSelect.value = keyword;
+      keywordSelect.classList.add('filter-active');
+    } else {
+      keywordSelect.classList.remove('filter-active');
+    }
   }
   
   if (!keyword) {
@@ -9110,12 +9193,12 @@ function updateGAFilterDropdown(gaNumbers) {
   const gaFilterSelect = document.getElementById('ga-filter-select');
   if (!gaFilterSelect) return;
   
-  // Sammle alle eindeutigen GA-Nummern (nur Basis-Nummern wie GA001, GA002, etc.)
+  // Sammle alle eindeutigen GA-Nummern (nur Basis-Nummern wie GA001, GA002, GA266a, etc.)
   const uniqueGABases = new Set();
   gaNumbers.forEach(gaNum => {
     if (gaNum) {
-      // Extrahiere Basis-GA-Nummer (z.B. GA001 aus GA001/01)
-      const baseMatch = gaNum.match(/^(GA\d{3})/i);
+      // Extrahiere Basis-GA-Nummer (z.B. GA001 aus GA001/01 oder GA266a aus GA266a/9)
+      const baseMatch = gaNum.match(/^(GA\d{3}[a-z]?)/i);
       if (baseMatch) {
         uniqueGABases.add(baseMatch[1].toUpperCase());
       }
@@ -9221,15 +9304,33 @@ async function showKeywordFilteredItems(keyword) {
         const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
         const isBook = isBookGANumber(quote.ga_reference);
         const shouldShowLink = quote.paragraph_id || isBook;
+        const quoteColor = quote.marker_color || 'blue';
+        const quoteColorHex = getHighlightColor(quoteColor);
         
         return `
           <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                ${shouldShowLink
-                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-                  : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-                }
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  ${shouldShowLink
+                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                        <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16"></rect>
+                          </svg>
+                        </span>
+                      </a>`
+                    : `<span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <rect x="4" y="4" width="16" height="16"></rect>
+                        </svg>
+                      </span>`
+                  }
+                  ${shouldShowLink
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  }
+                </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
@@ -9278,16 +9379,25 @@ async function showKeywordFilteredItems(keyword) {
           <div class="member-item" data-keywords="${highlight.tags ? highlight.tags.join(',') : ''}" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
             <div style="flex: 1;">
               <div class="member-item-header">
-                ${shouldShowLink
-                  ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-                  : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
-                }
+                <div style="display: flex; align-items: center; gap: 0.25rem;">
+                  <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="20" x2="20" y2="20"></line>
+                      </svg>
+                    </span>
+                  </a>
+                  ${shouldShowLink
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                  }
+                </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
               ${shouldShowLink
-                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic; color: var(--text-color); cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
-                : `<div class="member-item-text" style="text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px; font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
+                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+                : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
               }
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -9318,7 +9428,11 @@ async function showKeywordFilteredItems(keyword) {
         const paragraphId = note.paragraph_id || null;
         const textStartOffset = note.text_start_offset !== null ? note.text_start_offset : null;
         const textEndOffset = note.text_end_offset !== null ? note.text_end_offset : null;
-        const dateDisplay = new Date(note.created_at).toLocaleDateString('de-DE');
+        const createdDate = new Date(note.created_at).toLocaleDateString('de-DE');
+        const noteColor = note.marker_color || 'blue';
+        const noteColorHex = getNoteColor(noteColor);
+        const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
+        const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
         
         // Bereinige Text: Entferne Präfixe wie "Aus [[GA001]]:" oder "Aus [[GA001]] - Titel:"
         let cleanedContent = note.content;
@@ -9339,12 +9453,26 @@ async function showKeywordFilteredItems(keyword) {
         const canNavigate = gaReference !== null;
         
         return `
-          <div class="member-item">
+          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   ${canNavigate
-                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}${dateDisplay ? ', ' + dateDisplay : ''}</a></strong>`
+                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                        <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                          </svg>
+                        </span>
+                      </a>`
+                    : `<span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                      </span>`
+                  }
+                  ${canNavigate
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                     : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   }
                 </div>

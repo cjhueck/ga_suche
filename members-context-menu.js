@@ -2024,9 +2024,9 @@ function extractGAFromURL() {
   const ga = urlParams.get('ga');
   if (ga) return ga;
   
-  // Versuche aus Hash
+  // Versuche aus Hash - unterstützt auch GA-Nummern mit Buchstaben-Suffix wie GA266a
   const hash = window.location.hash;
-  const match = hash.match(/GA\s?(\d{1,3})/i);
+  const match = hash.match(/GA\s?(\d{1,3}[a-z]?)/i);
   if (match) return `GA${match[1]}`;
   
   return null;
@@ -2339,13 +2339,15 @@ function showKeywordDialog(type, text) {
     saveBtn.addEventListener('click', handleSave);
     cancelBtn.addEventListener('click', handleCancel);
     
-    // Enter zum Speichern (nur wenn nicht in Textarea)
-    input.addEventListener('keypress', (e) => {
+    // Enter zum Speichern (für Gruppen- und Schlagwörter-Input, nicht für Textarea)
+    const handleEnterKey = (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         handleSave();
       }
-    });
+    };
+    groupInput.addEventListener('keydown', handleEnterKey);
+    input.addEventListener('keydown', handleEnterKey);
     
     // ESC zum Abbrechen
     dialog.addEventListener('keydown', (e) => {
