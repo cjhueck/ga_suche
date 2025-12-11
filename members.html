@@ -2401,7 +2401,14 @@
                 ${!isHighlight && quoteMarkerColor ? `
                   <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                      <rect x="4" y="4" width="16" height="16"></rect>
+                    </svg>
+                  </span>
+                ` : ''}
+                ${isHighlight ? `
+                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="4" y1="20" x2="20" y2="20"></line>
                     </svg>
                   </span>
                 ` : ''}
@@ -2422,7 +2429,7 @@
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}"`}</div>
+            <div class="item-text" style="font-style: italic;">„${text}"</div>
             ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
               ${!multiDeleteMode ? `
@@ -3343,7 +3350,14 @@
                 ${!isHighlight && quoteMarkerColor ? `
                   <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${getHighlightColor(quoteMarkerColor)}; vertical-align: middle;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                      <rect x="4" y="4" width="16" height="16"></rect>
+                    </svg>
+                  </span>
+                ` : ''}
+                ${isHighlight ? `
+                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="4" y1="20" x2="20" y2="20"></line>
                     </svg>
                   </span>
                 ` : ''}
@@ -3364,7 +3378,7 @@
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}"`}</div>
+            <div class="item-text" style="font-style: italic;">„${text}"</div>
             ${((item.groups && item.groups.length > 0) || tags.length > 0) ? `<div class="item-tags">${item.groups && item.groups.length > 0 ? item.groups.map(group => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(item.groups && item.groups.length > 0) && tags.length > 0 ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
               ${!multiDeleteMode ? `
@@ -3568,6 +3582,7 @@
           const gaNumber = item.ga_reference || item.ga_number;
           const isNote = item.item_type === 'note';
           const isHighlight = item.item_type === 'highlight';
+          const isQuote = item.item_type === 'quote';
           const text = isNote 
             ? (item.content || '').replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '').replace(/^["']\s*/, '').trim().substring(0, 150)
             : (item.quote_text || '').substring(0, 150);
@@ -3575,6 +3590,7 @@
           const tags = item.tags || [];
           const groups = item.groups || [];
           const highlightColor = isHighlight ? getHighlightColor(item.color || 'blue') : '';
+          const quoteMarkerColor = isQuote ? getHighlightColor(item.marker_color || 'blue') : '';
           const paragraphId = item.paragraph_id || '';
           const textStartOffset = item.text_start_offset !== null ? item.text_start_offset : '';
           const textEndOffset = item.text_end_offset !== null ? item.text_end_offset : '';
@@ -3586,6 +3602,27 @@
             <div class="item-header ${multiDeleteMode ? 'with-checkbox' : ''}">
               ${multiDeleteMode ? `<input type="checkbox" class="item-checkbox" data-id="${item.id}" onchange="updateDeleteButton()">` : ''}
               <div style="display: flex; align-items: center; gap: 0.25rem;">
+                ${isQuote ? `
+                  <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteMarkerColor}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="4" y="4" width="16" height="16"></rect>
+                    </svg>
+                  </span>
+                ` : ''}
+                ${isHighlight ? `
+                  <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor}; vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="4" y1="20" x2="20" y2="20"></line>
+                    </svg>
+                  </span>
+                ` : ''}
+                ${isNote ? `
+                  <span class="note-icon-header" style="display: inline-block; color: var(--accent-color); vertical-align: middle;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                  </span>
+                ` : ''}
                 ${gaNumber
                   ? `<strong><a href="#" class="item-ga" data-ga="${gaNumber}" data-paragraph-id="${paragraphId}" data-text-start-offset="${textStartOffset}" data-text-end-offset="${textEndOffset}" data-is-highlight="${isHighlight}" style="color: var(--link-color); text-decoration: none; cursor: pointer;">${gaNumber}</a></strong>`
                   : `<strong>${isNote ? 'Notiz' : 'Eintrag'}</strong>`
@@ -3595,7 +3632,7 @@
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
-            <div class="item-text" style="${isHighlight ? `text-decoration: underline; text-decoration-color: ${highlightColor}; text-decoration-thickness: 1.5px;` : ''}">${isHighlight ? text : `„${text}${hasMore ? '...' : ''}"`}</div>
+            <div class="item-text" style="font-style: italic;">„${text}${hasMore ? '...' : ''}"</div>
             ${((groups.length > 0) || (tags.length > 0)) ? `<div class="item-tags">${groups.length > 0 ? groups.map(g => `<span class="item-tag group-tag clickable-tag" onclick="filterByGroup('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(groups.length > 0) && (tags.length > 0) ? ' · ' : ''}${tags.length > 0 ? tags.map(tag => `<span class="item-tag clickable-tag" onclick="filterByKeyword('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
             <div class="item-tags-row">
               ${!multiDeleteMode ? `
