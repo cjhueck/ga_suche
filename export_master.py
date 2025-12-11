@@ -559,7 +559,7 @@ class ExportMaster:
             self.steps_failed.append(step_name)
             return False
     
-    def step1_fix_image_paths(self, skip=False):
+    def step1_fix_image_paths(self, skip=False, ga_bands=None):
         """Schritt 1: Bildpfade in Obsidian korrigieren"""
         if skip:
             print("\nSCHRITT 1 UEBERSPRUNGEN (--skip-path-fix)")
@@ -571,12 +571,30 @@ class ExportMaster:
             total_files = 0
             total_fixes = 0
             
+            # Erstelle Set von GA-Nummern für schnellen Lookup (z.B. "266a" aus "GA266a")
+            ga_filter = None
+            if ga_bands:
+                ga_filter = set()
+                for ga in ga_bands:
+                    ga_match = re.match(r'GA(\d{2,3}[a-z]?)', ga.upper())
+                    if ga_match:
+                        ga_filter.add(ga_match.group(1).upper())
+                print(f"Bildpfadkorrektur nur für: {', '.join(sorted(ga_filter))}\n")
+            
             # Durchlaufe alle GA-Ordner
             for folder_name in sorted(os.listdir(self.steiner_ga_dir)):
                 folder_path = os.path.join(self.steiner_ga_dir, folder_name)
                 
                 if not os.path.isdir(folder_path) or not folder_name.startswith('GA'):
                     continue
+                
+                # Wenn Filter aktiv, prüfe ob dieser GA-Ordner verarbeitet werden soll
+                if ga_filter:
+                    folder_ga_match = re.match(r'GA(\d{2,3}[a-z]?)', folder_name.upper())
+                    if folder_ga_match:
+                        folder_ga_num = folder_ga_match.group(1).upper()
+                        if folder_ga_num not in ga_filter:
+                            continue  # Überspringe diesen GA-Ordner
                 
                 folder_had_changes = False
                 
@@ -900,8 +918,8 @@ class ExportMaster:
         print(f"  Bildpfad-Korrektur: {'NEIN' if skip_path_fix else 'JA'}")
         print(f"  Server-Neustart: {'JA' if restart_server else 'NEIN'}")
         
-        # Schritt 1: Bildpfade korrigieren
-        if not self.step1_fix_image_paths(skip=skip_path_fix):
+        # Schritt 1: Bildpfade korrigieren (nur für angegebene GA-Bände)
+        if not self.step1_fix_image_paths(skip=skip_path_fix, ga_bands=ga_bands):
             print("\nWarnung: Bildpfad-Korrektur fehlgeschlagen")
             print("   Moechten Sie trotzdem fortfahren? (j/n): ", end='')
             response = input().lower()

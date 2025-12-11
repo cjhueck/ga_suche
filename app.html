@@ -28826,9 +28826,7 @@ async function loadMarkedWords(syncOnline = true) {
   const countEl = document.getElementById('markedWordsCount');
   
   try {
-    // HINWEIS: Online-Sync ist deaktiviert bis der Server mit delete-by-content deployed ist
     // Wenn lokal UND syncOnline: Automatisch Online-Daten holen und mergen
-    /*
     if (isLocal && syncOnline) {
       countEl.textContent = '🔄 Synchronisiere mit Online...';
       try {
@@ -28854,7 +28852,6 @@ async function loadMarkedWords(syncOnline = true) {
         console.log('[MARKED-WORDS] Online-Sync nicht möglich:', onlineError.message);
       }
     }
-    */
     
     const response = await fetch(`${API_BASE}/api/marked-words`);
     if (!response.ok) throw new Error('Fehler beim Laden');
