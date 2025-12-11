@@ -8750,11 +8750,16 @@ async function handleGroupFilter(group) {
   }
   
   if (!group) {
-    // Reset - zeige aktuellen Tab
+    // Reset - zeige aktuellen Tab und reaktiviere Tab-Buttons
     const currentTab = typeof currentMembersTab !== 'undefined' ? currentMembersTab : 'quotes';
     switchMembersTab(currentTab);
     return;
   }
+  
+  // Entferne active-Klasse von allen Tab-Buttons (gefilterte Ansicht)
+  document.querySelectorAll('.members-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
   
   // Zeige gefilterte Items nach Gruppe
   await showGroupFilteredItems(group);
@@ -8845,7 +8850,7 @@ async function showGroupFilteredItems(group) {
         const quoteColor = quote.marker_color || 'blue';
         const quoteColorHex = getHighlightColor(quoteColor);
         combinedHtml += `
-          <div class="member-item" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
+          <div class="member-item" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}" oncontextmenu="event.preventDefault(); showQuoteColorContextMenu(event.clientX, event.clientY, '${quote.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -8889,7 +8894,7 @@ async function showGroupFilteredItems(group) {
           : highlight.paragraph_text || '';
         const highlightColor = getHighlightColor(highlight.color || 'blue');
         combinedHtml += `
-          <div class="member-item" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
+          <div class="member-item" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}" oncontextmenu="event.preventDefault(); showHighlightColorContextMenu(event.clientX, event.clientY, '${highlight.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -8940,7 +8945,7 @@ async function showGroupFilteredItems(group) {
         const lectureDate = note.lecture_date ? formatLectureDate(note.lecture_date) : '';
         const dateDisplay = lectureDate ? `<span data-lecture-date="true" style="font-size: 0.85rem; font-weight: normal; color: var(--text-color);">${lectureDate}</span>` : '';
         combinedHtml += `
-          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
+          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}" oncontextmenu="event.preventDefault(); showNoteColorContextMenu(event.clientX, event.clientY, '${note.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -9159,10 +9164,15 @@ async function handleKeywordFilter(keyword) {
   }
   
   if (!keyword) {
-    // Kein Keyword ausgewählt - lade den normalen Tab-Inhalt wieder
+    // Kein Keyword ausgewählt - lade den normalen Tab-Inhalt wieder und reaktiviere Tab-Buttons
     await loadMembersTab(currentMembersTab);
     return;
   }
+  
+  // Entferne active-Klasse von allen Tab-Buttons (gefilterte Ansicht)
+  document.querySelectorAll('.members-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
   
   // Lade und zeige Items aus beiden Tabs (Quotes und Highlights) mit diesem Keyword
   await showKeywordFilteredItems(keyword);
@@ -9308,7 +9318,7 @@ async function showKeywordFilteredItems(keyword) {
         const quoteColorHex = getHighlightColor(quoteColor);
         
         return `
-          <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}">
+          <div class="member-item" data-keywords="${quote.tags ? quote.tags.join(',') : ''}" data-id="${quote.id}" data-type="quote" data-ga-reference="${quote.ga_reference}" oncontextmenu="event.preventDefault(); showQuoteColorContextMenu(event.clientX, event.clientY, '${quote.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -9376,7 +9386,7 @@ async function showKeywordFilteredItems(keyword) {
         const highlightColor = getHighlightColor(highlight.color || 'blue');
         
         return `
-          <div class="member-item" data-keywords="${highlight.tags ? highlight.tags.join(',') : ''}" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}">
+          <div class="member-item" data-keywords="${highlight.tags ? highlight.tags.join(',') : ''}" data-id="${highlight.id}" data-type="highlight" data-ga-reference="${highlight.ga_number}" oncontextmenu="event.preventDefault(); showHighlightColorContextMenu(event.clientX, event.clientY, '${highlight.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -9453,7 +9463,7 @@ async function showKeywordFilteredItems(keyword) {
         const canNavigate = gaReference !== null;
         
         return `
-          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}">
+          <div class="member-item" data-id="${note.id}" data-type="note" data-ga-reference="${gaReference || ''}" oncontextmenu="event.preventDefault(); showNoteColorContextMenu(event.clientX, event.clientY, '${note.id}'); return false;">
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
@@ -9597,6 +9607,8 @@ window.loadMembersTab = loadMembersTab;
 window.changeHighlightColor = changeHighlightColor;
 window.changeQuoteColor = changeQuoteColor;
 window.showNoteColorContextMenu = showNoteColorContextMenu;
+window.showHighlightColorContextMenu = showHighlightColorContextMenu;
+window.showQuoteColorContextMenu = showQuoteColorContextMenu;
 window.changeNoteColor = changeNoteColor;
 
 /**
