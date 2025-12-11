@@ -179,6 +179,91 @@ class SteinerLecturesExporter {
     });
   }
   
+  // Prüft ob ein Text eine Listenzeile ist (nummeriert oder mit Aufzählungszeichen)
+  isListItem(text) {
+    if (!text) return false;
+    // Nummerierte Liste: "1.", "2.", etc. am Anfang
+    // Oder Aufzählungszeichen: "-", "*", "•" am Anfang
+    return /^\d+\.\s/.test(text) || /^[-*•]\s/.test(text);
+  }
+  
+  // Merged aufeinanderfolgende Listenabsätze mit dem vorhergehenden Absatz
+  mergeListParagraphs(paragraphs) {
+    if (!paragraphs || paragraphs.length === 0) return paragraphs;
+    
+    const merged = [];
+    let i = 0;
+    
+    while (i < paragraphs.length) {
+      const current = paragraphs[i];
+      
+      // Prüfe ob die NÄCHSTEN Absätze Listenelemente sind
+      if (i + 1 < paragraphs.length && this.isListItem(paragraphs[i + 1].content)) {
+        // Sammle alle aufeinanderfolgenden Listenelemente
+        const listItems = [];
+        let j = i + 1;
+        
+        while (j < paragraphs.length && this.isListItem(paragraphs[j].content)) {
+          listItems.push(paragraphs[j]);
+          j++;
+        }
+        
+        if (listItems.length > 0) {
+          // Kombiniere den aktuellen Absatz mit den Listenelementen
+          // Füge die Listenelemente als Markdown-Liste zum Content hinzu
+          let combinedContent = current.content;
+          
+          // Füge eine Leerzeile vor der Liste ein (wichtig für Markdown-Parsing)
+          combinedContent += '\n\n';
+          
+          // Füge alle Listenelemente hinzu
+          listItems.forEach(item => {
+            combinedContent += item.content + '\n';
+          });
+          
+          merged.push({
+            index: current.index,
+            content: combinedContent.trim()
+          });
+          
+          i = j; // Überspringe die gemergten Listenelemente
+          continue;
+        }
+      }
+      
+      // Wenn der aktuelle Absatz selbst eine Listenzeile ist (ohne vorhergehenden Einleitungsabsatz)
+      // und weitere Listenzeilen folgen, fasse sie zusammen
+      if (this.isListItem(current.content)) {
+        const listItems = [current];
+        let j = i + 1;
+        
+        while (j < paragraphs.length && this.isListItem(paragraphs[j].content)) {
+          listItems.push(paragraphs[j]);
+          j++;
+        }
+        
+        if (listItems.length > 1) {
+          // Kombiniere alle Listenelemente
+          let combinedContent = listItems.map(item => item.content).join('\n');
+          
+          merged.push({
+            index: current.index,
+            content: combinedContent
+          });
+          
+          i = j;
+          continue;
+        }
+      }
+      
+      // Normaler Absatz ohne nachfolgende Liste
+      merged.push(current);
+      i++;
+    }
+    
+    return merged;
+  }
+  
   // Formatiert Paragraph-Content:
   // 1. Gedichte: Reduziert doppelte Leerzeilen zwischen Zeilen auf einfache
   // 2. Durchgezogene Linien: Konvertiert * * * zu * * *
@@ -484,6 +569,9 @@ class SteinerLecturesExporter {
       if (paragraphs.length > 0) {
         const gaTitle = this.findGATitle(meta.gaNumber, allFiles);
         
+        // Merge aufeinanderfolgende Listenabsätze mit dem vorhergehenden Absatz
+        const mergedParagraphs = this.mergeListParagraphs(paragraphs);
+        
         lectures.push({
           gaNumber: meta.gaNumber,
           gaTitle: gaTitle,
@@ -493,7 +581,7 @@ class SteinerLecturesExporter {
           fileName: `${meta.ID} - ${meta.fullRest}`,
           location: meta.location,
           date: meta.date,
-          paragraphs
+          paragraphs: mergedParagraphs
         });
         
         // Speichere Bilder für diesen Vortrag

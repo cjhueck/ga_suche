@@ -20739,8 +20739,103 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
         const headings = lecture.headings || [];
         const paragraphs = lecture.paragraphs || [];
         
+        // Hilfsfunktion: Prüft ob ein Text eine Listenzeile ist
+        function isListItem(text) {
+          if (!text) return false;
+          // Nummerierte Liste: "1.", "2.", etc. am Anfang
+          // Oder Aufzählungszeichen: "-", "*", "•" am Anfang
+          return /^\d+\.\s/.test(text.trim()) || /^[-*•]\s/.test(text.trim());
+        }
+        
+        // Merge aufeinanderfolgende Listenabsätze VOR dem Rendering
+        function mergeListParagraphs(paragraphs) {
+          if (!paragraphs || paragraphs.length === 0) return paragraphs;
+          
+          const merged = [];
+          let i = 0;
+          
+          while (i < paragraphs.length) {
+            const current = paragraphs[i];
+            const currentContent = (current.content || current.text || '').trim();
+            
+            // Prüfe ob die NÄCHSTEN Absätze Listenelemente sind
+            if (i + 1 < paragraphs.length && isListItem(paragraphs[i + 1].content || paragraphs[i + 1].text || '')) {
+              // Sammle alle aufeinanderfolgenden Listenelemente
+              const listItems = [];
+              let j = i + 1;
+              
+              while (j < paragraphs.length && isListItem(paragraphs[j].content || paragraphs[j].text || '')) {
+                listItems.push(paragraphs[j]);
+                j++;
+              }
+              
+              if (listItems.length > 0) {
+                // Kombiniere den aktuellen Absatz mit den Listenelementen
+                let combinedContent = currentContent;
+                
+                // Füge eine Leerzeile vor der Liste ein (wichtig für Markdown-Parsing)
+                if (combinedContent && !combinedContent.endsWith('\n')) {
+                  combinedContent += '\n\n';
+                } else if (!combinedContent) {
+                  combinedContent = '';
+                }
+                
+                // Füge alle Listenelemente hinzu
+                listItems.forEach(item => {
+                  const itemContent = (item.content || item.text || '').trim();
+                  combinedContent += itemContent + '\n';
+                });
+                
+                merged.push({
+                  ...current,
+                  content: combinedContent.trim(),
+                  mergedListItems: listItems // Speichere für später (falls benötigt)
+                });
+                
+                i = j; // Überspringe die gemergten Listenelemente
+                continue;
+              }
+            }
+            
+            // Wenn der aktuelle Absatz selbst eine Listenzeile ist (ohne vorhergehenden Einleitungsabsatz)
+            // und weitere Listenzeilen folgen, fasse sie zusammen
+            if (isListItem(currentContent)) {
+              const listItems = [current];
+              let j = i + 1;
+              
+              while (j < paragraphs.length && isListItem(paragraphs[j].content || paragraphs[j].text || '')) {
+                listItems.push(paragraphs[j]);
+                j++;
+              }
+              
+              if (listItems.length > 1) {
+                // Kombiniere alle Listenelemente
+                let combinedContent = listItems.map(item => (item.content || item.text || '').trim()).join('\n');
+                
+                merged.push({
+                  ...current,
+                  content: combinedContent,
+                  mergedListItems: listItems.slice(1) // Speichere zusätzliche Items
+                });
+                
+                i = j;
+                continue;
+              }
+            }
+            
+            // Normaler Absatz ohne nachfolgende Liste
+            merged.push(current);
+            i++;
+          }
+          
+          return merged;
+        }
+        
+        // Merge Listenabsätze BEVOR sie gerendert werden
+        const mergedParagraphs = mergeListParagraphs(paragraphs);
+        
         // Render paragraphs and insert matching headings before each paragraph
-        paragraphs.forEach((para, idx) => {
+        mergedParagraphs.forEach((para, idx) => {
           const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
           const paraIndexWithCaret = para.index || `^${paraIndex}`;
           
