@@ -1295,6 +1295,7 @@
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
     let getNotes, deleteNote, createNote, updateNote;
+    let supabase;
     
     try {
       const authModule = await import('./members-auth.js');
@@ -1306,6 +1307,7 @@
       resetPassword = authModule.resetPassword;
       updateUserEmail = authModule.updateUserEmail;
       deleteUserAccount = authModule.deleteUserAccount;
+      supabase = authModule.supabase;
       
       const apiModule = await import('./members-api.js');
       getQuotes = apiModule.getQuotes;
@@ -1337,6 +1339,7 @@
       window.deleteNote = deleteNote;
       window.createNote = createNote;
       window.updateNote = updateNote;
+      window.supabase = supabase;
     } catch (error) {
       console.error('[MEMBERS-HTML] ✗ Fehler beim Laden der Module:', error);
       const messageDiv = document.getElementById('auth-message');
@@ -2596,6 +2599,7 @@
     
     // ===== Marker Color =====
     function toggleMarkerMenu(event, itemId) {
+      console.log('[DEBUG] toggleMarkerMenu aufgerufen:', { itemId });
       event.stopPropagation();
       
       // Close all other menus
@@ -2607,8 +2611,11 @@
       
       // Toggle current menu
       const menu = document.getElementById(`marker-menu-${itemId}`);
+      console.log('[DEBUG] menu gefunden?', !!menu, 'menu-id:', `marker-menu-${itemId}`);
       if (menu) {
-        menu.style.display = menu.style.display === 'none' ? 'flex' : 'none';
+        const newDisplay = menu.style.display === 'none' ? 'flex' : 'none';
+        console.log('[DEBUG] menu display setzen auf:', newDisplay);
+        menu.style.display = newDisplay;
       }
     }
     
@@ -2666,6 +2673,84 @@
     }
     window.updateMarkerColor = updateMarkerColor;
     window.toggleMarkerMenu = toggleMarkerMenu;
+    
+    // Update marker color für gefilterte Ansichten (mit Item-Typ)
+    async function updateMarkerColorFiltered(itemId, color, itemType) {
+      console.log('[DEBUG] updateMarkerColorFiltered aufgerufen:', { itemId, color, itemType });
+      
+      // Validate color - only allow 'blue', 'red', 'yellow', or null
+      let validColor = null;
+      if (color && (color === 'blue' || color === 'red' || color === 'yellow')) {
+        validColor = color;
+      }
+      console.log('[DEBUG] validColor:', validColor);
+      
+      try {
+        let result;
+        if (itemType === 'highlight') {
+          console.log('[DEBUG] Updating highlight mit updateHighlight()');
+          // Für Highlights: Farbe im 'color' Feld speichern
+          result = await updateHighlight(itemId, { color: validColor });
+          console.log('[DEBUG] updateHighlight result:', result);
+        } else if (itemType === 'note') {
+          console.log('[DEBUG] Updating note mit supabase direkt');
+          // Für Notes: Direkte Supabase-Abfrage für marker_color
+          console.log('[DEBUG] supabase verfügbar?', !!supabase);
+          const { data, error } = await supabase
+            .from('notes')
+            .update({ marker_color: validColor })
+            .eq('id', itemId)
+            .select()
+            .single();
+          
+          console.log('[DEBUG] supabase result:', { data, error });
+          result = error ? { success: false, error: error.message } : { success: true, data };
+        } else {
+          console.log('[DEBUG] Updating quote mit updateQuote()');
+          // Für Quotes: marker_color
+          result = await updateQuote(itemId, { marker_color: validColor });
+          console.log('[DEBUG] updateQuote result:', result);
+        }
+        
+        console.log('[DEBUG] Final result:', result);
+        
+        if (!result.success) {
+          console.error('[DEBUG] Fehler beim Aktualisieren der Marker-Farbe:', result.error);
+          alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+          return;
+        }
+        
+        // Update visual appearance - dot
+        const dot = document.querySelector(`.item-marker-dot[data-id="${itemId}"]`);
+        console.log('[DEBUG] dot element found?', !!dot);
+        if (dot) {
+          dot.className = `item-marker-dot ${validColor || ''}`;
+          dot.setAttribute('data-marker-color', validColor || '');
+        }
+        
+        // Update visual appearance - icon
+        const iconHeader = document.querySelector(`[data-id="${itemId}"] .quote-bookmark-icon-header, [data-id="${itemId}"] .highlight-icon-header, [data-id="${itemId}"] .note-icon-header`);
+        console.log('[DEBUG] iconHeader found?', !!iconHeader);
+        if (iconHeader && validColor) {
+          iconHeader.style.color = getHighlightColor(validColor);
+        }
+        
+        console.log('[DEBUG] Update erfolgreich abgeschlossen');
+        
+      } catch (error) {
+        console.error('[DEBUG] Catch-Block Fehler:', error);
+        alert('Fehler beim Speichern der Markierung. Bitte versuchen Sie es erneut.');
+        return;
+      }
+      
+      // Close menu
+      const menu = document.getElementById(`marker-menu-${itemId}`);
+      console.log('[DEBUG] menu found?', !!menu);
+      if (menu) {
+        menu.style.display = 'none';
+      }
+    }
+    window.updateMarkerColorFiltered = updateMarkerColorFiltered;
     
     // ===== Expand Paragraph =====
     // API-Base-URL konfigurieren
@@ -3366,15 +3451,15 @@
                 </a>
               </div>
               <div class="item-header-right">
-                ${!isHighlight ? `<div style="position: relative;">
-                  <div class="item-marker-dot ${markerColor}" data-id="${item.id}" data-marker-color="${markerColor}" onclick="${multiDeleteMode ? '' : "toggleMarkerMenu(event, '" + item.id + "')"}" title="Markierung ändern" style="${multiDeleteMode ? 'cursor: default; opacity: 0.5;' : ''}"></div>
-                  ${!multiDeleteMode ? `<div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
-                    <div class="item-marker-option none" onclick="updateMarkerColor('${item.id}', '')" title="Keine Markierung"></div>
-                    <div class="item-marker-option blue" onclick="updateMarkerColor('${item.id}', 'blue')" title="Blau"></div>
-                    <div class="item-marker-option red" onclick="updateMarkerColor('${item.id}', 'red')" title="Rot"></div>
-                    <div class="item-marker-option yellow" onclick="updateMarkerColor('${item.id}', 'yellow')" title="Gelb"></div>
-                  </div>` : ''}
-                </div>` : ''}
+                <div style="position: relative;">
+                  <div class="item-marker-dot ${isHighlight ? (markerColor || '') : (quoteMarkerColor || '')}" data-id="${item.id}" data-item-type="${item.item_type || (isHighlight ? 'highlight' : 'quote')}" data-marker-color="${isHighlight ? (markerColor || '') : (quoteMarkerColor || '')}" onclick="toggleMarkerMenu(event, '${item.id}')" title="Markierung ändern"></div>
+                  <div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
+                    <div class="item-marker-option none" onclick="updateMarkerColorFiltered('${item.id}', '', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Keine Markierung"></div>
+                    <div class="item-marker-option blue" onclick="updateMarkerColorFiltered('${item.id}', 'blue', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Blau"></div>
+                    <div class="item-marker-option red" onclick="updateMarkerColorFiltered('${item.id}', 'red', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Rot"></div>
+                    <div class="item-marker-option yellow" onclick="updateMarkerColorFiltered('${item.id}', 'yellow', '${item.item_type || (isHighlight ? 'highlight' : 'quote')}')" title="Gelb"></div>
+                  </div>
+                </div>
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
@@ -3629,6 +3714,15 @@
                 }
               </div>
               <div class="item-header-right">
+                <div style="position: relative;">
+                  <div class="item-marker-dot ${isHighlight ? (item.marker_color || '') : isQuote ? (item.marker_color || 'blue') : ''}" data-id="${item.id}" data-item-type="${item.item_type}" data-marker-color="${isHighlight ? (item.marker_color || '') : isQuote ? (item.marker_color || 'blue') : ''}" onclick="toggleMarkerMenu(event, '${item.id}')" title="Markierung ändern"></div>
+                  <div id="marker-menu-${item.id}" class="item-marker-menu" style="display: none;">
+                    <div class="item-marker-option none" onclick="updateMarkerColorFiltered('${item.id}', '', '${item.item_type}')" title="Keine Markierung"></div>
+                    <div class="item-marker-option blue" onclick="updateMarkerColorFiltered('${item.id}', 'blue', '${item.item_type}')" title="Blau"></div>
+                    <div class="item-marker-option red" onclick="updateMarkerColorFiltered('${item.id}', 'red', '${item.item_type}')" title="Rot"></div>
+                    <div class="item-marker-option yellow" onclick="updateMarkerColorFiltered('${item.id}', 'yellow', '${item.item_type}')" title="Gelb"></div>
+                  </div>
+                </div>
                 <span class="item-date">${new Date(item.created_at).toLocaleDateString('de-DE')}</span>
               </div>
             </div>
