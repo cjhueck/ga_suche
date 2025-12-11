@@ -552,11 +552,19 @@ async function loadFullLectures() {
         
         lectures.forEach(lecture => {
           if (lecture.ID) {
-            // Prüfe auf Duplikate
+            // Prüfe auf Duplikate - nur warnen wenn wirklich unterschiedlich
             if (fullLectures[lecture.ID]) {
-              console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
-              console.warn(`        Alte Datei: ${fullLectures[lecture.ID].fileName || 'unbekannt'}`);
-              console.warn(`        Neue Datei: ${lecture.fileName || 'unbekannt'}`);
+              const existing = fullLectures[lecture.ID];
+              const existingFileName = existing.fileName || 'unbekannt';
+              const newFileName = lecture.fileName || 'unbekannt';
+              
+              // Nur warnen wenn Dateinamen unterschiedlich sind (echtes Duplikat)
+              if (existingFileName !== newFileName) {
+                console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
+                console.warn(`        Alte Datei: ${existingFileName}`);
+                console.warn(`        Neue Datei: ${newFileName}`);
+              }
+              // Ansonsten ist es derselbe Vortrag aus einer anderen Part-Datei (normal bei Chunks)
             }
             fullLectures[lecture.ID] = lecture;
             totalLectures++;

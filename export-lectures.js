@@ -667,60 +667,214 @@ class SteinerLecturesExporter {
   }
   
   // Exportiere Bilder in separate JSON-Datei
+  // Hilfsfunktion: Suche Bild mit flexiblen Pfad-Varianten
+  findImageFile(gaDir, imagePath) {
+    const assetsDir = path.join(gaDir, 'assets');
+    if (!fs.existsSync(assetsDir)) {
+      return null;
+    }
+    
+    // Normalisiere den gesuchten Pfad
+    const normalizedPath = imagePath.replace(/^assets[\/\\]?/i, '').trim();
+    
+    // Extrahiere Bildnummer (z.B. "img-0", "img-22")
+    const imgMatch = normalizedPath.match(/img-(\d+)/i);
+    if (!imgMatch) {
+      return null;
+    }
+    const imgNumber = imgMatch[1];
+    
+    // Extrahiere Dateiendung (falls vorhanden)
+    const extMatch = normalizedPath.match(/\.(png|jpg|jpeg|webp)$/i);
+    const requestedExt = extMatch ? extMatch[1].toLowerCase() : null;
+    
+    // Suche nach verschiedenen Varianten
+    const searchPatterns = [];
+    
+    // 1. Exakter Pfad wie angegeben
+    searchPatterns.push(normalizedPath);
+    
+    // 2. Mit verschiedenen Dateiendungen
+    if (requestedExt) {
+      const altExts = requestedExt === 'png' ? ['jpg', 'jpeg'] : ['png'];
+      for (const altExt of altExts) {
+        searchPatterns.push(normalizedPath.replace(/\.(png|jpg|jpeg|webp)$/i, `.${altExt}`));
+      }
+    }
+    
+    // 3. Mit GA-Ordnernamen-Präfix (verschiedene Varianten)
+    const gaDirName = path.basename(gaDir);
+    const imgPattern = `img-${imgNumber}`;
+    
+    // Variante: GA266a-Band I..._img-0.png
+    searchPatterns.push(`${gaDirName}_${imgPattern}.png`);
+    searchPatterns.push(`${gaDirName}_${imgPattern}.jpg`);
+    searchPatterns.push(`${gaDirName}_${imgPattern}.jpeg`);
+    
+    // Variante: Nur img-0.png (einfacher Name)
+    searchPatterns.push(`${imgPattern}.png`);
+    searchPatterns.push(`${imgPattern}.jpg`);
+    searchPatterns.push(`${imgPattern}.jpeg`);
+    
+    // Durchsuche alle Dateien im assets-Ordner
+    const allFiles = fs.readdirSync(assetsDir);
+    
+    // Suche nach passenden Dateien
+    for (const pattern of searchPatterns) {
+      // Exaktes Match
+      const exactMatch = allFiles.find(f => f.toLowerCase() === pattern.toLowerCase());
+      if (exactMatch) {
+        const fullPath = path.join(assetsDir, exactMatch);
+        if (fs.existsSync(fullPath)) {
+          return fullPath;
+        }
+      }
+      
+      // Pattern-Match (enthält img-X)
+      const patternMatch = allFiles.find(f => {
+        const fLower = f.toLowerCase();
+        const patternLower = pattern.toLowerCase();
+        // Prüfe ob Dateiname die Bildnummer enthält
+        return fLower.includes(`img-${imgNumber}`) && 
+               (patternLower.includes('.png') ? fLower.endsWith('.png') : 
+                patternLower.includes('.jpg') ? (fLower.endsWith('.jpg') || fLower.endsWith('.jpeg')) : true);
+      });
+      
+      if (patternMatch) {
+        const fullPath = path.join(assetsDir, patternMatch);
+        if (fs.existsSync(fullPath)) {
+          return fullPath;
+        }
+      }
+    }
+    
+    return null;
+  }
+
   async exportImages(allImages) {
     const imagesWithData = {};
     let processedImages = 0;
     let failedImages = 0;
     
+    // Cache für GA-Verzeichnisse und PDF-Extraktion
+    const gaDirCache = {};
+    const pdfExtractionCache = {};
+    
     for (const [lectureId, images] of Object.entries(allImages)) {
       imagesWithData[lectureId] = [];
+      
+      // Finde den GA-Ordner des Vortrags
+      const gaNumber = lectureId.split('/')[0]; // z.B. "GA266a"
+      let gaDir = gaDirCache[gaNumber];
+      
+      if (!gaDir) {
+        gaDir = this.findGADirectory(gaNumber);
+        if (gaDir) {
+          gaDirCache[gaNumber] = gaDir;
+        }
+      }
+      
+      if (!gaDir) {
+        console.warn(`   ⚠ ${lectureId}: GA-Verzeichnis nicht gefunden für ${gaNumber}`);
+        failedImages += images.length;
+        continue;
+      }
+      
+      // Prüfe ob PDF-Extraktion für diesen GA-Ordner bereits versucht wurde
+      if (!pdfExtractionCache[gaNumber]) {
+        pdfExtractionCache[gaNumber] = true;
+        // Versuche Bilder aus PDF zu extrahieren, falls assets-Ordner leer oder unvollständig ist
+        const assetsDir = path.join(gaDir, 'assets');
+        const hasAssets = fs.existsSync(assetsDir) && fs.readdirSync(assetsDir).length > 0;
+        
+        if (!hasAssets) {
+          console.log(`   📄 ${gaNumber}: Versuche Bilder aus PDF zu extrahieren...`);
+          try {
+            // Rufe Python-Skript für PDF-Extraktion auf
+            const { execSync } = require('child_process');
+            const pythonScript = path.join(__dirname, 'extract_images_from_pdf.py');
+            const gaDirPath = gaDir.replace(/\\/g, '/'); // Normalisiere Pfad für Python
+            
+            if (fs.existsSync(pythonScript)) {
+              execSync(`python "${pythonScript}" "${gaDirPath}"`, {
+                encoding: 'utf8',
+                stdio: 'inherit'
+              });
+              console.log(`   ✅ PDF-Extraktion für ${gaNumber} abgeschlossen`);
+            } else {
+              console.warn(`   ⚠ ${gaNumber}: extract_images_from_pdf.py nicht gefunden`);
+            }
+          } catch (error) {
+            console.warn(`   ⚠ ${gaNumber}: PDF-Extraktion fehlgeschlagen: ${error.message}`);
+          }
+        }
+      }
       
       for (const img of images) {
         try {
           // Dekodiere URL-encoded Pfad
           const decodedPath = decodeURIComponent(img.path);
           
-          // Der Pfad kann verschiedene Formate haben:
-          // 1. "assets/GA089-Bewusstsein Leben Form_img-24.jpeg"
-          // 2. "GA110-Geistige Hierarchien und ihre Widerspiegelung in der physischen Welt_img-0.jpeg"
+          // Versuche Bild mit flexibler Suche zu finden
+          let fullImagePath = this.findImageFile(gaDir, decodedPath);
           
-          // Finde den GA-Ordner des Vortrags
-          const gaNumber = lectureId.split('/')[0]; // z.B. "GA089"
-          const gaDir = this.findGADirectory(gaNumber);
-          
-          if (!gaDir) {
-            console.warn(`   ⚠ ${lectureId}: GA-Verzeichnis nicht gefunden für ${gaNumber}`);
-            failedImages++;
-            continue;
+          // Fallback: Alte Logik für vollständige Pfade
+          if (!fullImagePath) {
+            // Variante 1: Pfad beginnt mit vollständigem GA-Ordnernamen
+            if (decodedPath.match(/^GA\d{3}[a-z]?[-\s]/i)) {
+              fullImagePath = path.join(this.sourceDir, decodedPath);
+            }
+            // Variante 2: Pfad enthält nur "assets/" am Anfang
+            else if (decodedPath.startsWith('assets/') || decodedPath.startsWith('assets\\')) {
+              fullImagePath = path.join(gaDir, decodedPath);
+            } 
+            // Variante 3: Pfad ist nur Dateiname mit GA-Präfix
+            else if (decodedPath.match(/^GA\d{3}/i)) {
+              fullImagePath = path.join(gaDir, 'assets', decodedPath);
+            }
+            // Variante 4: Relativer Pfad ohne GA-Präfix
+            else {
+              fullImagePath = path.join(gaDir, 'assets', decodedPath);
+            }
+            
+            // Prüfe ob Datei existiert
+            if (!fs.existsSync(fullImagePath)) {
+              fullImagePath = null;
+            }
           }
           
-          // Versuche verschiedene Pfad-Varianten
-          let fullImagePath = null;
-          
-          // Variante 1: Pfad beginnt mit vollständigem GA-Ordnernamen (z.B. "GA101-Mythen.../assets/...")
-          // Dies ist ein Pfad relativ zum Steiner_GA Root
-          if (decodedPath.match(/^GA\d{3}[a-z]?[-\s]/i)) {
-            // Pfad ist vom Root aus (this.sourceDir)
-            fullImagePath = path.join(this.sourceDir, decodedPath);
-          }
-          // Variante 2: Pfad enthält nur "assets/" am Anfang (z.B. "assets/GA089-...")
-          else if (decodedPath.startsWith('assets/') || decodedPath.startsWith('assets\\')) {
-            fullImagePath = path.join(gaDir, decodedPath);
-          } 
-          // Variante 3: Pfad ist nur Dateiname (z.B. "GA110-...jpg")
-          else if (decodedPath.match(/^GA\d{3}/i)) {
-            fullImagePath = path.join(gaDir, 'assets', decodedPath);
-          }
-          // Variante 4: Relativer Pfad ohne GA-Präfix
-          else {
-            fullImagePath = path.join(gaDir, 'assets', decodedPath);
-          }
-          
-          if (!fs.existsSync(fullImagePath)) {
-            console.warn(`   ⚠ ${lectureId}: Bild nicht gefunden: ${decodedPath}`);
-            console.warn(`      Geprüfter Pfad: ${fullImagePath}`);
-            failedImages++;
-            continue;
+          if (!fullImagePath) {
+            // Letzter Versuch: Versuche PDF-Extraktion für dieses spezifische Bild
+            const assetsDir = path.join(gaDir, 'assets');
+            const pdfFiles = fs.readdirSync(gaDir).filter(f => f.endsWith('.pdf'));
+            
+            if (pdfFiles.length > 0 && !pdfExtractionCache[`${gaNumber}_extracted`]) {
+              console.log(`   📄 ${lectureId}: Versuche Bilder aus PDF zu extrahieren...`);
+              try {
+                const { execSync } = require('child_process');
+                const pythonScript = path.join(__dirname, 'extract_images_from_pdf.py');
+                const gaDirPath = gaDir.replace(/\\/g, '/');
+                
+                if (fs.existsSync(pythonScript)) {
+                  execSync(`python "${pythonScript}" "${gaDirPath}"`, {
+                    encoding: 'utf8',
+                    stdio: 'pipe'
+                  });
+                  pdfExtractionCache[`${gaNumber}_extracted`] = true;
+                  
+                  // Versuche erneut zu finden nach PDF-Extraktion
+                  fullImagePath = this.findImageFile(gaDir, decodedPath);
+                }
+              } catch (error) {
+                // PDF-Extraktion fehlgeschlagen, ignoriere
+              }
+            }
+            
+            if (!fullImagePath) {
+              console.warn(`   ⚠ ${lectureId}: Bild nicht gefunden: ${decodedPath}`);
+              failedImages++;
+              continue;
+            }
           }
           
           // Bestimme Dateiendung und prüfe ob Konvertierung nötig ist
@@ -756,15 +910,21 @@ class SteinerLecturesExporter {
             // Konvertiere zu Base64
             const base64 = imageBuffer.toString('base64');
             
-            // Aktualisiere auch Markdown-Referenz wenn JPEG konvertiert wurde
+            // Aktualisiere auch Markdown-Referenz und altText wenn JPEG konvertiert wurde
             let convertedMarkdownRef = img.markdownRef;
-            if (isJpeg && img.markdownRef) {
-              convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g$/i, '.png');
+            let convertedAltText = img.altText;
+            if (isJpeg) {
+              if (img.markdownRef) {
+                convertedMarkdownRef = img.markdownRef.replace(/\.jpe?g/gi, '.png');
+              }
+              if (img.altText) {
+                convertedAltText = img.altText.replace(/\.jpe?g$/i, '.png');
+              }
             }
             
             imagesWithData[lectureId].push({
               index: img.index,
-              altText: img.altText,
+              altText: convertedAltText, // Aktualisierter Alt-Text (.png statt .jpeg)
               path: convertedPath, // Verwende konvertierten Pfad (.png statt .jpeg)
               markdownRef: convertedMarkdownRef, // Aktualisierte Markdown-Referenz
               base64: `data:${mimeType};base64,${base64}`,
