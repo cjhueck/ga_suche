@@ -398,7 +398,8 @@ export function extractTags(text) {
  * GA-Referenzen aus Text extrahieren (GA110/5, GA107/3, etc.)
  */
 export function extractGAReferences(text) {
-  const regex = /GA\s?(\d{1,3})\/(\d{1,3})|GA\s?(\d{1,3})/gi;
+  // Unterstützt auch GA-Nummern mit Buchstaben-Suffix wie GA266a/9
+  const regex = /GA\s?(\d{1,3}[a-z]?)\/(\d{1,3})|GA\s?(\d{1,3}[a-z]?)/gi;
   const matches = [];
   let match;
   

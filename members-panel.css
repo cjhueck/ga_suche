@@ -232,6 +232,25 @@
   border-color: var(--accent-color);
 }
 
+/* Aktiver Filter-Indikator */
+.keyword-select-btn.filter-active {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  position: relative;
+}
+
+.keyword-select-btn.filter-active::before {
+  content: '●';
+  position: absolute;
+  left: 0.3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.5rem;
+  color: white;
+}
+
 .keyword-select-btn option {
   background: var(--background-color);
   color: var(--text-color);
@@ -826,6 +845,17 @@ body.dark-mode .keyword-select-btn:hover:not(:disabled) {
   border-color: var(--dark-accent-color);
   color: #1a1a1a;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+body.dark-mode .keyword-select-btn.filter-active {
+  background-color: var(--dark-accent-color);
+  border-color: var(--dark-accent-color);
+  color: #1a1a1a;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+}
+
+body.dark-mode .keyword-select-btn.filter-active::before {
+  color: #1a1a1a;
 }
 
 body.dark-mode .keyword-select-btn option {
