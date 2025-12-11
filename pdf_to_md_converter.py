@@ -30,9 +30,16 @@ def korrigiere_rechtschreibung(text):
         after = match.group(2)
         word = before + 'kk' + after
         
+        # Ausnahmen: okkult*, *kehr (Rückkehr, zurückkehren), Akkord, Akkumulator, 
+        #            Akkusativ, Mokka, Sakko, Stakkato, okkupier*, Brokkoli, sukkulen*
+        word_lower = word.lower()
+        kk_exceptions = ['okkult', 'kehr', 'akkord', 'akkum', 'akkus', 'mokka', 
+                        'sakko', 'stakka', 'okkup', 'brokko', 'sukkul', 'makka']
+        has_exception = any(exc in word_lower for exc in kk_exceptions)
+        
         if (len(word) < 5 or not before or 
             any(c in word for c in ['/', ':', '.', '@', '_']) or
-            word.lower().startswith('okkult')):
+            has_exception):
             return match.group(0)
         
         return before + 'ck' + after
