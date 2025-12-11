@@ -134,8 +134,8 @@ class SteinerLecturesExporter {
     // Filter "Inhaltsverzeichnis" headings
     if (/inhalts?verzeichnis/i.test(l)) return null;
     
-    // Filter heading lines (H1-H6)
-    if (/^\s*#{1,6}\s+/.test(l)) return null;
+    // Filter nur H1 (Dokumenttitel) - behalte H2, H3, H4 für Zwischenüberschriften
+    if (/^\s*#\s+[^#]/.test(l)) return null;
     
     // Filter lines that are only italic/bold (oft Zusammenfassungen)
     if (/^[_*].+[_*]$/.test(l)) return null;
@@ -423,13 +423,20 @@ class SteinerLecturesExporter {
       const content = fs.readFileSync(filePath, 'utf8');
       const lines = content.split("\n");
 
-      // NUR Absätze extrahieren (KEINE Summaries, TOC, Überschriften)
+      // NUR Absätze extrahieren (KEINE Summaries, TOC)
+      // H2/H3/H4 Überschriften werden beibehalten und dem nächsten Absatz vorangestellt
       const paragraphs = [];
       const lectureImages = []; // Bilder für diesen Vortrag
+      let pendingHeadings = []; // Sammle Überschriften für den nächsten Absatz
       
       for (let line of lines) {
-        // Überspringe H3/H4 Überschriften (werden NICHT exportiert)
-        if (/^#{3,4}\s+/.test(line)) {
+        // Erkenne H2/H3/H4 Überschriften und sammle sie
+        const headingMatch = line.match(/^(#{2,4})\s+(.+)$/);
+        if (headingMatch) {
+          const level = headingMatch[1].length; // 2, 3, oder 4
+          const headingText = headingMatch[2].trim();
+          // Konvertiere zu HTML-Tag für spätere Darstellung
+          pendingHeadings.push(`<h${level}>${headingText}</h${level}>`);
           continue;
         }
         
@@ -459,6 +466,12 @@ class SteinerLecturesExporter {
             
             // Formatiere Paragraph-Content (Gedichte und durchgezogene Linien)
             convertedText = this.formatParagraphContent(convertedText);
+            
+            // Füge gesammelte Überschriften vor dem Absatz ein
+            if (pendingHeadings.length > 0) {
+              convertedText = pendingHeadings.join('\n') + '\n' + convertedText;
+              pendingHeadings = []; // Reset
+            }
             
             paragraphs.push({
               index: `^${blockId}`,

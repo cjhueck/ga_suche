@@ -43,10 +43,17 @@ def korrigiere_rechtschreibung(text):
         # - Zu kurz (< 5 Zeichen)
         # - Enthält Sonderzeichen (URL, etc.)
         # - kk am Anfang des Wortes
-        # - Wort ist "okkult" oder beginnt mit "okkult" (z.B. Okkultismus)
+        # - Wort enthält legitimes kk (Ausnahmen)
+        # Ausnahmen: okkult*, *kehr (Rückkehr, zurückkehren), Akkord, Akkumulator, 
+        #            Akkusativ, Mokka, Sakko, Stakkato, okkupier*, Brokkoli, sukkulen*
+        word_lower = word.lower()
+        kk_exceptions = ['okkult', 'kehr', 'akkord', 'akkum', 'akkus', 'mokka', 
+                        'sakko', 'stakka', 'okkup', 'brokko', 'sukkul', 'makka']
+        has_exception = any(exc in word_lower for exc in kk_exceptions)
+        
         if (len(word) < 5 or not before or 
             any(c in word for c in ['/', ':', '.', '@', '_']) or
-            word.lower().startswith('okkult')):
+            has_exception):
             return match.group(0)
         
         # Ersetze kk durch ck
