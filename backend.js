@@ -3730,19 +3730,12 @@ app.post('/api/batch-regenerate-all', async (req, res) => {
 
 app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
   try {
-    // VALIDIERUNG ENTFERNT - verursachte Probleme
     const lectureId = `${req.params.gaNumber}/${req.params.lectureNum}`;
-    
-    console.log(`[CHECK-SUMMARY] Prüfe zentrale DB für ${lectureId}`);
-    
     const summaryDB = await loadSummaryDatabase();
     
     // Prüfe exakte Übereinstimmung
     if (summaryDB[lectureId]) {
       const dbData = summaryDB[lectureId];
-      
-      console.log(`[CHECK-SUMMARY] ✓ Zusammenfassung existiert für ${lectureId} (Version: ${dbData.version || 'v1'})`);
-      
       return res.json({
         exists: true,
         lectureId: lectureId,
@@ -3754,14 +3747,9 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
       });
     }
     
-    // DEBUG: Zeige verfügbare IDs für dieses GA
+    // Versuche alternative Formatierungen (z.B. GA052/1 vs GA052/01)
     const availableIds = Object.keys(summaryDB).filter(id => id.startsWith(req.params.gaNumber));
     if (availableIds.length > 0) {
-      console.log(`[CHECK-SUMMARY] Verfügbare IDs für ${req.params.gaNumber}:`, availableIds.slice(0, 10));
-      console.log(`[CHECK-SUMMARY] Gesuchte ID: ${lectureId}`);
-      console.log(`[CHECK-SUMMARY] Exakte Übereinstimmung: ${availableIds.includes(lectureId)}`);
-      
-      // Versuche alternative Formatierungen (z.B. GA052/1 vs GA052/01)
       const lectureNum = parseInt(req.params.lectureNum);
       const alternativeId1 = `${req.params.gaNumber}/${lectureNum}`; // ohne führende Null
       const alternativeId2 = `${req.params.gaNumber}/${lectureNum.toString().padStart(2, '0')}`; // mit führender Null
@@ -3778,7 +3766,6 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
       }
       
       if (foundData) {
-        console.log(`[CHECK-SUMMARY] ✓ Alternative ID gefunden: ${foundId} statt ${lectureId}`);
         return res.json({
           exists: true,
           lectureId: foundId,
@@ -3789,11 +3776,8 @@ app.get('/api/check-summary/:gaNumber/:lectureNum', async (req, res) => {
           version: foundData.version || 'v1'
         });
       }
-    } else {
-      console.log(`[CHECK-SUMMARY] Keine IDs für ${req.params.gaNumber} gefunden`);
     }
     
-    console.log(`[CHECK-SUMMARY] ✗ Keine Zusammenfassung für ${lectureId}`);
     res.json({
       exists: false,
       lectureId: lectureId,
@@ -8068,13 +8052,20 @@ async function cleanOldBackupsGeneric(backupDir, prefix, maxBackups) {
     // Lösche alle außer den letzten N
     const toDelete = backupFiles.slice(maxBackups);
     for (const file of toDelete) {
-      await fs.unlink(file.fullPath);
-    }
-    
-    if (toDelete.length > 0) {
+      try {
+        await fs.unlink(file.fullPath);
+      } catch (unlinkError) {
+        // Ignoriere ENOENT (Datei existiert nicht mehr)
+        if (unlinkError.code !== 'ENOENT') {
+          console.warn(`[BACKUP] Warnung beim Löschen von ${file.name}:`, unlinkError.message);
+        }
+      }
     }
   } catch (error) {
-    console.error(`[BACKUP] Fehler beim Bereinigen von ${prefix}:`, error);
+    // Ignoriere ENOENT für das gesamte Verzeichnis
+    if (error.code !== 'ENOENT') {
+      console.error(`[BACKUP] Fehler beim Bereinigen von ${prefix}:`, error);
+    }
   }
 }
 
@@ -8265,9 +8256,21 @@ let summaryDbLock = false;
 
 // Lade zentrale Summary-Datenbank
 // KEIN Cache für summary-database.json - wird bei jedem Request neu geladen
-async function loadSummaryDatabase() {
+// Cache für Summary-Datenbank (verhindert wiederholtes Laden bei jedem Request)
+let summaryDatabaseCache = null;
+let summaryDatabaseCacheTime = 0;
+const SUMMARY_DB_CACHE_TTL = 60000; // 60 Sekunden Cache-TTL
+
+async function loadSummaryDatabase(forceReload = false) {
   try {
-    // Lade Datei IMMER neu (kein Cache)
+    const now = Date.now();
+    
+    // Verwende Cache wenn vorhanden und nicht abgelaufen
+    if (!forceReload && summaryDatabaseCache && (now - summaryDatabaseCacheTime) < SUMMARY_DB_CACHE_TTL) {
+      return summaryDatabaseCache;
+    }
+    
+    // Lade Datei von der Festplatte
     const data = await fs.readFile(SUMMARY_DB_FILE, 'utf8');
     const parsed = JSON.parse(data);
     const entryCount = Object.keys(parsed).length;
@@ -8275,11 +8278,9 @@ async function loadSummaryDatabase() {
       console.warn('[SUMMARY-DB] ⚠️  WARNUNG: summary-database.json ist leer!');
     }
     
-    // Debug: Prüfe GA001 Überschriften
-    if (parsed['GA001'] && parsed['GA001'].headings && parsed['GA001'].headings.length > 0) {
-      const firstHeading = parsed['GA001'].headings[0];
-      console.log(`[SUMMARY-DB] GA001 erste Überschrift Index: ${firstHeading.index}, Text: ${firstHeading.text.substring(0, 40)}`);
-    }
+    // Speichere im Cache
+    summaryDatabaseCache = parsed;
+    summaryDatabaseCacheTime = now;
     
     return parsed;
   } catch (error) {
@@ -8288,10 +8289,18 @@ async function loadSummaryDatabase() {
   }
 }
 
+// Funktion zum Invalidieren des Caches (nach Schreiboperationen aufrufen)
+function invalidateSummaryDatabaseCache() {
+  summaryDatabaseCache = null;
+  summaryDatabaseCacheTime = 0;
+}
+
 // Speichere zentrale Summary-Datenbank (veraltet - verwende saveSummaryToDatabase)
 async function saveSummaryDatabase(summaryDB) {
   try {
     await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
+    // Cache invalidieren nach dem Speichern
+    invalidateSummaryDatabaseCache();
     return true;
   } catch (error) {
     console.error('Fehler beim Speichern der Summary-DB:', error);
@@ -8335,8 +8344,8 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         // Erstelle Backup vor dem Speichern
         await createSummaryBackup();
         
-        // Lade immer die aktuellste Version der Datenbank
-        const summaryDB = await loadSummaryDatabase();
+        // Lade immer die aktuellste Version der Datenbank (Cache umgehen)
+        const summaryDB = await loadSummaryDatabase(true);
         
         // Füge neue Summary hinzu oder aktualisiere bestehende
         summaryDB[lectureId] = {
@@ -8351,6 +8360,8 @@ async function saveSummaryToDatabase(lectureId, summaryData) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
+        // Cache invalidieren
+        invalidateSummaryDatabaseCache();
         
         resolve(true);
         
@@ -8371,8 +8382,8 @@ async function deleteSummariesFromDatabase(lectureIds) {
     summaryDbWriteQueue = summaryDbWriteQueue.then(async () => {
       try {
         
-        // Lade immer die aktuellste Version der Datenbank
-        const summaryDB = await loadSummaryDatabase();
+        // Lade immer die aktuellste Version der Datenbank (Cache umgehen)
+        const summaryDB = await loadSummaryDatabase(true);
         
         // Lösche Einträge
         let deletedCount = 0;
@@ -8386,6 +8397,8 @@ async function deleteSummariesFromDatabase(lectureIds) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
+        // Cache invalidieren
+        invalidateSummaryDatabaseCache();
         
         resolve(deletedCount);
         
@@ -8419,6 +8432,8 @@ async function saveCompleteSummaryDatabase(summaryDB) {
         // Speichere Datenbank
         await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
         
+        // Cache invalidieren
+        invalidateSummaryDatabaseCache();
         
         resolve(true);
         
@@ -8835,14 +8850,7 @@ app.get('/summary-database.json', async (req, res) => {
     // WICHTIG: Deaktiviere Kompression für große Dateien, um Content-Length-Probleme zu vermeiden
     res.setHeader('Content-Encoding', 'identity');
     
-    console.log(`[SUMMARY-DB-ENDPOINT] Request empfangen`);
     const summaryDB = await loadSummaryDatabase();
-    
-    // Debug: Prüfe was zurückgegeben wird
-    if (summaryDB['GA001'] && summaryDB['GA001'].headings && summaryDB['GA001'].headings.length > 0) {
-      const firstHeading = summaryDB['GA001'].headings[0];
-      console.log(`[SUMMARY-DB-ENDPOINT] GA001 erste Überschrift Index: ${firstHeading.index}`);
-    }
     
     // Stringify und senden - setze Content-Length explizit
     const jsonString = JSON.stringify(summaryDB);

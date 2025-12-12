@@ -330,71 +330,114 @@ async function saveContextBookmark(text, lectureId, lectureTitle, paragraphIndex
  * Ermittelt das Datum des aktuellen Vortrags
  * Gibt das Datum im Format YYYY-MM-DD zurück oder null wenn nicht verfügbar
  */
+/**
+ * Entfernt Vortragsüberschriften wie "ERSTER VORTRAG", "NEUNTER VORTRAG" etc. aus dem Text
+ * Diese erscheinen manchmal am Anfang des paragraph_text, wenn der Benutzer Text markiert
+ */
+function cleanParagraphText(text) {
+  if (!text) return text;
+  
+  // Muster für Vortragsüberschriften (am Anfang des Textes)
+  // Unterstützt: ERSTER, ZWEITER, ..., NEUNTER, ZEHNTER, ELFTER, ZWÖLFTER, etc.
+  // Auch: 1., 2., 3., etc. VORTRAG
+  const vortragPattern = /^\s*(ERSTER|ZWEITER|DRITTER|VIERTER|FÜNFTER|SECHSTER|SIEBTER|SIEBENTER|ACHTER|NEUNTER|ZEHNTER|ELFTER|ZWÖLFTER|DREIZEHNTER|VIERZEHNTER|FÜNFZEHNTER|SECHZEHNTER|SIEBZEHNTER|ACHTZEHNTER|NEUNZEHNTER|ZWANZIGSTER|EINUNDZWANZIGSTER|ZWEIUNDZWANZIGSTER|DREIUNDZWANZIGSTER|VIERUNDZWANZIGSTER|FÜNFUNDZWANZIGSTER|\d{1,2}\.)\s*VORTRAG\s*/i;
+  
+  // Entferne Überschrift am Anfang
+  let cleanedText = text.replace(vortragPattern, '');
+  
+  // Entferne auch führende Leerzeichen und Zeilenumbrüche
+  cleanedText = cleanedText.replace(/^[\s\n\r]+/, '');
+  
+  if (cleanedText !== text) {
+    console.log('[CLEAN-TEXT] Vortragsüberschrift entfernt');
+  }
+  
+  return cleanedText;
+}
+
 function getCurrentLectureDate(lectureId) {
   if (!lectureId) {
     console.warn('[LECTURE-DATE] Keine lectureId übergeben');
     return null;
   }
   
-  // Versuche aus currentLectureData zu holen (nur wenn ID übereinstimmt)
+  // Hilfsfunktion zum Konvertieren von deutschem Datum zu ISO
+  function convertGermanDateToISO(dateStr) {
+    if (!dateStr) return null;
+    
+    // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
+    if (dateStr.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      return dateStr;
+    }
+    
+    // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
+    const dateMatch = dateStr.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
+    if (dateMatch) {
+      const day = dateMatch[1].padStart(2, '0');
+      const monthNames = {
+        'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
+        'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
+        'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
+      };
+      const month = monthNames[dateMatch[2].toLowerCase()];
+      const year = dateMatch[3];
+      if (month) {
+        return `${year}-${month}-${day}`;
+      }
+    }
+    return null;
+  }
+  
+  // 1. Prüfe zuerst, ob Side Panel Daten verfügbar sind und die ID übereinstimmt
+  if (typeof window.currentSidePanelLectureId !== 'undefined' && 
+      window.currentSidePanelLectureId === lectureId &&
+      typeof window.currentSidePanelLectureDate !== 'undefined' &&
+      window.currentSidePanelLectureDate) {
+    const isoDate = convertGermanDateToISO(window.currentSidePanelLectureDate);
+    if (isoDate) {
+      console.log('[LECTURE-DATE] Datum aus Side Panel:', isoDate);
+      return isoDate;
+    }
+  }
+  
+  // 2. Versuche aus currentLectureData zu holen (nur wenn ID übereinstimmt)
   if (typeof currentLectureData !== 'undefined' && currentLectureData) {
     // Prüfe ob die ID übereinstimmt
     const currentId = currentLectureData.ID || currentLectureData.id || '';
     if (currentId && currentId === lectureId) {
       let date = currentLectureData.date || currentLectureData.dateString || '';
       
-      if (date) {
-        // Wenn bereits im ISO-Format (YYYY-MM-DD), direkt zurückgeben
-        if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
-          console.log('[LECTURE-DATE] Datum gefunden (ISO):', date);
-          return date;
-        }
-        
-        // Versuche aus deutschem Format zu konvertieren (z.B. "21. Oktober 1908")
-        const dateMatch = date.match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
-        if (dateMatch) {
-          const day = dateMatch[1].padStart(2, '0');
-          const monthNames = {
-            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
-            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
-            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
-          };
-          const month = monthNames[dateMatch[2].toLowerCase()];
-          const year = dateMatch[3];
-          if (month) {
-            const isoDate = `${year}-${month}-${day}`;
-            console.log('[LECTURE-DATE] Datum konvertiert:', date, '->', isoDate);
-            return isoDate;
-          }
-        }
+      const isoDate = convertGermanDateToISO(date);
+      if (isoDate) {
+        console.log('[LECTURE-DATE] Datum aus currentLectureData:', isoDate);
+        return isoDate;
       }
       
       // Fallback: Versuche aus fileName oder location zu extrahieren
       if (!date && (currentLectureData.fileName || currentLectureData.location)) {
-        const locationMatch = (currentLectureData.location || currentLectureData.fileName || '').match(/(\d{1,2})\.\s*(Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s*(\d{4})/i);
-        if (locationMatch) {
-          const day = locationMatch[1].padStart(2, '0');
-          const monthNames = {
-            'januar': '01', 'februar': '02', 'märz': '03', 'april': '04',
-            'mai': '05', 'juni': '06', 'juli': '07', 'august': '08',
-            'september': '09', 'oktober': '10', 'november': '11', 'dezember': '12'
-          };
-          const month = monthNames[locationMatch[2].toLowerCase()];
-          const year = locationMatch[3];
-          if (month) {
-            const isoDate = `${year}-${month}-${day}`;
-            console.log('[LECTURE-DATE] Datum aus location/fileName extrahiert:', isoDate);
-            return isoDate;
-          }
+        const locationDate = convertGermanDateToISO(currentLectureData.location || currentLectureData.fileName);
+        if (locationDate) {
+          console.log('[LECTURE-DATE] Datum aus location/fileName extrahiert:', locationDate);
+          return locationDate;
         }
       }
     } else {
-      console.warn('[LECTURE-DATE] currentLectureData.ID stimmt nicht überein:', currentId, 'vs', lectureId);
+      console.log('[LECTURE-DATE] currentLectureData.ID stimmt nicht überein:', currentId, 'vs', lectureId);
     }
-  } else {
-    console.warn('[LECTURE-DATE] currentLectureData nicht verfügbar für lectureId:', lectureId);
   }
   
+  // 3. Versuche aus dem DOM zu extrahieren (z.B. aus dem Titel im Side Panel)
+  const documentTitle = document.getElementById('document-title');
+  if (documentTitle) {
+    const titleText = documentTitle.textContent || '';
+    const titleDate = convertGermanDateToISO(titleText);
+    if (titleDate) {
+      console.log('[LECTURE-DATE] Datum aus document-title extrahiert:', titleDate);
+      return titleDate;
+    }
+  }
+  
+  console.warn('[LECTURE-DATE] Kein Datum gefunden für:', lectureId);
   return null;
 }
 
@@ -541,7 +584,9 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     
     // Hole den vollständigen Text des Absatzes
     // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
-    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    // Entferne Vortragsüberschriften wie "NEUNTER VORTRAG" am Anfang
+    const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    const paragraphText = cleanParagraphText(rawParagraphText);
     
     console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText.length);
     console.log('[QUOTE-SAVE] Selected Text:', text.substring(0, 50) + '...');
@@ -718,8 +763,12 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
         if (typeof invalidateMembersCache === 'function') {
           invalidateMembersCache('quotes');
         }
-        // Panel aktualisieren falls offen
-        if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+        
+        // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige das neue Zitat
+        if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
+          await openMembersPanelAndShowTab('quotes', null);
+        } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+          // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
           if (typeof updateMembersPanelIfOpen === 'function') {
             await updateMembersPanelIfOpen('quotes', true);
           } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
@@ -735,8 +784,10 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     showContextNotification('✓ Zitat gespeichert!', 'success');
     
     // Zitat visuell markieren und klickbar machen
+    let savedQuoteId = null;
     if (data && data.length > 0) {
       const savedQuote = data[0];
+      savedQuoteId = savedQuote.id;
       const markerColor = savedQuote.marker_color || null;
       applyQuoteToSelection(selectionRangeForContext, savedQuote.id, lectureId, paragraphIndex, markerColor);
     } else {
@@ -747,8 +798,12 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     if (typeof invalidateMembersCache === 'function') {
       invalidateMembersCache('quotes');
     }
-    // Panel aktualisieren falls offen
-    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+    
+    // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige das neue Zitat
+    if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
+      await openMembersPanelAndShowTab('quotes', savedQuoteId);
+    } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('quotes', true);
       } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
@@ -905,7 +960,9 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     
     // Hole den vollständigen Text des Absatzes
     // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
-    const paragraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    // Entferne Vortragsüberschriften wie "NEUNTER VORTRAG" am Anfang
+    const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+    const paragraphText = cleanParagraphText(rawParagraphText);
     
     console.log('[HIGHLIGHT-SAVE] Paragraph Text Länge:', paragraphText.length);
     console.log('[HIGHLIGHT-SAVE] Selected Text:', text.substring(0, 50) + '...');
@@ -1034,8 +1091,10 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       showContextNotification('✓ Unterstreichung gespeichert!', 'success');
       
       // Unterstreichung visuell anzeigen und klickbar machen
+      let savedHighlightIdNorm = null;
       if (data && data.length > 0) {
         const savedHighlight = data[0];
+        savedHighlightIdNorm = savedHighlight.id;
         applyHighlightToSelection(selectionRangeForContext, color, savedHighlight.id, lectureId, paragraphIndex);
       } else {
         applyHighlightToSelection(selectionRangeForContext, color);
@@ -1046,8 +1105,12 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     if (typeof invalidateMembersCache === 'function') {
       invalidateMembersCache('highlights');
     }
-    // Aktualisiere Panel falls offen
-    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+    
+    // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige die neue Unterstreichung
+    if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
+      await openMembersPanelAndShowTab('highlights', savedHighlightIdNorm);
+    } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('highlights', true);
       } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
@@ -1107,8 +1170,10 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     showContextNotification('✓ Unterstreichung gespeichert!', 'success');
     
     // Unterstreichung visuell anzeigen und klickbar machen
+    let savedHighlightId = null;
     if (data && data.length > 0) {
       const savedHighlight = data[0];
+      savedHighlightId = savedHighlight.id;
       applyHighlightToSelection(selectionRangeForContext, color, savedHighlight.id, lectureId, paragraphIndex);
     } else {
       applyHighlightToSelection(selectionRangeForContext, color);
@@ -1118,8 +1183,12 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     if (typeof invalidateMembersCache === 'function') {
       invalidateMembersCache('highlights');
     }
-    // Panel aktualisieren falls offen
-    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+    
+    // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige die neue Unterstreichung
+    if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
+      await openMembersPanelAndShowTab('highlights', savedHighlightId);
+    } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('highlights', true);
       } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
@@ -1167,73 +1236,84 @@ function applyHighlightToSelection(range, color = 'blue', highlightId = null, ga
         e.stopPropagation();
         e.preventDefault();
         console.log('[HIGHLIGHT-CLICK] Klick auf Unterstreichung:', highlightId, gaNumber, paragraphId);
-        // Öffne Members Panel und springe zum Highlight
+        
+        // WICHTIG: Setze Navigation-State zurück, um Side Panel nicht zu blockieren
+        if (typeof resetNavigationState === 'function') {
+          resetNavigationState();
+        } else if (typeof window.resetNavigationState === 'function') {
+          window.resetNavigationState();
+        }
+        
+        // Prüfe ob Klick aus Side Panel kam
+        const isInSidePanel = !!e.target.closest('#summary-content');
+        console.log('[HIGHLIGHT-CLICK] Klick aus Side Panel:', isInSidePanel);
+        
+        // Funktion zum Scrollen zum Item im Members Panel
+        const scrollToMembersItem = () => {
+          let attempts = 0;
+          const maxAttempts = 10;
+          
+          const tryScrollToItem = () => {
+            attempts++;
+            const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
+            if (targetItem) {
+              const membersContent = document.querySelector('.members-content');
+              if (membersContent) {
+                const containerRect = membersContent.getBoundingClientRect();
+                const itemRect = targetItem.getBoundingClientRect();
+                const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+                const containerHeight = membersContent.clientHeight;
+                const itemHeight = itemRect.height;
+                const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                
+                membersContent.scrollTo({
+                  top: Math.max(0, targetScrollTop),
+                  behavior: 'smooth'
+                });
+              } else {
+                const membersTabContent = document.getElementById('members-tab-content');
+                if (membersTabContent) {
+                  const containerRect = membersTabContent.getBoundingClientRect();
+                  const itemRect = targetItem.getBoundingClientRect();
+                  const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
+                  const containerHeight = membersTabContent.clientHeight;
+                  const itemHeight = itemRect.height;
+                  const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                  
+                  membersTabContent.scrollTo({
+                    top: Math.max(0, targetScrollTop),
+                    behavior: 'smooth'
+                  });
+                }
+              }
+              // Visuelles Highlight
+              targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+              setTimeout(() => {
+                targetItem.style.backgroundColor = '';
+              }, 2000);
+            } else if (attempts < maxAttempts) {
+              // Item noch nicht gefunden, versuche es erneut
+              setTimeout(tryScrollToItem, 200);
+            } else {
+              console.warn('[HIGHLIGHT-CLICK] Item nicht gefunden nach', maxAttempts, 'Versuchen');
+              // WICHTIG: KEIN jumpToHighlight aufrufen - das würde das Side Panel überschreiben!
+            }
+          };
+          
+          setTimeout(tryScrollToItem, 300);
+        };
+        
+        // Öffne Members Panel und springe zum Highlight (OHNE Text neu zu laden!)
         if (typeof openMembersPanel === 'function') {
           openMembersPanel().then(() => {
             if (typeof switchMembersTab === 'function') {
-              switchMembersTab('highlights').then(() => {
-                setTimeout(() => {
-                  const targetItem = document.querySelector(`[data-id="${highlightId}"][data-type="highlight"]`);
-                  if (targetItem) {
-                    // Scrolle nur den Content-Bereich, nicht das gesamte Panel
-                    const membersContent = document.querySelector('.members-content');
-                    if (membersContent) {
-                      const containerRect = membersContent.getBoundingClientRect();
-                      const itemRect = targetItem.getBoundingClientRect();
-                      const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
-                      const containerHeight = membersContent.clientHeight;
-                      const itemHeight = itemRect.height;
-                      const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                      
-                      membersContent.scrollTo({
-                        top: Math.max(0, targetScrollTop),
-                        behavior: 'smooth'
-                      });
-                    } else {
-                      const membersTabContent = document.getElementById('members-tab-content');
-                      if (membersTabContent) {
-                        const containerRect = membersTabContent.getBoundingClientRect();
-                        const itemRect = targetItem.getBoundingClientRect();
-                        const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
-                        const containerHeight = membersTabContent.clientHeight;
-                        const itemHeight = itemRect.height;
-                        const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                        
-                        membersTabContent.scrollTo({
-                          top: Math.max(0, targetScrollTop),
-                          behavior: 'smooth'
-                        });
-                      }
-                    }
-                    // Visuelles Highlight
-                    targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
-                    setTimeout(() => {
-                      targetItem.style.backgroundColor = '';
-                    }, 2000);
-                  } else {
-                    // Fallback: Verwende jumpToHighlight falls verfügbar
-                    if (typeof jumpToHighlight === 'function') {
-                      jumpToHighlight(gaNumber, paragraphId, highlightId);
-                    } else {
-                      console.warn('[HIGHLIGHT-CLICK] jumpToHighlight Funktion nicht verfügbar');
-                    }
-                  }
-                }, 300);
-              });
+              switchMembersTab('highlights').then(scrollToMembersItem);
             } else {
-              // Fallback: Verwende jumpToHighlight falls verfügbar
-              if (typeof jumpToHighlight === 'function') {
-                jumpToHighlight(gaNumber, paragraphId, highlightId);
-              }
+              scrollToMembersItem();
             }
           });
         } else {
-          // Fallback: Verwende jumpToHighlight falls verfügbar
-          if (typeof jumpToHighlight === 'function') {
-            jumpToHighlight(gaNumber, paragraphId, highlightId);
-          } else {
-            console.warn('[HIGHLIGHT-CLICK] openMembersPanel und jumpToHighlight Funktionen nicht verfügbar');
-          }
+          console.warn('[HIGHLIGHT-CLICK] openMembersPanel Funktion nicht verfügbar');
         }
       });
     }
@@ -1459,8 +1539,14 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
         const textContainer = fullParagraphContainer.querySelector('.full-paragraph-text');
         paragraphElement = textContainer || fullParagraphContainer;
       } else {
-        // Standard: Suche nach para- Element
+        // Suche nach para- Element (Main Viewer) oder adv-para- (Side Panel)
         paragraphElement = document.getElementById('para-' + paragraphId);
+        if (!paragraphElement) {
+          paragraphElement = document.getElementById('adv-para-' + paragraphId);
+        }
+        if (!paragraphElement) {
+          paragraphElement = document.querySelector(`[data-paragraph-id="${paragraphId}"]`);
+        }
       }
       
       if (paragraphElement) {
@@ -1475,12 +1561,13 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
         let isMultiParagraph = false;
         
         if (!isInMembersPanelFullText) {
+          // Suche sowohl nach para- als auch nach adv-para- (Side Panel)
           startPara = startContainer.nodeType === Node.TEXT_NODE 
-            ? startContainer.parentElement.closest('[id^="para-"]')
-            : startContainer.closest('[id^="para-"]');
+            ? (startContainer.parentElement.closest('[id^="para-"]') || startContainer.parentElement.closest('[id^="adv-para-"]'))
+            : (startContainer.closest('[id^="para-"]') || startContainer.closest('[id^="adv-para-"]'));
           endPara = endContainer.nodeType === Node.TEXT_NODE 
-            ? endContainer.parentElement.closest('[id^="para-"]')
-            : endContainer.closest('[id^="para-"]');
+            ? (endContainer.parentElement.closest('[id^="para-"]') || endContainer.parentElement.closest('[id^="adv-para-"]'))
+            : (endContainer.closest('[id^="para-"]') || endContainer.closest('[id^="adv-para-"]'));
           
           isMultiParagraph = startPara && endPara && startPara !== endPara;
         }
@@ -1489,9 +1576,10 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
           console.log('[MB-CONTEXT] Multi-Paragraph Selektion erkannt');
           
           // Sammle Text aller betroffenen Absätze (vom Start-Paragraph aus)
-          const contentContainer = paragraphElement.closest('.lecture-content, .text-content, article, main') 
+          const contentContainer = paragraphElement.closest('.lecture-content, .text-content, article, main, #summary-content') 
             || paragraphElement.parentElement;
-          const allParagraphs = contentContainer.querySelectorAll('[id^="para-"]');
+          // Suche sowohl nach para- als auch nach adv-para- (Side Panel)
+          const allParagraphs = contentContainer.querySelectorAll('[id^="para-"], [id^="adv-para-"]');
           
           let collecting = false;
           let combinedText = '';
@@ -1578,7 +1666,8 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
           }
         } else {
           // Einzelner Paragraph
-          paragraphText = paragraphElement.textContent;
+          // Entferne Vortragsüberschriften wie "NEUNTER VORTRAG" am Anfang
+          paragraphText = cleanParagraphText(paragraphElement.textContent);
           
           // Finde den Offset des markierten Texts innerhalb des Paragraphs
           const textIndex = paragraphText.indexOf(text);
@@ -1651,8 +1740,14 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
       console.log('[MB-NOTE-SAVE] Kein Icon hinzugefügt - paragraphId:', paragraphId, 'result.data:', result.data);
     }
     
-    // Öffne Members Panel und zeige Notizen-Tab
-    if (typeof openMembersPanel === 'function') {
+    // Hole die ID der neuen Notiz
+    const savedNoteId = result.data?.id || result.data?.[0]?.id || null;
+    
+    // Öffne Members Panel und zeige Notizen-Tab mit der neuen Notiz
+    if (typeof openMembersPanelAndShowTab === 'function') {
+      await openMembersPanelAndShowTab('notes', savedNoteId);
+    } else if (typeof openMembersPanel === 'function') {
+      // Fallback für alte Implementierung
       openMembersPanel();
       
       // Wechsle zum Notizen-Tab und lade neu
@@ -1677,9 +1772,18 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
 function addNoteBookmarkToViewer(paragraphId, noteData, color) {
   console.log('[MB-NOTE-VIEWER] addNoteBookmarkToViewer aufgerufen:', paragraphId, noteData, color);
   
-  const paraElement = document.getElementById(`para-${paragraphId}`);
+  // Suche zuerst im Main Viewer, dann im Side Panel
+  let paraElement = document.getElementById(`para-${paragraphId}`);
   if (!paraElement) {
-    console.log('[MB-NOTE-VIEWER] Element para-' + paragraphId + ' nicht gefunden');
+    // Versuche im Side Panel (adv-para-...)
+    paraElement = document.getElementById(`adv-para-${paragraphId}`);
+  }
+  if (!paraElement) {
+    // Versuche auch mit data-paragraph-id Attribut
+    paraElement = document.querySelector(`[data-paragraph-id="${paragraphId}"]`);
+  }
+  if (!paraElement) {
+    console.log('[MB-NOTE-VIEWER] Element para-' + paragraphId + ' nicht gefunden (weder in Main Viewer noch Side Panel)');
     return;
   }
   
@@ -1728,6 +1832,17 @@ function addNoteBookmarkToViewer(paragraphId, noteData, color) {
     e.preventDefault();
     if (typeof jumpToNoteById === 'function') {
       jumpToNoteById(noteId);
+    }
+  };
+  
+  // Rechtsklick zum Ändern der Farbe
+  indicator.oncontextmenu = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (typeof showNoteColorContextMenu === 'function') {
+      showNoteColorContextMenu(e.clientX, e.clientY, noteId);
+    } else if (typeof window.showNoteColorContextMenu === 'function') {
+      window.showNoteColorContextMenu(e.clientX, e.clientY, noteId);
     }
   };
   
@@ -2418,52 +2533,80 @@ function applyQuoteToSelection(range, quoteId, gaNumber, paragraphId, markerColo
       e.stopPropagation();
       e.preventDefault();
       console.log('[QUOTE-CLICK] Klick auf Zitat:', quoteId, gaNumber, paragraphId);
-      // Öffne Members Panel und springe zum Zitat
+      
+      // WICHTIG: Setze Navigation-State zurück, um Side Panel nicht zu blockieren
+      if (typeof resetNavigationState === 'function') {
+        resetNavigationState();
+      } else if (typeof window.resetNavigationState === 'function') {
+        window.resetNavigationState();
+      }
+      
+      // Prüfe ob Klick aus Side Panel kam
+      const isInSidePanel = !!e.target.closest('#summary-content');
+      console.log('[QUOTE-CLICK] Klick aus Side Panel:', isInSidePanel);
+      
+      // Funktion zum Scrollen zum Item im Members Panel
+      const scrollToMembersItem = () => {
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        const tryScrollToItem = () => {
+          attempts++;
+          const targetItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
+          if (targetItem) {
+            const membersContent = document.querySelector('.members-content');
+            if (membersContent) {
+              const containerRect = membersContent.getBoundingClientRect();
+              const itemRect = targetItem.getBoundingClientRect();
+              const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+              const containerHeight = membersContent.clientHeight;
+              const itemHeight = itemRect.height;
+              const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+              
+              membersContent.scrollTo({
+                top: Math.max(0, targetScrollTop),
+                behavior: 'smooth'
+              });
+            } else {
+              const membersTabContent = document.getElementById('members-tab-content');
+              if (membersTabContent) {
+                const containerRect = membersTabContent.getBoundingClientRect();
+                const itemRect = targetItem.getBoundingClientRect();
+                const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
+                const containerHeight = membersTabContent.clientHeight;
+                const itemHeight = itemRect.height;
+                const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
+                
+                membersTabContent.scrollTo({
+                  top: Math.max(0, targetScrollTop),
+                  behavior: 'smooth'
+                });
+              }
+            }
+            // Visuelles Highlight
+            targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
+            setTimeout(() => {
+              targetItem.style.backgroundColor = '';
+            }, 2000);
+          } else if (attempts < maxAttempts) {
+            // Item noch nicht gefunden, versuche es erneut
+            setTimeout(tryScrollToItem, 200);
+          } else {
+            console.warn('[QUOTE-CLICK] Item nicht gefunden nach', maxAttempts, 'Versuchen');
+            // WICHTIG: KEIN jumpToQuoteById aufrufen - das würde das Side Panel überschreiben!
+          }
+        };
+        
+        setTimeout(tryScrollToItem, 300);
+      };
+      
+      // Öffne Members Panel und springe zum Zitat (OHNE Text neu zu laden!)
       if (typeof openMembersPanel === 'function') {
         openMembersPanel().then(() => {
           if (typeof switchMembersTab === 'function') {
-            switchMembersTab('quotes').then(() => {
-              setTimeout(() => {
-                const targetItem = document.querySelector(`[data-id="${quoteId}"][data-type="quote"]`);
-                if (targetItem) {
-                  // Scrolle nur den Content-Bereich, nicht das gesamte Panel
-                  const membersContent = document.querySelector('.members-content');
-                  if (membersContent) {
-                    const containerRect = membersContent.getBoundingClientRect();
-                    const itemRect = targetItem.getBoundingClientRect();
-                    const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
-                    const containerHeight = membersContent.clientHeight;
-                    const itemHeight = itemRect.height;
-                    const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                    
-                    membersContent.scrollTo({
-                      top: Math.max(0, targetScrollTop),
-                      behavior: 'smooth'
-                    });
-                  } else {
-                    const membersTabContent = document.getElementById('members-tab-content');
-                    if (membersTabContent) {
-                      const containerRect = membersTabContent.getBoundingClientRect();
-                      const itemRect = targetItem.getBoundingClientRect();
-                      const relativeTop = itemRect.top - containerRect.top + membersTabContent.scrollTop;
-                      const containerHeight = membersTabContent.clientHeight;
-                      const itemHeight = itemRect.height;
-                      const targetScrollTop = relativeTop - (containerHeight / 2) + (itemHeight / 2);
-                      
-                      membersTabContent.scrollTo({
-                        top: Math.max(0, targetScrollTop),
-                        behavior: 'smooth'
-                      });
-                    }
-                  }
-                  // Visuelles Highlight
-                  targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.1)';
-                  setTimeout(() => {
-                    targetItem.style.backgroundColor = '';
-                  }, 2000);
-                }
-              }, 300);
-            });
+            switchMembersTab('quotes').then(scrollToMembersItem);
+          } else {
+            scrollToMembersItem();
           }
         });
       } else {

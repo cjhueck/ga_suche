@@ -6348,6 +6348,7 @@ Original
     // Müssen auf window gesetzt werden, damit sie von members-context-menu.js aus zugänglich sind
     window.currentSidePanelLectureId = null;
     window.currentSidePanelLectureTitle = null;
+    window.currentSidePanelLectureDate = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
@@ -14253,12 +14254,23 @@ function scrollToChronologicalYear(year) {
         // Setze globale Variablen für Side Panel (für Context-Menü Markierungen)
         window.currentSidePanelLectureId = lectureId;
         window.currentSidePanelLectureTitle = lecture.title || lecture.fileName || lectureId;
+        // Speichere auch das Datum für das Side Panel (für Markierungen)
+        window.currentSidePanelLectureDate = lecture.date || lecture.dateString || lecture.lecture_date || null;
+        console.log('[SIDE-PANEL] Lecture-Daten gesetzt:', lectureId, 'Datum:', window.currentSidePanelLectureDate);
         
         // Öffne das rechte Summary-Panel
         const summaryPanel = document.getElementById('summary-panel');
         const mainContainer = document.getElementById('main-container');
         
         if (summaryPanel) {
+          // WICHTIG: Entferne has-members-panel Klassen, damit Scrolling wieder funktioniert
+          summaryPanel.classList.remove('has-members-panel');
+          const summaryContentEl = document.getElementById('summary-content');
+          if (summaryContentEl) {
+            summaryContentEl.classList.remove('has-members-panel');
+          }
+          window.membersPanelActive = false;
+          
           // Prüfe ob Panel bereits offen ist
           const wasAlreadyVisible = summaryPanel.classList.contains('visible');
           const currentPanelWidth = summaryPanel.offsetWidth || 0;
@@ -14316,7 +14328,8 @@ function scrollToChronologicalYear(year) {
           
           // Finde den Index des Target-Paragraphs (falls paragraphIndex gesetzt ist)
           // Unterstützt sowohl Integer (erweiterte Suche) als auch String (Konzept-Übersicht)
-          let targetParagraphIdx = null;
+          let targetParagraphIdx = null;  // Array-Index (numerisch)
+          let targetParagraphId = null;   // Echter Paragraph-Index (z.B. "mo92gh")
           
           // Prüfe ob paragraphIndex wirklich gesetzt ist (nicht null, undefined oder String 'null')
           const paragraphIndexStr = paragraphIndex ? String(paragraphIndex) : '';
@@ -14329,9 +14342,15 @@ function scrollToChronologicalYear(year) {
             // Wenn paragraphIndex ein Integer ist (erweiterte Suche)
             if (typeof paragraphIndex === 'number' && !isNaN(paragraphIndex) && paragraphIndex >= 0) {
               targetParagraphIdx = paragraphIndex;
+              // Hole den echten Paragraph-Index aus dem Array
+              if (lecture.paragraphs[targetParagraphIdx]) {
+                const para = lecture.paragraphs[targetParagraphIdx];
+                targetParagraphId = para.index ? para.index.replace(/^\^/, '') : `para_${targetParagraphIdx}`;
+              }
               } else if (typeof paragraphIndex === 'string' && paragraphIndexStr.length > 0) {
               // Wenn paragraphIndex ein String ist (Konzept-Übersicht)
               const cleanParagraphIndex = paragraphIndexStr.replace(/^\^/, '');
+              targetParagraphId = cleanParagraphIndex; // Der echte Index
               
               targetParagraphIdx = lecture.paragraphs.findIndex(p => {
                 if (!p.index) return false;
@@ -14494,10 +14513,12 @@ function scrollToChronologicalYear(year) {
             const highlightClass = (isTargetPara && !window.membersNavigating) ? 'highlighted-paragraph' : '';
             
             // NEU: Füge data-* Attribute für Context-Menü Markierungen hinzu
+            // WICHTIG: Verwende paraIndex (echten Index) statt idx (numerisch) für konsistente ID-Struktur
             html += `
-              <div class="paragraph ${highlightClass}" id="adv-para-${idx}" 
+              <div class="paragraph ${highlightClass}" id="adv-para-${paraIndex}" 
                    data-lecture-id="${lectureId}" 
                    data-paragraph-id="${paraIndex}"
+                   data-array-index="${idx}"
                    style="margin-bottom: 1rem;">
                 ${content}
               </div>
@@ -14520,9 +14541,15 @@ function scrollToChronologicalYear(year) {
           }
           
           // Scrolle zum Ziel-Paragraph (direkt, nicht smooth)
-          if (targetParagraphIdx !== null && targetParagraphIdx >= 0) {
+          // Verwende targetParagraphId (echter Index) für die Element-Suche
+          if (targetParagraphId || (targetParagraphIdx !== null && targetParagraphIdx >= 0)) {
             setTimeout(() => {
-              const targetElement = document.getElementById(`adv-para-${targetParagraphIdx}`);
+              // Versuche zuerst mit dem echten Paragraph-Index
+              let targetElement = targetParagraphId ? document.getElementById(`adv-para-${targetParagraphId}`) : null;
+              // Fallback: Suche nach data-array-index (für numerische Indizes)
+              if (!targetElement && targetParagraphIdx !== null) {
+                targetElement = document.querySelector(`[data-array-index="${targetParagraphIdx}"]`);
+              }
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'auto', block: 'center' });
                 
@@ -14618,11 +14645,22 @@ function scrollToChronologicalYear(year) {
         // Setze globale Variablen für Side Panel (für Context-Menü Markierungen)
         window.currentSidePanelLectureId = gaNumber;
         window.currentSidePanelLectureTitle = book.title || book.fileName || gaNumber;
+        // Bücher haben normalerweise kein Datum
+        window.currentSidePanelLectureDate = null;
+        console.log('[SIDE-PANEL] Buch-Daten gesetzt:', gaNumber, 'Datum: null (Buch)');
         // Öffne das rechte Summary-Panel
         const summaryPanel = document.getElementById('summary-panel');
         const mainContainer = document.getElementById('main-container');
         
         if (summaryPanel) {
+          // WICHTIG: Entferne has-members-panel Klassen, damit Scrolling wieder funktioniert
+          summaryPanel.classList.remove('has-members-panel');
+          const summaryContentEl = document.getElementById('summary-content');
+          if (summaryContentEl) {
+            summaryContentEl.classList.remove('has-members-panel');
+          }
+          window.membersPanelActive = false;
+          
           // Prüfe ob Panel bereits offen ist
           const wasAlreadyVisible = summaryPanel.classList.contains('visible');
           const currentPanelWidth = summaryPanel.offsetWidth || 0;
@@ -20330,6 +20368,44 @@ function showSummaryView() {
   function displaySummaryWithHeadings(lecture, summaryObj, keywordsParam = null, isPhraseArray = []) {
   const viewer = document.getElementById('viewer');
   const titleElement = document.getElementById('document-title');
+  const summaryContent = document.getElementById('summary-content');
+  
+  // WICHTIG: Wenn Members Panel aktiv ist, schließe es zuerst, damit der Summary angezeigt werden kann
+  // Prüfe auf verschiedene Weisen, ob Members Panel aktiv ist
+  const hasMembersPanelClass = summaryContent && summaryContent.classList.contains('has-members-panel');
+  const hasMembersContent = summaryContent && (
+    summaryContent.querySelector('#members-tab-content') || 
+    summaryContent.querySelector('.members-login-form') ||
+    summaryContent.querySelector('.member-item')
+  );
+  const isMembersPanelOpen = hasMembersPanelClass || hasMembersContent ||
+                              (typeof window.membersPanelActive !== 'undefined' && window.membersPanelActive) ||
+                              (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) ||
+                              (typeof window.isMembersPanelActive === 'function' && window.isMembersPanelActive());
+  
+  console.log('[DISPLAY-SUMMARY] Check: hasMembersPanelClass =', hasMembersPanelClass,
+              ', hasMembersContent =', !!hasMembersContent,
+              ', window.membersPanelActive =', window.membersPanelActive,
+              ', isMembersPanelOpen =', isMembersPanelOpen);
+  
+  if (isMembersPanelOpen) {
+    console.log('[DISPLAY-SUMMARY] Members Panel ist aktiv, schließe es zuerst');
+    if (typeof closeMembersPanel === 'function') {
+      closeMembersPanel();
+    } else if (typeof window.closeMembersPanel === 'function') {
+      window.closeMembersPanel();
+    }
+    // Setze membersPanelActive explizit auf false
+    window.membersPanelActive = false;
+    // Entferne has-members-panel Klasse
+    if (summaryContent) {
+      summaryContent.classList.remove('has-members-panel');
+    }
+    const summaryPanel = document.getElementById('summary-panel');
+    if (summaryPanel) {
+      summaryPanel.classList.remove('has-members-panel');
+    }
+  }
   
   // Prüfe ob summaryObj vorhanden ist
   if (!summaryObj) {
@@ -33941,6 +34017,7 @@ async function addKeywordToLecture() {
   window.getNotes = MembersAPI.getNotes;
   window.createNote = MembersAPI.createNote;
   window.updateNote = MembersAPI.updateNote;
+  window.updateNoteColor = MembersAPI.updateNoteColor;
   // Wrapper-Funktionen für updateBookmark und updateQuote, die den MB aktualisieren
   window.updateBookmark = async function(...args) {
     const result = await MembersAPI.updateBookmark(...args);

@@ -469,6 +469,26 @@ export async function createNote(title, content, isPublic = false, paragraphId =
 /**
  * Notiz aktualisieren
  */
+/**
+ * Ändert nur die Farbe einer Notiz
+ */
+export async function updateNoteColor(noteId, color) {
+  try {
+    const { data, error } = await supabase
+      .from('notes')
+      .update({ marker_color: color })
+      .eq('id', noteId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return { success: true, data };
+  } catch (error) {
+    console.error('Fehler beim Ändern der Notiz-Farbe:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 export async function updateNote(noteId, title, content, isPublic = false, manualTags = null, markerColor = null, manualGroups = null) {
   try {
     // Links und Tags neu extrahieren
