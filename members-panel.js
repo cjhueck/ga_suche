@@ -3,6 +3,70 @@
 // Zeigt Mitgliederbereich im Summary Panel
 // ============================================
 
+// ============================================
+// DEBUG-LOGGER für Side Panel Debugging
+// ============================================
+const sidePanelDebugLog = [];
+let sidePanelDebugEnabled = true; // Auf true setzen für Debugging
+
+function logSidePanelEvent(eventType, data = {}) {
+  if (!sidePanelDebugEnabled) return;
+  
+  const timestamp = new Date().toISOString().substr(11, 12); // HH:MM:SS.mmm
+  const entry = {
+    time: timestamp,
+    event: eventType,
+    data: data,
+    state: {
+      membersNavigating: window.membersNavigating,
+      membersPanelActive: typeof membersPanelActive !== 'undefined' ? membersPanelActive : 'undefined',
+      hasScrollObserver: !!membersScrollObserver,
+      hasPanelVisibilityObserver: !!window.panelVisibilityObserver,
+      hasWidthCheckInterval: !!window.panelWidthCheckInterval
+    }
+  };
+  
+  sidePanelDebugLog.push(entry);
+  
+  // Behalte nur die letzten 100 Einträge
+  if (sidePanelDebugLog.length > 100) {
+    sidePanelDebugLog.shift();
+  }
+  
+  // Ausgabe in Konsole
+  console.log(`[SP-DEBUG ${timestamp}] ${eventType}`, data, 'State:', entry.state);
+}
+
+// Funktion zum Anzeigen des Logs
+function showSidePanelDebugLog() {
+  console.log('=== SIDE PANEL DEBUG LOG ===');
+  sidePanelDebugLog.forEach((entry, i) => {
+    console.log(`${i + 1}. [${entry.time}] ${entry.event}`, entry.data, entry.state);
+  });
+  console.log('=== END DEBUG LOG ===');
+  return sidePanelDebugLog;
+}
+
+// Funktion zum Exportieren des Logs als Text
+function exportSidePanelDebugLog() {
+  const logText = sidePanelDebugLog.map((entry, i) => {
+    return `${i + 1}. [${entry.time}] ${entry.event}\n   Data: ${JSON.stringify(entry.data)}\n   State: ${JSON.stringify(entry.state)}`;
+  }).join('\n\n');
+  
+  console.log(logText);
+  return logText;
+}
+
+// Expose für Konsolen-Zugriff
+window.showSidePanelDebugLog = showSidePanelDebugLog;
+window.exportSidePanelDebugLog = exportSidePanelDebugLog;
+window.sidePanelDebugLog = sidePanelDebugLog;
+window.logSidePanelEvent = logSidePanelEvent;
+
+// ============================================
+// Ende DEBUG-LOGGER
+// ============================================
+
 let membersPanelActive = false;
 let currentMembersTab = 'highlights';
 let savedScrollPositions = {
@@ -128,6 +192,81 @@ function stopScrollPositionProtection() {
 }
 
 /**
+ * Setzt alle Navigation-bezogenen States zurück
+ * Wichtig für Klicks auf Markierungen im Side Panel
+ */
+function resetNavigationState() {
+  console.log('[MB-RESET] Setze Navigation-State zurück');
+  logSidePanelEvent('RESET_NAVIGATION_STATE', { called: true });
+  
+  // Setze membersNavigating Flag zurück
+  window.membersNavigating = false;
+  document.body.classList.remove('members-navigating');
+  
+  // Stoppe Scroll-Position-Schutz
+  stopScrollPositionProtection();
+  
+  // Stoppe Panel-Visibility Observer
+  if (window.panelVisibilityObserver) {
+    window.panelVisibilityObserver.disconnect();
+    window.panelVisibilityObserver = null;
+  }
+  
+  // Stoppe Width-Check Interval
+  if (window.panelWidthCheckInterval) {
+    clearInterval(window.panelWidthCheckInterval);
+    window.panelWidthCheckInterval = null;
+  }
+  
+  // Stoppe Highlight-Observer
+  if (window.membersHighlightObserver) {
+    window.membersHighlightObserver.disconnect();
+    window.membersHighlightObserver = null;
+  }
+  
+  // Stoppe Quote-Highlight-Observer
+  if (window.membersQuoteHighlightObserver) {
+    window.membersQuoteHighlightObserver.disconnect();
+    window.membersQuoteHighlightObserver = null;
+  }
+  
+  console.log('[MB-RESET] Navigation-State zurückgesetzt');
+}
+
+// Expose für globalen Zugriff
+window.resetNavigationState = resetNavigationState;
+
+// Event-Listener für Klicks im Side Panel (Debug)
+setTimeout(() => {
+  const summaryContent = document.getElementById('summary-content');
+  if (summaryContent && sidePanelDebugEnabled) {
+    summaryContent.addEventListener('click', (e) => {
+      logSidePanelEvent('CLICK_IN_SIDE_PANEL', {
+        target: e.target.tagName,
+        targetId: e.target.id,
+        targetClass: e.target.className?.substring?.(0, 50) || '',
+        isHighlight: e.target.hasAttribute?.('data-highlight') || false,
+        isQuote: e.target.hasAttribute?.('data-quote') || false,
+        isParagraph: e.target.classList?.contains?.('paragraph') || false,
+        closestParagraph: e.target.closest?.('.paragraph')?.id || 'none'
+      });
+    }, true); // Capture phase
+    
+    summaryContent.addEventListener('contextmenu', (e) => {
+      const selection = window.getSelection();
+      logSidePanelEvent('CONTEXTMENU_IN_SIDE_PANEL', {
+        target: e.target.tagName,
+        targetId: e.target.id,
+        selectionLength: selection?.toString()?.length || 0,
+        selectionText: selection?.toString()?.substring(0, 30) || ''
+      });
+    }, true);
+    
+    console.log('[SP-DEBUG] Event-Listener für Side Panel registriert');
+  }
+}, 1000); // Warte 1 Sekunde bis DOM bereit ist
+
+/**
  * Öffnet members.html in einem neuen Fenster mit window.opener
  */
 function openMembersWindow() {
@@ -172,6 +311,13 @@ async function toggleMembersPanel() {
  * Öffnet den Mitgliederbereich im Summary Panel
  */
 async function openMembersPanel() {
+  // WICHTIG: Setze membersPanelActive SOFORT auf true, BEVOR irgendetwas anderes passiert!
+  // Das verhindert, dass andere Funktionen (wie displaySummaryWithHeadings) das Side Panel überschreiben
+  membersPanelActive = true;
+  window.membersPanelActive = true; // Auch auf window setzen für app.html
+  
+  logSidePanelEvent('OPEN_MEMBERS_PANEL_START', { membersPanelActive, membersNavigating: window.membersNavigating });
+  
   await initSupabase();
   
   // Stelle sicher, dass Event-Delegation für Highlights aktiviert ist
@@ -1287,6 +1433,118 @@ async function changeHighlightColor(highlightId, color) {
   }
 }
 
+/**
+ * Zeigt das Kontextmenü zum Ändern der Notiz-Farbe
+ */
+function showNoteColorContextMenu(x, y, noteId) {
+  // Entferne vorheriges Menü falls vorhanden
+  const existingMenu = document.getElementById('members-note-context-menu');
+  if (existingMenu) {
+    existingMenu.remove();
+  }
+  
+  // Erstelle neues Menü
+  const menu = document.createElement('div');
+  menu.id = 'members-note-context-menu';
+  menu.className = 'members-highlight-context-menu'; // Verwende gleiche Styles
+  menu.innerHTML = `
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'blue')" style="border-left: 3px solid #467886;">
+      <span class="highlight-context-menu-text">Blau</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'red')" style="border-left: 3px solid #c62828;">
+      <span class="highlight-context-menu-text">Rot</span>
+    </div>
+    <div class="highlight-context-menu-item" onclick="changeNoteColor('${noteId}', 'yellow')" style="border-left: 3px solid #ffc107;">
+      <span class="highlight-context-menu-text">Gelb</span>
+    </div>
+  `;
+  
+  document.body.appendChild(menu);
+  
+  // Positioniere Menü
+  menu.style.display = 'block';
+  menu.style.left = x + 'px';
+  menu.style.top = y + 'px';
+  
+  // Viewport-Grenzen prüfen
+  const menuRect = menu.getBoundingClientRect();
+  
+  if (menuRect.right > window.innerWidth) {
+    menu.style.left = (window.innerWidth - menuRect.width - 10) + 'px';
+  }
+  
+  if (menuRect.bottom > window.innerHeight) {
+    menu.style.top = (window.innerHeight - menuRect.height - 10) + 'px';
+  }
+  
+  // Klick außerhalb schließt Menü
+  const closeMenu = (e) => {
+    if (!menu.contains(e.target)) {
+      menu.remove();
+      document.removeEventListener('click', closeMenu);
+      document.removeEventListener('contextmenu', closeMenu);
+    }
+  };
+  
+  setTimeout(() => {
+    document.addEventListener('click', closeMenu);
+    document.addEventListener('contextmenu', closeMenu);
+  }, 100);
+}
+
+// Global verfügbar machen
+window.showNoteColorContextMenu = showNoteColorContextMenu;
+
+/**
+ * Ändert die Farbe einer Notiz
+ */
+async function changeNoteColor(noteId, color) {
+  // Entferne Kontextmenü
+  const menu = document.getElementById('members-note-context-menu');
+  if (menu) {
+    menu.remove();
+  }
+  
+  try {
+    if (typeof updateNoteColor !== 'function') {
+      alert('Fehler: updateNoteColor Funktion nicht verfügbar. Bitte Seite neu laden.');
+      console.error('[MB-NOTES] updateNoteColor nicht verfügbar');
+      return;
+    }
+    
+    const updateResult = await updateNoteColor(noteId, color);
+    
+    if (updateResult.success) {
+      // Invalidiere Cache
+      if (typeof invalidateMembersCache === 'function') {
+        invalidateMembersCache('notes');
+      }
+      
+      // Aktualisiere Notiz-Icon im Viewer (falls vorhanden)
+      const noteIcon = document.querySelector(`.bookmark-note-indicator[data-note-id="${noteId}"]`);
+      if (noteIcon) {
+        const noteColorHex = getNoteColor(color);
+        noteIcon.style.color = noteColorHex;
+      }
+      
+      // Aktualisiere Member Panel falls offen
+      if (typeof membersPanelActive !== 'undefined' && membersPanelActive && currentMembersTab === 'notes') {
+        await loadMembersTab('notes');
+      }
+      
+      console.log('✓ Notiz-Farbe geändert');
+    } else {
+      alert('Fehler beim Ändern der Farbe: ' + updateResult.error);
+    }
+  } catch (error) {
+    console.error('Fehler beim Ändern der Notiz-Farbe:', error);
+    alert('Fehler beim Ändern der Notiz-Farbe');
+  }
+}
+
+// Global verfügbar machen
+window.changeNoteColor = changeNoteColor;
+
 
 /**
  * Fügt Event-Listener für Rechtsklick-Kontextmenü auf Quote-Items hinzu
@@ -1953,7 +2211,7 @@ function renderQuotesList(container, sortedData) {
  * @param {string} targetIndex - Der Index des Absatzes
  * @returns {Object} {paraElement, elementToCheck} - Das gefundene Element und das Element zum Prüfen
  */
-function findParagraphElementRobust(targetIndex) {
+function findParagraphElementRobust(targetIndex, searchInViewerOnly = false) {
   if (!targetIndex || targetIndex === 'null') {
     return { paraElement: null, elementToCheck: null };
   }
@@ -1961,27 +2219,43 @@ function findParagraphElementRobust(targetIndex) {
   const cleanIndex = targetIndex.toString().replace(/^para-/, '').replace(/^\^/, '');
   let paraElement = null;
   
-  // Strategie 1: Direkte Suche mit para- Präfix
-  paraElement = document.getElementById(`para-${cleanIndex}`);
+  // Container für die Suche bestimmen
+  const viewer = document.getElementById('viewer');
+  const searchContainer = searchInViewerOnly && viewer ? viewer : document;
+  
+  // Strategie 1: Direkte Suche mit para- Präfix (im Viewer)
+  if (searchInViewerOnly && viewer) {
+    paraElement = viewer.querySelector(`#para-${cleanIndex}`);
+  } else {
+    paraElement = document.getElementById(`para-${cleanIndex}`);
+  }
   
   // Strategie 2: Suche ohne para- Präfix (falls cleanIndex bereits para- enthält)
   if (!paraElement && !cleanIndex.startsWith('para-')) {
-    paraElement = document.getElementById(`para-${cleanIndex}`);
+    if (searchInViewerOnly && viewer) {
+      paraElement = viewer.querySelector(`#para-${cleanIndex}`);
+    } else {
+      paraElement = document.getElementById(`para-${cleanIndex}`);
+    }
   }
   
   // Strategie 3: Direkte Suche mit der ID
   if (!paraElement) {
-    paraElement = document.getElementById(cleanIndex);
+    if (searchInViewerOnly && viewer) {
+      paraElement = viewer.querySelector(`#${cleanIndex}`);
+    } else {
+      paraElement = document.getElementById(cleanIndex);
+    }
   }
   
   // Strategie 4: Suche mit querySelector (für komplexere Selektoren)
   if (!paraElement) {
-    paraElement = document.querySelector(`[id*="${cleanIndex}"]`);
+    paraElement = searchContainer.querySelector(`[id*="${cleanIndex}"]`);
   }
   
   // Strategie 5: Suche nach data-paragraph-id Attribut
   if (!paraElement) {
-    paraElement = document.querySelector(`[data-paragraph-id="${cleanIndex}"]`);
+    paraElement = searchContainer.querySelector(`[data-paragraph-id="${cleanIndex}"]`);
   }
   
   // Für Bücher: Falls paraElement ein verstecktes span ist, finde das Parent-Element
@@ -2036,6 +2310,7 @@ async function navigateToQuoteById(quoteId) {
   // 2. Lade den Text (GA-Band/Vortrag)
   window.membersNavigating = true;
   membersPanelActive = true;
+  logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToQuoteById', quoteId });
   
   // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
   document.body.classList.add('members-navigating');
@@ -2786,10 +3061,12 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   // Setze Flag - aber nur wenn nicht bereits aktiv (verhindert doppelte Ausführung)
   if (window.membersNavigating) {
     console.warn('[MB-NAVIGATION] Navigation bereits aktiv, ignoriere weiteren Klick');
+    logSidePanelEvent('NAVIGATION_BLOCKED', { reason: 'already_navigating', lectureId });
     return;
   }
   
   window.membersNavigating = true;
+  logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToLectureFromMembersPanel', lectureId, targetIndex });
   // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
   document.body.classList.add('members-navigating');
   
@@ -3243,8 +3520,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           const tryApplyQuoteHighlight = async () => {
             highlightAttempts++;
             
-            // Verwende robuste Element-Suche
-            const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex);
+            // Verwende robuste Element-Suche - NUR im Viewer suchen
+            const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex, true);
             const elementToUse = elementToCheck || paraElement;
             
             if (elementToUse && elementToUse.textContent && elementToUse.textContent.length > 0) {
@@ -3354,8 +3631,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
             const mainContainer = document.getElementById('main');
             if (!mainContainer) return;
             
-            // Suche das Highlight-Element im entsprechenden Absatz
-            const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex);
+            // Suche das Highlight-Element im entsprechenden Absatz - NUR im Viewer
+            const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex, true);
             if (!elementToCheck) return;
             
             const highlightElements = elementToCheck.querySelectorAll('[data-highlight-id]');
@@ -3422,10 +3699,13 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     const tryScroll = () => {
       attempts++;
       
-      // Verwende robuste Element-Suche
-      const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex);
+      // Verwende robuste Element-Suche - NUR im Viewer suchen
+      const { paraElement, elementToCheck } = findParagraphElementRobust(targetIndex, true);
       
       const mainContainer = document.getElementById('main');
+      
+      // Debug-Logging
+      console.log('[MB-SCROLL] Versuch', attempts, '- targetIndex:', targetIndex, 'paraElement gefunden:', !!paraElement);
       
       // Prüfe ob Element vorhanden ist UND ob der Text bereits geladen ist
       // Für neue Einträge: Warte bis der Text wirklich vorhanden ist
@@ -3494,7 +3774,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       } else {
         // Max Versuche erreicht - Fallback: Scrolle zum Absatz
         console.warn('[MB-SCROLL] Max Versuche erreicht, scrolle zum Absatz');
-        const { paraElement } = findParagraphElementRobust(targetIndex);
+        const { paraElement } = findParagraphElementRobust(targetIndex, true);
         const mainContainer = document.getElementById('main');
         if (paraElement && mainContainer) {
           const paraRect = paraElement.getBoundingClientRect();
@@ -3532,9 +3812,12 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
       const tryScrollToParagraph = () => {
         attempts++;
         
-        // Verwende robuste Element-Suche
-        const { paraElement } = findParagraphElementRobust(targetIndex);
+        // Verwende robuste Element-Suche - NUR im Viewer suchen
+        const { paraElement } = findParagraphElementRobust(targetIndex, true);
         const mainContainer = document.getElementById('main');
+        
+        // Debug-Logging
+        console.log('[MB-SCROLL] Versuch (ohne Offset)', attempts, '- targetIndex:', targetIndex, 'paraElement gefunden:', !!paraElement);
         
         if (paraElement && mainContainer) {
           const paraRect = paraElement.getBoundingClientRect();
@@ -5888,9 +6171,18 @@ function addBookmarkQuoteIndicator(paraId, lectureId, bookmarksResult, quotesRes
 function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
   console.log('[MB-NOTES-ICON] Versuche Icon hinzuzufügen für paraId:', paraId);
   
-  const paraElement = document.getElementById(`para-${paraId}`);
+  // Suche zuerst im Main Viewer, dann im Side Panel
+  let paraElement = document.getElementById(`para-${paraId}`);
   if (!paraElement) {
-    console.log('[MB-NOTES-ICON] Element para-' + paraId + ' nicht gefunden');
+    // Versuche im Side Panel (adv-para-...)
+    paraElement = document.getElementById(`adv-para-${paraId}`);
+  }
+  if (!paraElement) {
+    // Versuche auch mit data-paragraph-id Attribut
+    paraElement = document.querySelector(`[data-paragraph-id="${paraId}"]`);
+  }
+  if (!paraElement) {
+    console.log('[MB-NOTES-ICON] Element para-' + paraId + ' nicht gefunden (weder in Main Viewer noch Side Panel)');
     return;
   }
   
@@ -5964,6 +6256,17 @@ function addBookmarkNoteIndicator(paraId, lectureId, notesResult) {
     e.preventDefault();
     if (typeof jumpToNoteById === 'function') {
       jumpToNoteById(firstNote.id);
+    }
+  };
+  
+  // Rechtsklick zum Ändern der Farbe
+  indicator.oncontextmenu = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (typeof showNoteColorContextMenu === 'function') {
+      showNoteColorContextMenu(e.clientX, e.clientY, firstNote.id);
+    } else if (typeof window.showNoteColorContextMenu === 'function') {
+      window.showNoteColorContextMenu(e.clientX, e.clientY, firstNote.id);
     }
   };
   
@@ -6712,6 +7015,45 @@ function applyHighlightToElement(targetElement, highlight) {
               e.stopPropagation();
               e.preventDefault();
               console.log('[HIGHLIGHT] Klick auf Unterstreichung:', highlight.id, highlight.ga_number, highlight.paragraph_id);
+              
+              // WICHTIG: Prüfe ob Klick aus Side Panel kam
+              const isInSidePanel = !!e.target.closest('#summary-content');
+              if (isInSidePanel) {
+                console.log('[HIGHLIGHT] Klick aus Side Panel - öffne nur Members Panel');
+                // Öffne nur Members Panel und scrolle zum Item (OHNE Text neu zu laden)
+                if (typeof openMembersPanel === 'function') {
+                  openMembersPanel().then(() => {
+                    if (typeof switchMembersTab === 'function') {
+                      switchMembersTab('highlights').then(() => {
+                        // Versuche mehrfach, das Item zu finden
+                        let attempts = 0;
+                        const maxAttempts = 10;
+                        const tryScrollToItem = () => {
+                          attempts++;
+                          const targetItem = document.querySelector(`[data-id="${highlight.id}"][data-type="highlight"]`);
+                          if (targetItem) {
+                            const membersContent = document.querySelector('.members-content');
+                            if (membersContent) {
+                              const containerRect = membersContent.getBoundingClientRect();
+                              const itemRect = targetItem.getBoundingClientRect();
+                              const relativeTop = itemRect.top - containerRect.top + membersContent.scrollTop;
+                              membersContent.scrollTo({ top: Math.max(0, relativeTop - 20), behavior: 'smooth' });
+                            }
+                            targetItem.classList.add('member-item-highlighted');
+                            setTimeout(() => targetItem.classList.remove('member-item-highlighted'), 2000);
+                          } else if (attempts < maxAttempts) {
+                            setTimeout(tryScrollToItem, 200);
+                          }
+                        };
+                        setTimeout(tryScrollToItem, 300);
+                      });
+                    }
+                  });
+                }
+                return;
+              }
+              
+              // Normal: jumpToHighlight aufrufen (für Main Viewer)
               jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
             });
             
@@ -6888,9 +7230,11 @@ function applyStoredQuoteLine(quote) {
     if (!paraElement && quote.paragraph_id) {
       const normalizedParaId = String(quote.paragraph_id).replace(/^\^/, '');
       
-      // Versuche verschiedene ID-Formate
+      // Versuche verschiedene ID-Formate (Main Viewer und Side Panel)
       paraElement = document.getElementById(`para-${normalizedParaId}`) ||
                    document.getElementById(`para-${quote.paragraph_id}`) ||
+                   document.getElementById(`adv-para-${normalizedParaId}`) ||  // Side Panel
+                   document.getElementById(`adv-para-${quote.paragraph_id}`) || // Side Panel
                    document.querySelector(`[data-index="${quote.paragraph_id}"], [data-index="^${normalizedParaId}"]`) ||
                    document.querySelector(`[data-paragraph-id="${normalizedParaId}"], [data-paragraph-id="${quote.paragraph_id}"]`);
       
@@ -7577,9 +7921,11 @@ function applyStoredHighlight(highlight) {
     if (!paraElement && highlight.paragraph_id) {
       const normalizedParaId = String(highlight.paragraph_id).replace(/^\^/, '');
       
-      // Versuche verschiedene ID-Formate
+      // Versuche verschiedene ID-Formate (Main Viewer und Side Panel)
       paraElement = document.getElementById(`para-${normalizedParaId}`) ||
                    document.getElementById(`para-${highlight.paragraph_id}`) ||
+                   document.getElementById(`adv-para-${normalizedParaId}`) ||  // Side Panel
+                   document.getElementById(`adv-para-${highlight.paragraph_id}`) || // Side Panel
                    document.querySelector(`[data-index="${highlight.paragraph_id}"], [data-index="^${normalizedParaId}"]`) ||
                    document.querySelector(`[data-paragraph-id="${normalizedParaId}"], [data-paragraph-id="${highlight.paragraph_id}"]`);
       
@@ -7671,9 +8017,12 @@ function restoreBookmarkQuoteIndicators() {
  * Springe zu einer Unterstreichung
  */
 async function jumpToHighlight(lectureId, paragraphId, highlightId) {
+  logSidePanelEvent('JUMP_TO_HIGHLIGHT_START', { lectureId, paragraphId, highlightId });
+  
   try {
     // Öffne MB falls nicht offen
     if (!membersPanelActive) {
+      logSidePanelEvent('JUMP_TO_HIGHLIGHT_OPEN_PANEL', { membersPanelActive });
       if (typeof openMembersPanel === 'function') {
         await openMembersPanel();
       }
@@ -7758,7 +8107,12 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
                                  currentLectureData && 
                                  currentLectureData.ID === lectureId;
     
-    console.log('[JUMP-TO-HIGHLIGHT] Text bereits geladen?', isTextAlreadyLoaded, 'LectureId:', lectureId);
+    // WICHTIG: Wenn Members Panel aktiv ist, lade NICHT den Text neu!
+    // Das würde das Side Panel überschreiben.
+    const shouldSkipNavigation = membersPanelActive;
+    
+    console.log('[JUMP-TO-HIGHLIGHT] Text bereits geladen?', isTextAlreadyLoaded, 'LectureId:', lectureId, 'Members Panel aktiv:', membersPanelActive);
+    logSidePanelEvent('JUMP_TO_HIGHLIGHT_CHECK', { isTextAlreadyLoaded, membersPanelActive, shouldSkipNavigation });
     
     if (isTextAlreadyLoaded) {
       // Text ist bereits geladen - scrolle zum unterstrichenen Text
@@ -7766,6 +8120,13 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
       // Die Highlights könnten noch nicht im DOM sein
       let attempts = 0;
       const maxAttempts = 10;
+      
+      // WICHTIG: Stelle sicher, dass membersNavigating nicht gesetzt bleibt
+      // (da wir nicht navigateToLectureFromMembersPanel aufrufen)
+      setTimeout(() => {
+        window.membersNavigating = false;
+        document.body.classList.remove('members-navigating');
+      }, 500);
       
       const tryScrollToHighlight = () => {
         attempts++;
@@ -7846,7 +8207,18 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
       return;
     }
     
-    // Text ist nicht geladen - lade ihn neu MIT Scrollen zum unterstrichenen Text
+    // Text ist nicht geladen - aber prüfe ob wir Navigation überspringen sollen
+    // WICHTIG: Wenn Members Panel aktiv ist, lade NICHT den Text neu!
+    // Das würde das Side Panel mit der Zusammenfassung überschreiben.
+    if (shouldSkipNavigation) {
+      console.log('[JUMP-TO-HIGHLIGHT] Navigation übersprungen - Members Panel ist aktiv, Side Panel wird nicht überschrieben');
+      logSidePanelEvent('JUMP_TO_HIGHLIGHT_SKIP_NAVIGATION', { reason: 'members_panel_active' });
+      // Stelle sicher, dass Navigation-State zurückgesetzt wird
+      window.membersNavigating = false;
+      document.body.classList.remove('members-navigating');
+      return;
+    }
+    
     console.log('[JUMP-TO-HIGHLIGHT] Text nicht geladen, lade neu');
     if (typeof navigateToLectureFromMembersPanel === 'function') {
       // Navigiere zum Vortrag/Buch und scrolle zum unterstrichenen Text
@@ -7876,9 +8248,12 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
  * Springe direkt zu einem Zitat im Members Panel anhand der quoteId
  */
 async function jumpToQuoteById(quoteId) {
+  logSidePanelEvent('JUMP_TO_QUOTE_START', { quoteId });
+  
   try {
     // Öffne MB falls nicht offen
     if (!membersPanelActive) {
+      logSidePanelEvent('JUMP_TO_QUOTE_OPEN_PANEL', { membersPanelActive });
       if (typeof openMembersPanel === 'function') {
         await openMembersPanel();
       }
@@ -8399,6 +8774,7 @@ function closeMembersPrivacyModal() {
  */
 function closeMembersPanel() {
   membersPanelActive = false;
+  window.membersPanelActive = false; // Auch auf window setzen für app.html
   
   // Aktualisiere Button-Status
   updateMembersButtonStatus();
@@ -9657,6 +10033,53 @@ async function updateMembersPanelIfOpen(tabName = null, forceUpdate = false) {
   }
 }
 
+/**
+ * Öffnet das Members Panel und zeigt den entsprechenden Tab mit der neuen Markierung
+ * Wird nach dem Speichern einer Markierung im Side Panel aufgerufen
+ * @param {string} tabName - 'quotes', 'highlights' oder 'notes'
+ * @param {string} itemId - Optional: ID des neuen Items zum Hervorheben
+ */
+async function openMembersPanelAndShowTab(tabName, itemId = null) {
+  try {
+    console.log('[MB-OPEN-TAB] Öffne Members Panel und zeige Tab:', tabName, 'Item:', itemId);
+    
+    // Invalidiere Cache für den Tab
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache(tabName);
+    }
+    
+    // Öffne Members Panel
+    await openMembersPanel();
+    
+    // Wechsle zum entsprechenden Tab
+    if (typeof switchMembersTab === 'function') {
+      await switchMembersTab(tabName);
+    }
+    
+    // Wenn eine Item-ID angegeben ist, markiere das Item
+    if (itemId) {
+      setTimeout(() => {
+        const itemType = tabName === 'quotes' ? 'quote' : (tabName === 'highlights' ? 'highlight' : 'note');
+        const targetItem = document.querySelector(`[data-id="${itemId}"][data-type="${itemType}"]`);
+        if (targetItem) {
+          targetItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Visuelles Feedback
+          targetItem.style.backgroundColor = 'rgba(70, 120, 134, 0.3)';
+          targetItem.style.transition = 'background-color 0.3s ease';
+          setTimeout(() => {
+            targetItem.style.backgroundColor = '';
+          }, 2000);
+        } else {
+          console.log('[MB-OPEN-TAB] Item nicht gefunden:', itemId);
+        }
+      }, 500); // Warte bis Tab geladen ist
+    }
+  } catch (error) {
+    console.error('[MB-OPEN-TAB] Fehler:', error);
+  }
+}
+
 window.updateMembersPanelIfOpen = updateMembersPanelIfOpen;
 window.invalidateMembersCache = invalidateMembersCache;
+window.openMembersPanelAndShowTab = openMembersPanelAndShowTab;
 
