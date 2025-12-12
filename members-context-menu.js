@@ -106,12 +106,16 @@ function handleContextMenu(e) {
   // Setze Flag ob Auswahl im Side Panel ist (summary-content hat Priorität)
   selectionInSidePanel = isInSummaryContent;
   
-  console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel });
+  // Prüfe ob die Auswahl im Volltext-Bereich des Members Panels ist (item-full-paragraph)
+  const fullParagraphElement = target.closest('.item-full-paragraph');
+  const isInMembersPanelFullText = fullParagraphElement && fullParagraphElement.classList.contains('show');
   
-  // DEAKTIVIERT: Kein Context-Menü im Side Panel (nur im Main Viewer)
-  // Markierungen/Notizen im Side Panel sind nicht sinnvoll, da die Texte dort nur temporär angezeigt werden
-  if (isInSummaryContent) {
-    console.log('[CONTEXT-MENU] Side Panel - Context-Menü deaktiviert');
+  console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel, isInMembersPanelFullText });
+  
+  // Context-Menü im Side Panel NUR für Volltext-Bereich des Members Panels erlauben
+  // (dort wo data-ga-reference und data-paragraph-id vorhanden sind)
+  if (isInSummaryContent && !isInMembersPanelFullText) {
+    console.log('[CONTEXT-MENU] Side Panel (nicht Volltext) - Context-Menü deaktiviert');
     hideContextMenu();
     return;
   }
@@ -2011,6 +2015,81 @@ function findParagraphIdFromSidePanel(range) {
     }
   } catch (err) {
     console.warn('[CONTEXT-MENU] Fehler beim Ermitteln der Paragraph-ID aus Side Panel:', err);
+  }
+  
+  return null;
+}
+
+/**
+ * Lecture-ID aus DOM-Attributen extrahieren (für Side Panel)
+ * Sucht nach data-lecture-id oder data-ga-reference in Parent-Elementen
+ */
+function findLectureIdFromDOM(range) {
+  if (!range) return null;
+  
+  try {
+    let node = range.startContainer;
+    
+    // Gehe durch alle Parent-Elemente und suche nach Lecture-ID Attributen
+    while (node && node !== document.body) {
+      if (node.nodeType === 1) { // Element node
+        // Prüfe ob data-ga-reference Attribut vorhanden (Members Panel Volltext)
+        if (node.hasAttribute && node.hasAttribute('data-ga-reference')) {
+          const gaReference = node.getAttribute('data-ga-reference');
+          if (gaReference) {
+            console.log('[CONTEXT-MENU] Lecture-ID aus data-ga-reference gefunden:', gaReference);
+            return gaReference;
+          }
+        }
+        
+        // Prüfe ob data-lecture-id Attribut vorhanden (erweiterte Suche)
+        if (node.hasAttribute && node.hasAttribute('data-lecture-id')) {
+          const lectureId = node.getAttribute('data-lecture-id');
+          if (lectureId) {
+            console.log('[CONTEXT-MENU] Lecture-ID aus data-lecture-id gefunden:', lectureId);
+            return lectureId;
+          }
+        }
+        
+        // Für Members Panel: Suche nach item-full-paragraph Container
+        if (node.classList && node.classList.contains('item-full-paragraph')) {
+          const gaReference = node.getAttribute('data-ga-reference');
+          if (gaReference) {
+            console.log('[CONTEXT-MENU] Lecture-ID aus item-full-paragraph gefunden:', gaReference);
+            return gaReference;
+          }
+        }
+        
+        // Suche nach item-ga Link im Parent-Element (item-card)
+        const itemCard = node.closest('.item-card');
+        if (itemCard) {
+          const itemGaLink = itemCard.querySelector('.item-ga');
+          if (itemGaLink) {
+            const gaReference = itemGaLink.getAttribute('data-ga');
+            if (gaReference) {
+              console.log('[CONTEXT-MENU] Lecture-ID aus item-ga Link gefunden:', gaReference);
+              return gaReference;
+            }
+          }
+        }
+      }
+      node = node.parentNode;
+    }
+    
+    // Fallback: Suche im summary-content nach data-lecture-id
+    const summaryContent = document.getElementById('summary-content');
+    if (summaryContent) {
+      const lectureIdElement = summaryContent.querySelector('[data-lecture-id]');
+      if (lectureIdElement) {
+        const lectureId = lectureIdElement.getAttribute('data-lecture-id');
+        if (lectureId) {
+          console.log('[CONTEXT-MENU] Lecture-ID aus summary-content gefunden:', lectureId);
+          return lectureId;
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[CONTEXT-MENU] Fehler beim Ermitteln der Lecture-ID aus DOM:', err);
   }
   
   return null;
