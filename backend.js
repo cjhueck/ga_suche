@@ -183,6 +183,7 @@ let chunks = []; // WIRD NICHT MEHR VERWENDET
 let paragraphsFromLectures = []; // NEU
 let fullLectures = {};
 let fullBooks = {}; // GA-Schriften (GA001-GA046)
+let conceptsDatabase = []; // Cache für concepts-database.json (Schlagwort-System)
 
 // Hilfsfunktion: Konvertiert Bücher in Paragraphs-Format (für Suche)
 function convertBookToParagraphs(book) {
@@ -644,6 +645,26 @@ async function loadBooks() {
     console.error('Fehler beim Laden der Schriften:', error.message);
     console.warn('System läuft ohne Schriften');
     return {};
+  }
+}
+
+// Lade Concepts-Database beim Start (Caching für Performance)
+async function loadConceptsDatabase() {
+  try {
+    const filePath = path.join(__dirname, 'concepts-database.json');
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    conceptsDatabase = JSON.parse(fileContent);
+    
+    if (!Array.isArray(conceptsDatabase)) {
+      console.warn('[CONCEPTS] concepts-database.json ist kein Array, setze auf leeres Array');
+      conceptsDatabase = [];
+    }
+    
+    return conceptsDatabase;
+  } catch (error) {
+    console.warn('[CONCEPTS] concepts-database.json nicht gefunden oder Fehler:', error.message);
+    conceptsDatabase = [];
+    return conceptsDatabase;
   }
 }
 
@@ -6101,46 +6122,25 @@ app.get('/api/concepts-files', async (req, res) => {
   }
 });
 
-// API-Endpunkt: Vollständige Schlagwort-Liste laden
+// API-Endpunkt: Vollständige Schlagwort-Liste laden (nutzt Cache)
 app.get('/api/concepts-list', async (req, res) => {
   try {
-    
-    const keywordsPath = path.join(__dirname, 'keywords');
-    let allKeywords = [];
-    
-    // Versuche zuerst zentrale concepts-database.json im Hauptordner zu laden
-    try {
-      const filePath = path.join(__dirname, 'concepts-database.json');
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      const data = JSON.parse(fileContent);
-      if (Array.isArray(data)) {
-        allKeywords = allKeywords.concat(data);
-      }
-    } catch (error) {
-      console.warn('[KEYWORDS-API] Keine zentrale concepts-database.json gefunden:', error.message);
-      // Fallback: Lese alle .json Dateien im keywords/ Ordner
-      try {
-        const files = await fs.readdir(keywordsPath);
-        const jsonFiles = files.filter(file => file.endsWith('.json'));
-        for (const fileName of jsonFiles) {
-          try {
-            const filePath = path.join(keywordsPath, fileName);
-            const fileContent = await fs.readFile(filePath, 'utf8');
-            const data = JSON.parse(fileContent);
-            if (Array.isArray(data)) {
-              allKeywords = allKeywords.concat(data);
-            }
-          } catch (error) {
-            console.warn(`[KEYWORDS-API] Fehler beim Verarbeiten von ${fileName}:`, error.message);
-          }
-        }
-      } catch (error) {
-        console.warn('[KEYWORDS-API] keywords/ Ordner nicht gefunden:', error.message);
-      }
+    // Nutze den beim Start geladenen Cache
+    if (conceptsDatabase.length > 0) {
+      return res.json({ 
+        keywords: conceptsDatabase,
+        count: conceptsDatabase.length,
+        cached: true
+      });
     }
+    
+    // Fallback: Lade neu falls Cache leer
+    await loadConceptsDatabase();
+    
     res.json({ 
-      keywords: allKeywords,
-      count: allKeywords.length 
+      keywords: conceptsDatabase,
+      count: conceptsDatabase.length,
+      cached: false
     });
   } catch (error) {
     console.error('[KEYWORDS-API] Fehler beim Laden der Schlagwörter:', error);
@@ -6151,19 +6151,21 @@ app.get('/api/concepts-list', async (req, res) => {
   }
 });
 
-// API-Endpunkt: Einzelnes Konzept laden (für Netzwerk-Modal)
+// API-Endpunkt: Einzelnes Konzept laden (für Netzwerk-Modal) - nutzt Cache
 app.get('/api/concepts/:concept', async (req, res) => {
   try {
     const searchConcept = decodeURIComponent(req.params.concept).toLowerCase();
     
-    // Lade concepts-database.json
-    const filePath = path.join(__dirname, 'concepts-database.json');
-    let allConcepts = [];
+    // Nutze den beim Start geladenen Cache
+    let allConcepts = conceptsDatabase;
     
-    try {
-      const fileContent = await fs.readFile(filePath, 'utf8');
-      allConcepts = JSON.parse(fileContent);
-    } catch (error) {
+    // Falls Cache leer, lade neu
+    if (allConcepts.length === 0) {
+      await loadConceptsDatabase();
+      allConcepts = conceptsDatabase;
+    }
+    
+    if (allConcepts.length === 0) {
       return res.status(404).json({ error: 'Konzept-Datenbank nicht gefunden' });
     }
     
@@ -15514,7 +15516,7 @@ async function startServer() {
     console.log('  STEINER GA-SUCHE SERVER - START');
     console.log('='.repeat(70));
     
-    console.log('\n[1/8] Erstelle Backups...');
+    console.log('\n[1/9] Erstelle Backups...');
 // Erstelle automatisches Backup beim Start
 await createCodeBackup();
 await createHtmlBackup('index.html');
@@ -15525,27 +15527,31 @@ await createSummaryBackup();
 await createImagesBackup();
     console.log('  ✓ Backups erstellt');
 
-    console.log('\n[2/8] Lade Synonyme...');
+    console.log('\n[2/9] Lade Synonyme...');
 await loadSynonyms();
     console.log(`  ✓ Synonyme geladen: ${Object.keys(synonyms).length} Gruppen`);
 
-    console.log('\n[3/8] Lade Vorträge...');
+    console.log('\n[3/9] Lade Vorträge...');
 await loadFullLectures();
     console.log(`  ✓ Vorträge geladen: ${Object.keys(fullLectures).length} Vorträge`);
 
-    console.log('\n[4/8] Lade Bücher...');
+    console.log('\n[4/9] Lade Bücher...');
 const loadedBooks = await loadBooks();
     console.log(`  ✓ Bücher geladen: ${Object.keys(fullBooks).length} Bücher`);
 // Lade Bilder-Datenbank NICHT beim Start (zu groß)
 // Bilder werden bei Bedarf aus Part-Dateien geladen
 // await loadSteinerImages(); // Deaktiviert - Lazy Loading statt dessen
 
-    console.log('\n[5/8] Synchronisiere Keyword-Systeme...');
+    console.log('\n[5/9] Lade Concepts-Database (Schlagwort-System)...');
+await loadConceptsDatabase();
+    console.log(`  ✓ Concepts geladen: ${conceptsDatabase.length} Schlagwörter`);
+
+    console.log('\n[6/9] Synchronisiere Keyword-Systeme...');
 // Synchronisiere Keyword-Systeme beim Start
 await synchronizeKeywordSystems();
     console.log('  ✓ Keyword-Systeme synchronisiert');
 
-    console.log('\n[6/8] Konvertiere zu Absatz-Format...');
+    console.log('\n[7/9] Konvertiere zu Absatz-Format...');
 // Konvertiere Lectures zu Absatz-Format
 let lectureParagraphsCount = 0;
 Object.values(fullLectures).forEach(lecture => {
@@ -15584,7 +15590,7 @@ Object.values(fullBooks).forEach(book => {
 });
     console.log(`  ✓ Absätze erstellt: ${lectureParagraphsCount} Vortrags-Absätze, ${bookParagraphsCount} Buch-Absätze`);
 
-    console.log('\n[7/8] Lade Query-Log und Cache...');
+    console.log('\n[8/9] Lade Query-Log und Cache...');
     await loadQueryLog();
     
     // Lade Themensuchen-Cache-DB
@@ -15594,7 +15600,7 @@ Object.values(fullBooks).forEach(book => {
     
     // ENTFERNT: Relevanz-Scoring-Test wurde entfernt
     
-    console.log('\n[8/8] Starte Server...');
+    console.log('\n[9/9] Starte Server...');
     app.listen(PORT, () => {
       console.log('\n' + '='.repeat(70));
       console.log(`  ✓ SERVER GESTARTET`);
@@ -15604,6 +15610,7 @@ Object.values(fullBooks).forEach(book => {
       console.log(`    • ${Object.keys(fullLectures).length} Vorträge`);
       console.log(`    • ${Object.keys(fullBooks).length} Bücher`);
       console.log(`    • ${paragraphsFromLectures.length} Absätze (für Suche)`);
+      console.log(`    • ${conceptsDatabase.length} Schlagwörter (gecacht)`);
       console.log(`    • ${Object.keys(synonyms).length} Synonym-Gruppen`);
       console.log(`\n  Server bereit für Anfragen!\n`);
     });

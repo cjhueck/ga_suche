@@ -17631,25 +17631,36 @@ function scrollToChronologicalYear(year) {
     
     /**
      * Analysiert alle Schlagwörter und erfasst bidirektionale Verlinkungen.
-     * Für jedes Schlagwort A wird geprüft, welche anderen Schlagwörter B, C, D
-     * in dessen Texten vorkommen. Diese Beziehungen werden in beide Richtungen gespeichert.
+     * OPTIMIERT: Verwendet String.includes statt Regex für bessere Performance.
+     * Analysiert in Batches, um den Main Thread nicht zu blockieren.
      */
+    let verlinkungsAnalyseGestartet = false;
+    
     function analysiereSchlagwortVerlinkungen() {
+      if (verlinkungsAnalyseAbgeschlossen || verlinkungsAnalyseGestartet) {
+        return; // Bereits abgeschlossen oder gestartet
+      }
+      
       if (!keywordsData || keywordsData.length === 0) {
         console.warn('[VERLINKUNGEN] Keine Schlagwörter geladen');
         return;
       }
       
-      console.log('[VERLINKUNGEN] Starte Analyse von', keywordsData.length, 'Schlagwörtern...');
+      verlinkungsAnalyseGestartet = true;
+      const startTime = performance.now();
+      console.log('[VERLINKUNGEN] Starte optimierte Analyse von', keywordsData.length, 'Schlagwörtern...');
       
       // Reset der Map
       schlagwortVerlinkungen = new Map();
       
-      // Erstelle Set aller Schlagwort-Namen (lowercase für Vergleich)
+      // Erstelle Map aller Schlagwort-Namen (lowercase für Vergleich)
       const alleSchlagwoerter = new Map();
+      const schlagwortListe = []; // Für schnellere Iteration
+      
       keywordsData.forEach(kw => {
         const normalizedName = kw.keyword.trim().toLowerCase();
         alleSchlagwoerter.set(normalizedName, kw.keyword);
+        schlagwortListe.push({ normalized: normalizedName, original: kw.keyword });
         // Initialisiere Eintrag in der Verlinkungsmap
         schlagwortVerlinkungen.set(kw.keyword, {
           linksTo: new Set(),
@@ -17657,79 +17668,105 @@ function scrollToChronologicalYear(year) {
         });
       });
       
-      // Analysiere jeden Schlagwort-Text
-      keywordsData.forEach(kw => {
-        const currentKeyword = kw.keyword;
-        const currentKeywordLower = currentKeyword.trim().toLowerCase();
+      // Batch-Verarbeitung für bessere Performance
+      const BATCH_SIZE = 50;
+      let currentIndex = 0;
+      
+      function processNextBatch() {
+        const batchEnd = Math.min(currentIndex + BATCH_SIZE, keywordsData.length);
         
-        // Sammle allen Text des Schlagworts
-        let gesamtText = '';
-        
-        // Text aus overview (falls vorhanden)
-        if (kw.overview) {
-          gesamtText += ' ' + (kw.overview.definitionText || '');
-          gesamtText += ' ' + (kw.overview.functionText || '');
-          gesamtText += ' ' + (kw.overview.interactionText || '');
-          gesamtText += ' ' + (kw.overview.specialText || '');
-        }
-        
-        // Text aus text-Feld (falls vorhanden)
-        if (kw.text) {
-          gesamtText += ' ' + kw.text;
-        }
-        
-        if (!gesamtText.trim()) return;
-        
-        // Suche nach anderen Schlagwörtern im Text
-        alleSchlagwoerter.forEach((originalName, normalizedName) => {
-          // Überspringe das aktuelle Schlagwort selbst
-          if (normalizedName === currentKeywordLower) return;
+        for (let i = currentIndex; i < batchEnd; i++) {
+          const kw = keywordsData[i];
+          const currentKeyword = kw.keyword;
+          const currentKeywordLower = currentKeyword.trim().toLowerCase();
           
-          // Prüfe ob das Schlagwort im Text vorkommt (mit Wortgrenzen)
-          const escapedKeyword = originalName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-          const regex = new RegExp(`\\b${escapedKeyword}\\b`, 'i');
+          // Sammle allen Text des Schlagworts und konvertiere zu lowercase
+          let gesamtText = '';
           
-          if (regex.test(gesamtText)) {
-            // currentKeyword verweist auf originalName
-            const currentEntry = schlagwortVerlinkungen.get(currentKeyword);
-            if (currentEntry) {
-              currentEntry.linksTo.add(originalName);
-            }
+          if (kw.overview) {
+            gesamtText += ' ' + (kw.overview.definitionText || '');
+            gesamtText += ' ' + (kw.overview.functionText || '');
+            gesamtText += ' ' + (kw.overview.interactionText || '');
+            gesamtText += ' ' + (kw.overview.specialText || '');
+          }
+          
+          if (kw.text) {
+            gesamtText += ' ' + kw.text;
+          }
+          
+          if (!gesamtText.trim()) continue;
+          
+          const gesamtTextLower = gesamtText.toLowerCase();
+          
+          // OPTIMIERT: Verwende String.includes statt Regex für einfache Suche
+          // Das ist ca. 10x schneller als Regex-Tests
+          for (const { normalized, original } of schlagwortListe) {
+            // Überspringe das aktuelle Schlagwort selbst
+            if (normalized === currentKeywordLower) continue;
             
-            // originalName wird von currentKeyword referenziert
-            const targetEntry = schlagwortVerlinkungen.get(originalName);
-            if (targetEntry) {
-              targetEntry.linkedFrom.add(currentKeyword);
+            // Schnelle Prüfung mit includes (viel schneller als Regex)
+            if (gesamtTextLower.includes(normalized)) {
+              // currentKeyword verweist auf original
+              const currentEntry = schlagwortVerlinkungen.get(currentKeyword);
+              if (currentEntry) {
+                currentEntry.linksTo.add(original);
+              }
+              
+              // original wird von currentKeyword referenziert
+              const targetEntry = schlagwortVerlinkungen.get(original);
+              if (targetEntry) {
+                targetEntry.linkedFrom.add(currentKeyword);
+              }
             }
           }
-        });
-      });
-      
-      verlinkungsAnalyseAbgeschlossen = true;
-      
-      // Statistik ausgeben
-      let totalLinks = 0;
-      let schlagwoerterMitLinks = 0;
-      schlagwortVerlinkungen.forEach((data, keyword) => {
-        const linkCount = data.linksTo.size + data.linkedFrom.size;
-        if (linkCount > 0) {
-          schlagwoerterMitLinks++;
-          totalLinks += data.linksTo.size;
         }
-      });
+        
+        currentIndex = batchEnd;
+        
+        // Noch mehr zu verarbeiten?
+        if (currentIndex < keywordsData.length) {
+          // Nächsten Batch mit requestAnimationFrame oder setTimeout planen
+          if (typeof requestIdleCallback === 'function') {
+            requestIdleCallback(processNextBatch, { timeout: 100 });
+          } else {
+            setTimeout(processNextBatch, 0);
+          }
+        } else {
+          // Fertig!
+          verlinkungsAnalyseAbgeschlossen = true;
+          
+          const endTime = performance.now();
+          
+          // Statistik ausgeben
+          let totalLinks = 0;
+          let schlagwoerterMitLinks = 0;
+          schlagwortVerlinkungen.forEach((data, keyword) => {
+            const linkCount = data.linksTo.size + data.linkedFrom.size;
+            if (linkCount > 0) {
+              schlagwoerterMitLinks++;
+              totalLinks += data.linksTo.size;
+            }
+          });
+          
+          console.log(`[VERLINKUNGEN] Analyse abgeschlossen in ${Math.round(endTime - startTime)}ms:`);
+          console.log(`  - ${schlagwoerterMitLinks} Schlagwörter mit Verlinkungen`);
+          console.log(`  - ${totalLinks} Verlinkungen insgesamt`);
+        }
+      }
       
-      console.log('[VERLINKUNGEN] Analyse abgeschlossen:');
-      console.log(`  - ${schlagwoerterMitLinks} Schlagwörter mit Verlinkungen`);
-      console.log(`  - ${totalLinks} Verlinkungen insgesamt`);
+      // Starte ersten Batch
+      processNextBatch();
     }
     
     /**
      * Gibt die Verlinkungsdaten für ein bestimmtes Schlagwort zurück.
+     * HINWEIS: Wenn die Analyse noch läuft, werden nur bereits analysierte Verlinkungen zurückgegeben.
      * @param {string} keyword - Das Schlagwort
      * @returns {Object|null} { linksTo: string[], linkedFrom: string[] } oder null
      */
     function getSchlagwortVerlinkungen(keyword) {
-      if (!verlinkungsAnalyseAbgeschlossen) {
+      // Starte Analyse falls noch nicht gestartet (wird im Hintergrund ausgeführt)
+      if (!verlinkungsAnalyseGestartet && !verlinkungsAnalyseAbgeschlossen) {
         analysiereSchlagwortVerlinkungen();
       }
       
@@ -24479,10 +24516,14 @@ async function initializeKeywordSystem() {
     // Event Listener für Suche
     setupKeywordSearch();
     
-    // Analysiere bidirektionale Verlinkungen zwischen Schlagwörtern
-    setTimeout(() => {
-      analysiereSchlagwortVerlinkungen();
-    }, 500);
+    // Verlinkungsanalyse wird jetzt LAZY durchgeführt (bei Bedarf)
+    // Starte Hintergrund-Analyse mit requestIdleCallback für bessere Performance
+    if (typeof requestIdleCallback === 'function') {
+      requestIdleCallback(() => {
+        analysiereSchlagwortVerlinkungen();
+      }, { timeout: 5000 }); // Max 5 Sekunden warten
+    }
+    // Falls requestIdleCallback nicht verfügbar, wird die Analyse bei Bedarf in getSchlagwortVerlinkungen() durchgeführt
     
     } catch (error) {
     console.error('[KEYWORDS] ✗ Fehler beim Initialisieren:', error);
