@@ -204,11 +204,11 @@
     /* Schlagwort-Titel oben im Ergebnisfenster - größer und fett */
     #viewer .concept-overview-container .concept-main-title,
     #viewer .concept-main-title {
-      font-weight: 700 !important;
-      font-size: 1.5em !important;
-      margin-bottom: 1rem !important;
-      padding: 0.5rem 0 !important;
-      color: var(--link-color) !important;
+      font-weight: 700;
+      font-size: 1.6em;
+      margin-bottom: 1rem;
+      padding: 0.5rem 0;
+      color: var(--accent-color);
     }
     
     /* Concept Feld-Wrapper */
@@ -303,6 +303,225 @@
 /* Abstand für Ergebnisse nach Trennlinie */
 .concept-results-content {
   margin-top: 0;
+}
+
+/* ============================================================================
+   KONZEPT-NETZWERK VISUALISIERUNG (D3.js)
+   ============================================================================ */
+
+/* Netzwerk-Container */
+.concept-network-container {
+  width: 100%;
+  height: calc(100vh - 60px);
+  min-height: 300px;
+  background: var(--background-color);
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body.dark-mode .concept-network-container {
+  background: var(--dark-background-color);
+}
+
+/* Netzwerk-Header mit Titel und Buttons */
+.concept-network-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+  background: transparent;
+  margin-bottom: 0;
+}
+
+body.dark-mode .concept-network-header {
+  background: transparent;
+}
+
+#viewer h3.concept-network-title,
+h3.concept-network-title {
+  font-size: 3em !important;
+  font-weight: 700 !important;
+  color: var(--accent-color) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+}
+
+.concept-network-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.concept-network-btn {
+  padding: 4px 10px;
+  font-size: 0.8em;
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.concept-network-btn:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
+.concept-network-btn.active {
+  background: var(--accent-color);
+  color: white;
+}
+
+/* SVG Netzwerk */
+.concept-network-svg {
+  width: 100%;
+  height: calc(100% - 35px);
+}
+
+/* Netzwerk-Knoten (nur Text) */
+.concept-network-node {
+  cursor: pointer;
+}
+
+/* Text-Labels als Haupt-Element */
+.concept-network-label {
+  font-family: inherit;
+  user-select: none;
+  pointer-events: all;
+  transition: fill 0.15s ease;
+  fill: var(--text-color);
+}
+
+/* Hintergrund für Text-Labels (unterbricht Linien) */
+.concept-network-label-bg {
+  fill: var(--background-color);
+  pointer-events: none;
+}
+
+body.dark-mode .concept-network-label-bg {
+  fill: var(--dark-background-color);
+}
+
+.concept-network-node:hover .concept-network-label,
+.concept-network-node.hovered .concept-network-label {
+  fill: var(--accent-color) !important;
+}
+
+.concept-network-node.central .concept-network-label {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  fill: var(--accent-color) !important;
+}
+
+body.dark-mode .concept-network-label {
+  fill: #e0e0e0;
+}
+
+body.dark-mode .concept-network-node.central .concept-network-label {
+  fill: var(--accent-color) !important;
+}
+
+/* Verbindungslinien (dezent) */
+.concept-network-link {
+  stroke: var(--border-color);
+  stroke-opacity: 0.35;
+  stroke-width: 1px;
+  fill: none;
+  transition: all 0.2s ease;
+}
+
+body.dark-mode .concept-network-link {
+  stroke: #666;
+  stroke-opacity: 0.4;
+}
+
+/* Alle Link-Typen einheitlich dezent */
+.concept-network-link.hierarchisch,
+.concept-network-link.komponente,
+.concept-network-link.prozess,
+.concept-network-link.korrespondenz,
+.concept-network-link.gegensatz {
+  stroke: var(--secondary-text);
+  stroke-width: 1px;
+}
+
+/* Highlight bei Hover */
+.concept-network-link.highlight {
+  stroke-opacity: 0.7;
+  stroke-width: 1.5px;
+  stroke: var(--accent-color);
+}
+
+.concept-network-node.dimmed .concept-network-label {
+  opacity: 0.25;
+}
+
+.concept-network-link.dimmed {
+  stroke-opacity: 0.1;
+}
+
+/* Legende (ausgeblendet für minimalistisches Design) */
+.concept-network-legend {
+  display: none;
+}
+
+/* Tooltip (deaktiviert) */
+.concept-network-tooltip {
+  display: none;
+}
+
+/* Ladeanzeige */
+.concept-network-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--secondary-text);
+}
+
+.concept-network-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: network-spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes network-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Netzwerk-Button im Index */
+.concept-network-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  font-size: 0.75em;
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.concept-network-trigger-btn:hover {
+  background: var(--accent-color);
+  color: white;
+}
+
+.concept-network-trigger-btn svg {
+  width: 12px;
+  height: 12px;
 }
     
     /* Konzept-Übersicht: Grid-Zellen */
@@ -3082,7 +3301,7 @@ body.dark-mode #thematicSearchInfo {
     
     /* H2 im Viewer wie H3 darstellen */
     #viewer h2,
-    #viewer h3 {
+    #viewer h3:not(.concept-network-title) {
       font-size: 0.9rem !important;
       margin: 1.2rem 0 0.25rem 0 !important; /* Größerer Abstand vor H3 */
       font-weight: 700 !important;
@@ -4992,6 +5211,8 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 </style>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
+<!-- D3.js für Netzwerk-Visualisierung -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 </head>
 <body>
 <div id="sidebar">
@@ -16642,8 +16863,11 @@ function scrollToChronologicalYear(year) {
       // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
       let html = '<div class="concept-overview-container">';
       
-      // Begriff/Thema als Überschrift über den Feldern - fett und blau
-      html += `<div class="concept-main-title" style="font-size: 1.5em !important; font-weight: 700 !important;">${concept}</div>`;
+      // Begriff/Thema als Überschrift über den Feldern - fett und blau + Netzwerk-Button
+      html += `<div class="concept-main-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
+        <span>${concept}</span>
+        <button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="Konzept-Netzwerk anzeigen">Netzwerk</button>
+      </div>`;
       
       // Felder untereinander
       const fields = [
@@ -16717,6 +16941,343 @@ function scrollToChronologicalYear(year) {
       setTimeout(() => {
         convertGAReferencesToLinks(viewer, concept);
       }, 100);
+    }
+    
+    // ============================================================================
+    // KONZEPT-NETZWERK VISUALISIERUNG (D3.js)
+    // ============================================================================
+    
+    // Globaler State für Netzwerk
+    let currentNetworkConcept = null;
+    let currentNetworkData = null;
+    let networkSimulation = null;
+    
+    /**
+     * Zeigt das Konzept-Netzwerk für einen Begriff
+     */
+    async function showConceptNetwork(concept, forceRefresh = false) {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      currentNetworkConcept = concept;
+      
+      // Zeige Loading
+      viewer.innerHTML = `
+        <div class="concept-network-container">
+          <div class="concept-network-header">
+            <h3 class="concept-network-title" style="font-size: 1em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Netzwerk: ${concept}</h3>
+            <div class="concept-network-controls">
+              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">⟳</button>
+              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">Index</button>
+            </div>
+          </div>
+          <div class="concept-network-loading">
+            <div class="concept-network-loading-spinner"></div>
+            <div>Generiere Netzwerk für "${concept}"...</div>
+            <div style="font-size: 0.8em; margin-top: 0.5rem; color: var(--secondary-text);">
+              (KI-Analyse + Kontext-Analyse)
+            </div>
+          </div>
+        </div>
+      `;
+      
+      try {
+        // API-Aufruf
+        const response = await fetch(`${API_BASE}/api/concept-network`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ concept, forceRefresh })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server-Fehler: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        currentNetworkData = data;
+        
+        // Rendere das Netzwerk
+        renderConceptNetworkD3(concept, data);
+        
+      } catch (error) {
+        console.error('[CONCEPT-NETWORK] Fehler:', error);
+        viewer.innerHTML = `
+          <div class="concept-network-container">
+            <div class="concept-network-header">
+              <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Netzwerk: ${concept}</h3>
+            </div>
+            <div style="text-align: center; padding: 2rem; color: #c53030;">
+              <div style="font-size: 1.2em; margin-bottom: 1rem;">❌ Fehler beim Laden</div>
+              <div style="font-style: italic;">${error.message}</div>
+              <button onclick="performKeywordThematicSearch('${concept}')" 
+                      style="margin-top: 1rem; padding: 8px 16px; background: var(--accent-color); color: white; border: none; border-radius: 4px; cursor: pointer;">
+                Zurück zum Index
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    /**
+     * Rendert das Netzwerk mit D3.js
+     */
+    function renderConceptNetworkD3(concept, data) {
+      const viewer = document.getElementById('viewer');
+      if (!viewer || !data) return;
+      
+      const connections = data.connections || [];
+      
+      // Erstelle Container (ohne Legende, minimalistisch)
+      viewer.innerHTML = `
+        <div class="concept-network-container" id="network-container">
+          <div class="concept-network-header">
+            <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">${concept}</h3>
+            <div class="concept-network-controls">
+              <button class="concept-network-btn" onclick="showConceptNetwork('${concept}', true)" title="Neu generieren">⟳ Neu</button>
+              <button class="concept-network-btn" onclick="resetNetworkZoom()" title="Zoom zurücksetzen">⊙</button>
+              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">← Index</button>
+            </div>
+          </div>
+          <svg class="concept-network-svg" id="network-svg"></svg>
+          <div class="concept-network-tooltip" id="network-tooltip"></div>
+        </div>
+      `;
+      
+      // Hole SVG und Container Dimensionen
+      const container = document.getElementById('network-container');
+      const svg = d3.select('#network-svg');
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight - 50; // Header abziehen
+      
+      svg.attr('width', width).attr('height', height);
+      
+      // Erstelle Knoten und Links für D3
+      const nodes = [
+        { id: concept, label: concept, type: 'central', strength: 1 }
+      ];
+      
+      const links = [];
+      
+      connections.forEach(conn => {
+        nodes.push({
+          id: conn.term,
+          label: conn.term,
+          type: conn.type || 'prozess',
+          strength: conn.strength || 0.5
+        });
+        
+        links.push({
+          source: concept,
+          target: conn.term,
+          type: conn.type || 'prozess',
+          strength: conn.strength || 0.5
+        });
+      });
+      
+      // Erstelle Zoom-Verhalten
+      const zoom = d3.zoom()
+        .scaleExtent([0.3, 3])
+        .on('zoom', (event) => {
+          g.attr('transform', event.transform);
+        });
+      
+      svg.call(zoom);
+      
+      // Speichere Zoom für Reset
+      window.networkZoom = zoom;
+      window.networkSvg = svg;
+      
+      // Erstelle Haupt-Gruppe für Zoom
+      const g = svg.append('g');
+      
+      // Force Simulation (optimiert für Text-Layout)
+      networkSimulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+        .force('charge', d3.forceManyBody().strength(-400))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(60));
+      
+      // Erstelle Links (Verbindungslinien - dezent)
+      const link = g.append('g')
+        .attr('class', 'links')
+        .selectAll('line')
+        .data(links)
+        .enter()
+        .append('line')
+        .attr('class', d => `concept-network-link ${d.type}`);
+      
+      // Erstelle Node-Gruppen (nur Text, keine Kreise)
+      const node = g.append('g')
+        .attr('class', 'nodes')
+        .selectAll('g')
+        .data(nodes)
+        .enter()
+        .append('g')
+        .attr('class', d => `concept-network-node ${d.type}`)
+        .call(d3.drag()
+          .on('start', dragstarted)
+          .on('drag', dragged)
+          .on('end', dragended));
+      
+      // Temporäres Text-Element für Breitenmessung
+      const tempText = svg.append('text').style('visibility', 'hidden');
+      
+      // Hintergrund-Rechteck für Labels (unterbricht Linien)
+      node.append('rect')
+        .attr('class', 'concept-network-label-bg')
+        .attr('rx', 2)
+        .attr('ry', 2)
+        .each(function(d) {
+          tempText.text(d.label)
+            .style('font-size', d.type === 'central' ? '18px' : '13px')
+            .style('font-weight', d.type === 'central' ? '700' : '500');
+          const bbox = tempText.node().getBBox();
+          d.labelWidth = bbox.width + 8;
+          d.labelHeight = bbox.height + 4;
+          d3.select(this)
+            .attr('x', -d.labelWidth / 2)
+            .attr('y', -d.labelHeight / 2 - 2)
+            .attr('width', d.labelWidth)
+            .attr('height', d.labelHeight);
+        });
+      
+      tempText.remove();
+      
+      // Text-Labels - schwarz für alle außer zentral (blau)
+      node.append('text')
+        .attr('class', 'concept-network-label')
+        .attr('dy', 4)
+        .attr('text-anchor', 'middle')
+        .style('font-size', d => d.type === 'central' ? '18px' : '13px')
+        .style('font-weight', d => d.type === 'central' ? '700' : '500')
+        .style('cursor', 'pointer')
+        .text(d => d.label);
+      
+      
+      // Event Handler
+      node
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          event.preventDefault();
+          if (d.type === 'central') {
+            // Zurück zum Index
+            performKeywordThematicSearch(d.id);
+          } else {
+            // Zeige Netzwerk für angeklickten Begriff
+            showConceptNetwork(d.id);
+          }
+        })
+        .on('mouseenter', function(event, d) {
+          d3.select(this).classed('hovered', true);
+        })
+        .on('mouseleave', function(event, d) {
+          d3.select(this).classed('hovered', false);
+        });
+      
+      // Simulation Tick - Linien enden vor dem Text
+      networkSimulation.on('tick', () => {
+        link.each(function(d) {
+          const dx = d.target.x - d.source.x;
+          const dy = d.target.y - d.source.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          
+          if (dist === 0) return;
+          
+          // Abstand vom Zentrum des Labels (halbe Breite + Padding)
+          const sourceOffset = (d.source.labelWidth || 40) / 2 + 5;
+          const targetOffset = (d.target.labelWidth || 40) / 2 + 5;
+          
+          // Normalisierte Richtung
+          const nx = dx / dist;
+          const ny = dy / dist;
+          
+          // Start- und Endpunkte mit Offset
+          const x1 = d.source.x + nx * sourceOffset;
+          const y1 = d.source.y + ny * sourceOffset;
+          const x2 = d.target.x - nx * targetOffset;
+          const y2 = d.target.y - ny * targetOffset;
+          
+          d3.select(this)
+            .attr('x1', x1)
+            .attr('y1', y1)
+            .attr('x2', x2)
+            .attr('y2', y2);
+        });
+        
+        node.attr('transform', d => `translate(${d.x},${d.y})`);
+      });
+      
+      // Simulation nach 3 Sekunden stoppen für stabile Interaktion
+      setTimeout(() => {
+        networkSimulation.stop();
+      }, 3000);
+      
+      // Drag Funktionen
+      function dragstarted(event, d) {
+        if (!event.active) networkSimulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+      
+      function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+      }
+      
+      function dragended(event, d) {
+        if (!event.active) networkSimulation.alphaTarget(0);
+        // Stoppe Simulation nach Drag für Stabilität
+        setTimeout(() => networkSimulation.stop(), 1000);
+        d.fx = null;
+        d.fy = null;
+      }
+      
+      // Initial Zoom auf Mitte
+      setTimeout(() => {
+        svg.transition().duration(500).call(
+          zoom.transform,
+          d3.zoomIdentity.translate(0, 0).scale(1)
+        );
+      }, 100);
+    }
+    
+    /**
+     * Reset Zoom auf Ausgangszustand
+     */
+    function resetNetworkZoom() {
+      if (window.networkSvg && window.networkZoom) {
+        window.networkSvg.transition().duration(500).call(
+          window.networkZoom.transform,
+          d3.zoomIdentity
+        );
+      }
+    }
+    
+    /**
+     * Fügt Netzwerk-Button zu einem Konzept hinzu
+     */
+    function addNetworkButtonToConcept(container, concept) {
+      const btn = document.createElement('button');
+      btn.className = 'concept-network-trigger-btn';
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <circle cx="4" cy="8" r="2"/>
+        <circle cx="20" cy="8" r="2"/>
+        <circle cx="4" cy="16" r="2"/>
+        <circle cx="20" cy="16" r="2"/>
+        <line x1="9" y1="10" x2="6" y2="8"/>
+        <line x1="15" y1="10" x2="18" y2="8"/>
+        <line x1="9" y1="14" x2="6" y2="16"/>
+        <line x1="15" y1="14" x2="18" y2="16"/>
+      </svg> Netzwerk`;
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showConceptNetwork(concept);
+      };
+      container.appendChild(btn);
     }
     
     function convertGAReferencesToLinks(container, searchTerm = null) {
