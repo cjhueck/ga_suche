@@ -21112,7 +21112,8 @@ function formatAsteriskParagraphs() {
     }
     
     function renderThematicResults(query, content, sources, appliedGA = '') {
-      const container = document.getElementById('results');
+      // Zeige Ergebnisse im Main Viewer (wie bei Index-Tab), nicht im linken Panel
+      const container = document.getElementById('viewer');
       
       const sortedSources = [...sources].sort((a, b) => {
         const dateA = a.date || '';
@@ -21224,27 +21225,31 @@ function formatAsteriskParagraphs() {
       }
       updateButtonStates(); // Aktualisiere Button-Status
       
-      // Scroll sidebar to top to show results from the beginning
-      document.getElementById('sidebar-content').scrollTop = 0;
+      // Scroll main viewer to top to show results from the beginning
+      const mainContainer = document.getElementById('main');
+      if (mainContainer) {
+        mainContainer.scrollTop = 0;
+      }
       
       setTimeout(() => {
         const gaLinks = answerDiv.querySelectorAll('.ga-reference');
         
         gaLinks.forEach(link => {
-  const lectureId = link.getAttribute('data-id');
-  const targetIndex = link.getAttribute('data-index');
-  
-  if (lectureId && targetIndex) {
-    link.addEventListener('click', async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Summary Panel bleibt offen (wird in showLecture automatisch geöffnet)
-      const keywords = extractKeywordsFromQuery(currentThematicQuery);
-      await showLecture(lectureId, targetIndex, keywords);
-    });
-  }
-});
+          const lectureId = link.getAttribute('data-id');
+          const targetIndex = link.getAttribute('data-index');
+          
+          if (lectureId && targetIndex) {
+            link.addEventListener('click', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              // Zeige Text im rechten Side-Panel (wie bei Index-Tab)
+              const keywords = extractKeywordsFromQuery(currentThematicQuery);
+              const searchTerm = keywords.length > 0 ? keywords[0] : '';
+              await showLectureFromAdvancedSearch(lectureId, searchTerm, targetIndex);
+            });
+          }
+        });
       }, 100);
     }
 
