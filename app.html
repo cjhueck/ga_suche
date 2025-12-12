@@ -9949,6 +9949,35 @@ function displayGAVolumesInSidebar() {
     });
   }
   
+  // Prüfe ob alle Bände wieder angezeigt werden (kein Filter aktiv)
+  const isShowingAllVolumes = !selectedGABandFilter;
+  
+  // Wenn alle Bände wieder angezeigt werden, setze Viewer zurück
+  if (isShowingAllVolumes) {
+    const gaTab = document.getElementById('ga-tab');
+    const isInGATab = gaTab && gaTab.classList.contains('active');
+    
+    if (isInGATab) {
+      // Setze Viewer auf Standard-Nachricht zurück
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.innerHTML = '<div style="padding: 2rem; color: var(--secondary-text); text-align: left; font-style: italic; font-size: 0.9rem;">Wählen Sie einen GA-Band aus der linken Liste aus.</div>';
+      }
+      
+      // Setze Titel zurück
+      const documentTitle = document.getElementById('document-title');
+      if (documentTitle) {
+        documentTitle.textContent = 'GA-Bände Übersicht';
+      }
+      
+      // Setze currentGANumber zurück, damit Info-Button ausgeblendet wird
+      currentGANumber = null;
+      
+      // Aktualisiere Button-Status, damit Info-Button ausgeblendet wird
+      updateButtonStates();
+    }
+  }
+  
   let html = '';
   
   if (filteredData.length === 0 && gaVolumesData.length > 0) {
