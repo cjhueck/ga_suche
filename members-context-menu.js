@@ -106,21 +106,14 @@ function handleContextMenu(e) {
   // Setze Flag ob Auswahl im Side Panel ist (summary-content hat Priorität)
   selectionInSidePanel = isInSummaryContent;
   
-  // Prüfe ob die Auswahl im Volltext-Bereich des Members Panels ist (item-full-paragraph)
-  const fullParagraphElement = target.closest('.item-full-paragraph');
-  const isInMembersPanelFullText = fullParagraphElement && fullParagraphElement.classList.contains('show');
+  console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel });
   
-  console.log('[CONTEXT-MENU] Selection check:', { isInSummaryContent, isInViewer, isInMain, selectionInSidePanel, isInMembersPanelFullText });
+  // Context-Menü im Side Panel ist jetzt ERLAUBT
+  // Die Daten (data-lecture-id, data-paragraph-id, data-index) werden aus dem DOM extrahiert
   
-  // Context-Menü im Side Panel NUR für Volltext-Bereich des Members Panels erlauben
-  // (dort wo data-ga-reference und data-paragraph-id vorhanden sind)
-  if (isInSummaryContent && !isInMembersPanelFullText) {
-    console.log('[CONTEXT-MENU] Side Panel (nicht Volltext) - Context-Menü deaktiviert');
-    hideContextMenu();
-    return;
-  }
-  
-  if (selectedText.length < 3 || (!isInViewer && !isInMain)) {
+  // Prüfe ob Text lang genug ist UND ob wir in einem relevanten Bereich sind
+  // WICHTIG: summary-content ist NICHT innerhalb von main, daher separat prüfen
+  if (selectedText.length < 3 || (!isInViewer && !isInMain && !isInSummaryContent)) {
     hideContextMenu();
     return;
   }
@@ -426,41 +419,77 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     
     console.log('[QUOTE-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
     
-    // Für Bücher: Suche zuerst nach para- ID oder data-index
-    let foundParaId = false;
-    let tempNode = paragraphNode;
-    while (tempNode && tempNode !== document.body) {
-      if (tempNode.nodeType === 1) { // Element node
-        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
-        if (tempNode.id && tempNode.id.startsWith('para-')) {
-          console.log('[QUOTE-SAVE] para- ID gefunden:', tempNode.id);
-          paragraphNode = tempNode;
-          foundParaId = true;
-          break;
-        }
-        // Prüfe ob data-index vorhanden (für Bücher)
-        if (tempNode.dataset && tempNode.dataset.index) {
-          console.log('[QUOTE-SAVE] data-index gefunden:', tempNode.dataset.index);
-          // Finde das Parent-Element, das den Text enthält
-          let parent = tempNode.parentElement;
-          while (parent && parent !== document.body) {
-            const tagName = parent.tagName.toLowerCase();
-            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-              console.log('[QUOTE-SAVE] Parent-Element mit Text gefunden:', tagName);
-              paragraphNode = parent;
-              foundParaId = true;
-              break;
-            }
-            parent = parent.parentElement;
-          }
-          if (foundParaId) break;
-        }
+    // NEU: Prüfe ob wir im Members Panel Volltext sind (item-full-paragraph)
+    const fullParagraphContainer = paragraphNode?.closest('.item-full-paragraph');
+    const isInMembersPanelFullText = fullParagraphContainer && fullParagraphContainer.classList.contains('show');
+    
+    if (isInMembersPanelFullText) {
+      console.log('[QUOTE-SAVE] Members Panel Volltext erkannt');
+      // Im Members Panel: Verwende das full-paragraph-text div als Container
+      const textContainer = fullParagraphContainer.querySelector('.full-paragraph-text');
+      if (textContainer) {
+        paragraphNode = textContainer;
+        console.log('[QUOTE-SAVE] Verwende full-paragraph-text Container');
+      } else {
+        paragraphNode = fullParagraphContainer;
+        console.log('[QUOTE-SAVE] Verwende item-full-paragraph Container');
       }
-      tempNode = tempNode.parentNode;
+    }
+    
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    // (überspringe bei Members Panel Volltext - dort haben wir bereits den richtigen Container)
+    let foundParaId = isInMembersPanelFullText; // Bei Members Panel schon gefunden
+    let tempNode = paragraphNode;
+    
+    if (!isInMembersPanelFullText) {
+      while (tempNode && tempNode !== document.body) {
+        if (tempNode.nodeType === 1) { // Element node
+          // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+          if (tempNode.id && tempNode.id.startsWith('para-')) {
+            console.log('[QUOTE-SAVE] para- ID gefunden:', tempNode.id);
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // NEU: Prüfe ob adv-para- ID vorhanden (für erweiterte Suche im Side Panel)
+          if (tempNode.id && tempNode.id.startsWith('adv-para-')) {
+            console.log('[QUOTE-SAVE] adv-para- ID gefunden:', tempNode.id);
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // NEU: Prüfe ob .paragraph Klasse mit data-paragraph-id vorhanden (Side Panel)
+          if (tempNode.classList && tempNode.classList.contains('paragraph') && tempNode.hasAttribute('data-paragraph-id')) {
+            console.log('[QUOTE-SAVE] .paragraph mit data-paragraph-id gefunden:', tempNode.getAttribute('data-paragraph-id'));
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // Prüfe ob data-index vorhanden (für Bücher)
+          if (tempNode.dataset && tempNode.dataset.index) {
+            console.log('[QUOTE-SAVE] data-index gefunden:', tempNode.dataset.index);
+            // Finde das Parent-Element, das den Text enthält
+            let parent = tempNode.parentElement;
+            while (parent && parent !== document.body) {
+              const tagName = parent.tagName.toLowerCase();
+              if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                console.log('[QUOTE-SAVE] Parent-Element mit Text gefunden:', tagName);
+                paragraphNode = parent;
+                foundParaId = true;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+            if (foundParaId) break;
+          }
+        }
+        tempNode = tempNode.parentNode;
+      }
     }
     
     // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
-    if (!foundParaId) {
+    // (überspringe bei Members Panel Volltext)
+    if (!foundParaId && !isInMembersPanelFullText) {
       console.log('[QUOTE-SAVE] Keine para- ID gefunden, suche nach Block-Element');
       tempNode = paragraphNode;
       while (tempNode && tempNode !== document.body) {
@@ -480,7 +509,8 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     
     // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
-    if (!foundParaId && paragraphNode) {
+    // (überspringe bei Members Panel Volltext)
+    if (!foundParaId && paragraphNode && !isInMembersPanelFullText) {
       console.log('[QUOTE-SAVE] Fallback: Verwende aktuelles Element');
       // Prüfe ob das Element selbst Text enthält
       const nodeText = paragraphNode.textContent || '';
@@ -684,11 +714,12 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
         console.warn('[QUOTE-SAVE] Zitat ohne Offsets gespeichert. Bitte führen Sie das Migrationsskript supabase-add-quote-offsets.sql aus.');
         showContextNotification('✓ Zitat gespeichert (ohne exakte Position). Bitte Migration ausführen für exakte Textmarkierung!', 'warning');
         
-        // MB aktualisieren falls offen
+        // MB aktualisieren - IMMER Cache invalidieren
+        if (typeof invalidateMembersCache === 'function') {
+          invalidateMembersCache('quotes');
+        }
+        // Panel aktualisieren falls offen
         if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-          if (typeof invalidateMembersCache === 'function') {
-            invalidateMembersCache('quotes');
-          }
           if (typeof updateMembersPanelIfOpen === 'function') {
             await updateMembersPanelIfOpen('quotes', true);
           } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
@@ -712,17 +743,15 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       highlightContextSelection('#ffffcc');
     }
     
-    // MB aktualisieren falls offen (invalidiert Cache und lädt Quotes-Tab neu)
+    // MB aktualisieren - IMMER Cache invalidieren
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('quotes');
+    }
+    // Panel aktualisieren falls offen
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-      // Invalidiere Cache für Quotes
-      if (typeof invalidateMembersCache === 'function') {
-        invalidateMembersCache('quotes');
-      }
-      // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('quotes', true);
       } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
-        // Fallback: Nur aktualisieren wenn Quotes-Tab aktiv ist
         await loadMembersTab('quotes');
       }
     }
@@ -754,41 +783,77 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     
     console.log('[HIGHLIGHT-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
     
-    // Für Bücher: Suche zuerst nach para- ID oder data-index
-    let foundParaId = false;
-    let tempNode = paragraphNode;
-    while (tempNode && tempNode !== document.body) {
-      if (tempNode.nodeType === 1) { // Element node
-        // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
-        if (tempNode.id && tempNode.id.startsWith('para-')) {
-          console.log('[HIGHLIGHT-SAVE] para- ID gefunden:', tempNode.id);
-          paragraphNode = tempNode;
-          foundParaId = true;
-          break;
-        }
-        // Prüfe ob data-index vorhanden (für Bücher)
-        if (tempNode.dataset && tempNode.dataset.index) {
-          console.log('[HIGHLIGHT-SAVE] data-index gefunden:', tempNode.dataset.index);
-          // Finde das Parent-Element, das den Text enthält
-          let parent = tempNode.parentElement;
-          while (parent && parent !== document.body) {
-            const tagName = parent.tagName.toLowerCase();
-            if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
-              console.log('[HIGHLIGHT-SAVE] Parent-Element mit Text gefunden:', tagName);
-              paragraphNode = parent;
-              foundParaId = true;
-              break;
-            }
-            parent = parent.parentElement;
-          }
-          if (foundParaId) break;
-        }
+    // NEU: Prüfe ob wir im Members Panel Volltext sind (item-full-paragraph)
+    const fullParagraphContainer = paragraphNode?.closest('.item-full-paragraph');
+    const isInMembersPanelFullText = fullParagraphContainer && fullParagraphContainer.classList.contains('show');
+    
+    if (isInMembersPanelFullText) {
+      console.log('[HIGHLIGHT-SAVE] Members Panel Volltext erkannt');
+      // Im Members Panel: Verwende das full-paragraph-text div als Container
+      const textContainer = fullParagraphContainer.querySelector('.full-paragraph-text');
+      if (textContainer) {
+        paragraphNode = textContainer;
+        console.log('[HIGHLIGHT-SAVE] Verwende full-paragraph-text Container');
+      } else {
+        paragraphNode = fullParagraphContainer;
+        console.log('[HIGHLIGHT-SAVE] Verwende item-full-paragraph Container');
       }
-      tempNode = tempNode.parentNode;
+    }
+    
+    // Für Bücher: Suche zuerst nach para- ID oder data-index
+    // (überspringe bei Members Panel Volltext - dort haben wir bereits den richtigen Container)
+    let foundParaId = isInMembersPanelFullText; // Bei Members Panel schon gefunden
+    let tempNode = paragraphNode;
+    
+    if (!isInMembersPanelFullText) {
+      while (tempNode && tempNode !== document.body) {
+        if (tempNode.nodeType === 1) { // Element node
+          // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
+          if (tempNode.id && tempNode.id.startsWith('para-')) {
+            console.log('[HIGHLIGHT-SAVE] para- ID gefunden:', tempNode.id);
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // NEU: Prüfe ob adv-para- ID vorhanden (für erweiterte Suche im Side Panel)
+          if (tempNode.id && tempNode.id.startsWith('adv-para-')) {
+            console.log('[HIGHLIGHT-SAVE] adv-para- ID gefunden:', tempNode.id);
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // NEU: Prüfe ob .paragraph Klasse mit data-paragraph-id vorhanden (Side Panel)
+          if (tempNode.classList && tempNode.classList.contains('paragraph') && tempNode.hasAttribute('data-paragraph-id')) {
+            console.log('[HIGHLIGHT-SAVE] .paragraph mit data-paragraph-id gefunden:', tempNode.getAttribute('data-paragraph-id'));
+            paragraphNode = tempNode;
+            foundParaId = true;
+            break;
+          }
+          // Prüfe ob data-index vorhanden (für Bücher)
+          if (tempNode.dataset && tempNode.dataset.index) {
+            console.log('[HIGHLIGHT-SAVE] data-index gefunden:', tempNode.dataset.index);
+            // Finde das Parent-Element, das den Text enthält
+            let parent = tempNode.parentElement;
+            while (parent && parent !== document.body) {
+              const tagName = parent.tagName.toLowerCase();
+              if (['p', 'div', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'blockquote'].includes(tagName)) {
+                console.log('[HIGHLIGHT-SAVE] Parent-Element mit Text gefunden:', tagName);
+                paragraphNode = parent;
+                foundParaId = true;
+                break;
+              }
+              parent = parent.parentElement;
+            }
+            if (foundParaId) break;
+          }
+        }
+        tempNode = tempNode.parentNode;
+      }
     }
     
     // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
-    if (!foundParaId) {
+    // (überspringe bei Members Panel Volltext)
+    if (!foundParaId && !isInMembersPanelFullText) {
       console.log('[HIGHLIGHT-SAVE] Keine para- ID gefunden, suche nach Block-Element');
       tempNode = paragraphNode;
       while (tempNode && tempNode !== document.body) {
@@ -808,7 +873,8 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     }
     
     // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
-    if (!foundParaId && paragraphNode) {
+    // (überspringe bei Members Panel Volltext)
+    if (!foundParaId && paragraphNode && !isInMembersPanelFullText) {
       console.log('[HIGHLIGHT-SAVE] Fallback: Verwende aktuelles Element');
       // Prüfe ob das Element selbst Text enthält
       const nodeText = paragraphNode.textContent || '';
@@ -975,23 +1041,22 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         applyHighlightToSelection(selectionRangeForContext, color);
       }
       
-      // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
-      if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-        // Invalidiere Cache für Highlights
-        if (typeof invalidateMembersCache === 'function') {
-          invalidateMembersCache('highlights');
-        }
-        // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
-        if (typeof updateMembersPanelIfOpen === 'function') {
-          await updateMembersPanelIfOpen('highlights', true);
-        } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
-          // Fallback: Nur aktualisieren wenn Highlights-Tab aktiv ist
-          await loadMembersTab('highlights');
-        }
-      }
-      
-      return;
+    // MB aktualisieren - IMMER Cache invalidieren und Panel aktualisieren
+    // Invalidiere Cache für Highlights
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('highlights');
     }
+    // Aktualisiere Panel falls offen
+    if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
+      if (typeof updateMembersPanelIfOpen === 'function') {
+        await updateMembersPanelIfOpen('highlights', true);
+      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+        await loadMembersTab('highlights');
+      }
+    }
+    
+    return;
+  }
     
     // Zeige Keyword-Eingabe-Dialog (mit Notizen-Feld)
     const result = await showKeywordDialog('Unterstreichung', text);
@@ -1049,17 +1114,15 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       applyHighlightToSelection(selectionRangeForContext, color);
     }
     
-    // MB aktualisieren falls offen (invalidiert Cache und lädt Highlights-Tab neu)
+    // MB aktualisieren - IMMER Cache invalidieren
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('highlights');
+    }
+    // Panel aktualisieren falls offen
     if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-      // Invalidiere Cache für Highlights
-      if (typeof invalidateMembersCache === 'function') {
-        invalidateMembersCache('highlights');
-      }
-      // Aktualisiere Panel falls offen - aktualisiere auch wenn Tab nicht aktiv ist
       if (typeof updateMembersPanelIfOpen === 'function') {
         await updateMembersPanelIfOpen('highlights', true);
       } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
-        // Fallback: Nur aktualisieren wenn Highlights-Tab aktiv ist
         await loadMembersTab('highlights');
       }
     }
@@ -1383,22 +1446,44 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
   
   if (paragraphId && selectionRangeForContext) {
     try {
-      const paragraphElement = document.getElementById('para-' + paragraphId);
+      // NEU: Prüfe ob wir im Members Panel Volltext sind (item-full-paragraph)
+      let paragraphElement = null;
+      const containerNode = selectionRangeForContext.commonAncestorContainer;
+      const elementNode = containerNode.nodeType === Node.ELEMENT_NODE ? containerNode : containerNode.parentElement;
+      const fullParagraphContainer = elementNode?.closest('.item-full-paragraph');
+      const isInMembersPanelFullText = fullParagraphContainer && fullParagraphContainer.classList.contains('show');
+      
+      if (isInMembersPanelFullText) {
+        console.log('[MB-NOTE-SAVE] Members Panel Volltext erkannt');
+        // Im Members Panel: Verwende das full-paragraph-text div als Container
+        const textContainer = fullParagraphContainer.querySelector('.full-paragraph-text');
+        paragraphElement = textContainer || fullParagraphContainer;
+      } else {
+        // Standard: Suche nach para- Element
+        paragraphElement = document.getElementById('para-' + paragraphId);
+      }
+      
       if (paragraphElement) {
         // Prüfe ob die Selektion über mehrere Absätze geht
         const range = selectionRangeForContext;
         const startContainer = range.startContainer;
         const endContainer = range.endContainer;
         
-        // Finde Start- und End-Paragraph
-        const startPara = startContainer.nodeType === Node.TEXT_NODE 
-          ? startContainer.parentElement.closest('[id^="para-"]')
-          : startContainer.closest('[id^="para-"]');
-        const endPara = endContainer.nodeType === Node.TEXT_NODE 
-          ? endContainer.parentElement.closest('[id^="para-"]')
-          : endContainer.closest('[id^="para-"]');
+        // Finde Start- und End-Paragraph (bei Members Panel gibt es keine Multi-Paragraph Selektion)
+        let startPara = null;
+        let endPara = null;
+        let isMultiParagraph = false;
         
-        const isMultiParagraph = startPara && endPara && startPara !== endPara;
+        if (!isInMembersPanelFullText) {
+          startPara = startContainer.nodeType === Node.TEXT_NODE 
+            ? startContainer.parentElement.closest('[id^="para-"]')
+            : startContainer.closest('[id^="para-"]');
+          endPara = endContainer.nodeType === Node.TEXT_NODE 
+            ? endContainer.parentElement.closest('[id^="para-"]')
+            : endContainer.closest('[id^="para-"]');
+          
+          isMultiParagraph = startPara && endPara && startPara !== endPara;
+        }
         
         if (isMultiParagraph) {
           console.log('[MB-CONTEXT] Multi-Paragraph Selektion erkannt');
@@ -1553,6 +1638,11 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
   if (result.success) {
     showContextNotification('✓ Notiz gespeichert!', 'success');
     
+    // IMMER Cache invalidieren für Notizen
+    if (typeof invalidateMembersCache === 'function') {
+      invalidateMembersCache('notes');
+    }
+    
     // Füge Bookmark-Icon im Main Viewer hinzu
     console.log('[MB-NOTE-SAVE] Prüfe Icon-Hinzufügung:', { paragraphId, hasData: !!result.data });
     if (paragraphId && result.data) {
@@ -1562,12 +1652,12 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
     }
     
     // Öffne Members Panel und zeige Notizen-Tab
-  if (typeof openMembersPanel === 'function') {
-    openMembersPanel();
-    
+    if (typeof openMembersPanel === 'function') {
+      openMembersPanel();
+      
       // Wechsle zum Notizen-Tab und lade neu
-    setTimeout(() => {
-      if (typeof switchMembersTab === 'function') {
+      setTimeout(() => {
+        if (typeof switchMembersTab === 'function') {
           switchMembersTab('notes');
         }
         // Lade Notizen neu
@@ -1920,7 +2010,7 @@ function findParagraphId(range) {
 }
 
 /**
- * Absatz-Index aus Side Panel ermitteln (für erweiterte Suche und Index)
+ * Absatz-Index aus Side Panel ermitteln (für erweiterte Suche, Index und Members Panel Volltext)
  * Sucht nach data-paragraph-id Attribut im DOM
  */
 function findParagraphIdFromSidePanel(range) {
@@ -1940,6 +2030,29 @@ function findParagraphIdFromSidePanel(range) {
             return paragraphId;
           }
         }
+        
+        // NEU: Für Members Panel Volltext - suche nach item-full-paragraph Container
+        if (node.classList && node.classList.contains('item-full-paragraph')) {
+          const paragraphId = node.getAttribute('data-paragraph-id');
+          if (paragraphId) {
+            console.log('[CONTEXT-MENU] Paragraph-ID aus item-full-paragraph gefunden:', paragraphId);
+            return paragraphId;
+          }
+        }
+        
+        // NEU: Suche nach item-ga Link im Parent-Element (item-card)
+        const itemCard = node.closest('.item-card');
+        if (itemCard) {
+          const itemGaLink = itemCard.querySelector('.item-ga');
+          if (itemGaLink) {
+            const paragraphId = itemGaLink.getAttribute('data-paragraph-id');
+            if (paragraphId) {
+              console.log('[CONTEXT-MENU] Paragraph-ID aus item-ga Link gefunden:', paragraphId);
+              return paragraphId;
+            }
+          }
+        }
+        
         // Prüfe auch ID im Format "adv-para-X" (für erweiterte Suche)
         if (node.id && node.id.startsWith('adv-para-')) {
           // Extrahiere Index (entferne "adv-para-" Präfix)
@@ -1948,7 +2061,7 @@ function findParagraphIdFromSidePanel(range) {
           return idx;
         }
         
-        // NEU: Für Bücher - suche nach verstecktem Span mit data-paragraph-id im aktuellen Element
+        // Für Bücher - suche nach verstecktem Span mit data-paragraph-id im aktuellen Element
         // (Die versteckten Spans haben display:none und sind daher keine Parent-Elemente)
         const hiddenSpan = node.querySelector('[data-paragraph-id]');
         if (hiddenSpan) {
@@ -1959,7 +2072,7 @@ function findParagraphIdFromSidePanel(range) {
           }
         }
         
-        // NEU: Suche auch nach ID im Format "para-X" (für Bücher)
+        // Suche auch nach ID im Format "para-X" (für Bücher)
         if (node.id && node.id.startsWith('para-')) {
           const idx = node.id.substring(5); // "para-xyz123" -> "xyz123"
           console.log('[CONTEXT-MENU] Paragraph-Index aus para-ID gefunden:', idx);
@@ -2022,7 +2135,7 @@ function findParagraphIdFromSidePanel(range) {
 
 /**
  * Lecture-ID aus DOM-Attributen extrahieren (für Side Panel)
- * Sucht nach data-lecture-id oder data-ga-reference in Parent-Elementen
+ * Sucht nach data-lecture-id, data-ga-reference oder anderen Identifikatoren in Parent-Elementen
  */
 function findLectureIdFromDOM(range) {
   if (!range) return null;
@@ -2033,21 +2146,21 @@ function findLectureIdFromDOM(range) {
     // Gehe durch alle Parent-Elemente und suche nach Lecture-ID Attributen
     while (node && node !== document.body) {
       if (node.nodeType === 1) { // Element node
+        // Prüfe ob data-lecture-id Attribut vorhanden (erweiterte Suche, TOC, etc.)
+        if (node.hasAttribute && node.hasAttribute('data-lecture-id')) {
+          const lectureId = node.getAttribute('data-lecture-id');
+          if (lectureId) {
+            console.log('[CONTEXT-MENU] Lecture-ID aus data-lecture-id gefunden:', lectureId);
+            return lectureId;
+          }
+        }
+        
         // Prüfe ob data-ga-reference Attribut vorhanden (Members Panel Volltext)
         if (node.hasAttribute && node.hasAttribute('data-ga-reference')) {
           const gaReference = node.getAttribute('data-ga-reference');
           if (gaReference) {
             console.log('[CONTEXT-MENU] Lecture-ID aus data-ga-reference gefunden:', gaReference);
             return gaReference;
-          }
-        }
-        
-        // Prüfe ob data-lecture-id Attribut vorhanden (erweiterte Suche)
-        if (node.hasAttribute && node.hasAttribute('data-lecture-id')) {
-          const lectureId = node.getAttribute('data-lecture-id');
-          if (lectureId) {
-            console.log('[CONTEXT-MENU] Lecture-ID aus data-lecture-id gefunden:', lectureId);
-            return lectureId;
           }
         }
         
@@ -2072,6 +2185,16 @@ function findLectureIdFromDOM(range) {
             }
           }
         }
+        
+        // Suche nach book-content Container mit data-lecture-id
+        const bookContent = node.closest('.book-content[data-lecture-id]');
+        if (bookContent) {
+          const lectureId = bookContent.getAttribute('data-lecture-id');
+          if (lectureId) {
+            console.log('[CONTEXT-MENU] Lecture-ID aus book-content gefunden:', lectureId);
+            return lectureId;
+          }
+        }
       }
       node = node.parentNode;
     }
@@ -2079,11 +2202,22 @@ function findLectureIdFromDOM(range) {
     // Fallback: Suche im summary-content nach data-lecture-id
     const summaryContent = document.getElementById('summary-content');
     if (summaryContent) {
+      // Suche zuerst nach book-content
+      const bookContent = summaryContent.querySelector('.book-content[data-lecture-id]');
+      if (bookContent) {
+        const lectureId = bookContent.getAttribute('data-lecture-id');
+        if (lectureId) {
+          console.log('[CONTEXT-MENU] Lecture-ID aus book-content in summary-content gefunden:', lectureId);
+          return lectureId;
+        }
+      }
+      
+      // Suche nach Element mit data-lecture-id
       const lectureIdElement = summaryContent.querySelector('[data-lecture-id]');
       if (lectureIdElement) {
         const lectureId = lectureIdElement.getAttribute('data-lecture-id');
         if (lectureId) {
-          console.log('[CONTEXT-MENU] Lecture-ID aus summary-content gefunden:', lectureId);
+          console.log('[CONTEXT-MENU] Lecture-ID aus summary-content Element gefunden:', lectureId);
           return lectureId;
         }
       }
