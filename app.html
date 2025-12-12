@@ -203,12 +203,27 @@
     /* Concept Haupttitel - fett und blau */
     /* Schlagwort-Titel oben im Ergebnisfenster - größer und fett */
     #viewer .concept-overview-container .concept-main-title,
-    #viewer .concept-main-title {
-      font-weight: 700;
-      font-size: 1.6em;
-      margin-bottom: 1rem;
-      padding: 0.5rem 0;
-      color: var(--accent-color);
+    #viewer .concept-main-title,
+    .concept-main-title {
+      font-weight: 700 !important;
+      font-size: 1.6em !important;
+      margin-bottom: 1rem !important;
+      padding: 0.5rem 0 !important;
+      color: var(--accent-color) !important;
+    }
+    
+    /* Schriftgröße für span-Elemente innerhalb von concept-main-title erhöhen */
+    .concept-main-title span {
+      font-size: 1.3rem !important;
+      font-weight: inherit;
+    }
+    
+    /* Überschreibe die Index-Tab Schriftgröße für concept-main-title span */
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title span,
+    body:has(.tab-button.active[onclick*="schlagworte"]) .concept-main-title span,
+    .tab-schlagworte-active #viewer .concept-main-title span,
+    .tab-schlagworte-active .concept-main-title span {
+      font-size: 1.3rem !important;
     }
     
     /* Concept Feld-Wrapper */
@@ -519,9 +534,355 @@ body.dark-mode .concept-network-link {
   color: white;
 }
 
+.concept-network-trigger-btn.verlinkungsnetz {
+  background: #e8f4f8;
+  border-color: #2b8a9e;
+  color: #2b8a9e;
+}
+
+.concept-network-trigger-btn.verlinkungsnetz:hover {
+  background: #2b8a9e;
+  color: white;
+}
+
 .concept-network-trigger-btn svg {
   width: 12px;
   height: 12px;
+}
+
+/* ============================================================================
+   BIDIREKTIONALES VERLINKUNGSNETZWERK
+   ============================================================================ */
+
+.bidirectional-network-legend {
+  display: flex;
+  gap: 20px;
+  padding: 8px 16px;
+  background: var(--card-bg, #f8f9fa);
+  border-bottom: 1px solid var(--border-color, #e0e0e0);
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+
+.bidirectional-network-legend .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bidirectional-network-legend .legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.bidirectional-network-legend .legend-dot.links-to {
+  background: #3182ce;
+}
+
+.bidirectional-network-legend .legend-dot.linked-from {
+  background: #38a169;
+}
+
+.bidirectional-network-legend .legend-dot.bidirectional {
+  background: #805ad5;
+}
+
+/* Links/Linien */
+.bidirectional-network-link {
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.bidirectional-network-link.links-to {
+  stroke: #3182ce;
+  stroke-opacity: 0.6;
+}
+
+.bidirectional-network-link.linked-from {
+  stroke: #38a169;
+  stroke-opacity: 0.6;
+}
+
+.bidirectional-network-link.bidirectional {
+  stroke: #805ad5;
+  stroke-opacity: 0.8;
+  stroke-width: 2;
+}
+
+/* Pfeilspitzen */
+.arrow-links-to {
+  fill: #3182ce;
+}
+
+.arrow-linked-from {
+  fill: #38a169;
+}
+
+.arrow-bidirectional {
+  fill: #805ad5;
+}
+
+/* Knoten */
+.bidirectional-network-node {
+  cursor: pointer;
+}
+
+.bidirectional-network-node.hovered .bidirectional-network-label-bg {
+  fill: var(--accent-color-light, #e6f2ff);
+}
+
+.bidirectional-network-node.hovered .bidirectional-network-label {
+  fill: var(--accent-color, #4a7c94);
+}
+
+/* Label-Hintergrund */
+.bidirectional-network-label-bg {
+  fill: var(--background-color, white);
+  stroke: var(--border-color, #e0e0e0);
+  stroke-width: 1;
+}
+
+.bidirectional-network-node.central .bidirectional-network-label-bg {
+  fill: var(--accent-color-light, #e6f7ff);
+  stroke: var(--accent-color, #4a7c94);
+  stroke-width: 2;
+}
+
+.bidirectional-network-node.links-to .bidirectional-network-label-bg {
+  fill: #ebf8ff;
+  stroke: #3182ce;
+}
+
+.bidirectional-network-node.linked-from .bidirectional-network-label-bg {
+  fill: #f0fff4;
+  stroke: #38a169;
+}
+
+.bidirectional-network-node.bidirectional .bidirectional-network-label-bg {
+  fill: #faf5ff;
+  stroke: #805ad5;
+  stroke-width: 1.5;
+}
+
+/* Labels */
+.bidirectional-network-label {
+  fill: var(--text-color, #333);
+  pointer-events: none;
+}
+
+.bidirectional-network-node.central .bidirectional-network-label {
+  fill: var(--accent-color, #4a7c94);
+  font-weight: 700;
+}
+
+.bidirectional-network-node.links-to .bidirectional-network-label {
+  fill: #2c5282;
+}
+
+.bidirectional-network-node.linked-from .bidirectional-network-label {
+  fill: #276749;
+}
+
+.bidirectional-network-node.bidirectional .bidirectional-network-label {
+  fill: #553c9a;
+  font-weight: 600;
+}
+
+/* Dark Mode Anpassungen */
+body.dark-mode .bidirectional-network-legend {
+  background: var(--card-bg, #2d3748);
+}
+
+body.dark-mode .bidirectional-network-label-bg {
+  fill: var(--background-color, #1a202c);
+}
+
+body.dark-mode .bidirectional-network-node.central .bidirectional-network-label-bg {
+  fill: #1a365d;
+}
+
+body.dark-mode .bidirectional-network-node.links-to .bidirectional-network-label-bg {
+  fill: #1a365d;
+}
+
+body.dark-mode .bidirectional-network-node.linked-from .bidirectional-network-label-bg {
+  fill: #1c4532;
+}
+
+body.dark-mode .bidirectional-network-node.bidirectional .bidirectional-network-label-bg {
+  fill: #322659;
+}
+
+body.dark-mode .bidirectional-network-label {
+  fill: var(--text-color, #e2e8f0);
+}
+
+body.dark-mode .bidirectional-network-node.central .bidirectional-network-label {
+  fill: #90cdf4;
+}
+
+body.dark-mode .bidirectional-network-node.links-to .bidirectional-network-label {
+  fill: #63b3ed;
+}
+
+body.dark-mode .bidirectional-network-node.linked-from .bidirectional-network-label {
+  fill: #68d391;
+}
+
+body.dark-mode .bidirectional-network-node.bidirectional .bidirectional-network-label {
+  fill: #b794f4;
+}
+
+/* ============================================================================
+   VERBINDUNGS-MODAL (Netzwerk Edge-Klick)
+   ============================================================================ */
+
+/* Modal Container - kein Overlay, direkt positioniert */
+.connection-modal {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--background-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  width: fit-content;
+  min-width: 300px;
+  max-width: 80vw;
+  height: fit-content;
+  max-height: calc(100vh - 150px);
+  overflow: hidden;
+  z-index: 10000;
+  display: none;
+  border: 1px solid var(--border-color);
+}
+
+.connection-modal.visible {
+  display: block;
+}
+
+body.dark-mode .connection-modal {
+  background: var(--dark-background-color);
+  border-color: var(--dark-border-color);
+}
+
+/* Modal Header - draggable */
+.connection-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--sidebar-bg);
+  cursor: move;
+  user-select: none;
+}
+
+body.dark-mode .connection-modal-header {
+  background: var(--dark-sidebar-bg);
+}
+
+.connection-modal-title {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.connection-modal-title .connection-arrow {
+  color: var(--secondary-text);
+  font-size: 0.85em;
+}
+
+.connection-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.3em;
+  color: var(--secondary-text);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.connection-modal-close:hover {
+  color: var(--accent-color);
+}
+
+/* Modal Body */
+.connection-modal-body {
+  padding: 8px 14px 12px 14px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+/* Aspekt-Liste - kompakt, keine Linien */
+.connection-aspects-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.connection-aspect-item {
+  padding: 3px 0;
+  font-size: 0.9em;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* GA-Link im Modal */
+.connection-ga-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.connection-ga-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Loading im Modal */
+.connection-modal-loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--secondary-text);
+  font-size: 0.9em;
+}
+
+/* Keine Aspekte gefunden */
+.connection-modal-empty {
+  text-align: center;
+  padding: 15px;
+  color: var(--secondary-text);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Klickbare Verbindungslinien im Netzwerk */
+.concept-network-link.clickable {
+  cursor: pointer;
+  stroke-width: 6px !important;
+  stroke-opacity: 0 !important;
+}
+
+.concept-network-link-hover-area {
+  stroke: transparent;
+  stroke-width: 15px;
+  cursor: pointer;
+  pointer-events: stroke;
+}
+
+.concept-network-link-hover-area:hover + .concept-network-link,
+.concept-network-link:hover {
+  stroke: var(--accent-color) !important;
+  stroke-opacity: 0.7 !important;
+  stroke-width: 2px !important;
 }
     
     /* Konzept-Übersicht: Grid-Zellen */
@@ -663,6 +1024,62 @@ body.dark-mode .concept-network-link {
     
     body.dark-mode .concept-content .ga-keyword-link {
       color: var(--dark-link-color);
+    }
+    
+    /* Verlinkte Schlagwörter im Index-Tab */
+    .concept-schlagwort-link {
+      color: var(--link-color);
+      text-decoration: none;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+    
+    .concept-schlagwort-link:hover {
+      opacity: 0.7;
+      text-decoration: underline;
+    }
+    
+    /* Mit Indexeintrag: blau + fett */
+    .concept-schlagwort-link.has-index {
+      font-weight: 700;
+    }
+    
+    /* Ohne Indexeintrag: nur blau (nicht fett) */
+    .concept-schlagwort-link.no-index {
+      font-weight: normal;
+    }
+    
+    body.dark-mode .concept-schlagwort-link {
+      color: var(--dark-link-color);
+    }
+    
+    /* Verlinkungen-Sektion im Index-Tab */
+    .concept-verlinkungen-wrapper {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--border-color);
+    }
+    
+    .concept-verlinkungen {
+      font-size: 0.9em;
+    }
+    
+    .verlinkung-section {
+      margin-bottom: 0.4rem;
+    }
+    
+    .verlinkung-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .verlinkung-label {
+      color: var(--secondary-text);
+      font-style: italic;
+      margin-right: 0.3rem;
+    }
+    
+    body.dark-mode .verlinkung-label {
+      color: var(--dark-secondary-text, #888);
     }
     
     body.dark-mode .search-input:-webkit-autofill,
@@ -2154,6 +2571,12 @@ body.dark-mode .ga-missing-text {
     #document-title span[onclick]:hover { 
       text-decoration: none;
       /* Opacity nicht ändern - Link soll bei Hover nicht verblassen */
+    }
+    
+    /* Schriftgröße für span-Elemente im Titel erhöhen (für Index-Darstellung) */
+    #document-title span {
+      font-size: 1.2em !important;
+      font-weight: inherit;
     }
     
     body.dark-mode #document-title a {
@@ -16863,10 +17286,14 @@ function scrollToChronologicalYear(year) {
       // Erstelle HTML mit 4 Feldern untereinander (Begriff/Thema als Überschrift über den Feldern)
       let html = '<div class="concept-overview-container">';
       
-      // Begriff/Thema als Überschrift über den Feldern - fett und blau + Netzwerk-Button
+      // Begriff/Thema als Überschrift über den Feldern - fett und blau + Netzwerk-Buttons (nur lokal)
+      const netzwerkButtons = isLocal 
+        ? `<button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="KI-generiertes Konzept-Netzwerk">Netzwerk</button>
+           <button class="concept-network-trigger-btn verlinkungsnetz" onclick="showBidirectionalNetworkGraph('${concept}')" title="Verlinkungsnetzwerk aus Index-Einträgen">Verlinkungsnetz</button>`
+        : '';
       html += `<div class="concept-main-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
         <span>${concept}</span>
-        <button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="Konzept-Netzwerk anzeigen">Netzwerk</button>
+        ${netzwerkButtons}
       </div>`;
       
       // Felder untereinander
@@ -16940,7 +17367,325 @@ function scrollToChronologicalYear(year) {
       // WICHTIG: Übergebe das Suchwort (concept), damit Buch-Links das Suchwort für die Markierung haben
       setTimeout(() => {
         convertGAReferencesToLinks(viewer, concept);
+        // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
+        linkifySchlagworteInElement(viewer, concept);
       }, 100);
+    }
+    
+    /**
+     * Füllt die Verlinkungssektion für ein Schlagwort nachträglich.
+     * Wartet auf den Abschluss der Verlinkungsanalyse, falls nötig.
+     * @param {string} concept - Das Schlagwort
+     */
+    function fuelleVerlinkungsSektion(concept) {
+      console.log('[VERLINKUNGEN-UI] Fülle Verlinkungen für:', concept);
+      const placeholder = document.getElementById('concept-verlinkungen-placeholder');
+      console.log('[VERLINKUNGEN-UI] Placeholder gefunden:', !!placeholder);
+      if (!placeholder) return;
+      
+      // Funktion zum Rendern der Verlinkungen
+      const renderVerlinkungen = () => {
+        const verlinkungen = getSchlagwortVerlinkungen(concept);
+        
+        if (!verlinkungen || (verlinkungen.linksTo.length === 0 && verlinkungen.linkedFrom.length === 0)) {
+          placeholder.innerHTML = '';
+          return;
+        }
+        
+        let html = '<div class="concept-field-wrapper concept-verlinkungen-wrapper">';
+        html += '<div class="concept-overview-header concept-field-header"><strong>Verlinkungen</strong></div>';
+        html += '<div class="concept-overview-cell concept-content concept-verlinkungen">';
+        
+        // Verweist auf (ausgehende Links)
+        if (verlinkungen.linksTo.length > 0) {
+          html += '<div class="verlinkung-section">';
+          html += '<span class="verlinkung-label">→ Verweist auf:</span> ';
+          html += verlinkungen.linksTo.map(kw => {
+            const kwData = keywordsData.find(k => k.keyword === kw);
+            const hasIndex = kwData && (kwData.overview || (kwData.text && kwData.text.trim().length > 50));
+            const cssClass = hasIndex ? 'concept-schlagwort-link has-index' : 'concept-schlagwort-link no-index';
+            return `<a href="#" class="${cssClass}" onclick="navigateToSchlagwort('${kw}'); return false;">${kw}</a>`;
+          }).join(', ');
+          html += '</div>';
+        }
+        
+        // Wird referenziert von (eingehende Links)
+        if (verlinkungen.linkedFrom.length > 0) {
+          html += '<div class="verlinkung-section">';
+          html += '<span class="verlinkung-label">← Wird referenziert von:</span> ';
+          html += verlinkungen.linkedFrom.map(kw => {
+            const kwData = keywordsData.find(k => k.keyword === kw);
+            const hasIndex = kwData && (kwData.overview || (kwData.text && kwData.text.trim().length > 50));
+            const cssClass = hasIndex ? 'concept-schlagwort-link has-index' : 'concept-schlagwort-link no-index';
+            return `<a href="#" class="${cssClass}" onclick="navigateToSchlagwort('${kw}'); return false;">${kw}</a>`;
+          }).join(', ');
+          html += '</div>';
+        }
+        
+        html += '</div>';
+        html += '</div>';
+        
+        placeholder.innerHTML = html;
+      };
+      
+      // Wenn Analyse schon abgeschlossen, sofort rendern
+      if (verlinkungsAnalyseAbgeschlossen) {
+        renderVerlinkungen();
+      } else {
+        // Sonst warten und erneut versuchen
+        const checkInterval = setInterval(() => {
+          if (verlinkungsAnalyseAbgeschlossen) {
+            clearInterval(checkInterval);
+            renderVerlinkungen();
+          }
+        }, 500);
+        
+        // Timeout nach 15 Sekunden
+        setTimeout(() => {
+          clearInterval(checkInterval);
+          if (!verlinkungsAnalyseAbgeschlossen) {
+            placeholder.innerHTML = '<div class="verlinkung-section" style="color: var(--secondary-text); font-style: italic;">Verlinkungsanalyse läuft...</div>';
+          }
+        }, 15000);
+      }
+    }
+    
+    /**
+     * Verlinkt Wörter im Text, die als Schlagwörter existieren.
+     * - Blau + fett: wenn Indexeintrag vorhanden (overview existiert)
+     * - Nur blau: wenn Schlagwort existiert, aber ohne Indexeintrag
+     * @param {HTMLElement} element - Das DOM-Element, in dem Schlagwörter verlinkt werden sollen
+     * @param {string} currentConcept - Das aktuelle Schlagwort (wird nicht verlinkt)
+     */
+    function linkifySchlagworteInElement(element, currentConcept = '') {
+      if (!element || !keywordsData || keywordsData.length === 0) return;
+      
+      // Erstelle Map aller Schlagwörter für schnellen Zugriff
+      const schlagwortMap = new Map();
+      keywordsData.forEach(kw => {
+        const normalizedName = kw.keyword.trim().toLowerCase();
+        schlagwortMap.set(normalizedName, {
+          keyword: kw.keyword,
+          hasIndex: !!(kw.overview || (kw.text && kw.text.trim().length > 50))
+        });
+      });
+      
+      // Normalisiere aktuelles Konzept für Vergleich
+      const currentConceptLower = currentConcept.trim().toLowerCase();
+      
+      // Finde alle Textnoten im Element
+      const walker = document.createTreeWalker(
+        element,
+        NodeFilter.SHOW_TEXT,
+        null,
+        false
+      );
+      
+      const textNodes = [];
+      let node;
+      while (node = walker.nextNode()) {
+        // Ignoriere Textknoten in Links, Buttons und anderen interaktiven Elementen
+        const parent = node.parentElement;
+        if (parent && (
+          parent.tagName === 'A' || 
+          parent.tagName === 'BUTTON' ||
+          parent.classList.contains('concept-main-title') ||
+          parent.classList.contains('concept-schlagwort-link')
+        )) {
+          continue;
+        }
+        textNodes.push(node);
+      }
+      
+      // Verarbeite jeden Textknoten
+      textNodes.forEach(textNode => {
+        const text = textNode.textContent;
+        if (!text || text.trim().length < 2) return;
+        
+        // Finde Schlagwörter im Text
+        let newHTML = text;
+        let hasReplacements = false;
+        
+        // Sortiere Schlagwörter nach Länge (längere zuerst), um überlappende Matches zu vermeiden
+        const sortedKeywords = Array.from(schlagwortMap.entries())
+          .sort((a, b) => b[0].length - a[0].length);
+        
+        for (const [normalizedName, data] of sortedKeywords) {
+          // Überspringe das aktuelle Konzept (soll nicht selbst verlinkt werden)
+          if (normalizedName === currentConceptLower) continue;
+          
+          // Erstelle Regex für case-insensitive Suche mit Wortgrenzen
+          // Escape special regex characters in keyword
+          const escapedKeyword = data.keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(`\\b(${escapedKeyword})\\b`, 'gi');
+          
+          // Prüfe ob das Wort im Text vorkommt
+          if (regex.test(newHTML)) {
+            // Resette Regex nach test()
+            regex.lastIndex = 0;
+            
+            const cssClass = data.hasIndex 
+              ? 'concept-schlagwort-link has-index' 
+              : 'concept-schlagwort-link no-index';
+            
+            newHTML = newHTML.replace(regex, (match) => {
+              hasReplacements = true;
+              return `<a href="#" class="${cssClass}" onclick="navigateToSchlagwort('${data.keyword}'); return false;">${match}</a>`;
+            });
+          }
+        }
+        
+        // Ersetze den Textknoten nur wenn es Ersetzungen gab
+        if (hasReplacements) {
+          const span = document.createElement('span');
+          span.innerHTML = newHTML;
+          textNode.parentNode.replaceChild(span, textNode);
+        }
+      });
+    }
+    
+    /**
+     * Navigiert zu einem Schlagwort im Index-Tab
+     * @param {string} keyword - Das Schlagwort, zu dem navigiert werden soll
+     */
+    function navigateToSchlagwort(keyword) {
+      // Führe die thematische Keyword-Suche durch (zeigt den Index-Eintrag an)
+      performKeywordThematicSearch(keyword);
+    }
+    
+    // ============================================================================
+    // BIDIREKTIONALE SCHLAGWORT-VERLINKUNGEN
+    // ============================================================================
+    
+    // Globale Map für bidirektionale Verlinkungen
+    // Struktur: { schlagwort: { linksTo: Set<string>, linkedFrom: Set<string> } }
+    let schlagwortVerlinkungen = new Map();
+    let verlinkungsAnalyseAbgeschlossen = false;
+    
+    /**
+     * Analysiert alle Schlagwörter und erfasst bidirektionale Verlinkungen.
+     * Für jedes Schlagwort A wird geprüft, welche anderen Schlagwörter B, C, D
+     * in dessen Texten vorkommen. Diese Beziehungen werden in beide Richtungen gespeichert.
+     */
+    function analysiereSchlagwortVerlinkungen() {
+      if (!keywordsData || keywordsData.length === 0) {
+        console.warn('[VERLINKUNGEN] Keine Schlagwörter geladen');
+        return;
+      }
+      
+      console.log('[VERLINKUNGEN] Starte Analyse von', keywordsData.length, 'Schlagwörtern...');
+      
+      // Reset der Map
+      schlagwortVerlinkungen = new Map();
+      
+      // Erstelle Set aller Schlagwort-Namen (lowercase für Vergleich)
+      const alleSchlagwoerter = new Map();
+      keywordsData.forEach(kw => {
+        const normalizedName = kw.keyword.trim().toLowerCase();
+        alleSchlagwoerter.set(normalizedName, kw.keyword);
+        // Initialisiere Eintrag in der Verlinkungsmap
+        schlagwortVerlinkungen.set(kw.keyword, {
+          linksTo: new Set(),
+          linkedFrom: new Set()
+        });
+      });
+      
+      // Analysiere jeden Schlagwort-Text
+      keywordsData.forEach(kw => {
+        const currentKeyword = kw.keyword;
+        const currentKeywordLower = currentKeyword.trim().toLowerCase();
+        
+        // Sammle allen Text des Schlagworts
+        let gesamtText = '';
+        
+        // Text aus overview (falls vorhanden)
+        if (kw.overview) {
+          gesamtText += ' ' + (kw.overview.definitionText || '');
+          gesamtText += ' ' + (kw.overview.functionText || '');
+          gesamtText += ' ' + (kw.overview.interactionText || '');
+          gesamtText += ' ' + (kw.overview.specialText || '');
+        }
+        
+        // Text aus text-Feld (falls vorhanden)
+        if (kw.text) {
+          gesamtText += ' ' + kw.text;
+        }
+        
+        if (!gesamtText.trim()) return;
+        
+        // Suche nach anderen Schlagwörtern im Text
+        alleSchlagwoerter.forEach((originalName, normalizedName) => {
+          // Überspringe das aktuelle Schlagwort selbst
+          if (normalizedName === currentKeywordLower) return;
+          
+          // Prüfe ob das Schlagwort im Text vorkommt (mit Wortgrenzen)
+          const escapedKeyword = originalName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(`\\b${escapedKeyword}\\b`, 'i');
+          
+          if (regex.test(gesamtText)) {
+            // currentKeyword verweist auf originalName
+            const currentEntry = schlagwortVerlinkungen.get(currentKeyword);
+            if (currentEntry) {
+              currentEntry.linksTo.add(originalName);
+            }
+            
+            // originalName wird von currentKeyword referenziert
+            const targetEntry = schlagwortVerlinkungen.get(originalName);
+            if (targetEntry) {
+              targetEntry.linkedFrom.add(currentKeyword);
+            }
+          }
+        });
+      });
+      
+      verlinkungsAnalyseAbgeschlossen = true;
+      
+      // Statistik ausgeben
+      let totalLinks = 0;
+      let schlagwoerterMitLinks = 0;
+      schlagwortVerlinkungen.forEach((data, keyword) => {
+        const linkCount = data.linksTo.size + data.linkedFrom.size;
+        if (linkCount > 0) {
+          schlagwoerterMitLinks++;
+          totalLinks += data.linksTo.size;
+        }
+      });
+      
+      console.log('[VERLINKUNGEN] Analyse abgeschlossen:');
+      console.log(`  - ${schlagwoerterMitLinks} Schlagwörter mit Verlinkungen`);
+      console.log(`  - ${totalLinks} Verlinkungen insgesamt`);
+    }
+    
+    /**
+     * Gibt die Verlinkungsdaten für ein bestimmtes Schlagwort zurück.
+     * @param {string} keyword - Das Schlagwort
+     * @returns {Object|null} { linksTo: string[], linkedFrom: string[] } oder null
+     */
+    function getSchlagwortVerlinkungen(keyword) {
+      if (!verlinkungsAnalyseAbgeschlossen) {
+        analysiereSchlagwortVerlinkungen();
+      }
+      
+      const data = schlagwortVerlinkungen.get(keyword);
+      if (!data) return null;
+      
+      return {
+        linksTo: Array.from(data.linksTo).sort(),
+        linkedFrom: Array.from(data.linkedFrom).sort()
+      };
+    }
+    
+    /**
+     * Gibt alle Schlagwörter zurück, die mit einem bestimmten Schlagwort verbunden sind.
+     * @param {string} keyword - Das Schlagwort
+     * @returns {string[]} Array aller verbundenen Schlagwörter (bidirektional)
+     */
+    function getAlleVerbundenenSchlagwoerter(keyword) {
+      const data = getSchlagwortVerlinkungen(keyword);
+      if (!data) return [];
+      
+      const alle = new Set([...data.linksTo, ...data.linkedFrom]);
+      return Array.from(alle).sort();
     }
     
     // ============================================================================
@@ -16973,10 +17718,7 @@ function scrollToChronologicalYear(year) {
           </div>
           <div class="concept-network-loading">
             <div class="concept-network-loading-spinner"></div>
-            <div>Generiere Netzwerk für "${concept}"...</div>
-            <div style="font-size: 0.8em; margin-top: 0.5rem; color: var(--secondary-text);">
-              (KI-Analyse + Kontext-Analyse)
-            </div>
+            <div><em>Generiere Netzwerk für "${concept}"...</em></div>
           </div>
         </div>
       `;
@@ -17099,14 +17841,41 @@ function scrollToChronologicalYear(year) {
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force('collision', d3.forceCollide().radius(60));
       
-      // Erstelle Links (Verbindungslinien - dezent)
-      const link = g.append('g')
-        .attr('class', 'links')
-        .selectAll('line')
+      // Erstelle Links (Verbindungslinien - dezent) mit klickbarem Bereich
+      const linkGroup = g.append('g')
+        .attr('class', 'links');
+      
+      // Erstelle für jeden Link eine Gruppe mit sichtbarer Linie + unsichtbarem Klick-Bereich
+      const linkEnter = linkGroup.selectAll('g')
         .data(links)
         .enter()
-        .append('line')
-        .attr('class', d => `concept-network-link ${d.type}`);
+        .append('g')
+        .attr('class', 'link-group');
+      
+      // Unsichtbarer klickbarer Bereich (breitere Linie für einfacheres Klicken)
+      linkEnter.append('line')
+        .attr('class', 'concept-network-link-hover-area')
+        .style('stroke', 'transparent')
+        .style('stroke-width', '15px')
+        .style('cursor', 'pointer')
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          showConnectionModal(d.source.id || d.source, d.target.id || d.target);
+        })
+        .on('mouseenter', function(event, d) {
+          // Highlight die sichtbare Linie
+          d3.select(this.parentNode).select('.concept-network-link')
+            .classed('highlight', true);
+        })
+        .on('mouseleave', function(event, d) {
+          d3.select(this.parentNode).select('.concept-network-link')
+            .classed('highlight', false);
+        });
+      
+      // Sichtbare Linie
+      const link = linkEnter.append('line')
+        .attr('class', d => `concept-network-link ${d.type}`)
+        .style('pointer-events', 'none'); // Klicks gehen auf den Hover-Bereich
       
       // Erstelle Node-Gruppen (nur Text, keine Kreise)
       const node = g.append('g')
@@ -17178,7 +17947,8 @@ function scrollToChronologicalYear(year) {
       
       // Simulation Tick - Linien enden vor dem Text
       networkSimulation.on('tick', () => {
-        link.each(function(d) {
+        // Aktualisiere alle Linien in den Link-Gruppen (sowohl sichtbar als auch Hover-Bereich)
+        linkEnter.each(function(d) {
           const dx = d.target.x - d.source.x;
           const dy = d.target.y - d.source.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -17199,7 +17969,8 @@ function scrollToChronologicalYear(year) {
           const x2 = d.target.x - nx * targetOffset;
           const y2 = d.target.y - ny * targetOffset;
           
-          d3.select(this)
+          // Aktualisiere beide Linien in der Gruppe (Hover-Bereich + sichtbare Linie)
+          d3.select(this).selectAll('line')
             .attr('x1', x1)
             .attr('y1', y1)
             .attr('x2', x2)
@@ -17243,6 +18014,345 @@ function scrollToChronologicalYear(year) {
       }, 100);
     }
     
+    // ============================================================================
+    // BIDIREKTIONALES VERLINKUNGSNETZWERK (aus Index-Daten)
+    // ============================================================================
+    
+    /**
+     * Zeigt das bidirektionale Verlinkungsnetzwerk für ein Schlagwort.
+     * Nutzt die lokal analysierten Verlinkungsdaten (keine API-Anfrage).
+     */
+    function showBidirectionalNetworkGraph(concept) {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      // Hole Verlinkungsdaten
+      const verlinkungen = getSchlagwortVerlinkungen(concept);
+      
+      if (!verlinkungen) {
+        viewer.innerHTML = `
+          <div class="concept-network-container">
+            <div class="concept-network-header">
+              <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Verlinkungsnetz: ${concept}</h3>
+              <div class="concept-network-controls">
+                <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">← Index</button>
+              </div>
+            </div>
+            <div style="text-align: center; padding: 2rem; color: #888;">
+              <div style="font-size: 1.2em; margin-bottom: 1rem;">Keine Verlinkungen gefunden</div>
+              <div style="font-style: italic;">Für "${concept}" wurden keine Verbindungen zu anderen Schlagwörtern gefunden.</div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      const linksTo = verlinkungen.linksTo || [];
+      const linkedFrom = verlinkungen.linkedFrom || [];
+      
+      // Erstelle Container
+      viewer.innerHTML = `
+        <div class="concept-network-container" id="bidirectional-network-container">
+          <div class="concept-network-header">
+            <h3 class="concept-network-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; margin: 0 !important;">Verlinkungsnetz: ${concept}</h3>
+            <div class="concept-network-controls">
+              <button class="concept-network-btn" onclick="resetBidirectionalNetworkZoom()" title="Zoom zurücksetzen">⊙</button>
+              <button class="concept-network-btn" onclick="performKeywordThematicSearch('${concept}')" title="Zurück zum Index">← Index</button>
+            </div>
+          </div>
+          <div class="bidirectional-network-legend">
+            <span class="legend-item"><span class="legend-dot links-to"></span> Verweist auf (${linksTo.length})</span>
+            <span class="legend-item"><span class="legend-dot linked-from"></span> Wird referenziert von (${linkedFrom.length})</span>
+            <span class="legend-item"><span class="legend-dot bidirectional"></span> Beidseitig</span>
+          </div>
+          <svg class="concept-network-svg" id="bidirectional-network-svg"></svg>
+        </div>
+      `;
+      
+      // Berechne bidirektionale Verbindungen
+      const linksToSet = new Set(linksTo);
+      const linkedFromSet = new Set(linkedFrom);
+      const bidirectional = linksTo.filter(kw => linkedFromSet.has(kw));
+      const bidirectionalSet = new Set(bidirectional);
+      
+      // Hole SVG und Container Dimensionen
+      const container = document.getElementById('bidirectional-network-container');
+      const svg = d3.select('#bidirectional-network-svg');
+      
+      const width = container.clientWidth;
+      const height = container.clientHeight - 80; // Header + Legende abziehen
+      
+      svg.attr('width', width).attr('height', height);
+      
+      // Erstelle Knoten und Links für D3
+      const nodes = [
+        { id: concept, label: concept, type: 'central', connectionCount: linksTo.length + linkedFrom.length }
+      ];
+      
+      const links = [];
+      const addedNodes = new Set([concept]);
+      
+      // Funktion um Verbindungsanzahl für ein Schlagwort zu holen
+      function getConnectionCount(keyword) {
+        const data = schlagwortVerlinkungen.get(keyword);
+        if (!data) return 1;
+        return data.linksTo.size + data.linkedFrom.size;
+      }
+      
+      // Füge "verweist auf" Knoten hinzu
+      linksTo.forEach(kw => {
+        if (!addedNodes.has(kw)) {
+          const isBidirectional = bidirectionalSet.has(kw);
+          nodes.push({
+            id: kw,
+            label: kw,
+            type: isBidirectional ? 'bidirectional' : 'links-to',
+            connectionCount: getConnectionCount(kw)
+          });
+          addedNodes.add(kw);
+        }
+        links.push({
+          source: concept,
+          target: kw,
+          type: bidirectionalSet.has(kw) ? 'bidirectional' : 'links-to'
+        });
+      });
+      
+      // Füge "wird referenziert von" Knoten hinzu
+      linkedFrom.forEach(kw => {
+        if (!addedNodes.has(kw)) {
+          nodes.push({
+            id: kw,
+            label: kw,
+            type: 'linked-from',
+            connectionCount: getConnectionCount(kw)
+          });
+          addedNodes.add(kw);
+        }
+        // Link nur hinzufügen wenn nicht schon bidirektional
+        if (!bidirectionalSet.has(kw)) {
+          links.push({
+            source: kw,
+            target: concept,
+            type: 'linked-from'
+          });
+        }
+      });
+      
+      // Erstelle Zoom-Verhalten
+      const zoom = d3.zoom()
+        .scaleExtent([0.2, 3])
+        .on('zoom', (event) => {
+          g.attr('transform', event.transform);
+        });
+      
+      svg.call(zoom);
+      
+      // Speichere Zoom für Reset
+      window.bidirectionalNetworkZoom = zoom;
+      window.bidirectionalNetworkSvg = svg;
+      
+      // Erstelle Haupt-Gruppe für Zoom
+      const g = svg.append('g');
+      
+      // Berechne Distanz basierend auf Knotenanzahl
+      const nodeCount = nodes.length;
+      const linkDistance = Math.max(80, Math.min(150, 300 / Math.sqrt(nodeCount)));
+      const chargeStrength = Math.max(-600, Math.min(-200, -8000 / nodeCount));
+      
+      // Force Simulation
+      const simulation = d3.forceSimulation(nodes)
+        .force('link', d3.forceLink(links).id(d => d.id).distance(linkDistance))
+        .force('charge', d3.forceManyBody().strength(chargeStrength))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(d => {
+          // Größere Kollisionsradien für bessere Lesbarkeit
+          return d.type === 'central' ? 80 : 50;
+        }));
+      
+      // Erstelle Links mit Pfeilen
+      const linkGroup = g.append('g').attr('class', 'links');
+      
+      // Pfeil-Marker definieren
+      const defs = svg.append('defs');
+      
+      ['links-to', 'linked-from', 'bidirectional'].forEach(type => {
+        defs.append('marker')
+          .attr('id', `arrow-${type}`)
+          .attr('viewBox', '0 -5 10 10')
+          .attr('refX', 15)
+          .attr('refY', 0)
+          .attr('markerWidth', 6)
+          .attr('markerHeight', 6)
+          .attr('orient', 'auto')
+          .append('path')
+          .attr('d', 'M0,-5L10,0L0,5')
+          .attr('class', `arrow-${type}`);
+      });
+      
+      const link = linkGroup.selectAll('line')
+        .data(links)
+        .enter()
+        .append('line')
+        .attr('class', d => `bidirectional-network-link ${d.type}`)
+        .attr('marker-end', d => `url(#arrow-${d.type})`);
+      
+      // Erstelle Node-Gruppen
+      const node = g.append('g')
+        .attr('class', 'nodes')
+        .selectAll('g')
+        .data(nodes)
+        .enter()
+        .append('g')
+        .attr('class', d => `bidirectional-network-node ${d.type}`)
+        .call(d3.drag()
+          .on('start', dragstarted)
+          .on('drag', dragged)
+          .on('end', dragended));
+      
+      // Temporäres Text-Element für Breitenmessung
+      const tempText = svg.append('text').style('visibility', 'hidden');
+      
+      // Berechne Schriftgröße basierend auf Verbindungsanzahl
+      function getFontSize(d) {
+        if (d.type === 'central') return 18;
+        // Logarithmische Skalierung der Schriftgröße
+        const minSize = 10;
+        const maxSize = 16;
+        const count = d.connectionCount || 1;
+        return Math.min(maxSize, minSize + Math.log(count + 1) * 2);
+      }
+      
+      // Hintergrund-Rechteck für Labels
+      node.append('rect')
+        .attr('class', 'bidirectional-network-label-bg')
+        .attr('rx', 3)
+        .attr('ry', 3)
+        .each(function(d) {
+          const fontSize = getFontSize(d);
+          tempText.text(d.label)
+            .style('font-size', fontSize + 'px')
+            .style('font-weight', d.type === 'central' ? '700' : '500');
+          const bbox = tempText.node().getBBox();
+          d.labelWidth = bbox.width + 10;
+          d.labelHeight = bbox.height + 6;
+          d3.select(this)
+            .attr('x', -d.labelWidth / 2)
+            .attr('y', -d.labelHeight / 2 - 2)
+            .attr('width', d.labelWidth)
+            .attr('height', d.labelHeight);
+        });
+      
+      tempText.remove();
+      
+      // Text-Labels
+      node.append('text')
+        .attr('class', 'bidirectional-network-label')
+        .attr('dy', 4)
+        .attr('text-anchor', 'middle')
+        .style('font-size', d => getFontSize(d) + 'px')
+        .style('font-weight', d => d.type === 'central' ? '700' : '500')
+        .style('cursor', 'pointer')
+        .text(d => d.label);
+      
+      // Event Handler
+      node
+        .on('click', (event, d) => {
+          event.stopPropagation();
+          event.preventDefault();
+          if (d.type === 'central') {
+            performKeywordThematicSearch(d.id);
+          } else {
+            // Zeige Verlinkungsnetz für angeklickten Begriff
+            showBidirectionalNetworkGraph(d.id);
+          }
+        })
+        .on('mouseenter', function(event, d) {
+          d3.select(this).classed('hovered', true);
+        })
+        .on('mouseleave', function(event, d) {
+          d3.select(this).classed('hovered', false);
+        });
+      
+      // Simulation Tick
+      simulation.on('tick', () => {
+        link
+          .attr('x1', d => d.source.x)
+          .attr('y1', d => d.source.y)
+          .attr('x2', d => {
+            // Linie endet vor dem Ziel-Label
+            const dx = d.target.x - d.source.x;
+            const dy = d.target.y - d.source.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist === 0) return d.target.x;
+            const labelWidth = d.target.labelWidth || 40;
+            const offset = labelWidth / 2 + 8;
+            return d.target.x - (dx / dist) * offset;
+          })
+          .attr('y2', d => {
+            const dx = d.target.x - d.source.x;
+            const dy = d.target.y - d.source.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist === 0) return d.target.y;
+            const labelHeight = d.target.labelHeight || 20;
+            const offset = labelHeight / 2 + 5;
+            return d.target.y - (dy / dist) * offset;
+          });
+        
+        node.attr('transform', d => `translate(${d.x},${d.y})`);
+      });
+      
+      // Drag Funktionen
+      function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
+      
+      function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+      }
+      
+      function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        setTimeout(() => simulation.stop(), 1000);
+        d.fx = null;
+        d.fy = null;
+      }
+      
+      // Initial Zoom
+      setTimeout(() => {
+        // Berechne Bounding Box und zentriere
+        const bounds = g.node().getBBox();
+        const fullWidth = bounds.width;
+        const fullHeight = bounds.height;
+        const midX = bounds.x + fullWidth / 2;
+        const midY = bounds.y + fullHeight / 2;
+        
+        const scale = Math.min(0.9, Math.min(width / fullWidth, height / fullHeight) * 0.8);
+        const translateX = width / 2 - midX * scale;
+        const translateY = height / 2 - midY * scale;
+        
+        svg.transition().duration(500).call(
+          zoom.transform,
+          d3.zoomIdentity.translate(translateX, translateY).scale(scale)
+        );
+      }, 500);
+    }
+    
+    /**
+     * Reset Zoom für bidirektionales Netzwerk
+     */
+    function resetBidirectionalNetworkZoom() {
+      if (window.bidirectionalNetworkSvg && window.bidirectionalNetworkZoom) {
+        window.bidirectionalNetworkSvg.transition().duration(500).call(
+          window.bidirectionalNetworkZoom.transform,
+          d3.zoomIdentity.translate(0, 0).scale(0.8)
+        );
+      }
+    }
+    
     /**
      * Reset Zoom auf Ausgangszustand
      */
@@ -17278,6 +18388,373 @@ function scrollToChronologicalYear(year) {
         showConceptNetwork(concept);
       };
       container.appendChild(btn);
+    }
+    
+    // ============================================================================
+    // VERBINDUNGS-MODAL (Edge-Klick im Netzwerk)
+    // ============================================================================
+    
+    /**
+     * Zeigt das Modal mit Verbindungsaspekten zwischen zwei Begriffen
+     */
+    async function showConnectionModal(sourceConcept, targetConcept) {
+      // Erstelle Modal falls nicht vorhanden (ohne Overlay)
+      let modal = document.getElementById('connection-modal');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'connection-modal';
+        modal.className = 'connection-modal';
+        modal.innerHTML = `
+          <div class="connection-modal-header">
+            <h3 class="connection-modal-title">
+              <span id="connection-modal-source"></span>
+              <span class="connection-arrow">↔</span>
+              <span id="connection-modal-target"></span>
+            </h3>
+            <button class="connection-modal-close" onclick="hideConnectionModal()">×</button>
+          </div>
+          <div class="connection-modal-body" id="connection-modal-body">
+            <div class="connection-modal-loading">Lade...</div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Drag-Funktionalität
+        initModalDrag(modal);
+      }
+      
+      // Aktualisiere Titel
+      document.getElementById('connection-modal-source').textContent = sourceConcept;
+      document.getElementById('connection-modal-target').textContent = targetConcept;
+      
+      // Zeige Loading
+      document.getElementById('connection-modal-body').innerHTML = 
+        '<div class="connection-modal-loading"><em>Analysiere Beziehung...</em></div>';
+      
+      // Zeige Modal
+      modal.classList.add('visible');
+      
+      // Lade Aspekte aus dem Index
+      try {
+        const aspects = await getConnectionAspects(sourceConcept, targetConcept);
+        renderConnectionAspects(aspects, sourceConcept, targetConcept);
+      } catch (error) {
+        console.error('[CONNECTION-MODAL] Fehler:', error);
+        document.getElementById('connection-modal-body').innerHTML = 
+          `<div class="connection-modal-empty">Fehler beim Laden: ${error.message}</div>`;
+      }
+    }
+    
+    /**
+     * Versteckt das Verbindungs-Modal
+     */
+    function hideConnectionModal() {
+      const modal = document.getElementById('connection-modal');
+      if (modal) {
+        modal.classList.remove('visible');
+      }
+    }
+    
+    /**
+     * Initialisiert Drag-Funktionalität für das Modal
+     */
+    function initModalDrag(modal) {
+      const header = modal.querySelector('.connection-modal-header');
+      let isDragging = false;
+      let startX, startY, startLeft, startTop;
+      
+      header.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.connection-modal-close')) return;
+        
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        const rect = modal.getBoundingClientRect();
+        startLeft = rect.left;
+        startTop = rect.top;
+        
+        // Position auf absolute setzen beim ersten Drag
+        modal.style.left = startLeft + 'px';
+        modal.style.top = startTop + 'px';
+        modal.style.transform = 'none';
+        
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        
+        e.preventDefault();
+      });
+      
+      function onMouseMove(e) {
+        if (!isDragging) return;
+        
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        
+        modal.style.left = (startLeft + dx) + 'px';
+        modal.style.top = (startTop + dy) + 'px';
+      }
+      
+      function onMouseUp() {
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      }
+    }
+    
+    /**
+     * Lädt die Verbindungsaspekte zwischen zwei Begriffen aus dem Index
+     */
+    /**
+     * Lädt Beziehungsaspekte zwischen zwei Begriffen
+     * Nutzt den neuen /api/relationship-search Endpunkt mit KI-Analyse
+     * Fallback auf Index-basierte Suche
+     */
+    async function getConnectionAspects(sourceConcept, targetConcept) {
+      // Versuche zuerst die neue Beziehungs-Suche (mit KI)
+      try {
+        const response = await fetch(`${API_BASE}/api/relationship-search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ term1: sourceConcept, term2: targetConcept })
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          
+          if (data.aspects && data.aspects.length > 0) {
+            console.log(`[CONNECTION-ASPECTS] ${data.aspects.length} Aspekte via Relationship-Search gefunden (Cache: ${data.fromCache})`);
+            return data.aspects.map(a => ({
+              text: a.text,
+              gaRef: a.gaRef,
+              score: a.score || 1
+            }));
+          }
+        }
+      } catch (error) {
+        console.warn('[CONNECTION-ASPECTS] Relationship-Search fehlgeschlagen, nutze Fallback:', error);
+      }
+      
+      // Fallback: Index-basierte Suche
+      return getConnectionAspectsFromIndex(sourceConcept, targetConcept);
+    }
+    
+    /**
+     * Fallback: Extrahiert Aspekte aus dem Index-Eintrag
+     */
+    async function getConnectionAspectsFromIndex(sourceConcept, targetConcept) {
+      const aspects = [];
+      
+      // Lade den Index-Eintrag für das Quellkonzept
+      try {
+        const response = await fetch(`${API_BASE}/api/concepts/${encodeURIComponent(sourceConcept)}`);
+        if (response.ok) {
+          const data = await response.json();
+          const overview = data.overview || {};
+          
+          const overviewFields = [
+            { key: 'interactionText', label: 'Wechselwirkung' },
+            { key: 'definitionText', label: 'Definition' },
+            { key: 'functionText', label: 'Funktion' },
+            { key: 'specialText', label: 'Besonderheiten' }
+          ];
+          
+          overviewFields.forEach(field => {
+            const text = overview[field.key] || '';
+            if (!text) return;
+            
+            const fieldAspects = extractAspectsFromText(text, targetConcept, field.label);
+            aspects.push(...fieldAspects);
+          });
+        }
+      } catch (error) {
+        console.error('[CONNECTION-ASPECTS] Index-Fallback Fehler:', error);
+      }
+      
+      // Bidirektional: auch vom Zielkonzept suchen
+      if (aspects.length === 0) {
+        try {
+          const response = await fetch(`${API_BASE}/api/concepts/${encodeURIComponent(targetConcept)}`);
+          if (response.ok) {
+            const data = await response.json();
+            const overview = data.overview || {};
+            
+            const overviewFields = [
+              { key: 'interactionText', label: 'Wechselwirkung' },
+              { key: 'definitionText', label: 'Definition' },
+              { key: 'functionText', label: 'Funktion' },
+              { key: 'specialText', label: 'Besonderheiten' }
+            ];
+            
+            overviewFields.forEach(field => {
+              const text = overview[field.key] || '';
+              if (!text) return;
+              
+              const fieldAspects = extractAspectsFromText(text, sourceConcept, field.label);
+              aspects.push(...fieldAspects);
+            });
+          }
+        } catch (error) {
+          console.error('[CONNECTION-ASPECTS] Index-Fallback (bidirektional) Fehler:', error);
+        }
+      }
+      
+      // Entferne Duplikate
+      const seen = new Set();
+      return aspects.filter(a => {
+        const key = a.gaRef || a.text;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+    
+    /**
+     * Extrahiert einzelne Aspekte aus einem Overview-Text (für Index-Fallback)
+     */
+    function extractAspectsFromText(text, targetTerm, fieldLabel) {
+      const aspects = [];
+      const targetLower = targetTerm.toLowerCase();
+      
+      const aspectPattern = /([^,]+?)\s*\((GA\d{1,3}[a-z]?(?:\/\d+)?:\^?[a-zA-Z0-9]+)\)/g;
+      let match;
+      
+      while ((match = aspectPattern.exec(text)) !== null) {
+        const aspectText = match[1].trim();
+        const gaRef = match[2];
+        const aspectLower = aspectText.toLowerCase();
+        
+        const targetWords = targetLower.split(/[\s-]+/).filter(w => w.length > 2);
+        const isMatch = aspectLower.includes(targetLower) ||
+                       aspectLower.includes(targetLower.replace(/[\s-]/g, '')) ||
+                       targetWords.some(word => aspectLower.includes(word));
+        
+        if (isMatch) {
+          aspects.push({
+            text: aspectText,
+            gaRef: gaRef,
+            category: fieldLabel
+          });
+        }
+      }
+      
+      return aspects;
+    }
+    
+    /**
+     * Rendert die Verbindungsaspekte im Modal
+     */
+    function renderConnectionAspects(aspects, sourceConcept, targetConcept) {
+      const body = document.getElementById('connection-modal-body');
+      
+      if (!aspects || aspects.length === 0) {
+        body.innerHTML = `
+          <div class="connection-modal-empty">
+            Keine detaillierten Verbindungsaspekte zwischen 
+            <strong>${sourceConcept}</strong> und <strong>${targetConcept}</strong> gefunden.
+            <br><br>
+            <small>Tipp: Klicke auf die Begriffe selbst, um ihre Index-Einträge zu sehen.</small>
+          </div>
+        `;
+        return;
+      }
+      
+      // Gruppiere nach Kategorie
+      const grouped = {};
+      aspects.forEach(aspect => {
+        const cat = aspect.category || 'Allgemein';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(aspect);
+      });
+      
+      let html = '<ul class="connection-aspects-list">';
+      
+      // Zeige zuerst Interaktionen, dann andere Kategorien
+      const categoryOrder = ['Wechselwirkung', 'Definition', 'Funktion', 'Besonderheiten', 'Text', 'Allgemein'];
+      
+      categoryOrder.forEach(cat => {
+        if (!grouped[cat]) return;
+        
+        grouped[cat].forEach(aspect => {
+          html += `<li class="connection-aspect-item">`;
+          
+          // Text ohne GA-Referenz
+          let displayText = aspect.text;
+          if (aspect.gaRef) {
+            // Entferne die GA-Referenz aus dem Text für sauberere Darstellung
+            displayText = displayText.replace(/\s*\(?(GA\d{1,3}[a-z]?(?:\/\d+)?:\^?[a-zA-Z0-9]+)\)?/g, '');
+          }
+          
+          html += `<span>${displayText.trim()}</span>`;
+          
+          // GA-Link
+          if (aspect.gaRef) {
+            const gaRef = aspect.gaRef;
+            // Prüfe ob es ein Buch oder Vortrag ist
+            // Buch: GA###:^index (KEIN / vor dem :)
+            // Vortrag: GA###/##:index (hat / vor dem :)
+            const isBook = !gaRef.includes('/') && gaRef.includes(':');
+            
+            if (isBook) {
+              // Buch-Link: GA###:^index
+              const match = gaRef.match(/GA(\d{1,3}[a-z]?):(\^?[a-zA-Z0-9]+)/);
+              if (match) {
+                const gaNumber = match[1];
+                const index = match[2].startsWith('^') ? match[2] : '^' + match[2];
+                const searchTerm = sourceConcept;
+                html += ` <a href="#" class="connection-ga-link" onclick="displayBookFromNetwork('GA${gaNumber}', '${index}', '${searchTerm.replace(/'/g, "\\'")}'); return false;">(GA${gaNumber})</a>`;
+              }
+            } else {
+              // Vortrag-Link: GA###/##:index oder GA###/##:^index
+              const match = gaRef.match(/GA(\d{1,3}[a-z]?)\/(\d+):(\^?[a-zA-Z0-9]+)/);
+              if (match) {
+                const lectureId = `GA${match[1]}/${match[2]}`;
+                const index = match[3].startsWith('^') ? match[3] : '^' + match[3];
+                const searchTerm = sourceConcept;
+                html += ` <a href="#" class="connection-ga-link" onclick="showLectureFromAdvancedSearch('${lectureId}', '${searchTerm.replace(/'/g, "\\'")}', '${index}'); return false;">(${lectureId})</a>`;
+              }
+            }
+          }
+          
+          html += `</li>`;
+        });
+      });
+      
+      html += '</ul>';
+      body.innerHTML = html;
+    }
+    
+    /**
+     * Hilfsfunktion: Öffnet ein Buch aus dem Netzwerk-Modal
+     */
+    async function displayBookFromNetwork(gaNumber, index, searchTerm) {
+      // Diese Funktion öffnet ein Buch und scrollt zur entsprechenden Stelle
+      // Nutze die bestehende displayBook Funktion falls verfügbar
+      if (typeof displayBook === 'function') {
+        try {
+          await displayBook(gaNumber, searchTerm);
+          // Scrolle zur Index-Position nach kurzer Verzögerung
+          if (index) {
+            setTimeout(() => {
+              const viewer = document.getElementById('viewer');
+              if (viewer) {
+                const cleanIndex = index.replace(/^\^/, '');
+                const targetElement = viewer.querySelector(`[data-index="${cleanIndex}"], [data-index="^${cleanIndex}"], [id="${cleanIndex}"], [id="^${cleanIndex}"]`);
+                if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  // Highlight
+                  targetElement.style.backgroundColor = 'rgba(255, 200, 0, 0.3)';
+                  setTimeout(() => {
+                    targetElement.style.backgroundColor = '';
+                  }, 2000);
+                }
+              }
+            }, 500);
+          }
+        } catch (error) {
+          console.error('[NETWORK-BOOK] Fehler:', error);
+        }
+      }
     }
     
     function convertGAReferencesToLinks(container, searchTerm = null) {
@@ -22892,6 +24369,11 @@ async function initializeKeywordSystem() {
     // Event Listener für Suche
     setupKeywordSearch();
     
+    // Analysiere bidirektionale Verlinkungen zwischen Schlagwörtern
+    setTimeout(() => {
+      analysiereSchlagwortVerlinkungen();
+    }, 500);
+    
     } catch (error) {
     console.error('[KEYWORDS] ✗ Fehler beim Initialisieren:', error);
     if (countContainer) countContainer.textContent = '';
@@ -24982,6 +26464,14 @@ function displayKeywordThematicResults(keyword, data) {
     const kc = document.getElementById('keywordAnswerContent');
     if (kc) normalizeCitationSpacing(kc);
   } catch (_) {}
+  
+  // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
+  setTimeout(() => {
+    const answerContentForLinks = document.getElementById('keywordAnswerContent');
+    if (answerContentForLinks) {
+      linkifySchlagworteInElement(answerContentForLinks, keyword);
+    }
+  }, 150);
   
   // Lucide Icons initialisieren
   initializeLucideIcons();

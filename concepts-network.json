@@ -1,0 +1,3800 @@
+{
+  "ahriman": {
+    "concept": "Ahriman",
+    "connections": [
+      {
+        "term": "Luzifer",
+        "type": "gegensatz",
+        "strength": 1.8,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Christus-Prinzip",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mephistopheles",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Materialismus",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Angeloi",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Archangeloi",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Inkarnation",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mechanismus",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Erde",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Zeit",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschheit",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Reflektierende Urteilskraft",
+        "type": "gegensatz",
+        "strength": 0.9039999999999999,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Reflektierende Urteilskraft",
+        "addedAt": "2025-12-12T14:02:15.990Z"
+      }
+    ],
+    "totalOccurrences": 6282,
+    "lecturesWithTerm": 738,
+    "generated_at": "2025-12-12T08:22:34.347Z",
+    "lastUpdated": "2025-12-12T14:02:15.990Z"
+  },
+  "luzifer": {
+    "concept": "Luzifer",
+    "connections": [
+      {
+        "term": "Ahriman",
+        "type": "gegensatz",
+        "strength": 1.8,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Christus",
+        "type": "korrespondenz",
+        "strength": 1.73,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Angeloi",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "freier Wille",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Karma",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "atlantische Zeit",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Erde",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Wesenheiten",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Einfluss",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Reflektierende Urteilskraft",
+        "type": "gegensatz",
+        "strength": 0.8400000000000001,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Reflektierende Urteilskraft",
+        "addedAt": "2025-12-12T14:02:15.990Z"
+      }
+    ],
+    "totalOccurrences": 6939,
+    "lecturesWithTerm": 770,
+    "generated_at": "2025-12-12T08:32:49.730Z",
+    "lastUpdated": "2025-12-12T14:02:15.990Z"
+  },
+  "astralleib": {
+    "concept": "Astralleib",
+    "connections": [
+      {
+        "term": "Bewusstsein",
+        "type": "prozess",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "komponente",
+        "strength": 1.5,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.5,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "komponente",
+        "strength": 1.5,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsleib",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistselbst",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Schlaf",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Egoismus",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Lebensgeist",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistesmensch",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "luziferische Wesenheiten",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leib,",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Geistselbst (Manas)",
+        "type": "prozess",
+        "strength": 1.016,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Geistselbst (Manas)",
+        "addedAt": "2025-12-12T08:35:55.783Z"
+      },
+      {
+        "term": "Antisoziale Kräfte",
+        "type": "prozess",
+        "strength": 1.08,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Antisoziale Kräfte",
+        "addedAt": "2025-12-12T08:42:58.302Z"
+      },
+      {
+        "term": "Tod & Geburt",
+        "type": "komponente",
+        "strength": 0.96,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Tod & Geburt",
+        "addedAt": "2025-12-12T08:43:58.085Z"
+      },
+      {
+        "term": "Tierseele",
+        "type": "korrespondenz",
+        "strength": 0.96,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Tierseele",
+        "addedAt": "2025-12-12T08:44:19.301Z"
+      },
+      {
+        "term": "Reflektierende Urteilskraft",
+        "type": "prozess",
+        "strength": 0.9039999999999999,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Reflektierende Urteilskraft",
+        "addedAt": "2025-12-12T14:02:15.990Z"
+      },
+      {
+        "term": "Zehn Gebote",
+        "type": "komponente",
+        "strength": 0.9039999999999999,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Zehn Gebote",
+        "addedAt": "2025-12-12T18:25:07.636Z"
+      }
+    ],
+    "totalOccurrences": 6632,
+    "lecturesWithTerm": 1130,
+    "generated_at": "2025-12-12T08:34:33.954Z",
+    "lastUpdated": "2025-12-12T18:25:07.636Z"
+  },
+  "geistselbst": {
+    "concept": "Geistselbst",
+    "connections": [
+      {
+        "term": "Bewusstseinsseele",
+        "type": "prozess",
+        "strength": 1.73,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Manas",
+        "type": "korrespondenz",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Lebensgeist",
+        "type": "hierarchisch",
+        "strength": 1.58,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Geistesmensch",
+        "type": "hierarchisch",
+        "strength": 1.58,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "prozess",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "hierarchisch",
+        "strength": 1.43,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verstandes- oder Gemütsseele",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leib",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leib,",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Erde",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 830,
+    "lecturesWithTerm": 248,
+    "generated_at": "2025-12-12T08:35:18.370Z"
+  },
+  "geistselbst (manas)": {
+    "concept": "Geistselbst (Manas)",
+    "connections": [
+      {
+        "term": "Bewusstseinsseele",
+        "type": "prozess",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Lebensgeist",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistesmensch",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Seraphim",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Buddhi",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Atma",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verstandesseele",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "sechste nachatlantische Kulturepoche",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "korrespondenz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Jupiter",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 5,
+    "lecturesWithTerm": 3,
+    "generated_at": "2025-12-12T08:35:55.783Z"
+  },
+  "sechste nachatlantische kulturepoche": {
+    "concept": "sechste nachatlantische Kulturepoche",
+    "connections": [
+      {
+        "term": "nachatlantische Kulturepoche",
+        "type": "hierarchisch",
+        "strength": 1.5,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "fünfte nachatlantische Kulturepoche",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "siebente nachatlantische Kulturepoche",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschheitsentwickelung",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "vierte nachatlantische Kulturepoche",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kulturperiode",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Imagination",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Fruchtbarkeit",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Intellektualismus",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "griechisch-lateinische",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Lichtmächte",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "dunkle Mächte",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Materialismus",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 1,
+    "lecturesWithTerm": 1,
+    "generated_at": "2025-12-12T08:36:53.248Z"
+  },
+  "alkohol": {
+    "concept": "Alkohol",
+    "connections": [
+      {
+        "term": "Blut",
+        "type": "prozess",
+        "strength": 1.62,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Organismus",
+        "type": "komponente",
+        "strength": 1.58,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "prozess",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kopf",
+        "type": "komponente",
+        "strength": 1.4,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Astralischer Leib",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Pflanzenreich",
+        "type": "hierarchisch",
+        "strength": 1.23,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedärme",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gärung",
+        "type": "prozess",
+        "strength": 1.17,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Fortpflanzungsorgane",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Nachkommenschaft",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Atlantische Zeit",
+        "type": "korrespondenz",
+        "strength": 1.02,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leib",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Körper",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 409,
+    "lecturesWithTerm": 91,
+    "generated_at": "2025-12-12T08:41:19.783Z"
+  },
+  "albertus magnus": {
+    "concept": "Albertus Magnus",
+    "connections": [
+      {
+        "term": "Thomas von Aquino",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Scholastik",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Universalien",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Aristotelismus",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vernunfterkenntnis",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Glaubensinhalt",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Offenbarungsinhalt",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mittelalter",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Augustinismus",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Nominalismus",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Realismus",
+        "type": "korrespondenz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Denktätigkeit",
+        "type": "komponente",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Scotus Erigena",
+        "type": "korrespondenz",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Dominikaner",
+        "type": "hierarchisch",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Dante",
+        "type": "korrespondenz",
+        "strength": 0.75,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 40,
+    "lecturesWithTerm": 23,
+    "generated_at": "2025-12-12T08:42:07.193Z"
+  },
+  "antisoziale kräfte": {
+    "concept": "Antisoziale Kräfte",
+    "connections": [
+      {
+        "term": "Ätherleib",
+        "type": "prozess",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "hierarchisch",
+        "strength": 1.32,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Physischer Leib",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Seelenkräfte",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hellsichtige Kräfte",
+        "type": "gegensatz",
+        "strength": 1.23,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Zerstörende Kräfte",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Frühere Erdenleben",
+        "type": "prozess",
+        "strength": 1.17,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Genialische Kräfte",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistige Welten",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gehirn- und Nervenstruktur",
+        "type": "komponente",
+        "strength": 1.08,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Regeneration",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Leidenschaften",
+        "type": "korrespondenz",
+        "strength": 1.02,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Sprachbildungsorgane",
+        "type": "komponente",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Todespforte",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 0,
+    "lecturesWithTerm": 0,
+    "generated_at": "2025-12-12T08:42:58.302Z"
+  },
+  "todespforte": {
+    "concept": "Todespforte",
+    "connections": [
+      {
+        "term": "Erdenleben",
+        "type": "gegensatz",
+        "strength": 1.58,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Geburt",
+        "type": "gegensatz",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "hierarchisch",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "geistige Welt",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Individualität",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Initiation",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Schicksal",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Willenshandlungen",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Volksseele",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hierarchien",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Opfertode",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 361,
+    "lecturesWithTerm": 186,
+    "generated_at": "2025-12-12T08:43:25.401Z"
+  },
+  "tod & geburt": {
+    "concept": "Tod & Geburt",
+    "connections": [
+      {
+        "term": "Reinkarnation",
+        "type": "prozess",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "geistige Welt",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Karma",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physische Welt",
+        "type": "gegensatz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Unsterblichkeit",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Embryonalleben",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christus-Impuls",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Konzeption",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "makrokosmische Verhältnisse",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 0,
+    "lecturesWithTerm": 0,
+    "generated_at": "2025-12-12T08:43:58.084Z"
+  },
+  "tierseele": {
+    "concept": "Tierseele",
+    "connections": [
+      {
+        "term": "Menschenseele",
+        "type": "korrespondenz",
+        "strength": 1.73,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Seelenleben",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verstandesseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gemütsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstsein",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistesleben",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Seelenwesen",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Leibesleben",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vorstellungen",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Elementarwelt",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Begehrungsvermögen",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 73,
+    "lecturesWithTerm": 39,
+    "generated_at": "2025-12-12T08:44:19.301Z"
+  },
+  "transzendentaler idealismus": {
+    "concept": "Transzendentaler Idealismus",
+    "connections": [
+      {
+        "term": "Deutscher Idealismus",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltbild",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Idealismus",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Volksseele",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltanschauung",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltengeist",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedanken",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Fichte",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hegel",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Selbstbewusstsein",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Schelling",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erkenntnistheorie",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Naturwissenschaftliche Weltanschauung",
+        "type": "gegensatz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 1,
+    "lecturesWithTerm": 1,
+    "generated_at": "2025-12-12T08:45:08.965Z"
+  },
+  "thomas von aquino": {
+    "concept": "Thomas von Aquino",
+    "connections": [
+      {
+        "term": "Thomismus",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Aristoteles",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Scholastik",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Offenbarung",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mittelalter",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Albertus Magnus",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Glaubenswahrheiten",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Augustinus",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Praeambula fidei",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Seelenlehre",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vernunft",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Arabismus",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Meister Eckhart",
+        "type": "korrespondenz",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Duns Scotus",
+        "type": "prozess",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 166,
+    "lecturesWithTerm": 57,
+    "generated_at": "2025-12-12T08:46:04.056Z"
+  },
+  "agnostizismus": {
+    "concept": "Agnostizismus",
+    "connections": [
+      {
+        "term": "Anthroposophie",
+        "type": "gegensatz",
+        "strength": 1.8,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Phänomenalismus",
+        "type": "korrespondenz",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Naturwissenschaft",
+        "type": "prozess",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Erkenntnismethoden",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Imagination",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Inspiration",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Intuition",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltanschauung",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Gnosis",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leben",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Erkenntnis",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Zeit",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 154,
+    "lecturesWithTerm": 34,
+    "generated_at": "2025-12-12T10:33:30.870Z"
+  },
+  "abendmahl": {
+    "concept": "Abendmahl",
+    "connections": [
+      {
+        "term": "Christus",
+        "type": "prozess",
+        "strength": 1.77,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Mysterium",
+        "type": "hierarchisch",
+        "strength": 1.73,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Leib",
+        "type": "korrespondenz",
+        "strength": 1.68,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Blut",
+        "type": "korrespondenz",
+        "strength": 1.68,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Brot",
+        "type": "komponente",
+        "strength": 1.62,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Wein",
+        "type": "komponente",
+        "strength": 1.62,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Einweihung",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verwandlung",
+        "type": "prozess",
+        "strength": 1.31,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Transsubstantiation",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Opfer",
+        "type": "korrespondenz",
+        "strength": 1.24,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erdengeist",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Abendmahlsstreit",
+        "type": "gegensatz",
+        "strength": 1.17,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kultus",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gralsschale",
+        "type": "korrespondenz",
+        "strength": 1.08,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 251,
+    "lecturesWithTerm": 125,
+    "generated_at": "2025-12-12T13:52:24.104Z"
+  },
+  "anschauende urteilskraft": {
+    "concept": "Anschauende Urteilskraft",
+    "connections": [
+      {
+        "term": "Schauendes Bewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Intuition",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Übersinnliche Erkenntnis",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Reflektierende Urteilskraft",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Imagination",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Typus",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Urphänomen",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kategorischer Imperativ",
+        "type": "gegensatz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Abenteuer der Vernunft",
+        "type": "korrespondenz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Übersinnlicher Geist",
+        "type": "korrespondenz",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Urteilskraft",
+        "type": "hierarchisch",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Metamorphose",
+        "type": "prozess",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 47,
+    "lecturesWithTerm": 27,
+    "generated_at": "2025-12-12T14:01:25.696Z"
+  },
+  "reflektierende urteilskraft": {
+    "concept": "Reflektierende Urteilskraft",
+    "connections": [
+      {
+        "term": "Anschauende Urteilskraft",
+        "type": "korrespondenz",
+        "strength": 1.5,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Schauendes Bewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Unterscheidungsvermögen",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kritik der Urteilskraft",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Moralische Verfassung",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistige Schulung",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ahriman",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christus-Impuls",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Luzifer",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Karma",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geschlechtsreife",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 0,
+    "lecturesWithTerm": 0,
+    "generated_at": "2025-12-12T14:02:15.989Z"
+  },
+  "ägyptische kultur": {
+    "concept": "Ägyptische Kultur",
+    "connections": [
+      {
+        "term": "Chaldäisch-babylonisch-assyrische Kultur",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Nachatlantische Kulturen",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Urpersische Kultur",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Griechisch-lateinische Kultur",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Dekadenzkultur",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Zarathustra",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "korrespondenz",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Altindische Kultur",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Moses",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Volksgeister",
+        "type": "hierarchisch",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Atlantische Zeit",
+        "type": "hierarchisch",
+        "strength": 0.75,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "korrespondenz",
+        "strength": 0.68,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "prozess",
+        "strength": 0.6,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 73,
+    "lecturesWithTerm": 58,
+    "generated_at": "2025-12-12T14:06:42.683Z"
+  },
+  "nachatlantische kulturen": {
+    "concept": "Nachatlantische Kulturen",
+    "connections": [
+      {
+        "term": "Fünfter nachatlantischer Zeitraum",
+        "type": "komponente",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vierter nachatlantischer Zeitraum",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kulturentwickelung",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Griechisch-lateinische Epoche",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Atlantische Zeit",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erste nachatlantische Kulturzeit",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Materialismus",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Altindische Kultur",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Urpersische Kulturzeit",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Spiritualismus",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ahrimanische Impulse",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Zarathustra",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Rishis",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Altägyptische Kultur",
+        "type": "hierarchisch",
+        "strength": 1.136,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Altägyptische Kultur",
+        "addedAt": "2025-12-12T18:22:22.583Z"
+      }
+    ],
+    "totalOccurrences": 4,
+    "lecturesWithTerm": 4,
+    "generated_at": "2025-12-12T14:10:44.606Z",
+    "lastUpdated": "2025-12-12T18:22:22.583Z"
+  },
+  "aristoteles": {
+    "concept": "Aristoteles",
+    "connections": [
+      {
+        "term": "Plato",
+        "type": "gegensatz",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Seele",
+        "type": "komponente",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Mittelalter",
+        "type": "hierarchisch",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Geist",
+        "type": "komponente",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Philosophie",
+        "type": "hierarchisch",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Brentano",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Scholastik",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Griechentum",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Unsterblichkeit",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erkenntnis",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Zeit",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 1645,
+    "lecturesWithTerm": 301,
+    "generated_at": "2025-12-12T14:18:52.867Z"
+  },
+  "altägyptische kultur": {
+    "concept": "Altägyptische Kultur",
+    "connections": [
+      {
+        "term": "Nachatlantische Kulturen",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Chaldäisch-babylonisch-assyrisch-ägyptische Kultur",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschheitsentwickelung",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Griechisch-lateinische Kultur",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Moses",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Urpersische Kultur",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Altindische Kultur",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kulturperiode",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterien",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Atlantische Zeit",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Volksgeister",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "prozess",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 4,
+    "lecturesWithTerm": 2,
+    "generated_at": "2025-12-12T18:22:22.583Z"
+  },
+  "griechisch-lateinische kultur": {
+    "concept": "Griechisch-lateinische Kultur",
+    "connections": [
+      {
+        "term": "nachatlantische Kulturperiode",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "vierte nachatlantische Kulturperiode",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschheitsentwickelung",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "fünfte nachatlantische Kulturperiode",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "europäische Kultur",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "gegensatz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Völkerwanderung",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "chaldäisch-ägyptische Kultur",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "atlantische Zeit",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "urpersische Kultur",
+        "type": "hierarchisch",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "altindische Kultur",
+        "type": "hierarchisch",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "korrespondenz",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 46,
+    "lecturesWithTerm": 43,
+    "generated_at": "2025-12-12T18:23:53.029Z"
+  },
+  "altes testament": {
+    "concept": "Altes Testament",
+    "connections": [
+      {
+        "term": "Neues Testament",
+        "type": "gegensatz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Judentum",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hebräer",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Jahve",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christus",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Moses",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mysterium von Golgatha",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Biblische Geschichte",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Evangelien",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Philo von Alexandrien",
+        "type": "prozess",
+        "strength": 0.98,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Babylonische Sagen",
+        "type": "korrespondenz",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Alttestamentliche Anschauung",
+        "type": "komponente",
+        "strength": 0.9,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Zehn Gebote",
+        "type": "komponente",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Moralische Weltordnung",
+        "type": "komponente",
+        "strength": 0.83,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 5,
+    "lecturesWithTerm": 4,
+    "generated_at": "2025-12-12T18:24:45.929Z"
+  },
+  "zehn gebote": {
+    "concept": "Zehn Gebote",
+    "connections": [
+      {
+        "term": "Moses",
+        "type": "prozess",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Jahve-Impuls",
+        "type": "hierarchisch",
+        "strength": 1.38,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Sinai",
+        "type": "korrespondenz",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Gebote",
+        "type": "komponente",
+        "strength": 1.34,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "komponente",
+        "strength": 1.32,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschheitsentwicklung",
+        "type": "hierarchisch",
+        "strength": 1.31,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Offenbarung",
+        "type": "korrespondenz",
+        "strength": 1.24,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltentwicklung",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "nachatlantische Zeit",
+        "type": "korrespondenz",
+        "strength": 1.17,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Thora",
+        "type": "korrespondenz",
+        "strength": 1.14,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Blut",
+        "type": "prozess",
+        "strength": 1.11,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.1,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "komponente",
+        "strength": 1.08,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 107,
+    "lecturesWithTerm": 37,
+    "generated_at": "2025-12-12T18:25:07.636Z"
+  },
+  "moses": {
+    "concept": "Moses",
+    "connections": [
+      {
+        "term": "Zarathustra",
+        "type": "hierarchisch",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Jahve",
+        "type": "komponente",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Jehova",
+        "type": "komponente",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christentum",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Menschheitsentwickelung",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Weltengeist",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hellsehen",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ägyptische Kultur",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Intellekt",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vernunft",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Passahfest",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Pharao",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Hermes-Weisheit",
+        "type": "korrespondenz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Christus",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 1020,
+    "lecturesWithTerm": 265,
+    "generated_at": "2025-12-12T18:34:07.400Z"
+  },
+  "ätherleib": {
+    "concept": "Ätherleib",
+    "connections": [
+      {
+        "term": "Astralleib",
+        "type": "korrespondenz",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "physischer Leib",
+        "type": "korrespondenz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geburt",
+        "type": "prozess",
+        "strength": 1.28,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedächtnis",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsleib",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Tod",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "geistige Welten",
+        "type": "hierarchisch",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Schlaf",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Jesus von Nazareth",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verkörperung",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Leib,",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 14295,
+    "lecturesWithTerm": 1706,
+    "generated_at": "2025-12-12T18:34:57.263Z"
+  },
+  "bilderbewusstsein": {
+    "concept": "Bilderbewusstsein",
+    "connections": [
+      {
+        "term": "Tagesbewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.58,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "gewöhnliches Bewusstsein",
+        "type": "gegensatz",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "übersinnliches Bewusstsein",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "imaginative Erkenntnis",
+        "type": "prozess",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Imaginationsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Seelenleben",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "schauendes Bewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "prozess",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistesleben",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Träume",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Vorstellungen",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Halbbewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verstandes- oder Gemütsseele",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "unterbewusstes Seelenleben",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 213,
+    "lecturesWithTerm": 69,
+    "generated_at": "2025-12-12T18:38:12.234Z"
+  },
+  "denktätigkeit": {
+    "concept": "Denktätigkeit",
+    "connections": [
+      {
+        "term": "Sprachtätigkeit",
+        "type": "korrespondenz",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Gedanken",
+        "type": "komponente",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Verdauung",
+        "type": "korrespondenz",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Äthermenschen",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bildekräftemenschen",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Sinneseindrücke",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedankenkräfte",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedankenbildekräftewelt",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Zeitleib",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erinnerungsvermögen",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kehlkopf",
+        "type": "prozess",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Äthergeschehen",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Denken",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 158,
+    "lecturesWithTerm": 65,
+    "generated_at": "2025-12-12T18:40:38.782Z"
+  }
+}
