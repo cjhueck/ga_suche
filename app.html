@@ -16240,17 +16240,21 @@ function scrollToChronologicalYear(year) {
       // Keine weiteren Prüfungen - Button bleibt versteckt
     }
     // Im GA-Tab: Button nur anzeigen wenn ein GA-Band im Viewer angezeigt wird (nicht nur Standard-Nachricht)
+    // UND NICHT in der chronologischen Übersicht
     else if (isInGATab) {
       // Prüfe ob im Viewer tatsächlich ein GA-Band angezeigt wird (nicht nur die Standard-Nachricht)
       const viewer = document.getElementById('viewer');
       const viewerContent = viewer ? viewer.innerHTML : '';
       const isDefaultMessage = viewerContent.includes('Wählen Sie einen GA-Band') || viewerContent.includes('Wählen Sie einen Vortrag');
       
-      if (currentGANumber && !isDefaultMessage) {
-        // GA-Band ist ausgewählt und wird im Viewer angezeigt
+      // Prüfe ob chronologische Ansicht aktiv ist
+      const isChronologicalView = currentGAView === 'chronological';
+      
+      if (currentGANumber && !isDefaultMessage && !isChronologicalView) {
+        // GA-Band ist ausgewählt und wird im Viewer angezeigt (nicht in chronologischer Übersicht)
         gaInfoBtn.style.display = 'inline-flex';
       }
-      // Button bleibt versteckt wenn kein GA-Band angezeigt wird oder nur Standard-Nachricht
+      // Button bleibt versteckt wenn kein GA-Band angezeigt wird, nur Standard-Nachricht, oder chronologische Ansicht aktiv
     }
     // Im Themen-Tab oder Timeline-Tab: Button NUR anzeigen wenn ein GA-Band im Main Viewer angezeigt wird (currentLectureData gesetzt)
     else if (isInThematicTab || isInTimelineTab) {
