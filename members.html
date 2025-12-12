@@ -2855,7 +2855,13 @@
         }
         
         if (fullText) {
-          fullParagraphDiv.innerHTML = `<div style="white-space: pre-wrap;">${fullText}</div>`;
+          // Speichere Metadaten als Daten-Attribute für Context-Menü
+          fullParagraphDiv.setAttribute('data-ga-reference', gaReference || '');
+          fullParagraphDiv.setAttribute('data-paragraph-id', paragraphId || '');
+          fullParagraphDiv.setAttribute('data-item-id', itemId || '');
+          fullParagraphDiv.setAttribute('data-is-highlight', isHighlight ? 'true' : 'false');
+          
+          fullParagraphDiv.innerHTML = `<div class="full-paragraph-text" style="white-space: pre-wrap;" data-ga-reference="${gaReference || ''}" data-paragraph-id="${paragraphId || ''}">${fullText}</div>`;
           fullParagraphDiv.dataset.loaded = 'true';
         } else {
           fullParagraphDiv.innerHTML = '<span style="color: var(--error-color);">Vollständiger Absatz nicht gefunden</span>';
