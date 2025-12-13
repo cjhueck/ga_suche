@@ -5731,7 +5731,7 @@ Chronologisch
 </div><div class="tab-content" id="keyword-tab">
 <div class="search-words-row">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text" autocomplete="off"/>
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text" autocomplete="search" name="search-word1"/>
 <datalist id="word1-history"></datalist>
 </div>
 <div class="word-operator-container">
@@ -5745,7 +5745,7 @@ Chronologisch
 </label>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2 (optional)" type="text" autocomplete="off"/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2 (optional)" type="text" autocomplete="search" name="search-word2"/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
@@ -5844,7 +5844,7 @@ Chronologisch
 <!-- Suchwort 1 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
+<input class="search-input" id="advWord1" placeholder="Suchwort 1" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv1"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5861,7 +5861,7 @@ Chronologisch
 <!-- Suchwort 2 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="off"/>
+<input class="search-input" id="advWord2" placeholder="Suchwort 2 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv2"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5878,7 +5878,7 @@ Chronologisch
 <!-- Suchwort 3 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+<input class="search-input" id="advWord3" placeholder="Suchwort 3 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv3"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5895,7 +5895,7 @@ Chronologisch
 <!-- Suchwort 4 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+<input class="search-input" id="advWord4" placeholder="Suchwort 4 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv4"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5912,7 +5912,7 @@ Chronologisch
 <!-- Suchwort 5 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+<input class="search-input" id="advWord5" placeholder="Suchwort 5 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv5"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5929,7 +5929,7 @@ Chronologisch
 <!-- Suchwort 6 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+<input class="search-input" id="advWord6" placeholder="Suchwort 6 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv6"/>
 </div>
 <div class="word-operator-container">
 <label class="word-operator-label">
@@ -5946,7 +5946,7 @@ Chronologisch
 <!-- Suchwort 7 -->
 <div class="search-words-row" style="margin-bottom: 0.5rem;">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)"/>
+<input class="search-input" id="advWord7" placeholder="Suchwort 7 (optional)" type="text" onfocus="this.select()" onkeydown="handleAdvancedSearchKeydown(event)" autocomplete="search" name="search-adv7"/>
 </div>
 <div class="word-operator-container" style="visibility: hidden; pointer-events: none;">
 <label class="word-operator-label">
