@@ -7209,6 +7209,18 @@ function applyStoredQuoteLine(quote) {
       return; // Nicht genug Daten für Linien-Positionierung
     }
     
+    // ============================================
+    // MULTI-ABSATZ QUOTE ERKENNUNG
+    // ============================================
+    const isMultiParagraph = quote.end_paragraph_id && 
+                              quote.end_paragraph_id !== quote.paragraph_id;
+    
+    if (isMultiParagraph) {
+      console.log('[QUOTE-LINE] Multi-Absatz-Quote erkannt:', quote.paragraph_id, 'bis', quote.end_paragraph_id);
+      applyMultiParagraphQuoteLine(quote);
+      return;
+    }
+    
     let paraElement = null;
     
     // PRIMÄRER ANSATZ: Suche anhand des gespeicherten Textes (robust gegen Index-Änderungen)
@@ -7366,6 +7378,223 @@ function applyStoredQuoteLine(quote) {
   } catch (e) {
     console.error('[STORED-QUOTE-LINE] Fehler:', e);
   }
+}
+
+/**
+ * Wendet Multi-Absatz-Quote-Linie an (vom Start- bis zum End-Paragraph)
+ */
+function applyMultiParagraphQuoteLine(quote) {
+  try {
+    const startParaId = String(quote.paragraph_id).replace(/^\^/, '');
+    const endParaId = String(quote.end_paragraph_id).replace(/^\^/, '');
+    
+    // Finde Start- und End-Paragraph
+    const startPara = document.getElementById(`para-${startParaId}`) ||
+                     document.getElementById(`adv-para-${startParaId}`);
+    const endPara = document.getElementById(`para-${endParaId}`) ||
+                   document.getElementById(`adv-para-${endParaId}`);
+    
+    if (!startPara || !endPara) {
+      console.warn('[QUOTE-LINE-MULTI] Start- oder End-Paragraph nicht gefunden:', startParaId, endParaId);
+      return;
+    }
+    
+    // Finde den Container und alle Absätze dazwischen
+    const contentContainer = startPara.closest('.lecture-content, .text-content, article, main, #summary-content') 
+      || startPara.parentElement;
+    const allParagraphs = contentContainer.querySelectorAll('[id^="para-"], [id^="adv-para-"]');
+    
+    // Sammle alle Absätze zwischen Start und End
+    let collecting = false;
+    let paragraphsToMark = [];
+    
+    for (const para of allParagraphs) {
+      if (para === startPara) {
+        collecting = true;
+      }
+      
+      if (collecting) {
+        paragraphsToMark.push(para);
+        
+        if (para === endPara) {
+          break;
+        }
+      }
+    }
+    
+    console.log('[QUOTE-LINE-MULTI] Absätze zu markieren:', paragraphsToMark.length);
+    
+    // Extrahiere den zu markierenden Text aus paragraph_text
+    const textToHighlight = quote.paragraph_text && 
+                           quote.text_start_offset !== null && 
+                           quote.text_end_offset !== null
+      ? quote.paragraph_text.substring(quote.text_start_offset, quote.text_end_offset)
+      : quote.quote_text;
+    
+    if (!textToHighlight) {
+      console.warn('[QUOTE-LINE-MULTI] Kein Text zum Markieren gefunden');
+      return;
+    }
+    
+    // Baue den kombinierten Text der Absätze
+    let combinedText = '';
+    const nodeInfos = [];
+    
+    for (const para of paragraphsToMark) {
+      const walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      while (node = walker.nextNode()) {
+        const startOffset = combinedText.length;
+        combinedText += node.textContent;
+        nodeInfos.push({
+          node: node,
+          startOffset: startOffset,
+          endOffset: combinedText.length,
+          paragraph: para
+        });
+      }
+    }
+    
+    // Finde den Text im kombinierten Text
+    const textIndex = combinedText.indexOf(textToHighlight);
+    if (textIndex === -1) {
+      console.warn('[QUOTE-LINE-MULTI] Text nicht im kombinierten Text gefunden:', textToHighlight.substring(0, 50));
+      return;
+    }
+    
+    const textEndIndex = textIndex + textToHighlight.length;
+    
+    // Finde Start- und End-Knoten für die senkrechte Linie
+    let startNode = null, startOffset = 0;
+    let endNode = null, endOffset = 0;
+    
+    for (const info of nodeInfos) {
+      if (!startNode && info.endOffset > textIndex) {
+        startNode = info.node;
+        startOffset = textIndex - info.startOffset;
+      }
+      if (info.endOffset >= textEndIndex) {
+        endNode = info.node;
+        endOffset = Math.min(textEndIndex - info.startOffset, info.node.textContent.length);
+        break;
+      }
+    }
+    
+    if (!startNode || !endNode) {
+      console.warn('[QUOTE-LINE-MULTI] Start- oder End-Knoten nicht gefunden');
+      return;
+    }
+    
+    try {
+      // Erstelle Range
+      const range = document.createRange();
+      range.setStart(startNode, Math.min(startOffset, startNode.textContent.length));
+      range.setEnd(endNode, Math.min(endOffset, endNode.textContent.length));
+      
+      // Für die senkrechte Linie: Erstelle sie für alle betroffenen Absätze
+      for (const para of paragraphsToMark) {
+        // Stelle sicher, dass para relativ positioniert ist
+        const computedStyle = window.getComputedStyle(para);
+        if (computedStyle.position === 'static') {
+          para.style.position = 'relative';
+        }
+        
+        // Prüfe ob bereits eine Linie für dieses Zitat existiert
+        const existingLine = para.querySelector(`.member-quote-vertical-line[data-quote-id="${quote.id}"]`);
+        if (!existingLine) {
+          // Erstelle eine senkrechte Linie für diesen Absatz
+          createQuoteVerticalLineForParagraph(para, quote, range);
+        }
+      }
+      
+      // Umschließe den Zitattext mit einem klickbaren Span (nur einmal, rückwärts)
+      const nodesToMark = [];
+      for (const info of nodeInfos) {
+        if (info.endOffset > textIndex && info.startOffset < textEndIndex) {
+          const markStart = Math.max(0, textIndex - info.startOffset);
+          const markEnd = Math.min(info.node.textContent.length, textEndIndex - info.startOffset);
+          nodesToMark.push({
+            node: info.node,
+            start: markStart,
+            end: markEnd
+          });
+        }
+      }
+      
+      // Markiere rückwärts
+      for (let i = nodesToMark.length - 1; i >= 0; i--) {
+        const info = nodesToMark[i];
+        try {
+          const nodeRange = document.createRange();
+          nodeRange.setStart(info.node, info.start);
+          nodeRange.setEnd(info.node, info.end);
+          
+          const quoteSpan = document.createElement('span');
+          quoteSpan.className = 'quote-text-link';
+          quoteSpan.setAttribute('data-quote-id', quote.id);
+          quoteSpan.style.cursor = 'pointer';
+          quoteSpan.title = 'Klick zum Zitat im Members Panel';
+          
+          quoteSpan.onclick = (e) => {
+            e.stopPropagation();
+            if (typeof jumpToQuoteById === 'function') {
+              jumpToQuoteById(quote.id);
+            }
+          };
+          
+          try {
+            nodeRange.surroundContents(quoteSpan);
+          } catch (e) {
+            const fragment = nodeRange.extractContents();
+            quoteSpan.appendChild(fragment);
+            nodeRange.insertNode(quoteSpan);
+          }
+        } catch (spanError) {
+          console.warn('[QUOTE-LINE-MULTI] Fehler beim Markieren:', spanError.message);
+        }
+      }
+      
+      console.log('[QUOTE-LINE-MULTI] Multi-Absatz-Quote-Linie angewendet');
+    } catch (e) {
+      console.warn('[QUOTE-LINE-MULTI] Fehler beim Erstellen der Range:', e);
+    }
+  } catch (error) {
+    console.error('[QUOTE-LINE-MULTI] Fehler:', error);
+  }
+}
+
+/**
+ * Erstellt eine senkrechte Linie für einen einzelnen Absatz eines Multi-Absatz-Zitats
+ */
+function createQuoteVerticalLineForParagraph(para, quote, range) {
+  const quoteColor = getHighlightColor(quote.marker_color || 'blue');
+  
+  const line = document.createElement('div');
+  line.className = 'member-quote-vertical-line';
+  line.style.position = 'absolute';
+  line.style.right = '-5px';
+  line.style.width = '1.5px';
+  line.style.backgroundColor = quoteColor;
+  line.style.cursor = 'pointer';
+  line.style.borderRadius = '0.75px';
+  line.style.transition = 'opacity 0.2s';
+  line.setAttribute('data-quote-id', quote.id);
+  line.setAttribute('data-quote', 'true');
+  line.title = 'Klick zum Zitat im Members Panel';
+  
+  // Berechne Position: gesamte Höhe des Absatzes
+  line.style.top = '0';
+  line.style.bottom = '0';
+  
+  // Klick-Handler
+  line.onclick = (e) => {
+    e.stopPropagation();
+    if (typeof jumpToQuoteById === 'function') {
+      jumpToQuoteById(quote.id);
+    }
+  };
+  
+  para.appendChild(line);
 }
 
 /**
@@ -7900,6 +8129,19 @@ function applyHighlightToBookElement(targetElement, highlight) {
  */
 function applyStoredHighlight(highlight) {
   try {
+    // ============================================
+    // MULTI-ABSATZ HIGHLIGHT ERKENNUNG
+    // ============================================
+    const isMultiParagraph = highlight.end_paragraph_id && 
+                              highlight.end_paragraph_id !== highlight.paragraph_id;
+    
+    if (isMultiParagraph) {
+      console.log('[HIGHLIGHT] Multi-Absatz-Highlight erkannt:', highlight.paragraph_id, 'bis', highlight.end_paragraph_id);
+      applyMultiParagraphHighlight(highlight);
+      return;
+    }
+    
+    // Einzelner Absatz - normale Verarbeitung
     let paraElement = null;
     
     // PRIMÄRER ANSATZ: Suche anhand des gespeicherten Textes (robust gegen Index-Änderungen)
@@ -7987,6 +8229,168 @@ function applyStoredHighlight(highlight) {
   } catch (error) {
     console.error('Fehler beim Anwenden der Unterstreichung:', error);
   }
+}
+
+/**
+ * Wendet Multi-Absatz-Highlight an (vom Start- bis zum End-Paragraph)
+ */
+function applyMultiParagraphHighlight(highlight) {
+  try {
+    const startParaId = String(highlight.paragraph_id).replace(/^\^/, '');
+    const endParaId = String(highlight.end_paragraph_id).replace(/^\^/, '');
+    
+    // Finde Start- und End-Paragraph
+    const startPara = document.getElementById(`para-${startParaId}`) ||
+                     document.getElementById(`adv-para-${startParaId}`);
+    const endPara = document.getElementById(`para-${endParaId}`) ||
+                   document.getElementById(`adv-para-${endParaId}`);
+    
+    if (!startPara || !endPara) {
+      console.warn('[HIGHLIGHT-MULTI] Start- oder End-Paragraph nicht gefunden:', startParaId, endParaId);
+      return;
+    }
+    
+    // Finde den Container und alle Absätze dazwischen
+    const contentContainer = startPara.closest('.lecture-content, .text-content, article, main, #summary-content') 
+      || startPara.parentElement;
+    const allParagraphs = contentContainer.querySelectorAll('[id^="para-"], [id^="adv-para-"]');
+    
+    // Sammle alle Absätze zwischen Start und End
+    let collecting = false;
+    let paragraphsToMark = [];
+    
+    for (const para of allParagraphs) {
+      if (para === startPara) {
+        collecting = true;
+      }
+      
+      if (collecting) {
+        paragraphsToMark.push(para);
+        
+        if (para === endPara) {
+          break;
+        }
+      }
+    }
+    
+    console.log('[HIGHLIGHT-MULTI] Absätze zu markieren:', paragraphsToMark.length);
+    
+    // Extrahiere den zu markierenden Text aus paragraph_text
+    const textToHighlight = highlight.paragraph_text && 
+                           highlight.text_start_offset !== null && 
+                           highlight.text_end_offset !== null
+      ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+      : null;
+    
+    if (!textToHighlight) {
+      console.warn('[HIGHLIGHT-MULTI] Kein Text zum Markieren gefunden');
+      return;
+    }
+    
+    // Baue den kombinierten Text der Absätze
+    let combinedText = '';
+    const nodeInfos = [];
+    
+    for (const para of paragraphsToMark) {
+      const walker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+      let node;
+      while (node = walker.nextNode()) {
+        const startOffset = combinedText.length;
+        combinedText += node.textContent;
+        nodeInfos.push({
+          node: node,
+          startOffset: startOffset,
+          endOffset: combinedText.length,
+          paragraph: para
+        });
+      }
+    }
+    
+    // Finde den Text im kombinierten Text
+    const textIndex = combinedText.indexOf(textToHighlight);
+    if (textIndex === -1) {
+      console.warn('[HIGHLIGHT-MULTI] Text nicht im kombinierten Text gefunden:', textToHighlight.substring(0, 50));
+      return;
+    }
+    
+    const textEndIndex = textIndex + textToHighlight.length;
+    
+    // Finde alle Knoten, die markiert werden müssen
+    const nodesToMark = [];
+    for (const info of nodeInfos) {
+      // Prüfe ob dieser Knoten im Markierungsbereich liegt
+      if (info.endOffset > textIndex && info.startOffset < textEndIndex) {
+        const markStart = Math.max(0, textIndex - info.startOffset);
+        const markEnd = Math.min(info.node.textContent.length, textEndIndex - info.startOffset);
+        nodesToMark.push({
+          node: info.node,
+          start: markStart,
+          end: markEnd
+        });
+      }
+    }
+    
+    console.log('[HIGHLIGHT-MULTI] Knoten zu markieren:', nodesToMark.length);
+    
+    // Markiere rückwärts (um Offsets nicht zu verschieben)
+    const highlightColor = getHighlightColorFromString(highlight.color);
+    
+    for (let i = nodesToMark.length - 1; i >= 0; i--) {
+      const info = nodesToMark[i];
+      try {
+        const range = document.createRange();
+        range.setStart(info.node, info.start);
+        range.setEnd(info.node, info.end);
+        
+        const span = document.createElement('span');
+        span.className = 'member-highlight';
+        span.style.setProperty('text-decoration', 'underline', 'important');
+        span.style.setProperty('text-decoration-color', highlightColor, 'important');
+        span.style.setProperty('-webkit-text-decoration-color', highlightColor, 'important');
+        span.style.setProperty('text-decoration-thickness', '1.5px', 'important');
+        span.setAttribute('data-highlight', 'true');
+        span.setAttribute('data-highlight-id', highlight.id);
+        span.setAttribute('data-highlight-color', highlight.color || 'blue');
+        span.setAttribute('data-ga-number', highlight.ga_number);
+        span.setAttribute('data-paragraph-id', highlight.paragraph_id);
+        span.style.setProperty('cursor', 'pointer', 'important');
+        span.setAttribute('title', 'Klicken zum Öffnen im Member Panel');
+        
+        // Event-Listener für Klick
+        span.addEventListener('click', function(e) {
+          e.stopPropagation();
+          e.preventDefault();
+          jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+        });
+        
+        try {
+          range.surroundContents(span);
+        } catch (e) {
+          const fragment = range.extractContents();
+          span.appendChild(fragment);
+          range.insertNode(span);
+        }
+      } catch (e) {
+        console.warn('[HIGHLIGHT-MULTI] Fehler beim Markieren eines Knotens:', e);
+      }
+    }
+    
+    console.log('[HIGHLIGHT-MULTI] Multi-Absatz-Highlight angewendet');
+  } catch (error) {
+    console.error('[HIGHLIGHT-MULTI] Fehler:', error);
+  }
+}
+
+/**
+ * Hilfsfunktion zum Ermitteln der Highlight-Farbe
+ */
+function getHighlightColorFromString(colorName) {
+  const colors = {
+    'blue': '#467886',
+    'red': '#c62828',
+    'yellow': '#f9a825'
+  };
+  return colors[colorName] || colors['blue'];
 }
 
 /**

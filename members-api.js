@@ -418,7 +418,7 @@ export function extractGAReferences(text) {
 /**
  * Notiz erstellen mit automatischer Link-Extraktion
  */
-export async function createNote(title, content, isPublic = false, paragraphId = null, paragraphText = null, textStartOffset = null, textEndOffset = null, lectureDate = null, manualTags = null, markerColor = null, manualGroups = null) {
+export async function createNote(title, content, isPublic = false, paragraphId = null, paragraphText = null, textStartOffset = null, textEndOffset = null, lectureDate = null, manualTags = null, markerColor = null, manualGroups = null, endParagraphId = null) {
   try {
     const user = await getCurrentUser();
     if (!user) throw new Error('Nicht angemeldet');
@@ -446,6 +446,12 @@ export async function createNote(title, content, isPublic = false, paragraphId =
         lecture_date: lectureDate,
         marker_color: markerColor || 'blue'
     };
+    
+    // Füge end_paragraph_id hinzu bei Multi-Absatz-Notizen
+    if (endParagraphId) {
+      insertData.end_paragraph_id = endParagraphId;
+      console.log('[NOTE-CREATE] Multi-Absatz: end_paragraph_id =', endParagraphId);
+    }
 
     const result = await supabase
       .from('notes')

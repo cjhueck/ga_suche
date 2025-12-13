@@ -28979,37 +28979,41 @@ async function saveMarkedWord(word, gaTitle) {
   }
 }
 
-// Event-Listener für Rechtsklick im Viewer (für Textmarkierung und Schreibfehlerkorrektur)
+// Event-Listener für Rechtsklick im Viewer und Summary-Panel (für Textmarkierung und Schreibfehlerkorrektur)
 // DEAKTIVIERT - Wird durch Members Context Menu ersetzt
 // Nur noch bei Strg+Shift+Rechtsklick aktiv (für Fehlerkorrektur)
 document.addEventListener('DOMContentLoaded', function() {
   const viewer = document.getElementById('viewer');
+  const summaryPanel = document.getElementById('summary-panel');
   
-  if (viewer) {
-    // Gemeinsame Funktion für Schreibfehler-Markierung
-    function handleTypoMarking(e) {
-      // Hole markierten Text
-      const selection = window.getSelection();
-      const selectedText = selection.toString().trim();
-      
-      if (!selectedText || selectedText.length === 0) {
-        return;
-      }
-      
-      // Hole aktuellen Vortragstitel
-      const documentTitle = document.getElementById('document-title');
-      const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
-      
-      // Zeige Bestätigungsdialog
-      const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
-      
-      if (confirmed) {
-        saveMarkedWord(selectedText, gaTitle);
-      }
+  // Gemeinsame Funktion für Schreibfehler-Markierung
+  function handleTypoMarking(e) {
+    // Hole markierten Text
+    const selection = window.getSelection();
+    const selectedText = selection.toString().trim();
+    
+    if (!selectedText || selectedText.length === 0) {
+      return;
     }
     
+    // Hole aktuellen Vortragstitel
+    const documentTitle = document.getElementById('document-title');
+    const gaTitle = documentTitle ? documentTitle.textContent : 'Unbekannt';
+    
+    // Zeige Bestätigungsdialog
+    const confirmed = confirm(`Wort "${selectedText}" als fehlerhaft markieren?\n\nVortrag: ${gaTitle}`);
+    
+    if (confirmed) {
+      saveMarkedWord(selectedText, gaTitle);
+    }
+  }
+  
+  // Funktion zum Hinzufügen der Event-Listener zu einem Element
+  function addTypoMarkingListeners(element) {
+    if (!element) return;
+    
     // Rechtsklick-Handler: Nur bei Strg+Shift+Rechtsklick
-    viewer.addEventListener('contextmenu', function(e) {
+    element.addEventListener('contextmenu', function(e) {
       const selection = window.getSelection();
       const selectedText = selection.toString().trim();
       
@@ -29022,7 +29026,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Klick-Handler: Bei Strg+Klick (linke Maustaste)
-    viewer.addEventListener('click', function(e) {
+    element.addEventListener('click', function(e) {
       // Nur wenn Strg-Taste gedrückt ist
       if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
         // Prüfe ob geklicktes Element ein Link ist - dann nicht blockieren
@@ -29045,6 +29049,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  
+  // Event-Listener für Viewer (linkes Hauptpanel)
+  addTypoMarkingListeners(viewer);
+  
+  // Event-Listener für Summary-Panel (rechtes Panel)
+  addTypoMarkingListeners(summaryPanel);
 });
 
 // ============================================

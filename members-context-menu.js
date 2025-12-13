@@ -454,10 +454,42 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       throw new Error('Keine Textauswahl vorhanden');
     }
     
+    // ============================================
+    // MULTI-PARAGRAPH ERKENNUNG
+    // ============================================
+    const range = selectionRangeForContext;
+    const startContainer = range.startContainer;
+    const endContainer = range.endContainer;
+    
+    // Finde Start- und End-Paragraph
+    let startPara = startContainer.nodeType === Node.TEXT_NODE 
+      ? (startContainer.parentElement.closest('[id^="para-"]') || startContainer.parentElement.closest('[id^="adv-para-"]'))
+      : (startContainer.closest('[id^="para-"]') || startContainer.closest('[id^="adv-para-"]'));
+    let endPara = endContainer.nodeType === Node.TEXT_NODE 
+      ? (endContainer.parentElement.closest('[id^="para-"]') || endContainer.parentElement.closest('[id^="adv-para-"]'))
+      : (endContainer.closest('[id^="para-"]') || endContainer.closest('[id^="adv-para-"]'));
+    
+    const isMultiParagraph = startPara && endPara && startPara !== endPara;
+    let endParagraphId = null;
+    
+    if (isMultiParagraph) {
+      console.log('[QUOTE-SAVE] Multi-Paragraph Selektion erkannt:', startPara?.id, 'bis', endPara?.id);
+      // Extrahiere die End-Paragraph-ID
+      if (endPara.id) {
+        endParagraphId = endPara.id.replace(/^(para-|adv-para-)/, '');
+      }
+    }
+    
     // Finde den Absatz-Container, der den markierten Text enthält
     let paragraphNode = selectionRangeForContext.commonAncestorContainer;
     while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
       paragraphNode = paragraphNode.parentNode;
+    }
+    
+    // BEI MULTI-PARAGRAPH: Verwende startPara als paragraphNode (wichtig!)
+    if (isMultiParagraph && startPara) {
+      paragraphNode = startPara;
+      console.log('[QUOTE-SAVE] Multi-Paragraph: Verwende startPara als paragraphNode:', startPara.id);
     }
     
     console.log('[QUOTE-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
@@ -480,11 +512,11 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     
     // Für Bücher: Suche zuerst nach para- ID oder data-index
-    // (überspringe bei Members Panel Volltext - dort haben wir bereits den richtigen Container)
-    let foundParaId = isInMembersPanelFullText; // Bei Members Panel schon gefunden
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph - dort haben wir bereits den richtigen Container)
+    let foundParaId = isInMembersPanelFullText || isMultiParagraph; // Bei Members Panel oder Multi-Paragraph schon gefunden
     let tempNode = paragraphNode;
     
-    if (!isInMembersPanelFullText) {
+    if (!isInMembersPanelFullText && !isMultiParagraph) {
       while (tempNode && tempNode !== document.body) {
         if (tempNode.nodeType === 1) { // Element node
           // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
@@ -531,8 +563,8 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     
     // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
-    // (überspringe bei Members Panel Volltext)
-    if (!foundParaId && !isInMembersPanelFullText) {
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph)
+    if (!foundParaId && !isInMembersPanelFullText && !isMultiParagraph) {
       console.log('[QUOTE-SAVE] Keine para- ID gefunden, suche nach Block-Element');
       tempNode = paragraphNode;
       while (tempNode && tempNode !== document.body) {
@@ -552,8 +584,8 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     
     // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
-    // (überspringe bei Members Panel Volltext)
-    if (!foundParaId && paragraphNode && !isInMembersPanelFullText) {
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph)
+    if (!foundParaId && paragraphNode && !isInMembersPanelFullText && !isMultiParagraph) {
       console.log('[QUOTE-SAVE] Fallback: Verwende aktuelles Element');
       // Prüfe ob das Element selbst Text enthält
       const nodeText = paragraphNode.textContent || '';
@@ -582,77 +614,154 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     
     console.log('[QUOTE-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
     
-    // Hole den vollständigen Text des Absatzes
-    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
-    // Entferne Vortragsüberschriften wie "NEUNTER VORTRAG" am Anfang
-    const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
-    const paragraphText = cleanParagraphText(rawParagraphText);
-    
-    console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText.length);
-    console.log('[QUOTE-SAVE] Selected Text:', text.substring(0, 50) + '...');
-    console.log('[QUOTE-SAVE] Paragraph Index:', paragraphIndex);
-    
-    // Finde die Position des markierten Textes im Absatz
-    // Verwende die Range-Informationen für präzisere Berechnung
+    // ============================================
+    // MULTI-PARAGRAPH: Text und Offsets berechnen
+    // ============================================
+    let paragraphText = '';
     let textStartOffset = -1;
     let textEndOffset = -1;
     
-    // Versuche zuerst mit der Range die exakte Position zu finden
-    try {
-      const range = selectionRangeForContext.cloneRange();
-      const paraRange = document.createRange();
-      paraRange.selectNodeContents(paragraphNode);
+    if (isMultiParagraph && startPara && endPara) {
+      console.log('[QUOTE-SAVE] Multi-Paragraph Modus');
       
-      // Berechne Offset relativ zum Absatz
-      const startContainer = range.startContainer;
-      const startOffset = range.startOffset;
+      // Sammle Text aller betroffenen Absätze
+      const contentContainer = startPara.closest('.lecture-content, .text-content, article, main, #summary-content') 
+        || startPara.parentElement;
+      const allParagraphs = contentContainer.querySelectorAll('[id^="para-"], [id^="adv-para-"]');
       
-      // Erstelle einen TreeWalker um die Position zu berechnen
-      const walker = document.createTreeWalker(
-        paragraphNode,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
+      let collecting = false;
+      let combinedText = '';
+      let parasInSelection = [];
       
-      let currentOffset = 0;
-      let node;
-      let foundStart = false;
-      
-      while (node = walker.nextNode()) {
-        if (node === startContainer || node.parentNode === startContainer) {
-          if (node === startContainer) {
-            textStartOffset = currentOffset + startOffset;
-            foundStart = true;
-          } else if (node.parentNode === startContainer) {
-            // Text-Node ist Kind des Start-Containers
-            let siblingOffset = 0;
-            let sibling = node.previousSibling;
-            while (sibling) {
-              siblingOffset += (sibling.textContent || '').length;
-              sibling = sibling.previousSibling;
-            }
-            textStartOffset = currentOffset + siblingOffset + startOffset;
-            foundStart = true;
+      for (const para of allParagraphs) {
+        if (para === startPara) {
+          collecting = true;
+        }
+        
+        if (collecting) {
+          parasInSelection.push(para);
+          combinedText += para.textContent;
+          
+          if (para === endPara) {
+            break;
           }
+        }
+      }
+      
+      paragraphText = cleanParagraphText(combinedText);
+      
+      // Berechne Start-Offset im Start-Paragraph
+      const startWalker = document.createTreeWalker(startPara, NodeFilter.SHOW_TEXT, null, false);
+      let startCharCount = 0;
+      let startNode;
+      const rangeClone = selectionRangeForContext.cloneRange();
+      
+      while (startNode = startWalker.nextNode()) {
+        if (startNode === rangeClone.startContainer) {
+          textStartOffset = startCharCount + rangeClone.startOffset;
           break;
         }
-        currentOffset += node.textContent.length;
+        startCharCount += startNode.textContent.length;
       }
       
-      if (foundStart) {
-        textEndOffset = textStartOffset + text.length;
-        console.log('[QUOTE-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
-      } else {
-        // Fallback: Verwende indexOf
+      // Berechne End-Offset durch Durchlaufen aller Absätze
+      if (textStartOffset !== null && textStartOffset !== -1) {
+        let totalCharCount = 0;
+        let foundEndOffset = false;
+        
+        for (const para of parasInSelection) {
+          const endWalker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+          let endNode;
+          
+          while (endNode = endWalker.nextNode()) {
+            if (endNode === rangeClone.endContainer) {
+              textEndOffset = totalCharCount + rangeClone.endOffset;
+              foundEndOffset = true;
+              break;
+            }
+            totalCharCount += endNode.textContent.length;
+          }
+          
+          if (foundEndOffset) break;
+        }
+        
+        // Fallback: Berechne Länge aus dem Range direkt
+        if (!foundEndOffset || textEndOffset === null || textEndOffset === -1) {
+          const rangeText = rangeClone.toString();
+          textEndOffset = textStartOffset + rangeText.length;
+          console.log('[QUOTE-SAVE] Multi-Para Fallback: Range.toString().length =', rangeText.length);
+        }
+      }
+      
+      console.log('[QUOTE-SAVE] Multi-Para Offsets:', textStartOffset, '-', textEndOffset);
+      console.log('[QUOTE-SAVE] Multi-Para Text Länge:', paragraphText.length);
+      
+    } else {
+      // Einzelner Paragraph - ursprüngliche Logik
+      const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+      paragraphText = cleanParagraphText(rawParagraphText);
+      
+      console.log('[QUOTE-SAVE] Paragraph Text Länge:', paragraphText.length);
+      console.log('[QUOTE-SAVE] Selected Text:', text.substring(0, 50) + '...');
+      console.log('[QUOTE-SAVE] Paragraph Index:', paragraphIndex);
+      
+      // Versuche mit der Range die exakte Position zu finden
+      try {
+        const rangeClone = selectionRangeForContext.cloneRange();
+        const paraRange = document.createRange();
+        paraRange.selectNodeContents(paragraphNode);
+        
+        // Berechne Offset relativ zum Absatz
+        const rangeStartContainer = rangeClone.startContainer;
+        const rangeStartOffset = rangeClone.startOffset;
+        
+        // Erstelle einen TreeWalker um die Position zu berechnen
+        const walker = document.createTreeWalker(
+          paragraphNode,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let currentOffset = 0;
+        let node;
+        let foundStart = false;
+        
+        while (node = walker.nextNode()) {
+          if (node === rangeStartContainer || node.parentNode === rangeStartContainer) {
+            if (node === rangeStartContainer) {
+              textStartOffset = currentOffset + rangeStartOffset;
+              foundStart = true;
+            } else if (node.parentNode === rangeStartContainer) {
+              // Text-Node ist Kind des Start-Containers
+              let siblingOffset = 0;
+              let sibling = node.previousSibling;
+              while (sibling) {
+                siblingOffset += (sibling.textContent || '').length;
+                sibling = sibling.previousSibling;
+              }
+              textStartOffset = currentOffset + siblingOffset + rangeStartOffset;
+              foundStart = true;
+            }
+            break;
+          }
+          currentOffset += node.textContent.length;
+        }
+        
+        if (foundStart) {
+          textEndOffset = textStartOffset + text.length;
+          console.log('[QUOTE-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+        } else {
+          // Fallback: Verwende indexOf
+          textStartOffset = paragraphText.indexOf(text);
+          textEndOffset = textStartOffset + text.length;
+          console.log('[QUOTE-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+        }
+      } catch (e) {
+        console.warn('[QUOTE-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
         textStartOffset = paragraphText.indexOf(text);
         textEndOffset = textStartOffset + text.length;
-        console.log('[QUOTE-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
       }
-    } catch (e) {
-      console.warn('[QUOTE-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
-      textStartOffset = paragraphText.indexOf(text);
-      textEndOffset = textStartOffset + text.length;
     }
     
     if (textStartOffset === -1) {
@@ -713,6 +822,12 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
     }
     if (textEndOffset !== -1 && textEndOffset !== null) {
       insertData.text_end_offset = textEndOffset;
+    }
+    
+    // Füge end_paragraph_id hinzu bei Multi-Absatz-Markierung
+    if (endParagraphId) {
+      insertData.end_paragraph_id = endParagraphId;
+      console.log('[QUOTE-SAVE] Multi-Absatz: end_paragraph_id =', endParagraphId);
     }
     
     // context_before und context_after werden nicht mehr benötigt (deprecated)
@@ -830,10 +945,42 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       throw new Error('Keine Textauswahl vorhanden');
     }
     
+    // ============================================
+    // MULTI-PARAGRAPH ERKENNUNG
+    // ============================================
+    const range = selectionRangeForContext;
+    const startContainer = range.startContainer;
+    const endContainer = range.endContainer;
+    
+    // Finde Start- und End-Paragraph
+    let startPara = startContainer.nodeType === Node.TEXT_NODE 
+      ? (startContainer.parentElement.closest('[id^="para-"]') || startContainer.parentElement.closest('[id^="adv-para-"]'))
+      : (startContainer.closest('[id^="para-"]') || startContainer.closest('[id^="adv-para-"]'));
+    let endPara = endContainer.nodeType === Node.TEXT_NODE 
+      ? (endContainer.parentElement.closest('[id^="para-"]') || endContainer.parentElement.closest('[id^="adv-para-"]'))
+      : (endContainer.closest('[id^="para-"]') || endContainer.closest('[id^="adv-para-"]'));
+    
+    const isMultiParagraph = startPara && endPara && startPara !== endPara;
+    let endParagraphId = null;
+    
+    if (isMultiParagraph) {
+      console.log('[HIGHLIGHT-SAVE] Multi-Paragraph Selektion erkannt:', startPara?.id, 'bis', endPara?.id);
+      // Extrahiere die End-Paragraph-ID
+      if (endPara.id) {
+        endParagraphId = endPara.id.replace(/^(para-|adv-para-)/, '');
+      }
+    }
+    
     // Finde den Absatz-Container, der den markierten Text enthält
     let paragraphNode = selectionRangeForContext.commonAncestorContainer;
     while (paragraphNode && paragraphNode.nodeType !== Node.ELEMENT_NODE) {
       paragraphNode = paragraphNode.parentNode;
+    }
+    
+    // BEI MULTI-PARAGRAPH: Verwende startPara als paragraphNode (wichtig!)
+    if (isMultiParagraph && startPara) {
+      paragraphNode = startPara;
+      console.log('[HIGHLIGHT-SAVE] Multi-Paragraph: Verwende startPara als paragraphNode:', startPara.id);
     }
     
     console.log('[HIGHLIGHT-SAVE] Starte Absatz-Suche, initial node:', paragraphNode?.tagName, paragraphNode?.id);
@@ -856,11 +1003,11 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     }
     
     // Für Bücher: Suche zuerst nach para- ID oder data-index
-    // (überspringe bei Members Panel Volltext - dort haben wir bereits den richtigen Container)
-    let foundParaId = isInMembersPanelFullText; // Bei Members Panel schon gefunden
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph - dort haben wir bereits den richtigen Container)
+    let foundParaId = isInMembersPanelFullText || isMultiParagraph; // Bei Members Panel oder Multi-Paragraph schon gefunden
     let tempNode = paragraphNode;
     
-    if (!isInMembersPanelFullText) {
+    if (!isInMembersPanelFullText && !isMultiParagraph) {
       while (tempNode && tempNode !== document.body) {
         if (tempNode.nodeType === 1) { // Element node
           // Prüfe ob para- ID vorhanden (für Vorträge und Bücher)
@@ -907,8 +1054,8 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     }
     
     // Falls keine para- ID gefunden, suche nach dem Absatz-Element (p, div, etc.)
-    // (überspringe bei Members Panel Volltext)
-    if (!foundParaId && !isInMembersPanelFullText) {
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph)
+    if (!foundParaId && !isInMembersPanelFullText && !isMultiParagraph) {
       console.log('[HIGHLIGHT-SAVE] Keine para- ID gefunden, suche nach Block-Element');
       tempNode = paragraphNode;
       while (tempNode && tempNode !== document.body) {
@@ -928,8 +1075,8 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     }
     
     // Letzter Fallback: Verwende einfach das Element, das den Text enthält (auch wenn es kein Block-Element ist)
-    // (überspringe bei Members Panel Volltext)
-    if (!foundParaId && paragraphNode && !isInMembersPanelFullText) {
+    // (überspringe bei Members Panel Volltext oder Multi-Paragraph)
+    if (!foundParaId && paragraphNode && !isInMembersPanelFullText && !isMultiParagraph) {
       console.log('[HIGHLIGHT-SAVE] Fallback: Verwende aktuelles Element');
       // Prüfe ob das Element selbst Text enthält
       const nodeText = paragraphNode.textContent || '';
@@ -958,77 +1105,154 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
     
     console.log('[HIGHLIGHT-SAVE] Absatz gefunden:', paragraphNode.tagName, paragraphNode.id || paragraphNode.dataset?.index || 'keine ID');
     
-    // Hole den vollständigen Text des Absatzes
-    // Verwende textContent für konsistente Berechnung (ignoriert HTML-Tags)
-    // Entferne Vortragsüberschriften wie "NEUNTER VORTRAG" am Anfang
-    const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
-    const paragraphText = cleanParagraphText(rawParagraphText);
-    
-    console.log('[HIGHLIGHT-SAVE] Paragraph Text Länge:', paragraphText.length);
-    console.log('[HIGHLIGHT-SAVE] Selected Text:', text.substring(0, 50) + '...');
-    console.log('[HIGHLIGHT-SAVE] Paragraph Index:', paragraphIndex);
-    
-    // Finde die Position des markierten Textes im Absatz
-    // Verwende die Range-Informationen für präzisere Berechnung
+    // ============================================
+    // MULTI-PARAGRAPH: Text und Offsets berechnen
+    // ============================================
+    let paragraphText = '';
     let textStartOffset = -1;
     let textEndOffset = -1;
     
-    // Versuche zuerst mit der Range die exakte Position zu finden
-    try {
-      const range = selectionRangeForContext.cloneRange();
-      const paraRange = document.createRange();
-      paraRange.selectNodeContents(paragraphNode);
+    if (isMultiParagraph && startPara && endPara) {
+      console.log('[HIGHLIGHT-SAVE] Multi-Paragraph Modus');
       
-      // Berechne Offset relativ zum Absatz
-      const startContainer = range.startContainer;
-      const startOffset = range.startOffset;
+      // Sammle Text aller betroffenen Absätze
+      const contentContainer = startPara.closest('.lecture-content, .text-content, article, main, #summary-content') 
+        || startPara.parentElement;
+      const allParagraphs = contentContainer.querySelectorAll('[id^="para-"], [id^="adv-para-"]');
       
-      // Erstelle einen TreeWalker um die Position zu berechnen
-      const walker = document.createTreeWalker(
-        paragraphNode,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-      );
+      let collecting = false;
+      let combinedText = '';
+      let parasInSelection = [];
       
-      let currentOffset = 0;
-      let node;
-      let foundStart = false;
-      
-      while (node = walker.nextNode()) {
-        if (node === startContainer || node.parentNode === startContainer) {
-          if (node === startContainer) {
-            textStartOffset = currentOffset + startOffset;
-            foundStart = true;
-          } else if (node.parentNode === startContainer) {
-            // Text-Node ist Kind des Start-Containers
-            let siblingOffset = 0;
-            let sibling = node.previousSibling;
-            while (sibling) {
-              siblingOffset += (sibling.textContent || '').length;
-              sibling = sibling.previousSibling;
-            }
-            textStartOffset = currentOffset + siblingOffset + startOffset;
-            foundStart = true;
+      for (const para of allParagraphs) {
+        if (para === startPara) {
+          collecting = true;
+        }
+        
+        if (collecting) {
+          parasInSelection.push(para);
+          combinedText += para.textContent;
+          
+          if (para === endPara) {
+            break;
           }
+        }
+      }
+      
+      paragraphText = cleanParagraphText(combinedText);
+      
+      // Berechne Start-Offset im Start-Paragraph
+      const startWalker = document.createTreeWalker(startPara, NodeFilter.SHOW_TEXT, null, false);
+      let startCharCount = 0;
+      let startNode;
+      const rangeClone = selectionRangeForContext.cloneRange();
+      
+      while (startNode = startWalker.nextNode()) {
+        if (startNode === rangeClone.startContainer) {
+          textStartOffset = startCharCount + rangeClone.startOffset;
           break;
         }
-        currentOffset += node.textContent.length;
+        startCharCount += startNode.textContent.length;
       }
       
-      if (foundStart) {
-        textEndOffset = textStartOffset + text.length;
-        console.log('[HIGHLIGHT-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
-      } else {
-        // Fallback: Verwende indexOf
+      // Berechne End-Offset durch Durchlaufen aller Absätze
+      if (textStartOffset !== null && textStartOffset !== -1) {
+        let totalCharCount = 0;
+        let foundEndOffset = false;
+        
+        for (const para of parasInSelection) {
+          const endWalker = document.createTreeWalker(para, NodeFilter.SHOW_TEXT, null, false);
+          let endNode;
+          
+          while (endNode = endWalker.nextNode()) {
+            if (endNode === rangeClone.endContainer) {
+              textEndOffset = totalCharCount + rangeClone.endOffset;
+              foundEndOffset = true;
+              break;
+            }
+            totalCharCount += endNode.textContent.length;
+          }
+          
+          if (foundEndOffset) break;
+        }
+        
+        // Fallback: Berechne Länge aus dem Range direkt
+        if (!foundEndOffset || textEndOffset === null || textEndOffset === -1) {
+          const rangeText = rangeClone.toString();
+          textEndOffset = textStartOffset + rangeText.length;
+          console.log('[HIGHLIGHT-SAVE] Multi-Para Fallback: Range.toString().length =', rangeText.length);
+        }
+      }
+      
+      console.log('[HIGHLIGHT-SAVE] Multi-Para Offsets:', textStartOffset, '-', textEndOffset);
+      console.log('[HIGHLIGHT-SAVE] Multi-Para Text Länge:', paragraphText.length);
+      
+    } else {
+      // Einzelner Paragraph - ursprüngliche Logik
+      const rawParagraphText = paragraphNode.textContent || paragraphNode.innerText || '';
+      paragraphText = cleanParagraphText(rawParagraphText);
+      
+      console.log('[HIGHLIGHT-SAVE] Paragraph Text Länge:', paragraphText.length);
+      console.log('[HIGHLIGHT-SAVE] Selected Text:', text.substring(0, 50) + '...');
+      console.log('[HIGHLIGHT-SAVE] Paragraph Index:', paragraphIndex);
+      
+      // Versuche mit der Range die exakte Position zu finden
+      try {
+        const rangeClone = selectionRangeForContext.cloneRange();
+        const paraRange = document.createRange();
+        paraRange.selectNodeContents(paragraphNode);
+        
+        // Berechne Offset relativ zum Absatz
+        const rangeStartContainer = rangeClone.startContainer;
+        const rangeStartOffset = rangeClone.startOffset;
+        
+        // Erstelle einen TreeWalker um die Position zu berechnen
+        const walker = document.createTreeWalker(
+          paragraphNode,
+          NodeFilter.SHOW_TEXT,
+          null,
+          false
+        );
+        
+        let currentOffset = 0;
+        let node;
+        let foundStart = false;
+        
+        while (node = walker.nextNode()) {
+          if (node === rangeStartContainer || node.parentNode === rangeStartContainer) {
+            if (node === rangeStartContainer) {
+              textStartOffset = currentOffset + rangeStartOffset;
+              foundStart = true;
+            } else if (node.parentNode === rangeStartContainer) {
+              // Text-Node ist Kind des Start-Containers
+              let siblingOffset = 0;
+              let sibling = node.previousSibling;
+              while (sibling) {
+                siblingOffset += (sibling.textContent || '').length;
+                sibling = sibling.previousSibling;
+              }
+              textStartOffset = currentOffset + siblingOffset + rangeStartOffset;
+              foundStart = true;
+            }
+            break;
+          }
+          currentOffset += node.textContent.length;
+        }
+        
+        if (foundStart) {
+          textEndOffset = textStartOffset + text.length;
+          console.log('[HIGHLIGHT-SAVE] Offsets aus Range berechnet:', textStartOffset, textEndOffset);
+        } else {
+          // Fallback: Verwende indexOf
+          textStartOffset = paragraphText.indexOf(text);
+          textEndOffset = textStartOffset + text.length;
+          console.log('[HIGHLIGHT-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
+        }
+      } catch (e) {
+        console.warn('[HIGHLIGHT-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
         textStartOffset = paragraphText.indexOf(text);
         textEndOffset = textStartOffset + text.length;
-        console.log('[HIGHLIGHT-SAVE] Offsets mit indexOf berechnet:', textStartOffset, textEndOffset);
       }
-    } catch (e) {
-      console.warn('[HIGHLIGHT-SAVE] Fehler bei Range-Berechnung, verwende indexOf:', e);
-      textStartOffset = paragraphText.indexOf(text);
-      textEndOffset = textStartOffset + text.length;
     }
     
     if (textStartOffset === -1) {
@@ -1069,6 +1293,12 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
         tags: keywords,
         groups: groups || []
       };
+      
+      // Füge end_paragraph_id hinzu bei Multi-Absatz-Markierung
+      if (endParagraphId) {
+        insertData.end_paragraph_id = endParagraphId;
+        console.log('[HIGHLIGHT-SAVE] Multi-Absatz: end_paragraph_id =', endParagraphId);
+      }
       
       // Füge lecture_date hinzu, falls verfügbar
       if (lectureDate) {
@@ -1148,6 +1378,12 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       tags: keywords,
       groups: groups || []
     };
+    
+    // Füge end_paragraph_id hinzu bei Multi-Absatz-Markierung
+    if (endParagraphId) {
+      insertData.end_paragraph_id = endParagraphId;
+      console.log('[HIGHLIGHT-SAVE] Multi-Absatz: end_paragraph_id =', endParagraphId);
+    }
     
     // Füge lecture_date hinzu, falls verfügbar
     if (lectureDate) {
@@ -1523,6 +1759,7 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
   let textStartOffset = null;
   let textEndOffset = null;
   let paragraphText = null;
+  let endParagraphId = null;  // Für Multi-Absatz-Notizen
   
   if (paragraphId && selectionRangeForContext) {
     try {
@@ -1573,7 +1810,13 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
         }
         
         if (isMultiParagraph) {
-          console.log('[MB-CONTEXT] Multi-Paragraph Selektion erkannt');
+          console.log('[MB-CONTEXT] Multi-Paragraph Selektion erkannt:', startPara?.id, 'bis', endPara?.id);
+          
+          // Extrahiere die End-Paragraph-ID
+          if (endPara && endPara.id) {
+            endParagraphId = endPara.id.replace(/^(para-|adv-para-)/, '');
+            console.log('[MB-CONTEXT] End-Paragraph-ID:', endParagraphId);
+          }
           
           // Sammle Text aller betroffenen Absätze (vom Start-Paragraph aus)
           const contentContainer = paragraphElement.closest('.lecture-content, .text-content, article, main, #summary-content') 
@@ -1719,8 +1962,8 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
   }
   
   // Speichere Notiz mit Gruppen
-  console.log('[MB-NOTE-SAVE] Speichere Notiz mit:', { paragraphId, textStartOffset, textEndOffset, selectedColor, groupsArray });
-  const result = await createNote(title, content, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, selectedColor, groupsArray.length > 0 ? groupsArray : null);
+  console.log('[MB-NOTE-SAVE] Speichere Notiz mit:', { paragraphId, textStartOffset, textEndOffset, selectedColor, groupsArray, endParagraphId });
+  const result = await createNote(title, content, false, paragraphId, paragraphText, textStartOffset, textEndOffset, lectureDate, tags.length > 0 ? tags : null, selectedColor, groupsArray.length > 0 ? groupsArray : null, endParagraphId);
   
   console.log('[MB-NOTE-SAVE] Ergebnis:', result);
   
