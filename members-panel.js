@@ -1266,7 +1266,6 @@ function renderHighlightsList(container, sortedData) {
             </div>
             <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
           </div>
-          ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
           ${shouldShowLink
             ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
             : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
@@ -9645,7 +9644,6 @@ async function showGroupFilteredItems(group) {
                 </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
               <div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
               ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -9689,7 +9687,6 @@ async function showGroupFilteredItems(group) {
                 </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
               <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -10123,7 +10120,6 @@ async function showKeywordFilteredItems(keyword) {
                 </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              ${quote.lecture_title ? `<div class="member-item-subtitle">${quote.lecture_title}</div>` : ''}
               ${shouldShowLink
                 ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
                 : `<div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
@@ -10184,7 +10180,6 @@ async function showKeywordFilteredItems(keyword) {
                 </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              ${highlight.lecture_title ? `<div class="member-item-subtitle">${highlight.lecture_title}</div>` : ''}
               ${shouldShowLink
                 ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
                 : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
