@@ -7200,6 +7200,10 @@ app.post('/api/concepts-batch-add', async (req, res) => {
     // Speichere aktualisierte concepts-database.json
     await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
     
+    // WICHTIG: In-Memory Cache aktualisieren!
+    conceptsDatabase = allConcepts;
+    console.log(`[CONCEPTS-BATCH-ADD] Cache aktualisiert, jetzt ${conceptsDatabase.length} Concepts`);
+    
     results.endTime = new Date().toISOString();
     results.duration = new Date(results.endTime) - new Date(results.startTime);
     
@@ -7345,6 +7349,9 @@ app.post('/api/concepts-add', async (req, res) => {
     // Speichere direkt in concepts-database.json
     await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
     
+    // WICHTIG: In-Memory Cache aktualisieren!
+    conceptsDatabase = allConcepts;
+    console.log(`[CONCEPTS-ADD] Cache aktualisiert, jetzt ${conceptsDatabase.length} Concepts`);
     
     res.json({ 
       success: true, 
@@ -7471,6 +7478,10 @@ app.post('/api/concepts-delete', async (req, res) => {
     if (beforeCount !== allConcepts.length) {
       await fs.writeFile(conceptsFile, JSON.stringify(allConcepts, null, 2), 'utf8');
       
+      // WICHTIG: In-Memory Cache aktualisieren!
+      conceptsDatabase = allConcepts;
+      console.log(`[CONCEPTS-DELETE] Cache aktualisiert, jetzt ${conceptsDatabase.length} Concepts`);
+      
       // Wenn es ein Obsidian-Concept war, zur Blacklist hinzufügen
       if (conceptToDelete && conceptToDelete.source === 'obsidian-az') {
         const blacklistFile = path.join(__dirname, 'concepts-blacklist.json');
@@ -7488,6 +7499,7 @@ app.post('/api/concepts-delete', async (req, res) => {
         }
       }
     } else {
+      console.log(`[CONCEPTS-DELETE] Concept "${cleanKeyword}" nicht gefunden`);
     }
 
     return res.json({
