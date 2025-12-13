@@ -6581,10 +6581,22 @@ Original
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
-    let searchHistory = {
-      word1: [],
-      word2: []
-    };
+    // Suchhistorie aus localStorage laden (falls vorhanden)
+    let searchHistory = (function() {
+      try {
+        const saved = localStorage.getItem('gaSearchHistory');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          return {
+            word1: Array.isArray(parsed.word1) ? parsed.word1 : [],
+            word2: Array.isArray(parsed.word2) ? parsed.word2 : []
+          };
+        }
+      } catch (e) {
+        console.warn('Suchhistorie konnte nicht geladen werden:', e);
+      }
+      return { word1: [], word2: [] };
+    })();
     let showingSummaryInMain = false;
     let currentLectureSummary = null;
     let lastHighlightedIndex = null;
@@ -7175,6 +7187,8 @@ function normalizeGANumber(gaNumber) {
     });
     document.addEventListener('DOMContentLoaded', function() {
       updateHeaderPosition();
+      // Suchhistorie aus localStorage laden und datalist aktualisieren
+      updateHistoryDatalist();
     });
     
     // Header-Position nach kurzer Verzögerung auch aktualisieren (für dynamische Layouts)
@@ -7190,6 +7204,13 @@ function normalizeGANumber(gaNumber) {
       searchHistory[field] = searchHistory[field].filter(item => item !== trimmed);
       searchHistory[field].unshift(trimmed);
       searchHistory[field] = searchHistory[field].slice(0, 10);
+      
+      // Suchhistorie in localStorage speichern
+      try {
+        localStorage.setItem('gaSearchHistory', JSON.stringify(searchHistory));
+      } catch (e) {
+        console.warn('Suchhistorie konnte nicht gespeichert werden:', e);
+      }
       
       updateHistoryDatalist();
     }
