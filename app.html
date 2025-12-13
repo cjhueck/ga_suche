@@ -206,15 +206,15 @@
     #viewer .concept-main-title,
     .concept-main-title {
       font-weight: 700 !important;
-      font-size: 1.6em !important;
+      font-size: 1.3rem !important;
       margin-bottom: 1rem !important;
       padding: 0.5rem 0 !important;
       color: var(--accent-color) !important;
     }
     
-    /* Schriftgröße für span-Elemente innerhalb von concept-main-title erhöhen */
+    /* Schriftgröße für span-Elemente innerhalb von concept-main-title - gleich wie Container */
     .concept-main-title span {
-      font-size: 1.3rem !important;
+      font-size: inherit !important;
       font-weight: inherit;
     }
     
@@ -223,7 +223,7 @@
     body:has(.tab-button.active[onclick*="schlagworte"]) .concept-main-title span,
     .tab-schlagworte-active #viewer .concept-main-title span,
     .tab-schlagworte-active .concept-main-title span {
-      font-size: 1.3rem !important;
+      font-size: inherit !important;
     }
     
     /* Concept Feld-Wrapper */
@@ -519,7 +519,8 @@ body.dark-mode .concept-network-link {
   gap: 4px;
   padding: 2px 8px;
   margin-left: 8px;
-  font-size: 0.75em;
+  font-size: 0.85rem;
+  font-weight: 400;
   border: 1px solid var(--accent-color);
   border-radius: 12px;
   background: transparent;
@@ -940,11 +941,13 @@ body.dark-mode .connection-modal-header {
       font-size: inherit !important;
     }
     
-    /* Alle Texte im Viewer auf 0.9rem setzen, wenn Index-Tab oder Themen-Tab aktiv ist */
+    /* Alle Texte im Viewer auf 0.9rem setzen, wenn Themen-Tab, Timeline-Tab oder Index-Tab aktiv ist */
     body:has(.tab-button.active[onclick*="schlagworte"]) #viewer,
     body:has(.tab-button.active[onclick*="schlagworte"]) #viewer *,
     body:has(.tab-button.active[onclick*="thematic"]) #viewer,
-    body:has(.tab-button.active[onclick*="thematic"]) #viewer * {
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer *,
+    body:has(.tab-button.active[onclick*="timeline"]) #viewer,
+    body:has(.tab-button.active[onclick*="timeline"]) #viewer * {
       font-size: 0.9rem !important;
     }
     
@@ -952,11 +955,43 @@ body.dark-mode .connection-modal-header {
     .tab-schlagworte-active #viewer,
     .tab-schlagworte-active #viewer *,
     .tab-thematic-active #viewer,
-    .tab-thematic-active #viewer * {
+    .tab-thematic-active #viewer *,
+    .tab-timeline-active #viewer,
+    .tab-timeline-active #viewer * {
       font-size: 0.9rem !important;
     }
     
-    /* Überschreibe die Themen-Tab Schriftgröße für Überschrift - analog zu Index-Tab .concept-main-title */
+    /* H3 und H4 Zwischenüberschriften: 1.0rem in Themen, Timeline und Index */
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer h3,
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer h4,
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer h3,
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer h4,
+    body:has(.tab-button.active[onclick*="timeline"]) #viewer h3,
+    body:has(.tab-button.active[onclick*="timeline"]) #viewer h4,
+    .tab-schlagworte-active #viewer h3,
+    .tab-schlagworte-active #viewer h4,
+    .tab-thematic-active #viewer h3,
+    .tab-thematic-active #viewer h4,
+    .tab-timeline-active #viewer h3,
+    .tab-timeline-active #viewer h4 {
+      font-size: 1.0rem !important;
+    }
+    
+    /* AUSNAHME: concept-main-title und alle Kinder behalten ihre Größe (1.3rem) */
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title,
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title *,
+    .tab-schlagworte-active #viewer .concept-main-title,
+    .tab-schlagworte-active #viewer .concept-main-title * {
+      font-size: 1.3rem !important;
+    }
+    
+    /* AUSNAHME: Netzwerk-Buttons in concept-main-title bleiben kleiner */
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer .concept-main-title .concept-network-trigger-btn,
+    .tab-schlagworte-active #viewer .concept-main-title .concept-network-trigger-btn {
+      font-size: 0.85rem !important;
+    }
+    
+    /* Überschreibe die Themen-Tab Schriftgröße für Hauptüberschrift */
     body:has(.tab-button.active[onclick*="thematic"]) #viewer .semantic-answer h1,
     body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h1,
     .tab-thematic-active #viewer .semantic-answer h1,
@@ -968,13 +1003,6 @@ body.dark-mode .connection-modal-header {
     body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h2,
     .tab-thematic-active #viewer .semantic-answer h2,
     .tab-thematic-active .semantic-answer h2 {
-      font-size: 1rem !important;
-    }
-    
-    body:has(.tab-button.active[onclick*="thematic"]) #viewer .semantic-answer h3,
-    body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h3,
-    .tab-thematic-active #viewer .semantic-answer h3,
-    .tab-thematic-active .semantic-answer h3 {
       font-size: 1rem !important;
     }
     
@@ -7540,7 +7568,7 @@ function normalizeGANumber(gaNumber) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
-      // Setze Body-Klasse für Index-Tab und Themen-Tab (für CSS-Fallback)
+      // Setze Body-Klasse für Index-Tab, Themen-Tab und Timeline-Tab (für CSS-Fallback)
       if (mode === 'schlagworte') {
         document.body.classList.add('tab-schlagworte-active');
       } else {
@@ -7550,6 +7578,11 @@ function normalizeGANumber(gaNumber) {
         document.body.classList.add('tab-thematic-active');
       } else {
         document.body.classList.remove('tab-thematic-active');
+      }
+      if (mode === 'timeline') {
+        document.body.classList.add('tab-timeline-active');
+      } else {
+        document.body.classList.remove('tab-timeline-active');
       }
       
       document.querySelectorAll('.tab-content').forEach(content => {
@@ -17418,7 +17451,7 @@ function scrollToChronologicalYear(year) {
         ? `<button class="concept-network-trigger-btn" onclick="showConceptNetwork('${concept}')" title="KI-generiertes Konzept-Netzwerk">Netzwerk</button>
            <button class="concept-network-trigger-btn verlinkungsnetz" onclick="showBidirectionalNetworkGraph('${concept}')" title="Verlinkungsnetzwerk aus Index-Einträgen">Verlinkungsnetz</button>`
         : '';
-      html += `<div class="concept-main-title" style="font-size: 1.6em !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
+      html += `<div class="concept-main-title" style="font-size: 1.3rem !important; font-weight: 700 !important; color: var(--accent-color) !important; display: flex; align-items: center; gap: 12px;">
         <span>${concept}</span>
         ${netzwerkButtons}
       </div>`;
