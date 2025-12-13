@@ -21198,40 +21198,48 @@ function showSummaryView() {
   const titleElement = document.getElementById('document-title');
   const summaryContent = document.getElementById('summary-content');
   
-  // WICHTIG: Wenn Members Panel aktiv ist, schließe es zuerst, damit der Summary angezeigt werden kann
-  // Prüfe auf verschiedene Weisen, ob Members Panel aktiv ist
-  const hasMembersPanelClass = summaryContent && summaryContent.classList.contains('has-members-panel');
-  const hasMembersContent = summaryContent && (
-    summaryContent.querySelector('#members-tab-content') || 
-    summaryContent.querySelector('.members-login-form') ||
-    summaryContent.querySelector('.member-item')
-  );
-  const isMembersPanelOpen = hasMembersPanelClass || hasMembersContent ||
-                              (typeof window.membersPanelActive !== 'undefined' && window.membersPanelActive) ||
-                              (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) ||
-                              (typeof window.isMembersPanelActive === 'function' && window.isMembersPanelActive());
-  
-  console.log('[DISPLAY-SUMMARY] Check: hasMembersPanelClass =', hasMembersPanelClass,
-              ', hasMembersContent =', !!hasMembersContent,
-              ', window.membersPanelActive =', window.membersPanelActive,
-              ', isMembersPanelOpen =', isMembersPanelOpen);
-  
-  if (isMembersPanelOpen) {
-    console.log('[DISPLAY-SUMMARY] Members Panel ist aktiv, schließe es zuerst');
-    if (typeof closeMembersPanel === 'function') {
-      closeMembersPanel();
-    } else if (typeof window.closeMembersPanel === 'function') {
-      window.closeMembersPanel();
-    }
-    // Setze membersPanelActive explizit auf false
-    window.membersPanelActive = false;
-    // Entferne has-members-panel Klasse
-    if (summaryContent) {
-      summaryContent.classList.remove('has-members-panel');
-    }
-    const summaryPanel = document.getElementById('summary-panel');
-    if (summaryPanel) {
-      summaryPanel.classList.remove('has-members-panel');
+  // WICHTIG: Wenn Navigation aus dem Members Panel läuft, NICHT das Panel schließen!
+  // Das Panel soll offen bleiben, wenn man auf einen Link im Panel klickt
+  if (window.membersNavigating) {
+    console.log('[DISPLAY-SUMMARY] Navigation aus Members Panel läuft - Panel bleibt offen, überspringe Panel-Schließen');
+    // NICHT return - wir müssen den Vortrag trotzdem im Viewer anzeigen!
+    // Aber das Panel soll offen bleiben
+  } else {
+    // WICHTIG: Wenn Members Panel aktiv ist, schließe es zuerst, damit der Summary angezeigt werden kann
+    // Prüfe auf verschiedene Weisen, ob Members Panel aktiv ist
+    const hasMembersPanelClass = summaryContent && summaryContent.classList.contains('has-members-panel');
+    const hasMembersContent = summaryContent && (
+      summaryContent.querySelector('#members-tab-content') || 
+      summaryContent.querySelector('.members-login-form') ||
+      summaryContent.querySelector('.member-item')
+    );
+    const isMembersPanelOpen = hasMembersPanelClass || hasMembersContent ||
+                                (typeof window.membersPanelActive !== 'undefined' && window.membersPanelActive) ||
+                                (typeof isMembersPanelActive === 'function' && isMembersPanelActive()) ||
+                                (typeof window.isMembersPanelActive === 'function' && window.isMembersPanelActive());
+    
+    console.log('[DISPLAY-SUMMARY] Check: hasMembersPanelClass =', hasMembersPanelClass,
+                ', hasMembersContent =', !!hasMembersContent,
+                ', window.membersPanelActive =', window.membersPanelActive,
+                ', isMembersPanelOpen =', isMembersPanelOpen);
+    
+    if (isMembersPanelOpen) {
+      console.log('[DISPLAY-SUMMARY] Members Panel ist aktiv, schließe es zuerst');
+      if (typeof closeMembersPanel === 'function') {
+        closeMembersPanel();
+      } else if (typeof window.closeMembersPanel === 'function') {
+        window.closeMembersPanel();
+      }
+      // Setze membersPanelActive explizit auf false
+      window.membersPanelActive = false;
+      // Entferne has-members-panel Klasse
+      if (summaryContent) {
+        summaryContent.classList.remove('has-members-panel');
+      }
+      const summaryPanel = document.getElementById('summary-panel');
+      if (summaryPanel) {
+        summaryPanel.classList.remove('has-members-panel');
+      }
     }
   }
   
