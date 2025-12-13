@@ -5669,6 +5669,107 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 
 /* CSS-Regel für Jahres-Buttons Panel - padding-top wird komplett über Inline-Styles gesteuert */
 /* KEINE CSS-Regel hier, da sie die Inline-Styles überschreiben könnte */
+
+/* ============================================================================
+   ERSTBESUCH-HINWEIS POPUP
+   ============================================================================ */
+
+.hint-popup {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--background-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(70, 120, 134, 0.25);
+  padding: 14px 18px;
+  max-width: 340px;
+  z-index: 10001;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: hintPopupSlideIn 0.4s ease forwards;
+}
+
+@keyframes hintPopupSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hint-popup.hiding {
+  animation: hintPopupSlideOut 0.3s ease forwards;
+}
+
+@keyframes hintPopupSlideOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+.hint-popup-icon {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: var(--accent-color);
+  margin-top: 1px;
+}
+
+.hint-popup-content {
+  flex: 1;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-color);
+}
+
+.hint-popup-content strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.hint-popup-close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--secondary-text);
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  margin-top: -2px;
+  margin-right: -4px;
+}
+
+.hint-popup-close:hover {
+  color: var(--accent-color);
+}
+
+body.dark-mode .hint-popup {
+  background: var(--dark-background-color);
+  border-color: var(--dark-accent-color);
+  box-shadow: 0 4px 20px rgba(107, 163, 184, 0.3);
+}
+
+body.dark-mode .hint-popup-icon {
+  color: var(--dark-accent-color);
+}
+
+body.dark-mode .hint-popup-content {
+  color: var(--dark-text-color);
+}
+
+body.dark-mode .hint-popup-content strong {
+  color: var(--dark-accent-color);
+}
+
 </style>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
@@ -34829,6 +34930,69 @@ async function addKeywordToLecture() {
 </script>
 
 <!-- Debug & Test Functions -->
+
+<!-- Erstbesuch-Hinweis Popup -->
+<script>
+(function() {
+  const HINT_STORAGE_KEY = 'ga_suche_ctrl_click_hint_shown';
+  
+  // Prüfe, ob der Hinweis bereits gezeigt wurde
+  if (localStorage.getItem(HINT_STORAGE_KEY)) {
+    return;
+  }
+  
+  // Warte bis DOM geladen ist
+  function showHintPopup() {
+    // Erstelle das Popup-Element
+    const popup = document.createElement('div');
+    popup.className = 'hint-popup';
+    popup.innerHTML = `
+      <svg class="hint-popup-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 16v-4"></path>
+        <path d="M12 8h.01"></path>
+      </svg>
+      <div class="hint-popup-content">
+        Bitte markieren Sie Fehler in den Texten mit <strong>Strg+Klick</strong> – das hilft uns bei der Korrektur.
+      </div>
+      <button class="hint-popup-close" title="Schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    // Schließen-Funktion
+    function closePopup() {
+      popup.classList.add('hiding');
+      localStorage.setItem(HINT_STORAGE_KEY, 'true');
+      setTimeout(() => {
+        if (popup.parentNode) {
+          popup.parentNode.removeChild(popup);
+        }
+      }, 300);
+    }
+    
+    // Event-Listener für Schließen-Button
+    popup.querySelector('.hint-popup-close').addEventListener('click', closePopup);
+    
+    // Automatisch nach 12 Sekunden ausblenden
+    setTimeout(closePopup, 12000);
+  }
+  
+  // Zeige Popup nach kurzer Verzögerung
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(showHintPopup, 1500);
+    });
+  } else {
+    setTimeout(showHintPopup, 1500);
+  }
+})();
+</script>
 
 </body>
 </html>
