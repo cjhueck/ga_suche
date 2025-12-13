@@ -940,16 +940,42 @@ body.dark-mode .connection-modal-header {
       font-size: inherit !important;
     }
     
-    /* Alle Texte im Viewer auf 0.9rem setzen, wenn Index-Tab aktiv ist */
+    /* Alle Texte im Viewer auf 0.9rem setzen, wenn Index-Tab oder Themen-Tab aktiv ist */
     body:has(.tab-button.active[onclick*="schlagworte"]) #viewer,
-    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer * {
+    body:has(.tab-button.active[onclick*="schlagworte"]) #viewer *,
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer,
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer * {
       font-size: 0.9rem !important;
     }
     
     /* Fallback für Browser ohne :has() Support */
     .tab-schlagworte-active #viewer,
-    .tab-schlagworte-active #viewer * {
+    .tab-schlagworte-active #viewer *,
+    .tab-thematic-active #viewer,
+    .tab-thematic-active #viewer * {
       font-size: 0.9rem !important;
+    }
+    
+    /* Überschreibe die Themen-Tab Schriftgröße für Überschrift - analog zu Index-Tab .concept-main-title */
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer .semantic-answer h1,
+    body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h1,
+    .tab-thematic-active #viewer .semantic-answer h1,
+    .tab-thematic-active .semantic-answer h1 {
+      font-size: 1.2rem !important;
+    }
+    
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer .semantic-answer h2,
+    body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h2,
+    .tab-thematic-active #viewer .semantic-answer h2,
+    .tab-thematic-active .semantic-answer h2 {
+      font-size: 1rem !important;
+    }
+    
+    body:has(.tab-button.active[onclick*="thematic"]) #viewer .semantic-answer h3,
+    body:has(.tab-button.active[onclick*="thematic"]) .semantic-answer h3,
+    .tab-thematic-active #viewer .semantic-answer h3,
+    .tab-thematic-active .semantic-answer h3 {
+      font-size: 1rem !important;
     }
     
     /* Überschriften bleiben bei ursprünglicher Größe */
@@ -2754,29 +2780,9 @@ body.dark-mode .loading-message {
       opacity: 0.8;
     }
     
-    /* PDF Export Button */
-    #exportThemaPdfBtn {
-      white-space: nowrap !important;
-      word-break: keep-all !important;
-    }
-    
     #deleteThemaBtn {
       word-break: keep-all !important;
       overflow-wrap: break-word !important;
-    }
-    
-    #exportThemaPdfBtn:hover {
-      background: #467886 !important;
-      color: white !important;
-    }
-    
-    #exportThemaPdfBtn:hover svg {
-      stroke: white !important;
-    }
-    
-    #exportThemaPdfBtn:disabled {
-      opacity: 0.6 !important;
-      cursor: not-allowed !important;
     }
     
     .depth-btn:disabled {
@@ -6358,6 +6364,7 @@ Original
     window.currentSidePanelLectureTitle = null;
     window.currentSidePanelLectureDate = null;
     let currentTimelineKeyword = null; // Speichert das aktuelle Timeline-Schlagwort
+    let timelineCache = {}; // Cache für Timeline-Abfragen (Keyword -> Daten)
     let currentThematicQuery = '';
     let steinerImages = {}; // Bilder-Datenbank
     let currentThematicGAFilter = '';
@@ -7539,11 +7546,16 @@ function normalizeGANumber(gaNumber) {
       document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.querySelector(`[onclick="switchTab('${mode}')"]`).classList.add('active');
       
-      // Setze Body-Klasse für Index-Tab (für CSS-Fallback)
+      // Setze Body-Klasse für Index-Tab und Themen-Tab (für CSS-Fallback)
       if (mode === 'schlagworte') {
         document.body.classList.add('tab-schlagworte-active');
       } else {
         document.body.classList.remove('tab-schlagworte-active');
+      }
+      if (mode === 'thematic') {
+        document.body.classList.add('tab-thematic-active');
+      } else {
+        document.body.classList.remove('tab-thematic-active');
       }
       
       document.querySelectorAll('.tab-content').forEach(content => {
@@ -17039,11 +17051,34 @@ function scrollToChronologicalYear(year) {
   // Übersicht, Original, H4-Toggle und Download: NUR anzeigen wenn Vortrag oder Buch im Main Viewer geladen ist
   const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
   
+  // Prüfe ob wir in Themen, Timeline oder Index-Tab sind (für Download-Button)
+  const schlagworteTab = document.getElementById('schlagworte-tab');
+  const isInIndexTab = schlagworteTab && schlagworteTab.classList.contains('active');
+  const thematicTab = document.getElementById('thematic-tab');
+  const isInThematicTab = thematicTab && thematicTab.classList.contains('active');
+  const timelineTab = document.getElementById('timeline-tab');
+  const isInTimelineTab = timelineTab && timelineTab.classList.contains('active');
+  
+  // Prüfe ob Viewer Inhalt hat (für Themen/Timeline/Index-Tabs)
+  const viewer = document.getElementById('viewer');
+  const viewerHasContent = viewer && viewer.innerHTML.trim() !== '' && 
+    !viewer.innerHTML.includes('Wählen Sie einen GA-Band') && 
+    !viewer.innerHTML.includes('Wählen Sie einen Vortrag') &&
+    !viewer.innerHTML.includes('Keine Ergebnisse');
+  
   if (!currentLectureData) {
     // Kein Vortrag/Buch geladen - verstecke diese Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
-    if (viewerDownloadBtn) viewerDownloadBtn.style.display = 'none';
+    
+    // Download-Button: In Themen/Timeline/Index anzeigen wenn Viewer Inhalt hat
+    if (viewerDownloadBtn) {
+      if ((isInThematicTab || isInTimelineTab || isInIndexTab) && viewerHasContent) {
+        viewerDownloadBtn.style.display = 'inline-flex';
+      } else {
+        viewerDownloadBtn.style.display = 'none';
+      }
+    }
     
     const h4ToggleBtn = document.getElementById('h4ToggleBtn');
     if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
@@ -19264,6 +19299,20 @@ function scrollToChronologicalYear(year) {
     
     // Download-Optionen Modal anzeigen
     window.showDownloadOptions = function() {
+      // Prüfe welcher Tab aktiv ist
+      const schlagworteTab = document.getElementById('schlagworte-tab');
+      const isInIndexTab = schlagworteTab && schlagworteTab.classList.contains('active');
+      const thematicTab = document.getElementById('thematic-tab');
+      const isInThematicTab = thematicTab && thematicTab.classList.contains('active');
+      const timelineTab = document.getElementById('timeline-tab');
+      const isInTimelineTab = timelineTab && timelineTab.classList.contains('active');
+      
+      // Für Themen, Timeline und Index-Tabs: Viewer-Inhalt herunterladen
+      if (isInThematicTab || isInTimelineTab || isInIndexTab) {
+        showViewerDownloadOptions();
+        return;
+      }
+      
       // Prüfe ob ein Text zum Downloaden vorhanden ist
       if (!currentLectureData) {
         alert('Kein Text zum Herunterladen vorhanden.');
@@ -19357,6 +19406,197 @@ function scrollToChronologicalYear(year) {
       const modal = document.getElementById('downloadOptionsModal');
       if (modal) {
         modal.remove();
+      }
+    };
+    
+    // Viewer-Inhalt Download für Themen, Timeline und Index-Tabs
+    window.showViewerDownloadOptions = function() {
+      const viewer = document.getElementById('viewer');
+      if (!viewer || !viewer.innerHTML.trim()) {
+        alert('Kein Inhalt zum Herunterladen vorhanden.');
+        return;
+      }
+      
+      // Bestimme Tab-Namen für Dateiname
+      const schlagworteTab = document.getElementById('schlagworte-tab');
+      const isInIndexTab = schlagworteTab && schlagworteTab.classList.contains('active');
+      const thematicTab = document.getElementById('thematic-tab');
+      const isInThematicTab = thematicTab && thematicTab.classList.contains('active');
+      const timelineTab = document.getElementById('timeline-tab');
+      const isInTimelineTab = timelineTab && timelineTab.classList.contains('active');
+      
+      let tabName = 'Inhalt';
+      if (isInThematicTab) tabName = 'Themen';
+      else if (isInTimelineTab) tabName = 'Timeline';
+      else if (isInIndexTab) tabName = 'Index';
+      
+      // Erstelle Modal
+      const existingModal = document.getElementById('downloadOptionsModal');
+      if (existingModal) existingModal.remove();
+      
+      const modal = document.createElement('div');
+      modal.id = 'downloadOptionsModal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.2s ease;
+      `;
+      
+      const modalContent = document.createElement('div');
+      modalContent.style.cssText = `
+        background: var(--background-color, #FAF8F3);
+        border-radius: 8px;
+        padding: 1.5rem;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      `;
+      
+      modalContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="margin: 0; color: var(--heading-color, #467886); font-size: 1.1rem;">${tabName} herunterladen</h3>
+          <button onclick="closeDownloadModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color, #333); line-height: 1;">&times;</button>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <button onclick="downloadViewerContent('pdf', '${tabName}')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Als PDF herunterladen
+          </button>
+          <button onclick="downloadViewerContent('txt', '${tabName}')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Als TXT herunterladen
+          </button>
+          <button onclick="downloadViewerContent('md', '${tabName}')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Als Markdown herunterladen
+          </button>
+        </div>
+      `;
+      
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeDownloadModal();
+      });
+      
+      const escHandler = (e) => {
+        if (e.key === 'Escape') {
+          closeDownloadModal();
+          document.removeEventListener('keydown', escHandler);
+        }
+      };
+      document.addEventListener('keydown', escHandler);
+    };
+    
+    // Viewer-Inhalt als Datei herunterladen
+    window.downloadViewerContent = async function(format, tabName) {
+      const viewer = document.getElementById('viewer');
+      if (!viewer) return;
+      
+      closeDownloadModal();
+      
+      // Extrahiere Text aus dem Viewer
+      const clone = viewer.cloneNode(true);
+      
+      // Entferne Buttons und interaktive Elemente
+      clone.querySelectorAll('button, .download-btn, .copy-btn').forEach(el => el.remove());
+      
+      // Hole den Textinhalt
+      let textContent = '';
+      
+      // Verarbeite den Inhalt je nach Format
+      if (format === 'md') {
+        // Markdown: Konvertiere HTML zu Markdown-ähnlichem Text
+        textContent = `# ${tabName}\n\n`;
+        
+        // Durchlaufe die Hauptelemente
+        clone.querySelectorAll('h1, h2, h3, h4, p, div, li').forEach(el => {
+          const text = el.innerText.trim();
+          if (!text) return;
+          
+          if (el.tagName === 'H1') textContent += `# ${text}\n\n`;
+          else if (el.tagName === 'H2') textContent += `## ${text}\n\n`;
+          else if (el.tagName === 'H3') textContent += `### ${text}\n\n`;
+          else if (el.tagName === 'H4') textContent += `#### ${text}\n\n`;
+          else if (el.tagName === 'LI') textContent += `- ${text}\n`;
+          else if (el.tagName === 'P' || el.tagName === 'DIV') {
+            // Nur wenn es keinen verschachtelten Block-Inhalt hat
+            if (!el.querySelector('h1, h2, h3, h4, p, div')) {
+              textContent += `${text}\n\n`;
+            }
+          }
+        });
+      } else {
+        // TXT: Einfacher Text
+        textContent = `${tabName}\n${'='.repeat(tabName.length)}\n\n`;
+        textContent += clone.innerText;
+      }
+      
+      // Bereinige mehrfache Leerzeilen
+      textContent = textContent.replace(/\n{3,}/g, '\n\n').trim();
+      
+      // Erstelle Dateinamen
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const fileName = `${tabName}_${timestamp}`;
+      
+      if (format === 'pdf') {
+        // PDF-Download mit Browser-Print
+        const printWindow = window.open('', '_blank');
+        if (!printWindow) {
+          alert('Popup-Blocker verhindert den PDF-Download. Bitte erlauben Sie Popups für diese Seite.');
+          return;
+        }
+        
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>${tabName}</title>
+            <style>
+              body { 
+                font-family: Georgia, 'Times New Roman', serif; 
+                line-height: 1.6; 
+                padding: 2rem;
+                max-width: 800px;
+                margin: 0 auto;
+              }
+              h1, h2, h3, h4 { color: #467886; margin-top: 1.5em; }
+              p { margin: 0.5em 0; }
+              a { color: #467886; }
+            </style>
+          </head>
+          <body>
+            <h1>${tabName}</h1>
+            ${clone.innerHTML}
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+        
+        setTimeout(() => {
+          printWindow.print();
+        }, 500);
+      } else {
+        // TXT oder MD Download
+        const extension = format === 'md' ? 'md' : 'txt';
+        const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${fileName}.${extension}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
     };
     
@@ -19572,130 +19812,6 @@ function scrollToChronologicalYear(year) {
       } catch (error) {
         console.error('[PDF-GENERATE] Fehler:', error);
         throw error;
-      }
-    }
-
-    // Exportiere das thematische Suchergebnis als PDF
-    window.exportThematicResultToPdf = async function() {
-      const button = document.getElementById('exportThemaPdfBtn');
-      
-      try {
-        // Button-Status ändern
-        const originalHTML = button.innerHTML;
-        button.disabled = true;
-        button.style.opacity = '0.6';
-        button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg> Erstelle PDF...';
-        
-        // Hole das answerContent Element direkt
-        const answerDiv = document.getElementById('answerContent');
-        if (!answerDiv) {
-          throw new Error('Kein Suchergebnis gefunden. Bitte führen Sie zuerst eine Themensuche durch.');
-        }
-        
-        // Prüfe ob Inhalt vorhanden ist
-        const textContent = answerDiv.textContent.trim();
-        if (!textContent || textContent.length < 50) {
-          throw new Error('Kein ausreichender Inhalt zum Exportieren vorhanden.');
-        }
-        
-        // Hole die Überschrift
-        const resultsContainer = document.getElementById('results');
-        const heading = resultsContainer ? resultsContainer.querySelector('h1') : null;
-        const headingText = heading ? heading.textContent.trim() : 'Thematische Suche';
-        
-        // Erstelle einen temporären breiteren Container für bessere Darstellung
-        const tempContainer = document.createElement('div');
-        tempContainer.style.position = 'absolute';
-        tempContainer.style.left = '-9999px';
-        tempContainer.style.top = '0';
-        tempContainer.style.width = '800px';
-        tempContainer.style.backgroundColor = '#ffffff';
-        tempContainer.style.padding = '30px';
-        tempContainer.style.fontFamily = window.getComputedStyle(answerDiv).fontFamily;
-        tempContainer.style.fontSize = '11pt';
-        tempContainer.style.lineHeight = '1.5';
-        tempContainer.style.color = '#333';
-        
-        // Klone den Inhalt
-        const contentClone = answerDiv.cloneNode(true);
-        tempContainer.appendChild(contentClone);
-        
-        // Füge Container zum DOM hinzu
-        document.body.appendChild(tempContainer);
-        
-        // Warte kurz
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-        // Nutze html2canvas auf den breiteren temporären Container
-        const canvas = await html2canvas(tempContainer, {
-          scale: 1.5,
-          useCORS: true,
-          logging: false,
-          backgroundColor: '#ffffff'
-        });
-        
-        // Entferne temporären Container
-        document.body.removeChild(tempContainer);
-        
-        // Erstelle PDF mit jsPDF
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({
-          orientation: 'portrait',
-          unit: 'mm',
-          format: 'a4'
-        });
-        
-        // Füge Überschrift hinzu
-        pdf.setFontSize(14);
-        pdf.setFont(undefined, 'bold');
-        pdf.text(headingText, 15, 15, { maxWidth: 180 });
-        
-        // Berechne die Größe für das Bild
-        const imgWidth = 180; // A4 Breite minus Margins
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-        const pageHeight = 297; // A4 Höhe in mm
-        const availableHeight = pageHeight - 35; // Mit Margins
-        
-        let heightLeft = imgHeight;
-        let position = 35; // Start nach der Überschrift
-        
-        // Füge Canvas als Bild hinzu
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        
-        // Erste Seite
-        if (heightLeft > availableHeight) {
-          pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
-          heightLeft -= availableHeight;
-          
-          // Weitere Seiten
-          while (heightLeft > 0) {
-            position = heightLeft - imgHeight + 15;
-            pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
-            heightLeft -= (pageHeight - 30);
-          }
-        } else {
-          pdf.addImage(imgData, 'JPEG', 15, position, imgWidth, imgHeight);
-        }
-        
-        // Speichere das PDF
-        pdf.save(`Themensuche_${headingText.replace(/[^a-zA-Z0-9äöüÄÖÜß\s]/g, '_').substring(0, 40).trim()}.pdf`);
-        
-        // Button zurücksetzen
-        button.disabled = false;
-        button.style.opacity = '1';
-        button.innerHTML = originalHTML;
-        
-      } catch (error) {
-        console.error('[PDF-EXPORT] Fehler:', error);
-        alert('Fehler beim Erstellen des PDFs:\n\n' + error.message);
-        
-        // Button zurücksetzen bei Fehler
-        if (button) {
-          button.disabled = false;
-          button.style.opacity = '1';
-          button.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> PDF';
-        }
       }
     }
 
@@ -21508,18 +21624,11 @@ function formatAsteriskParagraphs() {
         ? `<button id="deleteThemaBtn" onclick="deleteCurrentThema()" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid #d9534f; background: transparent; color: #d9534f; cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">Suchanfrage löschen</button>`
         : '';
       
-      // PDF-Export Button
-      const pdfButtonHTML = `<button id="exportThemaPdfBtn" onclick="exportThematicResultToPdf()" title="Als PDF speichern" style="padding: 4px 12px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; gap: 4px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        PDF
-      </button>`;
-      
       container.innerHTML = `
         <div class="semantic-answer">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
             <h1 style="margin: 0;">${safeHeading}</h1>
             <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
-              ${pdfButtonHTML}
               ${deleteButtonHTML}
             </div>
           </div>
@@ -27991,7 +28100,17 @@ async function showTimeline(keyword, clickedButton) {
     await loadFullLecturesForTimeline();
     
     // NEUE METHODE: Verwende keywords-database.json direkt (wie Admin-Tab)
-    content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline...</div>';
+    // Mit Cache für schnelleres Laden bei wiederholten Abfragen
+    const cacheKey = keyword.toLowerCase();
+    let groupedLectures;
+    
+    // Prüfe ob Daten im Cache vorhanden sind
+    if (timelineCache[cacheKey]) {
+      console.log(`[TIMELINE] Cache-Treffer für "${keyword}"`);
+      content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade aus Cache...</div>';
+      groupedLectures = timelineCache[cacheKey];
+    } else {
+      content.innerHTML = '<div style="text-align: center; padding: 2rem; font-style: italic;">Lade Timeline...</div>';
     
     try {
       // Lade Keywords-Database
@@ -28067,13 +28186,23 @@ async function showTimeline(keyword, clickedButton) {
       });
       
       // Konvertiere zu Array und sortiere nach Datum
-      const groupedLectures = Object.values(groupedByLecture).sort((a, b) => {
+      groupedLectures = Object.values(groupedByLecture).sort((a, b) => {
         if (a.year !== b.year) return a.year - b.year;
         return (a.date || '').localeCompare(b.date || '');
       });
       
-      // Berechne Anzahl einzigartiger Vorträge
-      const uniqueLecturesCount = groupedLectures.length;
+      // Speichere im Cache
+      timelineCache[cacheKey] = groupedLectures;
+      console.log(`[TIMELINE] Daten für "${keyword}" gecacht (${groupedLectures.length} Vorträge)`);
+    } catch (loadError) {
+      console.error('[TIMELINE] Fehler beim Laden:', loadError);
+      content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline-Daten.</div>';
+      return;
+    }
+    } // Ende des else-Blocks (keine gecachten Daten)
+      
+    // Berechne Anzahl einzigartiger Vorträge
+    const uniqueLecturesCount = groupedLectures.length;
       
       // Generiere Timeline HTML
       let html = `
@@ -28151,12 +28280,6 @@ async function showTimeline(keyword, clickedButton) {
         timelinePanelTitle.textContent = `${keyword} (${uniqueLecturesCount} Vorträge)`;
       }
       
-    } catch (timelineError) {
-      console.error('[TIMELINE] Fehler:', timelineError);
-      content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline.</div>';
-      return;
-    }
-    
   } catch (error) {
     console.error('[TIMELINE] Fehler:', error);
     content.innerHTML = '<div class="timeline-no-results">Fehler beim Laden der Timeline.</div>';
