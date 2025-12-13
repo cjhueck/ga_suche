@@ -1876,7 +1876,7 @@ body.dark-mode .ga-missing-text {
     #summary-content > h3,
     #summary-content h3:not(.paragraph h3) {
       font-size: 0.9rem;
-      line-height: var(--line-height);
+      line-height: 1.4;
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
       font-weight: 600;
@@ -1886,7 +1886,7 @@ body.dark-mode .ga-missing-text {
     #summary-content > h4,
     #summary-content h4:not(.paragraph h4) {
       font-size: 0.9rem;
-      line-height: var(--line-height);
+      line-height: 1.4;
       color: var(--link-color);
       margin: var(--paragraph-margin) 0;
       margin-left: 0;
@@ -1901,7 +1901,7 @@ body.dark-mode .ga-missing-text {
       font-weight: normal !important;
       color: var(--text-color) !important;
       margin: 0 !important;
-      line-height: var(--line-height) !important;
+      line-height: 1.4 !important;
     }
     
     body.dark-mode #summary-content h3,
@@ -1913,7 +1913,7 @@ body.dark-mode .ga-missing-text {
     #summary-content p {
       margin: var(--paragraph-margin) 0;
       font-size: var(--text-size);
-      line-height: var(--line-height);
+      line-height: 1.4;
       color: var(--text-color);
       text-align: justify;
     }
@@ -1922,7 +1922,7 @@ body.dark-mode .ga-missing-text {
     #summary-content p.poem,
     #summary-content p.short-lines {
       margin: 0 !important;
-      line-height: var(--line-height);
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie im Viewer */
       text-align: left;
     }
     
@@ -1932,7 +1932,8 @@ body.dark-mode .ga-missing-text {
     }
     
     /* Auch für aufeinanderfolgende Gedichte ohne direkten Nachbar */
-    #summary-content p.poem ~ p.poem {
+    #summary-content p.poem ~ p.poem,
+    #summary-content p.short-lines ~ p.short-lines {
       margin-top: 0 !important;
     }
     
@@ -1947,7 +1948,7 @@ body.dark-mode .ga-missing-text {
     #summary-content .paragraph p.poem,
     #summary-content .paragraph p.short-lines {
       margin: 0 !important;
-      line-height: var(--line-height) !important;
+      line-height: 1.5 !important; /* Gleiche Zeilenhöhe wie im Viewer */
     }
     
     #summary-content .paragraph p.poem + p.poem,
@@ -1962,6 +1963,11 @@ body.dark-mode .ga-missing-text {
     #summary-content .paragraph:has(p.short-lines),
     #summary-content .paragraph.has-poem {
       margin-bottom: 0 !important;
+      margin-top: 0 !important;
+    }
+    
+    #summary-content .paragraph.has-poem + .paragraph.has-poem {
+      margin-top: 0 !important;
     }
     
     /* Überschreibe auch Inline-Styles für .paragraph Divs mit Gedichten */
@@ -1976,6 +1982,46 @@ body.dark-mode .ga-missing-text {
     
     #summary-content .paragraph.has-poem p + p {
       margin-top: 0 !important;
+    }
+    
+    /* Bilder im Summary-Panel - gleiche Styles wie im Viewer */
+    #summary-content img {
+      position: relative;
+      z-index: 10;
+      cursor: pointer;
+    }
+    
+    #summary-content .lecture-image {
+      position: relative;
+      z-index: 10;
+      background: transparent !important;
+      transition: filter 0.3s ease;
+      max-width: 35% !important;
+      float: right !important;
+      margin: 0 0 1rem 1rem !important;
+      display: inline-block !important;
+      vertical-align: top;
+    }
+    
+    /* Tafelzeichnungen im Summary-Panel - volle Breite */
+    #summary-content .lecture-image.blackboard-drawing {
+      max-width: 100% !important;
+      width: 100% !important;
+      float: none !important;
+      display: block !important;
+      margin: 1rem 0 !important;
+    }
+    
+    /* Bilder im Summary-Panel - Dark Mode */
+    body.dark-mode #summary-content .lecture-image {
+      background: transparent;
+      filter: invert(1);
+      mix-blend-mode: screen;
+    }
+    
+    body.dark-mode #summary-content .lecture-image[data-format="webp"] {
+      filter: none !important;
+      mix-blend-mode: normal !important;
     }
     
     /* Dark Mode für Summary-Panel-Überschriften - DIREKT */
@@ -2493,7 +2539,7 @@ body.dark-mode .ga-missing-text {
       flex: 1;
       overflow-y: auto;
       padding: 0rem 1rem 1.5rem 1.2rem;
-      line-height: 1;
+      line-height: 1.4;
       font-size: 0.95em;
       display: none;
       scrollbar-width: thin; /* Firefox - dünne Scrollbar */
@@ -5676,8 +5722,9 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 
 .hint-popup {
   position: fixed;
-  bottom: 24px;
+  top: 50%;
   right: 24px;
+  transform: translateY(-50%) translateX(20px);
   background: var(--background-color);
   border: 1px solid var(--accent-color);
   border-radius: 10px;
@@ -5687,16 +5734,15 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
   z-index: 10001;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 2px;
   opacity: 0;
-  transform: translateY(20px);
   animation: hintPopupSlideIn 0.4s ease forwards;
 }
 
 @keyframes hintPopupSlideIn {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-50%) translateX(0);
   }
 }
 
@@ -5707,20 +5753,11 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 @keyframes hintPopupSlideOut {
   to {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(-50%) translateX(20px);
   }
 }
 
-.hint-popup-icon {
-  flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  color: var(--accent-color);
-  margin-top: 1px;
-}
-
 .hint-popup-content {
-  flex: 1;
   font-size: 0.88rem;
   line-height: 1.5;
   color: var(--text-color);
@@ -5745,7 +5782,7 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
   justify-content: center;
   transition: color 0.2s ease;
   margin-top: -2px;
-  margin-right: -4px;
+  margin-left: -6px;
 }
 
 .hint-popup-close:hover {
@@ -5756,10 +5793,6 @@ body.dark-mode .hint-popup {
   background: var(--dark-background-color);
   border-color: var(--dark-accent-color);
   box-shadow: 0 4px 20px rgba(107, 163, 184, 0.3);
-}
-
-body.dark-mode .hint-popup-icon {
-  color: var(--dark-accent-color);
 }
 
 body.dark-mode .hint-popup-content {
@@ -34931,27 +34964,15 @@ async function addKeywordToLecture() {
 
 <!-- Debug & Test Functions -->
 
-<!-- Erstbesuch-Hinweis Popup -->
+<!-- Hinweis-Popup (Strg+Klick für Fehlermarkierung) -->
 <script>
 (function() {
-  const HINT_STORAGE_KEY = 'ga_suche_ctrl_click_hint_shown';
-  
-  // Prüfe, ob der Hinweis bereits gezeigt wurde
-  if (localStorage.getItem(HINT_STORAGE_KEY)) {
-    return;
-  }
-  
-  // Warte bis DOM geladen ist
+  // Zeige Popup bei jedem Seitenaufruf
   function showHintPopup() {
     // Erstelle das Popup-Element
     const popup = document.createElement('div');
     popup.className = 'hint-popup';
     popup.innerHTML = `
-      <svg class="hint-popup-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 16v-4"></path>
-        <path d="M12 8h.01"></path>
-      </svg>
       <div class="hint-popup-content">
         Bitte markieren Sie Fehler in den Texten mit <strong>Strg+Klick</strong> – das hilft uns bei der Korrektur.
       </div>
@@ -34968,7 +34989,6 @@ async function addKeywordToLecture() {
     // Schließen-Funktion
     function closePopup() {
       popup.classList.add('hiding');
-      localStorage.setItem(HINT_STORAGE_KEY, 'true');
       setTimeout(() => {
         if (popup.parentNode) {
           popup.parentNode.removeChild(popup);
@@ -34979,8 +34999,8 @@ async function addKeywordToLecture() {
     // Event-Listener für Schließen-Button
     popup.querySelector('.hint-popup-close').addEventListener('click', closePopup);
     
-    // Automatisch nach 12 Sekunden ausblenden
-    setTimeout(closePopup, 12000);
+    // Automatisch nach 25 Sekunden ausblenden
+    setTimeout(closePopup, 25000);
   }
   
   // Zeige Popup nach kurzer Verzögerung
