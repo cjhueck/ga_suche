@@ -27302,7 +27302,8 @@ async function addBatchKeywords() {
   progressBar.style.width = '0%';
   
   try {
-    const response = await fetch('http://localhost:3003/api/concepts-batch-add', {
+    const apiBase = window.API_BASE || 'http://localhost:3003';
+    const response = await fetch(`${apiBase}/api/concepts-batch-add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27703,7 +27704,8 @@ window.deleteKeyword = async function() {
   statusDiv.innerHTML = '';
   
   try {
-    const response = await fetch(`${API_BASE}/api/concepts-delete`, {
+    const apiBase = window.API_BASE || 'http://localhost:3003';
+    const response = await fetch(`${apiBase}/api/concepts-delete`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
