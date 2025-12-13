@@ -3548,8 +3548,12 @@ body.dark-mode #thematicSearchInfo {
     }
     
     /* Lokale Funktionsbuttons - zusätzliche Styles falls nötig */
+    /* TOC-Toggle Button (Dreieck): Zeile 2, Spalte 1 (unter Info-Button) */
     #viewerTOCToggleBtn {
+      grid-column: 1;
+      grid-row: 2;
       font-size: 0.85em !important;
+      align-self: start;
     }
     
     /* TOC-Toggle Button SVG - Umrissform */
@@ -5680,21 +5684,21 @@ body.dark-mode #helpModal .help-choice-btn:hover h3 {
 <h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
-<i id="theme-icon" data-lucide="moon"></i>
-</button>
 <div style="display: flex; gap: 0.3rem; align-items: center;">
-<button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
-<i data-lucide="alert-triangle"></i>
-</button>
 <button id="backup-button" class="help-button" onclick="openBackupModal()" title="Backup-Verwaltung" style="display: none;">
 <i data-lucide="database"></i>
 </button>
+<button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="Dark Mode umschalten">
+<i id="theme-icon" data-lucide="moon"></i>
+</button>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
 <i data-lucide="info"></i>
 </button>
-</div>
+<button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
+<i data-lucide="alert-triangle"></i>
+</button>
 </div>
 </div>
 </div>
