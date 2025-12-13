@@ -5986,12 +5986,6 @@ Chronologisch
 </div>
 <div class="tab-content" id="thematic-tab">
 <textarea class="thematic-input" id="thematicQuery" onkeydown="handleThematicKeydown(event)" placeholder="Stellen Sie eine thematische Frage. Wichtige Suchworte bitte in Anführungszeichen. Ihre Frage und die Antwort werden nicht aufgezeichnet."></textarea>
-<div id="thematicRecentContainer" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; display: none;">
-  <div style="margin-bottom: 0.25rem;">Beispiele</div>
-  <div id="thematicRecentScroll" style="max-height: 4.5rem; overflow-y: auto;">
-    <ul id="thematicRecentList" style="margin: 0; padding-left: 1.2em;"></ul>
-  </div>
-  </div>
 <div class="semantic-options">
 <div class="filter-row">
 <select class="filter-dropdown" id="thematicGAFilter">
@@ -17153,16 +17147,16 @@ function scrollToChronologicalYear(year) {
           return;
         }
         
-        const container = document.getElementById('thematicRecentContainer');
-        const list = document.getElementById('thematicRecentList');
-        if (!container || !list) {
-          console.warn('[THEMATIC] Container oder Liste nicht gefunden');
+        // Zeige Beispiele im results-Container (linkes Panel unten)
+        const resultsDiv = document.getElementById('results');
+        if (!resultsDiv) {
+          console.warn('[THEMATIC] results nicht gefunden');
           return;
         }
 
         const resp = await fetch(`${API_BASE}/thematic-search-database.json`, { cache: 'no-store' });
         if (!resp.ok) { 
-          container.style.display = 'none'; 
+          resultsDiv.innerHTML = '';
           return; 
         }
         const db = await resp.json();
@@ -17174,7 +17168,7 @@ function scrollToChronologicalYear(year) {
           timestamp: val.timestamp || val.cacheTimestamp || null
         })).filter(e => e.query);
 
-        if (entries.length === 0) { container.style.display = 'none'; return; }
+        if (entries.length === 0) { resultsDiv.innerHTML = ''; return; }
 
         // Nach Timestamp sortieren (neueste zuerst), fallback: Key-Order
         entries.sort((a, b) => {
@@ -17195,9 +17189,9 @@ function scrollToChronologicalYear(year) {
           }
         }
 
-        if (recentItems.length === 0) { container.style.display = 'none'; return; }
+        if (recentItems.length === 0) { resultsDiv.innerHTML = ''; return; }
 
-        list.innerHTML = recentItems.map(item => {
+        const listHTML = recentItems.map(item => {
           const label = autocorrectQuery(item.query)
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -17206,11 +17200,19 @@ function scrollToChronologicalYear(year) {
           const queryEnc = encodeURIComponent(item.query);
           return `<li style="margin: 0.2rem 0;"><a href="#" onclick="openSavedThematicQueryEncoded('${keyEnc}','${queryEnc}'); return false;">${label}</a></li>`;
         }).join('');
-        container.style.display = 'block';
-        } catch (err) {
+        
+        resultsDiv.innerHTML = `
+          <div style="font-size: 0.85rem; color: #666;">
+            <div style="margin-bottom: 0.5rem; font-weight: bold; font-size: 0.9rem; color: var(--link-color);">Beispiele</div>
+            <ul style="margin: 0; padding-left: 1.2em;">
+              ${listHTML}
+            </ul>
+          </div>
+        `;
+      } catch (err) {
         console.warn('[THEMATIC] Konnte thematische Verlaufsliste nicht laden:', err);
-        const container = document.getElementById('thematicRecentContainer');
-        if (container) container.style.display = 'none';
+        const resultsDiv = document.getElementById('results');
+        if (resultsDiv) resultsDiv.innerHTML = '';
       }
     }
 
