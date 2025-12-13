@@ -6302,6 +6302,14 @@ Original
 <path d="M6 2 L10 8 L2 8 Z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
 </svg>
 </button>
+<!-- PDF/Text Download Button -->
+<button id="viewerDownloadBtn" onclick="showDownloadOptions()" title="Text herunterladen (PDF, TXT, Markdown)" style="display: none; padding: 4px 8px; font-size: 0.85em; border: 1px solid var(--link-color); background: transparent; color: var(--link-color); cursor: pointer; border-radius: 4px; transition: opacity 0.2s;">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+<polyline points="7 10 12 15 17 10"></polyline>
+<line x1="12" y1="15" x2="12" y2="3"></line>
+</svg>
+</button>
 </div>
 </div>
 <div id="main" style="position: relative;">
@@ -7450,6 +7458,11 @@ function normalizeGANumber(gaNumber) {
         const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
         if (viewerOriginalBtn) {
           viewerOriginalBtn.style.display = 'none';
+        }
+        // Download-Button ebenfalls ausblenden
+        const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
+        if (viewerDownloadBtn) {
+          viewerDownloadBtn.style.display = 'none';
         }
       }
       
@@ -13922,10 +13935,12 @@ function scrollToChronologicalYear(year) {
       const viewerSummaryBtn = document.getElementById('viewerSummaryBtn');
       const viewerOriginalBtn = document.getElementById('viewerOriginalBtn');
       const viewerTOCToggleBtn = document.getElementById('viewerTOCToggleBtn');
+      const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
       
       if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
       if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
       if (viewerTOCToggleBtn) viewerTOCToggleBtn.style.display = 'none';
+      if (viewerDownloadBtn) viewerDownloadBtn.style.display = 'none';
       const h4ToggleBtn = document.getElementById('h4ToggleBtn');
       if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
       
@@ -17021,11 +17036,14 @@ function scrollToChronologicalYear(year) {
     }
   }
   
-  // Übersicht, Original und H4-Toggle: NUR anzeigen wenn Vortrag oder Buch im Main Viewer geladen ist
+  // Übersicht, Original, H4-Toggle und Download: NUR anzeigen wenn Vortrag oder Buch im Main Viewer geladen ist
+  const viewerDownloadBtn = document.getElementById('viewerDownloadBtn');
+  
   if (!currentLectureData) {
     // Kein Vortrag/Buch geladen - verstecke diese Buttons
     if (viewerOriginalBtn) viewerOriginalBtn.style.display = 'none';
     if (viewerSummaryBtn) viewerSummaryBtn.style.display = 'none';
+    if (viewerDownloadBtn) viewerDownloadBtn.style.display = 'none';
     
     const h4ToggleBtn = document.getElementById('h4ToggleBtn');
     if (h4ToggleBtn) h4ToggleBtn.style.display = 'none';
@@ -17072,6 +17090,11 @@ function scrollToChronologicalYear(year) {
           viewerSummaryBtn.innerHTML = '≡ Übersicht';
         }
       }
+    }
+    
+    // Download-Button bei geladenen Texten anzeigen
+    if (viewerDownloadBtn) {
+      viewerDownloadBtn.style.display = 'inline-flex';
     }
   }
 
@@ -19232,6 +19255,323 @@ function scrollToChronologicalYear(year) {
       } catch (error) {
         console.error('[THEMATIC-DELETE] Fehler beim Löschen:', error);
         alert('Fehler beim Löschen:\n\n' + error.message + '\n\nHINWEIS: Das Backend benötigt einen Endpunkt "/api/thematic-search/delete", der den Eintrag aus "thematic-search-database.json" entfernt.');
+      }
+    }
+
+    // ============================================================================
+    // TEXT DOWNLOAD FUNKTIONEN (PDF, TXT, Markdown)
+    // ============================================================================
+    
+    // Download-Optionen Modal anzeigen
+    window.showDownloadOptions = function() {
+      // Prüfe ob ein Text zum Downloaden vorhanden ist
+      if (!currentLectureData) {
+        alert('Kein Text zum Herunterladen vorhanden.');
+        return;
+      }
+      
+      // Erstelle Modal mit Download-Optionen
+      const existingModal = document.getElementById('downloadOptionsModal');
+      if (existingModal) {
+        existingModal.remove();
+      }
+      
+      const modal = document.createElement('div');
+      modal.id = 'downloadOptionsModal';
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.2s ease;
+      `;
+      
+      const modalContent = document.createElement('div');
+      modalContent.style.cssText = `
+        background: var(--background-color, #FAF8F3);
+        border-radius: 8px;
+        padding: 1.5rem;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      `;
+      
+      // Bestimme den Titel
+      const lectureId = currentLectureData.ID || currentLectureData.id || 'Text';
+      const title = currentLectureData.title || '';
+      
+      modalContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="margin: 0; color: var(--heading-color, #467886); font-size: 1.1rem;">Text herunterladen</h3>
+          <button onclick="closeDownloadModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color, #333); line-height: 1;">&times;</button>
+        </div>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--secondary-text, #666);">
+          <strong>${lectureId}</strong>${title ? ' - ' + title : ''}
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <button onclick="downloadAsText('pdf')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Als PDF herunterladen
+          </button>
+          <button onclick="downloadAsText('txt')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Als TXT herunterladen (bearbeitbar)
+          </button>
+          <button onclick="downloadAsText('md')" style="padding: 0.75rem 1rem; border: 1px solid var(--link-color, #467886); background: transparent; color: var(--link-color, #467886); border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; transition: all 0.2s;" onmouseover="this.style.background='var(--link-color, #467886)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--link-color, #467886)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            Als Markdown herunterladen
+          </button>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--secondary-text, #666); font-style: italic;">
+          TXT und Markdown können in Word, Google Docs oder anderen Texteditoren geöffnet und bearbeitet werden.
+        </p>
+      `;
+      
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+      
+      // Schließen bei Klick außerhalb
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeDownloadModal();
+        }
+      });
+      
+      // Schließen mit ESC
+      const escHandler = (e) => {
+        if (e.key === 'Escape') {
+          closeDownloadModal();
+          document.removeEventListener('keydown', escHandler);
+        }
+      };
+      document.addEventListener('keydown', escHandler);
+    };
+    
+    window.closeDownloadModal = function() {
+      const modal = document.getElementById('downloadOptionsModal');
+      if (modal) {
+        modal.remove();
+      }
+    };
+    
+    // Text als verschiedene Formate herunterladen
+    window.downloadAsText = async function(format) {
+      if (!currentLectureData) {
+        alert('Kein Text zum Herunterladen vorhanden.');
+        return;
+      }
+      
+      try {
+        // Schließe Modal
+        closeDownloadModal();
+        
+        // Extrahiere Daten
+        const lecture = currentLectureData;
+        const lectureId = lecture.ID || lecture.id || 'text';
+        const title = lecture.title || '';
+        const location = lecture.location || '';
+        const date = lecture.date ? formatDate(lecture.date) : '';
+        const paragraphs = lecture.paragraphs || [];
+        
+        // Hole Überschriften falls vorhanden
+        const headings = currentLectureSummary?.headings || [];
+        const summary = currentLectureSummary?.summary || '';
+        
+        // Erstelle Textinhalt
+        let textContent = '';
+        
+        // Header
+        let headerParts = [lectureId];
+        if (title) headerParts.push(title);
+        const headerLine = headerParts.join(' - ');
+        
+        let subHeaderParts = [];
+        if (location) subHeaderParts.push(location);
+        if (date) subHeaderParts.push(date);
+        const subHeader = subHeaderParts.join(', ');
+        
+        // Format-spezifische Formatierung
+        if (format === 'md') {
+          // Markdown Format
+          textContent = `# ${headerLine}\n\n`;
+          if (subHeader) textContent += `*${subHeader}*\n\n`;
+          if (summary) textContent += `**Zusammenfassung:** ${summary}\n\n---\n\n`;
+          
+          // Absätze mit Überschriften
+          paragraphs.forEach((para, idx) => {
+            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            
+            // Finde passende Überschriften
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = (h.index || '').replace(/^\^/, '');
+              return hIndex === paraIndex;
+            });
+            
+            // Überschriften einfügen
+            matchingHeadings.forEach(heading => {
+              const level = heading.level === 'h3' ? '##' : '###';
+              textContent += `\n${level} ${heading.text || heading.title}\n\n`;
+            });
+            
+            // Absatzinhalt
+            let content = para.content || para.text || '';
+            content = content.replace(/<[^>]+>/g, ''); // HTML-Tags entfernen
+            content = content.replace(/&nbsp;/g, ' ');
+            content = content.replace(/&amp;/g, '&');
+            content = content.replace(/&lt;/g, '<');
+            content = content.replace(/&gt;/g, '>');
+            content = content.replace(/&quot;/g, '"');
+            
+            if (content.trim()) {
+              textContent += content.trim() + '\n\n';
+            }
+          });
+          
+        } else {
+          // TXT Format (auch für PDF-Vorbereitung)
+          textContent = headerLine + '\n';
+          textContent += '='.repeat(headerLine.length) + '\n\n';
+          if (subHeader) textContent += subHeader + '\n\n';
+          if (summary) textContent += 'Zusammenfassung:\n' + summary + '\n\n' + '-'.repeat(40) + '\n\n';
+          
+          // Absätze mit Überschriften
+          paragraphs.forEach((para, idx) => {
+            const paraIndex = para.index ? para.index.replace(/^\^/, '') : `para_${idx}`;
+            
+            // Finde passende Überschriften
+            const matchingHeadings = headings.filter(h => {
+              const hIndex = (h.index || '').replace(/^\^/, '');
+              return hIndex === paraIndex;
+            });
+            
+            // Überschriften einfügen
+            matchingHeadings.forEach(heading => {
+              const headingText = heading.text || heading.title || '';
+              textContent += '\n' + headingText.toUpperCase() + '\n\n';
+            });
+            
+            // Absatzinhalt
+            let content = para.content || para.text || '';
+            content = content.replace(/<[^>]+>/g, ''); // HTML-Tags entfernen
+            content = content.replace(/&nbsp;/g, ' ');
+            content = content.replace(/&amp;/g, '&');
+            content = content.replace(/&lt;/g, '<');
+            content = content.replace(/&gt;/g, '>');
+            content = content.replace(/&quot;/g, '"');
+            
+            if (content.trim()) {
+              textContent += content.trim() + '\n\n';
+            }
+          });
+        }
+        
+        // Dateiname erstellen
+        const safeFilename = lectureId.replace(/[^a-zA-Z0-9äöüÄÖÜß]/g, '_');
+        
+        if (format === 'pdf') {
+          // PDF mit jsPDF erstellen
+          await generatePdfFromText(textContent, headerLine, safeFilename);
+        } else {
+          // TXT oder MD als Download
+          const blob = new Blob([textContent], { type: 'text/plain;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${safeFilename}.${format}`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+        
+      } catch (error) {
+        console.error('[DOWNLOAD] Fehler:', error);
+        alert('Fehler beim Erstellen des Downloads:\n\n' + error.message);
+      }
+    };
+    
+    // PDF aus Text generieren
+    async function generatePdfFromText(textContent, title, filename) {
+      try {
+        const { jsPDF } = window.jspdf;
+        
+        // Erstelle neues PDF
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4'
+        });
+        
+        // Schriftart und Größe
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 20;
+        const textWidth = pageWidth - 2 * margin;
+        
+        // Titel
+        pdf.setFontSize(14);
+        pdf.setFont(undefined, 'bold');
+        const titleLines = pdf.splitTextToSize(title, textWidth);
+        pdf.text(titleLines, margin, margin + 5);
+        
+        // Berechne Startposition für Text
+        let yPosition = margin + 5 + (titleLines.length * 6) + 10;
+        
+        // Haupttext
+        pdf.setFontSize(11);
+        pdf.setFont(undefined, 'normal');
+        
+        // Text in Zeilen aufteilen
+        const lines = textContent.split('\n');
+        
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i];
+          
+          // Prüfe ob Überschrift (Zeile mit === oder nur Großbuchstaben)
+          const isHeader = line.match(/^={3,}$/) || (line.trim() === line.toUpperCase() && line.length > 3 && line.length < 100);
+          
+          if (isHeader && !line.match(/^={3,}$/)) {
+            pdf.setFont(undefined, 'bold');
+            yPosition += 4; // Extra Abstand vor Überschrift
+          }
+          
+          // Zeile umbrechen wenn nötig
+          const wrappedLines = pdf.splitTextToSize(line || ' ', textWidth);
+          
+          for (const wrappedLine of wrappedLines) {
+            // Prüfe ob neue Seite nötig
+            if (yPosition > pageHeight - margin) {
+              pdf.addPage();
+              yPosition = margin;
+            }
+            
+            pdf.text(wrappedLine, margin, yPosition);
+            yPosition += 5; // Zeilenabstand
+          }
+          
+          // Reset nach Überschrift
+          if (isHeader && !line.match(/^={3,}$/)) {
+            pdf.setFont(undefined, 'normal');
+          }
+          
+          // Extra Leerzeile nach Absatzumbruch
+          if (line === '') {
+            yPosition += 2;
+          }
+        }
+        
+        // PDF speichern
+        pdf.save(`${filename}.pdf`);
+        
+      } catch (error) {
+        console.error('[PDF-GENERATE] Fehler:', error);
+        throw error;
       }
     }
 
