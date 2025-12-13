@@ -5922,7 +5922,7 @@ Chronologisch
 </div><div class="tab-content" id="keyword-tab">
 <div class="search-words-row">
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text" autocomplete="search" name="search-word1"/>
+<input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text" autocomplete="off"/>
 <datalist id="word1-history"></datalist>
 </div>
 <div class="word-operator-container">
@@ -5936,7 +5936,7 @@ Chronologisch
 </label>
 </div>
 <div style="flex:1; position: relative;">
-<input class="search-input" id="word2" list="word2-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2 (optional)" type="text" autocomplete="search" name="search-word2"/>
+<input class="search-input" id="word2" list="word2-history" onfocus="this.removeAttribute('readonly'); this.select();" onblur="this.setAttribute('readonly', true);" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 2 (optional)" type="text" autocomplete="off" readonly/>
 <datalist id="word2-history"></datalist>
 </div>
 </div>
@@ -6307,7 +6307,7 @@ Chronologisch
 <!-- Neues Schlagwort hinzufügen (nur lokal sichtbar) -->
 <div id="addKeywordSection" style="display:none; margin-bottom: 0.8rem;">
 <div style="display: flex; gap: 8px; align-items: center;">
-<input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleKeywordInputKeypress(event)">
+<input type="text" id="newKeywordInput" class="search-input" placeholder="Neues Schlagwort..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleKeywordInputKeypress(event)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>
 <button id="addKeywordButton" class="depth-btn" onclick="addNewKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort hinzufügen</button>
 </div>
 <div id="addKeywordStatus" style="display:none;"></div>
@@ -6316,7 +6316,7 @@ Chronologisch
 <!-- Schlagwort löschen (nur lokal sichtbar) -->
 <div id="regenerateKeywordSection" style="display:none; margin-bottom: 0.8rem;">
 <div style="display: flex; gap: 8px; align-items: center;">
-<input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort löschen..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleDeleteKeywordInputKeypress(event)">
+<input type="text" id="regenerateKeywordInput" class="search-input" placeholder="Schlagwort löschen..." style="flex: 1; font-size: 0.85em; margin: 0;" onkeypress="handleDeleteKeywordInputKeypress(event)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>
 <button id="regenerateKeywordButton" class="depth-btn" onclick="deleteKeyword()" style="padding: 6px 12px; font-size: 0.85em; white-space: nowrap;">Schlagwort löschen</button>
 </div>
 <div id="regenerateKeywordStatus" style="display:none;"></div>
@@ -7189,6 +7189,33 @@ function normalizeGANumber(gaNumber) {
       updateHeaderPosition();
       // Suchhistorie aus localStorage laden und datalist aktualisieren
       updateHistoryDatalist();
+      
+      // E-Mail-Adressen aus Autofill blockieren
+      function blockEmailAutofill(inputElement) {
+        if (!inputElement) return;
+        
+        // Prüfe bei jeder Änderung, ob eine E-Mail eingefügt wurde
+        inputElement.addEventListener('input', function(e) {
+          const value = this.value;
+          // E-Mail-Pattern erkennen
+          if (value && /@/.test(value) && /\.\w{2,}$/.test(value)) {
+            // Wahrscheinlich eine E-Mail-Adresse - leeren
+            this.value = '';
+          }
+        });
+        
+        // Auch beim Autofill-Event (falls vom Browser getriggert)
+        inputElement.addEventListener('change', function(e) {
+          const value = this.value;
+          if (value && /@/.test(value) && /\.\w{2,}$/.test(value)) {
+            this.value = '';
+          }
+        });
+      }
+      
+      // Auf beide Suchfelder anwenden
+      blockEmailAutofill(document.getElementById('word1'));
+      blockEmailAutofill(document.getElementById('word2'));
     });
     
     // Header-Position nach kurzer Verzögerung auch aktualisieren (für dynamische Layouts)
@@ -25586,7 +25613,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   // Suchfeld - mit gespeichertem Wert
   html += '<div class="keyword-search-container">';
-  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)">`;
+  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>`;
   html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
   html += '</div>';
   
