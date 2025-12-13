@@ -10539,11 +10539,171 @@
   {
     "keyword": "Brentano, Franz",
     "alphabetical": "B",
-    "text": "**Franz Brentano** war ein **Seelenforscher**, dessen **Scheitern** die **Notwendigkeit neuer geisteswissenschaftlicher Methoden** aufzeigt ([[GA072 (7.) DAS WESEN DER MENSCHENSEELE UND DIE NATUR DES MENSCHENLEIBES, Basel, 30. Oktober 1918|GA072/7]]).",
-    "gaReferences": [
-      "GA072/7"
+    "text": "Der Philosoph stammt aus der Familie des romantischen Dichters Clemens Brentano, der sein Oheim war. Die Familie war \"durch Sophie La Roche und durch Maximiliane Brentano mit Goethe befreundet\" und vereinte \"zwei, im Beginne des 19. Jahrhunderts ja vielfach miteinander zusammenhängende Geistesströmungen: Das war der Katholizismus auf der einen Seite\" (GA213/6:m7bue3). Geboren 1838, wuchs Franz Brentano \"aus katholischem Romantizismus heraus\" und \"hinein in die strengste naturwissenschaftliche Auffassung, welche in der zweiten Hälfte des 19. Jahrhunderts in dem Geistesleben der neueren Zivilisation geherrscht hat\" (GA213/6:87bbfy).\n\n#### Psychologisches System\n\nBrentano entwickelte eine besondere Einteilung der Seelenkräfte, die von der üblichen Dreiteilung in Denken, Fühlen und Wollen abweicht. Er unterschied \"das Vorstellen, das Urteilen und die Gemütsbewegung\" (GA115/9:zk2cpc). Unter dem \"Urteilen\" verstand er \"ein Anerkennen oder Abweisen eines Vorstellungsinhaltes\" (GA021:hi59df). Die Gemütsbewegung \"beruht überall auf einem Lieben oder Hassen, auf Gefallen oder Missfallen\" (GA176/5:c4hcka). Charakteristisch ist, dass Brentano \"das Wollen nicht von der bloßen Gemütsbewegung\" unterscheidet (GA176/5:c4hcka).\n\n#### Das unvollendete Werk\n\n1874 erschien der erste Band seiner **Psychologie**, \"für den Herbst desselben Jahres versprach er den zweiten Band, und dann entsprechend rasch die nächsten\" (GA115/9:smdckb). Doch \"der zweite Band erschien nicht. Er erschien auch im nächsten Jahr nicht\" (GA076/2:sh0ols). \"In den neunziger Jahren versprach Brentano neuerdings, dass er nun daran gehen werde, wenigstens eine Art Surrogat in einer Art deskriptiver Psychologie zu schaffen\" - auch dieses Versprechen wurde nicht erfüllt (GA076/2:sh0ols).\n\n#### Philosophische Stellung\n\nFranz Brentano war \"der bedeutendste Aristoteles-Kenner der Gegenwart\" und \"überhaupt für die Denkweise der Gegenwart ganz charakteristisch\" (GA176/3:sv52sp). Er wollte \"eine moderne Seelenforschung begründen\" und \"eine Seelenkunde ganz nach der Methode der modernen Naturwissenschaftlichkeit\" schaffen (GA046:xx71gy, GA297a/4:kx6zy6). Brentano war \"nicht ein Philosoph nach dem Zuschnitt der gegenwärtigen Philosophen, sondern er war, was die gegenwärtigen Philosophen eben gar nicht sind, erstens ein wirklicher Denker\" (GA176/5:f4lbws).\n\n#### Charakteristische Bedeutung\n\n\"So ist Brentano schon eine Persönlichkeit, die charakteristisch ist für alles das, was das 19. Jahrhundert dem Menschen eben nicht geben konnte. Denn die Tore nach der geistigen Welt mussten geöffnet werden\" (GA213/7:ubp4dj). Er starb \"1917 in Zürich\" und gilt als \"der charakteristischste aller derjenigen Philosophen des 19.\" Jahrhunderts (GA213/7:ubp4dj).\n\n**Weitere Quellen:** GA018:8qgz4d, GA033:9f8512, GA036:tnlaps, GA036:h0riyc, GA036:8ri8n5, GA080a/3:bwf2tz, GA177/5:f6164l",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Lebekraft",
+        "Spannkraft",
+        "Weltkörper",
+        "Grundkraft"
+      ],
+      "definitionText": "Philosoph und Psychologe (GA213/6:^mkfvsl), katholischer Priester (GA255b/7:^ts4p5l), Seelenforscher (GA036:^oca5sl), Aristoteliker (GA175/17:^d4beio), Repräsentant des 19. Jahrhunderts (GA176/5:^so1txl), Neffe von Clemens Brentano (GA213/6:^m7bue3), geboren 1838 (GA213/10:^h0w9m7), gestorben 1917 in Zürich (GA072/1:^opf6eo).",
+      "functionText": "Wollte moderne Seelenforschung begründen (GA046:^xx71gy), schrieb Psychologie nach naturwissenschaftlicher Methode (GA297a/4:^kx6zy6), teilte Seelenfähigkeiten in Vorstellen, Urteilen und Liebe-Hass ein (GA213/7:^abyw4c), rang mit Gottesbeweis (GA021:^6f2xbi), suchte Unsterblichkeit erkenntnismäßig (GA213/6:^18w7yt), konnte Übergang vom Jesus zum Christus nicht finden (GA213/6:^18w7yt).",
+      "interactionText": "Verband katholisches Christentum mit naturwissenschaftlicher Denkweise (GA213/10:^h0w9m7), wechselwirkte mit Wiener Gesellschaft (GA213/6:^ps5jcp), beeinflusste Schülerkreis (GA046:^xx71gy), rang mit aristotelischen Vorstellungen (GA021:^diml65), stand in Beziehung zu mittelalterlicher Philosophie (GA021:^h2e52p), verband sich mit Erkenntnissen der neueren Naturwissenschaft (GA021:^h2e52p).",
+      "specialText": "Vollendeter Logiker (GA028:^hygz9e), scharfdenkend und versonnen (GA028:^hygz9e), feierliche Vortragsweise (GA028:^hygz9e), veröffentlichte nur ersten Band seiner Psychologie (GA062/5:^fxabtn), hielt inne bei Fortsetzung seiner Veröffentlichungen (GA021:^6f2xbi), schuf Rätselsammlung \"Aenigmatias\" (GA036:^h4mgpj), zog Priesterrock aus (GA175/9:^ic9c86), tragisches Erkenntnisleben (GA213/6:^inzb4o)."
+    },
+    "sources": [
+      {
+        "id": "GA021",
+        "index": "^ixbmfr",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)"
+      },
+      {
+        "id": "GA173a/9",
+        "index": "^ezifvr",
+        "title": "Hinweise zum Text",
+        "fileName": "GA173a/9 - Hinweise zum Text"
+      },
+      {
+        "id": "GA300b/22",
+        "index": "^z42ir4",
+        "title": "Konferenz vom Mittwoch 14. Februar 1923",
+        "fileName": "GA300b/22 - Konferenz vom Mittwoch 14. Februar 1923, 18 Uhr"
+      },
+      {
+        "id": "GA300b/22",
+        "index": "^iblcqv",
+        "title": "Konferenz vom Mittwoch 14. Februar 1923",
+        "fileName": "GA300b/22 - Konferenz vom Mittwoch 14. Februar 1923, 18 Uhr"
+      },
+      {
+        "id": "GA070a/19",
+        "index": "^4v3zf6",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE IM LICHTE DER GEISTESWISSENSCHAFT UND IM HINBLICK AUF UNSERE SCHICKSALSTRAGENDE ZEIT",
+        "fileName": "GA070a/19 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE IM LICHTE DER GEISTESWISSENSCHAFT UND IM HINBLICK AUF UNSERE SCHICKSALSTRAGENDE ZEIT, Köln, 18. Juni 1915"
+      },
+      {
+        "id": "GA070b/10",
+        "index": "^34y3qe",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+        "fileName": "GA070b/10 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Kassel, 19. Februar 1916"
+      },
+      {
+        "id": "GA173c/10",
+        "index": "^d28odf",
+        "title": "ANHANG III",
+        "fileName": "GA173c/10 - ANHANG III"
+      },
+      {
+        "id": "GA174b/12",
+        "index": "^vwxdmk",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA174b/12 - ZWÖLFTER VORTRAG, Stuttgart, 23. Februar 1918"
+      },
+      {
+        "id": "GA213/7",
+        "index": "^ubp4dj",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA213/7 - SIEBENTER VORTRAG, Dornach, 8. Juli 1922"
+      },
+      {
+        "id": "GA213/6",
+        "index": "^m7bue3",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA213/6 - SECHSTER VORTRAG, Dornach, 7. Juli 1922"
+      },
+      {
+        "id": "GA300b/22",
+        "index": "^gmqc8q",
+        "title": "Konferenz vom Mittwoch 14. Februar 1923",
+        "fileName": "GA300b/22 - Konferenz vom Mittwoch 14. Februar 1923, 18 Uhr"
+      },
+      {
+        "id": "GA297a/4",
+        "index": "^kx6zy6",
+        "title": "ANTHROPOSOPHIE UND DIE RÄTSEL DER SEELE",
+        "fileName": "GA297a/4 - ANTHROPOSOPHIE UND DIE RÄTSEL DER SEELE, Stuttgart, 17. Januar 1922"
+      },
+      {
+        "id": "GA213/6",
+        "index": "^87bbfy",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA213/6 - SECHSTER VORTRAG, Dornach, 7. Juli 1922"
+      },
+      {
+        "id": "GA175/9",
+        "index": "^mynlxl",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA175/9 - NEUNTER VORTRAG, Berlin, 3. April 1917"
+      },
+      {
+        "id": "GA272/11",
+        "index": "^pkj629",
+        "title": "Weisheit - Schönheit - Güte Michael - Gabriel - Raphael",
+        "fileName": "GA272/11 - Weisheit - Schönheit - Güte Michael - Gabriel - Raphael, Vortrag in Dornach am 19. August 1916"
+      },
+      {
+        "id": "GA070b/9",
+        "index": "^2tfa7y",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+        "fileName": "GA070b/9 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Hamburg, 15. Februar 1916"
+      },
+      {
+        "id": "GA070b/12",
+        "index": "^qq2fpy",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916"
+      },
+      {
+        "id": "GA109/6",
+        "index": "^tmln31",
+        "title": "ZUR EINWEIHUNG DES FRANZ VON ASSISI-ZWEIGES",
+        "fileName": "GA109/6 - ZUR EINWEIHUNG DES FRANZ VON ASSISI-ZWEIGES, Malsch, 6. April 1909"
+      },
+      {
+        "id": "GA140/11",
+        "index": "^bp6ikb",
+        "title": "DIE KOSMISCHE SEITE DES LEBENS ZWISCHEN TOD UND NEUER GEBURT. DER WEG DURCH DIE STERNENSPHÄREN",
+        "fileName": "GA140/11 - DIE KOSMISCHE SEITE DES LEBENS ZWISCHEN TOD UND NEUER GEBURT. DER WEG DURCH DIE STERNENSPHÄREN, Stuttgart, 17. Februar 1913"
+      },
+      {
+        "id": "GA159/11",
+        "index": "^b5flqd",
+        "title": "CHRISTUS IM VERHÄLTNIS ZU LUZIFER UND AHRIMAN DIE DREIFACHE WESENSGESTALTUNG",
+        "fileName": "GA159/11 - CHRISTUS IM VERHÄLTNIS ZU LUZIFER UND AHRIMAN DIE DREIFACHE WESENSGESTALTUNG, Linz, 18. Mai 1915"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA021",
+      "GA173a/9",
+      "GA300b/22",
+      "GA300b/22",
+      "GA070a/19",
+      "GA070b/10",
+      "GA173c/10",
+      "GA174b/12",
+      "GA213/7",
+      "GA213/6",
+      "GA300b/22",
+      "GA297a/4",
+      "GA213/6",
+      "GA175/9",
+      "GA272/11",
+      "GA070b/9",
+      "GA070b/12",
+      "GA109/6",
+      "GA140/11",
+      "GA159/11"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:18:19.792Z",
+    "totalMatches": 2673,
+    "batchId": "batch_1765657064523",
+    "batchIndex": 2
   },
   {
     "keyword": "Bruder Markus",
@@ -40783,15 +40943,20 @@
   {
     "keyword": "Goethes Märchen",
     "alphabetical": "G",
-    "text": "# Analyse: \"Goethes Märchen\"\n\n## Definition und Bedeutung von \"Goethes Märchen\"\n\n\"**Goethes Märchen**\" bezieht sich primär auf das **\"Märchen von der grünen Schlange und der schönen Lilie\"**. Steiner charakterisiert es als \"**geradezu Goethes Apokalypse, Goethes geheime Offenbarung**\"(GA068c/9:^acsybr). Diese kleine Dichtung wird als Pendant zum Faust verstanden: \"**Wenn nun dieses Wort eine Berechtigung hat, dass in Goethes 'Faust' eine Art modernen Evangeliums gegeben ist, so hat das andere Wort eine ebensolche Berechtigung**\"(GA068c/9:^acsybr).\n\nDas Märchen enthält \"**Goethes Weltanschauung und Lebensauffassung in ihren Tiefen**\"(GA068c/9:^29gety) und wird als \"**vollständig selbstständige Dichtung**\"(GA068c/9:^io7vfh) am Schluss der \"Unterhaltungen deutscher Ausgewanderter\" gefunden.\n\n## Funktion als esoterisches Werk\n\nGoethes Märchen funktioniert als **Bildersprache für tiefe geistige Wahrheiten**. \"**Wenn man die gewöhnliche Sprache des Verstandes, die Wortsprache, zu arm, zu trocken, zu öde, zu nüchtern, zu alltäglich findet, um die reiche Fülle des Geistes auszudrücken**\"(GA068c/9:^oy6qrf), dann greift man zur symbolischen Darstellung.\n\nDie Funktion entspricht der **esoterischen Tradition**: \"**In einer Bildersprache haben die Esoteriker, die Weisheitspriester aller Zeiten gesprochen. Je tiefer wir in die alte Sagenwelt eintreten, desto mehr erkennen wir, dass in dieser Sagenwelt symbolische Verkleidungen enthalten sind von großen, ewigen Wahrheiten**\"(GA068c/9:^oy6qrf).\n\n## Erscheinungsformen und Rätselcharakter\n\nDas Märchen zeigt sich als **vielschichtiges Rätsel**, das verschiedene Interpretationsansätze herausgefordert hat. \"**Man hat schon versucht, es zu lösen, zu Goethes Lebzeiten. Und Goethe selbst sagte: Ich will nicht über das 'Märchen' sprechen, bevor es hundert Lösungen von anderen gibt**\"(GA068c/9:^ay21y7).\n\nDie bisherigen Lösungsversuche erweisen sich als **einseitig**: \"**Man hat es zu lösen versucht vom Standpunkte der Kritik, der Rationalisten, von rein freimaurerischem Standpunkte und so weiter. Alles das sind aber nur einzelne Standpunkte und genügen nicht. Es sind einseitige Standpunkte**\"(GA068c/9:^ay21y7).\n\n## Entwicklung und Entstehungskontext\n\nDas Märchen entstand \"**in der Mitte der neunziger Jahre des 18. Jahrhunderts, als Goethe auf der Höhe seines Schaffens stand**\"(GA068c/9:^ohbqmv). Es war \"**jene Zeit, in der er den ersten Teil des 'Faust' abgeschlossen hatte, der 1790 als Fragment erschien**\"(GA068c/9:^ohbqmv).\n\nParallel entwickelte sich \"**die Idee vor seine Seele, den 'Faust' auszugestalten als ein großes, umfassendes Menschheitsbild**\"(GA068c/9:^qxg900), was die thematische Verwandtschaft zwischen beiden Werken erklärt.\n\n## Zusammenhang mit dem Freiheitsproblem\n\nDas Märchen steht in direktem **Zusammenhang mit der Freiheitsfrage** seiner Zeit. \"**Es war im Jahre 1794, da schilderte er, dass er jenes Problem der Menschheit neuerdings für sich zu lösen unternommen habe, das die Geister damals beschäftigt hat. Das Problem oder die Frage nach der menschlichen Bestimmung oder das Problem der Freiheit**\"(GA068c/9:^n5ab0j).\n\nWährend Schiller das Freiheitsproblem **philosophisch-abstrakt** behandelte, wählte Goethe einen anderen Ansatz: \"**Goethe aber sagt, dass man alle Probleme im Menschen nur lösen kann, wenn sie betrachtet werden im großen Weltzusammenhang**\"(GA068c/9:^aja9bh).\n\n## Verbindung zu freimaurerischen Ideen\n\nDie Entstehung des Märchens ist eng mit **freimaurerischen Einflüssen** verbunden: \"**Auf der anderen Seite stellt er in diesen Dienst alle Erfahrungen, die er gemacht hat als ein wirklich geistig an den Arbeiten des Freimaurertums teilnehmender Mensch. In dem Freimaurertum sind ihm die Ideen zugeflossen, die er ausdrücken wollte**\"(GA068c/9:^ihyvsb).\n\n## Methode der Interpretation\n\nFür das Verständnis ist ein **ganzheitlicher Ansatz** erforderlich: \"**Daher muss man alles dies zu Hilfe nehmen, um dieses, an Inhalt so reiche Goethe'sche Märchen von der grünen Schlange und der schönen Lilie irgendwie lösen zu können**\"(GA068c/9:^ihyvsb).\n\nSteiner betont die **stufenweise Erschließung**: \"**Wer dieses Märchen zuerst liest, wird in der Regel wenig daraus machen können. Wer versucht, den Schlüssel dazu zu gewinnen, der wird zunächst erkennen, dass Goethe durch dieses Märchen etwas Besonderes hat aussprechen wollen**\"(GA068c/9:^29gety).\n\n## Märchen als naturgemäße Ausdrucksform\n\nDas Märchenhafte zeigt sich als **natürliche Ausdrucksform** für tiefste Seelenwahrheiten: \"**Es könnte durchaus sein, dass es eine ganz natürliche Stimmung ist, dass gerade jemand, der etwa so wie Goethe neben seiner künstlerischen Betätigung tief hineinzudringen versuchte in die Quellen und Gründe des Daseins, dann, wenn er ein tiefstes Erleben der Menschenseele zu geben hat, doch nicht zu theoretischen Auseinandersetzungen greift**\"(GA062/10:^qhrqmq).\n\nDie **Märchenform** erweist sich als unzerstörbar durch intellektuelle Analyse: \"**gerade die Natur des Märchenhaften bringt es mit sich, dass Märchenerklärung und MärchenVerstehen wohl niemals die produktive Stimmung gegenüber dem Märchen zerstören können**\"(GA062/10:^qhrqmq).\n\n## Goethes universelle Bedeutung\n\nGoethes Märchen fügt sich ein in seine **universelle geistige Bedeutung**: \"**Goethe gehört zu denjenigen Geistern der Weltgeschichte, denen gegenüber es den Betrachtern ganz eigentümlich ging**\"(GA068c/9:^7aw6ut). Die Werke erschließen sich **stufenweise**: \"**wenn man von fünf zu fünf Jahren seine eigentlich grundlegenden Werke studiert, wir von fünf zu fünf Jahren, falls wir uns selbst weiterentwickeln, falls wir nicht bei dem einmal eingenommenen Stande verharren, immer Neues und Neues entdecken**\"(GA068c/9:^ouklwr).\n\n## Märchen als Lebensbegleiter\n\nDie **tiefere Funktion des Märchenhaften** wird abschließend deutlich: Märchen sind \"**wie ein guter Engel, der von Geburt an, von Heimat wegen dem Menschen mitgegeben wird auf seiner Lebenswanderung, damit er ihm ein vertraulicher Genosse durch diese ganze Lebenswanderung hindurch sei und ihm dadurch, dass er ihm diese Genossenschaft bietet, erst das Leben zu einem wahrhaft innerlich beseelten Märchen macht**\"(GA062/10:^fabyn0).",
-    "gaReferences": [
-      "GA068c/9"
-    ],
-    "generatedAt": "2025-10-15T14:06:06.121Z",
-    "sourceAnalysis": "ki-generated",
-    "analysisLength": 6176,
-    "resultCount": 2916,
-    "hasDetailedAnalysis": true,
+    "text": "Das **Märchen von der grünen Schlange und der schönen Lilie** bildet \"Goethes Apokalypse, Goethes geheime Offenbarung\" (GA068c/9:^acsybr). Diese kleine Dichtung \"enthält Goethes Weltanschauung und Lebensauffassung in ihren Tiefen\" (GA068c/9:^29gety) und entstand in den neunziger Jahren des 18. Jahrhunderts, als Goethe \"auf der Höhe seines Schaffens stand\" (GA068c/9:^ohbqmv).\n\n#### Entstehung und Problemstellung\n\nGoethe schuf das Märchen zur Lösung des **Freiheitsproblems**, das nach den großen Freiheitskämpfen in Deutschland und Frankreich die Geister seiner Zeit beschäftigte (GA068c/9:^n5ab0j). Während Schiller dieses Problem in seinen \"Briefen über die ästhetische Erziehung des Menschen\" philosophisch behandelte, wählte Goethe den bildhaften Weg: \"Ich brauche ein reiches, umfassendes Vorstellungsleben, um dieses Problem zu lösen. Der Mensch ist eine kleine Welt, und wenn ich ihn im Zusammenhang mit dem Kosmos betrachte, dann kann ich dieses Problem lösen\" (GA068c/9:^aja9bh).\n\n#### Bildsprache und Symbolik\n\nDas Märchen verwendet eine **symbolische Bildsprache**, wenn \"man die gewöhnliche Sprache des Verstandes, die Wortsprache, zu arm, zu trocken, zu öde, zu nüchtern, zu alltäglich findet, um die reiche Fülle des Geistes auszudrücken\" (GA068c/9:^oy6qrf). Die etwa zwanzig Personen des Märchens repräsentieren \"alles Wege der Seele im Grunde genommen, nicht allegorisch oder symbolisch gedacht, sondern so, wie eben Goethe von diesen Wegen der Seele sprechen musste\" (GA080b/6:^78dnjr).\n\n#### Menschheitsentwicklung und Transformation\n\nDas Märchen behandelt die **Grundfrage**, \"wie der Mensch sich von seinem niederen Ich zum höheren Ich entwickelt\" und liegt ihm \"ein großer Ausblick in die Zukunft\" zugrunde (GA053/17:^isokjp). Es stellt \"die Vermählung der niederen Natur des Menschen mit der höheren\" dar, \"als die Vermählung des physischen und ätherischen Körpers, der Lebenskraft und der Leidenschaften und Begierden mit der höheren Natur des Menschen\" (GA068c/10:^cyrfa5).\n\n#### Deutungsversuche und Goethes Haltung\n\nGoethe selbst äußerte: \"Ich will nicht über das 'Märchen' sprechen, bevor es hundert Lösungen von anderen gibt\" (GA068c/9:^ay21y7). Die verschiedenen Auslegungsversuche \"vom Standpunkte der Kritik, der Rationalisten, von rein freimaurerischem Standpunkte\" genügten jedoch nicht, da sie \"nur einzelne Standpunkte\" darstellten (GA068c/9:^ay21y7).\n\n#### Verbindung zu Goethes Gesamtwerk\n\nDas Märchen steht in enger Beziehung zum **Faust**, wobei beide Werke Goethes tiefste geistige Anschauungen verkörpern. In beiden Fällen griff Goethe zu bildhaften Darstellungen, um \"das aussprechen, was er über das Tiefste in den Untergründen und in dem Unterbewusstsein des menschlichen Seelenlebens empfand\" (GA062/10:^kao2hn).\n\n**Weitere Quellen:** GA028:^atag9d, GA046:^pb27f4, GA030:^9b6cuw, GA022:^8bdlqe, GA022:^d6ofpl",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Spannkraft",
+        "Lebenskraft",
+        "Schlagkraft",
+        "Staatsglied"
+      ],
+      "definitionText": "Goethes Apokalypse (GA068c/12:^lm69gb), geheime Offenbarung (GA068c/9:^acsybr), Rätselmärchen (GA028:^kwht5c), theosophische Weltanschauung (GA068c/12:^lm69gb), Offenbarung intimster Lebens- und Weltanschauung (GA053/16:^q9qqfi), Drama in Bildern (GA068c/10:^cyrfa5), symbolische Darstellung tiefster Geheimnisse (GA068c/12:^lm69gb), Goethes Bekenntnis zur geistigen Weltanschauung (GA057/3:^m56q7e).",
+      "functionText": "Löst Problem der menschlichen Bestimmung (GA068c/9:^n5ab0j), stellt Entwicklung vom niederen zum höheren Ich dar (GA053/17:^isokjp), zeigt Vermählung der niederen mit höherer Natur (GA068c/10:^cyrfa5), drückt Wege der Seele aus (GA080b/6:^78dnjr), verkörpert Problem der Freiheit im Bilde (GA022:^d6ofpl), enthält Grundfrage der Seelenentwicklung (GA053/17:^isokjp), gibt Ausblick in die Zukunft (GA053/17:^isokjp).",
+      "interactionText": "Knüpft an Schillers ästhetische Briefe an (GA028:^gfyxan), verbindet sich mit Faust im Chorus mysticus (GA057/3:^m56q7e), steht in Beziehung zu Mysteriendramen (GA238/6:^31r9ux), entspricht theosophischer Weltanschauung (GA068c/12:^lm69gb), zeigt Zusammenhang mit freimaurerischen Ideen (GA068c/9:^ihyvsb), weist ähnliche Züge zu erstem Mysterium auf (GA238/6:^31r9ux), verbindet Naturbetrachtung mit Seelenleben (GA028:^czygxg).",
+      "specialText": "Erfordert hundert Lösungen (GA068c/9:^ay21y7), verwendet Bildsprache statt Begriffe (GA028:^czygxg), enthält Imaginationen seit achtziger Jahren (GA028:^czygxg), zeigt Goethes Weg von Natur zur Seele (GA028:^czygxg), bildet Abschluss der Unterhaltungen deutscher Ausgewanderter (GA068c/9:^io7vfh), entstand auf Höhe von Goethes Schaffen (GA068c/9:^ohbqmv), wenigen bekannt (GA068c/9:^acsybr), angelegt als selbstständige Dichtung (GA068c/9:^io7vfh)."
+    },
     "sources": [
       {
         "id": "GA068c/9",
@@ -40914,9 +41079,35 @@
         "fileName": "GA068c/9 - EINLEITUNG IN GOETHES MÄRCHEN VON DER GRÜNEN SCHLANGE UND DER SCHÖNEN LILIE, Ansprache Berlin, 29. März 1904"
       }
     ],
-    "migratedFrom": "concepts-thematic-search",
-    "thematicTimestamp": "2025-10-15T14:06:06.127Z",
-    "totalMatches": 2916
+    "gaReferences": [
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9",
+      "GA068c/9"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:12:29.845Z",
+    "totalMatches": 7115,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 0
   },
   {
     "keyword": "Gold",
@@ -43063,26 +43254,171 @@
   {
     "keyword": "Hegel",
     "alphabetical": "H",
-    "text": "Georg Wilhelm Friedrich Hegel war ein deutscher **Philosoph**, der die **Entwicklung reiner Ideen** als göttliches Denken im Menschen verstand ([[GA064 (5.) DIE GERMANISCHE SEELE UND DER DEUTSCHE GEIST, Berlin, 14. Januar 1915|GA064/5]]). Seine **Logik** wird zur lebendigen Mystik durch **Einswerden mit dem Weltgeist**, wobei er durch abstrakte Begriffe die **göttlichen Gedanken** nachzudenken suchte ([[GA064 (11.) DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS, München, 28. November 1915|GA064/11]], [[GA064 (12.) DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 22. April 1915|GA064/12]]).\nAls Philosoph des **deutschen Idealismus** strebte er durch **reines Denken** und logische Begriffe zum waltenden **Weltengeist** vor und suchte die **Vereinigung der Seele** mit dem Weltengrund durch kristallklares, reines Denken ([[GA065 (1.) GOETHE UND DAS WELTBILD DES DEUTSCHEN IDEALISMUS, Berlin, 2. Dezember 1915|GA065/1]], [[GA065 (10.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916|GA065/10]]). Für ihn war Geschichte **Fortschritt im Bewusstsein der Freiheit** ([[GA068a (16.) DIE FREIHEIT DES MENSCHEN, Düsseldorf, 11. Februar 1906|GA068a/16]]).\nHegel vertrat die **deutsche Vernunft** und die Vereinigung der menschlichen Seele mit dem Weltengeist. Seine **mystische Logik** zeigt, wie der Weltengeist durch den Menschen denkt. Als Denker des **reinen Gedankens** erfasste er die Welt als vernünftige Verwirklichung des Göttlichen ([[GA070b (1.) DAS WELTBILD DES DEUTSCHEN IDEALISMUS EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Stuttgart, 25. November 1915|GA070b/1]], [[GA070b (3.) DER SCHAUPLATZ DER GEDANKEN ALS ERGEBNIS DES DEUTSCHEN IDEALISMUS IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, München, 28. November 1915|GA070b/3]], [[GA070b (9.) DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Hamburg, 15. Februar 1916|GA070b/9]]).\nAls **Ideenphilosoph** wollte er durch reine Begriffe an der Wirksamkeit der göttlichen Gedanken in der Welt teilhaben. Sein **absolutes Denken** offenbart den Weltengeist im menschlichen Denken. Sein Weg zum **Weltengeist** führte durch kristallklares Denken ([[GA070b (10.) DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Kassel, 19. Februar 1916|GA070b/10]], [[GA070b (11.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916|GA070b/11]], [[GA070b (12.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916|GA070b/12]]).\nAls **Denkmystiker** suchte er im reinen, sinnlichkeitsfreien Gedanken das göttliche Weltenwesen zu erfassen. Sein **gedankenklarer Mystizismus** vereinigte menschliches Denken mit göttlich-geistigen Weltgedanken. Als Vertreter des **sinnlichkeitsfreien Denkens** strebte er die mystische Vereinigung mit dem Weltenweben in vollständiger Klarheit an ([[GA070b (13.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Bremen, 2. März 1916|GA070b/13]], [[GA070b (14.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916|GA070b/14]], [[GA070b (16.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916|GA070b/16]]).\nAls Vertreter der **mitteleuropäischen Philosophie** suchte er die Brücke zwischen Geist und Natur im Gedanken. Hegels Fähigkeit bestand darin, im **Gedanken selbst zu leben** und geistige Inhalte als Schattenbilder zu erfahren ([[GA081 (3.) DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922|GA081/3]]).",
-    "gaReferences": [
-      "GA064/11",
-      "GA064/12",
-      "GA064/5",
-      "GA065/1",
-      "GA065/10",
-      "GA068a/16",
-      "GA070b/1",
-      "GA070b/10",
-      "GA070b/11",
-      "GA070b/12",
-      "GA070b/13",
-      "GA070b/14",
-      "GA070b/16",
-      "GA070b/3",
-      "GA070b/9",
-      "GA081/3"
+    "text": "Der **Ausgangspunkt** ist das reine Denken, die abstrakte Idee, die als „austernhaftes, graues oder ganz schwarzes\" Wesen bezeichnet wird, aber zugleich als „Darstellung Gottes, wie er in seinem ewigen Wesen vor der Erschaffung der Natur und eines endlichen Geistes ist\" aufgefasst werden soll (GA018:^2i6gkf). Diese absolute Idee steht über allen Gegensätzen von Subjekt und Objekt, Erkennen und Meinen und liegt jenseits von Geist und Natur (GA125/2:^wicvpn).\n\n#### Philosophisches System\n\nDie **Enzyklopädie der philosophischen Wissenschaften** bildet ein geschlossenes Ganzes, bei dem es „nicht den geringsten Sinn\" hat, „irgendwo aufzuschlagen und zu lesen\" (GA163/2:^x4epnl). Das System gliedert sich in drei Teile: Logik als Organismus der Idee, Naturphilosophie als Verzauberung der Begriffe und Geistesphilosophie als deren Befreiung (GA125/2:^2amopo).\n\nIn der **Logik** entwickelt sich das Denken dialektisch: „Sein und Nichts bringen nun ein drittes hervor: das ist das Werden. Damit wir aber das Werden erfassen können, muss es zum Stillstand gebracht werden. So sprießt an vierter Stelle aus dem Begriffe des Werdens der Begriff des Daseins hervor\" (GA125/2:^xxtn72). Diese Methode führt durch Thesis, Antithesis und Synthesis von Begriff zu Begriff (GA189/8:^nezipd).\n\n#### Denkmethode und Wirkung\n\n„Die Idee soll denken, nicht ich: das ist das Gefühl, welches man hat\" (GA125/2:^t5623g). Alles „subjektive Räsonnement\" wird ausgeschlossen - „die Begriffe einen an den andern sich fügen lassen, so wie sie ihrer Natur gemäß einer aus dem andern hervorwachsen\" (GA068b/26:^9mzuo8). Dies erfordert „höchste Anstrengungen\", aber „Fleiß genügt\" (GA185a/6:^wt9ms5).\n\nDie **Rechtsphilosophie** prägt den Grundsatz: „Alles Wirkliche ist also vernünftig\" (GA125/2:^oa719k). In der Geschichtsbetrachtung wird zuerst „der Werdegang der Ideen\" gesucht und dann durch äußere Ereignisse bestätigt (GA163/3:^xtckp3).\n\n#### Einfluss und Nachwirkung\n\nDie Philosophie spaltete die Schüler „von der äußersten Rechten, vom Reaktionismus bis zur äußersten radikalsten Linken\" (GA192/13:^m1kmfh). **Karl Marx** lernte von Hegel „sich wirklich im Gedanken virtuos bewegen\", übertrug aber den dialektischen Dreiklang „auf die äußere materielle Wirklichkeit\" (GA185a/6:^zwa5ow, GA189/8:^nezipd).\n\n#### Bewertung und Grenzen\n\n„In bezug auf die Schärfe des Denkens, in bezug auf Gedankenkristallisation in der Seele\" wurde „ein gewisser Höhepunkt philosophischer Entwickelung doch durch Hegel erreicht\" (GA125/6:^mltjpr). Es ist „außerordentlich nützlich und stellt eine außerordentlich fruchtbare Meditation dar, in den kristallklaren Begriffen Hegels zu leben\" (GA108/15:^f74xup).\n\nJedoch: „Wer heute ein Hegelianer wäre, der würde verdorrend wirken auf den Fortschritt unserer Kultur. Wer aber die Art der feinen Gedankenbildung Hegels zu seinem innersten Seeleneigentum macht und von da aus den Schritt tut, den Hegel nicht machen konnte: in den Geist hinein, der tut das Richtige\" (GA192/11:^eq1vyk).\n\n**Weitere Quellen:** GA030:^8qurzl, GA020:^fsaho5, GA060/1:^o3tji4, GA068b/26:^orsoy7, GA081/3:^yf45q2, GA132/1:^fwukyo, GA139/5:^5c7ljh, GA190/6:^69c740, GA213/7:^pmvkn0, GA221/2:^u20ifm",
+    "overview": {
+      "alternativeTerms": [
+        "Urwesen",
+        "gewesen",
+        "Lebewesen",
+        "dagewesen",
+        "Naturwesen"
+      ],
+      "definitionText": "Philosoph des deutschen Idealismus (GA125/2:^wx3hj0), Denker der Gedankenkristallisation (GA125/6:^mltjpr), Vertreter des reinen Denkens (GA018:^2i6gkf), Schöpfer der Phänomenologie des Geistes (GA125/2:^cxzsuf), Begründer der Wissenschaft der Logik (GA018:^rxcflg), Philosoph der absoluten Idee (GA125/2:^ip863x), Systematiker der Weltvernunft (GA199/9:^f6q2du), Denker der dialektischen Methode (GA189/8:^nezipd).",
+      "functionText": "Entwickelt Höhepunkt philosophischer Entwicklung (GA125/6:^mltjpr), schafft diamantklare Begriffswelt (GA108/15:^khi5a6), führt Gedanken zu eigenem Leben (GA018:^d48dos), vereinigt Geist und Natur (GA081/3:^yf45q2), überwindet Trennung von Wissen und Glauben (GA081/3:^yf45q2), bildet kristallklare Begriffe (GA108/15:^f74xup), erfasst Weltgeist im menschlichen Denken (GA070b/11:^z37qhn), verwirklicht Ideen in Geschichte (GA018:^cyxqa1).",
+      "interactionText": "Beeinflusst Karl Marx (GA185a/6:^zwa5ow), steht im Gegensatz zu Schopenhauer (GA202/4:^dxtk9s), verbindet sich mit Goethe'scher Weltanschauung (GA070b/11:^akweoj), folgt auf Kant (GA018:^0o1i5a), wirkt zusammen mit Schelling (GA322/8:^1s2cl4), prägt nachfolgende Philosophen (GA033:^adaj9z), lehnt Newtonsche Farbenlehre ab (GA081/3:^utdnic), inspiriert Feuerbach (GA018:^b2ra4p).",
+      "specialText": "Württemberger und Stuttgarter (GA070b/14:^9luczb), Mitschüler von Schelling und Hölderlin (GA125/2:^wx3hj0), schreibt unter Kanonendonner von Jena (GA125/2:^cxzsuf), lehrt in Berlin 1818-1831 (GA125/2:^ip863x), stirbt am Todestag von Leibniz (GA125/2:^ip863x), besitzt aristotelischen Sinn (GA068b/26:^orsoy7), erreicht Vereinigung von Mystik und Logik (GA064/11:^2in0ub), bleibt verzauberter Geist (GA125/2:^a59086)."
+    },
+    "sources": [
+      {
+        "id": "GA018",
+        "index": "^2i6gkf",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA185a/6",
+        "index": "^zwa5ow",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA185a/6 - SECHSTER VORTRAG, Dornach, 22. November 1918"
+      },
+      {
+        "id": "GA018",
+        "index": "^y0d4ja",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA189/8",
+        "index": "^b8vob1",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA189/8 - ACHTER VORTRAG, Dornach, 16. März 1919"
+      },
+      {
+        "id": "GA202/4",
+        "index": "^dxtk9s",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA202/4 - VIERTER VORTRAG, Dornach, 4. Dezember 1920"
+      },
+      {
+        "id": "GA322/2",
+        "index": "^qsv3bj",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA322/2 - ZWEITER VORTRAG, Dornach, 28. September 1920"
+      },
+      {
+        "id": "GA018",
+        "index": "^cabmul",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA125/2",
+        "index": "^t5623g",
+        "title": "II. DIE PHILOSOPHIE HEGELS UND IHR ZUSAMMENHANG MIT DER GEGENWART",
+        "fileName": "GA125/2 - II. DIE PHILOSOPHIE HEGELS UND IHR ZUSAMMENHANG MIT DER GEGENWART, Hamburg, 26. Mai 1910"
+      },
+      {
+        "id": "GA006",
+        "index": "^osqclr",
+        "title": "Goethes Weltanschauung (1897)",
+        "fileName": "GA006 - Goethes Weltanschauung (1897)"
+      },
+      {
+        "id": "GA030",
+        "index": "^8qurzl",
+        "title": "Methodische Grundlagen der Anthroposophie Gesammelte Aufsätze zur Philosophie (1884-1901)",
+        "fileName": "GA030 - Methodische Grundlagen der Anthroposophie Gesammelte Aufsätze zur Philosophie (1884-1901)"
+      },
+      {
+        "id": "GA125/2",
+        "index": "^ip863x",
+        "title": "II. DIE PHILOSOPHIE HEGELS UND IHR ZUSAMMENHANG MIT DER GEGENWART",
+        "fileName": "GA125/2 - II. DIE PHILOSOPHIE HEGELS UND IHR ZUSAMMENHANG MIT DER GEGENWART, Hamburg, 26. Mai 1910"
+      },
+      {
+        "id": "GA125/6",
+        "index": "^mltjpr",
+        "title": "VI. DER HEUTIGE STAND DER PHILOSOPHIE UND WISSENSCHAFT",
+        "fileName": "GA125/6 - VI. DER HEUTIGE STAND DER PHILOSOPHIE UND WISSENSCHAFT, München, 26. August 1910"
+      },
+      {
+        "id": "GA322/8",
+        "index": "^1s2cl4",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA322/8 - ACHTER VORTRAG, Dornach, 3. Oktober 1920"
+      },
+      {
+        "id": "GA020",
+        "index": "^fsaho5",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)"
+      },
+      {
+        "id": "GA163/2",
+        "index": "^x4epnl",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA163/2 - ZWEITER VORTRAG, Dornach, 27. August 1915"
+      },
+      {
+        "id": "GA202/4",
+        "index": "^k5m1g7",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA202/4 - VIERTER VORTRAG, Dornach, 4. Dezember 1920"
+      },
+      {
+        "id": "GA018",
+        "index": "^ynrrsj",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA020",
+        "index": "^6cxsu1",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)"
+      },
+      {
+        "id": "GA060/1",
+        "index": "^o3tji4",
+        "title": "DAS WESEN DER GEISTESWISSENSCHAFT UND IHRE BEDEUTUNG FÜR DIE GEGENWART",
+        "fileName": "GA060/1 - DAS WESEN DER GEISTESWISSENSCHAFT UND IHRE BEDEUTUNG FÜR DIE GEGENWART, Berlin, 20. Oktober 1910"
+      },
+      {
+        "id": "GA108/15",
+        "index": "^2o7eln",
+        "title": "DAS BILDEN VON BEGRIFFEN UND DIE KATEGORIENLEHRE HEGELS Berlin",
+        "fileName": "GA108/15 - DAS BILDEN VON BEGRIFFEN UND DIE KATEGORIENLEHRE HEGELS Berlin, 13. November 1908"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA018",
+      "GA185a/6",
+      "GA018",
+      "GA189/8",
+      "GA202/4",
+      "GA322/2",
+      "GA018",
+      "GA125/2",
+      "GA006",
+      "GA030",
+      "GA125/2",
+      "GA125/6",
+      "GA322/8",
+      "GA020",
+      "GA163/2",
+      "GA202/4",
+      "GA018",
+      "GA020",
+      "GA060/1",
+      "GA108/15"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:12:29.845Z",
+    "totalMatches": 1138,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 1
   },
   {
     "keyword": "Heiliger Gral",
@@ -43466,11 +43802,171 @@
   {
     "keyword": "Heinrich IV.",
     "alphabetical": "H",
-    "text": "**Heinrich IV.** war ein deutscher Kaiser, der im **Investiturstreit** gegen den Papst kämpfte ([[GA051 (10.) SIEBENTER VORTRAG GESCHICHTE DES MITTELALTERS, 13. Dezember 1904|GA051/10]]).",
-    "gaReferences": [
-      "GA051/10"
+    "text": "Kaiser des **Heiligen Römischen Reiches** von 1056 bis 1106, dessen Regierungszeit durch den **Investiturstreit** mit dem Papsttum geprägt war. \"Der Kampf um die Nietzsche-Ausgabe\" erwähnt ihn im Kontext historischer Machtkämpfe, ohne jedoch nähere Ausführungen zu seiner Person oder Bedeutung zu geben (GA031:^hgfpx4).\n\n#### Gang nach Canossa\n\nDer berühmte **Bußgang nach Canossa** im Jahr 1077, bei dem Heinrich IV. vor Papst Gregor VII. kniete, um seine Exkommunikation aufzuheben, steht symbolisch für den Konflikt zwischen weltlicher und geistlicher Macht im mittelalterlichen Europa.\n\n#### Historische Bedeutung\n\nHeinrich IV. verkörpert den Typus des mittelalterlichen Herrschers, der sich gegen die wachsende Macht der Kirche zur Wehr setzte und dabei um die **Investitur** - das Recht der Bischofseinsetzung - kämpfte. Sein Konflikt mit dem Papsttum prägte die Entwicklung des Verhältnisses zwischen Staat und Kirche in Europa nachhaltig.",
+    "overview": {
+      "alternativeTerms": [
+        "Urwesen",
+        "gewesen",
+        "Allwesen",
+        "Lebewesen",
+        "Naturwesen"
+      ],
+      "definitionText": "Historische Herrscherfigur (GA018:^s537fg), Mittelalterlicher Kaiser (GA007:^puw1j2), Politische Persönlichkeit des Mittelalters (GA020:^lyokym), Geschichtliche Gestalt (GA031:^r7bw1d).",
+      "functionText": "Verkörpert politische Macht (GA018:^s537fg), repräsentiert mittelalterliche Herrschaft (GA007:^puw1j2), steht für historische Entwicklung (GA020:^lyokym), symbolisiert Zeitenwende (GA031:^r7bw1d).",
+      "interactionText": "Steht in Beziehung zu kirchlichen Mächten (GA007:^puw1j2), wechselwirkt mit kulturellen Strömungen (GA018:^s537fg), verbindet sich mit philosophischen Bewegungen (GA020:^lyokym), korrespondiert mit geistigen Entwicklungen (GA031:^r7bw1d).",
+      "specialText": "Prägt mittelalterliche Epoche (GA007:^puw1j2), beeinflusst Geistesgeschichte (GA018:^s537fg), markiert historischen Wendepunkt (GA020:^lyokym), charakterisiert Zeitgeist (GA031:^r7bw1d)."
+    },
+    "sources": [
+      {
+        "id": "GA018",
+        "index": "^s537fg",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA007",
+        "index": "^puw1j2",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA031",
+        "index": "^r7bw1d",
+        "title": "Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)",
+        "fileName": "GA031 - Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)"
+      },
+      {
+        "id": "GA020",
+        "index": "^lyokym",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)"
+      },
+      {
+        "id": "GA031",
+        "index": "^hcf4fo",
+        "title": "Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)",
+        "fileName": "GA031 - Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)"
+      },
+      {
+        "id": "GA013",
+        "index": "^mbfp89",
+        "title": "Die Geheimwissenschaft im Umriss (1910)",
+        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)"
+      },
+      {
+        "id": "GA007",
+        "index": "^pah9l7",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA007",
+        "index": "^vjynjd",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA102/7",
+        "index": "^l2phk7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908"
+      },
+      {
+        "id": "GA021",
+        "index": "^02vczv",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)"
+      },
+      {
+        "id": "GA008",
+        "index": "^edl4q4",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA007",
+        "index": "^msktpy",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA007",
+        "index": "^3vmhll",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA013",
+        "index": "^xba9rk",
+        "title": "Die Geheimwissenschaft im Umriss (1910)",
+        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)"
+      },
+      {
+        "id": "GA007",
+        "index": "^gl6hem",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA008",
+        "index": "^sp01jw",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA008",
+        "index": "^vl6jg5",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA011",
+        "index": "^8gs33k",
+        "title": "Aus der Akasha-Chronik (1904)",
+        "fileName": "GA011 - Aus der Akasha-Chronik (1904)"
+      },
+      {
+        "id": "GA034",
+        "index": "^9ppn3x",
+        "title": "Lucifer-Gnosis (1903-1908)",
+        "fileName": "GA034 - Lucifer-Gnosis (1903-1908)"
+      },
+      {
+        "id": "GA306/8",
+        "index": "^3ilbcg",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA306/8 - ACHTER VORTRAG, Dornach, 22. April 1923"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA018",
+      "GA007",
+      "GA031",
+      "GA020",
+      "GA031",
+      "GA013",
+      "GA007",
+      "GA007",
+      "GA102/7",
+      "GA021",
+      "GA008",
+      "GA007",
+      "GA007",
+      "GA013",
+      "GA007",
+      "GA008",
+      "GA008",
+      "GA011",
+      "GA034",
+      "GA306/8"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:12:29.841Z",
+    "totalMatches": 208143,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 2
   },
   {
     "keyword": "Helena",
@@ -44452,11 +44948,39 @@
   {
     "keyword": "Hexenverfolgung",
     "alphabetical": "H",
-    "text": "Die **Hexenverfolgung** deutete mittelalterlich **somnamble Persönlichkeiten** als im Bunde mit bösen, **teuflischen Mächten** stehend ([[GA052 (12.) THEOSOPHIE UND SOMNAMBULISMUS, Berlin, 7. März 1904|GA052/12]]).",
-    "gaReferences": [
-      "GA052/12"
+    "text": "Die als **Hexen** bezeichneten Persönlichkeiten waren genau genommen **Medien**, die übersinnliche Fähigkeiten besaßen. Die systematischen Verfolgungen setzten im letzten Drittel des 15. Jahrhunderts ein und erreichten gegen Ende des 16. Jahrhunderts ihren Höhepunkt. (GA173b/10:^7arc63)\n\n#### Betroffene und Beteiligte\n\nIn der Mehrzahl waren es Frauen, die als Hexen verfolgt wurden, aber auch Männer und sogar Kinder waren davon betroffen. An den Verfolgungen waren sowohl die Kirche wie auch die weltlichen Obrigkeiten beteiligt. (GA173b/10:^7arc63)\n\n#### Zeitgenössisches Interesse\n\nDie Epoche war geprägt von einem besonderen Interesse an übersinnlichen Phänomenen. Selbst Gelehrtenpersönlichkeiten wie König Jakob, der stark an der Entwicklung der modernen Naturwissenschaft interessiert war und 1590 den dänischen Astronomen Tycho Brahe persönlich aufgesucht hatte, beschäftigten sich intensiv mit diesen Bereichen. Er \"betrachtete sich als einen ausgesprochenen Kenner der Dämonologie\" und interessierte sich \"nicht nur für die sinnlichen, sondern auch für die übersinnlichen Phänomene\". (GA173c/10:^tc2t8j)",
+    "overview": {
+      "alternativeTerms": [],
+      "definitionText": "Als Hexen bezeichnete Persönlichkeiten (GA173b/10:^7arc63), Verfolgung von Medien (GA173b/10:^7arc63), Beteiligung von Kirche und weltlichen Obrigkeiten (GA173b/10:^7arc63), Einsetzen im letzten Drittel des 15. Jahrhunderts (GA173b/10:^7arc63).",
+      "functionText": "Erreicht Höhepunkt gegen Ende des 16. Jahrhunderts (GA173b/10:^7arc63), betrifft übersinnliche Phänomene (GA173c/10:^tc2t8j), verfolgt mediale Persönlichkeiten (GA173b/10:^7arc63).",
+      "interactionText": "Verbindet sich mit Dämonologie (GA173c/10:^tc2t8j), steht in Beziehung zu Naturwissenschaftsentwicklung (GA173c/10:^tc2t8j), wechselwirkt mit kirchlichen Autoritäten (GA173b/10:^7arc63), korreliert mit weltlicher Obrigkeit (GA173b/10:^7arc63).",
+      "specialText": "Betrifft hauptsächlich Frauen (GA173b/10:^7arc63), erfasst auch Männer und Kinder (GA173b/10:^7arc63), richtet sich gegen mediale Fähigkeiten (GA173b/10:^7arc63), zeitliche Konzentration auf 15.-16. Jahrhundert (GA173b/10:^7arc63)."
+    },
+    "sources": [
+      {
+        "id": "GA173c/10",
+        "index": "^tc2t8j",
+        "title": "ANHANG III",
+        "fileName": "GA173c/10 - ANHANG III"
+      },
+      {
+        "id": "GA173b/10",
+        "index": "^7arc63",
+        "title": "SECHZEHNTER VORTRAG",
+        "fileName": "GA173b/10 - SECHZEHNTER VORTRAG, Dornach, 8. Januar 1917"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA173c/10",
+      "GA173b/10"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:12:29.840Z",
+    "totalMatches": 2,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 3
   },
   {
     "keyword": "Hierarchien",
@@ -47366,16 +47890,171 @@
   {
     "keyword": "Ich-Träger",
     "alphabetical": "I",
-    "text": "Der Ich-Träger umfasst das **Selbstbewusstsein des Menschen**, das nur er als Krone der Schöpfung besitzt ([[GA056 (13.) ERDENANFANG UND ERDENENDE, Berlin, 9. April 1908|GA056/13]]) und als **höchstes Wesensglied** Träger des Selbstbewusstseins und der **Blutzirkulation** ist ([[GA057 (7.) ERNÄHRUNGSFRAGEN IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 17. Dezember 1908|GA057/7]]). Er macht den Menschen zu einem **selbstbewussten Wesen** ([[GA057 (8.) GESUNDHEITSFRAGEN IM LICHTE DER GEISTESWISSENSCHAFT, Berlin, 14. Januar 1909|GA057/8]]) und ist beim **Choleriker vorherrschend** ([[GA057 (12.) DAS GEHEIMNIS DER MENSCHLICHEN TEMPERAMENTE, Berlin, 4. März 1909|GA057/12]]). Als **eigentlich menschliches Glied** macht er den Menschen zur **Krone der Erdenschöpfung** ([[GA068b (47.) DAS WESEN DES MENSCHEN ALS SCHLÜSSEL ZU DEN GEHEIMNISSEN DER WELT, Wien, 24. November 1908|GA068b/47]]) und verleiht **Selbstständigkeit und Ichbewusstsein** ([[GA068d (29.) DAS GEHEIMNIS DER MENSCHLICHEN TEMPERAMENTE, Karlsruhe, 19. Januar 1909|GA068d/29]]).",
-    "gaReferences": [
-      "GA056/13",
-      "GA057/12",
-      "GA057/7",
-      "GA057/8",
-      "GA068b/47",
-      "GA068d/29"
+    "text": "Die Wesenheit, die das Ich trägt und ihm zugrunde liegt, zeigt sich als \"eine Einheit\" gegenüber der Dreiheit des astralischen Menschen mit seinen Bildempfindungen, Begehrungen und Bewegungsimpulsen (GA045:^y3y92g). Alle Sinneserlebnisse erweisen sich als \"verschieden modifizierte oder abgestufte Ich-Erlebnisse\" dieser einheitlichen Trägerschaft.\n\n#### Verhältnis zum Ich-Erleben\n\nIm Erleben des Ich liegt \"nichts, was durch einen Sinnesvorgang angeregt ist\". Dagegen nimmt das Ich \"die Ergebnisse der Sinnesvorgänge in sein eigenes Erleben auf und baut sich aus ihnen das Gefüge seines Innern, den eigentlichen 'Ich-Menschen'\" (GA045:^1rwk6r). Der Ich-Träger ermöglicht damit die Aufnahme und Verarbeitung aller Sinneseindrücke zu einem zusammenhängenden Innenleben.\n\n#### Bewusstseinszustände und Kontinuität\n\nDer Ich-Träger zeigt sich besonders deutlich in der Problematik der **Bewusstseinskontinuität**. Wer \"glaubt, das Ich, das lebe in dem Vorstellungsleben so, dass man es in den Vorstellungen finden könne\", muss erkennen: \"meine Vorstellungen gehen mir eigentlich jeden Abend verloren und entstehen jeden Morgen neu\" (GA176/6:^whx1d2). Der Ich-Träger gewährleistet die Identität durch alle Wach- und Schlafzustände hindurch, obwohl das Vorstellungsleben unterbrochen wird.\n\n#### Entwicklung im Kind\n\nDie Entstehung des Ich-Bewusstseins im Kind zeigt die Wirksamkeit des Ich-Trägers. \"Wie kommt denn das Kind dazu, von dem allgemeinen Ich-losen Bewusstseinszustande zu Ich-erfüllten Vorstellungen zu kommen?\" Diese Entwicklung vollzieht sich durch die allmähliche Erweckung des Ich-Trägers im heranwachsenden Menschen (GA140/3:^sxfx46).\n\n**Weitere Quellen:** GA009:^nygjrz, GA021:^02vczv, GA013:^xba9rk",
+    "overview": {
+      "alternativeTerms": [
+        "Urwesen",
+        "gewesen",
+        "Allwesen",
+        "Lebewesen",
+        "Naturwesen"
+      ],
+      "definitionText": "Ich-Träger (GA013:^xba9rk), Astralleib nach Trennung vom Ätherleib (GA013:^xba9rk), Träger des eigenen Besitzes (GA013:^xba9rk), Wesensglied auf weiterer Wanderung (GA013:^xba9rk).",
+      "functionText": "Trägt alles durch eigene Tätigkeit Erworbene (GA013:^xba9rk), bewahrt Besitz aus physischem Leben (GA013:^xba9rk), ermöglicht weitere Wanderung nach dem Tod (GA013:^xba9rk), führt seelische Entwicklung fort (GA013:^xba9rk).",
+      "interactionText": "Trennt sich vom Ätherleib (GA013:^xba9rk), verlässt physischen Leib (GA013:^xba9rk), wandert allein weiter (GA013:^xba9rk), behält Verbindung zu eigener Tätigkeit (GA013:^xba9rk).",
+      "specialText": "Selbständige Wanderung (GA013:^xba9rk), Bewahrung des Selbsterarbeiteten (GA013:^xba9rk), Unabhängigkeit von physischen Bindungen (GA013:^xba9rk), Kontinuität der Seelentätigkeit (GA013:^xba9rk)."
+    },
+    "sources": [
+      {
+        "id": "GA018",
+        "index": "^s537fg",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA007",
+        "index": "^puw1j2",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA031",
+        "index": "^r7bw1d",
+        "title": "Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)",
+        "fileName": "GA031 - Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)"
+      },
+      {
+        "id": "GA020",
+        "index": "^lyokym",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)"
+      },
+      {
+        "id": "GA031",
+        "index": "^hcf4fo",
+        "title": "Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)",
+        "fileName": "GA031 - Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)"
+      },
+      {
+        "id": "GA013",
+        "index": "^mbfp89",
+        "title": "Die Geheimwissenschaft im Umriss (1910)",
+        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)"
+      },
+      {
+        "id": "GA007",
+        "index": "^pah9l7",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA007",
+        "index": "^vjynjd",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA102/7",
+        "index": "^l2phk7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908"
+      },
+      {
+        "id": "GA021",
+        "index": "^02vczv",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)"
+      },
+      {
+        "id": "GA008",
+        "index": "^edl4q4",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA007",
+        "index": "^msktpy",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA007",
+        "index": "^3vmhll",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA013",
+        "index": "^xba9rk",
+        "title": "Die Geheimwissenschaft im Umriss (1910)",
+        "fileName": "GA013 - Die Geheimwissenschaft im Umriss (1910)"
+      },
+      {
+        "id": "GA007",
+        "index": "^gl6hem",
+        "title": "Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)",
+        "fileName": "GA007 - Die Mystik im Aufgange des neuzeitlichen Geisteslebens und ihr Verhältnis zur modernen Weltanschauung (1901)"
+      },
+      {
+        "id": "GA008",
+        "index": "^sp01jw",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA008",
+        "index": "^vl6jg5",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA011",
+        "index": "^8gs33k",
+        "title": "Aus der Akasha-Chronik (1904)",
+        "fileName": "GA011 - Aus der Akasha-Chronik (1904)"
+      },
+      {
+        "id": "GA034",
+        "index": "^9ppn3x",
+        "title": "Lucifer-Gnosis (1903-1908)",
+        "fileName": "GA034 - Lucifer-Gnosis (1903-1908)"
+      },
+      {
+        "id": "GA306/8",
+        "index": "^3ilbcg",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA306/8 - ACHTER VORTRAG, Dornach, 22. April 1923"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA018",
+      "GA007",
+      "GA031",
+      "GA020",
+      "GA031",
+      "GA013",
+      "GA007",
+      "GA007",
+      "GA102/7",
+      "GA021",
+      "GA008",
+      "GA007",
+      "GA007",
+      "GA013",
+      "GA007",
+      "GA008",
+      "GA008",
+      "GA011",
+      "GA034",
+      "GA306/8"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:13:04.419Z",
+    "totalMatches": 208143,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 4
   },
   {
     "keyword": "Ich-Wesen",
@@ -80548,12 +81227,171 @@
   {
     "keyword": "Objektive Wahrheit",
     "alphabetical": "O",
-    "text": "**Objektive Wahrheiten** charakterisieren sich durch ihre **Unabhängigkeit von subjektiven Meinungen** und weisen eine Gültigkeit auf, die mit mathematischen Gesetzmäßigkeiten vergleichbar ist ([[GA069a (3.) WIE VERTEIDIGT MAN THEOSOPHIE , Prag, 25. März 1911|GA069a/3]], [[GA069e (5.) WIE BEGRÜNDET MAN THEOSOPHIE, München, 10. Januar 1912|GA069e/5]]). Diese geistigen Erkenntnisse bilden einen absoluten Maßstab, der frei von den Schwankungen individueller Bewertungen besteht.",
-    "gaReferences": [
-      "GA069a/3",
-      "GA069e/5"
+    "text": "Die Wissenschaft kann nur in der Mathematik **objektive Wahrheiten** erlangen. \"Wenn die Menschen sich einmal durchgerungen haben werden, werden sie allem Übrigen auch so objektiv gegenüberstehen, wie man heute den mathematischen Wahrheiten gegenübersteht\" (GA090a/20:zj5kd4). Bei mathematischen Wahrheiten können die Leidenschaften nicht mitsprechen - \"da, wo die Menschen nicht übereinstimmen in Bezug auf die Wahrheit, wo nicht ein jeder in seiner Seele dieselben Wahrheiten findet, da sind es eben die Triebe, die Begierden, die Leidenschaften, welche ihn sozusagen hindern, wirklich durchsichtig und hell und klar die Verhältnisse der Wahrheit zu schauen\" (GA068c/31:h4upl4).\n\n#### Wahrheit als individueller und unpersönlicher Erkenntnisvorgang\n\n\"Es gibt weite Gebiete des Vorstellungslebens, die uns vollständig objektive Wahrheiten liefern, Wahrheiten, die die Menschen als solche erkannt haben, ganz unabhängig von der äußeren Erfahrung\" (GA057/3:1vtaip). Paradoxerweise ist die Wahrheit zugleich höchst persönlich und völlig unpersönlich: \"Haben wir die Wahrheit über eine Sache erworben, dann dürfen wir sagen: Diese Wahrheit ist, trotzdem sie auf die persönlichste Art erworben ist, das Allerunpersönlichste; denn dieselbe Wahrheit können wir in allen Seelen finden\" (GA068c/31:ycf28j).\n\n#### Wirklichkeit durch Zusammenfluss von Subjektivem und Objektivem\n\n\"Wenn ein Ding durch das Organ des menschlichen Geistes seine Wesenheit ausspricht, so kommt die volle Wirklichkeit nur durch den Zusammenfluss des äußeren objektiven und des inneren Subjektiven zustande. Weder durch einseitiges beobachten, noch durch einseitiges Denken erkennt der Mensch die Wirklichkeit\" (GA001:gsaesv). Die Wirklichkeit ist \"nicht als etwas Fertiges in der objektiven Welt vorhanden, sondern wird erst durch den menschlichen Geist in Verbindung mit den Dingen hervorgebracht\" (GA030:62oieh).\n\n#### Geistesforschung und objektive Wahrheiten\n\nIn der Geistesforschung ergeben sich objektive Wahrheiten \"als objektive Wahrheit, welche die Geistesforschung ergibt\" (GA174a/2:tbv6xn). Diese zeigen, \"dass das, was uns in der äußeren Wirklichkeit entgegentritt, Maja, große Täuschung ist, und dass hinter dieser Maja, hinter diesem Schleier Wahrheiten liegen\" (GA174a/2:tbv6xn). Solche Wahrheiten sind \"eine objektive Wahrheit\" (GA066/1:7cy76c), die sich nicht aus Gefühlen ergibt, sondern als objektive Gewissheit durch die Geisteswissenschaft.\n\n**Weitere Quellen:** GA005:4ca8xe, GA046:swsez4, GA062/5:333phf, GA057/8:bp9kx0, GA130/14:tvbqd8, GA156/5:nwl4v4",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Mitglied",
+        "Tragkraft",
+        "Leidwesen",
+        "Urteilskraft"
+      ],
+      "definitionText": "Unabhängigkeit von individueller Perspektive (GA046:^swsez4), Ergebnis der Geisteswissenschaft (GA066/1:^7cy76c), Abbildung äußerer physischer Tatsachen (GA057/8:^bp9kx0), Wahrheit aus geistiger Anschauung (GA069c/8:^nwu8fj), Mathematische Wahrheiten als Ideal (GA090a/20:^zj5kd4), Übersinnliche Erkenntnisse (GA069a/4:^y9ypzm), Wahrheiten der Vorstellungswelt (GA057/3:^1vtaip).",
+      "functionText": "Ermöglicht Gewissheit über geistige Welt (GA066/1:^7cy76c), Überwindet Maja und Täuschung (GA174a/2:^tbv6xn), Schafft Grundlage für Wissenschaft (GA057/3:^gk8bbr), Führt zu Erkenntnis der Wirklichkeit (GA001:^gsaesv), Bildet Basis für Geisteswissenschaft (GA069a/4:^y9ypzm), Ermöglicht hellseherische Erkenntnis (GA069c/8:^nwu8fj).",
+      "interactionText": "Steht im Gegensatz zu subjektiver Stimmung (GA046:^b2qoan), Verbindet sich mit geistiger Anschauung (GA069c/8:^nwu8fj), Unterscheidet sich von geoffenbarter Wahrheit (GA046:^swsez4), Ergänzt Sinnesbeobachtung (GA057/3:^gk8bbr), Wechselwirkt mit Volksseelen (GA156/5:^nwl4v4), Kontrastiert mit persönlicher Überzeugung (GA266b/59:^xoq0dv).",
+      "specialText": "Fehlt bei Nietzsche (GA005:^4ca8xe), Unabhängig von göttlicher Perspektive (GA046:^swsez4), Erfordert Glaubenslosigkeit gegenüber Imaginationen (GA069a/4:^y9ypzm), Entsteht durch Zusammenfluss von Beobachtung und Denken (GA030:^62oieh), Unterscheidet sich von anthropomorphischem Denken (GA001:^ypagb8), Benötigt spirituelle Wissenschaft (GA186/9:^sy7pr3)."
+    },
+    "sources": [
+      {
+        "id": "GA005",
+        "index": "^vzc3oa",
+        "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+        "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)"
+      },
+      {
+        "id": "GA133/9",
+        "index": "^39il8v",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA133/9 - NEUNTER VORTRAG, Berlin, 20. Juni 1912"
+      },
+      {
+        "id": "GA300b/18",
+        "index": "^stq08s",
+        "title": "Konferenz vom Mittwoch 17. Januar 1923",
+        "fileName": "GA300b/18 - Konferenz vom Mittwoch 17. Januar 1923, abends"
+      },
+      {
+        "id": "GA115/7",
+        "index": "^jl3830",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA115/7 - DRITTER VORTRAG, Berlin, 3. November 1910"
+      },
+      {
+        "id": "GA184/2",
+        "index": "^6y12st",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA184/2 - ZWEITER VORTRAG, Dornach, 7. September 1918"
+      },
+      {
+        "id": "GA185a/3",
+        "index": "^ubj5wr",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA185a/3 - DRITTER VORTRAG, Dornach, 15. November 1918"
+      },
+      {
+        "id": "GA186/9",
+        "index": "^jisra4",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA186/9 - NEUNTER VORTRAG, Dornach, 14. Dezember 1918"
+      },
+      {
+        "id": "GA124/2",
+        "index": "^126mko",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA124/2 - ZWEITER VORTRAG, Berlin, 24. Oktober 1910"
+      },
+      {
+        "id": "GA009",
+        "index": "^agga66",
+        "title": "Theosophie (1904)",
+        "fileName": "GA009 - Theosophie (1904)"
+      },
+      {
+        "id": "GA031",
+        "index": "^hcf4fo",
+        "title": "Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)",
+        "fileName": "GA031 - Gesammelte Aufsätze zur Kultur- und Zeitgeschichte (1887-1901)"
+      },
+      {
+        "id": "GA115/10",
+        "index": "^pa3vdf",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA115/10 - ZWEITER VORTRAG, Berlin, 13. Dezember 1911"
+      },
+      {
+        "id": "GA097/13",
+        "index": "^dx0bnv",
+        "title": "DIE VERHEISSUNG DES GEISTES DER WAHRHEIT",
+        "fileName": "GA097/13 - DIE VERHEISSUNG DES GEISTES DER WAHRHEIT, Köln, 8. März 1907"
+      },
+      {
+        "id": "GA118/6",
+        "index": "^5dhs2d",
+        "title": "DIE GEHEIMNISSE DES WELTENALLS. KOMETARISCHES UND LUNARISCHES",
+        "fileName": "GA118/6 - DIE GEHEIMNISSE DES WELTENALLS. KOMETARISCHES UND LUNARISCHES, Stuttgart, 5. März 1910"
+      },
+      {
+        "id": "GA119/7",
+        "index": "^jbiy2x",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA119/7 - SECHSTER VORTRAG, Wien, 26. März 1910"
+      },
+      {
+        "id": "GA177/4",
+        "index": "^681gt6",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA177/4 - VIERTER VORTRAG, Dornach, 6. Oktober 1917"
+      },
+      {
+        "id": "GA306/8",
+        "index": "^q74g6o",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA306/8 - ACHTER VORTRAG, Dornach, 22. April 1923"
+      },
+      {
+        "id": "GA332b/31",
+        "index": "^841m65",
+        "title": "ANSPRACHE AN DER ORIENTIERUNGSVERSAMMLUNG ÜBER DIE «FUTURUM» UND DEN «KOMMENDEN TAG»",
+        "fileName": "GA332b/31 - ANSPRACHE AN DER ORIENTIERUNGSVERSAMMLUNG ÜBER DIE «FUTURUM» UND DEN «KOMMENDEN TAG», Dornach, 13. Oktober 1920"
+      },
+      {
+        "id": "GA005",
+        "index": "^atl8lz",
+        "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+        "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)"
+      },
+      {
+        "id": "GA057/3",
+        "index": "^1vtaip",
+        "title": "GOETHES GEHEIME OFFENBARUNG ESOTERISCH",
+        "fileName": "GA057/3 - GOETHES GEHEIME OFFENBARUNG ESOTERISCH, Berlin, 24. Oktober 1908"
+      },
+      {
+        "id": "GA068c/31",
+        "index": "^wzkheb",
+        "title": "DIE MISSION DER WAHRHEIT",
+        "fileName": "GA068c/31 - DIE MISSION DER WAHRHEIT, öffentlicher Vortrag München, 6. Dezember 1909"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA005",
+      "GA133/9",
+      "GA300b/18",
+      "GA115/7",
+      "GA184/2",
+      "GA185a/3",
+      "GA186/9",
+      "GA124/2",
+      "GA009",
+      "GA031",
+      "GA115/10",
+      "GA097/13",
+      "GA118/6",
+      "GA119/7",
+      "GA177/4",
+      "GA306/8",
+      "GA332b/31",
+      "GA005",
+      "GA057/3",
+      "GA068c/31"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:13:04.419Z",
+    "totalMatches": 13633,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 5
   },
   {
     "keyword": "Objektivierung",
@@ -81558,12 +82396,171 @@
   {
     "keyword": "Orientalische Kultur",
     "alphabetical": "O",
-    "text": "Die orientalische Kultur umfasst **frühe Zivilisationsformen des Ostens**, geprägt von theokratischen Strukturen und instinktiver Geistesschau sowie **asiatische Hochkultur** mit Gemeinschaftsideal und noch nicht erwachtem Ich-Gefühl ([[GA083 (7.) SIEBENTER VORTRAG DIE ZEIT UND IHRE SOZIALE GESTALTUNG, Wien, 8. Juni 1922|GA083/7]], [[GA083 (8.) ACHTER VORTRAG, Wien DIE ZEIT UND IHRE SOZIALEN MÄNGEL, 9. Juni 1922|GA083/8]]).",
-    "gaReferences": [
-      "GA083/7",
-      "GA083/8"
+    "text": "Die orientalische Kultur entwickelte sich aus einer unmittelbaren Verbindung mit der geistigen Welt und war geprägt von der Anschauung, dass der Mensch ein Abbild himmlisch-geistiger Wesenheiten darstellt. \"Das irdische Leben ging in einer gewissen Weise für ihn so vor sich, dass er es wenig beachtete, weil er ja in ihm nur das Abbild des himmlisch–geistigen Lebens sah\" (GA197/9:m6ogyn).\n\n#### Charakteristische Merkmale\n\nDie orientalische Kultur \"hat gar kein intellektuelles Element; sie geht hervor aus dem ganzen Menschen, so wie er eben ist als Orientale, und sie sucht Mensch an Mensch zu binden. Sie kommt eigentlich schwerlich hinaus über das Autoritätsprinzip\" (GA310/9:jii8mu). Alles Geistesleben war durchdrungen von spiritueller Substanz, wobei \"der Lehrer, der Führer war, in geistiger Beziehung zu gleicher Zeit Priester, aber auch zu gleicher Zeit Heiler war\" (GA083/8:ft8ovi).\n\nEin wesentliches Merkmal war die **Ungeschichtlichkeit**: \"alle eigentlich orientalische Kultur, die noch nicht ihre Befruchtung vom Abendlande aus erfahren hat, ungeschichtlich, unhistorisch ist - dass alle abendländische Kultur historisch, geschichtlich ist\" (GA058/8:fikfhg). Die orientalische Kultur \"spricht nur von solchen Individualitäten, die durch die Entwickelung durch verschiedene Inkarnationen hindurchgegangen sind\" (GA143/10:dwldq3).\n\n#### Entwicklungsimpulse\n\nDie orientalische Kultur war \"von der Empfindung der allgemeinen Menschenschuld als solcher tief beherrscht\", wodurch \"der Erkenntnisprozess selbst, überhaupt das Streben nach einer höheren Geistigkeit so angesehen worden ist, dass es gewissermaßen den bloß naturgegebenen Menschen heilen sollte\" (GA083/8:2mvmhr). \n\nIhre Übertragung nach Europa führte zu grundlegenden Wandlungen: \"Indem die orientalische Kultur sich herüberentwickelt nach Europa unter dem Einflusse von Handel, Gewerbe und Arbeit, das alte theokratische Denken übergeht in das juristische Denken\" (GA305/11:uwflcm).\n\n**Weitere Quellen:** GA133/4:nsl9rr, GA102/7:l2phk7, GA113/9:ipby6n, GA126/1:xs4t9k, GA121/11:qjdp1q, GA206/2:o1jr9s, GA206/2:x6wdbt, GA083/1:dg0b8s, GA202/8:d8lzx1",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "therleib",
+        "Denckraft",
+        "Astralleib",
+        "Lebensleib"
+      ],
+      "definitionText": "Entwickelt sich nach Europa unter Handel und Gewerbe (GA305/11:^uwflcm), theokratisches Denken (GA305/11:^uwflcm), inniger Zusammenhang zwischen Erkenntnis und Heilen (GA083/8:^ft8ovi), Arzt nicht von Lehrer und Priester zu trennen (GA083/8:^ft8ovi), inspirierte Kultur ohne Ich-Arbeit (GA126/4:^e4jbxn), kein intellektuelles Element (GA310/9:^jii8mu), geht aus ganzem Menschen hervor (GA310/9:^jii8mu), ungeschichtlich und unhistorisch (GA058/8:^fikfhg), quillt aus menschlichem Ätherleib heraus (GA133/4:^nsl9rr).",
+      "functionText": "Verpflanzt sich nach Europa (GA083/8:^y2e4ap), taucht in Ichheit und Individualität unter (GA083/8:^y2e4ap), bezieht menschliche Arbeit in soziale Ordnung ein (GA083/8:^y2e4ap), bindet Mensch an Mensch (GA310/9:^jii8mu), kommt schwer über Autoritätsprinzip hinaus (GA310/9:^jii8mu), sucht Entwicklung zu höherem geistigen Leben (GA083/8:^v5qb09), enthält Religion, Kunst und Wissenschaft in einem (GA083/8:^v5qb09), beherrscht von allgemeiner Menschenschuld (GA083/8:^2mvmhr).",
+      "interactionText": "Übergeht in juristisches Denken (GA305/11:^uwflcm), entwickelt Rechtsverhältnisse des Eigentums (GA305/11:^uwflcm), findet verwandte Geistigkeit im römischen Katholizismus (GA203/11:^wf75ld), wird überschwemmt mit Römertum ohne moderne Geistigkeit (GA203/11:^wf75ld), hat Wurzeln in Asien für Platons Gemeinsamkeitsgedanken (GA083/8:^0gt6kv), entwickelt Europa als geistige Halbinsel zu großem Kontinent (GA083/8:^0gt6kv), spricht von Bodhisattvas als Individualitäten (GA143/10:^dwldq3).",
+      "specialText": "Erwacht Ich nicht als fremdes sondern als eigenes (GA121/11:^g8chkv), entwickelt fein ausgesponnene Spekulation und Weisheit (GA121/11:^g8chkv), hat noch Geistigkeit im Gegensatz zu moderner Zivilisation (GA203/11:^wf75ld), spricht Natur in höchster Geistigkeit (GA334/11:^xcks1z), wird höchste Geistigkeit durch natürliches Sprechen (GA334/11:^xcks1z), hat wunderbare konkrete geistige Fülle (GA334/11:^ojzbnj), kann sich niemals praktische Fähigkeiten erwerben (GA334/11:^ojzbnj), weniger filtrierte Mysterien des Lichtes (GA194/12:^6k6qd6)."
+    },
+    "sources": [
+      {
+        "id": "GA133/4",
+        "index": "^nsl9rr",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA133/4 - VIERTER VORTRAG, Berlin, 23. April 1912"
+      },
+      {
+        "id": "GA157/13",
+        "index": "^1xuin3",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA157/13 - ZWÖLFTER VORTRAG, Berlin, 10. Juni 1915"
+      },
+      {
+        "id": "GA310/9",
+        "index": "^jii8mu",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA310/9 - NEUNTER VORTRAG, Arnheim, 24. Juli 1924"
+      },
+      {
+        "id": "GA143/10",
+        "index": "^dwldq3",
+        "title": "VORVERKÜNDIGUNG UND HEROLDTUM DES CHRISTUS-IMPULSES DER CHRISTUS-GEIST UND SEINE HÜLLEN EINE PFINGSTBOTSCHAFT",
+        "fileName": "GA143/10 - VORVERKÜNDIGUNG UND HEROLDTUM DES CHRISTUS-IMPULSES DER CHRISTUS-GEIST UND SEINE HÜLLEN EINE PFINGSTBOTSCHAFT, Köln, 8. Mai 1912"
+      },
+      {
+        "id": "GA126/1",
+        "index": "^xs4t9k",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA126/1 - SECHSTER VORTRAG, Stuttgart, 1. Januar 1910"
+      },
+      {
+        "id": "GA054/11",
+        "index": "^f3mfbv",
+        "title": "DIE WEISHEITSLEHREN DES CHRISTENTUMS",
+        "fileName": "GA054/11 - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Berlin, 1. Februar 1906"
+      },
+      {
+        "id": "GA121/11",
+        "index": "^qjdp1q",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA121/11 - ZEHNTER VORTRAG, Kristiania, 16. Juni 1910"
+      },
+      {
+        "id": "GA181/20",
+        "index": "^4kzilz",
+        "title": "ZWANZIGSTER VORTRAG",
+        "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918"
+      },
+      {
+        "id": "GA102/7",
+        "index": "^l2phk7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908"
+      },
+      {
+        "id": "GA113/9",
+        "index": "^ipby6n",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA113/9 - ACHTER VORTRAG, München, 30. August 1909"
+      },
+      {
+        "id": "GA133/9",
+        "index": "^s1mm1c",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA133/9 - NEUNTER VORTRAG, Berlin, 20. Juni 1912"
+      },
+      {
+        "id": "GA157/14",
+        "index": "^mvnisn",
+        "title": "DREIZEHNTER VORTRAG 22. Juni 1915",
+        "fileName": "GA157/14 - DREIZEHNTER VORTRAG 22. Juni 1915"
+      },
+      {
+        "id": "GA335/8",
+        "index": "^64dnk4",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA335/8 - ACHTER VORTRAG, Stuttgart, 29. Juli 1920, Wer darf gegen den Untergang des Abendlandes reden"
+      },
+      {
+        "id": "GA336/13",
+        "index": "^gjm90r",
+        "title": "FREIHEIT FÜR DEN GEIST",
+        "fileName": "GA336/13 - FREIHEIT FÜR DEN GEIST, GLEICHHEIT FÜR DAS RECHT, BRÜDERLICHKEIT FÜR DAS WIRTSCHAFTSLEBEN, Mannheim, 28. Juli 1919"
+      },
+      {
+        "id": "GA102/6",
+        "index": "^hv8eg0",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA102/6 - SECHSTER VORTRAG, Berlin, 24. März 1908"
+      },
+      {
+        "id": "GA113/6",
+        "index": "^xgj9r3",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA113/6 - FÜNFTER VORTRAG, München, 27. August 1909"
+      },
+      {
+        "id": "GA116/6",
+        "index": "^1p0y1q",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA116/6 - SECHSTER VORTRAG, Berlin, 2. Mai 1910"
+      },
+      {
+        "id": "GA121/11",
+        "index": "^k7p0kt",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA121/11 - ZEHNTER VORTRAG, Kristiania, 16. Juni 1910"
+      },
+      {
+        "id": "GA126/4",
+        "index": "^e4jbxn",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA126/4 - DRITTER VORTRAG, Stuttgart, 29. Dezember 1910"
+      },
+      {
+        "id": "GA127/13",
+        "index": "^lq1b1s",
+        "title": "DIE SYMBOLIK UND DIE PHANTASIE MIT BEZUG AUF DAS MYSTERIUM «DIE PRÜFUNG DER SEELE»",
+        "fileName": "GA127/13 - DIE SYMBOLIK UND DIE PHANTASIE MIT BEZUG AUF DAS MYSTERIUM «DIE PRÜFUNG DER SEELE», Berlin, 19. Dezember 1911"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA133/4",
+      "GA157/13",
+      "GA310/9",
+      "GA143/10",
+      "GA126/1",
+      "GA054/11",
+      "GA121/11",
+      "GA181/20",
+      "GA102/7",
+      "GA113/9",
+      "GA133/9",
+      "GA157/14",
+      "GA335/8",
+      "GA336/13",
+      "GA102/6",
+      "GA113/6",
+      "GA116/6",
+      "GA121/11",
+      "GA126/4",
+      "GA127/13"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:12.333Z",
+    "totalMatches": 12737,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 6
   },
   {
     "keyword": "Orientalische Weisheit",
@@ -81588,11 +82585,171 @@
   {
     "keyword": "Ormuzd",
     "alphabetical": "O",
-    "text": "Ormuzd ist die **gute Gottheit der persischen Mythologie** im Kampf gegen das Böse ([[GA054 (13.) LUZIFER, Berlin, 22. Februar 1906|GA054/13]]).",
-    "gaReferences": [
-      "GA054/13"
+    "text": "Die eigentlich asiatische Kultur ist von Iran ausgegangen, von **Ormuzd** ausgegangen, wobei die Iraner den Kampf zwischen Ormuzd und Ahriman erkannt haben (GA157/14:mvnisn). Ormuzd bezeichnete Zarathustra als das Geistige hinter der physischen Sonne, als die \"**Große Aura**\", Auramazda oder Ahura Mazdao - \"dasjenige, was uns in bezug auf alle geistigen Ereignisse, alle geistigen Seinszustände ebenso angeht wie die physische Sonne in bezug auf das Gedeihen der Pflanzen, Tiere und alles Lebens auf der Erde\" (GA060/9:qyoh1k).\n\n#### Kosmische Wirksamkeit\n\n\"Wie wir hier als Menschen in uns ein Prinzip zum Guten haben und etwas, was diesem entgegenarbeitet, so stehen sich in der großen Welt gegenüber Ormuzd und Ahriman. Die ganze Welt ist gleichsam ein ausgebreiteter Mensch, und die besten Kräfte sind die, welche wir als Ahura Mazdao bezeichnen\" (GA060/9:eaimuw). Die Bahn der Sonne durch die Tierkreisbilder ist \"der Ausdruck der Tätigkeit des Ormuzd\" (GA060/9:34ad8g), wobei \"die Ormuzd-Wirksamkeit durch das volle Leuchten der Sonne durch alle hellen Tierkreisbilder vom Widder bis zur Waage oder zum Skorpion zum Ausdruck\" kommt (GA060/9:6abqqb).\n\n#### Dienende Geister\n\nVon Ormuzd \"strahlten, ausströmten die höheren geistigen Wesenheiten, die wir als Amshaspands und Izards kennengelernt haben. Sie sind die Scharen, durch die Ormuzd wirkt, so dass er der höchste Regent ist\" (GA101/5:nicmcj). \"Während Ormuzd die ganze Tätigkeit des Lichtreiches hat, haben die Amshaspands die Spezialtätigkeiten, die ausgedrückt werden durch das Herleuchten der Sonne aus dem Widder, aus dem Stier, dem Krebs und so weiter\" (GA060/9:6abqqb).\n\n#### Verhältnis zu Ahriman\n\nZarathustra unterschied \"die höchsten geistigen Wesenheiten in Ormuzd und Ahriman. Sie gehörten für ihn zusammen, wenn auch der eine der Feind des anderen ist. Sie urstünden sozusagen in einer einzigen, großen geistigen Wesenheit\" (GA069b/8:n03zs9). Diese Urwesenheit nannte man \"Zaruana Akarana\" oder \"die in Herrlichkeit gehüllte Ewigkeit\" (GA069b/8:n03zs9).\n\n#### Kulturelle Bedeutung\n\n\"Ormuzd wird als derjenige Geist verehrt, welcher der Erde die Früchte abgewinnt; welcher aber auch in die Menschenseele hinein das geistige Streben bringt, der sie erhebt, der sie erleben lässt das Geistige\" (GA070b/11:brgz3s). \"Arbeit war Dienst an Ormuzd\" - der Mensch fühlte: \"hier will ich ein Diener des Ormuzd sein\" (GA069b/8:bw8yit).\n\n#### Geschichtliche Entwicklung\n\n\"Denken Sie, es ist darin ein ungeheures Geheimnis der geschichtlichen Entwickelung der europäischen Menschheit, dass der alte Ormuzd zu dem guten Gott gemacht worden ist, während er eigentlich eine luziferische Macht ist, eine Lichtmacht\" (GA205/11:oobdsp). Die heutige Zeit lebt \"eigentlich in einem Bewusstsein, das eine Art von Fortsetzung des alten urpersischen Weltenbewusstseins ist, das ja lebte in Ahriman und Ormuzd\" (GA342/5:94k0jc).\n\n**Weitere Quellen:** GA054/13:0idmk1, GA055/4:urpdph, GA056/14:ia6fpu, GA068a/45:55bqpg, GA068a/21:vs5ydl, GA068a/39:xts0kr, GA069e/22:6x15ho, GA069e/22:t0lllk, GA070a/19:ji1bk6, GA090b/35:mywfdl, GA090b/37:vg973t, GA093a/8:ds00mu, GA093a/31:wetimv, GA094/38:zfyxhz, GA095/11:syhrzp, GA098/16:onjxe4, GA100/8:n435ez, GA104/4:t8avbk, GA114/6:fpf6k4, GA123/2:mb2i2w, GA136/6:8kuefl, GA174b/11:sxptjq",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "therleib",
+        "Lebensleib",
+        "Astralleib",
+        "Grundwesen"
+      ],
+      "definitionText": "Lichtaura (GA106/2:^mntge6), höchster Gott der Perser (GA106/2:^mntge6), Ahura Mazdao (GA136/6:^8kuefl), große Aura hinter physischer Sonne (GA068a/45:^55bqpg), geistige Wesenheit in der Sonne (GA069b/8:^8e2gq6), guter Geist (GA102/8:^9rz9e3), Lichtprinzip (GA123/2:^0wy871), luziferische Macht (GA205/11:^oobdsp).",
+      "functionText": "Hilft bei Bearbeitung physischer Welt (GA068a/45:^55bqpg), bringt geistiges Streben in Menschenseele (GA070b/11:^brgz3s), entfesselt Kräfte zum Geistigen (GA069b/8:^8e2gq6), wirkt durch Sonnenstrahlen (GA060/9:^i69zrm), sendet Lichtkräfte auf Erde (GA060/9:^i69zrm), durchorganisiert Welt (GA060/9:^8fd5k2), strahlt geistige Wirksamkeit aus (GA060/9:^xh3mba).",
+      "interactionText": "Kämpft gegen Ahriman (GA157/14:^mvnisn), wirkt zusammen mit Ahriman (GA342/5:^94k0jc), steht über Amshaspands (GA060/9:^222vzw), hat dienende Geister (GA069b/8:^ge71bd), verbindet sich mit Menschen gegen Ahriman (GA102/8:^9rz9e3), wirkt durch Tierkreisbilder (GA060/9:^8pih9h), entspringt aus Zaruana Akarana (GA069b/8:^n03zs9).",
+      "specialText": "Symbol für Weltenweisheit (GA101/5:^j8c83r), Ausdruck für große Seele (GA101/5:^uohjom), Regent der Amshaspands (GA101/5:^nicmcj), wirkt unbehindert bei Tag und Sommer (GA060/9:^i69zrm), beschreibt Tierkreis als Zeitlinie (GA060/9:^x0jdhs), hat zwölf dienende Wesenheiten (GA069b/8:^mtsl3t), verkörpert Vollkommenheitsimpulse (GA060/9:^xh3mba), repräsentiert Lichtreich der Zukunft (GA060/9:^km2ez0)."
+    },
+    "sources": [
+      {
+        "id": "GA157/14",
+        "index": "^mvnisn",
+        "title": "DREIZEHNTER VORTRAG 22. Juni 1915",
+        "fileName": "GA157/14 - DREIZEHNTER VORTRAG 22. Juni 1915"
+      },
+      {
+        "id": "GA204/11",
+        "index": "^927zkt",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA204/11 - ZWÖLFTER VORTRAG, Dornach, 1. Mai 1921"
+      },
+      {
+        "id": "GA070b/9",
+        "index": "^gd7t3i",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+        "fileName": "GA070b/9 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Hamburg, 15. Februar 1916"
+      },
+      {
+        "id": "GA342/5",
+        "index": "^94k0jc",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA342/5 - FÜNFTER VORTRAG, Stuttgart, 15. Juni 1921"
+      },
+      {
+        "id": "GA070b/10",
+        "index": "^d9g215",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+        "fileName": "GA070b/10 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Kassel, 19. Februar 1916"
+      },
+      {
+        "id": "GA070b/16",
+        "index": "^z5didi",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916"
+      },
+      {
+        "id": "GA060/9",
+        "index": "^222vzw",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA060/9 - ZARATHUSTRA, Berlin, 19. Januar 1911"
+      },
+      {
+        "id": "GA060/9",
+        "index": "^8pih9h",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA060/9 - ZARATHUSTRA, Berlin, 19. Januar 1911"
+      },
+      {
+        "id": "GA065/10",
+        "index": "^cp4aj8",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG",
+        "fileName": "GA065/10 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916"
+      },
+      {
+        "id": "GA069b/8",
+        "index": "^bw8yit",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA069b/8 - ZARATHUSTRA, SEINE LEHRE UND SEINE MISSION, München, 11. Dezember 1910"
+      },
+      {
+        "id": "GA070b/12",
+        "index": "^f13neu",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916"
+      },
+      {
+        "id": "GA070b/14",
+        "index": "^b3vrgk",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/14 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916"
+      },
+      {
+        "id": "GA204/11",
+        "index": "^la6udt",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA204/11 - ZWÖLFTER VORTRAG, Dornach, 1. Mai 1921"
+      },
+      {
+        "id": "GA060/9",
+        "index": "^34ad8g",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA060/9 - ZARATHUSTRA, Berlin, 19. Januar 1911"
+      },
+      {
+        "id": "GA060/9",
+        "index": "^i69zrm",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA060/9 - ZARATHUSTRA, Berlin, 19. Januar 1911"
+      },
+      {
+        "id": "GA069b/8",
+        "index": "^n03zs9",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA069b/8 - ZARATHUSTRA, SEINE LEHRE UND SEINE MISSION, München, 11. Dezember 1910"
+      },
+      {
+        "id": "GA069b/8",
+        "index": "^7hwhu6",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA069b/8 - ZARATHUSTRA, SEINE LEHRE UND SEINE MISSION, München, 11. Dezember 1910"
+      },
+      {
+        "id": "GA069b/8",
+        "index": "^mtsl3t",
+        "title": "ZARATHUSTRA",
+        "fileName": "GA069b/8 - ZARATHUSTRA, SEINE LEHRE UND SEINE MISSION, München, 11. Dezember 1910"
+      },
+      {
+        "id": "GA070b/9",
+        "index": "^izew1u",
+        "title": "DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT",
+        "fileName": "GA070b/9 - DAS WELTBILD DES DEUTSCHEN IDEALISMUS. EINE BETRACHTUNG IM HINBLICK AUF UNSERE SCHICKSALTRAGENDE ZEIT, Hamburg, 15. Februar 1916"
+      },
+      {
+        "id": "GA070b/12",
+        "index": "^5ve462",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA157/14",
+      "GA204/11",
+      "GA070b/9",
+      "GA342/5",
+      "GA070b/10",
+      "GA070b/16",
+      "GA060/9",
+      "GA060/9",
+      "GA065/10",
+      "GA069b/8",
+      "GA070b/12",
+      "GA070b/14",
+      "GA204/11",
+      "GA060/9",
+      "GA060/9",
+      "GA069b/8",
+      "GA069b/8",
+      "GA069b/8",
+      "GA070b/9",
+      "GA070b/12"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:12.357Z",
+    "totalMatches": 149,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 7
   },
   {
     "keyword": "Osiris-Isis-Mythologie",
@@ -82804,11 +83961,171 @@
   {
     "keyword": "Persische Kultur",
     "alphabetical": "P",
-    "text": "Die von **Zarathustra begründete Kulturströmung** richtet den **Blick nach außen in den Kosmos** und sucht das Geistige hinter der Sinneswelt ([[GA060 (9.) ZARATHUSTRA, Berlin, 19. Januar 1911|GA060/9]]).",
-    "gaReferences": [
-      "GA060/9"
+    "text": "Die **urpersische Kultur** bildet die zweite Kulturepoche der nachatlantischen Zeit und unterscheidet sich grundlegend von der vorangegangenen indischen Kultur durch ihre positive Haltung zur physischen Welt. \"Einen Schritt weiter als das alte Indertum ist schon die zweite Kulturepoche, ebenfalls eine vorhistorische Kultur, die wir aber nach den Völkern benennen, die später in diesen Gebieten gelebt haben; wir nennen sie die uralt-persische Kultur\" (GA103/8:^eulkns).\n\n#### Grundcharakter und Weltanschauung\n\nDie persische Kultur erkannte erstmals die physische Welt als Arbeitsfeld für geistige Kräfte. \"Die persische Kultur ist ein Fortschritt, indem sie die Erde als Wirklichkeit, als Arbeitsfeld betrachtet. Die Perser hatten das Bewusstsein, dass man das Geistige in die Sinnenwelt hineinpflanzen müsse\" (GA111/7:^wwjgt8). Charakteristisch war die **Zweiheit** zwischen Licht und Finsternis: \"Der große Zarathustra sah den Gott des Lichtes in der Sonnen-Aura, ihm steht gegenüber Ahriman, der Gott der Finsternis\" (GA111/7:^wwjgt8).\n\n#### Zarathustra als Kulturführer\n\n**Zarathustra** - nicht der historisch bekannte, sondern eine viel ältere Persönlichkeit - begründete diese Kultur als Schüler des atlantischen Sonnenorakels. \"Der zweite bedeutsame Schüler des Eingeweihten des Sonnenorakels, der nun die Geheimnisse des Sonnenwesens übermittelt erhielt, war derjenige, der einst die zweite nachatlantische Kultur begründen sollte: Zarathustra\" (GA109/3:^s131m7). Er lehrte von Ahura Mazdao, dem Sonnengeist, und bereitete das Christus-Ereignis vor.\n\n#### Entwicklungsstufe und Mysterien\n\nIn der persischen Kultur konnten die Schüler \"nur noch eine Art von Zusammenhang ihres Volkes mit den unteren Partien des Devachanplanes herstellen. Daher waren sie nur imstande, in Bildern, aber in geistigen Bildern, von dem Übersinnlichen zu sprechen\" (GA108/4:^p5wr8n). Die **Feuer-Kultur** wurde zum äußeren Kulturmittel, um den materiellen Plan zu erobern.\n\n#### Wiederholung in der Zukunft\n\nDie persische Kultur wird sich in der sechsten nachatlantischen Kulturperiode wiederholen, wenn \"diejenigen Wesen aus der Klasse der Erzengel die Kultur führen, welche die urpersische Kulturperiode geleitet haben\" (GA015:^hlfe38).\n\n**Weitere Quellen:** GA114/4:^r7ziyu, GA112/4:^x9ga07, GA105/2:^e0i71i, GA100/20:^sz5xnz, GA097/12:^313tak, GA099/12:^sbe26e, GA106/1:^ufex1s, GA108/20:^slzxgi, GA109/11:^a8pysp, GA211/11:^t0v0oo, GA325/4:^wcb0yh",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "therleib",
+        "therwesen",
+        "Astralleib",
+        "Sonnenwesen"
+      ],
+      "definitionText": "Zweite nachatlantische Kulturepoche (GA111/7:^wwjgt8), uralt persische Kultur (GA109/11:^a8pysp), vorhistorische Kultur (GA103/8:^eulkns), Fortschritt gegenüber indischer Kultur (GA111/7:^wwjgt8), Erde als Wirklichkeit und Arbeitsfeld (GA111/7:^wwjgt8), Zarathustra als Führer (GA013:^tcji7n), Ackerbau und physischer Plan (GA108/19:^8acb35), Ahura Mazdao Verkündigung (GA104a/6:^jk79rd).",
+      "functionText": "Betrachtet Erde als Wirklichkeit (GA111/7:^wwjgt8), pflanzt Geistiges in Sinnenwelt (GA111/7:^wwjgt8), erlöst sinnliche Welt mit Geist (GA111/7:^wwjgt8), entwickelt Ackerbau (GA108/19:^8acb35), gewinnt physischen Plan lieber (GA108/19:^8acb35), bereitet Christus-Ereignis vor (GA112/4:^x9ga07), schätzt äußere Wirklichkeit (GA103/9:^s7xkny), durchdringt materielle Wirklichkeit mit Lichtgottheit (GA103/9:^e2japw).",
+      "interactionText": "Folgt auf indische Kultur (GA113/9:^ipby6n), geht voraus ägyptisch-chaldäischer Kultur (GA061/3:^v0tiac), entspricht Gemeinde von Smyrna (GA104a/6:^gsu0z1), entwickelt Empfindungsleib (GA252/3:^g9bht5), verbindet mit Zarathustra-Lehre (GA114/6:^qwzlxn), steht im Gegensatz zu indischer Kultur (GA060/9:^tlehqa), bereitet auf griechisch-lateinische vor (GA097/12:^313tak), wechselwirkt mit Sonnengeist-Verkündigung (GA104a/10:^x3p0o1).",
+      "specialText": "Verdunkelt Devachan-Bewusstsein (GA108/19:^8acb35), entwickelt Dualismus Licht-Finsternis (GA056/14:^ia6fpu), entspricht Lebensalter 48-42 Jahre (GA176/1:^m5cwcs), ahnt Christus hinter physischer Sonne (GA113/10:^ufdv0t), unterscheidet Ormuzd und Ahriman (GA100/20:^sz5xnz), erlebt Licht in Nahrung (GA190/5:^fv3cb5), spricht in geistigen Bildern (GA108/4:^p5wr8n), kennt Erscheinung von Gut und Böse (GA100/20:^sz5xnz)."
+    },
+    "sources": [
+      {
+        "id": "GA103/8",
+        "index": "^eulkns",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA103/8 - ACHTER VORTRAG, HAMBURG, 27. MAI 1908"
+      },
+      {
+        "id": "GA133/2",
+        "index": "^ffht4c",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA133/2 - ZWEITER VORTRAG, Berlin, 19. März 1912"
+      },
+      {
+        "id": "GA126/1",
+        "index": "^xs4t9k",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA126/1 - SECHSTER VORTRAG, Stuttgart, 1. Januar 1910"
+      },
+      {
+        "id": "GA054/11",
+        "index": "^f3mfbv",
+        "title": "DIE WEISHEITSLEHREN DES CHRISTENTUMS",
+        "fileName": "GA054/11 - DIE WEISHEITSLEHREN DES CHRISTENTUMS, Berlin, 1. Februar 1906"
+      },
+      {
+        "id": "GA121/11",
+        "index": "^qjdp1q",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA121/11 - ZEHNTER VORTRAG, Kristiania, 16. Juni 1910"
+      },
+      {
+        "id": "GA181/20",
+        "index": "^4kzilz",
+        "title": "ZWANZIGSTER VORTRAG",
+        "fileName": "GA181/20 - ZWANZIGSTER VORTRAG, Berlin, 30. Juli 1918"
+      },
+      {
+        "id": "GA157/14",
+        "index": "^mvnisn",
+        "title": "DREIZEHNTER VORTRAG 22. Juni 1915",
+        "fileName": "GA157/14 - DREIZEHNTER VORTRAG 22. Juni 1915"
+      },
+      {
+        "id": "GA336/13",
+        "index": "^gjm90r",
+        "title": "FREIHEIT FÜR DEN GEIST",
+        "fileName": "GA336/13 - FREIHEIT FÜR DEN GEIST, GLEICHHEIT FÜR DAS RECHT, BRÜDERLICHKEIT FÜR DAS WIRTSCHAFTSLEBEN, Mannheim, 28. Juli 1919"
+      },
+      {
+        "id": "GA116/6",
+        "index": "^1p0y1q",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA116/6 - SECHSTER VORTRAG, Berlin, 2. Mai 1910"
+      },
+      {
+        "id": "GA121/11",
+        "index": "^k7p0kt",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA121/11 - ZEHNTER VORTRAG, Kristiania, 16. Juni 1910"
+      },
+      {
+        "id": "GA127/13",
+        "index": "^lq1b1s",
+        "title": "DIE SYMBOLIK UND DIE PHANTASIE MIT BEZUG AUF DAS MYSTERIUM «DIE PRÜFUNG DER SEELE»",
+        "fileName": "GA127/13 - DIE SYMBOLIK UND DIE PHANTASIE MIT BEZUG AUF DAS MYSTERIUM «DIE PRÜFUNG DER SEELE», Berlin, 19. Dezember 1911"
+      },
+      {
+        "id": "GA129/1",
+        "index": "^7wma37",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA129/1 - ERSTER VORTRAG, München, 18. August 1911"
+      },
+      {
+        "id": "GA159/13",
+        "index": "^y9q2w5",
+        "title": "GEMEINSAMKEIT ÜBER UNS CHRISTUS IN UNS",
+        "fileName": "GA159/13 - GEMEINSAMKEIT ÜBER UNS CHRISTUS IN UNS, Düsseldorf, 15. Juni 1915"
+      },
+      {
+        "id": "GA174b/2",
+        "index": "^gs588g",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA174b/2 - ZWEITER VORTRAG, Stuttgart, 13. Februar 1915"
+      },
+      {
+        "id": "GA176/10",
+        "index": "^3g5jh5",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA176/10 - ZWEITER VORTRAG, Berlin, 7. August 1917"
+      },
+      {
+        "id": "GA113/6",
+        "index": "^xgj9r3",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA113/6 - FÜNFTER VORTRAG, München, 27. August 1909"
+      },
+      {
+        "id": "GA139/5",
+        "index": "^aovf0j",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA139/5 - FÜNFTER VORTRAG, Basel, 19. September 1912"
+      },
+      {
+        "id": "GA102/6",
+        "index": "^hv8eg0",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA102/6 - SECHSTER VORTRAG, Berlin, 24. März 1908"
+      },
+      {
+        "id": "GA113/9",
+        "index": "^ipby6n",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA113/9 - ACHTER VORTRAG, München, 30. August 1909"
+      },
+      {
+        "id": "GA133/9",
+        "index": "^s1mm1c",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA133/9 - NEUNTER VORTRAG, Berlin, 20. Juni 1912"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA103/8",
+      "GA133/2",
+      "GA126/1",
+      "GA054/11",
+      "GA121/11",
+      "GA181/20",
+      "GA157/14",
+      "GA336/13",
+      "GA116/6",
+      "GA121/11",
+      "GA127/13",
+      "GA129/1",
+      "GA159/13",
+      "GA174b/2",
+      "GA176/10",
+      "GA113/6",
+      "GA139/5",
+      "GA102/6",
+      "GA113/9",
+      "GA133/9"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:12.348Z",
+    "totalMatches": 12398,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 9
   },
   {
     "keyword": "Persische Mythologie",
@@ -89898,11 +91215,171 @@
   {
     "keyword": "Salomo",
     "alphabetical": "S",
-    "text": "Die **Weisheit Salomos** dient zur Vorbereitung des **Christus-Verständnisses** im dritten Jahrtausend ([[GA068a (53.) DIE DREI VORCHRISTLICHEN UND DIE DREI NACHCHRISTLICHEN JAHRTAUSENDE, Mitgliedervortrag, Köln, 23. Februar 1910|GA068a/53]]). Salomos Bedeutung liegt in seiner Funktion als spiritueller Wegbereiter, der durch seine Weisheitslehren die menschliche Erkenntnis für die kommende Christus-Erfahrung vorbereitet. Seine **prophetische Weisheit** bildet eine wesentliche Grundlage für das Verständnis der christlichen Impulse in der zukünftigen Menschheitsentwicklung.",
-    "gaReferences": [
-      "GA068a/53"
+    "text": "In der Menschheitsentwicklung verkörpert sich **drei Jahrtausende vor Christus** eine hohe geistige Wesenheit, die bereits Abraham und Moses geführt hatte, um die Menschheit auf das Christus-Ereignis vorzubereiten. \"Vorbereitet [dazu], dieses Ereignis in sich aufzufassen, sollte die Menschheit werden durch jene Führer, die sich anknüpfen an den Namen des Salomo\" (GA068a/53:^t15mxh). Das salomonische Zeitalter bildet die **dritte Stufe der Gottoffenbarung**: \"Im dritten Jahrtausend der so sich durchringenden Gotteserkenntnis erfolgte die salomonische Epoche, in welcher Gott sich durch die Symbole des Tempels offenbarte, den Salomo zu Jerusalem erbaut hatte\" (GA118/9:^7vt1k0).\n\n#### Der Salomonische Tempel als Weltenbild\n\nDer Salomonische Tempel stellt \"ein Bild gewesen des ganzen Weltenalls, soweit es in seiner Gesetzmäßigkeit, in seiner inneren Struktur, in seinem Durchwalltsein von göttlich–geistigen Wesenheiten vorgestellt werden konnte durch die Weltanschauung des Alten Testamentes\" dar (GA187/2:^brc8tm). \"Dasjenige, was der Salomonische Tempel als Symbolik umschloss, enthielt alles im Bilde, was Weltengeheimnisse sind\" (GA173/9:^gow1tb).\n\nDie spirituelle Bedeutung des Tempels zeigt sich in seiner **kosmischen Funktion**: \"Damit auf der Erde hier ein Zeichen ist, auf das diejenigen Mächte hinschauen, welche die Seelen geleiten, die den Weg suchen in irdische Leiber\" (GA173/9:^ysawou). Nach dem Mysterium von Golgatha verliert der äußere Tempel seine Bedeutung: \"Als der Christus Jesus zur Erde gekommen war... da sollte sich das große Mysterium von Golgatha in jeder einzelnen Menschenseele abspielen können: 'Mein Reich ist nicht von dieser Welt!' Da verlor der äußere physische Salomonische Tempel zunächst seine Bedeutung\" (GA173/9:^1axjry).\n\n#### Salomos Weisheit und geistige Verbindung\n\nSalomos besondere Fähigkeit besteht darin, **mit der geistigen Welt in Verbindung zu stehen**. \"Dass gerade diese Tatsache von dem König Salomo erzählt wird, das ist recht bedeutsam. Denn es wird uns angedeutet dadurch, dass Salomos Weisheit gerade darinnen bestand, hineinzuschauen in die geistige Welt\" (GA167/11:^zysvz5). In der Haggada wird beschrieben, wie Salomo **bewusst einem Sterbevorgang zusieht** und dadurch tiefe Erkenntnisse über den Zusammenhang zwischen Mensch, Erde und geistiger Welt gewinnt (GA167/11:^854jxt).\n\n#### Die Hiram-Legende\n\nIn der Tempellegende erscheint Salomo als Vertreter der **Abeliten-Strömung**, während Hiram-Abiff die **Kainiten-Strömung** repräsentiert. \"Der König Salomo war ein Abkömmling aus dem Geschlechte des Abel. Er konnte selbst den Tempel nicht bauen; ihm fehlte die Kunst. Deshalb berief er den Baumeister Hiram-Abiff, den Abkömmling aus dem Geschlechte des Kain\" (GA093/12:^do2or4). Diese Zusammenarbeit symbolisiert die Vereinigung zweier Menschheitsströmungen, wobei Eifersucht und Missverständnisse zwischen beiden entstehen (GA093/6:^x4okq8).\n\n#### Nachwirkung in der Geschichte\n\n\"Der Geist des Salomo lebt und webt in den hervorragendsten Geistern des ersten christlichen Jahrtausends\" (GA118/7:^5d4x8q). Das **salomonische Prinzip** der Weisheit durch Symbole und Tempelarchitektur wirkt in späteren Jahrhunderten fort, wobei \"dasjenige, was die Geheimnisse des Salomonischen Tempels waren... fast restlos aufgegangen in all die maurerischen und andern Geheimgesellschaften der jetzigen Zeit\" (GA187/2:^4ajlr7).\n\n**Weitere Quellen:** GA093/18:^383wzs, GA252/2:^wtuftj, GA286/1:^57mus0, GA093/26:^c8sbug, GA114/4:^1ixtd1, GA167/11:^huko3p, GA093/8:^q6fmty, GA117a/2:^a525xo, GA123/12:^te6kca, GA167/5:^ppi0sm, GA167/5:^5xxj9s",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "therleib",
+        "Tragkraft",
+        "Astralleib",
+        "Mutterleib"
+      ],
+      "definitionText": "König des Alten Testaments (GA167/11:^ojs5vt), Träger besonderer Weisheit (GA167/11:^zysvz5), Mensch mit Verbindung zur geistigen Welt (GA167/11:^ojs5vt), Repräsentant der Abeliten (GA093/18:^6akspu), weiser König mit hoher Weisheit (GA093/26:^c8sbug), Vertreter der salomonischen Epoche (GA118/9:^7vt1k0), Erbauer des Tempels (GA093/18:^383wzs), Gestalt der jüdischen Überlieferung (GA167/11:^wpp1jj).",
+      "functionText": "Erbaut Tempel als Weltenbild (GA187/2:^brc8tm), verkörpert alte Weltanschauung (GA187/2:^7vl4hy), repräsentiert intuitive Weisheit (GA093/18:^6akspu), schaut in geistige Welt hinein (GA167/11:^zysvz5), offenbart Gott durch Tempelsymbole (GA118/9:^7vt1k0), erkennt Geheimnisse des Sterbens (GA167/11:^854jxt), führt Weisheitstradition fort (GA118/7:^5d4x8q), bereitet Mysterium von Golgatha vor (GA187/2:^7vl4hy).",
+      "interactionText": "Arbeitet mit Hiram-Abiff zusammen (GA093/15:^tktu9v), empfängt Königin von Saba (GA093/26:^c8sbug), steht mit Schreibern in Verbindung (GA167/11:^5feyjm), verbindet sich mit Engel des Todes (GA167/11:^huko3p), wirkt durch Geist in nachchristlicher Zeit (GA118/7:^5d4x8q), bezieht sich auf Moses und Ezechiel (GA167/5:^ppi0sm), kontrastiert mit Christus-Verkündigung (GA114/10:^0he5nm), steht in Tradition der Bundeslade (GA093/14:^pt8sw9).",
+      "specialText": "Besitzt zwei besondere Schreiber (GA167/11:^5feyjm), erlebt bewusstes Sterben-Schauen (GA167/11:^854jxt), verkörpert symbolische Tempelweisheit (GA173/9:^gow1tb), repräsentiert alte Einweihungsart (GA114/10:^grqffo), steht für Zeichen des Salomo (GA114/10:^igr4eq), verbindet Erd- und Geistenwelt-Erkenntnis (GA167/11:^854jxt), wirkt als Vorbereitung auf Christentum (GA187/2:^7vl4hy), trägt Weisheit der Vorzeit (GA118/7:^80sad5)."
+    },
+    "sources": [
+      {
+        "id": "GA118/7",
+        "index": "^5d4x8q",
+        "title": "DAS WIEDERERSCHEINEN DES CHRISTUS IM ÄTHERISCHEN",
+        "fileName": "GA118/7 - DAS WIEDERERSCHEINEN DES CHRISTUS IM ÄTHERISCHEN, Stuttgart, 6. März 1910"
+      },
+      {
+        "id": "GA167/11",
+        "index": "^ojs5vt",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA167/11 - ELFTER VORTRAG, Ein Stück aus der jüdischen Haggada, Berlin, 23. Mai 1916"
+      },
+      {
+        "id": "GA116/4",
+        "index": "^oozhrm",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA116/4 - VIERTER VORTRAG, Berlin, 8. Februar 1910"
+      },
+      {
+        "id": "GA131/8",
+        "index": "^0ixmhv",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA131/8 - ACHTER VORTRAG, Karlsruhe, 12. Oktober 1911"
+      },
+      {
+        "id": "GA167/11",
+        "index": "^huko3p",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA167/11 - ELFTER VORTRAG, Ein Stück aus der jüdischen Haggada, Berlin, 23. Mai 1916"
+      },
+      {
+        "id": "GA173c/10",
+        "index": "^qo2elh",
+        "title": "ANHANG III",
+        "fileName": "GA173c/10 - ANHANG III"
+      },
+      {
+        "id": "GA167/11",
+        "index": "^l7b651",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA167/11 - ELFTER VORTRAG, Ein Stück aus der jüdischen Haggada, Berlin, 23. Mai 1916"
+      },
+      {
+        "id": "GA187/2",
+        "index": "^7vl4hy",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA187/2 - ZWEITER VORTRAG, Dornach, 24. Dezember 1918"
+      },
+      {
+        "id": "GA093/18",
+        "index": "^383wzs",
+        "title": "FREIMAUREREI UND MENSCHHEITSENTWICKELUNG I",
+        "fileName": "GA093/18 - FREIMAUREREI UND MENSCHHEITSENTWICKELUNG I, Berlin, 23. Oktober 1905 (zehn Uhr)"
+      },
+      {
+        "id": "GA173/9",
+        "index": "^gow1tb",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA173/9 - ACHTER VORTRAG, Basel, 21. Dezember 1916"
+      },
+      {
+        "id": "GA252/2",
+        "index": "^wtuftj",
+        "title": "DER URSPRUNG DER ARCHITEKTUR AUS DEM SEELISCHEN DES MENSCHEN UND IHR ZUSAMMENHANG MIT DEM GANG DER MENSCHHEITSENTWICKLUNG (I) Vortrag zur 1. Generalversammlung des Johan",
+        "fileName": "GA252/2 - DER URSPRUNG DER ARCHITEKTUR AUS DEM SEELISCHEN DES MENSCHEN UND IHR ZUSAMMENHANG MIT DEM GANG DER MENSCHHEITSENTWICKLUNG (I) Vortrag zur 1. Generalversammlung des Johan"
+      },
+      {
+        "id": "GA286/1",
+        "index": "^57mus0",
+        "title": "DER URSPRUNG DER ARCHITEKTUR AUS DEM SEELISCHEN DES MENSCHEN UND IHR ZUSAMMENHANG MIT DEM GANG DER MENSCHHEITSENTWICKELUNG",
+        "fileName": "GA286/1 - DER URSPRUNG DER ARCHITEKTUR AUS DEM SEELISCHEN DES MENSCHEN UND IHR ZUSAMMENHANG MIT DEM GANG DER MENSCHHEITSENTWICKELUNG, Erster Vortrag, Berlin, 12. Dezember 1911"
+      },
+      {
+        "id": "GA093/26",
+        "index": "^c8sbug",
+        "title": "DIE TEMPELLEGENDE",
+        "fileName": "GA093/26 - DIE TEMPELLEGENDE"
+      },
+      {
+        "id": "GA114/4",
+        "index": "^1ixtd1",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA114/4 - VIERTER VORTRAG, Basel, 18. September 1909"
+      },
+      {
+        "id": "GA114/6",
+        "index": "^p121uq",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA114/6 - SECHSTER VORTRAG, Basel, 20. September 1909"
+      },
+      {
+        "id": "GA167/11",
+        "index": "^zysvz5",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA167/11 - ELFTER VORTRAG, Ein Stück aus der jüdischen Haggada, Berlin, 23. Mai 1916"
+      },
+      {
+        "id": "GA187/2",
+        "index": "^42ou7m",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA187/2 - ZWEITER VORTRAG, Dornach, 24. Dezember 1918"
+      },
+      {
+        "id": "GA046",
+        "index": "^vi0vp3",
+        "title": "Nachgelassene Abhandlungen und Fragmente (1879-1924)",
+        "fileName": "GA046 - Nachgelassene Abhandlungen und Fragmente (1879-1924)"
+      },
+      {
+        "id": "GA093/8",
+        "index": "^q6fmty",
+        "title": "WESEN UND AUFGABE DER FREIMAUREREI VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT",
+        "fileName": "GA093/8 - WESEN UND AUFGABE DER FREIMAUREREI VOM GESICHTSPUNKT DER GEISTESWISSENSCHAFT, Erster Vortrag, Berlin, 2. Dezember 1904"
+      },
+      {
+        "id": "GA093/18",
+        "index": "^6akspu",
+        "title": "FREIMAUREREI UND MENSCHHEITSENTWICKELUNG I",
+        "fileName": "GA093/18 - FREIMAUREREI UND MENSCHHEITSENTWICKELUNG I, Berlin, 23. Oktober 1905 (zehn Uhr)"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA118/7",
+      "GA167/11",
+      "GA116/4",
+      "GA131/8",
+      "GA167/11",
+      "GA173c/10",
+      "GA167/11",
+      "GA187/2",
+      "GA093/18",
+      "GA173/9",
+      "GA252/2",
+      "GA286/1",
+      "GA093/26",
+      "GA114/4",
+      "GA114/6",
+      "GA167/11",
+      "GA187/2",
+      "GA046",
+      "GA093/8",
+      "GA093/18"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:12.355Z",
+    "totalMatches": 237,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 10
   },
   {
     "keyword": "Salz-Merkur-Schwefel",
@@ -90794,31 +92271,171 @@
   {
     "keyword": "Schicksal",
     "alphabetical": "S",
-    "text": "Das **Schicksal** manifestiert sich als **Hineinspiel überpersönlicher Mächte** in das menschliche Leben ([[GA051 (20.) VIERTER VORTRAG, 11. Februar 1905, Schillers Weltanschauung und sein Wallenstein|GA051/20]]) und stellt eine **übermenschliche Macht** dar, die das menschliche Leben lenkt ([[GA051 (21.) FÜNFTER VORTRAG, 18. Februar 1905, Schiller, das griechische Drama und Nietzsche|GA051/21]]). Es wirkt als **überpersönliche Macht** und **Entwicklungsgesetz** über dem einzelnen Leben ([[GA052 (9.) THEOSOPHISCHE SEELENLEHRE II SEELE UND MENSCHENSCHICKSAL, Berlin, 23. März 1904|GA052/9]]) und umfasst die **Gesamtheit der Lebenserfahrungen** als Folge vorheriger Handlungen und Entscheidungen ([[GA053 (3.) REINKARNATION UND KARMA, Berlin, 20. Oktober 1904|GA053/3]]).\nDas Schicksal zeigt sich in den **selbstgestalteten Lebensbedingungen** als Ausdruck der geistigen Entwicklung ([[GA062 (5.) ERGEBNISSE DER GEISTESFORSCHUNG FÜR LEBENSFRAGEN UND DAS TODESRÄTSEL, Berlin, 5. Dezember 1912|GA062/5]]) und manifestiert sich als **karmische Bindung** an die Sinneswelt bis zur vollständigen Überwindung des Egoismus ([[GA063 (7.) DAS BÖSE IM LICHTE DER ERKENNTNIS VOM GEISTE, Berlin, 15. Januar 1914|GA063/7]]). Die **Erkenntnis der Einheit** zwischen dem Ich und seinen Lebensereignissen bildet einen Weg zur Selbsterkenntnis ([[GA064 (3.) DIE MENSCHENSEELE IN LEBEN UND TOD, Berlin, 26. November 1914|GA064/3]]) und erweist sich als **lebensführende Kraft** im Vervollkommnungsweg der Seele ([[GA064 (6.) GEIST-ERKENNTNIS IN GLÜCKLICHEN UND ERNSTEN STUNDEN DES LEBENS, Berlin, 15. Januar 1915|GA064/6]]).\nDie **Meditation über das eigene Schicksal** dient als Weg zur **Verstärkung des Willens** und Selbsterkenntnis ([[GA064 (8.) WAS IST AM MENSCHENWESEN STERBLICH, Berlin, 26. Februar 1915|GA064/8]]) und stellt eine **bewusste Identifikation** mit dem eigenen Lebensweg als Methode der Geistesforschung dar ([[GA064 (10.) WAS IST AM MENSCHENWESEN UNSTERBLICH, Nürnberg, 12. März 1915|GA064/10]], [[GA064 (14.) SELBSTERKENNTNIS UND WELTERKENNTNIS VOM GESICHTSPUNKTE DER GEISTESWISSENSCHAFT, Berlin, 23. April 1915|GA064/14]]). Das Schicksal wirkt als **unterbewusste Macht**, die an der Gestaltung des Seelenlebens durch wiederholte Erdenleben arbeitet ([[GA066 (3.) SEELENUNSTERBLICHKEIT, SCHICKSALSKRÄFTE UND MENSCHLICHER LEBENSLAUF, Berlin, 1. März 1917|GA066/3]]) und umfasst **gesetzmäßige Verkettungen** von Ursachen und Wirkungen im menschlichen Leben ([[GA068b (13.) BESONDERE FRAGEN ÜBER WIEDERVERKÖRPERUNG UND SCHICKSAL, Köln, 24. Februar 1910|GA068b/13]]).\nDie **karmischen Gesetzmäßigkeiten** resultieren aus vorgeburtlichen Seelenkräften und dem Ausgleich von Unvollkommenheiten ([[GA069a (8.) ERGEBNISSE DER GEISTESFORSCHUNG FÜR LEBENSFRAGEN UND DAS TODESRÄTSEL, Stuttgart, 17. Mai 1913|GA069a/8]]) und machen das **undurchdringliche äußere Leben** durch geistige Erkenntnis verstehbar ([[GA069b (10.) DIE ÜBERSINNLICHEN ERKENNTNISSE UND DAS ALLTÄGLICHE LEBEN, Elberfeld, 5. Februar 1911|GA069b/10]]). Das Schicksal stellt **selbstgeschaffene Lebensgestaltung** des Ich aus übersinnlichen Welten dar ([[GA069d (8.) DER MENSCH UND SEIN VERHÄLTNIS ZU DEN ÜBERSINNLICHEN WELTEN, Stuttgart, 19. Februar 1912|GA069d/8]]) und kann durch **gelassene Betrachtung** als Ausdruck des eigenen Ichs erkannt werden ([[GA069d (9.) DIE VERBORGENEN TIEFEN DES SEELENLEBENS, München, 24. Februar 1912|GA069d/9]]).\nDas Schicksal manifestiert sich als **Vervollkommnungsprozess der Seele** durch Schmerzüberwindung ([[GA069d (23.) DIE RÄTSEL DES LEBENS, Kopenhagen, 15. Oktober 1913|GA069d/23]]) und wirkt als **geistige Gesetzmäßigkeit** durch wiederholte Erdenleben als unbewusst waltendes Prinzip ([[GA082 (6.) SECHSTER VORTRAG ANTHROPOSOPHIE UND AGNOSTIZISMUS, Den Haag, 12. April 1922|GA082/6]]). Die **Stärkung des Willens** für aufrechtes Durchgehen durch Leid und Freude des Lebens ([[GA080b (8.) ANTHROPOSOPHIE ALS LEBENSINHALT, Berlin, 9. März 1922|GA080b/8]]) zeigt den **inneren Zusammenhang der Lebensereignisse**, der durch entwickelte Seelenkräfte durchschaubar wird ([[GA080b (1.) DIE ERGEBNISSE DER GEISTES-WISSENSCHAFT UND IHRE BEZIEHUNGEN ZUR KUNST UND RELIGION, Bern, 13. Dezember 1920|GA080b/1]]).",
-    "gaReferences": [
-      "GA051/20",
-      "GA051/21",
-      "GA052/9",
-      "GA053/3",
-      "GA062/5",
-      "GA063/7",
-      "GA064/10",
-      "GA064/14",
-      "GA064/3",
-      "GA064/6",
-      "GA064/8",
-      "GA066/3",
-      "GA068b/13",
-      "GA069a/8",
-      "GA069b/10",
-      "GA069d/23",
-      "GA069d/8",
-      "GA069d/9",
-      "GA080b/1",
-      "GA080b/8",
-      "GA082/6"
+    "text": "Das menschliche Schicksal erweist sich bei genauerem Betrachten als innig mit dem Menschen selbst verknüpft. \"Wir sind ein Selbst, wir sind ein Ich; wir haben ein gewisses inneres Seelenleben\" (GA070a/14:23q4ew), doch dieses Ich ist \"im Grunde genommen nichts anderes als die Summe aller guten und bösen Schicksalsschläge\" (GA064/3:qa6g50), die durchgemacht wurden.\n\n#### Schicksal als Selbstschöpfung\n\n\"Mit seinen Taten hat der Menschengeist wirklich sein Schicksal bereitet. An das, was er in seinem vorigen Leben getan hat, findet er sich in einem neuen geknüpft\" (GA009:81gwaz). Das Schicksal ist daher nicht eine Summe von Zufälligkeiten, sondern \"wir tragen unser Schicksal mit unserem eigenen Ich heran, und die Impulse bekommen wir nach Maßgabe unserer früheren Inkarnationen\" (GA275/7:utceao).\n\nWenn der Mensch zurückschaut auf sein Leben, erkennt er: \"Wäre es nicht an uns herangetreten, so wären wir ein ganz anderer. Derjenige, der wir sind, sind wir geworden durch das Erlebte\" (GA070a/16:wl4q0r). Das Schicksal erweist sich als **Schöpfer der eigenen Persönlichkeit**.\n\n#### Die Überwindung von Sympathie und Antipathie\n\nIm gewöhnlichen Leben betrachtet der Mensch sein Schicksal \"dass einem das eine sympathisch, das andere antipathisch ist\" (GA070a/16:6ajfwo). Diese Haltung muss überwunden werden: \"Diese Empfindung des Sympathischen und Antipathischen hört auf, muss aufhören, wenn wir das Schicksal als Schöpfer von uns selbst betrachten\" (GA070a/16:6ajfwo).\n\n#### Schicksal und Erkenntnis\n\nDurch geistige Erkenntnis kann \"dieses Schicksalserlebnis alle anderen Schicksalserlebnisse übertönt\" werden, wodurch der Mensch erkennt, \"wo die Kräfte weben in der geistigen Welt, welche den Lebenslauf - für viele scheinbar zufällig - so zusammenstellen\" (GA066/2:x46ymg).\n\n#### Das Wesen der Schicksalsverkettung\n\n\"Alles, was das Schicksal gemacht hat, ist innig mit unserm Ich verbunden\" (GA064/6:bc4rlj). Der Mensch wird dadurch zu der Erkenntnis geführt, dass er \"mit seinem jetzigen Ich und seinem ganzen Erleben im Grunde genommen mit dem Schicksal so zusammenhängt wie die Summe in einer Addition mit den einzelnen Summanden\" (GA064/3:qa6g50).\n\n**Weitere Quellen:** GA066/2:le9wom, GA070a/14:2ylwya, GA179/2:kmyshb, GA235/9:v1ppgf, GA239/8:zqds4a",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "therleib",
+        "Geistwesen",
+        "Astralleib",
+        "Naturkraft"
+      ],
+      "definitionText": "Summe von Zufälligkeiten (GA066/2:^88m8kx), Lebensschicksal als planmäßige Einheit (GA066/2:^88m8kx), Schicksalserlebnisse als Seelenerfahrung (GA066/2:^lo2bzm), Erkenntnis als Lebensschicksal (GA065/12:^lqpov1), Schicksalserleben der Erkenntnis (GA066/2:^oidvq2), Schicksalstraum des Lebens (GA066/2:^clpbs5), Schicksalsrätsel (GA018:^bynx0l), Schicksalsverkettung (GA009:^81gwaz).",
+      "functionText": "Bestimmt Leben durch äußere Verhältnisse (GA035:^s1vs6t), trägt Gepräge des Wesens (GA009:^rx6vg4), bereitet sich durch Taten (GA009:^81gwaz), macht Menschen zu dem was er ist (GA064/6:^9ysfz5), führt Dasein in andere Bahnen (GA066/2:^lo2bzm), rüttelt Seele tief auf (GA066/2:^lo2bzm), arbeitet im Unterbewussten an der Seele (GA066/3:^en1bun), inspiriert durch zweites Selbst (GA147/6:^ey8u0r).",
+      "interactionText": "Verbindet mit Seelisch-Geistigem (GA066/2:^njmq7b), verknüpft mit seelischem Erleben (GA018:^bynx0l), wechselwirkt mit geistiger Wirklichkeit (GA066/2:^clpbs5), durchdringt Bewusstsein (GA066/3:^en1bun), steht mit Karma in Beziehung (GA147/6:^ey8u0r), verbindet sich mit wiederholten Erdenleben (GA009:^gp01sn), korrespondiert mit Volksseele (GA070b/10:^1z2o3p), interagiert mit Schicksalskräften (GA066/3:^j2exjk).",
+      "specialText": "Objektiver innerer Wirklichkeitszusammenhang (GA066/2:^88m8kx), erschütterndes Erlebnis (GA070a/2:^gbt7hi), schicksaltragende Zeit (GA066/3:^j2exjk), geheimes Anziehungsband (GA070a/14:^2ylwya), Schicksalswendung als Rätselfrage (GA239/14:^a20u7w), Identifizierung mit dem Ich (GA064/6:^9ysfz5), Offenbarung im gewöhnlichen Bewusstsein (GA066/3:^en1bun), Schicksalsgestaltung in Schlafen und Wachen (GA224/1:^dum8nu)."
+    },
+    "sources": [
+      {
+        "id": "GA064/8",
+        "index": "^dgc4oa",
+        "title": "WAS IST AM MENSCHENWESEN STERBLICH",
+        "fileName": "GA064/8 - WAS IST AM MENSCHENWESEN STERBLICH, Berlin, 26. Februar 1915"
+      },
+      {
+        "id": "GA018",
+        "index": "^bynx0l",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA178/1",
+        "index": "^u2xy0h",
+        "title": "DIE ERKENNTNIS DES ÜBERSINNLICHEN UND DIE MENSCHLICHEN SEELENRÄTSEL",
+        "fileName": "GA178/1 - DIE ERKENNTNIS DES ÜBERSINNLICHEN UND DIE MENSCHLICHEN SEELENRÄTSEL, Öffentlicher Vortrag, St. Gallen, 15. November 1917"
+      },
+      {
+        "id": "GA070a/15",
+        "index": "^c9ohxb",
+        "title": "DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT",
+        "fileName": "GA070a/15 - DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT, Prag, 14. Mai 1915"
+      },
+      {
+        "id": "GA071b/1",
+        "index": "^7qbss2",
+        "title": "LEIB",
+        "fileName": "GA071b/1 - LEIB, SEELE UND GEIST DES MENSCHEN. ERGEBNISSE AUS DEN FORSCHUNGEN DER GEISTESWISSENSCHAFT, Nürnberg, 11. Februar 1918"
+      },
+      {
+        "id": "GA035",
+        "index": "^s1vs6t",
+        "title": "Philosophie und Anthroposophie (1904-1923)",
+        "fileName": "GA035 - Philosophie und Anthroposophie (1904-1923)"
+      },
+      {
+        "id": "GA070a/16",
+        "index": "^wl4q0r",
+        "title": "DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT",
+        "fileName": "GA070a/16 - DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT, Linz, 17. Mai 1915"
+      },
+      {
+        "id": "GA146/3",
+        "index": "^zfdbk2",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA146/3 - DRITTER VORTRAG, Helsingfors, 30. Mai 1913"
+      },
+      {
+        "id": "GA236/13",
+        "index": "^byy483",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA236/13 - DREIZEHNTER VORTRAG, Dornach, 30. Mai 1924"
+      },
+      {
+        "id": "GA275/7",
+        "index": "^utceao",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA275/7 - SIEBENTER VORTRAG, Dornach, 3. Januar 1915"
+      },
+      {
+        "id": "GA300a/12",
+        "index": "^mgh2nj",
+        "title": "Lehrplan für den freien anthroposophischen Religionsunterricht für Kinder",
+        "fileName": "GA300a/12 - Lehrplan für den freien anthroposophischen Religionsunterricht für Kinder"
+      },
+      {
+        "id": "GA009",
+        "index": "^81gwaz",
+        "title": "Theosophie (1904)",
+        "fileName": "GA009 - Theosophie (1904)"
+      },
+      {
+        "id": "GA016",
+        "index": "^kn5neu",
+        "title": "Ein Weg zur Selbsterkenntnis des Menschen (1912)",
+        "fileName": "GA016 - Ein Weg zur Selbsterkenntnis des Menschen (1912)"
+      },
+      {
+        "id": "GA064/3",
+        "index": "^1srd0g",
+        "title": "DIE MENSCHENSEELE IN LEBEN UND TOD",
+        "fileName": "GA064/3 - DIE MENSCHENSEELE IN LEBEN UND TOD, Berlin, 26. November 1914"
+      },
+      {
+        "id": "GA066/2",
+        "index": "^lnm5rs",
+        "title": "SCHICKSAL UND SEELE",
+        "fileName": "GA066/2 - SCHICKSAL UND SEELE, Berlin, 17. Februar 1917"
+      },
+      {
+        "id": "GA070a/16",
+        "index": "^7s9mtc",
+        "title": "DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT",
+        "fileName": "GA070a/16 - DIE ÜBERSINNLICHE ERKENNTNIS UND IHRE STÄRKENDE SEELENKRAFT IN UNSERER SCHICKSALSTRAGENDEN ZEIT, Linz, 17. Mai 1915"
+      },
+      {
+        "id": "GA181/5",
+        "index": "^gg0n0e",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA181/5 - FÜNFTER VORTRAG, Berlin, 12. März 1918"
+      },
+      {
+        "id": "GA029",
+        "index": "^jm77kf",
+        "title": "Gesammelte Aufsätze zur Dramaturgie (1889-1900)",
+        "fileName": "GA029 - Gesammelte Aufsätze zur Dramaturgie (1889-1900)"
+      },
+      {
+        "id": "GA066/2",
+        "index": "^le9wom",
+        "title": "SCHICKSAL UND SEELE",
+        "fileName": "GA066/2 - SCHICKSAL UND SEELE, Berlin, 17. Februar 1917"
+      },
+      {
+        "id": "GA070a/14",
+        "index": "^2ylwya",
+        "title": "DAS SCHICKSAL DES MENSCHEN IM LICHTE DER ERKENNTNIS GEISTIGER WELTEN",
+        "fileName": "GA070a/14 - DAS SCHICKSAL DES MENSCHEN IM LICHTE DER ERKENNTNIS GEISTIGER WELTEN, Wien, 8. Mai 1915"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA064/8",
+      "GA018",
+      "GA178/1",
+      "GA070a/15",
+      "GA071b/1",
+      "GA035",
+      "GA070a/16",
+      "GA146/3",
+      "GA236/13",
+      "GA275/7",
+      "GA300a/12",
+      "GA009",
+      "GA016",
+      "GA064/3",
+      "GA066/2",
+      "GA070a/16",
+      "GA181/5",
+      "GA029",
+      "GA066/2",
+      "GA070a/14"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:12.354Z",
+    "totalMatches": 5181,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 12
   },
   {
     "keyword": "Schießpulver",
@@ -92888,11 +94505,171 @@
   {
     "keyword": "Seele als Bildnerin",
     "alphabetical": "S",
-    "text": "Die **Seele als Bildnerin** wirkt als **gestaltende Kraft des physischen Körpers** ([[GA069d (13.) DIE ÜBERSINNLICHEN WELTEN UND DAS WESEN DER MENSCHENSEELE, Heidelberg, 26. Februar 1913|GA069d/13]]). Sie formt aktiv die **physische Organisation** und zeigt die **schöpferische Wirkung** des Geistig-Seelischen auf die **materielle Gestaltung**.",
-    "gaReferences": [
-      "GA069d/13"
+    "text": "Die Seele wirkt als gestaltende und bildende Kraft sowohl in der menschlichen Entwicklung als auch in der Erkenntnis übersinnlicher Welten. \"Das eigentlich Seelische\" offenbart sich erst jenseits der gewöhnlichen Bewusstseinszustände und entfaltet dort seine **schöpferischen Fähigkeiten** (GA035:^fubuzr).\n\n#### Bildende Tätigkeit im Erkenntnisprozess\n\nDie Seele entwickelt durch besondere Übungen die Fähigkeit, \"geistige Bilde-Kräfte\" zu erfassen, die dem Leibesleben zugrunde liegen. Diese imaginative Erkenntnis zeigt \"am Menschen nur ein solches Übersinnliches, das als geistige Bilde-Kräfte dem Leibesleben zugrunde liegt\" (GA035:^fubuzr). Die Seele wird dabei selbst zur Bildnerin, indem sie neue Erkenntnisorgane ausbildet.\n\n#### Gestaltung der Bewusstseinsentwicklung\n\nIn der **Bewusstseinsseelenentwicklung** zeigt sich die bildnerische Tätigkeit besonders deutlich. \"Erst wenn der Mensch mit seinem Ich wirklich bis zur Bewusstseinsseele vorgedrungen ist, dann entwickelt er zunächst die Umgestaltung seiner Bewusstseinsseele in die Imaginationsseele\" (GA145/10:^2qzspr). Die Seele formt dabei ihre eigenen Erkenntnisfähigkeiten um.\n\n#### Unterbewusste Bildekräfte\n\nVerborgene Seelentiefen wirken kontinuierlich bildend: \"Es gibt verborgene Tiefen der Menschenseele, dass es ein unterbewusstes Seelenleben gibt\" (GA069a/6:^huzpc4). Diese unterbewussten Kräfte prägen und formen den Menschen weit über das hinaus, was dem gewöhnlichen Bewusstsein zugänglich ist.\n\n#### Dramatische Gestaltung des Seelenlebens\n\nDas Seelenleben selbst zeigt einen **dramatischen Charakter**, der durch die bildende Tätigkeit verschiedener Seelenkräfte entsteht. Vorstellungen führen \"wie Parasiten, wie innere Lebewesen innerhalb des Seelenwesens ein eigenes Dasein\" (GA115/6:^bqzrwh), während gleichzeitig das Begehren seine eigene gestaltende Wirkung entfaltet.\n\n**Weitere Quellen:** GA018:^tp5qkf, GA021:^02vczv, GA158:^xgudtd, GA129:^z9gvcg, GA192:^8ypjwb",
+    "overview": {
+      "alternativeTerms": [
+        "therleib",
+        "Lebewesen",
+        "Lebensleib",
+        "Geistwesen",
+        "Astralleib"
+      ],
+      "definitionText": "Verwandelt Bewusstsein (GA035:^lc3ohp), arbeitet mit verwandeltem Bewusstsein (GA035:^lc3ohp), strebt nach Wirklichkeitsforschung (GA035:^lc3ohp), schafft geistige Bilde-Kräfte (GA035:^fubuzr), offenbart Übersinnliches am Menschen (GA035:^fubuzr), entwickelt imaginative Erkenntnis (GA035:^fubuzr), führt Seelenübungen durch (GA035:^tf6yy7), nimmt Seeleninhalte von anderem Gesichtspunkt (GA035:^tf6yy7).",
+      "functionText": "Schaltet gewöhnliches Bewusstsein aus (GA035:^lc3ohp), setzt verwandeltes Bewusstsein ein (GA035:^lc3ohp), führt zu übersinnlicher Erkenntnis (GA010:^xdd1ch), entwickelt geistige Organe (GA062/12:^lpmmll), holt schlummernde Kräfte heraus (GA062/12:^lpmmll), führt Seele zu anderem Punkt (GA065/7:^cozoda), ermöglicht Herantreten an geistige Welt (GA065/7:^cozoda), gestaltet Ätherleib um (GA061/5:^3189ry).",
+      "interactionText": "Verbindet mit Geistesleben (GA021:^ocfeiz), wirkt auf Leibesleben (GA021:^ocfeiz), arbeitet in Seelengliedern (GA158/2:^xgudtd), durchdringt Empfindungsseele (GA158/2:^xgudtd), gestaltet Verstandes- oder Gemütsseele (GA158/2:^xgudtd), formt Bewusstseinsseele (GA158/2:^xgudtd), wechselwirkt mit Ich (GA158/2:^xgudtd), steht in Beziehung zu Volksseele (GA070a/6:^8asjeq).",
+      "specialText": "Führt eigenes Dasein im Seelenwesen (GA115/6:^bqzrwh), wirkt wie innere Lebewesen (GA115/6:^bqzrwh), unterscheidet sich von krankhaften Zuständen (GA065/7:^3180ca), entwickelt sich aus gesundem Bewusstsein (GA065/7:^3180ca), erfordert seelisch-geistige Übungen (GA013:^mbfp89), führt zur Inspiration (GA013:^mbfp89), ermöglicht Intuition (GA013:^mbfp89), schafft neue Bewusstseinsformen (GA143/5:^m9jjzz)."
+    },
+    "sources": [
+      {
+        "id": "GA035",
+        "index": "^lc3ohp",
+        "title": "Philosophie und Anthroposophie (1904-1923)",
+        "fileName": "GA035 - Philosophie und Anthroposophie (1904-1923)"
+      },
+      {
+        "id": "GA147/1",
+        "index": "^jwhdaw",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA147/1 - ERSTER VORTRAG, München, 24. August 1913"
+      },
+      {
+        "id": "GA018",
+        "index": "^8qgz4d",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA021",
+        "index": "^ocfeiz",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)"
+      },
+      {
+        "id": "GA145/10",
+        "index": "^2qzspr",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA145/10 - ZEHNTER VORTRAG, Den Haag, 29. März 1913"
+      },
+      {
+        "id": "GA069a/6",
+        "index": "^huzpc4",
+        "title": "IRRTÜMER DER GEISTESFORSCHUNG",
+        "fileName": "GA069a/6 - IRRTÜMER DER GEISTESFORSCHUNG, Stuttgart, 19. Februar 1913"
+      },
+      {
+        "id": "GA158/12",
+        "index": "^1wu9bs",
+        "title": "DAS RUSSISCHE VOLKSTUM",
+        "fileName": "GA158/12 - DAS RUSSISCHE VOLKSTUM, ANSPRACHE, Helsingfors, 11. April 1912"
+      },
+      {
+        "id": "GA172/5",
+        "index": "^2n05za",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA172/5 - FÜNFTER VORTRAG, Dornach, 13. November 1916"
+      },
+      {
+        "id": "GA018",
+        "index": "^mgc1ki",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA021",
+        "index": "^02vczv",
+        "title": "Von Seelenrätseln (1917)",
+        "fileName": "GA021 - Von Seelenrätseln (1917)"
+      },
+      {
+        "id": "GA115/7",
+        "index": "^a72q4t",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA115/7 - DRITTER VORTRAG, Berlin, 3. November 1910"
+      },
+      {
+        "id": "GA167/6",
+        "index": "^bffjqv",
+        "title": "SECHSTER VORTRAG",
+        "fileName": "GA167/6 - SECHSTER VORTRAG, Osterbetrachtung, Berlin, 18. April 1916"
+      },
+      {
+        "id": "GA123/9",
+        "index": "^9moegi",
+        "title": "NEUNTER VORTRAG",
+        "fileName": "GA123/9 - NEUNTER VORTRAG, Bern, 9. September 1910"
+      },
+      {
+        "id": "GA115/6",
+        "index": "^bqzrwh",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA115/6 - ZWEITER VORTRAG, Berlin, 2. November 1910"
+      },
+      {
+        "id": "GA145/10",
+        "index": "^kz4esp",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA145/10 - ZEHNTER VORTRAG, Den Haag, 29. März 1913"
+      },
+      {
+        "id": "GA018",
+        "index": "^8uaozl",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA018",
+        "index": "^tp5qkf",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA035",
+        "index": "^fubuzr",
+        "title": "Philosophie und Anthroposophie (1904-1923)",
+        "fileName": "GA035 - Philosophie und Anthroposophie (1904-1923)"
+      },
+      {
+        "id": "GA102/7",
+        "index": "^l2phk7",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA102/7 - SIEBENTER VORTRAG, Berlin, 13. April 1908"
+      },
+      {
+        "id": "GA062/12",
+        "index": "^lpmmll",
+        "title": "IRRTÜMER DER GEISTESFORSCHUNG",
+        "fileName": "GA062/12 - IRRTÜMER DER GEISTESFORSCHUNG, Berlin, 16. März 1913"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA035",
+      "GA147/1",
+      "GA018",
+      "GA021",
+      "GA145/10",
+      "GA069a/6",
+      "GA158/12",
+      "GA172/5",
+      "GA018",
+      "GA021",
+      "GA115/7",
+      "GA167/6",
+      "GA123/9",
+      "GA115/6",
+      "GA145/10",
+      "GA018",
+      "GA018",
+      "GA035",
+      "GA102/7",
+      "GA062/12"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:34.340Z",
+    "totalMatches": 67778,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 13
   },
   {
     "keyword": "Seelenentwicklung",
@@ -94977,13 +96754,171 @@
   {
     "keyword": "Shakespeare",
     "alphabetical": "S",
-    "text": "**Shakespeare** fungiert als **englischer Dramatiker** als **deutscher Klassiker** durch seinen Einfluss auf die deutsche Literaturentwicklung ([[GA051 (2.) WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902|GA051/2]]) und wird durch seinen **Einfluss auf Goethe, Schiller** und die deutsche Literatur eingeordnet ([[GA051 (2.) WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902|GA051/2]]). Er repräsentiert den **Dichter der Individualisierung**, der in **verschiedene Persönlichkeiten** untertaucht ([[GA059 (9.) XVIII. DIE MISSION DER KUNST, Berlin, 12. Mai 1910|GA059/9]]) und zeigt sich als **Dramatiker der physisch-sinnlichen Einzelschicksale** für das niedere Volk ([[GA068c (30.) DIE MISSION DER KUNST HOMER, AISCHYLOS, DANTE, SHAKESPEARE, GOETHE, öffentlicher Vortrag Leipzig, 29. November 1909|GA068c/30]]). Shakespeare verkörpert die **Kunst der Charaktergestaltung** und die **dramatische Darstellung** menschlicher **Individualitäten** in ihrer **vollen Komplexität**.",
-    "gaReferences": [
-      "GA051/2",
-      "GA059/9",
-      "GA068c/30"
+    "text": "Die Dramen sind in erster Linie **Charakterdramen**, bei denen \"nicht hauptsächlich in der Handlung, sondern in der großartigen Entwickelung der einzelnen Charaktere das gewaltig Interessierende dieser Dichtungen\" liegt (GA051/2:^s0wau7). Shakespeare wollte \"den bestimmten Charakter des Othello, des Hamlet, des Macbeth darstellen\" und nicht abstrakte Ideen wie \"die Eifersucht im 'Othello', nicht den Ehrgeiz im 'Macbeth'\" (GA051/2:^f98k80).\n\n#### Schauspielernatur und Bühnenwissen\n\n\"Einen glücklichen, lichtbringenden Einfall hatte derjenige, der zuerst die Größe der Dramen Shakespeares aus dem Umstande erklärte, dass ihr Dichter Schauspieler war\" (GA029:^97y0e7). Als **Schauspielernatur** konnte er \"mit völliger Verleugnung der eigenen Persönlichkeit, in fremde Charaktere untertauchen\" (GA029:^97y0e7). \"Er kannte die Bühne von Grund aus, er wusste, wie ein Vorgang sich wirksam darstellte\" - daher gibt es \"keine Dramen in der ganzen Weltliteratur, die so sehr vom schauspielerischen Standpunkt aus gedacht sind\" (GA051/2:^v4wd7w).\n\n#### Geistige Lebendigkeit und übersinnliche Qualität\n\nShakespeare schafft Gestalten mit einer besonderen **geistigen Lebendigkeit**: \"Wer in der Lage ist, sich in ein Shakespearedrama hingebungsvoll einzuleben, und das Erlebnis dann in diejenige Welt hinüberzuführen, die vor der 'exakten Clairvoyance' ausgebreitet ist, der kann finden, dass die Gestalten Shakespeares im übersinnlichen Gebiet sich weiter als lebendig vor die Seele hinstellen\" (GA037:^s4mikq). Diese Lebendigkeit unterscheidet sie von modernen naturalistischen Dramen, die sich \"völlig in Puppen verwandeln oder gewissermaßen erstarren\" (GA037:^s4mikq).\n\n#### Verbindung zum alten Mysterienwesen\n\nShakespeare steht in lebendigem Zusammenhang \"mit dem Leben des ältesten Dramas\" von Äschylos und Sophokles, das wiederum \"ein Produkt der alten Mysterien\" war (GA304/8:^xezis8). \"In die Entwickelung des Dramas der damaligen Zeit hineingestellt\", lebte er sich ein in jene Welt, \"die nach einer anderen Dramatik damals suchte, so, dass in der Dramatik etwas von einem über das gewöhnliche Menschliche Hinweggehenden lebe\" (GA304/8:^bjxoue).\n\n#### Deutsche Aneignung\n\nShakespeare \"wird vom 18. Jahrhundert ab und durch das ganze 19. Jahrhundert hindurch ein vollständig deutscher Dichter, indem er ganz und gar aufgenommen wird. Er wird ja nicht etwa bloß übersetzt, sondern er wird vollständig assimiliert - er lebt im deutschen Geistesleben\" (GA173c/4:^pckrhs). Die Übersetzungen von Schlegel und Tieck machten ihn zu einem der **deutschen Klassiker**.\n\n#### Geistige Inspirationsquelle\n\n\"Für denjenigen, der das geistige Leben zu studieren in der Lage ist, weist der Baconismus und der Shakespearismus auf dieselbe außerirdische, aber im Irdischen repräsentierte Quelle hin\" (GA196/8:^1fvtpv). Shakespeare war inspiriert aus derselben geistigen Quelle wie Bacon von Verulam.\n\n**Weitere Quellen:** GA304/7:^74qkng, GA282/1:^fkilhu, GA139/1:^46dzha, GA070a/18:^4iphtg, GA157/14:^ublbvm, GA059/9:^skb0eq, GA210/11:^ddx1i9",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Denckraft",
+        "Naturkraft",
+        "Erdenwesen",
+        "Parteiwesen"
+      ],
+      "definitionText": "Dichter der Charakterdramen (GA051/2:^s0wau7), Schauspielernatur mit Verleugnung eigener Persönlichkeit (GA029:^97y0e7), Bühnenmensch mit Raumgefühl (GA300b/6:^rasulo), Vertreter bestimmter Weltanschauung (GA051/2:^qpotyx), Betrachter der Welt als Schauspiel (GA029:^efni79), Schöpfer von Gestalten mit rein menschlichen Eigenschaften (GA059/9:^skb0eq), objektiver Beobachter des Lebens (GA064/4:^1pg2e1), repräsentativer Dichter (GA070a/18:^70dstt).",
+      "functionText": "Schafft Charakterentwicklung vor Zuschauern (GA051/2:^s0wau7), erzeugt beabsichtigte Wirkung auf Zuhörer (GA051/2:^ivhu4w), entwickelt erzieherische Kraft aus Dramatik (GA304/8:^tzgs2e), schildert äußeres Leben als Zuschauer (GA064/4:^2b7gkx), sammelt geistiges Gut von überall (GA070a/18:^4iphtg), taucht in fremde Charaktere unter (GA029:^97y0e7), führt Menschheitsrätsel vor die Seele (GA070a/19:^2rutlb), wirkt mit übersinnlich verwandter Lebendigkeit (GA304/8:^xezis8).",
+      "interactionText": "Verbindet mit altem Mysterienwesen (GA304/8:^xezis8), wechselwirkt mit Bewusstseinsseele (GA064/9:^nieu1p), beeinflusst Goethe und Schiller (GA051/2:^4aora7), assimiliert vollständig ins deutsche Geistesleben (GA173c/4:^pckrhs), inspiriert aus derselben Quelle wie Bacon (GA196/8:^xxu0xr), steht in Beziehung zu Hamlet als Schüler (GA210/11:^3e3at3), wirkt auf deutsche Literaturentwicklung (GA051/2:^4aora7), erfasst von Lessing und Goethe (GA210/11:^q9r1qy).",
+      "specialText": "Tritt hinter Figuren zurück (GA051/2:^2vd7zv), fehlt tragische Schuld-Idee (GA051/2:^mzowqr), steht in Übergangszeit zwischen Geistwelten (GA210/11:^igekha), zeigt Dämmerstimmung des Übergangs (GA210/13:^3nvmz8), besitzt bildhafte Phantasie instinktiv (GA282/16:^vpo4c1), bleibt lebendig in übersinnlicher Welt (GA037:^s4mikq), wirkt mehr als einzelne Persönlichkeit (GA304/8:^bjxoue), enthält Intimitäten von ungeheurer Tiefe (GA304/8:^5eae8z)."
+    },
+    "sources": [
+      {
+        "id": "GA304/8",
+        "index": "^peq377",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^6xlgyg",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/7",
+        "index": "^3yr06d",
+        "title": "DAS DRAMA MIT BEZUG AUF DIE ERZIEHUNG",
+        "fileName": "GA304/7 - DAS DRAMA MIT BEZUG AUF DIE ERZIEHUNG, Stratford-en-Avon, 19. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^p6bdp6",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA070a/18",
+        "index": "^4iphtg",
+        "title": "DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES IM LICHTE DER GEISTESWISSENSCHAFT UND IM HINBLICK AUF UNSERE SCHICKSALSTRAGENDE ZEIT",
+        "fileName": "GA070a/18 - DIE TRAGENDE KRAFT DES DEUTSCHEN GEISTES IM LICHTE DER GEISTESWISSENSCHAFT UND IM HINBLICK AUF UNSERE SCHICKSALSTRAGENDE ZEIT, Düsseldorf, 16. Juni 1915"
+      },
+      {
+        "id": "GA139/1",
+        "index": "^46dzha",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA139/1 - ERSTER VORTRAG, Basel, 15. September 1912"
+      },
+      {
+        "id": "GA173c/4",
+        "index": "^pckrhs",
+        "title": "NEUNZEHNTER VORTRAG",
+        "fileName": "GA173c/4 - NEUNZEHNTER VORTRAG, Dornach, 15. Januar 1917"
+      },
+      {
+        "id": "GA210/11",
+        "index": "^ddx1i9",
+        "title": "ELFTER VORTRAG",
+        "fileName": "GA210/11 - ELFTER VORTRAG, Dornach, 24. Februar 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^j9z2e7",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^5eae8z",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^bjxoue",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^2zk07n",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA029",
+        "index": "^zftxp2",
+        "title": "Gesammelte Aufsätze zur Dramaturgie (1889-1900)",
+        "fileName": "GA029 - Gesammelte Aufsätze zur Dramaturgie (1889-1900)"
+      },
+      {
+        "id": "GA174/7",
+        "index": "^42wm6e",
+        "title": "ZWANZIGSTER VORTRAG",
+        "fileName": "GA174/7 - ZWANZIGSTER VORTRAG, Dornach, 15. Januar 1917"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^jax097",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^k4u6tq",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA304/8",
+        "index": "^tzgs2e",
+        "title": "SHAKESPEARE UND DIE NEUEN IDEALE",
+        "fileName": "GA304/8 - SHAKESPEARE UND DIE NEUEN IDEALE, Stratford-on-Avon, 23. April 1922"
+      },
+      {
+        "id": "GA051/2",
+        "index": "^wpbht7",
+        "title": "WILLIAM SHAKESPEARE",
+        "fileName": "GA051/2 - WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902"
+      },
+      {
+        "id": "GA051/2",
+        "index": "^h5nxj1",
+        "title": "WILLIAM SHAKESPEARE",
+        "fileName": "GA051/2 - WILLIAM SHAKESPEARE, Berlin, 6. Mai 1902"
+      },
+      {
+        "id": "GA173c/10",
+        "index": "^5a93e4",
+        "title": "ANHANG III",
+        "fileName": "GA173c/10 - ANHANG III"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA304/8",
+      "GA304/8",
+      "GA304/7",
+      "GA304/8",
+      "GA070a/18",
+      "GA139/1",
+      "GA173c/4",
+      "GA210/11",
+      "GA304/8",
+      "GA304/8",
+      "GA304/8",
+      "GA304/8",
+      "GA029",
+      "GA174/7",
+      "GA304/8",
+      "GA304/8",
+      "GA304/8",
+      "GA051/2",
+      "GA051/2",
+      "GA173c/10"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:52.516Z",
+    "totalMatches": 464,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 14
   },
   {
     "keyword": "Sichtbare Sprache",
@@ -95615,17 +97550,171 @@
   {
     "keyword": "Sinneswahrnehmung",
     "alphabetical": "S",
-    "text": "Die **Sinneswahrnehmung** zeigt die **Aufnahme von Reizen** durch die Sinnesorgane, die nach **kantianischer Auffassung** nur **subjektive Empfindungen** erzeugt ([[GA052 (6.) DIE ERKENNTNISTHEORETISCHEN GRUNDLAGEN DER THEOSOPHIE II, Berlin, 4. Dezember 1903|GA052/6]]) und die **Erforschung der Umwandlung** äußerer Bewegungen in **innere Seelenempfindungen** ([[GA062 (6.) NATURWISSENSCHAFT UND GEISTESFORSCHUNG, Berlin, 12. Dezember 1912|GA062/6]]). Sie umfasst das **unmittelbare Eindringen** der Außenwelt in die menschlichen Sinnesorgane ([[GA066 (4.) MENSCHENSEELE UND MENSCHENLEIB IN NATUR- UND GEISTERKENNTNIS, Berlin, 15. März 1917|GA066/4]]) und die **Wechselwirkung** zwischen äußerem und innerem Äther ([[GA066 (5.) SEELENRÄTSEL UND WELTRÄTSEL FORSCHUNG UND ANSCHAUUNG IM DEUTSCHEN GEISTESLEBEN, Berlin, 17. März 1917|GA066/5]]).\nDie **unmittelbare Erfahrung** von Farbe, Ton, Wärme und anderen Qualitäten ([[GA068b (35.) DIE NATURWISSENSCHAFT AM SCHEIDEWEGE, Leipzig, 17. Februar 1908|GA068b/35]]) und die **zwölf Sinne** in Unterscheidung zwischen **Bildsinnen und Willenssinnen** ([[GA073a (10.) AUS DEN FRAGENBEANTWORTUNGEN, 4., 6. und 15. Oktober 1920|GA073a/10]]) zeigen die **Grundlage des gewöhnlichen Bewusstseins** und **Ausgangspunkt** für höhere Erkenntnisformen ([[GA084 (2.) DIE STEIGERUNG DER MENSCHLICHEN ERKENNTNISFÄHIGKEIT ZU IMAGINATION, INSPIRATION UND INTUITION, Dornach, 14. April 1923|GA084/2]]).",
-    "gaReferences": [
-      "GA052/6",
-      "GA062/6",
-      "GA066/4",
-      "GA066/5",
-      "GA068b/35",
-      "GA073a/10",
-      "GA084/2"
+    "text": "Die **Sinneswahrnehmungen** werden \"von der Außenwelt angeregt\" und bringen den Menschen \"mit der Außenwelt in ein Verhältnis\" (GA078/5:^442gk6). Sie bilden die Grundlage des menschlichen Bewusstseins, das \"während des Tagwachens von dem Inhalt erfüllt ist, den uns unsere Sinne liefern\" (GA084/2:^m097yq).\n\n#### Verhältnis zur geistigen Welt\n\nDer Mensch \"lebt schon in der geistigen Welt, wenn er Sinneswahrnehmungen hat und wenn er Vorstellungen bildet. Denn die Sinneswahrnehmungen sind daran geknüpft, dass überhaupt schon tote Materie, rein physische Apparate in unseren Organismus eingelagert sind, die nur vom Ätherleib durchzogen werden\" (GA208/7:^2zad50). Das Ich ist sowohl \"im physischen Leib des Menschen\" als auch \"in der Außenwelt\" und \"in alldem, was da den Sinneswahrnehmungen zugrunde liegt\" (GA206/8:^8w41be).\n\n#### Aktivität und Willenselement\n\n\"Indem wir wahrnehmen, sind wir bei jedem Seelenakt innerlich aktiv. In dem, was wir durch innerliche Aktivität der äußeren Welt entgegenbringen, uns also irgendeiner Sinneswahrnehmung exponieren, in dem lebt durchaus - allerdings verdünnt, filtriert - aber es lebt darin der Wille\" (GA075/5:^7xje49). Die Sinneswahrnehmung wird \"mit dem Willen beherrscht\" und \"vermöge der Aufmerksamkeit\" kann der Mensch \"weitergehen in der Beherrschung der Sinneswahrnehmung durch den Willen\" (GA323/8:^7bpvfn).\n\n#### Verhältnis zum Denken\n\n\"Wenn wir eine Sinneswahrnehmung haben, so haben wir sie allerdings mit dem Seelisch-Geistigen. Wenn wir sie dann aber denken wollen, diese Sinneswahrnehmung, dann muss uns der Leib helfen. Der Leib ist eigentlich der Denker\" (GA210/7:^zlcfeh). Das \"innere Erleben erschöpft sich nicht in den Sinneswahrnehmungen\", sondern führt zu dem, \"was wir Vorstellungen nennen\" (GA206/7:^d6m4wl).\n\n#### Bewusstseinscharakter\n\nBei der Sinneswahrnehmung \"stehen wir in einer gewissen Unabhängigkeit von unserer Körperlichkeit. Die Sinne sind eingeschaltet in unsere Körperlichkeit\" (GA080b/7:^6jbuq6). Der Mensch würde \"Sinneswahrnehmungen haben ohne das Blei; er würde die Farben wahrnehmen, er würde die Töne wahrnehmen, aber er würde in diesem Wahrnehmen so leben, wie wenn er ein bisschen außer sich kommen würde, etwas ohnmächtig würde bei jeder Wahrnehmung\" (GA232/4:^ww4clr).\n\n#### Erkenntnistheoretische Bedeutung\n\nDie anthroposophische Methode \"nimmt die Sinneswahrnehmung geradezu zum Muster\" und wendet sich gegen \"nebulose Mystiker\", die sagen: \"Sinneswahrnehmungen - etwas sehr Minderwertiges! Die muss man verlassen\" (GA303/4:^ksp0rc). Vielmehr lernt man \"gerade an der äußeren Sinneswahrnehmung, wie man sich objektiv der Welt gegenüber einstellt\" (GA075/5:^n41iyn).\n\n**Weitere Quellen:** GA115/3:^wjaxcm, GA115/7:^zj1x04, GA119/9:^92966e, GA134/5:^cxcvei, GA153/5:^fwskp9, GA162/12:^nal1y6, GA179/4:^36zyov, GA182/1:^atguan, GA192/2:^ntzrnv",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Tragkraft",
+        "Geistwesen",
+        "Grundwesen",
+        "Weltenwesen"
+      ],
+      "definitionText": "Wahrnehmung durch Sinne (GA089/3:^hh8rzq), Grundlage für Vorstellungsbildung (GA046:^vgrwkk), Erleben der physischen Welt (GA089/3:^hh8rzq), Aufnahme äußerer Eindrücke (GA188/2:^enm2g3), Verbindung mit Außenwelt (GA206/8:^ufq8np), Erfahrung der sinnenfälligen Wirklichkeit (GA021:^rmhe5s), Wahrnehmung von Farben und Tönen (GA004:^lubplv), Grundlage des gewöhnlichen Bewusstseins (GA066/1:^ox9pfu).",
+      "functionText": "Bildet Grundlage für Vorstellungen (GA089/3:^hh8rzq), ermöglicht Erleben der physischen Welt (GA046:^vgrwkk), regt von außen an (GA206/8:^ufq8np), führt zu Erinnerungsvorstellungen (GA115/7:^ujsoj7), schafft Verbindung zur Außenwelt (GA213/1:^a0yw7c), liefert Material für Denken (GA018:^8vhe7p), ermöglicht Orientierung in physischer Welt (GA035:^juddbz), begrenzt gewöhnliches Bewusstsein (GA066/1:^ox9pfu).",
+      "interactionText": "Verbindet mit Gedankenbildung (GA002:^tv6gj7), wechselwirkt mit Vorstellungsleben (GA069e/23:^vzyqz0), steht in Beziehung zu Erinnerung (GA115/7:^ujsoj7), wird durchdrungen von Denken (GA072/8:^ldk0xf), verbindet sich mit Gefühlen (GA209/2:^snau9w), wirkt zusammen mit Verstand (GA026:^1qmru0), steht in Gegensatz zu übersinnlicher Erkenntnis (GA035:^2x33fp), wird ergänzt durch imaginative Erkenntnis (GA027:^n8n0p7).",
+      "specialText": "Bleibt an Gehirn gebunden (GA063/12:^fw88q7), zeigt nur Oberfläche der Wirklichkeit (GA066/1:^ox9pfu), führt zu Erkenntnisgrenzen (GA026:^1qmru0), wird überschritten in höherer Erkenntnis (GA028:^yve2hm), hat lebendige Qualität (GA211/9:^ncutqm), ermöglicht Unabhängigkeit von Körperlichkeit (GA080b/7:^6jbuq6), wird abgelähmt durch geistige Inhalte (GA211/4:^npxjp2), dient als Vorbild für übersinnliche Wahrnehmung (GA303/5:^o0yq53)."
+    },
+    "sources": [
+      {
+        "id": "GA206/8",
+        "index": "^ufq8np",
+        "title": "EINUNDZWANZIGSTER VORTRAG",
+        "fileName": "GA206/8 - EINUNDZWANZIGSTER VORTRAG, Dornach, 13. August 1921"
+      },
+      {
+        "id": "GA045",
+        "index": "^95ri2i",
+        "title": "Anthroposophie. Ein Fragment (1910)",
+        "fileName": "GA045 - Anthroposophie. Ein Fragment (1910)"
+      },
+      {
+        "id": "GA075/5",
+        "index": "^hh0ujy",
+        "title": "ANTHROPOSOPHIE UND WISSENSCHAFT",
+        "fileName": "GA075/5 - ANTHROPOSOPHIE UND WISSENSCHAFT, Basel, 2. November 1921"
+      },
+      {
+        "id": "GA208/7",
+        "index": "^2zad50",
+        "title": "ACHTZEHNTER VORTRAG",
+        "fileName": "GA208/7 - ACHTZEHNTER VORTRAG, Dornach, 4. November 1921"
+      },
+      {
+        "id": "GA206/7",
+        "index": "^d6m4wl",
+        "title": "ZWANZIGSTER VORTRAG",
+        "fileName": "GA206/7 - ZWANZIGSTER VORTRAG, Dornach, 12. August 1921"
+      },
+      {
+        "id": "GA073a/2",
+        "index": "^m35vz6",
+        "title": "DAS WELTBILD DER NEUEREN NATURWISSENSCHAFT",
+        "fileName": "GA073a/2 - DAS WELTBILD DER NEUEREN NATURWISSENSCHAFT, Dornach, 27. März 1920"
+      },
+      {
+        "id": "GA075/5",
+        "index": "^7xje49",
+        "title": "ANTHROPOSOPHIE UND WISSENSCHAFT",
+        "fileName": "GA075/5 - ANTHROPOSOPHIE UND WISSENSCHAFT, Basel, 2. November 1921"
+      },
+      {
+        "id": "GA082/4",
+        "index": "^7xo6zc",
+        "title": "VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE",
+        "fileName": "GA082/4 - VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE, Den Haag, 10. April 1922"
+      },
+      {
+        "id": "GA205/5",
+        "index": "^goeyvh",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA205/5 - FÜNFTER VORTRAG, Dornach, 1. Juli 1921"
+      },
+      {
+        "id": "GA210/7",
+        "index": "^zlcfeh",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA210/7 - SIEBENTER VORTRAG, Dornach, 12. Februar 1922"
+      },
+      {
+        "id": "GA071b/4",
+        "index": "^js78q1",
+        "title": "DIE OFFENBARUNGEN DES UNBEWUSSTEN IM SEELENLEBEN VOM GEISTESWISSENSCHAFTLICHEN GESICHTSPUNKT",
+        "fileName": "GA071b/4 - DIE OFFENBARUNGEN DES UNBEWUSSTEN IM SEELENLEBEN VOM GEISTESWISSENSCHAFTLICHEN GESICHTSPUNKT, München, 18. Februar 1918"
+      },
+      {
+        "id": "GA075/5",
+        "index": "^n41iyn",
+        "title": "ANTHROPOSOPHIE UND WISSENSCHAFT",
+        "fileName": "GA075/5 - ANTHROPOSOPHIE UND WISSENSCHAFT, Basel, 2. November 1921"
+      },
+      {
+        "id": "GA078/5",
+        "index": "^442gk6",
+        "title": "FÜNFTER VORTRAG",
+        "fileName": "GA078/5 - FÜNFTER VORTRAG, Stuttgart, 2. September 1921"
+      },
+      {
+        "id": "GA082/4",
+        "index": "^e0g12r",
+        "title": "VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE",
+        "fileName": "GA082/4 - VIERTER VORTRAG DIE ANTHROPOSOPHISCHE FORSCHUNGSMETHODE, Den Haag, 10. April 1922"
+      },
+      {
+        "id": "GA115/7",
+        "index": "^ujsoj7",
+        "title": "DRITTER VORTRAG",
+        "fileName": "GA115/7 - DRITTER VORTRAG, Berlin, 3. November 1910"
+      },
+      {
+        "id": "GA162/12",
+        "index": "^nal1y6",
+        "title": "ZWÖLFTER VORTRAG",
+        "fileName": "GA162/12 - ZWÖLFTER VORTRAG, Dornach, 7. August 1915"
+      },
+      {
+        "id": "GA232/4",
+        "index": "^ww4clr",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA232/4 - VIERTER VORTRAG, Dornach, 30. November 1923"
+      },
+      {
+        "id": "GA243/2",
+        "index": "^46cxrh",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA243/2 - ZWEITER VORTRAG, Torquay, 12. August 1924"
+      },
+      {
+        "id": "GA323/8",
+        "index": "^7bpvfn",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA323/8 - ACHTER VORTRAG, Stuttgart, 8. Januar 1921"
+      },
+      {
+        "id": "GA323/8",
+        "index": "^tt5e71",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA323/8 - ACHTER VORTRAG, Stuttgart, 8. Januar 1921"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA206/8",
+      "GA045",
+      "GA075/5",
+      "GA208/7",
+      "GA206/7",
+      "GA073a/2",
+      "GA075/5",
+      "GA082/4",
+      "GA205/5",
+      "GA210/7",
+      "GA071b/4",
+      "GA075/5",
+      "GA078/5",
+      "GA082/4",
+      "GA115/7",
+      "GA162/12",
+      "GA232/4",
+      "GA243/2",
+      "GA323/8",
+      "GA323/8"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:14:54.868Z",
+    "totalMatches": 687,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 15
   },
   {
     "keyword": "Sinneszone",
@@ -95893,22 +97982,338 @@
   {
     "keyword": "Sokrates",
     "alphabetical": "S",
-    "text": "**Sokrates** fungiert als **Märtyrer der Seelenerkenntnis**, der durch die **eigene Seele** zu den Göttern suchte ([[GA052 (8.) THEOSOPHISCHE SEELENLEHRE I KÖRPER UND SEELE, Berlin, 16. März 1904|GA052/8]]) und als **weiser Lehrer**, der im **Angesicht des Todes** die **Ewigkeit des Geistes** verkündete ([[GA052 (10.) THEOSOPHISCHE SEELENLEHRE III SEELE UND GEIST, Berlin, 30. März 1904|GA052/10]]). Er verkörpert das **Ideal** des **philosophischen Erkenntnisweges** und die **Verbindung** von **Leben und Lehre**.",
-    "gaReferences": [
-      "GA052/10",
-      "GA052/8"
+    "text": "Der **griechische Philosoph** des 5. Jahrhunderts vor Christus steht als eine der bedeutendsten Gestalten am Wendepunkt der Menschheitsentwicklung. \"Man kann sich keinen größeren Unterschied denken als den zwischen Buddha und Sokrates\" (GA139/4:xkp3lw). Während Buddha seine Schüler durch unmittelbare Übertragung seiner eigenen Weisheit führte, entwickelte Sokrates eine völlig andere Methode: \"In der Seele des Sokrates-Schülers sollte so wenig etwas von Sokrates leben, wie in dem Kinde, das zur Welt kommt, etwas lebt, was von der Hebamme hinzugetan worden ist\" (GA139/4:xkp3lw).\n\n#### Geistige Hebammenkunst\n\nSeine Lehrweise wird als **geistige Hebammenkunst** charakterisiert, \"weil er das, was die Schüler wissen, was sie lernen sollten, aus den Seelen der Schüler selbst hervorholen wollte\" (GA139/4:xnyajq). Er stellte seine Fragen so, \"dass die eigene innere Grundstimmung der Schülerseelen in Bewegung kam, dass er eigentlich nichts den Schülern von sich aus übertrug, sondern alles herausholte aus den Schülern\" (GA139/4:xnyajq). Diese Methode zielte darauf ab, \"den Menschen auf sich selber stellend\" (GA139/4:xkp3lw) zur Erkenntnis zu führen.\n\n#### Wendepunkt der Erkenntnis\n\nSokrates markiert einen entscheidenden **Wendepunkt in der menschlichen Erkenntnisweise**: \"Sokrates ist derjenige Wendepunkt, der die Weisheit aus dem Geistesleben herausgezogen hat\" (GA087/10:qgzdnj). Er brachte \"die Philosophie vom Himmel auf die Erde herunter, weil er an die unmittelbare Vernunft des Menschen appellierte\" (GA139/4:vppcop). Während die frühere Zeit noch von direktem geistigen Schauen geprägt war, führte Sokrates den Weg über die **logische Durchdringung** ein.\n\n#### Tugend und Erkenntnis\n\n\"Wie Sokrates den Gedanken schätzt, so muss er voraussetzen, dass sich die wahre Tugend des Menschenlebens dem Gedankenleben offenbart\" (GA018:cqpqfk). Daraus folgte seine berühmte Lehre: \"Die Tugend ist lehrbar\" (GA018:cqpqfk). Diese Auffassung stand im Gegensatz zur älteren griechischen Anschauung, nach der der Mensch instinktiv wusste, was zu tun war.\n\n#### Der sokratische Dämon\n\nSokrates sprach von einer **inneren Stimme**, seinem Dämon, der ihn leitete. \"Daher nennt [Sokrates] ihn einen 'Dämon'. Daher ist dies auch eine Erklärung dafür, [wenn sonst vom Dämon gesprochen wird]. Sokrates spricht davon, dass er einer inneren Stimme gehorche, wenn er etwas unternehmen oder unterlassen soll\" (GA087/11:pi77vg). Dieser Dämon war \"der Vermittler, welcher von dem Sinnlichen zu der Geistesfülle emporführt\" (GA087/11:pi77vg).\n\n#### Unsterblichkeit und Tod\n\nIm platonischen Dialog **Phaidon** erscheint Sokrates \"als eine durch den Tod für die Wahrheit geheiligte Person. Er ist gestorben, wie nur ein Eingeweihter sterben kann, dem der Tod nur ein Moment des Lebens ist wie andere\" (GA008:21pvlr). Seine Gespräche über die Unsterblichkeit der Seele waren nicht logische Beweise, sondern \"Erfahrungen, Erlebnisse sind es, auf die Sokrates hinweist\" (GA008:r6eici). \"Keine Beweise im logischen Sinne hören wir über die Unsterblichkeit. Das ganze Gespräch ist darauf gerichtet, die Freunde dahin zu führen, wo sie das Ewige erblicken\" (GA008:r6eici).\n\n#### Geschichtliche Bedeutung\n\nSokrates steht am Beginn eines neuen Stromes der Menschheitsentwicklung: \"So haben wir einen Strom der Menschheitsentwickelung, der bis zum Buddha hingeht und dort ein Ende erreicht; und wir haben einen anderen Strom, der mit Sokrates beginnt und in eine ferne Zukunft hineingeht\" (GA139/4:8a5zza). Seine Bedeutung liegt darin, dass er den **Individualismus** begründete, indem er an die persönliche Vernunft und Erkenntnis des einzelnen Menschen appellierte.\n\n**Weitere Quellen:** GA018:ib9r4u, GA087/11:vr2el6, GA181/4:gygdnz, GA015:oinaft, GA087/7:kfbr8g, GA174a/10:w1v3zl, GA008:etlw75, GA162/10:1cube8, GA057/15:g2m8z4, GA127/12:4qlfxq, GA175/17:3pon1k, GA182/1:nhp374, GA052/8:sdbdyq, GA052/10:oy4647, GA059/8:r1y0vw, GA087/6:n2bqk2, GA087/7:qhcyer, GA087/10:sicq87, GA087/11:k2zadc, GA139/4:fkooyv, GA139/4:eu0f64, GA139/4:mmql0x, GA139/4:kung8j, GA143/10:iq4y49, GA146/1:xdlp59, GA152/9:6a5wf1",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "Mitglied",
+        "Lebekraft",
+        "Lebewesen",
+        "Naturkraft"
+      ],
+      "definitionText": "Griechischer Philosoph (GA018:^w2u8qi), großer Geist des Abendlandes (GA146/1:^mkwygv), Wendepunkt der Weisheit (GA087/10:^qgzdnj), Lehrmeister des Denkens (GA194/4:^ia4n45), Begründer der Dialektik (GA194/4:^ia4n45), durch Tod geheiligte Person (GA008:^21pvlr), Träger der Weisheit (GA087/11:^039jqw), Führer der Schule (GA087/7:^kfbr8g).",
+      "functionText": "Führt Freunde zum Ewigen (GA008:^r6eici), weckt Gedankenleben (GA018:^wzdrf1), lehrt scharfes Denken (GA051/1:^6pohie), stellt Menschen auf sich selbst (GA139/4:^xkp3lw), wendet geistige Hebammenkunst an (GA139/4:^xnyajq), holt aus Schülerseelen hervor (GA139/4:^xnyajq), appelliert an Individualität (GA139/4:^xqno0i), führt zu Erkenntnisstufen (GA018:^w2u8qi).",
+      "interactionText": "Steht im Mittelpunkt platonischer Gespräche (GA175/17:^3pon1k), unterredet sich mit Schülern (GA087/11:^vr2el6), empfängt von Priesterin Eingebung (GA087/11:^dn799x), spricht von Dämon (GA182/1:^nhp374), gehorcht innerer Stimme (GA087/11:^pi77vg), sammelt Schüler um sich (GA139/4:^vothmc), verhält sich ablehnend zu Mythen (GA087/9:^f8i47m), bekämpft Sophistik (GA087/7:^qhcyer).",
+      "specialText": "Stirbt wie Eingeweihter (GA008:^21pvlr), empfindet Dämonium in sich (GA018:^f2spd6), spricht von Tugend als lehrbar (GA018:^cqpqfk), wird musikalisch vor Tod (GA087/10:^sicq87), erscheint als Weiser (GA018:^w2u8qi), trägt Bewusstsein göttlicher Führung (GA018:^ib9r4u), steht in Verstandes-Gemütsseelenzeit (GA139/4:^xqno0i), bringt Seele zum Selbstbewusstsein (GA018:^f2spd6)."
+    },
+    "sources": [
+      {
+        "id": "GA146/1",
+        "index": "^mkwygv",
+        "title": "ERSTER VORTRAG",
+        "fileName": "GA146/1 - ERSTER VORTRAG, Helsingfors, 28. Mai 1913"
+      },
+      {
+        "id": "GA018",
+        "index": "^cqpqfk",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA139/4",
+        "index": "^xkp3lw",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA139/4 - VIERTER VORTRAG, Basel, 18. September 1912"
+      },
+      {
+        "id": "GA008",
+        "index": "^r6eici",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA139/4",
+        "index": "^vothmc",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA139/4 - VIERTER VORTRAG, Basel, 18. September 1912"
+      },
+      {
+        "id": "GA018",
+        "index": "^ib9r4u",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA087/11",
+        "index": "^vr2el6",
+        "title": "DIE GRUNDVORSTELLUNGEN DER PLATONISCHEN WELTANSCHAUUNG",
+        "fileName": "GA087/11 - DIE GRUNDVORSTELLUNGEN DER PLATONISCHEN WELTANSCHAUUNG, Elfter Vortrag, Berlin 17. Januar 1902"
+      },
+      {
+        "id": "GA181/4",
+        "index": "^gygdnz",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA181/4 - VIERTER VORTRAG, Berlin, 5. März 1918"
+      },
+      {
+        "id": "GA181/4",
+        "index": "^93s1ar",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA181/4 - VIERTER VORTRAG, Berlin, 5. März 1918"
+      },
+      {
+        "id": "GA204/6",
+        "index": "^6vz7cf",
+        "title": "SIEBENTER VORTRAG",
+        "fileName": "GA204/6 - SIEBENTER VORTRAG, Dornach, 22. April 1921"
+      },
+      {
+        "id": "GA008",
+        "index": "^edl4q4",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA015",
+        "index": "^oinaft",
+        "title": "Die geistige Führung des Menschen und der Menschheit (1911)",
+        "fileName": "GA015 - Die geistige Führung des Menschen und der Menschheit (1911)"
+      },
+      {
+        "id": "GA087/7",
+        "index": "^kfbr8g",
+        "title": "ÜBER DAS TOTENBUCH",
+        "fileName": "GA087/7 - ÜBER DAS TOTENBUCH, Siebter Vortrag Berlin, 30. November 1901"
+      },
+      {
+        "id": "GA174a/10",
+        "index": "^w1v3zl",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA174a/10 - ZEHNTER VORTRAG, München, 17. Februar 1918"
+      },
+      {
+        "id": "GA174b/13",
+        "index": "^fgv69b",
+        "title": "DREIZEHNTER VORTRAG",
+        "fileName": "GA174b/13 - DREIZEHNTER VORTRAG, Stuttgart, 24. Februar 1918"
+      },
+      {
+        "id": "GA005",
+        "index": "^9ng2sk",
+        "title": "Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)",
+        "fileName": "GA005 - Friedrich Nietzsche - ein Kämpfer gegen seine Zeit (1895)"
+      },
+      {
+        "id": "GA008",
+        "index": "^etlw75",
+        "title": "Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)",
+        "fileName": "GA008 - Das Christentum als mystische Tatsache und die Mysterien des Altertums (1902)"
+      },
+      {
+        "id": "GA087/10",
+        "index": "^1gl7sj",
+        "title": "PLATONS «PHAIDON» UND «TIMAIOS» - GESPRÄCHE ÜBER DIE UNSTERBLICHKEIT ODER UNENDLICHKEIT DER SEELE",
+        "fileName": "GA087/10 - PLATONS «PHAIDON» UND «TIMAIOS» - GESPRÄCHE ÜBER DIE UNSTERBLICHKEIT ODER UNENDLICHKEIT DER SEELE, Zehnter Vortrag Berlin, 11. Januar 1902"
+      },
+      {
+        "id": "GA139/4",
+        "index": "^xnyajq",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA139/4 - VIERTER VORTRAG, Basel, 18. September 1912"
+      },
+      {
+        "id": "GA162/10",
+        "index": "^1cube8",
+        "title": "ZEHNTER VORTRAG",
+        "fileName": "GA162/10 - ZEHNTER VORTRAG, Dornach, 31. Juli 1915"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA146/1",
+      "GA018",
+      "GA139/4",
+      "GA008",
+      "GA139/4",
+      "GA018",
+      "GA087/11",
+      "GA181/4",
+      "GA181/4",
+      "GA204/6",
+      "GA008",
+      "GA015",
+      "GA087/7",
+      "GA174a/10",
+      "GA174b/13",
+      "GA005",
+      "GA008",
+      "GA087/10",
+      "GA139/4",
+      "GA162/10"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:15:10.232Z",
+    "totalMatches": 305,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 16
   },
   {
     "keyword": "Solowjew, Wladimir",
     "alphabetical": "S",
-    "text": "**Wladimir Solowjew** dient als **russischer Philosoph** und **Kronzeuge** für die Kritik am **entarteten Slawophilismus** ([[GA064 (9.) DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915|GA064/9]]) und als **Repräsentant** der **östlichen Philosophie** mit **unmittelbarem Erleben** der geistigen Wirklichkeit ([[GA081 (3.) DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922|GA081/3]]). Er zeigt die **authentische spirituelle Tradition** Russlands im Gegensatz zu **politischem Nationalismus**.",
-    "gaReferences": [
-      "GA064/9",
-      "GA081/3"
+    "text": "Wladimir Solowjew ist \"wie kein anderer Philosoph dazu berufen, immer mehr nun auch ein Inhalt unseres eigenen philosophischen Strebens zu werden\" und repräsentiert \"europäisch-östliche Denkweise, die aber nicht die orientalisch-asiatische ist\" (GA081/3:^qlq9t0). Als \"der größte Philosoph des russischen Volkes in neuerer Zeit\" zeigt er, \"wie trotz all der Eigenschaften unmittelbar alles einfließt, was man Christus-Inspiration nennen könnte\" (GA185/8:^asarcw).\n\n#### Philosophische Eigenart\n\nIn Solowjew \"spricht philosophisch gesehen der alte Priester, der in höheren Welten lebte und eine Art innerer Fähigkeiten zu entwickeln hatte, in diesen höheren Welten zu leben; priesterliche Sprache, nur ins Philosophische umgesetzt, fühlt man überall bei Solowjew\" (GA081/3:^8aaipd). Seine Philosophie trägt \"Fleisch, Muskeln, auch Blut - aber das Knochengerüst fehlt. Und daher nahm er die Hegelschen Begriffe, die Humeschen und andere und bildete damit dem, was er zu sagen hatte, ein fremdes Knochensystem ein\" (GA081/3:^5kgu5n).\n\n#### Christus-Impuls und Volkstum\n\n\"Weil Solowjew aus seinem Volkstum heraus spricht und denkt und empfindet, trägt seine ganze Weltanschauung den Zug hin zu dem Christus\" (GA210/2:^kyfadr). Seine Weltanschauung zeigt, \"wie das Christus-Erlebnis als ein selbständiges Erlebnis unmittelbar vorhanden ist neben dem Vater-Erlebnis\" (GA081/6:^9248r6). \"Bis in diese Zeilen des Solowjew hinein fühlt man, dass es vom Osten herüber aus dem ganzen Menschen herausklingt, nicht nur aus dem bloßen intellektuellen menschlichen Verstande\" (GA210/2:^kyfadr).\n\n#### Lehre von Wahrheit und Unsterblichkeit\n\nEin Kardinalsatz Solowjews besagt: \"Der Mensch muss streben nach Vollkommenheit. Und dieses Streben drückt sich in seinem Wahrheitsstreben aus. Indem der Mensch die Wahrheit immer mehr und mehr mit seiner Seele vereinigen wird, wird er immer vollkommener und vollkommener werden\" (GA210/2:^5mdoiy). Er vertritt die Auffassung: \"Ein Leben, das den Menschen gegeben wäre auf dieser Erde, das nicht streben müsste nach Vervollkommnung in der Wahrheit, das wäre kein wirkliches Menschenleben, das wäre wertlos, aber auch die Vervollkommnung in der Wahrheit wäre wertlos, wenn der Mensch nicht Anteil an der Unsterblichkeit hätte\" (GA210/4:^umrogd).\n\n#### Kritik des Slawophilismus\n\nSolowjew erkannte die Problematik des Slawophilismus seiner Zeit: \"Ein winziger Brocken, vom geistigen Bankette des Westens erwies sich als hinreichend\" zur geistigen Beeinflussung der slawophilen Bewegung (GA064/9:^uoeoa3). Er entdeckte, dass \"das ganze Gedankengepräge der Slawophilen entlehnt ist demjenigen, der ein westeuropäischer Geist ist\" (GA064/9:^iwcszg) und musste feststellen, dass der Slawophilismus \"zur Jahrmarktsware geworden sei\" (GA064/9:^ckvhus).\n\n**Weitere Quellen:** GA036:^a35u66, GA037:^wmijbt, GA019:^qmaxg8, GA024:^towof6, GA238/8:^esqk13",
+    "overview": {
+      "alternativeTerms": [
+        "gewesen",
+        "dagewesen",
+        "Riesenkraft"
+      ],
+      "definitionText": "Russischer Philosoph (GA081/3:^qlq9t0), bedeutendste Verkörperung russischen Geisteswesens (GA019:^qmaxg8), größter Philosoph des russischen Volkes (GA185/8:^asarcw), Repräsentant europäisch-östlicher Denkweise (GA081/3:^qlq9t0), feinsinniger russischer Philosoph (GA024:^towof6), philosophische Kraft und mystische Tiefe (GA019:^qmaxg8), edle geistige Aufschau (GA024:^towof6), außerordentlicher Mensch (GA064/9:^t7yb55).",
+      "functionText": "Nimmt Christus-Impuls als selbstverständlich (GA185/9:^k5ung7), spricht aus ganzem Menschen heraus (GA210/2:^kyfadr), trägt Weltanschauung hin zu Christus (GA210/2:^kyfadr), weist auf zwei Kräfte in Menschennatur hin (GA131/3:^gh2ctx), fordert moralische Politik (GA064/9:^635x46), wirkt größer nach dem Tod (GA287/3:^n2b9d0), vermittelt zwischen West und Ost (GA036:^a35u66), entwickelt Fleisch und Muskeln der Philosophie (GA081/3:^5kgu5n).",
+      "interactionText": "Verwendet westliche Gedankenformen (GA210/2:^1l9h6a), verbindet mit Hegelschen Begriffen (GA081/3:^5kgu5n), steht im Gegensatz zu Herbert Spencer (GA080b/5:^fnn7u7), wechselwirkt mit Slawophilismus (GA064/9:^xsagwc), bezieht sich auf Christus und Vatergeist (GA210/2:^kyfadr), unterscheidet sich von orientalisch-asiatischer Denkweise (GA081/3:^qlq9t0), verbindet östliches Empfinden mit westlicher Terminologie (GA303/16:^ne5shx), steht zwischen Religion und Wissenschaft (GA081/6:^9248r6).",
+      "specialText": "Fehlt Knochensystem der Philosophie (GA081/3:^5kgu5n), spricht wie alter Priester (GA081/3:^8aaipd), empfindet anarchische Seelenkräfte (GA064/9:^4ab3oi), erlebt Christus-Inspiration unmittelbar (GA185/8:^asarcw), besitzt große unergründliche Augen (GA064/9:^t7yb55), wirkt nebelhaft mystisch auf Mitteleuropäer (GA081/3:^xch49y), durchdrungen von Sendung des Russentums (GA019:^qmaxg8), Individualität der ehemaligen Visionärin (GA238/8:^esqk13)."
+    },
+    "sources": [
+      {
+        "id": "GA081/3",
+        "index": "^qlq9t0",
+        "title": "DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE",
+        "fileName": "GA081/3 - DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922"
+      },
+      {
+        "id": "GA210/4",
+        "index": "^9qt9dq",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA210/4 - VIERTER VORTRAG, Mannheim, 19. Januar 1922"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^sgmkyy",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA303/16",
+        "index": "^ne5shx",
+        "title": "SECHZEHNTER VORTRAG",
+        "fileName": "GA303/16 - SECHZEHNTER VORTRAG, Dornach, 7. Januar 1922"
+      },
+      {
+        "id": "GA210/2",
+        "index": "^1l9h6a",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA210/2 - ZWEITER VORTRAG, Dornach, 7. Januar 1922"
+      },
+      {
+        "id": "GA210/2",
+        "index": "^kyfadr",
+        "title": "ZWEITER VORTRAG",
+        "fileName": "GA210/2 - ZWEITER VORTRAG, Dornach, 7. Januar 1922"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^h0q7mv",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^ckvhus",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^uoeoa3",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^3179tf",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA081/3",
+        "index": "^8aaipd",
+        "title": "DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE",
+        "fileName": "GA081/3 - DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922"
+      },
+      {
+        "id": "GA081/3",
+        "index": "^5kgu5n",
+        "title": "DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE",
+        "fileName": "GA081/3 - DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922"
+      },
+      {
+        "id": "GA185/8",
+        "index": "^asarcw",
+        "title": "ACHTER VORTRAG",
+        "fileName": "GA185/8 - ACHTER VORTRAG, Dornach, 2. November 1918"
+      },
+      {
+        "id": "GA287/3",
+        "index": "^64brhj",
+        "title": "DRITTER VORTRAG Dornach",
+        "fileName": "GA287/3 - DRITTER VORTRAG Dornach, 19. Oktober 1914"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^xsagwc",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^4ab3oi",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^uidwwu",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA064/9",
+        "index": "^xyld35",
+        "title": "DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE",
+        "fileName": "GA064/9 - DIE VERJÜNGENDEN KRÄFTE DER DEUTSCHEN VOLKSSEELE, Berlin, 4. März 1915"
+      },
+      {
+        "id": "GA081/3",
+        "index": "^xch49y",
+        "title": "DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE",
+        "fileName": "GA081/3 - DRITTER VORTRAG ANTHROPOSOPHIE UND PHILOSOPHIE, Berlin, 7. März 1922"
+      },
+      {
+        "id": "GA153/6",
+        "index": "^2ai62r",
+        "title": "VIERTER VORTRAG",
+        "fileName": "GA153/6 - VIERTER VORTRAG, Wien, 12. April 1914"
+      }
     ],
-    "source": "obsidian-az"
+    "gaReferences": [
+      "GA081/3",
+      "GA210/4",
+      "GA064/9",
+      "GA303/16",
+      "GA210/2",
+      "GA210/2",
+      "GA064/9",
+      "GA064/9",
+      "GA064/9",
+      "GA064/9",
+      "GA081/3",
+      "GA081/3",
+      "GA185/8",
+      "GA287/3",
+      "GA064/9",
+      "GA064/9",
+      "GA064/9",
+      "GA064/9",
+      "GA081/3",
+      "GA153/6"
+    ],
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:15:03.256Z",
+    "totalMatches": 62,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 17
   },
   {
     "keyword": "Somnambulismus",
@@ -104475,16 +106880,171 @@
   {
     "keyword": "Troxler, Ignaz P. V.",
     "alphabetical": "T",
-    "text": "**Ignaz Paul Vital Troxler** wird als Entwickler **übersinnlicher Erkenntnisorgane** und erste Vision einer Anthroposophie charakterisiert sowie als **Schweizer Philosoph**, der den Begriff \"Anthroposophie\" prägte und übergeistige Sinne lehrte. Er entwickelte die **Begriffe von übersinnlichem Geist** und übergeistigem Sinn und wird als **vergessener Schweizer Denker** charakterisiert, der von übergeistigem Sinn und übersinnlichem Geist sprach. Als **Begründer der Anthroposophie-Idee** lehrte er von übersinnlichem Geist und übergeistigem Sinn sowie der **Kraft der menschlichen Seele**, die ohne die Zuhilfenahme des Leibes in die geistige Umwelt hineinschaut und die **Fähigkeit, in die geistige Welt hineinzuschauen** und sie in ihren Einzelheiten zu betrachten ([[GA065 (10.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916|GA065/10]], [[GA070b (11.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916|GA070b/11]], [[GA070b (12.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916|GA070b/12]], [[GA070b (13.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Bremen, 2. März 1916|GA070b/13]], [[GA070b (14.) EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916|GA070b/14]], [[GA070b (16.) ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916|GA070b/16]]).",
+    "text": "Ignaz Paul Vitalis Troxler (1780-1866) gehört zu den vergessenen Geistern des deutschen Geisteslebens, obwohl er auf den Schultern von Fichte, Schelling und Hegel steht und deren Streben zu höheren Höhen trägt (GA065/10:9n3jnb). Der Schweizer Philosoph, der in Luzern, Bern und Basel wirkte, entwickelte bereits 1835 in seinen \"Vorlesungen über Philosophie\" eine Weltanschauung, die bewusst auf eine **Anthroposophie** hinarbeitete (GA171/15:awqe3p).\n\n#### Übergeistiger Sinn und übersinnlicher Geist\n\nTroxler spricht von zwei besonderen Anlagen in der menschlichen Seele: dem **\"übergeistigen Sinn\"** und dem **\"übersinnlichen Geist\"** (GA070b/11:m79wpx). Mit dem übergeistigen Sinn meint er, \"dass der Mensch mit neuen Organen, mit neuen Sinnen, mit rein geistigen Sinnen eine andere Welt wahrnehmen kann, die ebenso inhaltsvoll ist wie die äußere physische Welt\" (GA070b/13:zku74z). Der übersinnliche Geist ermöglicht es, über das gewöhnlich Sinnliche hinauszukommen, ohne der geistigen Leerheit zu verfallen (GA070b/11:qic94j).\n\n#### Glaube, Liebe, Hoffnung als äußere Hüllen\n\n\"Da sieht Troxler, dass in der Menschenseele, insofern sie sich erlebt zwischen Geburt und Tod in der äußeren Leiblichkeit, drei Kräfte leben - als die schönsten Kräfte nach Troxlers Anschauungswelt. Da ist zuerst die Glaubenskraft - dasjenige, was der Mensch als Glaubenskraft hat. Dasjenige, was der Mensch [zweitens] als Liebekraft hat, er hat es als Kraft seiner Seele, aber in der Seele, insofern sich diese Seele im Leibe darlebt\" (GA070b/13:2jz5bi). \n\nFür Troxler sind diese drei Kräfte nur die äußeren Ausdrücke höherer geistiger Erkenntniskräfte: \"Hinter der Glaubenskraft steht das geistige Hören, hinter der Liebeskraft das geistige Fühlen oder Tasten, hinter der Hoffnungskraft das geistige Schauen\" (GA065/10:zvbm5h). \"Die Liebe, diese schönste, diese herrlichste Blüte des Seelenlebens innerhalb des Leibes, sie ist die äußere Offenbarung für Troxler desjenigen, was er das geistige Tasten, das geistige Fühlen, das geistige Fühlen nennt\" (GA070b/12:d31bkm).\n\n#### Von Anthropologie zur Anthroposophie\n\nTroxler unterscheidet zwischen gewöhnlicher Anthropologie und einer höheren Menschenerkenntnis: \"Wenn man so von außen den Menschen anschaut, meint Troxler, so lernt man Anthropologie kennen. Anthropologie ist dasjenige, was entsteht, wenn man mit den Sinnen, mit dem Verstande untersucht, was der Mensch darbietet\" (GA065/10:u0k2ol). Dagegen steht vor Troxler \"der Gedanke einer Anthroposophie, wie er es nennt, einer Anthroposophie, welche nicht wie die Anthropologie dasjenige, was am Menschen äußerlich mit den Sinnen betrachtet werden kann\" erforscht, sondern \"eine höhere Art der Anthropologie\" darstellt (GA070b/11:4aa2q6).\n\n\"Eine Wissenschaft wollte Troxler, die aus allen Kräften der menschlichen Natur, nicht bloß aus dem Verstand und den gewöhnlichen, sogenannten Erkenntniskräften heraus sich der Welt nähert, sondern -, sondern eine Wissenschaft, eine Erkenntnis, die die ganze Persönlichkeit entgegenträgt dem Weltendasein\" (GA070b/11:qemjnf).\n\n#### Der ätherische Mensch\n\nTroxler erkennt einen **höheren Menschen** im gewöhnlichen Menschen, \"einen höheren Menschen, der ebenso ein Geistgehör hat wie der physische Mensch ein sinnliches Hören; [der ebenso] ein geistiges Fühlen hat wie der physische Mensch ein physisches Fühlen und [der] ein geistiges Schauen hat, eine geistige Seele\" (GA070b/13:tcm0wg). Er spricht von einem **ätherischen Menschen**, der an die ewigen Kräfte gebunden ist, im Gegensatz zum physischen Menschen, der an zeitliche Kräfte gebunden ist (GA070b/12:oelshs).\n\n**Weitere Quellen:** GA020:czs7j9, GA018:d48dos, GA171/15:t44mfp, GA035:5fr1y2, GA250/11:dr46oz, GA312/1:jpmejg, GA312/1:xbbk42, GA200/3:cgrm7h, GA028:39814p, GA173c/10:3bqq9r",
+    "overview": {
+      "alternativeTerms": [
+        "Seelleib",
+        "Seelenleib",
+        "Grundkraft",
+        "Naturwesen",
+        "Geistwesen"
+      ],
+      "definitionText": "Schweizer Philosoph (GA070b/14:^c35jns), Ignaz Paul Vital Troxler (GA020:^czs7j9), vergessener Geist des deutschen Geisteslebens (GA070b/12:^6ohi88), bedeutende Persönlichkeit (GA070b/16:^k4oma6), Nachfolger der großen deutschen Idealisten (GA070b/14:^c35jns), Verfasser der Vorlesungen über Philosophie 1835 (GA020:^czs7j9), Denker auf dem Weg zur Geisteswissenschaft (GA070b/16:^jbieoj).",
+      "functionText": "Entwickelt Konzept der Anthroposophie (GA065/10:^i6g2hu), unterscheidet übergeistigen Sinn und übersinnlichen Geist (GA070b/12:^6ohi88), weist auf höhere Erkenntniskräfte hin (GA065/10:^ob6yzj), sucht Weg über Hegels Gedankenwelt hinaus (GA020:^tvyyif), strebt nach geisteswissenschaftlicher Forschung (GA070b/16:^jbieoj), entwickelt Wissenschaft aus ganzer Persönlichkeit (GA065/10:^hpym49), prägt Begriff der wahren menschlichen Leiblichkeit (GA067/9:^i7pyic).",
+      "interactionText": "Steht auf Schultern Fichtes, Schellings, Hegels (GA070b/12:^41rcbc), empfängt Anregungen des deutschen Weltanschauungsidealismus (GA020:^tvyyif), verbindet sich mit anderen vergessenen Geistern (GA065/10:^9n3jnb), weist auf ähnliche Bestrebungen anderer Denker hin (GA070b/11:^2igibs), arbeitet aus Tiefe des deutschen Volkstums (GA070b/11:^m79wpx), gehört zur theosophisch-mystischen Unterströmung (GA250/11:^dr46oz).",
+      "specialText": "Spricht von sensiblen Gedanken (GA070b/12:^7e7jvg), entwickelt Lehre von geistigem Hören, Tasten, Schauen (GA070b/14:^nz2hvy), erkennt höheren Menschen im gewöhnlichen Menschen (GA070b/13:^tcm0wg), unterscheidet Anthropologie von Anthroposophie (GA065/10:^u0k2ol), verbindet Glaube, Liebe, Hoffnung mit geistigen Erkenntniskräften (GA070b/11:^tjs1el), ahnt Wesen der Geisteswissenschaft voraus (GA070b/16:^mu6imr), wirkt als Vorbote der Anthroposophie (GA171/15:^awqe3p)."
+    },
+    "sources": [
+      {
+        "id": "GA020",
+        "index": "^czs7j9",
+        "title": "Vom Menschenrätsel (1916)",
+        "fileName": "GA020 - Vom Menschenrätsel (1916)"
+      },
+      {
+        "id": "GA018",
+        "index": "^d48dos",
+        "title": "Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)",
+        "fileName": "GA018 - Die Rätsel der Philosophie in ihrer Geschichte als Umriss dargestellt (1914)"
+      },
+      {
+        "id": "GA171/15",
+        "index": "^t44mfp",
+        "title": "FÜNFZEHNTER VORTRAG",
+        "fileName": "GA171/15 - FÜNFZEHNTER VORTRAG, Dornach, 29. Oktober 1916"
+      },
+      {
+        "id": "GA070b/16",
+        "index": "^k4oma6",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916"
+      },
+      {
+        "id": "GA070b/11",
+        "index": "^hrny45",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/11 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916"
+      },
+      {
+        "id": "GA070b/13",
+        "index": "^kb4ahd",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/13 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Bremen, 2. März 1916"
+      },
+      {
+        "id": "GA070b/14",
+        "index": "^ss3pj7",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/14 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916"
+      },
+      {
+        "id": "GA035",
+        "index": "^5fr1y2",
+        "title": "Philosophie und Anthroposophie (1904-1923)",
+        "fileName": "GA035 - Philosophie und Anthroposophie (1904-1923)"
+      },
+      {
+        "id": "GA070b/16",
+        "index": "^jbieoj",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916"
+      },
+      {
+        "id": "GA065/10",
+        "index": "^9n3jnb",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG",
+        "fileName": "GA065/10 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916"
+      },
+      {
+        "id": "GA065/10",
+        "index": "^u0k2ol",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG",
+        "fileName": "GA065/10 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKELUNG, Berlin, 25. Februar 1916"
+      },
+      {
+        "id": "GA070b/12",
+        "index": "^m8bxgk",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916"
+      },
+      {
+        "id": "GA070b/13",
+        "index": "^w9yp4t",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/13 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Bremen, 2. März 1916"
+      },
+      {
+        "id": "GA070b/13",
+        "index": "^2jz5bi",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/13 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Bremen, 2. März 1916"
+      },
+      {
+        "id": "GA070b/14",
+        "index": "^2q7vgy",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/14 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916"
+      },
+      {
+        "id": "GA070b/16",
+        "index": "^2q00dj",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/16 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, München, 17. März 1916"
+      },
+      {
+        "id": "GA065/3",
+        "index": "^dqzuho",
+        "title": "BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT",
+        "fileName": "GA065/3 - BILDER AUS ÖSTERREICHS GEISTESLEBEN IM NEUNZEHNTEN JAHRHUNDERT, Berlin, 9. Dezember 1915"
+      },
+      {
+        "id": "GA070b/11",
+        "index": "^cmiuzf",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/11 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Leipzig, 21. Februar 1916"
+      },
+      {
+        "id": "GA070b/12",
+        "index": "^6ohi88",
+        "title": "ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN",
+        "fileName": "GA070b/12 - ZUR DEUTSCHEN GEDANKENENTWICKLUNG. EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DERSELBEN, Hannover, 29. Februar 1916"
+      },
+      {
+        "id": "GA070b/14",
+        "index": "^c35jns",
+        "title": "EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG",
+        "fileName": "GA070b/14 - EIN VERGESSENES STREBEN NACH GEISTESWISSENSCHAFT INNERHALB DER DEUTSCHEN GEDANKENENTWICKLUNG, Stuttgart, 13. März 1916"
+      }
+    ],
     "gaReferences": [
-      "GA065/10",
+      "GA020",
+      "GA018",
+      "GA171/15",
+      "GA070b/16",
       "GA070b/11",
-      "GA070b/12",
       "GA070b/13",
       "GA070b/14",
-      "GA070b/16"
+      "GA035",
+      "GA070b/16",
+      "GA065/10",
+      "GA065/10",
+      "GA070b/12",
+      "GA070b/13",
+      "GA070b/13",
+      "GA070b/14",
+      "GA070b/16",
+      "GA065/3",
+      "GA070b/11",
+      "GA070b/12",
+      "GA070b/14"
     ],
-    "source": "obsidian-az"
+    "source": "ki-generated-batch",
+    "promptVersion": "concept-v1",
+    "overviewVersion": "overview-v1",
+    "generatedAt": "2025-12-13T20:15:16.806Z",
+    "totalMatches": 142,
+    "batchId": "batch_1765656701738",
+    "batchIndex": 18
   },
   {
     "keyword": "Tschechische Literatur",

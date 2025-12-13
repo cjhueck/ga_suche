@@ -1006,6 +1006,18 @@ body.dark-mode .connection-modal-header {
       font-size: 1rem !important;
     }
     
+    /* Themen-Tab: Textgröße im Ergebnisfenster des linken Side-Panels auf 0.9rem */
+    body:has(.tab-button.active[onclick*="thematic"]) #sidebar-content,
+    body:has(.tab-button.active[onclick*="thematic"]) #sidebar-content p,
+    body:has(.tab-button.active[onclick*="thematic"]) #sidebar-content .paragraph,
+    body:has(.tab-button.active[onclick*="thematic"]) #sidebar-content li,
+    .tab-thematic-active #sidebar-content,
+    .tab-thematic-active #sidebar-content p,
+    .tab-thematic-active #sidebar-content .paragraph,
+    .tab-thematic-active #sidebar-content li {
+      font-size: 0.9rem !important;
+    }
+    
     /* Überschriften bleiben bei ursprünglicher Größe */
     #viewer th.concept-overview-header {
       font-size: 0.85em !important;
