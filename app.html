@@ -1956,6 +1956,14 @@ body.dark-mode .ga-missing-text {
       color: var(--text-color);
     }
     
+    /* OVERRIDE: Gedicht-Paragraphen im Summary-Panel - höchste Spezifität */
+    #summary-content .paragraph.has-poem {
+      margin: 0 !important;
+      padding: 0 !important;
+      line-height: 1.5 !important;
+      text-align: left !important;
+    }
+    
     /* Gedichte auch innerhalb von .paragraph */
     #summary-content .paragraph p.poem,
     #summary-content .paragraph p.short-lines {
@@ -1994,6 +2002,39 @@ body.dark-mode .ga-missing-text {
     
     #summary-content .paragraph.has-poem p + p {
       margin-top: 0 !important;
+    }
+    
+    /* Gedichte: Entferne alle Margins und Padding (höchste Spezifität) - wie im Viewer */
+    #summary-content .paragraph.has-poem,
+    #summary-content div.paragraph.has-poem {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      margin: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      line-height: 1.5 !important;
+      text-align: left !important;
+    }
+    
+    /* Überschreibe auch alle inline styles */
+    #summary-content .paragraph.has-poem[style],
+    #summary-content div.paragraph.has-poem[style] {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      margin: 0 !important;
+    }
+    
+    /* WICHTIG: Entferne Abstand zwischen aufeinanderfolgenden Gedicht-Paragraphen */
+    #summary-content .paragraph.has-poem ~ .paragraph.has-poem {
+      margin-top: 0 !important;
+    }
+    
+    /* Gedichte: Formatierung für direkt enthaltenen Text innerhalb von .paragraph.has-poem (ohne <p> Tags) */
+    #summary-content .paragraph.has-poem:not(:has(p)) {
+      text-align: left !important;
+      line-height: 1.5 !important;
     }
     
     /* Bilder im Summary-Panel - gleiche Styles wie im Viewer */
@@ -26695,7 +26736,8 @@ function convertGAReferencesToLinksInKeywordResults(container) {
 
 // Hilfsfunktion: Erkennt Gedichte und kurze Zeilen (< 75 Zeichen) und markiert sie
 function detectAndFormatPoems(container) {
-  console.log('[GEDICHT-ERKENNUNG] Funktion aufgerufen, Container:', container);
+  const containerId = container ? (container.id || container.className || 'unbekannt') : 'null';
+  console.log('[GEDICHT-ERKENNUNG] Funktion aufgerufen, Container-ID:', containerId, 'Element:', container);
   if (!container) {
     console.log('[GEDICHT-ERKENNUNG] Container ist null/undefined, breche ab');
     return;
@@ -26875,12 +26917,17 @@ function detectAndFormatPoems(container) {
             .replace(/margin[^:]*:\s*[^;]+;?\s*/gi, '')
             .replace(/margin-top[^:]*:\s*[^;]+;?\s*/gi, '')
             .replace(/margin-bottom[^:]*:\s*[^;]+;?\s*/gi, '')
+            .replace(/padding[^:]*:\s*[^;]+;?\s*/gi, '')
             .trim();
-          poemDiv.setAttribute('style', newStyle);
-          // Setze explizit margin-top und margin-bottom auf 0
-          poemDiv.style.marginTop = '0';
-          poemDiv.style.marginBottom = '0';
-          console.log(`[GEDICHT-ERKENNUNG] Paragraph ${idx + 1} markiert als Gedicht, Text-Länge: ${cleanText.length}`);
+          // Entferne style-Attribut komplett und setze neue Styles
+          poemDiv.removeAttribute('style');
+          // Setze explizit margin und padding auf 0 mit !important
+          poemDiv.style.setProperty('margin', '0', 'important');
+          poemDiv.style.setProperty('margin-top', '0', 'important');
+          poemDiv.style.setProperty('margin-bottom', '0', 'important');
+          poemDiv.style.setProperty('padding', '0', 'important');
+          poemDiv.style.setProperty('line-height', '1.5', 'important');
+          console.log(`[GEDICHT-ERKENNUNG] Paragraph ${idx + 1} markiert als Gedicht, Style: ${poemDiv.getAttribute('style')}`);
         });
         
         // Überspringe alle markierten Paragraphen
@@ -26936,11 +26983,19 @@ function detectAndFormatPoems(container) {
           const parentParagraph = p.closest('.paragraph');
           if (parentParagraph) {
             parentParagraph.classList.add('has-poem');
-            // Entferne margin-bottom aus dem style-Attribut
+            // Entferne alle margin/padding Styles aus dem style-Attribut
             const currentStyle = parentParagraph.getAttribute('style') || '';
-            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
-            parentParagraph.setAttribute('style', newStyle);
-            parentParagraph.style.marginBottom = '0';
+            const newStyle = currentStyle
+              .replace(/margin[^:]*:\s*[^;]+;?\s*/gi, '')
+              .replace(/padding[^:]*:\s*[^;]+;?\s*/gi, '')
+              .trim();
+            // Entferne style-Attribut und setze neue Styles
+            parentParagraph.removeAttribute('style');
+            parentParagraph.style.setProperty('margin', '0', 'important');
+            parentParagraph.style.setProperty('margin-top', '0', 'important');
+            parentParagraph.style.setProperty('margin-bottom', '0', 'important');
+            parentParagraph.style.setProperty('padding', '0', 'important');
+            parentParagraph.style.setProperty('line-height', '1.5', 'important');
           }
           
           break;
@@ -27013,17 +27068,28 @@ function detectAndFormatPoems(container) {
           if (parentParagraph) {
             parentParagraph.classList.add('has-poem');
             const currentStyle = parentParagraph.getAttribute('style') || '';
-            const newStyle = currentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
-            parentParagraph.setAttribute('style', newStyle);
-            parentParagraph.style.marginBottom = '0';
+            const newStyle = currentStyle
+              .replace(/margin[^:]*:\s*[^;]+;?\s*/gi, '')
+              .replace(/padding[^:]*:\s*[^;]+;?\s*/gi, '')
+              .trim();
+            // Entferne style-Attribut und setze neue Styles
+            parentParagraph.removeAttribute('style');
+            parentParagraph.style.setProperty('margin', '0', 'important');
+            parentParagraph.style.setProperty('margin-top', '0', 'important');
+            parentParagraph.style.setProperty('margin-bottom', '0', 'important');
+            parentParagraph.style.setProperty('padding', '0', 'important');
+            parentParagraph.style.setProperty('line-height', '1.5', 'important');
           }
           const nextParentParagraph = nextP.closest('.paragraph');
           if (nextParentParagraph) {
             nextParentParagraph.classList.add('has-poem');
-            const nextCurrentStyle = nextParentParagraph.getAttribute('style') || '';
-            const nextNewStyle = nextCurrentStyle.replace(/margin-bottom\s*:\s*[^;]+;?\s*/gi, '').trim();
-            nextParentParagraph.setAttribute('style', nextNewStyle);
-            nextParentParagraph.style.marginBottom = '0';
+            // Entferne style-Attribut und setze neue Styles
+            nextParentParagraph.removeAttribute('style');
+            nextParentParagraph.style.setProperty('margin', '0', 'important');
+            nextParentParagraph.style.setProperty('margin-top', '0', 'important');
+            nextParentParagraph.style.setProperty('margin-bottom', '0', 'important');
+            nextParentParagraph.style.setProperty('padding', '0', 'important');
+            nextParentParagraph.style.setProperty('line-height', '1.5', 'important');
           }
           
           break;
