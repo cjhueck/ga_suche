@@ -2375,11 +2375,18 @@ async function navigateToQuoteById(quoteId) {
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
-  const targetIndex = quote.paragraph_id || null;
+  // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
+  // (Members Panel im summary-panel bleibt sichtbar)
+  const viewerPreload = document.getElementById('viewer');
+  if (viewerPreload) {
+    viewerPreload.style.opacity = '0';
+    viewerPreload.style.transition = 'none';
+  }
   
+  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
+  // WICHTIG: KEIN targetIndex übergeben - verhindert automatisches Scrollen
   if (typeof showLecture === 'function') {
-    await showLecture(quote.ga_reference, targetIndex, [], false);
+    await showLecture(quote.ga_reference, null, [], false);
   }
   
   // 3. Warte bis DOM bereit ist und suche nach dem quote_text
@@ -2526,6 +2533,13 @@ async function navigateToQuoteById(quoteId) {
       applyQuoteHighlightToElement(scrollTarget, quote);
     }
     
+    // ANTI-FLICKER: Viewer wieder sichtbar machen NACH dem Scrollen
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.style.transition = 'opacity 0.15s ease-in';
+      viewer.style.opacity = '1';
+    }
+    
     return true;
   };
   
@@ -2553,6 +2567,12 @@ async function navigateToQuoteById(quoteId) {
       setTimeout(tryFind, 100);
     } else {
       console.warn('[QUOTE-NAV] Konnte Zitat nach', maxAttempts, 'Versuchen nicht finden');
+      // ANTI-FLICKER: Auch bei Fehler Viewer wieder sichtbar machen
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.style.transition = 'opacity 0.15s ease-in';
+        viewer.style.opacity = '1';
+      }
       window.membersNavigating = false;
       document.body.classList.remove('members-navigating');
       // Entferne MutationObserver
@@ -2607,10 +2627,9 @@ async function navigateToHighlightById(highlightId) {
   
   console.log('[HIGHLIGHT-NAV] Unterstreichung gefunden:', highlight.ga_number, 'Text:', highlightedText?.substring(0, 50));
   
-  // 2. Lade den Text (GA-Band/Vortrag)
+  // 2. Lade den Text (GA-Band/Vortrag) - EXAKT wie bei navigateToQuoteById
   window.membersNavigating = true;
   membersPanelActive = true;
-  window._membersNavLock = true;
   logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToHighlightById', highlightId });
   
   // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
@@ -2676,19 +2695,25 @@ async function navigateToHighlightById(highlightId) {
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
-  const targetIndex = highlight.paragraph_id || null;
-  
-  if (typeof showLecture === 'function') {
-    await showLecture(highlight.ga_number, targetIndex, [], false);
+  // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
+  // (Members Panel im summary-panel bleibt sichtbar)
+  const viewerPreload = document.getElementById('viewer');
+  if (viewerPreload) {
+    viewerPreload.style.opacity = '0';
+    viewerPreload.style.transition = 'none';
   }
   
-  // 3. Warte bis DOM bereit ist und suche nach dem highlightedText
+  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
+  // WICHTIG: KEIN targetIndex übergeben - das verhindert das automatische Scrollen zum Absatz
+  if (typeof showLecture === 'function') {
+    await showLecture(highlight.ga_number, null, [], false);
+  }
+  
+  // 3. Warte bis DOM bereit ist und suche nach dem highlightedText - EXAKT wie bei navigateToQuoteById
   const findAndScrollToHighlight = () => {
     const mainContainer = document.getElementById('main');
     if (!mainContainer) return false;
     
-    // Verwende die bereits extrahierte Variable highlightedText (aus Closure)
     const highlightText = highlightedText;
     if (!highlightText || highlightText.length === 0) {
       console.warn('[HIGHLIGHT-NAV] Kein highlighted_text vorhanden');
@@ -2738,7 +2763,7 @@ async function navigateToHighlightById(highlightId) {
     let node;
     let accumulatedLength = 0;
     let targetNode = null;
-    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
+    let textOffsetInNode = 0;
     
     while (node = walker.nextNode()) {
       const nodeText = node.textContent;
@@ -2781,14 +2806,15 @@ async function navigateToHighlightById(highlightId) {
       scrollTarget = targetNode.parentElement;
     }
     
-    // 4. Scrolle zum Element
+    // 4. ZUERST zur exakten Textstelle scrollen, DANN Highlighting anwenden - EXAKT wie bei navigateToQuoteById
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
     const mainRect = mainContainer.getBoundingClientRect();
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
+    // Oberes Viertel = 25% der Viewport-Höhe
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25);
     
-    // Erstelle temporären Marker an der exakten Textstelle und scrolle dorthin
+    // Erstelle temporären Marker an der exakten Textstelle
     try {
       const range = document.createRange();
       const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
@@ -2822,9 +2848,11 @@ async function navigateToHighlightById(highlightId) {
       console.log('[HIGHLIGHT-NAV] Fallback: Gescrollt zum Absatz');
     }
     
-    // Trigger jumpToHighlight für das Highlighting im Members Panel
-    if (typeof jumpToHighlight === 'function') {
-      jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+    // ANTI-FLICKER: Viewer wieder sichtbar machen NACH dem Scrollen
+    const viewer = document.getElementById('viewer');
+    if (viewer) {
+      viewer.style.transition = 'opacity 0.15s ease-in';
+      viewer.style.opacity = '1';
     }
     
     return true;
@@ -2840,7 +2868,6 @@ async function navigateToHighlightById(highlightId) {
       // Erfolgreich - Cleanup
       setTimeout(() => {
         window.membersNavigating = false;
-        window._membersNavLock = false;
         document.body.classList.remove('members-navigating');
         // Entferne MutationObserver
         if (window.membersHighlightNavObserver) {
@@ -2855,8 +2882,13 @@ async function navigateToHighlightById(highlightId) {
       setTimeout(tryFind, 100);
     } else {
       console.warn('[HIGHLIGHT-NAV] Konnte Unterstreichung nach', maxAttempts, 'Versuchen nicht finden');
+      // ANTI-FLICKER: Auch bei Fehler Viewer wieder sichtbar machen
+      const viewer = document.getElementById('viewer');
+      if (viewer) {
+        viewer.style.transition = 'opacity 0.15s ease-in';
+        viewer.style.opacity = '1';
+      }
       window.membersNavigating = false;
-      window._membersNavLock = false;
       document.body.classList.remove('members-navigating');
       // Entferne MutationObserver
       if (window.membersHighlightNavObserver) {

@@ -21144,6 +21144,13 @@ function showSummaryView() {
     function scrollToIndexInViewer(targetIndex) {
       if (!targetIndex) return;
       
+      // WICHTIG: Bei Navigation aus Members Panel das Scrollen KOMPLETT überspringen
+      // Das Scrollen wird von navigateToHighlightById/navigateToQuoteById übernommen
+      if (window.membersNavigating === true) {
+        console.log('[SCROLL-TO-INDEX] Members Navigation aktiv - überspringe GESAMTES Scrollen');
+        return;
+      }
+      
       const mainContainer = document.getElementById('main');
       
       // Falls der Absatz nicht gefunden wird und wir in der Summary sind, 
@@ -21180,13 +21187,6 @@ function showSummaryView() {
         const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight;
         
         mainContainer.scrollTop = Math.max(0, relativeTop);
-        
-        // WICHTIG: Bei Navigation aus Members Panel KEIN Absatz-Highlighting anwenden
-        // Das Zitat-Highlighting wird separat in navigateToQuoteById gehandhabt
-        if (window.membersNavigating === true) {
-          console.log('[SCROLL-TO-INDEX] Members Navigation aktiv - überspringe Absatz-Highlighting');
-          return;
-        }
         
         // Verwende zentrale Highlighting-Funktion mit Auto-Remove (nur bei Suche/Index/etc.)
         addHighlightingWithAutoRemove(paraElement);
