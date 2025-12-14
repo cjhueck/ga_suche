@@ -49,7 +49,9 @@
     "filter": {
         "yearFilterContainer": "Jahresfilter: Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum filtern.",
         "gaFilterContainer": "GA-Band-Filter: Suche auf bestimmte Bände der Gesamtausgabe beschränken.",
-        "advancedGAFilterContainer": "Erweiterter GA-Filter: Mehrfachauswahl von GA-Bänden für erweiterte Suche."
+        "advancedGAFilterContainer": "Erweiterter GA-Filter: Mehrfachauswahl von GA-Bänden für erweiterte Suche.",
+        "distanceFilter": "Abstand: Maximaler Absatz-Abstand zwischen zwei Suchwörtern (nur bei Suche mit zwei Begriffen).",
+        "relevanceFilter": "Relevanz: Filterung nach Trefferhäufigkeit im Kontext (hoch = 3+ Treffer, mittel = 2, niedrig = 1)."
     },
     "spezielle-bereiche": {
         "word-operator-container": "Suchoperator: UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.",
