@@ -33,7 +33,6 @@
         "word1": "Suchwort 1: Suchbegriff für Volltextsuche. Wildcards mit * möglich (z.B. \"Geist*\" findet \"Geist\", \"Geister\", \"geistig\").",
         "word2": "Suchwort 2: Suchbegriff; mit UND werden nur Texte gefunden, die beide Begriffe enthalten.",
         "thematicInput": "Thematische Suche: Fragen in natürlicher Sprache eingeben. KI durchsucht alle Texte nach relevanten Passagen.",
-        "conceptOverviewInput": "Konzept-Übersicht: Begriff eingeben für eine KI-generierte Übersicht.",
         "keywordSearchInput": "Schlagwort-Suche: Im alphabetischen Index nach Schlagwörtern suchen.",
         "timelineKeywordInput": "Timeline-Suchbegriff: Begriff eingeben zur Anzeige der chronologischen Verteilung."
     },
