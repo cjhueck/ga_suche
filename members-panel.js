@@ -1098,17 +1098,54 @@ function formatLectureDate(dateStr) {
 }
 
 /**
- * Prüft, ob eine GA-Nummer ein Buch ist (GA001-GA046)
+ * Prüft, ob eine GA-Nummer ein Buch ist
+ * Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
  */
 function isBookGANumber(gaNumber) {
   if (!gaNumber) return false;
   
+  // Prüfe zuerst ob es ein Aufsatzband ist
+  if (isEssayGANumber(gaNumber)) return false;
+  
   // Normalisiere GA-Nummer (entferne "GA" und konvertiere zu Zahl)
   const normalized = gaNumber.replace(/^GA/i, '').trim();
-  const gaNum = parseInt(normalized);
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   
-  // Bücher sind GA001-GA046
+  // Bücher sind GA001-GA046 (ohne Aufsatzbände)
   return !isNaN(gaNum) && gaNum >= 1 && gaNum <= 46;
+}
+
+/**
+ * Prüft, ob eine GA-Nummer ein Aufsatzband ist
+ * GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
+ */
+function isEssayGANumber(gaNumber) {
+  if (!gaNumber) return false;
+  const normalized = gaNumber.replace(/^GA/i, '').toLowerCase().trim();
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
+  // GA041b ist speziell - prüfe auf "b" Suffix
+  if (normalized === '041b' || normalized === '41b') return true;
+  // GA029-GA037 und GA046
+  return !isNaN(gaNum) && ((gaNum >= 29 && gaNum <= 37) || gaNum === 46);
+}
+
+/**
+ * Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'lecture')
+ */
+function getGAType(gaNumber) {
+  if (isBookGANumber(gaNumber)) return 'book';
+  if (isEssayGANumber(gaNumber)) return 'essay';
+  return 'lecture';
+}
+
+/**
+ * Gibt den deutschen Namen für den GA-Typ zurück
+ */
+function getGATypeName(gaNumber, plural = false) {
+  const type = getGAType(gaNumber);
+  if (type === 'book') return plural ? 'Schriften' : 'Schrift';
+  if (type === 'essay') return plural ? 'Aufsätze' : 'Aufsatz';
+  return plural ? 'Vorträge' : 'Vortrag';
 }
 
 /**
