@@ -30099,6 +30099,35 @@ async function updateTimelineStats() {
   }
 }
 
+// Bei Eingabe im Timeline-Suchfeld: Dropdown zum passenden Schlagwort scrollen
+function handleTimelineKeywordSearchInput(event) {
+  const searchInput = event.target;
+  const keywordDropdown = document.getElementById('timelineKeywordFilterAdmin');
+  
+  if (!keywordDropdown) return;
+  
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  
+  if (searchTerm.length < 2) return;
+  
+  // Finde exaktes Schlagwort im Dropdown
+  const options = keywordDropdown.options;
+  for (let i = 0; i < options.length; i++) {
+    const optionText = options[i].text.toLowerCase();
+    if (optionText === searchTerm) {
+      // Setze das Dropdown auf diesen Wert (scrollt automatisch)
+      keywordDropdown.value = options[i].value;
+      // Kurzes visuelles Feedback
+      keywordDropdown.style.transition = 'background-color 0.3s';
+      keywordDropdown.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+      setTimeout(() => {
+        keywordDropdown.style.backgroundColor = '';
+      }, 1000);
+      break;
+    }
+  }
+}
+
 // Handle keyword search in timeline search field
 async function handleTimelineKeywordSearch(event) {
   // Nur bei Enter-Taste ausführen
