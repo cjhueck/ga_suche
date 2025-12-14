@@ -716,39 +716,39 @@ async function showMembersContent() {
           <button class="close-btn" onclick="closeMembersPanel()">×</button>
         </div>
         
-        <div class="members-tabs">
+        <div class="members-tabs" data-help="members-tabs">
         <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
           <div style="display: flex; gap: 0.25rem; flex: 1;">
-            <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Anstreichungen</button>
-            <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
-            <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
+            <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')" data-help="members-tab-quotes">Anstreichungen</button>
+            <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')" data-help="members-tab-highlights">Unterstreichungen</button>
+            <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;" data-help="members-ga-filter">
               <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                 <option value="">GA</option>
               </select>
             </div>
           </div>
           <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
-            <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
-            <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;">
+            <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;" data-help="members-tab-notes">Notizen</button>
+            <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;" data-help="members-group-filter">
               <select id="group-filter-select" onchange="handleGroupFilter(this.value)" class="keyword-select-btn">
                 <option value="">Gruppen</option>
               </select>
             </div>
-            <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
+            <div class="keyword-filter-tab" style="flex: 1; min-width: 0;" data-help="members-keyword-filter">
               <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                 <option value="">Schlagwörter</option>
               </select>
             </div>
-            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn" style="display: none;">
+            <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn" style="display: none;" data-help="members-tab-chat">
               Chat
               <span class="chat-badge" id="members-chat-badge" style="display: none;">0</span>
             </button>
-            <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
+            <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren" data-help="members-sort-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 6h18M7 12h10M11 18h6"></path>
               </svg>
             </button>
-            <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
+            <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen" data-help="members-delete-btn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
               </svg>
@@ -758,7 +758,7 @@ async function showMembersContent() {
         </div>
       </div>
       
-      <div class="members-content" id="members-tab-content">
+      <div class="members-content" id="members-tab-content" data-help="members-tab-content">
         <!-- Content wird dynamisch geladen -->
       </div>
     </div>
@@ -785,39 +785,39 @@ async function showMembersContent() {
             <button class="close-btn" onclick="closeMembersPanel()">×</button>
           </div>
           
-          <div class="members-tabs">
+          <div class="members-tabs" data-help="members-tabs">
           <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; width: 100%;">
             <div style="display: flex; gap: 0.25rem; flex: 1;">
-              <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')">Anstreichungen</button>
-              <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')">Unterstreichungen</button>
-              <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;">
+              <button class="members-tab members-tab-quotes ${currentMembersTab === 'quotes' ? 'active' : ''}" onclick="switchMembersTab('quotes')" data-help="members-tab-quotes">Anstreichungen</button>
+              <button class="members-tab members-tab-highlights ${currentMembersTab === 'highlights' ? 'active' : ''}" onclick="switchMembersTab('highlights')" data-help="members-tab-highlights">Unterstreichungen</button>
+              <div class="keyword-filter-tab" style="flex: 0 0 auto; min-width: 40px;" data-help="members-ga-filter">
                 <select id="ga-filter-select" onchange="handleGAFilter(this.value)" class="keyword-select-btn" style="min-width: 40px; padding-right: 0.3rem; background-image: none;">
                   <option value="">GA</option>
                 </select>
               </div>
             </div>
             <div style="display: flex; gap: 0.25rem; align-items: center; margin-top: 0.25rem; width: 100%;">
-              <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;">Notizen</button>
-              <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;">
+              <button class="members-tab members-tab-notes ${currentMembersTab === 'notes' ? 'active' : ''}" onclick="switchMembersTab('notes')" style="flex: 1.8; min-width: 0;" data-help="members-tab-notes">Notizen</button>
+              <div class="keyword-filter-tab" style="flex: 0.8; min-width: 0;" data-help="members-group-filter">
                 <select id="group-filter-select" onchange="handleGroupFilter(this.value)" class="keyword-select-btn">
                   <option value="">Gruppen</option>
                 </select>
               </div>
-              <div class="keyword-filter-tab" style="flex: 1; min-width: 0;">
+              <div class="keyword-filter-tab" style="flex: 1; min-width: 0;" data-help="members-keyword-filter">
                 <select id="keyword-filter-select" onchange="handleKeywordFilter(this.value)" class="keyword-select-btn">
                   <option value="">Schlagwörter</option>
                 </select>
               </div>
-              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2" style="display: none;">
+              <button class="members-tab ${currentMembersTab === 'chat' ? 'active' : ''}" onclick="switchMembersTab('chat')" id="members-chat-tab-btn-2" style="display: none;" data-help="members-tab-chat">
                 Chat
                 <span class="chat-badge" id="members-chat-badge-2" style="display: none;">0</span>
               </button>
-              <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren">
+              <button class="members-tab members-action-btn" onclick="toggleSortOrder()" title="Nach Datum sortieren" data-help="members-sort-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 6h18M7 12h10M11 18h6"></path>
                 </svg>
               </button>
-              <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen">
+              <button class="members-tab members-action-btn" onclick="toggleMultiDeleteMode()" title="Mehrere löschen" data-help="members-delete-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
                 </svg>
@@ -827,7 +827,7 @@ async function showMembersContent() {
           </div>
         </div>
         
-        <div class="members-content" id="members-tab-content">
+        <div class="members-content" id="members-tab-content" data-help="members-tab-content">
           <!-- Content wird dynamisch geladen -->
         </div>
       </div>

@@ -1,0 +1,88 @@
+{
+    "_info": "Bearbeite die Beschreibungen hier. Änderungen werden beim nächsten Laden der Seite übernommen.",
+    "_format": "Titel und Beschreibung werden mit <strong>Titel:</strong> Beschreibung angezeigt.",
+    "haupt-bereiche": {
+        "sidebar": "Linke Seitenleiste: Enthält alle Such- und Navigationsfunktionen mit Tabs für GA-Band-Übersicht, Stichwortsuche, Texte, Themensuche, Timeline und mehr.",
+        "sidebar-header": "Sidebar-Kopfbereich: Logo, Titel, Dark Mode, und Hilfe.",
+        "results": "Suchergebnisliste: Zeigt Suchtreffer an. Klick auf einen Eintrag öffnet den vollständigen Text im Hauptbereich.",
+        "main-container": "Hauptbereich: Zeigt ausgewählte Texte zum Lesen und Navigieren an. - **An-, Unterstreichungen und Notizen** mit rechter Maustaste zufügen. - **Alt+Klick**: Markeren von Rechtschreibfehlern",
+        "viewer": "Textansicht: Anzeige der ausgewählten Inhalte – Bücher, Aufsätze, Vorträge, oder Suchergebnisse.",
+        "summary-panel": "Anzeige-Panel: Inhalt des aktuellen Textes oder Textanzeige (für Suchergebnisse).",
+        "toc-list": "Inhaltsverzeichnis: Abschnitte des aktuellen Textes (mit KI erstellt).",
+        "document-title": "Dokumenttitel: Titel des aktuell angezeigten Textes oder Vortrags, klick führt zum Dokument."
+    },
+    "tabs": {
+        "ga-tab": "GA: Übersicht aller Bände der Gesamtausgabe.",
+        "keyword-tab": "Suche: Volltextsuche mit einem oder mehreren Suchwörtern, Auswahl-Filter nach Jahr, GA-Band, Absatz-Abstand und Relevanz sowie Häufigkeits- und Timeline-Darstellung.",
+        "texte-tab": "Texte: Direktzugriff auf alle Texte, sortiert nach Bandnummer.",
+        "thematic-tab": "Themen: KI-gestützte thematische Suche, Ergebnisanzeige mit Verlinkung zu den entsprechenden Textstellen.
+        "timeline-tab": "Timeline: Chronologische Darstellung des Vorkommens bestimmter Begriffe in der GA, gefiltert nach Relevanz.",
+        "schlagworte-tab": "Index: Alphabetisches Schlagwortverzeichnis mit ausführlichen, KI-generierten Zusammenfassungen und Verlinkung zu den entsprechenden Textstellen.",
+    },
+    "tab-buttons": {
+        "tab-ga": "GA: Alle hier gespeicherten GA-Bände anzeigen.",
+        "tab-suche": "Suche: Volltextsuche mit Filtern.",
+        "tab-texte": "Texte: Direktzugriff auf alle Texte.",
+        "tab-themen": "Themen: KI-gestützte Themensuche.",
+        "tab-timeline": "Timeline: Chronologisches Vorkommen von Schlagwörtern.",
+        "tab-index": "Index: Alphabetisches Schlagwortverzeichnis.",
+    },
+    "eingabefelder": {
+        "word1": "Suchwort 1: Suchbegriff für Volltextsuche. Wildcards mit * möglich (z.B. \"Geist*\" findet \"Geist\", \"Geister\", \"geistig\").",
+        "word2": "Suchwort 2: Suchbegriff; mit UND werden nur Texte gefunden, die beide Begriffe enthalten.",
+        "thematicInput": "Thematische Suche: Fragen in natürlicher Sprache eingeben. KI durchsucht alle Texte nach relevanten Passagen.",
+        "conceptOverviewInput": "Konzept-Übersicht: Begriff eingeben für eine KI-generierte Übersicht.",
+        "keywordSearchInput": "Schlagwort-Suche: Im alphabetischen Index nach Schlagwörtern suchen.",
+        "timelineKeywordInput": "Timeline-Suchbegriff: Begriff eingeben zur Anzeige der chronologischen Verteilung."
+    },
+    "buttons": {
+        "theme-toggle": "Dark Mode: Wechsel zwischen hellem und dunklem Design.",
+        "membersPanelBtn": "Mitgliederbereich: Öffnet Panel mit erweiterten Funktionen für registrierte Nutzer.",
+        "h4ToggleBtn": "Überschriften-Toggle: Ein-/Ausblenden zusätzlicher Zwischenüberschriften.",
+        "viewerDownloadBtn": "Download: Aktuellen Text als PDF, TXT oder Markdown herunterladen.",
+        "viewerSummaryBtn": "Übersicht: Zusammenfassungsübersicht ein-/ausblenden.",
+        "gaInfoBtn": "Bibliographie: Bibliographische Informationen zum aktuellen GA-Band anzeigen.",
+        "searchBtn": "Suchen: Suche mit eingegebenen Begriffen starten.",
+        "thematicSearchBtn": "Thematisch suchen: KI-gestützte thematische Suche starten."
+    },
+    "filter": {
+        "yearFilterContainer": "Jahresfilter: Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum filtern.",
+        "gaFilterContainer": "GA-Band-Filter: Suche auf bestimmte Bände der Gesamtausgabe beschränken.",
+        "advancedGAFilterContainer": "Erweiterter GA-Filter: Mehrfachauswahl von GA-Bänden für erweiterte Suche."
+    },
+    "spezielle-bereiche": {
+        "word-operator-container": "Suchoperator: UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.",
+        "tab-container": "Tab-Navigation: Wechsel zwischen verschiedenen Funktionsbereichen."
+    },
+    "header": {
+        "site-header": "Kopfbereich: Logo und Schnellzugriff auf Einstellungen.",
+        "site-logo": "Steiner-Portrait: Rudolf Steiner (1861–1925), Begründer der Anthroposophie.",
+        "site-title": "Titel: Klick führt zur Startseite zurück.",
+        "help-button": "Tastenkombinationen: • <b>Strg+Klick:</b> Kurzinformation • <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren • <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)"
+    },
+    "viewer-bereich": {
+        "viewer-header": "Kopfzeile: Dokumenttitel und Steuerungsbuttons.",
+        "viewer-buttons": "Buttons: Aktionen für das aktuelle Dokument – Übersicht, Download, Mitgliederbereich.",
+        "viewerTOCToggleBtn": "Inhaltsverzeichnis: Rechtes Panel mit Inhaltsverzeichnis ein-/ausblenden.",
+        "viewerOriginalBtn": "Original: Originaltext ohne Hervorhebungen und Zusammenfassung anzeigen."
+    },
+    "members-panel": {
+        "members-panel": "Mitglieder-Bereich: Persönlicher Bereich für Markierungen, Notizen und Chat.",
+        "members-tabs": "Tabs: Wechsel zwischen verschiedenen Sammlungen.",
+        "members-tab-content": "Inhalt: Gespeicherte Einträge des gewählten Tabs."
+    },
+    "members-panel-tabs": {
+        "members-tab-quotes": "Anstreichungen: Längere Textpassagen, farbig markiert.",
+        "members-tab-highlights": "Unterstreichungen: Wörter oder Phrasen, farbig unterstrichen.",
+        "members-tab-notes": "Notizen: Anmerkungen zu gespeicherten Textstellen.",
+    },
+    "members-panel-buttons": {
+        "members-sort-btn": "Sortierung: Reihenfolge nach Vortragsdatum ändern.",
+        "members-delete-btn": "Mehrfachlöschung: Löschen mehrerer Einträge gleichzeitig."
+    },
+    "members-panel-filter": {
+        "members-ga-filter": "GA-Filter: Einträge nach GA-Band gefiltert.",
+        "members-group-filter": "Gruppen-Filter: Einträge nach Themengruppen gefiltert.",
+        "members-keyword-filter": "Schlagwort-Filter: Einträge nach Schlagwörtern gefiltert."
+    }
+}
