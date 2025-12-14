@@ -16,6 +16,38 @@
 <!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co https://raw.githubusercontent.com; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <style>
+    /* Seitenmarker: | im Text, Seitenzahl schwebt am linken Rand */
+    .page-break-container {
+      display: inline;
+      user-select: none;
+      cursor: default;
+    }
+    
+    /* Seitenzahl schwebt links - negative margin zieht sie aus dem Textfluss */
+    .page-break-num {
+      float: left;
+      margin-left: -3.5em;
+      margin-right: 0em;
+      margin-top: 0.25em;
+      width: 3em;
+      text-align: right;
+      font-size: 0.9em;
+      color: var(--link-color, #467886);
+      font-weight: 400;
+      line-height: 1.3;
+    }
+    
+    /* Der vertikale Strich | im Text */
+    .page-break-bar {
+      color: var(--link-color, #467886);
+      font-weight: 400;
+    }
+    
+    /* Absätze brauchen Platz für die schwebende Seitenzahl */
+    .paragraph, .book-content p, #viewer p {
+      overflow: visible;
+    }
+    
     /* Zentrale Farbdefinitionen */
     :root {
       /* Light Mode Farben */
@@ -2413,7 +2445,8 @@ body.dark-mode .ga-missing-text {
       flex: 1;
       overflow-y: auto;
       /* ZENTRALES PADDING - wird NUR hier festgelegt */
-      padding: 0.5rem 0.8rem 2rem 0.8rem !important; /* top right bottom left */
+      /* Linkes Padding leicht erhöht für Seitenzahlen */
+      padding: 0.5rem 0.8rem 2rem 1.3rem !important; /* top right bottom left */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -2714,7 +2747,7 @@ body.dark-mode .ga-missing-text {
     
     h1 { margin-bottom: 0.5rem; margin-top: 0; }
     #site-title { font-size: 1.8rem; margin-left: 0.5rem; margin-top: 0.3rem; }
-    #document-title { margin-top: 0; margin-bottom: 0; margin-left: 1rem !important; }
+    #document-title { margin-top: 0; margin-bottom: 0; margin-left: 2rem !important; }
     #document-title a { color: var(--link-color); text-decoration: none; }
     #document-title a:hover { text-decoration: none; }
     #document-title span[onclick] { 
@@ -6008,13 +6041,13 @@ Chronologisch
   <div class="custom-dropdown-list" id="gaFilterList"></div>
 </div>
 
-<select class="filter-dropdown" id="proximityFilter" style="flex: 0.6;">
+<select class="filter-dropdown" id="proximityFilter" style="flex: 0.6;" data-help="distanceFilter">
 <option value="">Abstand</option>
 <option value="1">1 Absatz</option>
 <option value="2">2 Absätze</option>
 <option value="3">3 Absätze</option>
 </select>
-<select class="filter-dropdown" id="relevanceFilter" style="flex: 0.7;">
+<select class="filter-dropdown" id="relevanceFilter" style="flex: 0.7;" data-help="relevanceFilter">
 <option value="ohne">Relevanz</option>
 <option value="alle">alle</option>
 <option value="hoch">hoch 🟩</option>
@@ -6828,6 +6861,27 @@ function preprocessObsidianLineBreaks(markdown) {
   return markdown.replace(/'\/br'/g, '\n');
 }
 
+// Hilfsfunktion: Konvertiere Seitenmarker |47| zu sichtbarem Format
+// VEREINFACHT: Seitenzahl als hochgestellte kleine graue Zahl mit | davor
+function convertPageMarkers(html) {
+  if (!html || typeof html !== 'string') {
+    return html;
+  }
+  
+  // Debug: Prüfe ob Marker im Text vorhanden sind
+  const hasMarker = /\|\d{1,4}\|/.test(html);
+  if (hasMarker) {
+    console.log('[convertPageMarkers] Marker gefunden!');
+  }
+  
+  // Ersetze |123| durch sichtbares Format: | im Text, Seitenzahl links am Rand
+  return html.replace(/\|(\d{1,4})\|/g, 
+    '<span class="page-break-container" title="Seite $1">' +
+    '<span class="page-break-num">$1</span>' +
+    '<span class="page-break-bar">|</span>' +
+    '</span>');
+}
+
 // Formatiert Paragraph-Content für die HTML-Darstellung:
 // 1. Normalisiert * * * zu * * * (mit einem Leerzeichen zwischen den Sternen)
 // 2. Behält Gedicht-Formatierung bei (wird später von detectAndFormatPoems() behandelt)
@@ -7213,6 +7267,11 @@ function normalizeGANumber(gaNumber) {
       updateHeaderPosition();
       // Suchhistorie aus localStorage laden und datalist aktualisieren
       updateHistoryDatalist();
+      
+      // Seitenmarker-Daten vorladen (für Zitierbarkeit)
+      loadPageMarkersData().then(data => {
+        if (data) console.log('[PageMarkers] Daten geladen:', Object.keys(data).filter(k => k !== '_info').length, 'GA-Bände');
+      });
       
       // E-Mail-Adressen aus Autofill blockieren
       function blockEmailAutofill(inputElement) {
@@ -9142,6 +9201,76 @@ function normalizeGANumber(gaNumber) {
       };
     }
 
+    // Seitenmarker aus separater Datei (für Zitierbarkeit mit Druckausgabe)
+    let pageMarkersData = null; // Cache für Seitenmarker
+    
+    async function loadPageMarkersData() {
+      if (pageMarkersData) return pageMarkersData;
+      
+      try {
+        const response = await fetch('page-markers.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        pageMarkersData = await response.json();
+        return pageMarkersData;
+      } catch (error) {
+        console.warn('Seitenmarker-Daten nicht verfügbar:', error.message);
+        return null;
+      }
+    }
+    
+    // Fügt Seitenmarker aus page-markers.json in den Text ein
+    // Marker werden am ENDE der Seite eingefügt (nach dem angegebenen Text)
+    function insertPageMarkersFromData(text, gaNumber) {
+      if (!pageMarkersData || !gaNumber) {
+        console.log('[PageMarkers] Keine Daten oder GA-Nummer:', !!pageMarkersData, gaNumber);
+        return text;
+      }
+      
+      // Normalisiere GA-Nummer (z.B. "GA009" oder "GA9" -> "GA009")
+      const normalizedGA = normalizeGANumber(gaNumber);
+      const gaData = pageMarkersData[normalizedGA];
+      
+      console.log(`[PageMarkers] Suche Marker für ${normalizedGA}:`, gaData ? gaData.markers?.length + ' Marker' : 'nicht gefunden');
+      
+      if (!gaData || !gaData.markers || gaData.markers.length === 0) {
+        return text;
+      }
+      
+      let result = text;
+      let insertedCount = 0;
+      
+      // Sortiere Marker nach Seitenzahl absteigend (von hinten einfügen)
+      const sortedMarkers = [...gaData.markers].sort((a, b) => b.page - a.page);
+      
+      for (const marker of sortedMarkers) {
+        if (!marker.afterText || !marker.page) continue;
+        
+        // Suche den Text und füge den Marker danach ein
+        const searchText = marker.afterText;
+        const idx = result.indexOf(searchText);
+        
+        console.log(`[PageMarkers] Suche "${searchText.substring(0, 30)}..." -> ${idx >= 0 ? 'GEFUNDEN bei ' + idx : 'NICHT gefunden'}`);
+        
+        if (idx >= 0) {
+          const insertPos = idx + searchText.length;
+          const pageMarker = `|${marker.page}|`;
+          
+          // Prüfe ob nicht bereits ein Marker direkt danach ist
+          const afterInsert = result.substring(insertPos, insertPos + 10);
+          if (!afterInsert.match(/^\|?\d+\|/)) {
+            result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
+            insertedCount++;
+          }
+        }
+      }
+      
+      if (insertedCount > 0) {
+        console.log(`[PageMarkers] ${insertedCount} Seitenmarker für ${normalizedGA} eingefügt`);
+      }
+      
+      return result;
+    }
+
     // GA-Bibliographie Popup Funktionen
     let gaBibliographyData = null; // Cache für bibliographische Daten
     
@@ -10998,6 +11127,33 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   let headings = [];
   let paragraphs = book.paragraphs || [];
   
+  // Stelle sicher, dass pageMarkersData geladen ist
+  if (!pageMarkersData) {
+    await loadPageMarkersData();
+  }
+  
+  // WICHTIG: Wenn book.content vorhanden, füge Seitenmarker in den gesamten Content ein
+  // und extrahiere dann die Paragraphen neu (um Marker korrekt zu positionieren)
+  if (book.content && pageMarkersData) {
+    const gaNum = book.gaNumber || book.ID;
+    const normalizedGA = normalizeGANumber(gaNum);
+    const gaData = pageMarkersData[normalizedGA];
+    
+    if (gaData && gaData.markers && gaData.markers.length > 0) {
+      let bookContent = book.content;
+      bookContent = insertPageMarkersFromData(bookContent, gaNum);
+      
+      // Wenn Marker eingefügt wurden, extrahiere Paragraphen neu
+      if (bookContent !== book.content) {
+        console.log(`[PageMarkers] Extrahiere Paragraphen mit Markern für ${gaNum}`);
+        paragraphs = []; // Zurücksetzen um Fallback zu nutzen
+        
+        // Speichere modifizierten Content temporär
+        book._contentWithMarkers = bookContent;
+      }
+    }
+  }
+  
   try {
     const summaryData = await loadSummaryFromDB(bookId);
     if (summaryData && summaryData.headings) {
@@ -11014,9 +11170,20 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   }
   
   // Fallback: Wenn keine paragraphs vorhanden, extrahiere sie aus content
-  if (paragraphs.length === 0 && book.content) {
+  if (paragraphs.length === 0 && (book._contentWithMarkers || book.content)) {
+    // Verwende modifizierten Content mit Markern falls vorhanden
+    let bookContent = book._contentWithMarkers || book.content;
+    
+    // Falls noch keine Marker eingefügt wurden, versuche es jetzt
+    if (!book._contentWithMarkers && pageMarkersData) {
+      const gaNumber = book.gaNumber || book.ID;
+      if (gaNumber) {
+        bookContent = insertPageMarkersFromData(bookContent, gaNumber);
+      }
+    }
+    
     // Extrahiere Absätze aus Content (ohne Überschriften)
-    const contentLines = book.content.split('\n');
+    const contentLines = bookContent.split('\n');
     let currentParagraph = '';
     let currentIndex = null;
     
@@ -11174,6 +11341,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
           });
         }
+        
+        // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
+        content = convertPageMarkers(content);
       }
       
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
@@ -11306,6 +11476,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           return `<img src="${src}" alt="${alt.replace(/"/g, '&quot;')}" />`;
         });
       }
+      
+      // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
+      content = convertPageMarkers(content);
     }
     
     htmlContent = content;
@@ -14781,6 +14954,9 @@ function scrollToChronologicalYear(year) {
               console.error('[MARKDOWN] marked ist nicht verfügbar!');
             }
             
+            // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
+            content = convertPageMarkers(content);
+            
             // Highlighte den Suchbegriff (auch innerhalb von HTML-Strukturen wie Anführungszeichen)
             if (searchTerm && searchTerm.trim()) {
               const cleanTerm = searchTerm.trim();
@@ -15220,6 +15396,9 @@ function scrollToChronologicalYear(year) {
               fullContent = marked(fullContent);
             }
           }
+          
+          // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
+          fullContent = convertPageMarkers(fullContent);
           
           // WICHTIG: Highlighte den Suchbegriff im gesamten Content VOR dem Verstecken der Indizes
           // Das Suchwort wird in ALLEN Treffern markiert (dunkelblau wie im Tab "Suche")
@@ -35338,7 +35517,7 @@ async function addKeywordToLecture() {
     popup.querySelector('.hint-popup-close').addEventListener('click', closePopup);
     
     // Automatisch nach 25 Sekunden ausblenden
-    setTimeout(closePopup, 25000);
+    setTimeout(closePopup, 20000);
   }
   
   // Zeige Popup nach kurzer Verzögerung (nur beim ersten Mal)
@@ -35410,6 +35589,8 @@ async function addKeywordToLecture() {
     'yearFilterContainer': '<strong>Jahresfilter:</strong> Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum filtern.',
     'gaFilterContainer': '<strong>GA-Band-Filter:</strong> Suche auf bestimmte Bände der Gesamtausgabe beschränken.',
     'advancedGAFilterContainer': '<strong>Erweiterter GA-Filter:</strong> Mehrfachauswahl von GA-Bänden für erweiterte Suche.',
+    'distanceFilter': '<strong>Abstand:</strong> Maximaler Absatz-Abstand zwischen zwei Suchwörtern (nur bei Suche mit zwei Begriffen).',
+    'relevanceFilter': '<strong>Relevanz:</strong> Filterung nach Trefferhäufigkeit im Kontext (hoch = 3+ Treffer, mittel = 2, niedrig = 1).',
     // Spezielle Bereiche
     'word-operator-container': '<strong>Suchoperator:</strong> UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.',
     'tab-container': '<strong>Tab-Navigation:</strong> Wechsel zwischen verschiedenen Funktionsbereichen der Anwendung.',
