@@ -14677,6 +14677,11 @@ app.post('/api/quotes/toggle-active', async (req, res) => {
     
     quote.isActive = isActive;
     
+    // Setze displayedSince beim ersten Aktivieren
+    if (isActive && !quote.displayedSince) {
+      quote.displayedSince = new Date().toISOString();
+    }
+    
     await saveQuotesDatabase(quotesDB);
     
     
@@ -14688,6 +14693,47 @@ app.post('/api/quotes/toggle-active', async (req, res) => {
     
   } catch (error) {
     console.error('[QUOTES] Fehler beim Toggle:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API: Zitat als verwendet/unverwendet markieren
+app.post('/api/quotes/toggle-used', async (req, res) => {
+  try {
+    const { quoteId, isUsed } = req.body;
+    
+    if (!quoteId) {
+      return res.status(400).json({ error: 'Quote ID erforderlich' });
+    }
+    
+    const quotesDB = await loadQuotesDatabase();
+    
+    const quote = quotesDB.quotes.find(q => q.id === quoteId);
+    if (!quote) {
+      return res.status(404).json({ error: 'Zitat nicht gefunden' });
+    }
+    
+    quote.isUsed = isUsed;
+    
+    // Setze usedSince beim ersten Markieren als verwendet
+    if (isUsed && !quote.usedSince) {
+      quote.usedSince = new Date().toISOString();
+    }
+    // Lösche usedSince wenn auf unverwendet gesetzt
+    if (!isUsed) {
+      delete quote.usedSince;
+    }
+    
+    await saveQuotesDatabase(quotesDB);
+    
+    res.json({
+      success: true,
+      quote: quote,
+      message: `Zitat als ${isUsed ? 'verwendet' : 'unverwendet'} markiert`
+    });
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Toggle Used:', error);
     res.status(500).json({ error: error.message });
   }
 });

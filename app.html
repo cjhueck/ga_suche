@@ -5945,7 +5945,6 @@ body.dark-mode .context-help-popup strong {
 <button class="tab-button" onclick="switchTab('keyword')" data-help="tab-suche">Suche</button>
 <button class="tab-button" onclick="switchTab('texte')" data-help="tab-texte">Texte</button>
 <button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Themen</button>
-<button class="tab-button" onclick="switchTab('concept-overview')" id="concept-overview-tab-button" data-help="tab-uebersicht" style="display: none;">Übersicht</button>
 <button class="tab-button" onclick="switchTab('timeline')" data-help="tab-timeline">Timeline</button>
 <button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
 <button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Keywords</button>
@@ -6272,34 +6271,6 @@ Chronologisch
 </div>
 </div>
 
-<div class="tab-content" id="concept-overview-tab">
-<textarea class="thematic-input" id="conceptOverviewQuery" onkeydown="handleConceptOverviewKeydown(event)" placeholder="Tragen Sie hier ein Thema ein, zu dem Sie eine Übersicht erhalten möchten."></textarea>
-<div id="conceptOverviewExamplesContainer" style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
-  <div style="margin-bottom: 0.25rem;">Beispiele</div>
-  <div style="max-height: 4.5rem; overflow-y: auto;">
-    <ul style="margin: 0; padding-left: 1.2em;">
-      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Ätherleib')">Ätherleib</li>
-      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Astralleib')">Astralleib</li>
-      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Karma')">Karma</li>
-      <li style="cursor: pointer; padding: 0.15rem 0;" onclick="setConceptOverviewExample('Imagination')">Imagination</li>
-    </ul>
-  </div>
-</div>
-<div class="semantic-options">
-<div class="filter-row">
-<select class="filter-dropdown" id="conceptOverviewGAFilter">
-  <option value="">Alle GA-Bände</option>
-</select>
-<button class="depth-btn primary" id="conceptOverviewBtn" onclick="generateConceptOverview()" style="margin-left: auto;">
-  Übersicht generieren
-</button>
-</div>
-</div>
-<div id="conceptOverviewInfo" style="font-size: 0.9em; color: #666; margin-top: 0.5rem; margin-bottom: 0.3rem; padding-bottom: 0.5rem;">
-<span id="conceptOverviewStatus"></span>
-</div>
-</div>
-
 <div class="tab-content" id="timeline-tab">
 <!-- Timeline Filter Admin-Bereich (immer sichtbar) -->
 <div id="timelineFilterSection" style="margin-bottom: 0; padding: 0;">
@@ -6336,8 +6307,11 @@ Chronologisch
 
 <div class="tab-content" id="zitate-tab" style="overflow-y: auto; max-height: calc(100vh - 120px);">
 <div style="padding: 0.5rem 0 2rem 0;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
   <h3 style="margin: 0; color: var(--heading-color);">Zitate-Verwaltung</h3>
+</div>
+<div style="font-size: 0.8em; color: var(--secondary-text); margin-bottom: 1rem;">
+  <b>Zitat speichern:</b> Strg+Shift+Klick (im Text)
 </div>
 
 <!-- Gespeicherte Zitate -->
@@ -6345,7 +6319,7 @@ Chronologisch
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
     <span id="quotesCount" style="font-size: 0.85em; color: #666; background: #f0f0f0; padding: 3px 8px; border-radius: 3px;">0</span>
   </div>
-  <div id="quotesList" style="display: flex; flex-direction: column; gap: 1rem;">
+  <div id="quotesList" style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85em;">
     <p style="color: #666; font-style: italic;">Keine Zitate vorhanden.</p>
   </div>
 </div>
@@ -33133,12 +33107,12 @@ let addKeywordTargetLectureId = null;
 let selectedParagraphIndex = null;
 
 // Absatz für Keyword-Zuordnung auswählen (nur lokal, nur mit Strg+Klick)
-// Alt+Klick öffnet Dialog zum Speichern als Zitat
+// Strg+Shift+Klick öffnet Dialog zum Speichern als Zitat
 function selectParagraphForKeyword(paragraphIndex, element, event) {
   if (!isLocal) return;
   
-  // Alt+Klick: Als Zitat speichern (ohne Selektion - ganzer Absatz)
-  if (event && event.altKey) {
+  // Strg+Shift+Klick: Als Zitat speichern (ohne Selektion - ganzer Absatz)
+  if (event && event.ctrlKey && event.shiftKey) {
     event.preventDefault();
     // Prüfe ob Text markiert ist
     const selection = window.getSelection();
@@ -33682,33 +33656,42 @@ async function loadQuotesForTab() {
     let html = '';
     quotes.forEach(quote => {
       const shortText = quote.text.length > 200 ? quote.text.substring(0, 200) + '...' : quote.text;
+      // Konvertiere **text** zu <b>text</b> für Fettschrift
+      const formattedText = shortText.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
       const activeClass = quote.isActive ? 'background: #e8f4f8; border-color: #467886;' : '';
+      const usedDateStr = quote.usedSince ? new Date(quote.usedSince).toLocaleDateString('de-DE') : '';
       
       html += `
-        <div style="padding: 1rem; border: 1px solid #ddd; border-radius: 4px; ${activeClass}">
-          <div style="font-style: italic; margin-bottom: 0.5rem; line-height: 1.5;">"${shortText}"</div>
-          <div style="font-size: 0.75em; color: #999; margin-bottom: 0.5rem;">
+        <div style="padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; ${activeClass}">
+          <div style="font-style: italic; margin-bottom: 0.3rem; line-height: 1.4;">"${formattedText}"</div>
+          <div style="font-size: 0.7em; color: #999; margin-bottom: 0.3rem;">
             Hinzugefügt: ${new Date(quote.addedAt).toLocaleDateString('de-DE')}
           </div>
-          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <div style="display: flex; gap: 4px; flex-wrap: wrap; align-items: center;">
             <button onclick="showSingleQuotePopup('${quote.id}')" 
                     class="depth-btn" 
-                    style="padding: 4px 10px; font-size: 0.8em; background: #5bc0de; color: white;">
-              Popup anzeigen
+                    style="padding: 2px 8px; font-size: 0.75em; background: #5bc0de; color: white;">
+              Popup
             </button>
             <button onclick="editQuote('${quote.id}')" 
                     class="depth-btn" 
-                    style="padding: 4px 10px; font-size: 0.8em; background: #467886; color: white;">
+                    style="padding: 2px 8px; font-size: 0.75em; background: #467886; color: white;">
               Bearbeiten
             </button>
             <button onclick="toggleQuoteActive('${quote.id}', ${quote.isActive})" 
                     class="depth-btn" 
-                    style="padding: 4px 10px; font-size: 0.8em; background: ${quote.isActive ? '#5cb85c' : '#f0ad4e'}; color: white;">
-              ${quote.isActive ? 'Popup: An' : 'Popup: Aus'}
+                    style="padding: 2px 8px; font-size: 0.75em; background: ${quote.isActive ? '#5cb85c' : '#f0ad4e'}; color: white;">
+              ${quote.isActive ? 'An' : 'Aus'}
             </button>
+            <button onclick="toggleQuoteUsed('${quote.id}', ${quote.isUsed || false})" 
+                    class="depth-btn" 
+                    style="padding: 2px 8px; font-size: 0.75em; background: ${quote.isUsed ? '#9b59b6' : '#95a5a6'}; color: white;">
+              ${quote.isUsed ? 'Verwendet' : 'Unverwendet'}
+            </button>
+            ${usedDateStr ? `<span style="font-size: 0.7em; color: #666; margin-left: 4px;">${usedDateStr}</span>` : ''}
             <button onclick="deleteQuote('${quote.id}')" 
                     class="depth-btn" 
-                    style="padding: 4px 10px; font-size: 0.8em; background: #d9534f; color: white;">
+                    style="padding: 2px 8px; font-size: 0.75em; background: #d9534f; color: white;">
               Löschen
             </button>
           </div>
@@ -33778,6 +33761,27 @@ async function toggleQuoteActive(quoteId, currentIsActive) {
     
   } catch (error) {
     console.error('[QUOTES] Fehler beim Toggle:', error);
+    alert('Fehler: ' + error.message);
+  }
+}
+
+// Toggle Zitat verwendet/unverwendet
+async function toggleQuoteUsed(quoteId, currentIsUsed) {
+  const newIsUsed = !currentIsUsed;
+  
+  try {
+    const response = await fetch(`${API_BASE}/api/quotes/toggle-used`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quoteId, isUsed: newIsUsed })
+    });
+    
+    if (!response.ok) throw new Error('Server-Fehler');
+    
+    await loadQuotesForTab();
+    
+  } catch (error) {
+    console.error('[QUOTES] Fehler beim Toggle Used:', error);
     alert('Fehler: ' + error.message);
   }
 }
@@ -33922,9 +33926,16 @@ async function showSingleQuotePopup(quoteId) {
       quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
       quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
       
-      // Text mit Absätzen formatieren (wie im Main Viewer)
-      const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
-      const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
+      // Text mit Absätzen und Gedichtzeilen formatieren
+      // Konvertiere **text** zu <b>text</b> für Fettschrift
+      // Doppelte Zeilenumbrüche = neue Strophe (mit Abstand)
+      // Einfache Zeilenumbrüche = Gedichtzeile (ohne Abstand, nur <br>)
+      const stanzas = quoteText.split(/\n\s*\n/); // Teile bei Leerzeilen (Strophen)
+      const formattedHtml = stanzas.map(stanza => {
+        const lines = stanza.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+        const stanzaHtml = lines.map(line => line.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')).join('<br>');
+        return `<p style="margin: 0.5rem 0;">${stanzaHtml}</p>`;
+      }).join('');
       
       // GA-Nummer und Datum für Quellenangabe unter dem Zitat
       let sourceParts = [];
@@ -34115,12 +34126,12 @@ function openSaveQuoteDialog(paragraphIndex, element) {
   
   }
 
-// Globaler Event-Listener für Alt+Mouseup mit markiertem Text
+// Globaler Event-Listener für Strg+Shift+Mouseup mit markiertem Text (Zitat speichern)
 document.addEventListener('mouseup', function(event) {
   if (!isLocal || !currentLectureData) return;
   
-  // Nur bei Alt-Taste
-  if (!event.altKey) return;
+  // Nur bei Strg+Shift-Taste
+  if (!event.ctrlKey || !event.shiftKey) return;
   
   // Prüfe ob Text markiert ist
   const selection = window.getSelection();
@@ -35280,7 +35291,7 @@ async function addKeywordToLecture() {
     'timeline-tab': '<strong>Timeline:</strong> Chronologische Darstellung des Vorkommens bestimmter Begriffe in der GA, gefiltert nach Relevanz.',
     'schlagworte-tab': '<strong>Index:</strong> Alphabetisches Schlagwortverzeichnis mit ausführlichen, KI-generierten Zusammenfassungen und Verlinkung zu den entsprechenden Textstellen.',
     'keywords-tab': '<strong>Keywords-Tab:</strong> Verwaltung der automatisch generierten Schlagwörter für Vorträge.',
-    'zitate-tab': '<strong>Zitate-Tab:</strong> Sammlung gespeicherter Zitate und Textpassagen.',
+    'zitate-tab': '<strong>Zitate:</strong> Sammlung gespeicherter Zitate. Speichern mit Strg+Shift+Klick im Text. Titel mit **...** fett markieren.',
     // Tab-Buttons
     'tab-ga': '<strong>GA:</strong> Alle hier gespeicherten GA-Bände anzeigen.',
     'tab-suche': '<strong>Suche:</strong> Volltextsuche mit Filtern.',
@@ -35318,7 +35329,7 @@ async function addKeywordToLecture() {
     'site-header': '<strong>Kopfbereich:</strong> Logo und Schnellzugriff auf Einstellungen.',
     'site-logo': '<strong>Steiner-Portrait:</strong> Rudolf Steiner (1861–1925), Begründer der Anthroposophie.',
     'site-title': '<strong>Titel:</strong> Klick führt zur Startseite zurück.',
-    'help-button': '<strong>Tastenkombinationen:</strong><br>• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)',
+    'help-button': '<strong>Tastenkombinationen:</strong><br>• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Strg+Shift+Klick</b> (im Text): Zitat speichern (lokal)<br>• <b>Rechtsklick</b> (Text markiert): Markierungen speichern (Mitglieder)',
     // Viewer-Bereich
     'viewer-header': '<strong>Viewer-Kopfzeile:</strong> Dokumenttitel und Steuerungsbuttons.',
     'viewer-buttons': '<strong>Viewer-Buttons:</strong> Aktionen für das aktuelle Dokument – Übersicht, Download, Mitgliederbereich.',
