@@ -2375,18 +2375,31 @@ async function navigateToQuoteById(quoteId) {
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
-  // (Members Panel im summary-panel bleibt sichtbar)
-  const viewerPreload = document.getElementById('viewer');
-  if (viewerPreload) {
-    viewerPreload.style.opacity = '0';
-    viewerPreload.style.transition = 'none';
-  }
+  // OPTIMIERUNG: Prüfe ob der Text bereits geladen ist (gleiches Buch/Vortrag)
+  // Extrahiere GA-Nummer aus ga_reference (z.B. "GA121/6" -> "GA121" oder "GA001" -> "GA001")
+  const gaMatch = quote.ga_reference.match(/^(GA\d{1,3}[a-z]?)/i);
+  const targetGA = gaMatch ? gaMatch[1].toUpperCase() : quote.ga_reference;
+  const currentGA = window.currentOpenLectureId ? 
+    (window.currentOpenLectureId.match(/^(GA\d{1,3}[a-z]?)/i)?.[1]?.toUpperCase() || window.currentOpenLectureId) : null;
   
-  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
-  // WICHTIG: KEIN targetIndex übergeben - verhindert automatisches Scrollen
-  if (typeof showLecture === 'function') {
-    await showLecture(quote.ga_reference, null, [], false);
+  // Prüfe ob bereits der richtige Text geladen ist
+  const isAlreadyLoaded = currentGA === targetGA || window.currentOpenLectureId === quote.ga_reference;
+  
+  if (!isAlreadyLoaded) {
+    // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
+    // (Members Panel im summary-panel bleibt sichtbar)
+    const viewerPreload = document.getElementById('viewer');
+    if (viewerPreload) {
+      viewerPreload.style.opacity = '0';
+      viewerPreload.style.transition = 'none';
+    }
+    
+    // Lade den Text - WICHTIG: KEIN targetIndex übergeben - verhindert automatisches Scrollen
+    if (typeof showLecture === 'function') {
+      await showLecture(quote.ga_reference, null, [], false);
+    }
+  } else {
+    console.log('[QUOTE-NAV] Text bereits geladen, überspringe showLecture');
   }
   
   // 3. Warte bis DOM bereit ist und suche nach dem quote_text
@@ -2695,18 +2708,31 @@ async function navigateToHighlightById(highlightId) {
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
-  // (Members Panel im summary-panel bleibt sichtbar)
-  const viewerPreload = document.getElementById('viewer');
-  if (viewerPreload) {
-    viewerPreload.style.opacity = '0';
-    viewerPreload.style.transition = 'none';
-  }
+  // OPTIMIERUNG: Prüfe ob der Text bereits geladen ist (gleiches Buch/Vortrag)
+  // Extrahiere GA-Nummer aus ga_number (z.B. "GA121/6" -> "GA121" oder "GA001" -> "GA001")
+  const gaMatch = highlight.ga_number.match(/^(GA\d{1,3}[a-z]?)/i);
+  const targetGA = gaMatch ? gaMatch[1].toUpperCase() : highlight.ga_number;
+  const currentGA = window.currentOpenLectureId ? 
+    (window.currentOpenLectureId.match(/^(GA\d{1,3}[a-z]?)/i)?.[1]?.toUpperCase() || window.currentOpenLectureId) : null;
   
-  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
-  // WICHTIG: KEIN targetIndex übergeben - das verhindert das automatische Scrollen zum Absatz
-  if (typeof showLecture === 'function') {
-    await showLecture(highlight.ga_number, null, [], false);
+  // Prüfe ob bereits der richtige Text geladen ist
+  const isAlreadyLoaded = currentGA === targetGA || window.currentOpenLectureId === highlight.ga_number;
+  
+  if (!isAlreadyLoaded) {
+    // ANTI-FLICKER: Nur den Viewer unsichtbar machen BEVOR Inhalt geladen wird
+    // (Members Panel im summary-panel bleibt sichtbar)
+    const viewerPreload = document.getElementById('viewer');
+    if (viewerPreload) {
+      viewerPreload.style.opacity = '0';
+      viewerPreload.style.transition = 'none';
+    }
+    
+    // Lade den Text - WICHTIG: KEIN targetIndex übergeben - verhindert automatisches Scrollen
+    if (typeof showLecture === 'function') {
+      await showLecture(highlight.ga_number, null, [], false);
+    }
+  } else {
+    console.log('[HIGHLIGHT-NAV] Text bereits geladen, überspringe showLecture');
   }
   
   // 3. Warte bis DOM bereit ist und suche nach dem highlightedText - EXAKT wie bei navigateToQuoteById
@@ -2935,30 +2961,36 @@ async function navigateToNoteById(noteId) {
     return;
   }
   
-  // Extrahiere GA-Referenz aus dem Content
-  let gaReference = null;
-  const gaMatch = note.content?.match(/\[\[(GA\d+(?:\/\d+)?)\]\]/);
-  if (gaMatch) {
-    gaReference = gaMatch[1];
-  }
+  // Extrahiere GA-Referenz aus ga_references Array (wie bei Quotes)
+  const gaReference = note.ga_references && note.ga_references.length > 0 ? note.ga_references[0] : null;
   
   if (!gaReference) {
     console.warn('[NOTE-NAV] Keine GA-Referenz in Notiz gefunden');
     return;
   }
   
-  console.log('[NOTE-NAV] Notiz gefunden:', gaReference, 'Content:', note.content?.substring(0, 50));
+  // Extrahiere den Notiz-Text für die Suche - bereinige von Präfixen und Tags
+  let noteText = note.content || '';
+  // Entferne verschiedene Präfix-Formate
+  noteText = noteText.replace(/^Aus\s*\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+  noteText = noteText.replace(/^\[\[[^\]]+\]\]\s*[-:]\s*/i, '');
+  // Entferne führende Anführungszeichen
+  noteText = noteText.replace(/^["'„]\s*/, '');
+  // Entferne Tags am Ende
+  noteText = noteText.replace(/\s*#\w+(\s+#\w+)*\s*$/g, '');
+  noteText = noteText.trim();
   
-  // 2. Lade den Text (GA-Band/Vortrag)
+  console.log('[NOTE-NAV] Notiz gefunden:', gaReference, 'Text:', noteText?.substring(0, 50));
+  
+  // 2. Lade den Text (GA-Band/Vortrag) - EXAKT wie bei navigateToQuoteById
   window.membersNavigating = true;
   membersPanelActive = true;
-  window._membersNavLock = true;
   logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToNoteById', noteId });
   
   // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
   document.body.classList.add('members-navigating');
   
-  // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen SOFORT SYNCHRON entfernt
+  // Erstelle MutationObserver (EXAKT wie bei Quotes)
   const viewer = document.getElementById('viewer') || document.getElementById('main');
   if (viewer) {
     const highlightObserver = new MutationObserver((mutations) => {
@@ -2973,7 +3005,7 @@ async function navigateToNoteById(noteId) {
         }
         if (mutation.type === 'childList') {
           mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === 1) { // Element node
+            if (node.nodeType === 1) {
               if (node.classList && node.classList.contains('highlighted-paragraph')) {
                 node.classList.remove('highlighted-paragraph');
                 node.style.removeProperty('background');
@@ -2998,10 +3030,8 @@ async function navigateToNoteById(noteId) {
       attributeFilter: ['class']
     });
     
-    // Speichere Observer für späteres Cleanup
     window.membersNoteNavObserver = highlightObserver;
     
-    // ZUSÄTZLICH: Entferne sofort alle bestehenden highlighted-paragraph Klassen
     const existingHighlighted = viewer.querySelectorAll('.highlighted-paragraph');
     existingHighlighted.forEach(el => {
       el.classList.remove('highlighted-paragraph');
@@ -3018,55 +3048,60 @@ async function navigateToNoteById(noteId) {
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // Extrahiere paragraph_id aus Note-Metadaten falls vorhanden
-  const targetIndex = note.paragraph_id || null;
+  // OPTIMIERUNG: Prüfe ob der Text bereits geladen ist (EXAKT wie bei Quotes)
+  const gaMatch = gaReference.match(/^(GA\d{1,3}[a-z]?)/i);
+  const targetGA = gaMatch ? gaMatch[1].toUpperCase() : gaReference;
+  const currentGA = window.currentOpenLectureId ? 
+    (window.currentOpenLectureId.match(/^(GA\d{1,3}[a-z]?)/i)?.[1]?.toUpperCase() || window.currentOpenLectureId) : null;
   
-  if (typeof showLecture === 'function') {
-    await showLecture(gaReference, targetIndex, [], false);
+  const isAlreadyLoaded = currentGA === targetGA || window.currentOpenLectureId === gaReference;
+  
+  if (!isAlreadyLoaded) {
+    // ANTI-FLICKER: Viewer unsichtbar machen
+    const viewerPreload = document.getElementById('viewer');
+    if (viewerPreload) {
+      viewerPreload.style.opacity = '0';
+      viewerPreload.style.transition = 'none';
+    }
+    
+    // Lade den Text
+    if (typeof showLecture === 'function') {
+      await showLecture(gaReference, null, [], false);
+    }
+  } else {
+    console.log('[NOTE-NAV] Text bereits geladen, überspringe showLecture');
   }
   
-  // 3. Warte bis DOM bereit ist und suche nach dem Notiz-Text
+  // 3. Warte bis DOM bereit ist und suche nach dem noteText (EXAKT wie bei Quotes)
   const findAndScrollToNote = () => {
     const mainContainer = document.getElementById('main');
     if (!mainContainer) return false;
-    
-    // Extrahiere den reinen Text aus der Notiz (ohne [[GA...]] und Tags)
-    let noteText = note.content || '';
-    // Entferne GA-Referenz am Anfang
-    noteText = noteText.replace(/^Aus \[\[GA\d+(?:\/\d+)?\]\]:\s*/i, '');
-    // Entferne Tags am Ende
-    noteText = noteText.replace(/\s*#\w+(\s+#\w+)*\s*$/g, '');
-    noteText = noteText.trim();
     
     if (!noteText || noteText.length === 0) {
       console.warn('[NOTE-NAV] Kein noteText vorhanden');
       return false;
     }
     
-    // WICHTIG: Suche NUR im Textbereich (book-content oder lecture-content), nicht im Inhaltsverzeichnis
+    // Suche im Textbereich (EXAKT wie bei Quotes)
     let searchContainer = mainContainer.querySelector('.book-content') || 
                           mainContainer.querySelector('#book-content') ||
                           mainContainer.querySelector('.lecture-content') ||
                           mainContainer.querySelector('#lecture-content');
     
-    // Falls kein spezifischer Content-Container gefunden, verwende Main
     if (!searchContainer) {
       searchContainer = mainContainer;
     }
     
-    // Prüfe ob der Textbereich tatsächlich Inhalt hat
     if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
       console.log('[NOTE-NAV] Textbereich noch nicht geladen, warte...');
       return false;
     }
     
-    // Suche nach dem Text im Text-Container
     const fullText = searchContainer.textContent || '';
     const textIndex = fullText.indexOf(noteText);
     
     if (textIndex === -1) {
       console.log('[NOTE-NAV] Text nicht gefunden, versuche verkürzte Suche...');
-      // Versuche mit kürzerem Text (erste 100 Zeichen)
       const shortText = noteText.substring(0, Math.min(100, noteText.length));
       if (fullText.indexOf(shortText) === -1) {
         return false;
@@ -3075,7 +3110,7 @@ async function navigateToNoteById(noteId) {
     
     console.log('[NOTE-NAV] Text gefunden, suche DOM-Element...');
     
-    // Finde das DOM-Element, das den Text enthält
+    // Finde DOM-Element (EXAKT wie bei Quotes)
     const walker = document.createTreeWalker(
       searchContainer,
       NodeFilter.SHOW_TEXT,
@@ -3086,18 +3121,16 @@ async function navigateToNoteById(noteId) {
     let node;
     let accumulatedLength = 0;
     let targetNode = null;
-    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
+    let textOffsetInNode = 0;
     
     while (node = walker.nextNode()) {
       const nodeText = node.textContent;
-      // Suche nach dem exakten Text
       const foundIndex = nodeText.indexOf(noteText);
       if (foundIndex !== -1) {
         targetNode = node;
         textOffsetInNode = foundIndex;
         break;
       }
-      // Versuche mit kürzerem Text
       const shortNoteText = noteText.substring(0, 50);
       const foundShortIndex = nodeText.indexOf(shortNoteText);
       if (foundShortIndex !== -1) {
@@ -3105,7 +3138,6 @@ async function navigateToNoteById(noteId) {
         textOffsetInNode = foundShortIndex;
         break;
       }
-      // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
       if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
         targetNode = node;
         textOffsetInNode = textIndex - accumulatedLength;
@@ -3119,7 +3151,7 @@ async function navigateToNoteById(noteId) {
       return false;
     }
     
-    // Finde das Parent-Element (p, div, etc.) für das Scrolling
+    // Finde Parent-Element (EXAKT wie bei Quotes)
     let scrollTarget = targetNode.parentElement;
     while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
       scrollTarget = scrollTarget.parentElement;
@@ -3129,34 +3161,28 @@ async function navigateToNoteById(noteId) {
       scrollTarget = targetNode.parentElement;
     }
     
-    // 4. Scrolle zum Element
+    // Scrolle zur exakten Textstelle (EXAKT wie bei Quotes)
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
     const mainRect = mainContainer.getBoundingClientRect();
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25);
     
-    // Erstelle temporären Marker an der exakten Textstelle und scrolle dorthin
     try {
       const range = document.createRange();
       const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
       range.setStart(targetNode, safeOffset);
       range.setEnd(targetNode, safeOffset);
       
-      // Füge temporären Marker ein
       const marker = document.createElement('span');
       marker.id = 'temp-scroll-marker-' + Date.now();
       marker.style.cssText = 'position: relative;';
       range.insertNode(marker);
       
-      // Verwende scrollIntoView für zuverlässiges Scrollen
       marker.scrollIntoView({ behavior: 'instant', block: 'start' });
-      
-      // Korrigiere Position für oberes Viertel
       mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
-      console.log('[NOTE-NAV] Gescrollt zur exakten Textposition mit scrollIntoView, Offset:', textOffsetInNode);
+      console.log('[NOTE-NAV] Gescrollt zur exakten Textposition');
       
-      // Entferne Marker nach kurzem Delay
       setTimeout(() => {
         if (marker.parentNode) {
           marker.parentNode.removeChild(marker);
@@ -3164,33 +3190,30 @@ async function navigateToNoteById(noteId) {
       }, 100);
     } catch (e) {
       console.warn('[NOTE-NAV] Fehler beim Scroll-Marker:', e);
-      // Fallback: Scrolle zum Absatz
       scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
       mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
-      console.log('[NOTE-NAV] Fallback: Gescrollt zum Absatz');
     }
     
-    // Trigger jumpToNoteById für das Highlighting im Members Panel
-    if (typeof jumpToNoteById === 'function') {
-      jumpToNoteById(note.id);
+    // ANTI-FLICKER: Viewer wieder sichtbar machen
+    const viewerEl = document.getElementById('viewer');
+    if (viewerEl) {
+      viewerEl.style.transition = 'opacity 0.15s ease-in';
+      viewerEl.style.opacity = '1';
     }
     
     return true;
   };
   
-  // Versuche mehrmals (für langsam ladende Inhalte)
+  // Versuche mehrmals (EXAKT wie bei Quotes)
   let attempts = 0;
   const maxAttempts = 30;
   
   const tryFind = () => {
     attempts++;
     if (findAndScrollToNote()) {
-      // Erfolgreich - Cleanup
       setTimeout(() => {
         window.membersNavigating = false;
-        window._membersNavLock = false;
         document.body.classList.remove('members-navigating');
-        // Entferne MutationObserver
         if (window.membersNoteNavObserver) {
           window.membersNoteNavObserver.disconnect();
           window.membersNoteNavObserver = null;
@@ -3203,10 +3226,13 @@ async function navigateToNoteById(noteId) {
       setTimeout(tryFind, 100);
     } else {
       console.warn('[NOTE-NAV] Konnte Notiz nach', maxAttempts, 'Versuchen nicht finden');
+      const viewerEl = document.getElementById('viewer');
+      if (viewerEl) {
+        viewerEl.style.transition = 'opacity 0.15s ease-in';
+        viewerEl.style.opacity = '1';
+      }
       window.membersNavigating = false;
-      window._membersNavLock = false;
       document.body.classList.remove('members-navigating');
-      // Entferne MutationObserver
       if (window.membersNoteNavObserver) {
         window.membersNoteNavObserver.disconnect();
         window.membersNoteNavObserver = null;
@@ -6470,10 +6496,12 @@ async function deleteSelectedItems() {
 let lastMarkedLectureId = null;
 let lastQuotesData = null;
 
-// Globaler Cache für Quotes und Highlights (wird beim Öffnen des Mitgliederbereichs geladen)
+// Globaler Cache für Quotes, Highlights und Notes (wird beim Öffnen des Mitgliederbereichs geladen)
 let cachedQuotesData = null;
 let cachedHighlightsData = null;
+let cachedNotesData = null;
 let bookmarksQuotesCacheTimestamp = null;
+let bookmarksNotesCacheTimestamp = null;
 const BOOKMARKS_QUOTES_CACHE_TTL = 300000; // 5 Minuten Cache-Gültigkeit (erhöht für bessere Performance)
 
 /**
