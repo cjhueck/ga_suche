@@ -1054,12 +1054,25 @@ class BooksExporter:
         print("=" * 70 + "\n")
         
         # Bestimme zu exportierende GA-Bände
+        # Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
+        essay_bands = set(range(29, 38)) | {46}  # GA029-GA037 und GA046
+        
+        def is_essay_band(ga):
+            """Prüft ob eine GA-Nummer ein Aufsatzband ist"""
+            match = re.match(r'GA(\d{2,3})([a-z])?', ga.upper())
+            if match:
+                ga_num = int(match.group(1))
+                ga_suffix = (match.group(2) or '').lower()
+                return ga_num in essay_bands or (ga_num == 41 and ga_suffix == 'b')
+            return False
+        
         if ga_numbers:
-            target_gas = ga_numbers
+            # Filtere Aufsatzbände aus der übergebenen Liste
+            target_gas = [ga for ga in ga_numbers if not is_essay_band(ga)]
         else:
             # GA001 bis GA046, inklusive Varianten mit Suffix (z.B. GA040a, GA041a)
-            target_gas = [f"GA{i:03d}" for i in range(1, 47)]
-            # Füge bekannte Varianten mit Suffix hinzu
+            target_gas = [f"GA{i:03d}" for i in range(1, 47) if i not in essay_bands]
+            # Füge bekannte Varianten mit Suffix hinzu (außer GA041b = Aufsatzband)
             target_gas.extend(['GA040a', 'GA041a'])
         
         print(f"Suche nach {len(target_gas)} GA-Bänden...\n")

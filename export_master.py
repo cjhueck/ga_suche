@@ -667,16 +667,19 @@ class ExportMaster:
         # Prüfe ob Bücher exportiert werden sollen
         if ga_numbers:
             # Prüfe ob GA001-GA050 dabei sind (inklusive Varianten mit Suffix wie GA040a, GA041a)
+            # Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
+            essay_bands = set(range(29, 38)) | {46}  # GA029-GA037 und GA046
             book_gas = []
             for ga in ga_numbers:
                 # Unterstütze auch Suffixe wie "a", "b" etc.
                 ga_match = re.match(r'GA(\d{2,3})([a-z])?', ga.upper())
                 if ga_match:
                     ga_num = int(ga_match.group(1))
-                    if 1 <= ga_num <= 50:
-                        # Behalte Suffix falls vorhanden
-                        ga_suffix = ga_match.group(2) or ''
-                        ga_full = f"GA{ga_num:03d}{ga_suffix.lower()}"
+                    ga_suffix = (ga_match.group(2) or '').lower()
+                    # GA041b ist ein Aufsatzband
+                    is_essay = ga_num in essay_bands or (ga_num == 41 and ga_suffix == 'b')
+                    if 1 <= ga_num <= 50 and not is_essay:
+                        ga_full = f"GA{ga_num:03d}{ga_suffix}"
                         book_gas.append(ga_full)
             
             if not book_gas:
@@ -714,16 +717,20 @@ class ExportMaster:
             return False
     
     def step2_export_lectures(self, ga_bands=None):
-        """Schritt 2b: Lectures (GA051+) aus Obsidian exportieren (mit Bildern)"""
-        # Prüfe ob Vorträge exportiert werden sollen
+        """Schritt 2b: Lectures (GA051+) und Aufsätze (GA029-GA037, GA041b, GA046) aus Obsidian exportieren (mit Bildern)"""
+        # Prüfe ob Vorträge/Aufsätze exportiert werden sollen
         if ga_bands:
-            # Prüfe ob GA051+ dabei sind
+            # Prüfe ob GA051+ oder Aufsatzbände dabei sind
+            # GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
+            essay_bands = set(range(29, 38)) | {46}  # GA029-GA037 und GA046
             lecture_gas = []
             for ga in ga_bands:
-                ga_match = re.match(r'GA(\d{2,3})', ga.upper())
+                ga_match = re.match(r'GA(\d{2,3})([a-z])?', ga.upper())
                 if ga_match:
                     ga_num = int(ga_match.group(1))
-                    if ga_num >= 51:
+                    ga_suffix = (ga_match.group(2) or '').lower()
+                    is_essay = ga_num in essay_bands or (ga_num == 41 and ga_suffix == 'b')
+                    if ga_num >= 51 or is_essay:
                         lecture_gas.append(ga)
             
             if not lecture_gas:

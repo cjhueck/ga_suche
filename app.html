@@ -5856,6 +5856,56 @@ body.dark-mode .hint-popup-content strong {
   color: var(--dark-accent-color);
 }
 
+/* ============================================================================
+   KONTEXTHILFE-POPUP (Strg+Klick)
+   ============================================================================ */
+
+.context-help-popup {
+  position: fixed;
+  z-index: 100000;
+  max-width: 320px;
+  padding: 12px 16px;
+  background: var(--background-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  pointer-events: auto;
+  cursor: default;
+  user-select: text;
+  animation: context-help-fade-in 0.15s ease-out;
+}
+
+@keyframes context-help-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.context-help-popup strong {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+body.dark-mode .context-help-popup {
+  background: var(--dark-background-color);
+  border-color: var(--dark-accent-color);
+  color: var(--dark-text-color);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .context-help-popup strong {
+  color: var(--dark-accent-color);
+}
+
 </style>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "DEIN-CLOUDFLARE-TOKEN-HIER"}'></script>
@@ -5866,9 +5916,9 @@ body.dark-mode .hint-popup-content strong {
 <div id="sidebar">
 <div id="sidebar-header">
 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-<div class="site-header-flex">
-<img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo">
-<h1 id="site-title" style="padding-top: 10px;"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
+<div class="site-header-flex" data-help="site-header">
+<img src="images/steiner-logo.jpg" alt="Rudolf Steiner" class="site-logo" data-help="site-logo">
+<h1 id="site-title" style="padding-top: 10px;" data-help="site-title"><a href="index.html" style="display: block; line-height: 0;"><img src="images/steiner-sign.png" alt="Steiner GA-Suche" class="site-sign" style="height: 100px; width: auto; display: block;"></a></h1>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
 <div style="display: flex; gap: 0.3rem; align-items: center;">
@@ -5880,7 +5930,7 @@ body.dark-mode .hint-popup-content strong {
 </button>
 </div>
 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem;">
-<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen">
+<button class="help-button" onclick="openHelpModal()" title="Anleitung öffnen" data-help="help-button">
 <i data-lucide="info"></i>
 </button>
 <button id="marked-words-button" class="help-button" onclick="openMarkedWordsModal()" title="Fehlerhafte Textstellen anzeigen" style="display: none;">
@@ -5889,17 +5939,17 @@ body.dark-mode .hint-popup-content strong {
 </div>
 </div>
 </div>
-<div class="tab-container">
+<div class="tab-container" data-help="tab-container">
 <div class="tab-buttons">
-<button class="tab-button active" onclick="switchTab('ga')">GA</button>
-<button class="tab-button" onclick="switchTab('keyword')">Suche</button>
-<button class="tab-button" onclick="switchTab('texte')">Texte</button>
-<button class="tab-button" onclick="switchTab('thematic')">Themen</button>
-<button class="tab-button" onclick="switchTab('concept-overview')" id="concept-overview-tab-button" style="display: none;">Übersicht</button>
-<button class="tab-button" onclick="switchTab('timeline')">Timeline</button>
-<button class="tab-button" onclick="switchTab('schlagworte')">Index</button>
-<button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button">Keywords</button>
-<button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button">Zitate</button>
+<button class="tab-button active" onclick="switchTab('ga')" data-help="tab-ga">GA</button>
+<button class="tab-button" onclick="switchTab('keyword')" data-help="tab-suche">Suche</button>
+<button class="tab-button" onclick="switchTab('texte')" data-help="tab-texte">Texte</button>
+<button class="tab-button" onclick="switchTab('thematic')" data-help="tab-themen">Themen</button>
+<button class="tab-button" onclick="switchTab('concept-overview')" id="concept-overview-tab-button" data-help="tab-uebersicht" style="display: none;">Übersicht</button>
+<button class="tab-button" onclick="switchTab('timeline')" data-help="tab-timeline">Timeline</button>
+<button class="tab-button" onclick="switchTab('schlagworte')" data-help="tab-index">Index</button>
+<button class="tab-button" onclick="switchTab('keywords')" id="keywords-tab-button" data-help="tab-keywords">Keywords</button>
+<button class="tab-button" onclick="switchTab('zitate')" id="zitate-tab-button" data-help="tab-zitate">Zitate</button>
 </div>
 <div class="tab-content active" id="ga-tab">
 <div style="padding: 0.2rem;">
@@ -5925,7 +5975,7 @@ Chronologisch
 <input class="search-input" id="word1" list="word1-history" onfocus="this.select()" onkeypress="handleKeywordKeypress(event)" placeholder="Suchwort 1" type="text" autocomplete="off"/>
 <datalist id="word1-history"></datalist>
 </div>
-<div class="word-operator-container">
+<div class="word-operator-container" data-help="word-operator-container">
 <label class="word-operator-label">
 <input type="radio" name="wordOperator" value="and" checked>
 <span>UND</span>
@@ -6488,9 +6538,9 @@ Bestehende Schlagwörter überschreiben
 </div>
 <div id="main-container">
 <div id="main" style="position: relative;">
-<div id="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+<div id="viewer-header" data-help="viewer-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
 <h2 id="document-title" style="margin: 0; flex: 1;">Suche</h2>
-<div class="viewer-buttons-container">
+<div class="viewer-buttons-container" data-help="viewer-buttons">
 <!-- Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -8762,7 +8812,8 @@ function normalizeGANumber(gaNumber) {
         // Ein GA-Band ausgewählt: Zeige spezifische Anzahl
         const selectedGA = selectedGAs[0];
         if (gaLectureCounts[selectedGA]) {
-          serverInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+          const typeName = getGATypeName(selectedGA, true); // Plural
+          serverInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
         } else {
           const defaultText = totalBooksCount > 0 
             ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
@@ -8797,7 +8848,8 @@ function normalizeGANumber(gaNumber) {
       const selectedGA = thematicGAFilter.value;
       
       if (selectedGA && gaLectureCounts[selectedGA]) {
-        thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} Vorträge in ${selectedGA}`;
+        const typeName = getGATypeName(selectedGA, true); // Plural
+        thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
       } else {
         const defaultText = totalBooksCount > 0 
           ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
@@ -10098,15 +10150,14 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     displayGAVolumesInSidebar();
     
     // Aktualisiere Info-Element auch beim erneuten Anzeigen
-    const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalBooks = gaVolumesData.filter(ga => {
-      const gaNum = parseInt(ga.number.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-      return gaNum >= 1 && gaNum <= 46;
-    }).length;
+    const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
+    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${totalLectures} Vorträge`;
+      const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal';
     }
     return;
@@ -10166,18 +10217,17 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     // Zeige GA-Bände im Sidebar (im #results Bereich)
     displayGAVolumesInSidebar();
     
-    // Berechne Gesamtanzahl der Vorträge
-    const totalLectures = gaVolumesData.reduce((sum, ga) => sum + ga.lectureCount, 0);
-    const totalBooks = gaVolumesData.filter(ga => {
-      const gaNum = parseInt(ga.number.replace(/^GA/i, '').replace(/[a-z]/i, ''));
-      return gaNum >= 1 && gaNum <= 46;
-    }).length;
+    // Berechne Gesamtanzahl der Vorträge (ohne Aufsätze)
+    const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
+    const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     
     // Aktualisiere Info
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${totalLectures} Vorträge`;
+      const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
+      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
     
@@ -10672,10 +10722,39 @@ async function loadSummaryDatabase() {
 }
 
 // Funktion: Zeige Vorträge eines GA-Bandes im Main Viewer
-// Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist (GA001-GA046)
+// Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist
+// Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
 function isBookGANumber(gaNumber) {
+  // Prüfe zuerst ob es ein Aufsatzband ist
+  if (isEssayGANumber(gaNumber)) return false;
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
   return gaNum >= 1 && gaNum <= 46;
+}
+
+// Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
+// GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
+function isEssayGANumber(gaNumber) {
+  const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
+  const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
+  // GA041b ist speziell - prüfe auf "b" Suffix
+  if (normalized === '041b' || normalized === '41b') return true;
+  // GA029-GA037 und GA046
+  return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
+}
+
+// Hilfsfunktion: Gibt den Typ eines GA-Bandes zurück ('book', 'essay', 'lecture')
+function getGAType(gaNumber) {
+  if (isBookGANumber(gaNumber)) return 'book';
+  if (isEssayGANumber(gaNumber)) return 'essay';
+  return 'lecture';
+}
+
+// Hilfsfunktion: Gibt den deutschen Namen für den GA-Typ zurück
+function getGATypeName(gaNumber, plural = false) {
+  const type = getGAType(gaNumber);
+  if (type === 'book') return plural ? 'Schriften' : 'Schrift';
+  if (type === 'essay') return plural ? 'Aufsätze' : 'Aufsatz';
+  return plural ? 'Vorträge' : 'Vortrag';
 }
 
 // Funktion: Rendert ein Book (Schrift)
@@ -12626,7 +12705,9 @@ async function displayGAOverview(data) {
   
   titleElement.textContent = `${data.gaNumber} - ${data.gaTitle}`;
   
-  viewer.innerHTML = '<p style="color: #666; font-style: italic;">Wählen Sie einen Vortrag aus der Liste links.</p>';
+  // Passender Text je nach GA-Typ (Vortrag/Aufsatz)
+  const itemTypeName = getGATypeName(data.gaNumber, false);
+  viewer.innerHTML = `<p style="color: #666; font-style: italic;">Wählen Sie ${itemTypeName === 'Aufsatz' ? 'einen Aufsatz' : 'einen Vortrag'} aus der Liste links.</p>`;
   
   // Setze currentGANumber für Info-Button
   currentGANumber = data.gaNumber;
@@ -12656,8 +12737,9 @@ async function displayGAOverview(data) {
         // Book: Keine Statistik anzeigen
         texteServerInfo.textContent = '';
       } else {
-        // GA-Band mit Vorträgen: Nur Anzahl der Vorträge im aktuellen Band anzeigen
-        texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
+        // GA-Band mit Vorträgen/Aufsätzen: Nur Anzahl im aktuellen Band anzeigen
+        const typeName = getGATypeName(gaNumber, true); // Plural
+        texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
       }
     }
     // Toggle Button im Texte-Tab anzeigen (nur für GA-Bände mit Vorträgen)
@@ -35167,6 +35249,217 @@ async function addKeywordToLecture() {
   } else {
     setTimeout(showHintPopup, 1500);
   }
+})();
+</script>
+
+<!-- Kontexthilfe-System (Strg+Klick für Element-Beschreibungen) -->
+<script>
+(function() {
+  'use strict';
+  
+  let contextHelpPopup = null;
+  
+  // Beschreibungen für verschiedene UI-Elemente
+  const helpDescriptions = {
+    // Haupt-Bereiche
+    'sidebar': '<strong>Linke Seitenleiste:</strong> Enthält alle Such- und Navigationsfunktionen. Hier findest du Tabs für GA-Band-Übersicht, Stichwortsuche, Texte, Themensuche, Timeline und mehr.',
+    'sidebar-header': '<strong>Sidebar-Kopfbereich:</strong> Logo, Titel und schnelle Zugriffstasten für Dark Mode, Hilfe und Verwaltung.',
+    'results': '<strong>Suchergebnisliste:</strong> Zeigt die Treffer deiner Suche. Klicke auf einen Eintrag, um den vollständigen Text im Viewer anzuzeigen.',
+    'main-container': '<strong>Hauptbereich:</strong> Zeigt den ausgewählten Text oder Vortrag an. Hier kannst du lesen, navigieren und mit den Inhalten interagieren.',
+    'viewer': '<strong>Textansicht:</strong> Hier wird der ausgewählte Inhalt angezeigt – Vorträge, Bücher oder Suchergebnisse.',
+    'summary-panel': '<strong>Zusammenfassungs-Panel:</strong> Zeigt Inhaltsverzeichnis, Übersichten oder Zusammenfassungen des aktuellen Textes.',
+    'toc-list': '<strong>Inhaltsverzeichnis:</strong> Navigation durch die Abschnitte des aktuellen Textes. Klicke auf einen Eintrag, um direkt dorthin zu springen.',
+    'document-title': '<strong>Dokumenttitel:</strong> Zeigt den Titel des aktuell angezeigten Textes oder Vortrags.',
+    
+    // Tabs
+    'ga-tab': '<strong>GA-Tab:</strong> Übersicht über alle Bände der Gesamtausgabe. Wähle chronologische oder systematische Ansicht.',
+    'keyword-tab': '<strong>Suche-Tab:</strong> Volltextsuche in allen Texten. Unterstützt UND/ODER-Verknüpfung und Filter nach Jahr und GA-Band.',
+    'texte-tab': '<strong>Texte-Tab:</strong> Direkter Zugriff auf alle verfügbaren Texte und Vorträge, sortiert nach Datum oder Band.',
+    'thematic-tab': '<strong>Themen-Tab:</strong> KI-gestützte thematische Suche. Stelle Fragen in natürlicher Sprache zu Steiners Werk.',
+    'concept-overview-tab': '<strong>Übersicht-Tab:</strong> Zeigt eine KI-generierte Übersicht zu einem ausgewählten Begriff oder Konzept.',
+    'timeline-tab': '<strong>Timeline-Tab:</strong> Chronologische Darstellung, wann bestimmte Begriffe in Steiners Vorträgen vorkommen.',
+    'schlagworte-tab': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis mit KI-generierten Zusammenfassungen zu jedem Begriff.',
+    'keywords-tab': '<strong>Keywords-Tab:</strong> Verwaltung der automatisch generierten Schlagwörter für Vorträge.',
+    'zitate-tab': '<strong>Zitate-Tab:</strong> Sammlung markierter Zitate und Textpassagen.',
+    
+    // Eingabefelder
+    'word1': '<strong>Suchwort 1:</strong> Hauptsuchbegriff für die Volltextsuche. Wildcards mit * sind möglich (z.B. "Geist*" findet "Geist", "Geister", "geistig").',
+    'word2': '<strong>Suchwort 2:</strong> Optionaler zweiter Suchbegriff. Mit UND werden nur Texte gefunden, die beide Begriffe enthalten.',
+    'thematicInput': '<strong>Thematische Suche:</strong> Stelle hier Fragen in natürlicher Sprache. Die KI durchsucht alle Texte nach relevanten Passagen.',
+    'conceptOverviewInput': '<strong>Konzept-Übersicht:</strong> Gib einen Begriff ein, um eine KI-generierte Übersicht zu erhalten.',
+    'keywordSearchInput': '<strong>Schlagwort-Suche:</strong> Suche im alphabetischen Index nach Schlagwörtern.',
+    'timelineKeywordInput': '<strong>Timeline-Suchbegriff:</strong> Gib einen Begriff ein, um seine chronologische Verteilung zu sehen.',
+    
+    // Buttons
+    'theme-toggle': '<strong>Dark Mode:</strong> Wechselt zwischen hellem und dunklem Design.',
+    'membersPanelBtn': '<strong>Mitgliederbereich:</strong> Öffnet das Panel mit erweiterten Funktionen für registrierte Nutzer.',
+    'h4ToggleBtn': '<strong>Überschriften-Toggle:</strong> Blendet zusätzliche Zwischenüberschriften ein oder aus.',
+    'viewerDownloadBtn': '<strong>Download:</strong> Lädt den aktuellen Text als PDF, TXT oder Markdown herunter.',
+    'viewerSummaryBtn': '<strong>Übersicht:</strong> Zeigt oder versteckt die Zusammenfassungsübersicht.',
+    'gaInfoBtn': '<strong>Bibliographie:</strong> Zeigt bibliographische Informationen zum aktuellen GA-Band.',
+    'searchBtn': '<strong>Suchen:</strong> Startet die Suche mit den eingegebenen Begriffen.',
+    'thematicSearchBtn': '<strong>Thematisch suchen:</strong> Startet die KI-gestützte thematische Suche.',
+    
+    // Filter
+    'yearFilterContainer': '<strong>Jahresfilter:</strong> Filtert Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum.',
+    'gaFilterContainer': '<strong>GA-Band-Filter:</strong> Beschränkt die Suche auf bestimmte Bände der Gesamtausgabe.',
+    'advancedGAFilterContainer': '<strong>Erweiterter GA-Filter:</strong> Filter für die erweiterte Suche mit Mehrfachauswahl.',
+    
+    // Spezielle Bereiche
+    'word-operator-container': '<strong>Suchoperator:</strong> UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.',
+    'tab-container': '<strong>Tab-Navigation:</strong> Wechsle zwischen verschiedenen Funktionsbereichen der Anwendung.',
+    
+    // Members Panel (falls vorhanden)
+    'members-panel': '<strong>Mitglieder-Panel:</strong> Erweiterte Funktionen für registrierte Nutzer – Chat, Notizen, Lesezeichen und mehr.',
+    
+    // Tab-Buttons (via data-help)
+    'tab-ga': '<strong>GA-Tab:</strong> Zeigt die Gesamtausgabe – chronologisch oder nach Band sortiert.',
+    'tab-suche': '<strong>Suche-Tab:</strong> Volltextsuche mit zwei Suchbegriffen und Filtern.',
+    'tab-texte': '<strong>Texte-Tab:</strong> Direktzugriff auf alle Vorträge und Bücher.',
+    'tab-themen': '<strong>Themen-Tab:</strong> KI-gestützte Suche nach Themen in natürlicher Sprache.',
+    'tab-uebersicht': '<strong>Übersicht-Tab:</strong> KI-generierte Begriffsübersichten.',
+    'tab-timeline': '<strong>Timeline-Tab:</strong> Chronologische Verteilung von Begriffen.',
+    'tab-index': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis.',
+    'tab-keywords': '<strong>Keywords-Tab:</strong> Verwaltung der Vortrags-Schlagwörter.',
+    'tab-zitate': '<strong>Zitate-Tab:</strong> Deine gesammelten Zitate und Markierungen.',
+    
+    // Header-Elemente
+    'site-header': '<strong>Kopfbereich:</strong> Logo und Schnellzugriff auf Einstellungen.',
+    'site-logo': '<strong>Steiner-Portrait:</strong> Rudolf Steiner (1861–1925), Begründer der Anthroposophie.',
+    'site-title': '<strong>Titel:</strong> Klicke, um zur Startseite zurückzukehren.',
+    'help-button': '<strong>Hilfe:</strong> Öffnet die ausführliche Bedienungsanleitung.',
+    
+    // Viewer-Bereich
+    'viewer-header': '<strong>Viewer-Kopfzeile:</strong> Titel des aktuellen Dokuments und Steuerungsbuttons.',
+    'viewer-buttons': '<strong>Viewer-Buttons:</strong> Aktionen für das aktuelle Dokument – Übersicht, Download, Mitgliederbereich.',
+    'viewerTOCToggleBtn': '<strong>Inhaltsverzeichnis:</strong> Blendet das rechte Panel mit dem Inhaltsverzeichnis ein/aus.',
+    'viewerOriginalBtn': '<strong>Original:</strong> Zeigt den Originaltext ohne Hervorhebungen.',
+    
+    // Members Panel - Hauptbereich
+    'members-panel': '<strong>Mitglieder-Panel:</strong> Dein persönlicher Bereich für Markierungen, Notizen und Chat.',
+    'members-tabs': '<strong>Mitglieder-Tabs:</strong> Wechsle zwischen deinen verschiedenen Sammlungen.',
+    'members-tab-content': '<strong>Inhalt:</strong> Zeigt die Einträge des gewählten Tabs.',
+    
+    // Members Panel - Tabs
+    'members-tab-quotes': '<strong>Anstreichungen:</strong> Längere Textpassagen, die du mit farbiger Hinterlegung markiert hast.',
+    'members-tab-highlights': '<strong>Unterstreichungen:</strong> Einzelne Wörter oder kurze Phrasen, die du unterstrichen hast.',
+    'members-tab-notes': '<strong>Notizen:</strong> Deine persönlichen Anmerkungen und Gedanken zu Textstellen.',
+    'members-tab-chat': '<strong>Chat:</strong> Kommunikation mit anderen Nutzern über die Texte.',
+    
+    // Members Panel - Aktions-Buttons
+    'members-sort-btn': '<strong>Sortierung:</strong> Ändert die Reihenfolge – neueste zuerst oder älteste zuerst.',
+    'members-delete-btn': '<strong>Mehrfachlöschung:</strong> Aktiviert den Modus zum Löschen mehrerer Einträge gleichzeitig.',
+    
+    // Members Panel - Filter
+    'members-ga-filter': '<strong>GA-Filter:</strong> Zeigt nur Einträge aus einem bestimmten GA-Band.',
+    'members-group-filter': '<strong>Gruppen-Filter:</strong> Filtert nach Themengruppen, die du erstellt hast.'
+  };
+  
+  // Finde das nächste Element mit einer Hilfe-Beschreibung
+  function findHelpElement(element) {
+    let current = element;
+    while (current && current !== document.body) {
+      // Prüfe ID
+      if (current.id && helpDescriptions[current.id]) {
+        return { element: current, key: current.id };
+      }
+      // Prüfe data-help Attribut
+      if (current.dataset && current.dataset.help) {
+        return { element: current, key: current.dataset.help };
+      }
+      // Prüfe Klassen
+      if (current.classList) {
+        for (const cls of current.classList) {
+          if (helpDescriptions[cls]) {
+            return { element: current, key: cls };
+          }
+        }
+      }
+      current = current.parentElement;
+    }
+    return null;
+  }
+  
+  // Erstelle und zeige das Popup
+  function showContextHelp(e, description) {
+    if (contextHelpPopup) {
+      contextHelpPopup.remove();
+    }
+    
+    contextHelpPopup = document.createElement('div');
+    contextHelpPopup.className = 'context-help-popup';
+    contextHelpPopup.innerHTML = description;
+    
+    document.body.appendChild(contextHelpPopup);
+    
+    // Positioniere das Popup
+    const popupRect = contextHelpPopup.getBoundingClientRect();
+    let left = e.clientX + 15;
+    let top = e.clientY + 15;
+    
+    // Verhindere Überlauf am rechten Rand
+    if (left + popupRect.width > window.innerWidth - 20) {
+      left = e.clientX - popupRect.width - 15;
+    }
+    
+    // Verhindere Überlauf am unteren Rand
+    if (top + popupRect.height > window.innerHeight - 20) {
+      top = e.clientY - popupRect.height - 15;
+    }
+    
+    contextHelpPopup.style.left = Math.max(10, left) + 'px';
+    contextHelpPopup.style.top = Math.max(10, top) + 'px';
+  }
+  
+  // Verstecke das Popup
+  function hideContextHelp() {
+    if (contextHelpPopup) {
+      contextHelpPopup.remove();
+      contextHelpPopup = null;
+    }
+  }
+  
+  // Event Listener für Strg+Klick
+  document.addEventListener('click', function(e) {
+    // Wenn Popup offen ist
+    if (contextHelpPopup) {
+      // Klick auf das Popup selbst ignorieren (für Textauswahl)
+      if (contextHelpPopup.contains(e.target)) {
+        return;
+      }
+      // Klick außerhalb → schließen
+      hideContextHelp();
+      // Wenn kein Strg gedrückt, hier aufhören
+      if (!e.ctrlKey) return;
+    }
+    
+    // Nur bei gedrückter Strg-Taste neues Popup öffnen
+    if (!e.ctrlKey) return;
+    
+    // Finde Element mit Hilfe-Beschreibung
+    const helpInfo = findHelpElement(e.target);
+    
+    if (helpInfo && helpDescriptions[helpInfo.key]) {
+      e.preventDefault();
+      e.stopPropagation();
+      showContextHelp(e, helpDescriptions[helpInfo.key]);
+    }
+  }, true);
+  
+  // Schließen bei Escape-Taste
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && contextHelpPopup) {
+      hideContextHelp();
+    }
+  });
+  
+  // Mache Beschreibungen erweiterbar von außen
+  window.contextHelpDescriptions = helpDescriptions;
+  
+  // Funktion zum Hinzufügen neuer Beschreibungen
+  window.addContextHelp = function(key, description) {
+    helpDescriptions[key] = description;
+  };
 })();
 </script>
 

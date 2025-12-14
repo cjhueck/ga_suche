@@ -488,10 +488,13 @@ class SteinerLecturesExporter {
       const gaNumber = filename.match(/^GA\s*(\d{2,3}[a-z]?)/i)?.[1]?.toUpperCase();
       
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
+      // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
-        if (gaNum >= 1 && gaNum <= 50) {
-          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert)
+        const isGA041b = gaNumber.toLowerCase() === '041b' || gaNumber.toLowerCase() === '41b';
+        const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b;
+        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand) {
+          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert), außer Aufsatzbände
         }
       }
       
