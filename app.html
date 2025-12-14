@@ -11542,9 +11542,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         
         document.body.classList.add('summary-panel-collapsed');
       }
-    } else if ((isInTexteTabNow || isInKeywordTabNow) && !isMembersPanelOpen && !isMembersNavigating) {
+    } else if ((isInTexteTabNow || isInKeywordTabNow) && !isMembersPanelOpen && !isMembersNavigating && !window._membersNavLock) {
       // Texte-Tab ODER Suche-Tab: Öffne Sidebar für TOC-Anzeige
-      // ABER NICHT wenn Members Panel aktiv ist
+      // ABER NICHT wenn Members Panel aktiv ist oder Navigation läuft
       // Texte-Tab: Öffne Sidebar für TOC-Anzeige
       if (summaryPanel) {
         const tabName = isInTexteTabNow ? 'Texte-Tab' : 'Suche-Tab';
@@ -21200,7 +21200,8 @@ function showSummaryView() {
   
   // WICHTIG: Wenn Navigation aus dem Members Panel läuft, NICHT das Panel schließen!
   // Das Panel soll offen bleiben, wenn man auf einen Link im Panel klickt
-  if (window.membersNavigating) {
+  // Prüfe BEIDE Flags: membersNavigating UND _membersNavLock (für erste Klicks)
+  if (window.membersNavigating || window._membersNavLock) {
     console.log('[DISPLAY-SUMMARY] Navigation aus Members Panel läuft - Panel bleibt offen, überspringe Panel-Schließen');
     // NICHT return - wir müssen den Vortrag trotzdem im Viewer anzeigen!
     // Aber das Panel soll offen bleiben
@@ -22387,7 +22388,8 @@ function formatAsteriskParagraphs() {
 
           // Öffne Summary Panel SOFORT (nicht mit setTimeout)
           // ABER: Nicht wenn wir von einem Buch zu einem Vortrag gewechselt sind
-          if (summaryPanel && !window.membersNavigating && !shouldClosePanelFromBook) {
+          // Prüfe BEIDE Flags für Members-Navigation
+          if (summaryPanel && !window.membersNavigating && !window._membersNavLock && !shouldClosePanelFromBook) {
             
             // Prüfe ob Mitglieder-Panel aktiv ist
             const isMembersPanelOpen = typeof isMembersPanelActive === 'function' && isMembersPanelActive();
@@ -22414,8 +22416,11 @@ function formatAsteriskParagraphs() {
               } else if (isMembersPanelOpen && isCurrentlyNavigating) {
                 // MB ist aktiv UND Navigation läuft → Panel offen lassen, Content NICHT überschreiben
                 console.log('[SHOW-LECTURE] Members Panel Navigation aktiv - Panel bleibt offen');
+              } else if (isCurrentlyNavigating || window._membersNavLock) {
+                // Navigation läuft (auch wenn MB noch nicht als "aktiv" erkannt wurde) → Content NICHT überschreiben
+                console.log('[SHOW-LECTURE] Navigation läuft (Lock aktiv) - Content bleibt erhalten');
               } else {
-                // MB nicht aktiv → TOC anzeigen
+                // MB nicht aktiv UND keine Navigation → TOC anzeigen
                 const summaryContent = document.getElementById('summary-content');
                 if (summaryContent) {
                   summaryContent.innerHTML = '<div id="toc-list"></div>';
@@ -22423,10 +22428,12 @@ function formatAsteriskParagraphs() {
               }
             } catch (error) {
               console.warn('[SUMMARY-PANEL] Fehler beim Wechseln zu TOC:', error);
-              // Fallback: TOC anzeigen
-              const summaryContent = document.getElementById('summary-content');
-              if (summaryContent) {
-                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              // Fallback: TOC anzeigen - ABER NICHT wenn Navigation läuft
+              if (!window.membersNavigating && !window._membersNavLock) {
+                const summaryContent = document.getElementById('summary-content');
+                if (summaryContent) {
+                  summaryContent.innerHTML = '<div id="toc-list"></div>';
+                }
               }
             }
             
@@ -22517,7 +22524,8 @@ function formatAsteriskParagraphs() {
     // Öffne Summary Panel automatisch nach dem Laden (immer)
     // ABER: Nicht wenn wir von einem Buch zu einem Vortrag gewechselt sind
     setTimeout(() => {
-      if (window.membersNavigating) {
+      // WICHTIG: Prüfe BEIDE Flags - membersNavigating UND _membersNavLock
+      if (window.membersNavigating || window._membersNavLock) {
         return;
       }
       
@@ -22537,17 +22545,19 @@ function formatAsteriskParagraphs() {
             if (typeof switchFromMembersPanelToTOC === 'function') {
               switchFromMembersPanelToTOC();
             } else {
-              // Fallback: MB schließen
-              if (typeof closeMembersPanel === 'function') {
-                closeMembersPanel();
-              }
-              const summaryContent = document.getElementById('summary-content');
-              if (summaryContent) {
-                summaryContent.innerHTML = '<div id="toc-list"></div>';
+              // Fallback: MB schließen - ABER NICHT wenn Navigation läuft
+              if (!window._membersNavLock) {
+                if (typeof closeMembersPanel === 'function') {
+                  closeMembersPanel();
+                }
+                const summaryContent = document.getElementById('summary-content');
+                if (summaryContent) {
+                  summaryContent.innerHTML = '<div id="toc-list"></div>';
+                }
               }
             }
-          } else {
-            // MB nicht aktiv → TOC anzeigen
+          } else if (!window._membersNavLock) {
+            // MB nicht aktiv UND keine Navigation → TOC anzeigen
             const summaryContent = document.getElementById('summary-content');
             if (summaryContent) {
               summaryContent.innerHTML = '<div id="toc-list"></div>';
@@ -22555,10 +22565,12 @@ function formatAsteriskParagraphs() {
           }
         } catch (error) {
           console.warn('[SUMMARY-PANEL] Fehler beim Wechseln zu TOC:', error);
-          // Fallback: TOC anzeigen
-          const summaryContent = document.getElementById('summary-content');
-          if (summaryContent) {
-            summaryContent.innerHTML = '<div id="toc-list"></div>';
+          // Fallback: TOC anzeigen - ABER NICHT wenn Navigation läuft
+          if (!window._membersNavLock) {
+            const summaryContent = document.getElementById('summary-content');
+            if (summaryContent) {
+              summaryContent.innerHTML = '<div id="toc-list"></div>';
+            }
           }
         }
         
@@ -35098,11 +35110,21 @@ async function addKeywordToLecture() {
 
 <!-- Debug & Test Functions -->
 
-<!-- Hinweis-Popup (Strg+Klick für Fehlermarkierung) -->
+<!-- Hinweis-Popup (Strg+Klick für Fehlermarkierung) - nur beim allerersten Öffnen -->
 <script>
 (function() {
-  // Zeige Popup bei jedem Seitenaufruf
+  // Prüfe ob Popup schon einmal angezeigt wurde
+  const HINT_POPUP_SHOWN_KEY = 'ga_suche_hint_popup_shown';
+  
+  if (localStorage.getItem(HINT_POPUP_SHOWN_KEY) === 'true') {
+    // Popup wurde schon angezeigt - nicht mehr anzeigen
+    return;
+  }
+  
   function showHintPopup() {
+    // Markiere Popup als angezeigt (BEVOR es angezeigt wird, um Race Conditions zu vermeiden)
+    localStorage.setItem(HINT_POPUP_SHOWN_KEY, 'true');
+    
     // Erstelle das Popup-Element
     const popup = document.createElement('div');
     popup.className = 'hint-popup';
@@ -35137,7 +35159,7 @@ async function addKeywordToLecture() {
     setTimeout(closePopup, 25000);
   }
   
-  // Zeige Popup nach kurzer Verzögerung
+  // Zeige Popup nach kurzer Verzögerung (nur beim ersten Mal)
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       setTimeout(showHintPopup, 1500);

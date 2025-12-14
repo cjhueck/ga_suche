@@ -199,8 +199,9 @@ function resetNavigationState() {
   console.log('[MB-RESET] Setze Navigation-State zurück');
   logSidePanelEvent('RESET_NAVIGATION_STATE', { called: true });
   
-  // Setze membersNavigating Flag zurück
+  // Setze membersNavigating Flags zurück
   window.membersNavigating = false;
+  window._membersNavLock = false;
   document.body.classList.remove('members-navigating');
   
   // Stoppe Scroll-Position-Schutz
@@ -972,7 +973,7 @@ async function loadMembersTab(tabName) {
         await loadHighlightsTab(content);
         break;
       case 'notes':
-        loadNotesTab(content);
+        await loadNotesTab(content);
         break;
       case 'chat':
         await loadChatTab(content);
@@ -1252,7 +1253,7 @@ function renderHighlightsList(container, sortedData) {
         <div style="flex: 1;">
           <div class="member-item-header">
             <div style="display: flex; align-items: center; gap: 0.25rem;">
-              <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+              <a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                 <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="4" y1="20" x2="20" y2="20"></line>
@@ -1260,14 +1261,14 @@ function renderHighlightsList(container, sortedData) {
                 </span>
               </a>
               ${shouldShowLink
-                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                 : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               }
             </div>
             <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
           </div>
           ${shouldShowLink
-            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+            ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
             : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
           }
           ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
@@ -2147,7 +2148,7 @@ function renderQuotesList(container, sortedData) {
         <div class="member-item-header">
           <div style="display: flex; align-items: center; gap: 0.25rem;">
             ${shouldShowLink
-              ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+              ? `<a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                 <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="4" y="4" width="16" height="16"></rect>
@@ -2161,14 +2162,14 @@ function renderQuotesList(container, sortedData) {
                 </span>`
             }
             ${shouldShowLink
-              ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+              ? `<strong><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
             }
           </div>
           <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
         </div>
         ${shouldShowLink
-          ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
+          ? `<div class="member-item-quote"><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
           : `<div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
         }
         ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
@@ -2435,16 +2436,29 @@ async function navigateToQuoteById(quoteId) {
     let node;
     let accumulatedLength = 0;
     let targetNode = null;
+    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
     
     while (node = walker.nextNode()) {
       const nodeText = node.textContent;
-      if (nodeText.includes(quoteText) || nodeText.includes(quoteText.substring(0, 50))) {
+      // Suche nach dem exakten Text
+      const foundIndex = nodeText.indexOf(quoteText);
+      if (foundIndex !== -1) {
         targetNode = node;
+        textOffsetInNode = foundIndex;
+        break;
+      }
+      // Versuche mit kürzerem Text
+      const shortQuoteText = quoteText.substring(0, 50);
+      const foundShortIndex = nodeText.indexOf(shortQuoteText);
+      if (foundShortIndex !== -1) {
+        targetNode = node;
+        textOffsetInNode = foundShortIndex;
         break;
       }
       // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
       if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
         targetNode = node;
+        textOffsetInNode = textIndex - accumulatedLength;
         break;
       }
       accumulatedLength += nodeText.length;
@@ -2465,33 +2479,51 @@ async function navigateToQuoteById(quoteId) {
       scrollTarget = targetNode.parentElement;
     }
     
-    // 4. ERST Highlighting anwenden, DANN zum Highlight-Element scrollen
-    if (typeof applyQuoteHighlightToElement === 'function') {
-      applyQuoteHighlightToElement(scrollTarget, quote);
-    }
-    
-    // 5. Finde das erstellte Highlight-Element und scrolle dorthin
+    // 4. ZUERST zur exakten Textstelle scrollen, DANN Highlighting anwenden
     const header = document.getElementById('viewer-header');
     const headerHeight = header ? header.offsetHeight + 5 : 5;
     const mainRect = mainContainer.getBoundingClientRect();
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02);
+    // Oberes Viertel = 25% der Viewport-Höhe
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25);
     
-    // Suche das erstellte Highlight-Element für dieses Zitat
-    const highlightElement = document.querySelector(`[data-quote-id="${quote.id}"][data-quote="true"]`);
-    
-    if (highlightElement) {
-      // Scrolle zum Highlight-Element (nicht zum Absatz)
-      const highlightRect = highlightElement.getBoundingClientRect();
-      const relativeTop = highlightRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
-      mainContainer.scrollTop = Math.max(0, relativeTop);
-      console.log('[QUOTE-NAV] Gescrollt zum Zitat-Highlight, Position:', mainContainer.scrollTop);
-    } else {
+    // Erstelle temporären Marker an der exakten Textstelle
+    try {
+      const range = document.createRange();
+      const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
+      range.setStart(targetNode, safeOffset);
+      range.setEnd(targetNode, safeOffset);
+      
+      // Füge temporären Marker ein
+      const marker = document.createElement('span');
+      marker.id = 'temp-scroll-marker-' + Date.now();
+      marker.style.cssText = 'position: relative;';
+      range.insertNode(marker);
+      
+      // Verwende scrollIntoView für zuverlässiges Scrollen
+      marker.scrollIntoView({ behavior: 'instant', block: 'start' });
+      
+      // Korrigiere Position für oberes Viertel
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[QUOTE-NAV] Gescrollt zur exakten Textposition mit scrollIntoView, Offset:', textOffsetInNode);
+      
+      // Entferne Marker nach kurzem Delay
+      setTimeout(() => {
+        if (marker.parentNode) {
+          marker.parentNode.removeChild(marker);
+        }
+      }, 100);
+    } catch (e) {
+      console.warn('[QUOTE-NAV] Fehler beim Scroll-Marker:', e);
       // Fallback: Scrolle zum Absatz
-      const elementRect = scrollTarget.getBoundingClientRect();
-      const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
-      mainContainer.scrollTop = Math.max(0, relativeTop);
-      console.log('[QUOTE-NAV] Fallback: Gescrollt zum Absatz, Position:', mainContainer.scrollTop);
+      scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[QUOTE-NAV] Fallback: Gescrollt zum Absatz');
+    }
+    
+    // 5. JETZT Highlighting anwenden (nach dem Scrollen)
+    if (typeof applyQuoteHighlightToElement === 'function') {
+      applyQuoteHighlightToElement(scrollTarget, quote);
     }
     
     return true;
@@ -2539,6 +2571,625 @@ async function navigateToQuoteById(quoteId) {
 window.navigateToQuoteById = navigateToQuoteById;
 
 /**
+ * Navigiert zu einer Unterstreichung basierend auf der Highlight-ID
+ * Diese Funktion folgt dem gleichen einfachen Muster wie navigateToQuoteById
+ * @param {string} highlightId - Die Highlight-ID aus der Datenbank
+ */
+async function navigateToHighlightById(highlightId) {
+  console.log('[HIGHLIGHT-NAV] Starte Navigation zu Unterstreichung:', highlightId);
+  
+  // 1. Hole Highlight-Daten aus Cache oder lade neu
+  let highlight = null;
+  
+  if (cachedHighlightsData && cachedHighlightsData.success && cachedHighlightsData.data) {
+    highlight = cachedHighlightsData.data.find(h => h.id === highlightId);
+  }
+  
+  // Falls nicht im Cache, lade Highlights neu
+  if (!highlight && typeof getHighlights === 'function') {
+    console.log('[HIGHLIGHT-NAV] Unterstreichung nicht im Cache, lade neu...');
+    cachedHighlightsData = await getHighlights();
+    bookmarksHighlightsCacheTimestamp = Date.now();
+    if (cachedHighlightsData && cachedHighlightsData.success && cachedHighlightsData.data) {
+      highlight = cachedHighlightsData.data.find(h => h.id === highlightId);
+    }
+  }
+  
+  if (!highlight) {
+    console.error('[HIGHLIGHT-NAV] Unterstreichung nicht gefunden:', highlightId);
+    return;
+  }
+  
+  // Extrahiere den markierten Text aus paragraph_text mit Offsets
+  const highlightedText = highlight.paragraph_text && highlight.text_start_offset !== null && highlight.text_end_offset !== null
+    ? highlight.paragraph_text.substring(highlight.text_start_offset, highlight.text_end_offset)
+    : highlight.paragraph_text || '';
+  
+  console.log('[HIGHLIGHT-NAV] Unterstreichung gefunden:', highlight.ga_number, 'Text:', highlightedText?.substring(0, 50));
+  
+  // 2. Lade den Text (GA-Band/Vortrag)
+  window.membersNavigating = true;
+  membersPanelActive = true;
+  window._membersNavLock = true;
+  logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToHighlightById', highlightId });
+  
+  // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
+  document.body.classList.add('members-navigating');
+  
+  // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen SOFORT SYNCHRON entfernt
+  const viewer = document.getElementById('viewer') || document.getElementById('main');
+  if (viewer) {
+    const highlightObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const element = mutation.target;
+          if (element.classList && element.classList.contains('highlighted-paragraph')) {
+            element.classList.remove('highlighted-paragraph');
+            element.style.removeProperty('background');
+            element.style.removeProperty('box-shadow');
+          }
+        }
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Element node
+              if (node.classList && node.classList.contains('highlighted-paragraph')) {
+                node.classList.remove('highlighted-paragraph');
+                node.style.removeProperty('background');
+                node.style.removeProperty('box-shadow');
+              }
+              const highlightedElements = node.querySelectorAll('.highlighted-paragraph');
+              highlightedElements.forEach((el) => {
+                el.classList.remove('highlighted-paragraph');
+                el.style.removeProperty('background');
+                el.style.removeProperty('box-shadow');
+              });
+            }
+          });
+        }
+      });
+    });
+    
+    highlightObserver.observe(viewer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    // Speichere Observer für späteres Cleanup
+    window.membersHighlightNavObserver = highlightObserver;
+    
+    // ZUSÄTZLICH: Entferne sofort alle bestehenden highlighted-paragraph Klassen
+    const existingHighlighted = viewer.querySelectorAll('.highlighted-paragraph');
+    existingHighlighted.forEach(el => {
+      el.classList.remove('highlighted-paragraph');
+      el.style.removeProperty('background');
+      el.style.removeProperty('box-shadow');
+    });
+  }
+  
+  const summaryPanel = document.getElementById('summary-panel');
+  if (summaryPanel) {
+    summaryPanel.style.setProperty('width', '400px', 'important');
+    summaryPanel.style.setProperty('display', 'block', 'important');
+    summaryPanel.classList.add('visible');
+    document.body.classList.remove('summary-panel-collapsed');
+  }
+  
+  // Verwende paragraph_id wenn vorhanden, damit showLecture den Text lädt
+  const targetIndex = highlight.paragraph_id || null;
+  
+  if (typeof showLecture === 'function') {
+    await showLecture(highlight.ga_number, targetIndex, [], false);
+  }
+  
+  // 3. Warte bis DOM bereit ist und suche nach dem highlightedText
+  const findAndScrollToHighlight = () => {
+    const mainContainer = document.getElementById('main');
+    if (!mainContainer) return false;
+    
+    // Verwende die bereits extrahierte Variable highlightedText (aus Closure)
+    const highlightText = highlightedText;
+    if (!highlightText || highlightText.length === 0) {
+      console.warn('[HIGHLIGHT-NAV] Kein highlighted_text vorhanden');
+      return false;
+    }
+    
+    // WICHTIG: Suche NUR im Textbereich (book-content oder lecture-content), nicht im Inhaltsverzeichnis
+    let searchContainer = mainContainer.querySelector('.book-content') || 
+                          mainContainer.querySelector('#book-content') ||
+                          mainContainer.querySelector('.lecture-content') ||
+                          mainContainer.querySelector('#lecture-content');
+    
+    // Falls kein spezifischer Content-Container gefunden, verwende Main
+    if (!searchContainer) {
+      searchContainer = mainContainer;
+    }
+    
+    // Prüfe ob der Textbereich tatsächlich Inhalt hat
+    if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
+      console.log('[HIGHLIGHT-NAV] Textbereich noch nicht geladen, warte...');
+      return false;
+    }
+    
+    // Suche nach dem Text im Text-Container
+    const fullText = searchContainer.textContent || '';
+    const textIndex = fullText.indexOf(highlightText);
+    
+    if (textIndex === -1) {
+      console.log('[HIGHLIGHT-NAV] Text nicht gefunden, versuche verkürzte Suche...');
+      // Versuche mit kürzerem Text (erste 100 Zeichen)
+      const shortText = highlightText.substring(0, Math.min(100, highlightText.length));
+      if (fullText.indexOf(shortText) === -1) {
+        return false;
+      }
+    }
+    
+    console.log('[HIGHLIGHT-NAV] Text gefunden, suche DOM-Element...');
+    
+    // Finde das DOM-Element, das den Text enthält
+    const walker = document.createTreeWalker(
+      searchContainer,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    let node;
+    let accumulatedLength = 0;
+    let targetNode = null;
+    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
+    
+    while (node = walker.nextNode()) {
+      const nodeText = node.textContent;
+      // Suche nach dem exakten Text
+      const foundIndex = nodeText.indexOf(highlightText);
+      if (foundIndex !== -1) {
+        targetNode = node;
+        textOffsetInNode = foundIndex;
+        break;
+      }
+      // Versuche mit kürzerem Text
+      const shortHighlightText = highlightText.substring(0, 50);
+      const foundShortIndex = nodeText.indexOf(shortHighlightText);
+      if (foundShortIndex !== -1) {
+        targetNode = node;
+        textOffsetInNode = foundShortIndex;
+        break;
+      }
+      // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
+      if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
+        targetNode = node;
+        textOffsetInNode = textIndex - accumulatedLength;
+        break;
+      }
+      accumulatedLength += nodeText.length;
+    }
+    
+    if (!targetNode) {
+      console.warn('[HIGHLIGHT-NAV] Kein DOM-Element gefunden');
+      return false;
+    }
+    
+    // Finde das Parent-Element (p, div, etc.) für das Scrolling
+    let scrollTarget = targetNode.parentElement;
+    while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+      scrollTarget = scrollTarget.parentElement;
+    }
+    
+    if (!scrollTarget) {
+      scrollTarget = targetNode.parentElement;
+    }
+    
+    // 4. Scrolle zum Element
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    const mainRect = mainContainer.getBoundingClientRect();
+    const viewportHeight = mainRect.height - headerHeight;
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
+    
+    // Erstelle temporären Marker an der exakten Textstelle und scrolle dorthin
+    try {
+      const range = document.createRange();
+      const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
+      range.setStart(targetNode, safeOffset);
+      range.setEnd(targetNode, safeOffset);
+      
+      // Füge temporären Marker ein
+      const marker = document.createElement('span');
+      marker.id = 'temp-scroll-marker-' + Date.now();
+      marker.style.cssText = 'position: relative;';
+      range.insertNode(marker);
+      
+      // Verwende scrollIntoView für zuverlässiges Scrollen
+      marker.scrollIntoView({ behavior: 'instant', block: 'start' });
+      
+      // Korrigiere Position für oberes Viertel
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[HIGHLIGHT-NAV] Gescrollt zur exakten Textposition mit scrollIntoView, Offset:', textOffsetInNode);
+      
+      // Entferne Marker nach kurzem Delay
+      setTimeout(() => {
+        if (marker.parentNode) {
+          marker.parentNode.removeChild(marker);
+        }
+      }, 100);
+    } catch (e) {
+      console.warn('[HIGHLIGHT-NAV] Fehler beim Scroll-Marker:', e);
+      // Fallback: Scrolle zum Absatz
+      scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[HIGHLIGHT-NAV] Fallback: Gescrollt zum Absatz');
+    }
+    
+    // Trigger jumpToHighlight für das Highlighting im Members Panel
+    if (typeof jumpToHighlight === 'function') {
+      jumpToHighlight(highlight.ga_number, highlight.paragraph_id, highlight.id);
+    }
+    
+    return true;
+  };
+  
+  // Versuche mehrmals (für langsam ladende Inhalte)
+  let attempts = 0;
+  const maxAttempts = 30;
+  
+  const tryFind = () => {
+    attempts++;
+    if (findAndScrollToHighlight()) {
+      // Erfolgreich - Cleanup
+      setTimeout(() => {
+        window.membersNavigating = false;
+        window._membersNavLock = false;
+        document.body.classList.remove('members-navigating');
+        // Entferne MutationObserver
+        if (window.membersHighlightNavObserver) {
+          window.membersHighlightNavObserver.disconnect();
+          window.membersHighlightNavObserver = null;
+        }
+      }, 500);
+      return;
+    }
+    
+    if (attempts < maxAttempts) {
+      setTimeout(tryFind, 100);
+    } else {
+      console.warn('[HIGHLIGHT-NAV] Konnte Unterstreichung nach', maxAttempts, 'Versuchen nicht finden');
+      window.membersNavigating = false;
+      window._membersNavLock = false;
+      document.body.classList.remove('members-navigating');
+      // Entferne MutationObserver
+      if (window.membersHighlightNavObserver) {
+        window.membersHighlightNavObserver.disconnect();
+        window.membersHighlightNavObserver = null;
+      }
+    }
+  };
+  
+  // Starte Suche nach kurzer Verzögerung
+  setTimeout(tryFind, 300);
+}
+
+// Expose für onclick
+window.navigateToHighlightById = navigateToHighlightById;
+
+/**
+ * Navigiert zu einer Notiz basierend auf der Note-ID
+ * Diese Funktion folgt dem gleichen einfachen Muster wie navigateToQuoteById
+ * @param {string} noteId - Die Note-ID aus der Datenbank
+ */
+async function navigateToNoteById(noteId) {
+  console.log('[NOTE-NAV] Starte Navigation zu Notiz:', noteId);
+  
+  // 1. Hole Note-Daten aus Cache oder lade neu
+  let note = null;
+  
+  if (cachedNotesData && cachedNotesData.success && cachedNotesData.data) {
+    note = cachedNotesData.data.find(n => n.id === noteId);
+  }
+  
+  // Falls nicht im Cache, lade Notes neu
+  if (!note && typeof getNotes === 'function') {
+    console.log('[NOTE-NAV] Notiz nicht im Cache, lade neu...');
+    cachedNotesData = await getNotes();
+    bookmarksNotesCacheTimestamp = Date.now();
+    if (cachedNotesData && cachedNotesData.success && cachedNotesData.data) {
+      note = cachedNotesData.data.find(n => n.id === noteId);
+    }
+  }
+  
+  if (!note) {
+    console.error('[NOTE-NAV] Notiz nicht gefunden:', noteId);
+    return;
+  }
+  
+  // Extrahiere GA-Referenz aus dem Content
+  let gaReference = null;
+  const gaMatch = note.content?.match(/\[\[(GA\d+(?:\/\d+)?)\]\]/);
+  if (gaMatch) {
+    gaReference = gaMatch[1];
+  }
+  
+  if (!gaReference) {
+    console.warn('[NOTE-NAV] Keine GA-Referenz in Notiz gefunden');
+    return;
+  }
+  
+  console.log('[NOTE-NAV] Notiz gefunden:', gaReference, 'Content:', note.content?.substring(0, 50));
+  
+  // 2. Lade den Text (GA-Band/Vortrag)
+  window.membersNavigating = true;
+  membersPanelActive = true;
+  window._membersNavLock = true;
+  logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToNoteById', noteId });
+  
+  // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
+  document.body.classList.add('members-navigating');
+  
+  // Erstelle MutationObserver, der ALLE highlighted-paragraph Klassen SOFORT SYNCHRON entfernt
+  const viewer = document.getElementById('viewer') || document.getElementById('main');
+  if (viewer) {
+    const highlightObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const element = mutation.target;
+          if (element.classList && element.classList.contains('highlighted-paragraph')) {
+            element.classList.remove('highlighted-paragraph');
+            element.style.removeProperty('background');
+            element.style.removeProperty('box-shadow');
+          }
+        }
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // Element node
+              if (node.classList && node.classList.contains('highlighted-paragraph')) {
+                node.classList.remove('highlighted-paragraph');
+                node.style.removeProperty('background');
+                node.style.removeProperty('box-shadow');
+              }
+              const highlightedElements = node.querySelectorAll('.highlighted-paragraph');
+              highlightedElements.forEach((el) => {
+                el.classList.remove('highlighted-paragraph');
+                el.style.removeProperty('background');
+                el.style.removeProperty('box-shadow');
+              });
+            }
+          });
+        }
+      });
+    });
+    
+    highlightObserver.observe(viewer, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+    
+    // Speichere Observer für späteres Cleanup
+    window.membersNoteNavObserver = highlightObserver;
+    
+    // ZUSÄTZLICH: Entferne sofort alle bestehenden highlighted-paragraph Klassen
+    const existingHighlighted = viewer.querySelectorAll('.highlighted-paragraph');
+    existingHighlighted.forEach(el => {
+      el.classList.remove('highlighted-paragraph');
+      el.style.removeProperty('background');
+      el.style.removeProperty('box-shadow');
+    });
+  }
+  
+  const summaryPanel = document.getElementById('summary-panel');
+  if (summaryPanel) {
+    summaryPanel.style.setProperty('width', '400px', 'important');
+    summaryPanel.style.setProperty('display', 'block', 'important');
+    summaryPanel.classList.add('visible');
+    document.body.classList.remove('summary-panel-collapsed');
+  }
+  
+  // Extrahiere paragraph_id aus Note-Metadaten falls vorhanden
+  const targetIndex = note.paragraph_id || null;
+  
+  if (typeof showLecture === 'function') {
+    await showLecture(gaReference, targetIndex, [], false);
+  }
+  
+  // 3. Warte bis DOM bereit ist und suche nach dem Notiz-Text
+  const findAndScrollToNote = () => {
+    const mainContainer = document.getElementById('main');
+    if (!mainContainer) return false;
+    
+    // Extrahiere den reinen Text aus der Notiz (ohne [[GA...]] und Tags)
+    let noteText = note.content || '';
+    // Entferne GA-Referenz am Anfang
+    noteText = noteText.replace(/^Aus \[\[GA\d+(?:\/\d+)?\]\]:\s*/i, '');
+    // Entferne Tags am Ende
+    noteText = noteText.replace(/\s*#\w+(\s+#\w+)*\s*$/g, '');
+    noteText = noteText.trim();
+    
+    if (!noteText || noteText.length === 0) {
+      console.warn('[NOTE-NAV] Kein noteText vorhanden');
+      return false;
+    }
+    
+    // WICHTIG: Suche NUR im Textbereich (book-content oder lecture-content), nicht im Inhaltsverzeichnis
+    let searchContainer = mainContainer.querySelector('.book-content') || 
+                          mainContainer.querySelector('#book-content') ||
+                          mainContainer.querySelector('.lecture-content') ||
+                          mainContainer.querySelector('#lecture-content');
+    
+    // Falls kein spezifischer Content-Container gefunden, verwende Main
+    if (!searchContainer) {
+      searchContainer = mainContainer;
+    }
+    
+    // Prüfe ob der Textbereich tatsächlich Inhalt hat
+    if (!searchContainer.textContent || searchContainer.textContent.length < 100) {
+      console.log('[NOTE-NAV] Textbereich noch nicht geladen, warte...');
+      return false;
+    }
+    
+    // Suche nach dem Text im Text-Container
+    const fullText = searchContainer.textContent || '';
+    const textIndex = fullText.indexOf(noteText);
+    
+    if (textIndex === -1) {
+      console.log('[NOTE-NAV] Text nicht gefunden, versuche verkürzte Suche...');
+      // Versuche mit kürzerem Text (erste 100 Zeichen)
+      const shortText = noteText.substring(0, Math.min(100, noteText.length));
+      if (fullText.indexOf(shortText) === -1) {
+        return false;
+      }
+    }
+    
+    console.log('[NOTE-NAV] Text gefunden, suche DOM-Element...');
+    
+    // Finde das DOM-Element, das den Text enthält
+    const walker = document.createTreeWalker(
+      searchContainer,
+      NodeFilter.SHOW_TEXT,
+      null,
+      false
+    );
+    
+    let node;
+    let accumulatedLength = 0;
+    let targetNode = null;
+    let textOffsetInNode = 0; // Offset des gesuchten Textes innerhalb des TextNodes
+    
+    while (node = walker.nextNode()) {
+      const nodeText = node.textContent;
+      // Suche nach dem exakten Text
+      const foundIndex = nodeText.indexOf(noteText);
+      if (foundIndex !== -1) {
+        targetNode = node;
+        textOffsetInNode = foundIndex;
+        break;
+      }
+      // Versuche mit kürzerem Text
+      const shortNoteText = noteText.substring(0, 50);
+      const foundShortIndex = nodeText.indexOf(shortNoteText);
+      if (foundShortIndex !== -1) {
+        targetNode = node;
+        textOffsetInNode = foundShortIndex;
+        break;
+      }
+      // Alternativ: Prüfe ob wir in der Nähe des Indexes sind
+      if (!targetNode && accumulatedLength <= textIndex && accumulatedLength + nodeText.length > textIndex) {
+        targetNode = node;
+        textOffsetInNode = textIndex - accumulatedLength;
+        break;
+      }
+      accumulatedLength += nodeText.length;
+    }
+    
+    if (!targetNode) {
+      console.warn('[NOTE-NAV] Kein DOM-Element gefunden');
+      return false;
+    }
+    
+    // Finde das Parent-Element (p, div, etc.) für das Scrolling
+    let scrollTarget = targetNode.parentElement;
+    while (scrollTarget && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'BLOCKQUOTE'].includes(scrollTarget.tagName)) {
+      scrollTarget = scrollTarget.parentElement;
+    }
+    
+    if (!scrollTarget) {
+      scrollTarget = targetNode.parentElement;
+    }
+    
+    // 4. Scrolle zum Element
+    const header = document.getElementById('viewer-header');
+    const headerHeight = header ? header.offsetHeight + 5 : 5;
+    const mainRect = mainContainer.getBoundingClientRect();
+    const viewportHeight = mainRect.height - headerHeight;
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
+    
+    // Erstelle temporären Marker an der exakten Textstelle und scrolle dorthin
+    try {
+      const range = document.createRange();
+      const safeOffset = Math.min(textOffsetInNode, targetNode.textContent.length);
+      range.setStart(targetNode, safeOffset);
+      range.setEnd(targetNode, safeOffset);
+      
+      // Füge temporären Marker ein
+      const marker = document.createElement('span');
+      marker.id = 'temp-scroll-marker-' + Date.now();
+      marker.style.cssText = 'position: relative;';
+      range.insertNode(marker);
+      
+      // Verwende scrollIntoView für zuverlässiges Scrollen
+      marker.scrollIntoView({ behavior: 'instant', block: 'start' });
+      
+      // Korrigiere Position für oberes Viertel
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[NOTE-NAV] Gescrollt zur exakten Textposition mit scrollIntoView, Offset:', textOffsetInNode);
+      
+      // Entferne Marker nach kurzem Delay
+      setTimeout(() => {
+        if (marker.parentNode) {
+          marker.parentNode.removeChild(marker);
+        }
+      }, 100);
+    } catch (e) {
+      console.warn('[NOTE-NAV] Fehler beim Scroll-Marker:', e);
+      // Fallback: Scrolle zum Absatz
+      scrollTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+      mainContainer.scrollTop = Math.max(0, mainContainer.scrollTop - upperQuarterOffset);
+      console.log('[NOTE-NAV] Fallback: Gescrollt zum Absatz');
+    }
+    
+    // Trigger jumpToNoteById für das Highlighting im Members Panel
+    if (typeof jumpToNoteById === 'function') {
+      jumpToNoteById(note.id);
+    }
+    
+    return true;
+  };
+  
+  // Versuche mehrmals (für langsam ladende Inhalte)
+  let attempts = 0;
+  const maxAttempts = 30;
+  
+  const tryFind = () => {
+    attempts++;
+    if (findAndScrollToNote()) {
+      // Erfolgreich - Cleanup
+      setTimeout(() => {
+        window.membersNavigating = false;
+        window._membersNavLock = false;
+        document.body.classList.remove('members-navigating');
+        // Entferne MutationObserver
+        if (window.membersNoteNavObserver) {
+          window.membersNoteNavObserver.disconnect();
+          window.membersNoteNavObserver = null;
+        }
+      }, 500);
+      return;
+    }
+    
+    if (attempts < maxAttempts) {
+      setTimeout(tryFind, 100);
+    } else {
+      console.warn('[NOTE-NAV] Konnte Notiz nach', maxAttempts, 'Versuchen nicht finden');
+      window.membersNavigating = false;
+      window._membersNavLock = false;
+      document.body.classList.remove('members-navigating');
+      // Entferne MutationObserver
+      if (window.membersNoteNavObserver) {
+        window.membersNoteNavObserver.disconnect();
+        window.membersNoteNavObserver = null;
+      }
+    }
+  };
+  
+  // Starte Suche nach kurzer Verzögerung
+  setTimeout(tryFind, 300);
+}
+
+// Expose für onclick
+window.navigateToNoteById = navigateToNoteById;
+
+/**
  * Navigiere zu Notiz aus Members Panel
  * Ruft navigateToLectureFromMembersPanel auf, falls GA-Referenz vorhanden ist
  */
@@ -2547,6 +3198,14 @@ async function navigateToNoteFromMembersPanel(noteId, gaReference, paragraphId =
     console.warn('[MB-NOTE-NAV] Keine GA-Referenz für Notiz:', noteId);
     return;
   }
+  
+  // WICHTIG: Setze Flags SOFORT am Anfang, BEVOR irgendwelche async Operationen!
+  // Das verhindert, dass displaySummaryWithHeadings das Panel schließt
+  window.membersNavigating = true;
+  membersPanelActive = true;
+  window.membersPanelActive = true;
+  document.body.classList.add('members-navigating');
+  logSidePanelEvent('SET_FLAGS_TRUE', { location: 'navigateToNoteFromMembersPanel', noteId });
   
   // Hole Notiz-Daten für Textsuche
   try {
@@ -2771,7 +3430,7 @@ function scrollToTextPosition(container, textIndex, searchText) {
   const headerHeight = header ? header.offsetHeight + 5 : 5;
   
   const viewportHeight = mainRect.height - headerHeight;
-  const upperQuarterOffset = Math.round(viewportHeight * 0.02);
+  const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
   
   const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
   mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -3011,11 +3670,21 @@ function markNoteTextByOffset(paragraphId, startOffset, endOffset, noteText, not
  */
 async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, textStartOffset = null, textEndOffset = null, shouldHighlightParagraph = false, searchTerm = null) {
   
+  console.log('[MB-NAVIGATION] Start - lectureId:', lectureId, 'targetIndex:', targetIndex);
+  
+  // WICHTIG: Setze BEIDE Flags SOFORT am ALLERERSTEN - VOR ALLEM ANDEREN!
+  // Das ist IDENTISCH mit navigateToQuoteById und verhindert, dass das Panel geschlossen wird
+  window.membersNavigating = true;
+  membersPanelActive = true;
+  window.membersPanelActive = true;
+  document.body.classList.add('members-navigating');
+  logSidePanelEvent('SET_FLAGS_TRUE', { location: 'navigateToLectureFromMembersPanel', lectureId });
+  
   const summaryPanel = document.getElementById('summary-panel');
   const summaryContent = document.getElementById('summary-content');
   
-  if (!summaryPanel || !membersPanelActive) {
-    console.error('[MB-NAVIGATION] Members Panel nicht aktiv');
+  if (!summaryPanel) {
+    console.error('[MB-NAVIGATION] Summary Panel nicht gefunden');
     return;
   }
   
@@ -3057,17 +3726,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
   const savedContentHTML = summaryContent ? summaryContent.innerHTML : null;
   const savedContentClassName = summaryContent ? summaryContent.className : '';
   
-  // Setze Flag - aber nur wenn nicht bereits aktiv (verhindert doppelte Ausführung)
-  if (window.membersNavigating) {
-    console.warn('[MB-NAVIGATION] Navigation bereits aktiv, ignoriere weiteren Klick');
-    logSidePanelEvent('NAVIGATION_BLOCKED', { reason: 'already_navigating', lectureId });
-    return;
-  }
-  
-  window.membersNavigating = true;
-  logSidePanelEvent('SET_membersNavigating_TRUE', { location: 'navigateToLectureFromMembersPanel', lectureId, targetIndex });
-  // WICHTIG: CSS-Klasse hinzufügen, um Absatz-Highlighting zu deaktivieren
-  document.body.classList.add('members-navigating');
+  // Das Flag membersNavigating wurde bereits am Anfang der Funktion gesetzt
   
   // WICHTIG: KEINE innerHTML-Überschreibung mehr - das blockiert showLecture!
   // Stattdessen verwenden wir einen MutationObserver, der den Content wiederherstellt
@@ -3091,44 +3750,8 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     document.body.classList.remove('summary-panel-collapsed');
   }
   
-  // WICHTIG: Wenn Content leer ist beim ersten Öffnen, lade ihn vor der Navigation
-  if (summaryContent && (!savedContentForRestore || savedContentForRestore.trim().length === 0 || 
-      (!savedContentForRestore.includes('members-tab-content') && 
-       !savedContentForRestore.includes('members-login-form') && 
-       !savedContentForRestore.includes('member-item')))) {
-    console.log('[MB-NAVIGATION] Content ist leer oder nicht Members-Content, lade vor Navigation');
-    
-    // Stelle sicher, dass Panel-Breite während des Ladens geschützt bleibt
-    if (summaryPanel) {
-      summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
-      summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
-      summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
-      summaryPanel.style.transition = 'none';
-    }
-    
-    if (typeof loadMembersTab === 'function') {
-      await loadMembersTab(currentMembersTab || 'highlights');
-      // Warte kurz, damit Content geladen wird
-      await new Promise(resolve => setTimeout(resolve, 200));
-      // Speichere Content erneut nach dem Laden
-      const refreshedContent = summaryContent ? summaryContent.innerHTML : null;
-      if (refreshedContent && refreshedContent.trim().length > 0) {
-        // Verwende den neuen Content als gespeicherten Content
-        window.savedMembersContentForRestore = refreshedContent;
-      }
-      
-      // Stelle sicher, dass Panel-Breite nach dem Laden noch geschützt ist
-      if (summaryPanel) {
-        summaryPanel.style.setProperty('width', mbWidth + 'px', 'important');
-        summaryPanel.style.setProperty('min-width', mbWidth + 'px', 'important');
-        summaryPanel.style.setProperty('max-width', mbWidth + 'px', 'important');
-        summaryPanel.style.transition = 'none';
-      }
-    }
-  }
-  
-  // Verwende gespeicherten Content aus window, falls vorhanden (wurde oben gesetzt)
-  const contentToRestore = window.savedMembersContentForRestore || savedContentForRestore;
+  // Content wird NACH der Navigation wiederhergestellt, nicht vorher laden
+  const contentToRestore = savedContentForRestore;
   
   // Erstelle MutationObserver, der den Members-Content wiederherstellt, falls er überschrieben wird
   if (summaryContent && contentToRestore) {
@@ -3648,7 +4271,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
                 const header = document.getElementById('viewer-header');
                 const headerHeight = header ? header.offsetHeight + 5 : 5;
                 const viewportHeight = mainRect.height - headerHeight;
-                const upperQuarterOffset = Math.round(viewportHeight * 0.02);
+                const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel
                 
                 const currentScrollTop = mainContainer.scrollTop;
                 const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
@@ -3727,7 +4350,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Berechne Position im oberen Viertel des sichtbaren Bereichs
           const viewportHeight = mainRect.height - headerHeight;
-          const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+          const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
           
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -3783,7 +4406,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Berechne Position im oberen Viertel des sichtbaren Bereichs
           const viewportHeight = mainRect.height - headerHeight;
-          const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+          const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
           
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -3826,7 +4449,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
           
           // Berechne Position im oberen Viertel des sichtbaren Bereichs
           const viewportHeight = mainRect.height - headerHeight;
-          const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+          const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
           
           const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
           mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -3989,6 +4612,7 @@ async function navigateToLectureFromMembersPanel(lectureId, targetIndex = null, 
     // ABER: Nur wenn Panel noch aktiv ist (sonst könnte es geschlossen werden)
     if (membersPanelActive) {
       window.membersNavigating = false;
+      window._membersNavLock = false;
       document.body.classList.remove('members-navigating');
     }
     
@@ -4230,7 +4854,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
       
       // Berechne Position im oberen Viertel des sichtbaren Bereichs
       const viewportHeight = mainRect.height - headerHeight;
-      const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+      const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
       
       const currentScrollTop = mainContainer.scrollTop;
       const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
@@ -4347,7 +4971,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     
     // Berechne Position im oberen Viertel des sichtbaren Bereichs
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
     
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -4373,7 +4997,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     
     // Berechne Position im oberen Viertel des sichtbaren Bereichs
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
     
     const relativeTop = elementRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -4414,7 +5038,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
         
         // Berechne Position im oberen Viertel des sichtbaren Bereichs
         const viewportHeight = mainRect.height - headerHeight;
-        const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+        const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
         
         const currentScrollTop = mainContainer.scrollTop;
         const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
@@ -4450,7 +5074,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
         
         // Berechne Position im oberen Viertel des sichtbaren Bereichs
         const viewportHeight = mainRect.height - headerHeight;
-        const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+        const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
         
         const currentScrollTop = mainContainer.scrollTop;
         const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
@@ -4506,7 +5130,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     
     // Berechne Position im oberen Viertel des sichtbaren Bereichs
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
     
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -4535,7 +5159,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     
     // Berechne Position im oberen Viertel des sichtbaren Bereichs
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
     
     const currentScrollTop = mainContainer.scrollTop;
     const rangeTopRelativeToViewport = rangeRect.top - mainRect.top;
@@ -4571,7 +5195,7 @@ function scrollToTextPositionInParagraph(paragraphId, textStartOffset, textEndOf
     
     // Berechne Position im oberen Viertel des sichtbaren Bereichs
     const viewportHeight = mainRect.height - headerHeight;
-    const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+    const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
     
     const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
     mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -4614,7 +5238,9 @@ async function loadNotesTab(container) {
     </div>
   `;
   
-  loadSavedNotes();
+  // WICHTIG: await hinzufügen, damit die Liste vollständig gerendert wird
+  // bevor jumpToNoteById versucht, das Element zu finden und zu highlighten
+  await loadSavedNotes();
 }
 
 async function loadSavedNotes() {
@@ -4698,7 +5324,7 @@ async function loadSavedNotes() {
           <div class="member-item-header">
             <div style="display: flex; align-items: center; gap: 0.25rem;">
               ${canNavigate
-                ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                     <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -4712,14 +5338,14 @@ async function loadSavedNotes() {
                   </span>`
               }
               ${canNavigate
-                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                 : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
               }
             </div>
             <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
           </div>
           ${canNavigate
-            ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+            ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
             : `<div class="member-item-quote">„${contentPreview}${hasMore ? '...' : ''}"</div>`
           }
           ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -5652,7 +6278,7 @@ async function editMemberNote(id) {
 async function deleteMemberQuote(id) {
   if (!confirm('Anstreichung wirklich löschen?')) return;
   
-  const result = await deleteQuote(id);
+  const result = await deleteQuote(id, true); // skipConfirm = true, da wir bereits bestätigt haben
   if (result.success) {
     // Entferne das visuelle Zitat sofort aus dem Main Viewer
     // Versuche mehrmals, falls das Element noch nicht im DOM ist
@@ -5761,7 +6387,7 @@ async function deleteSelectedItems() {
   try {
     if (currentMembersTab === 'quotes') {
       for (const id of ids) {
-        await deleteQuote(id);
+        await deleteQuote(id, true); // skipConfirm = true, da wir bereits bestätigt haben
       }
     } else if (currentMembersTab === 'highlights') {
       for (const id of ids) {
@@ -6404,7 +7030,10 @@ async function jumpToNoteById(noteId) {
     
     const tryScrollToNote = () => {
       scrollAttempts++;
-      const targetItem = document.querySelector(`.member-item[data-id="${noteId}"]`);
+      // Suche mit data-type="note" für Konsistenz mit jumpToHighlight
+      const targetItem = document.querySelector(`[data-id="${noteId}"][data-type="note"]`) || 
+                         document.querySelector(`.member-item[data-id="${noteId}"]`);
+      console.log('[NOTE-JUMP] Versuch', scrollAttempts, '- targetItem gefunden:', !!targetItem);
       if (targetItem) {
         // Scrolle nur den Content-Bereich, nicht das gesamte Panel
         const membersContent = document.querySelector('.members-content');
@@ -6449,8 +7078,8 @@ async function jumpToNoteById(noteId) {
       }
     };
     
-    // Starte den ersten Versuch
-    setTimeout(() => tryScrollToNote(), 500);
+    // Starte den ersten Versuch - früher starten wie bei jumpToHighlight (300ms)
+    setTimeout(() => tryScrollToNote(), 300);
   } catch (error) {
     console.error('[MB-NOTE-JUMP] Fehler:', error);
   }
@@ -8546,7 +9175,7 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
             
             // Berechne Position im oberen Viertel des sichtbaren Bereichs
             const viewportHeight = mainRect.height - headerHeight;
-            const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+            const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
             
             const currentScrollTop = mainContainer.scrollTop;
             const highlightTopRelativeToViewport = highlightRect.top - mainRect.top;
@@ -8591,7 +9220,7 @@ async function jumpToHighlight(lectureId, paragraphId, highlightId) {
                 
                 // Berechne Position im oberen Viertel des sichtbaren Bereichs
                 const viewportHeight = mainRect.height - headerHeight;
-                const upperQuarterOffset = Math.round(viewportHeight * 0.02); // 2% vom oberen Rand = knapp unter Header
+                const upperQuarterOffset = Math.round(viewportHeight * 0.25); // Oberes Viertel // 2% vom oberen Rand = knapp unter Header
                 
                 const relativeTop = paraRect.top - mainRect.top + mainContainer.scrollTop - headerHeight - upperQuarterOffset;
                 mainContainer.scrollTop = Math.max(0, relativeTop);
@@ -9375,9 +10004,11 @@ function switchFromMembersPanelToTOC() {
 
 /**
  * Prüft ob MB aktiv ist
+ * Gibt auch true zurück, wenn Navigation aus dem Members Panel läuft
  */
 function isMembersPanelActive() {
-  return membersPanelActive;
+  // WICHTIG: Auch während Navigation als aktiv betrachten
+  return membersPanelActive || window.membersNavigating === true;
 }
 
 /**
@@ -9633,18 +10264,18 @@ async function showGroupFilteredItems(group) {
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
-                  <a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                  <a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                     <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="4" y="4" width="16" height="16"></rect>
                       </svg>
                     </span>
                   </a>
-                  <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                  <strong><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
                 </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              <div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>
+              <div class="member-item-quote"><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
               ${((quote.groups && quote.groups.length > 0) || (quote.tags && quote.tags.length > 0)) ? `<div class="member-item-tags">${quote.groups && quote.groups.length > 0 ? quote.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(quote.groups && quote.groups.length > 0) && (quote.tags && quote.tags.length > 0) ? ' · ' : ''}${quote.tags && quote.tags.length > 0 ? quote.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -9676,18 +10307,18 @@ async function showGroupFilteredItems(group) {
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
-                  <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                  <a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                     <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" y1="20" x2="20" y2="20"></line>
                       </svg>
                     </span>
                   </a>
-                  <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
+                  <strong><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>
                 </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
-              <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
+              <div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
               ${((highlight.groups && highlight.groups.length > 0) || (highlight.tags && highlight.tags.length > 0)) ? `<div class="member-item-tags">${highlight.groups && highlight.groups.length > 0 ? highlight.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(highlight.groups && highlight.groups.length > 0) && (highlight.tags && highlight.tags.length > 0) ? ' · ' : ''}${highlight.tags && highlight.tags.length > 0 ? highlight.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
               <div class="member-item-actions">
@@ -9727,7 +10358,7 @@ async function showGroupFilteredItems(group) {
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   ${canNavigate
-                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                         <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -9741,14 +10372,14 @@ async function showGroupFilteredItems(group) {
                       </span>`
                   }
                   ${canNavigate
-                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                     : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   }
                 </div>
                 <span class="member-item-date">${new Date(note.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${canNavigate
-                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${contentPreview}${hasMore ? '...' : ''}"</a></div>`
                 : `<div class="member-item-quote">„${contentPreview}${hasMore ? '...' : ''}"</div>`
               }
               ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(g => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${g.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${g.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
@@ -10100,7 +10731,7 @@ async function showKeywordFilteredItems(keyword) {
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   ${shouldShowLink
-                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    ? `<a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                         <span class="quote-bookmark-icon-header" style="display: inline-block; color: ${quoteColorHex};">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="4" y="4" width="16" height="16"></rect>
@@ -10114,14 +10745,14 @@ async function showKeywordFilteredItems(keyword) {
                       </span>`
                   }
                   ${shouldShowLink
-                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    ? `<strong><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${quote.ga_reference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                     : `<strong>${quote.ga_reference}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   }
                 </div>
                 <span class="member-item-date">${new Date(quote.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${shouldShowLink
-                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
+                ? `<div class="member-item-quote"><a href="#" onclick="window.membersNavigating=true; window.membersPanelActive=true; window._membersNavLock=true; saveMembersScrollPosition(); navigateToQuoteById('${quote.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</a></div>`
                 : `<div class="member-item-quote">„${quote.quote_text.substring(0, 150)}${quote.quote_text.length > 150 ? '...' : ''}"</div>`
               }
               ${quote.personal_note ? `<div class="member-item-note">${quote.personal_note}</div>` : ''}
@@ -10166,7 +10797,7 @@ async function showKeywordFilteredItems(keyword) {
             <div style="flex: 1;">
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
-                  <a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                  <a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                     <span class="highlight-icon-header" style="display: inline-block; color: ${highlightColor};">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="4" y1="20" x2="20" y2="20"></line>
@@ -10174,14 +10805,14 @@ async function showKeywordFilteredItems(keyword) {
                     </span>
                   </a>
                   ${shouldShowLink
-                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${highlight.ga_number}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                     : `<strong>${highlight.ga_number}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   }
                 </div>
                 <span class="member-item-date">${new Date(highlight.created_at).toLocaleDateString('de-DE')}</span>
               </div>
               ${shouldShowLink
-                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToLectureFromMembersPanel('${highlight.ga_number}', ${highlight.paragraph_id ? `'${highlight.paragraph_id}'` : 'null'}, ${highlight.text_start_offset !== null && highlight.text_start_offset !== undefined ? highlight.text_start_offset : 'null'}, ${highlight.text_end_offset !== null && highlight.text_end_offset !== undefined ? highlight.text_end_offset : 'null'}); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
+                ? `<div class="member-item-text"><a href="#" onclick="saveMembersScrollPosition(); navigateToHighlightById('${highlight.id}'); return false;" style="font-style: italic; color: var(--text-color); text-decoration: none; cursor: pointer;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</a></div>`
                 : `<div class="member-item-text" style="font-style: italic;">„${highlightedText.substring(0, 150)}${highlightedText.length > 150 ? '...' : ''}"</div>`
               }
               ${highlight.personal_note ? `<div class="member-item-note">${highlight.personal_note}</div>` : ''}
@@ -10243,7 +10874,7 @@ async function showKeywordFilteredItems(keyword) {
               <div class="member-item-header">
                 <div style="display: flex; align-items: center; gap: 0.25rem;">
                   ${canNavigate
-                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
+                    ? `<a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="display: inline-block; text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">
                         <span class="note-bookmark-icon-header" style="display: inline-block; color: ${noteColorHex};">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -10257,14 +10888,14 @@ async function showKeywordFilteredItems(keyword) {
                       </span>`
                   }
                   ${canNavigate
-                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
+                    ? `<strong><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--link-color); text-decoration: none;">${gaReference}</a>${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                     : `<strong>${gaReference || 'Notiz'}${dateDisplay ? ', ' + dateDisplay : ''}</strong>`
                   }
                 </div>
                 <span class="member-item-date">${dateDisplay}</span>
               </div>
               ${canNavigate
-                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteFromMembersPanel('${note.id}', '${gaReference}', ${paragraphId ? `'${paragraphId}'` : 'null'}, ${textStartOffset !== null ? textStartOffset : 'null'}, ${textEndOffset !== null ? textEndOffset : 'null'}); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
+                ? `<div class="member-item-quote"><a href="#" onclick="saveMembersScrollPosition(); navigateToNoteById('${note.id}'); return false;" style="color: var(--text-color); text-decoration: none; cursor: pointer;" title="Zur Textstelle springen">"${contentPreview}${hasMore ? '...' : ''}"</a></div>`
                 : `<div class="member-item-quote">"${contentPreview}${hasMore ? '...' : ''}"</div>`
               }
               ${((note.groups && Array.isArray(note.groups) && note.groups.length > 0) || (note.tags && Array.isArray(note.tags) && note.tags.length > 0)) ? `<div class="member-item-tags">${note.groups && Array.isArray(note.groups) && note.groups.length > 0 ? note.groups.map(group => `<span class="tag group-tag clickable-tag" onclick="handleGroupFilter('${group.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach dieser Gruppe filtern">${group.toUpperCase()}</span>`).join(' · ') : ''}${(note.groups && Array.isArray(note.groups) && note.groups.length > 0) && (note.tags && Array.isArray(note.tags) && note.tags.length > 0) ? ' · ' : ''}${note.tags && Array.isArray(note.tags) && note.tags.length > 0 ? note.tags.map(tag => `<span class="tag clickable-tag" onclick="handleKeywordFilter('${tag.replace(/'/g, "\\'")}'); return false;" style="cursor: pointer;" title="Nach diesem Schlagwort filtern">${tag}</span>`).join(' · ') : ''}</div>` : ''}
