@@ -5866,7 +5866,7 @@ body.dark-mode .hint-popup-content strong {
   max-width: 320px;
   padding: 12px 16px;
   background: var(--background-color);
-  border: 2px solid var(--accent-color);
+  border: 1.5px solid var(--accent-color);
   border-radius: 8px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
   font-size: 0.9rem;
@@ -29426,10 +29426,10 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Klick-Handler: Bei Strg+Klick (linke Maustaste)
+    // Klick-Handler: Bei Alt+Klick (linke Maustaste) für Rechtschreibfehler
     element.addEventListener('click', function(e) {
-      // Nur wenn Strg-Taste gedrückt ist
-      if (e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey) {
+      // Nur wenn Alt-Taste gedrückt ist (für Fehlerkorrektur)
+      if (e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
         // Prüfe ob geklicktes Element ein Link ist - dann nicht blockieren
         const target = e.target;
         const isLink = target.tagName === 'A' || target.closest('a');
@@ -35212,7 +35212,7 @@ async function addKeywordToLecture() {
     popup.className = 'hint-popup';
     popup.innerHTML = `
       <div class="hint-popup-content">
-        Bitte markieren Sie Fehler in den Texten mit <strong>Strg+Klick</strong> – das hilft uns bei der Korrektur.
+        Klicken Sie <strong>Strg+Klick</strong>, um Informationen über die einzelnen Bereiche und Funktionen zu erhalten. Strg+Klick auf den <strong>Info-Button</strong> oben links zeigt weitere Tastenkombinationen.
       </div>
       <button class="hint-popup-close" title="Schließen">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -35253,107 +35253,122 @@ async function addKeywordToLecture() {
 </script>
 
 <!-- Kontexthilfe-System (Strg+Klick für Element-Beschreibungen) -->
+<!-- Beschreibungen können in context-help.json bearbeitet werden -->
 <script>
 (function() {
   'use strict';
   
   let contextHelpPopup = null;
   
-  // Beschreibungen für verschiedene UI-Elemente
-  const helpDescriptions = {
+  // Standard-Beschreibungen (Fallback, falls JSON nicht lädt)
+  let helpDescriptions = {
     // Haupt-Bereiche
-    'sidebar': '<strong>Linke Seitenleiste:</strong> Enthält alle Such- und Navigationsfunktionen. Hier findest du Tabs für GA-Band-Übersicht, Stichwortsuche, Texte, Themensuche, Timeline und mehr.',
-    'sidebar-header': '<strong>Sidebar-Kopfbereich:</strong> Logo, Titel und schnelle Zugriffstasten für Dark Mode, Hilfe und Verwaltung.',
-    'results': '<strong>Suchergebnisliste:</strong> Zeigt die Treffer deiner Suche. Klicke auf einen Eintrag, um den vollständigen Text im Viewer anzuzeigen.',
-    'main-container': '<strong>Hauptbereich:</strong> Zeigt den ausgewählten Text oder Vortrag an. Hier kannst du lesen, navigieren und mit den Inhalten interagieren.',
-    'viewer': '<strong>Textansicht:</strong> Hier wird der ausgewählte Inhalt angezeigt – Vorträge, Bücher oder Suchergebnisse.',
-    'summary-panel': '<strong>Zusammenfassungs-Panel:</strong> Zeigt Inhaltsverzeichnis, Übersichten oder Zusammenfassungen des aktuellen Textes.',
-    'toc-list': '<strong>Inhaltsverzeichnis:</strong> Navigation durch die Abschnitte des aktuellen Textes. Klicke auf einen Eintrag, um direkt dorthin zu springen.',
-    'document-title': '<strong>Dokumenttitel:</strong> Zeigt den Titel des aktuell angezeigten Textes oder Vortrags.',
-    
+    'sidebar': '<strong>Linke Seitenleiste:</strong> Enthält alle Such- und Navigationsfunktionen mit Tabs für GA-Band-Übersicht, Stichwortsuche, Texte, Themensuche, Timeline und mehr.',
+    'sidebar-header': '<strong>Sidebar-Kopfbereich:</strong> Logo, Titel, Dark Mode, und Hilfe.',
+    'results': '<strong>Suchergebnisliste:</strong> Zeigt Suchtreffer an. Klick auf einen Eintrag öffnet den vollständigen Text im Hauptbereich.',
+    'main-container': '<strong>Hauptbereich:</strong> Zeigt ausgewählte Texte zum Lesen und Navigieren an.',
+    'viewer': '<strong>Textansicht:</strong> Anzeige der ausgewählten Inhalte – Bücher, Aufsätze, Vorträge, oder Suchergebnisse.',
+    'summary-panel': '<strong>Anzeige-Panel:</strong> Inhalt des aktuellen Textes oder Textanzeige (für Suchergebnisse).',
+    'toc-list': '<strong>Inhaltsverzeichnis:</strong> Abschnitte des aktuellen Textes (mit KI erstellt).',
+    'document-title': '<strong>Dokumenttitel:</strong> Titel des aktuell angezeigten Textes oder Vortrags, klick führt zum Dokument.',
     // Tabs
-    'ga-tab': '<strong>GA-Tab:</strong> Übersicht über alle Bände der Gesamtausgabe. Wähle chronologische oder systematische Ansicht.',
-    'keyword-tab': '<strong>Suche-Tab:</strong> Volltextsuche in allen Texten. Unterstützt UND/ODER-Verknüpfung und Filter nach Jahr und GA-Band.',
-    'texte-tab': '<strong>Texte-Tab:</strong> Direkter Zugriff auf alle verfügbaren Texte und Vorträge, sortiert nach Datum oder Band.',
-    'thematic-tab': '<strong>Themen-Tab:</strong> KI-gestützte thematische Suche. Stelle Fragen in natürlicher Sprache zu Steiners Werk.',
-    'concept-overview-tab': '<strong>Übersicht-Tab:</strong> Zeigt eine KI-generierte Übersicht zu einem ausgewählten Begriff oder Konzept.',
-    'timeline-tab': '<strong>Timeline-Tab:</strong> Chronologische Darstellung, wann bestimmte Begriffe in Steiners Vorträgen vorkommen.',
-    'schlagworte-tab': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis mit KI-generierten Zusammenfassungen zu jedem Begriff.',
+    'ga-tab': '<strong>GA:</strong> Übersicht aller Bände der Gesamtausgabe.',
+    'keyword-tab': '<strong>Suche:</strong> Volltextsuche mit einem oder mehreren Suchwörtern, Auswahl-Filter nach Jahr, GA-Band, Absatz-Abstand und Relevanz sowie Häufigkeits- und Timeline-Darstellung.',
+    'texte-tab': '<strong>Texte:</strong> Direktzugriff auf alle Texte, sortiert nach Bandnummer.',
+    'thematic-tab': '<strong>Themen:</strong> KI-gestützte thematische Suche und Ergebnisanzeige.',
+    'concept-overview-tab': '<strong>Übersicht:</strong> KI-generierte Übersicht zu einem Begriff oder Konzept.',
+    'timeline-tab': '<strong>Timeline:</strong> Chronologische Darstellung des Vorkommens bestimmter Begriffe in der GA, gefiltert nach Relevanz.',
+    'schlagworte-tab': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis mit KI-generierten Zusammenfassungen.',
     'keywords-tab': '<strong>Keywords-Tab:</strong> Verwaltung der automatisch generierten Schlagwörter für Vorträge.',
-    'zitate-tab': '<strong>Zitate-Tab:</strong> Sammlung markierter Zitate und Textpassagen.',
-    
-    // Eingabefelder
-    'word1': '<strong>Suchwort 1:</strong> Hauptsuchbegriff für die Volltextsuche. Wildcards mit * sind möglich (z.B. "Geist*" findet "Geist", "Geister", "geistig").',
-    'word2': '<strong>Suchwort 2:</strong> Optionaler zweiter Suchbegriff. Mit UND werden nur Texte gefunden, die beide Begriffe enthalten.',
-    'thematicInput': '<strong>Thematische Suche:</strong> Stelle hier Fragen in natürlicher Sprache. Die KI durchsucht alle Texte nach relevanten Passagen.',
-    'conceptOverviewInput': '<strong>Konzept-Übersicht:</strong> Gib einen Begriff ein, um eine KI-generierte Übersicht zu erhalten.',
-    'keywordSearchInput': '<strong>Schlagwort-Suche:</strong> Suche im alphabetischen Index nach Schlagwörtern.',
-    'timelineKeywordInput': '<strong>Timeline-Suchbegriff:</strong> Gib einen Begriff ein, um seine chronologische Verteilung zu sehen.',
-    
-    // Buttons
-    'theme-toggle': '<strong>Dark Mode:</strong> Wechselt zwischen hellem und dunklem Design.',
-    'membersPanelBtn': '<strong>Mitgliederbereich:</strong> Öffnet das Panel mit erweiterten Funktionen für registrierte Nutzer.',
-    'h4ToggleBtn': '<strong>Überschriften-Toggle:</strong> Blendet zusätzliche Zwischenüberschriften ein oder aus.',
-    'viewerDownloadBtn': '<strong>Download:</strong> Lädt den aktuellen Text als PDF, TXT oder Markdown herunter.',
-    'viewerSummaryBtn': '<strong>Übersicht:</strong> Zeigt oder versteckt die Zusammenfassungsübersicht.',
-    'gaInfoBtn': '<strong>Bibliographie:</strong> Zeigt bibliographische Informationen zum aktuellen GA-Band.',
-    'searchBtn': '<strong>Suchen:</strong> Startet die Suche mit den eingegebenen Begriffen.',
-    'thematicSearchBtn': '<strong>Thematisch suchen:</strong> Startet die KI-gestützte thematische Suche.',
-    
-    // Filter
-    'yearFilterContainer': '<strong>Jahresfilter:</strong> Filtert Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum.',
-    'gaFilterContainer': '<strong>GA-Band-Filter:</strong> Beschränkt die Suche auf bestimmte Bände der Gesamtausgabe.',
-    'advancedGAFilterContainer': '<strong>Erweiterter GA-Filter:</strong> Filter für die erweiterte Suche mit Mehrfachauswahl.',
-    
-    // Spezielle Bereiche
-    'word-operator-container': '<strong>Suchoperator:</strong> UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.',
-    'tab-container': '<strong>Tab-Navigation:</strong> Wechsle zwischen verschiedenen Funktionsbereichen der Anwendung.',
-    
-    // Members Panel (falls vorhanden)
-    'members-panel': '<strong>Mitglieder-Panel:</strong> Erweiterte Funktionen für registrierte Nutzer – Chat, Notizen, Lesezeichen und mehr.',
-    
-    // Tab-Buttons (via data-help)
-    'tab-ga': '<strong>GA-Tab:</strong> Zeigt die Gesamtausgabe – chronologisch oder nach Band sortiert.',
+    'zitate-tab': '<strong>Zitate-Tab:</strong> Sammlung gespeicherter Zitate und Textpassagen.',
+    // Tab-Buttons
+    'tab-ga': '<strong>GA-Tab:</strong> Gesamtausgabe chronologisch oder nach Band sortiert anzeigen.',
     'tab-suche': '<strong>Suche-Tab:</strong> Volltextsuche mit zwei Suchbegriffen und Filtern.',
     'tab-texte': '<strong>Texte-Tab:</strong> Direktzugriff auf alle Vorträge und Bücher.',
     'tab-themen': '<strong>Themen-Tab:</strong> KI-gestützte Suche nach Themen in natürlicher Sprache.',
-    'tab-uebersicht': '<strong>Übersicht-Tab:</strong> KI-generierte Begriffsübersichten.',
-    'tab-timeline': '<strong>Timeline-Tab:</strong> Chronologische Verteilung von Begriffen.',
-    'tab-index': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis.',
-    'tab-keywords': '<strong>Keywords-Tab:</strong> Verwaltung der Vortrags-Schlagwörter.',
-    'tab-zitate': '<strong>Zitate-Tab:</strong> Deine gesammelten Zitate und Markierungen.',
-    
-    // Header-Elemente
+    'tab-uebersicht': '<strong>Übersicht-Tab:</strong> KI-generierte Begriffsübersichten abrufen.',
+    'tab-timeline': '<strong>Timeline-Tab:</strong> Chronologische Verteilung von Begriffen visualisieren.',
+    'tab-index': '<strong>Index-Tab:</strong> Alphabetisches Schlagwortverzeichnis durchsuchen.',
+    'tab-keywords': '<strong>Keywords-Tab:</strong> Vortrags-Schlagwörter verwalten.',
+    'tab-zitate': '<strong>Zitate-Tab:</strong> Gesammelte Zitate und Markierungen anzeigen.',
+    // Eingabefelder
+    'word1': '<strong>Suchwort 1:</strong> Hauptsuchbegriff für Volltextsuche. Wildcards mit * möglich.',
+    'word2': '<strong>Suchwort 2:</strong> Optionaler zweiter Suchbegriff. Mit UND werden nur Texte gefunden, die beide Begriffe enthalten.',
+    'thematicInput': '<strong>Thematische Suche:</strong> Fragen in natürlicher Sprache eingeben.',
+    'conceptOverviewInput': '<strong>Konzept-Übersicht:</strong> Begriff eingeben für eine KI-generierte Übersicht.',
+    'keywordSearchInput': '<strong>Schlagwort-Suche:</strong> Im alphabetischen Index nach Schlagwörtern suchen.',
+    'timelineKeywordInput': '<strong>Timeline-Suchbegriff:</strong> Begriff eingeben zur Anzeige der chronologischen Verteilung.',
+    // Buttons
+    'theme-toggle': '<strong>Dark Mode:</strong> Wechsel zwischen hellem und dunklem Design.',
+    'membersPanelBtn': '<strong>Mitgliederbereich:</strong> Öffnet Panel mit erweiterten Funktionen für registrierte Nutzer.',
+    'h4ToggleBtn': '<strong>Überschriften-Toggle:</strong> Ein-/Ausblenden zusätzlicher Zwischenüberschriften.',
+    'viewerDownloadBtn': '<strong>Download:</strong> Aktuellen Text als PDF, TXT oder Markdown herunterladen.',
+    'viewerSummaryBtn': '<strong>Übersicht:</strong> Zusammenfassungsübersicht ein-/ausblenden.',
+    'gaInfoBtn': '<strong>Bibliographie:</strong> Bibliographische Informationen zum aktuellen GA-Band anzeigen.',
+    'searchBtn': '<strong>Suchen:</strong> Suche mit eingegebenen Begriffen starten.',
+    'thematicSearchBtn': '<strong>Thematisch suchen:</strong> KI-gestützte thematische Suche starten.',
+    // Filter
+    'yearFilterContainer': '<strong>Jahresfilter:</strong> Suchergebnisse nach Erscheinungsjahr oder Vortragsdatum filtern.',
+    'gaFilterContainer': '<strong>GA-Band-Filter:</strong> Suche auf bestimmte Bände der Gesamtausgabe beschränken.',
+    'advancedGAFilterContainer': '<strong>Erweiterter GA-Filter:</strong> Mehrfachauswahl von GA-Bänden für erweiterte Suche.',
+    // Spezielle Bereiche
+    'word-operator-container': '<strong>Suchoperator:</strong> UND = beide Begriffe müssen vorkommen. ODER = mindestens einer der Begriffe.',
+    'tab-container': '<strong>Tab-Navigation:</strong> Wechsel zwischen verschiedenen Funktionsbereichen der Anwendung.',
+    // Header
     'site-header': '<strong>Kopfbereich:</strong> Logo und Schnellzugriff auf Einstellungen.',
     'site-logo': '<strong>Steiner-Portrait:</strong> Rudolf Steiner (1861–1925), Begründer der Anthroposophie.',
-    'site-title': '<strong>Titel:</strong> Klicke, um zur Startseite zurückzukehren.',
-    'help-button': '<strong>Hilfe:</strong> Öffnet die ausführliche Bedienungsanleitung.',
-    
+    'site-title': '<strong>Titel:</strong> Klick führt zur Startseite zurück.',
+    'help-button': '<strong>Tastenkombinationen:</strong><br>• <b>Strg+Klick:</b> Kurzinformation<br>• <b>Alt+Klick</b> (im Text): Rechtschreibfehler markieren<br>• <b>Text markieren+Rechtsklick:</b> Markierungen speichern (für Mitglieder, Anmeldung oben rechts)',
     // Viewer-Bereich
-    'viewer-header': '<strong>Viewer-Kopfzeile:</strong> Titel des aktuellen Dokuments und Steuerungsbuttons.',
+    'viewer-header': '<strong>Viewer-Kopfzeile:</strong> Dokumenttitel und Steuerungsbuttons.',
     'viewer-buttons': '<strong>Viewer-Buttons:</strong> Aktionen für das aktuelle Dokument – Übersicht, Download, Mitgliederbereich.',
-    'viewerTOCToggleBtn': '<strong>Inhaltsverzeichnis:</strong> Blendet das rechte Panel mit dem Inhaltsverzeichnis ein/aus.',
-    'viewerOriginalBtn': '<strong>Original:</strong> Zeigt den Originaltext ohne Hervorhebungen.',
-    
-    // Members Panel - Hauptbereich
-    'members-panel': '<strong>Mitglieder-Panel:</strong> Dein persönlicher Bereich für Markierungen, Notizen und Chat.',
-    'members-tabs': '<strong>Mitglieder-Tabs:</strong> Wechsle zwischen deinen verschiedenen Sammlungen.',
-    'members-tab-content': '<strong>Inhalt:</strong> Zeigt die Einträge des gewählten Tabs.',
-    
-    // Members Panel - Tabs
-    'members-tab-quotes': '<strong>Anstreichungen:</strong> Längere Textpassagen, die du mit farbiger Hinterlegung markiert hast.',
-    'members-tab-highlights': '<strong>Unterstreichungen:</strong> Einzelne Wörter oder kurze Phrasen, die du unterstrichen hast.',
-    'members-tab-notes': '<strong>Notizen:</strong> Deine persönlichen Anmerkungen und Gedanken zu Textstellen.',
+    'viewerTOCToggleBtn': '<strong>Inhaltsverzeichnis:</strong> Rechtes Panel mit Inhaltsverzeichnis ein-/ausblenden.',
+    'viewerOriginalBtn': '<strong>Original:</strong> Originaltext ohne Hervorhebungen anzeigen.',
+    // Members Panel
+    'members-panel': '<strong>Mitglieder-Panel:</strong> Persönlicher Bereich für Markierungen, Notizen und Chat.',
+    'members-tabs': '<strong>Mitglieder-Tabs:</strong> Wechsel zwischen verschiedenen Sammlungen.',
+    'members-tab-content': '<strong>Inhalt:</strong> Gespeicherte Einträge des gewählten Tabs.',
+    'members-tab-quotes': '<strong>Anstreichungen:</strong> Längere Textpassagen, mit farbiger Hinterlegung markiert.',
+    'members-tab-highlights': '<strong>Unterstreichungen:</strong> Einzelne Wörter oder kurze Phrasen, unterstrichen.',
+    'members-tab-notes': '<strong>Notizen:</strong> Persönliche Anmerkungen und Gedanken zu Textstellen.',
     'members-tab-chat': '<strong>Chat:</strong> Kommunikation mit anderen Nutzern über die Texte.',
-    
-    // Members Panel - Aktions-Buttons
-    'members-sort-btn': '<strong>Sortierung:</strong> Ändert die Reihenfolge – neueste zuerst oder älteste zuerst.',
-    'members-delete-btn': '<strong>Mehrfachlöschung:</strong> Aktiviert den Modus zum Löschen mehrerer Einträge gleichzeitig.',
-    
-    // Members Panel - Filter
-    'members-ga-filter': '<strong>GA-Filter:</strong> Zeigt nur Einträge aus einem bestimmten GA-Band.',
-    'members-group-filter': '<strong>Gruppen-Filter:</strong> Filtert nach Themengruppen, die du erstellt hast.'
+    'members-sort-btn': '<strong>Sortierung:</strong> Reihenfolge ändern – neueste oder älteste zuerst.',
+    'members-delete-btn': '<strong>Mehrfachlöschung:</strong> Modus zum Löschen mehrerer Einträge gleichzeitig.',
+    'members-ga-filter': '<strong>GA-Filter:</strong> Einträge nach GA-Band gefiltert.',
+    'members-group-filter': '<strong>Gruppen-Filter:</strong> Einträge nach Themengruppen gefiltert.',
+    'members-keyword-filter': '<strong>Schlagwort-Filter:</strong> Einträge nach Schlagwörtern gefiltert.'
   };
+  
+  // Versuche Beschreibungen aus JSON-Datei zu laden (überschreibt Defaults)
+  async function loadHelpDescriptions() {
+    try {
+      const response = await fetch('context-help.json?t=' + Date.now());
+      if (!response.ok) throw new Error('Datei nicht gefunden');
+      const data = await response.json();
+      
+      // Konvertiere verschachtelte Struktur und überschreibe Defaults
+      for (const category of Object.keys(data)) {
+        if (category.startsWith('_')) continue;
+        const items = data[category];
+        for (const [key, value] of Object.entries(items)) {
+          const colonIndex = value.indexOf(':');
+          if (colonIndex > 0) {
+            const title = value.substring(0, colonIndex);
+            const desc = value.substring(colonIndex + 1).trim();
+            helpDescriptions[key] = `<strong>${title}:</strong> ${desc}`;
+          } else {
+            helpDescriptions[key] = value;
+          }
+        }
+      }
+      console.log('[Kontexthilfe] JSON geladen, Beschreibungen:', Object.keys(helpDescriptions).length);
+    } catch (e) {
+      console.log('[Kontexthilfe] Verwende eingebettete Beschreibungen (' + Object.keys(helpDescriptions).length + ')');
+    }
+  }
+  
+  // Lade beim Start (aber Defaults sind bereits verfügbar)
+  loadHelpDescriptions();
   
   // Finde das nächste Element mit einer Hilfe-Beschreibung
   function findHelpElement(element) {
@@ -35395,16 +35410,26 @@ async function addKeywordToLecture() {
     // Positioniere das Popup
     const popupRect = contextHelpPopup.getBoundingClientRect();
     let left = e.clientX + 15;
-    let top = e.clientY + 15;
+    let top;
+    
+    // Bevorzugt: Über dem Klickpunkt anzeigen, wenn genug Platz
+    const spaceAbove = e.clientY - 10; // Platz über dem Klickpunkt
+    const spaceBelow = window.innerHeight - e.clientY - 10; // Platz unter dem Klickpunkt
+    
+    if (spaceAbove >= popupRect.height + 15) {
+      // Genug Platz oben → zeige darüber
+      top = e.clientY - popupRect.height - 15;
+    } else if (spaceBelow >= popupRect.height + 15) {
+      // Nicht genug oben, aber genug unten → zeige darunter
+      top = e.clientY + 15;
+    } else {
+      // Weder oben noch unten genug Platz → zentriere vertikal
+      top = Math.max(10, (window.innerHeight - popupRect.height) / 2);
+    }
     
     // Verhindere Überlauf am rechten Rand
     if (left + popupRect.width > window.innerWidth - 20) {
       left = e.clientX - popupRect.width - 15;
-    }
-    
-    // Verhindere Überlauf am unteren Rand
-    if (top + popupRect.height > window.innerHeight - 20) {
-      top = e.clientY - popupRect.height - 15;
     }
     
     contextHelpPopup.style.left = Math.max(10, left) + 'px';
