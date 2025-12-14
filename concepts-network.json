@@ -463,12 +463,22 @@
         ],
         "addedFrom": "Zehn Gebote",
         "addedAt": "2025-12-12T18:25:07.636Z"
+      },
+      {
+        "term": "Farbe",
+        "type": "korrespondenz",
+        "strength": 1.016,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Farbe",
+        "addedAt": "2025-12-14T13:41:28.380Z"
       }
     ],
     "totalOccurrences": 6632,
     "lecturesWithTerm": 1130,
     "generated_at": "2025-12-12T08:34:33.954Z",
-    "lastUpdated": "2025-12-12T18:25:07.636Z"
+    "lastUpdated": "2025-12-14T13:41:28.380Z"
   },
   "geistselbst": {
     "concept": "Geistselbst",
@@ -3531,11 +3541,22 @@
         "sources": [
           "context"
         ]
+      },
+      {
+        "term": "Farbe",
+        "type": "korrespondenz",
+        "strength": 0.96,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Farbe",
+        "addedAt": "2025-12-14T13:41:28.380Z"
       }
     ],
     "totalOccurrences": 14295,
     "lecturesWithTerm": 1706,
-    "generated_at": "2025-12-12T18:34:57.263Z"
+    "generated_at": "2025-12-12T18:34:57.263Z",
+    "lastUpdated": "2025-12-14T13:41:28.380Z"
   },
   "bilderbewusstsein": {
     "concept": "Bilderbewusstsein",
@@ -3796,5 +3817,136 @@
     "totalOccurrences": 158,
     "lecturesWithTerm": 65,
     "generated_at": "2025-12-12T18:40:38.782Z"
+  },
+  "farbe": {
+    "concept": "Farbe",
+    "connections": [
+      {
+        "term": "Licht",
+        "type": "hierarchisch",
+        "strength": 1.73,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Blau",
+        "type": "komponente",
+        "strength": 1.65,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Grün",
+        "type": "komponente",
+        "strength": 1.5,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Rot",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "korrespondenz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Bewusstsein",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gelb",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Glanz",
+        "type": "komponente",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Imagination",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erdenentwickelung",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Regenbogenfarben",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Kosmos",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisteswissenschaft",
+        "type": "hierarchisch",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 8052,
+    "lecturesWithTerm": 1553,
+    "generated_at": "2025-12-14T13:41:28.380Z"
   }
 }

@@ -6286,7 +6286,7 @@ Chronologisch
 </select>
 </div>
 <div>
-<input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeypress="handleTimelineKeywordSearch(event);">
+<input type="text" id="timelineKeywordSearch" class="filter-dropdown" placeholder="Suche..." style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 0.9em;" onkeydown="handleTimelineKeywordSearch(event);" oninput="handleTimelineKeywordSearchInput(event);">
 </div>
 </div>
 <!-- Statistik-Anzeige -->
@@ -25689,7 +25689,7 @@ function displayKeywords(selectedLetter = 'Alle') {
   
   // Suchfeld - mit gespeichertem Wert
   html += '<div class="keyword-search-container">';
-  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeypress="handleKeywordSearchKeypress(event)" oninput="displayKeywords(currentAlphabet)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>`;
+  html += `<input type="text" id="keywordSearch" class="search-input" placeholder="Schlagwort suchen..." style="flex: 1; font-size: 0.85em;" value="${savedSearchValue.replace(/"/g, '&quot;')}" onkeydown="handleKeywordSearchKeypress(event)" oninput="handleKeywordSearchInput(event)" onfocus="this.removeAttribute('readonly');" onblur="this.setAttribute('readonly', true);" autocomplete="off" readonly>`;
   html += '<button class="depth-btn" onclick="clearKeywordSearch()" style="padding: 4px 8px; font-size: 0.8em;">×</button>';
   html += '</div>';
   
@@ -28101,7 +28101,61 @@ function handleDeleteKeywordInputKeypress(event) {
 function handleKeywordSearchKeypress(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
+    const input = event.target;
+    const value = input.value.trim().toLowerCase();
+    
+    // Suche exaktes Schlagwort
+    if (value.length > 0) {
+      const exactMatch = keywordsData.find(k => 
+        k.keyword.toLowerCase() === value
+      );
+      if (exactMatch) {
+        // Zeige alle Schlagwörter und scrolle zum Treffer
+        displayKeywords('Alle');
+        setTimeout(() => scrollToKeyword(exactMatch.keyword), 100);
+        return;
+      }
+    }
+    
     displayKeywords(currentAlphabet);
+  }
+}
+
+// Bei Eingabe: Filtere Liste und scrolle zu erstem Treffer wenn exakt vorhanden
+function handleKeywordSearchInput(event) {
+  displayKeywords(currentAlphabet);
+  
+  const input = event.target;
+  const value = input.value.trim().toLowerCase();
+  
+  // Wenn exaktes Schlagwort existiert, scrolle dorthin
+  if (value.length >= 2) {
+    const exactMatch = keywordsData.find(k => 
+      k.keyword.toLowerCase() === value
+    );
+    if (exactMatch) {
+      setTimeout(() => scrollToKeyword(exactMatch.keyword), 100);
+    }
+  }
+}
+
+// Scrolle zum Schlagwort in der Liste
+function scrollToKeyword(keyword) {
+  const keywordEntries = document.querySelectorAll('.keyword-entry h4 a');
+  for (const entry of keywordEntries) {
+    if (entry.textContent.trim().toLowerCase() === keyword.toLowerCase()) {
+      const container = entry.closest('.keyword-entry');
+      if (container) {
+        container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Kurzes Highlight
+        container.style.transition = 'background-color 0.3s';
+        container.style.backgroundColor = 'rgba(70, 120, 134, 0.2)';
+        setTimeout(() => {
+          container.style.backgroundColor = '';
+        }, 1500);
+      }
+      break;
+    }
   }
 }
 
@@ -35287,7 +35341,6 @@ async function addKeywordToLecture() {
     'keyword-tab': '<strong>Suche:</strong> Volltextsuche mit einem oder mehreren Suchwörtern, Auswahl-Filter nach Jahr, GA-Band, Absatz-Abstand und Relevanz sowie Häufigkeits- und Timeline-Darstellung.',
     'texte-tab': '<strong>Texte:</strong> Direktzugriff auf alle Texte, sortiert nach Bandnummer.',
     'thematic-tab': '<strong>Themen:</strong> KI-gestützte thematische Suche, Ergebnisanzeige mit Verlinkung zu den entsprechenden Textstellen.',
-    'concept-overview-tab': '<strong>Übersicht:</strong> KI-generierte Übersicht zu einem Begriff oder Konzept.',
     'timeline-tab': '<strong>Timeline:</strong> Chronologische Darstellung des Vorkommens bestimmter Begriffe in der GA, gefiltert nach Relevanz.',
     'schlagworte-tab': '<strong>Index:</strong> Alphabetisches Schlagwortverzeichnis mit ausführlichen, KI-generierten Zusammenfassungen und Verlinkung zu den entsprechenden Textstellen.',
     'keywords-tab': '<strong>Keywords-Tab:</strong> Verwaltung der automatisch generierten Schlagwörter für Vorträge.',
