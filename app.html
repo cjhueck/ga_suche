@@ -8790,17 +8790,30 @@ function normalizeGANumber(gaNumber) {
 
     let totalLecturesCount = 0;
     let totalBooksCount = 0;
+    let totalEssaysCount = 0;
+    
+    // Generiert den Statistik-Text für Schriften, Aufsätze und Vorträge
+    function getDefaultStatsText() {
+      const parts = [];
+      if (totalBooksCount > 0) parts.push(`${totalBooksCount} Schriften`);
+      if (totalEssaysCount > 0) parts.push(`${totalEssaysCount} Aufsätze`);
+      if (totalLecturesCount > 0) parts.push(`${totalLecturesCount} Vorträge`);
+      return parts.join(' · ') || '';
+    }
     
     async function checkServerConnection() {
       try {
         const response = await fetch(`${API_BASE}/debug/status`);
         if (response.ok) {
           const data = await response.json();
-          totalLecturesCount = data.lecturesLoaded;
-          totalBooksCount = data.booksLoaded || 0;
-          const infoText = totalBooksCount > 0 
-            ? `${totalBooksCount} Schriften · ${data.lecturesLoaded} Vorträge`
-            : `${data.lecturesLoaded} Vorträge`;
+          // Setze nur Werte, die der Server zurückgibt
+          // Aufsätze werden aus GA-Volumes berechnet, nicht vom Server
+          if (data.lecturesLoaded) totalLecturesCount = data.lecturesLoaded;
+          if (data.booksLoaded) totalBooksCount = data.booksLoaded;
+          // essaysLoaded wird nicht vom Server geliefert - Wert aus GA-Volumes behalten
+          if (data.essaysLoaded) totalEssaysCount = data.essaysLoaded;
+          
+          const infoText = getDefaultStatsText();
           document.getElementById('serverInfo').textContent = infoText;
           document.getElementById('thematicServerInfo').textContent = infoText;
           document.getElementById('texteServerInfo').textContent = infoText;
@@ -8813,7 +8826,7 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
-    // Update texteServerInfo: Zeige Gesamtstatistik wenn kein GA-Band ausgewählt
+    // Update texteServerInfo: Zeige Statistik basierend auf aktuellem Zustand
     function updateTexteServerInfo() {
       const texteServerInfo = document.getElementById('texteServerInfo');
       if (!texteServerInfo) return;
@@ -8824,12 +8837,25 @@ function normalizeGANumber(gaNumber) {
       
       if (!selectedGA) {
         // Kein GA-Band ausgewählt: Zeige Gesamtstatistik
-        const defaultText = (typeof totalBooksCount !== 'undefined' && totalBooksCount > 0) 
-          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
-          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
-        texteServerInfo.textContent = defaultText;
+        texteServerInfo.textContent = getDefaultStatsText();
+      } else {
+        // GA-Band ausgewählt: Prüfe ob es ein Buch ist
+        const isBook = typeof isBookGANumber === 'function' ? isBookGANumber(selectedGA) : false;
+        
+        if (isBook) {
+          // Bücher: Keine Statistik anzeigen
+          texteServerInfo.textContent = '';
+        } else {
+          // Vorträge/Aufsätze: Zeige Anzahl aus gaLectureCounts
+          if (typeof gaLectureCounts !== 'undefined' && gaLectureCounts[selectedGA]) {
+            const typeName = typeof getGATypeName === 'function' ? getGATypeName(selectedGA, true) : 'Texte';
+            texteServerInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName}`;
+          } else {
+            // Fallback: Gesamtstatistik
+            texteServerInfo.textContent = getDefaultStatsText();
+          }
+        }
       }
-      // Wenn ein GA-Band ausgewählt ist, wird die Statistik von openGAOverview() gesetzt
     }
     
     // Update serverInfo basierend auf GA-Filter Auswahl
@@ -8848,10 +8874,7 @@ function normalizeGANumber(gaNumber) {
           const typeName = getGATypeName(selectedGA, true); // Plural
           serverInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
         } else {
-          const defaultText = totalBooksCount > 0 
-            ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
-            : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
-          serverInfo.textContent = defaultText;
+          serverInfo.textContent = getDefaultStatsText();
         }
       } else if (selectedGAs.length > 1) {
         // Mehrere GA-Bände ausgewählt: Zeige Summe
@@ -8861,13 +8884,10 @@ function normalizeGANumber(gaNumber) {
             totalSelected += gaLectureCounts[ga];
           }
         });
-        serverInfo.textContent = `${totalSelected} Vorträge in ${selectedGAs.length} GA-Bänden`;
+        serverInfo.textContent = `${totalSelected} Texte in ${selectedGAs.length} GA-Bänden`;
       } else {
         // Keine Auswahl: Zeige Gesamtanzahl (Default)
-        const defaultText = totalBooksCount > 0 
-          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
-          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
-        serverInfo.textContent = defaultText;
+        serverInfo.textContent = getDefaultStatsText();
       }
     }
     
@@ -8884,10 +8904,7 @@ function normalizeGANumber(gaNumber) {
         const typeName = getGATypeName(selectedGA, true); // Plural
         thematicServerInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
       } else {
-        const defaultText = totalBooksCount > 0 
-          ? `${totalBooksCount} Schriften · ${totalLecturesCount} Vorträge`
-          : (totalLecturesCount ? `${totalLecturesCount} Vorträge` : '');
-        thematicServerInfo.textContent = defaultText;
+        thematicServerInfo.textContent = getDefaultStatsText();
       }
     }
     
@@ -9342,6 +9359,63 @@ function normalizeGANumber(gaNumber) {
       if (insertedCount > 0) {
         console.log(`[PageMarkers] ${insertedCount} Seitenmarker für ${normalizedGA} eingefügt` + 
           (skippedCount > 0 ? `, ${skippedCount} übersprungen (falsche Sequenz)` : ''));
+      }
+      
+      // WICHTIG: Füge die erste Seitenzahl am Anfang des ersten Absatzes ein
+      // (neben der ersten Zeile, nicht darüber)
+      // Suche nach: 1) Summary-Separator, 2) Falls nicht vorhanden: erster Absatz überhaupt
+      if (useBeforeText && insertedCount > 0) {
+        // Finde den ERSTEN eingefügten Marker im Text
+        const markerPattern = /\|(\d+)\|/;
+        const firstMarkerMatch = result.match(markerPattern);
+        
+        if (firstMarkerMatch) {
+          const firstInsertedPage = parseInt(firstMarkerMatch[1], 10);
+          const firstMarkerPos = result.indexOf(firstMarkerMatch[0]);
+          
+          // Bestimme den Startpunkt für die Suche nach dem ersten Absatz:
+          // 1) Nach der Summary-Trennungslinie (falls vorhanden)
+          // 2) Sonst: Ab Anfang des Textes
+          const separatorMatch = result.match(/<hr[^>]*class="[^"]*summary-separator[^"]*"[^>]*>/i);
+          const searchStartPos = separatorMatch 
+            ? result.indexOf(separatorMatch[0]) + separatorMatch[0].length 
+            : 0;
+          
+          // Finde den ersten Absatz (paragraph div) nach dem Startpunkt
+          const afterStart = result.substring(searchStartPos);
+          const paragraphMatch = afterStart.match(/<div[^>]*class="[^"]*paragraph[^"]*"[^>]*>/i);
+          
+          // Prüfe ob der erste Marker NACH dem ersten Absatz-Start ist
+          if (paragraphMatch && firstInsertedPage > 1) {
+            const paragraphTagPos = searchStartPos + afterStart.indexOf(paragraphMatch[0]);
+            const paragraphStartPos = paragraphTagPos + paragraphMatch[0].length;
+            
+            // Finde das erste echte Textzeichen nach dem Absatz-Start
+            // (überspringe HTML-Tags wie <p>, Leerzeichen, Zeilenumbrüche)
+            const contentAfterParagraph = result.substring(paragraphStartPos);
+            const firstTextMatch = contentAfterParagraph.match(/^(\s*(?:<[^>]+>\s*)*)/);
+            const htmlPrefixLength = firstTextMatch ? firstTextMatch[0].length : 0;
+            const textStartPos = paragraphStartPos + htmlPrefixLength;
+            
+            // Prüfe ob der erste Marker weit genug vom Textanfang entfernt ist
+            // (mindestens 50 Zeichen, um sicherzustellen dass er nicht am Anfang ist)
+            const distanceToFirstMarker = firstMarkerPos - textStartPos;
+            
+            if (distanceToFirstMarker > 50) {
+              const actualStartPage = firstInsertedPage - 1;
+              const actualStartMarker = `|${actualStartPage}|`;
+              
+              // Prüfe ob diese Seite nicht bereits im Text vorkommt
+              if (!result.includes(actualStartMarker)) {
+                // Füge vor dem ersten echten Textzeichen ein
+                result = result.substring(0, textStartPos) + actualStartMarker + result.substring(textStartPos);
+                console.log(`[PageMarkers] Start-Seitenzahl ${actualStartPage} vor erstem Text eingefügt (vor Seite ${firstInsertedPage}, Distanz: ${distanceToFirstMarker})`);
+              }
+            } else {
+              console.log(`[PageMarkers] Kein Start-Marker nötig - erster Marker (${firstInsertedPage}) ist bereits nahe am Anfang (Distanz: ${distanceToFirstMarker})`);
+            }
+          }
+        }
       }
       
       return result;
@@ -10332,6 +10406,12 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    
+    // Aktualisiere globale Statistik-Variablen
+    totalLecturesCount = totalLectures;
+    totalBooksCount = totalBooks;
+    totalEssaysCount = totalEssays;
+    
     const countElement = document.getElementById('ga-volumes-count');
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
@@ -10396,10 +10476,15 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     // Zeige GA-Bände im Sidebar (im #results Bereich)
     displayGAVolumesInSidebar();
     
-    // Berechne Gesamtanzahl der Vorträge (ohne Aufsätze)
+    // Berechne Gesamtanzahl der Vorträge (ohne Aufsätze) und aktualisiere globale Variablen
     const totalLectures = gaVolumesData.filter(ga => !isBookGANumber(ga.number) && !isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
     const totalBooks = gaVolumesData.filter(ga => isBookGANumber(ga.number)).length;
     const totalEssays = gaVolumesData.filter(ga => isEssayGANumber(ga.number)).reduce((sum, ga) => sum + ga.lectureCount, 0);
+    
+    // Aktualisiere globale Statistik-Variablen aus GA-Volumes (zuverlässigste Quelle)
+    totalLecturesCount = totalLectures;
+    totalBooksCount = totalBooks;
+    totalEssaysCount = totalEssays;
     
     // Aktualisiere Info
     const countElement = document.getElementById('ga-volumes-count');
@@ -14129,7 +14214,8 @@ function scrollToChronologicalYear(year) {
                 // Aktualisiere UI-Elemente direkt
                 const texteServerInfo = document.getElementById('texteServerInfo');
                 if (texteServerInfo) {
-                  texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
+                  const typeName = getGATypeName(gaNumber || gaBand, true);
+                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
                 }
                 
                 // Zeige Toggle-Buttons
@@ -14274,7 +14360,8 @@ function scrollToChronologicalYear(year) {
                 // Aktualisiere UI-Elemente direkt
                 const texteServerInfo = document.getElementById('texteServerInfo');
                 if (texteServerInfo) {
-                  texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
+                  const typeName = getGATypeName(gaNumber || gaBand, true);
+                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
                 }
                 
                 // Zeige Toggle-Buttons
@@ -16846,7 +16933,8 @@ function scrollToChronologicalYear(year) {
               // Aktualisiere UI-Elemente direkt
               const texteServerInfo = document.getElementById('texteServerInfo');
               if (texteServerInfo) {
-                texteServerInfo.textContent = `${data.lectureCount} Vorträge`;
+                const typeName = getGATypeName(gaNumber || gaBand, true);
+                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
               }
               
               // Zeige Toggle-Buttons
@@ -26589,7 +26677,6 @@ function switchTabExtended(mode) {
       }
     // Toggle Button verstecken und zurücksetzen
     const texteViewToggle = document.getElementById('texteViewToggle');
-    const texteServerInfo = document.getElementById('texteServerInfo');
     if (texteViewToggle) {
       texteViewToggle.style.display = 'none';
     }
@@ -26600,8 +26687,9 @@ function switchTabExtended(mode) {
       texteSummaryToggle.style.display = 'none';
     }
     
-    if (texteServerInfo) {
-      texteServerInfo.textContent = '';
+    // Aktualisiere Statistik-Anzeige (zeigt Gesamtstatistik wenn kein GA-Band ausgewählt)
+    if (typeof updateTexteServerInfo === 'function') {
+      updateTexteServerInfo();
     }
   }
   
@@ -30293,7 +30381,7 @@ async function updateTimelineStats() {
         }
       });
       
-      statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithKeyword.size} ${lecturesWithKeyword.size === 1 ? 'Vortrag' : 'Vorträge'}`;
+      statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithKeyword.size} ${lecturesWithKeyword.size === 1 ? 'Text' : 'Texte'}`;
       return;
     }
     
@@ -30326,7 +30414,7 @@ async function updateTimelineStats() {
             }
           });
           
-          statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithThemeKeywords.size} ${lecturesWithThemeKeywords.size === 1 ? 'Vortrag' : 'Vorträge'}`;
+          statsDisplay.innerHTML = `${hitCount} ${hitCount === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lecturesWithThemeKeywords.size} ${lecturesWithThemeKeywords.size === 1 ? 'Text' : 'Texte'}`;
           return;
         }
       }
@@ -30363,7 +30451,7 @@ async function updateTimelineStats() {
       }
     });
     
-    statsDisplay.innerHTML = `${themesCount} Themen • ${uniqueKeywords.size} Schlagwörter • ${newGenerationCount} Vorträge`;
+    statsDisplay.innerHTML = `${themesCount} Themen • ${uniqueKeywords.size} Schlagwörter • ${newGenerationCount} Texte`;
   } catch (error) {
     console.error('[TIMELINE-STATS] Fehler beim Laden der Statistiken:', error);
     statsDisplay.innerHTML = 'Fehler beim Laden der Statistiken';
@@ -31274,7 +31362,7 @@ async function showSearchResultsTimelineV2(customResults = null, customKeywords 
     // Aktualisiere Statusanzeige im Admin-Bereich
     const statsDisplay = document.getElementById('timelineStatsDisplay');
     if (statsDisplay) {
-      statsDisplay.innerHTML = `${validEntries.length} ${validEntries.length === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lectureCount} ${lectureCount === 1 ? 'Vortrag' : 'Vorträge'}`;
+      statsDisplay.innerHTML = `${validEntries.length} ${validEntries.length === 1 ? 'Fundstelle' : 'Fundstellen'} • ${lectureCount} ${lectureCount === 1 ? 'Text' : 'Texte'}`;
     }
     
     // Hole aktuelle Suchbegriffe für die Keyword-Links
