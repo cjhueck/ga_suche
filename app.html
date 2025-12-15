@@ -9219,7 +9219,9 @@ function normalizeGANumber(gaNumber) {
     }
     
     // Fügt Seitenmarker aus page-markers.json in den Text ein
-    // Marker werden am ENDE der Seite eingefügt (nach dem angegebenen Text)
+    // Unterstützt zwei Formate:
+    // - afterText: Marker wird NACH dem Text eingefügt (GA001 Bücher)
+    // - beforeText: Marker wird VOR dem Text eingefügt (GA051+ Vorträge)
     function insertPageMarkersFromData(text, gaNumber) {
       if (!pageMarkersData || !gaNumber) {
         console.log('[PageMarkers] Keine Daten oder GA-Nummer:', !!pageMarkersData, gaNumber);
@@ -9243,23 +9245,43 @@ function normalizeGANumber(gaNumber) {
       const sortedMarkers = [...gaData.markers].sort((a, b) => b.page - a.page);
       
       for (const marker of sortedMarkers) {
-        if (!marker.afterText || !marker.page) continue;
+        if (!marker.page) continue;
         
-        // Suche den Text und füge den Marker danach ein
-        const searchText = marker.afterText;
-        const idx = result.indexOf(searchText);
+        // Unterstütze beide Formate: afterText und beforeText
+        const hasAfterText = marker.afterText && marker.afterText.length > 0;
+        const hasBeforeText = marker.beforeText && marker.beforeText.length > 0;
         
-        console.log(`[PageMarkers] Suche "${searchText.substring(0, 30)}..." -> ${idx >= 0 ? 'GEFUNDEN bei ' + idx : 'NICHT gefunden'}`);
+        if (!hasAfterText && !hasBeforeText) continue;
         
-        if (idx >= 0) {
-          const insertPos = idx + searchText.length;
-          const pageMarker = `|${marker.page}|`;
+        const pageMarker = `|${marker.page}|`;
+        
+        if (hasAfterText) {
+          // afterText: Marker wird NACH dem Text eingefügt
+          const searchText = marker.afterText;
+          const idx = result.indexOf(searchText);
           
-          // Prüfe ob nicht bereits ein Marker direkt danach ist
-          const afterInsert = result.substring(insertPos, insertPos + 10);
-          if (!afterInsert.match(/^\|?\d+\|/)) {
-            result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
-            insertedCount++;
+          if (idx >= 0) {
+            const insertPos = idx + searchText.length;
+            
+            // Prüfe ob nicht bereits ein Marker direkt danach ist
+            const afterInsert = result.substring(insertPos, insertPos + 10);
+            if (!afterInsert.match(/^\|?\d+\|/)) {
+              result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
+              insertedCount++;
+            }
+          }
+        } else if (hasBeforeText) {
+          // beforeText: Marker wird VOR dem Text eingefügt
+          const searchText = marker.beforeText;
+          const idx = result.indexOf(searchText);
+          
+          if (idx >= 0) {
+            // Prüfe ob nicht bereits ein Marker direkt davor ist
+            const beforeInsert = result.substring(Math.max(0, idx - 10), idx);
+            if (!beforeInsert.match(/\|\d+\|$/)) {
+              result = result.substring(0, idx) + pageMarker + result.substring(idx);
+              insertedCount++;
+            }
           }
         }
       }
@@ -21681,6 +21703,13 @@ function showSummaryView() {
     
     let content = para.content || para.text || '';
     
+    // Füge Seitenmarker aus page-markers.json ein (für Vorträge wie GA051)
+    // Die GA-Nummer wurde bereits weiter oben extrahiert (gaNumber = lecture.ID.split('/')[0])
+    const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : null;
+    if (lectureGA && pageMarkersData) {
+      content = insertPageMarkersFromData(content, lectureGA);
+    }
+    
     // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
     content = formatParagraphContentForDisplay(content);
     
@@ -21781,6 +21810,9 @@ function showSummaryView() {
         });
       }
     }
+    
+    // Konvertiere Seitenmarker |47| zu sichtbarem Format (nach Markdown-Rendering)
+    content = convertPageMarkers(content);
     
     // Prüfe ZUERST ob wir von thematischer Suche kommen
     const isFromThematicSearch = currentThematicQuery && keywords && keywords.length > 0;
