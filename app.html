@@ -9285,7 +9285,7 @@ function normalizeGANumber(gaNumber) {
         if (!hasAfterText && !hasBeforeText) continue;
         
         const pageMarker = `|${marker.page}|`;
-        const searchText = hasAfterText ? marker.afterText : marker.beforeText;
+        let searchText = hasAfterText ? marker.afterText : marker.beforeText;
         
         // Suche nur im korrekten Bereich (sequentielle Reihenfolge!)
         let foundIdx = -1;
@@ -9307,9 +9307,37 @@ function normalizeGANumber(gaNumber) {
           foundIdx = lastFound;
         } else {
           // beforeText: Suche AB der Boundary (von vorne)
-          const pos = result.indexOf(searchText, searchBoundary);
+          // WICHTIG: Wenn beforeText Newlines enthält (Überschrift + Absatz),
+          // suche nur nach dem LETZTEN Teil (= Absatz-Text nach der Überschrift)
+          // damit der Marker vor dem Absatz eingefügt wird, nicht vor der Überschrift
+          let textToSearch = searchText;
+          
+          if (searchText.includes('\n')) {
+            const parts = searchText.split(/\n+/).filter(p => p.trim().length > 0);
+            // Verwende den letzten Teil (= Absatz-Text, nicht Überschrift)
+            if (parts.length > 1) {
+              textToSearch = parts[parts.length - 1];
+            } else if (parts.length === 1) {
+              textToSearch = parts[0];
+            }
+          }
+          
+          let pos = result.indexOf(textToSearch, searchBoundary);
+          
+          // Fallback: Wenn nicht gefunden, versuche mit mehr Kontext
+          if (pos < 0 && textToSearch.length < 10) {
+            // Kurzer Suchtext - suche im umgebenden Kontext
+            // z.B. "(Aus" -> suche nach "(Aus " oder "(Aus Rudolf"
+            const extendedSearch = textToSearch + ' ';
+            pos = result.indexOf(extendedSearch, searchBoundary);
+            if (pos >= 0) {
+              textToSearch = extendedSearch;
+            }
+          }
+          
           if (pos >= 0) {
             foundIdx = pos;
+            searchText = textToSearch; // Update für korrekte Boundary-Berechnung
           }
         }
         
@@ -9329,6 +9357,26 @@ function normalizeGANumber(gaNumber) {
               skippedCount++;
               console.log(`[PageMarkers] Seite ${marker.page} übersprungen (nicht in Sequenz, erwartet > ${lastInsertedPage})`);
               continue;
+            }
+            
+            // WICHTIG: Prüfe ob die Position innerhalb einer Überschrift liegt
+            // Seitenmarker sollen NIEMALS vor Überschriften stehen, sondern vor dem Absatz-Text
+            const beforeFound = result.substring(Math.max(0, foundIdx - 100), foundIdx);
+            const isInHeading = /<h[34][^>]*>[^<]*$/.test(beforeFound);
+            
+            if (isInHeading) {
+              // Finde das Ende der Überschrift und den Anfang des nächsten Absatzes
+              const afterFound = result.substring(foundIdx);
+              const headingEndMatch = afterFound.match(/<\/h[34]>\s*/);
+              if (headingEndMatch) {
+                const headingEndPos = foundIdx + headingEndMatch.index + headingEndMatch[0].length;
+                // Suche den nächsten Absatz oder Text
+                const afterHeading = result.substring(headingEndPos);
+                const nextTextMatch = afterHeading.match(/^(\s*(?:<[^>]+>\s*)*)/);
+                const skipLength = nextTextMatch ? nextTextMatch[0].length : 0;
+                foundIdx = headingEndPos + skipLength;
+                console.log(`[PageMarkers] Seite ${marker.page}: Marker nach Überschrift verschoben`);
+              }
             }
           }
           
@@ -11293,27 +11341,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     await loadPageMarkersData();
   }
   
-  // WICHTIG: Wenn book.content vorhanden, füge Seitenmarker in den gesamten Content ein
-  // und extrahiere dann die Paragraphen neu (um Marker korrekt zu positionieren)
-  if (book.content && pageMarkersData) {
-    const gaNum = book.gaNumber || book.ID;
-    const normalizedGA = normalizeGANumber(gaNum);
-    const gaData = pageMarkersData[normalizedGA];
-    
-    if (gaData && gaData.markers && gaData.markers.length > 0) {
-      let bookContent = book.content;
-      bookContent = insertPageMarkersFromData(bookContent, gaNum);
-      
-      // Wenn Marker eingefügt wurden, extrahiere Paragraphen neu
-      if (bookContent !== book.content) {
-        console.log(`[PageMarkers] Extrahiere Paragraphen mit Markern für ${gaNum}`);
-        paragraphs = []; // Zurücksetzen um Fallback zu nutzen
-        
-        // Speichere modifizierten Content temporär
-        book._contentWithMarkers = bookContent;
-      }
-    }
-  }
+  // HINWEIS: Seitenmarker werden NACH dem HTML-Rendering eingefügt (wie bei Vorträgen),
+  // um zu vermeiden dass Marker in Überschriften verloren gehen.
+  // Siehe Abschnitt nach der htmlContent-Erstellung.
   
   try {
     const summaryData = await loadSummaryFromDB(bookId);
@@ -11331,17 +11361,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   }
   
   // Fallback: Wenn keine paragraphs vorhanden, extrahiere sie aus content
-  if (paragraphs.length === 0 && (book._contentWithMarkers || book.content)) {
-    // Verwende modifizierten Content mit Markern falls vorhanden
-    let bookContent = book._contentWithMarkers || book.content;
+  if (paragraphs.length === 0 && book.content) {
+    let bookContent = book.content;
     
-    // Falls noch keine Marker eingefügt wurden, versuche es jetzt
-    if (!book._contentWithMarkers && pageMarkersData) {
-      const gaNumber = book.gaNumber || book.ID;
-      if (gaNumber) {
-        bookContent = insertPageMarkersFromData(bookContent, gaNumber);
-      }
-    }
+    // HINWEIS: Seitenmarker werden NICHT hier eingefügt, sondern später auf das HTML.
     
     // Extrahiere Absätze aus Content (ohne Überschriften)
     const contentLines = bookContent.split('\n');
@@ -11597,6 +11620,16 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         </div>
       `;
     });
+    
+    // Füge Seitenmarker aus page-markers.json ein (wie bei Vorträgen)
+    // WICHTIG: Dies muss auf das gesamte HTML angewendet werden, NICHT auf einzelne Absätze,
+    // damit die sequentielle Reihenfolge der Seitenzahlen korrekt bleibt.
+    const bookGA = book.gaNumber || book.ID;
+    if (bookGA && pageMarkersData) {
+      htmlContent = insertPageMarkersFromData(htmlContent, bookGA);
+      // Konvertiere die |page|-Marker zu sichtbarem HTML
+      htmlContent = convertPageMarkers(htmlContent);
+    }
   } else {
     // Fallback: Alte Methode (Content direkt rendern)
     let content = book.content || '';

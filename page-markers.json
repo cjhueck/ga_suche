@@ -1,1320 +1,1164 @@
 {
   "_info": "Seitenmarker für GA-Bände. 'afterText' = Text nach dem der Marker |page| eingefügt wird.",
   "GA001": {
-    "title": "Einleitungen zu Goethes Naturwissenschaftlichen Schriften",
+    "title": "Einleitungen zu Goethes naturwissenschaftlichen Schriften",
     "pdfSource": "Steiner, Rudolf GA 001, 1987 - Einleitungen zu Goethes naturwissenschaftlichen Schriften.pdf",
     "markers": [
       {
-        "page": 6,
-        "afterText": "Goethe als Denker und"
-      },
-      {
         "page": 7,
-        "afterText": "die Zivilisation des neunzehnten Jahrhunderts beherrscht war, schien mir un"
+        "beforeText": "ZUR EINFÜHRUNG\n\n(Aus"
       },
       {
         "page": 8,
-        "afterText": "man über das Organische denken müsse, um ihm erkennend beizukommen."
+        "beforeText": "geeignet, zu einem Verständnisse dessen zu gelangen"
       },
       {
         "page": 9,
-        "afterText": "welches ein Organismus das ist, als das er sich dar"
+        "beforeText": "Am 18. August des Jahres 1787 schrieb Goethe von Italien"
       },
       {
         "page": 10,
-        "afterText": "einige Bemerkungen Goethes selbst Bedenken aufsteigen, wie z. B. folgende"
+        "beforeText": "stellt, die Ursachen, als deren Folge uns die Äußerungen"
       },
       {
         "page": 11,
-        "afterText": "auch ohne Goethe zu ihren Begriffen gelangt wären, wogegen aller"
+        "beforeText": "deutung gibt. Erst nachdem Goethe eben diese Natur"
       },
       {
         "page": 12,
-        "afterText": "auf den Zwischenknochen, oder Oken auf die Wirbeltheorie gekommen sind."
+        "beforeText": "maßen befriedigenden Würdigung derselben. Es erscheint"
       },
       {
         "page": 13,
-        "afterText": "jener unserer Zeit offenbaren, namentlich zur Entwicklungstheorie in moderner Gestalt."
+        "beforeText": "im Objekte; man bemerkt auch,"
       },
       {
         "page": 14,
-        "afterText": "fühlte. Auf der einen Seite stand die Philosophie Christian Wolffs"
+        "beforeText": "Die Entstehung der Metamorphosenlehre"
       },
       {
         "page": 15,
-        "afterText": "allseitiger Durchdringung sich gegenseitig beleben und zu einem Ganzen werden."
+        "beforeText": "sich ganz in einem abstrakten"
       },
       {
         "page": 16,
-        "afterText": "vom 14. Juli 1770, wo er von einem Schmetterlinge spricht:"
+        "beforeText": "Der Begriff, den jene Extreme am wenigsten erfassen"
       },
       {
         "page": 17,
-        "afterText": "aber in allen Stufen"
+        "beforeText": "Derselben Anschauung sind ja"
       },
       {
         "page": 18,
-        "afterText": "der Weltbetrachtung nur eine vorübergehende Episode in Goethes Entwicklung und"
+        "beforeText": "das sich als das Dauernde, Beständige im Wechsel behauptet"
       },
       {
         "page": 19,
-        "afterText": "Während sich so bestimmte Anschauungen in Goethes Geist"
+        "beforeText": "weicht bald einer gesunderen und objektiveren Vorstellungswe"
       },
       {
         "page": 20,
-        "afterText": "welcher um das Jahr"
+        "beforeText": "Materie sollte sein von Ewigkeit, und von Ewigkeit"
+      },
+      {
+        "page": 21,
+        "beforeText": "Goethe in der unendlichen Menge von Pflanzengestalten"
       },
       {
         "page": 22,
-        "afterText": "kennenzulernen. Es interessieren ihn besonders die Moose und Flechten. Am"
+        "beforeText": "dien erscheint uns der junge Goethe ganz als der die"
       },
       {
         "page": 23,
-        "afterText": "jede Pflanze zu erkennen und ihren Platz im Systeme leicht"
+        "beforeText": "Pflanzen ableitete. Wir haben dies in Erwägung dieses"
       },
       {
         "page": 24,
-        "afterText": "tiefen Eindruck machen. Das Hervorheben einer aus dem Wesen der"
+        "beforeText": "neren Natur der Pflanze entnommen waren. Sie erschienen"
       },
       {
         "page": 25,
-        "afterText": "nach. Am 12. Januar 1785 schreibt er an"
+        "beforeText": "Pflanzen hervorgehenden und ihm entsprechenden Nomenklatur"
       },
       {
         "page": 26,
-        "afterText": "zu bringen und am 15. Juni"
+        "beforeText": "suchungen handelt es sich bei Goethe nicht um das"
       },
       {
         "page": 27,
-        "afterText": "und aus einigen Mitteilungen"
+        "beforeText": "macht er an Frau von"
       },
       {
         "page": 28,
-        "afterText": "Am 9. Juli 1786 schreibt er an Frau von Stein:"
+        "beforeText": "Einzelheiten, die ihm bei seinen Kombinationen vorwärts"
       },
       {
         "page": 29,
-        "afterText": "Artformen zur Geltung brachte. Die Resultate aber, welche"
+        "beforeText": "Karlsbad aus angetreten hatte. Schon an der Flora"
       },
       {
         "page": 30,
-        "afterText": "auf welches jene Tatsachen bestimmend einwirken. Wenn die"
+        "beforeText": "von den beiden gezogen werden, sind durchaus verschieden"
       },
       {
         "page": 31,
-        "afterText": "im Gegenteil, es wird ihnen erst eine sichere Basis geschaffen."
+        "beforeText": "eine Seite allein verfolgt wird, so kann sie auch"
       },
       {
         "page": 32,
-        "afterText": "sie kann unendliche Veränderungen erleiden, welche alle jenem Komplexe von"
+        "beforeText": "Der Gedanke der Urpflanze bildet sich immer bestimmter"
       },
       {
         "page": 33,
-        "afterText": "forscher, die auf dem Boden der sinnenfälligen Empirie stehen, vor"
+        "beforeText": "Bildungsgesetzen gemäß sind, aus ihm mit Notwendigkeit"
       },
       {
         "page": 34,
-        "afterText": "beherrscht wird. Es ist in der Natur des Ganzen be"
+        "beforeText": "mechanische Ursachen auf die Natur eines Organismus"
       },
       {
         "page": 35,
-        "afterText": "zur ganzen Pflanze entwickeln. Die Pflanze ist also ein Wesen,"
+        "beforeText": "der mittleren ist in der Idee des Ganzen bestimmt;"
+      },
+      {
+        "page": 36,
+        "beforeText": "welches in aufeinanderfolgenden Zeiträumen gewisse"
       },
       {
         "page": 37,
-        "afterText": "in Italien mit dem Begriffe der Pflanzenbildung verwebt wurde. Da"
+        "beforeText": "Botanikers Hill führen, welche damals allgemeiner"
       },
       {
         "page": 38,
-        "afterText": "niedergeschrieben wurde; allein inwieweit diese letztere Niederschrift bloß redaktioneller Natur"
+        "beforeText": "der Inhalt dieses Gedankens die durch die bildenden"
       },
       {
         "page": 39,
-        "afterText": "das Wesen und die Bedeutung von Goethes Schriften über organische"
+        "beforeText": "war und was noch hinzukam, das wird schwer zu sagen"
       },
       {
         "page": 40,
-        "afterText": "Er findet diesen Unterschied in dem durch das Ganze des"
+        "beforeText": "Die Entstehung von Goethes Gedanken"
       },
       {
         "page": 41,
-        "afterText": "ideeller, der sich bei den Tieren mehr nach einer niede"
+        "beforeText": "menschlichen Baues bedingten Hervortreten des Hauptes"
       },
       {
         "page": 42,
-        "afterText": "für die Grundzeichnung des Menschen den Schädel für das Fundament"
+        "beforeText": "ren, bei dem Menschen nach einer höheren Seite ausbildet"
       },
       {
         "page": 43,
-        "afterText": "die ersten Andeutungen hierüber aus dem Jahre 1781. In dem"
+        "beforeText": "des Knochensystems und alles Fleisch beinahe nur für"
       },
       {
         "page": 44,
-        "afterText": "(Loder) in diesen acht Tagen, die wir, freilich soviel als"
+        "beforeText": "von Keil herausgegebenen Tagebuche bemerkt er unter"
       },
       {
         "page": 45,
-        "afterText": "Träger eines freien geistigen Wesens zu sein. Seinen sinnenfälligen Ei"
+        "beforeText": "sich alles Leben und alles Menschliche anhängen lässt»"
+      },
+      {
+        "page": 46,
+        "beforeText": "genschaften nach muss"
       },
       {
         "page": 47,
-        "afterText": "wesentlichen Tierverrichtungen ausübt. Das Tierreich ist nur das zerstückelte höchste"
+        "beforeText": "Kristall, vom Kristall zu den Metallen, von diesen"
       },
       {
         "page": 48,
-        "afterText": "zu einer Philosophie der Geschichte"
+        "beforeText": "Es gibt nur eine Menschenzunft, nur ein Menschengeschlecht"
       },
       {
         "page": 49,
-        "afterText": "denen des ganzen Organismus anzupassen. Fehlen aber darf er nicht,"
+        "beforeText": "nahm, zu kennzeichnen, wollen wir folgende Stelle"
       },
       {
         "page": 50,
-        "afterText": "ungeborener oder junger Kinder eine Spur quasi rudi"
+        "beforeText": "wenn nicht in der Natur ein Riss"
       },
       {
         "page": 51,
-        "afterText": "schreibt er an Frau von Stein am 2."
+        "beforeText": "mentum des ossis intermaxillaris"
       },
       {
         "page": 52,
-        "afterText": "kündigte die Sache am 27. März sowohl der Frau von"
+        "beforeText": "sehe sehr schöne und gute Sachen und werde für meinen"
       },
       {
         "page": 53,
-        "afterText": "Goethe wurde nun der Gedanke immer reger, ein"
+        "beforeText": "Man darf nun diese einzelne Entdeckung gegenüber den"
       },
       {
         "page": 54,
-        "afterText": "äußerliches Vergleichen; und für das letztere war aller"
+        "beforeText": "größeres Werk über die Natur auszuarbeiten. Wir können"
       },
       {
         "page": 55,
-        "afterText": "bis in alle Einzelheiten plastisch vor seinem Geiste"
+        "beforeText": "dings der Zwischenknochen"
       },
       {
         "page": 56,
-        "afterText": "ob sie nicht ein Geist von den Gegenständen abstrahierte, sondern"
+        "beforeText": "steht, schreibt er in Neapel am 17. Mai 1787 nieder"
       },
       {
         "page": 57,
-        "afterText": "wenn wir sie als hervorgehend aus jenem großen Ganzen betrachten."
+        "beforeText": "als ob sie die Gegenstände selbst in einem Geiste"
       },
       {
         "page": 58,
-        "afterText": "angehörten; nur der Elefant sollte eine Ausnahme ma"
+        "beforeText": "sogleich junge Leute zu Hilfe genommen, welche nach"
       },
       {
         "page": 59,
-        "afterText": "nun einen Blick auf die Art der Aufnahme werfen, die"
+        "beforeText": "Bei ihm sollten die Eckzähne"
       },
       {
         "page": 60,
-        "afterText": "vom 17. Januar 1785 mit folgender Stelle (wir zitieren buchstäblich):"
+        "beforeText": "Goethes Abhandlung gefunden, so tritt uns ein recht"
+      },
+      {
+        "page": 61,
+        "beforeText": "rigen Briefe sehe, von seiner Idee in Ansehung des"
       },
       {
         "page": 62,
-        "afterText": "Leipzig 1835, II. Bd., S. 236."
+        "beforeText": "seinen Schriften wie eine der Wissenschaft vollgültig"
+      },
+      {
+        "page": 63,
+        "beforeText": "bloß zur Bestätigung des Gedankens, bloß dazu das,"
       },
       {
         "page": 64,
-        "afterText": "in Italien begleiteten ihn seine großen Ideen. Wäh"
+        "beforeText": "nem «Handbuch der vergleichenden Anatomie», 1805"
       },
       {
         "page": 65,
-        "afterText": "sein müssen, d. h. welche jener Naturtendenz vollkommen gemäß sind"
+        "beforeText": "rend sich der Gedanke der Urpflanze in seinem Geiste"
       },
       {
         "page": 66,
-        "afterText": "Haupt erscheint auf diese Weise schon vorgebildet in den niedrigerstehenden"
+        "beforeText": "und welche existieren würden, wenn die geeigneten"
       },
       {
         "page": 67,
-        "afterText": "alle Glieder eines organischen Ganzen der Idee nach identisch sind"
+        "beforeText": "körperlichen Organen. Es sind die auch schon auf untergeordn"
       },
       {
         "page": 68,
-        "afterText": "Knochenlehre Max Jacobi diktierte. Die einleitenden Kapitel wurden 1796 weiter"
+        "beforeText": "bildung zu einem Abschlusse"
       },
       {
         "page": 69,
-        "afterText": "über die Bildung der Organismen wenden."
+        "beforeText": "In diesen Abhandlungen sind"
       },
       {
         "page": 70,
-        "afterText": "anderen die Geschwindigkeit und Richtung von letzterer angeben können; wenn"
+        "beforeText": "Über das Wesen und die Bedeutung"
       },
       {
         "page": 71,
-        "afterText": "aus der andern ab. Wenn wir also eine solche Erscheinung"
+        "beforeText": "wir einsehen, dass unter"
       },
       {
         "page": 72,
-        "afterText": "gegenwärtig, sie sind in sich abgeschlossen, aus nichts weiterem ableitbar."
+        "beforeText": "erklären, d. h. begrifflich durchdringen wollen, so"
       },
       {
         "page": 73,
-        "afterText": "zieht, sondern dieses direkt selbst tut."
+        "beforeText": "B. von der Pflanze nicht"
       },
       {
         "page": 74,
-        "afterText": "der Wissenschaft an; erst ihm gelang es, das lösende Wort"
+        "beforeText": "licher Form ist; sie sind wohl füreinander da, nicht"
       },
       {
         "page": 75,
-        "afterText": "Erkenntnis durch denselben, durch das Allgemeine, das Be"
+        "beforeText": "des Rätsels zu sprechen. Erklärbar aus sich selbst"
       },
       {
         "page": 76,
-        "afterText": "Im Sommer desselben Jahres traf Goethe mit Friedrich"
+        "beforeText": "bei den organischen Bildungen darauf verzichten, den"
       },
       {
         "page": 77,
-        "afterText": "durch einen nicht in der Natur der Wesen selbst gelegenen"
+        "beforeText": "Jacobi zusammen. Letzterer, der sich ausführlicher"
       },
       {
         "page": 78,
-        "afterText": "von den endlichen Wesen existierendes Wesen voraussetzt, welches diese end"
+        "beforeText": "eine Störung der allgemeinen Naturgesetze entstehen"
       },
       {
         "page": 79,
-        "afterText": "nach der zweiten. Die Notwendigkeit einer einheitlichen Erkenntnis hatte, wie"
+        "beforeText": "Dinge neben sich hat,"
       },
       {
         "page": 80,
-        "afterText": "er die oben von uns mitgeteilte"
+        "beforeText": "wir gesehen haben, Spinoza bewiesen. Er war zu sehr"
       },
       {
         "page": 81,
-        "afterText": "er den Vorgang bestimmen könnte."
+        "beforeText": "der Unfähigkeit des menschlichen Verstandes"
       },
       {
         "page": 82,
-        "afterText": "sich aus eigener Kraft offenbarenden Entität sollte dem Menschen versagt"
+        "beforeText": "nun beide Vorgänge in einen gemeinsamen Ausdruck zusammen"
       },
       {
         "page": 83,
-        "afterText": "ist, wie jeder andere Körper. Der vom Dache fallende Stein"
+        "beforeText": "Stoff verleihen kann, eine solche, welche nicht bloß"
       },
       {
         "page": 84,
-        "afterText": "Sie ist auf wesentlich andere Weise"
+        "beforeText": "kann ebenso ein lebendes Wesen, wie einen unorganischen"
       },
       {
         "page": 85,
-        "afterText": "Existenz im Objekte kommen nur"
+        "beforeText": "gewonnen als der Begriff eines unorganischen Vorganges"
       },
       {
         "page": 86,
-        "afterText": "Gegebenen (der Erfahrung), konkrete Erscheinung. Hierin"
+        "beforeText": "dieses Verhältnisses. Die Einheit, der Begriff kommt"
       },
       {
         "page": 87,
-        "afterText": "zu Kant in bezug auf die Möglichkeit einer Erkenntnis der"
+        "beforeText": "liegt der Grund, warum wir in der unorganischen Naturwissens"
       },
       {
         "page": 88,
-        "afterText": "das erste. Die auf sich gebaute Entelechie enthält eine Anzahl"
+        "beforeText": "organischen Natur gesetzt hat. Wenn aber Kant behauptet"
       },
       {
         "page": 89,
-        "afterText": "gung usw. auf. Die Pflanze hat ein solches seelisches Prin"
+        "beforeText": "sinnlicher Gestaltungsformen, von denen eine die erste"
       },
       {
         "page": 90,
-        "afterText": "sie nicht, wie wir dies später"
+        "beforeText": "zip nicht. Sie geht noch ganz in ihrer Äußerlichkeit"
       },
       {
         "page": 91,
-        "afterText": "tritt sie nun hervor und ent"
+        "beforeText": "am Tiere sehen werden, ein mit einer gewissen Selbständigkei"
       },
       {
         "page": 92,
-        "afterText": "von einer größeren Extension der Bildungskräfte herrühren kann. In den"
+        "beforeText": "d und e). Was früher in aufeinanderfolgenden Zwischenräumen"
       },
       {
         "page": 93,
-        "afterText": "um sich bei Eintritt derselben neuerdings zu entfalten. Die Unter"
+        "beforeText": "gefäßen (h) und Stempel (i)"
       },
       {
         "page": 94,
-        "afterText": "als die Art, wie sich jenes innere entelechische Prinzip gestal"
+        "beforeText": "brechung der Vegetation"
       },
       {
         "page": 95,
-        "afterText": "in einer bestimmten Pflanze zur Erscheinung kommen, wo sie nicht"
+        "beforeText": "ieht _Ausdehnung_ und _Zusammenziehung_ nicht so an"
       },
       {
         "page": 96,
-        "afterText": "Andrerseits ist die innere Bildung in sich unumschränkt, frei; sie"
+        "beforeText": "mehr ursprünglich, sondern den äußeren Verhältnissen"
       },
       {
         "page": 97,
-        "afterText": "welcher zufolge der Organismus den ihn umgebenden äußeren Verhältnissen gemäß"
+        "beforeText": "kann sich den äußeren Einflüssen innerhalb gewisser"
       },
       {
         "page": 98,
-        "afterText": "Unterschied, der mit diesen Anschauungen Goethes"
+        "beforeText": "gestaltet, und der _Kampf"
       },
       {
         "page": 99,
-        "afterText": "so kann man von Goethe sagen,"
+        "beforeText": "zwischen Pflanze und Tier festgestellt wird, könnte"
       },
       {
         "page": 100,
-        "afterText": "ist nicht dieses ins Auge zu fassen, sondern jene Essenz"
+        "beforeText": "-selbst-Formen» des entelechischen Prinzips erfasst"
       },
       {
         "page": 101,
-        "afterText": "die Metamorphose empfangen, welche mich als so frühen Teilnehmer an"
+        "beforeText": "Juli 1827 an Goethe:"
       },
       {
         "page": 102,
-        "afterText": "Typus entspricht. Je mehr äußere Erscheinung und organischer Typus in"
+        "beforeText": "Art der Anschauung des Individuellen Platz greifen"
       },
       {
         "page": 103,
-        "afterText": "hier Licht zu schaffen, zeigen uns seine Worte in der"
+        "beforeText": "stimmten Wesen sich decken, desto vollkommener ist"
       },
       {
         "page": 104,
-        "afterText": "aufeinanderfolgenden Zeitperioden die der Möglichkeit nach in ihm liegenden Ge"
+        "beforeText": "Gedanken mit der Welt des Besonderen, mit der Wirklichkeit"
       },
       {
         "page": 105,
-        "afterText": "Sinn habe, wenn letztere, z. B. die Staubgefäße, einmal wirkliche"
+        "beforeText": "Einflüsse seiner Umgebung nicht"
       },
       {
         "page": 106,
-        "afterText": "sondern selbständige theoretische Entdeckungen, die noch lange nicht genug gewür"
+        "beforeText": "Blätter waren. Allein dies stellt Goethes Anschauungen"
       },
       {
         "page": 107,
-        "afterText": "müsse ableiten lassen. In früherer Zeit aber wirkte das alles"
+        "beforeText": "Fragestellungen; beide widersprechen einander nicht"
       },
       {
         "page": 108,
-        "afterText": "macht, den Sitz der Seele zu entdecken. Goethe findet in"
+        "beforeText": "in seinem Geiste und"
       },
       {
         "page": 109,
-        "afterText": "das Zentrale der Wissenschaft gehenden Nachdenken verdanken wir die Aufsätze:"
+        "beforeText": "einem Briefe, den er am 28. August 1796 an Sömmerring"
       },
       {
         "page": 110,
-        "afterText": "zu ziehen. Später wurde auch die Metamorphose der Insekten verfolgt."
+        "beforeText": "Bedenken und Ergebung"
       },
       {
         "page": 111,
-        "afterText": "Erscheinungen aus dem Gebiete der Morphologie und auch Abhandlungen anderer"
+        "beforeText": "Eine weitere Anregung kam von dem Philologen"
       },
       {
         "page": 112,
-        "afterText": "Goethe zwei Aufsätze über den Streit der beiden französischen Na"
+        "beforeText": "ren Ausführungen sich aber stets ergänzend zu Goethes"
       },
       {
         "page": 113,
-        "afterText": "wird. Da das eigentliche Wesen, die Inhaltlichkeit des Besonderen somit"
+        "beforeText": "turforscher Cuvier und Geoffroy Saint-Hilaire. In"
       },
       {
         "page": 114,
-        "afterText": "Dieses Ereignis ist für mich von ganz unglaublichem Wert und"
+        "beforeText": "das Ideell-Allgemeine ist, so ist es unmöglich, dass"
       },
       {
         "page": 115,
-        "afterText": "Französische übersetzt. Unter solchen Verhältnissen konnte"
+        "beforeText": "ich juble mit Recht über den endlichen Sieg einer"
       },
       {
         "page": 116,
-        "afterText": "im Sinne der platonischen Philosophie. Goethe hätte zwar einzelne Behaup"
+        "beforeText": "Abschluss über Goethes morphologische Anschauungen"
       },
       {
         "page": 117,
-        "afterText": "Gesetze haben. Er verhielt sich schon seit seiner Jugend ab"
+        "beforeText": "tungen getan, die an die Entwicklungstheorie erinnern"
       },
       {
         "page": 118,
-        "afterText": "denjenigen, der Goethes Anschauungen darzulegen versucht, die Forderung, über die"
+        "beforeText": "lehnend gegenüber Bestrebungen, welche sich die Einheit"
       },
       {
         "page": 119,
-        "afterText": "erklären, zu lösen und eine für mich erhebende Überzeugung auszusprechen."
+        "beforeText": "kritische Beurteilung des einzelnen, was Goethe in"
       },
       {
         "page": 120,
-        "afterText": "Scharen nachfolgen, um vollkommener auszuführen, was ich darzulegen bestrebt war."
+        "beforeText": "Hat man in derselben Weise glücklich und erfolgreich"
       },
       {
         "page": 121,
-        "afterText": "als diejenigen Anschauungen, die heute vielfach die Wissenschaf"
+        "beforeText": "Goethes Erkenntnis-Art"
       },
       {
         "page": 122,
-        "afterText": "doch nichts als der blinde Offenba"
+        "beforeText": "ten beherrschen. Aus jener Philosophie wird sich eine"
       },
       {
         "page": 123,
-        "afterText": "der Forscher den Glauben an das Denken verloren hat, wenn"
+        "beforeText": "rungsglaube der Religionen. Der letztere beruht doch"
       },
       {
         "page": 124,
-        "afterText": "Schmerz der Einschlag des Glückes ist. Man denke an die"
+        "beforeText": "er nicht weiß, was er von dessen Tragweite zu halten"
       },
       {
         "page": 125,
-        "afterText": "ihm notgedrungen auch Objekte zuerkennen, die über die"
+        "beforeText": "Mutter: wie wird ihr die Freude an dem Gedeihen ihrer"
       },
       {
         "page": 126,
-        "afterText": "ist. Auch die Ideen sind für eine induktive Methode erreichbar."
+        "beforeText": "bloße sinnenfällige Wirklichkeit hinaus liegen. Die"
       },
       {
         "page": 127,
-        "afterText": "verschieden. Was den letzteren Punkt betrifft, wolle man weiter unten"
+        "beforeText": "Die heutige Erfahrungswissenschaft befolgt die ganz"
       },
       {
         "page": 128,
-        "afterText": "nur im Schaffen, in rastloser Tätigkeit unser Glück suchen sollen?"
+        "beforeText": "nachsehen. In bezug auf den Pessimismus aber sei folgendes"
       },
       {
         "page": 129,
-        "afterText": "1886, 6. Aufl. Gesamtausgabe Dornach 1960."
+        "beforeText": "Ich bin zu meiner Weltansicht nicht allein durch das"
       },
       {
         "page": 130,
-        "afterText": "vorgezeichneten Bahnen mit unseren größeren Mitteln zu wandeln, das sol"
+        "beforeText": "Über die Anordnung der naturwissenschaftlichen"
       },
       {
         "page": 131,
-        "afterText": "enthielte dann der 1. Band die allgemeinen Gesichts"
+        "beforeText": "len meine Darstellungen zeigen. Was wir von ihm lernen"
       },
       {
         "page": 132,
-        "afterText": "uns verbirgt. In der Entfernung dieser Hülle besteht die wahre"
+        "beforeText": "punkte, die folgenden die besonderen Ausführungen"
       },
       {
         "page": 133,
-        "afterText": "entstanden sie bei Goethe erst als die Konsequenz seiner Naturanschauung."
+        "beforeText": "wissenschaftliche Methode. Goethe schlug diesen Weg"
       },
       {
         "page": 134,
-        "afterText": "bei einem etwas andern Le"
+        "beforeText": "Von der Kunst zur Wissenschaft"
       },
       {
         "page": 135,
-        "afterText": "oder mit andern Worten: sie soll mit Entäußerung aller sub"
+        "beforeText": "bensgange Goethe dieselben Wege in der Dichtung eingeschlage"
       },
       {
         "page": 136,
-        "afterText": "des Urgesetzes der Welt, die Wis"
+        "beforeText": "jektiven Willkür sich rein an das Gegebene halten."
       },
       {
         "page": 137,
-        "afterText": "gestalten, wie es seiner eigenen Natur gemäß ist, nicht wie"
+        "beforeText": "senschaft war ihm die"
       },
       {
         "page": 138,
-        "afterText": "eins behandelt sah wie das andere,"
+        "beforeText": "es in dem von tausend Zufälligkeiten abhängigen einzelnen"
       },
       {
         "page": 139,
-        "afterText": "ist schon als Kunst ein Erkennen. Goethe wollte eben weder"
+        "beforeText": "Dichtkunst und vergleichende Naturkunde so nah miteinander"
       },
       {
         "page": 140,
-        "afterText": "unausgesprochen gelassen hat, was aber allein seine Anschauungen verständlich macht."
+        "beforeText": "Wissenschaft noch Kunst;"
       },
       {
         "page": 141,
-        "afterText": "der Fall gewesen, dann hätte es als Abgeschlosse"
+        "beforeText": "Goethes Erkenntnistheorie"
       },
       {
         "page": 142,
-        "afterText": "mehr als je sucht man in philosophischen Kreisen der Lösung"
+        "beforeText": "nes, Ruhendes vor seinen Geist treten müssen, anstatt"
       },
       {
         "page": 143,
-        "afterText": "Feststellung einer Tatsache oder Tatsachenreihe, die man nach Kant schon"
+        "beforeText": "dieser Aufgabe näher"
       },
       {
         "page": 144,
-        "afterText": "was aber doch wirklich ist. Das Millsche Erkennen ist des"
+        "beforeText": "Erkenntnis nennen könnte, ist im Sinne Goethes noch"
       },
       {
         "page": 145,
-        "afterText": "beim Zerbrechen der Scheibe, das Hinwegfliegen der Glasscherben usw. Wenn"
+        "beforeText": "halb kein wahrhaftes Erkennen, weil es nur ein ausgebildetes"
       },
       {
         "page": 146,
-        "afterText": "ist, und dann die Voraussetzung, die nicht gegeben sein kann,"
+        "beforeText": "telbaren Erfahrung. Ein"
       },
       {
         "page": 147,
-        "afterText": "Chaos ist; nirgends aber kommt etwas außer dem Gegebenen in"
+        "beforeText": "eschaffener Vorstellungen haben». Dass wir eine Mannigfaltig"
       },
       {
         "page": 148,
-        "afterText": "der Stein befindet, ausgehen. Diese Verbindung gibt eine krumme Linie"
+        "beforeText": "Betracht. Wahrheit ist nicht Übereinstimmung einer"
       },
       {
         "page": 149,
-        "afterText": "nimmt jenes Höhere wahr. Deshalb darf das Denken auch nicht"
+        "beforeText": "Bedeutung nach nur subjektiv ist. Er entspringt vielmehr"
       },
       {
         "page": 150,
-        "afterText": "das erkenntnistheoretische Ideal dieser Grundansicht sein. Ich rechne zur letzteren"
+        "beforeText": "wahr. Der Idealismus ist deshalb mit dem Prinzipe"
       },
       {
         "page": 151,
-        "afterText": "Begriff des Dreieckes ist ein einziger, der alle einzelnen, angeschau"
+        "beforeText": "nicht nur die naturwissenschaftliche Richtung unserer"
       },
       {
         "page": 152,
-        "afterText": "unserem Intellekte einverleibt werde behufs einer bequemen Zusammenfassung der Mannigfal"
+        "beforeText": "ten Dreiecke umfasst"
       },
       {
         "page": 153,
-        "afterText": "kann nicht aus dem Begriffe abgeleitet,"
+        "beforeText": "tigkeit der objektiven Wirklichkeit nach dem Prinzipe"
       },
       {
         "page": 154,
-        "afterText": "sich also selbst seinen Inhalt geben."
+        "beforeText": "innerhalb der Anschauung selbst gesucht werden. Das"
       },
       {
         "page": 155,
-        "afterText": "Die Notwendigkeit, zur begrifflichen Erkenntnis fortzuschreiten, wäre schlechterdings nicht ein"
+        "beforeText": "Man sagt gewöhnlich, das Erfahrungsobjekt sei individuell"
       },
       {
         "page": 156,
-        "afterText": "nicht minder die Essenz der Erscheinungswelt."
+        "beforeText": "zusehen, wenn der Begriff nichts Neues zur sinnenfälligen"
       },
       {
         "page": 157,
-        "afterText": "Stufe der Vollkommenheit steht als das Staubkorn auf der Straße."
+        "beforeText": "Damit haben wir der transzendenten Weltansicht"
       },
       {
         "page": 158,
-        "afterText": "sei, auch wenn sie richtig wäre, nur durch Nachdenken kommen."
+        "beforeText": "Für die Sinne sind beide gleichbedeutende Wesen, wenn"
       },
       {
         "page": 159,
-        "afterText": "unsere geistigen Kräfte ausreichen, das Wesen"
+        "beforeText": "legen, so hört diese Unbefangenheit auf. Wenn wir"
       },
       {
         "page": 160,
-        "afterText": "haben, ja bei dessen Produktion wir nicht einmal gegenwärtig waren."
+        "beforeText": "der Dinge zu erfassen, müssen wir an diesen selbst"
       },
       {
         "page": 161,
-        "afterText": "mit einem Dinge wissenschaftlich abschließen, wenn wir das unmittelbar Wahr"
+        "beforeText": "Wir stehen vor einem Gewordenen. Erfassen aber können"
       },
       {
         "page": 162,
-        "afterText": "Sie ist die auf sich gebaute, in sich selbst festbegrün"
+        "beforeText": "bringen, dann gehen wir auf die uns zuerst verborgen"
+      },
+      {
+        "page": 163,
+        "beforeText": "Was oberflächliche Betrachtung bar alles Anteils an"
       },
       {
         "page": 164,
-        "afterText": "überhaupt imstande ist, bis zur Ideenwelt vorzudringen, so kann man"
+        "beforeText": "Dieses Zentrum kann nur ein"
       },
       {
         "page": 165,
-        "afterText": "Erkenntnistheorien der Gegenwart ab. Sie will nicht bloß einen for"
+        "beforeText": "sicher sein, dass man"
       },
       {
         "page": 166,
-        "afterText": "der Bedeutung und Bestimmung des Menschen; und sie löst diese"
+        "beforeText": "malen Zusammenhang zwischen Denken und Sein feststellen"
       },
       {
         "page": 167,
-        "afterText": "der Mensch seine Organe belehren soll"
+        "beforeText": "Aufgabe (von der «Bestimmung des Menschen») in viel"
       },
       {
         "page": 168,
-        "afterText": "gibt es nur ein Nichtbefriedigendes: wenn mir ein Ding gegen"
+        "beforeText": "Wissen und Handeln im Lichte"
       },
       {
         "page": 169,
-        "afterText": "Gedankenwelt kann auch zu einem Punkte hingehen, der bisher überhaupt"
+        "beforeText": "übertritt, das sich nirgends an die von mir vertretene"
       },
       {
         "page": 170,
-        "afterText": "Der Grund, warum ich jenes Gebilde als abgesondertes,"
+        "beforeText": "noch von keinem Menschen gedacht worden ist. Und das"
       },
       {
         "page": 171,
-        "afterText": "Verstand schafft die Trennung der einzelnen Gebilde, weil sie uns"
+        "beforeText": "von der andern Wirklichkeit getrenntes Stück sehe,"
       },
       {
         "page": 172,
-        "afterText": "den Begriff zur Idee zu erheben. Und hier ist der"
+        "beforeText": "ja in dem Gegebenen als"
       },
       {
         "page": 173,
-        "afterText": "Anschauungen einzunehmen haben. Wir werden nicht ausschließlich fragen: Was ist"
+        "beforeText": "Ort, wo sich uns in der klarsten Weise das subjektive"
       },
       {
         "page": 174,
-        "afterText": "aus denen sich unser Wissen zusammensetzt, übereinstimmen, sondern nur dar"
+        "beforeText": "wahr, was ist falsch? Wir werden immer untersuchen"
       },
       {
         "page": 175,
-        "afterText": "Gründe, warum das Urteil, das wir"
+        "beforeText": "Ausdruck zu bringen; sie kann uns aber nicht überhaupt"
       },
       {
         "page": 176,
-        "afterText": "bleiben soll und nur deren Veränderungen beobachten, beschreiben und systematisch"
+        "beforeText": "ist, jenseits dessen liegen,"
       },
       {
         "page": 177,
-        "afterText": "in den Urteilen zusammenfließen, ist es der eigene Inhalt derselben,"
+        "beforeText": "zusammenstellen soll, ohne sich zu den in der bloßen"
       },
       {
         "page": 178,
-        "afterText": "der Drang, die Dinge noch weiter"
+        "beforeText": "der das bewirkt, nicht Gründe, die außerhalb liegen"
       },
       {
         "page": 179,
-        "afterText": "an. Für den Mystizismus"
+        "beforeText": "nicht da; sie sind an der sinnfälligen Erscheinung"
       },
       {
         "page": 180,
-        "afterText": "wahrgenommenen Wirklichkeit, sucht er noch eine weitere Realität. Er hält"
+        "beforeText": "ein Mystiker eine Erkenntnistheorie"
       },
       {
         "page": 181,
-        "afterText": "hinauskommen, wir mit dem vernünftigen Denken mitten in die volle"
+        "beforeText": "angesehen wird. Wir haben"
       },
       {
         "page": 182,
-        "afterText": "und sich im idealistischen Forschungsresultat zuletzt befriedigt. Ein Schließen von"
+        "beforeText": "Objektivität hineinkommen"
       },
       {
         "page": 183,
-        "afterText": "die äußere Oberfläche erscheint, verborgen bleibt. Nun stellt sich diese"
+        "beforeText": "einem Gegebenen als einem Bekannten auf ein zugrunde"
       },
       {
         "page": 184,
-        "afterText": "dem Wesen nach sich unmittelbar an sie anschließenden"
+        "beforeText": "methodische Tätigkeit, die einen solchen Zusammenhang"
       },
       {
         "page": 185,
-        "afterText": "besten zur Stütze dienen könnte. Er ist eine Fortsetzung des"
+        "beforeText": "suchen. Wir müssen trachten, eine sich selbst ergänzende"
       },
       {
         "page": 186,
-        "afterText": "liegen geblieben, bis der Dichter im Jahre 1798 diese Stu"
+        "beforeText": "Versuch als Vermittler von Subjekt und Objekt» gewesen"
       },
       {
         "page": 187,
-        "afterText": "die Stufe, wo der Verstand aus den Erscheinungen auf deren"
+        "beforeText": "Goethe unterscheidet drei Methoden der naturwissenschaftlich"
+      },
+      {
+        "page": 188,
+        "beforeText": "Ursachen und Zusammenhänge"
       },
       {
         "page": 189,
-        "afterText": "deren Wesen selbst begründet ist, sondern in deren räumlicher Erscheinung,"
+        "beforeText": "mentlich führt ihn seine Sucht nach einfachen Verbindungen"
       },
       {
         "page": 190,
-        "afterText": "hat diese Wirkung; sondern nur: auf"
+        "beforeText": "bei Durchdringung des Wesens des Individuellen, des"
       },
       {
         "page": 191,
-        "afterText": "nämlich der Philosoph mit seiner Arbeit auf. Er ergreift die"
+        "beforeText": "antwortet das innere Wirkungsprinzip"
       },
       {
         "page": 192,
-        "afterText": "4. Bd., 2. Abt.,"
+        "beforeText": "Urphänomene und bringt sie in den befriedigenden ideellen"
       },
       {
         "page": 193,
-        "afterText": "Bekannter. Durch irgend etwas ein Gegebenes zu erklären, von dem"
+        "beforeText": "4. Über Erkenntnisgrenzen und Hypothesenbildung"
       },
       {
         "page": 194,
-        "afterText": "voraussetze, ohne es gewahr zu werden, ist ein vollkommener Widerspruch."
+        "beforeText": "wir kein Wissen haben, sollte uns nie der Einfall"
       },
       {
         "page": 195,
-        "afterText": "Tätigkeit, die Kristallgestalt und etwa ein"
+        "beforeText": "Die Hypothese kann nur solches annehmen, das ich zwar"
       },
       {
         "page": 196,
-        "afterText": "Das Naturprodukt hat keineswegs in sich selbst die ideelle Gesetzmäßigkeit,"
+        "beforeText": "Wagenrad. In beiden Fällen erscheint uns das vorliegende"
       },
       {
         "page": 197,
-        "afterText": "kann man nicht sagen, es komme zu der Vorstellung noch"
+        "beforeText": "von der es beherrscht erscheint. Es bedarf bei ihm"
       },
       {
         "page": 198,
-        "afterText": "es mit einem erscheinenden Dasein zu tun, bei dem wir"
+        "beforeText": "der Wille hinzu. Spricht man so, so hat man die Begriffe"
       },
       {
         "page": 199,
-        "afterText": "jenes Urgrundes selbst erkennen. Einen Weltlenker, der außerhalb unserer selbst"
+        "beforeText": "bei dem wir nicht nach den tiefer liegenden Bedingungen"
       },
       {
         "page": 200,
-        "afterText": "er sich vom Naturwesen zu einem solchen entwickelt, wie wir"
+        "beforeText": "unseren Handlungen Ziel und Richtung setzte, kennen"
       },
       {
         "page": 201,
-        "afterText": "dieser Auffassung Sinn. Wir müssen den Antrieb von außen emp"
+        "beforeText": "es hier kennengelernt haben; er soll sich frei machen"
+      },
+      {
+        "page": 202,
+        "beforeText": "finden und die _Notwendigkeit_"
       },
       {
         "page": 203,
-        "afterText": "Form individueller Intentionen auftreten. Alles, was der Mensch Fruchtbringendes voll"
-      },
-      {
-        "page": 203,
-        "afterText": "darf man wohl, ohne etwas Mystisches zu sagen, von einer"
+        "beforeText": "dürfnis, wohl aber der Nutzen, den sie uns bringt."
       },
       {
         "page": 204,
-        "afterText": "Ordinäre und Hausbackene, jede bedeutende, hervorragende und bahnbrechende ethische Leistung"
+        "beforeText": "führt, verdankt solchen individuellen Impulsen seine"
       },
       {
         "page": 205,
-        "afterText": "sind. Ich erwähne nur: die Feststellung des Unter"
+        "beforeText": "Diese Ausführungen verbreiten Licht über jene Fragen"
       },
       {
         "page": 206,
-        "afterText": "Gemeinsamkeiten, die er mit seinem Volke hat, seine Individualität scheint"
+        "beforeText": "schiedes von menschlichem Handeln und Naturwirken,"
       },
       {
         "page": 207,
-        "afterText": "Mensch seine Zeit verstehe. Dann wird er mit Freiheit ihre"
+        "beforeText": "durch den Volkscharakter vernichtet. Bin ich denn"
       },
       {
         "page": 209,
-        "afterText": "Natur gehen. Goethe meint, in diesem Falle habe sich der"
+        "beforeText": "in das Wirken einer Summe von Einzelindividuen auflöst"
       },
       {
         "page": 210,
-        "afterText": "seines Volkes und seiner Zeit erhebe, ist ausgespro"
+        "beforeText": "Staatsmann von der letzteren und nicht von den zufälligen"
       },
       {
         "page": 211,
-        "afterText": "ist jeder Optimismus und Pessimismus widerlegt."
+        "beforeText": "der Pflicht ist wiederzuerkennen in"
       },
       {
         "page": 212,
-        "afterText": "die Welt vollkommen sei,"
+        "beforeText": "Der Optimismus nimmt an,"
       },
       {
         "page": 213,
-        "afterText": "Grundzug seines Wesens ist am schönsten in seinen Worten ausgesprochen:"
+        "beforeText": "Verhältnis der Goetheschen Denkweise"
       },
       {
         "page": 214,
-        "afterText": "Philosophen suchte. Es war etwas anderes. Wenn seine"
+        "beforeText": "Aus Dankbarkeit freiwillig hinzugeben.'/br'Wir"
       },
       {
         "page": 215,
-        "afterText": "wir in jenen Teilen des"
+        "beforeText": "Weise die Dinge zu betrachten auch tief in seinem"
       },
       {
         "page": 216,
-        "afterText": "und demselben Auge das Substrat der Künste und das Substrat"
+        "beforeText": "von Bruno irgend etwas entlehnt oder gelernt hätte"
       },
       {
         "page": 217,
-        "afterText": "von einer oberflächlichen Beurteilung der"
+        "beforeText": "den _Augen des Geistes_ schauen. Auch um diese Überzeugung"
       },
       {
         "page": 218,
-        "afterText": "lehrt, und dem, was wir als"
+        "beforeText": "Goethe wie Spinoza die Endursachen verwarfen, war"
       },
       {
         "page": 219,
-        "afterText": "Ich weiß von dem Ding an sich nichts; ich weiß"
+        "beforeText": "Goethesche Denkweise erkennen. Ja, man kann geradezu"
       },
       {
         "page": 220,
-        "afterText": "sind für ihn nichts als höhere Gesichtspunkte der Vernunft, un"
+        "beforeText": "Er tritt mit einer neuen Fragestellung in der Wissenschaft"
       },
       {
         "page": 221,
-        "afterText": "alles von einer Seele ausginge. Das hat aber für die"
+        "beforeText": "ter denen die niederen Einheiten, die der Verstand"
       },
       {
         "page": 222,
-        "afterText": "und Unlust betrifft; von der Wissenschaft fordert er mehr als"
+        "beforeText": "«Ding für uns» ist Verstandesprodukt. Es geht also"
       },
       {
         "page": 223,
-        "afterText": "jetzt ab ist sich Goethe seines"
-      },
-      {
-        "page": 223,
-        "afterText": "Erkennen nicht erreichen können, da alle uns gegebenen"
+        "beforeText": "bloß die Angabe, wie die Dinge"
       },
       {
         "page": 224,
-        "afterText": "er sah sie als Universalwissen"
+        "beforeText": "Idealismus erst bewusst"
+      },
+      {
+        "page": 225,
+        "beforeText": "Viel mehr Berührungspunkte hatte Goethe mit dem jungen"
       },
       {
         "page": 226,
-        "afterText": "die Reihenfolge von den einfachen Bedingun"
+        "beforeText": "Durch diese Lehre, die Goethe teils aus Schellings"
       },
       {
         "page": 227,
-        "afterText": "Goethe das Bekanntwerden mit Philosophen und philosophischen Richtungen eine fortschrei"
+        "beforeText": "Ew. etc. aber nun auch noch von dem besonderen Interesse"
       },
       {
         "page": 229,
-        "afterText": "er die Idee überall zu"
+        "beforeText": "Erscheinungen nur Vorstellungen sind und unser Vorstellungsv"
       },
       {
         "page": 230,
-        "afterText": "sie eine Ausgestaltung des Willens ist. Hartmann greift jedes Sonderda"
+        "beforeText": "zugrundeliegend denkt. Denn seine"
       },
       {
         "page": 231,
-        "afterText": "steht er auf jenem Boden, wo die Idee nicht bloß"
+        "beforeText": "sein auf und zeigt, wie überall die Idee wahrzunehmen"
       },
       {
         "page": 232,
-        "afterText": "freisprechen. Aber Ed. v. Hartmanns Geist wirkt zu intensiv, zu"
+        "beforeText": "sondern objektives Weltprinzip ist;"
       },
       {
         "page": 233,
-        "afterText": "die Idee hinzutreten, denn nur diese gibt ihm"
+        "beforeText": "umfassend und tief dringend, als dass"
       },
       {
         "page": 234,
-        "afterText": "willen, mit Entäußerung unseres Selbst, wir"
+        "beforeText": "anfangen? Er entschlüpft uns, indem wir ihn erfassen"
       },
       {
         "page": 235,
-        "afterText": "Unruhe des Daseins und zur Wiedergewinnung der verlorenen seligen Ruhe."
+        "beforeText": "Wir sollen in der Hingabe"
       },
       {
         "page": 236,
-        "afterText": "darum zu tun war, die tiefe, innere Gediegenheit der Goe"
+        "beforeText": "losigkeit enthüllt. Er weist uns damit auf unsere"
       },
       {
         "page": 237,
-        "afterText": "hörte mich anklagen, als sei ich ein Widersacher, ein Feind"
+        "beforeText": "Goethe und die Mathematik"
       },
       {
         "page": 238,
-        "afterText": "produktiven Kraft zu bestimmen, einen Scharfsinn, der nur noch von"
+        "beforeText": "Was den zweiten Vorwurf betrifft, so ist er ein solcher"
       },
       {
         "page": 239,
-        "afterText": "mit Größen beschäftigt, hat sie zu ihrem Gegenstande keine in"
+        "beforeText": "seinem genialischen Tiefsinn übertroffen wird. Darauf"
       },
       {
         "page": 240,
-        "afterText": "Seite erfassen, begegnen. Goethe bezeichnet dieses Verhältnis mit den Worten:"
+        "beforeText": "sich vollendeten Erfahrungsobjekte, sondern nur alles"
       },
       {
         "page": 241,
-        "afterText": "Guineen berechne, die Rhetorik Wahres oder Falsches verteidige, ist beiden"
+        "beforeText": "tik Pfennige oder Guineen berechne, die Rhetorik Wahres"
       },
       {
         "page": 242,
-        "afterText": "durch Sachverständige genau untersucht und dann alles mögliche zur Wiederbele"
+        "beforeText": "Das geologische Grundprinzip Goethes"
       },
       {
         "page": 243,
-        "afterText": "einer umfassenden Gesamtauffassung des Seienden. Wir lesen in dem Aufsatz"
+        "beforeText": "bung des Betriebes getan werden. Goethe stand dabei"
       },
       {
         "page": 244,
-        "afterText": "Er sucht das gemeinsame"
+        "beforeText": "werke sind immer wie ein erstausgesprochenes Wort"
       },
       {
         "page": 245,
-        "afterText": "auch auf diesem Gebiete. Zur vollen Geltung mit"
+        "beforeText": "Prinzip, das je nach den verschiedenen Umständen,"
       },
       {
         "page": 246,
-        "afterText": "nicht der Forscher, sondern das hat die Natur selbst gemacht."
+        "beforeText": "allem, was in ihr liegt, kann aber jenes gesteinsbildende"
       },
       {
         "page": 247,
-        "afterText": "Ausnahme von denselben, ja ein Verlassen derselben, herleitete. Er nahm"
+        "beforeText": "Gesetze entstanden dachte, die wir immer vor unseren"
+      },
+      {
+        "page": 248,
+        "beforeText": "Auflösung», Natw. Schr., 2. Bd., S. 308). Er suchte"
       },
       {
         "page": 249,
-        "afterText": "völlige Unzulänglichkeit, so konstante Phänomene den Planeten, dem"
+        "beforeText": "Die meteorologischen Vorstellungen Goethes"
       },
       {
         "page": 250,
-        "afterText": "ließ sich Tag für Tag mehr"
+        "beforeText": "Monde, einer unbekannten Ebbe und Flut des Luftkreises"
       },
       {
         "page": 251,
-        "afterText": "nur das einzelne Gebilde als für"
+        "beforeText": "der heutigen Naturwissenschaft. An diese Erscheinung"
       },
       {
         "page": 252,
-        "afterText": "(Ton, Farbe, Wärme usw.) in das Subjekt und ist der"
+        "beforeText": "Goethe und der naturwissenschaftliche Illusionismus"
       },
       {
         "page": 253,
-        "afterText": "in der Bewegung der Atome etwas zu suchen, was als"
+        "beforeText": "genommen werden. Sie sind auf Grund der subjektiven"
       },
       {
         "page": 254,
-        "afterText": "Körperwelt den Endorganen unseres Nervensystems in den Sinnesorganen mitteilt, von"
+        "beforeText": "den subjektiven Qualitäten des Tones, der Farbe usw"
       },
       {
         "page": 255,
-        "afterText": "Wege nachgewiesen werden kann, ist nur eine be"
+        "beforeText": "hier aus bis zum obersten Zentrum vermittelt wird,"
       },
       {
         "page": 256,
-        "afterText": "jener Ansicht von der naturwissenschaftlichen Methode gedrängt, die der Goetheschen"
+        "beforeText": "stimmte Gestaltung in der Anordnung und Funktion der"
       },
       {
         "page": 257,
-        "afterText": "dann von dieser Grundlage aus Goethes Auseinandersetzungen im rechten Lichte"
+        "beforeText": "Farbenlehre zugrunde liegt. Wer diese Erwägungen für"
       },
       {
         "page": 258,
-        "afterText": "eindringende, den Sachen auf den Grund gehende. Sie ergriff daher"
+        "beforeText": "Goethe als Denker und Forscher"
       },
       {
         "page": 259,
-        "afterText": "man wider meine Ausführungen erheben kann, mir selbst zu machen."
+        "beforeText": "mächtig alle Geister, die nach tieferer Erkenntnis"
       },
       {
         "page": 260,
-        "afterText": "sie kann nur Idealismus"
+        "beforeText": "Man sieht wohl gegenwärtig jeden für einen Dilettanten"
       },
       {
         "page": 261,
-        "afterText": "ersten? Wäre der Geist überhaupt mit dem beobachte"
+        "beforeText": "Denn sie hat ihren letzten"
       },
       {
         "page": 262,
-        "afterText": "sich dasselbe bis zur Bildung von Begriffen, Ideen"
+        "beforeText": "ten Objekte zufrieden, so"
       },
       {
         "page": 263,
-        "afterText": "bloß das Endprodukt jenes Prozesses. Wir"
+        "beforeText": "erhebt, deren Träger eben das menschliche Gehirn ist"
       },
       {
         "page": 264,
-        "afterText": "anderes als: Wie kann ich mich selbst in eine Bezie"
+        "beforeText": "durch die Beobachtung, sondern durch den Gedanken"
       },
       {
         "page": 265,
-        "afterText": "Dies wird gewöhnlich folgendermaßen definiert: Kein Körper kann ohne äußere"
+        "beforeText": "hung zu der mir gegenüberstehenden Natur bringen?"
       },
       {
         "page": 266,
-        "afterText": "Reihe von Vorgängen verfolgen, welche sich bei irgendeiner Sinneswahrnehmung vollziehen,"
+        "beforeText": "Ursache den Zustand der Bewegung, in dem er sich befindet"
       },
       {
         "page": 267,
-        "afterText": "dung verwiesen. Ich kann mich nun ja wohl fragen: Wel"
+        "beforeText": "von der peripherischen Endung des Nerven im Sinnesorgane"
       },
       {
         "page": 268,
-        "afterText": "antwortet, oder mit anderen Worten: wie sich eine"
+        "beforeText": "räumlich-zeitlichen Vorgänge spielen sich"
       },
       {
         "page": 269,
-        "afterText": "Windungen des Gehirnes durch etwas anderes gegeben denn durch Sinneswahr"
+        "beforeText": "Empfindung in irgendeinem Gegenstande der räumlich-zeitliche"
       },
       {
         "page": 270,
-        "afterText": "Dauernde im fortlaufenden Weltprozesse hinweg, wir machen wie Heraklit den"
+        "beforeText": "nehmung? All das ist gleich subjektiv und gleich objektiv"
       },
       {
         "page": 271,
-        "afterText": "allein objektiv in Betracht kommt, ausmacht, ist davon ganz unabhängig."
+        "beforeText": "Dinge, in dem nichts bestehen bleibt, zum alleinigen"
       },
       {
         "page": 272,
-        "afterText": "ist der sinnenfällige Ausdruck für den"
+        "beforeText": "Nun kann aber diese Erschließung"
       },
       {
         "page": 273,
-        "afterText": "ihr Inhalt einen andern bedingt, und"
-      },
-      {
-        "page": 273,
-        "afterText": "diesen Auseinandersetzungen glaube ich für den"
+        "beforeText": "._ Aber nur einer ganz verfehlten Auffassung des Zeitbegriff"
       },
       {
         "page": 274,
-        "afterText": "identifiziert. Etwas anderes ist die Materie als das den Erscheinungen"
+        "beforeText": "ergehendes. Dann braucht er aber ein Dasein, welches"
       },
       {
         "page": 275,
-        "afterText": "können, ist das Verhältnis von A, B und C. Nun"
+        "beforeText": "zugrunde liegende eigentlich Reale, etwas anderes"
       },
       {
         "page": 276,
-        "afterText": "Ausdruck für solche notwendige Zusammenhänge sind"
+        "beforeText": "aber bestehen neben A, B und C in der wahrnehmbaren"
       },
       {
         "page": 277,
-        "afterText": "er kannte jene Befugnis des verständigen Denkens. Ihm"
+        "beforeText": "Wenn man einer Sphäre von Erscheinungen gegenübertritt"
       },
       {
         "page": 279,
-        "afterText": "das als zu meinen schönsten Lebensaufgaben gehörig betrachten. Diese Einleitung"
+        "beforeText": "Leser der Goetheschen Farbenlehre alle Hindernisse"
       },
       {
         "page": 280,
-        "afterText": "wenn es überhaupt Gegenstand"
+        "beforeText": "konnte sich allein auf die wissenschaftlich strenge"
       },
       {
         "page": 281,
-        "afterText": "Inhalt des Angeschauten nicht aussprechen, weil dieser Inhalt sich in"
+        "beforeText": "unserer Erkenntnis werden soll"
       },
       {
         "page": 282,
-        "afterText": "eine lange Arbeit auf das einheitliche Weltprinzip zurück."
+        "beforeText": "Erst im Begriffe also bekommt die Welt ihren vollen"
       },
       {
         "page": 283,
-        "afterText": "Idee und Wirklichkeit ganz auseinander. Der Typus ver"
-      },
-      {
-        "page": 283,
-        "afterText": "der Erfahrung herstellt, einer Betrachtung unterziehen."
+        "beforeText": "die beiden aufeinander wirken, das"
       },
       {
         "page": 284,
-        "afterText": "eigen, so ruhte sein Anschauen auf den Dingen der unmittelbaren"
+        "beforeText": "einigt schon beide in einem Wesen. Das Geistige wird"
       },
       {
         "page": 285,
-        "afterText": "nicht die Farbe, aber es ist die Ursache ihrer Erscheinung."
+        "beforeText": "Wirklichkeit. Aber in diesem Anschauen liegt etwas"
       },
       {
         "page": 286,
-        "afterText": "welche den zweiten Teil bildet, sucht die Bedingungen,"
+        "beforeText": "Auge untersuchen, dessen Natur bloßlegen. Deshalb"
       },
       {
         "page": 287,
-        "afterText": "diesem Sinne erscheint denn als das eigentlich op"
+        "beforeText": "die vom Auge unabhängig sind und mit der Entstehung"
       },
       {
         "page": 289,
-        "afterText": "dem ersteren vorangeht. Doch das gehört auf ein anderes Blatt."
+        "beforeText": "Wir betrachten den einfachsten Fall, in dem uns die"
       },
       {
         "page": 290,
-        "afterText": "angehören, das sagt die räumliche Betrachtung."
+        "beforeText": "mit denen wir es zu tun haben, sich hinsichtlich ihres"
       },
       {
         "page": 291,
-        "afterText": "kein besonderes A und B mehr, welche aufeinander bezogen wer"
+        "beforeText": "Dies ist der Sinn des"
       },
       {
         "page": 292,
-        "afterText": "uns haben; verbinden wir auch diese noch, dann verschmelzen sie"
+        "beforeText": "mehr gehen. Ich habe das erreicht, was ich vorher"
       },
       {
         "page": 293,
-        "afterText": "konkrete Vorstellungen aufeinander und geht dadurch in das Gebiet der"
-      },
-      {
-        "page": 293,
-        "afterText": "B.; er schreibt auf Papier, das nie in A. war,"
+        "beforeText": "in jene ideelle Einheit, die mit nichts anderem mehr"
       },
       {
         "page": 294,
-        "afterText": "in eine Einheit, schon als solche äußerliche, zu vereinigen. Der"
+        "beforeText": "über. Die dritte Dimension"
       },
       {
         "page": 295,
-        "afterText": "bis an sein Lebensende zu beschäftigen."
+        "beforeText": "Raum ist also eine Art, die Welt als eine Einheit"
       },
       {
         "page": 296,
-        "afterText": "Grund nicht ausgeklügelt, sondern im Reich der Wirklichkeit"
+        "beforeText": "Wir müssen uns den Stand der Goetheschen Weltanschauung"
       },
       {
         "page": 297,
-        "afterText": "das Sonnenlicht, trotzdem es das Re"
+        "beforeText": "Sie kann mit den Worten"
+      },
+      {
+        "page": 299,
+        "beforeText": "mit Tinte, die nie in A. war; er selbst kennt A. gar"
       },
       {
         "page": 300,
-        "afterText": "ist eigentlich auch nichts"
-      },
-      {
-        "page": 301,
-        "afterText": "der physikalischen Optik stehen und damit lehnt er auch Goethes"
-      },
-      {
-        "page": 302,
-        "afterText": "seien, aus denen die einzelnen Erscheinungen bestehen. In hundertfältigen Wie"
-      },
-      {
-        "page": 303,
-        "afterText": "es, die mich dazu zwangen, jede Theorie der Natur, die"
-      },
-      {
-        "page": 303,
-        "afterText": "einer Welt, deren Temperatur überall die unseres Körpers"
-      },
-      {
-        "page": 304,
-        "afterText": "Anhänger des wissenschaftlichen Materialismus. Ich habe"
-      },
-      {
-        "page": 305,
-        "afterText": "(Glätte, Rauheit), so treten sie in meinem Geiste mit solcher"
-      },
-      {
-        "page": 306,
-        "afterText": "die Mathematik in die Mechanik über."
-      },
-      {
-        "page": 307,
-        "afterText": "Atome zurückzuführen, dem fehlt das Organ, um Goethe zu verstehen."
-      },
-      {
-        "page": 309,
-        "afterText": "hat. Es ist im Wesen gleichgültig:"
-      },
-      {
-        "page": 310,
-        "afterText": "von deren Form wir zurzeit allerdings kaum eine"
-      },
-      {
-        "page": 311,
-        "afterText": "gewissen Erscheinungen ein intimerer Zusammenhang be"
-      },
-      {
-        "page": 312,
-        "afterText": "sagt: Die Aufgabe der Mechanik ist:"
-      },
-      {
-        "page": 313,
-        "afterText": "sollen Goethe ein viel richtigeres und"
-      },
-      {
-        "page": 314,
-        "afterText": "bringt, Anhänger der mechanischen Naturlehre und der indischen Mystik zugleich"
-      },
-      {
-        "page": 315,
-        "afterText": "Bewegungen und Kräfte, ferner die Phänomene des Lichtes, der Far"
-      },
-      {
-        "page": 316,
-        "afterText": "man zuweilen als einen der größten Philosophen der"
-      },
-      {
-        "page": 317,
-        "afterText": "sich auf abstrakte Gegenstände und Vorgänge, die von der Erfahrungswelt"
-      },
-      {
-        "page": 318,
-        "afterText": "Methode und Mathematik sind nicht identisch, denn die mathematische Me"
-      },
-      {
-        "page": 319,
-        "afterText": "die er im Auge hat, ist sozusagen die chemisch reine"
-      },
-      {
-        "page": 320,
-        "afterText": "man von diesem besonderen Inhalte"
-      },
-      {
-        "page": 321,
-        "afterText": "es die konkreten Töne, Farben, Wärmeerscheinungen usw. wahr"
-      },
-      {
-        "page": 322,
-        "afterText": "Sinnesqualitäten ableiten, sondern weil eine derartige Forderung keinen Sinn hat."
-      },
-      {
-        "page": 323,
-        "afterText": "etwas, das sich bewegt, nehmen sie die aller sinnenfälligen Eigenschaf"
-      },
-      {
-        "page": 324,
-        "afterText": "die Ableitung der Lichterscheinungen aus einem mechanischen Vorgang ein unumgäng"
-      },
-      {
-        "page": 325,
-        "afterText": "den Dingen der Wirklichkeit vorhanden ist; aber sie ist eine"
-      },
-      {
-        "page": 326,
-        "afterText": "Ideen sind diesen Geistern ein Produkt des menschlichen"
-      },
-      {
-        "page": 327,
-        "afterText": "hat, den zwingt nichts,"
-      },
-      {
-        "page": 328,
-        "afterText": "die allgemeinen Vorstellungen, deren sie sich zum Erfassen der Na"
-      },
-      {
-        "page": 329,
-        "afterText": "gefärbt erscheint, wie im Reiche des Lichtes die Farbe entsteht."
-      },
-      {
-        "page": 330,
-        "afterText": "selbst aussprechen, wenn der Geist sich ihnen als Sprachorgan darbietet."
-      },
-      {
-        "page": 331,
-        "afterText": "sind als in dem entsprechenden Dinge oder Vorgange der Außen"
-      },
-      {
-        "page": 332,
-        "afterText": "gegenüberstellt, ist die Wahrheit. Der Mensch kann keine andere Erkennt"
-      },
-      {
-        "page": 333,
-        "afterText": "sich verschiedene Vorstellungen von den Dingen machen. Auch nicht dadurch,"
-      },
-      {
-        "page": 333,
-        "afterText": "etwas Fertiges in der objektiven Welt vorhanden, sondern wird erst"
-      },
-      {
-        "page": 334,
-        "afterText": "und genaueste physikalische Apparat, den es geben kann, und das"
-      },
-      {
-        "page": 335,
-        "afterText": "der Dinge nicht er"
-      },
-      {
-        "page": 336,
-        "afterText": "meine Anschauung über den Gegensatz von Goethescher und Kantscher Weltauf"
-      },
-      {
-        "page": 337,
-        "afterText": "Dingen in ein Verhältnis zu setzen, die Kants ist, sondern"
-      },
-      {
-        "page": 339,
-        "afterText": "Ideenwelt sich ausdrückende Wesenheit der Dinge. Auch der Mystiker will"
-      },
-      {
-        "page": 340,
-        "afterText": "in ihr auch den"
-      },
-      {
-        "page": 341,
-        "afterText": "Handeln. Denn der Mensch ist von nichts abhängig"
-      },
-      {
-        "page": 342,
-        "afterText": "produzieren werden, die durch ihre wesentliche Verschiedenheit einen unharmonischen Zusammenklang"
-      },
-      {
-        "page": 343,
-        "afterText": "und das lediglich durch dasjenige unser Interesse erweckt, was der"
-      },
-      {
-        "page": 344,
-        "afterText": "gestaltet natürlich; aber er gestaltet nicht wie die Natur selbst."
+        "beforeText": "Denn ein Medium, in dem"
       }
     ]
   },
