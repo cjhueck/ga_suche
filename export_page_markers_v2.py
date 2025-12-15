@@ -152,7 +152,7 @@ def is_content_page(page_text: str, page_num: Optional[int], start_page: int = 1
 # - Vorspann (Inhaltsverzeichnis, Vorwort) ist NICHT im JSON
 # - Alles nach "HINWEISE" ist NICHT im JSON
 GA_PAGE_RANGES = {
-    "GA001": (1, 300),      # Anpassen nach Bedarf
+    "GA001": (7, 300),      # Hauptinhalt beginnt auf Seite 7 (nach Vorwort/Inhaltsverzeichnis)
     "GA051": (18, 320),     # Hauptinhalt: Seite 18-320, HINWEISE beginnt auf 321
 }
 
