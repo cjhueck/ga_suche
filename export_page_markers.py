@@ -119,12 +119,29 @@ def get_first_text_of_page(page) -> Optional[str]:
     return text_blocks[0]['text']
 
 
+def normalize_for_matching(text: str) -> str:
+    """
+    Normalisiert Text für robusteren Vergleich:
+    - daß -> dass (Rechtschreibreform)
+    - Kleinbuchstaben
+    - Mehrfache Leerzeichen entfernen
+    """
+    text = text.replace('daß', 'dass').replace('Daß', 'Dass')
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
+
+
 def find_before_text_in_content(first_line_text: str, content: str) -> Optional[str]:
     """
     Sucht den ersten Zeilen-Text der PDF-Seite im JSON-Content.
     Gibt einen beforeText zurück, der exakt im Content gefunden werden kann.
     
     Der Marker wird VOR diesem Text eingefügt.
+    
+    Behandelt folgende Probleme:
+    1. Worttrennung am Seitenanfang (z.B. "weit" von "Außen-weit")
+    2. Rechtschreibreform (daß -> dass)
+    3. Groß-/Kleinschreibung
     
     Args:
         first_line_text: Der erste Text der Seite aus dem PDF
@@ -139,62 +156,127 @@ def find_before_text_in_content(first_line_text: str, content: str) -> Optional[
     # Bereinige den PDF-Text (Zeilenumbrüche zu Leerzeichen)
     search_text = first_line_text.replace('\n', ' ').strip()
     
-    # Nimm die ersten Zeichen/Wörter des Texts
-    # Bei Worttrennungen kann das auch ein Wortteil sein (z.B. "schaft" von "Wissenschaft")
-    
-    # Versuche verschiedene Längen
+    # === STRATEGIE 1: Exakte Suche mit verschiedenen Längen ===
     for length in range(min(len(search_text), 50), 10, -5):
         search_phrase = search_text[:length].strip()
         
         if len(search_phrase) < 10:
             continue
         
-        # Suche exakt im Content
         idx = content.find(search_phrase)
         
         if idx >= 0:
-            # Gefunden! 
-            # Extrahiere beforeText: Die ersten 20-60 Zeichen ab dieser Position
-            end_pos = idx + min(len(search_phrase), BEFORE_TEXT_MAX)
-            
-            # Erweitere bis zu einer guten Grenze (Wortende, max 60 Zeichen)
-            while end_pos < len(content) and end_pos < idx + BEFORE_TEXT_MAX:
-                if content[end_pos] in ' .,;:!?\n':
-                    break
-                end_pos += 1
-            
-            before_text = content[idx:end_pos].strip()
-            
-            # Prüfe Mindestlänge
-            if len(before_text) >= BEFORE_TEXT_MIN:
-                return before_text
+            return _extract_before_text(content, idx, len(search_phrase))
     
-    # Fallback: Versuche mit normalisierten Texten
+    # === STRATEGIE 2: Rechtschreibreform-normalisiert ===
+    search_normalized = normalize_for_matching(search_text)
+    content_normalized = normalize_for_matching(content)
+    
+    for length in range(min(len(search_normalized), 50), 10, -5):
+        search_phrase = search_normalized[:length].strip()
+        
+        if len(search_phrase) < 10:
+            continue
+        
+        idx = content_normalized.find(search_phrase)
+        
+        if idx >= 0:
+            # Finde die exakte Position im Original-Content
+            # Durch Normalisierung kann die Position leicht abweichen
+            original_idx = _find_original_position(content, content_normalized, idx)
+            if original_idx >= 0:
+                return _extract_before_text(content, original_idx, len(search_phrase))
+    
+    # === STRATEGIE 3: Case-insensitive Suche ===
+    search_lower = search_text.lower()
+    content_lower = content.lower()
+    
+    for length in range(min(len(search_lower), 50), 10, -5):
+        search_phrase = search_lower[:length].strip()
+        
+        if len(search_phrase) < 10:
+            continue
+        
+        idx = content_lower.find(search_phrase)
+        
+        if idx >= 0:
+            return _extract_before_text(content, idx, len(search_phrase))
+    
+    # === STRATEGIE 4: Worttrennung - Suche ab dem ZWEITEN Wort ===
+    # Wenn der erste Text ein Wortteil ist (z.B. "weit" von "Außenwelt"),
+    # versuche ab dem zweiten Wort zu suchen
+    words = search_text.split()
+    if len(words) >= 3:
+        # Starte ab dem zweiten Wort (überspringe potenziellen Wortteil)
+        for start_word in range(1, min(3, len(words) - 1)):
+            remaining_text = ' '.join(words[start_word:start_word + 4])
+            
+            idx = content.find(remaining_text)
+            if idx >= 0:
+                # Gefunden! Aber wir wollen den Text VOR diesem Punkt
+                # Suche rückwärts nach dem Wortanfang
+                word_start = idx
+                while word_start > 0 and content[word_start - 1] not in ' \n\t.,;:!?':
+                    word_start -= 1
+                
+                return _extract_before_text(content, word_start, len(remaining_text) + (idx - word_start))
+    
+    # === STRATEGIE 5: Fuzzy-Suche mit Wörtern (Original-Methode) ===
     search_normalized = normalize_for_search(search_text)
     content_normalized = normalize_for_search(content)
     
     words = search_normalized.split()
     if len(words) >= 2:
-        # Nimm die ersten 3-5 Wörter
         for word_count in range(min(len(words), 5), 1, -1):
             search_phrase = ' '.join(words[:word_count])
             
             idx = content_normalized.find(search_phrase)
             if idx >= 0:
-                # Suche diese Phrase im Original-Content
                 for start_pos in range(max(0, idx - 50), min(len(content), idx + 100)):
                     if normalize_for_search(content[start_pos:start_pos + len(search_phrase) + 20]).startswith(search_phrase):
-                        # Extrahiere beforeText
-                        end_pos = start_pos + min(len(search_phrase) + 20, BEFORE_TEXT_MAX)
-                        while end_pos < len(content) and end_pos < start_pos + BEFORE_TEXT_MAX:
-                            if content[end_pos] in ' .,;:!?\n':
-                                break
-                            end_pos += 1
-                        
-                        before_text = content[start_pos:end_pos].strip()
-                        if len(before_text) >= BEFORE_TEXT_MIN:
-                            return before_text
-                        break
+                        return _extract_before_text(content, start_pos, len(search_phrase))
+    
+    return None
+
+
+def _find_original_position(original: str, normalized: str, normalized_idx: int) -> int:
+    """
+    Findet die ungefähre Position im Original-String basierend auf der Position im normalisierten String.
+    """
+    # Einfache Heuristik: Die Position im Original ist ähnlich
+    # (Normalisierung verändert hauptsächlich Leerzeichen und daß->dass)
+    
+    # Suche in einem Fenster um die erwartete Position
+    window_start = max(0, normalized_idx - 20)
+    window_end = min(len(original), normalized_idx + 50)
+    
+    # Extrahiere den normalisierten Text an dieser Position
+    target_text = normalized[normalized_idx:normalized_idx + 30]
+    
+    # Suche diesen Text im Original-Fenster
+    for pos in range(window_start, window_end):
+        if normalize_for_matching(original[pos:pos + 35]).startswith(target_text[:20]):
+            return pos
+    
+    return normalized_idx  # Fallback: verwende die normalisierte Position
+
+
+def _extract_before_text(content: str, start_idx: int, min_length: int) -> Optional[str]:
+    """
+    Extrahiert beforeText aus dem Content ab einer bestimmten Position.
+    """
+    end_pos = start_idx + max(min_length, BEFORE_TEXT_MIN)
+    
+    # Erweitere bis zu einer guten Grenze (Wortende, max 60 Zeichen)
+    while end_pos < len(content) and end_pos < start_idx + BEFORE_TEXT_MAX:
+        if content[end_pos] in ' .,;:!?\n':
+            break
+        end_pos += 1
+    
+    before_text = content[start_idx:end_pos].strip()
+    
+    if len(before_text) >= BEFORE_TEXT_MIN:
+        return before_text
     
     return None
 
