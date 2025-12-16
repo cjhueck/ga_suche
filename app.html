@@ -568,14 +568,25 @@ body.dark-mode .concept-network-link {
 }
 
 .concept-network-trigger-btn.verlinkungsnetz {
-  background: #e8f4f8;
-  border-color: #2b8a9e;
-  color: #2b8a9e;
+  background: #eef5f6;
+  border-color: var(--accent-color);
+  color: var(--accent-color);
 }
 
 .concept-network-trigger-btn.verlinkungsnetz:hover {
-  background: #2b8a9e;
+  background: var(--accent-color);
   color: white;
+}
+
+body.dark-mode .concept-network-trigger-btn.verlinkungsnetz {
+  background: rgba(107, 163, 184, 0.15);
+  border-color: var(--dark-accent-color);
+  color: var(--dark-accent-color);
+}
+
+body.dark-mode .concept-network-trigger-btn.verlinkungsnetz:hover {
+  background: var(--dark-accent-color);
+  color: #1a1a1a;
 }
 
 .concept-network-trigger-btn svg {
@@ -591,10 +602,11 @@ body.dark-mode .concept-network-link {
   display: flex;
   gap: 20px;
   padding: 8px 16px;
-  background: var(--card-bg, #f8f9fa);
-  border-bottom: 1px solid var(--border-color, #e0e0e0);
-  font-size: 12px;
+  background: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85em;
   flex-wrap: wrap;
+  color: var(--secondary-text);
 }
 
 .bidirectional-network-legend .legend-item {
@@ -604,21 +616,26 @@ body.dark-mode .concept-network-link {
 }
 
 .bidirectional-network-legend .legend-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
+  border: 1px solid var(--border-color);
 }
 
+/* Farben passend zum Teal-Schema der App */
 .bidirectional-network-legend .legend-dot.links-to {
-  background: #3182ce;
+  background: #5a9aab;  /* Helleres Teal */
+  border-color: #467886;
 }
 
 .bidirectional-network-legend .legend-dot.linked-from {
-  background: #38a169;
+  background: #7a9a8a;  /* Gedämpftes Grün-Teal */
+  border-color: #5a7a6a;
 }
 
 .bidirectional-network-legend .legend-dot.bidirectional {
-  background: #805ad5;
+  background: var(--accent-color);
+  border-color: #365a66;
 }
 
 /* Links/Linien */
@@ -628,32 +645,32 @@ body.dark-mode .concept-network-link {
 }
 
 .bidirectional-network-link.links-to {
-  stroke: #3182ce;
-  stroke-opacity: 0.6;
+  stroke: #5a9aab;
+  stroke-opacity: 0.5;
 }
 
 .bidirectional-network-link.linked-from {
-  stroke: #38a169;
-  stroke-opacity: 0.6;
+  stroke: #7a9a8a;
+  stroke-opacity: 0.5;
 }
 
 .bidirectional-network-link.bidirectional {
-  stroke: #805ad5;
-  stroke-opacity: 0.8;
+  stroke: var(--accent-color);
+  stroke-opacity: 0.7;
   stroke-width: 2;
 }
 
 /* Pfeilspitzen */
 .arrow-links-to {
-  fill: #3182ce;
+  fill: #5a9aab;
 }
 
 .arrow-linked-from {
-  fill: #38a169;
+  fill: #7a9a8a;
 }
 
 .arrow-bidirectional {
-  fill: #805ad5;
+  fill: var(--accent-color);
 }
 
 /* Knoten */
@@ -662,109 +679,159 @@ body.dark-mode .concept-network-link {
 }
 
 .bidirectional-network-node.hovered .bidirectional-network-label-bg {
-  fill: var(--accent-color-light, #e6f2ff);
+  fill: #e8f0f2;
 }
 
 .bidirectional-network-node.hovered .bidirectional-network-label {
-  fill: var(--accent-color, #4a7c94);
+  fill: var(--accent-color);
 }
 
 /* Label-Hintergrund */
 .bidirectional-network-label-bg {
-  fill: var(--background-color, white);
-  stroke: var(--border-color, #e0e0e0);
+  fill: var(--background-color);
+  stroke: var(--border-color);
   stroke-width: 1;
+  rx: 4;
+  ry: 4;
 }
 
 .bidirectional-network-node.central .bidirectional-network-label-bg {
-  fill: var(--accent-color-light, #e6f7ff);
-  stroke: var(--accent-color, #4a7c94);
+  fill: #e8f4f6;
+  stroke: var(--accent-color);
   stroke-width: 2;
 }
 
 .bidirectional-network-node.links-to .bidirectional-network-label-bg {
-  fill: #ebf8ff;
-  stroke: #3182ce;
+  fill: #eef6f8;
+  stroke: #5a9aab;
 }
 
 .bidirectional-network-node.linked-from .bidirectional-network-label-bg {
-  fill: #f0fff4;
-  stroke: #38a169;
+  fill: #eff5f2;
+  stroke: #7a9a8a;
 }
 
 .bidirectional-network-node.bidirectional .bidirectional-network-label-bg {
-  fill: #faf5ff;
-  stroke: #805ad5;
+  fill: #e8f0f2;
+  stroke: var(--accent-color);
   stroke-width: 1.5;
 }
 
 /* Labels */
 .bidirectional-network-label {
-  fill: var(--text-color, #333);
+  fill: var(--text-color);
   pointer-events: none;
+  font-size: 0.9em;
 }
 
 .bidirectional-network-node.central .bidirectional-network-label {
-  fill: var(--accent-color, #4a7c94);
+  fill: var(--accent-color);
   font-weight: 700;
 }
 
 .bidirectional-network-node.links-to .bidirectional-network-label {
-  fill: #2c5282;
+  fill: #3a6a7a;
 }
 
 .bidirectional-network-node.linked-from .bidirectional-network-label {
-  fill: #276749;
+  fill: #4a6a5a;
 }
 
 .bidirectional-network-node.bidirectional .bidirectional-network-label {
-  fill: #553c9a;
+  fill: var(--accent-color);
   font-weight: 600;
 }
 
 /* Dark Mode Anpassungen */
 body.dark-mode .bidirectional-network-legend {
-  background: var(--card-bg, #2d3748);
+  background: var(--dark-background-color);
+  border-color: var(--dark-border-color);
+  color: var(--dark-secondary-text);
+}
+
+body.dark-mode .bidirectional-network-legend .legend-dot {
+  border-color: var(--dark-border-color);
+}
+
+body.dark-mode .bidirectional-network-legend .legend-dot.links-to {
+  background: #6BA3B8;
+}
+
+body.dark-mode .bidirectional-network-legend .legend-dot.linked-from {
+  background: #7a9a8a;
+}
+
+body.dark-mode .bidirectional-network-legend .legend-dot.bidirectional {
+  background: var(--dark-accent-color);
+}
+
+body.dark-mode .bidirectional-network-link.links-to {
+  stroke: #6BA3B8;
+}
+
+body.dark-mode .bidirectional-network-link.linked-from {
+  stroke: #7a9a8a;
+}
+
+body.dark-mode .bidirectional-network-link.bidirectional {
+  stroke: var(--dark-accent-color);
+}
+
+body.dark-mode .arrow-links-to {
+  fill: #6BA3B8;
+}
+
+body.dark-mode .arrow-linked-from {
+  fill: #7a9a8a;
+}
+
+body.dark-mode .arrow-bidirectional {
+  fill: var(--dark-accent-color);
 }
 
 body.dark-mode .bidirectional-network-label-bg {
-  fill: var(--background-color, #1a202c);
+  fill: var(--dark-background-color);
+  stroke: var(--dark-border-color);
 }
 
 body.dark-mode .bidirectional-network-node.central .bidirectional-network-label-bg {
-  fill: #1a365d;
+  fill: #1a2a30;
+  stroke: var(--dark-accent-color);
 }
 
 body.dark-mode .bidirectional-network-node.links-to .bidirectional-network-label-bg {
-  fill: #1a365d;
+  fill: #1a2830;
+  stroke: #6BA3B8;
 }
 
 body.dark-mode .bidirectional-network-node.linked-from .bidirectional-network-label-bg {
-  fill: #1c4532;
+  fill: #1a2820;
+  stroke: #7a9a8a;
 }
 
 body.dark-mode .bidirectional-network-node.bidirectional .bidirectional-network-label-bg {
-  fill: #322659;
+  fill: #1a2a30;
+  stroke: var(--dark-accent-color);
 }
 
 body.dark-mode .bidirectional-network-label {
-  fill: var(--text-color, #e2e8f0);
+  fill: var(--dark-text-color);
 }
 
 body.dark-mode .bidirectional-network-node.central .bidirectional-network-label {
-  fill: #90cdf4;
+  fill: var(--dark-accent-color);
 }
 
 body.dark-mode .bidirectional-network-node.links-to .bidirectional-network-label {
-  fill: #63b3ed;
+  fill: #8fc3d8;
 }
 
 body.dark-mode .bidirectional-network-node.linked-from .bidirectional-network-label {
-  fill: #68d391;
+  fill: #9abaa8;
 }
 
 body.dark-mode .bidirectional-network-node.bidirectional .bidirectional-network-label {
-  fill: #b794f4;
+  fill: var(--dark-accent-color);
 }
 
 /* ============================================================================
@@ -1153,17 +1220,19 @@ body.dark-mode .connection-modal-header {
     
     /* Verlinkungen-Sektion im Index-Tab */
     .concept-verlinkungen-wrapper {
-      margin-top: 0.5rem;
-      padding-top: 0.5rem;
-      border-top: 1px dashed var(--border-color);
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--border-color);
     }
     
     .concept-verlinkungen {
-      font-size: 0.9em;
+      font-size: var(--text-size);
+      line-height: 1.5;
     }
     
     .verlinkung-section {
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
+      padding: 0.4rem 0;
     }
     
     .verlinkung-section:last-child {
@@ -1171,13 +1240,19 @@ body.dark-mode .connection-modal-header {
     }
     
     .verlinkung-label {
-      color: var(--secondary-text);
-      font-style: italic;
-      margin-right: 0.3rem;
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-right: 0.4rem;
+      font-style: normal;
     }
     
     body.dark-mode .verlinkung-label {
-      color: var(--dark-secondary-text, #888);
+      color: var(--dark-accent-color);
+    }
+    
+    /* Verlinkung-Links mit Komma-Trennung */
+    .concept-verlinkungen .concept-schlagwort-link {
+      margin-right: 0.1rem;
     }
     
     body.dark-mode .search-input:-webkit-autofill,
@@ -18475,6 +18550,9 @@ function scrollToChronologicalYear(year) {
         let newHTML = text;
         let hasReplacements = false;
         
+        // Speichere Platzhalter-Zuordnungen (verhindert verschachtelte Ersetzungen)
+        const placeholders = [];
+        
         // Sortiere Schlagwörter nach Länge (längere zuerst), um überlappende Matches zu vermeiden
         const sortedKeywords = Array.from(schlagwortMap.entries())
           .sort((a, b) => b[0].length - a[0].length);
@@ -18497,12 +18575,25 @@ function scrollToChronologicalYear(year) {
               ? 'concept-schlagwort-link has-index' 
               : 'concept-schlagwort-link no-index';
             
+            // Ersetze durch Platzhalter statt direkt durch HTML
+            // Dies verhindert, dass kürzere Wörter in bereits ersetzten Bereichen gefunden werden
             newHTML = newHTML.replace(regex, (match) => {
               hasReplacements = true;
-              return `<a href="#" class="${cssClass}" onclick="navigateToSchlagwort('${data.keyword}'); return false;">${match}</a>`;
+              const placeholderIndex = placeholders.length;
+              const placeholder = `\x00KWLINK_${placeholderIndex}\x00`;
+              placeholders.push({
+                placeholder,
+                html: `<a href="#" class="${cssClass}" onclick="navigateToSchlagwort('${data.keyword}'); return false;">${match}</a>`
+              });
+              return placeholder;
             });
           }
         }
+        
+        // Ersetze alle Platzhalter durch die echten HTML-Links
+        placeholders.forEach(({ placeholder, html }) => {
+          newHTML = newHTML.replace(placeholder, html);
+        });
         
         // Ersetze den Textknoten nur wenn es Ersetzungen gab
         if (hasReplacements) {

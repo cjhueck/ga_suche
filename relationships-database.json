@@ -527,5 +527,31 @@
     ],
     "totalOccurrences": 38,
     "generatedAt": "2025-12-12T18:38:33.347Z"
+  },
+  "meditation|sinnlichkeitsfreies denken": {
+    "term1": "Sinnlichkeitsfreies Denken",
+    "term2": "Meditation",
+    "aspects": [
+      {
+        "text": "unterstützt seelische Versenkungen und Meditationen",
+        "gaRef": "GA013:^igvirf",
+        "score": 1
+      }
+    ],
+    "totalOccurrences": 2,
+    "generatedAt": "2025-12-16T22:26:24.949Z"
+  },
+  "sinnlichkeitsfreies denken|ätherleib": {
+    "term1": "Sinnlichkeitsfreies Denken",
+    "term2": "Ätherleib",
+    "aspects": [
+      {
+        "text": "wird durch Theosophie beim Verstehen von Ätherleib erreicht",
+        "gaRef": "GA101/15:^ssu8ph",
+        "score": 1
+      }
+    ],
+    "totalOccurrences": 2,
+    "generatedAt": "2025-12-16T22:26:39.275Z"
   }
 }
