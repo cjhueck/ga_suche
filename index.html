@@ -1962,6 +1962,14 @@
           quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*,\s*\d{4}\)\s*$/i, '');
           quoteText = quoteText.replace(/\s*\(GA\d+[a-z]?\/?\d*\)\s*$/i, '');
           
+          // Konvertiere **text** zu <strong>text</strong> (Markdown-Fett)
+          quoteText = quoteText.replace(/\*\*([^*]+)\*\*/g, '<strong style="font-style: normal;">$1</strong>');
+          
+          // Konvertiere englische Anführungszeichen zu deutschen
+          // Öffnendes " am Wortanfang -> „ (unten)
+          // Schließendes " am Wortende -> " (oben)
+          quoteText = quoteText.replace(/"([^"]+)"/g, '„$1"');
+          
           // Text mit Absätzen formatieren (wie im Main Viewer)
           const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
           const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
