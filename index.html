@@ -1974,17 +1974,32 @@
           const paragraphs = quoteText.split('\n').map(para => para.trim()).filter(para => para.length > 0);
           const formattedHtml = paragraphs.map(para => `<p style="margin: 0.5rem 0;">${para}</p>`).join('');
           
-          // GA-Nummer und Datum für Quellenangabe unter dem Zitat
+          // GA-Nummer und Vortragsdatum für Quellenangabe unter dem Zitat
           let sourceParts = [];
+          let lectureDate = null;
+          
           if (quote.lectureId && quote.lectureId !== 'manual') {
             const displayId = formatLectureId(quote.lectureId);
             const paragraphIndex = quote.paragraphIndex || '';
             const targetUrl = `app.html#texte&lecture=${quote.lectureId}${paragraphIndex ? '&p=' + paragraphIndex : ''}`;
             sourceParts.push(`<a href="${targetUrl}" style="color: var(--link-color, #467886); text-decoration: none; font-weight: bold;">${displayId}</a>`);
-          }
-          if (quote.date) {
+            
+            // Lade Vortragsdatum vom Server
             try {
-              const dateObj = new Date(quote.date);
+              const lectureResponse = await fetch(`${API_BASE}/api/lecture/${quote.lectureId}`);
+              if (lectureResponse.ok) {
+                const lectureData = await lectureResponse.json();
+                lectureDate = lectureData.date || lectureData.lectureDate || null;
+              }
+            } catch (e) {
+              console.warn('[QUOTES-POPUP] Konnte Vortragsdatum nicht laden:', e);
+            }
+          }
+          
+          // Zeige Vortragsdatum (nicht Speicherdatum)
+          if (lectureDate) {
+            try {
+              const dateObj = new Date(lectureDate);
               const dateStr = dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
               sourceParts.push(`<span style="font-weight: bold;">${dateStr}</span>`);
             } catch (e) {}
