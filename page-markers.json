@@ -6637,1490 +6637,834 @@
     ]
   },
   "GA051": {
-    "title": "Über Philosophie, Geschichte und Literatur",
-    "pdfSource": "Steiner, Rudolf GA 051 1983 - Über Philosophie, Geschichte und Literatur.pdf",
     "markers": [
       {
         "page": 17,
-        "beforeText": "Dass der Mensch nicht dabei stehenbleiben kann, was",
-        "confidence": "extracted"
+        "beforeText": "WELT- UND LEBENSANSCHAUUNGEN VON DEN ÄLTESTEN ZEITEN",
+        "confidence": "first"
       },
       {
         "page": 18,
         "beforeText": "Fragen vorlegen. Die Antworten, die er sich selbst",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 19,
-        "beforeText": "der abendländischen Kultur in der Zeit, in der die",
-        "confidence": "extracted"
-      },
-      {
-        "page": 20,
-        "beforeText": "mit den Fragen beschäftigen, die sich in keiner einzelnen",
-        "confidence": "extracted"
+        "beforeText": "Daher entsteht eine denkende Weltbetrachtung innerhalb",
+        "confidence": "fallback"
       },
       {
         "page": 21,
         "beforeText": "Die ältesten griechischen Denker, so erzählt uns Aristoteles",
-        "confidence": "extracted"
-      },
-      {
-        "page": 22,
-        "beforeText": "ein ganz anderes geworden. Und so ist es mit allen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 23,
-        "beforeText": "Und weil keine verständige Intelligenz dieses",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 24,
-        "beforeText": "die kleinsten Bestandteile der Dinge, die Atome, einander",
-        "confidence": "extracted"
-      },
-      {
-        "page": 25,
-        "beforeText": "als Schein auffassen und können das",
-        "confidence": "extracted"
-      },
-      {
-        "page": 26,
-        "beforeText": "eine einseitige Übertreibung dieser Tatsache. Denn",
-        "confidence": "extracted"
-      },
-      {
-        "page": 27,
-        "beforeText": "Zahlen das erste in der Natur zu sein.»",
-        "confidence": "extracted"
-      },
-      {
-        "page": 28,
-        "beforeText": "er die Dinge erkennen? Wie ist es ihm möglich, Vorstellungen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 29,
-        "beforeText": "Sinne täuschen uns. Und man könnte noch weiter",
-        "confidence": "extracted"
-      },
-      {
-        "page": 30,
-        "beforeText": "zu. Der Mensch konnte nunmehr daran denken,",
-        "confidence": "extracted"
+        "beforeText": "Freundschaft sollte sie als eine Person erscheinen",
+        "confidence": "fallback"
       },
       {
         "page": 31,
-        "beforeText": "Dieses Gemeinsame ist eben der Begriff der",
-        "confidence": "extracted"
-      },
-      {
-        "page": 32,
-        "beforeText": "Ständen diese Philosophie wenig gefiel. Was die",
-        "confidence": "extracted"
-      },
-      {
-        "page": 33,
-        "beforeText": "an den Dingen sinnlich wahrnehmbar ist, entsteht also",
-        "confidence": "extracted"
-      },
-      {
-        "page": 34,
-        "beforeText": "ich das, was wahrhaft bleibend und nicht ein",
-        "confidence": "extracted"
-      },
-      {
-        "page": 35,
-        "beforeText": "Süditalien - und Sizilien. Im Jahre 389 v.Chr. kehrte",
-        "confidence": "extracted"
-      },
-      {
-        "page": 36,
-        "beforeText": "Seele ist die des sinnlichen Lebens; sie hat den Ernährungs-",
-        "confidence": "extracted"
-      },
-      {
-        "page": 37,
-        "beforeText": "Thrakien. Er wurde mit achtzehn Jahren Platos Zögling",
-        "confidence": "extracted"
-      },
-      {
-        "page": 38,
-        "beforeText": "Es war ein Chaos vorhanden mit einer unermesslichen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 39,
-        "beforeText": "wenn es ein ausgebildeter Vogel sein",
-        "confidence": "extracted"
-      },
-      {
-        "page": 40,
-        "beforeText": "sterblichkeit sprechen, dass",
-        "confidence": "extracted"
+        "beforeText": "sames haben. Dieses Gemeinsame ist eben der Begriff",
+        "confidence": "fallback"
       },
       {
         "page": 41,
-        "beforeText": "ein Gott oder ein Tier sein...",
-        "confidence": "extracted"
-      },
-      {
-        "page": 42,
-        "beforeText": "Schriften des alten Weisen zu erklären.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 43,
-        "beforeText": "Die stoische Schule stiftete Zeno von Kition auf Zypern",
-        "confidence": "extracted"
-      },
-      {
-        "page": 44,
-        "beforeText": "Die Epikureer sahen das Lebensziel in der Befriedigung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 45,
-        "beforeText": "Dinge äußern; ob sich die Dinge wirklich so verhielten",
-        "confidence": "extracted"
-      },
-      {
-        "page": 46,
-        "beforeText": "des Abendlandes auf. Das",
-        "confidence": "extracted"
-      },
-      {
-        "page": 47,
-        "beforeText": "Es war in die Gefangenschaft",
-        "confidence": "extracted"
-      },
-      {
-        "page": 48,
-        "beforeText": "der Kirchenvater Augustinus ein Zeugnis;",
-        "confidence": "extracted"
-      },
-      {
-        "page": 49,
-        "beforeText": "die Offenbarung durch",
-        "confidence": "extracted"
-      },
-      {
-        "page": 50,
-        "beforeText": "Das ging nicht ohne verkünstelte",
-        "confidence": "extracted"
+        "beforeText": "Einer der Aussprüche des Aristoteles ist: «Wer für",
+        "confidence": "fallback"
       },
       {
         "page": 51,
         "beforeText": "Vernunft ein für allemal sicherstellen. Deshalb nennt",
-        "confidence": "extracted"
-      },
-      {
-        "page": 52,
-        "beforeText": "von uns überzeugt würde, oder unsere Gründe",
-        "confidence": "extracted"
-      },
-      {
-        "page": 53,
-        "beforeText": "Menschheit eingeimpft hat, glaubt",
-        "confidence": "extracted"
-      },
-      {
-        "page": 54,
-        "beforeText": "aber, bei Lichte besehen, nichts anderes als die",
-        "confidence": "extracted"
-      },
-      {
-        "page": 55,
-        "beforeText": "isen, daran hatte er vorher nicht gezweifelt",
-        "confidence": "extracted"
-      },
-      {
-        "page": 56,
-        "beforeText": "nicht erscheinen, so kann das menschliche",
-        "confidence": "extracted"
-      },
-      {
-        "page": 57,
-        "beforeText": "Die Erkenntnis soll es also, im Sinne Kants,",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 58,
-        "beforeText": "wie die mathematischen Wahrheiten, das nimmt die",
-        "confidence": "extracted"
-      },
-      {
-        "page": 59,
-        "beforeText": "Auch er suchte, was frühere Anschauungen in einer",
-        "confidence": "extracted"
-      },
-      {
-        "page": 60,
-        "beforeText": "Weltanschauungen mit diesem «Ich» alles gemacht?",
-        "confidence": "extracted"
+        "beforeText": "kann, wie die mathematischen Wahrheiten, das nimmt",
+        "confidence": "fallback"
       },
       {
         "page": 61,
-        "beforeText": "Was geben mir also alle meine Begriffe und Ideen?",
-        "confidence": "extracted"
-      },
-      {
-        "page": 62,
-        "beforeText": "der Wasserdampf, der die Lokomotive treibt ...",
-        "confidence": "extracted"
-      },
-      {
-        "page": 63,
-        "beforeText": "in sich selbst hat, das setzt er in die Welt hinaus",
-        "confidence": "extracted"
-      },
-      {
-        "page": 64,
-        "beforeText": "Ihre Grundlage hat schon Schiller ausgesprochen, als",
-        "confidence": "extracted"
-      },
-      {
-        "page": 65,
-        "beforeText": "aber sie werden auch mit diesen fallen. Der ökonomisch",
-        "confidence": "extracted"
-      },
-      {
-        "page": 66,
-        "beforeText": "Und wenn man den außerordentlichen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 67,
-        "beforeText": "man einzelne Stellen finden wollte, die gewissen Stellen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 68,
-        "beforeText": "Neumann-Hofer, die trotz spottschlechter Übersetzung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 69,
-        "beforeText": "Er lässt die Ereignisse sich entwickeln, so wie sich Naturvorgänge abspielen, folgerichtig",
-        "confidence": "extracted"
+        "beforeText": "herrscht? Was geben mir also alle meine Begriffe und",
+        "confidence": "fallback"
       },
       {
         "page": 70,
-        "beforeText": "sie unbeschwert von dem Wust der",
-        "confidence": "extracted"
+        "beforeText": "gegenüberzustehen, sie unbeschwert von dem Wust der",
+        "confidence": "fallback"
       },
       {
         "page": 71,
-        "beforeText": "Zeiten den Ruhm Shakespeares begründen sollten",
-        "confidence": "extracted"
-      },
-      {
-        "page": 72,
-        "beforeText": "eines königlichen Palastes genügten",
-        "confidence": "extracted"
-      },
-      {
-        "page": 73,
-        "beforeText": "Wir haben gesehen, dass",
-        "confidence": "extracted"
-      },
-      {
-        "page": 74,
-        "beforeText": "Republik, die Würde des Pontifex Maximus. So haben",
-        "confidence": "extracted"
-      },
-      {
-        "page": 75,
-        "beforeText": "Zeit hernach; dass das",
-        "confidence": "extracted"
-      },
-      {
-        "page": 76,
-        "beforeText": "als zugrunde gegangen ist. Und was davon",
-        "confidence": "extracted"
-      },
-      {
-        "page": 77,
-        "beforeText": "t zuletzt der Verfall der römischen Weltherrschaft",
-        "confidence": "extracted"
-      },
-      {
-        "page": 78,
-        "beforeText": "Tribuns, aber im großen und ganzen war diese Regierung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 79,
-        "beforeText": "und den damit verknüpften Problemen der Vererbung.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 80,
-        "beforeText": "Dadurch haben wir also jetzt das Proletariat auf der",
-        "confidence": "extracted"
+        "beforeText": "Zeiten den Ruhm Shakespeares begründen sollten. Aus",
+        "confidence": "fallback"
       },
       {
         "page": 81,
         "beforeText": "Und dann kam während der Cäsarenzeit das Folgende.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 82,
-        "beforeText": "Was früher die römischen Bürger besorgt haben, besorgen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 83,
-        "beforeText": "Verhältnis zu setzen. Wenn Sie in",
-        "confidence": "extracted"
-      },
-      {
-        "page": 84,
-        "beforeText": "Cäsaren konnten da und dort her genommen werden, alles",
-        "confidence": "extracted"
-      },
-      {
-        "page": 85,
-        "beforeText": "die Bildung. Die Kunst verlangte von ihm",
-        "confidence": "extracted"
-      },
-      {
-        "page": 86,
-        "beforeText": "Nun sehen Sie, wie es dazu kam, wie in diesem ganzen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 87,
-        "beforeText": "Pontifex Maximus angenommen hatte, da hatte er äußerlich",
-        "confidence": "extracted"
-      },
-      {
-        "page": 88,
-        "beforeText": "Dienst dieser Idee gestellt sind",
-        "confidence": "extracted"
-      },
-      {
-        "page": 89,
-        "beforeText": "mit dem Zunamen von den Aposteln genannt Barnabas,",
-        "confidence": "extracted"
-      },
-      {
-        "page": 90,
-        "beforeText": "die Cäsaren endlich nach des Konstantin Vorgehen,",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 91,
-        "beforeText": "Umwandlung und Ummodelung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 92,
-        "beforeText": "Christentum begründet war. Sie finden nichts von",
-        "confidence": "extracted"
-      },
-      {
-        "page": 93,
-        "beforeText": "Wenn wir sehen, dass",
-        "confidence": "extracted"
-      },
-      {
-        "page": 94,
-        "beforeText": "des Mittelalters gibt deren Inhalt, wenn auch etwas",
-        "confidence": "extracted"
-      },
-      {
-        "page": 95,
-        "beforeText": "ber sie dienten keinem Parteiprogramm, sondern traten",
-        "confidence": "extracted"
-      },
-      {
-        "page": 96,
-        "beforeText": "Goethe hat gesagt, das Beste in der Geschichte wäre",
-        "confidence": "extracted"
-      },
-      {
-        "page": 97,
-        "beforeText": "Zeitpunkt, wo sich Mittelalter und Neuzeit zusammenschließen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 98,
-        "beforeText": "sie als einzelne Stämme, gleich durch ihre Sprache",
-        "confidence": "extracted"
-      },
-      {
-        "page": 99,
-        "beforeText": "Seine Entwickelung stand fest vor dem",
-        "confidence": "extracted"
+        "beforeText": "nichts mehr half, durch Umwandlung und Ummodelung das",
+        "confidence": "fallback"
       },
       {
         "page": 100,
         "beforeText": "den, die praktische Tüchtigkeit, die auf das Nützliche",
-        "confidence": "extracted"
-      },
-      {
-        "page": 101,
-        "beforeText": "Zunächst war es die physische",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 102,
-        "beforeText": "in eine völlige Umgestaltung der Verhältnisse,",
-        "confidence": "extracted"
+        "beforeText": "hinüberführt in eine völlige Umgestaltung der Verhältnisse",
+        "confidence": "fallback"
       },
       {
         "page": 103,
-        "beforeText": "Nicht der äußere Sieg dieser Helden, sondern",
-        "confidence": "extracted"
+        "beforeText": "ker gefeiert. Nicht der äußere Sieg dieser Helden,",
+        "confidence": "fallback"
       },
       {
         "page": 104,
         "beforeText": "Nicht nach, nicht während der Eroberung bildete es",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 105,
-        "beforeText": "Wert auf den Kapitalismus, auf den Schein des Besitzes",
-        "confidence": "extracted"
+        "beforeText": "legt Wert auf den Kapitalismus, auf den Schein des",
+        "confidence": "fallback"
       },
       {
         "page": 106,
-        "beforeText": "Völker sich hätten wenden können",
-        "confidence": "extracted"
+        "beforeText": "genden andere Völker sich hätten wenden können. Er",
+        "confidence": "fallback"
       },
       {
         "page": 107,
         "beforeText": "Ausbildung einer Kultur, die in Deutschland auf niedrigerer",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 108,
-        "beforeText": "ein Reich des Feuers, Muspelheim,",
-        "confidence": "extracted"
+        "beforeText": "ander getrennt waren, ein Reich des Feuers, Muspelheim",
+        "confidence": "fallback"
       },
       {
         "page": 109,
-        "beforeText": "Grundcharakter nachgewiesen",
-        "confidence": "extracted"
+        "beforeText": "samen Grundcharakter nachgewiesen. Dabei ergeben sich",
+        "confidence": "fallback"
       },
       {
         "page": 110,
-        "beforeText": "wandtschaften aneinander gebunden waren.",
-        "confidence": "extracted"
+        "beforeText": "wandtschaften aneinander gebunden waren. Daher die",
+        "confidence": "fallback"
       },
       {
         "page": 111,
-        "beforeText": "ketzerisch erklärt und verfolgt wurde.",
-        "confidence": "extracted"
+        "beforeText": "Konzil von Nicäa von den Anhängern des Athanasius für",
+        "confidence": "fallback"
       },
       {
         "page": 112,
-        "beforeText": "zu einer Änderung der ganzen Gemütsart. An der",
-        "confidence": "extracted"
+        "beforeText": "führte zu einer Änderung der ganzen Gemütsart. An der",
+        "confidence": "fallback"
       },
       {
         "page": 113,
-        "beforeText": "Waffen, Geräten, Gewändern, Gärten, Vieh",
-        "confidence": "extracted"
+        "beforeText": "Das steht in schroffem Gegensatz zum eigentlichen Privateigentum",
+        "confidence": "fallback"
       },
       {
         "page": 114,
-        "beforeText": "er den Zusammenhang der",
-        "confidence": "extracted"
+        "beforeText": "ist seßhaft geworden, daher versteht er den Zusammenhang",
+        "confidence": "fallback"
       },
       {
         "page": 115,
-        "beforeText": "sie uns die Karte in Spanien. Ebenso wie dieses Volk",
-        "confidence": "extracted"
-      },
-      {
-        "page": 116,
-        "beforeText": "jener Völker sich erwehren. Wir finden hier",
-        "confidence": "extracted"
+        "beforeText": "zeigt sie uns die Karte in Spanien. Ebenso wie dieses",
+        "confidence": "fallback"
       },
       {
         "page": 117,
-        "beforeText": "Spanien, schiffte dann nach Afrika hinüber, wo er",
-        "confidence": "extracted"
+        "beforeText": "Spanien, schiffte dann nach Afrika hinüber, wo er in",
+        "confidence": "fallback"
       },
       {
         "page": 118,
-        "beforeText": "Gebiete, und den Anführern fielen große Teile zu.",
-        "confidence": "extracted"
+        "beforeText": "Gebiete, und den Anführern fielen große Teile zu. Man",
+        "confidence": "fallback"
       },
       {
         "page": 119,
         "beforeText": "Volksmassen im Kulturinteresse nur begrüßt werden.",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 120,
-        "beforeText": "den bestimmt durch das Christentum.",
-        "confidence": "extracted"
+        "beforeText": "den bestimmt durch das Christentum. Alles Wissen des",
+        "confidence": "fallback"
       },
       {
         "page": 121,
-        "beforeText": "den; der Einfall der Hunnen hatte den Anlass",
-        "confidence": "extracted"
+        "beforeText": "den; der Einfall der Hunnen hatte den Anlass zu diesen",
+        "confidence": "fallback"
       },
       {
         "page": 122,
-        "beforeText": "Nach der Schlacht auf den katalaunischen",
-        "confidence": "extracted"
+        "beforeText": "ren Völkern gegenüber von unwiderstehlichem Schrecken",
+        "confidence": "fallback"
       },
       {
         "page": 123,
         "beforeText": "das Christentum nicht mehr zum Wirtschaftsleben. Die",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 124,
-        "beforeText": "Frage die Vernichtung, für die Franken, die unter",
-        "confidence": "extracted"
+        "beforeText": "Frage die Vernichtung, für die Franken, die unter anderen",
+        "confidence": "fallback"
       },
       {
         "page": 125,
-        "beforeText": "die Wende des 11. zum 12. Jahrhundert",
-        "confidence": "extracted"
+        "beforeText": "die Wende des 11. zum 12. Jahrhundert. Es entwickeln",
+        "confidence": "fallback"
       },
       {
         "page": 126,
-        "beforeText": "Verhältnisse sich abspielen.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 127,
-        "beforeText": "Allerdings finden wir bei den alten germanischen",
-        "confidence": "extracted"
+        "beforeText": "Langobarden von Norditalien Besitz ergreifen - wir",
+        "confidence": "fallback"
       },
       {
         "page": 128,
-        "beforeText": "den konnten. Mit dem Land zugleich wurde die Gerichtsbarkeit",
-        "confidence": "extracted"
+        "beforeText": "König oder vom Besitzer auch auf andere übertragen",
+        "confidence": "fallback"
       },
       {
         "page": 129,
-        "beforeText": "von ihr Lehen zu empfangen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 130,
-        "beforeText": "Sitten, Gebräuche und Personen, so geschont,",
-        "confidence": "extracted"
+        "beforeText": "um von ihr Lehen zu empfangen. So bildeten sich neben",
+        "confidence": "fallback"
       },
       {
         "page": 131,
-        "beforeText": "Stellung, den besonderen Glanz ihrer Würde von",
-        "confidence": "extracted"
+        "beforeText": "sondere Stellung, den besonderen Glanz ihrer Würde",
+        "confidence": "fallback"
       },
       {
         "page": 132,
         "beforeText": "dort gegründet worden war, ist in ihrem religiösen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 133,
         "beforeText": "der sie kennt, nur bewundern kann, von der ein Humboldt",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 134,
-        "beforeText": "Elemente, die hier einströmen,",
-        "confidence": "extracted"
+        "beforeText": "tend machen, ganz neue Elemente, die hier einströmen",
+        "confidence": "fallback"
       },
       {
         "page": 135,
         "beforeText": "Wir wollen dann weiter sehen, wie schwer es dem Mittelalter",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 136,
-        "beforeText": "in denen sie ursprünglich lebten, Dorfgemeinden, dann",
-        "confidence": "extracted"
-      },
-      {
-        "page": 137,
-        "beforeText": "Immunität»: jene Richtergewalt, die aus der Unverantwortlich",
-        "confidence": "extracted"
+        "beforeText": "de, in denen sie ursprünglich lebten, Dorfgemeinden",
+        "confidence": "fallback"
       },
       {
         "page": 138,
-        "beforeText": "Herrschaft Karls des Großen unterwerfen.",
-        "confidence": "extracted"
+        "beforeText": "Herrschaft Karls des Großen unterwerfen. Was bedeutet",
+        "confidence": "fallback"
       },
       {
         "page": 139,
-        "beforeText": "Tassilo zu brechen, ihn ins Kloster zu stecken und",
-        "confidence": "extracted"
+        "beforeText": "zogs Tassilo zu brechen, ihn ins Kloster zu stecken",
+        "confidence": "fallback"
       },
       {
         "page": 140,
-        "beforeText": "Zentralkasse abgeliefert werden",
-        "confidence": "extracted"
-      },
-      {
-        "page": 141,
-        "beforeText": "Ein geschichtliches Ereignis bereitet sich damit vor",
-        "confidence": "extracted"
-      },
-      {
-        "page": 142,
-        "beforeText": "die erst mit dem 13. Jahrhundert",
-        "confidence": "extracted"
+        "beforeText": "Zentralkasse abgeliefert werden. Für die gemeinschaftlichen",
+        "confidence": "fallback"
       },
       {
         "page": 143,
-        "beforeText": "Kultur nach Europa kam, es bewirkte",
-        "confidence": "extracted"
+        "beforeText": "risch-arabische Kultur nach Europa kam, es bewirkte",
+        "confidence": "fallback"
       },
       {
         "page": 144,
-        "beforeText": "ihre Lehre und ganzes Wesen zu verweltlichen.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 145,
-        "beforeText": "Ursachen zur Unzufriedenheit",
-        "confidence": "extracted"
+        "beforeText": "ihre Lehre und ganzes Wesen zu verweltlichen. Es gab",
+        "confidence": "fallback"
       },
       {
         "page": 146,
-        "beforeText": "Entstehung dessen, was wir Staaten nennen",
-        "confidence": "extracted"
+        "beforeText": "Entstehung dessen, was wir Staaten nennen. Und außerdem",
+        "confidence": "fallback"
       },
       {
         "page": 147,
-        "beforeText": "dieser Völkerschaften, die in kleinen Verbänden",
-        "confidence": "extracted"
-      },
-      {
-        "page": 148,
-        "beforeText": "und sächsischen Stämme war etwas, mit dem alles im",
-        "confidence": "extracted"
-      },
-      {
-        "page": 149,
-        "beforeText": "Kirche, später selbst ein Herrscher und Grundbesitzer",
-        "confidence": "extracted"
+        "beforeText": "Übergang fand nun statt in den Verhältnissen und Anschauungen",
+        "confidence": "fallback"
       },
       {
         "page": 150,
         "beforeText": "Dasjenige, was aber eine wirkliche Bedeutung hatte",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 151,
-        "beforeText": "zu können. Nicht mit Scheingründen",
-        "confidence": "extracted"
+        "beforeText": "gekannt werden, um dies tun zu können. Nicht mit Scheingründen",
+        "confidence": "fallback"
       },
       {
         "page": 152,
         "beforeText": "Geometrie ist Raumlehre. Arithmetik ist höheres Rechnen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 153,
-        "beforeText": "dieses Volk zu unternehmen.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 154,
-        "beforeText": "SIEBENTER VORTRAG GESCHICHTE",
-        "confidence": "extracted"
+        "beforeText": "fähig zeigte, etwas gegen dieses Volk zu unternehmen",
+        "confidence": "fallback"
       },
       {
         "page": 155,
-        "beforeText": "Königshaus, und es wird viel von den Taten Heinrichs",
-        "confidence": "extracted"
-      },
-      {
-        "page": 156,
-        "beforeText": "das er in seine Botmäßigkeit gezwungen, ferner",
-        "confidence": "extracted"
-      },
-      {
-        "page": 157,
-        "beforeText": "herein, die Magyaren, deren",
-        "confidence": "extracted"
+        "beforeText": "die Karolinger folgte nach dem Franken Konrad das sächsische",
+        "confidence": "fallback"
       },
       {
         "page": 158,
-        "beforeText": "Frauen besorgt. Höchstens das Schmiede- und das Goldschmiede",
-        "confidence": "extracted"
+        "beforeText": "Frauen besorgt. Höchstens das Schmiede- und das Goldschmiedehandwerk",
+        "confidence": "fallback"
       },
       {
         "page": 159,
-        "beforeText": "Volkes ein.\n\nDazu kam",
-        "confidence": "extracted"
-      },
-      {
-        "page": 160,
-        "beforeText": "um das Jahr 1000 - während der Regierung",
-        "confidence": "extracted"
+        "beforeText": "Ratgeber und nistete sich in die Seelen und Herzen",
+        "confidence": "fallback"
       },
       {
         "page": 161,
         "beforeText": "Sachsen, Österreich und auch Ungarn und Polen standen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 162,
-        "beforeText": "Chlodwig gesehen, dass",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 163,
-        "beforeText": "es nur verstandesgemäß in sich aufzunehmen.",
-        "confidence": "extracted"
+        "beforeText": "nug, es nur verstandesgemäß in sich aufzunehmen. Niemand",
+        "confidence": "fallback"
       },
       {
         "page": 164,
-        "beforeText": "des Kaisers. Allmählich geschah eine Gleichstellung",
-        "confidence": "extracted"
+        "beforeText": "mannen des Kaisers. Allmählich geschah eine Gleichstellung",
+        "confidence": "fallback"
       },
       {
         "page": 165,
-        "beforeText": "Anders war es in den Klöstern.",
-        "confidence": "extracted"
+        "beforeText": "Anders war es in den Klöstern. Hier wurde viel gearbeitet",
+        "confidence": "fallback"
       },
       {
         "page": 166,
         "beforeText": "Weise ausgestaltet wurde, wie der Dichter dabei für",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 167,
-        "beforeText": "von Faktoren tätig war: religiöse Schwärmerei, starres",
-        "confidence": "extracted"
+        "beforeText": "zahl von Faktoren tätig war: religiöse Schwärmerei",
+        "confidence": "fallback"
       },
       {
         "page": 168,
-        "beforeText": "eine bestimmte Form angenommen, war das geworden,",
-        "confidence": "extracted"
+        "beforeText": "erst durch die Berührung mit dem Osten eine Wissenschaft",
+        "confidence": "fallback"
       },
       {
         "page": 169,
-        "beforeText": "nigen, die an die Wirklichkeit des Gedankens glaubten",
-        "confidence": "extracted"
+        "beforeText": "Diese Strömungen teilten das Heer der Mönche in zwei",
+        "confidence": "fallback"
       },
       {
         "page": 170,
-        "beforeText": "an eine streng geregelte Zunftverfassung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 171,
-        "beforeText": "dieser Städtekultur. Zwar waren die ersten bedeutenden",
-        "confidence": "extracted"
+        "beforeText": "gertum, zwar an eine streng geregelte Zunftverfassung",
+        "confidence": "fallback"
       },
       {
         "page": 172,
-        "beforeText": "Sprache wurde schroff unterbrochen dadurch, dass",
-        "confidence": "extracted"
+        "beforeText": "Sprache wurde schroff unterbrochen dadurch, dass Luther",
+        "confidence": "fallback"
       },
       {
         "page": 173,
         "beforeText": "sein, müssen wir ein Herz haben für die, die vor uns",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 174,
-        "beforeText": "13. und 14. Jahrhundert errungen. Könige und Kaiser",
-        "confidence": "extracted"
+        "beforeText": "Rhein in Süddeutschland wurde diese Gleichberechtigung",
+        "confidence": "fallback"
       },
       {
         "page": 175,
         "beforeText": "Aufblühen der Städte. Noch bis ins 12. Jahrhundert",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 176,
-        "beforeText": "Entwickelung der Städte verfolgten.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 177,
-        "beforeText": "nnerbüchsen und Mörser, aber bald wurden vollkommenere",
-        "confidence": "extracted"
+        "beforeText": "Entwickelung der Städte verfolgten. Die Städte mussten",
+        "confidence": "fallback"
       },
       {
         "page": 178,
-        "beforeText": "die öffentlichen Bäder, die in keiner Stadt",
-        "confidence": "extracted"
+        "beforeText": "tung erlangte, die öffentlichen Bäder, die in keiner",
+        "confidence": "fallback"
       },
       {
         "page": 179,
-        "beforeText": "der zwischen Handel und Wucher stand und ihnen",
-        "confidence": "extracted"
+        "beforeText": "se des Mittelalters gelangten sie zu der Stellung des",
+        "confidence": "fallback"
       },
       {
         "page": 180,
         "beforeText": "Unternehmen war es, es war nicht lediglich hervorgegangen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 181,
-        "beforeText": "Fürstengeschlechtern, die zurückgeblieben waren aus",
-        "confidence": "extracted"
+        "beforeText": "Die deutsche päpstliche Partei bestand besonders aus",
+        "confidence": "fallback"
       },
       {
         "page": 182,
         "beforeText": "Verehrung wurde Mithras auf dem Stiere dargestellt",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 183,
-        "beforeText": "Widerstand gegen den Papst.",
-        "confidence": "extracted"
+        "beforeText": "bei dem Dogma von der unbefleckten Empfängnis in heftigem",
+        "confidence": "fallback"
       },
       {
         "page": 184,
         "beforeText": "Nicht Begeisterung für das Christentum, sondern bloßer",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 185,
-        "beforeText": "was mit allgemeinen Interessen",
-        "confidence": "extracted"
+        "beforeText": "Heiratsverträge zu erhöhen und kümmerten sich nicht",
+        "confidence": "fallback"
       },
       {
         "page": 186,
         "beforeText": "Städte abgelöst worden, das Bürgertum blühte und alle",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 187,
-        "beforeText": "den folgenden Kaisern; so bemächtigt",
-        "confidence": "extracted"
+        "beforeText": "setzt sich fort unter den folgenden Kaisern; so bemächtigt",
+        "confidence": "fallback"
       },
       {
         "page": 188,
         "beforeText": "von äußerer Kirchlichkeit und Fürstengewalt, der muss",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 189,
-        "beforeText": "die Staaten, die sich bilden, sehen wir ihre Fangarme",
-        "confidence": "extracted"
+        "beforeText": "Privatinteressen jene unzufriedene Stimmung benutzt",
+        "confidence": "fallback"
       },
       {
         "page": 190,
-        "beforeText": "Klerus, auf den Verkauf der Bistümer und so",
-        "confidence": "extracted"
+        "beforeText": "hinzuweisen brauchte auf das schmähliche Verhalten",
+        "confidence": "fallback"
       },
       {
         "page": 191,
-        "beforeText": "der religiösen Unzufriedenheit, um sie für seine Zwecke",
-        "confidence": "extracted"
+        "beforeText": "Im Protestantismus verbündet sich aber diese Macht",
+        "confidence": "fallback"
       },
       {
         "page": 192,
-        "beforeText": "wie schon erwähnt, überall Schulen errichtet",
-        "confidence": "extracted"
+        "beforeText": "waren, wie schon erwähnt, überall Schulen errichtet",
+        "confidence": "fallback"
       },
       {
         "page": 193,
-        "beforeText": "und verweltlicht worden.",
-        "confidence": "extracted"
+        "beforeText": "aus der früheren bloß kirchlichen Kultur ist sie herübergebracht",
+        "confidence": "fallback"
       },
       {
         "page": 194,
-        "beforeText": "bräische Testament wurde gelesen, namentlich Reuchlin",
-        "confidence": "extracted"
+        "beforeText": "und Vasco da Gama 1498 den Seeweg nach Indien zu finden",
+        "confidence": "fallback"
       },
       {
         "page": 195,
-        "beforeText": "der Vorzeit höre, die ihn aufrütteln und begeistern",
-        "confidence": "extracted"
+        "beforeText": "ten der Vorzeit höre, die ihn aufrütteln und begeistern",
+        "confidence": "fallback"
       },
       {
         "page": 199,
-        "beforeText": "Im Aufgange dessen, was wir die christliche Mystik",
-        "confidence": "extracted"
+        "beforeText": "PLATONISCHE MYSTIK UND DOCTA IGNORANTIA Im Aufgange",
+        "confidence": "first"
       },
       {
         "page": 200,
-        "beforeText": "Jahrhundert tauchten einige Schriften auf, die außerordentli",
-        "confidence": "extracted"
+        "beforeText": "Jahrhundert tauchten einige Schriften auf, die außerordentlich",
+        "confidence": "fallback"
       },
       {
         "page": 201,
-        "beforeText": "dem äußeren Gedanken und verursacht",
-        "confidence": "extracted"
-      },
-      {
-        "page": 202,
-        "beforeText": "Erst in Zukunft wird man erkennen, was die Welt",
-        "confidence": "extracted"
-      },
-      {
-        "page": 203,
-        "beforeText": "e der Entwickelungslehre gedacht, müssen wir verstehen",
-        "confidence": "extracted"
+        "beforeText": "dem äußeren Gedanken und verursacht, dass der Gedanke",
+        "confidence": "fallback"
       },
       {
         "page": 204,
         "beforeText": "Die Aspekte der Seele sind: Vater, Mutter und Sohn",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 205,
-        "beforeText": "das Leibliche und Seelische",
-        "confidence": "extracted"
+        "beforeText": "das Leibliche und Seelische. Es liegt in der Natur",
+        "confidence": "fallback"
       },
       {
         "page": 206,
-        "beforeText": "Innerlichkeit als Geist unmittelbar, in drei Gliedern",
-        "confidence": "extracted"
+        "beforeText": "In der Seele selbst erlebt der Mystiker den Geist in",
+        "confidence": "fallback"
       },
       {
         "page": 207,
-        "beforeText": "Das Aufleben des zweiten Prinzips des Geistes, des",
-        "confidence": "extracted"
+        "beforeText": "ist. Das Aufleben des zweiten Prinzips des Geistes",
+        "confidence": "fallback"
       },
       {
         "page": 208,
         "beforeText": "Wenn der Mensch das Aufleben des Fünkleins erlebt,",
-        "confidence": "extracted"
-      },
-      {
-        "page": 209,
-        "beforeText": "Gott aus mir sprechen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 210,
-        "beforeText": "die Unio mystica.\n\nWie",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 211,
-        "beforeText": "Basis. Doch hat Nikolaus von Kues schon klar ausgesprochen",
-        "confidence": "extracted"
+        "beforeText": "Kopernikus die Weltanschauung der Astronomie auf eine",
+        "confidence": "fallback"
       },
       {
         "page": 212,
         "beforeText": "wir bei Eckhart finden, bei Tauler und Suso, und in",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 213,
-        "beforeText": "Er sagt: Wie kann ich wissen, wie das Licht an",
-        "confidence": "extracted"
+        "beforeText": "sich denkt. Er sagt: Wie kann ich wissen, wie das Licht",
+        "confidence": "fallback"
       },
       {
         "page": 214,
-        "beforeText": "es als Wahrheit.\n\nVon",
-        "confidence": "extracted"
+        "beforeText": "det es als Wahrheit. Von dem schaffenden Lichte sprechen",
+        "confidence": "fallback"
       },
       {
         "page": 215,
         "beforeText": "dem Sein der Dinge, das ist das, wo die Dinge selbst",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 216,
-        "beforeText": "er, wie er bei Anânda",
-        "confidence": "extracted"
+        "beforeText": "taphilosophie verstehen, so muss er, wie er bei Anânda",
+        "confidence": "fallback"
       },
       {
         "page": 217,
-        "beforeText": "Das folgende ist eine Wiedergabe der Vorträge, die",
-        "confidence": "extracted"
-      },
-      {
-        "page": 218,
-        "beforeText": "Hundert Jahre sind am 9. Mai 1905 seit Schillers Tode",
-        "confidence": "extracted"
+        "beforeText": "SCHILLER UND UNSER ZEITALTER** Das folgende ist eine",
+        "confidence": "fallback"
       },
       {
         "page": 219,
-        "beforeText": "es mir vergönnt gewesen, einen Menschen",
-        "confidence": "extracted"
+        "beforeText": "stellte, war es mir vergönnt gewesen, einen Menschen",
+        "confidence": "fallback"
       },
       {
         "page": 220,
-        "beforeText": "die Kunst und sucht nach",
-        "confidence": "extracted"
+        "beforeText": "höchstes geleistet hat, verlässt die Kunst und sucht",
+        "confidence": "fallback"
       },
       {
         "page": 221,
-        "beforeText": "In Frankreich, angeregt",
-        "confidence": "extracted"
+        "beforeText": "hunderte gelöst, war unmöglich geworden. In Frankreich",
+        "confidence": "fallback"
       },
       {
         "page": 222,
         "beforeText": "der Welt, war er nicht so sehr auf die Persönlichkeit",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 223,
         "beforeText": "was aus Klopstocks «Messias» spricht. Gerade in seinem",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 224,
-        "beforeText": "das Geistige. Welche Bedeutung hat der Körper für",
-        "confidence": "extracted"
+        "beforeText": "das Geistige. Welche Bedeutung hat der Körper für das",
+        "confidence": "fallback"
       },
       {
         "page": 225,
         "beforeText": "es Gesicht. Tiefe Fragen werden aufgerollt über die",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 226,
-        "beforeText": "Heute steht die Kunst im Winkel; damals wollte Schiller",
-        "confidence": "extracted"
+        "beforeText": "Wir sehen hier den Unterschied jener Zeit von der unseren",
+        "confidence": "fallback"
       },
       {
         "page": 227,
-        "beforeText": "die er in der Natur fand, waren in der eigenen Seele",
-        "confidence": "extracted"
+        "beforeText": "mächte, die er in der Natur fand, waren in der eigenen",
+        "confidence": "fallback"
       },
       {
         "page": 228,
-        "beforeText": "diesen Einklang hervorzurufen. Seine Tragik entsteht",
-        "confidence": "extracted"
+        "beforeText": "sich diesen Einklang hervorzurufen. Seine Tragik entsteht",
+        "confidence": "fallback"
       },
       {
         "page": 229,
         "beforeText": "Horizont hinauskommen, und nun sehen wir, wie er im",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 230,
-        "beforeText": "Sittengesetz sich darstellt, ist im Kristall sich",
-        "confidence": "extracted"
-      },
-      {
-        "page": 231,
-        "beforeText": "was unmöglich nur Erscheinung sein kann. Das ist",
-        "confidence": "extracted"
-      },
-      {
-        "page": 232,
-        "beforeText": "Wesen frei sein. Dies gibt einen unüberbrückbaren",
-        "confidence": "extracted"
+        "beforeText": "Sittengesetz sich darstellt, ist im Kristall sich selbst",
+        "confidence": "fallback"
       },
       {
         "page": 233,
-        "beforeText": "In monumentalen Sätzen kommt zum Ausdruck,",
-        "confidence": "extracted"
+        "beforeText": "sollst». In monumentalen Sätzen kommt zum Ausdruck",
+        "confidence": "fallback"
       },
       {
         "page": 234,
         "beforeText": "nicht nur nach Glück für die beiden allein suchte,",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 235,
-        "beforeText": "Naturen, die sich deshalb nur schwer",
-        "confidence": "extracted"
+        "beforeText": "außerordentlich tiefe Naturen, die sich deshalb nur",
+        "confidence": "fallback"
       },
       {
         "page": 236,
-        "beforeText": "An dem Studium geschichtlicher Charaktere konnte",
-        "confidence": "extracted"
+        "beforeText": "Dieses Ereignis war für Schiller von weitgehender Bedeutung",
+        "confidence": "fallback"
       },
       {
         "page": 237,
-        "beforeText": "«so sehe ich meine Ideen mit Augen.»",
-        "confidence": "extracted"
+        "beforeText": "«so sehe ich meine Ideen mit Augen.» So zeigte sich",
+        "confidence": "fallback"
       },
       {
         "page": 238,
-        "beforeText": "Schaffens, die er in seiner Abhandlung über",
-        "confidence": "extracted"
+        "beforeText": "künstlerischen Schaffens, die er in seiner Abhandlung",
+        "confidence": "fallback"
       },
       {
         "page": 239,
-        "beforeText": "geschildert. Jetzt hat",
-        "confidence": "extracted"
-      },
-      {
-        "page": 240,
-        "beforeText": "Freundschaft sollte sie als eine Person erscheinen",
-        "confidence": "extracted"
+        "beforeText": "die Befreiung der Welt durch künstlerische Schönheit",
+        "confidence": "fallback"
       },
       {
         "page": 241,
-        "beforeText": "er ein Gegenpol von Herder, und ein gewisses Licht",
-        "confidence": "extracted"
+        "beforeText": "war er ein Gegenpol von Herder, und ein gewisses Licht",
+        "confidence": "fallback"
       },
       {
         "page": 242,
-        "beforeText": "Art, in der Schiller die Besitz- und Lehnsverhältnisse",
-        "confidence": "extracted"
+        "beforeText": "gibt vielleicht nichts Schöneres und Interessanteres",
+        "confidence": "fallback"
       },
       {
         "page": 243,
-        "beforeText": "diesem Urgrund; er ist ein",
-        "confidence": "extracted"
+        "beforeText": "nächst hervorgegangen aus diesem Urgrund; er ist ein",
+        "confidence": "fallback"
       },
       {
         "page": 244,
-        "beforeText": "den Sinnendingen, die auf ihn einstürmen. Auf der",
-        "confidence": "extracted"
+        "beforeText": "den Sinnendingen, die auf ihn einstürmen. Auf der anderen",
+        "confidence": "fallback"
       },
       {
         "page": 245,
-        "beforeText": "Weltbild aufgestellt. Eine Erziehung zu dem Ideal",
-        "confidence": "extracted"
+        "beforeText": "In der Theosophie des Julius hatte Schiller ein ideales",
+        "confidence": "fallback"
       },
       {
         "page": 246,
-        "beforeText": "die Charaktere, die einzelnen Stimmungen. So",
-        "confidence": "extracted"
+        "beforeText": "danken, die Charaktere, die einzelnen Stimmungen. So",
+        "confidence": "fallback"
       },
       {
         "page": 247,
-        "beforeText": "in der Natur geben, die den Gesetzen des menschlichen",
-        "confidence": "extracted"
+        "beforeText": "nung in der Natur geben, die den Gesetzen des menschlichen",
+        "confidence": "fallback"
       },
       {
         "page": 248,
-        "beforeText": "was die menschlichen Seelenkräfte zu erheben, in Harmonie",
-        "confidence": "extracted"
+        "beforeText": "hen, was die menschlichen Seelenkräfte zu erheben,",
+        "confidence": "fallback"
       },
       {
         "page": 249,
         "beforeText": "Wort gesprochen, das zunächst etwas paradox klingen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 250,
-        "beforeText": "in eine höhere geistige Ordnung, aber zugleich,",
-        "confidence": "extracted"
+        "beforeText": "eingestellt in eine höhere geistige Ordnung, aber zugleich",
+        "confidence": "fallback"
       },
       {
         "page": 251,
         "beforeText": "wo Wallenstein gar nicht auftritt, zweitens die Piccolomini",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 252,
-        "beforeText": "Ich habe viele Tausend reich gemacht,",
-        "confidence": "extracted"
+        "beforeText": "Ich habe viele Tausend reich gemacht, Mit Ländereien",
+        "confidence": "fallback"
       },
       {
         "page": 253,
-        "beforeText": "zu verschaffen. Er drückt hier das Überpersönliche",
-        "confidence": "extracted"
+        "beforeText": "In der «Braut von Messina» versucht er geradezu der",
+        "confidence": "fallback"
       },
       {
         "page": 254,
         "beforeText": "nicht für das Persönliche, sondern für das Überpersönliche",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 255,
-        "beforeText": "Erfolge, Anerkennungen der",
-        "confidence": "extracted"
+        "beforeText": "waren außerordentliche Erfolge, Anerkennungen der Besten",
+        "confidence": "fallback"
       },
       {
         "page": 256,
         "beforeText": "Repräsentanten der ganzen Menschheit. Die Handlung",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 257,
-        "beforeText": "den und leidenden Charakteren. Das bewirkte,",
-        "confidence": "extracted"
+        "beforeText": "den und leidenden Charakteren. Das bewirkte, dass er",
+        "confidence": "fallback"
       },
       {
         "page": 258,
         "beforeText": "so bleibt nur der Kampf der Brüder, und diese rationelle",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 259,
-        "beforeText": "So arbeitete Schiller Stück für Stück",
-        "confidence": "extracted"
-      },
-      {
-        "page": 260,
-        "beforeText": "allen das Schöne aus dem Menschen herausverlegt. Schiller",
-        "confidence": "extracted"
+        "beforeText": "nen zusammentrifft. So arbeitete Schiller Stück für",
+        "confidence": "fallback"
       },
       {
         "page": 261,
-        "beforeText": "Schiller gesetzt wurden, sie kamen in den Briefen",
-        "confidence": "extracted"
+        "beforeText": "Schiller gesetzt wurden, sie kamen in den Briefen und",
+        "confidence": "fallback"
       },
       {
         "page": 262,
-        "beforeText": "Mut und Freudigkeit weckt, was uns an Schiller",
-        "confidence": "extracted"
+        "beforeText": "findet! Mut und Freudigkeit weckt, was uns an Schiller",
+        "confidence": "fallback"
       },
       {
         "page": 263,
-        "beforeText": "Teil vergleichen mit dem, welchen Herder im",
-        "confidence": "extracted"
+        "beforeText": "sich zum Teil vergleichen mit dem, welchen Herder im",
+        "confidence": "fallback"
       },
       {
         "page": 264,
         "beforeText": "ehrung aufgewachsen sind, werden schwer Worte verstehen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 265,
-        "beforeText": "nur da ganz Mensch, wo er spielt», wurde ihnen zu",
-        "confidence": "extracted"
+        "beforeText": "nur da ganz Mensch, wo er spielt», wurde ihnen zu einer",
+        "confidence": "fallback"
       },
       {
         "page": 266,
-        "beforeText": "die Körners Vater und Schiller verknüpfte; er war",
-        "confidence": "extracted"
+        "beforeText": "die Körners Vater und Schiller verknüpfte; er war der",
+        "confidence": "fallback"
       },
       {
         "page": 267,
-        "beforeText": "er ist ausgegangen von Hegel, der selbst Schiller",
-        "confidence": "extracted"
-      },
-      {
-        "page": 269,
-        "beforeText": "Was kann dieser Satz",
-        "confidence": "extracted"
+        "beforeText": "hat einen großen Einfluss auf eine Strömung der Gegenwart",
+        "confidence": "fallback"
       },
       {
         "page": 270,
-        "beforeText": "Weltanschauung konstruieren. Schiller",
-        "confidence": "extracted"
+        "beforeText": "stische Weltanschauung konstruieren. Schiller aber",
+        "confidence": "fallback"
       },
       {
         "page": 271,
-        "beforeText": "Substanz seiner Zeit. Er fühlte sich besonders in",
-        "confidence": "extracted"
+        "beforeText": "stand nicht mehr in irgendeinem Zusammenhange mit der",
+        "confidence": "fallback"
       },
       {
         "page": 272,
         "beforeText": "Idealen zu betonen. Selbst die Kunst nennt sich realistisch",
-        "confidence": "extracted"
-      },
-      {
-        "page": 273,
-        "beforeText": "wissenschaft erlaubt, wirklich zu nennen",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 274,
-        "beforeText": "das rein materielle Hinausgehende zu verstehen.",
-        "confidence": "extracted"
+        "beforeText": "über das rein materielle Hinausgehende zu verstehen",
+        "confidence": "fallback"
       },
       {
         "page": 275,
-        "beforeText": "nicht, wo Menschen so leben",
-        "confidence": "extracted"
-      },
-      {
-        "page": 276,
-        "beforeText": "die sich an den Vortrag über Schillers Wirkung",
-        "confidence": "extracted"
+        "beforeText": "nicht, wo Menschen so leben. Heute scheint man zu glauben",
+        "confidence": "fallback"
       },
       {
         "page": 277,
         "beforeText": "Kunstwerk gesehen; hat also nur vom Standpunkte abstrakter",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 278,
         "beforeText": "Man sagte, der Mensch ist mit Leidenschaften behaftet",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 279,
-        "beforeText": "Kant so aufgefasst worden",
-        "confidence": "extracted"
+        "beforeText": "durch Kant so aufgefasst worden, dass die Pflicht hinweggeführt",
+        "confidence": "fallback"
       },
       {
         "page": 280,
-        "beforeText": "dann ist er zu dieser Anschauung fortgeschritten,",
-        "confidence": "extracted"
+        "beforeText": "dann ist er zu dieser Anschauung fortgeschritten, wenn",
+        "confidence": "fallback"
       },
       {
         "page": 281,
         "beforeText": "doch immer nur ein Ausschnitt des Wirklichen. - Weil",
-        "confidence": "extracted"
+        "confidence": "fallback"
       },
       {
         "page": 282,
-        "beforeText": "an den Prinzen macht. Der Prinz wird von Zweifeln",
-        "confidence": "extracted"
+        "beforeText": "an den Prinzen macht. Der Prinz wird von Zweifeln hin",
+        "confidence": "fallback"
       },
       {
         "page": 283,
-        "beforeText": "bei ihm geworden war. Nicht in verächtlichem, niederem",
-        "confidence": "extracted"
-      },
-      {
-        "page": 286,
-        "beforeText": "ihr: Kopernikus war Domherr, Giordano",
-        "confidence": "extracted"
-      },
-      {
-        "page": 287,
-        "beforeText": "Der Mensch hat eine Seele",
-        "confidence": "extracted"
-      },
-      {
-        "page": 288,
-        "beforeText": "nicht vergessen werden, dass eigentlich die Verhältnisse unserer",
-        "confidence": "extracted"
-      },
-      {
-        "page": 289,
-        "beforeText": "der äußere Sieg dieser",
-        "confidence": "extracted"
-      },
-      {
-        "page": 290,
-        "beforeText": "und Italer schon längst",
-        "confidence": "extracted"
-      },
-      {
-        "page": 291,
-        "beforeText": "ganz auf dem Standpunkte, den",
-        "confidence": "extracted"
-      },
-      {
-        "page": 292,
-        "beforeText": "der Unglaube gegenüber",
-        "confidence": "extracted"
-      },
-      {
-        "page": 293,
-        "beforeText": "werden Sie einsehen,",
-        "confidence": "extracted"
-      },
-      {
-        "page": 294,
-        "beforeText": "hat; er will sich über die Dinge aufklären",
-        "confidence": "extracted"
-      },
-      {
-        "page": 295,
-        "beforeText": "die Vergänglichkeit alles",
-        "confidence": "extracted"
-      },
-      {
-        "page": 296,
-        "beforeText": "Parmenides sagte genau umgekehrt: weil sich in der",
-        "confidence": "extracted"
-      },
-      {
-        "page": 297,
-        "beforeText": "sondern durch einen höheren",
-        "confidence": "extracted"
-      },
-      {
-        "page": 299,
-        "beforeText": "ist bereits demjenigen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 300,
-        "beforeText": "man sich klarmachen will",
-        "confidence": "extracted"
-      },
-      {
-        "page": 301,
-        "beforeText": "dem diese Macht beruht",
-        "confidence": "extracted"
-      },
-      {
-        "page": 302,
-        "beforeText": "was, was als Stimmung",
-        "confidence": "extracted"
-      },
-      {
-        "page": 303,
-        "beforeText": "von Molay, mit einer",
-        "confidence": "extracted"
-      },
-      {
-        "page": 304,
-        "beforeText": "sich erwählt hatten, bedeutete diese",
-        "confidence": "extracted"
-      },
-      {
-        "page": 305,
-        "beforeText": "viel gelernt haben, und man wird Ihnen den",
-        "confidence": "extracted"
-      },
-      {
-        "page": 306,
-        "beforeText": "und allein von den auf",
-        "confidence": "extracted"
-      },
-      {
-        "page": 307,
-        "beforeText": "sehen wir auf einem komplizierten Umwege dasjenige kommen, was man heute",
-        "confidence": "extracted"
-      },
-      {
-        "page": 308,
-        "beforeText": "Man kann sich daher denken",
-        "confidence": "extracted"
-      },
-      {
-        "page": 309,
-        "beforeText": "ihnen vor allem die größte",
-        "confidence": "extracted"
-      },
-      {
-        "page": 310,
-        "beforeText": "Stoffen und Kräften besteht wie die übrige Natur,",
-        "confidence": "extracted"
-      },
-      {
-        "page": 311,
-        "beforeText": "Der Gedanke lag nahe, dass das Wasser der",
-        "confidence": "extracted"
-      },
-      {
-        "page": 312,
-        "beforeText": "wird in der Seele nicht",
-        "confidence": "extracted"
-      },
-      {
-        "page": 313,
-        "beforeText": "nicht durch dieselben",
-        "confidence": "extracted"
-      },
-      {
-        "page": 314,
-        "beforeText": "Wir haben gesehen, dass etwa achthundert Jahre vor dem",
-        "confidence": "extracted"
-      },
-      {
-        "page": 315,
-        "beforeText": "die, welche ich Ihnen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 316,
-        "beforeText": "und Offenbarung herzustellen.",
-        "confidence": "extracted"
-      },
-      {
-        "page": 317,
-        "beforeText": "der etwas in dem geistigen",
-        "confidence": "extracted"
-      },
-      {
-        "page": 318,
-        "beforeText": "Die ersten Vorstellungen, die sich der",
-        "confidence": "extracted"
-      },
-      {
-        "page": 319,
-        "beforeText": "wissen, folgende schönen Worte gesprochen: «Alle Menschen verlangen von Natur nach dem Wissen; ein Zeichen des",
-        "confidence": "extracted"
+        "beforeText": "heit bei ihm geworden war. Nicht in verächtlichem,",
+        "confidence": "fallback"
       }
-    ]
+    ],
+    "lectures": []
   },
   "GA051/1": {
     "title": "Vortrag GA051/1",
