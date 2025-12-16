@@ -8826,69 +8826,23 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
-    // Update texteServerInfo: Zeige Statistik basierend auf aktuellem Zustand
+    // Update texteServerInfo: Zeige immer die Gesamtstatistik (stabil)
     function updateTexteServerInfo() {
       const texteServerInfo = document.getElementById('texteServerInfo');
       if (!texteServerInfo) return;
       
-      // Prüfe ob ein GA-Band ausgewählt ist
-      const texteGAFilter = document.getElementById('texteGAFilter');
-      const selectedGA = texteGAFilter ? texteGAFilter.value : '';
-      
-      if (!selectedGA) {
-        // Kein GA-Band ausgewählt: Zeige Gesamtstatistik
-        texteServerInfo.textContent = getDefaultStatsText();
-      } else {
-        // GA-Band ausgewählt: Prüfe ob es ein Buch ist
-        const isBook = typeof isBookGANumber === 'function' ? isBookGANumber(selectedGA) : false;
-        
-        if (isBook) {
-          // Bücher: Keine Statistik anzeigen
-          texteServerInfo.textContent = '';
-        } else {
-          // Vorträge/Aufsätze: Zeige Anzahl aus gaLectureCounts
-          if (typeof gaLectureCounts !== 'undefined' && gaLectureCounts[selectedGA]) {
-            const typeName = typeof getGATypeName === 'function' ? getGATypeName(selectedGA, true) : 'Texte';
-            texteServerInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName}`;
-          } else {
-            // Fallback: Gesamtstatistik
-            texteServerInfo.textContent = getDefaultStatsText();
-          }
-        }
-      }
+      // Zeige immer die Gesamtstatistik (Schriften, Aufsätze, Vorträge)
+      texteServerInfo.textContent = getDefaultStatsText();
     }
     
-    // Update serverInfo basierend auf GA-Filter Auswahl
+    // Update serverInfo: Zeige immer die Gesamtstatistik (stabil)
     function updateServerInfo() {
       const serverInfo = document.getElementById('serverInfo');
       
       if (!serverInfo) return;
       
-      // Hole ausgewählte GA-Bände aus Custom Dropdown
-      const selectedGAs = gaFilterDropdown ? gaFilterDropdown.getSelectedValues() : [];
-      
-      if (selectedGAs.length === 1) {
-        // Ein GA-Band ausgewählt: Zeige spezifische Anzahl
-        const selectedGA = selectedGAs[0];
-        if (gaLectureCounts[selectedGA]) {
-          const typeName = getGATypeName(selectedGA, true); // Plural
-          serverInfo.textContent = `${gaLectureCounts[selectedGA]} ${typeName} in ${selectedGA}`;
-        } else {
-          serverInfo.textContent = getDefaultStatsText();
-        }
-      } else if (selectedGAs.length > 1) {
-        // Mehrere GA-Bände ausgewählt: Zeige Summe
-        let totalSelected = 0;
-        selectedGAs.forEach(ga => {
-          if (gaLectureCounts[ga]) {
-            totalSelected += gaLectureCounts[ga];
-          }
-        });
-        serverInfo.textContent = `${totalSelected} Texte in ${selectedGAs.length} GA-Bänden`;
-      } else {
-        // Keine Auswahl: Zeige Gesamtanzahl (Default)
-        serverInfo.textContent = getDefaultStatsText();
-      }
+      // Zeige immer die Gesamtstatistik (Schriften, Aufsätze, Vorträge)
+      serverInfo.textContent = getDefaultStatsText();
     }
     
     // Update thematicServerInfo basierend auf GA-Filter Auswahl
@@ -11459,10 +11413,10 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         }
     }
     
-    // Lösche Statistik-Text (z.B. "18 Vorträge") für Books
+    // Zeige immer die Gesamtstatistik (stabil), auch für Books
     const texteServerInfo = document.getElementById('texteServerInfo');
     if (texteServerInfo) {
-      texteServerInfo.textContent = '';
+      texteServerInfo.textContent = getDefaultStatsText();
       }
     
     // Verstecke "Nur Titel" Button für Books
@@ -13263,18 +13217,8 @@ async function displayGAOverview(data) {
   if (activeTab && activeTab.id === 'texte-tab') {
     const texteServerInfo = document.getElementById('texteServerInfo');
     if (texteServerInfo) {
-      // Prüfe ob es ein Book ist (GA001-GA046) - dann keine Statistik anzeigen
-      const gaNumber = data.gaNumber || '';
-      const isBook = isBookGANumber(gaNumber);
-      
-      if (isBook) {
-        // Book: Keine Statistik anzeigen
-        texteServerInfo.textContent = '';
-      } else {
-        // GA-Band mit Vorträgen/Aufsätzen: Nur Anzahl im aktuellen Band anzeigen
-        const typeName = getGATypeName(gaNumber, true); // Plural
-        texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
-      }
+      // Zeige immer die Gesamtstatistik (stabil)
+      texteServerInfo.textContent = getDefaultStatsText();
     }
     // Toggle Button im Texte-Tab anzeigen (nur für GA-Bände mit Vorträgen)
     const texteViewToggle = document.getElementById('texteViewToggle');
@@ -14440,8 +14384,8 @@ function scrollToChronologicalYear(year) {
                 // Aktualisiere UI-Elemente direkt
                 const texteServerInfo = document.getElementById('texteServerInfo');
                 if (texteServerInfo) {
-                  const typeName = getGATypeName(gaNumber || gaBand, true);
-                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
+                  // Zeige immer die Gesamtstatistik (stabil)
+                  texteServerInfo.textContent = getDefaultStatsText();
                 }
                 
                 // Zeige Toggle-Buttons
@@ -14587,8 +14531,8 @@ function scrollToChronologicalYear(year) {
                 // Aktualisiere UI-Elemente direkt
                 const texteServerInfo = document.getElementById('texteServerInfo');
                 if (texteServerInfo) {
-                  const typeName = getGATypeName(gaNumber || gaBand, true);
-                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
+                  // Zeige immer die Gesamtstatistik (stabil)
+                  texteServerInfo.textContent = getDefaultStatsText();
                 }
                 
                 // Zeige Toggle-Buttons
@@ -17160,8 +17104,8 @@ function scrollToChronologicalYear(year) {
               // Aktualisiere UI-Elemente direkt
               const texteServerInfo = document.getElementById('texteServerInfo');
               if (texteServerInfo) {
-                const typeName = getGATypeName(gaNumber || gaBand, true);
-                  texteServerInfo.textContent = `${data.lectureCount} ${typeName}`;
+                // Zeige immer die Gesamtstatistik (stabil)
+                texteServerInfo.textContent = getDefaultStatsText();
               }
               
               // Zeige Toggle-Buttons
