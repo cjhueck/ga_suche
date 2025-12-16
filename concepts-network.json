@@ -473,12 +473,22 @@
         ],
         "addedFrom": "Farbe",
         "addedAt": "2025-12-14T13:41:28.380Z"
+      },
+      {
+        "term": "Sinnlichkeitsfreies Denken",
+        "type": "komponente",
+        "strength": 0.9039999999999999,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Sinnlichkeitsfreies Denken",
+        "addedAt": "2025-12-16T22:26:14.071Z"
       }
     ],
     "totalOccurrences": 6632,
     "lecturesWithTerm": 1130,
     "generated_at": "2025-12-12T08:34:33.954Z",
-    "lastUpdated": "2025-12-14T13:41:28.380Z"
+    "lastUpdated": "2025-12-16T22:26:14.071Z"
   },
   "geistselbst": {
     "concept": "Geistselbst",
@@ -3551,12 +3561,22 @@
         ],
         "addedFrom": "Farbe",
         "addedAt": "2025-12-14T13:41:28.380Z"
+      },
+      {
+        "term": "Sinnlichkeitsfreies Denken",
+        "type": "komponente",
+        "strength": 0.8400000000000001,
+        "sources": [
+          "backlink"
+        ],
+        "addedFrom": "Sinnlichkeitsfreies Denken",
+        "addedAt": "2025-12-16T22:26:14.071Z"
       }
     ],
     "totalOccurrences": 14295,
     "lecturesWithTerm": 1706,
     "generated_at": "2025-12-12T18:34:57.263Z",
-    "lastUpdated": "2025-12-14T13:41:28.380Z"
+    "lastUpdated": "2025-12-16T22:26:14.071Z"
   },
   "bilderbewusstsein": {
     "concept": "Bilderbewusstsein",
@@ -3948,5 +3968,254 @@
     "totalOccurrences": 8052,
     "lecturesWithTerm": 1553,
     "generated_at": "2025-12-14T13:41:28.380Z"
+  },
+  "sinnlichkeitsfreies denken": {
+    "concept": "Sinnlichkeitsfreies Denken",
+    "connections": [
+      {
+        "term": "Imagination",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Inspiration",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Intuition",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Anthroposophie",
+        "type": "hierarchisch",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Meditation",
+        "type": "prozess",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Sinneswelt",
+        "type": "gegensatz",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstsein",
+        "type": "hierarchisch",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Gedankenwelt",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geisterland",
+        "type": "korrespondenz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Erkenntnisstufe",
+        "type": "hierarchisch",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Astralleib",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich-Mensch",
+        "type": "komponente",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Wirklichkeitsforschung",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ätherleib",
+        "type": "komponente",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      }
+    ],
+    "totalOccurrences": 32,
+    "lecturesWithTerm": 17,
+    "generated_at": "2025-12-16T22:26:14.071Z"
+  },
+  "bewusstsein": {
+    "concept": "Bewusstsein",
+    "connections": [
+      {
+        "term": "Vorstellungen",
+        "type": "komponente",
+        "strength": 1.47,
+        "sources": [
+          "semantic",
+          "context"
+        ]
+      },
+      {
+        "term": "Seelenleben",
+        "type": "hierarchisch",
+        "strength": 1.42,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Ich",
+        "type": "komponente",
+        "strength": 1.35,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Bewusstseinsseele",
+        "type": "komponente",
+        "strength": 1.32,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Empfindungsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Verstandes- oder Gemütsseele",
+        "type": "komponente",
+        "strength": 1.27,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "übersinnliches Bewusstsein",
+        "type": "korrespondenz",
+        "strength": 1.23,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "gewöhnliches Bewusstsein",
+        "type": "gegensatz",
+        "strength": 1.2,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "imaginative Erkenntnis",
+        "type": "prozess",
+        "strength": 1.13,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Geistige Schulung",
+        "type": "prozess",
+        "strength": 1.08,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Unterbewusstsein",
+        "type": "gegensatz",
+        "strength": 1.05,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Träume",
+        "type": "korrespondenz",
+        "strength": 1.02,
+        "sources": [
+          "semantic"
+        ]
+      },
+      {
+        "term": "Mensch",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Menschen",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      },
+      {
+        "term": "Welt",
+        "type": "prozess",
+        "strength": 1,
+        "sources": [
+          "context"
+        ]
+      }
+    ],
+    "totalOccurrences": 30003,
+    "lecturesWithTerm": 2865,
+    "generated_at": "2025-12-16T22:26:59.452Z"
   }
 }
