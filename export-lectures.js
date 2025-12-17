@@ -513,16 +513,34 @@ class SteinerLecturesExporter {
 
       // NUR Absätze extrahieren (KEINE Summaries, TOC)
       // H2/H3/H4 Überschriften werden beibehalten und dem nächsten Absatz vorangestellt
+      // AUSNAHME: Für GA051-GA084 werden H3/H4 NICHT exportiert (werden durch AI-generierte ersetzt)
       const paragraphs = [];
       const lectureImages = []; // Bilder für diesen Vortrag
       let pendingHeadings = []; // Sammle Überschriften für den nächsten Absatz
       
+      // Prüfe ob dieser GA-Band manuelle Überschriften NICHT exportieren soll
+      // GA051-GA084: Haben AI-generierte Headings, manuelle werden übersprungen
+      const gaNumericMatch = meta.gaNumber.match(/^GA(\d+)/i);
+      const gaNumeric = gaNumericMatch ? parseInt(gaNumericMatch[1], 10) : 0;
+      const skipManualHeadings = gaNumeric >= 51 && gaNumeric <= 84;
+      
+      if (skipManualHeadings) {
+        console.log(`  [${meta.ID}] Manuelle H3/H4 werden übersprungen (AI-generierte verwenden)`);
+      }
+      
       for (let line of lines) {
         // Erkenne H2/H3/H4 Überschriften und sammle sie
+        // ABER: Für GA051-GA084 werden H3/H4 übersprungen (AI-generierte ersetzt)
         const headingMatch = line.match(/^(#{2,4})\s+(.+)$/);
         if (headingMatch) {
           const level = headingMatch[1].length; // 2, 3, oder 4
           const headingText = headingMatch[2].trim();
+          
+          // Für GA051-GA084: H3/H4 überspringen
+          if (skipManualHeadings && level >= 3) {
+            continue; // H3 und H4 nicht exportieren
+          }
+          
           // Konvertiere zu HTML-Tag für spätere Darstellung
           pendingHeadings.push(`<h${level}>${headingText}</h${level}>`);
           continue;

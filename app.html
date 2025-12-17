@@ -6942,15 +6942,38 @@ function convertPageMarkers(html) {
   if (!html || typeof html !== 'string') {
     return html;
   }
-  
+
   // Debug: Prüfe ob Marker im Text vorhanden sind
   const hasMarker = /\|\d{1,4}\|/.test(html);
   if (hasMarker) {
     console.log('[convertPageMarkers] Marker gefunden!');
   }
-  
+
+  let cleanedHtml = html;
+  let removedCount = 0;
+
+  // REGEL 1: Seitenmarker sollen NIE direkt vor Überschriften (h1-h4) stehen!
+  // Pattern: |123| gefolgt von optionalem Whitespace/Tags und dann <h1>, <h2>, <h3> oder <h4>
+  const beforeHeadingPattern = /\|(\d{1,4})\|(\s*(?:<[^>]+>\s*)*)(<h[1-4][^>]*>)/gi;
+  cleanedHtml = cleanedHtml.replace(beforeHeadingPattern, (match, num, between, heading) => {
+    removedCount++;
+    return between + heading;
+  });
+
+  // REGEL 2: Seitenmarker sollen NIE direkt vor "Inhaltsverzeichnis" stehen!
+  // Dies fängt Fälle ab, wo das H3-Tag entfernt oder umgewandelt wurde
+  const beforeTocPattern = /\|(\d{1,4})\|(\s*(?:<[^>]+>\s*)*)(Inhaltsverzeichnis)/gi;
+  cleanedHtml = cleanedHtml.replace(beforeTocPattern, (match, num, between, toc) => {
+    removedCount++;
+    return between + toc;
+  });
+
+  if (removedCount > 0) {
+    console.log(`[convertPageMarkers] ${removedCount} Marker vor Überschriften/Inhaltsverzeichnis entfernt`);
+  }
+
   // Ersetze |123| durch sichtbares Format: | im Text, Seitenzahl links am Rand
-  return html.replace(/\|(\d{1,4})\|/g, 
+  return cleanedHtml.replace(/\|(\d{1,4})\|/g,
     '<span class="page-break-container" title="Seite $1">' +
     '<span class="page-break-num">$1</span>' +
     '<span class="page-break-bar">|</span>' +
@@ -9248,7 +9271,8 @@ function normalizeGANumber(gaNumber) {
     }
 
     // Seitenmarker aus separater Datei (für Zitierbarkeit mit Druckausgabe)
-    let pageMarkersData = null; // Cache für Seitenmarker
+    // GLOBAL für Popup-Zugriff
+    window.pageMarkersData = null; // Cache für Seitenmarker
     
     async function loadPageMarkersData() {
       if (pageMarkersData) return pageMarkersData;
@@ -36188,6 +36212,73 @@ async function addKeywordToLecture() {
     // Nur bei gedrückter Strg-Taste neues Popup öffnen
     if (!e.ctrlKey) return;
     
+    // SEITENZAHL-POPUP: Prüfe ob Klick auf Seitenzahl
+    const pageBreakContainer = e.target.closest('.page-break-container');
+    if (pageBreakContainer) {
+      e.preventDefault();
+      e.stopPropagation();
+      showPageNumberPopup(e, pageBreakContainer);
+      return;
+    }
+    
+    // KI-INHALT-POPUP: Prüfe ob Klick auf KI-generierte Inhalte
+    // 1. Überschriften im Viewer (H3/H4 mit id="heading-...")
+    const headingElement = e.target.closest('h3[id^="heading-"], h4[id^="heading-"]');
+    if (headingElement) {
+      e.preventDefault();
+      e.stopPropagation();
+      showAIContentPopup(e);
+      return;
+    }
+    
+    // 2. Keywords (.keyword-entry)
+    const keywordEntry = e.target.closest('.keyword-entry');
+    if (keywordEntry) {
+      e.preventDefault();
+      e.stopPropagation();
+      showAIContentPopup(e);
+      return;
+    }
+    
+    // 3. Summary-Text (im #summary-content, aber nicht in .paragraph)
+    const summaryContent = e.target.closest('#summary-content');
+    if (summaryContent) {
+      // Prüfe ob es NICHT ein Paragraph (Vortragstext) ist
+      const isInParagraph = e.target.closest('.paragraph');
+      const isInTocList = e.target.closest('#toc-list');
+      const isHeading = e.target.closest('h3, h4');
+      
+      // Nur wenn im Summary-Bereich (oberhalb der Paragraphen)
+      if (!isInParagraph && !isInTocList && !isHeading) {
+        // Prüfe ob der Klick im Summary-Text-Bereich ist (vor dem ersten .paragraph)
+        const firstParagraph = summaryContent.querySelector('.paragraph');
+        const hrSeparator = summaryContent.querySelector('hr.summary-separator');
+        
+        if (hrSeparator) {
+          const clickedElement = e.target;
+          // Prüfe Position relativ zum Separator
+          const hrRect = hrSeparator.getBoundingClientRect();
+          const clickRect = clickedElement.getBoundingClientRect();
+          
+          if (clickRect.top < hrRect.top) {
+            e.preventDefault();
+            e.stopPropagation();
+            showAIContentPopup(e);
+            return;
+          }
+        }
+      }
+    }
+    
+    // 4. TOC-Überschriften im rechten Panel
+    const tocHeading = e.target.closest('#toc-list h3, #toc-list h4');
+    if (tocHeading) {
+      e.preventDefault();
+      e.stopPropagation();
+      showAIContentPopup(e);
+      return;
+    }
+    
     // Finde Element mit Hilfe-Beschreibung
     const helpInfo = findHelpElement(e.target);
     
@@ -36197,6 +36288,28 @@ async function addKeywordToLecture() {
       showContextHelp(e, helpDescriptions[helpInfo.key]);
     }
   }, true);
+  
+  // KI-INHALT-POPUP: Zeige Info zu KI-generierten Inhalten
+  function showAIContentPopup(e) {
+    const popupHtml = `<span style="font-size: 0.95em;">Zusammenfassung, Schlagwörter und Überschriften mit KI erstellt.</span>`;
+    showContextHelp(e, popupHtml);
+  }
+  
+  // SEITENZAHL-POPUP: Zeige Info zur Seitenzahl
+  function showPageNumberPopup(e, container) {
+    const pageNum = container.querySelector('.page-break-num')?.textContent || '?';
+    
+    // Baue Popup-Inhalt mit erklärendem Text
+    const popupHtml = `
+      <strong>Seitenzahl:</strong> ${pageNum}<br>
+      <span style="font-size: 0.9em; line-height: 1.5; display: block; margin-top: 0.5em;">
+        Entspricht der Ausgabe, die oben rechts im Info-Button angegeben ist.<br>
+        <span style="opacity: 0.8; font-size: 0.95em;">(Die Position der Seitentrennungszeichen | kann um wenige Worte von der Seitentrennung im Original abweichen.)</span>
+      </span>
+    `;
+    
+    showContextHelp(e, popupHtml);
+  }
   
   // Schließen bei Escape-Taste
   document.addEventListener('keydown', function(e) {
