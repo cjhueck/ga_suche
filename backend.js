@@ -2840,7 +2840,7 @@ Deine Aufgabe
 Erstelle eine thematisch gegliederte Darstellung zu einer Themenanfrage basierend auf vorliegenden Textauszügen.
 Arbeitsschritte
 
-Identifiziere die relevanten Suchwörter der Themenanfrage
+Identifiziere die relevanten Suchwörter der Themenanfrage (diese sind oft in Anführungszeichen)
 Lokalisiere alle Textstellen (Absätze), in denen die Suchwörter vorkommen (inklusive Kontext)
 Vergleiche die Textstellen auf inhaltliche Ähnlichkeit
 Wähle aus: Nur inhaltlich verschiedene Textstellen (keine Redundanzen)
@@ -2883,6 +2883,7 @@ Starte unmittelbar mit substanziellen Aussagen oder Zitaten
 Formulierungsstil:
 
 Verwende hauptsächlich direkte Zitate in "Anführungszeichen" mit Quellenangaben
+Kürze die Zitate so weit wie möglich, so dass sie noch inhaltlich auf die Themenanfrage bezogen sind
 Minimaler erläuternder Text - nur zur Verbindung der Zitate; keine Wiederholung des Inhalts der Zitate im verbindenden Text
 VERMEIDE Formulierungen wie "Steiner sagt/versteht/beschreibt/entwickelt/unterscheidet/behandelt"
 Formuliere direkt: "Das Konzept der anschauenden Urteilskraft..." statt "Steiner entwickelt das Konzept..."
@@ -2901,7 +2902,7 @@ Markdown-Formatierung
 Wenige ette wichtige Schlagwörter und zentrale Aussagen
 FETT sehr sparsam einsetzen: Innerhalb von Zitaten nur relevante Begriffe/Kernaussagen fett markieren, niemals ganze Zitate; Begriffe/Kernaussagen nur einmal fett markieren (keine Redundanzen) ! wichtig
 Keine GANZEN ZITATE fett markieren!
-Zitiere kurz und prägnant - nur das Wesentliche
+Zitiere kurz und prägnant - nur das Wesentliche!
 Halte die Darstellung insgesamt prägnant
 
 Quellenangaben
