@@ -36221,64 +36221,6 @@ async function addKeywordToLecture() {
       return;
     }
     
-    // KI-INHALT-POPUP: Prüfe ob Klick auf KI-generierte Inhalte
-    // 1. Überschriften im Viewer (H3/H4 mit id="heading-...")
-    const headingElement = e.target.closest('h3[id^="heading-"], h4[id^="heading-"]');
-    if (headingElement) {
-      e.preventDefault();
-      e.stopPropagation();
-      showAIContentPopup(e);
-      return;
-    }
-    
-    // 2. Keywords (.keyword-entry)
-    const keywordEntry = e.target.closest('.keyword-entry');
-    if (keywordEntry) {
-      e.preventDefault();
-      e.stopPropagation();
-      showAIContentPopup(e);
-      return;
-    }
-    
-    // 3. Summary-Text (im #summary-content, aber nicht in .paragraph)
-    const summaryContent = e.target.closest('#summary-content');
-    if (summaryContent) {
-      // Prüfe ob es NICHT ein Paragraph (Vortragstext) ist
-      const isInParagraph = e.target.closest('.paragraph');
-      const isInTocList = e.target.closest('#toc-list');
-      const isHeading = e.target.closest('h3, h4');
-      
-      // Nur wenn im Summary-Bereich (oberhalb der Paragraphen)
-      if (!isInParagraph && !isInTocList && !isHeading) {
-        // Prüfe ob der Klick im Summary-Text-Bereich ist (vor dem ersten .paragraph)
-        const firstParagraph = summaryContent.querySelector('.paragraph');
-        const hrSeparator = summaryContent.querySelector('hr.summary-separator');
-        
-        if (hrSeparator) {
-          const clickedElement = e.target;
-          // Prüfe Position relativ zum Separator
-          const hrRect = hrSeparator.getBoundingClientRect();
-          const clickRect = clickedElement.getBoundingClientRect();
-          
-          if (clickRect.top < hrRect.top) {
-            e.preventDefault();
-            e.stopPropagation();
-            showAIContentPopup(e);
-            return;
-          }
-        }
-      }
-    }
-    
-    // 4. TOC-Überschriften im rechten Panel
-    const tocHeading = e.target.closest('#toc-list h3, #toc-list h4');
-    if (tocHeading) {
-      e.preventDefault();
-      e.stopPropagation();
-      showAIContentPopup(e);
-      return;
-    }
-    
     // Finde Element mit Hilfe-Beschreibung
     const helpInfo = findHelpElement(e.target);
     
@@ -36289,12 +36231,6 @@ async function addKeywordToLecture() {
     }
   }, true);
   
-  // KI-INHALT-POPUP: Zeige Info zu KI-generierten Inhalten
-  function showAIContentPopup(e) {
-    const popupHtml = `<span style="font-size: 0.95em;">Zusammenfassung, Schlagwörter und Überschriften mit KI erstellt.</span>`;
-    showContextHelp(e, popupHtml);
-  }
-  
   // SEITENZAHL-POPUP: Zeige Info zur Seitenzahl
   function showPageNumberPopup(e, container) {
     const pageNum = container.querySelector('.page-break-num')?.textContent || '?';
@@ -36303,7 +36239,7 @@ async function addKeywordToLecture() {
     const popupHtml = `
       <strong>Seitenzahl:</strong> ${pageNum}<br>
       <span style="font-size: 0.9em; line-height: 1.5; display: block; margin-top: 0.5em;">
-        Entspricht der Ausgabe, die oben rechts im Info-Button angegeben ist.<br>
+        Wie in der Ausgabe, die oben rechts im Info-Button angegeben ist.<br>
         <span style="opacity: 0.8; font-size: 0.95em;">(Die Position der Seitentrennungszeichen | kann um wenige Worte von der Seitentrennung im Original abweichen.)</span>
       </span>
     `;
