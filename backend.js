@@ -104,12 +104,14 @@ app.get('/assets/*', async (req, res) => {
     const decodedPath = decodeURIComponent(imagePath);
     
     // Finde den GA-Ordner basierend auf dem Bildpfad
-    const gaMatch = decodedPath.match(/^(GA\d{3}[a-z]?)/i);
+    // Unterstützt sowohl "GA134-xxx.webp" als auch "134-xxx.webp" Format
+    const gaMatch = decodedPath.match(/^(GA)?(\d{3}[a-z]?)/i);
     if (!gaMatch) {
       return res.status(404).json({ error: 'GA-Nummer nicht gefunden' });
     }
     
-    const gaNumber = gaMatch[1];
+    // Normalisiere zu "GA###" Format
+    const gaNumber = gaMatch[1] ? gaMatch[0].toUpperCase() : 'GA' + gaMatch[2];
     
     const steinerGADir = path.join(__dirname, 'Steiner_GA');
     
