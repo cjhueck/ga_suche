@@ -1,0 +1,132 @@
+{
+  "ga": "GA028",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 552,
+  "breaksWithPage": 552,
+  "inserted": 335,
+  "insertedRatio": 0.6068840579710145,
+  "failed": 217,
+  "failuresSample": [
+    {
+      "page": 8,
+      "reason": "jump-too-large",
+      "left": "nktiv, wie sie mit ihrer Seele diese Heimat nicht verlassen hatten, trotzdem sie",
+      "right": "Die Mutter, Franziska Steiner geb. Blie, 1834-1918 Der Vater, Johann Steiner, 18"
+    },
+    {
+      "page": 8,
+      "reason": "jump-too-large",
+      "left": "e Schwester Leopoldine (1864-1927) und Rudolf Steiner (stehend, ca. 4 Jahre alt)",
+      "right": "Pottschach mit Blick auf den Semmering Wohnung der Familie Steiner im Stationsge"
+    },
+    {
+      "page": 50,
+      "reason": "no-match",
+      "left": "turand (hintere Reihe, rechts) Folgende Seite: Die Technische Hochschule in Wien",
+      "right": ""
+    },
+    {
+      "page": 51,
+      "reason": "jump-too-large",
+      "left": "",
+      "right": "III. Meinem Vater war von der Direktion der Südbahn- gesellschaft versprochen wo"
+    },
+    {
+      "page": 66,
+      "reason": "no-match",
+      "left": "Ihre Vereinigung mit dem, was ich als Geisteswelt kannte, unermeßlich schwierig.",
+      "right": "//72- *4urter /<*•** /7*y*w/?-r- . jUcCr /&^£*vct£cs£rrTe*i UCj/"
+    },
+    {
+      "page": 66,
+      "reason": "no-match",
+      "left": "//72- *4urter /<*•** /7*y*w/?-r- . jUcCr /&^£*vct£cs£rrTe*i UCj/",
+      "right": ""
+    },
+    {
+      "page": 66,
+      "reason": "no-match",
+      "left": "",
+      "right": "A*st"
+    },
+    {
+      "page": 66,
+      "reason": "jump-too-large",
+      "left": "A*st",
+      "right": "Faksimile eines Briefes an Friedrich Theodor Vischer, 1882"
+    },
+    {
+      "page": 76,
+      "reason": "no-match",
+      "left": "",
+      "right": "Prof. Karl Julius Schröer"
+    },
+    {
+      "page": 106,
+      "reason": "jump-too-large",
+      "left": "",
+      "right": "Rudolf Steiner (zweiter von links) im Kreise der Familie Specht und weiterer Mit"
+    },
+    {
+      "page": 162,
+      "reason": "no-match",
+      "left": "",
+      "right": "Rudolf Steiner in Weimar, 1896"
+    },
+    {
+      "page": 202,
+      "reason": "no-match",
+      "left": "sich das Goethe-Archiv, das 1897 in das neue Gebäude oberhalb der Um umsiedelte.",
+      "right": ""
+    },
+    {
+      "page": 204,
+      "reason": "jump-too-large",
+      "left": "chlaß am besten verwalten könne, mußte er auf diejenigen verfallen, denen er als",
+      "right": "Goethekennern durch seine eigene Tätigkeit an Goethe nahegetreten war. Da kam zu"
+    },
+    {
+      "page": 205,
+      "reason": "jump-too-large",
+      "left": "versität. In ihm mußten die beiden den offiziellen Kenner Goethes gelten lassen.",
+      "right": "Loeper tat das in kindlich harmloser Art. Herman Grimm mit einem gewissen innere"
+    },
+    {
+      "page": 207,
+      "reason": "jump-too-large",
+      "left": "Goethe-Ausgabe zu übernehmen. Erich Schmidt behielt noch einen gewissen Einfluß;",
+      "right": "dadurch waltete Scherers Geist an der Goethe-Arbeit fort. Aber die Ideen Herman "
+    },
+    {
+      "page": 208,
+      "reason": "jump-too-large",
+      "left": "ir dauernd mit Wohlwollen gegenüber. Für die geistigen Interessen, die in meiner",
+      "right": "Seele lebten, hatte er keine Anteilnahme, behandelte sie wohl auch zuweilen vom "
+    },
+    {
+      "page": 209,
+      "reason": "jump-too-large",
+      "left": "m Weggang von Weimar traf. Er endete durch Selbstmord in getrüb- tem Bewußtsein.",
+      "right": "Außer Bernhard Suphan wirkte am Goethe- und Schil- ler-Archiv zur Zeit meines Ei"
+    },
+    {
+      "page": 210,
+      "reason": "jump-too-large",
+      "left": "rat mit sympathisch-liebens- würdigen Bemerkungen ein. Er Heß sich sein Arbeits-",
+      "right": "material geben, setzte sich hin und arbeitete nun stunden- lang mit einer Konzen"
+    },
+    {
+      "page": 211,
+      "reason": "jump-too-large",
+      "left": "gleich anmutig wirkte. Er sprach in etwas sich übersprudelnden Sätzen, fast ohne",
+      "right": "allen Tonfall; aber man hörte durch die farblose Sprache eine starke Artikulatio"
+    },
+    {
+      "page": 246,
+      "reason": "jump-too-large",
+      "left": " dürfe also nicht mit ihm in eins zusammenfließen. Doch ist diese Unterscheidung",
+      "right": "1)110 PHILOSOPHIE DER FREIHEIT. D« RUDOLF STEINER. BERLIN. ERLA(; Vi.i.v KMIL FE"
+    }
+  ]
+}

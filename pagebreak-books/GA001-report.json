@@ -1,0 +1,24 @@
+{
+  "ga": "GA001",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 294,
+  "breaksWithPage": 294,
+  "inserted": 292,
+  "insertedRatio": 0.9931972789115646,
+  "failed": 2,
+  "failuresSample": [
+    {
+      "page": 285,
+      "reason": "no-match",
+      "left": " für das Höchste eigen, so ruhte sein Anschauen auf den Dingen der unmittelbaren",
+      "right": "Wirklichkeit. Aber in diesem Anschauen liegt etwas von jener Tiefe selbst. Goeth"
+    },
+    {
+      "page": 295,
+      "reason": "no-match",
+      "left": "rwinden und sie in eine Einheit, schon als solche äußerliche, zu vereinigen. Der",
+      "right": "Raum ist also eine Art, die Welt als eine Einheit zu erfas- sen. Der Raum ist ei"
+    }
+  ]
+}

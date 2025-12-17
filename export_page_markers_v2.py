@@ -1614,9 +1614,14 @@ def process_ga(ga_number: str, test_mode: bool = False, validate_only: bool = Fa
                     break
         
         if before_text:
+            # Berechne relative Position im PDF (0.0 bis 1.0)
+            # Dies ermöglicht robuste positions-basierte Einfügung im Frontend
+            relative_position = page.pdf_index / max(pdf_page_count - 1, 1)
+            
             markers.append({
                 "page": page.printed_page,
                 "beforeText": before_text,
+                "relativePosition": round(relative_position, 4),  # Präzision: 0.01%
                 "confidence": page.confidence.value  # "extracted" oder "interpolated"
             })
             found_count += 1
