@@ -9234,6 +9234,47 @@ function normalizeGANumber(gaNumber) {
               markdownRef: img.markdownRef
             }))
           });
+          
+          // FALLBACK: Auch wenn Bild nicht in Datenbank gefunden, Style trotzdem anwenden
+          // und versuche URL-basierten Abruf über Backend
+          const srcForBackend = originalSrc.startsWith('assets/') ? originalSrc.replace('assets/', '') : originalSrc;
+          const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
+          
+          console.log(`[IMAGES] Fallback: Versuche URL-basierten Abruf: ${backendUrl}`);
+          imgTag.setAttribute('src', backendUrl);
+          
+          // Prüfe, ob es eine Tafelzeichnung ist
+          const isBlackboardDrawing = /T\d+\./.test(srcForBackend) || /\d{3}-T\d+/.test(srcForBackend);
+          
+          // Prüfe, ob es ein WebP-Bild ist
+          const isWebP = srcForBackend.toLowerCase().includes('.webp');
+          
+          // Setze Style und Klassen
+          imgTag.className = 'lecture-image';
+          imgTag.style.cursor = 'pointer';
+          
+          if (isBlackboardDrawing) {
+            imgTag.classList.add('blackboard-drawing');
+            imgTag.style.removeProperty('max-width');
+            imgTag.style.removeProperty('float');
+          } else {
+            imgTag.style.removeProperty('width');
+            imgTag.style.removeProperty('display');
+          }
+          
+          if (isWebP) {
+            imgTag.setAttribute('data-format', 'webp');
+          }
+          
+          // Füge Click-Handler hinzu
+          imgTag.setAttribute('data-image-popup-handler', 'true');
+          imgTag.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const altText = imgTag.getAttribute('alt') || '';
+            const dataFormat = imgTag.getAttribute('data-format');
+            openImagePopup(imgTag.src, altText, dataFormat);
+          });
         }
       });
       
@@ -9853,22 +9894,39 @@ function normalizeGANumber(gaNumber) {
       if (e.target.tagName === 'IMG') {
         // Überspringe wenn Bild bereits ein Link ist (z.B. in einem <a> Tag)
         if (e.target.closest('a')) return;
-        
+
         // Überspringe wenn Bild bereits einen spezifischen Handler hat
         if (e.target.hasAttribute('data-image-popup-handler')) return;
-        
+
         const imageSrc = e.target.src;
         const altText = e.target.getAttribute('alt') || '';
         const dataFormat = e.target.getAttribute('data-format');
-        
+
         // Setze Cursor-Style wenn noch nicht gesetzt
         if (!e.target.style.cursor) {
           e.target.style.cursor = 'pointer';
         }
         
+        // Füge lecture-image Klasse hinzu, wenn noch nicht vorhanden (für korrekte Styles)
+        if (!e.target.classList.contains('lecture-image') && !e.target.closest('.logo-container') && !e.target.closest('.portrait-container')) {
+          const imgSrc = e.target.getAttribute('src') || '';
+          const isBlackboardDrawing = /T\d+\./.test(imgSrc) || /\d{3}-T\d+/.test(imgSrc);
+          const isWebP = imgSrc.toLowerCase().includes('.webp');
+          
+          e.target.classList.add('lecture-image');
+          
+          if (isBlackboardDrawing) {
+            e.target.classList.add('blackboard-drawing');
+          }
+          
+          if (isWebP) {
+            e.target.setAttribute('data-format', 'webp');
+          }
+        }
+
         // Markiere als behandelt, um doppelte Handler zu vermeiden
         e.target.setAttribute('data-image-popup-handler', 'true');
-        
+
         openImagePopup(imageSrc, altText, dataFormat);
       }
     }, true); // useCapture: true, damit der Handler früher ausgeführt wird
@@ -12053,10 +12111,18 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           const originalSrc = imgTag.getAttribute('src');
           const decodedSrc = decodeURIComponent(originalSrc);
           
+          // Rewrite URL zum Backend
+          const srcForBackend = originalSrc.startsWith('assets/') ? originalSrc.replace('assets/', '') : originalSrc;
+          const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
+          imgTag.setAttribute('src', backendUrl);
+          
           // Prüfe, ob es eine Tafelzeichnung ist (basierend auf Pfad oder Alt-Text)
           const isBlackboardDrawing = /T\d+\./.test(decodedSrc) || 
                                        /\d{3}-T\d+/.test(decodedSrc) ||
                                        (imgTag.getAttribute('alt') || '').includes('-T');
+          
+          // Prüfe, ob es ein WebP-Bild ist
+          const isWebP = decodedSrc.toLowerCase().includes('.webp');
           
           // Setze Klasse und Styles
           imgTag.className = 'lecture-image';
@@ -12073,12 +12139,18 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
             imgTag.style.removeProperty('display');
           }
           
+          if (isWebP) {
+            imgTag.setAttribute('data-format', 'webp');
+          }
+          
           // Füge Click-Handler hinzu für Popup
+          imgTag.setAttribute('data-image-popup-handler', 'true');
           imgTag.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             const altText = imgTag.getAttribute('alt') || '';
-            openImagePopup(decodedSrc, altText);
+            const dataFormat = imgTag.getAttribute('data-format');
+            openImagePopup(imgTag.src, altText, dataFormat);
           });
           
           });
