@@ -22760,7 +22760,20 @@ function formatAsteriskParagraphs() {
       
       const answerDiv = document.getElementById('answerContent');
       // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
-      const processedContent = preprocessObsidianLineBreaks(content);
+      let processedContent = preprocessObsidianLineBreaks(content);
+      
+      // Stelle sicher, dass Markdown-Überschriften am Zeilenanfang stehen (für marked.js)
+      // Füge Zeilenumbruch vor ##, ###, #### ein, wenn keiner vorhanden ist
+      processedContent = processedContent.replace(/([^\n])(#{2,4}\s)/g, '$1\n$2');
+      
+      // Konfiguriere marked für Überschriften
+      marked.setOptions({
+        breaks: true,
+        gfm: true,
+        headerIds: true,
+        mangle: false
+      });
+      
       answerDiv.innerHTML = marked.parse(processedContent);
       
       // BACKEND-FORMATIERUNG ENTFERNEN: Alle inline Styles aus Backend-HTML entfernen
