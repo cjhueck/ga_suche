@@ -9237,7 +9237,11 @@ function normalizeGANumber(gaNumber) {
           
           // FALLBACK: Auch wenn Bild nicht in Datenbank gefunden, Style trotzdem anwenden
           // und versuche URL-basierten Abruf über Backend
-          const srcForBackend = originalSrc.startsWith('assets/') ? originalSrc.replace('assets/', '') : originalSrc;
+          // Bereinige den Pfad (entferne <, >, Anführungszeichen)
+          let cleanedSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
+          // Extrahiere den Teil nach "assets/"
+          const assetsMatch = cleanedSrc.match(/assets\/(.+)$/);
+          const srcForBackend = assetsMatch ? assetsMatch[1] : (cleanedSrc.startsWith('assets/') ? cleanedSrc.replace('assets/', '') : cleanedSrc);
           const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
           
           console.log(`[IMAGES] Fallback: Versuche URL-basierten Abruf: ${backendUrl}`);
@@ -9375,6 +9379,11 @@ function normalizeGANumber(gaNumber) {
       let insertedCount = 0;
       let skippedCount = 0;
       
+      // NEU: Tracke verwendete Positionen, um doppelte Marker zu verhindern
+      const usedPositions = new Set();
+      // NEU: Tracke verwendete Suchtexte für diesen Durchlauf
+      const usedSearchTexts = new Set();
+      
       // WICHTIG: Positionstracking für sequentielle Suche
       // Für beforeText: Jeder Marker muss NACH dem vorherigen gefunden werden
       // Für afterText: Jeder Marker muss VOR dem vorherigen gefunden werden
@@ -9454,6 +9463,14 @@ function normalizeGANumber(gaNumber) {
         
         const pageMarker = `|${marker.page}|`;
         let searchText = hasAfterText ? marker.afterText : marker.beforeText;
+        
+        // NEU: Prüfe ob dieser Suchtext bereits verwendet wurde (verhindert doppelte Marker)
+        const searchTextKey = searchText.substring(0, 30);
+        if (usedSearchTexts.has(searchTextKey)) {
+          skippedCount++;
+          console.log(`[PageMarkers] Seite ${marker.page} übersprungen (gleicher Suchtext wie vorheriger Marker)`);
+          continue;
+        }
         
         // Suche nur im korrekten Bereich (sequentielle Reihenfolge!)
         let foundIdx = -1;
@@ -9592,21 +9609,25 @@ function normalizeGANumber(gaNumber) {
             const insertPos = foundIdx + searchText.length;
             // Prüfe ob nicht bereits ein Marker direkt danach ist
             const afterInsert = result.substring(insertPos, insertPos + 10);
-            if (!afterInsert.match(/^\|?\d+\|/)) {
+            if (!afterInsert.match(/^\|?\d+\|/) && !usedPositions.has(insertPos)) {
               result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
               insertedCount++;
               searchBoundary = foundIdx; // Nächste Suche muss VOR diesem Punkt sein
               lastInsertedPage = marker.page;
+              usedPositions.add(insertPos);
+              usedSearchTexts.add(searchTextKey);
             }
           } else {
             // Prüfe ob nicht bereits ein Marker direkt davor ist
             const beforeInsert = result.substring(Math.max(0, foundIdx - 10), foundIdx);
-            if (!beforeInsert.match(/\|\d+\|$/)) {
+            if (!beforeInsert.match(/\|\d+\|$/) && !usedPositions.has(foundIdx)) {
               result = result.substring(0, foundIdx) + pageMarker + result.substring(foundIdx);
               insertedCount++;
               // Aktualisiere Boundary - nächste Suche muss NACH dem Marker sein
               searchBoundary = foundIdx + pageMarker.length + searchText.length;
               lastInsertedPage = marker.page;
+              usedPositions.add(foundIdx);
+              usedSearchTexts.add(searchTextKey);
             }
           }
         }
@@ -9617,62 +9638,10 @@ function normalizeGANumber(gaNumber) {
           (skippedCount > 0 ? `, ${skippedCount} übersprungen (falsche Sequenz)` : ''));
       }
       
-      // WICHTIG: Füge die erste Seitenzahl am Anfang des ersten Absatzes ein
-      // (neben der ersten Zeile, nicht darüber)
-      // Suche nach: 1) Summary-Separator, 2) Falls nicht vorhanden: erster Absatz überhaupt
-      if (useBeforeText && insertedCount > 0) {
-        // Finde den ERSTEN eingefügten Marker im Text
-        const markerPattern = /\|(\d+)\|/;
-        const firstMarkerMatch = result.match(markerPattern);
-        
-        if (firstMarkerMatch) {
-          const firstInsertedPage = parseInt(firstMarkerMatch[1], 10);
-          const firstMarkerPos = result.indexOf(firstMarkerMatch[0]);
-          
-          // Bestimme den Startpunkt für die Suche nach dem ersten Absatz:
-          // 1) Nach der Summary-Trennungslinie (falls vorhanden)
-          // 2) Sonst: Ab Anfang des Textes
-          const separatorMatch = result.match(/<hr[^>]*class="[^"]*summary-separator[^"]*"[^>]*>/i);
-          const searchStartPos = separatorMatch 
-            ? result.indexOf(separatorMatch[0]) + separatorMatch[0].length 
-            : 0;
-          
-          // Finde den ersten Absatz (paragraph div) nach dem Startpunkt
-          const afterStart = result.substring(searchStartPos);
-          const paragraphMatch = afterStart.match(/<div[^>]*class="[^"]*paragraph[^"]*"[^>]*>/i);
-          
-          // Prüfe ob der erste Marker NACH dem ersten Absatz-Start ist
-          if (paragraphMatch && firstInsertedPage > 1) {
-            const paragraphTagPos = searchStartPos + afterStart.indexOf(paragraphMatch[0]);
-            const paragraphStartPos = paragraphTagPos + paragraphMatch[0].length;
-            
-            // Finde das erste echte Textzeichen nach dem Absatz-Start
-            // (überspringe HTML-Tags wie <p>, Leerzeichen, Zeilenumbrüche)
-            const contentAfterParagraph = result.substring(paragraphStartPos);
-            const firstTextMatch = contentAfterParagraph.match(/^(\s*(?:<[^>]+>\s*)*)/);
-            const htmlPrefixLength = firstTextMatch ? firstTextMatch[0].length : 0;
-            const textStartPos = paragraphStartPos + htmlPrefixLength;
-            
-            // Prüfe ob der erste Marker weit genug vom Textanfang entfernt ist
-            // (mindestens 50 Zeichen, um sicherzustellen dass er nicht am Anfang ist)
-            const distanceToFirstMarker = firstMarkerPos - textStartPos;
-            
-            if (distanceToFirstMarker > 50) {
-              const actualStartPage = firstInsertedPage - 1;
-              const actualStartMarker = `|${actualStartPage}|`;
-              
-              // Prüfe ob diese Seite nicht bereits im Text vorkommt
-              if (!result.includes(actualStartMarker)) {
-                // Füge vor dem ersten echten Textzeichen ein
-                result = result.substring(0, textStartPos) + actualStartMarker + result.substring(textStartPos);
-                console.log(`[PageMarkers] Start-Seitenzahl ${actualStartPage} vor erstem Text eingefügt (vor Seite ${firstInsertedPage}, Distanz: ${distanceToFirstMarker})`);
-              }
-            } else {
-              console.log(`[PageMarkers] Kein Start-Marker nötig - erster Marker (${firstInsertedPage}) ist bereits nahe am Anfang (Distanz: ${distanceToFirstMarker})`);
-            }
-          }
-        }
-      }
+      // HINWEIS: Keine automatische Einfügung einer "Start-Seitenzahl" mehr,
+      // da dies zu überlappenden Seitenzahlen führte. Die erste Seitenzahl
+      // wird nur eingefügt, wenn sie tatsächlich in der page-markers.json
+      // vorhanden ist und der Text gefunden wird.
       
       // NEU: Validiere die eingefügten Marker
       if (insertedCount > 0) {
@@ -11830,8 +11799,8 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
           });
         }
         
-        // Konvertiere Seitenmarker |47| zu hochgestellten Zahlen
-        content = convertPageMarkers(content);
+        // HINWEIS: Seitenmarker-Konvertierung passiert NACH dem Zusammenfügen aller Absätze
+        // um die sequentielle Reihenfolge zu erhalten (siehe unten bei insertPageMarkersFromData)
       }
       
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
@@ -12105,14 +12074,19 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       console.warn('[IMAGES-BOOK] ⚠ Keine Bilder in Datenbank für', bookId);
       
       // Fallback: Lade Bilder direkt vom Server (für Bücher, die keine Bilder in der Datenbank haben)
-      const imgTags = viewer.querySelectorAll('img[src^="assets/"]');
+      // Suche nach allen img-Tags mit assets/ im src (auch mit <> oder anderen Präfixen)
+      const imgTags = viewer.querySelectorAll('img[src*="assets/"]');
       if (imgTags.length > 0) {
         imgTags.forEach(imgTag => {
           const originalSrc = imgTag.getAttribute('src');
           const decodedSrc = decodeURIComponent(originalSrc);
           
-          // Rewrite URL zum Backend
-          const srcForBackend = originalSrc.startsWith('assets/') ? originalSrc.replace('assets/', '') : originalSrc;
+          // Bereinige den Pfad (entferne <, >, Anführungszeichen)
+          let cleanedSrc = decodedSrc.replace(/^[<"']|[>"']$/g, '').trim();
+          
+          // Rewrite URL zum Backend - extrahiere den Teil nach "assets/"
+          const assetsMatch = cleanedSrc.match(/assets\/(.+)$/);
+          const srcForBackend = assetsMatch ? assetsMatch[1] : (cleanedSrc.startsWith('assets/') ? cleanedSrc.replace('assets/', '') : cleanedSrc);
           const backendUrl = `${API_BASE}/assets/${encodeURIComponent(srcForBackend)}`;
           imgTag.setAttribute('src', backendUrl);
           
@@ -22693,6 +22667,32 @@ function formatAsteriskParagraphs() {
       });
     }
 
+    // Konvertiert gerade Anführungszeichen zu deutschen „..." 
+    // Für Tab Themen und Index
+    function convertToGermanQuotes(element) {
+      if (!element) return;
+      
+      const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      
+      nodes.forEach(node => {
+        if (!node.nodeValue) return;
+        let text = node.nodeValue;
+        
+        // Konvertiere gerade Anführungszeichen zu deutschen
+        // Erstes " in einem Paar → „ (unten), zweites " → " (oben)
+        let isOpening = true;
+        text = text.replace(/"/g, () => {
+          const quote = isOpening ? '„' : '"';
+          isOpening = !isOpening;
+          return quote;
+        });
+        
+        node.nodeValue = text;
+      });
+    }
+
     // Stellt einheitliche Leerzeichen um Klammern bei GA-Quellenangaben her
     function normalizeCitationSpacing(container) {
       if (!container) return;
@@ -22782,6 +22782,8 @@ function formatAsteriskParagraphs() {
       normalizeUnicode(answerDiv);
       // Einheitliche Abstände um Klammern an GA-Quellenangaben
       normalizeCitationSpacing(answerDiv);
+      // Deutsche Anführungszeichen „..." verwenden
+      convertToGermanQuotes(answerDiv);
 
       // Falls die Quellen direkt in der Überschrift stehen: Überschrift säubern und Rest in neuen Absatz verschieben
       try {
@@ -28233,7 +28235,11 @@ function displayKeywordThematicResults(keyword, data) {
   // Einheitliche Abstände um Klammern an GA-Quellenangaben (Keyword-Themen)
   try {
     const kc = document.getElementById('keywordAnswerContent');
-    if (kc) normalizeCitationSpacing(kc);
+    if (kc) {
+      normalizeCitationSpacing(kc);
+      // Deutsche Anführungszeichen „..." verwenden
+      convertToGermanQuotes(kc);
+    }
   } catch (_) {}
   
   // Verlinke Schlagwörter im Text, die als Index-Einträge existieren
@@ -34952,8 +34958,6 @@ function openSaveQuoteDialog(paragraphIndex, element) {
 
 // Globaler Event-Listener für Strg+Shift+Mouseup mit markiertem Text (Zitat speichern)
 document.addEventListener('mouseup', function(event) {
-  if (!isLocal || !currentLectureData) return;
-  
   // Nur bei Strg+Shift-Taste
   if (!event.ctrlKey || !event.shiftKey) return;
   
@@ -34967,25 +34971,60 @@ document.addEventListener('mouseup', function(event) {
     // Finde den Absatz, in dem die Selektion startet
     let paragraphIndex = '';
     let anchorNode = selection.anchorNode;
+    let paragraphElement = null;
     
-    // Suche nach dem übergeordneten .paragraph Element
+    // Suche nach dem übergeordneten .paragraph Element oder para- ID
     while (anchorNode && anchorNode !== document) {
-      if (anchorNode.classList && anchorNode.classList.contains('paragraph')) {
-        // Extrahiere paragraphIndex aus data-Attribut oder onclick
-        const onclick = anchorNode.getAttribute('onclick');
-        if (onclick) {
-          const match = onclick.match(/selectParagraphForKeyword\('([^']+)'/);
-          if (match) {
-            paragraphIndex = match[1];
-          }
+      if (anchorNode.nodeType === 1) { // Element node
+        // Prüfe auf para- ID
+        if (anchorNode.id && anchorNode.id.startsWith('para-')) {
+          paragraphIndex = anchorNode.id.replace('para-', '');
+          paragraphElement = anchorNode;
+          break;
         }
-        break;
+        // Prüfe auf data-index Attribut
+        if (anchorNode.dataset && anchorNode.dataset.index) {
+          paragraphIndex = anchorNode.dataset.index;
+          paragraphElement = anchorNode;
+          break;
+        }
+        // Prüfe auf .paragraph Klasse mit onclick
+        if (anchorNode.classList && anchorNode.classList.contains('paragraph')) {
+          const onclick = anchorNode.getAttribute('onclick');
+          if (onclick) {
+            const match = onclick.match(/selectParagraphForKeyword\('([^']+)'/);
+            if (match) {
+              paragraphIndex = match[1];
+            }
+          }
+          paragraphElement = anchorNode;
+          break;
+        }
       }
       anchorNode = anchorNode.parentNode;
     }
     
-    // Öffne Dialog mit markiertem Text
-    openSaveQuoteDialogWithSelection(selectedText, paragraphIndex);
+    // ONLINE: Wenn User eingeloggt ist, verwende Members-System
+    if (typeof currentUser !== 'undefined' && currentUser && typeof saveContextQuote === 'function') {
+      // Speichere Selection Range für das Context-Menu-System
+      const range = selection.getRangeAt(0).cloneRange();
+      if (typeof window.selectionRangeForContext !== 'undefined' || true) {
+        window.selectionRangeForContext = range;
+      }
+      
+      // Ermittle Lecture-Daten
+      const lectureId = currentLectureData?.ID || window.currentGANumber || '';
+      const lectureTitle = currentLectureData?.title || document.title || '';
+      
+      // Rufe saveContextQuote mit Standard-Farbe (blau) auf
+      saveContextQuote(selectedText, lectureId, lectureTitle, paragraphIndex, '', '', 'blue');
+      return;
+    }
+    
+    // LOKAL: Öffne Dialog mit markiertem Text (Fallback)
+    if (isLocal && currentLectureData) {
+      openSaveQuoteDialogWithSelection(selectedText, paragraphIndex);
+    }
   }
 });
 
