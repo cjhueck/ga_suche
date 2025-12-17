@@ -1,0 +1,72 @@
+{
+  "ga": "GA004",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 269,
+  "breaksWithPage": 269,
+  "inserted": 259,
+  "insertedRatio": 0.9628252788104089,
+  "failed": 10,
+  "failuresSample": [
+    {
+      "page": 12,
+      "reason": "no-match",
+      "left": " man im zweiten Bande meiner «Rätsel der Philosophie». April 1918 Rudolf Steiner",
+      "right": ""
+    },
+    {
+      "page": 134,
+      "reason": "no-match",
+      "left": "urechtzurücken, den Einwand machte: «Das ist ein ungewöhnlicher Wort- gebrauch.»",
+      "right": ""
+    },
+    {
+      "page": 243,
+      "reason": "no-match",
+      "left": "eugnisse der freien menschlichen Individuen. Dies ist das Ergebnis des Monismus.",
+      "right": ""
+    },
+    {
+      "page": 264,
+      "reason": "no-match",
+      "left": "end, so ist transzen- dentaler Realismus konstatiert. - 2. Wenn drei Personen an",
+      "right": "einem Tisch sitzen, wieviele Exemplare des Tisches sind vor- handen? Wer antwort"
+    },
+    {
+      "page": 265,
+      "reason": "no-match",
+      "left": "ankendurchsetzten Wahr- nehmbaren vorhanden ist, gelangt er zu der Einsicht, daß",
+      "right": "der als intermittierend auftretende Wahrnehmungsinhalt durchsetzt von dem im Den"
+    },
+    {
+      "page": 266,
+      "reason": "no-match",
+      "left": "ehen in dem andern wieder auf, so daß das Bewußtsein einer jeden der Personen im",
+      "right": "denkenden Erleben sich und den andern ergreift. Ich weiß, daß der transzendental"
+    },
+    {
+      "page": 267,
+      "reason": "no-match",
+      "left": "als was Eduard von Hartmann und andere erkenntnistheoretischen Monismus nennen.)",
+      "right": "In dem Folgenden wird in allem Wesentlichen wieder- gegeben, was als eine Art «V"
+    },
+    {
+      "page": 272,
+      "reason": "no-match",
+      "left": "dee erlebend gegenüberstellen kön- nen; sonst gerät man unter ihre Knechtschaft.",
+      "right": "Die Textgrundlage für die Ausgabe innerhalb der Gesamtausgabe bildet die von Rud"
+    },
+    {
+      "page": 278,
+      "reason": "no-match",
+      "left": "r Philosophie», Zweite, beträchtlich vermehrte Auf- lage, Straßburg 1880, S. 28.",
+      "right": "70 Johannes Volkelt, «Immanuel Kant's Erkenntnißtheorie nach ihren Grundprincipi"
+    },
+    {
+      "page": 279,
+      "reason": "no-match",
+      "left": "inleitung von Dr. Rudolf Steiner, Stuttgart o.J. (1894), 2. Bd., S. 140 und 141.",
+      "right": "98 «Keine Farbe ohne farbempfindendes Auge»: In dieser Form nicht nachge- wiesen"
+    }
+  ]
+}

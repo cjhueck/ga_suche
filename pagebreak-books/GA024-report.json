@@ -1,0 +1,132 @@
+{
+  "ga": "GA024",
+  "sourceFile": "steiner-books-023-045-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 486,
+  "breaksWithPage": 486,
+  "inserted": 335,
+  "insertedRatio": 0.6893004115226338,
+  "failed": 151,
+  "failuresSample": [
+    {
+      "page": 7,
+      "reason": "start-too-late",
+      "left": "",
+      "right": "Vorbemerkungen zu «Die <Schuld> am Kriege, Betrachtun- gen und Erinnerungen des "
+    },
+    {
+      "page": 8,
+      "reason": "no-match",
+      "left": "ungen der Artikel und Auf- sätze Übersicht über die Rudolf Steiner Gesamtausgabe",
+      "right": ""
+    },
+    {
+      "page": 279,
+      "reason": "jump-too-large",
+      "left": "",
+      "right": "Für Deutsche und solche, die nicht glauben, sie hassen zu müssen Unsägliches Lei"
+    },
+    {
+      "page": 335,
+      "reason": "jump-too-large",
+      "left": "ng dieser oder jener Tat- sachendarstellung. Und er kommt durch diese Methode zu",
+      "right": "einem Ergebnis, das sich in folgende Worte zusammenfassen läßt. Die Behauptungen"
+    },
+    {
+      "page": 336,
+      "reason": "no-match",
+      "left": "in den österreichisch- serbischen Streit abgebracht hätte. Dadurch aber war Eng-",
+      "right": "land von vornherein der Bundesgenosse Rußlands und Gegner der Mittelmächte und G"
+    },
+    {
+      "page": 337,
+      "reason": "jump-too-large",
+      "left": "f geben, zu behaupten, er hätte etwas zur Verhinderung des Krieges getan. Es ge-",
+      "right": "lingt dem schweizerischen Geschichtsbetrachter aber auch, zu zeigen, daß die eng"
+    },
+    {
+      "page": 339,
+      "reason": "no-match",
+      "left": "Notwendigkeit der Zivilisation und der edel- sten Menschlichkeit aufzuschwatzen.",
+      "right": "Erstes Memorandum Die Wortführer der Entente führen unter den Gründen, warum sie"
+    },
+    {
+      "page": 340,
+      "reason": "no-match",
+      "left": "nd war im Sommer 1914 nicht bereit, die Initiative zu einem Kriege zu ergreifen.",
+      "right": "2. Österreich-Ungarn war seit langem in die Notwen- digkeit versetzt, irgend etw"
+    },
+    {
+      "page": 342,
+      "reason": "jump-too-large",
+      "left": "en, so wäre unter den Aktionen der übrigen österreichischen Slaven Österreich in",
+      "right": "der Form, in der es bestand, nicht zu erhalten gewesen. Man könnte sich noch vor"
+    },
+    {
+      "page": 343,
+      "reason": "jump-too-large",
+      "left": "ieg so mächtig, daß diese Macht den heute in der Entente vereinigten Mächten ge-",
+      "right": "fährlich werde. Aber man wird die Führung derartiger politischer Beweise ganz an"
+    },
+    {
+      "page": 344,
+      "reason": "no-match",
+      "left": " aus reinen Eroberungs- gründen gegen Mitteleuropa in irgendeinem Zeitpunkte ge-",
+      "right": "wendet, dann hätte es England nicht an seiner Seite finden können. Da das Unters"
+    },
+    {
+      "page": 346,
+      "reason": "jump-too-large",
+      "left": "garn eine großzügige Politik zu entfalten, durch die das ohne Kenntnis der euro-",
+      "right": "päischen Verhältnisse in die Welt gesetzte Programm Wil- sons aus dem Feld gesch"
+    },
+    {
+      "page": 348,
+      "reason": "no-match",
+      "left": "s in Österreich spielte, und man schaue von dem aus auf das, was in eingeweihten",
+      "right": "Kreisen vorhandene politische Formeln in England waren. Diese Formeln enthielten"
+    },
+    {
+      "page": 349,
+      "reason": "no-match",
+      "left": "t dann eine der englischen gewachsene Staatskunst entfalten können, wenn das An-",
+      "right": "gedeutete kein englisches Geheimnis mehr sein wird, son- dern wenn es Gemeingut "
+    },
+    {
+      "page": 351,
+      "reason": "no-match",
+      "left": "on stets überstimmt zu werden. Worauf es ankommt ist, aus dem mitteleuropäischen",
+      "right": "Leben heraus die Impulse zu zeigen, die hier wirklich liegen, und an denen die w"
+    },
+    {
+      "page": 352,
+      "reason": "no-match",
+      "left": "litischen, die mili- tärischen und die polizeilichen Angelegenheiten sein. Diese",
+      "right": "sind nur möglich, auf Grund des historisch gebildeten Unter- grundes. Werden sie"
+    },
+    {
+      "page": 354,
+      "reason": "no-match",
+      "left": "le diese Kulturangelegenheiten werden fortdauernd in gesunder Bewegung erhalten.",
+      "right": "Eine Art Senat, gewählt aus den drei Körperschaften, welchen die Ordnung der pol"
+    },
+    {
+      "page": 355,
+      "reason": "no-match",
+      "left": "ölkerfreiheit und meint dabei nicht die wirkliche Freiheit der Menschen, sondern",
+      "right": "eine schimärische Kollektivfreiheit von Menschenzusammen- hängen, wie sie sich i"
+    },
+    {
+      "page": 357,
+      "reason": "no-match",
+      "left": "n das Wollen Mitteleuropas die Völker wählen zu lassen zwischen einem Tatsachen-",
+      "right": "Programm, das den europäischen Menschen die wirkliche Freiheit und damit ganz se"
+    },
+    {
+      "page": 358,
+      "reason": "no-match",
+      "left": " Programme gebaut sein kann, sondern auf die Wirk- lichkeit des Menschendaseins.",
+      "right": "Es gibt daher für Mitteleuropa nur ein Friedenspro- gramm, und das ist: Die Welt"
+    }
+  ]
+}

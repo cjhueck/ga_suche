@@ -1,0 +1,132 @@
+{
+  "ga": "GA011",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 248,
+  "breaksWithPage": 248,
+  "inserted": 34,
+  "insertedRatio": 0.13709677419354838,
+  "failed": 214,
+  "failuresSample": [
+    {
+      "page": 22,
+      "reason": "jump-too-large",
+      "left": "ng des Ewigen. Er kann die in ihm schlummernden Kräfte so ausbilden, daß er die-",
+      "right": "ses Ewige zu erkennen vermag. In den Aufsätzen über die Frage: «Wie erlangt man "
+    },
+    {
+      "page": 23,
+      "reason": "jump-too-large",
+      "left": "ewissen Weise ab, * In Buchform Berlin 1909 (Rudolf Steiner Gesamtausgabe, BibL-",
+      "right": "was geschehen ist. — Die in das Lesen solcher lebenden Schrift eingeweiht sind, "
+    },
+    {
+      "page": 24,
+      "reason": "jump-too-large",
+      "left": "n, als zwischen Amerika und Europa noch das sogenannte atlantische Festland vor-",
+      "right": "handen war. Auf diesem Teil unserer Erdoberfläche war einstmals Land. Der Boden "
+    },
+    {
+      "page": 25,
+      "reason": "jump-too-large",
+      "left": "h verpflichtet, Schweigen zu beobachten. Wer über solche Quellen überhaupt etwas",
+      "right": "weiß, wird verstehen, warum das so sein muß. Aber es können Ereignisse eintreten"
+    },
+    {
+      "page": 26,
+      "reason": "jump-too-large",
+      "left": "n soll das erste der Schrift- stücke folgen, die hier verzeichnet werden können.",
+      "right": "Unsere atlantischen Vorfahren waren mehr verschieden von den gegenwärtigen Mensc"
+    },
+    {
+      "page": 29,
+      "reason": "jump-too-large",
+      "left": "aft nennt. Wie man heute aus den Steinkohlen die Kraft der Wärme herausholt, die",
+      "right": "man in fortbewegende Kraft bei unseren Verkehrsmitteln verwandelt, so verstanden"
+    },
+    {
+      "page": 31,
+      "reason": "jump-too-large",
+      "left": "nnewohnenden Lebenskraft ganz anders verarbeitet werden konnte, als dies im heu-",
+      "right": "tigen physischen Körper möglich ist. Und daher kam es, daß der Atlantier willkür"
+    },
+    {
+      "page": 36,
+      "reason": "jump-too-large",
+      "left": " Heiliges. Und der Miß- brauch gewisser Laute, denen eine bedeutende Kraft inne-",
+      "right": "wohnte, ist etwas Unmögliches gewesen. Jeder Mensch fühlte, daß solcher Mißbrauc"
+    },
+    {
+      "page": 37,
+      "reason": "jump-too-large",
+      "left": " Rmoahals galt der Mensch eigentlich nur in dem Maße, als er sich im Augenblicke",
+      "right": "durch seine Machtfülle Geltung verschaffen konnte. Wollte da jemand Anerkennung "
+    },
+    {
+      "page": 38,
+      "reason": "jump-too-large",
+      "left": "n weiterlebte, das übertrug jetzt der Vater auf den Sohn. Dem ganzen Geschlechte",
+      "right": "sollten die Werke der Vorfahren nicht vergessen werden. In den Nachkommen noch w"
+    },
+    {
+      "page": 39,
+      "reason": "jump-too-large",
+      "left": " die in die ewigen Gesetze der geistigen Entwickelung eingeweiht waren. Mächtige",
+      "right": "Herrscher empfingen selbst die Einweihung, auf daß die persönliche Tüchtigkeit d"
+    },
+    {
+      "page": 40,
+      "reason": "jump-too-large",
+      "left": "en eigensinnig vorwärts bewegten, wahrend sein Oberkörper nach rückwärts wollte.",
+      "right": "Solche zerstörende Wirkung konnte nur dadurch auf- gehalten werden, daß im Mensc"
+    },
+    {
+      "page": 41,
+      "reason": "jump-too-large",
+      "left": "enskraft. Aber gerade da- durch erzeugte sie den Keim zur Weiterentwickelung der",
+      "right": "Menschheit. Jetzt mochte die Persönlichkeit, die Selbst- liebe, ja die Selbstsuc"
+    },
+    {
+      "page": 42,
+      "reason": "jump-too-large",
+      "left": "gen zuerkannt. Und war vor- dem das maßgebend, was in guter Erinnerung lebte, so",
+      "right": "betrachtete man jetzt das als das Beste, was dem Gedan- ken am besten einleuchte"
+    },
+    {
+      "page": 44,
+      "reason": "jump-too-large",
+      "left": " Lebens- formen, für welche die Fähigkeit des Gedankens das rechte Werkzeug ist.",
+      "right": "Die folgenden Mitteilungen beziehen sich auf den Über- gang der vierten (atlanti"
+    },
+    {
+      "page": 45,
+      "reason": "jump-too-large",
+      "left": "heuer große Zeiträume nahm die Entwickelung in Anspruch, von der berichtet wird.",
+      "right": "Was in dem Vorhergehenden von der vierten Wurzel- rasse, den Atlantiern, gesagt "
+    },
+    {
+      "page": 46,
+      "reason": "jump-too-large",
+      "left": "entempeln geschah, war dem- gemäß auch dem Volke unverständlich. Und ebensowenig",
+      "right": "verstand dieses die Absichten seiner großen Führer. Das Volk konnte mit seinen S"
+    },
+    {
+      "page": 47,
+      "reason": "no-match",
+      "left": " führten die Menschen, ohne ihnen die Grundsätze mitteilen zu können, nach denen",
+      "right": "sie sie führten. Denn bis zur fünften Unterrasse der At- lantier, den Ursemiten,"
+    },
+    {
+      "page": 48,
+      "reason": "jump-too-large",
+      "left": "ndsätze der «Götterboten» denkend zu erfassen. — Die zweite Gruppe der Menschen-",
+      "right": "wesen war dem allmählichen Aussterben geweiht. Die dritte aber konnte von dem We"
+    },
+    {
+      "page": 49,
+      "reason": "jump-too-large",
+      "left": "Führer war in ihrer Mitte, in Menschengestalt. Von solchen Götterboten hatte die",
+      "right": "Menschheit vorher Anweisungen, Befehle erhalten, was sie zu tun oder zu lassen h"
+    }
+  ]
+}

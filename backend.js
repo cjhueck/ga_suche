@@ -639,6 +639,47 @@ async function loadBooks() {
         console.error(`    ❌ Fehler beim Laden von ${fileName}:`, fileError.message);
       }
     }
+
+    // ============================================================
+    // OPTIONAL: Pagebreak-Overrides (V4) für Bücher laden
+    // ============================================================
+    // Zweck: Wir schreiben die großen steiner-books-*.json nicht um,
+    // sondern können pro GA einen Override laden, der bereits |<page>|-Marker
+    // im Text enthält (z.B. durch apply_page_break_markers_v4.py).
+    //
+    // Format: pagebreak-books/GA004.json
+    // Erwartet: { book: { ID:"GA004", paragraphs:[...] } } oder direkt { ID:"GA004", ... }
+    // ============================================================
+    try {
+      const overridesDir = path.join(__dirname, 'pagebreak-books');
+      if (fsSync.existsSync(overridesDir)) {
+        const files = await fs.readdir(overridesDir);
+        const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
+        if (overrideFiles.length > 0) {
+          let applied = 0;
+          for (const f of overrideFiles) {
+            try {
+              const p = path.join(overridesDir, f);
+              const raw = await fs.readFile(p, 'utf8');
+              const parsed = JSON.parse(raw);
+              const bookObj = parsed.book || parsed;
+              const bookId = bookObj?.ID || bookObj?.gaNumber;
+              if (!bookId) continue;
+
+              fullBooks[bookId] = bookObj;
+              applied++;
+            } catch (e) {
+              console.warn(`    ⚠️  Pagebreak-Override ${f} konnte nicht geladen werden:`, e.message);
+            }
+          }
+          if (applied > 0) {
+            console.log(`  ✓ Pagebreak-Overrides geladen: ${applied}`);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('  ⚠️  Pagebreak-Overrides übersprungen:', e.message);
+    }
     
     
     return fullBooks;
@@ -5841,9 +5882,8 @@ app.get('/api/book/:gaNumber', async (req, res) => {
 
             // Speichere zurück - Vortrags-Einträge bleiben erhalten
             await fs.writeFile(SUMMARY_DB_FILE, JSON.stringify(summaryDB, null, 2), 'utf8');
-          } else {
-            console.log(`[BOOK] ${bookId}: Überschreibe NICHT - bereits Absatz-Indizes vorhanden`);
           }
+          // Log entfernt: "Überschreibe NICHT" - zu verbose bei jedem Request
           const totalEntries = Object.keys(summaryDB).length;
           const lectureEntries = Object.keys(summaryDB).filter(id => {
             const match = id.match(/^GA(\d+)/);
@@ -5859,7 +5899,7 @@ app.get('/api/book/:gaNumber', async (req, res) => {
     }
 
     // Gebe vollständige Book-Daten zurück
-    res.json({
+    const responseBook = {
       ID: book.ID || book.gaNumber,
       gaNumber: book.gaNumber || book.ID,
       title: book.title,
@@ -5869,7 +5909,15 @@ app.get('/api/book/:gaNumber', async (req, res) => {
       headings: book.headings || [],
       wordCount: book.wordCount,
       charCount: book.charCount
-    });
+    };
+
+    // WICHTIG: Für saubere Seitenumbrüche/Marker und konsistente Darstellung kann das Frontend
+    // die Absatz-Struktur nutzen. Diese war zuvor nicht im Response enthalten.
+    if (Array.isArray(book.paragraphs) && book.paragraphs.length > 0) {
+      responseBook.paragraphs = book.paragraphs;
+    }
+
+    res.json(responseBook);
 
   } catch (error) {
     console.error('[BOOK] Fehler:', error);
@@ -7987,6 +8035,7 @@ const CLUSTERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'clusters');
 const CODE_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'code');
 const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
 const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
+const PAGEMARKERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagemarkers');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -8001,7 +8050,8 @@ async function ensureBackupDirectories() {
     CLUSTERS_BACKUP_DIR,
     CODE_BACKUP_DIR,
     HTML_BACKUP_DIR,
-    IMAGES_BACKUP_DIR
+    IMAGES_BACKUP_DIR,
+    PAGEMARKERS_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -8106,6 +8156,11 @@ async function createClustersBackup() {
 async function createImagesBackup() {
   const imagesFile = path.join(__dirname, 'steiner-images.json');
   return await createBackup(imagesFile, IMAGES_BACKUP_DIR, 'steiner-images', 10);
+}
+
+async function createPageMarkersBackup() {
+  const pageMarkersFile = path.join(__dirname, 'page-markers.json');
+  return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-markers', 10);
 }
 
 async function createCodeBackup() {
@@ -8228,6 +8283,7 @@ async function createFullBackup() {
     createThemesBackup(),
     createClustersBackup(),
     createImagesBackup(),
+    createPageMarkersBackup(),
     createCodeBackup(),
     createHtmlBackup('index.html'),
     createHtmlBackup('keyword-manager.html'),
@@ -8235,9 +8291,9 @@ async function createFullBackup() {
     createMembersHtmlBackup(),
     createMembersPanelBackup()
   ]);
-  
+
   const successful = results.filter(r => r !== null).length;
-  
+
   return successful;
 }
 
@@ -15452,6 +15508,9 @@ app.post('/api/backups/create', async (req, res) => {
       case 'images':
         backupFile = await createImagesBackup();
         break;
+      case 'pagemarkers':
+        backupFile = await createPageMarkersBackup();
+        break;
       case 'code':
         backupFile = await createCodeBackup();
         break;
@@ -15521,6 +15580,10 @@ app.get('/api/backups/list/:type', async (req, res) => {
       case 'images':
         backupDir = IMAGES_BACKUP_DIR;
         prefix = 'steiner-images';
+        break;
+      case 'pagemarkers':
+        backupDir = PAGEMARKERS_BACKUP_DIR;
+        prefix = 'page-markers';
         break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;

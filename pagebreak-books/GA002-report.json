@@ -1,0 +1,132 @@
+{
+  "ga": "GA002",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 170,
+  "breaksWithPage": 170,
+  "inserted": 130,
+  "insertedRatio": 0.7647058823529411,
+  "failed": 40,
+  "failuresSample": [
+    {
+      "page": 101,
+      "reason": "jump-too-large",
+      "left": " will: die gesamte Welt nach der Schablone der physikalischen Methode behandeln.",
+      "right": "Diese Forderung liegt aber auch dem Darwinismus nicht in seiner ursprünglichen G"
+    },
+    {
+      "page": 136,
+      "reason": "no-match",
+      "left": ". S. 4. 8 Siehe Goethes «Dichtung und Wahrheit» [3. Teil, 11. Buch] (XXII24 f.).",
+      "right": "9 /. H. von Kirchmann sagt sogar in seiner «Lehre vom Wissen [als Einleitung in "
+    },
+    {
+      "page": 137,
+      "reason": "no-match",
+      "left": "eckel, «Die Naturanschauung von Darwin, Goethe und Lamarck». [Jena] 1882, S. 53.",
+      "right": "Zu Seite 16 [«Diese Literatur...»:] Die Stimmung, die hin- ter diesem Urteil übe"
+    },
+    {
+      "page": 139,
+      "reason": "no-match",
+      "left": "hisch gerichtete Welt- und Lebensanschauung seit der Niederschrift des in dieser",
+      "right": "Schrift als «Ausgangspunkt» bezeichneten enstanden ist. Alles dies setzt doch vo"
+    },
+    {
+      "page": 140,
+      "reason": "no-match",
+      "left": " einerseits und die ge- dankliche Durchdringung andrerseits ins Auge gefaßt. Und",
+      "right": "es wird nachgewiesen, daß im Durchdringen der beiden die wahre Wirklichkeit des "
+    },
+    {
+      "page": 141,
+      "reason": "no-match",
+      "left": " als die Sinneswahrnehmung durch den Gedanken gewissermaßen nach oben zum Anfang",
+      "right": "des Geistigen hin in Wirklichkeit vollendet, die geistige An- schauung von diese"
+    },
+    {
+      "page": 142,
+      "reason": "no-match",
+      "left": "er das volle Autorrecht des Aufsatzes «Die Natur» in Anspruch nehmen. Ich möchte",
+      "right": "mich in das Streiten über diese Frage nicht mischen. Auch wenn man für Tobler di"
+    },
+    {
+      "page": 143,
+      "reason": "no-match",
+      "left": "weise ... etwas anzufan- gen.» In meinen Schriften wird man in verschiedener Art",
+      "right": "über «Mystizismus» und «Mystik» gesprochen finden. Daß zwischen diesen verschied"
+    },
+    {
+      "page": 144,
+      "reason": "no-match",
+      "left": ".» Die Ideen dieser Phi- losophie sind später weiter entwickelt worden in meiner",
+      "right": "«Philosophie der Freiheit» (Philosophisch-Anthroposophi- scher Verlag). Zu Seite"
+    },
+    {
+      "page": 145,
+      "reason": "no-match",
+      "left": "ich aufgefunden worden und der Weimarischen Goethe-Ausgabe eingefügt worden ist.",
+      "right": "dieser Ausgabe Textgrundlagen Textkorrekturen Namenregister Sachregister Weitere"
+    },
+    {
+      "page": 146,
+      "reason": "no-match",
+      "left": " Bibliographischer Nachweis bisheriger Ausgaben Die Rudolf Steiner Gesamtausgabe",
+      "right": ""
+    },
+    {
+      "page": 147,
+      "reason": "no-match",
+      "left": "",
+      "right": "Zu dieser Ausgabe Der vorliegende Band enthält die erste selbständige Buchpubli-"
+    },
+    {
+      "page": 148,
+      "reason": "no-match",
+      "left": "gabe letzter Hand (A1H), überprüft worden. Sie ist die letzte von Rudolf Steiner",
+      "right": "selbst autorisierte und herausgegebene und daher maßgebend. Alle seit dieser Aus"
+    },
+    {
+      "page": 149,
+      "reason": "no-match",
+      "left": " wesentlich ergänzt und erweitert worden; zitiert wird, wenn immer möglich, nach",
+      "right": "den in Rudolf Steiners Bibliothek vorhandenen Ausgaben. Ver- vollständigt wurde "
+    },
+    {
+      "page": 151,
+      "reason": "no-match",
+      "left": "ckt; die Berichtigungen sind bereits in früheren Ausgaben berücksichtigt worden.",
+      "right": "Herausgeberkorrekturen in der 8. Auflage 2003 gegenüber dem Text der 7. Auflage "
+    },
+    {
+      "page": 152,
+      "reason": "no-match",
+      "left": " Steiners Anmerkun- gen durch den Herausgeber sind in [eckige Klammern] gesetzt.",
+      "right": "Werke Rudolf Steiners innerhalb der Gesamtausgabe (GA) werden in den Hinweisen m"
+    },
+    {
+      "page": 153,
+      "reason": "no-match",
+      "left": " der atomisti- schen Begriffe» mit einem Begleitbrief an Vischer gesandt. - Ver-",
+      "right": "öffentlichung des Aufsatzes und Begleitbriefes in «Beiträge zur Rudolf Steiner G"
+    },
+    {
+      "page": 154,
+      "reason": "no-match",
+      "left": "nahme» (mit dem Datum: 20. Februar) veröffentlichte. «Goethes Naturwissenschaft-",
+      "right": "liehe Schriften», a.a.O., in Band V, S. 272-275, mit Anmerkungen R. Steiners. - "
+    },
+    {
+      "page": 155,
+      "reason": "no-match",
+      "left": "(Schlußkapitel). «Die Theorie an und für sich ist nichts nütze»: «Goethes Natur-",
+      "right": "wissenschaftliche Schriften», a.a.O., Band V: «Sprüche in Prosa», S. 357. 28 « W"
+    },
+    {
+      "page": 156,
+      "reason": "no-match",
+      "left": "Wörtlich: «daß alle Akte, die darauf Anspruch machen, ein objektives Erkennen zu",
+      "right": "sein, unabtrennbar an das erkennende individuelle Bewußtsein gebunden sind, daß "
+    }
+  ]
+}

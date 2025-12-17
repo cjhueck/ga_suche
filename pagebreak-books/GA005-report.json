@@ -1,0 +1,30 @@
+{
+  "ga": "GA005",
+  "sourceFile": "steiner-books-001-011-part01.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 192,
+  "breaksWithPage": 192,
+  "inserted": 189,
+  "insertedRatio": 0.984375,
+  "failed": 3,
+  "failuresSample": [
+    {
+      "page": 126,
+      "reason": "no-match",
+      "left": "hau, 1900) DIE PERSÖNLICHKEIT FRIEDRICH NIETZSCHES. (Die Kommenden, 1900) (1924)",
+      "right": ""
+    },
+    {
+      "page": 199,
+      "reason": "no-match",
+      "left": "",
+      "right": "Zu dieser Ausgabe 1. Auflage, 1895: Die Schrift Friedrieb Nietzsche, ein Kämpfer"
+    },
+    {
+      "page": 200,
+      "reason": "no-match",
+      "left": "en, 1977/1983: Rudolf Steiners Nietzsche-Buch von 1895 erschien zusammen mit den",
+      "right": "vier ergänzenden Texten der Ausgabe von 1926 erstmals 1963 innerhalb der Rudolf "
+    }
+  ]
+}

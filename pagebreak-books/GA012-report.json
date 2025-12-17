@@ -1,0 +1,132 @@
+{
+  "ga": "GA012",
+  "sourceFile": "steiner-books-012-022-part02.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 88,
+  "breaksWithPage": 88,
+  "inserted": 8,
+  "insertedRatio": 0.09090909090909091,
+  "failed": 80,
+  "failuresSample": [
+    {
+      "page": 9,
+      "reason": "jump-too-large",
+      "left": "ar das ungeheure Ethos notwen- dig, welches das ganze Lebenswerk Rudolf Steiners",
+      "right": "durchpulst und nichts anderes mehr für ihn in Betracht kommen ließ als das Wohl "
+    },
+    {
+      "page": 10,
+      "reason": "jump-too-large",
+      "left": "berwältigt hätten. Sein Ich schwebte ja noch über seinen physischen Hüllen, sein",
+      "right": "Selbstbewußtsein war nicht erwacht. Dieses immer mehr zur Erweckung zu bringen, "
+    },
+    {
+      "page": 11,
+      "reason": "jump-too-large",
+      "left": " Landen den Führer findet. Ein solches war nicht vorhanden, bevor Rudolf Steiner",
+      "right": "sein Geisteswerk begann. Seine Tat ist - die «Wissen- schaft» von der Initiation"
+    },
+    {
+      "page": 12,
+      "reason": "jump-too-large",
+      "left": "reinbricht, gleich dem Wun- der der aufleuchtenden Blüte in der grünen Pflanzen-",
+      "right": "weit. Doch ohne diese durch weise Mächte von Form zu Form durchgeführte Wandlung"
+    },
+    {
+      "page": 14,
+      "reason": "jump-too-large",
+      "left": "ng mancher Einzelheiten schärfer zu betonen, wie es bei dem, der Geistesschulung",
+      "right": "sucht im Sinne der gegenwärtigen geistigen Bedingun- gen, viel mehr auf ein völl"
+    },
+    {
+      "page": 18,
+      "reason": "no-match",
+      "left": "handen, als diese Dinge selbst auf die Seele wirken. Das innere Leben aber hängt",
+      "right": "davon ab, daß Wahrnehmung an Wahrnehmung gereiht wird. Das «Ich» orientiert sich"
+    },
+    {
+      "page": 19,
+      "reason": "no-match",
+      "left": "keinen Begriff, wenn ein äußerer Sinnesgegenstand nicht vorhanden ist. Das «Ich»",
+      "right": "bleibt dann untätig. Wer sich Bilder formt, denen Sin- nesgegenstände entspreche"
+    },
+    {
+      "page": 20,
+      "reason": "no-match",
+      "left": "ind ja nur Einbildungen, bloße Ausflüsse meines Vorstellungslebens.» Das ist nur",
+      "right": "zu begreiflich. Denn der Mensch ist zunächst ja daran gewöhnt, nur dasjenige «wi"
+    },
+    {
+      "page": 21,
+      "reason": "no-match",
+      "left": "sind auch solche Bilder nicht mehr vorhanden. Der Mensch lebt ganz in einer rein",
+      "right": "geistigen Welt. Wer nur gewöhnt ist, sich an die Sinne 2u halten, wird versucht "
+    },
+    {
+      "page": 23,
+      "reason": "no-match",
+      "left": "heinbar sie aber ist: für den, der sie ganz versteht, ist sie von der allerweit-",
+      "right": "tragendsten Bedeutung. Sie ist die folgende: Ein jedes Ding der Außenwelt kann v"
+    },
+    {
+      "page": 24,
+      "reason": "no-match",
+      "left": "man lernen muß, ist gerade die Gewöhnung daran, etwas ganz anderes «wirklich» zu",
+      "right": "nennen, als was man im Bereich der Sinne so bezeichnet. Und dies ist nicht ganz "
+    },
+    {
+      "page": 25,
+      "reason": "no-match",
+      "left": "tet sie: das ist ihre Tätigkeit. Diese stellt sie während des Schlafes ein. Aber",
+      "right": "sie ist keineswegs untätig. Sie arbeitet schlafend an dem eigenen Leibe. Dieser "
+    },
+    {
+      "page": 26,
+      "reason": "no-match",
+      "left": "ungen unternehmen. Denn nur wer Erfahrung auf diesem Gebiete hat, kann ermessen,",
+      "right": "welche Wirkung bei dem einen oder dem anderen Men- schen sich einstellen muß, we"
+    },
+    {
+      "page": 27,
+      "reason": "no-match",
+      "left": "die Erlebnisse der Nacht. Die Erinnerung, daß man in der Nacht wahrgenommen hat,",
+      "right": "tritt nur ganz langsam und allmählich ein. Denn der Schüler lernt nicht leicht a"
+    },
+    {
+      "page": 28,
+      "reason": "no-match",
+      "left": "tracht. Der Mensch gehört dieser sichtbaren Natur an. Gäbe es um ihn herum nicht",
+      "right": "das Mineral-, Pflanzen-, Tierreich und dasjenige der anderen Menschen: er könnte"
+    },
+    {
+      "page": 29,
+      "reason": "no-match",
+      "left": "ner verderbliche Kräfte aus den Elementarreichen bemächtigen. Darin besteht eine",
+      "right": "Gefahr der höheren Entwickelung. Es muß daher dafür gesorgt werden, daß, sobald "
+    },
+    {
+      "page": 30,
+      "reason": "no-match",
+      "left": " ganz bewußter Weise bei allen Dingen fortwährend darauf bedacht sein, das Blei-",
+      "right": "bende, Unvergängliche von dem Vergänglichen abzu- sondern, und auf das erstere s"
+    },
+    {
+      "page": 31,
+      "reason": "no-match",
+      "left": "lt erreicht man, wenn man sich bemüht, dem Irrlichtelieren der Gedanken und Emp-",
+      "right": "findungen, die beim gewöhnlichen Menschen immer auf- und abwogen, entgegenzuarbe"
+    },
+    {
+      "page": 32,
+      "reason": "no-match",
+      "left": "gebenen Richtung mehr als alles, wozu man vom äußeren Leben gedrängt wird. - Er-",
+      "right": "tragsamkeit ist das Entfernthalten von jener Stimmung, die man bezeichnen kann m"
+    },
+    {
+      "page": 33,
+      "reason": "no-match",
+      "left": "ähnen des Tieres. So kann man den Dingen gegenüber empfinden; in allem, auch dem",
+      "right": "Widrigsten, mag sich für den, welcher ernstlich sucht, et- was Anerkennenswertes"
+    }
+  ]
+}

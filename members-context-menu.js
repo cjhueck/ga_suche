@@ -914,14 +914,21 @@ async function saveContextQuote(text, lectureId, lectureTitle, paragraphIndex, c
       invalidateMembersCache('quotes');
     }
     
+    // NEU: Stelle sicher, dass alle Markierungen im Text aktualisiert werden
+    // (für den Fall, dass die DOM-Manipulation Events verloren hat)
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+      // Kurze Verzögerung, damit DOM-Änderungen abgeschlossen sind
+      setTimeout(() => {
+        markParagraphsWithBookmarksAndQuotes(lectureId);
+      }, 100);
+    }
+    
     // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige das neue Zitat
     if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
       await openMembersPanelAndShowTab('quotes', savedQuoteId);
     } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
-      if (typeof updateMembersPanelIfOpen === 'function') {
-        await updateMembersPanelIfOpen('quotes', true);
-      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'quotes') {
+      // Panel SOFORT aktualisieren falls bereits offen (ohne forceUpdate=true, damit Tab neu geladen wird)
+      if (typeof loadMembersTab === 'function') {
         await loadMembersTab('quotes');
       }
     }
@@ -1336,14 +1343,19 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       invalidateMembersCache('highlights');
     }
     
+    // NEU: Stelle sicher, dass alle Markierungen im Text aktualisiert werden
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+      setTimeout(() => {
+        markParagraphsWithBookmarksAndQuotes(lectureId);
+      }, 100);
+    }
+    
     // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige die neue Unterstreichung
     if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
       await openMembersPanelAndShowTab('highlights', savedHighlightIdNorm);
     } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
-      if (typeof updateMembersPanelIfOpen === 'function') {
-        await updateMembersPanelIfOpen('highlights', true);
-      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+      // Panel SOFORT aktualisieren falls bereits offen
+      if (typeof loadMembersTab === 'function') {
         await loadMembersTab('highlights');
       }
     }
@@ -1420,14 +1432,19 @@ async function saveContextHighlight(text, lectureId, lectureTitle, paragraphInde
       invalidateMembersCache('highlights');
     }
     
+    // NEU: Stelle sicher, dass alle Markierungen im Text aktualisiert werden
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function') {
+      setTimeout(() => {
+        markParagraphsWithBookmarksAndQuotes(lectureId);
+      }, 100);
+    }
+    
     // Prüfe ob Markierung im Side Panel war - dann öffne Members Panel und zeige die neue Unterstreichung
     if (selectionInSidePanel && typeof openMembersPanelAndShowTab === 'function') {
       await openMembersPanelAndShowTab('highlights', savedHighlightId);
     } else if (typeof membersPanelActive !== 'undefined' && membersPanelActive) {
-      // Panel aktualisieren falls bereits offen (bei Main Viewer Markierung)
-      if (typeof updateMembersPanelIfOpen === 'function') {
-        await updateMembersPanelIfOpen('highlights', true);
-      } else if (typeof loadMembersTab === 'function' && currentMembersTab === 'highlights') {
+      // Panel SOFORT aktualisieren falls bereits offen
+      if (typeof loadMembersTab === 'function') {
         await loadMembersTab('highlights');
       }
     }
@@ -1981,6 +1998,13 @@ async function openContextNote(text, lectureId, lectureTitle, paragraphId = null
       addNoteBookmarkToViewer(paragraphId, result.data, selectedColor);
     } else {
       console.log('[MB-NOTE-SAVE] Kein Icon hinzugefügt - paragraphId:', paragraphId, 'result.data:', result.data);
+    }
+    
+    // NEU: Stelle sicher, dass alle Markierungen im Text aktualisiert werden
+    if (typeof markParagraphsWithBookmarksAndQuotes === 'function' && lectureId) {
+      setTimeout(() => {
+        markParagraphsWithBookmarksAndQuotes(lectureId);
+      }, 100);
     }
     
     // Hole die ID der neuen Notiz
@@ -3378,6 +3402,13 @@ window.hideHighlightColorMenu = hideHighlightColorMenu;
 window.showQuoteColorMenu = showQuoteColorMenu;
 window.hideQuoteColorMenu = hideQuoteColorMenu;
 window.getHighlightColor = getHighlightColor;
+window.saveContextQuote = saveContextQuote;
+window.saveContextHighlight = saveContextHighlight;
+// Getter/Setter für selectionRangeForContext (für Strg+Shift+Klick)
+Object.defineProperty(window, 'selectionRangeForContext', {
+  get: function() { return selectionRangeForContext; },
+  set: function(val) { selectionRangeForContext = val; }
+});
 
 // Auto-Init wenn DOM geladen - mit Verzögerung
 if (document.readyState === 'loading') {

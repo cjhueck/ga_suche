@@ -9333,10 +9333,110 @@ function normalizeGANumber(gaNumber) {
       }
     }
     
+    // =====================================================================
+    // NEUE ROBUSTE POSITIONS-BASIERTE SEITENMARKER-EINFÜGUNG
+    // =====================================================================
+    // Diese Funktion verwendet die relative Position statt Text-Suche.
+    // Viel robuster und reproduzierbar!
+    // =====================================================================
+    
+    function insertPageMarkersByPosition(text, gaNumber) {
+      if (!pageMarkersData || !gaNumber) return text;
+      
+      const normalizedGA = normalizeGANumber(gaNumber);
+      const gaData = pageMarkersData[normalizedGA];
+      
+      if (!gaData || !gaData.markers || gaData.markers.length === 0) {
+        console.log(`[PageMarkers] Keine Marker für ${normalizedGA}`);
+        return text;
+      }
+      
+      // Prüfe ob relativePosition vorhanden ist
+      const hasPositions = gaData.markers.some(m => typeof m.relativePosition === 'number');
+      if (!hasPositions) {
+        console.log(`[PageMarkers] ${normalizedGA}: Keine relativePosition - verwende Text-basierte Methode`);
+        return null; // Signalisiert: Fallback auf alte Methode
+      }
+      
+      // Finde alle Absatz-Grenzen (vor <div class="paragraph...">)
+      // WICHTIG: Suche nach ALLEN paragraph-Divs, nicht nur nach contentStart
+      const paragraphPattern = /<div[^>]*class="[^"]*paragraph[^"]*"[^>]*>/gi;
+      const paragraphStarts = [];
+      let match;
+      while ((match = paragraphPattern.exec(text)) !== null) {
+        paragraphStarts.push(match.index);
+      }
+      
+      if (paragraphStarts.length === 0) {
+        console.log(`[PageMarkers] ${normalizedGA}: Keine Absätze gefunden`);
+        return text;
+      }
+      
+      // Sortiere Marker nach Seitenzahl (aufsteigend) und filtere gültige
+      const sortedMarkers = [...gaData.markers]
+        .filter(m => typeof m.relativePosition === 'number' && m.page > 0)
+        .sort((a, b) => a.page - b.page);
+      
+      console.log(`[PageMarkers] ${normalizedGA}: ${paragraphStarts.length} Absätze, ${sortedMarkers.length} Marker`);
+      
+      // NEUE LOGIK: Verteile Marker gleichmäßig auf Absätze basierend auf relativePosition
+      // relativePosition 0.0 = erster Absatz, 1.0 = letzter Absatz
+      let result = text;
+      let insertedCount = 0;
+      const usedParagraphs = new Set();
+      
+      // Verarbeite von hinten nach vorne (damit Positionen stabil bleiben)
+      for (let i = sortedMarkers.length - 1; i >= 0; i--) {
+        const marker = sortedMarkers[i];
+        
+        // Berechne Ziel-Absatz basierend auf relativePosition
+        // relativePosition 0.0 -> Absatz 0, relativePosition 1.0 -> letzter Absatz
+        const targetParagraphIndex = Math.round(marker.relativePosition * (paragraphStarts.length - 1));
+        
+        // Finde den nächsten freien Absatz (falls Ziel-Absatz schon belegt)
+        let bestParagraph = -1;
+        for (let offset = 0; offset < paragraphStarts.length; offset++) {
+          // Suche nach vorne und hinten
+          const forward = targetParagraphIndex + offset;
+          const backward = targetParagraphIndex - offset;
+          
+          if (forward < paragraphStarts.length && !usedParagraphs.has(forward)) {
+            bestParagraph = forward;
+            break;
+          }
+          if (backward >= 0 && !usedParagraphs.has(backward)) {
+            bestParagraph = backward;
+            break;
+          }
+        }
+        
+        if (bestParagraph >= 0) {
+          const insertPos = paragraphStarts[bestParagraph];
+          const pageMarker = `|${marker.page}|`;
+          
+          // Füge Marker ein
+          result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
+          insertedCount++;
+          usedParagraphs.add(bestParagraph);
+          
+          // Aktualisiere Positionen der nachfolgenden Absätze
+          const markerLen = pageMarker.length;
+          for (let k = 0; k < paragraphStarts.length; k++) {
+            if (paragraphStarts[k] > insertPos) {
+              paragraphStarts[k] += markerLen;
+            }
+          }
+        }
+      }
+      
+      console.log(`[PageMarkers] ${normalizedGA}: ${insertedCount} Marker eingefügt (positions-basiert)`);
+      return result;
+    }
+    
     // Fügt Seitenmarker aus page-markers.json in den Text ein
-    // Unterstützt zwei Formate:
-    // - afterText: Marker wird NACH dem Text eingefügt (GA001 Bücher)
-    // - beforeText: Marker wird VOR dem Text eingefügt (GA051+ Vorträge)
+    // Unterstützt zwei Methoden:
+    // 1. POSITIONS-BASIERT (robust): Verwendet relativePosition für Bücher
+    // 2. TEXT-BASIERT (legacy): Verwendet beforeText/afterText für Vorträge
     function insertPageMarkersFromData(text, gaNumber, lectureId = null) {
       if (!pageMarkersData || !gaNumber) {
         console.log('[PageMarkers] Keine Daten oder GA-Nummer:', !!pageMarkersData, gaNumber);
@@ -9352,15 +9452,15 @@ function normalizeGANumber(gaNumber) {
         return text;
       }
       
-      // VEREINFACHT: Verwende ALLE Marker für diesen GA-Band.
-      // Die Filterung passiert automatisch: beforeText wird im Text gesucht,
-      // und nur wenn er gefunden wird, wird der Marker eingefügt.
-      // So funktioniert die Zuordnung auch bei Seitenumbrüchen mitten im Wort!
+      // HINWEIS: Positions-basierte Einfügung wurde deaktiviert.
+      // Wir verwenden stattdessen V4-Umbruchmarker, die direkt im Buchtext stehen
+      // (|<seite>|), oder als Fallback die text-basierte Methode.
+      
+      // Text-basierte Methode (Legacy)
       const relevantMarkers = gaData.markers;
-      console.log(`[PageMarkers] ${normalizedGA}: ${relevantMarkers.length} Marker verfügbar`);
+      console.log(`[PageMarkers] ${normalizedGA}: ${relevantMarkers.length} Marker (Text-basiert)`);
       
       if (relevantMarkers.length === 0) {
-        console.log(`[PageMarkers] Keine Marker für ${normalizedGA}`);
         return text;
       }
       
@@ -9374,6 +9474,12 @@ function normalizeGANumber(gaNumber) {
       const sortedMarkers = [...relevantMarkers].sort((a, b) => 
         useAfterText ? b.page - a.page : a.page - b.page
       );
+      
+      // NEU: Berechne min/max Seitenzahl für Positions-Validierung
+      const allPages = relevantMarkers.map(m => m.page).filter(p => p > 0);
+      const minPage = Math.min(...allPages);
+      const maxPage = Math.max(...allPages);
+      const pageRange = maxPage - minPage;
       
       let result = text;
       let insertedCount = 0;
@@ -9536,13 +9642,37 @@ function normalizeGANumber(gaNumber) {
         }
         
         if (foundIdx >= 0) {
-          // NEU: Überspringe Marker mit Seitenzahl UNTER dem ersten gültigen Marker
-          // Das verhindert, dass Marker aus früheren Vorträgen eingefügt werden
-          if (firstMarkerPage > 0 && marker.page < firstMarkerPage) {
-            skippedCount++;
-            // console.log(`[PageMarkers] Seite ${marker.page} übersprungen (< erste Seite ${firstMarkerPage})`);
-            continue;
+          // POSITIONS-VALIDIERUNG - Prüfe ob die gefundene Position plausibel ist
+          if (pageRange > 50 && useBeforeText) {
+            const foundRelativePos = (foundIdx - contentStartPos) / contentLength; // 0.0 bis 1.0
+            const expectedRelativePos = (marker.page - minPage) / pageRange; // 0.0 bis 1.0
+            const positionDeviation = Math.abs(foundRelativePos - expectedRelativePos);
+            
+            // Unterschiedliche Validierung je nach Position und beforeText-Länge
+            const isHighPage = (marker.page - minPage) > (pageRange * 0.3);
+            const isShortBeforeText = marker.beforeText && marker.beforeText.length < 30;
+            
+            // Für hohe Seiten: strenge Validierung (35% Toleranz)
+            if (isHighPage) {
+              const MAX_DEVIATION = 0.35;
+              if (positionDeviation > MAX_DEVIATION) {
+                skippedCount++;
+                console.log(`[PageMarkers] Seite ${marker.page} übersprungen (Position ${(foundRelativePos*100).toFixed(0)}% statt erwartet ${(expectedRelativePos*100).toFixed(0)}%, Abweichung ${(positionDeviation*100).toFixed(0)}%)`);
+                continue;
+              }
+            }
+            // Für kurze beforeText auch bei frühen Seiten validieren (50% Toleranz)
+            // Kurze Strings wie "Rudolf Steiner einen" können an falschen Stellen matchen
+            else if (isShortBeforeText && positionDeviation > 0.5) {
+              skippedCount++;
+              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (kurzer Text "${marker.beforeText.substring(0,20)}..." an Position ${(foundRelativePos*100).toFixed(0)}% statt ${(expectedRelativePos*100).toFixed(0)}%)`);
+              continue;
+            }
           }
+          
+          // HINWEIS: Die alte Prüfung "marker.page < firstMarkerPage" wurde entfernt,
+          // da sie Probleme verursachte wenn ein hoher Marker zufällig früh im Text vorkommt.
+          // Stattdessen verwenden wir jetzt die Positions-Validierung oben.
           
           if (!firstValidMarkerFound) {
             firstValidMarkerFound = true;
@@ -11898,8 +12028,15 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
     // WICHTIG: Dies muss auf das gesamte HTML angewendet werden, NICHT auf einzelne Absätze,
     // damit die sequentielle Reihenfolge der Seitenzahlen korrekt bleibt.
     const bookGA = book.gaNumber || book.ID;
-    if (bookGA && pageMarkersData) {
-      htmlContent = insertPageMarkersFromData(htmlContent, bookGA);
+    if (bookGA) {
+      // Wenn der Text bereits |<seite>|-Marker enthält (z.B. durch V4-Umbruchmatcher),
+      // dann NICHT nochmal Marker aus page-markers.json einfügen (sonst Duplikate/Chaos).
+      const alreadyHasInlineMarkers = /\|\d+\|/.test(htmlContent);
+      
+      if (pageMarkersData && !alreadyHasInlineMarkers) {
+        htmlContent = insertPageMarkersFromData(htmlContent, bookGA);
+      }
+      
       // Konvertiere die |page|-Marker zu sichtbarem HTML
       htmlContent = convertPageMarkers(htmlContent);
     }
@@ -18477,6 +18614,9 @@ function scrollToChronologicalYear(year) {
       
       viewer.innerHTML = html;
       
+      // Deutsche Anführungszeichen „..." verwenden (Index-Tab)
+      convertToGermanQuotes(viewer);
+      
       // Konvertiere GA-Referenzen in klickbare Links
       // WICHTIG: Übergebe das Suchwort (concept), damit Buch-Links das Suchwort für die Markierung haben
       setTimeout(() => {
@@ -22659,9 +22799,11 @@ function formatAsteriskParagraphs() {
         // Normalisiere verschiedene Bindestriche zu normalem Bindestrich
         text = text.replace(/[\u2010-\u2015]/g, '-');
         
-        // Normalisiere verschiedene Anführungszeichen
-        text = text.replace(/[""]/g, '"');
-        text = text.replace(/['']/g, "'");
+        // Normalisiere verschiedene Anführungszeichen zu geraden
+        // (werden danach von convertToGermanQuotes zu deutschen umgewandelt)
+        // U+201C = " (links oben), U+201D = " (rechts oben), U+201E = „ (deutsch unten)
+        text = text.replace(/[""„"]/g, '"');
+        text = text.replace(/[''‚']/g, "'");
         
         node.nodeValue = text;
       });
@@ -22669,6 +22811,7 @@ function formatAsteriskParagraphs() {
 
     // Konvertiert gerade Anführungszeichen zu deutschen „..." 
     // Für Tab Themen und Index
+    // Deutsche Typografie: „ (U+201E, unten) öffnet, " (U+201C, oben) schließt
     function convertToGermanQuotes(element) {
       if (!element) return;
       
@@ -22681,10 +22824,13 @@ function formatAsteriskParagraphs() {
         let text = node.nodeValue;
         
         // Konvertiere gerade Anführungszeichen zu deutschen
-        // Erstes " in einem Paar → „ (unten), zweites " → " (oben)
+        // Einführend/öffnend: „ (unten, U+201E)
+        // Ausführend/schließend: " (oben, U+201C)
         let isOpening = true;
         text = text.replace(/"/g, () => {
-          const quote = isOpening ? '„' : '"';
+          // „ = \u201E (doppelte untere Anführungszeichen - öffnend)
+          // " = \u201C (doppelte obere Anführungszeichen - schließend)
+          const quote = isOpening ? '\u201E' : '\u201C';
           isOpening = !isOpening;
           return quote;
         });
@@ -33432,6 +33578,7 @@ async function restoreBackup(backupName) {
         <option value="themes">Themes DB</option>
         <option value="clusters">Clusters</option>
         <option value="images">Steiner Images</option>
+        <option value="pagemarkers">Seitenzahlen</option>
         <option value="code">Backend Code</option>
         <option value="html">HTML Dateien</option>
         <option value="full">🛡️ Alles (Full Backup)</option>
