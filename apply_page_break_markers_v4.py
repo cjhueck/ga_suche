@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """
-Apply Page-Break Anchors (V4) to Book Paragraphs
+Apply Page-Break Anchors (V4) to Book/Lecture Paragraphs
+
+GA-BAND-KATEGORIEN:
+  BÜCHER:    GA001-GA028, GA045  -> steiner-books-*.json
+  AUFSÄTZE:  GA029-GA036, GA046  -> steiner-full-lectures-*.json (wie Vorträge)
+  VORTRÄGE:  GA051 ff            -> steiner-full-lectures-*.json
 
 Nimmt (left/right)-Umbruchanker aus `page-break-markers.json` und findet im
 JSON-Buchtext die exakte Einfügeposition pro Seitenumbruch.
@@ -8,6 +13,7 @@ JSON-Buchtext die exakte Einfügeposition pro Seitenumbruch.
 Ergebnis (Test-Workflow):
   - schreibt standardmäßig KEINE bestehenden steiner-books-*.json um
   - erzeugt stattdessen ein GA-spezifisches Test-Output mit eingefügten Markern
+  - Output wird in pagebreak-books/ gespeichert (Override für Backend)
 
 Marker-Syntax (intern):
   |<page>|
@@ -16,7 +22,8 @@ Beispiel:
 
 Aufruf:
   python apply_page_break_markers_v4.py GA004
-  python apply_page_break_markers_v4.py GA004 --out GA004-with-pagebreaks.json --report GA004-report.json
+  python apply_page_break_markers_v4.py GA004 --out pagebreak-books/GA004.json
+  python apply_page_break_markers_v4.py GA051 --out pagebreak-books/GA051.json
 """
 
 from __future__ import annotations
@@ -683,8 +690,13 @@ def process_lectures_individually(
     
     # Verarbeite jeden Vortrag
     for i, (lec_idx, start_page, lecture) in enumerate(lecture_starts):
-        # Ende ist die nächste Start-Seite oder Ende des Buchs
-        end_page = lecture_starts[i + 1][1] if i + 1 < len(lecture_starts) else 9999
+        # Ende ist die nächste Start-Seite oder eine sinnvolle Obergrenze
+        if i + 1 < len(lecture_starts):
+            end_page = lecture_starts[i + 1][1]
+        else:
+            # Letzter Vortrag: Begrenze auf start_page + 10 Seiten
+            # um Nachwort/Anhang auszuschließen (typischer Vortrag < 10 Seiten)
+            end_page = start_page + 10
         
         # Finde Breaks für diesen Vortrag
         lec_breaks = [b for b in sorted_breaks if start_page <= b.get("page", 0) < end_page]
@@ -693,42 +705,55 @@ def process_lectures_individually(
         if not paragraphs:
             continue
         
-        # WICHTIG: Immer die Start-Seitenzahl am Anfang des Vortrags einfügen
-        # Das ist die Seite, auf der der Vortrag beginnt (aus dem Mapping)
         insertions: List[Tuple[int, int, int]] = []
         
-        # Start-Seite am Anfang des ersten Absatzes einfügen
-        insertions.append((0, 0, start_page))
+        # Normalisiere Paragraphen für diesen Vortrag
+        norm_content, norm_para, norm_char = normalize_paragraphs_with_map(paragraphs)
         
-        # Wenn es weitere Breaks gibt, diese auch verarbeiten
-        if lec_breaks:
-            # Normalisiere Paragraphen für diesen Vortrag
-            norm_content, norm_para, norm_char = normalize_paragraphs_with_map(paragraphs)
+        last_norm_pos = 0
+        
+        # Start-Seite: Immer am Anfang des ersten FLIESSTEXT einfügen (nach Überschriften)
+        # Die V4-Methode funktioniert nicht gut für Start-Seiten, da der Text
+        # oft Teil einer Überschrift ist
+        for p_idx, para in enumerate(paragraphs):
+            content = para.get("content") or ""
+            # Entferne HTML-Tags und prüfe ob noch Fließtext übrig ist
+            text_only = re.sub(r"<[^>]+>", "", content).strip()
+            if len(text_only) > 20:  # Mindestens 20 Zeichen Fließtext
+                # Finde Position nach eventuellen Überschriften
+                # Suche nach dem Ende des letzten </h*> Tags (inkl. Whitespace danach)
+                last_heading_end = 0
+                for m in re.finditer(r"</h[1-6]>\s*", content):
+                    last_heading_end = m.end()
+                insertions.append((p_idx, last_heading_end, start_page))
+                break
+        else:
+            # Absoluter Fallback: Anfang des ersten Absatzes
+            insertions.append((0, 0, start_page))
+        
+        # Alle weiteren Breaks verarbeiten
+        for b in lec_breaks:
+            page = int(b.get("page", 0))
             
-            last_norm_pos = 0
+            # Überspringe die Start-Seite (bereits verarbeitet)
+            if page == start_page:
+                continue
             
-            for b in lec_breaks:
-                page = int(b.get("page", 0))
-                
-                # Überspringe die Start-Seite (bereits eingefügt)
-                if page == start_page:
-                    continue
-                
-                left = b.get("left") or ""
-                right = b.get("right") or ""
-                hyph = bool(b.get("hyphenated"))
-                
-                found = find_best_insertion(
-                    norm_content, norm_para, norm_char, left, right, hyph, 
-                    min_norm_pos=last_norm_pos
-                )
-                
-                if found:
-                    p_i, c_i, norm_pos = found
-                    insertions.append((p_i, c_i, page))
-                    last_norm_pos = norm_pos + 1
-                else:
-                    failures.append({"page": page, "reason": "no-match", "lecture": lec_idx})
+            left = b.get("left") or ""
+            right = b.get("right") or ""
+            hyph = bool(b.get("hyphenated"))
+            
+            found = find_best_insertion(
+                norm_content, norm_para, norm_char, left, right, hyph, 
+                min_norm_pos=last_norm_pos
+            )
+            
+            if found:
+                p_i, c_i, norm_pos = found
+                insertions.append((p_i, c_i, page))
+                last_norm_pos = norm_pos + 1
+            else:
+                failures.append({"page": page, "reason": "no-match", "lecture": lec_idx})
         
         # Wende Insertions an
         apply_insertions_to_paragraphs(paragraphs, insertions)

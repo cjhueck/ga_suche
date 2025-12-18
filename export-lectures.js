@@ -468,6 +468,53 @@ class SteinerLecturesExporter {
     return chunks;
   }
 
+  // Entfernt GA-Bände aus bestehenden steiner-full-lectures-*.json Dateien
+  // um Duplikate beim partiellen Export zu vermeiden
+  removeGAsFromExistingFiles(gasToRemove) {
+    if (!gasToRemove || gasToRemove.length === 0) return;
+
+    const gasUpper = gasToRemove.map(g => g.toUpperCase());
+    
+    // Finde alle bestehenden steiner-full-lectures-*.json Dateien
+    const existingFiles = fs.readdirSync(this.outputDir)
+      .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+
+    let totalRemoved = 0;
+
+    for (const fileName of existingFiles) {
+      const filePath = path.join(this.outputDir, fileName);
+      
+      try {
+        const content = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(content);
+        
+        if (!data.lectures || !Array.isArray(data.lectures)) continue;
+        
+        const originalCount = data.lectures.length;
+        
+        // Filtere Vorträge der zu exportierenden GA-Bände heraus
+        data.lectures = data.lectures.filter(l => {
+          const gaNum = (l.gaNumber || '').toUpperCase();
+          return !gasUpper.includes(gaNum);
+        });
+        
+        const removedCount = originalCount - data.lectures.length;
+        
+        if (removedCount > 0) {
+          fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+          console.log(`   🧹 ${fileName}: ${removedCount} alte Einträge entfernt`);
+          totalRemoved += removedCount;
+        }
+      } catch (e) {
+        // Ignoriere Fehler beim Lesen/Schreiben
+      }
+    }
+
+    if (totalRemoved > 0) {
+      console.log(`   ✓ Gesamt: ${totalRemoved} alte Einträge aus bestehenden Dateien entfernt\n`);
+    }
+  }
+
   // Main export function
   async export(selectedGAs = [], options = {}) {
     const { syncMetadata = true } = options;
@@ -489,16 +536,24 @@ class SteinerLecturesExporter {
       
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
+      // Zusätzliche Ausnahmen: GA014, GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
-        const isGA041b = gaNumber.toLowerCase() === '041b' || gaNumber.toLowerCase() === '41b';
-        const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b;
-        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand) {
-          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert), außer Aufsatzbände
+        const gaLower = gaNumber.toLowerCase();
+        const isGA041b = gaLower === '041b' || gaLower === '41b';
+        // Standard Aufsatzbände + zusätzliche GAs die auch als Aufsätze exportiert werden können
+        const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+        const isEssayBand = (gaNum >= 29 && gaNum <= 37) || gaNum === 46 || isGA041b || additionalEssayBands.includes(gaNum);
+        // Wenn selectedGAs angegeben sind UND diese GA dabei ist, dann exportieren (override)
+        const isExplicitlySelected = selectedGAs.length > 0 && selectedGAs.map(g => g.toUpperCase()).includes(`GA${gaNumber.toUpperCase()}`);
+        if (gaNum >= 1 && gaNum <= 50 && !isEssayBand && !isExplicitlySelected) {
+          continue; // Überspringe GA001-GA050 (werden als Bücher exportiert), außer Aufsatzbände oder explizit ausgewählt
         }
       }
       
-      if (selectedGAs.length > 0 && (!gaNumber || !selectedGAs.includes(`GA${gaNumber.toLowerCase()}`))) continue;
+      // Case-insensitive Vergleich für selectedGAs
+      const selectedGAsUpper = selectedGAs.map(g => g.toUpperCase());
+      if (selectedGAs.length > 0 && (!gaNumber || !selectedGAsUpper.includes(`GA${gaNumber.toUpperCase()}`))) continue;
 
       const meta = this.extractMetadataFromFilename(filename);
       if (!meta) continue;
@@ -638,6 +693,9 @@ class SteinerLecturesExporter {
     const rangeStart = exportedGAs[0].replace(/^GA/, '').padStart(3, '0');
     const rangeEnd = exportedGAs[exportedGAs.length - 1].replace(/^GA/, '').padStart(3, '0');
 
+    // WICHTIG: Entferne alte Einträge für die exportierten GA-Bände aus bestehenden Dateien
+    // um Duplikate zu vermeiden
+    this.removeGAsFromExistingFiles(exportedGAs);
 
     // Split into chunks of max 10 MB
     const maxSize = 10 * 1024 * 1024; // 10 MB

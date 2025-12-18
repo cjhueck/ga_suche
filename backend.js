@@ -172,8 +172,28 @@ app.get('/assets/*', async (req, res) => {
 // Statische Dateien aus dem system Ordner bereitstellen
 app.use('/system', express.static(path.join(__dirname, 'system')));
 
+// FORCE: app.html mit no-cache Header direkt servieren
+app.get('/app.html', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.setHeader('Last-Modified', new Date().toUTCString());
+  res.sendFile(path.join(__dirname, 'app.html'));
+});
+
 // Statische HTML-Dateien aus dem Hauptverzeichnis bereitstellen
-app.use(express.static(__dirname));
+// Cache deaktivieren für HTML-Dateien während der Entwicklung
+app.use(express.static(__dirname, {
+  etag: false,
+  lastModified: false,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 // Logging Middleware für alle Requests
 app.use((req, res, next) => {
@@ -586,6 +606,55 @@ async function loadFullLectures() {
     
     if (duplicateCount > 0) {
       console.warn(`  ⚠️  ${duplicateCount} Duplikate gefunden (überschrieben)`);
+    }
+    
+    // ============================================================
+    // OPTIONAL: Pagebreak-Overrides für Vorträge laden
+    // ============================================================
+    // Zweck: Lädt Vorträge mit eingebetteten |<page>|-Markern aus pagebreak-books/
+    // Format: pagebreak-books/GA035.json mit { lectures: [...] }
+    // ============================================================
+    try {
+      const overridesDir = path.join(__dirname, 'pagebreak-books');
+      if (fsSync.existsSync(overridesDir)) {
+        const files = await fs.readdir(overridesDir);
+        const overrideFiles = files.filter(f => /^GA\d{3}[a-z]?\.json$/i.test(f));
+        let applied = 0;
+        let lectureOverrideFiles = 0;
+        
+        for (const f of overrideFiles) {
+          try {
+            const p = path.join(overridesDir, f);
+            const raw = await fs.readFile(p, 'utf8');
+            const parsed = JSON.parse(raw);
+            
+            // Prüfe ob es ein Vortrags-Override ist (hat "lectures" Array)
+            if (parsed.lectures && Array.isArray(parsed.lectures)) {
+              lectureOverrideFiles++;
+              for (const lecture of parsed.lectures) {
+                if (lecture.ID && fullLectures[lecture.ID]) {
+                  // Ersetze nur paragraphs (behalte andere Metadaten)
+                  // WICHTIG: Override kann "content" statt "text" haben - normalisieren!
+                  const normalizedParagraphs = lecture.paragraphs.map(p => ({
+                    ...p,
+                    text: p.text || p.content  // Falls "content" statt "text"
+                  }));
+                  fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
+                  applied++;
+                }
+              }
+            }
+          } catch (e) {
+            // Stille Fehler - könnte ein Buch-Override sein
+          }
+        }
+        
+        if (lectureOverrideFiles > 0) {
+          console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge aus ${lectureOverrideFiles} Dateien`);
+        }
+      }
+    } catch (e) {
+      console.warn('  ⚠️  Vortrags-Pagebreak-Overrides übersprungen:', e.message);
     }
     
     return fullLectures;

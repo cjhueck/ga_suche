@@ -1,0 +1,37 @@
+{
+  "ga": "GA150",
+  "sourceFile": "steiner-full-lectures-101-150-part03.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 144,
+  "breaksWithPage": 144,
+  "inserted": 127,
+  "insertedRatio": 0.8819444444444444,
+  "failed": 5,
+  "failuresSample": [
+    {
+      "page": 138,
+      "reason": "no-match",
+      "lecture": 9
+    },
+    {
+      "page": 139,
+      "reason": "no-match",
+      "lecture": 9
+    },
+    {
+      "page": 140,
+      "reason": "no-match",
+      "lecture": 9
+    },
+    {
+      "page": 141,
+      "reason": "no-match",
+      "lecture": 9
+    },
+    {
+      "page": 142,
+      "reason": "no-match",
+      "lecture": 9
+    }
+  ]
+}
