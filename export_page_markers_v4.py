@@ -175,7 +175,7 @@ def extract_printed_page_from_footer(page: fitz.Page, max_page: int) -> Optional
             if y_bottom < footer_threshold:
                 continue
 
-            # Muster 1: "Seite: X"
+            # Muster 1a: "Seite: X" (mit Doppelpunkt)
             m = re.search(r"Seite:\s*([\d\s]+)", text)
             if m:
                 num_str = m.group(1).replace(" ", "").strip()
@@ -184,6 +184,14 @@ def extract_printed_page_from_footer(page: fitz.Page, max_page: int) -> Optional
                     if 1 <= num <= max_page:
                         candidates.append((num, 10, y_bottom))
                         continue
+            
+            # Muster 1b: "Seite X" (ohne Doppelpunkt) - für neuere GA-PDFs
+            m = re.search(r"Seite\s+(\d+)", text)
+            if m:
+                num = int(m.group(1))
+                if 1 <= num <= max_page:
+                    candidates.append((num, 10, y_bottom))
+                    continue
 
             # Muster 2: "- 123 -"
             m = re.search(r"[-–—]\s*(\d+)\s*[-–—]", text)
@@ -220,8 +228,8 @@ def extract_printed_page_from_footer(page: fitz.Page, max_page: int) -> Optional
             lines = [ln.strip() for ln in txt.splitlines() if ln.strip()]
             tail = lines[-10:]
             for ln in reversed(tail):
-                # "Seite: 12"
-                m = re.search(r"Seite:\s*(\d{1,4})\s*$", ln)
+                # "Seite: 12" oder "Seite 12"
+                m = re.search(r"Seite:?\s*(\d{1,4})\s*$", ln)
                 if m:
                     num = int(m.group(1))
                     if 1 <= num <= max_page:

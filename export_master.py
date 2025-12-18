@@ -2,6 +2,24 @@
 """
 Master Export-Skript fuer Steiner GA-Suche
 ==========================================
+
+GA-BAND-KATEGORIEN (unterschiedliche Export-Behandlung):
+---------------------------------------------------------
+  BÜCHER:    GA001-GA028, GA045
+             - Schriftliche Werke Rudolf Steiners
+             - Werden als steiner-books-*.json exportiert
+             
+  AUFSÄTZE:  GA029-GA036, GA046
+             - Gesammelte Aufsätze zu verschiedenen Themen
+             - Werden wie Vorträge behandelt (mit Paragraphen)
+             - Manuelle Überschriften werden im Frontend ausgeblendet
+               wenn AI-generierte Überschriften aktiv sind
+             
+  VORTRÄGE:  GA051 ff
+             - Mitschriften von Vorträgen
+             - Werden als steiner-full-lectures-*.json exportiert
+             - Mit Page-Break-Markern für Seitenzahlen
+
 Fuehrt den kompletten Export-Workflow automatisch aus:
 1. Bildpfade in Obsidian korrigieren (optional)
    - Extrahiert Bilder aus PDF-Dateien (falls vorhanden) und speichert sie als PNG
@@ -9,11 +27,11 @@ Fuehrt den kompletten Export-Workflow automatisch aus:
    - Korrigiert fehlerhafte Markdown/Wiki-Links
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
-2a. Bücher exportieren (GA001-GA050)
+2a. Bücher exportieren (GA001-GA028, GA045)
    - Exportiert Bücher als JSON mit Absätzen und Überschriften
    - Überschriften werden in summary-database.json gespeichert
-2b. Lectures aus Obsidian exportieren (inkl. Bilder, GA051+)
-   - Exportiert Vortraege als JSON (gesplittete part-Dateien)
+2b. Aufsätze/Lectures aus Obsidian exportieren (GA029-GA036, GA046, GA051+)
+   - Exportiert als JSON (gesplittete part-Dateien)
    - Bilder werden direkt als gesplittete part-Dateien exportiert
    - Jede Datei < 10 MB (GitHub-kompatibel)
 3. Server neu starten (optional)
@@ -110,7 +128,7 @@ def extract_images_from_pdf(ga_folder_path):
         # Erstelle assets-Ordner falls nicht vorhanden
         assets_dir.mkdir(exist_ok=True)
         
-        print(f"    📄 PDF gefunden: {pdf_path.name}")
+        print(f"    [PDF] PDF gefunden: {pdf_path.name}")
         
         doc = fitz.open(str(pdf_path))
         image_count = 0
@@ -150,18 +168,18 @@ def extract_images_from_pdf(ga_folder_path):
                     image_index += 1
                     
                 except Exception as e:
-                    print(f"    ⚠ Fehler bei Bild {pnum+1}/{img_idx+1}: {str(e)}")
+                    print(f"    [!] Fehler bei Bild {pnum+1}/{img_idx+1}: {str(e)}")
                     continue
         
         doc.close()
         
         if image_count > 0:
-            print(f"    ✅ {image_count} Bilder aus PDF extrahiert")
+            print(f"    [OK] {image_count} Bilder aus PDF extrahiert")
         
         return image_count
         
     except Exception as e:
-        print(f"    ⚠ Fehler bei PDF-Extraktion in {ga_folder_path}: {e}")
+        print(f"    [!] Fehler bei PDF-Extraktion in {ga_folder_path}: {e}")
         return 0
 
 
@@ -209,12 +227,12 @@ def convert_jpeg_to_png_files(md_file_path):
                     img.save(png_path, 'PNG')
                     converted_count += 1
                 except Exception as e:
-                    print(f"    ⚠ Konvertierung fehlgeschlagen: {jpeg_path} → {e}")
+                    print(f"    [!] Konvertierung fehlgeschlagen: {jpeg_path} -> {e}")
         
         return converted_count
         
     except Exception as e:
-        print(f"    ⚠ Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
+        print(f"    [!] Fehler beim Konvertieren der Bilder in {md_file_path}: {e}")
         return 0
 
 
@@ -309,7 +327,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         # Zähle wie viele Gedankenstriche ersetzt wurden
         num_dashes_replaced = original_before_dash_fix.count('—')
         if num_dashes_replaced > 0:
-            changes.append(f"  - Gedankenstriche ersetzt: {num_dashes_replaced}× (— → -)")
+            changes.append(f"  - Gedankenstriche ersetzt: {num_dashes_replaced}x (em-dash -> hyphen)")
         
         # Fix 7: kk durch ck in deutschen Wörtern ersetzen
         # Entwikklung → Entwicklung, strikken → stricken, etc.
@@ -351,7 +369,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         num_kk_replaced = num_kk_before - num_kk_after
         
         if num_kk_replaced > 0:
-            changes.append(f"  - kk→ck ersetzt: {num_kk_replaced}× (Entwikklung → Entwicklung)")
+            changes.append(f"  - kk->ck ersetzt: {num_kk_replaced}x (Entwikklung -> Entwicklung)")
         
         # Fix 8: URL-codierte Bildpfade decodieren
         # ![alt](assets/GA091-Kosmologie%20und%20menschliche%20Evolution_img-19.png) 
@@ -455,7 +473,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         
         total_converted = num_jpegs_converted + num_alt_jpegs_converted
         if total_converted > 0:
-            changes.append(f"  - JPEG zu PNG konvertiert: {total_converted}× (.jpeg/.jpg → .png)")
+            changes.append(f"  - JPEG zu PNG konvertiert: {total_converted}x (.jpeg/.jpg -> .png)")
         
         # Fix 11: Deutsche Rechtschreibkorrekturen
         original_before_spelling_fix = content
@@ -485,7 +503,7 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
                 num_spelling_fixes += count
         
         if num_spelling_fixes > 0:
-            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}× (DeutschÖsterreicher→Deutsch-Österreicher, paßt→passt, römischkatholisch→römisch-katholisch, etc.)")
+            changes.append(f"  - Rechtschreibung korrigiert: {num_spelling_fixes}x")
         
         # Wende Änderungen an
         if changes and apply_changes:
@@ -967,6 +985,27 @@ class ExportMaster:
         return len(self.steps_failed) == 0
 
 
+def expand_ga_range(token):
+    """Expandiert GA-Ranges wie 'GA001-GA100' zu Liste ['GA001', 'GA002', ...]"""
+    # Pattern: GA001-GA100 oder GA001-100
+    range_match = re.match(r'^GA(\d{2,3})([a-z])?[-–](?:GA)?(\d{2,3})([a-z])?$', token.upper())
+    if range_match:
+        start_num = int(range_match.group(1))
+        end_num = int(range_match.group(3))
+        if start_num > end_num:
+            start_num, end_num = end_num, start_num
+        return [f"GA{i:03d}" for i in range(start_num, end_num + 1)]
+    
+    # Einzelne GA-Nummer
+    single_match = re.match(r'^GA(\d{1,3})([a-z])?$', token.upper())
+    if single_match:
+        num = int(single_match.group(1))
+        suffix = single_match.group(2) or ''
+        return [f"GA{num:03d}{suffix.lower()}"]
+    
+    return []
+
+
 def parse_arguments():
     """Parse Kommandozeilenargumente"""
     args = sys.argv[1:]
@@ -988,8 +1027,9 @@ def parse_arguments():
                 print(__doc__)
                 sys.exit(0)
         else:
-            # GA-Bände
-            ga_bands.append(arg)
+            # GA-Bände (mit Range-Expansion)
+            expanded = expand_ga_range(arg)
+            ga_bands.extend(expanded)
     
     return ga_bands if ga_bands else None, options
 

@@ -26,12 +26,14 @@
     /* Seitenzahl schwebt links - negative margin zieht sie aus dem Textfluss */
     .page-break-num {
       float: left;
-      margin-left: -3.5em;
-      margin-right: 0em;
-      margin-top: 0.25em;
-      width: 3em;
+      position: relative;
+      z-index: 9999;
+      margin-left: -2.4em;
+      margin-right: 0.4em;
+      margin-top: 3px;
+      width: 24px;
       text-align: right;
-      font-size: 0.9em;
+      font-size: 0.85em;
       color: var(--link-color, #467886);
       font-weight: 400;
       line-height: 1.3;
@@ -41,6 +43,7 @@
     .page-break-bar {
       color: var(--link-color, #467886);
       font-weight: 400;
+      height: 22px;
     }
     
     /* Absätze brauchen Platz für die schwebende Seitenzahl */
@@ -1605,6 +1608,13 @@ body.dark-mode .ga-lecture-link {
 .ga-lecture-text {
   color: var(--text-color);
   line-height: 1.3;
+  text-align: left !important;
+}
+
+/* GA-Summary-Text linksbündig */
+.ga-summary-text,
+.ga-summary-text p {
+  text-align: left !important;
 }
 
 body.dark-mode .ga-lecture-text {
@@ -1677,6 +1687,7 @@ body.dark-mode .ga-missing-text {
       cursor: pointer;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      text-align: justify;
     }
     
     #sidebar-content ul.results-list {
@@ -2519,9 +2530,10 @@ body.dark-mode .ga-missing-text {
     #main {
       flex: 1;
       overflow-y: auto;
+      overflow-x: visible;
       /* ZENTRALES PADDING - wird NUR hier festgelegt */
-      /* Linkes Padding leicht erhöht für Seitenzahlen */
-      padding: 0.5rem 0.8rem 2rem 1.3rem !important; /* top right bottom left */
+      /* Linkes Padding für Seitenzahlen */
+      padding: 0.5rem 0.8rem 2rem 1.2rem !important; /* top right bottom left */
       min-width: 0;
       line-height: 1.3 !important;
       position: relative;
@@ -2651,6 +2663,7 @@ body.dark-mode .ga-missing-text {
     
     #viewer .advanced-search-snippet {
       cursor: pointer;
+      text-align: justify;
     }
     
     /* Tab Suche: Klickbare Snippets im Main Viewer */
@@ -3537,7 +3550,6 @@ body.dark-mode #thematicSearchInfo {
     #viewer .semantic-answer,
     #viewer .keyword-answer,
     #viewer .concept-content:not(td),
-    #viewer .book-content,
     #viewer > div,
     #viewer > p,
     #viewer > h1,
@@ -3548,6 +3560,15 @@ body.dark-mode #thematicSearchInfo {
       margin-left: 0 !important;
       padding-right: 0 !important;
       margin-right: 0 !important;
+    }
+    
+    /* Book-content: overflow visible für Seitenzahlen */
+    #viewer .book-content {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      overflow: visible !important;
     }
     
     /* GA040, GA261 und GA267: Trennlinien als Sternchen im linken Drittel zentriert */
@@ -6953,11 +6974,13 @@ function convertPageMarkers(html) {
   let removedCount = 0;
 
   // REGEL 1: Seitenmarker sollen NIE direkt vor Überschriften (h1-h4) stehen!
-  // Pattern: |123| gefolgt von optionalem Whitespace/Tags und dann <h1>, <h2>, <h3> oder <h4>
-  const beforeHeadingPattern = /\|(\d{1,4})\|(\s*(?:<[^>]+>\s*)*)(<h[1-4][^>]*>)/gi;
-  cleanedHtml = cleanedHtml.replace(beforeHeadingPattern, (match, num, between, heading) => {
+  // GEÄNDERT: Marker wird NACH allen aufeinanderfolgenden Überschriften verschoben
+  // Pattern: |123| gefolgt von einer oder mehreren Überschriften
+  const beforeHeadingPattern = /\|(\d{1,4})\|(\s*)((?:<h[1-4][^>]*>[\s\S]*?<\/h[1-4]>\s*)+)/gi;
+  cleanedHtml = cleanedHtml.replace(beforeHeadingPattern, (match, num, space, headings) => {
     removedCount++;
-    return between + heading;
+    // Verschiebe Marker NACH alle Überschriften
+    return space + headings + `|${num}|`;
   });
 
   // REGEL 2: Seitenmarker sollen NIE direkt vor "Inhaltsverzeichnis" stehen!
@@ -6969,7 +6992,7 @@ function convertPageMarkers(html) {
   });
 
   if (removedCount > 0) {
-    console.log(`[convertPageMarkers] ${removedCount} Marker vor Überschriften/Inhaltsverzeichnis entfernt`);
+    console.log(`[convertPageMarkers] ${removedCount} Marker vor Überschriften/Inhaltsverzeichnis verschoben`);
   }
 
   // Ersetze |123| durch sichtbares Format: | im Text, Seitenzahl links am Rand
@@ -6978,6 +7001,45 @@ function convertPageMarkers(html) {
     '<span class="page-break-num">$1</span>' +
     '<span class="page-break-bar">|</span>' +
     '</span>');
+}
+
+// Prüft ob eine GA-Nummer ein Aufsatzband ist (GA029-GA037 oder GA046)
+// GA-BAND-KATEGORIEN:
+// - BÜCHER:   GA001-GA028, GA045
+// - AUFSÄTZE: GA029-GA036, GA046 (diese Funktion prüft auf Aufsatzbände)
+// - VORTRÄGE: GA051 ff
+function isEssayVolume(gaNumber) {
+  if (!gaNumber) return false;
+  const match = gaNumber.match(/GA0?(\d+)/i);
+  if (!match) return false;
+  const num = parseInt(match[1]);
+  // Zusätzliche Aufsatzbände: GA014, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+  if (additionalEssayBands.includes(num)) return true;
+  return (num >= 29 && num <= 36) || num === 46;
+}
+
+// Entfernt manuelle Überschriften (H2, H3, H4) aus dem Content für Aufsatzbände
+// Diese werden nur entfernt, wenn AI-generierte Überschriften vorhanden sind
+function removeManualHeadingsFromContent(content) {
+  if (!content || typeof content !== 'string') {
+    return content;
+  }
+  
+  let cleaned = content;
+  
+  // Entferne <h2>...</h2>, <h3>...</h3>, <h4>...</h4> Tags komplett
+  // Pattern erfasst auch Tags mit Attributen und Zeilenumbrüche im Inhalt
+  cleaned = cleaned.replace(/<h[2-4][^>]*>[\s\S]*?<\/h[2-4]>\s*/gi, '');
+  
+  // Auch Markdown-Style Überschriften entfernen: ## Text oder ### Text am Zeilenanfang
+  cleaned = cleaned.replace(/^#{2,4}\s+.*$/gm, '');
+  
+  // Mehrfache Leerzeilen/Whitespace durch eine Leerzeile ersetzen
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+  cleaned = cleaned.replace(/^\s+/, ''); // Führende Whitespaces entfernen
+  
+  return cleaned;
 }
 
 // Formatiert Paragraph-Content für die HTML-Darstellung:
@@ -7366,10 +7428,7 @@ function normalizeGANumber(gaNumber) {
       // Suchhistorie aus localStorage laden und datalist aktualisieren
       updateHistoryDatalist();
       
-      // Seitenmarker-Daten vorladen (für Zitierbarkeit)
-      loadPageMarkersData().then(data => {
-        if (data) console.log('[PageMarkers] Daten geladen:', Object.keys(data).filter(k => k !== '_info').length, 'GA-Bände');
-      });
+      // V4: Seitenmarker sind bereits im Text eingebettet - kein separates Laden nötig
       
       // E-Mail-Adressen aus Autofill blockieren
       function blockEmailAutofill(inputElement) {
@@ -9315,545 +9374,10 @@ function normalizeGANumber(gaNumber) {
       };
     }
 
-    // Seitenmarker aus separater Datei (für Zitierbarkeit mit Druckausgabe)
-    // GLOBAL für Popup-Zugriff
-    window.pageMarkersData = null; // Cache für Seitenmarker
+    // V2 Seitenmarker-System wurde entfernt (2024-12)
+    // Seitenmarker werden jetzt mit V4-System direkt im Text eingebettet (|123|)
+    // Siehe: apply_page_break_markers_v4.py
     
-    async function loadPageMarkersData() {
-      if (pageMarkersData) return pageMarkersData;
-      
-      try {
-        const response = await fetch('page-markers.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        pageMarkersData = await response.json();
-        return pageMarkersData;
-      } catch (error) {
-        console.warn('Seitenmarker-Daten nicht verfügbar:', error.message);
-        return null;
-      }
-    }
-    
-    // =====================================================================
-    // NEUE ROBUSTE POSITIONS-BASIERTE SEITENMARKER-EINFÜGUNG
-    // =====================================================================
-    // Diese Funktion verwendet die relative Position statt Text-Suche.
-    // Viel robuster und reproduzierbar!
-    // =====================================================================
-    
-    function insertPageMarkersByPosition(text, gaNumber) {
-      if (!pageMarkersData || !gaNumber) return text;
-      
-      const normalizedGA = normalizeGANumber(gaNumber);
-      const gaData = pageMarkersData[normalizedGA];
-      
-      if (!gaData || !gaData.markers || gaData.markers.length === 0) {
-        console.log(`[PageMarkers] Keine Marker für ${normalizedGA}`);
-        return text;
-      }
-      
-      // Prüfe ob relativePosition vorhanden ist
-      const hasPositions = gaData.markers.some(m => typeof m.relativePosition === 'number');
-      if (!hasPositions) {
-        console.log(`[PageMarkers] ${normalizedGA}: Keine relativePosition - verwende Text-basierte Methode`);
-        return null; // Signalisiert: Fallback auf alte Methode
-      }
-      
-      // Finde alle Absatz-Grenzen (vor <div class="paragraph...">)
-      // WICHTIG: Suche nach ALLEN paragraph-Divs, nicht nur nach contentStart
-      const paragraphPattern = /<div[^>]*class="[^"]*paragraph[^"]*"[^>]*>/gi;
-      const paragraphStarts = [];
-      let match;
-      while ((match = paragraphPattern.exec(text)) !== null) {
-        paragraphStarts.push(match.index);
-      }
-      
-      if (paragraphStarts.length === 0) {
-        console.log(`[PageMarkers] ${normalizedGA}: Keine Absätze gefunden`);
-        return text;
-      }
-      
-      // Sortiere Marker nach Seitenzahl (aufsteigend) und filtere gültige
-      const sortedMarkers = [...gaData.markers]
-        .filter(m => typeof m.relativePosition === 'number' && m.page > 0)
-        .sort((a, b) => a.page - b.page);
-      
-      console.log(`[PageMarkers] ${normalizedGA}: ${paragraphStarts.length} Absätze, ${sortedMarkers.length} Marker`);
-      
-      // NEUE LOGIK: Verteile Marker gleichmäßig auf Absätze basierend auf relativePosition
-      // relativePosition 0.0 = erster Absatz, 1.0 = letzter Absatz
-      let result = text;
-      let insertedCount = 0;
-      const usedParagraphs = new Set();
-      
-      // Verarbeite von hinten nach vorne (damit Positionen stabil bleiben)
-      for (let i = sortedMarkers.length - 1; i >= 0; i--) {
-        const marker = sortedMarkers[i];
-        
-        // Berechne Ziel-Absatz basierend auf relativePosition
-        // relativePosition 0.0 -> Absatz 0, relativePosition 1.0 -> letzter Absatz
-        const targetParagraphIndex = Math.round(marker.relativePosition * (paragraphStarts.length - 1));
-        
-        // Finde den nächsten freien Absatz (falls Ziel-Absatz schon belegt)
-        let bestParagraph = -1;
-        for (let offset = 0; offset < paragraphStarts.length; offset++) {
-          // Suche nach vorne und hinten
-          const forward = targetParagraphIndex + offset;
-          const backward = targetParagraphIndex - offset;
-          
-          if (forward < paragraphStarts.length && !usedParagraphs.has(forward)) {
-            bestParagraph = forward;
-            break;
-          }
-          if (backward >= 0 && !usedParagraphs.has(backward)) {
-            bestParagraph = backward;
-            break;
-          }
-        }
-        
-        if (bestParagraph >= 0) {
-          const insertPos = paragraphStarts[bestParagraph];
-          const pageMarker = `|${marker.page}|`;
-          
-          // Füge Marker ein
-          result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
-          insertedCount++;
-          usedParagraphs.add(bestParagraph);
-          
-          // Aktualisiere Positionen der nachfolgenden Absätze
-          const markerLen = pageMarker.length;
-          for (let k = 0; k < paragraphStarts.length; k++) {
-            if (paragraphStarts[k] > insertPos) {
-              paragraphStarts[k] += markerLen;
-            }
-          }
-        }
-      }
-      
-      console.log(`[PageMarkers] ${normalizedGA}: ${insertedCount} Marker eingefügt (positions-basiert)`);
-      return result;
-    }
-    
-    // Fügt Seitenmarker aus page-markers.json in den Text ein
-    // Unterstützt zwei Methoden:
-    // 1. POSITIONS-BASIERT (robust): Verwendet relativePosition für Bücher
-    // 2. TEXT-BASIERT (legacy): Verwendet beforeText/afterText für Vorträge
-    function insertPageMarkersFromData(text, gaNumber, lectureId = null) {
-      if (!pageMarkersData || !gaNumber) {
-        console.log('[PageMarkers] Keine Daten oder GA-Nummer:', !!pageMarkersData, gaNumber);
-        return text;
-      }
-      
-      // Normalisiere GA-Nummer (z.B. "GA009" oder "GA9" -> "GA009")
-      const normalizedGA = normalizeGANumber(gaNumber);
-      const gaData = pageMarkersData[normalizedGA];
-      
-      if (!gaData || !gaData.markers || gaData.markers.length === 0) {
-        console.log(`[PageMarkers] Keine Marker für ${normalizedGA}`);
-        return text;
-      }
-      
-      // HINWEIS: Positions-basierte Einfügung wurde deaktiviert.
-      // Wir verwenden stattdessen V4-Umbruchmarker, die direkt im Buchtext stehen
-      // (|<seite>|), oder als Fallback die text-basierte Methode.
-      
-      // Text-basierte Methode (Legacy)
-      const relevantMarkers = gaData.markers;
-      console.log(`[PageMarkers] ${normalizedGA}: ${relevantMarkers.length} Marker (Text-basiert)`);
-      
-      if (relevantMarkers.length === 0) {
-        return text;
-      }
-      
-      // Bestimme das Format (afterText oder beforeText)
-      const useAfterText = relevantMarkers.some(m => m.afterText && m.afterText.length > 0);
-      const useBeforeText = relevantMarkers.some(m => m.beforeText && m.beforeText.length > 0);
-      
-      // Sortiere Marker nach Seitenzahl
-      // - afterText: absteigend (von hinten einfügen, da Text am ENDE der Seite steht)
-      // - beforeText: aufsteigend (von vorne einfügen, da Text am ANFANG der Seite steht)
-      const sortedMarkers = [...relevantMarkers].sort((a, b) => 
-        useAfterText ? b.page - a.page : a.page - b.page
-      );
-      
-      // NEU: Berechne min/max Seitenzahl für Positions-Validierung
-      const allPages = relevantMarkers.map(m => m.page).filter(p => p > 0);
-      const minPage = Math.min(...allPages);
-      const maxPage = Math.max(...allPages);
-      const pageRange = maxPage - minPage;
-      
-      let result = text;
-      let insertedCount = 0;
-      let skippedCount = 0;
-      
-      // NEU: Tracke verwendete Positionen, um doppelte Marker zu verhindern
-      const usedPositions = new Set();
-      // NEU: Tracke verwendete Suchtexte für diesen Durchlauf
-      const usedSearchTexts = new Set();
-      
-      // WICHTIG: Positionstracking für sequentielle Suche
-      // Für beforeText: Jeder Marker muss NACH dem vorherigen gefunden werden
-      // Für afterText: Jeder Marker muss VOR dem vorherigen gefunden werden
-      // WICHTIG: Bei beforeText beginne NACH der Summary, nicht am Anfang!
-      const summarySepMatch = result.match(/<hr[^>]*class="[^"]*summary-separator[^"]*"[^>]*>/i);
-      const contentStart = summarySepMatch ? result.indexOf(summarySepMatch[0]) + summarySepMatch[0].length : 0;
-      let searchBoundary = useAfterText ? result.length : contentStart;
-      let lastInsertedPage = useAfterText ? Infinity : 0;
-      
-      // NEU: Finde den Marker, der am nächsten zum Textanfang liegt
-      // Das ist der "richtige" erste Marker für diesen Vortrag
-      // WICHTIG: Überspringe die Summary (KI-Zusammenfassung) bei der Suche!
-      const textLength = result.length;
-      
-      // Finde die Summary-Trennlinie um den eigentlichen Vortrag zu identifizieren
-      const summarySeparator = result.match(/<hr[^>]*class="[^"]*summary-separator[^"]*"[^>]*>/i);
-      const contentStartPos = summarySeparator 
-        ? result.indexOf(summarySeparator[0]) + summarySeparator[0].length 
-        : 0;
-      
-      // Berechne MAX_FIRST_MARKER_POSITION relativ zum Content-Start
-      const contentLength = textLength - contentStartPos;
-      const MAX_FIRST_MARKER_POSITION = contentStartPos + (contentLength * 0.5); // Erster Marker muss in den ersten 50% des Contents sein
-      
-      // SCHRITT 1: Finde den Marker mit der frühesten Position im Text (nach Summary)
-      let bestFirstMarker = null;
-      let bestFirstPosition = Infinity;
-      
-      // DEBUG: Zeige die ersten paar Marker und ob sie gefunden werden
-      let debugCount = 0;
-      const MAX_DEBUG = 5;
-      
-      for (const marker of sortedMarkers) {
-        const bt = marker.beforeText || marker.afterText;
-        if (!bt || bt.length < 10) continue;
-        
-        // Suche mit verschiedenen Längen
-        let searchStr = bt;
-        if (bt.includes('\n')) {
-          const parts = bt.split(/\n+/).filter(p => p.trim().length > 0);
-          if (parts.length > 0) searchStr = parts[parts.length - 1];
-        }
-        
-        // Suche AB dem Content-Start (nach Summary)
-        const searchSubstr = searchStr.substring(0, 20);
-        const pos = result.indexOf(searchSubstr, contentStartPos);
-        
-        // DEBUG: Zeige was gesucht wird und ob es gefunden wurde
-        if (debugCount < MAX_DEBUG) {
-          console.log(`[PageMarkers] Seite ${marker.page}: Suche "${searchSubstr}" ab ${contentStartPos} -> ${pos >= 0 ? 'gefunden@' + pos : 'NICHT GEFUNDEN'}`);
-          debugCount++;
-        }
-        
-        if (pos >= 0 && pos < bestFirstPosition && pos < MAX_FIRST_MARKER_POSITION) {
-          bestFirstPosition = pos;
-          bestFirstMarker = marker;
-        }
-      }
-      
-      // Wenn ein gültiger erster Marker gefunden wurde, starte ab dessen Seitenzahl
-      let firstValidMarkerFound = false;
-      let firstMarkerPage = bestFirstMarker ? bestFirstMarker.page : 0;
-      
-      if (bestFirstMarker) {
-        console.log(`[PageMarkers] Bester erster Marker: Seite ${bestFirstMarker.page} bei Position ${bestFirstPosition} (Content-Start: ${contentStartPos})`);
-      } else {
-        console.log(`[PageMarkers] Kein Marker im vorderen Content-Bereich gefunden (Summary-Ende: ${contentStartPos}, Limit: ${MAX_FIRST_MARKER_POSITION.toFixed(0)})`);
-      }
-      
-      for (const marker of sortedMarkers) {
-        if (!marker.page) continue;
-        
-        const hasAfterText = marker.afterText && marker.afterText.length > 0;
-        const hasBeforeText = marker.beforeText && marker.beforeText.length > 0;
-        
-        if (!hasAfterText && !hasBeforeText) continue;
-        
-        const pageMarker = `|${marker.page}|`;
-        let searchText = hasAfterText ? marker.afterText : marker.beforeText;
-        
-        // NEU: Prüfe ob dieser Suchtext bereits verwendet wurde (verhindert doppelte Marker)
-        const searchTextKey = searchText.substring(0, 30);
-        if (usedSearchTexts.has(searchTextKey)) {
-          skippedCount++;
-          console.log(`[PageMarkers] Seite ${marker.page} übersprungen (gleicher Suchtext wie vorheriger Marker)`);
-          continue;
-        }
-        
-        // Suche nur im korrekten Bereich (sequentielle Reihenfolge!)
-        let foundIdx = -1;
-        
-        if (useAfterText) {
-          // afterText: Suche VOR der Boundary (von hinten)
-          // Finde das LETZTE Vorkommen vor der Boundary
-          let idx = 0;
-          let lastFound = -1;
-          while (idx < searchBoundary) {
-            const pos = result.indexOf(searchText, idx);
-            if (pos >= 0 && pos < searchBoundary) {
-              lastFound = pos;
-              idx = pos + 1;
-            } else {
-              break;
-            }
-          }
-          foundIdx = lastFound;
-        } else {
-          // beforeText: Suche AB der Boundary (von vorne)
-          // WICHTIG: Wenn beforeText Newlines enthält (Überschrift + Absatz),
-          // suche nur nach dem LETZTEN Teil (= Absatz-Text nach der Überschrift)
-          // damit der Marker vor dem Absatz eingefügt wird, nicht vor der Überschrift
-          // ABER: Nur wenn der letzte Teil lang genug ist (>= 15 Zeichen)!
-          let textToSearch = searchText;
-          
-          if (searchText.includes('\n')) {
-            const parts = searchText.split(/\n+/).filter(p => p.trim().length > 0);
-            // Verwende den letzten Teil nur wenn er lang genug ist
-            if (parts.length > 1) {
-              const lastPart = parts[parts.length - 1];
-              // Nur wenn der letzte Teil lang genug ist, um eindeutig zu sein
-              if (lastPart.length >= 15) {
-                textToSearch = lastPart;
-              } else {
-                // Sonst: Kombiniere alle Teile OHNE Zeilenumbrüche
-                // (da HTML keine \n hat, sondern <br> oder <p> Tags)
-                textToSearch = parts.join(' ');
-              }
-            } else if (parts.length === 1) {
-              textToSearch = parts[0];
-            }
-          }
-          
-          let pos = result.indexOf(textToSearch, searchBoundary);
-          
-          // Fallback: Wenn nicht gefunden, versuche mit mehr Kontext
-          if (pos < 0 && textToSearch.length < 10) {
-            // Kurzer Suchtext - suche im umgebenden Kontext
-            // z.B. "(Aus" -> suche nach "(Aus " oder "(Aus Rudolf"
-            const extendedSearch = textToSearch + ' ';
-            pos = result.indexOf(extendedSearch, searchBoundary);
-            if (pos >= 0) {
-              textToSearch = extendedSearch;
-            }
-          }
-          
-          if (pos >= 0) {
-            foundIdx = pos;
-            searchText = textToSearch; // Update für korrekte Boundary-Berechnung
-          }
-        }
-        
-        if (foundIdx >= 0) {
-          // POSITIONS-VALIDIERUNG - Prüfe ob die gefundene Position plausibel ist
-          if (pageRange > 50 && useBeforeText) {
-            const foundRelativePos = (foundIdx - contentStartPos) / contentLength; // 0.0 bis 1.0
-            const expectedRelativePos = (marker.page - minPage) / pageRange; // 0.0 bis 1.0
-            const positionDeviation = Math.abs(foundRelativePos - expectedRelativePos);
-            
-            // Unterschiedliche Validierung je nach Position und beforeText-Länge
-            const isHighPage = (marker.page - minPage) > (pageRange * 0.3);
-            const isShortBeforeText = marker.beforeText && marker.beforeText.length < 30;
-            
-            // Für hohe Seiten: strenge Validierung (35% Toleranz)
-            if (isHighPage) {
-              const MAX_DEVIATION = 0.35;
-              if (positionDeviation > MAX_DEVIATION) {
-                skippedCount++;
-                console.log(`[PageMarkers] Seite ${marker.page} übersprungen (Position ${(foundRelativePos*100).toFixed(0)}% statt erwartet ${(expectedRelativePos*100).toFixed(0)}%, Abweichung ${(positionDeviation*100).toFixed(0)}%)`);
-                continue;
-              }
-            }
-            // Für kurze beforeText auch bei frühen Seiten validieren (50% Toleranz)
-            // Kurze Strings wie "Rudolf Steiner einen" können an falschen Stellen matchen
-            else if (isShortBeforeText && positionDeviation > 0.5) {
-              skippedCount++;
-              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (kurzer Text "${marker.beforeText.substring(0,20)}..." an Position ${(foundRelativePos*100).toFixed(0)}% statt ${(expectedRelativePos*100).toFixed(0)}%)`);
-              continue;
-            }
-          }
-          
-          // HINWEIS: Die alte Prüfung "marker.page < firstMarkerPage" wurde entfernt,
-          // da sie Probleme verursachte wenn ein hoher Marker zufällig früh im Text vorkommt.
-          // Stattdessen verwenden wir jetzt die Positions-Validierung oben.
-          
-          if (!firstValidMarkerFound) {
-            firstValidMarkerFound = true;
-            console.log(`[PageMarkers] Erster eingefügter Marker: Seite ${marker.page}`);
-          }
-          
-          // Überprüfe ob die Seitenzahl in der Sequenz passt
-          // (keine Seitenzahl 93 zwischen 24 und 26!)
-          if (useAfterText) {
-            // Bei afterText: Seitenzahlen müssen absteigend sein (von hinten)
-            if (marker.page >= lastInsertedPage) {
-              skippedCount++;
-              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (nicht in Sequenz, erwartet < ${lastInsertedPage})`);
-              continue;
-            }
-            
-            // WICHTIG: Prüfe auf unrealistische Seitensprünge (absteigend)
-            const MAX_PAGE_JUMP = 50;
-            if (lastInsertedPage < Infinity && (lastInsertedPage - marker.page) > MAX_PAGE_JUMP) {
-              skippedCount++;
-              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (Sprung von ${lastInsertedPage} zu groß)`);
-              continue;
-            }
-          } else {
-            // Bei beforeText: Seitenzahlen müssen aufsteigend sein
-            if (marker.page <= lastInsertedPage) {
-              skippedCount++;
-              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (nicht in Sequenz, erwartet > ${lastInsertedPage})`);
-              continue;
-            }
-            
-            // WICHTIG: Prüfe auf unrealistische Seitensprünge
-            // Ein einzelner Vortrag hat selten mehr als 30-40 Seiten
-            // Wenn der Sprung zu groß ist, gehört der Marker wahrscheinlich zu einem anderen Vortrag
-            const MAX_PAGE_JUMP = 50; // Maximaler Seitensprung innerhalb eines Vortrags
-            if (lastInsertedPage > 0 && (marker.page - lastInsertedPage) > MAX_PAGE_JUMP) {
-              skippedCount++;
-              console.log(`[PageMarkers] Seite ${marker.page} übersprungen (Sprung von ${lastInsertedPage} zu groß, max ${MAX_PAGE_JUMP})`);
-              continue;
-            }
-            
-            // WICHTIG: Prüfe ob die Position innerhalb einer Überschrift liegt
-            // Seitenmarker sollen NIEMALS vor Überschriften stehen, sondern vor dem Absatz-Text
-            const beforeFound = result.substring(Math.max(0, foundIdx - 100), foundIdx);
-            const isInHeading = /<h[34][^>]*>[^<]*$/.test(beforeFound);
-            
-            if (isInHeading) {
-              // Finde das Ende der Überschrift und den Anfang des nächsten Absatzes
-              const afterFound = result.substring(foundIdx);
-              const headingEndMatch = afterFound.match(/<\/h[34]>\s*/);
-              if (headingEndMatch) {
-                const headingEndPos = foundIdx + headingEndMatch.index + headingEndMatch[0].length;
-                // Suche den nächsten Absatz oder Text
-                const afterHeading = result.substring(headingEndPos);
-                const nextTextMatch = afterHeading.match(/^(\s*(?:<[^>]+>\s*)*)/);
-                const skipLength = nextTextMatch ? nextTextMatch[0].length : 0;
-                foundIdx = headingEndPos + skipLength;
-                console.log(`[PageMarkers] Seite ${marker.page}: Marker nach Überschrift verschoben`);
-              }
-            }
-          }
-          
-          if (hasAfterText) {
-            const insertPos = foundIdx + searchText.length;
-            // Prüfe ob nicht bereits ein Marker direkt danach ist
-            const afterInsert = result.substring(insertPos, insertPos + 10);
-            if (!afterInsert.match(/^\|?\d+\|/) && !usedPositions.has(insertPos)) {
-              result = result.substring(0, insertPos) + pageMarker + result.substring(insertPos);
-              insertedCount++;
-              searchBoundary = foundIdx; // Nächste Suche muss VOR diesem Punkt sein
-              lastInsertedPage = marker.page;
-              usedPositions.add(insertPos);
-              usedSearchTexts.add(searchTextKey);
-            }
-          } else {
-            // Prüfe ob nicht bereits ein Marker direkt davor ist
-            const beforeInsert = result.substring(Math.max(0, foundIdx - 10), foundIdx);
-            if (!beforeInsert.match(/\|\d+\|$/) && !usedPositions.has(foundIdx)) {
-              result = result.substring(0, foundIdx) + pageMarker + result.substring(foundIdx);
-              insertedCount++;
-              // Aktualisiere Boundary - nächste Suche muss NACH dem Marker sein
-              searchBoundary = foundIdx + pageMarker.length + searchText.length;
-              lastInsertedPage = marker.page;
-              usedPositions.add(foundIdx);
-              usedSearchTexts.add(searchTextKey);
-            }
-          }
-        }
-      }
-      
-      if (insertedCount > 0) {
-        console.log(`[PageMarkers] ${insertedCount} Seitenmarker für ${normalizedGA} eingefügt` + 
-          (skippedCount > 0 ? `, ${skippedCount} übersprungen (falsche Sequenz)` : ''));
-      }
-      
-      // HINWEIS: Keine automatische Einfügung einer "Start-Seitenzahl" mehr,
-      // da dies zu überlappenden Seitenzahlen führte. Die erste Seitenzahl
-      // wird nur eingefügt, wenn sie tatsächlich in der page-markers.json
-      // vorhanden ist und der Text gefunden wird.
-      
-      // NEU: Validiere die eingefügten Marker
-      if (insertedCount > 0) {
-        const validation = validateInsertedMarkers(result, normalizedGA);
-        if (!validation.isValid) {
-          console.error(`[PageMarkers] ❌ Validierung fehlgeschlagen für ${normalizedGA}`);
-        }
-      }
-      
-      return result;
-    }
-
-    /**
-     * Validiert die eingefügten Seitenmarker auf Konsistenz.
-     * 
-     * Prüfungen:
-     * 1. Seitenzahlen müssen aufsteigend sein
-     * 2. Position und Seitenzahl müssen korrelieren (höhere Position = höhere Seite)
-     * 3. Keine großen Sprünge (> 50 Seiten)
-     * 
-     * @param {string} text - Der Text mit eingefügten Markern
-     * @param {string} gaNumber - Die GA-Nummer für Logging
-     * @returns {Object} - {isValid: boolean, errors: string[], warnings: string[]}
-     */
-    function validateInsertedMarkers(text, gaNumber) {
-      const result = {
-        isValid: true,
-        errors: [],
-        warnings: []
-      };
-      
-      // Extrahiere alle eingefügten Marker mit Position
-      const markerPattern = /\|(\d+)\|/g;
-      const markers = [];
-      let match;
-      
-      while ((match = markerPattern.exec(text)) !== null) {
-        markers.push({
-          page: parseInt(match[1], 10),
-          position: match.index
-        });
-      }
-      
-      if (markers.length === 0) {
-        result.warnings.push('Keine Marker im Text gefunden');
-        return result;
-      }
-      
-      // Prüfung 1: Aufsteigende Reihenfolge
-      for (let i = 1; i < markers.length; i++) {
-        if (markers[i].page <= markers[i-1].page) {
-          result.isValid = false;
-          result.errors.push(
-            `Sequenzfehler: Seite ${markers[i].page} kommt nach Seite ${markers[i-1].page}`
-          );
-        }
-      }
-      
-      // Prüfung 2: Große Sprünge (> 50)
-      const MAX_JUMP = 50;
-      for (let i = 1; i < markers.length; i++) {
-        const gap = markers[i].page - markers[i-1].page;
-        if (gap > MAX_JUMP) {
-          result.warnings.push(
-            `Großer Sprung: Seite ${markers[i-1].page} → ${markers[i].page} (${gap} Seiten)`
-          );
-        }
-      }
-      
-      // Logging
-      if (result.errors.length > 0) {
-        console.error(`[PageMarkers] Validierungsfehler für ${gaNumber}:`, result.errors);
-      }
-      if (result.warnings.length > 0) {
-        console.warn(`[PageMarkers] Warnungen für ${gaNumber}:`, result.warnings);
-      }
-      
-      // Statistik
-      console.log(`[PageMarkers] ${gaNumber}: ${markers.length} Marker, Bereich ${markers[0].page}-${markers[markers.length-1].page}`);
-      
-      return result;
-    }
 
     // GA-Bibliographie Popup Funktionen
     let gaBibliographyData = null; // Cache für bibliographische Daten
@@ -10476,7 +10000,7 @@ function normalizeGANumber(gaNumber) {
           summaryPanel.style.width = '0';
           summaryPanel.style.minWidth = '0';
           summaryPanel.style.marginRight = '0px';
-          
+
           // WICHTIG: Verwende zentrale Funktionen für Main-Container und RH
           // (keine manuelle Setzung - wie in allen anderen Fällen auch)
           if (typeof syncMainContainerWithPanel === 'function') {
@@ -11440,7 +10964,14 @@ async function loadSummaryDatabase() {
 // Hilfsfunktion: Prüft ob ein GA-Band ein Book (Schrift) ist
 // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
 function isBookGANumber(gaNumber) {
-  // Prüfe zuerst ob es ein Aufsatzband ist
+  // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze
+  const notBooks = ['GA014', 'GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
+  const normalized = gaNumber.toUpperCase().replace(/^GA0?/, 'GA');
+  if (notBooks.includes(normalized)) {
+    console.log('[isBookGANumber] ' + gaNumber + ' ist KEIN Buch (in notBooks Liste)');
+    return false;
+  }
+  // Prüfe auch mit isEssayGANumber
   if (isEssayGANumber(gaNumber)) return false;
   const gaNum = parseInt(gaNumber.replace(/^GA/i, '').replace(/[a-z]/i, ''));
   return gaNum >= 1 && gaNum <= 46;
@@ -11448,11 +10979,15 @@ function isBookGANumber(gaNumber) {
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
+// Zusätzlich: GA014, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
 function isEssayGANumber(gaNumber) {
   const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
+  // Zusätzliche Aufsatzbände: GA014, GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+  if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
 }
@@ -11739,11 +11274,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
   let headings = [];
   let paragraphs = book.paragraphs || [];
   
-  // Stelle sicher, dass pageMarkersData geladen ist
-  if (!pageMarkersData) {
-    await loadPageMarkersData();
-  }
-  
+  // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
   // HINWEIS: Seitenmarker werden NACH dem HTML-Rendering eingefügt (wie bei Vorträgen),
   // um zu vermeiden dass Marker in Überschriften verloren gehen.
   // Siehe Abschnitt nach der htmlContent-Erstellung.
@@ -11930,7 +11461,7 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
         }
         
         // HINWEIS: Seitenmarker-Konvertierung passiert NACH dem Zusammenfügen aller Absätze
-        // um die sequentielle Reihenfolge zu erhalten (siehe unten bei insertPageMarkersFromData)
+        // (V4: Marker sind bereits im Text eingebettet)
       }
       
       // Highlighte Keywords wenn vorhanden (für Suche) - NACH Markdown-Rendering
@@ -12024,22 +11555,9 @@ async function displayBook(book, highlightHeadingId = null, keywords = [], isPhr
       `;
     });
     
-    // Füge Seitenmarker aus page-markers.json ein (wie bei Vorträgen)
-    // WICHTIG: Dies muss auf das gesamte HTML angewendet werden, NICHT auf einzelne Absätze,
-    // damit die sequentielle Reihenfolge der Seitenzahlen korrekt bleibt.
-    const bookGA = book.gaNumber || book.ID;
-    if (bookGA) {
-      // Wenn der Text bereits |<seite>|-Marker enthält (z.B. durch V4-Umbruchmatcher),
-      // dann NICHT nochmal Marker aus page-markers.json einfügen (sonst Duplikate/Chaos).
-      const alreadyHasInlineMarkers = /\|\d+\|/.test(htmlContent);
-      
-      if (pageMarkersData && !alreadyHasInlineMarkers) {
-        htmlContent = insertPageMarkersFromData(htmlContent, bookGA);
-      }
-      
-      // Konvertiere die |page|-Marker zu sichtbarem HTML
-      htmlContent = convertPageMarkers(htmlContent);
-    }
+    // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
+    // Konvertiere die |page|-Marker zu sichtbarem HTML
+    htmlContent = convertPageMarkers(htmlContent);
   } else {
     // Fallback: Alte Methode (Content direkt rendern)
     let content = book.content || '';
@@ -22271,8 +21789,7 @@ function showSummaryView() {
     }
   }
   
-  // WICHTIG: Summary-Separator IMMER einfügen wenn eine Summary vorhanden ist,
-  // damit insertPageMarkersFromData den Content-Bereich korrekt erkennt!
+  // WICHTIG: Summary-Separator IMMER einfügen wenn eine Summary vorhanden ist
   if (summaryObj && summaryObj.summary) {
     html += '<hr class="summary-separator">';
   }
@@ -22326,6 +21843,12 @@ function showSummaryView() {
     
     // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
     content = formatParagraphContentForDisplay(content);
+    
+    // Bei Aufsatzbänden (GA029-GA037, GA046): Entferne manuelle Überschriften
+    // da AI-generierte Überschriften verwendet werden
+    if (gaNumber && isEssayVolume(gaNumber)) {
+      content = removeManualHeadingsFromContent(content);
+    }
     
     // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
     content = preprocessObsidianLineBreaks(content);
@@ -22524,16 +22047,9 @@ function showSummaryView() {
 html += `<div class="paragraph ${highlightClass}" id="para-${paraIndex}" data-index="${paraIndexWithCaret}" data-array-index="${idx}" ${clickHandler} ${contextMenuHandler} style="${cursorStyle}">${content}</div>`;
   });
   
-  // Füge Seitenmarker aus page-markers.json ein (für Vorträge wie GA051)
-  // WICHTIG: Dies muss auf das gesamte HTML angewendet werden, NICHT auf einzelne Absätze,
-  // damit die sequentielle Reihenfolge der Seitenzahlen korrekt bleibt.
-  const lectureGA = lecture.ID ? lecture.ID.split('/')[0] : null;
-  // lectureId wurde bereits oben deklariert (Zeile 21890)
-  if (lectureGA && pageMarkersData) {
-    html = insertPageMarkersFromData(html, lectureGA, lectureId);
-    // Konvertiere die |page|-Marker zu sichtbarem HTML
-    html = convertPageMarkers(html);
-  }
+  // V4: Seitenmarker sind bereits im Text eingebettet (|123|)
+  // Konvertiere die |page|-Marker zu sichtbarem HTML
+  html = convertPageMarkers(html);
   
   viewer.innerHTML = html;
   
@@ -25474,6 +24990,12 @@ async function batchSummarizeLectures(lectureIds, options = {}) {
           
           // Formatiere Content für die Darstellung (* * * zu durchgezogener Linie, etc.)
           content = formatParagraphContentForDisplay(content);
+          
+          // Bei Aufsatzbänden (GA029-GA037, GA046) in der Summary-Ansicht:
+          // Entferne manuelle Überschriften, da AI-generierte Überschriften verwendet werden
+          if (showingSummaryInMain && gaNumber && isEssayVolume(gaNumber)) {
+            content = removeManualHeadingsFromContent(content);
+          }
           
           // Konvertiere Obsidian '/br' Markierungen zu Zeilenumbrüchen
           content = preprocessObsidianLineBreaks(content);
@@ -36531,6 +36053,30 @@ async function addKeywordToLecture() {
   // Funktion zum Hinzufügen neuer Beschreibungen
   window.addContextHelp = function(key, description) {
     helpDescriptions[key] = description;
+  };
+})();
+</script>
+
+<!-- Aufsatzbände-Korrektur: Überschreibt isBookGANumber/isEssayGANumber für korrekte Klassifizierung -->
+<script>
+(function() {
+  // Liste der GA-Bände die als Aufsätze behandelt werden (nicht als Bücher)
+  const aufsatzbaende = ['GA014', 'GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
+  
+  const originalIsBookGANumber = window.isBookGANumber || isBookGANumber;
+  window.isBookGANumber = function(gaNumber) {
+    if (!gaNumber) return false;
+    const normalized = gaNumber.toUpperCase().replace(/^GA(\d)$/, 'GA00$1').replace(/^GA(\d{2})$/, 'GA0$1');
+    if (aufsatzbaende.includes(normalized)) return false;
+    return originalIsBookGANumber(gaNumber);
+  };
+  
+  const originalIsEssayGANumber = window.isEssayGANumber || isEssayGANumber;
+  window.isEssayGANumber = function(gaNumber) {
+    if (!gaNumber) return false;
+    const normalized = gaNumber.toUpperCase().replace(/^GA(\d)$/, 'GA00$1').replace(/^GA(\d{2})$/, 'GA0$1');
+    if (aufsatzbaende.includes(normalized)) return true;
+    return originalIsEssayGANumber(gaNumber);
   };
 })();
 </script>

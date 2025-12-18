@@ -7,7 +7,7 @@ Erstellt ein Mapping: Vortrag-ID → Start-Seitenzahl im PDF
 Workflow:
 1. Lädt Vorträge aus steiner-full-lectures-*.json
 2. Öffnet das entsprechende PDF
-3. Sucht die ersten 200 Zeichen jedes Vortrags im PDF-Text
+3. Sucht die ersten 1000 Zeichen jedes Vortrags im PDF-Text (um False Positives bei langen Zitaten zu vermeiden)
 4. Speichert das Mapping in lecture-page-mapping.json
 
 Verwendung:
@@ -203,56 +203,85 @@ def extract_page_number(page: fitz.Page, pdf_index: int, total_pages: int) -> Op
 def find_lecture_in_pdf(
     lecture: Dict, 
     page_texts: List[Tuple[int, str]],
-    min_page: int = 1
+    min_page: int = 1,
+    max_page: Optional[int] = None
 ) -> Optional[int]:
     """
     Findet die Start-Seitenzahl eines Vortrags im PDF.
     
-    Sucht die ersten 200 Zeichen des ersten Absatzes im PDF-Text.
+    min_page: Minimale Seitenzahl (für Monotonie-Erzwingung)
+    max_page: Maximale Seitenzahl (optional, für Plausibilitätsprüfung)
+    
+    Strategie: Nimm den ERSTEN Treffer >= min_page (nicht den letzten!)
     """
     paragraphs = lecture.get("paragraphs") or []
     if not paragraphs:
         return None
     
-    # Nimm den ersten Absatz
-    first_para = paragraphs[0].get("content") or ""
-    first_para_norm = normalize_text(first_para)
+    # Finde den ersten ECHTEN Fließtext-Absatz (nicht Metadaten)
+    # Überspringe: kurze Absätze, nur Jahreszahlen, "Manuskript", Römische Ziffern, etc.
+    first_para_norm = ""
+    for i, para in enumerate(paragraphs[:10]):  # Prüfe max. 10 Absätze
+        content = para.get("content") or para.get("text") or ""
+        normalized = normalize_text(content)
+        
+        # Überspringe Metadaten-Absätze
+        if len(normalized) < 50:
+            continue
+        # Überspringe wenn es nur "manuskript" oder Datumsangaben enthält
+        if re.match(r"^(manuskript|fragment|undatiert|um\s*\d{4}|ca\s*\d{4}|\d{4})", normalized, re.IGNORECASE):
+            continue
+        # Überspringe römische Ziffern oder einzelne Buchstaben
+        if re.fullmatch(r"[ivxlcdm]+\.?|[a-z]\.?", normalized, re.IGNORECASE):
+            continue
+        # Überspringe Überschriften (nur Großbuchstaben, kurz)
+        if len(normalized) < 80 and normalized.isupper():
+            continue
+        
+        # Das ist ein echter Fließtext-Absatz
+        first_para_norm = normalized
+        break
     
-    if len(first_para_norm) < 30:
-        # Versuche nächsten Absatz
-        if len(paragraphs) > 1:
-            first_para = paragraphs[1].get("content") or ""
-            first_para_norm = normalize_text(first_para)
-    
-    if len(first_para_norm) < 30:
+    if len(first_para_norm) < 50:
         return None
     
-    # Verwende die ersten 200 Zeichen für die Suche
-    search_text = first_para_norm[:200]
+    # Verwende die ersten 1000 Zeichen für die Suche
+    search_text = first_para_norm[:1000]
     
-    best_match: Optional[Tuple[float, int]] = None
-    
+    # Suche den ERSTEN Treffer >= min_page
+    # (sortierte Suche von min_page aufwärts)
     for page_num, page_text in page_texts:
         if page_num < min_page:
+            continue
+        if max_page and page_num > max_page:
             continue
         
         page_norm = normalize_text(page_text)
         if not page_norm:
             continue
         
-        # Methode 1: Exakte Teilstring-Suche mit verschiedenen Längen
-        for search_len in [150, 120, 100, 80, 60, 40]:
+        # Exakte Teilstring-Suche mit verschiedenen Längen
+        for search_len in [800, 600, 400, 300, 250, 200, 150, 120, 100, 80, 60, 40]:
             if search_len > len(search_text):
                 continue
             search_key = search_text[:search_len]
             if search_key in page_norm:
-                return page_num
+                return page_num  # ERSTER Treffer!
+    
+    # Fallback: Fuzzy-Matching (nur >= min_page)
+    best_match: Optional[Tuple[float, int]] = None
+    for page_num, page_text in page_texts:
+        if page_num < min_page:
+            continue
+        if max_page and page_num > max_page:
+            continue
         
-        # Methode 2: Fuzzy-Matching
-        # Suche das beste Match im Seitentext
-        compare_len = min(100, len(search_text))
+        page_norm = normalize_text(page_text)
+        if not page_norm:
+            continue
+        
+        compare_len = min(150, len(search_text))
         if compare_len >= 40:
-            # Sliding Window über den Seitentext
             step = 50
             for start in range(0, max(1, len(page_norm) - compare_len), step):
                 window = page_norm[start:start + compare_len]
@@ -260,10 +289,7 @@ def find_lecture_in_pdf(
                 if ratio > 0.80:
                     if best_match is None or ratio > best_match[0]:
                         best_match = (ratio, page_num)
-                    if ratio > 0.90:
-                        return page_num
     
-    # Rückgabe des besten Fuzzy-Matches
     if best_match and best_match[0] > 0.80:
         return best_match[1]
     
@@ -303,24 +329,27 @@ def generate_mapping_for_ga(ga_number: str) -> Dict[str, int]:
     page_texts = extract_page_texts(pdf_path)
     print(f"  Seiten mit Text: {len(page_texts)}")
     
-    # Mapping erstellen
+    # Mapping erstellen mit Monotonie-Erzwingung
     mapping: Dict[str, int] = {}
     found = 0
     not_found = 0
+    last_page = 1  # Minimale Startseite für nächsten Vortrag
     
     for i, lecture in enumerate(lectures):
         lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
         lec_title = (lecture.get("title") or "")[:50]
         
-        page = find_lecture_in_pdf(lecture, page_texts)
+        # Suche ab last_page (erzwingt Monotonie)
+        page = find_lecture_in_pdf(lecture, page_texts, min_page=last_page)
         
         if page:
             mapping[lec_id] = page
             found += 1
+            last_page = page  # Nächster Vortrag muss >= dieser Seite sein
             print(f"  ✓ {lec_id}: Seite {page} - {lec_title}")
         else:
             not_found += 1
-            print(f"  ✗ {lec_id}: NICHT GEFUNDEN - {lec_title}")
+            print(f"  ✗ {lec_id}: NICHT GEFUNDEN (ab S.{last_page}) - {lec_title}")
     
     print(f"\n  Ergebnis: {found}/{len(lectures)} gefunden ({found/len(lectures)*100:.1f}%)")
     
