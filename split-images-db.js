@@ -35,12 +35,23 @@ async function splitImagesDatabase() {
   let currentSize = 0;
   const maxSizeBytes = MAX_SIZE_MB * 1024 * 1024;
   
-  // Lösche alte Part-Dateien
-  const existingParts = fs.readdirSync(__dirname)
+  // Zielordner für Part-Dateien
+  const imagesDir = path.join(__dirname, 'steiner-images');
+  if (!fs.existsSync(imagesDir)) {
+    fs.mkdirSync(imagesDir, { recursive: true });
+  }
+  
+  // Lösche alte Part-Dateien (in beiden Ordnern)
+  const existingParts = fs.readdirSync(imagesDir)
+    .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'));
+  const existingPartsMain = fs.readdirSync(__dirname)
     .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'));
   
-  console.log(`Lösche ${existingParts.length} alte Part-Dateien...`);
+  console.log(`Lösche ${existingParts.length + existingPartsMain.length} alte Part-Dateien...`);
   for (const partFile of existingParts) {
+    fs.unlinkSync(path.join(imagesDir, partFile));
+  }
+  for (const partFile of existingPartsMain) {
     fs.unlinkSync(path.join(__dirname, partFile));
   }
   
@@ -53,7 +64,7 @@ async function splitImagesDatabase() {
     if (currentSize + entrySize > maxSizeBytes && Object.keys(currentPart).length > 0) {
       const partFileName = `steiner-images-part${String(partNumber).padStart(2, '0')}.json`;
       fs.writeFileSync(
-        path.join(__dirname, partFileName),
+        path.join(imagesDir, partFileName),
         JSON.stringify(currentPart, null, 2)
       );
       console.log(`  Gespeichert: ${partFileName} (${(currentSize / 1024 / 1024).toFixed(2)} MB, ${Object.keys(currentPart).length} Einträge)`);
@@ -71,7 +82,7 @@ async function splitImagesDatabase() {
   if (Object.keys(currentPart).length > 0) {
     const partFileName = `steiner-images-part${String(partNumber).padStart(2, '0')}.json`;
     fs.writeFileSync(
-      path.join(__dirname, partFileName),
+      path.join(imagesDir, partFileName),
       JSON.stringify(currentPart, null, 2)
     );
     console.log(`  Gespeichert: ${partFileName} (${(currentSize / 1024 / 1024).toFixed(2)} MB, ${Object.keys(currentPart).length} Einträge)`);
@@ -82,6 +93,7 @@ async function splitImagesDatabase() {
 }
 
 splitImagesDatabase().catch(console.error);
+
 
 
 

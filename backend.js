@@ -394,9 +394,19 @@ async function findDataFiles() {
   const searchPattern = /^steiner-search-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
   const searchFiles = files.filter(f => searchPattern.test(f));
   
-  // Suche nach steiner-full-lectures-XXX-YYY*.json
+  // Suche nach steiner-full-lectures-XXX-YYY*.json - zuerst im Unterordner, dann im Hauptordner
   const lecturePattern = /^steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
-  const allLectureFiles = files.filter(f => lecturePattern.test(f));
+  const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
+  let lectureSourceFiles;
+  let lectureBasePath;
+  try {
+    lectureSourceFiles = await fs.readdir(lecturesDir);
+    lectureBasePath = lecturesDir;
+  } catch {
+    lectureSourceFiles = files;
+    lectureBasePath = __dirname;
+  }
+  const allLectureFiles = lectureSourceFiles.filter(f => lecturePattern.test(f));
   
   // Filtere alte, spezifische Dateien heraus, die bereits in großen part-Dateien enthalten sind
   // Beispiel: steiner-full-lectures-130-159*.json und steiner-full-lectures-261-261.json
@@ -426,12 +436,22 @@ async function findDataFiles() {
     return true; // Alle anderen Dateien behalten
   });
   
-  // Suche nach steiner-books-XXX-YYY*.json oder steiner_books_XXX-YYY*.json
+  // Suche nach steiner-books-XXX-YYY*.json - zuerst im Unterordner, dann im Hauptordner
   // Pattern: steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json
   // WICHTIG: Muss auch steiner-books-001-003.json matchen (ohne part-Nummer)
   // UND auch steiner-books-040a-040a.json (mit Suffix)
   const bookPattern = /^steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json$/i;
-  const bookFiles = files.filter(f => {
+  const booksDir = path.join(__dirname, 'steiner-books');
+  let bookSourceFiles;
+  let bookBasePath;
+  try {
+    bookSourceFiles = await fs.readdir(booksDir);
+    bookBasePath = booksDir;
+  } catch {
+    bookSourceFiles = files;
+    bookBasePath = __dirname;
+  }
+  const bookFiles = bookSourceFiles.filter(f => {
     const matches = bookPattern.test(f);
     if (!matches && f.includes('steiner') && f.includes('books') && f.endsWith('.json')) {
     }
@@ -442,14 +462,16 @@ async function findDataFiles() {
   if (bookFiles.length > 0) {
   } else {
     console.warn('[DEBUG] KEINE Books-Dateien gefunden! Verfügbare Dateien mit "books":', 
-      files.filter(f => f.includes('books') && f.endsWith('.json')));
+      bookSourceFiles.filter(f => f.includes('books') && f.endsWith('.json')));
   }
   
   
   return {
     searchFiles,
     lectureFiles,
-    bookFiles
+    lectureBasePath,
+    bookFiles,
+    bookBasePath
   };
 }
 
@@ -502,8 +524,17 @@ async function loadSteinerImages() {
       return steinerImages;
     }
     
-    // Falls keine Einzeldatei: Suche nach Part-Dateien
-    const files = await fs.readdir(__dirname);
+    // Falls keine Einzeldatei: Suche nach Part-Dateien (zuerst im Unterordner)
+    const imagesDir = path.join(__dirname, 'steiner-images');
+    let imagesBasePath;
+    let files;
+    try {
+      files = await fs.readdir(imagesDir);
+      imagesBasePath = imagesDir;
+    } catch {
+      files = await fs.readdir(__dirname);
+      imagesBasePath = __dirname;
+    }
     const partFiles = files
       .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
       .sort();
@@ -518,7 +549,7 @@ async function loadSteinerImages() {
     let totalImages = 0;
     
     for (const partFile of partFiles) {
-      const partPath = path.join(__dirname, partFile);
+      const partPath = path.join(imagesBasePath, partFile);
       const data = await fs.readFile(partPath, 'utf8');
       const partData = JSON.parse(data);
       
@@ -550,7 +581,7 @@ async function loadSteinerImages() {
 
 async function loadFullLectures() {
   try {
-    const { lectureFiles } = await findDataFiles();
+    const { lectureFiles, lectureBasePath } = await findDataFiles();
     
     if (lectureFiles.length === 0) {
       console.error('❌ FEHLER: Keine steiner-full-lectures-XXX-YYY*.json Dateien gefunden!');
@@ -561,7 +592,7 @@ async function loadFullLectures() {
     
     let totalLectures = 0;
     for (const fileName of lectureFiles) {
-      const jsonPath = path.join(__dirname, fileName);
+      const jsonPath = path.join(lectureBasePath, fileName);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
@@ -668,7 +699,7 @@ async function loadFullLectures() {
 
 async function loadBooks() {
   try {
-    const { bookFiles } = await findDataFiles();
+    const { bookFiles, bookBasePath } = await findDataFiles();
     
     if (bookFiles.length === 0) {
       console.error('❌ FEHLER: Keine steiner-books-XXX-YYY*.json Dateien gefunden!');
@@ -681,7 +712,7 @@ async function loadBooks() {
     
     let totalBooks = 0;
     for (const fileName of bookFiles) {
-      const jsonPath = path.join(__dirname, fileName);
+      const jsonPath = path.join(bookBasePath, fileName);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
@@ -8105,6 +8136,7 @@ const CODE_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'code');
 const HTML_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'html');
 const IMAGES_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'images');
 const PAGEMARKERS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagemarkers');
+const PAGEBREAK_BOOKS_BACKUP_DIR = path.join(BACKUP_BASE_DIR, 'pagebreak-books');
 
 // ============================================================================
 // AUTOMATISCHES BACKUP-SYSTEM - UMFASSEND
@@ -8120,7 +8152,8 @@ async function ensureBackupDirectories() {
     CODE_BACKUP_DIR,
     HTML_BACKUP_DIR,
     IMAGES_BACKUP_DIR,
-    PAGEMARKERS_BACKUP_DIR
+    PAGEMARKERS_BACKUP_DIR,
+    PAGEBREAK_BOOKS_BACKUP_DIR
   ];
   
   for (const dir of dirs) {
@@ -8230,6 +8263,52 @@ async function createImagesBackup() {
 async function createPageMarkersBackup() {
   const pageMarkersFile = path.join(__dirname, 'page-markers.json');
   return await createBackup(pageMarkersFile, PAGEMARKERS_BACKUP_DIR, 'page-markers', 10);
+}
+
+async function createPagebreakBooksBackup() {
+  try {
+    await ensureBackupDirectories();
+    
+    const sourceDir = path.join(__dirname, 'pagebreak-books');
+    if (!fsSync.existsSync(sourceDir)) {
+      return null;
+    }
+    
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const backupSubDir = path.join(PAGEBREAK_BOOKS_BACKUP_DIR, `pagebreak-books-${timestamp}`);
+    
+    await fs.mkdir(backupSubDir, { recursive: true });
+    
+    const files = await fs.readdir(sourceDir);
+    const jsonFiles = files.filter(f => f.endsWith('.json'));
+    
+    let copiedCount = 0;
+    for (const file of jsonFiles) {
+      const srcPath = path.join(sourceDir, file);
+      const dstPath = path.join(backupSubDir, file);
+      await fs.copyFile(srcPath, dstPath);
+      copiedCount++;
+    }
+    
+    console.log(`[BACKUP] pagebreak-books: ${copiedCount} Dateien gesichert nach ${backupSubDir}`);
+    
+    // Bereinige alte Backups (behalte 5 Versionen)
+    const allBackups = await fs.readdir(PAGEBREAK_BOOKS_BACKUP_DIR);
+    const backupDirs = allBackups
+      .filter(d => d.startsWith('pagebreak-books-'))
+      .sort()
+      .reverse();
+    
+    for (const oldDir of backupDirs.slice(5)) {
+      const oldPath = path.join(PAGEBREAK_BOOKS_BACKUP_DIR, oldDir);
+      await fs.rm(oldPath, { recursive: true, force: true });
+    }
+    
+    return backupSubDir;
+  } catch (error) {
+    console.error('[BACKUP] Fehler beim pagebreak-books Backup:', error);
+    return null;
+  }
 }
 
 async function createCodeBackup() {
@@ -8353,6 +8432,7 @@ async function createFullBackup() {
     createClustersBackup(),
     createImagesBackup(),
     createPageMarkersBackup(),
+    createPagebreakBooksBackup(),
     createCodeBackup(),
     createHtmlBackup('index.html'),
     createHtmlBackup('keyword-manager.html'),
@@ -12662,14 +12742,22 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
         return res.json(images);
       }
       
-      // Suche in Part-Dateien nach diesem Vortrag
-      const files = await fs.readdir(__dirname);
+      // Suche in Part-Dateien nach diesem Vortrag (zuerst im Unterordner)
+      const imagesDir = path.join(__dirname, 'steiner-images');
+      let imagesBasePath, files;
+      try {
+        files = await fs.readdir(imagesDir);
+        imagesBasePath = imagesDir;
+      } catch {
+        files = await fs.readdir(__dirname);
+        imagesBasePath = __dirname;
+      }
       const partFiles = files
         .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
         .sort();
       
       for (const partFile of partFiles) {
-        const partPath = path.join(__dirname, partFile);
+        const partPath = path.join(imagesBasePath, partFile);
         const data = await fs.readFile(partPath, 'utf8');
         const partData = JSON.parse(data);
         
@@ -12699,15 +12787,23 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
     } else {
       // Liste aller verfügbaren Vortrags-IDs (ohne Bilder zu laden)
       // Lese nur die ersten Zeilen jeder Part-Datei um lectureIds zu extrahieren
-      const files = await fs.readdir(__dirname);
-      const partFiles = files
+      const imagesDir2 = path.join(__dirname, 'steiner-images');
+      let imagesBasePath2, files2;
+      try {
+        files2 = await fs.readdir(imagesDir2);
+        imagesBasePath2 = imagesDir2;
+      } catch {
+        files2 = await fs.readdir(__dirname);
+        imagesBasePath2 = __dirname;
+      }
+      const partFiles = files2
         .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
         .sort();
       
       const lectureIdsSet = new Set();
       
       for (const partFile of partFiles) {
-        const partPath = path.join(__dirname, partFile);
+        const partPath = path.join(imagesBasePath2, partFile);
         const data = await fs.readFile(partPath, 'utf8');
         const partData = JSON.parse(data);
         
@@ -15580,6 +15676,9 @@ app.post('/api/backups/create', async (req, res) => {
       case 'pagemarkers':
         backupFile = await createPageMarkersBackup();
         break;
+      case 'pagebreakbooks':
+        backupFile = await createPagebreakBooksBackup();
+        break;
       case 'code':
         backupFile = await createCodeBackup();
         break;
@@ -15653,6 +15752,10 @@ app.get('/api/backups/list/:type', async (req, res) => {
       case 'pagemarkers':
         backupDir = PAGEMARKERS_BACKUP_DIR;
         prefix = 'page-markers';
+        break;
+      case 'pagebreakbooks':
+        backupDir = PAGEBREAK_BOOKS_BACKUP_DIR;
+        prefix = 'pagebreak-books';
         break;
       case 'code':
         backupDir = CODE_BACKUP_DIR;

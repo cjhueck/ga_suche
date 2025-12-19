@@ -1096,11 +1096,16 @@ class SteinerLecturesExporter {
     }
     
     
-    // Speichere chunks
+    // Speichere chunks in steiner-images Unterordner
+    const imagesDir = path.join(this.outputDir, 'steiner-images');
+    if (!fs.existsSync(imagesDir)) {
+      fs.mkdirSync(imagesDir, { recursive: true });
+    }
+    
     for (let i = 0; i < chunks.length; i++) {
       const chunk = chunks[i];
       const filename = `steiner-images-part${String(i + 1).padStart(2, '0')}.json`;
-      const filepath = path.join(this.outputDir, filename);
+      const filepath = path.join(imagesDir, filename);
       
       fs.writeFileSync(filepath, JSON.stringify(chunk, null, 2), 'utf8');
       

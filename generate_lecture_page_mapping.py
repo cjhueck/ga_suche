@@ -80,26 +80,47 @@ def normalize_ga(ga_arg: str) -> Optional[str]:
 
 
 def find_pdf_for_ga(ga_number: str) -> Optional[Path]:
-    """Findet die PDF-Datei für eine GA-Nummer."""
+    """
+    Findet die PDF-Datei für eine GA-Nummer.
+    Bevorzugt "_einzelseiten" PDFs (für aufgeteilte Doppelseiten-Scans).
+    """
     m = re.search(r"(\d+[a-z]?)", ga_number, re.IGNORECASE)
     if not m:
         return None
     ga_num_str = m.group(1).zfill(3)
     ga_num_str_lower = ga_num_str.lower()
+    ga_num_short = ga_num_str.lstrip("0") or "0"
+    ga_num_short_lower = ga_num_short.lower()
 
+    candidates = []
     for pdf_file in PDF_DIR.glob("*.pdf"):
         name_lower = pdf_file.name.lower()
         if f"ga {ga_num_str_lower}" in name_lower or f"ga{ga_num_str_lower}" in name_lower:
-            return pdf_file
-        ga_num_short = ga_num_str.lstrip("0") or "0"
-        ga_num_short_lower = ga_num_short.lower()
-        if f"ga {ga_num_short_lower}," in name_lower or f"ga {ga_num_short_lower} " in name_lower:
-            return pdf_file
-    return None
+            candidates.append(pdf_file)
+        elif f"ga {ga_num_short_lower}," in name_lower or f"ga {ga_num_short_lower} " in name_lower:
+            candidates.append(pdf_file)
+    
+    if not candidates:
+        return None
+    
+    # Bevorzuge "_einzelseiten" PDFs (aufgeteilte Doppelseiten)
+    for c in candidates:
+        if "_einzelseiten" in c.name.lower():
+            return c
+    
+    # Sonst: erstes gefundenes PDF (aber nicht "_DOPPELSEITEN" Backups)
+    for c in candidates:
+        if "_doppelseiten" not in c.name.lower():
+            return c
+    
+    return candidates[0]
 
 
 def iter_steiner_lectures_files() -> List[Path]:
     """Findet alle steiner-full-lectures-*.json Dateien."""
+    lectures_dir = SCRIPT_DIR / "steiner-full-lectures"
+    if lectures_dir.exists():
+        return sorted(lectures_dir.glob("steiner-full-lectures-*.json"))
     return sorted(SCRIPT_DIR.glob("steiner-full-lectures-*.json"))
 
 
@@ -128,23 +149,60 @@ def load_lectures_for_ga(ga_number: str) -> List[Dict]:
     return all_lectures
 
 
-def extract_page_texts(pdf_path: Path) -> List[Tuple[int, str]]:
+def load_page_breaks(ga_number: str) -> Dict[int, int]:
+    """
+    Lädt die Seitenzahlen aus page-break-markers.json.
+    Rückgabe: Dict von PDF-Index → gedruckte Seitenzahl
+    """
+    markers_file = SCRIPT_DIR / "page-break-markers.json"
+    if not markers_file.exists():
+        return {}
+    
+    try:
+        with open(markers_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        ga_data = data.get(ga_number.upper(), {})
+        breaks = ga_data.get("breaks", [])
+        
+        # Baue Mapping: PDF-Index → Seitenzahl
+        # WICHTIG: Verwende pdfTo als PDF-Index, nicht den Listenindex!
+        result = {}
+        for b in breaks:
+            pdf_to = b.get("pdfTo")
+            page = b.get("page", 0)
+            if pdf_to is not None and page > 0:
+                result[pdf_to] = page
+        return result
+    except Exception:
+        return {}
+
+
+def extract_page_texts(pdf_path: Path, ga_number: str = "") -> List[Tuple[int, int, str]]:
     """
     Extrahiert den Text jeder Seite aus dem PDF.
-    Rückgabe: Liste von (Seitenzahl, Text)
+    Verwendet Seitenzahlen aus page-break-markers.json falls vorhanden.
+    Rückgabe: Liste von (PDF-Index, Seitenzahl, Text)
     """
+    # Versuche Seitenzahlen aus page-break-markers.json zu laden
+    precomputed = load_page_breaks(ga_number) if ga_number else {}
+    
     doc = fitz.open(pdf_path)
-    page_texts: List[Tuple[int, str]] = []
+    page_texts: List[Tuple[int, int, str]] = []
     
     for i in range(len(doc)):
         page = doc[i]
         text = page.get_text("text") or ""
         
-        # Versuche Seitenzahl aus Footer zu extrahieren
-        page_num = extract_page_number(page, i, len(doc))
+        # Verwende vorberechnete Seitenzahl falls vorhanden
+        if i in precomputed:
+            page_num = precomputed[i]
+        else:
+            # Fallback: Versuche Seitenzahl aus Footer zu extrahieren
+            page_num = extract_page_number(page, i, len(doc))
         
         if page_num and text.strip():
-            page_texts.append((page_num, text))
+            page_texts.append((i, page_num, text))
     
     doc.close()
     return page_texts
@@ -202,78 +260,89 @@ def extract_page_number(page: fitz.Page, pdf_index: int, total_pages: int) -> Op
 
 def find_lecture_in_pdf(
     lecture: Dict, 
-    page_texts: List[Tuple[int, str]],
-    min_page: int = 1,
-    max_page: Optional[int] = None
-) -> Optional[int]:
+    page_texts: List[Tuple[int, int, str]],
+    min_pdf_index: int = 0,
+    max_pdf_index: Optional[int] = None
+) -> Optional[Tuple[int, int]]:
     """
     Findet die Start-Seitenzahl eines Vortrags im PDF.
     
-    min_page: Minimale Seitenzahl (für Monotonie-Erzwingung)
-    max_page: Maximale Seitenzahl (optional, für Plausibilitätsprüfung)
+    min_pdf_index: Minimaler PDF-Index (für Monotonie-Erzwingung)
+    max_pdf_index: Maximaler PDF-Index (optional)
     
-    Strategie: Nimm den ERSTEN Treffer >= min_page (nicht den letzten!)
+    Rückgabe: (PDF-Index, Seitenzahl) oder None
+    
+    Strategie: Suche sequentiell durch das PDF (nach PDF-Index, nicht Seitenzahl!)
     """
     paragraphs = lecture.get("paragraphs") or []
     if not paragraphs:
         return None
     
-    # Finde den ersten ECHTEN Fließtext-Absatz (nicht Metadaten)
-    # Überspringe: kurze Absätze, nur Jahreszahlen, "Manuskript", Römische Ziffern, etc.
+    # Finde den ersten ECHTEN Fließtext-Absatz (nicht Metadaten, nicht Überschriften)
+    # WICHTIG: Überschriften/Titel können auch im Inhaltsverzeichnis vorkommen!
+    # Daher brauchen wir einen LÄNGEREN Text (>150 Zeichen) für zuverlässiges Matching.
     first_para_norm = ""
-    for i, para in enumerate(paragraphs[:10]):  # Prüfe max. 10 Absätze
+    collected_paras = []
+    
+    for i, para in enumerate(paragraphs[:15]):
         content = para.get("content") or para.get("text") or ""
         normalized = normalize_text(content)
         
-        # Überspringe Metadaten-Absätze
-        if len(normalized) < 50:
+        if len(normalized) < 30:
             continue
-        # Überspringe wenn es nur "manuskript" oder Datumsangaben enthält
         if re.match(r"^(manuskript|fragment|undatiert|um\s*\d{4}|ca\s*\d{4}|\d{4})", normalized, re.IGNORECASE):
             continue
-        # Überspringe römische Ziffern oder einzelne Buchstaben
         if re.fullmatch(r"[ivxlcdm]+\.?|[a-z]\.?", normalized, re.IGNORECASE):
             continue
-        # Überspringe Überschriften (nur Großbuchstaben, kurz)
-        if len(normalized) < 80 and normalized.isupper():
-            continue
         
-        # Das ist ein echter Fließtext-Absatz
-        first_para_norm = normalized
-        break
+        # Sammle Absätze bis wir mindestens 200 Zeichen haben
+        collected_paras.append(normalized)
+        combined = " ".join(collected_paras)
+        
+        # Prüfe ob wir genug Text haben (mindestens 200 Zeichen)
+        # UND ob es echter Fließtext ist (enthält Satzzeichen wie . , ; :)
+        if len(combined) >= 200:
+            # Prüfe auf Fließtext-Merkmale (Satzzeichen)
+            has_punctuation = any(p in combined for p in ['. ', ', ', '; ', ': '])
+            if has_punctuation:
+                first_para_norm = combined
+                break
     
-    if len(first_para_norm) < 50:
+    # Fallback: Wenn keine 200 Zeichen mit Satzzeichen, nimm was wir haben
+    if not first_para_norm and collected_paras:
+        first_para_norm = " ".join(collected_paras)
+    
+    if len(first_para_norm) < 80:
         return None
     
-    # Verwende die ersten 1000 Zeichen für die Suche
     search_text = first_para_norm[:1000]
     
-    # Suche den ERSTEN Treffer >= min_page
-    # (sortierte Suche von min_page aufwärts)
-    for page_num, page_text in page_texts:
-        if page_num < min_page:
+    # Suche sequentiell durch das PDF (nach PDF-Index!)
+    for pdf_idx, page_num, page_text in page_texts:
+        if pdf_idx < min_pdf_index:
             continue
-        if max_page and page_num > max_page:
+        if max_pdf_index and pdf_idx > max_pdf_index:
             continue
         
         page_norm = normalize_text(page_text)
         if not page_norm:
             continue
         
-        # Exakte Teilstring-Suche mit verschiedenen Längen
-        for search_len in [800, 600, 400, 300, 250, 200, 150, 120, 100, 80, 60, 40]:
+        # Exakte Teilstring-Suche
+        # WICHTIG: Mindestens 150 Zeichen verwenden, um Inhaltsverzeichnis-Treffer zu vermeiden!
+        for search_len in [800, 600, 400, 300, 250, 200, 150]:
             if search_len > len(search_text):
                 continue
             search_key = search_text[:search_len]
             if search_key in page_norm:
-                return page_num  # ERSTER Treffer!
+                return (pdf_idx, page_num)
     
-    # Fallback: Fuzzy-Matching (nur >= min_page)
-    best_match: Optional[Tuple[float, int]] = None
-    for page_num, page_text in page_texts:
-        if page_num < min_page:
+    # Fallback: Fuzzy-Matching
+    best_match: Optional[Tuple[float, int, int]] = None
+    for pdf_idx, page_num, page_text in page_texts:
+        if pdf_idx < min_pdf_index:
             continue
-        if max_page and page_num > max_page:
+        if max_pdf_index and pdf_idx > max_pdf_index:
             continue
         
         page_norm = normalize_text(page_text)
@@ -288,10 +357,10 @@ def find_lecture_in_pdf(
                 ratio = SequenceMatcher(None, search_text[:compare_len], window).ratio()
                 if ratio > 0.80:
                     if best_match is None or ratio > best_match[0]:
-                        best_match = (ratio, page_num)
+                        best_match = (ratio, pdf_idx, page_num)
     
     if best_match and best_match[0] > 0.80:
-        return best_match[1]
+        return (best_match[1], best_match[2])
     
     return None
 
@@ -324,32 +393,33 @@ def generate_mapping_for_ga(ga_number: str) -> Dict[str, int]:
     print(f"  PDF: {pdf_path.name}")
     print(f"  Vorträge: {len(lectures)}")
     
-    # PDF-Seiten extrahieren
+    # PDF-Seiten extrahieren (mit Seitenzahlen aus page-break-markers.json)
     print(f"  Extrahiere PDF-Texte...")
-    page_texts = extract_page_texts(pdf_path)
+    page_texts = extract_page_texts(pdf_path, ga_norm)
     print(f"  Seiten mit Text: {len(page_texts)}")
     
-    # Mapping erstellen mit Monotonie-Erzwingung
+    # Mapping erstellen - OHNE Monotonie-Erzwingung!
+    # Jeder Vortrag wird unabhängig im gesamten PDF gesucht.
+    # (Reihenfolge im JSON kann von Reihenfolge im PDF abweichen)
     mapping: Dict[str, int] = {}
     found = 0
     not_found = 0
-    last_page = 1  # Minimale Startseite für nächsten Vortrag
     
     for i, lecture in enumerate(lectures):
         lec_id = lecture.get("ID") or f"{ga_norm}/{i+1}"
         lec_title = (lecture.get("title") or "")[:50]
         
-        # Suche ab last_page (erzwingt Monotonie)
-        page = find_lecture_in_pdf(lecture, page_texts, min_page=last_page)
+        # Suche im gesamten PDF (ohne Monotonie-Einschränkung)
+        result = find_lecture_in_pdf(lecture, page_texts, min_pdf_index=0)
         
-        if page:
-            mapping[lec_id] = page
+        if result:
+            pdf_idx, page_num = result
+            mapping[lec_id] = page_num
             found += 1
-            last_page = page  # Nächster Vortrag muss >= dieser Seite sein
-            print(f"  ✓ {lec_id}: Seite {page} - {lec_title}")
+            print(f"  ✓ {lec_id}: Seite {page_num} - {lec_title}")
         else:
             not_found += 1
-            print(f"  ✗ {lec_id}: NICHT GEFUNDEN (ab S.{last_page}) - {lec_title}")
+            print(f"  ✗ {lec_id}: NICHT GEFUNDEN - {lec_title}")
     
     print(f"\n  Ergebnis: {found}/{len(lectures)} gefunden ({found/len(lectures)*100:.1f}%)")
     
