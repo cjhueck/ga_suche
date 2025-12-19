@@ -80,3 +80,7 @@ for lec in lectures:
         print(f"       Suchtext: {search_key[:60]}...")
 
 
+
+
+
+

@@ -7013,8 +7013,8 @@ function isEssayVolume(gaNumber) {
   const match = gaNumber.match(/GA0?(\d+)/i);
   if (!match) return false;
   const num = parseInt(match[1]);
-  // Zusätzliche Aufsatzbände: GA014, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(num)) return true;
   return (num >= 29 && num <= 36) || num === 46;
 }
@@ -9810,7 +9810,8 @@ function normalizeGANumber(gaNumber) {
       try {
         const response = await fetch(`${API_BASE}/api/ga-list`);
         if (!response.ok) throw new Error('GA-Liste konnte nicht geladen werden');
-        const gaList = await response.json();
+        // GA014 wird nicht angezeigt
+        const gaList = (await response.json()).filter(ga => ga.number.toUpperCase() !== 'GA014');
         
         // Zähle Vorträge pro GA-Band
         const lectureCountResponse = await fetch(`${API_BASE}/api/keywords/available-ga-volumes`);
@@ -10391,7 +10392,7 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal';
     }
     return;
@@ -10436,14 +10437,16 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     
     const volumesData = await volumesResponse.json();
     
-    gaVolumesData = gaList.map(ga => {
-      const volumeInfo = volumesData.volumes.find(v => v.volume.toLowerCase() === ga.number.toLowerCase());
-      return {
-        number: ga.number,
-        title: ga.title,
-        lectureCount: volumeInfo ? volumeInfo.lectureCount : 0
-      };
-    });
+    gaVolumesData = gaList
+      .filter(ga => ga.number.toUpperCase() !== 'GA014') // GA014 wird nicht angezeigt
+      .map(ga => {
+        const volumeInfo = volumesData.volumes.find(v => v.volume.toLowerCase() === ga.number.toLowerCase());
+        return {
+          number: ga.number,
+          title: ga.title,
+          lectureCount: volumeInfo ? volumeInfo.lectureCount : 0
+        };
+      });
     
     // Befülle Dropdown mit GA-Bänden
     populateGABandFilterDropdown();
@@ -10466,7 +10469,7 @@ async function loadGAVolumesInSidebar(retryAttempt = 0) {
     if (countElement) {
       const booksText = totalBooks > 0 ? `${totalBooks} Schriften · ` : '';
       const essaysText = totalEssays > 0 ? `${totalEssays} Aufsätze · ` : '';
-      countElement.textContent = `${gaVolumesData.length} GA-Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
+      countElement.textContent = `${gaVolumesData.length} Bände · ${booksText}${essaysText}${totalLectures} Vorträge`;
       countElement.style.fontStyle = 'normal'; // Entferne Kursivschrift nach dem Laden
     }
     
@@ -10523,9 +10526,10 @@ function displayGAVolumesInSidebar() {
   }
   
   // Filtere nach ausgewähltem GA-Band falls Filter aktiv
-  let filteredData = gaVolumesData;
+  // GA014 wird nicht angezeigt
+  let filteredData = gaVolumesData.filter(ga => ga.number.toUpperCase() !== 'GA014');
   if (selectedGABandFilter) {
-    filteredData = gaVolumesData.filter(ga => {
+    filteredData = filteredData.filter(ga => {
       return ga.number.toLowerCase() === selectedGABandFilter.toLowerCase();
     });
   }
@@ -10603,14 +10607,16 @@ function populateGABandFilterDropdown() {
   // Leere Dropdown (außer "Alle GA-Bände" Option)
   dropdown.innerHTML = '<option value="">Alle GA-Bände</option>';
   
-  // Sortiere GA-Bände nach Nummer
-  const sortedGAs = [...gaVolumesData].sort((a, b) => {
-    const numA = parseInt(a.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
-    const numB = parseInt(b.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
-    if (numA !== numB) return numA - numB;
-    // Bei gleicher Nummer: alphabetisch nach Suffix
-    return a.number.localeCompare(b.number);
-  });
+  // Sortiere GA-Bände nach Nummer (GA014 wird nicht angezeigt)
+  const sortedGAs = [...gaVolumesData]
+    .filter(ga => ga.number.toUpperCase() !== 'GA014')
+    .sort((a, b) => {
+      const numA = parseInt(a.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
+      const numB = parseInt(b.number.replace(/^GA/i, '').replace(/[a-z]/i, '')) || 0;
+      if (numA !== numB) return numA - numB;
+      // Bei gleicher Nummer: alphabetisch nach Suffix
+      return a.number.localeCompare(b.number);
+    });
   
   // Füge GA-Bände hinzu
   sortedGAs.forEach(ga => {
@@ -10965,7 +10971,7 @@ async function loadSummaryDatabase() {
 // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände
 function isBookGANumber(gaNumber) {
   // DIREKTE PRÜFUNG: Diese GAs sind KEINE Bücher sondern Aufsätze
-  const notBooks = ['GA014', 'GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
+  const notBooks = ['GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
   const normalized = gaNumber.toUpperCase().replace(/^GA0?/, 'GA');
   if (notBooks.includes(normalized)) {
     console.log('[isBookGANumber] ' + gaNumber + ' ist KEIN Buch (in notBooks Liste)');
@@ -10979,14 +10985,14 @@ function isBookGANumber(gaNumber) {
 
 // Hilfsfunktion: Prüft ob ein GA-Band ein Aufsatzband ist
 // GA029-GA037, GA041b und GA046 enthalten Aufsätze (Export wie Vorträge, aber eigene Kategorie)
-// Zusätzlich: GA014, GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
+// Zusätzlich: GA019, GA024, GA026, GA042, GA043, GA044 sind auch als Aufsätze exportiert
 function isEssayGANumber(gaNumber) {
   const normalized = gaNumber.replace(/^GA/i, '').toLowerCase();
   const gaNum = parseInt(normalized.replace(/[a-z]/i, ''));
   // GA041b ist speziell - prüfe auf "b" Suffix
   if (normalized === '041b' || normalized === '41b') return true;
-  // Zusätzliche Aufsatzbände: GA014, GA019, GA024, GA026, GA042, GA043, GA044
-  const additionalEssayBands = [14, 19, 24, 26, 42, 43, 44];
+  // Zusätzliche Aufsatzbände: GA019, GA024, GA026, GA042, GA043, GA044
+  const additionalEssayBands = [19, 24, 26, 42, 43, 44];
   if (additionalEssayBands.includes(gaNum)) return true;
   // GA029-GA037 und GA046
   return (gaNum >= 29 && gaNum <= 37) || gaNum === 46;
@@ -36061,7 +36067,7 @@ async function addKeywordToLecture() {
 <script>
 (function() {
   // Liste der GA-Bände die als Aufsätze behandelt werden (nicht als Bücher)
-  const aufsatzbaende = ['GA014', 'GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
+  const aufsatzbaende = ['GA019', 'GA024', 'GA026', 'GA029', 'GA030', 'GA031', 'GA032', 'GA033', 'GA034', 'GA035', 'GA036', 'GA037', 'GA041B', 'GA042', 'GA043', 'GA044', 'GA046'];
   
   const originalIsBookGANumber = window.isBookGANumber || isBookGANumber;
   window.isBookGANumber = function(gaNumber) {
