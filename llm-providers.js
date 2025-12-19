@@ -150,6 +150,10 @@ class ClaudeProvider extends LLMProvider {
         // API-Nutzungslimit erreicht (Status 400 mit spezieller Meldung)
         const limitMessage = errorData.error.message;
         throw new Error(`[Claude] API-Nutzungslimit erreicht: ${limitMessage}`);
+      } else if (response.status === 400 && errorData?.error?.message?.includes('prompt is too long')) {
+        // Prompt zu lang - spezielle Behandlung
+        const tokenCount = errorData.error.message.match(/(\d+) tokens/)?.[1] || 'unbekannt';
+        throw new Error(`[Claude] Prompt zu lang: ${tokenCount} Tokens überschreiten das Maximum von 200.000 Tokens. Bitte die Suche spezifischer formulieren oder weniger Ergebnisse verwenden.`);
       }
       
       throw new Error(`[Claude] API Fehler ${response.status}: ${errorText}`);

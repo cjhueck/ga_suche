@@ -154,6 +154,31 @@ export async function resetPassword(email) {
 
 
 /**
+ * Neues Passwort setzen (nach Passwort-Reset)
+ */
+export async function updatePassword(newPassword) {
+  try {
+    const { error } = await supabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) throw error;
+
+    return {
+      success: true,
+      message: 'Passwort wurde erfolgreich geändert!'
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Fehler: ${error.message}`,
+      error: error
+    };
+  }
+}
+
+
+/**
  * Auth State Listener - ruft Callback bei Änderungen auf
  */
 export function onAuthStateChange(callback) {

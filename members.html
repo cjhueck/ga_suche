@@ -1091,6 +1091,24 @@
         </p>
       </form>
 
+      <form id="new-password-form" style="display: none;">
+        <div class="form-group">
+          <label for="new-password">Neues Passwort</label>
+          <input type="password" id="new-password" required placeholder="Mindestens 6 Zeichen" minlength="6">
+        </div>
+        
+        <div class="form-group">
+          <label for="new-password-confirm">Passwort bestätigen</label>
+          <input type="password" id="new-password-confirm" required placeholder="Passwort wiederholen" minlength="6">
+        </div>
+        
+        <button type="submit">Passwort ändern</button>
+        
+        <p style="text-align: center; margin-top: 1rem;">
+          <a href="#" id="back-to-login-from-new-password" style="color: var(--link-color); text-decoration: none;">Zurück zum Login</a>
+        </p>
+      </form>
+
       <form id="register-form" style="display: none;">
         <div class="form-group">
           <label for="register-name">Anzeigename</label>
@@ -1291,7 +1309,7 @@
       document.getElementById('auth-message').innerHTML = '<div class="message error">⚠️ WICHTIG: Diese Seite muss über einen lokalen Server geöffnet werden, nicht direkt über file:///<br><br>Bitte starten Sie einen lokalen Server (z.B. mit Python: <code>python -m http.server 8000</code>) und öffnen Sie dann <code>http://localhost:8000/members.html</code></div>';
     }
     
-    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword;
+    let signUp, signIn, signOut, getCurrentUser, onAuthStateChange, updateUserEmail, deleteUserAccount, resetPassword, updatePassword;
     let getQuotes, deleteQuote, updateQuote;
     let getHighlights, deleteHighlight, updateHighlight;
     let getNotes, deleteNote, createNote, updateNote;
@@ -1305,6 +1323,7 @@
       getCurrentUser = authModule.getCurrentUser;
       onAuthStateChange = authModule.onAuthStateChange;
       resetPassword = authModule.resetPassword;
+      updatePassword = authModule.updatePassword;
       updateUserEmail = authModule.updateUserEmail;
       deleteUserAccount = authModule.deleteUserAccount;
       supabase = authModule.supabase;
@@ -1328,6 +1347,7 @@
       window.getCurrentUser = getCurrentUser;
       window.updateUserEmail = updateUserEmail;
       window.resetPassword = resetPassword;
+      window.updatePassword = updatePassword;
       window.deleteUserAccount = deleteUserAccount;
       window.getQuotes = getQuotes;
       window.deleteQuote = deleteQuote;
@@ -1376,6 +1396,44 @@
           return;
         }
         
+        // Prüfe auf Passwort-Reset-Token in der URL
+        const hash = window.location.hash;
+        if (hash) {
+          const hashParams = new URLSearchParams(hash.substring(1));
+          const type = hashParams.get('type');
+          
+          if (type === 'recovery') {
+            // Reset-Token gefunden - Supabase verarbeitet den Token automatisch
+            // Warte kurz, damit Supabase die Session setzen kann
+            try {
+              // Prüfe ob Session gesetzt wurde (Supabase verarbeitet Token automatisch)
+              const { data: { session } } = await supabase.auth.getSession();
+              
+              if (session) {
+                // Session wurde gesetzt - zeige Formular zum Setzen des neuen Passworts
+                showNewPasswordForm();
+                // Entferne Token aus URL (aus Sicherheitsgründen)
+                window.history.replaceState(null, '', window.location.pathname);
+                return;
+              } else {
+                // Session nicht gesetzt - möglicherweise ist der Token abgelaufen
+                showAuth();
+                showAuthMessage('Der Passwort-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.', 'error');
+                // Entferne Token aus URL
+                window.history.replaceState(null, '', window.location.pathname);
+                return;
+              }
+            } catch (error) {
+              console.error('[MEMBERS-HTML] Fehler beim Verarbeiten des Reset-Tokens:', error);
+              showAuth();
+              showAuthMessage('Fehler beim Verarbeiten des Passwort-Reset-Links. Bitte versuchen Sie es erneut.', 'error');
+              // Entferne Token aus URL
+              window.history.replaceState(null, '', window.location.pathname);
+              return;
+            }
+          }
+        }
+        
         setupToolbarListeners();
         setupDragAndDrop();
         
@@ -1404,6 +1462,36 @@
       if (appView) {
         appView.classList.remove('active');
       }
+    }
+
+    function showNewPasswordForm() {
+      const authView = document.getElementById('auth-view');
+      const appView = document.getElementById('app-view');
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      const passwordResetForm = document.getElementById('password-reset-form');
+      const newPasswordForm = document.getElementById('new-password-form');
+      const title = document.getElementById('auth-title');
+      const switchText = document.getElementById('auth-switch-text');
+      const switchLink = document.getElementById('auth-switch-link');
+      
+      if (authView) {
+        authView.classList.add('active');
+        authView.classList.remove('hidden');
+      }
+      if (appView) {
+        appView.classList.remove('active');
+      }
+      
+      if (loginForm) loginForm.style.display = 'none';
+      if (registerForm) registerForm.style.display = 'none';
+      if (passwordResetForm) passwordResetForm.style.display = 'none';
+      if (newPasswordForm) newPasswordForm.style.display = 'block';
+      if (title) title.textContent = 'Neues Passwort setzen';
+      if (switchText) switchText.style.display = 'none';
+      if (switchLink) switchLink.style.display = 'none';
+      
+      showAuthMessage('Bitte geben Sie Ihr neues Passwort ein.', 'success');
     }
 
     async function showApp(user) {
@@ -1565,6 +1653,111 @@
           } catch (error) {
             console.error('[MEMBERS-HTML] Passwort-Reset-Fehler:', error);
             showAuthMessage('Fehler beim Senden des Passwort-Reset-Links: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Neues Passwort-Formular
+      const newPasswordForm = document.getElementById('new-password-form');
+      if (newPasswordForm) {
+        newPasswordForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          
+          // Prüfe ob Module geladen wurden
+          const updatePasswordFunc = window.updatePassword || updatePassword;
+          if (typeof updatePasswordFunc !== 'function') {
+            showAuthMessage('Fehler: Authentifizierungs-Module nicht geladen. Bitte Seite neu laden oder einen lokalen Server verwenden.', 'error');
+            console.error('[MEMBERS-HTML] updatePassword Funktion nicht verfügbar!');
+            return;
+          }
+          
+          const newPassword = document.getElementById('new-password')?.value;
+          const newPasswordConfirm = document.getElementById('new-password-confirm')?.value;
+          
+          if (!newPassword || !newPasswordConfirm) {
+            showAuthMessage('Bitte alle Felder ausfüllen', 'error');
+            return;
+          }
+          
+          if (newPassword.length < 6) {
+            showAuthMessage('Das Passwort muss mindestens 6 Zeichen lang sein', 'error');
+            return;
+          }
+          
+          if (newPassword !== newPasswordConfirm) {
+            showAuthMessage('Die Passwörter stimmen nicht überein', 'error');
+            return;
+          }
+          
+          try {
+            const result = await updatePasswordFunc(newPassword);
+            
+            if (result.success) {
+              showAuthMessage('Passwort wurde erfolgreich geändert! Sie können sich jetzt mit Ihrem neuen Passwort anmelden.', 'success');
+              
+              // Setze Felder zurück
+              document.getElementById('new-password').value = '';
+              document.getElementById('new-password-confirm').value = '';
+              
+              // Nach 2 Sekunden zum Login-Formular wechseln
+              setTimeout(() => {
+                const loginForm = document.getElementById('login-form');
+                const registerForm = document.getElementById('register-form');
+                const passwordResetForm = document.getElementById('password-reset-form');
+                const title = document.getElementById('auth-title');
+                const switchText = document.getElementById('auth-switch-text');
+                const switchLink = document.getElementById('auth-switch-link');
+                
+                if (loginForm && newPasswordForm && title) {
+                  loginForm.style.display = 'block';
+                  registerForm.style.display = 'none';
+                  passwordResetForm.style.display = 'none';
+                  newPasswordForm.style.display = 'none';
+                  title.textContent = 'Mitglieder Login';
+                  if (switchText && switchLink) {
+                    switchText.style.display = 'block';
+                    switchText.textContent = 'Noch kein Account?';
+                    switchLink.style.display = 'block';
+                    switchLink.textContent = 'Jetzt registrieren';
+                  }
+                }
+              }, 2000);
+            } else {
+              showAuthMessage(result.message, 'error');
+            }
+          } catch (error) {
+            console.error('[MEMBERS-HTML] Passwort-Update-Fehler:', error);
+            showAuthMessage('Fehler beim Ändern des Passworts: ' + (error.message || 'Unbekannter Fehler'), 'error');
+          }
+        });
+      }
+
+      // Zurück zum Login vom neuen Passwort-Formular
+      const backToLoginFromNewPassword = document.getElementById('back-to-login-from-new-password');
+      if (backToLoginFromNewPassword) {
+        backToLoginFromNewPassword.addEventListener('click', (e) => {
+          e.preventDefault();
+          const loginForm = document.getElementById('login-form');
+          const registerForm = document.getElementById('register-form');
+          const passwordResetForm = document.getElementById('password-reset-form');
+          const newPasswordForm = document.getElementById('new-password-form');
+          const title = document.getElementById('auth-title');
+          const switchText = document.getElementById('auth-switch-text');
+          const switchLink = document.getElementById('auth-switch-link');
+          
+          if (loginForm && newPasswordForm && title) {
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            passwordResetForm.style.display = 'none';
+            newPasswordForm.style.display = 'none';
+            title.textContent = 'Mitglieder Login';
+            if (switchText && switchLink) {
+              switchText.style.display = 'block';
+              switchText.textContent = 'Noch kein Account?';
+              switchLink.style.display = 'block';
+              switchLink.textContent = 'Jetzt registrieren';
+            }
+            showAuthMessage('', ''); // Leere Nachrichten
           }
         });
       }
