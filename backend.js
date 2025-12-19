@@ -849,11 +849,8 @@ async function loadFullLectures() {
                   const content = p.content || p.text || '';
                   // Debug: Prüfe ob Marker vorhanden sind (für alle Vorträge, nicht nur GA215/1)
                   if (content.includes('|') && /\|\d{1,4}\|/.test(content)) {
-                    const markerCount = (content.match(/\|\d{1,4}\|/g) || []).length;
-                    if (p === lecture.paragraphs[0]) {
-                      console.log(`[BACKEND] ✅ Marker in Override gefunden für ${lecture.ID}: ${markerCount} Marker im ersten Paragraph`);
-                      console.log(`[BACKEND]   Content preview: ${content.substring(0, 100)}`);
-                    }
+                    // Debug-Logs deaktiviert für schnelleren Serverstart
+                    // const markerCount = (content.match(/\|\d{1,4}\|/g) || []).length;
                   }
                   return {
                     ...p,
@@ -871,9 +868,8 @@ async function loadFullLectures() {
                   console.error(`[BACKEND] ❌ FEHLER: Marker verloren bei Normalisierung für ${lecture.ID}!`);
                   console.error(`[BACKEND]   Vorher: ${contentBefore.substring(0, 100)}`);
                   console.error(`[BACKEND]   Nachher: ${contentAfter.substring(0, 100)}`);
-                } else if (hasMarkersBefore && hasMarkersAfter) {
-                  console.log(`[BACKEND] ✅ Marker erhalten nach Normalisierung für ${lecture.ID}`);
                 }
+                // Erfolgs-Log deaktiviert für schnelleren Serverstart
                 
                 fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
                 // Aktualisiere auch die mtime-Markierung
