@@ -30,8 +30,22 @@ async function initSupabase() {
   // User Status prüfen
   const { data: { user } } = await supabaseClient.auth.getUser();
   currentUser = user;
+  window.currentUser = user; // Auch global verfügbar machen
   
   return supabaseClient;
+}
+
+// Aktuellen User abrufen
+async function getCurrentUser() {
+  if (!supabaseClient) {
+    await initSupabase();
+  }
+  if (!currentUser) {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    currentUser = user;
+    window.currentUser = user;
+  }
+  return currentUser;
 }
 
 // ============================================
@@ -580,6 +594,10 @@ window.initMembersIntegration = async function(gaNumber, lectureTitle) {
   initSelectionPopup(gaNumber, lectureTitle);
   addParagraphBookmarkIcons(gaNumber, lectureTitle);
 };
+
+// WICHTIG: initSupabase und getCurrentUser global verfügbar machen
+window.initSupabase = initSupabase;
+window.getCurrentUser = getCurrentUser;
 
 window.handlePopupClick = handlePopupClick;
 

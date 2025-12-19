@@ -625,13 +625,20 @@ async function loadFullLectures() {
       basePath: lectureBasePath
     }));
     
-    console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
-    console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
-    filesToLoad.forEach((f, i) => {
-      const fileName = f.fileName || f;
-      const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
-      console.log(`  [${i}] ${fileName} (${mtime})`);
-    });
+    // Debug-Modus: Setze DEBUG_LECTURES=true in Umgebungsvariablen für detaillierte Ausgaben
+    const DEBUG_LECTURES = process.env.DEBUG_LECTURES === 'true';
+    
+    if (DEBUG_LECTURES) {
+      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+      console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
+      filesToLoad.forEach((f, i) => {
+        const fileName = f.fileName || f;
+        const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
+        console.log(`  [${i}] ${fileName} (${mtime})`);
+      });
+    } else {
+      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+    }
     
     for (const fileInfo of filesToLoad) {
       const fileName = fileInfo.fileName || fileInfo;
@@ -682,15 +689,18 @@ async function loadFullLectures() {
               const existingTitle = existing.title || '';
               const newTitle = lecture.title || '';
               
-              if (normalizedExisting !== normalizedNew || existingTitle !== newTitle) {
+              // Nur im Debug-Modus warnen, oder bei wichtigen Unterschieden (Titel unterschiedlich)
+              if (DEBUG_LECTURES || existingTitle !== newTitle) {
                 console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
-                console.warn(`        Alte Datei: ${existingFileName}`);
-                console.warn(`        Neue Datei: ${newFileName}`);
+                if (DEBUG_LECTURES) {
+                  console.warn(`        Alte Datei: ${existingFileName}`);
+                  console.warn(`        Neue Datei: ${newFileName}`);
+                }
               }
               // Ansonsten ist es derselbe Vortrag aus einer anderen Part-Datei (normal bei Chunks)
             }
-            // Debug: Zeige wenn GA217a/2 überschrieben wird
-            if (lecture.ID === 'GA217a/2') {
+            // Debug: Zeige wenn GA217a/2 überschrieben wird (nur im Debug-Modus)
+            if (DEBUG_LECTURES && lecture.ID === 'GA217a/2') {
               if (fullLectures[lecture.ID]) {
                 console.log(`    🔄 GA217a/2 wird überschrieben von: ${fileName}`);
                 console.log(`        Alte Version: ${fullLectures[lecture.ID].paragraphs[0]?.content?.substring(0, 80)}...`);

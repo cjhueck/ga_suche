@@ -35496,7 +35496,7 @@ async function addKeywordToLecture() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- Basis-Integration (Supabase Init) -->
-<script src="members-integration-standalone.js"></script>
+<script src="members/members-integration-standalone.js"></script>
 
 <!-- Mitglieder-Menu -->
 <script src="members/members-menu.js"></script>
@@ -35688,6 +35688,46 @@ async function addKeywordToLecture() {
 
 <!-- Initialisiere Chat-Badge beim Laden der Seite -->
 <script>
+  // Event-Listener für Mitglieder-Button (ersetzt onclick-Attribut)
+  function setupMembersButtonListener() {
+    const membersPanelBtn = document.getElementById('membersPanelBtn');
+    if (membersPanelBtn && !membersPanelBtn.hasAttribute('data-listener-added')) {
+      // Entferne onclick-Attribut und füge Event-Listener hinzu
+      membersPanelBtn.removeAttribute('onclick');
+      membersPanelBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof toggleMembersPanel === 'function') {
+          toggleMembersPanel();
+        } else {
+          console.error('[MEMBERS-BTN] toggleMembersPanel Funktion nicht verfügbar!');
+          // Versuche Panel direkt zu öffnen
+          if (typeof openMembersPanel === 'function') {
+            openMembersPanel();
+          } else {
+            console.error('[MEMBERS-BTN] openMembersPanel Funktion nicht verfügbar!');
+          }
+        }
+      });
+      membersPanelBtn.setAttribute('data-listener-added', 'true');
+    }
+  }
+  
+  // Versuche Event-Listener zu setzen
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupMembersButtonListener);
+  } else {
+    setupMembersButtonListener();
+  }
+  
+  // Versuche es auch nach kurzer Verzögerung (falls Scripts noch nicht geladen sind)
+  setTimeout(setupMembersButtonListener, 500);
+  setTimeout(setupMembersButtonListener, 1000);
+  setTimeout(setupMembersButtonListener, 2000);
+  
+  // Warte auch auf members-api-loaded Event
+  window.addEventListener('members-api-loaded', setupMembersButtonListener);
+  
   // Initialisiere Chat-Badge sofort beim Laden, wenn Benutzer eingeloggt ist
   function initializeChatBadgeOnLoad() {
     // Warte bis members-panel.js und members-api.js geladen sind
