@@ -607,6 +607,9 @@ async function loadSteinerImages() {
 }
 
 async function loadFullLectures() {
+  // Debug-Modus: Setze DEBUG_LECTURES=true in Umgebungsvariablen für detaillierte Ausgaben
+  const DEBUG_LECTURES = process.env.DEBUG_LECTURES === 'true';
+  
   try {
     const { lectureFiles, lectureBasePath, lectureFilesWithPaths } = await findDataFiles();
     
@@ -625,13 +628,17 @@ async function loadFullLectures() {
       basePath: lectureBasePath
     }));
     
-    console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
-    console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
-    filesToLoad.forEach((f, i) => {
-      const fileName = f.fileName || f;
-      const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
-      console.log(`  [${i}] ${fileName} (${mtime})`);
-    });
+    if (DEBUG_LECTURES) {
+      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+      console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
+      filesToLoad.forEach((f, i) => {
+        const fileName = f.fileName || f;
+        const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
+        console.log(`  [${i}] ${fileName} (${mtime})`);
+      });
+    } else {
+      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+    }
     
     for (const fileInfo of filesToLoad) {
       const fileName = fileInfo.fileName || fileInfo;
@@ -755,39 +762,123 @@ async function loadFullLectures() {
             // Prüfe ob es ein Vortrags-Override ist (hat "lectures" Array)
             if (parsed.lectures && Array.isArray(parsed.lectures)) {
               lectureOverrideFiles++;
+              // Debug: Zeige welche Override-Datei geladen wird
+              console.log(`[BACKEND] 📂 Lade Override-Datei: ${f} (${parsed.lectures.length} Vorträge)`);
               
               // Hole mtime der Override-Datei
-              const overrideStats = await fs.promises.stat(p).catch(() => null);
+              const overrideStats = await fs.stat(p).catch(() => null);
               const overrideMtime = overrideStats 
                 ? (overrideStats.mtime instanceof Date ? overrideStats.mtime.getTime() : new Date(overrideStats.mtime).getTime())
                 : 0;
               
-              for (const lecture of parsed.lectures) {
-                if (lecture.ID && fullLectures[lecture.ID]) {
-                  // WICHTIG: Prüfe ob Override neuer ist als die exportierte Datei
-                  const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
-                  
-                  if (overrideMtime > existingMtime) {
-                    // Override ist neuer - anwenden
-                    const normalizedParagraphs = lecture.paragraphs.map(p => ({
-                      ...p,
-                      text: p.text || p.content  // Falls "content" statt "text"
-                    }));
-                    fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
-                    // Aktualisiere auch die mtime-Markierung
-                    fullLectures[lecture.ID]._sourceFileMtime = overrideMtime;
-                    applied++;
+              // Debug: Zeige welche Vorträge in dieser Override-Datei sind
+              const overrideLectureIds = parsed.lectures.map(l => l.ID).filter(Boolean);
+              const foundInFullLectures = overrideLectureIds.filter(id => fullLectures[id]);
+              const notFoundInFullLectures = overrideLectureIds.filter(id => !fullLectures[id]);
+              
+              // Zeige für alle Override-Dateien, nicht nur GA215
+              if (notFoundInFullLectures.length > 0) {
+                console.warn(`[BACKEND] ⚠️  ${f}: ${notFoundInFullLectures.length} von ${overrideLectureIds.length} Vorträgen nicht in fullLectures gefunden`);
+                if (notFoundInFullLectures.length <= 5) {
+                  console.warn(`[BACKEND]   Nicht gefunden: ${notFoundInFullLectures.join(', ')}`);
+                } else {
+                  console.warn(`[BACKEND]   Nicht gefunden (Beispiele): ${notFoundInFullLectures.slice(0, 5).join(', ')}...`);
+                }
+                // Zeige verfügbare IDs für diese GA-Nummer
+                const gaMatch = overrideLectureIds[0]?.match(/^(GA\d{3}[a-z]?)/);
+                if (gaMatch) {
+                  const gaPrefix = gaMatch[1];
+                  const availableIds = Object.keys(fullLectures).filter(id => id.startsWith(gaPrefix + '/')).slice(0, 10);
+                  if (availableIds.length > 0) {
+                    console.warn(`[BACKEND]   Verfügbare IDs in fullLectures (${gaPrefix}): ${availableIds.join(', ')}`);
                   } else {
-                    // Exportierte Datei ist neuer - Override überspringen
-                    // (stille Überspringung, da exportierte Version Vorrang hat)
-                    // Debug: Zeige wenn Override übersprungen wird (nur für GA217a/2)
-                    if (lecture.ID === 'GA217a/2') {
-                      console.log(`    ⏭️  GA217a/2 Override übersprungen: Exportierte Datei ist neuer`);
-                      console.log(`        Override mtime: ${new Date(overrideMtime).toISOString()}`);
-                      console.log(`        Exportierte mtime: ${new Date(existingMtime).toISOString()}`);
-                    }
+                    console.warn(`[BACKEND]   KEINE ${gaPrefix}-Vorträge in fullLectures gefunden!`);
                   }
                 }
+              }
+              
+              if (foundInFullLectures.length > 0) {
+                console.log(`[BACKEND] ✅ ${f}: ${foundInFullLectures.length} Vorträge werden überschrieben`);
+              }
+              
+              for (const lecture of parsed.lectures) {
+                if (!lecture.ID) continue;
+                
+                // WICHTIG: Wenn Vortrag nicht in fullLectures existiert, füge ihn hinzu (wie bei Büchern)
+                // Override-Dateien enthalten Marker und sollten Vorrang haben
+                if (!fullLectures[lecture.ID]) {
+                  console.warn(`[BACKEND] ⚠️  Vortrag ${lecture.ID} nicht in exportierten Daten gefunden, füge aus Override hinzu`);
+                  // Normalisiere Paragraphs
+                  const normalizedParagraphs = lecture.paragraphs.map(p => {
+                    const content = p.content || p.text || '';
+                    return {
+                      ...p,
+                      text: content,
+                      content: content
+                    };
+                  });
+                  lecture.paragraphs = normalizedParagraphs;
+                  lecture._sourceFileMtime = overrideMtime;
+                  fullLectures[lecture.ID] = lecture;
+                  applied++;
+                  continue;
+                }
+                
+                // Vortrag existiert bereits - Override anwenden
+                // WICHTIG: Override-Dateien enthalten Seitenmarker und sollten IMMER angewendet werden,
+                // auch wenn die exportierte Datei neuer ist, da die Marker nur in Overrides vorhanden sind
+                const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
+                
+                // Warnung nur wenn exportierte Datei deutlich neuer ist (mehr als 1 Tag)
+                const oneDayMs = 24 * 60 * 60 * 1000;
+                if (existingMtime > overrideMtime + oneDayMs) {
+                  console.warn(`    ⚠️  Override für ${lecture.ID} ist älter als exportierte Datei, wird trotzdem angewendet (Marker erforderlich)`);
+                  console.warn(`        Override mtime: ${new Date(overrideMtime).toISOString()}`);
+                  console.warn(`        Exportierte mtime: ${new Date(existingMtime).toISOString()}`);
+                }
+                
+                // Debug: Prüfe Marker VOR Normalisierung
+                const firstParaBefore = lecture.paragraphs[0];
+                const contentBefore = firstParaBefore?.content || firstParaBefore?.text || '';
+                const hasMarkersBefore = contentBefore.includes('|') && /\|\d{1,4}\|/.test(contentBefore);
+                
+                // Override IMMER anwenden (Marker sind nur in Overrides vorhanden)
+                const normalizedParagraphs = lecture.paragraphs.map(p => {
+                  // WICHTIG: Verwende content wenn vorhanden, sonst text
+                  // Override-Dateien haben meist "content", Original-Dateien haben "text"
+                  const content = p.content || p.text || '';
+                  // Debug: Prüfe ob Marker vorhanden sind (für alle Vorträge, nicht nur GA215/1)
+                  if (content.includes('|') && /\|\d{1,4}\|/.test(content)) {
+                    const markerCount = (content.match(/\|\d{1,4}\|/g) || []).length;
+                    if (p === lecture.paragraphs[0]) {
+                      console.log(`[BACKEND] ✅ Marker in Override gefunden für ${lecture.ID}: ${markerCount} Marker im ersten Paragraph`);
+                      console.log(`[BACKEND]   Content preview: ${content.substring(0, 100)}`);
+                    }
+                  }
+                  return {
+                    ...p,
+                    text: content,  // Normalisiere zu "text" (für Frontend-Kompatibilität)
+                    content: content  // Behalte auch "content" für Kompatibilität
+                  };
+                });
+                
+                // Debug: Prüfe Marker NACH Normalisierung
+                const firstParaAfter = normalizedParagraphs[0];
+                const contentAfter = firstParaAfter?.text || firstParaAfter?.content || '';
+                const hasMarkersAfter = contentAfter.includes('|') && /\|\d{1,4}\|/.test(contentAfter);
+                
+                if (hasMarkersBefore && !hasMarkersAfter) {
+                  console.error(`[BACKEND] ❌ FEHLER: Marker verloren bei Normalisierung für ${lecture.ID}!`);
+                  console.error(`[BACKEND]   Vorher: ${contentBefore.substring(0, 100)}`);
+                  console.error(`[BACKEND]   Nachher: ${contentAfter.substring(0, 100)}`);
+                } else if (hasMarkersBefore && hasMarkersAfter) {
+                  console.log(`[BACKEND] ✅ Marker erhalten nach Normalisierung für ${lecture.ID}`);
+                }
+                
+                fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
+                // Aktualisiere auch die mtime-Markierung
+                fullLectures[lecture.ID]._sourceFileMtime = Math.max(overrideMtime, existingMtime);
+                applied++;
               }
             }
           } catch (e) {
@@ -796,11 +887,33 @@ async function loadFullLectures() {
         }
         
         if (lectureOverrideFiles > 0) {
-          // Zeige nur wenn Overrides angewendet wurden oder im Debug-Modus
-          if (applied > 0 || DEBUG_LECTURES) {
-            console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge angewendet aus ${lectureOverrideFiles} Dateien`);
-            if (DEBUG_LECTURES && applied < lectureOverrideFiles * 5) {
-              console.log(`    ℹ️  Hinweis: Neuere exportierte Dateien haben Vorrang vor älteren Overrides`);
+          // Zeige immer, da Overrides wichtig sind für Marker
+          console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge angewendet aus ${lectureOverrideFiles} Dateien`);
+          if (applied === 0) {
+            console.error(`    ❌ KRITISCH: ${lectureOverrideFiles} Override-Dateien gefunden, aber KEINE Vorträge angewendet!`);
+            console.error(`    ❌ Mögliche Ursachen:`);
+            console.error(`       - Override-Vorträge nicht in exportierten Daten gefunden`);
+            console.error(`       - Vortrags-IDs stimmen nicht überein`);
+            console.error(`       - Override-Dateien werden zu spät geladen`);
+          } else {
+            // Zeige Beispiel-Vorträge die angewendet wurden
+            const sampleIds = [];
+            for (const f of overrideFiles.slice(0, 3)) {
+              try {
+                const p = path.join(overridesDir, f);
+                const raw = await fs.readFile(p, 'utf8');
+                const parsed = JSON.parse(raw);
+                if (parsed.lectures) {
+                  parsed.lectures.forEach(l => {
+                    if (l.ID && fullLectures[l.ID] && sampleIds.length < 5) {
+                      sampleIds.push(l.ID);
+                    }
+                  });
+                }
+              } catch(e) {}
+            }
+            if (sampleIds.length > 0) {
+              console.log(`    Beispiel angewendete Vorträge: ${sampleIds.join(', ')}`);
             }
           }
         }
@@ -15307,7 +15420,32 @@ app.get('/api/full-lecture/:lectureId', async (req, res) => {
     if (!lecture) {
       return res.status(404).json({ error: `Vortrag nicht gefunden: ${lectureId}` });
     }
-  res.json({ lecture });
+    
+    // Debug: Prüfe ob Marker in Paragraphs vorhanden sind
+    if (lecture.paragraphs && lecture.paragraphs.length > 0) {
+      const parasWithMarkers = lecture.paragraphs.filter(p => {
+        const content = p.text || p.content || '';
+        return content.includes('|') && /\|\d{1,4}\|/.test(content);
+      });
+      if (parasWithMarkers.length > 0) {
+        const firstPara = parasWithMarkers[0];
+        const content = firstPara.text || firstPara.content || '';
+        console.log(`[BACKEND-API] ✅ ${parasWithMarkers.length} Paragraphs mit Markern für ${lectureId}:`, content.substring(0, 100));
+      } else {
+        // Prüfe erste 3 Paragraphs im Detail
+        const sampleParas = lecture.paragraphs.slice(0, 3);
+        console.warn(`[BACKEND-API] ❌ KEINE Marker gefunden für ${lectureId} in ${lecture.paragraphs.length} Paragraphs`);
+        sampleParas.forEach((p, idx) => {
+          const content = p.text || p.content || '';
+          console.warn(`[BACKEND-API]   Para ${idx}: text=${!!p.text}, content=${!!p.content}, length=${content.length}, has|=${content.includes('|')}`);
+          if (content.length > 0) {
+            console.warn(`[BACKEND-API]   Content preview: ${content.substring(0, 80)}`);
+          }
+        });
+      }
+    }
+    
+    res.json({ lecture });
   } catch (error) {
     console.error('Fehler beim Laden des Vortrags:', error);
     res.status(500).json({ error: error.message });
