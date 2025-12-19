@@ -13122,9 +13122,54 @@ app.post('/api/generate-keywords', async (req, res) => {
 
 // API: Bilder-Datenbank abrufen (nur für einen bestimmten Vortrag)
 // Lädt die Bilder aus den Part-Dateien bei Bedarf, ohne alle beim Start zu laden
-app.get('/api/steiner-images/:lectureId?', async (req, res) => {
+// Route ohne Parameter - gibt Liste aller Vortrags-IDs mit Bildern zurück
+app.get('/api/steiner-images', async (req, res) => {
   try {
-    const lectureId = req.params.lectureId;
+    // Liste aller verfügbaren Vortrags-IDs (ohne Bilder zu laden)
+    const imagesDir2 = path.join(__dirname, 'steiner-images');
+    let imagesBasePath2, files2;
+    try {
+      files2 = await fs.readdir(imagesDir2);
+      imagesBasePath2 = imagesDir2;
+    } catch {
+      files2 = await fs.readdir(__dirname);
+      imagesBasePath2 = __dirname;
+    }
+    const partFiles = files2
+      .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
+      .sort();
+    
+    const lectureIdsSet = new Set();
+    
+    for (const partFile of partFiles) {
+      const partPath = path.join(imagesBasePath2, partFile);
+      const data = await fs.readFile(partPath, 'utf8');
+      const partData = JSON.parse(data);
+      
+      if (Array.isArray(partData)) {
+        partData.forEach(img => {
+          if (img.lectureId) lectureIdsSet.add(img.lectureId);
+        });
+      } else {
+        Object.keys(partData).forEach(id => lectureIdsSet.add(id));
+      }
+    }
+    
+    res.json(Array.from(lectureIdsSet).sort());
+  } catch (error) {
+    console.error('Fehler beim Laden der Bilder-IDs:', error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Route mit GA-Nummer und optionaler Vortragsnummer: /api/steiner-images/GA074/1
+app.get('/api/steiner-images/:gaNumber/:lectureNumber?', async (req, res) => {
+  try {
+    // Baue lectureId aus URL-Parametern zusammen
+    let lectureId = req.params.gaNumber;
+    if (req.params.lectureNumber) {
+      lectureId = `${req.params.gaNumber}/${req.params.lectureNumber}`;
+    }
     
     if (lectureId) {
       // VALIDIERUNG ENTFERNT - verursachte Probleme
@@ -13176,42 +13221,6 @@ app.get('/api/steiner-images/:lectureId?', async (req, res) => {
       // Keine Bilder gefunden
       steinerImages[lectureId] = []; // Cache leeres Array
       res.json([]);
-    } else {
-      // Liste aller verfügbaren Vortrags-IDs (ohne Bilder zu laden)
-      // Lese nur die ersten Zeilen jeder Part-Datei um lectureIds zu extrahieren
-      const imagesDir2 = path.join(__dirname, 'steiner-images');
-      let imagesBasePath2, files2;
-      try {
-        files2 = await fs.readdir(imagesDir2);
-        imagesBasePath2 = imagesDir2;
-      } catch {
-        files2 = await fs.readdir(__dirname);
-        imagesBasePath2 = __dirname;
-      }
-      const partFiles = files2
-        .filter(f => f.startsWith('steiner-images-part') && f.endsWith('.json'))
-        .sort();
-      
-      const lectureIdsSet = new Set();
-      
-      for (const partFile of partFiles) {
-        const partPath = path.join(imagesBasePath2, partFile);
-        const data = await fs.readFile(partPath, 'utf8');
-        const partData = JSON.parse(data);
-        
-        if (Array.isArray(partData)) {
-          partData.forEach(img => {
-            if (img.lectureId) {
-              lectureIdsSet.add(img.lectureId);
-            }
-          });
-        } else {
-          Object.keys(partData).forEach(id => lectureIdsSet.add(id));
-        }
-      }
-      
-      const lectureIds = Array.from(lectureIdsSet);
-      res.json({ lectureIds: lectureIds, count: lectureIds.length });
     }
   } catch (error) {
     console.error('[IMAGES-API] Fehler beim Laden:', error);
