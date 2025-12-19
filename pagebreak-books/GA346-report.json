@@ -1,0 +1,42 @@
+{
+  "ga": "GA346",
+  "sourceFile": "steiner-full-lectures-030-354-part17.json",
+  "anchorsFile": "page-break-markers.json",
+  "breaksTotal": 346,
+  "breaksWithPage": 346,
+  "inserted": 245,
+  "insertedRatio": 0.708092485549133,
+  "failed": 6,
+  "failuresSample": [
+    {
+      "page": 225,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 226,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 227,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 228,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 229,
+      "reason": "no-match",
+      "lecture": 15
+    },
+    {
+      "page": 230,
+      "reason": "no-match",
+      "lecture": 15
+    }
+  ]
+}
