@@ -508,10 +508,16 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
 
 
 def iter_steiner_lectures_files() -> List[Path]:
+    """Sucht in beiden Verzeichnissen: Unterordner und Hauptverzeichnis"""
     lectures_dir = SCRIPT_DIR / "steiner-full-lectures"
+    files = []
+    # Suche zuerst im Unterordner
     if lectures_dir.exists():
-        return sorted(lectures_dir.glob("steiner-full-lectures-*.json"))
-    return sorted(SCRIPT_DIR.glob("steiner-full-lectures-*.json"))
+        files.extend(lectures_dir.glob("steiner-full-lectures-*.json"))
+    # Suche auch im Hauptverzeichnis
+    files.extend(SCRIPT_DIR.glob("steiner-full-lectures-*.json"))
+    # Entferne Duplikate und sortiere
+    return sorted(set(files))
 
 
 def load_book_by_ga(ga_number: str) -> Tuple[Path, Dict]:
