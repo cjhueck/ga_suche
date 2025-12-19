@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <!-- Mitglieder Panel Styles -->
-<link rel="stylesheet" href="members-panel.css">
+<link rel="stylesheet" href="members/members-panel.css">
 <!-- SICHERHEIT: Content Security Policy (nicht zu restriktiv, um nichts kaputt zu machen) -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.supabase.co https://ga-suche.onrender.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://*.supabase.co https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: http://localhost:3003 https://ga-suche.onrender.com; connect-src 'self' http://localhost:3003 https://ga-suche.onrender.com https://*.supabase.co https://raw.githubusercontent.com; frame-src 'self' https://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;">
 <style>
@@ -33101,6 +33101,7 @@ async function restoreBackup(backupName) {
         <option value="clusters">Clusters</option>
         <option value="images">Steiner Images</option>
         <option value="pagemarkers">Seitenzahlen</option>
+        <option value="pagebreakbooks">Pagebreak Books</option>
         <option value="code">Backend Code</option>
         <option value="html">HTML Dateien</option>
         <option value="full">🛡️ Alles (Full Backup)</option>
@@ -35492,7 +35493,7 @@ async function addKeywordToLecture() {
 <script src="members-integration-standalone.js"></script>
 
 <!-- Mitglieder-Menu -->
-<script src="members-menu.js"></script>
+<script src="members/members-menu.js"></script>
 
 <!-- Aktivierung -->
 <script>
@@ -35520,7 +35521,7 @@ async function addKeywordToLecture() {
 <!-- Members API Bridge (ES6 Module → Global) -->
 <!-- HINWEIS: members-integration-standalone.js wird bereits oben geladen (Zeile 29448) -->
 <script type="module">
-  import * as MembersAPI from './members-api.js';
+  import * as MembersAPI from './members/members-api.js';
   
   // API-Funktionen global verfügbar machen
   window.getBookmarks = MembersAPI.getBookmarks;
@@ -35674,10 +35675,10 @@ async function addKeywordToLecture() {
   </script>
 
 <!-- Members Panel UI -->
-<script src="members-panel.js"></script>
+<script src="members/members-panel.js"></script>
 
 <!-- Members Context Menu (Rechtsklick) -->
-<script src="members-context-menu.js"></script>
+<script src="members/members-context-menu.js"></script>
 
 <!-- Initialisiere Chat-Badge beim Laden der Seite -->
 <script>
@@ -36033,7 +36034,6 @@ async function addKeywordToLecture() {
       <strong>Seitenzahl:</strong> ${pageNum}<br>
       <span style="font-size: 0.9em; line-height: 1.5; display: block; margin-top: 0.5em;">
         Wie in der Ausgabe, die oben rechts im Info-Button angegeben ist.<br>
-        <span style="opacity: 0.8; font-size: 0.95em;">(Die Position der Seitentrennungszeichen | kann um wenige Worte von der Seitentrennung im Original abweichen.)</span>
       </span>
     `;
     

@@ -138,22 +138,40 @@ def normalize_ga(ga_arg: str) -> Optional[str]:
 
 
 def find_pdf_for_ga(ga_number: str) -> Optional[Path]:
-    """Findet die PDF-Datei für eine GA-Nummer."""
+    """
+    Findet die PDF-Datei für eine GA-Nummer.
+    Bevorzugt "_einzelseiten" PDFs (für aufgeteilte Doppelseiten-Scans).
+    """
     m = re.search(r"(\d+[a-z]?)", ga_number, re.IGNORECASE)
     if not m:
         return None
     ga_num_str = m.group(1).zfill(3)
     ga_num_str_lower = ga_num_str.lower()
+    ga_num_short = ga_num_str.lstrip("0") or "0"
+    ga_num_short_lower = ga_num_short.lower()
 
+    candidates = []
     for pdf_file in PDF_DIR.glob("*.pdf"):
         name_lower = pdf_file.name.lower()
         if f"ga {ga_num_str_lower}" in name_lower or f"ga{ga_num_str_lower}" in name_lower:
-            return pdf_file
-        ga_num_short = ga_num_str.lstrip("0") or "0"
-        ga_num_short_lower = ga_num_short.lower()
-        if f"ga {ga_num_short_lower}," in name_lower or f"ga {ga_num_short_lower} " in name_lower:
-            return pdf_file
-    return None
+            candidates.append(pdf_file)
+        elif f"ga {ga_num_short_lower}," in name_lower or f"ga {ga_num_short_lower} " in name_lower:
+            candidates.append(pdf_file)
+    
+    if not candidates:
+        return None
+    
+    # Bevorzuge "_einzelseiten" PDFs (aufgeteilte Doppelseiten)
+    for c in candidates:
+        if "_einzelseiten" in c.name.lower():
+            return c
+    
+    # Sonst: erstes gefundenes PDF (aber nicht "_DOPPELSEITEN" Backups)
+    for c in candidates:
+        if "_doppelseiten" not in c.name.lower():
+            return c
+    
+    return candidates[0]
 
 
 def extract_printed_page_from_footer(page: fitz.Page, max_page: int) -> Optional[int]:

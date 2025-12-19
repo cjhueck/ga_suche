@@ -826,9 +826,12 @@ class ExportMaster:
             # Speichere chunks
             print(f"  Erstelle {len(chunks)} part-Dateien...\n")
             
+            images_dir = os.path.join(self.project_root, 'steiner-images')
+            os.makedirs(images_dir, exist_ok=True)
+            
             for i, chunk in enumerate(chunks, 1):
                 filename = f'steiner-images-part{i:02d}.json'
-                filepath = os.path.join(self.project_root, filename)
+                filepath = os.path.join(images_dir, filename)
                 
                 with open(filepath, 'w', encoding='utf-8') as f:
                     json.dump(chunk, f, ensure_ascii=False, indent=2)

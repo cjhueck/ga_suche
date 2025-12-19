@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="members-panel.css">
+  <link rel="stylesheet" href="members/members-panel.css">
   <style>
     /* ===== Design im Stil der GA-Suche ===== */
     :root {
@@ -1298,7 +1298,7 @@
     let supabase;
     
     try {
-      const authModule = await import('./members-auth.js');
+      const authModule = await import('./members/members-auth.js');
       signUp = authModule.signUp;
       signIn = authModule.signIn;
       signOut = authModule.signOut;
@@ -1309,7 +1309,7 @@
       deleteUserAccount = authModule.deleteUserAccount;
       supabase = authModule.supabase;
       
-      const apiModule = await import('./members-api.js');
+      const apiModule = await import('./members/members-api.js');
       getQuotes = apiModule.getQuotes;
       deleteQuote = apiModule.deleteQuote;
       updateQuote = apiModule.updateQuote;

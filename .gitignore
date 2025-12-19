@@ -1,22 +1,20 @@
-node_modules/
-.env
-.DS_Store
-
-# Auto-generierte Kontext-Indizes
-context-indices.json
-
-# Automatische Backups
+# Source folders (too large for git)
+Steiner_GA/
+Steiner_GA_pdf/
 backups/
 
-# Markdown Backup-Dateien (sollten nicht erstellt werden)
-*.md.backup
-*.backup
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
 
-# Steiner GA Quelldaten (zu groß für Git)
-Steiner_GA/
+# Temporary files
+*.tmp
+*-with-pagebreaks.json
 
-# Steiner GA_Parken (wird online nicht gebraucht) 
-Steiner_GA_Parken/
+# Node modules (if any)
+node_modules/
 
-# Anleitungen
-Anleitungen/
+# OS files
+.DS_Store
+Thumbs.db

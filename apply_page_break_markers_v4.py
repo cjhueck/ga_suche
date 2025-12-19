@@ -75,6 +75,9 @@ def normalize_ga(ga_arg: str) -> Optional[str]:
 
 
 def iter_steiner_books_files() -> List[Path]:
+    books_dir = SCRIPT_DIR / "steiner-books"
+    if books_dir.exists():
+        return sorted(books_dir.glob("steiner-books-*.json"))
     return sorted(SCRIPT_DIR.glob("steiner-books-*.json"))
 
 
@@ -439,6 +442,47 @@ def find_best_insertion(
         return None
 
 
+def find_safe_insertion_position(text: str, pos: int) -> int:
+    """
+    Prüft ob die Position innerhalb einer geschützten Markdown-Struktur liegt
+    und verschiebt sie ggf. an eine sichere Stelle.
+    
+    Geschützte Strukturen:
+    - Markdown-Bilder: ![alt](pfad)
+    - Markdown-Links: [text](url)
+    - HTML-Tags: <tag ...>
+    
+    Returns: Sichere Einfügeposition (vor der geschützten Struktur)
+    """
+    if pos < 0:
+        return 0
+    if pos > len(text):
+        return len(text)
+    
+    # Finde alle geschützten Bereiche im Text
+    protected_ranges: List[Tuple[int, int]] = []
+    
+    # Markdown-Bilder: ![...](...)
+    for m in re.finditer(r'!\[[^\]]*\]\([^)]+\)', text):
+        protected_ranges.append((m.start(), m.end()))
+    
+    # Markdown-Links: [...](...) - aber nicht Bilder (die beginnen mit !)
+    for m in re.finditer(r'(?<!!)\[[^\]]*\]\([^)]+\)', text):
+        protected_ranges.append((m.start(), m.end()))
+    
+    # HTML-Tags: <...>
+    for m in re.finditer(r'<[^>]+>', text):
+        protected_ranges.append((m.start(), m.end()))
+    
+    # Prüfe ob Position in einem geschützten Bereich liegt
+    for start, end in protected_ranges:
+        if start < pos < end:
+            # Position liegt innerhalb -> verschiebe VOR die Struktur
+            return start
+    
+    return pos
+
+
 def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tuple[int, int, int]]) -> None:
     """
     insertions: List[(para_idx, char_idx, page)] - muss pro Absatz absteigend sortiert angewendet werden.
@@ -457,11 +501,16 @@ def apply_insertions_to_paragraphs(paragraphs: List[Dict], insertions: List[Tupl
                 c_i = 0
             if c_i > len(s):
                 c_i = len(s)
+            # Prüfe ob Position in geschützter Struktur liegt und verschiebe ggf.
+            c_i = find_safe_insertion_position(s, c_i)
             s = s[:c_i] + marker + s[c_i:]
         paragraphs[p_i]["content"] = s
 
 
 def iter_steiner_lectures_files() -> List[Path]:
+    lectures_dir = SCRIPT_DIR / "steiner-full-lectures"
+    if lectures_dir.exists():
+        return sorted(lectures_dir.glob("steiner-full-lectures-*.json"))
     return sorted(SCRIPT_DIR.glob("steiner-full-lectures-*.json"))
 
 
