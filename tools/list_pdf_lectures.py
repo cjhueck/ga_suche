@@ -71,3 +71,7 @@ for lec in lectures_found:
 print(f"\n=== Gesamt: {len(seen)} Vorträge gefunden ===")
 
 
+
+
+
+

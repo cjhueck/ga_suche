@@ -536,7 +536,7 @@ class SteinerLecturesExporter {
       
       // GA001-GA050 sind Bücher, nicht Vorträge - ausschließen
       // Ausnahmen: GA029-GA037, GA041b und GA046 sind Aufsatzbände (werden wie Vorträge exportiert)
-      // Zusätzliche Ausnahmen: GA014, GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
+      // Zusätzliche Ausnahmen: GA019, GA024, GA026, GA042, GA043, GA044 (auch als Aufsätze behandelbar)
       if (gaNumber) {
         const gaNum = parseInt(gaNumber.match(/^\d+/)?.[0] || '999');
         const gaLower = gaNumber.toLowerCase();
