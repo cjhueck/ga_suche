@@ -6646,7 +6646,7 @@ Bestehende Schlagwörter überschreiben
 <div class="viewer-buttons-container" data-help="viewer-buttons">
 <!-- Mitglieder Button -->
 <button id="membersPanelBtn" onclick="toggleMembersPanel()" title="Mitgliederbereich öffnen/schließen" style="position: relative;">
-<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="pointer-events: none;">
 <circle cx="12" cy="8" r="4"/>
 <path d="M12 14c-6.1 0-8 4-8 4v3h16v-3s-1.9-4-8-4z"/>
 </svg>
@@ -35527,7 +35527,7 @@ async function addKeywordToLecture() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <!-- Basis-Integration (Supabase Init) -->
-<script src="members-integration-standalone.js"></script>
+<script src="members/members-integration-standalone.js"></script>
 
 <!-- Mitglieder-Menu -->
 <script src="members/members-menu.js"></script>
@@ -35556,7 +35556,7 @@ async function addKeywordToLecture() {
 <!-- ============================================ -->
 
 <!-- Members API Bridge (ES6 Module → Global) -->
-<!-- HINWEIS: members-integration-standalone.js wird bereits oben geladen (Zeile 29448) -->
+<!-- HINWEIS: members/members-integration-standalone.js wird bereits oben geladen -->
 <script type="module">
   import * as MembersAPI from './members/members-api.js';
   

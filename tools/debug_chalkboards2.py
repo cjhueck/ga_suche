@@ -25,3 +25,4 @@ for lec in lectures:
         for tp in tafel_paras:
             print(f"    {tp.get('index')}: {tp.get('content')[:50]}")
         print()
+

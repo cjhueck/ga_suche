@@ -45,3 +45,4 @@ if changes > 0:
     print("Fertig!")
 else:
     print("Keine Änderungen nötig.")
+

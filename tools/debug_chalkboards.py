@@ -72,3 +72,4 @@ if images_file.exists():
                     break
             status = "OK" if found else "NICHT GEFUNDEN"
             print(f"  {lid}: {status}")
+
