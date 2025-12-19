@@ -394,47 +394,73 @@ async function findDataFiles() {
   const searchPattern = /^steiner-search-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
   const searchFiles = files.filter(f => searchPattern.test(f));
   
-  // Suche nach steiner-full-lectures-XXX-YYY*.json - zuerst im Unterordner, dann im Hauptordner
+  // Suche nach steiner-full-lectures-XXX-YYY*.json - beide Verzeichnisse zusammenführen
   const lecturePattern = /^steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?).*\.json$/i;
   const lecturesDir = path.join(__dirname, 'steiner-full-lectures');
-  let lectureSourceFiles;
-  let lectureBasePath;
-  try {
-    lectureSourceFiles = await fs.readdir(lecturesDir);
-    lectureBasePath = lecturesDir;
-  } catch {
-    lectureSourceFiles = files;
-    lectureBasePath = __dirname;
+  
+  // Sammle Dateien aus beiden Verzeichnissen
+  const allLectureFilesWithPath = [];
+  
+  // Hauptordner
+  const mainFiles = files.filter(f => lecturePattern.test(f));
+  for (const fileName of mainFiles) {
+    const filePath = path.join(__dirname, fileName);
+    try {
+      const stats = await fs.stat(filePath);
+      allLectureFilesWithPath.push({
+        fileName,
+        basePath: __dirname,
+        mtime: stats.mtime
+      });
+    } catch (e) {
+      // Ignoriere Fehler
+    }
   }
-  const allLectureFiles = lectureSourceFiles.filter(f => lecturePattern.test(f));
   
-  // Filtere alte, spezifische Dateien heraus, die bereits in großen part-Dateien enthalten sind
-  // Beispiel: steiner-full-lectures-130-159*.json und steiner-full-lectures-261-261.json
-  // sind bereits in steiner-full-lectures-051-354-part*.json enthalten
-  const hasLargeRange = allLectureFiles.some(f => f.includes('051-354'));
+  // Unterordner (falls vorhanden)
+  try {
+    const subFiles = await fs.readdir(lecturesDir);
+    const matchingSubFiles = subFiles.filter(f => lecturePattern.test(f));
+    for (const fileName of matchingSubFiles) {
+      const filePath = path.join(lecturesDir, fileName);
+      try {
+        const stats = await fs.stat(filePath);
+        allLectureFilesWithPath.push({
+          fileName,
+          basePath: lecturesDir,
+          mtime: stats.mtime
+        });
+      } catch (e) {
+        // Ignoriere Fehler
+      }
+    }
+  } catch (e) {
+    // Unterordner existiert nicht - kein Problem
+  }
   
-  const lectureFiles = allLectureFiles.filter(file => {
-    if (!hasLargeRange) return true; // Wenn keine große Range existiert, lade alle
-    
-    // Überspringe spezifische Dateien, die in der großen Range enthalten sind
-    const match = file.match(/steiner-full-lectures-(\d{3}[a-z]?)-(\d{3}[a-z]?)/i);
-    if (!match) return true;
-    
-    const start = parseInt(match[1]);
-    const end = parseInt(match[2]);
-    
-    // Wenn die große Range (051-354) existiert, überspringe kleinere Überschneidungen
-    if (start >= 51 && end <= 354 && file.includes('051-354')) {
-      return true; // Das ist die große Datei selbst
-    }
-    
-    if (start >= 51 && end <= 354 && !file.includes('051-354')) {
-      // Kleine Datei innerhalb der großen Range - überspringen
-      return false;
-    }
-    
-    return true; // Alle anderen Dateien behalten
+  // Sortiere nach Änderungsdatum (älteste zuerst, neueste zuletzt)
+  // So überschreibt die neueste Datei die älteren bei Duplikaten
+  // WICHTIG: Konvertiere mtime zu Timestamp für korrekten Vergleich
+  // Sortiere nach Änderungsdatum (älteste zuerst, neueste zuletzt)
+  // So überschreibt die neueste Datei die älteren bei Duplikaten
+  // WICHTIG: Konvertiere mtime zu Timestamp für korrekten Vergleich
+  allLectureFilesWithPath.sort((a, b) => {
+    const timeA = a.mtime instanceof Date ? a.mtime.getTime() : new Date(a.mtime).getTime();
+    const timeB = b.mtime instanceof Date ? b.mtime.getTime() : new Date(b.mtime).getTime();
+    return timeA - timeB;
   });
+  
+  // Extrahiere Dateinamen und BasePath für Rückgabe
+  // WICHTIG: Verwende lectureBasePath für die erste Datei (für Kompatibilität)
+  // Aber speichere alle Pfade für späteres Laden
+  const lectureFiles = allLectureFilesWithPath.map(f => f.fileName);
+  const lectureBasePath = allLectureFilesWithPath.length > 0 
+    ? allLectureFilesWithPath[0].basePath 
+    : __dirname;
+  
+  // Speichere alle Pfade für loadFullLectures
+  // (wird als zusätzliche Eigenschaft zurückgegeben)
+  const lectureFilesWithPaths = allLectureFilesWithPath;
   
   // Suche nach steiner-books-XXX-YYY*.json - zuerst im Unterordner, dann im Hauptordner
   // Pattern: steiner[-_]books[-_](\d{3}[a-z]?)[-_](\d{3}[a-z]?).*\.json
@@ -470,6 +496,7 @@ async function findDataFiles() {
     searchFiles,
     lectureFiles,
     lectureBasePath,
+    lectureFilesWithPaths, // Enthält {fileName, basePath, mtime} für alle Dateien (sortiert nach mtime)
     bookFiles,
     bookBasePath
   };
@@ -581,7 +608,7 @@ async function loadSteinerImages() {
 
 async function loadFullLectures() {
   try {
-    const { lectureFiles, lectureBasePath } = await findDataFiles();
+    const { lectureFiles, lectureBasePath, lectureFilesWithPaths } = await findDataFiles();
     
     if (lectureFiles.length === 0) {
       console.error('❌ FEHLER: Keine steiner-full-lectures-XXX-YYY*.json Dateien gefunden!');
@@ -591,8 +618,25 @@ async function loadFullLectures() {
     
     
     let totalLectures = 0;
-    for (const fileName of lectureFiles) {
-      const jsonPath = path.join(lectureBasePath, fileName);
+    
+    // Verwende lectureFilesWithPaths wenn verfügbar (für korrekte Pfade), sonst Fallback
+    const filesToLoad = lectureFilesWithPaths || lectureFiles.map(f => ({
+      fileName: f,
+      basePath: lectureBasePath
+    }));
+    
+    console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+    console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
+    filesToLoad.forEach((f, i) => {
+      const fileName = f.fileName || f;
+      const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
+      console.log(`  [${i}] ${fileName} (${mtime})`);
+    });
+    
+    for (const fileInfo of filesToLoad) {
+      const fileName = fileInfo.fileName || fileInfo;
+      const basePath = fileInfo.basePath || lectureBasePath;
+      const jsonPath = path.join(basePath, fileName);
       
       try {
         const data = await fs.readFile(jsonPath, 'utf8');
@@ -600,9 +644,22 @@ async function loadFullLectures() {
         
         const lectures = parsed.lectures || [];
         
+        // Debug: Zeige wenn GA217a/2 gefunden wird
+        const hasGA217a_2 = lectures.some(l => l.ID === 'GA217a/2');
+        if (hasGA217a_2) {
+          const l217a_2 = lectures.find(l => l.ID === 'GA217a/2');
+          console.log(`    📍 GA217a/2 gefunden in: ${fileName} (${basePath})`);
+          console.log(`        Erster Paragraph: ${l217a_2.paragraphs[0]?.content?.substring(0, 80)}...`);
+        }
+        
         if (lectures.length === 0) {
           console.warn(`    ⚠️  Warnung: ${fileName} enthält keine Vorträge!`);
         }
+        
+        // Speichere mtime der aktuellen Datei für späteren Vergleich mit Overrides
+        const fileMtime = fileInfo.mtime instanceof Date 
+          ? fileInfo.mtime.getTime() 
+          : new Date(fileInfo.mtime || Date.now()).getTime();
         
         lectures.forEach(lecture => {
           if (lecture.ID) {
@@ -612,14 +669,39 @@ async function loadFullLectures() {
               const existingFileName = existing.fileName || 'unbekannt';
               const newFileName = lecture.fileName || 'unbekannt';
               
-              // Nur warnen wenn Dateinamen unterschiedlich sind (echtes Duplikat)
-              if (existingFileName !== newFileName) {
+              // Normalisiere fileName für Vergleich (entferne Datum in Klammern am Ende)
+              const normalizeFileName = (fn) => {
+                return fn.replace(/\s*\([^)]*\)\s*$/, '').trim();
+              };
+              
+              const normalizedExisting = normalizeFileName(existingFileName);
+              const normalizedNew = normalizeFileName(newFileName);
+              
+              // Nur warnen wenn normalisierte Dateinamen unterschiedlich sind (echtes Duplikat)
+              // oder wenn Titel unterschiedlich sind (inhaltliche Unterschiede)
+              const existingTitle = existing.title || '';
+              const newTitle = lecture.title || '';
+              
+              if (normalizedExisting !== normalizedNew || existingTitle !== newTitle) {
                 console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
                 console.warn(`        Alte Datei: ${existingFileName}`);
                 console.warn(`        Neue Datei: ${newFileName}`);
               }
               // Ansonsten ist es derselbe Vortrag aus einer anderen Part-Datei (normal bei Chunks)
             }
+            // Debug: Zeige wenn GA217a/2 überschrieben wird
+            if (lecture.ID === 'GA217a/2') {
+              if (fullLectures[lecture.ID]) {
+                console.log(`    🔄 GA217a/2 wird überschrieben von: ${fileName}`);
+                console.log(`        Alte Version: ${fullLectures[lecture.ID].paragraphs[0]?.content?.substring(0, 80)}...`);
+                console.log(`        Neue Version: ${lecture.paragraphs[0]?.content?.substring(0, 80)}...`);
+              } else {
+                console.log(`    ✅ GA217a/2 wird zum ersten Mal geladen aus: ${fileName}`);
+              }
+            }
+            // Speichere mtime der Datei, aus der dieser Vortrag geladen wurde
+            // (für späteren Vergleich mit Overrides)
+            lecture._sourceFileMtime = fileMtime;
             fullLectures[lecture.ID] = lecture;
             totalLectures++;
           } else {
@@ -634,6 +716,14 @@ async function loadFullLectures() {
     
     const uniqueLecturesCount = Object.keys(fullLectures).length;
     const duplicateCount = totalLectures - uniqueLecturesCount;
+    
+    // Debug: Zeige finale Version von GA217a/2
+    if (fullLectures['GA217a/2']) {
+      const final = fullLectures['GA217a/2'];
+      console.log(`\n    📋 FINALE VERSION von GA217a/2:`);
+      console.log(`        Erster Paragraph Index: ${final.paragraphs[0]?.index}`);
+      console.log(`        Erster Paragraph Content: ${final.paragraphs[0]?.content?.substring(0, 100)}...`);
+    }
     
     if (duplicateCount > 0) {
       console.warn(`  ⚠️  ${duplicateCount} Duplikate gefunden (überschrieben)`);
@@ -662,16 +752,38 @@ async function loadFullLectures() {
             // Prüfe ob es ein Vortrags-Override ist (hat "lectures" Array)
             if (parsed.lectures && Array.isArray(parsed.lectures)) {
               lectureOverrideFiles++;
+              
+              // Hole mtime der Override-Datei
+              const overrideStats = await fs.promises.stat(p).catch(() => null);
+              const overrideMtime = overrideStats 
+                ? (overrideStats.mtime instanceof Date ? overrideStats.mtime.getTime() : new Date(overrideStats.mtime).getTime())
+                : 0;
+              
               for (const lecture of parsed.lectures) {
                 if (lecture.ID && fullLectures[lecture.ID]) {
-                  // Ersetze nur paragraphs (behalte andere Metadaten)
-                  // WICHTIG: Override kann "content" statt "text" haben - normalisieren!
-                  const normalizedParagraphs = lecture.paragraphs.map(p => ({
-                    ...p,
-                    text: p.text || p.content  // Falls "content" statt "text"
-                  }));
-                  fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
-                  applied++;
+                  // WICHTIG: Prüfe ob Override neuer ist als die exportierte Datei
+                  const existingMtime = fullLectures[lecture.ID]._sourceFileMtime || 0;
+                  
+                  if (overrideMtime > existingMtime) {
+                    // Override ist neuer - anwenden
+                    const normalizedParagraphs = lecture.paragraphs.map(p => ({
+                      ...p,
+                      text: p.text || p.content  // Falls "content" statt "text"
+                    }));
+                    fullLectures[lecture.ID].paragraphs = normalizedParagraphs;
+                    // Aktualisiere auch die mtime-Markierung
+                    fullLectures[lecture.ID]._sourceFileMtime = overrideMtime;
+                    applied++;
+                  } else {
+                    // Exportierte Datei ist neuer - Override überspringen
+                    // (stille Überspringung, da exportierte Version Vorrang hat)
+                    // Debug: Zeige wenn Override übersprungen wird (nur für GA217a/2)
+                    if (lecture.ID === 'GA217a/2') {
+                      console.log(`    ⏭️  GA217a/2 Override übersprungen: Exportierte Datei ist neuer`);
+                      console.log(`        Override mtime: ${new Date(overrideMtime).toISOString()}`);
+                      console.log(`        Exportierte mtime: ${new Date(existingMtime).toISOString()}`);
+                    }
+                  }
                 }
               }
             }
@@ -681,7 +793,11 @@ async function loadFullLectures() {
         }
         
         if (lectureOverrideFiles > 0) {
-          console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge aus ${lectureOverrideFiles} Dateien`);
+          const skipped = lectureOverrideFiles * 10 - applied; // Geschätzte Anzahl übersprungener Overrides
+          console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge angewendet aus ${lectureOverrideFiles} Dateien`);
+          if (applied < lectureOverrideFiles * 5) {
+            console.log(`    ℹ️  Hinweis: Neuere exportierte Dateien haben Vorrang vor älteren Overrides`);
+          }
         }
       }
     } catch (e) {
@@ -2952,7 +3068,45 @@ async function generateAnalysis(query, results, depth = 'allgemein') {
     throw new Error('KI-Suche nicht verfügbar');
   }
   
-  const topResults = results;  // Verwende alle übergebenen Ergebnisse gemäß aktuellem Limit
+  // Begrenze Ergebnisse, um Token-Limit zu vermeiden (Claude max: 200.000 Tokens)
+  // Schätze ca. 4 Zeichen pro Token, also max ~800.000 Zeichen für Prompt
+  // Reduziere schrittweise, wenn zu viele Ergebnisse
+  let topResults = results;
+  const MAX_PROMPT_CHARS = 700000; // Sicherheitspuffer unter 200k Tokens
+  
+  // Erstelle Test-Prompt um Länge zu schätzen
+  let testContextText = topResults
+    .map((result, index) => {
+      const refId = `${result.ID}:${result.index}`;
+      return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+    })
+    .join('\n\n---\n\n');
+  
+  // Wenn zu lang, reduziere schrittweise
+  if (testContextText.length > MAX_PROMPT_CHARS) {
+    console.warn(`[LLM] Prompt zu lang (${testContextText.length} Zeichen), reduziere Ergebnisse von ${topResults.length}`);
+    
+    // Reduziere auf ca. 70% der ursprünglichen Anzahl
+    let targetCount = Math.floor(topResults.length * 0.7);
+    
+    // Wenn immer noch zu lang, weiter reduzieren
+    while (targetCount > 10) {
+      topResults = results.slice(0, targetCount);
+      testContextText = topResults
+        .map((result, index) => {
+          const refId = `${result.ID}:${result.index}`;
+          return `[${refId}] ${result.fileName || result.title}\n${result.content}`;
+        })
+        .join('\n\n---\n\n');
+      
+      if (testContextText.length <= MAX_PROMPT_CHARS) {
+        break;
+      }
+      targetCount = Math.floor(targetCount * 0.8);
+    }
+    
+    console.warn(`[LLM] Reduziert auf ${topResults.length} Ergebnisse (${testContextText.length} Zeichen)`);
+  }
 
   const contextText = topResults
     .map((result, index) => {
@@ -3094,6 +3248,12 @@ ANALYSE:`;
     console.error('LLM-Analyse Fehler:', error);
     console.error('Error Details:', error.message);
     console.error('Stack:', error.stack);
+    
+    // Spezielle Behandlung für "Prompt zu lang" Fehler
+    if (error.message && error.message.includes('prompt is too long')) {
+      throw new Error('Zu viele Textstellen gefunden. Bitte die Suche spezifischer formulieren oder relevante Suchworte in Anführungszeichen setzen.');
+    }
+    
     throw error;
   }
 }
@@ -5187,6 +5347,41 @@ app.get('/debug/status', async (req, res) => {
   
   const summaryDB = await loadSummaryDatabase();
   
+  // Teste Claude API-Key wenn vorhanden
+  let claudeKeyTest = null;
+  const claudeApiKey = process.env.CLAUDE_API_KEY;
+  if (claudeApiKey) {
+    try {
+      const testResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': claudeApiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 10,
+          messages: [{
+            role: 'user',
+            content: 'OK'
+          }]
+        })
+      });
+      
+      claudeKeyTest = {
+        valid: testResponse.ok,
+        status: testResponse.status,
+        error: testResponse.ok ? null : await testResponse.text().then(t => t.substring(0, 100)).catch(() => 'Unknown error')
+      };
+    } catch (error) {
+      claudeKeyTest = {
+        valid: false,
+        error: error.message
+      };
+    }
+  }
+  
   res.json({
     server: 'hybrid-search-unified',
     status: 'running',
@@ -5204,8 +5399,85 @@ app.get('/debug/status', async (req, res) => {
       openai: !!process.env.OPENAI_API_KEY,
       gemini: !!process.env.GEMINI_API_KEY,
       default: process.env.LLM_PROVIDER_DEFAULT || 'claude'
-    }
+    },
+    claudeKeyTest: claudeKeyTest
   });
+});
+
+// API-Endpunkt: Teste Claude API-Key
+app.get('/api/test-claude-key', async (req, res) => {
+  try {
+    const claudeApiKey = process.env.CLAUDE_API_KEY;
+    
+    if (!claudeApiKey) {
+      return res.status(400).json({
+        success: false,
+        error: 'CLAUDE_API_KEY nicht gesetzt',
+        keyPresent: false,
+        keyPrefix: null
+      });
+    }
+    
+    // Zeige nur ersten und letzten Teil des Keys (Sicherheit)
+    const keyPrefix = claudeApiKey.substring(0, 15) + '...' + claudeApiKey.substring(claudeApiKey.length - 10);
+    
+    // Teste API-Key mit einem einfachen Request
+    try {
+      const testResponse = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': claudeApiKey,
+          'anthropic-version': '2023-06-01'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 50,
+          messages: [{
+            role: 'user',
+            content: 'Antworte nur mit "OK"'
+          }]
+        })
+      });
+      
+      if (!testResponse.ok) {
+        const errorText = await testResponse.text();
+        return res.status(500).json({
+          success: false,
+          error: `API-Key ungültig oder Fehler: ${testResponse.status}`,
+          keyPresent: true,
+          keyPrefix: keyPrefix,
+          apiError: errorText.substring(0, 200)
+        });
+      }
+      
+      const testResult = await testResponse.json();
+      
+      return res.json({
+        success: true,
+        message: 'Claude API-Key funktioniert!',
+        keyPresent: true,
+        keyPrefix: keyPrefix,
+        testResponse: testResult.content[0].text.substring(0, 50)
+      });
+      
+    } catch (apiError) {
+      return res.status(500).json({
+        success: false,
+        error: 'Fehler beim Testen des API-Keys',
+        keyPresent: true,
+        keyPrefix: keyPrefix,
+        apiError: apiError.message
+      });
+    }
+    
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: error.message,
+      keyPresent: false
+    });
+  }
 });
 
 // API-Endpunkt: GA-Liste für Dropdowns
@@ -5373,10 +5645,16 @@ app.post('/api/thematic-hybrid-search', async (req, res) => {
     return res.json(searchResult);
   } catch (error) {
     console.error('Hybrid-thematic-Search Fehler:', error);
+    console.error('Fehler-Details:', {
+      message: error.message,
+      stack: error.stack,
+      claudeApiKeyPresent: !!process.env.CLAUDE_API_KEY,
+      query: req.body.query
+    });
     // Spezielle Fehlermeldung für KI-Suche
     res.status(500).json({ 
       error: 'Suche fehlgeschlagen - bitte Anfrage anders formulieren, relevante Suchworte in Anführungszeichen setzen und in Kürze noch einmal versuchen',
-      originalError: error.message 
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 });

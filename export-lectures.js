@@ -475,38 +475,49 @@ class SteinerLecturesExporter {
 
     const gasUpper = gasToRemove.map(g => g.toUpperCase());
     
-    // Finde alle bestehenden steiner-full-lectures-*.json Dateien
-    const existingFiles = fs.readdirSync(this.outputDir)
-      .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+    // Prüfe sowohl Hauptordner als auch steiner-full-lectures Unterordner
+    const directoriesToCheck = [
+      this.outputDir,
+      path.join(this.outputDir, 'steiner-full-lectures')
+    ];
 
     let totalRemoved = 0;
 
-    for (const fileName of existingFiles) {
-      const filePath = path.join(this.outputDir, fileName);
+    for (const dir of directoriesToCheck) {
+      if (!fs.existsSync(dir)) continue;
       
-      try {
-        const content = fs.readFileSync(filePath, 'utf8');
-        const data = JSON.parse(content);
+      // Finde alle bestehenden steiner-full-lectures-*.json Dateien
+      const existingFiles = fs.readdirSync(dir)
+        .filter(f => f.startsWith('steiner-full-lectures-') && f.endsWith('.json'));
+
+      for (const fileName of existingFiles) {
+        const filePath = path.join(dir, fileName);
         
-        if (!data.lectures || !Array.isArray(data.lectures)) continue;
-        
-        const originalCount = data.lectures.length;
-        
-        // Filtere Vorträge der zu exportierenden GA-Bände heraus
-        data.lectures = data.lectures.filter(l => {
-          const gaNum = (l.gaNumber || '').toUpperCase();
-          return !gasUpper.includes(gaNum);
-        });
-        
-        const removedCount = originalCount - data.lectures.length;
-        
-        if (removedCount > 0) {
-          fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-          console.log(`   🧹 ${fileName}: ${removedCount} alte Einträge entfernt`);
-          totalRemoved += removedCount;
+        try {
+          const content = fs.readFileSync(filePath, 'utf8');
+          const data = JSON.parse(content);
+          
+          if (!data.lectures || !Array.isArray(data.lectures)) continue;
+          
+          const originalCount = data.lectures.length;
+          
+          // Filtere Vorträge der zu exportierenden GA-Bände heraus
+          data.lectures = data.lectures.filter(l => {
+            const gaNum = (l.gaNumber || '').toUpperCase();
+            return !gasUpper.includes(gaNum);
+          });
+          
+          const removedCount = originalCount - data.lectures.length;
+          
+          if (removedCount > 0) {
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+            const relativePath = path.relative(this.outputDir, filePath);
+            console.log(`   🧹 ${relativePath}: ${removedCount} alte Einträge entfernt`);
+            totalRemoved += removedCount;
+          }
+        } catch (e) {
+          // Ignoriere Fehler beim Lesen/Schreiben
         }
-      } catch (e) {
-        // Ignoriere Fehler beim Lesen/Schreiben
       }
     }
 

@@ -1000,11 +1000,11 @@ def expand_ga_range(token):
         return [f"GA{i:03d}" for i in range(start_num, end_num + 1)]
     
     # Einzelne GA-Nummer
-    single_match = re.match(r'^GA(\d{1,3})([a-z])?$', token.upper())
+    single_match = re.match(r'^GA(\d+)([a-zA-Z])?$', token.upper())
     if single_match:
         num = int(single_match.group(1))
-        suffix = single_match.group(2) or ''
-        return [f"GA{num:03d}{suffix.lower()}"]
+        suffix = (single_match.group(2) or '').lower()
+        return [f"GA{num:03d}{suffix}"]
     
     return []
 
