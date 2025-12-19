@@ -625,20 +625,13 @@ async function loadFullLectures() {
       basePath: lectureBasePath
     }));
     
-    // Debug-Modus: Setze DEBUG_LECTURES=true in Umgebungsvariablen für detaillierte Ausgaben
-    const DEBUG_LECTURES = process.env.DEBUG_LECTURES === 'true';
-    
-    if (DEBUG_LECTURES) {
-      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
-      console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
-      filesToLoad.forEach((f, i) => {
-        const fileName = f.fileName || f;
-        const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
-        console.log(`  [${i}] ${fileName} (${mtime})`);
-      });
-    } else {
-      console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
-    }
+    console.log(`\n[LOAD-LECTURES] Lade ${filesToLoad.length} Dateien...`);
+    console.log(`[LOAD-LECTURES] Dateien (sortiert nach mtime, älteste zuerst):`);
+    filesToLoad.forEach((f, i) => {
+      const fileName = f.fileName || f;
+      const mtime = f.mtime ? new Date(f.mtime).toISOString() : 'unbekannt';
+      console.log(`  [${i}] ${fileName} (${mtime})`);
+    });
     
     for (const fileInfo of filesToLoad) {
       const fileName = fileInfo.fileName || fileInfo;
@@ -651,12 +644,14 @@ async function loadFullLectures() {
         
         const lectures = parsed.lectures || [];
         
-        // Debug: Zeige wenn GA217a/2 gefunden wird
-        const hasGA217a_2 = lectures.some(l => l.ID === 'GA217a/2');
-        if (hasGA217a_2) {
-          const l217a_2 = lectures.find(l => l.ID === 'GA217a/2');
-          console.log(`    📍 GA217a/2 gefunden in: ${fileName} (${basePath})`);
-          console.log(`        Erster Paragraph: ${l217a_2.paragraphs[0]?.content?.substring(0, 80)}...`);
+        // Debug: Zeige wenn GA217a/2 gefunden wird (nur im Debug-Modus)
+        if (DEBUG_LECTURES) {
+          const hasGA217a_2 = lectures.some(l => l.ID === 'GA217a/2');
+          if (hasGA217a_2) {
+            const l217a_2 = lectures.find(l => l.ID === 'GA217a/2');
+            console.log(`    📍 GA217a/2 gefunden in: ${fileName} (${basePath})`);
+            console.log(`        Erster Paragraph: ${l217a_2.paragraphs[0]?.content?.substring(0, 80)}...`);
+          }
         }
         
         if (lectures.length === 0) {
@@ -689,18 +684,15 @@ async function loadFullLectures() {
               const existingTitle = existing.title || '';
               const newTitle = lecture.title || '';
               
-              // Nur im Debug-Modus warnen, oder bei wichtigen Unterschieden (Titel unterschiedlich)
-              if (DEBUG_LECTURES || existingTitle !== newTitle) {
+              if (normalizedExisting !== normalizedNew || existingTitle !== newTitle) {
                 console.warn(`    ⚠️  Duplikat gefunden: ${lecture.ID} wird überschrieben`);
-                if (DEBUG_LECTURES) {
-                  console.warn(`        Alte Datei: ${existingFileName}`);
-                  console.warn(`        Neue Datei: ${newFileName}`);
-                }
+                console.warn(`        Alte Datei: ${existingFileName}`);
+                console.warn(`        Neue Datei: ${newFileName}`);
               }
               // Ansonsten ist es derselbe Vortrag aus einer anderen Part-Datei (normal bei Chunks)
             }
-            // Debug: Zeige wenn GA217a/2 überschrieben wird (nur im Debug-Modus)
-            if (DEBUG_LECTURES && lecture.ID === 'GA217a/2') {
+            // Debug: Zeige wenn GA217a/2 überschrieben wird
+            if (lecture.ID === 'GA217a/2') {
               if (fullLectures[lecture.ID]) {
                 console.log(`    🔄 GA217a/2 wird überschrieben von: ${fileName}`);
                 console.log(`        Alte Version: ${fullLectures[lecture.ID].paragraphs[0]?.content?.substring(0, 80)}...`);
@@ -727,15 +719,16 @@ async function loadFullLectures() {
     const uniqueLecturesCount = Object.keys(fullLectures).length;
     const duplicateCount = totalLectures - uniqueLecturesCount;
     
-    // Debug: Zeige finale Version von GA217a/2
-    if (fullLectures['GA217a/2']) {
+    // Debug: Zeige finale Version von GA217a/2 (nur im Debug-Modus)
+    if (DEBUG_LECTURES && fullLectures['GA217a/2']) {
       const final = fullLectures['GA217a/2'];
       console.log(`\n    📋 FINALE VERSION von GA217a/2:`);
       console.log(`        Erster Paragraph Index: ${final.paragraphs[0]?.index}`);
       console.log(`        Erster Paragraph Content: ${final.paragraphs[0]?.content?.substring(0, 100)}...`);
     }
     
-    if (duplicateCount > 0) {
+    // Zeige nur eine Zusammenfassung, nicht jeden einzelnen Duplikat
+    if (duplicateCount > 0 && DEBUG_LECTURES) {
       console.warn(`  ⚠️  ${duplicateCount} Duplikate gefunden (überschrieben)`);
     }
     
@@ -803,10 +796,12 @@ async function loadFullLectures() {
         }
         
         if (lectureOverrideFiles > 0) {
-          const skipped = lectureOverrideFiles * 10 - applied; // Geschätzte Anzahl übersprungener Overrides
-          console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge angewendet aus ${lectureOverrideFiles} Dateien`);
-          if (applied < lectureOverrideFiles * 5) {
-            console.log(`    ℹ️  Hinweis: Neuere exportierte Dateien haben Vorrang vor älteren Overrides`);
+          // Zeige nur wenn Overrides angewendet wurden oder im Debug-Modus
+          if (applied > 0 || DEBUG_LECTURES) {
+            console.log(`  ✓ Vortrags-Pagebreak-Overrides: ${applied} Vorträge angewendet aus ${lectureOverrideFiles} Dateien`);
+            if (DEBUG_LECTURES && applied < lectureOverrideFiles * 5) {
+              console.log(`    ℹ️  Hinweis: Neuere exportierte Dateien haben Vorrang vor älteren Overrides`);
+            }
           }
         }
       }
