@@ -48,3 +48,4 @@ for i, p in enumerate(target.get('paragraphs', [])):
                 context = content[start:end].replace('\n', ' ')
                 print(f"  Seite {m}: ...{context}...")
 
+

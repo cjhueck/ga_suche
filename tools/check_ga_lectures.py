@@ -79,3 +79,4 @@ for lec in lectures:
     if found == "✗":
         print(f"       Suchtext: {search_key[:60]}...")
 
+

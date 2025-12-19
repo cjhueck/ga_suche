@@ -108,3 +108,4 @@ elif not pb_file.exists():
 else:
     print("→ Alles vorhanden! Server neu laden: Invoke-RestMethod -Uri 'http://localhost:3003/api/reload-books' -Method POST")
 
+
