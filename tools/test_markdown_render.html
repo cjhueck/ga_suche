@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Markdown Rendering</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <h1>Test Markdown Rendering</h1>
+  
+  <h2>Input (wie im JSON gespeichert):</h2>
+  <pre id="input"></pre>
+  
+  <h2>Nach marked.parse():</h2>
+  <pre id="after-marked"></pre>
+  
+  <h2>Nach manueller Bild-Konvertierung:</h2>
+  <pre id="after-manual"></pre>
+  
+  <h2>Gerendert:</h2>
+  <div id="rendered" style="border: 1px solid #ccc; padding: 10px;"></div>
+  
+  <script>
+    const input = '<h2>Wandtafelzeichnungen</h2>\n![Tafel 1](assets/GA074-T01.webp)';
+    document.getElementById('input').textContent = JSON.stringify(input);
+    
+    // marked.parse()
+    let content = marked.parse(input, { breaks: true, gfm: true });
+    document.getElementById('after-marked').textContent = content;
+    
+    // Manuelle Bild-Konvertierung
+    if (content.includes('![')) {
+      console.log('Markdown-Bild gefunden, konvertiere manuell...');
+      content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, function(match, alt, src) {
+        alt = alt.trim();
+        src = src.trim().replace(/^<['"]?|['"]?>$/g, '');
+        return '<img src="' + src + '" alt="' + alt.replace(/"/g, '&quot;') + '" />';
+      });
+    } else {
+      console.log('Kein Markdown-Bild gefunden nach marked.parse()');
+    }
+    document.getElementById('after-manual').textContent = content;
+    
+    // Gerendert
+    document.getElementById('rendered').innerHTML = content;
+  </script>
+</body>
+</html>

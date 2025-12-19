@@ -8927,7 +8927,8 @@ function normalizeGANumber(gaNumber) {
           return steinerImages[lectureId];
         }
         
-        const response = await fetch(`${API_BASE}/api/steiner-images/${encodeURIComponent(lectureId)}`);
+        // lectureId hat Format "GA074/1" - Slash NICHT encodieren, da Route ihn erwartet
+        const response = await fetch(`${API_BASE}/api/steiner-images/${lectureId}`);
         
         if (!response.ok) {
           console.warn(`[IMAGES] Keine Bilder für ${lectureId} verfügbar`);

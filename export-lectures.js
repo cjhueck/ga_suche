@@ -728,7 +728,12 @@ class SteinerLecturesExporter {
         fileName = `steiner-full-lectures-${rangeStart}-${rangeEnd}-part${partNum}.json`;
       }
 
-      const filePath = path.join(this.outputDir, fileName);
+      // Speichere in steiner-full-lectures Unterordner
+      const lecturesDir = path.join(this.outputDir, 'steiner-full-lectures');
+      if (!fs.existsSync(lecturesDir)) {
+        fs.mkdirSync(lecturesDir, { recursive: true });
+      }
+      const filePath = path.join(lecturesDir, fileName);
       fs.writeFileSync(filePath, jsonStr, 'utf8');
 
       const sizeMB = (Buffer.byteLength(jsonStr, 'utf8') / (1024 * 1024)).toFixed(2);
@@ -1160,16 +1165,18 @@ class SteinerLecturesExporter {
       return;
     }
     
-    // Lade fullLectures die gerade exportiert wurden
+    // Lade fullLectures die gerade exportiert wurden (aus Unterordner)
     const fullLectures = {};
-    const files = fs.readdirSync(this.outputDir).filter(f => 
+    const lecturesDir = path.join(this.outputDir, 'steiner-full-lectures');
+    if (!fs.existsSync(lecturesDir)) return;
+    
+    const files = fs.readdirSync(lecturesDir).filter(f => 
       f.startsWith('steiner-full-lectures-') && f.endsWith('.json')
     );
     
-    
     for (const file of files) {
       try {
-        const filePath = path.join(this.outputDir, file);
+        const filePath = path.join(lecturesDir, file);
         const content = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(content);
         
