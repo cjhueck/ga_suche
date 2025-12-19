@@ -14,3 +14,4 @@ for p in lec['paragraphs'][-5:]:
     print(f'index: {idx}')
     print(f'content ({len(content)} chars):')
     print(repr(content[:200]))
+

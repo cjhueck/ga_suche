@@ -45,3 +45,4 @@ if lec074:
         print(f"    {repr(p.get('content')[:150])}")
 else:
     print("GA074/1 nicht gefunden!")
+

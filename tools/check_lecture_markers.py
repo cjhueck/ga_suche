@@ -54,3 +54,4 @@ print(f"\nGesamt: {total_markers} Marker in {len(lectures)} Vorträgen")
 
 
 
+

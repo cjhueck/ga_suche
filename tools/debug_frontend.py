@@ -48,3 +48,4 @@ try:
             print(f"  {img.get('index')}: {img.get('path')}")
 except Exception as e:
     print(f"API Fehler: {e}")
+
