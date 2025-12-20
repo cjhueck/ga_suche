@@ -38,3 +38,4 @@ for f in sorted(images_dir.glob('*.json')):
         for img in ga074_imgs:
             print(f"  {img.get('lectureId')} {img.get('index')}: {img.get('path')}")
 
+
