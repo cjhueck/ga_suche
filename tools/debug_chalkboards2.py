@@ -27,3 +27,4 @@ for lec in lectures:
         print()
 
 
+

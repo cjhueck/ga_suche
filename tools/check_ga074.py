@@ -39,3 +39,4 @@ for f in sorted(images_dir.glob('*.json')):
             print(f"  {img.get('lectureId')} {img.get('index')}: {img.get('path')}")
 
 
+
