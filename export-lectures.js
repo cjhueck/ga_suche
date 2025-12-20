@@ -639,6 +639,11 @@ class SteinerLecturesExporter {
             // Formatiere Paragraph-Content (Gedichte und durchgezogene Linien)
             convertedText = this.formatParagraphContent(convertedText);
             
+            // Konvertiere Markdown-Bilder zu HTML-img-Tags
+            // damit das Frontend konsistentes HTML erhält
+            convertedText = convertedText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, 
+              (match, alt, src) => `<img src="${src.trim()}" alt="${alt.trim()}" />`);
+            
             // Füge gesammelte Überschriften vor dem Absatz ein
             if (pendingHeadings.length > 0) {
               convertedText = pendingHeadings.join('\n') + '\n' + convertedText;
