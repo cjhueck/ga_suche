@@ -209,7 +209,7 @@ def process_image(src_path: Path, dst_path: Path, rotate: bool = True) -> bool:
         if PIL_AVAILABLE:
             img = Image.open(src_path)
             if rotate:
-                img = img.rotate(-90, expand=True)
+                img = img.rotate(90, expand=True)
             img.save(dst_path, 'WEBP', quality=85)
         else:
             shutil.copy2(src_path, dst_path)
