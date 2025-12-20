@@ -1,7 +1,7 @@
 {
   "_info": "Output: Vorträge mit eingefügten |page|-Markern (aus V4 Break Anchors).",
   "ga": "GA074",
-  "sourceFile": "steiner-full-lectures-030-100-part02.json",
+  "sourceFile": "steiner-full-lectures-074-076.json",
   "lectureCount": 3,
   "lectures": [
     {
@@ -309,6 +309,10 @@
         {
           "index": "^fmoj89",
           "content": "Es genügt nicht, dass man eine solche Frage abstrakt und verstandesmäßig und rationalistisch stellt. Es ist notwendig, dass man eine solche Frage mit dem ganzen Herzen fasst, mit der ganzen menschlichen Persönlichkeit fasst. Dann wird man ermessen können, wie diese Frage lastete auf denjenigen Menschen, die ihre Träger im 13. Jahrhundert waren."
+        },
+        {
+          "index": "^ga074t01",
+          "content": "<h2>Wandtafelzeichnungen</h2>\n![Tafel 1](assets/GA074-T01.webp)"
         }
       ]
     },
@@ -589,6 +593,14 @@
         {
           "index": "^fml7qq",
           "content": "So ist der Scholastiker hineingestellt in die ganze Zeit. Mehr als man denkt, lebt in aller heutigen Wissenschaft, in dem ganzen öffentlichen Leben der Gegenwart noch dasjenige fort, aber allerdings in einer besonderen Gestalt, was von der Scholastik übriggeblieben ist. Wie lebendig im Grunde genommen die Scholastik noch in unseren Seelen ist und welche Stellung zu dem, was noch lebt von der Scholastik, der gegenwärtige Mensch eigentlich einnehmen muss, davon wollen wir dann morgen sprechen."
+        },
+        {
+          "index": "^ga074t02",
+          "content": "<h2>Wandtafelzeichnungen</h2>\n![Tafel 2](assets/GA074-T02.webp)"
+        },
+        {
+          "index": "^ga074t03",
+          "content": "![Tafel 3](assets/GA074-T03.webp)"
         }
       ]
     },
@@ -965,6 +977,14 @@
         {
           "index": "^oaxeuf",
           "content": "Diese Betrachtungen wurden gesprochen, um zu erweisen, dass sich in der Hochscholastik des 13 - Jahrhunderts im Abendlande eine Kulmination europäischer Geistesentwickelung gezeigt hat, und dass die gegenwärtige Zeit alle Ursache hat, auf die besondere Wesenheit dieser Kulmination europäischer Geistesentwickelung einzugehen; dass wir unendlich viel lernen können von einem solchen Eingehen, lernen können vor allen Dingen in bezug auf das, was wir im eminentesten Sinne brauchen: Vertiefung unseres Ideenlebens - damit wir hinauskommen über allen Nominalismus, damit wir wiederfinden durch die Durchchristung der Ideen das Christentum, das eindringt in das geistige Sein, dem der Mensch doch entstammen muss, da ihn, wenn er ganz ehrlich und aufrichtig gegen sich ist, nichts anderes befriedigen kann als das Bewusstsein seines geistigen Ursprunges."
+        },
+        {
+          "index": "^ga074t04",
+          "content": "![Tafel 4](assets/GA074-T04.webp)"
+        },
+        {
+          "index": "^ga074t05",
+          "content": "![Tafel 5](assets/GA074-T05.webp)"
         }
       ]
     }

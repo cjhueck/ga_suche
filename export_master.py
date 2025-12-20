@@ -23,7 +23,7 @@ GA-BAND-KATEGORIEN (unterschiedliche Export-Behandlung):
 Fuehrt den kompletten Export-Workflow automatisch aus:
 1. Bildpfade in Obsidian korrigieren (optional)
    - Extrahiert Bilder aus PDF-Dateien (falls vorhanden) und speichert sie als PNG
-   - Konvertiert JPEG-Bilder zu PNG im assets-Ordner
+   - Konvertiert JPEG-Bilder zu WebP im assets-Ordner (kleinere Dateigröße)
    - Korrigiert fehlerhafte Markdown/Wiki-Links
    - Vereinfacht GA-Ordner-Pfade zu assets/...
    - Backup-Dateien werden automatisch erstellt
@@ -76,7 +76,7 @@ try:
     PIL_AVAILABLE = True
 except ImportError:
     PIL_AVAILABLE = False
-    print("Warnung: PIL/Pillow nicht verfügbar. JPEG-zu-PNG Konvertierung wird übersprungen.")
+    print("Warnung: PIL/Pillow nicht verfügbar. JPEG-zu-WebP Konvertierung wird übersprungen.")
 
 # Importiere PyMuPDF für PDF-Bild-Extraktion
 try:
@@ -183,10 +183,11 @@ def extract_images_from_pdf(ga_folder_path):
         return 0
 
 
-def convert_jpeg_to_png_files(md_file_path):
+def convert_jpeg_to_webp_files(md_file_path):
     """
-    Konvertiert alle JPEG-Bilder in PNG im assets-Ordner des GA-Bandes.
-    Sucht alle .jpeg/.jpg Dateien im assets-Ordner und konvertiert sie zu .png.
+    Konvertiert alle JPEG-Bilder in WebP im assets-Ordner des GA-Bandes.
+    Sucht alle .jpeg/.jpg Dateien im assets-Ordner und konvertiert sie zu .webp.
+    WebP bietet bessere Kompression als PNG bei gleicher Qualität.
     
     Args:
         md_file_path: Pfad zur Markdown-Datei
@@ -213,18 +214,18 @@ def convert_jpeg_to_png_files(md_file_path):
             if filename.lower().endswith('.jpeg') or filename.lower().endswith('.jpg'):
                 jpeg_path = os.path.join(assets_dir, filename)
                 
-                # Erstelle PNG-Pfad
-                png_filename = re.sub(r'\.jpe?g$', '.png', filename, flags=re.IGNORECASE)
-                png_path = os.path.join(assets_dir, png_filename)
+                # Erstelle WebP-Pfad
+                webp_filename = re.sub(r'\.jpe?g$', '.webp', filename, flags=re.IGNORECASE)
+                webp_path = os.path.join(assets_dir, webp_filename)
                 
-                # Überspringe wenn PNG bereits existiert
-                if os.path.exists(png_path):
+                # Überspringe wenn WebP bereits existiert
+                if os.path.exists(webp_path):
                     continue
                 
                 try:
-                    # Konvertiere JPEG zu PNG
+                    # Konvertiere JPEG zu WebP (quality=85 für gute Qualität bei kleiner Dateigröße)
                     img = Image.open(jpeg_path)
-                    img.save(png_path, 'PNG')
+                    img.save(webp_path, 'WEBP', quality=85)
                     converted_count += 1
                 except Exception as e:
                     print(f"    [!] Konvertierung fehlgeschlagen: {jpeg_path} -> {e}")
@@ -432,34 +433,34 @@ def fix_image_refs_in_file(filepath, apply_changes=False):
         # Erfasst alle Varianten: mit/ohne < >, mit/ohne Anführungszeichen
         jpeg_pattern = r'!\[([^\]]*)\]\(([^)]*\.jpe?g)([^)]*)\)'
         
-        def convert_jpeg_to_png(match):
+        def convert_jpeg_to_webp(match):
             alt_text = match.group(1)
             path_before_ext = match.group(2)  # Alles vor .jpeg/.jpg
             path_after_ext = match.group(3)   # Alles nach .jpeg/.jpg (kann ' oder > enthalten)
             
-            # Konvertiere auch Alt-Text von .jpeg/.jpg zu .png
-            alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+            # Konvertiere auch Alt-Text von .jpeg/.jpg zu .webp
+            alt_text_converted = re.sub(r'\.jpe?g$', '.webp', alt_text, flags=re.IGNORECASE)
             
-            # Entferne .jpeg oder .jpg und füge .png hinzu
+            # Entferne .jpeg oder .jpg und füge .webp hinzu
             # path_before_ext endet mit .jpeg oder .jpg, also entfernen wir das
             path_without_ext = re.sub(r'\.jpe?g$', '', path_before_ext, flags=re.IGNORECASE)
-            png_path_full = path_without_ext + '.png' + path_after_ext
+            webp_path_full = path_without_ext + '.webp' + path_after_ext
             
-            return f'![{alt_text_converted}]({png_path_full})'
+            return f'![{alt_text_converted}]({webp_path_full})'
         
-        content = re.sub(jpeg_pattern, convert_jpeg_to_png, content)
+        content = re.sub(jpeg_pattern, convert_jpeg_to_webp, content)
         
-        # Zusätzlicher Fix: Konvertiere Alt-Texte mit .jpeg/.jpg auch wenn Pfad bereits .png ist
-        # ![img-3.jpeg](<'assets/...img-3.png'>) → ![img-3.png](<'assets/...img-3.png'>)
-        alt_jpeg_pattern = r'!\[([^\]]*\.jpe?g)\](\([^)]*\.png[^)]*\))'
+        # Zusätzlicher Fix: Konvertiere Alt-Texte mit .jpeg/.jpg auch wenn Pfad bereits .webp ist
+        # ![img-3.jpeg](<'assets/...img-3.webp'>) → ![img-3.webp](<'assets/...img-3.webp'>)
+        alt_jpeg_pattern = r'!\[([^\]]*\.jpe?g)\](\([^)]*\.webp[^)]*\))'
         
-        def convert_alt_jpeg_to_png(match):
+        def convert_alt_jpeg_to_webp(match):
             alt_text = match.group(1)
             path_part = match.group(2)
-            alt_text_converted = re.sub(r'\.jpe?g$', '.png', alt_text, flags=re.IGNORECASE)
+            alt_text_converted = re.sub(r'\.jpe?g$', '.webp', alt_text, flags=re.IGNORECASE)
             return f'![{alt_text_converted}]{path_part}'
         
-        content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_png, content)
+        content = re.sub(alt_jpeg_pattern, convert_alt_jpeg_to_webp, content)
         
         # Zähle wie viele JPEG-Referenzen konvertiert wurden
         num_jpegs_before = len(re.findall(jpeg_pattern, original_before_jpeg_fix))
@@ -642,7 +643,7 @@ class ExportMaster:
                     md_path = os.path.join(folder_path, md_file)
                     
                     # Konvertiere JPEG-Bilder zu PNG
-                    converted_images = convert_jpeg_to_png_files(md_path)
+                    converted_images = convert_jpeg_to_webp_files(md_path)
                     
                     # Korrigiere Bildreferenzen in Markdown
                     num_fixes, changes = fix_image_refs_in_file(md_path, apply_changes=True)
